@@ -10,17 +10,16 @@ from db.variants.variants_add_to_db import AddVariantsToDb
 from db.variants.variants_modules import VariantsDict, save_json
 from tools.configger import config_test
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_title
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
 def main():
-    tic()
-    p_title("variants dict")
+    pr.tic()
+    pr.title("variants dict")
 
     if config_test("exporter", "make_variants", "no"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
 
     variants_dict: VariantsDict = {}
@@ -35,7 +34,7 @@ def main():
 
     AddVariantsToDb(variants_dict)
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

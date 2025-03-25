@@ -21,12 +21,12 @@ from db.models import DpdHeadword
 from tools.configger import config_read
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
-from tools.tic_toc import tic, toc, bip, bop
+from tools.printer import printer as pr
 
 from sqlalchemy.orm import joinedload
 
 # Check if 'test' argument is provided
-update_test_field = 'test' in sys.argv
+update_test_field = "test" in sys.argv
 
 current_date = datetime.date.today().strftime("%m-%d")
 
@@ -34,37 +34,32 @@ dpspth = DPSPaths()
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]updating dps anki")
 
     # setup dbs
-    bip()
-    print(f"[green]{'setup dbs':<20}", end="")
+    pr.green("setup dbs")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
-    print(f"{len(db):>10} {bop()}")
+    db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru))
+        .all()
+    )
+    pr.yes(len(db))
 
     calculate_index(db, db_session)
 
     decks = ["Пали Словарь"]
-    (
-        col,
-        data_dict,
-        deck_dict,
-        model_dict,
-        carry_on
-    ) = setup_anki_updater(decks)
+    (col, data_dict, deck_dict, model_dict, carry_on) = setup_anki_updater(decks)
 
     if carry_on:
-        update_from_db(
-            db, col, data_dict, deck_dict, model_dict)
+        update_from_db(db, col, data_dict, deck_dict, model_dict)
 
     print(f"test {current_date}")
-    
-    toc()
 
-    
+    pr.toc()
+
 
 def setup_anki_updater(decks):
     col = get_anki_collection()
@@ -80,34 +75,36 @@ def setup_anki_updater(decks):
         return col, {}, {}, {}, False
 
 
-def get_anki_collection() -> Collection|None:
-    bip()
-    print(f"[green]{'get anki collection':<20}", end="")
+def get_anki_collection() -> Collection | None:
+    pr.green("get anki collection")
     anki_db_path = config_read("anki", "db_path")
     if anki_db_path:
         try:
             col = Collection(anki_db_path)
-            print(f"{'ok':>10} {bop()}")
+            pr.yes("ok")
             return col
         except DBError:
-            print("\n[red]Anki is currently open, ", end="")
-            print("close and try again.")
+            pr.no("error")
+            pr.red("Anki is currently open, close and try again.")
             return None
+
 
 def backup_anki_db(col) -> None:
     # backup anki db
-    bip()
-    print(f"[green]{'backup anki db':<20}", end="")
+    pr.green("backup anki db")
     anki_backup_path = config_read("anki", "backup_path")
     if anki_backup_path:
-        is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=False)
+        is_backed_up = col.create_backup(
+            backup_folder=anki_backup_path, force=False, wait_for_completion=False
+        )
         # if force = False, the db will not backup if it has not changed
         if not is_backed_up:
-            print(f"[red]{'no':>10} {bop()}")
+            pr.no("no")
         else:
-            print(f"{'ok':>10} {bop()}")
+            pr.yes("ok")
     else:
-        print(f"[red]{'no path':>10} {bop()}")
+        pr.no("no path")
+
 
 def get_field_names(col: Collection, deck_name: str) -> List[str]:
     """get field names for a specif deck"""
@@ -120,33 +117,34 @@ def get_field_names(col: Collection, deck_name: str) -> List[str]:
     else:
         return []
 
+
 def make_search_query(decks):
     return " or ".join(f'deck:"{deck}"' for deck in decks)
 
+
 def get_notes(col: Collection, decks: List[str]) -> List[Note]:
     """get all notes for a list of decks"""
-    bip()
-    print(f"[green]{'get notes':<20}", end="")
-    search_query =  make_search_query(decks)
+    pr.green("get notes")
+    search_query = make_search_query(decks)
     note_ids = col.find_notes(search_query)
     notes = [col.get_note(note_id) for note_id in note_ids]
-    print(f"{len(notes):>10} {bop()}")
+    pr.yes(len(notes))
     return notes
+
 
 def get_cards(col: Collection, decks: List[str]) -> List[Card]:
     """get all cards for a list of decks"""
-    bip()
-    print(f"[green]{'get cards':<20}", end="")
-    search_query =  make_search_query(decks)
+    pr.green("get cards")
+    search_query = make_search_query(decks)
     card_ids = col.find_cards(search_query)
     cards = [col.get_card(card_id) for card_id in card_ids]
-    print(f"{len(cards):>10} {bop()}")
+    pr.yes(len(cards))
     return cards
+
 
 def get_decks(col: Collection) -> Dict:
     """get all decks"""
-    bip()
-    print(f"[green]{'get decks':<20}", end="")
+    pr.green("get decks")
     decks = col.decks.all()
     deck_dict = {deck["name"]: deck["id"] for deck in decks}
     # add the values as keys
@@ -154,25 +152,23 @@ def get_decks(col: Collection) -> Dict:
     for deck, did in deck_dict.items():
         deck_dict_reverse[did] = deck
     deck_dict.update(deck_dict_reverse)
-    print(f"{len(deck_dict_reverse):>10} {bop()}")
+    pr.yes(len(deck_dict))
     return deck_dict
+
 
 def get_models(col: Collection) -> dict:
     # get models
-    bip()
-    print(f"[green]{'get models':<20}", end="")
+    pr.green("get models")
     models = col.models.all()
     model_dict = {model["name"]: model["id"] for model in models}
-    print(f"{len(model_dict):>10} {bop()}")
+    pr.yes(len(model_dict))
     return model_dict
 
-def make_data_dict(
-        notes: List[Note],
-        cards: List[Card]) -> dict:
+
+def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
     """make data dict"""
 
-    bip()
-    print(f"[green]{'make data_dict':<20}", end="")
+    pr.green("make data dict")
     data_dict = {}
 
     for note in notes:
@@ -186,7 +182,7 @@ def make_data_dict(
             "did": None,
             "card": None,
         }
-    
+
     for card in cards:
         if card.nid in data_dict:
             data_dict[card.nid]["cid"] = card.id
@@ -195,7 +191,10 @@ def make_data_dict(
 
     # re-key data_dict
     data2 = {}
-    for key, data, in data_dict.items():
+    for (
+        key,
+        data,
+    ) in data_dict.items():
         dpd_id = data["dpd_id"]
         if dpd_id in data_dict:
             print(f"[red]key {dpd_id} already exists")
@@ -205,13 +204,13 @@ def make_data_dict(
         if key in data_dict:
             print("Key", key, "will be overwritten")
     data_dict.update(data2)
-    print(f"{len(data_dict):>10} {bop()}")
+    pr.yes(len(data_dict))
     return data_dict
 
-def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:    
+
+def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
     # update from db
-    bip()
-    print(f"[green]{'updating':<20}")
+    pr.green("updating")
     added_list = []
     updated_list = []
     deleted_list = []
@@ -229,7 +228,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
                     col.update_note(note)
                 if update_deck(col, note, i, data_dict[id], deck_dict, model_dict):
                     changed_deck_list += [i.id]
-                
+
             # add note
             else:
                 added_list += [i.id]
@@ -238,8 +237,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
 
                 make_new_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:
-                print(f"{counter:>5} {i.lemma_1[:23]:<24} {bop()}")
-                bip()
+                pr.counter(counter, len(db), i.lemma_1)
 
         else:
             # delete
@@ -273,9 +271,9 @@ def update_note_values(note, i):
         elif i.ru.ru_meaning_raw:
             # Add before str "пер ИИ:" in 'ru_meaning_raw'
             ru_meaning_raw = f"пер ИИ: {i.ru.ru_meaning_raw}"
-            note['ru_meaning'] = ru_meaning_raw
+            note["ru_meaning"] = ru_meaning_raw
             # print(f"meaning_2_without_lit {i.lemma_1}") # Debugging line
-        
+
         note["ru_meaning_lit"] = str(i.ru.ru_meaning_lit)
         note["ru_notes"] = str(i.ru.ru_notes).replace("\n", "<br>")
         note["ru_cognate"] = str(i.ru.ru_cognate)
@@ -324,36 +322,24 @@ def update_note_values(note, i):
 
     # 'meaning_1' field
     if i.ru:
-        if (
-            not i.meaning_1 and 
-            i.meaning_lit and 
-            " lit." in i.meaning_2
-        ):
+        if not i.meaning_1 and i.meaning_lit and " lit." in i.meaning_2:
             # Remove everything after " lit." in 'meaning_2'
             meaning_2_without_lit = i.meaning_2.split("; lit.")[0]
-            note['meaning'] = meaning_2_without_lit
+            note["meaning"] = meaning_2_without_lit
             # print(f"meaning_2_without_lit {i.lemma_1}") # Debugging line
-        elif (
-            not i.meaning_1 and 
-            i.meaning_lit and 
-            i.meaning_2
-        ):
-            note['meaning'] = i.meaning_2
+        elif not i.meaning_1 and i.meaning_lit and i.meaning_2:
+            note["meaning"] = i.meaning_2
             # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
-        elif (
-            not i.meaning_1 and 
-            not i.meaning_lit and 
-            i.meaning_2
-        ):
-            note['meaning'] = i.meaning_2
+        elif not i.meaning_1 and not i.meaning_lit and i.meaning_2:
+            note["meaning"] = i.meaning_2
             # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
 
         elif i.meaning_1:
-            note['meaning'] = i.meaning_1
+            note["meaning"] = i.meaning_1
             # print(f"meaning_1 {i.lemma_1}") # Debugging line
         else:
             print(f"no meaning {i.lemma_1}")
-        
+
     note["meaning_lit"] = str(i.meaning_lit)
     note["sanskrit"] = str(i.sanskrit)
     note["root"] = str(i.root_clean)
@@ -384,9 +370,9 @@ def update_note_values(note, i):
 
     # 'link' field
     if i.link:
-        note['link'] = f'<a class="link" href="{i.link}">Wiki link</a>'
+        note["link"] = f'<a class="link" href="{i.link}">Wiki link</a>'
     else:
-        note['link'] = ''
+        note["link"] = ""
 
     #! UPDATING TAGS NOT WORKING!
     # # adding _SBS tag if pubbakicca index is 75
@@ -396,7 +382,7 @@ def update_note_values(note, i):
     #             tags += " "
     #         tags += "_SBS"
     #         note.tags = tags.split()
-            
+
     # # adding _pātimokkha tag if PAT is in the source
     # if i.sbs:
     #     sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
@@ -413,22 +399,21 @@ def update_note_values(note, i):
     #             tags = " ".join(tag for tag in tags.split() if not tag.startswith("_pātimokkha"))
     #             note.tags = tags.split()
 
-
     # sbs_audio
     if dpspth.anki_media_dir:
         audio_path = os.path.join(dpspth.anki_media_dir, f"{i.lemma_clean}.mp3")
         if os.path.exists(audio_path):
             sbs_audio = f"[sound:{i.lemma_clean}.mp3]"
         else:
-            sbs_audio = ''
+            sbs_audio = ""
     else:
         print("[bold red]no path to anki media")
-        sbs_audio = ''
+        sbs_audio = ""
 
     note["audio"] = sbs_audio
 
     # Logic for feedback
-    feedback_url = f'Нашли ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141=Anki-{current_date}\">Пожалуйста сообщите</a>.'
+    feedback_url = f'Нашли ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={i.lemma_1}&entry.1433863141=Anki-{current_date}">Пожалуйста сообщите</a>.'
     if update_test_field:
         note["feedback"] = feedback_url
 
@@ -453,7 +438,7 @@ def unicode_combo_characters(old_fields, note):
 def calculate_index(db, db_session):
     """
     Recalculates the sbs_index for all entries in the db and commits the changes.
-    
+
     """
 
     print("[green]Calculating sbs_index")
@@ -464,25 +449,29 @@ def calculate_index(db, db_session):
                 sbs_index_value = i.sbs.calculate_index()
                 if sbs_index_old != sbs_index_value:
                     i.sbs.sbs_index = sbs_index_value  # Manually set the sbs_index
-                    print(f"{i.lemma_1} old index {sbs_index_old} changed to {sbs_index_value}")
-    
+                    print(
+                        f"{i.lemma_1} old index {sbs_index_old} changed to {sbs_index_value}"
+                    )
+
         db_session.commit()
-        
+
     except Exception as e:
         print(f"[bold red]{str(e)}")
 
 
 def deck_selector(i):
-    if (i.ru and (i.ru.ru_meaning or i.ru.ru_meaning_raw)
-    and i.sbs 
-    and(
-            i.sbs.sbs_chapter_1 or 
-            i.sbs.sbs_chapter_2 or 
-            i.sbs.dhp_example or
-            i.sbs.pat_example or
-            i.sbs.vib_example or
-            i.sbs.class_example or
-            i.sbs.discourses_example
+    if (
+        i.ru
+        and (i.ru.ru_meaning or i.ru.ru_meaning_raw)
+        and i.sbs
+        and (
+            i.sbs.sbs_chapter_1
+            or i.sbs.sbs_chapter_2
+            or i.sbs.dhp_example
+            or i.sbs.pat_example
+            or i.sbs.vib_example
+            or i.sbs.class_example
+            or i.sbs.discourses_example
         )
     ):
         return "Пали Словарь"
@@ -500,7 +489,7 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
             # update note
             note.mid = model_dict[new_deck]
             col.update_note(note)
-            
+
             # update card
             card = data["card"]
             card.did = deck_dict[new_deck]
@@ -519,8 +508,7 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
 
 
 def make_new_note(col, deck, model_dict, deck_dict, i):
-    
-    print(f"Creating new note for {i.lemma_1}") # Debugging line
+    print(f"Creating new note for {i.lemma_1}")  # Debugging line
 
     note_type_name = "Pāli"
 
@@ -538,7 +526,9 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
         # print(f"Added new note for {i.lemma_1}") # Debugging line
 
     else:
-        print(f"Warning: Note type '{note_type_name}' not found in model_dict. for {i.lemma_1}")
+        print(
+            f"Warning: Note type '{note_type_name}' not found in model_dict. for {i.lemma_1}"
+        )
 
 
 if __name__ == "__main__":

@@ -9,8 +9,7 @@ from db.variants.variants_modules import context_cleaner, key_cleaner
 from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green_title
-from tools.tic_toc import bip
+from tools.printer import printer as pr
 
 debug = False
 
@@ -61,7 +60,7 @@ def extract_variants(
             if text_str:
                 # Split text into words and get last word before note
                 words: list[str] = text_str.split()
-                
+
                 if words:
                     word = words[-1]
                     word_clean: str = key_cleaner(word)
@@ -133,14 +132,12 @@ def extract_variants(
 
 
 def process_cst(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
-    p_green_title("extracting variants from CST texts")
+    pr.green_title("extracting variants from CST texts")
     files: list[Path] = get_cst_file_list(pth)
 
-    bip()
     for counter, file_name in enumerate(files):
         if counter % 25 == 0:
-            p_counter(counter, len(files), file_name.name)
-            bip()
+            pr.counter(counter, len(files), file_name.name)
 
         if debug:
             if counter == 20:

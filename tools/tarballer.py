@@ -7,7 +7,7 @@ import tarfile
 import os
 
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_yes
+from tools.printer import printer as pr
 
 
 def create_tarball(
@@ -16,22 +16,22 @@ def create_tarball(
     """
     Create a tarball of of a file list and move it to the destination dir.
     """
-    p_green_title(f"Creating {tarball_name}")
+    pr.green_title(f"Creating {tarball_name}")
 
-    p_green("adding files")
+    pr.green("adding files")
     with tarfile.open(tarball_name, f"w:{compression}") as tar:  # type: ignore
         for file in source_files:
             tar.add(file, arcname=os.path.basename(file))
-    p_yes("ok")
+    pr.yes("ok")
 
-    p_green("tarball size")
+    pr.green("tarball size")
     tar_size = os.path.getsize(tarball_name)
     tar_size_mb = tar_size / 1024 / 1024
-    p_yes(f"{tar_size_mb:.3f}MB")
+    pr.yes(f"{tar_size_mb:.3f}MB")
 
-    p_green("moving to destination folder")
+    pr.green("moving to destination folder")
     os.rename(tarball_name, os.path.join(destination_dir, tarball_name))
-    p_yes("ok")
+    pr.yes("ok")
 
 
 if __name__ == "__main__":

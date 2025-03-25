@@ -19,8 +19,7 @@ from exporter.goldendict.export_dpd import render_dpd_definition_templ
 from tools.configger import config_test, config_read
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_red, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import uposatha_today
@@ -60,7 +59,7 @@ class ProgData:
 
 
 def generate_tpr_data(g: ProgData):
-    p_green("compiling dpd headword data")
+    pr.green("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
     dpd_definition_templ = Template(filename=str(g.pth.dpd_definition_templ_path))
@@ -230,10 +229,10 @@ def generate_tpr_data(g: ProgData):
                 "book_id": 11,
             }
         ]
-    p_yes(dpd_length)
+    pr.yes(dpd_length)
 
     # add roots
-    p_green("compiling roots data")
+    pr.green("compiling roots data")
 
     roots_db = g.db_session.query(DpdRoot).all()
     roots_db = sorted(roots_db, key=lambda x: pali_sort_key(x.root))
@@ -276,12 +275,12 @@ def generate_tpr_data(g: ProgData):
             new_root = True
 
     g.tpr_data_list = tpr_data_list
-    p_yes(counter)
+    pr.yes(counter)
 
 
 def generate_deconstructor_data(g: ProgData):
     """Compile deconstructor data."""
-    p_green("compiling deconstructor data")
+    pr.green("compiling deconstructor data")
 
     deconstructor_db = (
         g.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
@@ -300,12 +299,12 @@ def generate_deconstructor_data(g: ProgData):
             ]
 
     g.deconstructor_data_list = deconstructor_data_list
-    p_yes(counter)
+    pr.yes(counter)
 
 
 def add_variants(g):
     """Add variant readings to deconstructor data"""
-    p_green("compiling variants")
+    pr.green("compiling variants")
 
     variants_db = g.db_session.query(Lookup).filter(Lookup.variant != "").all()
     variants_db = sorted(variants_db, key=lambda x: pali_sort_key(x.lookup_key))
@@ -314,12 +313,12 @@ def add_variants(g):
         variant = f"variant reading of <i>{i.variants_unpack[0]}</i>"
         g.deconstructor_data_list += [{"word": i.lookup_key, "breakup": variant}]
 
-    p_yes(len(variants_db))
+    pr.yes(len(variants_db))
 
 
 def add_spelling_mistakes(g):
     """Add spelling mistakes to deconstructor data"""
-    p_green("compiling spelling mistakes")
+    pr.green("compiling spelling mistakes")
 
     spelling_db = g.db_session.query(Lookup).filter(Lookup.spelling != "").all()
     spelling_db = sorted(spelling_db, key=lambda x: pali_sort_key(x.lookup_key))
@@ -328,12 +327,12 @@ def add_spelling_mistakes(g):
         spelling = f"incorrect spelling of <i>{i.spelling_unpack[0]}</i>"
         g.deconstructor_data_list += [{"word": i.lookup_key, "breakup": spelling}]
 
-    p_yes(len(spelling_db))
+    pr.yes(len(spelling_db))
 
 
 def add_roots_to_i2h(g):
     """Add roots to inflections to headwords"""
-    p_green("adding roots to lookup")
+    pr.green("adding roots to lookup")
 
     i2h_data = read_tsv(g.pth.tpr_i2h_tsv_path)
     i2h_dict = {}
@@ -358,12 +357,12 @@ def add_roots_to_i2h(g):
         i2h_data_list.append({"inflection": inflection, "headwords": headwords})
 
     g.i2h_data_list = i2h_data_list
-    p_yes(len(roots_db))
+    pr.yes(len(roots_db))
 
 
 def write_tsvs(g: ProgData):
     """Write TSV files of dpd, deconstructor."""
-    p_green("writing tsv files")
+    pr.green("writing tsv files")
 
     # write dpd_tsv
     with open(g.pth.tpr_dpd_tsv_path, "w") as f:
@@ -377,11 +376,11 @@ def write_tsvs(g: ProgData):
         writer = csv.DictWriter(f, fieldnames=field_names, delimiter="\t")
         writer.writeheader()
         writer.writerows(g.deconstructor_data_list)
-    p_yes("OK")
+    pr.yes("OK")
 
 
 def copy_to_sqlite_db(g: ProgData):
-    p_green("copying data_list to tpr db")
+    pr.green("copying data_list to tpr db")
 
     # data frames
     tpr_df = pd.DataFrame(g.tpr_data_list)
@@ -427,13 +426,13 @@ def copy_to_sqlite_db(g: ProgData):
             deconstructor_df.to_sql(
                 "dpd_word_split", conn, if_exists="append", index=False
             )
-            p_yes("OK")
+            pr.yes("OK")
 
             conn.close()
 
         except Exception as e:
-            p_red("an error occurred copying to db")
-            p_red(e)
+            pr.red("an error occurred copying to db")
+            pr.red(e)
 
     g.tpr_df = tpr_df
     g.i2h_df = i2h_df
@@ -441,7 +440,7 @@ def copy_to_sqlite_db(g: ProgData):
 
 
 def tpr_updater(g: ProgData):
-    p_green("making tpr sql updater")
+    pr.green("making tpr sql updater")
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
@@ -479,16 +478,16 @@ def tpr_updater(g: ProgData):
 
     with open(g.pth.tpr_sql_file_path, "w") as f:
         f.write(sql_string)
-    p_yes("OK")
+    pr.yes("OK")
 
 
 def copy_zip_to_tpr_downloads(g: ProgData):
-    p_green("updating tpr_downloads")
+    pr.green("updating tpr_downloads")
 
     if not g.pth.tpr_download_list_path.exists():
-        p_red("tpr_downloads repo does not exist, download")
-        p_red("https://github.com/bksubhuti/tpr_downloads")
-        p_red("to /resources/ folder")
+        pr.red("tpr_downloads repo does not exist, download")
+        pr.red("https://github.com/bksubhuti/tpr_downloads")
+        pr.red("to /resources/ folder")
     else:
         with open(g.pth.tpr_download_list_path) as f:
             download_list = json.load(f)
@@ -571,17 +570,17 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
 
-    p_yes(version)
+    pr.yes(version)
 
 
 def main():
-    tic()
+    pr.tic()
 
-    p_title("generate tpr data")
+    pr.title("generate tpr data")
 
     if not config_test("exporter", "make_tpr", "yes"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
 
     g = ProgData()
@@ -597,11 +596,11 @@ def main():
         copy_to_sqlite_db(g)
         tpr_updater(g)
         copy_zip_to_tpr_downloads(g)
-        toc()
+        pr.toc()
 
     else:
-        p_red("[red]tpr_downloads directory does not exist")
-        p_red("it's not essential to create the dictionary")
+        pr.red("[red]tpr_downloads directory does not exist")
+        pr.red("it's not essential to create the dictionary")
 
 
 if __name__ == "__main__":

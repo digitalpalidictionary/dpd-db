@@ -7,14 +7,12 @@
 import os
 from zipfile import ZipFile, ZIP_DEFLATED
 from tools.paths import ProjectPaths
-from tools.tic_toc import bip, tic, toc
-from tools.printer import p_title, p_green, p_red, p_yes, p_no
+from tools.printer import printer as pr
 
 
 def zip_goldendict(pth: ProjectPaths):
     """Zip up the three dirs for goldendict"""
-    p_green("zipping goldendict")
-    bip()
+    pr.green("zipping goldendict")
 
     if (
         pth.dpd_goldendict_dir.exists()
@@ -43,17 +41,16 @@ def zip_goldendict(pth: ProjectPaths):
                         archive_name = os.path.join(dir_name, relative_path)
                         output_zip.write(file_path, archive_name)
 
-        p_yes("ok")
+        pr.yes("ok")
     else:
-        p_no("error")
-        p_red("no dpd dir file found")
+        pr.no("error")
+        pr.red("no dpd dir file found")
 
 
 def zip_mdict(pth: ProjectPaths):
     """Zipping up MDict files for sharing."""
 
-    p_green("zipping mdict")
-    bip()
+    pr.green("zipping mdict")
 
     mdict_files = [
         pth.dpd_mdx_path,
@@ -68,8 +65,8 @@ def zip_mdict(pth: ProjectPaths):
 
     for file in mdict_files:
         if not file.exists():
-            p_no("error")
-            p_red(f"mdict file not found: {file}")
+            pr.no("error")
+            pr.red(f"mdict file not found: {file}")
 
     output_mdict_zip = pth.dpd_mdict_zip_path
 
@@ -80,16 +77,16 @@ def zip_mdict(pth: ProjectPaths):
             file_content = mdict_file.read_bytes()
             mdict_zip.writestr(mdict_file.name, file_content)
 
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def main():
-    tic()
-    p_title("rezipping goldendict and mdict")
+    pr.tic()
+    pr.title("rezipping goldendict and mdict")
     pth = ProjectPaths()
     zip_goldendict(pth)
     zip_mdict(pth)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

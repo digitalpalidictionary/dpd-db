@@ -8,12 +8,12 @@ from db.db_helpers import get_db_session
 from db.models import InflectionTemplates
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.tsv_read_write import write_tsv_list
 
 
 def main():
-    tic()
+    pr.tic()
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     infl_templ = db_session.query(InflectionTemplates)
@@ -28,18 +28,19 @@ def main():
                 row_length = len(row)
                 for x in range(1, row_length, 2):
                     for inflection in row[x]:
-                        pos = row[x+1][0]
+                        pos = row[x + 1][0]
                         pattern = i.pattern
                         inflections_pos += [(inflection, pos, pattern)]
 
     inflections_pos = sorted(
-        inflections_pos, key=lambda x: (pali_sort_key(x[0]), x[1], x[2]))
+        inflections_pos, key=lambda x: (pali_sort_key(x[0]), x[1], x[2])
+    )
 
     path = pth.temp_dir.joinpath("inflections_raw.tsv")
     headers = ["inflection", "pos", "pattern"]
     write_tsv_list(str(path), headers, inflections_pos)
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

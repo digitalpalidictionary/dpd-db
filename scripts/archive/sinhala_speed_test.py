@@ -7,14 +7,13 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Sinhala
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green_title
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from sqlalchemy.orm import joinedload
 
 
 def test_relationship():
-    tic()
-    p_green_title("relationship")
+    pr.tic()
+    pr.green_title("relationship")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -22,32 +21,37 @@ def test_relationship():
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si
         if counter % 10000 == 0:
-            p_counter(counter, len(db), i.lemma_1)
+            pr.counter(counter, len(db), i.lemma_1)
         if counter == 40000:
             break
     print(len(dict))
-    toc()
+    pr.toc()
+
 
 def test_outerjoin():
-    tic()
-    p_green_title("outerjoin")
+    pr.tic()
+    pr.green_title("outerjoin")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).outerjoin(Sinhala, DpdHeadword.id == Sinhala.id).all()
+    db = (
+        db_session.query(DpdHeadword)
+        .outerjoin(Sinhala, DpdHeadword.id == Sinhala.id)
+        .all()
+    )
     dict = {}
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si
         if counter % 10000 == 0:
-            p_counter(counter, len(db), i.lemma_1)
+            pr.counter(counter, len(db), i.lemma_1)
         if counter == 40000:
             break
     print(len(dict))
-    toc()
+    pr.toc()
 
 
 def test_joinedload():
-    tic()
-    p_green_title("joinedload")
+    pr.tic()
+    pr.green_title("joinedload")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.si)).all()
@@ -55,11 +59,11 @@ def test_joinedload():
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si
         if counter % 10000 == 0:
-            p_counter(counter, len(db), i.lemma_1)
+            pr.counter(counter, len(db), i.lemma_1)
         if counter == 40000:
             break
     print(len(dict))
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

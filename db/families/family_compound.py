@@ -20,35 +20,40 @@ from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+    make_short_ru_meaning,
+    ru_replace_abbreviations,
+)
 
 from sqlalchemy.orm import joinedload
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]compound families generator")
-    
+
     if not (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
+        config_test("exporter", "make_dpd", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+        or config_test("exporter", "make_tpr", "yes")
+        or config_test("exporter", "make_ebook", "yes")
     ):
         print("[green]disabled in config.ini")
-        toc()
+        pr.toc()
         return
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(DpdHeadword) \
-        .options(joinedload(DpdHeadword.ru)) \
-        .filter(DpdHeadword.family_compound != "") \
+    dpd_db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.ru))
+        .filter(DpdHeadword.family_compound != "")
         .all()
-    
+    )
+
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     cf_dict = create_comp_fam_dict(dpd_db)
@@ -61,9 +66,8 @@ def main():
         anki_data_list = make_anki_data(cf_dict)
         deck = ["Family Compound"]
         family_updater(anki_data_list, deck)
-    
 
-    toc()
+    pr.toc()
 
 
 def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
@@ -75,7 +79,6 @@ def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
     cf_dict: dict = {}
 
     for __counter__, i in enumerate(dpd_db):
-
         for cf in i.family_compound_list:
             if cf == " ":
                 print("[bright_red]ERROR: spaces found please remove!")
@@ -89,7 +92,6 @@ def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
             test3 = i.meaning_1
 
             if test1 and test2 and test3:
-
                 if cf in cf_dict:
                     cf_dict[cf]["headwords"] += [i.lemma_1]
                 else:
@@ -99,7 +101,7 @@ def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
                         "data": [],
                         "html_ru": "",
                         "data_ru": [],
-                        "anki": []
+                        "anki": [],
                     }
 
     print(len(cf_dict))
@@ -110,7 +112,6 @@ def compile_cf_html(dpd_db, cf_dict):
     print("[green]compiling html")
 
     for __counter__, i in enumerate(dpd_db):
-
         for cf in i.family_compound_list:
             if cf in cf_dict:
                 if i.lemma_1 in cf_dict[cf]["headwords"]:
@@ -120,7 +121,7 @@ def compile_cf_html(dpd_db, cf_dict):
                         html_string = cf_dict[cf]["html"]
 
                     meaning = make_meaning_combo(i)
-                    
+
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
@@ -149,27 +150,33 @@ def compile_cf_html(dpd_db, cf_dict):
 
                     # data
                     if i.meaning_1:
-                        cf_dict[cf]["data"].append((
-                            i.lemma_1,
-                            i.pos,
-                            meaning,
-                            degree_of_completion(i, html=False)
-                        ))
+                        cf_dict[cf]["data"].append(
+                            (
+                                i.lemma_1,
+                                i.pos,
+                                meaning,
+                                degree_of_completion(i, html=False),
+                            )
+                        )
 
                         # rus data
-                        cf_dict[cf]["data_ru"].append((
-                            i.lemma_1,
-                            pos,
-                            ru_meaning,
-                            rus_degree_of_completion(i, html=False)
-                        ))
+                        cf_dict[cf]["data_ru"].append(
+                            (
+                                i.lemma_1,
+                                pos,
+                                ru_meaning,
+                                rus_degree_of_completion(i, html=False),
+                            )
+                        )
 
                     # anki data
                     if i.meaning_1:
-                        construction = clean_construction(
-                            i.construction) if i.meaning_1 else ""
+                        construction = (
+                            clean_construction(i.construction) if i.meaning_1 else ""
+                        )
                         cf_dict[cf]["anki"] += [
-                            (i.lemma_1, i.pos, meaning, construction)]
+                            (i.lemma_1, i.pos, meaning, construction)
+                        ]
 
     for i in cf_dict:
         cf_dict[i]["html"] += "</table>"
@@ -188,12 +195,13 @@ def add_cf_to_db(db_session, cf_dict):
             compound_family=cf,
             html=cf_dict[cf]["html"],
             html_ru=cf_dict[cf]["html_ru"],
-            count=len(cf_dict[cf]["headwords"]))
+            count=len(cf_dict[cf]["headwords"]),
+        )
         cf_data.data_pack(cf_dict[cf]["data"])
         cf_data.data_ru_pack(cf_dict[cf]["data_ru"])
         add_to_db.append(cf_data)
 
-    db_session.execute(FamilyCompound.__table__.delete()) # type: ignore
+    db_session.execute(FamilyCompound.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()
@@ -204,7 +212,7 @@ def make_anki_data(cf_dict):
     """Make data list for anki updater."""
 
     anki_data_list = []
-    
+
     for family in cf_dict:
         anki_family = f"<b>{family}</b>"
         html = "<table><tbody>"
@@ -217,32 +225,29 @@ def make_anki_data(cf_dict):
             html += f"<td><div style='color: #FFB380'>{meaning}</td>"
             html += f"<td><div style='color: #FF6600'>{construction}</div></td></tr>"
         html += "</tbody></table>"
-        
+
         if len(html) > 131072:
             print(f"[red]{family} longer than 131072 characters")
         else:
             anki_data_list += [(anki_family, html)]
-    
+
     return anki_data_list
 
 
 def update_db_cache(db_session, cf_dict):
     """Update the db_info with cf_set for use in the exporter."""
-    
+
     print("[green]adding DbInfo cache item")
 
     cf_set = set()
     for i in cf_dict:
         cf_set.add(i)
-    
-    cf_set_cache = db_session \
-        .query(DbInfo) \
-        .filter_by(key="cf_set") \
-        .first()
 
-    if not cf_set_cache:    
+    cf_set_cache = db_session.query(DbInfo).filter_by(key="cf_set").first()
+
+    if not cf_set_cache:
         cf_set_cache = DbInfo()
-    
+
     cf_set_cache.key = "cf_set"
     cf_set_cache.value = json.dumps(list(cf_set), ensure_ascii=False, indent=1)
     db_session.add(cf_set_cache)

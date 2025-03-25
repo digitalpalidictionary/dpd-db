@@ -9,8 +9,7 @@ from db.db_helpers import get_db_session
 from tools.configger import config_update
 from tools.date_and_time import year_month_day
 from tools.paths import ProjectPaths
-from tools.printer import p_title
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
 major = 0
@@ -92,8 +91,8 @@ def update_db_version(pth, version):
 
 
 def main():
-    tic()
-    p_title("updating dpd release version")
+    pr.tic()
+    pr.title("updating dpd release version")
     pth = ProjectPaths()
     version, version_light = make_version()
 
@@ -103,7 +102,7 @@ def main():
     # update_project_version(pth, version_light)
     update_db_version(pth, version)
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

@@ -9,8 +9,7 @@ from db.variants.variants_modules import context_cleaner, key_cleaner
 from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green_title
-from tools.tic_toc import bip
+from tools.printer import printer as pr
 
 debug = False
 
@@ -113,7 +112,9 @@ def extract_bjt_variants(
                     variants_dict[word_clean]["BJT"][book] = []
 
                 if definition not in variants_dict[word_clean]["BJT"][book]:
-                    variants_dict[word_clean]["BJT"][book].append((context_clean, definition))
+                    variants_dict[word_clean]["BJT"][book].append(
+                        (context_clean, definition)
+                    )
 
             except KeyError:
                 pass
@@ -131,7 +132,7 @@ def extract_bjt_variants(
 
 
 def bjṭ_footnote_errors(errors_list):
-    p_green_title("bjt footnote errors")
+    pr.green_title("bjt footnote errors")
     print("|File Name|Page|Footnote|")
     print("|:---|:---|:---|")
     for e in errors_list:
@@ -140,17 +141,15 @@ def bjṭ_footnote_errors(errors_list):
 
 
 def process_bjt(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
-    p_green_title("extracting variants from BJT texts")
+    pr.green_title("extracting variants from BJT texts")
 
     errors_list = []
 
     file_list: list[Path] = get_bjt_file_list(pth)
 
-    bip()
     for counter, file_name in enumerate(file_list):
         if counter % 30 == 0:
-            p_counter(counter, len(file_list), file_name.name)
-            bip()
+            pr.counter(counter, len(file_list), file_name.name)
 
         variants_dict, errors_list = extract_bjt_variants(
             file_name, variants_dict, errors_list

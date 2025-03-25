@@ -11,7 +11,7 @@ from tools import goldendict_tools
 from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
-from tools.printer import p_red
+from tools.printer import printer as pr
 
 
 class State:
@@ -70,7 +70,7 @@ class Data:
             with open(self.pth.add_hyphenations_dict) as file:
                 return json.load(file)
         else:
-            p_red("no hyphenations dict found")
+            pr.red("no hyphenations dict found")
             return {}
 
     def save_hyphenations_dict(self):

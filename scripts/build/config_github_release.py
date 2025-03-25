@@ -5,11 +5,11 @@
 from rich import print
 
 from tools.configger import config_update
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]github release config options")
 
     config_update("regenerate", "db_rebuild", "yes")
@@ -41,7 +41,7 @@ def main():
     config_update("anki", "update", "no")
     config_update("goldendict", "copy_unzip", "no")
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

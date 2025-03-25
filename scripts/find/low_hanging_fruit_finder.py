@@ -8,11 +8,11 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.printer import p_title
+from tools.printer import printer as pr
 
 
 def main():
-    p_title("low hanging fruit finder")
+    pr.title("low hanging fruit finder")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db_results = (

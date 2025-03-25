@@ -4,7 +4,7 @@ denoting sandhi or contraction, eg. ajj'uposatho, tañ'ca"""
 from typing import Dict, List, Set, TypedDict
 
 from rich import print
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 from sqlalchemy.orm.session import Session
 
@@ -24,8 +24,9 @@ exceptions = [
     "gacchanti",
     "jīvanti",
     "sayissanti",
-    "gāmeti"
+    "gāmeti",
 ]
+
 
 def main():
     pth = ProjectPaths()
@@ -114,7 +115,6 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
                     word_dict[i.id].update([word])
 
         if config_test("gui", "include_sbs_examples", "yes"):
-
             if i.sbs and i.sbs.sbs_example_1 is not None and "'" in i.sbs.sbs_example_1:
                 word_list = replace_split(i.sbs.sbs_example_1)
                 for word in word_list:
@@ -144,11 +144,10 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
             word_clean = word.replace("'", "")
 
             if word not in exceptions:
-
                 if word_clean not in sandhi_contraction:
                     sandhi_contraction[word_clean] = SandhiContrItem(
-                        contractions = {word},
-                        ids = [str(id)],
+                        contractions={word},
+                        ids=[str(id)],
                     )
 
                 else:
@@ -157,8 +156,8 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
                         sandhi_contraction[word_clean]["ids"] += [str(id)]
                     else:
                         sandhi_contraction[word_clean]["ids"] += [str(id)]
-    
-    # go back thru the db and find words without ' but in sandhi_contraction            
+
+    # go back thru the db and find words without ' but in sandhi_contraction
     for i in db:
         word_list = replace_split(i.example_1)
         word_list += replace_split(i.example_2)
@@ -184,6 +183,6 @@ def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
 
 
 if __name__ == "__main__":
-    tic()
+    pr.tic()
     main()
-    toc()
+    pr.toc()

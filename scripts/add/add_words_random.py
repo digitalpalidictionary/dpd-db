@@ -12,16 +12,15 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.printer import p_title
+from tools.printer import printer as pr
 
 
 def main():
-
     """Compile a list of words that are
     - without meaning_1
     - without example_1"""
 
-    p_title("pick a random word to add")
+    pr.title("pick a random word to add")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -36,11 +35,11 @@ def main():
             no_meaning.append(i.id)
         if not i.example_1:
             no_example.append(i.id)
-    
+
     all_missing.extend(no_example)
     all_missing.extend(no_meaning)
     print(len(set(all_missing)))
-    
+
     user_input = ""
     while user_input != "x":
         random_number = randrange(len(all_missing))

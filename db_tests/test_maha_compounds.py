@@ -11,8 +11,7 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
-from tools.printer import p_title
+from tools.printer import printer as pr
 
 
 class GlobalVars:
@@ -34,7 +33,7 @@ class GlobalVars:
         try:
             with open(self.pth.maha_exceptions_list) as f:
                 return json.load(f)
-        except:
+        except Exception:
             return []
 
     def save_exceptions_list(self):
@@ -184,8 +183,8 @@ def commit_to_db(g: GlobalVars):
 
 
 def main():
-    tic()
-    p_title("test mahā in compounds")
+    pr.tic()
+    pr.title("test mahā in compounds")
     g = GlobalVars()
 
     count_mahas(g)
@@ -197,9 +196,9 @@ def main():
             sort_maha(g)
             if g.process:
                 process_maha(g)
-    
+
     commit_to_db(g)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

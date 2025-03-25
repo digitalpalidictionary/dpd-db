@@ -6,23 +6,27 @@ from sqlalchemy import create_engine, text
 from tools.paths import ProjectPaths
 
 from rich.console import Console
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 pth = ProjectPaths()
-engine = create_engine('sqlite:///' + str(pth.dpd_db_path))
+engine = create_engine("sqlite:///" + str(pth.dpd_db_path))
 
 console = Console()
 
+
 def main():
-    tic()
+    pr.tic()
     console.print("[bold bright_yellow]making combined view")
 
     with engine.connect() as connection:
-        connection.execute(text("""
+        connection.execute(
+            text("""
             DROP VIEW IF EXISTS _dps;
-        """))
-        
-        connection.execute(text("""
+        """)
+        )
+
+        connection.execute(
+            text("""
             CREATE VIEW _dps AS
             SELECT 
                 COALESCE(dpd_headwords.id, '') AS id,
@@ -114,10 +118,10 @@ def main():
             FROM dpd_headwords
             LEFT JOIN sbs ON dpd_headwords.id = sbs.id
             LEFT JOIN russian ON dpd_headwords.id = russian.id
-            """))
+            """)
+        )
 
-
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

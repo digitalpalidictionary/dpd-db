@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """ADd abbreviations to db."""
+
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -8,18 +9,18 @@ from db.models import Abbreviations
 from sqlalchemy.orm import Session
 from pathlib import Path
 from typing import Dict, List
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dict
 
 
 def main():
-    tic()
+    pr.tic()
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     csv_path = pth.abbreviations_tsv_path
     add_abbreviations(db_session, csv_path)
-    toc()
+    pr.toc()
 
 
 def add_abbreviations(db_session: Session, csv_path: Path):
@@ -44,11 +45,11 @@ def add_abbreviations(db_session: Session, csv_path: Path):
 
 def _csv_row_to_abbrev(x: Dict[str, str]) -> Abbreviations:
     return Abbreviations(
-        abbrev=x['abbrev'],
-        meaning=x['meaning'],
-        pali=x['pāli'],
-        example=x['example'],
-        explanation=x['explanation'],
+        abbrev=x["abbrev"],
+        meaning=x["meaning"],
+        pali=x["pāli"],
+        example=x["example"],
+        explanation=x["explanation"],
     )
 
 

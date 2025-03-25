@@ -9,17 +9,16 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Sinhala
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_no, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
 def main():
-    tic()
-    p_title("import sinhala xlsx to database")
+    pr.tic()
+    pr.title("import sinhala xlsx to database")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db_session.execute(Sinhala.__table__.delete()) #type: ignore
+    db_session.execute(Sinhala.__table__.delete())  # type: ignore
     id_dict = get_id_dict()
 
     file_to_import = "db/sinhala/dpd sinhala 1.1.xlsx"
@@ -47,21 +46,21 @@ def main():
                 print(f"[green]id updated from {si_id} to {new_id}")
             else:
                 print(f"[red]{si_id} not in db")
-    
+
     db_session.commit()
 
-    toc()
+    pr.toc()
 
 
 def get_id_dict():
-    p_green("loading id_dict.json")
+    pr.green("loading id_dict.json")
     try:
         with open("temp/id_dict.json") as f:
             data = json.load(f)
-            p_yes(len(data))
+            pr.yes(len(data))
             return {int(key): value for key, value in data.items()}
     except FileNotFoundError:
-        p_no("id_dict.json not found")
+        pr.no("id_dict.json not found")
         return {}
 
 

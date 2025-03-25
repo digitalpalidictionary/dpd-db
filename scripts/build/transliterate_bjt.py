@@ -11,52 +11,52 @@ import os
 from tools.bjt import get_bjt_file_names, get_bjt_json, process_single_bjt_file
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green, p_title, p_yes
+from tools.printer import printer as pr
 from tools.sinhala_tools import translit_si_to_ro
-from tools.tic_toc import tic, toc
 
 pth = ProjectPaths()
 sinhala_dir = pth.bjt_sinhala_dir
 roman_dir = pth.bjt_roman_json_dir
 
+
 def transliterate_json():
-    tic()
-    p_title("transliterating tipitaka.lk json files")
+    pr.tic()
+    pr.title("transliterating tipitaka.lk json files")
 
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
-            p_counter(counter, 285, file)
+            pr.counter(counter, 285, file)
             in_path = sinhala_dir.joinpath(file)
             out_path = roman_dir.joinpath(file)
-            
+
             with open(in_path) as f:
                 sinhala = f.read()
-            
+
             roman = translit_si_to_ro(sinhala)
-            
+
             with open(out_path, "w") as f:
                 f.write(roman)
-    
-    toc()
+
+    pr.toc()
 
 
 def get_file_names():
-    p_green("get actual file names")
+    pr.green("get actual file names")
     file_list = []
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
             file_list.append(file)
     file_list = sorted(file_list)
-    p_yes(len(file_list))
+    pr.yes(len(file_list))
     return file_list
 
 
 def test_file_names():
-    p_title("test file names")
+    pr.title("test file names")
 
     file_names = get_file_names()
 
-    p_green("get dict file names")
+    pr.green("get dict file names")
 
     counter = 0
     bjt_files = []
@@ -64,29 +64,29 @@ def test_file_names():
         for file_name in bjt_texts[book]:
             bjt_files.append(file_name)
             counter += 1
-    p_yes(counter)
+    pr.yes(counter)
 
-    p_green("difference 1")
+    pr.green("difference 1")
     x = set(bjt_files).symmetric_difference(set(file_names))
-    p_yes(f"{x}")
-    p_green("difference 2")
+    pr.yes(f"{x}")
+    pr.green("difference 2")
     x = set(file_names).symmetric_difference(set(bjt_files))
-    p_yes(f"{x}")
+    pr.yes(f"{x}")
 
 
 def make_index():
-    """Make an index of 
+    """Make an index of
     ```
     {collection: {"book_id": 12, "filenames": [ ... ]}}
     ```
     """
-    
-    p_title("making index")
+
+    pr.title("making index")
     pth = ProjectPaths()
     file_names = get_file_names()
     json_dicts = get_bjt_json(file_names)
     index_dict = {"mula": {}, "atta": {}}
-    
+
     for jd in json_dicts:
         file_name = jd["filename"]
         book_id = jd["bookId"]
@@ -114,37 +114,36 @@ def make_index():
 def save_books():
     """Save each book in BJT to a text file."""
 
-    tic()
+    pr.tic()
 
-    p_title("saving BJT books")
+    pr.title("saving BJT books")
     file_dir = pth.bjt_books_dir
 
     for counter, book in enumerate(bjt_texts):
-        p_counter(counter, len(bjt_texts), book)
+        pr.counter(counter, len(bjt_texts), book)
         bjt_file_names = get_bjt_file_names([book])
         json_dicts = get_bjt_json(bjt_file_names)
         bjt_text = ""
         for json_dict in json_dicts:
             bjt_text += process_single_bjt_file(
                 json_dict,
-                convert_bold_tags = False,
-                footnotes_inline = False,
-                show_page_numbers = True,
-                show_metadata = True)
+                convert_bold_tags=False,
+                footnotes_inline=False,
+                show_page_numbers=True,
+                show_metadata=True,
+            )
 
-        file_path = file_dir \
-            .joinpath(book) \
-            .with_suffix(".txt") 
+        file_path = file_dir.joinpath(book).with_suffix(".txt")
         with open(file_path, "w") as f:
             f.write(bjt_text)
-    toc()
+    pr.toc()
 
 
 def save_text_files() -> None:
     "Save all BJT json to text files"
-    
-    tic()
-    p_title("saving BJT to text files")
+
+    pr.tic()
+    pr.title("saving BJT to text files")
 
     counter = 1
     for root, dirs, files in os.walk(pth.bjt_roman_json_dir):
@@ -156,13 +155,12 @@ def save_text_files() -> None:
             file_path = pth.bjt_roman_txt_dir.joinpath(f"{file}.txt")
             with open(file_path, "w") as f:
                 f.write(bjt_text)
-            p_counter(counter, 285, file)
+            pr.counter(counter, 285, file)
             counter += 1
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":
     transliterate_json()
     save_books()
     save_text_files()
-    

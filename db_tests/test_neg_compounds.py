@@ -10,10 +10,10 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
-class ProgData():
+class ProgData:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -37,8 +37,9 @@ def save_exceptions_list(g: ProgData):
     with open(g.pth.neg_compound_exceptions, "w") as f:
         json.dump(g.exceptions_list, f, indent=2)
 
+
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]find negative kammadhārayas")
     g = ProgData()
     load_exceptions_list(g)
@@ -50,25 +51,43 @@ def main():
             and re.findall("^na ", i.construction)
             and "kammadhāraya" not in i.compound_type
             and i.derivative != "taddhita"
-            and i.pos not in [
-                "abs", "ind", "prefix", "aor", "pr", "idiom",
-                "inf", "ger", "opt", "sandhi", "cond", "perf", "imperf"]
+            and i.pos
+            not in [
+                "abs",
+                "ind",
+                "prefix",
+                "aor",
+                "pr",
+                "idiom",
+                "inf",
+                "ger",
+                "opt",
+                "sandhi",
+                "cond",
+                "perf",
+                "imperf",
+            ]
             and i.id not in g.exceptions_list
             and " pl," not in i.grammar
             and not re.findall("\\b(nom|acc|instr|dat|abl|gen|loc|voc)\\b", i.grammar)
         ):
-            print("[magenta1]_"*50)
+            print("[magenta1]_" * 50)
             print()
             print(f"[deep_pink2]{i.id}")
             print(f"[orange_red1]{i.lemma_1} {i.pos}")
             print(f"[indian_red1]{i.meaning_1}")
             print(f"[hot_pink]{i.construction}")
             if i.compound_construction:
-                print(f"[medium_orchid1]{i.compound_type}[dark_orange] ({i.compound_construction})")
+                print(
+                    f"[medium_orchid1]{i.compound_type}[dark_orange] ({i.compound_construction})"
+                )
             print()
-            print("[white]m[sandy_brown]anual [white]a[sandy_brown]utomatic [white]e[sandy_brown]xception", end=" ")
+            print(
+                "[white]m[sandy_brown]anual [white]a[sandy_brown]utomatic [white]e[sandy_brown]xception",
+                end=" ",
+            )
             route = input()
-            
+
             if route:
                 if route == "m":
                     print("[light_coral]enter compound construction ", end="")
@@ -97,19 +116,18 @@ def main():
                     continue
                 else:
                     g.db_session.commit()
-    
-    toc()
+
+    pr.toc()
 
 
 def auto_replace_na(i: DpdHeadword) -> str:
-
     if i.lemma_clean.startswith("na"):
         # check if there's a double consonant
         if i.lemma_clean[2] == i.lemma_clean[3]:
             return f"na + {i.lemma_clean[3:]}"
         else:
             return f"na + {i.lemma_clean[2:]}"
-    
+
     elif i.lemma_clean.startswith("an"):
         if "na > a " in i.construction:
             return f"na + {i.lemma_clean[1:]}"
@@ -122,10 +140,7 @@ def auto_replace_na(i: DpdHeadword) -> str:
         else:
             return f"na + {i.lemma_clean[1:]}"
     elif i.lemma_clean.startswith("nā"):
-        if (
-            "na + a" in i.construction
-            or "na + √a" in i.construction
-        ):
+        if "na + a" in i.construction or "na + √a" in i.construction:
             return f"na + a{i.lemma_clean[2:]}"
         else:
             return f"na + {i.lemma_clean[1:]}"
@@ -133,10 +148,9 @@ def auto_replace_na(i: DpdHeadword) -> str:
         return f"na + {i.lemma_clean[1:]}"
     elif i.lemma_clean.startswith("nū"):
         return f"na + u{i.lemma_clean[2:]}"
-    else: 
+    else:
         return ""
 
 
 if __name__ == "__main__":
     main()
-

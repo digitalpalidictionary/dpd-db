@@ -23,9 +23,8 @@ from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
-from tools.printer import p_green, p_title, p_yes, p_red
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
     make_short_ru_meaning,
     ru_replace_abbreviations,
@@ -35,8 +34,8 @@ from sqlalchemy.orm import joinedload
 
 
 def main():
-    tic()
-    p_title("root families")
+    pr.tic()
+    pr.title("root families")
 
     if not (
         config_test("exporter", "make_dpd", "yes")
@@ -44,8 +43,8 @@ def main():
         or config_test("exporter", "make_tpr", "yes")
         or config_test("exporter", "make_ebook", "yes")
     ):
-        p_green("disabled in config.ini")
-        toc()
+        pr.green("disabled in config.ini")
+        pr.toc()
         return
 
     pth = ProjectPaths()
@@ -87,11 +86,11 @@ def main():
         deck = ["Root Matrix"]
         family_updater(anki_data_list, deck)
 
-    toc()
+    pr.toc()
 
 
 def make_roots_family_dict_and_bases_dict(dpd_db):
-    p_green("extracting root families and bases")
+    pr.green("extracting root families and bases")
     rf_dict = {}
     bases_dict = {}
     for i in dpd_db:
@@ -127,12 +126,12 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
             else:
                 bases_dict[i.root_key].add(base)
 
-    p_yes(len(rf_dict))
+    pr.yes(len(rf_dict))
     return rf_dict, bases_dict
 
 
 def compile_rf_html(dpd_db, rf_dict):
-    p_green("compiling html")
+    pr.green("compiling html")
 
     for __counter__, i in enumerate(dpd_db):
         family = i.root_family_key
@@ -197,7 +196,7 @@ def compile_rf_html(dpd_db, rf_dict):
         header_ru = make_root_header_ru(rf_dict, rf)
         rf_dict[rf]["html_ru"] = header_ru + rf_dict[rf]["html_ru"] + "</table>"
 
-    p_yes(len(rf_dict))
+    pr.yes(len(rf_dict))
 
     return rf_dict
 
@@ -223,7 +222,7 @@ def make_root_header_ru(rf_dict, rf):
 
 
 def add_rf_to_db(db_session, rf_dict):
-    p_green("adding to db")
+    pr.green("adding to db")
 
     add_to_db = []
 
@@ -247,13 +246,13 @@ def add_rf_to_db(db_session, rf_dict):
     db_session.add_all(add_to_db)
     db_session.commit()
 
-    p_yes(len(rf_dict))
+    pr.yes(len(rf_dict))
 
 
 def update_lookup_table(db_session):
     """Add root keys data to lookuptable."""
 
-    p_green("adding roots to lookup table")
+    pr.green("adding roots to lookup table")
 
     r2h_dict = defaultdict(set)
     roots_db = db_session.query(DpdRoot).all()
@@ -296,13 +295,13 @@ def update_lookup_table(db_session):
     db_session.add_all(add_to_db)
     db_session.commit()
 
-    p_yes(len(r2h_dict))
+    pr.yes(len(r2h_dict))
 
 
 def make_anki_data(pth: ProjectPaths, rf_dict):
     """Create anki_data_list for updating"""
 
-    p_green("making anki data")
+    pr.green("making anki data")
 
     anki_data_list = []
 
@@ -328,11 +327,11 @@ def make_anki_data(pth: ProjectPaths, rf_dict):
 
         html += "</tbody></table>"
         if len(html) > 131072:
-            p_red(f"{i} longer than 131072 characters")
+            pr.red(f"{i} longer than 131072 characters")
         else:
             anki_data_list += [(family, html)]
 
-    p_yes(len(anki_data_list))
+    pr.yes(len(anki_data_list))
 
     return anki_data_list
 
@@ -340,7 +339,7 @@ def make_anki_data(pth: ProjectPaths, rf_dict):
 def make_anki_matrix_data(pth: ProjectPaths, html_dict, db_session):
     """Save root matrix data for anki updater"""
 
-    p_green("making root matrix for anki")
+    pr.green("making root matrix for anki")
 
     anki_data_list = []
 
@@ -349,7 +348,7 @@ def make_anki_matrix_data(pth: ProjectPaths, html_dict, db_session):
         anki_name = f"{db.root_clean} {db.root_group} {db.root_meaning}"
         anki_data_list += [(anki_name, html)]
 
-    p_yes(len(anki_data_list))
+    pr.yes(len(anki_data_list))
 
     return anki_data_list
 

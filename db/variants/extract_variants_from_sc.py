@@ -7,7 +7,7 @@ from db.variants.variants_modules import key_cleaner
 from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_counter
+from tools.printer import printer as pr
 
 
 def get_sc_file_list(pth: ProjectPaths) -> list[Path]:
@@ -73,13 +73,13 @@ def extract_sc_variants(
 
 
 def process_sc(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
-    p_green_title("extracting variants from SC texts")
+    pr.green_title("extracting variants from SC texts")
 
     file_list: list[Path] = get_sc_file_list(pth)
 
     for counter, file_name in enumerate(file_list):
         if counter % 500 == 0:
-            p_counter(counter, len(file_list), file_name.name)
+            pr.counter(counter, len(file_list), file_name.name)
 
         json_data = get_json_data(file_name)
         variants_dict = extract_sc_variants(json_data, variants_dict)

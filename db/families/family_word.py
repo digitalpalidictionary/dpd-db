@@ -16,37 +16,39 @@ from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+    make_short_ru_meaning,
+    ru_replace_abbreviations,
+)
 
 from sqlalchemy.orm import joinedload
 
 
-
-
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]word families generator")
-    
+
     if not (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
+        config_test("exporter", "make_dpd", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+        or config_test("exporter", "make_tpr", "yes")
+        or config_test("exporter", "make_ebook", "yes")
     ):
         print("[green]disabled in config.ini")
-        toc()
+        pr.toc()
         return
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    wf_db = db_session \
-        .query(DpdHeadword) \
-        .options(joinedload(DpdHeadword.ru)) \
-        .filter(DpdHeadword.family_word != "") \
+    wf_db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.ru))
+        .filter(DpdHeadword.family_word != "")
         .all()
+    )
 
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -61,7 +63,7 @@ def main():
         deck = ["Family Word"]
         family_updater(anki_data_list, deck)
 
-    toc()
+    pr.toc()
 
 
 def make_word_fam_dict(wf_db: list[DpdHeadword]):
@@ -88,7 +90,7 @@ def make_word_fam_dict(wf_db: list[DpdHeadword]):
                 "anki": [],
                 "data": [],
                 "data_ru": [],
-                }
+            }
 
     print(len(wf_dict))
     return wf_dict
@@ -132,28 +134,20 @@ def compile_wf_html(wf_db, wf_dict):
             ru_html_string += "</tr>"
 
             wf_dict[wf]["html_ru"] = ru_html_string
-            
+
             # anki data
-            construction = clean_construction(
-                i.construction) if i.meaning_1 else ""
-            wf_dict[wf]["anki"] += [
-                (i.lemma_1, i.pos, meaning, construction)]
-    
+            construction = clean_construction(i.construction) if i.meaning_1 else ""
+            wf_dict[wf]["anki"] += [(i.lemma_1, i.pos, meaning, construction)]
+
             # data
-            wf_dict[wf]["data"].append((
-                i.lemma_1,
-                i.pos,
-                meaning,
-                degree_of_completion(i, html=False)
-            ))
+            wf_dict[wf]["data"].append(
+                (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
+            )
 
             # rus data
-            wf_dict[wf]["data_ru"].append((
-                i.lemma_1,
-                pos,
-                ru_meaning,
-                rus_degree_of_completion(i, html=False)
-            ))
+            wf_dict[wf]["data_ru"].append(
+                (i.lemma_1, pos, ru_meaning, rus_degree_of_completion(i, html=False))
+            )
 
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"
@@ -176,12 +170,13 @@ def add_wf_to_db(db_session, wf_dict):
             word_family=wf,
             html=wf_dict[wf]["html"],
             html_ru=wf_dict[wf]["html_ru"],
-            count=len(wf_dict[wf]["headwords"]))
+            count=len(wf_dict[wf]["headwords"]),
+        )
         wf_data.data_pack(wf_dict[wf]["data"])
         wf_data.data_ru_pack(wf_dict[wf]["data_ru"])
         add_to_db.append(wf_data)
 
-    db_session.execute(FamilyWord.__table__.delete()) # type: ignore
+    db_session.execute(FamilyWord.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()

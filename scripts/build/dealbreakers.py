@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
 
 """Fix all the dealbreakers which break exporter code."""
+
 import sys
 from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.pos import POS
 
+
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]fixing dealbreakers")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
     apostrophe_in_key_fields(db_session)
-    
+
     ok = pos_not_in_pos(db_session)
     if not ok:
         sys.exit(1)
-    toc()
+    pr.toc()
 
 
 def pos_not_in_pos(db_session):
@@ -31,7 +33,9 @@ def pos_not_in_pos(db_session):
     result = db_session.query(DpdHeadword).all()
     for r in result:
         if r.pos not in POS:
-            print(f"[red]{'wrong pos found':<20}{r.pos:<10}[bright_red][white]{r.lemma_1}")
+            print(
+                f"[red]{'wrong pos found':<20}{r.pos:<10}[bright_red][white]{r.lemma_1}"
+            )
             ok = False
     if not ok:
         return False
@@ -49,34 +53,50 @@ def apostrophe_in_key_fields(db_session):
     found = 0
 
     # lemma_1
-    results = db_session \
-        .query(DpdHeadword) \
-        .filter(DpdHeadword.lemma_1.contains("'", )) \
+    results = (
+        db_session.query(DpdHeadword)
+        .filter(
+            DpdHeadword.lemma_1.contains(
+                "'",
+            )
+        )
         .all()
+    )
     for r in results:
         r.lemma_1 = r.lemma_1.replace("'", "")
         found += 1
 
     # lemma_2
-    results = db_session \
-        .query(DpdHeadword) \
-        .filter(DpdHeadword.lemma_2.contains("'", )) \
+    results = (
+        db_session.query(DpdHeadword)
+        .filter(
+            DpdHeadword.lemma_2.contains(
+                "'",
+            )
+        )
         .all()
+    )
     for r in results:
         r.lemma_2 = r.lemma_2.replace("'", "")
         found += 1
 
     # stem
-    results = db_session \
-        .query(DpdHeadword) \
-        .filter(DpdHeadword.stem.contains("'", )) \
+    results = (
+        db_session.query(DpdHeadword)
+        .filter(
+            DpdHeadword.stem.contains(
+                "'",
+            )
+        )
         .all()
+    )
     for r in results:
         r.stem = r.stem.replace("'", "")
         found += 1
 
     db_session.commit()
     print(found)
+
 
 if __name__ == "__main__":
     main()

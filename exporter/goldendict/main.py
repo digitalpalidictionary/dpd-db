@@ -24,16 +24,17 @@ from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_title, p_yes
+from tools.printer import printer as pr
 from tools.sandhi_contraction import make_sandhi_contraction_dict
-from tools.tic_toc import tic, toc
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import \
-    mdict_ru_title, mdict_ru_description
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+    mdict_ru_title,
+    mdict_ru_description,
+)
 
 
-class ProgData():
+class ProgData:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.rupth = RuPaths()
@@ -55,13 +56,13 @@ class ProgData():
             self.make_link: bool = True
         self.show_sbs_data: bool = False
         self.show_ru_data: bool = False
-        
+
         # language
         if config_test("exporter", "language", "en"):
             self.lang = "en"
         elif config_test("exporter", "language", "ru"):
             self.lang = "ru"
-        # add another lang here "elif ..." and 
+        # add another lang here "elif ..." and
         # add conditions if lang = "{your_language}" in every instance in the code.
         else:
             raise ValueError("Invalid language parameter")
@@ -71,45 +72,63 @@ class ProgData():
 
         if config_test("dictionary", "show_ru_data", "yes"):
             self.show_ru_data: bool = True
-        
+
         # paths
         if self.lang == "en":
             self.paths = self.pth
         elif self.lang == "ru":
             self.paths = self.rupth
-        
+
 
 def main():
-    tic()
-    p_title("exporting dpd to goldendict and mdict")
-    
+    pr.tic()
+    pr.title("exporting dpd to goldendict and mdict")
+
     if not config_test("exporter", "make_dpd", "yes"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
-    
+
     g = ProgData()
-    
+
     dpd_data_list, sizes = generate_dpd_html(
-        g.db_session, g.pth, g.rupth, g.sandhi_contractions, g.cf_set, g.idioms_set, g.make_link, g.show_sbs_data, g.show_ru_data, g.lang, g.data_limit)
+        g.db_session,
+        g.pth,
+        g.rupth,
+        g.sandhi_contractions,
+        g.cf_set,
+        g.idioms_set,
+        g.make_link,
+        g.show_sbs_data,
+        g.show_ru_data,
+        g.lang,
+        g.data_limit,
+    )
     g.rendered_sizes.append(sizes)
 
     if g.data_limit == 0:
-
-        root_data_list, sizes = generate_root_html(g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_ru_data)
+        root_data_list, sizes = generate_root_html(
+            g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_ru_data
+        )
         g.rendered_sizes.append(sizes)
 
-        variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth, g.rupth, g.lang)
+        variant_spelling_data_list, sizes = generate_variant_spelling_html(
+            g.pth, g.rupth, g.lang
+        )
         g.rendered_sizes.append(sizes)
 
-        epd_data_list, sizes = generate_epd_html(g.db_session, g.pth, g.rupth, g.make_link, g.show_ru_data, g.lang)
+        epd_data_list, sizes = generate_epd_html(
+            g.db_session, g.pth, g.rupth, g.make_link, g.show_ru_data, g.lang
+        )
         g.rendered_sizes.append(sizes)
-        
-        help_data_list, sizes = generate_help_html(g.db_session, g.pth, g.rupth, g.lang, g.show_ru_data)
+
+        help_data_list, sizes = generate_help_html(
+            g.db_session, g.pth, g.rupth, g.lang, g.show_ru_data
+        )
         g.rendered_sizes.append(sizes)
 
         g.db_session.close()
-    
+
     else:
         root_data_list = []
         variant_spelling_data_list = []
@@ -117,18 +136,18 @@ def main():
         help_data_list = []
 
     g.dict_data = (
-        dpd_data_list + 
-        root_data_list +
-        variant_spelling_data_list +
-        epd_data_list +
-        help_data_list
+        dpd_data_list
+        + root_data_list
+        + variant_spelling_data_list
+        + epd_data_list
+        + help_data_list
     )
 
     write_limited_datalist(g)
     write_size_dict(g.pth, sum_rendered_sizes(g.rendered_sizes))
     prepare_export_to_goldendict_mdict(g)
 
-    toc()
+    pr.toc()
 
 
 def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
@@ -144,13 +163,13 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
     dict_info = DictInfo(
         bookname="Digital Pāḷi Dictionary",
         author="Bodhirasa",
-        description = description,
+        description=description,
         website="https://digitalpalidictionary.github.io/",
         source_lang="pi",
-        target_lang="en"
+        target_lang="en",
     )
 
-    dict_name="dpd"
+    dict_name = "dpd"
 
     if g.lang == "ru":
         dict_info.bookname = mdict_ru_title
@@ -160,7 +179,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_info.source_lang = "pi"
         dict_info.target_lang = "ru"
         dict_name = "ru-dpd"
-    
+
     dict_var = DictVariables(
         css_path=g.paths.dpd_css_path,
         js_paths=[
@@ -183,13 +202,11 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_name=dict_name,
         icon_path=g.paths.icon_path,
         zip_up=False,
-        delete_original=False
-    )   
+        delete_original=False,
+    )
 
     export_to_goldendict_with_pyglossary(
-        dict_info, dict_var, g.dict_data,
-        zip_synonyms=True,
-        include_slob=False
+        dict_info, dict_var, g.dict_data, zip_synonyms=True, include_slob=False
     )
 
     if g.make_mdict and g.data_limit == 0:
@@ -197,22 +214,21 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
 
 
 def write_size_dict(pth: ProjectPaths, size_dict):
-    p_green("writing size_dict")
+    pr.green("writing size_dict")
     filename = pth.temp_dir.joinpath("size_dict.tsv")
 
     with open(filename, "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, delimiter='\t')
+        writer = csv.writer(csvfile, delimiter="\t")
         for key, value in size_dict.items():
             writer.writerow([key, value])
 
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def write_limited_datalist(g: ProgData):
     """A limited dataset for troubleshooting purposes"""
 
-    limited_data = [
-        item for item in g.dict_data if item.word.startswith("ab")]
+    limited_data = [item for item in g.dict_data if item.word.startswith("ab")]
 
     with open("temp/limited_data_list", "wb") as file:
         pickle.dump(limited_data, file)

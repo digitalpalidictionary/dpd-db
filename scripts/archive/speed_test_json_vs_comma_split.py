@@ -66,7 +66,6 @@ def list_dd_test():
 
 
 def html_paliword_test():
-
     db_query = db_session.query(DpdHeadword).all()
     bip()
     all_tables = []
@@ -77,7 +76,6 @@ def html_paliword_test():
 
 
 def html_dd_test():
-
     db_query = db_session.query(DpdHeadword).all()
     bip()
     all_tables = []
@@ -88,7 +86,6 @@ def html_dd_test():
 
 
 def zip_test():
-
     pw = db_session.query(DpdHeadword).all()
     dd = db_session.query(DpdHeadword).all()
 

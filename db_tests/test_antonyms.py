@@ -9,7 +9,7 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
 class ProgData:
@@ -63,7 +63,7 @@ class ProgData:
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]find missing antonyms and mistakes in antonyms")
     g = ProgData()
 
@@ -74,7 +74,7 @@ def main():
                 g.w2 = None
                 check_w1(g)
 
-    toc()
+    pr.toc()
 
 
 def check_w1(g):

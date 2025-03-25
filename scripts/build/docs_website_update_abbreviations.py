@@ -7,13 +7,12 @@ Compiles DPD Abbreviations to markdown table and updates docs website.
 import re
 from tools.configger import config_test
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_no, p_red, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dot_dict
 
 
 def make_abbreviations_md(pth: ProjectPaths):
-    p_green("compiling to markdown table")
+    pr.green("compiling to markdown table")
 
     abbreviations_tsv = read_tsv_dot_dict(pth.abbreviations_tsv_path)
     data = [
@@ -44,7 +43,7 @@ def make_abbreviations_md(pth: ProjectPaths):
             print("huh", i)
 
     data.extend(data_upper)
-    p_yes(len(data))
+    pr.yes(len(data))
 
     data_md = "\n".join(data) + "\n"
 
@@ -52,27 +51,27 @@ def make_abbreviations_md(pth: ProjectPaths):
 
 
 def save_to_web(pth: ProjectPaths, abbrev_md):
-    p_green("saving to website source")
+    pr.green("saving to website source")
     if pth.docs_abbreviations_md_path.exists():
         pth.docs_abbreviations_md_path.write_text(abbrev_md)
     else:
-        p_no("failed")
-        p_red(f"{pth.docs_abbreviations_md_path} not found")
+        pr.no("failed")
+        pr.red(f"{pth.docs_abbreviations_md_path} not found")
 
 
 def main():
-    tic()
-    p_title("saving abbreviations to docs website")
+    pr.tic()
+    pr.title("saving abbreviations to docs website")
 
     if config_test("exporter", "make_abbrev", "no"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
 
     pth = ProjectPaths()
     abbrev_md = make_abbreviations_md(pth)
     save_to_web(pth, abbrev_md)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

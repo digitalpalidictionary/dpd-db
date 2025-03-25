@@ -2,12 +2,12 @@ from db.db_helpers import get_db_session
 from db.models import Lookup
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_red, p_yes
+from tools.printer import printer as pr
 
 
 class AddVariantsToDb:
     def __init__(self, variants_dict):
-        p_green("initializing db")
+        pr.green("initializing db")
 
         self.variants_dict = variants_dict
         self.variant_dict_keys = list(self.variants_dict.keys())
@@ -22,7 +22,7 @@ class AddVariantsToDb:
         )
         self.lookup_keys: list[str] = [i.lookup_key for i in self.lookup_table]
 
-        p_yes("")
+        pr.yes("")
 
         self.delete_variants_in_db()
         self.update_variants_in_db()
@@ -32,7 +32,7 @@ class AddVariantsToDb:
     def delete_variants_in_db(self):
         """Remove old variants from the lookup table."""
 
-        p_green("removing old variants")
+        pr.green("removing old variants")
 
         db_results = self.db_session.query(Lookup).filter(Lookup.variant != "").all()
 
@@ -43,11 +43,11 @@ class AddVariantsToDb:
                 self.db_session.delete(i)
         self.db_session.commit()
 
-        p_yes("")
+        pr.yes("")
 
     def update_variants_in_db(self):
         """Update existing variants in the lookup table."""
-        p_green("updating db")
+        pr.green("updating db")
 
         # Get keys that need updating
         update_keys = [k for k in self.variants_dict.keys() if k in self.lookup_keys]
@@ -79,13 +79,13 @@ class AddVariantsToDb:
 
             except Exception as e:
                 self.db_session.rollback()
-                p_red(f"Error updating chunk: {str(e)}")
+                pr.red(f"Error updating chunk: {str(e)}")
 
-        p_yes(update_count)
+        pr.yes(update_count)
 
     def add_variants_to_db(self):
         """Add new variants to the lookup table."""
-        p_green("adding to db")
+        pr.green("adding to db")
 
         # Find keys that don't exist in the database
         new_keys = [k for k in self.variants_dict.keys() if k not in self.lookup_keys]
@@ -114,6 +114,6 @@ class AddVariantsToDb:
                 self.db_session.expunge_all()
             except Exception as e:
                 self.db_session.rollback()
-                p_red(f"Error adding chunk: {str(e)}")
+                pr.red(f"Error adding chunk: {str(e)}")
 
-        p_yes(add_count)
+        pr.yes(add_count)

@@ -7,11 +7,12 @@ import subprocess
 from rich import print
 
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.configger import config_read, config_test
 
+
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]updating simsapa db")
     if config_test("exporter", "update_simsapa_db", "no"):
         print("[green]disable in config.ini")
@@ -26,7 +27,7 @@ def main():
         else:
             print("[red]update failed with return code:", result.returncode)
             print(result.stderr)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

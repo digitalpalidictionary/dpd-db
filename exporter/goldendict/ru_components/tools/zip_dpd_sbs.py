@@ -9,14 +9,12 @@ zip DPD+SBS into one:
 import os
 from zipfile import ZipFile, ZIP_DEFLATED
 from tools.paths import ProjectPaths
-from tools.tic_toc import bip, tic, toc
-from tools.printer import p_title, p_green_title, p_red, p_yes, p_no
+from tools.printer import printer as pr
 
 
 def zip_goldendict(pth: ProjectPaths):
     """Zip up dpd folder"""
-    p_green_title("zipping sbs goldendict")
-    bip()
+    pr.green_title("zipping sbs goldendict")
 
     if pth.dpd_goldendict_dir.exists():
         output_zip_file = os.path.join(pth.share_dir, "dpd+sbs-goldendict.zip")
@@ -31,17 +29,16 @@ def zip_goldendict(pth: ProjectPaths):
                     relative_path = os.path.relpath(file_path, pth.dpd_goldendict_dir)
                     output_zip.write(file_path, relative_path)
 
-        p_yes("ok")
+        pr.yes("ok")
     else:
-        p_no("error")
-        p_red("no ru-dpd dir file found")
+        pr.no("error")
+        pr.red("no ru-dpd dir file found")
 
 
 def zip_mdict(pth: ProjectPaths):
     """Zipping up MDict files for sharing."""
 
-    p_green_title("zipping mdict")
-    bip()
+    pr.green_title("zipping mdict")
 
     mdict_files = [
         pth.dpd_mdx_path,
@@ -50,8 +47,8 @@ def zip_mdict(pth: ProjectPaths):
 
     for file in mdict_files:
         if not file.exists():
-            p_no("error")
-            p_red("mdict not file found")
+            pr.no("error")
+            pr.red("mdict not file found")
             return
 
     output_mdict_zip = os.path.join(pth.share_dir, "dpd+sbs-mdict.zip")
@@ -63,16 +60,16 @@ def zip_mdict(pth: ProjectPaths):
             file_content = mdict_file.read_bytes()
             mdict_zip.writestr(mdict_file.name, file_content)
 
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def main():
-    tic()
-    p_title("zipping dpd-sbs for goldendict and mdict")
+    pr.tic()
+    pr.title("zipping dpd-sbs for goldendict and mdict")
     pth = ProjectPaths()
     zip_goldendict(pth)
     zip_mdict(pth)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

@@ -10,13 +10,13 @@ from dps.tools.paths_dps import DPSPaths
 from tools.sandhi_replacement import replace_sandhi
 
 from rich.console import Console
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 console = Console()
 
 
 def main():
-    tic()
+    pr.tic()
 
     pth: ProjectPaths = ProjectPaths()
     dpspth = DPSPaths()
@@ -48,17 +48,17 @@ def main():
                 text = text.replace(" ,", ",")
 
         except FileNotFoundError:
-            print(f"[red]file {imput_txt_file } does not exist")
+            print(f"[red]file {imput_txt_file} does not exist")
             return set()
 
     replaced_text = replace_sandhi(text, sandhi_dict, hyphenations_dict)
 
     output_txt_file = imput_txt_file
-    with open(output_txt_file, 'w') as f:
+    with open(output_txt_file, "w") as f:
         f.write(replaced_text)
 
     console.print(f"[bold green]replaced_text saved to {output_txt_file}")
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

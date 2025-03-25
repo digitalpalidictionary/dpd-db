@@ -10,9 +10,8 @@ from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.printer import p_title, p_green, p_yes
+from tools.printer import printer as pr
 from db.models import Lookup
-from tools.tic_toc import tic, toc
 from tools.configger import config_test
 
 
@@ -43,15 +42,15 @@ def make_synonyms_bjt(synonyms_list: list[str], variant: str) -> list[str]:
 
 
 def main():
-    tic()
-    p_title("exporting variants to mdict and goldendict")
+    pr.tic()
+    pr.title("exporting variants to mdict and goldendict")
 
     if config_test("exporter", "make_variants", "no"):
-        p_green("disabled in config.ini")
-        toc()
+        pr.green("disabled in config.ini")
+        pr.toc()
         return
 
-    p_green("setting up data")
+    pr.green("setting up data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     variants_db: list[Lookup] = (
@@ -64,9 +63,9 @@ def main():
     with open(pth.variants_header_path) as f:
         header = f.read()
 
-    p_yes("")
+    pr.yes("")
 
-    p_green("writing html")
+    pr.green("writing html")
 
     for word, data_tuple in variants_dict.items():
         html_list: list[str] = []
@@ -121,7 +120,7 @@ def main():
         )
         dict_data.append(dict_entry)
 
-    p_yes(len(dict_data))
+    pr.yes(len(dict_data))
 
     dict_info = DictInfo(
         bookname="DPD Variants",
@@ -148,7 +147,7 @@ def main():
     )
 
     export_to_mdict(dict_info, dict_vars, dict_data)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

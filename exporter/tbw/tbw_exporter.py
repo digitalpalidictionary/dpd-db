@@ -14,8 +14,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from tools.configger import config_test
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
-from tools.printer import p_green, p_green_title, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import summarize_construction
@@ -24,7 +23,7 @@ from tools.paths import ProjectPaths
 
 class ProgData:
     def __init__(self) -> None:
-        p_green("setting up data")
+        pr.green("setting up data")
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         dpd_db = self.db_session.query(DpdHeadword)
@@ -46,11 +45,11 @@ class ProgData:
         self.headwords_set: set[str] = set()
         self.dpd_dict: dict[str, str] = {}
         self.deconstructor_dict: dict[str, str] = {}
-        p_yes("ok")
+        pr.yes("ok")
 
 
 def generate_sc_word_set(g: ProgData):
-    p_green("making sutta central ebts word set")
+    pr.green("making sutta central ebts word set")
     sc_text_list = [
         "vin1",
         "vin2",
@@ -90,26 +89,26 @@ def generate_sc_word_set(g: ProgData):
 
     sc_word_set = make_sc_text_set(g.pth, sc_text_list)
     g.word_set = sc_word_set
-    p_yes(len(g.word_set))
+    pr.yes(len(g.word_set))
 
 
 def generate_deconstructed_word_set(g: ProgData):
     """make a set of all words in deconstructed compounds"""
 
-    p_green("making deconstructor splits set")
+    pr.green("making deconstructor splits set")
     for i in g.deconstructor_db:
         if i.lookup_key in g.word_set:
             g.matched_set.add(i.lookup_key)
             deconstructions = i.deconstructor_unpack
             for deconstruction in deconstructions:
                 g.deconstructed_splits_set.update(deconstruction.split(" + "))
-    p_yes(len(g.deconstructed_splits_set))
+    pr.yes(len(g.deconstructed_splits_set))
 
 
 def generate_i2h_dict(g: ProgData):
     """make an inflections to headwords dictionary"""
 
-    p_green("making inflection2headwords dict")
+    pr.green("making inflection2headwords dict")
     for __counter__, i in enumerate(g.dpd_db):
         inflections = i.inflections_list_all  # include api ca eva iti
         for inflection in inflections:
@@ -121,39 +120,39 @@ def generate_i2h_dict(g: ProgData):
                     g.i2h_dict[inflection] = [i.lemma_1]
                 else:
                     g.i2h_dict[inflection] += [i.lemma_1]
-    p_yes(len(g.i2h_dict))
+    pr.yes(len(g.i2h_dict))
 
 
 def sort_i2h_dict(g: ProgData):
     """sort i2h dict by values"""
 
-    p_green("sorting i2h_dict")
+    pr.green("sorting i2h_dict")
     for inflection, headwords in g.i2h_dict.items():
         g.i2h_dict[inflection] = pali_list_sorter(headwords)
-    p_yes(len(g.i2h_dict))
+    pr.yes(len(g.i2h_dict))
 
 
 def generate_unmatched_word_set(g: ProgData):
     """make a set of unmatched words"""
 
-    p_green("making set of unmatched words")
+    pr.green("making set of unmatched words")
     g.unmatched_set = g.word_set - g.matched_set
-    p_yes(len(g.unmatched_set))
+    pr.yes(len(g.unmatched_set))
 
 
 def generate_ebt_headwords_set(g: ProgData):
     """make a set of headwords in ebts"""
 
-    p_green("making headwords set")
+    pr.green("making headwords set")
     for __key__, values in g.i2h_dict.items():
         g.headwords_set.update(values)
-    p_yes(len(g.headwords_set))
+    pr.yes(len(g.headwords_set))
 
 
 def generate_dpd_ebt_dict(g: ProgData):
     """make a dict of dpd data - only words in ebts"""
 
-    p_green("making dpd ebts dict")
+    pr.green("making dpd ebts dict")
     for i in g.dpd_db:
         if i.lemma_1 in g.headwords_set:
             string = f"{i.pos}. "
@@ -163,26 +162,26 @@ def generate_dpd_ebt_dict(g: ProgData):
             g.dpd_dict[i.lemma_1] = string
 
     g.dpd_dict = dict(sorted(g.dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))
-    p_yes(len(g.dpd_dict))
+    pr.yes(len(g.dpd_dict))
 
 
 def generate_deconstructor_dict(g: ProgData):
     """make a dict of all deconstructed compounds"""
 
-    p_green("making deconstructor dict")
+    pr.green("making deconstructor dict")
 
     for i in g.deconstructor_db:
         if i.lookup_key not in g.dpd_dict and i.lookup_key in g.word_set:
             deconstructions = i.deconstructor_unpack
             string = "<br>".join(deconstructions)
             g.deconstructor_dict[i.lookup_key] = string
-    p_yes(len(g.deconstructor_dict))
+    pr.yes(len(g.deconstructor_dict))
 
 
 def deconstructor_dict_add_variants(g: ProgData):
     """add variant readings to deconstructor data"""
 
-    p_green("adding variants")
+    pr.green("adding variants")
     var_counter = 0
     for i in g.variants_db:
         if i.lookup_key in g.word_set:
@@ -193,13 +192,13 @@ def deconstructor_dict_add_variants(g: ProgData):
             else:
                 g.deconstructor_dict[i.lookup_key] = variant_string
                 var_counter += 1
-    p_yes(var_counter)
+    pr.yes(var_counter)
 
 
 def deconstructor_dict_add_spelling_mistakes(g: ProgData):
     """add spelling mistakes to deconstructor data"""
 
-    p_green("adding spelling mistakes")
+    pr.green("adding spelling mistakes")
     spell_counter = 0
     for i in g.spelling_db:
         if i.lookup_key in g.word_set:
@@ -210,23 +209,23 @@ def deconstructor_dict_add_spelling_mistakes(g: ProgData):
             else:
                 g.deconstructor_dict[i.lookup_key] = spelling_string
                 spell_counter += 1
-    p_yes(spell_counter)
+    pr.yes(spell_counter)
 
 
 def sort_deconstructor_dict(g: ProgData):
     """sort deconstructor dict"""
 
-    p_green("sorting deconstructor dict")
+    pr.green("sorting deconstructor dict")
     g.deconstructor_dict = dict(
         sorted(g.deconstructor_dict.items(), key=lambda x: pali_sort_key(x[0]))
     )
-    p_yes(len(g.deconstructor_dict))
+    pr.yes(len(g.deconstructor_dict))
 
 
 def save_js_files_for_tbw(g: ProgData):
     """saving .js files for tbw"""
 
-    p_green("saving .js files for tbw")
+    pr.green("saving .js files for tbw")
 
     i2h_json_dump = json.dumps(g.i2h_dict, ensure_ascii=False, indent=2)
     with open(g.pth.tbw_i2h_js_path, "w") as f:
@@ -240,13 +239,13 @@ def save_js_files_for_tbw(g: ProgData):
     with open(g.pth.tbw_deconstructor_js_path, "w") as f:
         f.write(f"let dpd_deconstructor = {json_dump}")
 
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def save_json_files_for_sc(g: ProgData):
     """Copy json files to sc-data dir"""
 
-    p_green("copying json files to sc-data")
+    pr.green("copying json files to sc-data")
 
     with open(g.pth.sc_i2h_json_path, "w") as f:
         json.dump(g.i2h_dict, f, ensure_ascii=False, indent=2)
@@ -257,16 +256,16 @@ def save_json_files_for_sc(g: ProgData):
     with open(g.pth.sc_deconstructor_json_path, "w") as f:
         json.dump(g.deconstructor_dict, f, ensure_ascii=False, indent=2)
 
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def main():
-    tic()
-    p_title("export dpd data for TBW and Sutta Central")
+    pr.tic()
+    pr.title("export dpd data for TBW and Sutta Central")
 
     if not config_test("exporter", "make_tbw", "yes"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
 
     g = ProgData()
@@ -284,7 +283,7 @@ def main():
 
     save_js_files_for_tbw(g)
     save_json_files_for_sc(g)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

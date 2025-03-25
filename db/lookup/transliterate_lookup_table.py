@@ -6,7 +6,6 @@ Either regenerate from scratch OR update missing entries.
 Save into database.
 """
 
-
 import json
 
 from aksharamukha import transliterate
@@ -20,11 +19,10 @@ from multiprocessing import Process, Manager
 from db.db_helpers import get_db_session
 from db.models import Lookup
 
-from tools.lookup_is_another_value import is_another_value 
+from tools.lookup_is_another_value import is_another_value
 from tools.configger import config_test, config_update
-from tools.printer import p_green, p_red, p_title, p_yes
+from tools.printer import printer as pr
 from tools.sinhala_tools import translit_ro_to_si
-from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from tools.utils import list_into_batches
 
@@ -44,11 +42,10 @@ def _parse_batch(
 
     lookup_to_transliterate_string: str = ""
     translit_index_dict: Dict[int, str] = dict()
-    lookup_for_json_dict: dict[str, dict[str, list[str]]]= dict()
+    lookup_for_json_dict: dict[str, dict[str, list[str]]] = dict()
     counter: int = 0
 
     for counter, i in enumerate(batch):
-
         if (
             not i.sinhala
             or regenerate_all
@@ -136,7 +133,7 @@ def _parse_batch(
             ]
         )
     except Exception as e:
-        p_red(e)
+        pr.red(str(e))
 
     # re-import path nirvana transliterations
 
@@ -158,9 +155,9 @@ def _parse_batch(
                     set(new_translit[headword]["thai"])
                 )
         except KeyError as error:
-            p_red(f"headword: {headword}")
-            p_red(f"values: {values}")
-            p_red(f"error: {error}")
+            pr.red(f"headword: {headword}")
+            pr.red(f"values: {values}")
+            pr.red(f"error: {error}")
 
     results_list.append(translit_dict)
 
@@ -175,16 +172,16 @@ class WordInflections(TypedDict):
 
 
 def main():
-    tic()
-    p_title("transliterating lookup table")
-    p_green("setting up db")
+    pr.tic()
+    pr.title("transliterating lookup table")
+    pr.green("setting up db")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     lookup_db = db_session.query(Lookup).all()
 
-    p_yes("")
-    p_green("regenerate all")
+    pr.yes("")
+    pr.green("regenerate all")
 
     # check config
     if config_test("regenerate", "transliterations", "yes") or config_test(
@@ -194,9 +191,9 @@ def main():
     else:
         regenerate_all: bool = False
 
-    p_yes(str(regenerate_all))
-    
-    p_green("processing batches")
+    pr.yes(str(regenerate_all))
+
+    pr.green("processing batches")
 
     num_logical_cores = psutil.cpu_count()
     batches: List[List[Lookup]] = list_into_batches(lookup_db, num_logical_cores)
@@ -226,38 +223,34 @@ def main():
     results_translit_dict: List[Dict[str, WordInflections]] = list(results_list)
 
     translit_dict: Dict[str, WordInflections] = dict()
-    
 
     for i in results_translit_dict:
         for k, v in i.items():
             translit_dict[k] = v
 
-    p_yes(len(translit_dict))
+    pr.yes(len(translit_dict))
 
     # write back into database
-    p_green("writing to db")
+    pr.green("writing to db")
 
     translit_counter = 0
     for i in lookup_db:
         if i.lookup_key in translit_dict:
-            i.sinhala_pack(
-                list(translit_dict[i.lookup_key]["sinhala"]))
-            i.devanagari_pack(
-                list(translit_dict[i.lookup_key]["devanagari"]))
-            i.thai_pack(
-                list(translit_dict[i.lookup_key]["thai"]))
+            i.sinhala_pack(list(translit_dict[i.lookup_key]["sinhala"]))
+            i.devanagari_pack(list(translit_dict[i.lookup_key]["devanagari"]))
+            i.thai_pack(list(translit_dict[i.lookup_key]["thai"]))
             translit_counter += 1
 
     db_session.commit()
     db_session.close()
 
-    p_yes(translit_counter)
+    pr.yes(translit_counter)
 
     # config update
     if regenerate_all:
         config_update("regenerate", "transliterations", "no")
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

@@ -9,44 +9,41 @@ Used for the GitHub action which cannot currently handle the deconstructor progr
 or for local use.
 """
 
-
 import json
 from db.db_helpers import get_db_session
 from db.models import Lookup
 
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
 from tools.configger import config_test
 
 
 def main():
-    
-    tic()
-    p_title("adding deconstructor output to lookup db")
+    pr.tic()
+    pr.title("adding deconstructor output to lookup db")
 
     if not config_test("deconstructor", "use_premade", "yes"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
-    
-    p_green("setting up data")
+
+    pr.green("setting up data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     lookup_db: list[Lookup] = db_session.query(Lookup).all()
-    
+
     # top_five_dict contains the top five most likely splits
-    # from the deconstruction process 
+    # from the deconstruction process
     with open(pth.deconstructor_output_json) as f:
         top_five_dict = json.load(f)
-    
-    p_yes("ok")
+
+    pr.yes("ok")
 
     update_set, test_set, add_set = update_test_add(lookup_db, top_five_dict)
 
-    p_green("updating db")
+    pr.green("updating db")
 
     # update test add
     update_count = 0
@@ -60,12 +57,12 @@ def main():
                 update_count += 1
             else:
                 db_session.delete(i)
-                update_count += 1 
+                update_count += 1
     db_session.commit()
-    p_yes(update_count)
+    pr.yes(update_count)
 
     # add
-    p_green("adding to db")
+    pr.green("adding to db")
     add_to_db = []
     for constructed, deconstructed in top_five_dict.items():
         if constructed in add_set:
@@ -75,12 +72,12 @@ def main():
             add_to_db.append(add_me)
 
     db_session.add_all(add_to_db)
-    p_yes(len(add_to_db))
+    pr.yes(len(add_to_db))
 
     db_session.commit()
     db_session.close()
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

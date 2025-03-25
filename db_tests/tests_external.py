@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """External tests examine the relationship between a word's data and other
-    words in the db. """
+words in the db."""
 
 import re
 import pyperclip
@@ -13,7 +13,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdRoot
 from db.models import DpdHeadword
 from db.models import FamilyCompound
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.pali_alphabet import consonants
 from tools.paths import ProjectPaths
 from tools.sandhi_contraction import make_sandhi_contraction_dict
@@ -28,7 +28,6 @@ from tools.sandhi_contraction import make_sandhi_contraction_dict
 
 
 def run_external_tests():
-
     print("[bright_yellow]run external db tests")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -149,8 +148,20 @@ def suffix_does_not_match_lemma_1(searches: dict) -> tuple:
 
     results = []
     exceptions = [
-        "adhipa", "bavh", "labbhā", "munī", "gatī", "visesi", "khantī",
-        "sāraṇī", "bahulī", "yānī 2", "yada", "sabbadhī", "missī"]
+        "adhipa",
+        "bavh",
+        "labbhā",
+        "munī",
+        "gatī",
+        "visesi",
+        "khantī",
+        "sāraṇī",
+        "bahulī",
+        "yānī 2",
+        "yada",
+        "sabbadhī",
+        "missī",
+    ]
 
     for i in searches["dpd_headword"]:
         if i.suffix and i.lemma_1 not in exceptions:
@@ -173,14 +184,53 @@ def construction_line1_does_not_match_lemma_1(searches: dict) -> tuple:
 
     results = []
     exceptions = [
-        "abhijaññā", "acc", "adhipa", "aññā 2", "aññā 3", "anujaññā",
-        "anupādā", "attanī", "chettu", "devāna", "dubbalī", "gāmaṇḍala 2.1",
-        "gatī", "jaññā 2", "kayirā", "khaṇitti", "koṭṭhāsa 1", "koṭṭhāsa 2",
-        "koṭṭhāsa 3", "labbhā", "lokasmi", "munī", "nājjhosa", "nānujaññā",
-        "nāsiṃsatī", "nāsīsatī", "natthī", "paralokavajjabhayadassāvine",
-        "paresa", "pariññā 2", "paṭivadeyyu", "phuseyyu", "sabbadhammāna",
-        "saḷ", "sat 1", "sat 2", "upādā", "vijaññā", "visesi", "govinda",
-        "sivathikā", "sīvathikā", "sakad", "bahulī", "abhyati", "pasayhā"]
+        "abhijaññā",
+        "acc",
+        "adhipa",
+        "aññā 2",
+        "aññā 3",
+        "anujaññā",
+        "anupādā",
+        "attanī",
+        "chettu",
+        "devāna",
+        "dubbalī",
+        "gāmaṇḍala 2.1",
+        "gatī",
+        "jaññā 2",
+        "kayirā",
+        "khaṇitti",
+        "koṭṭhāsa 1",
+        "koṭṭhāsa 2",
+        "koṭṭhāsa 3",
+        "labbhā",
+        "lokasmi",
+        "munī",
+        "nājjhosa",
+        "nānujaññā",
+        "nāsiṃsatī",
+        "nāsīsatī",
+        "natthī",
+        "paralokavajjabhayadassāvine",
+        "paresa",
+        "pariññā 2",
+        "paṭivadeyyu",
+        "phuseyyu",
+        "sabbadhammāna",
+        "saḷ",
+        "sat 1",
+        "sat 2",
+        "upādā",
+        "vijaññā",
+        "visesi",
+        "govinda",
+        "sivathikā",
+        "sīvathikā",
+        "sakad",
+        "bahulī",
+        "abhyati",
+        "pasayhā",
+    ]
 
     for i in searches["dpd_headword"]:
         if i.lemma_1 not in exceptions:
@@ -279,13 +329,13 @@ def derived_from_not_in_headwords(searches: dict) -> tuple:
 
     for i in searches["dpd_headword"]:
         if (
-            i.meaning_1 != "" and
-            i.derived_from != "" and
-            i.derived_from not in clean_headwords and
-            i.derived_from not in root_families and
-            not re.findall("irreg form of", i.grammar) and
-            not re.findall(r"\bcomp\b", i.grammar) and
-            not re.findall("√", i.derived_from)
+            i.meaning_1 != ""
+            and i.derived_from != ""
+            and i.derived_from not in clean_headwords
+            and i.derived_from not in root_families
+            and not re.findall("irreg form of", i.grammar)
+            and not re.findall(r"\bcomp\b", i.grammar)
+            and not re.findall("√", i.derived_from)
         ):
             results += [i.lemma_1]
 
@@ -303,11 +353,34 @@ def pali_words_in_english_meaning(searches: dict) -> tuple:
     pali_words = set()
     english_words = set()
     exceptions: set = {
-        "a", "abhidhamma", "ajātasattu", "ala", "an", "ana", "anuruddha",
-        "anāthapiṇḍika", "apadāna", "arahant", "are", "assapura", "avanti",
-        "aya", "aṅga", "aṅguttara", "aṭṭhakathā", "aṭṭhakavagga", "bhagga",
-        "bhoja", "bhāradvāja", "bhātaragāma", "bhū", "bimbisāra", "bodhi",
-        "bodhisatta", "brahma"}
+        "a",
+        "abhidhamma",
+        "ajātasattu",
+        "ala",
+        "an",
+        "ana",
+        "anuruddha",
+        "anāthapiṇḍika",
+        "apadāna",
+        "arahant",
+        "are",
+        "assapura",
+        "avanti",
+        "aya",
+        "aṅga",
+        "aṅguttara",
+        "aṭṭhakathā",
+        "aṭṭhakavagga",
+        "bhagga",
+        "bhoja",
+        "bhāradvāja",
+        "bhātaragāma",
+        "bhū",
+        "bimbisāra",
+        "bodhi",
+        "bodhisatta",
+        "brahma",
+    }
 
     for i in searches["dpd_headword"]:
         pali_words.add(i.lemma_clean)
@@ -331,25 +404,43 @@ def derived_from_not_in_family_compound(searches: dict) -> tuple:
     """Test if derived from is in family compound"""
     results = []
     exceptions = [
-        "ana 1", "ana 2", "assā 2", "ato", "atta 2", "abhiṅkharitvā",
-        "dhammani", "daddabhāyati", "pakudhaka", "vakkali", "vammika",
-        "vammīka", "koliyā", "bhaggava", "bhāradvāja 1", "cicciṭa",
-        "cicciṭāyati", "kambojā", "sahali", "vāsiṭṭha", "yāmuna", "bhesajja",
-        "ciṅgulaka", "soṇḍi", "sudinna 2",
+        "ana 1",
+        "ana 2",
+        "assā 2",
+        "ato",
+        "atta 2",
+        "abhiṅkharitvā",
+        "dhammani",
+        "daddabhāyati",
+        "pakudhaka",
+        "vakkali",
+        "vammika",
+        "vammīka",
+        "koliyā",
+        "bhaggava",
+        "bhāradvāja 1",
+        "cicciṭa",
+        "cicciṭāyati",
+        "kambojā",
+        "sahali",
+        "vāsiṭṭha",
+        "yāmuna",
+        "bhesajja",
+        "ciṅgulaka",
+        "soṇḍi",
+        "sudinna 2",
     ]
 
     for i in searches["dpd_headword"]:
-        
         if (
-
-            i.lemma_1 not in exceptions and
-            not i.root_key and
-            i.pos != "pron" and
-            i.meaning_1 and
-            i.derived_from and
-            not re.findall(r"\bcomp\b", i.grammar) and
-            not i.family_compound and
-            not i.family_word
+            i.lemma_1 not in exceptions
+            and not i.root_key
+            and i.pos != "pron"
+            and i.meaning_1
+            and i.derived_from
+            and not re.findall(r"\bcomp\b", i.grammar)
+            and not i.family_compound
+            and not i.family_word
         ):
             results += [i.lemma_1]
 
@@ -386,14 +477,28 @@ def pos_does_not_equal_pattern(searches: dict) -> tuple:
 
     results = []
     pos_exceptions: list = [
-        'abbrev', 'abs', 'cs', 'fut', 'ger', 'idiom', 'imp', 'ind', 'inf',
-        'letter', 'root', 'opt', 'prefix', 'sandhi', 'suffix', 've', 'var']
+        "abbrev",
+        "abs",
+        "cs",
+        "fut",
+        "ger",
+        "idiom",
+        "imp",
+        "ind",
+        "inf",
+        "letter",
+        "root",
+        "opt",
+        "prefix",
+        "sandhi",
+        "suffix",
+        "ve",
+        "var",
+    ]
     headword_exceptions = ["paṭṭhitago", "dve 2", "sāraṇī"]
 
     for i in searches["dpd_headword"]:
-        if (i.pos not in pos_exceptions and
-                i.lemma_1 not in headword_exceptions):
-
+        if i.pos not in pos_exceptions and i.lemma_1 not in headword_exceptions:
             # how many spaces in the pattern?
             if len(re.findall(" ", i.pattern)) == 1:
                 pattern_pos = re.sub(".* ", "", i.pattern)
@@ -436,7 +541,6 @@ def vuddhi(root):
     if root == "kili":
         root_vuddhi += ["kiles"]
 
-
     root_regex = f"({'|'.join(root_vuddhi)})"
     return root_regex
 
@@ -447,9 +551,7 @@ def base_contains_extra_star(searches: dict) -> tuple:
     results = []
 
     for i in searches["dpd_headword"]:
-        if (i.root_base and
-            "*" in i.root_base and
-                i.pos != "perf"):
+        if i.root_base and "*" in i.root_base and i.pos != "perf":
             root_no_sign = re.sub("√", "", i.root_clean)
 
             if not re.findall(f" > {vuddhi(root_no_sign)}", i.root_base):
@@ -470,12 +572,12 @@ def base_is_missing_star(searches: dict) -> tuple:
 
     for i in searches["dpd_headword"]:
         if (
-            i.root_base and
-            "*" not in i.root_base and
-            "*" in i.root_sign and
-            bool(re.findall("a|u|i", i.root_clean)) and
-            not re.findall("> .+ >", i.root_base) and
-            not re.findall("√hi|√ḍi", i.root_key)
+            i.root_base
+            and "*" not in i.root_base
+            and "*" in i.root_sign
+            and bool(re.findall("a|u|i", i.root_clean))
+            and not re.findall("> .+ >", i.root_base)
+            and not re.findall("√hi|√ḍi", i.root_key)
         ):
             root_no_sign = re.sub("√", "", i.root_clean)
             if re.findall(f" > {vuddhi(root_no_sign)}", i.root_base):
@@ -598,11 +700,7 @@ def root_base_x_construction_mismatch(searches: dict) -> tuple:
     results = []
 
     for i in searches["dpd_headword"]:
-        if (
-            i.root_base != "" and
-            i.construction != "" and
-            i.meaning_1 != ""
-        ):
+        if i.root_base != "" and i.construction != "" and i.meaning_1 != "":
             base_clean = re.sub("^.+> ", "", i.root_base)
             base_clean = re.sub(r" \(.+$", "", base_clean)
 
@@ -622,18 +720,34 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
 
     results = []
     allowable_prefixes = [
-        'abhi', 'adhi', 'anu', 'apa', 'api', 'ati', 'ava', 'ni', 'nī', 'pa',
-        'pari', 'parā', 'pati', 'prati', 'sad', 'saṃ', 'ud', 'upa', 'vi', 'ā',
-        "√"]
+        "abhi",
+        "adhi",
+        "anu",
+        "apa",
+        "api",
+        "ati",
+        "ava",
+        "ni",
+        "nī",
+        "pa",
+        "pari",
+        "parā",
+        "pati",
+        "prati",
+        "sad",
+        "saṃ",
+        "ud",
+        "upa",
+        "vi",
+        "ā",
+        "√",
+    ]
 
     for i in searches["dpd_headword"]:
         if i.family_root:
             fr_splits = i.family_root.split()
             for fr_split in fr_splits:
-                if (
-                    "√" not in fr_split and
-                    fr_split not in allowable_prefixes
-                ):
+                if "√" not in fr_split and fr_split not in allowable_prefixes:
                     results += [i.lemma_1]
 
     length = len(results)
@@ -770,8 +884,7 @@ def sandhi_contraction_errors(db_session) -> tuple:
 def duplicate_phrases(searches: dict) -> tuple:
     """Test for duplcate phrases in meaning_1."""
 
-    exceptions = [
-        "jāta 1", "jhāyati 1", "patati 1", "paresaṃ 2", "vussati"]
+    exceptions = ["jāta 1", "jhāyati 1", "patati 1", "paresaṃ 2", "vussati"]
 
     results = []
     for i in searches["dpd_headword"]:
@@ -801,7 +914,7 @@ def duplicate_words(searches: dict) -> tuple:
             words = i.meaning_1.split()
             if len(words) > 1:
                 for x in range(len(words) - 1):
-                    if words[x] == words[x+1]:
+                    if words[x] == words[x + 1]:
                         if words[x] not in exceptions:
                             results += [i.lemma_1]
                 if words and words[-1] == words[-2]:
@@ -821,9 +934,14 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
     """Test for consecutive duplcate words in meaning_2."""
 
     exceptions = [
-        "cicciṭāyati", "koṭippakoṭi", "ninnahuta",
-        "pakoṭi", "taṭataṭāyamāna", "taṭatatāyati",
-        "taṭatatāyāyi", "nahuta 2"
+        "cicciṭāyati",
+        "koṭippakoṭi",
+        "ninnahuta",
+        "pakoṭi",
+        "taṭataṭāyamāna",
+        "taṭatatāyati",
+        "taṭatatāyāyi",
+        "nahuta 2",
     ]
 
     results = []
@@ -832,7 +950,7 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
             words = i.meaning_2.split()
             if len(words) > 1:
                 for x in range(len(words) - 1):
-                    if words[x] == words[x+1]:
+                    if words[x] == words[x + 1]:
                         if words[x] not in exceptions:
                             results += [i.lemma_1]
                 if words and words[-1] == words[-2]:
@@ -852,15 +970,41 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
     """Test for consecutive duplcate words in meaning_lit."""
 
     exceptions = [
-        "dvayaṃdvaya", "ekameka 1", "ekameka 2", "ekekaloma",
-        "gatagataṭṭhāna", "icchiticchita", "jalambuja", "tuvaṃtuvaṃ",
-        "bījabīja", "haṭahaṭa", "nāmaraṇa", "nānāsakā", "nāppamāda",
-        "nāsūra", "samasama 1", "samasama 2", "saṇḍasaṇḍacārī",
-        "suve suve", "yena yeneva", "samasamagati", "aggamagga 2.1",
-        "antarantarā 1", "huṃhuṅkajātika", "huṃhuṅka", "huṃhuṅka",
-        "nihuṃhuṅka", "nihuṃhuṅka", "sabhāvatta", "appappa", 
-        "nānantavant", "nissāya nissāya", "neso natthīti", "avisārada",
-        "sahassasahassa", "āgatāgata", 
+        "dvayaṃdvaya",
+        "ekameka 1",
+        "ekameka 2",
+        "ekekaloma",
+        "gatagataṭṭhāna",
+        "icchiticchita",
+        "jalambuja",
+        "tuvaṃtuvaṃ",
+        "bījabīja",
+        "haṭahaṭa",
+        "nāmaraṇa",
+        "nānāsakā",
+        "nāppamāda",
+        "nāsūra",
+        "samasama 1",
+        "samasama 2",
+        "saṇḍasaṇḍacārī",
+        "suve suve",
+        "yena yeneva",
+        "samasamagati",
+        "aggamagga 2.1",
+        "antarantarā 1",
+        "huṃhuṅkajātika",
+        "huṃhuṅka",
+        "huṃhuṅka",
+        "nihuṃhuṅka",
+        "nihuṃhuṅka",
+        "sabhāvatta",
+        "appappa",
+        "nānantavant",
+        "nissāya nissāya",
+        "neso natthīti",
+        "avisārada",
+        "sahassasahassa",
+        "āgatāgata",
     ]
 
     results = []
@@ -869,7 +1013,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
             words = i.meaning_lit.split()
             if len(words) > 1:
                 for x in range(len(words) - 1):
-                    if words[x] == words[x+1]:
+                    if words[x] == words[x + 1]:
                         if words[x] not in exceptions:
                             results += [i.lemma_1]
                 if words and words[-1] == words[-2]:
@@ -941,11 +1085,10 @@ def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
 # find_word_family_loners
 
 
-
 def main():
-    tic()
+    pr.tic()
     run_external_tests()
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

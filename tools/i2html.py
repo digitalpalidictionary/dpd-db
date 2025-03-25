@@ -20,11 +20,12 @@ from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day_dash
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 the_word = "assa"
 
-class HeadwordData():
+
+class HeadwordData:
     def __init__(self, css, js, i, fc, fs, sbs, ru):
         self.css = css
         self.js = js
@@ -47,12 +48,11 @@ class HeadwordData():
             self.show_sbs_data = True
         else:
             self.show_sbs_data = False
-        
 
     @staticmethod
     def convert_newlines(obj):
         for attr_name in dir(obj):
-            if not attr_name.startswith('_'):  # skip private and protected attributes
+            if not attr_name.startswith("_"):  # skip private and protected attributes
                 attr_value = getattr(obj, attr_name)
                 if isinstance(attr_value, str):
                     try:
@@ -61,8 +61,8 @@ class HeadwordData():
                         continue  # skip attributes that don't have a setter
         return obj
 
+
 def main(pth, db_session):
-    
     headwords: List[str] = lookup_inflection(pth, db_session, the_word)
 
     if headwords:
@@ -72,26 +72,24 @@ def main(pth, db_session):
 
 
 def lookup_inflection(pth, db_session, the_word):
-    inflection = db_session.query(InflectionToHeadwords)\
-        .filter_by(inflection=the_word).first()
+    inflection = (
+        db_session.query(InflectionToHeadwords).filter_by(inflection=the_word).first()
+    )
     if inflection:
         return inflection.headwords_list
     else:
         return []
 
 
-def make_html(
-        pth: ProjectPaths,
-        headwords: List[str]
-):
-    """"Create html from jinja template."""
+def make_html(pth: ProjectPaths, headwords: List[str]):
+    """ "Create html from jinja template."""
 
-    tic()
+    pr.tic()
 
     db_session = get_db_session(pth.dpd_db_path)
 
     env = Environment(loader=FileSystemLoader(pth.jinja_templates_dir))
-    env.filters['safe_getattr'] = safe_getattr
+    env.filters["safe_getattr"] = safe_getattr
     header_templ = env.get_template("header.html")
     word_template = env.get_template("complete_word.html")
 
@@ -104,8 +102,9 @@ def make_html(
     html = header_templ.render(css=css, js=js)
 
     # iterate over headwords
-    results = db_session.query(DpdHeadword)\
-        .filter(DpdHeadword.lemma_1.in_(headwords)).all()
+    results = (
+        db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1.in_(headwords)).all()
+    )
 
     for counter, i in enumerate(results):
         fc = get_family_compounds(i)
@@ -114,17 +113,17 @@ def make_html(
         ru = db_session.query(Russian).filter_by(id=i.id).first()
         d = HeadwordData(css, js, i, fc, fs, sbs, ru)
         html += word_template.render(d=d)
-    
+
     db_session.close()
     open_html_in_browser(pth, html)
 
-    toc()
+    pr.toc()
 
 
 def open_html_in_browser(pth, html_content):
     path = f"{pth.temp_html_file_path}"
     try:
-        with open(path, 'w') as tmp:
+        with open(path, "w") as tmp:
             tmp.write(html_content)
         webbrowser.open_new_tab("file://" + path)
     except Exception as e:
@@ -141,4 +140,3 @@ if __name__ == "__main__":
     if pth.dpd_db_path:
         db_session = get_db_session(pth.dpd_db_path)
         main(pth, db_session)
-

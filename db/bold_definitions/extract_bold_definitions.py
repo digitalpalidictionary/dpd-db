@@ -20,9 +20,8 @@ from db.bold_definitions.functions import get_headings_no_div
 from db.bold_definitions.functions import get_bold_strings
 
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.tsv_read_write import write_tsv_dot_dict
-from tools.printer import p_title, p_green, p_green_title, p_yes
 
 
 def debugger(para, bold):
@@ -35,7 +34,7 @@ def debugger(para, bold):
 def extract_bold_definitions(pth):
     """extract commentary definitions from xml."""
 
-    p_green_title("extracting bold definitions")
+    pr.green_title("extracting bold definitions")
 
     bold_definitions_list = []
 
@@ -182,15 +181,15 @@ def extract_bold_definitions(pth):
             print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
             bold_total += bold_count2
 
-    p_green("bold_total")
-    p_yes(len(bold_definitions_list))
+    pr.green("bold_total")
+    pr.yes(len(bold_definitions_list))
     return bold_definitions_list
 
 
 def export_json(pth, bold_definitions_list):
     """convert to tsv and json for rebuilding the db and external use."""
 
-    p_green("saving json")
+    pr.green("saving json")
 
     file_path = pth.bold_definitions_tsv_path
     write_tsv_dot_dict(file_path, bold_definitions_list)
@@ -199,13 +198,13 @@ def export_json(pth, bold_definitions_list):
     with open(file_path, "w") as file:
         json.dump(bold_definitions_list, file)
 
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def update_db(pth, bold_definitions):
     """Add bold definitions to dpd.db."""
 
-    p_green("adding definitions to db")
+    pr.green("adding definitions to db")
     db_session = get_db_session(pth.dpd_db_path)
     add_to_db = []
 
@@ -228,12 +227,12 @@ def update_db(pth, bold_definitions):
     db_session.execute(BoldDefinition.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
-    p_yes(len(add_to_db))
+    pr.yes(len(add_to_db))
 
 
 def main():
-    tic()
-    p_title("building database of bolded definitions")
+    pr.tic()
+    pr.title("building database of bolded definitions")
 
     pth = ProjectPaths()
 
@@ -243,7 +242,7 @@ def main():
     if pth.dpd_db_path.exists():
         update_db(pth, bold_definitions)
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

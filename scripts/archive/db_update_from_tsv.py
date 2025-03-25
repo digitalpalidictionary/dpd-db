@@ -12,19 +12,19 @@ from scripts.build.db_rebuild_from_tsv import make_russian_table_data
 from scripts.build.db_rebuild_from_tsv import make_sbs_table_data
 from scripts.build.db_rebuild_from_tsv import make_ru_root_table_data
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 
 def main():
     print("[bright_yellow]updating db from tsvs")
-    tic()
+    pr.tic()
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    db_session.execute(DpdHeadword.__table__.delete()) # type: ignore
-    db_session.execute(DpdRoot.__table__.delete()) # type: ignore
-    db_session.execute(Russian.__table__.delete()) # type: ignore
-    db_session.execute(SBS.__table__.delete()) # type: ignore
+    db_session.execute(DpdHeadword.__table__.delete())  # type: ignore
+    db_session.execute(DpdRoot.__table__.delete())  # type: ignore
+    db_session.execute(Russian.__table__.delete())  # type: ignore
+    db_session.execute(SBS.__table__.delete())  # type: ignore
 
     make_pali_word_table_data(pth, db_session)
     make_pali_root_table_data(pth, db_session)
@@ -36,7 +36,7 @@ def main():
     db_session.close()
 
     print("[bright_green]database restored successfully")
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

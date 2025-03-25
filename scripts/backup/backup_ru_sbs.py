@@ -2,7 +2,6 @@
 
 """Save latest Russian,ru roots and SBS tables to backup_tsv folder."""
 
-
 from git import Repo
 from rich import print
 import csv
@@ -11,12 +10,12 @@ from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import Russian, SBS, DpdRoot
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.paths import ProjectPaths
 
 
 def backup_ru_sbs():
-    tic()
+    pr.tic()
     print("[bright_yellow]backing russian and sbs tables to tsv")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -24,7 +23,7 @@ def backup_ru_sbs():
     backup_sbs(db_session, pth)
     backup_ru_roots(db_session, pth)
     db_session.close()
-    toc()
+    pr.toc()
 
 
 def backup_russian(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
@@ -45,17 +44,15 @@ def backup_russian(db_session: Session, pth: ProjectPaths, custom_path: str = ""
     # Use the custom path if provided, otherwise use the default path
     russian_path = custom_path if custom_path else pth.russian_path
 
-    with open(russian_path, 'w', newline='') as tsvfile:
+    with open(russian_path, "w", newline="") as tsvfile:
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
-        column_names = [
-            column.name for column in Russian.__mapper__.columns]
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
+        column_names = [column.name for column in Russian.__mapper__.columns]
         csvwriter.writerow(column_names)
 
         for i in db:
-            row = [
-                getattr(i, column.name)
-                for column in Russian.__mapper__.columns]
+            row = [getattr(i, column.name) for column in Russian.__mapper__.columns]
             csvwriter.writerow(row)
 
 
@@ -77,18 +74,15 @@ def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     # Use the custom path if provided, otherwise use the default path
     sbs_path = custom_path if custom_path else pth.sbs_path
 
-    with open(sbs_path, 'w', newline='') as tsvfile:
-
+    with open(sbs_path, "w", newline="") as tsvfile:
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
-        column_names = [
-            column.name for column in SBS.__mapper__.columns]
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
+        column_names = [column.name for column in SBS.__mapper__.columns]
         csvwriter.writerow(column_names)
 
         for i in db:
-            row = [
-                getattr(i, column.name)
-                for column in SBS.__mapper__.columns]
+            row = [getattr(i, column.name) for column in SBS.__mapper__.columns]
             csvwriter.writerow(row)
 
 
@@ -114,35 +108,40 @@ def backup_ru_roots(db_session: Session, pth: ProjectPaths, custom_path: str = "
         if not record.root_ru_meaning:
             print(f"[red]No root_ru_meaning: {record}")
 
-
     # Use the custom path if provided, otherwise use the default path
     ru_root_path = custom_path if custom_path else pth.ru_root_path
 
-    with open(ru_root_path, 'w', newline='') as tsvfile:
-        used_columns = [
-            "root",
-            "root_ru_meaning", "sanskrit_root_ru_meaning"
-            ]
+    with open(ru_root_path, "w", newline="") as tsvfile:
+        used_columns = ["root", "root_ru_meaning", "sanskrit_root_ru_meaning"]
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
         column_names = [
-            column.name for column in DpdRoot.__mapper__.columns
-            if column.name in used_columns]
+            column.name
+            for column in DpdRoot.__mapper__.columns
+            if column.name in used_columns
+        ]
         csvwriter.writerow(column_names)
 
         for i in db:
             row = [
                 getattr(i, column.name)
                 for column in DpdRoot.__mapper__.columns
-                if column.name in used_columns]
+                if column.name in used_columns
+            ]
             csvwriter.writerow(row)
-
 
 
 def git_commit():
     repo = Repo("./")
     index = repo.index
-    index.add(["db/backup_tsv/russian.tsv", "db/backup_tsv/sbs.tsv", "db/backup_tsv/ru_roots.tsv"])
+    index.add(
+        [
+            "db/backup_tsv/russian.tsv",
+            "db/backup_tsv/sbs.tsv",
+            "db/backup_tsv/ru_roots.tsv",
+        ]
+    )
     index.commit("backup russian & sbs")
 
 

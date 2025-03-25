@@ -13,10 +13,9 @@ from db.models import Lookup
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
 from tools.update_test_add import update_test_add
-from tools.printer import p_green, p_title, p_yes
 
 
 class ProgData:
@@ -28,25 +27,25 @@ class ProgData:
 
 def load_spelling_dict(pd: ProgData):
     """Turn the spelling_mistakes.tsv into a dictionary"""
-    p_green("loading spelling tsv")
+    pr.green("loading spelling tsv")
 
     spellings_tsv = read_tsv(pd.pth.spelling_mistakes_path)
     spellings_dict = defaultdict(set)
     for spelling, correction in spellings_tsv[1:]:
         spellings_dict[spelling].add(correction)
     pd.spellings_dict = spellings_dict
-    p_yes(len(spellings_dict))
+    pr.yes(len(spellings_dict))
 
 
 def add_spellings(pd: ProgData):
-    p_green("update test add")
+    pr.green("update test add")
     update_set, test_set, add_set = update_test_add(pd.lookup_table, pd.spellings_dict)
-    p_yes("")
+    pr.yes("")
 
     lookup_table_update_test = (
         pd.db_session.query(Lookup).filter(Lookup.lookup_key.in_(update_set)).all()
     )
-    p_green("update")
+    pr.green("update")
     # update test add
     if update_set:
         for i in lookup_table_update_test:
@@ -60,9 +59,9 @@ def add_spellings(pd: ProgData):
                     i.spelling = ""
                 else:
                     pd.db_session.delete(i)
-    p_yes(len(update_set))
+    pr.yes(len(update_set))
 
-    p_green("add")
+    pr.green("add")
 
     if add_set:
         add_to_db = []
@@ -74,18 +73,18 @@ def add_spellings(pd: ProgData):
                 add_to_db.append(add_me)
 
         pd.db_session.add_all(add_to_db)
-    p_yes(len(add_set))
+    pr.yes(len(add_set))
 
 
 def main():
-    tic()
-    p_title("add spelling mistakes to lookup table")
+    pr.tic()
+    pr.title("add spelling mistakes to lookup table")
     pd = ProgData()
     load_spelling_dict(pd)
     add_spellings(pd)
     pd.db_session.commit()
     pd.db_session.close()
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

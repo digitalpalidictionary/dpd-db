@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from tools.printer import p_green, p_no, p_red, p_yes
+from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
@@ -57,7 +57,7 @@ def generate_help_html(
     show_ru_data=False,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
-    p_green("generating help html")
+    pr.green("generating help html")
 
     size_dict = default_rendered_sizes()
 
@@ -91,7 +91,7 @@ def generate_help_html(
     help_data_list.extend(thanks)
     size_dict["help"] += len(str(thanks))
 
-    p_yes(len(help_data_list))
+    pr.yes(len(help_data_list))
     return help_data_list, size_dict
 
 
@@ -321,14 +321,14 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
     help_data_list.append(res)
 
     # save markdown for website
-    p_green("saving thanks to website source")
+    pr.green("saving thanks to website source")
     if pth.docs_thanks_md_path.exists():
         md = html2text.html2text(html)
         pth.docs_thanks_md_path.write_text(md)
-        p_yes("ok")
+        pr.yes("ok")
     else:
-        p_no("failed")
-        p_red(f"error saving {pth.docs_thanks_md_path}")
+        pr.no("failed")
+        pr.red(f"error saving {pth.docs_thanks_md_path}")
 
     return help_data_list
 

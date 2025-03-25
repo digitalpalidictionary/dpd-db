@@ -8,7 +8,7 @@ from docx import Document
 import csv
 import sys
 from rich.console import Console
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 from dps.tools.paths_dps import DPSPaths
 
@@ -18,7 +18,7 @@ console = Console()
 def extract_ids_from_docx(filename):
     """
     Extracts IDs from tables inside a Word document.
-    
+
     :param filename: Path to the .docx file.
     :return: List of extracted IDs.
     """
@@ -39,38 +39,40 @@ def extract_ids_from_docx(filename):
 
     return all_ids
 
+
 def write_ids_to_csv(ids, output_file):
     """
     Writes a list of IDs to a CSV file.
-    
+
     :param ids: List of IDs.
     :param output_file: Path to the output CSV file.
     """
-    with open(output_file, 'w') as f:
-        writer = csv.writer(f, delimiter='\t')
-        writer.writerow(['id'])  # Header row
+    with open(output_file, "w") as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(["id"])  # Header row
         for _id in ids:
             writer.writerow([_id])
 
 
 def convert_docx_to_txt(dpspth, input_docx_file):
     doc = Document(input_docx_file)
-    
+
     # Extract all the text from the document
     doc_text = []
     for paragraph in doc.paragraphs:
         doc_text.append(paragraph.text)
 
     output_txt_file = dpspth.text_to_add_path
-    with open(output_txt_file, 'w') as f:
-        f.write('\n'.join(doc_text))
+    with open(output_txt_file, "w") as f:
+        f.write("\n".join(doc_text))
 
-    console.print(f"[bold green]Text extracted from {input_docx_file} written to {output_txt_file}")
+    console.print(
+        f"[bold green]Text extracted from {input_docx_file} written to {output_txt_file}"
+    )
 
 
 def main():
-
-    tic()
+    pr.tic()
 
     console.print("[bold blue]Enter the name of the .docx file (without extension):")
     file_name = input("").strip()
@@ -83,16 +85,20 @@ def main():
     if input_docx_file:
         convert_docx_to_txt(dpspth, input_docx_file)
     output_csv_file = dpspth.id_to_add_path
-    
+
     ids = extract_ids_from_docx(input_docx_file)
-    unique_ids = list(set(ids))  # Convert to a set to get unique IDs, then convert back to a list
+    unique_ids = list(
+        set(ids)
+    )  # Convert to a set to get unique IDs, then convert back to a list
     write_ids_to_csv(ids, output_csv_file)
     console.print(f"[bold green]IDs written to {output_csv_file}")
     console.print(f"[bold yellow]from {file_name}.docx")
-    console.print(f"Number of rows of unique IDs extracted: [bold]{len(unique_ids)}[/bold]")
+    console.print(
+        f"Number of rows of unique IDs extracted: [bold]{len(unique_ids)}[/bold]"
+    )
 
+    pr.toc()
 
-    toc()
 
 if __name__ == "__main__":
     main()

@@ -10,7 +10,7 @@ from dps.tools.paths_dps import DPSPaths
 from db.db_helpers import get_db_session
 from rich.console import Console
 import csv
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
 from sqlalchemy.orm import joinedload
 
@@ -19,22 +19,25 @@ console = Console()
 
 # Function to read word IDs from a TSV file
 def read_ids_from_tsv(file_path):
-    with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
-        tsv_reader = csv.reader(tsv_file, delimiter='\t')
+    with open(file_path, mode="r", encoding="utf-8-sig") as tsv_file:
+        tsv_reader = csv.reader(tsv_file, delimiter="\t")
         next(tsv_reader)  # Skip header row
-        return [int(row[0]) for row in tsv_reader]  # Extracting IDs only from the first column
+        return [
+            int(row[0]) for row in tsv_reader
+        ]  # Extracting IDs only from the first column
 
 
 # Function to remove duplicates from a list
 def remove_duplicates(ordered_ids):
     seen = set()
-    ordered_ids_no_duplicates = [x for x in ordered_ids if not (x in seen or seen.add(x))]
+    ordered_ids_no_duplicates = [
+        x for x in ordered_ids if not (x in seen or seen.add(x))
+    ]
     return ordered_ids_no_duplicates
 
 
 # Function to derive sutta_identifier from source
 def derive_sutta_identifier(source):
-
     sutta_identifier = ""
 
     # Iterate through each character in the source string
@@ -52,19 +55,22 @@ def derive_sutta_identifier(source):
 
 # Condition function to check if all sbs_examples are not empty
 def condition_check_all_examples(word, __sutta_identifier__):
-    return all([
-            getattr(word.sbs, 'sbs_example_1', None),
-            getattr(word.sbs, 'sbs_example_2', None),
-            getattr(word.sbs, 'sbs_example_3', None),
-            getattr(word.sbs, 'sbs_example_4', None)
-    ])
+    return all(
+        [
+            getattr(word.sbs, "sbs_example_1", None),
+            getattr(word.sbs, "sbs_example_2", None),
+            getattr(word.sbs, "sbs_example_3", None),
+            getattr(word.sbs, "sbs_example_4", None),
+        ]
+    )
+
 
 # Condition function to check if any sbs_source contains the desired value
 def condition_check_sbs_source(word, sutta_identifier):
     for i in range(1, 5):
-            sbs_source_attr = getattr(word.sbs, f'sbs_source_{i}', None)
-            if sbs_source_attr and sutta_identifier in sbs_source_attr:
-                return True
+        sbs_source_attr = getattr(word.sbs, f"sbs_source_{i}", None)
+        if sbs_source_attr and sutta_identifier in sbs_source_attr:
+            return True
     return False
 
 
@@ -72,14 +78,14 @@ def condition_check_sbs_source(word, sutta_identifier):
 def condition_check_source(word, sutta_identifier):
     if not condition_check_sbs_source(word, sutta_identifier):
         for i in range(1, 3):
-                source_attr = getattr(word, f'source_{i}', None)
-                if source_attr and sutta_identifier in source_attr:
-                    return True
+            source_attr = getattr(word, f"source_{i}", None)
+            if source_attr and sutta_identifier in source_attr:
+                return True
     return False
 
 
 # Function to update sbs_category based on a condition function
-def update_sbs_category(source, condition_func, message, update:bool):
+def update_sbs_category(source, condition_func, message, update: bool):
     pth = ProjectPaths()
     dpspth = DPSPaths()
 
@@ -90,7 +96,7 @@ def update_sbs_category(source, condition_func, message, update:bool):
 
     # 1. Fetch the list of word IDs from a file
     ordered_ids = read_ids_from_tsv(dpspth.id_to_add_path)
-    
+
     # 2. Remove duplicates from the list
     unique_ids = remove_duplicates(ordered_ids)
 
@@ -103,11 +109,16 @@ def update_sbs_category(source, condition_func, message, update:bool):
 
     # change source for marking
     if not update:
-            source = source + "_"
+        source = source + "_"
 
     # 3. Iterate through the IDs and update the database
     for word_id in unique_ids:
-        word = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).filter(DpdHeadword.id == word_id).first()
+        word = (
+            db_session.query(DpdHeadword)
+            .options(joinedload(DpdHeadword.sbs))
+            .filter(DpdHeadword.id == word_id)
+            .first()
+        )
 
         if not word:
             continue
@@ -128,29 +139,48 @@ def update_sbs_category(source, condition_func, message, update:bool):
                 print(f"{word.id}")
 
     console.print(f"[bold green]{updated_count} rows have been updated to {source}.")
-    
+
     db_session.close()
 
 
 def main():
+    pr.tic()
 
-    tic()
-
-    console.print("[bold blue]Update sbs_category for words from an ID list based on specific conditions")
+    console.print(
+        "[bold blue]Update sbs_category for words from an ID list based on specific conditions"
+    )
 
     # input source eg "sn56" or "mn107" or "sn22" or "sn35"
     source = "sn43"
 
     # !Update sbs_category based on all examples
-    update_sbs_category(source, condition_check_all_examples, "Checking if all examples are present", True)
+    update_sbs_category(
+        source,
+        condition_check_all_examples,
+        "Checking if all examples are present",
+        True,
+    )
 
     # !Update sbs_category based on sbs_source
-    update_sbs_category(source, lambda word, sutta_identifier: condition_check_sbs_source(word, sutta_identifier), f"Checking if any sbs_source has {source}", True)
+    update_sbs_category(
+        source,
+        lambda word, sutta_identifier: condition_check_sbs_source(
+            word, sutta_identifier
+        ),
+        f"Checking if any sbs_source has {source}",
+        True,
+    )
 
     # !Mark sbs_category based on dpd_source
-    update_sbs_category(source, lambda word, sutta_identifier: condition_check_source(word, sutta_identifier), f"Checking if any source has {source}", False)
+    update_sbs_category(
+        source,
+        lambda word, sutta_identifier: condition_check_source(word, sutta_identifier),
+        f"Checking if any source has {source}",
+        False,
+    )
 
-    toc()
+    pr.toc()
+
 
 if __name__ == "__main__":
     main()

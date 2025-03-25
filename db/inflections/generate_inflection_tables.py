@@ -10,35 +10,36 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, InflectionTemplates, DbInfo
 
 from tools.configger import config_test, config_update
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths
-from tools.printer import p_title, p_green, p_red, p_yes, p_green_title
 
 
-class GlobalVars():
+class GlobalVars:
     """Globally used variables."""
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(DpdHeadword).all()
-    
+
     inflection_templates_db = tables = db_session.query(InflectionTemplates).all()
     inflection_patterns: list[str] = [t.pattern for t in inflection_templates_db]
 
-    wrong_pattern_db = db_session.query(DpdHeadword) \
-        .filter(DpdHeadword.pattern.notin_(inflection_patterns)) \
-        .filter(DpdHeadword.pattern != "") \
+    wrong_pattern_db = (
+        db_session.query(DpdHeadword)
+        .filter(DpdHeadword.pattern.notin_(inflection_patterns))
+        .filter(DpdHeadword.pattern != "")
         .all()
+    )
 
-    changed_templates_db: DbInfo = db_session \
-        .query(DbInfo) \
-        .filter_by(key="changed_templates_list") \
-        .first()
-    
-    changed_templates = changed_templates_db.value_unpack
+    changed_templates_db: DbInfo | None = (
+        db_session.query(DbInfo).filter_by(key="changed_templates_list").first()
+    )
+
+    if changed_templates_db:
+        changed_templates = changed_templates_db.value_unpack
     changed_headwords: list = []
     updated_counter = 0
 
@@ -47,9 +48,8 @@ class GlobalVars():
         all_tipitaka_words: set = pickle.load(f)
 
     # regenerate all
-    if (
-        config_test("regenerate", "inflections", "yes")
-        or config_test("regenerate", "db_rebuild", "yes")
+    if config_test("regenerate", "inflections", "yes") or config_test(
+        "regenerate", "db_rebuild", "yes"
     ):
         regenerate_all: bool = True
     else:
@@ -66,50 +66,50 @@ class GlobalVars():
 def test_missing_stem(g: GlobalVars) -> None:
     """Test for missing stem in db."""
 
-    p_green("testing for missing stem")
+    pr.green("testing for missing stem")
     for i in g.dpd_db:
         if not i.stem:
-            p_red(f"{i.lemma_1} {i.pos} has a missing stem.")
-            p_green_title("what is the new stem?")
+            pr.red(f"{i.lemma_1} {i.pos} has a missing stem.")
+            pr.green_title("what is the new stem?")
             new_stem = input()
             i.stem = new_stem
             g.db_session.commit()
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def test_missing_pattern(g: GlobalVars) -> None:
     """Test for missing pattern in db."""
 
-    p_green("testing for missing pattern")
+    pr.green("testing for missing pattern")
     for i in g.dpd_db:
         if i.stem != "-" and not i.pattern:
-            p_red(f"{i.lemma_1} {i.pos} has a missing pattern.")
-            p_green_title("what is the new pattern?")
+            pr.red(f"{i.lemma_1} {i.pos} has a missing pattern.")
+            pr.green_title("what is the new pattern?")
             new_pattern = input()
             i.pattern = new_pattern
             g.db_session.commit()
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def test_wrong_pattern(g: GlobalVars) -> None:
     """Test if pattern exists in inflection templates."""
-    
-    p_green("testing for wrong patterns")
+
+    pr.green("testing for wrong patterns")
     for i in g.wrong_pattern_db:
-        p_red(f"{i.lemma_1} {i.pos} has the wrong pattern.")
+        pr.red(f"{i.lemma_1} {i.pos} has the wrong pattern.")
         new_pattern = ""
         while new_pattern not in g.inflection_patterns:
-            p_green_title("what is the new pattern?")
+            pr.green_title("what is the new pattern?")
             new_pattern = input()
             i.pattern = new_pattern
             g.db_session.commit()
-    p_yes("ok")
+    pr.yes("ok")
 
 
 def test_changes_in_stem_pattern(g: GlobalVars) -> None:
     """Test for changes in stem and pattern since last run."""
 
-    p_green_title("testing for changes in stem and pattern")
+    pr.green_title("testing for changes in stem and pattern")
     try:
         with open(g.pth.headword_stem_pattern_dict_path, "rb") as f:
             old_dict: dict = pickle.load(f)
@@ -118,19 +118,20 @@ def test_changes_in_stem_pattern(g: GlobalVars) -> None:
 
     new_dict: dict[str, dict] = {}
     for i in g.dpd_db:
-        new_dict[i.lemma_1] = {
-            "stem": i.stem, "pattern": i.pattern}
+        new_dict[i.lemma_1] = {"stem": i.stem, "pattern": i.pattern}
 
     for headword, value in new_dict.items():
         if value != old_dict.get(headword, None):
-            p_red(f"\t{headword}")
+            pr.red(f"\t{headword}")
             g.changed_headwords.append(headword)
 
     def save_pickle() -> None:
         headword_stem_pattern_dict: dict[str, dict] = {}
         for i in g.dpd_db:
             headword_stem_pattern_dict[i.lemma_1] = {
-                "stem": i.stem, "pattern": i.pattern}
+                "stem": i.stem,
+                "pattern": i.pattern,
+            }
 
         with open(g.pth.headword_stem_pattern_dict_path, "wb") as f:
             pickle.dump(headword_stem_pattern_dict, f)
@@ -141,12 +142,12 @@ def test_changes_in_stem_pattern(g: GlobalVars) -> None:
 def test_missing_inflection_list_html(g: GlobalVars) -> None:
     """Test for missing inflections in dpd_headwords table"""
 
-    p_green_title("testing for missing inflection list and html tables")
+    pr.green_title("testing for missing inflection list and html tables")
     for i in g.dpd_db:
         if not i.inflections:
-            p_red(f"\t{i.lemma_1}")
+            pr.red(f"\t{i.lemma_1}")
             g.changed_headwords.append(i.lemma_1)
-    
+
 
 def generate_inflection_table(g: GlobalVars):
     """Generate the inflection table based on stem + pattern and template"""
@@ -154,7 +155,7 @@ def generate_inflection_table(g: GlobalVars):
     i = g.i
 
     if i.it is None or i.it.data is None:
-        p_red(f"ERROR: {i.id} {i.lemma_1} {i.pattern} does not exist")
+        pr.red(f"ERROR: {i.id} {i.lemma_1} {i.pattern} does not exist")
         return "", []
 
     table_data = json.loads(i.it.data)
@@ -260,44 +261,43 @@ def process_inflection(g: GlobalVars):
 
             if "!" in i.stem:
                 # in this case the headword itself is inflected
-                # add the html table and clean headword 
+                # add the html table and clean headword
                 i.inflections = i.lemma_clean
                 i.inflections_html = g.inflections_html
-            
+
             else:
                 # in this case it's a normal headword
                 # add the html table and inflections list
-                i.inflections = ",".join(g.inflections_list)                
+                i.inflections = ",".join(g.inflections_list)
                 i.inflections_html = g.inflections_html
-        
+
         else:
             # in this case it's an indeclinable
             # don't add the html table, only the clean headword
             i.inflections = i.lemma_clean
-        
+
         g.updated_counter += 1
 
 
 def main():
-    
-    tic()
-    p_title("generate inflection lists and html tables")
+    pr.tic()
+    pr.title("generate inflection lists and html tables")
     g = GlobalVars()
 
     if g.regenerate_all is False:
         run_tests(g)
     else:
         test_wrong_pattern(g)
-    
-    p_green("generating html tables and lists")
+
+    pr.green("generating html tables and lists")
     for g.i in g.dpd_db:
         process_inflection(g)
-    p_yes(g.updated_counter)
+    pr.yes(g.updated_counter)
 
-    p_green("committing to db")
+    pr.green("committing to db")
     g.db_session.commit()
     g.db_session.close()
-    p_yes(g.updated_counter)
+    pr.yes(g.updated_counter)
 
     with open(g.pth.changed_headwords_path, "wb") as f:
         pickle.dump(g.changed_headwords, f)
@@ -305,7 +305,7 @@ def main():
     if config_test("regenerate", "inflections", "yes"):
         config_update("regenerate", "inflections", "no")
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

@@ -6,12 +6,12 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dot_dict
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]adding bold definitions to db")
     pth = ProjectPaths()
 
@@ -33,20 +33,21 @@ def main():
             i.subhead,
             i.bold,
             i.bold_end,
-            i.commentary)
-        
+            i.commentary,
+        )
+
         add_to_db.append(bd)
 
         if count % 50000 == 0:
             print(f"{count:>8} / {len(bold_definitions):<8}{i.bold}")
-    
+
     print("[green]adding to db", end=" ")
-    db_session.execute(BoldDefinition.__table__.delete()) # type: ignore
+    db_session.execute(BoldDefinition.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()
     print("ok")
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

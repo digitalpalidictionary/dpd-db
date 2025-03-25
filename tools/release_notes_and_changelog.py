@@ -19,14 +19,13 @@ from db.models import DpdHeadword, DpdRoot, Lookup
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_no, p_red, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.uposatha_day import read_uposatha_count, uposatha_today, write_uposatha_count
 
 
 class GlobalVars:
     def __init__(self) -> None:
-        p_green("preparing data")
+        pr.green("preparing data")
 
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -59,7 +58,7 @@ class GlobalVars:
         self.release_notes: str
         self.changelog: str
 
-        p_yes("ok")
+        pr.yes("ok")
 
 
 def get_dpd_size(g: GlobalVars) -> None:
@@ -277,7 +276,7 @@ def make_website_changelog(g: GlobalVars) -> str:
 
 
 def update_website_changelog(g: GlobalVars) -> None:
-    p_green("updating website changelog")
+    pr.green("updating website changelog")
 
     if g.pth.docs_changelog_md_path.exists():
         changelog_md = g.pth.docs_changelog_md_path.read_text()
@@ -285,10 +284,10 @@ def update_website_changelog(g: GlobalVars) -> None:
         replace_me: str = f"# Changelog\n{g.changelog}\n"
         changelog_updated: str = changelog_md.replace(find_me, replace_me)
         g.pth.docs_changelog_md_path.write_text(changelog_updated)
-        p_yes("ok")
+        pr.yes("ok")
     else:
-        p_no("failed")
-        p_red(f"{g.pth.docs_changelog_md_path} not found")
+        pr.no("failed")
+        pr.red(f"{g.pth.docs_changelog_md_path} not found")
 
 
 def write_to_file(g: GlobalVars) -> None:
@@ -300,12 +299,12 @@ def write_to_file(g: GlobalVars) -> None:
 
 
 def main() -> str | None:
-    tic()
-    p_title("making release notes and changelog")
+    pr.tic()
+    pr.title("making release notes and changelog")
 
     if not config_test("exporter", "make_changelog", "yes"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
 
     g: GlobalVars = GlobalVars()
@@ -328,7 +327,7 @@ def main() -> str | None:
     write_to_file(g)
 
     print(g.changelog)
-    toc()
+    pr.toc()
 
     return g.release_notes
 

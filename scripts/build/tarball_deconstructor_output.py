@@ -7,21 +7,19 @@ and copy to the resources folder.
 
 from tools.configger import config_test
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_title
+from tools.printer import printer as pr
 from tools.tarballer import create_tarball
-from tools.tic_toc import tic, toc
 
 
 def main():
-
-    tic()
-    p_title("tarballing deconstructor output")
+    pr.tic()
+    pr.title("tarballing deconstructor output")
 
     if config_test("deconstructor", "use_premade", "yes"):
-        p_green_title("disabled in config.ini")
-        toc()
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
-    
+
     pth = ProjectPaths()
     create_tarball(
         tarball_name="deconstructor_output.json.tar.gz",
@@ -30,7 +28,7 @@ def main():
         compression="gz",
     )
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

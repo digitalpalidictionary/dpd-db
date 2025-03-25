@@ -1,6 +1,6 @@
 from aksharamukha import transliterate
 
-from tools.printer import p_counter, p_green_title
+from tools.printer import printer as pr
 from tools.pali_alphabet import pali_alphabet
 
 
@@ -29,7 +29,7 @@ def auto_translit_to_roman(text: str) -> str:
 
 
 def main():
-    p_green_title("transliterating timer")
+    pr.green_title("transliterating timer")
 
     test_list = [
         ["māḷā"],
@@ -58,7 +58,7 @@ def main():
     for index, list in enumerate(test_list):
         for word in list:
             roman = auto_translit_to_roman(word)
-            p_counter(counter, len(test_list), f"{roman}")
+            pr.counter(counter, len(test_list), f"{roman}")
             counter += 1
 
 

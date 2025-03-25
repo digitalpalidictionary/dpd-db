@@ -17,37 +17,28 @@ from db.models import DpdHeadword
 
 from tools.configger import config_read, config_test
 from tools.paths import ProjectPaths
-from tools.tic_toc import tic, toc, bip, bop
+from tools.printer import printer as pr
 
 
 def main():
-    tic()
-    print("[bright_yellow]updating anki")
+    pr.tic()
+    pr.title("updating anki")
 
     # setup dbs
-    bip()
-    print(f"[green]{'setup dbs':<20}", end="")
+    pr.green("setup dbs")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
-    print(f"{'ok':>10}{bop():>10}")
+    pr.yes("ok")
 
     decks = ["Vocab", "Commentary", "Pass1"]
-    (
-        col,
-        data_dict,
-        deck_dict,
-        model_dict,
-        carry_on
-    ) = setup_anki_updater(decks)
+    (col, data_dict, deck_dict, model_dict, carry_on) = setup_anki_updater(decks)
 
     if carry_on:
-        update_from_db(
-            db, col, data_dict, deck_dict, model_dict)
-    
-    toc()
+        update_from_db(db, col, data_dict, deck_dict, model_dict)
 
-    
+    pr.toc()
+
 
 def setup_anki_updater(decks):
     col = get_anki_collection()
@@ -65,57 +56,47 @@ def setup_anki_updater(decks):
 
 def family_updater(anki_data_list, deck):
     print(f"[white]updating {deck[0].lower()}")
-    (
-        col,
-        data_dict,
-        deck_dict,
-        model_dict,
-        carry_on
-    ) = setup_anki_updater(deck)
+    (col, data_dict, deck_dict, model_dict, carry_on) = setup_anki_updater(deck)
 
     if carry_on:
-        update_family(
-            col,
-            deck,
-            data_dict,
-            deck_dict,
-            model_dict,
-            anki_data_list)
+        update_family(col, deck, data_dict, deck_dict, model_dict, anki_data_list)
 
         if col:
             col.close()
     else:
         return
 
-        
-def get_anki_collection() -> Collection|None:
-    bip()
-    print(f"[green]{'get anki collection':<20}", end="")
+
+def get_anki_collection() -> Collection | None:
+    pr.green("get anki collection")
     anki_db_path = config_read("anki", "db_path")
     try:
         col = Collection(anki_db_path)
-        print(f"{'ok':>10}{bop():>10}")
+        pr.yes("ok")
         return col
     except DBError:
-        print("\n[red]Anki is currently open, ", end="")
-        print("close and try again.")
+        pr.no("no")
+        pr.red("Anki is currently open, close and try again.")
         return None
 
 
 def backup_anki_db(col) -> None:
     """backup anki db"""
-    bip()
-    print(f"[green]{'backup anki db':<20}", end="")
+
+    pr.green("backup anki db")
     anki_backup_path = config_read("anki", "backup_path")
     if anki_backup_path:
-        is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=False)
+        is_backed_up = col.create_backup(
+            backup_folder=anki_backup_path, force=False, wait_for_completion=False
+        )
         # if force = False, the db will not backup if it has not changed
         if not is_backed_up:
-            print(f"[red]{'no':>10}{bop():>10}")
+            pr.no("no")
         else:
-            print(f"{'ok':>10}{bop():>10}")
+            pr.yes("ok")
     else:
-        print(f"[red]{'no path':>10}{bop():>10}")
+        pr.no("error")
+        pr.red("No backup path in the config")
 
 
 def get_field_names(col: Collection, deck_name: str) -> List[str]:
@@ -136,67 +117,61 @@ def make_search_query(decks):
 
 def get_notes(col: Collection, decks: List[str]) -> List[Note]:
     """get all notes for a list of decks"""
-    bip()
-    print(f"[green]{'get notes':<20}", end="")
-    
-    search_query =  make_search_query(decks)
+
+    pr.green("get notes")
+
+    search_query = make_search_query(decks)
     note_ids = col.find_notes(search_query)
     notes = [col.get_note(note_id) for note_id in note_ids]
-    
-    print(f"{len(notes):>10}{bop():>10}")
+
+    pr.yes(len(notes))
     return notes
 
 
 def get_cards(col: Collection, decks: List[str]) -> List[Card]:
     """get all cards for a list of decks"""
-    bip()
-    print(f"[green]{'get cards':<20}", end="")
-    
-    search_query =  make_search_query(decks)
+
+    pr.green("get cards")
+
+    search_query = make_search_query(decks)
     card_ids = col.find_cards(search_query)
     cards = [col.get_card(card_id) for card_id in card_ids]
-    
-    print(f"{len(cards):>10}{bop():>10}")
+    pr.yes(len(cards))
     return cards
 
 
 def get_decks(col: Collection) -> Dict:
     """get all decks"""
-    bip()
-    print(f"[green]{'get decks':<20}", end="")
-    
+    pr.green("get decks")
+
     decks = col.decks.all()
     deck_dict = {deck["name"]: deck["id"] for deck in decks}
-    
+
     # add the values as keys
     deck_dict_reverse = {}
     for deck, did in deck_dict.items():
         deck_dict_reverse[did] = deck
     deck_dict.update(deck_dict_reverse)
-    
-    print(f"{len(deck_dict_reverse):>10}{bop():>10}")
+
+    pr.yes(len(deck_dict))
     return deck_dict
 
 
 def get_models(col: Collection) -> dict:
     # get models
-    bip()
-    print(f"[green]{'get models':<20}", end="")
-    
+    pr.green("get models")
+
     models = col.models.all()
     model_dict = {model["name"]: model["id"] for model in models}
-    
-    print(f"{len(model_dict):>10}{bop():>10}")
+
+    pr.yes(len(model_dict))
     return model_dict
 
 
-def make_data_dict(
-        notes: List[Note],
-        cards: List[Card]) -> dict:
+def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
     """make data dict"""
 
-    bip()
-    print(f"[green]{'make data_dict':<20}", end="")
+    pr.green("make data_dict")
     data_dict = {}
 
     for note in notes:
@@ -210,7 +185,7 @@ def make_data_dict(
             "did": None,
             "card": None,
         }
-    
+
     for card in cards:
         if card.nid in data_dict:
             data_dict[card.nid]["cid"] = card.id
@@ -219,7 +194,10 @@ def make_data_dict(
 
     # re-key data_dict
     data2 = {}
-    for key, data, in data_dict.items():
+    for (
+        key,
+        data,
+    ) in data_dict.items():
         dpd_id = data["dpd_id"]
         if dpd_id in data_dict:
             print(f"[red]key {dpd_id} already exists")
@@ -229,20 +207,19 @@ def make_data_dict(
         if key in data_dict:
             print("Key", key, "will be overwritten")
     data_dict.update(data2)
-    print(f"{len(data_dict):>10}{bop():>10}")
+    pr.yes(len(data_dict))
     return data_dict
 
 
-def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:    
+def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
     # update from db
-    bip()
-    print(f"[green]{'updating':<20}")
-    
+    pr.green("updating")
+
     added_list = []
     updated_list = []
     deleted_list = []
     changed_deck_list = []
-    
+
     for counter, i in enumerate(db):
         id = str(i.id)
         deck = deck_selector(i)
@@ -256,14 +233,13 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
                     col.update_note(note)
                 if update_deck(col, note, i, data_dict[id], deck_dict, model_dict):
                     changed_deck_list += [i.id]
-                
+
             # add note
             else:
                 added_list += [i.id]
                 make_new_note(col, deck, model_dict, deck_dict, i)
             if counter % 5000 == 0:
-                print(f"{counter:>5} {i.lemma_1[:23]:<24}{bop():>10}")
-                bip()
+                pr.counter(counter, len(db), i.lemma_1)
 
         else:
             # delete
@@ -282,18 +258,9 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
     print(f"{deleted_list=}")
 
 
-def update_family(
-        col,
-        deck,
-        data_dict,
-        deck_dict,
-        model_dict,
-        anki_data
-) -> None:    
+def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> None:
+    pr.green("updating anki collection")
 
-    bip()
-    print("[green]updating anki collection")
-    
     added_list = []
     updated_list = []
     deleted_list = []
@@ -306,7 +273,7 @@ def update_family(
             if is_updated:
                 updated_list += [key]
                 col.update_note(note)
-            
+
             # add note
         else:
             added_list += [key]
@@ -318,12 +285,14 @@ def update_family(
             col.remove_notes([note.id])
             deleted_list += [key]
 
+    pr.yes(len(data_dict))
+
     print(f"[green]{'added':<20}{len(added_list):>10}")
     print(f"[green]{'updated':<20}{len(updated_list):>10}")
     print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
-    print(f"{added_list=}")
-    print(f"{updated_list=}")
-    print(f"{deleted_list=}")
+    # print(f"{added_list=}")
+    # print(f"{updated_list=}")
+    # print(f"{deleted_list=}")
 
 
 def update_note_values(col, note, i):
@@ -334,7 +303,7 @@ def update_note_values(col, note, i):
         fin = "√"
     else:
         fin = ""
-    
+
     note["id"] = str(i.id)
     note["lemma_1"] = str(i.lemma_1)
     note["lemma_2"] = str(i.lemma_2)
@@ -395,12 +364,16 @@ def update_note_values(col, note, i):
         is_updated = False
     elif note.fields != old_fields:
         is_updated = True
+
         def unicode_combo_characters():
-            for index, (old_value, new_value) in enumerate(zip(old_fields, note.fields)):
+            for index, (old_value, new_value) in enumerate(
+                zip(old_fields, note.fields)
+            ):
                 if old_value != new_value:
                     print(f"Field at index {index} has changed:")
                     print(f"  Old value: {old_value}")
                     print(f"  New value: {new_value}")
+
         # unicode_combo_characters()
     return note, is_updated
 
@@ -438,11 +411,10 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
     old_deck = deck_dict[data["did"]]
 
     if old_deck != new_deck:
-
         # update note
         note.mid = model_dict[new_deck]
         col.update_note(note)
-        
+
         # update card
         card = data["card"]
         card.did = deck_dict[new_deck]

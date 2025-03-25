@@ -14,7 +14,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.db_search_string import db_search_string
 
 max_length = 20
@@ -314,7 +314,7 @@ def replace_word_in_db(g: GlobalVars):
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]testing and correcting hyphenation of long words")
 
     g = GlobalVars()
@@ -328,7 +328,7 @@ def main():
     find_variations(g)
     process_long_words(g)
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

@@ -11,11 +11,11 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_title
+from tools.printer import printer as pr
 
 
 def main():
-    p_title("find sukha dukkha antonyms")
+    pr.title("find sukha dukkha antonyms")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -29,8 +29,8 @@ def main():
             dukkha_counter += 1
     print(f"total sukha: {sukha_counter}")
     print(f"total dukkha: {dukkha_counter}")
-    
-    p_green_title("testing sukh")
+
+    pr.green_title("testing sukh")
     counter = 0
     for i in db:
         if test_sukh(i, tried):
@@ -46,8 +46,8 @@ def main():
             if choice == "e":
                 tried.append(i.lemma_1)
                 write_tried(pth, tried)
-    
-    p_green_title("testing dukkh")
+
+    pr.green_title("testing dukkh")
     counter = 0
     for i in db:
         if test_dukkh(i, tried):
@@ -62,7 +62,7 @@ def main():
             choice = input()
             if choice == "e":
                 tried.append(i.lemma_1)
-                write_tried(pth, tried)        
+                write_tried(pth, tried)
 
 
 def test_sukh(i, tried):

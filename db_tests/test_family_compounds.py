@@ -10,7 +10,7 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
 
@@ -23,7 +23,7 @@ def make_dict_of_sets(db):
         "all_words_in_family_compound": set(),
         "all_clean_headwords": set(),
         "all_empty_family_compounds": set(),
-        "all_compound_headwords": set()
+        "all_compound_headwords": set(),
     }
 
     for i in db:
@@ -31,40 +31,31 @@ def make_dict_of_sets(db):
 
         # all_words_in_construction
         if (
-            i.meaning_1 and
-            re.findall(r"\bcomp\b", i.grammar) and
-            re.findall(r"\+", construction) and
-            i.family_compound
+            i.meaning_1
+            and re.findall(r"\bcomp\b", i.grammar)
+            and re.findall(r"\+", construction)
+            and i.family_compound
         ):
-            d["all_words_in_construction"].update(
-                construction.split(" + "))
+            d["all_words_in_construction"].update(construction.split(" + "))
 
         # all_words_in_family_compound
-        if (
-            i.meaning_1 and
-            i.family_compound
-        ):
-            d["all_words_in_family_compound"].update(
-                i.family_compound_list)
+        if i.meaning_1 and i.family_compound:
+            d["all_words_in_family_compound"].update(i.family_compound_list)
 
         # all_clean_headwords
-        if (i.meaning_1):
+        if i.meaning_1:
             d["all_clean_headwords"].update([i.lemma_clean])
-            
 
         # all_empty_family_compounds
         if (
-            i.meaning_1 
+            i.meaning_1
             and not i.family_compound
             and not i.meaning_1.startswith("name of")
         ):
             d["all_empty_family_compounds"].update([i.lemma_clean])
 
         # all_compound_headwords
-        if (
-            i.meaning_1 and
-            re.findall(r"\bcomp\b", i.grammar)
-        ):
+        if i.meaning_1 and re.findall(r"\bcomp\b", i.grammar):
             d["all_compound_headwords"].update([i.lemma_clean])
 
     return d
@@ -108,7 +99,7 @@ def add_to_db(failures):
         if failure not in exceptions:
             sql_search_term = re.escape(failure)
             sql_query = f"SELECT lemma_1, grammar, meaning_1, family_compound, construction FROM dpd_headwords WHERE (lemma_1 REGEXP '\\b{sql_search_term}\\b' OR construction REGEXP '\\b{sql_search_term}\\b') AND meaning_1 <> ''"
-            print(counter+1)
+            print(counter + 1)
             print(failure, end=" ")
             pyperclip.copy(sql_query)
             input()
@@ -120,7 +111,7 @@ def add_to_db(failures):
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]finding missing family_compounds")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -128,7 +119,7 @@ def main():
     d: dict = make_dict_of_sets(db)
     failures = test_family_compound(d)
     add_to_db(failures)
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":

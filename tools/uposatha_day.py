@@ -4,7 +4,7 @@ from datetime import date
 from rich import print
 
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_yes
+from tools.printer import printer as pr
 
 """Dictionary releases are on full moon uposatha days.
 Modules for testing whether today is an uposatha day and
@@ -73,14 +73,14 @@ def uposatha_today():
 def write_uposatha_count(new_value: int):
     """Save the DpdHeadword count on uposatha day."""
 
-    p_green("updating uposatha count")
+    pr.green("updating uposatha count")
     pth = ProjectPaths()
     config = configparser.ConfigParser()
     config.read(pth.uposatha_day_ini)
     config.set("uposatha", "count", str(new_value))
     with open(pth.uposatha_day_ini, "w") as f:
         config.write(f)
-    p_yes(new_value)
+    pr.yes(new_value)
 
 
 def read_uposatha_count():

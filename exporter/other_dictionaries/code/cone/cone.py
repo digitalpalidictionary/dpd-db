@@ -6,43 +6,41 @@ from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.printer import p_counter, p_green, p_green_title, p_red, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
+
 
 def main():
-    tic()
-    p_title("exporting cone")
-    
-    p_green("saving json")
+    pr.tic()
+    pr.title("exporting cone")
+
+    pr.green("saving json")
     pth: ProjectPaths = ProjectPaths()
 
     with open(pth.cone_source_path) as f:
         cone_dict = json.load(f)
-    
+
     with open(pth.cone_front_matter_path) as f:
         front_matter_dict = json.load(f)
-    
+
     cone_dict.update(front_matter_dict)
 
     # save json
     with open(pth.cone_json_path, "w") as f:
         json.dump(cone_dict, f)
-    p_yes("ok")
-    
-    p_green_title("making dict data")
+    pr.yes("ok")
+
+    pr.green_title("making dict data")
     dict_data = []
-    bulk_dump_html = "" # FIXME delete when done testing css for classes
+    bulk_dump_html = ""  # FIXME delete when done testing css for classes
     errors = []
 
     for counter, (key, html_body) in enumerate(cone_dict.items()):
-        
         # clean html lines breaks at the bottom of the entry
-        html_body = re.sub(
-            r"\s*<p>\s*&nbsp;\s*<br>\s*<br>\s*</p>\s*", "", html_body)
-        
+        html_body = re.sub(r"\s*<p>\s*&nbsp;\s*<br>\s*<br>\s*</p>\s*", "", html_body)
+
         if "href" in html_body:
             html_body = remove_links(html_body)
-        
+
         if html_body:
             html = """
             <!DOCTYPE html>
@@ -65,28 +63,31 @@ def main():
                 definition_plain="",
                 synonyms=synonyms,
             )
-            
+
             dict_data.append(dict_entry)
             bulk_dump_html += html
 
         else:
             errors.append(key)
-        
+
         if counter % 5000 == 0:
-            p_counter(counter, len(cone_dict), key)
-    
+            pr.counter(counter, len(cone_dict), key)
+
     if errors:
-        errors_string = ', '.join(errors)
-        errors_string = errors_string \
-            .replace("[", "[[").replace("]", "]]") \
-            .replace("(", "((").replace(")", "))")
-        p_red(f"ERRORS on: {errors_string}")
+        errors_string = ", ".join(errors)
+        errors_string = (
+            errors_string.replace("[", "[[")
+            .replace("]", "]]")
+            .replace("(", "((")
+            .replace(")", "))")
+        )
+        pr.red(f"ERRORS on: {errors_string}")
 
     # FIXME delete when done testing css
     with open("exporter/other_dictionaries/code/cone/bulk_dump_html.html", "w") as f:
         f.write(bulk_dump_html)
 
-    p_green("making dict_info and dict_var")
+    pr.green("making dict_info and dict_var")
 
     dict_info = DictInfo(
         bookname="Dictionary of Pāli by Margaret Cone",
@@ -177,40 +178,34 @@ def main():
     )
 
     dict_var = DictVariables(
-        css_path = pth.cone_css_path,
+        css_path=pth.cone_css_path,
         js_paths=None,
         gd_path=pth.cone_gd_path,
         md_path=pth.cone_mdict_path,
         dict_name="cone",
         icon_path=None,
         zip_up=True,
-        delete_original=True
+        delete_original=True,
     )
 
-    p_yes("")
+    pr.yes("")
 
     export_to_goldendict_with_pyglossary(
-        dict_info,
-        dict_var,
-        dict_data,
-        zip_synonyms=False
+        dict_info, dict_var, dict_data, zip_synonyms=False
     )
 
-    export_to_mdict(
-        dict_info,
-        dict_var,
-        dict_data)
+    export_to_mdict(dict_info, dict_var, dict_data)
 
-    toc()
+    pr.toc()
 
 
 def make_synonyms_list(word):
     synonyms = set()
-    
+
     # remove digits
     if re.findall(r"\d", word):
         word = re.sub(r"\d", "", word)
-    
+
     # ar > ā
     if re.findall(r"ar$", word):
         word_ā = re.sub(r"ar$", "ā", word)
@@ -222,18 +217,18 @@ def make_synonyms_list(word):
         synonyms.add(word_ī)
         word_i = re.sub(r"in$", "i", word)
         synonyms.add(word_i)
-    
+
     # remove brackets
     if "(" in word:
         word = re.sub(r"\(|\)", "", word)
-    
+
     synonyms.add(word)
     return list(synonyms)
 
 
 def remove_links(html):
     modified_html = re.sub(r'<a href="([^"]+)">', r'<span class="blue">', html)
-    modified_html = re.sub(r'</a>', r'</span>', modified_html)
+    modified_html = re.sub(r"</a>", r"</span>", modified_html)
     return modified_html
 
 

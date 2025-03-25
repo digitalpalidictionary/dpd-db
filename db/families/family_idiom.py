@@ -16,34 +16,39 @@ from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import make_short_ru_meaning, ru_replace_abbreviations
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+    make_short_ru_meaning,
+    ru_replace_abbreviations,
+)
 
 from sqlalchemy.orm import joinedload
 
 
 def main():
-    tic()
+    pr.tic()
     print("[bright_yellow]idioms generator")
 
     if not (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
+        config_test("exporter", "make_dpd", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+        or config_test("exporter", "make_tpr", "yes")
+        or config_test("exporter", "make_ebook", "yes")
     ):
         print("[green]disabled in config.ini")
-        toc()
+        pr.toc()
         return
-    
+
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = db_session.query(DpdHeadword) \
-        .options(joinedload(DpdHeadword.ru)) \
-        .filter(DpdHeadword.family_idioms != "") \
+    dpd_db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.ru))
+        .filter(DpdHeadword.family_idioms != "")
         .all()
+    )
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     sync_idiom_numbers_with_family_compound(db_session)
@@ -51,8 +56,8 @@ def main():
     idioms_dict = compile_idioms_html(dpd_db, idioms_dict)
     add_idioms_to_db(db_session, idioms_dict)
     update_db_cache(db_session, idioms_dict)
-    
-    toc()
+
+    pr.toc()
 
 
 def sync_idiom_numbers_with_family_compound(db_session):
@@ -81,7 +86,7 @@ def sync_idiom_numbers_with_family_compound(db_session):
         ):
             i.family_idioms = i.family_compound
             count += 1
-    
+
     db_session.commit()
     print(count)
 
@@ -105,7 +110,7 @@ def create_idioms_dict(dpd_db):
                         "html_ru": "",
                         "data": [],
                         "data_ru": [],
-                        "count": 0
+                        "count": 0,
                     }
 
     print(len(idioms_dict))
@@ -157,28 +162,26 @@ def compile_idioms_html(dpd_db, idioms_dict):
                     idioms_dict[word]["html_ru"] = ru_html_string
 
                     # data
-                    idioms_dict[word]["data"].append((
-                        i.lemma_1,
-                        i.pos,
-                        meaning,
-                        degree_of_completion(i, html=False)
-                    ))
+                    idioms_dict[word]["data"].append(
+                        (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
+                    )
 
                     # rus data
-                    idioms_dict[word]["data_ru"].append((
-                        i.lemma_1,
-                        pos,
-                        ru_meaning,
-                        rus_degree_of_completion(i, html=False)
-                    ))
-
+                    idioms_dict[word]["data_ru"].append(
+                        (
+                            i.lemma_1,
+                            pos,
+                            ru_meaning,
+                            rus_degree_of_completion(i, html=False),
+                        )
+                    )
 
                     # count
                     idioms_dict[word]["count"] += 1
 
     for i in idioms_dict:
         idioms_dict[i]["html"] += "</table>"
-        idioms_dict[i]["html_ru"] += "</table>" 
+        idioms_dict[i]["html_ru"] += "</table>"
 
     return idioms_dict
 
@@ -194,12 +197,13 @@ def add_idioms_to_db(db_session, idioms_dict):
                 idiom=idiom,
                 html=idioms_dict[idiom]["html"],
                 html_ru=idioms_dict[idiom]["html_ru"],
-                count=idioms_dict[idiom]["count"])
+                count=idioms_dict[idiom]["count"],
+            )
             idiom_data.data_pack(idioms_dict[idiom]["data"])
             idiom_data.data_ru_pack(idioms_dict[idiom]["data_ru"])
             add_to_db.append(idiom_data)
 
-    db_session.execute(FamilyIdiom.__table__.delete()) # type: ignore
+    db_session.execute(FamilyIdiom.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()
@@ -208,7 +212,7 @@ def add_idioms_to_db(db_session, idioms_dict):
 
 def update_db_cache(db_session, idioms_dict):
     """Update the db_info with cf_set for use in the exporter."""
-    
+
     print("[green]adding dbinfo cache item")
 
     idioms_set = set()
@@ -216,14 +220,11 @@ def update_db_cache(db_session, idioms_dict):
         if idioms_dict[word]["count"] > 0:
             idioms_set.add(word)
 
-    idioms_set_cache = db_session \
-        .query(DbInfo) \
-        .filter_by(key="idioms_set") \
-        .first()
+    idioms_set_cache = db_session.query(DbInfo).filter_by(key="idioms_set").first()
 
-    if not idioms_set_cache:    
+    if not idioms_set_cache:
         idioms_set_cache = DbInfo()
-    
+
     idioms_set_cache.key = "idioms_set"
     idioms_set_cache.value = json.dumps(list(idioms_set), ensure_ascii=False, indent=1)
     db_session.add(idioms_set_cache)

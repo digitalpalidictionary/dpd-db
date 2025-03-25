@@ -9,7 +9,7 @@ from db.variants.variants_modules import context_cleaner, key_cleaner
 from db.variants.variants_modules import VariantsDict
 
 from tools.paths import ProjectPaths
-from tools.printer import p_green_title, p_counter, p_red
+from tools.printer import printer as pr
 
 debug = False
 
@@ -20,21 +20,21 @@ successes: int = 0
 
 
 def process_sya(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
-    p_green_title("extracting variants from SYA texts")
+    pr.green_title("extracting variants from SYA texts")
 
     file_list: list[Path] = get_sya_file_list(pth)
 
     for counter, file_name in enumerate(file_list):
         if counter % 20 == 0:
-            p_counter(counter, len(file_list), file_name.name)
+            pr.counter(counter, len(file_list), file_name.name)
 
         book = file_name.stem.lower().replace("_", " ").strip()
         text = get_sya_text(file_name)
         variants_dict = extract_sya_variants(book, text, variants_dict)
 
     error_rate = (errors / successes) * 100
-    p_red(f"extracted:  {successes - errors} / {successes}")
-    p_red(f"error rate: {error_rate:.2}%")
+    pr.red(f"extracted:  {successes - errors} / {successes}")
+    pr.red(f"error rate: {error_rate:.2}%")
 
     return variants_dict
 
@@ -229,4 +229,3 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
 # TODO issues
 # -* in text and footnotes
 # missing footnotes in text
-#

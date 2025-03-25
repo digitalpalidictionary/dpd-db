@@ -19,12 +19,11 @@ from tools.headwords_clean_set import make_clean_headwords_set
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_title, p_yes
-from tools.tic_toc import tic, toc
+from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
 
 
-class GlobalVars():
+class GlobalVars:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(DpdHeadword).all()
@@ -36,16 +35,16 @@ class GlobalVars():
     i2h_dict_tpr: dict
 
 
-def inflection_to_headwords(g: GlobalVars): 
+def inflection_to_headwords(g: GlobalVars):
     """Make a dictionary of inflections: [headwords]."""
 
-    p_green("making inflections2headwords dict")
+    pr.green("making inflections2headwords dict")
 
     g.i2h_dict = {}
     g.i2h_dict_tpr = {}
 
     for i in g.dpd_db:
-        inflections = i.inflections_list_all # include api ca eva iti as well
+        inflections = i.inflections_list_all  # include api ca eva iti as well
         for inflection in inflections:
             if inflection in g.all_words_set:
                 if inflection not in g.i2h_dict:
@@ -55,34 +54,33 @@ def inflection_to_headwords(g: GlobalVars):
                     g.i2h_dict[inflection].append(i.id)
                     g.i2h_dict_tpr[inflection].append(i.lemma_1)
 
-    p_yes(len(g.i2h_dict))
+    pr.yes(len(g.i2h_dict))
 
 
 def save_i2h_for_tpr(g: GlobalVars):
     """Save inflections2headwords for Tipitaka Pali Reader."""
 
-    p_green("saving to tsv for tpr")
+    pr.green("saving to tsv for tpr")
 
     with open(g.pth.tpr_i2h_tsv_path, "w") as f:
-        writer = csv.writer(f, delimiter='\t')
+        writer = csv.writer(f, delimiter="\t")
         writer.writerow(["inflection", "headwords"])
 
         for inflection, headwords in g.i2h_dict_tpr.items():
             headwords = pali_list_sorter(headwords)
             headwords = ",".join(headwords)
             writer.writerow([inflection, headwords])
-    
-    p_yes(len(g.i2h_dict_tpr))
+
+    pr.yes(len(g.i2h_dict_tpr))
 
 
 def add_i2h_to_db(g: GlobalVars):
     """Add inflections2headwords to the lookup table."""
-    
 
-    lookup_table = (g.db_session.query(Lookup).all())
+    lookup_table = g.db_session.query(Lookup).all()
     update_set, test_set, add_set = update_test_add(lookup_table, g.i2h_dict)
 
-    p_green("updating db")
+    pr.green("updating db")
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
@@ -91,15 +89,14 @@ def add_i2h_to_db(g: GlobalVars):
             if is_another_value(i, "headwords"):
                 i.headwords = ""
             else:
-                g.db_session.delete(i)    
-    
+                g.db_session.delete(i)
+
     g.db_session.commit()
-    p_yes(len(update_set) + len(test_set))
+    pr.yes(len(update_set) + len(test_set))
 
-
-    p_green("adding to db")
+    pr.green("adding to db")
     add_to_db = []
-    for inflection, ids in g.i2h_dict.items():    
+    for inflection, ids in g.i2h_dict.items():
         if inflection in add_set:
             add_me = Lookup()
             add_me.lookup_key = inflection
@@ -109,38 +106,38 @@ def add_i2h_to_db(g: GlobalVars):
     g.db_session.add_all(add_to_db)
     g.db_session.commit()
     g.db_session.close()
-    p_yes(len(add_set))
+    pr.yes(len(add_set))
 
 
 def main():
-    tic()
-    p_title("inflection to headwords")
+    pr.tic()
+    pr.title("inflection to headwords")
 
     g = GlobalVars()
-    
-    p_green("making all all_tipitaka_word_set")
+
+    pr.green("making all all_tipitaka_word_set")
     g.all_tipitaka_word_set = make_all_tipitaka_word_set()
-    p_yes(len(g.all_tipitaka_word_set))
-    
-    p_green("making all deconstructed words set")
-    g.deconstructions_word_set = \
-        make_words_in_deconstructions(g.db_session)
-    p_yes(len(g.deconstructions_word_set))
+    pr.yes(len(g.all_tipitaka_word_set))
 
-    p_green("making clean headwords set")
+    pr.green("making all deconstructed words set")
+    g.deconstructions_word_set = make_words_in_deconstructions(g.db_session)
+    pr.yes(len(g.deconstructions_word_set))
+
+    pr.green("making clean headwords set")
     g.clean_headwords_set = make_clean_headwords_set(g.dpd_db)
-    p_yes(len(g.clean_headwords_set))
+    pr.yes(len(g.clean_headwords_set))
 
-    p_green("making all words set")
-    g.all_words_set = \
+    pr.green("making all words set")
+    g.all_words_set = (
         g.all_tipitaka_word_set | g.deconstructions_word_set | g.clean_headwords_set
-    p_yes(len(g.all_words_set))
+    )
+    pr.yes(len(g.all_words_set))
 
     inflection_to_headwords(g)
     save_i2h_for_tpr(g)
     add_i2h_to_db(g)
 
-    toc()
+    pr.toc()
 
 
 if __name__ == "__main__":
