@@ -604,12 +604,6 @@ class ProjectPaths:
         # temp
         self.temp_dir = base_dir / "temp/"
 
-        # db_tests_gui
-        self.add_antonyms_sync_dict = (
-            base_dir / "db_tests_gui/add_antonyms_sync_dict.json"
-        )
-        self.add_hyphenations_dict = base_dir / "db_tests_gui/add_hyphenations.json"
-
         # db_tests/
         self.antonym_dict_path = base_dir / "db_tests/test_antonyms.json"
         self.bahubbihi_dict_path = base_dir / "db_tests/test_bahubbihis.json"
@@ -637,6 +631,12 @@ class ProjectPaths:
         self.syn_var_exceptions_path = base_dir / "db_tests/add_synonym_variant.json"
         self.wf_exceptions_list = base_dir / "db_tests/add_word_family_exceptions"
 
+        # db_tests_gui
+        self.add_antonyms_sync_dict = (
+            base_dir / "db_tests_gui/add_antonyms_sync_dict.json"
+        )
+        self.add_hyphenations_dict = base_dir / "db_tests_gui/add_hyphenations.json"
+
         # tools
         self.user_dict_path = base_dir / "tools/user_dictionary.txt"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
@@ -651,13 +651,13 @@ class ProjectPaths:
         self.docs_changelog_md_path = (
             base_dir / "../digitalpalidictionary-website-source/src/changelog.md"
         )
+        self.docs_thanks_md_path = (
+            base_dir / "../digitalpalidictionary-website-source/src/thanks.md"
+        )
 
         # .. external
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"
         self.old_roots_csv_path = base_dir / "../csvs/roots.csv"
-        self.thanks_md_path = (
-            base_dir / "../digitalpalidictionary-website-source/src/thanks.md"
-        )
 
         # go_modules
         self.go_deconstructor_output_dir = base_dir / "go_modules/deconstructor/output"

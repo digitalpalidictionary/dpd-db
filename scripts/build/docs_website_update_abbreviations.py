@@ -7,7 +7,7 @@ Compiles DPD Abbreviations to markdown table and updates docs website.
 import re
 from tools.configger import config_test
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_title, p_yes
+from tools.printer import p_green, p_green_title, p_no, p_red, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.tsv_read_write import read_tsv_dot_dict
 
@@ -51,11 +51,13 @@ def make_abbreviations_md(pth: ProjectPaths):
     return data_md
 
 
-def save_to_web(pth, abbrev_md):
+def save_to_web(pth: ProjectPaths, abbrev_md):
     p_green("saving to website source")
-    with open(pth.abbreviations_md_path, "w") as f:
-        f.write(abbrev_md)
-    p_yes("ok")
+    if pth.docs_abbreviations_md_path.exists():
+        pth.docs_abbreviations_md_path.write_text(abbrev_md)
+    else:
+        p_no("failed")
+        p_red(f"{pth.docs_abbreviations_md_path} not found")
 
 
 def main():

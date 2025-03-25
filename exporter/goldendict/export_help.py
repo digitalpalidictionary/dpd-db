@@ -11,16 +11,19 @@ from sqlalchemy.orm import Session
 
 from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from tools.printer import p_green, p_yes
+from tools.printer import p_green, p_no, p_red, p_yes
 from tools.tsv_read_write import read_tsv_dict
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
 
+
 class Abbreviation:
     """defining the abbreviations.tsv columns"""
 
-    def __init__(self, abbrev, meaning, pali, example, information, ru_abbrev, ru_meaning):
+    def __init__(
+        self, abbrev, meaning, pali, example, information, ru_abbrev, ru_meaning
+    ):
         self.abbrev = abbrev
         self.meaning = meaning
         self.pali = pali
@@ -51,7 +54,7 @@ def generate_help_html(
     pth: ProjectPaths,
     rupth: RuPaths,
     lang="en",
-    show_ru_data=False
+    show_ru_data=False,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     p_green("generating help html")
@@ -93,13 +96,8 @@ def generate_help_html(
 
 
 def add_abbrev_html(
-    pth: ProjectPaths,
-    header: str,
-    rupth: RuPaths,
-    lang="en",
-    show_ru_data=False
+    pth: ProjectPaths, header: str, rupth: RuPaths, lang="en", show_ru_data=False
 ) -> List[DictEntry]:
-
     help_data_list = []
 
     file_path = pth.abbreviations_tsv_path
@@ -121,7 +119,8 @@ def add_abbrev_html(
             example=x["example"],
             information=x["explanation"],
             ru_abbrev=x["ru_abbrev"],
-            ru_meaning=x["ru_meaning"])
+            ru_meaning=x["ru_meaning"],
+        )
 
     items = list(map(_csv_row_to_abbreviations, rows))
 
@@ -142,10 +141,10 @@ def add_abbrev_html(
                 word = i.abbrev
 
         res = DictEntry(
-            word = word,
-            definition_html = html,
-            definition_plain = "",
-            synonyms = [],
+            word=word,
+            definition_html=html,
+            definition_plain="",
+            synonyms=[],
         )
 
         help_data_list.append(res)
@@ -154,13 +153,8 @@ def add_abbrev_html(
 
 
 def add_help_html(
-    pth: ProjectPaths,
-    header: str,
-    rupth: RuPaths,
-    lang="en",
-    show_ru_data=False
+    pth: ProjectPaths, header: str, rupth: RuPaths, lang="en", show_ru_data=False
 ) -> List[DictEntry]:
-
     help_data_list = []
 
     file_path = pth.help_tsv_path
@@ -179,7 +173,7 @@ def add_help_html(
             help=x["help"],
             meaning=x["meaning"],
             ru_help=x["ru_help"],
-            ru_meaning=x["ru_meaning"]
+            ru_meaning=x["ru_meaning"],
         )
 
     items = list(map(_csv_row_to_help, rows))
@@ -198,10 +192,10 @@ def add_help_html(
             word = i.ru_help
 
         res = DictEntry(
-            word = word,
-            definition_html = html,
-            definition_plain = "",
-            synonyms = [],
+            word=word,
+            definition_html=html,
+            definition_plain="",
+            synonyms=[],
         )
 
         help_data_list.append(res)
@@ -209,11 +203,7 @@ def add_help_html(
     return help_data_list
 
 
-def add_bibliography(
-    pth: ProjectPaths,
-    header: str
-) -> List[DictEntry]:
-
+def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
     help_data_list = []
 
     file_path = pth.bibliography_tsv_path
@@ -227,10 +217,10 @@ def add_bibliography(
     # i = current item, n = next item
     for x in range(len(bibliography_dict)):
         i = bibliography_dict[x]
-        if x+1 > len(bibliography_dict)-1:
+        if x + 1 > len(bibliography_dict) - 1:
             break
         else:
-            n = bibliography_dict[x+1]
+            n = bibliography_dict[x + 1]
 
         if i.category:
             html += f"<h3>{i.category}</h3>"
@@ -248,7 +238,9 @@ def add_bibliography(
         if not i.city and i.publisher:
             html += f", {i.publisher}"
         if i.site:
-            html += f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
+            html += (
+                f", accessed through <a href='{i.site}'  target='_blank'>{i.site}</a>"
+            )
         if i.surname:
             html += "</li>"
 
@@ -262,29 +254,24 @@ def add_bibliography(
     synonyms = ["dpd bibliography", "bibliography", "bib"]
 
     res = DictEntry(
-        word = "bibliography",
-        definition_html = html,
-        definition_plain = "",
-        synonyms = synonyms,
+        word="bibliography",
+        definition_html=html,
+        definition_plain="",
+        synonyms=synonyms,
     )
 
     help_data_list.append(res)
 
     # save markdown for website
 
-    if pth.bibliography_md_path.exists():
+    if pth.docs_bibliography_md_path.exists():
         md = html2text.html2text(html)
-        with open(pth.bibliography_md_path, "w") as file:
-            file.write(md)
+        pth.docs_bibliography_md_path.write_text(md)
 
     return help_data_list
 
 
-def add_thanks(
-    pth: ProjectPaths,
-    header: str
-) -> List[DictEntry]:
-
+def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
     help_data_list = []
 
     file_path = pth.thanks_tsv_path
@@ -297,16 +284,16 @@ def add_thanks(
     # i = current item, n = next item
     for x in range(len(thanks)):
         i = thanks[x]
-        if x+1 > len(thanks)-1:
+        if x + 1 > len(thanks) - 1:
             break
         else:
-            n = thanks[x+1]
+            n = thanks[x + 1]
 
         if i.category:
             html += f"<h2>{i.category}</h2>"
             html += f"<p>{i.what}</p>"
             html += "<ul>"
-        if i. who:
+        if i.who:
             html += f"<li><b>{i.who}</b>"
         if i.where:
             html += f" {i.where}"
@@ -325,30 +312,30 @@ def add_thanks(
     synonyms = ["dpd thanks", "thankyou", "thanks", "anumodana"]
 
     res = DictEntry(
-        word = "thanks",
-        definition_html = html,
-        definition_plain = "",
-        synonyms = synonyms,
+        word="thanks",
+        definition_html=html,
+        definition_plain="",
+        synonyms=synonyms,
     )
 
     help_data_list.append(res)
 
     # save markdown for website
-    if pth.thanks_md_path.exists():
+    p_green("saving thanks to website source")
+    if pth.docs_thanks_md_path.exists():
         md = html2text.html2text(html)
-        with open(pth.thanks_md_path, "w") as file:
-            file.write(md)
+        pth.docs_thanks_md_path.write_text(md)
+        p_yes("ok")
+    else:
+        p_no("failed")
+        p_red(f"error saving {pth.docs_thanks_md_path}")
 
     return help_data_list
 
 
-def render_abbrev_templ( 
-            pth: ProjectPaths, 
-            i: Abbreviation,
-            rupth: RuPaths,
-            lang="en",
-            show_ru_data=False
-            ) -> str:
+def render_abbrev_templ(
+    pth: ProjectPaths, i: Abbreviation, rupth: RuPaths, lang="en", show_ru_data=False
+) -> str:
     """render html of abbreviations"""
 
     if lang == "en":
@@ -359,13 +346,9 @@ def render_abbrev_templ(
     return str(abbrev_templ.render(i=i, show_ru_data=show_ru_data))
 
 
-def render_help_templ( 
-            pth: ProjectPaths, 
-            i: Help,
-            rupth: RuPaths,
-            lang="en",
-            show_ru_data=False
-            ) -> str:
+def render_help_templ(
+    pth: ProjectPaths, i: Help, rupth: RuPaths, lang="en", show_ru_data=False
+) -> str:
     """render html of help"""
 
     if lang == "en":

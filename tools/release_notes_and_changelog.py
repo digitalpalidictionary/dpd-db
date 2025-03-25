@@ -19,7 +19,7 @@ from db.models import DpdHeadword, DpdRoot, Lookup
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.printer import p_green, p_green_title, p_title, p_yes
+from tools.printer import p_green, p_green_title, p_no, p_red, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.uposatha_day import read_uposatha_count, uposatha_today, write_uposatha_count
 
@@ -278,20 +278,17 @@ def make_website_changelog(g: GlobalVars) -> str:
 
 def update_website_changelog(g: GlobalVars) -> None:
     p_green("updating website changelog")
-    try:
-        with open(g.pth.docs_changelog_md_path, "r") as f:
-            changelog_md: str = f.read()
 
+    if g.pth.docs_changelog_md_path.exists():
+        changelog_md = g.pth.docs_changelog_md_path.read_text()
         find_me: str = "# Changelog"
         replace_me: str = f"# Changelog\n{g.changelog}\n"
         changelog_updated: str = changelog_md.replace(find_me, replace_me)
-
-        with open(g.pth.docs_changelog_md_path, "w") as f:
-            f.write(changelog_updated)
+        g.pth.docs_changelog_md_path.write_text(changelog_updated)
         p_yes("ok")
-
-    except Exception as e:
-        print(e)
+    else:
+        p_no("failed")
+        p_red(f"{g.pth.docs_changelog_md_path} not found")
 
 
 def write_to_file(g: GlobalVars) -> None:
