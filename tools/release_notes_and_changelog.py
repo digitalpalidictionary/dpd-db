@@ -195,17 +195,25 @@ def get_new_words(g: GlobalVars) -> None:
 
 
 def get_github_issues_list(g: GlobalVars) -> None:
+    pr.green("getting github issues")
     last_30_days: datetime = datetime.now() - timedelta(days=30)
     github: Github = Github()
-    repo = github.get_repo("digitalpalidictionary/dpd-db")
-    issues = repo.get_issues(state="closed", since=last_30_days, sort="number")
+    try:
+        repo = github.get_repo("digitalpalidictionary/dpd-db")
+        issues = repo.get_issues(state="closed", since=last_30_days, sort="number")
+        pr.yes("ok")
 
-    md: List[str] = []
-    for i in issues:
-        md.append(rf"- [#{i.number} {i.title}]({i.html_url})")
+        md: List[str] = []
+        for i in issues:
+            md.append(rf"- [#{i.number} {i.title}]({i.html_url})")
 
-    text: str = "\n".join(sorted(md))
-    g.github_issues = text
+        text: str = "\n".join(sorted(md))
+        g.github_issues = text
+
+    except Exception as e:
+        pr.no("no")
+        pr.red(f"GitHub not available.\n{e}")
+        g.github_issues = "GitHub issues not available right now..."
 
     # --- other fields ---
     # i.milestone
@@ -271,7 +279,6 @@ def make_website_changelog(g: GlobalVars) -> str:
 
 ### New Words
 {g.new_words}
-
 """
 
 
