@@ -213,7 +213,7 @@ def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
 
 def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
     # update from db
-    pr.green("updating")
+    pr.green_title("updating")
 
     added_list = []
     updated_list = []
@@ -247,15 +247,15 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
                 print(data_dict[id])
                 deleted_list += [i.id]
 
-    print(f"[green]{'added':<20}{len(added_list):>10}")
-    print(f"[green]{'updated':<20}{len(updated_list):>10}")
-    print(f"[green]{'changed deck':<20}{len(changed_deck_list):>10}")
-    print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
+    pr.summary("added", len(added_list))
+    pr.summary("updated", len(updated_list))
+    pr.summary("changed deck", len(changed_deck_list))
+    pr.summary("deleted", len(deleted_list))
 
-    print(f"{added_list=}")
-    print(f"{updated_list=}")
-    print(f"{changed_deck_list=}")
-    print(f"{deleted_list=}")
+    # print(f"{added_list=}")
+    # print(f"{updated_list=}")
+    # print(f"{changed_deck_list=}")
+    # print(f"{deleted_list=}")
 
 
 def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> None:

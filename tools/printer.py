@@ -142,6 +142,12 @@ class Printer:
         self.bip()
         self._log(logging.INFO, "status", message, type="status")
 
+    def cyan(self, message: str) -> None:
+        """Print left-aligned cyan message and start timer."""
+        print(f"[cyan]{message:<35}", end="")
+        self.bip()
+        self._log(logging.INFO, "status", message, type="status")
+
     def white(self, message: str) -> None:
         """Print indented white message and start timer."""
         print(f"{'':<5}[white]{message:<30}", end="")
@@ -180,7 +186,7 @@ class Printer:
             logging.INFO, "counter", word, type="progress", count=counter, total=total
         )
 
-    def summary(self, key: str, value: str) -> None:
+    def summary(self, key: str, value: str | int) -> None:
         """Print key-value summary in green."""
         print(f"[green]{key:<20}[/green]{value}")
         self._log(logging.INFO, "summary", f"{key}: {value}", type="summary", key=key)

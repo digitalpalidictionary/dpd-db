@@ -20,7 +20,7 @@ from db.models import DpdHeadword
 from tools.configger import config_read
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
-from tools.tic_toc import tic, toc, bip, bop
+from tools.printer import printer as pr
 
 from tools.date_and_time import day
 
@@ -40,26 +40,30 @@ def main():
     print(f"[green]{'setup dbs':<20}", end="")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
+    db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru))
+        .all()
+    )
     print(f"{len(db):>10}{bop():>10.2f}")
 
-    decks = ["Pali DHP vocab", "Pali Parittas", "Phonetic Changes Pali Class", "Roots Pali Class", "SBS Pali-English Vocab", "Suttas Advanced Pali Class", "Vocab Pali Class"]
+    decks = [
+        "Pali DHP vocab",
+        "Pali Parittas",
+        "Phonetic Changes Pali Class",
+        "Roots Pali Class",
+        "SBS Pali-English Vocab",
+        "Suttas Advanced Pali Class",
+        "Vocab Pali Class",
+    ]
 
-    (
-        col,
-        data_dict,
-        deck_dict,
-        model_dict,
-        carry_on
-    ) = setup_anki_updater(decks)
+    (col, data_dict, deck_dict, model_dict, carry_on) = setup_anki_updater(decks)
 
     if carry_on:
-        update_from_db(
-            decks, db, col, data_dict, deck_dict, model_dict)
-    
+        update_from_db(decks, db, col, data_dict, deck_dict, model_dict)
+
     toc()
 
-    
 
 def setup_anki_updater(decks):
     col = get_anki_collection()
@@ -75,7 +79,7 @@ def setup_anki_updater(decks):
         return col, {}, {}, {}, False
 
 
-def get_anki_collection() -> Collection|None:
+def get_anki_collection() -> Collection | None:
     bip()
     print(f"[green]{'get anki collection':<20}", end="")
     anki_db_path = config_read("anki", "db_path_sbs")
@@ -88,13 +92,16 @@ def get_anki_collection() -> Collection|None:
         print("close and try again.")
         return None
 
+
 def backup_anki_db(col) -> None:
     # backup anki db
     bip()
     print(f"[green]{'backup anki db':<20}", end="")
     anki_backup_path = config_read("anki", "backup_path_sbs")
     if anki_backup_path:
-        is_backed_up = col.create_backup(backup_folder=anki_backup_path, force=False, wait_for_completion=False)
+        is_backed_up = col.create_backup(
+            backup_folder=anki_backup_path, force=False, wait_for_completion=False
+        )
         # if force = False, the db will not backup if it has not changed
         if not is_backed_up:
             print(f"[red]{'no':>10}{bop():>10.2f}")
@@ -102,6 +109,7 @@ def backup_anki_db(col) -> None:
             print(f"{'ok':>10}{bop():>10.2f}")
     else:
         print(f"[red]{'no path':>10}{bop():>10.2f}")
+
 
 def get_field_names(col: Collection, deck_name: str) -> List[str]:
     """get field names for a specif deck"""
@@ -114,28 +122,32 @@ def get_field_names(col: Collection, deck_name: str) -> List[str]:
     else:
         return []
 
+
 def make_search_query(decks):
     return " or ".join(f'deck:"{deck}"' for deck in decks)
+
 
 def get_notes(col: Collection, decks: List[str]) -> List[Note]:
     """get all notes for a list of decks"""
     bip()
     print(f"[green]{'get notes':<20}", end="")
-    search_query =  make_search_query(decks)
+    search_query = make_search_query(decks)
     note_ids = col.find_notes(search_query)
     notes = [col.get_note(note_id) for note_id in note_ids]
     print(f"{len(notes):>10}{bop():>10.2f}")
     return notes
 
+
 def get_cards(col: Collection, decks: List[str]) -> List[Card]:
     """get all cards for a list of decks"""
     bip()
     print(f"[green]{'get cards':<20}", end="")
-    search_query =  make_search_query(decks)
+    search_query = make_search_query(decks)
     card_ids = col.find_cards(search_query)
     cards = [col.get_card(card_id) for card_id in card_ids]
     print(f"{len(cards):>10}{bop():>10.2f}")
     return cards
+
 
 def get_decks(col: Collection) -> Dict:
     """get all decks"""
@@ -151,6 +163,7 @@ def get_decks(col: Collection) -> Dict:
     print(f"{len(deck_dict_reverse):>10}{bop():>10.2f}")
     return deck_dict
 
+
 def get_models(col: Collection) -> dict:
     # get models
     bip()
@@ -160,9 +173,8 @@ def get_models(col: Collection) -> dict:
     print(f"{len(model_dict):>10}{bop():>10.2f}")
     return model_dict
 
-def make_data_dict(
-        notes: List[Note],
-        cards: List[Card]) -> dict:
+
+def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
     """make data dict"""
 
     bip()
@@ -180,7 +192,7 @@ def make_data_dict(
             "did": None,
             "card": None,
         }
-    
+
     for card in cards:
         if card.nid in data_dict:
             data_dict[card.nid]["cid"] = card.id
@@ -189,7 +201,10 @@ def make_data_dict(
 
     # re-key data_dict
     data2 = {}
-    for key, data, in data_dict.items():
+    for (
+        key,
+        data,
+    ) in data_dict.items():
         dpd_id = data["dpd_id"]
         if dpd_id in data_dict:
             print(f"[red]key {dpd_id} already exists")
@@ -202,7 +217,8 @@ def make_data_dict(
     print(f"{len(data_dict):>10}{bop():>10.2f}")
     return data_dict
 
-def update_from_db(decks, db, col, data_dict, deck_dict, model_dict) -> None:    
+
+def update_from_db(decks, db, col, data_dict, deck_dict, model_dict) -> None:
     # update from db
     bip()
     print(f"[green]{'updating':<20}")
@@ -222,9 +238,11 @@ def update_from_db(decks, db, col, data_dict, deck_dict, model_dict) -> None:
                         if is_updated:
                             updated_list += [i.id]
                             col.update_note(note)
-                        if update_deck(decks, col, note, i, data_dict[id], deck_dict, model_dict):
+                        if update_deck(
+                            decks, col, note, i, data_dict[id], deck_dict, model_dict
+                        ):
                             changed_deck_list += [i.id]
-                        
+
                     # add note
                     else:
                         added_list += [i.id]
@@ -242,15 +260,15 @@ def update_from_db(decks, db, col, data_dict, deck_dict, model_dict) -> None:
                         print(data_dict[id])
                         deleted_list += [i.id]
 
-    print(f"[green]{'added':<20}{len(added_list):>10}")
-    print(f"[green]{'updated':<20}{len(updated_list):>10}")
-    print(f"[green]{'changed deck':<20}{len(changed_deck_list):>10}")
-    print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
+    pr.summary("added", len(added_list))
+    pr.summary("updated", len(updated_list))
+    pr.summary("changed deck", len(changed_deck_list))
+    pr.summary("deleted", len(deleted_list))
 
-    print(f"{added_list=}")
-    print(f"{updated_list=}")
-    print(f"{changed_deck_list=}")
-    print(f"{deleted_list=}")
+    # print(f"{added_list=}")
+    # print(f"{updated_list=}")
+    # print(f"{changed_deck_list=}")
+    # print(f"{deleted_list=}")
 
 
 def update_note_values(deck, note, i):
@@ -266,111 +284,99 @@ def update_note_values(deck, note, i):
             note["sbs_class_anki"] = str(i.sbs.sbs_class_anki)
         if "sbs_category" in note:
             note["sbs_category"] = str(i.sbs.sbs_category)
-        if "sbs_class" in note:         
+        if "sbs_class" in note:
             note["sbs_class"] = str(i.sbs.sbs_class)
-        if "sbs_source_1" in note:            
+        if "sbs_source_1" in note:
             note["sbs_source_1"] = str(i.sbs.sbs_source_1)
-        if "sbs_sutta_1" in note:              
+        if "sbs_sutta_1" in note:
             note["sbs_sutta_1"] = str(i.sbs.sbs_sutta_1).replace("\n", "<br>")
-        if "sbs_example_1" in note:            
+        if "sbs_example_1" in note:
             note["sbs_example_1"] = str(i.sbs.sbs_example_1).replace("\n", "<br>")
-        if "sbs_chant_pali_1" in note:            
+        if "sbs_chant_pali_1" in note:
             note["sbs_chant_pali_1"] = str(i.sbs.sbs_chant_pali_1)
-        if "sbs_chant_eng_1" in note:            
+        if "sbs_chant_eng_1" in note:
             note["sbs_chant_eng_1"] = str(i.sbs.sbs_chant_eng_1)
-        if "sbs_chapter_1" in note:            
+        if "sbs_chapter_1" in note:
             note["sbs_chapter_1"] = str(i.sbs.sbs_chapter_1)
-        if "sbs_source_2" in note:            
+        if "sbs_source_2" in note:
             note["sbs_source_2"] = str(i.sbs.sbs_source_2)
-        if "sbs_sutta_2" in note:            
+        if "sbs_sutta_2" in note:
             note["sbs_sutta_2"] = str(i.sbs.sbs_sutta_2).replace("\n", "<br>")
-        if "sbs_example_2" in note:            
+        if "sbs_example_2" in note:
             note["sbs_example_2"] = str(i.sbs.sbs_example_2).replace("\n", "<br>")
-        if "sbs_chant_pali_2" in note:            
+        if "sbs_chant_pali_2" in note:
             note["sbs_chant_pali_2"] = str(i.sbs.sbs_chant_pali_2)
-        if "sbs_chant_eng_2" in note:            
+        if "sbs_chant_eng_2" in note:
             note["sbs_chant_eng_2"] = str(i.sbs.sbs_chant_eng_2)
-        if "sbs_chapter_2" in note:            
+        if "sbs_chapter_2" in note:
             note["sbs_chapter_2"] = str(i.sbs.sbs_chapter_2)
-        if "sbs_source_3" in note:            
+        if "sbs_source_3" in note:
             note["sbs_source_3"] = str(i.sbs.sbs_source_3)
-        if "sbs_sutta_3" in note:            
+        if "sbs_sutta_3" in note:
             note["sbs_sutta_3"] = str(i.sbs.sbs_sutta_3).replace("\n", "<br>")
-        if "sbs_example_3" in note:            
+        if "sbs_example_3" in note:
             note["sbs_example_3"] = str(i.sbs.sbs_example_3).replace("\n", "<br>")
-        if "sbs_chant_pali_3" in note:            
+        if "sbs_chant_pali_3" in note:
             note["sbs_chant_pali_3"] = str(i.sbs.sbs_chant_pali_3)
-        if "sbs_chant_eng_3" in note:            
+        if "sbs_chant_eng_3" in note:
             note["sbs_chant_eng_3"] = str(i.sbs.sbs_chant_eng_3)
-        if "sbs_chapter_3" in note:            
+        if "sbs_chapter_3" in note:
             note["sbs_chapter_3"] = str(i.sbs.sbs_chapter_3)
-        if "sbs_source_4" in note:            
+        if "sbs_source_4" in note:
             note["sbs_source_4"] = str(i.sbs.sbs_source_4)
-        if "sbs_sutta_4" in note:            
+        if "sbs_sutta_4" in note:
             note["sbs_sutta_4"] = str(i.sbs.sbs_sutta_4).replace("\n", "<br>")
-        if "sbs_example_4" in note:            
+        if "sbs_example_4" in note:
             note["sbs_example_4"] = str(i.sbs.sbs_example_4).replace("\n", "<br>")
-        if "sbs_chant_pali_4" in note:            
+        if "sbs_chant_pali_4" in note:
             note["sbs_chant_pali_4"] = str(i.sbs.sbs_chant_pali_4)
-        if "sbs_chant_eng_4" in note:            
+        if "sbs_chant_eng_4" in note:
             note["sbs_chant_eng_4"] = str(i.sbs.sbs_chant_eng_4)
-        if "sbs_chapter_4" in note:            
+        if "sbs_chapter_4" in note:
             note["sbs_chapter_4"] = str(i.sbs.sbs_chapter_4)
-        if "sbs_notes" in note:            
+        if "sbs_notes" in note:
             note["sbs_notes"] = str(i.sbs.sbs_notes).replace("\n", "<br>")
 
     if "grammar" in note:
         note["grammar"] = str(i.grammar)
-    if "neg" in note:        
+    if "neg" in note:
         note["neg"] = str(i.neg)
-    if "verb" in note:        
+    if "verb" in note:
         note["verb"] = str(i.verb)
-    if "trans" in note:        
+    if "trans" in note:
         note["trans"] = str(i.trans)
-    if "plus_case" in note:        
+    if "plus_case" in note:
         note["plus_case"] = str(i.plus_case)
 
     # 'meaning_1' field
     if i.ru and "meaning_1" in note:
-        if (
-            not i.meaning_1 and 
-            i.meaning_lit and 
-            " lit." in i.meaning_2
-        ):
+        if not i.meaning_1 and i.meaning_lit and " lit." in i.meaning_2:
             # Remove everything after " lit." in 'meaning_2'
             meaning_2_without_lit = i.meaning_2.split("; lit.")[0]
-            note['meaning_1'] = meaning_2_without_lit
+            note["meaning_1"] = meaning_2_without_lit
             # print(f"meaning_2_without_lit {i.lemma_1}") # Debugging line
-        elif (
-            not i.meaning_1 and 
-            i.meaning_lit and 
-            i.meaning_2
-        ):
-            note['meaning_1'] = i.meaning_2
+        elif not i.meaning_1 and i.meaning_lit and i.meaning_2:
+            note["meaning_1"] = i.meaning_2
             # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
-        elif (
-            not i.meaning_1 and 
-            not i.meaning_lit and 
-            i.meaning_2
-        ):
-            note['meaning_1'] = i.meaning_2
+        elif not i.meaning_1 and not i.meaning_lit and i.meaning_2:
+            note["meaning_1"] = i.meaning_2
             # print(f"meaning_2=meaning_1 {i.lemma_1}") # Debugging line
 
         elif i.meaning_1:
-            note['meaning_1'] = i.meaning_1
+            note["meaning_1"] = i.meaning_1
             # print(f"meaning_1 {i.lemma_1}") # Debugging line
         else:
             print(f"no meaning {i.lemma_1}")
 
-    if "meaning_lit" in note:           
+    if "meaning_lit" in note:
         note["meaning_lit"] = str(i.meaning_lit)
-    if "sanskrit" in note:        
+    if "sanskrit" in note:
         note["sanskrit"] = str(i.sanskrit)
-    if "root" in note:        
+    if "root" in note:
         note["root"] = str(i.root_clean)
-    if "root_sign" in note:        
+    if "root_sign" in note:
         note["root_sign"] = str(i.root_sign)
-    if "root_base" in note:        
+    if "root_base" in note:
         note["root_base"] = str(i.root_base)
     if i.root_key:
         if "sanskrit_root" in note:
@@ -413,33 +419,39 @@ def update_note_values(deck, note, i):
     if "tags" in note and deck == "SBS Pali-English Vocab":
         tags = []
         if i.sbs.sbs_chant_pali_1:
-            tags.append(i.sbs.sbs_chant_pali_1.replace(' ', '-'))
+            tags.append(i.sbs.sbs_chant_pali_1.replace(" ", "-"))
         if i.sbs.sbs_chant_pali_2:
-            tags.append(i.sbs.sbs_chant_pali_2.replace(' ', '-'))
+            tags.append(i.sbs.sbs_chant_pali_2.replace(" ", "-"))
         if i.sbs.sbs_chant_pali_3:
-            tags.append(i.sbs.sbs_chant_pali_3.replace(' ', '-'))
+            tags.append(i.sbs.sbs_chant_pali_3.replace(" ", "-"))
         if i.sbs.sbs_chant_pali_4:
-            tags.append(i.sbs.sbs_chant_pali_4.replace(' ', '-'))
-        note["tags"] = ' '.join(tags)
+            tags.append(i.sbs.sbs_chant_pali_4.replace(" ", "-"))
+        note["tags"] = " ".join(tags)
 
     # 'link' field
-    if "link" in note:   
+    if "link" in note:
         if i.link:
-            note['link'] = f'<a class="link" href="{i.link}">Wiki link</a>'
+            note["link"] = f'<a class="link" href="{i.link}">Wiki link</a>'
         else:
-            note['link'] = ''
+            note["link"] = ""
 
     # sbs_index
     chant_index_map = load_chant_index_map()
-    chants = [
-        i.sbs.sbs_chant_pali_1,
-        i.sbs.sbs_chant_pali_2,
-        i.sbs.sbs_chant_pali_3,
-        i.sbs.sbs_chant_pali_4
-    ] if i.sbs else []
+    chants = (
+        [
+            i.sbs.sbs_chant_pali_1,
+            i.sbs.sbs_chant_pali_2,
+            i.sbs.sbs_chant_pali_3,
+            i.sbs.sbs_chant_pali_4,
+        ]
+        if i.sbs
+        else []
+    )
 
-    indexes = [chant_index_map.get(chant) for chant in chants if chant in chant_index_map]
-    sbs_index = min(indexes) if indexes else ""   # type: ignore 
+    indexes = [
+        chant_index_map.get(chant) for chant in chants if chant in chant_index_map
+    ]
+    sbs_index = min(indexes) if indexes else ""  # type: ignore
 
     if "sbs_index" in note:
         note["sbs_index"] = str(sbs_index)
@@ -450,10 +462,10 @@ def update_note_values(deck, note, i):
         if os.path.exists(audio_path):
             sbs_audio = f"[sound:{i.lemma_clean}.mp3]"
         else:
-            sbs_audio = ''
+            sbs_audio = ""
     else:
         print("[bold red]no path to anki media")
-        sbs_audio = ''
+        sbs_audio = ""
 
     if "sbs_audio" in note:
         note["sbs_audio"] = sbs_audio
@@ -483,8 +495,8 @@ def unicode_combo_characters(old_fields, note):
 
 def load_chant_index_map():
     chant_index_map = {}
-    with open(dpspth.sbs_index_path, 'r', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t')
+    with open(dpspth.sbs_index_path, "r", encoding="utf-8") as csvfile:
+        reader = csv.reader(csvfile, delimiter="\t")
         next(reader)  # Skip header row
         for row in reader:
             index, chant = row[0], row[1]
@@ -510,7 +522,7 @@ def update_deck(decks, col, note, i, data, deck_dict, model_dict):
                 # update note
                 note.mid = model_dict[new_deck]
                 col.update_note(note)
-                
+
                 # update card
                 card = data["card"]
                 card.did = deck_dict[new_deck]
@@ -529,13 +541,12 @@ def update_deck(decks, col, note, i, data, deck_dict, model_dict):
 
 
 def make_new_note(col, deck, model_dict, deck_dict, i):
-    
-    print(f"Creating new note for {i.lemma_1}") # Debugging line
+    print(f"Creating new note for {i.lemma_1}")  # Debugging line
 
     # Get the list of all note types from the collection
     note_types = [model["name"] for model in col.models.all()]
 
-    print(f"note_types: {note_types}") # Debugging line
+    print(f"note_types: {note_types}")  # Debugging line
 
     # print(f"Deck: {deck}") # Debugging line
 
@@ -543,14 +554,19 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
 
     # Now you can iterate over the note types and perform operations for each one
     # for note_type_name in note_types:
-        # note_type = next((model for model in col.models.all() if model["name"] == note_type_name), None)
+    # note_type = next((model for model in col.models.all() if model["name"] == note_type_name), None)
 
     if (
-        i.ru and
-        i.sbs and
-        (i.sbs.sbs_chant_pali_1 or i.sbs.sbs_chant_pali_2 or i.sbs.sbs_chant_pali_3 or i.sbs.sbs_chant_pali_4)
+        i.ru
+        and i.sbs
+        and (
+            i.sbs.sbs_chant_pali_1
+            or i.sbs.sbs_chant_pali_2
+            or i.sbs.sbs_chant_pali_3
+            or i.sbs.sbs_chant_pali_4
+        )
     ):
-        model_id = model_dict['SBS Vocab']
+        model_id = model_dict["SBS Vocab"]
         deck_id = deck_dict[deck]
         note = col.new_note(model_id)
         note, is_updated = update_note_values(deck, note, i)
@@ -563,6 +579,4 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
 
 
 if __name__ == "__main__":
-
     main()
-
