@@ -90,7 +90,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ādā	3	*āpe	take, seize	√dā	1, 2, 3, 4	give	saṃ √ādā	samādā	dus + samātta (bsk), na + samādatta, samātta, samādatta, samādatte, samādadāti, samādāna, samādāpaka, samādāpana, samādāpayat, samādāpayati, samādāpayāyitum, samādāpayitavya, samādāpyamāna, samādāya, samādāyat, samādītvā, samādīyamāna, samādetum, samādeya, samādetavya, su + samātta (bsk)
 √āp	4	uṇā	be wet	ap	-	water	√āp	ap	āpa, āpas, āpas +, āpāt
 √ās	1	a	sit	√ās	2	sit	√ās	ās	āsana, āsanika, āsiṣṭa, āsīna, āste, āsyati, na + āsana
-√ās	1	a	sit	√ās	2	sit	upa √ās	upās	anupāsita, upāsaka, upāsana, upāsāna, upāsikā, upāsita, upāsitṛ, upāste
+√ās	1	a	sit	√ās	2	sit	upa √ās	upās	anupāsita, upāsaka, upāsana, upāsāna, upāsikā, upāsita, upāsitum, upāsitṛ, upāste
 √ās	1	a	sit	√ās	2	sit	pari upa √ās	paryupās	paryupāsat, paryupāsana, paryupāsanā, paryupāsita, paryupāsitavya, paryupāsitvā, paryupāsitṛ, paryupāste, paryupāstvā
 √ās	1	a	sit	√ās	2	sit	saṃ √ās	samās	samāsa, samāsatas, samāste, samāsyati
 √i 1	1	a	come, go	√i	1, 2	go	√i	i	anaya, anīt, anīti +, aya, ayat, ayana, ita, īt, et, eta, etavya, etu, etum, etave, eyāt, eh, eṣyat, eṣyant, eṣyas, na + et, nairayika, niraya, sa + īti +
@@ -165,7 +165,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √idh	3	ya	succeed, accomplish	√ṛdh	2, 4, 5, 6, 7	thrive	saṃ √idh	samṛdh	samṛddha, samṛddhi, samṛdhyate, samṛdhnoti, saṃsiddhi
 √indh	2	ṃa	fire, burn	√indh √idh	1, 7	kindle	√indh	indh	iṣṭakā, iṣṭakā, iṣṭikā
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	√is	iṣ	aiṣīt, aniccha, anicchaka, anicchā, aniṣṭa, icchaka, icchat, icchati, icchamāna, icchā, icchet, iṣṭa, iṣṭa, icchā, eṣitavya, na + icchat, na + icchati, na + icchamāna
-√is	1	*a	wish for	√iṣ	1, 4, 6, 9	seek, desire	adhi √is	adhīṣ	adhyeṣaṇa, adhyeṣate, adhyeṣi
+√is	1	*a	wish for	√iṣ	1, 4, 6, 9	seek, desire	adhi √is	adhīṣ	adhīṣṭa, adhyeṣaṇa, adhyeṣate, adhyeṣi
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	ā √is	eṣ	anāśa, āśā, āśāvat, āśis, na + āśā, nirāśa, nirāśā
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	pati √is	pratīṣ	pratīcchati, pratīṣya
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	pati ā √is	pratyeṣ	pratyāśā, pratyāśā, prāptyāśā
@@ -352,7 +352,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ati ud √kas	utkṛṣ	ati + utkṛṣṭa
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	apa √kas	apakṛṣ	apakṛṣṭa
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ava √kas	avakṛṣ	ati + avakṛṣṭa, apakarṣa, avakṛṣya
-√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ud √kas	utkṛṣ	utkarṣa, utkarṣaka, utkarṣaṇa, utkarṣati, utkarṣayati, utkṛṣṭa, utkṛṣṭā
+√kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ud √kas	utkṛṣ	utkarṣa, utkarṣaka, utkarṣaṇa, utkarṣati, utkarṣayati, utkṛṣayitvā, utkṛṣṭa, utkṛṣṭā
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	upa √kas	upakṛṣ	upa + kṛṣṭa
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	ni √kas	nikṛṣ	niṣkṛṣṭa
 √kas 1	1	a	drag, draw	√kṛṣ	1, 6	drag, plough	nī √kas	niṣkṛṣ	
@@ -1142,7 +1142,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √tar 1	1	a	cross	√tṝ √tṛ	1	pass	nī √tar	nistṝ	na + nistīrṇa, naistārika (bsk), nistaraṇa, nistarati, nistāra, nistīrṇa
 √tar 1	1	a	cross	√tṝ √tṛ	1	pass	pa √tar	pratṝ	pratarati, pratārayati, pratṛ
 √tar 1	1	a	cross	√tṝ √tṛ	1	pass	pati ud √tar	pratyuttṝ	pratyuttīrya, pratyuttṝ (comes home)
-√tar 1	1	a	cross	√tṝ √tṛ	1	pass	vi √tar	vitṝ	vaitaraṇī, vitaraṇa, vitarati, vitīrṇa
+√tar 1	1	a	cross	√tṝ √tṛ	1	pass	vi √tar	vitṝ	vaitaraṇī, vitaraṇa, vitarati, vitīrṇa, vistāraṇa
 √tar 1	1	*e	cross	√tṝ √tṛ	1	pass	saṃ √tar	saṃtṝ	tārayitvā, saṃ + tāraṇi, saṃtārayati
 √tar 1	1	a	cross	√tṝ √tṛ	1	pass	saṃ ava √tar	samavatṝ	
 √tar 1	1	a	cross	√tṝ √tṛ	1	pass	saṃ ud √tar		
@@ -1841,7 +1841,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	√brūh	bṛṃh	bṛṃhaṇa, bṛṃhayat, bṛṃhayati, bṛṃhayitavya, bṛṃhayitum, bṛṃhayitṛ, vṛmhayamāṇa
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	anu √brūh	-	anu + bṛṃh, anubṛṃhayat (bsk), anu + bṛṃhati, anubṛṃh, anubṛṃhat, anubṛṃhati, anubṛṃhayati, anubṛṃhayamāna
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	upa √brūh	upavṛṃh	upavyūha?, upavṛmhayamāṇa
-√brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	pari √brūh	paribṛṃh	paribṛṃhaṇa
+√brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	pari √brūh	paribṛṃh	paribṛṃhaṇa, paribṛṃhayitvā
 √bhakkh	1	a	eat	√bhakṣ	1	partake of, eat	√bhakkh	bhakṣ	a + bhakṣya, ababhakṣat, bhakṣa, bhakṣaka, bhakṣati, bhakṣayat, bhakṣayati, bhakṣayitvā, bhakṣita, bhakṣitum, bhakṣitvā, bhakṣya
 √bhakkh	1	*aya	eat	√bhakṣ	1	partake of, eat	abhi √bhakkh	-	bhakṣitvā, bhuktvā
 √bhakkh	1	*e	eat	√bhakṣ	1	partake of, eat	saṃ √bhakkh	sambhakṣ	
@@ -2315,7 +2315,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √rādh	3	ya	succeed, please	√rādh	4, 5	succeed	abhi √rādh	abhirādh	abhirāddha, abhirāddha (propitiated), abhirāddhi, na + abhirāddha, na + abhirāddhi
 √rādh	3	ya	succeed, please	√rādh	4, 5	succeed	ava √rādh	avarādh	na + avarādhnoti
 √rādh	3	*e	succeed, please	√rādh	4, 5	succeed	ā √rādh	ārādh	ārādhaka, ārādhaka (worshipping), ārādhanā, ārādhayati, ārādhayitum, ārādhita, ārādhiṣi, ārādhyate, na + ārādhaka (worshipping), na + ārādhanā, na + ārādhanīya, na + ārādhayati, rāddha
-√rādh	3	ya	succeed, please	√rādh	4, 5	succeed	vi √rādh	virādh	avirādhayitvā, na + virāddha, na + virādhyat, viraddha, virāddha, virāddhvā, virāddhvā, virādhya, virādhana, virādhayati, virādhayitvā, virādhiṣi, virādhya, virādhyati
+√rādh	3	ya	succeed, please	√rādh	4, 5	succeed	vi √rādh	virādh	avirādhayitvā, na + virāddha, na + virādhyat, viraddha, virāddha, virāddhvā, virāddhvā, virādhya, virādhana, virādhanā, virādhayati, virādhayitvā, virādhiṣi, virādhya, virādhyati
 √rādh	3	*e	succeed, please	√rādh	4, 5	succeed	saṃ √rādh	saṃrādh	saṃrādhaka
 √ric	2	ṃa	empty	√ric	7	leave	√ric	ric	arikta, rikta, riktaka, riktvā, ricyate, riñcāna, riṇakti, recaka
 √ric	2	ya	empty	√ric	7	leave	ati √ric	atiric	atirikta, atireka, atireka +, atireka + tara, na + atirikta, sātireka

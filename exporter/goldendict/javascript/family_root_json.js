@@ -22392,8 +22392,8 @@ var family_root_json = {
    [
     "ajjhiṭṭha",
     "pp",
-    "requested, invited",
-    "✘"
+    "requested; invited; asked",
+    "✔"
    ],
    [
     "ajjhesati",
@@ -33990,8 +33990,8 @@ var family_root_json = {
    [
     "desayati",
     "pr",
-    "preaches (to); teaches (to); explains (to)",
-    "✘"
+    "preaches (to); teaches (to); explains (to); lit. causes to point out",
+    "✔"
    ],
    [
     "desayanta 1",
@@ -51004,8 +51004,8 @@ var family_root_json = {
    [
     "ārādhanā 4",
     "fem",
-    "success; lit. succeeding",
-    "◑"
+    "success; accomplishment; lit. causing to succeed",
+    "✔"
    ],
    [
     "ārādhanīya 1",
@@ -59824,7 +59824,7 @@ var family_root_json = {
    [
     "nivāsa 1.2",
     "masc",
-    "dwelling; living place; lit. residence",
+    "home; dwelling; living place; lit. residence",
     "✔"
    ],
    [
@@ -69777,7 +69777,7 @@ var family_root_json = {
   "root_key": "√pad",
   "root_family": "upa saṃ √pad",
   "root_meaning": "go, step",
-  "count": 24,
+  "count": 25,
   "data": [
    [
     "anupasampanna 1",
@@ -69856,6 +69856,12 @@ var family_root_json = {
     "pp",
     "possessed with, attained",
     "✘"
+   ],
+   [
+    "upasampādana",
+    "nt",
+    "giving ordination; lit. causing to go near",
+    "✔"
    ],
    [
     "upasampādayati",
@@ -70504,8 +70510,8 @@ var family_root_json = {
    [
     "upāsituṃ",
     "inf",
-    "to sit near; to sit at the feet of",
-    "✘"
+    "to sit near; to sit at the feet (of); lit. to sit near",
+    "✔"
    ]
   ]
  },
@@ -85600,8 +85606,8 @@ var family_root_json = {
    [
     "payirupāsayi",
     "aor",
-    "associated closely (with); attended closely (to); sat at the feet (of)",
-    "✘"
+    "associated closely (with); attended closely (to); sat at the feet (of); lit. caused to sit around near",
+    "✔"
    ],
    [
     "payirupāsi",
@@ -86124,8 +86130,8 @@ var family_root_json = {
    [
     "parāmasitvā 2",
     "abs",
-    "having touched, having caressed",
-    "✘"
+    "having touched; having stroked; having caressed (something with something)",
+    "✔"
    ],
    [
     "parāmassa",
@@ -89301,7 +89307,7 @@ var family_root_json = {
   "root_key": "√brūh",
   "root_family": "pari √brūh",
   "root_meaning": "increase",
-  "count": 4,
+  "count": 5,
   "data": [
    [
     "aparibrūhayi",
@@ -89326,6 +89332,12 @@ var family_root_json = {
     "pp",
     "developed; strengthened",
     "✘"
+   ],
+   [
+    "paribrūhetvā",
+    "abs",
+    "having made strong; having fostered; having fully developed; lit. having caused to increase all around",
+    "✔"
    ]
   ]
  },
@@ -93991,7 +94003,7 @@ var family_root_json = {
   "root_key": "√sad",
   "root_family": "pa √sad",
   "root_meaning": "sink, sit, settle",
-  "count": 59,
+  "count": 60,
   "data": [
    [
     "apāsādika",
@@ -94225,6 +94237,12 @@ var family_root_json = {
     "pasādesi 2",
     "aor",
     "had faith; had confidence; believed; lit. caused to settle forward",
+    "✔"
+   ],
+   [
+    "pasādesi 3",
+    "aor",
+    "appeased; softened up; lit. causes to settle forward",
     "✔"
    ],
    [
@@ -120327,7 +120345,7 @@ var family_root_json = {
     "maññāna",
     "prp",
     "thinking; imagining; presuming; supposing",
-    "◑"
+    "✔"
    ],
    [
     "maññi 1",
@@ -143974,8 +143992,8 @@ var family_root_json = {
    [
     "virādhanā",
     "fem",
-    "failure",
-    "✘"
+    "failure; lack of success; lit. causing to not succeed",
+    "✔"
    ],
    [
     "virādhaya",
@@ -169199,7 +169217,7 @@ var family_root_json = {
   "root_key": "√kas 1",
   "root_family": "ud √kas",
   "root_meaning": "drag, draw",
-  "count": 14,
+  "count": 15,
   "data": [
    [
     "ukkaṭṭha 1",
@@ -169272,6 +169290,12 @@ var family_root_json = {
     "pr",
     "(also ukkaṃseti) exalts; praises",
     "✘"
+   ],
+   [
+    "ukkaṃsāpetvā",
+    "abs",
+    "having built up; having cultivated; having increased; lit. having caused to drag up",
+    "✔"
    ],
    [
     "ukkaṃseti",
@@ -183801,7 +183825,7 @@ var family_root_json = {
     "diviya",
     "adj",
     "divine; celestial; heavenly",
-    "✘"
+    "✔"
    ],
    [
     "divya",
@@ -211066,8 +211090,8 @@ var family_root_json = {
    [
     "vitāraṇa",
     "nt",
-    "helping across; making transcend; lit. causes to cross",
-    "◑"
+    "helping across; making transcend; lit. causing to cross",
+    "✔"
    ],
    [
     "vitiṇṇa 1",

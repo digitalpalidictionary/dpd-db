@@ -9595,7 +9595,7 @@ var family_idiom_json = {
   ]
  },
  "karoti": {
-  "count": 45,
+  "count": 46,
   "data": [
    [
     "attānaṃ avacanīyaṃ karoti",
@@ -9865,6 +9865,12 @@ var family_idiom_json = {
     "samaṃ karoti",
     "idiom",
     "equates; likens (somebody with somebody else)",
+    "✔"
+   ],
+   [
+    "sāmaṃ karoma",
+    "idiom",
+    "(comm) we pay respect (to)",
     "✔"
    ]
   ]
@@ -16684,7 +16690,7 @@ var family_idiom_json = {
   ]
  },
  "su1": {
-  "count": 24,
+  "count": 25,
   "data": [
    [
     "apissu",
@@ -16780,6 +16786,12 @@ var family_idiom_json = {
     "tayassu",
     "sandhi",
     "exactly three",
+    "✔"
+   ],
+   [
+    "tyassu 2",
+    "sandhi",
+    "they indeed; they definitely",
     "✔"
    ],
    [
@@ -19406,7 +19418,7 @@ var family_idiom_json = {
   ]
  },
  "sa3": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "samphalaṃ",
@@ -19418,6 +19430,12 @@ var family_idiom_json = {
     "sāmampi",
     "sandhi",
     "even oneself; just by oneself; even for oneself",
+    "✔"
+   ],
+   [
+    "sāmaṃ karoma",
+    "idiom",
+    "(comm) we pay respect (to)",
     "✔"
    ]
   ]
@@ -23225,7 +23243,7 @@ var family_idiom_json = {
   ]
  },
  "te": {
-  "count": 26,
+  "count": 27,
   "data": [
    [
     "upamaṃ te karissāmi",
@@ -23315,6 +23333,12 @@ var family_idiom_json = {
     "tyassu",
     "sandhi",
     "they may be; they should be",
+    "✔"
+   ],
+   [
+    "tyassu 2",
+    "sandhi",
+    "they indeed; they definitely",
     "✔"
    ],
    [
