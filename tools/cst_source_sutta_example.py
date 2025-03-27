@@ -1,7 +1,7 @@
 import re
 import time
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, element
 from rich import print
 from typing import Tuple, List
 
@@ -158,7 +158,7 @@ class GlobalData:
         self.source_sutta_examples: list[tuple[str, str, str]] = []
         self.filenames: list[str] = get_cst_filenames(self.book)
         self.soups: list[BeautifulSoup] = self.make_cst_soup(self.filenames)
-        self.x = None  # current soup item
+        self.x: element.Tag | None  # current soup item
 
         self.source: str = ""
         self.source_alt: str = ""
@@ -270,19 +270,20 @@ def find_gatha_example(g: GlobalData):
 
     start_time = time.time()
     while True:
-        if x.text == "\n":
-            x = x.previous_sibling
-        elif x["rend"] == "gatha1":
-            break
-        elif x["rend"] == "gatha2":
-            x = x.previous_sibling
-        elif x["rend"] == "gatha3":
-            x = x.previous_sibling
-        elif x["rend"] == "gathalast":
-            x = x.previous_sibling
-        if time.time() - start_time > 1:
-            print(f"[bright_red]{g.text_to_find} [red]is stuck in a loop")
-            break
+        if x:
+            if x.text == "\n":
+                x = x.previous_sibling
+            elif x["rend"] == "gatha1":
+                break
+            elif x["rend"] == "gatha2":
+                x = x.previous_sibling
+            elif x["rend"] == "gatha3":
+                x = x.previous_sibling
+            elif x["rend"] == "gathalast":
+                x = x.previous_sibling
+            if time.time() - start_time > 1:
+                print(f"[bright_red]{g.text_to_find} [red]is stuck in a loop")
+                break
 
     text = clean_gatha(x.text)
     example += text
@@ -719,15 +720,15 @@ def sn_samyutta_nikaya(g: GlobalData):
         and "-" in x.text  # a "-" in the sutta means it contains multiple suttas
     ):
         for peyyala in sn_peyyalas:
-            pr.samyutta_counter, pr.sutta_name, pr.start, pr.end = peyyala
+            p_samyutta_counter, p_sutta_name, p_start, p_end = peyyala
             if (
-                pr.samyutta_counter == g.samyutta_counter
-                and x.text == pr.sutta_name
-                and g.sutta_counter == pr.start - 1
+                p_samyutta_counter == g.samyutta_counter
+                and x.text == p_sutta_name
+                and g.sutta_counter == p_start - 1
             ):
                 sutta_name = re.sub(r"^\d.*\. ", "", x.text)
-                sutta_counter_special = f"{pr.start}-{pr.end}"
-                g.sutta_counter = pr.end
+                sutta_counter_special = f"{p_start}-{p_end}"
+                g.sutta_counter = p_end
                 break
 
     if sutta_name:
@@ -1066,7 +1067,7 @@ def kn14_jataka(g: GlobalData):
             g.vagga_counter = vagga_no
 
     elif x["rend"] == "subhead":
-        if re.findall("^\d", x.text.strip()):
+        if re.findall(r"^\d", x.text.strip()):
             sutta, sutta_no = get_text_and_number_with_brackets_end(x.text.strip())
             g.sutta_counter += 1
             # g.source_alt = f"{book}{g.section_counter}.{g.vagga_counter}.{sutta_no}"
@@ -1777,7 +1778,7 @@ def ana_anguttara_nikaya_commentary(g: GlobalData):
     # find the book number
     try:
         g.anguttara_counter = ana_formatter(x.parent["id"])
-        g.section_counter = re.sub("\..+", "", g.anguttara_counter)
+        g.section_counter = re.sub(r"\..+", "", g.anguttara_counter)
     except KeyError:
         pass
 
