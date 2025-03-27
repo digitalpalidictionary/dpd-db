@@ -1,8 +1,8 @@
 :root {
-    --background-light: rgb(226, 235, 237);
-    --foreground-light: rgb(7, 2, 28);
-    --background-dark: rgb(7, 2, 28);
-    --foreground-dark: rgb(226, 235, 237);
+    --background-light: #e2ebed;
+    --foreground-light: #07021c;
+    --background-dark: #07021c;
+    --foreground-dark: #e2ebed;
     --gray: gray;
     --transparent: rgba(138, 138, 138, 0.253);
     --colour0: #00718d;

@@ -1,0 +1,69 @@
+site_name: Digital Pāḷi Dictionary Docs # You can change this later
+docs_dir: "mkdocs" # Specifies where the source Markdown files are
+repo_url: https://github.com/digitalpalidictionary/dpd-db
+site_dir: "mkdocs_site"
+
+nav:
+  - Home: index.md
+  - About:
+    - Features: "about/features.md"
+    - Roots Dict: "about/rootdict.md"
+    - Word Frequency: "about/frequency.md"
+    - Deconstructor: "about/deconstructor.md"
+    - Grammar Dictionary: "about/grammardict.md"
+    - Abbreviations: "about/abbreviations.md"
+  - Installation Guide:
+    - Windows: "install/win.md"
+    - Android: "install/android_dicttango.md"
+    - Mac: "install/mac.md"
+    - iOS: "install/ios.md"
+    - Linux: "install/linux.md"
+    - Kindle: "install/kindle.md"
+    - Kobo: "install/kobo.md"
+    - ChromeBook: "install/chromebook.md"
+    - Update: "install/update.md"
+  - GoldenDict Features:
+    - Setup the Hotkey: "goldendict/hotkey.md"
+    - Setup the Scan Popup: "goldendict/scan_popup.md"
+    - Setup Advanced Features: "goldendict/advanced.md"
+  - Webapp:
+    - DPDict.net: "webapp/dpdict.md"
+    - Search: "webapp/search.md"
+    - Summary: "webapp/summary.md"
+    - Dictionary display: "webapp/dictionary_display.md"
+    - Settings: "webapp/settings.md"
+    - CST Bold Definitions: "webapp/cst_bold_def.md"
+    - API in GoldenDict: "webapp/api_goldendict.md"
+    - API in DictTango: "webapp/api_dicttango.md"
+  - Software Integrations:
+    - Dhamma.gift website: "integrations/dhamma_gift.md"
+    - Simsapa Dhamma Reader: "integrations/simsapa.md"
+    - Sutta Central Website: "integrations/sutta_central.md"
+    - The Buddha's Words: "integrations/tbw.md"
+    - Tipitaka Pali Reader: "integrations/tpr.md"
+    - Tipitakapali.org: "integrations/tipitakapali.md"
+  - Feedback:
+    - Correct a Mistake: "feedback/correct_mistake.md"
+    - Add a Missing Word: "feedback/add_missing_word.md"
+    - Report a Bug: "feedback/bug_report.md"
+    - Email: "feedback/email.md"
+  - Contributing:
+    - Pāḷi: "contributing/pali.md"
+    - Code: "contributing/code.md"
+  - Changelog: "misc/changelog.md"
+  - Bibliography: "misc/bibliography.md"
+  - Thanks: "misc/thanks.md"
+  - Contact: "misc/contact.md"
+
+
+theme:
+  name: material
+  features:
+    - navigation.footer
+  palette: 
+    - scheme: slate
+      primary: custom
+      accent: custom
+
+extra_css:
+  - stylesheets/extra.css
