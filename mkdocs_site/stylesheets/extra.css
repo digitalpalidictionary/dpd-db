@@ -1,0 +1,35 @@
+[data-md-color-scheme="slate"] {
+
+    /* top bar background and highlighted text*/
+    --md-primary-fg-color: #00A4CC;
+
+    /* top bar text */
+    --md-primary-bg-color: #07021c;
+
+    /* main background */
+    --md-default-bg-color: #07021c;
+
+    /* secondary background */
+    --md-primary-fg-color--dark: #65DBFF;
+
+    /* text colour */
+    --md-default-fg-color: #e2ebed;
+
+    /* text colour */
+    --md-typeset-color: #e2ebed;
+
+    /* heading colour */
+    --md-default-fg-color--light: #cccccc;
+
+    /* menu background colour */
+    --md-default-fg-color--lightest: #07021c;
+
+    /* search bar text */
+    --md-primary-bg-color--dark: #07021c;
+    --md-primary-bg-color--light: #07021c;
+
+
+    /* rollover highlight */
+    --md-accent-fg-color: #65DBFF;
+
+}

@@ -11,7 +11,7 @@ The easiest way to help with Pāḷi is to:
 
 The project uses Google Forms for these. The quickest way to access the forms is by opening the __feedback__ button. 
 
-![add and correct](pics/contributing/add_correct.png)
+![add and correct](../pics/contributing/add_correct.png)
 
 If you would like to tackle something more substantial, please [get in touch by email](mailto:digitalpalidictionary@gmail.com) and we can discuss some options for further involvement.
 
