@@ -1,0 +1,87 @@
+###	Tipitaka Version Abbreviations (General)
+Abbreviation	Meaning
+s?	Sri Lankan
+sy?	Thai
+p?	Pali Text Society
+ka?	Cambodian
+ka	Cambodian
+	
+###	Variant Reading Example Abbreviations
+Abbreviation	Meaning
+s?	Sri Lankan (implied usage in example)
+sy?	Thai (implied usage in example)
+p?	Pali Text Society (implied usage in example)
+	
+###	Abbreviations within Variant Readings (Book/Commentary References)
+Abbreviation	Meaning
+a	a?guttaranik?yap?li
+a??ha	a??hakath?
+c??ani	c??aniddesap?li
+d?	d?ghanik?yap?li
+itivu	itivuttakap?li
+j?	j?takap?li
+khu	khuddakanik?yap?li
+ma	majjhimanik?yap?li
+mah?ni	mah?niddesap?li
+mah?va	mah?va?sa
+moga	moggall?naby?kara?a?
+mu	m?la
+pa	pa?isambhid?maggap?li / pa??h?nap?li
+pe	petavatthup?li/ pe?akopadesap?li / peyy?la
+pu	puggalapaññattip?li
+p?ci	p?cittiyap?li
+p?r?	p?r?jikaka??ap?li
+r?	r?p?vacara
+sa?	sa?yuttanik?yap?li
+su	suttapi?aka/ sutta?
+therag?	therag?th?p?li
+ud?	ud?nap?li
+vi	vim?navatthup?li
+visuddhi	visuddhimagga
+??	??k?
+	
+###	Specific List 1 (S?mu, Machasa?, si)
+Abbreviation	Meaning
+S?mu	S?halakkhara-muddita-potthaka? (Sinala-letter-printed-book)
+Machasa?	Maramma-cha??ha-sa?g?ti-pi?aka-potthaka? (Burmese-......)
+si	Sy?makkhara-potthaka? (Thai-letter-book) 
+	
+###	Specific List 2 (Be, Ce, Ee, etc.)
+Abbreviation	Meaning
+Be	Burmese
+Ce	Sinhalese (Buddhajayanti Tipi?aka Series per Dhammachai p. xx)
+Ee	PTS
+Ke	Cambodian
+Se	Thailan Sy?mara??hassa
+KN	Khom
+LS	Tham Lanna (Thai)
+s?	sinhalese
+sy?	Thai (Sy?ma-ra??ha)
+p?	PTS
+I	english
+ka	Cambodian (Kamb?j?)
+bu	Burmese
+ma	Maramma
+sy?	sy?mara??ha
+po	Por??a (misc. SE Asia palm leaf)
+r?	R?maññ? (Mon)
+cha	6th Council
+yu	European edition
+	
+###	PTS PALITEXT Reference
+Abbreviation	Meaning
+PTS	PALITEXT version 1.0: CD-ROM Database of the Entire Buddhist Pali Canon (Context implies PTS refers to this edition/organization)
+	
+###	Email Excerpt Context
+Abbreviation	Meaning
+romn	"""Roman"" characters"
+	
+###	Online Resource Abbreviations
+Abbreviation	Meaning
+SLTP	SLTP flat files (Metta Net)
+ATI	Access To Insight (implied by context: SLTP correlated to English trans. (ATI))
+SLTP	SLTP search engine (BodhgayaNews) (Context implies SLTP refers to the dataset used by the search engine)
+CSCD	CSCD on-line (VRI)
+VRI	Vipassana Research Institute (implied by context: CSCD on-line (VRI))
+CSCD	CSCD on-line search engine (VRI) (Context implies CSCD refers to the dataset used by the search engine)
+e-Tipitaka	e-Tipitaka (Dhamma Society)
