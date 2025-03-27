@@ -1,8 +1,8 @@
 ---
 name: Maintenance/Refactoring
 about: Suggest code improvements that don't add new features
-title: '[MAINT] '
-labels: 'Type: Refactoring and maintenance'
+title: ''
+labels: '1 Update'
 assignees: ''
 ---
 
