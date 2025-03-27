@@ -123,8 +123,8 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Root</th>"""
                 html_string += f"""<td>{i.rt.root_clean} {i.rt.root_group} """
                 html_string += f"""{i.root_sign} ({i.rt.root_meaning}"""
-                if g.show_ru_data and i.rt.root_ru_meaning:
-                    html_string += f""" - {i.rt.root_ru_meaning}"""
+                # if g.show_ru_data and i.rt.root_ru_meaning:
+                #     html_string += f""" - {i.rt.root_ru_meaning}"""
                 html_string += """)</td></tr>"""
 
                 if i.rt.root_in_comps:
@@ -178,7 +178,7 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Notes</th>"""
                 html_string += f"""<td>{notes_no_formatting}</td></tr>"""
 
-            if g.show_ru_data and i.ru and i.ru.ru_notes:
+            if g.show_ru_data and i.ru and i.ru.ru_notes and i.needs_ru_notes:
                 ru_notes_no_formatting = i.ru.ru_notes.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Заметки</th>"""
                 html_string += f"""<td>{ru_notes_no_formatting}</td></tr>"""
@@ -211,8 +211,8 @@ def generate_tpr_data(g: ProgData):
                     sk_root_meaning = re.sub("'", "", i.rt.sanskrit_root_meaning)
                     html_string += """<tr><th valign="top">Sanskrit Root</th>"""
                     html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning}"""
-                    if g.show_ru_data and i.rt.sanskrit_root_ru_meaning:
-                        html_string += f""" - {i.rt.sanskrit_root_ru_meaning}"""
+                    # if g.show_ru_data and i.rt.sanskrit_root_ru_meaning:
+                    #     html_string += f""" - {i.rt.sanskrit_root_ru_meaning}"""
                     html_string += """)</td></tr>"""
 
             html_string += f"""<tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.1433863141=TPR%20{TODAY}" target="_blank">Submit a correction</a></td></tr>"""

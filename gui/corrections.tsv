@@ -3422,10 +3422,10 @@ tāvakāla + ika"					from kāla not from kālika		yes
 69052	compound_type	dutiyā tappurisa	compound_construction	vilutt<b>aṃ</b> + saññī			missing				
 69052	sanskrit	vilupta + saṃjñin					missing				
 4259	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	nissaggiyaṃ cīvaraṃ <b>anissajjitvā</b> paribhuñjati, āpatti dukkaṭassa. das'āh'ānatikkante atikkantasaññī, āpatti dukkaṭassa.	missing				
-32092	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	<b>das'āh'ānatikkante</b> vematiko, āpatti dukkaṭassa. <b>das'āh'ānatikkante</b> anatikkantasaññī, anāpatti.	missing				
-32092	meaning_1	kept not longer than ten days; stored not more then ten days					missing				
-32092	compound_type	kammadhāraya	compound_construction	dasāha + anatikkanta			missing				
-32092	sanskrit	daśāha + na + atikrānta					missing				
+32091	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	<b>das'āh'ānatikkante</b> vematiko, āpatti dukkaṭassa. <b>das'āh'ānatikkante</b> anatikkantasaññī, anāpatti.	missing				
+32091	meaning_1	kept not longer than ten days; stored not more then ten days					missing				
+32091	compound_type	kammadhāraya	compound_construction	dasāha + anatikkanta			missing				
+32091	sanskrit	daśāha + na + atikrānta					missing				
 5838	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	anāpatti <b>antodas'āhaṃ</b> adhiṭṭheti, vikappeti, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, ummattakassa, ādikammikassā'ti.	missing				
 5838	sanskrit	antar + daśāha + aṃ					missing				
 3228	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	anāpatti antodas'āhaṃ <b>adhiṭṭheti</b>, vikappeti, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, ummattakassa, ādikammikassā'ti.	missing				
@@ -3541,4 +3541,8 @@ na + vippavutthasaññī"					missing
 38258	compound_type		compound_construction				change to idiom				
 38258	family_idioms	nissaggiya pācittiya					change to idiom				
 38258	lemma_1	nissaggiya pācittiya					change to idiom				
-38258	commentary	(VINa) <b>taṃ atikkāmayato nissaggiyaṃ pācittiya</b> nti ... tañ'ca cīvaraṃ nissaggiyaṃ hoti, pācittiy'āpatti c'assa hotī'ti attho ... nissajjitvā āpatti desetabbaṃ.					missing		
+38258	commentary	(VINa) <b>taṃ atikkāmayato nissaggiyaṃ pācittiya</b> nti ... tañ'ca cīvaraṃ nissaggiyaṃ hoti, pācittiy'āpatti c'assa hotī'ti attho ... nissajjitvā āpatti desetabbaṃ.					missing				
+5843	compound_type	kammadhāraya	compound_construction	anto + nivesana			missing				
+14174	meaning_1	rising; ascending; becoming visible					since can be added aruna easier to make meaning more general				
+52197	meaning_1	ground					sg				
+61040	sanskrit	svara + bhāṇa					correction		

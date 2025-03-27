@@ -1159,6 +1159,20 @@ class DpdHeadword(Base):
     @property
     def needs_frequency_button(self) -> bool:
         return bool(self.pos not in EXCLUDE_FROM_FREQ)
+    
+
+    # Determine uniqueness of ru_notes
+    @property
+    def needs_ru_notes(self) -> bool:
+        if self.ru and self.ru.ru_notes:
+            if not self.notes:
+                return True
+            if paragraphs_are_similar(
+                self.ru.ru_notes, self.notes, 0.999
+            ):
+                return False
+            return True
+        return False
 
     def __repr__(self) -> str:
         return f"""DpdHeadword: {self.id} {self.lemma_1} {self.pos} {self.meaning_1}"""
@@ -1367,35 +1381,20 @@ class SBS(Base):
 
     @property
     def needs_sbs_example_button(self) -> bool:
-        sbs_examples = [
-            self.sbs_example_1,
-            self.sbs_example_2,
-            self.sbs_example_3,
-            self.sbs_example_4,
-            self.dhp_example,
-            self.pat_example,
-            self.vib_example,
-            self.class_example,
-            self.discourses_example,
-        ]
-        count = sum(1 for example in sbs_examples if example and example.strip())
-        return count == 1
-
-    @property
-    def needs_sbs_examples_button(self) -> bool:
-        sbs_examples = [
-            self.sbs_example_1,
-            self.sbs_example_2,
-            self.sbs_example_3,
-            self.sbs_example_4,
-            self.dhp_example,
-            self.pat_example,
-            self.vib_example,
-            self.class_example,
-            self.discourses_example,
-        ]
-        count = sum(1 for example in sbs_examples if example and example.strip())
-        return count >= 2
+        return any(
+            example and example.strip()
+            for example in (
+                self.sbs_example_1,
+                self.sbs_example_2,
+                self.sbs_example_3,
+                self.sbs_example_4,
+                self.dhp_example,
+                self.pat_example,
+                self.vib_example,
+                self.class_example,
+                self.discourses_example,
+            )
+        )
 
     @property
     def needs_sbs_example(self) -> bool:
@@ -1419,9 +1418,49 @@ class SBS(Base):
                 self.sbs_example_3,
                 self.sbs_example_4,
             ]
+            if not any(examples):
+                return True
             for example in examples:
                 if example and paragraphs_are_similar(
                     clean_machine(example), clean_machine(self.dhp_example), 0.9
+                ):
+                    return False
+            return True
+        return False
+    
+    @property
+    def needs_pat_example(self) -> bool:
+        if self.pat_example:
+            examples = [
+                self.sbs_example_1,
+                self.sbs_example_2,
+                self.sbs_example_3,
+                self.sbs_example_4,
+            ]
+            if not any(examples):
+                return True
+            for example in examples:
+                if example and paragraphs_are_similar(
+                    clean_machine(example), clean_machine(self.pat_example), 0.9
+                ):
+                    return False
+            return True
+        return False
+    
+    @property
+    def needs_vib_example(self) -> bool:
+        if self.vib_example:
+            examples = [
+                self.sbs_example_1,
+                self.sbs_example_2,
+                self.sbs_example_3,
+                self.sbs_example_4,
+            ]
+            if not any(examples):
+                return True
+            for example in examples:
+                if example and paragraphs_are_similar(
+                    clean_machine(example), clean_machine(self.vib_example), 0.9
                 ):
                     return False
             return True
@@ -1436,6 +1475,8 @@ class SBS(Base):
                 self.sbs_example_3,
                 self.sbs_example_4,
             ]
+            if not any(examples):
+                return True
             for example in examples:
                 if example and paragraphs_are_similar(
                     clean_machine(example), clean_machine(self.discourses_example), 0.9

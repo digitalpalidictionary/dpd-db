@@ -49,7 +49,7 @@
     {% endif %}
 
     {% if d.show_sbs_data %}
-    {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
+    {% if d.sbs.needs_sbs_example_button %}
     <a class="button" href="#" data-target="dps_example_{{d.i.lemma_1_}}">
         dps</a>
     {% endif %}
@@ -465,7 +465,7 @@
     <!-- sbs_examples -->
 
     {% if d.show_sbs_data %}
-    {% if d.sbs.needs_sbs_example_button or d.sbs.needs_sbs_examples_button %}
+    {% if d.sbs.needs_sbs_example_button %}
 
     <div id="dps_example_{{d.i.lemma_1_}}" class="content hidden">
         {% for i in range(1, 5) %}

@@ -182,6 +182,26 @@ def render_pali_word_dpd_html(
             sbs.sbs_example_3 = sbs.sbs_example_3.replace("\n", "<br>")
         if sbs.sbs_example_4:
             sbs.sbs_example_4 = sbs.sbs_example_4.replace("\n", "<br>")
+        if sbs.dhp_example:
+            sbs.dhp_example = sbs.dhp_example.replace("\n", "<br>")
+        if sbs.dhp_source:
+            sbs.dhp_source = sbs.dhp_source.replace("\n", "<br>")
+        if sbs.pat_example:
+            sbs.pat_example = sbs.pat_example.replace("\n", "<br>")
+        if sbs.pat_source:
+            sbs.pat_source = sbs.pat_source.replace("\n", "<br>")
+        if sbs.vib_example:
+            sbs.vib_example = sbs.vib_example.replace("\n", "<br>")
+        if sbs.vib_source:
+            sbs.vib_source = sbs.vib_source.replace("\n", "<br>")
+        if sbs.class_example:
+            sbs.class_example = sbs.class_example.replace("\n", "<br>")
+        if sbs.class_source:
+            sbs.class_source = sbs.class_source.replace("\n", "<br>")
+        if sbs.discourses_example:
+            sbs.discourses_example = sbs.discourses_example.replace("\n", "<br>")
+        if sbs.discourses_source:
+            sbs.discourses_source = sbs.discourses_source.replace("\n", "<br>")
 
     html: str = ""
     html += "<body>"
@@ -235,6 +255,13 @@ def render_pali_word_dpd_html(
         html += example
         size_dict["dpd_example"] += len(example)
 
+    if show_sbs_data and sbs and sbs.needs_sbs_example_button:
+        sbs_example = render_sbs_example_templ(
+            pth, i, sbs, tt.sbs_example_templ, rd["make_link"]
+        )
+        html += sbs_example
+        size_dict["sbs_example"] += len(sbs_example)
+
     if i.needs_conjugation_button or i.needs_declension_button:
         inflection_table = render_inflection_templ(pth, i, tt.inflection_templ, lang)
         html += inflection_table
@@ -273,13 +300,6 @@ def render_pali_word_dpd_html(
         frequency = render_frequency_templ(pth, i, tt.frequency_templ, lang)
         html += frequency
         size_dict["dpd_frequency"] += len(frequency)
-
-    if show_sbs_data and sbs:
-        sbs_example = render_sbs_example_templ(
-            pth, i, sbs, tt.sbs_example_templ, rd["make_link"]
-        )
-        html += sbs_example
-        size_dict["sbs_example"] += len(sbs_example)
 
     feedback = render_feedback_templ(pth, i, tt.feedback_templ)
     html += feedback
@@ -631,15 +651,16 @@ def render_button_box_templ(
         examples_button = ""
 
     # sbs_example_button
-    sbs_example_button = ""
     if (
         show_sbs_data
         and sbs
-        and (sbs.needs_sbs_example_button or sbs.needs_sbs_examples_button)
+        and sbs.needs_sbs_example_button
     ):
         sbs_example_button = button_html.format(
             target=f"sbs_example_{i.lemma_1_}", name="SBS"
         )
+    else:
+        sbs_example_button = ""
 
     # conjugation_button
     if i.needs_conjugation_button:
@@ -864,10 +885,7 @@ def render_sbs_example_templ(
 ) -> str:
     """render sbs examples html"""
 
-    if any(getattr(sbs, f"sbs_example_{n}") for n in range(1, 5)):
-        return str(sbs_example_templ.render(i=i, sbs=sbs, make_link=make_link))
-    else:
-        return ""
+    return str(sbs_example_templ.render(i=i, sbs=sbs, make_link=make_link))
 
 
 def render_inflection_templ(

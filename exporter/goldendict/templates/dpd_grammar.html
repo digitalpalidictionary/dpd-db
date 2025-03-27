@@ -55,9 +55,6 @@
             <th>Root</th>
             <td>${i.root_clean}<sup>${rt.root_has_verb}</sup>${rt.root_group}
                 ${i.root_sign} (${rt.root_meaning})
-                % if show_ru_data:
-                    (${rt.root_ru_meaning})
-                % endif
             </td>
         </tr>
         % if rt.root_in_comps:
@@ -147,7 +144,7 @@
             % endif
         % endif
         % if show_ru_data:
-            % if ru and ru.ru_notes:
+            % if ru and ru.ru_notes and i.needs_ru_notes:
             <tr>
                 <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Заметки</a>
                 </th>
@@ -200,9 +197,6 @@
             <td>
                 <i>
                     ${rt.sanskrit_root} ${rt.sanskrit_root_class} (${rt.sanskrit_root_meaning})
-                    % if show_ru_data:
-                        (${rt.sanskrit_root_ru_meaning})
-                    % endif
                 </i>
             </td>
         </tr>

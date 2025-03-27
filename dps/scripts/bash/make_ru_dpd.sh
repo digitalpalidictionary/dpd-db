@@ -6,7 +6,6 @@ set -e
 
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'ru')"
 python -c "from tools.configger import config_update; config_update('dictionary', 'link_url', 'https://find.dhamma.gift/bw/')"
-python -c "from tools.configger import config_update; config_update('regenerate', 'freq_maps', 'yes')"
 
 python -c "from tools.configger import print_config_settings; print_config_settings(['dictionary', 'goldendict', 'exporter'])"
 
@@ -38,7 +37,7 @@ python -c "from tools.configger import config_update; config_update('dictionary'
 python -c "from tools.configger import config_update; config_update('exporter', 'make_ebook', 'no')"
 python -c "from tools.configger import config_update; config_update('exporter', 'make_deconstructor', 'no')"
 python -c "from tools.configger import config_update; config_update('exporter', 'make_grammar', 'no')"
-python -c "from tools.configger import config_update; config_update('regenerate', 'freq_maps', 'no')"
+
 
 
 git checkout -- pyproject.toml

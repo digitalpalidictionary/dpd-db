@@ -53,8 +53,8 @@
     {% endif %}
 
     {% if d.show_sbs_data and d.i.sbs %}
-    {% if d.i.sbs.needs_sbs_example_button or d.i.sbs.needs_sbs_examples_button %}
-    <a class="button active" name="sbs-example-button" href="#" data-target="sbs_example_{{d.i.lemma_1_}}">
+    {% if d.i.sbs.needs_sbs_example_button %}
+    <a class="button" name="sbs-example-button" href="#" data-target="sbs_example_{{d.i.lemma_1_}}">
         sbs</a>
     {% endif %}
     {% endif %}
@@ -199,9 +199,6 @@
                 {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}}
                 {{d.i.root_sign}}
                 ({{d.i.rt.root_meaning}})
-                {% if d.show_sbs_data %}
-                ({{d.i.rt.root_ru_meaning}})
-                {% endif %}
             </td>
         </tr>
         {% endif %}
@@ -342,7 +339,7 @@
         </tr>
         {% endif %}
 
-        {% if d.i.ru and d.i.ru.ru_notes %}
+        {% if d.i.ru and d.i.ru.ru_notes and d.i.needs_ru_notes %}
         <tr>
             <th>
                 Заметки
@@ -430,9 +427,6 @@
                     {{d.i.rt.sanskrit_root}}
                     {{d.i.rt.sanskrit_root_class}}
                     ({{d.i.rt.sanskrit_root_meaning}})
-                    {% if d.show_sbs_data %}
-                    ({{d.i.rt.sanskrit_root_ru_meaning}})
-                    {% endif %}
                 </i>
             </td>
         </tr>
@@ -499,119 +493,136 @@
 
     <!-- sbs examples -->
 
-    {% if d.show_sbs_data %}
-    {% if d.i.sbs.needs_sbs_example_button or d.i.sbs.needs_sbs_examples_button %}
-    <div id="sbs_example_{{d.i.lemma_1}}" name="sbs-example-div" class="content">
+    {% if d.show_sbs_data and d.i.sbs and d.i.sbs.needs_sbs_example_button %}
+    <div id="sbs_example_{{d.i.lemma_1_}}" name="sbs-example-div" class="content hidden">
         {% if d.i.sbs.needs_sbs_example %}
-        {% for index in range(1, 5) %}
-        {% set example_attr = 'sbs_example_' ~ index %}
-        {% set source_attr = 'sbs_source_' ~ index %}
-        {% set source_link_attr = 'sbs_source_link_' ~ index %}
-        {% set sutta_attr = 'sbs_sutta_' ~ index %}
-        {% set chapter_attr = 'sbs_chapter_' ~ index %}
-        {% set chant_pali_attr = 'sbs_chant_pali_' ~ index %}
-        {% set chant_link_attr = 'sbs_chant_link_' ~ index %}
-        {% set chant_eng_attr = 'sbs_chant_eng_' ~ index %}
-
-        {% if d.i.sbs[example_attr] is defined %}
-        <p>{{ d.i.sbs[example_attr]|safe }}</p>
-        <p class="sbs_sutta">
-            {% if d.make_link and d.i.sbs[source_link_attr] %}
-            <a href="{{ d.i.sbs[source_link_attr] }}" target="_blank">{{ d.i.sbs[source_attr] }}</a>
-            {% else %}
-            {{ d.i.sbs[source_attr] }}
+            {% if d.i.sbs.sbs_example_1 %}
+                <p>{{ d.i.sbs.sbs_example_1|safe }}</p>
+                <p class="sbs_sutta">
+                    {% if d.make_link and d.i.sbs.sbs_source_link_1 %}
+                        <a href="{{ d.i.sbs.sbs_source_link_1 }}" target="_blank">{{ d.i.sbs.sbs_source_1 }}</a>
+                    {% else %}
+                        {{ d.i.sbs.sbs_source_1 }}
+                    {% endif %}
+                    {{ d.i.sbs.sbs_sutta_1|safe }}
+                </p>
+                {% if d.i.sbs.sbs_chapter_1 %}
+                <p class="sbs_sutta">
+                    {{ d.i.sbs.sbs_chapter_1 }} <a href="{{ d.i.sbs.sbs_chant_link_1 }}" target="_blank">{{
+                        d.i.sbs.sbs_chant_pali_1 }}</a>
+                    {{ d.i.sbs.sbs_chant_eng_1 }}
+                </p>
+                {% endif %}
             {% endif %}
-            {{ d.i.sbs[sutta_attr]|safe }}
-        </p>
-        {% if d.i.sbs[chapter_attr] %}
-        <p class="sbs_sutta">
-            {{ d.i.sbs[chapter_attr] }} <a href="{{ d.i.sbs[chant_link_attr] }}" target="_blank">{{
-                d.i.sbs[chant_pali_attr] }}</a>
-            {% if d.i.sbs[chant_eng_attr] %}
-            {{ d.i.sbs[chant_eng_attr] }}
+            {% if d.i.sbs.sbs_example_2 %}
+                <p>{{ d.i.sbs.sbs_example_2|safe }}</p>
+                <p class="sbs_sutta">
+                    {% if d.make_link and d.i.sbs.sbs_source_link_2 %}
+                        <a href="{{ d.i.sbs.sbs_source_link_2 }}" target="_blank">{{ d.i.sbs.sbs_source_2 }}</a>
+                    {% else %}
+                        {{ d.i.sbs.sbs_source_2 }}
+                    {% endif %}
+                    {{ d.i.sbs.sbs_sutta_2|safe }}
+                </p>
+                {% if d.i.sbs.sbs_chapter_2 %}
+                <p class="sbs_sutta">
+                    {{ d.i.sbs.sbs_chapter_2 }} <a href="{{ d.i.sbs.sbs_chant_link_2 }}" target="_blank">{{
+                        d.i.sbs.sbs_chant_pali_2 }}</a>
+                    {{ d.i.sbs.sbs_chant_eng_2 }}
+                </p>
+                {% endif %}
             {% endif %}
-        </p>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-        {% if d.i.sbs.dhp_source %}
-        <b>DHP:</b>
-        <p>
-            {{d.i.sbs.dhp_example|safe}}
-        </p>
-        <p class="sbs_sutta">
-            {% if d.make_link and d.i.sbs.dhp_source_link %}
-            <a href="{{d.i.sbs.dhp_source_link}}" target="_blank">
-                {{d.i.sbs.dhp_source}}</a>
-            {% else %}
-            {{d.i.sbs.dhp_source}}
+            {% if d.i.sbs.sbs_example_3 %}
+                <p>{{ d.i.sbs.sbs_example_3|safe }}</p>
+                <p class="sbs_sutta">
+                    {% if d.make_link and d.i.sbs.sbs_source_link_3 %}
+                        <a href="{{ d.i.sbs.sbs_source_link_3 }}" target="_blank">{{ d.i.sbs.sbs_source_3 }}</a>
+                    {% else %}
+                        {{ d.i.sbs.sbs_source_3 }}
+                    {% endif %}
+                    {{ d.i.sbs.sbs_sutta_3|safe }}
+                </p>
             {% endif %}
-            {{d.i.sbs.dhp_sutta|safe}}
-        </p>
-        {% endif %}
-        {% if d.i.sbs.pat_source %}
-        <b>Pātimokkha:</b>
-        <p>
-            {{d.i.sbs.pat_example|safe}}
-        </p>
-        <p class="sbs_sutta">
-            {% if d.make_link and d.i.sbs.pat_source_link %}
-            <a href="{{d.i.sbs.pat_source_link}}" target="_blank">
-                {{d.i.sbs.pat_source}}</a>
-            {% else %}
-            {{d.i.sbs.pat_source}}
+            {% if d.i.sbs.sbs_example_4 %}
+                <p>{{ d.i.sbs.sbs_example_4|safe }}</p>
+                <p class="sbs_sutta">
+                    {% if d.make_link and d.i.sbs.sbs_source_link_4 %}
+                        <a href="{{ d.i.sbs.sbs_source_link_4 }}" target="_blank">{{ d.i.sbs.sbs_source_4 }}</a>
+                    {% else %}
+                        {{ d.i.sbs.sbs_source_4 }}
+                    {% endif %}
+                    {{ d.i.sbs.sbs_sutta_4|safe }}
+                </p>
             {% endif %}
-            {{d.i.sbs.pat_sutta|safe}}
-        </p>
         {% endif %}
-        {% if d.i.sbs.vib_source %}
-        <b>Vibhaṅga:</b>
-        <p>
-            {{d.i.sbs.vib_example|safe}}
-        </p>
-        <p class="sbs_sutta">
-            {% if d.make_link and d.i.sbs.vib_source_link %}
-            <a href="{{d.i.sbs.vib_source_link}}" target="_blank">
-                {{d.i.sbs.vib_source}}</a>
-            {% else %}
-            {{d.i.sbs.vib_source}}
-            {% endif %}
-            {{d.i.sbs.vib_sutta|safe}}
-        </p>
+        {% if d.i.sbs.needs_dhp_example %}
+            <b>DHP:</b>
+            <p>
+                {{d.i.sbs.dhp_example|safe}}
+            </p>
+            <p class="sbs_sutta">
+                {% if d.make_link and d.i.sbs.dhp_source_link %}
+                    <a href="{{d.i.sbs.dhp_source_link}}" target="_blank">
+                        {{d.i.sbs.dhp_source}}</a>
+                {% else %}
+                    {{d.i.sbs.dhp_source}}
+                {% endif %}
+                {{d.i.sbs.dhp_sutta|safe}}
+            </p>
         {% endif %}
-        {% if d.i.sbs.class_source %}
-        <b>Pāḷi Class:</b>
-        <p>
-            {{d.i.sbs.class_example|safe}}
-        </p>
-        <p class="sbs_sutta">
-            {% if d.make_link and d.i.sbs.class_source_link %}
-            <a href="{{d.i.sbs.class_source_link}}" target="_blank">
-                {{d.i.sbs.class_source}}</a>
-            {% else %}
-            {{d.i.sbs.class_source}}
-            {% endif %}
-            {{d.i.sbs.class_sutta|safe}}
-        </p>
+        {% if d.i.sbs.needs_pat_example %}
+            <b>Pātimokkha:</b>
+            <p>
+                {{d.i.sbs.pat_example|safe}}
+            </p>
+            <p class="sbs_sutta">
+                {% if d.make_link and d.i.sbs.pat_source_link %}
+                    <a href="{{d.i.sbs.pat_source_link}}" target="_blank">
+                        {{d.i.sbs.pat_source}}</a>
+                {% else %}
+                    {{d.i.sbs.pat_source}}
+                {% endif %}
+                {{d.i.sbs.pat_sutta|safe}}
+            </p>
         {% endif %}
-        {% if d.i.sbs.discourses_source %}
-        <b>Discourses:</b>
-        <p>
-            {{d.i.sbs.discourses_example|safe}}
-        </p>
-        <p class="sbs_sutta">
-            {% if d.make_link and d.i.sbs.discourses_source_link %}
-            <a href="{{d.i.sbs.discourses_source_link}}" target="_blank">
-                {{d.i.sbs.discourses_source}}</a>
-            {% else %}
-            {{d.i.sbs.discourses_source}}
-            {% endif %}
-            {{d.i.sbs.discourses_sutta|safe}}
-        </p>
+        {% if d.i.sbs.needs_vib_example %}
+            <b>Vibhaṅga:</b>
+            <p>
+                {{d.i.sbs.vib_example|safe}}
+            </p>
+            <p class="sbs_sutta">
+                {% if d.make_link and d.i.sbs.vib_source_link %}
+                    <a href="{{d.i.sbs.vib_source_link}}" target="_blank">
+                        {{d.i.sbs.vib_source}}</a>
+                {% else %}
+                    {{d.i.sbs.vib_source}}
+                {% endif %}
+                {{d.i.sbs.vib_sutta|safe}}
+            </p>
         {% endif %}
+        {% if d.i.sbs.needs_discourses_example %}
+            <b>Discourses:</b>
+            <p>
+                {{d.i.sbs.discourses_example|safe}}
+            </p>
+            <p class="sbs_sutta">
+                {% if d.make_link and d.i.sbs.discourses_source_link %}
+                    <a href="{{d.i.sbs.discourses_source_link}}" target="_blank">
+                        {{d.i.sbs.discourses_source}}</a>
+                {% else %}
+                    {{d.i.sbs.discourses_source}}
+                {% endif %}
+                {{d.i.sbs.discourses_sutta|safe}}
+            </p>
+        {% endif %}
+        <p class='footer'>
+            Did you spot a mistake in SBS examples?
+            <a class="link"
+                href="https://docs.google.com/forms/d/e/1FAIpQLScNC5v2gQbBCM3giXfYIib9zrp-WMzwJuf_iVXEMX2re4BFFw/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Examples&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Correct it here.</a>
+        </p>
     </div>
-    {% endif %}
     {% endif %}
 
 
