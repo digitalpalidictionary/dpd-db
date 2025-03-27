@@ -67,8 +67,6 @@ def generate_root_info_html(db_session, roots_db, bases_dict, show_ru_data=False
         html_string += f"<td><span class='gray'>{i.sanskrit_root} "
         html_string += f"{i.sanskrit_root_class} "
         html_string += f"({i.sanskrit_root_meaning})"
-        if show_ru_data:
-            html_string += f" ({i.sanskrit_root_ru_meaning})"
         html_string += "</span></td></tr>"
 
         # Pāṇinīya Dhātupāṭha

@@ -557,6 +557,7 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion, lemma_1_curren
 
                         # Update the GUI 'values' dict with new values from the TSV dict
                         window["lemma_1"].update(row.get("lemma_1", ""))
+                        window["lemma_2"].update(row.get("missing word", ""))
                         window["meaning_1"].update(row.get("meaning_1", ""))
                         window["pos"].update(row.get("pos", ""))
                         window["grammar"].update(row.get("grammar", ""))
@@ -575,6 +576,7 @@ def add_word_from_csv(dpspth, window, flag_next_word, completion, lemma_1_curren
             if row.get("proceed") == "":
                 # Update the GUI 'values' dict with new values from the TSV dict
                 window["lemma_1"].update(row.get("lemma_1", ""))
+                window["lemma_2"].update(row.get("missing word", ""))
                 window["meaning_1"].update(row.get("meaning_1", ""))
                 window["pos"].update(row.get("pos", ""))
                 window["grammar"].update(row.get("grammar", ""))
