@@ -87,6 +87,7 @@ adulating
 adulator
 adverbial
 adversative
+adverting
 Aegle
 aeon
 afflictive
@@ -576,6 +577,7 @@ conjunct
 conscientiousness
 consecrating
 considerately
+contemplations
 contentiousness
 contexts
 contiguously
@@ -603,6 +605,7 @@ courteousness
 coverlet
 covetousness
 cowdung
+cowherd's 
 cowpat
 cowpath
 cpds
@@ -777,6 +780,7 @@ divaricata
 divesting
 divisively
 DN
+DN21
 doesn't
 Dolichos
 doṇa
@@ -1985,6 +1989,8 @@ Pinus
 Pippalivana
 Pipphalivana
 Pistia
+pistil
+pistils
 Pisum
 Piṭaka
 Piṭakas
@@ -2122,6 +2128,7 @@ renunciants
 renunciate
 renunciates
 repeals
+reprehended
 reprimandable
 reprimandable
 reproachable
@@ -2188,7 +2195,9 @@ Sakka's
 Sakka's
 Sakka's
 Sakka's
+Sakka's
 Sakka’s
+Sakkapañhasutta
 Sakkasaṃyuttaṃ
 Sakuludāyī
 Sakya
@@ -2445,6 +2454,7 @@ Sumbha
 Sumbhan
 Sumbhans
 Sumedha
+summarizations
 summum
 Sunakkhatta
 Sunāparanta
@@ -2586,6 +2596,7 @@ tonsured
 Toona
 tope
 Tora
+touchable
 towelled
 townsperson
 tradable
@@ -2660,6 +2671,7 @@ unattained
 unattractiveness
 unattractiveness
 unawakened
+unbaked
 unbanished
 unbarred
 unbeguiled
@@ -3023,14 +3035,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-pistils
-pistil
-unbaked
-adverting
-summarizations
-cowherd's 
-reprehended
-touchable
-Sakkapañhasutta
-Sakka's
-DN21
