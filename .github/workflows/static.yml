@@ -31,6 +31,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      # Debug: List files to verify mkdocs_site exists
+      - name: List files in workspace
+        run: ls -la
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
