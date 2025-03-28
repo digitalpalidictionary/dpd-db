@@ -1,5 +1,5 @@
-site_name: Digital Pāḷi Dictionary Docs # You can change this later
-docs_dir: "mkdocs" # Specifies where the source Markdown files are
+site_name: Digital Pāḷi Dictionary Docs
+docs_dir: "mkdocs"
 repo_url: https://github.com/digitalpalidictionary/dpd-db
 site_dir: "mkdocs_site"
 
@@ -71,16 +71,17 @@ nav:
 theme:
   name: material
   features:
-    - navigation.instant
-    - navigation.footer
-    # - navigation.tabs
-    - navigation.tabs_sticky
-    # - navigation.sections
-    # - navigation.expand
-    - navigation.path
-    - navigation.indexes
-    # - toc.integrate
     - content.code.copy
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.path
+    # - navigation.expand
+    # - navigation.sections
+    # - navigation.tabs
+    # - navigation.tabs_sticky
+    # - toc.integrate
+
   palette: 
     - scheme: slate
       primary: custom
@@ -90,6 +91,7 @@ extra_css:
   - stylesheets/extra.css
 
 markdown_extensions:
+  - attr_list # allows adding {target="_blank"} after links
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
