@@ -67,6 +67,7 @@ nav:
     - Project Folder Structure: "technical/project_folder_structure.md" 
     - DpdHeadwords Table: "technical/dpd_headwords_table.md"
     - Tipiṭaka Source Files: "technical/tipitaka_source_files.md"
+    - Style Guide for DPD Entries: "technical/style_guide_for_dpd_entries.md"
 
 theme:
   name: material

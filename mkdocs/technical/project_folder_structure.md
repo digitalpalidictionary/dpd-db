@@ -117,7 +117,7 @@ There are four main parts to the code:
 
 	- **tpr/** Export DPD grammar deconstructor data for integration into Tipitaka Pali Reader app 
 
-	- **webapp/** A web application using the DPD database and FastApi, hosted at [www.dpdict.net](www.dpdict.net)
+	- **webapp/** A web application using the DPD database and FastApi, hosted at [www.dpdict.net](https://www.dpdict.net)
 
 - **go_modules/** When Python is too slow, write it in GO
 
@@ -135,7 +135,7 @@ There are four main parts to the code:
 
 - **scripts/** Useful scripts for project maintenance.
 
-	see [scripts readme](scripts/README.md) for more info.
+	see the [scripts readme](https://github.com/digitalpalidictionary/dpd-db/tree/main/scripts#readme){target="_blank"} for more info.
 
 - **shared_data/** Data used across the project.
 
