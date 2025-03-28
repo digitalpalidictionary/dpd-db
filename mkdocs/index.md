@@ -10,7 +10,7 @@ Firstly, you need to get GoldenDict, MDict or DictTango installed and setup on y
 
 Download the latest version for your device from [this page on GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest).
 
-Here's a handy guide to some of the [features](about/features.md) available in DPD. 
+Here's a handy guide to some of the [features](features/features.md) available in DPD. 
 
 Next, you should really [configure the hotkey](goldendict/hotkey.md) if you're on Windows or Mac, or try the [scan-popup](goldendict/scan_popup.md) if you're on Linux. This will allow you to click on any word in any Pāḷi text, and automatically look it up in DPD.
 
