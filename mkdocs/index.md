@@ -20,7 +20,7 @@ While you're at it, here are some [more Pāḷi and Sanskrit dictionaries](https
 
 If you spot a mistake in DPD, or notice something missing, here's where to [report it](https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.1433863141=digitalpalidictionary.github.io). It generally takes less than a minute. 
 
-If you have any bright ideas to make this dictionary even better, or would like to get involved with the project, please [get in touch](misc/contact.md).
+If you have any bright ideas to make this dictionary even better, or would like to get involved with the project, please [get in touch](contact.md).
 
 Digital Pāḷi Dictionary is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
 
