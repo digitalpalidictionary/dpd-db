@@ -3,6 +3,7 @@
 DPD is integrated into the [Simsapa Dhamma Reader](https://simsapa.github.io/), a very powerful new desktop application for immersive Pāḷi study.
 
 Simsapa aims to be an all-in-one app which contains
+
 - CST4 Chaṭṭha Saṅgāyana Tipiṭaka
 - Sutta Central texts and translations
 - a full set of Pāḷi dictionaries

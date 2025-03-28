@@ -14,14 +14,18 @@ Double click to highlight any Pāḷi word in any software or pdf and press the 
 
 ![popupwindow](../pics/hotkey/popupwindow.png)
 
-If you prefer, you can open the word in the main window every time. 
+If you prefer, you can open the word in the main window every time.
+
 - Go to Menu > Edit > Preferences (Shortcut F4) > **Scan Popup** 
+
 - Select "**Send translated word to main window**"
 
 ![send to main window](../pics/hotkey/send%20to%20main%20window.png)
 
 If you're a Digital Pāli Reader user, you can enable hotkey with a _single click_ in the preferences
+
 - Open DPR preferences (shortcut **%**)
+
 - Select "**Copy words to clipboard on click**"
 
 ![dpr clipboard preference](../pics/hotkey/dpr%20clipboard%20preference.png)
@@ -29,7 +33,9 @@ If you're a Digital Pāli Reader user, you can enable hotkey with a _single clic
 Of course you can also search for Pāḷi words the old-fashioned way ...
 
 - Go to Menu > View and click Search Pane (Shortcut **Ctrl-S**)
+
 - Start typing in the Search Bar and click the word you are looking for.
+
 - No need to use diacritics when typing in GoldenDict, it will automatically find what you are looking for.
 
 ![search](../pics/hotkey/search.png)

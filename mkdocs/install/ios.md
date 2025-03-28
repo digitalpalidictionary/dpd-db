@@ -1,12 +1,14 @@
 # Install MDict on iOS
 
-## In Brief
+# In Brief
 
 1. download the latest version of DPD for MDict [from GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest). Look for `dpd-mdict.zip`.
 2. install MDict from the [App Store](https://apps.apple.com/us/app/mdict-ad/id894362875)
 3. Unzip `dpd-mdict.zip` and move the files to the MDict folder on your iOS device.
 
 Below are detailed *step-by-step* instructions. 
+
+# Detailed Instructions
 
 ## Download DPD
 

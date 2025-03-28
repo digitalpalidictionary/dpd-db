@@ -3,8 +3,11 @@
 A light version of DPD is now integrated into [The Buddha's Words](https://thebuddhaswords.net/home/index.html) website.
 
 This offers a very comfortable Pāḷi reading experience with 
+
 - English translations on the left,
+
 - Pāḷi texts on the right,
+
 - DPD lookup just by rolling the mouse over any Pāḷi word.
 
 ![tbw](../pics/tbw/tbw.png)

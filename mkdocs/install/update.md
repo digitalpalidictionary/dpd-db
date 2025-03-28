@@ -3,6 +3,7 @@
 A new version becomes available every full moon uposatha day. 
 
 Updating is very easy. In brief:
+
 1. download the latest version of DPD
 2. copy it to your GoldenDict folder, entirely replacing the old version
 

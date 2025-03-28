@@ -1,6 +1,6 @@
 # Install GoldenDict on Windows
 
-## In Brief
+# In Brief
 
 1. download the latest version of [DPD](https://github.com/digitalpalidictionary/dpd-db/releases/latest). Look for `dpd-goldendict.zip`
 
@@ -11,6 +11,8 @@
 Here is a [video to help you with Windows installation](https://www.youtube.com/watch?v=KZ4CecdVL0k) courtesy of the [Learn Pali Channel on Youtube](https://www.youtube.com/channel/UC73nNRzMzvweRb52ArFG3Gg).
 
 Below are detailed *step-by-step* text instructions. 
+
+# Detailed Instructions
 
 ## Install GoldenDict
 

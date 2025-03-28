@@ -177,7 +177,7 @@ jobs:
     # ----------------------------------------
 
     - name: Make Release Notes
-      run: uv run python tools/release_notes_and_changelog.py
+      run: uv run python tools/docs_changelog_and_release_notes.py
 
     - name: Set Release Date
       id: set_release_date

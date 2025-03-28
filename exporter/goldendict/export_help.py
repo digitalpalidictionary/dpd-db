@@ -1,21 +1,18 @@
 """Compile HTML data for Help, Abbreviations, Thanks & Bibliography."""
 
 import csv
-import html2text
+from typing import Dict, List, Tuple
 
 from mako.template import Template
 from minify_html import minify
-from typing import List, Dict, Tuple
-
 from sqlalchemy.orm import Session
 
-from tools.paths import ProjectPaths
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from tools.printer import printer as pr
-from tools.tsv_read_write import read_tsv_dict
-from tools.tsv_read_write import read_tsv_dot_dict
-from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
+from tools.paths import ProjectPaths
+from tools.printer import printer as pr
+from tools.tsv_read_write import read_tsv_dict, read_tsv_dot_dict
+from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 
 
 class Abbreviation:
@@ -262,12 +259,6 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
 
     help_data_list.append(res)
 
-    # save markdown for website
-
-    if pth.docs_bibliography_md_path.exists():
-        md = html2text.html2text(html)
-        pth.docs_bibliography_md_path.write_text(md)
-
     return help_data_list
 
 
@@ -319,16 +310,6 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
     )
 
     help_data_list.append(res)
-
-    # save markdown for website
-    pr.green("saving thanks to website source")
-    if pth.docs_thanks_md_path.exists():
-        md = html2text.html2text(html)
-        pth.docs_thanks_md_path.write_text(md)
-        pr.yes("ok")
-    else:
-        pr.no("failed")
-        pr.red(f"error saving {pth.docs_thanks_md_path}")
 
     return help_data_list
 

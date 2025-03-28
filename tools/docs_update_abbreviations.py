@@ -27,6 +27,7 @@ def make_abbreviations_md(pth: ProjectPaths):
     ]
 
     data_upper = [
+        "",
         "## Textual Abbreviations",
         "|Abbreviation|Meaning|Info|",
         "|:---|:---|:---|",
@@ -54,6 +55,7 @@ def save_to_web(pth: ProjectPaths, abbrev_md):
     pr.green("saving to website source")
     if pth.docs_abbreviations_md_path.exists():
         pth.docs_abbreviations_md_path.write_text(abbrev_md)
+        pr.yes("ok")
     else:
         pr.no("failed")
         pr.red(f"{pth.docs_abbreviations_md_path} not found")
