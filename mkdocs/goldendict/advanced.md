@@ -50,6 +50,7 @@ Then open Menu > Search > Full-text search (Shortcut Ctrl+Shift+F).
 This opens up a dialogue box.
 
 Select the mode you would like to use:
+
 1. **Whole words** finds entire words (needs to be 4 or more letters long)
 2. **Plain text** finds any part of a word (needs to be 4 or more letters long)
 3. **Wildcards** is like plain text with the use of wildcards like *

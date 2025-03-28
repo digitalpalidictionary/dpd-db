@@ -5,14 +5,16 @@ site_dir: "mkdocs_site"
 
 nav:
   - Home: index.md
-  - About:
-    - Features: "about/features.md"
-    - Roots Dict: "about/rootdict.md"
-    - Word Frequency: "about/frequency.md"
-    - Deconstructor: "about/deconstructor.md"
-    - Grammar Dictionary: "about/grammardict.md"
-    - Abbreviations: "about/abbreviations.md"
+  - Features:
+    - "features/index.md"
+    - Features: "features/features.md"
+    - Roots Dict: "features/rootdict.md"
+    - Word Frequency: "features/frequency.md"
+    - Deconstructor: "features/deconstructor.md"
+    - Grammar Dictionary: "features/grammardict.md"
+    - Abbreviations: "features/abbreviations.md"
   - Installation Guide:
+    - "install/index.md"
     - Windows: "install/win.md"
     - Android: "install/android_dicttango.md"
     - Mac: "install/mac.md"
@@ -43,10 +45,11 @@ nav:
     - Tipitaka Pali Reader: "integrations/tpr.md"
     - Tipitakapali.org: "integrations/tipitakapali.md"
   - Feedback:
+    - "feedback/index.md"
     - Correct a Mistake: "feedback/correct_mistake.md"
     - Add a Missing Word: "feedback/add_missing_word.md"
     - Report a Bug: "feedback/bug_report.md"
-    - Email: "feedback/email.md"
+    - Contact by Email: "feedback/email.md"
   - Contributing:
     - Pāḷi: "contributing/pali.md"
     - Code: "contributing/code.md"
@@ -54,12 +57,23 @@ nav:
   - Bibliography: "misc/bibliography.md"
   - Thanks: "misc/thanks.md"
   - Contact: "misc/contact.md"
-
+  - Developer Docs:
+    - Build the DB from Scratch: "technical/build_db.md"
+    - Project Folder Structure: "technical/project_folder_structure.md" 
+    - DpdHeadwords Table: "technical/dpd_headwords_table.md"
 
 theme:
   name: material
   features:
+    - navigation.instant
     - navigation.footer
+    # - navigation.tabs
+    - navigation.tabs_sticky
+    # - navigation.sections
+    # - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    # - toc.integrate
   palette: 
     - scheme: slate
       primary: custom
