@@ -1,6 +1,6 @@
 # Simsapa Dhamma Reader
 
-DPD is integrated into the [Simsapa Dhamma Reader](https://simsapa.github.io/){:target="_blank"}, a very powerful new desktop application for immersive Pāḷi study.
+DPD is integrated into the [Simsapa Dhamma Reader](https://simsapa.github.io/){target="_blank"}, a very powerful new desktop application for immersive Pāḷi study.
 
 Simsapa aims to be an all-in-one app which contains
 
@@ -21,4 +21,4 @@ Simsapa aims to be an all-in-one app which contains
 
 Every time there is a new DPD release, Simsapa automatically updates itself with the latest DPD database information.
 
-For more information and how to install, visit the [Simsapa website](https://simsapa.github.io/){:target="_blank"}.
+For more information and how to install, visit the [Simsapa website](https://simsapa.github.io/){target="_blank"}.

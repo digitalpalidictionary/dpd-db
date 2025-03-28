@@ -2,8 +2,8 @@
 
 # In Brief
 
-1. download the latest version of `dpd-goldendict.zip` from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}
-2. install [GoldenDict NG](https://github.com/xiaoyifang/goldendict-ng/releases/latest){:target="_blank"}. Use `macOS-arm64.dmg` for Apple Silicon M1 chip and newer, or `macOS-x86_64.dmg` for Intel AMD64 machines.
+1. download the latest version of `dpd-goldendict.zip` from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}
+2. install [GoldenDict NG](https://github.com/xiaoyifang/goldendict-ng/releases/latest){target="_blank"}. Use `macOS-arm64.dmg` for Apple Silicon M1 chip and newer, or `macOS-x86_64.dmg` for Intel AMD64 machines.
 3. in settings, direct GoldenDict to the DPD folder.
 
 Below are detailed *step-by-step* instructions. 
@@ -12,9 +12,9 @@ Below are detailed *step-by-step* instructions.
 
 ## Download GoldenDict
 
-If you are using an Apple Silicon M1 chip or newer, download `macOS-arm64.dmg` from [GoldenDict NG Releases on Gitgub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}.
+If you are using an Apple Silicon M1 chip or newer, download `macOS-arm64.dmg` from [GoldenDict NG Releases on Gitgub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}.
 
-If you are using an Intel AMD64 chip, download `macOS-x86_64.dmg` from [GoldenDict NG Releases on Gitgub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}. 
+If you are using an Intel AMD64 chip, download `macOS-x86_64.dmg` from [GoldenDict NG Releases on Gitgub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}. 
 
 
 ## Install GoldenDict
@@ -46,7 +46,7 @@ Ok, you're installed. Now let's add a dictionary.
 
 ## Download DPD
 
-Download the latest version of `dpd-goldendict.zip` from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}. 
+Download the latest version of `dpd-goldendict.zip` from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}. 
 
 ## Unzip
 

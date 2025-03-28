@@ -21,7 +21,7 @@
 ### pos
 
 - Indicate the part of speech for the given term.
-- Refer to the possibilities outlined in [tools/pos.py](https://github.com/digitalpalidictionary/dpd-db/blob/main/tools/pos.py){:target="_blank"}
+- Refer to the possibilities outlined in [tools/pos.py](https://github.com/digitalpalidictionary/dpd-db/blob/main/tools/pos.py){target="_blank"}
 
 ### grammar
 
@@ -82,7 +82,7 @@
 ### sanskrit	
 
 - Closest Sanskrit cognate of the headword
-- See [explicit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/db/db/sanskrit/sanskrit_style_guide.md){:target="_blank"}
+- See [explicit guide](https://github.com/digitalpalidictionary/dpd-db/blob/main/db/db/sanskrit/sanskrit_style_guide.md){target="_blank"}
 
 ### root_key
 
@@ -219,7 +219,7 @@
 ### pattern
 
 - Pattern by which the word changes its inflected forms.
-- All patterns can be found in the [inflection_templates.xlsx](https://github.com/digitalpalidictionary/dpd-db/raw/main/db/inflections/inflection_templates.xlsx){:target="_blank"}
+- All patterns can be found in the [inflection_templates.xlsx](https://github.com/digitalpalidictionary/dpd-db/raw/main/db/inflections/inflection_templates.xlsx){target="_blank"}
 
 
 

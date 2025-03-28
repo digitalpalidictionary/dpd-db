@@ -1,6 +1,6 @@
 # Word Frequency
 
-Clicking the **frequency** button will give you an instant overview of where and how often a word can be found in the [Chaṭṭha Saṅgāyana](https://www.tipitaka.org/){:target="_blank"} corpus.
+Clicking the **frequency** button will give you an instant overview of where and how often a word can be found in the [Chaṭṭha Saṅgāyana](https://www.tipitaka.org/){target="_blank"} corpus.
 
 ![image](../pics/frequency/frequency-overview.png)
 
@@ -67,7 +67,7 @@ Mahāniddesapāḷi, Cūḷaniddesapāḷi, Paṭisambhidāmaggapāḷi, Nettipp
 
 ---
 
-Thank you to Ven. Ānandajoti from [Ancient Buddhist Texts](https://www.ancient-buddhist-texts.net/){:target="_blank"} for his suggestions on the subdivision of the Khuddaka Nikāya. 
+Thank you to Ven. Ānandajoti from [Ancient Buddhist Texts](https://www.ancient-buddhist-texts.net/){target="_blank"} for his suggestions on the subdivision of the Khuddaka Nikāya. 
 
 ---
 

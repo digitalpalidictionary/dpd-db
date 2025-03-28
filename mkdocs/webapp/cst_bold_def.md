@@ -8,7 +8,7 @@ These bold definitions are found in *vinaya-piṭaka*, *khuddaka-nikāya*, *aṭ
 
 For millennia, these definitions within Pāḷi texts have been the dictionary of choice for Buddhist monastics. 
 
-DPD now provides a [web search engine](https://www.dpdict.net){:target="_blank"} to easily access this amazing resource.
+DPD now provides a [web search engine](https://www.dpdict.net){target="_blank"} to easily access this amazing resource.
 
 ## Basic Search
 
@@ -42,7 +42,7 @@ There are three different search modes.
 All results will **start with** the search term. It's useful when you know exactly what you are looking for.
 
 ### 2. Normal/rx
-This is the default search mode. All results will **contain** the search term. You can also use [**regular expressions**](https://regexone.com/){:target="_blank"} for power searches.
+This is the default search mode. All results will **contain** the search term. You can also use [**regular expressions**](https://regexone.com/){target="_blank"} for power searches.
 
 ### 3. Fuzzy
 When activated, **fuzzy search** ignores all diacritics, aspiration, double consonants and variation of nasals. It is very useful if you don't know the exact spelling, but it will also give many more results. 
@@ -69,11 +69,11 @@ That's all there is to it. Enjoy this powerful search tool!
 
 ## Issues
 
-If you have any problems or suggestions for improvement, please add it to the [DPD issues on GitHub](https://github.com/digitalpalidictionary/dpd-db/issues){:target="_blank"}.
+If you have any problems or suggestions for improvement, please add it to the [DPD issues on GitHub](https://github.com/digitalpalidictionary/dpd-db/issues){target="_blank"}.
 
-The source code is [here](https://github.com/digitalpalidictionary/dpd-db/blob/6eaaa4c58059e5e03ecdf522635335b89a5e4b1d/exporter/webapp/main.py#L223){:target="_blank"}.
+The source code is [here](https://github.com/digitalpalidictionary/dpd-db/blob/6eaaa4c58059e5e03ecdf522635335b89a5e4b1d/exporter/webapp/main.py#L223){target="_blank"}.
 
 ## Thanks
 
-Thanks to the **Vipassana Research Institute** for making these digital texts in XML format freely available for non-commercial use. They can be found here on [GitHub](https://github.com/VipassanaTech/tipitaka-xml){:target="_blank"}.
+Thanks to the **Vipassana Research Institute** for making these digital texts in XML format freely available for non-commercial use. They can be found here on [GitHub](https://github.com/VipassanaTech/tipitaka-xml){target="_blank"}.
 

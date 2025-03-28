@@ -1,6 +1,6 @@
 ## Settings
 
-[www.dpdict.net](https://www.dpdict.net){:target="_blank"} is highly customizable with user settings.
+[www.dpdict.net](https://www.dpdict.net){target="_blank"} is highly customizable with user settings.
 
 ## Font size
 

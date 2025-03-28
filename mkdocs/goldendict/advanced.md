@@ -10,7 +10,7 @@ Clicking on any word opens it in the same tab. Ctrl-clicking on any word opens i
 
 To add more dictionaries to GoldenDict, simply download any dictionary in a GoldenDict compatible format (Stardict, Babylon, Lingoes, etc.) and add that folder to your GoldenDict folder `Documents/GoldenDict`.
 
-There are a number of Pāḷi dictionaries available for GoldenDict, try [Simsapa](https://github.com/simsapa/simsapa-dictionary/releases){:target="_blank"} for a start. You can install them individually, or *combined-dictionary-stardict.zip* contains all dictionaries.
+There are a number of Pāḷi dictionaries available for GoldenDict, try [Simsapa](https://github.com/simsapa/simsapa-dictionary/releases){target="_blank"} for a start. You can install them individually, or *combined-dictionary-stardict.zip* contains all dictionaries.
 
 ## Search in page
 
@@ -77,7 +77,7 @@ Other options are:
 
 You can install a dark mode for GoldenDict by following the instructions [here](https://github.com/goldendict/goldendict/wiki/GoldenDict-Dark-Theme#how-to-install-goldendict-dark-theme).
 
-While you're at it, install the [Dark Reader Chrome extension](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en){:target="_blank"} for a Pāḷi reading experience that is comfortable on old eyes.
+While you're at it, install the [Dark Reader Chrome extension](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en){target="_blank"} for a Pāḷi reading experience that is comfortable on old eyes.
 
 ![darkmode2](../pics/advanced-setup/darkmode2.png)
 

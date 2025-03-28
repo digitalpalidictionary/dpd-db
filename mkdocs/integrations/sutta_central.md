@@ -6,7 +6,7 @@ A customized light version of DPD is now integrated into the Sutta Central websi
 
 To activate DPD lookup
 
-- Open a sutta, such [MN1](https://suttacentral.net/mn1/en/sujato){:target="_blank"}
+- Open a sutta, such [MN1](https://suttacentral.net/mn1/en/sujato){target="_blank"}
 
 - Click the **Views** button 
 

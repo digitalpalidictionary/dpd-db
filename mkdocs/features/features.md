@@ -167,7 +167,7 @@ Good news for those who read Pāḷi in Sinhala, Devanagari or Thai scripts, DPD
 
 ![devanagari](../pics/features/devanagari.png)
 
-Transliteration is based on [Aksharamukha Script Converter](https://aksharamukha.appspot.com/about){:target="_blank"}.
+Transliteration is based on [Aksharamukha Script Converter](https://aksharamukha.appspot.com/about){target="_blank"}.
 
 ## Feedback
 
@@ -187,7 +187,7 @@ All flowers, trees, plants and unusual animals contain a link to a Wikipedia art
 
 ## Fonts
 
-If you prefer a sans-serif font, please install [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans){:target="_blank"}, it works well with Pāḷi diacritics. If you prefer a serif font, please install [Deja Vu Serif](https://www.fontsquirrel.com/fonts/dejavu-serif), or [Verajja Serif](https://en.m.fontke.com/font/10186264/){:target="_blank"}, a specially created font for Pāḷi text.
+If you prefer a sans-serif font, please install [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans){target="_blank"}, it works well with Pāḷi diacritics. If you prefer a serif font, please install [Deja Vu Serif](https://www.fontsquirrel.com/fonts/dejavu-serif), or [Verajja Serif](https://en.m.fontke.com/font/10186264/){target="_blank"}, a specially created font for Pāḷi text.
 
 
 ----------------------

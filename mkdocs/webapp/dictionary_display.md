@@ -1,6 +1,6 @@
 ## Dictionary Display
 
-[www.dpdict.net](https://www.dpdict.net){:target="_blank"} displays all the DPD dictionaries including
+[www.dpdict.net](https://www.dpdict.net){target="_blank"} displays all the DPD dictionaries including
 
 ### 1. DPD main
 

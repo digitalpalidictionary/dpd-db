@@ -7,7 +7,7 @@ It currently contains about 700 000 deconstructed words, covering all books in t
 ![deconstructor_example](../pics/deconstructor/dinnantiādikāpīti.png)
 
 ## How to Install
-The Deconstructor is included in `dpd-goldendict.zip` available from the [releases page on GitHib](https://github.com/digitalpalidictionary/dpd-db/releases){:target="_blank"}.
+The Deconstructor is included in `dpd-goldendict.zip` available from the [releases page on GitHib](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}.
 
 ![deconstructor_folder](../pics/deconstructor/dpd_deconstructor_folder.png)
 
@@ -21,11 +21,11 @@ Sandhi is the greatest hurdle facing all forms of computational linguistics rela
 
 No one has cracked this puzzle in any way that comes close to a satisfactory solution.
 
-The only present solution that is in any way useful is the [DPR analysis function](https://www.digitalpalireader.online/_dprhtml/index.html?loc=m.0.0.0.0.1.2.m&analysis=cakkhundriyasa.mvarasa.mvuto&frombox=1){:target="_blank"}, which is wrong and misleading as often as it is right. Apparently the method it uses is a system of regex substitutions to remove inflections and reduce compounds to dictionary words.
+The only present solution that is in any way useful is the [DPR analysis function](https://www.digitalpalireader.online/_dprhtml/index.html?loc=m.0.0.0.0.1.2.m&analysis=cakkhundriyasa.mvarasa.mvuto&frombox=1){target="_blank"}, which is wrong and misleading as often as it is right. Apparently the method it uses is a system of regex substitutions to remove inflections and reduce compounds to dictionary words.
 
 ## A New Approach
 
-One of the useful outputs of the Digital Pāḷi Dictionary is a list of inflections for every word in the dictionary. This, together with a set of [letter transformation rules](https://github.com/bdhrs/sqlite-db/blob/d9da7d1ae69dd9dec0aef37d7c6bbc48871ab555/sandhi/sandhi_related/sandhi_rules.tsv){:target="_blank"} has been employed to create a new sandhi-splitting algorithm. 
+One of the useful outputs of the Digital Pāḷi Dictionary is a list of inflections for every word in the dictionary. This, together with a set of [letter transformation rules](https://github.com/bdhrs/sqlite-db/blob/d9da7d1ae69dd9dec0aef37d7c6bbc48871ab555/sandhi/sandhi_related/sandhi_rules.tsv){target="_blank"} has been employed to create a new sandhi-splitting algorithm. 
 
 It is still a work in progress and far from perfect - an intelligence will always be required to discern context - but it is better than anything else that currently exists, giving more accurate results and, most importantly, fewer false positives. 
 
