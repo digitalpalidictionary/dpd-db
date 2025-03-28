@@ -25,10 +25,12 @@ nav:
     - ChromeBook: "install/chromebook.md"
     - Update: "install/update.md"
   - GoldenDict Features:
+    - "goldendict/index.md"
     - Setup the Hotkey: "goldendict/hotkey.md"
     - Setup the Scan Popup: "goldendict/scan_popup.md"
     - Setup Advanced Features: "goldendict/advanced.md"
   - Webapp:
+    - "webapp/index.md"
     - DPDict.net: "webapp/dpdict.md"
     - Search: "webapp/search.md"
     - Summary: "webapp/summary.md"
@@ -38,6 +40,7 @@ nav:
     - API in GoldenDict: "webapp/api_goldendict.md"
     - API in DictTango: "webapp/api_dicttango.md"
   - Software Integrations:
+    - integrations/index.md
     - Dhamma.gift website: "integrations/dhamma_gift.md"
     - Simsapa Dhamma Reader: "integrations/simsapa.md"
     - Sutta Central Website: "integrations/sutta_central.md"
@@ -51,6 +54,7 @@ nav:
     - Report a Bug: "feedback/bug_report.md"
     - Contact by Email: "feedback/email.md"
   - Contributing:
+    - "contributing/index.md"
     - Pāḷi: "contributing/pali.md"
     - Code: "contributing/code.md"
   - Changelog: "misc/changelog.md"
@@ -58,6 +62,7 @@ nav:
   - Thanks: "misc/thanks.md"
   - Contact: "misc/contact.md"
   - Developer Docs:
+    - "technical/index.md"
     - Build the DB from Scratch: "technical/build_db.md"
     - Project Folder Structure: "technical/project_folder_structure.md" 
     - DpdHeadwords Table: "technical/dpd_headwords_table.md"

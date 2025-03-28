@@ -50,6 +50,7 @@ dependencies = [
     "pygithub>=2.6.1",
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.6.9",
+    "pyyaml>=6.0.2",
 ]
 
 [dependency-groups]
