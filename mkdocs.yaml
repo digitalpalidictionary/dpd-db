@@ -31,7 +31,6 @@ nav:
     - Setup Advanced Features: "goldendict/advanced.md"
   - Webapp:
     - "webapp/index.md"
-    - DPDict.net: "webapp/dpdict.md"
     - Search: "webapp/search.md"
     - Summary: "webapp/summary.md"
     - Dictionary display: "webapp/dictionary_display.md"
@@ -57,10 +56,10 @@ nav:
     - "contributing/index.md"
     - Pāḷi: "contributing/pali.md"
     - Code: "contributing/code.md"
-  - Changelog: "misc/changelog.md"
-  - Bibliography: "misc/bibliography.md"
-  - Thanks: "misc/thanks.md"
-  - Contact: "misc/contact.md"
+  - Changelog: "changelog.md"
+  - Bibliography: "bibliography.md"
+  - Thanks: "thanks.md"
+  - Contact: "contact.md"
   - Developer Docs:
     - "technical/index.md"
     - Build the DB from Scratch: "technical/build_db.md"

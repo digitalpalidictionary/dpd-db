@@ -1,4 +1,3 @@
 # Contributing
 
-1. [Pāḷi](pali.md)
-1. [Code](code.md)
+You can contribute to DPD in many ways, but the primary two are helping with __Pāḷi__ and __software development__.
