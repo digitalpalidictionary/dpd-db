@@ -61,9 +61,13 @@ Select the mode you would like to use:
 You can also enter multiple words, and they will be found even if they not adjacent to each other. 
 
 Other options are:
+
 - When searching for multiple words, **Max distance between words (0-15)** limits the distance between the words.
+
 - **Max articles per dictionary (1-10000)** limits the number of results per dictionary.
+
 - **Ignore words order** does just that. Keep this ticked.
+
 - **Match case** ignore capitalization.
 
 ![other options](../pics/advanced-setup/other%20options.png)

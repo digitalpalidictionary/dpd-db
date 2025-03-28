@@ -548,6 +548,12 @@ class ProjectPaths:
         self.letters9 = base_dir / "db/deconstructor/output/letters/letters9.tsv"
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
 
+        # mkdocs
+        self.docs_bibliography_md_path = base_dir / "mkdocs/bibliography.md"
+        self.docs_abbreviations_md_path = base_dir / "mkdocs/abbreviations.md"
+        self.docs_changelog_md_path = base_dir / "mkdocs/changelog.md"
+        self.docs_thanks_md_path = base_dir / "mkdocs/thanks.md"
+
         # shared_data/deconstructor
         self.decon_manual_corrections = (
             base_dir / "shared_data/deconstructor/manual_corrections.tsv"
@@ -640,20 +646,6 @@ class ProjectPaths:
         # tools
         self.user_dict_path = base_dir / "tools/user_dictionary.txt"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
-
-        # .. website source
-        self.docs_bibliography_md_path = (
-            base_dir / "../digitalpalidictionary-website-source/src/bibliography.md"
-        )
-        self.docs_abbreviations_md_path = (
-            base_dir / "../digitalpalidictionary-website-source/src/abbreviations.md"
-        )
-        self.docs_changelog_md_path = (
-            base_dir / "../digitalpalidictionary-website-source/src/changelog.md"
-        )
-        self.docs_thanks_md_path = (
-            base_dir / "../digitalpalidictionary-website-source/src/thanks.md"
-        )
 
         # .. external
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"

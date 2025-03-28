@@ -12,7 +12,6 @@ nav:
     - Word Frequency: "features/frequency.md"
     - Deconstructor: "features/deconstructor.md"
     - Grammar Dictionary: "features/grammardict.md"
-    - Abbreviations: "features/abbreviations.md"
   - Installation Guide:
     - "install/index.md"
     - Windows: "install/win.md"
@@ -56,6 +55,7 @@ nav:
     - "contributing/index.md"
     - Pāḷi: "contributing/pali.md"
     - Code: "contributing/code.md"
+  - Abbreviations: "abbreviations.md"
   - Changelog: "changelog.md"
   - Bibliography: "bibliography.md"
   - Thanks: "thanks.md"
@@ -63,8 +63,10 @@ nav:
   - Developer Docs:
     - "technical/index.md"
     - Build the DB from Scratch: "technical/build_db.md"
+    - Use the DB in a Project: "technical/use_db.md"
     - Project Folder Structure: "technical/project_folder_structure.md" 
     - DpdHeadwords Table: "technical/dpd_headwords_table.md"
+    - Tipiṭaka Source Files: "technical/tipitaka_source_files.md"
 
 theme:
   name: material
@@ -78,6 +80,7 @@ theme:
     - navigation.path
     - navigation.indexes
     # - toc.integrate
+    - content.code.copy
   palette: 
     - scheme: slate
       primary: custom
@@ -85,3 +88,12 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

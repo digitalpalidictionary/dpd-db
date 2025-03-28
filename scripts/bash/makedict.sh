@@ -22,8 +22,10 @@ uv run exporter/tbw/tbw_exporter.py
 uv run exporter/pdf/pdf_exporter.py
 uv run exporter/variants/variants_exporter.py
 
-uv run scripts/build/docs_website_update_abbreviations.py
-
 uv run scripts/build/zip_goldendict_mdict.py
 uv run scripts/build/tarball_db.py
-uv run tools/release_notes_and_changelog.py
+
+uv run tools/docs_update_abbreviations.py
+uv run tools/docs_update_bibliography.py
+uv run tools/docs_update_thanks.py
+uv run tools/docs_changelog_and_release_notes.py

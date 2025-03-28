@@ -1,12 +1,14 @@
 # Install GoldenDict on Linux
 
-## In Brief
+# In Brief
 
 1. download the latest version of DPD [here](https://github.com/digitalpalidictionary/dpd-db/releases/latest)
 2. install version 1.5 of GoldenDict
 3. in settings, direct GoldenDict to the DPD folder.
 
 Below are detailed *step-by-step* instructions. 
+
+# Detailed Instructions
 
 ## Download DPD
 
