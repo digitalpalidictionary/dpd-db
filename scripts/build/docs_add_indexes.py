@@ -38,14 +38,15 @@ def main():
                     elif path.name == "index.md":
                         submenu_dir = path.parts[0]
 
-                    if submenu_dir and pages:
-                        target_dir = MKDOCS_DIR / submenu_dir
-                        index_path = target_dir / "index.md"
+                if submenu_dir and pages:
+                    target_dir = MKDOCS_DIR / submenu_dir
+                    index_path = target_dir / "index.md"
 
-                        with open(index_path, "a") as f:
-                            for page in pages:
-                                f.write(f"1. [{page['title']}]({page['filename']})\n")
-                        print(f"Generated: {index_path}")
+                    with open(index_path, "a") as f:
+                        f.write("\n")
+                        for page in pages:
+                            f.write(f"1. [{page['title']}]({page['filename']})\n")
+                    print(f"Generated: {index_path}")
 
 
 if __name__ == "__main__":
