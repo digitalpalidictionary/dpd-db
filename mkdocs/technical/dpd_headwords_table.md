@@ -7,7 +7,7 @@ class DpdHeadword(Base):
     __tablename__ = "dpd_headwords"
 ```
 
-This can be found here in [db/models.py](https://github.com/digitalpalidictionary/dpd-db/blob/c0ff5b0591627fff7818b717d6c5f8e8ffdd63ec/db/models.py#L535){target="blank"}.
+This can be found here in [db/models.py](https://github.com/digitalpalidictionary/dpd-db/blob/c0ff5b0591627fff7818b717d6c5f8e8ffdd63ec/db/models.py#L535){:target="_blank"}.
 
 - **`columns`** in the table are in bold,     
 - *`derived properties`* are in italics, 

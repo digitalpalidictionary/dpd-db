@@ -14,9 +14,9 @@ DictTango uses MDict files, but offers a far better user experience than the MDi
 
 ## Installation In Brief
 
-1. Download the latest `dpd-mdict.zip` from the DPD releases page on [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest)
+1. Download the latest `dpd-mdict.zip` from the DPD releases page on [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}
 
-2. Download and install the latest version of DictTango from [GitHub](https://github.com/Jimex/DictTango-Android/releases/latest)
+2. Download and install the latest version of DictTango from [GitHub](https://github.com/Jimex/DictTango-Android/releases/latest){:target="_blank"}
 
 # Detailed Installation Instructions
 
@@ -24,9 +24,9 @@ Below are detailed *step-by-step* instructions.
 
 Please follow them *carefully* to get full DPD functionality. 
 
--- Download and install the latest version of DictTango from [GitHub](https://github.com/Jimex/DictTango-Android/releases/latest)
+-- Download and install the latest version of DictTango from [GitHub](https://github.com/Jimex/DictTango-Android/releases/latest){:target="_blank"}
 
--- Download the latest **`dpd-mdict.zip`** from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest) 
+-- Download the latest **`dpd-mdict.zip`** from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}
 
 ![github mdict](../pics/dicttango2/0_github.png)
 
@@ -165,6 +165,6 @@ To adjust the font size:
 
 ## Install more Pāḷi and Sanskrit dictionaries
 
-Here's a good selection of [Pāḷi and Sanskrit dictionaries](https://github.com/digitalpalidictionary/dpd-db/tree/main/exporter/other_dictionaries) in MDict format to install on your Android device.
+Here's a good selection of [Pāḷi and Sanskrit dictionaries](https://github.com/digitalpalidictionary/dpd-db/tree/main/exporter/other_dictionaries){:target="_blank"} in MDict format to install on your Android device.
 
 Enjoy your Pāḷi reading with this great Android app!

@@ -12,5 +12,5 @@ This offers a very comfortable Pāḷi reading experience with
 
 ![tbw](../pics/tbw/tbw.png)
 
-The Buddha's Words is also available for download and offline use [from here](https://drive.google.com/drive/folders/1HawM4A_Ns37VGpHgH4YFpkkJpjtpNLEw)
+The Buddha's Words is also available for download and offline use [from here](https://drive.google.com/drive/folders/1HawM4A_Ns37VGpHgH4YFpkkJpjtpNLEw){:target="_blank"}
 

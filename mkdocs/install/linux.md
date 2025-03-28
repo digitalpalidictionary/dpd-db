@@ -12,7 +12,7 @@ Below are detailed *step-by-step* instructions.
 
 ## Download DPD
 
-First things first, download the latest version of Digital Pāḷi Dictionary from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest).
+First things first, download the latest version of Digital Pāḷi Dictionary from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}.
 
 ## Make a GoldenDict folder
 
@@ -47,7 +47,7 @@ GoldenDict can be installed directly with apt-get:
 `sudo apt-get update`\
 `sudo apt-get install goldendict`
 
-Or choose the distribution of your choice from [https://pkgs.org/download/goldendict](https://pkgs.org/download/goldendict):
+Or choose the distribution of your choice from [https://pkgs.org/download/goldendict](https://pkgs.org/download/goldendict){:target="_blank"}:
 
 Or directly from the Software Manager:
 

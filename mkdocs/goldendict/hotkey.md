@@ -1,6 +1,6 @@
 # Setup the Hotkey
 
-Whether you use [Sutta Central](https://suttacentral.net/), [Digital Pāli Reader](https://www.digitalpalireader.online/_dprhtml/index.html), [Tipitaka Pali Projector](https://www.microsoft.com/en-us/p/tipitaka-pali-projector/9pkwwvrdvnl4#activetab=pivot:overviewtab), [Tipitaka.app](https://tipitaka.app/), PDF documents or any other source of Pāḷi texts, this allows you to click on a word and open it immeditely in the dictionary. 
+Whether you use [Sutta Central](https://suttacentral.net/){:target="_blank"}, [Digital Pāli Reader](https://www.digitalpalireader.online/_dprhtml/index.html){:target="_blank"},  [Tipitaka.app](https://tipitaka.app/){:target="_blank"}, PDF documents or any other source of Pāḷi texts, this allows you to click on a word and open it immediately in the dictionary. 
 
 Go to Menu > Edit > Preferences (Shortcut F4) > Hotkeys
 

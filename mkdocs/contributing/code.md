@@ -7,13 +7,13 @@ Here's the [DPD Codebase](https://GitHub.com/orgs/digitalpalidictionary/projects
 
 ## DPD Project repo
 
-Here's the [dpd-db](https://GitHub.com/digitalpalidictionary/dpd-db)  GitHub repo, which contains the code for all aspects of the project.
+Here's the [dpd-db](https://GitHub.com/digitalpalidictionary/dpd-db){:target="_blank"}  GitHub repo, which contains the code for all aspects of the project.
 
 ## Technical Docs
-Here are the [technical docs](https://GitHub.com/digitalpalidictionary/dpd-db/blob/main/docs/build_db.md) in the dpd-db repo, for building the database, or just working with the pre-built database
+Here are the [technical docs](technical/index.md), for building the database, or just working with the pre-built database
 
 ## GitHub Releases
-You can find the [latest releases](https://GitHub.com/digitalpalidictionary/dpd-db/releases) here on GitHub, which includes the latest version of the database. 
+You can find the [latest releases](https://GitHub.com/digitalpalidictionary/dpd-db/releases){:target="_blank"}  here on GitHub, which includes the latest version of the database. 
 
 ## Languages
 DPD uses a few languages.

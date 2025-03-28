@@ -113,11 +113,11 @@ There are four main parts to the code:
 
 	- **sinhala/** Export a light version of DPD in Sinhala to GoldenDict and MDict
 
-	- **tbw/** Export a light version of DPD for integration into [The Buddha's Words website](https://thebuddhaswords.net/mn/mn1.html).
+	- **tbw/** Export a light version of DPD for integration into [The Buddha's Words website](https://thebuddhaswords.net/mn/mn1.html){:target="_blank"}.
 
 	- **tpr/** Export DPD grammar deconstructor data for integration into Tipitaka Pali Reader app 
 
-	- **webapp/** A web application using the DPD database and FastApi, hosted at [www.dpdict.net](https://www.dpdict.net)
+	- **webapp/** A web application using the DPD database and FastApi, hosted at [www.dpdict.net](https://www.dpdict.net){:target="_blank"}
 
 - **go_modules/** When Python is too slow, write it in GO
 
@@ -135,7 +135,7 @@ There are four main parts to the code:
 
 - **scripts/** Useful scripts for project maintenance.
 
-	see the [scripts readme](https://github.com/digitalpalidictionary/dpd-db/tree/main/scripts#readme){target="_blank"} for more info.
+	see the [scripts readme](https://github.com/digitalpalidictionary/dpd-db/tree/main/scripts#readme){:target="_blank"} for more info.
 
 - **shared_data/** Data used across the project.
 

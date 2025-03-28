@@ -1,8 +1,8 @@
 # Tipitaka Pali Reader
 
-**Tipitaka Pali Reader** is an excellent new app for reading Pāḷi texts being developed by [Ven. Subhuti](https://americanmonk.org/) and Ven. Paññadhaja in Myanmar. You can find out more information about TPR on [this website](https://americanmonk.org/tipitaka-pali-reader/).
+**Tipitaka Pali Reader** is an excellent new app for reading Pāḷi texts being developed by [Ven. Subhuti](https://americanmonk.org/) and Ven. Paññadhaja in Myanmar. You can find out more information about TPR on [this website](https://americanmonk.org/tipitaka-pali-reader/){:target="_blank"}.
 
-TPR is available for all OS's and devices. Download the latest version for Windows, Mac, LInux, iOS, Android from [this page on GitHub](https://github.com/bksubhuti/tipitaka-pali-reader/releases)
+TPR is available for all OS's and devices. Download the latest version for Windows, Mac, LInux, iOS, Android from [this page on GitHub](https://github.com/bksubhuti/tipitaka-pali-reader/releases){:target="_blank"}
 
 A lightweight version of DPD is available inside Tipitaka Pali Reader. It just includes the grammatical information for every word, none of the other buttons.
 

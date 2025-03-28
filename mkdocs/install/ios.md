@@ -2,8 +2,8 @@
 
 # In Brief
 
-1. download the latest version of DPD for MDict [from GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest). Look for `dpd-mdict.zip`.
-2. install MDict from the [App Store](https://apps.apple.com/us/app/mdict-ad/id894362875)
+1. download the latest version of DPD for MDict [from GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}. Look for `dpd-mdict.zip`.
+2. install MDict from the [App Store](https://apps.apple.com/us/app/mdict-ad/id894362875){:target="_blank"}
 3. Unzip `dpd-mdict.zip` and move the files to the MDict folder on your iOS device.
 
 Below are detailed *step-by-step* instructions. 
@@ -12,7 +12,7 @@ Below are detailed *step-by-step* instructions.
 
 ## Download DPD
 
-First things first, download the latest MDict version of Digital Pāḷi Dictionary from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest)
+First things first, download the latest MDict version of Digital Pāḷi Dictionary from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){:target="_blank"}
 
 ## Download MDict
 
