@@ -31,18 +31,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      # Debug: List files to verify mkdocs_site exists
-      - name: List files in workspace
-        run: ls -la
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv # Default uv cache location
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
+      - name: Install dependencies
+        run: uv sync --system
+
+      - name: Build MkDocs site
+        run: mkdocs build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload only the mkdocs_site directory
-          path: "mkdocs_site"
+          # Upload the built site directory
+          path: "./mkdocs_site"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
