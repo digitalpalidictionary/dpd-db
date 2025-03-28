@@ -42,8 +42,7 @@ def main():
                         target_dir = MKDOCS_DIR / submenu_dir
                         index_path = target_dir / "index.md"
 
-                        with open(index_path, "w") as f:
-                            f.write(f"# {submenu_title}\n\n")
+                        with open(index_path, "a") as f:
                             for page in pages:
                                 f.write(f"1. [{page['title']}]({page['filename']})\n")
                         print(f"Generated: {index_path}")
