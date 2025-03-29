@@ -12,22 +12,23 @@ Below are detailed *step-by-step* instructions.
 
 ## Download DPD
 
-First things first, download the latest version of Digital Pāḷi Dictionary from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}.
+(1) First things first, download the latest version of Digital Pāḷi Dictionary from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}.
 
 ## Make a GoldenDict folder
 
-It is recommended to make an easily accessible GoldenDict folder, for example /Documents/GoldenDict
+(2) It is recommended to make an easily accessible GoldenDict folder, for example /Documents/GoldenDict
 
 ![create new folder](../pics/linux-install/create%20new%20folder.png)
 
-Or in the terminal\
+Or in the terminal
+
 `mkdir /home/your_user_name/Documents/GoldenDict`
 
-(Obviously, substitute your_user_name with your actual user name)
+(Obviously, substitute `your_user_name` with your actual user name)
 
 ## Unzip
 
-Right-click the DPD zip file in your Downloads folder and open it with Archive Manager.
+(3) Right-click the DPD zip file in your Downloads folder and open it with Archive Manager.
 
 ![archive manager](../pics/linux-install/archive%20manager.png)
 
@@ -37,15 +38,19 @@ Click Extract and select the folder `/Documents/GoldenDict`
 
 Or in the terminal:
 
-`cd home/your_user_name/Downloads`\
-`unzip /home/your_user_name/Downloads/dpd.zip -d /home/your_user_name/Documents/GoldenDict`
+```bash
+cd home/your_user_name/Downloads
+unzip /home/your_user_name/Downloads/dpd.zip -d /home/your_user_name/Documents/GoldenDict`
+```
 
 ## Install GoldenDict
 
-GoldenDict can be installed directly with apt-get:
+(4) GoldenDict can be installed directly with apt-get:
 
-`sudo apt-get update`\
-`sudo apt-get install goldendict`
+```bash
+sudo apt-get update
+sudo apt-get install goldendict
+```
 
 Or choose the distribution of your choice from [https://pkgs.org/download/goldendict](https://pkgs.org/download/goldendict){target="_blank"}:
 
@@ -57,22 +62,23 @@ Make sure to install version 1.5, not version 1.0!
 
 ## Adding Dictionaries to GoldenDict
 
-Launch the GoldenDict application
+(6) Launch the GoldenDict application
 
-Go to Menu > Edit > Dictionaries (Shortcut **F3**)
+(7) Go to Menu > Edit > Dictionaries (Shortcut **F3**)
 
 ![dictionaries F3](../pics/linux-install/dictionaries%20F3.png)
 
-Go to Sources > Files.\
-Click Add and select folder `/Documents/GoldenDict`
+(8) Go to Sources > Files.
+
+(9) Click Add and select folder `/Documents/GoldenDict`
 
 ![add](../pics/linux-install/add.png)
 
-Click the recursive tick box √ (this makes sure GoldenDict searches in sub-folders)
+(10) Click the recursive tick box √ (this makes sure GoldenDict searches in sub-folders)
 
 ![recursive](../pics/linux-install/recursive.png)
 
-Click OK and wait a few moments while the dictionaries are indexing.
+(11) Click OK and wait a few moments while the dictionaries are indexing.
 
 You're all setup!
 

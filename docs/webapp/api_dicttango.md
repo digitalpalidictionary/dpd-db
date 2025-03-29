@@ -18,8 +18,10 @@ Select **Add Online Dictionary**.
 
 Add the following information to **Edit Dictionary Details**:
 
-Dictionary Name: www.dpdict.net\
+```
+Dictionary Name: www.dpdict.net
 Dictionary URL: https://www.dpdict.net/gd?search=#KEYWORD#
+```
 
 ![Edit Dictionary Details](../pics/dpdict.net/dpdict_api_dicttango_dictionary_detail.jpg)
 

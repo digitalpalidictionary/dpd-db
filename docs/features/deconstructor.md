@@ -2,7 +2,7 @@
 
 The DPD Deconstructor is now available as a separate dictionary.
 
-It currently contains about 700 000 deconstructed words, covering all books in the **Chaṭṭha Saṅgāyana corpus**, *mūla*, *aṭṭhakathā*, *ṭīkā* and *aññā*, as well as all Pāḷi texts on **Sutta Central**. This number will decrease as more compounds get added to the DPD. \
+It currently contains about 700 000 deconstructed words, covering all books in the **Chaṭṭha Saṅgāyana corpus**, *mūla*, *aṭṭhakathā*, *ṭīkā* and *aññā*, as well as all Pāḷi texts on **Sutta Central**. This number will decrease as more compounds get added to the DPD.
 
 ![deconstructor_example](../pics/deconstructor/dinnantiādikāpīti.png)
 

@@ -64,6 +64,7 @@ By default all sandhi in DPD is indicated with a single apostrophe **'**. This s
 
 ![sandhi hide show](../pics/dpdict.net/dpdict_settings_sandhi_hide_show.png)
 
-HIDE: akaṅkhī vatamhi avicikicchī niṭṭhaṅgato saddhammeti.\
+HIDE: akaṅkhī vatamhi avicikicchī niṭṭhaṅgato saddhammeti.
+
 SHOW: akaṅkhī vat'amhi avicikicchī niṭṭhaṅ'gato saddhamme'ti.
 

@@ -6,7 +6,7 @@ There are a few different ways to search for a word
 3. Type in the search bar using **Velthuis** characters and press SEARCH or ENTER
 
 ## Velthuis to Unicode
-The Velthuis system allows you to type diacritics without any special keyboard installed. The letters will automatically be converted to Unicode diacritics.\
+The Velthuis system allows you to type diacritics without any special keyboard installed. The letters will automatically be converted to Unicode diacritics.
 
 |Velthuis|>|Unicode|
 |----|---|---|

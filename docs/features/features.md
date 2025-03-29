@@ -8,7 +8,7 @@
 
 #### Pāḷi Roots Dictionary (Orange)
 
-![pali2english](../pics/features/2rootsdict.png) \
+![pali2english](../pics/features/2rootsdict.png)
 
 for more info [click here](rootdict.md)
 
@@ -37,10 +37,9 @@ When you select on a word in a Pāḷi text and press the hotkey, DPD automatica
 
 DPD recognizes all words, both in **Chaṭṭha Saṅgāyana Tipiṭaka** and **Mahāsaṅgīti** edition on Sutta Central, including all compounds and sandhis, in the following books:
 
-**Vinaya**: Pārājikapāḷi , Pācittiyapāḷi \
-**Sutta**: All four Nikāyas \
-**Khuddaka Nikāya**: Khuddakapāṭha, Dhammapada, Udāna, Itivuttaka, Suttanipāta, Theragāthā \
-**Up Next**: Therigāthā
+- **Vinaya**: Pārājikapāḷi , Pācittiyapāḷi
+- **Sutta**: All four Nikāyas
+- **Khuddaka Nikāya**: Khuddakapāṭha, Dhammapada, Udāna, Itivuttaka, Suttanipāta, Theragāthā, Therigāthā
 
 ## Click on everything
 

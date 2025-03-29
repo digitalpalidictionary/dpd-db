@@ -23,9 +23,12 @@ Open Menu > Edit > Dictionaries (Shortcut F3)
 
 3. Add the following information
 
-Enable: checked\
-As Link: unchecked\
-Name: www.dpdict.net\
+```
+Enable: checked
+As Link: unchecked
+Name: www.dpdict.net
+```
+
 Address: https://dpdict.net/gd?search=%GDWORD%
 
 4. Go to the **Dictionaries** tab

@@ -25,16 +25,20 @@ Tipitaka Pali Reader allows you to download a variety of extensions. These inclu
 
 To get the very latest release of DPD,
 
-(1) Open the **Menu** and click **Settings**. (2) Click **Extensions** \
+(1) Open the **Menu** and click **Settings**. (2) Click **Extensions**
+
 ![extension](../pics/tpr/tpr_open_extensions.png)
 
 (3) Select **DPD**. It's the sixth item in the list.
+
 ![select_dpd](../pics/tpr/tpr_select_dpd.png)
 
-(4) The file will download and then install itself. \
+(4) The file will download and then install itself.
+
 ![downloading](../pics/tpr/tpr_downloading.png)
 
-(5) **PLEASE NOTE!** Wait until you see the menu of Extensions again, that means DPD has installed properly. \
+(5) **PLEASE NOTE!** Wait until you see the menu of Extensions again, that means DPD has installed properly.
+
 ![extensions](../pics/tpr/tpr_extensions.png)
 
 While you're there, grab anything else that might be useful to you! 
