@@ -123,6 +123,7 @@ markdown_extensions:
 
 
 plugins:
+  - search
   - blog:
       blog_dir: pali_notes
       blog_toc: true

@@ -8,23 +8,15 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Sets permissions of the GITHUB_TOKEN
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read # Keep only read for checkout
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+# Concurrency block removed
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # Environment block removed
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,17 +42,6 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./docs_site"
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      # New: Parallel org-site deployment
       - name: Configure SSH for Org Repo
         uses: webfactory/ssh-agent@v0.8.0
         with:
