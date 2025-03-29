@@ -2,6 +2,8 @@
 
     /* top bar background and highlighted text*/
     --md-primary-fg-color: #00A4CC;
+    /* --md-primary-fg-color: #209cee; */
+
 
     /* top bar text */
     /* --md-primary-bg-color: #07021c; */
@@ -30,6 +32,15 @@
 
     /* rollover highlight */
     --md-accent-fg-color: #0066cc;
+
+    /* footer foreground */
+    --md-footer-fg-color: #000000de;
+
+    /* footer background */
+    --md-footer-bg-color: #ffffff;
+
+    /* bottom footer */
+    --md-footer-bg-color--dark: #00A4CC;
 
     /* code background */
     /* --md-code-bg-color: #120f1d; */
@@ -62,6 +73,8 @@
 
     /* top bar background and highlighted text*/
     --md-primary-fg-color: #00A4CC;
+    /* --md-primary-fg-color: #209cee; */
+
 
     /* top bar text */
     --md-primary-bg-color: #07021c;

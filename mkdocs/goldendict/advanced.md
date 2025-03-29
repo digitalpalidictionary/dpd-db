@@ -75,11 +75,21 @@ Other options are:
 
 ## Dark mode
 
-You can install a dark mode for GoldenDict by following the instructions [here](https://github.com/goldendict/goldendict/wiki/GoldenDict-Dark-Theme#how-to-install-goldendict-dark-theme){target="_blank"}.
+To turn on **Dark Reader Mode** in GoldenDict NG:
 
-While you're at it, install the [Dark Reader Chrome extension](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en){target="_blank"} for a Pāḷi reading experience that is comfortable on old eyes.
+(1) In the top menu, click on Edit > Preferences (Shortcut F4)
 
-![darkmode2](../pics/advanced-setup/darkmode2.png)
+![edit preferences](../pics/advanced-setup/edit_preferences_dark.png#only-dark)
+![edit preferences](../pics/advanced-setup/edit_preferences_light.png#only-light)
+
+(2) In the Preferences menu, turn on __Dark Reader Mode__.
+
+![dark reader mode](../pics/advanced-setup/dark_reader_mode_light.png#only-light)
+![dark reader mode](../pics/advanced-setup/dark_reader_mode_dark.png#only-dark)
+
+(3) Turn on dark mode in your application. If you're working online, install the [Dark Reader Chrome extension](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en){target="_blank"} for a comfortable late-night Pāḷi reading experience.
+
+![darkmode3](../pics/advanced-setup/darkmode3.png)
 
 
 
