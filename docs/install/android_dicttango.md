@@ -24,41 +24,41 @@ Below are detailed *step-by-step* instructions.
 
 Please follow them *carefully* to get full DPD functionality. 
 
--- Download and install the latest version of DictTango from [GitHub](https://github.com/Jimex/DictTango-Android/releases/latest){target="_blank"}
+(1) Download and install the latest version of DictTango from [GitHub](https://github.com/Jimex/DictTango-Android/releases/latest){target="_blank"}
 
--- Download the latest **`dpd-mdict.zip`** from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}
+(2) Download the latest **`dpd-mdict.zip`** from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}
 
 ![github mdict](../pics/dicttango2/0_github.png)
 
--- Using your file-manager of choice, **unzip** `dpd-mdict.zip` 
+(3) Using your file-manager of choice, **unzip** `dpd-mdict.zip` 
 
 ![unzip](../pics/dicttango2/2_extract.jpg)
 
--- Open the DictTango app and click the **menu icon** in the top right-hand corner 
+(4) Open the DictTango app and click the **menu icon** in the top right-hand corner 
 
 ![dicttango menu](../pics/dicttango2/4_menu.jpg)
 
--- Click on **Dictionary List** 
+(5) Click on **Dictionary List** 
 
 ![dictionary list](../pics/dicttango2/5_dictionary_list.jpg)
 
--- Click on the **menu icon** in the top right-hand corner of Dictionary List 
+(6) Click on the **menu icon** in the top right-hand corner of Dictionary List 
 
 ![dictionary list menu](../pics/dicttango2/6_dictionary_list_menu.jpg)
 
--- Click **Copy from SD Card** 
+(7) Click **Copy from SD Card** 
 
 ![copy from sd card](../pics/dicttango2/7_copy_from_sd_card.jpg)
 
--- **Select** the 6 DPD files in your Android file browser 
+(8) **Select** the 6 DPD files in your Android file browser 
 
 ![select files](../pics/dicttango2/8_select.jpg)
 
--- Select **Dictionaries Folder** as the destination folder 
+(9) Select **Dictionaries Folder** as the destination folder 
 
 ![dictionaries folder](../pics/dicttango2/9_dictionaries_folder.jpg)
 
--- Click **Copy To Here** 
+(10) Click **Copy To Here** 
 
 ![copy to here](../pics/dicttango2/10_copy_here.jpg)
 
@@ -67,31 +67,31 @@ Please follow them *carefully* to get full DPD functionality.
 
 To see all DPD entries, follow the steps below. Otherwise, DictTango will only display the entry from the first dictionary it finds.
 
--- Click the **menu icon** in the top right-hand corner.
+(1) Click the **menu icon** in the top right-hand corner.
 
 ![menu icon](../pics/dicttango2/4_menu.jpg)
 
--- Select **Dictionary Group**. 
+(2) Select **Dictionary Group**. 
 
 ![dictionary group](../pics/dicttango2/dictionary_group.jpg)
 
--- Select the **Default Group**.
+(3) Select the **Default Group**.
 
 ![default group](../pics/dicttango2/default_group.jpg)
 
--- Click **Dictionaries**
+(4) Click **Dictionaries**
 
 ![default group dictionaries](../pics/dicttango2/default_group_dictionaries.jpg)
 
--- **Long press** to select any dictionary, then click **Select All** 
+(5) **Long press** to select any dictionary, then click **Select All** 
 
 ![select all](../pics/dicttango2/default_group_select_all.jpg)
 
--- Click **More** in the bottom right-hand corner. 
+(6) Click **More** in the bottom right-hand corner. 
 
 ![more](../pics/dicttango2/default_group_more.jpg)
 
--- Click on **Auto Expand** 
+(7) Click on **Auto Expand** 
 
 ![alt text](../pics/dicttango2/dictionary_group_auto_expand.jpg)
 
@@ -102,11 +102,11 @@ That's it. Now you'll see all entries from all dictionaries.
 
 While you are there, you can change the order in which dictionaries are displayed.
 
--- Click the **Sorting Mode Button** in the top right-hand corner 
+(1) Click the **Sorting Mode Button** in the top right-hand corner 
 
 ![sorting mode button](../pics/dicttango2/sorting_mode_button.jpg)
 
--- **Long click and drag**, or click the **arrows** to change the order of dictionaries. 
+(2) **Long click and drag**, or click the **arrows** to change the order of dictionaries. 
 
 ![sorting mode](../pics/dicttango2/sorting_mode.jpg)
 
@@ -115,15 +115,15 @@ While you are there, you can change the order in which dictionaries are displaye
 
 If you prefer dark mode, then
 
--- Click the **menu-icon** in the top right-hand corner. 
+(1) Click the **menu-icon** in the top right-hand corner. 
 
 ![menu icon](../pics/dicttango2/4_menu.jpg)  
 
--- Click on **Settings** 
+(2) Click on **Settings** 
 
 ![settings](../pics/dicttango2/settings.jpg)
 
--- Choose your preferred dark mode. 
+(3) Choose your preferred dark mode. 
 
 ![dark mode](../pics/dicttango2/dark_mode.jpg)
 
@@ -133,32 +133,32 @@ The app will restart in Dark Mode.
 
 ## How To Open A Word In DictTango
 
--- **Long-click** on a Pāḷi word in any PDF, doc or website.
+(1) **Long-click** on a Pāḷi word in any PDF, doc or website.
 
--- After a moment, the **Android menu** will appear.
+(2) After a moment, the **Android menu** will appear.
 
--- Click on **DictTango** 
+(3) Click on **DictTango** 
 
 ![android menu](../pics/dicttango2/android_menu.jpg)
 
--- All relevant dictionary entries will be displayed 
+(4) All relevant dictionary entries will be displayed 
 
 ![open in mdict](../pics/dicttango2/android_opened.jpg)
 
--- Once inside DictTango, just **single-click** on any word to open it. 
+(5) Once inside DictTango, just **single-click** on any word to open it. 
 
 
 ## Font Size
 
 To adjust the font size:
 
--- **Open** any word in the dictionary.
+(1) **Open** any word in the dictionary.
 
--- **Click on the resize icon** in the bottom right-hand corner.
+(2) **Click on the resize icon** in the bottom right-hand corner.
 
 ![resize icon](../pics/dicttango2/resize.jpg)
 
--- Drag the **slider** up and down to change the font size.
+(3) Drag the **slider** up and down to change the font size.
 
 ![slider](../pics/dicttango2/slider.jpg)
 

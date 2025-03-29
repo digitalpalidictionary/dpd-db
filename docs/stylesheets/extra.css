@@ -12,7 +12,7 @@
     /* --md-default-bg-color: #07021c; */
 
     /* secondary background */
-    /* --md-primary-fg-color--dark: #65DBFF; */
+    --md-primary-fg-color--dark: #65DBFF;
 
     /* text colour */
     /* --md-default-fg-color: #e2ebed; */
@@ -94,8 +94,8 @@
     /* heading colour */
     --md-default-fg-color--light: #cccccc;
 
-    /* menu background colour */
-    --md-default-fg-color--lightest: #07021c;
+    /* menu background colour and horizontal lines*/
+    --md-default-fg-color--lightest: #00A4CC;
 
     /* search bar text */
     --md-primary-bg-color--dark: #07021c;
@@ -104,6 +104,21 @@
     /* rollover highlight */
     --md-accent-fg-color: #65DBFF;
 
+    /* footer foreground */
+    --md-footer-fg-color: #e2ebed;
+
+    /* footer background */
+    --md-footer-bg-color: #07021c;
+
+    /* bottom footer background */
+    --md-footer-bg-color--dark: #00A4CC;
+
+
+    /* bottom footer made with */
+    --md-footer-fg-color--lighter: #393939;
+
+    /* bottom footer text */
+    --md-footer-fg-color--light: #07021c;
 
     /* code background */
     --md-code-bg-color: #120f1d;
@@ -128,6 +143,10 @@
 
     /* code highlight to */
     --md-code-hl-color: yellow;
+
+
+
+
 
 }
 

@@ -88,6 +88,3 @@ All the books that are not directly related to the 7 books of the Abhidhamma Pi�
 ![image](../pics/frequency/aññā-visuddhimagga.png)
 
 The Visuddhimagga is included in the Aññā section under *aṭṭhakathā*, and its commentary under *ṭīkā*. 
-
----
-

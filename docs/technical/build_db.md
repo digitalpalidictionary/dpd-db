@@ -1,48 +1,49 @@
 
 ## Building the DB from scratch
 
--- Download the repo
+(1) Download the repo
 
 ```shell
 git clone --depth=1 https://github.com/digitalpalidictionary/dpd-db.git
 ```
 
--- Navigate into the directory
+(2) Navigate into the directory
 
 ```shell
 cd dpd-db
 ```
 
--- Download the submodules from Github
+(3) Download the submodules from Github
 
 ```shell
 git submodule init && git submodule update
 ```
 
--- Install [nodejs](https://nodejs.org/en/download){target="_blank"} for your operating system
+(4) Install [nodejs](https://nodejs.org/en/download){target="_blank"} for your operating system
 
--- Install [go](https://go.dev/doc/install){target="_blank"} for your operating system
+(5) Install [go](https://go.dev/doc/install){target="_blank"} for your operating system
 
--- Install [uv](https://astral.sh/uv/install){target="_blank"} for your operating system
+(6) Install [uv](https://astral.sh/uv/install){target="_blank"} for your operating system
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
--- Install all the dependencies with uv
+(7) Install all the dependencies with uv
+
 ```bash
 uv sync
 ```
 
--- Having at least 20 GB of RAM can be helpful. If you have less, consider [increasing the swap memory.](https://www.reddit.com/r/linuxmint/comments/uhjyir/how_to_increase_swap_size/?rdt=34113){target="_blank"}.
+(8) Having at least 20 GB of RAM can be helpful. If you have less, consider [increasing the swap memory.](https://www.reddit.com/r/linuxmint/comments/uhjyir/how_to_increase_swap_size/?rdt=34113){target="_blank"}.
 
--- Run this once to initialize the project
+(9) Run this once to initialize the project
 
 ```shell
 uv run bash scripts/bash/initial_setup_run_once.sh
 ```
 
--- Build the database, this can take up to an hour the first time.
+(10) Build the database, this can take up to an hour the first time.
 
 ```shell
 uv run bash scripts/bash/initial_build_db.sh

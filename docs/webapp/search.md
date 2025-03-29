@@ -1,6 +1,7 @@
 ## Search for a word
 
 There are a few different ways to search for a word
+
 1. **Double-click** on any word on the page
 2. Type in the search bar using **Unicode** characters and press SEARCH or ENTER
 3. Type in the search bar using **Velthuis** characters and press SEARCH or ENTER
