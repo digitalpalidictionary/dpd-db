@@ -10,7 +10,7 @@ Here's the [DPD Codebase](https://GitHub.com/orgs/digitalpalidictionary/projects
 Here's the [dpd-db](https://GitHub.com/digitalpalidictionary/dpd-db){target="_blank"}  GitHub repo, which contains the code for all aspects of the project.
 
 ## Technical Docs
-Here are the [technical docs](technical/index.md), for building the database, or just working with the pre-built database
+Here are the [technical docs](../technical/index.md), for building the database, or just working with the pre-built database
 
 ## GitHub Releases
 You can find the [latest releases](https://GitHub.com/digitalpalidictionary/dpd-db/releases){target="_blank"}  here on GitHub, which includes the latest version of the database. 
@@ -20,7 +20,7 @@ DPD uses a few languages.
 
 - __Python__: Most of the project backend is written in Python.   
 
-- __HTML CSS JS__: All frontend is written in HTML, CSS and vanilla JavaScript.  
+- __HTML CSS JS__: Most of the frontend is written in HTML, CSS and vanilla JavaScript.  
 
 - __Go__: A few of the more time-consuming operations, like the Deconstructor and generating Frequency tables, are written in Go to take advantage of its speed and concurrency.
 

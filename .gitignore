@@ -184,4 +184,3 @@ scripts/suttas/sc/*.tsv
 resources/flet-docs/
 .clinerules
 memory-bank/
-mkdocs_site/

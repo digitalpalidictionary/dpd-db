@@ -1,3 +1,8 @@
+---
+search:
+  boost: 0.5
+---
+
 # Changelog
 
 ## 2025-03-14

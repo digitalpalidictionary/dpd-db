@@ -1,7 +1,7 @@
 site_name: Digital Pāḷi Dictionary Docs
-docs_dir: "mkdocs"
+docs_dir: "docs"
 repo_url: https://github.com/digitalpalidictionary/dpd-db
-site_dir: "mkdocs_site"
+site_dir: "docs_site"
 
 nav:
   - Home: index.md
@@ -56,10 +56,12 @@ nav:
     - Pāḷi: "contributing/pali.md"
     - Code: "contributing/code.md"
   - Abbreviations: "abbreviations.md"
-  - Changelog: "changelog.md"
   - Bibliography: "bibliography.md"
   - Thanks: "thanks.md"
   - Contact: "contact.md"
+  - License: "license.md"  
+  - Changelog: "changelog.md"
+  - Pāḷi Notes: "pali_notes/index.md"
   - Developer Docs:
     - "technical/index.md"
     - Build the DB from Scratch: "technical/build_db.md"
@@ -67,7 +69,7 @@ nav:
     - Project Folder Structure: "technical/project_folder_structure.md" 
     - DpdHeadwords Table: "technical/dpd_headwords_table.md"
     - Tipiṭaka Source Files: "technical/tipitaka_source_files.md"
-    - Style Guide for DPD Entries: "technical/style_guide_for_dpd_entries.md"
+    # - Style Guide for DPD Entries: "technical/style_guide_for_dpd_entries.md"
 
 theme:
   name: material
@@ -103,6 +105,11 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/digitalpalidictionary/dpd-db
+
 markdown_extensions:
   # allows adding {target="_blank"} after links
   - attr_list 
@@ -113,3 +120,15 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+
+
+plugins:
+  - blog:
+      blog_dir: pali_notes
+      blog_toc: true
+      post_date_format: full
+      post_excerpt: optional
+      post_excerpt_separator: <!-- read more -->
+      draft: false
+      draft_on_serve: true
+  - tags
