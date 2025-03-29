@@ -549,7 +549,7 @@ class ProjectPaths:
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
 
         # docs
-        self.mk_docs_yaml = base_dir / "mkdocs.yml"
+        self.mk_docs_yaml = base_dir / "mkdocs.yaml"
         self.docs_dir = base_dir / "docs/"
         self.docs_bibliography_md_path = base_dir / "docs/bibliography.md"
         self.docs_abbreviations_md_path = base_dir / "docs/abbreviations.md"
