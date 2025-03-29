@@ -22,9 +22,25 @@ from tools.translit import auto_translit_to_roman
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
+
 app.mount("/static", StaticFiles(directory="exporter/webapp/static"), name="static")
 
 pth: ProjectPaths = ProjectPaths()
+
+@app.middleware("http")
+async def add_cache_header(request: Request, call_next):
+    response = await call_next(request)
+    
+    # Добавляем заголовок Cache-Control только для JSON-ответов
+    if "application/json" in response.headers.get("content-type", ""):
+        response.headers["Cache-Control"] = "public, max-age=600"  # Кэширование на 10 минут
+    
+    # Добавляем заголовок Cache-Control для статических файлов
+    if request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "public, max-age=31536000, immutable"  # Кэширование на 1 год
+
+    return response
+
 
 # Create session factory for database connections
 SessionLocal = sessionmaker(
