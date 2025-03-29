@@ -548,11 +548,13 @@ class ProjectPaths:
         self.letters9 = base_dir / "db/deconstructor/output/letters/letters9.tsv"
         self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
 
-        # mkdocs
-        self.docs_bibliography_md_path = base_dir / "mkdocs/bibliography.md"
-        self.docs_abbreviations_md_path = base_dir / "mkdocs/abbreviations.md"
-        self.docs_changelog_md_path = base_dir / "mkdocs/changelog.md"
-        self.docs_thanks_md_path = base_dir / "mkdocs/thanks.md"
+        # docs
+        self.mk_docs_yaml = base_dir / "mkdocs.yml"
+        self.docs_dir = base_dir / "docs/"
+        self.docs_bibliography_md_path = base_dir / "docs/bibliography.md"
+        self.docs_abbreviations_md_path = base_dir / "docs/abbreviations.md"
+        self.docs_changelog_md_path = base_dir / "docs/changelog.md"
+        self.docs_thanks_md_path = base_dir / "docs/thanks.md"
 
         # shared_data/deconstructor
         self.decon_manual_corrections = (

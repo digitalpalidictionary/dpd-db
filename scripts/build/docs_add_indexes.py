@@ -1,12 +1,14 @@
 import yaml
 from pathlib import Path
 
-MKDOCS_DIR = Path("mkdocs")
-MKDOCS_YAML = Path("mkdocs.yaml")
+from tools.paths import ProjectPaths
 
 
 def main():
-    with open(MKDOCS_YAML, "r") as f:
+    pth = ProjectPaths()
+    docs_dir = pth.docs_dir
+
+    with open(pth.mk_docs_yaml, "r") as f:
         config = yaml.safe_load(f)
 
     nav = config.get("nav", [])
@@ -39,7 +41,7 @@ def main():
                         submenu_dir = path.parts[0]
 
                 if submenu_dir and pages:
-                    target_dir = MKDOCS_DIR / submenu_dir
+                    target_dir = docs_dir / submenu_dir
                     index_path = target_dir / "index.md"
 
                     with open(index_path, "a") as f:
