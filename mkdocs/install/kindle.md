@@ -4,7 +4,7 @@ A light version of DPD is now available for Amazon Kindle.
 
 ## Installation
 
-(1) Download the latest version of **dpd-kindle.mobi** from **[this page on GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}**.
+(1) Download the latest version of **dpd-kindle.mobi** from **[the releases page on GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}**.
 ![image](../pics/kindle/kindle_github.png)
 
 (2) Copy that file to the following folder on your Kindle: `/documents/dictionaries`

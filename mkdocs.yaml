@@ -84,15 +84,28 @@ theme:
     # - toc.integrate
 
   palette: 
+    # light mode
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle: 
+        icon: material/lightbulb
+        name: Switch to dark mode
+    
+    # dark mode
     - scheme: slate
       primary: custom
       accent: custom
+      toggle: 
+        icon: material/lightbulb-outline
+        name: Switch to light mode
 
 extra_css:
   - stylesheets/extra.css
 
 markdown_extensions:
-  - attr_list # allows adding {target="_blank"} after links
+  # allows adding {target="_blank"} after links
+  - attr_list 
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

@@ -75,7 +75,7 @@ Other options are:
 
 ## Dark mode
 
-You can install a dark mode for GoldenDict by following the instructions [here](https://github.com/goldendict/goldendict/wiki/GoldenDict-Dark-Theme#how-to-install-goldendict-dark-theme).
+You can install a dark mode for GoldenDict by following the instructions [here](https://github.com/goldendict/goldendict/wiki/GoldenDict-Dark-Theme#how-to-install-goldendict-dark-theme){target="_blank"}.
 
 While you're at it, install the [Dark Reader Chrome extension](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en){target="_blank"} for a Pāḷi reading experience that is comfortable on old eyes.
 

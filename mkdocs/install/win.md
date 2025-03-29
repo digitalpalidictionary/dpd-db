@@ -2,9 +2,9 @@
 
 # In Brief
 
-1. download the latest version of [DPD](https://github.com/digitalpalidictionary/dpd-db/releases/latest). Look for `dpd-goldendict.zip`
+1. download the latest version of [DPD](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}. Look for `dpd-goldendict.zip`
 
-2. download and install the latest version of [GoldenDict NG](https://github.com/xiaoyifang/goldendict-ng/releases/latest). Look for `Windows-installer.exe`
+2. download and install the latest version of [GoldenDict NG](https://github.com/xiaoyifang/goldendict-ng/releases/latest){target="_blank"}. Look for `Windows-installer.exe`
 
 3. in settings, direct GoldenDict to the DPD folder.
    
@@ -52,7 +52,7 @@ Click Finish
 
 ## Download DPD
 
-Download the latest version of `dpd-goldendict.zip` from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}.
+Download the latest version of `dpd-goldendict.zip` from [GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="blank"}
 
 ## Make a GoldenDict folder
 

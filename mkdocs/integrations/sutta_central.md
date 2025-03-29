@@ -1,6 +1,6 @@
 # Sutta Central
 
-[Sutta Central](https://suttacentral.net/) is an online platform that provides access to early Buddhist texts from all schools, as well as translations in multiple languages.
+[Sutta Central](https://suttacentral.net/){target="_blank"} is an online platform that provides access to early Buddhist texts from all schools, as well as translations in multiple languages.
 
 A customized light version of DPD is now integrated into the Sutta Central website, replacing the old NCPED for English lookup.
 

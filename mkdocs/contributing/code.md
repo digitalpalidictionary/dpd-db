@@ -3,7 +3,7 @@
 If you're a software developer and would like to contribute to the project, please get involved.
 
 ## DPD Project Management
-Here's the [DPD Codebase](https://GitHub.com/orgs/digitalpalidictionary/projects/1/views/2) Project Management on GitHub with all the open and in-progress issues. Just comment on any issue to find out more, or [please get in touch by email](mailto:digitalpalidictionary@gmail.com).
+Here's the [DPD Codebase](https://GitHub.com/orgs/digitalpalidictionary/projects/1/views/2){target="_blank"} Project Management on GitHub with all the open and in-progress issues. Just comment on any issue to find out more, or [please get in touch by email](mailto:digitalpalidictionary@gmail.com).
 
 ## DPD Project repo
 

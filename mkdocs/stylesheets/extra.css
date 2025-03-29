@@ -1,3 +1,63 @@
+[data-md-color-scheme="default"] {
+
+    /* top bar background and highlighted text*/
+    --md-primary-fg-color: #00A4CC;
+
+    /* top bar text */
+    /* --md-primary-bg-color: #07021c; */
+
+    /* main background */
+    /* --md-default-bg-color: #07021c; */
+
+    /* secondary background */
+    /* --md-primary-fg-color--dark: #65DBFF; */
+
+    /* text colour */
+    /* --md-default-fg-color: #e2ebed; */
+
+    /* text colour */
+    /* --md-typeset-color: #e2ebed; */
+
+    /* heading colour */
+    /* --md-default-fg-color--light: #cccccc; */
+
+    /* menu background colour */
+    /* --md-default-fg-color--lightest: #07021c; */
+
+    /* search bar text */
+    /* --md-primary-bg-color--dark: #07021c; */
+    /* --md-primary-bg-color--light: #07021c; */
+
+    /* rollover highlight */
+    --md-accent-fg-color: #0066cc;
+
+    /* code background */
+    /* --md-code-bg-color: #120f1d; */
+
+    /* code text */
+    /* --md-code-fg-color: #97e4fb; */
+
+    /* code comments */
+    /* --md-code-hl-comment-color: gray; */
+
+    /* code keywords */
+    /* --md-code-hl-keyword-color: #00A4CC; */
+
+    /* code strings */
+    /* --md-code-hl-string-color: #01ccff; */
+
+    /* code constant */
+    /* --md-code-hl-constant-color: #50a150; */
+
+    /* code functions */
+    /* --md-code-hl-function-color: rgb(79, 171, 79); */
+
+    /* code highlight to */
+    /* --md-code-hl-color: yellow; */
+
+}
+
+
 [data-md-color-scheme="slate"] {
 
     /* top bar background and highlighted text*/

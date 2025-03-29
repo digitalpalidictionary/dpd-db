@@ -8,7 +8,7 @@ Please use the menu on the left to navigate around this site.
 
 Firstly, you need to get GoldenDict, MDict or DictTango installed and setup on your machine ([Win](install/win.md) / [Mac](install/mac.md) / [iOS](install/ios.md) / [Linux](install/linux.md) / [Android](install/android_dicttango.md)) or [update](install/update.md) once a month if you're already installed.
 
-Download the latest version for your device from [this page on GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}.
+Download the latest version for your device from [the releases page on GitHub](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}.
 
 Here's a handy guide to some of the [features](features/features.md) available in DPD. 
 
