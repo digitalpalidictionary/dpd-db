@@ -1,10 +1,10 @@
 # Tipitaka Pali Reader
 
-**Tipitaka Pali Reader** is an excellent new app for reading Pāḷi texts being developed by Ven. Paññadhaja in Myanmar and managed by [Ven. Subhuti](https://americanmonk.org/){target="_blank"} and . You can find out more information about TPR on [this website](https://americanmonk.org/tipitaka-pali-reader/){target="_blank"}.
+**Tipitaka Pali Reader** is an excellent new app for reading Pāḷi texts being developed by Ven. Paññadhaja in Myanmar, and managed by [Ven. Subhuti](https://americanmonk.org/){target="_blank"}. You can find out more information about TPR on [his website](https://americanmonk.org/tipitaka-pali-reader/){target="_blank"}.
 
 TPR is available for all OS's and devices. Download the latest version for Windows, Mac, LInux, iOS, Android from [the releases page on GitHub](https://github.com/bksubhuti/tipitaka-pali-reader/releases){target="_blank"}
 
-A lightweight version of DPD is available inside Tipitaka Pali Reader. It just includes the grammatical information for every word, none of the other buttons.
+A lightweight version of DPD is available inside Tipitaka Pali Reader. It just includes the grammatical information for every word, other features are downloadable as extensions.
 
 To open a word in the dictionary, simply click on it and the dictionary will pop up. TPR uses the same system for recognizing inflections and sandhi as DPD, so only correct possibilities should be displayed.
 
@@ -25,7 +25,9 @@ Tipitaka Pali Reader allows you to download a variety of extensions. These inclu
 
 To get the very latest release of DPD,
 
-(1) Open the **Menu** and click **Settings**. (2) Click **Extensions**
+(1) Open the **Menu** and click **Settings**. 
+
+(2) Click **Extensions**
 
 ![extension](../pics/tpr/tpr_open_extensions.png)
 

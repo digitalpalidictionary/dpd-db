@@ -5,6 +5,7 @@ There are a few different ways to search for a word
 1. **Double-click** on any word on the page
 2. Type in the search bar using **Unicode** characters and press SEARCH or ENTER
 3. Type in the search bar using **Velthuis** characters and press SEARCH or ENTER
+4. Type in the search bar using **Devanagari, Sinhala, Thai**, or any script supported by [Aksharamukha](https://www.aksharamukha.com/converter){target="_blank"} [Coming Soon!].
 
 ## Velthuis to Unicode
 The Velthuis system allows you to type diacritics without any special keyboard installed. The letters will automatically be converted to Unicode diacritics.

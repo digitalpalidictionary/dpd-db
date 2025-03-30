@@ -6,4 +6,6 @@ Click the __New Issue__ button on the right-hand side and you will be guided thr
 
 ![make github issue](../pics/feedback/github_issue.png)
 
-Software developers will be able to handle it from there.
+Or else just click this link to make a [new bug report](https://github.com/digitalpalidictionary/dpd-db/issues/new/choose){target="_blank"} right now.
+
+Software developers will be able to handle it once it's on GitHub.
