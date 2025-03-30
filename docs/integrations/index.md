@@ -1,3 +1,3 @@
 # Software Integrations
 
-DPD is integrated into popular Pāḷi reading software. FInd the one that suits you the best.
+DPD is integrated into a number of popular Pāḷi software applications. Find the one that best suits your needs.
