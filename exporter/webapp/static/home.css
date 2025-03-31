@@ -1,27 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400;1,8..60,700&display=swap');
+
 :root {
-    --background-light: #e2ebed;
-    --foreground-light: #07021c;
-    --background-dark: #07021c;
-    --foreground-dark: #e2ebed;
-    --gray: gray;
-    --transparent: rgba(138, 138, 138, 0.253);
-    --colour0: #00718d;
-    --colour1: #00A4CC;
-    --colour2: #65DBFF;
-    --root-colour1: #AB3C00;
-    --root-colour2: #F95700;
-    ;
+    --old1: hsl(192, 100%, 40%);
+    --old2: hsl(194, 100%, 70%);
+
+    --light: hsl(200, 10%, 90%);
+    --dark: hsl(200, 10%, 10%);
+    --colour1: hsl(200, 100%, 40%);
+    --colour2: hsl(200, 100%, 70%);
+
+    --logo: hsl(204, 86%, 53%);
+
+    --gray: hsl(0, 0%, 50%);
+    --gray-light: hsl(0, 0%, 70%);
+    --gray-dark: hsl(0, 0%, 30%);
+
+    --help1: hsl(180, 100%, 30%);
+    --help2: hsl(180, 100%, 70%);
+
+    --freq0: hsl(180, 74%, 92%);
+    --freq1: hsl(183, 76%, 85%);
+    --freq2: hsl(186, 78%, 78%);
+    --freq3: hsl(189, 80%, 71%);
+    --freq4: hsl(192, 82%, 64%);
+    --freq5: hsl(195, 84%, 57%);
+    --freq6: hsl(198, 88%, 50%);
+    --freq7: hsl(201, 92%, 45%);
+    --freq8: hsl(204, 95%, 41%);
+    --freq9: hsl(207, 98%, 37%);
+    --freq10: hsl(210, 100%, 33%);
 }
 
 .dark-mode {
-    background-color: var(--background-dark);
-    color: var(--foreground-dark);
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 body {
-    background-color: var(--background-light);
-    color: var(--foreground-light);
-    font-family: "sans";
+    background-color: var(--light);
+    color: var(--dark);
+    font-family: 'Inter', sans-serif;
     font-size: 1em;
     transition: 1s;
     scroll-behavior: smooth;
@@ -47,6 +66,8 @@ body {
 
 .tab-link {
     border: none;
+    background-color: var(--light);
+    color: var(--dark);
     outline: none;
     cursor: pointer;
     transition: 0.3s;
@@ -54,31 +75,26 @@ body {
     border-radius: 1px 7px 0 0;
 }
 
-.tab-link:hover {
-    background-color: var(--tab-hover-bg-color, #ddd);
+.dark-mode .tab-link {
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 .tab-link.active {
-    background-color: var(--colour2);
-    color: var(--foreground-light);
+    background-color: var(--colour1);
+    color: var(--light);
 }
 
-.dark-mode .tab-link {
-    background-color: var(--background-dark);
-    color: var(--foreground-dark);
-    border: 2px solid var(--transparent);
+.tab-link.active {
+    background-color: var(--colour1);
+    color: var(--light);
 }
 
-.dark-mode .tab-link.active {
-    background-color: var(--colour0);
-    color: var(--foreground-dark);
-    border: 2px solid var(--transparent);
-}
 
 .tab-content {
     display: none;
     padding: 0px;
-    border-radius: 7px;
+    border-radius: 0 7px 7px 7px;
     flex: 1;
     overflow: hidden;
     display: flex;
@@ -94,11 +110,15 @@ body {
 .header-pane {
     align-items: center;
     border-radius: 0 7px 7px 7px;
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
     display: flex;
     justify-content: center;
     padding: 10px;
     /* width: 98%; */
+}
+
+.dark-mode .header-pane {
+    border-color: var(--gray-dark);
 }
 
 .logo-title {
@@ -136,46 +156,81 @@ a {
 }
 
 .search-box {
-    background-color: var(--background-light);
-    border-color: var (--gray);
+    background-color: var(--light);
+    border: 2px solid var(--gray-light);
     border-radius: 7px;
-    color: var(--foreground-light);
-    font-family: "Dejavu Sans";
+    color: var(--dark);
+    font-family: 'Inter', sans-serif;
     font-size: 130%;
     height: 30px;
     margin: 5px;
     padding: 2px 10px;
     transition: 1s;
     width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    outline: none;
 }
 
-.search-box:active {
+.search-box:focus {
     border-color: var(--colour1);
 }
 
 .dark-mode .search-box {
-    background-color: var(--background-dark);
-    border-color: var(--colour2);
-    color: var(--foreground-dark);
+    background-color: var(--dark);
+    border-color: var(--gray-dark);
+    color: var(--light);
+}
+
+.dark-mode .search-box:focus {
+    border-color: var(--colour1);
 }
 
 .search-button {
-    background-color: var(--colour2);
+    background-color: var(--colour1);
+    border: none;
     border-radius: 7px;
-    border: 2px solid var(--gray);
-    color: black;
+    color: var(--light);
     height: 30px;
     margin: 5px;
     padding: 2px 10px;
     padding: 5px 10px;
-    transition: 1s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.15s;
+
 }
+
+.search-button:hover {
+    background-color: var(--colour2);
+    color: var(--dark);
+}
+
+.search-button:active {
+    filter: brightness(70%);
+}
+
+
 
 .help {
     position: relative;
     cursor: help;
+}
+
+.small-button {
+    align-items: center;
+    background-color: var(--colour1);
+    border-radius: 1em;
+    border-width: 0;
+    color: var(--light);
+    font-size: 1em;
+    height: 1.3em;
+    justify-content: center;
+    transition: 0.3s;
+    width: 1.3em;
+}
+
+.small-button:active,
+.small-button:hover {
+    background-color: var(--colour2);
+    color: var(--dark);
 }
 
 .tooltip {
@@ -184,8 +239,7 @@ a {
     position: absolute;
     background-color: var(--colour2);
     border-radius: 7px;
-    border: 2px solid var (--gray);
-    color: black;
+    color: var(--dark);
     padding: 10px;
     text-align: left;
     visibility: hidden;
@@ -207,7 +261,7 @@ a {
 
 .history-pane {
     border-radius: 7px;
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -217,6 +271,11 @@ a {
     padding: 5px 20px;
     position: relative;
 }
+
+.dark-mode .history-pane {
+    border-color: var(--gray-dark);
+}
+
 
 .history-pane h3 {
     text-align: left;
@@ -231,11 +290,11 @@ a {
 }
 
 .history-pane::-webkit-scrollbar-track {
-    background-color: var(--background-light);
+    background-color: var(--light);
 }
 
 .dark-mode .history-pane::-webkit-scrollbar-track {
-    background-color: var(--background-dark);
+    background-color: var(--dark);
 }
 
 .history-pane::-webkit-scrollbar-thumb {
@@ -250,7 +309,7 @@ a {
     padding: 5px 10px;
     font-size: 0.8em;
     background-color: var(--colour2);
-    color: var(--foreground-light);
+    color: var(--dark);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -291,14 +350,14 @@ p.message {
 }
 
 .root-summary-link {
-    color: var(--root-colour1);
+    color: var(--colour1);
     text-decoration: none;
     font-weight: bold;
 }
 
 .dpd-pane {
     border-radius: 7px;
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
     display: flex;
     flex-direction: column;
     flex: 3;
@@ -310,17 +369,21 @@ p.message {
     margin-right: 5px;
 }
 
+.dark-mode .dpd-pane {
+    border: 2px solid var(--gray-dark);
+}
+
 .dpd-pane::-webkit-scrollbar {
     width: 10px;
 }
 
 .dpd-pane::-webkit-scrollbar-track {
-    background-color: var(--background-light);
+    background-color: var(--light);
     transition: background-color 1s;
 }
 
 .dark-mode .dpd-pane::-webkit-scrollbar-track {
-    background-color: var(--background-dark);
+    background-color: var(--dark);
     transition: background-color 1s;
 }
 
@@ -332,11 +395,16 @@ p.message {
 
 .settings-pane {
     border-radius: 7px;
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
     flex-direction: column;
     flex: 1;
     padding: 5px 20px;
 }
+
+.dark-mode .settings-pane {
+    border-color: var(--gray-dark);
+}
+
 
 .settings-pane h3 {
     text-align: left;
@@ -346,23 +414,10 @@ p.message {
     padding: 5px;
 }
 
-.small-button {
-    background-color: var(--colour2);
-    height: 1.3em;
-    width: 1.3em;
-    border-radius: 1em;
-    border-width: 0;
-    font-size: 1em;
-}
-
-.small-button:active {
-    background-color: var(--colour1);
-}
-
 .footer-pane {
     border-radius: 7px;
-    border: var(--transparent) 2px solid;
-    color: var(--foreground-light);
+    border: var(--gray-light) 2px solid;
+    color: var(--dark);
     justify-content: center;
     margin-bottom: 20px;
     overflow-wrap: break-word;
@@ -374,22 +429,23 @@ p.message {
     word-break: break-word;
 }
 
+.dark-mode .footer-pane {
+    color: var(--light);
+    border-color: var(--gray-dark);
+}
+
 .footer-pane a {
     color: var(--colour1);
     text-decoration: none;
     transition: 1s;
 }
 
-.dark-mode .footer-pane {
-    color: var(--foreground-dark);
-}
-
 .footer-pane a:hover {
-    color: var(--colour0);
+    color: var(--colour2);
 }
 
 .dark-mode .footer-pane a:hover {
-    color: var(--colour0);
+    color: var(--colour2);
 }
 
 /* Language Switcher Container */
@@ -405,7 +461,7 @@ p.message {
     cursor: pointer;
     font-size: 1.2em;
     /* Adjust size as needed */
-    color: var(--foreground-light);
+    color: var(--dark);
     /* Consistent color */
     transition: color 0.3s;
 }
@@ -418,63 +474,46 @@ p.message {
 /* Dropdown Menu */
 .dropdown {
     display: none;
-    /* Hidden by default */
     position: absolute;
     top: 100%;
-    /* Position right below the icon */
     left: 0;
     background-color: var(--colour2);
-    /* Matches primary color */
     border-radius: 7px;
-    /* Consistent rounded corners */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    /* Adds subtle shadow */
     min-width: 120px;
-    /* Minimum width for better readability */
     z-index: 1000;
-    /* Ensure dropdown appears above other content */
 }
 
 /* Dropdown Links */
 .dropdown a {
     display: block;
     padding: 8px 12px;
-    /* Padding for comfortable clicking */
-    color: black;
-    /* Text color */
+    color: var(--dark);
     text-decoration: none;
     font-family: sans-serif;
-    /* Matches other text */
     font-size: 0.9em;
-    /* Slightly smaller font size */
     transition: background-color 0.3s;
-    /* Smooth background transition */
 }
 
-/* Hover Effect for Links */
 .dropdown a:hover {
     background-color: var(--colour1);
-    /* Background color change on hover */
-    color: var(--foreground-dark);
-    /* Ensure text is readable on hover */
+    color: var(--light);
 }
 
-/* Dark Mode Adjustments */
 .dark-mode .language-icon {
-    color: var(--foreground-dark);
+    color: var(--light);
 }
 
 .dark-mode .dropdown {
-    background-color: var(--background-dark);
+    background-color: var(--dark);
 }
 
 .dark-mode .dropdown a {
-    color: var(--foreground-dark);
+    color: var(--light);
 }
 
 .dark-mode .dropdown a:hover {
     background-color: var(--colour1);
-    color: var(--background-dark);
+    color: var(--dark);
 }
 
 .centered-text {
@@ -483,8 +522,12 @@ p.message {
 }
 
 .bd-header-pane {
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
     flex-direction: column;
+}
+
+.dark-mode .bd-header-pane {
+    border-color: var(--gray-dark);
 }
 
 .bd-search-box {
@@ -521,20 +564,19 @@ p.message {
 }
 
 .bd-search-options input[type="radio"]+label {
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
 }
 
 .bd-search-options button {
     background-color: var(--colour2);
     border-radius: 7px;
-    border: 2px solid var(--transparent);
-    color: black;
+    border: 2px solid var(--gray-light);
+    color: var(--dark);
     cursor: pointer;
     margin-right: 10px;
     padding: 5px 10px;
     user-select: none;
     transition: 1s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 label {
@@ -551,12 +593,15 @@ label {
 
 .scrolling-pane {
     border-radius: 7px;
-    border: 2px solid var(--transparent);
+    border: 2px solid var(--gray-light);
     padding: 5px;
     overflow-y: auto;
     margin: 5px;
     flex: 1;
-    /* Allow the scrolling pane to grow and shrink */
+}
+
+.dark-mode .scrolling-pane {
+    border-color: var(--gray-dark);
 }
 
 .scrolling-pane::-webkit-scrollbar {
@@ -564,12 +609,12 @@ label {
 }
 
 .scrolling-pane::-webkit-scrollbar-track {
-    background-color: var(--background-light);
+    background-color: var(--light);
     transition: background-color 1s;
 }
 
 .dark-mode .scrolling-pane::-webkit-scrollbar-track {
-    background-color: var(--background-dark);
+    background-color: var(--dark);
     transition: background-color 1s;
 }
 
@@ -589,11 +634,11 @@ label {
 
 .dark-mode .bd-message {
     background-color: var(--colour2);
-    color: var(--foreground-light);
+    color: var(--dark);
 }
 
 .bd-th {
-    color: var(--foreground-light);
+    color: var(--dark);
     font-size: 1.1em;
     font-weight: normal;
     line-height: 1.5;
@@ -608,12 +653,12 @@ label {
 }
 
 .dark-mode .bd-th {
-    background-color: var(--background-dark);
-    color: var(--foreground-dark);
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 .bd-td {
-    color: var(--foreground-light);
+    color: var(--dark);
     font-size: 1.1em;
     font-weight: normal;
     line-height: 1.5;
@@ -628,7 +673,7 @@ label {
 }
 
 .dark-mode .bd-td {
-    color: var(--foreground-dark);
+    color: var(--light);
 }
 
 .bd-info {
@@ -642,7 +687,7 @@ label {
 }
 
 .dark-mode .bd-info {
-    color: var(--colour0);
+    color: var(--colour2);
 }
 
 .hi {
@@ -721,6 +766,7 @@ label {
         width: 100%;
         box-sizing: border-box;
     }
+
 
     .history-pane h3 {
         text-align: center;

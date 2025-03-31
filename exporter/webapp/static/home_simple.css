@@ -1,29 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400;1,8..60,700&display=swap');
+
 :root {
-    --background-light: rgb(226, 235, 237);
-    --foreground-light: rgb(7, 2, 28);
-    --background-dark: rgb(7, 2, 28);
-    --foreground-dark: rgb(226, 235, 237);
-    --gray: gray;
-    --transparent: rgba(138, 138, 138, 0.253);
-    --colour0: #00718d;
-    --colour1: #00A4CC;
-    --colour2: #65DBFF;
+    --light: hsl(200, 5%, 90%);
+    --dark: hsl(200, 5%, 10%);
+
+    --gray: hsl(0, 0%, 50%);
+    --gray-light: hsl(0, 0%, 70%);
+    --gray-dark: hsl(0, 0%, 30%);
+
+    --colour1: hsl(200, 100%, 40%);
+    --colour2: hsl(200, 100%, 70%);
+
+    --help1: hsl(180, 100%, 30%);
+    --help2: hsl(180, 100%, 70%);
+
+    --freq0: hsl(180, 74%, 92%);
+    --freq1: hsl(183, 76%, 85%);
+    --freq2: hsl(186, 78%, 78%);
+    --freq3: hsl(189, 80%, 71%);
+    --freq4: hsl(192, 82%, 64%);
+    --freq5: hsl(195, 84%, 57%);
+    --freq6: hsl(198, 88%, 50%);
+    --freq7: hsl(201, 92%, 45%);
+    --freq8: hsl(204, 95%, 41%);
+    --freq9: hsl(207, 98%, 37%);
+    --freq10: hsl(210, 100%, 33%);
 }
 
+
 body {
-    background-color: var(--background-light);
-    color: var(--foreground-light);
-    font-family: "sans";
-    /* scroll-behavior: smooth; */
+    background-color: var(--light);
+    color: var(--dark);
+    font-family: 'Inter', sans-serif;
 }
 
 h2 {
-    /* font-size: 150%; */
     margin: 5px;
 }
 
 h3 {
-    /* font-size: 130%; */
     margin-top: 5px;
 }
 
@@ -49,7 +65,7 @@ h3 {
 
 .dpd-pane {
     border-radius: 7px;
-    border: 2px solid var(--transparent);
+    border: 2px solid transparent;
     flex: 3;
     padding: 5px;
     overflow-y: auto;

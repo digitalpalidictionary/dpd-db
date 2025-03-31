@@ -1,9 +1,3 @@
-:root {
-    --colour1: #00A4CC;
-    --colour2: #65DBFF;
-    --colour3: #ab7b38;
-}
-
 h3 {
     font-size: 130%;
     margin-top: 10px;
@@ -97,7 +91,7 @@ table.inflection {
 
 table.inflection td,
 table.inflection th {
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
     border-radius: 7px;
     line-height: 150%;
     padding: 5px 5px;
@@ -113,7 +107,7 @@ table.inflection th {
 }
 
 span.gray {
-    color: gray;
+    color: var(--gray);
 }
 
 a.jump {
@@ -152,15 +146,15 @@ div.button-box {
 
 a.button {
     background-color: var(--colour2);
+    border: 1px solid var(--colour2);
     border-radius: 7px;
-    box-shadow: 1px 1px 1px 0 #888888;
-    color: #000;
+    color: var(--dark);
     cursor: pointer;
     display: inline-block;
     font-size: 80%;
     font-weight: 400;
     margin: 1px 1px 2px 1px;
-    padding: 3px 5px;
+    padding: 2px 4px;
     text-decoration: none;
     user-select: none;
 }
@@ -172,13 +166,19 @@ a.button.close {
 
 a.button.active {
     background-color: var(--colour1);
-    color: black;
+    color: var(--light);
+    border-color: var(--dark);
     user-select: none;
 }
 
+.dark-mode a.button.active {
+    border-color: var(--light);
+}
+
 a.button:hover {
+    /* border: 1px solid var(--colour1); */
     background-color: var(--colour1);
-    color: white;
+    color: var(--light);
     user-select: none;
 }
 
@@ -190,6 +190,7 @@ a.button:hover {
 .hidden {
     display: none;
 }
+
 
 table.freq th,
 table.freq td {
@@ -224,9 +225,15 @@ table.freq td {
     width: 2.5em;
     /* min-width: 30px; */
     white-space: nowrap;
+    border-color: var(--gray-light);
 }
 
-td.void {
+.dark-mode table.freq td {
+    border-color: var(--gray-dark);
+}
+
+
+table.freq td.void {
     border: 0px solid transparent;
 }
 
@@ -236,68 +243,75 @@ td.gap {
 }
 
 td.gr0 {
-    border: 1px solid #dbdbff;
+    border: 1px solid var(--freq0);
+    border-color: var(--gray-light);
+    color: transparent;
+}
+
+.dark-mode .gr0 {
+    border: 1px solid var(--freq0);
+    border-color: var(--gray-dark);
     color: transparent;
 }
 
 td.gr1 {
-    background-color: #ddecfa;
-    border-color: #ddecfa;
-    color: #000;
+    background-color: var(--freq1);
+    border-color: var(--freq1);
+    color: var(--dark);
 }
 
 td.gr2 {
-    background-color: #d2e2ff;
-    border-color: #d2e2ff;
-    color: #000;
+    background-color: var(--freq2);
+    border-color: var(--freq2);
+    color: var(--dark);
 }
 
 td.gr3 {
-    background-color: #b0dbff;
-    border-color: #b0dbff;
-    color: #000;
+    background-color: var(--freq3);
+    border-color: var(--freq3);
+    color: var(--dark);
 }
 
 td.gr4 {
-    background-color: #9dc3fd;
-    border-color: #9dc3fd;
-    color: #000;
+    background-color: var(--freq4);
+    border-color: var(--freq4);
+    color: var(--dark);
 }
 
 td.gr5 {
-    background-color: #668efc;
-    border-color: #668efc;
-    color: #000;
+    background-color: var(--freq5);
+    border-color: var(--freq5);
+    color: var(--dark);
 }
 
 td.gr6 {
-    background-color: #4668ff;
-    border-color: #4668ff;
-    color: #fff;
+    background-color: var(--freq6);
+    border-color: var(--freq6);
+    color: var(--light);
 }
 
 td.gr7 {
-    background-color: #314ffc;
-    border-color: #314ffc;
-    color: #fff;
+    background-color: var(--freq7);
+    border-color: var(--freq7);
+    color: var(--light);
 }
 
 td.gr8 {
-    background-color: #003cff;
-    border-color: #003cff;
-    color: #fff;
+    background-color: var(--freq8);
+    border-color: var(--freq8);
+    color: var(--light);
 }
 
 td.gr9 {
-    background-color: #0000bb;
-    border-color: #0000bb;
-    color: #fff;
+    background-color: var(--freq9);
+    border-color: var(--freq9);
+    color: var(--light);
 }
 
 td.gr10 {
-    background-color: #00008f;
-    border-color: #00008f;
-    color: #fff;
+    background-color: var(--freq10);
+    border-color: var(--freq10);
+    color: var(--light);
 }
 
 /* deconstructor */
@@ -339,7 +353,7 @@ p.deconstructor_footer {
 
 
 div.variants {
-    border: 2px solid #00A4CC;
+    border: 2px solid var(--colour1);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -374,7 +388,7 @@ table.variants {
 
 
 hr.variants {
-    background-color: gray;
+    background-color: var(--gray-light);
     width: 100%;
     border: none;
     height: 1px;
@@ -383,11 +397,15 @@ hr.variants {
     display: block;
 }
 
+.dark-mode hr.variants {
+    background-color: var(--gray-dark);
+}
+
 
 /* grammar dict */
 
 div.grammar_dict {
-    border: 2px solid #468b7c;
+    border: 2px solid var(--colour1);
     border-collapse: collapse;
     border-radius: 7px;
     line-height: 150%;
@@ -397,7 +415,7 @@ div.grammar_dict {
 
 table.grammar_dict {
     border: 2px solid transparent;
-    /* border-right: 1px #468b7c; */
+    /* border-right: 1px var(--colour1); */
     border-collapse: collapse;
     border-radius: 5px;
     line-height: 150%;
@@ -411,16 +429,21 @@ table.grammar_dict {
 
 table.grammar_dict td {
     padding: 2px 5px;
-    border: 1px solid #468b7c;
+    border: 1px solid var(--gray-light);
     border-collapse: collapse;
+}
 
+.dark-mode table.grammar_dict td {
+    padding: 2px 5px;
+    border: 1px solid var(--gray-dark);
+    border-collapse: collapse;
 }
 
 /* help */
 
 
 div.help {
-    border: 2px solid #0ab33d;
+    border: 2px solid var(--help1);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -444,7 +467,7 @@ table.help th {
 }
 
 table.help th {
-    color: #0ab33d;
+    color: var(--help1);
     font-weight: 700;
     width: 10%;
 }
@@ -460,7 +483,7 @@ table.help b {
 /* roots */
 
 div.root_content {
-    border: 2px solid #AB3C00;
+    border: 2px solid var(--colour1);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -469,15 +492,13 @@ div.root_content {
     text-align: left;
 }
 
-
-
 .root_underlined {
-    border-bottom: 1px solid #AB3C00;
+    border-bottom: 1px solid var(--colour1);
     margin-bottom: 5px;
 }
 
 .root_overlined {
-    border-top: 1px solid #AB3C00;
+    border-top: 1px solid var(--colour1);
     margin-top: 5px;
 }
 
@@ -487,7 +508,7 @@ p.root_heading b {
 }
 
 p.root_footer {
-    border-top: 1px solid #AB3C00;
+    border-top: 1px solid var(--colour1);
     font-size: 80%;
     padding: 5px 0px;
 }
@@ -505,7 +526,7 @@ table.root_info th {
 }
 
 table.root_info th {
-    color: #AB3C00;
+    color: var(--colour1);
     font-weight: 700;
     white-space: normal;
     padding: 0px 5px 2px 0px
@@ -522,7 +543,7 @@ table.root_family th {
 }
 
 table.root_family th {
-    color: #AB3C00;
+    color: var(--colour1);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -539,16 +560,16 @@ div.root_button_box {
 }
 
 a.root_button {
-    background-color: #F95700;
+    background-color: var(--colour2);
+    border: 1px solid var(--colour2);
     border-radius: 7px;
-    box-shadow: 1px 1px 1px 0 #888888;
-    color: #000;
+    color: var(--dark);
     cursor: pointer;
     display: inline-block;
     font-size: 80%;
     font-weight: 400;
     margin: 1px 1px 2px 1px;
-    padding: 3px 5px;
+    padding: 2px 4px;
     text-decoration: none;
     user-select: none;
 }
@@ -559,19 +580,20 @@ a.root_button.close {
 }
 
 a.root_button.active {
-    background-color: #AB3C00;
-    color: black;
+    background-color: var(--colour1);
+    color: var(--light);
     user-select: none;
 }
 
 a.root_button:hover {
-    background-color: #AB3C00;
-    color: white;
+    background-color: var(--colour1);
+    color: var(--light);
     user-select: none;
+    border: 1px solid var(--colour1);
 }
 
 .root_link {
-    color: #AB3C00;
+    color: var(--colour1);
     font-weight: 700;
 }
 
@@ -589,26 +611,30 @@ table.root_matrix td {
 }
 
 table.root_matrix th {
-    border: 1px solid #AB3C00;
-    color: #F95700;
+    border: 1px solid var(--colour1);
+    color: var(--colour1);
     font-weight: 700;
     text-align: center;
     white-space: nowrap;
 }
 
 table.root_matrix td {
-    border: 1px solid gray;
+    border: 1px solid var(--gray-light);
     text-align: left;
 }
 
+.dark-mode table.root_matrix td {
+    border: 1px solid var(--gray-dark);
+}
+
 table.root_matrix td b {
-    color: #AB3C00;
+    color: var(--colour1);
     font-weight: 700;
     white-space: nowrap;
 }
 
 span.colour {
-    color: #AB3C00;
+    color: var(--colour1);
     font-weight: 700;
 }
 
