@@ -5,11 +5,11 @@
     <p>
         {{d.ru_pos}}.
         {% if d.ru_plus_case %}
-            ({{d.ru_plus_case}})
+        ({{d.ru_plus_case}})
         {% endif %}
         {{d.ru_meaning|safe}}
         {% if d.summary %}
-            [{{d.summary}}]
+        [{{d.summary}}]
         {% endif %}
         {{d.rus_complete|safe}}
     </p>
@@ -21,100 +21,72 @@
 
 <div class="button-box">
     {% if d.i.needs_grammar_button %}
-        <a class="button" name="grammar-button"
-        href="#" 
-        data-target="grammar_{{d.i.lemma_1_}}">
+    <a class="button" name="grammar-button" href="#" data-target="grammar_{{d.i.lemma_1_}}">
         грамматика</a>
     {% endif %}
 
     {% if d.i.needs_example_button %}
-        <a class="button" name="example-button"
-        href="#" 
-        data-target="example_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#" data-target="example_{{d.i.lemma_1_}}">
         пример</a>
     {% endif %}
 
     {% if d.i.needs_examples_button %}
-        <a class="button" name="example-button"
-        href="#" 
-        data-target="examples_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#" data-target="examples_{{d.i.lemma_1_}}">
         примеры</a>
     {% endif %}
 
     {% if d.i.needs_conjugation_button %}
-        <a class="button" 
-        href="#" 
-        data-target="conjugation_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="conjugation_{{d.i.lemma_1_}}">
         спряжения</a>
     {% endif %}
 
     {% if d.i.needs_declension_button %}
-        <a class="button" 
-        href="#" 
-        data-target="declension_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="declension_{{d.i.lemma_1_}}">
         склонения</a>
     {% endif %}
 
     {% if d.i.needs_root_family_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_root_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_root_{{d.i.lemma_1_}}">
         семья корня</a>
     {% endif %}
 
     {% if d.i.needs_word_family_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_word_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_word_{{d.i.lemma_1_}}">
         семья слова</a>
     {% endif %}
 
     {% if d.i.needs_compound_family_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_compound_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_compound_{{d.i.lemma_1_}}">
         семья составного</a>
     {% endif %}
 
     {% if d.i.needs_compound_families_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_compound_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_compound_{{d.i.lemma_1_}}">
         семьи составного</a>
     {% endif %}
 
     {% if d.i.needs_idioms_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_idiom_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_idiom_{{d.i.lemma_1_}}">
         идиомы</a>
     {% endif %}
 
     {% if d.i.needs_set_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_set_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_set_{{d.i.lemma_1_}}">
         группа</a>
     {% endif %}
 
     {% if d.i.needs_sets_button %}
-        <a class="button" 
-        href="#" 
-        data-target="family_sets_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="family_sets_{{d.i.lemma_1_}}">
         группы</a>
     {% endif %}
 
     {% if d.i.needs_frequency_button %}
-        <a class="button" 
-        href="#" 
-        data-target="frequency_{{d.i.lemma_1_}}">
+    <a class="button" href="#" data-target="frequency_{{d.i.lemma_1_}}">
         частота</a>
     {% endif %}
 
-    <a class="button" 
-    href="#" 
-    data-target="feedback_{{d.i.lemma_1_}}">
-    о словаре</a>
+    <a class="button" href="#" data-target="feedback_{{d.i.lemma_1_}}">
+        о словаре</a>
 </div>
 
 
@@ -142,12 +114,12 @@
         </tr>
 
         <tr></tr>
-            <th>
-                English
-            </th>
-            <td>
-                {{d.meaning|safe}}
-            </td> 
+        <th>
+            English
+        </th>
+        <td>
+            {{d.meaning|safe}}
+        </td>
         </tr>
 
         <tr>
@@ -156,7 +128,7 @@
             </th>
             <td>
                 {{d.ru_grammar}}
-            </td> 
+            </td>
         </tr>
 
         {% if d.i.family_root %}
@@ -176,8 +148,8 @@
                 Корень
             </th>
             <td>
-                {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}} 
-                {{d.i.root_sign}} 
+                {{d.i.root_clean}}<sup>{{d.i.rt.root_has_verb}}</sup>{{d.i.rt.root_group}}
+                {{d.i.root_sign}}
                 ({{d.i.rt.root_ru_meaning}})
             </td>
         </tr>
@@ -202,7 +174,7 @@
             <td>
                 {{d.i.root_base}}
             </td>
-        </tr>    
+        </tr>
         {% endif %}
 
         {% if d.i.construction %}
@@ -222,7 +194,7 @@
                 Производное
             </th>
             <td>
-                {{d.i.derivative}} 
+                {{d.i.derivative}}
                 ({{d.i.suffix}})
             </td>
         </tr>
@@ -245,7 +217,7 @@
                 Составное
             </th>
             <td>
-                {{d.i.compound_type}} 
+                {{d.i.compound_type}}
                 ({{d.i.compound_construction|safe}})
             </td>
         </tr>
@@ -300,12 +272,12 @@
             <th>Заметки</th>
             <td>{{d.i.ru.ru_notes|safe}}</td>
         </tr>
-            {% if "[пер. ИИ]" in d.i.ru.ru_notes and d.i.notes %}
-                <tr>
-                    <th>Notes</th>
-                    <td>{{d.i.notes|safe}}</td>
-                </tr>
-            {% endif %}
+        {% if "[пер. ИИ]" in d.i.ru.ru_notes and d.i.notes %}
+        <tr>
+            <th>Notes</th>
+            <td>{{d.i.notes|safe}}</td>
+        </tr>
+        {% endif %}
         {% elif d.i.notes %}
         <tr>
             <th>Notes</th>
@@ -331,11 +303,11 @@
             </th>
             <td>
                 {% for website in d.i.link.split(" ") %}
-                    <a href="{{ website }}" target="_blank">
-                        {{ website }}
-                    </a>
+                <a href="{{ website }}" target="_blank">
+                    {{ website }}
+                </a>
                 {% if not loop.last %}
-                    <br>
+                <br>
                 {% endif %}
                 {% endfor %}
             </td>
@@ -362,7 +334,7 @@
                 <i>
                     {{d.i.sanskrit}}
                 </i>
-                
+
             </td>
         </tr>
         {% endif %}
@@ -374,8 +346,8 @@
             </th>
             <td>
                 <i>
-                    {{d.i.rt.sanskrit_root}} 
-                    {{d.i.rt.sanskrit_root_class}} 
+                    {{d.i.rt.sanskrit_root}}
+                    {{d.i.rt.sanskrit_root_class}}
                     ({{d.i.rt.sanskrit_root_ru_meaning}})
                 </i>
             </td>
@@ -384,10 +356,10 @@
     </table>
     <p class='footer'>
         Заметили ошибку?
-        <a class="link" 
-        href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Грамматика&entry.1433863141={{d.app_name}}+{{d.date}}" 
-        target="_blank">
-        Исправьте здесь.</a>
+        <a class="link"
+            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Грамматика&entry.1433863141={{d.app_name}}+{{d.date}}"
+            target="_blank">
+            Исправьте здесь.</a>
     </p>
 </div>
 {% endif %}
@@ -397,138 +369,140 @@
 {% if d.i.needs_example_button %}
 <div id="example_{{d.i.lemma_1_}}" name="example-div" class="content hidden">
 
-{% elif d.i.needs_examples_button %}
-<div id="examples_{{d.i.lemma_1_}}" name="example-div" class="content hidden">
-{% endif %}
+    {% elif d.i.needs_examples_button %}
+    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="content hidden">
+        {% endif %}
 
-{% if d.i.example_1 and d.i.meaning_1 %}
-<p>
-    {{d.i.example_1|safe}}
-</p>
-<p class="sutta">
-    {% if d.make_link and d.i.source_link_1 %}
-        <a href="{{d.i.source_link_1}}" 
-        target="_blank">
-            {{d.i.source_1}}</a>
-    {% else %}
-        {{d.i.source_1}}
+        {% if d.i.example_1 and d.i.meaning_1 %}
+        <p>
+            {{d.i.example_1|safe}}
+        </p>
+        <p class="sutta">
+            {% if d.make_link and d.i.source_link_1 %}
+            <a href="{{d.i.source_link_1}}" target="_blank">
+                {{d.i.source_1}}</a>
+            {% else %}
+            {{d.i.source_1}}
+            {% endif %}
+            {{d.i.sutta_1|safe}}
+        </p>
+
+        {% if d.i.example_2 and d.i.meaning_1 %}
+        <p>
+            {{d.i.example_2|safe}}
+        </p>
+        <p class="sutta">
+            {% if d.make_link and d.i.source_link_2 %}
+            <a href="{{d.i.source_link_2}}" target="_blank">
+                {{d.i.source_2}}</a>
+            {% else %}
+            {{d.i.source_2}}
+            {% endif %}
+            {{d.i.sutta_2|safe}}
+        </p>
+        {% endif %}
+
+        <p class='footer'>
+            Пожалуйста, подскажите более подходящий
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Примеры&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                пример.</a>
+        </p>
+
+    </div>
     {% endif %}
-    {{d.i.sutta_1|safe}}
-</p>
 
-{% if d.i.example_2 and d.i.meaning_1 %}
-<p>
-    {{d.i.example_2|safe}}
-</p>
-<p class="sutta">
-    {% if d.make_link and d.i.source_link_2 %}
-        <a href="{{d.i.source_link_2}}" 
-        target="_blank">
-            {{d.i.source_2}}</a>
-    {% else %}
-        {{d.i.source_2}}
-    {% endif %}
-    {{d.i.sutta_2|safe}}
-</p>
-{% endif %}
+    <!-- declension -->
 
-<p class='footer'>
-    Пожалуйста, подскажите более подходящий 
-    <a class="link" 
-    href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Примеры&entry.1433863141={{d.app_name}}+{{d.date}}" 
-    target="_blank">
-        пример.</a>
-</p>
-
-</div>
-{% endif %}
-
-<!-- declension -->
-
-{% if d.i.needs_declension_button %}
+    {% if d.i.needs_declension_button %}
     <div id="declension_{{d.i.lemma_1_}}" class="content hidden">
         {{d.inflections_html_ru|safe}}
-    {% if "gray" in d.inflections_html_ru %}
+        {% if "gray" in d.inflections_html_ru %}
         <p>
-            Формы слов не найденные в версии текстов Chaṭṭha Saṅgāyana или в обработанных сандхи и составных словах, выделены <span class='gray'>серым цветом</span>. Они всё ещё могут встречаться в других местах, в составных словах или в других версиях палийских текстов.
+            Формы слов не найденные в версии текстов Chaṭṭha Saṅgāyana или в обработанных сандхи и составных словах,
+            выделены <span class='gray'>серым цветом</span>. Они всё ещё могут встречаться в других местах, в составных
+            словах или в других версиях палийских текстов.
         </p>
         <p class='footer'>
-    {% else %}
+            {% else %}
         <p>
-    {% endif %}
+            {% endif %}
             Ошибка в таблице склонений? Что-то упущено?
-            <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Склонения+или+спряжения&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            Пожалуйста сообщите.</a>
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Склонения+или+спряжения&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Пожалуйста сообщите.</a>
         </p>
     </div>
-{% endif %}
+    {% endif %}
 
 
-<!-- conjugation -->
+    <!-- conjugation -->
 
 
-{% if d.i.needs_conjugation_button %}
+    {% if d.i.needs_conjugation_button %}
     <div id="conjugation_{{d.i.lemma_1_}}" class="content hidden">
         {{d.inflections_html_ru|safe}}
-    {% if "gray" in d.inflections_html_ru %}
+        {% if "gray" in d.inflections_html_ru %}
         <p>
-            Формы слов не найденные в версии текстов Chaṭṭha Saṅgāyana или в обработанных сандхи и составных словах, выделены <span class='gray'>серым цветом</span>. Они всё ещё могут встречаться в других местах, в составных словах или в других версиях палийских текстов.
+            Формы слов не найденные в версии текстов Chaṭṭha Saṅgāyana или в обработанных сандхи и составных словах,
+            выделены <span class='gray'>серым цветом</span>. Они всё ещё могут встречаться в других местах, в составных
+            словах или в других версиях палийских текстов.
         </p>
         <p class='footer'>
-    {% else %}
+            {% else %}
         <p>
-    {% endif %}
+            {% endif %}
             Ошибка в таблице спряжений? Что-то упущено?
-            <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Склонения+или+спряжения&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            Пожалуйста сообщите.</a>
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Склонения+или+спряжения&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Пожалуйста сообщите.</a>
         </p>
     </div>
-{% endif %}
+    {% endif %}
 
 
-<!-- root family -->
+    <!-- root family -->
 
 
-{% if d.i.needs_root_family_button %}
+    {% if d.i.needs_root_family_button %}
     <div id="family_root_{{d.i.lemma_1_}}" class="content hidden">
         {{d.i.fr.html_ru|safe}}
         <p class='footer'>
-            Заметили ошибку? 
-            <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Семья+корня&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            Пожалуйста сообщите.</a>.
-        </p> 
-    </div>    
-{% endif %}
+            Заметили ошибку?
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Семья+корня&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Пожалуйста сообщите.</a>.
+        </p>
+    </div>
+    {% endif %}
 
-<!-- word family -->
+    <!-- word family -->
 
-{% if d.i.needs_word_family_button %}
+    {% if d.i.needs_word_family_button %}
     <div id="family_word_{{d.i.lemma_1_}}" class="content hidden">
         <p class="heading underlined">
-            <b>{{d.i.fw.count}}</b> 
+            <b>{{d.i.fw.count}}</b>
             слов(а) относящиеся к семье
-            <b>{{d.i.family_word}}</b> 
+            <b>{{d.i.family_word}}</b>
         </p>
         {{d.i.fw.html_ru|safe}}
         <p class='footer'>
             Заметили ошибку?
-            <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Семья+слова&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            Пожалуйста сообщите.</a>.
-        </p> 
-    </div>    
-{% endif %}
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Семья+слова&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Пожалуйста сообщите.</a>.
+        </p>
+    </div>
+    {% endif %}
 
-<!-- compound family -->
+    <!-- compound family -->
 
-{% if d.i.needs_compound_family_button %}
+    {% if d.i.needs_compound_family_button %}
     <div id="family_compound_{{d.i.lemma_1_}}" class="content hidden">
         <p class="heading underlined">
             <b>
@@ -541,277 +515,273 @@
             {{d.fc[0].html_ru|safe}}
         </p>
     </div>
-{% endif %}
+    {% endif %}
 
-<!-- compound families -->
+    <!-- compound families -->
 
-{% if d.i.needs_compound_families_button %}
-<div id="family_compound_{{d.i.lemma_1_}}" class="content hidden">
-    <p id="{{d.i.lemma_1_}}cf_top" class="heading">перейти к: 
-    {% for f in d.fc%}
-    <a class="jump" 
-        href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
-        {% if not loop.last %}
-            {{f.compound_family}},
-        {% else%}
-            {{f.compound_family}}
-        {% endif %} 
-    </a>
-    {% endfor %}
-    </p>
-    
-    {% for f in d.fc %}
+    {% if d.i.needs_compound_families_button %}
+    <div id="family_compound_{{d.i.lemma_1_}}" class="content hidden">
+        <p id="{{d.i.lemma_1_}}cf_top" class="heading">перейти к:
+            {% for f in d.fc%}
+            <a class="jump" href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
+                {% if not loop.last %}
+                {{f.compound_family}},
+                {% else%}
+                {{f.compound_family}}
+                {% endif %}
+            </a>
+            {% endfor %}
+        </p>
+
+        {% for f in d.fc %}
         {% if loop.index == 0 %}
-            <p class="heading underlined overlined">
-        {% else %}
-            <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" 
-                class="heading underlined overlined">
-        {% endif %}
-        {% if f.count == 1 %}
-            <b>{{f.count}}</b> 
+        <p class="heading underlined overlined">
+            {% else %}
+        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" class="heading underlined overlined">
+            {% endif %}
+            {% if f.count == 1 %}
+            <b>{{f.count}}</b>
             составное содержащее
             <b>{{f.compound_family}}</b>
-        {% else %}
-            <b>{{f.count}}</b> 
+            {% else %}
+            <b>{{f.count}}</b>
             составных содержащих
             <b>{{f.compound_family}}</b>
-            <a class="jump" 
-                href="#{{d.i.lemma_1_}}cf_top"> ⤴
+            <a class="jump" href="#{{d.i.lemma_1_}}cf_top"> ⤴
             </a>
-        {% endif %}
+            {% endif %}
         </p>
         {{f.html_ru|safe}}
-    {% endfor %}
-    <p class="underline overlined">
-        В начало 
-        <a class="jump" 
-        href="#{{d.i.lemma_1_}}cf_top">⤴</a>
-    </p>
-    <p class='footer'>
-        Заметили ошибку?
-            <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Семья+составных&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            Пожалуйста сообщите.</a>.
-    </p>
-</div>
-{% endif %}
+        {% endfor %}
+        <p class="underline overlined">
+            В начало
+            <a class="jump" href="#{{d.i.lemma_1_}}cf_top">⤴</a>
+        </p>
+        <p class='footer'>
+            Заметили ошибку?
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Семья+составных&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Пожалуйста сообщите.</a>.
+        </p>
+    </div>
+    {% endif %}
 
-<!-- idioms -->
+    <!-- idioms -->
 
-{% if d.i.needs_idioms_button %}
-<div id="family_idiom_{{d.i.lemma_1_}}" class="content hidden">
-    {% for f in d.fi %}
+    {% if d.i.needs_idioms_button %}
+    <div id="family_idiom_{{d.i.lemma_1_}}" class="content hidden">
+        {% for f in d.fi %}
         {% if loop.index == 1 %}
-            <p class="heading underlined">
-        {% else %}
-            <p class="heading underlined overlined">
-        {% endif %}
-        {% if f.count == 1 %}
-            <b>{{f.count}}</b> 
+        <p class="heading underlined">
+            {% else %}
+        <p class="heading underlined overlined">
+            {% endif %}
+            {% if f.count == 1 %}
+            <b>{{f.count}}</b>
             идиоматическое выражение, которое содержит
             <b>{{f.idiom}}</b>
-        {% else %}
-            <b>{{f.count}}</b> 
+            {% else %}
+            <b>{{f.count}}</b>
             идиоматических выражений, которые содержат
             <b>{{f.idiom}}</b>
-        {% endif %}
-        </p>
-        {{f.html_ru|safe}}
-    {% endfor %}
-    <p class='footer'>
-        Пожалуйста, добавьте больше идиом 
-        <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Идиомы&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            тут</a>.
-    </p>
-    </div>
-{% endif %}
-
-
-<!-- set -->
-
-{% if d.i.needs_set_button %}
-<div id="family_set_{{d.i.lemma_1_}}" class="content hidden">
-    {% for f in d.fs %}
-    <p class="heading underlined">
-        <b>{{d.i.lemma_clean}}</b> 
-        входит в группу 
-        <b>{{f.set_ru}}</b>
-    </p>
-    {{f.html_ru|safe}}
-    {% endfor %}
-</div>
-{% endif %}
-
-<!-- sets -->
-
-{% if d.i.needs_sets_button %}
-<div id="family_sets_{{d.i.lemma_1_}}" class="content hidden">
-    <p id="{{d.i.lemma_1_}}sets_top" class="heading">перейти к: 
-    
-        {# Step 1: Build a set to set_ru mapping using a dictionary #}
-        {% set set_ru_mapping = {} %}
-        {% for f in d.fs %}
-            {% set set_ru_mapping = set_ru_mapping.update({f.set: f.set_ru}) %}
-        {% endfor %}
-        
-        {# Step 2: Loop over d.i.family_set_list and use set_ru_mapping to fetch set_ru #}
-        {% for set in d.i.family_set_list %}
-            <a class="jump" href="#{{d.i.lemma_1_}}sets_{{set}}">
-            {% if not loop.last %}
-                {{ set_ru_mapping[set]|safe }},
-            {% else %}
-                {{ set_ru_mapping[set]|safe }}
             {% endif %}
-            </a>
-        {% endfor %}
-        </p>
-    
-    {% for f in d.fs %}
-        {% if loop.index0 == 0 %}
-            <p class="heading underlined overlined">
-        {% else %}
-            <p id="{{d.i.lemma_1_}}sets_{{f.set}}" 
-                class="heading underlined overlined">
-        {% endif %}
-        <b>{{d.i.lemma_clean}}</b> 
-        входит в группу 
-        <b>{{f.set_ru}}</b>
-        {% if loop.index0 > 0 %}
-        <a class="jump" href="#{{d.i.lemma_1_}}sets_top"> ⤴</a>
-        {% endif %}
         </p>
         {{f.html_ru|safe}}
-    {% endfor %}
-    <p class="underline overlined">
-        В начало 
-        <a class="jump" 
-        href="#{{d.i.lemma_1_}}sets_top">⤴</a>
-    </p>
-    <p class='footer'>
-        Заметили ошибку?
-            <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Группа&entry.1433863141={{d.app_name}}+{{d.date}}" 
-            target="_blank">
-            Пожалуйста сообщите.</a>.
-    </p>
-</div>
-{% endif %}
-
-{% if d.i.needs_sets_button %}
-<div id="sets_{{d.i.lemma_1_}}" class="content hidden">
-    {% for f in d.fs %}
-    {% if loop.index0 == 0 %}
-    <p class="heading underlined">
-    {% else %}
-    <p class="heading underlined overlined">
+        {% endfor %}
+        <p class='footer'>
+            Пожалуйста, добавьте больше идиом
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Идиомы&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                тут</a>.
+        </p>
+    </div>
     {% endif %}
-        <b>{{d.i.lemma_clean}}</b> 
-        входит в группу 
-        <b>{{f.set_ru}}</b>
-    </p>
-    {{f.html_ru|safe}}
-    {% endfor %}
-</div>
-{% endif %}
 
-<!-- frequency -->
 
-{% if d.i.needs_frequency_button %}
-<div id="frequency_{{d.i.lemma_1_}}" class="content hidden">
-    
-    {% if not d.i.freq_html %}
+    <!-- set -->
+
+    {% if d.i.needs_set_button %}
+    <div id="family_set_{{d.i.lemma_1_}}" class="content hidden">
+        {% for f in d.fs %}
+        <p class="heading underlined">
+            <b>{{d.i.lemma_clean}}</b>
+            входит в группу
+            <b>{{f.set_ru}}</b>
+        </p>
+        {{f.html_ru|safe}}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- sets -->
+
+    {% if d.i.needs_sets_button %}
+    <div id="family_sets_{{d.i.lemma_1_}}" class="content hidden">
+        <p id="{{d.i.lemma_1_}}sets_top" class="heading">перейти к:
+
+            {# Step 1: Build a set to set_ru mapping using a dictionary #}
+            {% set set_ru_mapping = {} %}
+            {% for f in d.fs %}
+            {% set set_ru_mapping = set_ru_mapping.update({f.set: f.set_ru}) %}
+            {% endfor %}
+
+            {# Step 2: Loop over d.i.family_set_list and use set_ru_mapping to fetch set_ru #}
+            {% for set in d.i.family_set_list %}
+            <a class="jump" href="#{{d.i.lemma_1_}}sets_{{set}}">
+                {% if not loop.last %}
+                {{ set_ru_mapping[set]|safe }},
+                {% else %}
+                {{ set_ru_mapping[set]|safe }}
+                {% endif %}
+            </a>
+            {% endfor %}
+        </p>
+
+        {% for f in d.fs %}
+        {% if loop.index0 == 0 %}
+        <p class="heading underlined overlined">
+            {% else %}
+        <p id="{{d.i.lemma_1_}}sets_{{f.set}}" class="heading underlined overlined">
+            {% endif %}
+            <b>{{d.i.lemma_clean}}</b>
+            входит в группу
+            <b>{{f.set_ru}}</b>
+            {% if loop.index0 > 0 %}
+            <a class="jump" href="#{{d.i.lemma_1_}}sets_top"> ⤴</a>
+            {% endif %}
+        </p>
+        {{f.html_ru|safe}}
+        {% endfor %}
+        <p class="underline overlined">
+            В начало
+            <a class="jump" href="#{{d.i.lemma_1_}}sets_top">⤴</a>
+        </p>
+        <p class='footer'>
+            Заметили ошибку?
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Группа&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Пожалуйста сообщите.</a>.
+        </p>
+    </div>
+    {% endif %}
+
+    {% if d.i.needs_sets_button %}
+    <div id="sets_{{d.i.lemma_1_}}" class="content hidden">
+        {% for f in d.fs %}
+        {% if loop.index0 == 0 %}
+        <p class="heading underlined">
+            {% else %}
+        <p class="heading underlined overlined">
+            {% endif %}
+            <b>{{d.i.lemma_clean}}</b>
+            входит в группу
+            <b>{{f.set_ru}}</b>
+        </p>
+        {{f.html_ru|safe}}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- frequency -->
+
+    {% if d.i.needs_frequency_button %}
+    <div id="frequency_{{d.i.lemma_1_}}" class="content hidden">
+
+        {% if not d.i.freq_html %}
         <p class="heading underlined">
             Ни в одной из версий текстов нет совпадений со словом <b>{{d.i.lemma_1}}</b>.
         </p>
         <p>
             Вероятно, слово встречается только в составе сложных слов. Или, возможно, это ошибка.
         </p>
-    
-    {% else %}
+
+        {% else %}
         <p class="heading underlined">
 
-        {% if d.i.needs_declension_button %}
+            {% if d.i.needs_declension_button %}
             График частоты совпадений слова <b>{{d.i.lemma_1}}</b> и его склонения
-        {% elif d.i.needs_conjugation_button %}
+            {% elif d.i.needs_conjugation_button %}
             График частоты совпадений слова <b>{{d.i.lemma_1}}</b> и его спряжений
-        {% else %}
+            {% else %}
             График частоты совпадений слова <b>{{d.i.lemma_1}}</b>
-        {% endif %}
+            {% endif %}
 
-        {{d.i.freq_html|safe}}
+            {{d.i.freq_html|safe}}
 
-        {% endif %}
+            {% endif %}
 
-        
-    <p>
-        Для подробного объяснения того, как рассчитывается этот график частоты слов, его точности и неточности, обратитесь, пожалуйста, к
-        <a class="link" 
-        href="https://digitalpalidictionary.github.io/frequency.html" 
-        target="_blank">
-        этой веб-странице
-    </a>.
-    </p>
-    <p class='footer'>
-        Что-то не на месте? 
-        <a class="link" 
-            href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Частота&entry.1433863141={{d.app_name}}+{{d.date}}"
-            target="_blank">
-            Сообщите здесь.
-        </a>
-    </p>
-</div>
-{% endif %}
 
-<!-- feedback -->
+        <p>
+            Для подробного объяснения того, как рассчитывается этот график частоты слов, его точности и неточности,
+            обратитесь, пожалуйста, к
+            <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/" target="_blank">
+                этой веб-странице
+            </a>.
+        </p>
+        <p class='footer'>
+            Что-то не на месте?
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Частота&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Сообщите здесь.
+            </a>
+        </p>
+    </div>
+    {% endif %}
 
-<div id="feedback_{{d.i.lemma_1_}}" class="content hidden">
-    <p>
-        ID <b>{{d.i.id}}</b>
-    </p>
-    <p>
-        Это образовательный проект и находится на стадии тестирования и редактирования.
-        <br>
-        Словарь является частичным переводом <a class="link" href="https://digitalpalidictionary.github.io/"target="_blank">DPD</a> - <b>Электронный Словарь Пали (от Дост. Бодхираса).</b>
-    </p>
-    <p>
-        <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141={{d.app_name}}+{{d.date}}"
-        target="_blank">Добавить отсутствующее слово</a><span>. Пожалуйста, используйте эту </span>
-        <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141={{d.app_name}}+{{d.date}}"
-        target="_blank">
-        онлайн-форму</a>
-        для добавления отсутствующих слов, особенно из Винаи, комментариев и других поздних текстов. 
-        Если вы предпочитаете работать в автономном режиме, вот 
-        <a class="link" download="true" 
-        href="https://github.com/digitalpalidictionary/dpd-db/raw/main/misc/DPD%20Add%20Words.xlsx" 
-        target="_blank">
-        таблица для загрузки</a><span>, заполните и отправьте. </span>
-    </p>
-    <p>
-        <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}" 
-        target="_blank">
-            Заметили ошибку?
-        </a>
-        <span>
-            Ваши предложения и комментарии будут неоценимой помощью в улучшении качества данной работы и будут полезны всем пользователям словаря.
-        </span>
-    </p>
-    <p>
-        <a class="link" 
-            href="mailto:devamitta@sasanarakkha.org">
-            Помощь проекту
-        </a>
-        <span>
-            . Если вы программист или хорошо знаете Пали или как-то хотите поддержать проект, помощь приветствуется!
-        </span>
-    </p>
-    <p>
-        При поддержке <a class="link" href="https://sasanarakkha.org/"target="_blank">Sāsanārakkha Buddhist Sanctuary</a>.
-    </p>
-</div>
+    <!-- feedback -->
 
-<!-- fin -->
+    <div id="feedback_{{d.i.lemma_1_}}" class="content hidden">
+        <p>
+            ID <b>{{d.i.id}}</b>
+        </p>
+        <p>
+            Это образовательный проект и находится на стадии тестирования и редактирования.
+            <br>
+            Словарь является частичным переводом <a class="link" href="https://digitalpalidictionary.github.io/"
+                target="_blank">DPD</a> - <b>Электронный Словарь Пали (от Дост. Бодхираса).</b>
+        </p>
+        <p>
+            <a class="link"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">Добавить отсутствующее слово</a><span>. Пожалуйста, используйте эту </span>
+            <a class="link"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                онлайн-форму</a>
+            для добавления отсутствующих слов, особенно из Винаи, комментариев и других поздних текстов.
+            Если вы предпочитаете работать в автономном режиме, вот
+            <a class="link" download="true"
+                href="https://github.com/digitalpalidictionary/dpd-db/raw/main/misc/DPD%20Add%20Words.xlsx"
+                target="_blank">
+                таблица для загрузки</a><span>, заполните и отправьте. </span>
+        </p>
+        <p>
+            <a class="link"
+                href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Заметили ошибку?
+            </a>
+            <span>
+                Ваши предложения и комментарии будут неоценимой помощью в улучшении качества данной работы и будут
+                полезны всем пользователям словаря.
+            </span>
+        </p>
+        <p>
+            <a class="link" href="mailto:devamitta@sasanarakkha.org">
+                Помощь проекту
+            </a>
+            <span>
+                . Если вы программист или хорошо знаете Пали или как-то хотите поддержать проект, помощь приветствуется!
+            </span>
+        </p>
+        <p>
+            При поддержке <a class="link" href="https://sasanarakkha.org/" target="_blank">Sāsanārakkha Buddhist
+                Sanctuary</a>.
+        </p>
+    </div>
+
+    <!-- fin -->
