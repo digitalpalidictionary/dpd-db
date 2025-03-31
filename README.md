@@ -34,12 +34,12 @@ API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/
 [All Integrations](https://digitalpalidictionary.github.io/integrations/)
 
 DPD is integrated into the following software and websites.  
-[Dhamma.gift website](https://find.dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)
-[Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)  
-[Sutta Central website](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)
-[The Buddha's Words website](https://thebuddhaswords.net/mn/mn1.html#content) | [Docs](https://digitalpalidictionary.github.io/integrations/tbw/)
+[Dhamma.gift website](https://find.dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
+[Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)    
+[Sutta Central website](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
+[The Buddha's Words website](https://thebuddhaswords.net/mn/mn1.html#content) | [Docs](https://digitalpalidictionary.github.io/integrations/tbw/)  
 [Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [Win](https://apps.microsoft.com/store/detail/tipitaka-pali-reader/9MTH9TD82TGR?hl=en-ms&gl=ms) | [Mac](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Linux](https://github.com/bksubhuti/tipitaka-pali-reader/releases/) | [Android](https://play.google.com/store/apps/details?id=com.paauk.tipitakapalireader) | [iOS](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)  
-[Tipitakapali.org website](https://tipitakapali.org/) | [iOS](https://apps.apple.com/vn/app/tipitakacst/id6743404213) | [Docs](https://digitalpalidictionary.github.io/integrations/tipitakapali/)
+[Tipitakapali.org website](https://tipitakapali.org/) | [iOS](https://apps.apple.com/vn/app/tipitakacst/id6743404213) | [Docs](https://digitalpalidictionary.github.io/integrations/tipitakapali/)  
 
 ## Additional Resources
 [Other Pāḷi & Sanskrit dictionaries](https://github.com/digitalpalidictionary/dpd-db/tree/main/exporter/other_dictionaries)  
@@ -51,11 +51,11 @@ DPD is integrated into the following software and websites.
 
 Digital Pāḷi Dictionary is made available under a __CC BY-NC-SA 4.0__ license. 
 
-- __CC__: You are free to free to share it and adapt it as long as
-- __BY__: you attribute the source, 
-- __NC__: don't use it commercially, 
-- __SA__: and share under the same conditions.
+__CC__: You are free to free to __share__ and __adapt__ it  
+__BY__: as long as you attribute the source,   
+__NC__: don't use it commercially,   
+__SA__: and share under the same conditions.  
 
-View the full license details on the [Creative Commons website](http://creativecommons.org/licenses/by-nc-sa/4.0/){target="_blank}. 
+View the full license details on the [Creative Commons website](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
