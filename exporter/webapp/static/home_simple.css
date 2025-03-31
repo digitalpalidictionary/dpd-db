@@ -6,8 +6,7 @@
     --dark: hsl(200, 5%, 10%);
 
     --gray: hsl(0, 0%, 50%);
-    --gray-light: hsl(0, 0%, 70%);
-    --gray-dark: hsl(0, 0%, 30%);
+    --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
     --colour1: hsl(200, 100%, 40%);
     --colour2: hsl(200, 100%, 70%);

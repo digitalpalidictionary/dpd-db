@@ -154,7 +154,7 @@ a.button {
     font-size: 80%;
     font-weight: 400;
     margin: 1px 1px 2px 1px;
-    padding: 2px 4px;
+    padding: 2px 5px;
     text-decoration: none;
     user-select: none;
 }
@@ -166,17 +166,14 @@ a.button.close {
 
 a.button.active {
     background-color: var(--colour1);
+    border-color: var(--colour1);
     color: var(--light);
-    border-color: var(--dark);
     user-select: none;
 }
 
-.dark-mode a.button.active {
-    border-color: var(--light);
-}
 
 a.button:hover {
-    /* border: 1px solid var(--colour1); */
+    border: 1px solid var(--colour1);
     background-color: var(--colour1);
     color: var(--light);
     user-select: none;
@@ -225,11 +222,11 @@ table.freq td {
     width: 2.5em;
     /* min-width: 30px; */
     white-space: nowrap;
-    border-color: var(--gray-light);
+    border-color: var(--gray-transparent);
 }
 
 .dark-mode table.freq td {
-    border-color: var(--gray-dark);
+    border-color: var(--gray-transparent);
 }
 
 
@@ -244,13 +241,13 @@ td.gap {
 
 td.gr0 {
     border: 1px solid var(--freq0);
-    border-color: var(--gray-light);
+    border-color: var(--gray-transparent);
     color: transparent;
 }
 
 .dark-mode .gr0 {
     border: 1px solid var(--freq0);
-    border-color: var(--gray-dark);
+    border-color: var(--gray-transparent);
     color: transparent;
 }
 
@@ -388,7 +385,7 @@ table.variants {
 
 
 hr.variants {
-    background-color: var(--gray-light);
+    background-color: var(--gray-transparent);
     width: 100%;
     border: none;
     height: 1px;
@@ -398,7 +395,7 @@ hr.variants {
 }
 
 .dark-mode hr.variants {
-    background-color: var(--gray-dark);
+    background-color: var(--gray-transparent);
 }
 
 
@@ -429,13 +426,13 @@ table.grammar_dict {
 
 table.grammar_dict td {
     padding: 2px 5px;
-    border: 1px solid var(--gray-light);
+    border: 1px solid var(--gray-transparent);
     border-collapse: collapse;
 }
 
 .dark-mode table.grammar_dict td {
     padding: 2px 5px;
-    border: 1px solid var(--gray-dark);
+    border: 1px solid var(--gray-transparent);
     border-collapse: collapse;
 }
 
@@ -581,15 +578,16 @@ a.root_button.close {
 
 a.root_button.active {
     background-color: var(--colour1);
+    border: 1px solid var(--colour1);
     color: var(--light);
     user-select: none;
 }
 
 a.root_button:hover {
     background-color: var(--colour1);
+    border: 1px solid var(--colour1);
     color: var(--light);
     user-select: none;
-    border: 1px solid var(--colour1);
 }
 
 .root_link {
@@ -619,12 +617,12 @@ table.root_matrix th {
 }
 
 table.root_matrix td {
-    border: 1px solid var(--gray-light);
+    border: 1px solid var(--gray-transparent);
     text-align: left;
 }
 
 .dark-mode table.root_matrix td {
-    border: 1px solid var(--gray-dark);
+    border: 1px solid var(--gray-transparent);
 }
 
 table.root_matrix td b {
