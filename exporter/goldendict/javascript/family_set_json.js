@@ -1579,9 +1579,9 @@ var family_set_json = {
     "✔"
    ],
    [
-    "katthaci 2",
+    "katthaci 3",
     "ind",
-    "(gram) in some places; in some contexts; optionally",
+    "(gram) in some places; in some contexts; optionally; lit. somewhere",
     "◑"
    ],
    [
@@ -5866,6 +5866,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "bu",
+    "abbrev",
+    "abbreviation of Buddha(vaṃsa)",
+    "◑"
+   ],
+   [
     "ma 4.1",
     "abbrev",
     "abbreviation of Majjhima (Nikāya)",
@@ -5905,6 +5911,12 @@ var family_set_json = {
     "va 5.1",
     "abbrev",
     "abbreviation of (Vimāna)vatthu",
+    "◑"
+   ],
+   [
+    "vaṃ",
+    "abbrev",
+    "abbreviation of (Buddha)vaṃsa",
     "◑"
    ],
    [
@@ -5968,7 +5980,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 50
+  "count": 52
  },
  "pronouns": {
   "data": [
@@ -10552,19 +10564,19 @@ var family_set_json = {
    [
     "amacca 1",
     "masc",
-    "councillor; consul; advisor",
+    "colleague; co-worker; associate",
     "✔"
    ],
    [
     "amacca 2",
     "masc",
-    "colleague; co-worker; associate",
+    "minister; royal official",
     "✔"
    ],
    [
     "amacca 3",
     "masc",
-    "minister; royal official",
+    "councillor; consul; advisor",
     "✔"
    ],
    [
@@ -14018,6 +14030,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "aṅkura 2",
+    "masc",
+    "name of a man in a Petavatthu story; lit. sprout",
+    "✔"
+   ],
+   [
     "ajita 2",
     "masc",
     "name of a Licchavi military general; lit. undefeated",
@@ -15080,7 +15098,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 178
+  "count": 179
  },
  "family names": {
   "data": [
@@ -31365,6 +31383,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "setabyā",
+    "fem",
+    "name of a Kosalan town",
+    "✔"
+   ],
+   [
     "sedaka 1",
     "nt",
     "name of a town in Sumbha; lit. sweating",
@@ -31395,7 +31419,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 211
+  "count": 212
  },
  "ordinal numbers": {
   "data": [
@@ -39200,7 +39224,7 @@ var family_set_json = {
     "maṃsacakkhu",
     "nt",
     "physical eye; fleshly eye; lit. meat eye",
-    "◑"
+    "✔"
    ]
   ],
   "count": 3

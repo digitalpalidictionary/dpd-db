@@ -1104,12 +1104,18 @@ var family_idiom_json = {
   ]
  },
  "aggi": {
-  "count": 5,
+  "count": 6,
   "data": [
    [
     "aggiṃ datvā",
     "idiom",
     "having set fire to; having set alight; lit. having given fire",
+    "✔"
+   ],
+   [
+    "aggiṃ deti",
+    "idiom",
+    "set on fire; sets alight; lit. gives fire",
     "✔"
    ],
    [
@@ -1151,6 +1157,41 @@ var family_idiom_json = {
     "sūcighaṭikaṃ datvā",
     "idiom",
     "having closed the bolt; having locked the door; lit. having given the bolt",
+    "✔"
+   ]
+  ]
+ },
+ "deti": {
+  "count": 5,
+  "data": [
+   [
+    "aggiṃ deti",
+    "idiom",
+    "set on fire; sets alight; lit. gives fire",
+    "✔"
+   ],
+   [
+    "āsanaṃ deti",
+    "idiom",
+    "offers a seat (to)",
+    "✔"
+   ],
+   [
+    "nalāṭikaṃ deti",
+    "idiom",
+    "makes a gesture of approval; (comm) places the finger on the forehead",
+    "✔"
+   ],
+   [
+    "pahāraṃ deti",
+    "idiom",
+    "punches; strikes; beats; hits; lit. gives a blow",
+    "✔"
+   ],
+   [
+    "maggaṃ deti",
+    "idiom",
+    "gives way; offers right of way; lit. gives road",
     "✔"
    ]
   ]
@@ -1856,8 +1897,8 @@ var family_idiom_json = {
    [
     "yāvāhaṃ",
     "sandhi",
-    "until I",
-    "◑"
+    "until I; as long as I",
+    "✔"
    ],
    [
     "yāhaṃ 1",
@@ -21322,35 +21363,6 @@ var family_idiom_json = {
    ]
   ]
  },
- "deti": {
-  "count": 4,
-  "data": [
-   [
-    "āsanaṃ deti",
-    "idiom",
-    "offers a seat (to)",
-    "✔"
-   ],
-   [
-    "nalāṭikaṃ deti",
-    "idiom",
-    "makes a gesture of approval; (comm) places the finger on the forehead",
-    "✔"
-   ],
-   [
-    "pahāraṃ deti",
-    "idiom",
-    "punches; strikes; beats; hits; lit. gives a blow",
-    "✔"
-   ],
-   [
-    "maggaṃ deti",
-    "idiom",
-    "gives way; offers right of way; lit. gives road",
-    "✔"
-   ]
-  ]
- },
  "āsaya": {
   "count": 1,
   "data": [
@@ -30532,6 +30544,28 @@ var family_idiom_json = {
    ]
   ]
  },
+ "bhaṇḍikā": {
+  "count": 1,
+  "data": [
+   [
+    "bhaṇḍikaṃ bandhitvā",
+    "idiom",
+    "having made a bundle; having bound together; lit. having bound a bundle",
+    "✔"
+   ]
+  ]
+ },
+ "bandhitvā": {
+  "count": 1,
+  "data": [
+   [
+    "bhaṇḍikaṃ bandhitvā",
+    "idiom",
+    "having made a bundle; having bound together; lit. having bound a bundle",
+    "✔"
+   ]
+  ]
+ },
  "bhata": {
   "count": 1,
   "data": [
@@ -31505,8 +31539,8 @@ var family_idiom_json = {
    [
     "yāvāhaṃ",
     "sandhi",
-    "until I",
-    "◑"
+    "until I; as long as I",
+    "✔"
    ]
   ]
  },

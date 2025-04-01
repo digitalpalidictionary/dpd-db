@@ -1161,6 +1161,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "khara 4",
+    "adj",
+    "(of a sound) rough; harsh; discordant; dissonant; lit. rough",
+    "✔"
+   ],
+   [
     "kharatā",
     "fem",
     "roughness",
@@ -1209,7 +1215,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "khujja": {
   "data": [
@@ -1221,12 +1227,18 @@ var family_word_json = {
    ],
    [
     "khujja 1",
-    "adj",
-    "humpbacked (person)",
-    "✘"
+    "masc",
+    "humpback",
+    "✔"
    ],
    [
     "khujja 2",
+    "adj",
+    "humpbacked; hunched",
+    "✘"
+   ],
+   [
+    "khujja 3",
     "nt",
     "crooked thing; bent object; (or) something which makes one bent",
     "✔"
@@ -1244,7 +1256,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 5
+  "count": 6
  },
  "khudda": {
   "data": [
@@ -6059,45 +6071,51 @@ var family_word_json = {
    ],
    [
     "mukha 1",
-    "adj",
-    "front; foremost; facing",
-    "✔"
-   ],
-   [
-    "mukha 2",
     "nt",
     "mouth",
     "✔"
    ],
    [
-    "mukha 3",
+    "mukha 2",
     "nt",
     "face",
     "✔"
    ],
    [
-    "mukha 4",
+    "mukha 3",
     "nt",
     "entrance; opening",
     "✔"
    ],
    [
+    "mukha 4",
+    "nt",
+    "(of a vessel) opening; entrance; hole; lit. mouth",
+    "✔"
+   ],
+   [
     "mukha 5",
+    "adj",
+    "front; foremost; facing",
+    "✔"
+   ],
+   [
+    "mukha 6",
+    "adj",
+    "headed by; as foremost; led by",
+    "✔"
+   ],
+   [
+    "mukha 7",
     "nt",
     "cause; means; way; (comm) door; source",
     "✔"
    ],
    [
-    "mukha 6",
+    "mukha 8",
     "nt",
     "paragraph, heading",
     "✘"
-   ],
-   [
-    "mukha 7",
-    "adj",
-    "headed by; as foremost; led by",
-    "✔"
    ],
    [
     "mukhatā",
@@ -6226,7 +6244,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 50
+  "count": 51
  },
  "lahu": {
   "data": [
@@ -6312,7 +6330,7 @@ var family_word_json = {
     "lahutara",
     "adj",
     "lighter",
-    "◑"
+    "✔"
    ],
    [
     "lahutā",
@@ -10198,7 +10216,7 @@ var family_word_json = {
     "saṃvacchara 1",
     "nt",
     "year",
-    "◑"
+    "✔"
    ],
    [
     "saṃvacchara 2",
@@ -13290,19 +13308,19 @@ var family_word_json = {
    [
     "amacca 1",
     "masc",
-    "councillor; consul; advisor",
+    "colleague; co-worker; associate",
     "✔"
    ],
    [
     "amacca 2",
     "masc",
-    "colleague; co-worker; associate",
+    "minister; royal official",
     "✔"
    ],
    [
     "amacca 3",
     "masc",
-    "minister; royal official",
+    "councillor; consul; advisor",
     "✔"
    ],
    [
@@ -16836,8 +16854,8 @@ var family_word_json = {
    [
     "sasīsaka",
     "adj",
-    "head and all; over one's head",
-    "◑"
+    "head high; over one's head; head and all; lit. with head",
+    "✔"
    ],
    [
     "sasīsakaṃ",
@@ -19685,7 +19703,13 @@ var family_word_json = {
    [
     "katthaci 2",
     "ind",
-    "(gram) in some places; in some contexts; optionally",
+    "in some places; in some contexts; lit. somewhere",
+    "✔"
+   ],
+   [
+    "katthaci 3",
+    "ind",
+    "(gram) in some places; in some contexts; optionally; lit. somewhere",
     "◑"
    ],
    [
@@ -19995,7 +20019,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 66
+  "count": 67
  },
  "kakudha": {
   "data": [
@@ -25478,7 +25502,7 @@ var family_word_json = {
     "tāraka",
     "adj",
     "related to stars; of a star",
-    "◑"
+    "✔"
    ],
    [
     "tārakā 1",
@@ -29232,7 +29256,7 @@ var family_word_json = {
     "pesikā 1.1",
     "fem",
     "scraper",
-    "✘"
+    "✔"
    ],
    [
     "pesikā 1.2",
@@ -32260,8 +32284,8 @@ var family_word_json = {
    [
     "vāmanaka 2",
     "masc",
-    "dwarf",
-    "✘"
+    "dwarf; midget",
+    "✔"
    ]
   ],
   "count": 4
