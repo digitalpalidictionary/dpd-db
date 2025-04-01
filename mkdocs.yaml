@@ -101,6 +101,9 @@ theme:
         icon: material/lightbulb-outline
         name: Switch to light mode
 
+  font: 
+    text: Inter
+
 extra_css:
   - stylesheets/extra.css
 
