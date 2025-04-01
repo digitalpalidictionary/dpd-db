@@ -7,18 +7,22 @@
 
     --old-bg: hsl(252, 87%, 6%);
     --old-fg: hsl(230, 100%, 7%);
+    --old-logo: hsl(204, 86%, 53%);
 
 
-    --light: hsl(200, 100%, 95%);
-    --dark: hsl(200, 100%, 5%);
+    --light: hsl(198, 100%, 95%);
+    --dark: hsl(198, 100%, 5%);
 
-    --dpd0: hsl(200, 100%, 50%);
+    /* --dpd0: hsl(200, 100%, 50%);
+    --dpd1: hsl(205, 100%, 40%); */
+    --dpd0: hsl(198, 100%, 50%);
     --dpd1: hsl(205, 100%, 40%);
+    --dpd-text: hsl(205, 79%, 48%);
 
-    --root0: hsl(200, 100%, 50%);
+    --root0: hsl(196, 31%, 7%);
     --root1: hsl(205, 100%, 40%);
 
-    --logo: hsl(204, 86%, 53%);
+
 
     --gray: hsl(0, 0%, 50%);
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
@@ -55,6 +59,10 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+body.dark-mode #header-image {
+    content: url('/static/dpd-logo-dark.svg');
 }
 
 .tabs {
@@ -358,13 +366,13 @@ p.message {
 }
 
 .summary-link {
-    color: var(--dpd0);
+    color: var(--dpd-text);
     text-decoration: none;
     font-weight: bold;
 }
 
 .root-summary-link {
-    color: var(--dpd0);
+    color: var(--root1);
     text-decoration: none;
     font-weight: bold;
 }

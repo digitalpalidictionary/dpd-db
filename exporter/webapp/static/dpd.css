@@ -41,7 +41,7 @@ p.heading b {
 }
 
 p.footer {
-    border-top: 1px solid var(--dpd0);
+    border-top: 1px solid var(--dpd1);
     font-size: 80%;
     padding: 5px 0px;
 }
@@ -62,7 +62,7 @@ table.grammar th {
 }
 
 table.grammar th {
-    color: var(--dpd0);
+    color: var(--dpd-text);
     font-weight: 700;
     white-space: nowrap;
     padding: 0px 5px 2px 0px
@@ -73,7 +73,7 @@ table.grammar b {
 }
 
 p.sutta {
-    color: var(--dpd0);
+    color: var(--dpd-text);
     font-style: italic;
     padding: 0px 0px 7px 0px;
 }
@@ -101,7 +101,7 @@ table.inflection th {
 
 table.inflection th {
     border: 1px solid var(--dpd0);
-    color: var(--dpd0);
+    color: var(--dpd-text);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -123,7 +123,7 @@ table.family th {
 }
 
 table.family th {
-    color: var(--dpd0);
+    color: var(--dpd-text);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -180,7 +180,7 @@ a.button:hover {
 }
 
 .link {
-    color: var(--dpd0);
+    color: var(--dpd-text);
     font-weight: 700;
 }
 
@@ -225,7 +225,7 @@ table.freq td {
     border-radius: 7px;
     text-align: center;
     width: 2.5em;
-    /* min-width: 30px; */
+    min-width: 30px;
     white-space: nowrap;
     border-color: var(--gray-transparent);
 }
@@ -596,7 +596,7 @@ a.root_button:hover {
 }
 
 .root_link {
-    color: var(--root0);
+    color: var(--root-text);
     font-weight: 700;
 }
 
