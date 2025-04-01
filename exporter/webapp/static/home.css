@@ -10,10 +10,13 @@
 
 
     --light: hsl(200, 100%, 95%);
-    --dark: hsl(230, 100%, 5%);
+    --dark: hsl(200, 100%, 5%);
 
-    --colour1: hsl(200, 100%, 40%);
-    --colour2: hsl(200, 100%, 70%);
+    --dpd0: hsl(200, 100%, 50%);
+    --dpd1: hsl(205, 100%, 40%);
+
+    --root0: hsl(200, 100%, 50%);
+    --root1: hsl(205, 100%, 40%);
 
     --logo: hsl(204, 86%, 53%);
 
@@ -88,13 +91,8 @@ body {
 }
 
 .tab-link.active {
-    background-color: var(--colour1);
-    color: var(--light);
-}
-
-.tab-link.active {
-    background-color: var(--colour1);
-    color: var(--light);
+    background-color: var(--dpd0);
+    color: var(--dark);
 }
 
 
@@ -165,7 +163,7 @@ h3 {
 }
 
 a {
-    color: var(--colour1);
+    color: var(--dpd0);
 }
 
 .title {
@@ -189,7 +187,7 @@ a {
 }
 
 .search-box:focus {
-    border-color: var(--colour1);
+    border-color: var(--dpd0);
 }
 
 .dark-mode .search-box {
@@ -199,11 +197,11 @@ a {
 }
 
 .dark-mode .search-box:focus {
-    border-color: var(--colour1);
+    border-color: var(--dpd0);
 }
 
 .search-button {
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     border: none;
     border-radius: 7px;
     color: var(--dark);
@@ -216,7 +214,7 @@ a {
 }
 
 .search-button:hover {
-    background-color: var(--colour1);
+    background-color: var(--dpd1);
     color: var(--light);
 }
 
@@ -232,7 +230,7 @@ a {
 
 .small-button {
     align-items: center;
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     border-radius: 1em;
     border-width: 0;
     color: var(--dark);
@@ -245,7 +243,7 @@ a {
 
 .small-button:active,
 .small-button:hover {
-    background-color: var(--colour1);
+    background-color: var(--dpd1);
     color: var(--light);
 }
 
@@ -253,7 +251,7 @@ a {
     right: .3rem;
     top: 1.8rem;
     position: absolute;
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     border-radius: 7px;
     color: var(--dark);
     padding: 10px;
@@ -324,7 +322,7 @@ a {
     right: 5px;
     padding: 5px 10px;
     font-size: 0.8em;
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     color: var(--dark);
     border: none;
     border-radius: 50%;
@@ -360,13 +358,13 @@ p.message {
 }
 
 .summary-link {
-    color: var(--colour1);
+    color: var(--dpd0);
     text-decoration: none;
     font-weight: bold;
 }
 
 .root-summary-link {
-    color: var(--colour1);
+    color: var(--dpd0);
     text-decoration: none;
     font-weight: bold;
 }
@@ -440,7 +438,7 @@ p.message {
     padding: 10px;
     position: relative;
     text-align: center;
-    transition: 1s;
+    transition: .2s;
     white-space: normal;
     word-break: break-word;
 }
@@ -451,17 +449,17 @@ p.message {
 }
 
 .footer-pane a {
-    color: var(--colour1);
+    color: var(--dpd0);
     text-decoration: none;
     transition: 1s;
 }
 
 .footer-pane a:hover {
-    color: var(--colour2);
+    color: var(--dpd1);
 }
 
 .dark-mode .footer-pane a:hover {
-    color: var(--colour2);
+    color: var(--dpd1);
 }
 
 /* Language Switcher Container */
@@ -483,7 +481,7 @@ p.message {
 }
 
 .language-icon:hover {
-    color: var(--colour1);
+    color: var(--dpd1);
     /* Change color on hover */
 }
 
@@ -492,13 +490,12 @@ p.message {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     border-radius: 7px;
     min-width: 120px;
     z-index: 1000;
 }
 
-/* Dropdown Links */
 .dropdown a {
     display: block;
     padding: 8px 12px;
@@ -510,7 +507,7 @@ p.message {
 }
 
 .dropdown a:hover {
-    background-color: var(--colour1);
+    background-color: var(--dpd1);
     color: var(--light);
 }
 
@@ -527,7 +524,7 @@ p.message {
 }
 
 .dark-mode .dropdown a:hover {
-    background-color: var(--colour1);
+    background-color: var(--dpd1);
     color: var(--dark);
 }
 
@@ -575,7 +572,7 @@ p.message {
 }
 
 .bd-search-options input[type="radio"]:checked+label {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--dpd0);
 }
 
 .bd-search-options input[type="radio"]+label {
@@ -583,7 +580,7 @@ p.message {
 }
 
 .bd-search-options button {
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     border-radius: 7px;
     border: 2px solid var(--gray-transparent);
     color: var(--dark);
@@ -644,11 +641,11 @@ label {
     padding: 5px;
     margin: 0px;
     border-radius: 7px;
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
 }
 
 .dark-mode .bd-message {
-    background-color: var(--colour2);
+    background-color: var(--dpd0);
     color: var(--dark);
 }
 
@@ -692,7 +689,7 @@ label {
 }
 
 .bd-info {
-    color: var(--colour1);
+    color: var(--dpd0);
     font-size: 0.8em;
     font-weight: normal;
     text-align: left;
@@ -702,16 +699,16 @@ label {
 }
 
 .dark-mode .bd-info {
-    color: var(--colour2);
+    color: var(--dpd0);
 }
 
 .hi {
-    color: var (--colour1);
+    color: var (--dpd0);
     text-transform: underline;
 }
 
 .dark-mode .hi {
-    color: var(--colour2);
+    color: var(--dpd0);
 }
 
 

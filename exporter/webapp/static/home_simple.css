@@ -8,8 +8,8 @@
     --gray: hsl(0, 0%, 50%);
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
-    --colour1: hsl(200, 100%, 40%);
-    --colour2: hsl(200, 100%, 70%);
+    --dpd1: hsl(200, 100%, 40%);
+    --dpd0: hsl(200, 100%, 70%);
 
     --help1: hsl(180, 100%, 30%);
     --help2: hsl(180, 100%, 70%);
@@ -57,7 +57,7 @@ h3 {
 }
 
 .summary-link {
-    color: var(--colour1);
+    color: var(--dpd0);
     text-decoration: none;
     font-weight: bold;
 }

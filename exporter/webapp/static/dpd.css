@@ -5,7 +5,7 @@ h3 {
 }
 
 div.content {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--dpd0);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -27,12 +27,12 @@ p.heading {
 }
 
 .underlined {
-    border-bottom: 1px solid var(--colour1);
+    border-bottom: 1px solid var(--dpd0);
     margin-bottom: 5px;
 }
 
 .overlined {
-    border-top: 1px solid var(--colour1);
+    border-top: 1px solid var(--dpd0);
     margin-top: 5px;
 }
 
@@ -41,7 +41,7 @@ p.heading b {
 }
 
 p.footer {
-    border-top: 1px solid var(--colour1);
+    border-top: 1px solid var(--dpd0);
     font-size: 80%;
     padding: 5px 0px;
 }
@@ -62,7 +62,7 @@ table.grammar th {
 }
 
 table.grammar th {
-    color: var(--colour1);
+    color: var(--dpd0);
     font-weight: 700;
     white-space: nowrap;
     padding: 0px 5px 2px 0px
@@ -73,7 +73,7 @@ table.grammar b {
 }
 
 p.sutta {
-    color: var(--colour1);
+    color: var(--dpd0);
     font-style: italic;
     padding: 0px 0px 7px 0px;
 }
@@ -100,8 +100,8 @@ table.inflection th {
 }
 
 table.inflection th {
-    border: 1px solid var(--colour1);
-    color: var(--colour1);
+    border: 1px solid var(--dpd0);
+    color: var(--dpd0);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -111,7 +111,7 @@ span.gray {
 }
 
 a.jump {
-    color: var(--colour1);
+    color: var(--dpd0);
     text-decoration: none;
     font-weight: bold;
 }
@@ -123,7 +123,7 @@ table.family th {
 }
 
 table.family th {
-    color: var(--colour1);
+    color: var(--dpd0);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -145,8 +145,8 @@ div.button-box {
 }
 
 a.button {
-    background-color: var(--colour2);
-    border: 1px solid var(--colour2);
+    background-color: var(--dpd0);
+    border: 1px solid var(--dpd0);
     border-radius: 7px;
     color: var(--dark);
     cursor: pointer;
@@ -165,22 +165,27 @@ a.button.close {
 }
 
 a.button.active {
-    background-color: var(--colour1);
-    border-color: var(--colour1);
+    background-color: var(--dpd1);
+    border-color: var(--dpd1);
     color: var(--light);
     user-select: none;
 }
 
 
 a.button:hover {
-    border: 1px solid var(--colour1);
-    background-color: var(--colour1);
+    border: 1px solid var(--dpd1);
+    background-color: var(--dpd1);
     color: var(--light);
     user-select: none;
 }
 
 .link {
-    color: var(--colour1);
+    color: var(--dpd0);
+    font-weight: 700;
+}
+
+.link:hover {
+    color: var(--dpd1);
     font-weight: 700;
 }
 
@@ -200,7 +205,7 @@ table.freq thead th {
 }
 
 table.freq tbody th {
-    border: 1px solid var(--colour1);
+    border: 1px solid var(--dpd0);
     border-radius: 7px;
     padding: 5px;
     text-align: center;
@@ -314,7 +319,7 @@ td.gr10 {
 /* deconstructor */
 
 div.deconstructor {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--dpd0);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -338,7 +343,7 @@ a.deconstructor_feedback {
 }
 
 p.deconstructor_footer {
-    border-top: 1px solid var(--colour2);
+    border-top: 1px solid var(--dpd0);
     font-size: 80%;
     margin: 5px 0 0 0;
     padding: 5px 0px;
@@ -350,7 +355,7 @@ p.deconstructor_footer {
 
 
 div.variants {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--dpd0);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -402,7 +407,7 @@ hr.variants {
 /* grammar dict */
 
 div.grammar_dict {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--dpd0);
     border-collapse: collapse;
     border-radius: 7px;
     line-height: 150%;
@@ -412,7 +417,7 @@ div.grammar_dict {
 
 table.grammar_dict {
     border: 2px solid transparent;
-    /* border-right: 1px var(--colour1); */
+    /* border-right: 1px var(--dpd0); */
     border-collapse: collapse;
     border-radius: 5px;
     line-height: 150%;
@@ -480,7 +485,7 @@ table.help b {
 /* roots */
 
 div.root_content {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--root0);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -490,12 +495,12 @@ div.root_content {
 }
 
 .root_underlined {
-    border-bottom: 1px solid var(--colour1);
+    border-bottom: 1px solid var(--root0);
     margin-bottom: 5px;
 }
 
 .root_overlined {
-    border-top: 1px solid var(--colour1);
+    border-top: 1px solid var(--root0);
     margin-top: 5px;
 }
 
@@ -505,7 +510,7 @@ p.root_heading b {
 }
 
 p.root_footer {
-    border-top: 1px solid var(--colour1);
+    border-top: 1px solid var(--root0);
     font-size: 80%;
     padding: 5px 0px;
 }
@@ -523,7 +528,7 @@ table.root_info th {
 }
 
 table.root_info th {
-    color: var(--colour1);
+    color: var(--dpd0);
     font-weight: 700;
     white-space: normal;
     padding: 0px 5px 2px 0px
@@ -540,7 +545,7 @@ table.root_family th {
 }
 
 table.root_family th {
-    color: var(--colour1);
+    color: var(--root0);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -557,8 +562,8 @@ div.root_button_box {
 }
 
 a.root_button {
-    background-color: var(--colour2);
-    border: 1px solid var(--colour2);
+    background-color: var(--root0);
+    border: 1px solid var(--root0);
     border-radius: 7px;
     color: var(--dark);
     cursor: pointer;
@@ -577,21 +582,21 @@ a.root_button.close {
 }
 
 a.root_button.active {
-    background-color: var(--colour1);
-    border: 1px solid var(--colour1);
+    background-color: var(--root1);
+    border: 1px solid var(--root1);
     color: var(--light);
     user-select: none;
 }
 
 a.root_button:hover {
-    background-color: var(--colour1);
-    border: 1px solid var(--colour1);
+    background-color: var(--root1);
+    border: 1px solid var(--root1);
     color: var(--light);
     user-select: none;
 }
 
 .root_link {
-    color: var(--colour1);
+    color: var(--root0);
     font-weight: 700;
 }
 
@@ -609,8 +614,8 @@ table.root_matrix td {
 }
 
 table.root_matrix th {
-    border: 1px solid var(--colour1);
-    color: var(--colour1);
+    border: 1px solid var(--root0);
+    color: var(--root0);
     font-weight: 700;
     text-align: center;
     white-space: nowrap;
@@ -626,20 +631,20 @@ table.root_matrix td {
 }
 
 table.root_matrix td b {
-    color: var(--colour1);
+    color: var(--root0);
     font-weight: 700;
     white-space: nowrap;
 }
 
 span.colour {
-    color: var(--colour1);
+    color: var(--root0);
     font-weight: 700;
 }
 
 /* epd */
 
 div.epd {
-    border: 2px solid var(--colour1);
+    border: 2px solid var(--dpd0);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -656,6 +661,6 @@ div.epd {
 }
 
 .epd b {
-    color: var(--colour1);
+    color: var(--dpd0);
     font-weight: 700;
 }
