@@ -157,6 +157,7 @@ a.button {
     padding: 2px 5px;
     text-decoration: none;
     user-select: none;
+    box-shadow: var(--shadow-default);
 }
 
 a.button.close {
@@ -173,6 +174,7 @@ a.button.active {
 
 
 a.button:hover {
+    box-shadow: var(--shadow-hover);
     border: 1px solid var(--dpd1);
     background-color: var(--dpd1);
     color: var(--light);
@@ -528,7 +530,7 @@ table.root_info th {
 }
 
 table.root_info th {
-    color: var(--dpd0);
+    color: var(--root-text);
     font-weight: 700;
     white-space: normal;
     padding: 0px 5px 2px 0px
@@ -545,7 +547,7 @@ table.root_family th {
 }
 
 table.root_family th {
-    color: var(--root0);
+    color: var(--root-text);
     font-weight: 700;
     white-space: nowrap;
 }
@@ -563,8 +565,9 @@ div.root_button_box {
 
 a.root_button {
     background-color: var(--root0);
-    border: 1px solid var(--root0);
     border-radius: 7px;
+    border: 1px solid var(--root0);
+    box-shadow: var(--shadow-default);
     color: var(--dark);
     cursor: pointer;
     display: inline-block;
@@ -591,6 +594,7 @@ a.root_button.active {
 a.root_button:hover {
     background-color: var(--root1);
     border: 1px solid var(--root1);
+    box-shadow: var(--shadow-hover);
     color: var(--light);
     user-select: none;
 }
@@ -615,7 +619,7 @@ table.root_matrix td {
 
 table.root_matrix th {
     border: 1px solid var(--root0);
-    color: var(--root0);
+    color: var(--root-text);
     font-weight: 700;
     text-align: center;
     white-space: nowrap;
@@ -631,13 +635,13 @@ table.root_matrix td {
 }
 
 table.root_matrix td b {
-    color: var(--root0);
+    color: var(--root-text);
     font-weight: 700;
     white-space: nowrap;
 }
 
 span.colour {
-    color: var(--root0);
+    color: var(--root-text);
     font-weight: 700;
 }
 

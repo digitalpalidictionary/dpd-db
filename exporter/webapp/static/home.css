@@ -9,26 +9,25 @@
     --old-fg: hsl(230, 100%, 7%);
     --old-logo: hsl(204, 86%, 53%);
 
-
     --light: hsl(198, 100%, 95%);
     --dark: hsl(198, 100%, 5%);
 
-    /* --dpd0: hsl(200, 100%, 50%);
-    --dpd1: hsl(205, 100%, 40%); */
     --dpd0: hsl(198, 100%, 50%);
     --dpd1: hsl(205, 100%, 40%);
     --dpd-text: hsl(205, 79%, 48%);
 
-    --root0: hsl(196, 31%, 7%);
-    --root1: hsl(205, 100%, 40%);
-
-
+    --shadow-default: 2px 2px 4px hsla(0, 0%, 20%, 0.4);
+    --shadow-hover: 2px 2px 4px hsla(0, 0%, 20%, 0.5);
 
     --gray: hsl(0, 0%, 50%);
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
     --help1: hsl(180, 100%, 30%);
     --help2: hsl(180, 100%, 70%);
+
+    --root0: hsl(198, 100%, 50%);
+    --root1: hsl(205, 100%, 40%);
+    --root-text: hsl(205, 79%, 48%);
 
     --freq0: hsl(180, 74%, 92%);
     --freq1: hsl(183, 76%, 85%);
@@ -210,26 +209,29 @@ a {
 
 .search-button {
     background-color: var(--dpd0);
-    border: none;
     border-radius: 7px;
-    color: var(--dark);
+    border: none;
+    box-shadow: var(--shadow-default);
+    color: var(--light);
     height: 30px;
     margin: 5px;
     padding: 2px 10px;
     padding: 5px 10px;
     transition: 0.15s;
+}
 
+.dark-mode .search-button {
+    color: var(--dark);
 }
 
 .search-button:hover {
     background-color: var(--dpd1);
-    color: var(--light);
+    box-shadow: var(--shadow-hover);
 }
 
 .search-button:active {
     filter: brightness(70%);
 }
-
 
 .help {
     position: relative;
@@ -241,7 +243,8 @@ a {
     background-color: var(--dpd0);
     border-radius: 1em;
     border-width: 0;
-    color: var(--dark);
+    box-shadow: var(--shadow-default);
+    color: var(--light);
     font-size: 1em;
     height: 1.3em;
     justify-content: center;
@@ -249,10 +252,14 @@ a {
     width: 1.3em;
 }
 
+.dark-mode .small-button {
+    color: var(--dark);
+}
+
 .small-button:active,
 .small-button:hover {
     background-color: var(--dpd1);
-    color: var(--light);
+    box-shadow: var(--shadow-hover);
 }
 
 .tooltip {
@@ -325,22 +332,24 @@ a {
 }
 
 .clear-history-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    padding: 5px 10px;
-    font-size: 0.8em;
     background-color: var(--dpd0);
-    color: var(--dark);
-    border: none;
     border-radius: 50%;
+    border: none;
+    box-shadow: var(--shadow-default);
+    color: var(--dark);
     cursor: pointer;
-    width: auto;
     display: inline-block;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
     transition: 1s;
+    width: auto;
 }
 
 .clear-history-button:hover {
+    box-shadow: var(--shadow-hover);
     background-color: red;
 }
 
@@ -470,27 +479,21 @@ p.message {
     color: var(--dpd1);
 }
 
-/* Language Switcher Container */
 .language-switcher {
     position: relative;
     display: inline-block;
     margin: 5px;
-    /* Adds some spacing around the icon */
 }
 
-/* Language Icon (Clickable) */
 .language-icon {
     cursor: pointer;
     font-size: 1.2em;
-    /* Adjust size as needed */
     color: var(--dark);
-    /* Consistent color */
     transition: color 0.3s;
 }
 
 .language-icon:hover {
     color: var(--dpd1);
-    /* Change color on hover */
 }
 
 .dropdown {
@@ -564,7 +567,6 @@ p.message {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* Vertically align items */
 }
 
 .bd-search-options input[type="radio"] {
@@ -591,12 +593,27 @@ p.message {
     background-color: var(--dpd0);
     border-radius: 7px;
     border: 2px solid var(--gray-transparent);
-    color: var(--dark);
+    color: var(--light);
     cursor: pointer;
     margin-right: 10px;
     padding: 5px 10px;
     user-select: none;
-    transition: 1s;
+    transition: .2s;
+    box-shadow: var(--shadow-default);
+}
+
+.bd-search-options button:hover {
+    box-shadow: var(--shadow-hover);
+    background-color: var(--dpd1);
+}
+
+.bd-search-options button:active {
+    filter: brightness(70%);
+}
+
+
+.dark-mode .bd-search-options button {
+    color: var(--dark);
 }
 
 label {
@@ -667,9 +684,7 @@ label {
     text-wrap: normal;
     vertical-align: top;
     width: 33%;
-    /* Occupy roughly one-third of the horizontal space */
     flex: 1;
-    /* Allow flexibility */
 }
 
 .dark-mode .bd-th {
@@ -687,9 +702,7 @@ label {
     text-wrap: normal;
     vertical-align: top;
     width: 67%;
-    /* Occupy roughly two-thirds of the horizontal space */
     flex: 2;
-    /* Allow flexibility */
 }
 
 .dark-mode .bd-td {
@@ -881,7 +894,6 @@ label {
         display: block;
         width: 100%;
         border-top: none;
-        /* Remove top border to merge with .bd-th */
     }
 
     .bd-th,
@@ -891,7 +903,6 @@ label {
         word-wrap: break-word;
     }
 
-    /* Ensure text wraps in mobile mode */
     .bd-tbody .bd-th,
     .bd-tbody .bd-td {
         white-space: normal;
