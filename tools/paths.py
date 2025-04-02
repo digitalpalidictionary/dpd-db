@@ -30,6 +30,20 @@ class ProjectPaths:
             base_dir / "db/bold_definitions/bold_definitions.tsv"
         )
 
+        # db/frequency/output
+        self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"
+        self.ebt_word_count_path = base_dir / "db/frequency/output/word_count/ebts.csv"
+        self.freq_html_dir = base_dir / "db/frequency/output/html/"
+        self.frequency_output_dir = base_dir / "db/frequency/output/"
+        self.raw_text_dir = base_dir / "db/frequency/output/raw_text/"
+        self.tipitaka_raw_text_path = (
+            base_dir / "db/frequency/output/raw_text/tipitaka.txt"
+        )
+        self.tipitaka_word_count_path = (
+            base_dir / "db/frequency/output/word_count/tipitaka.csv"
+        )
+        self.word_count_dir = base_dir / "db/frequency/output/word_count"
+
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
         self.kindlegen_path = base_dir / "exporter/kindle/kindlegen"
@@ -282,10 +296,6 @@ class ProjectPaths:
             base_dir / "exporter/grammar_dict/output/grammar_dict.tsv"
         )
 
-        # exporter/goldendict/icon
-        self.icon_path = base_dir / "exporter/goldendict/icon/favicon.ico"
-        self.icon_bmp_path = base_dir / "exporter/goldendict/icon/dpd.bmp"
-
         # exporter/other_dictionaries/css
         self.cone_css_path = base_dir / "exporter/other_dictionaries/code/cone/cone.css"
         self.dpr_css_path = base_dir / "exporter/other_dictionaries/code/dpr/dpr.css/"
@@ -389,25 +399,19 @@ class ProjectPaths:
         )
         self.variants_css_path = base_dir / "exporter/variants/html_css_js/variants.css"
 
-        # db/frequency/output
-        self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"
-        self.ebt_word_count_path = base_dir / "db/frequency/output/word_count/ebts.csv"
-        self.freq_html_dir = base_dir / "db/frequency/output/html/"
-        self.frequency_output_dir = base_dir / "db/frequency/output/"
-        self.raw_text_dir = base_dir / "db/frequency/output/raw_text/"
-        self.tipitaka_raw_text_path = (
-            base_dir / "db/frequency/output/raw_text/tipitaka.txt"
-        )
-        self.tipitaka_word_count_path = (
-            base_dir / "db/frequency/output/word_count/tipitaka.csv"
-        )
-        self.word_count_dir = base_dir / "db/frequency/output/word_count"
+        # identity/logo
+        self.dpd_logo_svg = base_dir / "identity/logo/dpd-logo.svg"
+        self.dpd_logo_dark_svg = base_dir / "identity/logo/dpd-logo-dark.svg"
+        self.dpd_logo_dark_bmp = base_dir / "identity/logo/dpd-logo-dark.bmp"
+
+        # identity/fonts
+        self.fonts_dir = base_dir / "identity/fonts"
 
         # gui
         self.additions_tsv_path = base_dir / "gui/additions.tsv"
         self.additions_pickle_path = base_dir / "gui/additions"
         self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
-        self.delated_words_history_pth = base_dir / "gui/delated_words_history.tsv"
+        self.deleted_words_history_pth = base_dir / "gui/deleted_words_history.tsv"
         self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
         self.major_change_meaning_history_pth = (
             base_dir / "gui/major_change_meaning_history.tsv"

@@ -200,7 +200,8 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         gd_path=g.paths.share_dir,
         md_path=g.paths.share_dir,
         dict_name=dict_name,
-        icon_path=g.paths.icon_path,
+        icon_path=g.paths.dpd_logo_dark_svg,
+        font_path=g.paths.fonts_dir,
         zip_up=False,
         delete_original=False,
     )

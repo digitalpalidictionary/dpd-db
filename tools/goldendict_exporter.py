@@ -52,6 +52,7 @@ class DictVariables:
         md_path = md_path,
         dict_name = dict_name,
         icon_path = None,
+        font_path = None
         zip_up = False,
         delete_original = False,
     """
@@ -64,6 +65,7 @@ class DictVariables:
         md_path: Path,
         dict_name: str,
         icon_path: Optional[Path],
+        font_path: Optional[Path] = None,
         zip_up: bool = False,
         delete_original: bool = False,
     ) -> None:
@@ -88,6 +90,10 @@ class DictVariables:
 
         if icon_path:
             self.icon_target_path = self.gd_path_name.with_suffix(".ico")
+
+        self.font_source_path = font_path
+        if self.font_source_path:
+            self.font_target_dir = self.gd_path_name
 
         if zip_up:
             self.zip_up = zip_up
@@ -132,6 +138,7 @@ def export_to_goldendict_with_pyglossary(
     glos = create_glossary(dict_info)
     glos = add_css(glos, dict_var)
     glos = add_js(glos, dict_var)
+    glos = add_fonts(glos, dict_var)
     glos = add_data(glos, dict_data)
     write_to_file(glos, dict_var)
     add_icon(dict_var)
@@ -198,6 +205,22 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     return glos
 
 
+def add_fonts(glos: Glossary, dict_var: DictVariables) -> Glossary:
+    """Add the fonts."""
+
+    pr.white("adding fonts")
+    if dict_var.font_source_path:
+        for font_path in dict_var.font_source_path.iterdir():
+            if font_path and font_path.exists():
+                font_file = font_path.read_bytes()
+                glos.addEntry(glos.newDataEntry(font_path.name, font_file))
+        pr.yes("ok")
+    else:
+        pr.yes("no")
+
+    return glos
+
+
 def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     """Add dictionary data to glossary."""
 
@@ -206,8 +229,8 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
         glos.addEntry(
             glos.newEntry(
                 word=[d.word] + d.synonyms, defi=d.definition_html, defiFormat="h"
-            )
-        )  # type:ignore
+            )  # type:ignore
+        )
 
     pr.yes("ok")
     return glos
