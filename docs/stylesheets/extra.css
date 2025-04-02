@@ -7,7 +7,9 @@
     --old-logo: hsl(204, 86%, 53%);
 
     --light: hsl(198, 100%, 95%);
+    --light-shade: hsl(198, 100%, 93%);
     --dark: hsl(198, 100%, 5%);
+    --dark-shade: hsl(198, 100%, 7%);
 
     --dpd0: hsl(198, 100%, 50%);
     --dpd1: hsl(205, 100%, 40%);
@@ -25,11 +27,41 @@
 
 [data-md-color-scheme="default"] {
 
+    .md-logo img {
+        content: url("../assets/dpd-logo.svg");
+        background-color: var(--light);
+        padding: 1px;
+        border-radius: 50%;
+    }
+
+    /* custom top header */
+    .md-header {
+        background-color: var(--light-shade) !important;
+    }
+
+    /* search bar bottom */
+    .md-search-result__meta {
+        background-color: var(--light-shade) !important;
+    }
+
+    /* logo size */
+    .md-header__button.md-logo img,
+    .md-nav__button img {
+        width: 1.5rem;
+        height: auto;
+    }
+
+    /* move logo and title closer */
+    .md-header__title {
+        margin-left: 0;
+    }
+
+
     /* top bar background and highlighted text*/
     --md-primary-fg-color: var(--dpd0);
 
     /* top bar text */
-    --md-primary-bg-color: var(--light);
+    --md-primary-bg-color: var(--dark);
 
     /* main background */
     --md-default-bg-color: var(--light);
@@ -44,13 +76,13 @@
     --md-typeset-color: var(--dark);
 
     /* heading colour */
-    --md-default-fg-color--light: var(--gray);
+    --md-default-fg-color--light: var(--gray-dark);
 
     /* menu background colour */
     --md-default-fg-color--lightest: var(--dpd0);
 
     /* search bar text */
-    --md-primary-bg-color--dark: var(--light);
+    --md-primary-bg-color--dark: var(--dark);
 
     /* rollover highlight */
     --md-accent-fg-color: var(--dpd1);
@@ -62,13 +94,13 @@
     --md-footer-bg-color: var(--light);
 
     /* bottom footer */
-    --md-footer-bg-color--dark: var(--dpd0);
+    --md-footer-bg-color--dark: var(--light-shade);
 
     /* bottom footer made with */
     --md-footer-fg-color--lighter: var(--gray-dark);
 
     /* bottom footer text */
-    --md-footer-fg-color--light: var(--light);
+    --md-footer-fg-color--light: var(--dark);
 
     /* code background */
     /* --md-code-bg-color: hsl(197, 05%, 95%); */
@@ -98,13 +130,43 @@
 
 [data-md-color-scheme="slate"] {
 
+    .md-logo img {
+        content: url("../assets/dpd-logo-dark.svg");
+        background-color: var(--dark);
+        padding: 1px;
+        border-radius: 50%;
+    }
+
+
+    /* custom top header */
+    .md-header {
+        background-color: var(--dark-shade) !important;
+    }
+
+    /* search bar bottom */
+    .md-search-result__meta {
+        background-color: var(--dark-shade) !important;
+    }
+
+    /* logo size */
+    .md-header__button.md-logo img,
+    .md-nav__button img {
+        width: 1.5rem;
+        height: auto;
+    }
+
+    /* move logo and title closer */
+    .md-header__title {
+        margin-left: 0;
+    }
+
     /* top bar background and highlighted text*/
     --md-primary-fg-color: var(--dpd0);
     /* --md-primary-fg-color: #209cee; */
 
 
     /* top bar text */
-    --md-primary-bg-color: var(--dark);
+    --md-primary-bg-color: var(--light);
 
     /* main background */
     --md-default-bg-color: var(--dark);
@@ -119,7 +181,7 @@
     --md-typeset-color: var(--light);
 
     /* heading colour */
-    --md-default-fg-color--light: var(--light);
+    --md-default-fg-color--light: var(--gray-light);
 
     /* menu background colour and horizontal lines*/
     --md-default-fg-color--lightest: var(--dpd0);
@@ -138,13 +200,13 @@
     --md-footer-bg-color: var(--dark);
 
     /* bottom footer background */
-    --md-footer-bg-color--dark: var(--dpd0);
+    --md-footer-bg-color--dark: var(--dark-shade);
 
     /* bottom footer made with */
     --md-footer-fg-color--lighter: var(--gray-dark);
 
     /* bottom footer text */
-    --md-footer-fg-color--light: var(--dark);
+    --md-footer-fg-color--light: var(--gray);
 
     /* code background */
     /* --md-code-bg-color: hsl(198, 100%, 70%); */

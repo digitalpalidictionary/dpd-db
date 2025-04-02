@@ -72,7 +72,7 @@ nav:
 
 theme:
   name: material
-  # logo: assets/dpd-logo.svg
+  logo: assets/dpd-logo.svg
   features:
     - content.code.copy
     - navigation.footer
@@ -93,7 +93,7 @@ theme:
       toggle: 
         icon: material/lightbulb
         name: Switch to dark mode
-    
+
     # dark mode
     - scheme: slate
       primary: custom
