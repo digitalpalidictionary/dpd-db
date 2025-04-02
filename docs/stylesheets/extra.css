@@ -96,7 +96,6 @@
 
 }
 
-
 [data-md-color-scheme="slate"] {
 
     /* top bar background and highlighted text*/
@@ -192,4 +191,4 @@
 --md-code-hl-generic-color
 --md-code-hl-variable-color
 Code block foreground, background and line highlight colors are defined via:
- */
+*/

@@ -72,6 +72,7 @@ nav:
 
 theme:
   name: material
+  # logo: assets/dpd-logo.svg
   features:
     - content.code.copy
     - navigation.footer
@@ -115,6 +116,7 @@ extra:
 markdown_extensions:
   # allows adding {target="_blank"} after links
   - attr_list 
+
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
