@@ -84,6 +84,19 @@ p.sbs_sutta {
     padding: 0px 0px 7px 0px;
 }
 
+a.sutta_link {
+    color: var(--dpd-text);
+    font-style: italic;
+    text-decoration: none;
+    font-weight: bold
+}
+
+a.sutta_link:hover {
+    color: var(--dpd1);
+}
+
+
+
 table.inflection {
     width: 100%;
     padding: 0 0 5px 0px;
@@ -184,6 +197,7 @@ a.button:hover {
 .link {
     color: var(--dpd-text);
     font-weight: 700;
+    text-decoration: none;
 }
 
 .link:hover {
@@ -236,85 +250,89 @@ table.freq td {
     border-color: var(--gray-transparent);
 }
 
-
 table.freq td.void {
     border: 0px solid transparent;
 }
 
-td.gap {
+table.freq td.gap {
     border: 0px solid transparent;
     width: 10px;
 }
 
-td.gr0 {
+
+table.freq td.gr0 {
     border: 1px solid var(--freq0);
     border-color: var(--gray-transparent);
     color: transparent;
 }
 
-.dark-mode .gr0 {
+.dark-mode table.freq td.gr0 {
     border: 1px solid var(--freq0);
     border-color: var(--gray-transparent);
     color: transparent;
 }
 
-td.gr1 {
+table.freq td.gr1 {
     background-color: var(--freq1);
     border-color: var(--freq1);
     color: var(--dark);
 }
 
-td.gr2 {
+table.freq td.gr2 {
     background-color: var(--freq2);
     border-color: var(--freq2);
     color: var(--dark);
 }
 
-td.gr3 {
+table.freq td.gr3 {
     background-color: var(--freq3);
     border-color: var(--freq3);
     color: var(--dark);
 }
 
-td.gr4 {
+table.freq td.gr4 {
     background-color: var(--freq4);
     border-color: var(--freq4);
     color: var(--dark);
 }
 
-td.gr5 {
+table.freq td.gr5 {
     background-color: var(--freq5);
     border-color: var(--freq5);
     color: var(--dark);
 }
 
-td.gr6 {
+table.freq td.gr6 {
     background-color: var(--freq6);
     border-color: var(--freq6);
     color: var(--light);
 }
 
-td.gr7 {
+table.freq td.gr7 {
     background-color: var(--freq7);
     border-color: var(--freq7);
     color: var(--light);
 }
 
-td.gr8 {
+table.freq td.gr8 {
     background-color: var(--freq8);
     border-color: var(--freq8);
     color: var(--light);
 }
 
-td.gr9 {
+table.freq td.gr9 {
     background-color: var(--freq9);
     border-color: var(--freq9);
     color: var(--light);
 }
 
-td.gr10 {
+table.freq td.gr10 {
     background-color: var(--freq10);
     border-color: var(--freq10);
+    color: var(--light);
+}
+
+.dark-mode table.freq td {
     color: var(--light);
 }
 
@@ -601,6 +619,12 @@ a.root_button:hover {
 
 .root_link {
     color: var(--root-text);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.root_link:hover {
+    color: var(--root-1);
     font-weight: 700;
 }
 
