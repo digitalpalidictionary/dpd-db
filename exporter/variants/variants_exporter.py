@@ -137,7 +137,7 @@ def main():
         gd_path=pth.share_dir,
         md_path=pth.share_dir,
         dict_name="dpd-variants",
-        icon_path=pth.icon_path,
+        icon_path=pth.dpd_logo_dark_svg,
     )
 
     export_to_goldendict_with_pyglossary(

@@ -466,7 +466,7 @@ def prepare_gd_mdict_and_export(g: ProgData):
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,
         dict_name=dict_name,
-        icon_path=g.pth.icon_path,
+        icon_path=g.pth.dpd_logo_dark_svg,
         zip_up=False,
         delete_original=False,
     )
