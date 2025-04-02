@@ -24558,6 +24558,23 @@ var family_idiom_json = {
    ]
   ]
  },
+ "muddha2": {
+  "count": 2,
+  "data": [
+   [
+    "pabbatamuddhaniṭṭhito",
+    "sandhi",
+    "standing on top of a mountain; stood on the crest of a hill",
+    "✔"
+   ],
+   [
+    "muddhāpi tassa vipateyyāti",
+    "idiom",
+    "one's head might split open",
+    "✔"
+   ]
+  ]
+ },
  "ka1": {
   "count": 13,
   "data": [
@@ -29781,23 +29798,6 @@ var family_idiom_json = {
     "pabbatamuddhaniṭṭhito",
     "sandhi",
     "standing on top of a mountain; stood on the crest of a hill",
-    "✔"
-   ]
-  ]
- },
- "muddha2": {
-  "count": 2,
-  "data": [
-   [
-    "pabbatamuddhaniṭṭhito",
-    "sandhi",
-    "standing on top of a mountain; stood on the crest of a hill",
-    "✔"
-   ],
-   [
-    "muddhāpi tassa vipateyyāti",
-    "idiom",
-    "one's head might split open",
     "✔"
    ]
   ]

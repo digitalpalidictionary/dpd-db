@@ -2933,8 +2933,8 @@ var family_word_json = {
    [
     "paccanta 2",
     "masc",
-    "border of a country, countryside",
-    "✘"
+    "borderland; frontier; remote district",
+    "✔"
    ],
    [
     "paccantima",
@@ -19579,6 +19579,41 @@ var family_word_json = {
   ],
   "count": 3
  },
+ "muddha": {
+  "data": [
+   [
+    "omuddhaka",
+    "adj",
+    "with the head hanging down; upside down; inverted; lit. down head",
+    "✔"
+   ],
+   [
+    "muddha 2.1",
+    "masc",
+    "head",
+    "✔"
+   ],
+   [
+    "muddha 2.2",
+    "masc",
+    "peak; summit; top",
+    "✔"
+   ],
+   [
+    "muddhani 1",
+    "ind",
+    "at the head; in front; to the fore",
+    "✔"
+   ],
+   [
+    "muddhani 2",
+    "masc",
+    "on the head",
+    "✔"
+   ]
+  ],
+  "count": 5
+ },
  "osadha": {
   "data": [
    [
@@ -31082,35 +31117,6 @@ var family_word_json = {
   ],
   "count": 2
  },
- "muddha": {
-  "data": [
-   [
-    "muddha 2.1",
-    "masc",
-    "head",
-    "✔"
-   ],
-   [
-    "muddha 2.2",
-    "masc",
-    "peak; summit; top",
-    "✔"
-   ],
-   [
-    "muddhani 1",
-    "ind",
-    "at the head; in front; to the fore",
-    "✔"
-   ],
-   [
-    "muddhani 2",
-    "masc",
-    "on the head",
-    "✔"
-   ]
-  ],
-  "count": 4
- },
  "musala": {
   "data": [
    [
@@ -33119,7 +33125,7 @@ var family_word_json = {
    [
     "saṅkha 1",
     "masc",
-    "conch shell; mother of pearl",
+    "conch shell; Turbinella pyrum",
     "✔"
    ],
    [
@@ -33131,17 +33137,11 @@ var family_word_json = {
    [
     "saṅkha 3",
     "masc",
-    "one of the four treasures",
-    "✘"
-   ],
-   [
-    "saṅkha 4",
-    "masc",
     "name of a future king",
     "✘"
    ]
   ],
-  "count": 4
+  "count": 3
  },
  "saṇa": {
   "data": [

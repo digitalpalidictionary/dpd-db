@@ -1063,6 +1063,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "āsadda",
+    "masc",
+    "(gram) the prefix 'ā'; lit. ā sound",
+    "◑"
+   ],
+   [
     "āsanna 3",
     "pp",
     "(gram) placed; positioned; lit. seated near",
@@ -5077,7 +5083,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 818
+  "count": 819
  },
  "prefixes": {
   "data": [

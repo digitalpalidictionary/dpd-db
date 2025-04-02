@@ -21219,7 +21219,7 @@ var family_root_json = {
   "root_key": "√gam",
   "root_family": "adhi √gam",
   "root_meaning": "go",
-  "count": 48,
+  "count": 49,
   "data": [
    [
     "ajjhagamā 1",
@@ -21272,13 +21272,19 @@ var family_root_json = {
    [
     "adhigacchati 1",
     "pr",
-    "gets to; attains; finds; acquires; obtains; lit. arrives at",
+    "gets; finds; acquires; obtains; lit. arrives at",
     "✔"
    ],
    [
     "adhigacchati 2",
     "pr",
     "finds out (about); understands; realizes; lit. arrives at",
+    "✔"
+   ],
+   [
+    "adhigacchati 3",
+    "pr",
+    "attains; reaches; gets to; lit. arrives at",
     "✔"
    ],
    [
@@ -24304,8 +24310,8 @@ var family_root_json = {
    [
     "ṭhapesi 3",
     "aor",
-    "caused to be placed",
-    "✘"
+    "put; placed; lit. caused to be placed",
+    "✔"
    ],
    [
     "ṭhapesi 4",
@@ -49086,8 +49092,8 @@ var family_root_json = {
    [
     "āpādeti 2",
     "pr",
-    "nurses",
-    "✘"
+    "raises; brings up; lit. causes to go here",
+    "✔"
    ],
    [
     "āpādetuṃ",
@@ -49116,8 +49122,8 @@ var family_root_json = {
    [
     "āpādesi 2",
     "aor",
-    "nursed",
-    "✘"
+    "raised; brought up; lit. caused to go here",
+    "✔"
    ],
    [
     "nāpajjati 1",
@@ -50210,7 +50216,7 @@ var family_root_json = {
    [
     "netvā 1",
     "abs",
-    "having carried; having taken",
+    "having carried; having taken (someone to somewhere)",
     "✔"
    ],
    [
@@ -50689,7 +50695,7 @@ var family_root_json = {
   "root_key": "√rabh 1",
   "root_family": "ā √rabh",
   "root_meaning": "begin",
-  "count": 22,
+  "count": 23,
   "data": [
    [
     "anārambha 2.1",
@@ -50701,6 +50707,12 @@ var family_root_json = {
     "āraddha 1.1",
     "pp",
     "aroused; applied; undertaken",
+    "✔"
+   ],
+   [
+    "āraddha 1.2",
+    "pp",
+    "commenced; begun; started (to)",
     "✔"
    ],
    [
@@ -66005,7 +66017,7 @@ var family_root_json = {
   "root_key": "√kar",
   "root_family": "upa √kar",
   "root_meaning": "do, make",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "anupakāra",
@@ -66024,6 +66036,12 @@ var family_root_json = {
     "nt",
     "supporting (with); helping (with); assisting (with); benefiting (with)",
     "◑"
+   ],
+   [
+    "upakaraṇa 3",
+    "nt",
+    "something useful; lit. supporting",
+    "✔"
    ],
    [
     "upakari",
@@ -100562,8 +100580,8 @@ var family_root_json = {
    [
     "nappaṭisaṃvedeti",
     "pr",
-    "does not experience",
-    "✘"
+    "does not experience; does not perceive; lit. does not cause to know back",
+    "✔"
    ],
    [
     "paṭisaṃvidita 1",
@@ -132325,7 +132343,7 @@ var family_root_json = {
   "root_key": "√vaḍḍh",
   "root_family": "√vaḍḍh",
   "root_meaning": "grow, increase",
-  "count": 59,
+  "count": 60,
   "data": [
    [
     "avaḍḍhana",
@@ -132594,8 +132612,8 @@ var family_root_json = {
    [
     "vaḍḍheti 2",
     "pr",
-    "rears or brings up",
-    "✘"
+    "rears; raises; brings up; lit. causes to increase",
+    "✔"
    ],
    [
     "vaḍḍheti 3",
@@ -132642,7 +132660,13 @@ var family_root_json = {
    [
     "vaḍḍhesi 2",
     "aor",
-    "increased, cultivated, reared or brought up, got ready (of food), served in, set into motion",
+    "reared; raised; brought up; lit. caused to increase",
+    "✔"
+   ],
+   [
+    "vaḍḍhesi 3",
+    "aor",
+    "increased, cultivated, got ready (of food), served in, set into motion",
     "✘"
    ],
    [
@@ -166839,6 +166863,20 @@ var family_root_json = {
    ]
   ]
  },
+ "√mar ā √mar": {
+  "root_key": "√mar",
+  "root_family": "ā √mar",
+  "root_meaning": "die",
+  "count": 1,
+  "data": [
+   [
+    "āmata",
+    "pp",
+    "almost dead, near to death; lit. dead here",
+    "✔"
+   ]
+  ]
+ },
  "√muc ā √muc": {
   "root_key": "√muc",
   "root_family": "ā √muc",
@@ -174234,8 +174272,8 @@ var family_root_json = {
    [
     "upalāpetvā 2",
     "abs",
-    "having sounded",
-    "✘"
+    "having sounded; having blown; lit. having caused to talk near",
+    "✔"
    ],
    [
     "upalāpesi",
@@ -177872,8 +177910,8 @@ var family_root_json = {
    [
     "odhuni",
     "aor",
-    "shook down",
-    "✘"
+    "shook down; lit. shook down",
+    "✔"
    ],
    [
     "odhunitvā",
@@ -189376,8 +189414,8 @@ var family_root_json = {
    [
     "niddhuni",
     "aor",
-    "shook off",
-    "✘"
+    "shook off; shook out",
+    "✔"
    ],
    [
     "niddhunitvā",
@@ -220346,14 +220384,14 @@ var family_root_json = {
    [
     "sandhunāti",
     "pr",
-    "shakes around",
-    "✘"
+    "shakes around; lit. shakes together",
+    "✔"
    ],
    [
     "sandhuni",
     "aor",
-    "shook together",
-    "✘"
+    "shook around; lit. shook together",
+    "✔"
    ],
    [
     "sandhūmāyati",

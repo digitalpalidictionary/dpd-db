@@ -1452,7 +1452,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	nī √dhū	nirdhū	nidhuvana, nidhū, nirdhūnoti
 √dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	vi √dhū	vidhū	vidhuta, vidhunoti, vidhunvat, vidhūta, vidhūtvā, vidhūnana, vidhūma
 √dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	vi nī √dhū	vinirdhū	
-√dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	saṃ √dhū	saṃdhū	sam + adhauṣīt, saṃ + dhūmayati
+√dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	saṃ √dhū	saṃdhū	sam + adhauṣīt, saṃ + dhūmayati, saṃdhūnoti
 √dhū	5	āya	shake, smoke	√dhū	2, 5, 6, 9	shake	saṃ pa √dhū	dhū	saṃ + pa + dhūmayati
 √dhūp	1	a	smoke	√dhūp √dhūpaya	10	fumigate	√dhūp	dhūpaya	dhūpa, dhūpāyat, dhūpāyati, dhūpāyita
 √dhūp	1	āya	smoke	√dhūp √dhūpaya	10	fumigate	pa √dhūp	dhūpaya	padhūpāyati, pradhūpayat (perfuming) (bsk), pradhūpayati (perfumes) (bsk), pradhūpayati (bsk)
@@ -2035,6 +2035,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √manth	1	a	shake, crush	√math √manth	1, 9	shake	nī √manth	nirmanth	
 √mar	1	a	die	√mṛ	1	die	√mar	mṛ	amara, amaraṇa, amāri, amṛta, na + amaraṇa, na + martum, na + mārayitvā, na + mriyamāṇa, maraṇa, maraṇīya, marat, maramāṇa, martavya, martum, martya, māra, māraka, māraṇa, mārayat, mārayati, mārayitavya, mārayitvā, mārayitṛ?, mārita, mārin, māryamāṇa, mriyate, mriyate, marati, mriyamāṇa, mṛta, mṛtyu, samāraka
 √mar	1	*āpaya	die	√mṛ	1	die	ati √mar		ati + māpayat
+√mar	1	a	die	√mṛ	1	die	ā √mar		āmṛta
 √maris	8	*aya	be patient	√mṛṣ	10	endure, bear	√maris		amarṣa, marṣaṇa, mṛṣ
 √mal	1	a	dirty, stain	√mlai √mlā	1, 2, 4	relax	√mal	mlai	amala, amalina, nirmala, mala, mala + tara, malina, samala
 √mal	1	a	dirty, stain	√mlai √mlā	1, 2, 4	relax	vi √mal	mlai	vimala, vimalā
@@ -2403,7 +2404,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lap	1	a	speak, chat	√lap	1	prate	abhi √lap	abhilap	abhilapana, abhilapita, abhilāpa
 √lap	1	a	speak, chat	√lap	1	prate	ā √lap	ālap	ālapati, ālapitavya, ālapitum, ālāpat, ālāpana, ālāpana +, na + ālāpa, na + ālāpana +, saṃbodhana, ālāpana
 √lap	1	a	speak, chat	√lap	1	prate	ud √lap	ullap	ullapati, ullapya, ullapyamāna, ullāpa, ullāpana, ullāpana (flattering), ullāpayitvā, na + ullāpana
-√lap	1	a	speak, chat	√lap	1	prate	upa √lap	ullap	ullāpaka, ullāpana, upalāpana (bsk), ullāpayati
+√lap	1	a	speak, chat	√lap	1	prate	upa √lap	ullap	upa + lāpayati, ullāpaka, ullāpana, upalāpana (bsk), ullāpayati
 √lap	1	a	speak, chat	√lap	1	prate	pa √lap	pralap	apralāpa, palāy, pralapat, pralapana, pralāpa, pralāpin, vipralāpa
 √lap	1	a	speak, chat	√lap	1	prate	vi √lap	vilap	vilapat, vilapati, vilapamāna, vilapita, vilāpa
 √lap	1	a	speak, chat	√lap	1	prate	vi pa √lap	vipralap	vipralapat, vipralapati, vipralāpa
