@@ -162,8 +162,6 @@
 
     /* top bar background and highlighted text*/
     --md-primary-fg-color: var(--dpd0);
-    /* --md-primary-fg-color: #209cee; */
-
 
     /* top bar text */
     --md-primary-bg-color: var(--light);
@@ -191,7 +189,7 @@
     --md-primary-bg-color--light: var(--dark);
 
     /* rollover highlight */
-    --md-accent-fg-color: var(--dpd0);
+    --md-accent-fg-color: var(--dpd1);
 
     /* footer foreground */
     --md-footer-fg-color: var(--light);
@@ -231,26 +229,4 @@
 
     /* code highlight to */
     /* --md-code-hl-color: yellow; */
-
-
-
-
-
 }
-
-/* Code colours */
-/* 
---md-code-hl-number-color
---md-code-hl-special-color
---md-code-hl-function-color
---md-code-hl-constant-color
---md-code-hl-keyword-color
---md-code-hl-string-color
---md-code-hl-name-color
---md-code-hl-operator-color
---md-code-hl-punctuation-color
---md-code-hl-comment-color
---md-code-hl-generic-color
---md-code-hl-variable-color
-Code block foreground, background and line highlight colors are defined via:
-*/
