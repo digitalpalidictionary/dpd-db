@@ -24,6 +24,15 @@
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 }
 
+/* image border */
+.md-typeset img {
+    border: 2px solid var(--gray-transparent);
+    border-radius: 15px;
+    padding: 1px;
+    background-color: var(--gray-transparent);
+}
+
+
 
 [data-md-color-scheme="default"] {
 
@@ -136,7 +145,6 @@
         padding: 1px;
         border-radius: 50%;
     }
-
 
     /* custom top header */
     .md-header {
