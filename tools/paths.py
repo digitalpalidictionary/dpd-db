@@ -424,6 +424,9 @@ class ProjectPaths:
         self.stash_dir = base_dir / "gui/stash/"
         self.stash_path = base_dir / "gui/stash/stash"
 
+        # gui2
+        self.load_example_dump = base_dir / "gui2/find_words_with_examples_dump.json"
+
         # db/inflections/
         self.inflection_templates_path = (
             base_dir / "db/inflections/inflection_templates.xlsx"
