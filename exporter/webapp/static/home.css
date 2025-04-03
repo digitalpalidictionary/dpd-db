@@ -2,36 +2,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400;1,8..60,700&display=swap');
 
 :root {
+    /* Old colours */
     --old1: hsl(192, 100%, 40%);
     --old2: hsl(194, 100%, 70%);
-
     --old-bg: hsl(252, 87%, 6%);
     --old-fg: hsl(230, 100%, 7%);
     --old-logo: hsl(204, 86%, 53%);
 
+    /* Background in light mode, text in dark mode */
     --light: hsl(198, 100%, 95%);
+
+    /* Background in dark mode, text in light mode */
     --dark: hsl(198, 100%, 5%);
 
+    /* Main DPD colour used for logo, buttons, etc */
     --dpd0: hsl(198, 100%, 50%);
+
+    /* Secondary DPD colour used for pressed buttons */
     --dpd1: hsl(205, 100%, 40%);
+
+    /* DPD colour used for text in light and dark mode */
     --dpd-text: hsl(205, 79%, 48%);
 
+    /* Button shadows */
     --shadow-default: 2px 2px 4px hsla(0, 0%, 20%, 0.4);
     --shadow-hover: 2px 2px 4px hsla(0, 0%, 20%, 0.5);
 
+    /* Various grays */
     --gray: hsl(0, 0%, 50%);
     --gray-light: hsl(0, 0%, 75%);
     --gray-dark: hsl(0, 0%, 25%);
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
+    /* Help green */
     --help1: hsl(180, 100%, 30%);
     --help2: hsl(180, 100%, 70%);
 
+    /* Root is the same as DPD right now */
     --root0: hsl(198, 100%, 50%);
     --root1: hsl(205, 100%, 40%);
     --root-text: hsl(205, 79%, 48%);
 
-    /* Proposed Blue with increasing opacity */
+    /* Frequency heatmap  */
     --freq0: hsla(198, 90%, 50%, 0.10);
     --freq1: hsla(200, 90%, 50%, 0.20);
     --freq2: hsla(202, 90%, 50%, 0.30);
