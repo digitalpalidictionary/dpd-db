@@ -7,6 +7,7 @@ from pathlib import Path
 
 from db.variants.variants_modules import context_cleaner, key_cleaner
 from db.variants.variants_modules import VariantsDict
+from db.variants.files_to_books import cst_files_to_books
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -18,7 +19,11 @@ def get_cst_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of CST files."""
 
     cst_xml_dir: Path = pth.cst_xml_dir
-    files: list[Path] = sorted([f for f in cst_xml_dir.iterdir() if f.is_file()])
+    files: list[Path] = sorted(
+        [f for f in cst_xml_dir.iterdir() if f.is_file()],
+        key=lambda x: list(cst_files_to_books.keys()).index(x.name),
+    )
+
     return files
 
 
@@ -146,7 +151,7 @@ def process_cst(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
         soup: BeautifulSoup = make_soup(file_name)
 
         # remove .mul .att .tik from book names
-        book_name: str = re.sub(r"""\..*""", "", file_name.stem)
+        book_name = cst_files_to_books[file_name.name]
 
         variants_dict = extract_variants(soup, variants_dict, book_name)
 

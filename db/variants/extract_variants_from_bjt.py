@@ -5,6 +5,7 @@ import re
 
 from pathlib import Path
 
+from db.variants.files_to_books import bjt_files_to_books
 from db.variants.variants_modules import context_cleaner, key_cleaner
 from db.variants.variants_modules import VariantsDict
 
@@ -18,7 +19,10 @@ def get_bjt_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of BJT json files."""
 
     bjt_json_dir: Path = pth.bjt_roman_json_dir
-    files: list[Path] = sorted([f for f in bjt_json_dir.iterdir() if f.is_file()])
+    files: list[Path] = sorted(
+        [f for f in bjt_json_dir.iterdir() if f.is_file()],
+        key=lambda x: list(bjt_files_to_books.keys()).index(x.name),
+    )
     return files
 
 
@@ -37,7 +41,7 @@ def extract_bjt_variants(
     """Extract variants from a BJT json file."""
 
     json_data = get_bjt_json_data(file_name)
-    book = re.sub(r"-\d+.*", "", file_name.stem)
+    book = bjt_files_to_books[file_name.name]
     pages = json_data["pages"]
 
     # compile vars for each page

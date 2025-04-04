@@ -1,13 +1,12 @@
 """Extract variants readings from Syāmaraṭṭḥa (Thai) texts."""
 
 import re
-
-from icecream import ic
 from pathlib import Path
 
-from db.variants.variants_modules import context_cleaner, key_cleaner
-from db.variants.variants_modules import VariantsDict
+from icecream import ic
 
+from db.variants.files_to_books import sya_files_to_books
+from db.variants.variants_modules import VariantsDict, context_cleaner, key_cleaner
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -28,7 +27,7 @@ def process_sya(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
         if counter % 20 == 0:
             pr.counter(counter, len(file_list), file_name.name)
 
-        book = file_name.stem.lower().replace("_", " ").strip()
+        book = sya_files_to_books[file_name.name]
         text = get_sya_text(file_name)
         variants_dict = extract_sya_variants(book, text, variants_dict)
 
@@ -43,8 +42,12 @@ def get_sya_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of all SYA variants files."""
 
     root_dir = pth.sya_dir
-    file_list = sorted([file for file in root_dir.rglob("*") if file.is_file()])
-
+    sya_sort_order = {filename: idx for idx, filename in enumerate(sya_files_to_books)}
+    all_files = [file for file in root_dir.rglob("*") if file.is_file()]
+    file_list = sorted(
+        all_files,
+        key=lambda x: sya_sort_order.get(x.name, float("inf")),
+    )
     return file_list
 
 

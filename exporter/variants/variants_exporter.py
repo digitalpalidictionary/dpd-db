@@ -74,7 +74,7 @@ def main():
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
         html_list.append(
-            "<tr><th>source</th><th>filename</th><th>context</th><th>variant</th></tr>"
+            "<tr><th>source</th><th>book</th><th>context</th><th>variant</th></tr>"
         )
         html_list.append("<td colspan='100%'><hr class='variants'></td>")
 

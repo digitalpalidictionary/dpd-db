@@ -3,9 +3,7 @@
 import json
 from pathlib import Path
 
-from db.variants.variants_modules import key_cleaner
-from db.variants.variants_modules import VariantsDict
-
+from db.variants.variants_modules import VariantsDict, key_cleaner
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
