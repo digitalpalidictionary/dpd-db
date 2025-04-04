@@ -31,13 +31,12 @@ def make_meaning_combo_html(i: DpdHeadword) -> str:
             meaning += f"; lit. {i.meaning_lit}"
         return meaning
     else:
-        # add bold to meaning_2, keep lit. plain
         if "; lit." in i.meaning_2:
-            return re.sub("(.+)(; lit.+)", "<b>\\1</b>\\2", i.meaning_2)
+            return i.meaning_2
         elif i.meaning_lit:
-            return f"<b>{i.meaning_2}</b>; lit. {i.meaning_lit}"
+            return f"{i.meaning_2}; lit. {i.meaning_lit}"
         else:
-            return f"<b>{i.meaning_2}</b>"
+            return i.meaning_2
 
 
 def make_grammar_line(i: DpdHeadword) -> str:
