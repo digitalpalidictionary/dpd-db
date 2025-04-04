@@ -7043,8 +7043,8 @@ var family_idiom_json = {
    [
     "ayamattho",
     "sandhi",
-    "this is the meaning",
-    "◑"
+    "this is the meaning (of)",
+    "✔"
    ],
    [
     "iti attho",
@@ -10256,8 +10256,8 @@ var family_idiom_json = {
    [
     "ayamattho",
     "sandhi",
-    "this is the meaning",
-    "◑"
+    "this is the meaning (of)",
+    "✔"
    ],
    [
     "ayamanudhammo",
@@ -10721,7 +10721,7 @@ var family_idiom_json = {
   ]
  },
  "gacchati": {
-  "count": 25,
+  "count": 26,
   "data": [
    [
     "atthaṃ gacchati",
@@ -10841,6 +10841,12 @@ var family_idiom_json = {
     "saṅgahaṃ gacchati",
     "idiom",
     "is included (in); is encompassed (by); is encapsulated (in); is grouped together (with); lit. goes to holding together",
+    "✔"
+   ],
+   [
+    "saddhāya gamissāma",
+    "idiom",
+    "we can trust; lit. we will go by faith",
     "✔"
    ],
    [
@@ -14056,7 +14062,7 @@ var family_idiom_json = {
     "kathamidaṃ",
     "sandhi",
     "what is this?; why is this?",
-    "◑"
+    "✔"
    ],
    [
     "kimidaṃ",
@@ -19735,12 +19741,18 @@ var family_idiom_json = {
   ]
  },
  "saddhā": {
-  "count": 2,
+  "count": 3,
   "data": [
    [
     "saddhaṃ paṭilabhati",
     "idiom",
     "gains faith (in); acquires confidence (in)",
+    "✔"
+   ],
+   [
+    "saddhāya gamissāma",
+    "idiom",
+    "we can trust; lit. we will go by faith",
     "✔"
    ],
    [
@@ -25137,7 +25149,7 @@ var family_idiom_json = {
     "kathamidaṃ",
     "sandhi",
     "what is this?; why is this?",
-    "◑"
+    "✔"
    ],
    [
     "kathamime",

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/Code/dpd-db
+uv run gui2/find_words_with_examples.py

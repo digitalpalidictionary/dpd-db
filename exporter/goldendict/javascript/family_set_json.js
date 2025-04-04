@@ -11366,6 +11366,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "posaka 3",
+    "masc",
+    "raiser; breeder; keeper; who rears",
+    "✔"
+   ],
+   [
     "bandhaka 1",
     "masc",
     "catcher; trapper; hunter; lit. binder",
@@ -11376,6 +11382,12 @@ var family_set_json = {
     "fem",
     "prostitute; slut; whore; lit. binder",
     "◑"
+   ],
+   [
+    "bandhanāgāragopaka",
+    "masc",
+    "jail guard; prison warden",
+    "✔"
    ],
    [
     "bādhī",
@@ -11678,6 +11690,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "satthika",
+    "masc",
+    "carter; wagon driver",
+    "✔"
+   ],
+   [
     "sākuṇika",
     "masc",
     "fowler; bird hunter",
@@ -11732,6 +11750,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sūkaraposaka",
+    "masc",
+    "pig farmer; lit. pig raiser",
+    "✔"
+   ],
+   [
     "seṭṭhi 1.1",
     "masc",
     "wealthy man; banker; treasurer; business executive; lit. foremost",
@@ -11762,7 +11786,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 210
+  "count": 214
  },
  "tastes": {
   "data": [

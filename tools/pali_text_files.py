@@ -6,27 +6,22 @@ The filenames corresponding to various sections of the Pāḷi canon in
 """
 
 cst_texts: dict[str, list[str]] = {
-
     "vin1": ["vin01m.mul.txt"],
     "vin2": ["vin02m1.mul.txt"],
     "vin3": ["vin02m2.mul.txt"],
     "vin4": ["vin02m3.mul.txt"],
     "vin5": ["vin02m4.mul.txt"],
-
     "dn1": ["s0101m.mul.txt"],
     "dn2": ["s0102m.mul.txt"],
     "dn3": ["s0103m.mul.txt"],
-
     "mn1": ["s0201m.mul.txt"],
     "mn2": ["s0202m.mul.txt"],
     "mn3": ["s0203m.mul.txt"],
-
     "sn1": ["s0301m.mul.txt"],
     "sn2": ["s0302m.mul.txt"],
     "sn3": ["s0303m.mul.txt"],
     "sn4": ["s0304m.mul.txt"],
     "sn5": ["s0305m.mul.txt"],
-
     "an1": ["s0401m.mul.txt"],
     "an2": ["s0402m1.mul.txt"],
     "an3": ["s0402m2.mul.txt"],
@@ -38,7 +33,6 @@ cst_texts: dict[str, list[str]] = {
     "an9": ["s0404m2.mul.txt"],
     "an10": ["s0404m3.mul.txt"],
     "an11": ["s0404m4.mul.txt"],
-
     "kn1": ["s0501m.mul.txt"],
     "kn2": ["s0502m.mul.txt"],
     "kn3": ["s0503m.mul.txt"],
@@ -52,69 +46,45 @@ cst_texts: dict[str, list[str]] = {
     "kn11": ["s0510m2.mul.txt"],
     "kn12": ["s0511m.mul.txt"],
     "kn13": ["s0512m.mul.txt"],
-    "kn14": [
-        "s0513m.mul.txt",
-        "s0514m.mul.txt"
-    ],
+    "kn14": ["s0513m.mul.txt", "s0514m.mul.txt"],
     "kn15": ["s0515m.mul.txt"],
     "kn16": ["s0516m.mul.txt"],
     "kn17": ["s0517m.mul.txt"],
     "kn18": ["s0518m.nrf.txt"],
     "kn19": ["s0519m.mul.txt"],
     "kn20": ["s0520m.nrf.txt"],
-
     "abh1": ["abh01m.mul.txt"],
     "abh2": ["abh02m.mul.txt"],
     "abh3": ["abh03m1.mul.txt"],
     "abh4": ["abh03m2.mul.txt"],
-    "abh5": ["abh03m3.mul.txt",],
-    "abh6": [
-        "abh03m4.mul.txt",
-        "abh03m5.mul.txt",
-        "abh03m6.mul.txt"
+    "abh5": [
+        "abh03m3.mul.txt",
     ],
+    "abh6": ["abh03m4.mul.txt", "abh03m5.mul.txt", "abh03m6.mul.txt"],
     "abh7": [
         "abh03m7.mul.txt",
         "abh03m8.mul.txt",
         "abh03m9.mul.txt",
         "abh03m10.mul.txt",
-        "abh03m11.mul.txt",],
-
+        "abh03m11.mul.txt",
+    ],
     "vina": [
         "vin01a.att.txt",
         "vin02a1.att.txt",
         "vin02a2.att.txt",
         "vin02a3.att.txt",
-        "vin02a4.att.txt"
+        "vin02a4.att.txt",
     ],
-
-    "dna": [
-        "s0101a.att.txt",
-        "s0102a.att.txt",
-        "s0103a.att.txt"
-    ],
-
-    "mna": [
-        "s0201a.att.txt",
-        "s0202a.att.txt",
-        "s0203a.att.txt"
-    ],
-
+    "dna": ["s0101a.att.txt", "s0102a.att.txt", "s0103a.att.txt"],
+    "mna": ["s0201a.att.txt", "s0202a.att.txt", "s0203a.att.txt"],
     "sna": [
         "s0301a.att.txt",
         "s0302a.att.txt",
         "s0303a.att.txt",
         "s0304a.att.txt",
-        "s0305a.att.txt"
+        "s0305a.att.txt",
     ],
-
-    "ana": [
-        "s0401a.att.txt",
-        "s0402a.att.txt",
-        "s0403a.att.txt",
-        "s0404a.att.txt"
-    ],
-
+    "ana": ["s0401a.att.txt", "s0402a.att.txt", "s0403a.att.txt", "s0404a.att.txt"],
     "kn1a": ["s0501a.att.txt"],
     "kn2a": ["s0502a.att.txt"],
     "kn3a": ["s0503a.att.txt"],
@@ -122,9 +92,7 @@ cst_texts: dict[str, list[str]] = {
     "kn5a": ["s0505a.att.txt"],
     "kn6a": ["s0506a.att.txt"],
     "kn7a": ["s0507a.att.txt"],
-    "kn8a": [
-        "s0508a1.att.txt",
-        "s0508a2.att.txt"],
+    "kn8a": ["s0508a1.att.txt", "s0508a2.att.txt"],
     "kn9a": ["s0509a.att.txt"],
     "kn10a": ["s0510a.att.txt"],
     "kn11a": [],
@@ -138,20 +106,18 @@ cst_texts: dict[str, list[str]] = {
         "s0514a1.att.txt",
         "s0514a2.att.txt",
         "s0514a3.att.txt",
-        ],
+    ],
     "kn15a": ["s0515a.att.txt"],
     "kn16a": ["s0516a.att.txt"],
     "kn17a": ["s0517a.att.txt"],
     # kn18a does not exist
     "kn19a": ["s0519a.att.txt"],
     # kn20a does not exist
-
     "abha": [
         "abh01a.att.txt",
         "abh02a.att.txt",
         "abh03a.att.txt",
     ],
-
     "vint": [
         "vin01t1.tik.txt",
         "vin01t2.tik.txt",
@@ -167,7 +133,6 @@ cst_texts: dict[str, list[str]] = {
         "vin12t.nrf.txt",
         "vin13t.nrf.txt",
     ],
-
     "dnt": [
         "s0101t.tik.txt",
         "s0102t.tik.txt",
@@ -175,13 +140,11 @@ cst_texts: dict[str, list[str]] = {
         "s0104t.nrf.txt",
         "s0105t.nrf.txt",
     ],
-
     "mnt": [
         "s0201t.tik.txt",
         "s0202t.tik.txt",
         "s0203t.tik.txt",
     ],
-
     "snt": [
         "s0301t.tik.txt",
         "s0302t.tik.txt",
@@ -189,21 +152,18 @@ cst_texts: dict[str, list[str]] = {
         "s0304t.tik.txt",
         "s0305t.tik.txt",
     ],
-
     "ant": [
         "s0401t.tik.txt",
         "s0402t.tik.txt",
         "s0403t.tik.txt",
         "s0404t.tik.txt",
     ],
-
     "knt": [
         "s0501t.nrf.txt",
-        "s0518m.nrf.txt",
+        "s0518t.nrf.txt",
         "s0519t.tik.txt",
-        "s0520m.nrf.txt",
+        "s0520t.nrf.txt",
     ],
-
     "abht": [
         "abh01t.tik.txt",
         "abh02t.tik.txt",
@@ -215,20 +175,16 @@ cst_texts: dict[str, list[str]] = {
         "abh08t.nrf.txt",
         "abh09t.nrf.txt",
     ],
-
     "vism": [
         "e0101n.mul.txt",
         "e0102n.mul.txt",
     ],
-
     "visma": [
         "e0103n.att.txt",
         "e0104n.att.txt",
     ],
-
     "ap": ["e0809n.nrf.txt"],
     "apt": ["e0810n.nrf.txt"],
-
     "anna": [
         "e0105n.nrf.txt",
         "e0201n.nrf.txt",
@@ -296,13 +252,11 @@ cst_texts: dict[str, list[str]] = {
 }
 
 sc_texts: dict[str, list[str]] = {
-
     "vin1": [
         "pli-tv-bu-vb-pj1_root-pli-ms.json",
         "pli-tv-bu-vb-pj2_root-pli-ms.json",
         "pli-tv-bu-vb-pj3_root-pli-ms.json",
         "pli-tv-bu-vb-pj4_root-pli-ms.json",
-
         "pli-tv-bu-vb-ss1_root-pli-ms.json",
         "pli-tv-bu-vb-ss2_root-pli-ms.json",
         "pli-tv-bu-vb-ss3_root-pli-ms.json",
@@ -316,7 +270,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bu-vb-ss11_root-pli-ms.json",
         "pli-tv-bu-vb-ss12_root-pli-ms.json",
         "pli-tv-bu-vb-ss13_root-pli-ms.json",
-
         "pli-tv-bu-vb-np1_root-pli-ms.json",
         "pli-tv-bu-vb-np2_root-pli-ms.json",
         "pli-tv-bu-vb-np3_root-pli-ms.json",
@@ -347,11 +300,9 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bu-vb-np28_root-pli-ms.json",
         "pli-tv-bu-vb-np29_root-pli-ms.json",
         "pli-tv-bu-vb-np30_root-pli-ms.json",
-
         "pli-tv-bu-vb-ay1_root-pli-ms.json",
         "pli-tv-bu-vb-ay2_root-pli-ms.json",
     ],
-
     "vin2": [
         "pli-tv-bu-vb-pc1_root-pli-ms.json",
         "pli-tv-bu-vb-pc2_root-pli-ms.json",
@@ -445,12 +396,10 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bu-vb-pc90_root-pli-ms.json",
         "pli-tv-bu-vb-pc91_root-pli-ms.json",
         "pli-tv-bu-vb-pc92_root-pli-ms.json",
-
         "pli-tv-bu-vb-pd1_root-pli-ms.json",
         "pli-tv-bu-vb-pd2_root-pli-ms.json",
         "pli-tv-bu-vb-pd3_root-pli-ms.json",
         "pli-tv-bu-vb-pd4_root-pli-ms.json",
-
         "pli-tv-bu-vb-sk1_root-pli-ms.json",
         "pli-tv-bu-vb-sk2_root-pli-ms.json",
         "pli-tv-bu-vb-sk3_root-pli-ms.json",
@@ -526,9 +475,7 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bu-vb-sk73_root-pli-ms.json",
         "pli-tv-bu-vb-sk74_root-pli-ms.json",
         "pli-tv-bu-vb-sk75_root-pli-ms.json",
-
         "pli-tv-bu-vb-as1-7_root-pli-ms.json",
-
         "pli-tv-bi-vb-pj1_root-pli-ms.json",
         "pli-tv-bi-vb-pj2_root-pli-ms.json",
         "pli-tv-bi-vb-pj3_root-pli-ms.json",
@@ -537,7 +484,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bi-vb-pj6_root-pli-ms.json",
         "pli-tv-bi-vb-pj7_root-pli-ms.json",
         "pli-tv-bi-vb-pj8_root-pli-ms.json",
-
         "pli-tv-bi-vb-ss1_root-pli-ms.json",
         "pli-tv-bi-vb-ss2_root-pli-ms.json",
         "pli-tv-bi-vb-ss3_root-pli-ms.json",
@@ -548,7 +494,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bi-vb-ss11_root-pli-ms.json",
         "pli-tv-bi-vb-ss12_root-pli-ms.json",
         "pli-tv-bi-vb-ss13_root-pli-ms.json",
-
         "pli-tv-bi-vb-np1_root-pli-ms.json",
         "pli-tv-bi-vb-np2_root-pli-ms.json",
         "pli-tv-bi-vb-np3_root-pli-ms.json",
@@ -561,7 +506,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bi-vb-np10_root-pli-ms.json",
         "pli-tv-bi-vb-np11_root-pli-ms.json",
         "pli-tv-bi-vb-np12_root-pli-ms.json",
-
         "pli-tv-bi-vb-pc1_root-pli-ms.json",
         "pli-tv-bi-vb-pc2_root-pli-ms.json",
         "pli-tv-bi-vb-pc3_root-pli-ms.json",
@@ -656,20 +600,14 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-bi-vb-pc94_root-pli-ms.json",
         "pli-tv-bi-vb-pc95_root-pli-ms.json",
         "pli-tv-bi-vb-pc96_root-pli-ms.json",
-
         "pli-tv-bi-vb-pd1_root-pli-ms.json",
         "pli-tv-bi-vb-pd2-8_root-pli-ms.json",
-
         "pli-tv-bi-vb-sk1_root-pli-ms.json",
         "pli-tv-bi-vb-sk75_root-pli-ms.json",
-
         "pli-tv-bi-vb-as1-7_root-pli-ms.json",
-        
         "pli-tv-bi-pm_root-pli-ms.json",
-        "pli-tv-bu-pm_root-pli-ms.json"
-
+        "pli-tv-bu-pm_root-pli-ms.json",
     ],
-
     "vin3": [
         "pli-tv-kd1_root-pli-ms.json",
         "pli-tv-kd2_root-pli-ms.json",
@@ -682,7 +620,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-kd9_root-pli-ms.json",
         "pli-tv-kd10_root-pli-ms.json",
     ],
-
     "vin4": [
         "pli-tv-kd11_root-pli-ms.json",
         "pli-tv-kd12_root-pli-ms.json",
@@ -697,7 +634,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-kd21_root-pli-ms.json",
         "pli-tv-kd22_root-pli-ms.json",
     ],
-
     "vin5": [
         "pli-tv-pvr1.1_root-pli-ms.json",
         "pli-tv-pvr1.2_root-pli-ms.json",
@@ -751,7 +687,6 @@ sc_texts: dict[str, list[str]] = {
         "pli-tv-pvr20_root-pli-ms.json",
         "pli-tv-pvr21_root-pli-ms.json",
     ],
-
     "dn1": [
         "dn1_root-pli-ms.json",
         "dn2_root-pli-ms.json",
@@ -767,7 +702,6 @@ sc_texts: dict[str, list[str]] = {
         "dn12_root-pli-ms.json",
         "dn13_root-pli-ms.json",
     ],
-
     "dn2": [
         "dn14_root-pli-ms.json",
         "dn15_root-pli-ms.json",
@@ -780,7 +714,6 @@ sc_texts: dict[str, list[str]] = {
         "dn22_root-pli-ms.json",
         "dn23_root-pli-ms.json",
     ],
-
     "dn3": [
         "dn24_root-pli-ms.json",
         "dn25_root-pli-ms.json",
@@ -794,7 +727,6 @@ sc_texts: dict[str, list[str]] = {
         "dn33_root-pli-ms.json",
         "dn34_root-pli-ms.json",
     ],
-
     "mn1": [
         "mn1_root-pli-ms.json",
         "mn2_root-pli-ms.json",
@@ -847,7 +779,6 @@ sc_texts: dict[str, list[str]] = {
         "mn49_root-pli-ms.json",
         "mn50_root-pli-ms.json",
     ],
-
     "mn2": [
         "mn51_root-pli-ms.json",
         "mn52_root-pli-ms.json",
@@ -900,7 +831,6 @@ sc_texts: dict[str, list[str]] = {
         "mn99_root-pli-ms.json",
         "mn100_root-pli-ms.json",
     ],
-
     "mn3": [
         "mn101_root-pli-ms.json",
         "mn102_root-pli-ms.json",
@@ -955,7 +885,6 @@ sc_texts: dict[str, list[str]] = {
         "mn151_root-pli-ms.json",
         "mn152_root-pli-ms.json",
     ],
-
     "sn1": [
         "sn1.1_root-pli-ms.json",
         "sn1.2_root-pli-ms.json",
@@ -1038,7 +967,6 @@ sc_texts: dict[str, list[str]] = {
         "sn1.79_root-pli-ms.json",
         "sn1.80_root-pli-ms.json",
         "sn1.81_root-pli-ms.json",
-
         "sn2.1_root-pli-ms.json",
         "sn2.2_root-pli-ms.json",
         "sn2.3_root-pli-ms.json",
@@ -1069,7 +997,6 @@ sc_texts: dict[str, list[str]] = {
         "sn2.28_root-pli-ms.json",
         "sn2.29_root-pli-ms.json",
         "sn2.30_root-pli-ms.json",
-
         "sn3.1_root-pli-ms.json",
         "sn3.2_root-pli-ms.json",
         "sn3.3_root-pli-ms.json",
@@ -1095,7 +1022,6 @@ sc_texts: dict[str, list[str]] = {
         "sn3.23_root-pli-ms.json",
         "sn3.24_root-pli-ms.json",
         "sn3.25_root-pli-ms.json",
-
         "sn4.1_root-pli-ms.json",
         "sn4.2_root-pli-ms.json",
         "sn4.3_root-pli-ms.json",
@@ -1121,7 +1047,6 @@ sc_texts: dict[str, list[str]] = {
         "sn4.23_root-pli-ms.json",
         "sn4.24_root-pli-ms.json",
         "sn4.25_root-pli-ms.json",
-
         "sn5.1_root-pli-ms.json",
         "sn5.2_root-pli-ms.json",
         "sn5.3_root-pli-ms.json",
@@ -1132,7 +1057,6 @@ sc_texts: dict[str, list[str]] = {
         "sn5.8_root-pli-ms.json",
         "sn5.9_root-pli-ms.json",
         "sn5.10_root-pli-ms.json",
-
         "sn6.1_root-pli-ms.json",
         "sn6.2_root-pli-ms.json",
         "sn6.3_root-pli-ms.json",
@@ -1148,7 +1072,6 @@ sc_texts: dict[str, list[str]] = {
         "sn6.13_root-pli-ms.json",
         "sn6.14_root-pli-ms.json",
         "sn6.15_root-pli-ms.json",
-
         "sn7.1_root-pli-ms.json",
         "sn7.2_root-pli-ms.json",
         "sn7.3_root-pli-ms.json",
@@ -1171,7 +1094,6 @@ sc_texts: dict[str, list[str]] = {
         "sn7.20_root-pli-ms.json",
         "sn7.21_root-pli-ms.json",
         "sn7.22_root-pli-ms.json",
-
         "sn8.1_root-pli-ms.json",
         "sn8.2_root-pli-ms.json",
         "sn8.3_root-pli-ms.json",
@@ -1184,7 +1106,6 @@ sc_texts: dict[str, list[str]] = {
         "sn8.10_root-pli-ms.json",
         "sn8.11_root-pli-ms.json",
         "sn8.12_root-pli-ms.json",
-
         "sn9.1_root-pli-ms.json",
         "sn9.2_root-pli-ms.json",
         "sn9.3_root-pli-ms.json",
@@ -1199,7 +1120,6 @@ sc_texts: dict[str, list[str]] = {
         "sn9.12_root-pli-ms.json",
         "sn9.13_root-pli-ms.json",
         "sn9.14_root-pli-ms.json",
-
         "sn10.1_root-pli-ms.json",
         "sn10.2_root-pli-ms.json",
         "sn10.3_root-pli-ms.json",
@@ -1212,7 +1132,6 @@ sc_texts: dict[str, list[str]] = {
         "sn10.10_root-pli-ms.json",
         "sn10.11_root-pli-ms.json",
         "sn10.12_root-pli-ms.json",
-
         "sn11.1_root-pli-ms.json",
         "sn11.2_root-pli-ms.json",
         "sn11.3_root-pli-ms.json",
@@ -1239,7 +1158,6 @@ sc_texts: dict[str, list[str]] = {
         "sn11.24_root-pli-ms.json",
         "sn11.25_root-pli-ms.json",
     ],
-
     "sn2": [
         "sn12.1_root-pli-ms.json",
         "sn12.2_root-pli-ms.json",
@@ -1316,7 +1234,6 @@ sc_texts: dict[str, list[str]] = {
         "sn12.82_root-pli-ms.json",
         "sn12.83-92_root-pli-ms.json",
         "sn12.93-213_root-pli-ms.json",
-
         "sn13.1_root-pli-ms.json",
         "sn13.2_root-pli-ms.json",
         "sn13.3_root-pli-ms.json",
@@ -1328,7 +1245,6 @@ sc_texts: dict[str, list[str]] = {
         "sn13.9_root-pli-ms.json",
         "sn13.10_root-pli-ms.json",
         "sn13.11_root-pli-ms.json",
-
         "sn14.1_root-pli-ms.json",
         "sn14.2_root-pli-ms.json",
         "sn14.3_root-pli-ms.json",
@@ -1368,7 +1284,6 @@ sc_texts: dict[str, list[str]] = {
         "sn14.37_root-pli-ms.json",
         "sn14.38_root-pli-ms.json",
         "sn14.39_root-pli-ms.json",
-
         "sn15.1_root-pli-ms.json",
         "sn15.2_root-pli-ms.json",
         "sn15.3_root-pli-ms.json",
@@ -1389,7 +1304,6 @@ sc_texts: dict[str, list[str]] = {
         "sn15.18_root-pli-ms.json",
         "sn15.19_root-pli-ms.json",
         "sn15.20_root-pli-ms.json",
-
         "sn16.1_root-pli-ms.json",
         "sn16.2_root-pli-ms.json",
         "sn16.3_root-pli-ms.json",
@@ -1403,7 +1317,6 @@ sc_texts: dict[str, list[str]] = {
         "sn16.11_root-pli-ms.json",
         "sn16.12_root-pli-ms.json",
         "sn16.13_root-pli-ms.json",
-
         "sn17.1_root-pli-ms.json",
         "sn17.2_root-pli-ms.json",
         "sn17.3_root-pli-ms.json",
@@ -1435,7 +1348,6 @@ sc_texts: dict[str, list[str]] = {
         "sn17.36_root-pli-ms.json",
         "sn17.37_root-pli-ms.json",
         "sn17.38-43_root-pli-ms.json",
-
         "sn18.1_root-pli-ms.json",
         "sn18.2_root-pli-ms.json",
         "sn18.3_root-pli-ms.json",
@@ -1450,7 +1362,6 @@ sc_texts: dict[str, list[str]] = {
         "sn18.12-20_root-pli-ms.json",
         "sn18.21_root-pli-ms.json",
         "sn18.22_root-pli-ms.json",
-
         "sn19.1_root-pli-ms.json",
         "sn19.2_root-pli-ms.json",
         "sn19.3_root-pli-ms.json",
@@ -1472,7 +1383,6 @@ sc_texts: dict[str, list[str]] = {
         "sn19.19_root-pli-ms.json",
         "sn19.20_root-pli-ms.json",
         "sn19.21_root-pli-ms.json",
-
         "sn20.1_root-pli-ms.json",
         "sn20.2_root-pli-ms.json",
         "sn20.3_root-pli-ms.json",
@@ -1485,7 +1395,6 @@ sc_texts: dict[str, list[str]] = {
         "sn20.10_root-pli-ms.json",
         "sn20.11_root-pli-ms.json",
         "sn20.12_root-pli-ms.json",
-
         "sn21.1_root-pli-ms.json",
         "sn21.2_root-pli-ms.json",
         "sn21.3_root-pli-ms.json",
@@ -1499,7 +1408,6 @@ sc_texts: dict[str, list[str]] = {
         "sn21.11_root-pli-ms.json",
         "sn21.12_root-pli-ms.json",
     ],
-
     "sn3": [
         "sn22.1_root-pli-ms.json",
         "sn22.2_root-pli-ms.json",
@@ -1660,7 +1568,6 @@ sc_texts: dict[str, list[str]] = {
         "sn22.157_root-pli-ms.json",
         "sn22.158_root-pli-ms.json",
         "sn22.159_root-pli-ms.json",
-
         "sn23.1_root-pli-ms.json",
         "sn23.2_root-pli-ms.json",
         "sn23.3_root-pli-ms.json",
@@ -1687,7 +1594,6 @@ sc_texts: dict[str, list[str]] = {
         "sn23.34_root-pli-ms.json",
         "sn23.35-45_root-pli-ms.json",
         "sn23.46_root-pli-ms.json",
-
         "sn24.1_root-pli-ms.json",
         "sn24.2_root-pli-ms.json",
         "sn24.3_root-pli-ms.json",
@@ -1723,7 +1629,6 @@ sc_texts: dict[str, list[str]] = {
         "sn24.71_root-pli-ms.json",
         "sn24.72-95_root-pli-ms.json",
         "sn24.96_root-pli-ms.json",
-
         "sn25.1_root-pli-ms.json",
         "sn25.2_root-pli-ms.json",
         "sn25.3_root-pli-ms.json",
@@ -1734,7 +1639,6 @@ sc_texts: dict[str, list[str]] = {
         "sn25.8_root-pli-ms.json",
         "sn25.9_root-pli-ms.json",
         "sn25.10_root-pli-ms.json",
-
         "sn26.1_root-pli-ms.json",
         "sn26.2_root-pli-ms.json",
         "sn26.3_root-pli-ms.json",
@@ -1745,7 +1649,6 @@ sc_texts: dict[str, list[str]] = {
         "sn26.8_root-pli-ms.json",
         "sn26.9_root-pli-ms.json",
         "sn26.10_root-pli-ms.json",
-
         "sn27.1_root-pli-ms.json",
         "sn27.2_root-pli-ms.json",
         "sn27.3_root-pli-ms.json",
@@ -1756,7 +1659,6 @@ sc_texts: dict[str, list[str]] = {
         "sn27.8_root-pli-ms.json",
         "sn27.9_root-pli-ms.json",
         "sn27.10_root-pli-ms.json",
-
         "sn28.1_root-pli-ms.json",
         "sn28.2_root-pli-ms.json",
         "sn28.3_root-pli-ms.json",
@@ -1767,7 +1669,6 @@ sc_texts: dict[str, list[str]] = {
         "sn28.8_root-pli-ms.json",
         "sn28.9_root-pli-ms.json",
         "sn28.10_root-pli-ms.json",
-
         "sn29.1_root-pli-ms.json",
         "sn29.2_root-pli-ms.json",
         "sn29.3_root-pli-ms.json",
@@ -1780,21 +1681,18 @@ sc_texts: dict[str, list[str]] = {
         "sn29.10_root-pli-ms.json",
         "sn29.11-20_root-pli-ms.json",
         "sn29.21-50_root-pli-ms.json",
-
         "sn30.1_root-pli-ms.json",
         "sn30.2_root-pli-ms.json",
         "sn30.3_root-pli-ms.json",
         "sn30.4-6_root-pli-ms.json",
         "sn30.7-16_root-pli-ms.json",
         "sn30.17-46_root-pli-ms.json",
-
         "sn31.1_root-pli-ms.json",
         "sn31.2_root-pli-ms.json",
         "sn31.3_root-pli-ms.json",
         "sn31.4-12_root-pli-ms.json",
         "sn31.13-22_root-pli-ms.json",
         "sn31.23-112_root-pli-ms.json",
-
         "sn32.1_root-pli-ms.json",
         "sn32.2_root-pli-ms.json",
         "sn32.3-12_root-pli-ms.json",
@@ -1804,7 +1702,6 @@ sc_texts: dict[str, list[str]] = {
         "sn32.55_root-pli-ms.json",
         "sn32.56_root-pli-ms.json",
         "sn32.57_root-pli-ms.json",
-
         "sn33.1_root-pli-ms.json",
         "sn33.2_root-pli-ms.json",
         "sn33.3_root-pli-ms.json",
@@ -1821,7 +1718,6 @@ sc_texts: dict[str, list[str]] = {
         "sn33.46-50_root-pli-ms.json",
         "sn33.51-54_root-pli-ms.json",
         "sn33.55_root-pli-ms.json",
-
         "sn34.1_root-pli-ms.json",
         "sn34.2_root-pli-ms.json",
         "sn34.3_root-pli-ms.json",
@@ -1850,7 +1746,6 @@ sc_texts: dict[str, list[str]] = {
         "sn34.53-54_root-pli-ms.json",
         "sn34.55_root-pli-ms.json",
     ],
-
     "sn4": [
         "sn35.1_root-pli-ms.json",
         "sn35.2_root-pli-ms.json",
@@ -2053,7 +1948,6 @@ sc_texts: dict[str, list[str]] = {
         "sn35.246_root-pli-ms.json",
         "sn35.247_root-pli-ms.json",
         "sn35.248_root-pli-ms.json",
-
         "sn36.1_root-pli-ms.json",
         "sn36.2_root-pli-ms.json",
         "sn36.3_root-pli-ms.json",
@@ -2085,7 +1979,6 @@ sc_texts: dict[str, list[str]] = {
         "sn36.29_root-pli-ms.json",
         "sn36.30_root-pli-ms.json",
         "sn36.31_root-pli-ms.json",
-
         "sn37.1_root-pli-ms.json",
         "sn37.2_root-pli-ms.json",
         "sn37.3_root-pli-ms.json",
@@ -2120,7 +2013,6 @@ sc_texts: dict[str, list[str]] = {
         "sn37.32_root-pli-ms.json",
         "sn37.33_root-pli-ms.json",
         "sn37.34_root-pli-ms.json",
-
         "sn38.1_root-pli-ms.json",
         "sn38.2_root-pli-ms.json",
         "sn38.3_root-pli-ms.json",
@@ -2137,10 +2029,8 @@ sc_texts: dict[str, list[str]] = {
         "sn38.14_root-pli-ms.json",
         "sn38.15_root-pli-ms.json",
         "sn38.16_root-pli-ms.json",
-
         "sn39.1-15_root-pli-ms.json",
         "sn39.16_root-pli-ms.json",
-
         "sn40.1_root-pli-ms.json",
         "sn40.2_root-pli-ms.json",
         "sn40.3_root-pli-ms.json",
@@ -2152,7 +2042,6 @@ sc_texts: dict[str, list[str]] = {
         "sn40.9_root-pli-ms.json",
         "sn40.10_root-pli-ms.json",
         "sn40.11_root-pli-ms.json",
-
         "sn41.1_root-pli-ms.json",
         "sn41.2_root-pli-ms.json",
         "sn41.3_root-pli-ms.json",
@@ -2163,7 +2052,6 @@ sc_texts: dict[str, list[str]] = {
         "sn41.8_root-pli-ms.json",
         "sn41.9_root-pli-ms.json",
         "sn41.10_root-pli-ms.json",
-
         "sn42.1_root-pli-ms.json",
         "sn42.2_root-pli-ms.json",
         "sn42.3_root-pli-ms.json",
@@ -2177,7 +2065,6 @@ sc_texts: dict[str, list[str]] = {
         "sn42.11_root-pli-ms.json",
         "sn42.12_root-pli-ms.json",
         "sn42.13_root-pli-ms.json",
-
         "sn43.1_root-pli-ms.json",
         "sn43.2_root-pli-ms.json",
         "sn43.3_root-pli-ms.json",
@@ -2193,7 +2080,6 @@ sc_texts: dict[str, list[str]] = {
         "sn43.13_root-pli-ms.json",
         "sn43.14-43_root-pli-ms.json",
         "sn43.44_root-pli-ms.json",
-
         "sn44.1_root-pli-ms.json",
         "sn44.2_root-pli-ms.json",
         "sn44.3_root-pli-ms.json",
@@ -2206,7 +2092,6 @@ sc_texts: dict[str, list[str]] = {
         "sn44.10_root-pli-ms.json",
         "sn44.11_root-pli-ms.json",
     ],
-
     "sn5": [
         "sn45.1_root-pli-ms.json",
         "sn45.2_root-pli-ms.json",
@@ -2322,7 +2207,6 @@ sc_texts: dict[str, list[str]] = {
         "sn45.178_root-pli-ms.json",
         "sn45.179_root-pli-ms.json",
         "sn45.180_root-pli-ms.json",
-
         "sn46.1_root-pli-ms.json",
         "sn46.2_root-pli-ms.json",
         "sn46.3_root-pli-ms.json",
@@ -2410,7 +2294,6 @@ sc_texts: dict[str, list[str]] = {
         "sn46.153-164_root-pli-ms.json",
         "sn46.165-174_root-pli-ms.json",
         "sn46.175-184_root-pli-ms.json",
-
         "sn47.1_root-pli-ms.json",
         "sn47.2_root-pli-ms.json",
         "sn47.3_root-pli-ms.json",
@@ -2466,7 +2349,6 @@ sc_texts: dict[str, list[str]] = {
         "sn47.73-84_root-pli-ms.json",
         "sn47.85-94_root-pli-ms.json",
         "sn47.95-104_root-pli-ms.json",
-
         "sn48.1_root-pli-ms.json",
         "sn48.2_root-pli-ms.json",
         "sn48.3_root-pli-ms.json",
@@ -2547,13 +2429,11 @@ sc_texts: dict[str, list[str]] = {
         "sn48.147-158_root-pli-ms.json",
         "sn48.159-168_root-pli-ms.json",
         "sn48.169-178_root-pli-ms.json",
-
         "sn49.1-12_root-pli-ms.json",
         "sn49.13-22_root-pli-ms.json",
         "sn49.23-34_root-pli-ms.json",
         "sn49.35-44_root-pli-ms.json",
         "sn49.45-54_root-pli-ms.json",
-
         "sn50.1-12_root-pli-ms.json",
         "sn50.13-22_root-pli-ms.json",
         "sn50.23-34_root-pli-ms.json",
@@ -2564,7 +2444,6 @@ sc_texts: dict[str, list[str]] = {
         "sn50.77-88_root-pli-ms.json",
         "sn50.89-98_root-pli-ms.json",
         "sn50.99-108_root-pli-ms.json",
-
         "sn51.1_root-pli-ms.json",
         "sn51.2_root-pli-ms.json",
         "sn51.3_root-pli-ms.json",
@@ -2602,7 +2481,6 @@ sc_texts: dict[str, list[str]] = {
         "sn51.55-66_root-pli-ms.json",
         "sn51.67-76_root-pli-ms.json",
         "sn51.77-86_root-pli-ms.json",
-
         "sn52.1_root-pli-ms.json",
         "sn52.2_root-pli-ms.json",
         "sn52.3_root-pli-ms.json",
@@ -2627,13 +2505,11 @@ sc_texts: dict[str, list[str]] = {
         "sn52.22_root-pli-ms.json",
         "sn52.23_root-pli-ms.json",
         "sn52.24_root-pli-ms.json",
-
         "sn53.1-12_root-pli-ms.json",
         "sn53.13-22_root-pli-ms.json",
         "sn53.23-34_root-pli-ms.json",
         "sn53.35-44_root-pli-ms.json",
         "sn53.45-54_root-pli-ms.json",
-
         "sn54.1_root-pli-ms.json",
         "sn54.2_root-pli-ms.json",
         "sn54.3_root-pli-ms.json",
@@ -2654,7 +2530,6 @@ sc_texts: dict[str, list[str]] = {
         "sn54.18_root-pli-ms.json",
         "sn54.19_root-pli-ms.json",
         "sn54.20_root-pli-ms.json",
-
         "sn55.1_root-pli-ms.json",
         "sn55.2_root-pli-ms.json",
         "sn55.3_root-pli-ms.json",
@@ -2729,7 +2604,6 @@ sc_texts: dict[str, list[str]] = {
         "sn55.72_root-pli-ms.json",
         "sn55.73_root-pli-ms.json",
         "sn55.74_root-pli-ms.json",
-
         "sn56.1_root-pli-ms.json",
         "sn56.2_root-pli-ms.json",
         "sn56.3_root-pli-ms.json",
@@ -2840,7 +2714,6 @@ sc_texts: dict[str, list[str]] = {
         "sn56.129-130_root-pli-ms.json",
         "sn56.131_root-pli-ms.json",
     ],
-
     "an1": [
         "an1.1-10_root-pli-ms.json",
         "an1.11-20_root-pli-ms.json",
@@ -2874,7 +2747,6 @@ sc_texts: dict[str, list[str]] = {
         "an1.575-615_root-pli-ms.json",
         "an1.616-627_root-pli-ms.json",
     ],
-
     "an2": [
         "an2.1-10_root-pli-ms.json",
         "an2.11-20_root-pli-ms.json",
@@ -2896,7 +2768,6 @@ sc_texts: dict[str, list[str]] = {
         "an2.280-309_root-pli-ms.json",
         "an2.310-479_root-pli-ms.json",
     ],
-
     "an3": [
         "an3.1_root-pli-ms.json",
         "an3.2_root-pli-ms.json",
@@ -3057,7 +2928,6 @@ sc_texts: dict[str, list[str]] = {
         "an3.163-182_root-pli-ms.json",
         "an3.183-352_root-pli-ms.json",
     ],
-
     "an4": [
         "an4.1_root-pli-ms.json",
         "an4.2_root-pli-ms.json",
@@ -3338,7 +3208,6 @@ sc_texts: dict[str, list[str]] = {
         "an4.277-303_root-pli-ms.json",
         "an4.304-783_root-pli-ms.json",
     ],
-
     "an5": [
         "an5.1_root-pli-ms.json",
         "an5.2_root-pli-ms.json",
@@ -3612,7 +3481,6 @@ sc_texts: dict[str, list[str]] = {
         "an5.307_root-pli-ms.json",
         "an5.308-1152_root-pli-ms.json",
     ],
-
     "an6": [
         "an6.1_root-pli-ms.json",
         "an6.2_root-pli-ms.json",
@@ -3740,7 +3608,6 @@ sc_texts: dict[str, list[str]] = {
         "an6.143-169_root-pli-ms.json",
         "an6.170-649_root-pli-ms.json",
     ],
-
     "an7": [
         "an7.1_root-pli-ms.json",
         "an7.2_root-pli-ms.json",
@@ -3844,7 +3711,6 @@ sc_texts: dict[str, list[str]] = {
         "an7.618-644_root-pli-ms.json",
         "an7.645-1124_root-pli-ms.json",
     ],
-
     "an8": [
         "an8.1_root-pli-ms.json",
         "an8.2_root-pli-ms.json",
@@ -3943,7 +3809,6 @@ sc_texts: dict[str, list[str]] = {
         "an8.121-147_root-pli-ms.json",
         "an8.148-627_root-pli-ms.json",
     ],
-
     "an9": [
         "an9.1_root-pli-ms.json",
         "an9.2_root-pli-ms.json",
@@ -4028,7 +3893,6 @@ sc_texts: dict[str, list[str]] = {
         "an9.95-112_root-pli-ms.json",
         "an9.113-432_root-pli-ms.json",
     ],
-
     "an10": [
         "an10.1_root-pli-ms.json",
         "an10.2_root-pli-ms.json",
@@ -4242,7 +4106,6 @@ sc_texts: dict[str, list[str]] = {
         "an10.240-266_root-pli-ms.json",
         "an10.267-746_root-pli-ms.json",
     ],
-
     "an11": [
         "an11.1_root-pli-ms.json",
         "an11.2_root-pli-ms.json",
@@ -4281,7 +4144,6 @@ sc_texts: dict[str, list[str]] = {
         "an11.983-991_root-pli-ms.json",
         "an11.992-1151_root-pli-ms.json",
     ],
-
     "kn1": [
         "kp1_root-pli-ms.json",
         "kp2_root-pli-ms.json",
@@ -4293,7 +4155,6 @@ sc_texts: dict[str, list[str]] = {
         "kp8_root-pli-ms.json",
         "kp9_root-pli-ms.json",
     ],
-
     "kn2": [
         "dhp1-20_root-pli-ms.json",
         "dhp21-32_root-pli-ms.json",
@@ -4322,7 +4183,6 @@ sc_texts: dict[str, list[str]] = {
         "dhp360-382_root-pli-ms.json",
         "dhp383-423_root-pli-ms.json",
     ],
-
     "kn3": [
         "ud1.1_root-pli-ms.json",
         "ud1.2_root-pli-ms.json",
@@ -4405,7 +4265,6 @@ sc_texts: dict[str, list[str]] = {
         "ud8.9_root-pli-ms.json",
         "ud8.10_root-pli-ms.json",
     ],
-
     "kn4": [
         "iti1_root-pli-ms.json",
         "iti2_root-pli-ms.json",
@@ -4520,7 +4379,6 @@ sc_texts: dict[str, list[str]] = {
         "iti111_root-pli-ms.json",
         "iti112_root-pli-ms.json",
     ],
-
     "kn5": [
         "snp1.1_root-pli-ms.json",
         "snp1.2_root-pli-ms.json",
@@ -4596,7 +4454,6 @@ sc_texts: dict[str, list[str]] = {
         "snp5.18_root-pli-ms.json",
         "snp5.19_root-pli-ms.json",
     ],
-
     "kn6": [
         "vv1_root-pli-ms.json",
         "vv2_root-pli-ms.json",
@@ -4684,7 +4541,6 @@ sc_texts: dict[str, list[str]] = {
         "vv84_root-pli-ms.json",
         "vv85_root-pli-ms.json",
     ],
-
     "kn7": [
         "pv1_root-pli-ms.json",
         "pv2_root-pli-ms.json",
@@ -4738,7 +4594,6 @@ sc_texts: dict[str, list[str]] = {
         "pv50_root-pli-ms.json",
         "pv51_root-pli-ms.json",
     ],
-
     "kn8": [
         "thag1.1_root-pli-ms.json",
         "thag1.2_root-pli-ms.json",
@@ -5005,7 +4860,6 @@ sc_texts: dict[str, list[str]] = {
         "thag20.1_root-pli-ms.json",
         "thag21.1_root-pli-ms.json",
     ],
-
     "kn9": [
         "thig1.1_root-pli-ms.json",
         "thig1.2_root-pli-ms.json",
@@ -5081,7 +4935,6 @@ sc_texts: dict[str, list[str]] = {
         "thig15.1_root-pli-ms.json",
         "thig16.1_root-pli-ms.json",
     ],
-
     "kn10": [
         "tha-ap1_root-pli-ms.json",
         "tha-ap2_root-pli-ms.json",
@@ -5647,7 +5500,6 @@ sc_texts: dict[str, list[str]] = {
         "tha-ap562_root-pli-ms.json",
         "tha-ap563_root-pli-ms.json",
     ],
-
     "kn11": [
         "thi-ap1_root-pli-ms.json",
         "thi-ap2_root-pli-ms.json",
@@ -5690,7 +5542,6 @@ sc_texts: dict[str, list[str]] = {
         "thi-ap39_root-pli-ms.json",
         "thi-ap40_root-pli-ms.json",
     ],
-
     "kn12": [
         "bv1_root-pli-ms.json",
         "bv2_root-pli-ms.json",
@@ -5722,7 +5573,6 @@ sc_texts: dict[str, list[str]] = {
         "bv28_root-pli-ms.json",
         "bv29_root-pli-ms.json",
     ],
-
     "kn13": [
         "cp1_root-pli-ms.json",
         "cp2_root-pli-ms.json",
@@ -5760,7 +5610,6 @@ sc_texts: dict[str, list[str]] = {
         "cp34_root-pli-ms.json",
         "cp35_root-pli-ms.json",
     ],
-
     "kn14": [
         "ja1_root-pli-ms.json",
         "ja2_root-pli-ms.json",
@@ -6282,7 +6131,6 @@ sc_texts: dict[str, list[str]] = {
         "ja518_root-pli-ms.json",
         "ja519_root-pli-ms.json",
         "ja520_root-pli-ms.json",
-
         # book 2
         "ja521_root-pli-ms.json",
         "ja522_root-pli-ms.json",
@@ -6312,7 +6160,6 @@ sc_texts: dict[str, list[str]] = {
         "ja546_root-pli-ms.json",
         "ja547_root-pli-ms.json",
     ],
-
     "kn15": [
         "mnd1_root-pli-ms.json",
         "mnd2_root-pli-ms.json",
@@ -6331,7 +6178,6 @@ sc_texts: dict[str, list[str]] = {
         "mnd15_root-pli-ms.json",
         "mnd16_root-pli-ms.json",
     ],
-
     "kn16": [
         "cnd1_root-pli-ms.json",
         "cnd2_root-pli-ms.json",
@@ -6357,7 +6203,6 @@ sc_texts: dict[str, list[str]] = {
         "cnd22_root-pli-ms.json",
         "cnd23_root-pli-ms.json",
     ],
-
     "kn17": [
         "ps1.0_root-pli-ms.json",
         "ps1.1_root-pli-ms.json",
@@ -6391,7 +6236,6 @@ sc_texts: dict[str, list[str]] = {
         "ps3.9_root-pli-ms.json",
         "ps3.10_root-pli-ms.json",
     ],
-
     "kn18": [
         "mil1_root-pli-ms.json",
         "mil2_root-pli-ms.json",
@@ -6642,7 +6486,6 @@ sc_texts: dict[str, list[str]] = {
         "mil7.8.7_root-pli-ms.json",
         "mil8_root-pli-ms.json",
     ],
-
     "kn19": [
         "ne1_root-pli-ms.json",
         "ne2_root-pli-ms.json",
@@ -6682,7 +6525,6 @@ sc_texts: dict[str, list[str]] = {
         "ne36_root-pli-ms.json",
         "ne37_root-pli-ms.json",
     ],
-
     "kn20": [
         "pe1_root-pli-ms.json",
         "pe2_root-pli-ms.json",
@@ -6694,7 +6536,6 @@ sc_texts: dict[str, list[str]] = {
         "pe8_root-pli-ms.json",
         "pe9_root-pli-ms.json",
     ],
-
     "abh1": [
         "ds1.1_root-pli-ms.json",
         "ds1.2_root-pli-ms.json",
@@ -6718,7 +6559,6 @@ sc_texts: dict[str, list[str]] = {
         "ds2.4.1_root-pli-ms.json",
         "ds2.4.2_root-pli-ms.json",
     ],
-
     "abh2": [
         "vb1_root-pli-ms.json",
         "vb2_root-pli-ms.json",
@@ -6739,7 +6579,6 @@ sc_texts: dict[str, list[str]] = {
         "vb17_root-pli-ms.json",
         "vb18_root-pli-ms.json",
     ],
-
     "abh3": [
         "dt1.1_root-pli-ms.json",
         "dt1.2_root-pli-ms.json",
@@ -6761,7 +6600,6 @@ sc_texts: dict[str, list[str]] = {
         "dt2.13_root-pli-ms.json",
         "dt2.14_root-pli-ms.json",
     ],
-
     "abh4": [
         "pp1.1_root-pli-ms.json",
         "pp1.2_root-pli-ms.json",
@@ -6784,7 +6622,6 @@ sc_texts: dict[str, list[str]] = {
         "pp2.9_root-pli-ms.json",
         "pp2.10_root-pli-ms.json",
     ],
-
     "abh5": [
         "kv1.1_root-pli-ms.json",
         "kv1.2_root-pli-ms.json",
@@ -7006,7 +6843,6 @@ sc_texts: dict[str, list[str]] = {
         "kv23.4_root-pli-ms.json",
         "kv23.5_root-pli-ms.json",
     ],
-
     "abh6": [
         "ya1.1.1_root-pli-ms.json",
         "ya1.1.2_root-pli-ms.json",
@@ -7086,7 +6922,6 @@ sc_texts: dict[str, list[str]] = {
         "ya10.3.5_root-pli-ms.json",
         "ya10.3.6_root-pli-ms.json",
     ],
-
     "abh7": [
         "patthana1.1_root-pli-ms.json",
         "patthana1.2_root-pli-ms.json",
@@ -7817,13 +7652,11 @@ sc_texts: dict[str, list[str]] = {
         "patthana24.21_root-pli-ms.json",
         "patthana24.22_root-pli-ms.json",
     ],
-
     "vina": [],
     "dna": [],
     "mna": [],
     "sna": [],
     "ana": [],
-    
     "kn1a": [],
     "kn2a": [],
     "kn3a": [],
@@ -7844,9 +7677,7 @@ sc_texts: dict[str, list[str]] = {
     # kn18a does not exist
     "kn19a": [],
     # kn20a does not exist
-
     "abha": [],
-
     "vint": [],
     "dnt": [],
     "mnt": [],
@@ -7854,23 +7685,20 @@ sc_texts: dict[str, list[str]] = {
     "ant": [],
     "knt": [],
     "abht": [],
-
     "vism": [],
     "visma": [],
     "ap": [],
-    "apt": [], 
+    "apt": [],
     "anna": [],
-
 }
 
 bjt_texts: dict[str, [list[str]]] = {
-    
     "vin1": [
         "vp-prj.json",
         "vp-prj-2-3.json",
         "vp-prj-3.json",
         "vp-prj-3-4.json",
-        "vp-prj-4.json"
+        "vp-prj-4.json",
     ],
     "vin2": [
         "vp-pct.json",
@@ -7885,61 +7713,21 @@ bjt_texts: dict[str, [list[str]]] = {
         "vp-mv-4.json",
         "vp-mv-6.json",
         "vp-mv-7.json",
-        "vp-mv-9.json"
+        "vp-mv-9.json",
     ],
-    "vin4": [
-        "vp-cv.json",
-        "vp-cv-3.json",
-        "vp-cv-5.json",
-        "vp-cv-8.json"
-    ],
-    "vin5": [
-        "vp-pv.json",
-        "vp-pv-2.json",
-        "vp-pv-5.json",
-        "vp-pv-14.json"
-    ],
-
+    "vin4": ["vp-cv.json", "vp-cv-3.json", "vp-cv-5.json", "vp-cv-8.json"],
+    "vin5": ["vp-pv.json", "vp-pv-2.json", "vp-pv-5.json", "vp-pv-14.json"],
     # dīgha
-
-    "dn1": [
-        "dn-1.json",
-        "dn-1-3.json",
-        "dn-1-6.json",
-        "dn-1-11.json"
-    ],
-    "dn2": [
-        "dn-2.json",
-        "dn-2-3.json",
-        "dn-2-4.json",
-        "dn-2-7.json"
-    ],
+    "dn1": ["dn-1.json", "dn-1-3.json", "dn-1-6.json", "dn-1-11.json"],
+    "dn2": ["dn-2.json", "dn-2-3.json", "dn-2-4.json", "dn-2-7.json"],
     "dn3": [
         "dn-3.json",
         "dn-3-5.json",
         "dn-3-10.json",
     ],
-    "mn1": [
-        "mn-1.json",
-        "mn-1-2.json",
-        "mn-1-3.json",
-        "mn-1-4.json",
-        "mn-1-5.json"
-    ],
-    "mn2": [
-        "mn-2.json",
-        "mn-2-2.json",
-        "mn-2-3.json",
-        "mn-2-4.json",
-        "mn-2-5.json"
-    ],
-    "mn3": [
-        "mn-3.json",
-        "mn-3-2.json",
-        "mn-3-3.json",
-        "mn-3-4.json",
-        "mn-3-5.json"
-    ],
+    "mn1": ["mn-1.json", "mn-1-2.json", "mn-1-3.json", "mn-1-4.json", "mn-1-5.json"],
+    "mn2": ["mn-2.json", "mn-2-2.json", "mn-2-3.json", "mn-2-4.json", "mn-2-5.json"],
+    "mn3": ["mn-3.json", "mn-3-2.json", "mn-3-3.json", "mn-3-4.json", "mn-3-5.json"],
     "sn1": [
         "sn-1.json",
         "sn-1-3.json",
@@ -7958,12 +7746,7 @@ bjt_texts: dict[str, [list[str]]] = {
         "sn-3-2.json",
         "sn-3-7.json",
     ],
-    "sn4": [
-        "sn-4.json",
-        "sn-4-1-12.json",
-        "sn-4-2.json",
-        "sn-4-8.json"
-    ],
+    "sn4": ["sn-4.json", "sn-4-1-12.json", "sn-4-2.json", "sn-4-8.json"],
     "sn5": [
         "sn-5.json",
         "sn-5-2.json",
@@ -7973,12 +7756,8 @@ bjt_texts: dict[str, [list[str]]] = {
         "sn-5-11.json",
         "sn-5-12.json",
     ],
-    "an1": [
-        "an-1.json"
-    ],
-    "an2": [
-        "an-2.json"
-    ],
+    "an1": ["an-1.json"],
+    "an2": ["an-2.json"],
     "an3": [
         "an-3.json",
         "an-3-2.json",
@@ -8008,7 +7787,7 @@ bjt_texts: dict[str, [list[str]]] = {
     ],
     "an8": [
         "an-8.json",
-        "an-8-2.json", 
+        "an-8-2.json",
     ],
     "an9": [
         "an-9.json",
@@ -8020,10 +7799,7 @@ bjt_texts: dict[str, [list[str]]] = {
         "an-10-4.json",
         "an-10-5.json",
     ],
-    "an11": [
-        "an-11.json"
-    ],
-
+    "an11": ["an-11.json"],
     # khuddaka nikaya
     "kn1": ["kn-khp.json"],
     "kn2": ["kn-dhp.json"],
@@ -8095,13 +7871,12 @@ bjt_texts: dict[str, [list[str]]] = {
         "kn-petk.json",
         "kn-petk-6.json",
     ],
-
     # abhidhamma
     "abh1": [
         "ap-dhs.json",
         "ap-dhs-3.json",
         "ap-dhs-5.json",
-	],
+    ],
     "abh2": [
         "ap-vbh.json",
         "ap-vbh-2.json",
@@ -8109,13 +7884,13 @@ bjt_texts: dict[str, [list[str]]] = {
         "ap-vbh-10.json",
         "ap-vbh-14.json",
         "ap-vbh-17.json",
-	],
+    ],
     "abh3": [
         "ap-dhk.json",
-	],
+    ],
     "abh4": [
         "ap-pug.json",
-	],
+    ],
     "abh5": [
         "ap-kvu.json",
         "ap-kvu-1-2.json",
@@ -8126,7 +7901,7 @@ bjt_texts: dict[str, [list[str]]] = {
         "ap-kvu-11.json",
         "ap-kvu-15.json",
         "ap-kvu-19.json",
-	],
+    ],
     "abh6": [
         "ap-yam.json",
         "ap-yam-3.json",
@@ -8149,9 +7924,7 @@ bjt_texts: dict[str, [list[str]]] = {
         "ap-pat-3.json",
         "ap-pat-4.json",
     ],
-
     # aṭṭhakathā
-
     "vina": [
         "atta-vp-prj.json",
         "atta-vp-prj-2.json",
@@ -8160,7 +7933,6 @@ bjt_texts: dict[str, [list[str]]] = {
         "atta-vp-mv.json",
         "atta-vp-cv.json",
         "atta-vp-pv.json",
-
     ],
     "dna": [
         "atta-dn-1.json",
@@ -8185,7 +7957,6 @@ bjt_texts: dict[str, [list[str]]] = {
         "atta-sn-3.json",
         "atta-sn-4.json",
         "atta-sn-5.json",
-
     ],
     "ana": [
         "atta-an-1.json",
@@ -8202,7 +7973,6 @@ bjt_texts: dict[str, [list[str]]] = {
         "atta-an-10.json",
         "atta-an-11.json",
     ],
-
     "kn1a": ["atta-kn-khp.json"],
     "kn2a": [
         "atta-kn-dhp.json",
@@ -8235,16 +8005,10 @@ bjt_texts: dict[str, [list[str]]] = {
         "atta-kn-thag-15.json",
     ],
     "kn9a": ["atta-kn-thig.json"],
-    "kn10a": [
-        "atta-kn-ap.json",
-        "atta-kn-ap-1-2.json"
-    ],
+    "kn10a": ["atta-kn-ap.json", "atta-kn-ap-1-2.json"],
     "kn11a": [],
     "kn12a": ["atta-kn-bv.json"],
-    "kn13a": [
-        "atta-kn-cp.json",
-        "atta-kn-cp-3.json"
-    ],
+    "kn13a": ["atta-kn-cp.json", "atta-kn-cp-3.json"],
     "kn14a": [
         "atta-kn-jat.json",
         "atta-kn-jat-1-6.json",
@@ -8269,12 +8033,11 @@ bjt_texts: dict[str, [list[str]]] = {
         "atta-kn-ps.json",
         "atta-kn-ps-1-1-2.json",
         "atta-kn-ps-1-2.json",
-        "atta-kn-ps-2.json"
+        "atta-kn-ps-2.json",
     ],
     # kn18a does not exist
     "kn19a": ["atta-kn-nett.json"],
     # kn20a does not exist
-
     "abha": [
         "atta-ap-dhs.json",
         "atta-ap-dhs-3.json",
@@ -8293,36 +8056,30 @@ bjt_texts: dict[str, [list[str]]] = {
     "ant": [],
     "knt": [],
     "abht": [],
-
     "vism": [
         "anya-vm.json",
         "anya-vm-12.json",
     ],
-    "visma" : [],
+    "visma": [],
     "ap": [],
-    "apt": [], 
+    "apt": [],
     "anna": [],
-
 }
 
 ebts = [
     "vin01m.mul.txt",
     "vin02m1.mul.txt",
-
     "s0101m.mul.txt",
     "s0102m.mul.txt",
     "s0103m.mul.txt",
-
     "s0201m.mul.txt",
     "s0202m.mul.txt",
     "s0203m.mul.txt",
-
     "s0301m.mul.txt",
     "s0302m.mul.txt",
     "s0303m.mul.txt",
     "s0304m.mul.txt",
     "s0305m.mul.txt",
-
     "s0401m.mul.txt",
     "s0402m1.mul.txt",
     "s0402m2.mul.txt",
@@ -8334,7 +8091,6 @@ ebts = [
     "s0404m2.mul.txt",
     "s0404m3.mul.txt",
     "s0404m4.mul.txt",
-
     "s0501m.mul.txt",
     "s0502m.mul.txt",
     "s0503m.mul.txt",
@@ -8345,17 +8101,60 @@ ebts = [
 ]
 
 mula_books = [
-    "vin1", "vin2", "vin3", "vin4", "vin5",
-    "dn1", "dn2", "dn3",
-    "mn1", "mn2", "mn3",
-    "sn1", "sn2", "sn3", "sn4", "sn5",
-    "an1", "an2", "an3", "an4", "an5",
-    "an6", "an7", "an8", "an9", "an10", "an11",
-    "kn1", "kn2", "kn3", "kn4", "kn5",
-    "kn6", "kn7", "kn8", "kn9", "kn10",
-    "kn11", "kn12", "kn13", "kn14", "kn15",
-    "kn16", "kn17", "kn18", "kn19", "kn20",
-    "abh1", "abh2", "abh3", "abh4", "abh5", "abh6", "abh7"
+    "vin1",
+    "vin2",
+    "vin3",
+    "vin4",
+    "vin5",
+    "dn1",
+    "dn2",
+    "dn3",
+    "mn1",
+    "mn2",
+    "mn3",
+    "sn1",
+    "sn2",
+    "sn3",
+    "sn4",
+    "sn5",
+    "an1",
+    "an2",
+    "an3",
+    "an4",
+    "an5",
+    "an6",
+    "an7",
+    "an8",
+    "an9",
+    "an10",
+    "an11",
+    "kn1",
+    "kn2",
+    "kn3",
+    "kn4",
+    "kn5",
+    "kn6",
+    "kn7",
+    "kn8",
+    "kn9",
+    "kn10",
+    "kn11",
+    "kn12",
+    "kn13",
+    "kn14",
+    "kn15",
+    "kn16",
+    "kn17",
+    "kn18",
+    "kn19",
+    "kn20",
+    "abh1",
+    "abh2",
+    "abh3",
+    "abh4",
+    "abh5",
+    "abh6",
+    "abh7",
 ]
 
 atthakatha_books = [
@@ -8384,41 +8183,69 @@ atthakatha_books = [
     # kn18a does not exist
     "kn19a",
     # kn20a does not exist
-    "abha"
+    "abha",
 ]
 
-tika_books = [
-    "vint",
-    "dnt",
-    "mnt",
-    "snt",
-    "ant",
-    "knt",
-    "abht"
-]
+tika_books = ["vint", "dnt", "mnt", "snt", "ant", "knt", "abht"]
 
-anna_books = [
-    "vism",
-    "visma"
-    "ap",
-    "apt",
-    "anna"
-    ]
+anna_books = ["vism", "vismaap", "apt", "anna"]
 
 
 all_books = [
-    "vin1", "vin2", "vin3", "vin4", "vin5",
-    "dn1", "dn2", "dn3",
-    "mn1", "mn2", "mn3",
-    "sn1", "sn2", "sn3", "sn4", "sn5",
-    "an1", "an2", "an3", "an4", "an5",
-    "an6", "an7", "an8", "an9", "an10", "an11",
-    "kn1", "kn2", "kn3", "kn4", "kn5",
-    "kn6", "kn7", "kn8", "kn9", "kn10",
-    "kn11", "kn12", "kn13", "kn14", "kn15",
-    "kn16", "kn17", "kn18", "kn19", "kn20",
-    "abh1", "abh2", "abh3", "abh4", "abh5", "abh6", "abh7",
-
+    "vin1",
+    "vin2",
+    "vin3",
+    "vin4",
+    "vin5",
+    "dn1",
+    "dn2",
+    "dn3",
+    "mn1",
+    "mn2",
+    "mn3",
+    "sn1",
+    "sn2",
+    "sn3",
+    "sn4",
+    "sn5",
+    "an1",
+    "an2",
+    "an3",
+    "an4",
+    "an5",
+    "an6",
+    "an7",
+    "an8",
+    "an9",
+    "an10",
+    "an11",
+    "kn1",
+    "kn2",
+    "kn3",
+    "kn4",
+    "kn5",
+    "kn6",
+    "kn7",
+    "kn8",
+    "kn9",
+    "kn10",
+    "kn11",
+    "kn12",
+    "kn13",
+    "kn14",
+    "kn15",
+    "kn16",
+    "kn17",
+    "kn18",
+    "kn19",
+    "kn20",
+    "abh1",
+    "abh2",
+    "abh3",
+    "abh4",
+    "abh5",
+    "abh6",
+    "abh7",
     "vina",
     "dna",
     "mna",
@@ -8445,7 +8272,6 @@ all_books = [
     "kn19a",
     # kn20a does not exist
     "abha",
-
     "vint",
     "dnt",
     "mnt",
@@ -8453,10 +8279,9 @@ all_books = [
     "ant",
     "knt",
     "abht",
-
     "vism",
     "visma",
     "ap",
     "apt",
     "anna",
-    ]
+]

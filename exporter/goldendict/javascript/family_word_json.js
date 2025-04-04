@@ -2020,7 +2020,7 @@ var family_word_json = {
     "saguṇa",
     "adj",
     "with good qualities; with positive attributes",
-    "✘"
+    "✔"
    ],
    [
     "sagguṇa",
@@ -11455,8 +11455,8 @@ var family_word_json = {
    [
     "pañcadhā",
     "ind",
-    "in five ways",
-    "✘"
+    "in five ways; into five",
+    "✔"
    ],
    [
     "pañcannaṃ 1",
@@ -12035,8 +12035,8 @@ var family_word_json = {
    [
     "parama 2",
     "adj",
-    "very worst; most terrible; hardest",
-    "✘"
+    "very worst; most terrible",
+    "✔"
    ],
    [
     "paramatara",
@@ -17355,7 +17355,7 @@ var family_word_json = {
     "haritaka 2",
     "adj",
     "green; verdant",
-    "◑"
+    "✔"
    ],
    [
     "haritakī",
@@ -23562,8 +23562,8 @@ var family_word_json = {
    [
     "catudhā",
     "ind",
-    "in four ways; fourfold",
-    "◑"
+    "in four ways; into four",
+    "✔"
    ],
    [
     "catunnaṃ 1",
@@ -25059,7 +25059,7 @@ var family_word_json = {
    [
     "tidhā",
     "ind",
-    "in three ways; in three places; for the third time; triply",
+    "in three ways; into three; in three places; for the third time; triply",
     "✔"
    ],
    [
@@ -32384,9 +32384,15 @@ var family_word_json = {
     "fem",
     "sharp knife; paring knife",
     "◑"
+   ],
+   [
+    "vāsī",
+    "fem",
+    "axe; adze; chisel",
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "vāseṭṭha": {
   "data": [

@@ -42,7 +42,7 @@
   DPD Online
   #link("https://www.dpdict.net")[#blue("https://www.dpdict.net")]
 
-  User Manual
+  DPD Docs Website
   #link("https://digitalpalidictionary.github.io/")[#blue("https://digitalpalidictionary.github.io/")]
 
   Github Repository
