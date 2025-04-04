@@ -276,6 +276,9 @@ class RuPaths:
         self.dpd_logo_dark_svg = base_dir / "identity/logo/dpd-logo-dark.svg"
         self.dpd_logo_dark_bmp = base_dir / "identity/logo/dpd-logo-dark.bmp"
 
+        # resources/fdg_dpd
+        self.fdg_dpd_ebts_js_ru_path = base_dir / "resources/fdg_dpd/assets/standalone-dpd/ru/dpd_ebts.js"
+
         if create_dirs:
             self.create_dirs()
 

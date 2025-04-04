@@ -439,6 +439,13 @@ class ProjectPaths:
             base_dir / "resources/bw2/js/dpd_deconstructor.js"
         )
 
+        # resources/fdg_dpd
+        self.fdg_i2h_js_path = base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_i2h.js"
+        self.fdg_dpd_ebts_js_path = base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_ebts.js"
+        self.fdg_deconstructor_js_path = (
+            base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_deconstructor.js"
+        )
+
         # resources/sc-data
         self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
         self.sc_variants_dir = (

@@ -19,12 +19,17 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
-
+from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+    make_ru_meaning_simpl,
+    ru_replace_abbreviations,
+)
+from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 
 class ProgData:
     def __init__(self) -> None:
         pr.green("setting up data")
         self.pth: ProjectPaths = ProjectPaths()
+        self.rupth: RuPaths = RuPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         dpd_db = self.db_session.query(DpdHeadword)
         self.dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
@@ -45,6 +50,12 @@ class ProgData:
         self.headwords_set: set[str] = set()
         self.dpd_dict: dict[str, str] = {}
         self.deconstructor_dict: dict[str, str] = {}
+        if config_test("exporter", "language", "en"):
+            self.lang = "en"
+        elif config_test("exporter", "language", "ru"):
+            self.lang = "ru"
+        else:
+            raise ValueError("Invalid language parameter")
         pr.yes("ok")
 
 
@@ -155,8 +166,14 @@ def generate_dpd_ebt_dict(g: ProgData):
     pr.green("making dpd ebts dict")
     for i in g.dpd_db:
         if i.lemma_1 in g.headwords_set:
-            string = f"{i.pos}. "
-            string += make_meaning_combo_html(i)
+            string = ""
+            if g.lang == 'en':
+                string = f"{i.pos}. "
+                string += make_meaning_combo_html(i)
+            elif g.lang == 'ru':
+                pos_ru = ru_replace_abbreviations(i.pos, "gram")
+                string = f"{pos_ru}. "
+                string += make_ru_meaning_simpl(i)
             if i.construction:
                 string += f" [{summarize_construction(i)}]"
             g.dpd_dict[i.lemma_1] = string
@@ -242,6 +259,38 @@ def save_js_files_for_tbw(g: ProgData):
     pr.yes("ok")
 
 
+def save_js_files_for_fdg(g: ProgData):
+    """saving .js files for fdg"""
+
+    pr.green("saving .js files for fdg")
+
+    i2h_json_dump = json.dumps(g.i2h_dict, ensure_ascii=False, indent=2)
+    with open(g.pth.fdg_i2h_js_path, "w") as f:
+        f.write(f"dpd_i2h = {i2h_json_dump}")
+
+    dpd_json_dump = json.dumps(g.dpd_dict, ensure_ascii=False, indent=2)
+    with open(g.pth.fdg_dpd_ebts_js_path, "w") as f:
+        f.write(f"let dpd_ebts = {dpd_json_dump}")
+
+    json_dump = json.dumps(g.deconstructor_dict, ensure_ascii=False, indent=2)
+    with open(g.pth.fdg_deconstructor_js_path, "w") as f:
+        f.write(f"let dpd_deconstructor = {json_dump}")
+
+    pr.yes("ok")
+
+
+def save_ru_js_files_for_fdg(g: ProgData):
+    """saving ru .js files for fdg"""
+
+    pr.green("saving ru .js files for fdg")
+
+    dpd_json_dump = json.dumps(g.dpd_dict, ensure_ascii=False, indent=2)
+    with open(g.rupth.fdg_dpd_ebts_js_ru_path, "w") as f:
+        f.write(f"let dpd_ebts = {dpd_json_dump}")
+
+    pr.yes("ok")
+
+
 def save_json_files_for_sc(g: ProgData):
     """Copy json files to sc-data dir"""
 
@@ -281,8 +330,13 @@ def main():
     deconstructor_dict_add_spelling_mistakes(g)
     sort_deconstructor_dict(g)
 
-    save_js_files_for_tbw(g)
-    save_json_files_for_sc(g)
+    if g.lang == 'ru':
+        save_ru_js_files_for_fdg(g)
+    else:
+        save_js_files_for_tbw(g)
+        save_js_files_for_fdg(g)
+        save_json_files_for_sc(g)
+    
     pr.toc()
 
 
