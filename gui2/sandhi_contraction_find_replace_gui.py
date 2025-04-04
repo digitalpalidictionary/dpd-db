@@ -85,7 +85,7 @@ class Gui:
     def __init__(self, control: Controller, page: ft.Page):
         self.control = control
         self.page = page
-        self.page.title = "Find and Replace Sandhi Contractions"
+        self.page.title = "Sandhi Contraction Find and Replace"
         self.page.theme_mode = ft.ThemeMode.DARK
         self.page.padding = 100
         self.page.spacing = 10

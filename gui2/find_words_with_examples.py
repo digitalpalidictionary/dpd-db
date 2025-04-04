@@ -71,7 +71,7 @@ class Gui:
     def __init__(self, control: Controller, page: ft.Page):
         self.control = control
         self.page = page
-        self.page.title = "Find Words with Examples"
+        self.page.title = "Examples in Database"
         self.page.theme_mode = ft.ThemeMode.DARK
         self.page.padding = 100
         self.page.spacing = 20
@@ -175,28 +175,28 @@ class Data:
         self.pth: ProjectPaths = ProjectPaths()
         self.data_path = Path("gui2/find_words_with_examples_dump.json")
         self.exceptions_path = Path("gui2/find_words_with_examples_no.json")
-        self.exceptions_list: list[str] = self.load_exceptions()
+        self.exceptions_dict: dict[str, int] = self.load_exceptions()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db_results = self.db_session.query(DpdHeadword).all()
         self.db_index = -1
         self.i2h_dict: defaultdict[str, set[str]] = self.make_i2h_dict()
         self.word: str
         self.lemma: str
-        self.headword: DpdHeadword
+        self.headword: DpdHeadword | None
         self.source: str
         self.sutta: str
         self.example: str | None
 
-    def load_exceptions(self) -> list[str]:
+    def load_exceptions(self) -> dict[str, int]:
         try:
             return json.loads(self.exceptions_path.read_text())
         except FileNotFoundError:
-            return []
+            return {}
 
     def update_exceptions(self):
-        self.exceptions_list.append(self.word)
+        self.exceptions_dict[self.word] = self.headword.id
         self.exceptions_path.write_text(
-            json.dumps(self.exceptions_list, ensure_ascii=False, indent=2)
+            json.dumps(self.exceptions_dict, ensure_ascii=False, indent=2)
         )
 
     def make_i2h_dict(self):
@@ -234,9 +234,9 @@ class Data:
         """Iterate through all words in all examples and see if they match
         any entries in i2h_dict."""
 
-        self.example = None
+        self.headword = None
 
-        while not self.example:
+        while not self.headword:
             self.db_index += 1
             if self.db_index >= len(self.db_results):
                 break
@@ -248,7 +248,7 @@ class Data:
                 clean_sentence: str = self.cleaner(sentence)
                 if clean_sentence:
                     for word in clean_sentence.split():
-                        if word in self.i2h_dict and word not in self.exceptions_list:
+                        if word in self.i2h_dict:
                             self.word = word
                             self.source = ""
                             self.sutta = ""
@@ -259,9 +259,15 @@ class Data:
                                 .filter(DpdHeadword.lemma_1 == self.lemma)
                                 .first()
                             )
-                            if result:
+                            if (
+                                result
+                                and word not in self.exceptions_dict
+                                and result.id != getattr(self.exceptions_dict, word, "")
+                            ):
                                 self.headword = result
-                            return
+                                return
+                            else:
+                                continue
 
     def save_data(self):
         data = json.dumps(
