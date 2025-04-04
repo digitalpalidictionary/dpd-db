@@ -27,7 +27,7 @@
 /* image border */
 .md-typeset img {
     border: 2px solid var(--gray-transparent);
-    border-radius: 15px;
+    border-radius: 7px;
     padding: 1px;
     background-color: var(--gray-transparent);
 }
