@@ -165,6 +165,8 @@ def render_pali_word_dpd_html(
         i.example_2 = i.example_2.replace("\n", "<br>")
     if i.notes:
         i.notes = i.notes.replace("\n", "<br>")
+    if show_ru_data and ru:
+        ru.ru_notes = ru.ru_notes.replace("\n, ", "<br>")
     if show_sbs_data and sbs:
         if sbs.sbs_sutta_1:
             sbs.sbs_sutta_1 = sbs.sbs_sutta_1.replace("\n", "<br>")

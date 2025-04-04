@@ -3069,6 +3069,7 @@ def main():
                     window[key].update(value)
                 window["word_to_add"].update(words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
+                get_next_ids_dps(db_session, window)
             except FileNotFoundError:
                 window["messages"].update(
                     value="previously saved state not found. select a book to add",
@@ -3083,6 +3084,7 @@ def main():
                     window[key].update(value)
                 window["word_to_add"].update(words_to_add_list)
                 window["words_to_add_length"].update(value=len(words_to_add_list))
+                get_next_ids_dps(db_session, window)
             except FileNotFoundError:
                 window["messages"].update(
                     value="previously saved state (2) not found. select a book to add",

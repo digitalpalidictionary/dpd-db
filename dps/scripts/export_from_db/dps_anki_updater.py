@@ -374,31 +374,6 @@ def update_note_values(note, i):
     else:
         note["link"] = ""
 
-    #! UPDATING TAGS NOT WORKING!
-    # # adding _SBS tag if pubbakicca index is 75
-    # if i.sbs and i.sbs.sbs_index and i.sbs.sbs_index != 75:
-    #     if not any(tag.startswith("_SBS") or tag.startswith("*parit") for tag in tags.split()):
-    #         if tags:
-    #             tags += " "
-    #         tags += "_SBS"
-    #         note.tags = tags.split()
-
-    # # adding _pātimokkha tag if PAT is in the source
-    # if i.sbs:
-    #     sources = [i.sbs.sbs_source_1, i.sbs.sbs_source_2, i.sbs.sbs_source_3, i.sbs.sbs_source_4]
-    #     if any("PAT" in source for source in sources):
-    #         if not any(tag.startswith("_pātimokkha") for tag in tags.split()):
-    #             if tags:
-    #                 tags += " "
-    #             tags += "_pātimokkha"
-    #             note.tags = tags.split()
-
-    #     # removing _pātimokkha tag if PAT is not in the source
-    #     else:
-    #         if "_pātimokkha" in tags.split():
-    #             tags = " ".join(tag for tag in tags.split() if not tag.startswith("_pātimokkha"))
-    #             note.tags = tags.split()
-
     # sbs_audio
     if dpspth.anki_media_dir:
         audio_path = os.path.join(dpspth.anki_media_dir, f"{i.lemma_clean}.mp3")
