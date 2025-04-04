@@ -17,3 +17,6 @@
 [submodule "resources/dpd_submodules"]
 	path = resources/dpd_submodules
 	url = https://github.com/digitalpalidictionary/dpd_submodules
+[submodule "resources/fdg-dpd"]
+	path = resources/fdg-dpd
+	url = https://github.com/o28o/dictPlugin.git
