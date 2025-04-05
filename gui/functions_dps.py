@@ -18,13 +18,15 @@ from tools.tsv_read_write import read_tsv_dict, write_tsv_dot_dict
 
 from tools.paths import ProjectPaths
 
-from dps.tools.ai_related import load_translaton_examples
-from dps.tools.ai_related import replace_abbreviations
-from dps.tools.ai_related import handle_openai_response
-from dps.tools.ai_related import get_openai_client
-from dps.tools.ai_related import generate_messages_for_meaning
-from dps.tools.ai_related import generate_messages_for_notes
-from dps.tools.ai_related import generate_messages_for_english_meaning
+from dps.tools.ai_related import (
+    load_translation_examples,
+    replace_abbreviations,
+    handle_ai_response,
+    get_ai_client,
+    generate_messages_for_meaning,
+    generate_messages_for_notes,
+    generate_messages_for_english_meaning
+)
 
 from dps.tools.spell_check import SpellCheck
 
@@ -334,16 +336,19 @@ def dps_example_load(pth: ProjectPaths, window, example_attr: str) -> None:
             value="no sutta examples saved", text_color="red")
 
 
-# openai gpt related
-def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, suggestion_field, error_field, window, values, mode, main_sentence, model="3", ex_1="", ex_2="", ex_3="", ex_4="", number="0", synonyms=False):
+# ai related
+def translate_with_ai(dpspth, meaning_in, lemma_1, grammar, pos, notes, suggestion_field, error_field, window, values, mode, main_sentence, provider, ex_1="", ex_2="", ex_3="", ex_4="", number="0", synonyms=False):
     window[error_field].update("")
     # Get the content of window "meaning_in"
     meaning = values[meaning_in]
 
-    pos_example_map = load_translaton_examples(dpspth)
+    pos_example_map = load_translation_examples(dpspth)
     translation_example = pos_example_map.get(pos, "")
 
-    model = "gpt-4o-2024-08-06" if model == "4" else "gpt-4o-mini"
+    if provider == "openai":
+        model = "gpt-4o-2024-08-06" 
+    elif provider == "deepseek":
+        model = "deepseek-chat"
     grammar_orig = grammar
     grammar = replace_abbreviations(grammar)
 
@@ -362,14 +367,14 @@ def translate_with_openai(dpspth, meaning_in, lemma_1, grammar, pos, notes, sugg
     # print(f"messages {messages}")
 
 
-    # Lazy initialization of OpenAI client
-    client = get_openai_client()
-    suggestion, error_string = handle_openai_response(client, messages, model)
+    # Get appropriate client and handle response
+    client = get_ai_client(provider)
+    suggestion, error_string = handle_ai_response(client, messages, model, provider)
 
     if error_string:
         window[error_field].update(error_string)
     elif suggestion:
-        suggestion_str = suggestion.content if suggestion is not None else ""
+        suggestion_str = suggestion.get("content", "") if suggestion is not None else ""
         window[suggestion_field].update(suggestion_str, text_color="Aqua")
         if mode == "meaning":
             write_suggestions_to_csv(dpspth.ai_ru_suggestion_history_path, lemma_1, grammar_orig, grammar, meaning, suggestion_str)
@@ -649,5 +654,3 @@ def take_example_from_archive(dpspth, window, current_id, ex_1, ex_2, ex_3, ex_4
     # If no row matches `current_id`, update the error field
     window[error_field].update("ID not found")
     return archived_example_index
-
-

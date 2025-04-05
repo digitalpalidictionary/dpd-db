@@ -4,6 +4,7 @@
 import csv
 import re
 
+from tools.deepseek import Deepseek
 from openai import OpenAI
 
 from rich.prompt import Prompt
@@ -18,33 +19,36 @@ dpspth = DPSPaths()
 pth = ProjectPaths()
 
 
-def get_openai_client():
-    """Initialize and return an OpenAI client if the API key is configured."""
+def get_ai_client(provider: str):
+    """Initialize and return an AI client for specified provider."""
     try:
-        api_key = load_openai_config()
-        return OpenAI(api_key=api_key)
+        api_key = load_ai_config(provider)
+        if provider == "deepseek":
+            return Deepseek(api_key=api_key)
+        elif provider == "openai":
+            return OpenAI(api_key=api_key)
+        raise ValueError(f"Unsupported provider: {provider}")
     except ValueError as e:
-        # Handle cases where OpenAI is not required but key is missing
-        print(f"OpenAI client initialization skipped: {e}")
+        print(f"{provider.title()} client initialization failed: {e}")
         return None
 
 
-def load_openai_config():
-    """Add a OpenAI key if one doesn't exist, or return the key if it does."""
-
-    if not config_test_option("apis", "openai"):
-        openai_config = Prompt.ask("[yellow]Enter your openai key (or ENTER for None)")
-        if openai_config:
-            config_update("apis", "openai", openai_config)
+def load_ai_config(provider: str):
+    """Load API key for specified provider from config or prompt user."""
+    
+    if not config_test_option("apis", provider):
+        ai_key = Prompt.ask(f"[yellow]Enter your {provider} API key (or ENTER for None)")
+        if ai_key:
+            config_update("apis", provider, ai_key)
         else:
-            raise ValueError("OpenAI key is required")
+            raise ValueError(f"{provider} API key is required")
     else:
-        openai_config = config_read("apis", "openai")
+        ai_key = config_read("apis", provider)
 
-    return openai_config
+    return ai_key
 
 
-def load_translaton_examples(dpspth):
+def load_translation_examples(dpspth):
     """Load the pos-examples mapping from a TSV file into a dictionary."""
     pos_examples_map = {}
     if dpspth.translation_example_path:
@@ -57,24 +61,38 @@ def load_translaton_examples(dpspth):
     return pos_examples_map
 
 
-@timeout(5, timeout_exception=TimeoutDecoratorError)  # Setting a 5-second timeout
-def handle_openai_response(client, messages, model):
+@timeout(10, timeout_exception=TimeoutDecoratorError)  # Setting a 10-second timeout
+def handle_ai_response(client, messages, model, provider: str):
     if client is None:
-        return None, "OpenAI client is not initialized."
+        return None, "client is not initialized."
         
     error_string = ""
     try:
-        completion = client.chat.completions.create(
-            model=model,
-            messages=messages
-        )
-        return completion.choices[0].message, error_string
+        if provider == "openai":
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages
+            )
+            content = response.choices[0].message.content
+        elif provider == "deepseek":
+            prompt = [{"content": m["content"], "role": m["role"]} for m in messages]
+            response = client.chat(
+                prompt=prompt,
+                model=model,
+                stream=False,
+                max_tokens=4096
+            )
+            content = response
+        else:
+            raise ValueError(f"Unsupported provider: {provider}")
+
+        return {"content": content}, error_string
     except TimeoutDecoratorError:
         error_string = "Timed out"
-        print(error_string)
     except Exception as e:
-        error_string = f"Error: {e}"
-        print(error_string)
+        error_string = f"{provider.title()} Error: {e}"
+    
+    print(error_string)
     return None, error_string
 
 
@@ -165,7 +183,9 @@ def generate_messages_for_notes(lemma_1, grammar, notes):
     system_content = "You are a helpful assistant that translates English text to Russian considering the context."
     
     user_content = f"""
-    Please provide Russian translation for the English notes, considering the Pali term and its grammatical context. In the answer give only Russian translation in one line and nothing else. But keep Pali or Sanskrit terms in roman script.
+    Translate the English notes into Russian, following these rules:
+    - Keep Pali or Sanskrit terms in roman script.
+    - Output only the translation of the Notes, without labels like "Перевод" etc, without any comments, without translation of the Grammar and in one line.
 
                 **Pali Term**: {lemma_1}
                 **Grammar**: {grammar}

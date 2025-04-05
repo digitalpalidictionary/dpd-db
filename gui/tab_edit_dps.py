@@ -101,8 +101,8 @@ def make_tab_edit_dps(dpspth, sg):
         [
             sg.Text("", size=(15, 1)),
             sg.Button("Synonym", key="dps_synonym_translate_button", font=(None, 13)),
-            sg.Button("AI.3", key="dps_openai_translate_button_1", font=(None, 13)),
-            sg.Button("AI.4", key="dps_openai_translate_button_2", font=(None, 13)),
+            sg.Button("AI low", key="dps_ai_translate_button_1", font=(None, 13)),
+            sg.Button("AI high", key="dps_ai_translate_button_2", font=(None, 13)),
             sg.Button("Copy", key="dps_copy_meaning_button", font=(None, 13)),
             sg.Text("ex:"),
             CompletionCombo(
@@ -244,7 +244,7 @@ def make_tab_edit_dps(dpspth, sg):
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button("OpenAI", key="dps_notes_openai_translate_button", font=(None, 13)),
+            sg.Button("AI", key="dps_notes_ai_translate_button", font=(None, 13)),
             sg.Button("Copy", key="dps_notes_copy_meaning_button", font=(None, 13)),
             sg.Text(
                 "", key="dps_ru_notes_suggestion_error", size=(40, 1), text_color="red"),

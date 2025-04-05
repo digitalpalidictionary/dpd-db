@@ -85,7 +85,7 @@ from gui.functions_tests import db_internal_tests
 from gui.functions_daily_record import daily_record_update
 
 from gui.functions_dps import clear_dps
-from gui.functions_dps import translate_with_openai
+from gui.functions_dps import translate_with_ai
 from gui.functions_dps import swap_sbs_examples
 from gui.functions_dps import remove_sbs_example
 from gui.functions_dps import copy_dpd_examples
@@ -2061,7 +2061,7 @@ def main():
         elif event == "dps_synonym_translate_button":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            translate_with_openai(
+            translate_with_ai(
                 dpspth,
                 "dps_meaning",
                 values["dps_lemma_1"],
@@ -2074,7 +2074,7 @@ def main():
                 values,
                 "meaning",
                 values["dps_example_1"],
-                "3",
+                "deepseek",
                 values["dps_sbs_example_1"],
                 values["dps_sbs_example_2"],
                 values["dps_sbs_example_3"],
@@ -2084,10 +2084,10 @@ def main():
             )
 
         # openai translate buttons
-        elif event == "dps_openai_translate_button_1":
+        elif event == "dps_ai_translate_button_1":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            translate_with_openai(
+            translate_with_ai(
                 dpspth,
                 "dps_meaning",
                 values["dps_lemma_1"],
@@ -2100,7 +2100,7 @@ def main():
                 values,
                 "meaning",
                 values["dps_example_1"],
-                "3",
+                "deepseek",
                 values["dps_sbs_example_1"],
                 values["dps_sbs_example_2"],
                 values["dps_sbs_example_3"],
@@ -2108,10 +2108,10 @@ def main():
                 values["sbs_example_for_suggestion"],
             )
 
-        elif event == "dps_openai_translate_button_2":
+        elif event == "dps_ai_translate_button_2":
             field = "dps_ru_online_suggestion"
             error_field = "dps_ru_meaning_suggestion_error"
-            translate_with_openai(
+            translate_with_ai(
                 dpspth,
                 "dps_meaning",
                 values["dps_lemma_1"],
@@ -2124,7 +2124,7 @@ def main():
                 values,
                 "meaning",
                 values["dps_example_1"],
-                "4",
+                "openai",
                 values["dps_sbs_example_1"],
                 values["dps_sbs_example_2"],
                 values["dps_sbs_example_3"],
@@ -2132,10 +2132,10 @@ def main():
                 values["sbs_example_for_suggestion"],
             )
 
-        elif event == "dps_notes_openai_translate_button":
+        elif event == "dps_notes_ai_translate_button":
             field = "dps_notes_online_suggestion"
             error_field = "dps_ru_notes_suggestion_error"
-            translate_with_openai(
+            translate_with_ai(
                 dpspth,
                 "dps_meaning",
                 values["dps_lemma_1"],
@@ -2148,7 +2148,7 @@ def main():
                 values,
                 "note",
                 values["dps_example_1"],
-                "3",
+                "deepseek",
                 values["dps_sbs_example_1"],
                 values["dps_sbs_example_2"],
                 values["dps_sbs_example_3"],
@@ -2160,7 +2160,7 @@ def main():
         elif event == "online_suggestion_button_1":
             field = "online_suggestion"
             error_field = "online_suggestion_error"
-            translate_with_openai(
+            translate_with_ai(
                 dpspth,
                 "meaning_1",
                 values["lemma_1"],
@@ -2173,13 +2173,13 @@ def main():
                 values,
                 "english",
                 values["example_1"],
-                "3",
+                "deepseek",
             )
 
         elif event == "online_suggestion_button_2":
             field = "online_suggestion"
             error_field = "online_suggestion_error"
-            translate_with_openai(
+            translate_with_ai(
                 dpspth,
                 "meaning_1",
                 values["lemma_1"],
@@ -2192,7 +2192,7 @@ def main():
                 values,
                 "english",
                 values["example_1"],
-                "4",
+                "openai",
             )
 
         # copy ru sugestions buttons

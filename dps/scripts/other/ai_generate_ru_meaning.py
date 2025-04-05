@@ -15,12 +15,14 @@ from tools.paths import ProjectPaths
 from tools.meaning_construction import make_meaning_combo
 from tools.date_and_time import year_month_day_hour_minute_dash
 
-from dps.tools.ai_related import load_translaton_examples
-from dps.tools.ai_related import handle_openai_response
-from dps.tools.ai_related import replace_abbreviations
-from dps.tools.ai_related import get_openai_client
-from dps.tools.ai_related import generate_messages_for_meaning
-from dps.tools.ai_related import generate_messages_for_notes
+from dps.tools.ai_related import (
+    load_translation_examples,
+    handle_ai_response,
+    replace_abbreviations,
+    get_ai_client,
+    generate_messages_for_meaning,
+    generate_messages_for_notes
+)
 
 from dps.tools.paths_dps import DPSPaths    
 
@@ -33,10 +35,19 @@ dpspth = DPSPaths()
 db_session = get_db_session(pth.dpd_db_path)
 date = year_month_day_hour_minute_dash()
 
+# Configuration
+provider = "deepseek"
+# provider = "openai"
+
+# models openai
 # model="gpt-4o"
 # model="gpt-4o-mini"
-model="gpt-4o-2024-08-06"
-hight_model="gpt-4o-2024-08-06"
+# model="gpt-4o-2024-08-06"
+# hight_model="gpt-4o-2024-08-06"
+
+# models deepseek
+# model = "deepseek-reasoner"
+model ="deepseek-chat"
 
 
 def remove_irrelevant(limit: int):
@@ -177,7 +188,7 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
 
 def create_translation_prompt(word: DpdHeadword, mode) -> Dict:
     """Create a translation prompt for a given word."""
-    pos_example_map = load_translaton_examples(dpspth)
+    pos_example_map = load_translation_examples(dpspth)
     meaning = make_meaning_combo(word)
     example = word.example_1 if word.example_1 else ""
     translation_example = pos_example_map.get(word.pos, "")
@@ -200,7 +211,7 @@ def create_translation_prompt(word: DpdHeadword, mode) -> Dict:
 
 
 def translate(lemma_1, grammar, pos, meaning, sentence, notes, mode):
-    pos_example_map = load_translaton_examples(dpspth)
+    pos_example_map = load_translation_examples(dpspth)
     translation_example = pos_example_map.get(pos, "")
     grammar = replace_abbreviations(grammar)
 
@@ -212,14 +223,14 @@ def translate(lemma_1, grammar, pos, meaning, sentence, notes, mode):
     else:
         raise ValueError(f"Invalid mode: {mode}")
 
-    # Lazy initialization of OpenAI client
-    client = get_openai_client()
-    suggestion, error_string = handle_openai_response(client, messages, model)
+    # Get appropriate client and handle response
+    client = get_ai_client(provider)
+    suggestion, error_string = handle_ai_response(client, messages, model, provider)
     if error_string:
         print(error_string)
     elif suggestion:
         # Ensure suggestion is treated as a string
-        suggestion_str = suggestion.content if suggestion is not None else ""
+        suggestion_str = suggestion.get("content", "") if suggestion else ""
 
         if mode == "meaning":
             return suggestion_str
@@ -318,7 +329,7 @@ if __name__ == "__main__":
 
     print("Translationg with the help of AI")
 
-    limit: int = 1000
+    limit: int = 1
 
     # remove_irrelevant(limit)
 
@@ -329,4 +340,3 @@ if __name__ == "__main__":
     # make_json("meaning", limit)
 
     # make_json("note", limit)
-
