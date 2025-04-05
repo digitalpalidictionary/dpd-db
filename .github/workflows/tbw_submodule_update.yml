@@ -18,7 +18,7 @@ jobs:
       with:
         repository: 'digitalpalidictionary/dpd-db'
         ref: 'main'
-        submodules: 'recursive'
+        submodules: 'recursive' # Ensure submodules are checked out
         # Fetch depth 0 to allow committing back to the submodule
         fetch-depth: 0
         # Use PAT to allow pushing to submodule
@@ -151,33 +151,24 @@ jobs:
       run: uv run python exporter/tbw/tbw_exporter.py
 
     # ----------------------------------------
-    # Update Submodule
+    # Update Submodule (o28o/dictPlugin)
     # ----------------------------------------
-
-    - name: Move TBW files to submodule
-      run: |
-        # Ensure target directory exists in submodule
-        mkdir -p fdg-dpd/assets/standalone-dpd/
-        # Copy exported files, overwriting existing ones
-        cp -rf resources/fdg_dpd/assets/standalone-dpd/* fdg-dpd/assets/standalone-dpd/
-
-    - name: Configure Git for Submodule Commit
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
 
     - name: Commit and Push Submodule Changes
       run: |
-        cd fdg-dpd
+        cd resources/fdg_dpd
+        git config user.email "actions@github.com"
+        git config user.name "GitHub Actions"
         # Check if there are changes to commit
         if [[ -n $(git status --porcelain) ]]; then
           echo "Changes detected in submodule, committing..."
           git add .
           # Use a placeholder issue number for now
-          git commit -m "exporter: update tbw files #0"
-          # Assuming the submodule remote is 'origin' and branch is 'main'
+          git commit -m "exporter: update dpd lookup files #0"
+          # Push to the submodule's origin (o28o/dictPlugin), assuming 'main' branch
+          # Authentication is handled by the checkout step using GH_PAT
           git push origin main
         else
           echo "No changes detected in submodule."
         fi
-        cd ..
+        cd ../.. # Go back to the root directory
