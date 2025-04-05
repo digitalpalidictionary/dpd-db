@@ -8,33 +8,47 @@ from db.variants.files_to_books import mst_files_to_books
 from db.variants.variants_modules import VariantsDict, key_cleaner
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.sort_naturally import natural_sort
+
+
+def get_files_by_book_order(files: list[Path], books_dict: dict) -> list[tuple]:
+    """Group files by their book prefixes and assign order numbers."""
+
+    sorted_files = []
+
+    for file in files:
+        for order, (key, book) in enumerate(books_dict.items()):
+            if file.name.startswith(key):
+                suffix = file.name[len(key) :]
+                sorted_files.append((order, suffix, file))
+                break
+        else:
+            # Files without matching prefix go last
+            sorted_files.append((len(books_dict), file.name, file))
+
+    return sorted_files
 
 
 def get_sc_file_list(pth: ProjectPaths) -> list[Path]:
-    """Get a list of all SC variants files."""
+    """Get naturally sorted list of SC files ordered by book."""
 
+    # Get all files and sort naturally
     root_dir = pth.sc_variants_dir
     file_list = [file for file in root_dir.rglob("*") if file.is_file()]
+    file_list = natural_sort(file_list)
 
-    # Create a list of (book_order, filename) tuples
-    sorted_files = []
-    for file in file_list:
-        # Find first matching book key
-        for order, (key, book) in enumerate(mst_files_to_books.items()):
-            if file.name.startswith(key):
-                sorted_files.append((order, file))
-                break
-        else:  # No match found
-            sorted_files.append(
-                (len(mst_files_to_books), file)
-            )  # Push non-matches to end
+    # Group files by book order
+    sorted_files = get_files_by_book_order(file_list, mst_files_to_books)
 
-    # Sort by book order then filename
-    sorted_files.sort(key=lambda x: (x[0], x[1]))
-    sorted_files = [f[1] for f in sorted_files]
+    # Sort by book order, maintaining natural sort within groups
+    sorted_files.sort(key=lambda x: x[0])
 
-    for sf in sorted_files:
-        print(sf.name)
+    # Extract just the Path objects
+    sorted_files = [f[2] for f in sorted_files]
+
+    for f in sorted_files:
+        print(f.name)
+
     return sorted_files
 
 
