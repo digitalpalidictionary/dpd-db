@@ -154,6 +154,16 @@ jobs:
     # Update Submodule (o28o/dictPlugin)
     # ----------------------------------------
 
+    - name: Debug - Show Submodule Remote
+      run: |
+        cd resources/fdg_dpd
+        echo "Submodule remote configuration:"
+        git remote -v
+        git config --get remote.origin.url
+        echo "Current branch: $(git branch --show-current)"
+        echo "HEAD commit: $(git rev-parse HEAD)"
+        cd ../..
+
     - name: Commit and Push Submodule Changes
       run: |
         cd resources/fdg_dpd
@@ -165,9 +175,10 @@ jobs:
           git add .
           # Use a placeholder issue number for now
           git commit -m "exporter: update dpd lookup files #0"
-          # Push to the submodule's origin (o28o/dictPlugin), assuming 'main' branch
-          # Authentication is handled by the checkout step using GH_PAT
-          git push origin main
+          # Explicitly use PAT in push URL for debugging
+          echo "Attempting push to: https://${{ secrets.GH_PAT }}@github.com/o28o/dictPlugin.git"
+          git push https://${{ secrets.GH_PAT }}@github.com/o28o/dictPlugin.git main
+          echo "Push exit code: $?"
         else
           echo "No changes detected in submodule."
         fi
