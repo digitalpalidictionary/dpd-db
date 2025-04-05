@@ -8174,8 +8174,8 @@ var family_root_json = {
    [
     "dukkhetta",
     "nt",
-    "poor, infertile land",
-    "✘"
+    "infertile field; poor land",
+    "✔"
    ],
    [
     "sukhetta",
@@ -9686,8 +9686,8 @@ var family_root_json = {
    [
     "ageha",
     "adj",
-    "homeless",
-    "✘"
+    "homeless; (comm) without craving",
+    "✔"
    ],
    [
     "aggaṇhanta",
@@ -17364,8 +17364,8 @@ var family_root_json = {
    [
     "chupituṃ",
     "inf",
-    "to touch",
-    "✘"
+    "to touch (something with)",
+    "✔"
    ],
    [
     "chupitvā",
@@ -31493,7 +31493,7 @@ var family_root_json = {
   "root_key": "√dis 1",
   "root_family": "√dis",
   "root_meaning": "see",
-  "count": 189,
+  "count": 190,
   "data": [
    [
     "adakkhi",
@@ -32604,6 +32604,12 @@ var family_root_json = {
     "masc",
     "name of a privately awakened Buddha; lit. seeing clearly",
     "◑"
+   ],
+   [
+    "sudassana 6",
+    "nt",
+    "in reference to DN17 Mahāsudassanasutta; lit. seeing clearly",
+    "✔"
    ],
    [
     "sudassī",
@@ -42923,6 +42929,26 @@ var family_root_json = {
    ]
   ]
  },
+ "√vidh apa √vidh": {
+  "root_key": "√vidh",
+  "root_family": "apa √vidh",
+  "root_meaning": "throw, pierce",
+  "count": 2,
+  "data": [
+   [
+    "anapaviddha",
+    "pp",
+    "not discarded; not leftover; not throwaway; lit. not thrown away",
+    "✔"
+   ],
+   [
+    "apaviddha",
+    "pp",
+    "discarded; rejected; abandoned; neglected; lit. thrown away",
+    "✔"
+   ]
+  ]
+ },
  "√sad apa √sad": {
   "root_key": "√sad",
   "root_family": "apa √sad",
@@ -46579,7 +46605,7 @@ var family_root_json = {
   "root_key": "√ñā",
   "root_family": "ava √ñā",
   "root_meaning": "know",
-  "count": 16,
+  "count": 18,
   "data": [
    [
     "anavaññatti",
@@ -46596,8 +46622,14 @@ var family_root_json = {
    [
     "anavaññāta",
     "pp",
-    "not despised; not disdained; not disrespected; not looked down upon; lit. not known down",
-    "◑"
+    "not despised; not disrespected; not looked down upon (by); lit. not known down",
+    "✔"
+   ],
+   [
+    "anoññāta",
+    "pp",
+    "not despised; not disrespected",
+    "✔"
    ],
    [
     "avajānati",
@@ -46664,6 +46696,12 @@ var family_root_json = {
     "ptp",
     "to be despised; to be disdained; should be looked down (on); lit. to be known down",
     "✔"
+   ],
+   [
+    "oññāta",
+    "adj",
+    "despised; underrated",
+    "✘"
    ],
    [
     "nāvajānāti",
@@ -89899,7 +89937,7 @@ var family_root_json = {
     "aparibhūta",
     "pp",
     "not insulted; not disrespected; not abused; lit. not become all around",
-    "◑"
+    "✔"
    ],
    [
     "paribhava",
@@ -93141,20 +93179,6 @@ var family_root_json = {
    ]
   ]
  },
- "√vidh apa √vidh": {
-  "root_key": "√vidh",
-  "root_family": "apa √vidh",
-  "root_meaning": "throw, pierce",
-  "count": 1,
-  "data": [
-   [
-    "apaviddha",
-    "pp",
-    "discarded; rejected; abandoned; neglected; lit. thrown away",
-    "✔"
-   ]
-  ]
- },
  "√sakk apa √sakk": {
   "root_key": "√sakk",
   "root_family": "apa √sakk",
@@ -96223,13 +96247,13 @@ var family_root_json = {
   "root_key": "√pūy",
   "root_family": "√pūy",
   "root_meaning": "rot, fester",
-  "count": 10,
+  "count": 11,
   "data": [
    [
     "apūti",
     "adj",
-    "(of seed) not rotten; not spoiled",
-    "◑"
+    "(of seed) not rotten; unspoiled",
+    "✔"
    ],
    [
     "apūtika",
@@ -96244,9 +96268,15 @@ var family_root_json = {
     "✔"
    ],
    [
-    "pūti",
+    "pūti 1",
     "adj",
     "fermented; foul-smelling; fetid; stinking; rotten; putrid",
+    "✔"
+   ],
+   [
+    "pūti 2",
+    "adj",
+    "(of seed) rotten; spoiled",
     "✔"
    ],
    [
@@ -101822,8 +101852,8 @@ var family_root_json = {
    [
     "patiṭṭhāpeti 3",
     "pr",
-    "plants (something in); lit. causes to stand back",
-    "◑"
+    "(of seed) plants (in); lit. causes to stand back",
+    "✔"
    ],
    [
     "patiṭṭhāpeti 4",
@@ -110158,7 +110188,7 @@ var family_root_json = {
    [
     "vāvaṭa",
     "pp",
-    "involved (in); engaged (in); concerned (about); fussing (over)",
+    "involved; engaged (in); concerned (about); fussing (over)",
     "✔"
    ],
    [
@@ -112087,9 +112117,9 @@ var family_root_json = {
    ],
    [
     "dubbhūma",
-    "masc",
-    "poor quality soil",
-    "✘"
+    "adj",
+    "with bad ground; with infertile soil; (comm) with uneven ground; lit. bad earth",
+    "✔"
    ],
    [
     "nābhavissa",
@@ -112909,9 +112939,9 @@ var family_root_json = {
    ],
    [
     "subhūma",
-    "masc",
-    "good earth; good soil",
-    "◑"
+    "adj",
+    "with good earth; having fertile soil",
+    "✔"
    ],
    [
     "subhūmi 1",
@@ -142142,8 +142172,8 @@ var family_root_json = {
    [
     "vinicchināti",
     "pr",
-    "investigates, tries, decides",
-    "✘"
+    "adjudicates; judges; tries; decides; settles",
+    "✔"
    ],
    [
     "vinicchini",
@@ -145156,8 +145186,8 @@ var family_root_json = {
    [
     "vivecita 2",
     "pp",
-    "separated; disconnected; disunited; lit. caused to be separate",
-    "◑"
+    "separated; disconnected; disunited (from); lit. caused to be separate",
+    "✔"
    ],
    [
     "vivecetabba",
@@ -146410,8 +146440,8 @@ var family_root_json = {
    [
     "avihata",
     "pp",
-    "not removed; not cleared",
-    "✘"
+    "not removed; not cleared; lit. not hit away",
+    "✔"
    ],
    [
     "vihaññati 1",
@@ -150362,8 +150392,8 @@ var family_root_json = {
    [
     "saṃyojeti 2",
     "pr",
-    "reconciles; puts together",
-    "✘"
+    "reconciles; puts together; lit. causes to yoke together",
+    "✔"
    ],
    [
     "saṃyojeti 3",
@@ -164155,7 +164185,7 @@ var family_root_json = {
     "ahīḷita",
     "pp",
     "not scorned; not looked down on; not despised",
-    "◑"
+    "✔"
    ],
    [
     "ahīḷenta",

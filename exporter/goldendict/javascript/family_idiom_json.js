@@ -9388,6 +9388,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "vipula": {
+  "count": 1,
+  "data": [
+   [
+    "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
+    "idiom",
+    "grows and develops; lit. experienced increase, growth and expansion",
+    "✔"
+   ]
+  ]
+ },
  "sambādha": {
   "count": 1,
   "data": [
@@ -23534,7 +23545,7 @@ var family_idiom_json = {
   ]
  },
  "āpajjati": {
-  "count": 19,
+  "count": 20,
   "data": [
    [
     "ussukkaṃ āpajjati",
@@ -23618,6 +23629,12 @@ var family_idiom_json = {
     "vissāsaṃ āpajjati",
     "idiom",
     "places trust (in); gains confidence (in)",
+    "✔"
+   ],
+   [
+    "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
+    "idiom",
+    "grows and develops; lit. experienced increase, growth and expansion",
     "✔"
    ],
    [
@@ -32768,6 +32785,17 @@ var family_idiom_json = {
    ]
   ]
  },
+ "viruḷhi": {
+  "count": 1,
+  "data": [
+   [
+    "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
+    "idiom",
+    "grows and develops; lit. experienced increase, growth and expansion",
+    "✔"
+   ]
+  ]
+ },
  "vivicca": {
   "count": 1,
   "data": [
@@ -32921,6 +32949,17 @@ var family_idiom_json = {
     "vuddhihesā",
     "sandhi",
     "indeed this is growth; truly this is development",
+    "✔"
+   ]
+  ]
+ },
+ "vuḍḍhi": {
+  "count": 1,
+  "data": [
+   [
+    "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
+    "idiom",
+    "grows and develops; lit. experienced increase, growth and expansion",
     "✔"
    ]
   ]

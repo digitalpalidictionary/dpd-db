@@ -39422,8 +39422,8 @@ var family_set_json = {
    [
     "mahāvagga 02",
     "masc",
-    "Book 2 of the Dīgha Nikāya; Great Book",
-    "◑"
+    "Book 2 of the Dīgha Nikāya; lit. great book",
+    "✔"
    ],
    [
     "mahāvaggapāḷi",
@@ -39559,5 +39559,16 @@ var family_set_json = {
    ]
   ],
   "count": 3
+ },
+ "suttas of the Dīgha Nikāya": {
+  "data": [
+   [
+    "sudassana 6",
+    "nt",
+    "in reference to DN17 Mahāsudassanasutta; lit. seeing clearly",
+    "✔"
+   ]
+  ],
+  "count": 1
  }
 }

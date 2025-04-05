@@ -662,7 +662,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gal 2	1	a	eat	√gal	1	eat	√gal	gal	gala, galaka
 √gaves	1	a	seek, search	√gaveṣ	1, 10	seek, search	√gaves	gaveṣ	gaveṣaka (bsk), gaveṣaṇa, gaveṣaṇā, gaveṣat, gaveṣate, gaveṣamāṇa, gaveṣitavya, gaveṣitum, gaveṣin, gaveṣṭa, gaveṣṭvā, gaveṣya
 √gas	1	a	eat, swallow	√gras	1	devour	√gas	gras	grasana
-√gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	√gah	grah	a, agrabhīt, agrahaṇa, agrahītum (na + grahītum), agrāhi, agṛha (na + gṛha), agṛhita , agṛhita, gahana, graha, graha +, graha, grāha, grahaṇa, grahaṇaka, grahaṇī, grahaṇī (bsk), grahaṇīya, grahayitvā, grahāyaṇa, grahītavya, grahītum, grahīṣyati, grāhaka, grāhayat, grāhayati, grāhayitum, grāhita, grāhin, gṛbhita, gṛhīta, gṛbhītatā, gṛbhītvā, gṛha, gṛha, geha, gṛhaka, gṛhate, gṛhiṇī, gṛhin, gṛhin +, gṛhītvā, gṛbhītvā, gṛhṇat, gṛhṇāti, gṛhṇāna, gṛhya, gṛhyate, gṛhyamāṇa, dus + gṛbhītatā, dus + gṛhīta, gṛbhita, duṣgrāha, na  + geha, gṛha, na + grahaṇa, na + grahaṇīya, na + grāhita, na + gṛhītvā, gṛbhītvā, na + gṛhṇat, sagraha (filled with crocodiles), su + grāha, su + gṛbhita, su + gṛbhītatā, su + sugṛhīta, sugṛhīta
+√gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	√gah	grah	a, agrabhīt, agrahaṇa, agrahītum (na + grahītum), agrāhi, agṛha (na + gṛha), agṛhita , agṛhita, gahana, graha, graha +, graha, grāha, grahaṇa, grahaṇaka, grahaṇī, grahaṇī (bsk), grahaṇīya, grahayitvā, grahāyaṇa, grahītavya, grahītum, grahīṣyati, grāhaka, grāhayat, grāhayati, grāhayitum, grāhita, grāhin, gṛbhita, gṛhīta, gṛbhītatā, gṛbhītvā, gṛha, gṛha, geha, gṛhaka, gṛhate, gṛhiṇī, gṛhin, gṛhin +, gṛhītvā, gṛbhītvā, gṛhṇat, gṛhṇāti, gṛhṇāna, gṛhya, gṛhyate, gṛhyamāṇa, dus + gṛbhītatā, dus + gṛhīta, gṛbhita, duṣgrāha, na + geha, gṛha, na + grahaṇa, na + grahaṇīya, na + grāhita, na + gṛhītvā, gṛbhītvā, na + gṛhṇat, sagraha (filled with crocodiles), su + grāha, su + gṛbhita, su + gṛbhītatā, su + sugṛhīta, sugṛhīta
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	ati pa √gah	pragrah	ati + pragṛhīta
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	adhi √gah	grah	abhi, abhigṛhīta, abhigṛhītatva, abhigṛhṇāti
 √gah	6	ṇhā	grasp	√grah √grabh	1, 9	seize	anu √gah	anugrah	anugraha, anugrahaṇa, anugrahitavya, anugrahiṣyati, anugrahṇāti, anugrāhita, na + udgrāhita, sa + anugraha
@@ -854,7 +854,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pati vi √ci		
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pari √ci	parici	paricaya, paricita, su + paricita
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi √ci	vici	vicaya, vicayāt, vicita, vicitya, vicinoti, vicinvat, vicītya, viceṣyati
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi nī √ci	viniści	na + viniścita, vinicayayat, viniścaya, viniścayitum, viniścāyin, viniścita, viniścitya, viniścinvat, suviniścita
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	vi nī √ci	viniści	na + viniścita, vinicayayat, viniścaya, viniścayitum, viniścāyin, viniścita, viniścitya, viniścinoti, viniścinvat, suviniścita
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ √ci	saṃci	+ cinvat, saṃcaya, saṃcita
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ ud √ci	samucci	samuccaya, samuccita
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	saṃ ni √ci	saṃnici	saṃnicaya, saṃnicita
@@ -927,8 +927,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √chid	2	ṃa	cut, steal	√chid	7, 9	cut off	saṃ √chid	saṃchid	sañchittvā, saṃchittvā, saṃchinatti, saṃchinna
 √chid	2	ṃa	cut, steal	√chid	7, 9	cut off	saṃ ud √chid	samucchid	na + samucchinna, samucchittvā, samucchinatti, samucchinna, samucchinna +, samuccheda, samucchedana, samuccheditavya, su + samucchinna
 √chuṭ	8	*e	cut off	√chuṭ	10	cut	nī √chuṭ	chuṭ	nir + kṣodayati, chuṭati
-√chup	1	a	touch	√chup	6	touch	√chup		chupta, chuppat, chuppati, na + chuppat, na + chuppati
-√chup	1	*e	touch	√chup	6	touch	ā √chup		
+√chup	1	a	touch	√chup	6	touch	√chup	chup	chupta, chuppat, chuppati, chopitum, na + chuppat, na + chuppati
+√chup	1	*e	touch	√chup	6	touch	ā √chup	chup	
 √chubh	1	a	throw out	√chṛd	2	spue, eject	upa √chubh		upacchṛṇaṭṭi
 √chubh	1	a	throw out	√chṛd	2	spue, eject	nī √chubh		
 √jakkh	1	a	eat	√jakṣ	1, 2	eat	√jakkh		ajakṣita, ajagdhi, ajagdhi, jagdhi
@@ -2733,7 +2733,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vās	8	*e	perfume	√vās	10	perfume	pari √vās		
 √vi	5	nā	weave	√ve	1	weave	√vi		ūyate, vayat, vāyayati
 √vic	1	a	separate	√vic	3, 7	sift	pa vi √vic	pravivic	pravivikta, praviveka, prāvivekya
-√vic	1	a	separate	√vic	3, 7	sift	vi √vic	vivic	na + vivikta, vivikta, viviktatā, vivicya, vivicyate, viveka, vivektum, vivecayati, vivecayitavya, vivecitavya
+√vic	1	a	separate	√vic	3, 7	sift	vi √vic	vivic	na + vivikta, vivikta, viviktatā, vivicya, vivicyate, viveka, vivektum, vivecayati, vivecayitavya, vivecita, vivecitavya
 √vij	3	*e	shake, be afraid, be in awe	√vij	1, 6	tremble	√vij	vij	vaijayanta, vega, vega +, vegena
 √vij	3	ya	shake, be afraid, be in awe	√vij	1, 6	tremble	ud √vij	udvij	udvigna, udvega, udvejayitṛ, na + udvigna
 √vij	3	ya	shake, be afraid, be in awe	√vij	1, 6	tremble	saṃ √vij	saṃvij	saṃ + vegin, saṃvigna, saṃvijate, saṃvega, saṃvejana, saṃvejanīya, saṃvejayati, saṃvejita (bsk)
@@ -3187,7 +3187,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √han	1	ya	strike, kill	√han	1, 2	smite	pati √han	pratihan	na + pratihata, na + pratihanyate, na + pratihanyamāna, pratihata, pratihanana, pratihanamāna, pratihaniṣyati, pratihaniṣyāmi, pratihanti, pratihanyate, pratihanyamāna
 √han	1	a	strike, kill	√han	1, 2	smite	pari √han	parihan	
 √han	1	a	strike, kill	√han	1, 2	smite	pari ā √han	parāhan	parāhata
-√han	1	ya	strike, kill	√han	1, 2	smite	vi √han	vihan	na + vihanyamāna, vihata, vihatya, vihanet, vihanti, vihanyate, vihanyamāna
+√han	1	ya	strike, kill	√han	1, 2	smite	vi √han	vihan	avihata, na + vihanyamāna, vihata, vihatya, vihanet, vihanti, vihanyate, vihanyamāna
 √han	1	a	strike, kill	√han	1, 2	smite	vi saṃ √han	visaṃhan	visaṃhata
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ √han	saṃhan	saṃhanana, saṃhanti
 √han	1	a	strike, kill	√han	1, 2	smite	saṃ anu ā √han	āhan	saṃ + anu + āhata

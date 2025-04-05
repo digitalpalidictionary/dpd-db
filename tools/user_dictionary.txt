@@ -354,6 +354,7 @@ beleric
 belovedness
 Beḷuva
 Benares
+bendable
 benedictive
 benefactor
 Bengalis
@@ -1145,6 +1146,7 @@ incapability
 incises
 incompliant
 incomprehensible
+inconsiderately
 inconstance
 incontrovertibility
 incontrovertibility
@@ -1488,11 +1490,13 @@ Mahāmoggallāna
 Mahāmoggallāna's
 Mahānāma
 Mahāniddesa
+Mahāpadānasutta
 Mahāpuṇṇamasuttaṃ
 Mahāsatipaṭṭhānasuttaṃ
 Mahāsīhanādasutta
 Mahāsudassana
 Mahāsudassana's
+Mahāsudassanasutta
 Mahāthera
 mahāvagga
 Mahāvaṃsa
@@ -2154,6 +2158,7 @@ Ricinus
 rightness
 rigidity
 rinsings
+ripeness
 rippled-nes
 rippled-ness
 rivulet
@@ -2316,6 +2321,7 @@ Siddhartha
 Siddhartha's
 Siddhattha
 Siddhattha's
+sieved
 sieves
 sieving
 sīghasotāya
@@ -2661,6 +2667,7 @@ unaging
 unagitated
 unailing
 unallotted
+unallowable
 unamenable
 unappointed
 unarisen
@@ -2687,6 +2694,7 @@ unchopped
 unchurned
 uncleanable
 uncleaned
+uncleared
 uncloven
 uncompassionate
 uncompounded
@@ -2805,6 +2813,7 @@ unshakability
 unshareable
 unsheathes
 unskilful
+unskilfulness
 unskilled-ness
 unsmeared
 unsnarled
@@ -2821,6 +2830,7 @@ unsuffused
 unsurpassable
 unswept
 untaught
+unthinkingly
 untruthfully
 untwisted
 untwisting
@@ -3035,8 +3045,3 @@ you're
 youthfulness
 zizanioides
 Ziziphus
-ripeness
-bendable
-unallowable
-unskilfulness
-sieved

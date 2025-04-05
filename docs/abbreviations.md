@@ -127,6 +127,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |APt|Abhidhānappadīpikā Ṭīkā|Commentary on the fourteenth century Pāḷi thesaurus.|
 |BD|Concise Pali English Dictionary by Ven. Buddhadatta|<a class="link" href="http://www.ahandfulofleaves.org/documents/concise%20pali%20english%20dictionary_buddhadatta.pdf">web-link</a>|
 |BDN|Buddhist Dictionary by Ven. Ñāṇatiloka Mahathera|<a class="link" href="https://www.palikanon.com/english/wtb/dic_idx.html">web-link</a>|
+|BHI|Bhikkhunī Vinaya||
 |BJT|Buddha Jayanti Tipiṭaka (Sri Lanka)||
 |BMC|Buddhist Monastic Code by Ajahn Ṭhānissaro|<a class="link" href="https://www.dhammatalks.org/vinaya/bmc/Section0000.html">web-link</a>|
 |BSK|Edgerton's Buddhist Hybrid Sanskrit Dictionary|<a class="link" href="https://www.sanskrit-lexicon.uni-koeln.de/scans/BHSScan/2020/web/index.php">web-link</a>|
@@ -147,9 +148,9 @@ There are two types of abbreviations: Grammatical and Textual.
 |DN|Dīgha Nikāya|Book 1 of the Sutta Piṭaka; Collection of Long Discourses; lit. long collection|
 |DNa|Dīgha Nikāya Aṭṭhakathā, Sumaṅgalavilāsinī|Commentary on the Dīgha Nikāya compiled by Ven. Buddhaghosa; lit. very auspicious and charming|
 |DNt|Dīgha Nikāya Ṭīkā, Sādhuvilāsinī||
-|DS|Dhammasaṅgaṇī|Book 1 of the Abhidhamma Piṭaka; enumeration of phenomena|
-|DSa|Dhammasaṅgaṇī aṭṭhakathā|Commentary on the Dhammasaṅgaṇi compiled by Ven. Buddhaghosa;  “Exposition of Meaning”|
-|DSṭ|Dhammasaṅgaṇī mūlaṭīkā||
+|DhS|Dhammasaṅgaṇī|Book 1 of the Abhidhamma Piṭaka; enumeration of phenomena|
+|DhSa|Dhammasaṅgaṇī aṭṭhakathā|Commentary on the Dhammasaṅgaṇi compiled by Ven. Buddhaghosa;  “Exposition of Meaning”|
+|DhSṭ|Dhammasaṅgaṇī mūlaṭīkā||
 |EV|Elder's Verses by K.R.Norman||
 |ITI|Itivuttaka|Book 4 of the Khuddaka Nikāya; Quotations; lit. thus said|
 |ITIa|Itivuttaka Aṭṭhakathā, Paramatthadīpanī||
@@ -157,13 +158,14 @@ There are two types of abbreviations: Grammatical and Textual.
 |JAa|Jātaka Aṭṭhakathā|Commentary to Jātaka compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”|
 |Kacc|Kaccāyana|name of a famous grammatical treatise (Kaccāyanabyākaraṇa), and the classical school of Pāḷi grammar which ascribes to it (Kaccāyanabyākaraṇa-vāda)|
 |KMt|Khuddasikkhā Mūlasikkhā, Vinaya sub-commentary||
-|KP|Khuddaka Pāṭha|Books 1 of the Khuddaka Nikāya; lit. small passage|
-|KPa|Khuddakapāṭha Aṭṭhakathā, Paramatthajotikā||
+|KHP|Khuddaka Pāṭha|Books 1 of the Khuddaka Nikāya; lit. small passage|
+|KHPa|Khuddakapāṭha Aṭṭhakathā, Paramatthajotikā||
 |KV|Kathāvatthupāḷi||
 |KVa|Kaṅkhāvitaraṇīaṭṭhakathā|Commentary to the Pāṭimokkha, Vinayapiṭaka, compiled by Ven. Buddhaghosa|
 |KVt|Kaṅkhāvitaraṇī Purāṇaṭīkā and Kaṅkhāvitaraṇī Abhinavaṭīkā, Vinaya sub-commentary||
 |LDA|The Law of Dependent Arising by Kaṭukurunde Ñāṇananda||
 |LDB|Long Discourses of the Buddha: A Translation of the Dīgha Nikāya by Maurice Walshe||
+|MD|Maṅgaladīpanī, Thai commentary on the Maṅgalasutta||
 |MIL|Milindapañha|Book 19 of the Khuddaka Nikāya; the “Questions of Milinda”|
 |MLDB|Middle Length Discourses of the Buddha, translated by Bhikkhu Bodhi|Book 19 of the Khuddaka Nikāya; the “Questions of Milinda”|
 |MN|Majjhimā Nikāya|Book 2 of the Sutta Piṭaka; Collection of Middle-length Discourses; lit. middle collection |

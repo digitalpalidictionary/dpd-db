@@ -16009,7 +16009,7 @@ var family_word_json = {
     "asārada",
     "adj",
     "infertile",
-    "◑"
+    "✔"
    ],
    [
     "upasaradaṃ",
@@ -16066,6 +16066,12 @@ var family_word_json = {
     "◑"
    ],
    [
+    "sārada 4",
+    "adj",
+    "fertile",
+    "✔"
+   ],
+   [
     "sāradika",
     "adj",
     "autumnal; mature",
@@ -16078,7 +16084,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 13
+  "count": 14
  },
  "vīci": {
   "data": [
@@ -34600,7 +34606,7 @@ var family_word_json = {
     "serīsaka 1",
     "adj",
     "made of sirīsa wood",
-    "◑"
+    "✔"
    ],
    [
     "serīsaka 2",
