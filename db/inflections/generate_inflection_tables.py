@@ -169,7 +169,7 @@ def generate_inflection_table(g: GlobalVars):
             html += "conjugation "
         elif i.pos in DECLENSIONS:
             html += "declension "
-        html += f"(like <b>{i.it.like})</b>"
+        html += f"(like <b>{i.it.like}</b>)"
     else:
         if i.pos in CONJUGATIONS:
             html += "conjugation "

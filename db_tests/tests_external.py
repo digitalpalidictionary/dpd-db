@@ -70,9 +70,10 @@ def run_external_tests():
     results_list.append(duplicate_words(searches))
     results_list.append(duplicate_words_meaning_2(searches))
     results_list.append(duplicate_words_meaning_lit(searches))
-    results_list.append(identical_meaning_1_meaning_lit(searches))
+    results_list.append(dupes_in_meaning_1_meaning_lit(searches))
     results_list.append(synonym_equals_variant(searches))
     results_list.append(pos_idiom_no_space_is_sandhi(searches))
+    results_list.append(tags_not_closed(searches))
 
     for name, result, count, solution in results_list:
         print(f"[green]{name.replace('_', ' ')} [{count}]")
@@ -1029,7 +1030,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
+def dupes_in_meaning_1_meaning_lit(searches: dict) -> tuple:
     """Test for same meaning in meaning_1 and meaning_lit."""
 
     results = []
@@ -1055,6 +1056,38 @@ def identical_meaning_1_meaning_lit(searches: dict) -> tuple:
     results = regex_results(results)
     name = "dupes in meaning_1 and meaning_lit"
     solution = "delete dupes in meaning_lit"
+
+    return name, results, length, solution
+
+
+def tags_count_equal(html_str: str):
+    """Count opening and closing HTML tags in a string.
+    Ignores self-closing tags like <img/>."""
+
+    open_tags = re.findall(r"<([a-zA-Z]+)(?![^>]*\/>)[^>]*>", html_str)
+    close_tags = re.findall(r"<\/\s*([a-zA-Z]+)\s*>", html_str)
+
+    if len(open_tags) == len(close_tags):
+        return True
+    else:
+        return False
+
+
+def tags_not_closed(searches: dict) -> tuple:
+    """HTML open tags dont match closed tags count."""
+
+    results = []
+    exceptions = []
+
+    for i in searches["dpd_headword"]:
+        for column in ["example_1", "example_2", "notes", "commentary"]:
+            if "<" in (column_value := getattr(i, column)):
+                if not tags_count_equal(column_value):
+                    results.append(i.lemma_1)
+    length = len(results)
+    results = regex_results(results)
+    name = "open tags dont match closing tags"
+    solution = "fix the tags in example_1 2, commentary, notes"
 
     return name, results, length, solution
 

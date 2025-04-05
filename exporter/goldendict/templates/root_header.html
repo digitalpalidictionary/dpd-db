@@ -20,7 +20,7 @@
     <link href="family_word_json.js" class="load_js" rel="preload" as="script">
     <link href="family_word_template.js" class="load_js" rel="preload" as="script">
     <link href="feedback_template.js" class="load_js" rel="preload" as="script">
-    <link href="main.js" class="load_js" rel="preload" as="script" as="script">
+    <link href="main.js" class="load_js" rel="preload" as="script">
 
     <script>
         var rootdata_${ r.root_no_sign_ } = {
@@ -34,7 +34,7 @@
         if (typeof js_already_loaded === "undefined") {
             var js_already_loaded = true;
             var elsArray = Array.from(els2load);
-            elsArray.forEach(el => { 
+            elsArray.forEach(el => {
                 var s = document.createElement("script");
                 var elName = el.getAttribute("href");
                 s.src = elName;
