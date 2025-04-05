@@ -35,6 +35,7 @@ def main():
     config_update("exporter", "make_deconstructor", "yes")
     config_update("exporter", "make_variants", "yes")
     config_update("exporter", "make_ebook", "yes")
+    config_update("exporter", "make_tbw", "yes")
     config_update("exporter", "tarball_db", "yes")
     config_update("exporter", "make_changelog", "yes")
 

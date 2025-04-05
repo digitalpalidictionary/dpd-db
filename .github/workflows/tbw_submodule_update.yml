@@ -1,0 +1,183 @@
+name: Update TBW Submodule
+
+on:
+  workflow_dispatch:
+
+jobs:
+  submodule_update:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # ----------------------------------------
+    # Setup (Copied from draft_release.yml)
+    # ----------------------------------------
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        repository: 'digitalpalidictionary/dpd-db'
+        ref: 'main'
+        submodules: 'recursive'
+        # Fetch depth 0 to allow committing back to the submodule
+        fetch-depth: 0
+        # Use PAT to allow pushing to submodule
+        token: ${{ secrets.GH_PAT }}
+
+    - name: Remove large dirs
+      run: |
+        rm -rf ${{ github.workspace }}/resources/bjt/dev/*
+        rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
+
+    - name: Unzip deconstructor_output
+      run: |
+        cd ${{ github.workspace }}/resources/deconstructor_output
+        tar -xzvf deconstructor_output.json.tar.gz
+        ls -la
+        cd ${{ github.workspace }}/
+
+    - name: Install dictzip
+      run: sudo apt-get update && sudo apt-get install -y dictzip
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.11
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install dependencies
+      run: uv sync
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.22.2'
+
+
+    # ----------------------------------------
+    # Build Database (Copied from draft_release.yml)
+    # ----------------------------------------
+
+    - name: Config for GitHub release
+      run: uv run python scripts/build/config_github_release.py
+
+    - name: Create dpd.db
+      run: touch dpd.db
+
+    - name: Build the database
+      run: uv run python scripts/build/db_rebuild_from_tsv.py
+
+    - name: Run initial setup script
+      run: uv run bash scripts/bash/initial_setup_run_once.sh
+
+    - name: Create version
+      run: uv run python tools/version.py
+
+    - name: Create Inflection Templates
+      run: uv run python db/inflections/create_inflection_templates.py
+
+    - name: Create Inflection Tables
+      run: uv run python db/inflections/generate_inflection_tables.py
+
+    - name: Update Sanskrit Family Roots
+      run: uv run python scripts/build/sanskrit_root_families_updater.py
+
+    - name: Add Root Families
+      run: uv run python db/families/family_root.py
+
+    - name: Add Word Families
+      run: uv run db/families/family_word.py
+
+    - name: Add Compound Families
+      run: uv run python db/families/family_compound.py
+
+    - name: Add Sets
+      run: uv run python db/families/family_set.py
+
+    - name: Add Idioms
+      run: uv run python db/families/family_idiom.py
+
+    - name: Families to JSON
+      run: uv run python scripts/build/families_to_json.py
+
+    - name: Extract Variants
+      run: uv run python db/variants/extract_variants_main.py
+
+    - name: Run Deconstructor
+      run: uv run python scripts/build/deconstructor_output_add_to_db.py
+
+    - name: Add api ca eva iti to inflections
+      run: uv run python scripts/build/api_ca_evi_iti.py
+
+    - name: Transliterate Inflections
+      run: uv run python db/inflections/transliterate_inflections.py
+
+    - name: Inflections to Headwords
+      run: uv run python db/inflections/inflections_to_headwords.py
+
+    - name: Lookup Variants and Spelling Mistakes
+      run: uv run python db/lookup/spelling_mistakes.py
+
+    - name: Lookup Transliterate
+      run: uv run python db/lookup/transliterate_lookup_table.py
+
+    - name: Lookup Help and Abbreviations
+      run: uv run python db/lookup/help_abbrev_add_to_lookup.py
+
+    - name: Add Frequency
+      run: |
+        go build -o frequency go_modules/frequency/main.go
+        ./frequency
+
+    - name: Run EBT Counter
+      run: uv run python scripts/build/ebt_counter.py
+
+    - name: Add EPD to Lookup Table
+      run: uv run python db/epd/epd_to_lookup.py
+
+    - name: Add RPD to Lookup Table
+      run: uv run python db/rpd/rpd_to_lookup.py
+
+    - name: Test Dealbreakers
+      run: uv run python scripts/build/dealbreakers.py
+
+    # ----------------------------------------
+    # Run TBW Exporter
+    # ----------------------------------------
+
+    - name: Run TBW Exporter
+      run: uv run python exporter/tbw/tbw_exporter.py
+
+    # ----------------------------------------
+    # Update Submodule
+    # ----------------------------------------
+
+    - name: Move TBW files to submodule
+      run: |
+        # Ensure target directory exists in submodule
+        mkdir -p fdg-dpd/assets/standalone-dpd/
+        # Copy exported files, overwriting existing ones
+        cp -rf resources/fdg_dpd/assets/standalone-dpd/* fdg-dpd/assets/standalone-dpd/
+
+    - name: Configure Git for Submodule Commit
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+
+    - name: Commit and Push Submodule Changes
+      run: |
+        cd fdg-dpd
+        # Check if there are changes to commit
+        if [[ -n $(git status --porcelain) ]]; then
+          echo "Changes detected in submodule, committing..."
+          git add .
+          # Use a placeholder issue number for now
+          git commit -m "exporter: update tbw files #0"
+          # Assuming the submodule remote is 'origin' and branch is 'main'
+          git push origin main
+        else
+          echo "No changes detected in submodule."
+        fi
+        cd ..
