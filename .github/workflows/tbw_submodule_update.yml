@@ -175,6 +175,12 @@ jobs:
           git add .
           # Use a placeholder issue number for now
           git commit -m "exporter: update dpd lookup files #0"
+          # Reset local main branch to current commit
+          git branch -f main HEAD
+          git checkout main
+          # Update remote tracking reference
+          git fetch origin main
+          git branch -u origin/main main
           # Explicitly use PAT in push URL for debugging
           echo "Attempting push to: https://${{ secrets.GH_PAT }}@github.com/o28o/dictPlugin.git"
           echo "Current branch: $(git branch --show-current)"
