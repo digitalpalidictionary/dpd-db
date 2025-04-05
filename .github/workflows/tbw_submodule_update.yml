@@ -55,6 +55,16 @@ jobs:
       with:
         go-version: '1.22.2'
 
+    # ----------------------------------------
+    # Prepare Submodules
+    # ----------------------------------------
+    
+    - name: Sync FDG submodule with Upstream
+      run: |
+        cd resources/fdg_dpd
+        git fetch origin main
+        git reset --hard origin/main
+        cd ../..
 
     # ----------------------------------------
     # Build Database (Copied from draft_release.yml)
