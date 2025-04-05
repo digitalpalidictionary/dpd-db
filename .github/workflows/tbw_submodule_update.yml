@@ -194,7 +194,7 @@ jobs:
           
           if [ $PUSH_EXIT -ne 0 ]; then
             echo "Normal push failed (exit $PUSH_EXIT), trying force push..."
-            git push --force-with-lease origin main
+            git push origin main
             echo "Force push exit code: $?"
           else
             echo "Push succeeded with exit code: $PUSH_EXIT"
