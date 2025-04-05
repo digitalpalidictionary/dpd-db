@@ -18,7 +18,7 @@ jobs:
       with:
         repository: 'digitalpalidictionary/dpd-db'
         ref: 'main'
-        submodules: 'recursive' # Ensure submodules are checked out
+        submodules: 'recursive'
         # Fetch depth 0 to allow committing back to the submodule
         fetch-depth: 0
         # Use PAT to allow pushing to submodule
@@ -151,10 +151,10 @@ jobs:
       run: uv run python exporter/tbw/tbw_exporter.py
 
     # ----------------------------------------
-    # Update Submodule (o28o/dictPlugin)
+    # Update Submodules
     # ----------------------------------------
 
-    - name: Commit and Push Submodule Changes
+    - name: Commit and Push Changes to FDG
       run: |
         cd resources/fdg_dpd
         git config user.email "actions@github.com"

@@ -19,6 +19,10 @@ jobs:
         repository: 'digitalpalidictionary/dpd-db'
         ref: 'main'
         submodules: 'recursive'
+        # Fetch depth 0 to allow committing back to the submodule
+        fetch-depth: 0
+        # Use PAT to allow pushing to submodule
+        token: ${{ secrets.GH_PAT }}
 
     - name: Remove large dirs
       run: |
@@ -171,6 +175,40 @@ jobs:
 
     - name: Tarball DB
       run: uv run python scripts/build/tarball_db.py
+
+    - name: Run TBW Exporter
+      run: uv run python exporter/tbw/tbw_exporter.py
+
+    # ----------------------------------------
+    # Update Submodules
+    # ----------------------------------------
+
+    - name: Commit and Push Changes to FDG
+      run: |
+        cd resources/fdg_dpd
+        git config user.email "actions@github.com"
+        git config user.name "GitHub Actions"
+        
+        # Only commit if changes exist
+        if [[ -n $(git status --porcelain) ]]; then
+          git add .
+          git commit -m "DPD lookup: update $(date +'%d-%b-%y')"
+          
+          # Ensure local branch references match HEAD
+          git branch -f main HEAD
+          git checkout main
+          
+          # Push changes to upstream
+          echo "Pushing changes to dictPlugin repository..."
+          git push origin main || {
+            echo "Push failed, attempting to recover..."; 
+            git pull --rebase origin main;
+            git push origin main;
+          }
+        else
+          echo "No changes detected in submodule."
+        fi
+        cd ../.. # Return to root directory
 
     # ----------------------------------------
     # Create Draft Release
