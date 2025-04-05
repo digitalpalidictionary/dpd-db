@@ -154,56 +154,29 @@ jobs:
     # Update Submodule (o28o/dictPlugin)
     # ----------------------------------------
 
-    - name: Debug - Show Submodule Remote
-      run: |
-        cd resources/fdg_dpd
-        echo "Submodule remote configuration:"
-        git remote -v
-        git config --get remote.origin.url
-        echo "Current branch: $(git branch --show-current)"
-        echo "HEAD commit: $(git rev-parse HEAD)"
-        cd ../..
-
     - name: Commit and Push Submodule Changes
       run: |
         cd resources/fdg_dpd
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
-        # Check if there are changes to commit
+        
+        # Only commit if changes exist
         if [[ -n $(git status --porcelain) ]]; then
-          echo "Changes detected in submodule, committing..."
           git add .
-          # Use a placeholder issue number for now
-          git commit -m "exporter: update dpd lookup files #0"
-          # Reset local main branch to current commit
+          git commit -m "DPD lookup: update $(date +'%d-%b-%y')"
+          
+          # Ensure local branch references match HEAD
           git branch -f main HEAD
           git checkout main
-          # Update remote tracking reference
-          git fetch origin main
-          git branch -u origin/main main
-          # Explicitly use PAT in push URL for debugging
-          echo "Attempting push to: https://${{ secrets.GH_PAT }}@github.com/o28o/dictPlugin.git"
-          echo "Current branch: $(git branch --show-current)"
-          echo "Git references:"
-          git show-ref
-          echo "Attempting push..."
           
-          # First try normal push
-          git push origin main
-          PUSH_EXIT=$?
-          
-          if [ $PUSH_EXIT -ne 0 ]; then
-            echo "Normal push failed (exit $PUSH_EXIT), trying force push..."
-            git push origin main
-            echo "Force push exit code: $?"
-          else
-            echo "Push succeeded with exit code: $PUSH_EXIT"
-          fi
-          
-          # Verify remote commit exists
-          echo "Verifying remote commit..."
-          git ls-remote origin | grep $(git rev-parse HEAD)
+          # Push changes to upstream
+          echo "Pushing changes to dictPlugin repository..."
+          git push origin main || {
+            echo "Push failed, attempting to recover..."; 
+            git pull --rebase origin main;
+            git push origin main;
+          }
         else
           echo "No changes detected in submodule."
         fi
-        cd ../.. # Go back to the root directory
+        cd ../.. # Return to root directory
