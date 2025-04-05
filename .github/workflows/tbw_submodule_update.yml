@@ -177,8 +177,26 @@ jobs:
           git commit -m "exporter: update dpd lookup files #0"
           # Explicitly use PAT in push URL for debugging
           echo "Attempting push to: https://${{ secrets.GH_PAT }}@github.com/o28o/dictPlugin.git"
-          git push https://${{ secrets.GH_PAT }}@github.com/o28o/dictPlugin.git main
-          echo "Push exit code: $?"
+          echo "Current branch: $(git branch --show-current)"
+          echo "Git references:"
+          git show-ref
+          echo "Attempting push..."
+          
+          # First try normal push
+          git push origin main
+          PUSH_EXIT=$?
+          
+          if [ $PUSH_EXIT -ne 0 ]; then
+            echo "Normal push failed (exit $PUSH_EXIT), trying force push..."
+            git push --force-with-lease origin main
+            echo "Force push exit code: $?"
+          else
+            echo "Push succeeded with exit code: $PUSH_EXIT"
+          fi
+          
+          # Verify remote commit exists
+          echo "Verifying remote commit..."
+          git ls-remote origin | grep $(git rev-parse HEAD)
         else
           echo "No changes detected in submodule."
         fi
