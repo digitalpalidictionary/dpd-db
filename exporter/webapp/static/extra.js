@@ -1,3 +1,24 @@
+//ссылки в футере
+  // Получаем текущий URL
+  const currentUrl = new URL(window.location.href);
+  const searchQuery = currentUrl.searchParams.get('q');
+
+  // Ссылка FDG — только параметр ?q=
+  if (searchQuery) {
+    const fdgUrl = `https://dhamma.gift?p=-kn&q=${encodeURIComponent(searchQuery)}`;
+    document.getElementById('fdg-link').href = fdgUrl;
+  }
+
+  // Ссылка DPD — заменить домен, остальное оставить
+  const dpdUrl = new URL(window.location.href);
+  dpdUrl.hostname = 'dpdict.net';
+  dpdUrl.protocol = 'https:';
+  dpdUrl.port = ''; // обнуляем, чтобы не было ненужного порта
+  document.getElementById('dpd-link').href = dpdUrl.toString();
+
+
+
+
 function toggleSettings() {
   const settingsContent = document.getElementById('settings-content');
   
