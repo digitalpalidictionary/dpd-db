@@ -64,6 +64,7 @@ jobs:
           echo "Syncing $submodule..."
           cd "$submodule"
           git fetch origin main
+          git checkout main
           git reset --hard origin/main
           cd ../..
         done
@@ -178,10 +179,34 @@ jobs:
           read name repo <<< "${submodules[$path]}"
           echo "Updating $name submodule..."
           cd "$path"
+          echo "=== DEBUG: START $name SUBMODULE ==="
+          echo "Current branch: $(git branch --show-current)"
+          echo "Git status:"
+          git status --short
+          echo "Recent commits:"
+          git log -1 --oneline
+          echo "File list:"
+          ls -la
+          
+          git checkout main
+          git pull origin main
+          
+          echo "=== POST-EXPORT STATUS ==="
+          git status --short
           git add .
+          echo "=== STAGED CHANGES ==="
+          git diff --cached --name-only
+          
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git commit -m "Update $name from dpd-db" || echo "No changes to commit"
-          git push origin main
+          
+          echo "=== PRE-PUSH STATUS ==="
+          git log -2 --oneline
+          git remote -v
+          
+          echo "=== PUSHING CHANGES ==="
+          git push origin main:main
+          echo "=== PUSH EXIT CODE: $? ==="
           cd "$GITHUB_WORKSPACE"
         done
