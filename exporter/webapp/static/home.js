@@ -232,33 +232,29 @@ function decreaseFontSize() {
 
 
 function changeLanguage(lang) {
-    // Get the current URL
+    // Get current URL and path
     const currentUrl = window.location.href;
+    const url = new URL(currentUrl);
+    let path = url.pathname;
 
-    // Split the URL into parts
-    const urlParts = currentUrl.split('/');
-
-    // Get the base URL (domain + protocol)
-    const baseUrl = urlParts.slice(0, 3).join('/');
-
-    // Get the path after the domain
-    let path = urlParts.slice(3).join('/');
-
-    // If the language is "en", remove "/ru" if it exists
+    // Handle language switching
     if (lang === 'en') {
-        // Remove "ru" at the beginning of the path
-        path = path.replace(/^[a-z][a-z]\//, '');
+        // Remove any language prefix
+        path = path.replace(/^\/[a-z][a-z](\/|$)/, '/');
+    } else if (lang === 'ru') {
+        // Add ru prefix if not already present
+        if (!path.startsWith('/ru')) {
+            path = `/ru${path}`;
+        }
     }
 
-    // If the language is "ru", add "ru" at the beginning of the path if it's not there
-    if (lang === 'ru' && !path.startsWith('ru/')) {
-        path = `ru/${path}`;
-    }
+    // Preserve query parameters
+    const search = url.search;
 
-    // Construct the new URL
-    const newUrl = `${baseUrl}/${path}`;
+    // Construct new URL
+    const newUrl = `${url.origin}${path}${search}`;
 
-    // Redirect the user to the new URL
+    // Redirect
     window.location.href = newUrl;
 }
 
