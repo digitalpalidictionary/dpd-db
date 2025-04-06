@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_db:
+  update_submodules:
     runs-on: ubuntu-latest
 
     steps:
@@ -165,23 +165,23 @@ jobs:
     # ----------------------------------------
     # Update Submodules
     # ----------------------------------------
-    - name: Update FDG Submodule
-      uses: ./.github/workflows/submodule_update_template.yml
-      with:
-        submodule_path: 'resources/fdg_dpd'
-        submodule_name: 'fdg'
-        repo_url: 'https://github.com/o28o/dictPlugin.git'
+    - name: Update All Submodules
+      shell: bash
+      run: |
+        declare -A submodules=(
+          ["resources/fdg_dpd"]="fdg https://github.com/o28o/dictPlugin.git"
+          ["resources/bw2"]="tbw https://github.com/thebuddhaswords/BW2.git" 
+          ["resources/sc-data"]="sc https://github.com/digitalpalidictionary/sc-data.git"
+        )
 
-    - name: Update TBW Submodule
-      uses: ./.github/workflows/submodule_update_template.yml
-      with:
-        submodule_path: 'resources/bw2'
-        submodule_name: 'tbw'
-        repo_url: 'https://github.com/thebuddhaswords/BW2.git'
-
-    - name: Update SC Submodule
-      uses: ./.github/workflows/submodule_update_template.yml
-      with:
-        submodule_path: 'resources/sc-data'
-        submodule_name: 'sc'
-        repo_url: 'https://github.com/digitalpalidictionary/sc-data.git'
+        for path in "${!submodules[@]}"; do
+          read name repo <<< "${submodules[$path]}"
+          echo "Updating $name submodule..."
+          cd "$path"
+          git add .
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit -m "Update $name from dpd-db" || echo "No changes to commit"
+          git push origin main
+          cd "$GITHUB_WORKSPACE"
+        done
