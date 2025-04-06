@@ -27,6 +27,8 @@ class HeadwordData:
         self.ru_grammar = ru_make_grammar_line(i)
         self.ru_pos = ru_replace_abbreviations(i.pos, "gram")
         self.ru_plus_case = ru_replace_abbreviations(i.plus_case, "gram")
+        self.ru_root_base = ru_replace_abbreviations(i.root_base, "base")
+        self.ru_phonetic = ru_replace_abbreviations(i.phonetic, "phonetic")
         self.i = self.convert_newlines(i)
         self.i.sbs = self.convert_newlines(i.sbs)
         self.i.ru = self.convert_newlines(i.ru)
