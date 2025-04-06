@@ -36,6 +36,7 @@ class Controller:
     def update_display(self):
         open_in_goldendict_os(self.data.lemma)
         self.ui.message.value = ""
+        self.ui.sentence_id.value = str(self.data.sentence_id)
         self.ui.word_in_sentence.value = self.data.word
         self.ui.lemma.value = self.data.lemma
         self.ui.headword.value = f"{self.data.headword.id}: {self.data.headword.lemma_1} {self.data.headword.pos}. {self.data.headword.meaning_combo}"
@@ -89,6 +90,7 @@ class Gui:
         self.message = ft.Text(
             "loading data", width=self.width, color=ft.Colors.BLUE_100
         )
+        self.sentence_id = ft.Text("", width=self.width, color=ft.Colors.BLUE_200)
         self.word_in_sentence = ft.Text("", width=self.width, color=ft.Colors.BLUE_200)
         self.lemma = ft.Text("", width=self.width, color=ft.Colors.GREEN_500)
         self.headword = ft.Text("", width=self.width, color=ft.Colors.BLUE)
@@ -106,6 +108,7 @@ class Gui:
         # Add controls to page
         self.page.add(
             ft.Row([self.label(""), self.message]),
+            ft.Row([self.label("id"), self.sentence_id]),
             ft.Row([self.label("word"), self.word_in_sentence]),
             ft.Row([self.label("lemma"), self.lemma]),
             ft.Row([self.label("headword"), self.headword]),
@@ -180,6 +183,7 @@ class Data:
         self.db_results = self.db_session.query(DpdHeadword).all()
         self.db_index = -1
         self.i2h_dict: defaultdict[str, set[str]] = self.make_i2h_dict()
+        self.sentence_id: int
         self.word: str
         self.lemma: str
         self.headword: DpdHeadword | None
@@ -243,7 +247,8 @@ class Data:
             i = self.db_results[self.db_index]
 
             if i.example_1 != "":
-                # example_1 is hardcoded for now, later add example_2 and commentary
+                self.sentence_id = i.id
+                # commentary is hardcoded for now, later add example_2 and commentary
                 sentence: str = getattr(i, "commentary")
                 clean_sentence: str = self.cleaner(sentence)
                 if clean_sentence:
