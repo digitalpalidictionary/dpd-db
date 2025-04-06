@@ -2,7 +2,6 @@
 
 import re
 from bs4 import BeautifulSoup
-from icecream import ic
 from pathlib import Path
 
 from db.variants.variants_modules import context_cleaner, key_cleaner

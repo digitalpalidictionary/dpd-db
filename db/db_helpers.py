@@ -11,7 +11,6 @@ from pathlib import Path
 
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy_utils import database_exists
 
 from db.models import Base
 from tools.printer import printer as pr
@@ -20,7 +19,7 @@ from tools.printer import printer as pr
 def create_db_if_not_exists(db_path: Path):
     """Create the db if it does not exist already."""
     engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
-    if not database_exists(engine.url):
+    if not db_path.is_file():
         Base.metadata.create_all(bind=engine)
 
 
