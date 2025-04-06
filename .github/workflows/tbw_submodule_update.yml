@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  submodule_update:
+  build_db:
     runs-on: ubuntu-latest
 
     steps:
@@ -58,13 +58,15 @@ jobs:
     # ----------------------------------------
     # Prepare Submodules
     # ----------------------------------------
-    
-    - name: Sync FDG submodule with Upstream
+    - name: Sync all submodules with Upstream
       run: |
-        cd resources/fdg_dpd
-        git fetch origin main
-        git reset --hard origin/main
-        cd ../..
+        for submodule in resources/fdg_dpd resources/bw2 resources/sc-data; do
+          echo "Syncing $submodule..."
+          cd "$submodule"
+          git fetch origin main
+          git reset --hard origin/main
+          cd ../..
+        done
 
     # ----------------------------------------
     # Build Database (Copied from draft_release.yml)
@@ -163,30 +165,23 @@ jobs:
     # ----------------------------------------
     # Update Submodules
     # ----------------------------------------
+    - name: Update FDG Submodule
+      uses: ./.github/workflows/submodule_update_template.yml
+      with:
+        submodule_path: 'resources/fdg_dpd'
+        submodule_name: 'fdg'
+        repo_url: 'https://github.com/o28o/dictPlugin.git'
 
-    - name: Commit and Push Changes to FDG
-      run: |
-        cd resources/fdg_dpd
-        git config user.email "actions@github.com"
-        git config user.name "GitHub Actions"
-        
-        # Only commit if changes exist
-        if [[ -n $(git status --porcelain) ]]; then
-          git add .
-          git commit -m "DPD lookup: update $(date +'%d-%b-%y')"
-          
-          # Ensure local branch references match HEAD
-          git branch -f main HEAD
-          git checkout main
-          
-          # Push changes to upstream
-          echo "Pushing changes to dictPlugin repository..."
-          git push origin main || {
-            echo "Push failed, attempting to recover..."; 
-            git pull --rebase origin main;
-            git push origin main;
-          }
-        else
-          echo "No changes detected in submodule."
-        fi
-        cd ../.. # Return to root directory
+    - name: Update TBW Submodule
+      uses: ./.github/workflows/submodule_update_template.yml
+      with:
+        submodule_path: 'resources/bw2'
+        submodule_name: 'tbw'
+        repo_url: 'https://github.com/thebuddhaswords/BW2.git'
+
+    - name: Update SC Submodule
+      uses: ./.github/workflows/submodule_update_template.yml
+      with:
+        submodule_path: 'resources/sc-data'
+        submodule_name: 'sc'
+        repo_url: 'https://github.com/digitalpalidictionary/sc-data.git'

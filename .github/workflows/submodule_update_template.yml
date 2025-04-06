@@ -1,0 +1,49 @@
+name: Submodule Update Template
+
+on:
+  workflow_call:
+    inputs:
+      submodule_path:
+        required: true
+        type: string
+      submodule_name:
+        required: true
+        type: string 
+      repo_url:
+        required: true
+        type: string
+
+jobs:
+  update_submodule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Sync ${{ inputs.submodule_name }}
+        run: |
+          cd ${{ inputs.submodule_path }}
+          git fetch origin main
+          git reset --hard origin/main
+          cd ../..
+
+      - name: Update ${{ inputs.submodule_name }}
+        run: uv run python exporter/${{ inputs.submodule_name }}/exporter.py
+
+      - name: Commit and push ${{ inputs.submodule_name }}
+        run: |
+          cd ${{ inputs.submodule_path }}
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "${{ inputs.submodule_name }}: update $(date +'%d-%b-%y')"
+            git push origin main || {
+              git pull --rebase origin main;
+              git push origin main;
+            }
+          fi
+          cd ../..
