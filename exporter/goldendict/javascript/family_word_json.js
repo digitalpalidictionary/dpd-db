@@ -2831,8 +2831,8 @@ var family_word_json = {
    [
     "abbhantara 3",
     "nt",
-    "measure of length (4 yaṭṭhi = 1 abbhantara; 28 hattha = 1 abbhantara; 4 abbhantara = 1 usabha)",
-    "✘"
+    "measure of length; lit. inside",
+    "✔"
    ],
    [
     "abbhantarika",
@@ -6234,7 +6234,7 @@ var family_word_json = {
    [
     "saṃmukhā",
     "ind",
-    "face to face (with); in front (of); present; lit. with face",
+    "face to face (with); in front (of); present; lit. from face",
     "✔"
    ],
    [
@@ -16333,8 +16333,8 @@ var family_word_json = {
    [
     "sabhāya",
     "nt",
-    "court",
-    "◑"
+    "court; public meeting hall",
+    "✔"
    ],
    [
     "sabhiya",
@@ -20437,9 +20437,15 @@ var family_word_json = {
     "nt",
     "kathina privileges; kathina allowances",
     "✔"
+   ],
+   [
+    "kathina 3",
+    "nt",
+    "kathina ceremony",
+    "✔"
    ]
   ],
-  "count": 6
+  "count": 7
  },
  "kaṇḍarā": {
   "data": [
@@ -32617,9 +32623,15 @@ var family_word_json = {
     "ind",
     "various; different",
     "◑"
+   ],
+   [
+    "visuṃ",
+    "ind",
+    "separately; singly; individually",
+    "✔"
    ]
   ],
-  "count": 2
+  "count": 3
  },
  "sāci": {
   "data": [

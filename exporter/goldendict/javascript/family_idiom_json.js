@@ -558,8 +558,14 @@ var family_idiom_json = {
   ]
  },
  "kāraṇa": {
-  "count": 2,
+  "count": 3,
   "data": [
+   [
+    "kāraṇamāha",
+    "sandhi",
+    "said for this reason; stated for this purpose",
+    "✔"
+   ],
    [
     "kāraṇaṃ kāriyamāna",
     "idiom",
@@ -3711,7 +3717,7 @@ var family_idiom_json = {
    [
     "vacanīyamevāyasmā",
     "sandhi",
-    "venerable (make yourself) admonishable; lit. able to be spoken to, venerable",
+    "venerable (make yourself) admonishable; lit. able to be spoken to, just venerable",
     "✔"
    ],
    [
@@ -4399,8 +4405,8 @@ var family_idiom_json = {
    [
     "evamassa 5",
     "sandhi",
-    "thus it should be; it should be in this way",
-    "◑"
+    "thus should be; should be in this way",
+    "✔"
    ],
    [
     "evamassu",
@@ -9641,7 +9647,7 @@ var family_idiom_json = {
    [
     "vacanīyamevāyasmā",
     "sandhi",
-    "venerable (make yourself) admonishable; lit. able to be spoken to, venerable",
+    "venerable (make yourself) admonishable; lit. able to be spoken to, just venerable",
     "✔"
    ]
   ]
@@ -11972,8 +11978,8 @@ var family_idiom_json = {
    [
     "evamassa 5",
     "sandhi",
-    "thus it should be; it should be in this way",
-    "◑"
+    "thus should be; should be in this way",
+    "✔"
    ],
    [
     "evamassu",
@@ -18431,7 +18437,7 @@ var family_idiom_json = {
    [
     "vacanīyamevāyasmā",
     "sandhi",
-    "venerable (make yourself) admonishable; lit. able to be spoken to, venerable",
+    "venerable (make yourself) admonishable; lit. able to be spoken to, just venerable",
     "✔"
    ],
    [
@@ -21766,7 +21772,7 @@ var family_idiom_json = {
   ]
  },
  "āha": {
-  "count": 14,
+  "count": 15,
   "data": [
    [
     "evamāha",
@@ -21778,6 +21784,12 @@ var family_idiom_json = {
     "evamāhaṃsu",
     "sandhi",
     "they said this; they spoke thus",
+    "✔"
+   ],
+   [
+    "kāraṇamāha",
+    "sandhi",
+    "said for this reason; stated for this purpose",
     "✔"
    ],
    [
@@ -29526,6 +29538,28 @@ var family_idiom_json = {
     "nisinnomhi",
     "sandhi",
     "I am seated",
+    "✔"
+   ]
+  ]
+ },
+ "nissaggiya": {
+  "count": 1,
+  "data": [
+   [
+    "nissaggiya pācittiya",
+    "idiom",
+    "transgression requiring relinquishment and confession; offence of expiation involving forfeiture",
+    "✔"
+   ]
+  ]
+ },
+ "pācittiya": {
+  "count": 1,
+  "data": [
+   [
+    "nissaggiya pācittiya",
+    "idiom",
+    "transgression requiring relinquishment and confession; offence of expiation involving forfeiture",
     "✔"
    ]
   ]

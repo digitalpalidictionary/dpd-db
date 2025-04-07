@@ -7920,7 +7920,7 @@ var family_set_json = {
     "yaṃkaci",
     "pron",
     "whatever; any whatsoever; everything; all",
-    "◑"
+    "✔"
    ],
    [
     "yaṃkiñci",
@@ -8281,6 +8281,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "ubhatobhāgavimutta",
+    "adj",
+    "liberated in both ways; emancipated in two regards; epithet of an arahant",
+    "✔"
+   ],
+   [
     "ohitabhāra",
     "adj",
     "who has put down the burden; who has laid down the load; epithet of an arahant",
@@ -8332,6 +8338,12 @@ var family_set_json = {
     "dhutakilesa",
     "adj",
     "with defilements shaken off; with impurities removed; epithet of an arahant",
+    "✔"
+   ],
+   [
+    "paññāvimutta",
+    "adj",
+    "liberated by understanding; emancipated by insight; epithet of an arahant",
     "✔"
    ],
    [
@@ -8479,7 +8491,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 41
+  "count": 43
  },
  "epithets of Nibbāna": {
   "data": [
@@ -22355,6 +22367,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "abbhantara 3",
+    "nt",
+    "measure of length; lit. inside",
+    "✔"
+   ],
+   [
     "usabha 3",
     "nt",
     "measure of length; 140 cubits; approximately 64 metres",
@@ -22469,7 +22487,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 22
+  "count": 23
  },
  "bhikkhupātimokkha rules": {
   "data": [
@@ -31529,7 +31547,7 @@ var family_set_json = {
     "ekūnavīsa",
     "ordin",
     "nineteenth (19th)",
-    "◑"
+    "✔"
    ],
    [
     "catuttha 1",
@@ -34195,6 +34213,18 @@ var family_set_json = {
     "✔"
    ],
    [
+    "kāyasakkhi",
+    "adj",
+    "liberated through the experience of jhāna and the formless attainments; epithet of a steam-enterer or higher; lit. body-witness",
+    "✔"
+   ],
+   [
+    "kāyasakkhī",
+    "adj",
+    "liberated through the experience of jhāna and the formless attainments; epithet of a steam-enterer or higher; lit. body-witness",
+    "✔"
+   ],
+   [
     "kolaṃkola",
     "masc",
     "stream enterer who returns to the human state two or three times; lit. family to family",
@@ -34258,6 +34288,12 @@ var family_set_json = {
     "dhammacakkhu",
     "nt",
     "insight into the nature of reality; spiritual insight; understanding of the way things are; lit. Dhamma eye",
+    "✔"
+   ],
+   [
+    "dhammānusārī 1",
+    "masc",
+    "stream enterer through understanding the teaching; lit. Dhamma follower",
     "✔"
    ],
    [
@@ -34333,7 +34369,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 30
+  "count": 33
  },
  "nine types of suttas": {
   "data": [
