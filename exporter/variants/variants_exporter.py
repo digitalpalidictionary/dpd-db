@@ -107,7 +107,13 @@ def main():
             old_corpus = corpus
 
         html_list.append("</table>")
+        html_list.append("<p class='variants_footer'>")
+        html_list.append(
+            "For more information, please visit <a class='link' href='https://digitalpalidictionary.github.io/features/variants/' target='_blank'>this webpage</a>."
+        )
+        html_list.append("</p>")
         html_list.append("</div>")
+
         html_list.append("</body>")
         html_list.append("</html>")
         html: str = "\n".join(html_list)

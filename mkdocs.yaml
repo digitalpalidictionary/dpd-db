@@ -12,6 +12,7 @@ nav:
     - Word Frequency: "features/frequency.md"
     - Deconstructor: "features/deconstructor.md"
     - Grammar Dictionary: "features/grammardict.md"
+    - Variant Readings: "features/variants.md"
   - Installation Guide:
     - "install/index.md"
     - Windows: "install/win.md"

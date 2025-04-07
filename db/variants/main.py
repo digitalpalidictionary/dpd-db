@@ -26,9 +26,9 @@ def main():
     pth: ProjectPaths = ProjectPaths()
 
     variants_dict = process_cst(variants_dict, pth)
-    variants_dict = process_sc(variants_dict, pth)
     variants_dict = process_bjt(variants_dict, pth)
     variants_dict = process_sya(variants_dict, pth)
+    variants_dict = process_sc(variants_dict, pth)
 
     save_json(variants_dict)
 

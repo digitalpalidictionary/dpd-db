@@ -1,5 +1,5 @@
 body {
-    font-family: "Noto Sans", "DejaVu Serif", "Verajja Serif";
+    font-family: "Intra", "sans-serif";
 }
 
 h3 {
@@ -48,4 +48,16 @@ hr.variants {
     height: 1px;
     margin: 0;
     padding: 0;
+}
+
+p.variants_footer {
+    border-top: 1px solid #00A4CC;
+    font-size: 0.8em;
+    margin: 5px 0 0 0;
+    padding: 5px 0px;
+}
+
+.link {
+    color: #00A4CC;
+    font-weight: 700;
 }
