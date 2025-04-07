@@ -27,7 +27,7 @@ uv run python scripts/build/families_to_json.py
 
 uv run python scripts/build/anki_updater.py
 
-uv run python db/variants/extract_variants_main.py 
+uv run python db/variants/main.py 
 
 uv run python scripts/build/deconstructor_extract_archive.py
 uv run python scripts/build/deconstructor_output_add_to_db.py
