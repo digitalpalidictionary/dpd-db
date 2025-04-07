@@ -16,7 +16,7 @@ Find out more about the key features [here](https://dhamma.gift/assets/common/ke
 
 By default, the built-in lightweight dictionary will be turned on for search results and reader pages. To choose the dictionary style that suits your needs:
 
-(1) Open [Dhamma.gift Read](https://dhamma.gift/sn2.1).
+(1) Open [Dhamma.gift Read](https://dhamma.gift/sn2.1){target="_blank"}.
 
 (2) Click the **gear icon** ⚙️ (Settings).
 

@@ -1,6 +1,6 @@
 # TipitakaPali.org
 
-DPD is completely integrated into [https://tipitakapali.org](https://tipitakapali.org). 
+DPD is completely integrated into [https://tipitakapali.org](https://tipitakapali.org){target="_blank"}. 
 
 It is an easy-to-use online and offline app that offers Pāḷi texts and dictionary lookup, as well as a few other interesting features.
 
@@ -8,7 +8,7 @@ It is an easy-to-use online and offline app that offers Pāḷi texts and dictio
 
 The app is very straightforward to use.
 
-1. Go to [https://tipitakapali.org](https://tipitakapali.org)
+1. Go to [https://tipitakapali.org](https://tipitakapali.org){target="_blank"}
 2. Open a text
 3. Click on a word
 
@@ -19,7 +19,7 @@ This gives you instant access to DPD, Pāli Text Society's PED, Monier Williams 
 
 ## AI Translation and Grammatical Analysis
 
-[https://tipitakapali.org](https://tipitakapali.org) also offers AI integration.
+[https://tipitakapali.org](https://tipitakapali.org){target="_blank"} also offers AI integration.
 
 
 To turn it on, click any word and click the AI button at the top.
@@ -36,4 +36,4 @@ This will give you a translation of the paragraph and word-by-word grammatical a
 
 ## More Info
 
-For information on how to install for offline use, please refer to [this page](https://tipitakapali.org/info).
+For information on how to install for offline use, please refer to [this page](https://tipitakapali.org/info){target="_blank"}.
