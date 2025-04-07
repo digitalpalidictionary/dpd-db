@@ -476,7 +476,7 @@ if (data.CstFreq[0] != undefined) {
 html += `
 <p>
     For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies,
-    please refer to <a class="link" href="https://digitalpalidictionary.github.io/frequency.html">this webpage</a>.
+    please refer to <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/">this webpage</a>.
 </p>
 <p class='footer'>
     If something looks out of place, <a class="link"

@@ -2,6 +2,10 @@
 
 This will help you to get DPD set up and configured in the DictTango app.
 
+If you are __mostly online__ and would prefer an easier installation, getting the latest data directly from the DPD website, install DictTango on your device and then follow [these instructions   ](../webapp/api_dicttango.md). 
+
+If you would like to install for __offline use__ then follow the instructions below.
+
 ## About DictTango
 
 DictTango uses MDict files, but offers a far better user experience than the MDict app itself.
