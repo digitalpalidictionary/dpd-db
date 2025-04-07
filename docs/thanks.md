@@ -8,6 +8,7 @@ Thank you, appreciation and <i>anumodana</i> to the following people who have co
 - **Ven. Dhammañāṇa** in Vietnam for creating the original MDict exporter
 - **Ven. Gambhīro** in Portugal for the technical expertise, and the GoldenDict exporter that started this whole chain of events
 - **Ven. Kusalacitto** in Thailand for help with the JavaScript in the GoldenDict and MDict exporters
+- **Ven. Santamanasa** in Sri Lanka for helping me through the hurdles of visa bureaucracy
 - **Prof. Aleix Ruiz Falqués** in Spain for internet classes on the classical Pāḷi grammars during Covid
 - **Prof. Bryan Levman** in Canada for detailed grammatical analysis of Dīgha Nikāya and Theragāthā
 - **Deepika** in Australia for the laptop in 2024
