@@ -1,13 +1,12 @@
 """Extract variants readings from CST texts."""
 
 import re
-from bs4 import BeautifulSoup
 from pathlib import Path
 
-from db.variants.variants_modules import context_cleaner, key_cleaner
-from db.variants.variants_modules import VariantsDict
-from db.variants.files_to_books import cst_files_to_books
+from bs4 import BeautifulSoup
 
+from db.variants.files_to_books import cst_files_to_books
+from db.variants.variants_modules import VariantsDict, context_cleaner, key_cleaner
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 

@@ -1,7 +1,6 @@
 """Extract variants readings from Sutta Central texts."""
 
 import json
-import re
 from pathlib import Path
 
 from db.variants.files_to_books import mst_files_to_books
@@ -45,9 +44,6 @@ def get_sc_file_list(pth: ProjectPaths) -> list[Path]:
 
     # Extract just the Path objects
     sorted_files = [f[2] for f in sorted_files]
-
-    for f in sorted_files:
-        print(f.name)
 
     return sorted_files
 
