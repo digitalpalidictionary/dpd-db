@@ -189,7 +189,7 @@ function hoverHelp(event) {
         bdFooterText.innerHTML = "Start again with a calm and <b>clear</b> interface."
     }
     else {
-        bdFooterText.innerHTML = 'For detailed information on this feature, please visit the <a href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" target="_blank">DPD docs website</a>. This uses <a href="https://github.com/VipassanaTech/tipitaka-xml" target="_blank">Vipassana Research Institute</a> texts'
+        bdFooterText.innerHTML = 'For detailed information on this feature, please <a href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" target="_blank">read the docs</a>. This uses <a href="https://github.com/VipassanaTech/tipitaka-xml" target="_blank">Vipassana Research Institute</a> texts'
     }
 }
 

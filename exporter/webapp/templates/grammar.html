@@ -1,5 +1,5 @@
 <h3>grammar: {{d.headword}}</h3>
-<div class='grammar_dict'>
+<div class='secondary'>
     <table class='grammar_dict'>
         <thead>
             <tr>
@@ -14,7 +14,7 @@
             {% if item[2] == "indeclinable" %}
             <tr>
                 <td>
-                    <b>{{item[1]}}</b>
+                    {{item[1]}}
                 </td>
                 <td>
                     {{item[2]}}
@@ -27,7 +27,7 @@
             
             <tr>
                 <td>
-                    <b>{{item[1]}}</b>
+                    {{item[1]}}
                 </td>
                 <td>
                     {{item[2]}}
@@ -44,4 +44,8 @@
         
         </tbody>
     </table>
+    <p class="secondary_footer">
+            For more information, please <a class='secondary_link' href='https://digitalpalidictionary.github.io/features/grammardict/' target='_blank'>read the docs</a>.
+        </p>
+    </p>
 </div>

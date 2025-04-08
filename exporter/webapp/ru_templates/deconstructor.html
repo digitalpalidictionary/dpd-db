@@ -1,6 +1,6 @@
 <h3>деконструктор: {{d.headword}}</h3>
-<div class='deconstructor'>
-    <p class='deconstructor'>
+<div class='secondary'>
+    <p class='secondary'>
         {% for deconstruction in d.deconstructions: %}
             {{deconstruction}}
         {% if not loop.last: %}
@@ -8,7 +8,7 @@
         {% endif %}
         {% endfor %}
     </p>
-    <p class='deconstructor_footer'>
+    <p class='footer'>
         Эти разбиения слов создаются автоматически. <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.lookup_key}}&entry.326955045=Деконструктор&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Предложения приветствуются здесь.</a>
         <br>Ошибки в деконструкции обычно вызваны отсутствием слова в словаре. <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Добавьте отсутствующие слова здесь</a>.
     </p>

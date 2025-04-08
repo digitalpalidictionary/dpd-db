@@ -1,6 +1,6 @@
 <h3>variants: {{ d.headword|safe }}</h3>
-<div class='variants'>
-    <table class='variants'>
+<div class="secondary">
+    <table class="variants">
         <tr>
             <th>source</th>
             <th>filename</th>
@@ -14,7 +14,7 @@
         {% if old_corpus != corpus %}
         <tr>
             <td colspan="4">
-                <hr class='variants'>
+                <hr class="secondary">
             </td>
         </tr>
         {% endif %}
@@ -33,4 +33,7 @@
         {% set old_corpus = corpus %}
         {% endfor %}
     </table>
+    <p class="secondary_footer">
+        For details on how to use this, please <a class='secondary_link' href='https://digitalpalidictionary.github.io/features/variants/' target='_blank'>read the docs</a>.
+    </p>
 </div>

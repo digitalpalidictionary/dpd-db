@@ -3,7 +3,7 @@
 
 document.addEventListener("click", function(event) {
     var target = event.target;
-    const classNames = ["button", "root_button"]
+    const classNames = ["button"]
     if (classNames.some(className => target.classList.contains(className))) {
         button_click(target);
         event.preventDefault();
@@ -30,16 +30,16 @@ function button_click(el) {
         //// only open one button at a time
 
         if (oneButtonToggleEnabled) {
-            var allButtons = document.querySelectorAll('.button, .root_button');
+            var allButtons = document.querySelectorAll('.button');
             allButtons.forEach(function(button) {
                 if (button!== el) { // Exclude the target button
                     button.classList.remove("active");
                 }
             });
 
-            var allContentAreas = document.querySelectorAll('.content, .root_content');
+            var allContentAreas = document.querySelectorAll('.primary');
             allContentAreas.forEach(function(contentArea) {
-                if (contentArea!== target &&!contentArea.classList.contains("summary")) {
+                if (contentArea !== target && !contentArea.classList.contains("summary")) {
                     contentArea.classList.add("hidden");
                 }
             });

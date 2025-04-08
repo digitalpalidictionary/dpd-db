@@ -54,6 +54,9 @@ with get_db() as db_session:
 templates = Jinja2Templates(directory="exporter/webapp/templates")
 templates_ru = Jinja2Templates(directory="exporter/webapp/ru_templates")
 
+with open("exporter/webapp/static/dpd-variables.css") as f:
+    dpd_variable_css = f.read()
+
 with open("exporter/webapp/static/dpd.css") as f:
     dpd_css = f.read()
 
@@ -62,6 +65,7 @@ with open("exporter/webapp/static/dpd.js") as f:
 
 with open("exporter/webapp/static/home_simple.css") as f:
     home_simple_css = f.read()
+
 
 # FIXME
 history_list: list[tuple[str, str, str]] = []
@@ -192,7 +196,7 @@ def db_search_gd(request: Request, search: str):
         headwords_clean_set,
         ascii_to_unicode_dict,
     )
-    global dpd_css, dpd_js, home_simple_css
+    global dpd_css, dpd_js, home_simple_css, dpd_variable_css
 
     return templates.TemplateResponse(
         "home_simple.html",
@@ -201,6 +205,7 @@ def db_search_gd(request: Request, search: str):
             "search": search,
             "dpd_results": dpd_html,
             "summary": summary_html,
+            "dpd_variable_css": dpd_variable_css,
             "dpd_css": dpd_css,
             "dpd_js": dpd_js,
             "home_simple_css": home_simple_css,
@@ -221,7 +226,7 @@ def db_search_gd_ru(request: Request, search: str):
         ascii_to_unicode_dict,
         "ru",
     )
-    global dpd_css, dpd_js, home_simple_css
+    global dpd_css, dpd_js, home_simple_css, dpd_variable_css
 
     return templates.TemplateResponse(
         "home_simple.html",
@@ -230,6 +235,7 @@ def db_search_gd_ru(request: Request, search: str):
             "search": search,
             "dpd_results": dpd_html,
             "summary": summary_html,
+            "dpd_variable_css": dpd_variable_css,
             "dpd_css": dpd_css,
             "dpd_js": dpd_js,
             "home_simple_css": home_simple_css,
