@@ -1,22 +1,32 @@
 //ссылки в футере
-  // Получаем текущий URL
-  const currentUrl = new URL(window.location.href);
-  const searchQuery = currentUrl.searchParams.get('q');
+const searchBox = document.getElementById('search-box');
 
-  // Ссылка FDG — только параметр ?q=
-  if (searchQuery) {
-    const fdgUrl = `https://dhamma.gift?p=-kn&q=${encodeURIComponent(searchQuery)}`;
-    document.getElementById('fdg-link').href = fdgUrl;
-  }
+function updateFooterLinks(query) {
+  // FDG
+  const fdgUrl = `https://dhamma.gift?p=-kn&q=${encodeURIComponent(query)}`;
+  document.getElementById('fdg-link').href = fdgUrl;
 
-  // Ссылка DPD — заменить домен, остальное оставить
+  // DPD
   const dpdUrl = new URL(window.location.href);
   dpdUrl.hostname = 'dpdict.net';
   dpdUrl.protocol = 'https:';
-  dpdUrl.port = ''; // обнуляем, чтобы не было ненужного порта
+  dpdUrl.port = '';
+  dpdUrl.searchParams.set('q', query);
   document.getElementById('dpd-link').href = dpdUrl.toString();
+}
 
+// обновляем при вводе текста
+searchBox.addEventListener('input', () => {
+  const query = searchBox.value;
+  updateFooterLinks(query);
+});
 
+// при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  const initQuery = new URL(window.location.href).searchParams.get('q') || '';
+  updateFooterLinks(initQuery);
+});
+//ссылки в футере конец
 
 
 function toggleSettings() {
