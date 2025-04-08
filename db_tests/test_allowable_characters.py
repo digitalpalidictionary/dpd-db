@@ -394,13 +394,14 @@ class AllowableCharacters():
     )
 
     source_allowed = (
-        english_capitals +
+        english_alphabet +
         source +
         digits +
         space +
         fullstop +
         dash
     )
+    
     sutta_allowed = (
         pali_alphabet +
         digits +

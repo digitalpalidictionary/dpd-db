@@ -3,6 +3,8 @@
 import re
 from pathlib import Path
 
+from icecream import ic
+
 from db.variants.files_to_books import sya_files_to_books
 from db.variants.variants_modules import VariantsDict, context_cleaner, key_cleaner
 from tools.paths import ProjectPaths

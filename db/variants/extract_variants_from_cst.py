@@ -2,6 +2,7 @@
 
 import re
 from pathlib import Path
+from icecream import ic
 
 from bs4 import BeautifulSoup
 

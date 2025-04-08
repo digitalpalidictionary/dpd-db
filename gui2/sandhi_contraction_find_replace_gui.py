@@ -9,6 +9,7 @@
 import re
 
 import flet as ft
+from icecream import ic
 from rich import print
 from sqlalchemy import or_
 
