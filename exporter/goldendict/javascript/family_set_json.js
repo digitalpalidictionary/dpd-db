@@ -8216,19 +8216,13 @@ var family_set_json = {
     "✔"
    ],
    [
-    "nāgasa 2",
-    "adj",
-    "epithet of a group of Nāgas; lit. from Nāgasa lake",
-    "✔"
-   ],
-   [
     "manopadosika",
     "adj",
     "mentally corrupted; epithet of a class of envious devas",
     "✔"
    ]
   ],
-  "count": 11
+  "count": 10
  },
  "epithets of arahants": {
   "data": [
@@ -18907,7 +18901,7 @@ var family_set_json = {
     "suhemanta",
     "masc",
     "name of an arahant monk",
-    "◑"
+    "✔"
    ],
    [
     "setuccha",
@@ -21612,7 +21606,7 @@ var family_set_json = {
     "suhemanta",
     "masc",
     "name of an arahant monk",
-    "◑"
+    "✔"
    ],
    [
     "setuccha",
@@ -24788,7 +24782,7 @@ var family_set_json = {
    [
     "issarā 2",
     "masc",
-    "name of a group of gods",
+    "name of a group of gods; lit. rulers",
     "✔"
    ],
    [
@@ -24842,7 +24836,7 @@ var family_set_json = {
    [
     "kambalassatarā",
     "masc",
-    "name of two groups of nāgas",
+    "name of two nāgas",
     "✔"
    ],
    [
@@ -25074,6 +25068,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tacchakā",
+    "masc",
+    "name of a group of nāgas; lit. cutter",
+    "✔"
+   ],
+   [
     "tatojasī",
     "masc",
     "name of a deity",
@@ -25220,7 +25220,13 @@ var family_set_json = {
    [
     "naḷorāja",
     "masc",
-    "name of a demigod; lit. king Naḷa",
+    "name of a demigod; lit. king Naḷa; (or) reed king",
+    "✔"
+   ],
+   [
+    "nāgasā",
+    "masc",
+    "names of a group of nāgas; lit. from Nāgasa lake",
     "✔"
    ],
    [
@@ -25298,7 +25304,7 @@ var family_set_json = {
    [
     "paramatta",
     "masc",
-    "name of a god",
+    "name of a god; lit. ultimate self",
     "✔"
    ],
    [
@@ -25538,13 +25544,19 @@ var family_set_json = {
    [
     "missakā",
     "masc",
-    "name of a group of deities; lit. assorted",
+    "name of a group of deities; lit. mixed",
     "✔"
    ],
    [
     "yāmā",
     "masc",
     "name of a group of deities",
+    "✔"
+   ],
+   [
+    "yāmunā",
+    "masc",
+    "name of a group of deities; lit. from the Yamunā river",
     "✔"
    ],
    [
@@ -25748,14 +25760,14 @@ var family_set_json = {
    [
     "veṇḍudevā",
     "masc",
-    "name of a group of deities; lit. Vishnu",
+    "name of a group of deities; lit. Vishnu gods",
     "✔"
    ],
    [
     "veṇhu",
     "masc",
     "name of a deity; Vishnu",
-    "✔"
+    "◑"
    ],
    [
     "venateyya",
@@ -25773,6 +25785,12 @@ var family_set_json = {
     "veroca",
     "masc",
     "name of an asura lord",
+    "✔"
+   ],
+   [
+    "vesālā",
+    "masc",
+    "name of a group of nāgas; lit. from Vesālī",
     "✔"
    ],
    [
@@ -26004,8 +26022,8 @@ var family_set_json = {
     "✔"
    ],
    [
-    "sūriyavaccasa",
-    "masc",
+    "sūriyavaccasā",
+    "fem",
     "name of a demigod; lit. power of the sun",
     "✔"
    ],
@@ -26082,7 +26100,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 230
+  "count": 234
  },
  "animals": {
   "data": [
@@ -28089,7 +28107,7 @@ var family_set_json = {
    [
     "pārichatta",
     "masc",
-    "name of a type of tree; Bauhinia variegata; lit. sunshade all around",
+    "orchid tree; Bauhinia variegata; lit. sunshade all around",
     "✔"
    ],
    [
@@ -35104,7 +35122,7 @@ var family_set_json = {
    [
     "pārichatta",
     "masc",
-    "name of a type of tree; Bauhinia variegata; lit. sunshade all around",
+    "orchid tree; Bauhinia variegata; lit. sunshade all around",
     "✔"
    ],
    [
@@ -37008,7 +37026,7 @@ var family_set_json = {
    ],
    [
     "brahmapurohita",
-    "adj",
+    "masc",
     "high priest of Brahma",
     "✔"
    ],

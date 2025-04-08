@@ -181,7 +181,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √īr 2	8	*e	speak	√īr	1, 2	set in motion	saṃ ud √īr	samudīr	
 √īs	3	ya	have power	√īś	1, 2	be master	√īs	īś	aiśvarya, anīśvara, īśa, īśāna, īśvara, īśvarāḥ < īśvara, īśvarī, īśvarīya, īṣṭe, īśate
 √īs	3	ya	have power	√īś	1, 2	be master	abhi √īs	-	na + adhīśvara
-√īh	1	a	strive	√īh	1	be eager	√īh	īh	īhā, nirīhā
+√īh	1	a	strive	√īh	1	be eager	√īh	īh	īhā, dus + īhita, nirīhā
 √īh	1	a	strive	√īh	1	be eager	saṃ √īh		samīhita
 √ukkh	1	a	sprinkle, pour	√ukṣ	1	sprinkle	ava √ukkh	avokṣ	ukṣita
 √uc	3	ya	comfort	√uc	4	be pleased	√uc		oka, okas, na + oka
@@ -556,7 +556,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khā	1	a	tell, announce	√khyā	2	see	saṃ √khā	saṃkhyā	asaṃkhyeya, asaṃkhyeya (na + saṃkhyeya), saṃkhyāka, saṃkhyāta, saṃkhyāta +, saṃkhyāti, saṃkhyātuṃ, saṃkhyāna, saṃkhyeya, saṃkhyeya +
 √khā	1	*aya	tell, announce	√khyā	2	see	saṃ ava √khā		saṃ + avakhyā
 √khā	1	a	tell, announce	√khyā	2	see	saṃ ā √khā	samākhyā	
-√khād	1	a	chew	√khād	1	chew	√khād	khād	akhādat, akhādita, akhādīt, khāda, khādaka, khādat, khādati, khādana, khādanīya, khādamāna, khādayat, khādayati, khādayitvā, khādikā, khādita, khāditavya, khāditum, khāditvā, khādin, khādya, khādyaka, khādyat, khādyamāna, na + khādana
+√khād	1	a	chew	√khād	1	chew	√khād	khād	akhādat, akhādita, akhādīt, khāda, khādaka, khādat, khādati, khādana, khādanīya, khādamāna, khādayat, khādayati, khādayitvā, khādikā, khādita, khāditavya, khāditum, khāditvā, khādin, khādya, khādyaka, khādyat, khādyate, khādyamāna, na + khādana
 √khād	1	a	chew	√khād	1	chew	ni √khād		ni + khādana
 √khād	1	a	chew	√khād	1	chew	pati √khād		prati + khādati, prati + khāditum
 √khād	1	a	chew	√khād	1	chew	saṃ √khād	saṃkhād	na + saṃkhāditvā, saṃkhādita, saṃkhāditvā
@@ -1096,21 +1096,21 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √takk	8	*e	think	√tark	10	think	pa vi √takk	vitark	pra + vitarkayat
 √takk	8	*e	think	√tark	10	think	pari vi √takk	vitark	na + parivitarkita, parivitarka, parivitarkita, su + parivitarkita
 √takk	8	*e	think	√tark	10	think	vi √takk	vitark	avitarka, ku + vitarka, vitarka, vitarkana, vitarkayat, vitarkayati, vitarkayamāna, vitarkayitum, vitarkayitvā, vitarkita, vitarkitavya, savitarka
-√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	√tacch		atakṣīt, takṣ, takṣat, takṣaka, takṣaṇa, takṣati, takṣayati, takṣayitvā, takṣitvā, taṣṭvā, taṣṭa
-√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	apa √tacch		apa + takṣaka
-√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	vi √tacch		vitakṣ, vitakṣita, su + vitakṣita
-√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	vi pa √tacch		vitakṣamāṇa
+√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	√tacch	takṣ	atakṣīt, takṣ, takṣat, takṣaka, takṣaṇa, takṣati, takṣayati, takṣayitvā, takṣitvā, taṣṭvā, taṣṭa
+√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	apa √tacch	apatakṣ	apa + takṣaka
+√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	vi √tacch	vitakṣ	vitakṣ, vitakṣita, su + vitakṣita
+√tacch	1	a	cut, chop	√takṣ √tvakṣ	1, 2, 5	fashion	vi pa √tacch	pratakṣ	vitakṣamāṇa
 √tajj	8	*e	frighten, threaten	√tarj	1	threaten	√tajj	tarj	tarjanā +, tarjanīya, tarjayat, tarjayati, tarjayitvā, tarjita, tarjitvā
-√tajj	8	*e	frighten, threaten	√tarj	1	threaten	pari √tajj		pari + tarjanā
+√tajj	8	*e	frighten, threaten	√tarj	1	threaten	pari √tajj	paritarj	pari + tarjanā
 √tajj	8	*aya	frighten, threaten	√tarj	1	threaten	saṃ √tajj	saṃtarj	saṃtarjana, saṃtarjayat, saṃtarjayamāna
 √tan	7	o	stretch, extend	√tan	8	stretch	√tan	tan	tata, tanu, tanuka, tanutara, tanutva, tanoti, tanute, tanti, tantra, tantrī, tantrī, tantu, tānayitvā, satata, satataṃ, sātatika, sutanu
-√tan	7	o	stretch, extend	√tan	8	stretch	ati √tan		ati + tanu, na + ati + tanu
+√tan	7	o	stretch, extend	√tan	8	stretch	ati √tan	tan	ati + tanu, na + ati + tanu
 √tan	7	o	stretch, extend	√tan	8	stretch	ava √tan	avatan	avatanta
 √tan	7	o	stretch, extend	√tan	8	stretch	ā √tan	ātan	
 √tan	7	o	stretch, extend	√tan	8	stretch	ud √tan	uttan	uttāna, uttānaka
 √tan	7	o	stretch, extend	√tan	8	stretch	vi √tan	vitan	vitata, vitāna, vistṛṇoti < vistṛ, vyastārṣīt < vistṛ
 √tan	7	o	stretch, extend	√tan	8	stretch	saṃ √tan	saṃtan	santanayitum, saṃtata, saṃtati, saṃtāna, saṃtānaka, saṃtānikā, sātatya
-√tan	7	o	stretch, extend	√tan	8	stretch	saṃ ava √tan		
+√tan	7	o	stretch, extend	√tan	8	stretch	saṃ ava √tan	avatan	
 √tand	1	a	be slow, be lazy	√tand √tandr	1	be weary	√tand	tand	atandrita, atandrin, tandritā, tandrī
 √tap	1	a	burn, radiate heat	√tap	1	heat	√tap	tap	tapa, tapat, tapati, tapanīya, tapamāna, tapas, tapasvitā, tapasvin, tapta, taptavya, tapitavya, tapyate, tāpa, tāpana, tāpayati, tāpayitvā, tāpasa, na + tapanīya, sutapta
 √tap	1	a	burn, radiate heat	√tap	1	heat	anu √tap	anutap	anutapya, anutāpa, anutāpin, na + anutapya
@@ -3220,7 +3220,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √har 1	1	a	carry	√hṛ	1	take	nī √har	nirhṛ	dus + nirharaṇīya, na + nirhṛta, nirharaṇa, nirharaṇīya, nirharat, nirharati, nirharayitavya, nirhartavya, nirhartum, nirharyate, nirhāra, nirhāraka, nirhrayitvā, nirhṛta, nirhṛtvā, su + nirharaṇīya, su + nirhṛta
 √har 1	1	a	carry	√hṛ	1	take	pa √har	prahṛ	na + praharat, praharaṇa, praharat, praharati, prahartum, prahartvā, prahāra, prahāra +, prahārin
 √har 1	1	a	carry	√hṛ	1	take	pa vi ā √har	pravyāhṛ	pravyāharati
-√har 1	1	a	carry	√hṛ	1	take	pati √har	pratihṛ	apratihārya, na + prātihārya, pratiharati, pratihartavya, pratihāra, pratīhartṛ, pratihāraka (juggler), prātihārya, sa + prātihārya
+√har 1	1	a	carry	√hṛ	1	take	pati √har	pratihṛ	apratihārya, na + prātihārya, pratiharaṇa, pratiharati, pratihartavya, pratihāra, pratīhartṛ, pratihāraka (juggler), prātihārya, sa + prātihārya
 √har 1	1	a	carry	√hṛ	1	take	pati ā √har	pratyāhṛ	pratyāharati, pratyāharayati, pratyāhāra
 √har 1	1	a	carry	√hṛ	1	take	pati pa √har	prahṛ	pratiprahāra
 √har 1	1	a	carry	√hṛ	1	take	pati vi ā √har	pratisaṃhṛ	

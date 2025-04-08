@@ -21,6 +21,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |2nd|second person|you; you all|
 |3rd|third person|he; they|
 |abbrev|abbreviation||
+|abhi|Abhidhamma|The meaning is mostly limited to Abhidhamma texts.|
 |abl|ablative case|generally showing separation (from, away from)<br/>(e.g. from that)|
 |abs|absolutive verb|A verb, often a combination of having + past participle, expressing completed action (e.g. having approached; having made)|
 |abstr|abstract noun|A concept or idea not associated with any specific instance or any concrete thing (e.g. friendliness)|
@@ -144,22 +145,22 @@ There are two types of abbreviations: Grammatical and Textual.
 |DHP|Dhammapada|Book 2 of the Khuddaka Nikāya; Dhamma Verses|
 |DHPa|Dhammapada Aṭṭhakathā,|Commentary to Dhammapada compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”|
 |DHS|Dhammasaṅgaṇīpāḷi||
+|DhS|Dhammasaṅgaṇī|Book 1 of the Abhidhamma Piṭaka; enumeration of phenomena|
+|DhSa|Dhammasaṅgaṇī aṭṭhakathā|Commentary on the Dhammasaṅgaṇi compiled by Ven. Buddhaghosa;  “Exposition of Meaning”|
 |DHSt|Dhammasaṅgaṇī Ṭīkā||
+|DhSṭ|Dhammasaṅgaṇī mūlaṭīkā||
 |DN|Dīgha Nikāya|Book 1 of the Sutta Piṭaka; Collection of Long Discourses; lit. long collection|
 |DNa|Dīgha Nikāya Aṭṭhakathā, Sumaṅgalavilāsinī|Commentary on the Dīgha Nikāya compiled by Ven. Buddhaghosa; lit. very auspicious and charming|
 |DNt|Dīgha Nikāya Ṭīkā, Sādhuvilāsinī||
-|DhS|Dhammasaṅgaṇī|Book 1 of the Abhidhamma Piṭaka; enumeration of phenomena|
-|DhSa|Dhammasaṅgaṇī aṭṭhakathā|Commentary on the Dhammasaṅgaṇi compiled by Ven. Buddhaghosa;  “Exposition of Meaning”|
-|DhSṭ|Dhammasaṅgaṇī mūlaṭīkā||
 |EV|Elder's Verses by K.R.Norman||
 |ITI|Itivuttaka|Book 4 of the Khuddaka Nikāya; Quotations; lit. thus said|
 |ITIa|Itivuttaka Aṭṭhakathā, Paramatthadīpanī||
 |JA|Jātaka|Books 14 and 15 of the Khuddaka Nikāya; birth stories|
 |JAa|Jātaka Aṭṭhakathā|Commentary to Jātaka compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”|
 |Kacc|Kaccāyana|name of a famous grammatical treatise (Kaccāyanabyākaraṇa), and the classical school of Pāḷi grammar which ascribes to it (Kaccāyanabyākaraṇa-vāda)|
-|KMt|Khuddasikkhā Mūlasikkhā, Vinaya sub-commentary||
 |KHP|Khuddaka Pāṭha|Books 1 of the Khuddaka Nikāya; lit. small passage|
 |KHPa|Khuddakapāṭha Aṭṭhakathā, Paramatthajotikā||
+|KMt|Khuddasikkhā Mūlasikkhā, Vinaya sub-commentary||
 |KV|Kathāvatthupāḷi||
 |KVa|Kaṅkhāvitaraṇīaṭṭhakathā|Commentary to the Pāṭimokkha, Vinayapiṭaka, compiled by Ven. Buddhaghosa|
 |KVt|Kaṅkhāvitaraṇī Purāṇaṭīkā and Kaṅkhāvitaraṇī Abhinavaṭīkā, Vinaya sub-commentary||

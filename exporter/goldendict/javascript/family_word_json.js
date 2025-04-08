@@ -1547,7 +1547,7 @@ var family_word_json = {
    [
     "gāmaka 2",
     "adj",
-    "from the village of; living in the village of; lit. related to the village",
+    "from the village of; living in the village of",
     "✔"
    ],
    [
@@ -2997,6 +2997,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "pāriyanta",
+    "adj",
+    "border; outlying; frontier",
+    "✔"
+   ],
+   [
     "byanta 1",
     "nt",
     "end; conclusion; finish",
@@ -3189,7 +3195,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 118
+  "count": 119
  },
  "acchara": {
   "data": [
@@ -6335,7 +6341,7 @@ var family_word_json = {
    [
     "lahutā",
     "fem",
-    "(abhidhamma) lightness; buoyancy",
+    "(abhi) lightness; buoyancy",
     "◑"
    ],
    [
@@ -8205,7 +8211,7 @@ var family_word_json = {
    [
     "itthitta",
     "nt",
-    "female state; femininity; fact of being female; lit. woman state",
+    "fact of being female; femininity; female state; lit. woman state",
     "✔"
    ],
    [
@@ -9001,7 +9007,7 @@ var family_word_json = {
    [
     "ariya 6",
     "adj",
-    "(abhidhamma) supra-mundane",
+    "(abhi) supra-mundane",
     "✔"
    ],
    [
@@ -9431,7 +9437,7 @@ var family_word_json = {
    [
     "aniccatā 2",
     "fem",
-    "(abhidhamma) momentariness; lit. not permanent state",
+    "(abhi) momentariness; lit. not permanent state",
     "◑"
    ],
    [
@@ -10207,6 +10213,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "vacchatara",
+    "masc",
+    "young bull; bullock; lit. more than a calf",
+    "✔"
+   ],
+   [
     "vacchara",
     "nt",
     "year",
@@ -10231,7 +10243,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 7
+  "count": 8
  },
  "seṭṭha": {
   "data": [
@@ -12421,7 +12433,7 @@ var family_word_json = {
    [
     "puttatta",
     "nt",
-    "state of being a son; fact of being a son; lit. son state",
+    "state of being a son; fact of being a son (of); lit. son state",
     "✔"
    ],
    [
@@ -17309,9 +17321,15 @@ var family_word_json = {
     "ind",
     "indeed; truly; surely",
     "✔"
+   ],
+   [
+    "sudaṃ 1",
+    "ind",
+    "indeed; truly; surely",
+    "✔"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "hari": {
   "data": [
@@ -25668,13 +25686,25 @@ var family_word_json = {
  "timbaru": {
   "data": [
    [
+    "timbaru 1",
+    "masc",
+    "fruit of Strychnos nux-vomica or Malabar ebony; Diospyros malabarica",
+    "✔"
+   ],
+   [
+    "timbaruka",
+    "masc",
+    "name of a paribbājaka",
+    "✘"
+   ],
+   [
     "timbarū",
     "masc",
     "name of a demigod king; lit. strychnine",
     "✔"
    ]
   ],
-  "count": 1
+  "count": 3
  },
  "tiracchāna": {
   "data": [
@@ -27072,9 +27102,9 @@ var family_word_json = {
     "✔"
    ],
    [
-    "nāgasa 2",
-    "adj",
-    "epithet of a group of Nāgas; lit. from Nāgasa lake",
+    "nāgasā",
+    "masc",
+    "names of a group of nāgas; lit. from Nāgasa lake",
     "✔"
    ],
    [
@@ -30849,6 +30879,12 @@ var family_word_json = {
  "mālā": {
   "data": [
    [
+    "māla 2.1",
+    "nt",
+    "garland; wreath",
+    "✔"
+   ],
+   [
     "mālavant",
     "adj",
     "with garland; having wreath",
@@ -30897,7 +30933,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "māsa2": {
   "data": [
@@ -31815,17 +31851,6 @@ var family_word_json = {
    ]
   ],
   "count": 3
- },
- "vaccha1": {
-  "data": [
-   [
-    "vacchatara",
-    "masc",
-    "young bull; bullock; lit. more than a calf",
-    "✔"
-   ]
-  ],
-  "count": 1
  },
  "vajira": {
   "data": [
@@ -32831,7 +32856,7 @@ var family_word_json = {
     "veṇhu",
     "masc",
     "name of a deity; Vishnu",
-    "✔"
+    "◑"
    ]
   ],
   "count": 1
@@ -32882,6 +32907,12 @@ var family_word_json = {
     "vesāla",
     "adj",
     "from Vesālī",
+    "◑"
+   ],
+   [
+    "vesālā",
+    "masc",
+    "name of a group of nāgas; lit. from Vesālī",
     "✔"
    ],
    [
@@ -32903,7 +32934,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "vessa": {
   "data": [
