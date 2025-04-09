@@ -44,7 +44,7 @@ def main():
     )
 
     dict_vars = DictVariables(
-        css_path=None,
+        css_paths=None,
         js_paths=None,
         gd_path=Path("exporter/other_dictionaries/goldendict/"),
         md_path=Path("exporter/other_dictionaries/mdict/"),

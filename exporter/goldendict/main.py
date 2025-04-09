@@ -181,7 +181,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_name = "ru-dpd"
 
     dict_var = DictVariables(
-        css_path=g.paths.dpd_css_path,
+        css_paths=[g.paths.dpd_css_path],
         js_paths=[
             g.paths.family_compound_json,
             g.paths.family_compound_template_js,

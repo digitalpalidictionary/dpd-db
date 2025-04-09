@@ -71,12 +71,12 @@ def main():
         html_list: list[str] = []
         html_list.append(header)
         html_list.append("<body>")
-        html_list.append("<div class='variants'>")
+        html_list.append("<div class='secondary'>")
         html_list.append("<table class='variants'>")
         html_list.append(
             "<tr><th>source</th><th>book</th><th>context</th><th>variant</th></tr>"
         )
-        html_list.append("<td colspan='100%'><hr class='variants'></td>")
+        html_list.append("<td colspan='100%'><hr class='secondary'></td>")
 
         synonyms_list: list[str] = []
 
@@ -87,7 +87,7 @@ def main():
 
         for corpus, data2 in data_tuple.items():
             if old_corpus and old_corpus != corpus:
-                html_list.append("<td colspan='100%'><hr class='variants'></td>")
+                html_list.append("<td colspan='100%'><hr class='secondary'></td>")
 
             for book, data3 in data2.items():
                 for data_tuple in data3:
@@ -109,7 +109,7 @@ def main():
         html_list.append("</table>")
         html_list.append("<p class='secondary_footer'>")
         html_list.append(
-            "For more information, please visit <a class='secondary_link' href='https://digitalpalidictionary.github.io/features/variants/' target='_blank'>this webpage</a>."
+            "For more information, please visit <a class='link' href='https://digitalpalidictionary.github.io/features/variants/' target='_blank'>this webpage</a>."
         )
         html_list.append("</p>")
         html_list.append("</div>")
@@ -138,7 +138,7 @@ def main():
     )
 
     dict_vars = DictVariables(
-        css_path=pth.variants_css_path,
+        css_paths=[pth.dpd_css_path],
         js_paths=None,
         gd_path=pth.share_dir,
         md_path=pth.share_dir,

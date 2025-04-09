@@ -143,7 +143,7 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         dict_name = "ru-dpd-deconstructor"
 
     dict_vars = DictVariables(
-        css_path=g.pth.deconstructor_css_path,
+        css_paths=[g.pth.dpd_css_path],
         js_paths=None,
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,

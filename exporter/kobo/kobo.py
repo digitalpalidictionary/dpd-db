@@ -139,7 +139,7 @@ def main():
     )
 
     dict_var_gd = DictVariables(
-        css_path=None,
+        css_paths=None,
         js_paths=None,
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,

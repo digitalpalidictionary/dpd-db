@@ -73,7 +73,7 @@ def main():
     )
 
     dict_var = DictVariables(
-        css_path=Path("exporter/sinhala/dpd_sinhala.css"),
+        css_paths=[Path("exporter/sinhala/dpd_sinhala.css")],
         js_paths=None,
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,

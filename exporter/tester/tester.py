@@ -37,7 +37,7 @@ def main():
     )
 
     dict_vars = DictVariables(
-        css_path=css_path,
+        css_paths=[css_path],
         js_paths=None,
         gd_path=Path("exporter/tester/"),
         md_path=Path("exporter/tester/"),

@@ -70,7 +70,7 @@ def export_goldendict_and_mdict(g: GlobalVars):
     )
 
     dict_vars = DictVariables(
-        css_path=None,
+        css_paths=None,
         js_paths=None,
         gd_path=g.pth.sin_eng_sin_gd_path,
         md_path=g.pth.sin_eng_sin_mdict_path,

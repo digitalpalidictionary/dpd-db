@@ -111,7 +111,7 @@ def compile_css_js_assets(g: ProgData) -> None:
 
     try:
         g.assets = []
-        file_list = [g.dict_var.css_path] if g.dict_var.css_path else []
+        file_list = g.dict_var.css_paths if g.dict_var.css_paths else []
         file_list += g.dict_var.js_paths if g.dict_var.js_paths else []
 
         for file in file_list:

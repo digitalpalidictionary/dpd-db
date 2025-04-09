@@ -171,10 +171,10 @@ def generate_grammar_dict(g: ProgData):
     # create the header from a template
     header_templ = Template(filename=str(g.pth.grammar_dict_header_templ_path))
     html_header = render_header_templ(g.pth, css="", js="", header_templ=header_templ)
-    html_header += "<body><div class='grammar_dict'><table class='grammar_dict'>"
+    html_header += "<body><div class='secondary'><table class='grammar_dict'>"
     html_header += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>"
 
-    html_table_header = "<body><div class='grammar_dict'><table class='grammar_dict'>"
+    html_table_header = "<body><div class='secondary'><table class='grammar_dict'>"
 
     # process the inflections of each word in DpdHeadword
     for counter, i in enumerate(g.db):
@@ -461,12 +461,12 @@ def prepare_gd_mdict_and_export(g: ProgData):
         dict_name = "ru-dpd-grammar"
 
     dict_vars = DictVariables(
-        css_path=g.pth.grammar_css_path,
+        css_paths=[g.pth.dpd_css_path],
         js_paths=[g.pth.sorter_js_path],
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,
         dict_name=dict_name,
-        icon_path=g.pth.dpd_logo_dark_svg,
+        icon_path=g.pth.dpd_logo_svg,
         zip_up=False,
         delete_original=False,
     )

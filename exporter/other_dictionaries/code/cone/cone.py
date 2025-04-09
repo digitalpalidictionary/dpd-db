@@ -178,7 +178,7 @@ def main():
     )
 
     dict_var = DictVariables(
-        css_path=pth.cone_css_path,
+        css_paths=[pth.cone_css_path],
         js_paths=None,
         gd_path=pth.cone_gd_path,
         md_path=pth.cone_mdict_path,

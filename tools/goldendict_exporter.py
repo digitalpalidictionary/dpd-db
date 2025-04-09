@@ -59,7 +59,7 @@ class DictVariables:
 
     def __init__(
         self,
-        css_path: Optional[Path],
+        css_paths: Optional[list[Path]],
         js_paths: Optional[list[Path]],
         gd_path: Path,
         md_path: Path,
@@ -69,7 +69,7 @@ class DictVariables:
         zip_up: bool = False,
         delete_original: bool = False,
     ) -> None:
-        self.css_path: Optional[Path] = css_path
+        self.css_paths: Optional[list[Path]] = css_paths
         self.js_paths: Optional[list[Path]] = js_paths
 
         self.gd_path: Path = gd_path.joinpath(dict_name)
@@ -178,11 +178,12 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add CSS file."""
 
     pr.white("adding css")
-    if dict_var.css_path and dict_var.css_path.exists():
-        with open(dict_var.css_path, "rb") as f:
-            css = f.read()
-            glos.addEntry(glos.newDataEntry(dict_var.css_path.name, css))  # type:ignore
-            pr.yes("ok")
+    if dict_var.css_paths:
+        for css_path in dict_var.css_paths:
+            if css_path and css_path.exists():
+                css = css_path.read_bytes()
+                glos.addEntry(glos.newDataEntry(css_path.name, css))
+        pr.yes("ok")
     else:
         pr.yes("no")
     return glos
@@ -195,9 +196,8 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     if dict_var.js_paths:
         for js_path in dict_var.js_paths:
             if js_path and js_path.exists():
-                with open(js_path, "rb") as f:
-                    js = f.read()
-                    glos.addEntry(glos.newDataEntry(js_path.name, js))  # type:ignore
+                js = js_path.read_bytes()
+                glos.addEntry(glos.newDataEntry(js_path.name, js))
         pr.yes("ok")
     else:
         pr.yes("no")
