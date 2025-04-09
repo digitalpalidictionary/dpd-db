@@ -9724,7 +9724,7 @@ var family_idiom_json = {
    [
     "ussukkaṃ karoti",
     "idiom",
-    "makes every effort to provide (someone with something); ensures that (someone has something); lit. makes zeal",
+    "makes every effort to provide (someone with); ensures that (someone has); lit. makes zeal",
     "✔"
    ],
    [
@@ -9922,7 +9922,7 @@ var family_idiom_json = {
    [
     "samaṃ karoti",
     "idiom",
-    "equates; likens (somebody with somebody else)",
+    "equates; likens (somebody with)",
     "✔"
    ],
    [
@@ -19826,7 +19826,7 @@ var family_idiom_json = {
    [
     "samaṃ karoti",
     "idiom",
-    "equates; likens (somebody with somebody else)",
+    "equates; likens (somebody with)",
     "✔"
    ],
    [
@@ -23551,7 +23551,7 @@ var family_idiom_json = {
    [
     "ussukkaṃ karoti",
     "idiom",
-    "makes every effort to provide (someone with something); ensures that (someone has something); lit. makes zeal",
+    "makes every effort to provide (someone with); ensures that (someone has); lit. makes zeal",
     "✔"
    ]
   ]

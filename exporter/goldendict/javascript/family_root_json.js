@@ -1478,7 +1478,7 @@ var family_root_json = {
    [
     "karitvā 4",
     "abs",
-    "having compared (somebody with somebody); lit. having made",
+    "having compared (somebody with); lit. having made",
     "✔"
    ],
    [
@@ -10328,7 +10328,7 @@ var family_root_json = {
    [
     "gāhāpetabba",
     "ptp",
-    "should be told to choose; can be asked to take; lit. to be caused to grasp",
+    "should be made to choose; should be asked to take; lit. to cause to be grasp",
     "✔"
    ],
    [
@@ -12053,7 +12053,7 @@ var family_root_json = {
   "root_key": "√ghaṭṭ 1",
   "root_family": "√ghaṭṭ",
   "root_meaning": "hit, strike",
-  "count": 29,
+  "count": 31,
   "data": [
    [
     "aghaṭṭana",
@@ -12161,6 +12161,18 @@ var family_root_json = {
     "ghaṭṭiyamāna",
     "prp",
     "being injured (by)",
+    "◑"
+   ],
+   [
+    "ghaṭṭetabba 1",
+    "ptp",
+    "should be hit; should be struck (by); lit. to be hit",
+    "✔"
+   ],
+   [
+    "ghaṭṭetabba 2",
+    "ptp",
+    "should be verbally hit; should be shocked with words; lit. to be hit",
     "◑"
    ],
    [
@@ -16664,7 +16676,7 @@ var family_root_json = {
    [
     "acchinditvā 2",
     "abs",
-    "having snatched away; having stolen; having robbed (something from somewhere)",
+    "having snatched away; having stolen; having robbed (something from)",
     "✔"
    ],
    [
@@ -17038,7 +17050,7 @@ var family_root_json = {
    [
     "chindiya 2",
     "ger",
-    "cutting off; severing (something with something)",
+    "cutting off; severing (something with)",
     "✔"
    ],
    [
@@ -19380,7 +19392,7 @@ var family_root_json = {
    [
     "jānāti 4",
     "pr",
-    "(rightly or wrongly) believes; assumes; considers (someone to be something)",
+    "(rightly or wrongly) believes; assumes; considers (someone to be)",
     "✔"
    ],
    [
@@ -23897,7 +23909,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "√ṭhā",
   "root_meaning": "stand",
-  "count": 175,
+  "count": 174,
   "data": [
    [
     "aṭṭhatvā",
@@ -24929,12 +24941,6 @@ var family_root_json = {
     "therī",
     "fem",
     "senior nun; nun of ten years standing; lit. old woman",
-    "✔"
-   ],
-   [
-    "vitthāyati",
-    "pr",
-    "is ashamed; is embarrassed",
     "✔"
    ],
    [
@@ -26432,7 +26438,7 @@ var family_root_json = {
    [
     "tāreti",
     "pr",
-    "saves; helps across; rescues (somebody from something); lit. causes to cross",
+    "saves; helps across; rescues (somebody from); lit. causes to cross",
     "✔"
    ],
    [
@@ -26780,7 +26786,7 @@ var family_root_json = {
    [
     "atikassa",
     "ger",
-    "drawing; pulling (something through something)",
+    "drawing; pulling (something through)",
     "✔"
    ]
   ]
@@ -29044,7 +29050,7 @@ var family_root_json = {
    [
     "ativirocati",
     "pr",
-    "outshines; surpasses (someone in regard to something)",
+    "outshines; surpasses (someone in regard to)",
     "✔"
    ],
    [
@@ -29776,7 +29782,7 @@ var family_root_json = {
    [
     "tulayitvāna",
     "abs",
-    "having compared (something with something)",
+    "having compared (something with)",
     "✔"
    ],
    [
@@ -29842,7 +29848,7 @@ var family_root_json = {
    [
     "tuletvā 1",
     "abs",
-    "having weighed (something with something)",
+    "having weighed (something with)",
     "✔"
    ],
    [
@@ -30820,7 +30826,7 @@ var family_root_json = {
    [
     "sati 2.2",
     "prp",
-    "when are; when exist; lit. in being",
+    "when there is; when there are; when (something) exists; lit. in being",
     "✔"
    ],
    [
@@ -32080,7 +32086,7 @@ var family_root_json = {
    [
     "dassayitabba",
     "ptp",
-    "should be shown to be; should be made to see (something as something); lit. to cause to be seen",
+    "should be shown to be; should be made to see (something as); lit. to cause to be seen",
     "✔"
    ],
    [
@@ -32852,7 +32858,7 @@ var family_root_json = {
    [
     "adāsayi",
     "aor",
-    "gave; offered (something to someone)",
+    "gave; offered (something to)",
     "✔"
    ],
    [
@@ -32966,7 +32972,7 @@ var family_root_json = {
    [
     "datvā 1",
     "abs",
-    "having given; having offered; having donated (something to someone)",
+    "having given; having offered; having donated (something to)",
     "✔"
    ],
    [
@@ -33008,7 +33014,7 @@ var family_root_json = {
    [
     "dadāti",
     "pr",
-    "gives; offers; donates; grants (something to someone)",
+    "gives; offers; donates; grants (something to)",
     "✔"
    ],
    [
@@ -33038,7 +33044,7 @@ var family_root_json = {
    [
     "dadeyya",
     "opt",
-    "would give (something to someone)",
+    "would give (something to)",
     "✔"
    ],
    [
@@ -33056,7 +33062,7 @@ var family_root_json = {
    [
     "dassati 1.1",
     "fut",
-    "will give (something to someone)",
+    "will give (something to)",
     "✔"
    ],
    [
@@ -34098,7 +34104,7 @@ var family_root_json = {
    [
     "desayamāna",
     "prp",
-    "preaching; teaching; explaining (something to someone); lit. causing to point out",
+    "preaching; teaching; explaining (something to); lit. causing to point out",
     "✔"
    ],
    [
@@ -34212,7 +34218,7 @@ var family_root_json = {
    [
     "desetar",
     "masc",
-    "teacher; who preaches (something to someone)",
+    "teacher; who preaches (something to)",
     "✔"
    ],
    [
@@ -34230,7 +34236,7 @@ var family_root_json = {
    [
     "deseti 3",
     "pr",
-    "(vinaya) appoints (to); allocates; indicates; designate (as); lit. points out",
+    "(vinaya) appoints; allocates; designates (to); lit. causes to point out",
     "✔"
    ],
    [
@@ -36013,7 +36019,7 @@ var family_root_json = {
   "root_key": "√dhan 1",
   "root_family": "√dhan",
   "root_meaning": "be rich",
-  "count": 23,
+  "count": 25,
   "data": [
    [
     "addhana",
@@ -36097,6 +36103,18 @@ var family_root_json = {
     "dhanāyanta",
     "prp",
     "taking as one's possession; treasuring; considering to be of value",
+    "✔"
+   ],
+   [
+    "dhanāyita",
+    "pp",
+    "taken as one's possession; treasured; considered to be of value",
+    "◑"
+   ],
+   [
+    "dhanāyitabba",
+    "ptp",
+    "should be taken as one's possession; should be treasured; should be considered of value; lit. to be considered wealth",
     "✔"
    ],
    [
@@ -36410,7 +36428,7 @@ var family_root_json = {
    [
     "dhamanta 2",
     "prp",
-    "blowing; fanning; kindling (something with something)",
+    "blowing; fanning; kindling (something with)",
     "✔"
    ],
    [
@@ -37292,7 +37310,7 @@ var family_root_json = {
    [
     "dhāreti 3",
     "pr",
-    "bears in mind; keeps in mind; remembers (something about somebody); lit. carries",
+    "bears in mind; keeps in mind; remembers (something about); lit. carries",
     "✔"
    ],
    [
@@ -37310,7 +37328,7 @@ var family_root_json = {
    [
     "dhāreti 6",
     "pr",
-    "considers; accepts (something as something); lit. carries",
+    "considers; accepts (something as); lit. carries",
     "✔"
    ],
    [
@@ -38610,7 +38628,7 @@ var family_root_json = {
    [
     "adhivattha",
     "pp",
-    "lived (in); inhabited; stayed (in)",
+    "lived (in); inhabited; stayed (in); lit. lived through",
     "✔"
    ],
    [
@@ -38628,73 +38646,73 @@ var family_root_json = {
    [
     "adhivāsaka",
     "adj",
-    "patient; enduring; resistant",
+    "patient; enduring; resistant; lit. living through",
     "✔"
    ],
    [
     "adhivāsana 1",
     "nt",
-    "enduring; tolerating; withstanding; weathering",
+    "enduring; tolerating; withstanding; weathering; lit. causing to live through",
     "✔"
    ],
    [
     "adhivāsana 2",
     "nt",
-    "agreeing; consenting; accepting",
+    "agreeing; consenting; accepting; lit. causing to live through",
     "✔"
    ],
    [
     "adhivāsanā 1",
     "fem",
-    "agreeing (of); consenting (of); accepting (of)",
+    "agreeing (of); consenting (of); accepting (of); lit. causing to live through",
     "✔"
    ],
    [
     "adhivāsanā 2",
     "nt",
-    "by means of enduring; through tolerating",
+    "by means of enduring; through tolerating; lit. causing to live through",
     "✔"
    ],
    [
     "adhivāsanta",
     "prp",
-    "enduring; tolerating; withstanding; weathering",
+    "enduring; tolerating; withstanding; weathering; lit. causing to live through",
     "◑"
    ],
    [
     "adhivāsayati",
     "pr",
-    "endures; tolerates; weathers",
+    "endures; tolerates; weathers; lit. causes to live through",
     "✔"
    ],
    [
     "adhivāsayanta",
     "prp",
-    "enduring; tolerating; weathering",
+    "enduring; tolerating; weathering; lit. causing to live through",
     "✔"
    ],
    [
     "adhivāsita",
     "pp",
-    "agreed; accepted (by); lit. caused to endure",
+    "agreed; accepted (by); lit. caused to live through",
     "✔"
    ],
    [
     "adhivāsetabba",
     "ptp",
-    "should be endured; must be tolerated; lit. to cause to be endured",
+    "should be endured; must be tolerated; lit. to cause to be lived through",
     "◑"
    ],
    [
     "adhivāseti 1",
     "pr",
-    "agrees (to); consents (to); accepts; lit. to cause to be endured",
+    "agrees (to); consents (to); accepts; lit. causes to live through",
     "✔"
    ],
    [
     "adhivāseti 2",
     "pr",
-    "endures; tolerates; weathers",
+    "endures; tolerates; weathers; lit. causes to live through",
     "✔"
    ],
    [
@@ -38712,7 +38730,7 @@ var family_root_json = {
    [
     "adhivāsetvā 1",
     "abs",
-    "having endured; having tolerated",
+    "having endured; having tolerated; lit. having caused to live through",
     "◑"
    ],
    [
@@ -38724,19 +38742,19 @@ var family_root_json = {
    [
     "adhivāsenta",
     "prp",
-    "enduring; tolerating; bearing; weathering",
+    "enduring; tolerating; bearing; weathering; lit. not causing to live through",
     "✔"
    ],
    [
     "adhivāsesi 1",
     "aor",
-    "agreed (to); consented (to); accepted",
+    "agreed (to); consented (to); accepted; lit. caused to live through",
     "✔"
    ],
    [
     "adhivāsesi 2",
     "aor",
-    "endured; tolerated",
+    "endured; tolerated; lit. caused to live through",
     "✔"
    ],
    [
@@ -38748,7 +38766,7 @@ var family_root_json = {
    [
     "adhivuṭṭha",
     "pp",
-    "accepted; consented; agreed (by)",
+    "accepted; consented; agreed (by); lit. lived through",
     "✔"
    ],
    [
@@ -38760,31 +38778,31 @@ var family_root_json = {
    [
     "adhivuttha 2",
     "pp",
-    "accepted; agreed to (by); lit. caused to be endured",
+    "accepted; agreed to (by); lit. lived through",
     "✔"
    ],
    [
     "anadhivāsaka",
     "adj",
-    "impatient; not enduring; not resistant",
+    "impatient; not enduring; not resistant; lit. who causes to live through",
     "◑"
    ],
    [
     "anadhivāsanta",
     "prp",
-    "not enduring; not tolerating; not withstanding; not weathering",
+    "not enduring; not tolerating; not withstanding; not weathering; lit. causing to live through",
     "◑"
    ],
    [
     "anadhivāsayanta",
     "prp",
-    "not enduring; not tolerating; not weathering",
+    "not enduring; not tolerating; not weathering; lit. causing to live through",
     "✔"
    ],
    [
     "anadhivāsenta",
     "prp",
-    "refusing to accept; disagreeing (with)",
+    "refusing to accept; disagreeing (with); lit. causing to live through",
     "◑"
    ],
    [
@@ -38796,7 +38814,7 @@ var family_root_json = {
    [
     "nādhivāseti",
     "pr",
-    "does not tolerate; does not accept; does not endure",
+    "does not tolerate; does not accept; does not endure; lit. does not cause to live through",
     "✔"
    ]
   ]
@@ -39860,7 +39878,7 @@ var family_root_json = {
    [
     "namati 2",
     "pr",
-    "bows down; pays respect; worships (someone with something)",
+    "bows down; pays respect; worships (someone with)",
     "✔"
    ],
    [
@@ -42156,7 +42174,7 @@ var family_root_json = {
    [
     "anussāvetuṃ",
     "inf",
-    "to announce; to proclaim; lit. to cause to hear",
+    "to announce; to proclaim (somthing by); lit. to cause to hear",
     "✔"
    ],
    [
@@ -47308,13 +47326,13 @@ var family_root_json = {
    [
     "osiñcanta",
     "prp",
-    "pouring down; pouring over; sprinkling (something with something); lit. sprinkling down",
+    "pouring down; pouring over; sprinkling (something with); lit. sprinkling down",
     "✔"
    ],
    [
     "osiñci",
     "aor",
-    "poured onto; splashed (somebody with something); lit. sprinkled down",
+    "poured onto; splashed (somebody with); lit. sprinkled down",
     "✔"
    ],
    [
@@ -48426,7 +48444,7 @@ var family_root_json = {
    [
     "ācikkhati 2",
     "pr",
-    "describes; points out; shows (something to someone)",
+    "describes; points out; shows (something to)",
     "✔"
    ],
    [
@@ -48510,7 +48528,7 @@ var family_root_json = {
    [
     "nācikkhi",
     "aor",
-    "did not tell; did not inform; did not say (something to someone)",
+    "did not tell; did not inform; did not say (something to)",
     "✔"
    ]
   ]
@@ -48864,13 +48882,13 @@ var family_root_json = {
    [
     "anupucchati",
     "pr",
-    "asks; enquires (somebody about something)",
+    "asks; enquires (somebody about)",
     "✔"
    ],
    [
     "anupucchamāna",
     "prp",
-    "asking; enquiring; questioning (somebody about something)",
+    "asking; enquiring; questioning (somebody about)",
     "✔"
    ],
    [
@@ -49350,13 +49368,13 @@ var family_root_json = {
    [
     "anāpucchanta",
     "prp",
-    "not asking permission; not taking leave; not informing (somebody about something)",
+    "not asking permission; not taking leave; not informing (somebody about)",
     "✔"
    ],
    [
     "anāpucchā",
     "abs",
-    "having not asked permission; having not informed (somebody about something)",
+    "having not asked permission; having not informed (somebody about)",
     "✔"
    ],
    [
@@ -49368,13 +49386,13 @@ var family_root_json = {
    [
     "anāpucchitvā",
     "abs",
-    "having not asked permission; having not informed (somebody about something)",
+    "having not asked permission; having not informed (somebody about)",
     "◑"
    ],
    [
     "āpucchati",
     "pr",
-    "asks permission; asks (somebody about something)",
+    "asks permission; asks (somebody about)",
     "✔"
    ],
    [
@@ -49386,13 +49404,13 @@ var family_root_json = {
    [
     "āpucchanta",
     "prp",
-    "asking permission; informing (somebody about something)",
+    "asking permission; informing (somebody about)",
     "◑"
    ],
    [
     "āpucchā",
     "abs",
-    "having asked permission; having taken leave; having informed (somebody about something)",
+    "having asked permission; having taken leave; having informed (somebody about)",
     "✔"
    ],
    [
@@ -49416,7 +49434,7 @@ var family_root_json = {
    [
     "āpucchituṃ",
     "inf",
-    "to ask permission; to ask (somebody about something)",
+    "to ask permission; to ask (somebody about)",
     "✔"
    ],
    [
@@ -49428,7 +49446,7 @@ var family_root_json = {
    [
     "āpucchitvā",
     "abs",
-    "having asked permission; having asked (somebody about something)",
+    "having asked permission; having asked (somebody about)",
     "✔"
    ],
    [
@@ -50154,7 +50172,7 @@ var family_root_json = {
    [
     "nayi",
     "aor",
-    "led; guided; took (someone somewhere)",
+    "led; guided; took (someone to)",
     "✔"
    ],
    [
@@ -50394,7 +50412,7 @@ var family_root_json = {
    [
     "netvā 1",
     "abs",
-    "having carried; having taken (someone to somewhere)",
+    "having carried; having taken (someone to)",
     "✔"
    ],
    [
@@ -51314,7 +51332,7 @@ var family_root_json = {
    [
     "ārādhetuṃ",
     "inf",
-    "to satisfy; to please; to win favour; to impress (somebody with something); lit. to cause to please",
+    "to satisfy; to please; to win favour; to impress (somebody with); lit. to cause to please",
     "✔"
    ],
    [
@@ -51724,7 +51742,7 @@ var family_root_json = {
    [
     "āropesi 1",
     "aor",
-    "put; placed on top of; mounted (something onto something); lit. caused to ascend",
+    "put; placed on top of; mounted (something onto); lit. caused to ascend",
     "✔"
    ],
    [
@@ -51852,7 +51870,7 @@ var family_root_json = {
    [
     "anārocetvā",
     "abs",
-    "having not informed; having not announced (something to someone); lit. having not caused to inform",
+    "having not informed; having not announced (something to); lit. having not caused to inform",
     "✔"
    ],
    [
@@ -51948,7 +51966,7 @@ var family_root_json = {
    [
     "ārocetvā",
     "abs",
-    "having informed; having announced (something to someone); lit. having caused to inform",
+    "having informed; having announced (something to); lit. having caused to inform",
     "✔"
    ],
    [
@@ -52766,7 +52784,7 @@ var family_root_json = {
    [
     "āvahanaka",
     "adj",
-    "bringing; conferring; causing; conducive (something to someone); lit. carrying here",
+    "bringing; conferring; causing; conducive (something to); lit. carrying here",
     "◑"
    ],
    [
@@ -52828,13 +52846,13 @@ var family_root_json = {
    [
     "anāvāsa",
     "masc",
-    "non-residence; eviction (of)",
+    "non-residence; eviction (of); lit. not living here",
     "✔"
    ],
    [
     "anāvuṭṭha",
     "pp",
-    "not lived in; not inhabited",
+    "not lived in; not inhabited; lit. not lived here",
     "✔"
    ],
    [
@@ -52846,37 +52864,37 @@ var family_root_json = {
    [
     "āvasati 1",
     "pr",
-    "lives (in); resides (in); spends time (in)",
+    "lives (in); resides (in); spends time (in); lit. lives here",
     "✔"
    ],
    [
     "āvasati 2",
     "pr",
-    "stays; remains",
+    "stays; remains; lit. lives here",
     "✔"
    ],
    [
     "āvasatha 1",
     "masc",
-    "dwelling; house; lodging",
+    "dwelling; house; lodging; lit. living here",
     "✔"
    ],
    [
     "āvasatha 2",
     "masc",
-    "rest-house; traveller's lodge",
+    "rest-house; traveller's lodge; lit. living here",
     "✔"
    ],
    [
     "āvasanta 1",
     "prp",
-    "living (in); residing (in); inhabiting",
+    "living (in); residing (in); inhabiting; lit. living here",
     "◑"
    ],
    [
     "āvasanta 2",
     "prp",
-    "(of a king) ruling; reigning; governing; controlling; lit. living; staying",
+    "(of a king) ruling; reigning; governing; controlling; lit. living here",
     "✔"
    ],
    [
@@ -52888,37 +52906,37 @@ var family_root_json = {
    [
     "āvasi 2",
     "aor",
-    "stayed; remained",
+    "stayed; remained; lit. lived here",
     "✔"
    ],
    [
     "āvasita",
     "pp",
-    "lived; resided; stayed (in)",
+    "lived; resided; stayed (in); lit. lived here",
     "✔"
    ],
    [
     "āvasituṃ",
     "inf",
-    "to live; to remain (in); to continue (in)",
+    "to live; to remain (in); to continue (in); lit. to live here",
     "✔"
    ],
    [
     "āvāsa 1",
     "masc",
-    "home (of); dwelling place (of); residence (of)",
+    "home (of); dwelling place (of); residence (of); lit. living here",
     "✔"
    ],
    [
     "āvāsa 2",
     "masc",
-    "sphere of existence; plane of existence; lit. residence",
+    "sphere of existence; plane of existence; lit. living here",
     "✔"
    ],
    [
     "āvāsika 1",
     "adj",
-    "related to living; who lives",
+    "related to living; who lives; lit. living here",
     "✔"
    ],
    [
@@ -52930,19 +52948,19 @@ var family_root_json = {
    [
     "āvuṭṭha",
     "pp",
-    "inhabited (by); lived in (by); dwelt in (by)",
+    "inhabited (by); lived in (by); dwelt in (by); lit. lived here",
     "◑"
    ],
    [
     "āvuttha",
     "pp",
-    "inhabited (by); lived in (by); dwelt in (by)",
+    "inhabited (by); lived in (by); dwelt in (by); lit. lived here",
     "✔"
    ],
    [
     "durāvāsa",
     "adj",
-    "difficult to live in; hard to stay in",
+    "difficult to live in; hard to stay in; lit. hard living here",
     "✔"
    ]
   ]
@@ -53404,7 +53422,7 @@ var family_root_json = {
    [
     "āharati 1.1",
     "pr",
-    "brings; brings back; fetches; procures (something for somebody); lit. brings here",
+    "brings; brings back; fetches; procures (something for); lit. brings here",
     "✔"
    ],
    [
@@ -53500,7 +53518,7 @@ var family_root_json = {
    [
     "āharitvā 2",
     "abs",
-    "having brought; having fetched (something with something)",
+    "having brought; having fetched (something with)",
     "✔"
    ],
    [
@@ -53590,7 +53608,7 @@ var family_root_json = {
    [
     "nāharati",
     "pr",
-    "does not bring (something to somebody)",
+    "does not bring (something to)",
     "✔"
    ]
   ]
@@ -53616,7 +53634,7 @@ var family_root_json = {
    [
     "āhacca 1.2",
     "ger",
-    "hitting; striking; beating (something with something); lit. striking here",
+    "hitting; striking; beating (something with); lit. striking here",
     "✔"
    ],
    [
@@ -54432,7 +54450,7 @@ var family_root_json = {
    [
     "nikkhipati 3",
     "pr",
-    "sets aside; lays aside; keeps; saves; stores (something in something); lit. throws down",
+    "sets aside; lays aside; keeps; saves; stores (something in); lit. throws down",
     "✔"
    ],
    [
@@ -57552,7 +57570,7 @@ var family_root_json = {
    [
     "nibbijjhitvā",
     "abs",
-    "having penetrated; having pierced through; having broken through (something with something); lit. having pierced away",
+    "having penetrated; having pierced through; having broken through (something with); lit. having pierced away",
     "✔"
    ],
    [
@@ -58752,7 +58770,7 @@ var family_root_json = {
    [
     "niyyādeti 1",
     "pr",
-    "hands over; gives (something to someone)",
+    "hands over; gives (something to)",
     "✔"
    ],
    [
@@ -64226,37 +64244,37 @@ var family_root_json = {
    [
     "avoca",
     "aor",
-    "said (something to somebody)",
+    "said (something to)",
     "✔"
    ],
    [
     "avocaṃ",
     "aor",
-    "I said (something to somebody)",
+    "I said (something to)",
     "✔"
    ],
    [
     "avocāsi",
     "aor",
-    "he said (something to somebody)",
+    "he said (something to)",
     "✔"
    ],
    [
     "avocuttha",
     "aor",
-    "you all said (something to somebody)",
+    "you all said (something to)",
     "✔"
    ],
    [
     "avocumha",
     "aor",
-    "we said (something to somebody)",
+    "we said (something to)",
     "✔"
    ],
    [
     "avocuṃ",
     "aor",
-    "they said (something to somebody)",
+    "they said (something to)",
     "✔"
    ],
    [
@@ -66600,7 +66618,7 @@ var family_root_json = {
    [
     "upagacchi 1",
     "aor",
-    "took; accepted; regarded (something as something); lit. went towards",
+    "took; accepted; regarded (something as); lit. went towards",
     "✔"
    ],
    [
@@ -67298,7 +67316,7 @@ var family_root_json = {
    [
     "upaṭṭhahi 2",
     "aor",
-    "provided (somebody with something); lit. stood near",
+    "provided (somebody with); lit. stood near",
     "✔"
    ],
    [
@@ -70350,7 +70368,7 @@ var family_root_json = {
    [
     "upaharati",
     "pr",
-    "brings; offers; presents (something to someone)",
+    "brings; offers; presents (something to)",
     "✔"
    ],
    [
@@ -76288,7 +76306,7 @@ var family_root_json = {
    [
     "odahi 3",
     "aor",
-    "(of medicine) applied; put (something onto something); lit. placed down",
+    "(of medicine) applied; put (something onto); lit. placed down",
     "✔"
    ],
    [
@@ -82688,7 +82706,7 @@ var family_root_json = {
    [
     "sasapatta",
     "adj",
-    "hostile; antagonistic; with enmity",
+    "hostile; antagonistic; with enmity; lit. with enemy",
     "✔"
    ]
   ]
@@ -83172,7 +83190,7 @@ var family_root_json = {
    [
     "pissati",
     "fut",
-    "will drink; will imbibe (something with something)",
+    "will drink; will imbibe (something with)",
     "✔"
    ],
    [
@@ -86424,7 +86442,7 @@ var family_root_json = {
    [
     "parāmasitvā 2",
     "abs",
-    "having touched; having stroked; having caressed (something with something)",
+    "having touched; having stroked; having caressed (something with)",
     "✔"
    ],
    [
@@ -86758,7 +86776,7 @@ var family_root_json = {
    [
     "parikkhipāpesi",
     "aor",
-    "placed around; encircled; surrounded (somebody with something); lit. caused to thrown around",
+    "placed around; encircled; surrounded (somebody with); lit. caused to thrown around",
     "✔"
    ],
    [
@@ -88906,7 +88924,7 @@ var family_root_json = {
    [
     "paripucchati",
     "pr",
-    "asks about; questions; enquires; interrogates (somebody about something)",
+    "asks about; questions; enquires; interrogates (somebody about)",
     "✔"
    ],
    [
@@ -88918,7 +88936,7 @@ var family_root_json = {
    [
     "paripucchamāna",
     "prp",
-    "asking about; questioning; enquiring; interrogating (somebody about something)",
+    "asking about; questioning; enquiring; interrogating (somebody about)",
     "✔"
    ],
    [
@@ -88936,7 +88954,7 @@ var family_root_json = {
    [
     "paripucchi",
     "aor",
-    "asked; enquired (somebody about something)",
+    "asked; enquired (somebody about)",
     "✔"
    ],
    [
@@ -91744,7 +91762,7 @@ var family_root_json = {
    [
     "parivisi",
     "aor",
-    "(of food) served; waited on; offered (somebody with something); lit. was active around",
+    "(of food) served; waited on; offered (somebody with); lit. was active around",
     "✔"
    ],
    [
@@ -91950,7 +91968,7 @@ var family_root_json = {
    [
     "parisodheti",
     "pr",
-    "cleans; purifies (something of something)",
+    "cleans; purifies (something of)",
     "✔"
    ],
    [
@@ -91962,7 +91980,7 @@ var family_root_json = {
    [
     "parisodhesi",
     "aor",
-    "cleansed; purified (something of something)",
+    "cleansed; purified (something of)",
     "✔"
    ],
    [
@@ -95796,25 +95814,25 @@ var family_root_json = {
    [
     "apucchasi",
     "aor",
-    "asked; questioned (someone about something)",
+    "asked; questioned (someone about)",
     "✔"
    ],
    [
     "apucchā 1",
     "imperf",
-    "asked; enquired; questioned (somebody about something)",
+    "asked; enquired; questioned (somebody about)",
     "✔"
    ],
    [
     "apucchā 2",
     "abs",
-    "having not asked permission; having not taken leave; having not informed (somebody about something)",
+    "having not asked permission; having not taken leave; having not informed (somebody about)",
     "✔"
    ],
    [
     "apucchi",
     "aor",
-    "asked; enquired (somebody about something)",
+    "asked; enquired (somebody about)",
     "✔"
    ],
    [
@@ -95844,7 +95862,7 @@ var family_root_json = {
    [
     "apucchissaṃ",
     "aor",
-    "I asked (somebody about something)",
+    "I asked (somebody about)",
     "✔"
    ],
    [
@@ -95862,7 +95880,7 @@ var family_root_json = {
    [
     "puccha 1.1",
     "imp",
-    "please enquire!; ask! (somebody about something)",
+    "please enquire!; ask! (somebody about)",
     "✔"
    ],
    [
@@ -95874,7 +95892,7 @@ var family_root_json = {
    [
     "pucchati",
     "pr",
-    "asks; enquires; questions (somebody about something)",
+    "asks; enquires; questions (somebody about)",
     "✔"
    ],
    [
@@ -95886,7 +95904,7 @@ var family_root_json = {
    [
     "pucchanta",
     "prp",
-    "asking; enquiring; questioning (somebody about something)",
+    "asking; enquiring; questioning (somebody about)",
     "✔"
    ],
    [
@@ -95898,7 +95916,7 @@ var family_root_json = {
    [
     "pucchi",
     "aor",
-    "asked; enquired; questioned (somebody about something)",
+    "asked; enquired; questioned (somebody about)",
     "✔"
    ],
    [
@@ -95922,13 +95940,13 @@ var family_root_json = {
    [
     "pucchituṃ",
     "inf",
-    "to ask; to enquire; to question (somebody about something)",
+    "to ask; to enquire; to question (somebody about)",
     "✔"
    ],
    [
     "pucchitvā",
     "abs",
-    "having asked; having enquired; having questioned (somebody about something)",
+    "having asked; having enquired; having questioned (somebody about)",
     "✔"
    ],
    [
@@ -95946,7 +95964,7 @@ var family_root_json = {
    [
     "puccheyya",
     "opt",
-    "would enquire; would ask (somebody about something)",
+    "would enquire; would ask (somebody about)",
     "✔"
    ],
    [
@@ -95958,7 +95976,7 @@ var family_root_json = {
    [
     "puṭṭhuṃ",
     "inf",
-    "to ask; to question (somebody about something)",
+    "to ask; to question (somebody about)",
     "✔"
    ]
   ]
@@ -96840,7 +96858,7 @@ var family_root_json = {
    [
     "peseti 2",
     "pr",
-    "rides; drives (something to somewhere)",
+    "rides; drives (something to)",
     "✔"
    ],
    [
@@ -96882,7 +96900,7 @@ var family_root_json = {
    [
     "pesesi 1",
     "aor",
-    "sent; sent out (someone to somewhere)",
+    "sent; sent out (someone to)",
     "✔"
    ],
    [
@@ -96900,7 +96918,7 @@ var family_root_json = {
    [
     "pesesi 4",
     "aor",
-    "rode; drove (something to someplace)",
+    "rode; drove (something to)",
     "✔"
    ],
    [
@@ -98894,13 +98912,13 @@ var family_root_json = {
    [
     "paṭipucchati",
     "pr",
-    "asks; questions (somebody about something)",
+    "asks; questions (somebody about)",
     "✔"
    ],
    [
     "paṭipucchanta",
     "prp",
-    "asking (somebody about something)",
+    "asking (somebody about)",
     "◑"
    ],
    [
@@ -98930,13 +98948,13 @@ var family_root_json = {
    [
     "paṭipucchituṃ",
     "inf",
-    "to ask; to question (somebody about something)",
+    "to ask; to question (somebody about)",
     "✔"
    ],
    [
     "paṭipucchitvā",
     "abs",
-    "having asked; having questioned (somebody about something)",
+    "having asked; having questioned (somebody about)",
     "✔"
    ],
    [
@@ -99232,7 +99250,7 @@ var family_root_json = {
    [
     "paṭibāhituṃ",
     "inf",
-    "to opposes; to resist; to reject; to refuse (something with something)",
+    "to opposes; to resist; to reject; to refuse (something with)",
     "✔"
    ],
    [
@@ -105800,7 +105818,7 @@ var family_root_json = {
    [
     "bajjha",
     "ger",
-    "binding; tying; hanging (something with something)",
+    "binding; tying; hanging (something with)",
     "✔"
    ],
    [
@@ -107874,7 +107892,7 @@ var family_root_json = {
    [
     "abbhakkhāna",
     "nt",
-    "misrepresenting; slandering; falsely accusing (someone of something)",
+    "misrepresenting; slandering; falsely accusing (someone of)",
     "✔"
    ],
    [
@@ -107934,7 +107952,7 @@ var family_root_json = {
    [
     "abbhanujānāti 1",
     "pr",
-    "authorizes; appoints (someone to do something)",
+    "authorizes; appoints (someone to do)",
     "✔"
    ],
    [
@@ -109564,7 +109582,7 @@ var family_root_json = {
    [
     "byakkhissati",
     "fut",
-    "will explain; will define; will describe (something to someone); lit. will make distinct",
+    "will explain; will define; will describe (something to); lit. will make distinct",
     "✔"
    ],
    [
@@ -112066,7 +112084,7 @@ var family_root_json = {
    [
     "bhamitvā",
     "abs",
-    "having spun; having rotated (somebody in something)",
+    "having spun; having rotated (somebody in)",
     "✔"
    ],
    [
@@ -113924,7 +113942,7 @@ var family_root_json = {
    [
     "abhāsi 2",
     "aor",
-    "told about; explained (something to someone)",
+    "told about; explained (something to)",
     "✔"
    ],
    [
@@ -114238,7 +114256,7 @@ var family_root_json = {
    [
     "abhikkami 1",
     "aor",
-    "surpassed; exceeded",
+    "surpassed; exceeded; excelled",
     "✔"
    ],
    [
@@ -116070,7 +116088,7 @@ var family_root_json = {
    [
     "abhinimanteti",
     "pr",
-    "asks; offers; invites (someone to accept something)",
+    "asks; offers; invites (someone to accept)",
     "✔"
    ]
   ]
@@ -117134,7 +117152,7 @@ var family_root_json = {
    [
     "abhiyācati",
     "pr",
-    "begs; implores; pleads; requests (someone for something)",
+    "begs; implores; pleads; requests (someone for)",
     "✔"
    ],
    [
@@ -118728,7 +118746,7 @@ var family_root_json = {
    [
     "abhisiñcitvā",
     "abs",
-    "having poured; having sprinkled (something onto something); lit. having caused to sprinkle on top",
+    "having poured; having sprinkled (something onto); lit. having caused to sprinkle on top",
     "✔"
    ],
    [
@@ -119890,13 +119908,13 @@ var family_root_json = {
    [
     "makkhetvā 1",
     "abs",
-    "having scented; having annointed (something with something); lit. having smeared",
+    "having scented; having annointed (something with); lit. having smeared",
     "✔"
    ],
    [
     "makkhetvā 2",
     "abs",
-    "having rubbed on; having smeared (something with something)",
+    "having rubbed on; having smeared (something with)",
     "✔"
    ],
    [
@@ -124496,7 +124514,7 @@ var family_root_json = {
    [
     "ayāci",
     "aor",
-    "asked; begged (someone for something)",
+    "asked; begged (someone for)",
     "✔"
    ],
    [
@@ -124538,7 +124556,7 @@ var family_root_json = {
    [
     "yācati 1",
     "pr",
-    "asks; requests; begs (someone for something)",
+    "asks; requests; begs (someone for)",
     "✔"
    ],
    [
@@ -124586,13 +124604,13 @@ var family_root_json = {
    [
     "yācāpetabba",
     "ptp",
-    "should be caused to ask; can be made to request; lit. to be caused to beg",
+    "should be caused to ask; should be made to request; lit. to cause to be begged",
     "✔"
    ],
    [
     "yācāpeti",
     "pr",
-    "asks on someone's behalf; requests (something for someone)",
+    "asks on someone's behalf; requests (something for)",
     "◑"
    ],
    [
@@ -124604,7 +124622,7 @@ var family_root_json = {
    [
     "yāci 2",
     "aor",
-    "asked; requested (somebody for something)",
+    "asked; requested (somebody for)",
     "✔"
    ],
    [
@@ -124640,13 +124658,13 @@ var family_root_json = {
    [
     "yācituṃ",
     "inf",
-    "to ask; to beg (someone for something)",
+    "to ask; to beg (someone for)",
     "✔"
    ],
    [
     "yācitvā",
     "abs",
-    "having begged; having asked (someone for something)",
+    "having begged; having asked (someone for)",
     "✔"
    ],
    [
@@ -125814,7 +125832,7 @@ var family_root_json = {
    [
     "rakkhati 1",
     "pr",
-    "protects; watches over; guards (something against something)",
+    "protects; watches over; guards (something against)",
     "✔"
    ],
    [
@@ -128778,7 +128796,7 @@ var family_root_json = {
    [
     "laggeti 1",
     "pr",
-    "hangs (something on something)",
+    "hangs (something on)",
     "✔"
    ],
    [
@@ -128932,8 +128950,8 @@ var family_root_json = {
    [
     "alajjī",
     "adj",
-    "shameless, not afraid of sin",
-    "✘"
+    "shameless; without conscience",
+    "✔"
    ],
    [
     "nillajja",
@@ -129438,7 +129456,7 @@ var family_root_json = {
    [
     "labhati 1",
     "pr",
-    "gets; receives; obtains (something for someone)",
+    "gets; receives; obtains (something for)",
     "✔"
    ],
    [
@@ -131524,7 +131542,7 @@ var family_root_json = {
    [
     "okiritvā",
     "abs",
-    "having sprinkled; having strewn (something onto something); lit. having scattered down",
+    "having sprinkled; having strewn (something onto); lit. having scattered down",
     "✔"
    ],
    [
@@ -132254,7 +132272,7 @@ var family_root_json = {
    [
     "vadhitvā 4",
     "abs",
-    "having punished; having inflicted (somebody with something)",
+    "having punished; having inflicted (somebody with)",
     "✔"
    ],
    [
@@ -133130,7 +133148,7 @@ var family_root_json = {
    [
     "vaṇṇeti 1",
     "pr",
-    "commends; praises; extols (something for someone)",
+    "commends; praises; extols (something for)",
     "✔"
    ],
    [
@@ -134808,7 +134826,7 @@ var family_root_json = {
    [
     "onaddhitvā",
     "abs",
-    "having wrapped; having covered; having enveloped (something with something)",
+    "having wrapped; having covered; having enveloped (something with)",
     "◑"
    ],
    [
@@ -134826,7 +134844,7 @@ var family_root_json = {
    [
     "onandhitvā",
     "abs",
-    "having sealed; having wrapped; having bound (something with something); lit. having wrapped down",
+    "having sealed; having wrapped; having bound (something with); lit. having wrapped down",
     "✔"
    ]
   ]
@@ -140066,7 +140084,7 @@ var family_root_json = {
    [
     "vihīna",
     "pp",
-    "devoid (of); lacking (in)",
+    "devoid (of); lacking (in); without",
     "✔"
    ]
   ]
@@ -142192,7 +142210,7 @@ var family_root_json = {
    [
     "vinetuṃ",
     "inf",
-    "to remove; to get rid (of); to dispel (something with something)",
+    "to remove; to get rid (of); to dispel (something with)",
     "✔"
    ],
    [
@@ -150588,7 +150606,7 @@ var family_root_json = {
    [
     "saṃyojeti 3",
     "pr",
-    "ties; binds; yokes (someone to something); lit. causes to yoke together",
+    "ties; binds; yokes (someone to); lit. causes to yoke together",
     "✔"
    ],
    [
@@ -153754,7 +153772,7 @@ var family_root_json = {
    [
     "samādapeti",
     "pr",
-    "arouses; incites; instigates; encourages (someone to do something); lit. causes to take",
+    "arouses; incites; instigates; encourages (someone to do); lit. causes to take",
     "✔"
    ],
    [
@@ -156653,7 +156671,7 @@ var family_root_json = {
   "root_key": "√sī",
   "root_family": "√sī",
   "root_meaning": "lie, sleep",
-  "count": 41,
+  "count": 42,
   "data": [
    [
     "asayi",
@@ -156764,10 +156782,16 @@ var family_root_json = {
     "◑"
    ],
    [
-    "sayituṃ",
+    "sayituṃ 1",
     "inf",
     "to lie down",
     "✔"
+   ],
+   [
+    "sayituṃ 2",
+    "inf",
+    "to sleep",
+    "◑"
    ],
    [
     "sayitvā",
@@ -160682,7 +160706,7 @@ var family_root_json = {
    [
     "sikkhati 3",
     "pr",
-    "tempts; entices; lures (somebody with something); lit. trains",
+    "tempts; entices; lures (somebody with); lit. trains",
     "✔"
    ],
    [
@@ -162294,7 +162318,7 @@ var family_root_json = {
    [
     "siñcati 1",
     "pr",
-    "waters; pours; sprinkles; scatters (something onto something)",
+    "waters; pours; sprinkles; scatters (something onto)",
     "✔"
    ],
    [
@@ -162312,7 +162336,7 @@ var family_root_json = {
    [
     "siñcāpeti",
     "pr",
-    "causes to water; causes to pour; makes sprinkle; causes to scatter (something onto something)",
+    "causes to water; causes to pour; makes sprinkle; causes to scatter (something onto)",
     "✔"
    ],
    [
@@ -162330,7 +162354,7 @@ var family_root_json = {
    [
     "siñcitvā",
     "abs",
-    "having poured; having sprinkled (something onto something)",
+    "having poured; having sprinkled (something onto)",
     "◑"
    ],
    [
@@ -162676,7 +162700,7 @@ var family_root_json = {
    [
     "asesetuṃ",
     "inf",
-    "not to leave out; not to remain",
+    "to not leave out; to not remain",
     "✔"
    ],
    [
@@ -163662,7 +163686,7 @@ var family_root_json = {
    [
     "harati 1",
     "pr",
-    "carries; carries away; takes away (something from somewhere)",
+    "carries; carries away; takes away (something from)",
     "✔"
    ],
    [
@@ -163746,7 +163770,7 @@ var family_root_json = {
    [
     "hari 1.1",
     "aor",
-    "carried away; took away (something from somewhere); lit. carried",
+    "carried away; took away (something from); lit. carried",
     "✔"
    ],
    [
@@ -163794,7 +163818,7 @@ var family_root_json = {
    [
     "haritvā 1",
     "abs",
-    "having carried; having taken (someone or something by)",
+    "having carried; having taken (something by)",
     "✔"
    ],
    [
@@ -167400,7 +167424,7 @@ var family_root_json = {
    [
     "āyācati",
     "pr",
-    "begs; prays; implores; calls on in supplication; entreats (someone for something)",
+    "begs; prays; implores; calls on in supplication; entreats (someone for)",
     "✔"
    ],
    [
@@ -167424,7 +167448,7 @@ var family_root_json = {
    [
     "āyācanta 2",
     "prp",
-    "asking; requesting; imploring (somebody for something)",
+    "asking; requesting; imploring (somebody for)",
     "✔"
    ],
    [
@@ -167448,13 +167472,13 @@ var family_root_json = {
    [
     "āyācituṃ",
     "inf",
-    "to beg; to pray; to implore; to call on in supplication; to entreat (someone for something)",
+    "to beg; to pray; to implore; to call on in supplication; to entreat (someone for)",
     "◑"
    ],
    [
     "āyācitvā",
     "abs",
-    "having begged; having prayed; having implored (someone for something)",
+    "having begged; having prayed; having implored (someone for)",
     "◑"
    ]
   ]
@@ -171346,13 +171370,13 @@ var family_root_json = {
    [
     "uttāseti 1.1",
     "pr",
-    "impales (somebody on something)",
+    "impales (somebody on)",
     "✔"
    ],
    [
     "uttāsenta",
     "prp",
-    "impaling (somebody on something)",
+    "impaling (somebody on)",
     "◑"
    ],
    [
@@ -173854,7 +173878,7 @@ var family_root_json = {
    [
     "upanibandhitvā",
     "abs",
-    "having tied; having fastened (someone onto something)",
+    "having tied; having fastened (someone onto)",
     "✔"
    ],
    [
@@ -174834,7 +174858,7 @@ var family_root_json = {
    [
     "upaviṭṭha",
     "pp",
-    "entered; sat down (in); lit. entered near",
+    "entered (into); sat down (in); lit. entered near",
     "✔"
    ],
    [
@@ -175020,7 +175044,7 @@ var family_root_json = {
    [
     "upasaṅgayha",
     "ger",
-    "clasping; grabbing hold of; embracing; lit. holding near together",
+    "clasping; grabbing hold (of); embracing; lit. holding near together",
     "✔"
    ]
   ]
@@ -178086,7 +178110,7 @@ var family_root_json = {
    [
     "oṇojesi",
     "aor",
-    "gave as a present; dedicated (something to someone); lit. caused to drive down",
+    "gave as a present; dedicated (something to); lit. caused to drive down",
     "✔"
    ],
    [
@@ -178328,7 +178352,7 @@ var family_root_json = {
    [
     "opeti",
     "pr",
-    "deposits; stores; keeps (something in something)",
+    "deposits; stores; keeps (something in)",
     "✔"
    ]
   ]
@@ -184450,7 +184474,7 @@ var family_root_json = {
    [
     "tacchati 3",
     "pr",
-    "chops; hacks (something with something)",
+    "chops; hacks (something with)",
     "◑"
    ],
    [
@@ -188826,7 +188850,7 @@ var family_root_json = {
    [
     "nikhaṇitvā",
     "abs",
-    "having buried (something into something); lit. having dug",
+    "having buried (something into); lit. having dug",
     "✔"
    ],
    [
@@ -188856,7 +188880,7 @@ var family_root_json = {
    [
     "nikhātuṃ",
     "inf",
-    "to bury (somebody in something)",
+    "to bury (somebody in)",
     "✔"
    ],
    [
@@ -190102,7 +190126,7 @@ var family_root_json = {
    [
     "nippaci",
     "aor",
-    "cooked; infuseed",
+    "cooked; boiled; infused (something with); lit. cooked away",
     "✔"
    ],
    [
@@ -190134,7 +190158,7 @@ var family_root_json = {
    [
     "nippati",
     "pr",
-    "flies out; rushes out; departs",
+    "flies out; rushes out; departs (from)",
     "✔"
    ],
    [
@@ -190894,7 +190918,7 @@ var family_root_json = {
    [
     "nimināti",
     "pr",
-    "exchanges; barters (something for something else)",
+    "exchanges; barters (something for)",
     "✔"
    ],
    [
@@ -190918,7 +190942,7 @@ var family_root_json = {
    [
     "nimīni",
     "aor",
-    "exchanged; bartered (something for something else)",
+    "exchanged; bartered (something for)",
     "✔"
    ]
   ]
@@ -191910,7 +191934,7 @@ var family_root_json = {
    [
     "nivedeti",
     "pr",
-    "tells; reports; communicates; announces (something to someone); lit. causes to know",
+    "tells; reports; communicates; announces (something to); lit. causes to know",
     "✔"
    ],
    [
@@ -193358,7 +193382,7 @@ var family_root_json = {
    [
     "pakkhipitvā 1",
     "abs",
-    "having poured (something into something); lit. having thrown",
+    "having poured (something into); lit. having thrown",
     "✔"
    ],
    [
@@ -195292,7 +195316,7 @@ var family_root_json = {
    [
     "paṭikujjitvā",
     "abs",
-    "having covered over; having enclosed (something with something); lit. having turned over",
+    "having covered over; having enclosed (something with); lit. having turned over",
     "✔"
    ],
    [
@@ -195624,7 +195648,7 @@ var family_root_json = {
    [
     "paṭicodesi",
     "aor",
-    "blamed; accused",
+    "blamed; accused; reprehended",
     "✔"
    ]
   ]
@@ -196960,7 +196984,7 @@ var family_root_json = {
    [
     "paṭivaṭṭeti 2",
     "pr",
-    "collides; crashes; smashes (something with something); lit. causes to turn back",
+    "collides; crashes; smashes (something with); lit. causes to turn back",
     "✔"
    ],
    [
@@ -196972,7 +196996,7 @@ var family_root_json = {
    [
     "paṭivaṭṭesi",
     "aor",
-    "collided; crashed; smashed (something with something); lit. causes to turn back",
+    "collided; crashed; smashed (something with); lit. causes to turn back",
     "✔"
    ]
   ]
@@ -197188,7 +197212,7 @@ var family_root_json = {
    [
     "paṭivedesi 2",
     "aor",
-    "informed; announced (something to someone); lit. caused to know",
+    "informed; announced (something to); lit. caused to know",
     "✔"
    ]
   ]
@@ -197446,7 +197470,7 @@ var family_root_json = {
    [
     "paṭisammodati",
     "pr",
-    "responds in return (to); communicates back (with)",
+    "communicates happily; engages in friendly conversation (with); lit. happy back together",
     "✔"
    ],
    [
@@ -197648,7 +197672,7 @@ var family_root_json = {
    [
     "paṭisāmeti 2",
     "pr",
-    "keeps safely; stores (something in something)",
+    "keeps safely; stores (something in)",
     "✔"
    ],
    [
@@ -202458,7 +202482,7 @@ var family_root_json = {
    [
     "parisakkati",
     "pr",
-    "endeavours; tries; works; tries to achieve (something for someone); lit. strives for the (something of someone)",
+    "endeavours; tries; works; tries to achieve (something for); lit. strives for the (something of someone)",
     "✔"
    ],
    [
@@ -206366,7 +206390,7 @@ var family_root_json = {
    [
     "bījanta",
     "prp",
-    "fanning (something with something)",
+    "fanning (something with)",
     "✔"
    ],
    [
@@ -210246,7 +210270,7 @@ var family_root_json = {
    [
     "vikkiṇitvā",
     "abs",
-    "having sold (something to someone)",
+    "having sold (something to)",
     "✔"
    ],
    [
@@ -211691,8 +211715,14 @@ var family_root_json = {
   "root_key": "√thī",
   "root_family": "vi √thī",
   "root_meaning": "stiffen, be compact",
-  "count": 3,
+  "count": 4,
   "data": [
+   [
+    "vitthāyati",
+    "pr",
+    "is ashamed; is embarrassed; lit. becomes stiff",
+    "✔"
+   ],
    [
     "vitthāyi",
     "aor",
@@ -217094,7 +217124,7 @@ var family_root_json = {
    [
     "veṭheti",
     "pr",
-    "wraps up; bundles up (something with something)",
+    "wraps up; bundles up (something with)",
     "✔"
    ],
    [
@@ -217112,7 +217142,7 @@ var family_root_json = {
    [
     "veṭhesi",
     "aor",
-    "wrapped; bundled up (something with something)",
+    "wrapped; bundled up (something with)",
     "✔"
    ]
   ]
@@ -220262,7 +220292,7 @@ var family_root_json = {
    [
     "santappetvā",
     "abs",
-    "having satisfied; having pleased (someone with something)",
+    "having satisfied; having pleased (someone with)",
     "✔"
    ],
    [
@@ -221910,7 +221940,7 @@ var family_root_json = {
    [
     "samanuyuñjitvā",
     "abs",
-    "having cross-questioned; having engaged in conversation; having cross-examined (someone about something)",
+    "having cross-questioned; having engaged in conversation; having cross-examined (someone about)",
     "✔"
    ],
    [
@@ -226346,7 +226376,7 @@ var family_root_json = {
    [
     "saṃpucchituṃ",
     "inf",
-    "to ask; to inquire; to question (somebody about something)",
+    "to ask; to inquire; to question (somebody about)",
     "✔"
    ]
   ]
@@ -228106,7 +228136,7 @@ var family_root_json = {
    [
     "saṃsandamāna",
     "prp",
-    "joining; merging; uniting (something with something); lit. flowing together",
+    "joining; merging; uniting (something with); lit. flowing together",
     "✔"
    ],
    [
@@ -228210,7 +228240,7 @@ var family_root_json = {
    [
     "saṃsādeti 3",
     "pr",
-    "makes sink; shoots down (somebody with something); lit. causes to sink together",
+    "makes sink; shoots down (somebody with); lit. causes to sink together",
     "✔"
    ],
    [
@@ -228458,7 +228488,7 @@ var family_root_json = {
    [
     "saṃsumbhi",
     "aor",
-    "attacked; hit; beat; struck (somebody with something)",
+    "attacked; hit; beat; struck (somebody with)",
     "✔"
    ]
   ]

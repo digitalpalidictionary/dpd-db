@@ -8465,13 +8465,13 @@ var family_word_json = {
    [
     "anānuloma",
     "adj",
-    "unsuitable; inappropriate",
+    "unsuitable; inappropriate; lit. not following the hair",
     "✔"
    ],
    [
     "anuloma 1",
     "adj",
-    "in conformity (with); conforming (to); in accordance (with); lit. along the hair",
+    "in conformity (with); conforming (to); in accordance (with); lit. following the hair",
     "◑"
    ],
    [
@@ -8507,7 +8507,7 @@ var family_word_json = {
    [
     "anulometi 1",
     "pr",
-    "conforms (to); accords (with); agrees (with)",
+    "conforms (to); accords (with); agrees (with); lit. follows the hair",
     "✔"
    ],
    [
@@ -11938,6 +11938,12 @@ var family_word_json = {
     "✔"
    ],
    [
+    "pāpeti 2",
+    "pr",
+    "slanders; speaks ill of; lit. makes bad",
+    "✔"
+   ],
+   [
     "vipāpa",
     "adj",
     "free from evil; good",
@@ -11950,7 +11956,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 23
+  "count": 24
  },
  "para": {
   "data": [
@@ -14453,7 +14459,7 @@ var family_word_json = {
    [
     "amhehi 5",
     "pron",
-    "(royal plural) from me; lit. from us",
+    "(royal plural) from me; than me; lit. from us",
     "✔"
    ],
    [
@@ -15786,7 +15792,7 @@ var family_word_json = {
    [
     "kaṇṇavant",
     "adj",
-    "with ears; lit. having ear quality",
+    "discerning; able to listen and understand; lit. having ear quality",
     "✔"
    ],
    [
@@ -19557,7 +19563,7 @@ var family_word_json = {
    [
     "ojā",
     "fem",
-    "divine food",
+    "divine food; lit. juice",
     "✔"
    ]
   ],
@@ -25566,7 +25572,7 @@ var family_word_json = {
    [
     "tāraka",
     "adj",
-    "related to stars; of a star",
+    "related to stars; of a star; belonging to stars",
     "✔"
    ],
    [
@@ -25874,7 +25880,7 @@ var family_word_json = {
    [
     "thana 2",
     "nt",
-    "(of a woman) breasts",
+    "(of a woman) breast; breasts",
     "✔"
    ],
    [

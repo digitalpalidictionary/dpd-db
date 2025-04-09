@@ -395,6 +395,7 @@ class AllowableCharacters():
 
     source_allowed = (
         english_alphabet +
+        english_capitals +
         source +
         digits +
         space +

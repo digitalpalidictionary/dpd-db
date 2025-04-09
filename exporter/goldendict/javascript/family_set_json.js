@@ -2185,6 +2185,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "ṇikapaccaya",
+    "masc",
+    "(gram) *ika suffix",
+    "◑"
+   ],
+   [
     "ṇu",
     "cs",
     "(gram) ṇu; conjugational sign of group 4 svādigaṇa verbs",
@@ -5083,7 +5089,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 819
+  "count": 820
  },
  "prefixes": {
   "data": [
@@ -6239,7 +6245,7 @@ var family_set_json = {
    [
     "amhehi 5",
     "pron",
-    "(royal plural) from me; lit. from us",
+    "(royal plural) from me; than me; lit. from us",
     "✔"
    ],
    [
@@ -9918,7 +9924,7 @@ var family_set_json = {
    [
     "thana 2",
     "nt",
-    "(of a woman) breasts",
+    "(of a woman) breast; breasts",
     "✔"
    ],
    [
@@ -10391,7 +10397,7 @@ var family_set_json = {
    [
     "desetar",
     "masc",
-    "teacher; who preaches (something to someone)",
+    "teacher; who preaches (something to)",
     "✔"
    ],
    [
