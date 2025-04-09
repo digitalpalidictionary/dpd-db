@@ -268,6 +268,9 @@ class RuPaths:
         )
         self.icon_path = base_dir / "exporter/goldendict/ru_components/icon/book.bmp"
 
+        # identity/css
+        self.dpd_variables_css_path = base_dir / "identity/css/dpd-variables.css"
+
         # identity/fonts
         self.fonts_dir = base_dir / "identity/fonts"
 

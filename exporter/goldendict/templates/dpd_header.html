@@ -7,6 +7,55 @@
 
     <title>Digital Pāḷi Dictionary</title>
 
+    <style>
+        :root {
+            /* Background in light mode, text in dark mode */
+            --light: hsl(198, 100%, 95%);
+
+            /* Background in dark mode, text in light mode */
+            --dark: hsl(198, 100%, 5%);
+
+            /* Primary colour used for logo, buttons, etc */
+            --primary: hsl(198, 100%, 50%);
+
+            /* Primary alternative used for pressed buttons */
+            --primary-alt: hsl(205, 100%, 40%);
+
+            /* Primary colour suitable for text in light and dark mode */
+            --primary-text: hsl(205, 79%, 48%);
+
+            /* Button shadows */
+            --shadow-default: 2px 2px 4px hsla(0, 0%, 20%, 0.4);
+            --shadow-hover: 2px 2px 4px hsla(0, 0%, 20%, 0.5);
+
+            /* Various grays */
+            --gray: hsl(0, 0%, 50%);
+            --gray-light: hsl(0, 0%, 75%);
+            --gray-dark: hsl(0, 0%, 25%);
+            --gray-transparent: hsla(0, 0%, 50%, 0.25);
+
+            /* Secondary colour for epd, grammar, variants, deconstructor */
+            --secondary: hsl(178, 100%, 35%);
+            --secondary-alt: hsl(185, 100%, 25%);
+
+            /* Tertiary just for help and abbreviations */
+            --tertiary: hsl(158, 100%, 35%);
+
+            /* Frequency heatmap  */
+            --freq0: hsla(198, 90%, 50%, 0.10);
+            --freq1: hsla(200, 90%, 50%, 0.20);
+            --freq2: hsla(202, 90%, 50%, 0.30);
+            --freq3: hsla(204, 90%, 50%, 0.40);
+            --freq4: hsla(206, 90%, 50%, 0.50);
+            --freq5: hsla(208, 90%, 50%, 0.60);
+            --freq6: hsla(210, 90%, 50%, 0.70);
+            --freq7: hsla(212, 90%, 50%, 0.80);
+            --freq8: hsla(214, 90%, 50%, 0.90);
+            --freq9: hsla(216, 90%, 50%, 1.00);
+            --freq10: hsla(218, 90%, 50%, 1.00);
+        }
+    </style>
+
     <link href="dpd.css" rel="stylesheet">
 
     <link href="family_compound_json.js" class="load_js" rel="preload" as="script">

@@ -85,19 +85,19 @@ def generate_epd_html(
 
                 for meaning in meanings_list:
                     if meaning in epd.keys() and not i.plus_case:
-                        epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        epd_string = f"{epd[meaning]}<br><b class='secondary'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
                         epd[meaning] = epd_string
 
                     if meaning in epd.keys() and i.plus_case:
-                        epd_string = f"{epd[meaning]}<br><b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                        epd_string = f"{epd[meaning]}<br><b class='secondary'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                         epd[meaning] = epd_string
 
                     if meaning not in epd.keys() and not i.plus_case:
-                        epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        epd_string = f"<b class='secondary'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
                         epd.update({meaning: epd_string})
 
                     if meaning not in epd.keys() and i.plus_case:
-                        epd_string = f"<b class = 'epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                        epd_string = f"<b class='secondary'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                         epd.update({meaning: epd_string})
 
         # generate ru-pali
@@ -155,11 +155,13 @@ def generate_epd_html(
 
             for root_meaning in root_meanings_list:
                 if root_meaning in epd.keys():
-                    epd_string = f"{epd[root_meaning]}<br><b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
+                    epd_string = f"{epd[root_meaning]}<br><b class='secondary'>{i.root}</b> root. {i.root_meaning}"
                     epd[root_meaning] = epd_string
 
                 if root_meaning not in epd.keys():
-                    epd_string = f"<b class = 'epd'>{i.root}</b> root. {i.root_meaning}"
+                    epd_string = (
+                        f"<b class='secondary'>{i.root}</b> root. {i.root_meaning}"
+                    )
                     epd.update({root_meaning: epd_string})
 
         if show_ru_data or lang == "ru":
@@ -182,9 +184,9 @@ def generate_epd_html(
         html = ""
         html += "<body>"
         if lang == "en":
-            html += f"<div class ='epd'><p>{html_string}</p></div>"
+            html += f"<div class ='secondary'><p>{html_string}</p></div>"
         elif lang == "ru":
-            html += f"<div class ='rpd'><p>{html_string}</p></div>"
+            html += f"<div class ='secondary'><p>{html_string}</p></div>"
         html += "</body></html>"
 
         size_dict["epd"] += len(html)
@@ -251,14 +253,18 @@ def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
             if make_link and number_link:
                 anchor_link = f'<a href="{number_link}">link</a>'
                 if lang == "en":
-                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                    epd_string = f"<b class='secondary'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
                 elif lang == "ru":
-                    epd_string = f"<b class='rpd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                    epd_string = f"<b class='secondary'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
             else:
                 if lang == "en":
-                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
+                    epd_string = (
+                        f"<b class='secondary'>{i.lemma_clean}</b>. {i.meaning_2}"
+                    )
                 elif lang == "ru":
-                    epd_string = f"<b class='rpd'>{i.lemma_clean}</b>. {i.meaning_2}"
+                    epd_string = (
+                        f"<b class='secondary'>{i.lemma_clean}</b>. {i.meaning_2}"
+                    )
 
             if combined_number in epd.keys():
                 epd[combined_number] += f"<br>{epd_string}"

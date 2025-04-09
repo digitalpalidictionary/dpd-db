@@ -89,11 +89,6 @@ class ProjectPaths:
         self.deconstructor_css_path = (
             base_dir / "exporter/goldendict/css/deconstructor.css"
         )
-        self.grammar_css_path = base_dir / "exporter/goldendict/css/grammar.css"
-        # self.roots_css_path = base_dir / "exporter/goldendict/css/roots.css"
-        # self.epd_css_path = base_dir / "exporter/goldendict/css/epd.css"
-        # self.help_css_path = base_dir / "exporter/goldendict/css/help.css"
-        # self.variant_spelling_css_path = base_dir / "exporter/goldendict/css/variant_spelling.css"
 
         # exporter/goldendict/help/
         self.abbreviations_tsv_path = (
@@ -177,10 +172,10 @@ class ProjectPaths:
 
         # exporter/deconstructor/templates
         self.deconstructor_header_templ_path = (
-            base_dir / "exporter/deconstructor/templates/deconstructor_header.html"
+            base_dir / "exporter/deconstructor/deconstructor_header.html"
         )
         self.deconstructor_templ_path = (
-            base_dir / "exporter/deconstructor/templates/deconstructor.html"
+            base_dir / "exporter/deconstructor/deconstructor.html"
         )
 
         # exporter/templates
@@ -219,9 +214,6 @@ class ProjectPaths:
         )
         self.frequency_templ_path = (
             base_dir / "exporter/goldendict/templates/dpd_frequency.html"
-        )
-        self.grammar_dict_header_templ_path = (
-            base_dir / "exporter/goldendict/templates/grammar_dict_header.html"
         )
         self.grammar_templ_path = (
             base_dir / "exporter/goldendict/templates/dpd_grammar.html"
@@ -284,7 +276,14 @@ class ProjectPaths:
         self.tpr_output_dir = base_dir / "exporter/tpr/output"
         self.tpr_sql_file_path = base_dir / "exporter/tpr/output/dpd.sql"
 
+        # exporter/grammar_dict/
+
+        self.grammar_dict_header_templ_path = (
+            base_dir / "exporter/grammar_dict/grammar_dict_header.html"
+        )
+
         # exporter/grammar_dict/output
+
         self.grammar_dict_output_dir = base_dir / "exporter/grammar_dict/output"
         self.grammar_dict_output_html_dir = (
             base_dir / "exporter/grammar_dict/output/html"
@@ -394,10 +393,10 @@ class ProjectPaths:
         )
 
         # exporter/variants
-        self.variants_header_path = (
-            base_dir / "exporter/variants/html_css_js/variants_header.html"
-        )
-        self.variants_css_path = base_dir / "exporter/variants/html_css_js/variants.css"
+        self.variants_header_path = base_dir / "exporter/variants/variants_header.html"
+
+        # identity/css
+        self.dpd_variables_css_path = base_dir / "identity/css/dpd-variables.css"
 
         # identity/logo
         self.dpd_logo_svg = base_dir / "identity/logo/dpd-logo.svg"
