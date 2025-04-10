@@ -410,7 +410,7 @@ class ProjectPaths:
         self.additions_tsv_path = base_dir / "gui/additions.tsv"
         self.additions_pickle_path = base_dir / "gui/additions"
         self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
-        self.deleted_words_history_pth = base_dir / "gui/deleted_words_history.tsv"
+        # self.deleted_words_history_pth = base_dir / "gui/deleted_words_history.tsv"
         self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
         self.major_change_meaning_history_pth = (
             base_dir / "gui/major_change_meaning_history.tsv"

@@ -317,7 +317,7 @@ def load_corrections_tsv():
 
 
 def calculate_total_fitting_rows(corrections_list):
-    total_fitting_rows = sum(1 for c in corrections_list if c.approved == "no" and not c.checked)
+    total_fitting_rows = sum(1 for c in corrections_list if (c.approved == "no" or c.feedback) and not c.checked)
     print(f"total number unchecked: {total_fitting_rows}")
     return total_fitting_rows
 
@@ -330,7 +330,7 @@ def calculate_total_commented_rows(corrections_list):
 
 def find_next_correction(corrections_list, window, values):
     for index, c in enumerate(corrections_list):
-        if c.approved == "no":
+        if (c.approved == "no" or c.feedback):
             if (
                 (c.field1 and not c.checked) or
                 (c.field2 and not c.checked) or

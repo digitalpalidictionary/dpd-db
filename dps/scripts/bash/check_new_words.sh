@@ -27,11 +27,7 @@ reset=$(tput sgr0)
 
 echo "${bold}${yellow}Filter the list of words${reset}"
 
-libreoffice gui/delated_words_history.tsv
-
 libreoffice gui/major_change_meaning_history.tsv
-
-libreoffice gui/major_change_notes_history.tsv
 
 dps/scripts/work_with_csv/compare_changed_id.py
 
