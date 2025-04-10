@@ -101,7 +101,7 @@ class Gui:
         self.clear_button = ft.ElevatedButton("clear", on_click=self.clear_search)
         self.message = ft.Text("", expand=True)
 
-        self.found_field = ft.Text(width=self.width, expand=True)
+        self.found_field = ft.Text(width=self.width, expand=True, selectable=True)
         self.replaced_field = ft.Text(width=self.width, expand=True, selectable=True)
 
         # buttons
@@ -157,6 +157,8 @@ class Gui:
         self.find_text.value = ""
         self.replace_text.value = ""
         self.message.value = ""
+        self.found_field.value = ""
+        self.replaced_field.value = ""
         self.page.update()
 
     def find_clicked(self, e):

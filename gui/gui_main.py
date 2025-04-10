@@ -156,7 +156,6 @@ from tools.pos import DECLENSIONS, VERBS
 from tools.pos import POS
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.fast_api_utils import start_dpd_server
-from tools.fast_api_utils import start_bold_def_server
 from tools.fast_api_utils import request_dpd_server
 from tools.fast_api_utils import request_bold_def_server
 from tools.missing_meanings import find_missing_meanings
@@ -174,7 +173,6 @@ def main():
     last_word_id = None
 
     start_dpd_server()
-    start_bold_def_server()
 
     family_compound_values = get_family_compound_values(db_session)
     family_idioms_values = get_family_idioms_values(db_session)

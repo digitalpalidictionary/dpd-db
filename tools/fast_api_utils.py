@@ -14,18 +14,6 @@ def start_dpd_server():
     subprocess.Popen(command)
 
 
-def start_bold_def_server():
-    "uvicorn exporter.bold_definitions.main:app --host 127.1.1.2 --port 8080"
-    command = [
-        "uvicorn",
-        "exporter.bold_definitions.main:app",
-        "--host", "127.1.1.2",
-        "--port", "8080",
-        "--reload",
-        "--reload-dir", "exporter/bold_definitions",]
-    subprocess.Popen(command)
-
-
 def request_dpd_server(q: str|int):
     base_url = "http://127.1.1.1:8080/"
     search_params = {"q": q}
@@ -45,6 +33,5 @@ def request_bold_def_server(search_1:str, search_2:str, option:str):
 
 
 if __name__ == "__main__":
-    start_bold_def_server()
-    # start_dpd_server()
+    start_dpd_server()
     # request_dpd_server("katakicca")
