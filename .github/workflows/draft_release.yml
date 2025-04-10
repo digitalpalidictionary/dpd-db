@@ -119,6 +119,9 @@ jobs:
     - name: Extract Variants
       run: uv run python db/variants/main.py
 
+    - name: Generate Grammar data
+      run: uv run python db/grammar/grammar_to_lookup.py
+
     - name: Run Deconstructor
       run: uv run python scripts/build/deconstructor_output_add_to_db.py
         
