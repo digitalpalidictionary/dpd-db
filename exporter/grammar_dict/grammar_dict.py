@@ -2,16 +2,12 @@
 
 """Compile HTML table of all grammatical possibilities of every inflected word-form."""
 
-import pickle
-
-# from css_html_js_minify import css_minify, js_minify
 from json import loads
 from mako.template import Template
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from db.models import InflectionTemplates
-from db.models import Lookup
 
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
@@ -23,13 +19,11 @@ from tools.configger import config_test
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
-from tools.lookup_is_another_value import is_another_value
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.update_test_add import update_test_add
 
 
 class ProgData:
@@ -62,7 +56,6 @@ class ProgData:
         self.all_words_set: set
 
         # the grammar dictionaries
-        self.grammar_dict: dict[str, list[tuple[str, str, str]]]
         self.grammar_dict_table: dict[str, list[tuple[str, str, str]]]
         self.grammar_dict_html: dict[str, str]
 
@@ -100,7 +93,6 @@ def main():
     g.load_db()
 
     save_pickle_and_tsv(g)
-    add_to_lookup_table(g)
     make_data_lists(g)
     prepare_gd_mdict_and_export(g)
 
@@ -159,12 +151,10 @@ def render_header_templ(
 def generate_grammar_dict(g: ProgData):
     pr.green_title("generating grammar dictionary")
 
-    # three grammar dicts will be generated here at the same time.
-    # 1. grammar_dict is pure data {inflection: [(headword, pos, grammar)]}
+    # two grammar dicts will be generated here at the same time.
     # 2. grammar_dict_table is just an html table {inflection: "html"}
     # 3. grammar_dict_html is full html page with header, style etc. {inflection: "html"}
 
-    grammar_dict = {}
     grammar_dict_table = {}
     grammar_dict_html = {}
 
@@ -190,26 +180,6 @@ def generate_grammar_dict(g: ProgData):
         # process indeclinables
         if i.stem == "-":
             continue
-            data_line = (i.lemma_clean, i.pos, "indeclinable")
-            html_line = (
-                f"<tr><td><b>{i.pos}</b></td><td colspan='5'>indeclinable</td></tr>"
-            )
-
-            # grammar_dict update
-            if i.lemma_clean not in grammar_dict:
-                grammar_dict[i.lemma_clean] = [data_line]
-            else:
-                if data_line not in grammar_dict[i.lemma_clean]:
-                    grammar_dict[i.lemma_clean].append(data_line)
-
-            # grammar_dict_html update
-            if i.lemma_clean not in grammar_dict_html:
-                grammar_dict_html[i.lemma_clean] = f"{html_header}{html_line}"
-                grammar_dict_table[i.lemma_clean] = f"{html_table_header}{html_line}"
-            else:
-                if html_line not in grammar_dict_html[i.lemma_clean]:
-                    grammar_dict_html[i.lemma_clean] += html_line
-                    grammar_dict_table[i.lemma_clean] += html_line
 
         # all other words need an inflection table generated
         # to find out their grammatical category, i.e. masc nom sg
@@ -248,7 +218,6 @@ def generate_grammar_dict(g: ProgData):
                                 if inflection:
                                     inflected_word = f"{i.stem}{inflection}"
                                     if inflected_word in g.all_words_set:
-                                        data_line = (i.lemma_clean, i.pos, grammar)
                                         html_line = "<tr>"
                                         html_line += f"<td><b>{i.pos}</b></td>"
                                         # get grammatical_categories from grammar
@@ -286,18 +255,6 @@ def generate_grammar_dict(g: ProgData):
                                         html_line += "<td>of</td>"
                                         html_line += f"<td>{i.lemma_clean}</td>"
                                         html_line += "</tr>"
-
-                                        # grammar_dict update
-                                        if inflected_word not in grammar_dict:
-                                            grammar_dict[inflected_word] = [data_line]
-                                        else:
-                                            if (
-                                                data_line
-                                                not in grammar_dict[inflected_word]
-                                            ):
-                                                grammar_dict[inflected_word].append(
-                                                    data_line
-                                                )
 
                                         # grammar_dict_html update
                                         if inflected_word not in grammar_dict_html:
@@ -357,21 +314,14 @@ def generate_grammar_dict(g: ProgData):
     for item in grammar_dict_table:
         grammar_dict_table[item] += "</tbody></table></div>"
 
-    g.grammar_dict = grammar_dict
     g.grammar_dict_table = grammar_dict_table
     g.grammar_dict_html = grammar_dict_html
 
-    pr.yes(len(g.grammar_dict))
+    pr.yes(len(g.grammar_dict_table))
 
 
 def save_pickle_and_tsv(g: ProgData):
-    """Save in pickle and tsv formats for external use."""
-
-    # save pickle file
-    pr.green("saving grammar_dict pickle")
-    with open(g.pth.grammar_dict_pickle_path, "wb") as f:
-        pickle.dump(g.grammar_dict, f)
-    pr.yes("ok")
+    """Save in tsv formats for external use."""
 
     # save tsv of inflection and table
     pr.green("saving grammar_dict tsv")
@@ -379,41 +329,6 @@ def save_pickle_and_tsv(g: ProgData):
         f.write("inflection\thtml\n")
         for inflection, table in g.grammar_dict_table.items():
             f.write(f"{inflection}\t{table}\n")
-    pr.yes("ok")
-
-
-def add_to_lookup_table(g: ProgData):
-    """Add the grammar dict items to the Lookup table."""
-
-    pr.green("saving to Lookup table")
-
-    lookup_table = g.db_session.query(Lookup).all()
-    results = update_test_add(lookup_table, g.grammar_dict)
-    update_set, test_set, add_set = results
-
-    # update test add
-    for i in lookup_table:
-        if i.lookup_key in update_set:
-            i.grammar_pack(g.grammar_dict[i.lookup_key])
-        elif i.lookup_key in test_set:
-            if is_another_value(i, "grammar"):
-                i.grammar = ""
-            else:
-                g.db_session.delete(i)
-
-    g.commit_db()
-
-    # add
-    add_to_db = []
-    for inflection, grammar_data in g.grammar_dict.items():
-        if inflection in add_set:
-            add_me = Lookup()
-            add_me.lookup_key = inflection
-            add_me.grammar_pack(grammar_data)
-            add_to_db.append(add_me)
-
-    g.db_session.add_all(add_to_db)
-    g.commit_db()
     pr.yes("ok")
 
 
