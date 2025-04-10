@@ -1585,6 +1585,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "katthaci 2",
+    "ind",
+    "(gram) in some places; in some contexts; lit. somewhere",
+    "✔"
+   ],
+   [
     "katthaci 3",
     "ind",
     "(gram) in some places; in some contexts; optionally; lit. somewhere",
@@ -5089,7 +5095,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 820
+  "count": 821
  },
  "prefixes": {
   "data": [
@@ -22369,7 +22375,7 @@ var family_set_json = {
    [
     "abbhantara 3",
     "nt",
-    "measure of length; lit. inside",
+    "measure of length; approximately 8-9 meters; lit. inside",
     "✔"
    ],
    [

@@ -4406,7 +4406,7 @@ var family_idiom_json = {
     "evamassa 5",
     "sandhi",
     "thus should be; should be in this way",
-    "✔"
+    "◑"
    ],
    [
     "evamassu",
@@ -9400,7 +9400,7 @@ var family_idiom_json = {
    [
     "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
     "idiom",
-    "grows and develops; lit. experienced increase, growth and expansion",
+    "grows and develops; lit. experiences increase, growth and expansion",
     "✔"
    ]
   ]
@@ -11979,7 +11979,7 @@ var family_idiom_json = {
     "evamassa 5",
     "sandhi",
     "thus should be; should be in this way",
-    "✔"
+    "◑"
    ],
    [
     "evamassu",
@@ -23646,7 +23646,7 @@ var family_idiom_json = {
    [
     "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
     "idiom",
-    "grows and develops; lit. experienced increase, growth and expansion",
+    "grows and develops; lit. experiences increase, growth and expansion",
     "✔"
    ],
    [
@@ -29548,7 +29548,7 @@ var family_idiom_json = {
    [
     "nissaggiya pācittiya",
     "idiom",
-    "transgression requiring relinquishment and confession; offence of expiation involving forfeiture",
+    "offence requiring relinquishment and confession",
     "✔"
    ]
   ]
@@ -29559,7 +29559,7 @@ var family_idiom_json = {
    [
     "nissaggiya pācittiya",
     "idiom",
-    "transgression requiring relinquishment and confession; offence of expiation involving forfeiture",
+    "offence requiring relinquishment and confession",
     "✔"
    ]
   ]
@@ -32825,7 +32825,7 @@ var family_idiom_json = {
    [
     "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
     "idiom",
-    "grows and develops; lit. experienced increase, growth and expansion",
+    "grows and develops; lit. experiences increase, growth and expansion",
     "✔"
    ]
   ]
@@ -32993,7 +32993,7 @@ var family_idiom_json = {
    [
     "vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati",
     "idiom",
-    "grows and develops; lit. experienced increase, growth and expansion",
+    "grows and develops; lit. experiences increase, growth and expansion",
     "✔"
    ]
   ]

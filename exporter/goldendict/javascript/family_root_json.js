@@ -3176,8 +3176,8 @@ var family_root_json = {
     "✔"
    ],
    [
-    "katthanā",
-    "fem",
+    "katthana",
+    "nt",
     "boasting; bragging",
     "✔"
    ],
@@ -5894,7 +5894,7 @@ var family_root_json = {
    [
     "kūjati 2",
     "pr",
-    "squeaks; makes sound",
+    "squeaks; squeals; screeches",
     "✔"
    ],
    [
@@ -24358,7 +24358,7 @@ var family_root_json = {
    [
     "ṭhapesi 3",
     "aor",
-    "put; placed; lit. caused to be placed",
+    "put; placed; lit. caused to stand",
     "✔"
    ],
    [
@@ -37671,7 +37671,7 @@ var family_root_json = {
   "root_key": "√ṭhā",
   "root_family": "adhi √ṭhā",
   "root_meaning": "stand",
-  "count": 42,
+  "count": 43,
   "data": [
    [
     "adhiṭṭhahati 1",
@@ -37851,16 +37851,22 @@ var family_root_json = {
     "adhiṭṭheti 1",
     "pr",
     "determines; resolves; fixes one's attention (on)",
-    "✔"
+    "◑"
    ],
    [
     "adhiṭṭheti 2",
+    "pr",
+    "(vinaya) determines for use",
+    "✔"
+   ],
+   [
+    "adhiṭṭheti 3",
     "pr",
     "stands over; supervises; controls",
     "✘"
    ],
    [
-    "adhiṭṭheti 3",
+    "adhiṭṭheti 4",
     "pr",
     "stands upon, depends upon; mounts; designates, takes (formal) possession of (robe, bowl etc.); undertakes; produces (by supernormal power)",
     "✘"
@@ -60658,7 +60664,7 @@ var family_root_json = {
    [
     "nissajjitvā",
     "abs",
-    "having given up; having let go; having handed over",
+    "having given up; having let go; having handed over; having relinquished",
     "✔"
    ],
    [
@@ -68476,7 +68482,7 @@ var family_root_json = {
    [
     "upapanna 1",
     "pp",
-    "arose; appeared; lit. went towards",
+    "arose; appeared (in or on); lit. went towards",
     "✔"
    ],
    [
@@ -79678,7 +79684,7 @@ var family_root_json = {
    [
     "appaccuddhaṭa",
     "pp",
-    "not renounced ownership; not relinquished possession",
+    "(vinaya) not renounced ownership; not relinquished possession; lit. not carried back up",
     "✔"
    ],
    [
@@ -79696,13 +79702,13 @@ var family_root_json = {
    [
     "paccuddhaṭa",
     "pp",
-    "renounced ownership; relinquished possession",
+    "(vinaya) renounced ownership; relinquished possession; lit. carried back up",
     "✔"
    ],
    [
     "paccuddharati",
     "pr",
-    "formally renounces ownership; relinquishes possession",
+    "(vinaya) formally renounces ownership; relinquishes possession; lit. carries back up",
     "✔"
    ],
    [
@@ -83622,7 +83628,7 @@ var family_root_json = {
     "◑"
    ],
    [
-    "pāpeti",
+    "pāpeti 1.1",
     "pr",
     "helps to reach; brings (to); leads (to); lit. causes to reach",
     "✔"
@@ -88180,7 +88186,7 @@ var family_root_json = {
    [
     "parinetvā",
     "abs",
-    "having led around; having carried around (from to)",
+    "having led around; having escorted (from to)",
     "✔"
    ],
    [
@@ -94540,7 +94546,7 @@ var family_root_json = {
    [
     "pasādesi 3",
     "aor",
-    "appeased; softened up; lit. causes to settle forward",
+    "appeased; softened up; ingratiated; lit. causes to settle forward",
     "✔"
    ],
    [
@@ -105774,7 +105780,7 @@ var family_root_json = {
    [
     "phālesi",
     "aor",
-    "split up; chopped up; lit. caused to split",
+    "split; chopped up; lit. caused to split",
     "✔"
    ],
    [
@@ -110866,7 +110872,7 @@ var family_root_json = {
    [
     "bhakkha",
     "masc",
-    "food; feed",
+    "food; feed (for)",
     "✔"
    ],
    [
@@ -135812,7 +135818,7 @@ var family_root_json = {
    [
     "olambesi",
     "aor",
-    "hung down (something on); lit. caused to hang down",
+    "hung down; suspended (something on); lit. caused to hang down",
     "✔"
    ],
    [
@@ -141968,7 +141974,7 @@ var family_root_json = {
    [
     "vināsayati",
     "pr",
-    "causes the destruction (of); destroys; ruins; lit. causes to be lost",
+    "causes the destruction (of); destroys; ruins; lit. causes to vanish",
     "◑"
    ],
    [
@@ -142004,13 +142010,13 @@ var family_root_json = {
    [
     "vināseti 1",
     "pr",
-    "squanders; loses; wastes; lit. causes to be lost",
+    "squanders; loses; wastes; lit. causes to vanish",
     "✔"
    ],
    [
     "vināseti 2",
     "pr",
-    "causes the destruction (of); destroys; ruins; lit. causes to be lost",
+    "causes the destruction (of); destroys; ruins; lit. causes to vanish",
     "✔"
    ],
    [
@@ -145394,7 +145400,7 @@ var family_root_json = {
    [
     "vivecita 2",
     "pp",
-    "separated; disconnected; disunited (from); lit. caused to be separate",
+    "disabused (of); separated; disconnected (from); lit. caused to be separate",
     "✔"
    ],
    [
@@ -151522,7 +151528,7 @@ var family_root_json = {
    [
     "saddhātabba",
     "ptp",
-    "fit to be believed; should be trusted; lit. to be trusted",
+    "fit to be believed; should be trusted; lit. heart to be placed",
     "✔"
    ],
    [
@@ -155230,7 +155236,7 @@ var family_root_json = {
    [
     "sampādetvā 2",
     "abs",
-    "having provided; having supplied",
+    "having provided; having supplied; lit. having caused to go together",
     "✔"
    ],
    [
@@ -167194,7 +167200,7 @@ var family_root_json = {
    [
     "āmata",
     "pp",
-    "almost dead, near to death; lit. dead here",
+    "almost dead, near to death; begun to die; lit. dead here",
     "✔"
    ]
   ]
@@ -191096,7 +191102,7 @@ var family_root_json = {
    [
     "nimmajjati",
     "pr",
-    "rubs off; cleans; washes (something) off (with); lit. rubs away",
+    "rubs off; cleans; washes; removes (something with); lit. rubs away",
     "✔"
    ],
    [
@@ -197966,7 +197972,7 @@ var family_root_json = {
    [
     "paṇiya 2",
     "nt",
-    "goods; wares; item to be sold; lit. to be traded",
+    "goods; wares; item to be sold; lit. to be traded; vendable",
     "✔"
    ]
   ]
@@ -201768,7 +201774,7 @@ var family_root_json = {
    [
     "paribbhamati 1",
     "pr",
-    "revolves around (in); turns around (in); spins about (in)",
+    "revolves around (in); turns around (in); spins about (in); lit. spins around",
     "◑"
    ],
    [
@@ -201792,7 +201798,7 @@ var family_root_json = {
    [
     "paribbhami",
     "aor",
-    "wandered about; roamed (in)",
+    "wandered about; roamed (in); lit. spun around",
     "✔"
    ],
    [

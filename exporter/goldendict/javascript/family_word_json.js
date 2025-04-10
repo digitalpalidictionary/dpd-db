@@ -2831,7 +2831,7 @@ var family_word_json = {
    [
     "abbhantara 3",
     "nt",
-    "measure of length; lit. inside",
+    "measure of length; approximately 8-9 meters; lit. inside",
     "✔"
    ],
    [
@@ -11938,7 +11938,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "pāpeti 2",
+    "pāpeti 2.1",
     "pr",
     "slanders; speaks ill of; lit. makes bad",
     "✔"
@@ -19768,7 +19768,7 @@ var family_word_json = {
    [
     "katthaci 2",
     "ind",
-    "in some places; in some contexts; lit. somewhere",
+    "(gram) in some places; in some contexts; lit. somewhere",
     "✔"
    ],
    [
