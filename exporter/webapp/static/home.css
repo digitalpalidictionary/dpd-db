@@ -78,6 +78,14 @@ body.dark-mode #header-image {
     flex-direction: column;
 }
 
+/* NEW CSS for top controls container */
+.top-controls {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Push tab buttons left, switcher right */
+    align-items: flex-end; /* To this - aligns items to the bottom */
+    padding: 5px 10px; /* Add some padding */
+}
+
 .header-pane {
     align-items: center;
     border-radius: 0 7px 7px 7px;
@@ -441,14 +449,15 @@ p.message {
 .language-switcher {
     position: relative;
     display: inline-block;
-    margin: 5px;
+    margin: 0; /* Removed margin */
 }
 
 .language-icon {
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.0em; /* Slightly smaller size */
     color: var(--dark);
     transition: color 0.3s;
+    vertical-align: baseline; /* Align icon baseline with text baseline */
 }
 
 .language-icon:hover {
@@ -459,7 +468,7 @@ p.message {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0; /* New - aligns right edge */
     background-color: var(--primary);
     border-radius: 7px;
     min-width: 120px;
