@@ -553,7 +553,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "anupapatti",
+    "anupapatti 2",
     "fem",
     "(gram) non-appearance; non-accomplishment; lit. not going near",
     "◑"
@@ -6497,7 +6497,7 @@ var family_set_json = {
    [
     "imesaṃ 1",
     "pron",
-    "for them; for those",
+    "for these; for them; for those",
     "✔"
    ],
    [
@@ -18906,7 +18906,7 @@ var family_set_json = {
    [
     "susīma 2",
     "masc",
-    "name of a monk; lit. good boundary",
+    "name of a monk",
     "◑"
    ],
    [
@@ -25508,7 +25508,7 @@ var family_set_json = {
    [
     "māgha 1",
     "masc",
-    "(comm) epithet of Sakka",
+    "epithet of Sakka; lit. bounteous",
     "✔"
    ],
    [
@@ -26012,7 +26012,7 @@ var family_set_json = {
    [
     "susīma 1",
     "masc",
-    "name of a deity; lit. good boundary",
+    "name of a deity",
     "◑"
    ],
    [
@@ -26387,7 +26387,7 @@ var family_set_json = {
     "◑"
    ],
    [
-    "pakkhī",
+    "pakkhī 1",
     "masc",
     "bird; lit. with wings",
     "✔"
@@ -27901,6 +27901,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "tacasāra",
+    "masc",
+    "bamboo; reed; lit. hardwood skin",
+    "✔"
+   ],
+   [
     "tāla 1.1",
     "masc",
     "palm tree; Palmyra",
@@ -28681,7 +28687,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 208
+  "count": 209
  },
  "names of animals": {
   "data": [
@@ -38977,7 +38983,7 @@ var family_set_json = {
     "◑"
    ],
    [
-    "magha",
+    "magha 2",
     "masc",
     "name of Sakka during a human life",
     "◑"
@@ -38997,7 +39003,7 @@ var family_set_json = {
    [
     "māgha 1",
     "masc",
-    "(comm) epithet of Sakka",
+    "epithet of Sakka; lit. bounteous",
     "✔"
    ],
    [

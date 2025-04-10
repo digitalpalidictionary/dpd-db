@@ -23310,7 +23310,7 @@ var family_root_json = {
    [
     "āṇāti",
     "fem",
-    "order; command; instruction",
+    "order; command; instruction; lit. causes to know",
     "✔"
    ],
    [
@@ -26872,7 +26872,7 @@ var family_root_json = {
    [
     "atikkanta 1",
     "pp",
-    "gone beyond; surpassed; lit. gone too far",
+    "gone beyond; surpassed; exceeded; lit. gone too far",
     "✔"
    ],
    [
@@ -27076,7 +27076,7 @@ var family_root_json = {
    [
     "anatikkanta",
     "pp",
-    "not gone beyond; not surpassed; lit. not gone too far",
+    "not gone beyond; not surpassed; not exceeded; lit. not gone too far",
     "✔"
    ],
    [
@@ -31054,8 +31054,8 @@ var family_root_json = {
    [
     "sovatthika 2",
     "nt",
-    "swastika, mark like S on the hood of a cobra",
-    "✘"
+    "marking on the hood of a cobra; lit. be well",
+    "✔"
    ]
   ]
  },
@@ -31185,7 +31185,7 @@ var family_root_json = {
   "root_key": "√thambh",
   "root_family": "√thambh",
   "root_meaning": "support, be stiff",
-  "count": 21,
+  "count": 22,
   "data": [
    [
     "atthaddha",
@@ -31221,6 +31221,12 @@ var family_root_json = {
     "thaddha 3",
     "pp",
     "proud (of); conceited (about); lit. stiff",
+    "✔"
+   ],
+   [
+    "thaddhatara",
+    "adj",
+    "harder; firmer; stiffer; more rigid",
     "✔"
    ],
    [
@@ -37015,7 +37021,7 @@ var family_root_json = {
     "dhaṃsayati",
     "pr",
     "causes the ruin of; destroys; brings down",
-    "◑"
+    "✔"
    ],
    [
     "dhaṃsita",
@@ -42308,8 +42314,8 @@ var family_root_json = {
    [
     "nandamāna",
     "prp",
-    "is glad, is rejoice, finding delight in",
-    "✘"
+    "being glad; rejoicing; delighting (in)",
+    "✔"
    ],
    [
     "nandavatī",
@@ -68345,10 +68351,16 @@ var family_root_json = {
   "root_key": "√pad",
   "root_family": "upa √pad",
   "root_meaning": "go, step",
-  "count": 28,
+  "count": 29,
   "data": [
    [
-    "anupapatti",
+    "anupapatti 1",
+    "fem",
+    "non-existence; non-occurrence; lit. not going near",
+    "✔"
+   ],
+   [
+    "anupapatti 2",
     "fem",
     "(gram) non-appearance; non-accomplishment; lit. not going near",
     "◑"
@@ -91450,7 +91462,7 @@ var family_root_json = {
    [
     "aparivasitvā",
     "abs",
-    "having not lived under probation (for); having not stayed for a trial period (for); lit. having not stayed around",
+    "having not lived under probation (for); having not stayed for a trial period (for); lit. having not lived around",
     "◑"
    ],
    [
@@ -91462,25 +91474,25 @@ var family_root_json = {
    [
     "paribbasāna",
     "prp",
-    "living (in); staying (in); settled (in); stuck (in)",
+    "living (in); staying (in); settled (in); stuck (in); lit. living around",
     "✔"
    ],
    [
     "parivatthabba",
     "ptp",
-    "should be under probation; should serve probation; lit. to be stayed around",
+    "should be under probation; should serve probation; lit. to be lived around",
     "✔"
    ],
    [
     "parivasati",
     "pr",
-    "lives under probation (for); stays for a trial period (for); lit. stays around",
+    "lives under probation (for); stays for a trial period (for); lit. lives around",
     "✔"
    ],
    [
     "parivasanta",
     "prp",
-    "living on probation; lit. staying around",
+    "living on probation; lit. living around",
     "◑"
    ],
    [
@@ -91492,61 +91504,61 @@ var family_root_json = {
    [
     "parivasi 2",
     "aor",
-    "lived",
+    "lived; lit. lived around",
     "✔"
    ],
    [
     "parivasitabba",
     "ptp",
-    "should live under probation; should stay for a trial period; lit. to be stayed around",
+    "should live under probation; should stay for a trial period; lit. to be lived around",
     "◑"
    ],
    [
     "parivasitvā",
     "abs",
-    "having lived under probation (for); having stayed for a trial period (for); lit. having stayed around",
+    "having lived under probation (for); having stayed for a trial period (for); lit. having lived around",
     "◑"
    ],
    [
     "parivāsa 1",
     "masc",
-    "(vinaya) probation; trial period; lit. staying around",
+    "(vinaya) probation; trial period; lit. living around",
     "✔"
    ],
    [
     "parivāsa 2",
     "masc",
-    "time period; duration; interval; lit. staying around",
+    "time period; duration; interval; lit. living around",
     "◑"
    ],
    [
     "parivuṭṭha",
     "pp",
-    "(of probation) lived under; served",
+    "(of probation) lived under; served; lit. lived around",
     "◑"
    ],
    [
     "parivuttha",
     "pp",
-    "(of probation) lived under; served",
+    "(of probation) lived under; served; lit. lived around",
     "✔"
    ],
    [
     "parivuttha 2",
     "pp",
-    "lived (through)",
+    "lived (through); lit. lived around",
     "✔"
    ],
    [
     "pārivāsika 1",
     "adj",
-    "(vinaya) related to probation; regarding the trial period; lit. related to staying around",
+    "(vinaya) related to probation; regarding the trial period; lit. related to living around",
     "◑"
    ],
    [
     "pārivāsika 2",
     "adj",
-    "(of food) which has stood overnight; lit. related to staying around",
+    "(of food) which has stood overnight; lit. related to living around",
     "◑"
    ]
   ]
@@ -112296,7 +112308,7 @@ var family_root_json = {
    [
     "dubbhūma",
     "adj",
-    "with bad ground; with infertile soil; (comm) with uneven ground; lit. bad earth",
+    "with bad earth; having infertile soil; (comm) with uneven ground",
     "✔"
    ],
    [
@@ -137800,7 +137812,7 @@ var family_root_json = {
    [
     "vāra 4",
     "masc",
-    "sieve; filter",
+    "sieve; filter; lit. causing to restrain",
     "✔"
    ],
    [
@@ -139662,7 +139674,7 @@ var family_root_json = {
    [
     "viceta",
     "adj",
-    "deluded; ignorant; crazy; lit. away mind",
+    "deluded; ignorant; crazy; lost one's mind; lit. away mind",
     "✔"
    ],
    [
@@ -169030,7 +169042,7 @@ var family_root_json = {
    [
     "āsannaddha",
     "pp",
-    "armed; furnished with weapons; in battle regalia; ready for battle",
+    "armed; strapped; furnished with weapons",
     "✔"
    ]
   ]
@@ -176256,7 +176268,7 @@ var family_root_json = {
    [
     "ubbādhati",
     "pr",
-    "troubles; disturbs; lit. presses up",
+    "troubles; disturbs; repels; lit. presses up",
     "✔"
    ],
    [
@@ -187099,7 +187111,7 @@ var family_root_json = {
     "soppa",
     "nt",
     "sleep; sleeping in",
-    "◑"
+    "✔"
    ],
    [
     "soppati",
@@ -189235,8 +189247,14 @@ var family_root_json = {
   "root_key": "√chuṭ",
   "root_family": "nī √chuṭ",
   "root_meaning": "cut off",
-  "count": 2,
+  "count": 3,
   "data": [
+   [
+    "nicchoṭana",
+    "nt",
+    "tossing aside; lit. cutting away",
+    "✔"
+   ],
    [
     "nicchoṭeti",
     "pr",
@@ -191120,7 +191138,7 @@ var family_root_json = {
    [
     "sunimmajjita",
     "adj",
-    "well wiped; completely cleaned off (with); lit. well rubbed away",
+    "well wiped; completely cleaned off; lit. well rubbed away",
     "✔"
    ]
   ]
@@ -218355,21 +218373,21 @@ var family_root_json = {
   "data": [
    [
     "saṅgara 1",
-    "masc",
-    "dealing; bargaining; negotiating; transacting; lit. talking together",
+    "nt",
+    "dealing; bargaining; negotiating; transacting (with); lit. talking together",
     "✔"
    ],
    [
     "saṅgara 2",
     "masc",
-    "promise, agreement",
-    "✘"
+    "promise; agreement (with); lit. talking together",
+    "✔"
    ],
    [
     "saṅgara 3",
     "masc",
     "conflict; fight; battle (with); lit. talking together",
-    "✔"
+    "◑"
    ]
   ]
  },
@@ -220886,7 +220904,7 @@ var family_root_json = {
    [
     "sannaddha 1.1",
     "pp",
-    "armed; furnished with weapons; in battle regalia; lit. bound together",
+    "armed; strapped; furnished with weapons; in battle regalia; lit. bound together",
     "✔"
    ],
    [
@@ -220942,13 +220960,13 @@ var family_root_json = {
    [
     "sannaddha 2.1",
     "pp",
-    "tied up; fastened together",
-    "✘"
+    "tied up; wrapped; bundled; fastened together",
+    "◑"
    ],
    [
     "susannaddha",
     "adj",
-    "well tied up; properly fastened together",
+    "well tied up; properly wrapped",
     "✔"
    ]
   ]

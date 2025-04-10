@@ -3815,7 +3815,7 @@ var family_word_json = {
    [
     "imesaṃ 1",
     "pron",
-    "for them; for those",
+    "for these; for them; for those",
     "✔"
    ],
    [
@@ -9031,8 +9031,8 @@ var family_word_json = {
    [
     "sukadariyatā",
     "fem",
-    "severe stinginess; extreme miserliness",
-    "◑"
+    "severe stinginess; extreme miserliness; lit. very mean noble state",
+    "✔"
    ]
   ],
   "count": 24
@@ -11085,9 +11085,15 @@ var family_word_json = {
     "✘"
    ],
    [
-    "pakkhī",
+    "pakkhī 1",
     "masc",
     "bird; lit. with wings",
+    "✔"
+   ],
+   [
+    "pakkhī 2",
+    "adj",
+    "winged; with wings",
     "✔"
    ],
    [
@@ -11133,7 +11139,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 30
+  "count": 31
  },
  "pacchā": {
   "data": [
@@ -18769,6 +18775,12 @@ var family_word_json = {
     "✘"
    ],
    [
+    "ubhayā",
+    "adj",
+    "from both",
+    "✔"
+   ],
+   [
     "ubhayena",
     "ind",
     "in both directions; on both sides; in both ways",
@@ -18817,7 +18829,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 12
+  "count": 13
  },
  "ūmi": {
   "data": [
@@ -27491,13 +27503,13 @@ var family_word_json = {
    [
     "susīma 1",
     "masc",
-    "name of a deity; lit. good boundary",
+    "name of a deity",
     "◑"
    ],
    [
     "susīma 2",
     "masc",
-    "name of a monk; lit. good boundary",
+    "name of a monk",
     "◑"
    ]
   ],
@@ -30275,7 +30287,13 @@ var family_word_json = {
  "magha": {
   "data": [
    [
-    "magha",
+    "magha 1",
+    "masc",
+    "gift; bounty; wealth",
+    "◑"
+   ],
+   [
+    "magha 2",
     "masc",
     "name of Sakka during a human life",
     "◑"
@@ -30289,11 +30307,11 @@ var family_word_json = {
    [
     "māgha 1",
     "masc",
-    "(comm) epithet of Sakka",
+    "epithet of Sakka; lit. bounteous",
     "✔"
    ]
   ],
-  "count": 3
+  "count": 4
  },
  "maṅgura": {
   "data": [
@@ -34654,7 +34672,7 @@ var family_word_json = {
    [
     "serīsaka 1",
     "adj",
-    "made of sirīsa wood",
+    "made of sirīsa wood; (comm) name of a mansion",
     "✔"
    ],
    [
