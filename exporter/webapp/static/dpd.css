@@ -1,3 +1,50 @@
+:root {
+    /* Background in light mode, text in dark mode */
+    --light: hsl(198, 100%, 95%);
+    --light-shade: hsl(198, 100%, 93%);
+
+    /* Background in dark mode, text in light mode */
+    --dark: hsl(198, 100%, 5%);
+    --dark-shade: hsl(198, 100%, 7%);
+
+    /* Primary colour used for logo, buttons, etc */
+    --primary: hsl(198, 100%, 50%);
+
+    /* Primary alternative used for pressed buttons */
+    --primary-alt: hsl(205, 100%, 40%);
+
+    /* Primary colour suitable for text in light and dark mode */
+    --primary-text: hsl(205, 79%, 48%);
+
+    /* Button shadows */
+    --shadow-default: 2px 2px 4px hsla(0, 0%, 20%, 0.4);
+    --shadow-hover: 2px 2px 4px hsla(0, 0%, 20%, 0.5);
+
+    /* Various grays */
+    --gray: hsl(0, 0%, 50%);
+    --gray-light: hsl(0, 0%, 75%);
+    --gray-dark: hsl(0, 0%, 25%);
+    --gray-transparent: hsla(0, 0%, 50%, 0.25);
+
+    /* Tertiary just for help and abbreviations */
+    --tertiary: hsl(158, 100%, 35%);
+
+    /* Frequency heatmap  */
+    --freq0: hsla(198, 90%, 50%, 0.10);
+    --freq1: hsla(200, 90%, 50%, 0.20);
+    --freq2: hsla(202, 90%, 50%, 0.30);
+    --freq3: hsla(204, 90%, 50%, 0.40);
+    --freq4: hsla(206, 90%, 50%, 0.50);
+    --freq5: hsla(208, 90%, 50%, 0.60);
+    --freq6: hsla(210, 90%, 50%, 0.70);
+    --freq7: hsla(212, 90%, 50%, 0.80);
+    --freq8: hsla(214, 90%, 50%, 0.90);
+    --freq9: hsla(216, 90%, 50%, 1.00);
+    --freq10: hsla(218, 90%, 50%, 1.00);
+}
+
+
+
 body {
     font-family: "Inter", "sans-serif";
 }
@@ -8,7 +55,7 @@ h3 {
     margin-bottom: 1px;
 }
 
-div.primary {
+div.dpd {
     border: 2px solid var(--primary);
     border-radius: 7px;
     line-height: 150%;
@@ -18,11 +65,21 @@ div.primary {
     text-align: left;
 }
 
+
 p {
     line-height: 150%;
     margin: 0px 0px;
     vertical-align: middle;
     text-align: left;
+}
+
+b.dpd {
+    color: var(--primary-text);
+    font-weight: 700;
+}
+
+a.dpd {
+    color: var(--primary)
 }
 
 p.heading {
@@ -45,53 +102,13 @@ p.heading b {
 }
 
 p.footer {
-    border-top: 1px solid var(--primary-alt);
+    border-top: 1px solid var(--primary);
     font-size: 80%;
     padding: 5px 0px;
+    margin-top: 5px;
 }
 
-div.secondary {
-    border: 2px solid var(--secondary);
-    border-radius: 7px;
-    line-height: 150%;
-    margin: 0px 0px;
-    overflow: auto;
-    padding: 3px 7px;
-    text-align: left;
-}
-
-p.secondary {
-    line-height: 150%;
-    margin: 0px 0px;
-    vertical-align: middle;
-    text-align: left;
-}
-
-p.secondary_footer {
-    border-top: 1px solid var(--secondary);
-    font-size: 80%;
-    margin: 5px 0 0 0;
-    padding: 5px 0px;
-}
-
-a.secondary {
-    float: right;
-    text-decoration: none;
-    margin: 1px;
-    vertical-align: top;
-}
-
-.secondary b {
-    color: var(--secondary);
-    font-weight: 700;
-}
-
-.secondary b:hover {
-    color: var(--secondary-alt);
-    font-weight: 700;
-}
-
-hr.secondary {
+hr {
     background-color: var(--gray-transparent);
     width: 100%;
     border: none;
@@ -395,23 +412,27 @@ table.freq td.gr10 {
 
 /* variant */
 
-table.variants {
+table.variants,
+table.grammar_dict {
     border-collapse: collapse;
     border: none;
-    line-height: 1.5;
-    margin: 0;
+    line-height: 150%;
+    margin: 0px;
     max-width: 100%;
     overflow: auto;
+    padding: 5px 0px;
     text-align: left;
     vertical-align: top;
     width: auto;
 }
 
 .variants th,
-.variants td {
-    padding: 2px 5px;
+.variants td,
+.grammar_dict th,
+.grammar_dict td {
+    padding: 7px 10px 0px 0px;
     text-align: left;
-    vertical-align: top;
+    vertical-align: center;
 }
 
 .variants td:first-child,
@@ -421,24 +442,11 @@ table.variants {
 
 /* grammar dict */
 
-table.grammar_dict {
-    border: 2px solid transparent;
-    line-height: 150%;
-    margin: 2px;
-    overflow: auto;
-    text-align: center;
-    vertical-align: center;
-    width: 99%;
-    border-collapse: collapse;
-        max-width: 100%;
-        overflow: auto;
-        text-align: left;
-}
 
-table.grammar_dict td {
+table {
     border-color: var(--gray-transparent);
-        border-width: 1px 0px;
-        border-style: solid;
+    border-width: 1px 0px;
+    border-style: solid;
     border-collapse: collapse;
 }
 

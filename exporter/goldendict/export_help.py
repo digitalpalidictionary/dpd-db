@@ -8,6 +8,7 @@ from minify_html import minify
 from sqlalchemy.orm import Session
 
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -69,6 +70,10 @@ def generate_help_html(
         header_templ = Template(filename=str(rupth.dpd_header_plain_templ_path))
 
     header = str(header_templ.render())
+
+    # Add Variables and fonts
+    css_manager = CSSManager()
+    header = css_manager.update_style(header)
 
     help_data_list: List[DictEntry] = []
 

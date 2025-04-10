@@ -14,6 +14,7 @@ from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
 )
 
 from tools.configger import config_test
+from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
@@ -98,7 +99,12 @@ def generate_html_from_lookup(g: ProgData):
     # create the header from a template
     header_templ = Template(filename=str(g.pth.grammar_dict_header_templ_path))
     html_header = render_header_templ(g.pth, css="", js="", header_templ=header_templ)
-    html_header += "<body><div class='secondary'><table class='grammar_dict'>"
+
+    # Add variables and fonts to header
+    css_manager = CSSManager()
+    html_header = css_manager.update_style(html_header)
+
+    html_header += "<body><div class='dpd'><table class='grammar_dict'>"
     html_header += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>"
 
     # Process each lookup entry

@@ -5,6 +5,7 @@
 import re
 from db.db_helpers import get_db_session
 
+from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
@@ -63,6 +64,10 @@ def main():
     with open(pth.variants_header_path) as f:
         header = f.read()
 
+    # Add variables and fonts to header
+    css_manager = CSSManager()
+    header = css_manager.update_style(header)
+
     pr.yes("")
 
     pr.green("writing html")
@@ -71,12 +76,12 @@ def main():
         html_list: list[str] = []
         html_list.append(header)
         html_list.append("<body>")
-        html_list.append("<div class='secondary'>")
+        html_list.append("<div class='dpd'>")
         html_list.append("<table class='variants'>")
         html_list.append(
             "<tr><th>source</th><th>book</th><th>context</th><th>variant</th></tr>"
         )
-        html_list.append("<td colspan='100%'><hr class='secondary'></td>")
+        html_list.append("<td colspan='100%'><hr class='dpd'></td>")
 
         synonyms_list: list[str] = []
 
@@ -87,7 +92,7 @@ def main():
 
         for corpus, data2 in data_tuple.items():
             if old_corpus and old_corpus != corpus:
-                html_list.append("<td colspan='100%'><hr class='secondary'></td>")
+                html_list.append("<td colspan='100%'><hr class='dpd'></td>")
 
             for book, data3 in data2.items():
                 for data_tuple in data3:
@@ -107,7 +112,7 @@ def main():
             old_corpus = corpus
 
         html_list.append("</table>")
-        html_list.append("<p class='secondary_footer'>")
+        html_list.append("<p class='footer'>")
         html_list.append(
             "For more information, please visit <a class='link' href='https://digitalpalidictionary.github.io/features/variants/' target='_blank'>this webpage</a>."
         )

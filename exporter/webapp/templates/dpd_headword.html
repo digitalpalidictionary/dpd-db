@@ -1,8 +1,8 @@
 <!-- summary -->
 
 <h3 id="{{ d.i.lemma_1_ }}">{{d.i.lemma_1}}</h3>
-<div class="primary summary">
-    <p>
+<div class="dpd summary">
+    <p class="dpd">
         {% if d.show_sbs_data and d.i.sbs %}
         {% if d.i.sbs.sbs_class_anki %}
         <a href="{{d.i.sbs.sbs_class_link}}" target="_blank"><i>(cl.{{d.i.sbs.sbs_class_anki}})</i></a>
@@ -118,7 +118,7 @@
 
 
 {% if d.i.needs_grammar_button or d.show_sbs_data %}
-<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="primary hidden">
+<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd hidden">
     <table class="grammar">
         <tr>
             <th>
@@ -445,10 +445,10 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.lemma_1_}}" name="example-div" class="primary hidden">
+<div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd hidden">
 
     {% elif d.i.needs_examples_button %}
-    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="primary hidden">
+    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd hidden">
         {% endif %}
 
         {% if d.i.example_1 and d.i.meaning_1 %}
@@ -494,7 +494,7 @@
     <!-- sbs examples -->
 
     {% if d.show_sbs_data and d.i.sbs and d.i.sbs.needs_sbs_example_button %}
-    <div id="sbs_example_{{d.i.lemma_1_}}" name="sbs-example-div" class="primary hidden">
+    <div id="sbs_example_{{d.i.lemma_1_}}" name="sbs-example-div" class="dpd hidden">
         {% if d.i.sbs.needs_sbs_example %}
         {% if d.i.sbs.sbs_example_1 %}
         <p>{{ d.i.sbs.sbs_example_1|safe }}</p>
@@ -629,7 +629,7 @@
     <!-- declension -->
 
     {% if d.i.needs_declension_button %}
-    <div id="declension_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="declension_{{d.i.lemma_1_}}" class="dpd hidden">
         {{d.i.inflections_html|safe}}
         {% if "gray" in d.i.inflections_html %}
         <p>
@@ -656,7 +656,7 @@
 
 
     {% if d.i.needs_conjugation_button %}
-    <div id="conjugation_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="conjugation_{{d.i.lemma_1_}}" class="dpd hidden">
         {{d.i.inflections_html|safe}}
         {% if "gray" in d.i.inflections_html %}
         <p>
@@ -683,7 +683,7 @@
 
 
     {% if d.i.needs_root_family_button %}
-    <div id="family_root_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_root_{{d.i.lemma_1_}}" class="dpd hidden">
         {{d.i.fr.html|safe}}
         <p class='footer'>
             Something out of place?
@@ -698,7 +698,7 @@
     <!-- word family -->
 
     {% if d.i.needs_word_family_button %}
-    <div id="family_word_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_word_{{d.i.lemma_1_}}" class="dpd hidden">
         <p class="heading underlined">
             <b>{{d.i.fw.count}}</b>
             words which belong to the
@@ -719,7 +719,7 @@
     <!-- compound family -->
 
     {% if d.i.needs_compound_family_button %}
-    <div id="family_compound_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_compound_{{d.i.lemma_1_}}" class="dpd hidden">
         <p class="heading underlined">
             <b>
                 {{d.fc[0].count}}
@@ -736,7 +736,7 @@
     <!-- compound families -->
 
     {% if d.i.needs_compound_families_button %}
-    <div id="family_compound_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_compound_{{d.i.lemma_1_}}" class="dpd hidden">
         <p id="{{d.i.lemma_1_}}cf_top" class="heading">jump to:
             {% for f in d.fc%}
             <a class="jump" href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
@@ -786,7 +786,7 @@
     <!-- idioms -->
 
     {% if d.i.needs_idioms_button %}
-    <div id="family_idiom_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_idiom_{{d.i.lemma_1_}}" class="dpd hidden">
         {% for f in d.fi %}
         {% if loop.index == 1 %}
         <p class="heading underlined">
@@ -819,7 +819,7 @@
     <!-- set -->
 
     {% if d.i.needs_set_button %}
-    <div id="family_set_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_set_{{d.i.lemma_1_}}" class="dpd hidden">
         {% for f in d.fs %}
         <p class="heading underlined">
             <b>{{d.i.lemma_clean}}</b>
@@ -834,7 +834,7 @@
     <!-- sets -->
 
     {% if d.i.needs_sets_button %}
-    <div id="family_sets_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="family_sets_{{d.i.lemma_1_}}" class="dpd hidden">
         <p id="{{d.i.lemma_1_}}sets_top" class="heading">jump to:
             {% for set in d.i.family_set_list %}
             <a class="jump" href="#{{d.i.lemma_1_}}sets_{{set}}">
@@ -878,7 +878,7 @@
     {% endif %}
 
     {% if d.i.needs_sets_button %}
-    <div id="sets_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="sets_{{d.i.lemma_1_}}" class="dpd hidden">
         {% for f in d.fs %}
         {% if loop.index0 == 0 %}
         <p class="heading underlined">
@@ -897,7 +897,7 @@
     <!-- frequency -->
 
     {% if d.i.needs_frequency_button %}
-    <div id="frequency_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="frequency_{{d.i.lemma_1_}}" class="dpd hidden">
 
         {% if not d.i.freq_html %}
         <p class="heading underlined">
@@ -943,7 +943,7 @@
 
     <!-- feedback -->
 
-    <div id="feedback_{{d.i.lemma_1_}}" class="primary hidden">
+    <div id="feedback_{{d.i.lemma_1_}}" class="dpd hidden">
         <p>
             ID <b>{{d.i.id}}</b>
         </p>

@@ -42,6 +42,9 @@ jobs:
         run: |
           uv run python3 scripts/build/docs_add_indexes.py
 
+      - name: Update CSS Variables
+        run: uv run python3 scripts/build/docs_update_css.py
+
       - name: Build MkDocs site
         run: mkdocs build
 

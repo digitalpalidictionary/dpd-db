@@ -1,29 +1,3 @@
-:root {
-    --old1: hsl(192, 100%, 40%);
-    --old2: hsl(194, 100%, 70%);
-
-    --old-bg: hsl(252, 87%, 6%);
-    --old-fg: hsl(230, 100%, 7%);
-    --old-logo: hsl(204, 86%, 53%);
-
-    --light: hsl(198, 100%, 95%);
-    --light-shade: hsl(198, 100%, 93%);
-    --dark: hsl(198, 100%, 5%);
-    --dark-shade: hsl(198, 100%, 7%);
-
-    --dpd0: hsl(198, 100%, 50%);
-    --dpd1: hsl(205, 100%, 40%);
-    --dpd-text: hsl(205, 79%, 48%);
-
-    --shadow-default: 2px 2px 4px hsla(0, 0%, 20%, 0.4);
-    --shadow-hover: 2px 2px 4px hsla(0, 0%, 20%, 0.5);
-
-    --gray: hsl(0, 0%, 50%);
-    --gray-light: hsl(0, 0%, 75%);
-    --gray-dark: hsl(0, 0%, 25%);
-    --gray-transparent: hsla(0, 0%, 50%, 0.25);
-}
-
 /* image border */
 .md-typeset img {
     border: 2px solid var(--gray-transparent);
@@ -71,7 +45,7 @@
 
 
     /* top bar background and highlighted text*/
-    --md-primary-fg-color: var(--dpd0);
+    --md-primary-fg-color: var(--primary);
 
     /* top bar text */
     --md-primary-bg-color: var(--dark);
@@ -80,7 +54,7 @@
     --md-default-bg-color: var(--light);
 
     /* secondary background */
-    --md-primary-fg-color--dark: var(--dpd1);
+    --md-primary-fg-color--dark: var(--primary-alt);
 
     /* text colour */
     --md-default-fg-color: var(--dark);
@@ -98,10 +72,10 @@
     --md-primary-bg-color--dark: var(--dark);
 
     /* rollover highlight */
-    --md-accent-fg-color: var(--dpd1);
+    --md-accent-fg-color: var(--primary-alt);
 
     /* footer foreground */
-    --md-footer-fg-color: var(--dpd1);
+    --md-footer-fg-color: var(--primary-alt);
 
     /* footer background */
     --md-footer-bg-color: var(--light);
@@ -173,7 +147,7 @@
     }
 
     /* top bar background and highlighted text*/
-    --md-primary-fg-color: var(--dpd0);
+    --md-primary-fg-color: var(--primary);
 
     /* top bar text */
     --md-primary-bg-color: var(--light);
@@ -182,7 +156,7 @@
     --md-default-bg-color: var(--dark);
 
     /* secondary background */
-    --md-primary-fg-color--dark: var(--dpd1);
+    --md-primary-fg-color--dark: var(--primary-alt);
 
     /* text colour */
     --md-default-fg-color: var(--light);
@@ -201,7 +175,7 @@
     --md-primary-bg-color--light: var(--dark);
 
     /* rollover highlight */
-    --md-accent-fg-color: var(--dpd1);
+    --md-accent-fg-color: var(--primary-alt);
 
     /* footer foreground */
     --md-footer-fg-color: var(--light);

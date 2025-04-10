@@ -1,8 +1,8 @@
 <h3>English: {{ d.headword }}</h3>
-<div class='secondary'>
+<div class='dpd'>
     {% for item in d.epd %}
-    <p class="secondary">
-        <b class="secondary">{{ item.0 }}</b>
+    <p class="dpd">
+        <b class="dpd">{{ item.0 }}</b>
         {% if item.1 %}
         {{ item.1|safe }}.
         {% endif %}

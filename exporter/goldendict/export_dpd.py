@@ -27,6 +27,7 @@ from db.models import Russian
 from db.models import SBS
 
 from tools.configger import config_test
+from tools.css_manager import CSSManager
 from tools.date_and_time import year_month_day_dash
 from tools.exporter_functions import (
     get_family_compounds,
@@ -309,7 +310,11 @@ def render_pali_word_dpd_html(
 
     html += "</body></html>"
 
+    # Add CSS Variables and fonts to header
     header = str(tt.header_templ.render(i=i, date=date))
+    css_manager = CSSManager()
+    header = css_manager.update_style(header)
+
     size_dict["dpd_header"] += len(header)
     html = squash_whitespaces(header) + minify(html)
 

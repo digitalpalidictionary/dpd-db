@@ -14,6 +14,7 @@ from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
     ru_replace_abbreviations,
 )
+from tools.css_manager import CSSManager
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -58,6 +59,10 @@ def generate_root_html(
         root_header = render_root_header_templ(
             pth, r=r, date=str(TODAY), header_templ=header_templ
         )
+
+        # Add variables and fonts
+        css_manager = CSSManager()
+        root_header = css_manager.update_style(root_header)
 
         definition = render_root_definition_templ(
             pth, r, roots_count_dict, rupth, lang, show_ru_data

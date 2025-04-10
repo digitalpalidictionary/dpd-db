@@ -108,6 +108,7 @@ theme:
     text: Inter
 
 extra_css:
+  - stylesheets/dpd-variables.css
   - stylesheets/extra.css
 
 extra:

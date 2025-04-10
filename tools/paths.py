@@ -389,9 +389,13 @@ class ProjectPaths:
         # exporter/variants
         self.variants_header_path = base_dir / "exporter/variants/variants_header.html"
 
+        # exporter/webapp
+        self.webapp_css_path = base_dir / "exporter/webapp/static/dpd.css"
+
         # identity/
         self.dpd_css_path = base_dir / "identity/css/dpd.css"
-        self.dpd_variables_css_path = base_dir / "identity/css/dpd-variables.css"
+        self.dpd_css_variables_path = base_dir / "identity/css/dpd-variables.css"
+        self.dpd_css_fonts_path = base_dir / "identity/css/dpd-fonts.css"
 
         # identity/logo
         self.dpd_logo_svg = base_dir / "identity/logo/dpd-logo.svg"
@@ -558,6 +562,8 @@ class ProjectPaths:
 
         # docs
         self.mk_docs_yaml = base_dir / "mkdocs.yaml"
+        self.docs_css_path = base_dir / "docs/stylesheets/extra.css"
+        self.docs_css_variables_path = base_dir / "docs/stylesheets/dpd-variables.css"
         self.docs_dir = base_dir / "docs/"
         self.docs_bibliography_md_path = base_dir / "docs/bibliography.md"
         self.docs_abbreviations_md_path = base_dir / "docs/abbreviations.md"

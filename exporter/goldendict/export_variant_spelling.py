@@ -7,6 +7,7 @@ from minify_html import minify
 from typing import List, Tuple
 
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from tools.css_manager import CSSManager
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -95,6 +96,10 @@ def generate_variant_data_list(
 
     header = str(header_templ.render())
 
+    # Add Variables and fonts
+    css_manager = CSSManager()
+    header = css_manager.update_style(header)
+
     variant_data_list: List[DictEntry] = []
 
     for __counter__, (variant, main) in enumerate(variant_dict.items()):
@@ -165,6 +170,10 @@ def generate_spelling_data_list(
     # add here another language elif ...
 
     header = str(header_templ.render())
+
+    # Add Variables and fonts
+    css_manager = CSSManager()
+    header = css_manager.update_style(header)
 
     spelling_data_list: List[DictEntry] = []
 

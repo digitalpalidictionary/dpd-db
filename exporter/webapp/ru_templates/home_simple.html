@@ -9,8 +9,9 @@
 
     <link rel="icon" type="image/png" href="/static/dpd.ico">
     <style>
-        {{ home_simple_css|safe }}
         {{ dpd_css|safe }}
+        {{ home_simple_css|safe }}
+        
     </style>
     <script>
         {{ dpd_js|safe }}
@@ -22,7 +23,7 @@
     <div class="summary-results">
         <h3>Сводка</h3>
         {{ summary|safe}}
-        <hr>
+        <hr class="dpd">
     </div>
     <div class="dpd-results" id="dpd-results">
         {{ dpd_results|safe }}

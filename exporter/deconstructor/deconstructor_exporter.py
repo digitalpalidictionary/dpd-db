@@ -12,6 +12,7 @@ from db.models import Lookup
 from exporter.goldendict.helpers import TODAY
 from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
 from tools.configger import config_test
+from tools.css_manager import CSSManager
 from tools.goldendict_exporter import (
     DictEntry,
     DictInfo,
@@ -65,6 +66,10 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
 
     header_templ = Template(filename=str(g.pth.deconstructor_header_templ_path))
     deconstructor_header = str(header_templ.render(css="", js=""))
+
+    # add css variables and roots
+    css_manager = CSSManager()
+    deconstructor_header = css_manager.update_style(deconstructor_header)
 
     if g.lang == "en":
         deconstructor_templ = Template(filename=str(g.pth.deconstructor_templ_path))

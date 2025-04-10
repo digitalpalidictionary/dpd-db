@@ -1,11 +1,11 @@
-
 :root {
-
     /* Background in light mode, text in dark mode */
     --light: hsl(198, 100%, 95%);
+    --light-shade: hsl(198, 100%, 93%);
 
     /* Background in dark mode, text in light mode */
     --dark: hsl(198, 100%, 5%);
+    --dark-shade: hsl(198, 100%, 7%);
 
     /* Primary colour used for logo, buttons, etc */
     --primary: hsl(198, 100%, 50%);
@@ -26,10 +26,6 @@
     --gray-dark: hsl(0, 0%, 25%);
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
-    /* Secondary colour for epd, grammar, variants, deconstructor */
-    --secondary: hsl(178, 100%, 35%);
-    --secondary-alt: hsl(185, 100%, 25%);
-
     /* Tertiary just for help and abbreviations */
     --tertiary: hsl(158, 100%, 35%);
 
@@ -46,3 +42,4 @@
     --freq9: hsla(216, 90%, 50%, 1.00);
     --freq10: hsla(218, 90%, 50%, 1.00);
 }
+
