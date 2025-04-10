@@ -42,7 +42,7 @@ DEFAULT_CONFIG = {
     "goldendict": {"copy_unzip": "no", "path": ""},
     "dictionary": {
         "make_mdict": "yes",
-        "link_url": "https://www.thebuddhaswords.net/",
+        "link_url": "https://dhamma.gift/bw/",
         "make_link": "yes",
         "extended_synonyms": "no",
         "show_id": "no",
