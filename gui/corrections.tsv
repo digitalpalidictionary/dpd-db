@@ -8,7 +8,7 @@ id	field1	value1	field2	value2	field3	value3	comment	feedback	approved	checked	d
 71989	lemma_1	udumbarakhādikaṃ	example_1	sac'āyaṃ, byagghapajja, kulaputto appāyo samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavanti vattāro, <b>udumbarakhādikaṃ</b> c'āyaṃ kulaputto bhoge khādatī'ti.			add from variant reading BD says it is acc. as adv. of manner. SCPN 	please add as a new word, this is for changing the db	no	yes	
 50807	lemma_1	maññatī 1					add poetic version from māgaṇḍiyasutta SNP 47	please add as new word	no	yes	
 58284	compound_type	kammadhāraya > bahubbīhi							yes		
-70233	compound_type	dutiyā tappuirsa	compound_construction	ved<b>aṃ</b> + gū				please add bold to compound constructions!	yes		
+70233	compound_type	dutiyā tappuirsa	compound_construction	ved<b>aṃ</b> + gū				please add bold to compound constructions!	yes	yes	
 21791	meaning_lit	what is this?							yes		
 46089	meaning_1	one who seeks alms	sutta_1	jīvikasuttaṃ	example_1	piṇḍolo vicarasi pattapāṇī'ti. tañ'ca kho etaṃ, bhikkhave, kulaputtā upenti atthavasikā, atthavasaṃ paṭicca.	add from ITI 91 	please add as a new word, this updates the db	no	yes	
 46089	sutta_1	jīvikasuttaṃ	example_1	piṇḍolo vicarasi pattapāṇī'ti. tañ'ca kho etaṃ, bhikkhave, kulaputtā upenti atthavasikā, atthavasaṃ paṭicca.			add from ITI 91 	please add as a new word, this updates the db	no	yes	
@@ -33,25 +33,25 @@ diṭṭhiyā eke paccenti suddhiṃ."							yes
 66007	meaning_1	proceeding; continuing; going forward; practicing					it is referring to disciple	please add as new word with example	no	yes	
 65844	source_1		sutta_1		example_1		remve example since it is vaḍḍhi 4 now		yes		
 11616	meaning_1	pointing out, aiming at; indicating	sutta_2	VIN 2.5.8.2	example_2	tena kho pana samayena bhagavā bhikkhūnaṃ anekapariyāyena vinayakathaṃ katheti, vinayassa vaṇṇaṃ bhāsati, vinayapariyattiyā vaṇṇaṃ bhāsati, ādissa ādissa āyasmato upālissa vaṇṇaṃ bhāsati.	CPD and Buddhadatha book 3	please add new word	no	yes	
-26143	source_1	MN 4	sutta_1	bhayabheravasuttaṃ	example_1	<b>cattāḷīsam</b>'pi jātiyo paññāsam'pi jātiyo jātisatam'pi jātisahassam'pi jātisatasahassam'pi aneke'pi saṃvaṭṭakappe aneke'pi vivaṭṭakappe aneke'pi saṃvaṭṭavivaṭṭakappe		please add bold to examples	yes		
+26143	source_1	MN 4	sutta_1	bhayabheravasuttaṃ	example_1	<b>cattāḷīsam</b>'pi jātiyo paññāsam'pi jātiyo jātisatam'pi jātisahassam'pi jātisatasahassam'pi aneke'pi saṃvaṭṭakappe aneke'pi vivaṭṭakappe aneke'pi saṃvaṭṭavivaṭṭakappe		please add bold to examples	yes	yes	
 64056	example_1	rūpassa nibbidāya virāgāya nirodhāya paṭipannā, te supaṭipannā. ye supaṭipannā, te imasmiṃ dhammavinaye gādhanti.							yes		
 64057	example_1	na supaṭippassaddho, opakkamikā ce'pi te bhonto samaṇabrāhmaṇā dukkhā tibbā kharā kaṭukā vedanā vedayanti, abhabbāva te ñāṇāya dassanāya anuttarāya sambodhāya. diṭṭhiyā eke paccenti suddhiṃ.							yes		
 74577	source_1	SN35.235	sutta_1		example_1			your suggestion would delete sutta_1	no	yes	
 13742	meaning_1	sense base; sense organ					from comp cakkhundriya 2	please add new word	no	yes	
 101	source_1	MN 1000	sutta_1	test	example_1	so antaraghare nisinno samāno na chambhati na kampati na vedhati na paritassati. so achambhī  avedhī aparitassī vigatalomahaṃso.		test in sutta_1	no	yes	
 52955	meaning_1	happiness (for); appreciation; sympathetic joy						already done	no	yes	
-9429	pos	adj						if you change pos, need to change stem and pattern as well	yes		
+9429	pos	adj						if you change pos, need to change stem and pattern as well	yes	yes	
 42374	construction	papaṃ + ca	example_1	"papañ'ca udapānañ'ca, ye dadanti upassayaṃ.
 tesaṃ divā ca ratto ca, sadā puññaṃ pavaḍḍhati."			add sandhi from SN 1.47	add new word	no	yes	
 7454	source_2	APA 8	sutta_2	upālitherāpadānaṃ	example_2	"allavatthā allasirā,
 sabb'eva pañjalīkatā,
 buddhassa pāde nipatitvā,
-idaṃ vacanam'<b>abravuṃ</b>."		please no spaces or dashes in sutta names, and add bold to examples. what you add here goes into the db!	yes		
+idaṃ vacanam'<b>abravuṃ</b>."		please no spaces or dashes in sutta names, and add bold to examples. what you add here goes into the db!	yes	yes	
 53089	meaning_1	root; base; foot					remove (of a tree)  becasuse can be of a wall kuṭṭamūla		yes		
-52133	source_1	SNP 38	sutta_1	dvayatānupassanāsuttaṃ	example_1	tena kho pana samayena bhagavā tadah'uposathe pannarase puṇṇāya puṇṇa<b>māya</b> rattiyā bhikkhusaṅghaparivuto abbhokāse nisinno hoti.	from comp puṇṇamā	please add bold to examples	yes		
-48898	derived_from	brahanta					BD book 3 says that brahanta same as mahanta is anta adj	derived from column must match derived from in grammar, updated from brahā to brahanta	yes		
-49492	grammar	nt, irreg	pattern	a nt irreg			BD says it decline like kamma, and bhasmani make sence parten a nt irreg	for this kind of change you must change pos, grammar and pattern, found this list in grammar books kamma, camma, vesma, bhasma	yes		
-45190	grammar	nt, irreg	pattern	a nt irreg			BD book 2 suggest it same as kamma, pattern a nt irreg, and paṃsuni make sence	please change, pos, grammar, pattern	yes		
+52133	source_1	SNP 38	sutta_1	dvayatānupassanāsuttaṃ	example_1	tena kho pana samayena bhagavā tadah'uposathe pannarase puṇṇāya puṇṇa<b>māya</b> rattiyā bhikkhusaṅghaparivuto abbhokāse nisinno hoti.	from comp puṇṇamā	please add bold to examples	yes	yes	
+48898	derived_from	brahanta					BD book 3 says that brahanta same as mahanta is anta adj	derived from column must match derived from in grammar, updated from brahā to brahanta	yes	yes	
+49492	grammar	nt, irreg	pattern	a nt irreg			BD says it decline like kamma, and bhasmani make sence parten a nt irreg	for this kind of change you must change pos, grammar and pattern, found this list in grammar books kamma, camma, vesma, bhasma	yes	yes	
+45190	grammar	nt, irreg	pattern	a nt irreg			BD book 2 suggest it same as kamma, pattern a nt irreg, and paṃsuni make sence	please change, pos, grammar, pattern	yes	yes	
 437	grammar	card, fem	pattern	i2 card			BD book3	"i dont think of these are actual cardinals, just ""names"" for big numbers so i'm keeping them fem"	no	yes	
 55468	grammar	card, nt sg	pattern	a2 card			same as sata, according to BD book3		yes		
 9339	grammar	card, nt sg	pattern	a2 card			BD book3		yes		
@@ -68,8 +68,8 @@ nihato tvam'<b>asi</b> antakā'ti."	sutta example		yes
 69760	source_2	APA 393	sutta_2	pilindavacchatherāpadānaṃ	example_2	"satthena vā visena vā,
 <b>vihesam</b>'pi na kubbate,
 antarāmaraṇaṃ n'atthi,
-tesaṃ nissandato mama."	bold	please remove spaces and dashes from sutta names	yes		
-30315	phonetic	with metrically lengthened ā	construction	tar + ituṃ			since *ituṃ it is not metrically lengthened ā	i changed the construction instead, *ituṃ isn't really a thing. 	yes		
+tesaṃ nissandato mama."	bold	please remove spaces and dashes from sutta names	yes	yes	
+30315	phonetic	with metrically lengthened ā	construction	tar + ituṃ			since *ituṃ it is not metrically lengthened ā	i changed the construction instead, *ituṃ isn't really a thing. 	yes	yes	
 8244	source_1		sutta_1		example_1		example not match since durabhisambhava 2 has been updating.		yes		
 45127	source_2	MN 107	sutta_2	gaṇakamoggallānasuttaṃ	example_2	ye pana te kulaputtā ... āraddhavīriyā <b>pahit</b>'attā upaṭṭhitassatino sampajānā samāhitā ekaggacittā paññavanto aneḷamūgā, tehi bhavaṃ gotamo saddhiṃ saṃvasati.	examples were very similar		yes		
 57918	grammar	masc, gen sg of satthar					typo		yes		
@@ -154,7 +154,7 @@ te maṃ tattha <b>vadhiṃsu</b> bhogahetu."	add new		yes
 43186	grammar	nt, act					act		yes		
 43186	meaning_2	highly praising; (or) expounding; proclaiming					meaning fitting context	i'll add another word rather	no	yes	
 4980	meaning_2	having knowledge; with understanding; awakened; (or) realized after (someone); who has understood in succession					second meaning in context	will add another word	no	yes	
-56148	lemma_1	lola 1					added #2	you don't need to worry about numbering, there's some code which handles it and it's much easier to do there	yes		
+56148	lemma_1	lola 1					added #2	you don't need to worry about numbering, there's some code which handles it and it's much easier to do there	yes	yes	
 56152	meaning_1	abandoned agitation; dispelled restlessness; (or) given up longing					second meaning		yes		
 31214	source_1	MN 107	sutta_1	gaṇakamoggallānasuttaṃ	example_1	tam'enaṃ tvaṃ evaṃ vadeyyāsi, eh'ambho purisa, ayaṃ maggo rājagahaṃ gacchati. <b>tena muhuttaṃ gaccha</b>, tena muhuttaṃ gantvā dakkhissasi amukaṃ nāma gāmaṃ	clear wrong		yes		
 25098	compound_type	kammadhāraya > bahubbīhi	compound_construction	gutta + dvāra			one with		yes		
@@ -190,7 +190,7 @@ te maṃ tattha <b>vadhiṃsu</b> bhogahetu."	add new		yes
 12590	root_sign	*a					fill data		yes		
 12590	phonetic	u > o					fill data		yes		
 12590	derived_from	ārohati					fill data		yes		
-12590	construction	ā + √ruh > roh + *aṇīya					fill data	changed to construction, not base	yes		
+12590	construction	ā + √ruh > roh + *aṇīya					fill data	changed to construction, not base	yes	yes	
 43581	grammar	nt, from parinibbāti					not an act		yes		
 66263	lemma_1	vandiya 1					since added ptp		yes		
 75118	lemma_1	vandiya 2					2	please don't add words here	no	yes	
@@ -207,7 +207,7 @@ te maṃ tattha <b>vadhiṃsu</b> bhogahetu."	add new		yes
 66684	stem	vācan	pattern	a masc			context paritta	see above	no	yes	
 75152	source_2	Abhi Dhs 1	sutta_2	mātikā, tikamātikā	example_2	"saṅkiliṭṭhasaṅkilesikā dhammā.
 asaṅkiliṭṭhasaṅkilesikā dhammā.
-asaṅkiliṭṭh'<b>āsaṅkilesikā</b> dhammā."	example	add to example 2	yes		
+asaṅkiliṭṭh'<b>āsaṅkilesikā</b> dhammā."	example	add to example 2	yes	yes	
 49133	meaning_1	by the Buddha; with the Buddha					add		yes		
 33759	source_1	DHP 302	sutta_1	pakiṇṇakavaggo	example_1	"<b>dup</b>pabbajjaṃ <b>dur</b>abhiramaṃ,
 <b>dur</b>āvāsā gharā dukhā,
@@ -292,7 +292,7 @@ janamajjhe'r'iva rupparūpakaṃ."	'		yes
 9061	source_2	SN 56.37	sutta_2	paṭhamasūriyasuttaṃ	example_2	sūriyassa, bhikkhave, udayato etaṃ pubbaṅ'gamaṃ etaṃ pubbanimittaṃ, yad'idaṃ, <b>aruṇ</b>'uggaṃ. evam'eva kho, bhikkhave, bhikkhuno catunnaṃ ariyasaccānaṃ yathābhūtaṃ abhisamayāya etaṃ pubbaṅ'gamaṃ etaṃ pubbanimittaṃ, yad'idaṃ, sammādiṭṭhi.	ex		yes		
 14132	source_1	SN 56.37	sutta_1	paṭhamasūriyasuttaṃ	example_1	sūriyassa, bhikkhave, udayato etaṃ pubbaṅ'gamaṃ etaṃ pubbanimittaṃ, yad'idaṃ, aruṇ'<b>uggaṃ</b>. evam'eva kho, bhikkhave, bhikkhuno catunnaṃ ariyasaccānaṃ yathābhūtaṃ abhisamayāya etaṃ pubbaṅ'gamaṃ etaṃ pubbanimittaṃ, yad'idaṃ, sammādiṭṭhi.	ex		yes		
 14132	meaning_2	rising; ascending; becoming visible					PTS		yes		
-45457	meaning_lit	being in front					lit	chanted from become (bhūta) to being (bhāva)	yes		
+45457	meaning_lit	being in front					lit	chanted from become (bhūta) to being (bhāva)	yes	yes	
 5902	source_1	SN 56.38	sutta_1	dutiyasūriyasuttaṃ	example_1	yāvakīvañ'ca, bhikkhave, candimasūriyā loke n'uppajjanti, n'eva tāva mahato ālokassa pātubhāvo hoti mahato obhāsassa. andhatamaṃ tadā hoti <b>andhakāratimisā</b>. n'eva tāva rattindivā paññāyanti, na māsaddhamāsā paññāyanti, na utusaṃvaccharā paññāyanti.	ex		yes		
 32678	source_1	SN 56.38	sutta_1	dutiyasūriyasuttaṃ	example_1	andhatamaṃ tadā hoti andhakāratimisā. n'eva tāva rattin'<b>divā</b> paññāyanti, na māsaddhamāsā paññāyanti, na utusaṃvaccharā paññāyanti.	ex		yes		
 52497	source_1	SN 56.38	sutta_1	dutiyasūriyasuttaṃ	example_1	andhatamaṃ tadā hoti andhakāratimisā. n'eva tāva rattindivā paññāyanti, na <b>mās'addhamāsā</b> paññāyanti, na utusaṃvaccharā paññāyanti.	ex		yes		
@@ -324,7 +324,7 @@ saha vatthehi sobhati."	ex even more fit this meaning		yes
 22055	source_1	SN 56.38	sutta_1	dutiyasūriyasuttaṃ	example_1	yāva<b>kīvañ</b>'ca, bhikkhave, candimasūriyā loke n'uppajjanti, n'eva tāva mahato ālokassa pātubhāvo hoti mahato obhāsassa. andhatamaṃ tadā hoti andhakāratimisā.	ex		yes		
 3786	source_1	SN 56.32	sutta_1	khadirapattasuttaṃ	example_1	yo, bhikkhave, evaṃ vadeyya, ahaṃ dukkhaṃ ariyasaccaṃ yathābhūtaṃ <b>anabhisamecca</b>, dukkhasamudayaṃ ariyasaccaṃ yathābhūtaṃ <b>anabhisamecca</b>, dukkhanirodhaṃ ariyasaccaṃ yathābhūtaṃ <b>anabhisamecca</b>, dukkhanirodhagāminiṃ paṭipadaṃ ariyasaccaṃ yathābhūtaṃ <b>anabhisamecca</b> sammā dukkhass'antaṃ karissāmī'ti, n'etaṃ ṭhānaṃ vijjati.	ex		yes		
 118	source_1	SN 56.44	sutta_1	kūṭāgārasuttaṃ	example_1	seyyathā'pi, bhikkhave, yo evaṃ vadeyya, ahaṃ kūṭ'āgārassa heṭṭhimaṃ gharaṃ <b>akaritvā</b> uparimaṃ gharaṃ āropessāmī'ti, n'etaṃ ṭhānaṃ vijjati.	ex		yes		
-12575	source_1	SN 56.44	sutta_1	kūṭāgārasuttaṃ	example_1	seyyathā'pi, bhikkhave, yo evaṃ vadeyya, ahaṃ kūṭ'āgārassa heṭṭhimaṃ gharaṃ akaritvā uparimaṃ gharaṃ <b>āropessāmī</b>'ti, n'etaṃ ṭhānaṃ vijjati.	ex	the example doesnt fit the meaning, but it's hidden for now	yes		
+12575	source_1	SN 56.44	sutta_1	kūṭāgārasuttaṃ	example_1	seyyathā'pi, bhikkhave, yo evaṃ vadeyya, ahaṃ kūṭ'āgārassa heṭṭhimaṃ gharaṃ akaritvā uparimaṃ gharaṃ <b>āropessāmī</b>'ti, n'etaṃ ṭhānaṃ vijjati.	ex	the example doesnt fit the meaning, but it's hidden for now	yes	yes	
 23718	source_1	SN 56.47	sutta_1	paṭhamachiggaḷayugasuttaṃ	example_1	<b>khippataraṃ</b> kho so, bhikkhave, kāṇo kacchapo vassasatassa vassasatassa accayena sakiṃ sakiṃ ummujjanto amusmiṃ ekacchiggaḷe yuge gīvaṃ paveseyya, na tv'ev'āhaṃ, bhikkhave, sakiṃ vinipātagatena bālena manussattaṃ vadāmi.	ex		yes		
 23718	family_root						comp	-tara is taddhita suffix, fast-er, more fast. 	no	yes	
 23718	grammar	ind, adv, comp					comp	see above	no	yes	
@@ -556,7 +556,7 @@ asaṅkiliṭṭh'<b>āsaṅkilesikā</b> dhammā."	example		yes
 15065	sanskrit	uḍumbara + khādikā					missing		yes		
 15065	family_compound	udumbara khādikā					missing		yes		
 15065	meaning_1	squanderer; who wastes resources					typo		yes		
-15064	lemma_1	udumbarakhādikaṃ	lemma_2	udumbarakhādikaṃ			can be removed I think, because in AN 8.54 it is udumbarakhādikā 1	i prefer this as the main reading	yes		
+15064	lemma_1	udumbarakhādikaṃ	lemma_2	udumbarakhādikaṃ			can be removed I think, because in AN 8.54 it is udumbarakhādikā 1	i prefer this as the main reading	yes	yes	
 71990	variant	udumbarakhādikā					missing		yes		
 71990	notes	acc. as adv. of manner. SCPN §52					missing		yes		
 71990	meaning_1	squanderer; who wastes resources					typo		yes		
@@ -722,7 +722,7 @@ uttara + i"					mistake		yes
 14712	derivative	taddhita	suffix	i			missing		yes		
 17890	grammar	pron, masc & nt loc sg of eta					missing		yes		
 22170	meaning_1	for looking after the stomach; for taking care of the belly					same as kāyaparihārika		yes		
-22904	meaning_1	completely and utterly; complete and utter; 100%					it seems the idiom need to have adj meaning, while before it looked like adv	it can be taken both ways	yes		
+22904	meaning_1	completely and utterly; complete and utter; 100%					it seems the idiom need to have adj meaning, while before it looked like adv	it can be taken both ways	yes	yes	
 46477	source_1	AN4.70	sutta_1	adhammikasuttaṃ	example_1	"gunnaṃ ce taramānānaṃ,
 jimhaṃ gacchati <b>puṅgavo</b>,
 sabbā tā jimhaṃ gacchanti,
@@ -736,7 +736,7 @@ nette jimhaṃ gate sati."	1st ex moved to puṅgava 2		yes
 30154	grammar	pron, masc & nt loc sg of ta, loc abs					missing		yes		
 30155	grammar	pron, masc & nt loc sg of ta, loc abs					missing		yes		
 30156	grammar	pron, masc & nt loc sg of ta, loc abs					missing		yes		
-59672	compound_type	catutthī tappurisa	compound_construction	samādh<b>ino</b> + saṃvattanika			error	well caught	yes		
+59672	compound_type	catutthī tappurisa	compound_construction	samādh<b>ino</b> + saṃvattanika			error	well caught	yes	yes	
 20013	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	tatra y'āyaṃ usmā sā tatth'eva vūpasameyya, <b>kapallāni</b> avasisseyyuṃ. evam'eva kho, bhikkhave, bhikkhu kāyapariyantikaṃ vedanaṃ vedayamāno kāyapariyantikaṃ vedanaṃ vedayāmī'ti pajānāti, jīvitapariyantikaṃ vedanaṃ vedayamāno jīvitapariyantikaṃ vedanaṃ vedayāmī'ti pajānāti.	missing		yes		
 20013	construction	kapāla + ya					missing		yes		
 20013	commentary	(SNa) <b>kapallānī</b>'ti saha mukhavaṭṭiyā ekābaddhāni kumbhakapallāni.					missing		yes		
@@ -828,7 +828,7 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 12401	meaning_1	to begin; to start; to undertake; to arouse					missing		yes		
 44357	meaning_1	lets fall away; loses; wastes					missing		yes		
 49443	meaning_1	as dangerous; as fearful					missing		yes		
-50886	meaning_1	of the best quality					missing	dont leave the lit. in meaning_1	yes		
+50886	meaning_1	of the best quality					missing	dont leave the lit. in meaning_1	yes	yes	
 60445	meaning_1	to press on; to cause to rich; to strive to achieve					missing	already updated	no	yes	
 29648	meaning_1	reality; such likeness; actuality					missing		yes		
 46701	meaning_1	widely spread					missing		yes		
@@ -851,7 +851,7 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 55224	meaning_1	made from sights; consists of material forms					missing		yes		
 55231	meaning_1	experiencing greed for the sight; experiencing desire for the material form					missing		yes		
 56268	meaning_1	with waves; containing waves					missing		yes		
-56551	meaning_1	full of ferocious animals; with sharks					missing	leave lit out of meaning_1	yes		
+56551	meaning_1	full of ferocious animals; with sharks					missing	leave lit out of meaning_1	yes	yes	
 44953	meaning_1	examining; investigating; considering carefully; lit. moving around					missing		yes		
 5902	meaning_1	pitch black darkness; inky blackness					missing		yes		
 9071	meaning_1	first break of day; dawn					missing		yes		
@@ -871,7 +871,7 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 52125	meaning_1	let it not be; may it not exist					missing		yes		
 46098	meaning_1	in father; towards father; under father					missing		yes		
 7740	meaning_1	praises; applauds					missing		yes		
-10181	meaning_1	not crooked; non-dishonest					missing	no lit in meaning_1	yes		
+10181	meaning_1	not crooked; non-dishonest					missing	no lit in meaning_1	yes	yes	
 31018	meaning_1	for you all; to you all					missing		yes		
 65726	meaning_1	sinful; with faults; with mistakes					missing		yes		
 12109	meaning_1	remnants of undigested food; food remains					missing		yes		
@@ -894,7 +894,7 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 7557	meaning_1	of excellent vision					missing		yes		
 69658	meaning_1	strikes; wards off; banish					missing	no context, two meanings	no	yes	
 8740	meaning_1	I am this					missing		yes		
-9319	meaning_1	immovable; steady					missing	lit. in meaning_1 again. 	yes		
+9319	meaning_1	immovable; steady					missing	lit. in meaning_1 again. 	yes	yes	
 37512	meaning_1	I myself will bind; I myself shall tie					missing		yes		
 23267	meaning_1	space, sky					missing	no context. also clearly unedited	no	yes	
 55897	meaning_1	greedy; covetous					missing		yes		
@@ -904,21 +904,21 @@ buddho <b>tapati</b> tejasā."	duplicted changed		yes
 52355	meaning_1	demonstrates illusion; displays conjurer's trick; lit. causes to see magic					missing	there seems to be no thought into these, no editing, and lit in meaning_1	no	yes	
 69321	meaning_1	restlessness; impatience; turmoil					missing		yes		
 52176	meaning_1	mother (object)					missing		yes		
-62903	meaning_1	smooth; pliable; soft					missing	lit in meaning_1 again	yes		
+62903	meaning_1	smooth; pliable; soft					missing	lit in meaning_1 again	yes	yes	
 17592	meaning_1	only young son					missing		yes		
-39986	meaning_1	(of a seat, water, etc.) prepares; sets out					missing	lit in meaning_1	yes		
+39986	meaning_1	(of a seat, water, etc.) prepares; sets out					missing	lit in meaning_1	yes	yes	
 30072	meaning_1	three (3) (object)					missing		yes		
 34149	meaning_1	divine power					missing	no thought of context, it means spleandour, majesty in almost all suttas	no	yes	
 23035	meaning_1	seniormost of the five ascetics; first monastic disciple of the Buddha					missing		yes		
 15402	source_1	SN47.9	sutta_1	gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ <b>upagacchuṃ</b>.	missing	its upagacchi 3	no	yes	
 75249	root_sign	ya + *aya					missing		yes		
-60376	meaning_lit	is caused to stretch forward					pass caus, same as nissārīyati ; and by the way to the tests maybe add exseption - caus pass can be intrans	for tests, need to know the test number, you can addit yourself	yes		
+60376	meaning_lit	is caused to stretch forward					pass caus, same as nissārīyati ; and by the way to the tests maybe add exseption - caus pass can be intrans	for tests, need to know the test number, you can addit yourself	yes	yes	
 60376	commentary	(VISMa) <b>na sampasāriyatī</b>'ti na visarati, abhirativasena na pakkhandatī'ti attho.					missing		yes		
 29006	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	yaṃ tasmiṃ kule uppajjati khādanīyaṃ vā bhojanīyaṃ vā tato āyasmato upanandassa sakyaputtassa paṭiviso <b>ṭhapiyyati</b>.	missing		yes		
 29006	meaning_lit	is caused to stand					caus pass but not pass caus pass		yes		
 29006	commentary	-					missing		yes		
 5354	meaning_lit	causes to hear along					caus pass but not pass caus pass		yes		
-68741	meaning_1	having the flavour of freedom; with the taste of liberation; with the essence of emancipation					same as loṇarasa and ekarasa	then should be adj	yes		
+68741	meaning_1	having the flavour of freedom; with the taste of liberation; with the essence of emancipation					same as loṇarasa and ekarasa	then should be adj	yes	yes	
 68741	meaning_lit	taste of liberation					missing		yes		
 68741	pos	adj					missing		yes		
 68741	stem	vimuttiras	pattern	a adj			missing		yes		
@@ -992,20 +992,20 @@ samādhim'adhigacchati."	bold		yes
 15325	trans	intrans					missing		yes		
 15325	plus_case	+dat					missing		yes		
 15325	meaning_1	is beneficial (for); is good (for)					missing		yes		
-15325	commentary	(KPa) <b>upakappatī</b>'ti ca ṭhānaso upakappati, taṃkhaṇaṃ'y'eva upakappati, na cirena. yathā hi taṃkhaṇañ'ñeva paṭibhantaṃ ṭhānaso'v'etaṃ tathāgataṃ paṭibhātī'ti vuccati, evam'idhā'pi taṃkhaṇaṃ'y'eva upakappantā ṭhānaso upakappatī'ti vuttā.					missing	please check commentaries for sandhi, there are many missing. 	yes		
+15325	commentary	(KPa) <b>upakappatī</b>'ti ca ṭhānaso upakappati, taṃkhaṇaṃ'y'eva upakappati, na cirena. yathā hi taṃkhaṇañ'ñeva paṭibhantaṃ ṭhānaso'v'etaṃ tathāgataṃ paṭibhātī'ti vuccati, evam'idhā'pi taṃkhaṇaṃ'y'eva upakappantā ṭhānaso upakappatī'ti vuttā.					missing	please check commentaries for sandhi, there are many missing. 	yes	yes	
 69658	meaning_1	wards off; banishes					meaning in the TH251		yes		
 52355	construction	māyaṃ + vidaṃseti					missing		yes		
 52355	meaning_1	performs an illusion; displays a conjurer's trick					meaning in SN22.95 		yes		
-34149	meaning_1	divine majesty; heavenly splendour; power of the gods					meaning in SN56.11 (Bhikkhu Bodhi) and DN21.3 (Maurice Walshe), if you are not agree please change for that you find fitting, rather than leave with meaning 2 only	I edited slightly	yes		
+34149	meaning_1	divine majesty; heavenly splendour; power of the gods					meaning in SN56.11 (Bhikkhu Bodhi) and DN21.3 (Maurice Walshe), if you are not agree please change for that you find fitting, rather than leave with meaning 2 only	I edited slightly	yes	yes	
 15403	source_1	SN47.9	sutta_1	gilānasuttaṃ	example_1	evaṃ, bhante'ti kho te bhikkhū bhagavato paṭissutvā samantā vesāliyā yathāmittaṃ yathāsandiṭṭhaṃ yathāsambhattaṃ vassaṃ <b>upagacchuṃ</b>.	according to your comment for last suggestion		yes		
 15403	meaning_1	underwent; undertook					SN47.9 gilānasuttaṃ		yes		
 65242	sanskrit	srotaāpatti + aṅga					missing		yes		
 65242	source_1	SN12.41	sutta_1	pañcaverabhayasuttaṃ	example_1	yato kho, gahapati, ariyasāvakassa pañca bhayāni verāni vūpasantāni honti, catūhi ca <b>sotāpatti'y'aṅgehi</b> samannāgato hoti	missing		yes		
-65242	commentary	(SNa) <b>sotāpatti'y'aṅgehī</b>'ti duvidhaṃ sot'āpattiyā aṅgaṃ, yaṃ pubbabhāge sot'āpattipaṭilābhāya saṃvattati, sappurisasaṃsevo saddhammassavanaṃ yonisomanasikāro dhamm'ānudhammappaṭipattī'ti					missing	please mark sandhi in commentaries with '	yes		
+65242	commentary	(SNa) <b>sotāpatti'y'aṅgehī</b>'ti duvidhaṃ sot'āpattiyā aṅgaṃ, yaṃ pubbabhāge sot'āpattipaṭilābhāya saṃvattati, sappurisasaṃsevo saddhammassavanaṃ yonisomanasikāro dhamm'ānudhammappaṭipattī'ti					missing	please mark sandhi in commentaries with '	yes	yes	
 65242	construction	sotāpatti + [y] + aṅga					missing		yes		
 65242	phonetic	+y (Kacc 35, 34)					missing		yes		
 3419	source_2	SN12.55	sutta_2	mahārukkhasuttaṃ	example_2	tassa yāni c'eva mūlāni <b>adhogamāni</b>, yāni ca tiriyaṅ'gamāni, sabbāni tāni uddhaṃ ojaṃ abhiharanti.	missing		yes		
-3419	commentary	(MNa) <b>adhogamā vātā</b>'ti uccārapassāv'ādinīharaṇakā adho orohanavātā.					missing	please mark sandhi in commentary with '	yes		
+3419	commentary	(MNa) <b>adhogamā vātā</b>'ti uccārapassāv'ādinīharaṇakā adho orohanavātā.					missing	please mark sandhi in commentary with '	yes	yes	
 19257	source_1	SN12.15	sutta_1	kaccānagottasuttaṃ	example_1	atha kho āyasmā <b>kaccānagotto</b> yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ nisīdi.	missing		yes		
 10586	source_1	SN12.20	sutta_1	paccayasuttaṃ	example_1	passathā'ti c'āha avijjāpaccayā, bhikkhave, saṅkhārā. iti kho, bhikkhave, yā tatra tathatā <b>avitathatā</b> anaññathatā idappaccayatā, ayaṃ vuccati, bhikkhave, paṭiccasamuppādo.	missing		yes		
 3502	source_1	SN12.20	sutta_1	paccayasuttaṃ	example_1	passathā'ti c'āha avijjāpaccayā, bhikkhave, saṅkhārā. iti kho, bhikkhave, yā tatra tathatā avitathatā <b>anaññathatā</b> idappaccayatā, ayaṃ vuccati, bhikkhave, paṭiccasamuppādo.	missing		yes		
@@ -1017,14 +1017,14 @@ samādhim'adhigacchati."	bold		yes
 23753	sanskrit	kṣīṇa + paitryaviṣaya					missing		yes		
 23753	family_compound	khīṇa pitar visaya					missing		yes		
 23753	construction	khīṇa + pettivisaya					missing		yes		
-23753	meaning_1	done with the ghost realm; finished with the world of the forefathers					missing	I edited slightly	yes		
+23753	meaning_1	done with the ghost realm; finished with the world of the forefathers					missing	I edited slightly	yes	yes	
 23762	compound_type	kammadhāraya	compound_construction	khīṇa + apāyaduggativinipāta			missing		yes		
 23762	sanskrit	kṣīṇa + apāya + durgati + vinipāta					missing		yes		
 23762	family_compound	khīṇa apāya gati vinipāta					missing		yes		
 23762	source_1	SN12.41	sutta_1	pañcaverabhayasuttaṃ	example_1	so ākaṅkhamāno attanā'va attānaṃ byākareyya, khīṇanirayo'mhi khīṇatiracchānayoni khīṇapettivisayo <b>khīṇ'āpāyaduggativinipāto</b>, sot'āpanno'ham'asmi avinipātadhammo niyato sambodhiparāyano'ti.	missing		yes		
 23762	construction	khīṇa + apāyaduggativinipāta					missing		yes		
 23762	meaning_1	done with states of misery, bad destinations and purgatory					missing		yes		
-23762	commentary	(SNa) <b>khīṇ'āpāyaduggativinipāto</b>'ti idaṃ niray'ādīnaṃ'y'eva vevacanavaseneva vuttaṃ.					missing	please mark sandhi in commentary with '	yes		
+23762	commentary	(SNa) <b>khīṇ'āpāyaduggativinipāto</b>'ti idaṃ niray'ādīnaṃ'y'eva vevacanavaseneva vuttaṃ.					missing	please mark sandhi in commentary with '	yes	yes	
 6623	sanskrit	apāya + durgati + vinipāta					missing		yes		
 6623	source_1	SN12.41	sutta_1	pañcaverabhayasuttaṃ	example_1	so ākaṅkhamāno attanā'va attānaṃ byākareyya, khīṇanirayo'mhi khīṇatiracchānayoni khīṇapettivisayo khīṇ'<b>āpāyaduggativinipāto</b>, sot'āpanno'ham'asmi avinipātadhammo niyato sambodhiparāyano'ti.	missing		yes		
 64376	source_1	SN12.41	sutta_1	pañcaverabhayasuttaṃ	example_1	yaṃ, gahapati, <b>surāmerayamajjapamādaṭṭhāyī</b> surāmerayamajjapamādaṭṭhānapaccayā diṭṭhadhammikam'pi bhayaṃ veraṃ pasavati, samparāyikam'pi bhayaṃ veraṃ pasavati,	missing		yes		
@@ -1044,7 +1044,7 @@ samādhim'adhigacchati."	bold		yes
 64056	derivative	kita	suffix	na			missing		yes		
 64056	meaning_lit	gone along well					missing		yes		
 8982	source_1	SN12.41	sutta_1	pañcaverabhayasuttaṃ	example_1	<b>ariyakantehi</b> sīlehi samannāgato hoti akhaṇḍehi acchiddehi asabalehi akammāsehi bhujissehi viññuppasatthehi aparāmaṭṭhehi samādhisaṃvattanikehi.	missing		yes		
-8982	commentary	(SNa) <b>ariyakantehī</b>'ti pañcahi sīlehi. tāni hi ariyānaṃ kantāni piyāni. bhav'antaragatā'pi ariyā tāni na vijahanti, tasmā ariyakantānī'ti vuccanti.					missing	please mark sandhi in commentary with '	yes		
+8982	commentary	(SNa) <b>ariyakantehī</b>'ti pañcahi sīlehi. tāni hi ariyānaṃ kantāni piyāni. bhav'antaragatā'pi ariyā tāni na vijahanti, tasmā ariyakantānī'ti vuccanti.					missing	please mark sandhi in commentary with '	yes	yes	
 44302	source_2	SN12.51	sutta_2	parivīmaṃsanasuttaṃ	example_2	kittāvatā nu kho, bhikkhave, bhikkhū <b>parivīmaṃsamāno</b> parivīmaṃseyya sabbaso sammā dukkhakkhayāyā'ti?	missing		yes		
 44302	commentary	(SNa) <b>parivīmaṃsamāno</b>'ti upaparikkhamāno.					missing		yes		
 44300	derived_from	manteti					missing	present tense arent derived from anything unless caus or passive	no	yes	
@@ -1052,12 +1052,12 @@ samādhim'adhigacchati."	bold		yes
 44300	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	idha, bhikkhave, bhikkhu parivīmaṃsamāno <b>parivīmaṃsati</b>, yaṃ kho idaṃ anekavidhaṃ nānappakārakaṃ dukkhaṃ loke uppajjati jarāmaraṇaṃ, idaṃ nu kho dukkhaṃ kiṃnidānaṃ kiṃsamudayaṃ kiṃjātikaṃ kiṃpabhavaṃ?	missing		yes		
 44300	plus_case	+acc					missing		yes		
 44300	meaning_1	thoroughly investigates; complete examines					missing		yes		
-44300	grammar	pr					missing	its desid of *parivimaññati not √mant	yes		
+44300	grammar	pr					missing	its desid of *parivimaññati not √mant	yes	yes	
 44300	meaning_lit	investigates all around					missing		yes		
 36245	source_2	SN12.51	sutta_2	parivīmaṃsanasuttaṃ	example_2	idha, bhikkhave, bhikkhu parivīmaṃsamāno parivīmaṃsati, yaṃ kho idaṃ anekavidhaṃ <b>nānappakārakaṃ</b> dukkhaṃ loke uppajjati jarāmaraṇaṃ, idaṃ nu kho dukkhaṃ kiṃnidānaṃ kiṃsamudayaṃ kiṃjātikaṃ kiṃpabhavaṃ?	missing		yes		
 28045	sanskrit	jarāmṛtyu + nirodha + sārūpya + gāmin					missing		yes		
-28045	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	so jarāmaraṇañ'ca pajānāti, jarāmaraṇasamudayañ'ca pajānāti, jarāmaraṇanirodhañ'ca pajānāti, yā ca <b>jarāmaraṇanirodhasāruppagāminī</b> paṭipadā tañ'ca pajānāti, tathā paṭipanno ca hoti anudhammacārī, ayaṃ vuccati, bhikkhave, bhikkhu sabbaso sammā dukkhakkhayāya paṭipanno jarāmaraṇanirodhāya.	missing	please mark sandhi in examples with '	yes		
-28045	commentary	(SNa) <b>jarāmaraṇanirodhasāruppagāminī</b>'ti jarāmaraṇanirodhassa sāruppabhāvena nikkilesatāya parisuddhatāya sadisā'va hutvā gāminī'ti attho.					missing	please mark sandhi in commentary with '	yes		
+28045	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	so jarāmaraṇañ'ca pajānāti, jarāmaraṇasamudayañ'ca pajānāti, jarāmaraṇanirodhañ'ca pajānāti, yā ca <b>jarāmaraṇanirodhasāruppagāminī</b> paṭipadā tañ'ca pajānāti, tathā paṭipanno ca hoti anudhammacārī, ayaṃ vuccati, bhikkhave, bhikkhu sabbaso sammā dukkhakkhayāya paṭipanno jarāmaraṇanirodhāya.	missing	please mark sandhi in examples with '	yes	yes	
+28045	commentary	(SNa) <b>jarāmaraṇanirodhasāruppagāminī</b>'ti jarāmaraṇanirodhassa sāruppabhāvena nikkilesatāya parisuddhatāya sadisā'va hutvā gāminī'ti attho.					missing	please mark sandhi in commentary with '	yes	yes	
 27705	construction	√chaḍḍ > chuḍḍ + ta					same as variant		yes		
 27705	source_1	DHP41	sutta_1	cittavaggo	example_1	"aciraṃ vat'ayaṃ kāyo,
 paṭhaviṃ adhisessati,
@@ -1066,7 +1066,7 @@ niratthaṃ'va kaliṅgaraṃ."	same as variant		yes
 27705	meaning_1	thrown away; discarded; rejected					same as variant		yes		
 27705	grammar	pp of chaḍḍeti					same as variant		yes		
 27705	phonetic	"a > u
-ḍḍt > ḍḍh"					missing	ḍḍt > ḍḍh	yes		
+ḍḍt > ḍḍh"					missing	ḍḍt > ḍḍh	yes	yes	
 10481	compound_type	kammadhāraya	compound_construction	na + vigata			missing		yes		
 10481	antonym	vigata					missing		yes		
 10481	family_compound	vigata					missing		yes		
@@ -1092,12 +1092,12 @@ na + vigata"					missing		yes
 58899	sanskrit	sarva + pāpa					missing		yes		
 58899	family_compound	sabba pāpa					missing		yes		
 58899	meaning_1	all evil deeds; all crimes; all wrongdoing					missing		yes		
-58899	commentary	(DNa) <b>sabbapāpassā</b>'ti sabb'ākusalassa.					missing	please mark sandhi in commentary with '	yes		
+58899	commentary	(DNa) <b>sabbapāpassā</b>'ti sabb'ākusalassa.					missing	please mark sandhi in commentary with '	yes	yes	
 6750	derived_from						missing		yes		
 6750	family_compound	apeta viññāṇa					missing		yes		
 6750	meaning_1	unconscious; without awareness; insensate					missing		yes		
 6750	grammar	adj, comp					missing		yes		
-6750	commentary	(THIa) <b>nibbuyhati susānaṃ, aciraṃ kāyo apetaviññāṇo</b>'ti ayaṃ kāyo aciren'eva apagataviññāṇo susānaṃ nibbuyhati upanīyati.					missing	please mark sandhi in commentary with '	yes		
+6750	commentary	(THIa) <b>nibbuyhati susānaṃ, aciraṃ kāyo apetaviññāṇo</b>'ti ayaṃ kāyo aciren'eva apagataviññāṇo susānaṃ nibbuyhati upanīyati.					missing	please mark sandhi in commentary with '	yes	yes	
 19263	meaning_1	is it so?; perhaps?					missing		yes		
 32055	sanskrit	daśa + sahasrin					missing		yes		
 32055	family_compound	dasa1 sahassa					missing		yes		
@@ -1106,7 +1106,7 @@ na + vigata"					missing		yes
 56617	meaning_1	trampled; shook					missing		yes		
 56617	commentary	(PMa) <b>saṅkampī</b>'ti uddhaṃ uggacchantī suṭṭhu kampi.					missing		yes		
 60404	sanskrit	[sampravyath]					missing		yes		
-60404	meaning_1	shook; trembled; quaked					missing	trembled not trampled ; )	yes		
+60404	meaning_1	shook; trembled; quaked					missing	trembled not trampled ; )	yes	yes	
 60404	commentary	(PMa) <b>sampavedhī</b>'ti catudisā gacchantī suṭṭhu pavedhi.					missing		yes		
 68427	meaning_1	resulting; have consequences; ripening					missing		yes		
 68427	commentary	(THa) <b>samavipākino</b>'ti sadisavipākā samānaphalā.					missing		yes		
@@ -1117,7 +1117,7 @@ c > k (Kacc 623, 554)"					missing		yes
 26393	meaning_1	fourteenth day of the lunar fortnight					missing		yes		
 49890	family_compound	bhikkhu gaṇanā					missing		yes		
 49890	meaning_1	counting the monks; calculating the number of monks					missing		yes		
-49890	commentary	(KVa) <b>bhikkhugaṇanā</b>'ti ettakā bhikkhū uposath'agge sannipatitā'ti bhikkhūnaṃ gaṇanā. idam'pi hi ubhayaṃ katvā'va uposatho kātabbo.					missing	please mark sandhi in commentary with '	yes		
+49890	commentary	(KVa) <b>bhikkhugaṇanā</b>'ti ettakā bhikkhū uposath'agge sannipatitā'ti bhikkhūnaṃ gaṇanā. idam'pi hi ubhayaṃ katvā'va uposatho kātabbo.					missing	please mark sandhi in commentary with '	yes	yes	
 14605	commentary	(KVa) <b>utukkhānan</b>'ti hem'ant'ādīnaṃ utūnaṃ ettakaṃ atikkantaṃ, ettakaṃ avasiṭṭhan'ti evaṃ utūnaṃ ācikkhanaṃ.					missing		yes		
 68489	derived_from	vippalapati					missing		yes		
 68489	meaning_1	wailing; confused talk					missing		yes		
@@ -1140,7 +1140,7 @@ c > k (Kacc 623, 554)"					missing		yes
 58554	sanskrit	saṃnipāta + bahula					missing		yes		
 58554	family_compound	sannipāta bahula					missing		yes		
 58554	meaning_1	gathering together a lot; having many meetings					missing		yes		
-58554	commentary	(ANa) <b>sannipātabahulā</b>'ti hiyyo'pi purimadivasam'pi sannipat'amha, puna ajja kim'atthaṃ sannipatāmā'ti vosānamanāpajjanena sannipātabahulā.					missing	please mark sandhi in commentary with '	yes		
+58554	commentary	(ANa) <b>sannipātabahulā</b>'ti hiyyo'pi purimadivasam'pi sannipat'amha, puna ajja kim'atthaṃ sannipatāmā'ti vosānamanāpajjanena sannipātabahulā.					missing	please mark sandhi in commentary with '	yes	yes	
 62276	derived_from	apekkha					missing		yes		
 62276	compound_type	kammadhāraya	compound_construction	sa + apekkha			missing		yes		
 62276	family_compound	apekkha					missing		yes		
@@ -1151,7 +1151,7 @@ sa + apekkha"					missing		yes
 62276	family_root	sa apa √ikkh					missing	sa is not an upasagga	no	yes	
 62276	commentary	(DNa) <b>sāpekkhā</b>'ti sataṇhā sālayā.					missing		yes		
 33863	source_2	AN10.54	sutta_2	samathasuttaṃ	example_2	cīvaram'p'āhaṃ, bhikkhave, <b>duvidhena</b> vadāmi, sevitabbam'pi asevitabbam'pi. piṇḍapātam'p'āhaṃ, bhikkhave, <b>duvidhena</b> vadāmi, sevitabbam'pi asevitabbam'pi.	I think here it is adv instead of adj		yes		
-33863	meaning_1	in two ways; as of two kinds; in a dual manner way					missing	edited	yes		
+33863	meaning_1	in two ways; as of two kinds; in a dual manner way					missing	edited	yes	yes	
 33863	commentary	(DNa) <b>duvidhenā</b>'ti dvividhena, dvīhi koṭṭhāsehī'ti attho.					missing		yes		
 38839	sanskrit	naiva + saṃjñā + na + asaṃjña					missing		yes		
 38839	family_compound	saññā					missing		yes		
@@ -1162,47 +1162,47 @@ sa + apekkha"					missing		yes
 43396	commentary	(NIDD1a) <b>cetaso parijjhāyanā</b>'ti cittassa jhānanākāro.					missing		yes		
 55783	meaning_1	inarticulate or empty talk; wailing; murmuring; jabbering					missing		yes		
 55783	derivative	kita	suffix	anā			missing		yes		
-55783	grammar	fem, abstr, act, from lālappati	derived_from	lālappati			missing	edited	yes		
+55783	grammar	fem, abstr, act, from lālappati	derived_from	lālappati			missing	edited	yes	yes	
 55783	commentary	(NIDD1a) lālappanākāro <b>lālappanā</b>.					missing		yes		
 55784	construction	"lālap + ita + tta
 lālappita + tta"					missing		yes		
-55784	meaning_1	inarticulate wailing; incoherent mumbling					missing	edited	yes		
+55784	meaning_1	inarticulate wailing; incoherent mumbling					missing	edited	yes	yes	
 55784	derivative	taddhita	suffix	tta			missing		yes		
-55784	commentary	(NIDD1a) lālappitassa bhāvo <b>lālappitattaṃ</b>. macchariy'ādīni vuttatthān'eva.					missing	please mark sandhi with '	yes		
+55784	commentary	(NIDD1a) lālappitassa bhāvo <b>lālappitattaṃ</b>. macchariy'ādīni vuttatthān'eva.					missing	please mark sandhi with '	yes	yes	
 51458	sanskrit	maraṇa + paryavasāna					missing		yes		
-51458	meaning_1	having death as its end; culminating in death; ending in death					missing	edited	yes		
+51458	meaning_1	having death as its end; culminating in death; ending in death					missing	edited	yes	yes	
 51488	meaning_1	should be dead; can die; will inevitably die					missing		yes		
 4842	family_compound	upāhana					missing		yes		
 4842	construction	"na > an + upa + √nah > han + *a
 na + upāhana"					missing		yes		
 4842	meaning_1	without shoes; without sandals					missing		yes		
-4842	meaning_lit	not binding onto					missing	edited	yes		
-4842	commentary	(JAa) <b>anupāhanā</b>'ti upāhanamattena'pi viyuttā sukhumālapādā.					missing	please mark sandhi with '	yes		
+4842	meaning_lit	not binding onto					missing	edited	yes	yes	
+4842	commentary	(JAa) <b>anupāhanā</b>'ti upāhanamattena'pi viyuttā sukhumālapādā.					missing	please mark sandhi with '	yes	yes	
 4842	compound_type	kammadhāraya	compound_construction	na + upāhana			missing		yes		
 68948	sanskrit	virūpa + rūpa +					missing		yes		
 68948	meaning_1	in different ways; in various ways; differently					missing		yes		
-68948	commentary	(THa) <b>virūparūpenā</b>'ti vividharūpena, anekavidhasabhāvenā'ti attho.					missing	please mark sandhi with '	yes		
+68948	commentary	(THa) <b>virūparūpenā</b>'ti vividharūpena, anekavidhasabhāvenā'ti attho.					missing	please mark sandhi with '	yes	yes	
 26881	construction	"√cuṇṇ + a + ka
 cuṇṇa + ka"					missing		yes		
-26881	meaning_1	powder; cosmetic powder; base					missing	edited	yes		
+26881	meaning_1	powder; cosmetic powder; base					missing	edited	yes	yes	
 26881	derivative	taddhita	suffix	ka			missing		yes		
-26881	commentary	(MNa) <b>cuṇṇakamakkhitan</b>'ti sāsapakakkena mukhapīḷak'ādīni nīharitvā loṇamattikāya duṭṭhalohitaṃ viliyāpetvā tilapiṭṭhena lohitaṃ pasādetvā haliddiyā vaṇṇaṃ sampādetvā cuṇṇakagaṇḍikāya mukhaṃ paharanti, ten'esa ativiya virocati.					missing	please mark sandhi with '	yes		
+26881	commentary	(MNa) <b>cuṇṇakamakkhitan</b>'ti sāsapakakkena mukhapīḷak'ādīni nīharitvā loṇamattikāya duṭṭhalohitaṃ viliyāpetvā tilapiṭṭhena lohitaṃ pasādetvā haliddiyā vaṇṇaṃ sampādetvā cuṇṇakagaṇḍikāya mukhaṃ paharanti, ten'esa ativiya virocati.					missing	please mark sandhi with '	yes	yes	
 26881	derived_from	cuṇṇa					missing		yes		
 26884	sanskrit	cūrṇaka + mrakṣita					missing		yes		
 26884	family_compound	cuṇṇa makkhita					missing		yes		
-26884	meaning_1	smeared with powder; powdered					missing	edited	yes		
+26884	meaning_1	smeared with powder; powdered					missing	edited	yes	yes	
 26884	grammar	adj, comp					missing		yes		
-26884	commentary	(THa) <b>mukhaṃ cuṇṇakamakkhitan</b>'ti mukhaṃ cuṇṇakena makkhitaṃ, yaṃ maṇḍanamanuyuttā sāsapakakkena mukhapīḷak'ādīni haritvā loṇamattikāya duṭṭhalohitaṃ haritvā mukhacuṇṇakavilepanaṃ karonti					missing	please mark sandhi with '	yes		
+26884	commentary	(THa) <b>mukhaṃ cuṇṇakamakkhitan</b>'ti mukhaṃ cuṇṇakena makkhitaṃ, yaṃ maṇḍanamanuyuttā sāsapakakkena mukhapīḷak'ādīni haritvā loṇamattikāya duṭṭhalohitaṃ haritvā mukhacuṇṇakavilepanaṃ karonti					missing	please mark sandhi with '	yes	yes	
 26884	compound_type	tatiyā tappurisa	compound_construction	cuṇṇak<b>ena</b> + makkhita			missing		yes		
 6450	family_compound	parihāna					missing		yes		
 6450	pos	adj					error		yes		
 6450	construction	"na > a + pari + √hā + ana + iya
 na + parihāna + iya"					missing		yes		
 6450	stem	aparihāniy	pattern	a adj			error		yes		
-6450	meaning_1	not connected with loss; not deteriorating; not decreasing; (principle of) non-decline					missing	edited	yes		
-6450	grammar	adj, from na parihāna	derived_from	parihāna			error	edited	yes		
+6450	meaning_1	not connected with loss; not deteriorating; not decreasing; (principle of) non-decline					missing	edited	yes	yes	
+6450	grammar	adj, from na parihāna	derived_from	parihāna			error	edited	yes	yes	
 6450	derivative	taddhita	suffix	iya			error		yes		
-6450	commentary	(DNa) <b>aparihāniye</b>'ti aparihānikare, vuddhihetubhūte'ti attho.					missing	please mark sandhi with '	yes		
+6450	commentary	(DNa) <b>aparihāniye</b>'ti aparihānikare, vuddhihetubhūte'ti attho.					missing	please mark sandhi with '	yes	yes	
 6450	derived_from	parihāna					error		yes		
 6450	compound_type	kammadhāraya	compound_construction	na + parihāniya			missing		yes		
 6450	antonym	parihāniya					missing		yes		
@@ -1210,18 +1210,18 @@ na + parihāna + iya"					missing		yes
 32266	meaning_1	made by giving; produced by charity					missing		yes		
 52571	sanskrit	mithyā + niyata					missing		yes		
 52571	source_1	DS1	sutta_1	tikamātikā	example_1	<b>micchattaniyatā</b> dhammā. sammattaniyatā dhammā. aniyatā dhammā	missing		yes		
-52571	commentary	(DNa) <b>micchattaniyato</b>'ti micchāsabhāvo hutvā niyato. niyatamicchādiṭṭhiyā saddhiṃ ānantariyakammass'etaṃ nāmaṃ.					missing	please mark sandhi with '	yes		
-52570	sanskrit	mithyātva					missing	edited with tva ending	yes		
+52571	commentary	(DNa) <b>micchattaniyato</b>'ti micchāsabhāvo hutvā niyato. niyatamicchādiṭṭhiyā saddhiṃ ānantariyakammass'etaṃ nāmaṃ.					missing	please mark sandhi with '	yes	yes	
+52570	sanskrit	mithyātva					missing	edited with tva ending	yes	yes	
 52570	meaning_1	wrongness; badness; imperfection					missing		yes		
 52570	derivative	taddhita	suffix	tta			missing		yes		
 52570	commentary	(DNa) <b>micchattā</b>'ti ayāthāvā micchāsabhāvā.					missing		yes		
 60726	sanskrit	samyaktva + niyata					missing		yes		
 60726	source_1	DS1	sutta_1	tikamātikā	example_1	micchattaniyatā dhammā. <b>sammattaniyatā</b> dhammā. aniyatā dhammā	missing		yes		
-60726	commentary	(DNa) sammāsabhāve niyato <b>sammattaniyato</b>. catunnaṃ ariyamaggānam'etaṃ nāmaṃ.					missing	please mark sandhi with '	yes		
+60726	commentary	(DNa) sammāsabhāve niyato <b>sammattaniyato</b>. catunnaṃ ariyamaggānam'etaṃ nāmaṃ.					missing	please mark sandhi with '	yes	yes	
 4917	meaning_1	given; handed over; presented					missing		yes		
-4917	commentary	(KPa) <b>balañ'ca bhikkhūnam'anuppadinnan</b>'ti iminā samuttejeti. bal'ānuppadānam'eva hi ettha evaṃ dānaṃ, bal'ānuppadānatā'ti tassa ussāhavaḍḍhanena samuttejanaṃ.					missing	please mark sandhi with '	yes		
+4917	commentary	(KPa) <b>balañ'ca bhikkhūnam'anuppadinnan</b>'ti iminā samuttejeti. bal'ānuppadānam'eva hi ettha evaṃ dānaṃ, bal'ānuppadānatā'ti tassa ussāhavaḍḍhanena samuttejanaṃ.					missing	please mark sandhi with '	yes	yes	
 28921	sanskrit	jñāti + dharma					missing		yes		
-28921	meaning_1	duties of relatives; family obligations					missing	edited	yes		
+28921	meaning_1	duties of relatives; family obligations					missing	edited	yes	yes	
 28921	commentary	(KPa) <b>so ñātidhammo ca ayaṃ nidassito</b>'ti iminā gāthāpadena bhagavā rājānaṃ dhammiyā kathāya sandasseti.					missing		yes		
 37176	meaning_1	defined as; termed; shown					missing		yes		
 37176	meaning_lit	caused to see					missing		yes		
@@ -1236,40 +1236,40 @@ na + āpanna"					missing		yes
 3988	commentary	(ANt) tassa samussayassa adhigataṃ <b>anāpanno</b> anupagato.					missing	unrelated commentary	no	yes	
 3988	compound_type	kammadhāraya	compound_construction	na + āpanna			missing		yes		
 3988	antonym	āpanna					missing		yes		
-54518	sanskrit	ratnatraya, triratna					missing	edited	yes		
+54518	sanskrit	ratnatraya, triratna					missing	edited	yes	yes	
 54518	family_compound	ratana1 taya					missing		yes		
 54518	meaning_1	Triple Gem; Three Treasures; Buddha, the Teaching and the Community					missing		yes		
 54518	compound_type	kammadhāraya	compound_construction	ratana + taya			missing		yes		
-3272	meaning_1	bondage; servitude; slavery					missing	edited	yes		
+3272	meaning_1	bondage; servitude; slavery					missing	edited	yes	yes	
 3272	source_1	MN129	sutta_1	bālapaṇḍitasuttaṃ	example_1	appamattako so kaliggaho yaṃ so akkhadhutto paṭhamen'eva kaliggahena puttam'pi jīyetha, dāram'pi jīyetha, sabbaṃ sāpateyyam'pi jīyetha, uttari'pi <b>adhibandhaṃ</b> nigaccheyya.	missing		yes		
-3272	commentary	(MNa) <b>adhibandhaṃ nigaccheyyā</b>'ti yasmā bahuṃ jito sabbasāpateyyam'pi'ssa nappahoti, tasmā attanā'pi bandhaṃ nigaccheyya.					missing	please mark sandhi with '	yes		
+3272	commentary	(MNa) <b>adhibandhaṃ nigaccheyyā</b>'ti yasmā bahuṃ jito sabbasāpateyyam'pi'ssa nappahoti, tasmā attanā'pi bandhaṃ nigaccheyya.					missing	please mark sandhi with '	yes	yes	
 3272	derived_from	abhi √bandh					missing		yes		
 5654	sanskrit	anta + granthi					missing		yes		
 5654	family_compound	anta gaṇṭhi					missing		yes		
-5654	meaning_1	twisted gut; intestinal knot; twisted bowels					missing	edited	yes		
+5654	meaning_1	twisted gut; intestinal knot; twisted bowels					missing	edited	yes	yes	
 5654	source_1	VIN4.8.206	sutta_1	seṭṭhiputtavatthu	example_1	jīvako … janaṃ ussāretvā tirokaraṇiyaṃ parikkhipitvā thambhe upanibandhitvā bhariyaṃ purato ṭhapetvā udaracchaviṃ uppāṭetvā <b>antagaṇṭhiṃ</b> nīharitvā bhariyāya dassesi	missing		yes		
-6009	sanskrit	apakṛṣya [apakṛṣ]					missing	edited	yes		
-6009	meaning_1	shrinking back; withdrawing; drawing away					missing	edited	yes		
-6009	commentary	(SNa) <b>apakass'eva kāyaṃ apakassa cittan</b>'ti ten'eva santhavādīnaṃ akaraṇena kāyañ'ca cittañ'ca apakassitvā, apanetvā'ti attho. yo hi bhikkhu araññe'pi na vasati, kāmavitakk'ādayo'pi vitakketi, ayaṃ n'eva kāyaṃ apakassati, na cittaṃ. yo hi araññe'pi kho viharati, kāmavitakk'ādayo pana vitakketi, ayaṃ kāyam'eva apakassati, na cittaṃ. yo gām'ante vasati, kāmavitakk'ādayo'pi kho na ca vitakketi, ayaṃ cittam'eva apakassati, na kāyaṃ. yo pana araññe c'eva vasati, kāmavitakk'ādayo ca na vitakketi, ayaṃ ubhayam'pi apakassati. evarūpā hutvā kulāni upasaṅkamathā'ti dīpento apakass'eva kāyaṃ apakassa cittan'ti āha.					missing	please mark sandhi with '	yes		
+6009	sanskrit	apakṛṣya [apakṛṣ]					missing	edited	yes	yes	
+6009	meaning_1	shrinking back; withdrawing; drawing away					missing	edited	yes	yes	
+6009	commentary	(SNa) <b>apakass'eva kāyaṃ apakassa cittan</b>'ti ten'eva santhavādīnaṃ akaraṇena kāyañ'ca cittañ'ca apakassitvā, apanetvā'ti attho. yo hi bhikkhu araññe'pi na vasati, kāmavitakk'ādayo'pi vitakketi, ayaṃ n'eva kāyaṃ apakassati, na cittaṃ. yo hi araññe'pi kho viharati, kāmavitakk'ādayo pana vitakketi, ayaṃ kāyam'eva apakassati, na cittaṃ. yo gām'ante vasati, kāmavitakk'ādayo'pi kho na ca vitakketi, ayaṃ cittam'eva apakassati, na kāyaṃ. yo pana araññe c'eva vasati, kāmavitakk'ādayo ca na vitakketi, ayaṃ ubhayam'pi apakassati. evarūpā hutvā kulāni upasaṅkamathā'ti dīpento apakass'eva kāyaṃ apakassa cittan'ti āha.					missing	please mark sandhi with '	yes	yes	
 6601	source_1	AN5.58	sutta_1	licchavikumārakasuttaṃ	example_1	bhavissan'ti vajjī, bhavissan'ti vajjī'ti? ime, bhante, licchavikumārakā caṇḍā pharusā <b>apānubhā</b>.	missing		yes		
 7091	sanskrit	alpa + āya					missing		yes		
 7091	family_compound	appa āya					missing		yes		
-7091	meaning_1	with a small income; with little revenue					missing	edited	yes		
+7091	meaning_1	with a small income; with little revenue					missing	edited	yes	yes	
 7091	source_1	AN8.54	sutta_1	dīghajāṇusuttaṃ	example_1	sac'āyaṃ kulaputto <b>app'āyo</b> samāno uḷāraṃ jīvikaṃ kappeti, tassa bhavanti vattāro, udumbarakhādikaṃ v'āyaṃ kulaputto bhoge khādatī'ti.	missing		yes		
-51831	sanskrit	mahā + bandhana + mukta					missing	sanskrit can always use mahā too	yes		
+51831	sanskrit	mahā + bandhana + mukta					missing	sanskrit can always use mahā too	yes	yes	
 51831	source_1	SN4.5	sutta_1	dutiyamārapāsasuttaṃ	example_1	"mutt'āhaṃ sabbapāsehi,
 ye dibbā ye ca mānusā.
 <b>mahābandhanamutto</b>'mhi,
 nihato tvam'asi antakā'ti."	missing		yes		
 51831	compound_type	pañcamī tappurisa	compound_construction	mahābandhan<b>amhā</b> + mutta			missing		yes		
-51829	sanskrit	mahā + bandhana					missing	sanskrit can always use mahā	yes		
+51829	sanskrit	mahā + bandhana					missing	sanskrit can always use mahā	yes	yes	
 51829	meaning_1	strong bondage; great attachment					missing		yes		
 51829	commentary	(DNa) <b>mahābandhanā</b>'ti mahatā kilesabandhanā mocetvā.					missing		yes		
 64116	meaning_1	well worshipped; highly honoured; deeply venerated					missing		yes		
 64116	source_1	SN7.15	sutta_1	mānatthaddhasuttaṃ	example_1	tesu na mānaṃ kayirātha, tesu assa sagāravo, ty'assa apacitā assu, ty'assu sādhu <b>supūjitā</b>.	missing		yes		
 28719	meaning_1	fire place; altar					missing		yes		
 63701	meaning_1	sacrificial ladle					missing		yes		
-63701	commentary	(SNa) <b>jivhā sujā</b>'ti yathā tuyhaṃ suvaṇṇarajatalohakaṭṭhamattikāsu aññataramayā yāgayajan'atthāya sujā hoti, evaṃ mayhaṃ dhammayāgaṃ yajan'atthāya pahūtajivhā sujāti vadati.					missing	please mark sandhi with '	yes		
+63701	commentary	(SNa) <b>jivhā sujā</b>'ti yathā tuyhaṃ suvaṇṇarajatalohakaṭṭhamattikāsu aññataramayā yāgayajan'atthāya sujā hoti, evaṃ mayhaṃ dhammayāgaṃ yajan'atthāya pahūtajivhā sujāti vadati.					missing	please mark sandhi with '	yes	yes	
 39002	meaning_1	performs; prepares; makes; does					missing		yes		
 39002	source_1	AN8.1	sutta_1	mettāsuttaṃ	example_1	"ekam'pi ce pāṇam'aduṭṭhacitto,
 mettāyati kusalī tena hoti,
@@ -1284,9 +1284,9 @@ pahūtam'ariyo <b>pakaroti</b> puññaṃ."	missing		yes
 6703	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	apuññaṃ ce saṅkhāraṃ abhisaṅkharoti, <b>apuññ'ūpagaṃ</b> hoti viññāṇaṃ. āneñjaṃ ce saṅkhāraṃ abhisaṅkharoti āneñj'ūpagaṃ hoti viññāṇaṃ.	missing		yes		
 11819	source_2	SN12.51	sutta_2	parivīmaṃsanasuttaṃ	example_2	apuññaṃ ce saṅkhāraṃ abhisaṅkharoti, apuññ'ūpagaṃ hoti viññāṇaṃ. āneñjaṃ ce saṅkhāraṃ abhisaṅkharoti <b>āneñj'ūpagaṃ</b> hoti viññāṇaṃ.	missing		yes		
 46558	sanskrit	puṇya + abhisaṃskāra					missing		yes		
-46558	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva <b>puññ'ābhisaṅkhāraṃ</b> abhisaṅkharoti na apuññ'ābhisaṅkhāraṃ abhisaṅkharoti na āneñj'ābhisaṅkhāraṃ abhisaṅkharoti.	missing	make sure negatives dont get bolded - apuññ'ābhisaṅkhāraṃ	yes		
+46558	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva <b>puññ'ābhisaṅkhāraṃ</b> abhisaṅkharoti na apuññ'ābhisaṅkhāraṃ abhisaṅkharoti na āneñj'ābhisaṅkhāraṃ abhisaṅkharoti.	missing	make sure negatives dont get bolded - apuññ'ābhisaṅkhāraṃ	yes	yes	
 46558	meaning_1	meritorious intention; positive karmic formations; wholesome intentional activities					missing		yes		
-46558	commentary	(PMa) <b>puññ'ābhisaṅkhāro</b>'tiādīsu punāti attano kārakaṃ, pūreti c'assa ajjhāsayaṃ, pujjañ'ca bhavaṃ nibbattetī'ti puññaṃ, abhisaṅkharoti vipākaṃ kaṭattārūpañ'cā'ti abhisaṅkhāro, puññaṃ abhisaṅkhāro puññ'ābhisaṅkhāro.					missing	please mark sandhi with '	yes		
+46558	commentary	(PMa) <b>puññ'ābhisaṅkhāro</b>'tiādīsu punāti attano kārakaṃ, pūreti c'assa ajjhāsayaṃ, pujjañ'ca bhavaṃ nibbattetī'ti puññaṃ, abhisaṅkharoti vipākaṃ kaṭattārūpañ'cā'ti abhisaṅkhāro, puññaṃ abhisaṅkhāro puññ'ābhisaṅkhāro.					missing	please mark sandhi with '	yes	yes	
 6702	sanskrit	apuṇya + abhisaṃskāra					missing		yes		
 6702	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva puññ'ābhisaṅkhāraṃ abhisaṅkharoti na <b>apuññ'ābhisaṅkhāraṃ</b> abhisaṅkharoti na āneñj'ābhisaṅkhāraṃ abhisaṅkharoti.	missing		yes		
 6702	meaning_1	demeritorious intention; negative karmic formations; unwholesome intentional activities					missing		yes		
@@ -1294,13 +1294,13 @@ pahūtam'ariyo <b>pakaroti</b> puññaṃ."	missing		yes
 11818	sanskrit	āniñjya + abhisaṃskāra					missing		yes		
 11818	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	yato kho, bhikkhave, bhikkhuno avijjā pahīnā hoti vijjā uppannā, so avijjāvirāgā vijj'uppādā n'eva puññ'ābhisaṅkhāraṃ abhisaṅkharoti na apuññ'ābhisaṅkhāraṃ abhisaṅkharoti na <b>āneñj'ābhisaṅkhāraṃ</b> abhisaṅkharoti.	missing		yes		
 11818	meaning_1	unshakeable intention; imperturbable formations					missing		yes		
-11818	commentary	(DNa) āneñjaṃ niccalaṃ santaṃ vipākabhūtaṃ arūpam'eva abhisaṅkharotī'ti <b>āneñj'ābhisaṅkhāro. </b> catunnaṃ arūp'āvacarakusalacetanānaṃ etaṃ adhivacanaṃ. yath'āha tattha katamo āneñj'ābhisaṅkhāro? kusalacetanā arūp'āvacarā, ayaṃ vuccati āneñj'ābhisaṅkhāro'ti.					missing	please mark sandhi with '	yes		
+11818	commentary	(DNa) āneñjaṃ niccalaṃ santaṃ vipākabhūtaṃ arūpam'eva abhisaṅkharotī'ti <b>āneñj'ābhisaṅkhāro. </b> catunnaṃ arūp'āvacarakusalacetanānaṃ etaṃ adhivacanaṃ. yath'āha tattha katamo āneñj'ābhisaṅkhāro? kusalacetanā arūp'āvacarā, ayaṃ vuccati āneñj'ābhisaṅkhāro'ti.					missing	please mark sandhi with '	yes	yes	
 22443	sanskrit	kumbhakāra + pāka					missing		yes		
 22443	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	seyyathā'pi, bhikkhave, puriso <b>kumbhakārapākā</b> uṇhaṃ kumbhaṃ uddharitvā same bhūmibhāge paṭisisseyya.	missing		yes		
 22443	meaning_1	pottery kiln; ceramic furnace					missing		yes		
 22443	commentary	(SNa) <b>kumbhakārapākā</b>'ti kumbhakārassa bhājanapacanaṭṭhānato.					missing		yes		
 40927	source_1	SN12.51	sutta_1	parivīmaṃsanasuttaṃ	example_1	seyyathā'pi, bhikkhave, puriso kumbhakārapākā uṇhaṃ kumbhaṃ uddharitvā same bhūmibhāge <b>paṭisisseyya</b>.	missing		yes		
-29582	source_2	SN20.11	sutta_2	siṅgālasuttaṃ	example_2	so yena yena icchati tena tena gacchati. yattha yattha icchati tattha tattha tiṭṭhati. yattha yattha icchati <b>tattha</b> <b>tattha</b> nisīdati. yattha yattha icchati <b>tattha</b> <b>tattha</b> nipajjati.	bold	there was also a second bold	yes		
+29582	source_2	SN20.11	sutta_2	siṅgālasuttaṃ	example_2	so yena yena icchati tena tena gacchati. yattha yattha icchati tattha tattha tiṭṭhati. yattha yattha icchati <b>tattha</b> <b>tattha</b> nisīdati. yattha yattha icchati <b>tattha</b> <b>tattha</b> nipajjati.	bold	there was also a second bold	yes	yes	
 29582	source_1	AN10.22	sutta_1	adhivuttipadasuttaṃ	example_1	etadānuttariyaṃ, ānanda, ñāṇānaṃ yadidaṃ <b>tattha tattha</b> yathābhūtañāṇaṃ. etasmā c'āhaṃ, ānanda, ñāṇā aññaṃ ñāṇaṃ uttaritaraṃ vā paṇītataraṃ vā n'atthī'ti vadāmi	bold		yes		
 22318	meaning_1	when?; at what time?					missing		yes		
 6911	meaning_1	which is unattained; which is unaccomplished; which has not been reached					noun meaning	"in english ""the unattained"" and ""the unaccomplished"" are nouns. just add the definite article ""the"""	no	yes	
@@ -1321,14 +1321,14 @@ sot'<b>āpatti</b>phalaṃ varaṃ."	'		yes
 37642	commentary	(DNt) <b>nibbicikiccho na hotī</b>'ti dhammesu tiṇṇavicikiccho na hoti, tattha tattha āsappanaparisappanavasena pavattatī'ti					missing	commentary is for adj -o	no	yes	
 10053	compound_type	dutiyā tappurisa	compound_construction	assād<b>aṃ</b> + anupassī			missing		yes		
 10053	sanskrit	āsvāda + anupaśyin (bsk)					missing		yes		
-10053	source_1	SN12.60	sutta_1	nidānasuttaṃ	example_1	upādāniyesu, ānanda, dhammesu <b>assād'ānupassino</b> viharato taṇhā pavaḍḍhati.	missing	please mark sandhi with '	yes		
+10053	source_1	SN12.60	sutta_1	nidānasuttaṃ	example_1	upādāniyesu, ānanda, dhammesu <b>assād'ānupassino</b> viharato taṇhā pavaḍḍhati.	missing	please mark sandhi with '	yes	yes	
 51912	compound_type	kammadhāraya	compound_construction	mahā + rukkha			missing		yes		
 51912	source_1	SN12.55	sutta_1	mahārukkhasuttaṃ	example_1	seyyathā'pi, bhikkhave, <b>mahārukkho</b>. tassa yāni c'eva mūlāni adhogamāni, yāni ca tiriyaṅ'gamāni, sabbāni tāni uddhaṃ ojaṃ abhiharanti.	missing		yes		
 51912	commentary	(JAa) <b>mahārukkhassā</b>'ti madhuraambarukkhassa.					missing	commentary is for a very different sutta with different meaning	no	yes	
 30767	source_1	SN12.55	sutta_1	mahārukkhasuttaṃ	example_1	seyyathā'pi, bhikkhave, mahārukkho. tassa yāni c'eva mūlāni adhogamāni, yāni ca <b>tiriyaṅ'gamāni</b>, sabbāni tāni uddhaṃ ojaṃ abhiharanti.	missing		yes		
 30767	compound_type	dutiyā tappurisa	compound_construction	tiriy<b>aṃ</b> + gama			missing		yes		
 30767	sanskrit	tiryañc + gama					missing		yes		
-30767	family_compound	tiriyaṃ gama					missing	family_compound is tiriyaṃ not tīra	yes		
+30767	family_compound	tiriyaṃ gama					missing	family_compound is tiriyaṃ not tīra	yes	yes	
 30767	construction	tiriyaṃ + gama					missing		yes		
 30767	meaning_1	going sideways; moving across; going horizontally					missing		yes		
 30767	grammar	adj, comp					missing		yes		
@@ -1336,7 +1336,7 @@ sot'<b>āpatti</b>phalaṃ varaṃ."	'		yes
 22329	meaning_1	hoe and basket; shovel and basket					missing		yes		
 17094	derived_from						comp		yes		
 17094	compound_type	dvanda	compound_construction	usīra <b>ca</b> nāḷi <b>ca</b>			missing		yes		
-17094	family_compound	usīra naḷa					missing	please check familyy copounds, nāḷa has naḷa	yes		
+17094	family_compound	usīra naḷa					missing	please check familyy copounds, nāḷa has naḷa	yes	yes	
 17094	source_1	SN12.55	sutta_1	mahārukkhasuttaṃ	example_1	so taṃ rukkhaṃ mūle chindeyya, mūlaṃ chinditvā palikhaṇeyya, palikhaṇitvā mūlāni uddhareyya antamaso <b>usīranāḷi</b>mattāni'pi.	missing		yes		
 17094	construction	usīra + nāḷi					missing		yes		
 17094	meaning_1	root and stalk					missing		yes		
@@ -1347,7 +1347,7 @@ sot'<b>āpatti</b>phalaṃ varaṃ."	'		yes
 66215	compound_type	tatiyā tappurisa	compound_construction	van<b>ena</b> + sampanna			missing		yes		
 66215	sanskrit	vana + sampanna					missing		yes		
 66215	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ ārāmasampannaṃ <b>vanasampannaṃ</b> pokkharaṇīsampannaṃ uddhāpavantaṃ ramaṇīyaṃ.	missing	already exists	no	yes	
-47392	compound_type	tatiyā tappurisa	compound_construction	pokkharaṇ<b>īhi</b> + sampanna			missing	changed to -īhi plural	yes		
+47392	compound_type	tatiyā tappurisa	compound_construction	pokkharaṇ<b>īhi</b> + sampanna			missing	changed to -īhi plural	yes	yes	
 47392	sanskrit	puṣkariṇī + sampanna					missing		yes		
 47392	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ ārāmasampannaṃ vanasampannaṃ <b>pokkharaṇīsampannaṃ</b> uddhāpavantaṃ ramaṇīyaṃ.	missing	already exists	no	yes	
 15255	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	tam'anugacchanto addasaṃ purāṇaṃ nagaraṃ purāṇaṃ rājadhāniṃ pubbakehi manussehi ajjhāvuṭṭhaṃ ārāmasampannaṃ vanasampannaṃ pokkharaṇīsampannaṃ <b>uddhāpavantaṃ</b> ramaṇīyaṃ.	missing		yes		
@@ -1365,39 +1365,39 @@ sot'<b>āpatti</b>phalaṃ varaṃ."	'		yes
 15695	sanskrit	upadhi + prabhava					missing		yes		
 15695	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	idaṃ kho dukkhaṃ upadhinidānaṃ upadhisamudayaṃ upadhijātikaṃ <b>upadhipabhavaṃ</b>, upadhismiṃ sati jarāmaraṇaṃ hoti, upadhismiṃ asati jarāmaraṇaṃ na hotī'ti.	missing		yes		
 15690	sanskrit	upadhi + nirodha					missing		yes		
-15690	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so upadhiñ'ca pajānāti upadhisamudayañ'ca pajānāti <b>upadhinirodhañ</b>'ca pajānāti yā ca upadhinirodhasāruppagāminī paṭipadā tañ'ca pajānāti.	missing	please mark sandhi with '	yes		
+15690	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so upadhiñ'ca pajānāti upadhisamudayañ'ca pajānāti <b>upadhinirodhañ</b>'ca pajānāti yā ca upadhinirodhasāruppagāminī paṭipadā tañ'ca pajānāti.	missing	please mark sandhi with '	yes	yes	
 15691	sanskrit	upadhi + nirodha + sārūpya + gāmin					missing		yes		
-15691	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so upadhiñ'ca pajānāti upadhisamudayañ'ca pajānāti upadhinirodhañ'ca pajānāti yā ca <b>upadhinirodhasāruppagāminī</b> paṭipadā tañ'ca pajānāti.	missing	please mark sandhi with '	yes		
+15691	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so upadhiñ'ca pajānāti upadhisamudayañ'ca pajānāti upadhinirodhañ'ca pajānāti yā ca <b>upadhinirodhasāruppagāminī</b> paṭipadā tañ'ca pajānāti.	missing	please mark sandhi with '	yes	yes	
 65863	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	te taṇhaṃ <b>vaḍḍhenti</b>. ye taṇhaṃ <b>vaḍḍhenti</b> te upadhiṃ <b>vaḍḍhenti</b>.	missing		yes		
 27591	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	sace ākaṅkhasi piva. pivato hi kho taṃ <b>chādessati</b> vaṇṇena'pi gandhena'pi rasena'pi, pivitvā ca pana tatonidānaṃ maraṇaṃ vā nigacchasi maraṇamattaṃ vā dukkhan'ti.	different example		yes		
 27591	meaning_1	(of food or drink) pleases; gives pleasure (to); is agreeable (to)					fit SN 12.66		yes		
 27591	commentary	(MNa) <b>chādessatī</b>'ti tañ'hi halāhalavisaṃ yattha yattha pakkhittaṃ hoti, tassa tass'eva rasaṃ deti.					missing		yes		
 6844	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	so taṃ āpānīyakaṃsaṃ sahasā <b>appaṭisaṅkhā</b> piveyya, nappaṭinissajjeyya. so tatonidānaṃ maraṇaṃ vā nigaccheyya maraṇamattaṃ vā dukkhaṃ.	missing		yes		
 6844	family_compound	paṭisaṅkhā					missing		yes		
-39689	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	ye ca kho keci, bhikkhave, atītam'addhānaṃ samaṇā vā brāhmaṇā vā yaṃ loke piyarūpaṃ sātarūpaṃ taṃ aniccato addakkhuṃ dukkhato addakkhuṃ anattato addakkhuṃ rogato addakkhuṃ bhayato addakkhuṃ, te taṇhaṃ <b>pajahiṃsu</b>. ye taṇhaṃ <b>pajahiṃsu</b> te upadhiṃ <b>pajahiṃsu</b>.	canonical example	what you're saying Buddhavaṃsa isn't canonical!?	yes		
+39689	source_2	SN12.66	sutta_2	sammasasuttaṃ	example_2	ye ca kho keci, bhikkhave, atītam'addhānaṃ samaṇā vā brāhmaṇā vā yaṃ loke piyarūpaṃ sātarūpaṃ taṃ aniccato addakkhuṃ dukkhato addakkhuṃ anattato addakkhuṃ rogato addakkhuṃ bhayato addakkhuṃ, te taṇhaṃ <b>pajahiṃsu</b>. ye taṇhaṃ <b>pajahiṃsu</b> te upadhiṃ <b>pajahiṃsu</b>.	canonical example	what you're saying Buddhavaṃsa isn't canonical!?	yes	yes	
 39689	commentary	(ANa) <b>pajahiṃsū</b>'ti pajahanti.					missing		yes		
-64367	compound_type	sattamī	compound_construction	sur<b>āyaṃ</b> + pipāsita			missing	i dont think the case is correct, but i can't find an example that shows the case, so i'm going with locative cos other pipās- takes that	yes		
+64367	compound_type	sattamī	compound_construction	sur<b>āyaṃ</b> + pipāsita			missing	i dont think the case is correct, but i can't find an example that shows the case, so i'm going with locative cos other pipās- takes that	yes	yes	
 64367	sanskrit	surā + pipāsita + ā					missing		yes		
 64367	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ <b>surāpipāsitā</b> pānīyena vā vinetuṃ dadhimaṇḍakena vā vinetuṃ bhaṭṭhaloṇikāya.	missing		yes		
 68252	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā <b>vinetuṃ</b> dadhimaṇḍakena vā <b>vinetuṃ</b> bhaṭṭhaloṇikāya.	missing		yes		
-31861	sanskrit	dadhi + maṇḍaka					missing	maṇḍaka exists in sanskrit	yes		
+31861	sanskrit	dadhi + maṇḍaka					missing	maṇḍaka exists in sanskrit	yes	yes	
 31861	family_compound	dadhi maṇḍa					missing		yes		
 31861	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā vinetuṃ <b>dadhimaṇḍakena</b> vā vinetuṃ bhaṭṭhaloṇikāya.	missing		yes		
-31861	construction	dadhi + maṇḍaka					missing	adding maṇḍaka as a seperate word	yes		
+31861	construction	dadhi + maṇḍaka					missing	adding maṇḍaka as a seperate word	yes	yes	
 31861	meaning_1	whey					missing		yes		
 31861	grammar	nt, comp					missing		yes		
 31861	commentary	(SNa) <b>dadhimaṇḍakenā</b>'ti dadhimaṇḍanamattena.					missing		yes		
-49225	sanskrit	bhṛṣṭa + lavaṇa					missing	sk is bhṛṣṭa not bhraṣṭā! check the meanings ; )	yes		
+49225	sanskrit	bhṛṣṭa + lavaṇa					missing	sk is bhṛṣṭa not bhraṣṭā! check the meanings ; )	yes	yes	
 49225	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā vinetuṃ dadhimaṇḍakena vā vinetuṃ <b>bhaṭṭhaloṇikāya</b>.	missing		yes		
 49222	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	atha kho, bhikkhave, tassa purisassa evam'assa, sakkā kho me ayaṃ surāpipāsitā pānīyena vā vinetuṃ dadhimaṇḍakena vā vinetuṃ <b>bhaṭṭha</b>loṇikāya.	missing		yes		
 15689	sanskrit	upadhi + nidāna					missing		yes		
 15689	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	idaṃ kho dukkhaṃ <b>upadhinidānaṃ</b> upadhisamudayaṃ upadhijātikaṃ upadhipabhavaṃ, upadhismiṃ sati jarāmaraṇaṃ hoti, upadhismiṃ asati jarāmaraṇaṃ na hotī'ti.	missing		yes		
-15689	meaning_1	with possession as source; originating from appropriation					missing	edited english	yes		
+15689	meaning_1	with possession as source; originating from appropriation					missing	edited english	yes	yes	
 15700	sanskrit	upadhi + samudaya					missing		yes		
 15700	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	idaṃ kho dukkhaṃ upadhinidānaṃ <b>upadhisamudayaṃ</b> upadhijātikaṃ upadhipabhavaṃ, upadhismiṃ sati jarāmaraṇaṃ hoti, upadhismiṃ asati jarāmaraṇaṃ na hotī'ti.	missing		yes		
-15700	meaning_1	arising from possession; originating from appropriation					missing	edit english	yes		
+15700	meaning_1	arising from possession; originating from appropriation					missing	edit english	yes	yes	
 21929	source_2	SN12.49	sutta_2	ariyasāvakasuttaṃ	example_2	<b>kismiṃ</b> sati upādānaṃ hoti, <b>kismiṃ</b> sati bhavo hoti, <b>kismiṃ</b> sati jāti hoti, <b>kismiṃ</b> sati jarāmaraṇaṃ hotī'ti?	missing		yes		
-28235	compound_type	kammadhāraya	compound_construction	j<b>accā</b> + jātika			missing	no it's pañcamī, jātika 2	yes		
+28235	compound_type	kammadhāraya	compound_construction	j<b>accā</b> + jātika			missing	no it's pañcamī, jātika 2	yes	yes	
 28235	sanskrit	jāti + jātīya					missing		yes		
 28235	source_1	SN12.24	sutta_1	aññatitthiyasuttaṃ	example_1	evaṃ puṭṭho'haṃ, bhante, evaṃ byākareyyaṃ, jarāmaraṇaṃ kho, āvuso, jātinidānaṃ jātisamudayaṃ <b>jātijātikaṃ</b> jātipabhavanti.	missing		yes		
 28244	compound_type	chaṭṭhī tappurisa	compound_construction	jāt<b>iyā</b> + nidāna			missing		yes		
@@ -1409,7 +1409,7 @@ sot'<b>āpatti</b>phalaṃ varaṃ."	'		yes
 29700	sanskrit	tathā + pratipanna					missing		yes		
 29700	source_1	SN12.66	sutta_1	sammasasuttaṃ	example_1	so jarāmaraṇañca pajānāti jarāmaraṇasamudayañ'ca pajānāti jarāmaraṇanirodhañ'ca pajānāti yā ca jarāmaraṇanirodhasāruppagāminī paṭipadā tañ'ca pajānāti. <b>tathāpaṭipanno</b> ca hoti anudhammacārī.	missing		yes		
 29700	meaning_1	practising like that; conducting oneself thus; following that path					missing		yes		
-29778	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	<b>tadabhiññā</b> ācikkhiṃ bhikkhūnaṃ bhikkhunīnaṃ upāsakānaṃ upāsikānaṃ.	missing	tad etc doesnt need tad'. in general dont be afraid to make examplesa  little longer, not bigger than the example box though, that's the max size. 	yes		
+29778	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	<b>tadabhiññā</b> ācikkhiṃ bhikkhūnaṃ bhikkhunīnaṃ upāsakānaṃ upāsikānaṃ.	missing	tad etc doesnt need tad'. in general dont be afraid to make examplesa  little longer, not bigger than the example box though, that's the max size. 	yes	yes	
 29821	sanskrit	tad + āhāra					missing		yes		
 29821	source_1	SN12.55	sutta_1	mahārukkhasuttaṃ	example_1	evañ'hi so, bhikkhave, mahārukkho <b>tadāhāro</b> tadupādāno ciraṃ dīgham'addhānaṃ tiṭṭheyya.	missing		yes		
 46701	source_1	SN12.65	sutta_1	nagarasuttaṃ	example_1	ta'y'idaṃ, bhikkhave, brahmacariyaṃ iddhañ'c'eva phītañ'ca vitthārikaṃ bāhujaññaṃ <b>puthubhūtaṃ</b> yāva devamanussehi suppakāsitan'ti.	missing		yes		
@@ -1433,14 +1433,14 @@ pabbajiṃ jinasāsane."	missing		yes
 12568	meaning_1	got ready; set up; produced					missing		yes		
 35775	source_1	VINa1.1	sutta_1	ganthārambhakathā	example_1	"khettaṃ janānaṃ kusalatthikānaṃ
 tamariyasaṅghaṃ sirasā <b>namāmi</b>."	missing		yes		
-35775	meaning_1	bows down; pays respect; worships					missing	edited english	yes		
+35775	meaning_1	bows down; pays respect; worships					missing	edited english	yes	yes	
 75714	derived_from	saṅgha					missing		yes		
-75714	compound_type	kammadhāraya	compound_construction	sa + saṅgha			missing	i think this is a mistake which has now been multiplied hundreds of times	yes		
+75714	compound_type	kammadhāraya	compound_construction	sa + saṅgha			missing	i think this is a mistake which has now been multiplied hundreds of times	yes	yes	
 75714	construction	sa + saṅgha					missing		yes		
-75714	meaning_1	one's own community; one's own fellowship					missing	edited english	yes		
+75714	meaning_1	one's own community; one's own fellowship					missing	edited english	yes	yes	
 75714	grammar	masc, from saṅgha					missing		yes		
 75717	derived_from	dhamma					missing		yes		
-75717	meaning_1	with the teaching; with the doctrine					missing	i'm not in the habit of capitalizing Teaching and Community, but it's open for discussion	yes		
+75717	meaning_1	with the teaching; with the doctrine					missing	i'm not in the habit of capitalizing Teaching and Community, but it's open for discussion	yes	yes	?
 20566	source_1	JA244	sutta_1	vigaticchajātakaṃ	example_1	"yaṃ labhati na tena tussati,
 yañ'ca pattheti laddhaṃ hīḷeti,
 icchā hi anantagocarā,
@@ -1449,31 +1449,31 @@ vigaticchāna namo <b>karomase</b>'ti."	missing		yes
 20566	commentary	(JAa) <b>vigaticchāna namo karomase</b>'ti tasmā ye vigaticchā buddh'ādayo, tesaṃ mayaṃ namakkāraṃ karomā'ti.					missing		yes		
 35771	compound_type	dutiyā tappurisa	compound_construction	nam<b>aṃ</b> + kāra			missing		yes		
 35771	family_compound	namas kāra1					missing		yes		
-35771	meaning_1	paying homage; act of veneration					missing	edited english	yes		
+35771	meaning_1	paying homage; act of veneration					missing	edited english	yes	yes	
 46888	compound_type	kammadhāraya	compound_construction	pubba + bhāga			missing		yes		
 46888	meaning_1	preliminary; initial; at an early stage					missing		yes		
 7970	meaning_1	should be highly worshiped; to be venerated					missing		yes		
-8427	derived_from	abhi ati √i					missing	is this Pāḷi or Sanskrit?	yes		
-8427	construction	abhi > abhy + ati + √i + (ya)					missing	corrected	yes		
+8427	derived_from	abhi ati √i					missing	is this Pāḷi or Sanskrit?	yes	yes	
+8427	construction	abhi > abhy + ati + √i + (ya)					missing	corrected	yes	yes	
 8427	meaning_1	passing over; surpassing; overcoming					missing		yes		
 8427	grammar	ger of abhi ati √i					missing		yes		
-8427	phonetic	bhi > bhy					missing	just bhi > bhy	yes		
+8427	phonetic	bhi > bhy					missing	just bhi > bhy	yes	yes	
 43588	source_1	DN33	sutta_1	saṅgītisuttaṃ	example_1	idh'āvuso, tathāgato ca loke uppanno hoti arahaṃ sammāsambuddho, dhammo ca desiyati opasamiko <b>parinibbāniko</b> sambodhagāmī sugatappavedito.	missing		yes		
 43588	meaning_1	leading to complete extinction; conducive to liberation					missing		yes		
 43588	commentary	(DNa) <b>parinibbāniko</b>'ti kilesaparinibbānena parinibbānāvaho.					missing		yes		
 16120	source_1	DN33	sutta_1	saṅgītisuttaṃ	example_1	idh'āvuso, tathāgato ca loke uppanno hoti arahaṃ sammāsambuddho, dhammo ca desiyati <b>upasamiko</b> parinibbāniko sambodhagāmī sugatappavedito.	missing		yes		
 16120	meaning_1	calming; bringing peace; tranquilizing					missing		yes		
-16120	derivative	taddhita	suffix	ika			missing	its taddhita from upasama	yes		
+16120	derivative	taddhita	suffix	ika			missing	its taddhita from upasama	yes	yes	
 16120	variant	opasamika					missing		yes		
-18707	sanskrit	upaśamika (bsk) [upaśam]					missing	do you have edgerton? you seem to be missing those.	yes		
+18707	sanskrit	upaśamika (bsk) [upaśam]					missing	do you have edgerton? you seem to be missing those.	yes	yes	
 18707	root_key	√sam 1					missing		yes		
 18707	source_1	DN33	sutta_1	saṅgītisuttaṃ	example_1	idh'āvuso, tathāgato ca loke uppanno hoti arahaṃ sammāsambuddho, dhammo ca desiyati <b>opasamiko</b> parinibbāniko sambodhagāmī sugatappavedito.	missing		yes		
 18707	construction	"upa > opa + √sam + a + *ika
-upasama + *ika"					missing	again, from upasama	yes		
+upasama + *ika"					missing	again, from upasama	yes	yes	
 18707	meaning_1	calming; bringing peace; tranquilizing					missing		yes		
-18707	derivative	taddhita	suffix	*ika			missing	taddhita not kita	yes		
+18707	derivative	taddhita	suffix	*ika			missing	taddhita not kita	yes	yes	
 18707	family_root	upa √sam					missing		yes		
-18707	commentary	(DNa) <b>opasamiko</b>'ti kiles'ūpasamakaro.					missing	please mark sandhi with '	yes		
+18707	commentary	(DNa) <b>opasamiko</b>'ti kiles'ūpasamakaro.					missing	please mark sandhi with '	yes	yes	
 18707	root_sign	ya					missing		yes		
 18707	phonetic	u > o					missing		yes		
 32805	meaning_1	illustrating; explaining					missing		yes		
@@ -1490,76 +1490,76 @@ ratanattaye visesena,
 visesassādarena me."	missing		yes		
 41534	meaning_1	bowing down; paying respect					missing		yes		
 41534	phonetic	a > ā					missing		yes		
-42606	derived_from	pabhavati					missing	i dont think it's causative	yes		
+42606	derived_from	pabhavati					missing	i dont think it's causative	yes	yes	
 42606	verb	caus					missing	i dont think its causative just normal masc noun + *a	no	yes	
 42606	source_1	JA546	sutta_1	umaṅgajātakaṃ	example_1	"etādisehi parikkhitto,
 n'atthi mokkho ito tava.
 <b>pabhāvaṃ</b> te na passāmi,
 yena tvaṃ mithilaṃ vaje"	missing		yes		
-42606	construction	pa + √bhū > bhāv + *a					missing	not caus, just masc noun + *a	yes		
+42606	construction	pa + √bhū > bhāv + *a					missing	not caus, just masc noun + *a	yes	yes	
 42606	meaning_1	might; power; strength; majesty; dignity					missing		yes		
 42606	root_base	√bhū + *e > bhāve (caus)					missing	not caus	no	yes	
-42606	grammar	masc, from pabhavati					missing	pabhavati not pabhāveti	yes		
-42606	commentary	(JAa) <b>pabhāvaṃ te</b>'ti idāni te rāj'ānubhāvaṃ na passāmi, yena tvaṃ mithilaṃ gamissasi khippaṃ, jāle paviṭṭhamaccho viya jāto'sī'ti.					missing	please mark sandhi with '	yes		
-42606	root_sign	a					missing	not caus	yes		
+42606	grammar	masc, from pabhavati					missing	pabhavati not pabhāveti	yes	yes	
+42606	commentary	(JAa) <b>pabhāvaṃ te</b>'ti idāni te rāj'ānubhāvaṃ na passāmi, yena tvaṃ mithilaṃ gamissasi khippaṃ, jāle paviṭṭhamaccho viya jāto'sī'ti.					missing	please mark sandhi with '	yes	yes	
+42606	root_sign	a					missing	not caus	yes	yes	
 45339	meaning_1	passage; text; recitation					missing		yes		
 49236	source_1	SN10.6	sutta_1	piyaṅkarasuttaṃ	example_1	"pāṇesu ca saṃyamāmase,
 sampajānamusā na <b>bhaṇāmase</b>,
 sikkhema susīlyamattano,
 api muccema pisācayoniyā'ti."	missing		yes		
-49236	meaning_1	we must speak!; let us say!; let us chant!					missing	edited english	yes		
+49236	meaning_1	we must speak!; let us say!; let us chant!					missing	edited english	yes	yes	
 51575	compound_type	kammadhāraya	compound_construction	mahā + aṇṇava			missing		yes		
-51575	sanskrit	mahā + arṇava					missing	sk can use mahā, it's more common	yes		
+51575	sanskrit	mahā + arṇava					missing	sk can use mahā, it's more common	yes	yes	
 51575	synonym	mahāudakaṇṇava					missing		yes		
 51575	source_1	SN14.16	sutta_1	sagāthāsuttaṃ	example_1	"saṃsaggā vanatho jāto,
 asaṃsaggena chijjati,
 parittaṃ dārum'āruyha,
-yathā sīde <b>mah'aṇṇave</b>."	missing	plesase mark sandi with '. mah'aṇṇave, dārum'āruyha	yes		
+yathā sīde <b>mah'aṇṇave</b>."	missing	plesase mark sandi with '. mah'aṇṇave, dārum'āruyha	yes	yes	
 51575	meaning_1	great sea; great ocean; great body of water					missing		yes		
-51575	commentary	(JAa) <b>mah'aṇṇave</b>'ti gambhīraputhule udake.					missing	please mark sandhi with '. mah'aṇṇave	yes		
+51575	commentary	(JAa) <b>mah'aṇṇave</b>'ti gambhīraputhule udake.					missing	please mark sandhi with '. mah'aṇṇave	yes	yes	
 57464	source_1	KHPa3.1	sutta_1	asubhabhāvanā	example_1	tato paraṃ sarīrassa abbhantare yakana<b>saññitaṃ</b> yamakamaṃsapiṇḍaṃ vaṇṇato rattaṃ rattakumudabāhirapattapiṭṭhivaṇṇan'ti vavatthapeti.	missing		yes		
 57464	commentary	(VINt) ya-lopena pana <b>saññitā</b>'ti vuttaṃ, karaṇ'atthe vā paccattavacanaṃ.					missing	commentary adds nothing to the example or to the meaning	no	yes	
-57464	meaning_1	so-called; so-to-speak; known as					missing	edited english	yes		
+57464	meaning_1	so-called; so-to-speak; known as					missing	edited english	yes	yes	
 64506	source_1	APA324	sutta_1	pulinapūjakattheraapadānaṃ	example_1	"<b>susuddhaṃ</b> pulinaṃ gayha,
 gatamagge samokiriṃ,
 ucchaṅgena gahetvāna,
 vipassissa mah'esino."	missing		yes		
-64506	meaning_1	completely clean; very pure					missing	edited english for alliteration	yes		
+64506	meaning_1	completely clean; very pure					missing	edited english for alliteration	yes	yes	
 66099	sanskrit	vastu + traya					missing		yes		
-66099	source_1	VINa6.3.1	sutta_1	pācittiyādipañhāvaṇṇanā	example_1	titthiyo hi vattaṃ pūrayamāno titthiyānaṃ vaṇṇe bhaññamāne kuddho ārādhako hoti, <b>vatthuttayassa</b> vaṇṇe bhaññamāne kuddho gārayho hotī'ti tatth'ev'assā vitthāro vutto.	missing	please mark sandhi with '. tatth'ev'assā	yes		
+66099	source_1	VINa6.3.1	sutta_1	pācittiyādipañhāvaṇṇanā	example_1	titthiyo hi vattaṃ pūrayamāno titthiyānaṃ vaṇṇe bhaññamāne kuddho ārādhako hoti, <b>vatthuttayassa</b> vaṇṇe bhaññamāne kuddho gārayho hotī'ti tatth'ev'assā vitthāro vutto.	missing	please mark sandhi with '. tatth'ev'assā	yes	yes	
 66099	meaning_1	triple gem (Buddha, Dhamma and Saṅgha)					missing		yes		
-66099	commentary	(VAt) <b>vatthuttayaṃ namassitvā</b>'ti iminā ratanattayapaṇāmo vutto paṇāmetabba-paṇāma-atthadassanato.					missing	added some - for readability	yes		
-66252	pos	pp					missing	is this even pali!?	yes		
-66252	stem	vandayat	pattern	a pp			missing	weird language	yes		
-66252	meaning_1	respected; reveredl honoured					missing	edited english, check it fits your sentence	yes		
+66099	commentary	(VAt) <b>vatthuttayaṃ namassitvā</b>'ti iminā ratanattayapaṇāmo vutto paṇāmetabba-paṇāma-atthadassanato.					missing	added some - for readability	yes	yes	
+66252	pos	pp					missing	is this even pali!?	yes	yes	
+66252	stem	vandayat	pattern	a pp			missing	weird language	yes	yes	
+66252	meaning_1	respected; reveredl honoured					missing	edited english, check it fits your sentence	yes	yes	
 66252	derivative	kita	suffix	ta			missing		yes		
 66252	grammar	pp of vandayati					missing		yes		
-75715	source_1	DN5	sutta_1	kūṭadantasuttaṃ	example_1	alaṃ, bho, mam'āp'idaṃ pahūtaṃ sāpateyyaṃ dhammikena balinā <b>abhisaṅkhataṃ</b>, tañ'ca vo hotu, ito ca bhiyyo harathā'ti.	missing	please mark sandhi with '. mam'āp'idaṃ harathā'ti	yes		
+75715	source_1	DN5	sutta_1	kūṭadantasuttaṃ	example_1	alaṃ, bho, mam'āp'idaṃ pahūtaṃ sāpateyyaṃ dhammikena balinā <b>abhisaṅkhataṃ</b>, tañ'ca vo hotu, ito ca bhiyyo harathā'ti.	missing	please mark sandhi with '. mam'āp'idaṃ harathā'ti	yes	yes	
 75715	meaning_1	prepared; arranged; accumulated					missing		yes		
-75715	meaning_lit	completely made together					missing	edited lit	yes		
-34673	compound_type	sattamī tappurisa	compound_construction	dhamm<b>e</b> + gārava			missing	gārava takes locative. please dont use the english preposition for pali samāsa, check what case the word itself takes +loc	yes		
+75715	meaning_lit	completely made together					missing	edited lit	yes	yes	
+34673	compound_type	sattamī tappurisa	compound_construction	dhamm<b>e</b> + gārava			missing	gārava takes locative. please dont use the english preposition for pali samāsa, check what case the word itself takes +loc	yes	yes	
 34673	source_1	SN35.133	sutta_1	verahaccānisuttaṃ	example_1	tathā hi pana tvaṃ, bho'ti, pādukā ārohitvā ucce āsane nisīditvā sīsaṃ oguṇṭhitvā etad'avoca, bhaṇa, samaṇa, dhamman'ti. dhammagaruno hi te bhavanto <b>dhammagāravā</b>'ti.	missing		yes		
-49739	source_1	VISM2.14	sutta_1	kamādivinicchayakathā	example_1	saṅkhepato hi pañc'upādānakkhandhā āsīvisūpame vuttanayena ukkhitt'āsikapaccatthikato, <b>bhārasutta</b>vasena bhārato, khajjanīyapariyāyavasena khādakato, yamakasuttavasena anicca-dukkh'ānatta-saṅkhata-vadhakato daṭṭhabbā.	missing	please mark sandhi. ukkhitt'āsikapaccatthikato anicca-dukkh'ānatta-saṅkhata-vadhakato	yes		
+49739	source_1	VISM2.14	sutta_1	kamādivinicchayakathā	example_1	saṅkhepato hi pañc'upādānakkhandhā āsīvisūpame vuttanayena ukkhitt'āsikapaccatthikato, <b>bhārasutta</b>vasena bhārato, khajjanīyapariyāyavasena khādakato, yamakasuttavasena anicca-dukkh'ānatta-saṅkhata-vadhakato daṭṭhabbā.	missing	please mark sandhi. ukkhitt'āsikapaccatthikato anicca-dukkh'ānatta-saṅkhata-vadhakato	yes	yes	
 49739	meaning_1	Saṃyutta Nikāya 22.22 (SN22.22)					missing		yes		
-44830	source_1	DNa1.1.1	sutta_1	paribbājakakathāvaṇṇanā	example_1	seyyath'idaṃ, cūḷarāhul'ovādasuttaṃ, mahārāhul'ovādasuttaṃ, dhammacakkap<b>pavattanaṃ</b>, dhātuvibhaṅgasuttan'ti evam'ādīni, tesaṃ par'ajjhāsayo nikkhepo.	missing	please mark sandhi. cūḷarāhul'ovādasuttaṃ, mahārāhul'ovādasuttaṃ, dhātuvibhaṅgasuttan'ti par'ajjhāsayo	yes		
-44830	meaning_1	turning; setting in motion; moving forward					missing	edited english	yes		
+44830	source_1	DNa1.1.1	sutta_1	paribbājakakathāvaṇṇanā	example_1	seyyath'idaṃ, cūḷarāhul'ovādasuttaṃ, mahārāhul'ovādasuttaṃ, dhammacakkap<b>pavattanaṃ</b>, dhātuvibhaṅgasuttan'ti evam'ādīni, tesaṃ par'ajjhāsayo nikkhepo.	missing	please mark sandhi. cūḷarāhul'ovādasuttaṃ, mahārāhul'ovādasuttaṃ, dhātuvibhaṅgasuttan'ti par'ajjhāsayo	yes	yes	
+44830	meaning_1	turning; setting in motion; moving forward					missing	edited english	yes	yes	
 49655	source_1	JAa537	sutta_1	mahāsutasomajātakavaṇṇanā	example_1	ahaṃ kho pan'assa tiyojanasate kururaṭṭhe sattayojanike indapatthanagare rajjaṃ dātuṃ pahomi, atthi nu khv'assa rajjaṃ kāretuṃ <b>bhāgyan</b>'ti	missing		yes		
 49655	meaning_1	good luck; fortune					missing		yes		
-49655	commentary	(APt) iṭṭh'āniṭṭhavipākabhāgo yattha atthī'ti <b>bhāgyaṃ</b>.					missing	please mark sandhi. iṭṭh'āniṭṭhavipākabhāgo	yes		
+49655	commentary	(APt) iṭṭh'āniṭṭhavipākabhāgo yattha atthī'ti <b>bhāgyaṃ</b>.					missing	please mark sandhi. iṭṭh'āniṭṭhavipākabhāgo	yes	yes	
 49655	phonetic	"a > ā
-j > g"					missing	updated	yes		
+j > g"					missing	updated	yes	yes	
 33603	source_1	BVa2.2	sutta_1	avidūrenidānakathā	example_1	"evaṃpakāraṃ asivaṃ aniṭṭhaṃ,
 ākāsagaṃ bhūmigatañ'ca ghoraṃ.
 anekarūpaṃ kira <b>dunnimittaṃ</b>,
-ahosi mār'āgamane samantā."	missing	please mark sandhi. mār'āgamane	yes		
-33603	meaning_1	bad omen; inauspicious sign					missing	edited english	yes		
-33603	derivative	kita	suffix	tta			missing	tta not ta	yes		
+ahosi mār'āgamane samantā."	missing	please mark sandhi. mār'āgamane	yes	yes	
+33603	meaning_1	bad omen; inauspicious sign					missing	edited english	yes	yes	
+33603	derivative	kita	suffix	tta			missing	tta not ta	yes	yes	
 33603	root_sign	nā					missing		yes		
 33603	phonetic	ā > i					missing		yes		
 46002	sanskrit	piṭaka + traya					missing		yes		
-46002	source_1	VINa1.0	sutta_1	pasannākārakathā	example_1	appaṭikūlaṃ madhuram'imaṃ paguṇaṃ suvibhattan'ti <b>piṭakattayena</b> vibhattā sabbadhammakkhandhā'ti.	missing	please mark sandhi. madhuram'imaṃ, suvibhattan'ti, sabbadhammakkhandhā'ti	yes		
+46002	source_1	VINa1.0	sutta_1	pasannākārakathā	example_1	appaṭikūlaṃ madhuram'imaṃ paguṇaṃ suvibhattan'ti <b>piṭakattayena</b> vibhattā sabbadhammakkhandhā'ti.	missing	please mark sandhi. madhuram'imaṃ, suvibhattan'ti, sabbadhammakkhandhā'ti	yes	yes	
 46002	meaning_1	three collections of Buddhist scripture; Vinaya, Sutta and Abhidhamma					missing		yes		
-10479	sanskrit	na + vikṣipta + citta					missing	na + 	yes		
+10479	sanskrit	na + vikṣipta + citta					missing	na + 	yes	yes	
 10479	source_1	AN5.151	sutta_1	paṭhamasammattaniyāmasuttaṃ	example_1	na kathaṃ paribhoti, na kathikaṃ paribhoti, na attānaṃ paribhoti, <b>avikkhittacitto</b> dhammaṃ suṇāti, ek'aggacitto yoniso ca manasi karoti.	missing		yes		
 10478	compound_type	kammadhāraya	compound_construction	na + vikkhitta			missing		yes		
 10478	antonym	vikkhitta					missing		yes		
@@ -1569,7 +1569,7 @@ ahosi mār'āgamane samantā."	missing	please mark sandhi. mār'āgamane	yes
 10478	meaning_1	not scattered; not confused; not distracted					missing		yes		
 10478	grammar	pp of na vikkhipati					missing		yes		
 10478	commentary	(DNt) <b>avikkhittacitto</b>'ti yathāvuttamanasikāradvayapubbakāya cittapaṭipāṭiyā ekārammaṇe ṭhapanavasena anuddhatacitto hutvā.					missing	found better commentaries in MNa and ITIa	no	yes	
-29307	meaning_1	mountain slope; side of a hill; precipice					missing	edited english	yes		
+29307	meaning_1	mountain slope; side of a hill; precipice					missing	edited english	yes	yes	
 47567	source_1	TH220	sutta_1	nhātakamunittheragāthā	example_1	"pītisukhena vipulena,
 <b>pharitvāna</b> samussayaṃ,
 lūkham'pi abhisambhonto,
@@ -1600,19 +1600,19 @@ imā gāthā abhāsatha."	missing	i think here vidhi means the more like sutta, 
 7965	meaning_1	affected; oppressed					missing		yes		
 49235	trans	trans					missing		yes		
 49235	plus_case	+acc					missing		yes		
-49235	meaning_1	having caused to recite; having made chant					missing	edited english	yes		
+49235	meaning_1	having caused to recite; having made chant					missing	edited english	yes	yes	
 49235	grammar	abs of bhaṇāpeti					missing		yes		
 52831	source_1	VIN1.2.1	sutta_1	vinītavatthu	example_1	tena kho pana samayena aññatarassa bhikkhuno uccāraṃ karontassa asuci <b>mucci</b>.	missing	can put this with mucci 1, and change it to (of sweat or bodily fluid)	no	yes	
 52831	meaning_1	became free (from); was released (from); was liberated (from)					missing	as above	no	yes	
 60932	trans	trans					missing		yes		
 60932	plus_case	+acc					missing		yes		
-60932	meaning_1	having mutually rejoiced; having delighted together (with)					missing	edited english	yes		
-60932	source_1	DNa3.11	sutta_1	dasuttarasuttavaṇṇanā	example_1	bhagavā tehi saddhiṃ <b>sammoditvā</b> kasmā, bhikkhave, upakaṭṭhāya vass'ūpanāyikāya vicarathā'ti pucchati.	missing	please mark sandhi. vicarathā'ti	yes		
+60932	meaning_1	having mutually rejoiced; having delighted together (with)					missing	edited english	yes	yes	
+60932	source_1	DNa3.11	sutta_1	dasuttarasuttavaṇṇanā	example_1	bhagavā tehi saddhiṃ <b>sammoditvā</b> kasmā, bhikkhave, upakaṭṭhāya vass'ūpanāyikāya vicarathā'ti pucchati.	missing	please mark sandhi. vicarathā'ti	yes	yes	
 62172	meaning_1	affectionately; showing regard; with consideration					missing		yes		
 33850	source_1	JAa77	sutta_1	mahāsupinajātakavaṇṇanā	example_1	mayā evarūpā <b>dussupinā</b> diṭṭhā, brāhmaṇā, tiṇṇaṃ antarāyānaṃ aññataro paññāyatī'ti vatvā, tesaṃ paṭighātāya yaññaṃ yajissāmā'ti vatvā punappunaṃ sañcarantī'ti.	missing		yes		
 33850	meaning_1	bad dream; nightmare					missing		yes		
 33850	derivative	kita	suffix	ina			missing		yes		
-33850	grammar	nt, from supina					missing	su and dur from the word, supina	yes		
+33850	grammar	nt, from supina					missing	su and dur from the word, supina	yes	yes	
 32924	compound_type	dutiyā tappurisa	compound_construction	dukkh<b>aṃ</b> + patta			missing		yes		
 32924	sanskrit	duḥkha + prāpta					missing		yes		
 32924	source_1	JAa375	sutta_1	kapotajātakavaṇṇanā	example_1	idāni maṃ edisaṃ evaṃ <b>dukkhappattaṃ</b> disvā tava alaṃ hasituṃ, mā edise kāle parihāsakeḷiṃ karohī'ti.	missing		yes		
@@ -1638,16 +1638,16 @@ sambuddho parinibbuto'ti."	missing		yes
 47994	commentary	(DNa) <b>balappatto</b>'ti dasavidhañāṇabalaṃ patto.					missing		yes		
 6251	source_1	SN12.69	sutta_1	upayantisuttaṃ	example_1	mahāsamuddo, bhikkhave, <b>apayanto</b> mahānadiyo apayāpeti, mahānadiyo <b>apayantiyo</b> kunnadiyo apayāpenti, kunnadiyo <b>apayantiyo</b> mahāsobbhe apayāpenti, mahāsobbhā <b>apayantā</b> kusobbhe apayāpenti.	missing		yes		
 6251	meaning_1	going away; retreating					missing		yes		
-6251	grammar	prp of apayāti					missing	apayāti not apayati	yes		
+6251	grammar	prp of apayāti					missing	apayāti not apayati	yes	yes	
 6251	commentary	(SNa) <b>apayanto</b>'ti apagacchanto osaranto.					missing		yes		
 7769	source_1	BVa1.2	sutta_1	sumedhapatthanākathāvaṇṇanā	example_1	ahū'ti ahani, athā'ti attho. ayam'eva vā pāṭho. kapil'avhayā'ti kapil'āvhayā <b>abhidhānā</b>. rammā'ti ramaṇīyato. padhānan'ti vīriyaṃ. ehitī'ti essati gamissati. sesagāthāsu uttānam'evā'ti.	missing		yes		
 7769	meaning_1	name; appellation					missing		yes		
-8061	meaning_1	made war; fought					missing	edited english to pp meaning	yes		
-8061	grammar	pp of abhiyujjhati					missing	where is theis word from? not in canon	yes		
+8061	meaning_1	made war; fought					missing	edited english to pp meaning	yes	yes	
+8061	grammar	pp of abhiyujjhati					missing	where is theis word from? not in canon	yes	yes	
 15048	derived_from	vadati					from √vad 1		yes		
 15048	root_key	√vad 1					from √vad 1		yes		
 15048	construction	√vad > ud + ita					from √vad 1		yes		
-15048	meaning_1	spoken; said; uttered					from √vad 1	edited english	yes		
+15048	meaning_1	spoken; said; uttered					from √vad 1	edited english	yes	yes	
 15048	grammar	pp of vadati					from √vad 1		yes		
 15048	meaning_lit						from √vad 1		yes		
 15048	family_root	√vad					from √vad 1		yes		
@@ -1655,9 +1655,9 @@ sambuddho parinibbuto'ti."	missing		yes
 38478	source_1	API158	sutta_1	mahāpajāpatigotamītherīapadānaṃ	example_1	"tadā āmantayī satthā,
 ānandaṃ sutasāgaraṃ,
 gacch'ānanda <b>nivedehi</b>,
-bhikkhūnaṃ mātu nibbutiṃ."	missing	please mark sandhi. gacch'ānanda	yes		
+bhikkhūnaṃ mātu nibbutiṃ."	missing	please mark sandhi. gacch'ānanda	yes	yes	
 38478	meaning_1	communicates; makes known; tells; reports; announces (something to someone)					missing		yes		
-41929	compound_type	chaṭṭhī tappurisa	compound_construction	patt<b>iyā</b> + dāna			missing	more and more i see commentaries gloassing these as noun with gen, or verb with acc	yes		
+41929	compound_type	chaṭṭhī tappurisa	compound_construction	patt<b>iyā</b> + dāna			missing	more and more i see commentaries gloassing these as noun with gen, or verb with acc	yes	yes	
 41929	sanskrit	prāpti + dāna					missing		yes		
 41929	source_1	VVa1.4.6	sutta_1	vihāravimānavaṇṇanā	example_1	imaṃ evarūpaṃ pāsādaṃ kārentiyā yaṃ mayā puññaṃ pasutaṃ, taṃ anumodatha, <b>pattidānaṃ</b> vo dammī'ti.	missing		yes		
 41929	meaning_1	sharing of merit; giving of profit					missing		yes		
@@ -1666,7 +1666,7 @@ bhikkhūnaṃ mātu nibbutiṃ."	missing	please mark sandhi. gacch'ānanda	yes
 75756	neg	neg					missing		yes		
 75756	antonym	pamāṇaka					missing		yes		
 75756	construction	"na > a + pa + √mā + aṇa + ka
-appamāṇa + ka"					missing	show taddhita in the second line of construction	yes		
+appamāṇa + ka"					missing	show taddhita in the second line of construction	yes	yes	
 75756	meaning_1	immeasurable; unlimited; limitless; boundless					missing		yes		
 75756	derivative	taddhita	suffix	ka			missing		yes		
 75756	grammar	adj, from na pamāṇa					missing		yes		
@@ -1676,7 +1676,7 @@ appamāṇa + ka"					missing	show taddhita in the second line of construction	y
 75757	construction	"√yu > yo + *ni + ka
 yoni + ka"					missing		yes		
 75757	lemma_2	yonika					masc	its adj	no	yes	
-75757	meaning_1	with a (certain kind of) birth; related to a realm of existence					missing	adj meaning	yes		
+75757	meaning_1	with a (certain kind of) birth; related to a realm of existence					missing	adj meaning	yes	yes	
 56003	compound_type	chaṭṭhī tappurisa	compound_construction	lok<b>assa</b> + pāla			missing		yes		
 56003	sanskrit	loka + pāla					missing		yes		
 56003	source_1	JA194	sutta_1	maṇicorajātakaṃ	example_1	"na santi devā pavasanti nūna,
@@ -1686,23 +1686,23 @@ na hi nūna santī paṭisedhitāro."	missing		yes
 56003	meaning_1	guardian of the world; world-protector					missing		yes		
 56003	commentary	(JAa) <b>lokapālā</b>'ti evarūpānaṃ sīlavantīnaṃ patidevatānaṃ pālakā lokapālā nūna idha loke na santī'ti					missing		yes		
 70448	sanskrit	vaira, vairaka					missing		yes		
-70448	source_1	VINa4.1.1	sutta_1	theyyasaṃvāsakavatthukathā	example_1	aparassa eko <b>veriko</b> kuddho hoti, ghātetu'kāmo naṃ vicarati, so, evaṃ me sotthi bhavissatī'ti sayam'eva liṅgaṃ gahetvā palāyati.	missing	mark sandhi with '. ghātetu'kāmo	yes		
+70448	source_1	VINa4.1.1	sutta_1	theyyasaṃvāsakavatthukathā	example_1	aparassa eko <b>veriko</b> kuddho hoti, ghātetu'kāmo naṃ vicarati, so, evaṃ me sotthi bhavissatī'ti sayam'eva liṅgaṃ gahetvā palāyati.	missing	mark sandhi with '. ghātetu'kāmo	yes	yes	
 70448	meaning_1	unfriendly; inimical; hostile					missing		yes		
 70448	phonetic	ī > e					missing		yes		
-64414	meaning_1	easily gets; obtains without difficulty; receives without effort					missing	edited english	yes		
+64414	meaning_1	easily gets; obtains without difficulty; receives without effort					missing	edited english	yes	yes	
 51485	trans	intrans					missing		yes		
 51485	source_1	PV18	sutta_1	kaṇhapetavatthu	example_1	"na yaṃ labbhā manussena,
 amanussena vā pana,
 jāto me mā <b>mari</b> putto,
 kuto labbhā alabbhiyaṃ."	missing		yes		
 51485	construction	√mar + i					missing		yes		
-51485	meaning_1	died					missing	was killed is caus	yes		
+51485	meaning_1	died					missing	was killed is caus	yes	yes	
 48578	compound_type	chaṭṭhī tappurisa	compound_construction	buddh<b>assa</b> + ānubhāva			missing		yes		
 48578	source_1	APA119	sutta_1	buddhasaññakattheraapadānaṃ	example_1	"<b>buddh'ānubhāvaṃ</b> kittetvā,
 kappaṃ saggamhi mod'ahaṃ,
 avasesesu kappesu,
 kusalaṃ caritaṃ mayā."	missing		yes		
-48578	meaning_1	majestic power of the Buddha; splendour of the Awakened One					missing	edited english	yes		
+48578	meaning_1	majestic power of the Buddha; splendour of the Awakened One					missing	edited english	yes	yes	
 68027	neg	neg					missing		yes		
 68027	family_compound	dhava					missing		yes		
 68027	construction	vi + dhava + ā					MW		yes		
@@ -1721,8 +1721,8 @@ kusalaṃ caritaṃ mayā."	missing		yes
 15655	commentary	(DNt) <b>upadeso</b> nāma savisesaṃ sattannaṃ ratanānaṃ vicāraṇavasena pavatto kathābandho.					missing		yes		
 15655	phonetic	i > e					missing		yes		
 24234	meaning_1	speech; sentence; words					missing		yes		
-32410	commentary	(ADHt) yathā kathaṃ viyā'ti āha <b>dāvaggi viyā</b>'ti. so hi vanaghaṭe'y'eva uppanno tam'eva dahati.					missing	please mark sandhi. vanaghaṭe'y'eva	yes		
-32410	source_1	JAa35	sutta_1	ajagarapetavatthu	example_1	satthā mahābhikkhusaṅghaparivāro aññatarasmiṃ padese aṭṭhāsi. <b>dāv'aggi</b> abhibhavanto viya viravanto āgacchati.	missing	please mark sandhi. dāv'aggi	yes		
+32410	commentary	(ADHt) yathā kathaṃ viyā'ti āha <b>dāvaggi viyā</b>'ti. so hi vanaghaṭe'y'eva uppanno tam'eva dahati.					missing	please mark sandhi. vanaghaṭe'y'eva	yes	yes	
+32410	source_1	JAa35	sutta_1	ajagarapetavatthu	example_1	satthā mahābhikkhusaṅghaparivāro aññatarasmiṃ padese aṭṭhāsi. <b>dāv'aggi</b> abhibhavanto viya viravanto āgacchati.	missing	please mark sandhi. dāv'aggi	yes	yes	
 32410	meaning_1	forest-fire; conflagration					missing		yes		
 28464	source_1	APAa1.7.4	sutta_1	parappasādakattherāpadānavaṇṇanā	example_1	visesena kilesakhandhamārādayo māre <b>jitavā</b>'ti vijitāvī, taṃ vijitāvinaṃ sambuddhaṃ.	missing		yes		
 28464	construction	√ji + tvā > tavā					missing		yes		
@@ -1741,7 +1741,7 @@ desayissaṃ <b>dine</b> <b>dine</b>."	missing		yes
 1236	variant	ajjappabbhuti					missing		yes		
 1236	notes						var in notes		yes		
 65380	notes						wrong place		yes		
-49539	notes	synonym with <i>sassatadiṭṭhi</i>					correct diecritic	please italicize pali words in notes. <i>sassatadiṭṭhi</i>	yes		
+49539	notes	synonym with <i>sassatadiṭṭhi</i>					correct diecritic	please italicize pali words in notes. <i>sassatadiṭṭhi</i>	yes	yes	
 7339	notes						same as in meaning_1		yes		
 71817	notes	memorizer					in the meaning_1		yes		
 19168	notes						no need since MN21 in examples		yes		
@@ -1763,7 +1763,7 @@ oa > o"					missing		yes
 53801	phonetic	ṃa > ma					missing		yes		
 21655	phonetic	"ṃc > ñc
 aa > ā"					missing		yes		
-30174	phonetic	aa > a					missing	> a not ā	yes		
+30174	phonetic	aa > a					missing	> a not ā	yes	yes	
 59009	phonetic	ie > e					missing		yes		
 64954	phonetic	"ey > eyy
 āi > i"					missing		yes		
@@ -1898,11 +1898,11 @@ aa > a"					missing		yes
 25716	phonetic	uā > ā					missing		yes		
 62209	phonetic	uā > ā					missing		yes		
 39895	phonetic	uu > u					missing		yes		
-55689	phonetic	uu > u					missing	no ṃ > d (Kacc 34, 52)	yes		
+55689	phonetic	uu > u					missing	no ṃ > d (Kacc 34, 52)	yes	yes	
 50994	phonetic	ea > a					missing		yes		
 59041	phonetic	ee > e					missing		yes		
 46940	phonetic	ee > e					missing		yes		
-27076	phonetic	ae > e					missing	ae not ee	yes		
+27076	phonetic	ae > e					missing	ae not ee	yes	yes	
 30065	phonetic	oa > a					missing	no sandhi here	no	yes	
 29543	phonetic	ou > u					missing		yes		
 22293	phonetic	oe > e					missing		yes		
@@ -1988,7 +1988,7 @@ ya > yā"					missing		yes
 va > vā"					missing		yes		
 23992	phonetic	"o > v (Kacc 18, 20)
 va > vā"					missing		yes		
-39770	phonetic	kh > kkh (sk sk)					missing	sk sk is a little confusing!	yes		
+39770	phonetic	kh > kkh (sk sk)					missing	sk sk is a little confusing!	yes	yes	
 29352	phonetic	kh > kkh (sk kṣ)					missing		yes		
 46947	phonetic	kh > kkh (sk kṣ)					missing		yes		
 46948	phonetic	kh > kkh (sk kṣ)					missing		yes		
@@ -1997,12 +1997,12 @@ va > vā"					missing		yes
 46951	phonetic	kh > kkh (sk kṣ)					missing		yes		
 76425	phonetic	kh > kkh (sk kṣ)					missing		yes		
 78009	phonetic	kh > kkh (sk sk)					missing		yes		
-25881	phonetic	g > gg (sk ṛ)					missing	make sure it's ṛ not r	yes		
+25881	phonetic	g > gg (sk ṛ)					missing	make sure it's ṛ not r	yes	yes	
 56364	phonetic	g > gg (sk gh)					missing		yes		
 17415	phonetic	g > gg					missing		yes		
 67316	phonetic	ch > cch					missing		yes		
 64858	phonetic	ch > cch					missing		yes		
-46680	phonetic	j > jj (sk kj)					missing	always put the last letter and the first letter of the sanskrit	yes		
+46680	phonetic	j > jj (sk kj)					missing	always put the last letter and the first letter of the sanskrit	yes	yes	
 58828	phonetic	ñ > ññ (sk jñ)					missing		yes		
 26764	phonetic	ṭh > ṭṭh (sk sth)					missing		yes		
 27355	phonetic	t > tt (sk tr)					missing		yes		
@@ -2013,12 +2013,12 @@ va > vā"					missing		yes
 12298	phonetic	p > pp (sk pr)					missing		yes		
 24932	phonetic	b > bb (sk vr)					missing		yes		
 24933	phonetic	b > bb (sk vr)					missing		yes		
-27494	phonetic	v > b > bb					missing	i dont think its related to sk	yes		
+27494	phonetic	v > b > bb					missing	i dont think its related to sk	yes	yes	
 67657	phonetic	l > ll  (sk tl)					missing		yes		
 32470	phonetic	s > ss (sk śr)					missing		yes		
 60700	phonetic	āg > agg					missing		yes		
 60701	phonetic	āg > agg					missing		yes		
-51609	phonetic	āph > apph					missing	always include the aspirate, the letter is ph not p	yes		
+51609	phonetic	āph > apph					missing	always include the aspirate, the letter is ph not p	yes	yes	
 51613	phonetic	āb > abb					missing		yes		
 51614	phonetic	āb > abb					missing		yes		
 29352	phonetic	kh > kkh (sk kṣ)					missing		yes		
@@ -2027,7 +2027,7 @@ va > vā"					missing		yes
 22350	phonetic	n > nn					missing		yes		
 25997	phonetic	rv > vv > bb					missing		yes		
 54217	phonetic	kh > kkh (sk kṣ)					missing		yes		
-48164	phonetic	b > bb (sk vr)					missing	its sk vr	yes		
+48164	phonetic	b > bb (sk vr)					missing	its sk vr	yes	yes	
 26778	phonetic	p > pp (sk pr)					missing		yes		
 34952	phonetic	p > pp (sk pr)					missing		yes		
 42690	phonetic	aa > a					missing		yes		
@@ -2051,7 +2051,7 @@ ai > i"					missing		yes
 22487	phonetic	au > ū					missing		yes		
 31234	phonetic	au > u					missing		yes		
 26419	phonetic	"m > mm (sk rm)
-a > ā"					missing	sk rm not r	yes		
+a > ā"					missing	sk rm not r	yes	yes	
 46891	phonetic	aa > ā					missing		yes		
 8667	phonetic	aa > a					missing		yes		
 19351	phonetic	aa > a					missing		yes		
@@ -2061,7 +2061,7 @@ a > ā"					missing	sk rm not r	yes
 19617	phonetic	ñ > ññ (sk jñ)					missing		yes		
 35186	phonetic	aa > a					missing		yes		
 71237	phonetic	ae > e					missing		yes		
-46750	phonetic	bh > bbh (sk rbh)					missing	sk rbh not just r	yes		
+46750	phonetic	bh > bbh (sk rbh)					missing	sk rbh not just r	yes	yes	
 4161	phonetic	aa > ā					missing		yes		
 50951	phonetic	ñ > ññ (sk jñ)					missing		yes		
 59010	phonetic	aa > ā					missing		yes		
@@ -2138,7 +2138,7 @@ aa > ā"					missing		yes
 56039	phonetic	aā > ā					missing		yes		
 56042	phonetic	aa > ā					missing		yes		
 58839	phonetic	aa > a					missing		yes		
-21245	phonetic	s > ss (sk sm)					missing	just sm not smṛ, the ṛ is the vowel of sati	yes		
+21245	phonetic	s > ss (sk sm)					missing	just sm not smṛ, the ṛ is the vowel of sati	yes	yes	
 29592	phonetic	aa > ā					missing		yes		
 44000	phonetic	ṭh > ṭṭh (sk sth)					missing		yes		
 48208	phonetic	s > ss (sk śr)					missing		yes		
@@ -2230,15 +2230,15 @@ nibbanti dhīrā yath'āyaṃ padīpo."	missing		yes
 2975	phonetic	d > dd (sk dṛ)					missing	no, the ṛ becomes the vowel not a consonant. ṛ is in the vowels in sk, not in the consonants like rrrrrussian	no	yes	
 13543	phonetic	ṃn > nn					correct		yes		
 6981	phonetic	"p > pp (sk pr)
-a > ā"					missing	order ph according to word	yes		
+a > ā"					missing	order ph according to word	yes	yes	
 2211	phonetic	p > pp (sk pr)					missing		yes		
 7287	phonetic	"bh > bbh
 ī > ay"					missing		yes		
 47463	phonetic	"u > o
-bh > bbh (sk rbh)"					missing	include sk last letter (r) and first letter of the next word (bh)	yes		
+bh > bbh (sk rbh)"					missing	include sk last letter (r) and first letter of the next word (bh)	yes	yes	
 64953	phonetic	"y > yy
-āa > ā"					missing	order ph according to order in words	yes		
-44770	phonetic	s > ss (sk sv)					missing	sk sv not pr	yes		
+āa > ā"					missing	order ph according to order in words	yes	yes	
+44770	phonetic	s > ss (sk sv)					missing	sk sv not pr	yes	yes	
 399	phonetic	ākh > akkh					missing		yes		
 8726	phonetic	ṃh > ñh					missing		yes		
 18065	phonetic	ṃh > ñh					missing		yes		
@@ -2248,20 +2248,20 @@ bh > bbh (sk rbh)"					missing	include sk last letter (r) and first letter of th
 48570	phonetic	"dht > ddh
 aṃ > a (elision)"					missing		yes		
 44406	phonetic	"ae > e
-ānaṃ > aṃ > a (elision)"					missing	even more eleision than aṃ > a	yes		
+ānaṃ > aṃ > a (elision)"					missing	even more eleision than aṃ > a	yes	yes	
 56022	phonetic	iṃ > i (elision)					correct		yes		
 29303	phonetic	"+y (Kacc 35, 34)
 ṃy > ññ"					missing		yes		
 39317	phonetic	"+y (Kacc 35, 34)
 ṃy > ññ"					missing		yes		
-10853	phonetic	ṃt > nt					missing	"if you're going to add ""ṃi > ṃ (elision)"" then there are hundreds to add?"	yes		
-21728	phonetic	ṃt > nt					correction	see above	yes		
-21727	phonetic	ṃt > nt					correction	see above	yes		
-7009	phonetic	ṃp > mp					missing	see above	yes		
-33371	phonetic	ṃp > mp					correction	see above	yes		
-51425	phonetic	ṃp > mp					correction	see above	yes		
-18114	phonetic	ṃp > mp					missing	see above	yes		
-20875	phonetic	ṃp > mp					missing	see above	yes		
+10853	phonetic	ṃt > nt					missing	"if you're going to add ""ṃi > ṃ (elision)"" then there are hundreds to add?"	yes	yes	
+21728	phonetic	ṃt > nt					correction	see above	yes	yes	
+21727	phonetic	ṃt > nt					correction	see above	yes	yes	
+7009	phonetic	ṃp > mp					missing	see above	yes	yes	
+33371	phonetic	ṃp > mp					correction	see above	yes	yes	
+51425	phonetic	ṃp > mp					correction	see above	yes	yes	
+18114	phonetic	ṃp > mp					missing	see above	yes	yes	
+20875	phonetic	ṃp > mp					missing	see above	yes	yes	
 8726	phonetic	ṃh > ñh					missing		yes		
 53501	phonetic	"ṃy > ññ
 ṃ > d (Kacc 34, 52)"					missing		yes		
@@ -2383,9 +2383,9 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 46154	meaning_1	removal of thirst; dispelling of craving					missing		yes		
 46154	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ madanimmadano <b>pipāsavinayo</b> ālayasamugghāto vaṭṭ'upacchedo taṇhākkhayo virāgo nirodho nibbānaṃ.	sutta example		yes		
 46154	commentary	(VINa) yasmā ca taṃ āgamma sabbā'pi kāmapipāsā vinayaṃ abbhatthaṃ yā'ti, tasmā <b>pipāsavinayo</b>'ti vuccati.					missing		yes		
-46154	compound_type	chaṭṭhī tappurisa	compound_construction	pipās<b>āya</b> + vinaya			missing	chaṭṭhī	yes		
+46154	compound_type	chaṭṭhī tappurisa	compound_construction	pipās<b>āya</b> + vinaya			missing	chaṭṭhī	yes	yes	
 46154	sanskrit	pipāsā + vinaya					missing		yes		
-46154	family_compound	pipāsā vinaya					missing	pipāsā	yes		
+46154	family_compound	pipāsā vinaya					missing	pipāsā	yes	yes	
 37830	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ mada<b>nimmadano</b> pipāsavinayo ālayasamugghāto vaṭṭupacchedo taṇhākkhayo virāgo nirodho nibbānaṃ.	missing		yes		
 37830	compound_type	kammadhāraya	compound_construction	nir + madana			missing		yes		
 37830	antonym	madana					missing		yes		
@@ -2394,7 +2394,7 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 65819	meaning_1	cutting the cycle of existence; breaking the round of rebirth					missing		yes		
 65819	source_1	AN4.34	sutta_1	cakkavaggo, aggappasādasuttaṃ	example_1	yāvatā, bhikkhave, dhammā saṅkhatā vā asaṅkhatā vā, virāgo tesaṃ aggam'akkhāyati, yadidaṃ madanimmadano pipāsavinayo ālayasamugghāto <b>vaṭṭ'upacchedo</b> taṇhākkhayo virāgo nirodho nibbānaṃ.	sutta ex		yes		
 65819	commentary	(VINa) yasmā ca taṃ āgamma tebhūmakavaṭṭaṃ upacchijjati, tasmā <b>vaṭṭ'upacchedo</b>'ti vuccati.					missing		yes		
-65819	compound_type	chaṭṭhī tappurisa	compound_construction	vaṭṭ<b>assa</b> + upaccheda			missing	chaṭṭhī	yes		
+65819	compound_type	chaṭṭhī tappurisa	compound_construction	vaṭṭ<b>assa</b> + upaccheda			missing	chaṭṭhī	yes	yes	
 65819	sanskrit	vṛtta + uccheda					missing		yes		
 65819	family_compound	vaṭṭa upaccheda					missing		yes		
 4298	source_1	SN43.14-43	sutta_1	asaṅkhatasaṃyuttaṃ, anāsavādisuttaṃ	example_1	taṃ suṇātha. katamañ'ca, bhikkhave, <b>anītikadhammaṃ</b> … nibbānañ'ca vo, bhikkhave, desessāmi nibbānagāmiñ'ca maggaṃ. taṃ suṇātha.	missing		yes		
@@ -2403,7 +2403,7 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 476	meaning_1	non-destination; absence of future destination; epithet of Nibbāna					antonim of gati 4		yes		
 8467	source_1	VISM1.11.1	sutta_1	āhārepaṭikkūlabhāvanā	example_1	imaṃ pana paṭipattiṃ nissāya diṭṭh'eva dhamme <b>amatapariyosānataṃ</b> anabhisambhuṇanto sugatiparāyano hotī'ti.	missing		yes		
 8467	commentary	(VISMa) <b>amatapariyosānatan</b>'ti nibbānaniṭṭhitaṃ āhāre paṭikkūlasaññābhāvanāsaṅkhātaṃ upacārajjhānaṃ pādakaṃ katvā vipassanaṃ vaḍḍhetvā nibbān'ādhigaman'ti attho.					missing		yes		
-8467	compound_type	??	compound_construction				missing	not sure	yes		
+8467	compound_type	??	compound_construction				missing	not sure	yes	yes	
 48956	source_1	SN12.13	sutta_1	nidānasaṃyuttaṃ, samaṇabrāhmaṇasuttaṃ	example_1	na ca pana te āyasmanto sāmaññ'atthaṃ vā <b>brahmaññ'atthaṃ</b> vā diṭṭh'eva dhamme sayaṃ abhiññā sacchikatvā upasampajja viharanti.	missing		yes		
 48956	compound_type	chaṭṭhī tappurisa	compound_construction	brahmaññ<b>assa</b> + attha			missing		yes		
 8758	meaning_1	this here is the proper occasion; this is the right time in this case					missing		yes		
@@ -2489,11 +2489,11 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 40535	meaning_1	(of an illness) having suppressed					missing		yes		
 42295	source_1	SN47.41	sutta_1	satipaṭṭhānasaṃyuttaṃ, amatasuttaṃ	example_1	catūsu, bhikkhave, satipaṭṭhānesu suppatiṭṭhitacittā viharatha. mā vo amataṃ <b>panassa</b>.	missing		yes		
 42295	meaning_1	was lost; disappeared; went to ruin					missing		yes		
-15721	grammar	masc, from upaneti					missing	from upaneti	yes		
+15721	grammar	masc, from upaneti					missing	from upaneti	yes	yes	
 15721	derivative	kita	suffix	*a			missing		yes		
 15721	family_root	upa √nī					missing		yes		
 15721	phonetic	ī > ay					missing		yes		
-15721	derived_from	upaneti					missing	upaneti not upanayati	yes		
+15721	derived_from	upaneti					missing	upaneti not upanayati	yes	yes	
 15721	root_sign	a					missing		yes		
 15721	root_key	√nī					missing		yes		
 15721	source_1	SNa1.20	sutta_1	samiddhisuttavaṇṇanā	example_1	ādittaṃ celaṃ vā sīsaṃ vā ajjhupekkhitvā'pi bhāvan'āvasena attano citte <b>upanayaṃ</b> arahatī'ti opaneyyiko.	missing		yes		
@@ -2511,9 +2511,9 @@ n'<b>āññam'aññassa</b> dukkham'iccheyya."	missing		yes
 52380	compound_type	chaṭṭhī tappurisa	compound_construction	māraṇ<b>āya</b> + antika			missing	its kammadhāraya, death = end	no	yes	
 52380	sanskrit	māraṇa + antika					missing		yes		
 52380	source_1	SN47.9	sutta_1	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_1	atha kho bhagavato vass'ūpagatassa kharo ābādho uppajji, bāḷhā vedanā vattanti <b>māraṇ'antikā</b>.	missing		yes		
-52380	family_compound	maraṇa anta					missing	maraṇa family compound, the māraṇa comes from *ika	yes		
+52380	family_compound	maraṇa anta					missing	maraṇa family compound, the māraṇa comes from *ika	yes	yes	
 52380	construction	"maraṇa > māraṇa + anta + *ika
-maraṇanta + *ika"					missing	maraṇa > māraṇa becuase of *ika	yes		
+maraṇanta + *ika"					missing	maraṇa > māraṇa becuase of *ika	yes	yes	
 52380	meaning_1	close to death; deadly					missing		yes		
 52725	source_2	SN47.9	sutta_2	satipaṭṭhānasaṃyuttaṃ, gilānasuttaṃ	example_2	seyyathā'pi, ānanda, jajjarasakaṭaṃ veḷa<b>missakena</b> yāpeti, evam'eva kho, ānanda, vedha<b>missakena</b> maññe tathāgatassa kāyo yāpeti.	missing		yes		
 53663	compound_type	abyayībhāva	compound_construction	yathā + mitta + aṃ			missing		yes		
@@ -2551,14 +2551,14 @@ yathāsambhatta + aṃ"					missing		yes
 2908	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti appatiṭṭhitacitto <b>adīnamānaso</b> abyāpannacetaso.	missing		yes		
 6900	meaning_1	not mentally established; not stable in mind					missing		yes		
 6900	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti <b>appatiṭṭhitacitto</b> adīnamānaso abyāpannacetaso.	missing		yes		
-6900	compound_type	kammadhāraya > bahubbīhi	compound_construction	appatiṭṭhita + citta			missing	bahubbīhi	yes		
+6900	compound_type	kammadhāraya > bahubbīhi	compound_construction	appatiṭṭhita + citta			missing	bahubbīhi	yes	yes	
 6900	sanskrit	na + pratiṣṭhita + citta					missing		yes		
 6155	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti <b>apatitthīnacitto</b> adīnamānaso abyāpannacetaso.	missing		yes		
-6155	compound_type	kammadhāraya > bahubbīhi	compound_construction	apatitthīna + citta			missing	bahubbīhi	yes		
+6155	compound_type	kammadhāraya > bahubbīhi	compound_construction	apatitthīna + citta			missing	bahubbīhi	yes	yes	
 6155	sanskrit	na + prati + styāna + citta					missing		yes		
 7425	meaning_1	without ill-will; not averse					missing		yes		
 7425	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	cakkhunā kho pan'eva rūpaṃ disvā amanāpaṃ na maṅku hoti apatitthīnacitto adīnamānaso <b>abyāpannacetaso</b>.	missing		yes		
-7425	compound_type	kammadhāraya > bahubbīhi	compound_construction	abyāpanna + cetasa			missing	bahubbīhi	yes		
+7425	compound_type	kammadhāraya > bahubbīhi	compound_construction	abyāpanna + cetasa			missing	bahubbīhi	yes	yes	
 7425	sanskrit	na + vyāpanna + cetas					missing		yes		
 12475	source_1	SN46.6	sutta_1	bojjhaṅgasaṃyuttaṃ, kuṇḍaliyasuttaṃ	example_1	aham'asmi, bho gotama, <b>ārāmanissayī</b> paris'āvacaro. tassa mayhaṃ, bho gotama, pacchābhattaṃ bhuttapātarāsassa ayam'ācāro hoti, ārāmena ārāmaṃ uyyānena uyyānaṃ anucaṅkamāmi anuvicarāmi.	missing		yes		
 12475	compound_type	dutiyā tappurisa	compound_construction	ārām<b>aṃ</b> + nissayī			missing		yes		
@@ -2639,13 +2639,13 @@ savattha + *ī"					error		yes
 39608	compound_type	kammadhāraya	compound_construction	pacchā + ninna			missing		yes		
 39608	sanskrit	paścāt + nimna					missing		yes		
 45261	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī <b>pācīnaninnā</b> pācīnapoṇā pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ pacchāpoṇaṃ pacchāpabbhāraṃ.	missing		yes		
-45261	compound_type	dutiyā tappurisa	compound_construction	pācīn<b>aṃ</b> + ninna			missing	dutiyā	yes		
+45261	compound_type	dutiyā tappurisa	compound_construction	pācīn<b>aṃ</b> + ninna			missing	dutiyā	yes	yes	
 45261	sanskrit	prācīna + nimna					missing		yes		
 45262	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā pācīnapoṇā <b>pācīnapabbhārā</b>. sā na sukarā pacchāninnaṃ kātuṃ pacchāpoṇaṃ pacchāpabbhāraṃ.	missing		yes		
 45262	compound_type	??	compound_construction				missing		yes		
 45262	sanskrit	prācīna + prāgbhāra					missing		yes		
 45263	source_1	SN45.160	sutta_1	maggasaṃyuttaṃ, nadīsuttaṃ	example_1	gaṅgā, bhante, nadī pācīnaninnā <b>pācīnapoṇā</b> pācīnapabbhārā. sā na sukarā pacchāninnaṃ kātuṃ pacchāpoṇaṃ pacchāpabbhāraṃ.	missing		yes		
-45263	compound_type	dutiyā tappurisa	compound_construction	pācīn<b>aṃ</b> + poṇa			missing	dutiyā	yes		
+45263	compound_type	dutiyā tappurisa	compound_construction	pācīn<b>aṃ</b> + poṇa			missing	dutiyā	yes	yes	
 45263	sanskrit	prācīna + pravaṇa					missing		yes		
 65096	source_1	SN45.2	sutta_1	maggasaṃyuttaṃ, upaḍḍhasuttaṃ	example_1	mamañ'hi, ānanda, kalyāṇamittaṃ āgamma jātidhammā sattā jātiyā parimuccanti, jarādhammā sattā jarāya parimuccanti, maraṇadhammā sattā maraṇena parimuccanti, <b>sokaparidevadukkhadomanassupāyāsadhammā</b> sattā sokaparidevadukkhadomanassupāyāsehi parimuccanti.	missing		yes		
 65096	compound_type	chaṭṭhī tappurisa	compound_construction	sokaparidevadukkhadomanassupāyās<b>ānaṃ</b> + dhamma			missing	not sure	no	yes	
@@ -2937,7 +2937,7 @@ kāme ca loke ca anūpalitto."	'		yes
 47277	source_1	VIN1.1.2	sutta_1	dutiyapārājikaṃ	example_1	anāpatti sasaññissa, vissāsaggāhe, tāvakālike, <b>petapariggahe</b>, tiracchānagatapariggahe, paṃsukūlasaññissa, ummattakassa, ādikammikassā'ti.	missing		yes		
 47277	meaning_1	personal possession of the departed; something belonged to the deceased; (comm) holdings of departed spirits					missing		yes		
 11533	source_1	VIN1.1.2	sutta_1	dutiyapārājikaṃ	example_1	anāpatti sasaññissa, vissāsaggāhe, tāvakālike, petapariggahe, tiracchānagatapariggahe, paṃsukūlasaññissa, ummattakassa, <b>ādi</b>kammikassā'ti.	missing		yes		
-31888	compound_type	catutthī tappurisa	compound_construction	dant<b>ānaṃ</b> + poṇa			missing	catutthī tappurisa	yes		
+31888	compound_type	catutthī tappurisa	compound_construction	dant<b>ānaṃ</b> + poṇa			missing	catutthī tappurisa	yes	yes	
 31888	source_1	VIN1.1.2	sutta_1	dutiyapārājikaṃ	example_1	<b>dantapoṇaṃ</b> nāma chinnaṃ vā acchinnaṃ vā. pañcamāsakaṃ vā atirekapañcamāsakaṃ vā agghanakaṃ theyyacitto āmasati, āpatti dukkaṭassa.	missing		yes		
 31888	construction	danta + poṇa					missing		yes		
 31888	meaning_1	toothbrush; tooth-stick					missing		yes		
@@ -3345,7 +3345,7 @@ tāvakāla + ika"					from kāla not from kālika		yes
 49436	source_1	VIN1.2.13	sutta_1	kuladūsakasikkhāpadaṃ	example_1	suṇātu me, bhante, saṅgho. ayaṃ itthan'nāmo bhikkhu saṅghena pabbājanīyakammakato bhikkhū chandagāmitā dosagāmitā mohagāmitā <b>bhayagāmitā</b> pāpeti.	missing		yes		
 24872	source_2	VIN1.2.12	sutta_2	dubbacasikkhāpadaṃ	example_2	bhikkhū pan'eva dubbacajātiko hotī'ti dubbaco hoti dovacassakaraṇehi dhammehi samannāgato akkhamo appadakkhiṇa<b>ggāhī</b> anusāsaniṃ.	missing		yes		
 14729	source_1	VIN1.2.9	sutta_1	dutiyaduṭṭhadosasikkhāpadaṃ	example_1	manussaviggahapārājik'āpatti <b>uttarimanussadhamma-pārājik'āpattiyā</b> methunadhammapārājik'āpattiyā adinn'ādānapārājik'āpattiyā aññabhāgiyā.	missing		yes		
-50280	meaning_1	grounds for sowing dissension; basis for causing disunion					sg - or change the grammar	a grounds for something is singular in english ; )	no		
+50280	meaning_1	grounds for sowing dissension; basis for causing disunion					sg - or change the grammar	a grounds for something is singular in english ; )	no	yes	
 47115	compound_type	kammadhāraya	compound_construction	pure + kāra			missing		yes		
 47115	meaning_lit						it is already in meaning_1		yes		
 29998	meaning_1	(vinaya) belonging to that class; connected with that category (of offences or issues)					since it is used with adhikaraṇaṃ as well		yes		
@@ -3404,7 +3404,7 @@ tāvakāla + ika"					from kāla not from kālika		yes
 10692	antonym	vissajjita					missing		yes		
 10692	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	avikappite vikappitasaññī, nissaggiyaṃ pācittiyaṃ. <b>avissajjite</b> vissajjitasaññī, nissaggiyaṃ pācittiyaṃ. anaṭṭhe naṭṭhasaññī, nissaggiyaṃ pācittiyaṃ.	missing		yes		
 69401	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	avikappite vikappitasaññī, nissaggiyaṃ pācittiyaṃ. avissajjite <b>vissajjitasaññī</b>, nissaggiyaṃ pācittiyaṃ. anaṭṭhe naṭṭhasaññī, nissaggiyaṃ pācittiyaṃ.	missing		yes		
-69401	compound_type	pañcamī tappurisa	compound_construction	vissajjita<b>to</b> + saññī			missing	ablative tappurisa, perceiving as, others too	yes		
+69401	compound_type	pañcamī tappurisa	compound_construction	vissajjita<b>to</b> + saññī			missing	ablative tappurisa, perceiving as, others too	yes	yes	
 69401	sanskrit	visarjita + saṃjñin					missing		yes		
 35509	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	anaṭṭhe <b>naṭṭhasaññī</b>, nissaggiyaṃ pācittiyaṃ. avinaṭṭhe vinaṭṭhasaññī, nissaggiyaṃ pācittiyaṃ. adaḍḍhe daḍḍhasaññī, nissaggiyaṃ pācittiyaṃ.	missing		yes		
 35509	compound_type	pañcamī tappurisa	compound_construction	naṭṭha<b>to</b> + saññī			missing		yes		
@@ -3498,7 +3498,7 @@ tāvakāla + ika"					from kāla not from kālika		yes
 5820	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	nānākulassa khettaṃ hoti parikkhittañ'ca. <b>antokhette</b> cīvaraṃ nikkhipitvā dvāramūle vā vatthabbaṃ, hatthapāsā vā na vijahitabbaṃ.	missing		yes		
 5820	compound_type	kammadhāraya	compound_construction	anto + khetta			missing		yes		
 5820	sanskrit	antar + kṣetra					missing		yes		
-5809	family_compound	anto ārāma2					missing	anto	yes		
+5809	family_compound	anto ārāma2					missing	anto	yes	yes	
 5809	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	nānākulassa ārāmo hoti parikkhitto ca. <b>antoārāme</b> cīvaraṃ nikkhipitvā dvāramūle vā vatthabbaṃ, hatthapāsā vā na vijahitabbaṃ.	missing		yes		
 5809	meaning_1	inner part of a monastery; within a monastery					missing		yes		
 5809	grammar	masc, comp					missing		yes		
@@ -3512,17 +3512,17 @@ tāvakāla + ika"					from kāla not from kālika		yes
 5829	sanskrit	antar + chāyā					missing		yes		
 525	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	ajjhokāso ek'ūpacāro nāma <b>agāmake</b> araññe samantā satt'abbhantarā ek'ūpacāro, tato paraṃ nān'ūpacāro.	missing		yes		
 68510	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	vippavutthe <b>vippavutthasaññī</b> aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		yes		
-68510	compound_type	pañcamī tappurisa	compound_construction	vippavuttha<b>to</b> + saññī			missing	abl tappurisa	yes		
+68510	compound_type	pañcamī tappurisa	compound_construction	vippavuttha<b>to</b> + saññī			missing	abl tappurisa	yes	yes	
 68510	sanskrit	vipravasita + saṃjñin					missing		yes		
 10641	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	vippavutthe <b>avippavutthasaññī</b>, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		yes		
 10641	compound_type	pañcamī tappurisa	compound_construction	avippavuttha<b>to</b> + saññī			missing		yes		
 10641	antonym	vippavutthasaññī					missing		yes		
 10641	neg	neg					missing		yes		
 10641	sanskrit	na + vipravasita + saṃjñin					missing		yes		
-10641	construction	avippavuttha + saññī					missing	no need for second line	no		
+10641	construction	avippavuttha + saññī					missing	no need for second line	no	yes	
 6783	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	<b>appaccuddhaṭe</b> paccuddhaṭasaññī, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		yes		
 39512	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	appaccuddhaṭe <b>paccuddhaṭasaññī</b>, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		yes		
-39512	compound_type	pañcamī tappurisa	compound_construction	paccuddhaṭa<b>to</b> + saññī			missing	abl tappurisa	yes		
+39512	compound_type	pañcamī tappurisa	compound_construction	paccuddhaṭa<b>to</b> + saññī			missing	abl tappurisa	yes	yes	
 39512	sanskrit	pratyuddhṛta + saṃjñin					missing		yes		
 10640	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	<b>avippavutthe</b> vematiko, āpatti dukkaṭassa. <b>avippavutthe</b> avippavutthasaññī, anāpatti.	missing		yes		
 5807	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	anāpatti <b>antoaruṇe</b> paccuddharati, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing		yes		
@@ -3530,7 +3530,7 @@ tāvakāla + ika"					from kāla not from kālika		yes
 5807	sanskrit	antar + aruṇa					missing		yes		
 39513	source_2	VIN1.4.1.2	sutta_2	udositasikkhāpadaṃ	example_2	anāpatti antoaruṇe <b>paccuddharati</b>, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing		yes		
 39511	source_1	VIN1.4.1.2	sutta_1	udositasikkhāpadaṃ	example_1	appaccuddhaṭe <b>paccuddhaṭa</b>saññī, aññatra bhikkhusammutiyā, nissaggiyaṃ pācittiyaṃ.	missing		yes		
-38258	lemma_2	nissaggiya pācittiya					change to idiom	in future, rather add a new word, cos it actually occurs in commentaries, which you are now deleting. 	yes		
+38258	lemma_2	nissaggiya pācittiya					change to idiom	in future, rather add a new word, cos it actually occurs in commentaries, which you are now deleting. 	yes	yes	
 38258	family_compound						change to idiom		yes		
 38258	source_1	VIN PAT NP 1	sutta_1	kathinasikkhāpadaṃ	example_1	niṭṭhitacīvarasmiṃ bhikkhunā ubbhatasmiṃ kathine das'āhaparamaṃ atirekacīvaraṃ dhāretabbaṃ, taṃ atikkāmayato <b>nissaggiyaṃ pācittiyaṃ</b>.	change to idiom		yes		
 38258	stem	-	pattern				change to idiom		yes		
@@ -3543,45 +3543,95 @@ tāvakāla + ika"					from kāla not from kālika		yes
 38258	commentary	(VINa) <b>taṃ atikkāmayato nissaggiyaṃ pācittiya</b> nti ... tañ'ca cīvaraṃ nissaggiyaṃ hoti, pācittiy'āpatti c'assa hotī'ti attho ... nissajjitvā āpatti desetabbaṃ.					missing		yes		
 5843	compound_type	kammadhāraya	compound_construction	anto + nivesana			missing		yes		
 14174	meaning_1	rising; ascending; becoming visible					since can be added aruna easier to make meaning more general		yes		
-52197	meaning_1	grounds					sg	a grounds for something is singular. sorry i didn't invent english. 	no		
+52197	meaning_1	grounds					sg	a grounds for something is singular. sorry i didn't invent english. 	no	yes	
 61040	sanskrit	svara + bhāṇa					correction		yes		
 37412	plus_case	+acc					missing		yes		
 37412	source_1	VIN3.8.207	sutta_1	cīvarakkhandhako, pajjotarājavatthu	example_1	yaṃnūn'āhaṃ sappiṃ <b>nippaceyyaṃ</b> kasāvavaṇṇaṃ kasāvagandhaṃ kasāvarasan'ti. atha kho jīvako komārabhacco nānābhesajjehi sappiṃ nippaci kasāvavaṇṇaṃ kasāvagandhaṃ kasāvarasaṃ.	missing		yes		
 37412	meaning_1	cooks; infuses					missing		yes		
 37412	trans	trans					missing		yes		
 37412	construction	nī + paca + ti					missing		yes		
-40969	meaning_2	for a measure of continuous mindfulness; enough for lucid self-awareness					agreed with paṭissatimattā, of maybe we can remove it together with 28879 ?	i think i will delete both cases and just keep original	yes		
+40969	meaning_2	for a measure of continuous mindfulness; enough for lucid self-awareness					agreed with paṭissatimattā, of maybe we can remove it together with 28879 ?	i think i will delete both cases and just keep original	yes	yes	
 3592	meaning_1	(of kathina) not spread; not performed					same as atthata 2		yes		
 35759	meaning_1	is not sufficient (for); is not enough (for)					missing		yes		
 80925	source_2	VIN1.4.1.3	sutta_2	tatiyakathinasikkhāpadaṃ	example_2	no c'assa pāripūrī'ti <b>kayiramānaṃ</b> nappahoti.	missing		yes		
 34458	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>dvīh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
-34458	compound_type	sattamī tappurisa	compound_construction	dvīh<b>e</b> + uppanna			missing	loc tappurisa	yes		
+34458	compound_type	sattamī tappurisa	compound_construction	dvīh<b>e</b> + uppanna			missing	loc tappurisa	yes	yes	
 34458	sanskrit	dvyaha + utpanna					missing		yes		
 30944	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>tīh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
-30944	compound_type	sattamī tappurisa	compound_construction	tīh<b>e</b> + uppanna			missing	loc tappurisa	yes		
+30944	compound_type	sattamī tappurisa	compound_construction	tīh<b>e</b> + uppanna			missing	loc tappurisa	yes	yes	
 30944	sanskrit	tryaha + utpanna					missing		yes		
 26114	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>catūh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
 26114	compound_type	sattamī tappurisa	compound_construction	catūht<b>e</b> + uppanna			missing		yes		
 26114	sanskrit	caturaha + utpanna					missing		yes		
 39941	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>pañcāh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
-39941	compound_type	sattamī tappurisa	compound_construction	pañcāh<b>e</b> + uppanna			missing	loc tappurisa	yes		
+39941	compound_type	sattamī tappurisa	compound_construction	pañcāh<b>e</b> + uppanna			missing	loc tappurisa	yes	yes	
 39941	sanskrit	pañca + aha + utpanna					missing		yes		
 27617	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>chāh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
-27617	compound_type	sattamī tappurisa	compound_construction	chāh<b>e</b> + uppanna			missing	loc tappurisa	yes		
+27617	compound_type	sattamī tappurisa	compound_construction	chāh<b>e</b> + uppanna			missing	loc tappurisa	yes	yes	
 27617	sanskrit	ṣaḍaha + utpanna					missing		yes		
 57834	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>sattāh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
-57834	compound_type	sattamī tappurisa	compound_construction	sattāh<b>e</b> + uppanna			missing	loc tappurisa	yes		
+57834	compound_type	sattamī tappurisa	compound_construction	sattāh<b>e</b> + uppanna			missing	loc tappurisa	yes	yes	
 57834	sanskrit	saptāha + utpanna					missing		yes		
 1852	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>aṭṭhāh'uppanne</b> mūlacīvare paccāsācīvaraṃ uppajjati, das'āhā kāretabbaṃ.	missing		yes		
-1852	compound_type	sattamī tappurisa	compound_construction	aṭṭhāh<b>e</b> + uppanna			missing	loc tappurisa	yes		
+1852	compound_type	sattamī tappurisa	compound_construction	aṭṭhāh<b>e</b> + uppanna			missing	loc tappurisa	yes	yes	
 1852	sanskrit	aṣṭan + ahan + utpanna					missing		yes		
 17794	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	<b>ekūnavīse</b> uppanne mūlacīvare paccāsācīvaraṃ uppajjati, dasāhā kāretabbaṃ.	missing		yes		
 67128	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	tiṃse uppanne mūlacīvare paccāsācīvaraṃ uppajjati, tadah'eva adhiṭṭhātabbaṃ <b>vikappetabbaṃ</b> vissajjetabbaṃ. no ce adhiṭṭheyya vā vikappeyya vā vissajjeyya vā, ekatiṃse aruṇ'uggamane nissaggiyaṃ hoti.	missing		yes		
 67128	meaning_1	(vinaya) ownership should be shared; ownership should be transferred					missing meaning share ownership as everywhere		yes		
 52504	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	idaṃ me, bhante, akālacīvaraṃ <b>mās'ātikkantaṃ</b> nissaggiyaṃ, im'āhaṃ saṅghassa nissajjāmī'ti	missing		yes		
-52504	compound_type	dutiyā tappurisa	compound_construction	mās<b>aṃ</b> + atikkanta			missing	acc tappurisa	yes		
+52504	compound_type	dutiyā tappurisa	compound_construction	mās<b>aṃ</b> + atikkanta			missing	acc tappurisa	yes	yes	
 3227	source_1	VIN1.4.1.1	sutta_1	paṭhamakathinasikkhāpadaṃ	example_1	das'āh'ātikkante anatikkantasaññī, nissaggiyaṃ pācittiyaṃ. anadhiṭṭhite <b>adhiṭṭhitasaññī</b>, nissaggiyaṃ pācittiyaṃ. avikappite vikappitasaññī, nissaggiyaṃ pācittiyaṃ.	missing		yes		
-3227	compound_type	pañcamī tappurisa	compound_construction	adhiṭṭhita<b>to</b> + saññī			missing	abl tappurisa	yes		
+3227	compound_type	pañcamī tappurisa	compound_construction	adhiṭṭhita<b>to</b> + saññī			missing	abl tappurisa	yes	yes	
 3227	sanskrit	abhiṣṭhīta + saṃjñin					missing		yes		
 5852	source_1	VIN1.4.1.3	sutta_1	tatiyakathinasikkhāpadaṃ	example_1	anāpatti <b>antomāse</b> adhiṭṭheti, vikappeti, vissajjeti, nassati, vinassati, ḍayhati, acchinditvā gaṇhanti, vissāsaṃ gaṇhanti, ummattakassa, ādikammikassā'ti.	missing		yes		
 5852	compound_type	kammadhāraya	compound_construction	anto + māsa			missing		yes		
+45392	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ākoṭehī'ti āṇāpeti, āpatti dukkaṭassa. sakiṃ <b>pāṇippahāraṃ</b> vā muggarappahāraṃ vā dinne nissaggiyaṃ hoti. nissajjitabbaṃ saṅghassa vā gaṇassa vā puggalassa vā.	missing				
+45392	compound_type	tatiyā tappurisa	compound_construction	pāṇ<b>inā</b> + pahāra			missing				
+45392	sanskrit	pāṇi + prahāra					missing				
+52813	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ākoṭehī'ti āṇāpeti, āpatti dukkaṭassa. sakiṃ pāṇippahāraṃ vā <b>muggarappahāraṃ</b> vā dinne nissaggiyaṃ hoti. nissajjitabbaṃ saṅghassa vā gaṇassa vā puggalassa vā.	missing				
+52813	compound_type	tatiyā tappurisa	compound_construction	muggar<b>ena</b> + pahāra			missing				
+52813	sanskrit	musala + prahāra					missing				
+35311	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	idaṃ me, bhante, purāṇacīvaraṃ aññātikāya bhikkhuniyā <b>dhovāpitaṃ</b> nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+35311	meaning_lit	caused to wash					missing				
+33603	construction	dur + ni + √mā > mi + tta					same as kita				
+8427	lemma_2	abhyatikkhetaṃ					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	plus_case						codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	derivative	kita	suffix	*tta			codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	stem	abhyatikkhet	pattern	a nt			codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	meaning_1	supreme field of merit					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	family_root	√khi					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	pos	nt					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	phonetic	"bhi > bhy
+i > e"					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	grammar	nt, from khetta					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	meaning_2						codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	derived_from	khetta					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	sanskrit	abhyati + kṣetra					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	root_key	√khi					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	lemma_1	abhyatikkheta					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	trans						codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+8427	construction	abhi > abhy + ati + √khi > khe + *tta					codsidering the paritta context, as discussed: saṅgho sukhettābhyatikhettasaññito				
+1632	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	aññātikāya <b>aññātikasaññī</b> purāṇacīvaraṃ dhovāpeti ākoṭāpeti, nissaggiyena āpatti dukkaṭassa.	missing				
+1632	compound_type	pañcamī tappurisa	compound_construction	aññātik<b>āto</b> + saññī			missing				
+1632	sanskrit	ajñātaka + saṃjñin					missing				
+28912	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ñātikāya vematiko, āpatti dukkaṭassa. ñātikāya <b>ñātikasaññī</b>, anāpatti.	missing		
+28912	compound_type	pañcamī tappurisa	compound_construction	ñātik<b>āto</b> + saññī			missing		
+28912	sanskrit	jñātaka + saṃjñin					missing		
+38207	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	<b>nisīdanapaccattharaṇaṃ</b> dhovāpeti, āpatti dukkaṭassa. ekato-upasampannāya dhovāpeti, āpatti dukkaṭassa.	missing		
+38207	compound_type	dvanda	compound_construction	nisīdana <b>ca</b> paccattharaṇa <b>ca</b>			missing		
+38207	sanskrit	niṣadana + pratyāsataraṇa (bsk)					missing		
+39323	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	nisīdana<b>paccattharaṇaṃ</b> dhovāpeti, āpatti dukkaṭassa. ekato-upasampannāya dhovāpeti, āpatti dukkaṭassa.	missing		
+17464	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	nisīdanapaccattharaṇaṃ dhovāpeti, āpatti dukkaṭassa. <b>ekato-upasampannāya</b> dhovāpeti, āpatti dukkaṭassa.	missing		
+28900	source_1	VIN1.4.2.7	sutta_1	eḷakalomadhovāpanasikkhāpadaṃ	example_1	<b>ñātikāya</b> aññātikasaññī, āpatti dukkaṭassa. <b>ñātikāya</b> vematiko, āpatti dukkaṭassa.	missing		
+35310	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	anāpatti ñātikāya <b>dhovantiyā</b> aññātikā dutiyā hoti, avuttā dhovati, aparibhuttaṃ dhovāpeti, cīvaraṃ ṭhapetvā aññaṃ parikkhāraṃ dhovāpeti, sikkhamānāya, sāmaṇeriyā, ummattakassa, ādikammikassā'ti.	missing		
+6383	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	anāpatti ñātikāya dhovantiyā aññātikā dutiyā hoti, avuttā dhovati, <b>aparibhuttaṃ</b> dhovāpeti, cīvaraṃ ṭhapetvā aññaṃ parikkhāraṃ dhovāpeti, sikkhamānāya, sāmaṇeriyā, ummattakassa, ādikammikassā'ti.	missing		
+52812	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ākoṭehī'ti āṇāpeti, āpatti dukkaṭassa. sakiṃ pāṇippahāraṃ vā <b>muggara</b>ppahāraṃ vā dinne nissaggiyaṃ hoti. nissajjitabbaṃ saṅghassa vā gaṇassa vā puggalassa vā.	missing		
+16219	source_1	VV15	sutta_1	uttarā vimānavatthu	example_1	"uposathaṃ <b>upavasissaṃ</b>,
+sadā sīlesu saṃvutā,
+saññamā saṃvibhāgā ca,
+vimānaṃ āvasām'ahaṃ."	missing		
+16219	meaning_1	nearby; close					missing		
+16219	grammar	adj, from upavattati					missing		
+16219	derived_from	upavattati					missing		
+35311	meaning_1	made (somebody) wash; which got (somebody) to wash					since it is qualify robe		
+35311	meaning_lit	caused to be washed					more fit the context sonce pp anyway pass		
