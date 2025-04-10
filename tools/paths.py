@@ -84,12 +84,6 @@ class ProjectPaths:
             base_dir / "exporter/kindle/templates/ebook_titlepage.html"
         )
 
-        # exporter/css
-        self.dpd_css_path = base_dir / "exporter/goldendict/css/dpd.css"
-        self.deconstructor_css_path = (
-            base_dir / "exporter/goldendict/css/deconstructor.css"
-        )
-
         # exporter/goldendict/help/
         self.abbreviations_tsv_path = (
             base_dir / "exporter/goldendict/help/abbreviations.tsv"
@@ -395,7 +389,8 @@ class ProjectPaths:
         # exporter/variants
         self.variants_header_path = base_dir / "exporter/variants/variants_header.html"
 
-        # identity/css
+        # identity/
+        self.dpd_css_path = base_dir / "identity/css/dpd.css"
         self.dpd_variables_css_path = base_dir / "identity/css/dpd-variables.css"
 
         # identity/logo

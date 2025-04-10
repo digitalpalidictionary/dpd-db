@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta data_key="data_${i.lemma_1_}">
+    <head>
+        <meta charset="utf-8">
+        <meta data_key="data_${i.lemma_1_}">
 
-    <title>Digital Pāḷi Dictionary</title>
+        <title>Digital Pāḷi Dictionary</title>
 
-    <style>
+        <style>
         :root {
             /* Background in light mode, text in dark mode */
             --light: hsl(198, 100%, 95%);
@@ -54,25 +54,51 @@
             --freq9: hsla(216, 90%, 50%, 1.00);
             --freq10: hsla(218, 90%, 50%, 1.00);
         }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+            font-weight: 100 900;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+            font-weight: 100 900;
+            font-style: italic;
+        }
     </style>
 
-    <link href="dpd.css" rel="stylesheet">
+        <link href="dpd.css" rel="stylesheet">
 
-    <link href="family_compound_json.js" class="load_js" rel="preload" as="script">
-    <link href="family_compound_template.js" class="load_js" rel="preload" as="script">
-    <link href="family_idiom_json.js" class="load_js" rel="preload" as="script">
-    <link href="family_idiom_template.js" class="load_js" rel="preload" as="script">
-    <link href="family_root_json.js" class="load_js" rel="preload" as="script">
-    <link href="family_root_template.js" class="load_js" rel="preload" as="script">
-    <link href="family_set_json.js" class="load_js" rel="preload" as="script">
-    <link href="family_set_template.js" class="load_js" rel="preload" as="script">
-    <link href="family_word_json.js" class="load_js" rel="preload" as="script">
-    <link href="family_word_template.js" class="load_js" rel="preload" as="script">
-    <link href="feedback_template.js" class="load_js" rel="preload" as="script">
-    <link href="frequency_template.js" class="load_js" rel="preload" as="script">
-    <link href="main.js" class="load_js" rel="preload" as="script">
+        <link href="family_compound_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_compound_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_idiom_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_idiom_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_root_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_root_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_set_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_set_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_word_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_word_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="feedback_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="frequency_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="main.js" class="load_js" rel="preload" as="script">
 
-    <script>
+        <script>
         var data_${ i.lemma_1_ } = {
             "id": ${ i.id },
             "lemma": "${i.lemma_1}",
@@ -115,13 +141,13 @@
         };
     </script>
 
-    <script>
+        <script>
         if (typeof progName == "undefined") {
             var progName = "GoldenDict"
         }
     </script>
 
-    <script>
+        <script>
         var els2load = document.getElementsByClassName("load_js");
         if (typeof js_already_loaded === "undefined") {
             var js_already_loaded = true;
@@ -135,4 +161,4 @@
         };
     </script>
 
-</head>
+    </head>
