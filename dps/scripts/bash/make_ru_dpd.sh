@@ -9,14 +9,17 @@ python -c "from tools.configger import config_update; config_update('dictionary'
 
 python -c "from tools.configger import print_config_settings; print_config_settings(['dictionary', 'goldendict', 'exporter'])"
 
-
-scripts/bash/generate_components.sh
-
-# db/families/family_root.py
-# db/families/family_word.py
-# db/families/family_compound.py
-# db/families/family_set.py
-# db/families/family_idiom.py
+while true; do
+    echo -ne "\033[1;36m generate_components?\033[0m"
+    read yn
+    case $yn in
+        [Yy]* )
+            scripts/bash/generate_components.sh
+            break;;
+        * )
+            break;;
+    esac
+done
 
 echo "exporting RU DPD"
 

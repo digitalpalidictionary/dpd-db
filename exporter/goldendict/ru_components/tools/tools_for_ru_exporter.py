@@ -21,6 +21,9 @@ pth = ProjectPaths()
 rupth = RuPaths()
 date = year_month_day_dash()
 
+abbreviations_dict = None
+compiled_patterns = None
+
 
 def make_ru_meaning(i: DpdHeadword) -> str:
     """Uses only DpdHeadword input. Compile html of ru_meaning and literal meaning, or return ru_meaning_raw.
@@ -118,21 +121,20 @@ def make_ru_meaning_for_ebook(i: DpdHeadword, ru: Russian) -> str:
         return ""
 
 
-abbreviations_dict = None
+def ru_replace_abbreviations(value, kind="meaning"):
+    """
+    Replace abbreviations in the given value based on the specified kind.
+    """
+    global abbreviations_dict, compiled_patterns
 
-
-def ru_replace_abbreviations(value, kind = "meaning"):
-
-    global abbreviations_dict
-
-    # debug
-    # print(f"original value {value}")
-
-    if abbreviations_dict is None:
-        # load_abbreviations_dict(pth.abbreviations_tsv_path)
+    # Load abbreviations dictionary and precompile patterns if not already done
+    if abbreviations_dict is None or compiled_patterns is None:
         abbreviations_dict = load_abbreviations_dict(pth.abbreviations_tsv_path)
+        compiled_patterns = {
+            abbr: re.compile(rf'\b\+?{re.escape(abbr)}\b') for abbr in abbreviations_dict
+        }
 
-    # Perform basic replacements
+    # Perform basic replacements based on the kind
     if kind == "meaning":
         value = value.replace(' or ', ' или ').replace(', from', ', от').replace(' of ', ' от ').replace('letter', 'буква').replace('form', 'форма').replace('normally', 'обычно').replace('root', 'корень')
     elif kind == "inflect":
@@ -143,28 +145,16 @@ def ru_replace_abbreviations(value, kind = "meaning"):
         value = value.replace('word', 'слово').replace('letter', 'буква').replace('indeclinable', 'несклоняемое').replace('of', 'от').replace('root', 'корень')
     elif kind == "base":
         value = value.replace('pass,', 'страд,').replace('pass)', 'страд)').replace('caus', 'понудит').replace('irreg', 'неправ').replace('desid', 'дезид').replace('deno', 'отымённ').replace('intens', 'усил')
-        return value
     elif kind == "phonetic":
         value = value.replace('metathesis', 'метатеза').replace('with metrically', 'с метрически').replace('lengthened', 'удлиненным').replace('doubled', 'удвоенным').replace('shortened', 'укороченным').replace('Kacc', 'Качч').replace('contraction', 'сокращение').replace('expansion', 'расширение').replace('under the influence of', 'под влиянием').replace('before', 'перед').replace('nasalization', 'назализация').replace('a vowel', 'гласным').replace('a consonant', 'согласным').replace('aphesis', 'афезис')
-        return value
 
+    # Replace abbreviations using precompiled patterns
+    for abbr, pattern in compiled_patterns.items():
+        # Skip replacement for "pass" if kind is "inflect"
+        if kind == "inflect" and abbr == "pass":
+            continue
+        value = pattern.sub(abbreviations_dict[abbr], value)
 
-    # Step   3: Replace abbreviations in value
-    # Use regex to match abbreviations, considering variations like "+acc" or "loc abs"
-    if abbreviations_dict is not None:
-        for abbr, russian in abbreviations_dict.items():
-            # Skip replacement for "pass" if kind is "inflect"
-            if kind == "inflect" and abbr == "pass":
-                continue
-
-            # Escape special characters in the abbreviation
-            escaped_abbr = re.escape(abbr)
-            # Adjust the regex pattern to match abbreviations with optional "+" prefix and spaces
-            pattern = r'\b\+' + escaped_abbr + r'\b|\b' + escaped_abbr + r'\b'
-            # Replace the abbreviation with its Russian equivalent
-            value = re.sub(pattern, russian, value)
-    # debug
-    # print(f"replaced value {value}")
     return value
 
 
@@ -178,17 +168,24 @@ def ru_replace_abbreviations_list(grammar):
 
 
 def load_abbreviations_dict(tsv_file_path):
-    """Load abbreviations from a TSV file."""
-    global abbreviations_dict
+    """Load abbreviations from a TSV file and precompile regex patterns."""
+    global abbreviations_dict, compiled_patterns
     if abbreviations_dict is None:
         abbreviations_dict = {}
         with open(tsv_file_path, 'r', encoding='utf-8') as file:
             reader = csv.reader(file, delimiter='\t')
             for row in reader:
-                if len(row) >= 6 and row[5]: # Check if the row has a Russian equivalent
+                if len(row) >= 6 and row[5]:  # Check if the row has a Russian equivalent
                     abbreviations_dict[row[0]] = row[5]
-        # Optionally, sort the abbreviations by length in descending order for efficiency
+        # Sort abbreviations by length (longer first) to avoid partial matches
         abbreviations_dict = dict(sorted(abbreviations_dict.items(), key=lambda x: len(x[0]), reverse=True))
+
+    # Precompile regex patterns
+    if compiled_patterns is None:
+        compiled_patterns = {
+            abbr: re.compile(rf'\b\+?{re.escape(abbr)}\b') for abbr in abbreviations_dict
+        }
+
     return abbreviations_dict
 
 
