@@ -66,6 +66,9 @@ class RuPaths:
         self.dpd_css_path = (
             base_dir / "exporter/goldendict/ru_components/css/dpd_ru.css"
         )
+        self.dpd_css_and_fonts_path = (
+            base_dir / "exporter/goldendict/ru_components/css/dpd_css_and_fonts_ru.css"
+        )
 
         #  exporter/goldendict/javascript/
         self.buttons_js_path = base_dir / "exporter/goldendict/javascript/buttons.js"

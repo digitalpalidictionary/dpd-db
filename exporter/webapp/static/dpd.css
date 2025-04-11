@@ -77,6 +77,15 @@ b {
     font-weight: 700;
 }
 
+.epd {
+    color: var(--primary-text);
+}
+
+.epd:hover {
+    color: var(--primary-alt);
+    text-decoration: underline;
+}
+
 a {
     color: var(--primary)
 }

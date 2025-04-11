@@ -181,7 +181,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         dict_name = "ru-dpd"
 
     dict_var = DictVariables(
-        css_paths=[g.paths.dpd_css_path],
+        css_paths=[g.paths.dpd_css_and_fonts_path],
         js_paths=[
             g.paths.family_compound_json,
             g.paths.family_compound_template_js,
@@ -200,7 +200,7 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
         gd_path=g.paths.share_dir,
         md_path=g.paths.share_dir,
         dict_name=dict_name,
-        icon_path=g.paths.dpd_logo_dark_svg,
+        icon_path=g.paths.dpd_logo_svg,
         font_path=g.paths.fonts_dir,
         zip_up=False,
         delete_original=False,

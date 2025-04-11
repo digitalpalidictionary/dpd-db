@@ -143,12 +143,13 @@ def main():
     )
 
     dict_vars = DictVariables(
-        css_paths=[pth.dpd_css_path],
+        css_paths=[pth.dpd_css_and_fonts_path],
         js_paths=None,
         gd_path=pth.share_dir,
         md_path=pth.share_dir,
         dict_name="dpd-variants",
-        icon_path=pth.dpd_logo_dark_svg,
+        icon_path=pth.dpd_logo_svg,
+        font_path=pth.fonts_dir,
     )
 
     export_to_goldendict_with_pyglossary(

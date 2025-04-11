@@ -85,14 +85,17 @@ def render_header_templ(
 
 def generate_html_from_lookup(g: ProgData):
     """Generate HTML grammar tables from Lookup table data."""
-    pr.green_title("generating grammar html from lookup")
+    pr.green("querying database")
 
     # Query the Lookup table for entries with grammar data
     lookup_results = g.db_session.query(Lookup).filter(
         Lookup.grammar.is_not(None),
         Lookup.grammar != ""
     ).all()
-    pr.white(f"found {len(lookup_results)} grammar entries in lookup table") # Changed pr.print to pr.white
+
+    pr.yes(f"{len(lookup_results)}")
+
+    pr.green_title("compiling html")
 
     html_dict = {}
 
@@ -234,12 +237,13 @@ def prepare_gd_mdict_and_export(g: ProgData):
         dict_name = "ru-dpd-grammar"
 
     dict_vars = DictVariables(
-        css_paths=[g.pth.dpd_css_path],
+        css_paths=[g.pth.dpd_css_and_fonts_path],
         js_paths=[g.pth.sorter_js_path],
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,
         dict_name=dict_name,
         icon_path=g.pth.dpd_logo_svg,
+        font_path=g.pth.fonts_dir,
         zip_up=False,
         delete_original=False,
     )

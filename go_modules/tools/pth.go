@@ -61,7 +61,7 @@ var Pth = struct {
 	DpdBaseDir: "",
 
 	DpdDb:  "dpd.db",
-	DpdCss: "exporter/goldendict/css/dpd.css",
+	DpdCss: "identity/css/dpd.css",
 
 	// shared data/deconstructor
 	VariantReadings:        "shared_data/deconstructor/variant_readings.tsv",

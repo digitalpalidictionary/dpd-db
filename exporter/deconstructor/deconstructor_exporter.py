@@ -3,7 +3,7 @@
 """Export Deconstructor To GoldenDict and MDict formats."""
 
 import re
-
+from rich import print
 from mako.template import Template
 from minify_html import minify
 
@@ -81,19 +81,11 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     for counter, i in enumerate(deconstructor_db):
         deconstructions = i.deconstructor_unpack
 
-        # repack the deconstructions into a list of tuples
-        # [0] is the deconstruction, [1] is the rules
-        deconstructions_repack: list[tuple[str, str]] = []
-        for d in deconstructions:
-            rules = re.sub(r".+\[(.+)\]", r"\1", d)  # just whats in-between [...]
-            decon = re.sub(r" \[.+", "", d)  # everything except ' [...]'
-            deconstructions_repack.append((decon, rules))
-
         html_string: str = ""
         html_string += "<body>"
         html_string += str(
             deconstructor_templ.render(
-                i=i, deconstructions=deconstructions_repack, today=TODAY
+                i=i, deconstructions=deconstructions, today=TODAY
             )
         )
 
@@ -148,12 +140,13 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         dict_name = "ru-dpd-deconstructor"
 
     dict_vars = DictVariables(
-        css_paths=[g.pth.dpd_css_path],
+        css_paths=[g.pth.dpd_css_and_fonts_path],
         js_paths=None,
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,
         dict_name=dict_name,
-        icon_path=g.pth.dpd_logo_dark_svg,
+        icon_path=g.pth.dpd_logo_svg,
+        font_path=g.pth.fonts_dir,
         zip_up=False,
         delete_original=False,
     )

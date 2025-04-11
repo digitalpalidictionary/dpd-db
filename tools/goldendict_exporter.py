@@ -211,7 +211,12 @@ def add_fonts(glos: Glossary, dict_var: DictVariables) -> Glossary:
     pr.white("adding fonts")
     if dict_var.font_source_path:
         for font_path in dict_var.font_source_path.iterdir():
-            if font_path and font_path.exists():
+            # Check if the file exists and has a valid font extension
+            if (
+                font_path
+                and font_path.exists()
+                and font_path.suffix.lower() in [".ttf", ".otf"]  # <-- Added check
+            ):
                 font_file = font_path.read_bytes()
                 glos.addEntry(glos.newDataEntry(font_path.name, font_file))
         pr.yes("ok")
@@ -341,4 +346,4 @@ def delete_original(dict_var: DictVariables):
         pr.yes("ok")
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))

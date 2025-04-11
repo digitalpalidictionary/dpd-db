@@ -14,6 +14,9 @@ Contains all CSS classes used everywhere
 ## dpd-fonts.css
 Imports the fonts from disk / res folder
 
+## dpd-css-and-fonts.css
+This is an automatically generated combo of the above two files. Don't adjust manually.
+
 ## dpd-variables.css
 
 This is automatically added to header files:

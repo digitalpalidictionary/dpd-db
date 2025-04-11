@@ -394,8 +394,9 @@ class ProjectPaths:
 
         # identity/
         self.dpd_css_path = base_dir / "identity/css/dpd.css"
-        self.dpd_css_variables_path = base_dir / "identity/css/dpd-variables.css"
-        self.dpd_css_fonts_path = base_dir / "identity/css/dpd-fonts.css"
+        self.dpd_variables_css_path = base_dir / "identity/css/dpd-variables.css"
+        self.dpd_fonts_css_path = base_dir / "identity/css/dpd-fonts.css"
+        self.dpd_css_and_fonts_path = base_dir / "identity/css/dpd-css-and-fonts.css"
 
         # identity/logo
         self.dpd_logo_svg = base_dir / "identity/logo/dpd-logo.svg"
