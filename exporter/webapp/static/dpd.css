@@ -27,7 +27,7 @@
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
     /* Tertiary just for help and abbreviations */
-    --tertiary: hsl(158, 100%, 35%);
+    --secondary: hsl(158, 100%, 35%);
 
     /* Frequency heatmap  */
     --freq0: hsla(198, 90%, 50%, 0.10);
@@ -484,7 +484,7 @@ table.grammar_dict {
 /* help */
 
 div.tertiary {
-    border: 2px solid var(--tertiary);
+    border: 2px solid var(--secondary);
     border-radius: 7px;
     line-height: 150%;
     margin: 0px 0px;
@@ -507,7 +507,7 @@ table.help th {
 }
 
 table.help th {
-    color: var(--tertiary);
+    color: var(--secondary);
     font-weight: 700;
     width: 10%;
 }

@@ -27,7 +27,7 @@
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
     /* Tertiary just for help and abbreviations */
-    --tertiary: hsl(158, 100%, 35%);
+    --secondary: hsl(158, 100%, 35%);
 
     /* Frequency heatmap  */
     --freq0: hsla(198, 90%, 50%, 0.10);
