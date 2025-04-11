@@ -45,3 +45,4 @@ class CSSManager:
 if __name__ == "__main__":
     css_manager = CSSManager()
     css_manager.update_docs_css()
+    css_manager.update_webapp_css()

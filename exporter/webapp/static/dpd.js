@@ -32,20 +32,25 @@ function button_click(el) {
         if (oneButtonToggleEnabled) {
             var allButtons = document.querySelectorAll('.button');
             allButtons.forEach(function(button) {
-                if (button!== el) { // Exclude the target button
+                if (button !== el) { 
                     button.classList.remove("active");
                 }
             });
 
-            var allContentAreas = document.querySelectorAll('.primary');
+            var allContentAreas = document.querySelectorAll('.content');
             allContentAreas.forEach(function(contentArea) {
                 if (contentArea !== target && !contentArea.classList.contains("summary")) {
                     contentArea.classList.add("hidden");
                 }
             });
+
+            if (!target.classList.contains('summary')) {
+                target.classList.toggle("hidden");
+            }
+        } else {
+            target.classList.toggle("hidden");
         }
 
-        target.classList.toggle("hidden");
         if (el.classList.contains("close")) {
             var target_control = document.querySelector('a.button[data-target="' + target_id + '"]');
             if (target_control) {
@@ -56,6 +61,3 @@ function button_click(el) {
         }
     }
 }
-
-
-

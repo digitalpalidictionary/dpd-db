@@ -2,7 +2,7 @@
 
 <h3 id="{{ d.r.root_ }}">корень: {{d.r.root}}</h3>
 <div class='dpd summary'>
-    <p class="dpd">
+    <p>
         корень. 
         <b>{{d.r.root_clean}}</b>
         <sup>
@@ -27,7 +27,7 @@
 
 <!-- root info -->
 
-<div id="root_info_{{d.r.root_}}" class="dpd hidden">
+<div id="root_info_{{d.r.root_}}" class="dpd content hidden">
     {{d.root_info_ru|safe}}
     <p class="footer">
         Заметили ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Инфо+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь</a>.
@@ -36,7 +36,7 @@
 
 <!-- root matrix -->
 
-<div id="root_matrix_{{d.r.root_}}" class="dpd hidden">
+<div id="root_matrix_{{d.r.root_}}" class="dpd content hidden">
     <p>
         {% if d.count <= 1: %}
         <b>{{d.count}}</b> слово образовано от корня
@@ -66,7 +66,7 @@
     <div 
     id="family_root_{{d.r.root_}}_{{fr.root_family_}}" 
     class="dpd hidden">
-        {{fr.html_ru.replace("class='family'", "class='root_family'")|safe}}
+        {{fr.html_ru|safe}}
         <p class='footer'>
             Заметили ошибку? <a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Семья+корня&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Сообщите здесь
         </a>.

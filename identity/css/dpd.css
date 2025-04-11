@@ -26,12 +26,11 @@ p {
     text-align: left;
 }
 
-b.dpd {
-    color: var(--primary-text);
+b {
     font-weight: 700;
 }
 
-a.dpd {
+a {
     color: var(--primary)
 }
 
@@ -75,6 +74,7 @@ hr {
 
 table {
     margin: 3px 0px;
+
 }
 
 table.grammar {
@@ -122,6 +122,7 @@ a.sutta_link {
 
 a.sutta_link:hover {
     color: var(--primary-alt);
+    text-decoration: underline;
 }
 
 /* inflection tables */
@@ -129,12 +130,18 @@ a.sutta_link:hover {
 table.inflection {
     width: 100%;
     padding: 0 0 5px 0px;
+    border-radius: 7px;
+    border-collapse: separate;
+    border: none;
+    /* border-spacing: 0; */
 }
 
 table.inflection td,
 table.inflection th {
-    border: 1px solid var(--gray);
+    border-collapse: separate;
     border-radius: 7px;
+    /* border-spacing: 0; */
+    border: 1px solid var(--gray);
     line-height: 150%;
     padding: 5px 5px;
     text-align: center;
@@ -148,6 +155,22 @@ table.inflection th {
     white-space: nowrap;
 }
 
+table.inflection tr:first-child th:first-child {
+    border-top-left-radius: 7px;
+}
+
+table.inflection tr:first-child th:last-child {
+    border-top-right-radius: 7px;
+}
+
+table.inflection tr:last-child td:first-child {
+    border-bottom-left-radius: 7px;
+}
+
+table.inflection tr:last-child td:last-child {
+    border-bottom-right-radius: 7px;
+}
+
 span.gray {
     color: var(--gray);
 }
@@ -159,6 +182,10 @@ a.jump {
 }
 
 /* family tables */
+
+table.family {
+    border: none;
+}
 
 table.family td,
 table.family th {
@@ -233,7 +260,7 @@ a.button:hover {
 
 .link:hover {
     color: var(--primary-alt);
-    font-weight: 700;
+    text-decoration: underline;
 }
 
 .hidden {
@@ -242,10 +269,16 @@ a.button:hover {
 
 /* freq tables */
 
-table.freq th,
-table.freq td {
-    vertical-align: middle;
-    white-space: nowrap;
+table.freq {
+    border-radius: 7px;
+    border-collapse: separate;
+    border: none;
+}
+
+.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    inline-size: fit-content;
 }
 
 table.freq thead th {
@@ -259,23 +292,20 @@ table.freq tbody th {
     text-align: center;
     width: 12px;
     white-space: nowrap;
+    vertical-align: middle;
 }
 
-.vertical-text {
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-    inline-size: fit-content;
-}
 
 table.freq td {
-    border-width: 1px;
-    border-style: solid;
+    border-collapse: separate;
     border-radius: 7px;
-    text-align: center;
-    width: 2.5em;
+    border: 1px solid var(--gray-transparent);
+    font-size: 0.8em;
     min-width: 30px;
+    text-align: center;
+    vertical-align: middle;
     white-space: nowrap;
-    border-color: var(--gray-transparent);
+    width: 2.5em;
 }
 
 table.freq td.void {
@@ -373,7 +403,7 @@ table.grammar_dict {
     margin: 0px;
     max-width: 100%;
     overflow: auto;
-    padding: 5px 0px;
+    padding: 2px 0px;
     text-align: left;
     vertical-align: top;
     width: auto;
@@ -383,7 +413,7 @@ table.grammar_dict {
 .variants td,
 .grammar_dict th,
 .grammar_dict td {
-    padding: 7px 10px 0px 0px;
+    padding: 2px 10px 0px 0px;
     text-align: left;
     vertical-align: center;
 }
@@ -392,17 +422,6 @@ table.grammar_dict {
 .variants td:nth-child(2) {
     white-space: nowrap;
 }
-
-/* grammar dict */
-
-
-table {
-    border-color: var(--gray-transparent);
-    border-width: 1px 0px;
-    border-style: solid;
-    border-collapse: collapse;
-}
-
 
 /* help */
 

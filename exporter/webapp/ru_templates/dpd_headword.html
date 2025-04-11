@@ -2,7 +2,7 @@
 
 <h3 id="{{ d.i.lemma_1_ }}">{{d.i.lemma_1}}</h3>
 <div class="dpd summary">
-    <p class="dpd">
+    <p>
         {{d.ru_pos}}.
         {% if d.ru_plus_case %}
         ({{d.ru_plus_case}})
@@ -94,7 +94,7 @@
 
 
 {% if d.i.needs_grammar_button %}
-<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd hidden">
+<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd content hidden">
     <table class="grammar">
         <tr>
             <th>
@@ -367,14 +367,14 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd hidden">
+<div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
 
     {% elif d.i.needs_examples_button %}
-    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd hidden">
+    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
         {% endif %}
 
         {% if d.i.example_1 and d.i.meaning_1 %}
-        <p class="dpd">
+        <p>
             {{d.i.example_1|safe}}
         </p>
         <p class="sutta">
@@ -416,7 +416,7 @@
     <!-- declension -->
 
     {% if d.i.needs_declension_button %}
-    <div id="declension_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="declension_{{d.i.lemma_1_}}" class="dpd content hidden">
         {{d.inflections_html_ru|safe}}
         {% if "gray" in d.inflections_html_ru %}
         <p>
@@ -442,7 +442,7 @@
 
 
     {% if d.i.needs_conjugation_button %}
-    <div id="conjugation_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="conjugation_{{d.i.lemma_1_}}" class="dpd content hidden">
         {{d.inflections_html_ru|safe}}
         {% if "gray" in d.inflections_html_ru %}
         <p>
@@ -468,7 +468,7 @@
 
 
     {% if d.i.needs_root_family_button %}
-    <div id="family_root_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_root_{{d.i.lemma_1_}}" class="dpd content hidden">
         {{d.i.fr.html_ru|safe}}
         <p class='footer'>
             Заметили ошибку?
@@ -483,7 +483,7 @@
     <!-- word family -->
 
     {% if d.i.needs_word_family_button %}
-    <div id="family_word_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_word_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p class="heading underlined">
             <b>{{d.i.fw.count}}</b>
             слов(а) относящиеся к семье
@@ -503,7 +503,7 @@
     <!-- compound family -->
 
     {% if d.i.needs_compound_family_button %}
-    <div id="family_compound_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_compound_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p class="heading underlined">
             <b>
                 {{d.fc[0].count}}
@@ -520,7 +520,7 @@
     <!-- compound families -->
 
     {% if d.i.needs_compound_families_button %}
-    <div id="family_compound_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_compound_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p id="{{d.i.lemma_1_}}cf_top" class="heading">перейти к:
             {% for f in d.fc%}
             <a class="jump" href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
@@ -570,7 +570,7 @@
     <!-- idioms -->
 
     {% if d.i.needs_idioms_button %}
-    <div id="family_idiom_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_idiom_{{d.i.lemma_1_}}" class="dpd content hidden">
         {% for f in d.fi %}
         {% if loop.index == 1 %}
         <p class="heading underlined">
@@ -603,7 +603,7 @@
     <!-- set -->
 
     {% if d.i.needs_set_button %}
-    <div id="family_set_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_set_{{d.i.lemma_1_}}" class="dpd content hidden">
         {% for f in d.fs %}
         <p class="heading underlined">
             <b>{{d.i.lemma_clean}}</b>
@@ -618,7 +618,7 @@
     <!-- sets -->
 
     {% if d.i.needs_sets_button %}
-    <div id="family_sets_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="family_sets_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p id="{{d.i.lemma_1_}}sets_top" class="heading">перейти к:
 
             {# Step 1: Build a set to set_ru mapping using a dictionary #}
@@ -669,7 +669,7 @@
     {% endif %}
 
     {% if d.i.needs_sets_button %}
-    <div id="sets_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="sets_{{d.i.lemma_1_}}" class="dpd content hidden">
         {% for f in d.fs %}
         {% if loop.index0 == 0 %}
         <p class="heading underlined">
@@ -688,7 +688,7 @@
     <!-- frequency -->
 
     {% if d.i.needs_frequency_button %}
-    <div id="frequency_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="frequency_{{d.i.lemma_1_}}" class="dpd content hidden">
 
         {% if not d.i.freq_html %}
         <p class="heading underlined">
@@ -734,7 +734,7 @@
 
     <!-- feedback -->
 
-    <div id="feedback_{{d.i.lemma_1_}}" class="dpd hidden">
+    <div id="feedback_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p>
             ID <b>{{d.i.id}}</b>
         </p>

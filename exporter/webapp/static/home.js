@@ -289,7 +289,7 @@ async function handleFormSubmit(event) {
                     summaryResults.innerHTML = "<h3>Сводка</h3>";
                 }
                 summaryResults.innerHTML += data.summary_html;
-                summaryResults.innerHTML += "<hr class='dpd'>";
+                summaryResults.innerHTML += "<hr>";
             } else {
                 summaryResults.innerHTML = "";
             }

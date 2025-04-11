@@ -17,11 +17,7 @@ function makeFamilyRootHtml(data, fr, source, link) {
 
     //// table
 
-    if (source == "root") {
-        html += `<table class="root_family"><tbody>`;
-    } else {
-        html += `<table class="family"><tbody>`;
-    }
+    html += `<table class="family"><tbody>`;
 
     fr.data.forEach(item => {
         html += `

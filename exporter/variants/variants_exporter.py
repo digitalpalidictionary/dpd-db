@@ -81,7 +81,7 @@ def main():
         html_list.append(
             "<tr><th>source</th><th>book</th><th>context</th><th>variant</th></tr>"
         )
-        html_list.append("<td colspan='100%'><hr class='dpd'></td>")
+        html_list.append("<td colspan='100%'><hr></td>")
 
         synonyms_list: list[str] = []
 
@@ -92,7 +92,7 @@ def main():
 
         for corpus, data2 in data_tuple.items():
             if old_corpus and old_corpus != corpus:
-                html_list.append("<td colspan='100%'><hr class='dpd'></td>")
+                html_list.append("<td colspan='100%'><hr></td>")
 
             for book, data3 in data2.items():
                 for data_tuple in data3:

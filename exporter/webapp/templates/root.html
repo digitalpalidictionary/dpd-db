@@ -2,7 +2,7 @@
 
 <h3 id="{{ d.r.root_ }}">root: {{d.r.root}}</h3>
 <div class='dpd summary'>
-    <p class="dpd">
+    <p>
         root. 
         <b>{{d.r.root_clean}}</b>
         <sup>
@@ -27,7 +27,7 @@
 
 <!-- root info -->
 
-<div id="root_info_{{d.r.root_}}" class="dpd hidden">
+<div id="root_info_{{d.r.root_}}" class="dpd content hidden">
     {{d.r.root_info|safe}}
     <p class="footer">
         Something out of place? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Root+Info&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Report it here</a>.
@@ -36,7 +36,7 @@
 
 <!-- root matrix -->
 
-<div id="root_matrix_{{d.r.root_}}" class="dpd hidden">
+<div id="root_matrix_{{d.r.root_}}" class="dpd content hidden">
     <p>
         {% if d.count <= 1: %}
         <b>{{d.count}}</b> word is derived from the root 
@@ -70,7 +70,7 @@
     <div 
     id="family_root_{{d.r.root_}}_{{fr.root_family_}}" 
     class="dpd hidden">
-        {{fr.html.replace("class='family'", "class='root_family'")|safe}}
+        {{fr.html|safe}}
         <p class='footer'>
             Does something look wrong? 
             <a 
