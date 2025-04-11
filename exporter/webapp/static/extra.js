@@ -1,5 +1,5 @@
 //ссылки в футере
-const searchBox = document.getElementById('search-box');
+//const searchBox = document.getElementById('search-box');
 
 function updateFooterLinks(query) {
   // FDG
