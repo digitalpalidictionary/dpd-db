@@ -205,9 +205,10 @@ def get_github_issues_list(g: GlobalVars) -> None:
 
         md: List[str] = []
         for i in issues:
-            md.append(rf"- [#{i.number} {i.title}]({i.html_url})")
+            if i.milestone is not None:  # Only include issues with milestones
+                md.append(rf"- [#{i.number} {i.title}]({i.html_url})")
 
-        text: str = "\n".join(sorted(md))
+        text: str = "\n".join(sorted(md, key=lambda x: int(x.split("#")[1].split()[0])))
         g.github_issues = text
 
     except Exception as e:
@@ -250,8 +251,8 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 - {g.line_6_cells_of_root_data}
 - Pass1 complete: VIN1-2, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
 - Pass1 in progress: VIN3
-- Pass2 complete: DN1, MN1
-- Pass2 in progress: DN2 
+- Pass2 complete: DN1, DN2, MN1
+- Pass2 in progress: DN3 
 - numerous additions and corrections based on user feedback
 
 """
