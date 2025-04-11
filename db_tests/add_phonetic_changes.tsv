@@ -1,4 +1,6 @@
 initial	final	correct	wrong	without	exceptions
+ī + p	ipp	īp > ipp	x	ī + ph	gihippaṭisaṃyutta, kusāvatīrājadhānippamukha, cetovasippatta, jagatippadesa, pāramippatta, rājadhānippamukha, subhaddādevippamukha, hatthippabhinna
+-
 a + u	o	au > o	u > o	o	okkhita
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -31,7 +33,7 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 ī + l	ill	īl > ill	x	x	x
 ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 
-u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā
+u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā, murumurāpetvā
 u + i	vay	ua > va	x	x	anvaya 1, anvaya 3, duranvaya, anvayatā
 u + i + y	by	vy > by	x	x	x
 u + u	ū	uu > ū	u > ū	ū	x
@@ -45,9 +47,9 @@ uh + t	dh	ht > dh	x	x	duddha 1, muddha 1.1
 
 e + a	aya	e > ay	x	x	x
 
-kam	caṅ	k > c	x	x	caṅkamādhigata, ṭhānacaṅkama, caṅkamanakoṭi
+kam	caṅ	k > c	x	x	caṅkamādhigata, ṭhānacaṅkama, caṅkamanakoṭi, ṭhānacaṅkamana
 
-c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅkata, avaṅkatā 1, avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṇka 4, vaṅka 5, vaṅka 6, vaṅkatta
+c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅkata, avaṅkatā 1, avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 4, vaṅka 5, vaṅka 6, vaṅkatta
 c + t	kk	ct > kk (Kacc 623, 554)	c > k	ñc + t	x
 c + t	kk	ct > kk (Kacc 623, 554)	ct > kk	ñc + t	x
 c + t	tt	ct > tt	c > t	c + th	x

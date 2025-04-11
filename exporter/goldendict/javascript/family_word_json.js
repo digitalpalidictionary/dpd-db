@@ -7793,7 +7793,7 @@ var family_word_json = {
    [
     "dvidhā",
     "ind",
-    "in two; in two pieces; in two ways",
+    "in two ways; into two; into two pieces",
     "✔"
    ],
    [
@@ -7847,7 +7847,7 @@ var family_word_json = {
    [
     "dvedhā",
     "ind",
-    "into two pieces; in two",
+    "in two ways; into two; into two pieces",
     "✔"
    ],
    [
@@ -9756,6 +9756,18 @@ var family_word_json = {
     "✔"
    ],
    [
+    "uttaritara 1",
+    "adj",
+    "more excellent (than); even better (than); even higher (than); lit. more crossed up",
+    "✔"
+   ],
+   [
+    "uttaritaraṃ",
+    "ind",
+    "even more; still more; all the more",
+    "✔"
+   ],
+   [
     "uttaritā",
     "fem",
     "fact of being superior; fact of being greater",
@@ -9840,7 +9852,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 46
+  "count": 48
  },
  "nāsā": {
   "data": [
@@ -17267,6 +17279,35 @@ var family_word_json = {
    ]
   ],
   "count": 3
+ },
+ "bhasma": {
+  "data": [
+   [
+    "assa 5.1",
+    "masc",
+    "ashes; dust",
+    "✔"
+   ],
+   [
+    "bhasma",
+    "masc",
+    "ash",
+    "✔"
+   ],
+   [
+    "bhasmani",
+    "masc",
+    "in ashes",
+    "✔"
+   ],
+   [
+    "bhassa 2.1",
+    "masc",
+    "ash",
+    "✔"
+   ]
+  ],
+  "count": 4
  },
  "assu": {
   "data": [
@@ -26020,7 +26061,7 @@ var family_word_json = {
    [
     "dasadhā",
     "ind",
-    "into ten pieces; in ten ways",
+    "in ten ways; into ten; into ten pieces",
     "✔"
    ],
    [
@@ -27962,7 +28003,7 @@ var family_word_json = {
    [
     "satadhā",
     "ind",
-    "in one hundred ways; into one hundred pieces",
+    "in one hundred ways; into one hundred",
     "✔"
    ],
    [
@@ -30307,11 +30348,17 @@ var family_word_json = {
    [
     "māgha 1",
     "masc",
-    "epithet of Sakka; lit. bounteous",
+    "epithet of Sakka; lit. bountiful",
+    "✔"
+   ],
+   [
+    "māgha 2",
+    "masc",
+    "name of a lunar month; January-February; lit. bountiful",
     "✔"
    ]
   ],
-  "count": 4
+  "count": 5
  },
  "maṅgura": {
   "data": [
@@ -33374,7 +33421,7 @@ var family_word_json = {
    [
     "sattadhā",
     "ind",
-    "in seven pieces; into seven",
+    "in seven ways; into seven",
     "✔"
    ],
    [
@@ -34083,7 +34130,7 @@ var family_word_json = {
    [
     "sahassadhā",
     "ind",
-    "thousandfold; thousand part",
+    "in one thousand ways; into one thousand; thousandfold; thousand part",
     "✔"
    ],
    [

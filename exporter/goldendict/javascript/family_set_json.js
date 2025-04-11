@@ -10204,6 +10204,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "sibbinī 2",
+    "fem",
+    "sutures of the skull",
+    "✔"
+   ],
+   [
     "siras",
     "masc",
     "head",
@@ -10282,7 +10288,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 136
+  "count": 137
  },
  "types of monastics": {
   "data": [
@@ -11756,12 +11762,6 @@ var family_set_json = {
     "◑"
    ],
    [
-    "sibbinī",
-    "fem",
-    "seamstress; needlewoman",
-    "✔"
-   ],
-   [
     "suvaṇṇakāra",
     "masc",
     "goldsmith; lit. gold maker",
@@ -11804,7 +11804,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 214
+  "count": 213
  },
  "tastes": {
   "data": [
@@ -25508,7 +25508,7 @@ var family_set_json = {
    [
     "māgha 1",
     "masc",
-    "epithet of Sakka; lit. bounteous",
+    "epithet of Sakka; lit. bountiful",
     "✔"
    ],
    [
@@ -27505,6 +27505,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "āmala",
+    "masc",
+    "emblic myrobalan tree; Phyllanthus Emblica",
+    "✔"
+   ],
+   [
     "āmalaka 1",
     "nt",
     "fruit of emblic myrobalan; amla; nellie; Phyllanthus Emblica",
@@ -28141,6 +28147,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pāripuppha",
+    "nt",
+    "orchid tree flower",
+    "✔"
+   ],
+   [
     "pilakkha",
     "masc",
     "white fig; Ficus virens",
@@ -28687,7 +28699,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 209
+  "count": 211
  },
  "names of animals": {
   "data": [
@@ -32312,7 +32324,7 @@ var family_set_json = {
    [
     "māgha 2",
     "masc",
-    "name of a lunar month; January-February",
+    "name of a lunar month; January-February; lit. bountiful",
     "✔"
    ],
    [
@@ -33919,6 +33931,23 @@ var family_set_json = {
   ],
   "count": 55
  },
+ "diseases": {
+  "data": [
+   [
+    "antagaṇṭhābādha",
+    "masc",
+    "twisted gut; intestinal knot",
+    "✔"
+   ],
+   [
+    "kilāsa",
+    "masc",
+    "vitiligo",
+    "✔"
+   ]
+  ],
+  "count": 2
+ },
  "verbal endings": {
   "data": [
    [
@@ -35156,6 +35185,12 @@ var family_set_json = {
     "✔"
    ],
    [
+    "pāripuppha",
+    "nt",
+    "orchid tree flower",
+    "✔"
+   ],
+   [
     "pilakkha",
     "masc",
     "white fig; Ficus virens",
@@ -35372,7 +35407,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 84
+  "count": 85
  },
  "names of heavens": {
   "data": [
@@ -36915,7 +36950,7 @@ var family_set_json = {
    [
     "māgha 2",
     "masc",
-    "name of a lunar month; January-February",
+    "name of a lunar month; January-February; lit. bountiful",
     "✔"
    ],
    [
@@ -37302,6 +37337,12 @@ var family_set_json = {
  "medicines": {
   "data": [
    [
+    "āmala",
+    "masc",
+    "emblic myrobalan tree; Phyllanthus Emblica",
+    "✔"
+   ],
+   [
     "āmalaka 1",
     "nt",
     "fruit of emblic myrobalan; amla; nellie; Phyllanthus Emblica",
@@ -37350,7 +37391,7 @@ var family_set_json = {
     "✔"
    ]
   ],
-  "count": 8
+  "count": 9
  },
  "Sri Lanka": {
   "data": [
@@ -38933,17 +38974,6 @@ var family_set_json = {
   ],
   "count": 16
  },
- "diseases": {
-  "data": [
-   [
-    "kilāsa",
-    "masc",
-    "vitiligo",
-    "✔"
-   ]
-  ],
-  "count": 1
- },
  "epithets of Sakka": {
   "data": [
    [
@@ -39003,7 +39033,7 @@ var family_set_json = {
    [
     "māgha 1",
     "masc",
-    "epithet of Sakka; lit. bounteous",
+    "epithet of Sakka; lit. bountiful",
     "✔"
    ],
    [
