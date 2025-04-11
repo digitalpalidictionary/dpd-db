@@ -26,7 +26,7 @@
     --gray-dark: hsl(0, 0%, 25%);
     --gray-transparent: hsla(0, 0%, 50%, 0.25);
 
-    /* Tertiary just for help and abbreviations */
+    /* Secondary colour just for help and abbreviations */
     --secondary: hsl(158, 100%, 35%);
 
     /* Frequency heatmap  */
@@ -469,17 +469,6 @@ table.grammar_dict {
 .variants td:nth-child(2) {
     white-space: nowrap;
 }
-
-/* grammar dict */
-
-
-/* table {
-    border-color: var(--gray-transparent);
-    border-width: 1px 0px;
-    border-style: solid;
-    border-collapse: collapse;
-} */
-
 
 /* help */
 

@@ -75,7 +75,7 @@ def generate_tpr_data(g: ProgData):
         # no meaning in context
         if not i.meaning_1:
             html_string = re.sub(
-                r"<div class='content'><p>",
+                r"""<div class="dpd"><p>""",
                 rf"<div><p><b>• {i.lemma_1}</b>: ",
                 html_string,
             )
@@ -83,7 +83,7 @@ def generate_tpr_data(g: ProgData):
         # has meaning in context
         else:
             html_string = re.sub(
-                r"<div class='content'><p>",
+                r"""<div class="dpd"><p>""",
                 rf"<div><details><summary><b>{i.lemma_1}</b>: ",
                 html_string,
             )
