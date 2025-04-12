@@ -56,21 +56,6 @@ jobs:
         go-version: '1.22.2'
   
     # ----------------------------------------
-    # Prepare Submodules
-    # ----------------------------------------
-    
-    - name: Sync all submodules with Upstream
-      run: |
-        for submodule in resources/fdg_dpd resources/bw2 resources/sc-data; do
-          echo "Syncing $submodule..."
-          cd "$submodule"
-          git fetch origin main
-          git checkout main
-          git reset --hard origin/main
-          cd ../..
-        done
-
-    # ----------------------------------------
     # Build Database
     # ----------------------------------------
 
@@ -190,30 +175,38 @@ jobs:
     - name: Tarball DB
       run: uv run python scripts/build/tarball_db.py
 
+    # ----------------------------------------
+    # Prepare Submodules
+    # ----------------------------------------
+    
+    - name: Sync all submodules with Upstream
+      run: |
+        for submodule in resources/fdg_dpd resources/tpr_downloads; do
+          echo "Syncing $submodule..."
+          cd "$submodule"
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd ../..
+        done
+
+
+    # ----------------------------------------
+    # Export FDG
+    # ----------------------------------------
+
     - name: Run TBW Exporter
       run: uv run python exporter/tbw/tbw_exporter.py
 
     # ----------------------------------------
-    # Export DPD + RUS and DPD + SBS
+    # Git settings for DPD + RUS
     # ----------------------------------------
 
     - name: Config for DPD + RUS
       run: uv run python dps/scripts/rus_exporter/config_github_release_dpd_rus.py
 
-    - name: Export GoldenDict & MDict for DPD + RUS
-      run: uv run python exporter/goldendict/main.py
-
-    - name: Zip GoldenDict & Mdict for DPD + RUS
-      run: uv run python dps/scripts/rus_exporter/zip_dpd_rus.py
-
-    - name: Config for DPD + SBS
-      run: uv run python dps/scripts/rus_exporter/config_github_release_dpd_sbs.py
-
-    - name: Export GoldenDict & MDict for DPD + SBS
-      run: uv run python exporter/goldendict/main.py
-
-    - name: Zip GoldenDict & Mdict for DPD + SBS
-      run: uv run python dps/scripts/rus_exporter/zip_dpd_sbs.py
+    - name: Run TPR Exporter
+      run: uv run python exporter/tpr/tpr_exporter.py
 
     # ----------------------------------------
     # Update Submodules
@@ -224,6 +217,7 @@ jobs:
       run: |
         declare -A submodules=(
           ["resources/fdg_dpd"]="fdg https://github.com/o28o/dictPlugin.git"
+          ["resources/tpr_downloads"]="tpr https://github.com/bksubhuti/tpr_downloads"
         )
 
         for path in "${!submodules[@]}"; do
@@ -258,6 +252,25 @@ jobs:
           echo "=== PUSH EXIT CODE: $? ==="
           cd "$GITHUB_WORKSPACE"
         done
+
+    # ----------------------------------------
+    # Export DPD + RUS and DPD + SBS
+    # ----------------------------------------
+
+    - name: Export GoldenDict & MDict for DPD + RUS
+      run: uv run python exporter/goldendict/main.py
+
+    - name: Zip GoldenDict & Mdict for DPD + RUS
+      run: uv run python dps/scripts/rus_exporter/zip_dpd_rus.py
+
+    - name: Config for DPD + SBS
+      run: uv run python dps/scripts/rus_exporter/config_github_release_dpd_sbs.py
+
+    - name: Export GoldenDict & MDict for DPD + SBS
+      run: uv run python exporter/goldendict/main.py
+
+    - name: Zip GoldenDict & Mdict for DPD + SBS
+      run: uv run python dps/scripts/rus_exporter/zip_dpd_sbs.py
 
     # ----------------------------------------
     # Create Draft Release
@@ -389,4 +402,3 @@ jobs:
         asset_path: exporter/share/dpd+rus-mdict.zip
         asset_name: dpd+rus-mdict.zip
         asset_content_type: application/zip
-
