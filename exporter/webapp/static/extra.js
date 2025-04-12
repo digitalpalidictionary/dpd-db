@@ -1,31 +1,41 @@
 //ссылки в футере
 //const searchBox = document.getElementById('search-box');
 
-function updateFooterLinks(query) {
-  // FDG
-  const fdgUrl = `https://dhamma.gift?p=-kn&q=${encodeURIComponent(query)}`;
-  document.getElementById('fdg-link').href = fdgUrl;
+// Инициализация - устанавливаем начальное значение из URL
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  searchBox.value = urlParams.get('q') || '';
+});
 
-  // DPD
-  const dpdUrl = new URL(window.location.href);
-  dpdUrl.hostname = 'dpdict.net';
-  dpdUrl.protocol = 'https:';
-  dpdUrl.port = '';
-  dpdUrl.searchParams.set('q', query);
-  document.getElementById('dpd-link').href = dpdUrl.toString();
+// Функция для обновления конкретной ссылки
+function updateLink(linkId, baseUrl) {
+  const link = document.getElementById(linkId);
+  if (!link) return;
+  
+  // Берем текущее значение из поисковой строки
+  let query = searchBox.value.trim();
+  
+  // Если поиск пустой, пробуем взять из URL
+  if (!query) {
+    const urlParams = new URLSearchParams(window.location.search);
+    query = urlParams.get('q') || '';
+  }
+  
+  // Создаем URL с параметром
+  const url = new URL(baseUrl);
+  url.searchParams.set('q', query);
+  link.href = url.toString();
 }
 
-// обновляем при вводе текста
+// Обработчик ввода в поисковой строке
 searchBox.addEventListener('input', () => {
-  const query = searchBox.value;
-  updateFooterLinks(query);
+  updateLink('fdg-link', 'https://dhamma.gift?p=-kn');
+  updateLink('dpd-link', 'https://dpdict.net');
 });
 
-// при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-  const initQuery = new URL(window.location.href).searchParams.get('q') || '';
-  updateFooterLinks(initQuery);
-});
+// Инициализация ссылок при загрузке
+updateLink('fdg-link', 'https://dhamma.gift?p=-kn');
+updateLink('dpd-link', 'https://dpdict.net');
 //ссылки в футере конец
 
 
