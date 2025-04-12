@@ -313,7 +313,7 @@ def render_pali_word_dpd_html(
     # Add CSS Variables and fonts to header
     header = str(tt.header_templ.render(i=i, date=date))
     css_manager = CSSManager()
-    header = css_manager.update_style(header)
+    header = css_manager.update_style(header, "dpd")
 
     size_dict["dpd_header"] += len(header)
     html = squash_whitespaces(header) + minify(html)

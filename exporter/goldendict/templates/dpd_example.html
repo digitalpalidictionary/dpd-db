@@ -7,7 +7,7 @@
     <p>${i.example_1}</p>
     <p class="sutta">
         % if make_link and i.source_link_1:
-        <a href="${i.source_link_1}">${i.source_1}</a>
+        <a class="sutta_link" href="${i.source_link_1}">${i.source_1}</a>
         % else:
         ${i.source_1}
         % endif
@@ -17,7 +17,7 @@
     <p>${i.example_2}</p>
     <p class="sutta">
         % if make_link and i.source_link_2:
-        <a href="${i.source_link_2}">${i.source_2}</a>
+        <a class="sutta_link" href="${i.source_link_2}">${i.source_2}</a>
         % else:
         ${i.source_2}
         % endif 

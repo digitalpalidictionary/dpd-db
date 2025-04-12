@@ -66,7 +66,7 @@ def main():
 
     # Add variables and fonts to header
     css_manager = CSSManager()
-    header = css_manager.update_style(header)
+    header = css_manager.update_style(header, "variants")
 
     pr.yes("")
 

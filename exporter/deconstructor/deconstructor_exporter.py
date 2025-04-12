@@ -69,7 +69,9 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
 
     # add css variables and roots
     css_manager = CSSManager()
-    deconstructor_header = css_manager.update_style(deconstructor_header)
+    deconstructor_header = css_manager.update_style(
+        deconstructor_header, "deconstructor"
+    )
 
     if g.lang == "en":
         deconstructor_templ = Template(filename=str(g.pth.deconstructor_templ_path))

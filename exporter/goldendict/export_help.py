@@ -73,7 +73,7 @@ def generate_help_html(
 
     # Add Variables and fonts
     css_manager = CSSManager()
-    header = css_manager.update_style(header)
+    header = css_manager.update_style(header, "secondary")
 
     help_data_list: List[DictEntry] = []
 

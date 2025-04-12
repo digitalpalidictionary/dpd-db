@@ -105,7 +105,7 @@ def generate_html_from_lookup(g: ProgData):
 
     # Add variables and fonts to header
     css_manager = CSSManager()
-    html_header = css_manager.update_style(html_header)
+    html_header = css_manager.update_style(html_header, "primary")
 
     html_header += "<body><div class='dpd'><table class='grammar_dict'>"
     html_header += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>"

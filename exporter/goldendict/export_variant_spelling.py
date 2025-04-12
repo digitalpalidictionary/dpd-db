@@ -98,7 +98,7 @@ def generate_variant_data_list(
 
     # Add Variables and fonts
     css_manager = CSSManager()
-    header = css_manager.update_style(header)
+    header = css_manager.update_style(header, "primary")
 
     variant_data_list: List[DictEntry] = []
 
@@ -173,7 +173,7 @@ def generate_spelling_data_list(
 
     # Add Variables and fonts
     css_manager = CSSManager()
-    header = css_manager.update_style(header)
+    header = css_manager.update_style(header, "primary")
 
     spelling_data_list: List[DictEntry] = []
 

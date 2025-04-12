@@ -62,7 +62,7 @@ def generate_root_html(
 
         # Add variables and fonts
         css_manager = CSSManager()
-        root_header = css_manager.update_style(root_header)
+        root_header = css_manager.update_style(root_header, "root")
 
         definition = render_root_definition_templ(
             pth, r, roots_count_dict, rupth, lang, show_ru_data

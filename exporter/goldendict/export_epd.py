@@ -61,7 +61,7 @@ def generate_epd_html(
 
     # Add Variables and fonts
     css_manager = CSSManager()
-    header = css_manager.update_style(header)
+    header = css_manager.update_style(header, "primary")
 
     for counter, i in enumerate(dpd_db):
         # generate eng-pali
@@ -90,19 +90,21 @@ def generate_epd_html(
 
                 for meaning in meanings_list:
                     if meaning in epd.keys() and not i.plus_case:
-                        epd_string = f"{epd[meaning]}<br><b>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        epd_string = f"{epd[meaning]}<br><b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
                         epd[meaning] = epd_string
 
                     if meaning in epd.keys() and i.plus_case:
-                        epd_string = f"{epd[meaning]}<br><b>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                        epd_string = f"{epd[meaning]}<br><b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                         epd[meaning] = epd_string
 
                     if meaning not in epd.keys() and not i.plus_case:
-                        epd_string = f"<b>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        epd_string = (
+                            f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                        )
                         epd.update({meaning: epd_string})
 
                     if meaning not in epd.keys() and i.plus_case:
-                        epd_string = f"<b>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                        epd_string = f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                         epd.update({meaning: epd_string})
 
         # generate ru-pali
@@ -160,13 +162,11 @@ def generate_epd_html(
 
             for root_meaning in root_meanings_list:
                 if root_meaning in epd.keys():
-                    epd_string = (
-                        f"{epd[root_meaning]}<br><b>{i.root}</b> root. {i.root_meaning}"
-                    )
+                    epd_string = f"{epd[root_meaning]}<br><b class='epd'>{i.root}</b> root. {i.root_meaning}"
                     epd[root_meaning] = epd_string
 
                 if root_meaning not in epd.keys():
-                    epd_string = f"<b>{i.root}</b> root. {i.root_meaning}"
+                    epd_string = f"<b class='epd'>{i.root}</b> root. {i.root_meaning}"
                     epd.update({root_meaning: epd_string})
 
         if show_ru_data or lang == "ru":
@@ -258,14 +258,14 @@ def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
             if make_link and number_link:
                 anchor_link = f'<a href="{number_link}">link</a>'
                 if lang == "en":
-                    epd_string = f"<b>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
                 elif lang == "ru":
-                    epd_string = f"<b>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
             else:
                 if lang == "en":
-                    epd_string = f"<b>{i.lemma_clean}</b>. {i.meaning_2}"
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
                 elif lang == "ru":
-                    epd_string = f"<b>{i.lemma_clean}</b>. {i.meaning_2}"
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
 
             if combined_number in epd.keys():
                 epd[combined_number] += f"<br>{epd_string}"
