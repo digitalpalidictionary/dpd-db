@@ -19,6 +19,10 @@ jobs:
         repository: 'digitalpalidictionary/dpd-db'
         ref: 'main'
         submodules: 'recursive'
+        # Fetch depth 0 to allow committing back to the submodule
+        fetch-depth: 0
+        # Use PAT to allow pushing to submodule
+        token: ${{ secrets.GH_PAT }}
 
     - name: Remove large dirs
       run: |
@@ -50,7 +54,21 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: '1.22.2'
-
+  
+    # ----------------------------------------
+    # Prepare Submodules
+    # ----------------------------------------
+    
+    - name: Sync all submodules with Upstream
+      run: |
+        for submodule in resources/fdg_dpd resources/bw2 resources/sc-data; do
+          echo "Syncing $submodule..."
+          cd "$submodule"
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd ../..
+        done
 
     # ----------------------------------------
     # Build Database
@@ -97,6 +115,12 @@ jobs:
 
     - name: Families to JSON
       run: uv run python scripts/build/families_to_json.py
+
+    - name: Extract Variants
+      run: uv run python db/variants/main.py
+
+    - name: Generate Grammar data
+      run: uv run python db/grammar/grammar_to_lookup.py
 
     - name: Run Deconstructor
       run: uv run python scripts/build/deconstructor_output_add_to_db.py
@@ -152,6 +176,9 @@ jobs:
     - name: Export Kindle & ePub
       run: uv run python exporter/kindle/kindle_exporter.py
 
+    - name: Export Variants
+      run: uv run exporter/variants/variants_exporter.py
+    
     - name: Check disk space and memory
       run: |
         free -h  # Check available memory
@@ -159,6 +186,12 @@ jobs:
            
     - name: Zip GoldenDict & Mdict
       run: uv run python dps/scripts/rus_exporter/ru_zip_goldendict_mdict.py
+
+    - name: Tarball DB
+      run: uv run python scripts/build/tarball_db.py
+
+    - name: Run TBW Exporter
+      run: uv run python exporter/tbw/tbw_exporter.py
 
     # ----------------------------------------
     # Export DPD + RUS and DPD + SBS
@@ -181,10 +214,50 @@ jobs:
 
     - name: Zip GoldenDict & Mdict for DPD + SBS
       run: uv run python dps/scripts/rus_exporter/zip_dpd_sbs.py
-    
+
     # ----------------------------------------
-    # Upload Artifacts
+    # Update Submodules
     # ----------------------------------------
+
+    - name: Update All Submodules
+      shell: bash
+      run: |
+        declare -A submodules=(
+          ["resources/fdg_dpd"]="fdg https://github.com/o28o/dictPlugin.git"
+        )
+
+        for path in "${!submodules[@]}"; do
+          read name repo <<< "${submodules[$path]}"
+          echo "Updating $name submodule..."
+          cd "$path"
+          echo "Current branch: $(git branch --show-current)"
+          echo "Git status:"
+          git status --short
+          echo "Recent commits:"
+          git log -1 --oneline
+          
+          git checkout main
+          git pull origin main
+          
+          echo "=== POST-EXPORT STATUS ==="
+          git status --short
+          git add .
+          echo "=== STAGED CHANGES ==="
+          git diff --cached --name-only
+          
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit -m "DPD lookup: update $(date +'%d-%b-%y')" || echo "No changes to commit"
+          
+          echo "=== PRE-PUSH STATUS ==="
+          git log -2 --oneline
+          git remote -v
+          
+          echo "=== PUSHING CHANGES ==="
+          git push origin main:main
+          echo "=== PUSH EXIT CODE: $? ==="
+          cd "$GITHUB_WORKSPACE"
+        done
 
     # ----------------------------------------
     # Create Draft Release
@@ -265,6 +338,16 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: exporter/share/ru-dpd-kindle.mobi
         asset_name: ru-dpd-kindle.mobi
+        asset_content_type: application/zip
+
+    - name: Upload Asset dpd.db.tar.bz2
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd.db.tar.bz2
+        asset_name: dpd.db.tar.bz2
         asset_content_type: application/zip
 
     - name: Upload Asset dpd+sbs-goldendict.zip
