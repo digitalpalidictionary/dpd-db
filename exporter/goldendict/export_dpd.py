@@ -50,12 +50,12 @@ from tools.superscripter import superscripter_uni
 from tools.utils import RenderedSizes, default_rendered_sizes, list_into_batches
 from tools.utils import sum_rendered_sizes, squash_whitespaces
 
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.paths_ru import RuPaths
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     make_ru_meaning_html,
     ru_replace_abbreviations,
 )
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     replace_english,
     ru_make_grammar_line,
     read_set_ru_from_tsv,

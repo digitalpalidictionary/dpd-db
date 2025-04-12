@@ -6,7 +6,7 @@
 
 import os
 from zipfile import ZipFile, ZIP_DEFLATED
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.printer import printer as pr
 
 

@@ -10,8 +10,8 @@ from typing import Dict, Tuple, List, Union
 from exporter.goldendict.helpers import TODAY
 
 from db.models import DpdRoot, FamilyRoot
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.paths_ru import RuPaths
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     ru_replace_abbreviations,
 )
 from tools.css_manager import CSSManager

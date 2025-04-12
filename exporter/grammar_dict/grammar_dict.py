@@ -7,8 +7,8 @@ from mako.template import Template
 from db.db_helpers import get_db_session
 from db.models import Lookup
 
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.paths_ru import RuPaths
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     ru_replace_abbreviations,
     load_abbreviations_dict
 )

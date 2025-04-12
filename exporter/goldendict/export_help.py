@@ -7,7 +7,7 @@ from mako.template import Template
 from minify_html import minify
 from sqlalchemy.orm import Session
 
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths

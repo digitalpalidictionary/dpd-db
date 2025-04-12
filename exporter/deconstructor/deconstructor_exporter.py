@@ -10,7 +10,7 @@ from minify_html import minify
 from db.db_helpers import get_db_session
 from db.models import Lookup
 from exporter.goldendict.helpers import TODAY
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.configger import config_test
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import (

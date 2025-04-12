@@ -57,7 +57,7 @@ jobs:
     # ----------------------------------------
 
     - name: Config for GitHub release
-      run: uv run python exporter/goldendict/ru_components/tools/ru_config_github_release.py
+      run: uv run python dps/scripts/rus_exporter/ru_config_github_release.py
 
     - name: Create dpd.db
       run: touch dpd.db
@@ -158,29 +158,29 @@ jobs:
         df -h    # Check disk space
            
     - name: Zip GoldenDict & Mdict
-      run: uv run python exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
+      run: uv run python dps/scripts/rus_exporter/ru_zip_goldendict_mdict.py
 
     # ----------------------------------------
     # Export DPD + RUS and DPD + SBS
     # ----------------------------------------
 
     - name: Config for DPD + RUS
-      run: uv run python exporter/goldendict/ru_components/tools/config_github_release_dpd_rus.py
+      run: uv run python dps/scripts/rus_exporter/config_github_release_dpd_rus.py
 
     - name: Export GoldenDict & MDict for DPD + RUS
       run: uv run python exporter/goldendict/main.py
 
     - name: Zip GoldenDict & Mdict for DPD + RUS
-      run: uv run python exporter/goldendict/ru_components/tools/zip_dpd_rus.py
+      run: uv run python dps/scripts/rus_exporter/zip_dpd_rus.py
 
     - name: Config for DPD + SBS
-      run: uv run python exporter/goldendict/ru_components/tools/config_github_release_dpd_sbs.py
+      run: uv run python dps/scripts/rus_exporter/config_github_release_dpd_sbs.py
 
     - name: Export GoldenDict & MDict for DPD + SBS
       run: uv run python exporter/goldendict/main.py
 
     - name: Zip GoldenDict & Mdict for DPD + SBS
-      run: uv run python exporter/goldendict/ru_components/tools/zip_dpd_sbs.py
+      run: uv run python dps/scripts/rus_exporter/zip_dpd_sbs.py
     
     # ----------------------------------------
     # Upload Artifacts

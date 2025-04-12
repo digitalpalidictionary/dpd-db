@@ -19,11 +19,11 @@ from tools.cst_sc_text_sets import make_sc_text_set
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import summarize_construction
 from tools.paths import ProjectPaths
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     make_ru_meaning_simpl,
     ru_replace_abbreviations,
 )
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 
 class ProgData:
     def __init__(self) -> None:

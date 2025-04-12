@@ -1,5 +1,5 @@
 from db.models import DpdRoot, Lookup
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     make_ru_meaning,
     ru_make_grammar_line,
     ru_replace_abbreviations,

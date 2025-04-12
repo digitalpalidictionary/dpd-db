@@ -25,7 +25,7 @@ from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import uposatha_today
 from exporter.goldendict.helpers import TODAY
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     make_ru_meaning_simpl,
 )
 

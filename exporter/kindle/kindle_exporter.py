@@ -36,8 +36,8 @@ from tools.tsv_read_write import read_tsv_dict
 
 from sqlalchemy.orm import joinedload
 
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.paths_ru import RuPaths
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     make_ru_meaning_for_ebook,
     ru_replace_abbreviations,
     ru_make_grammar_line,

@@ -8,7 +8,7 @@ from pathlib import Path
 from db.db_helpers import get_db_session
 from db.models import FamilyCompound, FamilyIdiom, FamilyRoot, FamilySet, FamilyWord
 from tools.paths import ProjectPaths
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.printer import printer as pr
 from tools.configger import config_test
 

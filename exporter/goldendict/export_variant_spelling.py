@@ -6,7 +6,7 @@ from mako.template import Template
 from minify_html import minify
 from typing import List, Tuple
 
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.css_manager import CSSManager
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths

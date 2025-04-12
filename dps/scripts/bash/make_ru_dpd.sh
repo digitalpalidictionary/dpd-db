@@ -31,7 +31,7 @@ exporter/deconstructor/deconstructor_exporter.py
 
 exporter/kindle/kindle_exporter.py
 
-exporter/goldendict/ru_components/tools/ru_zip_goldendict_mdict.py
+dps/scripts/rus_exporter/ru_zip_goldendict_mdict.py
 
 # dps/scripts/moving/move_mdict_ru.py
 

@@ -17,7 +17,7 @@ from exporter.goldendict.export_help import generate_help_html
 from exporter.goldendict.helpers import make_roots_count_dict
 
 from db.db_helpers import get_db_session
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.cache_load import load_cf_set, load_idioms_set
 from tools.configger import config_read, config_test
 from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
@@ -28,7 +28,7 @@ from tools.printer import printer as pr
 from tools.sandhi_contraction import make_sandhi_contraction_dict
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
-from exporter.goldendict.ru_components.tools.tools_for_ru_exporter import (
+from dps.scripts.rus_exporter.tools_for_ru_exporter import (
     mdict_ru_title,
     mdict_ru_description,
 )

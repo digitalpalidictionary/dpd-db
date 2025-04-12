@@ -13,7 +13,7 @@ from rich import print
 
 from db.models import DpdHeadword, Russian
 from tools.paths import ProjectPaths
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.meaning_construction import make_meaning_combo
 from tools.date_and_time import year_month_day_dash
 

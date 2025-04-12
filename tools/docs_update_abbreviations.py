@@ -9,7 +9,7 @@ from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dot_dict
-from exporter.goldendict.ru_components.tools.paths_ru import RuPaths
+from dps.scripts.rus_exporter.paths_ru import RuPaths
 
 
 def make_abbreviations_md(pth: ProjectPaths, rupth: RuPaths, lang: str):
