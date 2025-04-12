@@ -242,8 +242,12 @@ function changeLanguage(lang) {
         // Remove any language prefix
         path = path.replace(/^\/[a-z][a-z](\/|$)/, '/');
     } else if (lang === 'ru') {
+        // If start with /bd remove it
+        if (path.startsWith('/bd')) {
+            path = path.replace(/^\/[a-z][a-z](\/|$)/, '/');
+        }
         // Add ru prefix if not already present
-        if (!path.startsWith('/ru')) {
+        else if (!path.startsWith('/ru')) {
             path = `/ru${path}`;
         }
     }

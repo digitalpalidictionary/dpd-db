@@ -10,6 +10,9 @@ const bdFooterText = document.querySelector("#bold-def-tab .footer-pane");
 const bdSearchOptions = document.getElementsByName("option");
 const bdStartsWithButton = document.getElementById("option1");
 
+// Make bdLanguage accessible in the script's scope
+let bdLanguage;
+
 /*
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
@@ -83,6 +86,9 @@ bdSearchButton.addEventListener('click', handleBdFormSubmit);
 // trigger search by click
 
 document.addEventListener('DOMContentLoaded', function () {
+    const htmlElement = document.documentElement;
+    bdLanguage = htmlElement.lang || 'en'; // Assign to the outer scope variable
+
     // applyUrlQuery();
     // handleBdFormSubmit()
 
@@ -171,25 +177,54 @@ bdClearButton.addEventListener("mouseleave", function () {
 
 function hoverHelp(event) {
     if (event == "searchBox1") {
-        bdFooterText.innerHTML = "What is the defined Pāḷi term you are looking for?"
+        if (bdLanguage === 'ru') {
+            bdFooterText.innerHTML = "Какой определенный термин Пали вы ищете?";
+        } else {
+            bdFooterText.innerHTML = "What is the defined Pāḷi term you are looking for?";
+        }
     }
     else if (event == "searchBox2") {
-        bdFooterText.innerHTML = "Use this box to search within results."
+        if (bdLanguage === 'ru') {
+            bdFooterText.innerHTML = "Используйте это поле для поиска внутри результатов.";
+        } else {
+            bdFooterText.innerHTML = "Use this box to search within results.";
+        }
     }
     else if (event == "startsWithButton") {
-        bdFooterText.innerHTML = "Search for definitions <b>starting</b> with the term."
+         if (bdLanguage === 'ru') {
+            bdFooterText.innerHTML = "Искать определения, <b>начинающиеся</b> с термина.";
+        } else {
+            bdFooterText.innerHTML = "Search for definitions <b>starting</b> with the term.";
+        }
     }
     else if (event == "regexButton") {
-        bdFooterText.innerHTML = "This is the <b>normal</b> mode. You can also use <b>regular expressions</b> for very precise searches."
+         if (bdLanguage === 'ru') {
+            bdFooterText.innerHTML = "Это <b>обычный</b> режим. Вы также можете использовать <b>регулярные выражения</b> для очень точных поисков.";
+        } else {
+            bdFooterText.innerHTML = "This is the <b>normal</b> mode. You can also use <b>regular expressions</b> for very precise searches.";
+        }
     }
     else if (event == "fuzzyButton") {
-        bdFooterText.innerHTML = "<b>Fuzzy</b> search ignores all diacritics and double consonants. It's useful if you don't know the exact spelling."
+         if (bdLanguage === 'ru') {
+            bdFooterText.innerHTML = "<b>Приблизительный</b> поиск игнорирует все диакритические знаки и двойные согласные. Это полезно, если вы не знаете точного написания.";
+        } else {
+            bdFooterText.innerHTML = "<b>Fuzzy</b> search ignores all diacritics and double consonants. It's useful if you don't know the exact spelling.";
+        }
     }
     else if (event == "clearButton") {
-        bdFooterText.innerHTML = "Start again with a calm and <b>clear</b> interface."
+         if (bdLanguage === 'ru') {
+            bdFooterText.innerHTML = "Начните снова со спокойным и <b>чистым</b> интерфейсом.";
+        } else {
+            bdFooterText.innerHTML = "Start again with a calm and <b>clear</b> interface.";
+        }
     }
-    else {
-        bdFooterText.innerHTML = 'For detailed information on this feature, please <a href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" target="_blank">read the docs</a>. This uses <a href="https://github.com/VipassanaTech/tipitaka-xml" target="_blank">Vipassana Research Institute</a> texts'
+    else { // Default case
+        if (bdLanguage === 'ru') {
+            // Assuming the Russian docs link should also have /ru/
+            bdFooterText.innerHTML = 'Для получения подробной информации об этой функции, пожалуйста, <a href="https://digitalpalidictionary.github.io/ru/webapp/cst_bold_def/" target="_blank">прочтите документацию</a>. Используются тексты <a href="https://github.com/VipassanaTech/tipitaka-xml" target="_blank">Vipassana Research Institute</a>';
+        } else {
+            bdFooterText.innerHTML = 'For detailed information on this feature, please <a href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" target="_blank">read the docs</a>. This uses <a href="https://github.com/VipassanaTech/tipitaka-xml" target="_blank">Vipassana Research Institute</a> texts';
+        }
     }
 }
 
