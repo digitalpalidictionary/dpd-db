@@ -1163,7 +1163,7 @@ var family_word_json = {
    [
     "khara 4",
     "adj",
-    "(of a sound) rough; harsh; discordant; dissonant; lit. rough",
+    "(of a sound) rough; harsh; discordant; dissonant",
     "✔"
    ],
    [
@@ -4181,7 +4181,7 @@ var family_word_json = {
     "paccatta 3",
     "nt",
     "(gram) nominative case; lit. personal",
-    "◑"
+    "✔"
    ],
    [
     "paccattaṃ",
@@ -7791,12 +7791,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "dvidhā",
-    "ind",
-    "in two ways; into two; into two pieces",
-    "✔"
-   ],
-   [
     "dvinnaṃ 1",
     "card",
     "of two",
@@ -7845,12 +7839,6 @@ var family_word_json = {
     "✘"
    ],
    [
-    "dvedhā",
-    "ind",
-    "in two ways; into two; into two pieces",
-    "✔"
-   ],
-   [
     "dvedhika",
     "adj",
     "in two parts; in two factions",
@@ -7869,7 +7857,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 49
+  "count": 47
  },
  "amu": {
   "data": [
@@ -9756,7 +9744,7 @@ var family_word_json = {
     "✔"
    ],
    [
-    "uttaritara 1",
+    "uttaritara",
     "adj",
     "more excellent (than); even better (than); even higher (than); lit. more crossed up",
     "✔"
@@ -10617,12 +10605,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "ekadhā",
-    "ind",
-    "in one way",
-    "✘"
-   ],
-   [
     "ekaso",
     "ind",
     "singly, one by one",
@@ -10701,18 +10683,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "nekadhā 1",
-    "ind",
-    "many times; frequently; often; lit. not one way",
-    "✔"
-   ],
-   [
-    "nekadhā 2",
-    "ind",
-    "in many ways",
-    "✘"
-   ],
-   [
     "pacceka",
     "adj",
     "individual; separate; each",
@@ -10749,7 +10719,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 51
+  "count": 48
  },
  "eḷā": {
   "data": [
@@ -23649,12 +23619,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "catudhā",
-    "ind",
-    "in four ways; into four",
-    "✔"
-   ],
-   [
     "catunnaṃ 1",
     "card",
     "for four; to four",
@@ -23751,7 +23715,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 31
+  "count": 30
  },
  "caṇḍāla": {
   "data": [
@@ -24337,18 +24301,6 @@ var family_word_json = {
     "✘"
    ],
    [
-    "chaddhā",
-    "ind",
-    "in six ways",
-    "✘"
-   ],
-   [
-    "chadhā",
-    "ind",
-    "in six ways",
-    "✘"
-   ],
-   [
     "channaṃ 1",
     "card",
     "for six",
@@ -24397,7 +24349,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 16
+  "count": 14
  },
  "chakaṇa": {
   "data": [
@@ -25146,12 +25098,6 @@ var family_word_json = {
     "✔"
    ],
    [
-    "tidhā",
-    "ind",
-    "in three ways; into three; in three places; for the third time; triply",
-    "✔"
-   ],
-   [
     "tisso",
     "card",
     "three (3)",
@@ -25182,7 +25128,7 @@ var family_word_json = {
     "✔"
    ]
   ],
-  "count": 22
+  "count": 21
  },
  "tāva": {
   "data": [
@@ -25745,7 +25691,7 @@ var family_word_json = {
  "timbaru": {
   "data": [
    [
-    "timbaru 1",
+    "timbaru",
     "masc",
     "fruit of Strychnos nux-vomica or Malabar ebony; Diospyros malabarica",
     "✔"
@@ -26059,12 +26005,6 @@ var family_word_json = {
     "◑"
    ],
    [
-    "dasadhā",
-    "ind",
-    "in ten ways; into ten; into ten pieces",
-    "✔"
-   ],
-   [
     "dasannaṃ 1",
     "card",
     "for ten; to ten",
@@ -26107,7 +26047,7 @@ var family_word_json = {
     "◑"
    ]
   ],
-  "count": 11
+  "count": 10
  },
  "dahara": {
   "data": [
@@ -32494,7 +32434,7 @@ var family_word_json = {
     "◑"
    ],
    [
-    "vāsī",
+    "vāsī 3.1",
     "fem",
     "axe; adze; chisel",
     "✔"

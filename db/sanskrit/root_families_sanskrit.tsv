@@ -390,7 +390,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kit 2	1	a	live	√cit	1	perceive, know, appear	ni √kit		aniketa, niketa
 √kit 3	1	a	know, doubt	√cit	1	perceive, know, appear	√kit		kit
 √kit 3	1	a	know, doubt	√cit	1	perceive, know, appear	saṃ √kit		saṃketa
-√kitt	8	*aya	make known	√kṝt √kīrt	10	mention	√kitt	kīrt	akīrtayat, akīrtat, acikīrtat, acīkṛtat, kīrtayat, kīrtayati, kīrtayitvā, kīrti, kīrtita, kīrtitavya, kṝtayamāna, su + kīrtita
+√kitt	8	*aya	make known	√kṝt √kīrt	10	mention	√kitt	kīrt	akīrtayat, akīrtat, akīrti (na + kīrti), acikīrtat, acīkṛtat, kīrtayat, kīrtayati, kīrtayitvā, kīrti, kīrtita, kīrtitavya, kṝtayamāna, su + kīrtita
 √kitt	8	*e	make known	√kṝt √kīrt	10	mention	pa √kitt	prakīrt	prakīrtayat, prakīrtayati
 √kitt	8	*e	make known	√kṝt √kīrt	10	mention	pari √kitt	parikīrt	prakīrtana
 √kitt	8	*e	make known	√kṝt √kīrt	10	mention	saṃ √kitt	saṃkīrt	saṃkīrti
@@ -1172,6 +1172,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √tim	1	*a	be wet	√tim √tīm √stim √stīm	4	be wet	√tim	tim	timyati, tīmayati, tīmayitvā, temana, temana +, temayat, temayitavya, stimita
 √tir	1	a	cross	√tṝ √tṛ	1, 3, 5, 6, 8	pass	√tir	tṝ	tiras, tiryañc, tiryak, tīra, tīra +, tīrtha, tīrthaka (bsk), tīrthika, na + tīrtha, na + tīrthika
 √tir	1	a	cross	√tṝ √tṛ	1, 3, 5, 6, 8	pass	anu √tir	anutṝ	anutīram
+√tir	1		cross	√tṝ √tṛ	1, 3, 5, 6, 8	pass	upa √tir		
 √tir	1	a	cross	√tṝ √tṛ	1, 3, 5, 6, 8	pass	pa √tir	pratṝ	sūpatīrtha
 √tis	1	a	satisfy	√tṛp	4, 5, 6	be pleased	√tis	tṛp	atṛpa, tṛpta, tṛpti, na + tṛpti
 √tīr	8	*e	investigate, complete	√tṝ	1, 3, 5, 6, 8	pass	√tīr	tṝ	tārayati, tīraṇa (bsk), na + tīrṇa
@@ -2466,10 +2467,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lih	1	*a	lick, lap	√lih	2, 6	lick	ud √lih	ullih	ullihat
 √lih	1	*a	lick, lap	√lih	2, 6	lick	nī √lih	nirlih	nirlekhana (scraping), avalehaka (licking)
 √lih	1	*a	lick, lap	√lih	2, 6	lick	pa √lih	pralih	pralihat
-√lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	√lī	lī	alīna, laya, layana, līna, līnatva, su + laya
+√lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	√lī	lī	alīna, na + layana, laya, layana, līna, līnatva, su + laya
 √lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	ati √lī		
 √lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	ava √lī	avalī	avalīna, avalīyate, avalīyamāna
-√lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	ā √lī	ālī	anālayana, ālaya, ālayayati, ālayitum, ālīna, ālīyate, na + layana
+√lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	ā √lī	ālī	anālayana, ālaya, ālayayati, ālayitum, ālīna, ālīyate
 √lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	ni √lī	nilī	nilayitum, nilīta, nilītvā, nilīna, nilīyate
 √lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	pa vi √lī	pravilī	pra + vilīyamāna
 √lī 1	3	ya	stick, hide	√lī	1, 4, 9	cling	pati √lī	pratilī	pratilīna, pratilīyate
@@ -2817,7 +2818,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vell	1	iya	shake, sway	√vell	1	stagger	√vell	vell	vellita
 √vell	1	a	shake, sway	√vell	1	stagger	ā √vell	vell	ā + vellita
 √vyath	1	a	fear, shake	√vyath	1	waver	√vyath	vyath	vyathate, vyathana, vyathita
-√vyadh	3	ya	strike, pierce	√vyadh	4	pierce	√vyadh	vyadh	vyādha
+√vyadh	3	ya	strike, pierce	√vyadh	4	pierce	√vyadh	vyadh	vidhyati, vyādha
 √vyadh	3	ya	strike, pierce	√vyadh	4	pierce	pati √vyadh	prativyadh	prativyadh (shot, hit)
 √vhe	1	a	call, name	√hve √hū	1	call	ā √vhe	āhve	āhva, āhvaya, āhvayati, āhvayati, ābṛhati (bsk), āvarhati (bsk), āhvayana, āhvayitavya, āhvāyitavya, āhvāna, āhvāyaka, na + āhūta, sa + āhvaya
 √vhe	1	a	call, name	√hve √hū	1	call	upa √vhe	upahve	upahvayat, upahvayati, upahvayet

@@ -1,5 +1,5 @@
 var family_idiom_json = {
- "kaṅkhā": {
+ "kaṅkhā1": {
   "count": 2,
   "data": [
    [
@@ -12114,7 +12114,7 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "tyassu",
+    "tyassu 1",
     "sandhi",
     "they may be; they should be",
     "✔"
@@ -23377,7 +23377,7 @@ var family_idiom_json = {
     "✔"
    ],
    [
-    "tyassu",
+    "tyassu 1",
     "sandhi",
     "they may be; they should be",
     "✔"
@@ -25388,7 +25388,7 @@ var family_idiom_json = {
    ]
   ]
  },
- "kāya1": {
+ "kāya": {
   "count": 6,
   "data": [
    [

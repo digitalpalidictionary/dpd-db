@@ -3052,7 +3052,7 @@ var family_set_json = {
     "paccatta 3",
     "nt",
     "(gram) nominative case; lit. personal",
-    "◑"
+    "✔"
    ],
    [
     "paccattavacana",
@@ -4849,6 +4849,12 @@ var family_set_json = {
     "◑"
    ],
    [
+    "sāmiattha",
+    "masc",
+    "(gram) genitive meaning; possessive sense; lit. owner meaning",
+    "✔"
+   ],
+   [
     "sāmivacana",
     "nt",
     "(gram) genitive case; lit. term for owner",
@@ -5095,7 +5101,7 @@ var family_set_json = {
     "◑"
    ]
   ],
-  "count": 821
+  "count": 822
  },
  "prefixes": {
   "data": [
@@ -27967,7 +27973,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "timbaru 1",
+    "timbaru",
     "masc",
     "fruit of Strychnos nux-vomica or Malabar ebony; Diospyros malabarica",
     "✔"
@@ -35071,7 +35077,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "timbaru 1",
+    "timbaru",
     "masc",
     "fruit of Strychnos nux-vomica or Malabar ebony; Diospyros malabarica",
     "✔"
@@ -36994,7 +37000,7 @@ var family_set_json = {
  "types of supernatural beings": {
   "data": [
    [
-    "asura",
+    "asura 1",
     "masc",
     "titan; anti-god; enemy of the devas; lit. anti-hero",
     "✔"
@@ -38995,7 +39001,7 @@ var family_set_json = {
     "✔"
    ],
    [
-    "purindada 1",
+    "purindada",
     "masc",
     "primary giver; first donor; epithet of Sakka",
     "✔"
