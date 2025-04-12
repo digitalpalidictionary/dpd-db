@@ -3,7 +3,7 @@
 
 document.addEventListener("click", function(event) {
     var target = event.target;
-    const classNames = ["button_ru", "root_button_ru"]
+    const classNames = ["button_ru"]
     if (classNames.some(className => target.classList.contains(className))) {
         button_click_ru(target);
         event.preventDefault();

@@ -121,5 +121,5 @@ if __name__ == "__main__":
     css_manager.update_docs_css()
     css_manager.update_webapp_css()
     css_manager.compile_css_and_fonts()
-    new_style = css_manager.update_style("<style>", "secondary")
-    print(new_style)
+    # new_style = css_manager.update_style("<style>", "secondary")
+    # print(new_style)
