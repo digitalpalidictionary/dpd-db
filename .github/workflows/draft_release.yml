@@ -54,21 +54,6 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: '1.22.2'
-  
-    # ----------------------------------------
-    # Prepare Submodules
-    # ----------------------------------------
-    
-    - name: Sync all submodules with Upstream
-      run: |
-        for submodule in resources/fdg_dpd resources/bw2 resources/sc-data; do
-          echo "Syncing $submodule..."
-          cd "$submodule"
-          git fetch origin main
-          git checkout main
-          git reset --hard origin/main
-          cd ../..
-        done
 
     # ----------------------------------------
     # Build Database
@@ -193,8 +178,30 @@ jobs:
     - name: Tarball DB
       run: uv run python scripts/build/tarball_db.py
 
+    # ----------------------------------------
+    # Prepare Submodules
+    # ----------------------------------------
+    
+    - name: Sync all submodules with Upstream
+      run: |
+        for submodule in resources/fdg_dpd resources/bw2 resources/sc-data resources/tpr_downloads; do
+          echo "Syncing $submodule..."
+          cd "$submodule"
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd ../..
+        done
+
+    # ----------------------------------------
+    # Export TBW and TPR
+    # ----------------------------------------
+
     - name: Run TBW Exporter
       run: uv run python exporter/tbw/tbw_exporter.py
+
+    - name: Run TPR Exporter
+      run: uv run python exporter/tpr/tpr_exporter.py
 
     # ----------------------------------------
     # Update Submodules
@@ -207,6 +214,7 @@ jobs:
           ["resources/fdg_dpd"]="fdg https://github.com/o28o/dictPlugin.git"
           ["resources/bw2"]="tbw https://github.com/thebuddhaswords/BW2.git" 
           ["resources/sc-data"]="sc https://github.com/digitalpalidictionary/sc-data.git"
+          ["resources/tpr_downloads"]="tpr https://github.com/bksubhuti/tpr_downloads"
         )
 
         for path in "${!submodules[@]}"; do
