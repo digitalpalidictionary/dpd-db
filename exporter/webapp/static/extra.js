@@ -38,6 +38,41 @@ updateLink('fdg-link', 'https://dhamma.gift?p=-kn');
 updateLink('dpd-link', 'https://dpdict.net');
 //ссылки в футере конец
 
+/* первый вариант
+//ссылки в футере
+//const searchBox = document.getElementById('search-box');
+
+function updateFooterLinks(query) {
+  // FDG
+  const fdgUrl = `https://dhamma.gift?p=-kn&q=${encodeURIComponent(query)}`;
+  document.getElementById('fdg-link').href = fdgUrl;
+
+  // DPD
+  const dpdUrl = new URL(window.location.href);
+  dpdUrl.hostname = 'dpdict.net';
+  dpdUrl.protocol = 'https:';
+  dpdUrl.port = '';
+  dpdUrl.searchParams.set('q', query);
+  document.getElementById('dpd-link').href = dpdUrl.toString();
+}
+
+// обновляем при вводе текста
+searchBox.addEventListener('input', () => {
+  const query = searchBox.value;
+  updateFooterLinks(query);
+});
+
+// при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  const initQuery = new URL(window.location.href).searchParams.get('q') || '';
+  updateFooterLinks(initQuery);
+});
+//ссылки в футере конец
+
+
+*/
+
+
 
 function toggleSettings() {
   const settingsContent = document.getElementById('settings-content');
