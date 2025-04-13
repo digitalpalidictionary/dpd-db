@@ -165,7 +165,7 @@ def update_epd_sutta(g: ProgData, combined_numbers, i: DpdHeadword):
             number_link = i.source_link_sutta
 
             if g.make_link and number_link:
-                anchor_link = f'<a href="{number_link}">link</a>'
+                anchor_link = f'<a class="link" href="{number_link}">link</a>'
                 data_3 = f"{i.meaning_2} {anchor_link}"
             else:
                 data_3 = f"{i.meaning_2}"
