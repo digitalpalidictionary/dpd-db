@@ -612,11 +612,7 @@ def render_button_box_templ(
 ) -> str:
     """render buttons for each section of the dictionary"""
 
-    if lang == "en":
-        button_html = '<a class="button" href="#" data-target="{target}">{name}</a>'
-
-    elif lang == "ru":
-        button_html = '<a class="button_ru" href="#" data-target="{target}">{name}</a>'
+    button_html = '<a class="button" href="#" data-target="{target}">{name}</a>'
 
     # grammar_button
     if i.needs_grammar_button or show_sbs_data:

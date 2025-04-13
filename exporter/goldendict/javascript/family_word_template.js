@@ -25,7 +25,7 @@ function makeFamilyWordHtml(data) {
             <th>${item[0]}</th>
             <td><b>${item[1]}</b></td>
             <td>${item[2]}</td>
-            <td><span class="gray">${item[3]}</span</td>
+            <td><span class="gray">${item[3]}</span></td>
             </tr>
         `;
     });

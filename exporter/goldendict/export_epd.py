@@ -138,12 +138,12 @@ def generate_epd_html(
 
             for ru_meaning in ru_meanings_list:
                 if ru_meaning in epd.keys():
-                    epd_string = f"{epd[ru_meaning]}<br><b class = 'rpd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
+                    epd_string = f"{epd[ru_meaning]}<br><b class='epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
                     epd[ru_meaning] = epd_string
 
                 if ru_meaning not in epd.keys():
                     epd_string = (
-                        f"<b class = 'rpd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
+                        f"<b class='epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
                     )
                     epd.update({ru_meaning: epd_string})
 
@@ -174,12 +174,12 @@ def generate_epd_html(
 
             for root_ru_meaning in root_ru_meanings_list:
                 if root_ru_meaning in epd.keys():
-                    epd_string = f"{epd[root_ru_meaning]}<br><b class = 'rpd'>{i.root}</b> корень. {i.root_ru_meaning}"
+                    epd_string = f"{epd[root_ru_meaning]}<br><b class='epd'>{i.root}</b> корень. {i.root_ru_meaning}"
                     epd[root_ru_meaning] = epd_string
 
                 if root_ru_meaning not in epd.keys():
                     epd_string = (
-                        f"<b class = 'rpd'>{i.root}</b> корень. {i.root_ru_meaning}"
+                        f"<b class='epd'>{i.root}</b> корень. {i.root_ru_meaning}"
                     )
                     epd.update({root_ru_meaning: epd_string})
 
@@ -256,7 +256,7 @@ def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
         if combined_number:
             number_link = i.source_link_sutta
             if make_link and number_link:
-                anchor_link = f'<a href="{number_link}">link</a>'
+                anchor_link = f'<a class="link" href="{number_link}">link</a>'
                 if lang == "en":
                     epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
                 elif lang == "ru":

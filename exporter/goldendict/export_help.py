@@ -213,7 +213,7 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
 
     html = ""
     html += "<body>"
-    html += "<div class='help'>"
+    html += "<div class='tertiary'>"
     html += "<h2>Bibliography</h1>"
 
     # i = current item, n = next item
@@ -275,7 +275,7 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
 
     html = ""
     html += "<body>"
-    html += "<div class='help'>"
+    html += "<div class='tertiary'>"
 
     # i = current item, n = next item
     for x in range(len(thanks)):

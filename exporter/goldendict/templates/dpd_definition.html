@@ -5,14 +5,14 @@
         % endif
         % if show_sbs_data and sbs:
             % if sbs.sbs_class_anki:
-                <a href="${sbs.sbs_class_link}"><i>(cl.${sbs.sbs_class_anki})</i></a>
+                <a class="link" href="${sbs.sbs_class_link}"><i>(cl.${sbs.sbs_class_anki})</i></a>
                 <span class="gray"> | </span>
             % endif
             % if sbs.sbs_category:
-                <a href="${sbs.sbs_sutta_link}"><i>(${sbs.sbs_category})</i></a> | 
+                <a class="link" href="${sbs.sbs_sutta_link}"><i>(${sbs.sbs_category})</i></a> | 
             % endif
             % if sbs.sbs_patimokkha:
-                <a href="${sbs.sbs_patimokkha_link}"><i>(${sbs.sbs_patimokkha})</i></a> | 
+                <a class="link" href="${sbs.sbs_patimokkha_link}"><i>(${sbs.sbs_patimokkha})</i></a> | 
             % endif
         % endif
         ${pos}. 
@@ -24,7 +24,7 @@
             [${summary}] 
         % endif
         % if make_link and i.source_link_sutta:
-        <a href="${i.source_link_sutta}">link</a>
+        <a class="link" href="${i.source_link_sutta}">link</a>
         % endif
         ${complete} 
         % if show_id:

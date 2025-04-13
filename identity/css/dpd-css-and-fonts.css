@@ -130,11 +130,6 @@ p.sutta {
     padding: 0px 0px 3px 0px;
 }
 
-p.sbs_sutta {
-    color: var(--colour3);
-    font-style: italic;
-    padding: 0px 0px 3px 0px;
-}
 
 a.sutta_link {
     color: var(--primary-text);

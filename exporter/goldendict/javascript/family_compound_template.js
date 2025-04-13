@@ -43,7 +43,7 @@ function makeFamilyCompoundHtml(data) {
                 <th>${word}</th>
                 <td><b>${pos}</b></td>
                 <td>${meaning}</td>
-                <td><span class="gray">${complete}</span</td>
+                <td><span class="gray">${complete}</span></td>
                 </tr>`;
         });
 
