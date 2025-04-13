@@ -5,6 +5,44 @@ search:
 
 # Changelog
 
+## 2025-04-13
+
+### Github Issues Closed
+- [#42 Create dictionary of variant readings found in digital Pāḷi texts](https://github.com/digitalpalidictionary/dpd-db/issues/42)
+- [#43 Add list of abbreviations to Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/43)
+- [#62 WebApp recognises Thai, Devanagari, Sinhala, and other scripts](https://github.com/digitalpalidictionary/dpd-db/issues/62)
+- [#64 Add Github icon, link to issues on Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/64)
+- [#66 Make WebApp clickable on Android and iOS](https://github.com/digitalpalidictionary/dpd-db/issues/66)
+- [#67 Update DPD identity, colour scheme CSS, logo, fonts ](https://github.com/digitalpalidictionary/dpd-db/issues/67)
+- [#68 WebApp bold definitions highlight when using regex](https://github.com/digitalpalidictionary/dpd-db/issues/68)
+- [#72 Two CSS Bugs in Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/72)
+- [#74 Automate Github release notes and docs changelog](https://github.com/digitalpalidictionary/dpd-db/issues/74)
+- [#80 Broken Link in Contributing.md](https://github.com/digitalpalidictionary/dpd-db/issues/80)
+- [#82 Convert Docs website from mdbook to mkdocs](https://github.com/digitalpalidictionary/dpd-db/issues/82)
+- [#86 Export DPD lookup for Dhammagift ](https://github.com/digitalpalidictionary/dpd-db/issues/86)
+- [#87 Only show bold for meaning_1, not meaning_2](https://github.com/digitalpalidictionary/dpd-db/issues/87)
+- [#94 Some words in GoldenDict version have problems with the buttons](https://github.com/digitalpalidictionary/dpd-db/issues/94)
+- [#101 Separate db build and export process for Grammar dict](https://github.com/digitalpalidictionary/dpd-db/issues/101)
+- [#102 Move language switcher dropdown control](https://github.com/digitalpalidictionary/dpd-db/issues/102)
+
+### Dictionary Data Updates
+- 81 114 headwords, 41 326 complete, 14 473 partially complete, 25 315 incomplete entries
+- 750 roots, 3 294 root families, 33 904 words derived from roots
+- 848 429 deconstructed compounds
+- 1 356 705 unique inflected forms recognised
+- 1 987 089 cells of Pāḷi word data
+- 19 738 cells of Pāḷi root data
+- Pass1 complete: VIN1-2, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN3
+- Pass2 complete: DN1, MN1
+- Pass2 in progress: DN2 
+- numerous additions and corrections based on user feedback
+
+### New Words
+akappiyamaṃsa, aggiṃ deti, aṅkura 2, aṅgīrasi, accuta 4, acchamaṃsa, aṭṭhapetvā 2, atidūre, addhamata, adhigacchati 3, adhiṭṭheti 2, adhivattatī, anaññavisaya, ananusiṭṭha, anabbhañjita, anuggaṇhāti 2, anuggaha 2.2, anuggahesi, anucariyaṃ, anuññāsi, anupapatti 1, anupaviddha, anussāvanānujānanā, anussāvetuṃ, anekabhāva 2, antagaṇṭhābādha, antaravāra, antodosaṭṭhena, appadakkhiṇa, abhikkanta 4, abhikkamāpeti, abhikkamāpetuṃ, abhikkami 1, ayadaṇḍaka, alajjīnissayavatthu, allīyituṃ, asamā, asura 2, asesetuṃ, ādittassu, āmala, āraddha 1.2, āvasi 2, āvāhaka, āsadda, āhacca 1.2, ukkaṃsāpetvā, ukkhittakavatthu, uccāvacamāpajjati, utuppamāṇa, uttaravirahita, uttaritaraṃ, upakaraṇa 3, upaḍḍhāmalaka, uparūpari 2, upasaṅkama, upasampadākamma, upasampadāvidhi, upasampādana, ubhayā, ullapitabba, ussannadhātuka, ekantikena, ekasaṃvaccharika, ekānussāvana, olambesi, kaṇṇavant, katthaci 2, kathina 3, kadara, kappeti 6, kampetuṃ, kalahappavaḍḍhanī, kasāvagandha, kasāvarasa, kasāvavaṇṇa, kāpilavatthava 2, kitteti 2, kittesi 2, kūjati 2, keḷāyita, koṭṭesi 2, kolaputtiya, khara 4, kharassara, khujja 1, gabbhavīsa, gabbhavīsūpasampadānujānanā, gamikādinissayavatthu, garuṭṭhāna, gāhāpetabba, gopaka 4, ghaṭṭetabba 1, ghaṭṭetabba 2, caṅga, catusaṅkhepa, jambusākhā, jināti 3, jeṭṭhakaṭṭhāna, ñāyati 2, ṭhātukāma, ṭhānanisajjabahulatta, ṭhitakāla 2, ṇikapaccaya, tala 3, talamāhacca, taṃniddesa, tiṇasalākā, tiyaddha 2, tiracchānavijjā 2, tisandhi, tuletvā 2, tyassu 2, thaddhatara, thāvara 2, dasavassa 1, dāyajjabhāṇavāra, diṭṭhadhammasamparāyahita, dibbati 3, dīghamantaraṃ, dīpimaṃsa, dukkhajanana, dutiyadivase, duranusiṭṭha, deti 3, deseti 3, dvādasavassa 2, dveupasampadāpekkhādivatthu, dhanāyita, dhanāyitabba, dhāvanaka, naccamāna, nāgasā, nānupajjhāya, nāmajja, nikkhittavatta, nikkhipitvā 4, nicchoṭana, nijigīsati, nidaṃsana, nidaṃsanī, nippaci 1, nippaci 2, nippati, nibbattetabba 1, nimmajjita, nirassāsa, nissaggiyapācittiya, nissayadāyaka, pakkhī 2, pajjotarājavatthu, pañcābādhā, paññāsayojanika, paṭipavesetvā, paṭibhāsi 1.2, paṭisevitabba, paṭiharaṇa, patiṭṭhāpaka, patissaya, patthinna, paribrūhetvā, pariyāya 07, parivattitvā 1, parivattitvā 2, parivasi 2, parivuttha 2, pavuṭṭha 1.2, pavuttha 2, pasādita 3, pasādesi 3, pāpeti 2.1, pāmokkhā, pāripuppha, pāriyanta, puthukāya 1, purisasīsa, pūti 2, positabba, phaladāna 2, bandhati 3, balavasoka, bahumāya, bindussara 1, byajjhati, byādha, braha, bhakkha 2, bhakkhesi, bhaṇḍikaṃ bandhitvā, bhikkhusabhāgatā, magha 1, majjhato, maṇḍanasīla, mahattha, mahāsāra 1, mānaniggaha, māla 2.1, migamaṃsa, mittānisaṃsa, mukha 4, mukhamatta, moracchāpa, yathāñāya, yathātthakārī, yācāpetabba, yogyatā, rahassaṅga, rājagahaseṭṭhivatthu, lohitabindu, vaḍḍhana 4, vaḍḍhesi 3, vattappaṭipatti, vāraṇā, vāsī 3.1, vāhanāgāra, vijjhana 2, vijjhitabba, vitthāyati, vibhiṃsanaka, viravati 2, vivāhaka, visabhāga 2, vissajjesi 4, vīsatākāra, vuḍḍhiṃ viruḷhiṃ vepullaṃ āpajjati, veroca, vesālā, sañjananī, saṭṭhiyojanika, saṭṭhete, saṇhikaṃ, sati 2.2, saddhāya gamissāma, santhambhitvā, sabbaññujinagocara, sayitukāma, sayituṃ 1, sayituṃ 2, savanta 2.1, sādhāraṇa 2, sāmaṃ karoma, sārada 4, sāsanādhāraṇa, sikkhapaka, sibbinī 2, sudassana 6, surāgeha, seṭṭhiputtavatthu, harati 4, harayo, hemavata 3 [251]
+
+
+
 ## 2025-03-14
 
 ### GitHub Issues Closed
