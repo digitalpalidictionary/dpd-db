@@ -248,14 +248,14 @@ jobs:
           
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git commit -m "DPD lookup: update $(date +'%d-%b-%y')" || echo "No changes to commit"
+          git commit -m "DPD: update $(date +'%d-%b-%y')" || echo "No changes to commit"
           
           echo "=== PRE-PUSH STATUS ==="
           git log -2 --oneline
           git remote -v
           
           echo "=== PUSHING CHANGES ==="
-          git push origin main:main
+          git push origin $branch:$branch
           echo "=== PUSH EXIT CODE: $? ==="
           cd "$GITHUB_WORKSPACE"
         done

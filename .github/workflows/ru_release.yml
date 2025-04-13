@@ -184,9 +184,14 @@ jobs:
         for submodule in resources/fdg_dpd resources/tpr_downloads; do
           echo "Syncing $submodule..."
           cd "$submodule"
-          git fetch origin main
-          git checkout main
-          git reset --hard origin/main
+          if [ "$submodule" = "resources/tpr_downloads" ]; then
+            branch="master"
+          else 
+            branch="main"
+          fi
+          git fetch origin $branch
+          git checkout $branch
+          git reset --hard origin/$branch
           cd ../..
         done
 
@@ -230,8 +235,13 @@ jobs:
           echo "Recent commits:"
           git log -1 --oneline
           
-          git checkout main
-          git pull origin main
+          if [ "$path" = "resources/tpr_downloads" ]; then
+            branch="master"
+          else
+            branch="main"
+          fi
+          git checkout $branch
+          git pull origin $branch
           
           echo "=== POST-EXPORT STATUS ==="
           git status --short
@@ -241,14 +251,14 @@ jobs:
           
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git commit -m "DPD lookup: update $(date +'%d-%b-%y')" || echo "No changes to commit"
+          git commit -m "DPD RU: update $(date +'%d-%b-%y')" || echo "No changes to commit"
           
           echo "=== PRE-PUSH STATUS ==="
           git log -2 --oneline
           git remote -v
           
           echo "=== PUSHING CHANGES ==="
-          git push origin main:main
+          git push origin $branch:$branch
           echo "=== PUSH EXIT CODE: $? ==="
           cd "$GITHUB_WORKSPACE"
         done
