@@ -77,17 +77,17 @@ class Deepseek:
                     if finish_reason == "stop":
                         break
 
-    def chat(
+    def request(
         self,
         prompt=DEFAULT_USER_PROMPT,
         prompt_sys=DEFAULT_SYSTEM_PROMPT,
         stream=False,
         model="deepseek-chat",
         **kwargs,
-    ):  
+    ):
         balance_before = float(self.balance()["balance_infos"][0]["total_balance"])
         payload = {
-            "model": model,
+            "model": model,  # Use the provided model
             "frequency_penalty": 0,
             "max_tokens": 2048,
             "presence_penalty": 0,
@@ -121,7 +121,11 @@ class Deepseek:
         )
 
     def fim_completion(
-        self, prompt=DEFAULT_USER_PROMPT, stream=False, model="deepseek-chat", **kwargs
+        self,
+        prompt=DEFAULT_USER_PROMPT,
+        stream=False,
+        model="deepseek-chat",
+        **kwargs,
     ):
         payload = {
             "model": model,
@@ -160,9 +164,11 @@ if __name__ == "__main__":
     ds = Deepseek()
     balance = ds.balance()
     print(balance)
-    
-    # response = ds.chat(
-    #     prompt="Hi.",
-    #     prompt_sys="You are a helpful assistant."
-    # )
-    # print(response)
+    print(ds.get_models())
+
+    response = ds.request(
+        model="deepseek-reasoner",
+        prompt="Hi.",
+        prompt_sys="You are a helpful assistant.",
+    )
+    print(response)
