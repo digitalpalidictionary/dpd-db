@@ -2063,7 +2063,6 @@ Punnaka
 Puṇṇaka
 Puṇṇaka's
 Purāṇā
-Pūraṇa
 Pūraṇa
 Purāṇas
 purgative
@@ -3064,3 +3063,7 @@ basket
 recollects
 piercer
 transfixes
+ideation
+ever-expanding
+proliferation
+conceptualization

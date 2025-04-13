@@ -78842,7 +78842,7 @@ var family_root_json = {
    [
     "appaṭikkositabba",
     "ptp",
-    "should not be opposed; should not be rejected; should not be  contradicted",
+    "should not be opposed; should not be rejected; should not be contradicted",
     "✘"
    ],
    [
@@ -84910,7 +84910,7 @@ var family_root_json = {
    [
     "papañcita 1",
     "nt",
-    "proliferation; conceptualization; which is thought about; lit. expanded",
+    "proliferation; conceptualization; process of ever-expanding ideation; lit. expanded",
     "✔"
    ],
    [
@@ -91220,7 +91220,7 @@ var family_root_json = {
    [
     "aparivattetvā",
     "abs",
-    "having not caused to turn round; lit. having  not caused to turn around",
+    "having not caused to turn round; lit. having not caused to turn around",
     "◑"
    ],
    [

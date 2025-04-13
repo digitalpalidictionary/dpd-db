@@ -142,7 +142,7 @@ Yañce bhuñjeyya dussīlo, raṭṭhapiṇḍaṃ asaññato.
 18.	Pattathavikāyaṃ pakkhipitvāpi antopattaṃ saṃsuddhaṃ udakaṃ ākiritvā āloḷetvā osiñcitabbaṃ, vinayadharā pana bhikkhū evaṃ katvāpi pattaṃ puna paṭiggaṇhanti.
 a)	Hitvā satapalaṃ sakaṃsaṃ, sovaṇṇaṃ satarājikaṃ;
 Aggahiṃ mattikāpattaṃ, taṃ dutiyābhisecanaṃ.
-b)	Evam’̣bhisekabhanḍạm’̣va,buddhad̄ih̄imamaȳatam;̣
+b)	Evam’bhisekabhaṇḍam’va,buddhādihīmamayatam;
 Taṃ pattaṃ nātimaññeyya, saddhāpabbajito yati.
 8. Bhikkhācāravelāyaṃ kathāsallāpo
 1.	Katināḍikā he?
@@ -469,7 +469,7 @@ Phārusaṃ nā’ggisantattaṃ, pānakaṃ yāmakālikaṃ.
 11.	Sādhu āvuso, evaṃsati na cirasseva ārogyalābhaṃ labhissasi.
 12.	Evaṃ bhante.
 a)	Ārogyaparamā lābhā, santuṭṭhi paramaṃ dhanaṃ;
-Vissāsaparamā ñātī, nibbānaṃ paramaṃ sukhaṃ.
+Vissāsaparamā ñātī, nibbānaṃ paramaṃ sukhaṃ.
 25. Sammajjanapaṭisaṃyutto kathāsallāpo
 1.	Atibahulā bho tumhākaṃ sammajjaniyo laddhā.
 2.	Āma bhante, bahū daṇḍasammajjaniyo; sakine mahāgandhārāme vinayussavato ekekassa ekekā laddhā.
@@ -506,7 +506,7 @@ v.	Pacchimā janatā diṭṭhānugatiṃ āpajjatī’ti.
 1.	Bhante Buddharakkhita ramaṇīyo vata tumhākaṃ ārāmo. Atha ca pana imaṃ āramaṃ acirāgatā jarā honti.
 2.	Saccaṃ āvuso kallabhāvassa upāyaṃ ajānantā uṇhadesato āgatā visabhāgaututāya yebhuyyena paṭhamasaṃvacchare jarā honti, dutiyādisaṃvaccharesu pana nijjarā.
 3.	Ekantato pana bhante idaṃ ṭhānaṃ kallabhāvassa paṭiladdhaṭṭhānaṃ viya dissati.
-4.	Āma āvuso, kallabhāvassa upāyakovidā ārāmassa pubbabhāge sanniviṭṭhamahāsarañceva parisuddhavāyuṃ ca mahāsarassa udakapiṭṭhaṃ atikkamitvā yāvapabbatā dassanīyaṭṭhānañca oloketvā ‘kallabhāvassa paṭiladdhaṭṭhānan’ti vadanti. Anupāyakovidā pana daharasāmaṇerānaṃ taṃ sabbaṃ akallabhāvakāraṇaṃ viya hoti.
+4.	Āma āvuso, kallabhāvassa upāyakovidā ārāmassa pubbabhāge sanniviṭṭhamahāsarañceva parisuddhavāyuṃ ca mahāsarassa udakapiṭṭhaṃ atikkamitvā yāvapabbatā dassanīyaṭṭhānañca oloketvā ‘kallabhāvassa paṭiladdhaṭṭhānan’ti vadanti. Anupāyakovidā pana daharasāmaṇerānaṃ taṃ sabbaṃ akallabhāvakāraṇaṃ viya hoti.
 5.	Saccaṃ bhante “natthibhāvato aññāṇabhāvoyeva dukkho”ti porāṇāpi vadanti.
 28. Rukkhapaṭisaṃyutto kathāsallāpo
 1.	Bhante Buddharakkhita, kasmā tumhe mahārukkhe samūlaṃ pātetha?
@@ -648,7 +648,7 @@ Opammaṃ ettha ñātabbaṃ, sūriyacandarājūnaṃ.
 10.	Āma bhante.
 11.	Sutapubbaṃ nu vo āvuso “purimabuddhakāle paṭhamakyaw bhūto vā dhammācariyabhūto vā, imasmiṃ buddhakāle arahattaṃ papuṇantī”ti?
 12.	Na sutapubbaṃ bhante.
-13.	Kathaṃ pana vo sutapubbam?̣
+13.	Kathaṃ pana vo sutapubbam?
 14.	Evaṃ no sutapubbaṃ “purimabuddhakāle kammaṭṭhāne kataparicayā imasmiṃ buddhakāle arahattaṃ pāpuṇantī”ti.
 15.	Eva’māvuso. Tasmā tumhe pariyattito paṭipattimeva ādaraṃ kareyyātha.
 16.	Āma bhante.
@@ -757,11 +757,11 @@ iii.	Saṅgharakkhito āha – “Ahaṃ pana bhante purāruṇā udakaṃ pivit
 9.	Tejodhātubalena mahāsamuddato usmāno vuṭṭhahanti. Te bhattakumbhipidhāne sedāviya ākāse sannivisanti. Tesaṃ “abbhan”ti samaññā udapādi.
 46. Paṇṇapesanakathā
 Pesita’midaṃ mahātherassa santikaṃ sissabhūtena Buddharakkhitena. Sādaraṃ bhante ārocayāmi –
-Ācariyassa mettāpubbaṅgamaṃ ovādaṃ sampaṭicchitvā idāni Amarapūranagare mahāgandhārāmaṃ sampatto. Ettha ācariyassa ceva māta-̄pitu-ñāti-sālohitānañca mettānubhāvena sukhaṃ vasāmi. Ahorattaṃ pariyattiñceva paṭipattiñca sammā ārabhāmi. Āvāsapuggalā bhojanasappāyānipi labhanti. Utu pana thokaṃ sītalaṃ viya dissai. Tasmā amhākaṃ desautunā visabhāgo hoti. Tathā’pi ārakkhamahātherānaṃ dinnaṃ kallabhāvassa upāyaṃ gahetvā ceva yathānurūpaṃ bhesajjaṃ paṭisevitvā ca pīnasarīro homi. Yathā mama tathā ācariyassa ceva māta-pitu-ñāti-sālohitānañca kallabhāvāya rattiyaṃ Buddhupaṭṭhānakāle mettaṃ bhāvemi.
+Ācariyassa mettāpubbaṅgamaṃ ovādaṃ sampaṭicchitvā idāni Amarapūranagare mahāgandhārāmaṃ sampatto. Ettha ācariyassa ceva māta-pitu-ñāti-sālohitānañca mettānubhāvena sukhaṃ vasāmi. Ahorattaṃ pariyattiñceva paṭipattiñca sammā ārabhāmi. Āvāsapuggalā bhojanasappāyānipi labhanti. Utu pana thokaṃ sītalaṃ viya dissai. Tasmā amhākaṃ desautunā visabhāgo hoti. Tathā’pi ārakkhamahātherānaṃ dinnaṃ kallabhāvassa upāyaṃ gahetvā ceva yathānurūpaṃ bhesajjaṃ paṭisevitvā ca pīnasarīro homi. Yathā mama tathā ācariyassa ceva māta-pitu-ñāti-sālohitānañca kallabhāvāya rattiyaṃ Buddhupaṭṭhānakāle mettaṃ bhāvemi.
 Pesita’midaṃ –
 (1316) Solasādhike tisatekasahassa
 Maramaṃsāke āsāḷhiyā
 Juṇhapakkhassa catutthiyaṃ
 Sissabhūtena Buddharakkhitena
 Mahāgandhārāmato Amarapūranagare
-|| Kathāsallāpasikkhā sampariniṭṭhaṅgatā ||
+ Kathāsallāpasikkhā sampariniṭṭhaṅgatā 

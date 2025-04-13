@@ -5911,14 +5911,8 @@ var family_idiom_json = {
   ]
  },
  "añña": {
-  "count": 33,
+  "count": 32,
   "data": [
-   [
-    "añña ... añña",
-    "idiom",
-    "one thing … another",
-    "✔"
-   ],
    [
     "añña añña",
     "idiom",

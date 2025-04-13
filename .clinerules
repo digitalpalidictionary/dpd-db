@@ -8,6 +8,16 @@
 ## Custom instructions
 - Promise to follow the custom instructions.
 
+## Python Type Hints
+- Please add type hints to all code, especially when it is missing in existing code. 
+
+## Use Path from Pathlib
+- Use Path for anything related to filepaths, not os.
+
+## Comments
+- Do not add comments willy-nilly. 
+- Only add comments when truly necessary to explain WHY something is being done. Never WHAT is being done. 
+
 ## Dependencies
 
 ### uv

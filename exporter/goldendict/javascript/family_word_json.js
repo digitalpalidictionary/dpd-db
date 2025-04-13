@@ -32864,13 +32864,19 @@ var family_word_json = {
  "veṇhu": {
   "data": [
    [
+    "veṇḍu",
+    "masc",
+    "name of a deity; Vishnu",
+    "✔"
+   ],
+   [
     "veṇhu",
     "masc",
     "name of a deity; Vishnu",
     "◑"
    ]
   ],
-  "count": 1
+  "count": 2
  },
  "verañjā": {
   "data": [
