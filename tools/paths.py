@@ -84,15 +84,15 @@ class ProjectPaths:
             base_dir / "exporter/kindle/templates/ebook_titlepage.html"
         )
 
-        # exporter/goldendict/help/
+        # shared_data/help/
         self.abbreviations_tsv_path = (
-            base_dir / "exporter/goldendict/help/abbreviations.tsv"
+            base_dir / "shared_data/help/abbreviations.tsv"
         )
         self.bibliography_tsv_path = (
-            base_dir / "exporter/goldendict/help/bibliography.tsv"
+            base_dir / "shared_data/help/bibliography.tsv"
         )
-        self.help_tsv_path = base_dir / "exporter/goldendict/help/help.tsv"
-        self.thanks_tsv_path = base_dir / "exporter/goldendict/help/thanks.tsv"
+        self.help_tsv_path = base_dir / "shared_data/help/help.tsv"
+        self.thanks_tsv_path = base_dir / "shared_data/help/thanks.tsv"
 
         # exporter/goldendict/javascript/
         self.buttons_js_path = base_dir / "exporter/goldendict/javascript/buttons.js"
