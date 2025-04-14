@@ -93,6 +93,18 @@
             ${sbs.vib_sutta}</p>
     % endif
 
+    % if sbs.needs_class_example:
+    <b>Pāli Class:</b>
+    <p>${sbs.class_example}</p>
+    <p class="sutta">
+        % if make_link and sbs.class_source_link:
+        <a class="sutta_link" href="${sbs.class_source_link}">${sbs.class_source}</a>
+        % else:
+        ${sbs.class_source}
+        % endif
+        ${sbs.class_sutta}</p>
+    % endif
+
     % if sbs.needs_discourses_example:
         <b>Discourses:</b>
         <p>${sbs.discourses_example}</p>

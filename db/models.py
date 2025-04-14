@@ -1465,6 +1465,29 @@ class SBS(Base):
                     return False
             return True
         return False
+    
+    @property
+    def needs_class_example(self) -> bool:
+        if self.class_example:
+            examples = [
+                self.sbs_example_1,
+                self.sbs_example_2,
+                self.sbs_example_3,
+                self.sbs_example_4,
+                self.dhp_example,
+                self.pat_example,
+                self.vib_example,
+                self.discourses_example,
+            ]
+            if not any(examples):
+                return True
+            for example in examples:
+                if example and paragraphs_are_similar(
+                    clean_machine(example), clean_machine(self.class_example), 0.9
+                ):
+                    return False
+            return True
+        return False
 
     @property
     def needs_discourses_example(self) -> bool:

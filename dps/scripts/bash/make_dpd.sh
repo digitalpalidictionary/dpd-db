@@ -7,7 +7,17 @@ set -e
 python -c "from tools.configger import config_update; config_update('exporter', 'language', 'en')"
 python -c "from tools.configger import print_config_settings; print_config_settings(['dictionary', 'goldendict', 'exporter'])"
 
-scripts/bash/generate_components.sh
+while true; do
+    echo -ne "\033[1;36m generate_components?\033[0m"
+    read yn
+    case $yn in
+        [Yy]* )
+            scripts/bash/generate_components.sh
+            break;;
+        * )
+            break;;
+    esac
+done
 
 dps/scripts/change_in_db/change_ebt_count.py
 

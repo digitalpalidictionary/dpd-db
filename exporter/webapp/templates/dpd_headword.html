@@ -600,6 +600,21 @@
             {{d.i.sbs.vib_sutta|safe}}
         </p>
         {% endif %}
+        {% if d.i.sbs.needs_class_example %}
+        <b>Pāli Class:</b>
+        <p>
+            {{d.i.sbs.class_example|safe}}
+        </p>
+        <p class="sutta">
+            {% if d.make_link and d.i.sbs.class_source_link %}
+            <a class="sutta_link" href="{{d.i.sbs.class_source_link}}" target="_blank">
+                {{d.i.sbs.class_source}}</a>
+            {% else %}
+            {{d.i.sbs.class_source}}
+            {% endif %}
+            {{d.i.sbs.class_sutta|safe}}
+        </p>
+        {% endif %}
         {% if d.i.sbs.needs_discourses_example %}
         <b>Discourses:</b>
         <p>
