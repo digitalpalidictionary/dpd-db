@@ -1,230 +1,21 @@
-from collections import defaultdict
-from dataclasses import dataclass
 from json import dump, dumps, load, loads
 from pathlib import Path
-import subprocess
+from gui2.pass1_preprocess_books import BookSource, pass1_books, Segment
 
-from rich import print
-
-import db.inflections.generate_inflection_tables
-from tools.clean_machine import clean_machine
 from tools.goldendict_tools import open_in_goldendict_os
-from tools.pali_alphabet import pali_alphabet
-from tools.sort_naturally import natural_sort
 from tools.deepseek import Deepseek
 from gui2.database import DatabaseManager
 
 
-import flet as ft
-
-
-class Pass1PreProcessView(ft.Column):
-    def __init__(self, page: ft.Page) -> None:
-        super().__init__(
-            scroll=ft.ScrollMode.AUTO,
-            expand=True,
-            controls=[],
-            spacing=5,
-        )
-        self.page: ft.Page = page
-        self.controller = Pass1PreProcessController(self)
-
-        # Define constants
-        LABEL_WIDTH: int = 150
-        COLUMN_WIDTH: int = 700
-
-        # Define controls
-        self.message_field = ft.Text(
-            "",
-            expand=True,
-            color=ft.Colors.BLUE_200,
-        )
-        self.book_field = ft.TextField(
-            "",
-            width=300,
-            autofocus=True,
-            on_submit=self.handle_book_click,
-        )
-        self.preprocessed_count_field = ft.TextField(
-            "",
-            expand=True,
-        )
-        self.word_in_text_field = ft.TextField(
-            "",
-            width=COLUMN_WIDTH,
-            expand=True,
-        )
-        self.ai_results_field = ft.TextField(
-            "",
-            width=COLUMN_WIDTH,
-            multiline=True,
-            expand=True,
-        )
-
-        self.controls.extend(
-            [
-                ft.Row(
-                    controls=[
-                        ft.Text("", width=LABEL_WIDTH),
-                        self.message_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text("book", width=LABEL_WIDTH),
-                        self.book_field,
-                        ft.ElevatedButton(
-                            "PreProcess Book",
-                            on_click=self.handle_book_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Stop",
-                            on_click=self.handle_stop_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Clear",
-                            on_click=self.handle_clear_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Update inflections",
-                            on_click=self.handle_update_inflections_click,
-                        ),
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text("preprocessed", width=LABEL_WIDTH),
-                        self.preprocessed_count_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text("word in text", width=LABEL_WIDTH),
-                        self.word_in_text_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text("ai results", width=LABEL_WIDTH),
-                        self.ai_results_field,
-                    ]
-                ),
-            ]
-        )
-
-    def handle_book_click(self, e):
-        if self.book_field.value:
-            self.controller.preprocess_book(self.book_field.value)
-
-    def handle_stop_click(self, e):
-        self.controller.stop_flag = True
-
-    def handle_clear_click(self, e):
-        self.clear_all_fields()
-
-    def handle_update_inflections_click(self, e):
-        self.update_message("updating inflections...")
-        db.inflections.generate_inflection_tables.main()
-        self.update_message("inflections updated")
-
-    def update_message(self, message: str):
-        self.message_field.value = message
-        self.page.update()
-
-    def update_ai_results(self, results: str):
-        self.ai_results_field.value = results
-        self.page.update()
-
-    def update_word_in_text(self, word: str):
-        self.word_in_text_field.value = word
-        self.page.update()
-
-    def update_preprocessed_count(self, count: int):
-        self.preprocessed_count_field.value = str(count)
-        self.page.update()
-
-    def clear_all_fields(self):
-        self.message_field.value = ""
-        self.preprocessed_count_field.value = ""
-        self.book_field.value = ""
-        self.ai_results_field.value = ""
-        self.word_in_text_field.value = ""
-        self.page.update()
-
-
-@dataclass
-class Segment:
-    segment: str
-    pali: str
-    english: str
-
-
-class BookSource:
-    def __init__(self, book: str, pali_path: str, english_path: str) -> None:
-        self.book: str = book
-        self.pali_path: Path = Path(pali_path)
-        self.english_path: Path = Path(english_path)
-
-        self.pali_file_list: list[Path] = self.make_file_list(self.pali_path)
-        self.english_file_list: list[Path] = self.make_file_list(self.english_path)
-
-        self.segment_dict: dict[str, Segment] = {}
-        self.make_segment_dict()
-
-        self.word_dict: defaultdict[str, list[Segment]] = defaultdict(list)
-        self.allowable_chars: list[str] = pali_alphabet + [" "]
-        self.process_words()
-
-        # print(self.word_dict["virāgo"])
-
-    def make_file_list(self, folder: Path) -> list[Path]:
-        return natural_sort([f for f in folder.iterdir() if f.is_file()])
-
-    def make_segment_dict(self) -> None:
-        for file_path in self.pali_file_list:
-            data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
-            for segment, sentence in data.items():
-                self.segment_dict[segment] = Segment(segment, sentence, "")
-
-        for file_path in self.english_file_list:
-            data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
-            for segment, sentence in data.items():
-                if segment in self.segment_dict:
-                    self.segment_dict[segment].english = sentence
-                else:
-                    # sometimes only english exists
-                    self.segment_dict[segment] = Segment(segment, "", sentence)
-
-    def process_words(self) -> None:
-        for segment in self.segment_dict.values():
-            pali: str = clean_machine(segment.pali)
-            for word in pali.split():
-                self.word_dict[word].append(segment)
-
-
-pass1_books: dict[str, BookSource] = {
-    "vin3": BookSource(
-        "vin3",
-        "resources/sc-data/sc_bilara_data/root/pli/ms/vinaya/pli-tv-kd",
-        "resources/sc-data/sc_bilara_data/translation/en/brahmali/vinaya/pli-tv-kd",
-    ),
-    "dn": BookSource(
-        "dn",
-        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/dn",
-        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/dn",
-    ),
-    "ja": BookSource(
-        "ja",
-        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
-        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
-    ),
-}
-
-
 class Pass1PreProcessController:
-    def __init__(self, ui: Pass1PreProcessView) -> None:
+    def __init__(self, ui) -> None:
+        from gui2.pass1_preprocess_view import Pass1PreProcessView
+
         self.ui: Pass1PreProcessView = ui
+
         self.pass1_books: dict[str, BookSource] = pass1_books
+        self.pass1_books_list = [k for k in self.pass1_books]
+
         self.db: DatabaseManager = DatabaseManager()
         self.pass1_dict: dict[str, list[Segment]] = {}
         self.book: str
@@ -253,9 +44,13 @@ class Pass1PreProcessController:
         else:
             self.preprocessed_dict = {}
 
-        self.ui.update_preprocessed_count(len(self.preprocessed_dict))
+        self.ui.update_preprocessed_count(
+            f"{len(self.preprocessed_dict)} / {len(self.pass1_dict)}"
+        )
 
     def preprocess_book(self, book: str):
+        self.stop_flag = False
+
         # should only run once
         if not self.db.all_inflections:
             self.ui.update_message("Loading database...")
@@ -315,7 +110,7 @@ You are an expert in Pāḷi grammar.
 Based on the information above, please provide your very best suggestion of the word's:
 
 1. lemma_1
-2. lemma_1
+2. lemma_2
 3. pos
 4. grammar
 5. meaning_2
@@ -335,12 +130,13 @@ Based on the information above, please provide your very best suggestion of the 
 - Declined nouns, adjectives and participles in vocative singular, e.g. narena = `nara`
 - Sandhi compounds should be left example as they are, and pos marked as sandhi e.g. `chahaṅgehi`
 
-## pos field
-- For adverbs, and all indecliables, the pos is `ind`. The grammar is `ind, adv`.
-
 ## lemma_2 field
 - For verbs, participles, adjectives, adverbs, etc. it is the same as lemma_1
 - For nouns, it is the nominitve singular, e.g. buddha = `buddho`
+
+## pos field
+- For adverbs, and all indecliables, the pos is `ind`. The grammar is `ind, adv`.
+- In general, words ending in `ādi` are `masc`. 
 
 ## grammar field
 - If the word is a compound, include part of speech, comma, comp e.g. dhammavinaya = `masc, comp`
@@ -394,9 +190,10 @@ Based on the information above, please provide your very best suggestion of the 
         ds = Deepseek()
         try:
             return ds.request(
-                model="deepseek-chat",
+                # model="deepseek-chat",
+                mdoel="deepseek-chat",
                 prompt=self.prompt,
-                prompt_sys="What an amazing Pāḷi grammar expert!",
+                prompt_sys="Follow the instructions very carefully.",
             )
         except Exception as e:
             return e
@@ -431,7 +228,9 @@ Based on the information above, please provide your very best suggestion of the 
             # update gui
             open_in_goldendict_os(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
-            self.ui.update_preprocessed_count(len(self.preprocessed_dict))
+            self.ui.update_preprocessed_count(
+                f"{len(self.preprocessed_dict)} / {len(self.pass1_dict)}"
+            )
             self.ui.update_ai_results(
                 dumps(
                     self.preprocessed_dict[self.word_in_text],

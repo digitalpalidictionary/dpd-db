@@ -167,7 +167,7 @@ if __name__ == "__main__":
     print(ds.get_models())
 
     response = ds.request(
-        model="deepseek-reasoner",
+        model="deepseek-chat",
         prompt="Hi.",
         prompt_sys="You are a helpful assistant.",
     )

@@ -64,7 +64,7 @@ class DatabaseManager:
         try:
             self.db_session.add(new_word)
             self.db_session.commit()
-            return True
+            return (True, "")
 
-        except Exception:
-            return False
+        except Exception as e:
+            return (False, e)

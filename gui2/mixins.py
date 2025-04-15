@@ -24,14 +24,24 @@ class SandhiOK:
 
 class PopUpMixin:
     def __init__(self):
-        self._popup_textfield = ft.TextField(label="Enter value", autofocus=True)
+        self._popup_textfield = ft.TextField(
+            label="Enter value",
+            autofocus=True,
+            width=1000,
+        )
         self._dialog = ft.AlertDialog(
             modal=True,
             title=ft.Text("Input Required"),
             content=self._popup_textfield,
             actions=[
-                ft.TextButton("Cancel", on_click=self._handle_popup_close),
-                ft.TextButton("OK", on_click=self._handle_popup_ok),
+                ft.TextButton(
+                    "Cancel",
+                    on_click=self._handle_popup_close,
+                ),
+                ft.TextButton(
+                    "OK",
+                    on_click=self._handle_popup_ok,
+                ),
             ],
             actions_alignment=ft.MainAxisAlignment.END,
         )
