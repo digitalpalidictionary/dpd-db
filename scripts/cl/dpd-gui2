@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/Code/dpd-db
+uv run flet run -d gui2/main.py
