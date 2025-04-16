@@ -1,55 +1,72 @@
 import flet as ft
-
-from gui2.pass1 import Pass1View
-from gui2.pass1_preprocess_view import Pass1PreProcessView
+from gui2.class_database import DatabaseManager
 
 
 class App:
     def __init__(self, page: ft.Page):
+        from gui2.tab_edit_view import EditView
+        from gui2.tab_pass1_view import Pass1View
+        from gui2.tab_pass1preprocess_view import Pass1PreProcessView
+
         self.page = page
+
         if page.theme is None:
             page.theme = ft.Theme()
         page.theme.font_family = "Inter"
         self.page.window.top = 0
         self.page.window.left = 0
         self.page.window.height = 1280
-        self.page.window.width = 1350
+        self.page.window.width = 1380
         self.page.title = "dpd-db gui"
         self.page.vertical_alignment = ft.MainAxisAlignment.START
-        self.build_ui()
         self.page.on_keyboard_event = self.on_keyboard
+
+        # initilize classes
+        self.db = DatabaseManager()
+        self.pass1_preprocess_view: Pass1PreProcessView = Pass1PreProcessView(
+            self.page, self.db
+        )
+        self.pass1_view: Pass1View = Pass1View(self.page, self.db)
+        self.pass2_view_placeholder: ft.Text = ft.Text("")
+        self.edit_view: EditView = EditView(self.page, self.db)
+
+        self.build_ui()
 
     def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
             self.page.window.close()
 
+    def tab_clicked(self, e: ft.ControlEvent) -> None:
+        """Handles tab clicks."""
+
+        # load pass_1 database
+        if self.db.all_lemma_1 is None:
+            self.db.initialize_db()
+
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
-        pass1_preprocess_view: Pass1PreProcessView = Pass1PreProcessView(self.page)
-        pass1_view: Pass1View = Pass1View(self.page)
-        pass2_view_placeholder: ft.Text = ft.Text("Pass2 View - Not Implemented")
-        edit_view_placeholder: ft.Text = ft.Text("Edit View - Not Implemented")
 
         tabs: ft.Tabs = ft.Tabs(
             selected_index=0,
             animation_duration=300,
+            on_click=self.tab_clicked,
             tabs=[
                 ft.Tab(
                     text="Pass1 PreProcess",
-                    content=pass1_preprocess_view,
+                    content=self.pass1_preprocess_view,
                 ),
                 ft.Tab(
                     text="Pass1",
-                    content=pass1_view,
+                    content=self.pass1_view,
                 ),
                 ft.Tab(
                     text="Pass2",
-                    content=pass2_view_placeholder,
+                    content=self.pass2_view_placeholder,
                 ),
                 ft.Tab(
                     text="Edit",
-                    content=edit_view_placeholder,
+                    content=self.edit_view,
                 ),
             ],
             expand=True,

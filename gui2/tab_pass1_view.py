@@ -1,33 +1,32 @@
-from json import dump, load
-from pathlib import Path
 import flet as ft
-from db.models import DpdHeadword
-from gui2.database import DatabaseManager
-from gui2.mixins import PopUpMixin, SandhiOK
-from gui2.pass1_preprocess_books import pass1_books
-from tools.goldendict_tools import open_in_goldendict_os
+from gui2.class_database import DatabaseManager
+from gui2.class_mixins import PopUpMixin
+from gui2.class_dpd_fields import DpdFields
 from rich import print
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
-LABEL_COLOUR = ft.colors.GREY_500
+LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
 class Pass1View(ft.Column, PopUpMixin):
-    def __init__(self, page: ft.Page) -> None:
+    def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
+        # Main column: expands, does NOT scroll
         super().__init__(
-            scroll=ft.ScrollMode.AUTO,
             expand=True,
             controls=[],
             spacing=5,
         )
+        from gui2.tab_pass1_controller import Pass1Controller
+
         PopUpMixin.__init__(self)
         self.page: ft.Page = page
-        self.controller = Pass1Controller(self)
+        self.db: DatabaseManager = db
+        self.controller = Pass1Controller(self, db)
         self.pass1_fields = {}
 
-        # controls
+        # --- Top Section Controls ---
         self.message_field = ft.Text("", color=HIGHLIGHT_COLOUR, selectable=True)
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)
@@ -40,17 +39,17 @@ class Pass1View(ft.Column, PopUpMixin):
             text_size=14,
             border_color=HIGHLIGHT_COLOUR,
         )
-
         self.word_in_text = ft.TextField(
             value="",
             width=LABEL_WIDTH,
             color=HIGHLIGHT_COLOUR,
             expand=True,
         )
-        self.pass1_fields["word_in_text"] = self.word_in_text
+        self.pass1_fields = {}  # Will be replaced after DpdFields init
 
-        self.controls.extend(
-            [
+        # Create the top section Column
+        self.top_section = ft.Column(
+            controls=[
                 ft.Row(
                     controls=[
                         ft.Text("", width=LABEL_WIDTH),
@@ -74,10 +73,20 @@ class Pass1View(ft.Column, PopUpMixin):
                         self.word_in_text,
                     ],
                 ),
-            ]
+            ],
+            spacing=5,
         )
 
-        field_names = [
+        # Initialize DpdFields and configure middle section
+        self.dpd_fields = DpdFields(self, db)
+        self.middle_section = ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            expand=True,
+            controls=[],
+            spacing=5,
+        )
+
+        visible_fields = [
             "lemma_1",
             "lemma_2",
             "pos",
@@ -97,24 +106,26 @@ class Pass1View(ft.Column, PopUpMixin):
             "translation_2",
             "comments",
         ]
+        self.dpd_fields.add_to_ui(self.middle_section, visible_fields=visible_fields)
 
-        for name in field_names:
-            label_text = ft.Text(value=name, width=LABEL_WIDTH, color=LABEL_COLOUR)
+        # Replace pass1_fields with DpdFields' fields dict
+        self.pass1_fields = self.dpd_fields.fields
+        self.pass1_fields["word_in_text"] = self.word_in_text
 
-            text_field = ft.TextField(width=700, expand=True, multiline=True)
-            self.pass1_fields[name] = text_field
+        # Map field handlers to DpdFields methods
+        self.field_handlers = {
+            "lemma_1": {"on_change": self.dpd_fields.lemma_1_change},
+            "lemma_2": {"on_submit": self.dpd_fields.lemma_2_submit},
+            "grammar": {"on_submit": self.dpd_fields.grammar_submit},
+            "meaning_2": {"on_submit": self.dpd_fields.meaning_2_submit},
+            "stem": {"on_submit": self.dpd_fields.stem_submit},
+        }
 
-            row = ft.Row(
-                controls=[label_text, text_field],
-                alignment=ft.MainAxisAlignment.START,
-            )
-
-            self.controls.append(row)
-
-        self.controls.append(
-            ft.Row(
+        self.bottom_section = ft.Container(
+            height=50,
+            content=ft.Row(
                 [
-                    ft.Text("", width=LABEL_WIDTH),
+                    ft.Text("", width=LABEL_WIDTH),  # Spacer
                     ft.ElevatedButton(
                         "Add to DB",
                         on_click=self.handle_add_to_db_click,
@@ -126,18 +137,25 @@ class Pass1View(ft.Column, PopUpMixin):
                         width=BUTTON_WIDTH,
                     ),
                     ft.ElevatedButton(
-                        "Pass",
-                        on_click=self.handle_pass_click,
-                        width=BUTTON_WIDTH,
+                        "Pass", on_click=self.handle_pass_click, width=BUTTON_WIDTH
                     ),
                     ft.ElevatedButton(
-                        "Delete",
-                        on_click=self.handle_delete_click,
-                        width=BUTTON_WIDTH,
+                        "Delete", on_click=self.handle_delete_click, width=BUTTON_WIDTH
                     ),
                 ]
-            )
+            ),
+            padding=ft.padding.all(10),
         )
+
+        # --- Set Main View Controls ---
+        self.controls = [
+            self.top_section,
+            self.middle_section,
+            self.bottom_section,
+        ]
+
+    def load_database(self):
+        self.controller.db.make_inflections_lists()
 
     def update_message(self, message: str):
         self.message_field.value = message
@@ -149,7 +167,6 @@ class Pass1View(ft.Column, PopUpMixin):
 
     def handle_add_to_db_click(self, e):
         self.controller.make_dpdheadword_and_add_to_db()
-        self.update_message(f"{self.word_in_text.value} added to db")
 
     def handle_sandhi_ok_click(self, e):
         current_word = self.word_in_text.value
@@ -160,7 +177,7 @@ class Pass1View(ft.Column, PopUpMixin):
         self.show_popup(
             page=self.page,
             prompt_message="Enter construction",
-            initial_value=self.word_in_text.value,
+            initial_value=self.word_in_text.value or "",
             on_submit=self.process_sandhi_popup_result,
         )
 
@@ -182,7 +199,7 @@ class Pass1View(ft.Column, PopUpMixin):
     def clear_all_fields(self):
         for field in self.pass1_fields.values():
             field.value = ""
-            field.update()
+            field.error_text = None
         self.page.update()
 
     def process_sandhi_popup_result(self, breakup_value):
@@ -197,92 +214,3 @@ class Pass1View(ft.Column, PopUpMixin):
             self.update_message(f"Sandhi added for {self.word_in_text.value}")
         else:
             self.update_message("Sandhi input cancelled.")
-
-
-class Pass1Controller(SandhiOK):
-    def __init__(self, ui: Pass1View) -> None:
-        self.ui: Pass1View = ui
-        self.db = DatabaseManager()
-
-        self.pass1_books = pass1_books
-        self.pass1_books_list = [k for k in self.pass1_books]
-        self.book_to_process: str
-
-        self.preprocessed_filepath: Path
-        self.preprocessed_dict: dict[str, dict[str, str]]
-        self.preprocessed_iter = iter([])
-
-        self.word_in_text: str
-        self.sentence_data: dict[str, str]
-
-    def process_book(self, book: str):
-        self.book_to_process = book
-        self.load_json()
-        self.get_next_item()
-        self.load_into_gui()
-
-    def load_json(self):
-        self.preprocessed_filepath = Path(
-            f"gui2/data/{self.book_to_process}_preprocessed.json"
-        )
-        try:
-            self.preprocessed_dict = load(
-                self.preprocessed_filepath.open("r", encoding="utf-8")
-            )
-            # dict will change size, so work on a zopy
-            self.preprocessed_dict_copy = self.preprocessed_dict.copy()
-            self.preprocessed_iter = iter(self.preprocessed_dict_copy.items())
-        except FileNotFoundError:
-            self.ui.update_message("file not found.")
-
-    def get_next_item(self):
-        try:
-            self.word_in_text, self.sentence_data = next(self.preprocessed_iter)
-            print(self.word_in_text)
-            print(self.sentence_data)
-            return True
-        except StopIteration:
-            self.ui.update_message("No more words to process.")
-            self.ui.clear_all_fields()
-            return False
-
-    def load_into_gui(self):
-        open_in_goldendict_os(self.word_in_text)
-        self.ui.pass1_fields["word_in_text"].value = self.word_in_text
-        self.ui.pass1_fields["word_in_text"].update()
-
-        for field, data in self.sentence_data.items():
-            self.ui.pass1_fields[field].value = data
-            self.ui.pass1_fields[field].update()
-
-        self.ui.page.update()
-
-    def make_dpdheadword_and_add_to_db(self):
-        new_word = DpdHeadword()
-        for field, value in self.ui.pass1_fields.items():
-            if hasattr(new_word, field):
-                setattr(new_word, field, value.value)
-        committed, message = self.db.add_word_to_db(new_word)
-        if committed:
-            self.remove_word_and_save_json()
-            self.ui.clear_all_fields()
-
-            self.get_next_item()
-            self.load_into_gui()
-            self.ui.update_message(
-                f"{self.ui.pass1_fields['lemma_1'].value} added to db"
-            )
-        else:
-            self.ui.update_message(
-                f"""commit failed for{self.ui.pass1_fields["lemma_1"].value}\n{message}"""
-            )
-
-    def remove_word_and_save_json(self):
-        del self.preprocessed_dict[self.word_in_text]
-        dump(
-            self.preprocessed_dict,
-            self.preprocessed_filepath.open("w"),
-            ensure_ascii=False,
-            indent=2,
-        )
-        self.ui.update_message(f"{self.word_in_text} deleted")

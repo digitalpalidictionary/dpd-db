@@ -31,8 +31,14 @@ class PopUpMixin:
         )
         self._dialog = ft.AlertDialog(
             modal=True,
-            title=ft.Text("Input Required"),
-            content=self._popup_textfield,
+            title=ft.Text("What's the construction?"),
+            content=ft.Container(
+                content=ft.Column(
+                    [self._popup_textfield],
+                ),
+                width=500,
+                height=100,
+            ),
             actions=[
                 ft.TextButton(
                     "Cancel",

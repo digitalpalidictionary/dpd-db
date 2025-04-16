@@ -1,11 +1,12 @@
 import flet as ft
 
 import db.inflections.generate_inflection_tables
-from gui2.pass1_preprocess_controller import Pass1PreProcessController
+from gui2.class_database import DatabaseManager
+from gui2.tab_pass1preprocess_controller import Pass1PreProcessController
 
 
 class Pass1PreProcessView(ft.Column):
-    def __init__(self, page: ft.Page) -> None:
+    def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
         super().__init__(
             scroll=ft.ScrollMode.AUTO,
             expand=True,
@@ -13,7 +14,7 @@ class Pass1PreProcessView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = Pass1PreProcessController(self)
+        self.controller = Pass1PreProcessController(self, db)
 
         # Define constants
         LABEL_WIDTH: int = 150

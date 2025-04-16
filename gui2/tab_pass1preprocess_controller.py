@@ -1,22 +1,22 @@
 from json import dump, dumps, load, loads
 from pathlib import Path
-from gui2.pass1_preprocess_books import BookSource, pass1_books, Segment
+from gui2.class_books import BookSource, pass1_books, Segment
 
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.deepseek import Deepseek
-from gui2.database import DatabaseManager
+from gui2.class_database import DatabaseManager
 
 
 class Pass1PreProcessController:
-    def __init__(self, ui) -> None:
-        from gui2.pass1_preprocess_view import Pass1PreProcessView
+    def __init__(self, ui, db: DatabaseManager) -> None:
+        from gui2.tab_pass1preprocess_view import Pass1PreProcessView
 
         self.ui: Pass1PreProcessView = ui
 
         self.pass1_books: dict[str, BookSource] = pass1_books
         self.pass1_books_list = [k for k in self.pass1_books]
 
-        self.db: DatabaseManager = DatabaseManager()
+        self.db: DatabaseManager = db
         self.pass1_dict: dict[str, list[Segment]] = {}
         self.book: str
         self.word_in_text: str

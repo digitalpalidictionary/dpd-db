@@ -1,7 +1,8 @@
 from sqlalchemy.orm.session import Session
+from sqlalchemy import func
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, Lookup
+from db.models import DpdHeadword, DpdRoot, Lookup
 from tools.paths import ProjectPaths
 
 
@@ -13,6 +14,25 @@ class DatabaseManager:
         self.all_inflections: set[str] = set()
         self.all_inflections_missing_meaning: set[str] = set()
         self.sandhi_ok_list: list[str] = self.pth.decon_checked.read_text().splitlines()
+        self.all_lemma_1: list[str] | None = None
+        self.all_roots: list[str] = self.get_all_roots()
+
+    def get_all_roots(self) -> list[str]:
+        roots = self.db_session.query(DpdRoot.root).all()
+        return [root[0] for root in roots]
+
+    def initialize_db(self):
+        self.get_all_lemma_1()
+        self.get_all_pos()
+
+    def get_all_lemma_1(self):
+        lemmas = self.db_session.query(DpdHeadword.lemma_1).all()
+        self.all_lemma_1 = [lemma[0] for lemma in lemmas]
+
+    def get_all_pos(self):
+        first_word = self.db_session.query(DpdHeadword).first()
+        if first_word:
+            self.all_pos = first_word.pos_list
 
     def make_inflections_lists(self) -> None:
         """Load data from the database."""
@@ -67,4 +87,9 @@ class DatabaseManager:
             return (True, "")
 
         except Exception as e:
+            print(e)
             return (False, e)
+
+    def get_next_id(self) -> int:
+        last_id: int = self.db_session.query(func.max(DpdHeadword.id)).scalar() or 0
+        return last_id + 1
