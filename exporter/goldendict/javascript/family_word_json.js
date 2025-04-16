@@ -8087,8 +8087,8 @@ var family_word_json = {
    [
     "adhika 3",
     "adj",
-    "superior",
-    "✘"
+    "superior; in charge; in primary place",
+    "✔"
    ],
    [
     "adhika 4",
