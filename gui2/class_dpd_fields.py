@@ -1,6 +1,6 @@
 import flet as ft
 from gui2.class_database import DatabaseManager
-from tools.dpd_fields import find_stem_pattern, lemma_clean
+from tools.dpd_fields import find_stem_pattern, lemma_clean, root_clean
 from tools.pos import NOUNS, PARTICIPLES, POS, VERBS
 from tools.spelling import CustomSpellChecker
 
@@ -40,6 +40,8 @@ class DpdTextField(ft.TextField):
             on_change=on_change,
             on_submit=on_submit,
             on_blur=on_blur,
+            max_lines=6,
+            min_lines=1,
         )
 
 
@@ -48,6 +50,8 @@ class DpdDropdown(ft.Dropdown):
         self,
         options=None,
         on_change=None,
+        on_submit=None,
+        on_blur=None,
     ):
         if not options:
             raise ValueError("Options must be provided for DpdDropdown")
@@ -56,6 +60,7 @@ class DpdDropdown(ft.Dropdown):
             expand=True,
             options=[ft.dropdown.Option(o) for o in options],
             on_change=on_change,
+            on_blur=on_blur,
             editable=True,
             enable_filter=True,
         )
@@ -95,12 +100,17 @@ class DpdFields:
             ),
             FieldConfig("non_ia"),
             FieldConfig("sanskrit"),
-            FieldConfig("root_key", field_type="dropdown", options=self.db.all_roots),
+            FieldConfig(
+                "root_key",
+                field_type="dropdown",
+                options=self.db.all_roots,
+                on_blur=self.root_key_blur,
+            ),
             FieldConfig("root_sign"),
-            FieldConfig("root_base"),
-            FieldConfig("family_root"),
+            FieldConfig("root_base", on_submit=self.root_base_submit),
+            FieldConfig("family_root", on_blur=self.family_root_blur),
             FieldConfig("family_word"),
-            FieldConfig("family_compound"),
+            FieldConfig("family_compound", on_blur=self.family_compound_blur),
             FieldConfig("family_idioms"),
             FieldConfig("family_set"),
             FieldConfig("construction", multiline=True),
@@ -144,7 +154,9 @@ class DpdFields:
                 )
             elif config.field_type == "dropdown":
                 self.fields[config.name] = DpdDropdown(
-                    options=config.options, on_change=config.on_change
+                    options=config.options,
+                    on_change=config.on_change,
+                    on_blur=config.on_blur,
                 )
             else:
                 raise ValueError(f"Unsupported field type: {config.field_type}")
@@ -176,6 +188,8 @@ class DpdFields:
         self.ui.page.update()
         field.focus()
 
+    # automations
+
     def lemma_1_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
         if value in self.db.all_lemma_1:
@@ -201,7 +215,7 @@ class DpdFields:
         if pos in VERBS or pos in PARTICIPLES:
             field.value = f"{pos} of "
         elif pos in NOUNS:
-            field.value = f"{pos}, from "
+            field.value = f"{pos}, "
         else:
             field.value = f"{pos}, "
         self.ui.page.update()
@@ -223,6 +237,61 @@ class DpdFields:
         self.ui.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
+
+    def root_key_blur(self, e: ft.ControlEvent):
+        field, value = self.get_field_value(e)
+        # test if root key exists
+        if value:
+            if value not in self.db.all_roots:
+                field.error_text = f"{value} unknown root"
+                field.focus()
+            else:
+                field.error_text = None
+                field.helper_text = self.db.get_root_string(value)
+
+            self.ui.page.update()
+
+    def root_base_submit(self, e: ft.ControlEvent):
+        field, value = self.get_field_value(e)
+
+        # show all possible bases
+        root_key = self.get_field("root_key").value
+        if root_key:
+            bases = self.db.get_root_base_values(root_key)
+            value = ", ".join(bases)
+            field.value = value
+            self.ui.page.update()
+
+    def family_root_blur(self, e: ft.ControlEvent):
+        field, value = self.get_field_value(e)
+
+        # test root in root family
+        if value:
+            root_key_clean = root_clean(self.get_field("root_key").value)
+            if root_key_clean not in value:
+                field.error_text = "root_key and family_root dont's match"
+                field.focus()
+
+            # test root_family exists
+            elif value not in self.db.all_root_families:
+                field.error_text = f"{value} unknown root family"
+            else:
+                field.error_text = None
+            self.ui.page.update()
+
+    def family_compound_blur(self, e: ft.ControlEvent):
+        field, value = self.get_field_value(e)
+
+        # test family compounds exist
+        if value:
+            error_list = [
+                c for c in value.split() if c not in self.db.all_compound_families
+            ]
+            if error_list:
+                field.error_text = f"not in family_compounds: {', '.join(error_list)} "
+            else:
+                field.error_text = None
+            self.ui.page.update()
 
     def stem_submit(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)

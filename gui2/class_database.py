@@ -2,28 +2,45 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy import func
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, DpdRoot, Lookup
+from db.models import DpdHeadword, DpdRoot, FamilyCompound, FamilyRoot, Lookup
 from tools.paths import ProjectPaths
 
 
 class DatabaseManager:
     def __init__(self) -> None:
         self.pth: ProjectPaths = ProjectPaths()
-        self.db_session: Session = get_db_session(self.pth.dpd_db_path)
+
+        self.db_session: Session
+        self.new_db_session()
+
         self.db: list[DpdHeadword]
         self.all_inflections: set[str] = set()
         self.all_inflections_missing_meaning: set[str] = set()
         self.sandhi_ok_list: list[str] = self.pth.decon_checked.read_text().splitlines()
-        self.all_lemma_1: list[str] | None = None
+
+        # need this for dropdown options
         self.all_roots: list[str] = self.get_all_roots()
+
+        # only need thse later
+        self.all_lemma_1: list[str] | None = None
+        self.all_pos: list[str] | None = None
+        self.all_compound_families: list[str] | None = None
+        self.all_root_families: list[str] | None = None
+
+    def new_db_session(self):
+        self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
     def get_all_roots(self) -> list[str]:
         roots = self.db_session.query(DpdRoot.root).all()
         return [root[0] for root in roots]
 
+    # initialize db
+
     def initialize_db(self):
         self.get_all_lemma_1()
         self.get_all_pos()
+        self.get_all_root_families()
+        self.get_all_compound_families()
 
     def get_all_lemma_1(self):
         lemmas = self.db_session.query(DpdHeadword.lemma_1).all()
@@ -33,6 +50,18 @@ class DatabaseManager:
         first_word = self.db_session.query(DpdHeadword).first()
         if first_word:
             self.all_pos = first_word.pos_list
+
+    def get_all_root_families(self):
+        root_families = self.db_session.query(FamilyRoot.root_family).all()
+        self.all_root_families = [root_family[0] for root_family in root_families]
+
+    def get_all_compound_families(self):
+        compound_families = self.db_session.query(FamilyCompound.compound_family).all()
+        self.all_compound_families = [
+            comp_family[0] for comp_family in compound_families
+        ]
+
+    # --------------------------
 
     def make_inflections_lists(self) -> None:
         """Load data from the database."""
@@ -93,3 +122,22 @@ class DatabaseManager:
     def get_next_id(self) -> int:
         last_id: int = self.db_session.query(func.max(DpdHeadword.id)).scalar() or 0
         return last_id + 1
+
+    def get_root_string(self, root_key: str) -> str:
+        root = self.db_session.query(DpdRoot).filter(DpdRoot.root == root_key).first()
+        if root:
+            return (
+                f"{root.root} {root.root_group} {root.root_sign} ({root.root_meaning})"
+            )
+        else:
+            return "something is wrong"
+
+    def get_root_base_values(self, root_key):
+        results = (
+            self.db_session.query(DpdHeadword.root_base)
+            .filter(DpdHeadword.root_key == root_key)
+            .group_by(DpdHeadword.root_base)
+            .all()
+        )
+        root_base_values = sorted([v[0] for v in results if v[0] != ""])
+        return root_base_values

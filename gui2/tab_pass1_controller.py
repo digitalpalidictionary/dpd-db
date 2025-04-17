@@ -3,8 +3,9 @@ from pathlib import Path
 import flet as ft
 import pyperclip
 from db.models import DpdHeadword
+from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
-from gui2.class_mixins import SandhiOK
+from gui2.class_mixins import SandhiOK, SnackBarMixin
 
 from gui2.class_books import pass1_books
 from tools.goldendict_tools import open_in_goldendict_os
@@ -16,12 +17,14 @@ LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
-class Pass1Controller(SandhiOK):
+class Pass1Controller(SandhiOK, SnackBarMixin):
     from gui2.tab_pass1_view import Pass1View
 
     def __init__(self, ui: Pass1View, db: DatabaseManager) -> None:
         self.ui = ui
         self.db = db
+
+        self.daily_log = DailyLog()
 
         self.pass1_books = pass1_books
         self.pass1_books_list = [k for k in self.pass1_books]
@@ -77,7 +80,6 @@ class Pass1Controller(SandhiOK):
         for field, data in self.sentence_data.items():
             if field in self.ui.dpd_fields.fields:
                 self.ui.dpd_fields.fields[field].value = data
-                self.ui.dpd_fields.fields[field].update()
 
         self.ui.page.update()
 
@@ -92,6 +94,8 @@ class Pass1Controller(SandhiOK):
 
         committed, message = self.db.add_word_to_db(new_word)
         if committed:
+            mesage = self.daily_log.increment("pass1")
+            self.show_snackbar(self.ui.page, mesage)
             self.remove_word_and_save_json()
             self.ui.clear_all_fields()
 

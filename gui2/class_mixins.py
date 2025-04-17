@@ -7,7 +7,7 @@ class SandhiOK:
 
     pth = ProjectPaths()
 
-    def update_sandhi_ok(self, sandhi: str, breakup: str):
+    def update_sandhi_corrections(self, sandhi: str, breakup: str):
         """
         Updates `shared_data/deconstructor/checked.csv`
         and `shared_data/deconstructor/manual_corrections.tsv`
@@ -18,6 +18,13 @@ class SandhiOK:
         """
         with open(self.pth.decon_manual_corrections, "a") as f:
             f.write(f"{sandhi}\t{breakup}\n")
+        with open(self.pth.decon_checked, "a") as f:
+            f.write(f"{sandhi}\n")
+
+    def update_sandhi_checked(self, sandhi: str):
+        """
+        Updates `shared_data/deconstructor/checked.csv`
+        """
         with open(self.pth.decon_checked, "a") as f:
             f.write(f"{sandhi}\n")
 
@@ -86,4 +93,29 @@ class PopUpMixin:
         self._popup_textfield.value = initial_value
         page.add(self._dialog)
         self._dialog.open = True
+        page.update()
+
+
+class SnackBarMixin:
+    """Mixin class to provide a standardized way to show SnackBars."""
+
+    def show_snackbar(
+        self,
+        page: ft.Page,
+        message: str,
+    ):
+        """Displays a SnackBar message at the bottom of the page.
+
+        Args:
+            page: The ft.Page object.
+            message: The text message to display.
+            bgcolor: The background color of the SnackBar (defaults to GREEN).
+            duration: How long the SnackBar stays visible in milliseconds (defaults to 4000).
+        """
+        snackbar = ft.SnackBar(
+            content=ft.Text(message, color=ft.colors.BLACK),
+            bgcolor=ft.colors.BLUE_200,
+            duration=3000,
+        )
+        page.open(snackbar)
         page.update()

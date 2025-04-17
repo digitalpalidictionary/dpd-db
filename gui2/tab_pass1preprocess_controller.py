@@ -190,8 +190,8 @@ Based on the information above, please provide your very best suggestion of the 
         ds = Deepseek()
         try:
             return ds.request(
-                # model="deepseek-chat",
-                mdoel="deepseek-chat",
+                model="deepseek-chat",
+                # mdoel="deepseek-reasoner",
                 prompt=self.prompt,
                 prompt_sys="Follow the instructions very carefully.",
             )

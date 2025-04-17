@@ -7,6 +7,10 @@ def lemma_clean(lemma_1: str):
     return re.sub(r" \d.+", "", lemma_1)
 
 
+def root_clean(root_key: str):
+    return re.sub(r" \d.*", "", root_key)
+
+
 def find_stem_pattern(pos: str, grammar: str, lemma_1: str):
     lemma_1_clean = lemma_clean(lemma_1)
 
