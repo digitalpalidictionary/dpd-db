@@ -638,8 +638,8 @@ var family_word_json = {
    [
     "kasāya 2",
     "nt",
-    "decoration, distillation",
-    "✘"
+    "decoction; extract",
+    "◑"
    ],
    [
     "kasāva 1",

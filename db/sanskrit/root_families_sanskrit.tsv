@@ -150,6 +150,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ikkh	1	a	see, mark	√īkṣ	1	see	pati √ikkh	pratīkṣ	pratīkṣat
 √ikkh	1	a	see, mark	√īkṣ	1	see	pati ava √ikkh	pratyavekṣ	apratyavekṣaṇā, apratyavekṣita, apratyavekṣitvā, prati, pratyavekṣaṇa, pratyavekṣaṇā, pratyavekṣat, pratyavekṣate, pratyavekṣamāṇa, pratyavekṣita, pratyavekṣitavya, pratyavekṣitum, pratyavekṣitvā
 √ikkh	1	a	see, mark	√īkṣ	1	see	pati upa √ikkh	-	na + prati + upekṣaṇa
+√ikkh	1	a	see, mark	√īkṣ	1	see	pati vi √ikkh		
 √ikkh	1	a	see, mark	√īkṣ	1	see	pari √ikkh	parīkṣ	parīkṣaka, parīkṣā, parīkṣita
 √ikkh	1	a	see, mark	√īkṣ	1	see	vi pa √ikkh	viprekṣ	viprekṣamāṇa
 √ikkh	1	a	see, mark	√īkṣ	1	see	saṃ √ikkh	samīkṣ	na + samīkṣya, samīkṣaṇa, samīkṣati, samīkṣita, samīkṣitvā, samīkṣya
@@ -2376,7 +2377,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ruh	1	*e	ascend, grow	√ruh	1	ascend	saṃ √ruh	saṃruh	saṃ + ropin
 √ruh	1	a	ascend, grow	√ruh	1	ascend	saṃ ā √ruh	samāruh	samārūḍha
 √ruh	1	a	ascend, grow	√ruh	1	ascend	saṃ vi √ruh	viruh	saṃ + virūḍha, su + saṃ + virūḍha
-√rūp	8	*e	form, produce	√rūp	10	form	√rūp	rūp	arūpa, arūpin, asarūpa, ārūpya (bsk), dūrūpa, na + arūpin, na + rūpya, na + sārūpya, rūpa, rūpaka, rūpatā, rūpavat, rūpin, rūpya, sarūpa, sārūpya, sārūpyatā, su + rūpin, surūpa, surūpatā
+√rūp	8	*e	form, produce	√rūp	10	form	√rūp	rūp	arūpa, arūpin, asarūpa, ārūpya (bsk), dūrūpa, na + arūpin, na + rūpya, na + sārūpya, rūpa, rūpaka, rūpatā, rūpavat, rūpikā, rūpin, rūpya, sarūpa, sārūpya, sārūpyatā, su + rūpin, surūpa, surūpatā
 √rūp	8	*e	form, produce	√rūp	10	form	anu √rūp	rūp	anurūpa
 √rūp	8	*e	form, produce	√rūp	10	form	abhi √rūp	rūp	abhirūpa, abhirūpa +
 √rūp	8	*e	form, produce	√rūp	10	form	nī √rūp	rūp	

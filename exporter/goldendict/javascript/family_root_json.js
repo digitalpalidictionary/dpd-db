@@ -4731,7 +4731,7 @@ var family_root_json = {
   "root_key": "√gilā",
   "root_family": "√gilā",
   "root_meaning": "be sick, be tired",
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "akilāsu",
@@ -4779,6 +4779,12 @@ var family_root_json = {
     "gilānaka 2",
     "adj",
     "sick, unwell",
+    "✘"
+   ],
+   [
+    "gilāyana",
+    "adj",
+    "being sick; being unwell",
     "✘"
    ],
    [
@@ -6615,7 +6621,7 @@ var family_root_json = {
   "root_key": "√kham",
   "root_family": "√kham",
   "root_meaning": "tolerate, endure",
-  "count": 50,
+  "count": 51,
   "data": [
    [
     "akkhanti",
@@ -6916,6 +6922,12 @@ var family_root_json = {
     "pr",
     "is not acceptable (to); is not suitable (for)",
     "✔"
+   ],
+   [
+    "nakkhamaniya",
+    "ptp",
+    "unbearable; intolerable",
+    "✘"
    ]
   ]
  },
@@ -16437,7 +16449,7 @@ var family_root_json = {
   "root_key": "√chand",
   "root_family": "√chand",
   "root_meaning": "desire, please",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "acchandaka",
@@ -16450,6 +16462,12 @@ var family_root_json = {
     "adj",
     "disinterested; unenthusiastic; lacking impulse; unmotivated",
     "◑"
+   ],
+   [
+    "acchādaka",
+    "nt",
+    "not pleasing; not being agreeable",
+    "✔"
    ],
    [
     "chanda 1",
@@ -81445,7 +81463,7 @@ var family_root_json = {
   "root_key": "√gah",
   "root_family": "pati √gah",
   "root_meaning": "grasp",
-  "count": 45,
+  "count": 46,
   "data": [
    [
     "apaṭiggahita",
@@ -81608,6 +81626,12 @@ var family_root_json = {
     "pr",
     "takes; accepts; receives",
     "✔"
+   ],
+   [
+    "paṭiggahāpetuṃ",
+    "inf",
+    "to receive on one's behalf",
+    "✘"
    ],
    [
     "paṭiggahāpetvā",
@@ -82923,7 +82947,7 @@ var family_root_json = {
   "root_key": "√pā 1",
   "root_family": "√pā",
   "root_meaning": "drink",
-  "count": 88,
+  "count": 89,
   "data": [
    [
     "apatta 1.1",
@@ -83212,6 +83236,12 @@ var family_root_json = {
     "pr",
     "makes drink; lit. cause to drink",
     "✔"
+   ],
+   [
+    "pāyetuṃ",
+    "inf",
+    "to drink; lit. to cause to drink",
+    "✘"
    ],
    [
     "pāyetvā",
@@ -85071,7 +85101,7 @@ var family_root_json = {
   "root_key": "√pat 1",
   "root_family": "pa √pat",
   "root_meaning": "fall",
-  "count": 14,
+  "count": 15,
   "data": [
    [
     "apapatita",
@@ -85090,6 +85120,12 @@ var family_root_json = {
     "pr",
     "does not fall down; does not fall off; does not fall (into)",
     "✔"
+   ],
+   [
+    "papataka",
+    "masc",
+    "name of a mountain",
+    "✘"
    ],
    [
     "papatati 1",
@@ -92471,13 +92507,19 @@ var family_root_json = {
   "root_key": "√har 1",
   "root_family": "pari √har",
   "root_meaning": "carry",
-  "count": 33,
+  "count": 34,
   "data": [
    [
     "aparihārī",
     "adj",
     "(of a water jar) not leaking; lit. not carrying around",
     "◑"
+   ],
+   [
+    "dupparihāra",
+    "adj",
+    "hard to handle; tricky to wield",
+    "✘"
    ],
    [
     "dupparihāriya",
@@ -98377,7 +98419,7 @@ var family_root_json = {
   "root_key": "√chad",
   "root_family": "pati √chad",
   "root_meaning": "cover, conceal",
-  "count": 29,
+  "count": 30,
   "data": [
    [
     "appaṭicchanna",
@@ -98449,6 +98491,12 @@ var family_root_json = {
     "paṭicchādaniya",
     "nt",
     "meat broth or gravy",
+    "✘"
+   ],
+   [
+    "paṭicchādanīya",
+    "nt",
+    "meat broth; lit. to be covered",
     "✘"
    ],
    [
@@ -116529,7 +116577,7 @@ var family_root_json = {
   "root_key": "√sad",
   "root_family": "abhi ni √sad",
   "root_meaning": "sink, sit, settle",
-  "count": 9,
+  "count": 10,
   "data": [
    [
     "abhinisinna",
@@ -116583,6 +116631,12 @@ var family_root_json = {
     "abhinisīdeti",
     "pr",
     "forces to sit on",
+    "✘"
+   ],
+   [
+    "nābhinisīdati",
+    "pr",
+    "does not sit down; does not take a seat",
     "✘"
    ]
   ]
@@ -117647,7 +117701,7 @@ var family_root_json = {
   "root_key": "√ruh",
   "root_family": "abhi √ruh",
   "root_meaning": "ascend, grow",
-  "count": 24,
+  "count": 25,
   "data": [
    [
     "abhiruyha",
@@ -117792,6 +117846,12 @@ var family_root_json = {
     "pr",
     "does not mount; does not rise onto",
     "◑"
+   ],
+   [
+    "nābhiruhi",
+    "aor",
+    "did not ascend; did not mount; did not climb aboard",
+    "✘"
    ]
   ]
  },
@@ -127905,7 +127965,7 @@ var family_root_json = {
   "root_key": "√rūp",
   "root_family": "√rūp",
   "root_meaning": "form, produce",
-  "count": 40,
+  "count": 41,
   "data": [
    [
     "arūpa 1",
@@ -128086,6 +128146,12 @@ var family_root_json = {
     "nt",
     "(objects of the eye) material forms; shapes; sights",
     "✘"
+   ],
+   [
+    "rūpikā",
+    "fem",
+    "silver",
+    "✔"
    ],
    [
     "rūpinī",
@@ -131627,7 +131693,7 @@ var family_root_json = {
   "root_key": "√kir",
   "root_family": "ava √kir",
   "root_meaning": "scatter, sprinkle",
-  "count": 17,
+  "count": 18,
   "data": [
    [
     "avakāraka",
@@ -131718,6 +131784,12 @@ var family_root_json = {
     "abs",
     "having sprinkled; having strewn (something onto); lit. having scattered down",
     "✔"
+   ],
+   [
+    "okiriyati",
+    "pr",
+    "is mixed; is contaminated; lit. is sprinkled",
+    "✘"
    ],
    [
     "okirī",
@@ -134409,7 +134481,7 @@ var family_root_json = {
   "root_key": "√vas 1",
   "root_family": "√vas",
   "root_meaning": "live",
-  "count": 70,
+  "count": 71,
   "data": [
    [
     "avatthu",
@@ -134752,6 +134824,12 @@ var family_root_json = {
     "pr",
     "makes live; forces to live; lit. causes to live",
     "✔"
+   ],
+   [
+    "vāsetuṃ",
+    "inf",
+    "to store; lit. to cause to live",
+    "✘"
    ],
    [
     "vāsetvā 2.1",
@@ -146681,8 +146759,14 @@ var family_root_json = {
   "root_key": "√sas 1",
   "root_family": "vi √sas",
   "root_meaning": "breath",
-  "count": 19,
+  "count": 20,
   "data": [
+   [
+    "avissaṭṭha",
+    "pp",
+    "hesitant; unsure; not trusting",
+    "✘"
+   ],
    [
     "avissasanta",
     "prp",
@@ -181075,6 +181159,116 @@ var family_root_json = {
    ]
   ]
  },
+ "√kuṭṭ √kuṭṭ": {
+  "root_key": "√kuṭṭ",
+  "root_family": "√kuṭṭ",
+  "root_meaning": "smash, powder",
+  "count": 17,
+  "data": [
+   [
+    "kuṭṭa 2.1",
+    "nt",
+    "powder; grindings",
+    "✘"
+   ],
+   [
+    "koṭṭaka",
+    "adj",
+    "(of a door) knocking",
+    "◑"
+   ],
+   [
+    "koṭṭana",
+    "nt",
+    "pounding",
+    "✘"
+   ],
+   [
+    "koṭṭayati",
+    "pr",
+    "cuts, chops; grinds, pounds; beats, strikes; paws (the ground); hammers (in)",
+    "✘"
+   ],
+   [
+    "koṭṭayamāna",
+    "prp",
+    "cutting; chopping; grinding",
+    "✘"
+   ],
+   [
+    "koṭṭāpetabba",
+    "ptp",
+    "should be caused to crush; should be made to pound; lit. to cause to be smashed",
+    "✔"
+   ],
+   [
+    "koṭṭāpeti",
+    "pr",
+    "causes to crush; makes pound; causes to smash",
+    "✔"
+   ],
+   [
+    "koṭṭāpetvā",
+    "abs",
+    "having caused to crush; having made pound; having caused to smash",
+    "◑"
+   ],
+   [
+    "koṭṭita",
+    "pp",
+    "pounded, smashed, beaten",
+    "✘"
+   ],
+   [
+    "koṭṭeti 1",
+    "pr",
+    "pounds; grinds; crushes",
+    "✔"
+   ],
+   [
+    "koṭṭeti 2",
+    "pr",
+    "smashes, beats",
+    "✘"
+   ],
+   [
+    "koṭṭetvā 1",
+    "abs",
+    "having ground; having crushed; having powdered (something in or with)",
+    "✔"
+   ],
+   [
+    "koṭṭetvā 2",
+    "abs",
+    "having smashed; having pounded; having beaten (something) to a pulp",
+    "✔"
+   ],
+   [
+    "koṭṭenta",
+    "prp",
+    "pounding, smashing, beating",
+    "✘"
+   ],
+   [
+    "koṭṭesi 1",
+    "aor",
+    "ground; crushed; powdered (something in)",
+    "✔"
+   ],
+   [
+    "koṭṭesi 2",
+    "aor",
+    "smashed; pounded; pummelled",
+    "✘"
+   ],
+   [
+    "sukoṭṭita",
+    "adj",
+    "well beaten; thoroughly pounded",
+    "✔"
+   ]
+  ]
+ },
  "√kus 3 √kus": {
   "root_key": "√kus 3",
   "root_family": "√kus",
@@ -181590,110 +181784,6 @@ var family_root_json = {
     "fem",
     "tricking out (in finery), pranking (from keḷāyati)",
     "✘"
-   ]
-  ]
- },
- "√kuṭṭ √kuṭṭ": {
-  "root_key": "√kuṭṭ",
-  "root_family": "√kuṭṭ",
-  "root_meaning": "smash, powder",
-  "count": 16,
-  "data": [
-   [
-    "koṭṭaka",
-    "adj",
-    "(of a door) knocking",
-    "◑"
-   ],
-   [
-    "koṭṭana",
-    "nt",
-    "pounding",
-    "✘"
-   ],
-   [
-    "koṭṭayati",
-    "pr",
-    "cuts, chops; grinds, pounds; beats, strikes; paws (the ground); hammers (in)",
-    "✘"
-   ],
-   [
-    "koṭṭayamāna",
-    "prp",
-    "cutting; chopping; grinding",
-    "✘"
-   ],
-   [
-    "koṭṭāpetabba",
-    "ptp",
-    "should be caused to crush; should be made to pound; lit. to cause to be smashed",
-    "✔"
-   ],
-   [
-    "koṭṭāpeti",
-    "pr",
-    "causes to crush; makes pound; causes to smash",
-    "✔"
-   ],
-   [
-    "koṭṭāpetvā",
-    "abs",
-    "having caused to crush; having made pound; having caused to smash",
-    "◑"
-   ],
-   [
-    "koṭṭita",
-    "pp",
-    "pounded, smashed, beaten",
-    "✘"
-   ],
-   [
-    "koṭṭeti 1",
-    "pr",
-    "pounds; grinds; crushes",
-    "✔"
-   ],
-   [
-    "koṭṭeti 2",
-    "pr",
-    "smashes, beats",
-    "✘"
-   ],
-   [
-    "koṭṭetvā 1",
-    "abs",
-    "having ground; having crushed; having powdered (something in or with)",
-    "✔"
-   ],
-   [
-    "koṭṭetvā 2",
-    "abs",
-    "having smashed; having pounded; having beaten (something) to a pulp",
-    "✔"
-   ],
-   [
-    "koṭṭenta",
-    "prp",
-    "pounding, smashing, beating",
-    "✘"
-   ],
-   [
-    "koṭṭesi 1",
-    "aor",
-    "ground; crushed; powdered (something in)",
-    "✔"
-   ],
-   [
-    "koṭṭesi 2",
-    "aor",
-    "smashed; pounded; pummelled",
-    "✘"
-   ],
-   [
-    "sukoṭṭita",
-    "adj",
-    "well beaten; thoroughly pounded",
-    "✔"
    ]
   ]
  },
@@ -183011,7 +183101,7 @@ var family_root_json = {
   "root_key": "√ghaṃs",
   "root_family": "√ghaṃs",
   "root_meaning": "grind, pound",
-  "count": 11,
+  "count": 12,
   "data": [
    [
     "ghaṭṭha",
@@ -183060,6 +183150,12 @@ var family_root_json = {
     "abs",
     "having rubbed; having ground; having polished",
     "◑"
+   ],
+   [
+    "ghaṃsiyati",
+    "pr",
+    "scratches each other; rubs together; lit. is ground",
+    "✘"
    ],
    [
     "ghaṃseti 1",
@@ -192847,7 +192943,7 @@ var family_root_json = {
   "root_key": "√snih",
   "root_family": "√snih",
   "root_meaning": "love, be moist",
-  "count": 20,
+  "count": 21,
   "data": [
    [
     "nissineha",
@@ -192943,6 +193039,12 @@ var family_root_json = {
     "sineheti 2",
     "pr",
     "liquefies",
+    "✘"
+   ],
+   [
+    "senesita",
+    "pp",
+    "greasy; oily; lit. oiled",
     "✘"
    ],
    [
@@ -197594,6 +197696,20 @@ var family_root_json = {
     "pp",
     "distinguished; differentiated; demarcated",
     "✔"
+   ]
+  ]
+ },
+ "√ikkh pati vi √ikkh": {
+  "root_key": "√ikkh",
+  "root_family": "pati vi √ikkh",
+  "root_meaning": "see, mark",
+  "count": 1,
+  "data": [
+   [
+    "paṭivekkhi",
+    "aor",
+    "looked at; examined; considered",
+    "✘"
    ]
   ]
  },
@@ -224695,7 +224811,7 @@ var family_root_json = {
   "root_key": "√ud",
   "root_family": "saṃ √ud",
   "root_meaning": "be wet",
-  "count": 7,
+  "count": 8,
   "data": [
    [
     "samudda",
@@ -224732,6 +224848,12 @@ var family_root_json = {
     "pp",
     "sunk; submerged; lit. all wet",
     "◑"
+   ],
+   [
+    "sāmudda",
+    "nt",
+    "sea salt; lit. related to the ocean",
+    "✘"
    ],
    [
     "sāmuddika",
@@ -229187,8 +229309,14 @@ var family_root_json = {
   "root_key": "√sinā",
   "root_family": "√sinā",
   "root_meaning": "bathe",
-  "count": 7,
+  "count": 8,
   "data": [
+   [
+    "sinā",
+    "fem",
+    "bathing; washing; ritual cleansing",
+    "✔"
+   ],
    [
     "sināta",
     "pp",
