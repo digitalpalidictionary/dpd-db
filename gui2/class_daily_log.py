@@ -2,7 +2,6 @@ import datetime
 import json
 from math import e
 from pathlib import Path
-from typing import Dict, Tuple
 
 
 class DailyLog:
@@ -10,9 +9,9 @@ class DailyLog:
 
     def __init__(self) -> None:
         self.file_path: Path = Path("gui2/data/daily_log.json")
-        self.data: Dict[str, Dict[str, int]] = self._load()
+        self.data: dict[str, dict[str, int]] = self._load()
 
-    def _load(self) -> Dict[str, Dict[str, int]]:
+    def _load(self) -> dict[str, dict[str, int]]:
         """Loads data, assumes file exists and is valid."""
         try:
             with open(self.file_path, "r") as f:
@@ -40,9 +39,9 @@ class DailyLog:
         today_str = datetime.date.today().isoformat()
         today_entry = self.data.get(today_str, {"pass1": 0, "pass2": 0})
         # return (today_entry.get("pass1", 0), today_entry.get("pass2", 0))
-        return f"pass1: {today_entry.get('pass1', 0)}, pass2: {today_entry.get('pass2', 0)}"
+        return f"pass1: {today_entry.get('pass1', 0)}. pass2: {today_entry.get('pass2', 0)}  "
 
-    def get_history(self) -> Dict[str, Dict[str, int]]:
+    def get_history(self) -> dict[str, dict[str, int]]:
         """Returns the entire history data."""
         return self.data
 

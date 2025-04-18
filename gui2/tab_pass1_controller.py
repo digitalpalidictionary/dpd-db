@@ -94,12 +94,13 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
 
         committed, message = self.db.add_word_to_db(new_word)
         if committed:
-            mesage = self.daily_log.increment("pass1")
-            self.show_snackbar(self.ui.page, mesage)
+            message = self.daily_log.increment("pass1")
+            self.ui.update_appbar(message)
+            # self.show_snackbar(self.ui.page, message)
             self.remove_word_and_save_json()
             self.ui.clear_all_fields()
 
-            self.db.get_all_lemma_1()
+            self.db.get_all_lemma_1_and_lemma_clean()
             is_next_item = self.get_next_item()
             if is_next_item:
                 self.load_into_gui()

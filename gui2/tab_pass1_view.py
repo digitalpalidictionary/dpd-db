@@ -237,3 +237,11 @@ class Pass1View(ft.Column, PopUpMixin):
             self.update_message(f"Sandhi added for {self.word_in_text.value}")
         else:
             self.update_message("Sandhi input cancelled.")
+
+    def update_appbar(self, message):
+        if (
+            self.page.appbar
+            and self.page.appbar.actions
+            and self.page.appbar.actions[0]
+        ):
+            self.page.appbar.actions[0].value = message

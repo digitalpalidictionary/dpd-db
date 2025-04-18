@@ -3,16 +3,64 @@ import re
 from tools.pos import INDECLINABLES
 
 
-def lemma_clean(lemma_1: str):
-    return re.sub(r" \d.+", "", lemma_1)
+def clean_lemma_1(lemma_1: str) -> str:
+    return re.sub(r" \d.*", "", lemma_1)
 
 
-def root_clean(root_key: str):
+def clean_root(root_key: str) -> str:
     return re.sub(r" \d.*", "", root_key)
 
 
-def find_stem_pattern(pos: str, grammar: str, lemma_1: str):
-    lemma_1_clean = lemma_clean(lemma_1)
+def make_lemma_2(lemma_1: str, pos: str) -> str:
+    lemma_clean = clean_lemma_1(lemma_1)
+    if pos == "masc":
+        return f"{lemma_clean[:-1]}o"
+    elif pos == "nt":
+        return f"{lemma_clean}ṃ"
+    else:
+        return lemma_1
+
+
+def make_construction(
+    lemma_clean: str,
+    grammar: str,
+    neg: str,
+    root_key: str,
+    root_base: str,
+    root_family: str,
+) -> str:
+    """Make construction out of existing fields"""
+
+    # root
+    if root_key:
+        root_family_x = root_family.replace(" ", " + ")
+        neg_x = ""
+        if neg:
+            neg_x = "na + "
+        if root_base:
+            root_base_x = re.sub(r" \(.+\)$", "", root_base)  # remove (end brackets)
+            root_base_x = re.sub("^.+> ", "", root_base_x)  # remove front
+            root_family_x = re.sub("√.+", root_base_x, root_family_x)
+
+        return f"{neg_x}{root_family_x} + "
+
+    # compound
+    elif re.findall(r"\bcomp\b", grammar):
+        return lemma_clean
+    else:
+        return lemma_clean
+
+
+def clean_construction_line1(construction) -> str:
+    # remove line 2
+    construction = re.sub(r"\n.+", "", construction)
+    # remove phonetic changes >
+    construction = re.sub(r">.[^+]+", "", construction)
+    return construction
+
+
+def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
+    lemma_1_clean = clean_lemma_1(lemma_1)
 
     stem = ""
     pattern = ""

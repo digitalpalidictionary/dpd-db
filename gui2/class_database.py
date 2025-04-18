@@ -3,6 +3,7 @@ from sqlalchemy import func
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, FamilyCompound, FamilyRoot, Lookup
+from gui2.def_dpd_fields import clean_lemma_1
 from tools.paths import ProjectPaths
 
 
@@ -16,50 +17,69 @@ class DatabaseManager:
         self.db: list[DpdHeadword]
         self.all_inflections: set[str] = set()
         self.all_inflections_missing_meaning: set[str] = set()
-        self.sandhi_ok_list: list[str] = self.pth.decon_checked.read_text().splitlines()
+        self.sandhi_ok_list: set[str] = set(
+            self.pth.decon_checked.read_text().splitlines()
+        )
 
         # need this for dropdown options
-        self.all_roots: list[str] = self.get_all_roots()
+        self.all_roots: set[str] = self.get_all_roots()
 
         # only need thse later
-        self.all_lemma_1: list[str] | None = None
-        self.all_pos: list[str] | None = None
-        self.all_compound_families: list[str] | None = None
-        self.all_root_families: list[str] | None = None
+        self.all_lemma_1: set[str] | None = None
+        self.all_lemma_clean: set[str] | None = None
+        self.all_pos: set[str] | None = None
+        self.all_compound_families: set[str] | None = None
+        self.all_root_families: set[str] | None = None
+
+        # root signs
+        self.root_sign_key: str = ""
+        self.root_signs: list[str] = []
+        self.root_signs_index: int = 0
+
+        # root bases
+        self.root_bases_key: str = ""
+        self.root_bases: list[str] = []
+        self.root_base_index: int = 0
+
+        # family_root
+        self.family_root_key: str = ""
+        self.family_roots: list[str] = []
+        self.family_root_index: int = 0
 
     def new_db_session(self):
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
-    def get_all_roots(self) -> list[str]:
+    def get_all_roots(self) -> set[str]:
         roots = self.db_session.query(DpdRoot.root).all()
-        return [root[0] for root in roots]
+        return set([root[0] for root in roots])
 
     # initialize db
 
     def initialize_db(self):
-        self.get_all_lemma_1()
+        self.get_all_lemma_1_and_lemma_clean()
         self.get_all_pos()
         self.get_all_root_families()
         self.get_all_compound_families()
 
-    def get_all_lemma_1(self):
+    def get_all_lemma_1_and_lemma_clean(self):
         lemmas = self.db_session.query(DpdHeadword.lemma_1).all()
-        self.all_lemma_1 = [lemma[0] for lemma in lemmas]
+        self.all_lemma_1 = set([lemma[0] for lemma in lemmas])
+        self.all_lemma_clean = set([clean_lemma_1(lemma) for lemma in self.all_lemma_1])
 
     def get_all_pos(self):
         first_word = self.db_session.query(DpdHeadword).first()
         if first_word:
-            self.all_pos = first_word.pos_list
+            self.all_pos = set(first_word.pos_list)
 
     def get_all_root_families(self):
         root_families = self.db_session.query(FamilyRoot.root_family).all()
-        self.all_root_families = [root_family[0] for root_family in root_families]
+        self.all_root_families = set([root_family[0] for root_family in root_families])
 
     def get_all_compound_families(self):
         compound_families = self.db_session.query(FamilyCompound.compound_family).all()
-        self.all_compound_families = [
-            comp_family[0] for comp_family in compound_families
-        ]
+        self.all_compound_families = set(
+            [comp_family[0] for comp_family in compound_families]
+        )
 
     # --------------------------
 
@@ -132,12 +152,76 @@ class DatabaseManager:
         else:
             return "something is wrong"
 
-    def get_root_base_values(self, root_key):
+    def get_root_signs(self):
+        results = (
+            self.db_session.query(DpdHeadword.root_sign)
+            .filter(DpdHeadword.root_key == self.root_sign_key)
+            .group_by(DpdHeadword.root_sign)
+            .all()
+        )
+        self.root_signs = sorted([v[0] for v in results if v[0] != ""])
+
+    def get_next_root_sign(self, root_key):
+        if root_key != self.root_sign_key:
+            self.root_sign_key = root_key
+            self.root_sign_index = 0
+            self.get_root_signs()
+            return self.root_signs[self.root_sign_index]
+        else:
+            # increment by 1 and return to 0 at end of list
+            self.root_sign_index = (self.root_sign_index + 1) % len(self.root_signs)
+            return self.root_signs[self.root_sign_index]
+
+    def get_root_bases(self):
         results = (
             self.db_session.query(DpdHeadword.root_base)
-            .filter(DpdHeadword.root_key == root_key)
+            .filter(DpdHeadword.root_key == self.root_bases_key)
             .group_by(DpdHeadword.root_base)
             .all()
         )
-        root_base_values = sorted([v[0] for v in results if v[0] != ""])
-        return root_base_values
+        self.root_bases = sorted([v[0] for v in results if v[0] != ""])
+
+    def get_next_root_base(self, root_key) -> str:
+        if root_key != self.root_bases_key:
+            self.root_bases_key = root_key
+            self.root_base_index = 0
+            self.get_root_bases()
+            if self.root_bases:
+                return self.root_bases[self.root_base_index]
+            else:
+                return ""
+        else:
+            if self.root_bases:
+                # increment by 1 and return to 0 at end of list
+                self.root_base_index = (self.root_base_index + 1) % len(self.root_bases)
+                return self.root_bases[self.root_base_index]
+            else:
+                return ""
+
+    def get_family_roots(self):
+        results = (
+            self.db_session.query(DpdHeadword.family_root)
+            .filter(DpdHeadword.root_key == self.family_root_key)
+            .group_by(DpdHeadword.family_root)
+            .all()
+        )
+        self.family_roots = sorted([v[0] for v in results if v[0] != ""])
+
+    def get_next_family_root(self, root_key) -> str:
+        if root_key != self.family_root_key:
+            self.family_root_key = root_key
+            self.family_root_index = 0
+            self.get_family_roots()
+            if self.family_roots:
+                return self.family_roots[self.family_root_index]
+            else:
+                return ""
+        else:
+            if self.family_roots:
+                # increment by 1 and return to 0 at end of list
+                self.family_root_index = (self.family_root_index + 1) % len(
+                    self.family_roots
+                )
+                return self.family_roots[self.family_root_index]
+            else:
+                return ""
