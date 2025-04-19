@@ -1,6 +1,7 @@
 import flet as ft
 from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
+from tools.fast_api_utils import start_dpd_server
 
 
 class App:
@@ -87,6 +88,7 @@ class App:
 
 
 def main(page: ft.Page) -> None:
+    start_dpd_server()
     App(page)
 
 

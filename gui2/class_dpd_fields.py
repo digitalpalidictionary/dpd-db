@@ -1,11 +1,12 @@
 import flet as ft
+
 from gui2.class_database import DatabaseManager
 from gui2.def_dpd_fields import (
-    make_construction,
-    find_stem_pattern,
+    clean_construction_line1,
     clean_lemma_1,
     clean_root,
-    clean_construction_line1,
+    find_stem_pattern,
+    make_construction,
     make_lemma_2,
 )
 from tools.pos import NOUNS, PARTICIPLES, POS, VERBS
@@ -18,6 +19,7 @@ class FieldConfig:
         name,
         field_type="text",
         options=None,
+        on_focus=None,
         on_change=None,
         on_submit=None,
         on_blur=None,
@@ -26,6 +28,7 @@ class FieldConfig:
         self.name = name
         self.field_type = field_type
         self.options = options
+        self.on_focus = on_focus
         self.on_change = on_change
         self.on_submit = on_submit
         self.on_blur = on_blur
@@ -35,6 +38,7 @@ class FieldConfig:
 class DpdTextField(ft.TextField):
     def __init__(
         self,
+        on_focus=None,
         on_change=None,
         on_submit=None,
         on_blur=None,
@@ -44,6 +48,7 @@ class DpdTextField(ft.TextField):
             width=700,
             expand=True,
             multiline=multiline,
+            on_focus=on_focus,
             on_change=on_change,
             on_submit=on_submit,
             on_blur=on_blur,
@@ -56,8 +61,8 @@ class DpdDropdown(ft.Dropdown):
     def __init__(
         self,
         options=None,
+        on_focus=None,
         on_change=None,
-        on_submit=None,
         on_blur=None,
     ):
         if not options:
@@ -66,6 +71,7 @@ class DpdDropdown(ft.Dropdown):
             width=700,
             expand=True,
             options=[ft.dropdown.Option(o) for o in options],
+            on_focus=on_focus,
             on_change=on_change,
             on_blur=on_blur,
             editable=True,
@@ -104,26 +110,43 @@ class DpdFields:
             FieldConfig("meaning_lit"),
             FieldConfig(
                 "meaning_2",
-                on_submit=self.meaning_2_submit,
-                on_blur=self.meaning_2_submit,
+                on_focus=self.meaning_2_change,
+                on_change=self.meaning_2_change,
+                on_blur=self.meaning_2_change,
             ),
             FieldConfig("non_ia"),
             FieldConfig("sanskrit"),
             FieldConfig(
                 "root_key",
-                field_type="dropdown",
-                options=self.db.all_roots,
-                on_blur=self.root_key_blur,
+                on_focus=self.root_key_change,
+                on_change=self.root_key_change,
+                on_blur=self.root_key_change,
             ),
-            FieldConfig("root_sign", on_submit=self.root_sign_submit),
+            FieldConfig(
+                "root_sign",
+                on_focus=self.root_sign_change,
+                on_change=self.root_sign_change,
+                on_submit=self.root_sign_submit,
+                on_blur=self.root_sign_change,
+            ),
             FieldConfig("root_base", on_submit=self.root_base_submit),
             FieldConfig(
                 "family_root",
                 on_submit=self.family_root_submit,
                 on_blur=self.family_root_blur,
             ),
-            FieldConfig("family_word"),
-            FieldConfig("family_compound", on_blur=self.family_compound_blur),
+            FieldConfig(
+                "family_word",
+                on_focus=self.family_word_change,
+                on_change=self.family_word_change,
+                on_blur=self.family_word_change,
+            ),
+            FieldConfig(
+                "family_compound",
+                on_focus=self.family_compound_change,
+                on_change=self.family_compound_change,
+                on_blur=self.family_compound_change,
+            ),
             FieldConfig("family_idioms"),
             FieldConfig("family_set"),
             FieldConfig("construction", multiline=True, on_blur=self.construction_blur),
@@ -165,6 +188,7 @@ class DpdFields:
         for config in self.field_configs:
             if config.field_type == "text":
                 self.fields[config.name] = DpdTextField(
+                    on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,
                     on_blur=config.on_blur,
@@ -173,6 +197,7 @@ class DpdFields:
             elif config.field_type == "dropdown":
                 self.fields[config.name] = DpdDropdown(
                     options=config.options,
+                    on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_blur=config.on_blur,
                 )
@@ -247,7 +272,7 @@ class DpdFields:
         self.ui.page.update()
         field.focus()
 
-    def meaning_2_submit(self, e: ft.ControlEvent):
+    def meaning_2_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
         misspelled = self.spellchcker.check_sentence(value)
         if misspelled:
@@ -264,7 +289,7 @@ class DpdFields:
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
 
-    def root_key_blur(self, e: ft.ControlEvent):
+    def root_key_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
         # test if root key exists
         if value:
@@ -274,11 +299,10 @@ class DpdFields:
             else:
                 field.error_text = None
                 field.helper_text = self.db.get_root_string(value)
-
-            self.ui.page.update()
         else:
             field.helper_text = None
             field.error_text = None
+        self.ui.page.update()
 
     def root_sign_submit(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -289,6 +313,17 @@ class DpdFields:
             field.value = self.db.get_next_root_sign(root_key)
             self.ui.page.update()
             field.focus()
+
+    def root_sign_change(self, e: ft.ControlEvent):
+        field, value = self.get_field_value(e)
+        root_key = self.get_field("root_key").value
+        if value and not root_key:
+            field.error_text = "no root_key"
+        elif not value and root_key:
+            field.error_text = "no root_sign"
+        else:
+            field.error_text = None
+        self.ui.page.update()
 
     def root_base_submit(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -327,7 +362,25 @@ class DpdFields:
                 field.error_text = None
             self.ui.page.update()
 
-    def family_compound_blur(self, e: ft.ControlEvent):
+    def family_word_change(self, e: ft.ControlEvent):
+        field, value = self.get_field_value(e)
+        root_key = self.get_field("root_key").value
+
+        # test if in word families
+        if value:
+            if root_key:
+                field.error_text = "root_key and family_word"
+            elif " " in value:
+                field.error_text = "family_word contains space"
+            elif value not in self.db.all_word_families:
+                field.error_text = f"{value}"
+            else:
+                field.error_text = None
+        else:
+            field.error_text = None
+        self.ui.page.update()
+
+    def family_compound_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
 
         # test family compounds exist

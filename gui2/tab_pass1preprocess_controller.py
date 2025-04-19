@@ -65,10 +65,9 @@ class Pass1PreProcessController:
             self.related_entries_list = self.db.get_related_dict_entries(
                 self.word_in_text
             )
-            if self.related_entries_list:
-                self.compile_prompt()
-                self.response = str(self.send_prompt())
-                self.update_preprocessed()
+            self.compile_prompt()
+            self.response = str(self.send_prompt())
+            self.update_preprocessed()
             if self.stop_flag:
                 break
 

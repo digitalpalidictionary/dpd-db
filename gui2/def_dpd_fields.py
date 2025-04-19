@@ -11,10 +11,17 @@ def clean_root(root_key: str) -> str:
     return re.sub(r" \d.*", "", root_key)
 
 
+def clean_root_sign(root_sign: str) -> str:
+    return re.sub(r"\*", "", root_sign)
+
+
 def make_lemma_2(lemma_1: str, pos: str) -> str:
     lemma_clean = clean_lemma_1(lemma_1)
     if pos == "masc":
-        return f"{lemma_clean[:-1]}o"
+        if lemma_clean.endswith("a"):
+            return f"{lemma_clean[:-1]}o"
+        else:
+            return lemma_clean
     elif pos == "nt":
         return f"{lemma_clean}ṃ"
     else:

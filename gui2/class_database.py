@@ -2,7 +2,14 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy import func
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, DpdRoot, FamilyCompound, FamilyRoot, Lookup
+from db.models import (
+    DpdHeadword,
+    DpdRoot,
+    FamilyCompound,
+    FamilyRoot,
+    FamilyWord,
+    Lookup,
+)
 from gui2.def_dpd_fields import clean_lemma_1
 from tools.paths import ProjectPaths
 
@@ -21,15 +28,14 @@ class DatabaseManager:
             self.pth.decon_checked.read_text().splitlines()
         )
 
-        # need this for dropdown options
-        self.all_roots: set[str] = self.get_all_roots()
-
         # only need thse later
         self.all_lemma_1: set[str] | None = None
         self.all_lemma_clean: set[str] | None = None
         self.all_pos: set[str] | None = None
+        self.all_roots: set[str] | None = None
         self.all_compound_families: set[str] | None = None
         self.all_root_families: set[str] | None = None
+        self.all_word_families: set[str] | None = None
 
         # root signs
         self.root_sign_key: str = ""
@@ -49,17 +55,19 @@ class DatabaseManager:
     def new_db_session(self):
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
-    def get_all_roots(self) -> set[str]:
-        roots = self.db_session.query(DpdRoot.root).all()
-        return set([root[0] for root in roots])
-
     # initialize db
 
     def initialize_db(self):
         self.get_all_lemma_1_and_lemma_clean()
         self.get_all_pos()
+        self.get_all_roots()
         self.get_all_root_families()
         self.get_all_compound_families()
+        self.get_all_word_families()
+
+    def get_all_roots(self) -> None:
+        roots = self.db_session.query(DpdRoot.root).all()
+        self.all_roots = set([root[0] for root in roots])
 
     def get_all_lemma_1_and_lemma_clean(self):
         lemmas = self.db_session.query(DpdHeadword.lemma_1).all()
@@ -74,12 +82,18 @@ class DatabaseManager:
     def get_all_root_families(self):
         root_families = self.db_session.query(FamilyRoot.root_family).all()
         self.all_root_families = set([root_family[0] for root_family in root_families])
+        self.all_root_families.update("")
 
     def get_all_compound_families(self):
         compound_families = self.db_session.query(FamilyCompound.compound_family).all()
         self.all_compound_families = set(
             [comp_family[0] for comp_family in compound_families]
         )
+        self.all_compound_families.update("")
+
+    def get_all_word_families(self):
+        word_families = self.db_session.query(FamilyWord.word_family).all()
+        self.all_word_families = set([w[0] for w in word_families])
 
     # --------------------------
 

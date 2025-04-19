@@ -8,6 +8,7 @@ from gui2.class_database import DatabaseManager
 from gui2.class_mixins import SandhiOK, SnackBarMixin
 
 from gui2.class_books import pass1_books
+from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
 from rich import print
 
@@ -94,9 +95,13 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
 
         committed, message = self.db.add_word_to_db(new_word)
         if committed:
+            # open in browser
+            request_dpd_server(new_word.id)
+
+            # update the log
             message = self.daily_log.increment("pass1")
             self.ui.update_appbar(message)
-            # self.show_snackbar(self.ui.page, message)
+
             self.remove_word_and_save_json()
             self.ui.clear_all_fields()
 
