@@ -6,7 +6,8 @@
 <!--link rel="stylesheet" href="/Sanskrit/whitney/dict.css" /-->
 </head>
 <body><p><a href="index.htm">Index</a></p>
-<p><table width="100%"><tr><td align="center" width="50%">Previous: <b><a href="aNg.htm">aṅg</a></b></td><td align="center" width="50%">Next: <b><a href="aNh.htm">aṅh</a></b></td></tr></table></p><hr />
+<!-- 'Previous' link is to itself, since this is the first entry in the book -->
+<p><table width="100%"><tr><td align="center" width="50%">Previous: <b><a href="aMS.htm">ȧś</a></b></td><td align="center" width="50%">Next: <b><a href="aMh.htm">ȧh</a></b></td></tr></table></p><hr />
 
 <h2>&#x221a;ȧś</h2><p>
 <i>see </i><b><a href="aS1.htm">aś1</a></b></p></body>
