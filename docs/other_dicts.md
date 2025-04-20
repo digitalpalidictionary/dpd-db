@@ -1,6 +1,10 @@
 # Other Pāḷi and Sanskrit dictionaries
 
-Click the links to download
+Here is the link to the [folder on Google Drive](https://drive.google.com/drive/folders/1C4_H-dwxHeDFJCUs-43vE25vHpqSUvHT) that contains all the mentioned dictionaries. You can see the date when they were last updated.
+
+---
+
+Click the individual links to download
 
 ## GoldenDict
 Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1CeO4_4C3rYH2pb0mzAJAH1c5FK2H5cbK" target="_blank">bhs</a>  
@@ -21,10 +25,6 @@ Simsapa Combined Dictionary* <a href="https://drive.google.com/uc?export=downloa
 Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1PRg6S55sXa70b71cIZxmXzpcWcDGhotn" target="_blank">whitney</a>  
 
 Here are detailed instructions on how to install these MDict files on your [Android](https://digitalpalidictionary.github.io/install/android_dicttango/) or [IOS](https://digitalpalidictionary.github.io/install/ios/) device. 
-
----
-
-Here is the link to the [folder on Google Drive](https://drive.google.com/drive/folders/1C4_H-dwxHeDFJCUs-43vE25vHpqSUvHT) that contains all the mentioned dictionaries. You can see the date when they were last updated.
 
 ---
 
