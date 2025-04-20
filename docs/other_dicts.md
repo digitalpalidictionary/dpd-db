@@ -24,6 +24,10 @@ Here are detailed instructions on how to install these MDict files on your [Andr
 
 ---
 
+Here is the link to the [folder on Google Drive](https://drive.google.com/drive/folders/1C4_H-dwxHeDFJCUs-43vE25vHpqSUvHT) that contains all the mentioned dictionaries. You can see the date when they were last updated.
+
+---
+
 ## Simsapa Combined Dictionary 
 This is a composite dictionary which contains
 - Pali Text Society's Pali English Dictionary (PTS)

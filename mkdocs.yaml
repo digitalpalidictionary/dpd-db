@@ -55,6 +55,7 @@ nav:
     - "contributing/index.md"
     - Pāḷi: "contributing/pali.md"
     - Code: "contributing/code.md"
+  - Other Dictionaries: other_dicts.md
   - What Users Say: users_say.md
   - Abbreviations: "abbreviations.md"
   - Bibliography: "bibliography.md"
@@ -112,6 +113,13 @@ extra_css:
   - stylesheets/extra.css
 
 extra:
+  alternate:
+    - name: English
+      link: https://digitalpalidictionary.github.io/
+      lang: en
+    - name: Русский
+      link: https://devamitta.github.io/dpd.rus/
+      lang: ru
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/digitalpalidictionary/dpd-db
