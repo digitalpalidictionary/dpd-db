@@ -57,6 +57,7 @@ dev = [
     "deptry>=0.23.0",
     "modelcontextprotocol>=0.1.0",
     "mcp>=1.6.0",
+    "elevenlabs>=1.57.0",
 ]
 
 [tool.hatch.build.targets.sdist]

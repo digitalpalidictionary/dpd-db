@@ -701,6 +701,7 @@ dev = [
     { name = "bandit" },
     { name = "black" },
     { name = "deptry" },
+    { name = "elevenlabs" },
     { name = "flake8" },
     { name = "flet", extra = ["all"] },
     { name = "icecream" },
@@ -756,6 +757,7 @@ dev = [
     { name = "bandit", specifier = ">=1.7.5" },
     { name = "black", specifier = ">=23.1.0" },
     { name = "deptry", specifier = ">=0.23.0" },
+    { name = "elevenlabs", specifier = ">=1.57.0" },
     { name = "flake8", specifier = ">=6.0.0" },
     { name = "flet", extras = ["all"], specifier = ">=0.27.6" },
     { name = "icecream", specifier = ">=2.1.3" },
@@ -764,6 +766,23 @@ dev = [
     { name = "pylama", specifier = ">=8.4.1" },
     { name = "pylint", specifier = ">=2.17.0" },
     { name = "pytest", specifier = ">=7.4.3" },
+]
+
+[[package]]
+name = "elevenlabs"
+version = "1.57.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "requests" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3a/2b/ba26013e855f189a4478f5ad6bc6156e39e94e3a160bbddc7425212c2176/elevenlabs-1.57.0.tar.gz", hash = "sha256:39c8561617d1e304feaced0e0e3e91c7cd7547f61d0987fc66ebed27f2f74608", size = 185403 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/22/64/cc14a8264a1589b48558d764d084fff12a432162519ab4e750ecc1cdbc90/elevenlabs-1.57.0-py3-none-any.whl", hash = "sha256:95d5fb7b403757700a1db2858ae0bd2a90fd6042a43b5c7ceb32301508658d39", size = 452546 },
 ]
 
 [[package]]
