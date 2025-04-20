@@ -133,9 +133,42 @@ Based on the information above, please provide your very best suggestion of the 
 - For verbs, participles, adjectives, adverbs, etc. it is the same as lemma_1
 - For nouns, it is the nominitve singular, e.g. buddha = `buddho`
 
+
 ## pos field
 - For adverbs, and all indecliables, the pos is `ind`. The grammar is `ind, adv`.
 - In general, words ending in `ādi` are `masc`. 
+- The only parts of speech to be added are these:
+abbrev: abbreviation
+abs: absolutive
+adj: adjective
+aor: aorist
+card: cardinal number
+cond: conditional verb
+cs: conjugational sign
+fem: feminine noun
+fut: future verb
+ger: gerund
+idiom: idiomatic expression
+imp: imperative verb
+imperf: imperfect verb
+ind: indeclinable
+inf: infinitive
+letter: letter of the alphabet
+masc: masculine noun
+nt: neuter noun
+opt: optative verb
+ordin: ordinal number
+perf: perfect verb
+pp: past participle
+pr: present tense verb
+prefix: prefix
+pron: pronoun
+prp: present participle
+ptp: potential participle
+root: root
+sandhi: sandhi compound
+suffix: suffix
+ve: verbal ending
 
 ## grammar field
 - If the word is a compound, include part of speech, comma, comp e.g. dhammavinaya = `masc, comp`

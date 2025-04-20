@@ -86,7 +86,7 @@ class DpdFields:
     def __init__(self, ui, db: DatabaseManager):
         self.ui = ui
         self.db = db
-        self.spellchcker = CustomSpellChecker()
+        self.spellchecker = CustomSpellChecker()
         self.fields = {}
         self.field_configs = [
             FieldConfig("id", on_submit=self.id_submit),
@@ -111,7 +111,6 @@ class DpdFields:
             FieldConfig(
                 "meaning_2",
                 on_focus=self.meaning_2_change,
-                on_change=self.meaning_2_change,
                 on_blur=self.meaning_2_change,
             ),
             FieldConfig("non_ia"),
@@ -274,7 +273,7 @@ class DpdFields:
 
     def meaning_2_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
-        misspelled = self.spellchcker.check_sentence(value)
+        misspelled = self.spellchecker.check_sentence(value)
         if misspelled:
             error_string = ". ".join(
                 [
@@ -392,7 +391,9 @@ class DpdFields:
                 field.error_text = f"{', '.join(error_list)} "
             else:
                 field.error_text = None
-            self.ui.page.update()
+        else:
+            field.error_text = None
+        self.ui.page.update()
 
     def construction_blur(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
