@@ -89,7 +89,7 @@ class DpdFields:
         self.spellchecker = CustomSpellChecker()
         self.fields = {}
         self.field_configs = [
-            FieldConfig("id", on_submit=self.id_submit),
+            FieldConfig("id"),
             FieldConfig(
                 "lemma_1",
                 on_change=self.lemma_1_change,
@@ -222,13 +222,6 @@ class DpdFields:
         field = e.control
         value = field.value
         return field, value
-
-    def id_submit(self, e: ft.ControlEvent):
-        field, value = self.get_field_value(e)
-        last_id = self.db.get_next_id()
-        field.value = last_id
-        self.ui.page.update()
-        field.focus()
 
     # automations
 

@@ -138,7 +138,7 @@ Here is a quick overview:
 
 - **`source_2`** `[str]` what is the source of the second example?
 
-- *`source_link_1`* `[str]` source of the second example with an embedded HTML link
+- *`source_link_2`* `[str]` source of the second example with an embedded HTML link
 
 - *`source_link_sutta`* `[str]` sutta code from example with an embedded HTML link
 
