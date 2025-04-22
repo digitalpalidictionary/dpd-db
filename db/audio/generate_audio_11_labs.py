@@ -11,9 +11,6 @@ from pathlib import Path
 from aksharamukha import transliterate
 from elevenlabs import VoiceSettings
 from elevenlabs.client import ElevenLabs
-from gtts import gTTS
-from rich import print
-from sqlalchemy import desc
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
@@ -38,8 +35,8 @@ class VoxManager:
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
         self.db: list[DpdHeadword] = (
             self.db_session.query(DpdHeadword)
-            .order_by(desc(DpdHeadword.ebt_count))
-            .limit(10000)
+            # .order_by(desc(DpdHeadword.ebt_count))
+            .limit(100)
             .all()
         )
 
@@ -64,10 +61,12 @@ class VoxManager:
             "IASTPali",
             "Devanagari",
             text,
-            nativize=True,
-            # post_options=["devanagariuttara", "ShowSchwaHindi"],
+            nativize=False,
             post_options=["ShowSchwaHindi"],
         )
+        if text_trans and text.endswith("a"):
+            text_trans = text_trans + "a."
+
         if text_trans:
             return text_trans
         else:
@@ -78,7 +77,7 @@ class VoxManager:
             "IASTPali",
             "Kannada",
             text,
-            nativize=True,
+            nativize=False,
         )
         if text_trans:
             return text_trans
@@ -109,18 +108,20 @@ class ElevenLabsManager:
             "god": "PLFXYRTU74HpuNdj6oDl",
             "ruan": "IFINFMv1Samh9a9fDnWQ",
         }
-        self.voice = "ruan"
+        self.voice = "kanika"
         self.voice_id = self.voices[self.voice]
         self.output_format = "mp3_44100_128"
         self.model_id: str = "eleven_multilingual_v2"
         self.overwrite: bool = False
+        self.language_code = "kan"
 
         # --- Voice Settings ---
         self.stability = 0.9
-        self.similarity_boost = 1
+        self.similarity_boost = 0.5
         self.style = 0.1
         self.use_speaker_boost = False
         self.speed = 0.85
+        self.seed = 12
 
     def save_settings(self):
         """Saves the configurable settings to a JSON file."""
@@ -155,6 +156,7 @@ class ElevenLabsManager:
                     output_format=self.output_format,
                     text=f"{vox_item.devanagari}.",
                     model_id=self.model_id,
+                    seed=self.seed,
                     voice_settings=VoiceSettings(
                         stability=self.stability,
                         similarity_boost=self.similarity_boost,
