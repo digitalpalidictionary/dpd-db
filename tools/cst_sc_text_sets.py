@@ -9,15 +9,16 @@ How to use: feed in a list of books and get a set in return.
 import json
 import os
 import re
+from typing import List, Optional, Set
 
 from rich import print
-from typing import Optional, Set, List
 
 from tools.clean_machine import clean_machine
-from tools.pali_text_files import sc_texts, cst_texts
-from tools.pali_text_files import mula_books, all_books
+from tools.pali_text_files import all_books, cst_texts, mula_books, sc_texts
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+
+pth: ProjectPaths = ProjectPaths()
 
 
 def make_cst_text_set(
@@ -82,7 +83,6 @@ def hyphenated_parts_adder(words_list: list[str]) -> list[str]:
 
 
 def make_cst_text_list(
-    pth: ProjectPaths,
     books: List[str],
     niggahita="ṃ",
     dedupe=True,

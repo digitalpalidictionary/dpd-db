@@ -1,10 +1,11 @@
 from json import dump, dumps, load, loads
 from pathlib import Path
-from gui2.class_books import BookSource, pass1_books, Segment
 
-from tools.goldendict_tools import open_in_goldendict_os
-from tools.deepseek import Deepseek
+from gui2.class_books import BookSource, Segment, pass1_books
 from gui2.class_database import DatabaseManager
+from tools.cst_sc_text_sets import make_cst_text_list
+from tools.deepseek import Deepseek
+from tools.goldendict_tools import open_in_goldendict_os
 
 
 class Pass1PreProcessController:
@@ -17,7 +18,7 @@ class Pass1PreProcessController:
         self.pass1_books_list = [k for k in self.pass1_books]
 
         self.db: DatabaseManager = db
-        self.pass1_dict: dict[str, list[Segment]] = {}
+        self.missing_words_dict: dict[str, list[Segment]] = {}
         self.book: str
         self.word_in_text: str
         self.sentence_data: list[Segment]
@@ -45,7 +46,7 @@ class Pass1PreProcessController:
             self.preprocessed_dict = {}
 
         self.ui.update_preprocessed_count(
-            f"{len(self.preprocessed_dict)} / {len(self.pass1_dict)}"
+            f"{len(self.preprocessed_dict)} / {len(self.missing_words_dict)}"
         )
 
     def preprocess_book(self, book: str):
@@ -58,8 +59,9 @@ class Pass1PreProcessController:
 
         self.book = book
         self.load_preprocessed()
-        self.find_missing_words()
-        for self.word_in_text, self.sentence_data in self.pass1_dict.items():
+        self.find_missing_words_in_cst()
+        self.find_missing_words_in_sutta_central()
+        for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
             self.ui.update_message(f"Processing {self.word_in_text}")
 
             self.related_entries_list = self.db.get_related_dict_entries(
@@ -73,16 +75,34 @@ class Pass1PreProcessController:
 
         self.ui.clear_all_fields()
 
-    def find_missing_words(self) -> None:
-        self.ui.update_message(f"Finding missing words for {self.book}")
+    def is_missing(self, word: str):
+        if (
+            word not in self.db.all_inflections
+            and word not in self.db.sandhi_ok_list
+            and word not in self.preprocessed_keys
+        ):
+            return True
+        else:
+            return False
+
+    def find_missing_words_in_cst(self) -> None:
+        """Find all the missing words in CST."""
+
+        self.ui.update_message("Finding missing words in CST")
+
+        all_cst_words = make_cst_text_list(["vin3"])
+        for word in all_cst_words:
+            if self.is_missing(word):
+                self.missing_words_dict[word] = []
+
+    def find_missing_words_in_sutta_central(self) -> None:
+        """Find all the missing words in SC and add their sentences."""
+
+        self.ui.update_message("Finding missing words in Sutta Central")
 
         for word, segments in self.pass1_books[self.book].word_dict.items():
-            if (
-                word not in self.db.all_inflections
-                and word not in self.db.sandhi_ok_list
-                and word not in self.preprocessed_keys
-            ):
-                self.pass1_dict[word] = segments
+            if self.is_missing(word):
+                self.missing_words_dict[word] = segments
 
     def compile_prompt(self):
         """
@@ -241,11 +261,14 @@ ve: verbal ending
             self.preprocessed_dict[self.word_in_text] = loads(self.response)
 
             # add an example and translation
-            first_sentence = self.sentence_data[0]
-            self.preprocessed_dict[self.word_in_text]["example_1"] = first_sentence.pali
-            self.preprocessed_dict[self.word_in_text]["translation_1"] = (
-                first_sentence.english
-            )
+            if len(self.sentence_data) > 0:
+                first_sentence = self.sentence_data[0]
+                self.preprocessed_dict[self.word_in_text]["example_1"] = (
+                    first_sentence.pali
+                )
+                self.preprocessed_dict[self.word_in_text]["translation_1"] = (
+                    first_sentence.english
+                )
 
             # add a second example and translation if it exists
             if len(self.sentence_data) > 1:
@@ -261,7 +284,7 @@ ve: verbal ending
             open_in_goldendict_os(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
             self.ui.update_preprocessed_count(
-                f"{len(self.preprocessed_dict)} / {len(self.pass1_dict)}"
+                f"{len(self.preprocessed_dict)} / {len(self.missing_words_dict)}"
             )
             self.ui.update_ai_results(
                 dumps(

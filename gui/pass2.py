@@ -3,24 +3,21 @@
 import json
 import pickle
 import re
+from typing import List, Optional
 
 import PySimpleGUI as sg  # type: ignore
-
 from rich import print
-from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from gui.functions import load_gui_config
+from tools.cst_sc_text_sets import make_cst_text_list, make_sc_text_list
+from tools.cst_source_sutta_example import find_source_sutta_example
+from tools.goldendict_tools import open_in_goldendict
+from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
-
-from tools.cst_sc_text_sets import make_cst_text_list
-from tools.cst_sc_text_sets import make_sc_text_list
-from tools.cst_source_sutta_example import find_source_sutta_example
-from tools.meaning_construction import make_meaning_combo
-from tools.goldendict_tools import open_in_goldendict
 
 
 class Pass2Data:
@@ -684,7 +681,7 @@ def test_words_in_construction(
 
 
 def make_text_list(pth: ProjectPaths, book: str) -> List[str]:
-    cst_text_list = make_cst_text_list(pth, [book])
+    cst_text_list = make_cst_text_list([book])
     sc_text_list = make_sc_text_list(pth, [book])
     full_text_list = cst_text_list + sc_text_list
     text_set = set(cst_text_list) | set(sc_text_list)
