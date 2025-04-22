@@ -144,5 +144,23 @@
     "comments": "The absolutive form 'uttaritu' indicates a completed action, here meaning 'having boiled over'. The context suggests a sudden or unexpected event that was not noticed by the subjects ('they did not know').",
     "example_1": "uttaritu na jānare. ",
     "translation_1": "Boiled over, they did not know. "
+  },
+  "gotamīnāthapiṇḍiko": {
+    "lemma_1": "gotamīnāthapiṇḍiko",
+    "lemma_2": "gotamīnāthapiṇḍiko",
+    "pos": "sandhi",
+    "grammar": "sandhi, fem + masc",
+    "meaning_2": "Gotamī, Anāthapiṇḍika",
+    "root_key": "",
+    "root_sign": "",
+    "root_base": "",
+    "family_root": "",
+    "family_compound": "gotamī anāthapiṇḍika",
+    "construction": "",
+    "stem": "-",
+    "pattern": "",
+    "comments": "This is a sandhi compound combining the feminine name 'Gotamī' and the masculine name 'Anāthapiṇḍika'. The context shows it's listing two separate names in sequence.",
+    "example_1": "gotamīnāthapiṇḍiko; ",
+    "translation_1": "Gotamī, Anāthapiṇḍika; "
   }
 }
