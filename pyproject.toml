@@ -42,6 +42,7 @@ dependencies = [
     "pyyaml>=6.0.2",
     "marimo>=0.12.4",
     "google-generativeai>=0.8.4",
+    "gtts>=2.5.4",
 ]
 
 [dependency-groups]
@@ -58,6 +59,7 @@ dev = [
     "modelcontextprotocol>=0.1.0",
     "mcp>=1.6.0",
     "elevenlabs>=1.57.0",
+    "gtts>=2.5.4",
 ]
 
 [tool.hatch.build.targets.sdist]

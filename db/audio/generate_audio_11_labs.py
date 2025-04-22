@@ -2,14 +2,16 @@
 
 """Find the most frequent words and generate audio files using ElevenLabs."""
 
+import time
+import traceback
 from dataclasses import dataclass, field
 from json import dump
 from pathlib import Path
-import traceback
-import time
 
 from aksharamukha import transliterate
 from elevenlabs import VoiceSettings
+from elevenlabs.client import ElevenLabs
+from gtts import gTTS
 from rich import print
 from sqlalchemy import desc
 from sqlalchemy.orm.session import Session
@@ -19,7 +21,6 @@ from db.models import DpdHeadword
 from tools.configger import config_read
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from elevenlabs.client import ElevenLabs
 
 
 @dataclass
@@ -28,6 +29,7 @@ class VoxItem:
     lemma_1s: list[str] = field(default_factory=list)
     ebt_count: int = 0
     devanagari: str = ""
+    kannada: str = ""
 
 
 class VoxManager:
@@ -53,6 +55,7 @@ class VoxManager:
                 vox.lemma_1s = [i.lemma_1]
                 vox.ebt_count = i.ebt_count
                 vox.devanagari = self.convert_to_devanagari(i.lemma_clean)
+                vox.kannada = self.convert_to_kannada(i.lemma_clean)
             else:
                 self.vox_unprocessed[i.lemma_clean].lemma_1s.append(i.lemma_1)
 
@@ -64,6 +67,18 @@ class VoxManager:
             nativize=True,
             # post_options=["devanagariuttara", "ShowSchwaHindi"],
             post_options=["ShowSchwaHindi"],
+        )
+        if text_trans:
+            return text_trans
+        else:
+            return text
+
+    def convert_to_kannada(self, text: str) -> str:
+        text_trans = transliterate.process(
+            "IASTPali",
+            "Kannada",
+            text,
+            nativize=True,
         )
         if text_trans:
             return text_trans
@@ -106,8 +121,6 @@ class ElevenLabsManager:
         self.style = 0.1
         self.use_speaker_boost = False
         self.speed = 0.85
-
-        self.sleep_time = 2  # seconds
 
     def save_settings(self):
         """Saves the configurable settings to a JSON file."""
@@ -157,7 +170,6 @@ class ElevenLabsManager:
                             f.write(chunk)
 
                 pr.yes("saved")
-                time.sleep(self.sleep_time)  # Add 2 second pause after each iteration
 
             except Exception as e:
                 pr.no("failed")
@@ -174,6 +186,7 @@ def main():
     eleven_labs_manager.save_settings()
     for vox_item in vox_manager.vox_unprocessed.values():
         eleven_labs_manager.generate_and_save_audio(vox_item)
+        time.sleep(2)
 
     pr.toc()
 

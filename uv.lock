@@ -667,6 +667,7 @@ dependencies = [
     { name = "flask-sqlalchemy" },
     { name = "gitpython" },
     { name = "google-generativeai" },
+    { name = "gtts" },
     { name = "jinja2" },
     { name = "mako" },
     { name = "marimo" },
@@ -704,6 +705,7 @@ dev = [
     { name = "elevenlabs" },
     { name = "flake8" },
     { name = "flet", extra = ["all"] },
+    { name = "gtts" },
     { name = "icecream" },
     { name = "mcp" },
     { name = "modelcontextprotocol" },
@@ -723,6 +725,7 @@ requires-dist = [
     { name = "flask-sqlalchemy", specifier = ">=3.1.1" },
     { name = "gitpython", specifier = ">=3.1.43" },
     { name = "google-generativeai", specifier = ">=0.8.4" },
+    { name = "gtts", specifier = ">=2.5.4" },
     { name = "jinja2", specifier = ">=3.1.2" },
     { name = "mako", specifier = ">=1.2.4" },
     { name = "marimo", specifier = ">=0.12.4" },
@@ -760,6 +763,7 @@ dev = [
     { name = "elevenlabs", specifier = ">=1.57.0" },
     { name = "flake8", specifier = ">=6.0.0" },
     { name = "flet", extras = ["all"], specifier = ">=0.27.6" },
+    { name = "gtts", specifier = ">=2.5.4" },
     { name = "icecream", specifier = ">=2.1.3" },
     { name = "mcp", specifier = ">=1.6.0" },
     { name = "modelcontextprotocol", specifier = ">=0.1.0" },
@@ -1391,6 +1395,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/d7/53/a911467bece076020456401f55a27415d2d70d3bc2c37af06b44ea41fc5c/grpcio_status-1.71.0.tar.gz", hash = "sha256:11405fed67b68f406b3f3c7c5ae5104a79d2d309666d10d61b152e91d28fb968", size = 13669 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ad/d6/31fbc43ff097d8c4c9fc3df741431b8018f67bf8dfbe6553a555f6e5f675/grpcio_status-1.71.0-py3-none-any.whl", hash = "sha256:843934ef8c09e3e858952887467f8256aac3910c55f077a359a65b2b3cde3e68", size = 14424 },
+]
+
+[[package]]
+name = "gtts"
+version = "2.5.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/57/79/5ddb1dfcd663581d0d3fca34ccb1d8d841b47c22a24dc8dce416e3d87dfa/gtts-2.5.4.tar.gz", hash = "sha256:f5737b585f6442f677dbe8773424fd50697c75bdf3e36443585e30a8d48c1884", size = 24018 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e3/6c/8b8b1fdcaee7e268536f1bb00183a5894627726b54a9ddc6fc9909888447/gTTS-2.5.4-py3-none-any.whl", hash = "sha256:5dd579377f9f5546893bc26315ab1f846933dc27a054764b168f141065ca8436", size = 29184 },
 ]
 
 [[package]]
