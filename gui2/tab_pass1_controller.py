@@ -8,6 +8,8 @@ from gui2.class_database import DatabaseManager
 from gui2.class_mixins import SandhiOK, SnackBarMixin
 
 from gui2.class_books import pass1_books
+from gui2.class_spelling import SpellingMistakesFileManager
+from gui2.class_variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
 from rich import print
@@ -38,6 +40,9 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
         self.word_in_text: str
         self.sentence_data: dict[str, str]
 
+        self.variants = VariantReadingFileManager()
+        self.spelling_mistakes = SpellingMistakesFileManager()
+
     def process_book(self, book: str):
         self.book_to_process = book
         self.load_json()
@@ -58,18 +63,21 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
             # dict will change size, so work on a zopy
             self.preprocessed_dict_copy = self.preprocessed_dict.copy()
             self.preprocessed_iter = iter(self.preprocessed_dict_copy.items())
+            self.ui.update_remaining(f"{len(self.preprocessed_dict)}")
         except FileNotFoundError:
             self.ui.update_message("file not found.")
 
     def get_next_item(self):
         try:
             self.word_in_text, self.sentence_data = next(self.preprocessed_iter)
+            self.ui.update_remaining(f"{len(self.preprocessed_dict)}")
             print(self.word_in_text)
             print(self.sentence_data)
             return True
         except StopIteration:
             self.ui.clear_all_fields()
             self.ui.update_message("No more words to process.")
+            self.ui.update_remaining(f"{len(self.preprocessed_dict)}")
             return False
 
     def load_into_gui(self):

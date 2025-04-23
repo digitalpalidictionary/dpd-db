@@ -46,6 +46,12 @@ class Pass1View(ft.Column, PopUpMixin):
             color=HIGHLIGHT_COLOUR,
             expand=True,
         )
+        self.remaining_to_process = ft.TextField(
+            value="",
+            width=LABEL_WIDTH,
+            color=HIGHLIGHT_COLOUR,
+            expand=True,
+        )
 
         # Create the top section Column
         self.top_section = ft.Column(
@@ -83,6 +89,12 @@ class Pass1View(ft.Column, PopUpMixin):
                         self.word_in_text,
                     ],
                 ),
+                ft.Row(
+                    controls=[
+                        ft.Text("remaining", width=LABEL_WIDTH, color=LABEL_COLOUR),
+                        self.remaining_to_process,
+                    ],
+                ),
             ],
             spacing=5,
         )
@@ -91,31 +103,53 @@ class Pass1View(ft.Column, PopUpMixin):
         self.middle_section = self._build_middle_section()
 
         self.bottom_section = ft.Container(
-            height=50,
-            content=ft.Row(
-                [
-                    ft.ElevatedButton(
-                        "Add to DB",
-                        on_click=self.handle_add_to_db_click,
-                        width=BUTTON_WIDTH,
+            content=ft.Column(
+                controls=[
+                    ft.Row(
+                        [
+                            ft.ElevatedButton(
+                                "Add to DB",
+                                on_click=self.handle_add_to_db_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.ElevatedButton(
+                                "Pass",
+                                on_click=self.handle_pass_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.ElevatedButton(
+                                "Delete",
+                                on_click=self.handle_delete_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                        ],
                     ),
-                    ft.ElevatedButton(
-                        "Sandhi OK",
-                        on_click=self.handle_sandhi_ok_click,
-                        width=BUTTON_WIDTH,
-                    ),
-                    ft.ElevatedButton(
-                        "Sandhi Correction",
-                        on_click=self.handle_add_to_sandhi_click,
-                        width=BUTTON_WIDTH,
-                    ),
-                    ft.ElevatedButton(
-                        "Pass", on_click=self.handle_pass_click, width=BUTTON_WIDTH
-                    ),
-                    ft.ElevatedButton(
-                        "Delete", on_click=self.handle_delete_click, width=BUTTON_WIDTH
+                    ft.Row(
+                        [
+                            ft.ElevatedButton(
+                                "Sandhi OK",
+                                on_click=self.handle_sandhi_ok_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.ElevatedButton(
+                                "Add to Sandhi",
+                                on_click=self.handle_add_to_sandhi_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.ElevatedButton(
+                                "Add to Variants",
+                                on_click=self.handle_add_to_variants_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.ElevatedButton(
+                                "Add to Spelling mistakes",
+                                on_click=self.handle_add_to_spelling_mistakes_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                        ],
                     ),
                 ],
+                spacing=10,
             ),
             padding=ft.padding.all(10),
         )
@@ -127,25 +161,29 @@ class Pass1View(ft.Column, PopUpMixin):
             self.bottom_section,
         ]
 
-    def load_database(self):
+    def load_database(self) -> None:
         self.controller.db.make_inflections_lists()
 
     def update_message(self, message: str):
         self.message_field.value = message
         self.page.update()
 
-    def handle_process_book_click(self, e):
+    def update_remaining(self, message: str):
+        self.remaining_to_process.value = message
+        self.page.update()
+
+    def handle_process_book_click(self, e: ft.ControlEvent) -> None:
         if self.books_dropdown.value:
             self.controller.process_book(self.books_dropdown.value)
 
-    def handle_refresh_db_click(self, e):
+    def handle_refresh_db_click(self, e: ft.ControlEvent) -> None:
         self.db.new_db_session()
         self.update_message("Database refreshed")
 
-    def handle_add_to_db_click(self, e):
+    def handle_add_to_db_click(self, e: ft.ControlEvent) -> None:
         self.controller.make_dpdheadword_and_add_to_db()
 
-    def handle_add_to_sandhi_click(self, e):
+    def handle_add_to_sandhi_click(self, e: ft.ControlEvent) -> None:
         current_word = self.word_in_text.value
         if not current_word:
             self.update_message("No word selected.")
@@ -158,18 +196,44 @@ class Pass1View(ft.Column, PopUpMixin):
             on_submit=self.process_sandhi_popup_result,
         )
 
-    def handle_sandhi_ok_click(self, e):
+    def handle_sandhi_ok_click(self, e: ft.ControlEvent):
         current_word = self.word_in_text.value
         if current_word:
             self.controller.update_sandhi_checked(current_word)
             self.update_message(f"{current_word} added to sandhi checked")
 
-    def handle_pass_click(self, e):
+    def handle_add_to_variants_click(self, e: ft.ControlEvent):
+        current_word = self.word_in_text.value
+        if not current_word:
+            self.update_message("No word selected.")
+            return
+
+        self.show_popup(
+            page=self.page,
+            prompt_message=f"Enter main reading for {current_word}",
+            initial_value=self.word_in_text.value or "",
+            on_submit=self.process_variant_popup_result,
+        )
+
+    def handle_add_to_spelling_mistakes_click(self, e: ft.ControlEvent):
+        current_word = self.word_in_text.value
+        if not current_word:
+            self.update_message("No word selected.")
+            return
+
+        self.show_popup(
+            page=self.page,
+            prompt_message=f"Enter correct spelling for {current_word}",
+            initial_value=self.word_in_text.value or "",
+            on_submit=self.process_spelling_popup_result,
+        )
+
+    def handle_pass_click(self, e: ft.ControlEvent) -> None:
         self.clear_all_fields()
         self.controller.get_next_item()
         self.controller.load_into_gui()
 
-    def handle_delete_click(self, e):
+    def handle_delete_click(self, e: ft.ControlEvent) -> None:
         print(self.dpd_fields)
         if self.word_in_text.value:
             self.controller.remove_word_and_save_json()
@@ -213,7 +277,7 @@ class Pass1View(ft.Column, PopUpMixin):
         self.dpd_fields.add_to_ui(middle_section, visible_fields=visible_fields)
         return middle_section
 
-    def clear_all_fields(self, e=None):
+    def clear_all_fields(self, e: ft.ControlEvent | None = None) -> None:
         """Clear all fields by rebuilding the middle section."""
         # Rebuild middle section
         self.middle_section = self._build_middle_section()
@@ -228,7 +292,7 @@ class Pass1View(ft.Column, PopUpMixin):
         self.update_message("")
         self.page.update()
 
-    def process_sandhi_popup_result(self, breakup_value):
+    def process_sandhi_popup_result(self, breakup_value: str | None) -> None:
         """Handles the result after the sandhi popup closes."""
 
         if breakup_value is not None and self.word_in_text.value:
@@ -239,10 +303,34 @@ class Pass1View(ft.Column, PopUpMixin):
         else:
             self.update_message("Sandhi input cancelled.")
 
-    def update_appbar(self, message):
+    def process_variant_popup_result(self, main_reading: str | None) -> None:
+        """Handles the result after the variant popup closes."""
+
+        if main_reading is not None and self.word_in_text.value:
+            self.controller.variants.update_and_save(
+                self.word_in_text.value, main_reading
+            )
+            self.update_message(f"Variant added for {self.word_in_text.value}")
+        else:
+            self.update_message("Variant input cancelled.")
+
+    def process_spelling_popup_result(self, correct_spelling: str | None) -> None:
+        """Handles the result after the spelling popup closes."""
+
+        if correct_spelling is not None and self.word_in_text.value:
+            self.controller.spelling_mistakes.update_and_save(
+                self.word_in_text.value, correct_spelling
+            )
+            self.update_message(
+                f"Spelling correction added for {self.word_in_text.value}"
+            )
+        else:
+            self.update_message("Spelling input cancelled.")
+
+    def update_appbar(self, message: str) -> None:
         if (
             self.page.appbar
-            and self.page.appbar.actions
-            and self.page.appbar.actions[0]
+            and self.page.appbar.actions  # type: ignore
+            and self.page.appbar.actions[0]  # type: ignore
         ):
-            self.page.appbar.actions[0].value = message
+            self.page.appbar.actions[0].value = message  # type: ignore

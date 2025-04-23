@@ -38,7 +38,6 @@ class PopUpMixin:
         )
         self._dialog = ft.AlertDialog(
             modal=True,
-            title=ft.Text("What's the construction?"),
             content=ft.Container(
                 content=ft.Column(
                     [self._popup_textfield],

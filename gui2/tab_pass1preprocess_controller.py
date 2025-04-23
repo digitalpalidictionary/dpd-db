@@ -3,6 +3,8 @@ from pathlib import Path
 
 from gui2.class_books import BookSource, Segment, pass1_books
 from gui2.class_database import DatabaseManager
+from gui2.class_spelling import SpellingMistakesFileManager
+from gui2.class_variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.deepseek import Deepseek
 from tools.goldendict_tools import open_in_goldendict_os
@@ -31,6 +33,9 @@ class Pass1PreProcessController:
 
         self.preprocessed_dict: dict[str, dict[str, str]] = {}
         self.preprocessed_keys: list[str] = []
+
+        self.variant_readings = VariantReadingFileManager()
+        self.spelling_mistakes = SpellingMistakesFileManager()
 
     def load_preprocessed(self):
         self.ui.update_message(f"Loading preprocessed data for {self.book}")
@@ -80,6 +85,8 @@ class Pass1PreProcessController:
             word not in self.db.all_inflections
             and word not in self.db.sandhi_ok_list
             and word not in self.preprocessed_keys
+            and word not in self.variant_readings.variants_dict
+            and word not in self.spelling_mistakes.spelling_mistakes_dict
         ):
             return True
         else:
