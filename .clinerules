@@ -10,6 +10,7 @@
 
 ## Python Type Hints
 - Please add type hints to all code, especially when it is missing in existing code. 
+- Use modern type hints `dict[str, str]` not old type hints like `Dict[str, str]` 
 
 ## Use Path from Pathlib
 - Use Path for anything related to filepaths, not os.

@@ -609,6 +609,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gajj	1	a	roar, thunder	√garj	1	roar	ud √gajj	udgarj	udgarjati
 √gaṇ	8	*e	calculate, group	√gaṇ	10	count	√gaṇ	gaṇ	gaṇa, gaṇaka, gaṇakī, gaṇana, gaṇanā, gaṇayat, gaṇayati, gaṇayitavya, gaṇayitum, gaṇayitvā, gaṇāt, gaṇikā, gaṇita, gaṇin, gaṇyate, na + gaṇa, na + gaṇayitvā, sagaṇa
 √gaṇ	8	*e	calculate, group	√gaṇ	10	count	anu vi √gaṇ	gaṇ	+ gaṇayati
+√gaṇ	8	*e	calculate, group	√gaṇ	10	count	vi √gaṇ		vigaṇayati
 √gaṇ	8	*e	calculate, group	√gaṇ	10	count	saṃ √gaṇ	gaṇ	saṃgaṇanā, saṃgaṇanā (bsk), saṃgaṇikā
 √gad	1	a	speak	√gad	1	say	√gad	gad	gada
 √gadh	1	a	bind, tie	√grath	1, 7, 9	tie	√gadh	grath	grathita, na + grathita
@@ -634,7 +635,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gam	1	a	go	√gam	1	go	ava √gam	avagam	avagacchati, avagantavya, avagamana, na + avagata
 √gam	1	a	go	√gam	1	go	ā √gam	āgam	agāmi, anāgata, anāgatya, anāgamya (na + āgamya), anāgāmin, anāgāmin +, āgacchat, āgacchati, āgacchamāna, āgacchet, āgata, āgatatva (origin), āgati, āgatya, āgantu, āgantuka, āgantvā, āgama, āgamat, āgamana, āgamam, āgamaḥ, āgamitum, āgamiṣyati, āgamya, āgāmin, āgramaṇīya, durāgata, na + āgacchati, na + āgantu, na + āgama, na + āgamana, na + durāgata, su + āgamana, svāgata
 √gam	1	a	go	√gam	1	go	ud √gam	udgam	ugra, udga (bsk), udgacchat, udgacchati, udgacchamāna, udgata, udgata +, udgama, udgamana, udgamiṣyati, udgamya, udgatya, na + udgata
-√gam	1	a	go	√gam	1	go	upa √gam	upagam	aupagamat, upaga, upagacchat, upagacchati, upagata, upagantavya, upagantvā, upagama, upagamana, upagamanīya, upagamitum, upagamya, upagāmin, na + upagata, na + upagamya
+√gam	1	a	go	√gam	1	go	upa √gam	upagam	aupagamat, upaga, upagacchat, upagacchati, upagata, upagantavya, upagantvā, upagama, upagamana, upagamanīya, upagamitum, upagamya, upagāmin, na + upagata, na + upagantavya, na + upagamya
 √gam	1	a	go	√gam	1	go	upa ati √gam	atigam	
 √gam	1	a	go	√gam	1	go	upa ā √gam	āgam	up, upāgata
 √gam	1	a	go	√gam	1	go	ni √gam	nigam	na + nigama, naigama, nigacchati, nigama, nigamana, nigamayat, nigamayati, nigamita
@@ -1573,6 +1574,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nhā	3	ya	bathe	√snā	2, 4	bathe	ni √nhā		ni + snāya, niṣṇā, niṣṇāta, nisnāta, snāya
 √pac	1	a	cook, mature, ripen	√pac	1	cook	√pac	pac	a + pakva, apākṣat, apāci, na + pakva, na + pacat, paktvā, pakva, pacat, pacati, pacana, pacyate, pacyamāna, pāka, pākin, pācayat, pācayati
 √pac	1	a	cook, mature, ripen	√pac	1	cook	ud √pac	utpac	
+√pac	1	a	cook, mature, ripen	√pac	1	cook	ni √pac		
 √pac	1	a	cook, mature, ripen	√pac	1	cook	nī √pac	niṣpac	nis + pacati, niṣpaktvā, niṣpakva
 √pac	1	a	cook, mature, ripen	√pac	1	cook	pari √pac	paripac	na + paripakva, na + paripāka, na + paripācita, pari + pācayitvā, paripakva, paripacana, paripacanīya, paripacyamāna, paripāka, paripācana, paripācayati, paripācita
 √pac	1	a	cook, mature, ripen	√pac	1	cook	vi √pac	vipac	na + vipakta, vipakta, vipakva, vipacyate, vipacyamāna, vipāka, vipāka +, vipākin
@@ -3142,6 +3144,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √suc 2	1	a	be pure, be bright	√śuc	1	gleam	√suc	śuc	aśauca, aśuci, aśuci +, aśucitā, na + śukra, na + śukra, śukla, suśukla, śauca, śukti, śukra, śukra, śukla, śuklā, śuci, śuci +
 √suc 2	1	a	be pure, be bright	√śuc	1	gleam	vi √suc		viṣūcikā
 √sudh	3	ya	be pure	√śudh	4	purify	√sudh	śudh	aśuddha, aśuddhi, aśūśudhat, śuddha, śuddha +, śuddhatā, śuddhatva, śuddhi, śuddhi +, śudhyate, śoddhum, śodhana, śodhayat, śodhayati, śodhayitavya
+√sudh	3	*e	be pure	√śudh	4	purify	pati vi √sudh		
 √sudh	3	ya	be pure	√śudh	4	purify	pari √sudh	pariśudh	apariśuddha, apariśuddha +, pariśuddha, pariśuddha +, pariśuddhi, pariśudhyate, pariśodhana, pariśodhayati
 √sudh	3	ya	be pure	√śudh	4	purify	vi √sudh	viśudh	aviśuddha, na + suviśuddha, viśuddha, viśuddhatā, viśuddhi, viśudhya, viśudhyati, viśodhana, viśodhayati, viśodhayitvā, viśodhita, su + viśodhita, suviśuddha
 √sudh	3	ya	be pure	√śudh	4	purify	saṃ √sudh	saṃśudh	sam + śodhaka, saṃśuddha, saṃśuddhi, saṃśodhayat, saṃśodhayati
