@@ -255,7 +255,7 @@ masc pl, 2 lines	meaning_1	is not empty	-	grammar	contains word	masc pl	construc
 masc pl, p1 a p2 o	meaning_1	is not empty	-	grammar	contains word	masc pl	lemma_2	contains	o\b	lemma_1	contains	a\b								lemma_1	grammar	meaning_1	[]	5
 maya	meaning_1	is not empty	-	construction	contains	\bmaya\b	grammar	does not contain	\bcomp\b											lemma_1	grammar	meaning_1	[]	5
 meanging_1: fullstop comma space semicolon at end	meaning_1	is not empty	-	meaning_1	contains	(\.|,| |;)$	meaning_1	does not contain	(etc\.)											lemma_1	grammar	meaning_1	[]	10
-meaning bracket needs space	meaning_1	contains	\S\(																	lemma_1	grammar	meaning_1	[48499, 49408]	5
+meaning bracket needs space	meaning_1	contains	\S\(																	lemma_1	grammar	meaning_1	[48499, 49408, 82418]	5
 meaning bracket then space	meaning_1	contains	\(\s																	lemma_1	grammar	meaning_1	[]	5
 meaning is empty	meaning_1	is empty	-	meaning_2	is empty														meaning_1	lemma_1	grammar	meaning_1	[]	10
 meaning is empty	meaning_1	is empty	-	meaning_2	is empty	-														lemma_1	grammar	meaning_1	[]	20
