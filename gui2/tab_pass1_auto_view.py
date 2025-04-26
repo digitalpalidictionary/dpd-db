@@ -2,10 +2,10 @@ import flet as ft
 
 import db.inflections.generate_inflection_tables
 from gui2.class_database import DatabaseManager
-from gui2.tab_pass1preprocess_controller import Pass1PreProcessController
+from gui2.tab_pass1_auto_controller import Pass1AutoController
 
 
-class Pass1PreProcessView(ft.Column):
+class Pass1AutoView(ft.Column):
     def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
         super().__init__(
             scroll=ft.ScrollMode.AUTO,
@@ -14,7 +14,7 @@ class Pass1PreProcessView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = Pass1PreProcessController(self, db)
+        self.controller = Pass1AutoController(self, db)
 
         # Define constants
         LABEL_WIDTH: int = 150
@@ -38,7 +38,7 @@ class Pass1PreProcessView(ft.Column):
             text_size=14,
             border_color=ft.Colors.BLUE_200,
         )
-        self.preprocessed_count_field = ft.TextField(
+        self.auto_processed_count_field = ft.TextField(
             "",
             expand=True,
         )
@@ -67,7 +67,7 @@ class Pass1PreProcessView(ft.Column):
                         ft.Text("book", width=LABEL_WIDTH),
                         self.books_dropdown,
                         ft.ElevatedButton(
-                            "PreProcess Book",
+                            "AutoProcess Book",
                             on_click=self.handle_book_click,
                         ),
                         ft.ElevatedButton(
@@ -86,8 +86,8 @@ class Pass1PreProcessView(ft.Column):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("preprocessed", width=LABEL_WIDTH),
-                        self.preprocessed_count_field,
+                        ft.Text("auto processed", width=LABEL_WIDTH),
+                        self.auto_processed_count_field,
                     ],
                 ),
                 ft.Row(
@@ -107,7 +107,7 @@ class Pass1PreProcessView(ft.Column):
 
     def handle_book_click(self, e):
         if self.books_dropdown.value:
-            self.controller.preprocess_book(self.books_dropdown.value)
+            self.controller.auto_process_book(self.books_dropdown.value)
 
     def handle_stop_click(self, e):
         self.controller.stop_flag = True
@@ -135,13 +135,13 @@ class Pass1PreProcessView(ft.Column):
         self.word_in_text_field.value = word
         self.page.update()
 
-    def update_preprocessed_count(self, count: str):
-        self.preprocessed_count_field.value = str(count)
+    def update_auto_processed_count(self, count: str):
+        self.auto_processed_count_field.value = str(count)
         self.page.update()
 
     def clear_all_fields(self):
         self.message_field.value = ""
-        self.preprocessed_count_field.value = ""
+        self.auto_processed_count_field.value = ""
         self.books_dropdown.value = ""
         self.ai_results_field.value = ""
         self.word_in_text_field.value = ""

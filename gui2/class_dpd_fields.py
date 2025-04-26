@@ -193,6 +193,10 @@ class DpdFields:
                     on_blur=config.on_blur,
                     multiline=config.multiline,
                 )
+                # Create corresponding _add field
+                self.fields[f"{config.name}_add"] = DpdTextField(
+                    multiline=config.multiline
+                )
             elif config.field_type == "dropdown":
                 self.fields[config.name] = DpdDropdown(
                     options=config.options,
@@ -200,20 +204,48 @@ class DpdFields:
                     on_change=config.on_change,
                     on_blur=config.on_blur,
                 )
+                # Create corresponding _add field (as text field)
+                self.fields[f"{config.name}_add"] = DpdTextField()
             else:
                 raise ValueError(f"Unsupported field type: {config.field_type}")
 
-    def add_to_ui(self, ui_component, visible_fields: list[str] | None = None):
+    def add_to_ui(
+        self,
+        ui_component,
+        visible_fields: list[str] | None = None,
+        include_add_fields: bool = False,
+    ):
         for config in self.field_configs:
+            label = ft.Text(config.name, width=250, color=ft.Colors.GREY_500)
+            main_field = self.fields[config.name]
+
+            row_controls = [label, main_field]
+
+            if include_add_fields:
+                add_field = self.fields[f"{config.name}_add"]
+                transfer_btn = ft.IconButton(
+                    icon=ft.icons.ARROW_BACK,
+                    icon_size=20,
+                    tooltip="Transfer to main field",
+                    on_click=lambda e,
+                    field=main_field,
+                    add_field=add_field: self.transfer_add_value(e, field, add_field),
+                )
+                row_controls.extend([transfer_btn, add_field])
+
             row = ft.Row(
-                [
-                    ft.Text(config.name, width=250, color=ft.Colors.GREY_500),
-                    self.fields[config.name],
-                ]
+                row_controls,
+                spacing=10,
+                vertical_alignment=ft.CrossAxisAlignment.CENTER,
             )
             if visible_fields is not None:
                 row.visible = config.name in visible_fields
             ui_component.controls.append(row)
+
+    def transfer_add_value(self, e, field, add_field):
+        if add_field.value:
+            field.value = add_field.value
+            self.ui.page.update()
 
     def get_field(self, name):
         return self.fields.get(name, "")
@@ -223,12 +255,12 @@ class DpdFields:
         value = field.value
         return field, value
 
-    # automations
+    # automation
 
     def lemma_1_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
         if value in self.db.all_lemma_1:
-            field.error_text = f"{value} aleady in db"
+            field.error_text = f"{value} already in db"
         elif not value:
             field.error_text = "required field"
         else:
@@ -442,3 +474,102 @@ class DpdFields:
         self.ui.page.update()
         if e.name == "submit":
             field.focus()
+
+    def update_fields(self, data: dict[str, str], target: str = "main") -> None:
+        """Update fields from provided data dictionary.
+
+        Args:
+            data: Dictionary of field values
+            target: 'main' to update main fields, 'add' to update _add fields
+        """
+        for name, value in data.items():
+            if target == "main":
+                if name in self.fields:
+                    self.fields[name].value = value
+                    self.fields[name].error_text = None
+            else:  # target == "add"
+                add_name = f"{name}_add"
+                if add_name in self.fields:
+                    self.fields[add_name].value = value
+                    self.fields[add_name].error_text = None
+        self.ui.page.update()
+
+    def clear_fields(self, target: str = "all") -> None:
+        """Clear field values.
+
+        Args:
+            target: 'main' to clear main fields, 'add' to clear _add fields,
+                    'all' to clear all fields
+        """
+        for name, control in self.fields.items():
+            if (
+                target == "all"
+                or (target == "main" and not name.endswith("_add"))
+                or (target == "add" and name.endswith("_add"))
+            ):
+                control.value = ""
+                control.error_text = None
+        self.ui.page.update()
+
+
+"""
+0. id
+1. lemma_1
+2. lemma_2
+3. pos
+4. grammar
+5. derived_from
+6. neg
+7. verb
+8. trans
+9. plus_case
+10. meaning_1
+11. meaning_lit
+12. meaning_2
+13. non_ia
+14. sanskrit
+15. root_key
+16. root_sign
+17. root_base
+18. family_root
+19. family_word
+20. family_compound
+21. family_idioms
+22. family_set
+23. construction
+24. derivative
+25. suffix
+26. phonetic
+27. compound_type
+28. compound_construction
+29. non_root_in_comps
+30. source_1
+31. sutta_1
+32. example_1
+33. source_2
+34. sutta_2
+35. example_2
+36. antonym
+37. synonym
+38. variant
+39. var_phonetic
+40. var_text
+41. commentary
+42. notes
+43. cognate
+44. link
+45. origin
+46. stem
+47. pattern
+48. created_at
+49. updated_at
+50. inflections
+51. inflections_api_ca_eva_iti
+52. inflections_sinhala
+53. inflections_devanagari
+54. inflections_thai
+55. inflections_html
+56. freq_data
+57. freq_html
+58. ebt_count
+"""

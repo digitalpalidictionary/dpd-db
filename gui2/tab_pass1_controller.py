@@ -1,18 +1,20 @@
 from json import dump, load
 from pathlib import Path
+
 import flet as ft
 import pyperclip
+from rich import print
+
 from db.models import DpdHeadword
+from gui2.class_books import sutta_central_books
 from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
 from gui2.class_mixins import SandhiOK, SnackBarMixin
-
-from gui2.class_books import pass1_books
+from gui2.class_paths import Gui2Paths
 from gui2.class_spelling import SpellingMistakesFileManager
 from gui2.class_variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
-from rich import print
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -29,13 +31,13 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
 
         self.daily_log = DailyLog()
 
-        self.pass1_books = pass1_books
+        self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
         self.book_to_process: str
 
-        self.preprocessed_filepath: Path
-        self.preprocessed_dict: dict[str, dict[str, str]]
-        self.preprocessed_iter = iter([])
+        self.auto_processed_filepath: Path
+        self.auto_processed_dict: dict[str, dict[str, str]]
+        self.auto_processed_iter = iter([])
 
         self.word_in_text: str
         self.sentence_data: dict[str, str]
@@ -53,31 +55,32 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
             self.ui.clear_all_fields()
 
     def load_json(self):
-        self.preprocessed_filepath = Path(
-            f"gui2/data/{self.book_to_process}_preprocessed.json"
+        self.gui2pth = Gui2Paths()
+        self.auto_processed_filepath = (
+            self.gui2pth.gui2_data_path / f"pass1_auto_{self.book_to_process}.json"
         )
         try:
-            self.preprocessed_dict = load(
-                self.preprocessed_filepath.open("r", encoding="utf-8")
+            self.auto_processed_dict = load(
+                self.auto_processed_filepath.open("r", encoding="utf-8")
             )
             # dict will change size, so work on a zopy
-            self.preprocessed_dict_copy = self.preprocessed_dict.copy()
-            self.preprocessed_iter = iter(self.preprocessed_dict_copy.items())
-            self.ui.update_remaining(f"{len(self.preprocessed_dict)}")
+            self.auto_processed_dict_copy = self.auto_processed_dict.copy()
+            self.auto_processed_iter = iter(self.auto_processed_dict_copy.items())
+            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
         except FileNotFoundError:
             self.ui.update_message("file not found.")
 
     def get_next_item(self):
         try:
-            self.word_in_text, self.sentence_data = next(self.preprocessed_iter)
-            self.ui.update_remaining(f"{len(self.preprocessed_dict)}")
+            self.word_in_text, self.sentence_data = next(self.auto_processed_iter)
+            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
             print(self.word_in_text)
             print(self.sentence_data)
             return True
         except StopIteration:
             self.ui.clear_all_fields()
             self.ui.update_message("No more words to process.")
-            self.ui.update_remaining(f"{len(self.preprocessed_dict)}")
+            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
             return False
 
     def load_into_gui(self):
@@ -129,10 +132,10 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
 
     def remove_word_and_save_json(self):
         try:
-            del self.preprocessed_dict[self.word_in_text]
+            del self.auto_processed_dict[self.word_in_text]
             dump(
-                self.preprocessed_dict,
-                self.preprocessed_filepath.open("w"),
+                self.auto_processed_dict,
+                self.auto_processed_filepath.open("w"),
                 ensure_ascii=False,
                 indent=2,
             )

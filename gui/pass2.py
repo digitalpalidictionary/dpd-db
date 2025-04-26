@@ -13,7 +13,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from gui.functions import load_gui_config
 from tools.cst_sc_text_sets import make_cst_text_list, make_sc_text_list
-from tools.cst_source_sutta_example import find_source_sutta_example
+from tools.cst_source_sutta_example import find_cst_source_sutta_example
 from tools.goldendict_tools import open_in_goldendict
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter
@@ -394,7 +394,7 @@ def pass2_gui(p2d: Pass2Data) -> tuple[Pass2Data, WordData]:
         p2d.pass2_window["pass2_word"].update(value=word)
         p2d.pass2_window.refresh()
 
-        sutta_examples = find_source_sutta_example(p2d.book, wd.search_pattern)
+        sutta_examples = find_cst_source_sutta_example(p2d.book, wd.search_pattern)
 
         if sutta_examples:
             wd.sutta_examples = sutta_examples

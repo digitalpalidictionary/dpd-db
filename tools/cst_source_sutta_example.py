@@ -1,7 +1,10 @@
 import re
 import time
+from collections import namedtuple
 
 from bs4 import BeautifulSoup, element
+
+
 from rich import print
 from typing import Tuple, List
 
@@ -10,6 +13,10 @@ from tools.pali_text_files import cst_texts
 from tools.tokenizer import split_sentences
 
 """This code relies completely on tools.pali_text_files."""
+
+CstSourceSuttaExample = namedtuple(
+    "CstSourceSuttaExample", ["source", "sutta", "example"]
+)
 
 sn_peyyalas = [
     # payyalas is a list of tuples of books found in saṃyutta nikāya
@@ -155,7 +162,7 @@ class GlobalData:
 
         self.book: str = book
         self.text_to_find: str = text_to_find
-        self.source_sutta_examples: list[tuple[str, str, str]] = []
+        self.source_sutta_examples: list[CstSourceSuttaExample] = []
         self.filenames: list[str] = get_cst_filenames(self.book)
         self.soups: list[BeautifulSoup] = self.make_cst_soup(self.filenames)
         self.x: element.Tag | None  # current soup item
@@ -2573,9 +2580,9 @@ def apt_abhidhanapadipikatika(g: GlobalData):
         g.sutta = sutta.lower()
 
 
-def find_source_sutta_example(
+def find_cst_source_sutta_example(
     book: str, text_to_find: str
-) -> List[Tuple[str, str, str]]:
+) -> List[CstSourceSuttaExample]:
     g: GlobalData = GlobalData(book, text_to_find)
     for soup in g.soups:
         soup_chunks = soup.find_all(["head", "p"])
@@ -2739,7 +2746,13 @@ def find_source_sutta_example(
                 and g.example
                 and (g.source, g.sutta, g.example) not in g.source_sutta_examples
             ):
-                g.source_sutta_examples.append((g.source, g.sutta, g.example))
+                g.source_sutta_examples.append(
+                    CstSourceSuttaExample(
+                        source=g.source,
+                        sutta=g.sutta,
+                        example=g.example,
+                    )
+                )
 
     if g.debug:
         for sc in g.source_sutta_list:
@@ -2755,5 +2768,5 @@ def find_source_sutta_example(
 if __name__ == "__main__":
     book = "dn1"
     text_to_find = "akatvā"
-    sutta_examples = find_source_sutta_example(book, text_to_find)
+    sutta_examples = find_cst_source_sutta_example(book, text_to_find)
     # print(len(sutta_examples))

@@ -8,7 +8,8 @@ class App:
     def __init__(self, page: ft.Page):
         from gui2.tab_edit_view import EditView
         from gui2.tab_pass1_view import Pass1View
-        from gui2.tab_pass1preprocess_view import Pass1PreProcessView
+        from gui2.tab_pass1_auto_view import Pass1AutoView
+        from gui2.tab_pass2_pre_view import Pass2PreProcessView
 
         self.page = page
 
@@ -18,7 +19,7 @@ class App:
         self.page.window.top = 0
         self.page.window.left = 0
         self.page.window.height = 1280
-        self.page.window.width = 1380
+        self.page.window.width = 1375
         self.page.vertical_alignment = ft.MainAxisAlignment.START
         self.page.on_keyboard_event = self.on_keyboard
 
@@ -33,12 +34,13 @@ class App:
             actions=[ft.Text(self.daily_log.get_counts())],
         )
 
-        # initilize classes
+        # initialize classes
         self.db = DatabaseManager()
-        self.pass1_preprocess_view: Pass1PreProcessView = Pass1PreProcessView(
+        self.pass1_auto_view: Pass1AutoView = Pass1AutoView(self.page, self.db)
+        self.pass1_view: Pass1View = Pass1View(self.page, self.db)
+        self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page, self.db
         )
-        self.pass1_view: Pass1View = Pass1View(self.page, self.db)
         self.pass2_view_placeholder: ft.Text = ft.Text("")
         self.edit_view: EditView = EditView(self.page, self.db)
 
@@ -65,19 +67,23 @@ class App:
             on_click=self.tab_clicked,
             tabs=[
                 ft.Tab(
-                    text="Pass1 PreProcess",
-                    content=self.pass1_preprocess_view,
+                    text="Pass1Auto",
+                    content=self.pass1_auto_view,
                 ),
                 ft.Tab(
-                    text="Pass1",
+                    text="Pass1Add",
                     content=self.pass1_view,
                 ),
                 ft.Tab(
-                    text="Pass2",
+                    text="Pass2Pre",
+                    content=self.pass2_pre_view,
+                ),
+                ft.Tab(
+                    text="Pass2Auto",
                     content=self.pass2_view_placeholder,
                 ),
                 ft.Tab(
-                    text="Edit",
+                    text="Pass2Add",
                     content=self.edit_view,
                 ),
             ],

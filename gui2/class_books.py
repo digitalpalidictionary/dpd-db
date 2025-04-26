@@ -1,5 +1,4 @@
-from collections import defaultdict
-from dataclasses import dataclass
+from collections import defaultdict, namedtuple
 from json import load
 from pathlib import Path
 from tools.clean_machine import clean_machine
@@ -7,26 +6,25 @@ from tools.pali_alphabet import pali_alphabet
 from tools.sort_naturally import natural_sort
 
 
-@dataclass
-class Segment:
-    segment: str
-    pali: str
-    english: str
+SuttaCentralSegment = namedtuple("SuttaCentralSegment", ["segment", "pali", "english"])
 
 
-class BookSource:
-    def __init__(self, book: str, pali_path: str, english_path: str) -> None:
-        self.book: str = book
+class SuttaCentralSource:
+    def __init__(
+        self, book: str, cst_books: list[str], pali_path: str, english_path: str
+    ) -> None:
+        self.sc_book: str = book
+        self.cst_books: list[str] = cst_books
         self.pali_path: Path = Path(pali_path)
         self.english_path: Path = Path(english_path)
 
         self.pali_file_list: list[Path] = self.make_file_list(self.pali_path)
         self.english_file_list: list[Path] = self.make_file_list(self.english_path)
 
-        self.segment_dict: dict[str, Segment] = {}
+        self.segment_dict: dict[str, SuttaCentralSegment] = {}
         self.make_segment_dict()
 
-        self.word_dict: defaultdict[str, list[Segment]] = defaultdict(list)
+        self.word_dict: defaultdict[str, list[SuttaCentralSegment]] = defaultdict(list)
         self.allowable_chars: list[str] = pali_alphabet + [" "]
         self.process_words()
 
@@ -39,16 +37,21 @@ class BookSource:
         for file_path in self.pali_file_list:
             data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
             for segment, sentence in data.items():
-                self.segment_dict[segment] = Segment(segment, sentence, "")
+                self.segment_dict[segment] = SuttaCentralSegment(segment, sentence, "")
 
         for file_path in self.english_file_list:
             data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
             for segment, sentence in data.items():
                 if segment in self.segment_dict:
-                    self.segment_dict[segment].english = sentence
+                    current = self.segment_dict[segment]
+                    self.segment_dict[segment] = SuttaCentralSegment(
+                        current.segment, current.pali, sentence
+                    )
                 else:
                     # sometimes only english exists
-                    self.segment_dict[segment] = Segment(segment, "", sentence)
+                    self.segment_dict[segment] = SuttaCentralSegment(
+                        segment, "", sentence
+                    )
 
     def process_words(self) -> None:
         for segment in self.segment_dict.values():
@@ -57,19 +60,22 @@ class BookSource:
                 self.word_dict[word].append(segment)
 
 
-pass1_books: dict[str, BookSource] = {
-    "vin3": BookSource(
-        "vin3",
+sutta_central_books: dict[str, SuttaCentralSource] = {
+    "vin3&4": SuttaCentralSource(
+        "vin3&4",
+        ["vin3", "vin4"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/vinaya/pli-tv-kd",
         "resources/sc-data/sc_bilara_data/translation/en/brahmali/vinaya/pli-tv-kd",
     ),
-    "dn": BookSource(
+    "dn": SuttaCentralSource(
         "dn",
+        ["dn3", "dn1", "dn2"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/dn",
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/dn",
     ),
-    "ja": BookSource(
+    "ja": SuttaCentralSource(
         "ja",
+        ["kn14"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
     ),

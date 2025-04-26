@@ -1,7 +1,12 @@
 from json import dump, dumps, load, loads
 from pathlib import Path
+from gui2.class_paths import Gui2Paths
 
-from gui2.class_books import BookSource, Segment, pass1_books
+from gui2.class_books import (
+    SuttaCentralSegment,
+    SuttaCentralSource,
+    sutta_central_books,
+)
 from gui2.class_database import DatabaseManager
 from gui2.class_spelling import SpellingMistakesFileManager
 from gui2.class_variants import VariantReadingFileManager
@@ -10,20 +15,21 @@ from tools.deepseek import Deepseek
 from tools.goldendict_tools import open_in_goldendict_os
 
 
-class Pass1PreProcessController:
+class Pass1AutoController:
     def __init__(self, ui, db: DatabaseManager) -> None:
-        from gui2.tab_pass1preprocess_view import Pass1PreProcessView
+        from gui2.tab_pass1_auto_view import Pass1AutoView
 
-        self.ui: Pass1PreProcessView = ui
-
-        self.pass1_books: dict[str, BookSource] = pass1_books
+        self.ui: Pass1AutoView = ui
+        self.gui2pth = Gui2Paths()
+        self.pass1_books: dict[str, SuttaCentralSource] = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
 
         self.db: DatabaseManager = db
-        self.missing_words_dict: dict[str, list[Segment]] = {}
+        self.missing_words_dict: dict[str, list[SuttaCentralSegment]] = {}
         self.book: str
+        self.cst_books: list[str]
         self.word_in_text: str
-        self.sentence_data: list[Segment]
+        self.sentence_data: list[SuttaCentralSegment]
         self.related_entries_list: list[str] = []
 
         self.stop_flag = False
@@ -31,30 +37,32 @@ class Pass1PreProcessController:
         self.prompt: str
         self.response: str
 
-        self.preprocessed_dict: dict[str, dict[str, str]] = {}
-        self.preprocessed_keys: list[str] = []
+        self.auto_processed_dict: dict[str, dict[str, str]] = {}
+        self.auto_processed_keys: list[str] = []
 
         self.variant_readings = VariantReadingFileManager()
         self.spelling_mistakes = SpellingMistakesFileManager()
 
-    def load_preprocessed(self):
-        self.ui.update_message(f"Loading preprocessed data for {self.book}")
+    def load_auto_processed(self):
+        self.ui.update_message(f"Loading auto processed data for {self.book}")
 
-        self.preprocessed_path: Path = Path(f"gui2/data/{self.book}_preprocessed.json")
-        if self.preprocessed_path.exists():
-            self.preprocessed_dict = load(
-                self.preprocessed_path.open("r", encoding="utf-8")
+        self.auto_processed_path: Path = (
+            self.gui2pth.gui2_data_path / f"pass1_auto_{self.book}.json"
+        )
+        if self.auto_processed_path.exists():
+            self.auto_processed_dict = load(
+                self.auto_processed_path.open("r", encoding="utf-8")
             )
-            self.preprocessed_keys = list(self.preprocessed_dict.keys())
+            self.auto_processed_keys = list(self.auto_processed_dict.keys())
 
         else:
-            self.preprocessed_dict = {}
+            self.auto_processed_dict = {}
 
-        self.ui.update_preprocessed_count(
-            f"{len(self.preprocessed_dict)} / {len(self.missing_words_dict)}"
+        self.ui.update_auto_processed_count(
+            f"{len(self.auto_processed_dict)} / {len(self.missing_words_dict)}"
         )
 
-    def preprocess_book(self, book: str):
+    def auto_process_book(self, book: str):
         self.stop_flag = False
 
         # should only run once
@@ -63,7 +71,8 @@ class Pass1PreProcessController:
             self.db.make_inflections_lists()
 
         self.book = book
-        self.load_preprocessed()
+        self.cst_books = sutta_central_books[book].cst_books
+        self.load_auto_processed()
         self.find_missing_words_in_cst()
         self.find_missing_words_in_sutta_central()
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
@@ -74,7 +83,7 @@ class Pass1PreProcessController:
             )
             self.compile_prompt()
             self.response = str(self.send_prompt())
-            self.update_preprocessed()
+            self.update_auto_processed()
             if self.stop_flag:
                 break
 
@@ -84,7 +93,7 @@ class Pass1PreProcessController:
         if (
             word not in self.db.all_inflections
             and word not in self.db.sandhi_ok_list
-            and word not in self.preprocessed_keys
+            and word not in self.auto_processed_keys
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
         ):
@@ -97,7 +106,7 @@ class Pass1PreProcessController:
 
         self.ui.update_message("Finding missing words in CST")
 
-        all_cst_words = make_cst_text_list(["vin3"])
+        all_cst_words = make_cst_text_list(self.cst_books, dedupe=True)
         for word in all_cst_words:
             if self.is_missing(word):
                 self.missing_words_dict[word] = []
@@ -242,6 +251,9 @@ ve: verbal ending
 ---
 
 """
+        temp_file = Path(f"temp/prompts/pass1/{self.word_in_text}_prompt")
+        with open(temp_file, "w") as f:
+            f.write(self.prompt)
 
     def send_prompt(self):
         self.ui.update_message(f"sending prompt for {self.word_in_text}")
@@ -257,45 +269,50 @@ ve: verbal ending
         except Exception as e:
             return e
 
-    def update_preprocessed(self):
-        self.ui.update_message(f"updating preprocessed data for {self.word_in_text}")
+    def update_auto_processed(self):
+        self.ui.update_message(f"updating auto processed data for {self.word_in_text}")
 
         # convert to json
         self.response = self.response.replace("```json\n", "").replace("```", "")
 
-        # update preprocessed_dict
+        # save json
+        tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")
+        with open(tempfile, "w") as f:
+            dump(loads(self.response), f, ensure_ascii=False, indent=4)
+
+        # update auto processed_dict
         try:
-            self.preprocessed_dict[self.word_in_text] = loads(self.response)
+            self.auto_processed_dict[self.word_in_text] = loads(self.response)
 
             # add an example and translation
             if len(self.sentence_data) > 0:
                 first_sentence = self.sentence_data[0]
-                self.preprocessed_dict[self.word_in_text]["example_1"] = (
+                self.auto_processed_dict[self.word_in_text]["example_1"] = (
                     first_sentence.pali
                 )
-                self.preprocessed_dict[self.word_in_text]["translation_1"] = (
+                self.auto_processed_dict[self.word_in_text]["translation_1"] = (
                     first_sentence.english
                 )
 
             # add a second example and translation if it exists
             if len(self.sentence_data) > 1:
                 second_sentence = self.sentence_data[1]
-                self.preprocessed_dict[self.word_in_text]["example_2"] = (
+                self.auto_processed_dict[self.word_in_text]["example_2"] = (
                     second_sentence.pali
                 )
-                self.preprocessed_dict[self.word_in_text]["translation_2"] = (
+                self.auto_processed_dict[self.word_in_text]["translation_2"] = (
                     second_sentence.english
                 )
 
             # update gui
             open_in_goldendict_os(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
-            self.ui.update_preprocessed_count(
-                f"{len(self.preprocessed_dict)} / {len(self.missing_words_dict)}"
+            self.ui.update_auto_processed_count(
+                f"{len(self.auto_processed_dict)} / {len(self.missing_words_dict)}"
             )
             self.ui.update_ai_results(
                 dumps(
-                    self.preprocessed_dict[self.word_in_text],
+                    self.auto_processed_dict[self.word_in_text],
                     indent=2,
                     ensure_ascii=False,
                     separators=("", ":"),
@@ -303,8 +320,8 @@ ve: verbal ending
             )
 
             # save json
-            with self.preprocessed_path.open("w") as f:
-                dump(self.preprocessed_dict, f, indent=2, ensure_ascii=False)
+            with self.auto_processed_path.open("w") as f:
+                dump(self.auto_processed_dict, f, indent=2, ensure_ascii=False)
 
         except Exception:
             self.ui.update_message("Error parsing JSON.")

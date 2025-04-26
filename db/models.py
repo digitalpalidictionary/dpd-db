@@ -25,6 +25,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from tools.link_generator import generate_link
+
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
@@ -788,6 +789,16 @@ class DpdHeadword(Base):
             return ""
 
     @property
+    def construction_line1_clean(self) -> str:
+        from tools.meaning_construction import clean_construction
+
+        return clean_construction(self.construction_line1)
+
+    @property
+    def construction_line1_clean_list(self) -> list[str]:
+        return self.construction_line1_clean.split(" + ")
+
+    @property
     def family_compound_list(self) -> list:
         if self.family_compound:
             return self.family_compound.split(" ")
@@ -1159,7 +1170,6 @@ class DpdHeadword(Base):
     @property
     def needs_frequency_button(self) -> bool:
         return bool(self.pos not in EXCLUDE_FROM_FREQ)
-    
 
     # Determine uniqueness of ru_notes
     @property
@@ -1167,9 +1177,7 @@ class DpdHeadword(Base):
         if self.ru and self.ru.ru_notes:
             if not self.notes:
                 return True
-            if paragraphs_are_similar(
-                self.ru.ru_notes, self.notes, 0.999
-            ):
+            if paragraphs_are_similar(self.ru.ru_notes, self.notes, 0.999):
                 return False
             return True
         return False
@@ -1427,7 +1435,7 @@ class SBS(Base):
                     return False
             return True
         return False
-    
+
     @property
     def needs_pat_example(self) -> bool:
         if self.pat_example:
@@ -1446,7 +1454,7 @@ class SBS(Base):
                     return False
             return True
         return False
-    
+
     @property
     def needs_vib_example(self) -> bool:
         if self.vib_example:
@@ -1465,7 +1473,7 @@ class SBS(Base):
                     return False
             return True
         return False
-    
+
     @property
     def needs_class_example(self) -> bool:
         if self.class_example:

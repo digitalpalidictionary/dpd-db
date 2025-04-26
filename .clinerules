@@ -5,12 +5,17 @@
   - .env files
   - .ini files
 
+## File Reading
+- You never need permission to read a file or analyze file.
+
 ## Custom instructions
 - Promise to follow the custom instructions.
 
 ## Python Type Hints
 - Please add type hints to all code, especially when it is missing in existing code. 
 - Use modern type hints `dict[str, str]` not old type hints like `Dict[str, str]` 
+- Use `tuple[str, str]` not `Tuple[str, str]`
+- Use `list[str]` not `List[str]`
 
 ## Use Path from Pathlib
 - Use Path for anything related to filepaths, not os.

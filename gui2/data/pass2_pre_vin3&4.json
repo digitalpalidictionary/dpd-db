@@ -1,0 +1,108 @@
+{
+    "no": {
+        "namo": 35796,
+        "bhagavato": 49140,
+        "samayena": 59455,
+        "bhagavā": 49140,
+        "tīre": 30931,
+        "ekapallaṅkena": 17579,
+        "paṭhamaṃ": 41470,
+        "nāmarūpaṃ": 36457,
+        "saḷāyatanaṃ": 61507,
+        "phassapaccayā": 47660,
+        "taṇhā": 29349,
+        "taṇhāpaccayā": 29377,
+        "hoti": 71485,
+        "tāyaṃ": 30295,
+        "pātubhavanti": 45454,
+        "kaṅkhā": 19240,
+        "yato": 53528,
+        "majjhimaṃ": 50745,
+        "pe": 80427,
+        "paccayānaṃ": 76343,
+        "bhagavatā": 49140,
+        "kathaṃ": 19853,
+        "sāraṇīyaṃ": 62456,
+        "ekamantaṃ": 76684,
+        "bhagavantaṃ": 49140,
+        "gotama": 76404,
+        "netti": 38755,
+        "vadeyya": 66146,
+        "mucalindo": 52819,
+        "mahā": 52045,
+        "nikkhamitvā": 36785,
+        "kāyaṃ": 19159,
+        "bhogehi": 50335,
+        "mahantaṃ": 51580,
+        "siriṃ": 63017
+    },
+    "yes": {
+        "vinayapiṭake": {
+            "id": 68099,
+            "sentence": []
+        },
+        "mahāvaggapāḷi": {
+            "id": 52008,
+            "sentence": [
+                "pli-tv-kd10:6.3.66",
+                "Mahāvaggapāḷi niṭṭhitā. ",
+                "The canonical text of the Great Division is finished. "
+            ]
+        },
+        "udā": {
+            "id": 15003,
+            "sentence": []
+        },
+        "ādayo": {
+            "id": 11536,
+            "sentence": []
+        },
+        "ajapālanigrodhamūle": {
+            "id": 1143,
+            "sentence": [
+                "pli-tv-kd1:2.1.1",
+                "Atha kho bhagavā sattāhassa accayena tamhā samādhimhā vuṭṭhahitvā bodhirukkhamūlā yena ajapālanigrodho tenupasaṅkami, upasaṅkamitvā ajapālanigrodhamūle sattāhaṁ ekapallaṅkena nisīdi vimuttisukhapaṭisaṁvedī. ",
+                "After seven days, the Buddha came out from that stillness and went from the Bodhi tree to a goatherd’s banyan tree. There too he sat cross-legged for seven days without moving, experiencing the bliss of freedom. "
+            ]
+        },
+        "nikkasāvo": {
+            "id": 36737,
+            "sentence": [
+                "pli-tv-kd1:2.3.3",
+                "Nihuṁhuṅko nikkasāvo yatatto; ",
+                "Who does not murmur mystical mantras, but is free from flaws and self-controlled, "
+            ]
+        },
+        "ajapālanigrodhamūlā": {
+            "id": 1143,
+            "sentence": [
+                "pli-tv-kd1:3.1.1",
+                "Atha kho bhagavā sattāhassa accayena tamhā samādhimhā vuṭṭhahitvā ajapālanigrodhamūlā yena mucalindo tenupasaṅkami, upasaṅkamitvā mucalindamūle sattāhaṁ ekapallaṅkena nisīdi vimuttisukhapaṭisaṁvedī. ",
+                "After seven days, the Buddha came out from that stillness and went from the goatherd’s banyan tree to a powderpuff tree. There too he sat cross-legged for seven days without moving, experiencing the bliss of freedom. "
+            ]
+        },
+        "mucalindo": {
+            "id": 52818,
+            "sentence": [
+                "pli-tv-kd1:3.1.1",
+                "Atha kho bhagavā sattāhassa accayena tamhā samādhimhā vuṭṭhahitvā ajapālanigrodhamūlā yena mucalindo tenupasaṅkami, upasaṅkamitvā mucalindamūle sattāhaṁ ekapallaṅkena nisīdi vimuttisukhapaṭisaṁvedī. ",
+                "After seven days, the Buddha came out from that stillness and went from the goatherd’s banyan tree to a powderpuff tree. There too he sat cross-legged for seven days without moving, experiencing the bliss of freedom. "
+            ]
+        },
+        "uparimuddhani": {
+            "id": 16007,
+            "sentence": [
+                "pli-tv-kd1:3.2.2",
+                "Atha kho mucalindo nāgarājā sakabhavanā nikkhamitvā bhagavato kāyaṁ sattakkhattuṁ bhogehi parikkhipitvā uparimuddhani mahantaṁ phaṇaṁ karitvā aṭṭhāsi—",
+                "Mucalinda, the dragon king, came out from his abode. He encircled the body of the Buddha with seven coils and spread his large hood over his head, thinking, "
+            ]
+        }
+    },
+    "new": {
+        "mucalindo": [
+            "pli-tv-kd1:3.2.2",
+            "Atha kho mucalindo nāgarājā sakabhavanā nikkhamitvā bhagavato kāyaṁ sattakkhattuṁ bhogehi parikkhipitvā uparimuddhani mahantaṁ phaṇaṁ karitvā aṭṭhāsi—",
+            "Mucalinda, the dragon king, came out from his abode. He encircled the body of the Buddha with seven coils and spread his large hood over his head, thinking, "
+        ]
+    }
+}

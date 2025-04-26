@@ -3,6 +3,7 @@ import flet as ft
 from gui2.class_database import DatabaseManager
 from gui2.class_mixins import PopUpMixin
 from gui2.class_dpd_fields import DpdFields
+from gui2.class_pass2_file_manager import Pass2AutoFileManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -21,9 +22,20 @@ class EditView(ft.Column, PopUpMixin):
         )
         self.db = db
 
-        # Placeholder for top fixed section
+        # Initialize Pass2 manager
+        self.pass2_manager = Pass2AutoFileManager()
+
+        # Top section with Pass2 navigation
+        self.pass2_label = ft.Text("Current Pass2: None", expand=True)
+        self.next_button = ft.ElevatedButton(
+            "Next Pass2 Entry", width=BUTTON_WIDTH, on_click=self._load_next_pass2_entry
+        )
+
         self.top_section = ft.Container(
-            content=ft.Text("Top Section Placeholder", height=50),
+            content=ft.Row(
+                controls=[self.pass2_label, self.next_button],
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            ),
             border=ft.Border(
                 top=ft.BorderSide(1, HIGHLIGHT_COLOUR),
                 bottom=ft.BorderSide(1, HIGHLIGHT_COLOUR),
@@ -33,17 +45,16 @@ class EditView(ft.Column, PopUpMixin):
             # No expand=True here
         )
 
-        # Initialize DPD fields
+        # Initialize single DPD fields instance
         self.dpd_fields = DpdFields(self, self.db)
 
-        # Middle scrollable section with all DPD fields
+        # Middle section is a single scrolling column
         self.middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO, expand=True, spacing=5
         )
 
-        # Add all fields to the middle section
-        # Show all fields in EditView
-        self.dpd_fields.add_to_ui(self.middle_section, visible_fields=None)
+        # Add all fields with add fields included (for Pass2 editing)
+        self.dpd_fields.add_to_ui(self.middle_section, include_add_fields=True)
 
         # Placeholder for bottom fixed section
         self.bottom_section = ft.Container(
@@ -71,6 +82,22 @@ class EditView(ft.Column, PopUpMixin):
     # def update_content(self, data):
     #     self.middle_section.controls = [...]
     #     self.update()
+
+    def _load_next_pass2_entry(self, e: ft.ControlEvent | None = None) -> None:
+        """Load next pass2 entry into the view."""
+        headword_id, data = self.pass2_manager.get_next_headword_data()
+
+        if headword_id is not None:
+            self.pass2_label.value = (
+                f"Current Pass2: {data.get('pali_1', headword_id)} (ID: {headword_id})"
+            )
+            self.dpd_fields.update_fields(data, target="add")  # Update add fields
+            self.dpd_fields.clear_fields(target="main")  # Clear main fields
+        else:
+            self.pass2_label.value = "Current Pass2: None"
+            self.dpd_fields.clear_fields(target="all")  # Clear all fields
+
+        self.update()
 
     def build(self):
         # The structure is defined in __init__. Flet calls build automatically.

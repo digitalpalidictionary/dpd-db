@@ -9,15 +9,14 @@ Look in:
 """
 
 import json
-from pathlib import Path
 import re
 from collections import defaultdict
 
 import flet as ft
 
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from gui2.class_paths import Gui2Paths
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
@@ -176,8 +175,9 @@ class Gui:
 class Data:
     def __init__(self) -> None:
         self.pth: ProjectPaths = ProjectPaths()
-        self.data_path = Path("gui2/find_words_with_examples_dump.json")
-        self.exceptions_path = Path("gui2/find_words_with_examples_no.json")
+        self.gui2pth = Gui2Paths()
+        self.data_path = self.gui2pth.find_words_dump_path
+        self.exceptions_path = self.gui2pth.find_words_exceptions_path
         self.exceptions_dict: dict[str, int] = self.load_exceptions()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db_results = self.db_session.query(DpdHeadword).all()
