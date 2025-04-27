@@ -1,5 +1,5 @@
 {
-    "no": {
+    "unmatched": {
         "namo": 35796,
         "bhagavato": 49140,
         "samayena": 59455,
@@ -36,7 +36,7 @@
         "mahantaṃ": 51580,
         "siriṃ": 63017
     },
-    "yes": {
+    "matched": {
         "vinayapiṭake": {
             "id": 68099,
             "sentence": []
@@ -98,7 +98,7 @@
             ]
         }
     },
-    "new": {
+    "new_word": {
         "mucalindo": [
             "pli-tv-kd1:3.2.2",
             "Atha kho mucalindo nāgarājā sakabhavanā nikkhamitvā bhagavato kāyaṁ sattakkhattuṁ bhogehi parikkhipitvā uparimuddhani mahantaṁ phaṇaṁ karitvā aṭṭhāsi—",
