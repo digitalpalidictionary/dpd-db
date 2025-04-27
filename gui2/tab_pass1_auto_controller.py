@@ -1,4 +1,4 @@
-from json import dump, dumps, load, loads
+from json import dump, dumps, load, loads, JSONDecodeError
 from pathlib import Path
 from gui2.class_paths import Gui2Paths
 
@@ -83,7 +83,11 @@ class Pass1AutoController:
             )
             self.compile_prompt()
             self.response = str(self.send_prompt())
-            self.update_auto_processed()
+            if not self.update_auto_processed():
+                self.ui.update_message(
+                    "Stopping auto-processing due to API response error"
+                )
+                break
             if self.stop_flag:
                 break
 
@@ -269,22 +273,33 @@ ve: verbal ending
         except Exception as e:
             return e
 
-    def update_auto_processed(self):
+    def update_auto_processed(self) -> bool:
         self.ui.update_message(f"updating auto processed data for {self.word_in_text}")
 
-        # convert to json
-        self.response = self.response.replace("```json\n", "").replace("```", "")
+        # Ensure response is a string before attempting replace
+        if not isinstance(self.response, str):
+            self.ui.update_message(
+                f"Error for {self.word_in_text}: API response is not a string ({type(self.response)})."
+            )
+            return False
 
-        # save json
-        tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")
-        with open(tempfile, "w") as f:
-            dump(loads(self.response), f, ensure_ascii=False, indent=4)
-
-        # update auto processed_dict
+        # Attempt to clean and parse the JSON response
         try:
-            self.auto_processed_dict[self.word_in_text] = loads(self.response)
+            # convert to json (remove potential markdown formatting)
+            cleaned_response = self.response.replace("```json\n", "").replace("```", "")
 
-            # add an example and translation
+            # Try parsing the cleaned response
+            parsed_json = loads(cleaned_response)
+
+            # save json to temp file
+            tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")
+            with open(tempfile, "w") as f:
+                dump(parsed_json, f, ensure_ascii=False, indent=4)
+
+            # update auto processed_dict
+            self.auto_processed_dict[self.word_in_text] = parsed_json
+
+            # add examples and translations
             if len(self.sentence_data) > 0:
                 first_sentence = self.sentence_data[0]
                 self.auto_processed_dict[self.word_in_text]["example_1"] = (
@@ -294,7 +309,6 @@ ve: verbal ending
                     first_sentence.english
                 )
 
-            # add a second example and translation if it exists
             if len(self.sentence_data) > 1:
                 second_sentence = self.sentence_data[1]
                 self.auto_processed_dict[self.word_in_text]["example_2"] = (
@@ -319,9 +333,20 @@ ve: verbal ending
                 )
             )
 
-            # save json
+            # save updated dictionary to main file
             with self.auto_processed_path.open("w") as f:
                 dump(self.auto_processed_dict, f, indent=2, ensure_ascii=False)
 
-        except Exception:
-            self.ui.update_message("Error parsing JSON.")
+        except JSONDecodeError as e:
+            # Handle the case where the response is not valid JSON
+            error_message = f"Error processing '{self.word_in_text}': Failed to decode API response. Details: {e}"
+            self.ui.update_message(error_message)
+            return False
+
+        except Exception as e:
+            # Catch any other unexpected errors during processing
+            error_message = f"Unexpected error processing '{self.word_in_text}': {e}"
+            self.ui.update_message(error_message)
+            return False
+
+        return True

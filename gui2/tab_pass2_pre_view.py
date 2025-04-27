@@ -218,7 +218,7 @@ class Pass2PreProcessView(ft.Column):
         if sentence is None:
             return
 
-        message = self.controller.file_manager.update_yes(
+        message = self.controller.file_manager.update_matched(
             self.controller.word_in_text, headword_id, sentence
         )
         self.update_message(message)
@@ -231,7 +231,7 @@ class Pass2PreProcessView(ft.Column):
         self.controller.load_next_headword()
 
     def handle_no_click(self, e):
-        message = self.controller.file_manager.update_no(
+        message = self.controller.file_manager.update_unmatched(
             self.controller.word_in_text,
             self.controller.headwords[self.controller.headword_index].id,
         )
@@ -256,7 +256,7 @@ class Pass2PreProcessView(ft.Column):
         if sentence is None:
             return
 
-        message = self.controller.file_manager.update_new(
+        message = self.controller.file_manager.update_new_word(
             self.controller.word_in_text, sentence
         )
         self.selected_sentence_index = 0

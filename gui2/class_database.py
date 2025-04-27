@@ -194,9 +194,6 @@ class DatabaseManager:
 
             return results_list
 
-    def get_headword_by_id(self, id: int) -> DpdHeadword | None:
-        return self.db_session.query(DpdHeadword).filter_by(id=id).first()
-
     def get_related_headwords(self, i: DpdHeadword) -> list[DpdHeadword]:
         """Find headwords related by root family, compound family or word family."""
 
@@ -267,6 +264,24 @@ class DatabaseManager:
                 pass
 
         return related_headwords
+
+    # --- GENERIC DB SEARCHES ---
+
+    def get_headword_by_id(self, id: int) -> DpdHeadword | None:
+        return self.db_session.query(DpdHeadword).filter_by(id=id).first()
+
+    def get_headword_by_lemma(self, lemma_1: str) -> DpdHeadword | None:
+        return self.db_session.query(DpdHeadword).filter_by(lemma_1=lemma_1).first()
+
+    def get_headword_by_id_or_lemma(self, user_input: str) -> DpdHeadword | None:
+        """Decide where the input is an id or a lemma and query accordingly."""
+
+        first_character = user_input[0]
+
+        if first_character.isalpha():
+            return self.get_headword_by_lemma(user_input)
+        elif first_character.isdigit():
+            return self.get_headword_by_id(int(user_input))
 
     # --- DB FUNCTIONS ---
 
@@ -370,3 +385,8 @@ class DatabaseManager:
                 return ""
 
     # --- ---
+
+
+# if __name__ == "__main__":
+#     db = DatabaseManager()
+#     print(db.get_headword_by_id_or_lemma("karoti 1"))

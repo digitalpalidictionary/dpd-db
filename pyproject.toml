@@ -43,6 +43,7 @@ dependencies = [
     "marimo>=0.12.4",
     "google-generativeai>=0.8.4",
     "gtts>=2.5.4",
+    "snakeviz>=2.2.2",
 ]
 
 [dependency-groups]

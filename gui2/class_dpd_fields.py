@@ -1,5 +1,6 @@
 import flet as ft
 
+from db.models import DpdHeadword
 from gui2.class_database import DatabaseManager
 from gui2.def_dpd_fields import (
     clean_construction_line1,
@@ -54,6 +55,19 @@ class DpdTextField(ft.TextField):
             on_blur=on_blur,
             max_lines=6,
             min_lines=1,
+        )
+
+
+class DpdText(ft.Text):
+    def __init__(
+        self,
+    ):
+        super().__init__(
+            width=700,
+            expand=True,
+            selectable=True,
+            color=ft.Colors.GREY_500,
+            size=16,
         )
 
 
@@ -175,6 +189,7 @@ class DpdFields:
             FieldConfig("origin"),
             FieldConfig("stem", on_submit=self.stem_submit, on_blur=self.stem_blur),
             FieldConfig("pattern"),
+            FieldConfig("comment", multiline=True),
         ]
 
         # flags
@@ -193,10 +208,7 @@ class DpdFields:
                     on_blur=config.on_blur,
                     multiline=config.multiline,
                 )
-                # Create corresponding _add field
-                self.fields[f"{config.name}_add"] = DpdTextField(
-                    multiline=config.multiline
-                )
+
             elif config.field_type == "dropdown":
                 self.fields[config.name] = DpdDropdown(
                     options=config.options,
@@ -204,10 +216,12 @@ class DpdFields:
                     on_change=config.on_change,
                     on_blur=config.on_blur,
                 )
-                # Create corresponding _add field (as text field)
-                self.fields[f"{config.name}_add"] = DpdTextField()
+
             else:
                 raise ValueError(f"Unsupported field type: {config.field_type}")
+
+            # Create corresponding _add field
+            self.fields[f"{config.name}_add"] = DpdText()
 
     def add_to_ui(
         self,
@@ -226,7 +240,7 @@ class DpdFields:
                 transfer_btn = ft.IconButton(
                     icon=ft.icons.ARROW_BACK,
                     icon_size=20,
-                    tooltip="Transfer to main field",
+                    tooltip="Copy to db field",
                     on_click=lambda e,
                     field=main_field,
                     add_field=add_field: self.transfer_add_value(e, field, add_field),
@@ -242,6 +256,68 @@ class DpdFields:
                 row.visible = config.name in visible_fields
             ui_component.controls.append(row)
 
+    def update_db_fields(self, headword: DpdHeadword) -> None:
+        """Update the left hand side fields with headword data."""
+
+        headword_dict = vars(headword)
+
+        for key, value in headword_dict.items():
+            if key in self.fields:
+                self.fields[key].value = value
+                self.fields[key].error_text = None
+
+        self.ui.page.update()
+
+    def update_add_fields(self, data: dict[str, str]) -> None:
+        """Update _add fields from provided data dictionary."""
+
+        for name, value in data.items():
+            add_name = f"{name}_add"
+            if add_name in self.fields:
+                self.fields[add_name].value = value
+                self.fields[add_name].error_text = None
+
+        self.ui.page.update()
+        self.check_and_color_add_fields()
+
+    def clear_fields(self, target: str = "all") -> None:
+        """Clear field values.
+
+        use `all`, `db`, or `add` to target specific fields
+        """
+        for name, control in self.fields.items():
+            if (
+                target == "all"
+                or (target == "db" and not name.endswith("_add"))
+                or (target == "add" and name.endswith("_add"))
+            ):
+                control.value = ""
+                control.error_text = None
+        self.ui.page.update()
+
+    def check_and_color_add_fields(self) -> None:
+        """
+        Checks if main fields and their corresponding _add fields have different values
+        and changes the _add field's text color to red if they do.
+        """
+        for config in self.field_configs:
+            main_field_name = config.name
+            add_field_name = f"{main_field_name}_add"
+
+            main_field_control = self.fields.get(main_field_name)
+            add_field_control = self.fields.get(add_field_name)
+
+            if main_field_control and add_field_control:
+                main_value = main_field_control.value
+                add_value = add_field_control.value
+
+                if main_value and add_value and main_value != add_value:
+                    add_field_control.color = ft.Colors.RED
+                else:
+                    add_field_control.color = ft.Colors.GREY_500
+
+        self.ui.page.update()
+
     def transfer_add_value(self, e, field, add_field):
         if add_field.value:
             field.value = add_field.value
@@ -255,7 +331,7 @@ class DpdFields:
         value = field.value
         return field, value
 
-    # automation
+    # --- AUTOMATION ---
 
     def lemma_1_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -474,42 +550,6 @@ class DpdFields:
         self.ui.page.update()
         if e.name == "submit":
             field.focus()
-
-    def update_fields(self, data: dict[str, str], target: str = "main") -> None:
-        """Update fields from provided data dictionary.
-
-        Args:
-            data: Dictionary of field values
-            target: 'main' to update main fields, 'add' to update _add fields
-        """
-        for name, value in data.items():
-            if target == "main":
-                if name in self.fields:
-                    self.fields[name].value = value
-                    self.fields[name].error_text = None
-            else:  # target == "add"
-                add_name = f"{name}_add"
-                if add_name in self.fields:
-                    self.fields[add_name].value = value
-                    self.fields[add_name].error_text = None
-        self.ui.page.update()
-
-    def clear_fields(self, target: str = "all") -> None:
-        """Clear field values.
-
-        Args:
-            target: 'main' to clear main fields, 'add' to clear _add fields,
-                    'all' to clear all fields
-        """
-        for name, control in self.fields.items():
-            if (
-                target == "all"
-                or (target == "main" and not name.endswith("_add"))
-                or (target == "add" and name.endswith("_add"))
-            ):
-                control.value = ""
-                control.error_text = None
-        self.ui.page.update()
 
 
 """

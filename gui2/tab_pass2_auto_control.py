@@ -1,16 +1,18 @@
 import ast
 import json
 from pathlib import Path
-from typing import Any, Optional, Iterator
-from gui2.class_paths import Gui2Paths
+from typing import Any, Iterator, Optional
+
 from db.models import DpdHeadword
+from gui2.class_books import SuttaCentralSource, sutta_central_books
 from gui2.class_database import DatabaseManager
 from gui2.class_pass2_file_manager import Pass2AutoFileManager
+from gui2.class_paths import Gui2Paths
 from gui2.tab_pass2_pre_controller import Pass2PreFileManager
 from tools.deepseek import Deepseek
 from tools.printer import printer as pr
 
-debug = True
+debug = False
 
 
 class Pass2AutoController:
@@ -20,21 +22,35 @@ class Pass2AutoController:
     """
 
     def __init__(
-        self, db_manager: DatabaseManager, book: str, cst_books: list[str]
+        self,
+        ui,
+        db_manager: DatabaseManager,
     ) -> None:
-        # globals
-        self._db: DatabaseManager = db_manager
-        self.gui2pth = Gui2Paths()
+        from gui2.tab_pass2_auto_view import Pass2AutoView
 
-        self._book: str = book
-        self._cst_books: list[str] = cst_books
-        self._pass2_pre_fm: Pass2PreFileManager = Pass2PreFileManager(self._book)
-        self._pass2_fm: Pass2AutoFileManager = Pass2AutoFileManager()
+        # globals
+        self.db: DatabaseManager = db_manager
+        self.ui: Pass2AutoView = ui
+
+        # paths
+        self._gui2pth = Gui2Paths()
+        self._output_file: Path = self._gui2pth.pass2_auto_json_path
+        self._failures_path: Path = self._gui2pth.pass2_auto_failures_path
+
+        self._sc_books: dict[str, SuttaCentralSource] = sutta_central_books
+        self.sc_books_list = [k for k in self._sc_books]
+
+        self._book: str
+        self._cst_books: list[str]
+
+        self._pass2_pre_file_manager: Pass2PreFileManager
+        self._pass2_auto_file_manager: Pass2AutoFileManager = Pass2AutoFileManager()
+        self._pass2_matched_len: int
+
         self._results: dict[str, Any] = {}
-        self.gui2pth = Gui2Paths()
-        self._output_file: Path = (
-            self.gui2pth.gui2_data_path / f"pass2_{self._book}.json"
-        )
+        self._gui2pth = Gui2Paths()
+        self._output_file: Path
+        self._failures_path: Path
         self._yes_iter: Optional[Iterator[str]] = None
         self._fields: list[str] = [
             "id",
@@ -68,12 +84,9 @@ class Pass2AutoController:
             "stem",
             "pattern",
         ]
-        # FIXME move all paths into own class
-        self._failures_path: Path = (
-            self.gui2pth.gui2_data_path / f"pass2_{self._book}failures.txt"
-        )
 
         # single word — reset on every loop
+        self.processed_count: int = 0
         self._word_in_text: str
         self._sentence_data: dict
         self._id: int
@@ -82,61 +95,112 @@ class Pass2AutoController:
         self._prompt: str
         self._response_dict: dict[str, str] | None
 
-    def process_all_items(self) -> None:
+        # flag
+        self.stop_flag: bool = False
+
+    def auto_process_book(self, book: str) -> None:
         """Process all items marked 'yes' in Pass 2 Pre."""
+
+        self._book = book
+        self._cst_books = self._sc_books[self._book].cst_books
+        self._pass2_pre_file_manager = Pass2PreFileManager(self._book)
+        self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
+
         try:
-            if not self._pass2_pre_fm.yes:
-                pr.red("No YES items found")
+            if not self._pass2_pre_file_manager.matched:
+                pr.red("No 'matched' items found")
                 return
 
-            pr.green_title("Starting processing YES items")
+            matched_items = list(
+                self._pass2_pre_file_manager.matched.items()
+            )  # Create a list copy of items to avoid modification during iteration
 
-            # Create a list copy of items to avoid modification during iteration
-            # FIXME test if not already in pass2json
-            yes_items = list(self._pass2_pre_fm.yes.items())
-            for word_in_text, sentence_data in yes_items:
-                self._process_single_item(word_in_text, sentence_data)
+            self.ui.update_auto_processed_count(
+                f"{self.processed_count} / {self._pass2_matched_len}"
+            )
+
+            for self._word_in_text, self._sentence_data in matched_items:
+                if self.stop_flag:
+                    break
+
+                if self._word_in_text not in self._pass2_pre_file_manager.processed:
+                    self._process_single_item()
+
+            if self.stop_flag:
+                self.stop_flag = False
+                self.processed_count = 0
+                self.ui.clear_all_fields()
+            else:
+                self.processed_count = 0
+                self.ui.clear_all_fields()
+                self.ui.update_message("All items processed")
 
         except Exception as e:
             pr.red(f"Error during processing: {e}")
 
-    def _process_single_item(self, word_in_text: str, sentence_data: dict) -> bool:
+    def _process_single_item(self) -> bool:
         """Process a single item with all required steps"""
+
+        self.ui.update_message(f"processing: {self._word_in_text}")
+
         try:
-            self._word_in_text = word_in_text
-            self._sentence_data = sentence_data
-            self._id = sentence_data["id"]
-            headword_in_db = self._db.get_headword_by_id(self._id)
+            self._id = self._sentence_data["id"]
+            headword_in_db = self.db.get_headword_by_id(self._id)
 
             if not headword_in_db:
                 pr.red(f"headword with id {self._id} not found in db")
                 return False
             self._headword = headword_in_db
 
-            # FIXME this must be improved to be more specific then more general if necessary.
-            self._related_words = self._db.get_related_headwords(self._headword)
+            # FIXME Improve to be more specific, then more general when necessary.
+            self._related_words = self.db.get_related_headwords(self._headword)
+
             self._make_prompt()
             response = self._send_prompt()
             self._response_dict = self._format_response(response)
+
             if self._response_dict:
-                self._pass2_fm.update_response(
-                    self._headword.id,
+                self._add_sentence_to_response()
+
+                self._pass2_auto_file_manager.update_response(
+                    str(self._headword.id),
                     self._response_dict,
                 )
-                self._pass2_pre_fm.remove_yes_item(self._word_in_text)
+                message = self._pass2_pre_file_manager.move_matched_item_to_processed(
+                    self._word_in_text
+                )
+                self.ui.update_message(message)
+
+                self.processed_count += 1
+                self.ui.update_auto_processed_count(
+                    f"{self.processed_count} / {self._pass2_matched_len}"
+                )
+                self.ui.update_word_in_text(self._word_in_text)
+                self.ui.update_ai_results(
+                    json.dumps(self._response_dict, indent=4, ensure_ascii=False)
+                )
+
+                if debug:
+                    temp_file = Path(
+                        f"temp/prompts/pass2/{self._word_in_text}_response"
+                    )
+                    with open(temp_file, "w") as f:
+                        f.write(str(self._response_dict))
+
+                return True
+
             else:
                 return False
 
-            if debug:
-                temp_file = Path(f"temp/prompts/pass2/{word_in_text}_response")
-                with open(temp_file, "w") as f:
-                    f.write(str(self._response_dict))
-
-            return True
-
         except Exception as e:
-            print(f"Error processing {word_in_text}: {e}")
+            print(f"Error processing {self._word_in_text}: {e}")
             return False
+
+    def _add_sentence_to_response(self):
+        if self._response_dict:
+            self._response_dict["source_1"] = self._sentence_data["sentence"][0]
+            self._response_dict["sutta_1"] = self._sentence_data["sentence"][1]
+            self._response_dict["example_1"] = self._sentence_data["sentence"][2]
 
     def _make_dict_string(self, headword: DpdHeadword) -> str:
         """Automatically convert DpdHeadword to Python dict string using all fields."""
@@ -170,8 +234,6 @@ class Pass2AutoController:
     def _make_prompt(self):
         """Make a prompt containing all headword data and
         data of related words."""
-
-        pr.green_title(f"{self._word_in_text}: making prompt")
 
         self._prompt = f"""
 # Digital Pāḷi Dictionary Entry
@@ -306,7 +368,6 @@ ve: verbal ending
                 f.write(self._prompt)
 
     def _send_prompt(self):
-        pr.green_title(f"{self._word_in_text}: sending prompt")
         ds = Deepseek()
         try:
             response = str(
@@ -346,10 +407,3 @@ ve: verbal ending
                 f.write(response + "\n\n")
 
         return result
-
-
-if __name__ == "__main__":
-    db = DatabaseManager()
-    book = "dn"
-    cst_books = ["dn1", "dn2", "dn3"]
-    Pass2AutoController(db, book, cst_books).process_all_items()

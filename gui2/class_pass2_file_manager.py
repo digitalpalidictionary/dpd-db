@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 from gui2.class_paths import Gui2Paths
 
@@ -6,8 +7,9 @@ from gui2.class_paths import Gui2Paths
 class Pass2AutoFileManager:
     def __init__(self):
         self.gui2pth = Gui2Paths()
-        self.responses_path = self.gui2pth.pass2_auto_json_path
+        self.responses_path: Path = self.gui2pth.pass2_auto_json_path
         self.responses: dict[str, dict[str, str]] = {}
+        self._current_index: int = 0
         self._ensure_directory_exists()
         self.load()
 
@@ -36,19 +38,38 @@ class Pass2AutoFileManager:
         return self.responses.get(headword_id, {}).copy()
 
     def get_next_headword_data(self) -> tuple[str | None, dict[str, str]]:
-        """Get the next headword data from pass2_auto.json.
-        Returns tuple of (headword_id, data_dict) or (None, {}) if empty."""
-        if not self.responses:
+        """Get the next headword data from pass2_auto.json."""
+        headword_ids = list(self.responses.keys())
+        if not headword_ids or self._current_index >= len(headword_ids):
+            self._current_index = 0
             return (None, {})
 
-        # Get first key (simplified per user request)
-        headword_id = next(iter(self.responses))
-        return (headword_id, self.responses[headword_id].copy())
+        headword_id = headword_ids[self._current_index]
+        data = self.responses[headword_id].copy()
+        self._current_index += 1
+        return (headword_id, data)
+
+    def reset_index(self) -> None:
+        """Reset the current index to the beginning."""
+        self._current_index = 0
 
 
 if __name__ == "__main__":
     # Example usage
     manager = Pass2AutoFileManager()
     print("Initial responses:", manager.get_responses())
-    manager.update_response("1", {"field": "value"})
-    print("After update:", manager.get_responses())
+    manager.update_response("1", {"field": "value1"})
+    manager.update_response("2", {"field": "value2"})
+    manager.update_response("3", {"field": "value3"})
+    print("After updates:", manager.get_responses())
+
+    print("\nGetting next entries:")
+    for _ in range(5):
+        headword_id, data = manager.get_next_headword_data()
+        print(f"Next entry: ID={headword_id}, Data={data}")
+
+    print("\nResetting index and getting next entries:")
+    manager.reset_index()
+    for _ in range(2):
+        headword_id, data = manager.get_next_headword_data()
+        print(f"Next entry: ID={headword_id}, Data={data}")

@@ -1,4 +1,9 @@
+import cProfile
+import pstats
+import time
+from pathlib import Path
 import flet as ft
+
 from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
 from tools.fast_api_utils import start_dpd_server
@@ -6,9 +11,10 @@ from tools.fast_api_utils import start_dpd_server
 
 class App:
     def __init__(self, page: ft.Page):
-        from gui2.tab_edit_view import EditView
-        from gui2.tab_pass1_view import Pass1View
+        from gui2.tab_pass2_add_view import EditView
         from gui2.tab_pass1_auto_view import Pass1AutoView
+        from gui2.tab_pass1_view import Pass1View
+        from gui2.tab_pass2_auto_view import Pass2AutoView
         from gui2.tab_pass2_pre_view import Pass2PreProcessView
 
         self.page = page
@@ -41,7 +47,7 @@ class App:
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page, self.db
         )
-        self.pass2_view_placeholder: ft.Text = ft.Text("")
+        self.pass2_auto_view: Pass2AutoView = Pass2AutoView(self.page, self.db)
         self.edit_view: EditView = EditView(self.page, self.db)
 
         self.build_ui()
@@ -80,7 +86,7 @@ class App:
                 ),
                 ft.Tab(
                     text="Pass2Auto",
-                    content=self.pass2_view_placeholder,
+                    content=self.pass2_auto_view,
                 ),
                 ft.Tab(
                     text="Pass2Add",
@@ -94,8 +100,28 @@ class App:
 
 
 def main(page: ft.Page) -> None:
+    # Enable/disable profiling
+    enable_profiling = True
+    profile_file = Path("gui2_profile.prof")
+
+    if enable_profiling:
+        profiler = cProfile.Profile()
+        profiler.enable()
+
+    # Time FastAPI server startup
+    start_time = time.time()
     start_dpd_server()
+    print(f"FastAPI server started in {time.time() - start_time:.2f}s")
+
+    # Time App initialization
+    start_time = time.time()
     App(page)
+    print(f"App initialized in {time.time() - start_time:.2f}s")
+
+    if enable_profiling:
+        profiler.disable()
+        profiler.dump_stats(str(profile_file))
+        print(f"Profiling data saved to {profile_file}")
 
 
 if __name__ == "__main__":

@@ -12,9 +12,9 @@ def start_dpd_server():
         "127.1.1.1",
         "--port",
         "8080",
-        # "--reload",
-        # "--reload-dir",
-        # "exporter/webapp",
+        "--reload",
+        "--reload-dir",
+        "exporter/webapp",
     ]
     subprocess.Popen(command)
 

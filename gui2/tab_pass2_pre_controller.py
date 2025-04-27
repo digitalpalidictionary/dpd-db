@@ -72,8 +72,8 @@ class Pass2PreprocessController:
             and word not in self.db.sandhi_ok_list
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
-            and word not in self.file_manager.no
-            and word not in self.file_manager.yes
+            and word not in self.file_manager.unmatched
+            and word not in self.file_manager.matched
         ):
             return True
         else:
@@ -133,16 +133,13 @@ class Pass2PreprocessController:
 
 
 class Pass2PreFileManager:
-    no: dict[str, int]
-    yes: dict[str, dict[str, int | tuple[str, str, str]]]
-    new: dict[str, tuple]
-
     def __init__(self, book: str) -> None:
-        self.gui2pth = Gui2Paths()
-        self._json_path = self.gui2pth.gui2_data_path / f"pass2_pre_{book}.json"
-        self.no: dict[str, int] = {}
-        self.yes: dict[str, dict[str, int | tuple[str, str, str]]] = {}
-        self.new: dict[str, tuple] = {}
+        self._gui2pth = Gui2Paths()
+        self._json_path = self._gui2pth.gui2_data_path / f"pass2_pre_{book}.json"
+        self.unmatched: dict[str, int] = {}
+        self.matched: dict[str, dict[str, int | tuple[str, str, str]]] = {}
+        self.new_word: dict[str, tuple] = {}
+        self.processed: list[str] = []
         self.load_data()
 
     def load_data(self) -> bool:
@@ -152,22 +149,22 @@ class Pass2PreFileManager:
             try:
                 with open(self._json_path, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    self.no = data.get("no", {})
-                    self.yes = data.get("yes", {})
-                    self.new = data.get("new", {})
-                pr.green_title(f"Loaded pass2_pre data from {self._json_path}")
+                    self.unmatched = data.get("unmatched", {})
+                    self.matched = data.get("matched", {})
+                    self.new_word = data.get("new_word", {})
+                    self.processed = data.get("processed", [])
                 return True
             except json.JSONDecodeError as e:
                 pr.red(f"Error loading pass2_pre data (invalid JSON): {e}")
-                self.no = {}
-                self.yes = {}
-                self.new = {}
+                self.unmatched = {}
+                self.matched = {}
+                self.new_word = {}
                 return False
             except Exception as e:
                 pr.red(f"Unexpected error loading data: {e}")
-                self.no = {}
-                self.yes = {}
-                self.new = {}
+                self.unmatched = {}
+                self.matched = {}
+                self.new_word = {}
                 return False
         else:
             print(f"[yellow]pass2_pre data file not found at {self._json_path}")
@@ -179,62 +176,72 @@ class Pass2PreFileManager:
             self._json_path.parent.mkdir(parents=True, exist_ok=True)
             with open(self._json_path, "w", encoding="utf-8") as f:
                 json.dump(
-                    {"no": self.no, "yes": self.yes, "new": self.new},
+                    {
+                        "unmatched": self.unmatched,
+                        "matched": self.matched,
+                        "new_word": self.new_word,
+                        "processed": self.processed,
+                    },
                     f,
                     indent=4,
                     ensure_ascii=False,
                 )
-            pr.green_title(f"Saved pass2_pre data to {self._json_path}")
         except IOError as e:
             pr.red(f"Error saving pass2_pre data: {e}")
         except Exception as e:
             pr.red(f"Unexpected error saving data: {e}")
 
-    def update_no(
+    def update_unmatched(
         self,
         word_in_text: str,
         headword_id: int,
     ) -> str:
-        """Adds or updates an entry in the 'no' dictionary."""
+        """Adds or updates an entry in the 'unmatched' dictionary."""
 
-        self.no[word_in_text] = headword_id
+        self.unmatched[word_in_text] = headword_id
         self.save_data()
-        message = f"Updated 'no' for '{word_in_text}' with id {headword_id}"
+        message = f"Updated 'unmatched' for '{word_in_text}' with id {headword_id}"
         return message
 
-    def update_yes(
+    def update_matched(
         self,
         word_in_text: str,
         headword_id: int,
         sentence: SuttaCentralSegment | CstSourceSuttaExample,
     ) -> str:
-        """Adds or updates an entry in the 'yes' dictionary."""
+        """Adds or updates an entry in the 'matched' dictionary."""
 
-        self.yes[word_in_text] = {
+        self.matched[word_in_text] = {
             "id": headword_id,
             "sentence": sentence,
         }
         self.save_data()
-        message = f"Updated 'yes' for '{word_in_text}' with id {headword_id}"
+        message = f"Updated 'matched' for '{word_in_text}' with id {headword_id}"
         return message
 
-    def update_new(
+    def update_new_word(
         self,
         word_in_text: str,
         sentence_data: SuttaCentralSegment | CstSourceSuttaExample,
     ) -> str:
-        """Adds or updates an entry in the 'new' dictionary."""
+        """Adds or updates an entry in the 'new_word' dictionary."""
 
-        self.new[word_in_text] = sentence_data
+        self.new_word[word_in_text] = sentence_data
         self.save_data()
-        message = f"Updated 'new' for '{word_in_text}'"
+        message = f"Updated 'new_word' for '{word_in_text}'"
         return message
 
-    def remove_yes_item(self, word_in_text: str) -> str:
-        """Removes an entry from the 'yes' dictionary and saves the data."""
-        if word_in_text in self.yes:
-            self.yes.pop(word_in_text)
+    def move_matched_item_to_processed(self, word_in_text: str) -> str:
+        """
+        1. Removes an entry from the 'matched' dictionary,
+        2. updates the processed dictionary
+        3. and saves the data.
+        """
+
+        if word_in_text in self.matched:
+            self.matched.pop(word_in_text)
+            self.processed.append(word_in_text)
             self.save_data()
-            message = f"Removed '{word_in_text}' from 'yes' items"
+            message = f"Moved '{word_in_text}' from 'matched' to 'processed'"
             return message
-        return f"'{word_in_text}' not found in 'yes' items"
+        return f"'{word_in_text}' not found in 'matched' items"
