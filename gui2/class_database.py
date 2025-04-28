@@ -292,8 +292,24 @@ class DatabaseManager:
             return (True, "")
 
         except Exception as e:
+            self.db_session.rollback()
             print(e)
             return (False, e)
+
+    def update_word_in_db(self, word: DpdHeadword) -> tuple[bool, str]:
+        try:
+            existing = self.db_session.query(DpdHeadword).filter_by(id=word.id).first()
+            if existing:
+                # Update all fields from the edited word
+                for key, value in word.__dict__.items():
+                    if not key.startswith("_") and key != "id":
+                        setattr(existing, key, value)
+                self.db_session.commit()
+                return (True, "")
+            return (False, "Word not found")
+        except Exception as e:
+            print(e)
+            return (False, str(e))
 
     def get_next_id(self) -> int:
         last_id: int = self.db_session.query(func.max(DpdHeadword.id)).scalar() or 0

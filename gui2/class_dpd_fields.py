@@ -238,7 +238,7 @@ class DpdFields:
             if include_add_fields:
                 add_field = self.fields[f"{config.name}_add"]
                 transfer_btn = ft.IconButton(
-                    icon=ft.icons.ARROW_BACK,
+                    icon=ft.Icons.ARROW_BACK,
                     icon_size=20,
                     tooltip="Copy to db field",
                     on_click=lambda e,

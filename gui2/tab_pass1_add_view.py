@@ -1,4 +1,5 @@
 import flet as ft
+from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
 from gui2.class_mixins import PopUpMixin
 from gui2.class_dpd_fields import DpdFields
@@ -11,20 +12,20 @@ LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
-class Pass1View(ft.Column, PopUpMixin):
-    def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
+class Pass1AddView(ft.Column, PopUpMixin):
+    def __init__(self, page: ft.Page, db: DatabaseManager, daily_log: DailyLog) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(
             expand=True,
             controls=[],
             spacing=5,
         )
-        from gui2.tab_pass1_controller import Pass1Controller
+        from gui2.tab_pass1_add_controller import Pass1AddController
 
         PopUpMixin.__init__(self)
         self.page: ft.Page = page
         self.db: DatabaseManager = db
-        self.controller = Pass1Controller(self, db)
+        self.controller = Pass1AddController(self, db, daily_log)
         self.dpd_fields: DpdFields
 
         # --- Top Section Controls ---
@@ -181,7 +182,7 @@ class Pass1View(ft.Column, PopUpMixin):
         self.update_message("Database refreshed")
 
     def handle_add_to_db_click(self, e: ft.ControlEvent) -> None:
-        self.controller.make_dpdheadword_and_add_to_db()
+        self.controller.make_dpd_headword_and_add_to_db()
 
     def handle_add_to_sandhi_click(self, e: ft.ControlEvent) -> None:
         current_word = self.word_in_text.value
@@ -326,11 +327,3 @@ class Pass1View(ft.Column, PopUpMixin):
             )
         else:
             self.update_message("Spelling input cancelled.")
-
-    def update_appbar(self, message: str) -> None:
-        if (
-            self.page.appbar
-            and self.page.appbar.actions  # type: ignore
-            and self.page.appbar.actions[0]  # type: ignore
-        ):
-            self.page.appbar.actions[0].value = message  # type: ignore

@@ -1,6 +1,6 @@
 import flet as ft
 
-import db.inflections.generate_inflection_tables
+from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.class_database import DatabaseManager
 from gui2.tab_pass1_auto_controller import Pass1AutoController
 
@@ -117,11 +117,10 @@ class Pass1AutoView(ft.Column):
 
     def handle_update_inflections_click(self, e):
         self.update_message("updating inflections...")
-        db.inflections.generate_inflection_tables.main()
-
-        # remove the inflections list from the db
-        self.controller.db.all_inflections = set()
-        self.controller.db.all_inflections_missing_meaning = set()
+        inflections_manager = InflectionsManager()
+        inflections_manager.run()
+        self.controller.db.make_inflections_lists()
+        self.update_message("inflections updated")
 
     def update_message(self, message: str):
         self.message_field.value = message

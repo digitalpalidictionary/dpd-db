@@ -202,6 +202,8 @@ class Pass2PreProcessView(ft.Column):
     def handle_book_click(self, e):
         if self.books_dropdown.value:
             self.update_message("loading...")
+            # Ensure data is loaded before processing
+            self.controller._load_data()
             self.controller.find_words_with_missing_examples(self.books_dropdown.value)
             self.controller.load_next_word()
 
@@ -223,8 +225,8 @@ class Pass2PreProcessView(ft.Column):
         )
         self.update_message(message)
 
-        message = self.controller.log.increment("pass2_pre")
-        self.update_appbar(message)
+        # Update log (this now automatically updates the appbar)
+        self.controller.log.increment("pass2_pre")
 
         self.selected_sentence_index = 0
 
@@ -236,8 +238,8 @@ class Pass2PreProcessView(ft.Column):
             self.controller.headwords[self.controller.headword_index].id,
         )
         self.update_message(message)
-        message = self.controller.log.increment("pass2_pre")
-        self.update_appbar(message)
+        # Update log (this now automatically updates the appbar)
+        self.controller.log.increment("pass2_pre")
         self.selected_sentence_index = 0
         self.controller.load_next_headword()
 
@@ -261,8 +263,7 @@ class Pass2PreProcessView(ft.Column):
         )
         self.selected_sentence_index = 0
         self.update_message(message)
-        message = self.controller.log.increment("pass2_pre")
-        self.update_appbar(message)
+        self.controller.log.increment("pass2_pre")
 
     def make_examples_list(
         self, examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample]
@@ -373,11 +374,3 @@ class Pass2PreProcessView(ft.Column):
 
         text = str(text_control.value or "").lower()
         text_control.color = ft.colors.AMBER if query in text else None
-
-    def update_appbar(self, message: str) -> None:
-        if (
-            self.page.appbar
-            and self.page.appbar.actions  # type: ignore
-            and self.page.appbar.actions[0]  # type: ignore
-        ):
-            self.page.appbar.actions[0].value = message  # type: ignore

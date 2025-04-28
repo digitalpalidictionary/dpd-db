@@ -6,6 +6,7 @@ import pyperclip
 from rich import print
 
 from db.models import DpdHeadword
+from gui2.def_make_dpd_headword import make_dpd_headword_from_dict
 from gui2.class_books import sutta_central_books
 from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
@@ -22,14 +23,15 @@ LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
-class Pass1Controller(SandhiOK, SnackBarMixin):
-    from gui2.tab_pass1_view import Pass1View
+class Pass1AddController(SandhiOK, SnackBarMixin):
+    from gui2.tab_pass1_add_view import Pass1AddView
 
-    def __init__(self, ui: Pass1View, db: DatabaseManager) -> None:
+    def __init__(
+        self, ui: Pass1AddView, db: DatabaseManager, daily_log: DailyLog
+    ) -> None:
         self.ui = ui
         self.db = db
-
-        self.daily_log = DailyLog()
+        self.daily_log = daily_log
 
         self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
@@ -63,7 +65,7 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
             self.auto_processed_dict = load(
                 self.auto_processed_filepath.open("r", encoding="utf-8")
             )
-            # dict will change size, so work on a zopy
+            # dict will change size, so work on a copy
             self.auto_processed_dict_copy = self.auto_processed_dict.copy()
             self.auto_processed_iter = iter(self.auto_processed_dict_copy.items())
             self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
@@ -95,12 +97,18 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
 
         self.ui.page.update()
 
-    def make_dpdheadword_and_add_to_db(self):
-        new_word = DpdHeadword()
-        for field_name, field in self.ui.dpd_fields.fields.items():
-            if hasattr(new_word, field_name):
-                setattr(new_word, field_name, field.value)
+    def make_dpd_headword_and_add_to_db(self):
+        # Collect data from UI fields into a dictionary
+        field_data: dict[str, str] = {
+            field_name: field.value
+            for field_name, field in self.ui.dpd_fields.fields.items()
+            if hasattr(DpdHeadword, field_name)  # Only include relevant fields
+        }
 
+        # Create the DpdHeadword object using the imported function
+        new_word = make_dpd_headword_from_dict(field_data)
+
+        # Set fields not derived directly from the input dict
         new_word.id = self.db.get_next_id()
         new_word.origin = "pass1"
 
@@ -109,9 +117,8 @@ class Pass1Controller(SandhiOK, SnackBarMixin):
             # open in browser
             request_dpd_server(new_word.id)
 
-            # update the log
-            message = self.daily_log.increment("pass1")
-            self.ui.update_appbar(message)
+            # update the log (this now automatically updates the appbar)
+            self.daily_log.increment("pass1")
 
             self.remove_word_and_save_json()
             self.ui.clear_all_fields()

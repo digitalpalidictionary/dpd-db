@@ -16,13 +16,15 @@
 - Use modern type hints `dict[str, str]` not old type hints like `Dict[str, str]` 
 - Use `tuple[str, str]` not `Tuple[str, str]`
 - Use `list[str]` not `List[str]`
+- Use `| None` not Optional[None]
 
 ## Use Path from Pathlib
 - Use Path for anything related to filepaths, not os.
 
 ## Comments
-- Do not add comments willy-nilly. 
+- Do not add comments unnecessarily. 
 - Only add comments when truly necessary to explain WHY something is being done. Never WHAT is being done. 
+- Leave existing comments as they are.
 
 ## Dependencies
 

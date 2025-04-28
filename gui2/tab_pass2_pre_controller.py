@@ -8,7 +8,6 @@ from gui2.class_books import (
     SuttaCentralSource,
     sutta_central_books,
 )
-from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
 from gui2.class_paths import Gui2Paths
 from gui2.class_spelling import SpellingMistakesFileManager
@@ -28,27 +27,32 @@ class Pass2PreprocessController:
 
         self.ui: Pass2PreProcessView = ui
         self.db = db
-        self.db.make_pass2_lists()
+        self._data_loaded = False  # New flag
         self.file_manager: Pass2PreFileManager
-        self.log = DailyLog()
 
         self.variant_readings = VariantReadingFileManager()
         self.spelling_mistakes = SpellingMistakesFileManager()
 
+        # Keep lightweight book list initialization
         self.sutta_central_books: dict[str, SuttaCentralSource] = sutta_central_books
         self.sutta_central_books_list = [k for k in self.sutta_central_books]
 
-        self.cst_books: list[str]
-        self.sc_book: str
-
+        # Initialize empty containers for data that will be loaded later
+        self.cst_books: list[str] = []
+        self.sc_book: str = ""
         self.all_cst_words: list[str] = []
         self.missing_examples_dict: dict[
             str, list[SuttaCentralSegment] | list[CstSourceSuttaExample]
         ] = {}
-
-        self.word_in_text: str
-        self.headwords: list[DpdHeadword]
+        self.word_in_text: str = ""
+        self.headwords: list[DpdHeadword] = []
         self.headword_index: int = -1
+
+    def _load_data(self) -> None:
+        """Load database data only when needed."""
+        if not self._data_loaded:
+            self.db.make_pass2_lists()
+            self._data_loaded = True
 
     def find_words_with_missing_examples(self, book: str):
         self.file_manager = Pass2PreFileManager(book)
