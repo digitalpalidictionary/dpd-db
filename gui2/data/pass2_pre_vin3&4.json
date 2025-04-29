@@ -34,20 +34,15 @@
         "kāyaṃ": 19159,
         "bhogehi": 50335,
         "mahantaṃ": 51580,
-        "siriṃ": 63017
+        "siriṃ": 63017,
+        "sapa": 58648,
+        "bhoge": 50335,
+        "kathā": 19853
     },
     "matched": {
         "vinayapiṭake": {
             "id": 68099,
             "sentence": []
-        },
-        "mahāvaggapāḷi": {
-            "id": 52008,
-            "sentence": [
-                "pli-tv-kd10:6.3.66",
-                "Mahāvaggapāḷi niṭṭhitā. ",
-                "The canonical text of the Great Division is finished. "
-            ]
         },
         "udā": {
             "id": 15003,
@@ -104,5 +99,8 @@
             "Atha kho mucalindo nāgarājā sakabhavanā nikkhamitvā bhagavato kāyaṁ sattakkhattuṁ bhogehi parikkhipitvā uparimuddhani mahantaṁ phaṇaṁ karitvā aṭṭhāsi—",
             "Mucalinda, the dragon king, came out from his abode. He encircled the body of the Buddha with seven coils and spread his large hood over his head, thinking, "
         ]
-    }
+    },
+    "processed": [
+        "mahāvaggapāḷi"
+    ]
 }

@@ -3075,3 +3075,6 @@ sifter
 doggerel
 Keṇiya
 behaviour
+offence
+offences
+colours
