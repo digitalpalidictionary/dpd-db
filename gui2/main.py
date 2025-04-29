@@ -1,5 +1,4 @@
 import cProfile
-import pstats
 import time
 from pathlib import Path
 import flet as ft
@@ -50,7 +49,7 @@ class App:
             self.page, self.db, self.daily_log
         )
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
-            self.page, self.db
+            self.page, self.db, self.daily_log
         )
         self.pass2_auto_view: Pass2AutoView = Pass2AutoView(self.page, self.db)
         self.pass2_add_view: EditView = EditView(self.page, self.db, self.daily_log)

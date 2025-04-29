@@ -1,5 +1,4 @@
 import copy
-from pydoc import text
 import flet as ft
 
 from db.models import DpdHeadword
@@ -103,7 +102,7 @@ class EditView(ft.Column, PopUpMixin):
                         [
                             ft.ElevatedButton(
                                 "Test",
-                                # on_click=self.handle_test_click,
+                                on_click=self._click_run_tests,
                                 width=BUTTON_WIDTH,
                             ),
                             ft.ElevatedButton(
@@ -218,6 +217,24 @@ class EditView(ft.Column, PopUpMixin):
 
     def clear_all_fields(self):
         self._dpd_fields.clear_fields(target="all")
+
+    def _click_run_tests(self, e: ft.ControlEvent):
+        """Run tests on current field values"""
+        values = self._dpd_fields.get_current_values()
+        passed, failures = self._dpd_fields.run_tests(values)
+
+        if passed:
+            self.update_message("All tests passed!")
+        else:
+            self.update_message(f"{len(failures)} tests failed")
+            # Highlight error columns
+            for failure in failures:
+                if failure["error_column"]:
+                    field = self._dpd_fields.get_field(failure["error_column"])
+                    if field:
+                        field.error_text = failure["test_name"]
+                        field.update()
+            self._dpd_fields.show_test_failures(self.page)
 
     def _click_add_to_db(self, e: ft.ControlEvent):
         id_field = self._dpd_fields.fields.get("id")

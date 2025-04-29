@@ -1,5 +1,6 @@
 import flet as ft
 from gui2.class_books import SuttaCentralSegment
+from gui2.class_daily_log import DailyLog
 from gui2.class_database import DatabaseManager
 from gui2.def_flet_functions import highlight_word_in_sentence
 from tools.cst_source_sutta_example import CstSourceSuttaExample
@@ -8,7 +9,7 @@ from tools.cst_source_sutta_example import CstSourceSuttaExample
 class Pass2PreProcessView(ft.Column):
     from gui2.tab_pass2_pre_controller import Pass2PreprocessController
 
-    def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
+    def __init__(self, page: ft.Page, db: DatabaseManager, daily_log: DailyLog) -> None:
         from gui2.tab_pass2_pre_controller import Pass2PreprocessController
 
         super().__init__(
@@ -18,7 +19,7 @@ class Pass2PreProcessView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = Pass2PreprocessController(self, db)
+        self.controller = Pass2PreprocessController(self, db, daily_log)
         self.selected_sentence_index: int = 0
 
         # Define constants
@@ -226,7 +227,7 @@ class Pass2PreProcessView(ft.Column):
         self.update_message(message)
 
         # Update log (this now automatically updates the appbar)
-        self.controller.log.increment("pass2_pre")
+        self.controller.daily_log.increment("pass2_pre")
 
         self.selected_sentence_index = 0
 
@@ -239,7 +240,7 @@ class Pass2PreProcessView(ft.Column):
         )
         self.update_message(message)
         # Update log (this now automatically updates the appbar)
-        self.controller.log.increment("pass2_pre")
+        self.controller.daily_log.increment("pass2_pre")
         self.selected_sentence_index = 0
         self.controller.load_next_headword()
 
@@ -263,7 +264,7 @@ class Pass2PreProcessView(ft.Column):
         )
         self.selected_sentence_index = 0
         self.update_message(message)
-        self.controller.log.increment("pass2_pre")
+        self.controller.daily_log.increment("pass2_pre")
 
     def make_examples_list(
         self, examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample]

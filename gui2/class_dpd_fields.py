@@ -1,6 +1,7 @@
 import flet as ft
 
 from db.models import DpdHeadword
+from gui2.class_mixins import PopUpMixin
 from gui2.class_database import DatabaseManager
 from gui2.def_dpd_fields import (
     clean_construction_line1,
@@ -96,12 +97,20 @@ class DpdDropdown(ft.Dropdown):
 # Predefined field configurations for all DPD database columns
 
 
-class DpdFields:
+class DpdFields(PopUpMixin):
     def __init__(self, ui, db: DatabaseManager):
+        super().__init__()  # Initialize PopUpMixin
         self.ui = ui
         self.db = db
         self.spellchecker = CustomSpellChecker()
         self.fields = {}
+
+        # Initialize test manager
+        from gui2.class_tests import TestManager
+        from tools.paths import ProjectPaths
+
+        self.test_manager = TestManager(db)
+        self.test_manager.load_tests(ProjectPaths())
         self.field_configs = [
             FieldConfig("id"),
             FieldConfig(
@@ -330,6 +339,18 @@ class DpdFields:
         field = e.control
         value = field.value
         return field, value
+
+    def get_current_values(self) -> dict[str, str]:
+        """Get all current field values as a dictionary"""
+        return {name: field.value for name, field in self.fields.items()}
+
+    def run_tests(self, values: dict[str, str]) -> tuple[bool, list[dict]]:
+        """Run tests using TestManager"""
+        return self.test_manager.run_tests(values)
+
+    def show_test_failures(self, page: ft.Page) -> None:
+        """Display test failures using TestManager"""
+        self.test_manager.show_failures(page)
 
     # --- AUTOMATION ---
 

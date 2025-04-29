@@ -28,8 +28,8 @@ class DailyLog:
         with open(self.file_path, "w") as f:
             json.dump(self.data, f, indent=4, sort_keys=True)
 
-    def increment(self, key: str, count: int = 1) -> str:
-        """Increments 'pass1', 'pass2' or 'pass2_pre' for today and saves."""
+    def increment(self, key: str, count: int = 1) -> None:
+        """Increments 'pass1', 'pass2' or 'pass2_pre' for today, saves and updates appbar."""
         if key not in ["pass1", "pass2", "pass2_pre"]:
             raise ValueError("Key must be 'pass1', 'pass2' or 'pass2_pre'")
         today_str = datetime.date.today().isoformat()
@@ -38,7 +38,7 @@ class DailyLog:
         )
         today_entry[key] = today_entry.get(key, 0) + count
         self._save()
-        return self.get_counts()
+        self.appbar_updater.update(self.get_counts())
 
     def get_counts(self) -> str:
         """Gets today's counts (pass1, pass2)."""
