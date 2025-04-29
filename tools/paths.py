@@ -85,12 +85,8 @@ class ProjectPaths:
         )
 
         # shared_data/help/
-        self.abbreviations_tsv_path = (
-            base_dir / "shared_data/help/abbreviations.tsv"
-        )
-        self.bibliography_tsv_path = (
-            base_dir / "shared_data/help/bibliography.tsv"
-        )
+        self.abbreviations_tsv_path = base_dir / "shared_data/help/abbreviations.tsv"
+        self.bibliography_tsv_path = base_dir / "shared_data/help/bibliography.tsv"
         self.help_tsv_path = base_dir / "shared_data/help/help.tsv"
         self.thanks_tsv_path = base_dir / "shared_data/help/thanks.tsv"
 
@@ -439,8 +435,12 @@ class ProjectPaths:
         )
 
         # resources/fdg_dpd
-        self.fdg_i2h_js_path = base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_i2h.js"
-        self.fdg_dpd_ebts_js_path = base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_ebts.js"
+        self.fdg_i2h_js_path = (
+            base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_i2h.js"
+        )
+        self.fdg_dpd_ebts_js_path = (
+            base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_ebts.js"
+        )
         self.fdg_deconstructor_js_path = (
             base_dir / "resources/fdg_dpd/assets/standalone-dpd/dpd_deconstructor.js"
         )
@@ -628,31 +628,47 @@ class ProjectPaths:
         self.temp_dir = base_dir / "temp/"
 
         # db_tests/
-        self.antonym_dict_path = base_dir / "db_tests/test_antonyms.json"
-        self.bahubbihi_dict_path = base_dir / "db_tests/test_bahubbihis.json"
-        self.bold_example_path = base_dir / "db_tests/test_bold.json"
-        self.compound_type_path = base_dir / "db_tests/add_compound_type.tsv"
-        self.digu_json_path = base_dir / "db_tests/test_digu.json"
-        self.hyphenations_dict_path = base_dir / "db_tests/test_hyphenations.json"
-        self.hyphenations_scratchpad_path = base_dir / "db_tests/test_hyphenations.txt"
-        self.idioms_exceptions_dict = base_dir / "db_tests/test_idioms.json"
-        self.internal_tests_path = base_dir / "db_tests/tests_internal.tsv"
-        self.maha_exceptions_list = base_dir / "db_tests/test_maha_exceptions.json"
-        self.neg_compound_exceptions = (
-            base_dir / "db_tests/test_neg_compound_exceptions.json"
+        self.internal_tests_path = base_dir / "db_tests/db_tests_columns.tsv"
+
+        # db_tests/single/
+        self.antonym_dict_path = base_dir / "db_tests/single/test_antonyms.json"
+        self.bahubbihi_dict_path = base_dir / "db_tests/single/test_bahubbihis.json"
+        self.bold_example_path = base_dir / "db_tests/single/test_bold.json"
+        self.compound_type_path = base_dir / "db_tests/single/add_compound_type.tsv"
+        self.digu_json_path = base_dir / "db_tests/single/test_digu.json"
+        self.hyphenations_dict_path = (
+            base_dir / "db_tests/single/test_hyphenations.json"
         )
-        self.phonetic_changes_path = base_dir / "db_tests/add_phonetic_changes.tsv"
+        self.hyphenations_scratchpad_path = (
+            base_dir / "db_tests/single/test_hyphenations.txt"
+        )
+        self.idioms_exceptions_dict = base_dir / "db_tests/single/test_idioms.json"
+
+        self.maha_exceptions_list = (
+            base_dir / "db_tests/single/test_maha_exceptions.json"
+        )
+
+        self.neg_compound_exceptions = (
+            base_dir / "db_tests/single/test_neg_compound_exceptions.json"
+        )
+        self.phonetic_changes_path = (
+            base_dir / "db_tests/single/add_phonetic_changes.tsv"
+        )
         self.phonetic_changes_vowels_path = (
-            base_dir / "db_tests/add_phonetic_changes_vowels.tsv"
+            base_dir / "db_tests/single/add_phonetic_changes_vowels.tsv"
         )
         self.sukha_dukkha_finder_path = (
-            base_dir / "db_tests/test_sukha_dukkha_finder.json"
+            base_dir / "db_tests/single/test_sukha_dukkha_finder.json"
         )
         self.syn_var_exceptions_old_path = (
-            base_dir / "db_tests/add_synonym_variant_exceptions"
+            base_dir / "db_tests/single/add_synonym_variant_exceptions"
         )
-        self.syn_var_exceptions_path = base_dir / "db_tests/add_synonym_variant.json"
-        self.wf_exceptions_list = base_dir / "db_tests/add_word_family_exceptions"
+        self.syn_var_exceptions_path = (
+            base_dir / "db_tests/single/add_synonym_variant.json"
+        )
+        self.wf_exceptions_list = (
+            base_dir / "db_tests/single/add_word_family_exceptions"
+        )
 
         # db_tests_gui
         self.add_antonyms_sync_dict = (

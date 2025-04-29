@@ -1,4 +1,4 @@
-""""Functions related to running database tests using GUI.
+""" "Functions related to running database tests using GUI.
 Types of tests:
 1. individual internal tests - runs in edit tab
 2. db internal tests - runs in test tab
@@ -14,23 +14,22 @@ from typing import List, Tuple
 from rich import print
 
 from db.models import DpdHeadword
-from db_tests.helpers import InternalTestRow
+from db_tests.old_tests_DELETE import InternalTestRow
 
 # 1. individual internal tests
 
 
 def open_internal_tests(pth):
-    subprocess.Popen(
-        ["libreoffice", pth.internal_tests_path])
+    subprocess.Popen(["libreoffice", pth.internal_tests_path])
 
 
-def individual_internal_tests(
-        pth, sg, window, values, flags, username):
+def individual_internal_tests(pth, sg, window, values, flags, username):
     flags.tested = False
     internal_tests_list = make_internal_tests_list(pth)
     test_the_tests(internal_tests_list, window)
     flags = run_individual_internal_tests(
-        pth, internal_tests_list, values, window, flags, sg, username)
+        pth, internal_tests_list, values, window, flags, sg, username
+    )
     return flags
 
 
@@ -42,19 +41,18 @@ def make_internal_tests_list(pth):
 
 
 def write_internal_tests_list(pth, internal_tests_list):
-    with open(pth.internal_tests_path, 'w', newline="") as csvfile:
+    with open(pth.internal_tests_path, "w", newline="") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()
         for row in internal_tests_list:
             row_dict = row.__dict__
-            row_dict['exceptions'] = dumps(
-                list(row.exceptions), ensure_ascii=False)
+            row_dict["exceptions"] = dumps(list(row.exceptions), ensure_ascii=False)
             writer.writerow(row_dict)
 
         for row in internal_tests_list:
             row_dict = row.__dict__
-            row_dict['exceptions'] = loads(row.exceptions)
+            row_dict["exceptions"] = loads(row.exceptions)
 
 
 def test_the_tests(internal_tests_list, window):
@@ -62,10 +60,15 @@ def test_the_tests(internal_tests_list, window):
     column_names += [""]
     logical_operators = [
         "",
-        "equals", "does not equal",
-        "contains", "contains word",
-        "does not contain", "does not contain word",
-        "is empty", "is not empty"]
+        "equals",
+        "does not equal",
+        "contains",
+        "contains word",
+        "does not contain",
+        "does not contain word",
+        "is empty",
+        "is not empty",
+    ]
 
     for test_counter, t in enumerate(internal_tests_list):
         flag = True
@@ -122,17 +125,18 @@ def test_the_tests(internal_tests_list, window):
 
 def get_search_criteria(t: InternalTestRow) -> List[Tuple]:
     return [
-            (t.search_column_1, t.search_sign_1, t.search_string_1),
-            (t.search_column_2, t.search_sign_2, t.search_string_2),
-            (t.search_column_3, t.search_sign_3, t.search_string_3),
-            (t.search_column_4, t.search_sign_4, t.search_string_4),
-            (t.search_column_5, t.search_sign_5, t.search_string_5),
-            (t.search_column_6, t.search_sign_6, t.search_string_6)]
+        (t.search_column_1, t.search_sign_1, t.search_string_1),
+        (t.search_column_2, t.search_sign_2, t.search_string_2),
+        (t.search_column_3, t.search_sign_3, t.search_string_3),
+        (t.search_column_4, t.search_sign_4, t.search_string_4),
+        (t.search_column_5, t.search_sign_5, t.search_string_5),
+        (t.search_column_6, t.search_sign_6, t.search_string_6),
+    ]
 
 
 def run_individual_internal_tests(
-        pth, internal_tests_list, values, window, flags, sg, username):
-    
+    pth, internal_tests_list, values, window, flags, sg, username
+):
     next_flag = True
 
     # remove all spaces front and back, and doublespaces
@@ -143,7 +147,6 @@ def run_individual_internal_tests(
             window[value].update(values[value])
 
     for counter, t in enumerate(internal_tests_list):
-
         # try:
         if t.exceptions != {""}:
             if int(values["id"]) in t.exceptions:
@@ -156,8 +159,8 @@ def run_individual_internal_tests(
             (t.search_column_3, t.search_sign_3, t.search_string_3),
             (t.search_column_4, t.search_sign_4, t.search_string_4),
             (t.search_column_5, t.search_sign_5, t.search_string_5),
-            (t.search_column_6, t.search_sign_6, t.search_string_6)
-            ]
+            (t.search_column_6, t.search_sign_6, t.search_string_6),
+        ]
 
         test_results = {}
 
@@ -170,17 +173,21 @@ def run_individual_internal_tests(
                 elif criterion[1] == "does not equal":
                     test_results[f"test{x}"] = values[criterion[0]] != criterion[2]
                 elif criterion[1] == "contains":
-                    test_results[f"test{x}"] = re.findall(
-                        criterion[2], values[criterion[0]]) != []
+                    test_results[f"test{x}"] = (
+                        re.findall(criterion[2], values[criterion[0]]) != []
+                    )
                 elif criterion[1] == "does not contain":
-                    test_results[f"test{x}"] = re.findall(
-                        criterion[2], values[criterion[0]]) == []
+                    test_results[f"test{x}"] = (
+                        re.findall(criterion[2], values[criterion[0]]) == []
+                    )
                 elif criterion[1] == "contains word":
-                    test_results[f"test{x}"] = re.findall(
-                        fr"\b{criterion[2]}\b", values[criterion[0]]) != []
+                    test_results[f"test{x}"] = (
+                        re.findall(rf"\b{criterion[2]}\b", values[criterion[0]]) != []
+                    )
                 elif criterion[1] == "does not contain word":
-                    test_results[f"test{x}"] = re.findall(
-                        fr"\b{criterion[2]}\b", values[criterion[0]]) == []
+                    test_results[f"test{x}"] = (
+                        re.findall(rf"\b{criterion[2]}\b", values[criterion[0]]) == []
+                    )
                 elif criterion[1] == "is empty":
                     test_results[f"test{x}"] = values[criterion[0]] == ""
                 elif criterion[1] == "is not empty":
@@ -188,86 +195,75 @@ def run_individual_internal_tests(
                 else:
                     print(f"[red]search_{x} error")
         except Exception as e:
-            window["messages"].update(
-                f"{e}", text_color="red")
+            window["messages"].update(f"{e}", text_color="red")
             return flags
 
-
-        test_message = f"{counter+2}. {t.test_name}"
+        test_message = f"{counter + 2}. {t.test_name}"
 
         if all(test_results.values()):
             if t.error_column:
                 window[f"{t.error_column}_error"].update(
-                    f"{counter+2}. {t.test_name}")
+                    f"{counter + 2}. {t.test_name}"
+                )
 
-            window["messages"].update(
-                f"{test_message} - failed!", text_color="red")
+            window["messages"].update(f"{test_message} - failed!", text_color="red")
             window["update_db_button1"].update(button_color="red")
-            
-            def popup_window():
 
+            def popup_window():
                 layout = [
                     [sg.Text(test_message, text_color="white", pad=10)],
-                    [sg.Button("Exception", pad=5), sg.Button("Edit", pad=5), sg.Button("Next", pad=5)],
-                    
+                    [
+                        sg.Button("Exception", pad=5),
+                        sg.Button("Edit", pad=5),
+                        sg.Button("Next", pad=5),
+                    ],
                 ]
-                window = sg.Window(
-                    "Test Failed", layout, 
-                    location=(200, 200))
+                window = sg.Window("Test Failed", layout, location=(200, 200))
                 return window
-            
+
             popup_win = popup_window()
 
             while True:
                 event_popup, values_popup = popup_win.read()
 
-                if (
-                    event_popup == "Edit"
-                    or event_popup is None
-                ):  
+                if event_popup == "Edit" or event_popup is None:
                     popup_win.close()
                     return flags
 
                 elif event_popup == "Exception":
                     if username == "primary_user":
                         popup_win.close()
-                        internal_tests_list[counter].exceptions.append(int(values["id"]))
+                        internal_tests_list[counter].exceptions.append(
+                            int(values["id"])
+                        )
                         write_internal_tests_list(pth, internal_tests_list)
                         break
                     else:
                         message = "Sorry, you don't have permission to edit that.\nUse the Next button."
-                        sg.popup_ok(
-                            message,
-                            title="Error",
-                            location=(400, 400))
+                        sg.popup_ok(message, title="Error", location=(400, 400))
                         return flags
-                    
+
                 elif event_popup == "Next":
                     popup_win.close()
                     next_flag = False
                     break
 
         else:
-            window["messages"].update(
-                f"{test_message} - passed!", text_color="white")
+            window["messages"].update(f"{test_message} - passed!", text_color="white")
 
     else:
         if next_flag is True:
-            window["messages"].update(
-                "all tests passed!", text_color="white")
+            window["messages"].update("all tests passed!", text_color="white")
             window["update_db_button1"].update(button_color="steel blue")
             flags.tested = True
             return flags
         else:
-            window["messages"].update(
-                "test again", text_color="red")
+            window["messages"].update("test again", text_color="red")
             window["update_db_button1"].update(button_color="red")
             return flags
 
 
-
 def db_internal_tests_setup(db_session, pth):
-
     dpd_db = db_session.query(DpdHeadword).all()
     internal_tests_list = make_internal_tests_list(pth)
 
@@ -280,27 +276,28 @@ def get_db_test_results(t, values):
     test_results = {}
 
     for count, criterion in enumerate(search_criteria, start=1):
-
         if not criterion[1]:
             test_results[f"test{count}"] = True
         elif criterion[1] == "equals":
-            test_results[f"test{count}"] = getattr(
-                values, criterion[0]) == criterion[2]
+            test_results[f"test{count}"] = getattr(values, criterion[0]) == criterion[2]
         elif criterion[1] == "does not equal":
-            test_results[f"test{count}"] = getattr(
-                values, criterion[0]) != criterion[2]
+            test_results[f"test{count}"] = getattr(values, criterion[0]) != criterion[2]
         elif criterion[1] == "contains":
-            test_results[f"test{count}"] = re.findall(
-                criterion[2], getattr(values, criterion[0])) != []
+            test_results[f"test{count}"] = (
+                re.findall(criterion[2], getattr(values, criterion[0])) != []
+            )
         elif criterion[1] == "does not contain":
-            test_results[f"test{count}"] = re.findall(
-                criterion[2], getattr(values, criterion[0])) == []
+            test_results[f"test{count}"] = (
+                re.findall(criterion[2], getattr(values, criterion[0])) == []
+            )
         elif criterion[1] == "contains word":
-            test_results[f"test{count}"] = re.findall(
-                fr"\b{criterion[2]}\b", getattr(values, criterion[0])) != []
+            test_results[f"test{count}"] = (
+                re.findall(rf"\b{criterion[2]}\b", getattr(values, criterion[0])) != []
+            )
         elif criterion[1] == "does not contain word":
-            test_results[f"test{count}"] = re.findall(
-                fr"\b{criterion[2]}\b", getattr(values, criterion[0])) == []
+            test_results[f"test{count}"] = (
+                re.findall(rf"\b{criterion[2]}\b", getattr(values, criterion[0])) == []
+            )
         elif criterion[1] == "is empty":
             test_results[f"test{count}"] = getattr(values, criterion[0]) == ""
         elif criterion[1] == "is not empty":
@@ -323,9 +320,7 @@ def db_internal_tests(db_session, pth, sg, window, flags):
         return
 
     for test_counter, t in enumerate(internal_tests_list):
-
-        window["test_number"].update(
-            f"{test_counter+2}")
+        window["test_number"].update(f"{test_counter + 2}")
         window["test_name"].update(t.test_name)
         window["messages"].update(t.test_name, text_color="white")
         window.refresh()
@@ -342,14 +337,17 @@ def db_internal_tests(db_session, pth, sg, window, flags):
                     fail_list += [i.id]
 
                     if results_count < int(t.iterations):
-                        test_results_display += [[
-                            f"{getattr(i, t.display_1)}",
-                            f"{getattr(i, t.display_2)}",
-                            f"{getattr(i, t.display_3)}"]]
+                        test_results_display += [
+                            [
+                                f"{getattr(i, t.display_1)}",
+                                f"{getattr(i, t.display_2)}",
+                                f"{getattr(i, t.display_3)}",
+                            ]
+                        ]
                         results_count += 1
 
         if fail_list:
-            fail_list_redux = (fail_list[:int(t.iterations)])
+            fail_list_redux = fail_list[: int(t.iterations)]
             add_exceptions_list = fail_list_redux
             db_query = regex_fail_list(fail_list_redux)
             window["test_name"].update(t.test_name)
@@ -390,8 +388,7 @@ def db_internal_tests(db_session, pth, sg, window, flags):
                     break
 
                 if event == "test_stop":
-                    window["messages"].update(
-                        "testing stopped", text_color="white")
+                    window["messages"].update("testing stopped", text_color="white")
                     return
 
                 if event == sg.WIN_CLOSED:
@@ -401,29 +398,29 @@ def db_internal_tests(db_session, pth, sg, window, flags):
                     try:
                         exception = int(values["test_add_exception"])
                     except ValueError:
-                        window["messages"].update(
-                            "[red]not a valid id")
+                        window["messages"].update("[red]not a valid id")
 
                     internal_tests_list[test_counter].exceptions += [exception]
 
                     write_internal_tests_list(pth, internal_tests_list)
 
                     window["messages"].update(
-                        f"{exception} added to exceptions",
-                        text_color="white")
+                        f"{exception} added to exceptions", text_color="white"
+                    )
 
                     try:
                         add_exceptions_list.remove(exception)
-                        window["test_add_exception"].update(
-                            values=add_exceptions_list)
+                        window["test_add_exception"].update(values=add_exceptions_list)
                     except ValueError as e:
                         window["messages"].update(
-                            f"[red]can't remove {exception} from list! {e}")
+                            f"[red]can't remove {exception} from list! {e}"
+                        )
 
                 if event == "test_delete":
                     confirmation = sg.popup_yes_no(
                         "Are you sure you want to delete this test?",
-                        location=(400, 400))
+                        location=(400, 400),
+                    )
                     if confirmation == "Yes":
                         del internal_tests_list[test_counter]
                         write_internal_tests_list(pth, internal_tests_list)
@@ -433,14 +430,13 @@ def db_internal_tests(db_session, pth, sg, window, flags):
                 if event == "test_update":
                     update_tests(pth, internal_tests_list, test_counter, values)
                     window["messages"].update(
-                        f"{test_counter}. {t.test_name} updated!",
-                        text_color="white")
+                        f"{test_counter}. {t.test_name} updated!", text_color="white"
+                    )
 
                 if event == "test_new":
                     make_new_test(pth, values, test_counter, internal_tests_list)
                     clear_tests(window)
-                    window["messages"].update(
-                        f"{values['test_name']} added to tests")
+                    window["messages"].update(f"{values['test_name']} added to tests")
                     break
 
                 if event == "test_db_query_copy":
@@ -459,13 +455,11 @@ def db_internal_tests(db_session, pth, sg, window, flags):
 
         else:
             # print(f"{test_counter}. {t.test_name} passed!")
-            window["messages"].update(
-                f"{test_counter}. {t.test_name} passed")
+            window["messages"].update(f"{test_counter}. {t.test_name} passed")
 
         flags.text_next = False
 
-    window["messages"].update(
-        "internal db tests complete", text_color="white")
+    window["messages"].update("internal db tests complete", text_color="white")
 
 
 def regex_fail_list(fail_list: list[int]):
@@ -540,7 +534,7 @@ def make_new_test_row(v):
         display_2=v["display_2"],
         display_3=v["display_3"],
         exceptions=[],
-        iterations=v["iterations"]
+        iterations=v["iterations"],
     )
 
 
@@ -553,17 +547,36 @@ def make_new_test(pth, values, test_counter, internal_tests_list):
 def clear_tests(window):
     test_fields = [
         "test_name",
-        "search_column_1", "search_column_2", "search_column_3",
-        "search_column_4", "search_column_5", "search_column_6",
-        "search_sign_1", "search_sign_2", "search_sign_3",
-        "search_sign_4", "search_sign_5", "search_sign_6",
-        "search_string_1", "search_string_2", "search_string_3",
-        "search_string_4", "search_string_5", "search_string_6",
-        "display_1", "display_2", "display_3",
+        "search_column_1",
+        "search_column_2",
+        "search_column_3",
+        "search_column_4",
+        "search_column_5",
+        "search_column_6",
+        "search_sign_1",
+        "search_sign_2",
+        "search_sign_3",
+        "search_sign_4",
+        "search_sign_5",
+        "search_sign_6",
+        "search_string_1",
+        "search_string_2",
+        "search_string_3",
+        "search_string_4",
+        "search_string_5",
+        "search_string_6",
+        "display_1",
+        "display_2",
+        "display_3",
         "error_column",
-        "iterations", "exceptions",
-        "test_results_redux", "test_results_total",
-        "test_results", "test_add_exception", "test_db_query"]
+        "iterations",
+        "exceptions",
+        "test_results_redux",
+        "test_results_total",
+        "test_results",
+        "test_add_exception",
+        "test_db_query",
+    ]
 
     for test_field in test_fields:
         window[test_field].update("")

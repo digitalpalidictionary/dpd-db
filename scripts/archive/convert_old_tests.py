@@ -1,7 +1,7 @@
 #!/usr/bin/env python_3.11
 
 import csv
-from helpers import InternalTestRow
+from db_tests.helpers import InternalTestRow
 from tools.paths import ProjectPaths
 
 column_names: dict = {
@@ -62,7 +62,7 @@ column_names: dict = {
 
 
 def make_internal_tests_list():
-    with open("tests/xxx old tests.csv", newline='') as csvfile:
+    with open("tests/xxx old tests.csv", newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         internal_tests_list = [InternalTestRow(**row) for row in reader]
     return internal_tests_list
