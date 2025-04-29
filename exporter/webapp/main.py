@@ -16,7 +16,7 @@ from exporter.webapp.preloads import (
     make_headwords_clean_set,
     make_roots_count_dict,
 )
-from exporter.webapp.tools import fuzzy_replace, make_dpd_html
+from exporter.webapp.toolkit import fuzzy_replace, make_dpd_html
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.translit import auto_translit_to_roman
