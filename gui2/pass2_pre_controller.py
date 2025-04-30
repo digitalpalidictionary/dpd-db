@@ -3,16 +3,16 @@ import json
 from rich import print
 
 from db.models import DpdHeadword
-from gui2.class_books import (
+from gui2.books import (
     SuttaCentralSegment,
     SuttaCentralSource,
     sutta_central_books,
 )
-from gui2.class_daily_log import DailyLog
-from gui2.class_database import DatabaseManager
-from gui2.class_paths import Gui2Paths
-from gui2.class_spelling import SpellingMistakesFileManager
-from gui2.class_variants import VariantReadingFileManager
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
+from gui2.paths import Gui2Paths
+from gui2.spelling import SpellingMistakesFileManager
+from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_source_sutta_example import (
     CstSourceSuttaExample,
@@ -24,7 +24,7 @@ from tools.printer import printer as pr
 
 class Pass2PreprocessController:
     def __init__(self, ui, db: DatabaseManager, daily_log: DailyLog) -> None:
-        from gui2.tab_pass2_pre_view import Pass2PreProcessView
+        from gui2.pass2_pre_view import Pass2PreProcessView
 
         self.ui: Pass2PreProcessView = ui
         self.db = db

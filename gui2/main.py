@@ -3,19 +3,20 @@ import time
 from pathlib import Path
 import flet as ft
 
-from gui2.class_appbar_updater import AppBarUpdater
-from gui2.class_daily_log import DailyLog
-from gui2.class_database import DatabaseManager
+from gui2.appbar_updater import AppBarUpdater
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
+from gui2.test_manager import GuiTestManager
 from tools.fast_api_utils import start_dpd_server
 
 
 class App:
     def __init__(self, page: ft.Page):
-        from gui2.tab_pass2_add_view import EditView
-        from gui2.tab_pass1_auto_view import Pass1AutoView
-        from gui2.tab_pass1_add_view import Pass1AddView
-        from gui2.tab_pass2_auto_view import Pass2AutoView
-        from gui2.tab_pass2_pre_view import Pass2PreProcessView
+        from gui2.pass2_add_view import Pass2AddView
+        from gui2.pass1_auto_view import Pass1AutoView
+        from gui2.pass1_add_view import Pass1AddView
+        from gui2.pass2_auto_view import Pass2AutoView
+        from gui2.pass2_pre_view import Pass2PreProcessView
 
         self.page = page
 
@@ -31,7 +32,10 @@ class App:
 
         # Instantiate AppBarUpdater first
         self.appbar_updater = AppBarUpdater(self.page)
-        self.daily_log = DailyLog(self.appbar_updater)  # Pass updater to DailyLog
+        self.daily_log = DailyLog(self.appbar_updater)
+
+        # Init test manager
+        self.test_manager = GuiTestManager()
 
         page.appbar = ft.AppBar(
             title=ft.Text("dpd gui"),
@@ -44,15 +48,30 @@ class App:
 
         # initialize classes
         self.db = DatabaseManager()
-        self.pass1_auto_view: Pass1AutoView = Pass1AutoView(self.page, self.db)
+        self.pass1_auto_view: Pass1AutoView = Pass1AutoView(
+            self.page,
+            self.db,
+        )
         self.pass1_add_view: Pass1AddView = Pass1AddView(
-            self.page, self.db, self.daily_log
+            self.page,
+            self.db,
+            self.daily_log,
         )
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
-            self.page, self.db, self.daily_log
+            self.page,
+            self.db,
+            self.daily_log,
         )
-        self.pass2_auto_view: Pass2AutoView = Pass2AutoView(self.page, self.db)
-        self.pass2_add_view: EditView = EditView(self.page, self.db, self.daily_log)
+        self.pass2_auto_view: Pass2AutoView = Pass2AutoView(
+            self.page,
+            self.db,
+        )
+        self.pass2_add_view: Pass2AddView = Pass2AddView(
+            self.page,
+            self.db,
+            self.daily_log,
+            self.test_manager,
+        )
 
         self.build_ui()
 

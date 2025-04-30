@@ -6,14 +6,14 @@ import pyperclip
 from rich import print
 
 from db.models import DpdHeadword
-from gui2.def_make_dpd_headword import make_dpd_headword_from_dict
-from gui2.class_books import sutta_central_books
-from gui2.class_daily_log import DailyLog
-from gui2.class_database import DatabaseManager
-from gui2.class_mixins import SandhiOK, SnackBarMixin
-from gui2.class_paths import Gui2Paths
-from gui2.class_spelling import SpellingMistakesFileManager
-from gui2.class_variants import VariantReadingFileManager
+from gui2.dpd_fields_functions import make_dpd_headword_from_dict
+from gui2.books import sutta_central_books
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
+from gui2.mixins import SandhiOK, SnackBarMixin
+from gui2.paths import Gui2Paths
+from gui2.spelling import SpellingMistakesFileManager
+from gui2.variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
 
@@ -24,7 +24,7 @@ HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
 class Pass1AddController(SandhiOK, SnackBarMixin):
-    from gui2.tab_pass1_add_view import Pass1AddView
+    from gui2.pass1_add_view import Pass1AddView
 
     def __init__(
         self, ui: Pass1AddView, db: DatabaseManager, daily_log: DailyLog

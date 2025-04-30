@@ -11,7 +11,7 @@ from db.models import (
     FamilyWord,
     Lookup,
 )
-from gui2.def_dpd_fields import clean_lemma_1
+from gui2.dpd_fields_functions import clean_lemma_1
 from tools.paths import ProjectPaths
 
 

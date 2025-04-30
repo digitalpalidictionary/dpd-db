@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import Any, Iterator, Optional
 
 from db.models import DpdHeadword
-from gui2.class_books import SuttaCentralSource, sutta_central_books
-from gui2.class_database import DatabaseManager
-from gui2.class_pass2_file_manager import Pass2AutoFileManager
-from gui2.class_paths import Gui2Paths
-from gui2.tab_pass2_pre_controller import Pass2PreFileManager
+from gui2.books import SuttaCentralSource, sutta_central_books
+from gui2.database_manager import DatabaseManager
+from gui2.pass2_file_manager import Pass2AutoFileManager
+from gui2.paths import Gui2Paths
+from gui2.pass2_pre_controller import Pass2PreFileManager
 from tools.deepseek import Deepseek
 from tools.printer import printer as pr
 
@@ -26,7 +26,7 @@ class Pass2AutoController:
         ui,
         db_manager: DatabaseManager,
     ) -> None:
-        from gui2.tab_pass2_auto_view import Pass2AutoView
+        from gui2.pass2_auto_view import Pass2AutoView
 
         # globals
         self.db: DatabaseManager = db_manager

@@ -2,8 +2,8 @@ import datetime
 import json
 from pathlib import Path
 
-from gui2.class_appbar_updater import AppBarUpdater
-from gui2.class_paths import Gui2Paths
+from gui2.appbar_updater import AppBarUpdater
+from gui2.paths import Gui2Paths
 
 
 class DailyLog:

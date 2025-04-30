@@ -16,7 +16,7 @@ import flet as ft
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from gui2.class_paths import Gui2Paths
+from gui2.paths import Gui2Paths
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths

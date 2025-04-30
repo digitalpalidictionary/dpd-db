@@ -1,8 +1,8 @@
 import flet as ft
-from gui2.class_daily_log import DailyLog
-from gui2.class_database import DatabaseManager
-from gui2.class_mixins import PopUpMixin
-from gui2.class_dpd_fields import DpdFields
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
+from gui2.mixins import PopUpMixin
+from gui2.dpd_fields import DpdFields
 
 from rich import print
 
@@ -20,7 +20,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             controls=[],
             spacing=5,
         )
-        from gui2.tab_pass1_add_controller import Pass1AddController
+        from gui2.pass1_add_controller import Pass1AddController
 
         PopUpMixin.__init__(self)
         self.page: ft.Page = page

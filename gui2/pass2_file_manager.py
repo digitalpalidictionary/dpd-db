@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from gui2.class_paths import Gui2Paths
+from gui2.paths import Gui2Paths
 
 
 class Pass2AutoFileManager:

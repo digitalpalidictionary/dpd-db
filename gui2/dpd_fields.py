@@ -1,100 +1,26 @@
 import flet as ft
 
 from db.models import DpdHeadword
-from gui2.class_mixins import PopUpMixin
-from gui2.class_database import DatabaseManager
-from gui2.def_dpd_fields import (
+from gui2.database_manager import DatabaseManager
+from gui2.dpd_fields_classes import (
+    DpdDropdown,
+    DpdExampleField,
+    DpdText,
+    DpdTextField,
+    FieldConfig,
+)
+from gui2.dpd_fields_functions import (
     clean_construction_line1,
     clean_lemma_1,
     clean_root,
     find_stem_pattern,
     make_construction,
+    make_dpd_headword_from_dict,
     make_lemma_2,
 )
+from gui2.mixins import PopUpMixin
 from tools.pos import NOUNS, PARTICIPLES, POS, VERBS
 from tools.spelling import CustomSpellChecker
-
-
-class FieldConfig:
-    def __init__(
-        self,
-        name,
-        field_type="text",
-        options=None,
-        on_focus=None,
-        on_change=None,
-        on_submit=None,
-        on_blur=None,
-        multiline=False,
-    ):
-        self.name = name
-        self.field_type = field_type
-        self.options = options
-        self.on_focus = on_focus
-        self.on_change = on_change
-        self.on_submit = on_submit
-        self.on_blur = on_blur
-        self.multiline = multiline
-
-
-class DpdTextField(ft.TextField):
-    def __init__(
-        self,
-        on_focus=None,
-        on_change=None,
-        on_submit=None,
-        on_blur=None,
-        multiline=False,  # Default to single-line
-    ):
-        super().__init__(
-            width=700,
-            expand=True,
-            multiline=multiline,
-            on_focus=on_focus,
-            on_change=on_change,
-            on_submit=on_submit,
-            on_blur=on_blur,
-            max_lines=6,
-            min_lines=1,
-        )
-
-
-class DpdText(ft.Text):
-    def __init__(
-        self,
-    ):
-        super().__init__(
-            width=700,
-            expand=True,
-            selectable=True,
-            color=ft.Colors.GREY_500,
-            size=16,
-        )
-
-
-class DpdDropdown(ft.Dropdown):
-    def __init__(
-        self,
-        options=None,
-        on_focus=None,
-        on_change=None,
-        on_blur=None,
-    ):
-        if not options:
-            raise ValueError("Options must be provided for DpdDropdown")
-        super().__init__(
-            width=700,
-            expand=True,
-            options=[ft.dropdown.Option(o) for o in options],
-            on_focus=on_focus,
-            on_change=on_change,
-            on_blur=on_blur,
-            editable=True,
-            enable_filter=True,
-        )
-
-
-# Predefined field configurations for all DPD database columns
 
 
 class DpdFields(PopUpMixin):
@@ -105,12 +31,6 @@ class DpdFields(PopUpMixin):
         self.spellchecker = CustomSpellChecker()
         self.fields = {}
 
-        # Initialize test manager
-        from gui2.class_tests import TestManager
-        from tools.paths import ProjectPaths
-
-        self.test_manager = TestManager(db)
-        self.test_manager.load_tests(ProjectPaths())
         self.field_configs = [
             FieldConfig("id"),
             FieldConfig(
@@ -180,11 +100,11 @@ class DpdFields(PopUpMixin):
             FieldConfig("non_root_in_comps"),
             FieldConfig("source_1"),
             FieldConfig("sutta_1"),
-            FieldConfig("example_1", multiline=True),
+            FieldConfig("example_1", field_type="example"),
             FieldConfig("translation_1", multiline=True),
             FieldConfig("source_2"),
             FieldConfig("sutta_2"),
-            FieldConfig("example_2", multiline=True),
+            FieldConfig("example_2", field_type="example"),
             FieldConfig("translation_2", multiline=True),
             FieldConfig("antonym"),
             FieldConfig("synonym"),
@@ -223,6 +143,17 @@ class DpdFields(PopUpMixin):
                     options=config.options,
                     on_focus=config.on_focus,
                     on_change=config.on_change,
+                    on_blur=config.on_blur,
+                )
+
+            elif config.field_type == "example":
+                self.fields[config.name] = DpdExampleField(
+                    self.ui.page,
+                    field_name=config.name,
+                    dpd_fields=self,
+                    on_focus=config.on_focus,
+                    on_change=config.on_change,
+                    on_submit=config.on_submit,
                     on_blur=config.on_blur,
                 )
 
@@ -304,6 +235,13 @@ class DpdFields(PopUpMixin):
                 control.error_text = None
         self.ui.page.update()
 
+    def clear_messages(self) -> None:
+        """Clear all error and helper messages from fields without changing values."""
+        for control in self.fields.values():
+            control.error_text = None
+            control.helper_text = None
+        self.ui.page.update()
+
     def check_and_color_add_fields(self) -> None:
         """
         Checks if main fields and their corresponding _add fields have different values
@@ -340,17 +278,12 @@ class DpdFields(PopUpMixin):
         value = field.value
         return field, value
 
-    def get_current_values(self) -> dict[str, str]:
-        """Get all current field values as a dictionary"""
-        return {name: field.value for name, field in self.fields.items()}
+    def get_current_headword(self) -> DpdHeadword:
+        """Get all current field values as a dictionary
+        and make a DpdHeadword instance from it."""
 
-    def run_tests(self, values: dict[str, str]) -> tuple[bool, list[dict]]:
-        """Run tests using TestManager"""
-        return self.test_manager.run_tests(values)
-
-    def show_test_failures(self, page: ft.Page) -> None:
-        """Display test failures using TestManager"""
-        self.test_manager.show_failures(page)
+        values = {name: field.value for name, field in self.fields.items()}
+        return make_dpd_headword_from_dict(values)
 
     # --- AUTOMATION ---
 

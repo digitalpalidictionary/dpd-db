@@ -2,12 +2,13 @@ import copy
 import flet as ft
 
 from db.models import DpdHeadword
-from gui2.class_daily_log import DailyLog
-from gui2.class_database import DatabaseManager
-from gui2.class_mixins import PopUpMixin
-from gui2.class_dpd_fields import DpdFields
-from gui2.class_pass2_file_manager import Pass2AutoFileManager
-from gui2.def_make_dpd_headword import make_dpd_headword_from_dict
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
+from gui2.mixins import PopUpMixin
+from gui2.dpd_fields import DpdFields
+from gui2.pass2_file_manager import Pass2AutoFileManager
+
+from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from tools.fast_api_utils import request_dpd_server
 
 LABEL_WIDTH = 250
@@ -16,17 +17,27 @@ LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
-class EditView(ft.Column, PopUpMixin):
-    def __init__(self, page: ft.Page, db: DatabaseManager, daily_log: DailyLog) -> None:
+class Pass2AddView(ft.Column, PopUpMixin):
+    def __init__(
+        self,
+        page: ft.Page,
+        db: DatabaseManager,
+        daily_log: DailyLog,
+        test_manger,
+    ) -> None:
         # Main container column - does not scroll, expands vertically
         super().__init__(
             expand=True,  # Main column expands
             controls=[],  # Controls defined below
             spacing=5,
         )
+        from gui2.test_manager import GuiTestManager
+
         self.page: ft.Page = page
         self._db = db
         self._daily_log = daily_log
+        self.test_manager: GuiTestManager = test_manger
+
         self._pass2_auto_file_manager = Pass2AutoFileManager()
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
@@ -49,6 +60,9 @@ class EditView(ft.Column, PopUpMixin):
         )
         self._edit_headword_button = ft.ElevatedButton(
             "Edit", on_click=self._click_edit_headword
+        )
+        self._clear_all_button = ft.ElevatedButton(
+            "Clear All", on_click=self._click_clear_all
         )
 
         self._history_dropdown = ft.Dropdown(
@@ -73,6 +87,7 @@ class EditView(ft.Column, PopUpMixin):
                             self._enter_id_or_lemma_field,
                             self._edit_headword_button,
                             self._next_pass2_auto_button,
+                            self._clear_all_button,
                             self._history_dropdown,
                         ],
                         spacing=10,
@@ -89,11 +104,8 @@ class EditView(ft.Column, PopUpMixin):
             alignment=ft.alignment.center,
         )
 
-        self._dpd_fields = DpdFields(self, self._db)
-        self._middle_section = ft.Column(
-            scroll=ft.ScrollMode.AUTO, expand=True, spacing=5
-        )
-        self._dpd_fields.add_to_ui(self._middle_section, include_add_fields=True)
+        # Build middle section using the new method
+        self._middle_section = self._build_middle_section()
 
         self._bottom_section = ft.Container(
             content=ft.Column(
@@ -174,7 +186,7 @@ class EditView(ft.Column, PopUpMixin):
                 self.headword_original = copy.deepcopy(
                     headword
                 )  # Store original for ID comparison
-                self._dpd_fields.update_db_fields(headword)
+                self.dpd_fields.update_db_fields(headword)
                 if self.headword is not None:
                     self.update_message(f"loaded {self.headword.lemma_1}")
                     if (
@@ -185,7 +197,7 @@ class EditView(ft.Column, PopUpMixin):
                         to_add = self._pass2_auto_file_manager.get_headword(
                             str(self.headword.id)
                         )
-                        self._dpd_fields.update_add_fields(to_add)
+                        self.dpd_fields.update_add_fields(to_add)
             else:
                 self.update_message("headword not found")
         else:
@@ -201,43 +213,64 @@ class EditView(ft.Column, PopUpMixin):
         )
 
         if headword_id is not None:
-            self._dpd_fields.clear_fields()
+            self.dpd_fields.clear_fields()
 
             self.headword = self._db.get_headword_by_id(int(headword_id))
             if self.headword is not None:
-                self._dpd_fields.update_db_fields(self.headword)
+                self.dpd_fields.update_db_fields(self.headword)
 
-            self._dpd_fields.update_add_fields(pass2_auto_data)
+            self.dpd_fields.update_add_fields(pass2_auto_data)
 
         else:
             self._message_field.value = "Current Pass2: None"
-            self._dpd_fields.clear_fields(target="all")  # Clear all fields
+            self.dpd_fields.clear_fields(target="all")  # Clear all fields
 
         self.update()
 
-    def clear_all_fields(self):
-        self._dpd_fields.clear_fields(target="all")
+    def _click_clear_all(self, e: ft.ControlEvent):
+        self.clear_all_fields()
+
+    # Add the new builder method
+    def _build_middle_section(self) -> ft.Column:
+        """Build and return the middle section with DpdFields."""
+        self.dpd_fields = DpdFields(self, self._db)  # New instance
+        middle_section = ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            expand=True,
+            spacing=5,
+            # Add any other specific Column properties if needed
+        )
+        self.dpd_fields.add_to_ui(middle_section, include_add_fields=True)
+        return middle_section
+
+    def clear_all_fields(
+        self, e: ft.ControlEvent | None = None
+    ) -> None:  # Add event arg if needed for button binding
+        """Clear all fields by rebuilding the middle section."""
+        # Rebuild middle section
+        self._middle_section = self._build_middle_section()
+
+        # Update view controls with new middle section
+        self.controls = [self._top_section, self._middle_section, self._bottom_section]
+
+        # Clear relevant top-section fields
+        self._enter_id_or_lemma_field.value = ""
+        self._enter_id_or_lemma_field.error_text = None
+        self.headword = None  # Resetting the data model reference
+        self.headword_original = None  # Resetting the original data reference
+
+        self.update_message("")  # Clear message field
+        self.page.update()
 
     def _click_run_tests(self, e: ft.ControlEvent):
         """Run tests on current field values"""
-        values = self._dpd_fields.get_current_values()
-        passed, failures = self._dpd_fields.run_tests(values)
 
-        if passed:
-            self.update_message("All tests passed!")
-        else:
-            self.update_message(f"{len(failures)} tests failed")
-            # Highlight error columns
-            for failure in failures:
-                if failure["error_column"]:
-                    field = self._dpd_fields.get_field(failure["error_column"])
-                    if field:
-                        field.error_text = failure["test_name"]
-                        field.update()
-            self._dpd_fields.show_test_failures(self.page)
+        self.dpd_fields.clear_messages()
+        headword = self.dpd_fields.get_current_headword()
+        self.test_manager.run_all_tests(self, headword)
 
     def _click_add_to_db(self, e: ft.ControlEvent):
-        id_field = self._dpd_fields.fields.get("id")
+        id_field = self.dpd_fields.fields.get("id")
         id_value: int | None = int(id_field.value) if id_field else None
 
         if (
@@ -248,7 +281,7 @@ class EditView(ft.Column, PopUpMixin):
             and id_value == self.headword_original.id
         ):
             # Update existing word
-            for field_name, field in self._dpd_fields.fields.items():
+            for field_name, field in self.dpd_fields.fields.items():
                 if hasattr(self.headword, field_name):
                     setattr(self.headword, field_name, field.value)
             try:
@@ -261,7 +294,7 @@ class EditView(ft.Column, PopUpMixin):
             # Create new word (whether first time or ID changed)
             field_data = {
                 field_name: field.value
-                for field_name, field in self._dpd_fields.fields.items()
+                for field_name, field in self.dpd_fields.fields.items()
                 if hasattr(DpdHeadword, field_name)
             }
             new_word = make_dpd_headword_from_dict(field_data)

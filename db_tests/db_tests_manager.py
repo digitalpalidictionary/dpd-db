@@ -3,6 +3,7 @@
 import csv
 import json
 import re
+from json import dumps
 from typing import NamedTuple
 from pathlib import Path
 
@@ -17,62 +18,80 @@ from tools.printer import printer as pr
 class InternalTestRow:
     def __init__(
         self,
-        test_name,
-        search_column_1,
-        search_sign_1,
-        search_string_1,
-        search_column_2,
-        search_sign_2,
-        search_string_2,
-        search_column_3,
-        search_sign_3,
-        search_string_3,
-        search_column_4,
-        search_sign_4,
-        search_string_4,
-        search_column_5,
-        search_sign_5,
-        search_string_5,
-        search_column_6,
-        search_sign_6,
-        search_string_6,
-        error_column,
-        exceptions,
-        iterations,
-        display_1,
-        display_2,
-        display_3,
-    ):
-        self.test_name = test_name
-        self.search_column_1 = search_column_1
-        self.search_sign_1 = search_sign_1
-        self.search_string_1 = search_string_1
-        self.search_column_2 = search_column_2
-        self.search_sign_2 = search_sign_2
-        self.search_string_2 = search_string_2
-        self.search_column_3 = search_column_3
-        self.search_sign_3 = search_sign_3
-        self.search_string_3 = search_string_3
-        self.search_column_4 = search_column_4
-        self.search_sign_4 = search_sign_4
-        self.search_string_4 = search_string_4
-        self.search_column_5 = search_column_5
-        self.search_sign_5 = search_sign_5
-        self.search_string_5 = search_string_5
-        self.search_column_6 = search_column_6
-        self.search_sign_6 = search_sign_6
-        self.search_string_6 = search_string_6
-        self.error_column = error_column
-        self.display_1 = display_1
-        self.display_2 = display_2
-        self.display_3 = display_3
+        test_name: str,
+        search_column_1: str,
+        search_sign_1: str,
+        search_string_1: str,
+        search_column_2: str,
+        search_sign_2: str,
+        search_string_2: str,
+        search_column_3: str,
+        search_sign_3: str,
+        search_string_3: str,
+        search_column_4: str,
+        search_sign_4: str,
+        search_string_4: str,
+        search_column_5: str,
+        search_sign_5: str,
+        search_string_5: str,
+        search_column_6: str,
+        search_sign_6: str,
+        search_string_6: str,
+        error_column: str,
+        exceptions: str | list[int],  # Allow string from CSV or list[int]
+        iterations: str | int,  # Allow string from CSV or int
+        display_1: str,
+        display_2: str,
+        display_3: str,
+    ) -> None:
+        self.test_name: str = test_name
+        self.search_column_1: str = search_column_1
+        self.search_sign_1: str = search_sign_1
+        self.search_string_1: str = search_string_1
+        self.search_column_2: str = search_column_2
+        self.search_sign_2: str = search_sign_2
+        self.search_string_2: str = search_string_2
+        self.search_column_3: str = search_column_3
+        self.search_sign_3: str = search_sign_3
+        self.search_string_3: str = search_string_3
+        self.search_column_4: str = search_column_4
+        self.search_sign_4: str = search_sign_4
+        self.search_string_4: str = search_string_4
+        self.search_column_5: str = search_column_5
+        self.search_sign_5: str = search_sign_5
+        self.search_string_5: str = search_string_5
+        self.search_column_6: str = search_column_6
+        self.search_sign_6: str = search_sign_6
+        self.search_string_6: str = search_string_6
+        self.error_column: str = error_column
+        self.display_1: str = display_1
+        self.display_2: str = display_2
+        self.display_3: str = display_3
 
+        # Process exceptions
+        self.exceptions: list[int] = []
+        if isinstance(exceptions, str) and exceptions.strip():
+            try:
+                # Pass only string to json.loads
+                loaded_exceptions = json.loads(exceptions)
+                # Assume it's a list of ints if loading succeeds
+                self.exceptions = [int(exc) for exc in loaded_exceptions]
+            except (json.JSONDecodeError, ValueError) as e:
+                pr.red(
+                    f"Error processing exceptions for test '{test_name}': {exceptions} - {e}"
+                )
+                self.exceptions = []  # Default to empty on error
+        elif isinstance(exceptions, list):  # Handle if already a list
+            self.exceptions = [int(exc) for exc in exceptions]
+
+        # Process iterations
         try:
-            self.exceptions = json.loads(exceptions)
-        except (json.JSONDecodeError, TypeError) as e:
-            pr.red(f"error loading exceptions:{test_name} {str(e)}")
-            self.exceptions = []
-        self.iterations = iterations
+            self.iterations: int = int(iterations)
+        except (ValueError, TypeError) as e:
+            pr.red(
+                f"Invalid iterations value for test '{test_name}': {iterations} - {e}. Setting to 0."
+            )
+            self.iterations = 0
 
     def __repr__(self) -> str:
         return f"InternalTestRow: {self.test_name}"
@@ -243,7 +262,7 @@ class DbTestManager:
 
         return all(test_results.values())
 
-    def run_all_tests_on_entry(
+    def run_all_tests_on_headword(
         self, headword: DpdHeadword
     ) -> tuple[bool, list[TestFailure] | list[IntegrityFailure]]:
         """
@@ -274,40 +293,91 @@ class DbTestManager:
                     )
                 )
 
-        return bool(error_list == []), error_list
+        return not bool(error_list), error_list  # Simplified return
 
     # def run_test_on_all_entries(self, test: InternalTestRow, db_session) -> list[bool]:
+    #     # This might be useful later but is not part of the current task
     #     dpd_db = db_session.query(DpdHeadword).all()
-    #     return [self.run_test_on_entry(test, entry) for entry in dpd_db]
+    #     return [self.error_test_each_single_row(test, entry) for entry in dpd_db] # Corrected method name
 
-    # def update_test(self, test_name: str, updates: dict) -> None:
-    #     for test in self.internal_tests_list:
-    #         if test.test_name == test_name:
-    #             for key, value in updates.items():
-    #                 if hasattr(test, key):
-    #                     setattr(test, key, value)
-    #             break
-    #     self.save_tests()
+    def save_tests(self) -> None:
+        """Saves the current state of internal_tests_list back to the TSV file."""
+        if not self.internal_tests_list:
+            pr.red("No tests loaded, nothing to save.")
+            return
 
-    # def save_tests(self) -> None:
-    #     with open(self.tests_path, "w", newline="") as csvfile:
-    #         fieldnames = self.internal_tests_list[0].__dict__.keys()
-    #         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
-    #         writer.writeheader()
-    #         for row in self.internal_tests_list:
-    #             row_dict = row.__dict__
-    #             row_dict["exceptions"] = dumps(list(row.exceptions), ensure_ascii=False)
-    #             writer.writerow(row_dict)
+        fieldnames = list(self.internal_tests_list[0].__dict__.keys())
+
+        try:
+            with open(self.tests_path, "w", newline="", encoding="utf-8") as csvfile:
+                writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
+                writer.writeheader()
+                for test_row in self.internal_tests_list:
+                    # Create a dictionary representation for writing
+                    row_dict = {}
+                    for field in fieldnames:
+                        # Get value, default to empty string if not present
+                        value = getattr(test_row, field, "")
+                        # Serialize exceptions list to JSON string
+                        if field == "exceptions":
+                            exceptions_list = (
+                                list(value) if isinstance(value, (list, set)) else []
+                            )
+                            row_dict[field] = dumps(exceptions_list, ensure_ascii=False)
+                        else:
+                            row_dict[field] = value
+
+                    writer.writerow(row_dict)
+            # Removed pr.info success message for minimal output
+        except IOError as e:
+            pr.red(f"Error saving tests to {self.tests_path}: {e}")
+        except Exception as e:
+            pr.red(f"An unexpected error occurred during saving tests: {e}")
+
+    def add_exception(self, test_name: str, exception_id: int) -> bool:
+        """Adds an exception ID to a specific test and saves the changes.
+
+        Args:
+            test_name: The name of the test to modify.
+            exception_id: The ID to add to the exceptions list.
+
+        Returns:
+            True if the exception was added and saved successfully, False otherwise.
+        """
+
+        test_found = False
+        for test in self.internal_tests_list:
+            if test.test_name == test_name:
+                test_found = True
+
+                if exception_id not in test.exceptions:
+                    test.exceptions.append(exception_id)
+                    test.exceptions.sort()
+                    pr.green_title(
+                        f"Added exception {exception_id} to test '{test_name}'."
+                    )
+                    self.save_tests()
+                    return True
+                else:
+                    # Even if it exists, consider it a success
+                    return True
+
+        if not test_found:
+            pr.red(f"Test '{test_name}' not found.")
+            return False
+
+        # Fallback, should ideally not be reached
+        return False
 
 
-def main():
+def main() -> None:
     session = get_db_session(Path("dpd.db"))
 
     test_manager = DbTestManager()
     entry = session.query(DpdHeadword).filter_by(id=122).first()
 
     if entry is not None:
-        print(test_manager.run_all_tests_on_entry(entry))
+        print(test_manager.run_all_tests_on_headword(entry))
 
 
 if __name__ == "__main__":

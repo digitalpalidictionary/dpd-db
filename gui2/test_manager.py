@@ -1,0 +1,175 @@
+import flet as ft
+from db_tests.db_tests_manager import DbTestManager, IntegrityFailure, TestFailure
+from gui2.mixins import PopUpMixin
+from rich import print
+from gui2.pass2_add_view import Pass2AddView
+
+
+class GuiTestManager(PopUpMixin):
+    def __init__(self):
+        super().__init__()
+
+        self.db_test_manager = DbTestManager()
+        self.ui: Pass2AddView
+        self.page: ft.Page
+
+        self.passed: bool
+        self.failure_list: list[TestFailure] | list[IntegrityFailure]
+        self.current_headword = None  # Initialize
+
+    def run_all_tests(self, ui: Pass2AddView, dpd_headword):
+        self.db_test_manager.load_tests()
+        self.current_headword = dpd_headword  # Store the headword
+        passed, failure_list = self.db_test_manager.run_all_tests_on_headword(
+            dpd_headword
+        )
+        self.passed = passed
+        self.failure_list = failure_list
+        self.ui = ui
+        self.page = ui.page
+
+        print(passed, failure_list)
+        if passed:
+            ui.update_message("All tests passed!")
+        else:
+            ui.update_message(f"{len(failure_list)} tests failed")
+
+            # Highlight error columns
+            for f in failure_list:
+                if isinstance(f, TestFailure):
+                    field = ui.dpd_fields.get_field(f.error_column)
+                    if field:
+                        field.error_text = f.test_name
+                        field.update()
+                elif isinstance(f, IntegrityFailure):
+                    field = ui.dpd_fields.get_field(f.invalid_field_name)
+                    ui.update_message(
+                        f"error in TSV: {f.test_row} {f.test_name} {f.invalid_field_name} {f.invalid_value}"
+                    )
+                    return
+
+            self.show_failures()
+
+    def show_failures(self) -> None:
+        """Display test failures one at a time with action buttons"""
+
+        if not self.failure_list:
+            return
+
+        self.current_failure_index = 0
+        self._create_failure_dialog()
+        self.show_popup(self.page)
+        self._show_current_failure()
+
+    def _create_failure_dialog(self) -> None:
+        """Create dialog with action buttons"""
+        self.failure_content = ft.Column(
+            height=120,
+            expand=False,
+            spacing=10,
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        )
+
+        self._dialog = ft.AlertDialog(
+            modal=True,
+            content=self.failure_content,
+            actions=[
+                ft.TextButton("Add to Exceptions", on_click=self._handle_add_exception),
+                ft.TextButton("Edit", on_click=self._handle_edit),
+                ft.TextButton("Next", on_click=self._handle_next_failure),
+                ft.TextButton("Close", on_click=self._handle_popup_close),
+            ],
+            actions_alignment=ft.MainAxisAlignment.CENTER,
+            actions_padding=20,
+            content_padding=20,
+        )
+
+    def _show_current_failure(self) -> None:
+        """Update dialog content for current failure"""
+        failure = self.failure_list[self.current_failure_index]
+
+        self.failure_content.controls = [
+            ft.Text(
+                "Test Failed",
+                weight=ft.FontWeight.BOLD,
+            ),
+            ft.Text(
+                str(failure.test_row),
+                color=ft.Colors.BLUE_200,
+                selectable=True,
+            ),
+            ft.Text(
+                f"{failure.test_name}",
+                selectable=True,
+            ),
+            # Display relevant info based on failure type
+            ft.Text(
+                f"Column: {failure.error_column}"
+                if isinstance(failure, TestFailure)
+                else f"Field: {failure.invalid_field_name}",
+                selectable=True,
+            ),
+            ft.Text(
+                f"Value: {failure.invalid_value}"
+                if isinstance(failure, IntegrityFailure)
+                else "",
+                selectable=True,
+                visible=isinstance(
+                    failure, IntegrityFailure
+                ),  # Only show if IntegrityFailure
+            ),
+        ]
+        self._dialog.update()
+
+    def _handle_add_exception(self, e: ft.ControlEvent) -> None:
+        """Add current failure's headword ID to exceptions list"""
+        if self.current_failure_index >= len(self.failure_list):
+            return  # Safety check
+
+        failure = self.failure_list[self.current_failure_index]
+
+        # Ensure we have a headword and it's a TestFailure
+        if self.current_headword and isinstance(failure, TestFailure):
+            test_row = failure.test_row
+            test_name = failure.test_name
+            headword_id = self.current_headword.id
+
+            print(
+                f"Attempting to add exception for test '{test_row}' '{test_name}', ID: {headword_id}"
+            )  # Debug print
+
+            success = self.db_test_manager.add_exception(test_name, headword_id)
+
+            if success:
+                print(f"Successfully added/updated exception for {test_name}")
+                # Optional: Add GUI feedback here if needed later
+            else:
+                print(f"Failed to add exception for {test_name}")
+                # Optional: Add GUI feedback here if needed later
+
+            # Move to the next failure regardless of success/failure
+            self._handle_next_failure(e)
+
+        elif not isinstance(failure, TestFailure):
+            print(f"Cannot add exception for IntegrityFailure: {failure.test_name}")
+            self._handle_next_failure(e)  # Move to next
+        else:
+            print("Error: current_headword not set.")
+            # Close the popup if headword is missing
+            self._handle_popup_close(e)
+
+    def _handle_edit(self, e: ft.ControlEvent) -> None:
+        """Close dialog and focus error field"""
+        failure = self.failure_list[self.current_failure_index]
+        self._handle_popup_close(e)
+        # TODO: Implement field focus logic
+        print(f"Edit field: {failure.test_name}")
+
+    def _handle_next_failure(self, e: ft.ControlEvent) -> None:
+        """Show next failure or close if last"""
+        self.current_failure_index += 1
+        if self.current_failure_index < len(self.failure_list):
+            self._show_current_failure()
+        else:
+            self._handle_popup_close(e)

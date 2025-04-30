@@ -1,10 +1,11 @@
 import flet as ft
 
-from gui2.class_database import DatabaseManager
-from gui2.tab_pass2_auto_control import Pass2AutoController
+from db.inflections.generate_inflection_tables import InflectionsManager
+from gui2.database_manager import DatabaseManager
+from gui2.pass1_auto_controller import Pass1AutoController
 
 
-class Pass2AutoView(ft.Column):
+class Pass1AutoView(ft.Column):
     def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
         super().__init__(
             scroll=ft.ScrollMode.AUTO,
@@ -13,14 +14,14 @@ class Pass2AutoView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = Pass2AutoController(self, db)
+        self.controller = Pass1AutoController(self, db)
 
         # Define constants
         LABEL_WIDTH: int = 150
         COLUMN_WIDTH: int = 700
 
         # Define controls
-        self._message_field = ft.Text(
+        self.message_field = ft.Text(
             "",
             expand=True,
             color=ft.Colors.BLUE_200,
@@ -28,7 +29,7 @@ class Pass2AutoView(ft.Column):
         )
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)
-            for item in self.controller.sc_books_list
+            for item in self.controller.pass1_books_list
         ]
         self.books_dropdown = ft.Dropdown(
             autofocus=True,
@@ -58,7 +59,7 @@ class Pass2AutoView(ft.Column):
                 ft.Row(
                     controls=[
                         ft.Text("", width=LABEL_WIDTH),
-                        self._message_field,
+                        self.message_field,
                     ],
                 ),
                 ft.Row(
@@ -76,6 +77,10 @@ class Pass2AutoView(ft.Column):
                         ft.ElevatedButton(
                             "Clear",
                             on_click=self.handle_clear_click,
+                        ),
+                        ft.ElevatedButton(
+                            "Update inflections",
+                            on_click=self.handle_update_inflections_click,
                         ),
                     ],
                 ),
@@ -100,20 +105,25 @@ class Pass2AutoView(ft.Column):
             ]
         )
 
-    def handle_book_click(self, e: ft.ControlEvent):
+    def handle_book_click(self, e):
         if self.books_dropdown.value:
             self.controller.auto_process_book(self.books_dropdown.value)
 
     def handle_stop_click(self, e):
         self.controller.stop_flag = True
-        self.update_message("stopped")
-        self.controller.processed_count = 0
 
     def handle_clear_click(self, e):
         self.clear_all_fields()
 
+    def handle_update_inflections_click(self, e):
+        self.update_message("updating inflections...")
+        inflections_manager = InflectionsManager()
+        inflections_manager.run()
+        self.controller.db.make_inflections_lists()
+        self.update_message("inflections updated")
+
     def update_message(self, message: str):
-        self._message_field.value = message
+        self.message_field.value = message
         self.page.update()
 
     def update_ai_results(self, results: str):
@@ -129,7 +139,7 @@ class Pass2AutoView(ft.Column):
         self.page.update()
 
     def clear_all_fields(self):
-        self._message_field.value = ""
+        self.message_field.value = ""
         self.auto_processed_count_field.value = ""
         self.books_dropdown.value = ""
         self.ai_results_field.value = ""

@@ -1,16 +1,16 @@
 import flet as ft
-from gui2.class_books import SuttaCentralSegment
-from gui2.class_daily_log import DailyLog
-from gui2.class_database import DatabaseManager
-from gui2.def_flet_functions import highlight_word_in_sentence
+from gui2.books import SuttaCentralSegment
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
+from gui2.flet_functions import highlight_word_in_sentence
 from tools.cst_source_sutta_example import CstSourceSuttaExample
 
 
 class Pass2PreProcessView(ft.Column):
-    from gui2.tab_pass2_pre_controller import Pass2PreprocessController
+    from gui2.pass2_pre_controller import Pass2PreprocessController
 
     def __init__(self, page: ft.Page, db: DatabaseManager, daily_log: DailyLog) -> None:
-        from gui2.tab_pass2_pre_controller import Pass2PreprocessController
+        from gui2.pass2_pre_controller import Pass2PreprocessController
 
         super().__init__(
             scroll=ft.ScrollMode.AUTO,

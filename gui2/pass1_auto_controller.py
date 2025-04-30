@@ -1,15 +1,15 @@
 from json import dump, dumps, load, loads, JSONDecodeError
 from pathlib import Path
-from gui2.class_paths import Gui2Paths
+from gui2.paths import Gui2Paths
 
-from gui2.class_books import (
+from gui2.books import (
     SuttaCentralSegment,
     SuttaCentralSource,
     sutta_central_books,
 )
-from gui2.class_database import DatabaseManager
-from gui2.class_spelling import SpellingMistakesFileManager
-from gui2.class_variants import VariantReadingFileManager
+from gui2.database_manager import DatabaseManager
+from gui2.spelling import SpellingMistakesFileManager
+from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.deepseek import Deepseek
 from tools.goldendict_tools import open_in_goldendict_os
@@ -17,7 +17,7 @@ from tools.goldendict_tools import open_in_goldendict_os
 
 class Pass1AutoController:
     def __init__(self, ui, db: DatabaseManager) -> None:
-        from gui2.tab_pass1_auto_view import Pass1AutoView
+        from gui2.pass1_auto_view import Pass1AutoView
 
         self.ui: Pass1AutoView = ui
         self.gui2pth = Gui2Paths()
