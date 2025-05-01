@@ -3,6 +3,7 @@
 """Search bold_definitions using vanilla find or regex."""
 
 import re
+from typing import List
 
 from rich import print
 
@@ -11,73 +12,56 @@ from db.models import BoldDefinition
 from tools.paths import ProjectPaths
 
 
-def search_bold_definitions(db_session, search1, search2):
-    print("[green]search_bold_definitions_gui")
+class BoldDefinitionsSearchManager:
+    def __init__(self):
+        self.pth = ProjectPaths()
+        self.session = get_db_session(self.pth.dpd_db_path)
 
-    # remove problem characters
-    if search1.endswith("\\"):
-        search1 = search1.replace("\\", "")
-    if search2.endswith("\\"):
-        search2 = search2.replace("\\", "")
-    
-    search_results = db_session \
-        .query(BoldDefinition) \
-        .filter(BoldDefinition.bold.regexp_match(search1)) \
-        .filter(BoldDefinition.commentary.regexp_match(search2)) \
-        .all()
-    
-    print(f"{len(search_results)} results found")
-    return search_results
+    def search(
+        self, search1: str, search2: str, option: str = "regex"
+    ) -> List[BoldDefinition]:
+        """Main search method with options matching db_search_bd"""
+        if not search1 and not search2:
+            return []
 
-   
-def test_regex(search1, search2) -> bool:
-    print("test regex ", end="")
-    # regex_characters = re.escape("+*|./[]()$^")
-    regex_characters = [
-        "\\+", "\\*", "\\|", "\\.", "\\[", "\\]", "\\(", "\\)", "\\$", "\\^"]
-    regex_str = "|".join(regex_characters)
+        if option == "starts_with":
+            search1 = f"^{search1}"
+            return (
+                self.session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.regexp_match(search1))
+                .filter(BoldDefinition.commentary.regexp_match(search2))
+                .all()
+            )
+        elif option == "regex":
+            return (
+                self.session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.regexp_match(search1))
+                .filter(BoldDefinition.commentary.regexp_match(search2))
+                .all()
+            )
+        elif option == "fuzzy":
+            from exporter.webapp.toolkit import fuzzy_replace
 
-    if re.findall(regex_str, search1):
-        print(True)
-        return True
-    elif re.findall(regex_str, search2):
-        print(True)
-        return True
-    else:
-        print(False)
-        return False
-
-
-def regex_search(db, search1, search2) -> list[BoldDefinition]:
-    print("regex_search")
-
-    search_results = []
-    for i in db:
-        try:
-            if (
-                re.findall(search1, i.bold)
-                and re.findall(search2, i.commentary)
-            ):
-                search_results.append(i)
-        except re.error as e:
-            print(f"[red]{e}")
-            break
-    return search_results
-
-
-def plain_search(db, search1, search2) -> list[BoldDefinition]:
-    print("plain search")
-    search_results = []
-    for i in db:
-        if search1 in i.bold and search2 in i.commentary:
-            search_results.append(i)
-    return search_results
+            search1 = fuzzy_replace(search1)
+            search2 = fuzzy_replace(search2)
+            return (
+                self.session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.regexp_match(search1))
+                .filter(BoldDefinition.commentary.regexp_match(search2))
+                .all()
+            )
+        else:  # plain search
+            return (
+                self.session.query(BoldDefinition)
+                .filter(BoldDefinition.bold.ilike(f"%{search1}%"))
+                .filter(BoldDefinition.commentary.ilike(f"%{search2}%"))
+                .all()
+            )
 
 
 if __name__ == "__main__":
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
+    searcher = BoldDefinitionsSearchManager()
     search1 = input("enter search1: ")
     search2 = input("enter search2: ")
-    search_results = search_bold_definitions(db_session, search1, search2)
-
+    search_results = searcher.search(search1, search2)
+    print(f"{len(search_results)} results found")

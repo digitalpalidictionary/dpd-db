@@ -679,6 +679,9 @@ class ProjectPaths:
         # tools
         self.user_dict_path = base_dir / "tools/user_dictionary.txt"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
+        self.sandhi_contractions_simple_path = (
+            base_dir / "tools/sandhi_contractions.json"
+        )
 
         # .. external
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"

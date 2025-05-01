@@ -25,7 +25,7 @@ from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
 from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import make_sandhi_contraction_dict
+from tools.sandhi_contraction import SandhiContractionFinder
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
 from dps.scripts.rus_exporter.tools_for_ru_exporter import (
@@ -39,7 +39,8 @@ class ProgData:
         self.pth = ProjectPaths()
         self.rupth = RuPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
-        self.sandhi_contractions = make_sandhi_contraction_dict(self.db_session)
+        self.sandhi_finder = SandhiContractionFinder()
+        self.sandhi_contractions = self.sandhi_finder.get_contractions()
         self.cf_set: set = load_cf_set()
         self.idioms_set: set = load_idioms_set()
         self.roots_count_dict = make_roots_count_dict(self.db_session)

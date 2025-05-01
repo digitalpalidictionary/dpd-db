@@ -191,6 +191,26 @@ class Printer:
         print(f"[green]{key:<20}[/green]{value}")
         self._log(logging.INFO, "summary", f"{key}: {value}", type="summary", key=key)
 
+    # basic logging messages
+
+    def info(self, message: str) -> None:
+        """Print green message."""
+
+        print(f"[green]{message}")
+        self._log(logging.INFO, "info", message, type="info")
+
+    def warning(self, message: str) -> None:
+        """Print amber message."""
+
+        print(f"[amber]{message}")
+        self._log(logging.WARNING, "warning", message, type="warning")
+
+    def error(self, message: str) -> None:
+        """Print red message."""
+
+        print(f"[red]{message}")
+        self._log(logging.ERROR, "error", message, type="error")
+
 
 # Create singleton instance with optional log file
 printer = Printer(Path("dpd_operations.log"))

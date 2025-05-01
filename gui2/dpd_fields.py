@@ -4,11 +4,12 @@ from db.models import DpdHeadword
 from gui2.database_manager import DatabaseManager
 from gui2.dpd_fields_classes import (
     DpdDropdown,
-    DpdExampleField,
     DpdText,
     DpdTextField,
     FieldConfig,
 )
+from gui2.dpd_fields_commentary import DpdCommentaryField
+from gui2.dpd_fields_examples import DpdExampleField
 from gui2.dpd_fields_functions import (
     clean_construction_line1,
     clean_lemma_1,
@@ -20,15 +21,26 @@ from gui2.dpd_fields_functions import (
 )
 from gui2.mixins import PopUpMixin
 from tools.pos import NOUNS, PARTICIPLES, POS, VERBS
+from tools.sandhi_contraction import SandhiContractionDict
 from tools.spelling import CustomSpellChecker
 
 
 class DpdFields(PopUpMixin):
-    def __init__(self, ui, db: DatabaseManager):
+    def __init__(
+        self,
+        ui,
+        db: DatabaseManager,
+        sandhi_dict: SandhiContractionDict,
+    ):
         super().__init__()  # Initialize PopUpMixin
-        self.ui = ui
+        from gui2.pass2_add_view import Pass2AddView
+
+        self.ui: Pass2AddView = ui
+        self.page = self.ui.page
         self.db = db
         self.spellchecker = CustomSpellChecker()
+        self.sandhi_dict = sandhi_dict
+
         self.fields = {}
 
         self.field_configs = [
@@ -111,7 +123,7 @@ class DpdFields(PopUpMixin):
             FieldConfig("variant"),
             FieldConfig("var_phonetic"),
             FieldConfig("var_text"),
-            FieldConfig("commentary", multiline=True),
+            FieldConfig("commentary", field_type="commentary"),
             FieldConfig("notes"),
             FieldConfig("cognate"),
             FieldConfig("link"),
@@ -148,9 +160,22 @@ class DpdFields(PopUpMixin):
 
             elif config.field_type == "example":
                 self.fields[config.name] = DpdExampleField(
-                    self.ui.page,
+                    self.ui,
                     field_name=config.name,
                     dpd_fields=self,
+                    sandhi_dict=self.sandhi_dict,
+                    on_focus=config.on_focus,
+                    on_change=config.on_change,
+                    on_submit=config.on_submit,
+                    on_blur=config.on_blur,
+                )
+
+            elif config.field_type == "commentary":
+                self.fields[config.name] = DpdCommentaryField(
+                    self.ui,
+                    field_name=config.name,
+                    dpd_fields=self,
+                    sandhi_dict=self.sandhi_dict,
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,
@@ -172,7 +197,6 @@ class DpdFields(PopUpMixin):
         for config in self.field_configs:
             label = ft.Text(config.name, width=250, color=ft.Colors.GREY_500)
             main_field = self.fields[config.name]
-
             row_controls = [label, main_field]
 
             if include_add_fields:
@@ -206,7 +230,7 @@ class DpdFields(PopUpMixin):
                 self.fields[key].value = value
                 self.fields[key].error_text = None
 
-        self.ui.page.update()
+        self.page.update()
 
     def update_add_fields(self, data: dict[str, str]) -> None:
         """Update _add fields from provided data dictionary."""
@@ -217,7 +241,7 @@ class DpdFields(PopUpMixin):
                 self.fields[add_name].value = value
                 self.fields[add_name].error_text = None
 
-        self.ui.page.update()
+        self.page.update()
         self.check_and_color_add_fields()
 
     def clear_fields(self, target: str = "all") -> None:
@@ -233,14 +257,14 @@ class DpdFields(PopUpMixin):
             ):
                 control.value = ""
                 control.error_text = None
-        self.ui.page.update()
+        self.page.update()
 
     def clear_messages(self) -> None:
         """Clear all error and helper messages from fields without changing values."""
         for control in self.fields.values():
             control.error_text = None
             control.helper_text = None
-        self.ui.page.update()
+        self.page.update()
 
     def check_and_color_add_fields(self) -> None:
         """
@@ -263,12 +287,12 @@ class DpdFields(PopUpMixin):
                 else:
                     add_field_control.color = ft.Colors.GREY_500
 
-        self.ui.page.update()
+        self.page.update()
 
     def transfer_add_value(self, e, field, add_field):
         if add_field.value:
             field.value = add_field.value
-            self.ui.page.update()
+            self.page.update()
 
     def get_field(self, name):
         return self.fields.get(name, "")
@@ -295,7 +319,7 @@ class DpdFields(PopUpMixin):
             field.error_text = "required field"
         else:
             field.error_text = None
-        self.ui.page.update()
+        self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
 
@@ -303,7 +327,7 @@ class DpdFields(PopUpMixin):
         field, value = self.get_field_value(e)
         new_value = self.get_field("lemma_1").value
         field.value = clean_lemma_1(new_value)
-        self.ui.page.update()
+        self.page.update()
 
     def pos_blur(self, e: ft.ControlEvent):
         # update lemma_2 based on lemma_1 and pos
@@ -312,7 +336,7 @@ class DpdFields(PopUpMixin):
         lemma_2_field = self.get_field("lemma_2")
         lemma_2 = make_lemma_2(lemma_1, value)
         lemma_2_field.value = lemma_2
-        self.ui.page.update()
+        self.page.update()
 
     def grammar_submit(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -323,7 +347,7 @@ class DpdFields(PopUpMixin):
             field.value = f"{pos}, "
         else:
             field.value = f"{pos}, "
-        self.ui.page.update()
+        self.page.update()
         field.focus()
 
     def meaning_2_change(self, e: ft.ControlEvent):
@@ -339,7 +363,7 @@ class DpdFields(PopUpMixin):
             field.error_text = error_string
         else:
             field.error_text = None
-        self.ui.page.update()
+        self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
 
@@ -356,7 +380,7 @@ class DpdFields(PopUpMixin):
         else:
             field.helper_text = None
             field.error_text = None
-        self.ui.page.update()
+        self.page.update()
 
     def root_sign_submit(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -365,7 +389,7 @@ class DpdFields(PopUpMixin):
         root_key = self.get_field("root_key").value
         if root_key:
             field.value = self.db.get_next_root_sign(root_key)
-            self.ui.page.update()
+            self.page.update()
             field.focus()
 
     def root_sign_change(self, e: ft.ControlEvent):
@@ -377,7 +401,7 @@ class DpdFields(PopUpMixin):
             field.error_text = "no root_sign"
         else:
             field.error_text = None
-        self.ui.page.update()
+        self.page.update()
 
     def root_base_submit(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -386,7 +410,7 @@ class DpdFields(PopUpMixin):
         root_key = self.get_field("root_key").value
         if root_key:
             field.value = self.db.get_next_root_base(root_key)
-            self.ui.page.update()
+            self.page.update()
             field.focus()
 
     def family_root_submit(self, e: ft.ControlEvent):
@@ -396,7 +420,7 @@ class DpdFields(PopUpMixin):
         root_key = self.get_field("root_key").value
         if root_key:
             field.value = self.db.get_next_family_root(root_key)
-            self.ui.page.update()
+            self.page.update()
             field.focus()
 
     def family_root_blur(self, e: ft.ControlEvent):
@@ -414,7 +438,7 @@ class DpdFields(PopUpMixin):
                 field.error_text = f"{value} unknown root family"
             else:
                 field.error_text = None
-            self.ui.page.update()
+            self.page.update()
 
     def family_word_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -432,7 +456,7 @@ class DpdFields(PopUpMixin):
                 field.error_text = None
         else:
             field.error_text = None
-        self.ui.page.update()
+        self.page.update()
 
     def family_compound_change(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -448,7 +472,7 @@ class DpdFields(PopUpMixin):
                 field.error_text = None
         else:
             field.error_text = None
-        self.ui.page.update()
+        self.page.update()
 
     def construction_blur(self, e: ft.ControlEvent):
         field, value = self.get_field_value(e)
@@ -465,7 +489,7 @@ class DpdFields(PopUpMixin):
                 lemma_clean, grammar, neg, root_key, root_base, family_root
             )
             field.value = construction
-            self.ui.page.update()
+            self.page.update()
             field.focus()
             self.flag_construction_done = True
 
@@ -481,7 +505,7 @@ class DpdFields(PopUpMixin):
                 field.error_text = f"{', '.join(error_list)} "
             else:
                 field.error_text = None
-            self.ui.page.update()
+            self.page.update()
 
     def stem_submit(self, e: ft.ControlEvent):
         self.update_stem(e)
@@ -501,7 +525,7 @@ class DpdFields(PopUpMixin):
         pattern_field = self.get_field("pattern")
         pattern_field.value = pattern
 
-        self.ui.page.update()
+        self.page.update()
         if e.name == "submit":
             field.focus()
 

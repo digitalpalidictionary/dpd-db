@@ -1,4 +1,4 @@
-""""Functions related to running database tests using GUI (DPS).
+""" "Functions related to running database tests using GUI (DPS).
 Types of tests:
 1. individual internal tests
 2. db internal tests
@@ -14,7 +14,7 @@ from typing import List, Tuple
 from rich import print
 
 from db.models import DpdHeadword
-from db_tests.helpers import InternalTestRow
+from db_tests.db_tests_manager import InternalTestRow
 
 from sqlalchemy.orm import joinedload
 
@@ -28,18 +28,16 @@ from gui.functions_tests import open_internal_tests
 
 
 def dps_open_internal_tests(dpspth):
-    subprocess.Popen(
-        ["libreoffice", dpspth.dps_internal_tests_path])
+    subprocess.Popen(["libreoffice", dpspth.dps_internal_tests_path])
 
 
-def dps_individual_internal_tests(
-        dpspth, sg, window, values, flags_dps):
-    
+def dps_individual_internal_tests(dpspth, sg, window, values, flags_dps):
     flags_dps.tested = False
     individual_internal_tests_list = make_individual_internal_tests_list(dpspth)
     test_the_tests(individual_internal_tests_list, window)
     flags_dps = run_individual_internal_tests(
-        dpspth, individual_internal_tests_list, values, window, flags_dps, sg)
+        dpspth, individual_internal_tests_list, values, window, flags_dps, sg
+    )
     return flags_dps
 
 
@@ -56,7 +54,7 @@ def read_from_tsv(file_path):
 
 
 def save_to_tsv(words_list, file_name):
-    with open(file_name, 'w', encoding='utf-8') as tsvfile:
+    with open(file_name, "w", encoding="utf-8") as tsvfile:
         for word in words_list:
             tsvfile.write(f"{word}\n")
 
@@ -64,51 +62,52 @@ def save_to_tsv(words_list, file_name):
 def replace_values_in_rows(rows):
     """Replaces specified values in a list of rows."""
     replacements = {
-        'family_set': 'dps_family_set',
-        'grammar': 'dps_grammar',
-        'pos': 'dps_pos',
-        'suffix': 'dps_suffix',
-        'verb': 'dps_verb',
-        'meaning_lit': 'dps_meaning_lit',
-        'meaning_1': 'dps_meaning_1',
-        'notes': 'dps_notes',
-        'ru.ru_meaning': 'dps_ru_meaning',
-        'ru.ru_meaning_lit': 'dps_ru_meaning_lit',
-        'sbs.sbs_meaning': 'dps_sbs_meaning',
-        'ru.ru_notes': 'dps_ru_notes',
-        'sbs.sbs_example_1': 'dps_sbs_example_1',
-        'sbs.sbs_example_2': 'dps_sbs_example_2',
-        'sbs.sbs_example_3': 'dps_sbs_example_3',
-        'sbs.sbs_example_4': 'dps_sbs_example_4',
-        'sbs.sbs_source_1' : 'dps_sbs_source_1',
-        'sbs.sbs_source_2' : 'dps_sbs_source_2',
-        'sbs.sbs_source_3' : 'dps_sbs_source_3',
-        'sbs.sbs_source_4' : 'dps_sbs_source_4',
-        'sbs.sbs_sutta_1' : 'dps_sbs_sutta_1',
-        'sbs.sbs_sutta_2' : 'dps_sbs_sutta_2',
-        'sbs.sbs_sutta_3' : 'dps_sbs_sutta_3',
-        'sbs.sbs_sutta_4' : 'dps_sbs_sutta_4',
-        'sbs.dhp_source' : 'dps_dhp_source',
-        'sbs.dhp_sutta' : 'dps_dhp_sutta',
-        'sbs.dhp_example' : 'dps_dhp_example',
-        'sbs.pat_source' : 'dps_pat_source',
-        'sbs.pat_sutta' : 'dps_pat_sutta',
-        'sbs.pat_example' : 'dps_pat_example',
-        'sbs.vib_source' : 'dps_vib_source',
-        'sbs.vib_sutta' : 'dps_vib_sutta',
-        'sbs.vib_example' : 'dps_vib_example',
-        'sbs.class_source' : 'dps_class_source',
-        'sbs.class_sutta' : 'dps_class_sutta',
-        'sbs.class_example' : 'dps_class_example',
-        'sbs.discourses_source' : 'dps_discourses_source',
-        'sbs.discourses_sutta' : 'dps_discourses_sutta',
-        'sbs.discourses_example' : 'dps_discourses_example',
-        
+        "family_set": "dps_family_set",
+        "grammar": "dps_grammar",
+        "pos": "dps_pos",
+        "suffix": "dps_suffix",
+        "verb": "dps_verb",
+        "meaning_lit": "dps_meaning_lit",
+        "meaning_1": "dps_meaning_1",
+        "notes": "dps_notes",
+        "ru.ru_meaning": "dps_ru_meaning",
+        "ru.ru_meaning_lit": "dps_ru_meaning_lit",
+        "sbs.sbs_meaning": "dps_sbs_meaning",
+        "ru.ru_notes": "dps_ru_notes",
+        "sbs.sbs_example_1": "dps_sbs_example_1",
+        "sbs.sbs_example_2": "dps_sbs_example_2",
+        "sbs.sbs_example_3": "dps_sbs_example_3",
+        "sbs.sbs_example_4": "dps_sbs_example_4",
+        "sbs.sbs_source_1": "dps_sbs_source_1",
+        "sbs.sbs_source_2": "dps_sbs_source_2",
+        "sbs.sbs_source_3": "dps_sbs_source_3",
+        "sbs.sbs_source_4": "dps_sbs_source_4",
+        "sbs.sbs_sutta_1": "dps_sbs_sutta_1",
+        "sbs.sbs_sutta_2": "dps_sbs_sutta_2",
+        "sbs.sbs_sutta_3": "dps_sbs_sutta_3",
+        "sbs.sbs_sutta_4": "dps_sbs_sutta_4",
+        "sbs.dhp_source": "dps_dhp_source",
+        "sbs.dhp_sutta": "dps_dhp_sutta",
+        "sbs.dhp_example": "dps_dhp_example",
+        "sbs.pat_source": "dps_pat_source",
+        "sbs.pat_sutta": "dps_pat_sutta",
+        "sbs.pat_example": "dps_pat_example",
+        "sbs.vib_source": "dps_vib_source",
+        "sbs.vib_sutta": "dps_vib_sutta",
+        "sbs.vib_example": "dps_vib_example",
+        "sbs.class_source": "dps_class_source",
+        "sbs.class_sutta": "dps_class_sutta",
+        "sbs.class_example": "dps_class_example",
+        "sbs.discourses_source": "dps_discourses_source",
+        "sbs.discourses_sutta": "dps_discourses_sutta",
+        "sbs.discourses_example": "dps_discourses_example",
     }
-    
+
     modified_rows = []
     for row in rows:
-        modified_row = {key: replacements.get(value, value) for key, value in row.items()}
+        modified_row = {
+            key: replacements.get(value, value) for key, value in row.items()
+        }
         modified_rows.append(modified_row)
 
     return modified_rows
@@ -135,7 +134,7 @@ def make_individual_internal_tests_list(dpspth):
 
 def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
     # Read the current contents of the file
-    with open(dpspth.dps_internal_tests_path, 'r', newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, "r", newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         current_data = [row for row in reader]
 
@@ -144,12 +143,12 @@ def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
 
     # Update 'exceptions' column based on the new data from the internal_tests_list
     for row in current_data:
-        test = tests_map.get(row['test_name'])
+        test = tests_map.get(row["test_name"])
         if test:
-            row['exceptions'] = dumps(list(test.exceptions), ensure_ascii=False)
+            row["exceptions"] = dumps(list(test.exceptions), ensure_ascii=False)
 
     # Write the updated rows back to the same file
-    with open(dpspth.dps_internal_tests_path, 'w', newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, "w", newline="") as csvfile:
         if current_data:
             fieldnames = current_data[0].keys()
         else:
@@ -162,22 +161,18 @@ def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
 
 
 def write_internal_tests_list(dpspth, internal_tests_list):
-
-
-    with open(dpspth.dps_internal_tests_path, 'w', newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, "w", newline="") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()
         for row in internal_tests_list:
             row_dict = row.__dict__
-            row_dict['exceptions'] = dumps(
-                list(row.exceptions), ensure_ascii=False)
+            row_dict["exceptions"] = dumps(list(row.exceptions), ensure_ascii=False)
             writer.writerow(row_dict)
 
         for row in internal_tests_list:
             row_dict = row.__dict__
-            row_dict['exceptions'] = loads(row.exceptions)
-
+            row_dict["exceptions"] = loads(row.exceptions)
 
 
 def is_valid_column(column_name):
@@ -189,19 +184,20 @@ def is_valid_column(column_name):
     if "." in column_name:  # Check for nested attributes
         relationship_name, attr_name = column_name.split(".", 1)
         if hasattr(DpdHeadword, relationship_name):
-            related_class = getattr(DpdHeadword, relationship_name).property.mapper.class_
+            related_class = getattr(
+                DpdHeadword, relationship_name
+            ).property.mapper.class_
             return hasattr(related_class, attr_name)
     else:  # Direct attribute
         return column_name in [column.name for column in DpdHeadword.__table__.columns]
     return False
 
 
-
 def get_nested_attr(obj, attr_str, default=None):
     """
     Get a nested attribute of an object, or return a default value if any attribute in the chain doesn't exist.
     """
-    attributes = attr_str.split('.')
+    attributes = attr_str.split(".")
     for attr in attributes:
         if not hasattr(obj, attr):
             return default  # Return default value if an attribute doesn't exist
@@ -209,9 +205,7 @@ def get_nested_attr(obj, attr_str, default=None):
     return obj
 
 
-
 def test_the_tests(internal_tests_list, window):
-
     # Extract column names
     column_names = [column.name for column in DpdHeadword.__table__.columns]
     column_names += [""]
@@ -219,16 +213,20 @@ def test_the_tests(internal_tests_list, window):
     # Define logical operators
     logical_operators = [
         "",
-        "equals", "does not equal",
-        "contains", "contains word",
-        "does not contain", "does not contain word",
-        "is empty", "is not empty"]
+        "equals",
+        "does not equal",
+        "contains",
+        "contains word",
+        "does not contain",
+        "does not contain word",
+        "is empty",
+        "is not empty",
+    ]
 
     # Track errors
     errors = []
 
     for test_counter, t in enumerate(internal_tests_list):
-
         # Check columns
         for i in range(1, 7):  # assuming you have up to search_column_6
             column = get_nested_attr(t, f"search_column_{i}")
@@ -243,7 +241,9 @@ def test_the_tests(internal_tests_list, window):
         for i in range(1, 7):  # assuming you have up to search_sign_6
             sign = get_nested_attr(t, f"search_sign_{i}")
             if sign not in logical_operators:
-                message = f"{test_counter}. {t.test_name} 'search_sign_{i}' '{sign}' invalid"
+                message = (
+                    f"{test_counter}. {t.test_name} 'search_sign_{i}' '{sign}' invalid"
+                )
                 errors.append(message)
 
         # Display errors
@@ -254,10 +254,9 @@ def test_the_tests(internal_tests_list, window):
         return len(errors) == 0  # True if no errors, otherwise False
 
 
-
 def run_individual_internal_tests(
-        dpspth, internal_tests_list, values, window, flags_dps, sg):
-
+    dpspth, internal_tests_list, values, window, flags_dps, sg
+):
     # remove all spaces front and back, and doublespaces
     for value in values:
         if isinstance(values[value], str):
@@ -266,7 +265,6 @@ def run_individual_internal_tests(
             window[value].update(values[value])
 
     for counter, t in enumerate(internal_tests_list):
-
         # try:
         if t.exceptions != {""}:
             if values["dps_lemma_1"] in t.exceptions:
@@ -279,8 +277,8 @@ def run_individual_internal_tests(
             (t.search_column_3, t.search_sign_3, t.search_string_3),
             (t.search_column_4, t.search_sign_4, t.search_string_4),
             (t.search_column_5, t.search_sign_5, t.search_string_5),
-            (t.search_column_6, t.search_sign_6, t.search_string_6)
-            ]
+            (t.search_column_6, t.search_sign_6, t.search_string_6),
+        ]
 
         test_results = {}
 
@@ -293,17 +291,21 @@ def run_individual_internal_tests(
                 elif criterion[1] == "does not equal":
                     test_results[f"test{x}"] = values[criterion[0]] != criterion[2]
                 elif criterion[1] == "contains":
-                    test_results[f"test{x}"] = re.findall(
-                        criterion[2], values[criterion[0]]) != []
+                    test_results[f"test{x}"] = (
+                        re.findall(criterion[2], values[criterion[0]]) != []
+                    )
                 elif criterion[1] == "does not contain":
-                    test_results[f"test{x}"] = re.findall(
-                        criterion[2], values[criterion[0]]) == []
+                    test_results[f"test{x}"] = (
+                        re.findall(criterion[2], values[criterion[0]]) == []
+                    )
                 elif criterion[1] == "contains word":
-                    test_results[f"test{x}"] = re.findall(
-                        fr"\b{criterion[2]}\b", values[criterion[0]]) != []
+                    test_results[f"test{x}"] = (
+                        re.findall(rf"\b{criterion[2]}\b", values[criterion[0]]) != []
+                    )
                 elif criterion[1] == "does not contain word":
-                    test_results[f"test{x}"] = re.findall(
-                        fr"\b{criterion[2]}\b", values[criterion[0]]) == []
+                    test_results[f"test{x}"] = (
+                        re.findall(rf"\b{criterion[2]}\b", values[criterion[0]]) == []
+                    )
                 elif criterion[1] == "is empty":
                     test_results[f"test{x}"] = values[criterion[0]] == ""
                 elif criterion[1] == "is not empty":
@@ -311,42 +313,39 @@ def run_individual_internal_tests(
                 else:
                     print(f"[red]search_{x} error")
         except Exception as e:
-            window["messages"].update(
-                f"{e}", text_color="red")
+            window["messages"].update(f"{e}", text_color="red")
             return flags_dps
 
-        message = f"{counter+2}. {t.test_name}"
+        message = f"{counter + 2}. {t.test_name}"
 
         if all(test_results.values()):
             if t.error_column:
                 window[f"{t.error_column}_error"].update(
-                    f"{counter+2}. {t.test_name}")
+                    f"{counter + 2}. {t.test_name}"
+                )
 
-            window["messages"].update(
-                f"{message} - failed!", text_color="red")
+            window["messages"].update(f"{message} - failed!", text_color="red")
 
             exception_popup = sg.popup_get_text(
                 f"{message}\nClick Ok to add exception or Cancel to edit.",
                 default_text=values["dps_lemma_1"],
                 location=(200, 200),
-                text_color="white"
-                )
+                text_color="white",
+            )
 
             if exception_popup is None:
                 return flags_dps
             else:
-                internal_tests_list[counter].exceptions += [values['dps_lemma_1']]
+                internal_tests_list[counter].exceptions += [values["dps_lemma_1"]]
                 write_exceptions_to_internal_tests_list(dpspth, internal_tests_list)
                 return flags_dps
 
         else:
-            window["messages"].update(
-                f"{message} - passed!", text_color="white")
+            window["messages"].update(f"{message} - passed!", text_color="white")
             # print(f"{message} - passed!")
 
     else:
-        window["messages"].update(
-            "all tests passed!", text_color="SpringGreen")
+        window["messages"].update("all tests passed!", text_color="SpringGreen")
         # print("exit test")
         flags_dps.tested = True
         return flags_dps
@@ -356,20 +355,17 @@ def run_individual_internal_tests(
 
 
 def get_db_test_results(t, values):
-
     search_criteria: List[Tuple] = get_search_criteria(t)
 
     test_results = {}
 
     for count, criterion in enumerate(search_criteria, start=1):
-
         if not criterion[0]:  # checking if it's an empty string
             continue
 
         actual_value = get_nested_attr(values, criterion[0])
 
         if actual_value is not None:
-
             if not criterion[1]:
                 test_results[f"test{count}"] = True
             elif criterion[1] == "equals":
@@ -377,17 +373,21 @@ def get_db_test_results(t, values):
             elif criterion[1] == "does not equal":
                 test_results[f"test{count}"] = actual_value != criterion[2]
             elif criterion[1] == "contains":
-                test_results[f"test{count}"] = re.findall(
-                    criterion[2], actual_value) != []
+                test_results[f"test{count}"] = (
+                    re.findall(criterion[2], actual_value) != []
+                )
             elif criterion[1] == "does not contain":
-                test_results[f"test{count}"] = re.findall(
-                    criterion[2], actual_value) == []
+                test_results[f"test{count}"] = (
+                    re.findall(criterion[2], actual_value) == []
+                )
             elif criterion[1] == "contains word":
-                test_results[f"test{count}"] = re.findall(
-                    fr"\b{criterion[2]}\b", actual_value) != []
+                test_results[f"test{count}"] = (
+                    re.findall(rf"\b{criterion[2]}\b", actual_value) != []
+                )
             elif criterion[1] == "does not contain word":
-                test_results[f"test{count}"] = re.findall(
-                    fr"\b{criterion[2]}\b", actual_value) == []
+                test_results[f"test{count}"] = (
+                    re.findall(rf"\b{criterion[2]}\b", actual_value) == []
+                )
             elif criterion[1] == "is empty":
                 test_results[f"test{count}"] = actual_value == ""
             elif criterion[1] == "is not empty":
@@ -405,7 +405,11 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
+    dpd_db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru))
+        .all()
+    )
     db_internal_tests_list = make_db_internal_tests_list(dpspth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -414,8 +418,7 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
         return
 
     for test_counter, t in enumerate(db_internal_tests_list):
-
-        window["dps_test_number"].update(f"{test_counter+2}")
+        window["dps_test_number"].update(f"{test_counter + 2}")
         window["dps_test_name"].update(t.test_name)
         window["messages"].update(t.test_name, text_color="white")
         window.refresh()
@@ -426,9 +429,8 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
 
         for i in dpd_db:
             # Check for the existence of "ru" before running the tests
-            if not get_nested_attr(i, 'ru.ru_meaning'):
-                    continue  # skip this iteration if ru.ru_meaning does not exist or is empty
-
+            if not get_nested_attr(i, "ru.ru_meaning"):
+                continue  # skip this iteration if ru.ru_meaning does not exist or is empty
 
             test_results = get_db_test_results(t, i)
 
@@ -439,14 +441,17 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
                     if results_count < int(t.iterations):
                         if not t.display_1:  # checking if it's an empty string
                             continue
-                        test_results_display += [[
-                            f"{get_nested_attr(i, t.display_1)}",
-                            f"{get_nested_attr(i, t.display_2)}",
-                            f"{get_nested_attr(i, t.display_3)}"]]
+                        test_results_display += [
+                            [
+                                f"{get_nested_attr(i, t.display_1)}",
+                                f"{get_nested_attr(i, t.display_2)}",
+                                f"{get_nested_attr(i, t.display_3)}",
+                            ]
+                        ]
                         results_count += 1
 
         if fail_list:
-            fail_list_redux = (fail_list[:int(t.iterations)])
+            fail_list_redux = fail_list[: int(t.iterations)]
             add_exceptions_list = fail_list_redux
             db_query = regex_fail_list(fail_list_redux)
             window["dps_test_name"].update(t.test_name)
@@ -487,8 +492,7 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
                     break
 
                 if event == "dps_test_stop":
-                    window["messages"].update(
-                        "testing stopped", text_color="white")
+                    window["messages"].update("testing stopped", text_color="white")
                     return
 
                 if event == sg.WIN_CLOSED:
@@ -501,21 +505,24 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
                     write_internal_tests_list(dpspth, db_internal_tests_list)
 
                     window["messages"].update(
-                        f"{exception} added to exceptions",
-                        text_color="white")
+                        f"{exception} added to exceptions", text_color="white"
+                    )
 
                     try:
                         add_exceptions_list.remove(exception)
                         window["dps_test_add_exception"].update(
-                            values=add_exceptions_list)
+                            values=add_exceptions_list
+                        )
                     except ValueError as e:
                         window["messages"].update(
-                            f"[red]can't remove {exception} from list! {e}")
+                            f"[red]can't remove {exception} from list! {e}"
+                        )
 
                 if event == "dps_test_delete":
                     confirmation = sg.popup_yes_no(
                         "Are you sure you want to delete this test?",
-                        location=(400, 400))
+                        location=(400, 400),
+                    )
                     if confirmation == "Yes":
                         del db_internal_tests_list[test_counter]
                         write_internal_tests_list(dpspth, db_internal_tests_list)
@@ -525,14 +532,15 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
                 if event == "dps_test_update":
                     update_tests(dpspth, db_internal_tests_list, test_counter, values)
                     window["messages"].update(
-                        f"{test_counter}. {t.test_name} updated!",
-                        text_color="white")
+                        f"{test_counter}. {t.test_name} updated!", text_color="white"
+                    )
 
                 if event == "dps_test_new":
                     make_new_test(pth, values, test_counter, db_internal_tests_list)
                     clear_tests(window)
                     window["messages"].update(
-                        f"{values['dps_test_name']} added to tests")
+                        f"{values['dps_test_name']} added to tests"
+                    )
                     break
 
                 if event == "dps_test_db_query_copy":
@@ -543,7 +551,7 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
                     try:
                         save_to_tsv(fail_list_redux, dpspth.dps_test_1_path)
                     except ValueError:
-                    # The content is not a number, so we skip it
+                        # The content is not a number, so we skip it
                         continue
 
                 if event == "dps_test_edit":
@@ -558,21 +566,17 @@ def dps_db_internal_tests(dpspth, pth, db_session, sg, window, flags_dps):
                         # Handle the scenario where the list is empty.
                         print("dps_test_results is empty!")
                         # or take some other appropriate action
-                    
 
         else:
             # print(f"{test_counter}. {t.test_name} passed!")
-            window["messages"].update(
-                f"{test_counter}. {t.test_name} passed")
+            window["messages"].update(f"{test_counter}. {t.test_name} passed")
 
         flags_dps.text_next = False
 
-    window["messages"].update(
-        "internal db tests complete", text_color="white")
+    window["messages"].update("internal db tests complete", text_color="white")
 
 
 def update_tests(dpspth, internal_tests_list, count, values):
-
     internal_tests_list[count].test_name = values["dps_test_name"]
     internal_tests_list[count].search_column_1 = values["dps_test_search_column_1"]
     internal_tests_list[count].search_column_2 = values["dps_test_search_column_2"]
@@ -607,7 +611,6 @@ def update_tests(dpspth, internal_tests_list, count, values):
 
 
 def make_new_test_row(v):
-
     return InternalTestRow(
         test_name=v["dps_test_name"],
         search_column_1=v["dps_test_search_column_1"],
@@ -633,25 +636,43 @@ def make_new_test_row(v):
         display_2=v["dps_test_display_2"],
         display_3=v["dps_test_display_3"],
         exceptions=[],
-        iterations=v["dps_test_iterations"]
+        iterations=v["dps_test_iterations"],
     )
 
 
 def clear_tests(window):
-
     test_fields = [
         "dps_test_name",
-        "dps_test_search_column_1", "dps_test_search_column_2", "dps_test_search_column_3",
-        "dps_test_search_column_4", "dps_test_search_column_5", "dps_test_search_column_6",
-        "dps_test_search_sign_1", "dps_test_search_sign_2", "dps_test_search_sign_3",
-        "dps_test_search_sign_4", "dps_test_search_sign_5", "dps_test_search_sign_6",
-        "dps_test_search_string_1", "dps_test_search_string_2", "dps_test_search_string_3",
-        "dps_test_search_string_4", "dps_test_search_string_5", "dps_test_search_string_6",
-        "dps_test_display_1", "dps_test_display_2", "dps_test_display_3",
+        "dps_test_search_column_1",
+        "dps_test_search_column_2",
+        "dps_test_search_column_3",
+        "dps_test_search_column_4",
+        "dps_test_search_column_5",
+        "dps_test_search_column_6",
+        "dps_test_search_sign_1",
+        "dps_test_search_sign_2",
+        "dps_test_search_sign_3",
+        "dps_test_search_sign_4",
+        "dps_test_search_sign_5",
+        "dps_test_search_sign_6",
+        "dps_test_search_string_1",
+        "dps_test_search_string_2",
+        "dps_test_search_string_3",
+        "dps_test_search_string_4",
+        "dps_test_search_string_5",
+        "dps_test_search_string_6",
+        "dps_test_display_1",
+        "dps_test_display_2",
+        "dps_test_display_3",
         "dps_test_error_column",
-        "dps_test_iterations", "dps_test_exceptions",
-        "dps_test_results_redux", "dps_test_results_total",
-        "dps_test_results", "dps_test_add_exception", "dps_test_db_query"]
+        "dps_test_iterations",
+        "dps_test_exceptions",
+        "dps_test_results_redux",
+        "dps_test_results_total",
+        "dps_test_results",
+        "dps_test_add_exception",
+        "dps_test_db_query",
+    ]
 
     for test_field in test_fields:
         window[test_field].update("")
@@ -663,7 +684,11 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
     window["messages"].update("running tests", text_color="white")
     window.refresh()
 
-    dpd_db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)).all()
+    dpd_db = (
+        db_session.query(DpdHeadword)
+        .options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru))
+        .all()
+    )
     db_internal_tests_list = make_dpd_db_internal_tests_list(pth)
 
     db_internal_tests_list = clean_exceptions(dpd_db, db_internal_tests_list)
@@ -672,8 +697,7 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
         return
 
     for test_counter, t in enumerate(db_internal_tests_list):
-
-        window["test_number"].update(f"{test_counter+2}")
+        window["test_number"].update(f"{test_counter + 2}")
         window["test_name"].update(t.test_name)
         window["messages"].update(t.test_name, text_color="white")
         window.refresh()
@@ -684,9 +708,8 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
 
         for i in dpd_db:
             # Check for the existence of "ru" before running the tests
-            if not get_nested_attr(i, 'ru.ru_meaning'):
-                    continue  # skip this iteration if ru.ru_meaning does not exist or is empty
-
+            if not get_nested_attr(i, "ru.ru_meaning"):
+                continue  # skip this iteration if ru.ru_meaning does not exist or is empty
 
             test_results = get_db_test_results(t, i)
 
@@ -697,14 +720,17 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
                     if results_count < int(t.iterations):
                         if not t.display_1:  # checking if it's an empty string
                             continue
-                        test_results_display += [[
-                            f"{get_nested_attr(i, t.display_1)}",
-                            f"{get_nested_attr(i, t.display_2)}",
-                            f"{get_nested_attr(i, t.display_3)}"]]
+                        test_results_display += [
+                            [
+                                f"{get_nested_attr(i, t.display_1)}",
+                                f"{get_nested_attr(i, t.display_2)}",
+                                f"{get_nested_attr(i, t.display_3)}",
+                            ]
+                        ]
                         results_count += 1
 
         if fail_list:
-            fail_list_redux = (fail_list[:int(t.iterations)])
+            fail_list_redux = fail_list[: int(t.iterations)]
             add_exceptions_list = fail_list_redux
             db_query = regex_fail_list(fail_list_redux)
             window["test_name"].update(t.test_name)
@@ -745,8 +771,7 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
                     break
 
                 if event == "test_stop":
-                    window["messages"].update(
-                        "testing stopped", text_color="white")
+                    window["messages"].update("testing stopped", text_color="white")
                     return
 
                 if event == sg.WIN_CLOSED:
@@ -759,21 +784,22 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
                     write_internal_tests_list(dpspth, db_internal_tests_list)
 
                     window["messages"].update(
-                        f"{exception} added to exceptions",
-                        text_color="white")
+                        f"{exception} added to exceptions", text_color="white"
+                    )
 
                     try:
                         add_exceptions_list.remove(exception)
-                        window["test_add_exception"].update(
-                            values=add_exceptions_list)
+                        window["test_add_exception"].update(values=add_exceptions_list)
                     except ValueError as e:
                         window["messages"].update(
-                            f"[red]can't remove {exception} from list! {e}")
+                            f"[red]can't remove {exception} from list! {e}"
+                        )
 
                 if event == "test_delete":
                     confirmation = sg.popup_yes_no(
                         "Are you sure you want to delete this test?",
-                        location=(400, 400))
+                        location=(400, 400),
+                    )
                     if confirmation == "Yes":
                         del db_internal_tests_list[test_counter]
                         write_internal_tests_list(dpspth, db_internal_tests_list)
@@ -783,14 +809,13 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
                 if event == "test_update":
                     update_tests(dpspth, db_internal_tests_list, test_counter, values)
                     window["messages"].update(
-                        f"{test_counter}. {t.test_name} updated!",
-                        text_color="white")
+                        f"{test_counter}. {t.test_name} updated!", text_color="white"
+                    )
 
                 if event == "test_new":
                     make_new_test(pth, values, test_counter, db_internal_tests_list)
                     clear_tests(window)
-                    window["messages"].update(
-                        f"{values['test_name']} added to tests")
+                    window["messages"].update(f"{values['test_name']} added to tests")
                     break
 
                 if event == "test_db_query_copy":
@@ -806,38 +831,55 @@ def dps_dpd_db_internal_tests(dpspth, db_session, pth, sg, window, flags):
                         pyperclip.copy(pali_word)
                     else:
                         print("test_results is empty!")
-                    
 
         else:
             # print(f"{test_counter}. {t.test_name} passed!")
-            window["messages"].update(
-                f"{test_counter}. {t.test_name} passed")
+            window["messages"].update(f"{test_counter}. {t.test_name} passed")
 
         flags.text_next = False
 
-    window["messages"].update(
-        "internal db tests complete", text_color="white")
-
+    window["messages"].update("internal db tests complete", text_color="white")
 
 
 def has_base_in_other_words(word, words):
-    stopwords = ["в", "и", "не", "на", "с", "у", "к", "за", "по", "о", "под", "над", "от", "до"]  # You can extend this list
+    stopwords = [
+        "в",
+        "и",
+        "не",
+        "на",
+        "с",
+        "у",
+        "к",
+        "за",
+        "по",
+        "о",
+        "под",
+        "над",
+        "от",
+        "до",
+    ]  # You can extend this list
     word_parts = [part for part in word.split() if part not in stopwords]
-    
+
     for other_word in words:
-        other_word_parts = [part for part in other_word.split() if part not in stopwords]
-        
+        other_word_parts = [
+            part for part in other_word.split() if part not in stopwords
+        ]
+
         if word != other_word:
             for part in word_parts:
-                if any(part in split_part for split_part in other_word_parts if part in split_part):
+                if any(
+                    part in split_part
+                    for split_part in other_word_parts
+                    if part in split_part
+                ):
                     return True
-                    
+
     return False
 
 
 def find_synonyms(phrase):
     words = [word.strip() for word in phrase.split(";")]
-    
+
     duplicates = []
     if len(words) > 3:
         for word in words:

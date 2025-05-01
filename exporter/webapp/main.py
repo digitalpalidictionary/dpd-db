@@ -251,42 +251,12 @@ def db_search_bd(
     q2: str,
     option: str,
 ):
-    """Search route for bold defintions."""
+    """Search route for bold definitions."""
 
-    with get_db() as db_session:
-        # no search
-        if not q1 and not q2:
-            results = []
+    from tools.bold_definitions_search import BoldDefinitionsSearchManager
 
-        # starts_with search
-        elif option == "starts_with":
-            search_1_start = f"^{q1}"
-            results = (
-                db_session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.regexp_match(search_1_start))
-                .filter(BoldDefinition.commentary.regexp_match(q2))
-                .all()
-            )
-
-        # regex search
-        elif option == "regex":
-            results = (
-                db_session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.regexp_match(q1))
-                .filter(BoldDefinition.commentary.regexp_match(q2))
-                .all()
-            )
-
-        # fuzzy search
-        elif option == "fuzzy":
-            search_1_fuzzy = fuzzy_replace(q1)
-            search_2_fuzzy = fuzzy_replace(q2)
-            results = (
-                db_session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.regexp_match(search_1_fuzzy))
-                .filter(BoldDefinition.commentary.regexp_match(search_2_fuzzy))
-                .all()
-            )
+    bd_searcher = BoldDefinitionsSearchManager()
+    results = bd_searcher.search(q1, q2, option)
 
     if results:
         message = f"<b>{len(results)}</b> results found"

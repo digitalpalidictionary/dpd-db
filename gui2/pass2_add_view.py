@@ -10,6 +10,7 @@ from gui2.pass2_file_manager import Pass2AutoFileManager
 
 from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from tools.fast_api_utils import request_dpd_server
+from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionFinder
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -24,6 +25,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         db: DatabaseManager,
         daily_log: DailyLog,
         test_manger,
+        sandhi_manager: SandhiContractionFinder,
     ) -> None:
         # Main container column - does not scroll, expands vertically
         super().__init__(
@@ -37,6 +39,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._db = db
         self._daily_log = daily_log
         self.test_manager: GuiTestManager = test_manger
+        self.sandhi_manager: SandhiContractionFinder = sandhi_manager
+        self.sandhi_dict: SandhiContractionDict = (
+            self.sandhi_manager.get_contractions_simple()
+        )
+
+        self.dpd_fields: DpdFields
 
         self._pass2_auto_file_manager = Pass2AutoFileManager()
         self.headword: DpdHeadword | None = None
@@ -64,6 +72,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._clear_all_button = ft.ElevatedButton(
             "Clear All", on_click=self._click_clear_all
         )
+        self.update_sandhi_button = ft.ElevatedButton(
+            "Update Sandhi", on_click=self._click_update_sandhi
+        )
 
         self._history_dropdown = ft.Dropdown(
             hint_text="Select History",
@@ -88,6 +99,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._edit_headword_button,
                             self._next_pass2_auto_button,
                             self._clear_all_button,
+                            self.update_sandhi_button,
                             self._history_dropdown,
                         ],
                         spacing=10,
@@ -230,10 +242,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _click_clear_all(self, e: ft.ControlEvent):
         self.clear_all_fields()
 
+    def _click_update_sandhi(self, e: ft.ControlEvent):
+        self.update_message("updating sandhi... please wait...")
+        self.sandhi_dict = self.sandhi_manager.update_contractions_simple()
+        self.update_message("sandhi updated")
+
     # Add the new builder method
     def _build_middle_section(self) -> ft.Column:
         """Build and return the middle section with DpdFields."""
-        self.dpd_fields = DpdFields(self, self._db)  # New instance
+        self.dpd_fields = DpdFields(self, self._db, self.sandhi_dict)  # New instance
         middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,

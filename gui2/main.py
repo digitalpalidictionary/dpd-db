@@ -8,6 +8,8 @@ from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
 from gui2.test_manager import GuiTestManager
 from tools.fast_api_utils import start_dpd_server
+from tools.sandhi_contraction import SandhiContractionFinder
+from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 
 
 class App:
@@ -37,6 +39,9 @@ class App:
         # Init test manager
         self.test_manager = GuiTestManager()
 
+        # Init Sandhi manager
+        self.sandhi_manager = SandhiContractionFinder()
+
         page.appbar = ft.AppBar(
             title=ft.Text("dpd gui"),
             bgcolor=ft.Colors.LIGHT_BLUE_900,
@@ -56,6 +61,7 @@ class App:
             self.page,
             self.db,
             self.daily_log,
+            self.sandhi_manager,
         )
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page,
@@ -71,6 +77,11 @@ class App:
             self.db,
             self.daily_log,
             self.test_manager,
+            self.sandhi_manager,
+        )
+
+        self.sandhi_view = SandhiFindReplaceView(
+            self.page, self.db, self.daily_log, self.sandhi_manager
         )
 
         self.build_ui()
@@ -114,6 +125,10 @@ class App:
                 ft.Tab(
                     text="Pass2Add",
                     content=self.pass2_add_view,
+                ),
+                ft.Tab(
+                    text="Sandhi",
+                    content=self.sandhi_view,
                 ),
             ],
             expand=True,

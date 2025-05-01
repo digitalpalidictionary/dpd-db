@@ -1,188 +1,236 @@
 """Finds all words in examples and commentary that contain an apostrophe
 denoting sandhi or contraction, eg. ajj'uposatho, tañ'ca"""
 
-from typing import Dict, List, Set, TypedDict
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from json import dump, load
 
 from rich import print
-from tools.printer import printer as pr
-
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
-from tools.configger import config_test
-
-from sqlalchemy.orm import joinedload
-
-exceptions = [
-    "maññeti",
-    "āyataggaṃ",
-    "nayanti",
-    "āṇāti",
-    "gacchanti",
-    "jīvanti",
-    "sayissanti",
-    "gāmeti",
-]
+from tools.printer import printer as pr
 
 
-def main():
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    sandhi_contractions: dict = make_sandhi_contraction_dict(db_session)
-    counter = 0
+@dataclass
+class SandhiContrItem:
+    contractions: set[str]
+    ids: list[str]
 
-    filepath = pth.temp_dir.joinpath("sandhi_contraction.tsv")
-    with open(filepath, "w") as f:
-        for key, values in sandhi_contractions.items():
-            contractions = values["contractions"]
 
-            if len(contractions) > 1 and key not in exceptions:
-                f.write(f"{counter}. {key}: \n")
+SandhiContractionDict = dict[str, list[str]]
 
-                for contraction in contractions:
-                    f.write(f"{contraction}\n")
 
-                ids = values["ids"]
-                f.write(f"/^({'|'.join(ids)})$/\n")
-                f.write("\n")
-                counter += 1
+class SandhiContractionFinder:
+    def __init__(self):
+        self._pth: ProjectPaths = ProjectPaths()
+        self._db_session: Session = get_db_session(self._pth.dpd_db_path)
+        self._exceptions: list[str] = [
+            "maññeti",
+            "āyataggaṃ",
+            "nayanti",
+            "āṇāti",
+            "gacchanti",
+            "jīvanti",
+            "sayissanti",
+            "gāmeti",
+        ]
+        self._contractions: dict[str, SandhiContrItem] | None = None
+        self._contractions_simple: SandhiContractionDict
+        self._load_or_create_data()
 
+    def _should_regenerate(self) -> bool:
+        """Check if cache is older than 1 day"""
+
+        return (
+            not self._pth.sandhi_contractions_simple_path.exists()
+            or datetime.now()
+            - datetime.fromtimestamp(
+                self._pth.sandhi_contractions_simple_path.stat().st_mtime
+            )
+            > timedelta(days=1)
+        )
+
+    def _load_or_create_data(self):
+        """Load cached data or create new if expired"""
+
+        if self._should_regenerate():
+            self._make_sandhi_contraction_dict()
+        try:
+            self._load_simple_cache()
+        except Exception as e:
+            pr.red(f"str{e}")
+            self._make_sandhi_contraction_dict()
+
+    def _load_simple_cache(self) -> None:
+        """Load the simple contractions data from database"""
+
+        with open(self._pth.sandhi_contractions_simple_path) as f:
+            self._contractions_simple = load(f)
+
+    def _create_simple_version(self) -> SandhiContractionDict:
+        """Create simplified dict of just contractions without IDs"""
+
+        return {k: list(v.contractions) for k, v in self._contractions.items()}
+
+    def _save_simple_version(self) -> None:
+        """Save simplified contractions to JSON file"""
+
+        with open(self._pth.sandhi_contractions_simple_path, "w") as f:
+            dump(
+                self._contractions_simple,
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )
+
+    def get_contractions(self) -> dict[str, SandhiContrItem]:
+        """Return the generated sandhi contractions dictionary."""
+
+        if self._contractions:
+            return self._contractions
+        else:
+            self._make_sandhi_contraction_dict()
+            return self._contractions
+
+    def get_contractions_simple(self) -> SandhiContractionDict:
+        """Return the simple sandhi contractions dictionary."""
+        return self._contractions_simple
+
+    def save_contractions(self) -> None:
+        """Save the contractions dictionary to a temp file."""
+
+        self._save_to_temp_file()
+
+    def update_contractions(self) -> None:
+        """Regenerate and return the contractions dictionary."""
+        self._make_sandhi_contraction_dict()
+
+    def update_contractions_simple(self) -> SandhiContractionDict:
+        """Regenerate and return the simple contractions dictionary."""
+        pr.green("updating sandhi contractions")
+
+        self._make_sandhi_contraction_dict()
+        pr.yes(len(self._contractions_simple))
+
+        return self._contractions_simple
+
+    def _replace_split(self, string: str) -> list[str]:
+        """Clean and split a string into words."""
+
+        replacements = [
+            ("<b>", ""),
+            ("</b>", ""),
+            ("<i>", ""),
+            ("</i>", ""),
+            (".", " "),
+            (",", " "),
+            (";", " "),
+            ("!", " "),
+            ("?", " "),
+            ("/", " "),
+            ("-", " "),
+            ("{", " "),
+            ("}", " "),
+            ("(", " "),
+            (")", " "),
+            ("[", " "),
+            ("]", " "),
+            (":", " "),
+            ("\n", " "),
+            ("\r", " "),
+        ]
+
+        for old, new in replacements:
+            string = string.replace(old, new)
+        return string.split(" ")
+
+    def _make_sandhi_contraction_dict(self):
+        """Find all sandhi words in db that are split with apostrophes."""
+
+        db = self._db_session.query(DpdHeadword).all()
+        sandhi_contraction_dict: dict[str, SandhiContrItem] = {}
+        word_dict: dict[int, set[str]] = {}
+
+        for i in db:
+            word_dict[i.id] = set()
+            fields_to_check = [i.example_1, i.example_2, i.commentary]
+
+            for field in fields_to_check:
+                if field and "'" in field:
+                    for word in self._replace_split(field):
+                        if "'" in word:
+                            word_dict[i.id].add(word)
+
+        for id, words in word_dict.items():
+            for word in words:
+                word_clean = word.replace("'", "")
+                if word not in self._exceptions:
+                    if word_clean not in sandhi_contraction_dict:
+                        sandhi_contraction_dict[word_clean] = SandhiContrItem(
+                            contractions={word}, ids=[str(id)]
+                        )
+                    else:
+                        if word not in sandhi_contraction_dict[word_clean].contractions:
+                            sandhi_contraction_dict[word_clean].contractions.add(word)
+                        sandhi_contraction_dict[word_clean].ids.append(str(id))
+
+        for i in db:
+            fields = [i.example_1, i.example_2, i.commentary]
+            for field in fields:
+                if field:
+                    for word in self._replace_split(field):
+                        if word in sandhi_contraction_dict:
+                            sandhi_contraction_dict[word].contractions.add(word)
+                            sandhi_contraction_dict[word].ids.append(str(i.id))
+
+        error_list = []
+        for key in sandhi_contraction_dict:
+            for char in key:
+                if char not in pali_alphabet:
+                    error_list.append(char)
+                    print(key)
+        if error_list:
+            print("[red]SANDHI ERRORS IN EG1,2,COMM:", end=" ")
+            print([x for x in error_list], end=" ")
+
+        self._contractions = sandhi_contraction_dict
+        self._contractions_simple = self._create_simple_version()
+        self._save_simple_version()
+
+    def _save_to_temp_file(self) -> None:
+        """Save results to TSV file in temp directory."""
+
+        filepath = self._pth.temp_dir.joinpath("sandhi_contraction.tsv")
+        counter = 0
+
+        with open(filepath, "w") as f:
+            for key, values in self._contractions.items():
+                if len(values.contractions) > 1 and key not in self._exceptions:
+                    f.write(f"{counter}. {key}: \n")
+                    for contraction in values.contractions:
+                        f.write(f"{contraction}\n")
+                    f.write(f"/^({'|'.join(values.ids)})$/\n\n")
+                    counter += 1
         print(counter)
 
-
-class SandhiContrItem(TypedDict):
-    contractions: Set[str]
-    ids: List[str]
-
-
-SandhiContractions = Dict[str, SandhiContrItem]
+    def run(self) -> None:
+        """Execute the full sandhi contraction finding process."""
+        self._make_sandhi_contraction_dict()
+        self._save_to_temp_file()
 
 
-def make_sandhi_contraction_dict(db_session: Session) -> SandhiContractions:
-    """Return a list of all sandhi words in db that are split with '."""
-
-    db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
-    sandhi_contraction: SandhiContractions = dict()
-    word_dict: Dict[int, Set[str]] = dict()
-
-    def replace_split(string: str) -> List[str]:
-        string = string.replace("<b>", "")
-        string = string.replace("</b>", "")
-        string = string.replace("<i>", "")
-        string = string.replace("</i>", "")
-
-        string = string.replace(".", " ")
-        string = string.replace(",", " ")
-        string = string.replace(";", " ")
-        string = string.replace("!", " ")
-        string = string.replace("?", " ")
-        string = string.replace("/", " ")
-        string = string.replace("-", " ")
-        string = string.replace("{", " ")
-        string = string.replace("}", " ")
-        string = string.replace("(", " ")
-        string = string.replace(")", " ")
-        string = string.replace("[", " ")
-        string = string.replace("]", " ")
-        string = string.replace(":", " ")
-        string = string.replace("\n", " ")
-        string = string.replace("\r", " ")
-        list = string.split(" ")
-        return list
-
-    for i in db:
-        word_dict[i.id] = set()
-
-        if i.example_1 is not None and "'" in i.example_1:
-            word_list = replace_split(i.example_1)
-            for word in word_list:
-                if "'" in word:
-                    word_dict[i.id].update([word])
-
-        if i.example_2 is not None and "'" in i.example_2:
-            word_list = replace_split(i.example_2)
-            for word in word_list:
-                if "'" in word:
-                    word_dict[i.id].update([word])
-
-        if i.commentary is not None and "'" in i.commentary:
-            word_list = replace_split(i.commentary)
-            for word in word_list:
-                if "'" in word:
-                    word_dict[i.id].update([word])
-
-        if config_test("gui", "include_sbs_examples", "yes"):
-            if i.sbs and i.sbs.sbs_example_1 is not None and "'" in i.sbs.sbs_example_1:
-                word_list = replace_split(i.sbs.sbs_example_1)
-                for word in word_list:
-                    if "'" in word:
-                        word_dict[i.id].update([word])
-
-            if i.sbs and i.sbs.sbs_example_2 is not None and "'" in i.sbs.sbs_example_2:
-                word_list = replace_split(i.sbs.sbs_example_2)
-                for word in word_list:
-                    if "'" in word:
-                        word_dict[i.id].update([word])
-
-            if i.sbs and i.sbs.sbs_example_3 is not None and "'" in i.sbs.sbs_example_3:
-                word_list = replace_split(i.sbs.sbs_example_3)
-                for word in word_list:
-                    if "'" in word:
-                        word_dict[i.id].update([word])
-
-            if i.sbs and i.sbs.sbs_example_4 is not None and "'" in i.sbs.sbs_example_4:
-                word_list = replace_split(i.sbs.sbs_example_4)
-                for word in word_list:
-                    if "'" in word:
-                        word_dict[i.id].update([word])
-
-    for id, words in word_dict.items():
-        for word in words:
-            word_clean = word.replace("'", "")
-
-            if word not in exceptions:
-                if word_clean not in sandhi_contraction:
-                    sandhi_contraction[word_clean] = SandhiContrItem(
-                        contractions={word},
-                        ids=[str(id)],
-                    )
-
-                else:
-                    if word not in sandhi_contraction[word_clean]["contractions"]:
-                        sandhi_contraction[word_clean]["contractions"].add(word)
-                        sandhi_contraction[word_clean]["ids"] += [str(id)]
-                    else:
-                        sandhi_contraction[word_clean]["ids"] += [str(id)]
-
-    # go back thru the db and find words without ' but in sandhi_contraction
-    for i in db:
-        word_list = replace_split(i.example_1)
-        word_list += replace_split(i.example_2)
-        word_list += replace_split(i.commentary)
-        for word in word_list:
-            if word in sandhi_contraction:
-                sandhi_contraction[word]["contractions"].add(word)
-                sandhi_contraction[word]["ids"] += [str(i.id)]
-
-    # print out an wrong characters
-    error_list = []
-    for key in sandhi_contraction:
-        for char in key:
-            if char not in pali_alphabet:
-                error_list += char
-                print(key)
-    if error_list != []:
-        print("[red]SANDHI ERRORS IN EG1,2,COMM:", end=" ")
-        print([x for x in error_list], end=" ")
-
-    # print(sandhi_contraction)
-    return sandhi_contraction
+def main() -> None:
+    pr.tic()
+    finder = SandhiContractionFinder()
+    # finder.run()
+    print(len(finder.get_contractions_simple()))
+    # print(len(finder.get_contractions()))
+    pr.toc()
 
 
 if __name__ == "__main__":
-    pr.tic()
     main()
-    pr.toc()

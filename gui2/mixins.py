@@ -118,3 +118,47 @@ class SnackBarMixin:
         )
         page.open(snackbar)
         page.update()
+
+
+# here's a good example of two field popup
+
+#     self.book_input = ft.TextField(
+#         hint_text="book", autofocus=True
+#     )  # TODO how to make on_submit jump to the next word?
+#     self.word_input = ft.TextField(
+#         hint_text="word", on_submit=self.click_book_and_word_ok
+#     )
+
+#     self.get_book_and_word_dialog = ft.AlertDialog(
+#         modal=True,
+#         content=ft.Column(
+#             height=150,
+#             controls=[self.book_input, self.word_input],
+#         ),
+#         alignment=ft.alignment.center,
+#         title_padding=ft.padding.all(25),
+#         actions=[
+#             ft.TextButton("OK", on_click=self.click_book_and_word_ok),
+#             ft.TextButton("Cancel", on_click=self.click_book_and_word_cancel),
+#         ],
+#     )
+#     self.page.open(self.get_book_and_word_dialog)
+#     self.page.update()
+
+# def click_book_and_word_cancel(self, e: ft.ControlEvent):
+#     self.get_book_and_word_dialog.open = False
+#     self.page.update()
+
+# def click_book_and_word_ok(self, e: ft.ControlEvent):
+#     self.get_book_and_word_dialog.open = False
+#     self.page.update()
+#     if self.book_input.value and self.word_input.value:
+#         self.cst_examples = find_cst_source_sutta_example(
+#             self.book_input.value,
+#             self.word_input.value,
+#         )
+#         if self.cst_examples:
+#             self.choose_example()
+#         else:
+#             # self.word_in_text_field.error_text = "not found" # TODO add book and word fields
+#             self.ui.update_message("no examples found")

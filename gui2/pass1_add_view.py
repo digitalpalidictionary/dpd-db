@@ -4,7 +4,10 @@ from gui2.database_manager import DatabaseManager
 from gui2.mixins import PopUpMixin
 from gui2.dpd_fields import DpdFields
 
+
 from rich import print
+
+from tools.sandhi_contraction import SandhiContractionFinder
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -13,7 +16,13 @@ HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
 
 class Pass1AddView(ft.Column, PopUpMixin):
-    def __init__(self, page: ft.Page, db: DatabaseManager, daily_log: DailyLog) -> None:
+    def __init__(
+        self,
+        page: ft.Page,
+        db: DatabaseManager,
+        daily_log: DailyLog,
+        sandhi_manager: SandhiContractionFinder,
+    ) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(
             expand=True,
@@ -27,6 +36,8 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.db: DatabaseManager = db
         self.controller = Pass1AddController(self, db, daily_log)
         self.dpd_fields: DpdFields
+        self.sandhi_manager: SandhiContractionFinder = sandhi_manager
+        self.sandhi_dict = sandhi_manager.get_contractions_simple()
 
         # --- Top Section Controls ---
         self.message_field = ft.Text("", color=HIGHLIGHT_COLOUR, selectable=True)
@@ -246,7 +257,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
     def _build_middle_section(self) -> ft.Column:
         """Build and return the middle section with DpdFields."""
-        self.dpd_fields = DpdFields(self, self.db)
+        self.dpd_fields = DpdFields(self, self.db, self.sandhi_dict)
         middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,
