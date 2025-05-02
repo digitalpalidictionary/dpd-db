@@ -95,8 +95,6 @@ There are four main parts to the code:
 
 	- **dpd_headwords_table.md** Description of the real and virtual columns in the `dpd_headwords` table.
 
-- **dps/** All Devamitta's code related to creating and populating `russian` and `sbs` tables
-
 - **exporter/** Export the DPD database into various formats.
 
 	- **deconstructor/** Export DPD Deconstructor to GoldenDict and MDict

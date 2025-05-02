@@ -3614,27 +3614,94 @@ i > e"					codsidering the paritta context, as discussed: saṅgho sukhettābhya
 1632	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	aññātikāya <b>aññātikasaññī</b> purāṇacīvaraṃ dhovāpeti ākoṭāpeti, nissaggiyena āpatti dukkaṭassa.	missing				
 1632	compound_type	pañcamī tappurisa	compound_construction	aññātik<b>āto</b> + saññī			missing				
 1632	sanskrit	ajñātaka + saṃjñin					missing				
-28912	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ñātikāya vematiko, āpatti dukkaṭassa. ñātikāya <b>ñātikasaññī</b>, anāpatti.	missing		
-28912	compound_type	pañcamī tappurisa	compound_construction	ñātik<b>āto</b> + saññī			missing		
-28912	sanskrit	jñātaka + saṃjñin					missing		
-38207	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	<b>nisīdanapaccattharaṇaṃ</b> dhovāpeti, āpatti dukkaṭassa. ekato-upasampannāya dhovāpeti, āpatti dukkaṭassa.	missing		
-38207	compound_type	dvanda	compound_construction	nisīdana <b>ca</b> paccattharaṇa <b>ca</b>			missing		
-38207	sanskrit	niṣadana + pratyāsataraṇa (bsk)					missing		
-39323	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	nisīdana<b>paccattharaṇaṃ</b> dhovāpeti, āpatti dukkaṭassa. ekato-upasampannāya dhovāpeti, āpatti dukkaṭassa.	missing		
-17464	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	nisīdanapaccattharaṇaṃ dhovāpeti, āpatti dukkaṭassa. <b>ekato-upasampannāya</b> dhovāpeti, āpatti dukkaṭassa.	missing		
-28900	source_1	VIN1.4.2.7	sutta_1	eḷakalomadhovāpanasikkhāpadaṃ	example_1	<b>ñātikāya</b> aññātikasaññī, āpatti dukkaṭassa. <b>ñātikāya</b> vematiko, āpatti dukkaṭassa.	missing		
-35310	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	anāpatti ñātikāya <b>dhovantiyā</b> aññātikā dutiyā hoti, avuttā dhovati, aparibhuttaṃ dhovāpeti, cīvaraṃ ṭhapetvā aññaṃ parikkhāraṃ dhovāpeti, sikkhamānāya, sāmaṇeriyā, ummattakassa, ādikammikassā'ti.	missing		
-6383	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	anāpatti ñātikāya dhovantiyā aññātikā dutiyā hoti, avuttā dhovati, <b>aparibhuttaṃ</b> dhovāpeti, cīvaraṃ ṭhapetvā aññaṃ parikkhāraṃ dhovāpeti, sikkhamānāya, sāmaṇeriyā, ummattakassa, ādikammikassā'ti.	missing		
-52812	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ākoṭehī'ti āṇāpeti, āpatti dukkaṭassa. sakiṃ pāṇippahāraṃ vā <b>muggara</b>ppahāraṃ vā dinne nissaggiyaṃ hoti. nissajjitabbaṃ saṅghassa vā gaṇassa vā puggalassa vā.	missing		
+28912	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ñātikāya vematiko, āpatti dukkaṭassa. ñātikāya <b>ñātikasaññī</b>, anāpatti.	missing				
+28912	compound_type	pañcamī tappurisa	compound_construction	ñātik<b>āto</b> + saññī			missing				
+28912	sanskrit	jñātaka + saṃjñin					missing				
+38207	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	<b>nisīdanapaccattharaṇaṃ</b> dhovāpeti, āpatti dukkaṭassa. ekato-upasampannāya dhovāpeti, āpatti dukkaṭassa.	missing				
+38207	compound_type	dvanda	compound_construction	nisīdana <b>ca</b> paccattharaṇa <b>ca</b>			missing				
+38207	sanskrit	niṣadana + pratyāsataraṇa (bsk)					missing				
+39323	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	nisīdana<b>paccattharaṇaṃ</b> dhovāpeti, āpatti dukkaṭassa. ekato-upasampannāya dhovāpeti, āpatti dukkaṭassa.	missing				
+17464	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	nisīdanapaccattharaṇaṃ dhovāpeti, āpatti dukkaṭassa. <b>ekato-upasampannāya</b> dhovāpeti, āpatti dukkaṭassa.	missing				
+28900	source_1	VIN1.4.2.7	sutta_1	eḷakalomadhovāpanasikkhāpadaṃ	example_1	<b>ñātikāya</b> aññātikasaññī, āpatti dukkaṭassa. <b>ñātikāya</b> vematiko, āpatti dukkaṭassa.	missing				
+35310	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	anāpatti ñātikāya <b>dhovantiyā</b> aññātikā dutiyā hoti, avuttā dhovati, aparibhuttaṃ dhovāpeti, cīvaraṃ ṭhapetvā aññaṃ parikkhāraṃ dhovāpeti, sikkhamānāya, sāmaṇeriyā, ummattakassa, ādikammikassā'ti.	missing				
+6383	source_2	VIN1.4.1.4	sutta_2	purāṇacīvarasikkhāpadaṃ	example_2	anāpatti ñātikāya dhovantiyā aññātikā dutiyā hoti, avuttā dhovati, <b>aparibhuttaṃ</b> dhovāpeti, cīvaraṃ ṭhapetvā aññaṃ parikkhāraṃ dhovāpeti, sikkhamānāya, sāmaṇeriyā, ummattakassa, ādikammikassā'ti.	missing				
+52812	source_1	VIN1.4.1.4	sutta_1	purāṇacīvarasikkhāpadaṃ	example_1	ākoṭehī'ti āṇāpeti, āpatti dukkaṭassa. sakiṃ pāṇippahāraṃ vā <b>muggara</b>ppahāraṃ vā dinne nissaggiyaṃ hoti. nissajjitabbaṃ saṅghassa vā gaṇassa vā puggalassa vā.	missing				
 16219	source_1	VV15	sutta_1	uttarā vimānavatthu	example_1	"uposathaṃ <b>upavasissaṃ</b>,
 sadā sīlesu saṃvutā,
 saññamā saṃvibhāgā ca,
-vimānaṃ āvasām'ahaṃ."	missing		
-16219	meaning_1	nearby; close					missing		
-16219	grammar	adj, from upavattati					missing		
-16219	derived_from	upavattati					missing		
-35311	meaning_1	made (somebody) wash; which got (somebody) to wash					since it is qualify robe		
-35311	meaning_lit	caused to be washed					more fit the context sonce pp anyway pass		
-12415	meaning_1	getting up, going out and making an effort					; > ,		
-19466	meaning_1	in five places; in arms, legs and neck					adj		
-4619	meaning_1	not a defilement; not a corruption					;		
+vimānaṃ āvasām'ahaṃ."	missing				
+16219	meaning_1	nearby; close					missing				
+16219	grammar	adj, from upavattati					missing				
+16219	derived_from	upavattati					missing				
+35311	meaning_1	made (somebody) wash; which got (somebody) to wash					since it is qualify robe				
+35311	meaning_lit	caused to be washed					more fit the context sonce pp anyway pass				
+12415	meaning_1	getting up, going out and making an effort					; > ,				
+19466	meaning_1	in five places; in arms, legs and neck					adj				
+4619	meaning_1	not a defilement; not a corruption					;				
+40326	source_2	VIN1.4.1.5	sutta_2	cīvarapaṭiggahaṇasikkhāpadaṃ	example_2	idaṃ me, bhante, cīvaraṃ aññātikāya bhikkhuniyā hatthato <b>paṭiggahitaṃ</b>, aññatra pārivattakā, nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+67779	source_1	VIN1.4.1.6	sutta_1	aññātakaviññattisikkhāpadaṃ	example_1	idaṃ me, bhante, cīvaraṃ aññātakaṃ gahapatikaṃ, aññatra samayā <b>viññāpitaṃ</b>, nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+1620	compound_type	pañcamī tappurisa	compound_construction	aññātak<b>ato</b> + saññī			missing				
+1620	sanskrit	ajñātaka + saṃjñin					missing				
+1620	source_1	VIN1.4.1.6	sutta_1	aññātakaviññattisikkhāpadaṃ	example_1	aññātake <b>aññātakasaññī</b>, aññatra samayā, cīvaraṃ viññāpeti, nissaggiyaṃ pācittiyaṃ. aññātake vematiko, aññatra samayā, cīvaraṃ viññāpeti, nissaggiyaṃ pācittiyaṃ.	missing				
+28901	compound_type	pañcamī tappurisa	compound_construction	ñātak<b>ato</b> + saññī			missing				
+28901	sanskrit	jñātaka + saṃjñin					missing				
+28901	source_1	VIN1.4.1.6	sutta_1	aññātakaviññattisikkhāpadaṃ	example_1	ñātake vematiko, āpatti dukkaṭassa. ñātake <b>ñātakasaññī</b>, anāpatti.	missing				
+71013	source_2	VIN1.4.1.7	sutta_2	tatuttarisikkhāpadaṃ	example_2	anāpatti, sesakaṃ āharissāmī'ti <b>haranto</b> gacchati, sesakaṃ tuyh'eva hotū'ti denti, na acchinnakāraṇā denti, na naṭṭhakāraṇā denti, ñātakānaṃ, pavāritānaṃ, attano dhanena, ummattakassa, ādikammikassā'ti.	missing				
+1095	source_1	VIN1.4.1.7	sutta_1	tatuttarisikkhāpadaṃ	example_1	anāpatti, sesakaṃ āharissāmī'ti haranto gacchati, sesakaṃ tuyh'eva hotū'ti denti, na <b>acchinnakāraṇā</b> denti, na naṭṭhakāraṇā denti, ñātakānaṃ, pavāritānaṃ, attano dhanena, ummattakassa, ādikammikassā'ti.	missing				
+35504	source_1	VIN1.4.1.7	sutta_1	tatuttarisikkhāpadaṃ	example_1	anāpatti, sesakaṃ āharissāmī'ti haranto gacchati, sesakaṃ tuyh'eva hotū'ti denti, na acchinnakāraṇā denti, na <b>naṭṭhakāraṇā</b> denti, ñātakānaṃ, pavāritānaṃ, attano dhanena, ummattakassa, ādikammikassā'ti.	missing				
+26836	meaning_1	something to be exchanged for robe material; purchase price for robe material					missing				
+26836	compound_type	catutthī tappurisa	compound_construction	cīvar<b>āya</b> + cetāpana			missing				
+26836	sanskrit	cīvara + cetanaka (bsk)					missing				
+26836	source_1	VIN PAT NP 8	sutta_1	paṭhamaupakkhaṭasikkhāpadaṃ	example_1	bhikkhuṃ pan'eva uddissa aññātakassa gahapatissa vā gahapatāniyā vā cīvaracetāpannaṃ upakkhaṭaṃ hoti, iminā <b>cīvaracetāpanena</b> cīvaraṃ cetāpetvā itthan'nāmaṃ bhikkhuṃ cīvarena acchādessāmī’ti	missing				
+26836	construction	cīvara + cetāpana					missing				
+26836	family_compound	cīvara cetāpana					missing				
+77361	source_2	VIN1.4.1.8	sutta_2	upakkhaṭasikkhāpadaṃ	example_2	cīvare vikappaṃ āpajjeyyā'ti āyataṃ vā hotu vitthataṃ vā appitaṃ vā <b>saṇhaṃ</b> vā.	missing				
+27088	compound_type	tuṃpaccaya tappurisa	compound_construction	cetāpet<b>uṃ</b> + kāma			missing				
+27088	source_1	VIN1.4.1.8	sutta_1	upakkhaṭasikkhāpadaṃ	example_1	anāpatti ñātakānaṃ, pavāritānaṃ, aññass'atthāya, attano dhanena, mah'agghaṃ <b>cetāpetu'kāmassa</b> app'agghaṃ cetāpeti, ummattakassa, ādikammikassā'ti.	missing				
+6777	source_1	VIN1.4.1.8	sutta_1	upakkhaṭasikkhāpadaṃ	example_1	anāpatti ñātakānaṃ, pavāritānaṃ, aññass'atthāya, attano dhanena, mah'agghaṃ cetāpetu'kāmassa <b>app'agghaṃ</b> cetāpeti, ummattakassa, ādikammikassā'ti.	missing				
+6777	compound_type	kammadhāraya > bahubbīhi	compound_construction	appa + aggha			missing				
+27089	source_1	VIN1.4.1.8	sutta_1	upakkhaṭasikkhāpadaṃ	example_1	anāpatti ñātakānaṃ, pavāritānaṃ, aññass'atthāya, attano dhanena, mah'agghaṃ <b>cetāpetu</b>'kāmassa app'agghaṃ cetāpeti, ummattakassa, ādikammikassā'ti.	missing				
+53091	source_2	VIN1.4.1.8	sutta_2	upakkhaṭasikkhāpadaṃ	example_2	cīvaracetāpannan'ti cīvara<b>mūlaṃ</b>, taṃ pana yasmā hiraññ'ādīsu aññataraṃ hoti, tasmā padabhājane, hiraññaṃ vā'ti-ādi vuttaṃ	missing				
+537	source_2	VIN1.4.1.6	sutta_2	aññātakaviññattisikkhāpadaṃ	example_2	gahapati nāma yo koci <b>agāraṃ ajjhāvasati</b>. gahapatānī nāma yā kāci <b>agāraṃ ajjhāvasati</b>.	missing				
+78519	source_1	VIN1.4.1.8	sutta_1	upakkhaṭasikkhāpadaṃ	example_1	cīvaracetāpannan'ti <b>cīvaramūlaṃ</b>, taṃ pana yasmā hiraññ'ādīsu aññataraṃ hoti, tasmā padabhājane, hiraññaṃ vā'ti-ādi vuttaṃ.	upakkhaṭasikkhāpadaṃ				
+18818	source_1	SN51.22	sutta_1	iddhipādasaṃyuttaṃ, ayoguḷasuttaṃ	example_1	yañ'ca kho, <b>omāti</b>, bhante, bhagavā iddhiyā manomayena kāyena brahmalokaṃ upasaṅkamituṃ, yañ'ca kho abhijānāti, bhante, bhagavā iminā cātumahābhūtikena kāyena iddhiyā brahmalokaṃ upasaṅkamitā	missing				
+18818	trans	intrans					missing				
+18818	construction	ava + √mā + ti					missing				
+18818	plus_case	+inf					missing				
+18818	meaning_1	measures up (to); is able (to); is capable (of)					missing				
+18818	commentary	(SNa) <b>omātī</b>'ti pahoti sakkoti, idaṃ tepiṭake buddhavacane asambhinnapadaṃ.					missing				
+18818	phonetic	ava > o					missing				
+67784	trans	ditrans					ditr				
+67784	plus_case	+acc & +acc					ditr				
+67784	meaning_1	asks; requests; begs (someone for)					ditr				
+38219	source_2	VIN1.4.1.10	sutta_2	rājasikkhāpadaṃ	example_2	sace abhinipphādeti, icc'etaṃ kusalaṃ, no ce abhinipphādeti, tattha gantvā tuṇhībhūtena uddissa ṭhātabbaṃ. na āsane <b>nisīditabbaṃ</b>. na āmisaṃ paṭiggahetabbaṃ.	missing				
+49775	source_2	VIN1.4.1.10	sutta_2	rājasikkhāpadaṃ	example_2	na āmisaṃ paṭiggahetabbaṃ. na dhammo <b>bhāsitabbo</b>. kiṃ kāraṇā āgatosī'ti pucchiyamāno jānāhi, āvuso'ti vattabbo.	missing				
+46500	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	na dhammo bhāsitabbo. kiṃ kāraṇā āgatosī'ti <b>pucchiyamāno</b> jānāhi, āvuso'ti vattabbo. sace āsane vā nisīdati, āmisaṃ vā paṭiggaṇhāti, dhammaṃ vā bhāsati, ṭhānaṃ bhañjati.	missing				
+27216	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	pañcakkhatuṃ <b>codetvā</b> dvikkhattuṃ ṭhātabbaṃ. chakkhattuṃ <b>codetvā</b> na ṭhātabbaṃ. tato ce uttari vāyamamāno taṃ cīvaraṃ abhinipphādeti, payoge dukkaṭaṃ.	missing				
+27216	trans	trans					missing				
+27216	construction	code + tvā					missing				
+27216	plus_case	+acc					missing				
+27216	meaning_1	having prompted; having urged; having encouraged					missing				
+34385	sanskrit	dvi + kṛtvas					missing				
+34385	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	catukkhattuṃ codetvā catukkhattuṃ ṭhātabbaṃ. pañcakkhatuṃ codetvā <b>dvikkhattuṃ</b> ṭhātabbaṃ. chakkhattuṃ codetvā na ṭhātabbaṃ.	missing				
+2293	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	idaṃ me, bhante, cīvaraṃ <b>atirekatikkhattuṃ</b> codanāya atirekachakkhattuṃ ṭhānena abhinipphāditaṃ nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+27191	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	idaṃ me, bhante, cīvaraṃ atirekatikkhattuṃ <b>codanāya</b> atirekachakkhattuṃ ṭhānena abhinipphāditaṃ nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+2285	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	idaṃ me, bhante, cīvaraṃ atirekatikkhattuṃ codanāya <b>atirekachakkhattuṃ</b> ṭhānena abhinipphāditaṃ nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+7848	grammar	pp of abhinipphādeti					missing				
+7848	derived_from	abhinipphādeti					missing				
+7848	verb	caus					missing				
+7848	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	idaṃ me, bhante, cīvaraṃ atirekatikkhattuṃ codanāya atirekachakkhattuṃ ṭhānena <b>abhinipphāditaṃ</b> nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+7848	construction	abhi + nī + phāde + ita					missing				
+7848	meaning_1	produced; came up with					missing				
+7848	derivative	kita	suffix	ita			missing				
+2310	compound_type	pañcamī tappurisa	compound_construction	atirek<b>ato</b> + saññī			missing				
+2310	sanskrit	atireka + saṃjñin					missing				
+2310	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	atirekatikkhattuṃ codanāya atirekachakkhattuṃ ṭhānena <b>atirekasaññī</b> abhinipphādeti, nissaggiyaṃ pācittiyaṃ. atirekatikkhattuṃ codanāya atirekachakkhattuṃ ṭhānena vematiko abhinipphādeti, nissaggiyaṃ pācittiyaṃ.	missing				
+17310	compound_type	pañcamī tappurisa	compound_construction	ūnak<b>ato</b> + saññī			missing				
+17310	sanskrit	ūnaka + saṃjñin					missing				
+17310	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	atirekatikkhattuṃ codanāya atirekachakkhattuṃ ṭhānena <b>ūnakasaññī</b> abhinipphādeti, nissaggiyaṃ pācittiyaṃ.	missing				
+17295	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, <b>ūnakachakkhattuṃ</b> ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
+17289	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, <b>ūnakachakkhattuṃ</b> ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
+923	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, ūnakachakkhattuṃ ṭhānena, <b>acodiyamāno</b> deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
+17295	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, <b>ūnakatikkhattuṃ</b> codanāya, ūnakachakkhattuṃ ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
+39536	source_2	VIN1.4.1.8	sutta_2	upakkhaṭasikkhāpadaṃ	example_2	iminā cīvaracetāpannenā'ti <b>paccupaṭṭhitena</b>.	missing		
