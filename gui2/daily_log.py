@@ -30,11 +30,18 @@ class DailyLog:
 
     def increment(self, key: str, count: int = 1) -> None:
         """Increments 'pass1', 'pass2' or 'pass2_pre' for today, saves and updates appbar."""
-        if key not in ["pass1", "pass2", "pass2_pre"]:
-            raise ValueError("Key must be 'pass1', 'pass2' or 'pass2_pre'")
+        valid_keys = ["pass1", "pass2_pre", "pass2_add", "pass2_update"]
+        if key not in valid_keys:
+            raise ValueError(f"Key must be one of {valid_keys}")
         today_str = datetime.date.today().isoformat()
         today_entry = self.data.setdefault(
-            today_str, {"pass1": 0, "pass2": 0, "pass2_pre": 0}
+            today_str,
+            {
+                "pass1": 0,
+                "pass2_pre": 0,
+                "pass2_add": 0,
+                "pass2_update": 0,
+            },
         )
         today_entry[key] = today_entry.get(key, 0) + count
         self._save()
@@ -43,9 +50,19 @@ class DailyLog:
     def get_counts(self) -> str:
         """Gets today's counts (pass1, pass2)."""
         today_str = datetime.date.today().isoformat()
-        today_entry = self.data.get(today_str, {"pass1": 0, "pass2": 0, "pass2_pre": 0})
-        # return (today_entry.get("pass1", 0), today_entry.get("pass2", 0))
-        return f"pass1: {today_entry.get('pass1', 0)} pass2_pre: {today_entry.get('pass2_pre', 0)} pass2: {today_entry.get('pass2', 0)}  "
+        today_entry = self.data.get(
+            today_str,
+            {
+                "pass1": 0,
+                "pass2_pre": 0,
+                "pass2_add": 0,
+                "pass2_update": 0,
+            },
+        )
+        return (
+            f"pass1: {today_entry.get('pass1', 0)} pass2_pre: {today_entry.get('pass2_pre', 0)} "
+            f"pass2_add: {today_entry.get('pass2_add', 0)} pass2_update: {today_entry.get('pass2_update', 0)}  "
+        )
 
     def get_history(self) -> dict[str, dict[str, int]]:
         """Returns the entire history data."""

@@ -112,21 +112,24 @@ class DpdExampleField(ft.Column):
         on_change=None,
         on_submit=None,
         on_blur=None,
+        simple_mode: bool = False,  # Add simple_mode flag
     ):
         from gui2.dpd_fields import DpdFields
         from gui2.pass1_add_view import Pass1AddView
         from gui2.pass2_add_view import Pass2AddView
 
         self.ui: Pass1AddView | Pass2AddView = ui
-        self.page: ft.Page = ui.page
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
+        self.simple_mode = simple_mode  # Store the flag
         super().__init__(
             expand=True,
         )
+        self.page: ft.Page = ui.page  # Assign page AFTER super().__init__
 
         self.text_field = DpdTextField(
+            name=field_name,
             multiline=True,
             on_focus=on_focus,
             on_change=on_change,
@@ -134,53 +137,84 @@ class DpdExampleField(ft.Column):
             on_blur=on_blur,
         )
 
-        self.book_options = [
-            ft.dropdown.Option(key=item, text=item) for item in book_codes.keys()
-        ]
+        # --- Controls for Toggle Visibility ---
+        if not self.simple_mode:
+            self.book_options = [
+                ft.dropdown.Option(key=item, text=item) for item in book_codes.keys()
+            ]
 
-        self.book_dropdown = ft.Dropdown(
-            options=self.book_options,
-            width=300,
-            text_size=14,
-            # border_color=HIGHLIGHT_COLOUR,
-            editable=True,
-            enable_filter=True,
-        )
+            self.book_dropdown = ft.Dropdown(
+                options=self.book_options,
+                width=300,
+                text_size=14,
+                label="book",
+                label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
+                editable=True,
+                enable_filter=True,
+                # autofocus=True, # Maybe not needed if hidden initially
+            )
 
-        self.word_to_find_field = ft.TextField(
-            "",
-            width=240,
-            hint_text="word to find",
-            hint_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
-            on_submit=self.click_book_and_word,
-        )
-        self.bold_field = ft.TextField(
-            "",
-            width=240,
-            hint_text="bold",
-            hint_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
-            on_submit=self.click_bold_example,
-        )
+            self.word_to_find_field = ft.TextField(
+                "",
+                width=240,
+                label="word to find",
+                label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
+                on_submit=self._click_search_dialog_ok,
+            )  # Keep on_submit for now, might need adjustment if dialog logic changes
+            self.bold_field = ft.TextField(
+                "",
+                width=240,
+                label="bold",
+                label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
+                on_submit=self.click_bold_example,
+            )
 
-        self.controls = [
-            self.text_field,
-            ft.Row(
+            # Toggle Button
+            self._toggle_tools_button = ft.IconButton(
+                icon=ft.icons.VISIBILITY_OFF_OUTLINED,
+                tooltip="Show Tools",
+                on_click=self._toggle_tools_visibility,
+                icon_color=ft.colors.BLUE_GREY_300,
+            )
+
+            # Search row (initially hidden)
+            self._search_row = ft.Row(
                 [
                     self.book_dropdown,
                     self.word_to_find_field,
+                    self.bold_field,
                 ],
                 spacing=0,
-            ),
-            ft.Row(
+                visible=False,  # Initially hidden
+            )
+
+            # Action buttons row (initially hidden)
+            self._actions_row = ft.Row(
                 [
-                    self.bold_field,
                     ft.ElevatedButton("Clean", on_click=self.click_clean_example),
                     ft.ElevatedButton("Delete", on_click=self.click_delete_example),
                     ft.ElevatedButton("Swap", on_click=self.click_swap_example),
                 ],
                 spacing=0,
-            ),
+                alignment=ft.MainAxisAlignment.START,
+                vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                visible=False,  # Initially hidden
+            )
+        # --- End Toggle Visibility Controls ---
+
+        self.controls = [
+            self.text_field,
         ]
+        # Add toggle button and hidden rows if not in simple mode
+        if not self.simple_mode:
+            self.controls.append(
+                ft.Row(
+                    [self._toggle_tools_button]
+                )  # Button in its own row for alignment
+            )
+            self.controls.append(self._search_row)
+            self.controls.append(self._actions_row)
+
         self.spacing = 0
         self.cst_examples: list[CstSourceSuttaExample] = []
         self.example_index: str = ""
@@ -197,7 +231,31 @@ class DpdExampleField(ft.Column):
     def value(self, value):
         self.text_field.value = value
 
+    # --- Toggle Visibility Handling ---
+    def _toggle_tools_visibility(self, e: ft.ControlEvent):
+        """Toggles the visibility of the search and action rows."""
+        are_visible = not self._search_row.visible  # Check current state
+        self._search_row.visible = are_visible
+        self._actions_row.visible = are_visible
+
+        # Update button icon and tooltip
+        if are_visible:
+            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
+            self._toggle_tools_button.tooltip = "Hide Tools"
+        else:
+            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
+            self._toggle_tools_button.tooltip = "Show Tools"
+
+        self.page.update()
+
+    def _click_search_dialog_ok(self, e: ft.ControlEvent):
+        """Handles search submission (e.g., from word_to_find_field on_submit)."""
+        self.click_book_and_word(e)  # Call the search logic
+
+    # --- End Dialog Handling ---
+
     def click_book_and_word(self, e: ft.ControlEvent):
+        self.word_to_find_field.error_text = None
         if self.book_dropdown.value and self.word_to_find_field.value:
             self.cst_examples = find_cst_source_sutta_example(
                 book_codes[self.book_dropdown.value],
@@ -206,7 +264,10 @@ class DpdExampleField(ft.Column):
             if self.cst_examples:
                 self.choose_example()
             else:
-                self.field.error_text = "no example found"
+                self.word_to_find_field.focus()
+                self.word_to_find_field.error_text = "no example found"
+                self.page.update()
+        self.word_to_find_field.focus()
 
     def choose_example(self):
         if not self.cst_examples:
@@ -240,7 +301,7 @@ class DpdExampleField(ft.Column):
                                 ft.Text(example, expand=True, selectable=True),
                             ]
                         ),
-                    ]
+                    ],
                 )
             )
 
@@ -263,8 +324,8 @@ class DpdExampleField(ft.Column):
             alignment=ft.alignment.center,
             title_padding=ft.padding.all(25),
             actions=[
-                ft.TextButton("Cancel", on_click=self.click_choose_example_cancel),
                 ft.TextButton("OK", on_click=self.click_choose_example_ok),
+                ft.TextButton("Cancel", on_click=self.click_choose_example_cancel),
             ],
         )
 

@@ -26,6 +26,7 @@ class FieldConfig:
 class DpdTextField(ft.TextField):
     def __init__(
         self,
+        name,
         on_focus=None,
         on_change=None,
         on_submit=None,
@@ -39,33 +40,21 @@ class DpdTextField(ft.TextField):
             on_change=on_change,
             on_submit=on_submit,
             on_blur=on_blur,
-            # max_lines=6,
             min_lines=1,
-        )
-
-
-class DpdText(ft.Text):
-    def __init__(
-        self,
-    ):
-        super().__init__(
-            expand=True,
-            selectable=True,
-            color=ft.Colors.GREY_500,
-            size=16,
-            width=700,
+            width=2200,
         )
 
 
 class DpdDropdown(ft.Dropdown):
     def __init__(
         self,
+        name,
         options=None,
         on_focus=None,
         on_change=None,
         on_blur=None,
     ):
-        if not options:
+        if options is None:  # Check specifically for None, allow empty list
             raise ValueError("Options must be provided for DpdDropdown")
         super().__init__(
             expand=True,
@@ -75,5 +64,18 @@ class DpdDropdown(ft.Dropdown):
             on_blur=on_blur,
             editable=True,
             enable_filter=True,
-            width=700,
+            width=2200,
+        )
+
+
+class DpdText(ft.Text):
+    def __init__(
+        self,
+    ):
+        super().__init__(
+            expand=False,
+            selectable=True,
+            color=ft.Colors.GREY_500,
+            size=16,
+            width=500,
         )

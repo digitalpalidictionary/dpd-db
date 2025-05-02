@@ -35,38 +35,6 @@
     "example_1": "ujjhāyanti padassato. ",
     "translation_1": "Criticized. The One who Shows, "
   },
-  "khuddakavatthukkhandhakaṃ": {
-    "lemma_1": "khuddakavatthukkhandhakaṃ",
-    "lemma_2": "khuddakavatthukkhandhako",
-    "pos": "masc",
-    "grammar": "masc, comp",
-    "meaning_2": "the minor section of cases; the chapter on minor matters",
-    "root_key": "",
-    "root_sign": "",
-    "root_base": "",
-    "family_root": "",
-    "family_compound": "khuddaka vatthu khandhaka",
-    "construction": "khuddaka + vatthu + khandhaka + ṃ",
-    "stem": "khuddakavatthukkhandhak",
-    "pattern": "a masc",
-    "comments": "This is a compound term from the Vinaya Piṭaka, referring to a specific section dealing with minor disciplinary cases. The term combines 'khuddaka' (minor), 'vatthu' (cases/matters), and 'khandhaka' (chapter/section)."
-  },
-  "khuddakavatthūni": {
-    "lemma_1": "khuddakavatthu",
-    "lemma_2": "khuddakavatthu",
-    "pos": "nt",
-    "grammar": "nt, comp",
-    "meaning_2": "small matter; minor case; trivial affair",
-    "root_key": "",
-    "root_sign": "",
-    "root_base": "",
-    "family_root": "",
-    "family_compound": "khuddaka vatthu",
-    "construction": "khuddaka + vatthu",
-    "stem": "khuddakavatth",
-    "pattern": "u nt",
-    "comments": "A compound of 'khuddaka' (small) and 'vatthu' (matter/case), referring to minor or trivial matters, often used in Vinaya contexts to denote less significant cases."
-  },
   "nahāyamānā": {
     "lemma_1": "nahāyamāna",
     "lemma_2": "nahāyamāna",

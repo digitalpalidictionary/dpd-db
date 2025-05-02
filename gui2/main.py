@@ -6,6 +6,7 @@ import flet as ft
 from gui2.appbar_updater import AppBarUpdater
 from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
+from gui2.history import HistoryManager
 from gui2.test_manager import GuiTestManager
 from tools.fast_api_utils import start_dpd_server
 from tools.sandhi_contraction import SandhiContractionFinder
@@ -42,6 +43,9 @@ class App:
         # Init Sandhi manager
         self.sandhi_manager = SandhiContractionFinder()
 
+        # Init History manager
+        self.history_manager = HistoryManager()
+
         page.appbar = ft.AppBar(
             title=ft.Text("dpd gui"),
             bgcolor=ft.Colors.LIGHT_BLUE_900,
@@ -53,6 +57,11 @@ class App:
 
         # initialize classes
         self.db = DatabaseManager()
+
+        # Pre-initialize data needed for GUI dropdowns etc.
+        self.db.pre_initialize_gui_data()
+
+        # Now create views
         self.pass1_auto_view: Pass1AutoView = Pass1AutoView(
             self.page,
             self.db,
@@ -62,6 +71,7 @@ class App:
             self.db,
             self.daily_log,
             self.sandhi_manager,
+            self.history_manager,
         )
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page,
@@ -78,6 +88,7 @@ class App:
             self.daily_log,
             self.test_manager,
             self.sandhi_manager,
+            self.history_manager,
         )
 
         self.sandhi_view = SandhiFindReplaceView(
@@ -139,7 +150,7 @@ class App:
 
 def main(page: ft.Page) -> None:
     # Enable/disable profiling
-    enable_profiling = True
+    enable_profiling = False
     profile_file = Path("gui2_profile.prof")
 
     if enable_profiling:

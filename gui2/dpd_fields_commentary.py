@@ -37,6 +37,7 @@ class DpdCommentaryField(ft.Column):
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
 
         self.text_field = DpdTextField(
+            name=field_name,
             multiline=True,
             on_focus=on_focus,
             on_change=on_change,
@@ -44,12 +45,13 @@ class DpdCommentaryField(ft.Column):
             on_blur=on_blur,
         )
 
+        # --- Controls for Toggle Visibility ---
         self.search_field_1 = ft.TextField(
             "",
             width=200,
             on_submit=self.click_commentary_search,
-            hint_text="search for",
-            hint_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
+            label="search for",
+            label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
         )
         self.search_field_2 = ft.TextField(
             "",
@@ -59,32 +61,65 @@ class DpdCommentaryField(ft.Column):
             hint_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
         )
 
+        # Toggle Button
+        self._toggle_tools_button = ft.IconButton(
+            icon=ft.icons.VISIBILITY_OFF_OUTLINED,
+            tooltip="Show Search Tools",
+            on_click=self._toggle_tools_visibility,
+            icon_color=ft.colors.BLUE_GREY_300,
+        )
+
+        # Search row (initially hidden)
+        self._search_row = ft.Row(
+            [
+                self.search_field_1,
+                self.search_field_2,
+                ft.ElevatedButton("Clear", on_click=self.click_commentary_clear),
+            ],
+            spacing=0,
+            visible=False,  # Initially hidden
+        )
+
         self.controls = [
             self.text_field,
-            ft.Row(
-                [
-                    self.search_field_1,
-                    self.search_field_2,
-                    ft.ElevatedButton("Clear", on_click=self.click_commentary_clear),
-                ],
-                spacing=0,
-            ),
         ]
-        self.spacing = 0
+        self.controls.append(
+            ft.Row([self._toggle_tools_button])
+        )  # Add toggle button row
+        self.controls.append(self._search_row)  # Add hidden search row
+        self.spacing = 0  # Keep spacing tight
         self.commentary_list: list[BoldDefinition] = []
         self.commentary_list_index: str = ""
 
-        @property
-        def value(self):
-            return self.text_field.value
+    @property
+    def value(self):
+        return self.text_field.value
 
-        @property
-        def field(self):
-            return self.text_field
+    @property
+    def field(self):
+        return self.text_field
 
-        @value.setter
-        def value(self, value):
-            self.text_field.value = value
+    @value.setter
+    def value(self, value):
+        self.text_field.value = value
+
+    # --- Toggle Visibility Handling ---
+    def _toggle_tools_visibility(self, e: ft.ControlEvent):
+        """Toggles the visibility of the search row."""
+        are_visible = not self._search_row.visible  # Check current state
+        self._search_row.visible = are_visible
+
+        # Update button icon and tooltip
+        if are_visible:
+            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
+            self._toggle_tools_button.tooltip = "Hide Search Tools"
+        else:
+            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
+            self._toggle_tools_button.tooltip = "Show Search Tools"
+
+        self.page.update()
+
+    # --- End Toggle Visibility ---
 
     def click_commentary_search(self, e: ft.ControlEvent):
         self.search_field_1.error_text = None

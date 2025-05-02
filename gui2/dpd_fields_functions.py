@@ -263,6 +263,56 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
     return stem, pattern
 
 
+def make_compound_construction_from_headword(headword: DpdHeadword) -> str:
+    """Make compound_construction based on other fields."""
+    lemma_clean = clean_lemma_1(headword.lemma_1)
+    construction_line1 = clean_construction_line1(headword.construction)
+
+    # roots starting with su dur na
+    if headword.root_key:
+        if headword.construction.startswith("su "):
+            return f"su + {lemma_clean[2:]}"
+        elif headword.construction.startswith("dur "):
+            return f"dur + {lemma_clean[3:]}"
+        elif headword.construction.startswith("na "):
+            if lemma_clean.startswith("an"):
+                return f"na + {lemma_clean[2:]}"
+            elif lemma_clean.startswith("a"):
+                return f"na + {lemma_clean[1:]}"
+            elif lemma_clean.startswith("na"):
+                return f"na + {lemma_clean[2:]}"
+
+    # compounds
+    elif re.findall(r"\bcomp\b", headword.grammar):
+        return construction_line1
+
+    # dvanda '+' > 'ca'
+    elif headword.compound_type == "dvanda":
+        return construction_line1.replace("+", " <b>ca</b>") + " <b>ca</b>"
+
+    # neg kammadhārayas
+    elif headword.compound_type == "kammadhāraya" and "neg" in headword.neg:
+        if lemma_clean.startswith("na"):
+            # check if there's a double consonant
+            if len(lemma_clean) > 2 and lemma_clean[2] == lemma_clean[3]:
+                return f"na + {lemma_clean[3:]}"
+            else:
+                return f"na + {lemma_clean[2:]}"
+        elif lemma_clean.startswith("an"):
+            return f"na + {lemma_clean[2:]}"
+        elif lemma_clean.startswith("a"):
+            # check if there's a double consonant
+            if len(lemma_clean) > 1 and lemma_clean[1] == lemma_clean[2]:
+                return f"na + {lemma_clean[2:]}"
+            else:
+                return f"na + {lemma_clean[1:]}"
+        elif lemma_clean.startswith("nā"):
+            return f"na + a{lemma_clean[2:]}"
+
+    # Default case if none of the above match
+    return lemma_clean
+
+
 # !!! add all the plural forms !!!
 
 

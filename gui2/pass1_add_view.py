@@ -3,6 +3,8 @@ from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
 from gui2.mixins import PopUpMixin
 from gui2.dpd_fields import DpdFields
+from gui2.history import HistoryManager
+from gui2.dpd_fields_lists import PASS1_FIELDS
 
 
 from rich import print
@@ -22,6 +24,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         db: DatabaseManager,
         daily_log: DailyLog,
         sandhi_manager: SandhiContractionFinder,
+        history_manager: HistoryManager,  # Add history_manager parameter
     ) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(
@@ -37,6 +40,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.controller = Pass1AddController(self, db, daily_log)
         self.dpd_fields: DpdFields
         self.sandhi_manager: SandhiContractionFinder = sandhi_manager
+        self.history_manager: HistoryManager = history_manager
         self.sandhi_dict = sandhi_manager.get_contractions_simple()
 
         # --- Top Section Controls ---
@@ -257,7 +261,9 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
     def _build_middle_section(self) -> ft.Column:
         """Build and return the middle section with DpdFields."""
-        self.dpd_fields = DpdFields(self, self.db, self.sandhi_dict)
+        self.dpd_fields = DpdFields(
+            self, self.db, self.sandhi_dict, simple_examples=True
+        )  # Request simple examples
         middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,
@@ -265,27 +271,9 @@ class Pass1AddView(ft.Column, PopUpMixin):
             spacing=5,
         )
 
-        visible_fields = [
-            "lemma_1",
-            "lemma_2",
-            "pos",
-            "grammar",
-            "meaning_2",
-            "root_key",
-            "family_root",
-            "root_sign",
-            "root_base",
-            "construction",
-            "family_compound",
-            "family_word",
-            "stem",
-            "pattern",
-            "example_1",
-            "translation_1",
-            "example_2",
-            "translation_2",
-            "comments",
-        ]
+        # Use the imported list
+        visible_fields = PASS1_FIELDS
+
         self.dpd_fields.add_to_ui(middle_section, visible_fields=visible_fields)
         return middle_section
 

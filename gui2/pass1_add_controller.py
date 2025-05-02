@@ -120,6 +120,11 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             # update the log (this now automatically updates the appbar)
             self.daily_log.increment("pass1")
 
+            # Add to history
+            self.ui.history_manager.add_item(
+                new_word.id, new_word.lemma_1
+            )  # Use ui's history_manager
+
             self.remove_word_and_save_json()
             self.ui.clear_all_fields()
 

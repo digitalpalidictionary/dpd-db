@@ -42,6 +42,7 @@ class DatabaseManager:
         self.all_compound_families: set[str] | None = None
         self.all_root_families: set[str] | None = None
         self.all_word_families: set[str] | None = None
+        self.all_compound_types: list[str] | None = None  # Add this line
 
         # root signs
         self.root_sign_key: str = ""
@@ -63,6 +64,10 @@ class DatabaseManager:
 
     # --- INITIALIZE DB ---
 
+    def pre_initialize_gui_data(self):
+        """Fetches only the data needed for immediate GUI component initialization."""
+        self.get_all_compound_types()
+
     def initialize_db(self):
         self.get_all_lemma_1_and_lemma_clean()
         self.get_all_pos()
@@ -70,6 +75,7 @@ class DatabaseManager:
         self.get_all_root_families()
         self.get_all_compound_families()
         self.get_all_word_families()
+        # self.get_all_compound_types() # Moved to pre_initialize_gui_data
 
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).all()
@@ -100,6 +106,19 @@ class DatabaseManager:
     def get_all_word_families(self):
         word_families = self.db_session.query(FamilyWord.word_family).all()
         self.all_word_families = set([w[0] for w in word_families])
+
+    def get_all_compound_types(self) -> None:
+        """Gets all unique, non-empty compound types from the database, sorted."""
+        types = (
+            self.db_session.query(DpdHeadword.compound_type)
+            .filter(DpdHeadword.compound_type != "")
+            .distinct()
+            .all()
+        )
+        # Extract strings, filter out None/empty if any slipped through, sort
+        self.all_compound_types = sorted([t[0] for t in types if t[0]])
+        # Optionally add an empty string if you want it as a selectable option
+        # self.all_compound_types.insert(0, "")
 
     # --- PASS1 AUTO ---
 
@@ -309,6 +328,17 @@ class DatabaseManager:
             return (False, "Word not found")
         except Exception as e:
             print(e)
+            return (False, str(e))
+
+    def delete_word_in_db(self, headword: DpdHeadword) -> tuple[bool, str]:
+        try:
+            id = headword.id
+            self.db_session.query(DpdHeadword).filter_by(id=id).delete()
+            self.db_session.commit()
+            return (True, "")
+        except Exception as e:
+            print(e)
+            self.db_session.rollback()
             return (False, str(e))
 
     def get_next_id(self) -> int:

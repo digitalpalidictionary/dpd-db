@@ -65,5 +65,12 @@
         "pass1": 0,
         "pass2": 1,
         "pass2_pre": 0
+    },
+    "2025-05-02": {
+        "pass1": 2,
+        "pass2": 3,
+        "pass2_add": 1,
+        "pass2_pre": 0,
+        "pass2_update": 15
     }
 }

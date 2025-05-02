@@ -1,3 +1,6 @@
+import subprocess
+from pathlib import Path
+
 import flet as ft
 from db_tests.db_tests_manager import DbTestManager, IntegrityFailure, TestFailure
 from gui2.mixins import PopUpMixin
@@ -77,6 +80,9 @@ class GuiTestManager(PopUpMixin):
             actions=[
                 ft.TextButton("Add to Exceptions", on_click=self._handle_add_exception),
                 ft.TextButton("Edit", on_click=self._handle_edit),
+                ft.TextButton(
+                    "Open Tests TSV", on_click=self._handle_open_test_file
+                ),  # Added button
                 ft.TextButton("Next", on_click=self._handle_next_failure),
                 ft.TextButton("Close", on_click=self._handle_popup_close),
             ],
@@ -158,6 +164,26 @@ class GuiTestManager(PopUpMixin):
             print("Error: current_headword not set.")
             # Close the popup if headword is missing
             self._handle_popup_close(e)
+
+    def _handle_open_test_file(self, e: ft.ControlEvent) -> None:
+        """Opens the main db_tests_columns.tsv file in LibreOffice Calc."""
+        test_file_path = Path(
+            "/home/bodhirasa/Code/dpd-db/db_tests/db_tests_columns.tsv"
+        )
+
+        if test_file_path.exists():
+            print(f"Opening test file: {test_file_path}")
+            try:
+                subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
+                self._handle_popup_close(e)  # Close popup after attempting to open
+            except FileNotFoundError:
+                print(
+                    "[red]Error: 'libreoffice' command not found. Is LibreOffice installed and in your PATH?"
+                )
+            except Exception as sub_err:
+                print(f"[red]Error opening file with LibreOffice: {sub_err}")
+        else:
+            print(f"[red]Error: Test file not found at expected path: {test_file_path}")
 
     def _handle_edit(self, e: ft.ControlEvent) -> None:
         """Close dialog and focus error field"""
