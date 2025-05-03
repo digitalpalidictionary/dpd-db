@@ -80,11 +80,9 @@ class GuiTestManager(PopUpMixin):
             actions=[
                 ft.TextButton("Add to Exceptions", on_click=self._handle_add_exception),
                 ft.TextButton("Edit", on_click=self._handle_edit),
-                ft.TextButton(
-                    "Open Tests TSV", on_click=self._handle_open_test_file
-                ),  # Added button
                 ft.TextButton("Next", on_click=self._handle_next_failure),
                 ft.TextButton("Close", on_click=self._handle_popup_close),
+                ft.TextButton("Open Tests TSV", on_click=self._handle_open_test_file),
             ],
             actions_alignment=ft.MainAxisAlignment.CENTER,
             actions_padding=20,

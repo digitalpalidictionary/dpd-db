@@ -41,7 +41,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.dpd_fields: DpdFields
         self.sandhi_manager: SandhiContractionFinder = sandhi_manager
         self.history_manager: HistoryManager = history_manager
-        self.sandhi_dict = sandhi_manager.get_contractions_simple()
+        self.sandhi_dict = sandhi_manager.get_sandhi_contractions()
 
         # --- Top Section Controls ---
         self.message_field = ft.Text("", color=HIGHLIGHT_COLOUR, selectable=True)

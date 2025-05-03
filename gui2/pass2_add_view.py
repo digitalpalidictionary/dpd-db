@@ -14,13 +14,15 @@ from gui2.dpd_fields_lists import (
     COMPOUND_FIELDS,
     WORD_FIELDS,
     PASS1_FIELDS,
+    NO_CLONE_LIST,
+    NO_SPLIT_LIST,
 )  # Import the lists
 from gui2.history import HistoryManager  # Import HistoryManager
 from gui2.mixins import PopUpMixin
 from gui2.dpd_fields import DpdFields
 from gui2.pass2_file_manager import Pass2AutoFileManager
 
-from gui2.dpd_fields_functions import make_dpd_headword_from_dict
+from gui2.dpd_fields_functions import make_dpd_headword_from_dict, increment_lemma_1
 from tools.fast_api_utils import request_dpd_server
 from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionFinder
 
@@ -54,7 +56,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.test_manager: GuiTestManager = test_manger
         self.sandhi_manager: SandhiContractionFinder = sandhi_manager
         self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.get_contractions_simple()
+            self.sandhi_manager.get_sandhi_contractions()
         )
         self.history_manager: HistoryManager = history_manager  # Store history_manager
 
@@ -64,24 +66,42 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
 
-        self._message_field = ft.Text("", expand=True, selectable=True)
+        self._message_field = ft.TextField(
+            "",
+            border_color=ft.Colors.BLUE_200,
+            border_radius=20,
+            border=ft.InputBorder.OUTLINE,
+            color=ft.Colors.BLUE_200,
+            expand_loose=True,
+            expand=True,
+            hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
+            hint_text="Messages",
+            read_only=True,
+            text_size=14,
+            width=700,
+        )
         self._next_pass2_auto_button = ft.ElevatedButton(
             "NextPass2Auto",
-            width=BUTTON_WIDTH,
             on_click=self._click_load_next_pass2_entry,
         )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
-            width=400,
-            expand=True,
+            autofocus=True,
+            border_color=ft.Colors.BLUE_200,
+            border_radius=20,
             expand_loose=True,
+            expand=True,
+            hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
+            hint_text="Enter ID or Lemma",
             on_submit=self._click_edit_headword,
+            text_size=14,
+            width=400,
         )
         self._clone_headword_button = ft.ElevatedButton(
             "Clone", on_click=self._click_clone_headword
         )
-        self._edit_headword_button = ft.ElevatedButton(
-            "Edit", on_click=self._click_edit_headword
+        self._split_headword_button = ft.ElevatedButton(
+            "Split", on_click=self._click_split_headword
         )
         self._clear_all_button = ft.ElevatedButton(
             "Clear All", on_click=self._click_clear_all
@@ -91,13 +111,14 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
 
         self._history_dropdown = ft.Dropdown(
-            hint_text="History",  # Changed hint text
-            options=[],  # Initially empty, populated later
-            width=BUTTON_WIDTH,
+            hint_text="History",
+            hint_style=ft.TextStyle(color=ft.Colors.BLUE_200),
+            options=[],
+            expand=True,
+            expand_loose=True,
             border_radius=20,
-            # text_style=ft.TextStyle(color=ft.Colors.BLUE_200), # Optional styling
             text_size=14,
-            on_change=self._handle_history_selection,  # Add the on_change handler
+            on_change=self._handle_history_selection,
         )
 
         # --- Field Filter Radio Buttons ---
@@ -115,14 +136,21 @@ class Pass2AddView(ft.Column, PopUpMixin):
             on_change=self._handle_filter_change,
         )
 
+        # Define the Add to DB button as a member variable
+        self._add_to_db_button = ft.ElevatedButton(
+            "Add to DB",
+            on_click=self._click_add_to_db,
+            width=BUTTON_WIDTH,
+            color=ft.Colors.RED,
+        )
         self._top_section = ft.Container(
             content=ft.Column(
                 controls=[
                     ft.Row(
                         controls=[
-                            # self._clone_headword_button,
                             self._enter_id_or_lemma_field,
-                            self._edit_headword_button,
+                            self._clone_headword_button,
+                            self._split_headword_button,
                             self._next_pass2_auto_button,
                             self._clear_all_button,
                             self.update_sandhi_button,
@@ -158,11 +186,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                 on_click=self._click_run_tests,
                                 width=BUTTON_WIDTH,
                             ),
-                            ft.ElevatedButton(
-                                "Add to DB",
-                                on_click=self._click_add_to_db,
-                                width=BUTTON_WIDTH,
-                            ),
+                            self._add_to_db_button,  # Use the member variable here
                             ft.ElevatedButton(
                                 "Delete",
                                 on_click=self._click_delete_from_db,
@@ -248,7 +272,72 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.update_message("you're shooting blanks")
 
     def _click_clone_headword(self, e: ft.ControlEvent) -> None:
-        pass
+        """Fetches a headword and adds its data to empty fields in the current view."""
+        id_or_lemma = self._enter_id_or_lemma_field.value
+
+        if not id_or_lemma:
+            self.update_message("Enter an ID or Lemma to clone from.")
+            return
+
+        headword_to_clone = self._db.get_headword_by_id_or_lemma(id_or_lemma)
+
+        if not headword_to_clone:
+            self.update_message(f"Headword '{id_or_lemma}' not found for cloning.")
+            return
+
+        cloned_count = 0
+        for field_name, ui_field in self.dpd_fields.fields.items():
+            if (
+                hasattr(headword_to_clone, field_name)
+                and field_name not in NO_CLONE_LIST
+            ):
+                # Check if the UI field is empty (or None)
+                if not ui_field.value:
+                    db_value = getattr(headword_to_clone, field_name)
+                    if db_value is not None:  # Only clone non-None values
+                        ui_field.value = db_value
+                        cloned_count += 1
+
+        self.update_message(
+            f"Cloned {cloned_count} fields from {headword_to_clone.lemma_1}."
+        )
+        self.page.update()
+
+    def _click_split_headword(self, e: ft.ControlEvent) -> None:
+        """Copies current fields to a new ID, increments lemma_1, and clears specific fields."""
+        current_lemma_1_field = self.dpd_fields.get_field("lemma_1")
+        if not current_lemma_1_field or not current_lemma_1_field.value:
+            self.update_message("Cannot split an entry with an empty lemma_1.")
+            return
+
+        old_lemma = current_lemma_1_field.value
+        new_id = self._db.get_next_id()
+        new_lemma = increment_lemma_1(old_lemma)
+
+        cleared_count = 0
+        for field_name, ui_field in self.dpd_fields.fields.items():
+            if field_name == "id":
+                ui_field.value = str(new_id)  # Ensure ID is string for TextField
+            elif field_name == "lemma_1":
+                ui_field.value = new_lemma
+            elif field_name in NO_SPLIT_LIST:
+                if ui_field.value:  # Only count if it actually had a value
+                    cleared_count += 1
+                ui_field.value = ""
+                ui_field.error_text = None  # Clear errors too
+            # else: field keeps its current value
+
+        # Reset flags as this is effectively a new entry state
+        self.dpd_fields.flags.reset()
+
+        # Clear _add fields as they relate to the original word's auto-data
+        self.dpd_fields.clear_fields(target="add")
+
+        self.update_message(
+            f"Split '{old_lemma}' into new entry '{new_lemma}' (ID: {new_id}). Cleared {cleared_count} fields."
+        )
+        self.page.update()
+        current_lemma_1_field.focus()  # Focus back on lemma_1
 
     def _click_load_next_pass2_entry(self, e: ft.ControlEvent | None = None) -> None:
         """Load next pass2 entry into the view."""
@@ -381,6 +470,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.dpd_fields.clear_messages()
         headword = self.dpd_fields.get_current_headword()
         self.test_manager.run_all_tests(self, headword)
+        # Change button color based on test results
+        if self.test_manager.passed:
+            self._add_to_db_button.color = ft.Colors.GREEN  # Change text color
+        else:
+            self._add_to_db_button.color = ft.Colors.RED
+        self.page.update()
 
     def _click_add_to_db(self, e: ft.ControlEvent):
         id_field = self.dpd_fields.fields.get("id")
@@ -449,6 +544,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         else:
             # Update message but don't clear fields on failure
             self.update_message(f"Commit failed: {message}")
+
+        # Reset button color regardless of success or failure
+        self._add_to_db_button.color = ft.Colors.RED
+        self.page.update()
 
     def _click_delete_from_db(self, e: ft.ControlEvent):
         self.dpd_fields.clear_messages()

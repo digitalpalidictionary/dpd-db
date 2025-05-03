@@ -43,6 +43,7 @@ class DatabaseManager:
         self.all_root_families: set[str] | None = None
         self.all_word_families: set[str] | None = None
         self.all_compound_types: list[str] | None = None  # Add this line
+        self.all_family_sets: list[str] | None = None  # Add this line
 
         # root signs
         self.root_sign_key: str = ""
@@ -67,6 +68,7 @@ class DatabaseManager:
     def pre_initialize_gui_data(self):
         """Fetches only the data needed for immediate GUI component initialization."""
         self.get_all_compound_types()
+        self.get_all_family_sets()
 
     def initialize_db(self):
         self.get_all_lemma_1_and_lemma_clean()
@@ -119,6 +121,28 @@ class DatabaseManager:
         self.all_compound_types = sorted([t[0] for t in types if t[0]])
         # Optionally add an empty string if you want it as a selectable option
         # self.all_compound_types.insert(0, "")
+
+    def get_all_family_sets(self) -> None:
+        """Gets all unique family set components from the database, sorted."""
+
+        all_sets_raw = (
+            self.db_session.query(DpdHeadword.family_set)
+            .filter(DpdHeadword.family_set != "")
+            .all()
+        )
+
+        unique_components = set()
+        for row in all_sets_raw:
+            family_set_string = row[0]
+            if family_set_string:
+                components = family_set_string.split(";")
+                for component in components:
+                    cleaned_component = component.strip()
+                    if cleaned_component:
+                        unique_components.add(cleaned_component)
+
+        self.all_family_sets = sorted(list(unique_components))
+        self.all_family_sets.insert(0, "")
 
     # --- PASS1 AUTO ---
 

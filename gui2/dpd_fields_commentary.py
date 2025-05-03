@@ -36,7 +36,7 @@ class DpdCommentaryField(ft.Column):
         self.dpd_fields: DpdFields = dpd_fields
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
 
-        self.text_field = DpdTextField(
+        self.commentary_field = DpdTextField(
             name=field_name,
             multiline=True,
             on_focus=on_focus,
@@ -81,7 +81,7 @@ class DpdCommentaryField(ft.Column):
         )
 
         self.controls = [
-            self.text_field,
+            self.commentary_field,
         ]
         self.controls.append(
             ft.Row([self._toggle_tools_button])
@@ -93,33 +93,36 @@ class DpdCommentaryField(ft.Column):
 
     @property
     def value(self):
-        return self.text_field.value
+        return self.commentary_field.value
 
     @property
     def field(self):
-        return self.text_field
+        return self.commentary_field
 
     @value.setter
     def value(self, value):
-        self.text_field.value = value
+        self.commentary_field.value = value
 
     # --- Toggle Visibility Handling ---
+
     def _toggle_tools_visibility(self, e: ft.ControlEvent):
         """Toggles the visibility of the search row."""
-        are_visible = not self._search_row.visible  # Check current state
-        self._search_row.visible = are_visible
+
+        invisible = not self._search_row.visible  # Check current state
+        self._search_row.visible = invisible
 
         # Update button icon and tooltip
-        if are_visible:
+        if invisible:
             self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
             self._toggle_tools_button.tooltip = "Hide Search Tools"
+            self.search_field_1.focus()
         else:
             self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
             self._toggle_tools_button.tooltip = "Show Search Tools"
 
-        self.page.update()
+            self.commentary_field.focus()
 
-    # --- End Toggle Visibility ---
+        self.page.update()
 
     def click_commentary_search(self, e: ft.ControlEvent):
         self.search_field_1.error_text = None
@@ -137,6 +140,7 @@ class DpdCommentaryField(ft.Column):
                 self.choose_commentary()
             else:
                 self.search_field_1.error_text = "not found"
+                self.commentary_field.value = "-"
                 self.search_field_1.focus()
                 self.page.update()
 
@@ -232,9 +236,9 @@ class DpdCommentaryField(ft.Column):
         )
         commentary_clean = clean_commentary(commentary_compiled, self.sandhi_dict)
 
-        self.text_field.value = commentary_clean
+        self.commentary_field.value = commentary_clean
         self.page.update()
 
     def click_commentary_clear(self, e: ft.ControlEvent):
-        self.text_field.value = ""
+        self.commentary_field.value = ""
         self.page.update()

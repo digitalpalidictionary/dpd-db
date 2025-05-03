@@ -64,7 +64,6 @@ class DpdDropdown(ft.Dropdown):
             on_blur=on_blur,
             editable=True,
             enable_filter=True,
-            width=2200,
         )
 
 

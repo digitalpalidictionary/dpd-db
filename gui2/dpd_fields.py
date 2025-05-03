@@ -1,4 +1,5 @@
 import re
+from typing import Any
 import flet as ft
 
 from db.models import DpdHeadword
@@ -11,6 +12,8 @@ from gui2.dpd_fields_classes import (
 )
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_compound_construction import DpdCompoundConstructionField
+from gui2.dpd_fields_notes import DpdNotesField  # Import the new class
+from gui2.dpd_fields_flags import Flags
 from gui2.dpd_fields_examples import DpdExampleField
 from gui2.dpd_fields_functions import (
     clean_construction_line1,
@@ -52,8 +55,11 @@ class DpdFields(PopUpMixin):
             self.db.all_compound_types if self.db.all_compound_types else []
         )
 
+        # Fetch family sets (ensure db is initialized first if needed)
+        family_set_options = self.db.all_family_sets if self.db.all_family_sets else []
+
         self.fields = {}
-        self.field_containers = {}  # To store the container for each field
+        self.field_containers = {}
 
         self.field_configs = [
             FieldConfig("id", on_submit=self.id_submit),
@@ -67,21 +73,33 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "pos", field_type="dropdown", options=POS, on_blur=self.pos_blur
             ),
-            FieldConfig("grammar", on_submit=self.grammar_submit),
+            FieldConfig(
+                "grammar",
+                on_submit=self.grammar_submit,
+                on_blur=self.grammar_blur,
+            ),
             FieldConfig("derived_from"),
-            FieldConfig("neg"),
+            FieldConfig(
+                "neg",
+                field_type="dropdown",
+                options=["neg", "neg x2"],
+            ),
             FieldConfig("verb"),
             FieldConfig("trans"),
             FieldConfig("plus_case"),
-            FieldConfig("meaning_1", multiline=True),
+            FieldConfig(
+                "meaning_1",
+                multiline=True,
+                on_focus=self.meaning_1_change,
+                on_blur=self.meaning_1_change,
+            ),
             FieldConfig("meaning_lit"),
             FieldConfig(
                 "meaning_2",
+                multiline=True,
                 on_focus=self.meaning_2_change,
                 on_blur=self.meaning_2_change,
             ),
-            FieldConfig("non_ia", on_blur=self.non_ia_blur),
-            FieldConfig("sanskrit"),
             FieldConfig(
                 "root_key",
                 on_focus=self.root_key_change,
@@ -111,27 +129,43 @@ class DpdFields(PopUpMixin):
                 "family_compound",
                 on_focus=self.family_compound_change,
                 on_change=self.family_compound_change,
-                on_blur=self.family_compound_change,
+                on_blur=self.family_compound_blur,
             ),
             FieldConfig("family_idioms"),
-            FieldConfig("family_set"),
-            FieldConfig("construction", multiline=True, on_blur=self.construction_blur),
+            FieldConfig(
+                "family_set",
+                field_type="dropdown",
+                options=family_set_options,
+            ),
+            FieldConfig(
+                "construction",
+                multiline=True,
+                on_blur=self.construction_blur,
+                on_change=self.construction_change,
+            ),
             FieldConfig(
                 "derivative",
                 field_type="dropdown",
                 options=["kita", "kicca", "taddhita"],
-                on_change=self._derivative_change,
+                on_change=self.derivative_change,
             ),
-            FieldConfig("suffix"),
+            FieldConfig(
+                "suffix",
+                on_change=self.suffix_on_change,
+            ),
             FieldConfig("phonetic"),
             FieldConfig(
                 "compound_type",
                 field_type="dropdown",
                 options=compound_types_options,
-                on_change=self._compound_type_change,
+                on_blur=self.compound_type_blur,
             ),
             FieldConfig("compound_construction", field_type="compound_construction"),
             FieldConfig("non_root_in_comps"),
+            FieldConfig(
+                "non_ia",
+            ),
+            FieldConfig("sanskrit", on_blur=self.sanskrit_blur),
             FieldConfig("source_1"),
             FieldConfig("sutta_1"),
             FieldConfig("example_1", field_type="example"),
@@ -146,7 +180,7 @@ class DpdFields(PopUpMixin):
             FieldConfig("var_phonetic"),
             FieldConfig("var_text"),
             FieldConfig("commentary", field_type="commentary"),
-            FieldConfig("notes"),
+            FieldConfig("notes", field_type="notes"),
             FieldConfig("cognate"),
             FieldConfig("link"),
             FieldConfig("origin"),
@@ -155,9 +189,8 @@ class DpdFields(PopUpMixin):
             FieldConfig("comment", multiline=True),
         ]
 
-        # flags
-        self.flag_construction_done: bool = False
-        self.flag_stem_pattern_done: bool = False
+        # Initialize flags
+        self.flags = Flags()
 
         self.create_fields()
 
@@ -218,19 +251,23 @@ class DpdFields(PopUpMixin):
                     on_blur=config.on_blur,
                 )
 
+            elif config.field_type == "notes":  # Add condition for notes
+                self.fields[config.name] = DpdNotesField(
+                    self.ui,
+                    field_name=config.name,
+                    dpd_fields=self,
+                    # No sandhi_dict needed for notes
+                    on_focus=config.on_focus,
+                    on_change=config.on_change,
+                    on_submit=config.on_submit,
+                    on_blur=config.on_blur,
+                )
+
             else:
                 raise ValueError(f"Unsupported field type: {config.field_type}")
 
             # Create corresponding _add field
             self.fields[f"{config.name}_add"] = DpdText()
-
-    def _create_field_container(
-        self, field_name: str, include_add_fields: bool
-    ) -> ft.Column:
-        """Creates a container holding the label and field row for a single field."""
-        label_row = ft.Row([ft.Text(field_name, color=ft.Colors.GREY_500, size=10)])
-        field_row = self._create_field_row(field_name, include_add_fields)
-        return ft.Column([label_row, field_row], spacing=0)  # Group label and field
 
     def add_to_ui(
         self,
@@ -241,26 +278,35 @@ class DpdFields(PopUpMixin):
         for config in self.field_configs:
             field_name = config.name
 
-            # Create the container for this field
-            container = self._create_field_container(field_name, include_add_fields)
+            # Create the row for this field (label + input(s))
+            field_row = self._create_field_row(field_name, include_add_fields)
 
             if visible_fields is not None:
-                container.visible = field_name in visible_fields
+                field_row.visible = field_name in visible_fields
             else:
-                container.visible = True  # Default to visible if no filter specified
+                field_row.visible = True  # Default to visible if no filter specified
 
-            # Store the container and add it to the UI
-            self.field_containers[field_name] = container
-            ui_component.controls.append(container)
+            # Store the row and add it to the UI
+            self.field_containers[field_name] = field_row
+            ui_component.controls.append(field_row)
 
     def _create_field_row(self, field_name: str, include_add_fields: bool) -> ft.Row:
         """Creates the row containing the main field and optional add field/button."""
+
+        label = ft.Text(
+            field_name,
+            color=ft.Colors.GREY_500,
+            size=12,
+            width=150,
+            selectable=True,
+        )
         main_field = self.fields[field_name]
-        row_controls = [main_field]
+        row_controls = [label, main_field]  # Add label first
 
         if include_add_fields:
             add_field = self.fields.get(f"{field_name}_add")
             if add_field:
+                # Create the button initially disabled
                 transfer_btn = ft.IconButton(
                     icon=ft.Icons.ARROW_BACK,
                     icon_size=20,
@@ -268,7 +314,12 @@ class DpdFields(PopUpMixin):
                     # Use a lambda that captures the correct field names
                     on_click=lambda e,
                     mf=main_field,
-                    af=add_field: self.transfer_add_value(e, mf, af),
+                    af=add_field,
+                    btn=None: self.transfer_add_value(
+                        e, mf, af, None
+                    ),  # Placeholder for btn
+                    disabled=True,  # Start disabled
+                    data=f"{field_name}_transfer_btn",  # Add data to identify the button later
                 )
                 row_controls.extend([transfer_btn, add_field])
 
@@ -280,20 +331,20 @@ class DpdFields(PopUpMixin):
 
     def filter_fields(self, visible_fields: list[str] | None = None):
         """Shows only the specified fields, hides others. Shows all if None."""
-        for field_name, container in self.field_containers.items():
+        for field_name, field_row in self.field_containers.items():
             main_field = self.fields.get(field_name)
             has_value = bool(
                 main_field and main_field.value
             )  # Check if the main field has a value
 
             if visible_fields is None or field_name in visible_fields:
-                container.visible = True
+                field_row.visible = True
             else:
                 # Only hide if it's not in the visible list AND it has no value
                 if not has_value:
-                    container.visible = False
+                    field_row.visible = False
                 else:  # Keep visible if it has a value, even if not in the filter list
-                    container.visible = True
+                    field_row.visible = True
 
     def update_db_fields(self, headword: DpdHeadword) -> None:
         """Update the left hand side fields with headword data."""
@@ -306,15 +357,36 @@ class DpdFields(PopUpMixin):
                 self.fields[key].error_text = None
 
         self.page.update()
+        self.flags.loaded_from_db = True
 
     def update_add_fields(self, data: dict[str, str]) -> None:
         """Update _add fields from provided data dictionary."""
 
         for name, value in data.items():
-            add_name = f"{name}_add"
-            if add_name in self.fields:
-                self.fields[add_name].value = value
-                self.fields[add_name].error_text = None
+            add_field_name = f"{name}_add"
+            add_field = self.fields.get(add_field_name)
+            if add_field:
+                add_field.value = value
+                add_field.error_text = None
+
+                # Find the corresponding button and update its state
+                field_row = self.field_containers.get(name)
+                if field_row:
+                    for control in field_row.controls:
+                        if (
+                            isinstance(control, ft.IconButton)
+                            and control.data == f"{name}_transfer_btn"
+                        ):
+                            control.disabled = not bool(
+                                value
+                            )  # Enable if value exists, disable otherwise
+                            # Update the lambda to pass the button itself
+                            control.on_click = lambda e, mf=self.fields[
+                                name
+                            ], af=add_field, btn=control: self.transfer_add_value(
+                                e, mf, af, btn
+                            )
+                            break
 
         self.page.update()
         self.check_and_color_add_fields()
@@ -332,6 +404,19 @@ class DpdFields(PopUpMixin):
             ):
                 control.value = ""
                 control.error_text = None
+
+                # If it's an _add field, find and disable its button
+                if name.endswith("_add"):
+                    base_name = name[:-4]
+                    field_row = self.field_containers.get(base_name)
+                    if field_row:
+                        for ctrl in field_row.controls:
+                            if (
+                                isinstance(ctrl, ft.IconButton)
+                                and ctrl.data == f"{base_name}_transfer_btn"
+                            ):
+                                ctrl.disabled = True
+        self.flags.reset()
         self.page.update()
 
     def clear_messages(self) -> None:
@@ -364,15 +449,21 @@ class DpdFields(PopUpMixin):
 
         self.page.update()
 
-    def transfer_add_value(self, e, field, add_field):
+    def transfer_add_value(self, e, field, add_field, button):
+        """Transfers value from add_field to field and updates button state."""
+
         if add_field.value:
             field.value = add_field.value
+            # Optionally clear the add_field after transfer
+            # add_field.value = ""
+            if button:  # Disable button after transfer if add_field is now empty (or always if desired)
+                button.disabled = not bool(add_field.value)
             self.page.update()
 
     def get_field(self, name):
         return self.fields.get(name, "")
 
-    def get_event_field_value(self, e: ft.ControlEvent):
+    def get_event_field_and_value(self, e: ft.ControlEvent) -> tuple[ft.Control, Any]:
         field = e.control
         value = field.value
         return field, value
@@ -388,32 +479,51 @@ class DpdFields(PopUpMixin):
 
     def id_submit(self, e: ft.ControlEvent):
         """Get the next id on submit."""
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         field.value = self.db.get_next_id()
         field.focus()
         self.page.update()
 
     def lemma_1_change(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
-        if value in self.db.all_lemma_1:
-            field.error_text = f"{value} already in db"
-        elif not value:
+        """Test lemma_1 already in db."""
+
+        field, value = self.get_event_field_and_value(e)
+
+        if not self.flags.loaded_from_db:
+            if value in self.db.all_lemma_1:
+                field.error_text = f"{value} already in db"
+
+        if not value:
             field.error_text = "required field"
         else:
             field.error_text = None
+
+        # Autofill search fields for new entries (not loaded from DB)
+        if not self.flags.loaded_from_db and value:
+            lemma_clean = clean_lemma_1(value)
+            commentary_field: DpdCommentaryField | None = self.get_field("commentary")
+            if commentary_field:
+                commentary_field.search_field_1.value = lemma_clean
+            example_1_field: DpdExampleField | None = self.get_field("example_1")
+            if example_1_field:
+                example_1_field.word_to_find_field.value = lemma_clean
+            example_2_field: DpdExampleField | None = self.get_field("example_2")
+            if example_2_field:
+                example_2_field.word_to_find_field.value = lemma_clean
+
         self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
 
     def lemma_2_blur(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         new_value = self.get_field("lemma_1").value
         field.value = clean_lemma_1(new_value)
         self.page.update()
 
     def pos_blur(self, e: ft.ControlEvent):
         # update lemma_2 based on lemma_1 and pos
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         lemma_1 = self.get_field("lemma_1").value
         lemma_2_field = self.get_field("lemma_2")
         lemma_2 = make_lemma_2(lemma_1, value)
@@ -421,7 +531,7 @@ class DpdFields(PopUpMixin):
         self.page.update()
 
     def grammar_submit(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         pos = self.get_field("pos").value
         if pos in VERBS or pos in PARTICIPLES:
             field.value = f"{pos} of "
@@ -432,8 +542,44 @@ class DpdFields(PopUpMixin):
         self.page.update()
         field.focus()
 
+    def grammar_blur(self, e: ft.ControlEvent):
+        """Autofill derived_from."""
+
+        field, value = self.get_event_field_and_value(e)
+        derived_from_field = self.get_field("derived_from")
+
+        if not self.flags.derived_from_done:
+            if " of " in value or " from " in value:
+                # find what follows 'of' or 'from'
+                derived_from = re.sub(".+( of | from )(.+)(,|$)", r"\2", value)
+                # remove negatives
+                derived_from = re.sub("^na ", "", derived_from)
+                # remove comma and everything following
+                derived_from = re.sub(",.+", "", derived_from)
+                derived_from_field.value = derived_from
+                self.flags.derived_from_done = True
+                self.page.update()
+                derived_from_field.focus()
+
+    def meaning_1_change(self, e: ft.ControlEvent):
+        field, value = self.get_event_field_and_value(e)
+        misspelled = self.spellchecker.check_sentence(value)
+        if misspelled:
+            error_string = ". ".join(
+                [
+                    f"{word}: {', '.join(suggestions)}"
+                    for word, suggestions in misspelled.items()
+                ]
+            )
+            field.error_text = error_string
+        else:
+            field.error_text = None
+        self.page.update()
+        if e.name != "blur":  # only focus on submit, not on blur
+            derived_from_field.focus()
+
     def meaning_2_change(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         misspelled = self.spellchecker.check_sentence(value)
         if misspelled:
             error_string = ". ".join(
@@ -449,7 +595,7 @@ class DpdFields(PopUpMixin):
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
 
-    def non_ia_blur(self, e: ft.ControlEvent) -> None:
+    def sanskrit_blur(self, e: ft.ControlEvent) -> None:
         """Get Sanskrit"""
 
         sanskrit_field = self.get_field("sanskrit")
@@ -485,7 +631,7 @@ class DpdFields(PopUpMixin):
     def root_key_change(self, e: ft.ControlEvent):
         """Test root_key"""
 
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         # test if root key exists
         if value:
             if value not in self.db.all_roots:
@@ -501,7 +647,7 @@ class DpdFields(PopUpMixin):
 
     def root_sign_submit(self, e: ft.ControlEvent):
         """Load root_sign from db."""
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
 
         # show all possible signs
         root_key = self.get_field("root_key").value
@@ -513,7 +659,7 @@ class DpdFields(PopUpMixin):
     def root_sign_change(self, e: ft.ControlEvent):
         """Test root_sign."""
 
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         root_key = self.get_field("root_key").value
         if value and not root_key:
             field.error_text = "no root_key"
@@ -526,7 +672,7 @@ class DpdFields(PopUpMixin):
     def root_base_submit(self, e: ft.ControlEvent):
         """Get root_base from db."""
 
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
 
         # show all possible bases
         root_key = self.get_field("root_key").value
@@ -536,7 +682,7 @@ class DpdFields(PopUpMixin):
             field.focus()
 
     def family_root_submit(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
 
         # show all possible bases
         root_key = self.get_field("root_key").value
@@ -546,7 +692,7 @@ class DpdFields(PopUpMixin):
             field.focus()
 
     def family_root_blur(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
 
         # test root in root family
         if value:
@@ -562,19 +708,22 @@ class DpdFields(PopUpMixin):
                 field.error_text = None
             self.page.update()
 
-    def _compound_type_change(self, e: ft.ControlEvent):
-        """When compound_type changes, try to generate compound_construction."""
+    def compound_type_blur(self, e: ft.ControlEvent):
+        """Autofill compound_construction."""
 
-        compound_construction_field = self.get_field("compound_construction")
+        compound_type = self.get_field("compound_type").value
 
-        if not compound_construction_field.value:
+        compound_construction_field: DpdCompoundConstructionField = self.get_field(
+            "compound_construction"
+        )
+        if compound_type and not compound_construction_field.value:
             current_headword = self.get_current_headword()  # Get current data
             cc = make_compound_construction_from_headword(current_headword)
             compound_construction_field.value = cc
-            compound_construction_field.focus()
+            compound_construction_field.compound_construction_field.focus()
             self.page.update()
 
-    def _derivative_change(self, e: ft.ControlEvent):
+    def derivative_change(self, e: ft.ControlEvent):
         """When derivative changes, try to generate suffix."""
 
         suffix_field = self.get_field("suffix")
@@ -594,8 +743,15 @@ class DpdFields(PopUpMixin):
                 suffix_field.focus()  # Optional: shift focus to suffix field
                 self.page.update()
 
+    def suffix_on_change(self, e: ft.ControlEvent):
+        field, value = self.get_event_field_and_value(e)
+
+        if value and field.error_text:
+            field.error_text = None
+            self.page.update()
+
     def family_word_change(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         root_key = self.get_field("root_key").value
 
         # test if in word families
@@ -613,7 +769,7 @@ class DpdFields(PopUpMixin):
         self.page.update()
 
     def family_compound_change(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
 
         # test family compounds exist
         if value:
@@ -628,10 +784,20 @@ class DpdFields(PopUpMixin):
             field.error_text = None
         self.page.update()
 
-    def construction_blur(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+    def family_compound_blur(self, e: ft.ControlEvent):
+        field, value = self.get_event_field_and_value(e)
 
-        if not value and not self.flag_construction_done:
+        if not self.flags.family_compound_done and not value:
+            lemma_1 = self.get_field("lemma_1").value
+            field.value = clean_lemma_1(lemma_1)
+            field.focus()
+            self.page.update()
+            self.flags.family_compound_done = True
+
+    def construction_blur(self, e: ft.ControlEvent):
+        field, value = self.get_event_field_and_value(e)
+
+        if not value and not self.flags.construction_done:
             lemma_1 = self.get_field("lemma_1").value
             lemma_clean = clean_lemma_1(lemma_1)
             grammar = self.get_field("grammar").value
@@ -645,32 +811,59 @@ class DpdFields(PopUpMixin):
             field.value = construction
             self.page.update()
             field.focus()
-            self.flag_construction_done = True
+            self.flags.construction_done = True
 
         elif value:
             # test words are in all_lemma_clean
             construction_line1 = clean_construction_line1(value)
-            error_list = [
-                word
-                for word in construction_line1.split(" + ")
-                if self.db.all_lemma_clean and word not in self.db.all_lemma_clean
-            ]
+            error_list = []
+            # Ensure db.all_lemma_clean is loaded and not None before iterating
+            if self.db.all_lemma_clean:
+                cleaned_line1_strip = construction_line1.strip()
+                if cleaned_line1_strip:  # Check if not empty after stripping
+                    # Split, filter out empty strings resulting from multiple spaces around '+'
+                    parts = [
+                        part.strip()
+                        for part in cleaned_line1_strip.split("+")
+                        if part.strip()
+                    ]
+                    error_list = [
+                        word for word in parts if word not in self.db.all_lemma_clean
+                    ]
+
             if error_list:
-                field.error_text = f"{', '.join(error_list)} "
+                field.error_text = f"Unknown: {', '.join(error_list)} "
             else:
                 field.error_text = None
             self.page.update()
+
+    def construction_change(self, e: ft.ControlEvent):
+        """Handle change events for the construction field to detect Enter press when field has content."""
+        field, current_value = self.get_event_field_and_value(e)
+
+        # --- Detect if Enter key was the primary change AND field had content before ---
+        # Check if current ends with \n and the part *before* the \n is not empty/whitespace
+        if current_value.endswith("\n") and current_value[:-1].strip():
+            lemma_1 = self.get_field("lemma_1").value
+            if lemma_1:  # Only append if lemma_1 exists
+                lemma_clean = clean_lemma_1(lemma_1)
+                field.value = current_value + lemma_clean
+                self.flags.construction_done = (
+                    False  # Mark as not done if user adds manually
+                )
+                self.page.update()
+                return  # Exit early, Enter handled
 
     def stem_submit(self, e: ft.ControlEvent):
         self.update_stem(e)
 
     def stem_blur(self, e: ft.ControlEvent):
-        if not self.flag_stem_pattern_done:
+        if not self.flags.stem_pattern_done:
             self.update_stem(e)
-            self.flag_stem_pattern_done = True
+            self.flags.stem_pattern_done = True
 
     def update_stem(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_value(e)
+        field, value = self.get_event_field_and_value(e)
         pos = self.get_field("pos").value
         grammar = self.get_field("grammar").value
         lemma_1 = self.get_field("lemma_1").value

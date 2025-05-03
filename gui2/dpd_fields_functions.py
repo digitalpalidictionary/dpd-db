@@ -10,6 +10,19 @@ def clean_lemma_1(lemma_1: str) -> str:
     return re.sub(r" \d.*", "", lemma_1)
 
 
+def increment_lemma_1(lemma_1: str) -> str:
+    """Increments the number at the end of lemma_1 (e.g., word -> word 1, word 1 -> word 2)."""
+
+    match = re.search(r" (\d+)$", lemma_1)
+    if match:
+        num = int(match.group(1))
+        base = lemma_1[: match.start()]
+        return f"{base} {num + 1}"
+    else:
+        # If no number exists, add ' 1'
+        return f"{lemma_1} 2"
+
+
 def clean_root(root_key: str) -> str:
     return re.sub(r" \d.*", "", root_key)
 
@@ -28,7 +41,7 @@ def make_lemma_2(lemma_1: str, pos: str) -> str:
     elif pos == "nt":
         return f"{lemma_clean}ṃ"
     else:
-        return lemma_1
+        return lemma_clean
 
 
 def make_construction(
@@ -345,6 +358,8 @@ def clean_text(text: str) -> str:
     text = text.replace("</b>ti", "</b>'ti")
     # fix bold 'ti
     text = text.replace("</b>nti", "n</b>'ti")
+    # fix 'n</b>'ti
+    text = text.replace("'n</b>'ti", "n</b>'ti")
     # fix bold comma
     text = text.replace(",</b>", "</b>,")
     # fix bold stop

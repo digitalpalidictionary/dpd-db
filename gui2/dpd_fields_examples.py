@@ -7,6 +7,7 @@ from tools.cst_source_sutta_example import (
     find_cst_source_sutta_example,
 )
 from tools.sandhi_contraction import SandhiContractionDict
+from gui2.example_stash_manager import ExampleStashManager  # Import the new manager
 from gui2.dpd_fields_functions import clean_example
 
 book_codes: dict[str, str] = {
@@ -123,6 +124,7 @@ class DpdExampleField(ft.Column):
         self.dpd_fields: DpdFields = dpd_fields
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
         self.simple_mode = simple_mode  # Store the flag
+        self.stash_manager = ExampleStashManager()  # Instantiate the stash manager
         super().__init__(
             expand=True,
         )
@@ -194,6 +196,12 @@ class DpdExampleField(ft.Column):
                     ft.ElevatedButton("Clean", on_click=self.click_clean_example),
                     ft.ElevatedButton("Delete", on_click=self.click_delete_example),
                     ft.ElevatedButton("Swap", on_click=self.click_swap_example),
+                    ft.ElevatedButton(
+                        "Stash", on_click=self._click_stash_example
+                    ),  # Add Stash button
+                    ft.ElevatedButton(
+                        "Reload", on_click=self._click_reload_example
+                    ),  # Add Reload button
                 ],
                 spacing=0,
                 alignment=ft.MainAxisAlignment.START,
@@ -409,3 +417,25 @@ class DpdExampleField(ft.Column):
         example.value = ""
 
         self.page.update()
+
+    def _click_stash_example(self, e: ft.ControlEvent):
+        """Stashes the current source, sutta, and example values."""
+        source, sutta, example = self.get_fields()
+        self.stash_manager.stash(
+            source.value or "", sutta.value or "", example.value or ""
+        )
+        self.ui.update_message("Stashed current example data")
+
+    def _click_reload_example(self, e: ft.ControlEvent):
+        """Reloads stashed data into the source, sutta, and example fields."""
+        stashed_data = self.stash_manager.reload()
+        if stashed_data:
+            source_val, sutta_val, example_val = stashed_data
+            source, sutta, example = self.get_fields()
+            source.value = source_val
+            sutta.value = sutta_val
+            example.value = example_val
+            self.page.update()
+            self.ui.update_message("Reloaded stashed example data")
+        else:
+            self.ui.update_message("No stashed data found")

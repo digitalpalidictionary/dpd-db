@@ -39,6 +39,10 @@ class SandhiFindReplaceView(ft.Column):
                         [
                             ft.Text("Find:", width=100),
                             self.find_text,
+                        ]
+                    ),
+                    ft.Row(
+                        [
                             ft.Text("Replace:", width=100),
                             self.replace_text,
                         ]

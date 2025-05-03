@@ -38,7 +38,7 @@ class SandhiContractionFinder:
             "sayissanti",
             "gāmeti",
         ]
-        self._contractions: dict[str, SandhiContrItem] | None = None
+        self._contractions_details: dict[str, SandhiContrItem] | None = None
         self._contractions_simple: SandhiContractionDict
         self._load_or_create_data()
 
@@ -58,12 +58,12 @@ class SandhiContractionFinder:
         """Load cached data or create new if expired"""
 
         if self._should_regenerate():
-            self._make_sandhi_contraction_dict()
+            self._make_sandhi_contractions()
         try:
             self._load_simple_cache()
         except Exception as e:
             pr.red(f"str{e}")
-            self._make_sandhi_contraction_dict()
+            self._make_sandhi_contractions()
 
     def _load_simple_cache(self) -> None:
         """Load the simple contractions data from database"""
@@ -74,7 +74,7 @@ class SandhiContractionFinder:
     def _create_simple_version(self) -> SandhiContractionDict:
         """Create simplified dict of just contractions without IDs"""
 
-        return {k: list(v.contractions) for k, v in self._contractions.items()}
+        return {k: list(v.contractions) for k, v in self._contractions_details.items()}
 
     def _save_simple_version(self) -> None:
         """Save simplified contractions to JSON file"""
@@ -87,16 +87,7 @@ class SandhiContractionFinder:
                 ensure_ascii=False,
             )
 
-    def get_contractions(self) -> dict[str, SandhiContrItem]:
-        """Return the generated sandhi contractions dictionary."""
-
-        if self._contractions:
-            return self._contractions
-        else:
-            self._make_sandhi_contraction_dict()
-            return self._contractions
-
-    def get_contractions_simple(self) -> SandhiContractionDict:
+    def get_sandhi_contractions(self) -> SandhiContractionDict:
         """Return the simple sandhi contractions dictionary."""
         return self._contractions_simple
 
@@ -107,13 +98,13 @@ class SandhiContractionFinder:
 
     def update_contractions(self) -> None:
         """Regenerate and return the contractions dictionary."""
-        self._make_sandhi_contraction_dict()
+        self._make_sandhi_contractions()
 
     def update_contractions_simple(self) -> SandhiContractionDict:
         """Regenerate and return the simple contractions dictionary."""
         pr.green("updating sandhi contractions")
 
-        self._make_sandhi_contraction_dict()
+        self._make_sandhi_contractions()
         pr.yes(len(self._contractions_simple))
 
         return self._contractions_simple
@@ -148,10 +139,16 @@ class SandhiContractionFinder:
             string = string.replace(old, new)
         return string.split(" ")
 
-    def _make_sandhi_contraction_dict(self):
+    def _make_sandhi_contractions(self):
         """Find all sandhi words in db that are split with apostrophes."""
 
-        db = self._db_session.query(DpdHeadword).all()
+        # only include words with meaning_1,
+        # there's some junk in examples without meaning_1
+        db = (
+            self._db_session.query(DpdHeadword)
+            .filter(DpdHeadword.meaning_1 != "")
+            .all()
+        )
         sandhi_contraction_dict: dict[str, SandhiContrItem] = {}
         word_dict: dict[int, set[str]] = {}
 
@@ -197,7 +194,7 @@ class SandhiContractionFinder:
             print("[red]SANDHI ERRORS IN EG1,2,COMM:", end=" ")
             print([x for x in error_list], end=" ")
 
-        self._contractions = sandhi_contraction_dict
+        self._contractions_details = sandhi_contraction_dict
         self._contractions_simple = self._create_simple_version()
         self._save_simple_version()
 
@@ -208,7 +205,7 @@ class SandhiContractionFinder:
         counter = 0
 
         with open(filepath, "w") as f:
-            for key, values in self._contractions.items():
+            for key, values in self._contractions_details.items():
                 if len(values.contractions) > 1 and key not in self._exceptions:
                     f.write(f"{counter}. {key}: \n")
                     for contraction in values.contractions:
@@ -219,7 +216,7 @@ class SandhiContractionFinder:
 
     def run(self) -> None:
         """Execute the full sandhi contraction finding process."""
-        self._make_sandhi_contraction_dict()
+        self._make_sandhi_contractions()
         self._save_to_temp_file()
 
 
@@ -227,7 +224,7 @@ def main() -> None:
     pr.tic()
     finder = SandhiContractionFinder()
     # finder.run()
-    print(len(finder.get_contractions_simple()))
+    print(len(finder.get_sandhi_contractions()))
     # print(len(finder.get_contractions()))
     pr.toc()
 
