@@ -1,66 +1,82 @@
 [
     {
-        "id": 82689,
-        "lemma_1": "bhiṃsati"
+        "id": 82279,
+        "lemma_1": "āpattidiṭṭhi"
     },
     {
-        "id": 50026,
-        "lemma_1": "bhismā"
+        "id": 82280,
+        "lemma_1": "anāpattidiṭṭhi"
     },
     {
-        "id": 51233,
-        "lemma_1": "manussinda"
+        "id": 82281,
+        "lemma_1": "āpattidiṭṭhī"
     },
     {
-        "id": 51345,
-        "lemma_1": "mantetabba"
+        "id": 82292,
+        "lemma_1": "dhammiyāyamāna"
     },
     {
-        "id": 53246,
-        "lemma_1": "metteyya 1"
+        "id": 82297,
+        "lemma_1": "appabala 2"
     },
     {
-        "id": 53305,
-        "lemma_1": "moggalāna"
+        "id": 82301,
+        "lemma_1": "aparipuṇṇakosakoṭṭhāgāra"
     },
     {
-        "id": 55971,
-        "lemma_1": "lehanīya"
+        "id": 82316,
+        "lemma_1": "pariyādinnarūpa"
     },
     {
-        "id": 59596,
-        "lemma_1": "samādāpeti"
+        "id": 20578,
+        "lemma_1": "kalabha"
     },
     {
-        "id": 62871,
-        "lemma_1": "sitapātukamma"
+        "id": 82347,
+        "lemma_1": "saññapana"
     },
     {
-        "id": 64008,
-        "lemma_1": "sunidha"
+        "id": 82349,
+        "lemma_1": "anūpaghātika"
     },
     {
-        "id": 64020,
-        "lemma_1": "sunisedhaṃ"
+        "id": 82360,
+        "lemma_1": "samānādhikaraṇabhāva"
     },
     {
-        "id": 64222,
-        "lemma_1": "subhaṇita"
+        "id": 82365,
+        "lemma_1": "sañjeyyaka"
     },
     {
-        "id": 64529,
-        "lemma_1": "suvaggu"
+        "id": 82698,
+        "lemma_1": "ādheyya 2"
     },
     {
-        "id": 64631,
-        "lemma_1": "suvihata 2"
+        "id": 11699,
+        "lemma_1": "ādheyya"
     },
     {
-        "id": 70510,
-        "lemma_1": "vessī 2"
+        "id": 82697,
+        "lemma_1": "bhisa 2.1"
     },
     {
-        "id": 82688,
-        "lemma_1": "khuddakavatthu"
+        "id": 82381,
+        "lemma_1": "cārikāpaṭikkhepādi"
+    },
+    {
+        "id": 82389,
+        "lemma_1": "pavāraṇāhāraka"
+    },
+    {
+        "id": 82393,
+        "lemma_1": "paṭivisodhaka"
+    },
+    {
+        "id": 82401,
+        "lemma_1": "nipakka"
+    },
+    {
+        "id": 82402,
+        "lemma_1": "vacattha"
     }
 ]
