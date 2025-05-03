@@ -58,6 +58,9 @@ class DpdFields(PopUpMixin):
         # Fetch family sets (ensure db is initialized first if needed)
         family_set_options = self.db.all_family_sets if self.db.all_family_sets else []
 
+        # Fetch plus_case options
+        plus_case_options = self.db.all_plus_cases if self.db.all_plus_cases else []
+
         self.fields = {}
         self.field_containers = {}
 
@@ -86,7 +89,11 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig("verb"),
             FieldConfig("trans"),
-            FieldConfig("plus_case"),
+            FieldConfig(
+                "plus_case",
+                field_type="dropdown",
+                options=plus_case_options,
+            ),
             FieldConfig(
                 "meaning_1",
                 multiline=True,
@@ -576,7 +583,7 @@ class DpdFields(PopUpMixin):
             field.error_text = None
         self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
-            derived_from_field.focus()
+            field.focus()
 
     def meaning_2_change(self, e: ft.ControlEvent):
         field, value = self.get_event_field_and_value(e)

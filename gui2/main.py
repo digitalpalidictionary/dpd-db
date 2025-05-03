@@ -6,6 +6,7 @@ import flet as ft
 from gui2.appbar_updater import AppBarUpdater
 from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
+from gui2.pass2_auto_control import Pass2AutoController  # Import controller
 from gui2.history import HistoryManager
 from gui2.test_manager import GuiTestManager
 from tools.fast_api_utils import start_dpd_server
@@ -17,6 +18,8 @@ class App:
     def __init__(self, page: ft.Page):
         from gui2.pass2_add_view import Pass2AddView
         from gui2.pass1_auto_view import Pass1AutoView
+
+        # Pass2AutoView needs the controller, but controller needs the view. Delay controller init slightly.
         from gui2.pass1_add_view import Pass1AddView
         from gui2.pass2_auto_view import Pass2AutoView
         from gui2.pass2_pre_view import Pass2PreProcessView
@@ -61,11 +64,20 @@ class App:
         # Pre-initialize data needed for GUI dropdowns etc.
         self.db.pre_initialize_gui_data()
 
+        # Instantiate Pass2AutoController *after* db but *before* views that need it
+        # We'll pass the view reference later if needed, but the core logic doesn't need it now.
+        # The Pass2AutoView will set its own controller reference.
+        self.pass2_auto_controller = Pass2AutoController(
+            None, self.db
+        )  # Pass None for UI initially
+
         # Now create views
         self.pass1_auto_view: Pass1AutoView = Pass1AutoView(
             self.page,
             self.db,
         )
+        # Pass1AddView doesn't need Pass2AutoController
+
         self.pass1_add_view: Pass1AddView = Pass1AddView(
             self.page,
             self.db,
@@ -73,19 +85,24 @@ class App:
             self.sandhi_manager,
             self.history_manager,
         )
+        # Pass2PreProcessView doesn't need Pass2AutoController
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page,
             self.db,
             self.daily_log,
         )
+        # Pass2AutoView needs the controller instance
         self.pass2_auto_view: Pass2AutoView = Pass2AutoView(
             self.page,
             self.db,
+            self.pass2_auto_controller,  # Pass the instance
         )
+        # Pass2AddView needs the controller instance
         self.pass2_add_view: Pass2AddView = Pass2AddView(
             self.page,
             self.db,
             self.daily_log,
+            self.pass2_auto_controller,  # Pass the instance
             self.test_manager,
             self.sandhi_manager,
             self.history_manager,

@@ -42,6 +42,7 @@ class DatabaseManager:
         self.all_compound_families: set[str] | None = None
         self.all_root_families: set[str] | None = None
         self.all_word_families: set[str] | None = None
+        self.all_plus_cases: list[str] | None = None  # Add this line
         self.all_compound_types: list[str] | None = None  # Add this line
         self.all_family_sets: list[str] | None = None  # Add this line
 
@@ -69,6 +70,7 @@ class DatabaseManager:
         """Fetches only the data needed for immediate GUI component initialization."""
         self.get_all_compound_types()
         self.get_all_family_sets()
+        self.get_all_plus_cases()
 
     def initialize_db(self):
         self.get_all_lemma_1_and_lemma_clean()
@@ -121,6 +123,16 @@ class DatabaseManager:
         self.all_compound_types = sorted([t[0] for t in types if t[0]])
         # Optionally add an empty string if you want it as a selectable option
         # self.all_compound_types.insert(0, "")
+
+    def get_all_plus_cases(self) -> None:
+        """Gets all unique, non-empty plus_case values from the database, sorted."""
+        cases = (
+            self.db_session.query(DpdHeadword.plus_case)
+            .filter(DpdHeadword.plus_case != "")
+            .distinct()
+            .all()
+        )
+        self.all_plus_cases = sorted([c[0] for c in cases if c[0]])
 
     def get_all_family_sets(self) -> None:
         """Gets all unique family set components from the database, sorted."""
@@ -318,6 +330,9 @@ class DatabaseManager:
 
     def get_headword_by_id_or_lemma(self, user_input: str) -> DpdHeadword | None:
         """Decide where the input is an id or a lemma and query accordingly."""
+
+        # Refresh the session to get the latest data
+        self.new_db_session()
 
         first_character = user_input[0]
 

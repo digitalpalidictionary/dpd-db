@@ -41,7 +41,7 @@ class DpdTextField(ft.TextField):
             on_submit=on_submit,
             on_blur=on_blur,
             min_lines=1,
-            width=2200,
+            width=700,
         )
 
 
@@ -64,6 +64,8 @@ class DpdDropdown(ft.Dropdown):
             on_blur=on_blur,
             editable=True,
             enable_filter=True,
+            width=700,
+            menu_width=200,
         )
 
 

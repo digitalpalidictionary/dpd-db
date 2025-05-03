@@ -10,6 +10,7 @@ from gui2.pass2_file_manager import Pass2AutoFileManager
 from gui2.paths import Gui2Paths
 from gui2.pass2_pre_controller import Pass2PreFileManager
 from tools.deepseek import Deepseek
+from tools.goldendict_tools import open_in_goldendict_os
 from tools.printer import printer as pr
 
 debug = False
@@ -88,12 +89,8 @@ class Pass2AutoController:
         # single word — reset on every loop
         self.processed_count: int = 0
         self._word_in_text: str
-        self._sentence_data: dict
+        self._sentence_data_batch: dict
         self._id: int
-        self._headword: DpdHeadword
-        self._related_words: list[DpdHeadword] | None
-        self._prompt: str
-        self._response_dict: dict[str, str] | None
 
         # flag
         self.stop_flag: bool = False
@@ -119,7 +116,7 @@ class Pass2AutoController:
                 f"{self.processed_count} / {self._pass2_matched_len}"
             )
 
-            for self._word_in_text, self._sentence_data in matched_items:
+            for self._word_in_text, self._sentence_data_batch in matched_items:
                 if self.stop_flag:
                     break
 
@@ -138,104 +135,158 @@ class Pass2AutoController:
         except Exception as e:
             pr.red(f"Error during processing: {e}")
 
-    def _process_single_item(self) -> bool:
-        """Process a single item with all required steps"""
+    def _process_single_item(self) -> None:
+        """
+        Fetches data for a single item from the batch list (_pass2_pre_file_manager.matched)
+        and orchestrates its processing using the core AI function. Handles file management
+        and UI updates specific to batch mode.
+        """
 
         self.ui.update_message(f"processing: {self._word_in_text}")
 
         try:
-            self._id = self._sentence_data["id"]
+            self._id = self._sentence_data_batch["id"]
             headword_in_db = self.db.get_headword_by_id(self._id)
 
             if not headword_in_db:
                 pr.red(f"headword with id {self._id} not found in db")
-                return False
-            self._headword = headword_in_db
+                # Optionally move to failures or skip
+                return
 
-            # FIXME Improve to be more specific, then more general when necessary.
-            self._related_words = self.db.get_related_headwords(self._headword)
+            # Call the core AI processing function
+            response_dict = self._process_headword_with_ai(
+                headword_in_db, self._sentence_data_batch
+            )
 
-            self._make_prompt()
-            response = self._send_prompt()
-            self._response_dict = self._format_response(response)
-
-            if self._response_dict:
-                self._add_sentence_to_response()
-
+            if response_dict:
+                # Update the main auto file
                 self._pass2_auto_file_manager.update_response(
-                    str(self._headword.id),
-                    self._response_dict,
+                    str(headword_in_db.id),
+                    response_dict,
                 )
+                # Move item from matched to processed in the pre-processing file
                 message = self._pass2_pre_file_manager.move_matched_item_to_processed(
                     self._word_in_text
                 )
                 self.ui.update_message(message)
 
+                # Update batch UI
                 self.processed_count += 1
                 self.ui.update_auto_processed_count(
                     f"{self.processed_count} / {self._pass2_matched_len}"
                 )
                 self.ui.update_word_in_text(self._word_in_text)
                 self.ui.update_ai_results(
-                    json.dumps(self._response_dict, indent=4, ensure_ascii=False)
+                    json.dumps(response_dict, indent=4, ensure_ascii=False)
                 )
+                open_in_goldendict_os(self._word_in_text)  # Keep GD lookup for batch
 
                 if debug:
                     temp_file = Path(
                         f"temp/prompts/pass2/{self._word_in_text}_response"
                     )
                     with open(temp_file, "w") as f:
-                        f.write(str(self._response_dict))
-
-                return True
-
-            else:
-                return False
+                        f.write(str(response_dict))
+            # else: Error handled within _process_headword_with_ai or _format_response
 
         except Exception as e:
-            print(f"Error processing {self._word_in_text}: {e}")
-            return False
+            pr.red(f"Error processing {self._word_in_text}: {e}")
+            # Optionally log failure
 
-    def _add_sentence_to_response(self):
-        if self._response_dict:
-            self._response_dict["source_1"] = self._sentence_data["sentence"][0]
-            self._response_dict["sutta_1"] = self._sentence_data["sentence"][1]
-            self._response_dict["example_1"] = self._sentence_data["sentence"][2]
+    # --- Core AI Processing Function ---
+    def _process_headword_with_ai(
+        self, headword: DpdHeadword, sentence_data: Optional[dict] = None
+    ) -> Optional[dict[str, str]]:
+        """
+        Core function to process a single DpdHeadword using AI.
+        Fetches related words, creates prompt, sends to AI, formats response.
+
+        Args:
+            headword: The DpdHeadword object to process.
+            sentence_data: Optional dictionary containing sentence context
+                           (expected format: {"sentence": [source, sutta, example]}).
+
+        Returns:
+            A dictionary with the AI's suggestions, or None if an error occurred.
+        """
+        try:
+            related_words = self.db.get_related_headwords(headword)
+            prompt = self._make_prompt(headword, related_words, sentence_data)
+            raw_response = self._send_prompt(prompt)
+            response_dict = self._format_response(raw_response)
+
+            if response_dict and sentence_data:
+                self._add_sentence_to_response(response_dict, sentence_data)
+
+            return response_dict
+
+        except Exception as e:
+            pr.red(f"Error in _process_headword_with_ai for {headword.lemma_1}: {e}")
+            return None
+
+    # --- Helper Functions (Modified for Parameterization) ---
+
+    def _add_sentence_to_response(self, response_dict: dict, sentence_data: dict):
+        """Adds sentence data to the response dictionary if available."""
+        if (
+            response_dict
+            and sentence_data
+            and "sentence" in sentence_data
+            and len(sentence_data["sentence"]) == 3
+        ):
+            response_dict["source_1"] = sentence_data["sentence"][0]
+            response_dict["sutta_1"] = sentence_data["sentence"][1]
+            response_dict["example_1"] = sentence_data["sentence"][2]
 
     def _make_dict_string(self, headword: DpdHeadword) -> str:
         """Automatically convert DpdHeadword to Python dict string using all fields."""
 
         field_list = []
-        for field in self._fields:
+        for field in self._fields:  # Corrected access to self._fields
             value = getattr(headword, field)
             field_list.append(f"    '{field}': {repr(value)}")
 
         return "{\n" + ",\n".join(field_list) + "\n}"
 
-    def _make_related_word_string(self) -> str:
+    def _make_related_word_string(
+        self, related_words: Optional[list[DpdHeadword]]
+    ) -> str:
         """Format related words list into Python dict string representation."""
 
-        if not self._related_words:
+        if not related_words:
             return "None"
 
         string_list = []
-        for headword in self._related_words:
+        for headword in related_words:
             string_list.append(self._make_dict_string(headword))
 
         return "[\n" + ",\n  ".join(string_list) + "\n]"
 
-    def _make_sentence_string(self) -> str:
+    def _make_sentence_string(self, sentence_data: Optional[dict]) -> str:
+        """Creates a string representation of the sentence context."""
+        if (
+            not sentence_data
+            or "sentence" not in sentence_data
+            or not sentence_data["sentence"]
+        ):
+            return "No contextual sentence provided.\n"
+
         string_list = []
-        for i in self._sentence_data["sentence"]:
+        for i in sentence_data["sentence"]:
             string_list.append(i)
 
         return "\n".join(string_list) + "\n"
 
-    def _make_prompt(self):
+    def _make_prompt(
+        self,
+        headword: DpdHeadword,
+        related_words: Optional[list[DpdHeadword]],
+        sentence_data: Optional[dict],
+    ) -> str:
         """Make a prompt containing all headword data and
         data of related words."""
 
-        self._prompt = f"""
+        prompt = f"""
 # Digital Pāḷi Dictionary Entry
 
 You are an expert in Pāḷi grammar.
@@ -244,7 +295,7 @@ Please complete ALL fields below EXACTLY as shown, filling missing data and corr
 
 PRESERVE the original formatting, field order, and structure.
 
-Add any comments you wish to add to a COMMENTS field at the end of the data.
+Add any comments you wish to add to a `comments` field at the end of the data.
 
 Return ONLY the Python dictionary portion, starting and ending with curly braces, with no additional text or explanations.
 
@@ -252,17 +303,17 @@ Return ONLY the Python dictionary portion, starting and ending with curly braces
 
 ## Headword
 
-{self._headword.lemma_1}
+{headword.lemma_1}
 
-{self._make_dict_string(self._headword)}
+{self._make_dict_string(headword)}
 
 ## Contextual Sentence
 
-{self._make_sentence_string()}
+{self._make_sentence_string(sentence_data)}
 
 ## Related headwords
 
-{self._make_related_word_string()}
+{self._make_related_word_string(related_words)} # Pass related_words explicitly
 
 ---
 
@@ -353,6 +404,7 @@ ve: verbal ending
 
 ## Comments
 - Add your own commentary to this field, not to any other field.
+- Call the field 'comment'
 - Only mention anything relevant or interesting, nothing that is already in other fields. 
 - Explain the meaning according to the contextual sentence. 
 
@@ -363,17 +415,18 @@ ve: verbal ending
 
 """
         if debug:
-            temp_file = Path(f"temp/prompts/pass2/{self._word_in_text}_prompt")
+            temp_file = Path(f"temp/prompts/pass2/{headword.lemma_1}_prompt")
             with open(temp_file, "w") as f:
-                f.write(self._prompt)
+                f.write(prompt)
+        return prompt
 
-    def _send_prompt(self):
+    def _send_prompt(self, prompt: str) -> str:
         ds = Deepseek()
         try:
             response = str(
                 ds.request(
                     model="deepseek-chat",
-                    prompt=self._prompt,
+                    prompt=prompt,
                     prompt_sys="Follow the instructions very carefully.",
                 )
             )
@@ -381,7 +434,7 @@ ve: verbal ending
             start = response.find("{")
             end = response.rfind("}") + 1
             if start != -1 and end != 0:
-                return response[start:end]
+                return response[start:end].strip()  # Added strip()
             return response  # fallback if no dict found
         except Exception as e:
             return str(e)
@@ -407,3 +460,22 @@ ve: verbal ending
                 f.write(response + "\n\n")
 
         return result
+
+    # --- Public Method for Single Word Update ---
+    def process_single_headword_from_view(
+        self,
+        headword: DpdHeadword,
+        # Consider how to get context if needed. For now, none.
+        # sentence_data: Optional[dict] = None
+    ) -> Optional[dict[str, str]]:
+        """
+        Processes a single DpdHeadword provided externally (e.g., from Pass2AddView).
+        Calls the core AI function and returns the result.
+        Does NOT handle file management or UI updates directly, that's the caller's responsibility.
+        """
+        pr.info(f"Processing single headword: {headword.lemma_1} (ID: {headword.id})")
+        # Pass None for sentence_data, or derive it from headword.example_1 etc. if desired
+        response_dict = self._process_headword_with_ai(headword, None)
+        if response_dict:
+            pr.info(f"AI processing successful for {headword.lemma_1}")
+        return response_dict

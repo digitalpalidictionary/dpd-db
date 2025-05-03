@@ -20,6 +20,7 @@ from gui2.dpd_fields_lists import (
 from gui2.history import HistoryManager  # Import HistoryManager
 from gui2.mixins import PopUpMixin
 from gui2.dpd_fields import DpdFields
+from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_file_manager import Pass2AutoFileManager
 
 from gui2.dpd_fields_functions import make_dpd_headword_from_dict, increment_lemma_1
@@ -38,6 +39,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         page: ft.Page,
         db: DatabaseManager,
         daily_log: DailyLog,
+        pass2_auto_controller: Pass2AutoController,
         test_manger,
         sandhi_manager: SandhiContractionFinder,
         history_manager: HistoryManager,  # Add history_manager parameter
@@ -53,12 +55,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.page: ft.Page = page
         self._db = db
         self._daily_log = daily_log
+        self.pass2_auto_controller = pass2_auto_controller
         self.test_manager: GuiTestManager = test_manger
         self.sandhi_manager: SandhiContractionFinder = sandhi_manager
         self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.get_sandhi_contractions()
+            self.sandhi_manager.get_sandhi_contractions_simple()
         )
-        self.history_manager: HistoryManager = history_manager  # Store history_manager
+        self.history_manager: HistoryManager = history_manager
 
         self.dpd_fields: DpdFields
 
@@ -109,6 +112,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.update_sandhi_button = ft.ElevatedButton(
             "Update Sandhi", on_click=self._click_update_sandhi
         )
+        self._update_with_ai_button = ft.ElevatedButton(
+            "Update with AI", on_click=self._click_update_with_ai
+        )
 
         self._history_dropdown = ft.Dropdown(
             hint_text="History",
@@ -141,7 +147,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
             "Add to DB",
             on_click=self._click_add_to_db,
             width=BUTTON_WIDTH,
-            color=ft.Colors.RED,
         )
         self._top_section = ft.Container(
             content=ft.Column(
@@ -154,6 +159,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._next_pass2_auto_button,
                             self._clear_all_button,
                             self.update_sandhi_button,
+                            self._update_with_ai_button,  # Add new button
                             self._history_dropdown,
                         ],
                         spacing=10,
@@ -472,9 +478,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.test_manager.run_all_tests(self, headword)
         # Change button color based on test results
         if self.test_manager.passed:
-            self._add_to_db_button.color = ft.Colors.GREEN  # Change text color
+            self._add_to_db_button.color = ft.Colors.GREEN
         else:
-            self._add_to_db_button.color = ft.Colors.RED
+            self._add_to_db_button.color = None
         self.page.update()
 
     def _click_add_to_db(self, e: ft.ControlEvent):
@@ -548,6 +554,29 @@ class Pass2AddView(ft.Column, PopUpMixin):
         # Reset button color regardless of success or failure
         self._add_to_db_button.color = ft.Colors.RED
         self.page.update()
+
+    def _click_update_with_ai(self, e: ft.ControlEvent):
+        """Handles the 'Update with AI' button click."""
+        current_headword = self.dpd_fields.get_current_headword()
+        if not current_headword or not current_headword.id:
+            self.update_message("Load or create a headword first.")
+            return
+
+        self.update_message(f"Requesting AI update for {current_headword.lemma_1}...")
+
+        # Call the controller's single-word processing method
+        # Pass None for sentence_data for now
+        response_dict = self.pass2_auto_controller.process_single_headword_from_view(
+            current_headword
+        )
+
+        if response_dict:
+            self.dpd_fields.update_add_fields(response_dict)
+            self.update_message(
+                f"AI suggestions loaded for {current_headword.lemma_1}."
+            )
+        else:
+            self.update_message(f"AI update failed for {current_headword.lemma_1}.")
 
     def _click_delete_from_db(self, e: ft.ControlEvent):
         self.dpd_fields.clear_messages()

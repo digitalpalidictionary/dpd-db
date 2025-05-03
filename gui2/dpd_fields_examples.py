@@ -8,6 +8,9 @@ from tools.cst_source_sutta_example import (
 )
 from tools.sandhi_contraction import SandhiContractionDict
 from gui2.example_stash_manager import ExampleStashManager  # Import the new manager
+from gui2.flet_functions import (
+    highlight_word_in_sentence,
+)
 from gui2.dpd_fields_functions import clean_example
 
 book_codes: dict[str, str] = {
@@ -306,7 +309,13 @@ class DpdExampleField(ft.Column):
                         ft.Row(
                             [
                                 ft.Text("", width=30),
-                                ft.Text(example, expand=True, selectable=True),
+                                ft.Text(
+                                    spans=highlight_word_in_sentence(
+                                        self.word_to_find_field.value, example
+                                    ),
+                                    expand=True,
+                                    selectable=True,
+                                ),
                             ]
                         ),
                     ],
