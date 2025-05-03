@@ -40,7 +40,7 @@ class ProgData:
         self.rupth = RuPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
         self.sandhi_finder = SandhiContractionFinder()
-        self.sandhi_contractions = self.sandhi_finder.get_contractions()
+        self.sandhi_contractions = self.sandhi_finder.get_sandhi_contractions_simple()
         self.cf_set: set = load_cf_set()
         self.idioms_set: set = load_idioms_set()
         self.roots_count_dict = make_roots_count_dict(self.db_session)

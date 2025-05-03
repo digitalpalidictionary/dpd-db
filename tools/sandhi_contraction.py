@@ -38,7 +38,7 @@ class SandhiContractionFinder:
             "sayissanti",
             "gāmeti",
         ]
-        self._contractions_details: dict[str, SandhiContrItem] | None = None
+        self._contractions_details: dict[str, SandhiContrItem]
         self._contractions_simple: SandhiContractionDict
         self._load_or_create_data()
 
@@ -87,7 +87,11 @@ class SandhiContractionFinder:
                 ensure_ascii=False,
             )
 
-    def get_sandhi_contractions(self) -> SandhiContractionDict:
+    def get_sandhi_contractions(self) -> dict[str, SandhiContrItem]:
+        """Return the simple sandhi contractions dictionary."""
+        return self._contractions_details
+
+    def get_sandhi_contractions_simple(self) -> SandhiContractionDict:
         """Return the simple sandhi contractions dictionary."""
         return self._contractions_simple
 

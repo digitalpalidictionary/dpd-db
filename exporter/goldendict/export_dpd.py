@@ -45,7 +45,7 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS, INDECLINABLES
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractions
+from tools.sandhi_contraction import SandhiContractionDict
 from tools.superscripter import superscripter_uni
 from tools.utils import RenderedSizes, default_rendered_sizes, list_into_batches
 from tools.utils import sum_rendered_sizes, squash_whitespaces
@@ -107,7 +107,7 @@ class DpdHeadwordDbParts(TypedDict):
 class DpdHeadwordRenderData(TypedDict):
     pth: Union[ProjectPaths, RuPaths]
     word_templates: DpdHeadwordTemplates
-    sandhi_contractions: SandhiContractions
+    sandhi_contractions: SandhiContractionDict
     cf_set: Set[str]
     idioms_set: Set[str]
     make_link: bool
@@ -322,7 +322,7 @@ def render_pali_word_dpd_html(
     synonyms = add_niggahitas(synonyms)
     for synonym in synonyms:
         if synonym in sandhi_contractions:
-            contractions = sandhi_contractions[synonym]["contractions"]
+            contractions = sandhi_contractions[synonym]
             for contraction in contractions:
                 if "'" in contraction:
                     synonyms.append(contraction)
@@ -361,7 +361,7 @@ def generate_dpd_html(
     db_session: Session,
     pth: ProjectPaths,
     rupth: RuPaths,
-    sandhi_contractions: SandhiContractions,
+    sandhi_contractions: SandhiContractionDict,
     cf_set: Set[str],
     idioms_set: set[str],
     make_link=False,
@@ -654,11 +654,7 @@ def render_button_box_templ(
         examples_button = ""
 
     # sbs_example_button
-    if (
-        show_sbs_data
-        and sbs
-        and sbs.needs_sbs_example_button
-    ):
+    if show_sbs_data and sbs and sbs.needs_sbs_example_button:
         sbs_example_button = button_html.format(
             target=f"sbs_example_{i.lemma_1_}", name="SBS"
         )

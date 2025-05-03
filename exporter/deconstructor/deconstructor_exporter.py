@@ -2,8 +2,6 @@
 
 """Export Deconstructor To GoldenDict and MDict formats."""
 
-import re
-from rich import print
 from mako.template import Template
 from minify_html import minify
 
@@ -23,7 +21,7 @@ from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractionFinder
+from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionFinder
 from tools.utils import squash_whitespaces
 
 
@@ -63,7 +61,9 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     deconstructor_db_length: int = len(deconstructor_db)
 
     sandhi_finder = SandhiContractionFinder()
-    sandhi_contractions = sandhi_finder.get_contractions()
+    sandhi_contractions: SandhiContractionDict = (
+        sandhi_finder.get_sandhi_contractions_simple()
+    )
 
     dict_data: list = []
 
@@ -105,7 +105,7 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
             synonyms.extend(i.devanagari_unpack)
             synonyms.extend(i.thai_unpack)
         if i.lookup_key in sandhi_contractions:
-            contractions = sandhi_contractions[i.lookup_key]["contractions"]
+            contractions = sandhi_contractions.get(i.lookup_key, [])
             synonyms.extend(contractions)
 
         dict_data += [
