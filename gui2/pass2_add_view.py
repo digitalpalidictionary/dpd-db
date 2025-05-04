@@ -523,6 +523,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
             new_word = make_dpd_headword_from_dict(field_data)
             committed, message = self._db.add_word_to_db(new_word)
             log_key = "pass2_add"  # It's an add if this block runs
+            # In the 'add' case, the relevant item IS the new_word
+            item_to_history = new_word
 
         if committed:
             request_dpd_server(str(id_value))
@@ -530,15 +532,24 @@ class Pass2AddView(ft.Column, PopUpMixin):
             item_id = (
                 self.headword.id
                 if hasattr(self, "headword") and self.headword
-                else new_word.id
+                else item_to_history.id  # Use item_to_history if self.headword doesn't exist (shouldn't happen in 'update' case)
             )
             item_lemma = (
                 self.headword.lemma_1
                 if hasattr(self, "headword") and self.headword
-                else new_word.lemma_1
+                else item_to_history.lemma_1  # Use item_to_history if self.headword doesn't exist
             )
 
-            # Add to history after successful commit
+            # If we just added a new word, use its details for history
+            if log_key == "pass2_add":
+                item_id = item_to_history.id
+                item_lemma = item_to_history.lemma_1
+            # Otherwise (update case), use self.headword's details (which were updated)
+            else:  # log_key == "pass2_update"
+                item_id = self.headword.id
+                item_lemma = self.headword.lemma_1
+
+            # Add the correctly determined item to history
             was_new_to_history = self.history_manager.add_item(item_id, item_lemma)
 
             if was_new_to_history:  # Only increment log if it was new to history

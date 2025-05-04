@@ -179,7 +179,7 @@ class DpdExampleField(ft.Column):
                 icon=ft.icons.VISIBILITY_OFF_OUTLINED,
                 tooltip="Show Tools",
                 on_click=self._toggle_tools_visibility,
-                icon_color=ft.colors.BLUE_GREY_300,
+                icon_color=ft.Colors.BLUE_GREY_300,
             )
 
             # Search row (initially hidden)
@@ -242,6 +242,17 @@ class DpdExampleField(ft.Column):
     def value(self, value):
         self.text_field.value = value
 
+    @property
+    def error_text(self):
+        """Gets the error text from the internal text field."""
+        return self.text_field.error_text
+
+    @error_text.setter
+    def error_text(self, value):
+        """Sets the error text on the internal text field and updates it."""
+        self.text_field.error_text = value
+        self.text_field.update()  # Update the specific field
+
     # --- Toggle Visibility Handling ---
     def _toggle_tools_visibility(self, e: ft.ControlEvent):
         """Toggles the visibility of the search and action rows."""
@@ -253,6 +264,7 @@ class DpdExampleField(ft.Column):
         if are_visible:
             self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
             self._toggle_tools_button.tooltip = "Hide Tools"
+            self.text_field.focus()
         else:
             self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
             self._toggle_tools_button.tooltip = "Show Tools"

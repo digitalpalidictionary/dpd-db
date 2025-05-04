@@ -41,9 +41,8 @@ class GuiTestManager(PopUpMixin):
             for f in failure_list:
                 if isinstance(f, TestFailure):
                     field = ui.dpd_fields.get_field(f.error_column)
-                    if field:
+                    if field and hasattr(field, "error_text"):
                         field.error_text = f.test_name
-                        field.update()
                 elif isinstance(f, IntegrityFailure):
                     field = ui.dpd_fields.get_field(f.invalid_field_name)
                     ui.update_message(
@@ -159,9 +158,10 @@ class GuiTestManager(PopUpMixin):
             print(f"Cannot add exception for IntegrityFailure: {failure.test_name}")
             self._handle_next_failure(e)  # Move to next
         else:
-            print("Error: current_headword not set.")
-            # Close the popup if headword is missing
-            self._handle_popup_close(e)
+            # If current_headword is not set, still try to move to the next failure
+            # or close if it's the last one, mimicking the "Next" button behavior.
+            print("Error: current_headword not set. Attempting to proceed.")
+            self._handle_next_failure(e)  # Always behave like 'Next'
 
     def _handle_open_test_file(self, e: ft.ControlEvent) -> None:
         """Opens the main db_tests_columns.tsv file in LibreOffice Calc."""

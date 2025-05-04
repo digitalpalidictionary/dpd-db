@@ -112,8 +112,8 @@ class SnackBarMixin:
             duration: How long the SnackBar stays visible in milliseconds (defaults to 4000).
         """
         snackbar = ft.SnackBar(
-            content=ft.Text(message, color=ft.colors.BLACK),
-            bgcolor=ft.colors.BLUE_200,
+            content=ft.Text(message, color=ft.Colors.BLACK),
+            bgcolor=ft.Colors.BLUE_200,
             duration=3000,
         )
         page.open(snackbar)

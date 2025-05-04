@@ -56,6 +56,7 @@ class DpdDropdown(ft.Dropdown):
     ):
         if options is None:  # Check specifically for None, allow empty list
             raise ValueError("Options must be provided for DpdDropdown")
+
         super().__init__(
             expand=True,
             options=[ft.dropdown.Option(o) for o in options],

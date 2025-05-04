@@ -74,6 +74,17 @@ class DpdNotesField(ft.Column):
     def value(self, value):
         self.notes_field.value = value
 
+    @property
+    def error_text(self):
+        """Gets the error text from the internal notes field."""
+        return self.notes_field.error_text
+
+    @error_text.setter
+    def error_text(self, value):
+        """Sets the error text on the internal notes field and updates it."""
+        self.notes_field.error_text = value
+        self.notes_field.update()
+
     def _handle_italicizing_submit(self, e: ft.ControlEvent):
         italic_text = e.control.value
         current_value = self.notes_field.value

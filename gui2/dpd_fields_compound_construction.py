@@ -63,6 +63,17 @@ class DpdCompoundConstructionField(ft.Column):
     def value(self, value):
         self.compound_construction_field.value = value
 
+    @property
+    def error_text(self):
+        """Gets the error text from the internal compound construction field."""
+        return self.compound_construction_field.error_text
+
+    @error_text.setter
+    def error_text(self, value):
+        """Sets the error text on the internal compound construction field and updates it."""
+        self.compound_construction_field.error_text = value
+        self.compound_construction_field.update()
+
     def _handle_bolding_submit(self, e: ft.ControlEvent):
         bold_text = e.control.value
         current_value = self.compound_construction_field.value

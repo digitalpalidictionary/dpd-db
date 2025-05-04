@@ -12,14 +12,16 @@ def clean_lemma_1(lemma_1: str) -> str:
 
 def increment_lemma_1(lemma_1: str) -> str:
     """Increments the number at the end of lemma_1 (e.g., word -> word 1, word 1 -> word 2)."""
-
-    match = re.search(r" (\d+)$", lemma_1)
-    if match:
-        num = int(match.group(1))
-        base = lemma_1[: match.start()]
-        return f"{base} {num + 1}"
+    # Check if the string ends with a digit
+    if lemma_1 and lemma_1[-1].isdigit():
+        # Find the part before the last digit
+        base = lemma_1[:-1]
+        # Get the last digit, increment it
+        last_digit_val = int(lemma_1[-1]) + 1
+        # Combine them back (handles cases like '9' becoming '10')
+        return f"{base}{last_digit_val}"
     else:
-        # If no number exists, add ' 1'
+        # If no digit at the end, add ' 2'
         return f"{lemma_1} 2"
 
 
@@ -326,7 +328,7 @@ def make_compound_construction_from_headword(headword: DpdHeadword) -> str:
     return lemma_clean
 
 
-# !!! add all the plural forms !!!
+# TODO add all the plural forms
 
 
 def make_dpd_headword_from_dict(field_data: dict[str, str]) -> DpdHeadword:
@@ -335,7 +337,13 @@ def make_dpd_headword_from_dict(field_data: dict[str, str]) -> DpdHeadword:
     new_word = DpdHeadword()
     for field_name, value in field_data.items():
         if hasattr(new_word, field_name):
-            setattr(new_word, field_name, value if value is not None else "")
+            processed_value = (
+                value.strip() if isinstance(value, str) else value
+            )  # remove spaces
+            processed_value = (
+                processed_value.replace("  ", " ") if isinstance(value, str) else value
+            )  # remove double spaces
+            setattr(new_word, field_name, processed_value)
     return new_word
 
 

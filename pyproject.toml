@@ -44,6 +44,8 @@ dependencies = [
     "google-generativeai>=0.8.4",
     "gtts>=2.5.4",
     "snakeviz>=2.2.2",
+    "fuzzywuzzy>=0.18.0",
+    "python-levenshtein>=0.27.1",
 ]
 
 [dependency-groups]

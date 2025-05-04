@@ -42,9 +42,10 @@ class DatabaseManager:
         self.all_compound_families: set[str] | None = None
         self.all_root_families: set[str] | None = None
         self.all_word_families: set[str] | None = None
-        self.all_plus_cases: list[str] | None = None  # Add this line
-        self.all_compound_types: list[str] | None = None  # Add this line
-        self.all_family_sets: list[str] | None = None  # Add this line
+        self.all_plus_cases: list[str] | None = None
+        self.all_compound_types: list[str] | None = None
+        self.all_family_sets: list[str] | None = None
+        self.all_verbs: list[str] | None = None
 
         # root signs
         self.root_sign_key: str = ""
@@ -71,6 +72,8 @@ class DatabaseManager:
         self.get_all_compound_types()
         self.get_all_family_sets()
         self.get_all_plus_cases()
+        self.get_all_verbs()
+        self.get_all_roots()
 
     def initialize_db(self):
         self.get_all_lemma_1_and_lemma_clean()
@@ -79,10 +82,9 @@ class DatabaseManager:
         self.get_all_root_families()
         self.get_all_compound_families()
         self.get_all_word_families()
-        # self.get_all_compound_types() # Moved to pre_initialize_gui_data
 
     def get_all_roots(self) -> None:
-        roots = self.db_session.query(DpdRoot.root).all()
+        roots = self.db_session.query(DpdRoot.root).distinct().all()
         self.all_roots = set([root[0] for root in roots])
 
     def get_all_lemma_1_and_lemma_clean(self):
@@ -155,6 +157,18 @@ class DatabaseManager:
 
         self.all_family_sets = sorted(list(unique_components))
         self.all_family_sets.insert(0, "")
+
+    def get_all_verbs(self) -> None:
+        """Gets all unique, non-empty verb values from the database, sorted."""
+
+        verbs = (
+            self.db_session.query(DpdHeadword.verb)
+            .filter(DpdHeadword.verb != "")
+            .distinct()
+            .all()
+        )
+        # Extract strings, filter out None/empty if any slipped through, sort
+        self.all_verbs = sorted([v[0] for v in verbs if v[0]])
 
     # --- PASS1 AUTO ---
 

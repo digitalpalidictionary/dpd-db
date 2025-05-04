@@ -66,7 +66,7 @@ class DpdCommentaryField(ft.Column):
             icon=ft.icons.VISIBILITY_OFF_OUTLINED,
             tooltip="Show Search Tools",
             on_click=self._toggle_tools_visibility,
-            icon_color=ft.colors.BLUE_GREY_300,
+            icon_color=ft.Colors.BLUE_GREY_300,
         )
 
         # Search row (initially hidden)
@@ -102,6 +102,17 @@ class DpdCommentaryField(ft.Column):
     @value.setter
     def value(self, value):
         self.commentary_field.value = value
+
+    @property
+    def error_text(self):
+        """Gets the error text from the internal commentary field."""
+        return self.commentary_field.error_text
+
+    @error_text.setter
+    def error_text(self, value):
+        """Sets the error text on the internal commentary field and updates it."""
+        self.commentary_field.error_text = value
+        self.commentary_field.update()  # Important: Update the specific field
 
     # --- Toggle Visibility Handling ---
 

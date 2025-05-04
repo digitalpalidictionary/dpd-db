@@ -374,4 +374,4 @@ class Pass2PreProcessView(ft.Column):
             return
 
         text = str(text_control.value or "").lower()
-        text_control.color = ft.colors.AMBER if query in text else None
+        text_control.color = ft.Colors.AMBER if query in text else None

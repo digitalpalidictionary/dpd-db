@@ -12,6 +12,7 @@ from gui2.dpd_fields_classes import (
 )
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_compound_construction import DpdCompoundConstructionField
+from gui2.dpd_fields_meaning import DpdMeaningField  # Import the new meaning class
 from gui2.dpd_fields_notes import DpdNotesField  # Import the new class
 from gui2.dpd_fields_flags import Flags
 from gui2.dpd_fields_examples import DpdExampleField
@@ -29,6 +30,7 @@ from gui2.mixins import PopUpMixin
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS  # Import DECLENSIONS
 from tools.sandhi_contraction import SandhiContractionDict
 from tools.spelling import CustomSpellChecker
+from tools.fuzzy_tools import find_closest_matches
 
 
 class DpdFields(PopUpMixin):
@@ -55,11 +57,10 @@ class DpdFields(PopUpMixin):
             self.db.all_compound_types if self.db.all_compound_types else []
         )
 
-        # Fetch family sets (ensure db is initialized first if needed)
-        family_set_options = self.db.all_family_sets if self.db.all_family_sets else []
-
-        # Fetch plus_case options
+        # Fetch all dropdown options
         plus_case_options = self.db.all_plus_cases if self.db.all_plus_cases else []
+        verb_options = self.db.all_verbs if self.db.all_verbs else []
+        root_key_options = sorted(list(self.db.all_roots)) if self.db.all_roots else []
 
         self.fields = {}
         self.field_containers = {}
@@ -74,7 +75,10 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig("lemma_2", on_blur=self.lemma_2_blur),
             FieldConfig(
-                "pos", field_type="dropdown", options=POS, on_blur=self.pos_blur
+                "pos",
+                field_type="dropdown",
+                options=POS,
+                on_blur=self.pos_blur,
             ),
             FieldConfig(
                 "grammar",
@@ -85,30 +89,41 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "neg",
                 field_type="dropdown",
-                options=["neg", "neg x2"],
+                options=[" ", "neg", "neg x2"],
             ),
-            FieldConfig("verb"),
-            FieldConfig("trans"),
+            FieldConfig(
+                "verb",
+                field_type="dropdown",
+                options=[" "] + verb_options,
+            ),
+            FieldConfig(
+                "trans",
+                field_type="dropdown",
+                options=[" ", "trans", "intrans", "ditrans"],
+            ),
             FieldConfig(
                 "plus_case",
                 field_type="dropdown",
-                options=plus_case_options,
+                options=[" "] + plus_case_options,
             ),
             FieldConfig(
                 "meaning_1",
                 multiline=True,
-                on_focus=self.meaning_1_change,
-                on_blur=self.meaning_1_change,
+                field_type="meaning",
             ),
-            FieldConfig("meaning_lit"),
+            FieldConfig(
+                "meaning_lit",
+                field_type="meaning",
+            ),
             FieldConfig(
                 "meaning_2",
                 multiline=True,
-                on_focus=self.meaning_2_change,
-                on_blur=self.meaning_2_change,
+                field_type="meaning",
             ),
             FieldConfig(
                 "root_key",
+                field_type="dropdown",
+                options=[" "] + root_key_options,
                 on_focus=self.root_key_change,
                 on_change=self.root_key_change,
                 on_blur=self.root_key_change,
@@ -140,20 +155,15 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig("family_idioms"),
             FieldConfig(
-                "family_set",
-                field_type="dropdown",
-                options=family_set_options,
-            ),
-            FieldConfig(
                 "construction",
                 multiline=True,
-                on_blur=self.construction_blur,
+                on_focus=self.construction_focus,
                 on_change=self.construction_change,
             ),
             FieldConfig(
                 "derivative",
                 field_type="dropdown",
-                options=["kita", "kicca", "taddhita"],
+                options=[" ", "kita", "kicca", "taddhita"],
                 on_change=self.derivative_change,
             ),
             FieldConfig(
@@ -164,7 +174,7 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "compound_type",
                 field_type="dropdown",
-                options=compound_types_options,
+                options=[" "] + compound_types_options,
                 on_blur=self.compound_type_blur,
             ),
             FieldConfig("compound_construction", field_type="compound_construction"),
@@ -190,7 +200,11 @@ class DpdFields(PopUpMixin):
             FieldConfig("notes", field_type="notes"),
             FieldConfig("cognate"),
             FieldConfig("link"),
-            FieldConfig("origin"),
+            FieldConfig(
+                "family_set",
+                on_blur=self.family_set_blur,
+            ),
+            FieldConfig("origin", on_blur=self.origin_blur),
             FieldConfig("stem", on_submit=self.stem_submit, on_blur=self.stem_blur),
             FieldConfig("pattern"),
             FieldConfig("comment", multiline=True),
@@ -220,6 +234,19 @@ class DpdFields(PopUpMixin):
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_blur=config.on_blur,
+                )
+
+            elif config.field_type == "meaning":  # Add condition for meaning
+                self.fields[config.name] = DpdMeaningField(
+                    self.ui,
+                    field_name=config.name,
+                    dpd_fields=self,
+                    spellchecker=self.spellchecker,  # Pass the spellchecker
+                    on_focus=config.on_focus,  # Pass original handlers if needed by DpdMeaningField
+                    on_change=config.on_change,
+                    on_submit=config.on_submit,
+                    on_blur=config.on_blur,
+                    # multiline is handled internally by DpdMeaningField via DpdTextField
                 )
 
             elif config.field_type == "example":
@@ -409,7 +436,7 @@ class DpdFields(PopUpMixin):
                 or (target == "db" and not name.endswith("_add"))
                 or (target == "add" and name.endswith("_add"))
             ):
-                control.value = ""
+                control.value = None
                 control.error_text = None
 
                 # If it's an _add field, find and disable its button
@@ -566,47 +593,16 @@ class DpdFields(PopUpMixin):
                 derived_from_field.value = derived_from
                 self.flags.derived_from_done = True
                 self.page.update()
-                derived_from_field.focus()
+                # derived_from_field.focus() # Focus might be better handled elsewhere or removed
 
-    def meaning_1_change(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_and_value(e)
-        misspelled = self.spellchecker.check_sentence(value)
-        if misspelled:
-            error_string = ". ".join(
-                [
-                    f"{word}: {', '.join(suggestions)}"
-                    for word, suggestions in misspelled.items()
-                ]
-            )
-            field.error_text = error_string
-        else:
-            field.error_text = None
-        self.page.update()
-        if e.name != "blur":  # only focus on submit, not on blur
-            field.focus()
-
-    def meaning_2_change(self, e: ft.ControlEvent):
-        field, value = self.get_event_field_and_value(e)
-        misspelled = self.spellchecker.check_sentence(value)
-        if misspelled:
-            error_string = ". ".join(
-                [
-                    f"{word}: {', '.join(suggestions)}"
-                    for word, suggestions in misspelled.items()
-                ]
-            )
-            field.error_text = error_string
-        else:
-            field.error_text = None
-        self.page.update()
-        if e.name != "blur":  # only focus on submit, not on blur
-            field.focus()
+    def meaning_lit_change(self, e: ft.ControlEvent):
+        pass  # TODO: Decide if/how to spellcheck meaning_lit
 
     def sanskrit_blur(self, e: ft.ControlEvent) -> None:
         """Get Sanskrit"""
 
         sanskrit_field = self.get_field("sanskrit")
-        if not sanskrit_field.value:
+        if not self.flags.sanskrit_done and not sanskrit_field.value:
             construction = self.get_field("construction").value
             constr_splits = construction.split(" + ")
 
@@ -633,6 +629,7 @@ class DpdFields(PopUpMixin):
             sanskrit = sanskrit.strip()
 
             sanskrit_field.value = sanskrit
+            self.flags.sanskrit_done = True  # Set the flag after auto-filling
             self.page.update()
 
     def root_key_change(self, e: ft.ControlEvent):
@@ -641,15 +638,12 @@ class DpdFields(PopUpMixin):
         field, value = self.get_event_field_and_value(e)
         # test if root key exists
         if value:
-            if value not in self.db.all_roots:
-                field.error_text = f"{value} unknown root"
-                field.focus()
-            else:
+            if value in self.db.all_roots:
                 field.error_text = None
                 field.helper_text = self.db.get_root_string(value)
-        else:
-            field.helper_text = None
-            field.error_text = None
+            else:
+                field.helper_text = None
+                field.error_text = None
         self.page.update()
 
     def root_sign_submit(self, e: ft.ControlEvent):
@@ -761,14 +755,23 @@ class DpdFields(PopUpMixin):
         field, value = self.get_event_field_and_value(e)
         root_key = self.get_field("root_key").value
 
-        # test if in word families
         if value:
             if root_key:
-                field.error_text = "root_key and family_word"
+                field.error_text = "Cannot have both root_key and family_word"
+                field.focus()
             elif " " in value:
                 field.error_text = "family_word contains space"
+                field.focus()
             elif value not in self.db.all_word_families:
-                field.error_text = f"{value}"
+                suggestions = find_closest_matches(
+                    value, list(self.db.all_word_families or []), limit=3
+                )
+                if suggestions:
+                    field.error_text = ", ".join(suggestions)
+                    field.focus()
+                else:
+                    field.error_text = f"Unknown: {value}"
+                    field.focus()
             else:
                 field.error_text = None
         else:
@@ -801,7 +804,41 @@ class DpdFields(PopUpMixin):
             self.page.update()
             self.flags.family_compound_done = True
 
-    def construction_blur(self, e: ft.ControlEvent):
+    def family_set_blur(self, e: ft.ControlEvent):
+        """Validate family_set entries against the known list."""
+        field, value = self.get_event_field_and_value(e)
+        if value:
+            parts = [part.strip() for part in value.split(";") if part.strip()]
+            unknown_parts = []
+            known_sets = self.db.all_family_sets or []
+
+            suggestions_dict = {}
+            for part in parts:
+                if part not in known_sets:
+                    unknown_parts.append(part)
+                    suggestions = find_closest_matches(part, known_sets, limit=3)
+                    if suggestions:
+                        suggestions_dict[part] = suggestions
+
+            if unknown_parts:
+                suggestion_strings = []
+                for p in unknown_parts:
+                    suggestion_strings.extend(suggestions_dict.get(p, []))
+                field.error_text = (
+                    ", ".join(suggestion_strings)
+                    if suggestion_strings
+                    else "Unknown set(s)"
+                )
+                field.focus()
+            else:
+                field.error_text = None
+        else:
+            field.error_text = None
+        self.page.update()
+
+    def construction_focus(self, e: ft.ControlEvent):
+        """Make a construction from the parts."""
+
         field, value = self.get_event_field_and_value(e)
 
         if not value and not self.flags.construction_done:
@@ -844,8 +881,19 @@ class DpdFields(PopUpMixin):
                 field.error_text = None
             self.page.update()
 
+        self.page.update()
+
+    def origin_blur(self, e: ft.ControlEvent):
+        """Set origin to 'pass2' if empty on blur."""
+
+        field, value = self.get_event_field_and_value(e)
+        if not value:
+            field.value = "pass2"
+            self.page.update()
+
     def construction_change(self, e: ft.ControlEvent):
         """Handle change events for the construction field to detect Enter press when field has content."""
+
         field, current_value = self.get_event_field_and_value(e)
 
         # --- Detect if Enter key was the primary change AND field had content before ---
