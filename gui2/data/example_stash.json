@@ -1,12 +1,7 @@
 {
-    "example_1": {
-        "source": "VIN4.1.4",
-        "sutta": "kammakkhandhakaṃ, paṭisāraṇīyakammaṃ",
-        "example": "sā potakaṃ janesi. yadā kho so, bhante, kukkuṭapotako kākavassaṃ vassitu'kāmo hoti, kākakukkuṭī'ti vassati, yadā kukkuṭivassaṃ vassitu'kāmo hoti, <b>kukkuṭikākā</b>'ti vassati."
-    },
     "shared_stash": {
-        "source": "VIN3.9.236",
-        "sutta": "campeyyakkhandhako, ñattivipannakammādikathā",
-        "example": "tena kho pana samayena chabbaggiyā bhikkhū evarūpāni kammāni karonti, adhammena vaggakammaṃ karonti, adhammena samaggakammaṃ karonti, dhammena vaggakammaṃ karonti, dhammapatirūpakena vaggakammaṃ karonti, dhammapatirūpakena samaggakammaṃ karonti, ñattivipannam'pi kammaṃ karonti anussāvanasampannaṃ, anussāvanavipannam'pi"
+        "source": "VIN3.8.209",
+        "sutta": "cīvarakkhandhako, samattiṃsavirecanakathā",
+        "example": "atha kho jīvakassa komārabhaccassa bahi dvārakoṭṭhakā nikkhantassa etadahosi, mayā kho bhagavato samattiṃsāya virecanaṃ dinnaṃ. dos'ābhisanno tathāgatassa kāyo."
     }
 }
