@@ -3,10 +3,16 @@ import flet as ft
 from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.database_manager import DatabaseManager
 from gui2.pass1_auto_controller import Pass1AutoController
+from tools.ai_manager import AIManager
 
 
 class Pass1AutoView(ft.Column):
-    def __init__(self, page: ft.Page, db: DatabaseManager) -> None:
+    def __init__(
+        self,
+        page: ft.Page,
+        db: DatabaseManager,
+        ai_manager: AIManager,
+    ) -> None:
         super().__init__(
             scroll=ft.ScrollMode.AUTO,
             expand=True,
@@ -14,7 +20,7 @@ class Pass1AutoView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = Pass1AutoController(self, db)
+        self.controller = Pass1AutoController(self, db, ai_manager)
 
         # Define constants
         LABEL_WIDTH: int = 150

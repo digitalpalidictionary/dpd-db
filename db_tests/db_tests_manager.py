@@ -89,9 +89,9 @@ class InternalTestRow:
             self.iterations: int = int(iterations)
         except (ValueError, TypeError) as e:
             pr.red(
-                f"Invalid iterations value for test '{test_name}': {iterations} - {e}. Setting to 0."
+                f"Invalid iterations value for test '{test_name}': {iterations} - {e}. Setting to 10."
             )
-            self.iterations = 0
+            self.iterations = 10
 
     def __repr__(self) -> str:
         return f"InternalTestRow: {self.test_name}"
@@ -273,10 +273,11 @@ class DbTestManager:
         Returns `False` and a list of failures if not.
 
         """
-
-        # dont run the test if there's an integrity failure
-        if not self.integrity_ok:
-            return False, self.integrity_failures
+        # Load and check integrity
+        self.internal_tests_list = self.load_tests()
+        integrity_ok, integrity_failures = self.integrity_check()
+        if not integrity_ok:
+            return False, integrity_failures
 
         error_list: list[TestFailure] = []
         for counter, test in enumerate(
@@ -328,7 +329,6 @@ class DbTestManager:
                             row_dict[field] = value
 
                     writer.writerow(row_dict)
-            # Removed pr.info success message for minimal output
         except IOError as e:
             pr.red(f"Error saving tests to {self.tests_path}: {e}")
         except Exception as e:

@@ -3,6 +3,7 @@ import flet as ft
 
 # Import the backup function and ProjectPaths
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
+from tools.ai_manager import AIManager
 from tools.paths import ProjectPaths  # Import ProjectPaths
 from db.models import DpdHeadword
 from gui2.daily_log import DailyLog
@@ -39,10 +40,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         page: ft.Page,
         db: DatabaseManager,
         daily_log: DailyLog,
-        pass2_auto_controller: Pass2AutoController,
         test_manger,
         sandhi_manager: SandhiContractionFinder,
-        history_manager: HistoryManager,  # Add history_manager parameter
+        history_manager: HistoryManager,
+        ai_manager: AIManager,
     ) -> None:
         # Main container column - does not scroll, expands vertically
         super().__init__(
@@ -55,7 +56,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.page: ft.Page = page
         self._db = db
         self._daily_log = daily_log
-        self.pass2_auto_controller = pass2_auto_controller
+        self.pass2_auto_controller = Pass2AutoController(self, db, ai_manager)
         self.test_manager: GuiTestManager = test_manger
         self.sandhi_manager: SandhiContractionFinder = sandhi_manager
         self.sandhi_dict: SandhiContractionDict = (
@@ -113,7 +114,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             "Update Sandhi", on_click=self._click_update_sandhi
         )
         self._update_with_ai_button = ft.ElevatedButton(
-            "Update with AI", on_click=self._click_update_with_ai
+            "AiAutofill", on_click=self._click_update_with_ai
         )
 
         self._history_dropdown = ft.Dropdown(
@@ -200,7 +201,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                 on_hover=self._on_delete_hover,
                             ),
                             ft.ElevatedButton(
-                                "Backup DB",
+                                "Backup & Quit",
                                 on_click=self._click_backup_db,
                                 width=BUTTON_WIDTH,
                             ),  # Add backup button here
@@ -236,7 +237,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             example_2_field: DpdExampleField = self.dpd_fields.get_field("example_2")
             example_2_field.word_to_find_field.value = self.headword.lemma_clean[:-1]
-            example_2_field.bold_field.value = self.headword.lemma_clean[:-1]
 
             commentary_field: DpdCommentaryField = self.dpd_fields.get_field(
                 "commentary"
@@ -473,96 +473,95 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _click_run_tests(self, e: ft.ControlEvent):
         """Run tests on current field values"""
 
-        self.dpd_fields.clear_messages()
-        headword = self.dpd_fields.get_current_headword()
-        self.test_manager.run_all_tests(self, headword)
-        # Change button color based on test results
-        if self.test_manager.passed:
-            self._add_to_db_button.color = ft.Colors.GREEN
+        # Get the lemma_1 field and its value first
+        lemma_1_field = self.dpd_fields.get_field("lemma_1")
+        lemma_1_value = lemma_1_field.value if lemma_1_field else None
+
+        # Check if lemma_1 has a value
+        if lemma_1_value and str(lemma_1_value).strip():
+            # lemma_1 has a value, proceed to get headword and run tests
+            headword = (
+                self.dpd_fields.get_current_headword()
+            )  # Now we expect this to succeed
+            if (
+                headword
+            ):  # Double check just in case get_current_headword has other failure modes
+                self.dpd_fields.clear_messages()
+                self.test_manager.run_all_tests(self, headword)
+                # Change button color based on test results
+                if hasattr(self.test_manager, "passed") and self.test_manager.passed:
+                    self._add_to_db_button.color = ft.Colors.GREEN
+                else:
+                    self._add_to_db_button.color = None
+            else:
+                # Should ideally not happen if lemma_1 has value, but handle defensively
+                self.update_message("Error creating headword")
+                self._add_to_db_button.color = None
         else:
+            # No lemma_1 value, open the test file instead
+            self.update_message("Opening tests TSV...")
+            self.test_manager._handle_open_test_file(e)
             self._add_to_db_button.color = None
         self.page.update()
 
     def _click_add_to_db(self, e: ft.ControlEvent):
-        id_field = self.dpd_fields.fields.get("id")
-        id_value: int | None = int(id_field.value) if id_field else None
+        """Add the word to db, or update in db."""
+
+        word_to_save = self.dpd_fields.get_current_headword()
 
         if (
             hasattr(self, "headword")
             and self.headword
             and hasattr(self, "headword_original")
             and self.headword_original
-            and id_value == self.headword_original.id
+            and word_to_save.id
+            == self.headword_original.id  # Compare ID from UI state with original
         ):
-            # Update existing word
-            for field_name, field in self.dpd_fields.fields.items():
-                if hasattr(self.headword, field_name):
-                    setattr(self.headword, field_name, field.value)
-            try:
-                self._db.db_session.commit()
-                committed, message = True, ""
-            except Exception as ex:
-                self._db.db_session.rollback()
-                committed, message = False, str(ex)
+            committed, message = self._db.update_word_in_db(word_to_save)
             log_key = "pass2_update"  # It's an update if this block runs
         else:
-            # Create new word (whether first time or ID changed)
-            # Get data *before* making the object
-            field_data = {
-                # Use field.value directly, assuming it's the correct type or None
-                field_name: field.value
-                for field_name, field in self.dpd_fields.fields.items()
-                if hasattr(DpdHeadword, field_name)
-            }
-            # Ensure ID is correctly handled if it was changed manually
-            if id_field and id_field.value:
-                try:
-                    field_data["id"] = int(id_field.value)
-                except ValueError:
-                    field_data["id"] = None  # Or handle error appropriately
-            new_word = make_dpd_headword_from_dict(field_data)
-            committed, message = self._db.add_word_to_db(new_word)
-            log_key = "pass2_add"  # It's an add if this block runs
-            # In the 'add' case, the relevant item IS the new_word
-            item_to_history = new_word
+            committed, message = self._db.add_word_to_db(word_to_save)
+            log_key = "pass2_add"
+            item_to_history = word_to_save
 
         if committed:
-            request_dpd_server(str(id_value))
-            # Determine which item was added/updated for history
+            request_dpd_server(str(word_to_save.id))
             item_id = (
                 self.headword.id
                 if hasattr(self, "headword") and self.headword
-                else item_to_history.id  # Use item_to_history if self.headword doesn't exist (shouldn't happen in 'update' case)
+                else item_to_history.id
             )
             item_lemma = (
                 self.headword.lemma_1
                 if hasattr(self, "headword") and self.headword
-                else item_to_history.lemma_1  # Use item_to_history if self.headword doesn't exist
+                else item_to_history.lemma_1
             )
 
-            # If we just added a new word, use its details for history
             if log_key == "pass2_add":
                 item_id = item_to_history.id
                 item_lemma = item_to_history.lemma_1
-            # Otherwise (update case), use self.headword's details (which were updated)
-            else:  # log_key == "pass2_update"
+            else:
                 item_id = self.headword.id
                 item_lemma = self.headword.lemma_1
 
-            # Add the correctly determined item to history
             was_new_to_history = self.history_manager.add_item(item_id, item_lemma)
 
-            if was_new_to_history:  # Only increment log if it was new to history
-                self._daily_log.increment(log_key)  # Use the determined log key
+            if was_new_to_history:
+                self._daily_log.increment(log_key)
 
-            self._update_history_dropdown()  # Refresh dropdown
-            self.page.update()  # Ensure dropdown update is visible
-            self.clear_all_fields()  # Clear fields AFTER history update
+            if item_id is not None:
+                removed_from_auto = self._pass2_auto_file_manager.remove_response(
+                    str(item_id)
+                )
+                if removed_from_auto:
+                    self.update_message(f"Removed ID {item_id} from pass2_auto.json")
+
+            self._update_history_dropdown()
+            self.page.update()
+            self.clear_all_fields()
         else:
-            # Update message but don't clear fields on failure
             self.update_message(f"Commit failed: {message}")
 
-        # Reset button color regardless of success or failure
         self._add_to_db_button.color = ft.Colors.RED
         self.page.update()
 
@@ -652,10 +651,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
         pth = ProjectPaths()
 
         self.update_message("Running database backup...")
+
         try:
             # Call the function directly
             backup_dpd_headwords_and_roots(pth)
             self.update_message("Database backup completed successfully.")
+            self.page.window.close()
+
         except Exception as ex:
             self.update_message(f"An unexpected error occurred during backup: {ex}")
             print(f"Backup error: {ex}")  # Log the error to console for debugging

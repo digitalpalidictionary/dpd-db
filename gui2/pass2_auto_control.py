@@ -9,7 +9,7 @@ from gui2.database_manager import DatabaseManager
 from gui2.pass2_file_manager import Pass2AutoFileManager
 from gui2.paths import Gui2Paths
 from gui2.pass2_pre_controller import Pass2PreFileManager
-from tools.deepseek import Deepseek
+from tools.ai_manager import AIManager
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.printer import printer as pr
 
@@ -26,12 +26,14 @@ class Pass2AutoController:
         self,
         ui,
         db_manager: DatabaseManager,
+        ai_manager: AIManager,
     ) -> None:
         from gui2.pass2_auto_view import Pass2AutoView
 
         # globals
-        self.db: DatabaseManager = db_manager
         self.ui: Pass2AutoView = ui
+        self.db: DatabaseManager = db_manager
+        self.ai_manager = ai_manager
 
         # paths
         self._gui2pth = Gui2Paths()
@@ -421,11 +423,9 @@ ve: verbal ending
         return prompt
 
     def _send_prompt(self, prompt: str) -> str:
-        ds = Deepseek()
         try:
             response = str(
-                ds.request(
-                    model="deepseek-chat",
+                self.ai_manager.request(
                     prompt=prompt,
                     prompt_sys="Follow the instructions very carefully.",
                 )

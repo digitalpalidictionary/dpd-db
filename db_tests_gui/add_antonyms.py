@@ -11,7 +11,7 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from db_tests.helpers import (
+from db_tests.old_tests_DELETE import (
     InternalTestRow,
     make_internal_tests_list,
     write_internal_tests_list,

@@ -1,12 +1,16 @@
 import flet as ft
 
 from gui2.database_manager import DatabaseManager
-from gui2.pass2_auto_control import Pass2AutoController  # Keep import for type hint
+from gui2.pass2_auto_control import Pass2AutoController
+from tools.ai_manager import AIManager  # Keep import for type hint
 
 
 class Pass2AutoView(ft.Column):
     def __init__(
-        self, page: ft.Page, db: DatabaseManager, controller: Pass2AutoController
+        self,
+        page: ft.Page,
+        db: DatabaseManager,
+        ai_manager: AIManager,
     ) -> None:
         super().__init__(
             scroll=ft.ScrollMode.AUTO,
@@ -15,8 +19,12 @@ class Pass2AutoView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = controller
-        self.controller.ui = self  # Set the UI reference in the controller
+        self.controller = Pass2AutoController(
+            self,
+            db,
+            ai_manager,
+        )
+        self.controller.ui = self
 
         # Define constants
         LABEL_WIDTH: int = 150

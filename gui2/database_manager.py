@@ -1,6 +1,6 @@
 import re
 from sqlalchemy.orm.session import Session
-from sqlalchemy import desc, func
+from sqlalchemy import desc, func, or_
 
 from db.db_helpers import get_db_session
 from db.models import (
@@ -12,6 +12,7 @@ from db.models import (
     Lookup,
 )
 from gui2.dpd_fields_functions import clean_lemma_1
+from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
 
@@ -482,6 +483,59 @@ class DatabaseManager:
                 return self.family_roots[self.family_root_index]
             else:
                 return ""
+
+    def get_synonyms(
+        self, pos: str, string_of_meanings: str, lemma_1: str
+    ) -> str | None:
+        """Find synonyms based on POS and meaning, excluding the word itself."""
+        if not pos or not string_of_meanings:
+            return None
+
+        # remove brackets
+        string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
+        # split on semicolons
+        list_of_meanings = string_of_meanings.split("; ")
+
+        # remove the number from lemma_1
+        lemma_1_clean = clean_lemma_1(lemma_1)
+
+        # search for similar meanings
+        results = (
+            self.db_session.query(DpdHeadword)
+            .filter(
+                DpdHeadword.pos == pos,
+                or_(
+                    *[
+                        DpdHeadword.meaning_1.like(f"%{meaning}%")
+                        for meaning in list_of_meanings
+                    ]
+                ),
+            )
+            .all()
+        )
+
+        # make a dictionary of all meanings mapped to lemmas
+        meaning_dict = {}
+        for i in results:
+            if i.meaning_1:
+                for meaning in i.meaning_1.split("; "):
+                    meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
+                    if meaning_clean in list_of_meanings:
+                        meaning_dict.setdefault(meaning_clean, set()).add(i.lemma_clean)
+
+        # test if two meanings are the same
+        synonyms_set = set()
+        for key_1 in meaning_dict:
+            for key_2 in meaning_dict:
+                if key_1 != key_2:
+                    intersection = meaning_dict[key_1].intersection(meaning_dict[key_2])
+                    synonyms_set.update(intersection)
+
+        # remove the word itself
+        synonyms_set.discard(lemma_1_clean)
+        return (
+            ", ".join(sorted(synonyms_set, key=pali_sort_key)) if synonyms_set else None
+        )
 
     # --- ---
 

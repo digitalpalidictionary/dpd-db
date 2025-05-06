@@ -18,7 +18,7 @@ class GuiTestManager(PopUpMixin):
 
         self.passed: bool
         self.failure_list: list[TestFailure] | list[IntegrityFailure]
-        self.current_headword = None  # Initialize
+        self.current_headword = None
 
     def run_all_tests(self, ui: Pass2AddView, dpd_headword):
         self.db_test_manager.load_tests()

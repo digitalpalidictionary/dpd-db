@@ -11,6 +11,7 @@ class Flags:
     family_compound_done: bool = field(default=False)
     loaded_from_db: bool = field(default=False)
     sanskrit_done: bool = field(default=False)
+    synonyms_done: bool = field(default=False)
 
     def reset(self):
         """Reset all flags to their default values."""

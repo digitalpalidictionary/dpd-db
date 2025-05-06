@@ -24,7 +24,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         db: DatabaseManager,
         daily_log: DailyLog,
         sandhi_manager: SandhiContractionFinder,
-        history_manager: HistoryManager,  # Add history_manager parameter
+        history_manager: HistoryManager,
     ) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(

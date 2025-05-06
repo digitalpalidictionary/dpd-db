@@ -74,7 +74,11 @@ class DpdCommentaryField(ft.Column):
             [
                 self.search_field_1,
                 self.search_field_2,
-                ft.ElevatedButton("Clear", on_click=self.click_commentary_clear),
+                ft.ElevatedButton(
+                    "Clear",
+                    on_click=self.click_commentary_clear,
+                    on_blur=self._handle_last_control_blur,
+                ),
             ],
             spacing=0,
             visible=False,  # Initially hidden
@@ -134,6 +138,11 @@ class DpdCommentaryField(ft.Column):
             self.commentary_field.focus()
 
         self.page.update()
+
+    def _handle_last_control_blur(self, e: ft.ControlEvent):
+        """Hides the tools if they are visible when the last control loses focus."""
+        if self._search_row.visible:
+            self._toggle_tools_visibility(None)
 
     def click_commentary_search(self, e: ft.ControlEvent):
         self.search_field_1.error_text = None

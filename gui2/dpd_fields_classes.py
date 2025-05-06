@@ -70,14 +70,17 @@ class DpdDropdown(ft.Dropdown):
         )
 
 
-class DpdText(ft.Text):
+class DpdText(ft.TextField):
     def __init__(
         self,
     ):
         super().__init__(
             expand=False,
-            selectable=True,
             color=ft.Colors.GREY_500,
-            size=16,
+            text_size=16,
             width=500,
+            read_only=True,
+            border=ft.InputBorder.NONE,
+            dense=True,
+            multiline=True,
         )

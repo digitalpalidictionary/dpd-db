@@ -31,6 +31,14 @@ class Pass2AutoFileManager:
         self.responses[headword_id] = value
         self.save()
 
+    def remove_response(self, headword_id: str) -> bool:
+        """Removes a response by headword_id and saves."""
+        if headword_id in self.responses:
+            del self.responses[headword_id]
+            self.save()
+            return True
+        return False
+
     def get_responses(self) -> dict[str, dict[str, str]]:
         return self.responses.copy()
 

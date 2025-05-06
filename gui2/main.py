@@ -6,11 +6,12 @@ import flet as ft
 from gui2.appbar_updater import AppBarUpdater
 from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
-from gui2.pass2_auto_control import Pass2AutoController  # Import controller
 from gui2.history import HistoryManager
 from gui2.test_manager import GuiTestManager
 from tools.fast_api_utils import start_dpd_server
+from tools.ai_manager import AIManager
 from tools.sandhi_contraction import SandhiContractionFinder
+from gui2.ai_search import AiSearchPopup
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 
 
@@ -19,7 +20,6 @@ class App:
         from gui2.pass2_add_view import Pass2AddView
         from gui2.pass1_auto_view import Pass1AutoView
 
-        # Pass2AutoView needs the controller, but controller needs the view. Delay controller init slightly.
         from gui2.pass1_add_view import Pass1AddView
         from gui2.pass2_auto_view import Pass2AutoView
         from gui2.pass2_pre_view import Pass2PreProcessView
@@ -36,18 +36,18 @@ class App:
         self.page.vertical_alignment = ft.MainAxisAlignment.START
         self.page.on_keyboard_event = self.on_keyboard
 
-        # Instantiate AppBarUpdater first
+        # Init all the managers
         self.appbar_updater = AppBarUpdater(self.page)
         self.daily_log = DailyLog(self.appbar_updater)
-
-        # Init test manager
         self.test_manager = GuiTestManager()
-
-        # Init Sandhi manager
         self.sandhi_manager = SandhiContractionFinder()
-
-        # Init History manager
         self.history_manager = HistoryManager()
+        self.ai_manager = AIManager()
+        self.global_ai_popup = AiSearchPopup(self.page, self.ai_manager)
+
+        # database init
+        self.db = DatabaseManager()
+        self.db.pre_initialize_gui_data()
 
         page.appbar = ft.AppBar(
             title=ft.Text("dpd gui"),
@@ -58,25 +58,12 @@ class App:
             actions=[ft.Text(self.daily_log.get_counts())],
         )
 
-        # initialize classes
-        self.db = DatabaseManager()
-
-        # Pre-initialize data needed for GUI dropdowns etc.
-        self.db.pre_initialize_gui_data()
-
-        # Instantiate Pass2AutoController *after* db but *before* views that need it
-        # We'll pass the view reference later if needed, but the core logic doesn't need it now.
-        # The Pass2AutoView will set its own controller reference.
-        self.pass2_auto_controller = Pass2AutoController(
-            None, self.db
-        )  # Pass None for UI initially
-
         # Now create views
         self.pass1_auto_view: Pass1AutoView = Pass1AutoView(
             self.page,
             self.db,
+            self.ai_manager,
         )
-        # Pass1AddView doesn't need Pass2AutoController
 
         self.pass1_add_view: Pass1AddView = Pass1AddView(
             self.page,
@@ -85,27 +72,22 @@ class App:
             self.sandhi_manager,
             self.history_manager,
         )
-        # Pass2PreProcessView doesn't need Pass2AutoController
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page,
             self.db,
             self.daily_log,
         )
-        # Pass2AutoView needs the controller instance
         self.pass2_auto_view: Pass2AutoView = Pass2AutoView(
-            self.page,
-            self.db,
-            self.pass2_auto_controller,  # Pass the instance
+            self.page, self.db, self.ai_manager
         )
-        # Pass2AddView needs the controller instance
         self.pass2_add_view: Pass2AddView = Pass2AddView(
             self.page,
             self.db,
             self.daily_log,
-            self.pass2_auto_controller,  # Pass the instance
             self.test_manager,
             self.sandhi_manager,
             self.history_manager,
+            self.ai_manager,
         )
 
         self.sandhi_view = SandhiFindReplaceView(
@@ -118,6 +100,11 @@ class App:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
             self.page.window.close()
+        elif e.key == "A" and e.ctrl and e.shift:
+            self.global_ai_popup.open_popup()
+        elif e.key == "W" and e.ctrl:
+            if self.global_ai_popup.is_dialog_open():
+                self.global_ai_popup.close_dialog()
 
     def tab_clicked(self, e: ft.ControlEvent) -> None:
         """Handles tab clicks."""
@@ -167,7 +154,7 @@ class App:
 
 def main(page: ft.Page) -> None:
     # Enable/disable profiling
-    enable_profiling = False
+    enable_profiling = True
     profile_file = Path("gui2_profile.prof")
 
     if enable_profiling:

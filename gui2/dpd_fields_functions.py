@@ -7,7 +7,7 @@ from tools.sandhi_contraction import SandhiContractionDict
 
 
 def clean_lemma_1(lemma_1: str) -> str:
-    return re.sub(r" \d.*", "", lemma_1)
+    return re.sub(r" \d.*", "", lemma_1).strip()
 
 
 def increment_lemma_1(lemma_1: str) -> str:

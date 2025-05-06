@@ -11,12 +11,17 @@ from gui2.database_manager import DatabaseManager
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
-from tools.deepseek import Deepseek
+from tools.ai_manager import AIManager
 from tools.goldendict_tools import open_in_goldendict_os
 
 
 class Pass1AutoController:
-    def __init__(self, ui, db: DatabaseManager) -> None:
+    def __init__(
+        self,
+        ui,
+        db: DatabaseManager,
+        ai_manager: AIManager,
+    ) -> None:
         from gui2.pass1_auto_view import Pass1AutoView
 
         self.ui: Pass1AutoView = ui
@@ -25,9 +30,11 @@ class Pass1AutoController:
         self.pass1_books_list = [k for k in self.pass1_books]
 
         self.db: DatabaseManager = db
+        self.ai_manager: AIManager = ai_manager
         self.missing_words_dict: dict[str, list[SuttaCentralSegment]] = {}
         self.book: str
         self.cst_books: list[str]
+        self.all_cst_words: list[str] = []
         self.word_in_text: str
         self.sentence_data: list[SuttaCentralSegment]
         self.related_entries_list: list[str] = []
@@ -110,8 +117,11 @@ class Pass1AutoController:
 
         self.ui.update_message("Finding missing words in CST")
 
-        all_cst_words = make_cst_text_list(self.cst_books, dedupe=True)
-        for word in all_cst_words:
+        # just run once, it doesn't change
+        if not self.all_cst_words:
+            self.all_cst_words = make_cst_text_list(self.cst_books, dedupe=True)
+
+        for word in self.all_cst_words:
             if self.is_missing(word):
                 self.missing_words_dict[word] = []
 
@@ -262,13 +272,11 @@ ve: verbal ending
     def send_prompt(self):
         self.ui.update_message(f"sending prompt for {self.word_in_text}")
 
-        ds = Deepseek()
         try:
-            return ds.request(
-                model="deepseek-chat",
-                # mdoel="deepseek-reasoner",
+            return self.ai_manager.request(
                 prompt=self.prompt,
                 prompt_sys="Follow the instructions very carefully.",
+                provider_preference="gemini",
             )
         except Exception as e:
             return e

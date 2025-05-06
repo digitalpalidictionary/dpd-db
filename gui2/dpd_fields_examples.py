@@ -165,7 +165,7 @@ class DpdExampleField(ft.Column):
                 label="word to find",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 on_submit=self._click_search_dialog_ok,
-            )  # Keep on_submit for now, might need adjustment if dialog logic changes
+            )
             self.bold_field = ft.TextField(
                 "",
                 width=240,
@@ -203,15 +203,16 @@ class DpdExampleField(ft.Column):
                         "Stash", on_click=self._click_stash_example
                     ),  # Add Stash button
                     ft.ElevatedButton(
-                        "Reload", on_click=self._click_reload_example
-                    ),  # Add Reload button
+                        "Reload",
+                        on_click=self._click_reload_example,
+                        on_blur=self._handle_last_control_blur,
+                    ),
                 ],
                 spacing=0,
                 alignment=ft.MainAxisAlignment.START,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
                 visible=False,  # Initially hidden
             )
-        # --- End Toggle Visibility Controls ---
 
         self.controls = [
             self.text_field,
@@ -275,7 +276,10 @@ class DpdExampleField(ft.Column):
         """Handles search submission (e.g., from word_to_find_field on_submit)."""
         self.click_book_and_word(e)  # Call the search logic
 
-    # --- End Dialog Handling ---
+    def _handle_last_control_blur(self, e: ft.ControlEvent):
+        """Hides the tools if they are visible when the last control loses focus."""
+        if self._search_row.visible:
+            self._toggle_tools_visibility(None)
 
     def click_book_and_word(self, e: ft.ControlEvent):
         self.word_to_find_field.error_text = None
