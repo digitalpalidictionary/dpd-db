@@ -1,0 +1,4 @@
+HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded with url: /user/balance (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x741ec5269730>: Failed to resolve 'api.deepseek.com' ([Errno -2] Name or service not known)"))
+
+HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded with url: /user/balance (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x741ec12f2870>: Failed to resolve 'api.deepseek.com' ([Errno -2] Name or service not known)"))
+

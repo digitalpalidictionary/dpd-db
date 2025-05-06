@@ -851,7 +851,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ava √ci	avaci	avacinvat, avacetum
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ā √ci	āci	ācaya, ācita, ācinoti, ācinvat
 √ci 1	5		gather, accumulate	√ci	1, 2, 5	gather	ud √ci	ucci	uccaya, uccītvā
-√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	upa √ci	upaci	upacaya, upacita, upacinoti, upcītvā, na + upacīyate
+√ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	upa √ci	upaci	upacaya, upacita, upacita +, upacinoti, upcītvā, na + upacīyate
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	ni √ci	nici	nikāya, nikāya +, nicaya, nicaya +, nicita
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	nī √ci	niści	na + niścaya, naiścitya, niraceṣṭa, niścayitum, niścita, niścitya, niścinoti, niścetum
 √ci 1	5	nā	gather, accumulate	√ci	1, 2, 5	gather	pa √ci	praci	pracinvat, pracinvat (pluck), pracītvā, pracīyate, viceṣyati
@@ -1689,7 +1689,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pis 3	8	*e	speak ill	√pis	7, 10	hurt	nī √pis	niṣpiṣ	naiṣpeṣikatā
 √pih	8	*aya	desire, envy	√spṛh	6, 10	be eager	√pih	spṛh	a, aspṛhālu, spṛhayālu, spṛhayat, spṛhayati, spṛhayamāṇa, spṛhā
 √pī	5	nā	love, please	√prī	9	please	√pī	prī	a + prīti, apriya, niṣprītika, praiya, priya, priyaka, priyatara, priyatā, priyatva, priyā, priyāya, priyāyat, priyāyate, prīti, prītimat, prema, premaṇīya, preman, sa + prītika, supriya
-√pī	5	nā	love, please	√prī	9	please	anu √pī		
+√pī	5	nā	love, please	√prī	9	please	anu √pī		anupriya
 √pī	5	nā	love, please	√prī	9	please	saṃ √pī	samprī	sampriya +, sampriyeṇa
 √pīṇ	8	*e	please, swell	√prī √pī √pyai √pṛṇ √pṝ	9	please	√pīṇ	pṝ	parṇayitum, pārayati, pīna, pīna, pīvan, pyātavya, prīṇa, prīṇana, prīṇita, pṛṇāti
 √pīṇ	8	*e	please, swell	√prī √pī √pyai √pṛṇ √pṝ	9	please	saṃ √pīṇ	sampṝ	
@@ -1715,7 +1715,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	√puñch	proñch	poñchate (bsk), proñchat, proñchana, proñchana +, proñchitavya, proñchitvā
 √puñch	1	*āpe	wipe	pra√uñch √proñch	1, 6	wipe out	ava √puñch	proñch	
 √puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	nī √puñch	proñch	
-√puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	pari √puñch		
+√puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	pari √puñch		pari + proñchat
 √puṭ	1	a	wrap, envelop	√puṭ	6	clasp	√puṭ		puṭa, puṭaka
 √puṭ	1	a	wrap, envelop	√puṭ	6	clasp	saṃ √puṭ		saṃpuṭa
 √puṭh	8	*e	beat, hurt	√sphuṭ	1, 6	burst	√puṭh	sphuṭ	na + sphoṭayat, sphuṭita, sphoṭayat, sphoṭayati, sphoṭayitvā, sphoṭita, sphoṭyate, sphoṭyamāna
@@ -1886,7 +1886,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhad	1	a	be good, be lucky	√bhand	1	be bright	√bhad	bhand	a + bhadra, na + bhadraka, bhadanta, bhaddālin, bhadra, bhadraka, bhadravat, bhadravatī, bhadravatī +, bhadrā, bhadrika, bhallika, su + bhadraka, subhadra, subhadrā
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	√bham	bhram	na + bhrānta, bhramat, bhramati, bhramara, bhramaraka, bhramasva, bhrami, bhramita, bhramitavya, bhrāntvā, bhrāmayati
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	pari √bham	paribhram	paribhramati
-√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	vi √bham	vibhram	vibhramati, vibhramya, vibhrānta, vibhrānta +, vibhrāmaṇa, sambhramati
+√bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	vi √bham	vibhram	vibhramat, vibhramati, vibhramya, vibhrānta, vibhrānta +, vibhrāmaṇa, sambhramati
 √bham	1	a	turn, revolve, buzz	√bhram	1, 4	wander	saṃ √bham	sambhram	vibhramati, sambhrama
 √bhar	1	a	carry, support	√bhṛ	1	bear	√bhar	bhṛ	abhārika + tā, durbhara, durbhara +, bhara, bharaṇa, bharati, bharita, bharitavya, bhartuḥ, bhartre, bhartṛ, bhāra, bhāratara, bhārika, bhārya, bhāryā, bhṛta, bhṛtaka, bhṛti, bhṛtya, sa + bhāryā, su + bhāryā, subhara, subharatva (subhara + -tā), subhṛta
 √bhar	1	a	carry, support	√bhṛ	1	bear	ati √bhar		atibhāra, atibhrita, atibhṛ, atibhṛta
@@ -2127,7 +2127,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √mud	1	a	be soft, be happy	√mud	1	be merry	ā √mud	mud	āmoda
 √mud	1	a	be soft, be happy	√mud	1	be merry	pa √mud	pramud	pramudita, pramoda, pramoda +, pramodate, pramodana, pramodamāna, pramodā, pramodita, prāmodya
 √mud	1	*a	be soft, be happy	√mud	1	be merry	pati saṃ √mud	pratisammud	pratisammodate, pratisammodayamāna
-√mud	1	a	be soft, be happy	√mud	1	be merry	saṃ √mud	sammud	sammuttvā, sammodate, sammodana, sammodanīya, sammodamāna, sumudita
+√mud	1	a	be soft, be happy	√mud	1	be merry	saṃ √mud	sammud	na + sammodika, sammuttvā, sammodate, sammodana, sammodanīya, sammodamāna, sammodika, sumudita
 √mud	1	*a	be soft, be happy	√mud	1	be merry	saṃ anu √mud	anumud	sam + anumod, sam + anumodate
 √mud	1	*a	be soft, be happy	√mud	1	be merry	saṃ pa √mud	pramud	saṃ + pramodate
 √mun	5	nā	think, know	√man	8	think	√mun	man	amata, mauna, maunatā, mauneya, mata, mati, matimat, matvā, manitvā, matya, maniṣyāmi, manute, mantavya, mantṛ, muni, munyai
@@ -2248,7 +2248,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	vi pa √yuj	viprayuj	na + viprayoga, viprayukta, viprayoga
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	vi saṃ √yuj	saṃyuj	visaṃyukta, visaṃyoga, visaṃyojana, visaṃyojayati, su + visaṃyukta
 √yuj	2	*e	yoke, join	√yuj	2, 7	join	saṃ √yuj	saṃyuj	asaṃyukta, asaṃyoga, na + saṃyoga, saha + saṃyojana, saṃyukta, saṃyuktaka (bsk), saṃyuktāgama (bsk), saṃyuga, saṃyujyate, saṃyoga, saṃyojana, saṃyojana +, saṃyojayat, saṃyojayati
-√yuj	2	ṃa	yoke, join	√yuj	2, 7	join	saṃ anu √yuj	samanuyuj	samanuyuktvā, samanuyujyamāna, samanuyuñjat, saṃ + anu + ayaukṣīt
+√yuj	2	ṃa	yoke, join	√yuj	2, 7	join	saṃ anu √yuj	samanuyuj	samanuyuktvā, samanuyujyamāna, samanuyuñjat, samanuyojayana, saṃ + anu + ayaukṣīt
 √yuj	2	*e	yoke, join	√yuj	2, 7	join	saṃ ā √yuj	samāyuj	samāyoga
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	saṃ pa √yuj	samprayuj	samprayujayitvā, samprayoga, samprayojayati, suprayukta
 √yudh	3	ya	fight	√yudh	1, 4	fight	√yudh	yudh	ayuddha, ayudhya, ayodhya, ayodhyā, yuddha, yuddhvā, yudhya, yudhyat, yudhyate, yudhyamāna, yoddhum, yodha, yodhana +, yodhayati, yodhayitvā, yodhin, suyuddha
