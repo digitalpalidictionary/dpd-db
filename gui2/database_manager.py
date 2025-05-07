@@ -9,6 +9,7 @@ from db.models import (
     FamilyCompound,
     FamilyRoot,
     FamilyWord,
+    InflectionTemplates,
     Lookup,
 )
 from gui2.dpd_fields_functions import clean_lemma_1
@@ -47,6 +48,7 @@ class DatabaseManager:
         self.all_compound_types: list[str] | None = None
         self.all_family_sets: list[str] | None = None
         self.all_verbs: list[str] | None = None
+        self.all_patterns: set[str] | None = None
 
         # root signs
         self.root_sign_key: str = ""
@@ -83,6 +85,7 @@ class DatabaseManager:
         self.get_all_root_families()
         self.get_all_compound_families()
         self.get_all_word_families()
+        self.get_all_patterns()
 
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).distinct().all()
@@ -170,6 +173,16 @@ class DatabaseManager:
         )
         # Extract strings, filter out None/empty if any slipped through, sort
         self.all_verbs = sorted([v[0] for v in verbs if v[0]])
+
+    def get_all_patterns(self) -> None:
+        """Gets all unique, non-empty patterns from the InflectionTemplates table."""
+        patterns_query = (
+            self.db_session.query(InflectionTemplates.pattern)
+            .filter(InflectionTemplates.pattern != "")
+            .distinct()
+            .all()
+        )
+        self.all_patterns = set([p[0] for p in patterns_query if p[0]])
 
     # --- PASS1 AUTO ---
 

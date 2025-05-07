@@ -88,7 +88,10 @@ class DpdFields(PopUpMixin):
                 on_submit=self.lemma_1_change,
                 on_blur=self.lemma_1_change,
             ),
-            FieldConfig("lemma_2", on_blur=self.lemma_2_blur),
+            FieldConfig(
+                "lemma_2",
+                on_blur=self.lemma_2_blur,
+            ),
             FieldConfig(
                 "pos",
                 field_type="dropdown",
@@ -126,7 +129,10 @@ class DpdFields(PopUpMixin):
                 multiline=True,
                 field_type="meaning",
             ),
-            FieldConfig("meaning_lit", on_blur=self._handle_generic_spell_check),
+            FieldConfig(
+                "meaning_lit",
+                on_blur=self._handle_generic_spell_check,
+            ),
             FieldConfig(
                 "meaning_2",
                 multiline=True,
@@ -147,7 +153,10 @@ class DpdFields(PopUpMixin):
                 on_submit=self.root_sign_submit,
                 on_blur=self.root_sign_change,
             ),
-            FieldConfig("root_base", on_submit=self.root_base_submit),
+            FieldConfig(
+                "root_base",
+                on_submit=self.root_base_submit,
+            ),
             FieldConfig(
                 "family_root",
                 on_submit=self.family_root_submit,
@@ -157,7 +166,6 @@ class DpdFields(PopUpMixin):
                 "family_word",
                 on_focus=self.family_word_change,
                 on_change=self.family_word_change,
-                on_blur=self.family_word_change,
             ),
             FieldConfig(
                 "family_compound",
@@ -196,7 +204,10 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "non_ia",
             ),
-            FieldConfig("sanskrit", on_blur=self.sanskrit_blur),
+            FieldConfig(
+                "sanskrit",
+                on_blur=self.sanskrit_blur,
+            ),
             FieldConfig("source_1"),
             FieldConfig("sutta_1"),
             FieldConfig("example_1", field_type="example"),
@@ -206,12 +217,19 @@ class DpdFields(PopUpMixin):
             FieldConfig("example_2", field_type="example"),
             FieldConfig("translation_2", multiline=True),
             FieldConfig("antonym"),
-            FieldConfig("synonym", on_focus=self.synonym_focus),
+            FieldConfig(
+                "synonym",
+                on_focus=self.synonym_focus,
+            ),
             FieldConfig("variant"),
             FieldConfig("var_phonetic"),
             FieldConfig("var_text"),
             FieldConfig("commentary", field_type="commentary"),
-            FieldConfig("notes", field_type="notes"),
+            FieldConfig(
+                "notes",
+                field_type="notes",
+                on_change=self._handle_generic_spell_check,
+            ),
             FieldConfig("cognate"),
             FieldConfig("link"),
             FieldConfig(
@@ -219,9 +237,20 @@ class DpdFields(PopUpMixin):
                 field_type="family_set",
                 options=family_set_options,
             ),
-            FieldConfig("origin", on_blur=self.origin_blur),
-            FieldConfig("stem", on_submit=self.stem_submit, on_blur=self.stem_blur),
-            FieldConfig("pattern"),
+            FieldConfig(
+                "origin",
+                on_blur=self.origin_blur,
+            ),
+            FieldConfig(
+                "stem",
+                on_submit=self.stem_submit,
+                on_blur=self.stem_blur,
+            ),
+            FieldConfig(
+                "pattern",
+                on_focus=self.pattern_change,
+                on_change=self.pattern_change,
+            ),
             FieldConfig("comment", multiline=True),
         ]
 
@@ -256,12 +285,11 @@ class DpdFields(PopUpMixin):
                     self.ui,
                     field_name=config.name,
                     dpd_fields=self,
-                    spellchecker=self.spellchecker,  # Pass the spellchecker
-                    on_focus=config.on_focus,  # Pass original handlers if needed by DpdMeaningField
+                    spellchecker=self.spellchecker,
+                    on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,
                     on_blur=config.on_blur,
-                    # multiline is handled internally by DpdMeaningField via DpdTextField
                 )
 
             elif config.field_type == "example":
@@ -274,7 +302,7 @@ class DpdFields(PopUpMixin):
                     on_change=config.on_change,
                     on_submit=config.on_submit,
                     on_blur=config.on_blur,
-                    simple_mode=self.simple_examples,  # Pass the flag
+                    simple_mode=self.simple_examples,
                 )
 
             elif config.field_type == "commentary":
@@ -300,19 +328,18 @@ class DpdFields(PopUpMixin):
                     on_blur=config.on_blur,
                 )
 
-            elif config.field_type == "notes":  # Add condition for notes
+            elif config.field_type == "notes":
                 self.fields[config.name] = DpdNotesField(
                     self.ui,
                     field_name=config.name,
                     dpd_fields=self,
-                    # No sandhi_dict needed for notes
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,
                     on_blur=config.on_blur,
                 )
 
-            elif config.field_type == "family_set":  # Add condition for family_set
+            elif config.field_type == "family_set":
                 self.fields[config.name] = DpdFamilySetField(
                     self.ui,
                     field_name=config.name,
@@ -807,12 +834,17 @@ class DpdFields(PopUpMixin):
         root_key = self.get_field("root_key").value
 
         if value:
+            # Test for root and family_word
             if root_key:
                 field.error_text = "Cannot have both root_key and family_word"
                 field.focus()
+
+            # Test for space
             elif " " in value:
                 field.error_text = "family_word contains space"
                 field.focus()
+
+            # Test if known value
             elif value not in self.db.all_word_families:
                 suggestions = find_closest_matches(
                     value, list(self.db.all_word_families or []), limit=3
@@ -823,6 +855,8 @@ class DpdFields(PopUpMixin):
                 else:
                     field.error_text = f"Unknown: {value}"
                     field.focus()
+
+            # All good
             else:
                 field.error_text = None
         else:
@@ -993,3 +1027,27 @@ class DpdFields(PopUpMixin):
         self.page.update()
         if e.name == "submit":
             field.focus()
+
+    def pattern_change(self, e: ft.ControlEvent) -> None:
+        """Validate pattern against known patterns on blur."""
+
+        field, value = self.get_event_field_and_value(e)
+
+        if value:
+            if self.db.all_patterns is None:
+                self.db.get_all_patterns()
+
+            if value not in (self.db.all_patterns or set()):
+                suggestions = find_closest_matches(
+                    value, list(self.db.all_patterns or []), limit=3
+                )
+                if suggestions:
+                    field.error_text = ", ".join(suggestions)
+                else:
+                    field.error_text = f"Unknown pattern: {value}"
+                field.focus()
+            else:
+                field.error_text = None
+        else:
+            field.error_text = None
+        self.page.update()

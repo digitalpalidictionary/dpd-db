@@ -7,7 +7,7 @@ from tools.cst_source_sutta_example import (
     find_cst_source_sutta_example,
 )
 from tools.sandhi_contraction import SandhiContractionDict
-from gui2.example_stash_manager import ExampleStashManager  # Import the new manager
+from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import (
     highlight_word_in_sentence,
 )
@@ -22,7 +22,7 @@ book_codes: dict[str, str] = {
     # dn
     "DN1 Sīlakkhandhavagga": "dn1",
     "DN2 Mahāvagga": "dn2",
-    "DN3 Cūlavagga": "dn3",
+    "DN3 Pāthikavagga": "dn3",
     # mn
     "MN1 Mūlapaṇṇāsa": "mn1",
     "MN2 Majjhimapaṇṇāsa": "mn2",
@@ -74,31 +74,31 @@ book_codes: dict[str, str] = {
     "ABH5 kathāvatthu": "abh5",
     "ABH6 yamaka": "abh6",
     "ABH7 paṭṭhāna": "abh7",
-    "VINa Aṭṭhakathā": "vina",
     # commentaries
-    "DNa": "dna",
-    "MNa": "mna",
-    "SNa": "sna",
-    "ANa": "ana",
-    "KPa": "kn1a",
-    "DHPa": "kn2a",
-    "UDa": "kn3a",
-    "ITIa": "kn4a",
-    "SNPa": "kn5a",
-    "VVa": "kn6a",
-    "PVa": "kn7a",
-    "THa": "kn8a",
-    "THIa": "kn9a",
-    "APAa": "kn10a",
-    "BVa": "kn12a",
-    "CPa": "kn13a",
-    "JAa": "kn14a",
-    "NIDD1a": "kn15a",
-    "NIDD2a": "kn16a",
-    "PMa": "kn17a",
-    "NPa": "kn19a",
-    "Visuddhimagga": "vism",
-    "Visuddhimagga Ṭīkā": "visma",
+    "VINa Commentary": "vina",
+    "DNa Dīgha Commentary": "dna",
+    "MNa Majjhima Commentary": "mna",
+    "SNa Saṃyutta Commentary": "sna",
+    "ANa Aṅguttara Commentary": "ana",
+    "KPa Khuddakapātha Commentary  ": "kn1a",
+    "DHPa Dhammapada Commentary": "kn2a",
+    "UDa Udāna Commentary": "kn3a",
+    "ITIa Itivuttaka Commentary": "kn4a",
+    "SNPa Suttanipāta Commentary": "kn5a",
+    "VVa Vimānavatthu Commentary": "kn6a",
+    "PVa Petavatthu Commentary": "kn7a",
+    "THa Theragāthā Commentary": "kn8a",
+    "THIa Therigāthā Commentary": "kn9a",
+    "APAa Apadāna Commentary": "kn10a",
+    "BVa Buddhavaṃsa Commentary": "kn12a",
+    "CPa Cariyapitaka Commentary": "kn13a",
+    "JAa Jātaka Commentary": "kn14a",
+    "NIDD1a Mahāniddesa Commentary": "kn15a",
+    "NIDD2a Cūlaniddesa Commentary": "kn16a",
+    "PMa Patisambhidhāmagga Commentary": "kn17a",
+    "NPa Nettipakarana Commentary": "kn19a",
+    "VISM Visuddhimagga": "vism",
+    "VISMa Visuddhimagga Ṭīkā": "visma",
     # aññā
     "abhidhānappadīpikā": "ap",
     "abhidhānappadīpikāṭīkā": "apt",
@@ -116,7 +116,7 @@ class DpdExampleField(ft.Column):
         on_change=None,
         on_submit=None,
         on_blur=None,
-        simple_mode: bool = False,  # Add simple_mode flag
+        simple_mode: bool = False,
     ):
         from gui2.dpd_fields import DpdFields
         from gui2.pass1_add_view import Pass1AddView
@@ -126,12 +126,12 @@ class DpdExampleField(ft.Column):
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
-        self.simple_mode = simple_mode  # Store the flag
-        self.stash_manager = ExampleStashManager()  # Instantiate the stash manager
+        self.simple_mode = simple_mode
+        self.stash_manager = ExampleStashManager()
         super().__init__(
             expand=True,
         )
-        self.page: ft.Page = ui.page  # Assign page AFTER super().__init__
+        self.page: ft.Page = ui.page
 
         self.text_field = DpdTextField(
             name=field_name,
@@ -144,6 +144,17 @@ class DpdExampleField(ft.Column):
 
         # --- Controls for Toggle Visibility ---
         if not self.simple_mode:
+            self.bold_field = ft.TextField(
+                "",
+                width=240,
+                label="bold",
+                label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
+                on_submit=self.click_bold_example,
+                expand=True,
+                dense=True,
+                text_size=12,
+            )
+
             self.book_options = [
                 ft.dropdown.Option(key=item, text=item) for item in book_codes.keys()
             ]
@@ -156,22 +167,14 @@ class DpdExampleField(ft.Column):
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 editable=True,
                 enable_filter=True,
-                # autofocus=True, # Maybe not needed if hidden initially
             )
 
             self.word_to_find_field = ft.TextField(
                 "",
-                width=240,
+                width=300,
                 label="word to find",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 on_submit=self._click_search_dialog_ok,
-            )
-            self.bold_field = ft.TextField(
-                "",
-                width=240,
-                label="bold",
-                label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
-                on_submit=self.click_bold_example,
             )
 
             # Toggle Button
@@ -187,10 +190,9 @@ class DpdExampleField(ft.Column):
                 [
                     self.book_dropdown,
                     self.word_to_find_field,
-                    self.bold_field,
                 ],
                 spacing=0,
-                visible=False,  # Initially hidden
+                visible=False,
             )
 
             # Action buttons row (initially hidden)
@@ -199,9 +201,7 @@ class DpdExampleField(ft.Column):
                     ft.ElevatedButton("Clean", on_click=self.click_clean_example),
                     ft.ElevatedButton("Delete", on_click=self.click_delete_example),
                     ft.ElevatedButton("Swap", on_click=self.click_swap_example),
-                    ft.ElevatedButton(
-                        "Stash", on_click=self._click_stash_example
-                    ),  # Add Stash button
+                    ft.ElevatedButton("Stash", on_click=self._click_stash_example),
                     ft.ElevatedButton(
                         "Reload",
                         on_click=self._click_reload_example,
@@ -211,21 +211,21 @@ class DpdExampleField(ft.Column):
                 spacing=0,
                 alignment=ft.MainAxisAlignment.START,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                visible=False,  # Initially hidden
+                visible=False,
             )
 
-        self.controls = [
-            self.text_field,
-        ]
+        self.controls = []
         # Add toggle button and hidden rows if not in simple mode
         if not self.simple_mode:
-            self.controls.append(
-                ft.Row(
-                    [self._toggle_tools_button]
-                )  # Button in its own row for alignment
-            )
+            self.controls.append(ft.Row([self._toggle_tools_button]))
             self.controls.append(self._search_row)
             self.controls.append(self._actions_row)
+
+        self.controls.append(
+            self.text_field,
+        )
+        if not self.simple_mode:
+            self.controls.append(ft.Row([self.bold_field], spacing=5))
 
         self.spacing = 0
         self.cst_examples: list[CstSourceSuttaExample] = []
@@ -252,12 +252,12 @@ class DpdExampleField(ft.Column):
     def error_text(self, value):
         """Sets the error text on the internal text field and updates it."""
         self.text_field.error_text = value
-        self.text_field.update()  # Update the specific field
+        self.text_field.update()
 
     # --- Toggle Visibility Handling ---
     def _toggle_tools_visibility(self, e: ft.ControlEvent):
         """Toggles the visibility of the search and action rows."""
-        are_visible = not self._search_row.visible  # Check current state
+        are_visible = not self._search_row.visible
         self._search_row.visible = are_visible
         self._actions_row.visible = are_visible
 
@@ -265,16 +265,15 @@ class DpdExampleField(ft.Column):
         if are_visible:
             self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
             self._toggle_tools_button.tooltip = "Hide Tools"
-            self.text_field.focus()
+            self.page.update()
         else:
             self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
             self._toggle_tools_button.tooltip = "Show Tools"
-
         self.page.update()
 
     def _click_search_dialog_ok(self, e: ft.ControlEvent):
         """Handles search submission (e.g., from word_to_find_field on_submit)."""
-        self.click_book_and_word(e)  # Call the search logic
+        self.click_book_and_word(e)
 
     def _handle_last_control_blur(self, e: ft.ControlEvent):
         """Hides the tools if they are visible when the last control loses focus."""
@@ -291,10 +290,9 @@ class DpdExampleField(ft.Column):
             if self.cst_examples:
                 self.choose_example()
             else:
-                self.word_to_find_field.focus()
                 self.word_to_find_field.error_text = "no example found"
-                self.page.update()
         self.word_to_find_field.focus()
+        self.page.update()
 
     def choose_example(self):
         if not self.cst_examples:
@@ -401,6 +399,7 @@ class DpdExampleField(ft.Column):
         bold_word = e.control.value
         if self.value:
             self.value = self.value.replace(bold_word, f"<b>{bold_word}</b>")
+        self.bold_field.focus()
         self.update()
 
     def click_clean_example(self, e: ft.ControlEvent):
