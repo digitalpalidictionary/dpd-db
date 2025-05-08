@@ -402,6 +402,9 @@ class ProjectPaths:
         # identity/fonts
         self.fonts_dir = base_dir / "identity/fonts"
 
+        # gui
+        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
+
         # gui/stash
         self.daily_record_path = base_dir / "gui/stash/daily_record"
         self.example_stash_path = base_dir / "gui/stash/example"
@@ -602,16 +605,11 @@ class ProjectPaths:
         self.template_changed_path = base_dir / "shared_data/changed_templates"
 
         self.user_dict_path = base_dir / "shared_data/user_dictionary.txt"
-        self.uposatha_day_ini = base_dir / "shared_data/uposatha_day.ini"
-        self.sandhi_contractions_simple_path = (
-            base_dir / "shared_data/deconstructor/sandhi_contractions.json"
-        )
 
         self.additions_tsv_path = base_dir / "shared_data/additions.tsv"
         self.additions_pickle_path = base_dir / "shared_data/additions"
         self.corrections_tsv_path = base_dir / "shared_data/corrections.tsv"
         # self.deleted_words_history_pth = base_dir / "shared_data/deleted_words_history.tsv"
-        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
         self.major_change_meaning_history_pth = (
             base_dir / "shared_data/major_change_meaning_history.tsv"
         )
@@ -635,6 +633,13 @@ class ProjectPaths:
 
         # temp
         self.temp_dir = base_dir / "temp/"
+
+        # tools
+        self.sandhi_contractions_simple_path = (
+            base_dir / "tools/sandhi_contractions.json"
+        )
+        self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
+
 
         # db_tests/
         self.internal_tests_path = base_dir / "db_tests/db_tests_columns.tsv"
