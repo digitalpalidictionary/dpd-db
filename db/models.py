@@ -720,13 +720,13 @@ class DpdHeadword(Base):
 
     @property
     def degree_of_completion_html(self) -> str:
-        from tools.meaning_construction import degree_of_completion
+        from tools.degree_of_completion import degree_of_completion
 
         return degree_of_completion(self)
 
     @property
     def degree_of_completion(self) -> str:
-        from tools.meaning_construction import degree_of_completion
+        from tools.degree_of_completion import degree_of_completion
 
         return degree_of_completion(self, html=False)
 

@@ -131,36 +131,3 @@ def clean_construction(construction):
     # remove ??
     construction = re.sub("\\?\\? ", "", construction)
     return construction
-
-
-def degree_of_completion(i: DpdHeadword, html=True):
-    """Return html styled symbol of a word data degree of completion."""
-    if i.meaning_1:
-        if i.source_1:
-            if html:
-                return """<span class="gray">✔</span>"""
-            else:
-                return "✔"
-
-        else:
-            if html:
-                return """<span class="gray">◑</span>"""
-            else:
-                return "◑"
-    else:
-        if html:
-            return """<span class="gray">✘</span>"""
-        else:
-            return "✘"
-
-
-def rus_degree_of_completion(i: DpdHeadword, html=True):
-    """Return html styled symbol of a word data degree of completion with white for those having ru_meaning."""
-    if i.ru:
-        if i.ru.ru_meaning:
-            result = degree_of_completion(i, html).replace(' class="gray"', "")
-            return result
-        else:
-            return degree_of_completion(i, html)
-    else:
-        return degree_of_completion(i, html)

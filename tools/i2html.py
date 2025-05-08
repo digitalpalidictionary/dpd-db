@@ -18,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.meaning_construction import summarize_construction
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
-from tools.meaning_construction import degree_of_completion
+from tools.degree_of_completion import degree_of_completion
 from tools.date_and_time import year_month_day_dash
 from tools.printer import printer as pr
 

@@ -11,7 +11,7 @@ from scripts.build.anki_updater import family_updater
 
 from tools.configger import config_test
 from tools.meaning_construction import clean_construction
-from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
+from tools.degree_of_completion import degree_of_completion, rus_degree_of_completion
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths

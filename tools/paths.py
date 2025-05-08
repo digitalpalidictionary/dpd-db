@@ -613,15 +613,19 @@ class ProjectPaths:
 
         # share/frequency
         self.cst_file_freq = base_dir / "shared_data/frequency/cst_file_freq.json"
+        self.cst_freq_json = base_dir / "shared_data/frequency/cst_freq.json"
         self.cst_wordlist = base_dir / "shared_data/frequency/cst_wordlist.json"
 
         self.bjt_file_freq = base_dir / "shared_data/frequency/bjt_file_freq.json"
+        self.bjt_freq_json = base_dir / "shared_data/frequency/bjt_freq.json"
         self.bjt_wordlist = base_dir / "shared_data/frequency/bjt_wordlist.json"
 
         self.sya_file_freq = base_dir / "shared_data/frequency/sya_file_freq.json"
+        self.sya_freq_json = base_dir / "shared_data/frequency/sya_freq.json"
         self.sya_wordlist = base_dir / "shared_data/frequency/sya_wordlist.json"
 
         self.sc_file_freq = base_dir / "shared_data/frequency/sc_file_freq.json"
+        self.sc_freq_json = base_dir / "shared_data/frequency/sc_freq.json"
         self.sc_wordlist = base_dir / "shared_data/frequency/sc_wordlist.json"
 
         # temp

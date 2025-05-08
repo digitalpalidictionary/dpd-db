@@ -77,7 +77,7 @@ def get_dpd_size(g: GlobalVars) -> None:
 
     for i in g.dpd_db:
         if i.meaning_1:
-            if i.example_1:
+            if i.source_1:
                 total_complete += 1
             else:
                 total_partially_complete += 1
@@ -150,7 +150,7 @@ def get_inflection_size(g: GlobalVars) -> None:
         total_inflections += len(inflections)
         all_inflection_set.update(inflections)
 
-    line4: str = f"{len(all_inflection_set):_} unique inflected forms recognised"
+    line4: str = f"{len(all_inflection_set):_} unique inflected forms recognized"
     line4 = line4.replace("_", " ")
 
     g.line_4_inflections = line4

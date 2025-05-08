@@ -25,7 +25,7 @@ from tools.first_letter import find_first_letter
 from tools.meaning_construction import make_meaning_combo_html
 from tools.meaning_construction import make_grammar_line
 from tools.meaning_construction import summarize_construction
-from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
+from tools.degree_of_completion import degree_of_completion, rus_degree_of_completion
 from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key

@@ -11,7 +11,7 @@ from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword, FamilyIdiom
 
 from tools.configger import config_test
-from tools.meaning_construction import degree_of_completion, rus_degree_of_completion
+from tools.degree_of_completion import degree_of_completion, rus_degree_of_completion
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
