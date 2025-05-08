@@ -279,6 +279,7 @@ table.freq {
 }
 
 .vertical-text {
+    -webkit-writing-mode: vertical-lr;
     writing-mode: vertical-lr;
     text-orientation: upright;
     inline-size: fit-content;
