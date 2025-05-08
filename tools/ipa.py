@@ -10,7 +10,7 @@ from tools.tsv_read_write import write_tsv_dot_dict
 
 class ProgData:
     def __init__(self) -> None:
-        self.file_path: Path = Path("tools/ipa.tsv")
+        self.file_path: Path = Path("shared_data/ipa.tsv")
         self.tsv: list = read_tsv_dot_dict(self.file_path)
         self.uni_to_ipa_dict: dict = self.make_uni_to_ipa_dict(self.tsv)
         self.uni_to_tts_dict: dict = self.make_uni_to_tts_dict(self.tsv)

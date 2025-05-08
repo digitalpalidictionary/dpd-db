@@ -402,16 +402,6 @@ class ProjectPaths:
         # identity/fonts
         self.fonts_dir = base_dir / "identity/fonts"
 
-        # gui
-        self.additions_tsv_path = base_dir / "gui/additions.tsv"
-        self.additions_pickle_path = base_dir / "gui/additions"
-        self.corrections_tsv_path = base_dir / "gui/corrections.tsv"
-        # self.deleted_words_history_pth = base_dir / "gui/deleted_words_history.tsv"
-        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
-        self.major_change_meaning_history_pth = (
-            base_dir / "gui/major_change_meaning_history.tsv"
-        )
-
         # gui/stash
         self.daily_record_path = base_dir / "gui/stash/daily_record"
         self.example_stash_path = base_dir / "gui/stash/example"
@@ -611,6 +601,21 @@ class ProjectPaths:
         self.lookup_to_translit_path = base_dir / "shared_data/lookup_to_translit.json"
         self.template_changed_path = base_dir / "shared_data/changed_templates"
 
+        self.user_dict_path = base_dir / "shared_data/user_dictionary.txt"
+        self.uposatha_day_ini = base_dir / "shared_data/uposatha_day.ini"
+        self.sandhi_contractions_simple_path = (
+            base_dir / "shared_data/deconstructor/sandhi_contractions.json"
+        )
+
+        self.additions_tsv_path = base_dir / "shared_data/additions.tsv"
+        self.additions_pickle_path = base_dir / "shared_data/additions"
+        self.corrections_tsv_path = base_dir / "shared_data/corrections.tsv"
+        # self.deleted_words_history_pth = base_dir / "shared_data/deleted_words_history.tsv"
+        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
+        self.major_change_meaning_history_pth = (
+            base_dir / "shared_data/major_change_meaning_history.tsv"
+        )
+
         # share/frequency
         self.cst_file_freq = base_dir / "shared_data/frequency/cst_file_freq.json"
         self.cst_freq_json = base_dir / "shared_data/frequency/cst_freq.json"
@@ -680,12 +685,6 @@ class ProjectPaths:
         )
         self.add_hyphenations_dict = base_dir / "db_tests_gui/add_hyphenations.json"
 
-        # tools
-        self.user_dict_path = base_dir / "tools/user_dictionary.txt"
-        self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
-        self.sandhi_contractions_simple_path = (
-            base_dir / "tools/sandhi_contractions.json"
-        )
 
         # .. external
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"
