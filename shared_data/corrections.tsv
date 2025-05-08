@@ -3700,8 +3700,82 @@ vimānaṃ āvasām'ahaṃ."	missing
 17310	compound_type	pañcamī tappurisa	compound_construction	ūnak<b>ato</b> + saññī			missing				
 17310	sanskrit	ūnaka + saṃjñin					missing				
 17310	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	atirekatikkhattuṃ codanāya atirekachakkhattuṃ ṭhānena <b>ūnakasaññī</b> abhinipphādeti, nissaggiyaṃ pācittiyaṃ.	missing				
-17295	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, <b>ūnakachakkhattuṃ</b> ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
-17289	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, <b>ūnakachakkhattuṃ</b> ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
-923	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, ūnakachakkhattuṃ ṭhānena, <b>acodiyamāno</b> deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
-17295	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, <b>ūnakatikkhattuṃ</b> codanāya, ūnakachakkhattuṃ ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing		
-39536	source_2	VIN1.4.1.8	sutta_2	upakkhaṭasikkhāpadaṃ	example_2	iminā cīvaracetāpannenā'ti <b>paccupaṭṭhitena</b>.	missing		
+17295	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, <b>ūnakachakkhattuṃ</b> ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing				
+17289	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, <b>ūnakachakkhattuṃ</b> ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing				
+923	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, ūnakatikkhattuṃ codanāya, ūnakachakkhattuṃ ṭhānena, <b>acodiyamāno</b> deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing				
+17295	source_1	VIN1.4.1.10	sutta_1	rājasikkhāpadaṃ	example_1	anāpatti, tikkhattuṃ codanāya, chakkhattuṃ ṭhānena, <b>ūnakatikkhattuṃ</b> codanāya, ūnakachakkhattuṃ ṭhānena, acodiyamāno deti, sāmikā codetvā denti, ummattakassa, ādikammikassā'ti.	missing				
+39536	source_2	VIN1.4.1.8	sutta_2	upakkhaṭasikkhāpadaṃ	example_2	iminā cīvaracetāpannenā'ti <b>paccupaṭṭhitena</b>.	missing				
+21346	source_1	VIN1.4.2.1	sutta_1	kosiyasikkhāpadaṃ	example_1	idaṃ me, bhante, kosiyamissakaṃ santhataṃ <b>kārāpitaṃ</b> nissaggiyaṃ. im'āhaṃ saṅghassa nissajjāmī'ti	missing				
+21346	meaning_1	made; created					missing				
+21346	meaning_lit	caused to do					missing				
+44064	source_1	VIN1.4.2.1	sutta_1	kosiyasikkhāpadaṃ	example_1	parehi vippakataṃ attanā <b>pariyosāpeti</b>, nissaggiyaṃ pācittiyaṃ. parehi vippakataṃ parehi <b>pariyosāpeti</b>, nissaggiyaṃ pācittiyaṃ.	missing				
+44064	plus_case	+acc					missing				
+44064	meaning_1	brings to an end; finishes; concludes					missing				
+44064	meaning_lit	causes to complete all around					missing				
+44064	grammar	pr, caus of pari ava √sā					missing				
+44064	derived_from	pari ava √sā					missing				
+40777	source_2	VIN1.4.2.1	sutta_2	kosiyasikkhāpadaṃ	example_2	aññass'atthāya karoti vā kārāpeti vā, āpatti dukkaṭassa. aññena kataṃ <b>paṭilabhitvā</b> paribhuñjati, āpatti dukkaṭassa.	missing				
+67884	source_2	VIN1.4.2.1	sutta_2	kosiyasikkhāpadaṃ	example_2	anāpatti <b>vitānaṃ</b> vā bhūm'attharaṇaṃ vā sāṇipākāraṃ vā bhisiṃ vā bibbohanaṃ vā karoti, ummattakassa, ādikammikassā'ti.	missing				
+50207	source_2	VIN1.4.2.1	sutta_2	kosiyasikkhāpadaṃ	example_2	anāpatti vitānaṃ vā <b>bhūm'attharaṇaṃ</b> vā sāṇipākāraṃ vā bhisiṃ vā bibbohanaṃ vā karoti, ummattakassa, ādikammikassā'ti.	missing				
+48423	source_1	VIN1.4.2.1	sutta_1	kosiyasikkhāpadaṃ	example_1	anāpatti vitānaṃ vā bhūm'attharaṇaṃ vā sāṇipākāraṃ vā bhisiṃ vā <b>bibbohanaṃ</b> vā karoti, ummattakassa, ādikammikassā'ti.	missing				
+2287	sanskrit	atireka + ṣaḍvārṣikā					missing				
+2287	source_1	VIN1.4.2.4	sutta_1	chabbassasikkhāpadaṃ	example_1	anāpatti chabbassāni karoti, <b>atirekachabbassāni</b> karoti, aññass'atthāya karoti vā kārāpeti vā, aññena kataṃ paṭilabhitvā paribhuñjati, vitānaṃ vā bhūm'attharaṇaṃ vā sāṇipākāraṃ vā bhisiṃ vā bibbohanaṃ vā karoti, bhikkhusammutiyā, ummattakassa, ādikammikassā'ti.	missing				
+2287	compound_type	kammadhāraya	compound_construction	atireka + chabbassa			missing				
+31656	sanskrit	stokam + tara					missing				
+31656	source_1	VIN1.4.2.5	sutta_1	nisīdanasanthatasikkhāpadaṃ	example_1	anāpatti, purāṇasanthatassa sāmantā sugatavidatthiṃ ādiyitvā karoti, alabhanto <b>thokataraṃ</b> ādiyitvā karoti, alabhanto anādiyitvā karoti	missing				
+31656	family_compound	thoka					missing				
+31656	construction	thoka + tara					missing				
+31656	derivative	taddhita	suffix	tara			missing				
+31656	meaning_1	smaller; less; fewer					missing				
+31656	family_word	thoka					missing				
+31656	grammar	adj, compar, from thoka					missing				
+31656	derived_from	thoka					missing				
+5837	sanskrit	antar + triyojana					missing				
+5837	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	dutiyaṃ pādaṃ atikkāmeti, nissaggiyaṃ pācittiyaṃ. <b>antotiyojane</b> ṭhito bahitiyojanaṃ pāteti, nissaggiyaṃ pācittiyaṃ.	missing				
+5837	compound_type	kammadhāraya	compound_construction	anto + tiyojana			missing				
+48083	sanskrit	bahis + triyojana					missing				
+48083	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	dutiyaṃ pādaṃ atikkāmeti, nissaggiyaṃ pācittiyaṃ. antotiyojane ṭhito <b>bahitiyojanaṃ</b> pāteti, nissaggiyaṃ pācittiyaṃ.	missing				
+48083	compound_type	kammadhāraya	compound_construction	bahi + tiyojana			missing				
+39158	source_2	VIN1.4.2.6	sutta_2	eḷakalomasikkhāpadaṃ	example_2	antotiyojane ṭhito bahitiyojanaṃ pāteti, nissaggiyaṃ pācittiyaṃ. aññassa yāne vā bhaṇḍe vā ajānantassa <b>pakkhipitvā</b> tiyojanaṃ atikkāmeti, nissaggiyāni honti. nissajjitabbāni saṅghassa vā gaṇassa vā puggalassa vā.	missing				
+2086	verb	caus					missing				
+2086	root_sign	*e					missing				
+2086	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	imāni me, bhante, eḷakalomāni tiyojanaṃ <b>atikkāmitāni</b> nissaggiyāni. imān'āhaṃ saṅghassa nissajjāmī'ti	missing				
+2086	construction	ati + kāme + ita					missing				
+2086	root_base	√kam + *e > kāme (caus)					missing				
+2086	meaning_1	let pass; taken beyond					missing				
+2086	derivative	kita	suffix	ita			missing				
+2086	grammar	pp of atikkāmeti					missing				
+2086	derived_from	atikkāmeti					missing				
+2294	sanskrit	atireka + triyojana					missing				
+2294	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	<b>atirekatiyojane</b> vematiko atikkāmeti, nissaggiyaṃ pācittiyaṃ. <b>atirekatiyojane</b> ūnakasaññī atikkāmeti, nissaggiyaṃ pācittiyaṃ.	missing				
+2294	compound_type	kammadhāraya	compound_construction	atireka + tiyojana			missing				
+17296	sanskrit	ūnaka + triyojana					missing				
+17296	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	anāpatti tiyojanaṃ harati, <b>ūnakatiyojanaṃ</b> harati, tiyojanaṃ harati'pi, paccāharati'pi, tiyojanaṃ vās'ādhippāyo gantvā tato paraṃ harati, acchinnaṃ paṭilabhitvā harati, nissaṭṭhaṃ paṭilabhitvā harati, aññaṃ harāpeti katabhaṇḍaṃ, ummattakassa, ādikammikassā'ti.	missing				
+17296	compound_type	kammadhāraya	compound_construction	ūnaka + tiyojana			missing				
+67001	sanskrit	vāsa + abhiprāya					missing				
+67001	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	anāpatti tiyojanaṃ harati, ūnakatiyojanaṃ harati, tiyojanaṃ harati'pi, paccāharati'pi, tiyojanaṃ <b>vās'ādhippāyo</b> gantvā tato paraṃ harati	missing				
+67001	compound_type	kammadhāraya	compound_construction	vāsa + adhippāya			missing				
+39477	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	anāpatti tiyojanaṃ harati, ūnakatiyojanaṃ harati, tiyojanaṃ harati'pi, <b>paccāharati'</b>pi, tiyojanaṃ vās'ādhippāyo gantvā tato paraṃ harati	missing				
+39477	meaning_1	brings back; returns					missing				
+71020	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	tiyojanaṃ vās'ādhippāyo gantvā tato paraṃ harati, acchinnaṃ paṭilabhitvā harati, nissaṭṭhaṃ paṭilabhitvā harati, aññaṃ <b>harāpeti</b> katabhaṇḍaṃ, ummattakassa, ādikammikassā'ti.	missing		
+71020	construction	harāpe + ti					missing		
+71020	plus_case	+acc					missing		
+71020	meaning_1	makes carry; gets (someone) take away					missing		
+19639	source_1	VIN1.4.2.6	sutta_1	eḷakalomasikkhāpadaṃ	example_1	tiyojanaṃ vās'ādhippāyo gantvā tato paraṃ harati, acchinnaṃ paṭilabhitvā harati, nissaṭṭhaṃ paṭilabhitvā harati, aññaṃ harāpeti <b>katabhaṇḍaṃ</b>, ummattakassa, ādikammikassā'ti.	missing		
+19639	family_compound	kata bhaṇḍa					missing		
+19639	construction	kata + bhaṇḍa					missing		
+19639	meaning_1	something made into merchandise; finished article					missing		
+19639	grammar	nt, comp					missing		
+19639	compound_type	kammadhāraya	compound_construction	kata + bhaṇḍa			missing		
+19639	derived_from						missing		
+69706	sanskrit	vihāra + vastu + avalokana					missing		
+69706	source_1	VIN1.2.7	sutta_1	vihārakārasikkhāpadaṃ	example_1	ahaṃ, bhante, mahallakaṃ vihāraṃ kattu'kāmo sassāmikaṃ att'uddesaṃ. so'haṃ, bhante, saṅghaṃ <b>vihāravatthuolokanaṃ</b> yācāmī'ti. dutiyam'pi yācitabbā.	missing		
+69706	compound_type	chaṭṭhī tappurisa	compound_construction	vihāravatth<b>uno</b> + olokana			missing		
+69706	meaning_1	inspecting the site of the monastery; looking the grounds of the dwelling					missing		
+38122	source_1	MN62	sutta_1	mahārāhulovādasuttaṃ	example_1	<b>nirodh'ānupassī</b> assasissāmī'ti sikkhati, <b>nirodh'ānupassī</b> passasissāmī'ti sikkhati.	missing		
+68887	source_1	MN62	sutta_1	mahārāhulovādasuttaṃ	example_1	<b>virāg'ānupassī</b> assasissāmī'ti sikkhati, <b>virāg'ānupassī</b> passasissāmī'ti sikkhati.	missing		
+58792	source_1	DN22.2	sutta_1	mahāsatipaṭṭhānasuttaṃ	example_1	<b>sabbakāyapaṭisaṃvedī</b> assasissāmī'ti sikkhati, <b>sabbakāyapaṭisaṃvedī</b> passasissāmī'ti sikkhati.	missing		
+12469	source_2	AN8.79	sutta_2	parihānasuttaṃ	example_2	na kamm'<b>ārāmatā</b>, na bhass'<b>ārāmatā</b>, na nidd'<b>ārāmatā</b>, na saṅgaṇik'<b>ārāmatā</b>, indriyesu guttadvāratā, bhojane mattaññutā, asaṃsagg'<b>ārāmatā</b>, nippapañc'<b>ārāmatā</b>.	missing		
+78011	source_2	VIN PAT SA 11	sutta_2	bhedānuvattakasikkhāpadaṃ	example_2	m'āyasmantānam'pi saṅghabhedo ruccittha, <b>samet</b>'āyasmantānaṃ saṅghena, samaggo hi saṅgho sammodamāno avivadamāno ek'uddeso phāsu viharatī'ti.	missing		
+17732	meaning_1	eleven months					it is all but one month according to Vibhanga		
+77096	source_2	VIN1.4.1.3	sutta_2	tatiyakathinasikkhāpadaṃ	example_2	akālacīvaraṃ nāma anatthate kathine ekādasamāse uppannaṃ, atthate kathine sattamāse uppannaṃ, kāle'pi <b>ādissa</b> dinnaṃ, etaṃ akālacīvaraṃ nāma.	missing		
