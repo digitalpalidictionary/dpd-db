@@ -23,7 +23,6 @@ const niggahitaToggle = document.getElementById("niggahita-toggle");
 const grammarToggle = document.getElementById("grammar-toggle");
 const exampleToggle = document.getElementById("example-toggle");
 const oneButtonToggle = document.getElementById("one-button-toggle");
-// const sbsexampleToggle = document.getElementById("sbs-example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
 var fontSize
@@ -64,37 +63,22 @@ document.addEventListener("DOMContentLoaded", function () {
     language = htmlElement.lang || 'en';
     let startMessage;
 
-    if (language === 'en') {
-        startMessage = `
+    startMessage = `
         <p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
         <p class="message"><b>Double click</b> on any word to search for it.</p>
         <p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
         <p class="message"><b>Refresh</b> the page if you experience any problems.</p>
         <p class="message">
-            <a href="https://docs.dpdict.net/dpdict.html" target="_blank">Click here</a>
+            <a href="https://docs.dpdict.net/webapp/" target="_blank">Click here</a>
             for more details about this website or 
-            <a href="https://docs.dpdict.net/titlepage.html" target="_blank">more information</a>
+            <a href="https://docs.dpdict.net/" target="_blank">more information</a>
             about DPD in general.
         </p>
         <p class="message">Start by <b>double clicking</b> on any word in the list below:</p>
         <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
         `;
-    } else if (language === 'ru') {
-        startMessage = `
-        <p class="message">Ищите слова на пали или русском языке выше, используя символы <b>Unicode</b> или <b>Velthuis</b>.</p>
-        <p class="message"><b>Дважды щелкните</b> на любое слово, чтобы найти его.</p>
-        <p class="message">Настройте <b>параметры</b> в соответствии с вашими предпочтениями.</p>
-        <p class="message"><b>Обновите</b> страницу, если у вас возникли какие-либо проблемы.</p>
-        <p class="message">
-            <a href="https://digitalpalidictionary.github.io/rus/dpdict.html" target="_blank">Нажмите здесь</a>,
-            чтобы узнать больше о данном веб-сайте, или 
-            <a href="https://digitalpalidictionary.github.io/rus/" target="_blank">больше информации</a>
-            о DPD в целом.
-        </p>
-        <p class="message">Начните с <b>двойного щелчка</b> по любому слову в списке ниже:</p>
-        <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
-        `;
-    }
+    
+
 
     if (dpdResults.innerHTML.trim() === "") {
         dpdResults.innerHTML = startMessage;
@@ -108,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
     loadToggleState("grammar-toggle");
     loadToggleState("example-toggle");
     loadToggleState("one-button-toggle");
-    // loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
     loadFontSize();
@@ -232,34 +215,35 @@ function decreaseFontSize() {
 
 
 function changeLanguage(lang) {
-    // Get current URL and path
-    const currentUrl = window.location.href;
-    const url = new URL(currentUrl);
-    let path = url.pathname;
+    const currentUrl = new URL(window.location.href);
+    const hostname = currentUrl.hostname;
+    const pathname = currentUrl.pathname;
+    const search = currentUrl.search;
+    const protocol = currentUrl.protocol; // e.g., 'https:'
+    const port = currentUrl.port;         // Get the port (e.g., '8080')
 
-    // Handle language switching
-    if (lang === 'en') {
-        // Remove any language prefix
-        path = path.replace(/^\/[a-z][a-z](\/|$)/, '/');
-    } else if (lang === 'ru') {
-        // If start with /bd remove it
-        if (path.startsWith('/bd')) {
-            path = path.replace(/^\/[a-z][a-z](\/|$)/, '/');
+    let newHostname = hostname;
+
+    if (lang === 'ru') {
+        // Add ru. prefix if not already present
+        if (!hostname.startsWith('ru.')) {
+            newHostname = `ru.${hostname}`;
         }
-        // Add ru prefix if not already present
-        else if (!path.startsWith('/ru')) {
-            path = `/ru${path}`;
+    } else if (lang === 'en') {
+        // Remove ru. prefix if present
+        if (hostname.startsWith('ru.')) {
+            newHostname = hostname.substring(3); // Remove 'ru.'
         }
     }
 
-    // Preserve query parameters
-    const search = url.search;
-
-    // Construct new URL
-    const newUrl = `${url.origin}${path}${search}`;
-
-    // Redirect
-    window.location.href = newUrl;
+    // Only redirect if the hostname actually changed
+    if (newHostname !== hostname) {
+        // Construct new URL, including the port if it exists
+        const portString = port ? `:${port}` : ''; // Add colon only if port exists
+        const newUrl = `${protocol}//${newHostname}${portString}${pathname}${search}`;
+        // Redirect
+        window.location.href = newUrl;
+    }
 }
 
 //// enter or click button to search 
@@ -277,11 +261,8 @@ async function handleFormSubmit(event) {
     if (searchQuery.trim() !== "") {
         try {
             addToHistory(searchQuery);
-            // Adjust the search URL based on the current language
             let searchUrl = '/search_json';
-            if (language === 'ru') {
-                searchUrl = '/ru/search_json';
-            }
+
             const response = await fetch(`${searchUrl}?q=${encodeURIComponent(searchQuery)}`);
             const data = await response.json();
 
@@ -332,17 +313,6 @@ async function handleFormSubmit(event) {
                 });
             };
 
-            // //// sbs example button toggle
-            // if (sbsexampleToggle.checked) {
-            //     const sbsexampleButtons = dpdDiv.querySelectorAll('[name="sbs-example-button"]');
-            //     const sbsexampleDivs = dpdDiv.querySelectorAll('[name="sbs-example-div"]');
-            //     sbsexampleButtons.forEach(button => {
-            //         button.classList.add("active");
-            //     });
-            //     sbsexampleDivs.forEach(div => {
-            //         div.classList.remove("hidden");
-            //     });
-            // };
 
             dpdResults.innerHTML = dpdDiv.innerHTML;
             dpdResultsContent = dpdDiv.innerHTML;
@@ -449,7 +419,6 @@ niggahitaToggle.addEventListener("change", saveToggleState);
 grammarToggle.addEventListener("change", saveToggleState);
 exampleToggle.addEventListener("change", saveToggleState);
 oneButtonToggle.addEventListener("change", saveToggleState);
-// sbsexampleToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
 
@@ -564,27 +533,6 @@ exampleToggle.addEventListener("change", function () {
     }
 });
 
-
-// //// sbs examples button toggle
-// sbsexampleToggle.addEventListener("change", function() {
-//     const sbsexampleButtons = document.getElementsByName("sbs-example-button");
-//     const sbsexampleDivs = document.getElementsByName("sbs-example-div");
-//     if (this.checked) {
-//         sbsexampleButtons.forEach(button => {
-//             button.classList.add("active");
-//         });
-//         sbsexampleDivs.forEach(div => {
-//             div.classList.remove("hidden");
-//         });
-//     } else {
-//         sbsexampleButtons.forEach(button => {
-//             button.classList.remove("active");
-//         });
-//         sbsexampleDivs.forEach(div => {
-//             div.classList.add("hidden");
-//         });
-//     }
-// });
 
 //// summary 
 
