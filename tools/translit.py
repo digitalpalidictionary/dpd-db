@@ -5,8 +5,18 @@ from tools.pali_alphabet import pali_alphabet
 
 
 def auto_translit_to_roman(text: str) -> str:
+    if not text:
+        return ""
+
+    # If the first two characters are uppercase, return the text as is
+    # e.g. DN1, DHPa
+    if len(text) >= 2 and text[0].isupper() and text[1].isupper():
+        return text
+
+    # Pure Pāḷi gets a pass
     if text[0] in pali_alphabet:
         return text
+
     else:
         try:
             transliterated_text = transliterate.process(
