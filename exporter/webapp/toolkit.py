@@ -49,9 +49,6 @@ def make_dpd_html(
                     summary_html = ""
                     q = q.replace("'", "").replace("ṁ", "ṃ").strip()
 
-                    if lang == "ru":
-                        q = q.casefold()
-
                     lookup_results = (
                         db_session.query(Lookup)
                         .filter(Lookup.lookup_key.ilike(q))
@@ -144,13 +141,6 @@ def make_dpd_html(
                                     d=d
                                 )
 
-                            # rpd
-                            if lang == "ru" and lookup_result.rpd:
-                                d = RpdData(lookup_result)
-                                dpd_html += templates.get_template("rpd.html").render(
-                                    d=d
-                                )
-
                             # variant
                             if lookup_result.variant:
                                 d = VariantData(lookup_result)
@@ -226,9 +216,6 @@ def make_dpd_html(
         dpd_html = ""
         summary_html = ""
         q = q.replace("'", "").replace("ṁ", "ṃ").strip()
-
-        if lang == "ru":
-            q = q.casefold()
 
         lookup_results = (
             db_session.query(Lookup).filter(Lookup.lookup_key.ilike(q)).all()
@@ -315,11 +302,6 @@ def make_dpd_html(
                     d = EpdData(lookup_result)
                     dpd_html += templates.get_template("epd.html").render(d=d)
 
-                # rpd
-                if lang == "ru" and lookup_result.rpd:
-                    d = RpdData(lookup_result)
-                    dpd_html += templates.get_template("rpd.html").render(d=d)
-
         # the two cases below search directly in the DpdHeadwords table
 
         elif q.isnumeric():  # eg 78654
@@ -391,16 +373,6 @@ def find_closest_matches(
         string = "<h3>No results found. "
         if combined_list:
             string += "The closest matches are:</h3><br>"
-            string += "<p>"
-            string += ", ".join(combined_list)
-            string += "</p>"
-        else:
-            string += "</h3>"
-
-    if lang == "ru":
-        string = "<h3>Ничего не найдено. "
-        if combined_list:
-            string += "Ближайшие совпадения:</h3><br>"
             string += "<p>"
             string += ", ".join(combined_list)
             string += "</p>"

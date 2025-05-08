@@ -2,8 +2,6 @@
 
 """Create an html table of all words belonging to the same family."""
 
-from rich import print
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyWord
 
@@ -11,24 +9,17 @@ from scripts.build.anki_updater import family_updater
 
 from tools.configger import config_test
 from tools.meaning_construction import clean_construction
-from tools.degree_of_completion import degree_of_completion, rus_degree_of_completion
+from tools.degree_of_completion import degree_of_completion
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.printer import printer as pr
 
-from dps.scripts.rus_exporter.tools_for_ru_exporter import (
-    make_short_ru_meaning,
-    ru_replace_abbreviations,
-)
-
-from sqlalchemy.orm import joinedload
-
 
 def main():
     pr.tic()
-    print("[bright_yellow]word families generator")
+    pr.title("word families generator")
 
     if not (
         config_test("exporter", "make_dpd", "yes")
@@ -36,19 +27,14 @@ def main():
         or config_test("exporter", "make_tpr", "yes")
         or config_test("exporter", "make_ebook", "yes")
     ):
-        print("[green]disabled in config.ini")
+        pr.green("disabled in config.ini")
         pr.toc()
         return
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    wf_db = (
-        db_session.query(DpdHeadword)
-        .options(joinedload(DpdHeadword.ru))
-        .filter(DpdHeadword.family_word != "")
-        .all()
-    )
+    wf_db = db_session.query(DpdHeadword).filter(DpdHeadword.family_word != "").all()
 
     wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -67,7 +53,7 @@ def main():
 
 
 def make_word_fam_dict(wf_db: list[DpdHeadword]):
-    print("[green]extracting word families", end=" ")
+    pr.green("extracting word families")
 
     # create a dict of all word families
     # word: {headwords: [], html: "", }
@@ -78,7 +64,7 @@ def make_word_fam_dict(wf_db: list[DpdHeadword]):
         wf = i.family_word
 
         if " " in wf:
-            print("[bright_red]ERROR: spaces found please remove!")
+            pr.red("ERROR: spaces found please remove!")
 
         if wf in wf_dict:
             wf_dict[wf]["headwords"] += [i.lemma_1]
@@ -86,18 +72,16 @@ def make_word_fam_dict(wf_db: list[DpdHeadword]):
             wf_dict[wf] = {
                 "headwords": [i.lemma_1],
                 "html": "",
-                "html_ru": "",
                 "anki": [],
                 "data": [],
-                "data_ru": [],
             }
 
-    print(len(wf_dict))
+    pr.yes(len(wf_dict))
     return wf_dict
 
 
 def compile_wf_html(wf_db, wf_dict):
-    print("[green]compiling html")
+    pr.green("compiling html")
 
     for __counter__, i in enumerate(wf_db):
         wf = i.family_word
@@ -118,23 +102,6 @@ def compile_wf_html(wf_db, wf_dict):
 
             wf_dict[wf]["html"] = html_string
 
-            # rus
-            if not wf_dict[wf]["html_ru"]:
-                ru_html_string = "<table class='family'>"
-            else:
-                ru_html_string = wf_dict[wf]["html_ru"]
-
-            ru_meaning = make_short_ru_meaning(i, i.ru)
-            pos = ru_replace_abbreviations(i.pos)
-            ru_html_string += "<tr>"
-            ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-            ru_html_string += f"<td><b>{pos}</b></td>"
-            ru_html_string += f"<td>{ru_meaning}</td>"
-            ru_html_string += f"<td>{rus_degree_of_completion(i)}</td>"
-            ru_html_string += "</tr>"
-
-            wf_dict[wf]["html_ru"] = ru_html_string
-
             # anki data
             construction = clean_construction(i.construction) if i.meaning_1 else ""
             wf_dict[wf]["anki"] += [(i.lemma_1, i.pos, meaning, construction)]
@@ -144,20 +111,15 @@ def compile_wf_html(wf_db, wf_dict):
                 (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
             )
 
-            # rus data
-            wf_dict[wf]["data_ru"].append(
-                (i.lemma_1, pos, ru_meaning, rus_degree_of_completion(i, html=False))
-            )
-
     for i in wf_dict:
         wf_dict[i]["html"] += "</table>"
-        wf_dict[i]["html_ru"] += "</table>"
 
+    pr.yes(len(wf_dict))
     return wf_dict
 
 
 def add_wf_to_db(db_session, wf_dict):
-    print("[green]adding to db", end=" ")
+    pr.green("adding to db")
 
     add_to_db = []
     errors_list = []
@@ -169,28 +131,26 @@ def add_wf_to_db(db_session, wf_dict):
         wf_data = FamilyWord(
             word_family=wf,
             html=wf_dict[wf]["html"],
-            html_ru=wf_dict[wf]["html_ru"],
             count=len(wf_dict[wf]["headwords"]),
         )
         wf_data.data_pack(wf_dict[wf]["data"])
-        wf_data.data_ru_pack(wf_dict[wf]["data_ru"])
         add_to_db.append(wf_data)
 
     db_session.execute(FamilyWord.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()
-    print("[white]ok")
+    pr.yes("ok")
 
     return errors_list
 
 
 def print_errors_list(errors_list):
     if len(errors_list) > 0:
-        print("[bright_red]ERROR: only 1 word in family:", end=" ")
+        pr.red("ERROR: only 1 word in family:")
     for error in errors_list:
-        print(f"{error}", end=" ")
-    print()
+        pr.red(f"{error}")
+    pr.red("")
 
 
 def make_anki_data(wf_dict):
@@ -211,7 +171,7 @@ def make_anki_data(wf_dict):
 
         html += "</tbody></table>"
         if len(html) > 131072:
-            print(f"[red]{i} longer than 131072 characters")
+            pr.red(f"{i} longer than 131072 characters")
         else:
             anki_data_list += [(i, html)]
 

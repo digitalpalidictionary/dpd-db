@@ -11,7 +11,6 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
-from sqlalchemy.orm import joinedload
 from tools.configger import config_test
 from tools.printer import printer as pr
 
@@ -27,24 +26,11 @@ class GlobalVars:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    show_sbs_data: bool = check_username()
-    if show_sbs_data:
-        db = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).all()
-    else:
-        db = db_session.query(DpdHeadword).all()
+    db = db_session.query(DpdHeadword).all()
 
     pali_alphabet: list[str] = pali_alphabet
     i: DpdHeadword
-
-    if show_sbs_data:
-        fields: list[str] = [
-            "sbs_example_1",
-            "sbs_example_2",
-            "sbs_example_3",
-            "sbs_example_4",
-        ]
-    else:
-        fields: list[str] = ["example_1", "example_2"]
+    fields: list[str] = ["example_1", "example_2"]
     field: str
 
     bold_words: list[str]
@@ -96,14 +82,6 @@ class GlobalVars:
 def find_all_bold_words(g):
     """Get All the bold words from the string."""
     g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i, g.field))
-
-
-def find_all_bold_words_sbs(g):
-    """Get All the bold words from the string."""
-    if g.i.sbs is not None:
-        g.bold_words = re.findall("<b>.+?<\\/b>", getattr(g.i.sbs, g.field))
-    else:
-        g.bold_words = []
 
 
 def get_inflections(g):
@@ -212,7 +190,7 @@ def test7(g: GlobalVars):
 
                 print()
                 print("[yellow]test the word while you're here: ", end="")
-                pyperclip.copy(g.i.id)
+                pyperclip.copy(str(g.i.id))
                 input()
             else:
                 test8(g)
@@ -264,7 +242,7 @@ def printer(g: GlobalVars, message):
         pr.summary("clean bold", f"[chartreuse2]{g.clean_bold_word}")
 
         g.counter += 1
-        pyperclip.copy(g.i.id)
+        pyperclip.copy(str(g.i.id))
 
         print("[yellow]p[/yellow]ass ", end="")
         print("e[yellow]x[/yellow]it ", end="")
@@ -305,10 +283,7 @@ def main():
 
                     g.field = field
 
-                    if g.show_sbs_data:
-                        find_all_bold_words_sbs(g)
-                    else:
-                        find_all_bold_words(g)
+                    find_all_bold_words(g)
 
                     get_inflections(g)
 

@@ -4,40 +4,36 @@
 
 import csv
 import pickle
-
-from sqlalchemy.orm import Session
 from typing import List
 
-from exporter.goldendict.export_dpd import generate_dpd_html
-from exporter.goldendict.export_roots import generate_root_html
-from exporter.goldendict.export_epd import generate_epd_html
-from exporter.goldendict.export_variant_spelling import generate_variant_spelling_html
-from exporter.goldendict.export_help import generate_help_html
-
-from exporter.goldendict.helpers import make_roots_count_dict
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from dps.scripts.rus_exporter.paths_ru import RuPaths
+
+from exporter.goldendict.export_dpd import generate_dpd_html
+from exporter.goldendict.export_epd import generate_epd_html
+from exporter.goldendict.export_help import generate_help_html
+from exporter.goldendict.export_roots import generate_root_html
+from exporter.goldendict.export_variant_spelling import generate_variant_spelling_html
+from exporter.goldendict.helpers import make_roots_count_dict
 from tools.cache_load import load_cf_set, load_idioms_set
 from tools.configger import config_read, config_test
-from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
-from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import (
+    DictEntry,
+    DictInfo,
+    DictVariables,
+    export_to_goldendict_with_pyglossary,
+)
 from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sandhi_contraction import SandhiContractionFinder
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
-from dps.scripts.rus_exporter.tools_for_ru_exporter import (
-    mdict_ru_title,
-    mdict_ru_description,
-)
-
 
 class ProgData:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
-        self.rupth = RuPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
         self.sandhi_finder = SandhiContractionFinder()
         self.sandhi_contractions = self.sandhi_finder.get_sandhi_contractions_simple()
@@ -55,30 +51,8 @@ class ProgData:
         self.make_link: bool = False
         if config_test("dictionary", "make_link", "yes"):
             self.make_link: bool = True
-        self.show_sbs_data: bool = False
-        self.show_ru_data: bool = False
 
-        # language
-        if config_test("exporter", "language", "en"):
-            self.lang = "en"
-        elif config_test("exporter", "language", "ru"):
-            self.lang = "ru"
-        # add another lang here "elif ..." and
-        # add conditions if lang = "{your_language}" in every instance in the code.
-        else:
-            raise ValueError("Invalid language parameter")
-
-        if config_test("dictionary", "show_sbs_data", "yes") and self.lang == "en":
-            self.show_sbs_data: bool = True
-
-        if config_test("dictionary", "show_ru_data", "yes"):
-            self.show_ru_data: bool = True
-
-        # paths
-        if self.lang == "en":
-            self.paths = self.pth
-        elif self.lang == "ru":
-            self.paths = self.rupth
+        self.paths = self.pth
 
 
 def main():
@@ -95,37 +69,27 @@ def main():
     dpd_data_list, sizes = generate_dpd_html(
         g.db_session,
         g.pth,
-        g.rupth,
         g.sandhi_contractions,
         g.cf_set,
         g.idioms_set,
         g.make_link,
-        g.show_sbs_data,
-        g.show_ru_data,
-        g.lang,
         g.data_limit,
     )
     g.rendered_sizes.append(sizes)
 
     if g.data_limit == 0:
         root_data_list, sizes = generate_root_html(
-            g.db_session, g.pth, g.roots_count_dict, g.rupth, g.lang, g.show_ru_data
+            g.db_session, g.pth, g.roots_count_dict
         )
         g.rendered_sizes.append(sizes)
 
-        variant_spelling_data_list, sizes = generate_variant_spelling_html(
-            g.pth, g.rupth, g.lang
-        )
+        variant_spelling_data_list, sizes = generate_variant_spelling_html(g.pth)
         g.rendered_sizes.append(sizes)
 
-        epd_data_list, sizes = generate_epd_html(
-            g.db_session, g.pth, g.rupth, g.make_link, g.show_ru_data, g.lang
-        )
+        epd_data_list, sizes = generate_epd_html(g.db_session, g.pth)
         g.rendered_sizes.append(sizes)
 
-        help_data_list, sizes = generate_help_html(
-            g.db_session, g.pth, g.rupth, g.lang, g.show_ru_data
-        )
+        help_data_list, sizes = generate_help_html(g.db_session, g.pth)
         g.rendered_sizes.append(sizes)
 
         g.db_session.close()
@@ -171,15 +135,6 @@ def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
     )
 
     dict_name = "dpd"
-
-    if g.lang == "ru":
-        dict_info.bookname = mdict_ru_title
-        dict_info.author = "Bodhirasa, переведено Devamitta"
-        dict_info.description = mdict_ru_description
-        dict_info.website = "https://digitalpalidictionary.github.io/rus"
-        dict_info.source_lang = "pi"
-        dict_info.target_lang = "ru"
-        dict_name = "ru-dpd"
 
     dict_var = DictVariables(
         css_paths=[g.paths.dpd_css_and_fonts_path],

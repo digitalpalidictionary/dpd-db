@@ -8,7 +8,6 @@ from minify_html import minify
 from db.db_helpers import get_db_session
 from db.models import Lookup
 from exporter.goldendict.helpers import TODAY
-from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.configger import config_test
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import (
@@ -35,17 +34,8 @@ class ProgData:
         elif config_test("dictionary", "make_mdict", "no"):
             self.make_mdict: bool = False
 
-        # language
-        if config_test("exporter", "language", "en"):
-            self.lang = "en"
-        elif config_test("exporter", "language", "ru"):
-            self.lang = "ru"
-        else:
-            raise ValueError("Invalid language parameter")
-
         # paths
         self.pth = ProjectPaths()
-        self.rupth = RuPaths()
 
         # dict_data
         self.dict_data: list[DictEntry]
@@ -76,10 +66,7 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
         deconstructor_header, "deconstructor"
     )
 
-    if g.lang == "en":
-        deconstructor_templ = Template(filename=str(g.pth.deconstructor_templ_path))
-    elif g.lang == "ru":
-        deconstructor_templ = Template(filename=str(g.rupth.deconstructor_templ_path))
+    deconstructor_templ = Template(filename=str(g.pth.deconstructor_templ_path))
 
     pr.yes(len(deconstructor_db))
 
@@ -100,10 +87,9 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
 
         # make synonyms list
         synonyms = add_niggahitas([i.lookup_key], all=False)
-        if g.lang != "ru":
-            synonyms.extend(i.sinhala_unpack)
-            synonyms.extend(i.devanagari_unpack)
-            synonyms.extend(i.thai_unpack)
+        synonyms.extend(i.sinhala_unpack)
+        synonyms.extend(i.devanagari_unpack)
+        synonyms.extend(i.thai_unpack)
         if i.lookup_key in sandhi_contractions:
             contractions = sandhi_contractions.get(i.lookup_key, [])
             synonyms.extend(contractions)
@@ -136,13 +122,6 @@ def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
         target_lang="pi",
     )
     dict_name = "dpd-deconstructor"
-    if g.lang == "ru":
-        dict_info.bookname = "DPD Деконструктор"
-        dict_info.author = "Дост. Бодхираса"
-        dict_info.description = "<h3>DPD Деконструктор от Дост. Бодхирасы</h3><p>Автоматизированное разложение сложных слов и разделение сандхи для всех слов в текстах Типитаки <b>Chaṭṭha Saṅgāyana</b> и на <b>Sutta Central</b>.</p><p>Дополнительную информацию можно найти на странице <a href='https://digitalpalidictionary.github.io/rus/deconstructor.html'>Деконструктора</a> на сайте <a href='https://digitalpalidictionary.github.io/rus'>DPD</a>.</p>"
-        dict_info.website = "https://digitalpalidictionary.github.io/rus"
-
-        dict_name = "ru-dpd-deconstructor"
 
     dict_vars = DictVariables(
         css_paths=[g.pth.dpd_css_and_fonts_path],

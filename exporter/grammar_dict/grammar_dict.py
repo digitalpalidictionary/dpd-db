@@ -7,12 +7,6 @@ from mako.template import Template
 from db.db_helpers import get_db_session
 from db.models import Lookup
 
-from dps.scripts.rus_exporter.paths_ru import RuPaths
-from dps.scripts.rus_exporter.tools_for_ru_exporter import (
-    ru_replace_abbreviations,
-    load_abbreviations_dict
-)
-
 from tools.configger import config_test
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
@@ -30,19 +24,11 @@ class ProgData:
         else:
             self.make_mdict = False
 
-        if config_test("exporter", "language", "en"):
-            self.lang = "en"
-        elif config_test("exporter", "language", "ru"):
-            self.lang = "ru"
-        else:
-            raise ValueError("Invalid language parameter")
-
         self.pth = ProjectPaths()
-        self.rupth = RuPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
 
         # the grammar dictionaries
-        self.html_dict: dict[str, str] = {} # Renamed from grammar_dict_html
+        self.html_dict: dict[str, str] = {}  # Renamed from grammar_dict_html
 
         # goldendict and mdict data_list
         self.dict_data: list[DictEntry] = []
@@ -65,9 +51,9 @@ def main():
 
     g = ProgData()
 
-    generate_html_from_lookup(g) # New function replaces old ones
+    generate_html_from_lookup(g)  # New function replaces old ones
 
-    g.close_db() # Close db session when done
+    g.close_db()  # Close db session when done
 
     make_data_lists(g)
     prepare_gd_mdict_and_export(g)
@@ -88,10 +74,11 @@ def generate_html_from_lookup(g: ProgData):
     pr.green("querying database")
 
     # Query the Lookup table for entries with grammar data
-    lookup_results = g.db_session.query(Lookup).filter(
-        Lookup.grammar.is_not(None),
-        Lookup.grammar != ""
-    ).all()
+    lookup_results = (
+        g.db_session.query(Lookup)
+        .filter(Lookup.grammar.is_not(None), Lookup.grammar != "")
+        .all()
+    )
 
     pr.yes(f"{len(lookup_results)}")
 
@@ -113,7 +100,9 @@ def generate_html_from_lookup(g: ProgData):
     # Process each lookup entry
     for counter, lookup_entry in enumerate(lookup_results):
         inflected_word = lookup_entry.lookup_key
-        grammar_data_list = lookup_entry.grammar_unpack # [(headword, pos, grammar_str)]
+        grammar_data_list = (
+            lookup_entry.grammar_unpack
+        )  # [(headword, pos, grammar_str)]
 
         html_lines = []
         for data_tuple in grammar_data_list:
@@ -125,9 +114,7 @@ def generate_html_from_lookup(g: ProgData):
             grammatical_categories = []
             if grammar_str.startswith("reflx"):
                 grammatical_categories.append(
-                    grammar_str.split()[0]
-                    + " "
-                    + grammar_str.split()[1]
+                    grammar_str.split()[0] + " " + grammar_str.split()[1]
                 )
                 grammatical_categories += grammar_str.split()[2:]
                 for grammatical_category in grammatical_categories:
@@ -148,45 +135,13 @@ def generate_html_from_lookup(g: ProgData):
             html_lines.append(html_line)
 
         # Assemble the full HTML for the entry
-        entry_html = html_header + "".join(html_lines) + "</tbody></table></div></body></html>"
+        entry_html = (
+            html_header + "".join(html_lines) + "</tbody></table></div></body></html>"
+        )
         html_dict[inflected_word] = entry_html
 
         if counter % 10000 == 0:
             pr.counter(counter, len(lookup_results), inflected_word)
-
-    # Handle Russian translation if needed
-    if g.lang == "ru":
-        pr.green("replacing abbreviations: en > ru")
-        print_counter = 0
-
-        # Preload abbreviations dictionary and patterns
-        load_abbreviations_dict(g.pth.abbreviations_tsv_path)
-
-        for inflected_word, html_content in html_dict.items():
-            # Split carefully to preserve the header part
-            header_part, table_part = html_content.split("<tbody>", 1)
-            body_part, footer_part = table_part.rsplit("</tbody>", 1)
-
-            html_rows = body_part.split("<tr>")
-            processed_rows = []
-            for i, row in enumerate(html_rows):
-                if row.strip():  # Skip empty strings resulting from split
-                    # Add back the '<tr>' tag for processing
-                    full_row = f"<tr>{row}"
-                    # Replace abbreviations in the row
-                    processed_row = ru_replace_abbreviations(full_row, kind="gram")
-                    # Remove the added '<tr>' tag before storing
-                    processed_rows.append(processed_row.replace("<tr>", "", 1))
-
-            # Join the modified rows back
-            modified_body = "<tr>".join(processed_rows)
-
-            # Reassemble the full HTML
-            html_dict[inflected_word] = f"{header_part}<tbody>{modified_body}</tbody>{footer_part}"
-
-            print_counter += 1
-            if print_counter % 10000 == 0:
-                pr.counter(print_counter, len(html_dict), inflected_word)
 
     g.html_dict = html_dict
     pr.yes(len(g.html_dict))
@@ -214,27 +169,15 @@ def make_data_lists(g: ProgData):
 def prepare_gd_mdict_and_export(g: ProgData):
     """Prepare the metadata and export to goldendict & mdict."""
 
-    if g.lang == "en":
-        dict_info = DictInfo(
-            bookname="DPD Grammar",
-            author="Bodhirasa",
-            description="<h3>DPD Grammar</h3><p>A table of all the grammatical possibilities that a particular inflected word may have. For more information please visit the <a href='https://digitalpalidictionary.github.io/features/grammardict/' target='_blank'>DPD website</a></p>",
-            website="https://digitalpalidictionary.github.io/features/grammardict/",
-            source_lang="pi",
-            target_lang="en",
-        )
-        dict_name = "dpd-grammar"
-
-    elif g.lang == "ru":
-        dict_info = DictInfo(
-            bookname="DPD Грамматика",
-            author="Дост. Бодхираса",
-            description="<h3>DPD Грамматика</h3><p>Таблица всех грамматических возможностей, которыми может обладать определенное слово в склонении или спряжении. Для получения дополнительной информации посетите <a href='https://digitalpalidictionary.github.io/rus/grammardict.html' target='_blank'>веб-сайт DPD</a>.</p>",
-            website="https://digitalpalidictionary.github.io/rus/grammardict.html",
-            source_lang="pi",
-            target_lang="ru",
-        )
-        dict_name = "ru-dpd-grammar"
+    dict_info = DictInfo(
+        bookname="DPD Grammar",
+        author="Bodhirasa",
+        description="<h3>DPD Grammar</h3><p>A table of all the grammatical possibilities that a particular inflected word may have. For more information please visit the <a href='https://digitalpalidictionary.github.io/features/grammardict/' target='_blank'>DPD website</a></p>",
+        website="https://digitalpalidictionary.github.io/features/grammardict/",
+        source_lang="pi",
+        target_lang="en",
+    )
+    dict_name = "dpd-grammar"
 
     dict_vars = DictVariables(
         css_paths=[g.pth.dpd_css_and_fonts_path],

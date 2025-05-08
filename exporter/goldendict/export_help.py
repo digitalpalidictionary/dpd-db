@@ -7,7 +7,6 @@ from mako.template import Template
 from minify_html import minify
 from sqlalchemy.orm import Session
 
-from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths
@@ -20,15 +19,18 @@ class Abbreviation:
     """defining the abbreviations.tsv columns"""
 
     def __init__(
-        self, abbrev, meaning, pali, example, information, ru_abbrev, ru_meaning
+        self,
+        abbrev,
+        meaning,
+        pali,
+        example,
+        information,
     ):
         self.abbrev = abbrev
         self.meaning = meaning
         self.pali = pali
         self.example = example
         self.information = information
-        self.ru_abbrev = ru_abbrev
-        self.ru_meaning = ru_meaning
 
     def __repr__(self) -> str:
         return f"Abbreviation: {self.abbrev} {self.meaning} {self.pali} ..."
@@ -37,11 +39,13 @@ class Abbreviation:
 class Help:
     """defining the help.tsv columns"""
 
-    def __init__(self, help, meaning, ru_help, ru_meaning):
+    def __init__(
+        self,
+        help,
+        meaning,
+    ):
         self.help = help
         self.meaning = meaning
-        self.ru_help = ru_help
-        self.ru_meaning = ru_meaning
 
     def __repr__(self) -> str:
         return f"Help: {self.help} {self.meaning}  ..."
@@ -50,9 +54,6 @@ class Help:
 def generate_help_html(
     __db_session__: Session,
     pth: ProjectPaths,
-    rupth: RuPaths,
-    lang="en",
-    show_ru_data=False,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     pr.green("generating help html")
@@ -64,11 +65,7 @@ def generate_help_html(
     # 3. thank yous
     # 4. bibliography
 
-    if lang == "en":
-        header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
-    elif lang == "ru":
-        header_templ = Template(filename=str(rupth.dpd_header_plain_templ_path))
-
+    header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     header = str(header_templ.render())
 
     # Add Variables and fonts
@@ -77,11 +74,11 @@ def generate_help_html(
 
     help_data_list: List[DictEntry] = []
 
-    abbrev = add_abbrev_html(pth, header, rupth, lang, show_ru_data)
+    abbrev = add_abbrev_html(pth, header)
     help_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(pth, header, rupth, lang, show_ru_data)
+    help_html = add_help_html(pth, header)
     help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
@@ -98,7 +95,8 @@ def generate_help_html(
 
 
 def add_abbrev_html(
-    pth: ProjectPaths, header: str, rupth: RuPaths, lang="en", show_ru_data=False
+    pth: ProjectPaths,
+    header: str,
 ) -> List[DictEntry]:
     help_data_list = []
 
@@ -120,8 +118,6 @@ def add_abbrev_html(
             pali=x["pāli"],
             example=x["example"],
             information=x["explanation"],
-            ru_abbrev=x["ru_abbrev"],
-            ru_meaning=x["ru_meaning"],
         )
 
     items = list(map(_csv_row_to_abbreviations, rows))
@@ -129,18 +125,12 @@ def add_abbrev_html(
     for i in items:
         html = ""
         html += "<body>"
-        html += render_abbrev_templ(pth, i, rupth, lang, show_ru_data)
+        html += render_abbrev_templ(pth, i)
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
 
-        if lang == "en":
-            word = i.abbrev
-        elif lang == "ru":
-            if i.ru_abbrev:
-                word = i.ru_abbrev
-            else:
-                word = i.abbrev
+        word = i.abbrev
 
         res = DictEntry(
             word=word,
@@ -155,7 +145,8 @@ def add_abbrev_html(
 
 
 def add_help_html(
-    pth: ProjectPaths, header: str, rupth: RuPaths, lang="en", show_ru_data=False
+    pth: ProjectPaths,
+    header: str,
 ) -> List[DictEntry]:
     help_data_list = []
 
@@ -174,8 +165,6 @@ def add_help_html(
         return Help(
             help=x["help"],
             meaning=x["meaning"],
-            ru_help=x["ru_help"],
-            ru_meaning=x["ru_meaning"],
         )
 
     items = list(map(_csv_row_to_help, rows))
@@ -183,15 +172,12 @@ def add_help_html(
     for i in items:
         html = ""
         html += "<body>"
-        html += render_help_templ(pth, i, rupth, lang, show_ru_data)
+        html += render_help_templ(pth, i)
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
 
-        if lang == "en":
-            word = i.help
-        elif lang == "ru":
-            word = i.ru_help
+        word = i.help
 
         res = DictEntry(
             word=word,
@@ -320,26 +306,22 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
 
 
 def render_abbrev_templ(
-    pth: ProjectPaths, i: Abbreviation, rupth: RuPaths, lang="en", show_ru_data=False
+    pth: ProjectPaths,
+    i: Abbreviation,
 ) -> str:
     """render html of abbreviations"""
 
-    if lang == "en":
-        abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
-    elif lang == "ru":
-        abbrev_templ = Template(filename=str(rupth.abbrev_templ_path))
+    abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
 
-    return str(abbrev_templ.render(i=i, show_ru_data=show_ru_data))
+    return str(abbrev_templ.render(i=i))
 
 
 def render_help_templ(
-    pth: ProjectPaths, i: Help, rupth: RuPaths, lang="en", show_ru_data=False
+    pth: ProjectPaths,
+    i: Help,
 ) -> str:
     """render html of help"""
 
-    if lang == "en":
-        help_templ = Template(filename=str(pth.help_templ_path))
-    elif lang == "ru":
-        help_templ = Template(filename=str(rupth.help_templ_path))
+    help_templ = Template(filename=str(pth.help_templ_path))
 
-    return str(help_templ.render(i=i, show_ru_data=show_ru_data))
+    return str(help_templ.render(i=i))

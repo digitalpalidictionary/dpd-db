@@ -8,35 +8,7 @@
             <th>IPA</th>
             <td>/${i.lemma_ipa}/</td>
         </tr>
-        
-        % if show_ru_data:
-            % if ru:
-                % if ru.ru_meaning:
-                <tr>
-                    <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Русский</a></th>
-                    <td>${ru.ru_meaning}
-                        % if ru.ru_meaning_lit:
-                        ; досл. ${ru.ru_meaning_lit}
-                        % endif
-                    </td>
-                </tr>
-                % elif ru.ru_meaning_raw:
-                <tr>
-                    <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Перевод ИИ</a></th>
-                    <td>${ru.ru_meaning_raw}
-                    </td>
-                </tr>
-                % endif
-            % endif
-        % endif
-        % if show_sbs_data:
-            % if sbs and sbs.sbs_meaning:
-            <tr>
-                <th>SBS</th>
-                <td>${sbs.sbs_meaning}</td>
-            </tr>
-            % endif
-        % endif        
+         
         
         <tr>
             <th>Grammar</th>
@@ -133,24 +105,6 @@
             <th>Notes</th>
             <td>${i.notes}</td>
         </tr>
-        % endif
-
-        % if show_sbs_data:
-            % if sbs and sbs.sbs_notes:
-            <tr>
-                <th>SBS Notes</th>
-                <td>${sbs.sbs_notes}</td>
-            </tr>
-            % endif
-        % endif
-        % if show_ru_data:
-            % if ru and ru.ru_notes and i.needs_ru_notes:
-            <tr>
-                <th><a class="link" href="https://docs.google.com/forms/d/1iMD9sCSWFfJAFCFYuG9HRIyrr9KFRy0nAOVApM998wM/viewform?usp=pp_url&entry.438735500=${i.lemma_link}&entry.326955045=Перевод&entry.1433863141=GoldenDict+${today}" target="_blank">Заметки</a>
-                </th>
-                <td>${ru.ru_notes}</td>
-            </tr>
-            % endif
         % endif
 
         % if i.cognate:

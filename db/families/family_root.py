@@ -17,7 +17,7 @@ from scripts.build.anki_updater import family_updater
 
 from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value
-from tools.degree_of_completion import degree_of_completion, rus_degree_of_completion
+from tools.degree_of_completion import degree_of_completion
 from tools.meaning_construction import clean_construction
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -25,12 +25,6 @@ from tools.paths import ProjectPaths
 from tools.superscripter import superscripter_uni
 from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
-from dps.scripts.rus_exporter.tools_for_ru_exporter import (
-    make_short_ru_meaning,
-    ru_replace_abbreviations,
-)
-
-from sqlalchemy.orm import joinedload
 
 
 def main():
@@ -50,17 +44,7 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    dpd_db = (
-        db_session.query(DpdHeadword)
-        .options(joinedload(DpdHeadword.ru))
-        .filter(DpdHeadword.family_root != "")
-        .all()
-    )
-
-    if config_test("dictionary", "show_ru_data", "yes"):
-        show_ru_data = True
-    else:
-        show_ru_data = False
+    dpd_db = db_session.query(DpdHeadword).filter(DpdHeadword.family_root != "").all()
 
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
@@ -71,7 +55,7 @@ def main():
     rf_dict = compile_rf_html(dpd_db, rf_dict)
     add_rf_to_db(db_session, rf_dict)
     update_lookup_table(db_session)
-    generate_root_info_html(db_session, roots_db, bases_dict, show_ru_data)
+    generate_root_info_html(db_session, roots_db, bases_dict)
     html_dict = generate_root_matrix(db_session)
     db_session.close()
 
@@ -102,15 +86,11 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
                 "root_key": i.root_key,
                 "root_family": i.family_root,
                 "root_meaning": i.rt.root_meaning,
-                "root_ru_meaning": i.rt.root_ru_meaning,
                 "headwords": [i.lemma_1],
                 "html": "",
-                "html_ru": "",
                 "count": 1,
                 "meaning": i.rt.root_meaning,
-                "meaning_ru": i.rt.root_ru_meaning,
                 "data": [],
-                "data_ru": [],
                 "anki": [],
             }
         else:
@@ -153,31 +133,9 @@ def compile_rf_html(dpd_db, rf_dict):
 
             rf_dict[family]["html"] = html_string
 
-            # rus
-            if not rf_dict[family]["html_ru"]:
-                ru_html_string = "<table class='family'>"
-            else:
-                ru_html_string = rf_dict[family]["html_ru"]
-
-            ru_meaning = make_short_ru_meaning(i, i.ru)
-            pos = ru_replace_abbreviations(i.pos)
-            ru_html_string += "<tr>"
-            ru_html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
-            ru_html_string += f"<td><b>{pos}</b></td>"
-            ru_html_string += f"<td>{ru_meaning}</td>"
-            ru_html_string += f"<td>{rus_degree_of_completion(i)}</td>"
-            ru_html_string += "</tr>"
-
-            rf_dict[family]["html_ru"] = ru_html_string
-
             # data
             rf_dict[family]["data"].append(
                 (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
-            )
-
-            # rus data
-            rf_dict[family]["data_ru"].append(
-                (i.lemma_1, pos, ru_meaning, rus_degree_of_completion(i, html=False))
             )
 
             # anki data
@@ -193,8 +151,6 @@ def compile_rf_html(dpd_db, rf_dict):
     for rf in rf_dict:
         header = make_root_header(rf_dict, rf)
         rf_dict[rf]["html"] = header + rf_dict[rf]["html"] + "</table>"
-        header_ru = make_root_header_ru(rf_dict, rf)
-        rf_dict[rf]["html_ru"] = header_ru + rf_dict[rf]["html_ru"] + "</table>"
 
     pr.yes(len(rf_dict))
 
@@ -211,16 +167,6 @@ def make_root_header(rf_dict, rf):
     return header
 
 
-def make_root_header_ru(rf_dict, rf):
-    header = "<p class='heading underlined'>"
-    if rf_dict[rf]["count"] == 1:
-        header += "<b>1</b> слово принадлежит к семье корня "
-    else:
-        header += f"<b>{rf_dict[rf]['count']}</b> слов(а) принадлежат к семье корня "
-    header += f"<b>{rf_dict[rf]['root_family']}</b> ({rf_dict[rf]['meaning_ru']})</p>"
-    return header
-
-
 def add_rf_to_db(db_session, rf_dict):
     pr.green("adding to db")
 
@@ -232,13 +178,10 @@ def add_rf_to_db(db_session, rf_dict):
             root_key=rf_dict[rf]["root_key"],
             root_family=rf_dict[rf]["root_family"],
             root_meaning=rf_dict[rf]["root_meaning"],
-            root_ru_meaning=rf_dict[rf]["root_ru_meaning"],
             html=rf_dict[rf]["html"],
-            html_ru=rf_dict[rf]["html_ru"],
             count=len(rf_dict[rf]["headwords"]),
         )
         root_family.data_pack(rf_dict[rf]["data"])
-        root_family.data_ru_pack(rf_dict[rf]["data_ru"])
 
         add_to_db.append(root_family)
 
@@ -250,7 +193,7 @@ def add_rf_to_db(db_session, rf_dict):
 
 
 def update_lookup_table(db_session):
-    """Add root keys data to lookuptable."""
+    """Add root keys data to lookup table."""
 
     pr.green("adding roots to lookup table")
 

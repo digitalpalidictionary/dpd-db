@@ -5,29 +5,25 @@
 import csv
 import json
 import os
-import pandas as pd
 import re
 import sqlite3
+from zipfile import ZIP_DEFLATED, ZipFile
 
+import pandas as pd
 from mako.template import Template
 from sqlalchemy.orm import Session
-from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Lookup
 from exporter.goldendict.export_dpd import render_dpd_definition_templ
-from tools.configger import config_test, config_read
+from exporter.goldendict.helpers import TODAY
+from tools.configger import config_read, config_test
+from tools.headwords_clean_set import make_clean_headwords_set
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.headwords_clean_set import make_clean_headwords_set
 from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import uposatha_today
-from exporter.goldendict.helpers import TODAY
-
-from dps.scripts.rus_exporter.tools_for_ru_exporter import (
-    make_ru_meaning_simpl,
-)
 
 
 class ProgData:
@@ -46,12 +42,6 @@ class ProgData:
         self.i2h_df: pd.DataFrame
         self.deconstructor_df: pd.DataFrame
 
-        self.show_ru_data: bool = False
-        if config_test("exporter", "language", "en") and config_test(
-            "dictionary", "show_ru_data", "yes"
-        ):
-            self.show_ru_data: bool = True
-
     def make_dpd_db(self):
         dpd_db = self.db_session.query(DpdHeadword).all()
         dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
@@ -67,7 +57,7 @@ def generate_tpr_data(g: ProgData):
     for counter, i in enumerate(g.dpd_db):
         # headword
         html_string = render_dpd_definition_templ(
-            g.pth, i, dpd_definition_templ, None, None
+            g.pth, i, dpd_definition_templ, False, False
         )
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
@@ -95,12 +85,6 @@ def generate_tpr_data(g: ProgData):
             html_string += """<tr><th valign="top">IPA</th>"""
             html_string += f"""<td>/{i.lemma_ipa}/</td></tr>"""
 
-            if g.show_ru_data and i.ru:
-                ru_meaning = make_ru_meaning_simpl(i)
-                if ru_meaning:
-                    html_string += """<tr><th valign="top">Русский</th>"""
-                    html_string += f"""<td>{ru_meaning}</td></tr>"""
-
             # grammar
             html_string += """<tr><th valign="top">Grammar</th>"""
             html_string += f"""<td>{i.grammar}"""
@@ -123,8 +107,6 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Root</th>"""
                 html_string += f"""<td>{i.rt.root_clean} {i.rt.root_group} """
                 html_string += f"""{i.root_sign} ({i.rt.root_meaning}"""
-                # if g.show_ru_data and i.rt.root_ru_meaning:
-                #     html_string += f""" - {i.rt.root_ru_meaning}"""
                 html_string += """)</td></tr>"""
 
                 if i.rt.root_in_comps:
@@ -178,18 +160,9 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Notes</th>"""
                 html_string += f"""<td>{notes_no_formatting}</td></tr>"""
 
-            if g.show_ru_data and i.ru and i.ru.ru_notes and i.needs_ru_notes:
-                ru_notes_no_formatting = i.ru.ru_notes.replace("\n", "<br>")
-                html_string += """<tr><th valign="top">Заметки</th>"""
-                html_string += f"""<td>{ru_notes_no_formatting}</td></tr>"""
-
             if i.cognate:
                 html_string += """<tr><th valign="top">Cognate</th>"""
                 html_string += f"""<td>{i.cognate}</td></tr>"""
-
-            if g.show_ru_data and i.ru and i.ru.ru_cognate:
-                html_string += """<tr><th valign="top">Родствен.</th>"""
-                html_string += f"""<td>{i.ru.ru_cognate}</td></tr>"""
 
             if i.link:
                 link_br = i.link.replace("\n", "<br>")
@@ -211,8 +184,6 @@ def generate_tpr_data(g: ProgData):
                     sk_root_meaning = re.sub("'", "", i.rt.sanskrit_root_meaning)
                     html_string += """<tr><th valign="top">Sanskrit Root</th>"""
                     html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning}"""
-                    # if g.show_ru_data and i.rt.sanskrit_root_ru_meaning:
-                    #     html_string += f""" - {i.rt.sanskrit_root_ru_meaning}"""
                     html_string += """)</td></tr>"""
 
             html_string += f"""<tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={i.lemma_link}&entry.1433863141=TPR%20{TODAY}" target="_blank">Submit a correction</a></td></tr>"""
@@ -245,9 +216,6 @@ def generate_tpr_data(g: ProgData):
 
         html_string += f"""<b>{r.root_clean}</b> """
         html_string += f"""{r.root_group} {r.root_sign} ({r.root_meaning}"""
-
-        if g.show_ru_data and r.root_ru_meaning:
-            html_string += f""" - {r.root_ru_meaning}"""
 
         html_string += """)"""
 
@@ -432,7 +400,7 @@ def copy_to_sqlite_db(g: ProgData):
 
         except Exception as e:
             pr.red("an error occurred copying to db")
-            pr.red(e)
+            pr.red(f"{e}")
 
     g.tpr_df = tpr_df
     g.i2h_df = i2h_df
@@ -497,9 +465,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         month_str = TODAY.strftime("%B")
         year = TODAY.year
 
-        if g.show_ru_data:
-            version = "dpd_with_rus"
-        elif uposatha_today():
+        if uposatha_today():
             version = "release"
         else:
             version = "beta"
@@ -549,23 +515,6 @@ def copy_zip_to_tpr_downloads(g: ProgData):
             }
 
             download_list[27] = dpd_beta_info
-
-        if version == "dpd_with_rus":
-            output_file = g.pth.tpr_with_rus_path
-            _zip_it_up(file_path, file_name, output_file)
-            filesize = _file_size(output_file)
-
-            dpd_with_rus_info = {
-                "name": "DPD with Russian",
-                "release_date": f"{day}.{month}.{year}",
-                "type": "dictionary",
-                "category": "Other Beta",
-                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_with_rus.zip",
-                "filename": "dpd.sql",
-                "size": f"{filesize} MB",
-            }
-
-            download_list[28] = dpd_with_rus_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))

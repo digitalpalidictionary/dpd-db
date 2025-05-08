@@ -4,7 +4,6 @@ import re
 
 from mako.template import Template
 from minify_html import minify
-from sqlalchemy.orm import joinedload
 from sqlalchemy.orm import Session
 from typing import List, Tuple
 
@@ -14,37 +13,23 @@ from db.models import DpdHeadword, DpdRoot
 from tools.css_manager import CSSManager
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.printer import printer as pr
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
-from dps.scripts.rus_exporter.tools_for_ru_exporter import (
-    ru_replace_abbreviations,
-)
 
 
 def generate_epd_html(
     db_session: Session,
     pth: ProjectPaths,
-    rupth: RuPaths,
     make_link=False,
-    show_ru_data=False,
-    lang="en",
 ) -> Tuple[List[DictEntry], RenderedSizes]:
-    """generate html for english/{lang} to pali dictionary"""
+    """generate html for english to pali dictionary"""
 
     size_dict = default_rendered_sizes()
 
     pr.green("generating epd html")
 
-    if lang == "en" and not show_ru_data:
-        dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
-    if lang == "ru" or show_ru_data:
-        dpd_db: list[DpdHeadword] = (
-            db_session.query(DpdHeadword).options(joinedload(DpdHeadword.ru)).all()
-        )
-    # another language
-
+    dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     roots_db: list[DpdRoot] = db_session.query(DpdRoot).all()
@@ -52,10 +37,7 @@ def generate_epd_html(
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
 
-    if lang == "en":
-        header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
-    if lang == "ru":
-        header_templ = Template(filename=str(rupth.dpd_header_plain_templ_path))
+    header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
 
     header = str(header_templ.render())
 
@@ -65,87 +47,46 @@ def generate_epd_html(
 
     for counter, i in enumerate(dpd_db):
         # generate eng-pali
-        if lang == "en":
-            meanings_list = []
-            i.meaning_1 = re.sub(r"\?\?", "", i.meaning_1)
+        meanings_list = []
+        i.meaning_1 = re.sub(r"\?\?", "", i.meaning_1)
 
-            if i.meaning_1 and i.pos not in pos_exclude_list:
-                # remove all space brackets
-                meanings_clean = re.sub(r" \(.+?\)", "", i.meaning_1)
-                # remove all brackets space
-                meanings_clean = re.sub(r"\(.+?\) ", "", meanings_clean)
-                # remove space at start and fin
-                meanings_clean = re.sub(r"(^ | $)", "", meanings_clean)
-                # remove double spaces
-                meanings_clean = re.sub(r"  ", " ", meanings_clean)
-                # remove space around ;
-                meanings_clean = re.sub(r" ;|; ", ";", meanings_clean)
-                # remove i.e.
-                meanings_clean = re.sub(r"i\.e\. ", "", meanings_clean)
-                # remove !
-                meanings_clean = re.sub(r"!", "", meanings_clean)
-                # remove ?
-                meanings_clean = re.sub(r"\\?", "", meanings_clean)
-                meanings_list = meanings_clean.split(";")
-
-                for meaning in meanings_list:
-                    if meaning in epd.keys() and not i.plus_case:
-                        epd_string = f"{epd[meaning]}<br><b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
-                        epd[meaning] = epd_string
-
-                    if meaning in epd.keys() and i.plus_case:
-                        epd_string = f"{epd[meaning]}<br><b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
-                        epd[meaning] = epd_string
-
-                    if meaning not in epd.keys() and not i.plus_case:
-                        epd_string = (
-                            f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
-                        )
-                        epd.update({meaning: epd_string})
-
-                    if meaning not in epd.keys() and i.plus_case:
-                        epd_string = f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
-                        epd.update({meaning: epd_string})
-
-        # generate ru-pali
-        if (
-            (show_ru_data or lang == "ru")
-            and i.ru
-            and i.ru.ru_meaning
-            and i.pos not in pos_exclude_list
-        ):
-            i.ru.ru_meaning = re.sub(r"\?\?", "", i.ru.ru_meaning)
-
+        if i.meaning_1 and i.pos not in pos_exclude_list:
             # remove all space brackets
-            ru_meanings_clean = re.sub(r" \(.+?\)", "", i.ru.ru_meaning)
+            meanings_clean = re.sub(r" \(.+?\)", "", i.meaning_1)
             # remove all brackets space
-            ru_meanings_clean = re.sub(r"\(.+?\) ", "", ru_meanings_clean)
+            meanings_clean = re.sub(r"\(.+?\) ", "", meanings_clean)
             # remove space at start and fin
-            ru_meanings_clean = re.sub(r"(^ | $)", "", ru_meanings_clean)
+            meanings_clean = re.sub(r"(^ | $)", "", meanings_clean)
             # remove double spaces
-            ru_meanings_clean = re.sub(r"  ", " ", ru_meanings_clean)
+            meanings_clean = re.sub(r"  ", " ", meanings_clean)
             # remove space around ;
-            ru_meanings_clean = re.sub(r" ;|; ", ";", ru_meanings_clean)
-            # remove т.д.
-            ru_meanings_clean = re.sub(r"т\.д\. ", "", ru_meanings_clean)
+            meanings_clean = re.sub(r" ;|; ", ";", meanings_clean)
+            # remove i.e.
+            meanings_clean = re.sub(r"i\.e\. ", "", meanings_clean)
             # remove !
-            ru_meanings_clean = re.sub(r"!", "", ru_meanings_clean)
+            meanings_clean = re.sub(r"!", "", meanings_clean)
             # remove ?
-            ru_meanings_clean = re.sub(r"\\?", "", ru_meanings_clean)
-            ru_meanings_list = ru_meanings_clean.split(";")
+            meanings_clean = re.sub(r"\\?", "", meanings_clean)
+            meanings_list = meanings_clean.split(";")
 
-            pos: str = ru_replace_abbreviations(i.pos)
+            for meaning in meanings_list:
+                if meaning in epd.keys() and not i.plus_case:
+                    epd_string = f"{epd[meaning]}<br><b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
+                    epd[meaning] = epd_string
 
-            for ru_meaning in ru_meanings_list:
-                if ru_meaning in epd.keys():
-                    epd_string = f"{epd[ru_meaning]}<br><b class='epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
-                    epd[ru_meaning] = epd_string
+                if meaning in epd.keys() and i.plus_case:
+                    epd_string = f"{epd[meaning]}<br><b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                    epd[meaning] = epd_string
 
-                if ru_meaning not in epd.keys():
+                if meaning not in epd.keys() and not i.plus_case:
                     epd_string = (
-                        f"<b class='epd'>{i.lemma_clean}</b> {pos}. {i.ru.ru_meaning}"
+                        f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1}"
                     )
-                    epd.update({ru_meaning: epd_string})
+                    epd.update({meaning: epd_string})
+
+                if meaning not in epd.keys() and i.plus_case:
+                    epd_string = f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
+                    epd.update({meaning: epd_string})
 
         # Generate links for suttas
         if i.meaning_2 and (
@@ -154,44 +95,26 @@ def generate_epd_html(
             or i.family_set == "chapters of the Saṃyutta Nikāya"
         ):
             combined_numbers = extract_sutta_numbers(i.meaning_2)
-            update_epd(epd, combined_numbers, i, make_link, lang)
+            update_epd(epd, combined_numbers, i, make_link)
 
     for counter, i in enumerate(roots_db):
-        if lang == "en":
-            root_meanings_list: list = i.root_meaning.split(", ")
+        root_meanings_list: list = i.root_meaning.split(", ")
 
-            for root_meaning in root_meanings_list:
-                if root_meaning in epd.keys():
-                    epd_string = f"{epd[root_meaning]}<br><b class='epd'>{i.root}</b> root. {i.root_meaning}"
-                    epd[root_meaning] = epd_string
+        for root_meaning in root_meanings_list:
+            if root_meaning in epd.keys():
+                epd_string = f"{epd[root_meaning]}<br><b class='epd'>{i.root}</b> root. {i.root_meaning}"
+                epd[root_meaning] = epd_string
 
-                if root_meaning not in epd.keys():
-                    epd_string = f"<b class='epd'>{i.root}</b> root. {i.root_meaning}"
-                    epd.update({root_meaning: epd_string})
-
-        if show_ru_data or lang == "ru":
-            root_ru_meanings_list: list = i.root_ru_meaning.split(", ")
-
-            for root_ru_meaning in root_ru_meanings_list:
-                if root_ru_meaning in epd.keys():
-                    epd_string = f"{epd[root_ru_meaning]}<br><b class='epd'>{i.root}</b> корень. {i.root_ru_meaning}"
-                    epd[root_ru_meaning] = epd_string
-
-                if root_ru_meaning not in epd.keys():
-                    epd_string = (
-                        f"<b class='epd'>{i.root}</b> корень. {i.root_ru_meaning}"
-                    )
-                    epd.update({root_ru_meaning: epd_string})
+            if root_meaning not in epd.keys():
+                epd_string = f"<b class='epd'>{i.root}</b> root. {i.root_meaning}"
+                epd.update({root_meaning: epd_string})
 
     epd_data_list: List[DictEntry] = []
 
     for counter, (word, html_string) in enumerate(epd.items()):
         html = ""
         html += "<body>"
-        if lang == "en":
-            html += f"<div class ='dpd'><p>{html_string}</p></div>"
-        elif lang == "ru":
-            html += f"<div class ='dpd'><p>{html_string}</p></div>"
+        html += f"<div class ='dpd'><p>{html_string}</p></div>"
         html += "</body></html>"
 
         size_dict["epd"] += len(html)
@@ -250,22 +173,18 @@ def extract_sutta_numbers(meaning_2):
     return combined_numbers
 
 
-def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
+def update_epd(epd, combined_numbers, i, make_link=True):
     # Use sutta number as key in epd
     for combined_number in combined_numbers:
         if combined_number:
             number_link = i.source_link_sutta
             if make_link and number_link:
                 anchor_link = f'<a class="link" href="{number_link}">link</a>'
-                if lang == "en":
-                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
-                elif lang == "ru":
-                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                epd_string = (
+                    f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
+                )
             else:
-                if lang == "en":
-                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
-                elif lang == "ru":
-                    epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
+                epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
 
             if combined_number in epd.keys():
                 epd[combined_number] += f"<br>{epd_string}"
@@ -275,6 +194,5 @@ def update_epd(epd, combined_numbers, i, make_link=True, lang="en"):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    rupth = RuPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    generate_epd_html(db_session, pth, rupth)
+    generate_epd_html(db_session, pth)

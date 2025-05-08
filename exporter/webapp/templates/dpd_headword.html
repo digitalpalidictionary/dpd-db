@@ -3,32 +3,20 @@
 <h3 id="{{ d.i.lemma_1_ }}">{{d.i.lemma_1}}</h3>
 <div class="dpd summary">
     <p>
-        {% if d.show_sbs_data and d.i.sbs %}
-        {% if d.i.sbs.sbs_class_anki %}
-        <a href="{{d.i.sbs.sbs_class_link}}" target="_blank"><i>(cl.{{d.i.sbs.sbs_class_anki}})</i></a>
-        <span class="gray"> | </span>
-        {% endif %}
-        {% if d.i.sbs.sbs_category %}
-        <a href="{{d.i.sbs.sbs_sutta_link}}" target="_blank"><i>({{d.i.sbs.sbs_category}})</i></a> |
-        {% endif %}
-        {% if d.i.sbs.sbs_patimokkha %}
-        <a href="{{d.i.sbs.sbs_patimokkha_link}}" target="_blank"><i>({{d.i.sbs.sbs_patimokkha}})</i></a> |
-        {% endif %}
-        {% endif %}
 
         {{d.i.pos}}.
+        
         {% if d.i.plus_case %}
-        ({{d.i.plus_case}})
+            ({{d.i.plus_case}})
         {% endif %}
+        
         {{d.meaning|safe}}
+        
         {% if d.summary %}
-        [{{d.summary}}]
+            [{{d.summary}}]
         {% endif %}
-        {% if d.show_sbs_data %}
-        {{d.rus_complete|safe}}
-        {% else %}
+        
         {{d.complete|safe}}
-        {% endif %}
     </p>
 </div>
 
@@ -37,7 +25,7 @@
 
 
 <div class="button-box">
-    {% if d.i.needs_grammar_button or d.show_sbs_data %}
+    {% if d.i.needs_grammar_button %}
     <a class="button" name="grammar-button" href="#" data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %}
@@ -50,13 +38,6 @@
     {% if d.i.needs_examples_button %}
     <a class="button" name="example-button" href="#" data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
-    {% endif %}
-
-    {% if d.show_sbs_data and d.i.sbs %}
-    {% if d.i.sbs.needs_sbs_example_button %}
-    <a class="button" name="sbs-example-button" href="#" data-target="sbs_example_{{d.i.lemma_1_}}">
-        sbs</a>
-    {% endif %}
     {% endif %}
 
     {% if d.i.needs_conjugation_button %}
@@ -117,7 +98,7 @@
 <!-- grammar -->
 
 
-{% if d.i.needs_grammar_button or d.show_sbs_data %}
+{% if d.i.needs_grammar_button %}
 <div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd content hidden">
     <table class="grammar">
         <tr>
@@ -136,37 +117,6 @@
                 /{{d.i.lemma_ipa}}/
             </td>
         </tr>
-
-        {% if d.show_sbs_data %}
-
-        {% if d.i.ru %}
-        <tr>
-            <th>
-                Русский
-            </th>
-            <td>
-                {% if d.i.ru.ru_meaning %}
-                {{d.i.ru.ru_meaning}}
-                {% if d.i.ru.ru_meaning_lit %}
-                ; досл. {{d.i.ru.ru_meaning_lit}}
-                {% endif %}
-                {% else %}
-                <i>[пер. ИИ]</i> {{d.i.ru.ru_meaning_raw}}
-                {% endif %}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.i.sbs and d.i.sbs.sbs_meaning %}
-        <tr>
-            <th>
-                SBS
-            </th>
-            <td>
-                {{d.i.sbs.sbs_meaning}}
-            </td>
-        </tr>
-        {% endif %}
 
         {% endif %}
 
@@ -326,43 +276,6 @@
         </tr>
         {% endif %}
 
-        {% if d.show_sbs_data %}
-
-        {% if d.i.sbs and d.i.sbs.sbs_notes %}
-        <tr>
-            <th>
-                SBS Notes
-            </th>
-            <td>
-                {{d.i.sbs.sbs_notes|safe}}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.i.ru and d.i.ru.ru_notes and d.i.needs_ru_notes %}
-        <tr>
-            <th>
-                Заметки
-            </th>
-            <td>
-                {{d.i.ru.ru_notes|safe}}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.i.ru.ru_cognate %}
-        <tr>
-            <th>
-                Родствен.
-            </th>
-            <td>
-                {{d.i.ru.ru_cognate}}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% endif %}
-
         {% if d.i.cognate %}
         <tr>
             <th>
@@ -488,155 +401,6 @@
                 Add it here.</a>
         </p>
 
-    </div>
-    {% endif %}
-
-    <!-- sbs examples -->
-
-    {% if d.show_sbs_data and d.i.sbs and d.i.sbs.needs_sbs_example_button %}
-    <div id="sbs_example_{{d.i.lemma_1_}}" name="sbs-example-div" class="dpd content hidden">
-        {% if d.i.sbs.needs_sbs_example %}
-        {% if d.i.sbs.sbs_example_1 %}
-        <p>{{ d.i.sbs.sbs_example_1|safe }}</p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.sbs_source_link_1 %}
-            <a class="sutta_link" href="{{ d.i.sbs.sbs_source_link_1 }}" target="_blank">{{ d.i.sbs.sbs_source_1 }}</a>
-            {% else %}
-            {{ d.i.sbs.sbs_source_1 }}
-            {% endif %}
-            {{ d.i.sbs.sbs_sutta_1|safe }}
-        </p>
-        {% if d.i.sbs.sbs_chapter_1 %}
-        <p class="sutta">
-            {{ d.i.sbs.sbs_chapter_1 }} <a class="sutta_link" href="{{ d.i.sbs.sbs_chant_link_1 }}" target="_blank">{{
-                d.i.sbs.sbs_chant_pali_1 }}</a>
-            {{ d.i.sbs.sbs_chant_eng_1 }}
-        </p>
-        {% endif %}
-        {% endif %}
-        {% if d.i.sbs.sbs_example_2 %}
-        <p>{{ d.i.sbs.sbs_example_2|safe }}</p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.sbs_source_link_2 %}
-            <a class="sutta_link" href="{{ d.i.sbs.sbs_source_link_2 }}" target="_blank">{{ d.i.sbs.sbs_source_2 }}</a>
-            {% else %}
-            {{ d.i.sbs.sbs_source_2 }}
-            {% endif %}
-            {{ d.i.sbs.sbs_sutta_2|safe }}
-        </p>
-        {% if d.i.sbs.sbs_chapter_2 %}
-        <p class="sutta">
-            {{ d.i.sbs.sbs_chapter_2 }} <a class="sutta_link" href="{{ d.i.sbs.sbs_chant_link_2 }}" target="_blank">{{
-                d.i.sbs.sbs_chant_pali_2 }}</a>
-            {{ d.i.sbs.sbs_chant_eng_2 }}
-        </p>
-        {% endif %}
-        {% endif %}
-        {% if d.i.sbs.sbs_example_3 %}
-        <p>{{ d.i.sbs.sbs_example_3|safe }}</p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.sbs_source_link_3 %}
-            <a class="sutta_link" href="{{ d.i.sbs.sbs_source_link_3 }}" target="_blank">{{ d.i.sbs.sbs_source_3 }}</a>
-            {% else %}
-            {{ d.i.sbs.sbs_source_3 }}
-            {% endif %}
-            {{ d.i.sbs.sbs_sutta_3|safe }}
-        </p>
-        {% endif %}
-        {% if d.i.sbs.sbs_example_4 %}
-        <p>{{ d.i.sbs.sbs_example_4|safe }}</p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.sbs_source_link_4 %}
-            <a class="sutta_link" href="{{ d.i.sbs.sbs_source_link_4 }}" target="_blank">{{ d.i.sbs.sbs_source_4 }}</a>
-            {% else %}
-            {{ d.i.sbs.sbs_source_4 }}
-            {% endif %}
-            {{ d.i.sbs.sbs_sutta_4|safe }}
-        </p>
-        {% endif %}
-        {% endif %}
-        {% if d.i.sbs.needs_dhp_example %}
-        <b>DHP:</b>
-        <p>
-            {{d.i.sbs.dhp_example|safe}}
-        </p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.dhp_source_link %}
-            <a class="sutta_link" href="{{d.i.sbs.dhp_source_link}}" target="_blank">
-                {{d.i.sbs.dhp_source}}</a>
-            {% else %}
-            {{d.i.sbs.dhp_source}}
-            {% endif %}
-            {{d.i.sbs.dhp_sutta|safe}}
-        </p>
-        {% endif %}
-        {% if d.i.sbs.needs_pat_example %}
-        <b>Pātimokkha:</b>
-        <p>
-            {{d.i.sbs.pat_example|safe}}
-        </p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.pat_source_link %}
-            <a class="sutta_link" href="{{d.i.sbs.pat_source_link}}" target="_blank">
-                {{d.i.sbs.pat_source}}</a>
-            {% else %}
-            {{d.i.sbs.pat_source}}
-            {% endif %}
-            {{d.i.sbs.pat_sutta|safe}}
-        </p>
-        {% endif %}
-        {% if d.i.sbs.needs_vib_example %}
-        <b>Vibhaṅga:</b>
-        <p>
-            {{d.i.sbs.vib_example|safe}}
-        </p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.vib_source_link %}
-            <a class="sutta_link" href="{{d.i.sbs.vib_source_link}}" target="_blank">
-                {{d.i.sbs.vib_source}}</a>
-            {% else %}
-            {{d.i.sbs.vib_source}}
-            {% endif %}
-            {{d.i.sbs.vib_sutta|safe}}
-        </p>
-        {% endif %}
-        {% if d.i.sbs.needs_class_example %}
-        <b>Pāli Class:</b>
-        <p>
-            {{d.i.sbs.class_example|safe}}
-        </p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.class_source_link %}
-            <a class="sutta_link" href="{{d.i.sbs.class_source_link}}" target="_blank">
-                {{d.i.sbs.class_source}}</a>
-            {% else %}
-            {{d.i.sbs.class_source}}
-            {% endif %}
-            {{d.i.sbs.class_sutta|safe}}
-        </p>
-        {% endif %}
-        {% if d.i.sbs.needs_discourses_example %}
-        <b>Discourses:</b>
-        <p>
-            {{d.i.sbs.discourses_example|safe}}
-        </p>
-        <p class="sutta">
-            {% if d.make_link and d.i.sbs.discourses_source_link %}
-            <a class="sutta_link" href="{{d.i.sbs.discourses_source_link}}" target="_blank">
-                {{d.i.sbs.discourses_source}}</a>
-            {% else %}
-            {{d.i.sbs.discourses_source}}
-            {% endif %}
-            {{d.i.sbs.discourses_sutta|safe}}
-        </p>
-        {% endif %}
-        <p class='footer'>
-            Did you spot a mistake in SBS examples?
-            <a class="link"
-                href="https://docs.google.com/forms/d/e/1FAIpQLScNC5v2gQbBCM3giXfYIib9zrp-WMzwJuf_iVXEMX2re4BFFw/viewform?usp=pp_url&entry.438735500={{d.i.lemma_link}}&entry.326955045=Examples&entry.1433863141={{d.app_name}}+{{d.date}}"
-                target="_blank">
-                Correct it here.</a>
-        </p>
     </div>
     {% endif %}
 

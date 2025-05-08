@@ -16,7 +16,7 @@ from exporter.webapp.preloads import (
     make_headwords_clean_set,
     make_roots_count_dict,
 )
-from exporter.webapp.toolkit import fuzzy_replace, make_dpd_html
+from exporter.webapp.toolkit import make_dpd_html
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.translit import auto_translit_to_roman
@@ -47,13 +47,11 @@ def get_db():
 with get_db() as db_session:
     roots_count_dict = make_roots_count_dict(db_session)
     headwords_clean_set = make_headwords_clean_set(db_session)
-    headwords_clean_set_ru = make_headwords_clean_set(db_session, "ru")
     ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
     bd_count = db_session.query(BoldDefinition).count()
 
 # Set up templates
 templates = Jinja2Templates(directory="exporter/webapp/templates")
-templates_ru = Jinja2Templates(directory="exporter/webapp/ru_templates")
 
 # Update CSS
 css_manager = CSSManager()
@@ -92,15 +90,6 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
     )
 
 
-@app.get("/ru")
-def home_page_ru(request: Request, response_class=HTMLResponse):
-    """Russian home page"""
-
-    return templates_ru.TemplateResponse(
-        "home.html", {"request": request, "dpd_results": ""}
-    )
-
-
 @app.get("/search_html", response_class=HTMLResponse)
 def db_search_html(request: Request, q: str):
     """Returns a JSON with HTML."""
@@ -116,29 +105,6 @@ def db_search_html(request: Request, q: str):
         ascii_to_unicode_dict,
     )
     return templates.TemplateResponse(
-        "home.html",
-        {
-            "request": request,
-            "q": q,
-            "dpd_results": dpd_html,
-        },
-    )
-
-
-@app.get("/ru/search_html", response_class=HTMLResponse)
-def db_search_html_ru(request: Request, q: str):
-    """Returns a JSON with Russian HTML."""
-
-    dpd_html, summary_html = make_dpd_html(
-        q,
-        pth,
-        templates_ru,
-        roots_count_dict,
-        headwords_clean_set_ru,
-        ascii_to_unicode_dict,
-        "ru",
-    )
-    return templates_ru.TemplateResponse(
         "home.html",
         {
             "request": request,
@@ -167,24 +133,6 @@ def db_search_json(request: Request, q: str):
     return JSONResponse(content=response_data, headers=headers)
 
 
-@app.get("/ru/search_json", response_class=JSONResponse)
-def db_search_json_ru(request: Request, q: str):
-    """Main Russian search route for website."""
-
-    dpd_html, summary_html = make_dpd_html(
-        q,
-        pth,
-        templates_ru,
-        roots_count_dict,
-        headwords_clean_set_ru,
-        ascii_to_unicode_dict,
-        "ru",
-    )
-    response_data = {"summary_html": summary_html, "dpd_html": dpd_html}
-    headers = {"Accept-Encoding": "gzip"}
-    return JSONResponse(content=response_data, headers=headers)
-
-
 @app.get("/gd", response_class=HTMLResponse)
 def db_search_gd(request: Request, search: str):
     """Returns pure HTML for GoldenDict and MDict."""
@@ -198,35 +146,6 @@ def db_search_gd(request: Request, search: str):
         roots_count_dict,
         headwords_clean_set,
         ascii_to_unicode_dict,
-    )
-    global dpd_css, dpd_js, home_simple_css
-
-    return templates.TemplateResponse(
-        "home_simple.html",
-        {
-            "request": request,
-            "search": search,
-            "dpd_results": dpd_html,
-            "summary": summary_html,
-            "dpd_css": dpd_css,
-            "dpd_js": dpd_js,
-            "home_simple_css": home_simple_css,
-        },
-    )
-
-
-@app.get("/ru/gd", response_class=HTMLResponse)
-def db_search_gd_ru(request: Request, search: str):
-    """Returns pure HTML in Russian for GoldenDict and MDict."""
-
-    dpd_html, summary_html = make_dpd_html(
-        search,
-        pth,
-        templates_ru,
-        roots_count_dict,
-        headwords_clean_set_ru,
-        ascii_to_unicode_dict,
-        "ru",
     )
     global dpd_css, dpd_js, home_simple_css
 

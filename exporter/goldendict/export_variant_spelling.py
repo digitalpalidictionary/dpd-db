@@ -1,13 +1,13 @@
 """Compile HTML data for variants and spelling mistakes."""
 
 import csv
+from typing import List, Tuple
 
 from mako.template import Template
 from minify_html import minify
-from typing import List, Tuple
 
-from dps.scripts.rus_exporter.paths_ru import RuPaths
 from tools.css_manager import CSSManager
+from tools.goldendict_exporter import DictEntry
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -17,11 +17,10 @@ from tools.utils import (
     squash_whitespaces,
     sum_rendered_sizes,
 )
-from tools.goldendict_exporter import DictEntry
 
 
 def generate_variant_spelling_html(
-    pth: ProjectPaths, rupth: RuPaths, lang="en"
+    pth: ProjectPaths,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """Generate html for variant readings and spelling corrections."""
 
@@ -29,21 +28,22 @@ def generate_variant_spelling_html(
 
     rendered_sizes = []
 
-    if lang == "en":
-        header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
-    elif lang == "ru":
-        header_templ = Template(filename=str(rupth.dpd_header_plain_templ_path))
+    header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
 
     variant_dict = test_and_make_variant_dict(pth)
     spelling_dict = test_and_make_spelling_dict(pth)
 
     variant_data_list, sizes = generate_variant_data_list(
-        pth, variant_dict, header_templ, rupth, lang
+        pth,
+        variant_dict,
+        header_templ,
     )
     rendered_sizes.append(sizes)
 
     spelling_data_list, sizes = generate_spelling_data_list(
-        pth, spelling_dict, header_templ, rupth, lang
+        pth,
+        spelling_dict,
+        header_templ,
     )
     rendered_sizes.append(sizes)
 
@@ -83,16 +83,10 @@ def generate_variant_data_list(
     pth: ProjectPaths,
     variant_dict: dict,
     header_templ: Template,
-    rupth: RuPaths,
-    lang="en",
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
-    if lang == "en":
-        variant_templ = Template(filename=str(pth.variant_templ_path))
-    elif lang == "ru":
-        variant_templ = Template(filename=str(rupth.variant_templ_path))
-    # add here another language elif ...
+    variant_templ = Template(filename=str(pth.variant_templ_path))
 
     header = str(header_templ.render())
 
@@ -158,16 +152,10 @@ def generate_spelling_data_list(
     pth: ProjectPaths,
     spelling_dict: dict,
     header_templ: Template,
-    rupth: RuPaths,
-    lang="en",
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
-    if lang == "en":
-        spelling_templ = Template(filename=str(pth.spelling_templ_path))
-    elif lang == "ru":
-        spelling_templ = Template(filename=str(rupth.spelling_templ_path))
-    # add here another language elif ...
+    spelling_templ = Template(filename=str(pth.spelling_templ_path))
 
     header = str(header_templ.render())
 
@@ -204,5 +192,4 @@ def generate_spelling_data_list(
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    ru_path = RuPaths()
-    generate_variant_spelling_html(pth, ru_path)
+    generate_variant_spelling_html(pth)

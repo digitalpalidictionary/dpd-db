@@ -37,7 +37,6 @@ DEFAULT_CONFIG = {
         "element_padding_y": "0",
         "margin_x": "0",
         "margin_y": "0",
-        "include_sbs_examples": "no",
     },
     "goldendict": {"copy_unzip": "no", "path": ""},
     "dictionary": {
@@ -46,13 +45,9 @@ DEFAULT_CONFIG = {
         "make_link": "yes",
         "extended_synonyms": "no",
         "show_id": "no",
-        "show_ebt_count": "no",
-        "show_sbs_data": "no",
-        "show_ru_data": "no",
         "data_limit": "0",
     },
     "exporter": {
-        "language": "en",
         "make_dpd": "yes",
         "make_deconstructor": "no",
         "make_grammar": "no",
