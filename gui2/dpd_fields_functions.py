@@ -33,8 +33,11 @@ def clean_root_sign(root_sign: str) -> str:
     return re.sub(r"\*", "", root_sign)
 
 
-def make_lemma_2(lemma_1: str, pos: str) -> str:
+def make_lemma_2(lemma_1: str, pos: str, grammar: str) -> str:
     lemma_clean = clean_lemma_1(lemma_1)
+    if "pl" in grammar:
+        return lemma_clean
+
     if pos == "masc":
         if lemma_clean.endswith("a"):
             return f"{lemma_clean[:-1]}o"

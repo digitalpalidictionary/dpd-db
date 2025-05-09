@@ -108,6 +108,7 @@ class Pass2AutoController:
         try:
             if not self._pass2_pre_file_manager.matched:
                 pr.red("No 'matched' items found")
+                self.ui.update_message("No 'matched' items found. Run Pass2Pre.")
                 return
 
             matched_items = list(

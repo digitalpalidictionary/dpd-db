@@ -14,5 +14,7 @@ class Gui2Paths:
     history_json_path: Path = gui2_data_path / "history.json"  # Add history path
     example_stash_json_path: Path = gui2_data_path / "example_stash.json"
     # Other paths
-    find_words_dump_path: Path = gui2_dir / "find_words_with_examples_dump.json"
-    find_words_exceptions_path: Path = gui2_dir / "find_words_with_examples_no.json"
+    find_words_dump_path: Path = gui2_dir / "data/find_words_with_examples_dump.json"
+    find_words_exceptions_path: Path = (
+        gui2_dir / "data/find_words_with_examples_no.json"
+    )

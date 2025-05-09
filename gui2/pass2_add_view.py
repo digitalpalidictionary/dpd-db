@@ -368,6 +368,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 self.add_headword_to_examples_and_commentary()
             else:
                 self.update_message(f"{headword_id}: headword not found")
+                self._click_load_next_pass2_entry()
 
         else:
             self._message_field.value = "Current Pass2: None"
