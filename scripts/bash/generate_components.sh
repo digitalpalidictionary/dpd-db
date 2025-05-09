@@ -49,7 +49,6 @@ uv run python scripts/build/ebt_counter.py
 go run go_modules/frequency/main.go
 
 uv run python db/epd/epd_to_lookup.py
-uv run python db/rpd/rpd_to_lookup.py
 
 uv run python scripts/build/dealbreakers.py
 status=$?

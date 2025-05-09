@@ -8,15 +8,12 @@ from typing import Optional
 
 from sqlalchemy import and_
 from sqlalchemy import case
-from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
-from sqlalchemy import Integer
 from sqlalchemy import null
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import declared_attr
 from sqlalchemy.orm import foreign
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
@@ -30,10 +27,6 @@ from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS
 from tools.pos import DECLENSIONS
 from tools.pos import EXCLUDE_FROM_FREQ
-from tools.sinhala_tools import si_grammar, pos_si, pos_si_full, translit_ro_to_si
-from tools.clean_machine import clean_machine
-
-from dps.tools.sbs_table_functions import SBS_table_tools, paragraphs_are_similar
 
 
 class Base(DeclarativeBase):
@@ -113,9 +106,6 @@ class DpdRoot(Base):
     root_info: Mapped[str] = mapped_column(default="")
     root_matrix: Mapped[str] = mapped_column(default="")
 
-    root_ru_meaning: Mapped[str] = mapped_column(default="")
-    sanskrit_root_ru_meaning: Mapped[str] = mapped_column(default="")
-
     created_at: Mapped[Optional[DateTime]] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
@@ -191,24 +181,14 @@ class FamilyRoot(Base):
     html: Mapped[str] = mapped_column(default="")
     data: Mapped[str] = mapped_column(default="")
     count: Mapped[int] = mapped_column(default=0)
-    root_ru_meaning: Mapped[str] = mapped_column(default="")
-    html_ru: Mapped[str] = mapped_column(default="")
-    data_ru: Mapped[str] = mapped_column(default="")
 
     # root family pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def data_ru_pack(self, list: list[str]) -> None:
-        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
-
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
-
-    @property
-    def data_ru_unpack(self) -> list[str]:
-        return json.loads(self.data_ru)
 
     @property
     def root_family_link(self) -> str:
@@ -633,15 +613,6 @@ class DpdHeadword(Base):
     #  FamilyWord
     fw = relationship("FamilyWord", uselist=False)
 
-    # sbs
-    sbs = relationship("SBS", uselist=False)
-
-    # russian
-    ru = relationship("Russian", uselist=False)
-
-    # sinhala
-    si = relationship("Sinhala", uselist=False)
-
     # inflection templates
     it: Mapped[InflectionTemplates] = relationship()
 
@@ -730,43 +701,11 @@ class DpdHeadword(Base):
 
         return degree_of_completion(self, html=False)
 
-    # sinhala
-
     @property
     def lemma_trad(self) -> str:
         from tools.lemma_traditional import make_lemma_trad
 
         return make_lemma_trad(self)
-
-    @property
-    def lemma_si(self) -> str:
-        from tools.lemma_traditional import make_lemma_trad_si
-
-        return make_lemma_trad_si(self)
-
-    @property
-    def plus_case_si(self) -> str:
-        return si_grammar(self.plus_case)
-
-    @property
-    def pos_si(self) -> str:
-        return pos_si(self.pos)
-
-    @property
-    def pos_si_full(self) -> str:
-        return pos_si_full(self.pos)
-
-    @property
-    def meaning_si(self) -> str:
-        return self.si.meaning_si if self.si else ""
-
-    @property
-    def construction_summary_si(self) -> str:
-        from tools.meaning_construction import summarize_construction
-
-        construction = summarize_construction(self)
-        construction = construction.replace("*", "ṇ")
-        return translit_ro_to_si(construction)
 
     # root
 
@@ -1171,17 +1110,6 @@ class DpdHeadword(Base):
     def needs_frequency_button(self) -> bool:
         return bool(self.pos not in EXCLUDE_FROM_FREQ)
 
-    # Determine uniqueness of ru_notes
-    @property
-    def needs_ru_notes(self) -> bool:
-        if self.ru and self.ru.ru_notes:
-            if not self.notes:
-                return True
-            if paragraphs_are_similar(self.ru.ru_notes, self.notes, 0.999):
-                return False
-            return True
-        return False
-
     def __repr__(self) -> str:
         return f"""DpdHeadword: {self.id} {self.lemma_1} {self.pos} {self.meaning_1}"""
 
@@ -1192,23 +1120,14 @@ class FamilyCompound(Base):
     html: Mapped[str] = mapped_column(default="")
     data: Mapped[str] = mapped_column(default="")
     count: Mapped[int] = mapped_column(default=0)
-    html_ru: Mapped[str] = mapped_column(default="")
-    data_ru: Mapped[str] = mapped_column(default="")
 
     # family_compound pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def data_ru_pack(self, list: list[str]) -> None:
-        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
-
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
-
-    @property
-    def data_ru_unpack(self) -> list[str]:
-        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilyCompound: {self.compound_family} {self.count}"
@@ -1220,8 +1139,6 @@ class FamilyWord(Base):
     html: Mapped[str] = mapped_column(default="")
     data: Mapped[str] = mapped_column(default="")
     count: Mapped[int] = mapped_column(default=0)
-    html_ru: Mapped[str] = mapped_column(default="")
-    data_ru: Mapped[str] = mapped_column(default="")
 
     dpd_headwords: Mapped[List["DpdHeadword"]] = relationship(
         "DpdHeadword", back_populates="fw"
@@ -1231,16 +1148,9 @@ class FamilyWord(Base):
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def data_ru_pack(self, list: list[str]) -> None:
-        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
-
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
-
-    @property
-    def data_ru_unpack(self) -> list[str]:
-        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilyWord: {self.word_family} {self.count}"
@@ -1252,24 +1162,14 @@ class FamilySet(Base):
     html: Mapped[str] = mapped_column(default="")
     data: Mapped[str] = mapped_column(default="")
     count: Mapped[int] = mapped_column(default=0)
-    set_ru: Mapped[str] = mapped_column(default="")
-    html_ru: Mapped[str] = mapped_column(default="")
-    data_ru: Mapped[str] = mapped_column(default="")
 
     # family_set pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def data_ru_pack(self, list: list[str]) -> None:
-        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
-
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
-
-    @property
-    def data_ru_unpack(self) -> list[str]:
-        return json.loads(self.data_ru)
 
     def __repr__(self) -> str:
         return f"FamilySet: {self.set} {self.count}"
@@ -1281,344 +1181,17 @@ class FamilyIdiom(Base):
     html: Mapped[str] = mapped_column(default="")
     data: Mapped[str] = mapped_column(default="")
     count: Mapped[int] = mapped_column(default=0)
-    html_ru: Mapped[str] = mapped_column(default="")
-    data_ru: Mapped[str] = mapped_column(default="")
 
     # idioms data pack unpack
     def data_pack(self, list: list[str]) -> None:
         self.data = json.dumps(list, ensure_ascii=False, indent=1)
 
-    def data_ru_pack(self, list: list[str]) -> None:
-        self.data_ru = json.dumps(list, ensure_ascii=False, indent=1)
-
     @property
     def data_unpack(self) -> list[str]:
         return json.loads(self.data)
 
-    @property
-    def data_ru_unpack(self) -> list[str]:
-        return json.loads(self.data_ru)
-
     def __repr__(self) -> str:
         return f"FamilyIdiom: {self.idiom} {self.count}"
-
-
-class SBS(Base):
-    __tablename__ = "sbs"
-
-    id: Mapped[int] = mapped_column(ForeignKey("dpd_headwords.id"), primary_key=True)
-    sbs_class_anki: Mapped[int] = mapped_column(default="")
-    sbs_class: Mapped[int] = mapped_column(default="")
-
-    # TODO  remove after populating discourses
-    sbs_category: Mapped[str] = mapped_column(default="")
-    # TODO  remove after populating pat
-    sbs_patimokkha: Mapped[str] = mapped_column(default="")
-
-    sbs_meaning: Mapped[str] = mapped_column(default="")
-    sbs_notes: Mapped[str] = mapped_column(default="")
-
-    sbs_source_1: Mapped[str] = mapped_column(default="")
-    sbs_sutta_1: Mapped[str] = mapped_column(default="")
-    sbs_example_1: Mapped[str] = mapped_column(default="")
-    sbs_chant_pali_1: Mapped[str] = mapped_column(default="")
-    sbs_chant_eng_1: Mapped[str] = mapped_column(default="")
-    sbs_chapter_1: Mapped[str] = mapped_column(default="")
-
-    sbs_source_2: Mapped[str] = mapped_column(default="")
-    sbs_sutta_2: Mapped[str] = mapped_column(default="")
-    sbs_example_2: Mapped[str] = mapped_column(default="")
-    sbs_chant_pali_2: Mapped[str] = mapped_column(default="")
-    sbs_chant_eng_2: Mapped[str] = mapped_column(default="")
-    sbs_chapter_2: Mapped[str] = mapped_column(default="")
-
-    dhp_source: Mapped[str] = mapped_column(default="")
-    dhp_sutta: Mapped[str] = mapped_column(default="")
-    dhp_example: Mapped[str] = mapped_column(default="")
-
-    pat_source: Mapped[str] = mapped_column(default="")
-    pat_sutta: Mapped[str] = mapped_column(default="")
-    pat_example: Mapped[str] = mapped_column(default="")
-
-    vib_source: Mapped[str] = mapped_column(default="")
-    vib_sutta: Mapped[str] = mapped_column(default="")
-    vib_example: Mapped[str] = mapped_column(default="")
-
-    class_source: Mapped[str] = mapped_column(default="")
-    class_sutta: Mapped[str] = mapped_column(default="")
-    class_example: Mapped[str] = mapped_column(default="")
-    class_example_translation: Mapped[str] = mapped_column(default="")
-
-    discourses_source: Mapped[str] = mapped_column(default="")
-    discourses_sutta: Mapped[str] = mapped_column(default="")
-    discourses_example: Mapped[str] = mapped_column(default="")
-
-    # TODO  remove after filling class and discourses
-    sbs_source_3: Mapped[str] = mapped_column(default="")
-    sbs_sutta_3: Mapped[str] = mapped_column(default="")
-    sbs_example_3: Mapped[str] = mapped_column(default="")
-    sbs_chant_pali_3: Mapped[str] = mapped_column(default="")
-    sbs_chant_eng_3: Mapped[str] = mapped_column(default="")
-    sbs_chapter_3: Mapped[str] = mapped_column(default="")
-    sbs_source_4: Mapped[str] = mapped_column(default="")
-    sbs_sutta_4: Mapped[str] = mapped_column(default="")
-    sbs_example_4: Mapped[str] = mapped_column(default="")
-    sbs_chant_pali_4: Mapped[str] = mapped_column(default="")
-    sbs_chant_eng_4: Mapped[str] = mapped_column(default="")
-    sbs_chapter_4: Mapped[str] = mapped_column(default="")
-
-    @declared_attr
-    def sbs_index(cls):
-        return Column(Integer)
-
-    def calculate_index(self):
-        chant_index_map = SBS_table_tools().load_chant_index_map()
-        chants = [self.sbs_chant_pali_1, self.sbs_chant_pali_2]
-
-        indexes = [
-            chant_index_map.get(chant) for chant in chants if chant in chant_index_map
-        ]
-        indexes = [
-            index for index in indexes if index is not None
-        ]  # Filter out None values
-
-        if indexes:
-            return min(indexes)
-        else:
-            return ""
-
-    @property
-    def needs_sbs_example_button(self) -> bool:
-        return any(
-            example and example.strip()
-            for example in (
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-                self.dhp_example,
-                self.pat_example,
-                self.vib_example,
-                self.class_example,
-                self.discourses_example,
-            )
-        )
-
-    @property
-    def needs_sbs_example(self) -> bool:
-        return any(
-            example and example.strip()
-            for example in (
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-            )
-        )
-
-    # Determine uniqueness of examples
-    @property
-    def needs_dhp_example(self) -> bool:
-        if self.dhp_example:
-            examples = [
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-            ]
-            if not any(examples):
-                return True
-            for example in examples:
-                if example and paragraphs_are_similar(
-                    clean_machine(example), clean_machine(self.dhp_example), 0.9
-                ):
-                    return False
-            return True
-        return False
-
-    @property
-    def needs_pat_example(self) -> bool:
-        if self.pat_example:
-            examples = [
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-            ]
-            if not any(examples):
-                return True
-            for example in examples:
-                if example and paragraphs_are_similar(
-                    clean_machine(example), clean_machine(self.pat_example), 0.9
-                ):
-                    return False
-            return True
-        return False
-
-    @property
-    def needs_vib_example(self) -> bool:
-        if self.vib_example:
-            examples = [
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-            ]
-            if not any(examples):
-                return True
-            for example in examples:
-                if example and paragraphs_are_similar(
-                    clean_machine(example), clean_machine(self.vib_example), 0.9
-                ):
-                    return False
-            return True
-        return False
-
-    @property
-    def needs_class_example(self) -> bool:
-        if self.class_example:
-            examples = [
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-                self.dhp_example,
-                self.pat_example,
-                self.vib_example,
-                self.discourses_example,
-            ]
-            if not any(examples):
-                return True
-            for example in examples:
-                if example and paragraphs_are_similar(
-                    clean_machine(example), clean_machine(self.class_example), 0.9
-                ):
-                    return False
-            return True
-        return False
-
-    @property
-    def needs_discourses_example(self) -> bool:
-        if self.discourses_example:
-            examples = [
-                self.sbs_example_1,
-                self.sbs_example_2,
-                self.sbs_example_3,
-                self.sbs_example_4,
-            ]
-            if not any(examples):
-                return True
-            for example in examples:
-                if example and paragraphs_are_similar(
-                    clean_machine(example), clean_machine(self.discourses_example), 0.9
-                ):
-                    return False
-            return True
-        return False
-
-    # Properties for sbs_chant_link_X
-    @property
-    def sbs_chant_link_1(self):
-        chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_pali_1, "")
-
-    @property
-    def sbs_chant_link_2(self):
-        chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_pali_2, "")
-
-    @property
-    def sbs_chant_link_3(self):
-        chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_pali_3, "")
-
-    @property
-    def sbs_chant_link_4(self):
-        chant_link_map = SBS_table_tools().load_chant_link_map()
-        return chant_link_map.get(self.sbs_chant_pali_4, "")
-
-    @property
-    def sbs_class_link(self):
-        class_link_map = SBS_table_tools().load_class_link_map()
-        return class_link_map.get(self.sbs_class_anki, "")
-
-    @property
-    def sbs_sutta_link(self):
-        sutta_link_map = SBS_table_tools().load_sutta_link_map()
-        return sutta_link_map.get(self.sbs_category, "")
-
-    @property
-    def sbs_patimokkha_link(self):
-        patimokkha_link_map = SBS_table_tools().load_sutta_link_map()
-        return patimokkha_link_map.get(self.sbs_patimokkha, "")
-
-    @property
-    def sbs_source_link_1(self) -> str:
-        return generate_link(self.sbs_source_1) if self.sbs_source_1 else ""
-
-    @property
-    def sbs_source_link_2(self) -> str:
-        return generate_link(self.sbs_source_2) if self.sbs_source_2 else ""
-
-    @property
-    def sbs_source_link_3(self) -> str:
-        return generate_link(self.sbs_source_3) if self.sbs_source_3 else ""
-
-    @property
-    def sbs_source_link_4(self) -> str:
-        return generate_link(self.sbs_source_4) if self.sbs_source_4 else ""
-
-    @property
-    def dhp_source_link(self) -> str:
-        return generate_link(self.dhp_source) if self.dhp_source else ""
-
-    @property
-    def pat_source_link(self) -> str:
-        return generate_link(self.pat_source) if self.pat_source else ""
-
-    @property
-    def vib_source_link(self) -> str:
-        return generate_link(self.vib_source) if self.vib_source else ""
-
-    @property
-    def class_source_link(self) -> str:
-        return generate_link(self.class_source) if self.class_source else ""
-
-    @property
-    def discourses_source_link(self) -> str:
-        return generate_link(self.discourses_source) if self.discourses_source else ""
-
-    def __repr__(self) -> str:
-        return f"SBS: {self.id} {self.sbs_chant_pali_1} {self.sbs_class}"
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.sbs_index = self.calculate_index()
-
-
-class Russian(Base):
-    __tablename__ = "russian"
-
-    id: Mapped[int] = mapped_column(ForeignKey("dpd_headwords.id"), primary_key=True)
-    ru_meaning: Mapped[str] = mapped_column(default="")
-    ru_meaning_raw: Mapped[str] = mapped_column(default="")
-    ru_meaning_lit: Mapped[str] = mapped_column(default="")
-    ru_notes: Mapped[str] = mapped_column(default="")
-    ru_cognate: Mapped[str] = mapped_column(default="")
-
-    def __repr__(self) -> str:
-        return f"Russian: {self.id} {self.ru_meaning}"
-
-
-class Sinhala(Base):
-    __tablename__ = "sinhala"
-
-    id: Mapped[int] = mapped_column(ForeignKey("dpd_headwords.id"), primary_key=True)
-    si_meaning: Mapped[str] = mapped_column(default="")
-    checked: Mapped[str] = mapped_column(default="")
-
-    def __repr__(self) -> str:
-        return f"Sinhala: {self.id} {self.si_meaning}"
 
 
 class BoldDefinition(Base):

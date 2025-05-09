@@ -151,9 +151,6 @@ jobs:
     - name: Add EPD to Lookup Table
       run: uv run python db/epd/epd_to_lookup.py
 
-    - name: Add RPD to Lookup Table
-      run: uv run python db/rpd/rpd_to_lookup.py
-
     - name: Test Dealbreakers
       run: uv run python scripts/build/dealbreakers.py
 

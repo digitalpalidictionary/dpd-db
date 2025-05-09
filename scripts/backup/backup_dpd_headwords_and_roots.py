@@ -16,7 +16,7 @@ from tools.paths import ProjectPaths
 
 def backup_dpd_headwords_and_roots(pth: ProjectPaths):
     pr.tic()
-    print("[bright_yellow]backing headword and roots tables to tsv")
+    pr.title("backing headword and roots tables to tsv")
     db_session = get_db_session(pth.dpd_db_path)
     backup_dpd_headwords(db_session, pth)
     backup_dpd_roots(db_session, pth)
@@ -27,7 +27,7 @@ def backup_dpd_headwords_and_roots(pth: ProjectPaths):
 
 def backup_dpd_headwords(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup DpdHeadword table to TSV."""
-    print("[green]writing DpdHeadword table")
+    pr.green("writing DpdHeadword table")
     db = db_session.query(DpdHeadword).all()
 
     # Use the custom path if provided, otherwise use the default path
@@ -64,10 +64,12 @@ def backup_dpd_headwords(db_session: Session, pth: ProjectPaths, custom_path: st
             ]
             csvwriter.writerow(row)
 
+    pr.yes(len(db))
+
 
 def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup DpdRoot table to TSV."""
-    print("[green]writing DpdRoot table")
+    pr.green("writing DpdRoot table")
     db = db_session.query(DpdRoot).all()
 
     # Use the custom path if provided, otherwise use the default path
@@ -100,12 +102,19 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
             ]
             csvwriter.writerow(row)
 
+    pr.yes(len(db))
+
 
 def git_commit():
-    repo = Repo("./")
-    index = repo.index
-    index.add(["db/backup_tsv/dpd_roots.tsv", "db/backup_tsv/dpd_headwords.tsv"])
-    index.commit("pali update")
+    pr.green("committing changes to Github")
+    try:
+        repo = Repo("./")
+        index = repo.index
+        index.add(["db/backup_tsv/dpd_roots.tsv", "db/backup_tsv/dpd_headwords.tsv"])
+        index.commit("pali update")
+        pr.yes("ok")
+    except Exception as e:
+        pr.no(f"{e}")
 
 
 if __name__ == "__main__":
