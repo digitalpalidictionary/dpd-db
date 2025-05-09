@@ -7,9 +7,9 @@ from db.models import DpdHeadword
 from gui2.books import SuttaCentralSource, sutta_central_books
 from gui2.database_manager import DatabaseManager
 from gui2.pass2_file_manager import Pass2AutoFileManager
-from gui2.paths import Gui2Paths
 from gui2.pass2_pre_controller import Pass2PreFileManager
-from tools.ai_manager import AIManager
+from gui2.paths import Gui2Paths
+from gui2.toolkit import ToolKit
 from tools.goldendict_tools import open_in_goldendict_os
 from tools.printer import printer as pr
 
@@ -25,18 +25,17 @@ class Pass2AutoController:
     def __init__(
         self,
         ui,
-        db_manager: DatabaseManager,
-        ai_manager: AIManager,
+        toolkit: ToolKit,
     ) -> None:
         from gui2.pass2_auto_view import Pass2AutoView
 
         # globals
         self.ui: Pass2AutoView = ui
-        self.db: DatabaseManager = db_manager
-        self.ai_manager = ai_manager
+        self.db: DatabaseManager = toolkit.db_manager
+        self.ai_manager = toolkit.ai_manager
 
         # paths
-        self._gui2pth = Gui2Paths()
+        self._gui2pth: Gui2Paths = toolkit.paths
         self._output_file: Path = self._gui2pth.pass2_auto_json_path
         self._failures_path: Path = self._gui2pth.pass2_auto_failures_path
 
@@ -47,7 +46,9 @@ class Pass2AutoController:
         self._cst_books: list[str]
 
         self._pass2_pre_file_manager: Pass2PreFileManager
-        self._pass2_auto_file_manager: Pass2AutoFileManager = Pass2AutoFileManager()
+        self._pass2_auto_file_manager: Pass2AutoFileManager = Pass2AutoFileManager(
+            toolkit
+        )
         self._pass2_matched_len: int
 
         self._results: dict[str, Any] = {}

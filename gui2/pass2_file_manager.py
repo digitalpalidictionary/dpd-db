@@ -2,11 +2,15 @@ import json
 from pathlib import Path
 
 from gui2.paths import Gui2Paths
+from gui2.toolkit import ToolKit
 
 
 class Pass2AutoFileManager:
-    def __init__(self):
-        self.gui2pth = Gui2Paths()
+    def __init__(
+        self,
+        toolkit: ToolKit,
+    ):
+        self.gui2pth: Gui2Paths = toolkit.paths
         self.responses_path: Path = self.gui2pth.pass2_auto_json_path
         self.responses: dict[str, dict[str, str]] = {}
         self._current_index: int = 0
@@ -60,24 +64,3 @@ class Pass2AutoFileManager:
     def reset_index(self) -> None:
         """Reset the current index to the beginning."""
         self._current_index = 0
-
-
-if __name__ == "__main__":
-    # Example usage
-    manager = Pass2AutoFileManager()
-    print("Initial responses:", manager.get_responses())
-    manager.update_response("1", {"field": "value1"})
-    manager.update_response("2", {"field": "value2"})
-    manager.update_response("3", {"field": "value3"})
-    print("After updates:", manager.get_responses())
-
-    print("\nGetting next entries:")
-    for _ in range(5):
-        headword_id, data = manager.get_next_headword_data()
-        print(f"Next entry: ID={headword_id}, Data={data}")
-
-    print("\nResetting index and getting next entries:")
-    manager.reset_index()
-    for _ in range(2):
-        headword_id, data = manager.get_next_headword_data()
-        print(f"Next entry: ID={headword_id}, Data={data}")

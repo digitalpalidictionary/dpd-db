@@ -138,7 +138,7 @@ class DatabaseManager:
             .distinct()
             .all()
         )
-        self.all_plus_cases = sorted([c[0] for c in cases if c[0]])
+        self.all_plus_cases = sorted([c[0] for c in cases if c[0]], key=len)
 
     def get_all_family_sets(self) -> None:
         """Gets all unique family set components from the database, sorted."""

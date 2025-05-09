@@ -1,36 +1,34 @@
-from json import dump, dumps, load, loads, JSONDecodeError
+from json import JSONDecodeError, dump, dumps, load, loads
 from pathlib import Path
-from gui2.paths import Gui2Paths
 
 from gui2.books import (
     SuttaCentralSegment,
     SuttaCentralSource,
     sutta_central_books,
 )
-from gui2.database_manager import DatabaseManager
 from gui2.spelling import SpellingMistakesFileManager
+from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
-from tools.ai_manager import AIManager
 from tools.goldendict_tools import open_in_goldendict_os
 
 
 class Pass1AutoController:
     def __init__(
         self,
-        ui,
-        db: DatabaseManager,
-        ai_manager: AIManager,
+        ui,  # Pass1AutoView
+        toolkit: ToolKit,
     ) -> None:
         from gui2.pass1_auto_view import Pass1AutoView
 
         self.ui: Pass1AutoView = ui
-        self.gui2pth = Gui2Paths()
+        self.db = toolkit.db_manager
+        self.ai_manager = toolkit.ai_manager
+
+        self.gui2pth = toolkit.paths
         self.pass1_books: dict[str, SuttaCentralSource] = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
 
-        self.db: DatabaseManager = db
-        self.ai_manager: AIManager = ai_manager
         self.missing_words_dict: dict[str, list[SuttaCentralSegment]] = {}
         self.book: str
         self.cst_books: list[str]

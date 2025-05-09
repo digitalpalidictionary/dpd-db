@@ -1,15 +1,17 @@
 import flet as ft
+
+from gui2.toolkit import ToolKit
 from gui2.books import SuttaCentralSegment
-from gui2.daily_log import DailyLog
-from gui2.database_manager import DatabaseManager
 from gui2.flet_functions import highlight_word_in_sentence
 from tools.cst_source_sutta_example import CstSourceSuttaExample
 
 
 class Pass2PreProcessView(ft.Column):
-    from gui2.pass2_pre_controller import Pass2PreprocessController
-
-    def __init__(self, page: ft.Page, db: DatabaseManager, daily_log: DailyLog) -> None:
+    def __init__(
+        self,
+        page: ft.Page,
+        toolkit: ToolKit,
+    ) -> None:
         from gui2.pass2_pre_controller import Pass2PreprocessController
 
         super().__init__(
@@ -19,7 +21,11 @@ class Pass2PreProcessView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
-        self.controller = Pass2PreprocessController(self, db, daily_log)
+        self.toolkit: ToolKit = toolkit
+        self.controller = Pass2PreprocessController(
+            self,
+            toolkit,
+        )
         self.selected_sentence_index: int = 0
 
         # Define constants
@@ -205,7 +211,10 @@ class Pass2PreProcessView(ft.Column):
             self.update_message("loading...")
             # Ensure data is loaded before processing
             self.controller._load_data()
-            self.controller.find_words_with_missing_examples(self.books_dropdown.value)
+            self.controller.find_words_with_missing_examples(
+                self.books_dropdown.value,
+                self.toolkit.paths,
+            )
             self.controller.load_next_word()
 
     def handle_yes_click(self, e):

@@ -4,14 +4,15 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple
 
 from gui2.paths import Gui2Paths
+from gui2.toolkit import ToolKit
 from tools.printer import printer as pr
 
 
 class ExampleStashManager:
     """Manages stashing and reloading example data (source, sutta, example)."""
 
-    def __init__(self):
-        self._gui2pth = Gui2Paths()
+    def __init__(self, toolkit: ToolKit):
+        self._gui2pth: Gui2Paths = toolkit.paths
         self._stash_path: Path = self._gui2pth.example_stash_json_path
         self.stash_data: Dict[str, Dict[str, str]] = {}
         self._stash_key = "shared_stash"  # Use a fixed key for the single stash

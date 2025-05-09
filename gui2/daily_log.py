@@ -2,18 +2,17 @@ import datetime
 import json
 from pathlib import Path
 
-from gui2.appbar_updater import AppBarUpdater
-from gui2.paths import Gui2Paths
+from gui2.toolkit import ToolKit  # Import ToolKit
 
 
 class DailyLog:
     """Daily log counter"""
 
-    def __init__(self, appbar_updater: AppBarUpdater) -> None:
-        self.gui2pth = Gui2Paths()
+    def __init__(self, toolkit: ToolKit) -> None:
+        self.gui2pth = toolkit.paths
         self.file_path: Path = self.gui2pth.daily_log_path
         self.data: dict[str, dict[str, int]] = self._load()
-        self.appbar_updater = appbar_updater
+        self.appbar_updater = toolkit.appbar_updater
 
     def _load(self) -> dict[str, dict[str, int]]:
         """Loads data, assumes file exists and is valid."""

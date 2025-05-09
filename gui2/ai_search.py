@@ -1,12 +1,14 @@
 import flet as ft
-from tools.ai_manager import AIManager
 from tools.printer import printer as pr  # For logging/debugging
 
 
 class AiSearchPopup:
-    def __init__(self, page: ft.Page, ai_manager: AIManager):
-        self.page = page
-        self.ai_manager = ai_manager
+    def __init__(self, toolkit):
+        from gui2.toolkit import ToolKit
+
+        self.toolkit: ToolKit = toolkit
+        self.page: ft.Page = toolkit.page
+        self.ai_manager = toolkit.ai_manager
 
         # Initialize UI components
         self.prompt_field = ft.TextField(

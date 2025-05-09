@@ -1,14 +1,11 @@
 import flet as ft
-from gui2.daily_log import DailyLog
-from gui2.database_manager import DatabaseManager
-from gui2.mixins import PopUpMixin
-from gui2.dpd_fields import DpdFields
-from gui2.history import HistoryManager
-from gui2.dpd_fields_lists import PASS1_FIELDS
-
-
 from rich import print
 
+from gui2.database_manager import DatabaseManager
+from gui2.dpd_fields import DpdFields
+from gui2.dpd_fields_lists import PASS1_FIELDS
+from gui2.mixins import PopUpMixin
+from gui2.toolkit import ToolKit
 from tools.sandhi_contraction import SandhiContractionFinder
 
 LABEL_WIDTH = 250
@@ -21,10 +18,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
     def __init__(
         self,
         page: ft.Page,
-        db: DatabaseManager,
-        daily_log: DailyLog,
-        sandhi_manager: SandhiContractionFinder,
-        history_manager: HistoryManager,
+        toolkit: ToolKit,
     ) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(
@@ -36,12 +30,14 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
         PopUpMixin.__init__(self)
         self.page: ft.Page = page
-        self.db: DatabaseManager = db
-        self.controller = Pass1AddController(self, db, daily_log)
+        self.toolkit: ToolKit = toolkit
+
+        self.db: DatabaseManager = self.toolkit.db_manager
+        self.controller = Pass1AddController(self, self.toolkit)
         self.dpd_fields: DpdFields
-        self.sandhi_manager: SandhiContractionFinder = sandhi_manager
-        self.history_manager: HistoryManager = history_manager
-        self.sandhi_dict = sandhi_manager.get_sandhi_contractions_simple()
+        self.sandhi_manager: SandhiContractionFinder = self.toolkit.sandhi_manager
+        self.history_manager = self.toolkit.history_manager
+        self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
 
         # --- Top Section Controls ---
         self.message_field = ft.Text("", color=HIGHLIGHT_COLOUR, selectable=True)

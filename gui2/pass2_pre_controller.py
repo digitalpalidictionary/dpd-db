@@ -12,6 +12,7 @@ from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
 from gui2.paths import Gui2Paths
 from gui2.spelling import SpellingMistakesFileManager
+from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_source_sutta_example import (
@@ -23,13 +24,17 @@ from tools.printer import printer as pr
 
 
 class Pass2PreprocessController:
-    def __init__(self, ui, db: DatabaseManager, daily_log: DailyLog) -> None:
+    def __init__(
+        self,
+        ui,
+        toolkit: ToolKit,
+    ) -> None:
         from gui2.pass2_pre_view import Pass2PreProcessView
 
         self.ui: Pass2PreProcessView = ui
-        self.db = db
-        self.daily_log = daily_log
-        self._data_loaded = False  # New flag
+        self.db = toolkit.db_manager
+        self.daily_log = toolkit.daily_log
+        self._data_loaded = False
         self.file_manager: Pass2PreFileManager
 
         self.variant_readings = VariantReadingFileManager()
@@ -56,8 +61,8 @@ class Pass2PreprocessController:
             self.db.make_pass2_lists()
             self._data_loaded = True
 
-    def find_words_with_missing_examples(self, book: str):
-        self.file_manager = Pass2PreFileManager(book)
+    def find_words_with_missing_examples(self, book: str, paths: Gui2Paths):
+        self.file_manager = Pass2PreFileManager(book, paths)
         self.sc_book = sutta_central_books[book].sc_book
         self.cst_books = sutta_central_books[book].cst_books
         self.get_all_cst_words()
@@ -139,8 +144,8 @@ class Pass2PreprocessController:
 
 
 class Pass2PreFileManager:
-    def __init__(self, book: str) -> None:
-        self._gui2pth = Gui2Paths()
+    def __init__(self, book: str, paths: Gui2Paths) -> None:
+        self._gui2pth: Gui2Paths = paths
         self._json_path = self._gui2pth.gui2_data_path / f"pass2_pre_{book}.json"
         self.unmatched: dict[str, int] = {}
         self.matched: dict[str, dict[str, int | tuple[str, str, str]]] = {}

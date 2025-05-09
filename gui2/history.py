@@ -3,14 +3,19 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from gui2.paths import Gui2Paths
+from gui2.toolkit import ToolKit
 from tools.printer import printer as pr
 
 
 class HistoryManager:
     """Manages a list of recently added/updated headwords."""
 
-    def __init__(self, max_size: int = 20):
-        self._gui2pth = Gui2Paths()
+    def __init__(
+        self,
+        toolkit: ToolKit,
+        max_size: int = 20,
+    ):
+        self._gui2pth: Gui2Paths = toolkit.paths
         self._history_path: Path = self._gui2pth.history_json_path
         self.max_size: int = max_size
         self.history: List[Dict[str, Any]] = []

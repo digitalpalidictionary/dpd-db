@@ -5,16 +5,19 @@ from sqlalchemy import or_
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from gui2.toolkit import ToolKit
 from tools.paths import ProjectPaths
 
 
 class SandhiFindReplaceView(ft.Column):
-    def __init__(self, page: ft.Page, db_manager, daily_log, sandhi_manager):
+    def __init__(
+        self,
+        page: ft.Page,
+        toolkit: ToolKit,
+    ):
         super().__init__(expand=True, spacing=5, controls=[])
         self.page = page
-        self.db_manager = db_manager
-        self.daily_log = daily_log
-        self.sandhi_manager = sandhi_manager
+        self.toolkit: ToolKit = toolkit
 
         self.find_me: str = ""
         self.replace_me: str = ""

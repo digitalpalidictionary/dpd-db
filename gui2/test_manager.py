@@ -2,9 +2,9 @@ import subprocess
 from pathlib import Path
 
 import flet as ft
+
 from db_tests.db_tests_manager import DbTestManager, IntegrityFailure, TestFailure
 from gui2.mixins import PopUpMixin
-from rich import print
 from gui2.pass2_add_view import Pass2AddView
 
 
@@ -31,7 +31,6 @@ class GuiTestManager(PopUpMixin):
         self.ui = ui
         self.page = ui.page
 
-        print(passed, failure_list)
         if passed:
             ui.update_message("All tests passed!")
         else:
@@ -138,29 +137,29 @@ class GuiTestManager(PopUpMixin):
             test_name = failure.test_name
             headword_id = self.current_headword.id
 
-            print(
-                f"Attempting to add exception for test '{test_row}' '{test_name}', ID: {headword_id}"
-            )  # Debug print
+            self.ui.update_message(f"adding exception for {test_name}")
 
             success = self.db_test_manager.add_exception(test_name, headword_id)
 
             if success:
-                print(f"Successfully added/updated exception for {test_name}")
-                # Optional: Add GUI feedback here if needed later
+                self.ui.update_message(f"added exception for {test_name}")
             else:
-                print(f"Failed to add exception for {test_name}")
-                # Optional: Add GUI feedback here if needed later
+                self.ui.update_message(f"Failed to add exception for {test_name}")
 
             # Move to the next failure regardless of success/failure
             self._handle_next_failure(e)
 
         elif not isinstance(failure, TestFailure):
-            print(f"Cannot add exception for IntegrityFailure: {failure.test_name}")
-            self._handle_next_failure(e)  # Move to next
+            self.ui.update_message(
+                f"Cannot add exception for IntegrityFailure: {failure.test_name}"
+            )
+            self._handle_next_failure(e)
         else:
             # If current_headword is not set, still try to move to the next failure
             # or close if it's the last one, mimicking the "Next" button behavior.
-            print("Error: current_headword not set. Attempting to proceed.")
+            self.ui.update_message(
+                "Error: current_headword not set. Attempting to proceed."
+            )
             self._handle_next_failure(e)  # Always behave like 'Next'
 
     def _handle_open_test_file(self, e: ft.ControlEvent) -> None:
@@ -170,25 +169,27 @@ class GuiTestManager(PopUpMixin):
         )
 
         if test_file_path.exists():
-            print(f"Opening test file: {test_file_path}")
+            self.ui.update_message(f"Opening test file: {test_file_path}")
             try:
                 subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
                 self._handle_popup_close(e)  # Close popup after attempting to open
             except FileNotFoundError:
-                print(
-                    "[red]Error: 'libreoffice' command not found. Is LibreOffice installed and in your PATH?"
-                )
+                self.ui.update_message("Error: 'libreoffice' command not found.")
             except Exception as sub_err:
-                print(f"[red]Error opening file with LibreOffice: {sub_err}")
+                self.ui.update_message(
+                    f"Error opening file with LibreOffice: {sub_err}"
+                )
         else:
-            print(f"[red]Error: Test file not found at expected path: {test_file_path}")
+            self.ui.update_message(
+                f"Error: Test file not found at expected path: {test_file_path}"
+            )
 
     def _handle_edit(self, e: ft.ControlEvent) -> None:
         """Close dialog and focus error field"""
         failure = self.failure_list[self.current_failure_index]
         self._handle_popup_close(e)
         # TODO: Implement field focus logic
-        print(f"Edit field: {failure.test_name}")
+        self.ui.update_message(f"Edit field: {failure.test_name}")
 
     def _handle_next_failure(self, e: ft.ControlEvent) -> None:
         """Show next failure or close if last"""

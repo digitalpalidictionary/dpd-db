@@ -129,7 +129,7 @@ class DpdExampleField(ft.Column):
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
         self.hyphenation_dict: dict[str, str] = hyphenation_dict
         self.simple_mode = simple_mode
-        self.stash_manager = ExampleStashManager()
+        self.stash_manager = ExampleStashManager(self.ui.toolkit)
         super().__init__(
             expand=True,
         )

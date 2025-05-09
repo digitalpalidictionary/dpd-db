@@ -645,7 +645,7 @@ class DpdFields(PopUpMixin):
         field, value = self.get_event_field_and_value(e)
         lemma_1 = self.get_field("lemma_1").value
         lemma_2_field = self.get_field("lemma_2")
-        grammar = self.get_field("grammar")
+        grammar = self.get_field("grammar").value
         lemma_2 = make_lemma_2(lemma_1, value, grammar)
         lemma_2_field.value = lemma_2
         self.page.update()

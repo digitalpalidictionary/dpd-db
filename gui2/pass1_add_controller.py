@@ -6,13 +6,11 @@ import pyperclip
 from rich import print
 
 from db.models import DpdHeadword
-from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from gui2.books import sutta_central_books
-from gui2.daily_log import DailyLog
-from gui2.database_manager import DatabaseManager
+from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from gui2.mixins import SandhiOK, SnackBarMixin
-from gui2.paths import Gui2Paths
 from gui2.spelling import SpellingMistakesFileManager
+from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
@@ -27,11 +25,14 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
     from gui2.pass1_add_view import Pass1AddView
 
     def __init__(
-        self, ui: Pass1AddView, db: DatabaseManager, daily_log: DailyLog
+        self,
+        ui: Pass1AddView,
+        toolkit: ToolKit,
     ) -> None:
         self.ui = ui
-        self.db = db
-        self.daily_log = daily_log
+        self.db = toolkit.db_manager
+        self.daily_log = toolkit.daily_log
+        self.gui2pth = toolkit.paths
 
         self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
@@ -57,7 +58,6 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.ui.clear_all_fields()
 
     def load_json(self):
-        self.gui2pth = Gui2Paths()
         self.auto_processed_filepath = (
             self.gui2pth.gui2_data_path / f"pass1_auto_{self.book_to_process}.json"
         )

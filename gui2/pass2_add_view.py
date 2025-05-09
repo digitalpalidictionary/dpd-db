@@ -1,33 +1,29 @@
 import copy
+
 import flet as ft
 
-# Import the backup function and ProjectPaths
-from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
-from tools.ai_manager import AIManager
-from tools.hyphenations import HyphenationFileManager
-from tools.paths import ProjectPaths  # Import ProjectPaths
 from db.models import DpdHeadword
-from gui2.daily_log import DailyLog
-from gui2.database_manager import DatabaseManager
+from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_examples import DpdExampleField
+from gui2.dpd_fields_functions import increment_lemma_1
 from gui2.dpd_fields_lists import (
-    ROOT_FIELDS,
     COMPOUND_FIELDS,
-    WORD_FIELDS,
-    PASS1_FIELDS,
     NO_CLONE_LIST,
     NO_SPLIT_LIST,
-)  # Import the lists
-from gui2.history import HistoryManager  # Import HistoryManager
+    PASS1_FIELDS,
+    ROOT_FIELDS,
+    WORD_FIELDS,
+)
 from gui2.mixins import PopUpMixin
-from gui2.dpd_fields import DpdFields
 from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_file_manager import Pass2AutoFileManager
 
-from gui2.dpd_fields_functions import make_dpd_headword_from_dict, increment_lemma_1
+from gui2.toolkit import ToolKit
+from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.fast_api_utils import request_dpd_server
-from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionFinder
+from tools.paths import ProjectPaths  # Import ProjectPaths
+from tools.sandhi_contraction import SandhiContractionDict
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -39,13 +35,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def __init__(
         self,
         page: ft.Page,
-        db: DatabaseManager,
-        daily_log: DailyLog,
-        test_manger,
-        sandhi_manager: SandhiContractionFinder,
-        hyphenation_manger: HyphenationFileManager,
-        history_manager: HistoryManager,
-        ai_manager: AIManager,
+        toolkit: ToolKit,
     ) -> None:
         # Main container column - does not scroll, expands vertically
         super().__init__(
@@ -56,21 +46,22 @@ class Pass2AddView(ft.Column, PopUpMixin):
         from gui2.test_manager import GuiTestManager
 
         self.page: ft.Page = page
-        self._db = db
-        self._daily_log = daily_log
-        self.pass2_auto_controller = Pass2AutoController(self, db, ai_manager)
-        self.test_manager: GuiTestManager = test_manger
-        self.sandhi_manager: SandhiContractionFinder = sandhi_manager
+        self.toolkit: ToolKit = toolkit
+
+        self._db = self.toolkit.db_manager
+        self._daily_log = self.toolkit.daily_log
+        self.pass2_auto_controller = Pass2AutoController(self, self.toolkit)
+        self.test_manager: GuiTestManager = self.toolkit.test_manager
+        self.sandhi_manager = self.toolkit.sandhi_manager
         self.sandhi_dict: SandhiContractionDict = (
             self.sandhi_manager.get_sandhi_contractions_simple()
         )
-        self.hyphenation_manager: HyphenationFileManager = hyphenation_manger
+        self.hyphenation_manager = self.toolkit.hyphenation_manager
         self.hyphenation_dict = self.hyphenation_manager.load_hyphenations_dict()
-        self.history_manager: HistoryManager = history_manager
+        self.history_manager = self.toolkit.history_manager
 
         self.dpd_fields: DpdFields
-
-        self._pass2_auto_file_manager = Pass2AutoFileManager()
+        self._pass2_auto_file_manager = Pass2AutoFileManager(self.toolkit)
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
 
