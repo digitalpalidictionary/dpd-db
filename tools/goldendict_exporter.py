@@ -121,7 +121,6 @@ def export_to_goldendict_with_pyglossary(
     dict_info: DictInfo,
     dict_var: DictVariables,
     dict_data: list[DictEntry],
-    zip_synonyms: bool = True,
     include_slob=False,
 ) -> None:
     """Usage:
@@ -129,8 +128,7 @@ def export_to_goldendict_with_pyglossary(
         dict_info,
         dict_var,
         dict_data,
-        zip_synonyms = True,
-        include_slob = False
+        include_slob = False,
     )
     """
 
@@ -142,8 +140,6 @@ def export_to_goldendict_with_pyglossary(
     glos = add_data(glos, dict_data)
     write_to_file(glos, dict_var)
     add_icon(dict_var)
-    if zip_synonyms:
-        zip_synfile(dict_var)
     copy_dir(dict_var)
     if dict_var.zip_up:
         zip_folder(dict_var)
@@ -248,8 +244,9 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
     glos.write(
         filename=str(dict_var.gd_path_name),
         format="Stardict",
+        # dictzip=True,
         dictzip=True,
-        merge_syns=False,  # when True, include synonyms in compressed main file rather than *.syn
+        # merge_syns=False,  # when True, include synonyms in compressed main file rather than *.syn
         sametypesequence="h",
         sqlite=False,  # when False, more RAM but faster
     )

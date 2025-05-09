@@ -27,7 +27,7 @@ Tatiyam'pi pucchāmi: Kacci'ttha parisuddhā?
 
 Parisuddh'etthāyasmanto, tasmā tuṇhī, evam'etaṁ dhārayāmi.
 
-Nidānaṁ niṭṭhitaṁ. [1] / Nidān'uddeso niṭṭhito. [2]
+Nidānaṁ niṭṭhitaṁ. [1]  Nidān'uddeso niṭṭhito. [2]
 
 
 Pārājikuddeso
@@ -86,7 +86,7 @@ Parisuddh'etthāyasmanto, tasmā tuṇhī, evam'etaṁ dhārayāmi.
 
 Cattāro pārājikā niṭṭhitā. [3]
 
-Pārājikuddeso niṭṭhito. [4]
+Pārājikuddeso niṭṭhito. [4]
 
 
 
@@ -255,7 +255,7 @@ Tatiyam'pi pucchāmi: Kacci'ttha parisuddhā?
 
 Parisuddh'etthāyasmanto, tasmā tuṇhī, evam'etaṁ dhārayāmi.
 
-Terasa saṅghādisesā niṭṭhitā. [5] / Saṅghādisesuddeso niṭṭhito.[6]
+Terasa saṅghādisesā niṭṭhitā. [5]  Saṅghādisesuddeso niṭṭhito.[6]
 
 
 Aniyatuddeso
@@ -296,7 +296,7 @@ Tatiyam'pi pucchāmi: Kacci'ttha parisuddhā?
 
 Parisuddh'etthāyasmanto, tasmā tuṇhī, evam'etaṁ dhārayāmi.
 
-Dve aniyatā niṭṭhitā. [7] / Aniyatuddeso niṭṭhito. [8]
+Dve aniyatā niṭṭhitā. [7]  Aniyatuddeso niṭṭhito. [8]
 
 
 
@@ -437,7 +437,7 @@ No ce abhinipphādeyya, yat'assa cīvaracetāpanaṁ ābhataṁ, tattha sāmaṁ
 
 tassa bhikkhuno kiñ'ci atthaṁ anubhoti, yuñjant'āyasmanto sakaṁ, mā vo sakaṁ vinassāti. Ayaṁ tattha sāmīci.
 
-Cīvaravaggo paṭhamo.
+Cīvaravaggo paṭhamo.
 
 
 
@@ -514,7 +514,7 @@ Nissaggiya pācittiya 20
 
 Yo pana bhikkhu, nānappakārakaṁ kayavikkayaṁ samāpajjeyya, nissaggiyaṁ pācittiyaṁ.
 
-Eḷakalomavaggo dutiyo.
+Eḷakalomavaggo dutiyo.
 
 
 Nissaggiya pācittiya 21
@@ -656,7 +656,7 @@ Pācittiya 10
 
 Yo pana bhikkhu paṭhaviṁ khaṇeyya vā khaṇāpeyya vā, pācittiyaṁ.
 
-Musāvādavaggo paṭhamo.
+Musāvādavaggo paṭhamo.
 
 Pācittiya 11
 
@@ -720,7 +720,7 @@ Yo pana bhikkhu, jānaṁ sappāṇakaṁ udakaṁ, tiṇaṁ vā mattikaṁ
 
 vā siñceyya vā siñcāpeyya vā, pācittiyaṁ.
 
-Bhūtagāmavaggo dutiyo.
+Bhūtagāmavaggo dutiyo.
 
 Pācittiya 21
 
@@ -837,7 +837,7 @@ Pācittiya 40
 
 Yo pana bhikkhu, adinnaṁ mukhadvāraṁ āhāraṁ āhareyya, aññatra udakadantapoṇā, pācittiyaṁ.
 
-Bhojanavaggo catuttho.
+Bhojanavaggo catuttho.
 
 Pācittiya 41
 
@@ -958,7 +958,7 @@ Yo pana bhikkhu, bhikkhussa pattaṁ vā cīvaraṁ vā nisīdanaṁ vā
 
 sūcigharaṁ vā kāyabandhanaṁ vā, apanidheyya vā apanidhāpeyya vā, antamaso hassāpekkhopi, pācittiyaṁ.
 
-Surāpānavaggo chaṭṭho.
+Surāpānavaggo chaṭṭho.
 
 Pācittiya 61
 
@@ -1038,7 +1038,7 @@ saha seyyaṁ, sāpi te n'atthi, carapire vinassāti.
 
 Yo pana bhikkhu, jānaṁ tathānāsitaṁ samaṇuddesaṁ upalāpeyya vā upaṭṭhāpeyya vā sambhuñjeyya vā saha vā seyyaṁ kappeyya, pācittiyaṁ.
 
-Sappāṇakavaggo sattamo.
+Sappāṇakavaggo sattamo.
 
 
 Pācittiya 71
@@ -1129,7 +1129,7 @@ Pācittiya 82
 
 Yo pana bhikkhu, jānaṁ saṅghikaṁ lābhaṁ pariṇataṁ, puggalassa pariṇāmeyya, pācittiyaṁ.
 
-Sahadhammikavaggo aṭṭhamo.
+Sahadhammikavaggo aṭṭhamo.
 
 Pācittiya 83
 
@@ -1187,7 +1187,7 @@ Tatr'idaṁ sugatassa sugatacīvarappamāṇaṁ, dīghaso nava vidatthiyo sugat
 
 sugatassa sugatacīvarappamāṇaṁ.
 
-Rājavaggo navamo.
+Rājavaggo navamo.
 
 Uddiṭṭhā kho āyasmanto dvenavuti pācittiyā dhammā.
 
@@ -1259,77 +1259,77 @@ Sekhiyā
 
 Ime kho pan'āyasmanto sekhiyā dhammā uddesaṁ āgacchanti.
 
-Sekhiya 1 & 2
+Sekhiya 1 and 2
 
 Parimaṇḍalaṁ nivāsessāmīti sikkhā karaṇīyā.
 
 Parimaṇḍalaṁ pārupissāmīti sikkhā karaṇīyā.
 
-Sekhiya 3 & 4
+Sekhiya 3 and 4
 
 Supaṭicchanno antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Supaṭicchanno antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 5 & 6
+Sekhiya 5 and 6
 
 Susaṁvuto antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Susaṁvuto antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 7 & 8
+Sekhiya 7 and 8
 
 Okkhittacakkhu antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Okkhittacakkhu antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 9 & 10
+Sekhiya 9 and 10
 
 Na ukkhittakāya antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Na ukkhittakāya antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Parimaṇḍalavaggo paṭhamo.[11]
+Parimaṇḍalavaggo paṭhamo.[11]
 
-Sekhiya 11 & 12
+Sekhiya 11 and 12
 
 Na ujjagghikāya antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Na ujjagghikāya antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 13 & 14
+Sekhiya 13 and 14
 
 Appasaddo antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Appasaddo antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 15 & 16
+Sekhiya 15 and 16
 
 Na kāyappacālakaṁ antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Na kāyappacālakaṁ antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 17 & 18
+Sekhiya 17 and 18
 
 Na bāhuppacālakaṁ antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Na bāhuppacālakaṁ antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 19 & 20
+Sekhiya 19 and 20
 
 Na sīsappacālakaṁ antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Na sīsappacālakaṁ antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Ujjagghikavaggo dutiyo.[12]
+Ujjagghikavaggo dutiyo.[12]
 
-Sekhiya 21 & 22
+Sekhiya 21 and 22
 
 Na khambhakato antaraghare gamissāmīti sikkhā karaṇīyā.
 
 Na khambhakato antaraghare nisīdissāmīti sikkhā karaṇīyā.
 
-Sekhiya 23 & 24
+Sekhiya 23 and 24
 
 Na oguṇṭhito antaraghare gamissāmīti sikkhā karaṇīyā.
 
@@ -1359,7 +1359,7 @@ Sekhiya 30
 
 Samatitthikaṁ piṇḍapātaṁ paṭiggahessāmīti sikkhā karaṇīyā.
 
-Khambhakatavaggo tatiyo. [13]
+Khambhakatavaggo tatiyo. [13]
 
 Sekhiya 31
 
@@ -1404,7 +1404,7 @@ Sekhiya 40
 Parimaṇḍalaṁ ālopaṁ karissāmīti sikkhā karaṇīyā.
 
 
-Sakkaccavaggo catuttho.[14]
+Sakkaccavaggo catuttho.[14]
 
 Sekhiya 41
 
@@ -1449,7 +1449,7 @@ Sekhiya 50
 
 Na capucapukārakaṁ bhuñjissāmīti sikkhā karaṇīyā.
 
-Kabaḷavaggo pañcamo. [15]
+Kabaḷavaggo pañcamo. [15]
 
 Sekhiya 51
 
@@ -1501,7 +1501,7 @@ Na āvudhapāṇissa agilānassa, dhammaṁ desessāmīti sikkhā
 
 karaṇīyā.
 
-Surusuruvaggo chaṭṭho. [16]
+Surusuruvaggo chaṭṭho. [16]
 
 Sekhiya 61
 
@@ -1581,7 +1581,7 @@ Sekhiya 75
 
 Na udake agilāno uccāraṁ vā passāvaṁ vā kheḷaṁ vā karissāmīti sikkhā karaṇīyā.
 
-Pādukavaggo sattamo. [17]
+Pādukavaggo sattamo. [17]
 
 Uddiṭṭhā kho āyasmanto sekhiyā dhammā.
 
@@ -1593,7 +1593,7 @@ Tatiyam'pi pucchāmi: Kacci'ttha parisuddhā?
 
 Parisuddh'etthāyasmanto, tasmā tuṇhī, evam'etaṁ dhārayāmi.
 
-Sekhiyā niṭṭhitā.
+Sekhiyā niṭṭhitā.
 
 Adhikaraṇasamathā
 
@@ -1616,7 +1616,7 @@ Tatiyam'pi pucchāmi: Kacci'ttha parisuddhā?
 
 Parisuddh'etthāyasmanto, tasmā tuṇhī, evam'etaṁ dhārayāmi.
 
-Adhikaraṇasamathā niṭṭhitā. [18]
+Adhikaraṇasamathā niṭṭhitā. [18]
 
 
 
@@ -1643,6 +1643,6 @@ Ettakaṁ tassa bhagavato suttāgataṁ suttapariyāpannaṁ
 
 anvaḍḍhamāsaṁ uddesaṁ āgacchati. Tattha sabbeh'eva samaggehi sammodamānehi avivadamānehi sikkhitabban'ti.
 
-Vitthāruddeso pañcamo. [19]
+Vitthāruddeso pañcamo. [19]
 
-Bhikkhupātimokkhaṁ niṭṭhitaṁ. [20]
+Bhikkhupātimokkhaṁ niṭṭhitaṁ. [20]

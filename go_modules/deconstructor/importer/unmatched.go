@@ -110,11 +110,17 @@ func reduceUnmatched() {
 }
 
 func makeDpdWords() {
-	columns := []string{"example_1", "example_2", "commentary"}
+	columns := []string{"meaning_1", "example_1", "example_2", "commentary"}
 	_, results := dpdDb.GetColumns(columns)
 	for _, i := range results {
 
-		comp := i.Example1 + " " + i.Example2 + " " + i.Commentary
+		var comp string
+		// if no meaning_1, don't use the examples
+		if i.Meaning1 == "" {
+			comp = i.Commentary
+		} else {
+			comp = i.Example1 + " " + i.Example2 + " " + i.Commentary
+		}
 		compClean := tools.CleanMachine(comp, "ṃ", true, "dpd")
 		compCleanList := strings.Fields(compClean)
 		for _, word := range compCleanList {

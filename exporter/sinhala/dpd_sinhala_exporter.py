@@ -84,7 +84,9 @@ def main():
     )
 
     export_to_goldendict_with_pyglossary(
-        dict_info=dict_info, dict_var=dict_var, dict_data=dict_data, zip_synonyms=True
+        dict_info=dict_info,
+        dict_var=dict_var,
+        dict_data=dict_data,
     )
 
     export_to_mdict(

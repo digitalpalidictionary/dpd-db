@@ -191,7 +191,9 @@ def main():
     pr.yes("")
 
     export_to_goldendict_with_pyglossary(
-        dict_info, dict_var, dict_data, zip_synonyms=False
+        dict_info,
+        dict_var,
+        dict_data,
     )
 
     export_to_mdict(dict_info, dict_var, dict_data)

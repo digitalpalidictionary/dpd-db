@@ -51,7 +51,9 @@ def main():
     pr.yes(len(dict_data))
 
     export_to_goldendict_with_pyglossary(
-        dict_info, dict_vars, dict_data, zip_synonyms=False, include_slob=False
+        dict_info,
+        dict_vars,
+        dict_data,
     )
 
     pr.toc()

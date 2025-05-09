@@ -68,7 +68,9 @@ def main():
     )
 
     export_to_goldendict_with_pyglossary(
-        dict_info, dict_vars, dict_data, zip_synonyms=False
+        dict_info,
+        dict_vars,
+        dict_data,
     )
 
     # save as mdict
