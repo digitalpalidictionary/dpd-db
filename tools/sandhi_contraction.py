@@ -12,6 +12,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
+from tools.pali_sort_key import pali_sort_key
 from tools.printer import printer as pr
 
 
@@ -79,9 +80,16 @@ class SandhiContractionFinder:
     def _save_simple_version(self) -> None:
         """Save simplified contractions to JSON file"""
 
+        sorted_contractions_simple = dict(
+            sorted(
+                self._contractions_simple.items(),
+                key=lambda item: pali_sort_key(item[0]),
+            )
+        )
+
         with open(self._pth.sandhi_contractions_simple_path, "w") as f:
             dump(
-                self._contractions_simple,
+                sorted_contractions_simple,
                 f,
                 indent=2,
                 ensure_ascii=False,
@@ -227,8 +235,9 @@ class SandhiContractionFinder:
 def main() -> None:
     pr.tic()
     finder = SandhiContractionFinder()
+    finder.update_contractions_simple()
     # finder.run()
-    print(len(finder.get_sandhi_contractions()))
+    # print(len(finder.get_sandhi_contractions()))
     # print(len(finder.get_contractions()))
     pr.toc()
 
