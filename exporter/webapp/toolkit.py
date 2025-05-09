@@ -62,7 +62,6 @@ def make_dpd_html(
                                 headword_results = (
                                     db_session.query(DpdHeadword)
                                     .filter(DpdHeadword.id.in_(headwords))
-                                    .options(joinedload(DpdHeadword.ru))
                                     .all()
                                 )
                                 headword_results = sorted(
@@ -159,7 +158,6 @@ def make_dpd_html(
                         headword_result = (
                             db_session.query(DpdHeadword)
                             .filter(DpdHeadword.id == search_term)
-                            .options(joinedload(DpdHeadword.ru))
                             .first()
                         )
                         if headword_result:
@@ -181,7 +179,6 @@ def make_dpd_html(
                         headword_result = (
                             db_session.query(DpdHeadword)
                             .filter(DpdHeadword.lemma_1 == q)
-                            .options(joinedload(DpdHeadword.ru))
                             .first()
                         )
                         if headword_result:
@@ -229,7 +226,6 @@ def make_dpd_html(
                     headword_results = (
                         db_session.query(DpdHeadword)
                         .filter(DpdHeadword.id.in_(headwords))
-                        .options(joinedload(DpdHeadword.ru))
                         .all()
                     )
                     headword_results = sorted(
@@ -307,7 +303,6 @@ def make_dpd_html(
             headword_result = (
                 db_session.query(DpdHeadword)
                 .filter(DpdHeadword.id == search_term)
-                .options(joinedload(DpdHeadword.ru))
                 .first()
             )
             if headword_result:
@@ -325,10 +320,7 @@ def make_dpd_html(
 
         elif re.search(r"\s\d", q):  # eg "kata 5"
             headword_result = (
-                db_session.query(DpdHeadword)
-                .filter(DpdHeadword.lemma_1 == q)
-                .options(joinedload(DpdHeadword.ru))
-                .first()
+                db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1 == q).first()
             )
             if headword_result:
                 fc = get_family_compounds(headword_result)
