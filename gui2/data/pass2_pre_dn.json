@@ -191,7 +191,8 @@
         "dhuvā": 35232,
         "eva": 18054,
         "cutā": 26898,
-        "vesāliyaṃ": 70486
+        "vesāliyaṃ": 70486,
+        "ko": 19159
     },
     "matched": {
         "pāthikavaggapāḷi": {
@@ -353,6 +354,222 @@
                 "pāthikasuttaṃ, acelakaḷāramaṭṭakavatthu",
                 "mā te ahosi dīgharattaṃ ahitāya dukkhāya. yaṃ kho panetaṃ, sunakkhatta, maññasi acelaṃ kaḷāramaṭṭakaṃ, sādhurūpo ayaṃ [arahaṃ] samaṇoti, so nacirasseva parihito sānucāriko vicaranto odanakummāsaṃ bhuñjamāno sabbāneva vesāliyāni cetiyāni samatikkamitvā yasā nihīno [yasānikiṇṇo] kālaṃ karissatīti."
             ]
+        },
+        "pāṭikaputto": {
+            "id": 45306,
+            "sentence": [
+                "DN24",
+                "pāthikasuttaṃ, acelapāthikaputtavatthu",
+                "ekamidāhaṃ, bhaggava, samayaṃ tattheva vesāliyaṃ viharāmi mahāvane kūṭāgārasālāyaṃ. tena kho pana samayena acelo pāthikaputto [pāṭikaputto] vesāliyaṃ paṭivasati lābhaggappatto ceva yasaggappatto ca vajjigāme. so vesāliyaṃ parisati evaṃ vācaṃ bhāsati, samaṇopi gotamo ñāṇavādo, ahampi ñāṇavādo. "
+            ]
+        },
+        "dassetuṃ": {
+            "id": 32156,
+            "sentence": [
+                "dn24:1.15.5",
+                "Ñāṇavādo kho pana ñāṇavādena arahati uttari manussadhammā iddhipāṭihāriyaṁ dassetuṁ. ",
+                "One who speaks from knowledge ought to display a superhuman demonstration of psychic power to another who speaks from knowledge. "
+            ]
+        },
+        "upaḍḍhapathaṃ": {
+            "id": 15594,
+            "sentence": [
+                "dn24:1.15.6",
+                "Samaṇo gotamo upaḍḍhapathaṁ āgaccheyya, ahampi upaḍḍhapathaṁ gaccheyyaṁ. ",
+                "If the ascetic Gotama meets me half-way, "
+            ]
+        },
+        "taddiguṇaṃ": {
+            "id": 29846,
+            "sentence": [
+                "dn24:1.15.11",
+                "Iti yāvatakaṁ yāvatakaṁ samaṇo gotamo uttari manussadhammā iddhipāṭihāriyaṁ karissati, taddiguṇaṁ taddiguṇāhaṁ karissāmī’ti. ",
+                "However many demonstrations of psychic power the ascetic Gotama performs, I’ll perform double.’ "
+            ]
+        },
+        "āgantuṃ": {
+            "id": 11187,
+            "sentence": [
+                "dn24:1.16.13",
+                "‘abhabbo kho, sunakkhatta, acelo pāthikaputto taṁ vācaṁ appahāya taṁ cittaṁ appahāya taṁ diṭṭhiṁ appaṭinissajjitvā mama sammukhībhāvaṁ āgantuṁ. ",
+                "‘Sunakkhatta, the naked ascetic Pāṭikaputta is not capable of meeting me face to face, unless he gives up that statement and that intention, and lets go of that view. "
+            ]
+        },
+        "odhāritā": {
+            "id": 18645,
+            "sentence": [
+                "dn24:1.17.4",
+                "‘Bhagavatā cassa, bhante, esā vācā ekaṁsena odhāritā—",
+                "‘Sir, the Buddha has categorically asserted that "
+            ]
+        },
+        "ovāditā": {
+            "id": 19106,
+            "sentence": [
+                "DN24",
+                "pāthikasuttaṃ, acelapāthikaputtavatthu",
+                "kiṃ pana maṃ tvaṃ, sunakkhatta, evaṃ vadesi, rakkhatetaṃ, bhante, bhagavā vācaṃ, rakkhatetaṃ sugato vācanti? bhagavatā cassa, bhante, esā vācā ekaṃsena odhāritā [ovāditā], abhabbo acelo pāthikaputto taṃ vācaṃ appahāya taṃ cittaṃ appahāya taṃ diṭṭhiṃ appaṭinissajjitvā mama sammukhībhāvaṃ āgantuṃ. sacepissa evamassa, ahaṃ taṃ vācaṃ appahāya taṃ cittaṃ appahāya taṃ diṭṭhiṃ appaṭinissajjitvā samaṇassa gotamassa sammukhībhāvaṃ gaccheyyanti, muddhāpi tassa vipateyyāti. "
+            ]
+        },
+        "anekasahassā": {
+            "id": 5522,
+            "sentence": [
+                "dn24:1.19.16",
+                "Sā esā, bhaggava, parisā mahā hoti anekasatā anekasahassā. ",
+                "That assembly was large, Bhaggava; there were many hundreds, many thousands of them. "
+            ]
+        },
+        "tindukakhāṇuparibbājakārāmo": {
+            "id": 30653,
+            "sentence": [
+                "dn24:1.20.5",
+                "Atha kho, bhaggava, acelo pāthikaputto bhīto saṁviggo lomahaṭṭhajāto yena tindukakhāṇuparibbājakārāmo tenupasaṅkami. ",
+                "In fear he went to the Pale-Moon Ebony Trunk Monastery of the wanderers. "
+            ]
+        },
+        "pāvaḷā": {
+            "id": 45932,
+            "sentence": [
+                "dn24:1.21.12",
+                "‘kiṁ su nāma te, āvuso pāthikaputta, pāvaḷā su nāma te pīṭhakasmiṁ allīnā, pīṭhakaṁ su nāma te pāvaḷāsu allīnaṁ? ",
+                "‘What’s up, Reverend Pāṭikaputta? Is your bottom stuck to the bench, or is the bench stuck to your bottom? "
+            ]
+        },
+        "parābhūtarūpo": {
+            "id": 43110,
+            "sentence": [
+                "dn24:1.22.2",
+                "‘parābhūtarūpo ayaṁ acelo pāthikaputto. ",
+                "that Pāṭikaputta had lost, "
+            ]
+        },
+        "licchavimahāmatto": {
+            "id": 55837,
+            "sentence": [
+                "dn24:2.1.1",
+                "Atha kho, bhaggava, aññataro licchavimahāmatto uṭṭhāyāsanā taṁ parisaṁ etadavoca: ",
+                "Then, Bhaggava, a certain Licchavi minister stood up and said to the assembly, "
+            ]
+        },
+        "goyugehi": {
+            "id": 25387,
+            "sentence": [
+                "dn24:2.3.10",
+                "mayaṁ acelaṁ pāthikaputtaṁ varattāhi bandhitvā goyugehi āviñcheyyāmāti, tā varattā chijjeyyuṁ pāthikaputto vā. ",
+                "“Let’s bind Pāṭikaputta with straps and drag him with a pair of oxen!” But either the straps will break or Pāṭikaputta will.’ "
+            ]
+        },
+        "vijambhi": {
+            "id": 67549,
+            "sentence": [
+                "dn24:2.6.8",
+                "Tatrāsayaṁ kappetvā sāyanhasamayaṁ āsayā nikkhami, āsayā nikkhamitvā vijambhi, vijambhitvā samantā catuddisā anuvilokesi, samantā catuddisā anuviloketvā tikkhattuṁ sīhanādaṁ nadi, tikkhattuṁ sīhanādaṁ naditvā gocarāya pakkāmi. ",
+                ""
+            ]
+        },
+        "anuvilokesi": {
+            "id": 5460,
+            "sentence": [
+                "dn24:2.6.8",
+                "Tatrāsayaṁ kappetvā sāyanhasamayaṁ āsayā nikkhami, āsayā nikkhamitvā vijambhi, vijambhitvā samantā catuddisā anuvilokesi, samantā catuddisā anuviloketvā tikkhattuṁ sīhanādaṁ nadi, tikkhattuṁ sīhanādaṁ naditvā gocarāya pakkāmi. ",
+                ""
+            ]
+        },
+        "nadi": {
+            "id": 35561,
+            "sentence": [
+                "dn24:2.6.8",
+                "Tatrāsayaṁ kappetvā sāyanhasamayaṁ āsayā nikkhami, āsayā nikkhamitvā vijambhi, vijambhitvā samantā catuddisā anuvilokesi, samantā catuddisā anuviloketvā tikkhattuṁ sīhanādaṁ nadi, tikkhattuṁ sīhanādaṁ naditvā gocarāya pakkāmi. ",
+                ""
+            ]
+        },
+        "ajjhupesi": {
+            "id": 1393,
+            "sentence": [
+                "dn24:2.6.9",
+                "So varaṁ varaṁ migasaṅghe vadhitvā mudumaṁsāni mudumaṁsāni bhakkhayitvā tameva āsayaṁ ajjhupesi. ",
+                ""
+            ]
+        },
+        "vighāsasaṃvaḍḍho": {
+            "id": 67406,
+            "sentence": [
+                "dn24:2.6.10",
+                "Tasseva kho, āvuso pāthikaputta, sīhassa migarañño vighāsasaṁvaḍḍho jarasiṅgālo ditto ceva balavā ca. ",
+                "Now, there was an old jackal who had grown fat on the lion’s leavings, becoming arrogant and strong. "
+            ]
+        },
+        "jarasigālo": {
+            "id": 28024,
+            "sentence": [
+                "DN24",
+                "pāthikasuttaṃ, iddhipāṭihāriyakathā",
+                "28. tasseva kho, āvuso pāthikaputta, sīhassa migarañño vighāsasaṃvaḍḍho jarasiṅgālo [jarasigālo] ditto ceva balavā ca. atha kho, āvuso, tassa jarasiṅgālassa etadahosi, ko cāhaṃ, ko sīho migarājā. "
+            ]
+        },
+        "anucaṅkamanaṃ": {
+            "id": 4427,
+            "sentence": [
+                "dn24:2.9.3",
+                "‘Aññaṁ anucaṅkamanaṁ, ",
+                "‘Following in the steps of another, "
+            ]
+        },
+        "vighāse": {
+            "id": 67405,
+            "sentence": [
+                "dn24:2.9.4",
+                "Attānaṁ vighāse samekkhiya; ",
+                "seeing himself grown fat on scraps, "
+            ]
+        },
+        "samekkhiya": {
+            "id": 60153,
+            "sentence": [
+                "dn24:2.9.4",
+                "Attānaṁ vighāse samekkhiya; ",
+                "seeing himself grown fat on scraps, "
+            ]
+        },
+        "bheke": {
+            "id": 50258,
+            "sentence": [
+                "dn24:2.10.3",
+                "‘Bhutvāna bheke khalamūsikāyo, ",
+                "‘Gorged on frogs, and mice from the barn, "
+            ]
+        },
+        "khalamūsikāyo": {
+            "id": 23567,
+            "sentence": [
+                "dn24:2.10.3",
+                "‘Bhutvāna bheke khalamūsikāyo, ",
+                "‘Gorged on frogs, and mice from the barn, "
+            ]
+        },
+        "koṇapāni": {
+            "id": 23031,
+            "sentence": [
+                "dn24:2.10.4",
+                "Kaṭasīsu khittāni ca koṇapāni; ",
+                "and carcasses tossed in the cemetery, "
+            ]
+        },
+        "kūṇapāni": {
+            "id": 22797,
+            "sentence": [
+                "DN24",
+                "pāthikasuttaṃ, iddhipāṭihāriyakathā",
+                "bhutvāna bheke [bhiṅge] khalamūsikāyo,\nkaṭasīsu khittāni ca koṇapāni [kūṇapāni],\nmahāvane suññavane vivaḍḍho,\namaññi kotthu migarājāhamasmi."
+            ]
+        },
+        "suññavane": {
+            "id": 63743,
+            "sentence": [
+                "dn24:2.10.5",
+                "Mahāvane suññavane vivaḍḍho, ",
+                "thriving in the great, empty wood, "
+            ]
         }
     },
     "new_word": {
@@ -380,6 +597,11 @@
             "dn24:2.6.10",
             "Tasseva kho, āvuso pāthikaputta, sīhassa migarañño vighāsasaṁvaḍḍho jarasiṅgālo ditto ceva balavā ca. ",
             "Now, there was an old jackal who had grown fat on the lion’s leavings, becoming arrogant and strong. "
+        ],
+        "nadi": [
+            "dn24:2.6.8",
+            "Tatrāsayaṁ kappetvā sāyanhasamayaṁ āsayā nikkhami, āsayā nikkhamitvā vijambhi, vijambhitvā samantā catuddisā anuvilokesi, samantā catuddisā anuviloketvā tikkhattuṁ sīhanādaṁ nadi, tikkhattuṁ sīhanādaṁ naditvā gocarāya pakkāmi. ",
+            ""
         ]
     },
     "processed": [

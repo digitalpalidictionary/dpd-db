@@ -1,5 +1,65 @@
 [
     {
+        "id": 29846,
+        "lemma_1": "taddiguṇa"
+    },
+    {
+        "id": 32156,
+        "lemma_1": "dassetuṃ 1"
+    },
+    {
+        "id": 45306,
+        "lemma_1": "pāṭikaputta"
+    },
+    {
+        "id": 36688,
+        "lemma_1": "nikiṇṇa"
+    },
+    {
+        "id": 53828,
+        "lemma_1": "yasānikiṇṇa"
+    },
+    {
+        "id": 44377,
+        "lemma_1": "parihita"
+    },
+    {
+        "id": 59591,
+        "lemma_1": "samādānahetu 2"
+    },
+    {
+        "id": 62260,
+        "lemma_1": "sānucārika"
+    },
+    {
+        "id": 12864,
+        "lemma_1": "āsādi 1"
+    },
+    {
+        "id": 36160,
+        "lemma_1": "nātikkamati 1"
+    },
+    {
+        "id": 24131,
+        "lemma_1": "gaṇesi"
+    },
+    {
+        "id": 48157,
+        "lemma_1": "bahuputtaka"
+    },
+    {
+        "id": 65971,
+        "lemma_1": "vatapada"
+    },
+    {
+        "id": 57795,
+        "lemma_1": "sattavatapadāni"
+    },
+    {
+        "id": 25855,
+        "lemma_1": "catukuṇḍika"
+    },
+    {
         "id": 20845,
         "lemma_1": "kaḷāramaṭṭaka"
     },
@@ -18,65 +78,5 @@
     {
         "id": 17505,
         "lemma_1": "ekadvīhikāya"
-    },
-    {
-        "id": 27509,
-        "lemma_1": "chamānikiṇṇa"
-    },
-    {
-        "id": 14668,
-        "lemma_1": "uttarakā"
-    },
-    {
-        "id": 69202,
-        "lemma_1": "visahi 1"
-    },
-    {
-        "id": 4846,
-        "lemma_1": "anupiyā"
-    },
-    {
-        "id": 57796,
-        "lemma_1": "sattavattapadāni"
-    },
-    {
-        "id": 53810,
-        "lemma_1": "yasaggappatta"
-    },
-    {
-        "id": 45974,
-        "lemma_1": "pi 1.2"
-    },
-    {
-        "id": 920,
-        "lemma_1": "acelakaḷāramaṭṭakavatthu"
-    },
-    {
-        "id": 9408,
-        "lemma_1": "asaddahamāna"
-    },
-    {
-        "id": 57773,
-        "lemma_1": "sattarattindiva"
-    },
-    {
-        "id": 48496,
-        "lemma_1": "bīraṇatthambaka"
-    },
-    {
-        "id": 9190,
-        "lemma_1": "alasaka"
-    },
-    {
-        "id": 25858,
-        "lemma_1": "catukoṇḍika"
-    },
-    {
-        "id": 23122,
-        "lemma_1": "kora 1"
-    },
-    {
-        "id": 23124,
-        "lemma_1": "korakkhattiya"
     }
 ]
