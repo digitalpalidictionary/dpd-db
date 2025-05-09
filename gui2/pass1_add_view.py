@@ -262,8 +262,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
     def _build_middle_section(self) -> ft.Column:
         """Build and return the middle section with DpdFields."""
         self.dpd_fields = DpdFields(
-            self, self.db, self.sandhi_dict, simple_examples=True
-        )  # Request simple examples
+            self,
+            self.db,
+            self.sandhi_dict,
+            {},  # empty hyphenations_dict
+            simple_examples=True,
+        )
         middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,

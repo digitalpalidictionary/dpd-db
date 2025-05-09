@@ -4,6 +4,7 @@ import flet as ft
 # Import the backup function and ProjectPaths
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.ai_manager import AIManager
+from tools.hyphenations import HyphenationFileManager
 from tools.paths import ProjectPaths  # Import ProjectPaths
 from db.models import DpdHeadword
 from gui2.daily_log import DailyLog
@@ -42,6 +43,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         daily_log: DailyLog,
         test_manger,
         sandhi_manager: SandhiContractionFinder,
+        hyphenation_manger: HyphenationFileManager,
         history_manager: HistoryManager,
         ai_manager: AIManager,
     ) -> None:
@@ -62,6 +64,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.sandhi_dict: SandhiContractionDict = (
             self.sandhi_manager.get_sandhi_contractions_simple()
         )
+        self.hyphenation_manager: HyphenationFileManager = hyphenation_manger
+        self.hyphenation_dict = self.hyphenation_manager.load_hyphenations_dict()
         self.history_manager: HistoryManager = history_manager
 
         self.dpd_fields: DpdFields
@@ -440,7 +444,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
     # Add the new builder method
     def _build_middle_section(self) -> ft.Column:
         """Build and return the middle section with DpdFields."""
-        self.dpd_fields = DpdFields(self, self._db, self.sandhi_dict)  # New instance
+        self.dpd_fields = DpdFields(
+            self, self._db, self.sandhi_dict, self.hyphenation_dict
+        )
         middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,

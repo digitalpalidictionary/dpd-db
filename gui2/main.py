@@ -10,6 +10,7 @@ from gui2.history import HistoryManager
 from gui2.test_manager import GuiTestManager
 from tools.fast_api_utils import start_dpd_server
 from tools.ai_manager import AIManager
+from tools.hyphenations import HyphenationFileManager
 from tools.sandhi_contraction import SandhiContractionFinder
 from gui2.ai_search import AiSearchPopup
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
@@ -41,6 +42,7 @@ class App:
         self.daily_log = DailyLog(self.appbar_updater)
         self.test_manager = GuiTestManager()
         self.sandhi_manager = SandhiContractionFinder()
+        self.hyphenation_manger = HyphenationFileManager()
         self.history_manager = HistoryManager()
         self.ai_manager = AIManager()
         self.global_ai_popup = AiSearchPopup(self.page, self.ai_manager)
@@ -86,6 +88,7 @@ class App:
             self.daily_log,
             self.test_manager,
             self.sandhi_manager,
+            self.hyphenation_manger,
             self.history_manager,
             self.ai_manager,
         )

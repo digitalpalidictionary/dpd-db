@@ -52,6 +52,7 @@ class DpdFields(PopUpMixin):
         ui,
         db: DatabaseManager,
         sandhi_dict: SandhiContractionDict,
+        hyphenation_dict: dict[str, str],
         simple_examples: bool = False,  # Add simple_examples flag
     ):
         super().__init__()  # Initialize PopUpMixin
@@ -63,6 +64,7 @@ class DpdFields(PopUpMixin):
         self.db: DatabaseManager = db
         self.spellchecker = CustomSpellChecker()
         self.sandhi_dict = sandhi_dict
+        self.hyphenation_dict = hyphenation_dict
         self.simple_examples = simple_examples  # Store the flag
 
         # Fetch compound types (ensure db is initialized first if needed)
@@ -298,6 +300,7 @@ class DpdFields(PopUpMixin):
                     field_name=config.name,
                     dpd_fields=self,
                     sandhi_dict=self.sandhi_dict,
+                    hyphenation_dict=self.hyphenation_dict,
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,
@@ -311,6 +314,7 @@ class DpdFields(PopUpMixin):
                     field_name=config.name,
                     dpd_fields=self,
                     sandhi_dict=self.sandhi_dict,
+                    hyphenation_dict=self.hyphenation_dict,
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,

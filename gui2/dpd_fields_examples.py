@@ -112,6 +112,7 @@ class DpdExampleField(ft.Column):
         field_name,
         dpd_fields,
         sandhi_dict,
+        hyphenation_dict,
         on_focus=None,
         on_change=None,
         on_submit=None,
@@ -126,6 +127,7 @@ class DpdExampleField(ft.Column):
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
+        self.hyphenation_dict: dict[str, str] = hyphenation_dict
         self.simple_mode = simple_mode
         self.stash_manager = ExampleStashManager()
         super().__init__(
@@ -392,7 +394,9 @@ class DpdExampleField(ft.Column):
         source, sutta, example = self.get_fields()
         source.value = cst_example.source
         sutta.value = cst_example.sutta
-        example.value = clean_example(cst_example.example, self.sandhi_dict)
+        example.value = clean_example(
+            cst_example.example, self.sandhi_dict, self.hyphenation_dict
+        )
         self.page.update()
 
     def click_bold_example(self, e: ft.ControlEvent):

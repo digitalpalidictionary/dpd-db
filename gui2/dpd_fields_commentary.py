@@ -16,6 +16,7 @@ class DpdCommentaryField(ft.Column):
         field_name,
         dpd_fields,
         sandhi_dict,
+        hyphenation_dict,
         on_focus=None,
         on_change=None,
         on_submit=None,
@@ -35,6 +36,7 @@ class DpdCommentaryField(ft.Column):
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.sandhi_dict: SandhiContractionDict = sandhi_dict
+        self.hyphenation_dict: dict[str, str] = hyphenation_dict
 
         self.commentary_field = DpdTextField(
             name=field_name,
@@ -254,7 +256,11 @@ class DpdCommentaryField(ft.Column):
         commentary_compiled = "\n".join(
             [f"({i.ref_code}) {i.commentary}" for i in commentary_list_reduced]
         )
-        commentary_clean = clean_commentary(commentary_compiled, self.sandhi_dict)
+        commentary_clean = clean_commentary(
+            commentary_compiled,
+            self.sandhi_dict,
+            self.hyphenation_dict,
+        )
 
         self.commentary_field.value = commentary_clean
         self.page.update()

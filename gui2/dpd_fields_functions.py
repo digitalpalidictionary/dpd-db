@@ -347,7 +347,11 @@ def make_dpd_headword_from_dict(field_data: dict[str, str]) -> DpdHeadword:
     return new_word
 
 
-def clean_sandhi(text: str, sandhi_dict: SandhiContractionDict) -> str:
+def clean_sandhi(
+    text: str,
+    sandhi_dict: SandhiContractionDict,
+    hyphenation_dict: dict[str, str],
+) -> str:
     pali_alphabet_string = "".join(pali_alphabet)
     splits = re.split(f"([^{pali_alphabet_string}])", text)
 
@@ -355,6 +359,9 @@ def clean_sandhi(text: str, sandhi_dict: SandhiContractionDict) -> str:
         word = splits[i]
         if word in sandhi_dict:
             splits[i] = "//".join(sandhi_dict[word])
+
+        if word in hyphenation_dict:
+            splits[i] = hyphenation_dict[word]
 
     return "".join(splits)
 
@@ -392,15 +399,21 @@ def clean_text(text: str) -> str:
     return text
 
 
-def clean_commentary(text: str, sandhi_dict: SandhiContractionDict) -> str:
-    text = clean_sandhi(text, sandhi_dict)
-    # text = clean_hyphenations(text) # TODO
+def clean_commentary(
+    text: str,
+    sandhi_dict: SandhiContractionDict,
+    hyphenation_dict: dict[str, str],
+) -> str:
+    text = clean_sandhi(text, sandhi_dict, hyphenation_dict)
     text = clean_text(text)
     return text
 
 
-def clean_example(text: str, sandhi_dict: SandhiContractionDict) -> str:
-    text = clean_sandhi(text, sandhi_dict)
-    # text = clean_hyphenations(text) # TODO
+def clean_example(
+    text: str,
+    sandhi_dict: SandhiContractionDict,
+    hyphenation_dict: dict[str, str],
+) -> str:
+    text = clean_sandhi(text, sandhi_dict, hyphenation_dict)
     text = clean_text(text)
     return text
