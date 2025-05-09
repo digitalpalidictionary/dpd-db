@@ -93,13 +93,11 @@ class DpdHeadwordRenderData(TypedDict):
     idioms_set: Set[str]
     make_link: bool
     show_id: bool
-    show_ebt_count: bool
 
 
 def render_pali_word_dpd_html(
     db_parts: DpdHeadwordDbParts,
     render_data: DpdHeadwordRenderData,
-    extended_synonyms=False,
 ) -> Tuple[DictEntry, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
@@ -246,12 +244,6 @@ def render_pali_word_dpd_html(
     synonyms += i.family_set_list
     synonyms += [str(i.id)]
 
-    if extended_synonyms:
-        # Split i.lemma_clean only if it contains a space
-        if " " in i.lemma_clean:
-            words = i.lemma_clean.split(" ")
-            synonyms.extend(words)
-
     size_dict["dpd_synonyms"] += len(str(synonyms))
 
     res = DictEntry(
@@ -279,20 +271,10 @@ def generate_dpd_html(
 
     word_templates = DpdHeadwordTemplates(paths)
 
-    if config_test("dictionary", "extended_synonyms", "yes"):
-        extended_synonyms: bool = True
-    else:
-        extended_synonyms: bool = False
-
     if config_test("dictionary", "show_id", "yes"):
         show_id: bool = True
     else:
         show_id: bool = False
-
-    if config_test("dictionary", "show_ebt_count", "yes"):
-        show_ebt_count: bool = True
-    else:
-        show_ebt_count: bool = False
 
     dpd_data_list: List[DictEntry] = []
 
@@ -371,13 +353,11 @@ def generate_dpd_html(
             idioms_set=idioms_set,
             make_link=make_link,
             show_id=show_id,
-            show_ebt_count=show_ebt_count,
         )
 
         def _parse_batch(batch: List[DpdHeadwordDbParts]):
             res: List[Tuple[DictEntry, RenderedSizes]] = [
-                render_pali_word_dpd_html(i, render_data, extended_synonyms)
-                for i in batch
+                render_pali_word_dpd_html(i, render_data) for i in batch
             ]
 
             for i, j in res:

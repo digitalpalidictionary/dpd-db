@@ -22,12 +22,9 @@ def main():
     config_update("dictionary", "make_mdict", "yes")
     config_update("dictionary", "make_link", "yes")
     config_update("dictionary", "link_url", "https://thebuddhaswords.net/")
-    config_update("dictionary", "extended_synonyms", "no")
     config_update("dictionary", "show_id", "no")
-    config_update("dictionary", "show_ebt_count", "no")
     config_update("dictionary", "data_limit", "0")
 
-    config_update("exporter", "language", "en")
     config_update("exporter", "make_dpd", "yes")
     config_update("exporter", "make_grammar", "yes")
     config_update("exporter", "make_deconstructor", "yes")

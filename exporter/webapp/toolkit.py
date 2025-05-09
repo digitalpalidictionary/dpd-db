@@ -13,7 +13,6 @@ from exporter.webapp.data_classes import (
     HeadwordData,
     HelpData,
     RootsData,
-    RpdData,
     SpellingData,
     VariantData,
 )
@@ -38,7 +37,6 @@ def make_dpd_html(
     roots_count_dict,
     headwords_clean_set,
     ascii_to_unicode_dict,
-    lang="en",
 ) -> tuple[str, str]:
     retries = 3
     for attempt in range(retries):
@@ -176,7 +174,7 @@ def make_dpd_html(
                         # return closest matches
                         else:
                             dpd_html = find_closest_matches(
-                                q, headwords_clean_set, ascii_to_unicode_dict, lang
+                                q, headwords_clean_set, ascii_to_unicode_dict
                             )
 
                     elif re.search(r"\s\d", q):  # eg "kata 5"
@@ -198,13 +196,13 @@ def make_dpd_html(
                         # return closest matches
                         else:
                             dpd_html = find_closest_matches(
-                                q, headwords_clean_set, ascii_to_unicode_dict, lang
+                                q, headwords_clean_set, ascii_to_unicode_dict
                             )
 
                     # or finally return closest matches
                     else:
                         dpd_html = find_closest_matches(
-                            q, headwords_clean_set, ascii_to_unicode_dict, lang
+                            q, headwords_clean_set, ascii_to_unicode_dict
                         )
 
                     return dpd_html, summary_html
@@ -322,7 +320,7 @@ def make_dpd_html(
             # return closest matches
             else:
                 dpd_html = find_closest_matches(
-                    q, headwords_clean_set, ascii_to_unicode_dict, lang
+                    q, headwords_clean_set, ascii_to_unicode_dict
                 )
 
         elif re.search(r"\s\d", q):  # eg "kata 5"
@@ -342,21 +340,23 @@ def make_dpd_html(
             # return closest matches
             else:
                 dpd_html = find_closest_matches(
-                    q, headwords_clean_set, ascii_to_unicode_dict, lang
+                    q, headwords_clean_set, ascii_to_unicode_dict
                 )
 
         # or finally return closest matches
 
         else:
             dpd_html = find_closest_matches(
-                q, headwords_clean_set, ascii_to_unicode_dict, lang
+                q, headwords_clean_set, ascii_to_unicode_dict
             )
 
     return dpd_html, summary_html
 
 
 def find_closest_matches(
-    q, headwords_clean_set, ascii_to_unicode_dict, lang="en"
+    q,
+    headwords_clean_set,
+    ascii_to_unicode_dict,
 ) -> str:
     ascii_matches = ascii_to_unicode_dict[q]
     closest_headword_matches = difflib.get_close_matches(
@@ -369,15 +369,14 @@ def find_closest_matches(
         [item for item in closest_headword_matches if item not in ascii_matches]
     )
 
-    if lang == "en":
-        string = "<h3>No results found. "
-        if combined_list:
-            string += "The closest matches are:</h3><br>"
-            string += "<p>"
-            string += ", ".join(combined_list)
-            string += "</p>"
-        else:
-            string += "</h3>"
+    string = "<h3>No results found. "
+    if combined_list:
+        string += "The closest matches are:</h3><br>"
+        string += "<p>"
+        string += ", ".join(combined_list)
+        string += "</p>"
+    else:
+        string += "</h3>"
 
     return string
 

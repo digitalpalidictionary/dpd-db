@@ -22,7 +22,7 @@ def make_roots_count_dict(db_session: Session) -> Dict[str, int]:
     return roots_count_dict
 
 
-def make_headwords_clean_set(db_session: Session, lang="en") -> set[str]:
+def make_headwords_clean_set(db_session: Session) -> set[str]:
     """Make a set of Pāḷi headwords and English meanings."""
 
     # add headwords

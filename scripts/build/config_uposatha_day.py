@@ -6,7 +6,6 @@ for creating a release."""
 from tools.configger import config_update
 from tools.printer import printer as pr
 from tools.uposatha_day import uposatha_today
-from tools.configger import config_test
 
 
 def uposatha_day_configger():
@@ -23,9 +22,7 @@ def uposatha_day_configger():
         config_update("dictionary", "make_mdict", "yes")
         config_update("dictionary", "make_link", "yes")
         config_update("dictionary", "link_url", "https://thebuddhaswords.net/")
-        config_update("dictionary", "extended_synonyms", "no")
         config_update("dictionary", "show_id", "no")
-        config_update("dictionary", "show_ebt_count", "no")
         config_update("dictionary", "data_limit", "0")
 
         config_update("exporter", "make_grammar", "yes")
