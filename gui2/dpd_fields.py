@@ -194,7 +194,7 @@ class DpdFields(PopUpMixin):
                 "suffix",
                 on_change=self.suffix_on_change,
             ),
-            FieldConfig("phonetic"),
+            FieldConfig("phonetic", multiline=True),
             FieldConfig(
                 "compound_type",
                 field_type="dropdown",
@@ -804,8 +804,9 @@ class DpdFields(PopUpMixin):
             current_headword = self.get_current_headword()
             cc = make_compound_construction_from_headword(current_headword)
             compound_construction.compound_construction_field.value = cc
-            compound_construction.compound_construction_field.focus()
-            self.page.update()
+
+        compound_construction.compound_construction_field.focus()
+        self.page.update()
 
     def derivative_change(self, e: ft.ControlEvent) -> None:
         """When derivative changes, try to generate suffix."""

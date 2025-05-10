@@ -1,42 +1,27 @@
+# In gui2/test_app.py
 import flet as ft
+from gui2.tests_tab_view import (
+    TestsTabView,
+)
+from gui2.toolkit import ToolKit
 
 
 def main(page: ft.Page):
-    page.title = "Dictionary Entry Field"
+    page.title = "Flet Test App for DB Tests Tab"
+    page.vertical_alignment = ft.MainAxisAlignment.START
+    page.scroll = ft.ScrollMode.ADAPTIVE
 
-    # Create a container with padding
-    container = ft.Container(
-        padding=20,
-        content=ft.Column(
-            [
-                # Basic text field with character counter
-                ft.TextField(
-                    label="Pāḷi Word",
-                    label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
-                    width=400,
-                    border_radius=5,
-                    border_color="blue",
-                    counter_text="{value_length}/{max_length}",
-                    max_length=100,
-                ),
-                # Field for translation with alignment
-                ft.TextField(
-                    label="Translation",
-                    # hint_text="Enter translation",
-                    label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
-                    width=400,
-                    text_align=ft.TextAlign.JUSTIFY,
-                    min_lines=3,
-                    max_lines=5,
-                    multiline=True,
-                    helper_text="Provide clear translation",
-                ),
-            ]
-        ),
-    )
+    # Set window dimensions to match main.py
+    page.window.top = 0
+    page.window.left = 0
+    page.window.height = 1280
+    page.window.width = 1375
 
-    page.add(container)
-    page.update()
+    toolkit = ToolKit(page)
+
+    tests_tab_view = TestsTabView(page, toolkit)
+    page.add(tests_tab_view)
 
 
-ft.app(target=main)
+if __name__ == "__main__":
+    ft.app(target=main)

@@ -103,7 +103,7 @@ class Pass2AutoController:
 
         self._book = book
         self._cst_books = self._sc_books[self._book].cst_books
-        self._pass2_pre_file_manager = Pass2PreFileManager(self._book)
+        self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
         self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
 
         try:
