@@ -6,13 +6,16 @@ import flet as ft
 from db_tests.db_tests_manager import DbTestManager, IntegrityFailure, TestFailure
 from gui2.mixins import PopUpMixin
 from gui2.pass2_add_view import Pass2AddView
+from gui2.toolkit import ToolKit
 
 
 class GuiTestManager(PopUpMixin):
-    def __init__(self):
+    def __init__(self, toolkit: ToolKit):
         super().__init__()
 
-        self.db_test_manager = DbTestManager()
+        self.toolkit: ToolKit = toolkit
+        self.db_test_manager: DbTestManager = self.toolkit.db_test_manager
+
         self.ui: Pass2AddView
         self.page: ft.Page
 

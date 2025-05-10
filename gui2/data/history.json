@@ -1,5 +1,21 @@
 [
     {
+        "id": 81668,
+        "lemma_1": "sinā"
+    },
+    {
+        "id": 81923,
+        "lemma_1": "yāyitabba"
+    },
+    {
+        "id": 82348,
+        "lemma_1": "viyākaronta"
+    },
+    {
+        "id": 81905,
+        "lemma_1": "pariyāpuṇitvāna"
+    },
+    {
         "id": 18207,
         "lemma_1": "evaṃvihitaka"
     },
@@ -62,21 +78,5 @@
     {
         "id": 50258,
         "lemma_1": "bheka"
-    },
-    {
-        "id": 28024,
-        "lemma_1": "jarasigāla"
-    },
-    {
-        "id": 5460,
-        "lemma_1": "anuvilokesi"
-    },
-    {
-        "id": 25387,
-        "lemma_1": "goyuga"
-    },
-    {
-        "id": 69989,
-        "lemma_1": "vuṭṭhātuṃ 2"
     }
 ]

@@ -296,10 +296,18 @@ class DbTestManager:
 
         return not bool(error_list), error_list  # Simplified return
 
-    # def run_test_on_all_entries(self, test: InternalTestRow, db_session) -> list[bool]:
-    #     # This might be useful later but is not part of the current task
-    #     dpd_db = db_session.query(DpdHeadword).all()
-    #     return [self.error_test_each_single_row(test, entry) for entry in dpd_db] # Corrected method name
+    def run_test_on_all_db_entries(
+        self, test_definition: InternalTestRow, db: list[DpdHeadword]
+    ) -> list[DpdHeadword]:
+        """
+        Runs a single test definition against all DpdHeadword entries in the database.
+        Returns a list of DpdHeadword objects that failed the test.
+        """
+        failing_headwords: list[DpdHeadword] = []
+        for headword in db:
+            if self.error_test_each_single_row(test_definition, headword):
+                failing_headwords.append(headword)
+        return failing_headwords
 
     def save_tests(self) -> None:
         """Saves the current state of internal_tests_list back to the TSV file."""
