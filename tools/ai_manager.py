@@ -1,9 +1,9 @@
-from typing import Optional, Any
+from typing import Any
 import time
 
 from tools.ai_deepseek_manager import DeepseekManager
 from tools.ai_gemini_manager import GeminiManager
-from tools.ai_open_router import OpenRouterManager  # Import the new manager
+from tools.ai_open_router import OpenRouterManager
 from tools.configger import config_read
 from tools.printer import printer as pr
 
@@ -11,9 +11,14 @@ from tools.printer import printer as pr
 class AIManager:
     # Ordered list of (provider, model) tuples as fallback defaults
     DEFAULT_MODELS = [
-        ("openrouter", "meta-llama/llama-4-maverick:free"),
-        ("gemini", "gemini-2.5-flash-preview-04-17"),
+        ("gemini", "gemini-2.5-pro-preview-05-06"),
         ("deepseek", "deepseek-chat"),
+        ("openrouter", "meta-llama/llama-4-maverick:free"),
+    ]
+
+    # Grounded models for internet searches
+    GROUNDED_MODELS = [
+        ("gemini", "gemini-2.5-flash-preview-04-17"),
     ]
 
     def __init__(self):
@@ -43,13 +48,12 @@ class AIManager:
     def request(
         self,
         prompt: str,
-        prompt_sys: Optional[str] = None,
-        provider_preference: Optional[str] = None,
-        model: Optional[str] = None,
-        stream: bool = False,
+        prompt_sys: str | None = None,
+        provider_preference: str | None = None,
+        model: str | None = None,
         grounding: bool = False,
         **kwargs,
-    ) -> Optional[str]:
+    ) -> str | None:
         """
         Makes a request to an AI provider.
         If no model is specified, uses DEFAULT_MODELS in order.
@@ -63,15 +67,17 @@ class AIManager:
             pr.info(f"Rate limiting: waiting for {wait_time:.2f} seconds...")
             time.sleep(wait_time)
 
-        # Build list of (provider, model) pairs to try
         models_to_try = []
 
-        # Handle grounding requests - force Gemini with 2.0-flash
+        # Use a grounded model for internet searches
         if grounding:
-            models_to_try.append(("gemini", "gemini-2.0-flash"))
-        # Otherwise proceed normally
+            models_to_try.extend(self.GROUNDED_MODELS)
+
+        # Otherwise use the specified model
         elif provider_preference and model:
             models_to_try.append((provider_preference, model))
+
+        # Otherwise use the fallback list
         else:
             models_to_try.extend(self.DEFAULT_MODELS)
 
@@ -80,7 +86,6 @@ class AIManager:
                 continue
 
             provider = self.providers[provider_name]
-            pr.info(f"Attempting request with {provider_name}/{model_name}...")
 
             start_time = time.monotonic()
             self.last_request_time = start_time
@@ -90,7 +95,6 @@ class AIManager:
                     prompt=prompt,
                     prompt_sys=prompt_sys,
                     model=model_name,
-                    stream=stream,
                     timeout=60.0,
                     grounding=grounding,
                     **kwargs,
@@ -115,43 +119,40 @@ class AIManager:
 
 
 if __name__ == "__main__":
-    # Example Usage
+    # Example usage
     ai_manager = AIManager()
 
-    if ai_manager.providers:
-        test_prompt = "Explain the concept of recursion in programming in simple terms."
-        test_sys_prompt = "You are a helpful teaching assistant."
+    prompt = "Explain the concept of recursion in programming in simple terms."
+    sys_prompt = "You are a helpful teaching assistant."
 
-        # pr.info("\n--- Testing AI Manager Request (Default Preference) ---")
-        # response = ai_manager.request(prompt=test_prompt, prompt_sys=test_sys_prompt)
-        # if response:
-        #     print(
-        #         "Response:\n", response
-        #     )  # Use standard print for potentially long AI output
-        # else:
-        #     pr.error("Request failed.")
-
-        # pr.info("\n--- Testing AI Manager Request (Prefer OpenRouter) ---")
-        # response_or = ai_manager.request(
-        #     prompt=test_prompt,
-        #     prompt_sys=test_sys_prompt,
-        #     provider_preference="openrouter",
-        # )
-        # if response_or:
-        #     print("Response:\n", response_or)
-        # else:
-        #     pr.error("Request failed.")
-
-        pr.info("\n--- Testing Grounded Request ---")
-        prompt = "search www.wisdomlib.org for a definition of mahānāma"
-        response_grounded = ai_manager.request(
-            prompt=prompt,
-            grounding=True,
-        )
-        if response_grounded:
-            print("Grounded Response:\n", response_grounded)
-        else:
-            pr.error("Grounded request failed.")
-
+    pr.info("\n--- Testing Default Preferences ---")
+    default_response = ai_manager.request(
+        prompt=prompt,
+        prompt_sys=sys_prompt,
+    )
+    if default_response:
+        print(default_response)
     else:
-        pr.warning("No AI providers are configured.")
+        pr.warning("Default request failed or returned None.")
+
+    pr.info("\n--- Testing OpenRouter ---")
+    open_router_response = ai_manager.request(
+        prompt=prompt,
+        prompt_sys=sys_prompt,
+        provider_preference="openrouter",
+    )
+    if open_router_response:
+        print(open_router_response)
+    else:
+        pr.warning("OpenRouter request failed or returned None.")
+
+    pr.info("\n--- Testing Grounded Request ---")
+    grounded_prompt = "Whats the weather in Kandy, Sri Lanka today?"
+    response_grounded = ai_manager.request(
+        prompt=grounded_prompt,
+        grounding=True,
+    )
+    if response_grounded:
+        print(response_grounded)
+    else:
+        pr.warning("Grounded request failed or returned None.")

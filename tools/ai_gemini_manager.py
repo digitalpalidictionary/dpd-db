@@ -107,32 +107,27 @@ if __name__ == "__main__":
     pr.info("--- Testing GeminiManager ---")
     gemini_manager = GeminiManager()
 
-    if gemini_manager.client:
-        pr.info("Gemini client initialized successfully.")
+    # List available models
+    gemini_manager.list_models()
 
-        # List available models
-        gemini_manager.list_models()
+    models = [
+        "models/gemini-2.5-pro-exp-03-25",
+        "models/gemini-2.5-pro-preview-03-25",
+        "models/gemini-2.5-flash-preview-04-17",
+        "models/gemini-2.5-flash-preview-04-17-thinking",
+        "models/gemini-2.5-pro-preview-05-06",
+    ]
 
-        test_prompt = "Explain the concept of recursion in programming in simple terms."
-        test_sys_prompt = "You are a helpful teaching assistant."
+    test_prompt = "Explain the concept of recursion in programming in simple terms."
+    test_sys_prompt = "You are a helpful teaching assistant."
 
-        pr.info(f"Sending request with prompt: '{test_prompt}'")
-        response = gemini_manager.request(
-            prompt=test_prompt,
-            prompt_sys=test_sys_prompt,
-            model="gemini-2.5-pro-exp-03-25",
-        )
+    pr.info(f"Sending request with prompt: '{test_prompt}'")
+    response = gemini_manager.request(
+        prompt=test_prompt,
+        prompt_sys=test_sys_prompt,
+        model="models/gemini-2.5-pro-preview-05-06",
+    )
 
-        # gemini-2.5-pro-exp-03-25
-        # gemini-2.5-pro-preview-03-25
-        # gemini-2.5-flash-preview-04-17
-
-        if response:
-            pr.info("Response received:")
-            print(response)
-        else:
-            pr.error("Request failed or returned None.")
-    else:
-        pr.warning(
-            "Gemini client could not be initialized. Check API key in config.ini."
-        )
+    if response:
+        pr.info("Response received:")
+        print(response)
