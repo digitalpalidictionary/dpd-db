@@ -3779,3 +3779,44 @@ vimānaṃ āvasām'ahaṃ."	missing
 78011	source_2	VIN PAT SA 11	sutta_2	bhedānuvattakasikkhāpadaṃ	example_2	m'āyasmantānam'pi saṅghabhedo ruccittha, <b>samet</b>'āyasmantānaṃ saṅghena, samaggo hi saṅgho sammodamāno avivadamāno ek'uddeso phāsu viharatī'ti.	missing		
 17732	meaning_1	eleven months					it is all but one month according to Vibhanga		
 77096	source_2	VIN1.4.1.3	sutta_2	tatiyakathinasikkhāpadaṃ	example_2	akālacīvaraṃ nāma anatthate kathine ekādasamāse uppannaṃ, atthate kathine sattamāse uppannaṃ, kāle'pi <b>ādissa</b> dinnaṃ, etaṃ akālacīvaraṃ nāma.	missing		
+20831	source_2	VIN1.4.2.8	sutta_2	rūpiyasikkhāpadaṃ	example_2	rajataṃ nāma <b>kahāpaṇo</b> lohamāsako dārumāsako jatumāsako ye vohāraṃ gacchanti.	missing		
+52493	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	rajataṃ nāma kahāpaṇo loha<b>māsako</b> dāru<b>māsako</b> jatu<b>māsako</b> ye vohāraṃ gacchanti.	missing		
+55319	sanskrit	rūpya + pratigrahītṛ					missing		
+55319	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	sace so tena parivattetvā kappiyaṃ āharati <b>rūpiyappaṭiggāhakaṃ</b> ṭhapetvā sabbeh'eva paribhuñjitabbaṃ.	missing		
+55319	compound_type	chaṭṭhī tappurisa	compound_construction	rūpiy<b>assa</b> + paṭiggāhaka			missing		
+55315	sanskrit	rūpya + [chṛd]					missing		
+55315	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	no ce chaḍḍeti, pañcah'aṅgehi samannāgato bhikkhu <b>rūpiyachaḍḍako</b> sammannitabbo, yo na chand'āgatiṃ gaccheyya, na dos'āgatiṃ gaccheyya, na moh'āgatiṃ gaccheyya, na bhay'āgatiṃ gaccheyya, chaḍḍitāchaḍḍitañ'ca jāneyya.	missing		
+55315	compound_type	chaṭṭhī tappurisa	compound_construction	rūpiy<b>assa</b> + chaḍḍaka			missing		
+27442	source_2	VIN1.4.2.8	sutta_2	rūpiyasikkhāpadaṃ	example_2	no ce chaḍḍeti, pañcah'aṅgehi samannāgato bhikkhu rūpiyachaḍḍako sammannitabbo, yo na <b>chand'āgatiṃ</b> gaccheyya, na dos'āgatiṃ gaccheyya, na moh'āgatiṃ gaccheyya, na bhay'āgatiṃ gaccheyya, chaḍḍitāchaḍḍitañ'ca jāneyya.	missing		
+34252	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	no ce chaḍḍeti, pañcah'aṅgehi samannāgato bhikkhu rūpiyachaḍḍako sammannitabbo, yo na chand'āgatiṃ gaccheyya, na <b>dos'āgatiṃ</b> gaccheyya, na moh'āgatiṃ gaccheyya, na bhay'āgatiṃ gaccheyya, chaḍḍitāchaḍḍitañ'ca jāneyya.	missing		
+34252	compound_type	tatiyā tappurisa	compound_construction	dos<b>ena</b> + agati			missing		
+53421	sanskrit	moha + agati					missing		
+53421	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	no ce chaḍḍeti, pañcah'aṅgehi samannāgato bhikkhu rūpiyachaḍḍako sammannitabbo, yo na chand'āgatiṃ gaccheyya, na dos'āgatiṃ gaccheyya, na <b>moh'āgatiṃ</b> gaccheyya, na bhay'āgatiṃ gaccheyya, chaḍḍitāchaḍḍitañ'ca jāneyya.	missing		
+53421	compound_type	tatiyā tappurisa	compound_construction	moh<b>ena</b> + agati			missing		
+478	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	no ce chaḍḍeti, pañcah'aṅgehi samannāgato bhikkhu rūpiyachaḍḍako sammannitabbo, yo na chand'<b>āgatiṃ</b> gaccheyya, na dos'<b>āgatiṃ</b> gaccheyya, na moh'<b>āgatiṃ</b> gaccheyya, na bhay'<b>āgatiṃ</b> gaccheyya, chaḍḍitāchaḍḍitañ'ca jāneyya.	missing		
+478	meaning_1	incorrect course; wrong behaviour; wrongdoing					missing		
+478	compound_type	kammadhāraya	compound_construction	na + gati			missing		
+49461	sanskrit	bhaya + agati					missing		
+49461	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	no ce chaḍḍeti, pañcah'aṅgehi samannāgato bhikkhu rūpiyachaḍḍako sammannitabbo, yo na chand'āgatiṃ gaccheyya, na dos'āgatiṃ gaccheyya, na moh'āgatiṃ gaccheyya, na <b>bhay'āgatiṃ</b> gaccheyya, chaḍḍitāchaḍḍitañ'ca jāneyya.	missing		
+49461	compound_type	tatiyā tappurisa	compound_construction	bhay<b>ena</b> + agati			missing		
+45464	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	tena sammatena bhikkhunā animittaṃ katvā <b>pātetabbaṃ</b>. sace nimittaṃ katvā pāteti, āpatti dukkaṭassa.	missing		
+55322	sanskrit	rūpya + saṃjñin					missing		
+55322	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	rūpiye <b>rūpiyasaññī</b> rūpiyaṃ paṭiggaṇhāti, nissaggiyaṃ pācittiyaṃ.	missing		
+55322	compound_type	pañcamī tappurisa	compound_construction	rūpiy<b>ato</b> + saññī			missing		
+9095	sanskrit	na + rūpya + saṃjñin					missing		
+9095	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	rūpiye vematiko rūpiyaṃ paṭiggaṇhāti, nissaggiyaṃ pācittiyaṃ. rūpiye <b>arūpiyasaññī</b> rūpiyaṃ paṭiggaṇhāti, nissaggiyaṃ pācittiyaṃ.	missing		
+9094	source_1	VIN1.4.2.8	sutta_1	rūpiyasikkhāpadaṃ	example_1	<b>arūpiye</b> vematiko, āpatti dukkaṭassa. <b>arūpiye</b> arūpiyasaññī, anāpatti.	missing		
+40340	source_2	VIN1.4.2.8	sutta_2	rūpiyasikkhāpadaṃ	example_2	sace so tena parivattetvā kappiyaṃ āharati rūpiya<b>ppaṭiggāhakaṃ</b> ṭhapetvā sabbeh'eva paribhuñjitabbaṃ.	missing		
+59729	source_1	VIN1.4.2.9	sutta_1	rūpiyasaṃvohārasikkhāpadaṃ	example_1	ahaṃ, bhante, nānappakārakaṃ rūpiyasaṃvohāraṃ <b>samāpajjiṃ</b>. idaṃ me nissaggiyaṃ.	missing		
+59729	meaning_1	engaged in; practiced; performed					missing		
+55314	sanskrit	rūpya + cetanaka					missing		
+55314	source_1	VIN1.4.2.9	sutta_1	rūpiyasaṃvohārasikkhāpadaṃ	example_1	sace so tena parivattetvā kappiyaṃ āharati, <b>rūpiyacetāpakaṃ</b> ṭhapetvā, sabbeh'eva paribhuñjitabbaṃ.	missing		
+55314	compound_type	kammadhāraya	compound_construction	rūpiya + cetāpaka			missing		
+43064	compound_type	dutiyā tappurisa	compound_construction	parahatth<b>aṃ</b> + gata			error		
+20412	sanskrit	krayavikraya + saṃjñin					missing		
+20412	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	kayavikkaye <b>kayavikkayasaññī</b>, nissaggiyaṃ pācittiyaṃ.	missing		
+20412	compound_type	pañcamī tappurisa	compound_construction	kayavikkay<b>ato</b> + saññī			missing		
+35357	sanskrit	na + krayavikraya + saṃjñin					missing		
+35357	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	kayavikkaye vematiko, nissaggiyaṃ pācittiyaṃ. kayavikkaye <b>nakayavikkayasaññī</b>, nissaggiyaṃ pācittiyaṃ.	missing		
+35356	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	<b>nakayavikkaye</b> vematiko, āpatti dukkaṭassa. <b>nakayavikkaye</b> nakayavikkayasaññī, anāpatti.	missing		
+20138	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	anāpatti, agghaṃ pucchati, <b>kappiyakārakassa</b> ācikkhati, idaṃ amhākaṃ atthi, amhākañ'ca iminā ca iminā ca attho'ti bhaṇati, ummattakassa, ādikammikassā'ti.	missing		
