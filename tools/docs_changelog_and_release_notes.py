@@ -249,10 +249,10 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 - {g.line_4_inflections}
 - {g.line_5_cell_of_pali_data}
 - {g.line_6_cells_of_root_data}
-- Pass1 complete: VIN1-2, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
-- Pass1 in progress: VIN3
+- Pass1 complete: VIN1-3, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN4
 - Pass2 complete: DN1, DN2, MN1
-- Pass2 in progress: DN3 
+- Pass2 in progress: DN3
 - numerous additions and corrections based on user feedback
 
 """
