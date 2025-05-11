@@ -236,7 +236,7 @@ class DpdFields(PopUpMixin):
                 on_blur=self._handle_generic_spell_check,
             ),
             FieldConfig("cognate"),
-            FieldConfig("link"),
+            FieldConfig("link", multiline=True),
             FieldConfig(
                 "family_set",
                 field_type="family_set",
@@ -800,7 +800,7 @@ class DpdFields(PopUpMixin):
                 field.error_text = f"{value} unknown root family"
             else:
                 field.error_text = None
-            self.page.update()
+                self.page.update()
 
     def derivative_change(self, e: ft.ControlEvent) -> None:
         """When derivative changes, try to generate suffix."""

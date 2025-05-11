@@ -1,5 +1,37 @@
 [
     {
+        "id": 44020,
+        "lemma_1": "pariyesi"
+    },
+    {
+        "id": 7658,
+        "lemma_1": "abhijjhādomanassa"
+    },
+    {
+        "id": 68256,
+        "lemma_1": "vineyya 1"
+    },
+    {
+        "id": 28957,
+        "lemma_1": "ñāya"
+    },
+    {
+        "id": 65095,
+        "lemma_1": "sokaparideva"
+    },
+    {
+        "id": 65103,
+        "lemma_1": "sokapariddava"
+    },
+    {
+        "id": 82744,
+        "lemma_1": "bilaṅga 2"
+    },
+    {
+        "id": 48436,
+        "lemma_1": "bilaṅga 1"
+    },
+    {
         "id": 48496,
         "lemma_1": "bīraṇatthambaka"
     },
@@ -46,37 +78,5 @@
     {
         "id": 81744,
         "lemma_1": "paṭiggahāpetuṃ"
-    },
-    {
-        "id": 82221,
-        "lemma_1": "paṭikātabba"
-    },
-    {
-        "id": 81934,
-        "lemma_1": "abhisaṅkharituṃ"
-    },
-    {
-        "id": 82006,
-        "lemma_1": "paribhijjati"
-    },
-    {
-        "id": 81461,
-        "lemma_1": "padīpetabba"
-    },
-    {
-        "id": 82222,
-        "lemma_1": "paṭinissajjetar"
-    },
-    {
-        "id": 82116,
-        "lemma_1": "dvisu"
-    },
-    {
-        "id": 82074,
-        "lemma_1": "nāvikattar"
-    },
-    {
-        "id": 81943,
-        "lemma_1": "byapaneti"
     }
 ]
