@@ -477,10 +477,6 @@ def clear_values(values, window, username):
 
     if username == "primary_user":
         origin = "pass2"
-    elif username == "deva":
-        origin = "dps"
-    else:
-        origin = "new_user"
     for value in values:
         if value in dpd_values_list:
             window[value].update("")

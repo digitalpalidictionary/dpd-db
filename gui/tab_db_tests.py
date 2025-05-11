@@ -1,8 +1,7 @@
 """Render tab to run database tests."""
 
 
-def make_tab_db_tests(sg, username):
-
+def make_tab_db_tests(sg):
     LOGIC = [
         "equals",
         "does not equal",
@@ -11,27 +10,19 @@ def make_tab_db_tests(sg, username):
         "does not contain",
         "does not contain word",
         "is empty",
-        "is not empty"]
+        "is not empty",
+    ]
 
     tab_db_tests = [
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Run Tests", key="test_db_internal", pad=((0, 10), (10, 10))),
-            sg.Button(
-                "Stop Tests", key="test_stop", pad=((0, 10), (10, 10))),
-            sg.Button(
-                "Edit Tests", key="test_edit", pad=((0, 10), (10, 10))),
-            sg.Button(
-                "Run Ru Tests", key="ru_test_db_internal",
-                tooltip="Run tests for all which has ru.ru_meaning",
-                visible=username == "deva", pad=((0, 10), (10, 10))),
+            sg.Button("Run Tests", key="test_db_internal", pad=((0, 10), (10, 10))),
+            sg.Button("Stop Tests", key="test_stop", pad=((0, 10), (10, 10))),
+            sg.Button("Edit Tests", key="test_edit", pad=((0, 10), (10, 10))),
         ],
         [
-            sg.Text(
-                "0", size=(15, 1), key="test_number", justification="right"),
-            sg.Input(
-                "", key="test_name", size=(41, 1), text_color="white"),
+            sg.Text("0", size=(15, 1), key="test_number", justification="right"),
+            sg.Input("", key="test_name", size=(41, 1), text_color="white"),
             sg.Input("", key="iterations", size=(5, 1)),
         ],
         [
@@ -79,8 +70,7 @@ def make_tab_db_tests(sg, username):
         [
             sg.Text("error col msg", size=(15, 1), justification="right"),
             sg.Input("", key="error_column", size=(20, 1)),
-            sg.Combo(
-                [], key="exceptions", size=(20, 1), auto_size_text=False),
+            sg.Combo([], key="exceptions", size=(20, 1), auto_size_text=False),
         ],
         [
             sg.Text("", size=(15, 1)),
@@ -91,33 +81,32 @@ def make_tab_db_tests(sg, username):
         [
             sg.Text("", size=(15, 1), justification="right"),
             sg.Text("displaying", pad=0),
-            sg.Text(
-                "0", key="test_results_redux", text_color="white"),
+            sg.Text("0", key="test_results_redux", text_color="white"),
             sg.Text("of", pad=0),
-            sg.Text(
-                "0", key="test_results_total", text_color="white"),
-            sg.Text("results")
+            sg.Text("0", key="test_results_total", text_color="white"),
+            sg.Text("results"),
         ],
         [
             sg.Text("test results", size=(15, 11), justification="right"),
             sg.Table(
-                [[]], headings=["1", "2", "3"], key="test_results",
-                size=(70, 11), justification="left", enable_events=True,
-                auto_size_columns=False, col_widths=[20, 20, 30])
+                [[]],
+                headings=["1", "2", "3"],
+                key="test_results",
+                size=(70, 11),
+                justification="left",
+                enable_events=True,
+                auto_size_columns=False,
+                col_widths=[20, 20, 30],
+            ),
         ],
         [
             sg.Text("add exception", size=(15, 1), justification="right"),
-            sg.Combo(
-                [], key="test_add_exception",
-                size=(30, 1), auto_size_text=False),
+            sg.Combo([], key="test_add_exception", size=(30, 1), auto_size_text=False),
             sg.Button("Add", key="test_add_exception_button", size=(5, 1)),
             sg.Input("", key="test_db_query", size=(19, 1)),
             sg.Button("Db Query", key="test_db_query_copy"),
         ],
-        [
-            sg.Text("", size=(15, 1)),
-            sg.Button("Next", key="test_next", size=(69, 1))
-        ],
+        [sg.Text("", size=(15, 1)), sg.Button("Next", key="test_next", size=(69, 1))],
     ]
 
     return tab_db_tests
