@@ -179,83 +179,83 @@ jobs:
     # Prepare Submodules
     # ----------------------------------------
     
-    - name: Sync all submodules with Upstream
-      run: |
-        for submodule in resources/fdg_dpd resources/bw2 resources/sc-data resources/tpr_downloads; do
-          echo "Syncing $submodule..."
-          cd "$submodule"
-          if [ "$submodule" = "resources/tpr_downloads" ]; then
-            branch="master"
-          else 
-            branch="main"
-          fi
-          git fetch origin $branch
-          git checkout $branch
-          git reset --hard origin/$branch
-          cd ../..
-        done
+    # - name: Sync all submodules with Upstream
+    #   run: |
+    #     for submodule in resources/fdg_dpd resources/bw2 resources/sc-data resources/tpr_downloads; do
+    #       echo "Syncing $submodule..."
+    #       cd "$submodule"
+    #       if [ "$submodule" = "resources/tpr_downloads" ]; then
+    #         branch="master"
+    #       else 
+    #         branch="main"
+    #       fi
+    #       git fetch origin $branch
+    #       git checkout $branch
+    #       git reset --hard origin/$branch
+    #       cd ../..
+    #     done
 
     # ----------------------------------------
     # Export TBW and TPR
     # ----------------------------------------
 
-    - name: Run TBW Exporter
-      run: uv run python exporter/tbw/tbw_exporter.py
+    # - name: Run TBW Exporter
+    #   run: uv run python exporter/tbw/tbw_exporter.py
 
-    - name: Run TPR Exporter
-      run: uv run python exporter/tpr/tpr_exporter.py
+    # - name: Run TPR Exporter
+    #   run: uv run python exporter/tpr/tpr_exporter.py
 
     # ----------------------------------------
     # Update Submodules
     # ----------------------------------------
 
-    - name: Update All Submodules
-      shell: bash
-      run: |
-        declare -A submodules=(
-          ["resources/fdg_dpd"]="fdg https://github.com/o28o/dictPlugin.git"
-          ["resources/bw2"]="tbw https://github.com/thebuddhaswords/BW2.git" 
-          ["resources/sc-data"]="sc https://github.com/digitalpalidictionary/sc-data.git"
-          ["resources/tpr_downloads"]="tpr https://github.com/bksubhuti/tpr_downloads"
-        )
+    # - name: Update All Submodules
+    #   shell: bash
+    #   run: |
+    #     declare -A submodules=(
+    #       ["resources/fdg_dpd"]="fdg https://github.com/o28o/dictPlugin.git"
+    #       ["resources/bw2"]="tbw https://github.com/thebuddhaswords/BW2.git" 
+    #       ["resources/sc-data"]="sc https://github.com/digitalpalidictionary/sc-data.git"
+    #       ["resources/tpr_downloads"]="tpr https://github.com/bksubhuti/tpr_downloads"
+    #     )
 
-        for path in "${!submodules[@]}"; do
-          read name repo <<< "${submodules[$path]}"
-          echo "Updating $name submodule..."
-          cd "$path"
-          echo "Current branch: $(git branch --show-current)"
-          echo "Git status:"
-          git status --short
-          echo "Recent commits:"
-          git log -1 --oneline
+    #     for path in "${!submodules[@]}"; do
+    #       read name repo <<< "${submodules[$path]}"
+    #       echo "Updating $name submodule..."
+    #       cd "$path"
+    #       echo "Current branch: $(git branch --show-current)"
+    #       echo "Git status:"
+    #       git status --short
+    #       echo "Recent commits:"
+    #       git log -1 --oneline
           
-          if [ "$path" = "resources/tpr_downloads" ]; then
-            branch="master"
-          else
-            branch="main"
-          fi
-          git checkout $branch
-          git pull origin $branch
+    #       if [ "$path" = "resources/tpr_downloads" ]; then
+    #         branch="master"
+    #       else
+    #         branch="main"
+    #       fi
+    #       git checkout $branch
+    #       git pull origin $branch
           
-          echo "=== POST-EXPORT STATUS ==="
-          git status --short
-          git add .
-          echo "=== STAGED CHANGES ==="
-          git diff --cached --name-only
+    #       echo "=== POST-EXPORT STATUS ==="
+    #       git status --short
+    #       git add .
+    #       echo "=== STAGED CHANGES ==="
+    #       git diff --cached --name-only
           
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git commit -m "DPD: update $(date +'%d-%b-%y')" || echo "No changes to commit"
+    #       git config --global user.name "GitHub Actions"
+    #       git config --global user.email "actions@github.com"
+    #       git commit -m "DPD: update $(date +'%d-%b-%y')" || echo "No changes to commit"
           
-          echo "=== PRE-PUSH STATUS ==="
-          git log -2 --oneline
-          git remote -v
+    #       echo "=== PRE-PUSH STATUS ==="
+    #       git log -2 --oneline
+    #       git remote -v
           
-          echo "=== PUSHING CHANGES ==="
-          git push origin $branch:$branch
-          echo "=== PUSH EXIT CODE: $? ==="
-          cd "$GITHUB_WORKSPACE"
-        done
+    #       echo "=== PUSHING CHANGES ==="
+    #       git push origin $branch:$branch
+    #       echo "=== PUSH EXIT CODE: $? ==="
+    #       cd "$GITHUB_WORKSPACE"
+    #     done
 
     # ----------------------------------------
     # Create Draft Release
