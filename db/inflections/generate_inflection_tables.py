@@ -284,13 +284,13 @@ class InflectionsManager:
         finally:
             self.db_session.close()
 
-        pr.green(f"saving changed headwords list ({len(self.changed_headwords)})")
+        pr.green("saving changed headwords list")
         try:
             with open(self.pth.changed_headwords_path, "wb") as f:
                 pickle.dump(self.changed_headwords, f)
-            pr.yes("ok")
+            pr.yes(len(self.changed_headwords))
         except Exception as e:
-            pr.red(f"Error saving pickle file: {e}")
+            pr.no(f"Error saving pickle file: {e}")
 
         if config_test("regenerate", "inflections", "yes"):
             config_update("regenerate", "inflections", "no")

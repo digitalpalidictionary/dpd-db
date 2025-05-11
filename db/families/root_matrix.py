@@ -1474,6 +1474,7 @@ def generate_root_matrix(db_session):
                 pr.red(f"ERROR: {headword}[white]")
 
             total_counter += 1
+    pr.yes(total_counter)
 
     pr.green_title(f"roots added: {word_counter:,} / {total_counter:,}")
 
@@ -1518,11 +1519,11 @@ def generate_root_matrix(db_session):
     for counter, i in enumerate(roots_db):
         try:
             i.root_matrix = html_dict[i.root]
+            pr.yes(f"{counter}")
         except KeyError:
+            pr.no("!!!")
             pr.red(f"!!! ERROR: {i.root} does not exist, consider deleting it.")
             i.root_matrix = ""
-
-    pr.yes(f"{counter}")
 
     db_session.commit()
 

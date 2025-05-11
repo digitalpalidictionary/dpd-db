@@ -556,7 +556,14 @@ class AllowableCharacters:
     non_root_in_comps_allowed = pali_alphabet
 
     source_allowed = (
-        english_alphabet + english_capitals + source + digits + space + fullstop + dash
+        pali_alphabet
+        + english_alphabet
+        + english_capitals
+        + source
+        + digits
+        + space
+        + fullstop
+        + dash,
     )
 
     sutta_allowed = (

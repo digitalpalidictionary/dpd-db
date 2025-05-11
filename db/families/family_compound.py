@@ -55,7 +55,7 @@ def main():
 
 
 def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
-    pr.green("extracting compound families and headwords")
+    pr.green("extracting compound families")
 
     # create a dict of all compound families
     # family: {headwords: [], html: "", }

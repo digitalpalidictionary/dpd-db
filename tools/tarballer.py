@@ -24,10 +24,10 @@ def create_tarball(
             tar.add(file, arcname=os.path.basename(file))
     pr.yes("ok")
 
-    pr.green("tarball size")
+    pr.green("tarball size in MB")
     tar_size = os.path.getsize(tarball_name)
     tar_size_mb = tar_size / 1024 / 1024
-    pr.yes(f"{tar_size_mb:.3f}MB")
+    pr.yes(f"{tar_size_mb:.3f}")
 
     pr.green("moving to destination folder")
     os.rename(tarball_name, os.path.join(destination_dir, tarball_name))

@@ -56,7 +56,7 @@ def sync_idiom_numbers_with_family_compound(db_session):
     - gram does not contain "comp"
     then copy that value to idioms.
     """
-    pr.green("syncing idiom numbers with family compound")
+    pr.green("syncing idioms with family compound")
     dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
 
     count = 0

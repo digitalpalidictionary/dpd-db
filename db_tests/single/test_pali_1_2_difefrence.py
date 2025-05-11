@@ -17,13 +17,19 @@ from tools.pos import INDECLINABLES
 error_list = []
 
 exceptions = [
-    "eyya 2.1", "tha", "ma 3.1", "sa 4.1",
-    "ssa 2", "tara 3", "tara 3",
-    "sat 1", "sat 2"]
+    "eyya 2.1",
+    "tha",
+    "ma 3.1",
+    "sa 4.1",
+    "ssa 2",
+    "tara 3",
+    "tara 3",
+    "sat 1",
+    "sat 2",
+    "vihāsi 2",
+]
 
-pos_differs = [
-    "masc", "nt", "prefix", "card", "cs",
-    "letter", "root", "suffix", "ve"]
+pos_differs = ["masc", "nt", "prefix", "card", "cs", "letter", "root", "suffix", "ve"]
 
 
 def main():
@@ -33,7 +39,6 @@ def main():
     db = db_session.query(DpdHeadword).all()
     error_list = []
     for i in db:
-        
         error_list = test_zero(i, error_list)
         error_list = test_one(i, error_list)
         error_list = test_two(i, error_list)
@@ -43,6 +48,7 @@ def main():
     error_string = db_search_string(error_list)
     print(error_string)
     pyperclip.copy(error_string)
+
 
 def test_zero(i, error_list):
     if (
@@ -65,7 +71,7 @@ def test_one(i, error_list):
         and not i.lemma_clean.endswith("ant")
         and not i.lemma_clean.endswith("ar")
         and not i.lemma_clean.endswith("as")
-    ):  
+    ):
         diff = 1
         is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
@@ -75,10 +81,7 @@ def test_one(i, error_list):
 
 
 def test_two(i, error_list):
-    if (
-        i.lemma_clean.endswith("ar")
-        or i.lemma_clean.endswith("as")
-    ):
+    if i.lemma_clean.endswith("ar") or i.lemma_clean.endswith("as"):
         diff = 2
         is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
@@ -86,16 +89,16 @@ def test_two(i, error_list):
             error_list += [i.lemma_1]
     return error_list
 
+
 def test_three(i, error_list):
-    if (
-        i.lemma_clean.endswith("ant")
-    ):
+    if i.lemma_clean.endswith("ant"):
         diff = 3
         is_same = compare_strings(i.lemma_clean, i.lemma_2, diff)
         if not is_same:
             printer(i)
             error_list += [i.lemma_1]
     return error_list
+
 
 def test_stem_pattern(i, error_list):
     if (
@@ -122,15 +125,14 @@ def printer(i):
     print(f"{i.id:<10}{i.lemma_1:<30}{i.lemma_2:<30}")
 
 
-
 def compare_strings(str1: str, str2: str, diff: int):
-   # Create a SequenceMatcher object
-   sm = difflib.SequenceMatcher(None, str1, str2)
-   matching_chars = sm.ratio() * len(str1)
-   if len(str1) - matching_chars <= diff:
-       return True
-   else:
-       return False
+    # Create a SequenceMatcher object
+    sm = difflib.SequenceMatcher(None, str1, str2)
+    matching_chars = sm.ratio() * len(str1)
+    if len(str1) - matching_chars <= diff:
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
