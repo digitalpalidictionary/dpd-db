@@ -201,7 +201,10 @@ class DpdFields(PopUpMixin):
                 options=[" "] + compound_types_options,
                 on_blur=self.compound_type_blur,
             ),
-            FieldConfig("compound_construction", field_type="compound_construction"),
+            FieldConfig(
+                "compound_construction",
+                field_type="compound_construction",
+            ),
             FieldConfig("non_root_in_comps"),
             FieldConfig(
                 "non_ia",
@@ -230,7 +233,7 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "notes",
                 field_type="notes",
-                on_change=self._handle_generic_spell_check,
+                on_blur=self._handle_generic_spell_check,
             ),
             FieldConfig("cognate"),
             FieldConfig("link"),
@@ -681,6 +684,13 @@ class DpdFields(PopUpMixin):
                 self.page.update()
                 # derived_from_field.focus() # Focus might be better handled elsewhere or removed
 
+    def compound_type_blur(self, e: ft.ControlEvent):
+        compound_construction: DpdCompoundConstructionField = self.get_field(
+            "compound_construction"
+        )
+        compound_construction.compound_construction_field.focus()
+        self.page.update()
+
     def sanskrit_blur(self, e: ft.ControlEvent) -> None:
         """Get Sanskrit"""
 
@@ -791,22 +801,6 @@ class DpdFields(PopUpMixin):
             else:
                 field.error_text = None
             self.page.update()
-
-    def compound_type_blur(self, e: ft.ControlEvent) -> None:
-        """Autofill compound_construction."""
-
-        compound_type = self.get_field("compound_type").value
-
-        compound_construction: DpdCompoundConstructionField = self.get_field(
-            "compound_construction"
-        )
-        if compound_type and not compound_construction.value:
-            current_headword = self.get_current_headword()
-            cc = make_compound_construction_from_headword(current_headword)
-            compound_construction.compound_construction_field.value = cc
-
-        compound_construction.compound_construction_field.focus()
-        self.page.update()
 
     def derivative_change(self, e: ft.ControlEvent) -> None:
         """When derivative changes, try to generate suffix."""

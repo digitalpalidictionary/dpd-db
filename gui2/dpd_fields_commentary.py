@@ -65,7 +65,7 @@ class DpdCommentaryField(ft.Column):
 
         # Toggle Button
         self._toggle_tools_button = ft.IconButton(
-            icon=ft.icons.VISIBILITY_OFF_OUTLINED,
+            icon=ft.Icons.VISIBILITY_OFF_OUTLINED,
             tooltip="Show Search Tools",
             on_click=self._toggle_tools_visibility,
             icon_color=ft.Colors.BLUE_GREY_300,
@@ -130,11 +130,11 @@ class DpdCommentaryField(ft.Column):
 
         # Update button icon and tooltip
         if invisible:
-            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
+            self._toggle_tools_button.icon = ft.Icons.VISIBILITY_OUTLINED
             self._toggle_tools_button.tooltip = "Hide Search Tools"
             self.search_field_1.focus()
         else:
-            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
+            self._toggle_tools_button.icon = ft.Icons.VISIBILITY_OFF_OUTLINED
             self._toggle_tools_button.tooltip = "Show Search Tools"
 
             self.commentary_field.focus()

@@ -105,8 +105,12 @@ class App:
                     content=self.tests_tab_view,
                 ),
                 ft.Tab(
-                    text="Sandhi",
+                    text="'",
                     content=self.sandhi_view,
+                ),
+                ft.Tab(
+                    text="-",
+                    content=ft.Column(),
                 ),
             ],
             expand=True,

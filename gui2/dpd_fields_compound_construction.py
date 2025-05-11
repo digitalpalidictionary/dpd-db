@@ -2,6 +2,7 @@ import flet as ft
 import re
 
 from gui2.dpd_fields_classes import DpdTextField
+from gui2.dpd_fields_functions import make_compound_construction_from_headword
 
 
 class DpdCompoundConstructionField(ft.Column):
@@ -32,7 +33,7 @@ class DpdCompoundConstructionField(ft.Column):
         self.compound_construction_field = DpdTextField(
             name=field_name,
             multiline=False,
-            on_focus=on_focus,
+            on_focus=self.compound_construction_focus,
             on_change=on_change,
             on_submit=on_submit,
             on_blur=on_blur,
@@ -85,3 +86,19 @@ class DpdCompoundConstructionField(ft.Column):
             e.control.value = ""
             self.page.update()
             self.compound_construction_field.focus()
+
+    def compound_construction_focus(self, e: ft.ControlEvent) -> None:
+        """Autofill compound_construction."""
+
+        compound_construction_field = e.control
+        compound_construction_value = e.control.value
+        compound_type_field = self.dpd_fields.get_field("compound_type")
+        compound_type_value = compound_type_field.value
+
+        if compound_type_value and not compound_construction_value:
+            current_headword = self.dpd_fields.get_current_headword()
+            cc = make_compound_construction_from_headword(current_headword)
+            compound_construction_field.value = cc
+
+        compound_construction_field.focus()
+        self.page.update()

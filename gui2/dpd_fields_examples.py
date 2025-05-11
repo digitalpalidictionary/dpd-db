@@ -138,8 +138,8 @@ class DpdExampleField(ft.Column):
         self.text_field = DpdTextField(
             name=field_name,
             multiline=True,
-            on_focus=on_focus,
-            on_change=on_change,
+            on_focus=self.update_counter,
+            on_change=self.update_counter,
             on_submit=on_submit,
             on_blur=on_blur,
         )
@@ -151,10 +151,17 @@ class DpdExampleField(ft.Column):
                 width=240,
                 label="bold",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
-                on_submit=self.click_bold_example,
                 expand=True,
                 dense=True,
                 text_size=12,
+                on_submit=self.click_bold_example,
+                on_blur=self._handle_last_control_blur,
+            )
+            self.counter_field = ft.Text(
+                "",
+                size=12,
+                width=40,
+                expand=False,
             )
 
             self.book_options = [
@@ -181,7 +188,7 @@ class DpdExampleField(ft.Column):
 
             # Toggle Button
             self._toggle_tools_button = ft.IconButton(
-                icon=ft.icons.VISIBILITY_OFF_OUTLINED,
+                icon=ft.Icons.VISIBILITY_OFF_OUTLINED,
                 tooltip="Show Tools",
                 on_click=self._toggle_tools_visibility,
                 icon_color=ft.Colors.BLUE_GREY_300,
@@ -207,7 +214,6 @@ class DpdExampleField(ft.Column):
                     ft.ElevatedButton(
                         "Reload",
                         on_click=self._click_reload_example,
-                        on_blur=self._handle_last_control_blur,
                     ),
                 ],
                 spacing=0,
@@ -227,7 +233,9 @@ class DpdExampleField(ft.Column):
             self.text_field,
         )
         if not self.simple_mode:
-            self.controls.append(ft.Row([self.bold_field], spacing=5))
+            self.controls.append(
+                ft.Row([self.bold_field, self.counter_field], spacing=5)
+            )
 
         self.spacing = 0
         self.cst_examples: list[CstSourceSuttaExample] = []
@@ -265,11 +273,11 @@ class DpdExampleField(ft.Column):
 
         # Update button icon and tooltip
         if are_visible:
-            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OUTLINED
+            self._toggle_tools_button.icon = ft.Icons.VISIBILITY_OUTLINED
             self._toggle_tools_button.tooltip = "Hide Tools"
             self.page.update()
         else:
-            self._toggle_tools_button.icon = ft.icons.VISIBILITY_OFF_OUTLINED
+            self._toggle_tools_button.icon = ft.Icons.VISIBILITY_OFF_OUTLINED
             self._toggle_tools_button.tooltip = "Show Tools"
         self.page.update()
 
@@ -467,3 +475,21 @@ class DpdExampleField(ft.Column):
             self.ui.update_message("Reloaded stashed example data")
         else:
             self.ui.update_message("No stashed data found")
+
+    def update_counter(self, e: ft.ControlEvent):
+        max_length = 200
+        if self.text_field.value:
+            clean_text = self.text_field.value.replace("<b>", "").replace("</b>", "")
+            text_len = len(clean_text)
+            self.counter_field.value = str(text_len)
+
+            if text_len > max_length:
+                self.text_field.border_color = ft.colors.RED
+                self.text_field.color = ft.colors.RED
+                self.text_field.error_text = str(text_len - max_length)
+            else:
+                self.text_field.border_color = None
+                self.text_field.color = None
+                self.text_field.error_text = None
+
+            self.page.update()

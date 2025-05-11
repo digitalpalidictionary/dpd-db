@@ -202,7 +202,7 @@ class TestsTabView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
         )
         self.test_db_query_copy_button = ft.IconButton(
-            icon=ft.icons.COPY,
+            icon=ft.Icons.COPY,
             key="test_db_query_copy",
             tooltip="Copy DB Query",
         )
