@@ -1,21 +1,15 @@
 import configparser
 from datetime import date
-
-from rich import print
+from typing import Optional
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-"""Dictionary releases are on full moon uposatha days.
-Modules for testing whether today is an uposatha day and
-saving the db count on uposatha day."""
 
+class UposathaManger:
+    """Manage uposatha days."""
 
-def uposatha_today():
-    """Test whether today is an uposatha day and return a bool."""
-    TODAY = date.today()
-
-    uposathas = [
+    UPOSATHA_DATES = [
         date(2023, 1, 6),
         date(2023, 2, 5),
         date(2023, 3, 6),
@@ -55,44 +49,41 @@ def uposatha_today():
         date(2025, 12, 5),
     ]
 
-    def print_diff():
-        for i in range(len(uposathas) - 1):
-            diff = uposathas[i + 1] - uposathas[i]
-            print(
-                f"The difference between {uposathas[i]} and {uposathas[i + 1]} is {diff.days} days."
-            )
+    @classmethod
+    def _get_config(cls):
+        """Lazily load and cache the config."""
+        if not hasattr(cls, "_config"):
+            cls._config = configparser.ConfigParser()
+            cls._config.read(ProjectPaths().uposatha_day_ini)
+        return cls._config
 
-    # print_diff()
+    @classmethod
+    def uposatha_today(cls) -> bool:
+        """Check if today is an uposatha day."""
+        return date.today() in cls.UPOSATHA_DATES
 
-    if TODAY in uposathas:
-        return True
-    else:
-        return False
+    @classmethod
+    def read_uposatha_count(cls) -> Optional[str]:
+        """Get current uposatha count."""
+        try:
+            return cls._get_config().get("uposatha", "count")
+        except Exception:
+            return None
 
-
-def write_uposatha_count(new_value: int):
-    """Save the DpdHeadword count on uposatha day."""
-
-    pr.green("updating uposatha count")
-    pth = ProjectPaths()
-    config = configparser.ConfigParser()
-    config.read(pth.uposatha_day_ini)
-    config.set("uposatha", "count", str(new_value))
-    with open(pth.uposatha_day_ini, "w") as f:
-        config.write(f)
-    pr.yes(new_value)
-
-
-def read_uposatha_count():
-    """Read the DpdHeadword count from the last uposatha day."""
-
-    pth = ProjectPaths()
-    config = configparser.ConfigParser()
-    config.read(pth.uposatha_day_ini)
-    return config.get("uposatha", "count")
+    @classmethod
+    def write_uposatha_count(cls, count: int) -> bool:
+        """Set uposatha count."""
+        try:
+            pr.green("updating uposatha count")
+            config = cls._get_config()
+            config["uposatha"] = {"count": str(count)}
+            with open(ProjectPaths().uposatha_day_ini, "w") as f:
+                config.write(f)
+            pr.yes(count)
+            return True
+        except Exception:
+            return False
 
 
 if __name__ == "__main__":
-    print(uposatha_today())
-    print(read_uposatha_count())
-    # write_uposatha_count(78807)
+    exit(0 if UposathaManger.uposatha_today() else 1)

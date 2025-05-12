@@ -176,10 +176,26 @@ jobs:
       run: uv run python scripts/build/tarball_db.py
 
     # ----------------------------------------
-    # Prepare Submodules
+    # Uposatha Day Check
+    # ----------------------------------------
+
+    - name: Check if Uposatha day
+      id: uposatha_check
+      run: |
+        if uv run python tools/uposatha_day.py; then
+          echo "is_uposatha=true" >> $GITHUB_OUTPUT
+          echo "Today is an Uposatha day - count updated"
+        else
+          echo "is_uposatha=false" >> $GITHUB_OUTPUT
+          echo "Today is not an Uposatha day"
+        fi
+
+    # ----------------------------------------
+    # Prepare Submodules (Uposatha day only)
     # ----------------------------------------
     
     - name: Sync all submodules with Upstream
+      if: steps.uposatha_check.outputs.is_uposatha == 'True'
       run: |
         for submodule in resources/fdg_dpd resources/bw2 resources/sc-data resources/tpr_downloads; do
           echo "Syncing $submodule..."
@@ -206,10 +222,11 @@ jobs:
       run: uv run python exporter/tpr/tpr_exporter.py
 
     # ----------------------------------------
-    # Update Submodules
+    # Update Submodules (Uposatha day only)
     # ----------------------------------------
 
     - name: Update All Submodules
+      if: steps.uposatha_check.outputs.is_uposatha == 'True'
       shell: bash
       run: |
         declare -A submodules=(

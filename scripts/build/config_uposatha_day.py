@@ -5,7 +5,7 @@ for creating a release."""
 
 from tools.configger import config_update
 from tools.printer import printer as pr
-from tools.uposatha_day import uposatha_today
+from tools.uposatha_day import UposathaManger
 
 
 def uposatha_day_configger():
@@ -14,8 +14,8 @@ def uposatha_day_configger():
     pr.tic()
     pr.title("uposatha day config")
 
-    if uposatha_today():
-        pr.green("updating config.ini")
+    if UposathaManger.uposatha_today():
+        pr.green_title("updating config.ini")
 
         config_update("regenerate", "db_rebuild", "yes")
 
@@ -36,7 +36,6 @@ def uposatha_day_configger():
         config_update("exporter", "make_changelog", "yes")
 
         config_update("goldendict", "copy_unzip", "yes")
-        pr.yes("ok")
     else:
         pr.green_title("today is not an uposatha")
     pr.toc()

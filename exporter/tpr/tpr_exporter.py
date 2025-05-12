@@ -23,7 +23,7 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
-from tools.uposatha_day import uposatha_today
+from tools.uposatha_day import UposathaManger
 
 
 class ProgData:
@@ -465,7 +465,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         month_str = TODAY.strftime("%B")
         year = TODAY.year
 
-        if uposatha_today():
+        if UposathaManger.uposatha_today():
             version = "release"
         else:
             version = "beta"

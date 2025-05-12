@@ -20,7 +20,7 @@ from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.uposatha_day import read_uposatha_count, uposatha_today, write_uposatha_count
+from tools.uposatha_day import UposathaManger
 
 
 class GlobalVars:
@@ -35,7 +35,8 @@ class GlobalVars:
             self.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
         )
 
-        self.last_id: str = read_uposatha_count()
+        uposatha_count = UposathaManger.read_uposatha_count()
+        self.last_id: str = str(uposatha_count) if uposatha_count is not None else "0"
 
         self.new_words_db: List[DpdHeadword] = (
             self.db_session.query(DpdHeadword)
@@ -327,9 +328,9 @@ def main() -> str | None:
     g.changelog = make_website_changelog(g)
     g.release_notes = make_release_notes(g)
 
-    if uposatha_today():
+    if UposathaManger.uposatha_today():
         last_id: int = g.dpd_db[-1].id
-        write_uposatha_count(last_id)
+        UposathaManger.write_uposatha_count(last_id)
         update_website_changelog(g)
 
     write_to_file(g)
