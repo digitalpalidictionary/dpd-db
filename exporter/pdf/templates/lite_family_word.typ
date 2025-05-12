@@ -18,7 +18,7 @@
   ],
 
 //// for d in i.data_unpack \\\\
-  [#blue-bold[{{ d[0] }}]], [{{ d[1] }}], [{{ d[2]|safe }}], [#gray-small[{{ d[3] }}]],
+  [#blue-bold[{{ d[0] }}]], [{{ d[1] }}], [{{ d[2].replace("*", "\*")|safe }}], [#gray-small[{{ d[3] }}]],
 //// endfor \\\\
 
   table.cell(colspan: 4)[

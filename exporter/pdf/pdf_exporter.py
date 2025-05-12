@@ -200,10 +200,11 @@ def make_word_families(g: GlobalVars):
     pr.green("compiling word families")
 
     if debug is True:
-        word_fam_db = g.db_session.query(FamilyWord).limit(100).all()
+        word_fam_db: list[FamilyWord] = g.db_session.query(FamilyWord).limit(100).all()
     else:
-        word_fam_db = g.db_session.query(FamilyWord).all()
-    word_fam_db = sorted(word_fam_db, key=lambda x: pali_sort_key(x.word_family))
+        word_fam_db: list[FamilyWord] = g.db_session.query(FamilyWord).all()
+
+    word_fam_db = sorted(word_fam_db, key=lambda x: pali_sort_key(x.word_family))  # type: ignore
 
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
