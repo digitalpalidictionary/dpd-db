@@ -24,8 +24,9 @@ On your device: [download the latest releases](https://github.com/digitalpalidic
 ## Installation Guides
 [All Installation Guides](https://digitalpalidictionary.github.io/install/)
 
-Desktop: [Windows](https://digitalpalidictionary.github.io/install/win/) | [Mac](https://digitalpalidictionary.github.io/install/mac/) | [Linux](https://digitalpalidictionary.github.io/install/linux/) | [Android](https://digitalpalidictionary.github.io/install/android_dicttango/)  
-E-readers: [Kindle](https://digitalpalidictionary.github.io/install/kindle/) | [Kobo reader](https://digitalpalidictionary.github.io/install/kobo/)  
+Desktop: [Windows](https://digitalpalidictionary.github.io/install/win/) | [Mac](https://digitalpalidictionary.github.io/install/mac/) | [Linux](https://digitalpalidictionary.github.io/install/linux/)  
+Mobile: [Android](https://digitalpalidictionary.github.io/install/android_dicttango/) | [iOS](https://digitalpalidictionary.github.io/install/ios/)   
+E-readers: [Kindle](https://digitalpalidictionary.github.io/install/kindle/) | [Kobo reader](https://digitalpalidictionary.github.io/install/kobo/) | PDF  
 API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/) |
 [DictTango](https://digitalpalidictionary.github.io/webapp/api_dicttango/)
 
@@ -34,10 +35,11 @@ API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/
 [All Integrations](https://digitalpalidictionary.github.io/integrations/)
 
 DPD is integrated into the following software and websites.  
-[Dhamma.gift website](https://find.dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
+[Dhamma.gift](https://find.dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)    
-[Sutta Central website](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
-[The Buddha's Words website](https://thebuddhaswords.net/mn/mn1.html#content) | [Docs](https://digitalpalidictionary.github.io/integrations/tbw/)  
+[Sutta Central](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
+[Sutta Central Voice](https://www.sc-voice.net/#/sutta/dn15:0.1/en/sujato) | Docs  
+[The Buddha's Words](https://thebuddhaswords.net/mn/mn1.html#content) | [Docs](https://digitalpalidictionary.github.io/integrations/tbw/)  
 [Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [Win](https://apps.microsoft.com/store/detail/tipitaka-pali-reader/9MTH9TD82TGR?hl=en-ms&gl=ms) | [Mac](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Linux](https://github.com/bksubhuti/tipitaka-pali-reader/releases/) | [Android](https://play.google.com/store/apps/details?id=com.paauk.tipitakapalireader) | [iOS](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)  
 [Tipitakapali.org website](https://tipitakapali.org/) | [iOS](https://apps.apple.com/vn/app/tipitakacst/id6743404213) | [Docs](https://digitalpalidictionary.github.io/integrations/tipitakapali/)  
 
