@@ -155,19 +155,19 @@ def extract_sutta_from_file(
 ) -> Optional[str]:
     # Read the file content
 
-    print(f"sutta_name : {sutta_name}")
+    pr.info(f"sutta_name : {sutta_name}")
 
-    print(f"text_string : {len(text_string)}")
-    print(f"book : {books}")
+    pr.info(f"text_string : {len(text_string)}")
+    pr.info(f"book : {books}")
 
     # Search for the beginning of the sutta using the sutta_name
     start_index = text_string.find(sutta_name)
 
     # If sutta_name is not found in the text_string, return None
     if start_index == -1:
-        print(f"'{sutta_name}' not found in the text_string.")
+        pr.error(f"'{sutta_name}' not found in the text_string.")
         return None
-    print(f"Start index of sutta: {start_index}")  # Debugging print
+    pr.info(f"Start index of sutta: {start_index}")
 
     # Adjust end pattern based on the file's name
     if books[0].startswith(("dn", "mn")):
@@ -175,7 +175,7 @@ def extract_sutta_from_file(
     elif books[0].startswith(("sn", "an", "kd")):
         end_pattern = "suttaṃ"
     else:
-        print(f"Unknown file name pattern: {text_string}")
+        pr.error(f"Unknown file name pattern: {text_string}")
         return None
 
     # Search for the end of the sutta using the end_pattern
@@ -183,17 +183,17 @@ def extract_sutta_from_file(
 
     # If the end pattern is not found after the start index, return None
     if end_index == -1:
-        print(
+        pr.error(
             f"End pattern '{end_pattern}' not found in the text_string after '{sutta_name}'."
         )
         return None
-    print(f"End index of sutta: {end_index}")  # Debugging print
+    pr.info(f"End index of sutta: {end_index}")
 
     # Extract the sutta from the text_string using the start and end indices
     sutta = text_string[start_index : end_index + len(end_pattern)]
 
-    print(f"sutta : {sutta}")
-    print("sutta_end")
+    pr.info(f"sutta : {sutta}")
+    pr.info("sutta_end")
 
     return sutta
 
@@ -303,7 +303,7 @@ def make_cst_text_set_from_file(dpspth, niggahita="ṃ") -> Set[str]:
                 text_string = clean_machine(text_string, niggahita=niggahita)
                 words_list.extend(text_string.split())
         except FileNotFoundError:
-            print(f"[red]file {dpspth.text_to_add_path} does not exist")
+            pr.red(f"file {dpspth.text_to_add_path} does not exist")
             return set()
 
     return set(words_list)
@@ -342,7 +342,7 @@ def make_cst_text_list_from_file(
 
                 words_list.extend(text_string.split())
         except FileNotFoundError:
-            print(f"[red]file {dpspth.text_to_add_path} does not exist")
+            pr.red(f"file {dpspth.text_to_add_path} does not exist")
             return words_list
 
     if add_hyphenated_parts:
@@ -529,9 +529,7 @@ if __name__ == "__main__":
     pth = ProjectPaths()
     # TODO why does it need a path!?
 
-    cst_test_set = make_cst_text_list(
-        pth, ["mna"], dedupe=False, add_hyphenated_parts=True
-    )
+    cst_test_set = make_cst_text_list(["mna"], dedupe=False, add_hyphenated_parts=True)
     print(type(cst_test_set))
     print(len(cst_test_set))
     print(cst_test_set[:10])

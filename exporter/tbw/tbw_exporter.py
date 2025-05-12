@@ -49,7 +49,6 @@ class ProgData:
 
 
 def generate_sc_word_set(g: ProgData):
-    pr.green("making sutta central ebts word set")
     sc_text_list = [
         "vin1",
         "vin2",
@@ -89,7 +88,6 @@ def generate_sc_word_set(g: ProgData):
 
     sc_word_set = make_sc_text_set(g.pth, sc_text_list)
     g.word_set = sc_word_set
-    pr.yes(len(g.word_set))
 
 
 def generate_deconstructed_word_set(g: ProgData):

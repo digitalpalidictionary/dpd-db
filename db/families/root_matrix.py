@@ -1516,14 +1516,18 @@ def generate_root_matrix(db_session):
     # add back into db
     pr.green("adding to db")
     roots_db = db_session.query(DpdRoot).all()
+
+    ok = True
     for counter, i in enumerate(roots_db):
         try:
             i.root_matrix = html_dict[i.root]
-            pr.yes(f"{counter}")
         except KeyError:
+            ok = False
             pr.no("!!!")
             pr.red(f"!!! ERROR: {i.root} does not exist, consider deleting it.")
             i.root_matrix = ""
+    if ok:
+        pr.yes(f"{counter}")
 
     db_session.commit()
 
