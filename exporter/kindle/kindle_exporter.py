@@ -5,13 +5,12 @@ The word set is limited to
 - Sutta Central EBTS
 - words in deconstructed compounds."""
 
-import os
 import subprocess
+from pathlib import Path
 
 from datetime import datetime
 from mako.template import Template
 from rich import print
-from typing import Dict
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.db_helpers import get_db_session
@@ -82,13 +81,9 @@ def render_xhtml(
     ]
 
     # all words in cst and sc texts
-    pr.green("making cst text set")
     cst_text_set = make_cst_text_set(pth, ebt_books)
-    pr.yes(len(cst_text_set))
 
-    pr.green("making sc text set")
     sc_text_set = make_sc_text_set(pth, ebt_books)
-    pr.yes(len(sc_text_set))
     combined_text_set = cst_text_set | sc_text_set
 
     # words in deconstructor in cst_text_set & sc_text_set
@@ -106,10 +101,9 @@ def render_xhtml(
     all_words_set = combined_text_set | words_in_deconstructor_set
     pr.yes(len(all_words_set))
 
-    # only include inflections which exist in all_words_set
     pr.green("creating inflections dict")
 
-    inflections_dict: Dict[int, list[str]] = {}
+    inflections_dict: dict[int, list[str]] = {}
     inflections_counter = 0
     for i in dpd_db:
         # only add inflections in all words set
@@ -126,9 +120,14 @@ def render_xhtml(
         # sort into pali alphabetical order
         inflections_sorted: list[str] = pali_list_sorter(list(inflections_set))
 
+        # Filter out empty or whitespace-only strings to prevent Kindle errors
+        inflections_filtered: list[str] = [
+            inf for inf in inflections_sorted if inf and inf.strip()
+        ]
+
         # update dict
-        inflections_dict[i.id] = inflections_sorted
-        inflections_counter += len(inflections_sorted)
+        inflections_dict[i.id] = inflections_filtered
+        inflections_counter += len(inflections_filtered)
 
     pr.yes(inflections_counter)
 
@@ -142,7 +141,7 @@ def render_xhtml(
     # add all words
     id_counter = 1
     for counter, i in enumerate(dpd_db):
-        inflection_list: list = inflections_dict[i.id]
+        inflection_list: list[str] = inflections_dict[i.id]
         first_letter = find_first_letter(i.lemma_1)
         entry = render_ebook_entry(pth, id_counter, i, inflection_list)
         letter_dict[first_letter] += [entry]
@@ -395,11 +394,11 @@ def save_content_opf_xhtml(
 def zip_epub(pth: ProjectPaths):
     """Zip up the epub dir and name it dpd-kindle.epub."""
     pr.green("zipping up epub")
+    epub_dir_path = Path(pth.epub_dir)
     with ZipFile(pth.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
-        for root, _, files in os.walk(pth.epub_dir):
-            for file in files:
-                file_path = os.path.join(root, file)
-                zipf.write(file_path, os.path.relpath(file_path, pth.epub_dir))
+        for file_path in epub_dir_path.rglob("*"):
+            if file_path.is_file():
+                zipf.write(file_path, file_path.relative_to(epub_dir_path))
     pr.yes("OK")
 
 
@@ -434,7 +433,7 @@ def main():
     pr.title("rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         pth = ProjectPaths()
-        id_counter = render_xhtml(pth)
+        id_counter: int = render_xhtml(pth)
         save_abbreviations_xhtml_page(pth, id_counter)
         save_title_page_xhtml(pth)
         zip_epub(pth)
