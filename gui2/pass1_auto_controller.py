@@ -11,6 +11,8 @@ from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.goldendict_tools import open_in_goldendict_os
+from tools.ai_manager import AIResponse
+from tools.printer import printer as pr
 
 
 class Pass1AutoController:
@@ -40,7 +42,8 @@ class Pass1AutoController:
         self.stop_flag = False
 
         self.prompt: str
-        self.response: str
+        self.response: str | None = None  # Can be None if AI request fails
+        self.ai_status_message: str = ""  # To store status from AIManager
 
         self.auto_processed_dict: dict[str, dict[str, str]] = {}
         self.auto_processed_keys: list[str] = []
@@ -70,10 +73,11 @@ class Pass1AutoController:
     def auto_process_book(self, book: str):
         self.stop_flag = False
 
-        # should only run once
-        if not self.db.all_inflections:
-            self.ui.update_message("Loading database...")
-            self.db.make_inflections_lists()
+        # should only run once.
+        # actually no, should run clean every time to update changes in db
+        # if not self.db.all_inflections:
+        self.ui.update_message("Loading database...")
+        self.db.make_inflections_lists()
 
         self.book = book
         self.cst_books = sutta_central_books[book].cst_books
@@ -87,16 +91,33 @@ class Pass1AutoController:
                 self.word_in_text
             )
             self.compile_prompt()
-            self.response = str(self.send_prompt())
-            if not self.update_auto_processed():
-                self.ui.update_message(
-                    "Stopping auto-processing due to API response error"
-                )
-                break
-            if self.stop_flag:
+
+            selected_model_str = self.ui.ai_model_dropdown.value
+            provider_preference = None
+            model_name = None
+            if selected_model_str:
+                parts = selected_model_str.split("|", 1)
+                if len(parts) == 2:
+                    provider_preference, model_name = parts
+
+            ai_resp = self.send_prompt(
+                provider_preference=provider_preference, model=model_name
+            )
+            self.response = ai_resp.content
+            self.ai_status_message = ai_resp.status_message
+            self.ui.update_message(ai_resp.status_message)
+            if self.response is None:
                 break
 
-        self.ui.clear_all_fields()
+            elif not self.update_auto_processed(provider_preference, model_name):
+                pass
+
+            if self.stop_flag:
+                self.ui.clear_all_fields()
+                self.ui.update_message("stopped")
+                break
+
+        #
 
     def is_missing(self, word: str):
         if (
@@ -116,8 +137,8 @@ class Pass1AutoController:
         self.ui.update_message("Finding missing words in CST")
 
         # just run once, it doesn't change
-        if not self.all_cst_words:
-            self.all_cst_words = make_cst_text_list(self.cst_books, dedupe=True)
+        # if not self.all_cst_words: actually needs to change for every book
+        self.all_cst_words = make_cst_text_list(self.cst_books, dedupe=True)
 
         for word in self.all_cst_words:
             if self.is_missing(word):
@@ -267,35 +288,48 @@ ve: verbal ending
         with open(temp_file, "w") as f:
             f.write(self.prompt)
 
-    def send_prompt(self):
-        self.ui.update_message(f"sending prompt for {self.word_in_text}")
+    def send_prompt(
+        self, provider_preference: str | None = None, model: str | None = None
+    ) -> AIResponse:  # Changed return type
+        self.ui.update_message(
+            f"Sending prompt for {self.word_in_text} using {model or 'default model'}..."
+        )
 
         try:
-            return self.ai_manager.request(
+            ai_response = self.ai_manager.request(
                 prompt=self.prompt,
                 prompt_sys="Follow the instructions very carefully.",
-                provider_preference="gemini",
+                provider_preference=provider_preference,
+                model=model,
             )
+            return ai_response
         except Exception as e:
-            return e
+            return AIResponse(
+                content=None,
+                status_message=f"Exception during AI request for {self.word_in_text}: {e}",
+            )
 
-    def update_auto_processed(self) -> bool:
-        self.ui.update_message(f"updating auto processed data for {self.word_in_text}")
-
-        # Ensure response is a string before attempting replace
+    def update_auto_processed(self, provider: str | None, model: str | None) -> bool:
         if not isinstance(self.response, str):
             self.ui.update_message(
-                f"Error for {self.word_in_text}: API response is not a string ({type(self.response)})."
+                f"Error for {self.word_in_text}: AI response content is not a string ({type(self.response)}). Original AI Status: {self.ai_status_message}"
             )
             return False
 
         # Attempt to clean and parse the JSON response
         try:
-            # convert to json (remove potential markdown formatting)
             cleaned_response = self.response.replace("```json\n", "").replace("```", "")
 
             # Try parsing the cleaned response
             parsed_json = loads(cleaned_response)
+
+            # add ai details
+            if provider:
+                try:
+                    comments = parsed_json["comments"]
+                    parsed_json["comments"] = f"[{provider}: {model}] {comments}"
+                except KeyError:
+                    pr.error("ERROR adding ai model to comments")
 
             # save json to temp file
             tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")
@@ -345,13 +379,13 @@ ve: verbal ending
 
         except JSONDecodeError as e:
             # Handle the case where the response is not valid JSON
-            error_message = f"Error processing '{self.word_in_text}': Failed to decode API response. Details: {e}"
+            error_message = f"Error processing '{self.word_in_text}': Failed to decode API response. Details: {e}. Original AI Status: {self.ai_status_message}"
             self.ui.update_message(error_message)
             return False
 
         except Exception as e:
             # Catch any other unexpected errors during processing
-            error_message = f"Unexpected error processing '{self.word_in_text}': {e}"
+            error_message = f"Unexpected error processing '{self.word_in_text}': {e}. Original AI Status: {self.ai_status_message}"
             self.ui.update_message(error_message)
             return False
 

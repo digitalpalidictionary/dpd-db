@@ -45,6 +45,21 @@ class Pass1AutoView(ft.Column):
             text_size=14,
             border_color=ft.Colors.BLUE_200,
         )
+        self.ai_model_options = [
+            ft.dropdown.Option(
+                key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
+            )
+            for provider, model_name in toolkit.ai_manager.DEFAULT_MODELS
+        ]
+        self.ai_model_dropdown = ft.Dropdown(
+            options=self.ai_model_options,
+            width=300,
+            menu_width=500,
+            expand=True,
+            text_size=14,
+            border_color=ft.Colors.BLUE_200,
+            hint_text="Select AI Model",
+        )
         self.auto_processed_count_field = ft.TextField(
             "",
             expand=True,
@@ -77,6 +92,7 @@ class Pass1AutoView(ft.Column):
                             "AutoProcess Book",
                             on_click=self.handle_book_click,
                         ),
+                        self.ai_model_dropdown,
                         ft.ElevatedButton(
                             "Stop",
                             on_click=self.handle_stop_click,

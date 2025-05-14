@@ -11,6 +11,7 @@ from gui2.pass2_pre_controller import Pass2PreFileManager
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
 from tools.goldendict_tools import open_in_goldendict_os
+from tools.ai_manager import AIResponse
 from tools.printer import printer as pr
 
 debug = False
@@ -89,6 +90,8 @@ class Pass2AutoController:
             "pattern",
         ]
 
+        self._provider_preference: str | None = None
+        self._model_name: str | None = None
         # single word — reset on every loop
         self.processed_count: int = 0
         self._word_in_text: str
@@ -98,10 +101,18 @@ class Pass2AutoController:
         # flag
         self.stop_flag: bool = False
 
-    def auto_process_book(self, book: str) -> None:
+    def auto_process_book(
+        self,
+        book: str,
+        provider_preference: str | None = None,
+        model_name: str | None = None,
+    ) -> None:
         """Process all items marked 'yes' in Pass 2 Pre."""
 
         self._book = book
+        self._provider_preference = provider_preference  # Store for batch
+        self._model_name = model_name
+
         self._cst_books = self._sc_books[self._book].cst_books
         self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
         self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
@@ -159,7 +170,10 @@ class Pass2AutoController:
 
             # Call the core AI processing function
             response_dict = self._process_headword_with_ai(
-                headword_in_db, self._sentence_data_batch
+                headword_in_db,
+                self._sentence_data_batch,
+                provider_preference=self._provider_preference,
+                model_name=self._model_name,
             )
 
             if response_dict:
@@ -168,6 +182,12 @@ class Pass2AutoController:
                     str(headword_in_db.id),
                     response_dict,
                 )
+                # Add AI model details to the 'comment' field for the JSON output
+                if self._provider_preference and self._model_name:
+                    ai_info = f"[{self._provider_preference}: {self._model_name}] "
+                    current_comment = response_dict.get("comment", "")
+                    response_dict["comment"] = ai_info + current_comment
+
                 # Move item from matched to processed in the pre-processing file
                 message = self._pass2_pre_file_manager.move_matched_item_to_processed(
                     self._word_in_text
@@ -199,7 +219,11 @@ class Pass2AutoController:
 
     # --- Core AI Processing Function ---
     def _process_headword_with_ai(
-        self, headword: DpdHeadword, sentence_data: Optional[dict] = None
+        self,
+        headword: DpdHeadword,
+        sentence_data: Optional[dict] = None,
+        provider_preference: str | None = None,
+        model_name: str | None = None,
     ) -> Optional[dict[str, str]]:
         """
         Core function to process a single DpdHeadword using AI.
@@ -207,21 +231,26 @@ class Pass2AutoController:
 
         Args:
             headword: The DpdHeadword object to process.
-            sentence_data: Optional dictionary containing sentence context
-                           (expected format: {"sentence": [source, sutta, example]}).
+            sentence_data: Optional dictionary containing sentence context.
+            provider_preference: Optional AI provider preference.
+            model_name: Optional AI model name.
 
         Returns:
             A dictionary with the AI's suggestions, or None if an error occurred.
         """
         try:
+            pr.info(
+                f"Processing {headword.lemma_1} with AI model: {provider_preference}/{model_name}"
+            )
             related_words = self.db.get_related_headwords(headword)
             prompt = self._make_prompt(headword, related_words, sentence_data)
-            raw_response = self._send_prompt(prompt)
+            raw_response = self._send_prompt(
+                prompt, provider_preference=provider_preference, model=model_name
+            )
             response_dict = self._format_response(raw_response)
 
             if response_dict and sentence_data:
                 self._add_sentence_to_response(response_dict, sentence_data)
-
             return response_dict
 
         except Exception as e:
@@ -424,22 +453,31 @@ ve: verbal ending
                 f.write(prompt)
         return prompt
 
-    def _send_prompt(self, prompt: str) -> str:
+    def _send_prompt(
+        self,
+        prompt: str,
+        provider_preference: str | None = None,
+        model: str | None = None,
+    ) -> Optional[str]:
         try:
-            response = str(
-                self.ai_manager.request(
-                    prompt=prompt,
-                    prompt_sys="Follow the instructions very carefully.",
-                )
+            ai_resp: AIResponse = self.ai_manager.request(
+                prompt=prompt,
+                prompt_sys="Follow the instructions very carefully.",
+                provider_preference=provider_preference,
+                model=model,
             )
-            # Extract just the dictionary portion
-            start = response.find("{")
-            end = response.rfind("}") + 1
-            if start != -1 and end != 0:
-                return response[start:end].strip()  # Added strip()
-            return response  # fallback if no dict found
+            pr.info(f"AI Manager status for pass2_auto: {ai_resp.status_message}")
+            if ai_resp.content:
+                # Extract just the dictionary portion
+                start = ai_resp.content.find("{")
+                end = ai_resp.content.rfind("}") + 1
+                if start != -1 and end != 0:
+                    return ai_resp.content[start:end].strip()
+                return ai_resp.content  # fallback if no dict found in content
+            return None
         except Exception as e:
-            return str(e)
+            pr.error(f"Error in _send_prompt: {e}")
+            return None
 
     def _format_response(self, response: str) -> dict[str, str] | None:
         """Format the response into a valid python dict
@@ -467,17 +505,37 @@ ve: verbal ending
     def process_single_headword_from_view(
         self,
         headword: DpdHeadword,
-        # Consider how to get context if needed. For now, none.
-        # sentence_data: Optional[dict] = None
+        provider_preference: str | None = None,
+        model_name: str | None = None,
     ) -> Optional[dict[str, str]]:
         """
         Processes a single DpdHeadword provided externally (e.g., from Pass2AddView).
         Calls the core AI function and returns the result.
         Does NOT handle file management or UI updates directly, that's the caller's responsibility.
         """
-        pr.info(f"Processing single headword: {headword.lemma_1} (ID: {headword.id})")
-        # Pass None for sentence_data, or derive it from headword.example_1 etc. if desired
-        response_dict = self._process_headword_with_ai(headword, None)
+        # This method is called by Pass2AddView, so it doesn't use self._provider_preference
+        # It uses the provider_preference and model_name passed as arguments.
+        pr.info(
+            f"Processing single headword from view: {headword.lemma_1} (ID: {headword.id}) with AI model: {provider_preference}/{model_name}"
+        )
+
+        response_dict = self._process_headword_with_ai(
+            headword,
+            None,  # No sentence_data for this specific call from Pass2AddView
+            provider_preference=provider_preference,
+            model_name=model_name,
+        )
+
         if response_dict:
             pr.info(f"AI processing successful for {headword.lemma_1}")
+            # Add AI model details to the 'comment' field
+            if provider_preference and model_name:
+                ai_info = f"[{provider_preference}: {model_name}] "
+                current_comment = response_dict.get("comment", "")
+                response_dict["comment"] = ai_info + current_comment
+            elif (
+                response_dict.get("comment") is None
+            ):  # Ensure comment field exists if no AI info
+                response_dict["comment"] = ""
+
         return response_dict

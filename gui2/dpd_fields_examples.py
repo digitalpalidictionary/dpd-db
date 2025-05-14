@@ -477,15 +477,15 @@ class DpdExampleField(ft.Column):
             self.ui.update_message("No stashed data found")
 
     def update_counter(self, e: ft.ControlEvent):
-        max_length = 200
-        if self.text_field.value:
+        max_length = 300
+        if self.text_field.value and getattr(self, "counter_field", None):
             clean_text = self.text_field.value.replace("<b>", "").replace("</b>", "")
             text_len = len(clean_text)
             self.counter_field.value = str(text_len)
 
             if text_len > max_length:
-                self.text_field.border_color = ft.colors.RED
-                self.text_field.color = ft.colors.RED
+                self.text_field.border_color = ft.Colors.RED
+                self.text_field.color = ft.Colors.RED
                 self.text_field.error_text = str(text_len - max_length)
             else:
                 self.text_field.border_color = None

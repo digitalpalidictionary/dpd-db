@@ -5,6 +5,8 @@ import requests
 
 from tools.configger import config_read
 from tools.printer import printer as pr
+from tools.ai_manager import AIResponse
+
 
 DEFAULT_API_KEY_NAME = "deepseek"
 
@@ -19,6 +21,7 @@ class DeepseekManager:
         if not api_key:
             pr.warning(f"DeepSeek API key '{api_key_name}' not found in config.ini")
             self.api_key = None
+            self.api_key_name = api_key_name
             return
         self.api_key = api_key
         self.headers = {
@@ -26,14 +29,13 @@ class DeepseekManager:
             "Accept": "application/json",
             "Authorization": f"Bearer {self.api_key}",
         }
+        self.api_key_name = api_key_name
 
     def balance(self) -> dict[str, Any]:
         if not self.api_key:
             return {"error": "API key not configured"}
-        try:  # Added try/except for robustness
-            response = requests.get(
-                DS_BALANCE, headers=self.headers, timeout=10
-            )  # Added timeout
+        try:
+            response = requests.get(DS_BALANCE, headers=self.headers, timeout=10)
             response.raise_for_status()  # Check for HTTP errors
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -41,7 +43,7 @@ class DeepseekManager:
             return {"error": f"Request failed: {e}"}
 
     def _post_request(
-        self, api_url: str, payload: dict[str, Any]
+        self, api_url: str, payload: dict[str, Any], timeout: float = 60.0
     ) -> requests.Response | None:
         if not self.api_key:
             pr.warning("DeepSeekManager not configured (no API key).")
@@ -51,7 +53,7 @@ class DeepseekManager:
                 api_url,
                 headers=self.headers,
                 data=json.dumps(payload),
-                timeout=60,
+                timeout=timeout,
             )
             response.raise_for_status()
             return response
@@ -64,11 +66,13 @@ class DeepseekManager:
         prompt: str,
         model: str,
         prompt_sys: str | None = None,
+        timeout: float = 60.0,
         **kwargs,
-    ) -> str | None:
+    ) -> AIResponse:  # Changed return type
         if not self.api_key:
-            pr.warning("DeepSeekManager not configured (no API key).")
-            return None
+            msg = f"DeepSeekManager not configured (no API key '{self.api_key_name}')."
+            pr.warning(msg)
+            return AIResponse(content=None, status_message=msg)
 
         balance_info = self.balance()
         balance_before = (
@@ -77,8 +81,12 @@ class DeepseekManager:
             else 0
         )
 
-        # Use the default model if None is passed
         current_model = model if model is not None else "deepseek-chat"
+
+        messages = []
+        if prompt_sys:
+            messages.append({"role": "system", "content": prompt_sys})
+        messages.append({"role": "user", "content": prompt})
 
         payload = {
             "model": current_model,  # Use the potentially defaulted model
@@ -88,47 +96,45 @@ class DeepseekManager:
             "temperature": 1,
             "top_p": 1,
             "logprobs": False,
-            "messages": [
-                {"content": prompt_sys, "role": "system"},
-                {"content": prompt, "role": "user"},
-            ]
-            if isinstance(prompt, str)
-            else prompt,
+            "messages": messages,
         }
         payload.update(kwargs)
 
-        response = self._post_request(DS_CHAT, payload)
-        if response is None:
-            return None
+        response = self._post_request(DS_CHAT, payload, timeout=timeout)
 
-        balance_info_after = self.balance()
-        balance_after = (
-            float(
-                balance_info_after.get("balance_infos", [{}])[0].get("total_balance", 0)
+        if response is None:
+            return AIResponse(
+                content=None,
+                status_message="post_request returned None",
             )
-            if "error" not in balance_info_after
-            else 0
-        )
-        cost = balance_before - balance_after
-        pr.info(f"DeepSeek Cost: {cost:.6f}")
 
         try:
             response_json = response.json()
-            return (
+            content = (
                 response_json.get("choices", [{}])[0].get("message", {}).get("content")
             )
+            if content:
+                return AIResponse(
+                    content=content,
+                    status_message=str(response.status_code),
+                )
+            else:
+                return AIResponse(
+                    content=None,
+                    status_message=f"{response_json}",
+                )
         except json.JSONDecodeError as e:
-            pr.error(f"DeepSeek JSON decode error: {e}")
-            pr.error(f"Response text: {response.text}")
-            return None
+            error_msg = f"DeepSeek JSON decode error with {current_model}.\n{e}.\nResponse text: {response.text}"
+            pr.error(error_msg)
+            return AIResponse(content=None, status_message=error_msg)
         except IndexError:
-            pr.error(
-                "DeepSeek response format error: 'choices' list is empty or malformed."
-            )
-            pr.error(
-                f"Response JSON: {response_json if 'response_json' in locals() else 'N/A'}"
-            )
-            return None
+            error_msg = f"'choices' list empty/malformed. Response: {response.json() if response else 'N/A'}"
+            pr.error(error_msg)
+            return AIResponse(content=None, status_message=error_msg)
+        except Exception as e:
+            error_msg = f"{e}"
+            pr.error(error_msg)
+            return AIResponse(content=None, status_message=error_msg)
 
     def get_models(self) -> list[str]:
         if not self.api_key:
@@ -157,9 +163,10 @@ if __name__ == "__main__":
         models = ds.get_models()
         pr.info(f"Available Models: {models}")
 
-        response = ds.request(
+        ai_response = ds.request(
             model="deepseek-chat",
             prompt="Explain the theory of relativity simply.",
             prompt_sys="You are Albert Einstein.",
         )
-        pr.info(f"Response:\n{response}")
+        pr.info(f"DeepSeek request status: {ai_response.status_message}")
+        pr.info(f"Response:\n{ai_response.content if ai_response.content else 'None'}")

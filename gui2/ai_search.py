@@ -1,5 +1,5 @@
 import flet as ft
-from tools.printer import printer as pr  # For logging/debugging
+from tools.printer import printer as pr
 
 
 class AiSearchPopup:
@@ -65,11 +65,11 @@ class AiSearchPopup:
         self.dialog.update()
 
         try:
-            response = self.ai_manager.request(prompt=prompt_text, grounding=True)
-            if response:
-                self.response_field.value = response
+            ai_response = self.ai_manager.request(prompt=prompt_text, grounding=True)
+            if ai_response.content:
+                self.response_field.value = ai_response.content
             else:
-                self.response_field.value = "AI request failed or returned no response."
+                self.response_field.value = f"AI request failed or returned no response. Status: {ai_response.status_message}"
         except Exception as ex:
             pr.error(f"AI request error in popup: {ex}")
             self.response_field.value = f"An error occurred: {ex}"

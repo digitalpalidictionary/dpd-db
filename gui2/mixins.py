@@ -90,8 +90,7 @@ class PopUpMixin:
         self._callback_on_ok = on_submit
         self._popup_textfield.label = prompt_message
         self._popup_textfield.value = initial_value
-        page.add(self._dialog)
-        self._dialog.open = True
+        page.open(self._dialog)
         page.update()
 
 

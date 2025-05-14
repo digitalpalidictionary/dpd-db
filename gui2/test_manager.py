@@ -5,6 +5,7 @@ import flet as ft
 
 from db_tests.db_tests_manager import DbTestManager, IntegrityFailure, TestFailure
 from gui2.mixins import PopUpMixin
+from gui2.pass1_add_view import Pass1AddView
 from gui2.pass2_add_view import Pass2AddView
 from gui2.toolkit import ToolKit
 
@@ -23,7 +24,7 @@ class GuiTestManager(PopUpMixin):
         self.failure_list: list[TestFailure] | list[IntegrityFailure]
         self.current_headword = None
 
-    def run_all_tests(self, ui: Pass2AddView, dpd_headword):
+    def run_all_tests(self, ui: Pass1AddView | Pass2AddView, dpd_headword):
         self.db_test_manager.load_tests()
         self.current_headword = dpd_headword  # Store the headword
         passed, failure_list = self.db_test_manager.run_all_tests_on_headword(

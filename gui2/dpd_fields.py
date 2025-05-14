@@ -22,7 +22,6 @@ from gui2.dpd_fields_functions import (
     clean_lemma_1,
     clean_root,
     find_stem_pattern,
-    make_compound_construction_from_headword,
     make_construction,
     make_dpd_headword_from_dict,
     make_lemma_2,
@@ -173,6 +172,7 @@ class DpdFields(PopUpMixin):
                 "family_compound",
                 on_focus=self.family_compound_focus,
                 on_change=self.family_compound_change,
+                on_blur=self.family_compound_change,
             ),
             FieldConfig(
                 "family_idioms",
@@ -572,7 +572,9 @@ class DpdFields(PopUpMixin):
         """Get all current field values as a dictionary
         and make a DpdHeadword instance from it."""
 
-        values = {name: field.value for name, field in self.fields.items()}
+        values = {name: field.value or "" for name, field in self.fields.items()}
+        if values["id"] == "":
+            values["id"] = str(self.db.get_next_id())
         return make_dpd_headword_from_dict(values)
 
     def _handle_generic_spell_check(self, e: ft.ControlEvent):
@@ -615,7 +617,7 @@ class DpdFields(PopUpMixin):
             if value in self.db.all_lemma_1:
                 field.error_text = f"{value} already in db"
 
-        if not value:
+        elif not value:
             field.error_text = "required field"
         else:
             field.error_text = None

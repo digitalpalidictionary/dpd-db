@@ -45,6 +45,20 @@ class Pass2AutoView(ft.Column):
             text_size=14,
             border_color=ft.Colors.BLUE_200,
         )
+        self.ai_model_options = [
+            ft.dropdown.Option(
+                key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
+            )
+            for provider, model_name in toolkit.ai_manager.DEFAULT_MODELS
+        ]
+        self.ai_model_dropdown = ft.Dropdown(
+            options=self.ai_model_options,
+            width=300,
+            menu_width=500,
+            text_size=14,
+            border_color=ft.Colors.BLUE_200,
+            hint_text="Select AI Model",
+        )
         self.auto_processed_count_field = ft.TextField(
             "",
             expand=True,
@@ -77,6 +91,7 @@ class Pass2AutoView(ft.Column):
                             "AutoProcess Book",
                             on_click=self.handle_book_click,
                         ),
+                        self.ai_model_dropdown,
                         ft.ElevatedButton(
                             "Stop",
                             on_click=self.handle_stop_click,
@@ -110,7 +125,20 @@ class Pass2AutoView(ft.Column):
 
     def handle_book_click(self, e: ft.ControlEvent):
         if self.books_dropdown.value:
-            self.controller.auto_process_book(self.books_dropdown.value)
+            # Get selected AI model
+            selected_model_str: str | None = self.ai_model_dropdown.value
+            provider_preference: str | None = None
+            model_name: str | None = None
+            if selected_model_str:
+                parts = selected_model_str.split("|", 1)
+                if len(parts) == 2:
+                    provider_preference, model_name = parts
+
+            self.controller.auto_process_book(
+                self.books_dropdown.value,
+                provider_preference=provider_preference,
+                model_name=model_name,
+            )
 
     def handle_stop_click(self, e):
         self.controller.stop_flag = True

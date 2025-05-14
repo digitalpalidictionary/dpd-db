@@ -27,6 +27,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             spacing=5,
         )
         from gui2.pass1_add_controller import Pass1AddController
+        from gui2.test_manager import GuiTestManager
 
         PopUpMixin.__init__(self)
         self.page: ft.Page = page
@@ -38,6 +39,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.sandhi_manager: SandhiContractionFinder = self.toolkit.sandhi_manager
         self.history_manager = self.toolkit.history_manager
         self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
+        self.test_manager: GuiTestManager = self.toolkit.test_manager
 
         # --- Top Section Controls ---
         self.message_field = ft.Text("", color=HIGHLIGHT_COLOUR, selectable=True)
@@ -76,7 +78,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("book", width=LABEL_WIDTH, color=LABEL_COLOUR),
+                        ft.Text(
+                            "book",
+                            color=ft.Colors.GREY_500,
+                            width=150,
+                            size=12,
+                        ),
                         self.books_dropdown,
                         ft.ElevatedButton(
                             "Process Book",
@@ -97,13 +104,23 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("word_in_text", width=LABEL_WIDTH, color=LABEL_COLOUR),
+                        ft.Text(
+                            "word_in_text",
+                            color=ft.Colors.GREY_500,
+                            width=150,
+                            size=12,
+                        ),
                         self.word_in_text,
                     ],
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("remaining", width=LABEL_WIDTH, color=LABEL_COLOUR),
+                        ft.Text(
+                            "remaining",
+                            color=ft.Colors.GREY_500,
+                            width=150,
+                            size=12,
+                        ),
                         self.remaining_to_process,
                     ],
                 ),
@@ -114,16 +131,27 @@ class Pass1AddView(ft.Column, PopUpMixin):
         # Initialize middle section
         self.middle_section = self._build_middle_section()
 
+        # Define Add to DB button as an instance variable
+        self.add_to_db_button = ft.ElevatedButton(
+            "Add to DB",
+            on_click=self.handle_add_to_db_click,
+            width=BUTTON_WIDTH,
+        )
+
+        # Define Test button
+        self.test_button = ft.ElevatedButton(
+            "Test",
+            on_click=self._click_run_tests,
+            width=BUTTON_WIDTH,
+        )
+
         self.bottom_section = ft.Container(
             content=ft.Column(
                 controls=[
                     ft.Row(
                         [
-                            ft.ElevatedButton(
-                                "Add to DB",
-                                on_click=self.handle_add_to_db_click,
-                                width=BUTTON_WIDTH,
-                            ),
+                            self.test_button,
+                            self.add_to_db_button,
                             ft.ElevatedButton(
                                 "Pass",
                                 on_click=self.handle_pass_click,
@@ -326,3 +354,32 @@ class Pass1AddView(ft.Column, PopUpMixin):
             )
         else:
             self.update_message("Spelling input cancelled.")
+
+    def _click_run_tests(self, e: ft.ControlEvent) -> None:
+        """Run tests on current field values. Exactly like Pass2AddView."""
+
+        # Get the lemma_1 field and its value first
+        lemma_1_field = self.dpd_fields.get_field("lemma_1")
+        lemma_1_value = lemma_1_field.value if lemma_1_field else None
+
+        # Check if lemma_1 has a value
+        if lemma_1_value and str(lemma_1_value).strip():
+            # lemma_1 has a value, proceed to get headword and run tests
+            headword = self.dpd_fields.get_current_headword()
+            if headword:
+                self.dpd_fields.clear_messages()
+                self.test_manager.run_all_tests(self, headword)
+                # Change button text color based on test results
+                if hasattr(self.test_manager, "passed") and self.test_manager.passed:
+                    self.add_to_db_button.color = ft.Colors.GREEN
+                else:
+                    self.add_to_db_button.color = None  # Reset to default text color
+            else:
+                self.update_message("Error creating headword")
+                self.add_to_db_button.color = None  # Reset to default text color
+        else:
+            # No lemma_1 value, open the test file instead
+            self.update_message("Opening tests TSV...")
+            self.test_manager._handle_open_test_file(e)
+            self.add_to_db_button.color = None  # Reset to default text color
+        self.page.update()

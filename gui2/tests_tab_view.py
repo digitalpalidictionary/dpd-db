@@ -78,7 +78,7 @@ class TestsTabView(ft.Column):
             key="test_name",
             width=900 + 10 - 50,
             label_style=TEXT_FIELD_LABEL_STYLE,
-            text_style=ft.TextStyle(color=ft.colors.WHITE),
+            text_style=ft.TextStyle(color=ft.Colors.WHITE),
         )
         self.iterations_input = ft.TextField(
             label="Iter",
@@ -164,12 +164,12 @@ class TestsTabView(ft.Column):
         self.test_results_redux_text = ft.Text(
             "0",
             key="test_results_redux",
-            color=ft.colors.WHITE,
+            color=ft.Colors.WHITE,
         )
         self.test_results_total_text = ft.Text(
             "0",
             key="test_results_total",
-            color=ft.colors.WHITE,
+            color=ft.Colors.WHITE,
         )
 
         # Row 13 Elements
@@ -317,7 +317,7 @@ class TestsTabView(ft.Column):
                 ),
                 ft.Container(  # To control size of DataTable
                     content=self.test_results_table,
-                    border=ft.border.all(1, ft.colors.OUTLINE),
+                    border=ft.border.all(1, ft.Colors.OUTLINE),
                     width=920,
                     height=300,
                     expand=True,

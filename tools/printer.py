@@ -202,7 +202,7 @@ class Printer:
     def warning(self, message: str) -> None:
         """Print amber message."""
 
-        print(f"[amber]{message}")
+        print(f"[yellow]{message}")
         self._log(logging.WARNING, "warning", message, type="warning")
 
     def error(self, message: str) -> None:

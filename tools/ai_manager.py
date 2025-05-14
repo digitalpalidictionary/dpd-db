@@ -1,19 +1,37 @@
 from typing import Any
 import time
 
-from tools.ai_deepseek_manager import DeepseekManager
-from tools.ai_gemini_manager import GeminiManager
-from tools.ai_open_router import OpenRouterManager
+
 from tools.configger import config_read
 from tools.printer import printer as pr
+
+
+from typing import NamedTuple, Optional
+
+
+class AIResponse(NamedTuple):
+    """
+    Represents the response from an AI manager.
+
+    Attributes:
+        content: The actual response content from the AI, if successful.
+        status_message: A descriptive message about the request's outcome,
+                        including provider, model, duration, and any errors.
+    """
+
+    content: Optional[str]
+    status_message: str
 
 
 class AIManager:
     # Ordered list of (provider, model) tuples as fallback defaults
     DEFAULT_MODELS = [
-        ("gemini", "gemini-2.5-pro-preview-05-06"),
+        ("gemini", "gemini-2.5-flash-preview-04-17"),
+        ("gemini", "gemini-2.5-pro-exp-03-25"),
         ("deepseek", "deepseek-chat"),
         ("openrouter", "meta-llama/llama-4-maverick:free"),
+        ("openrouter", "qwen/qwen3-235b-a22b:free"),
+        ("openrouter", "thudm/glm-4-32b:free"),
     ]
 
     # Grounded models for internet searches
@@ -23,6 +41,10 @@ class AIManager:
 
     def __init__(self):
         self.providers: dict[str, Any] = {}
+
+        from tools.ai_deepseek_manager import DeepseekManager
+        from tools.ai_gemini_manager import GeminiManager
+        from tools.ai_open_router import OpenRouterManager
 
         if config_read("apis", "openrouter"):
             self.providers["openrouter"] = OpenRouterManager()
@@ -53,10 +75,11 @@ class AIManager:
         model: str | None = None,
         grounding: bool = False,
         **kwargs,
-    ) -> str | None:
+    ) -> AIResponse:  # Changed return type
         """
-        Makes a request to an AI provider.
-        If no model is specified, uses DEFAULT_MODELS in order.
+        Makes a request to an AI provider. Uses a fallback list of models if
+        provider_preference and model are not specified.
+        Returns an AIResponse object.
         """
         # Rate Limiting
         current_time = time.monotonic()
@@ -64,7 +87,7 @@ class AIManager:
         wait_time = self.min_delay_seconds - elapsed_since_last
 
         if wait_time > 0:
-            pr.info(f"Rate limiting: waiting for {wait_time:.2f} seconds...")
+            pr.info(f"RATE LIMITING for {wait_time:.2f}s")
             time.sleep(wait_time)
 
         models_to_try = []
@@ -89,9 +112,10 @@ class AIManager:
 
             start_time = time.monotonic()
             self.last_request_time = start_time
+            pr.info(f"REQUEST {provider_name} - {model_name}")
 
             try:
-                response = provider.request(
+                ai_response = provider.request(
                     prompt=prompt,
                     prompt_sys=prompt_sys,
                     model=model_name,
@@ -102,20 +126,28 @@ class AIManager:
                 end_time = time.monotonic()
                 duration = end_time - start_time
 
-                if response is not None:
-                    pr.info(
-                        f"Request successful with {provider_name} in {duration:.2f} seconds."
+                if ai_response.content is not None:
+                    status_message = (
+                        f"SUCCESS in {duration:.2f}s. {ai_response.status_message}"
                     )
-                    return response
+                    pr.info(status_message)
+                    return AIResponse(
+                        content=ai_response.content,
+                        status_message=status_message,
+                    )
                 else:
-                    pr.warning(
-                        f"{provider_name} request failed or returned None (took {duration:.2f}s)."
-                    )
+                    status_message = f"ERROR in {duration:.2f}s."
+                    pr.warning(status_message)
+                    pr.error(ai_response.status_message)
             except Exception as e:
-                pr.error(f"Error during {provider_name} request: {e}")
+                duration = time.monotonic() - start_time
+                status_message = f"ERROR in {duration:.2f}s"
+                pr.error(status_message)
+                pr.error(str(e))
 
-        pr.error("All AI providers failed.")
-        return None
+        final_failure_message = "All AI providers failed."
+        pr.error(final_failure_message)
+        return AIResponse(content=None, status_message=final_failure_message)
 
 
 if __name__ == "__main__":
@@ -125,34 +157,37 @@ if __name__ == "__main__":
     prompt = "Explain the concept of recursion in programming in simple terms."
     sys_prompt = "You are a helpful teaching assistant."
 
+    # -----------------------------------------
+
     pr.info("\n--- Testing Default Preferences ---")
     default_response = ai_manager.request(
         prompt=prompt,
         prompt_sys=sys_prompt,
     )
-    if default_response:
-        print(default_response)
-    else:
-        pr.warning("Default request failed or returned None.")
+    pr.info(f"Content: {default_response.content}")
+    pr.info(f"Status: {default_response.status_message}")
+
+    # -----------------------------------------
 
     pr.info("\n--- Testing OpenRouter ---")
     open_router_response = ai_manager.request(
         prompt=prompt,
         prompt_sys=sys_prompt,
         provider_preference="openrouter",
+        model="meta-llama/llama-4-maverick:free",
     )
-    if open_router_response:
-        print(open_router_response)
-    else:
-        pr.warning("OpenRouter request failed or returned None.")
+    pr.info(f"Status: {open_router_response.status_message}")
+    pr.info(f"Content: {open_router_response.content}")
+
+    # -----------------------------------------
 
     pr.info("\n--- Testing Grounded Request ---")
     grounded_prompt = "Whats the weather in Kandy, Sri Lanka today?"
-    response_grounded = ai_manager.request(
+    grounded_response = ai_manager.request(
         prompt=grounded_prompt,
         grounding=True,
     )
-    if response_grounded:
-        print(response_grounded)
-    else:
-        pr.warning("Grounded request failed or returned None.")
+    pr.info(f"Content: {grounded_response.content}")
+    pr.info(f"Status: {grounded_response.status_message}")
+
+    # -----------------------------------------
