@@ -37,37 +37,10 @@
         "siriṃ": 63017,
         "sapa": 58648,
         "bhoge": 50335,
-        "kathā": 19853
+        "kathā": 19853,
+        "sukhaṃ": 63457
     },
     "matched": {
-        "vinayapiṭake": {
-            "id": 68099,
-            "sentence": []
-        },
-        "udā": {
-            "id": 15003,
-            "sentence": []
-        },
-        "ādayo": {
-            "id": 11536,
-            "sentence": []
-        },
-        "ajapālanigrodhamūle": {
-            "id": 1143,
-            "sentence": [
-                "pli-tv-kd1:2.1.1",
-                "Atha kho bhagavā sattāhassa accayena tamhā samādhimhā vuṭṭhahitvā bodhirukkhamūlā yena ajapālanigrodho tenupasaṅkami, upasaṅkamitvā ajapālanigrodhamūle sattāhaṁ ekapallaṅkena nisīdi vimuttisukhapaṭisaṁvedī. ",
-                "After seven days, the Buddha came out from that stillness and went from the Bodhi tree to a goatherd’s banyan tree. There too he sat cross-legged for seven days without moving, experiencing the bliss of freedom. "
-            ]
-        },
-        "nikkasāvo": {
-            "id": 36737,
-            "sentence": [
-                "pli-tv-kd1:2.3.3",
-                "Nihuṁhuṅko nikkasāvo yatatto; ",
-                "Who does not murmur mystical mantras, but is free from flaws and self-controlled, "
-            ]
-        },
         "ajapālanigrodhamūlā": {
             "id": 1143,
             "sentence": [
@@ -101,6 +74,11 @@
         ]
     },
     "processed": [
-        "mahāvaggapāḷi"
+        "mahāvaggapāḷi",
+        "vinayapiṭake",
+        "udā",
+        "ādayo",
+        "ajapālanigrodhamūle",
+        "nikkasāvo"
     ]
 }

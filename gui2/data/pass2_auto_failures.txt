@@ -2,3 +2,71 @@ HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded wit
 
 HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded with url: /user/balance (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x741ec12f2870>: Failed to resolve 'api.deepseek.com' ([Errno -2] Name or service not known)"))
 
+{
+    'id': 64306,
+    'lemma_1': 'sumāgadhā',
+    'lemma_2': 'sumāgadhā',
+    'pos': 'fem',
+    'grammar': 'fem noun',
+    'derived_from': 'magadha',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'Sumāgadhā river',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': 'sumāgadhī',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': 'magadha',
+    'family_compound': 'su magadha',
+    'family_idioms': '',
+    'family_set': 'names of rivers',
+    'construction': 'su + magadha + ā',
+    'derivative': 'taddhita',
+    'suffix': 'ā',
+    'phonetic': '',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'su + magadha',
+    'stem': 'sumāgadh',
+    'pattern': 'ā fem'
+    'comment': 'The Sumāgadhā is identified as a river near Rajgir. The name suggests a connection to the Magadha region.'
+}
+
+{
+    'id': 25230,
+    'lemma_1': 'gokāṇā',
+    'lemma_2': 'gokāṇā',
+    'pos': 'fem',
+    'grammar': 'fem',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'one-eyed cow',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': 'go + kāṇā < kāṇa',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'go kāṇa',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': '',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'go ca sā kāṇā ca',
+    'stem': 'gokāṇ',
+    'pattern': 'ā fem'
+    'comment': 'The term "gokāṇā" is used metaphorically to refer to someone considered inferior or defective, much like a one-eyed cow.'
+}
+
