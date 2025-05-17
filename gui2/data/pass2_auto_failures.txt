@@ -70,3 +70,39 @@ HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded wit
     'comment': 'The term "gokāṇā" is used metaphorically to refer to someone considered inferior or defective, much like a one-eyed cow.'
 }
 
+{
+
+{
+
+{
+
+{
+
+{
+
+{
+
+{
+
+{
+
+{
+
+{
+
+{
+    'id': 69403,
+    'lemma_1': 'vissajjetvā',
+    'lemma_2': 'vissajjetvā',
+    'pos': 'abs',
+    'grammar': 'abs of vissajjeti',
+    'derived_from': 'vissajjeti',
+    'neg': '',
+    'verb': 'caus',
+    'trans': 'trans',
+    'plus_case': '+acc',
+    'meaning_1': 'having given away; having distributed',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': 'visṛjya 
+
