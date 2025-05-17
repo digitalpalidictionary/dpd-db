@@ -34,6 +34,7 @@ class HeadwordData:
                 not attr_name.startswith("_")
                 and "html" not in attr_name
                 and "data" not in attr_name
+                and "link" not in attr_name
             ):
                 attr_value = getattr(obj, attr_name)
                 if isinstance(attr_value, str):

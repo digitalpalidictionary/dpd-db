@@ -174,6 +174,8 @@ Here is a quick overview:
 
 - **`link`** `[str]` for plants, animals and historical characters what is the wikipedia link?
 
+- *`link_list`* `list[str]` a list of links, split on `\n` newline.
+
 - **`origin`** `[str]` what is the origin of the headword's data?
 
 - **`stem`** `[str]` what is the stem upon which the inflection pattern is built?

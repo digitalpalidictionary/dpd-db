@@ -971,9 +971,13 @@ class DpdHeadword(Base):
     @property
     def link_typst(self) -> str:
         link_string: str = ""
-        for website in self.link.split(" "):
+        for website in self.link.split("\n"):
             link_string += f"""#link("{website}")\\n"""
         return link_string
+
+    @property
+    def link_list(self) -> list[str]:
+        return self.link.split("\n")
 
     @property
     def example_1_typst(self) -> str:

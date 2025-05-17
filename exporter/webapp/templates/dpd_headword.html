@@ -290,13 +290,12 @@
                 Web Link
             </th>
             <td>
-                {% for website in d.i.link.split(" ") %}
-                <a href="{{ website }}" target="_blank">
-                    {{ website }}
-                </a>
-                {% if not loop.last %}
-                <br>
-                {% endif %}
+                {% for website in d.i.link_list %}
+                <p>
+                    <a href="{{ website }}" target="_blank">
+                        {{ website }}
+                    </a>
+                </p>
                 {% endfor %}
             </td>
         </tr>

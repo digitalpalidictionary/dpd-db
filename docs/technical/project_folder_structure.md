@@ -138,5 +138,3 @@ There are four main parts to the code:
 - **shared_data/** Data used across the project.
 
 - **tools/** Python modules used across the project.
-
-<!-- Link to Subhuti's website -->

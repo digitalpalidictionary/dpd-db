@@ -118,13 +118,12 @@
         <tr>
             <th>Web Link</th>
             <td>
-                % for website in i.link.split(" "):
-                    <a href="${website}" target="_blank">
-                        ${website}
-                    </a>
-                    % if not loop.last:
-                        <br/>
-                    % endif
+                % for website in i.link_list:
+                    <p style="margin: 0; padding: 0;">
+                        <a href="${website}" target="_blank">
+                            ${website}
+                        </a>
+                    </p>
                 % endfor
             </td>
         </tr>

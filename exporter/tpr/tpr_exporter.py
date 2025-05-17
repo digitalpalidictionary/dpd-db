@@ -165,10 +165,11 @@ def generate_tpr_data(g: ProgData):
                 html_string += f"""<td>{i.cognate}</td></tr>"""
 
             if i.link:
-                link_br = i.link.replace("\n", "<br>")
                 html_string += """<tr><th valign="top">Link</th>"""
-                html_string += f"""<td><a href="{link_br}">"""
-                html_string += f"""{link_br}</a></td></tr>"""
+                html_string += """<td>"""
+                for link in i.link_list:
+                    html_string += f"""<p><a href="{link}"></a></p>"""
+                html_string += """</td></tr>"""
 
             if i.non_ia:
                 html_string += """<tr><th valign="top">Non IA</th>"""

@@ -126,8 +126,6 @@ def render_pali_word_dpd_html(
         i.compound_construction = i.compound_construction.replace("\n", "<br>")
     if i.commentary:
         i.commentary = i.commentary.replace("\n", "<br>")
-    if i.link:
-        i.link = i.link.replace("\n", "<br>")
     if i.sutta_1:
         i.sutta_1 = i.sutta_1.replace("\n", "<br>")
     if i.sutta_2:
