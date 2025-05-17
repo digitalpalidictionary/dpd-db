@@ -11,7 +11,6 @@ class Pass2AutoView(ft.Column):
         toolkit: ToolKit,
     ) -> None:
         super().__init__(
-            scroll=ft.ScrollMode.AUTO,
             expand=True,
             controls=[],
             spacing=5,
@@ -68,24 +67,26 @@ class Pass2AutoView(ft.Column):
             width=COLUMN_WIDTH,
             expand=True,
         )
-        self.ai_results_field = ft.TextField(
-            "",
-            width=COLUMN_WIDTH,
-            multiline=True,
-            expand=True,
-        )
 
-        self.controls.extend(
+        self.top_section = ft.Column(
             [
                 ft.Row(
                     controls=[
-                        ft.Text("", width=LABEL_WIDTH),
+                        ft.Text(
+                            "",
+                            width=LABEL_WIDTH,
+                            color=ft.Colors.GREY_500,
+                        ),
                         self._message_field,
                     ],
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("book", width=LABEL_WIDTH),
+                        ft.Text(
+                            "book",
+                            width=LABEL_WIDTH,
+                            color=ft.Colors.GREY_500,
+                        ),
                         self.books_dropdown,
                         ft.ElevatedButton(
                             "AutoProcess Book",
@@ -104,24 +105,53 @@ class Pass2AutoView(ft.Column):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("auto processed", width=LABEL_WIDTH),
+                        ft.Text(
+                            "auto processed",
+                            width=LABEL_WIDTH,
+                            color=ft.Colors.GREY_500,
+                        ),
                         self.auto_processed_count_field,
                     ],
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("word in text", width=LABEL_WIDTH),
+                        ft.Text(
+                            "word in text",
+                            width=LABEL_WIDTH,
+                            color=ft.Colors.GREY_500,
+                        ),
                         self.word_in_text_field,
                     ],
                 ),
+            ],
+        )
+
+        self.ai_results_field = ft.TextField(
+            "",
+            width=COLUMN_WIDTH,
+            multiline=True,
+            expand=True,
+        )
+
+        self.results_section = ft.Column(
+            [
                 ft.Row(
                     controls=[
-                        ft.Text("ai results", width=LABEL_WIDTH),
+                        ft.Text(
+                            "ai results",
+                            width=LABEL_WIDTH,
+                            color=ft.Colors.GREY_500,
+                        ),
                         self.ai_results_field,
                     ]
                 ),
-            ]
+            ],
+            expand=True,
+            scroll=ft.ScrollMode.AUTO,
         )
+
+        self.controls.append(self.top_section)
+        self.controls.append(self.results_section)
 
     def handle_book_click(self, e: ft.ControlEvent):
         if self.books_dropdown.value:
@@ -142,7 +172,7 @@ class Pass2AutoView(ft.Column):
 
     def handle_stop_click(self, e):
         self.controller.stop_flag = True
-        self.update_message("stopped")
+        self.update_message("stopping...")
         self.controller.processed_count = 0
 
     def handle_clear_click(self, e):

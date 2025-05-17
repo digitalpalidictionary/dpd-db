@@ -8,8 +8,6 @@ from gui2.books import (
     SuttaCentralSource,
     sutta_central_books,
 )
-from gui2.daily_log import DailyLog
-from gui2.database_manager import DatabaseManager
 from gui2.paths import Gui2Paths
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
@@ -23,7 +21,7 @@ from tools.goldendict_tools import open_in_goldendict_os
 from tools.printer import printer as pr
 
 
-class Pass2PreprocessController:
+class Pass2PreController:
     def __init__(
         self,
         ui,
@@ -83,7 +81,7 @@ class Pass2PreprocessController:
             and word not in self.db.sandhi_ok_list
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
-            and word not in self.file_manager.unmatched
+            and word not in self.file_manager.unmatched.keys()
             and word not in self.file_manager.matched
         ):
             return True
@@ -147,7 +145,7 @@ class Pass2PreFileManager:
     def __init__(self, book: str, paths: Gui2Paths) -> None:
         self._gui2pth: Gui2Paths = paths
         self._json_path = self._gui2pth.gui2_data_path / f"pass2_pre_{book}.json"
-        self.unmatched: dict[str, int] = {}
+        self.unmatched: dict[str, list[int]] = {}
         self.matched: dict[str, dict[str, int | tuple[str, str, str]]] = {}
         self.new_word: dict[str, tuple] = {}
         self.processed: list[str] = []
@@ -209,7 +207,10 @@ class Pass2PreFileManager:
     ) -> str:
         """Adds or updates an entry in the 'unmatched' dictionary."""
 
-        self.unmatched[word_in_text] = headword_id
+        if word_in_text not in self.unmatched:
+            self.unmatched[word_in_text] = []
+        if headword_id not in self.unmatched[word_in_text]:
+            self.unmatched[word_in_text].append(headword_id)
         self.save_data()
         message = f"Updated 'unmatched' for '{word_in_text}' with id {headword_id}"
         return message

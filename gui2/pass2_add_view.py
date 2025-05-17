@@ -261,7 +261,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     if (
                         self.headword.id is not None
                         and str(self.headword.id)
-                        in self._pass2_auto_file_manager.responses
+                        in self._pass2_auto_file_manager.pass2_auto_data
                     ):
                         to_add = self._pass2_auto_file_manager.get_headword(
                             str(self.headword.id)
@@ -358,12 +358,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 self.dpd_fields.update_add_fields(pass2_auto_data)
                 self.add_headword_to_examples_and_commentary()
             else:
-                self.update_message(f"{headword_id}: headword not found")
+                self.update_message(f"{headword_id}: headword not found—deleting")
+                self._pass2_auto_file_manager.delete_item(headword_id)
                 self._click_load_next_pass2_entry()
 
         else:
-            self._message_field.value = "Current Pass2: None"
             self.clear_all_fields()
+            self.update_message("No more pass2auto entries")
 
         self.update()
 
@@ -548,7 +549,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 self._daily_log.increment(log_key)
 
             if item_id is not None:
-                removed_from_auto = self._pass2_auto_file_manager.remove_response(
+                removed_from_auto = self._pass2_auto_file_manager.delete_item(
                     str(item_id)
                 )
                 if removed_from_auto:

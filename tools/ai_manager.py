@@ -29,6 +29,7 @@ class AIManager:
         ("gemini", "gemini-2.5-flash-preview-04-17"),
         ("gemini", "gemini-2.5-pro-exp-03-25"),
         ("deepseek", "deepseek-chat"),
+        ("deepseek", "deepseek-reasoner"),
         ("openrouter", "meta-llama/llama-4-maverick:free"),
         ("openrouter", "qwen/qwen3-235b-a22b:free"),
         ("openrouter", "thudm/glm-4-32b:free"),
@@ -65,7 +66,7 @@ class AIManager:
             pr.warning("Gemini API key not found, manager not initialized.")
 
         self.last_request_time: float = 0
-        self.min_delay_seconds: float = 10.0
+        self.min_delay_seconds: float = 0
 
     def request(
         self,

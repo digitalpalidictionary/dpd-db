@@ -966,7 +966,7 @@ def test_construction(values, window, lemma_clean_list):
 def replace_sandhi_gui(
     text: str, field: str, sandhi_dict: dict, hyphenations_dict: dict, window
 ) -> None:
-    """Replace Sandhi and hypenated words and update window of the field."""
+    """Replace Sandhi and hyphenated words and update window of the field."""
 
     text = replace_sandhi(text, sandhi_dict, hyphenations_dict)
 

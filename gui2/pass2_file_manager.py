@@ -11,54 +11,60 @@ class Pass2AutoFileManager:
         toolkit: ToolKit,
     ):
         self.gui2pth: Gui2Paths = toolkit.paths
-        self.responses_path: Path = self.gui2pth.pass2_auto_json_path
-        self.responses: dict[str, dict[str, str]] = {}
+        self.pass2_auto_json_path: Path = self.gui2pth.pass2_auto_json_path
+        self.pass2_auto_data: dict[str, dict[str, str]] = {}
         self._current_index: int = 0
         self._ensure_directory_exists()
         self.load()
 
     def _ensure_directory_exists(self) -> None:
-        self.responses_path.parent.mkdir(parents=True, exist_ok=True)
+        self.pass2_auto_json_path.parent.mkdir(parents=True, exist_ok=True)
 
     def load(self) -> None:
         try:
-            with open(self.responses_path, "r", encoding="utf-8") as f:
-                self.responses = json.load(f)
+            with open(self.pass2_auto_json_path, "r", encoding="utf-8") as f:
+                self.pass2_auto_data = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
-            self.responses = {}
+            self.pass2_auto_data = {}
 
     def save(self) -> None:
-        with open(self.responses_path, "w", encoding="utf-8") as f:
-            json.dump(self.responses, f, indent=4, ensure_ascii=False)
+        with open(self.pass2_auto_json_path, "w", encoding="utf-8") as f:
+            json.dump(self.pass2_auto_data, f, indent=4, ensure_ascii=False)
 
-    def update_response(self, headword_id: str, value: dict[str, str]) -> None:
-        self.responses[headword_id] = value
+    def update_pass2_auto_data(self, headword_id: str, value: dict[str, str]) -> None:
+        self.load()
+        self.pass2_auto_data[headword_id] = value
         self.save()
 
-    def remove_response(self, headword_id: str) -> bool:
-        """Removes a response by headword_id and saves."""
-        if headword_id in self.responses:
-            del self.responses[headword_id]
+    def delete_item(self, headword_id: str) -> bool:
+        """Removes a pass2_auto item by headword_id and saves."""
+
+        if headword_id in self.pass2_auto_data:
+            del self.pass2_auto_data[headword_id]
             self.save()
             return True
         return False
 
-    def get_responses(self) -> dict[str, dict[str, str]]:
-        return self.responses.copy()
+    def get_pass2_auto_data(self) -> dict[str, dict[str, str]]:
+        self.load()
+        return self.pass2_auto_data.copy()
 
     def get_headword(self, headword_id: str) -> dict[str, str]:
-        return self.responses.get(headword_id, {}).copy()
+        self.load()
+        return self.pass2_auto_data.get(headword_id, {}).copy()
 
     def get_next_headword_data(self) -> tuple[str | None, dict[str, str]]:
         """Get the next headword data from pass2_auto.json."""
-        headword_ids = list(self.responses.keys())
+        self.load()
+        headword_ids = list(self.pass2_auto_data.keys())
+
         if not headword_ids or self._current_index >= len(headword_ids):
             self._current_index = 0
             return (None, {})
 
         headword_id = headword_ids[self._current_index]
-        data = self.responses[headword_id].copy()
-        self._current_index += 1
+        data = self.pass2_auto_data[headword_id].copy()
+        # self._current_index += 1
         return (headword_id, data)
 
     def reset_index(self) -> None:

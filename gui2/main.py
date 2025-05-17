@@ -121,7 +121,7 @@ class App:
 
 def main(page: ft.Page) -> None:
     # Enable/disable profiling
-    enable_profiling = True
+    enable_profiling = False
     profile_file = Path("gui2_profile.prof")
 
     if enable_profiling:

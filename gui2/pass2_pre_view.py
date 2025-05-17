@@ -12,17 +12,16 @@ class Pass2PreProcessView(ft.Column):
         page: ft.Page,
         toolkit: ToolKit,
     ) -> None:
-        from gui2.pass2_pre_controller import Pass2PreprocessController
+        from gui2.pass2_pre_controller import Pass2PreController
 
         super().__init__(
-            scroll=ft.ScrollMode.AUTO,
             expand=True,
             controls=[],
-            spacing=5,
+            spacing=0,
         )
         self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
-        self.controller = Pass2PreprocessController(
+        self.controller = Pass2PreController(
             self,
             toolkit,
         )
@@ -92,103 +91,119 @@ class Pass2PreProcessView(ft.Column):
             expand=True,
         )
 
-        self.controls.extend(
-            [
-                ft.Row(
-                    controls=[
-                        ft.Text("", width=LABEL_WIDTH),
-                        self.message_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text("book", width=LABEL_WIDTH, color=ft.Colors.GREY_500),
-                        self.books_dropdown,
-                        ft.ElevatedButton(
-                            "PreProcess Book",
-                            on_click=self.handle_book_click,
-                        ),
-                        self.preprocessed_count_field,
-                        self.search_bar,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "word in text",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.word_in_text_field,
-                    ],
-                    spacing=10,
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "headword",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.headword_lemma_1_field,
-                    ],
-                    spacing=10,
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "meaning",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.headword_pos_field,
-                        self.headword_meaning_field,
-                    ],
-                    spacing=10,
-                ),
-                ft.Divider(),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        ft.ElevatedButton(
-                            "Yes",
-                            width=LABEL_WIDTH,
-                            on_click=self.handle_yes_click,
-                        ),
-                        ft.ElevatedButton(
-                            "No",
-                            width=LABEL_WIDTH,
-                            on_click=self.handle_no_click,
-                        ),
-                        ft.ElevatedButton(
-                            "New",
-                            width=LABEL_WIDTH,
-                            on_click=self.handle_new_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Pass",
-                            width=LABEL_WIDTH,
-                            on_click=self.handle_pass_click,
-                        ),
-                    ],
-                ),
-                ft.Divider(),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "examples",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.examples_field,
-                    ]
-                ),
-            ]
+        top_fixed_section_controls = [
+            ft.Row(
+                controls=[
+                    ft.Text("", width=LABEL_WIDTH),
+                    self.message_field,
+                ],
+            ),
+            ft.Row(
+                controls=[
+                    ft.Text("book", width=LABEL_WIDTH, color=ft.Colors.GREY_500),
+                    self.books_dropdown,
+                    ft.ElevatedButton(
+                        "PreProcess Book",
+                        on_click=self.handle_book_click,
+                    ),
+                    self.preprocessed_count_field,
+                    self.search_bar,
+                ],
+            ),
+            ft.Row(
+                controls=[
+                    ft.Text(
+                        "word in text",
+                        width=LABEL_WIDTH,
+                        color=ft.Colors.GREY_500,
+                    ),
+                    self.word_in_text_field,
+                ],
+                spacing=10,
+            ),
+            ft.Row(
+                controls=[
+                    ft.Text(
+                        "headword",
+                        width=LABEL_WIDTH,
+                        color=ft.Colors.GREY_500,
+                    ),
+                    self.headword_lemma_1_field,
+                ],
+                spacing=10,
+            ),
+            ft.Row(
+                controls=[
+                    ft.Text(
+                        "meaning",
+                        width=LABEL_WIDTH,
+                        color=ft.Colors.GREY_500,
+                    ),
+                    self.headword_pos_field,
+                    self.headword_meaning_field,
+                ],
+                spacing=10,
+            ),
+            ft.Divider(),
+            ft.Row(
+                controls=[
+                    ft.Text(
+                        "",
+                        width=LABEL_WIDTH,
+                        color=ft.Colors.GREY_500,
+                    ),
+                    ft.ElevatedButton(
+                        "Yes",
+                        width=LABEL_WIDTH,
+                        on_click=self.handle_yes_click,
+                    ),
+                    ft.ElevatedButton(
+                        "No",
+                        width=LABEL_WIDTH,
+                        on_click=self.handle_no_click,
+                    ),
+                    ft.ElevatedButton(
+                        "New",
+                        width=LABEL_WIDTH,
+                        on_click=self.handle_new_click,
+                    ),
+                    ft.ElevatedButton(
+                        "Pass",
+                        width=LABEL_WIDTH,
+                        on_click=self.handle_pass_click,
+                    ),
+                ],
+            ),
+        ]
+
+        self.top_fixed_section = ft.Column(
+            controls=top_fixed_section_controls, expand=False, spacing=5
         )
+
+        self.examples_content_row = ft.Row(
+            controls=[
+                ft.Text(
+                    "examples",
+                    width=LABEL_WIDTH,
+                    color=ft.Colors.GREY_500,
+                ),
+                self.examples_field,
+            ],
+            vertical_alignment=ft.CrossAxisAlignment.START,
+        )
+
+        self.examples_scrollable_section = ft.Column(
+            controls=[self.examples_content_row],
+            expand=True,
+            spacing=5,
+            scroll=ft.ScrollMode.AUTO,
+        )
+
+        self.controls = [
+            self.top_fixed_section,
+            ft.Divider(),
+            self.examples_scrollable_section,
+        ]
 
     def update_message(self, message: str):
         self.message_field.value = message

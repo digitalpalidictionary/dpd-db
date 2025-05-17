@@ -110,7 +110,7 @@ class Pass2AutoController:
         """Process all items marked 'yes' in Pass 2 Pre."""
 
         self._book = book
-        self._provider_preference = provider_preference  # Store for batch
+        self._provider_preference = provider_preference
         self._model_name = model_name
 
         self._cst_books = self._sc_books[self._book].cst_books
@@ -177,16 +177,17 @@ class Pass2AutoController:
             )
 
             if response_dict:
+                # Add AI model details to the 'comment' field for the JSON output
+                if self._provider_preference and self._model_name:
+                    ai_info = f"{self._provider_preference}: {self._model_name}\n"
+                    current_comment = response_dict.get("comment", "")
+                    response_dict["comment"] = ai_info + current_comment
+
                 # Update the main auto file
-                self._pass2_auto_file_manager.update_response(
+                self._pass2_auto_file_manager.update_pass2_auto_data(
                     str(headword_in_db.id),
                     response_dict,
                 )
-                # Add AI model details to the 'comment' field for the JSON output
-                if self._provider_preference and self._model_name:
-                    ai_info = f"[{self._provider_preference}: {self._model_name}] "
-                    current_comment = response_dict.get("comment", "")
-                    response_dict["comment"] = ai_info + current_comment
 
                 # Move item from matched to processed in the pre-processing file
                 message = self._pass2_pre_file_manager.move_matched_item_to_processed(
@@ -239,9 +240,6 @@ class Pass2AutoController:
             A dictionary with the AI's suggestions, or None if an error occurred.
         """
         try:
-            pr.info(
-                f"Processing {headword.lemma_1} with AI model: {provider_preference}/{model_name}"
-            )
             related_words = self.db.get_related_headwords(headword)
             prompt = self._make_prompt(headword, related_words, sentence_data)
             raw_response = self._send_prompt(
@@ -466,7 +464,6 @@ ve: verbal ending
                 provider_preference=provider_preference,
                 model=model,
             )
-            pr.info(f"AI Manager status for pass2_auto: {ai_resp.status_message}")
             if ai_resp.content:
                 # Extract just the dictionary portion
                 start = ai_resp.content.find("{")

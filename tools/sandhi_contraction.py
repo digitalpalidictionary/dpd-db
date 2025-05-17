@@ -28,7 +28,8 @@ SandhiContractionDict = dict[str, list[str]]
 class SandhiContractionFinder:
     def __init__(self):
         self._pth: ProjectPaths = ProjectPaths()
-        self._db_session: Session = get_db_session(self._pth.dpd_db_path)
+        self._db_session: Session
+        self.refresh_db_session()
         self._exceptions: list[str] = [
             "maññeti",
             "āyataggaṃ",
@@ -42,6 +43,9 @@ class SandhiContractionFinder:
         self._contractions_details: dict[str, SandhiContrItem]
         self._contractions_simple: SandhiContractionDict
         self._load_or_create_data()
+
+    def refresh_db_session(self):
+        self._db_session: Session = get_db_session(self._pth.dpd_db_path)
 
     def _should_regenerate(self) -> bool:
         """Check if cache is older than 1 day"""
