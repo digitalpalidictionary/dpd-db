@@ -1752,6 +1752,147 @@
         ],
         "sāli": [
             62593
+        ],
+        "suddho": [
+            63915
+        ],
+        "sugandho": [
+            63630,
+            76198
+        ],
+        "āharanti": [
+            13194,
+            13196
+        ],
+        "paññāyati": [
+            40075
+        ],
+        "sāliṃ": [
+            62593
+        ],
+        "itthiliṅgaṃ": [
+            13594
+        ],
+        "purisaliṅgaṃ": [
+            47080
+        ],
+        "nassa": [
+            35880
+        ],
+        "vasali": [
+            66473
+        ],
+        "vasalī": [
+            66472
+        ],
+        "āharanto": [
+            13197
+        ],
+        "āhareyyaṃ": [
+            13194,
+            13196,
+            13222
+        ],
+        "āhāsi": [
+            13264
+        ],
+        "sattaṃ": [
+            57677,
+            57679
+        ],
+        "alaṃ": [
+            9110
+        ],
+        "āhaṭo": [
+            13178,
+            78452
+        ],
+        "apadānaṃ": [
+            6182
+        ],
+        "sālayo": [
+            62563
+        ],
+        "pāpakā": [
+            45582,
+            45583
+        ],
+        "sattesu": [
+            57677,
+            57679
+        ],
+        "upakkamataṃ": [
+            15364
+        ],
+        "āharāma": [
+            13194,
+            13196
+        ],
+        "mariyādaṃ": [
+            51491,
+            51493
+        ],
+        "vibhajiṃsu": [
+            77909
+        ],
+        "ṭhapesuṃ": [
+            29023
+        ],
+        "dutiyampi": [
+            33508,
+            33570
+        ],
+        "tatiyampi": [
+            29429,
+            29527
+        ],
+        "paññāyissati": [
+            40075
+        ],
+        "khīyeyya": [
+            23773,
+            23774
+        ],
+        "sālīnaṃ": [
+            62593
+        ],
+        "khīya": [
+            23771,
+            23773,
+            23774
+        ],
+        "paṭissuṇitvā": [
+            80525
+        ],
+        "khīyi": [
+            23787
+        ],
+        "pare": [
+            45424
+        ],
+        "pāpake": [
+            45582,
+            45583
+        ],
+        "paṭilabhitvā": [
+            40778
+        ],
+        "payojesuṃ": [
+            42849,
+            76042
+        ],
+        "maṇḍalehi": [
+            50894
+        ],
+        "parinibbāti": [
+            43578
+        ],
+        "gāthā": [
+            24724,
+            24728
+        ],
+        "anumatā": [
+            5035
         ]
     },
     "matched": {
@@ -1931,148 +2072,20 @@
                 "And other beings, following that being’s example, tasted the earth’s nectar with their fingers. "
             ]
         },
-        "sāyiṃsu": {
-            "id": 62412,
+        "pabbājetabbaṃ": {
+            "id": 42541,
             "sentence": [
-                "dn27:11.12",
-                "Aññepi kho, vāseṭṭha, sattā tassa sattassa diṭṭhānugatiṁ āpajjamānā rasapathaviṁ aṅguliyā sāyiṁsu. ",
-                "And other beings, following that being’s example, tasted the earth’s nectar with their fingers. "
+                "dn27:20.3",
+                "Yannūna mayaṁ ekaṁ sattaṁ sammanneyyāma, yo no sammā khīyitabbaṁ khīyeyya, sammā garahitabbaṁ garaheyya, sammā pabbājetabbaṁ pabbājeyya. ",
+                "Why don’t we elect one being who would rightly accuse those who deserve it, blame those who deserve it, and expel those who deserve it? "
             ]
         },
-        "āluppakārakaṃ": {
-            "id": 12685,
+        "vimissadiṭṭhiko": {
+            "id": 68692,
             "sentence": [
-                "dn27:12.1",
-                "Atha kho te, vāseṭṭha, sattā rasapathaviṁ hatthehi āluppakārakaṁ upakkamiṁsu paribhuñjituṁ. ",
-                "Then those beings started to eat the earth’s nectar, breaking it into lumps. "
-            ]
-        },
-        "māsaḍḍhamāsesu": {
-            "id": 52496,
-            "sentence": [
-                "dn27:12.8",
-                "Māsaḍḍhamāsesu paññāyamānesu utusaṁvaccharā paññāyiṁsu. ",
-                "and years and seasons. "
-            ]
-        },
-        "vivaṭṭo": {
-            "id": 69502,
-            "sentence": [
-                "dn27:12.9",
-                "Ettāvatā kho, vāseṭṭha, ayaṁ loko puna vivaṭṭo hoti. ",
-                "So far had the world evolved once more. "
-            ]
-        },
-        "taṃbhakkhā": {
-            "id": 30232,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, candimasūriyādipātubhāvo",
-                "atha kho te, vāseṭṭha, sattā rasapathaviṃ paribhuñjantā taṃbhakkhā [tabbhakkhā] tadāhārā ciraṃ dīghamaddhānaṃ aṭṭhaṃsu. yathā yathā kho te, vāseṭṭha, sattā rasapathaviṃ paribhuñjantā taṃbhakkhā tadāhārā ciraṃ dīghamaddhānaṃ aṭṭhaṃsu, tathā tathā tesaṃ sattānaṃ (rasapathaviṃ paribhuñjantānaṃ) [( ) sī. syā. "
-            ]
-        },
-        "tabbhakkhā": {
-            "id": 29997,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, candimasūriyādipātubhāvo",
-                "122. atha kho te, vāseṭṭha, sattā rasapathaviṃ paribhuñjantā taṃbhakkhā [tabbhakkhā] tadāhārā ciraṃ dīghamaddhānaṃ aṭṭhaṃsu. yathā yathā kho te, vāseṭṭha, sattā rasapathaviṃ paribhuñjantā taṃbhakkhā tadāhārā ciraṃ dīghamaddhānaṃ aṭṭhaṃsu, tathā tathā tesaṃ sattānaṃ (rasapathaviṃ paribhuñjantānaṃ) [( ) sī. "
-            ]
-        },
-        "vaṇṇavevaṇṇatā": {
-            "id": 65945,
-            "sentence": [
-                "dn27:13.2",
-                "Yathā yathā kho te, vāseṭṭha, sattā rasapathaviṁ paribhuñjantā tambhakkhā tadāhārā ciraṁ dīghamaddhānaṁ aṭṭhaṁsu tathā tathā tesaṁ sattānaṁ rasapathaviṁ paribhuñjantānaṁ kharattañceva kāyasmiṁ okkami, vaṇṇavevaṇṇatā ca paññāyittha. ",
-                "But so long as they ate that earth’s nectar, their bodies became more solid and they diverged in appearance; "
-            ]
-        },
-        "vaṇṇavevajjatā": {
-            "id": 65944,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, candimasūriyādipātubhāvo",
-                "pī. potthakesu natthi] kharattañceva kāyasmiṃ okkami, vaṇṇavevaṇṇatā [vaṇṇavevajjatā (ṭīkā)] ca paññāyittha. ekidaṃ sattā vaṇṇavanto honti, ekidaṃ sattā dubbaṇṇā. "
-            ]
-        },
-        "mānātimānajātikānaṃ": {
-            "id": 52304,
-            "sentence": [
-                "dn27:13.6",
-                "Tesaṁ vaṇṇātimānapaccayā mānātimānajātikānaṁ rasapathavī antaradhāyi. ",
-                "And the vanity of the beautiful ones made the earth’s nectar vanish. "
-            ]
-        },
-        "surasaṃ": {
-            "id": 64345,
-            "sentence": [
-                "dn27:13.10",
-                "Tadetarahipi manussā kañcideva surasaṁ labhitvā evamāhaṁsu: ",
-                "And even today when people get something tasty they say: "
-            ]
-        },
-        "sādhurasaṃ": {
-            "id": 62236,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, candimasūriyādipātubhāvo",
-                "sannipatitvā anutthuniṃsu, aho rasaṃ, aho rasanti! tadetarahipi manussā kañcideva surasaṃ [sādhurasaṃ] labhitvā evamāhaṃsu, aho rasaṃ, aho rasanti! tadeva porāṇaṃ aggaññaṃ akkharaṃ anusaranti, na tvevassa atthaṃ ājānanti."
-            ]
-        },
-        "bhūmipappaṭako": {
-            "id": 50224,
-            "sentence": [
-                "dn27:14.1",
-                "Atha kho tesaṁ, vāseṭṭha, sattānaṁ rasāya pathaviyā antarahitāya bhūmipappaṭako pāturahosi. ",
-                "When the earth’s nectar had vanished, ground-fungus appeared to those beings. "
-            ]
-        },
-        "evamassādo": {
-            "id": 18081,
-            "sentence": [
-                "dn27:14.4",
-                "Seyyathāpi nāma khuddamadhuṁ aneḷakaṁ; evamassādo ahosi. ",
-                "And it was as sweet as pure dwarf-bee honey. "
-            ]
-        },
-        "bhūmipappaṭakaṃ": {
-            "id": 50224,
-            "sentence": [
-                "dn27:14.5",
-                "Atha kho te, vāseṭṭha, sattā bhūmipappaṭakaṁ upakkamiṁsu paribhuñjituṁ. ",
-                "Then those beings started to eat the ground-fungus. "
-            ]
-        },
-        "saddālatā": {
-            "id": 58037,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, padālatāpātubhāvo",
-                "124. bhūmipappaṭake antarahite padālatā [saddālatā] pāturahosi, seyyathāpi nāma kalambukā [kalambakā], evameva pāturahosi. sā ahosi vaṇṇasampannā gandhasampannā rasasampannā, seyyathāpi nāma sampannaṃ vā sappi sampannaṃ vā navanītaṃ evaṃvaṇṇā ahosi. "
-            ]
-        },
-        "kalambukā": {
-            "id": 20582,
-            "sentence": [
-                "dn27:14.13",
-                "Bhūmipappaṭake antarahite padālatā pāturahosi, seyyathāpi nāma kalambukā; evameva pāturahosi. ",
-                "When the ground-fungus had vanished, bursting pods appeared, like the fruit of the kadam tree. "
-            ]
-        },
-        "kalambakā": {
-            "id": 20581,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, padālatāpātubhāvo",
-                "124. bhūmipappaṭake antarahite padālatā [saddālatā] pāturahosi, seyyathāpi nāma kalambukā [kalambakā], evameva pāturahosi. sā ahosi vaṇṇasampannā gandhasampannā rasasampannā, seyyathāpi nāma sampannaṃ vā sappi sampannaṃ vā navanītaṃ evaṃvaṇṇā ahosi. "
-            ]
-        },
-        "akaṭṭhapāko": {
-            "id": 19,
-            "sentence": [
-                "dn27:16.1",
-                "Atha kho tesaṁ, vāseṭṭha, sattānaṁ padālatāya antarahitāya akaṭṭhapāko sāli pāturahosi akaṇo athuso suddho sugandho taṇḍulapphalo. ",
-                "When the bursting pods had vanished, ripe untilled rice appeared to those beings. It had no powder or husk, pure and fragrant, with only the rice-grain. "
+                "dn27:29.1",
+                "Khattiyopi kho, vāseṭṭha, kāyena dvayakārī, vācāya dvayakārī, manasā dvayakārī, vimissadiṭṭhiko vimissadiṭṭhikammasamādāno vimissadiṭṭhikammasamādānahetu kāyassa bhedā paraṁ maraṇā sukhadukkhappaṭisaṁvedī hoti. ",
+                "An aristocrat, "
             ]
         }
     },
@@ -2136,6 +2149,11 @@
             "dn27:13.12",
             "Tadeva porāṇaṁ aggaññaṁ akkharaṁ anusaranti, na tvevassa atthaṁ ājānanti. ",
             "They’re just remembering an ancient primordial saying, but they don’t understand what it means. "
+        ],
+        "upakkamataṃ": [
+            "dn27:18.6",
+            "Te mayaṁ rasapathaviṁ hatthehi āluppakārakaṁ upakkamimha paribhuñjituṁ, tesaṁ no rasapathaviṁ hatthehi āluppakārakaṁ upakkamataṁ paribhuñjituṁ sayaṁpabhā antaradhāyi. ",
+            ""
         ]
     },
     "processed": [
@@ -2416,6 +2434,92 @@
         "aneḷakaṃ",
         "evamassādā",
         "sāyi",
-        "āpajjamānā"
+        "āpajjamānā",
+        "sāyiṃsu",
+        "āluppakārakaṃ",
+        "māsaḍḍhamāsesu",
+        "vivaṭṭo",
+        "taṃbhakkhā",
+        "tabbhakkhā",
+        "vaṇṇavevaṇṇatā",
+        "vaṇṇavevajjatā",
+        "mānātimānajātikānaṃ",
+        "surasaṃ",
+        "sādhurasaṃ",
+        "bhūmipappaṭako",
+        "evamassādo",
+        "bhūmipappaṭakaṃ",
+        "saddālatā",
+        "kalambukā",
+        "kalambakā",
+        "akaṭṭhapāko",
+        "akaṇo",
+        "athuso",
+        "taṇḍulapphalo",
+        "sāyamāsāya",
+        "paṭivirūḷhaṃ",
+        "nāpadānaṃ",
+        "itthiliṅgaṃ",
+        "purisaliṅgaṃ",
+        "pariḷāhapaccayā",
+        "paṭiseviṃsu",
+        "khipanti",
+        "seṭṭhiṃ",
+        "vasali",
+        "vasalī",
+        "nibbuyhamānāya",
+        "adhammasammataṃ",
+        "tadetarahi",
+        "dhammasammataṃ",
+        "alasajātikassa",
+        "sāyapātarāsāya",
+        "sālāhāraṃ",
+        "āhato",
+        "catūhāya",
+        "sannidhikārakaṃ",
+        "nappaṭivirūḷhaṃ",
+        "apadānaṃ",
+        "saṇḍasaṇḍā",
+        "parirakkhanto",
+        "paribhuñji",
+        "pahariṃsu",
+        "mahāsammatarājā",
+        "sammanneyyāma",
+        "khīyitabbaṃ",
+        "khīyeyya",
+        "mahāsammato",
+        "upanibbattaṃ",
+        "khattiyamaṇḍalassa",
+        "aggaññena",
+        "asadisānaṃ",
+        "vāhesuṃ",
+        "vītaṅgārā",
+        "ghāsamesamānā",
+        "ghāsamesanā",
+        "jhāyakā",
+        "anabhisaṃbhūnamānā",
+        "osaritvā",
+        "ganthe",
+        "ajjhāyakā",
+        "hīnasammataṃ",
+        "seṭṭhasammataṃ",
+        "visukammante",
+        "luddācārā",
+        "khuddācārā",
+        "garahamāno",
+        "samaṇamaṇḍalassa",
+        "micchādiṭṭhikammasamādānahetu",
+        "sammādiṭṭhikammasamādānahetu",
+        "dvayakārī",
+        "vimissadiṭṭhikammasamādāno",
+        "vimissadiṭṭhikammasamādānahetu",
+        "vimissakammasamādāno",
+        "vimissakammasamādānahetu",
+        "vītimissadiṭṭhiko",
+        "vītimissadiṭṭhikammasamādānahetu",
+        "sukhadukkhappaṭisaṃvedī",
+        "bhāvanamanvāya",
+        "sampasādanīyasuttaṃ",
+        "sāriputtasīhanādo"
     ]
 }
