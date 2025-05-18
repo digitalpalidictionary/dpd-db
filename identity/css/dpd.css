@@ -282,7 +282,16 @@ table.freq {
     -webkit-writing-mode: vertical-lr;
     writing-mode: vertical-lr;
     text-orientation: upright;
-    inline-size: fit-content;
+    white-space: nowrap;
+
+    /* Absolute positioning for robust centering */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: -webkit-max-content; /* Safari/Chrome older versions */
+    width: -moz-max-content;    /* Firefox older versions */
+    width: max-content;
 }
 
 table.freq thead th {
@@ -299,6 +308,11 @@ table.freq tbody th {
     vertical-align: middle;
 }
 
+/* Style for the specific TH in tbody that has a rowspan (our vertical header cell) */
+table.freq tbody th[rowspan] {
+    min-width: 2.0ch;
+    position: relative;
+}
 
 table.freq td {
     border-collapse: separate;
