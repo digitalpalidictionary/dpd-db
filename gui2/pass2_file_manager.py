@@ -53,19 +53,20 @@ class Pass2AutoFileManager:
         self.load()
         return self.pass2_auto_data.get(headword_id, {}).copy()
 
-    def get_next_headword_data(self) -> tuple[str | None, dict[str, str]]:
+    def get_next_headword_data(self) -> tuple[str | None, dict[str, str], int]:
         """Get the next headword data from pass2_auto.json."""
         self.load()
         headword_ids = list(self.pass2_auto_data.keys())
 
         if not headword_ids or self._current_index >= len(headword_ids):
             self._current_index = 0
-            return (None, {})
+            return (None, {}, 0)
 
         headword_id = headword_ids[self._current_index]
         data = self.pass2_auto_data[headword_id].copy()
+        self.delete_item(headword_id)
         # self._current_index += 1
-        return (headword_id, data)
+        return (headword_id, data, len(headword_ids))
 
     def reset_index(self) -> None:
         """Reset the current index to the beginning."""

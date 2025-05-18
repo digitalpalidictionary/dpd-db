@@ -20,7 +20,7 @@ from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionFinder
+from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
 from tools.utils import squash_whitespaces
 
 
@@ -50,7 +50,7 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     deconstructor_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
     deconstructor_db_length: int = len(deconstructor_db)
 
-    sandhi_finder = SandhiContractionFinder()
+    sandhi_finder = SandhiContractionManager()
     sandhi_contractions: SandhiContractionDict = (
         sandhi_finder.get_sandhi_contractions_simple()
     )

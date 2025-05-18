@@ -7,14 +7,14 @@ from db.models import DpdHeadword
 from gui2.dpd_fields_functions import clean_example
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractionFinder
+from tools.sandhi_contraction import SandhiContractionManager
 
 
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
-    sandhi_dict = SandhiContractionFinder().get_sandhi_contractions_simple()
+    sandhi_dict = SandhiContractionManager().get_sandhi_contractions_simple()
 
     for counter, i in enumerate(db):
         if i.meaning_1 == "":

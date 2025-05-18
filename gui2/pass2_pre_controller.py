@@ -105,7 +105,9 @@ class Pass2PreController:
 
         self.word_in_text = list(self.missing_examples_dict.keys())[0]
         self.ui.update_word_in_text(self.word_in_text)
-        self.ui.update_preprocessed_count(f"{len(self.missing_examples_dict)}")
+        self.ui.update_preprocessed_count(
+            f"{len(self.file_manager.matched)} / {len(self.missing_examples_dict)}"
+        )
         self.headwords = self.db.get_headwords(self.word_in_text)
         if not self.missing_examples_dict[self.word_in_text]:
             self.get_cst_examples()

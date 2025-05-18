@@ -5,6 +5,7 @@ from db.models import BoldDefinition
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.dpd_fields_functions import clean_commentary
 from gui2.flet_functions import process_bold_tags
+from gui2.toolkit import ToolKit
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
 from tools.sandhi_contraction import SandhiContractionDict
 
@@ -15,8 +16,7 @@ class DpdCommentaryField(ft.Column):
         ui,
         field_name,
         dpd_fields,
-        sandhi_dict,
-        hyphenation_dict,
+        toolkit,
         on_focus=None,
         on_change=None,
         on_submit=None,
@@ -35,8 +35,9 @@ class DpdCommentaryField(ft.Column):
         self.page: ft.Page = self.ui.page
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
-        self.sandhi_dict: SandhiContractionDict = sandhi_dict
-        self.hyphenation_dict: dict[str, str] = hyphenation_dict
+        self.toolkit: ToolKit = toolkit
+        self.sandhi_dict: SandhiContractionDict = self.toolkit.sandhi_dict
+        self.hyphenation_dict: dict[str, str] = self.toolkit.hyphenation_dict
 
         self.commentary_field = DpdTextField(
             name=field_name,

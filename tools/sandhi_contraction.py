@@ -25,7 +25,7 @@ class SandhiContrItem:
 SandhiContractionDict = dict[str, list[str]]
 
 
-class SandhiContractionFinder:
+class SandhiContractionManager:
     def __init__(self):
         self._pth: ProjectPaths = ProjectPaths()
         self._db_session: Session
@@ -41,7 +41,7 @@ class SandhiContractionFinder:
             "gāmeti",
         ]
         self._contractions_details: dict[str, SandhiContrItem]
-        self._contractions_simple: SandhiContractionDict
+        self.sandhi_contractions_simple: SandhiContractionDict
         self._load_or_create_data()
 
     def refresh_db_session(self):
@@ -74,7 +74,7 @@ class SandhiContractionFinder:
         """Load the simple contractions data from database"""
 
         with open(self._pth.sandhi_contractions_simple_path) as f:
-            self._contractions_simple = load(f)
+            self.sandhi_contractions_simple = load(f)
 
     def _create_simple_version(self) -> SandhiContractionDict:
         """Create simplified dict of just contractions without IDs"""
@@ -86,7 +86,7 @@ class SandhiContractionFinder:
 
         sorted_contractions_simple = dict(
             sorted(
-                self._contractions_simple.items(),
+                self.sandhi_contractions_simple.items(),
                 key=lambda item: pali_sort_key(item[0]),
             )
         )
@@ -105,7 +105,7 @@ class SandhiContractionFinder:
 
     def get_sandhi_contractions_simple(self) -> SandhiContractionDict:
         """Return the simple sandhi contractions dictionary."""
-        return self._contractions_simple
+        return self.sandhi_contractions_simple
 
     def save_contractions(self) -> None:
         """Save the contractions dictionary to a temp file."""
@@ -120,10 +120,11 @@ class SandhiContractionFinder:
         """Regenerate and return the simple contractions dictionary."""
         pr.green("updating sandhi contractions")
 
+        self.refresh_db_session()
         self._make_sandhi_contractions()
-        pr.yes(len(self._contractions_simple))
+        pr.yes(len(self.sandhi_contractions_simple))
 
-        return self._contractions_simple
+        return self.sandhi_contractions_simple
 
     def _replace_split(self, string: str) -> list[str]:
         """Clean and split a string into words."""
@@ -211,7 +212,7 @@ class SandhiContractionFinder:
             print([x for x in error_list], end=" ")
 
         self._contractions_details = sandhi_contraction_dict
-        self._contractions_simple = self._create_simple_version()
+        self.sandhi_contractions_simple = self._create_simple_version()
         self._save_simple_version()
 
     def _save_to_temp_file(self) -> None:
@@ -238,7 +239,7 @@ class SandhiContractionFinder:
 
 def main() -> None:
     pr.tic()
-    finder = SandhiContractionFinder()
+    finder = SandhiContractionManager()
     finder.update_contractions_simple()
     # finder.run()
     # print(len(finder.get_sandhi_contractions()))

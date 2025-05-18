@@ -2,10 +2,12 @@ import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
 
+from gui2.toolkit import ToolKit
 from tools.cst_source_sutta_example import (
     CstSourceSuttaExample,
     find_cst_source_sutta_example,
 )
+
 from tools.sandhi_contraction import SandhiContractionDict
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import (
@@ -111,8 +113,7 @@ class DpdExampleField(ft.Column):
         ui,
         field_name,
         dpd_fields,
-        sandhi_dict,
-        hyphenation_dict,
+        toolkit,
         on_focus=None,
         on_change=None,
         on_submit=None,
@@ -126,8 +127,11 @@ class DpdExampleField(ft.Column):
         self.ui: Pass1AddView | Pass2AddView = ui
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
-        self.sandhi_dict: SandhiContractionDict = sandhi_dict
-        self.hyphenation_dict: dict[str, str] = hyphenation_dict
+
+        self.toolkit: ToolKit = toolkit
+        self.sandhi_dict: SandhiContractionDict = self.toolkit.sandhi_dict
+        self.hyphenation_dict: dict[str, str] = self.toolkit.hyphenation_dict
+
         self.simple_mode = simple_mode
         self.stash_manager = ExampleStashManager(self.ui.toolkit)
         super().__init__(

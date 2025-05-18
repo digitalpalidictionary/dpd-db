@@ -6,7 +6,7 @@ from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
-from tools.sandhi_contraction import SandhiContractionFinder
+from tools.sandhi_contraction import SandhiContractionManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -36,7 +36,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.db: DatabaseManager = self.toolkit.db_manager
         self.controller = Pass1AddController(self, self.toolkit)
         self.dpd_fields: DpdFields
-        self.sandhi_manager: SandhiContractionFinder = self.toolkit.sandhi_manager
+        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
         self.history_manager = self.toolkit.history_manager
         self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
         self.test_manager: GuiTestManager = self.toolkit.test_manager
@@ -288,8 +288,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.dpd_fields = DpdFields(
             self,
             self.db,
-            self.sandhi_dict,
-            {},  # empty hyphenations_dict
+            self.toolkit,
             simple_examples=True,
         )
         middle_section = ft.Column(

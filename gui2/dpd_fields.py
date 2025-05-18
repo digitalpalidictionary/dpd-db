@@ -27,6 +27,7 @@ from gui2.dpd_fields_functions import (
     make_lemma_2,
 )
 from gui2.mixins import PopUpMixin
+from gui2.toolkit import ToolKit
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS  # Import DECLENSIONS
 from tools.sandhi_contraction import SandhiContractionDict
 from tools.spelling import CustomSpellChecker
@@ -50,8 +51,7 @@ class DpdFields(PopUpMixin):
         self,
         ui,
         db: DatabaseManager,
-        sandhi_dict: SandhiContractionDict,
-        hyphenation_dict: dict[str, str],
+        toolkit,
         simple_examples: bool = False,  # Add simple_examples flag
     ):
         super().__init__()  # Initialize PopUpMixin
@@ -62,8 +62,10 @@ class DpdFields(PopUpMixin):
         self.page = self.ui.page
         self.db: DatabaseManager = db
         self.spellchecker = CustomSpellChecker()
-        self.sandhi_dict = sandhi_dict
-        self.hyphenation_dict = hyphenation_dict
+        self.toolkit: ToolKit = toolkit
+
+        self.sandhi_dict: SandhiContractionDict = self.toolkit.sandhi_dict
+        self.hyphenation_dict: dict[str, str] = self.toolkit.hyphenation_dict
         self.simple_examples = simple_examples  # Store the flag
 
         # Fetch compound types (ensure db is initialized first if needed)
@@ -302,8 +304,7 @@ class DpdFields(PopUpMixin):
                     self.ui,
                     field_name=config.name,
                     dpd_fields=self,
-                    sandhi_dict=self.sandhi_dict,
-                    hyphenation_dict=self.hyphenation_dict,
+                    toolkit=self.toolkit,
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,
@@ -316,8 +317,7 @@ class DpdFields(PopUpMixin):
                     self.ui,
                     field_name=config.name,
                     dpd_fields=self,
-                    sandhi_dict=self.sandhi_dict,
-                    hyphenation_dict=self.hyphenation_dict,
+                    toolkit=self.toolkit,
                     on_focus=config.on_focus,
                     on_change=config.on_change,
                     on_submit=config.on_submit,

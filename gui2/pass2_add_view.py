@@ -53,11 +53,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.pass2_auto_controller = Pass2AutoController(self, self.toolkit)
         self.test_manager: GuiTestManager = self.toolkit.test_manager
         self.sandhi_manager = self.toolkit.sandhi_manager
-        self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.get_sandhi_contractions_simple()
-        )
-        self.hyphenation_manager = self.toolkit.hyphenation_manager
-        self.hyphenation_dict = self.hyphenation_manager.load_hyphenations_dict()
+        self.sandhi_dict: SandhiContractionDict = self.toolkit.sandhi_dict
+        self.hyphenation_dict = self.toolkit.hyphenation_dict
         self.history_manager = self.toolkit.history_manager
 
         self.dpd_fields: DpdFields
@@ -334,21 +331,20 @@ class Pass2AddView(ft.Column, PopUpMixin):
         # Clear _add fields as they relate to the original word's auto-data
         self.dpd_fields.clear_fields(target="add")
 
-        self.update_message(
-            f"Split '{old_lemma}' into new entry '{new_lemma}' (ID: {new_id}). Cleared {cleared_count} fields."
-        )
+        self.update_message(f"Split {old_lemma} into {new_lemma} id: {new_id})")
         self.page.update()
-        current_lemma_1_field.focus()  # Focus back on lemma_1
+        current_lemma_1_field.focus()
 
     def _click_load_next_pass2_entry(self, e: ft.ControlEvent | None = None) -> None:
         """Load next pass2 entry into the view."""
-        headword_id, pass2_auto_data = (
+        headword_id, pass2_auto_data, count = (
             self._pass2_auto_file_manager.get_next_headword_data()
         )
 
         if headword_id is not None:
             self.clear_all_fields()
             headword = self._db.get_headword_by_id(int(headword_id))
+            self.update_message(f"{count} pass2auto remaining")
 
             if headword is not None:
                 self.headword = headword
@@ -437,9 +433,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
     # Add the new builder method
     def _build_middle_section(self) -> ft.Column:
         """Build and return the middle section with DpdFields."""
-        self.dpd_fields = DpdFields(
-            self, self._db, self.sandhi_dict, self.hyphenation_dict
-        )
+        self.dpd_fields = DpdFields(self, self._db, self.toolkit)
         middle_section = ft.Column(
             scroll=ft.ScrollMode.AUTO,
             expand=True,

@@ -105,7 +105,7 @@ from tools.goldendict_tools import open_in_goldendict
 from tools.missing_meanings import find_missing_meanings
 from tools.paths import ProjectPaths
 from tools.pos import DECLENSIONS, POS, VERBS
-from tools.sandhi_contraction import SandhiContractionFinder
+from tools.sandhi_contraction import SandhiContractionManager
 
 
 def main():
@@ -121,7 +121,7 @@ def main():
     family_compound_values = get_family_compound_values(db_session)
     family_idioms_values = get_family_idioms_values(db_session)
 
-    sandhi_finder = SandhiContractionFinder()
+    sandhi_finder = SandhiContractionManager()
     sandhi_dict = sandhi_finder.get_sandhi_contractions_simple()
 
     with open(pth.hyphenations_dict_path) as f:
