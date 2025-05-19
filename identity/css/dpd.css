@@ -285,13 +285,13 @@ table.freq {
     white-space: nowrap;
 
     /* Absolute positioning for robust centering */
-    position: absolute;
+    /* position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: -webkit-max-content; /* Safari/Chrome older versions */
-    width: -moz-max-content;    /* Firefox older versions */
-    width: max-content;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content; */
 }
 
 table.freq thead th {
@@ -309,10 +309,10 @@ table.freq tbody th {
 }
 
 /* Style for the specific TH in tbody that has a rowspan (our vertical header cell) */
-table.freq tbody th[rowspan] {
+/* table.freq tbody th[rowspan] {
     min-width: 2.0ch;
     position: relative;
-}
+} */
 
 table.freq td {
     border-collapse: separate;
