@@ -28,7 +28,7 @@ from gui2.dpd_fields_functions import (
 )
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
-from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS  # Import DECLENSIONS
+from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
 from tools.sandhi_contraction import SandhiContractionDict
 from tools.spelling import CustomSpellChecker
 from tools.fuzzy_tools import find_closest_matches
@@ -52,7 +52,7 @@ class DpdFields(PopUpMixin):
         ui,
         db: DatabaseManager,
         toolkit,
-        simple_examples: bool = False,  # Add simple_examples flag
+        simple_examples: bool = False,
     ):
         super().__init__()  # Initialize PopUpMixin
         from gui2.pass1_add_view import Pass1AddView
@@ -287,7 +287,7 @@ class DpdFields(PopUpMixin):
                     on_blur=config.on_blur,
                 )
 
-            elif config.field_type == "meaning":  # Add condition for meaning
+            elif config.field_type == "meaning":
                 self.fields[config.name] = DpdMeaningField(
                     self.ui,
                     field_name=config.name,

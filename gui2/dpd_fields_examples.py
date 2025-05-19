@@ -180,6 +180,9 @@ class DpdExampleField(ft.Column):
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 editable=True,
                 enable_filter=True,
+                border_color=ft.Colors.GREY_800,
+                border_radius=10,
+                border_width=1,
             )
 
             self.word_to_find_field = ft.TextField(
@@ -188,6 +191,7 @@ class DpdExampleField(ft.Column):
                 label="word to find",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 on_submit=self._click_search_dialog_ok,
+                border_radius=10,
             )
 
             # Toggle Button

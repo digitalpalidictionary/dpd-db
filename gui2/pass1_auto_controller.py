@@ -190,7 +190,7 @@ Based on the information above, please provide your very best suggestion of the 
 11. construction
 12. stem
 13. pattern
-14. comments
+14. comment
 
 ## lemma_1 field
 - This must be word in the text, without case endings. 
@@ -274,7 +274,7 @@ ve: verbal ending
 ## all other fields
 - Analyse the related dictionary entries above and use the same style and pattern. Only add the required data, no commentary.
 
-## comments
+## comment
 - Add your own commentary to this field, not to any other field.
 - Only mention anything relevant or interesting, nothing that is already in other fields. 
 - Explain the meaning according to the contextual sentence. 
@@ -326,10 +326,10 @@ ve: verbal ending
             # add ai details
             if provider:
                 try:
-                    comments = parsed_json["comments"]
-                    parsed_json["comments"] = f"[{provider}: {model}] {comments}"
+                    comment = parsed_json["comment"]
+                    parsed_json["comment"] = f"[{provider}: {model}] {comment}"
                 except KeyError:
-                    pr.error("ERROR adding ai model to comments")
+                    pr.error("ERROR adding ai model to comment")
 
             # save json to temp file
             tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")

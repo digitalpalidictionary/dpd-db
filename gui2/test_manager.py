@@ -139,9 +139,9 @@ class GuiTestManager(PopUpMixin):
         if self.current_headword and isinstance(failure, TestFailure):
             test_row = failure.test_row
             test_name = failure.test_name
-            headword_id = self.current_headword.id
+            headword_id = int(self.current_headword.id)
 
-            self.ui.update_message(f"adding exception for {test_name}")
+            self.ui.update_message(f"adding exception for {test_row}: {test_name}")
 
             success = self.db_test_manager.add_exception(test_name, headword_id)
 

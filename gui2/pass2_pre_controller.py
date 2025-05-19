@@ -53,7 +53,7 @@ class Pass2PreController:
         self.headwords: list[DpdHeadword] = []
         self.headword_index: int = -1
 
-    def _load_data(self) -> None:
+    def load_data(self) -> None:
         """Load database data only when needed."""
         if not self._data_loaded:
             self.db.make_pass2_lists()

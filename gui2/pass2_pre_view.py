@@ -225,7 +225,7 @@ class Pass2PreProcessView(ft.Column):
         if self.books_dropdown.value:
             self.update_message("loading...")
             # Ensure data is loaded before processing
-            self.controller._load_data()
+            self.controller.load_data()
             self.controller.find_words_with_missing_examples(
                 self.books_dropdown.value,
                 self.toolkit.paths,

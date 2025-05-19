@@ -326,7 +326,7 @@ Please complete ALL fields below EXACTLY as shown, filling missing data and corr
 
 PRESERVE the original formatting, field order, and structure.
 
-Add any comments you wish to add to a `comments` field at the end of the data.
+Add any comments you wish to add to a `comment` field at the end of the data.
 
 Return ONLY the Python dictionary portion, starting and ending with curly braces, with no additional text or explanations.
 
@@ -433,7 +433,7 @@ ve: verbal ending
 ## All other fields
 - Analyse the related dictionary entries above and use the same style and pattern. Only add the required data, no commentary.
 
-## Comments
+## Comment
 - Add your own commentary to this field, not to any other field.
 - Call the field 'comment'
 - Only mention anything relevant or interesting, nothing that is already in other fields. 

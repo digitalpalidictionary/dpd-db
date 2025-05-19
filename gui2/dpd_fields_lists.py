@@ -319,7 +319,7 @@ PASS1_FIELDS = [
     "translation_1",
     "example_2",
     "translation_2",
-    "comment",  # Changed from 'comments' in original Pass1AddView code
+    "comment",
 ]
 
 NO_CLONE_LIST = [
