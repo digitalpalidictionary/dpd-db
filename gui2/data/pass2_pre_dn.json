@@ -1893,121 +1893,241 @@
         ],
         "anumatā": [
             5035
+        ],
+        "ekaṃso": [
+            17694
+        ],
+        "gahito": [
+            24684,
+            24685
+        ],
+        "atthi": [
+            2757
+        ],
+        "dhammanvayo": [
+            34776
+        ],
+        "ekadvāraṃ": [
+            17504
+        ],
+        "ñātānaṃ": [
+            28908
+        ],
+        "pavesetā": [
+            45047
+        ],
+        "antamaso": [
+            5673
+        ],
+        "abhisambujjhiṃsu": [
+            8233
+        ],
+        "abhisambuddho": [
+            8236
+        ],
+        "aparaṃ": [
+            6310
+        ],
+        "ariyo": [
+            8976,
+            8977
+        ],
+        "maggo": [
+            50498,
+            50499,
+            50500
+        ],
+        "āyatanāni": [
+            12203
+        ],
+        "rūpā": [
+            55156,
+            55157,
+            55158
+        ],
+        "rūpāni": [
+            55156,
+            55157,
+            55158
+        ],
+        "rasā": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "kāyo": [
+            19159
+        ],
+        "phoṭṭhabbā": [
+            47826
+        ],
+        "okkamati": [
+            18326
+        ],
+        "paṭhamā": [
+            41470
+        ],
+        "dutiyā": [
+            33508,
+            33570
+        ],
+        "tatiyā": [
+            29429,
+            29527
+        ],
+        "cittassa": [
+            26563
+        ],
+        "vitakkaṃ": [
+            67820
+        ],
+        "lomā": [
+            56120
+        ],
+        "taco": [
+            75669,
+            75670,
+            75706,
+            75707
+        ],
+        "nhāru": [
+            38944
+        ],
+        "hadayaṃ": [
+            70948
+        ],
+        "antaṃ": [
+            5647
+        ],
+        "udariyaṃ": [
+            14999
+        ],
+        "karīsaṃ": [
+            20522
+        ],
+        "pittaṃ": [
+            46125
+        ],
+        "vasā": [
+            66445,
+            81966
+        ],
+        "padhānesu": [
+            42246,
+            42247,
+            42248
+        ],
+        "paṭipadāsu": [
+            40546,
+            40550
+        ],
+        "paṭipadā": [
+            40545,
+            40546,
+            40550
+        ],
+        "sukhā": [
+            63457
+        ],
+        "lapako": [
+            55603
+        ],
+        "nemittiko": [
+            38778,
+            38779
+        ],
+        "bhojane": [
+            50383
+        ],
+        "jhāyī": [
+            28824
+        ],
+        "gatimā": [
+            24219
+        ],
+        "nipako": [
+            37357
+        ],
+        "sotāpanno": [
+            65247
+        ],
+        "tanuttā": [
+            29867
+        ],
+        "addhānaṃ": [
+            3018
+        ],
+        "vivaṭṭissati": [
+            69518
+        ],
+        "dutiyo": [
+            33570
+        ],
+        "tatiyo": [
+            29429
+        ],
+        "gaṇanāya": [
+            24084
+        ],
+        "arūpīsu": [
+            9097
+        ],
+        "iddhi": [
+            13648
+        ],
+        "anāsavā": [
+            4054
+        ],
+        "ākāse": [
+            11057
+        ],
+        "parāmasati": [
+            43117
+        ],
+        "hīnaṃ": [
+            78106
+        ],
+        "gammaṃ": [
+            24472
+        ],
+        "jhānānaṃ": [
+            28750
+        ],
+        "vadeyyaṃ": [
+            66126,
+            66146
+        ],
+        "apubbaṃ": [
+            73243,
+            73244
+        ],
+        "acarimaṃ": [
+            72682
+        ],
+        "uppajjeyyuṃ": [
+            16538
+        ],
+        "tāvatakeneva": [
+            30377
+        ],
+        "parihareyyuṃ": [
+            44327
+        ],
+        "āyasmantaṃ": [
+            12242
+        ],
+        "abhikkhaṇaṃ": [
+            7582
+        ],
+        "bhāseyyāsi": [
+            49756
+        ],
+        "kaṅkhā": [
+            19240
         ]
     },
     "matched": {
-        "santikā": {
-            "id": 58268,
-            "sentence": [
-                "dn27:2.5",
-                "appeva nāma labheyyāma bhagavato santikā dhammiṁ kathaṁ savanāyā”ti. ",
-                "Hopefully we’ll get to hear a Dhamma talk from him.” "
-            ]
-        },
-        "brāhmaṇajaccā": {
-            "id": 49047,
-            "sentence": [
-                "dn27:3.2",
-                "“tumhe khvattha, vāseṭṭha, brāhmaṇajaccā brāhmaṇakulīnā brāhmaṇakulā agārasmā anagāriyaṁ pabbajitā, kacci vo, vāseṭṭha, brāhmaṇā na akkosanti na paribhāsantī”ti? ",
-                "“Vāseṭṭha, you are both brahmins by birth and family, and have gone forth from the lay life to homelessness from a brahmin family. I hope you don’t have to suffer abuse and insults from the brahmins.” "
-            ]
-        },
-        "brāhmaṇakulīnā": {
-            "id": 49042,
-            "sentence": [
-                "dn27:3.2",
-                "“tumhe khvattha, vāseṭṭha, brāhmaṇajaccā brāhmaṇakulīnā brāhmaṇakulā agārasmā anagāriyaṁ pabbajitā, kacci vo, vāseṭṭha, brāhmaṇā na akkosanti na paribhāsantī”ti? ",
-                "“Vāseṭṭha, you are both brahmins by birth and family, and have gone forth from the lay life to homelessness from a brahmin family. I hope you don’t have to suffer abuse and insults from the brahmins.” "
-            ]
-        },
-        "paribhāsāya": {
-            "id": 43797,
-            "sentence": [
-                "dn27:3.3",
-                "“Taggha no, bhante, brāhmaṇā akkosanti paribhāsanti attarūpāya paribhāsāya paripuṇṇāya, no aparipuṇṇāyā”ti. ",
-                "“Actually, sir, the brahmins do insult and abuse us with their typical insults to the fullest extent.” "
-            ]
-        },
-        "assarantā": {
-            "id": 10002,
-            "sentence": [
-                "dn27:4.1",
-                "“Taggha vo, vāseṭṭha, brāhmaṇā porāṇaṁ assarantā evamāhaṁsu: ",
-                "“Actually, Vāseṭṭha, the brahmins are forgetting their tradition when they say this to you. "
-            ]
-        },
-        "naalamariyā": {
-            "id": 35350,
-            "sentence": [
-                "dn27:5.4",
-                "Iti kho, vāseṭṭha, yeme dhammā akusalā akusalasaṅkhātā sāvajjā sāvajjasaṅkhātā asevitabbā asevitabbasaṅkhātā naalamariyā naalamariyasaṅkhātā kaṇhā kaṇhavipākā viññugarahitā, khattiyepi te idhekacce sandissanti. ",
-                "These things are unskillful, blameworthy, not to be cultivated, unworthy of the noble ones—and are reckoned as such. They are dark deeds with dark results, criticized by sensible people. Such things are exhibited in some aristocrats. "
-            ]
-        },
-        "naalamariyasaṅkhātā": {
-            "id": 35351,
-            "sentence": [
-                "dn27:5.4",
-                "Iti kho, vāseṭṭha, yeme dhammā akusalā akusalasaṅkhātā sāvajjā sāvajjasaṅkhātā asevitabbā asevitabbasaṅkhātā naalamariyā naalamariyasaṅkhātā kaṇhā kaṇhavipākā viññugarahitā, khattiyepi te idhekacce sandissanti. ",
-                "These things are unskillful, blameworthy, not to be cultivated, unworthy of the noble ones—and are reckoned as such. They are dark deeds with dark results, criticized by sensible people. Such things are exhibited in some aristocrats. "
-            ]
-        },
-        "ubhayavokiṇṇesu": {
-            "id": 16862,
-            "sentence": [
-                "dn27:7.1",
-                "Imesu kho, vāseṭṭha, catūsu vaṇṇesu evaṁ ubhayavokiṇṇesu vattamānesu kaṇhasukkesu dhammesu viññugarahitesu ceva viññuppasatthesu ca yadettha brāhmaṇā evamāhaṁsu: ",
-                "Both these things occur like this, mixed up in these four classes—the dark and the bright, that which is praised and that which is criticized by sensible people. Yet of this the brahmins say: "
-            ]
-        },
-        "nānānāmā": {
-            "id": 36291,
-            "sentence": [
-                "dn27:9.1",
-                "Tumhe khvattha, vāseṭṭha, nānājaccā nānānāmā nānāgottā nānākulā agārasmā anagāriyaṁ pabbajitā. ",
-                "Vāseṭṭha, you have different births, names, clans, and families, yet have gone forth from the lay life to homelessness. "
-            ]
-        },
-        "nānāgottā": {
-            "id": 36268,
-            "sentence": [
-                "dn27:9.1",
-                "Tumhe khvattha, vāseṭṭha, nānājaccā nānānāmā nānāgottā nānākulā agārasmā anagāriyaṁ pabbajitā. ",
-                "Vāseṭṭha, you have different births, names, clans, and families, yet have gone forth from the lay life to homelessness. "
-            ]
-        },
-        "nānākulā": {
-            "id": 36262,
-            "sentence": [
-                "dn27:9.1",
-                "Tumhe khvattha, vāseṭṭha, nānājaccā nānānāmā nānāgottā nānākulā agārasmā anagāriyaṁ pabbajitā. ",
-                "Vāseṭṭha, you have different births, names, clans, and families, yet have gone forth from the lay life to homelessness. "
-            ]
-        },
-        "dhammakāyo": {
-            "id": 34659,
-            "sentence": [
-                "dn27:9.6",
-                "Tathāgatassa hetaṁ, vāseṭṭha, adhivacanaṁ ‘dhammakāyo’ itipi, ‘brahmakāyo’ itipi, ‘dhammabhūto’ itipi, ‘brahmabhūto’ itipi. ",
-                "For these are terms for the Realized One: ‘the embodiment of principle’, and ‘the embodiment of divinity’, and ‘the manifestation of principle’, and ‘the manifestation of divinity’. "
-            ]
-        },
-        "ekodakībhūtaṃ": {
-            "id": 17818,
-            "sentence": [
-                "dn27:11.1",
-                "Ekodakībhūtaṁ kho pana, vāseṭṭha, tena samayena hoti andhakāro andhakāratimisā. ",
-                "But the single mass of water at that time was utterly dark. "
-            ]
-        },
-        "māsaḍḍhamāsā": {
-            "id": 52496,
-            "sentence": [
-                "dn27:11.2",
-                "Na candimasūriyā paññāyanti, na nakkhattāni tārakarūpāni paññāyanti, na rattindivā paññāyanti, na māsaḍḍhamāsā paññāyanti, na utusaṁvaccharā paññāyanti, na itthipumā paññāyanti, sattā sattātveva saṅkhyaṁ gacchanti. ",
-                "The moon and sun were not found, nor were stars and constellations, day and night, months and fortnights, years and seasons, or male and female. Beings were simply known as ‘beings’. "
-            ]
-        },
         "itthipumā": {
             "id": 13575,
             "sentence": [
@@ -2016,68 +2136,20 @@
                 "The moon and sun were not found, nor were stars and constellations, day and night, months and fortnights, years and seasons, or male and female. Beings were simply known as ‘beings’. "
             ]
         },
-        "samatani": {
-            "id": 59259,
-            "sentence": [
-                "dn27:11.3",
-                "Atha kho tesaṁ, vāseṭṭha, sattānaṁ kadāci karahaci dīghassa addhuno accayena rasapathavī udakasmiṁ samatani; ",
-                "After a very long period had passed, the earth’s nectar curdled in the water. "
-            ]
-        },
-        "payatattassa": {
-            "id": 42781,
-            "sentence": [
-                "DN27",
-                "aggaññasuttaṃ, rasapathavipātubhāvo",
-                "na candimasūriyā paññāyanti, na nakkhattāni tārakarūpāni paññāyanti, na rattindivā paññāyanti, na māsaḍḍhamāsā paññāyanti, na utusaṃvaccharā paññāyanti, na itthipumā paññāyanti, sattā sattātveva saṅkhyaṃ gacchanti. atha kho tesaṃ, vāseṭṭha, sattānaṃ kadāci karahaci dīghassa addhuno accayena rasapathavī udakasmiṃ samatani [samatāni (bahūsu)], seyyathāpi nāma payaso tattassa [payatattassa] nibbāyamānassa upari santānakaṃ hoti, evameva pāturahosi. sā ahosi vaṇṇasampannā gandhasampannā rasasampannā, seyyathāpi nāma sampannaṃ vā sappi sampannaṃ vā navanītaṃ evaṃvaṇṇā ahosi. "
-            ]
-        },
-        "nibbāyamānassa": {
-            "id": 37627,
-            "sentence": [
-                "dn27:11.4",
-                "seyyathāpi nāma payaso tattassa nibbāyamānassa upari santānakaṁ hoti; ",
-                "It appeared just like the curd on top of hot milk-rice as it cools. "
-            ]
-        },
-        "aneḷakaṃ": {
-            "id": 5553,
-            "sentence": [
-                "dn27:11.7",
-                "Seyyathāpi nāma khuddamadhuṁ aneḷakaṁ; ",
-                "And it was as sweet as pure dwarf-bee honey. "
-            ]
-        },
-        "evamassādā": {
-            "id": 18081,
-            "sentence": [
-                "dn27:11.8",
-                "evamassādā ahosi. ",
-                ""
-            ]
-        },
-        "sāyi": {
-            "id": 62412,
-            "sentence": [
-                "dn27:11.10",
-                "‘ambho, kimevidaṁ bhavissatī’ti rasapathaviṁ aṅguliyā sāyi. ",
-                "Thinking, ‘Oh my, what might this be?’ they tasted the earth’s nectar with their finger. "
-            ]
-        },
-        "āpajjamānā": {
-            "id": 11848,
-            "sentence": [
-                "dn27:11.12",
-                "Aññepi kho, vāseṭṭha, sattā tassa sattassa diṭṭhānugatiṁ āpajjamānā rasapathaviṁ aṅguliyā sāyiṁsu. ",
-                "And other beings, following that being’s example, tasted the earth’s nectar with their fingers. "
-            ]
-        },
         "pabbājetabbaṃ": {
             "id": 42541,
             "sentence": [
                 "dn27:20.3",
                 "Yannūna mayaṁ ekaṁ sattaṁ sammanneyyāma, yo no sammā khīyitabbaṁ khīyeyya, sammā garahitabbaṁ garaheyya, sammā pabbājetabbaṁ pabbājeyya. ",
                 "Why don’t we elect one being who would rightly accuse those who deserve it, blame those who deserve it, and expel those who deserve it? "
+            ]
+        },
+        "aggaññena": {
+            "id": 570,
+            "sentence": [
+                "dn27:21.4",
+                "Iti kho, vāseṭṭha, evametassa khattiyamaṇḍalassa porāṇena aggaññena akkharena abhinibbatti ahosi tesaṁyeva sattānaṁ, anaññesaṁ. Sadisānaṁyeva, no asadisānaṁ. Dhammeneva, no adhammena. ",
+                "And that, Vāseṭṭha, is how the ancient primordial terms for the circle of aristocrats were created; for those very beings, not others; for those like them, not unlike; by virtue of principle, not against principle. "
             ]
         },
         "vimissadiṭṭhiko": {
@@ -2089,73 +2161,7 @@
             ]
         }
     },
-    "new_word": {
-        "ākoṭesi": [
-            "dn24:1.9.3",
-            "Atha kho, bhaggava, sunakkhatto licchaviputto yena bīraṇatthambakaṁ susānaṁ, yena acelo korakkhattiyo tenupasaṅkami; upasaṅkamitvā acelaṁ korakkhattiyaṁ tikkhattuṁ pāṇinā ākoṭesi: ",
-            "So he went to see the aristocrat of Kuru in the charnel ground on the clump of vetiver. There he struck him with his fist three times, "
-        ],
-        "vicaranto": [
-            "dn24:1.13.17",
-            "sādhurūpo ayaṁ samaṇoti, so nacirasseva parihito sānucāriko vicaranto odanakummāsaṁ bhuñjamāno sabbāneva vesāliyāni cetiyāni samatikkamitvā yasā nihīno kālaṁ karissatī’ti. ",
-            "will shortly be clothed, living with a partner, eating rice and porridge, having gone past all the shrines near Vesālī. And he will die after losing all his fame.’ "
-        ],
-        "samatikkamitvā": [
-            "dn24:1.13.17",
-            "sādhurūpo ayaṁ samaṇoti, so nacirasseva parihito sānucāriko vicaranto odanakummāsaṁ bhuñjamāno sabbāneva vesāliyāni cetiyāni samatikkamitvā yasā nihīno kālaṁ karissatī’ti. ",
-            "will shortly be clothed, living with a partner, eating rice and porridge, having gone past all the shrines near Vesālī. And he will die after losing all his fame.’ "
-        ],
-        "kappesi": [
-            "dn16:4.40.2",
-            "Atha kho bhagavā dakkhiṇena passena sīhaseyyaṁ kappesi pāde pādaṁ accādhāya sato sampajāno uṭṭhānasaññaṁ manasikaritvā. ",
-            "And then the Buddha laid down in the lion’s posture—on the right side, placing one foot on top of the other—mindful and aware, and focused on the time of getting up. "
-        ],
-        "ditto": [
-            "dn24:2.6.10",
-            "Tasseva kho, āvuso pāthikaputta, sīhassa migarañño vighāsasaṁvaḍḍho jarasiṅgālo ditto ceva balavā ca. ",
-            "Now, there was an old jackal who had grown fat on the lion’s leavings, becoming arrogant and strong. "
-        ],
-        "nadi": [
-            "dn24:2.6.8",
-            "Tatrāsayaṁ kappetvā sāyanhasamayaṁ āsayā nikkhami, āsayā nikkhamitvā vijambhi, vijambhitvā samantā catuddisā anuvilokesi, samantā catuddisā anuviloketvā tikkhattuṁ sīhanādaṁ nadi, tikkhattuṁ sīhanādaṁ naditvā gocarāya pakkāmi. ",
-            ""
-        ],
-        "padaṃ": [
-            "dn31:8.2",
-            "Sandiṭṭhikā dhanajāni, kalahappavaḍḍhanī, rogānaṁ āyatanaṁ, akittisañjananī, kopīnanidaṁsanī, paññāya dubbalikaraṇītveva chaṭṭhaṁ padaṁ bhavati. ",
-            "Immediate loss of wealth, promotion of quarrels, susceptibility to illness, disrepute, indecent exposure; and weakened wisdom is the sixth thing. "
-        ],
-        "paṭilabhissanti": [
-            "dn26:21.2",
-            "Te aññamaññamhi migasaññaṁ paṭilabhissanti. ",
-            "During that time they will see each other as beasts. "
-        ],
-        "ajjhāvasitvā": [
-            "dn26:26.2",
-            "Taṁ yūpaṁ ussāpetvā ajjhāvasitvā taṁ datvā vissajjitvā samaṇabrāhmaṇakapaṇaddhikavaṇibbakayācakānaṁ dānaṁ datvā metteyyassa bhagavato arahato sammāsambuddhassa santike kesamassuṁ ohāretvā kāsāyāni vatthāni acchādetvā agārasmā anagāriyaṁ pabbajissati. ",
-            "Having reigned, he will abdicate, offering charity to ascetics and brahmins, paupers, vagrants, supplicants, and beggars. Then, having shaved off his hair and beard and dressed in ocher robes, he will go forth from the lay life to homelessness in the Buddha Metteyya’s presence. "
-        ],
-        "attarūpāya": [
-            "dn27:3.3",
-            "“Taggha no, bhante, brāhmaṇā akkosanti paribhāsanti attarūpāya paribhāsāya paripuṇṇāya, no aparipuṇṇāyā”ti. ",
-            "“Actually, sir, the brahmins do insult and abuse us with their typical insults to the fullest extent.” "
-        ],
-        "brahmakāyo": [
-            "dn27:9.6",
-            "Tathāgatassa hetaṁ, vāseṭṭha, adhivacanaṁ ‘dhammakāyo’ itipi, ‘brahmakāyo’ itipi, ‘dhammabhūto’ itipi, ‘brahmabhūto’ itipi. ",
-            "For these are terms for the Realized One: ‘the embodiment of principle’, and ‘the embodiment of divinity’, and ‘the manifestation of principle’, and ‘the manifestation of divinity’. "
-        ],
-        "anusaranti": [
-            "dn27:13.12",
-            "Tadeva porāṇaṁ aggaññaṁ akkharaṁ anusaranti, na tvevassa atthaṁ ājānanti. ",
-            "They’re just remembering an ancient primordial saying, but they don’t understand what it means. "
-        ],
-        "upakkamataṃ": [
-            "dn27:18.6",
-            "Te mayaṁ rasapathaviṁ hatthehi āluppakārakaṁ upakkamimha paribhuñjituṁ, tesaṁ no rasapathaviṁ hatthehi āluppakārakaṁ upakkamataṁ paribhuñjituṁ sayaṁpabhā antaradhāyi. ",
-            ""
-        ]
-    },
+    "new_word": {},
     "processed": [
         "pāthikavaggapāḷi",
         "pāthikasuttaṃ",
@@ -2520,6 +2526,57 @@
         "sukhadukkhappaṭisaṃvedī",
         "bhāvanamanvāya",
         "sampasādanīyasuttaṃ",
-        "sāriputtasīhanādo"
+        "sāriputtasīhanādo",
+        "pabbājetabbaṃ",
+        "vimissadiṭṭhiko",
+        "uttaruttaraṃ",
+        "asesamabhijānāti",
+        "asesamabhijānato",
+        "āyatanapaṇṇattīsu",
+        "gabbhāvakkantīsu",
+        "gabbhāvakkantiyo",
+        "ādesanavidhāsu",
+        "ādesanavidhā",
+        "vitakkayato",
+        "vicārayato",
+        "vitakkavipphārasaddaṃ",
+        "vitakkavicārasamādhisamāpannassa",
+        "paṇihitā",
+        "dassanasamāpattīsu",
+        "dassanasamāpattiyo",
+        "dassanasamāpatti",
+        "viññāṇasotaṃ",
+        "ubhayato",
+        "abbocchinnaṃ",
+        "puggalapaṇṇattīsu",
+        "dandhattā",
+        "sukhattā",
+        "khippattā",
+        "bhassasamācāre",
+        "musāvādupasañhitaṃ",
+        "vebhūtiyaṃ",
+        "jayāpekkho",
+        "purisasīlasamācāre",
+        "kuhako",
+        "nijigīsanako",
+        "nijigiṃsitā",
+        "samakārī",
+        "jāgariyānuyogamanuyutto",
+        "atandito",
+        "matimā",
+        "parapuggalavimuttiñāṇe",
+        "saṃvaṭṭi",
+        "vivaṭṭi",
+        "abhinivuṭṭhapubbo",
+        "abhinivutthapubbo",
+        "saupadhikā",
+        "anupadhikā",
+        "kāmasukhallikānuyogamanuyutto",
+        "attakilamathānuyogamanuyutto",
+        "santuṭṭhitā",
+        "sallekhatā",
+        "nevattānaṃ",
+        "pāsādikasuttaṃ",
+        "vedhaññā"
     ]
 }
