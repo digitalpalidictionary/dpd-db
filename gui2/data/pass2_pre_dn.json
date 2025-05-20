@@ -2125,43 +2125,633 @@
         ],
         "kaṅkhā": [
             19240
+        ],
+        "atandito": [
+            2013
+        ],
+        "bhinnā": [
+            77833
+        ],
+        "ājānāsi": [
+            11372
+        ],
+        "ājānāmi": [
+            11372
+        ],
+        "ājānissasi": [
+            11372
+        ],
+        "sahitaṃ": [
+            61483,
+            61484
+        ],
+        "āropito": [
+            12568,
+            12569,
+            77099
+        ],
+        "cara": [
+            26279,
+            77685
+        ],
+        "anuvattati": [
+            5374
+        ],
+        "vadeyya": [
+            66126,
+            66146
+        ],
+        "tathattāya": [
+            29651,
+            29652
+        ],
+        "alābhā": [
+            9226
+        ],
+        "dulladdhaṃ": [
+            33793
+        ],
+        "paripūraṃ": [
+            43705
+        ],
+        "anutappo": [
+            4508
+        ],
+        "etehi": [
+            17930
+        ],
+        "aṅgehi": [
+            763
+        ],
+        "majjhimā": [
+            50743,
+            50745
+        ],
+        "bāhujaññaṃ": [
+            48384
+        ],
+        "gaṇo": [
+            24070
+        ],
+        "passaṃ": [
+            44735,
+            44754,
+            79126
+        ],
+        "sandhāya": [
+            58440
+        ],
+        "atthena": [
+            72784
+        ],
+        "byañjanena": [
+            48717,
+            48718
+        ],
+        "byañjanaṃ": [
+            48717,
+            48718
+        ],
+        "samaggānaṃ": [
+            77927
+        ],
+        "byañjanāni": [
+            48717,
+            48718
+        ],
+        "byañjanānaṃ": [
+            48717,
+            48718
+        ],
+        "eso": [
+            18034
+        ],
+        "ayameva": [
+            8711,
+            8712
+        ],
+        "saññāpetabbo": [
+            57426
+        ],
+        "yāni": [
+            53976
+        ],
+        "paṭighātāya": [
+            40354
+        ],
+        "siriṃsapa": [
+            63013
+        ],
+        "anuññāto": [
+            4487
+        ],
+        "ṭhitiyā": [
+            29114,
+            29115
+        ],
+        "yātrā": [
+            53947
+        ],
+        "parikkhāro": [
+            77843
+        ],
+        "vadeyyuṃ": [
+            66126,
+            66146
+        ],
+        "vacanīyā": [
+            65602
+        ],
+        "gammā": [
+            24472
+        ],
+        "upasamāya": [
+            75103
+        ],
+        "bālo": [
+            48274,
+            48275
+        ],
+        "pāṇe": [
+            45355
+        ],
+        "pīṇeti": [
+            80529
+        ],
+        "paricāreti": [
+            43342
+        ],
+        "phalaṃ": [
+            47609,
+            47631
+        ],
+        "passatā": [
+            44754
+        ],
+        "ayokhīlo": [
+            8781
+        ],
+        "acalo": [
+            72683
+        ],
+        "atītaṃ": [
+            2399,
+            2411
+        ],
+        "bālā": [
+            48274,
+            48275,
+            48304
+        ],
+        "tāvatakaṃ": [
+            30377
+        ],
+        "bhūtaṃ": [
+            76401,
+            80796
+        ],
+        "atthavādī": [
+            2715
+        ],
+        "pajāya": [
+            39713,
+            39715
+        ],
+        "pattaṃ": [
+            41850
+        ],
+        "abhisambuddhaṃ": [
+            8236
+        ],
+        "antare": [
+            5677
+        ],
+        "niddisati": [
+            37243
+        ],
+        "etampi": [
+            17970,
+            80558
+        ],
+        "kasmā": [
+            19159,
+            19162
+        ],
+        "paññattiyā": [
+            39976
+        ],
+        "adhipaññatti": [
+            3236
+        ],
+        "pāṭho": [
+            45339
+        ],
+        "paripuṇṇo": [
+            43680
+        ],
+        "arūpī": [
+            9097
+        ],
+        "piṭṭhito": [
+            46022
+        ],
+        "vatāyaṃ": [
+            65969
+        ],
+        "lakkhaṇasuttaṃ": [
+            55489
+        ],
+        "gatiyo": [
+            24210
+        ],
+        "cakkāni": [
+            25674,
+            25675
+        ],
+        "suvaṇṇavaṇṇo": [
+            64579
+        ],
+        "sukhumacchavi": [
+            63579
+        ],
+        "sukhumattā": [
+            63586
+        ],
+        "chaviyā": [
+            78142
+        ],
+        "lomāni": [
+            56120
+        ],
+        "odātā": [
+            18620,
+            18621
+        ],
+        "kammassa": [
+            20240
+        ],
+        "lakkhaṇaṃ": [
+            55474
+        ],
+        "sāmaññatāya": [
+            62304
+        ],
+        "vaṇṇena": [
+            65897,
+            65905
+        ],
+        "sukhena": [
+            63605
+        ],
+        "yasena": [
+            76290
+        ],
+        "rūpehi": [
+            55156,
+            55157,
+            55158
+        ],
+        "rasehi": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "phoṭṭhabbehi": [
+            47826
+        ],
+        "paṭilabhati": [
+            75792
+        ],
+        "samaṃ": [
+            59118,
+            59829
+        ],
+        "pādaṃ": [
+            45490,
+            45491
+        ],
+        "uddharati": [
+            15211,
+            15212
+        ],
+        "lakkhaṇena": [
+            55474
+        ],
+        "nirabbudaṃ": [
+            37996
+        ],
+        "rāgena": [
+            54790
+        ],
+        "saṃyame": [
+            61645
+        ],
+        "dāne": [
+            32255
+        ],
+        "kammena": [
+            20240
+        ],
+        "samehi": [
+            59118
+        ],
+        "pādehi": [
+            45490,
+            45491
+        ],
+        "samāgatā": [
+            75689
+        ],
+        "khambhanā": [
+            23516
+        ],
+        "khambhanaṃ": [
+            23516
+        ],
+        "adāsi": [
+            2836
+        ],
+        "mahāparivāro": [
+            51804
+        ],
+        "parivārā": [
+            44268,
+            44269,
+            44270
+        ],
+        "gandhabbā": [
+            24313
+        ],
+        "pādesu": [
+            45490,
+            45491
+        ],
+        "vindati": [
+            68277
+        ],
+        "cakkaṃ": [
+            25674,
+            25675
+        ],
+        "vihagā": [
+            69643
+        ],
+        "lajjī": [
+            55543
+        ],
+        "lakkhaṇehi": [
+            55474
+        ],
+        "antarā": [
+            5677
+        ],
+        "lakkhaṇāni": [
+            55474
+        ],
+        "subho": [
+            64210
+        ],
+        "yāpayati": [
+            53984
+        ],
+        "khādanīyānaṃ": [
+            23618
+        ],
+        "sāyanīyānaṃ": [
+            62400
+        ],
+        "ussadā": [
+            17142
+        ],
+        "khandhe": [
+            23442
+        ],
+        "ussado": [
+            17142
+        ],
+        "leyya": [
+            55964
+        ],
+        "nandane": [
+            35617
+        ],
+        "saṅgāhako": [
+            56969,
+            56970,
+            78591
+        ],
+        "dānena": [
+            32255
+        ],
+        "guṇena": [
+            25066,
+            25067,
+            25068,
+            77928
+        ],
+        "jālino": [
+            28398
+        ],
+        "susaṅgahito": [
+            64425
+        ],
+        "guṇāni": [
+            77928
+        ],
+        "atthūpasaṃhitaṃ": [
+            2770
+        ],
+        "pavaro": [
+            44888
+        ],
+        "atthadhammupasaṃhitaṃ": [
+            2660
+        ],
+        "assaji": [
+            9932,
+            9933
+        ],
+        "sobhanā": [
+            77475
+        ],
+        "iriyati": [
+            13831
+        ],
+        "vācetā": [
+            66720
+        ],
+        "sippaṃ": [
+            62937
+        ],
+        "caraṇaṃ": [
+            26273
+        ],
+        "kammaṃ": [
+            20240
+        ],
+        "sippesu": [
+            62937
+        ],
+        "kammesu": [
+            20240
+        ],
+        "icchati": [
+            13356
+        ],
+        "manuññā": [
+            51174
+        ],
+        "susaṇṭhitā": [
+            64433
+        ],
+        "vaṭṭā": [
+            65788,
+            65789
+        ],
+        "sampattiyā": [
+            60263,
+            60264
+        ],
+        "paripucchitā": [
+            43670
+        ],
+        "sussūsitā": [
+            64525
+        ],
+        "upāsitā": [
+            16434
+        ],
+        "sukhumacchavī": [
+            63579
+        ],
+        "pariggahesu": [
+            43297,
+            43299,
+            43300,
+            43301,
+            43302
+        ],
+        "bodhiṃ": [
+            48665
+        ],
+        "vutto": [
+            70039
+        ],
+        "attharaṇānaṃ": [
+            2685,
+            2686
+        ],
+        "abhivassaṃ": [
+            8317,
+            8320
+        ],
+        "apabbajja": [
+            73093
+        ],
+        "vimala": [
+            68666,
+            76358
+        ],
+        "anubhavati": [
+            5000,
+            5001
+        ],
+        "katassa": [
+            19598
         ]
     },
     "matched": {
-        "itthipumā": {
-            "id": 13575,
+        "niddisati": {
+            "id": 37244,
             "sentence": [
-                "dn27:11.2",
-                "Na candimasūriyā paññāyanti, na nakkhattāni tārakarūpāni paññāyanti, na rattindivā paññāyanti, na māsaḍḍhamāsā paññāyanti, na utusaṁvaccharā paññāyanti, na itthipumā paññāyanti, sattā sattātveva saṅkhyaṁ gacchanti. ",
-                "The moon and sun were not found, nor were stars and constellations, day and night, months and fortnights, years and seasons, or male and female. Beings were simply known as ‘beings’. "
+                "dn29:29.3",
+                "Yañca, cunda, rattiṁ tathāgato anuttaraṁ sammāsambodhiṁ abhisambujjhati, yañca rattiṁ anupādisesāya nibbānadhātuyā parinibbāyati, yaṁ etasmiṁ antare bhāsati lapati niddisati. Sabbaṁ taṁ tatheva hoti no aññathā, ",
+                "From the night when the Realized One understands the supreme perfect awakening until the night he becomes fully extinguished—in the element of extinguishment with no residue—everything he speaks, says, and expresses is real, not otherwise. "
             ]
         },
-        "pabbājetabbaṃ": {
-            "id": 42541,
+        "asāhase": {
+            "id": 9713,
             "sentence": [
-                "dn27:20.3",
-                "Yannūna mayaṁ ekaṁ sattaṁ sammanneyyāma, yo no sammā khīyitabbaṁ khīyeyya, sammā garahitabbaṁ garaheyya, sammā pabbājetabbaṁ pabbājeyya. ",
-                "Why don’t we elect one being who would rightly accuse those who deserve it, blame those who deserve it, and expel those who deserve it? "
+                "dn30:1.6.4",
+                "Dāne ahiṁsāya asāhase rato, ",
+                "giving, harmlessness, delighting in non-violence—"
             ]
         },
-        "aggaññena": {
-            "id": 570,
+        "gandhabbanāgā": {
+            "id": 24320,
             "sentence": [
-                "dn27:21.4",
-                "Iti kho, vāseṭṭha, evametassa khattiyamaṇḍalassa porāṇena aggaññena akkharena abhinibbatti ahosi tesaṁyeva sattānaṁ, anaññesaṁ. Sadisānaṁyeva, no asadisānaṁ. Dhammeneva, no adhammena. ",
-                "And that, Vāseṭṭha, is how the ancient primordial terms for the circle of aristocrats were created; for those very beings, not others; for those like them, not unlike; by virtue of principle, not against principle. "
+                "dn30:1.9.22",
+                "Gandhabbanāgā vihagā catuppadā, ",
+                "centaurs and dragons, birds and beasts, "
             ]
         },
-        "vimissadiṭṭhiko": {
-            "id": 68692,
+        "khajjabhojjarasalābhitāya": {
+            "id": 23297,
             "sentence": [
-                "dn27:29.1",
-                "Khattiyopi kho, vāseṭṭha, kāyena dvayakārī, vācāya dvayakārī, manasā dvayakārī, vimissadiṭṭhiko vimissadiṭṭhikammasamādāno vimissadiṭṭhikammasamādānahetu kāyassa bhedā paraṁ maraṇā sukhadukkhappaṭisaṁvedī hoti. ",
-                "An aristocrat, "
+                "dn30:1.15.9",
+                "Khajjabhojjarasalābhitāya naṁ. ",
+                "‘He’ll get tasty foods of all sorts "
+            ]
+        },
+        "gehamāvasati": {
+            "id": 25221,
+            "sentence": [
+                "dn30:1.21.14",
+                "Gehamāvasati ce tathāvidho, ",
+                "If such a one lives in the home, he becomes "
+            ]
+        },
+        "aggataṃ": {
+            "id": 576,
+            "sentence": [
+                "dn30:1.21.15",
+                "Aggataṁ vajati kāmabhoginaṁ; ",
+                "the best of those who enjoy sensual pleasures. "
+            ]
+        },
+        "jambudīpamabhibhuyya": {
+            "id": 27981,
+            "sentence": [
+                "dn30:1.21.17",
+                "Jambudīpamabhibhuyya iriyati. ",
+                "he’ll proceed <j>having mastered all the Black Plum Tree Land. "
+            ]
+        },
+        "eṇijaṅghalakkhaṇaṃ": {
+            "id": 17840,
+            "sentence": [
+                "dn30:1.22.0",
+                "11. Eṇijaṅghalakkhaṇaṁ ",
+                "11. Antelope Calves "
+            ]
+        },
+        "anupāyāsabahulo": {
+            "id": 4832,
+            "sentence": [
+                "dn30:1.28.2",
+                "akkodhano ahosi anupāyāsabahulo, ",
+                "He wasn’t irritable or bad-tempered. "
             ]
         }
     },
-    "new_word": {},
+    "new_word": {
+        "antare": [
+            "dn29:29.3",
+            "Yañca, cunda, rattiṁ tathāgato anuttaraṁ sammāsambodhiṁ abhisambujjhati, yañca rattiṁ anupādisesāya nibbānadhātuyā parinibbāyati, yaṁ etasmiṁ antare bhāsati lapati niddisati. Sabbaṁ taṁ tatheva hoti no aññathā, ",
+            "From the night when the Realized One understands the supreme perfect awakening until the night he becomes fully extinguished—in the element of extinguishment with no residue—everything he speaks, says, and expresses is real, not otherwise. "
+        ],
+        "adhipaññatti": [
+            "dn29:35.12",
+            "Atha kho ahameva tattha bhiyyo yadidaṁ adhipaññatti. ",
+            "Rather, I am the one who is superior when it comes to the higher exposition. "
+        ],
+        "yāpayati": [
+            "dn30:1.12.16",
+            "Yāpayati ca vasiddhibhāvanāya, ",
+            "mastery in the development of psychic power. "
+        ]
+    },
     "processed": [
         "pāthikavaggapāḷi",
         "pāthikasuttaṃ",
@@ -2435,7 +3025,6 @@
         "payatattassa",
         "nibbāyamānassa",
         "māsaḍḍhamāsā",
-        "itthipumā",
         "samatani",
         "aneḷakaṃ",
         "evamassādā",
@@ -2496,7 +3085,6 @@
         "mahāsammato",
         "upanibbattaṃ",
         "khattiyamaṇḍalassa",
-        "aggaññena",
         "asadisānaṃ",
         "vāhesuṃ",
         "vītaṅgārā",
@@ -2577,6 +3165,173 @@
         "sallekhatā",
         "nevattānaṃ",
         "pāsādikasuttaṃ",
-        "vedhaññā"
+        "vedhaññā",
+        "itthipumā",
+        "aggaññena",
+        "itthipumā",
+        "aggaññena",
+        "samādāpeti",
+        "samādāpito",
+        "aviññāpitatthā",
+        "sabbasaṅgāhapadakataṃ",
+        "anutappo",
+        "viññāpitatthā",
+        "ananutappo",
+        "pattayogakkhemā",
+        "samakkhātuṃ",
+        "evaṃlābhaggayasaggappattaṃ",
+        "sādhunisitassa",
+        "idamettha",
+        "paripūrataraṃ",
+        "saṅgāyitabbaṃ",
+        "vivaditabbaṃ",
+        "gaṇhāti",
+        "opāyikatarāni",
+        "lābhaggayasaggappattaṃ",
+        "bhassasamācāre",
+        "ussādetabbo",
+        "anussādetvā",
+        "anapasādetvā",
+        "atthupetaṃ",
+        "paccayānuññātakāraṇaṃ",
+        "gilānapaccayabhesajja",
+        "sukhallikānuyogo",
+        "sukhallikānuyogamanuyuttā",
+        "sukhallikānuyogā",
+        "bhaṇitvā",
+        "katānisaṃsā",
+        "aṭṭhitadhammā",
+        "ayokhīlo",
+        "asampavedhī",
+        "ādiyituṃ",
+        "āgārikabhūto",
+        "pañhābyākaraṇaṃ",
+        "atīrakaṃ",
+        "aññavihitakena",
+        "paññapetabbaṃ",
+        "bodhijaṃ",
+        "pubbantasahagatā",
+        "byākātabbā",
+        "aparantasahagatā",
+        "supāsādiko",
+        "lakkhaṇasuttaṃ",
+        "ajjhāvasati",
+        "vivattacchado",
+        "suvibhattantarāni",
+        "kuṇḍalāvattāni",
+        "dakkhiṇāvattakajātāni",
+        "karavīkabhāṇī",
+        "kaṭattā",
+        "dānasaṃvibhāge",
+        "sīlasamādāne",
+        "uposathupavāse",
+        "adhikusalesu",
+        "upacitattā",
+        "ussannattā",
+        "vipulattā",
+        "nirabbudaṃ",
+        "soceyyasīlālayuposathesu",
+        "veyyañjanikā",
+        "samappatiṭṭhassa",
+        "khambhanā",
+        "tadatthajotakaṃ",
+        "ubbegauttāsabhayaṃ",
+        "apanuditā",
+        "mahāparivāro",
+        "bhogiyā",
+        "puratthā",
+        "ubbhegauttāsabhayāpanūdano",
+        "rakkhāvaraṇesu",
+        "samantanemīni",
+        "sahassarāni",
+        "satapuññalakkhaṇaṃ",
+        "parivāravā",
+        "sattumaddano",
+        "samantanemini",
+        "tassānuyuttā",
+        "tassānuyantā",
+        "saṃparivārayanti",
+        "devāmanussāsurasakkarakkhasā",
+        "sattarakkhasā",
+        "syāaṭṭhakathā",
+        "saggamagamā",
+        "saggamagamāsi",
+        "caviya",
+        "punaridhāgato",
+        "vipuladīghapāsaṇhiko",
+        "suju",
+        "sujātagatto",
+        "susaṇṭhito",
+        "cirayāpanāya",
+        "yapeti",
+        "vasiddhibhāvanāya",
+        "dīghāyukatāya",
+        "rasitānaṃ",
+        "sāyiyaṃ",
+        "uttamaggarasadāyako",
+        "ciramabhippamodati",
+        "idhādhigacchati",
+        "byañjananimittakovidā",
+        "tadādhigacchati",
+        "piyavācena",
+        "kariyacariyasusaṅgahaṃ",
+        "anavamatena",
+        "jālino",
+        "atirucirasuvaggudassaneyyaṃ",
+        "atthūpasaṃhitaṃ",
+        "nidaṃsesi",
+        "hitasukhāvaho",
+        "dhammayāgī",
+        "atthadhammasahitaṃ",
+        "atthadhammasaṃhitaṃ",
+        "erayaṃ",
+        "nidaṃsayi",
+        "uttamappamukhatāya",
+        "ubbhamuppatitalomavā",
+        "sādhusaṇṭhitā",
+        "maṃsalohitācitā",
+        "anomanikkamo",
+        "sabbapāṇinaṃ",
+        "sabbalokamabhibhuyya",
+        "rājaṅgāni",
+        "rājūpabhogāni",
+        "rājānucchavikāni",
+        "samaṇārahāni",
+        "samaṇaṅgāni",
+        "samaṇūpabhogāni",
+        "samaṇānucchavikāni",
+        "vijāneyyu",
+        "manuññā",
+        "anupubbamuggatā",
+        "sukhumattacotthatā",
+        "gehānulomāni",
+        "apabbajaṃ",
+        "sukhumacchavilakkhaṇaṃ",
+        "sussūsitā",
+        "upāsitā",
+        "atthantaro",
+        "atthakathaṃ",
+        "nisāmayi",
+        "paññāpaṭilābhakatena",
+        "avecca",
+        "atthānusiṭṭhīsu",
+        "nābhisajji",
+        "pāvuraṇānaṃ",
+        "adhiṭṭhahi",
+        "succhavīni",
+        "purimatarabhave",
+        "abhivissaji",
+        "suro",
+        "upapajja",
+        "kanakatanusannibho",
+        "apabbajja",
+        "abhivasana",
+        "varataraṃ",
+        "sukhumacchaviṃ",
+        "acchādanavatthamokkhapāvuraṇānaṃ",
+        "anāgāriyataṃ",
+        "sahito",
+        "purimakataphalaṃ",
+        "kosohitavatthaguyhalakkhaṇaṃ"
     ]
 }

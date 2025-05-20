@@ -17,25 +17,6 @@
     "example_1": "ahi ca mātarī pitā; ",
     "translation_1": "And serpent, about mother, father; "
   },
-  "daṇḍakathinaṃ": {
-    "word": "daṇḍakathinaṃ",
-    "lemma_1": "daṇḍakathina",
-    "lemma_2": "daṇḍakathinaṃ",
-    "pos": "nt",
-    "grammar": "nt, comp",
-    "meaning_2": "stick frame; staff frame; inner frame",
-    "root_key": "",
-    "root_sign": "",
-    "root_base": "",
-    "family_root": "",
-    "family_compound": "daṇḍa kathina",
-    "construction": "",
-    "stem": "daṇḍakathin",
-    "pattern": "a nt",
-    "comments": "This word is a compound likely formed from daṇḍa (stick, staff) and kathina (frame). It refers to a frame, possibly made of sticks or wood, used for sewing robes, fitting the context of 'inner frame' in the sentence.",
-    "example_1": "“anujānāmi, bhikkhave, daṇḍakathinaṁ bidalakaṁ salākaṁ vinandhanarajjuṁ vinandhanasuttaṁ vinandhitvā cīvaraṁ sibbetun”ti. ",
-    "translation_1": "“I allow an inner frame, folding a straw mat to fit the frame, spacers, strings for tying together, and strings for tying down. After tying it together, you should sew the robe.” "
-  },
   "bidalakaṃ": {
     "word": "bidalakaṃ",
     "lemma_1": "bidalaka",
