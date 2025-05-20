@@ -6,7 +6,7 @@ from typing import Any, Iterator, Optional
 from db.models import DpdHeadword
 from gui2.books import SuttaCentralSource, sutta_central_books
 from gui2.database_manager import DatabaseManager
-from gui2.pass2_file_manager import Pass2AutoFileManager
+from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_controller import Pass2PreFileManager
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
@@ -135,7 +135,11 @@ class Pass2AutoController:
                 if self.stop_flag:
                     break
 
-                if self._word_in_text not in self._pass2_pre_file_manager.processed:
+                # if self._word_in_text not in self._pass2_pre_file_manager.processed:
+                if (
+                    self._word_in_text
+                    not in self._pass2_auto_file_manager.pass2_auto_data
+                ):
                     self._process_single_item()
 
             if self.stop_flag:

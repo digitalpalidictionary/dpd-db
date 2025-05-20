@@ -17,7 +17,7 @@ from gui2.dpd_fields_lists import (
 )
 from gui2.mixins import PopUpMixin
 from gui2.pass2_auto_control import Pass2AutoController
-from gui2.pass2_file_manager import Pass2AutoFileManager
+from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 
 from gui2.toolkit import ToolKit
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
