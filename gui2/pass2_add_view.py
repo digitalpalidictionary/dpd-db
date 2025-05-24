@@ -22,8 +22,9 @@ from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.toolkit import ToolKit
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.fast_api_utils import request_dpd_server
+from tools.hyphenations import HyphenationFileManager, HyphenationsDict
 from tools.paths import ProjectPaths  # Import ProjectPaths
-from tools.sandhi_contraction import SandhiContractionDict
+from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -52,9 +53,18 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._daily_log = self.toolkit.daily_log
         self.pass2_auto_controller = Pass2AutoController(self, self.toolkit)
         self.test_manager: GuiTestManager = self.toolkit.test_manager
-        self.sandhi_manager = self.toolkit.sandhi_manager
-        self.sandhi_dict: SandhiContractionDict = self.toolkit.sandhi_dict
-        self.hyphenation_dict = self.toolkit.hyphenation_dict
+        self.toolkit: ToolKit = toolkit
+
+        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
+        self.sandhi_dict: SandhiContractionDict = (
+            self.sandhi_manager.sandhi_contractions_simple
+        )
+        self.hyphenations_manager: HyphenationFileManager = (
+            self.toolkit.hyphenation_manager
+        )
+        self.hyphenation_dict: HyphenationsDict = (
+            self.hyphenations_manager.hyphenations_dict
+        )
         self.history_manager = self.toolkit.history_manager
 
         self.dpd_fields: DpdFields
@@ -369,7 +379,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_update_sandhi(self, e: ft.ControlEvent):
         self.update_message("updating sandhi... please wait...")
-        self.sandhi_dict = self.sandhi_manager.update_contractions_simple()
+        self.sandhi_dict = self.sandhi_manager.regenerate_contractions_simple()
         self.update_message("sandhi updated")
 
     def _handle_filter_change(self, e: ft.ControlEvent):

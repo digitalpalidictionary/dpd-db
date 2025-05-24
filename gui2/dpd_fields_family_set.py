@@ -41,6 +41,9 @@ class DpdFamilySetField(ft.Column):
             on_change=self._handle_dropdown_change,
             enable_filter=True,
             editable=True,
+            border_color=ft.Colors.GREY_800,
+            border_radius=10,
+            border_width=1,
         )
 
         self.family_set_textfield = DpdTextField(

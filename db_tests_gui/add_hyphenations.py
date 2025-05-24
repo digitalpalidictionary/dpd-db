@@ -66,15 +66,15 @@ class Data:
         )
 
     def load_hyphenations_dict(self):
-        if self.pth.add_hyphenations_dict.exists():
-            with open(self.pth.add_hyphenations_dict) as file:
+        if self.pth.hyphenations_dict_path.exists():
+            with open(self.pth.hyphenations_dict_path) as file:
                 return json.load(file)
         else:
             pr.red("no hyphenations dict found")
             return {}
 
     def save_hyphenations_dict(self):
-        with open(self.pth.add_hyphenations_dict, "w") as file:
+        with open(self.pth.hyphenations_dict_path, "w") as file:
             json.dump(self.hyphenations_dict, file, ensure_ascii=False, indent=2)
 
     def update_hyphenations_dict(self, choice):

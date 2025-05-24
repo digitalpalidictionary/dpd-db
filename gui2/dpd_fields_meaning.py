@@ -48,6 +48,7 @@ class DpdMeaningField(ft.Column):
             dense=True,
             text_size=12,
             on_submit=self._handle_add_to_dict_submit,
+            color=ft.Colors.RED,
         )
 
         self.controls = [

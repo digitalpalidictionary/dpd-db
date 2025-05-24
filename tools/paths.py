@@ -626,11 +626,9 @@ class ProjectPaths:
         self.temp_dir = base_dir / "temp/"
 
         # tools
-        self.sandhi_contractions_simple_path = (
-            base_dir / "tools/sandhi_contractions.json"
-        )
+        self.sandhi_contractions_path = base_dir / "tools/sandhi_contractions.json"
+        self.hyphenations_dict_path = base_dir / "tools/hyphenations.json"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
-
 
         # db_tests/
         self.internal_tests_path = base_dir / "db_tests/db_tests_columns.tsv"
@@ -641,7 +639,7 @@ class ProjectPaths:
         self.bold_example_path = base_dir / "db_tests/single/test_bold.json"
         self.compound_type_path = base_dir / "db_tests/single/add_compound_type.tsv"
         self.digu_json_path = base_dir / "db_tests/single/test_digu.json"
-        self.hyphenations_dict_path = (
+        self.hyphenations_dict_path_old = (
             base_dir / "db_tests/single/test_hyphenations.json"
         )
         self.hyphenations_scratchpad_path = (
@@ -679,8 +677,6 @@ class ProjectPaths:
         self.add_antonyms_sync_dict = (
             base_dir / "db_tests_gui/add_antonyms_sync_dict.json"
         )
-        self.add_hyphenations_dict = base_dir / "db_tests_gui/add_hyphenations.json"
-
 
         # .. external
         self.old_dpd_full_path = base_dir / "../csvs/dpd-full.csv"

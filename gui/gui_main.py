@@ -992,7 +992,7 @@ def main():
             subprocess.Popen(["libreoffice", pth.root_families_sanskrit_path])
 
         elif event == "update_sandhi_button":
-            sandhi_dict = sandhi_finder.update_contractions()
+            sandhi_dict = sandhi_finder.regenerate_contractions()
 
         elif event == "refresh_db_session_button":
             db_session.close()

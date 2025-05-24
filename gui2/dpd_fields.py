@@ -28,8 +28,9 @@ from gui2.dpd_fields_functions import (
 )
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
+from tools.hyphenations import HyphenationFileManager, HyphenationsDict
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
-from tools.sandhi_contraction import SandhiContractionDict
+from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
 from tools.spelling import CustomSpellChecker
 from tools.fuzzy_tools import find_closest_matches
 
@@ -64,8 +65,16 @@ class DpdFields(PopUpMixin):
         self.spellchecker = CustomSpellChecker()
         self.toolkit: ToolKit = toolkit
 
-        self.sandhi_dict: SandhiContractionDict = self.toolkit.sandhi_dict
-        self.hyphenation_dict: dict[str, str] = self.toolkit.hyphenation_dict
+        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
+        self.sandhi_dict: SandhiContractionDict = (
+            self.sandhi_manager.sandhi_contractions_simple
+        )
+        self.hyphenations_manager: HyphenationFileManager = (
+            self.toolkit.hyphenation_manager
+        )
+        self.hyphenation_dict: HyphenationsDict = (
+            self.hyphenations_manager.hyphenations_dict
+        )
         self.simple_examples = simple_examples  # Store the flag
 
         # Fetch compound types (ensure db is initialized first if needed)
@@ -121,6 +130,7 @@ class DpdFields(PopUpMixin):
                 "trans",
                 field_type="dropdown",
                 options=[" ", "trans", "intrans", "ditrans"],
+                on_blur=self.trans_blur,
             ),
             FieldConfig(
                 "plus_case",
@@ -536,7 +546,7 @@ class DpdFields(PopUpMixin):
                 main_value = main_field_control.value
                 add_value = add_field_control.value
 
-                if main_value and add_value and main_value != add_value:
+                if main_value != add_value:
                     add_field_control.color = ft.Colors.RED
                 else:
                     add_field_control.color = ft.Colors.GREY_500
@@ -700,6 +710,14 @@ class DpdFields(PopUpMixin):
                 self.flags.derived_from_done = True
                 self.page.update()
                 # derived_from_field.focus() # Focus might be better handled elsewhere or removed
+
+    def trans_blur(self, e: ft.ControlEvent) -> None:
+        field, value = self.get_event_field_and_value(e)
+        if value == "trans":
+            plus_case_field = self.get_field("plus_case")
+            plus_case_field.value = "+acc"
+            plus_case_field.focus()
+            self.page.update()
 
     def compound_type_blur(self, e: ft.ControlEvent):
         compound_construction: DpdCompoundConstructionField = self.get_field(

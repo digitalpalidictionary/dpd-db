@@ -1,7 +1,5 @@
 import flet as ft
 
-from tools.sandhi_contraction import SandhiContractionDict
-
 
 class ToolKit:
     def __init__(self, page: ft.Page):
@@ -24,13 +22,7 @@ class ToolKit:
         self.db_test_manager: DbTestManager = DbTestManager()
         self.test_manager: GuiTestManager = GuiTestManager(self)
         self.sandhi_manager: SandhiContractionManager = SandhiContractionManager()
-        self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.sandhi_contractions_simple
-        )
         self.hyphenation_manager: HyphenationFileManager = HyphenationFileManager()
-        self.hyphenation_dict: dict[str, str] = (
-            self.hyphenation_manager.hyphenations_dict
-        )
         self.history_manager: HistoryManager = HistoryManager(self)
         self.ai_manager: AIManager = AIManager()
         self.db_manager: DatabaseManager = DatabaseManager()

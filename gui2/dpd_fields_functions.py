@@ -1,6 +1,7 @@
 import re
 
 from db.models import DpdHeadword
+from tools.hyphenations import HyphenationsDict
 from tools.pali_alphabet import pali_alphabet
 from tools.pos import INDECLINABLES
 from tools.sandhi_contraction import SandhiContractionDict
@@ -353,7 +354,7 @@ def make_dpd_headword_from_dict(field_data: dict[str, str]) -> DpdHeadword:
 def clean_sandhi(
     text: str,
     sandhi_dict: SandhiContractionDict,
-    hyphenation_dict: dict[str, str],
+    hyphenation_dict: HyphenationsDict,
 ) -> str:
     pali_alphabet_string = "".join(pali_alphabet)
     splits = re.split(f"([^{pali_alphabet_string}])", text)
@@ -405,7 +406,7 @@ def clean_text(text: str) -> str:
 def clean_commentary(
     text: str,
     sandhi_dict: SandhiContractionDict,
-    hyphenation_dict: dict[str, str],
+    hyphenation_dict: HyphenationsDict,
 ) -> str:
     text = clean_sandhi(text, sandhi_dict, hyphenation_dict)
     text = clean_text(text)
@@ -415,7 +416,7 @@ def clean_commentary(
 def clean_example(
     text: str,
     sandhi_dict: SandhiContractionDict,
-    hyphenation_dict: dict[str, str],
+    hyphenation_dict: HyphenationsDict,
 ) -> str:
     text = clean_sandhi(text, sandhi_dict, hyphenation_dict)
     text = clean_text(text)
