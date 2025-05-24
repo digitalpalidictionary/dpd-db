@@ -1,115 +1,10 @@
 HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded with url: /user/balance (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x741ec5269730>: Failed to resolve 'api.deepseek.com' ([Errno -2] Name or service not known)"))
 
 HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded with url: /user/balance (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x741ec12f2870>: Failed to resolve 'api.deepseek.com' ([Errno -2] Name or service not known)"))
-
 {
-    'id': 64306,
-    'lemma_1': 'sumāgadhā',
-    'lemma_2': 'sumāgadhā',
-    'pos': 'fem',
-    'grammar': 'fem noun',
-    'derived_from': 'magadha',
-    'neg': '',
-    'verb': '',
-    'trans': '',
-    'plus_case': '',
-    'meaning_1': 'Sumāgadhā river',
-    'meaning_lit': '',
-    'non_ia': '',
-    'sanskrit': 'sumāgadhī',
-    'root_key': '',
-    'root_sign': '',
-    'root_base': '',
-    'family_root': '',
-    'family_word': 'magadha',
-    'family_compound': 'su magadha',
-    'family_idioms': '',
-    'family_set': 'names of rivers',
-    'construction': 'su + magadha + ā',
-    'derivative': 'taddhita',
-    'suffix': 'ā',
-    'phonetic': '',
-    'compound_type': 'kammadhāraya',
-    'compound_construction': 'su + magadha',
-    'stem': 'sumāgadh',
-    'pattern': 'ā fem'
-    'comment': 'The Sumāgadhā is identified as a river near Rajgir. The name suggests a connection to the Magadha region.'
-}
-
-{
-    'id': 25230,
-    'lemma_1': 'gokāṇā',
-    'lemma_2': 'gokāṇā',
-    'pos': 'fem',
-    'grammar': 'fem',
-    'derived_from': '',
-    'neg': '',
-    'verb': '',
-    'trans': '',
-    'plus_case': '',
-    'meaning_1': 'one-eyed cow',
-    'meaning_lit': '',
-    'non_ia': '',
-    'sanskrit': 'go + kāṇā < kāṇa',
-    'root_key': '',
-    'root_sign': '',
-    'root_base': '',
-    'family_root': '',
-    'family_word': '',
-    'family_compound': 'go kāṇa',
-    'family_idioms': '',
-    'family_set': '',
-    'construction': '',
-    'derivative': '',
-    'suffix': '',
-    'phonetic': '',
-    'compound_type': 'kammadhāraya',
-    'compound_construction': 'go ca sā kāṇā ca',
-    'stem': 'gokāṇ',
-    'pattern': 'ā fem'
-    'comment': 'The term "gokāṇā" is used metaphorically to refer to someone considered inferior or defective, much like a one-eyed cow.'
-}
-
-{
-
-{
-
-{
-
-{
-
-{
-
-{
-
-{
-
-{
-
-{
-
-{
-
-{
-    'id': 69403,
-    'lemma_1': 'vissajjetvā',
-    'lemma_2': 'vissajjetvā',
-    'pos': 'abs',
-    'grammar': 'abs of vissajjeti',
-    'derived_from': 'vissajjeti',
-    'neg': '',
-    'verb': 'caus',
-    'trans': 'trans',
-    'plus_case': '+acc',
-    'meaning_1': 'having given away; having distributed',
-    'meaning_lit': '',
-    'non_ia': '',
-    'sanskrit': 'visṛjya 
-
-{
-    'id': 49511,
-    'lemma_1': 'bhassasamācāra',
-    'lemma_2': 'bhassasamācāro',
+    'id': 47095,
+    'lemma_1': 'purisavisesa',
+    'lemma_2': 'purisaviseso',
     'pos': 'masc',
     'grammar': 'masc, comp',
     'derived_from': '',
@@ -117,33 +12,33 @@ HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded wit
     'verb': '',
     'trans': '',
     'plus_case': '',
-    'meaning_1': 'verbal conduct; behaviour in speech',
+    'meaning_1': 'distinction between people; individual difference',
     'meaning_lit': '',
     'non_ia': '',
-    'sanskrit': '',
+    'sanskrit': 'puruṣaviśeṣa',
     'root_key': '',
     'root_sign': '',
     'root_base': '',
     'family_root': '',
     'family_word': '',
-    'family_compound': 'bhassa1 samācāra',
+    'family_compound': 'purisa visesa',
     'family_idioms': '',
     'family_set': '',
-    'construction': 'bhassa + samācāra',
+    'construction': 'purisa + visesa',
     'derivative': '',
     'suffix': '',
     'phonetic': '',
-    'compound_type': 'chaṭṭhī tappurisa',
-    'compound_construction': 'bhassa<b>ssa</b> + samācāra',
-    'stem': 'bhassasamācār',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'purisa + visesa',
+    'stem': 'purisavises',
     'pattern': 'a masc',
-    'comment': 'The contextual sentence shows this term being used to describe the Buddha's unsurpassable teaching method regarding proper speech behavior.'
+    'comment': 'In the contextual sentence, this term refers to the ability to discern individual differences among people, highlighting the Buddha's omniscience.'
 }
 
 {
-    'id': 55733,
-    'lemma_1': 'lābhaggayasaggappatta',
-    'lemma_2': 'lābhaggayasaggappatta',
+    'id': 27867,
+    'lemma_1': 'janatamaheṭhaka',
+    'lemma_2': 'janatamaheṭhaka',
     'pos': 'adj',
     'grammar': 'adj, comp',
     'derived_from': '',
@@ -151,41 +46,7 @@ HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded wit
     'verb': '',
     'trans': '',
     'plus_case': '',
-    'meaning_1': 'reached the peak of material gain and fame',
-    'meaning_lit': '',
-    'non_ia': '',
-    'sanskrit': 'lābha + agra + yaśas + agra + prāpta',
-    'root_key': '',
-    'root_sign': '',
-    'root_base': '',
-    'family_root': '',
-    'family_word': '',
-    'family_compound': 'lābha agga1 yasa patta3',
-    'family_idioms': '',
-    'family_set': '',
-    'construction': 'lābhagga + yasagga + patta',
-    'derivative': '',
-    'suffix': '',
-    'phonetic': '',
-    'compound_type': 'dutiyā tappurisa',
-    'compound_construction': 'lābhaggayasagg<b>aṃ</b> + patta',
-    'stem': 'lābhaggayasaggappatt',
-    'pattern': 'a adj',
-    'comment': 'In the contextual sentence, this term contrasts spiritual success with worldly success, highlighting that while the spiritual path is flourishing, it hasn't achieved the highest material gains and fame.'
-}
-
-{
-    'id': 49511,
-    'lemma_1': 'bhassasamācāra',
-    'lemma_2': 'bhassasamācāro',
-    'pos': 'masc',
-    'grammar': 'masc, comp',
-    'derived_from': '',
-    'neg': '',
-    'verb': '',
-    'trans': '',
-    'plus_case': '',
-    'meaning_1': 'verbal conduct; behaviour in speech',
+    'meaning_1': 'not harming the people; not harassing the population',
     'meaning_lit': '',
     'non_ia': '',
     'sanskrit': '',
@@ -194,17 +55,85 @@ HTTPSConnectionPool(host='api.deepseek.com', port=443): Max retries exceeded wit
     'root_base': '',
     'family_root': '',
     'family_word': '',
-    'family_compound': 'bhassa1 samācāra',
+    'family_compound': 'janatā heṭhaka',
     'family_idioms': '',
     'family_set': '',
-    'construction': 'bhassa + samācāra',
+    'construction': 'janataṃ + aheṭhaka',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': 'ṃa > ma',
+    'compound_type': '',
+    'compound_construction': '',
+    'stem': 'janatamaheṭhak',
+    'pattern': 'a adj',
+    'comment': 'The contextual sentence shows the negative form (na heṭhayī) with this adjective, reinforcing its meaning of non-harming. The compound effectively means "one who doesn't harass the populace".'
+}
+
+{
+    'id': 47095,
+    'lemma_1': 'purisavisesa',
+    'lemma_2': 'purisaviseso',
+    'pos': 'masc',
+    'grammar': 'masc, comp',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'distinction between people; individual difference',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': 'puruṣaviśeṣa',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'purisa visesa',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': 'purisa + visesa',
     'derivative': '',
     'suffix': '',
     'phonetic': '',
-    'compound_type': 'chaṭṭhī tappurisa',
-    'compound_construction': 'bhassa<b>ssa</b> + samācāra',
-    'stem': 'bhassasamācār',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'purisa + visesa',
+    'stem': 'purisavises',
     'pattern': 'a masc',
-    'comment': 'In the contextual sentence, this refers to the Buddha's exemplary way of teaching through speech, showing unsurpassable verbal conduct.'
+    'comment': 'In the contextual sentence, this term refers to the ability to discern individual differences among people, highlighting the Buddha's omniscience.'
+}
+
+{
+    'id': 34406,
+    'lemma_1': 'dvidugamavaratarahanutta',
+    'lemma_2': 'dvidugamavaratarahanuttaṃ',
+    'pos': 'nt',
+    'grammar': 'nt, abstr, comp',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'fact of having a jaw like the very best of four legged creatures',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': '',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'dvi gama vara hanu',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': 'dvidugama + varatara + hanutta',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': 'tappurisa',
+    'compound_construction': 'dvidugamavaratarassa + hanuttaṃ',
+    'stem': 'dvidugamavaratarahanutt',
+    'pattern': 'a nt',
+    'comment': 'There appears to be an inconsistency between the component `dvi` (two) found in the headword and family_compound fields, and the meaning provided which refers to "four legged creatures". The compound structure includes `dvidugama` (possibly a variant or typo for something like `dvipādaga` or related to 'two-footed creature'), `varatara` (more excellent, used here in a superlative sense meaning "very best"), `hanu` (jaw), and the abstract suffix `-tta`. The compound is likely a Tatpurisa meaning "the state/fact of the jaw of the most excellent dvigama".'
 }
 
