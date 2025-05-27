@@ -77,7 +77,10 @@ class Pass2PreController:
 
     def is_missing_example(self, word: str):
         if (
-            word in self.db.all_inflections_missing_example
+            (
+                word in self.db.all_inflections_missing_example
+                or word in self.db.all_decon_no_headwords
+            )
             and word not in self.db.sandhi_ok_list
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
@@ -117,7 +120,8 @@ class Pass2PreController:
     def get_cst_examples(self):
         examples: list[CstSourceSuttaExample] = []
         for book in self.cst_books:
-            examples.extend(find_cst_source_sutta_example(book, self.word_in_text))
+            regex_word_in_text = rf"\b{self.word_in_text}\b"
+            examples.extend(find_cst_source_sutta_example(book, regex_word_in_text))
         self.missing_examples_dict[self.word_in_text] = examples
 
     def load_next_headword(self):

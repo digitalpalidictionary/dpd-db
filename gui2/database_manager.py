@@ -65,6 +65,9 @@ class DatabaseManager:
         self.family_roots: list[str] = []
         self.family_root_index: int = 0
 
+        # lookup
+        self.all_decon_no_headwords: set[str] = set()
+
     def new_db_session(self):
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
@@ -86,6 +89,7 @@ class DatabaseManager:
         self.get_all_compound_families()
         self.get_all_word_families()
         self.get_all_patterns()
+        self.get_all_decon_no_headwords()
         self.db = self.db_session.query(DpdHeadword).all()
 
     def get_all_roots(self) -> None:
@@ -185,6 +189,15 @@ class DatabaseManager:
         )
         self.all_patterns = set([p[0] for p in patterns_query if p[0]])
 
+    def get_all_decon_no_headwords(self):
+        lookup_result = (
+            self.db_session.query(Lookup.lookup_key)
+            .filter(Lookup.headwords == "")
+            .filter(Lookup.deconstructor != "")
+            .all()
+        )
+        self.all_decon_no_headwords = set([i[0] for i in lookup_result if i[0]])
+
     # --- PASS1 AUTO ---
 
     def make_inflections_lists(self) -> None:
@@ -254,29 +267,56 @@ class DatabaseManager:
     def get_headwords(self, word_in_text: str) -> list[DpdHeadword]:
         """Find headwords which match the inflection."""
 
-        result: Lookup | None = (
+        lookup_item: Lookup | None = (
             self.db_session.query(Lookup)
             .filter(Lookup.lookup_key == word_in_text)
             .first()
         )
 
-        if not result:
+        if not lookup_item:
             return []
 
         else:
-            ids = result.headwords_unpack
-            results_list = []
-            for id in ids:
-                headword = (
-                    self.db_session.query(DpdHeadword)
-                    .filter(DpdHeadword.id == id)
-                    .filter(DpdHeadword.source_1 == "")
-                    .first()
-                )
-                if headword:
-                    results_list.append(headword)
+            ids = lookup_item.headwords_unpack
+            if ids:
+                results_list = []
+                for id in ids:
+                    headword = (
+                        self.db_session.query(DpdHeadword)
+                        .filter(DpdHeadword.id == id)
+                        .filter(DpdHeadword.source_1 == "")
+                        .first()
+                    )
+                    if headword:
+                        results_list.append(headword)
 
-            return results_list
+                return results_list
+            else:
+                return self.get_headwords_from_deconstructor(lookup_item)
+
+    def get_headwords_from_deconstructor(
+        self,
+        lookup_item: Lookup,
+    ) -> list[DpdHeadword]:
+        headwords_list: list[DpdHeadword] = []
+        deconstruction = lookup_item.deconstructor_unpack
+
+        if deconstruction:
+            decon_word_list = self.make_decon_word_list(deconstruction)
+
+            for word in decon_word_list:
+                headwords_list.extend(self.get_headwords(word))
+            return headwords_list
+        else:
+            return headwords_list
+
+    def make_decon_word_list(self, deconstruction: list[str]) -> list[str]:
+        word_list = []
+        for i in deconstruction:
+            words = i.split(" + ")
+            for word in words:
+                word_list.append(word.strip())
+        return sorted(set(word_list), key=lambda x: word_list.index(x))
 
     def get_related_headwords(self, i: DpdHeadword) -> list[DpdHeadword]:
         """Find headwords related by root family, compound family or word family."""
