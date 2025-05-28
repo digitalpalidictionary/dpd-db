@@ -236,6 +236,10 @@ class DpdExampleField(ft.Column):
                         "Reload",
                         on_click=self._click_reload_example,
                     ),
+                    ft.ElevatedButton(
+                        "Last",
+                        on_click=self._click_last_example,
+                    ),
                 ],
                 spacing=0,
                 alignment=ft.MainAxisAlignment.START,
@@ -312,13 +316,22 @@ class DpdExampleField(ft.Column):
 
     def _handle_last_control_blur(self, e: ft.ControlEvent):
         """Hides the tools if they are visible when the last control loses focus.
-        Also adds apostrophes and hyphenations"""
+        Also adds apostrophes, hyphenations and saves current example"""
 
         if self._search_row.visible:
             self._toggle_tools_visibility(None)
 
-        # handle hyphenations and apostrophes
         source, sutta, example = self.get_fields()
+
+        # Save current example to stash
+        if example.value:
+            self.stash_manager.last_example = (
+                source.value or "",
+                sutta.value or "",
+                example.value,
+            )
+
+        # handle hyphenations and apostrophes
         if "'" in example.value or "-" in example.value:
             self._handle_hyphens_and_apostrophes(example.value)
 
@@ -497,14 +510,14 @@ class DpdExampleField(ft.Column):
     def _click_stash_example(self, e: ft.ControlEvent):
         """Stashes the current source, sutta, and example values."""
         source, sutta, example = self.get_fields()
-        self.stash_manager.stash(
+        self.stash_manager.stash_shared_example(
             source.value or "", sutta.value or "", example.value or ""
         )
         self.ui.update_message("Stashed current example data")
 
     def _click_reload_example(self, e: ft.ControlEvent):
         """Reloads stashed data into the source, sutta, and example fields."""
-        stashed_data = self.stash_manager.reload()
+        stashed_data = self.stash_manager.reload_shared_example()
         if stashed_data:
             source_val, sutta_val, example_val = stashed_data
             source, sutta, example = self.get_fields()
@@ -515,6 +528,15 @@ class DpdExampleField(ft.Column):
             self.ui.update_message("Reloaded stashed example data")
         else:
             self.ui.update_message("No stashed data found")
+
+    def _click_last_example(self, e: ft.ControlEvent):
+        """Loads the last saved example from stash."""
+        if last_example := self.stash_manager.last_example:
+            source, sutta, example = self.get_fields()
+            source.value = last_example[0]
+            sutta.value = last_example[1]
+            example.value = last_example[2]
+            self.page.update()
 
     def update_counter(self, e: ft.ControlEvent):
         max_length = 300
