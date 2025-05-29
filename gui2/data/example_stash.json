@@ -1,7 +1,17 @@
 {
-    "shared_stash": {
+    "shared": {
         "source": "DN32",
         "sutta": "āṭānāṭiyasuttaṃ, paṭhamabhāṇavāro",
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
+    },
+    "last": {
+        "source": "DN33",
+        "sutta": "saṅgītisuttaṃ, dasakaṃ",
+        "example": "dasa ariyavāsā. idh'āvuso, bhikkhu pañc'aṅgavippahīno hoti, chaḷaṅgasamannāgato, ek'ārakkho, catur'āpasseno, paṇunnapaccekasacco, samavayasaṭṭh'esano, anāvilasaṅkappo, passaddhakāyasaṅkhāro, suvimuttacitto, suvimuttapañño."
+    },
+    "stash": {
+        "source": "DN33",
+        "sutta": "saṅgītisuttaṃ, catukkaṃ",
+        "example": "cattāri upādānāni, kām'ūpādānaṃ, diṭṭh'ūpādānaṃ, sīlabbat'ūpādānaṃ, attavād'ūpādānaṃ."
     }
 }
