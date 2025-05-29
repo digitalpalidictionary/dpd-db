@@ -1,5 +1,6 @@
 import re
 from typing import Any, Union
+
 import flet as ft
 
 from db.models import DpdHeadword
@@ -12,11 +13,9 @@ from gui2.dpd_fields_classes import (
 )
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_compound_construction import DpdCompoundConstructionField
-from gui2.dpd_fields_family_set import DpdFamilySetField
-from gui2.dpd_fields_meaning import DpdMeaningField
-from gui2.dpd_fields_notes import DpdNotesField
-from gui2.dpd_fields_flags import Flags
 from gui2.dpd_fields_examples import DpdExampleField
+from gui2.dpd_fields_family_set import DpdFamilySetField
+from gui2.dpd_fields_flags import Flags
 from gui2.dpd_fields_functions import (
     clean_construction_line1,
     clean_lemma_1,
@@ -26,13 +25,15 @@ from gui2.dpd_fields_functions import (
     make_dpd_headword_from_dict,
     make_lemma_2,
 )
+from gui2.dpd_fields_meaning import DpdMeaningField
+from gui2.dpd_fields_notes import DpdNotesField
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
+from tools.fuzzy_tools import find_closest_matches
 from tools.hyphenations import HyphenationFileManager, HyphenationsDict
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
 from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
 from tools.spelling import CustomSpellChecker
-from tools.fuzzy_tools import find_closest_matches
 
 DpdFieldType = Union[
     DpdTextField,
@@ -634,16 +635,7 @@ class DpdFields(PopUpMixin):
 
         # Autofill search fields for new entries (not loaded from DB)
         if not self.flags.loaded_from_db and value:
-            lemma_clean = clean_lemma_1(value)
-            commentary_field: DpdCommentaryField | None = self.get_field("commentary")
-            if commentary_field and hasattr(commentary_field, "search_field_1"):
-                commentary_field.search_field_1.value = lemma_clean
-            example_1_field: DpdExampleField | None = self.get_field("example_1")
-            if example_1_field and hasattr(example_1_field, "word_to_find_field"):
-                example_1_field.word_to_find_field.value = lemma_clean
-            example_2_field: DpdExampleField | None = self.get_field("example_2")
-            if example_2_field and hasattr(example_2_field, "word_to_find_field"):
-                example_2_field.word_to_find_field.value = lemma_clean
+            self.ui.add_headword_to_examples_and_commentary()
 
         self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur

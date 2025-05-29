@@ -1,19 +1,19 @@
 import cProfile
 import time
 from pathlib import Path
+
 import flet as ft
 
+from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.toolkit import ToolKit
 from tools.fast_api_utils import start_dpd_server
-from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 
 
 class App:
     def __init__(self, page: ft.Page) -> None:
-        from gui2.pass2_add_view import Pass2AddView
-        from gui2.pass1_auto_view import Pass1AutoView
-
         from gui2.pass1_add_view import Pass1AddView
+        from gui2.pass1_auto_view import Pass1AutoView
+        from gui2.pass2_add_view import Pass2AddView
         from gui2.pass2_auto_view import Pass2AutoView
         from gui2.pass2_pre_view import Pass2PreProcessView
         from gui2.tests_tab_view import TestsTabView

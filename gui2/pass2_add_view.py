@@ -6,7 +6,7 @@ from db.models import DpdHeadword
 from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_examples import DpdExampleField
-from gui2.dpd_fields_functions import increment_lemma_1
+from gui2.dpd_fields_functions import clean_lemma_1, increment_lemma_1
 from gui2.dpd_fields_lists import (
     COMPOUND_FIELDS,
     NO_CLONE_LIST,
@@ -18,7 +18,6 @@ from gui2.dpd_fields_lists import (
 from gui2.mixins import PopUpMixin
 from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_auto_file_manager import Pass2AutoFileManager
-
 from gui2.toolkit import ToolKit
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.fast_api_utils import request_dpd_server
@@ -233,17 +232,22 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def add_headword_to_examples_and_commentary(self):
         # add headword to example_1 example_2 and commentary
         if self.headword:
-            example_1_field: DpdExampleField = self.dpd_fields.get_field("example_1")
-            example_1_field.word_to_find_field.value = self.headword.lemma_1[:-1]
-            example_1_field.bold_field.value = self.headword.lemma_clean[:-1]
-
-            example_2_field: DpdExampleField = self.dpd_fields.get_field("example_2")
-            example_2_field.word_to_find_field.value = self.headword.lemma_clean[:-1]
-
+            lemma_clean = clean_lemma_1(self.headword.lemma_1)
             commentary_field: DpdCommentaryField = self.dpd_fields.get_field(
                 "commentary"
             )
-            commentary_field.search_field_1.value = self.headword.lemma_clean[:-1]
+            if commentary_field and hasattr(commentary_field, "search_field_1"):
+                commentary_field.search_field_1.value = lemma_clean[:-1]
+
+            example_1_field: DpdExampleField = self.dpd_fields.get_field("example_1")
+            if example_1_field and hasattr(example_1_field, "word_to_find_field"):
+                example_1_field.word_to_find_field.value = lemma_clean[:-1]
+                example_1_field.bold_field.value = lemma_clean[:-1]
+
+            example_2_field: DpdExampleField = self.dpd_fields.get_field("example_2")
+            if example_2_field and hasattr(example_2_field, "word_to_find_field"):
+                example_2_field.word_to_find_field.value = lemma_clean[:-1]
+                example_2_field.word_to_find_field.value = lemma_clean[:-1]
 
     def _click_edit_headword(self, e: ft.ControlEvent) -> None:
         id_or_lemma = self._enter_id_or_lemma_field.value
