@@ -939,9 +939,8 @@ class DpdFields(PopUpMixin):
 
         field, value = self.get_event_field_and_value(e)
 
-        # Only run if the synonym field is currently empty
-        # AND synonyms haven't been generated yet
-        if not value and not self.flags.synonyms_done:
+        # Only run if the synonyms haven't been generated yet
+        if not self.flags.synonyms_done:
             pos = self.get_field("pos").value
             meaning_1 = self.get_field("meaning_1").value
             lemma_1 = self.get_field("lemma_1").value

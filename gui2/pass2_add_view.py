@@ -250,7 +250,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 example_2_field.word_to_find_field.value = lemma_clean[:-1]
 
     def _click_edit_headword(self, e: ft.ControlEvent) -> None:
-        id_or_lemma = self._enter_id_or_lemma_field.value
+        if self._enter_id_or_lemma_field.value:
+            id_or_lemma = self._enter_id_or_lemma_field.value.strip()
 
         if id_or_lemma:
             headword = self._db.get_headword_by_id_or_lemma(id_or_lemma)

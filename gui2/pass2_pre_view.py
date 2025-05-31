@@ -1,8 +1,8 @@
 import flet as ft
 
-from gui2.toolkit import ToolKit
 from gui2.books import SuttaCentralSegment
 from gui2.flet_functions import highlight_word_in_sentence
+from gui2.toolkit import ToolKit
 from tools.cst_source_sutta_example import CstSourceSuttaExample
 
 
@@ -25,7 +25,10 @@ class Pass2PreProcessView(ft.Column):
             self,
             toolkit,
         )
+        self.pass2_exceptions_manager = toolkit.pass2_exceptions_manager
+        self.exceptions_list = toolkit.pass2_exceptions_manager.exceptions_list
         self.selected_sentence_index: int = 0
+        self.examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample] = []
 
         # Define constants
         LABEL_WIDTH: int = 150
@@ -85,10 +88,15 @@ class Pass2PreProcessView(ft.Column):
             selectable=True,
             size=14,
         )
-        self.examples_field = ft.Container(
-            content=None,
-            width=COLUMN_WIDTH,
+
+        self.exceptions_field = ft.TextField(
+            "",
+            on_submit=self.add_exception,
+            border_radius=10,
+            width=300,
             expand=True,
+            label="check meaning_1 before adding exceptions!",
+            label_style=ft.TextStyle(color=ft.Colors.GREY_500, size=10),
         )
 
         top_fixed_section_controls = [
@@ -172,12 +180,19 @@ class Pass2PreProcessView(ft.Column):
                         width=LABEL_WIDTH,
                         on_click=self.handle_pass_click,
                     ),
+                    self.exceptions_field,
                 ],
             ),
         ]
 
         self.top_fixed_section = ft.Column(
             controls=top_fixed_section_controls, expand=False, spacing=5
+        )
+
+        self.examples_field = ft.Container(
+            content=None,
+            width=COLUMN_WIDTH,
+            expand=True,
         )
 
         self.examples_content_row = ft.Row(
@@ -290,10 +305,29 @@ class Pass2PreProcessView(ft.Column):
         self.controller.daily_log.increment("pass2_pre")
 
     def make_examples_list(
-        self, examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample]
+        self,
+        examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample],
     ) -> ft.RadioGroup:
+        self.examples_list = examples_list
         example_controls: list[ft.Control] = []
+
         for counter, example in enumerate(examples_list):
+            # dont't display if in exceptions list
+            if isinstance(example, SuttaCentralSegment):
+                if any(
+                    exception in example.pali
+                    and self.controller.word_in_text in exception
+                    for exception in self.exceptions_list
+                ):
+                    continue
+            elif isinstance(example, CstSourceSuttaExample):
+                if any(
+                    exception in example.example
+                    and self.controller.word_in_text in exception
+                    for exception in self.exceptions_list
+                ):
+                    continue
+
             if isinstance(example, SuttaCentralSegment):
                 source = example.segment
                 sutta = ""
@@ -398,3 +432,15 @@ class Pass2PreProcessView(ft.Column):
 
         text = str(text_control.value or "").lower()
         text_control.color = ft.Colors.AMBER if query in text else None
+
+    def add_exception(self, e: ft.ControlEvent) -> None:
+        """Add an exception to the pass2 exceptions file,
+        and update the list of examples."""
+
+        if exception_phrase := self.exceptions_field.value:
+            self.pass2_exceptions_manager.update_exceptions(exception_phrase)
+            examples_controls = self.make_examples_list(self.examples_list)
+            self.update_examples(examples_controls)
+            self.exceptions_field.value = ""
+            self.update_message(f"{exception_phrase} added to exceptions.")
+            self.page.update()

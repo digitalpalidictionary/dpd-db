@@ -37,6 +37,7 @@ class Pass2PreController:
 
         self.variant_readings = VariantReadingFileManager()
         self.spelling_mistakes = SpellingMistakesFileManager()
+        self.pass2_exceptions_manager = toolkit.pass2_exceptions_manager
 
         # Keep lightweight book list initialization
         self.sutta_central_books: dict[str, SuttaCentralSource] = sutta_central_books

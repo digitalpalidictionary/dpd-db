@@ -1,10 +1,10 @@
 from collections import defaultdict, namedtuple
 from json import load
 from pathlib import Path
+
 from tools.clean_machine import clean_machine
 from tools.pali_alphabet import pali_alphabet
 from tools.sort_naturally import natural_sort
-
 
 SuttaCentralSegment = namedtuple("SuttaCentralSegment", ["segment", "pali", "english"])
 
@@ -37,6 +37,7 @@ class SuttaCentralSource:
         for file_path in self.pali_file_list:
             data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
             for segment, sentence in data.items():
+                sentence = sentence.replace("ṁ", "ṃ").lower()
                 self.segment_dict[segment] = SuttaCentralSegment(segment, sentence, "")
 
         for file_path in self.english_file_list:
