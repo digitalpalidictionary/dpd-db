@@ -10,6 +10,7 @@ class ToolKit:
         from gui2.database_manager import DatabaseManager
         from gui2.history import HistoryManager
         from gui2.pass2_exceptions import Pass2ExceptionsFileManager
+        from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
         from gui2.paths import Gui2Paths
         from gui2.test_manager import GuiTestManager
         from tools.ai_manager import AIManager
@@ -30,6 +31,7 @@ class ToolKit:
         self.pass2_exceptions_manager: Pass2ExceptionsFileManager = (
             Pass2ExceptionsFileManager(self)
         )
+        self.pass2_new_word_manager: Pass2NewWordManager = Pass2NewWordManager(self)
 
         # Initialize DB parts needed early
         self.db_manager.pre_initialize_gui_data()

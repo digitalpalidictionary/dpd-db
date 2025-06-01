@@ -8,17 +8,17 @@ class Pass2ExceptionsFileManager:
 
         self.toolkit: ToolKit = toolkit
         self.exceptions_json_path: Path = toolkit.paths.pass2_exceptions_path
-        self.exceptions_list = self.read_exceptions()
+        self.exceptions_list: list[str] = self.read_exceptions()
 
     def read_exceptions(self):
         try:
-            with open(self.exceptions_json_path, "r") as file:
+            with open(self.exceptions_json_path, "r", encoding="utf-8") as file:
                 return json.load(file)
         except FileNotFoundError:
             return []
 
     def save_exceptions(self):
-        with open(self.exceptions_json_path, "w") as file:
+        with open(self.exceptions_json_path, "w", encoding="utf-8") as file:
             json.dump(
                 self.exceptions_list,
                 file,
@@ -27,6 +27,6 @@ class Pass2ExceptionsFileManager:
             )
 
     def update_exceptions(self, exception: str):
-        if exception not in self.exceptions_list and exception.strip():
+        if exception and exception.strip() and exception not in self.exceptions_list:
             self.exceptions_list.append(exception.strip())
-        self.save_exceptions()
+            self.save_exceptions()

@@ -1,7 +1,11 @@
+import re
+
 import flet as ft
 
 from gui2.books import SuttaCentralSegment
 from gui2.flet_functions import highlight_word_in_sentence
+from gui2.pass2_exceptions import Pass2ExceptionsFileManager
+from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
 from tools.cst_source_sutta_example import CstSourceSuttaExample
 
@@ -25,8 +29,15 @@ class Pass2PreProcessView(ft.Column):
             self,
             toolkit,
         )
-        self.pass2_exceptions_manager = toolkit.pass2_exceptions_manager
-        self.exceptions_list = toolkit.pass2_exceptions_manager.exceptions_list
+        self.pass2_exceptions_manager: Pass2ExceptionsFileManager = (
+            toolkit.pass2_exceptions_manager
+        )
+        self.pass2_new_word_manager: Pass2NewWordManager = (
+            toolkit.pass2_new_word_manager
+        )
+        self.exceptions_list: list[str] = (
+            toolkit.pass2_exceptions_manager.exceptions_list
+        )
         self.selected_sentence_index: int = 0
         self.examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample] = []
 
@@ -297,7 +308,7 @@ class Pass2PreProcessView(ft.Column):
         if sentence is None:
             return
 
-        message = self.controller.file_manager.update_new_word(
+        message = self.pass2_new_word_manager.update_new_word(
             self.controller.word_in_text, sentence
         )
         self.selected_sentence_index = 0
@@ -315,14 +326,14 @@ class Pass2PreProcessView(ft.Column):
             # dont't display if in exceptions list
             if isinstance(example, SuttaCentralSegment):
                 if any(
-                    exception in example.pali
+                    re.search(rf"\b{exception}\b", example.pali)
                     and self.controller.word_in_text in exception
                     for exception in self.exceptions_list
                 ):
                     continue
             elif isinstance(example, CstSourceSuttaExample):
                 if any(
-                    exception in example.example
+                    re.search(rf"\b{exception}\b", example.example)
                     and self.controller.word_in_text in exception
                     for exception in self.exceptions_list
                 ):

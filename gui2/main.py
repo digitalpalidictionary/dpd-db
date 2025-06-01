@@ -20,8 +20,7 @@ class App:
 
         self.page = page
 
-        if page.theme is None:
-            page.theme = ft.Theme()
+        page.theme = ft.Theme()
         page.theme.font_family = "Inter"
         self.page.window.top = 0
         self.page.window.left = 0
