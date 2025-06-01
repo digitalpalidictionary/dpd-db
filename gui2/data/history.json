@@ -1,5 +1,13 @@
 [
     {
+        "id": 16,
+        "lemma_1": "akaṭayūsa"
+    },
+    {
+        "id": 131,
+        "lemma_1": "akallaka"
+    },
+    {
         "id": 22903,
         "lemma_1": "kevaṭṭasutta"
     },
@@ -70,13 +78,5 @@
     {
         "id": 28396,
         "lemma_1": "jāliyasutta"
-    },
-    {
-        "id": 34481,
-        "lemma_1": "dvepabbajitavatthu"
-    },
-    {
-        "id": 51919,
-        "lemma_1": "mahālisutta 1"
     }
 ]
