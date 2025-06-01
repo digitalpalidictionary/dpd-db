@@ -100,9 +100,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
     def make_dpd_headword_and_add_to_db(self):
         # Collect data from UI fields into a dictionary
         field_data: dict[str, str] = {
-            field_name: field.value
+            field_name: field.value or ""
             for field_name, field in self.ui.dpd_fields.fields.items()
-            if hasattr(DpdHeadword, field_name)  # Only include relevant fields
+            if hasattr(DpdHeadword, field_name)
         }
 
         # Create the DpdHeadword object using the imported function

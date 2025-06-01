@@ -66,6 +66,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.hyphenations_manager.hyphenations_dict
         )
         self.history_manager = self.toolkit.history_manager
+        self.corrections_manager = self.toolkit.corrections_manager
 
         self.dpd_fields: DpdFields
         self._pass2_auto_file_manager = Pass2AutoFileManager(self.toolkit)
@@ -532,6 +533,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         """Add the word to db, or update in db."""
 
         word_to_save = self.dpd_fields.get_current_headword()
+        comment = self.dpd_fields.get_field("comment").value
 
         if (
             hasattr(self, "headword")
@@ -543,6 +545,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         ):
             committed, message = self._db.update_word_in_db(word_to_save)
             log_key = "pass2_update"  # It's an update if this block runs
+            if self.toolkit.username_manager.is_not_primary():
+                self.corrections_manager.update_corrections(word_to_save, comment)
         else:
             committed, message = self._db.add_word_to_db(word_to_save)
             log_key = "pass2_add"

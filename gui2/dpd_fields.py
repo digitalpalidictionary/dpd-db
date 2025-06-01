@@ -269,7 +269,13 @@ class DpdFields(PopUpMixin):
                 on_focus=self.pattern_change,
                 on_change=self.pattern_change,
             ),
-            FieldConfig("comment", multiline=True),
+            FieldConfig(
+                "comment",
+                multiline=True,
+                on_focus=self.comment_change,
+                on_blur=self.comment_change,
+                on_change=self.comment_change,
+            ),
         ]
 
         # Initialize flags
@@ -1077,3 +1083,15 @@ class DpdFields(PopUpMixin):
         else:
             field.error_text = None
         self.page.update()
+
+    def comment_change(self, e: ft.ControlEvent) -> None:
+        """Make a noise if there's no comment."""
+
+        if self.toolkit.username_manager.is_not_primary():
+            field, value = self.get_event_field_and_value(e)
+            if not value:
+                field.error_text = "Add a comment"
+                self.page.update()
+            else:
+                field.error_text = None
+                self.page.update()

@@ -6,6 +6,7 @@ class ToolKit:
         from db_tests.db_tests_manager import DbTestManager
         from gui2.ai_search import AiSearchPopup
         from gui2.appbar_updater import AppBarUpdater
+        from gui2.corrections_manager import CorrectionsManager
         from gui2.daily_log import DailyLog
         from gui2.database_manager import DatabaseManager
         from gui2.history import HistoryManager
@@ -13,6 +14,7 @@ class ToolKit:
         from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
         from gui2.paths import Gui2Paths
         from gui2.test_manager import GuiTestManager
+        from gui2.user import UsernameManager
         from tools.ai_manager import AIManager
         from tools.hyphenations import HyphenationFileManager
         from tools.sandhi_contraction import SandhiContractionManager
@@ -32,6 +34,8 @@ class ToolKit:
             Pass2ExceptionsFileManager(self)
         )
         self.pass2_new_word_manager: Pass2NewWordManager = Pass2NewWordManager(self)
+        self.username_manager: UsernameManager = UsernameManager(self.page)
+        self.corrections_manager: CorrectionsManager = CorrectionsManager(self)
 
         # Initialize DB parts needed early
         self.db_manager.pre_initialize_gui_data()

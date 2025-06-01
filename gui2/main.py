@@ -54,6 +54,8 @@ class App:
 
         self.build_ui()
 
+        self.toolkit.username_manager.get_username()
+
     def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
