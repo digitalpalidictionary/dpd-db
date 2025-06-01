@@ -1,3 +1,50 @@
+:root {
+    /* Background in light mode, text in dark mode */
+    --light: hsl(198, 100%, 95%);
+    --light-shade: hsl(198, 100%, 93%);
+
+    /* Background in dark mode, text in light mode */
+    --dark: hsl(198, 100%, 5%);
+    --dark-shade: hsl(198, 100%, 7%);
+
+    /* Primary colour used for logo, buttons, etc */
+    --primary: hsl(198, 100%, 50%);
+
+    /* Primary alternative used for pressed buttons */
+    --primary-alt: hsl(205, 100%, 40%);
+
+    /* Primary colour suitable for text in light and dark mode */
+    --primary-text: hsl(205, 79%, 48%);
+
+    /* Button shadows */
+    --shadow-default: 2px 2px 4px hsla(0, 0%, 20%, 0.4);
+    --shadow-hover: 2px 2px 4px hsla(0, 0%, 20%, 0.5);
+
+    /* Various grays */
+    --gray: hsl(0, 0%, 50%);
+    --gray-light: hsl(0, 0%, 75%);
+    --gray-dark: hsl(0, 0%, 25%);
+    --gray-transparent: hsla(0, 0%, 50%, 0.25);
+
+    /* Secondary colour just for help and abbreviations */
+    --secondary: hsl(158, 100%, 35%);
+
+    /* Frequency heatmap  */
+    --freq0: hsla(198, 90%, 50%, 0.10);
+    --freq1: hsla(200, 90%, 50%, 0.20);
+    --freq2: hsla(202, 90%, 50%, 0.30);
+    --freq3: hsla(204, 90%, 50%, 0.40);
+    --freq4: hsla(206, 90%, 50%, 0.50);
+    --freq5: hsla(208, 90%, 50%, 0.60);
+    --freq6: hsla(210, 90%, 50%, 0.70);
+    --freq7: hsla(212, 90%, 50%, 0.80);
+    --freq8: hsla(214, 90%, 50%, 0.90);
+    --freq9: hsla(216, 90%, 50%, 1.00);
+    --freq10: hsla(218, 90%, 50%, 1.00);
+}
+
+
+
 body {
     font-family: "Inter", "sans-serif";
 }
@@ -276,23 +323,10 @@ table.freq {
     border-radius: 7px;
     border-collapse: separate;
     border: none;
+/*     width:100%; */
 }
 
-.vertical-text {
-    -webkit-writing-mode: vertical-lr;
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-    white-space: nowrap;
 
-    /* Absolute positioning for robust centering */
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: -webkit-max-content;
-    width: -moz-max-content;
-    width: max-content; */
-}
 
 table.freq thead th {
     text-align: center;
@@ -301,18 +335,24 @@ table.freq thead th {
 table.freq tbody th {
     border: 1px solid var(--primary);
     border-radius: 7px;
-    padding: 5px;
+    padding: 5px 10px;
     text-align: center;
-    width: 12px;
-    white-space: nowrap;
+    width: 1ex;
+    
+/*     white-space: nowrap; */
     vertical-align: middle;
+    
+
 }
 
-/* Style for the specific TH in tbody that has a rowspan (our vertical header cell) */
-/* table.freq tbody th[rowspan] {
-    min-width: 2.0ch;
-    position: relative;
-} */
+
+.vertical-text {
+    text-orientation: upright;
+    inline-size: fit-content;
+        word-break: break-all; /*breaks word at any character */
+    max-width: 0.5ex; /*no wider than a single character */
+    white-space: break-spaces; /^overrides table.freq tbody th  no-wrap */
+}
 
 table.freq td {
     border-collapse: separate;
