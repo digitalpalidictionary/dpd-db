@@ -3820,3 +3820,13 @@ vimānaṃ āvasām'ahaṃ."	missing	wrong eg	no
 35357	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	kayavikkaye vematiko, nissaggiyaṃ pācittiyaṃ. kayavikkaye <b>nakayavikkayasaññī</b>, nissaggiyaṃ pācittiyaṃ.	missing		yes		
 35356	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	<b>nakayavikkaye</b> vematiko, āpatti dukkaṭassa. <b>nakayavikkaye</b> nakayavikkayasaññī, anāpatti.	missing		yes		
 20138	source_1	VIN1.4.2.10	sutta_1	kayavikkayasikkhāpadaṃ	example_1	anāpatti, agghaṃ pucchati, <b>kappiyakārakassa</b> ācikkhati, idaṃ amhākaṃ atthi, amhākañ'ca iminā ca iminā ca attho'ti bhaṇati, ummattakassa, ādikammikassā'ti.	missing		yes		
+36628	source_2	VIN1.4.3.1	sutta_2	pattasikkhāpadaṃ	example_2	majjhimo nāma patto <b>nāḷik</b>'odanaṃ gaṇhāti catubhāgaṃ khādanaṃ tadupiyaṃ byañjanaṃ.	missing		
+41943	source_2	VIN1.4.3.1	sutta_2	pattasikkhāpadaṃ	example_2	omako nāma patto <b>patth</b>'odanaṃ gaṇhāti catubhāgaṃ khādanaṃ tadupiyaṃ byañjanaṃ. tato ukkaṭṭho apatto, omako apatto.	missing		
+38279	sanskrit	nisṛṣṭa + pātra					missing		
+38279	source_1	VIN1.4.3.1	sutta_1	pattasikkhāpadaṃ	example_1	nissajjitvā āpatti desetabbā. byattena bhikkhunā paṭibalena āpatti paṭiggahetabbā, <b>nissaṭṭhapatto</b> dātabbo.	missing		
+38279	compound_type	kammadhāraya	compound_construction	nissaṭṭha + patta			missing		
+7954	source_1	VIN1.4.3.1	sutta_1	pattasikkhāpadaṃ	example_1	avinaṭṭhe vinaṭṭhasaññī, nissaggiyaṃ pācittiyaṃ. <b>abhinne</b> bhinnasaññī, nissaggiyaṃ pācittiyaṃ. avilutte viluttasaññī, nissaggiyaṃ pācittiyaṃ.	missing		
+50003	sanskrit	bhinna + saṃjñin					missing		
+50003	source_1	VIN1.4.3.1	sutta_1	pattasikkhāpadaṃ	example_1	avinaṭṭhe vinaṭṭhasaññī, nissaggiyaṃ pācittiyaṃ. abhinne <b>bhinnasaññī</b>, nissaggiyaṃ pācittiyaṃ. avilutte viluttasaññī, nissaggiyaṃ pācittiyaṃ.	missing		
+50003	compound_type	pañcamī tappurisa	compound_construction	bhinn<b>ato</b> + saññī			missing		
+8776	source_2	VIN1.4.3.1	sutta_2	pattasikkhāpadaṃ	example_2	patto nāma dve pattā <b>ayo</b>patto mattikāpatto'ti.	missing		
