@@ -149,7 +149,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
                 self.auto_processed_dict,
                 self.auto_processed_filepath.open("w"),
                 ensure_ascii=False,
-                indent=2,
+                indent=4,
             )
             self.ui.update_message(f"{self.word_in_text} deleted")
         except KeyError as e:

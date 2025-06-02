@@ -174,6 +174,7 @@ ROOT_FIELDS = [
     "origin",
     "stem",
     "pattern",
+    "comment",
     # "created_at",
     # "updated_at",
     # "inflections",
@@ -236,6 +237,7 @@ COMPOUND_FIELDS = [
     "origin",
     "stem",
     "pattern",
+    "comment",
 ]
 
 WORD_FIELDS = [
@@ -287,6 +289,7 @@ WORD_FIELDS = [
     "origin",
     "stem",
     "pattern",
+    "comment",
     # "created_at",
     # "updated_at",
     # "inflections",

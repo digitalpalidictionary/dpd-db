@@ -200,7 +200,11 @@ class Data:
     def update_exceptions(self):
         self.exceptions_dict[self.word] = self.headword.id
         self.exceptions_path.write_text(
-            json.dumps(self.exceptions_dict, ensure_ascii=False, indent=2)
+            json.dumps(
+                self.exceptions_dict,
+                ensure_ascii=False,
+                indent=4,
+            )
         )
 
     def make_i2h_dict(self):
@@ -278,7 +282,7 @@ class Data:
         data = json.dumps(
             [self.headword.id, self.source, self.sutta, self.example],
             ensure_ascii=False,
-            indent=2,
+            indent=4,
         )
         self.data_path.write_text(data)
 

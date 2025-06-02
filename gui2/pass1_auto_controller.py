@@ -9,9 +9,9 @@ from gui2.books import (
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
+from tools.ai_manager import AIResponse
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.goldendict_tools import open_in_goldendict_os
-from tools.ai_manager import AIResponse
 from tools.printer import printer as pr
 
 
@@ -367,7 +367,7 @@ ve: verbal ending
             self.ui.update_ai_results(
                 dumps(
                     self.auto_processed_dict[self.word_in_text],
-                    indent=2,
+                    indent=4,
                     ensure_ascii=False,
                     separators=("", ":"),
                 )
@@ -375,7 +375,12 @@ ve: verbal ending
 
             # save updated dictionary to main file
             with self.auto_processed_path.open("w") as f:
-                dump(self.auto_processed_dict, f, indent=2, ensure_ascii=False)
+                dump(
+                    self.auto_processed_dict,
+                    f,
+                    indent=4,
+                    ensure_ascii=False,
+                )
 
         except JSONDecodeError as e:
             # Handle the case where the response is not valid JSON

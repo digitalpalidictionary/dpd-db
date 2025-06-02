@@ -115,11 +115,14 @@ class Pass2PreController:
         self.load_next_headword()
 
     def get_cst_examples(self):
-        examples: list[CstSourceSuttaExample] = []
-        for book in self.cst_books:
-            regex_word_in_text = rf"\b{self.word_in_text}\b"
-            examples.extend(find_cst_source_sutta_example(book, regex_word_in_text))
-        self.missing_examples_dict[self.word_in_text] = examples
+        if self.word_in_text:
+            examples: list[CstSourceSuttaExample] = []
+            for book in self.cst_books:
+                regex_word_in_text = rf"\b{self.word_in_text}\b"
+                examples.extend(find_cst_source_sutta_example(book, regex_word_in_text))
+            self.missing_examples_dict[self.word_in_text] = examples
+        else:
+            self.ui.update_message("word_in_text is empty!")
 
     def load_next_headword(self):
         if self.headword_index + 1 >= len(self.headwords):
