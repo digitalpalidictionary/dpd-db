@@ -455,3 +455,29 @@ class Pass2PreProcessView(ft.Column):
             self.exceptions_field.value = ""
             self.update_message(f"{exception_phrase} added to exceptions.")
             self.page.update()
+
+    def clear_all_fields(self):
+        """Clear all text fields, input fields, and reset UI components."""
+        # Clear text display fields
+        self.message_field.value = ""
+        self.preprocessed_count_field.value = ""
+        self.word_in_text_field.value = ""
+        self.headword_lemma_1_field.value = ""
+        self.headword_pos_field.value = ""
+        self.headword_meaning_field.value = ""
+
+        # Clear input fields
+        self.exceptions_field.value = ""
+        self.search_bar.value = ""
+
+        # Reset dropdown
+        self.books_dropdown.value = None
+
+        # Clear examples container
+        self.examples_field.content = None
+
+        # Reset selected sentence index
+        self.selected_sentence_index = 0
+
+        # Update the page to reflect changes
+        self.page.update()

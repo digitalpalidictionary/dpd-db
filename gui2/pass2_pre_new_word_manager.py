@@ -52,9 +52,9 @@ class Pass2NewWordManager:
         """Adds or updates an entry in the 'new_word' dictionary."""
 
         self.new_words_dict[word_in_text] = {
-            "source": sentence_data[0],
-            "sutta": sentence_data[1],
-            "example": sentence_data[2],
+            "source_1": sentence_data[0],
+            "sutta_1": sentence_data[1],
+            "example_1": sentence_data[2],
         }
 
         self.save_data()

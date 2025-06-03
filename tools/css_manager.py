@@ -8,6 +8,7 @@
 """
 
 import re
+
 from tools.paths import ProjectPaths
 
 

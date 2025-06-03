@@ -1,9 +1,11 @@
+import time
 from typing import Optional  # Tuple removed
-from openai import OpenAI, APIError
+
+from openai import APIError, OpenAI
+
+from tools.ai_manager import AIResponse
 from tools.configger import config_read
 from tools.printer import printer as pr
-import time
-from tools.ai_manager import AIResponse
 
 DEFAULT_API_KEY_NAME = "openrouter"
 
@@ -51,6 +53,7 @@ class OpenRouterManager:
             completion = self.client.chat.completions.create(
                 model=model,
                 messages=messages,  # type: ignore
+                timeout=timeout,
                 **kwargs,
             )
             # print(completion) # Useful for debugging

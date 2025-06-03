@@ -100,6 +100,7 @@ class Pass2PreController:
 
     def load_next_word(self):
         if not self.missing_examples_dict:
+            self.ui.clear_all_fields()
             self.ui.update_message("No more words to process.")
             return
 

@@ -1,12 +1,8 @@
-from typing import Any
 import time
-
+from typing import Any, NamedTuple, Optional
 
 from tools.configger import config_read
 from tools.printer import printer as pr
-
-
-from typing import NamedTuple, Optional
 
 
 class AIResponse(NamedTuple):
@@ -31,9 +27,11 @@ class AIManager:
         ("gemini", "gemini-2.5-pro-exp-03-25"),
         ("deepseek", "deepseek-chat"),
         ("deepseek", "deepseek-reasoner"),
+        ("openrouter", "google/gemini-2.5-pro-preview"),
+        ("openrouter", "openai/gpt-4.1"),
+        ("openrouter", "anthropic/claude-sonnet-4"),
         ("openrouter", "meta-llama/llama-4-maverick:free"),
         ("openrouter", "qwen/qwen3-235b-a22b:free"),
-        ("openrouter", "thudm/glm-4-32b:free"),
     ]
 
     # Grounded models for internet searches
