@@ -244,7 +244,13 @@
     "2025-06-02": {
         "pass1": 1,
         "pass2_add": 4,
-        "pass2_pre": 588,
+        "pass2_pre": 730,
         "pass2_update": 24
+    },
+    "2025-06-03": {
+        "pass1": 0,
+        "pass2_add": 3,
+        "pass2_pre": 353,
+        "pass2_update": 79
     }
 }
