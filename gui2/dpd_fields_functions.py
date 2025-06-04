@@ -95,9 +95,15 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
     pattern = ""
 
     if pos == "adj":
-        if lemma_1_clean.endswith("a"):
+        if lemma_1_clean.endswith("aka"):
+            stem = lemma_1_clean[:-3]
+            pattern = "aka adj"
+        elif lemma_1_clean.endswith("a"):
             stem = lemma_1_clean[:-1]
             pattern = "a adj"
+        elif lemma_1_clean.endswith("i"):
+            stem = lemma_1_clean[:-1]
+            pattern = "i adj"
         elif lemma_1_clean.endswith("ī"):
             stem = lemma_1_clean[:-1]
             pattern = "ī adj"
@@ -107,47 +113,38 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
         elif lemma_1_clean.endswith("u"):
             stem = lemma_1_clean[:-1]
             pattern = "u adj"
-        elif lemma_1_clean.endswith("i"):
-            stem = lemma_1_clean[:-1]
-            pattern = "i adj"
         elif lemma_1_clean.endswith("ū"):
             stem = lemma_1_clean[:-1]
             pattern = "ū adj"
-        elif lemma_1_clean.endswith("aka"):
-            stem = lemma_1_clean[:-3]
-            pattern = "aka adj"
 
     elif pos == "masc":
         if lemma_1_clean.endswith("a"):
             stem = lemma_1_clean[:-1]
             pattern = "a masc"
-        elif lemma_1_clean.endswith("ī"):
-            stem = lemma_1_clean[:-1]
-            pattern = "ī masc"
         elif lemma_1_clean.endswith("i"):
             stem = lemma_1_clean[:-1]
             pattern = "i masc"
+        elif lemma_1_clean.endswith("ī"):
+            stem = lemma_1_clean[:-1]
+            pattern = "ī masc"
         elif lemma_1_clean.endswith("u"):
             stem = lemma_1_clean[:-1]
             pattern = "u masc"
+        elif lemma_1_clean.endswith("ū"):
+            stem = lemma_1_clean[:-1]
+            pattern = "ū masc"
         elif lemma_1_clean.endswith("ar"):
             stem = lemma_1_clean[:-2]
             pattern = "ar masc"
         elif lemma_1_clean.endswith("as"):
-            stem = lemma_1_clean[:-1]
+            stem = lemma_1_clean[:-2]
             pattern = "as masc"
-        elif lemma_1_clean.endswith("ū"):
-            stem = lemma_1_clean[:-1]
-            pattern = "ū masc"
         elif lemma_1_clean.endswith("ant"):
             stem = lemma_1_clean[:-3]
             pattern = "ant masc"
         elif lemma_1_clean.endswith("ā"):
             stem = lemma_1_clean[:-1]
             pattern = "a masc pl"
-        elif lemma_1_clean.endswith("as"):
-            stem = lemma_1_clean[:-2]
-            pattern = "as masc"
         elif lemma_1_clean.endswith("rāja"):
             stem = lemma_1_clean[:-4]
             pattern = "rāja masc"
@@ -165,12 +162,12 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
         elif lemma_1_clean.endswith("u"):
             stem = lemma_1_clean[:-1]
             pattern = "u fem"
-        elif lemma_1_clean.endswith("ar"):
-            stem = lemma_1_clean[:-2]
-            pattern = "ar fem"
         elif lemma_1_clean.endswith("ū"):
             stem = lemma_1_clean[:-1]
             pattern = "ū fem"
+        elif lemma_1_clean.endswith("ar"):
+            stem = lemma_1_clean[:-2]
+            pattern = "ar fem"
         elif lemma_1_clean.endswith("mātar"):
             stem = lemma_1_clean[:-5]
             pattern = "mātar fem"
@@ -196,12 +193,12 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
         elif "nt sg" in grammar:
             stem = lemma_1_clean[:-1]
             pattern = "a2 card"
-        elif lemma_1_clean.endswith("i"):
-            stem = lemma_1_clean[:-1]
-            pattern = "i card"
         elif lemma_1_clean.endswith("koṭi"):
             stem = lemma_1_clean[:-1]
             pattern = "i2 card"
+        elif lemma_1_clean.endswith("i"):
+            stem = lemma_1_clean[:-1]
+            pattern = "i card"
         elif lemma_1_clean.endswith("ā"):
             stem = lemma_1_clean[:-1]
             pattern = "ā card"
@@ -258,15 +255,15 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
             pattern = "āti pr"
 
     elif pos == "aor":
-        if lemma_1_clean.endswith("i"):
-            stem = lemma_1_clean[:-1]
-            pattern = "i aor"
+        if lemma_1_clean.endswith("āsi"):
+            stem = lemma_1_clean[:-3]
+            pattern = "āsi aor"
         elif lemma_1_clean.endswith("esi"):
             stem = lemma_1_clean[:-3]
             pattern = "esi aor"
-        elif lemma_1_clean.endswith("āsi"):
-            stem = lemma_1_clean[:-3]
-            pattern = "āsi aor"
+        elif lemma_1_clean.endswith("i"):
+            stem = lemma_1_clean[:-1]
+            pattern = "i aor"
 
     elif pos == "perf":
         if lemma_1_clean.endswith("a"):
