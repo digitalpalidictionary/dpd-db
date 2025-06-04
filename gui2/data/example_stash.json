@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "MIL4.4.10",
-        "sutta": "buddhasabbaññubhāvapañho",
-        "example": "yathā, mahārāja, itthī sāmikassa santaken'eva dhanena sāmikaṃ ārādheti toseti pasādeti, tañ'ca sāmiko sādhū'ti abbhānumodati, evam'eva kho, mahārāja, cātumeyyakā ca sakyā brahmā ca sahampati tathāgatappavediteh'eva opammehi tathāgataṃ ārādhesuṃ tosesuṃ pasādesuṃ, tesañ'ca tathāgato pasanno sādhū'ti abbhānumodi."
+        "source": "DN24",
+        "sutta": "pāthikasuttaṃ, aggaññapaññattikathā",
+        "example": "te ca me evaṃ puṭṭhā, āmo'ti paṭijānanti. ty'āhaṃ evaṃ vadāmi, kathaṃ vihitakaṃno pana tumhe āyasmanto issarakuttaṃ brahmakuttaṃ ācariyakaṃ aggaññaṃ paññapethā'ti? te mayā puṭṭhā na sampāyanti, asampāyantā mamaññ'eva paṭipucchanti."
     },
     "stash": {
-        "source": "DN33",
-        "sutta": "saṅgītisuttaṃ, sattakaṃ",
-        "example": "satta saṃyojanāni, anunayasaṃyojanaṃ, paṭighasaṃyojanaṃ, diṭṭhisaṃyojanaṃ, vicikicchāsaṃyojanaṃ, mānasaṃyojanaṃ, bhavarāgasaṃyojanaṃ, avijjāsaṃyojanaṃ. "
+        "source": "DN28",
+        "sutta": "sampasādanīyasuttaṃ, ādesanavidhādesanā",
+        "example": "puna caparaṃ, bhante, idh'ekacco na h'eva kho nimittena ādisati, n'āpi manussānaṃ vā amanussānaṃ vā devatānaṃ vā saddaṃ sutvā ādisati. api ca kho vitakkayato vicārayato vitakkavipphārasaddaṃ sutvā ādisati, evam'pi te mano, ittham'pi te mano, iti'pi te cittan'ti."
     }
 }

@@ -1,0 +1,22 @@
+{
+    "unmatched": {
+        "namo": [
+            35796
+        ],
+        "bhagavato": [
+            49140
+        ]
+    },
+    "matched": {
+        "mūlapariyāyavaggo": {
+            "id": 53124,
+            "sentence": [
+                "mn10:47.6",
+                "mūlapariyāyavaggo niṭṭhito paṭhamo. ",
+                ""
+            ]
+        }
+    },
+    "new_word": {},
+    "processed": []
+}
