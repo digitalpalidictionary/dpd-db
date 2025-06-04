@@ -4,6 +4,7 @@ import flet as ft
 class ToolKit:
     def __init__(self, page: ft.Page):
         from db_tests.db_tests_manager import DbTestManager
+        from gui2.additions_manager import AdditionsManager
         from gui2.ai_search import AiSearchPopup
         from gui2.appbar_updater import AppBarUpdater
         from gui2.corrections_manager import CorrectionsManager
@@ -36,11 +37,10 @@ class ToolKit:
         self.pass2_new_word_manager: Pass2NewWordManager = Pass2NewWordManager(self)
         self.username_manager: UsernameManager = UsernameManager(self.page)
         self.corrections_manager: CorrectionsManager = CorrectionsManager(self)
-
-        # Initialize DB parts needed early
-        self.db_manager.pre_initialize_gui_data()
-
-        # Managers with dependencies on other managers or page
+        self.additions_manager: AdditionsManager = AdditionsManager(self)
         self.appbar_updater: AppBarUpdater = AppBarUpdater(self.page)
         self.daily_log: DailyLog = DailyLog(self)
         self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)
+
+        # Initialize DB parts needed early
+        self.db_manager.pre_initialize_gui_data()

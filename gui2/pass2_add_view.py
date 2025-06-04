@@ -23,7 +23,7 @@ from gui2.toolkit import ToolKit
 from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.fast_api_utils import request_dpd_server
 from tools.hyphenations import HyphenationFileManager, HyphenationsDict
-from tools.paths import ProjectPaths  # Import ProjectPaths
+from tools.paths import ProjectPaths
 from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
 
 LABEL_WIDTH = 250
@@ -67,6 +67,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
         self.history_manager = self.toolkit.history_manager
         self.corrections_manager = self.toolkit.corrections_manager
+        self.additions_manager = self.toolkit.additions_manager
 
         self.dpd_fields: DpdFields
         self._pass2_auto_file_manager = Pass2AutoFileManager(self.toolkit)
@@ -234,7 +235,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._message_field.value = message
         self.page.update()
 
-    def add_headword_to_examples_and_commentary(self):
+    def add_headword_to_examples_and_commentary(self) -> None:
         # add headword to example_1 example_2 and commentary
         if self.headword:
             lemma_clean = clean_lemma_1(self.headword.lemma_1)
@@ -396,15 +397,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             self.update()
 
-    def _click_clear_all(self, e: ft.ControlEvent):
+    def _click_clear_all(self, e: ft.ControlEvent) -> None:
         self.clear_all_fields()
 
-    def _click_update_sandhi(self, e: ft.ControlEvent):
+    def _click_update_sandhi(self, e: ft.ControlEvent) -> None:
         self.update_message("updating sandhi... please wait...")
         self.sandhi_dict = self.sandhi_manager.regenerate_contractions_simple()
         self.update_message("sandhi updated")
 
-    def _handle_filter_change(self, e: ft.ControlEvent):
+    def _handle_filter_change(self, e: ft.ControlEvent) -> None:
         """Handles changes in the field filter RadioGroup."""
         filter_type = e.control.value
         visible_fields = None  # Default to all
@@ -421,20 +422,21 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.dpd_fields.filter_fields(visible_fields)
         self.page.update()
 
-    def _update_history_dropdown(self):
+    def _update_history_dropdown(self) -> None:
         """Populates the history dropdown with the latest history."""
         history_items = self.history_manager.get_history()
-        self._history_dropdown.options.clear()
-        for item in history_items:
-            self._history_dropdown.options.append(
-                ft.dropdown.Option(
-                    key=str(item.get("id")),  # Key must be string for Dropdown
-                    text=f"{item.get('id')}: {item.get('lemma_1', 'N/A')}",
+        if self._history_dropdown.options is not None:
+            self._history_dropdown.options.clear()
+            for item in history_items:
+                self._history_dropdown.options.append(
+                    ft.dropdown.Option(
+                        key=str(item.get("id")),  # Key must be string for Dropdown
+                        text=f"{item.get('id')}: {item.get('lemma_1', 'N/A')}",
+                    )
                 )
-            )
-        self.page.update()  # Ensure dropdown updates visually
+        self.page.update()
 
-    def _handle_history_selection(self, e: ft.ControlEvent):
+    def _handle_history_selection(self, e: ft.ControlEvent) -> None:
         """Loads the selected headword from history."""
         selected_id_str = e.control.value
         if selected_id_str:
@@ -495,7 +497,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.update_message("")  # Clear message field
         self.page.update()
 
-    def _click_run_tests(self, e: ft.ControlEvent):
+    def _click_run_tests(self, e: ft.ControlEvent) -> None:
         """Run tests on current field values"""
 
         # Get the lemma_1 field and its value first
@@ -529,7 +531,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self._add_to_db_button.color = None
         self.page.update()
 
-    def _click_add_to_db(self, e: ft.ControlEvent):
+    def _click_add_to_db(self, e: ft.ControlEvent) -> None:
         """Add the word to db, or update in db."""
 
         word_to_save = self.dpd_fields.get_current_headword()
@@ -543,12 +545,26 @@ class Pass2AddView(ft.Column, PopUpMixin):
             and word_to_save.id
             == self.headword_original.id  # Compare ID from UI state with original
         ):
+            # it's an update if this block runs
             committed, message = self._db.update_word_in_db(word_to_save)
-            log_key = "pass2_update"  # It's an update if this block runs
+            log_key = "pass2_update"
+
             if self.toolkit.username_manager.is_not_primary():
-                self.corrections_manager.update_corrections(word_to_save, comment)
+                # if not in additions then add to corrections
+                if self.toolkit.additions_manager.is_not_in_additions(word_to_save.id):
+                    self.corrections_manager.update_corrections(word_to_save, comment)
+
+                # if in additions then update to additions
+                else:
+                    self.additions_manager.add_additions(word_to_save, comment)
         else:
+            # add to additions json
+            if self.toolkit.username_manager.is_not_primary():
+                self.additions_manager.add_additions(word_to_save, comment)
+
+            # add to db
             committed, message = self._db.add_word_to_db(word_to_save)
+
             log_key = "pass2_add"
             item_to_history = word_to_save
 
@@ -569,10 +585,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 item_id = item_to_history.id
                 item_lemma = item_to_history.lemma_1
             else:
-                item_id = self.headword.id
-                item_lemma = self.headword.lemma_1
+                item_id = self.headword.id if self.headword else None
+                item_lemma = self.headword.lemma_1 if self.headword else ""
 
-            was_new_to_history = self.history_manager.add_item(item_id, item_lemma)
+            if item_id is not None:
+                was_new_to_history = self.history_manager.add_item(item_id, item_lemma)
+            else:
+                was_new_to_history = False
 
             if was_new_to_history:
                 self._daily_log.increment(log_key)
@@ -593,7 +612,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._add_to_db_button.color = ft.Colors.RED
         self.page.update()
 
-    def _click_update_with_ai(self, e: ft.ControlEvent):
+    def _click_update_with_ai(self, e: ft.ControlEvent) -> None:
         """Handles the 'Update with AI' button click."""
         current_headword = self.dpd_fields.get_current_headword()
         if not current_headword or not current_headword.id:
@@ -616,7 +635,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         else:
             self.update_message(f"AI update failed for {current_headword.lemma_1}.")
 
-    def _click_delete_from_db(self, e: ft.ControlEvent):
+    def _click_delete_from_db(self, e: ft.ControlEvent) -> None:
         self.dpd_fields.clear_messages()
 
         if not self.headword:
@@ -655,7 +674,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.page.open(self.delete_alert)
         self.page.update()
 
-    def _click_delete_ok(self, e: ft.ControlEvent):
+    def _click_delete_ok(self, e: ft.ControlEvent) -> None:
         self.delete_alert.open = False
         self.page.update()
 
@@ -669,11 +688,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
         else:
             self.update_message("No headword to delete")
 
-    def _click_delete_cancel(self, e: ft.ControlEvent):
+    def _click_delete_cancel(self, e: ft.ControlEvent) -> None:
         self.delete_alert.open = False
         self.page.update()
 
-    def _click_backup_db(self, e: ft.ControlEvent):
+    def _click_backup_db(self, e: ft.ControlEvent) -> None:
         """Runs the backup script for DpdHeadword and DpdRoot tables."""
         # Instantiate ProjectPaths here
         pth = ProjectPaths()

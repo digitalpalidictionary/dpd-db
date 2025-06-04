@@ -78,7 +78,7 @@ class Pass2PreController:
                 word in self.db.all_inflections_missing_example
                 or word in self.db.all_decon_no_headwords
             )
-            and word not in self.db.sandhi_ok_list
+            # and word not in self.db.sandhi_ok_list
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
             and word not in self.file_manager.unmatched.keys()

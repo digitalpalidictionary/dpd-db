@@ -6,11 +6,17 @@ import pyperclip
 from rich import print
 
 from db.models import DpdHeadword
+from gui2.additions_manager import AdditionsManager
 from gui2.books import sutta_central_books
+from gui2.daily_log import DailyLog
+from gui2.database_manager import DatabaseManager
 from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from gui2.mixins import SandhiOK, SnackBarMixin
+from gui2.pass1_add_view import Pass1AddView
+from gui2.paths import Gui2Paths
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
+from gui2.user import UsernameManager
 from gui2.variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
@@ -29,17 +35,19 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         ui: Pass1AddView,
         toolkit: ToolKit,
     ) -> None:
-        self.ui = ui
-        self.db = toolkit.db_manager
-        self.daily_log = toolkit.daily_log
-        self.gui2pth = toolkit.paths
+        self.ui: Pass1AddView = ui
+        self.db: DatabaseManager = toolkit.db_manager
+        self.daily_log: DailyLog = toolkit.daily_log
+        self.gui2pth: Gui2Paths = toolkit.paths
+        self.additions_manager: AdditionsManager = toolkit.additions_manager
+        self.username_manager: UsernameManager = toolkit.username_manager
 
         self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
         self.book_to_process: str
 
         self.auto_processed_filepath: Path
-        self.auto_processed_dict: dict[str, dict[str, str]]
+        self.auto_processed_dict: dict[str, dict[str, str]] = {}
         self.auto_processed_iter = iter([])
 
         self.word_in_text: str
@@ -104,6 +112,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             for field_name, field in self.ui.dpd_fields.fields.items()
             if hasattr(DpdHeadword, field_name)
         }
+        comment = self.ui.dpd_fields.get_field("comment").value or ""
 
         # Create the DpdHeadword object using the imported function
         new_word = make_dpd_headword_from_dict(field_data)
@@ -112,7 +121,13 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         new_word.id = self.db.get_next_id()
         new_word.origin = "pass1"
 
+        # add to additions
+        if self.username_manager.is_not_primary():
+            self.additions_manager.add_additions(new_word, comment)
+
+        # add to db
         committed, message = self.db.add_word_to_db(new_word)
+
         if committed:
             # open in browser
             request_dpd_server(new_word.id)
