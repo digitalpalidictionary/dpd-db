@@ -237,8 +237,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def add_headword_to_examples_and_commentary(self) -> None:
         # add headword to example_1 example_2 and commentary
-        if self.headword:
-            lemma_clean = clean_lemma_1(self.headword.lemma_1)
+        # if self.headword:
+        lemma_1 = self.dpd_fields.get_field("lemma_1").value
+        if lemma_1:
+            lemma_clean = clean_lemma_1(lemma_1)
             commentary_field: DpdCommentaryField = self.dpd_fields.get_field(
                 "commentary"
             )

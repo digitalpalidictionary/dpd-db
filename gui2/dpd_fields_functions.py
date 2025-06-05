@@ -42,6 +42,8 @@ def make_lemma_2(lemma_1: str, pos: str, grammar: str) -> str:
     if pos == "masc":
         if lemma_clean.endswith("a"):
             return f"{lemma_clean[:-1]}o"
+        elif lemma_clean.endswith("ar"):
+            return f"{lemma_clean[:-2]}ā"
         else:
             return lemma_clean
     elif pos == "nt":
