@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "DN29",
-        "sutta": "pāsādikasuttaṃ, saññāpetabbavidhi",
-        "example": "tassa sādhū'ti bhāsitaṃ abhinanditabbaṃ anumoditabbaṃ, tassa sādhū'ti bhāsitaṃ abhinanditvā anumoditvā so evam'assa vacanīyo, lābhā no āvuso, suladdhaṃ no āvuso, ye mayaṃ āyasmantaṃ tādisaṃ sabrahmacāriṃ passāma evaṃ atth'upetaṃ byañjan'upetan'ti."
+        "source": "DN9",
+        "sutta": "poṭṭhapādasuttaṃ, sahetukasaññuppādanirodhakathā",
+        "example": "tassa yā purimā kāmasaññā, sā nirujjhati. vivekaja-pītisukha-sukhumasacca-saññā tasmiṃ samaye hoti, vivekaja-pītisukha-sukhumasacca-saññī'y'eva tasmiṃ samaye hoti. evam'pi sikkhā ekā saññā uppajjati, sikkhā ekā saññā nirujjhati."
     },
     "stash": {
-        "source": "DN28",
-        "sutta": "sampasādanīyasuttaṃ, ādesanavidhādesanā",
-        "example": "puna caparaṃ, bhante, idh'ekacco na h'eva kho nimittena ādisati, n'āpi manussānaṃ vā amanussānaṃ vā devatānaṃ vā saddaṃ sutvā ādisati. api ca kho vitakkayato vicārayato vitakkavipphārasaddaṃ sutvā ādisati, evam'pi te mano, ittham'pi te mano, iti'pi te cittan'ti."
+        "source": "BV2",
+        "sutta": "sumedhapatthanākathā",
+        "example": "nagaraṃ sabb'aṅgasampannaṃ,\nsabbakammam'upāgataṃ,\nsattaratanasampannaṃ,\nnānājanasamākulaṃ,\nsamiddhaṃ devanagaraṃ'va,\nāvāsaṃ puññakamminaṃ."
     }
 }
