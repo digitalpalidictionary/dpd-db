@@ -113,7 +113,6 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig(
                 "grammar",
-                on_submit=self.grammar_submit,
                 on_blur=self.grammar_blur,
             ),
             FieldConfig("derived_from"),
@@ -654,41 +653,41 @@ class DpdFields(PopUpMixin):
         self.page.update()
 
     def pos_blur(self, e: ft.ControlEvent) -> None:
-        field, value = self.get_event_field_and_value(e)
+        pos_field, pos = self.get_event_field_and_value(e)
+        grammar_field = self.get_field("grammar")
+        grammar = grammar_field.value
 
         # test for wrong values
-        if value not in self.db.all_pos:
+        if pos not in self.db.all_pos:
             suggestions = find_closest_matches(
-                value, list(self.db.all_pos or []), limit=3
+                pos, list(self.db.all_pos or []), limit=3
             )
             if suggestions:
-                field.error_text = ", ".join(suggestions)
+                pos_field.error_text = ", ".join(suggestions)
             else:
-                field.error_text = f"Unknown pattern: {value}"
-            field.focus()
+                pos_field.error_text = f"Unknown pattern: {pos}"
+            pos_field.focus()
         else:
-            field.error_text = None
+            pos_field.error_text = None
         self.page.update()
 
         # then update lemma_2 based on lemma_1 and pos
         lemma_1 = self.get_field("lemma_1").value
         lemma_2_field = self.get_field("lemma_2")
-        grammar = self.get_field("grammar").value
-        lemma_2 = make_lemma_2(lemma_1, value, grammar)
+        lemma_2 = make_lemma_2(lemma_1, pos, grammar)
         lemma_2_field.value = lemma_2
         self.page.update()
 
-    def grammar_submit(self, e: ft.ControlEvent) -> None:
-        field, value = self.get_event_field_and_value(e)
-        pos = self.get_field("pos").value
-        if pos in VERBS or pos in PARTICIPLES:
-            field.value = f"{pos} of "
-        elif pos in NOUNS:
-            field.value = f"{pos}, "
-        else:
-            field.value = f"{pos}, "
-        self.page.update()
-        field.focus()
+        # then update grammar field
+        if grammar == "":
+            if pos in VERBS or pos in PARTICIPLES:
+                grammar_field.value = f"{pos} of "
+            elif pos in NOUNS:
+                grammar_field.value = f"{pos}, "
+            else:
+                grammar_field.value = f"{pos}, "
+            grammar_field.focus()
+            self.page.update()
 
     def grammar_blur(self, e: ft.ControlEvent) -> None:
         """Autofill derived_from."""

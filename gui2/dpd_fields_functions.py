@@ -150,6 +150,13 @@ def find_stem_pattern(pos: str, grammar: str, lemma_1: str) -> tuple[str, str]:
         elif lemma_1_clean.endswith("rāja"):
             stem = lemma_1_clean[:-4]
             pattern = "rāja masc"
+        elif lemma_1_clean.endswith("ū"):
+            if "masc pl" in grammar:
+                stem = lemma_1_clean[:-1]
+                pattern = "u masc pl"
+            else:
+                stem = lemma_1_clean[:-1]
+                pattern = "ū masc"
 
     elif pos == "fem":
         if lemma_1_clean.endswith("ā"):

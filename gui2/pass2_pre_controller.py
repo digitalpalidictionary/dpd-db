@@ -136,6 +136,7 @@ class Pass2PreController:
         self.ui.update_message("")
 
         examples_list = self.missing_examples_dict[self.word_in_text]
+        examples_list = self.clean_examples_list(examples_list)
         examples_controls = self.ui.make_examples_list(examples_list)
         self.ui.headword_lemma_1_field.value = headword.lemma_1
         self.ui.headword_pos_field.value = headword.pos
@@ -146,3 +147,32 @@ class Pass2PreController:
 
         self.ui.page.update()
         open_in_goldendict_os(str(headword.id))
+
+    def clean_examples_list(
+        self, examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample]
+    ) -> list[SuttaCentralSegment] | list[CstSourceSuttaExample]:
+        """Clean the examples list by removing all types of inverted commas and quotation marks."""
+
+        cleaned_list = []
+        for i in examples_list:
+            if isinstance(i, SuttaCentralSegment):
+                # Create a new instance with cleaned pali field
+                cleaned_i = SuttaCentralSegment(
+                    i.segment, self.clean_quotes(i.pali), i.english
+                )
+                cleaned_list.append(cleaned_i)
+            elif isinstance(i, CstSourceSuttaExample):
+                # Create a new instance with cleaned example field
+                cleaned_i = CstSourceSuttaExample(
+                    i.source, i.sutta, self.clean_quotes(i.example)
+                )
+                cleaned_list.append(cleaned_i)
+        return cleaned_list
+
+    def clean_quotes(self, text: str) -> str:
+        """Remove all types of quotation marks from text."""
+        # Straight quotes
+        text = text.replace('"', "").replace("'", "")
+        # Curly quotes
+        text = text.replace("“", "").replace("”", "").replace("‘", "").replace("’", "")
+        return text

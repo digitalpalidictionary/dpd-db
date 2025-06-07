@@ -327,14 +327,16 @@ class Pass2PreProcessView(ft.Column):
             if isinstance(example, SuttaCentralSegment):
                 if any(
                     re.search(rf"\b{exception}\b", example.pali)
-                    and self.controller.word_in_text in exception
+                    and self.controller.clean_quotes(self.controller.word_in_text)
+                    in exception
                     for exception in self.exceptions_list
                 ):
                     continue
             elif isinstance(example, CstSourceSuttaExample):
                 if any(
                     re.search(rf"\b{exception}\b", example.example)
-                    and self.controller.word_in_text in exception
+                    and self.controller.clean_quotes(self.controller.word_in_text)
+                    in exception
                     for exception in self.exceptions_list
                 ):
                     continue
