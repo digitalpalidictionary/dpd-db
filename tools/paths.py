@@ -1,8 +1,8 @@
 """All file paths that get used in the Project."""
 
 import os
-from typing import Optional
 from pathlib import Path
+from typing import Optional
 
 
 class ProjectPaths:
@@ -684,6 +684,9 @@ class ProjectPaths:
 
         # go_modules
         self.go_deconstructor_output_dir = base_dir / "go_modules/deconstructor/output"
+        self.go_deconstructor_output_json = (
+            base_dir / "go_modules/deconstructor/output/deconstructor_output.json"
+        )
 
         if create_dirs:
             self.create_dirs()

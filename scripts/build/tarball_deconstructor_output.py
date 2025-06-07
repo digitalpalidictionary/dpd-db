@@ -21,10 +21,26 @@ def main():
         return
 
     pth = ProjectPaths()
+
+    source_path = pth.go_deconstructor_output_json
+    dest_path = pth.deconstructor_output_json
+
+    # Ensure the destination directory exists
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+    pr.green("copying from go dir")
+    try:
+        dest_path.write_bytes(source_path.read_bytes())
+        pr.yes("ok")
+    except Exception as e:
+        pr.no(f"Error copying file: {e}")
+        pr.toc()
+        return
+
     create_tarball(
         tarball_name="deconstructor_output.json.tar.gz",
-        source_files=[pth.deconstructor_output_json],
-        destination_dir=pth.deconstructor_output_dir,
+        source_files=[dest_path],  # Use the copied file path
+        destination_dir=pth.deconstructor_output_dir,  # This is dest_path.parent
         compression="gz",
     )
 

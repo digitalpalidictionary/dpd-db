@@ -2,9 +2,9 @@
 
 """Tarball a list of files and move it to a destination folder."""
 
-from pathlib import Path
-import tarfile
 import os
+import tarfile
+from pathlib import Path
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -16,7 +16,7 @@ def create_tarball(
     """
     Create a tarball of of a file list and move it to the destination dir.
     """
-    pr.green_title(f"Creating {tarball_name}")
+    pr.green_title(f"Creating [white]{tarball_name}")
 
     pr.green("adding files")
     with tarfile.open(tarball_name, f"w:{compression}") as tar:  # type: ignore
