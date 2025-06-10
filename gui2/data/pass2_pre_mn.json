@@ -5,6 +5,213 @@
         ],
         "bhagavato": [
             49140
+        ],
+        "sutaṃ": [
+            63773
+        ],
+        "samayaṃ": [
+            59455
+        ],
+        "bhagavā": [
+            49140
+        ],
+        "ukkaṭṭhāyaṃ": [
+            13985,
+            13987
+        ],
+        "bhadanteti": [
+            49336
+        ],
+        "bhāsissāmīti": [
+            49756
+        ],
+        "ariyānaṃ": [
+            8976,
+            8977
+        ],
+        "kissa": [
+            19159,
+            22022
+        ],
+        "hetu": [
+            71434
+        ],
+        "bhikkhū": [
+            49882
+        ],
+        "sādhukaṃ": [
+            62225
+        ],
+        "vadāmi": [
+            66126
+        ],
+        "āpato": [
+            11866
+        ],
+        "vāyaṃ": [
+            66886
+        ],
+        "devadahavaggo": [
+            34073
+        ],
+        "devadahasuttaṃ": [
+            34070,
+            34071
+        ],
+        "nāma": [
+            36432
+        ],
+        "sakyānaṃ": [
+            56510
+        ],
+        "samaṇabrāhmaṇā": [
+            59204
+        ],
+        "kammānaṃ": [
+            20240
+        ],
+        "tapasā": [
+            29927
+        ],
+        "akaraṇā": [
+            72523
+        ],
+        "kira": [
+            21810,
+            21814
+        ],
+        "tumhe": [
+            76110
+        ],
+        "āmāti": [
+            12045,
+            12046,
+            12111,
+            75897
+        ],
+        "paṭijānanti": [
+            40442
+        ],
+        "kiṃ": [
+            19159,
+            22022
+        ],
+        "pubbe": [
+            46904
+        ],
+        "āyasmantānaṃ": [
+            12242
+        ],
+        "puriso": [
+            47035
+        ],
+        "sallena": [
+            61166,
+            61167
+        ],
+        "assa": [
+            9940,
+            10033
+        ],
+        "sallassapi": [
+            61166,
+            61167
+        ],
+        "satthena": [
+            57867,
+            57868
+        ],
+        "satthenapi": [
+            57867,
+            57868
+        ],
+        "sallaṃ": [
+            61166,
+            61167
+        ],
+        "sallassa": [
+            61166,
+            61167
+        ],
+        "abbuyheyya": [
+            7225
+        ],
+        "odaheyya": [
+            18610,
+            18611
+        ],
+        "samayena": [
+            59455
+        ],
+        "evamassa": [
+            80531
+        ],
+        "parikanti": [
+            43157
+        ],
+        "esi": [
+            18034,
+            80558
+        ],
+        "abbuyhi": [
+            7228
+        ],
+        "odahi": [
+            18616
+        ],
+        "vutte": [
+            70038,
+            70039,
+            72473
+        ],
+        "maṃ": [
+            52101
+        ],
+        "paṭijānāti": [
+            40442
+        ],
+        "suttassa": [
+            63820
+        ],
+        "atthi": [
+            2757
+        ],
+        "pubbeva": [
+            46904
+        ],
+        "kataṃ": [
+            19598
+        ],
+        "vācāya": [
+            66693,
+            66700
+        ],
+        "akaraṇaṃ": [
+            72523
+        ],
+        "tatrāyasmantānaṃ": [
+            12242
+        ],
+        "kā": [
+            19162
+        ],
+        "kiñci": [
+            21660
+        ],
+        "samaye": [
+            59455
+        ],
+        "upakkamo": [
+            15360,
+            15362
+        ],
+        "padhānaṃ": [
+            42246,
+            42247,
+            42248
+        ],
+        "tasmiṃ": [
+            30155
         ]
     },
     "matched": {
@@ -14,6 +221,46 @@
                 "mn10:47.6",
                 "mūlapariyāyavaggo niṭṭhito paṭhamo. ",
                 ""
+            ]
+        },
+        "mūlapariyāyasuttaṃ": {
+            "id": 53123,
+            "sentence": [
+                "mn1:194.10",
+                "mūlapariyāyasuttaṃ niṭṭhitaṃ paṭhamaṃ. ",
+                ""
+            ]
+        },
+        "devadahavaggo": {
+            "id": 34072,
+            "sentence": [
+                "mn110:25.4",
+                "devadahavaggo niṭṭhito paṭhamo. ",
+                ""
+            ]
+        },
+        "byantībhāvā": {
+            "id": 48755,
+            "sentence": [
+                "mn101:2.6",
+                "iti purāṇānaṃ kammānaṃ tapasā byantībhāvā, navānaṃ kammānaṃ akaraṇā, āyatiṃ anavassavo; ",
+                "So, due to eliminating past deeds by fervent mortification, and not doing any new deeds, there’s nothing to come up in the future. "
+            ]
+        },
+        "kā": {
+            "id": 19159,
+            "sentence": [
+                "mn110:13.3",
+                "kā ca, bhikkhave, asappurisānaṃ gati? ",
+                "And what is the place where untrue persons are reborn? "
+            ]
+        },
+        "ko": {
+            "id": 19159,
+            "sentence": [
+                "mn140:36.3",
+                "tassa kā gati, ko abhisamparāyo”ti? ",
+                "Where has he been reborn in his next life?” "
             ]
         }
     },

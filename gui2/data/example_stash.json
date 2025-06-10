@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "DN31",
-        "sutta": "siṅgālasuttaṃ, ālasyassa cha ādīnavā",
-        "example": "cha kho'me, gahapatiputta, ādīnavā ālasy'ānuyoge. atisītan'ti kammaṃ na karoti, ati-uṇhan'ti kammaṃ na karoti, atisāyan'ti kammaṃ na karoti, atipāto'ti kammaṃ na karoti, atichāto'smī'ti kammaṃ na karoti, atidhāto'smī'ti kammaṃ na karoti."
+        "source": "VIN1.4.3.2",
+        "sutta": "ūnapañcabandhanasikkhāpadaṃ",
+        "example": "apattakassa na gāhetabbo. eten'eva upāyena yāva saṅghanavakā gāhetabbā."
     },
     "stash": {
-        "source": "DNa1.6",
-        "sutta": "brahmajālasuttavaṇṇanā, ekaccasassatavādavaṇṇanā",
-        "example": "ekaccasassatikā'ti ekaccasassatavādā. te duvidhā honti, satt'ekaccasassatikā, saṅkhār'ekaccasassatikā'ti."
+        "source": "VIN4.7.2",
+        "sutta": "saṅghabhedakakkhandhakaṃ, dutiyabhāṇavāro",
+        "example": "aṭṭhānam'etaṃ, bhikkhave, anavakāso, yaṃ par'ūpakkamena tathāgataṃ jīvitā voropeyya. anupakkamena, bhikkhave, tathāgatā parinibbāyanti."
     }
 }
