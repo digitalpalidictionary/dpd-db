@@ -35,9 +35,7 @@ class Pass2PreProcessView(ft.Column):
         self.pass2_new_word_manager: Pass2NewWordManager = (
             toolkit.pass2_new_word_manager
         )
-        self.exceptions_list: list[str] = (
-            toolkit.pass2_exceptions_manager.exceptions_list
-        )
+        self.exceptions_set: set[str] = toolkit.pass2_exceptions_manager.exceptions_set
         self.selected_sentence_index: int = 0
         self.examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample] = []
 
@@ -322,24 +320,38 @@ class Pass2PreProcessView(ft.Column):
         self.examples_list = examples_list
         example_controls: list[ft.Control] = []
 
+        cleaned_word_in_text = self.controller.clean_quotes(
+            self.controller.word_in_text
+        )
+
+        # Filter exceptions once based on the cleaned word being part of the exception text
+        candidate_exceptions = {
+            exc for exc in self.exceptions_set if cleaned_word_in_text in exc
+        }
+
+        compiled_exception_regex = None
+        if candidate_exceptions:
+            # Create a single regex pattern from candidate exceptions.
+            # Each exception text is escaped to ensure it's treated literally.
+            # The pattern looks for any of the candidate exceptions as whole words.
+            pattern_parts = [re.escape(exc_text) for exc_text in candidate_exceptions]
+            combined_pattern = r"\b(?:" + "|".join(pattern_parts) + r")\b"
+            compiled_exception_regex = re.compile(combined_pattern)
+
         for counter, example in enumerate(examples_list):
-            # dont't display if in exceptions list
-            if isinstance(example, SuttaCentralSegment):
-                if any(
-                    re.search(rf"\b{exception}\b", example.pali)
-                    and self.controller.clean_quotes(self.controller.word_in_text)
-                    in exception
-                    for exception in self.exceptions_list
-                ):
-                    continue
-            elif isinstance(example, CstSourceSuttaExample):
-                if any(
-                    re.search(rf"\b{exception}\b", example.example)
-                    and self.controller.clean_quotes(self.controller.word_in_text)
-                    in exception
-                    for exception in self.exceptions_list
-                ):
-                    continue
+            should_skip = False
+            if compiled_exception_regex:  # Only proceed if there's a compiled regex
+                text_to_search = None
+                if isinstance(example, SuttaCentralSegment):
+                    text_to_search = example.pali
+                elif isinstance(example, CstSourceSuttaExample):
+                    text_to_search = example.example
+
+                if text_to_search and compiled_exception_regex.search(text_to_search):
+                    should_skip = True
+
+            if should_skip:
+                continue
 
             if isinstance(example, SuttaCentralSegment):
                 source = example.segment

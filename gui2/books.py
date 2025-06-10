@@ -76,7 +76,7 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
     ),
     "mn": SuttaCentralSource(
         "mn",
-        ["mn1", "mn2", "mn3"],
+        ["mn3", "mn1", "mn2"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/mn",
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/mn",
     ),
