@@ -584,13 +584,17 @@ class DpdFields(PopUpMixin):
         value = field.value
         return field, value
 
-    def get_current_headword(self) -> DpdHeadword:
-        """Get all current field values as a dictionary
-        and make a DpdHeadword instance from it."""
+    def get_current_values(self) -> dict[str, str]:
+        """Get all current field values as a dictionary"""
 
         values = {name: field.value or "" for name, field in self.fields.items()}
         if values["id"] == "":
             values["id"] = str(self.db.get_next_id())
+        return values
+
+    def get_current_headword(self):
+        """Get the values and make a DpdHeadword instance from it."""
+        values = self.get_current_values()
         return make_dpd_headword_from_dict(values)
 
     def _handle_generic_spell_check(self, e: ft.ControlEvent):

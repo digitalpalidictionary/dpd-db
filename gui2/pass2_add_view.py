@@ -95,6 +95,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
             "NextPass2Auto",
             on_click=self._click_load_next_pass2_entry,
         )
+        self._corrections_button = ft.ElevatedButton(
+            "C", on_click=self._click_corrections_button
+        )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
             autofocus=True,
@@ -165,9 +168,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._clone_headword_button,
                             self._split_headword_button,
                             self._next_pass2_auto_button,
+                            self._corrections_button,
                             self._clear_all_button,
                             self.update_sandhi_button,
-                            self._update_with_ai_button,  # Add new button
+                            self._update_with_ai_button,
                             self._history_dropdown,
                         ],
                         spacing=10,
@@ -605,6 +609,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 if removed_from_auto:
                     self.update_message(f"Removed ID {item_id} from pass2_auto.json")
 
+            # Save correction if flag is set
+            if self.dpd_fields.flags.correction:
+                word_data = self.dpd_fields.get_current_values()
+                if word_data:
+                    self.corrections_manager.save_processed_correction(word_data)
+
             self._update_history_dropdown()
             self.page.update()
             self.clear_all_fields()
@@ -710,3 +720,55 @@ class Pass2AddView(ft.Column, PopUpMixin):
         except Exception as ex:
             self.update_message(f"An unexpected error occurred during backup: {ex}")
             print(f"Backup error: {ex}")  # Log the error to console for debugging
+
+    def _click_corrections_button(self, e: ft.ControlEvent) -> None:
+        """Loads the next correction and populates the _add fields."""
+        correction_data, corrections_remaining = (
+            self.corrections_manager.get_next_correction()
+        )
+
+        if not correction_data:
+            self.update_message("No more corrections available")
+            return
+
+        try:
+            # Clear any existing add fields
+            self.dpd_fields.clear_fields()
+
+            # Optionally load corresponding headword if ID is available
+            if "id" in correction_data:
+                try:
+                    headword_id = int(correction_data["id"])
+                    headword = self._db.get_headword_by_id(headword_id)
+                    if headword:
+                        self.headword = headword
+                        self.headword_original = copy.deepcopy(headword)
+                        self.dpd_fields.update_db_fields(headword)
+                        self.add_headword_to_examples_and_commentary()
+                except ValueError:
+                    pass
+
+            # Map correction data to add fields
+            processed_correction: dict[str, str] = {}
+            for field_name, value in correction_data.items():
+                processed_correction[field_name] = str(value)
+                if field_name in self.dpd_fields.fields:
+                    add_field = f"{field_name}_add"
+                    if hasattr(self.dpd_fields, add_field):
+                        getattr(self.dpd_fields, add_field).value = value
+
+            self.dpd_fields.update_add_fields(processed_correction)
+
+            # Set correction flag
+            self.dpd_fields.flags.correction = True
+
+            # Update message with lemma if available
+            lemma = correction_data.get("lemma_1", "unknown")
+            self.update_message(
+                f"Loaded correction for {lemma}. {corrections_remaining} corrections remaining."
+            )
+
+        except Exception as ex:
+            self.update_message(f"Error loading correction: {str(ex)}")
+
+        self.page.update()

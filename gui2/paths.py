@@ -16,6 +16,7 @@ class Gui2Paths:
     history_json_path: Path = gui2_data_path / "history.json"
     example_stash_json_path: Path = gui2_data_path / "example_stash.json"
     corrections_path: Path = gui2_data_path / "corrections.json"
+    corrections_added_path: Path = gui2_data_path / "corrections_added.json"
     additions_path: Path = gui2_data_path / "additions.json"
 
     # Other paths
