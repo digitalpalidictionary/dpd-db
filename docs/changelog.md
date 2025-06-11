@@ -5,6 +5,29 @@ search:
 
 # Changelog
 
+## 2025-06-11
+
+### Github Issues Closed
+GitHub issues not available right now...
+
+### Dictionary Data Updates
+- 82 674 headwords, 43 379 complete, 13 200 partially complete, 26 095 incomplete entries
+- 749 roots, 3 308 root families, 34 321 words derived from roots
+- 846 967 deconstructed compounds
+- 1 384 228 unique inflected forms recognized
+- 2 034 804 cells of Pāḷi word data
+- 18 222 cells of Pāḷi root data
+- Pass1 complete: VIN1-2, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN3
+- Pass2 complete: DN1, MN1
+- Pass2 in progress: DN2 
+- numerous additions and corrections based on user feedback
+
+### New Words
+aggiparicita, aṅgarāgamukharāga, acchupiyati, ajjhāvasitvā 1, añjanupapisana, atthadassana, atthaṃ gacchati 2, adhipaññatti 2.1, anantara 4, anupaṭipāṭiyā, anubhosi, anuyāti 2, anusarati 2.1, anusāsanta 2, anovādakara, apanudeti, apanūdana 2, aparabhāga 4, aparāāpatti, abhikkamana 2, ariṭṭha 1.3, ariyatanti, avaruddha 1, avutta 2, avha, ahikaṃ, ākoṭesi 2, ādiyituṃ 1, āyakosalla 1, ālasiyatā, ālimpitabba, ālimpituṃ, āluppa, āharati 1.4, āharanta 2, āhuneyyaggi 1, itthīvāhana, ugghaṃsetabba, ugghaṃsetuṃ, uṭṭhānaka 2, uḍḍitvā, udakatelaka, udumbarī 2, upakkamanta, upagūhitvā, upaggaṇhana, upaggaṇhāti, upanadati, uppatita 3, ummadditabba, ekaccasassatavāda 2, ekaṃso gahito, etaṃparama, oggacchamāna, osaṇṭhetabba, osaṇṭheti, kacchurogābādha, kaṇhāgotama, kathinarajju, kappeti 2, kappesi 3, kavāṭa 2, kāya 1.9, kāyānupassanāānāpānapabba, kāyānupassanāiriyāpathapabba, kāyānupassanādhātumanasikārapabba, kāyānupassanānavasivathikapabba, kāyānupassanāpaṭikūlamanasikārapabba, kārāpesi 2, kālaṅkata 3, kuṭilakaṇṭaka, kuruvindakasutti, khamamāna 2, gahapataggi 1, gāmamoddava, gāyitabba, guḷa 4, ghaṭikaṭāha, catuṭṭhāna 2, cuṇṇetabba, chakhattiyaāmantanā, chavasīsa, chādayi, chindi 3, jīvañjīvaka, jīvañjīvakasadda, tatta 1.2, tadāyaṃ, tanti 5, tiliṅga, tividhaokāsādhigama, tudana 1, thambha 2, dakkhiṇeyyaggi 1, daṇḍakathina, dārupatta, dija 3, ditta 2.1, duppavesa, dūrībhūta, dūrībhūtatta, dvemāsaṃ, dhammanisanti, dhammānupassanāāyatanapabba, dhammānupassanākhandhapabba, dhammānupassanānīvaraṇapabba, dhammānupassanābojjhaṅgapabba, dhammānupassanāsaccapabba, nakhaparicita, nacirassa, nacirena, nahāyamāna, nāgī 2, nātikiyādibyākaraṇa, nānubhoti 4, nāsaññī, nikkhaṇitvā, niddasa 2, nīyati 1.3, netti 1.5, nemi 3, pakatimaṇḍala, pacamāna, pajjunna 2, pañcālacaṇḍa 2, paṭibhaya 2, paṭisāmetuṃ, paṇṇa 1.2, patikāra, pattakuṇḍolikā, pattamaṇḍala, pattamāḷaka, pattamūla, pattahattha, pattharitabba, pada 12, padassanta, pabbi, paranimmita, paricita 3, pariccheda 2, paribbājakānaṃpajjhāyana, paribhaṇḍanta, pariyantacārī 2, parivaṭṭitvā, pāṭika 2, pāṇika, pātāpetvā, pātubhavati 2, pāmaṅga 3, puthupāṇika, bāhiralomī, buddhatanti, buddhatā 2, brahmakāya 2, brahmunāsākacchā, brāhmaṇamahāsālādi, brāhmaṇamahāsālādīnaṃāmantanā, bhagalavatī 1, bhattageha, bhariyānaṃāmantanā, bhavatī, bhāvita 2, bhittikammakata, bhindeti, madhusitthaka, manosilikā, mallamuṭṭhikā, māsakarūpa, māsaṃ, miḍḍhanta, mukharāga, mucalinda 4, mucalinda 5, muccati 1.5, mucchati 1, mūlachejja, yugandhara 2, yūpa 2, yevime, rakkhati 3, rāja 3, rūpakākiṇṇa, rodha 2, laggetabba, lañchetabba, likhana 2, lekhāpeti, lekhāpetvā, vatamha, vallika, vassitar, vāhitvā, vikkama 2, vippakiriyati, vipphāḷetvā, vimalasukhumacchavi, vilomika, visāṇā, vihitaka 3, veṇhū, vessāmitta 2, veḷagga, veḷuparamparā, sakhī 1, saṅghāta 1.2, saññāya, saṇha 6, satadhamma, sattasamādhiparikkhāra, sattu 1.2, satthakadaṇḍa, satthaparicita, santānaka 4, sandhi 4, sanna 3, samaṅgī 2, samaṇakappa, samattamācari, samadhigayha 2, samiddha 2, saritaka, saritakasipāṭikā, sarīradhātuvibhajana, saso, saṃyojeti 4, saṃvaṇṇiyamāna 1, saṃvaṇṇiyamāna 2, sāmaññeva, sāvakānutappasatthar, siṅgāla 2, sitthatelaka, sukkābhijātika 2, sukhumattha, sukhodaka, suparibhutta, sumana 6, sumukha 2, susaṅgaha, sūcināḷikā, sūra 4, hatthaphaṇaka, hiri 2, hīnāyāvattati 2 [244]
+
+
+
 ## 2025-05-12
 
 ### Github Issues Closed
