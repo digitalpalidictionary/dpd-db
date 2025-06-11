@@ -17,7 +17,7 @@ commentary space fullstop	commentary	contains	 /.$| /. 																commentar
 commentary_1 space comma	commentary	contains	 ,$| , 																commentary	lemma_1	pos	commentary	[]	10
 commentary: add or “-”	meaning_1	is not empty	-	commentary	is empty	-	commentary	does not contain	-	example_1	is not empty	-							commentary	lemma_1	grammar	meaning_1	[4, 2437, 7848, 54542, 66451, 71739, 73788, 76117, 76257, 77596, 80956]	10
 commentary: comma no space	commentary	contains	\w,\w																commentary	lemma_1	meaning_1	commentary	[]	10
-commentary: contains tattha <	commentary	contains	tattha <																commentary	lemma_1	grammar	commentary	[10682, 18344, 21520, 32438, 34533, 45137, 50591, 56317, 62800, 70643, 71783, 78883, 79197, 80487, 80680]	10
+commentary: contains tattha <	commentary	contains	tattha <																commentary	lemma_1	grammar	commentary	[10682, 18344, 21520, 32438, 34533, 45137, 50591, 56317, 62800, 70643, 71783, 78883, 79197, 80487, 80680, 82990, 82991]	10
 commentary: contrains <<	commentary	contains	<<																commentary	lemma_1	meaning_1	commentary	[]	10
 commentary: contrains >>	commentary	contains	>>																commentary	lemma_1	meaning_1	commentary	[]	10
 commentary: hyphenate double vowel	commentary	contains	[aāiīuūeo][aāiīuūeo]																commentary	lemma_1	grammar	commentary	[4022, 4317, 4820, 6338, 21613, 21976, 22667, 39181, 41588, 48702, 56239, 56246, 56251, 62271, 62491, 62920, 73944, 74499, 80761, 80948, 81044, 81334]	10

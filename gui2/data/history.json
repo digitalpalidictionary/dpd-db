@@ -1,5 +1,25 @@
 [
     {
+        "id": 82994,
+        "lemma_1": "āyoga 4"
+    },
+    {
+        "id": 82993,
+        "lemma_1": "upanetabba 2"
+    },
+    {
+        "id": 82992,
+        "lemma_1": "gāhetabba 2"
+    },
+    {
+        "id": 82991,
+        "lemma_1": "anupādinna 2"
+    },
+    {
+        "id": 82990,
+        "lemma_1": "upādinna 4"
+    },
+    {
         "id": 82777,
         "lemma_1": "suparibhutta"
     },
@@ -58,25 +78,5 @@
     {
         "id": 82861,
         "lemma_1": "avha"
-    },
-    {
-        "id": 82681,
-        "lemma_1": "jappaka"
-    },
-    {
-        "id": 82313,
-        "lemma_1": "bālakaloṇaka"
-    },
-    {
-        "id": 82304,
-        "lemma_1": "channa 1.5"
-    },
-    {
-        "id": 82292,
-        "lemma_1": "dhammiyāyamāna"
-    },
-    {
-        "id": 81258,
-        "lemma_1": "dukkhajanana"
     }
 ]
