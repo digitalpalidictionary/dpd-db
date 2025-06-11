@@ -9,7 +9,7 @@ Create all the data necessary for release notes and website changelog
 """
 
 from datetime import datetime, timedelta
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 from github import Github
 from rich import print
@@ -252,8 +252,8 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 - {g.line_6_cells_of_root_data}
 - Pass1 complete: VIN1-3, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
 - Pass1 in progress: VIN4
-- Pass2 complete: DN1, DN2, MN1
-- Pass2 in progress: DN3
+- Pass2 complete: DN1-3, MN1
+- Pass2 in progress: MN2
 - numerous additions and corrections based on user feedback
 
 """

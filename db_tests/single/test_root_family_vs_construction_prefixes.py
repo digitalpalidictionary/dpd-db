@@ -37,17 +37,38 @@ def main():
 
 
 def test_logic(pd):
-    if pd.i.root_key:
-        if pd.i.root_key and pd.i.meaning_1:
-            make_root_family_prefix(pd)
-            if pd.i.root_base:
-                make_construction_without_base(pd)
-                if pd.root_fam_prefix != pd.construc_prefix:
-                    fix_root_or_construction(pd)
-            else:
-                make_construction_without_root(pd)
-                if pd.root_fam_prefix != pd.construc_prefix:
-                    fix_root_or_construction(pd)
+    if not (pd.i.root_key and pd.i.meaning_1):
+        return
+
+    make_root_family_prefix(pd)
+
+    if pd.i.root_base:
+        make_construction_without_base(pd)
+    else:
+        make_construction_without_root(pd)
+
+    if pd.root_fam_prefix != pd.construc_prefix:
+        fix_root_or_construction(pd)
+        return
+
+    make_root_family_prefix(pd)
+
+    if pd.i.root_base:
+        make_construction_without_base(pd)
+    else:
+        make_construction_without_root(pd)
+
+    if pd.root_fam_prefix != pd.construc_prefix:
+        fix_root_or_construction(pd)
+        make_root_family_prefix(pd)
+        if pd.i.root_base:
+            make_construction_without_base(pd)
+            if pd.root_fam_prefix != pd.construc_prefix:
+                fix_root_or_construction(pd)
+        else:
+            make_construction_without_root(pd)
+            if pd.root_fam_prefix != pd.construc_prefix:
+                fix_root_or_construction(pd)
 
 
 def fix_root_or_construction(pd):
