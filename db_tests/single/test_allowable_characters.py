@@ -1,20 +1,20 @@
 import re
+
 import pyperclip
 from rich import print
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot
-
+from tools.configger import config_test
 from tools.db_search_string import db_search_string
-from tools.pali_alphabet import pali_alphabet
-from tools.pali_alphabet import english_alphabet
-from tools.pali_alphabet import english_capitals
-from tools.pali_alphabet import sanskrit_alphabet
+from tools.pali_alphabet import (
+    english_alphabet,
+    english_capitals,
+    pali_alphabet,
+    sanskrit_alphabet,
+)
 from tools.paths import ProjectPaths
 from tools.unicode_char import unicode_char
-
-from sqlalchemy.orm import joinedload
-
-from tools.configger import config_test
 
 
 class AllowableCharacters:
@@ -203,17 +203,19 @@ class AllowableCharacters:
     and_or = ["&", "or"]
 
     non_ia_languages = [
+        "Akkadian",
         "Austric",
         "Kannada",
         "Malayalam",
         "Mārāṭhi",
         "Munda",
         "Old Tamil",
+        "Persian",
+        "Prakrit",
         "Proto-Dravidian",
         "Santali",
         "Tamil",
         "Telugu",
-        "Prakrit",
     ]
 
     derivatives = ["kita", "kicca", "taddhita"]
@@ -563,7 +565,7 @@ class AllowableCharacters:
         + digits
         + space
         + fullstop
-        + dash,
+        + dash
     )
 
     sutta_allowed = (
@@ -711,7 +713,7 @@ class AllowableCharacters:
         ("phonetic", phonetic_allowed),
         ("compound_type", compound_type_allowed),
         ("compound_construction", compound_construction_allowed),
-        # ("non_root_in_comps", )
+        # ("non_root_in_comps",)
         ("source_1", source_allowed),
         ("sutta_1", sutta_allowed),
         ("example_1", example_allowed),
