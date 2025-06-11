@@ -13,7 +13,7 @@ git clone --depth=1 https://github.com/digitalpalidictionary/dpd-db.git
 cd dpd-db
 ```
 
-(3) Download the submodules from Github
+(3) Download the submodules from GitHub
 
 ```shell
 git submodule init && git submodule update

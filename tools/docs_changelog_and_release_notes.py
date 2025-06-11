@@ -3,7 +3,7 @@
 """
 Create all the data necessary for release notes and website changelog
 1. Release preamble
-2. Github Issues Closed
+2. GitHub Issues Closed
 3. Dictionary data
 4. New Words
 """
@@ -238,7 +238,7 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 
 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" width="117" height="41" ></a><br />
 
-### Github Issues Closed
+### GitHub Issues Closed
 
 {g.github_issues}
 
@@ -263,7 +263,7 @@ def make_website_changelog(g: GlobalVars) -> str:
     return f"""
 ## {g.date}
 
-### Github Issues Closed
+### GitHub Issues Closed
 {g.github_issues}
 
 ### Dictionary Data Updates

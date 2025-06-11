@@ -106,7 +106,7 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
 
 
 def git_commit():
-    pr.green("committing changes to Github")
+    pr.green("committing changes to GitHub")
     try:
         repo = Repo("./")
         index = repo.index

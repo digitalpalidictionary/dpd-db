@@ -9,14 +9,17 @@ import sqlite3
 
 from rich import print
 
-from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
-from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.configger import config_read
+from tools.goldendict_exporter import (
+    DictEntry,
+    DictInfo,
+    DictVariables,
+    export_to_goldendict_with_pyglossary,
+)
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-
-from tools.configger import config_read
 
 
 def extract_peu_from_tpr_database():
@@ -79,7 +82,7 @@ def main():
     dict_info = DictInfo(
         bookname="Pali English Ultimate",
         author="Pali Myanmar Abhidhan",
-        description="""<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dictionary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>Github</a></p><p>Encoded by Bodhirasa 2024.</p>""",
+        description="""<h3>Pali Myanmar Abhidhan</h3><p>Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.</p><p>There is a project underway to translate this into English, currently at about 80% human translated, the remainder is by Google.</p><p><a href='https://pm12e.pali.tools/'>Project Website</a></p><p>This dictionary can be found in the Tipitaka Pali Projector project on <a href='https://github.com/bksubhuti/Tipitaka-Pali-Projector'>GitHub</a></p><p>Encoded by Bodhirasa 2024.</p>""",
         website="https://pm12e.pali.tools/",
         source_lang="pa",
         target_lang="en",

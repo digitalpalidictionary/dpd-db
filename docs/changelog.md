@@ -7,7 +7,7 @@ search:
 
 ## 2025-06-11
 
-### Github Issues Closed
+### GitHub Issues Closed
 
 - [#105 fix warnings in the Kindle exporter](https://github.com/digitalpalidictionary/dpd-db/issues/105)
 - [#119 Orientation of baskets names in Frequency on Safari](https://github.com/digitalpalidictionary/dpd-db/issues/119)
@@ -33,7 +33,7 @@ aggiparicita, aṅgarāgamukharāga, acchupiyati, ajjhāvasitvā 1, añjanupapis
 
 ## 2025-05-12
 
-### Github Issues Closed
+### GitHub Issues Closed
 - [#73 GUI for database tests](https://github.com/digitalpalidictionary/dpd-db/issues/73)
 - [#86 Export DPD lookup for Dhammagift ](https://github.com/digitalpalidictionary/dpd-db/issues/86)
 - [#100 New GUI for data creation, adding and editing](https://github.com/digitalpalidictionary/dpd-db/issues/100)
@@ -65,16 +65,16 @@ akaraṇī, akukku, akkanāḷa, akkanāḷaka, akhittacitta, aggaḷaguttivihā
 
 ## 2025-04-13
 
-### Github Issues Closed
+### GitHub Issues Closed
 - [#42 Create dictionary of variant readings found in digital Pāḷi texts](https://github.com/digitalpalidictionary/dpd-db/issues/42)
 - [#43 Add list of abbreviations to Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/43)
 - [#62 WebApp recognises Thai, Devanagari, Sinhala, and other scripts](https://github.com/digitalpalidictionary/dpd-db/issues/62)
-- [#64 Add Github icon, link to issues on Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/64)
+- [#64 Add GitHub icon, link to issues on Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/64)
 - [#66 Make WebApp clickable on Android and iOS](https://github.com/digitalpalidictionary/dpd-db/issues/66)
 - [#67 Update DPD identity, colour scheme CSS, logo, fonts ](https://github.com/digitalpalidictionary/dpd-db/issues/67)
 - [#68 WebApp bold definitions highlight when using regex](https://github.com/digitalpalidictionary/dpd-db/issues/68)
 - [#72 Two CSS Bugs in Webapp](https://github.com/digitalpalidictionary/dpd-db/issues/72)
-- [#74 Automate Github release notes and docs changelog](https://github.com/digitalpalidictionary/dpd-db/issues/74)
+- [#74 Automate GitHub release notes and docs changelog](https://github.com/digitalpalidictionary/dpd-db/issues/74)
 - [#80 Broken Link in Contributing.md](https://github.com/digitalpalidictionary/dpd-db/issues/80)
 - [#82 Convert Docs website from mdbook to mkdocs](https://github.com/digitalpalidictionary/dpd-db/issues/82)
 - [#86 Export DPD lookup for Dhammagift ](https://github.com/digitalpalidictionary/dpd-db/issues/86)

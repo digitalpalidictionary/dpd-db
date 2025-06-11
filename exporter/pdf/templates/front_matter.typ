@@ -45,7 +45,7 @@
   DPD Docs Website
   #link("https://digitalpalidictionary.github.io/")[#blue("https://digitalpalidictionary.github.io/")]
 
-  Github Repository
+  GitHub Repository
   #link("https://github.com/digitalpalidictionary/dpd-db")[#blue("https://github.com/digitalpalidictionary/dpd-db")]
 
   Get the latest version
