@@ -8,7 +8,10 @@ search:
 ## 2025-06-11
 
 ### Github Issues Closed
-GitHub issues not available right now...
+
+- [#105 fix warnings in the Kindle exporter](https://github.com/digitalpalidictionary/dpd-db/issues/105)
+- [#119 Orientation of baskets names in Frequency on Safari](https://github.com/digitalpalidictionary/dpd-db/issues/119)
+- [#129 Fix deconstructor copy and tarball](https://github.com/digitalpalidictionary/dpd-db/issues/129)
 
 ### Dictionary Data Updates
 - 82 674 headwords, 43 379 complete, 13 200 partially complete, 26 095 incomplete entries
