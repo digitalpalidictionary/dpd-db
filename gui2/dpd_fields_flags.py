@@ -14,6 +14,7 @@ class Flags:
     synonyms_done: bool = field(default=False)
     family_word_done: bool = field(default=False)
     correction: bool = field(default=False)
+    addition: bool = field(default=False)
 
     def reset(self):
         """Reset all flags to their default values."""

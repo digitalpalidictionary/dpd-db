@@ -98,6 +98,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._corrections_button = ft.ElevatedButton(
             "C", on_click=self._click_corrections_button
         )
+        self._additions_button = ft.ElevatedButton(
+            "A", on_click=self._click_additions_button
+        )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
             autofocus=True,
@@ -169,6 +172,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._split_headword_button,
                             self._next_pass2_auto_button,
                             self._corrections_button,
+                            self._additions_button,
                             self._clear_all_button,
                             self.update_sandhi_button,
                             self._update_with_ai_button,
@@ -609,6 +613,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 if removed_from_auto:
                     self.update_message(f"Removed ID {item_id} from pass2_auto.json")
 
+            # Save addition if flag is set
+            if (
+                hasattr(self.dpd_fields.flags, "addition")
+                and self.dpd_fields.flags.addition
+            ):
+                word_data = self.dpd_fields.get_current_values()
+                if word_data:
+                    self.additions_manager.save_processed_addition(word_data)
+
             # Save correction if flag is set
             if self.dpd_fields.flags.correction:
                 word_data = self.dpd_fields.get_current_values()
@@ -770,5 +783,44 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         except Exception as ex:
             self.update_message(f"Error loading correction: {str(ex)}")
+
+        self.page.update()
+
+    def _click_additions_button(self, e: ft.ControlEvent) -> None:
+        """Loads the next addition and populates the _add fields."""
+        addition_data, additions_remaining = self.additions_manager.get_next_addition()
+
+        if not addition_data:
+            self.update_message("No more additions available")
+            return
+
+        try:
+            # Clear any existing fields
+            self.dpd_fields.clear_fields()
+
+            # Do not load headword for additions, as per request
+
+            # Map addition data to add fields
+            processed_addition: dict[str, str] = {}
+            for field_name, value in addition_data.items():
+                processed_addition[field_name] = str(value)
+                if field_name in self.dpd_fields.fields:
+                    add_field = f"{field_name}_add"
+                    if hasattr(self.dpd_fields, add_field):
+                        getattr(self.dpd_fields, add_field).value = value
+
+            self.dpd_fields.update_add_fields(processed_addition)
+
+            # Set addition flag
+            self.dpd_fields.flags.addition = True
+
+            # Update message with lemma if available
+            lemma = addition_data.get("lemma_1", "unknown")
+            self.update_message(
+                f"Loaded addition for {lemma}. {additions_remaining} additions remaining."
+            )
+
+        except Exception as ex:
+            self.update_message(f"Error loading addition: {str(ex)}")
 
         self.page.update()

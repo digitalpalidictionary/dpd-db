@@ -18,6 +18,7 @@ class Gui2Paths:
     corrections_path: Path = gui2_data_path / "corrections.json"
     corrections_added_path: Path = gui2_data_path / "corrections_added.json"
     additions_path: Path = gui2_data_path / "additions.json"
+    additions_added_path: Path = gui2_data_path / "additions_added.json"
 
     # Other paths
     find_words_dump_path: Path = gui2_dir / "data/find_words_with_examples_dump.json"
