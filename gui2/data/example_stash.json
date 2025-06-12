@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "VIN1.4.3.3",
-        "sutta": "bhesajjasikkhāpadaṃ",
-        "example": "nissaṭṭhaṃ paṭilabhitvā na kāyikena paribhogena paribhuñjitabbaṃ, na ajjhoharitabbaṃ, padīpe vā kāḷavaṇṇe vā upanetabbaṃ, aññena bhikkhunā kāyikena paribhogena paribhuñjitabbaṃ, na ajjhoharitabbaṃ."
+        "source": "AN6.60",
+        "sutta": "mahāvaggo, hatthisāriputtasuttaṃ",
+        "example": "yato ca kho so vapakassat'eva satthārā, vapakassati garuṭṭhāniyehi sabrahmacārīhi, so saṃsaṭṭho viharati bhikkhūhi bhikkhunīhi upāsakehi upāsikāhi raññā rājamahāmattehi titthiyehi titthiyasāvakehi. tassa saṃsaṭṭhassa vissatthassa pākatassa bhassamanuyuttassa viharato rāgo cittaṃ anuddhaṃseti."
     },
     "stash": {
-        "source": "VIN4.7.2",
-        "sutta": "saṅghabhedakakkhandhakaṃ, dutiyabhāṇavāro",
-        "example": "aṭṭhānam'etaṃ, bhikkhave, anavakāso, yaṃ par'ūpakkamena tathāgataṃ jīvitā voropeyya. anupakkamena, bhikkhave, tathāgatā parinibbāyanti."
+        "source": "MNa140",
+        "sutta": "dhātuvibhaṅgasuttavaṇṇanā",
+        "example": "yo imaṃ lekhaṃ antaraṃ karoti, rāj'āṇāya kāretabbo'ti. mahājanakajātake bodhisattena katalekhaṃ sīvalidevī antaraṃ kātuṃ avisahantī vivattamānā agamāsi."
     }
 }
