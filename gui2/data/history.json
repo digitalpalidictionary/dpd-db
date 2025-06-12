@@ -1,5 +1,57 @@
 [
     {
+        "id": 40035,
+        "lemma_1": "paññāparibhāvita"
+    },
+    {
+        "id": 83011,
+        "lemma_1": "dārukkhaṇḍa"
+    },
+    {
+        "id": 50976,
+        "lemma_1": "mattikābhājana"
+    },
+    {
+        "id": 14083,
+        "lemma_1": "ukkhali"
+    },
+    {
+        "id": 83010,
+        "lemma_1": "kaṇikā"
+    },
+    {
+        "id": 83009,
+        "lemma_1": "sakaṭamagga"
+    },
+    {
+        "id": 27792,
+        "lemma_1": "jaṅghamagga"
+    },
+    {
+        "id": 54025,
+        "lemma_1": "yāvatakvassa"
+    },
+    {
+        "id": 83008,
+        "lemma_1": "laṅghamāna"
+    },
+    {
+        "id": 83007,
+        "lemma_1": "piṭṭhipāda"
+    },
+    {
+        "id": 83006,
+        "lemma_1": "laṅghanta"
+    },
+    {
+        "id": 23603,
+        "lemma_1": "khāṇuka 1"
+    },
+    {
+        "id": 83005,
+        "lemma_1": "khāṇuka 2"
+    },
+    {
         "id": 69437,
         "lemma_1": "vissattha 2"
     },
@@ -26,57 +78,5 @@
     {
         "id": 58107,
         "lemma_1": "saddhivihārī 2"
-    },
-    {
-        "id": 83004,
-        "lemma_1": "aṭṭhasatasahassa"
-    },
-    {
-        "id": 83003,
-        "lemma_1": "aṭṭhasata 2"
-    },
-    {
-        "id": 83002,
-        "lemma_1": "antaraṃ katvā 2"
-    },
-    {
-        "id": 83001,
-        "lemma_1": "vivattamāna"
-    },
-    {
-        "id": 10679,
-        "lemma_1": "avisahanta 2"
-    },
-    {
-        "id": 83000,
-        "lemma_1": "antaraṃ kātuṃ"
-    },
-    {
-        "id": 82999,
-        "lemma_1": "sīvali 2"
-    },
-    {
-        "id": 54952,
-        "lemma_1": "rājāṇā"
-    },
-    {
-        "id": 76050,
-        "lemma_1": "lekhā 4"
-    },
-    {
-        "id": 82998,
-        "lemma_1": "antaraṃ karoti 2"
-    },
-    {
-        "id": 5716,
-        "lemma_1": "antaraṃ karoti"
-    },
-    {
-        "id": 82997,
-        "lemma_1": "daṇḍī"
-    },
-    {
-        "id": 34414,
-        "lemma_1": "dvinnaṃ 1"
     }
 ]
