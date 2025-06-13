@@ -212,58 +212,284 @@
         ],
         "tasmiṃ": [
             30155
+        ],
+        "gotama": [
+            76297,
+            76356,
+            76404
+        ],
+        "sāmaṃyeva": [
+            62280,
+            62352,
+            75054
+        ],
+        "maññathāvuso": [
+            50814
+        ],
+        "kammaṃ": [
+            20240
+        ],
+        "upakkamena": [
+            15360,
+            15362
+        ],
+        "padhānena": [
+            42246,
+            42247,
+            42248
+        ],
+        "labbhametanti": [
+            17970,
+            80558,
+            74618
+        ],
+        "alabbhametaṃ": [
+            17970,
+            80558
+        ],
+        "sattā": [
+            57677,
+            57679
+        ],
+        "dukkaṭakammakārino": [
+            32853
+        ],
+        "pāpakena": [
+            45582,
+            45583
+        ],
+        "issarena": [
+            13887
+        ],
+        "kathañca": [
+            19853
+        ],
+        "addhabhāveti": [
+            78412
+        ],
+        "dhammikañca": [
+            76366
+        ],
+        "tasmiñca": [
+            30155
+        ],
+        "dukkhanidānassa": [
+            32902
+        ],
+        "upekkhaṃ": [
+            16445,
+            16479
+        ],
+        "panassa": [
+            42295
+        ],
+        "padahati": [
+            42111
+        ],
+        "evampissa": [
+            9940,
+            10033
+        ],
+        "tibbacchando": [
+            78450
+        ],
+        "purisena": [
+            47035
+        ],
+        "purisassa": [
+            47035
+        ],
+        "uppajjeyyuṃ": [
+            16538
+        ],
+        "uppajjanti": [
+            16538
+        ],
+        "padaheyyanti": [
+            42111
+        ],
+        "padaheyya": [
+            42111
+        ],
+        "tejanaṃ": [
+            31174
+        ],
+        "yato": [
+            53528
+        ],
+        "paritāpitaṃ": [
+            43474
+        ],
+        "uppajjati": [
+            16538
+        ],
+        "satthā": [
+            57867,
+            57868
+        ],
+        "sayaṃ": [
+            60979,
+            60980
+        ],
+        "brahmacariyaṃ": [
+            48914
+        ],
+        "pakāseti": [
+            39024
+        ],
+        "kule": [
+            22530,
+            75601
+        ],
+        "paṭilabhati": [
+            75792
+        ],
+        "pabbajjā": [
+            82505
+        ],
+        "ajjhāvasatā": [
+            1365
+        ],
+        "kāsāyāni": [
+            21489
+        ],
+        "vatthāni": [
+            66054
+        ],
+        "anagāriyaṃ": [
+            3464
+        ],
+        "pahāya": [
+            45099
+        ],
+        "mahantaṃ": [
+            51580
+        ],
+        "lajjī": [
+            55543
+        ],
+        "vācaṃ": [
+            66693
+        ],
+        "ito": [
+            13450
+        ],
+        "bhedāya": [
+            50272,
+            50273,
+            50274,
+            50275,
+            50276
+        ],
+        "amūsaṃ": [
+            8594
+        ],
+        "bhinnānaṃ": [
+            77833
+        ],
+        "sahitānaṃ": [
+            61483,
+            61484,
+            61489
+        ],
+        "vācā": [
+            66693
+        ],
+        "atthavādī": [
+            2715
+        ],
+        "ettha": [
+            17946
+        ],
+        "passa": [
+            44735,
+            44754,
+            79126,
+            80427
+        ],
+        "ma": [
+            50428
+        ],
+        "ariyena": [
+            8976,
+            8977
+        ],
+        "rūpaṃ": [
+            55156,
+            55157,
+            55158
+        ],
+        "asaṃvutaṃ": [
+            9662
+        ],
+        "pāpakā": [
+            45582,
+            45583
+        ],
+        "saṃvaraṃ": [
+            61901
+        ],
+        "āpajjati": [
+            11841,
+            11842
+        ],
+        "pe": [
+            45424,
+            47250,
+            47251,
+            80427
+        ],
+        "rasaṃ": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "phoṭṭhabbaṃ": [
+            47826
+        ],
+        "viññāya": [
+            67792,
+            67794
+        ],
+        "asite": [
+            9728,
+            9730,
+            9733
+        ],
+        "pīte": [
+            46369,
+            46371
+        ],
+        "gate": [
+            77840
+        ],
+        "sutte": [
+            63820
+        ],
+        "vivittaṃ": [
+            69596,
+            78351
+        ],
+        "senāsanaṃ": [
+            64915
+        ],
+        "araññaṃ": [
+            73713
         ]
     },
-    "matched": {
-        "mūlapariyāyavaggo": {
-            "id": 53124,
-            "sentence": [
-                "mn10:47.6",
-                "mūlapariyāyavaggo niṭṭhito paṭhamo. ",
-                ""
-            ]
-        },
-        "mūlapariyāyasuttaṃ": {
-            "id": 53123,
-            "sentence": [
-                "mn1:194.10",
-                "mūlapariyāyasuttaṃ niṭṭhitaṃ paṭhamaṃ. ",
-                ""
-            ]
-        },
-        "devadahavaggo": {
-            "id": 34072,
-            "sentence": [
-                "mn110:25.4",
-                "devadahavaggo niṭṭhito paṭhamo. ",
-                ""
-            ]
-        },
-        "byantībhāvā": {
-            "id": 48755,
-            "sentence": [
-                "mn101:2.6",
-                "iti purāṇānaṃ kammānaṃ tapasā byantībhāvā, navānaṃ kammānaṃ akaraṇā, āyatiṃ anavassavo; ",
-                "So, due to eliminating past deeds by fervent mortification, and not doing any new deeds, there’s nothing to come up in the future. "
-            ]
-        },
-        "kā": {
-            "id": 19159,
-            "sentence": [
-                "mn110:13.3",
-                "kā ca, bhikkhave, asappurisānaṃ gati? ",
-                "And what is the place where untrue persons are reborn? "
-            ]
-        },
-        "ko": {
-            "id": 19159,
-            "sentence": [
-                "mn140:36.3",
-                "tassa kā gati, ko abhisamparāyo”ti? ",
-                "Where has he been reborn in his next life?” "
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
-    "processed": []
+    "processed": [
+        "mūlapariyāyavaggo",
+        "mūlapariyāyasuttaṃ",
+        "devadahavaggo",
+        "byantībhāvā",
+        "kā",
+        "ko",
+        "aññāṇā",
+        "brahmacariyaṃ",
+        "cūḷahatthipadopame",
+        "phusitvā"
+    ]
 }
