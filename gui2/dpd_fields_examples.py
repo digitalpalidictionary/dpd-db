@@ -1,21 +1,19 @@
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
-
+from gui2.dpd_fields_functions import clean_example
+from gui2.example_stash_manager import ExampleStashManager
+from gui2.flet_functions import (
+    highlight_word_in_sentence,
+)
 from gui2.toolkit import ToolKit
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.cst_source_sutta_example import (
     CstSourceSuttaExample,
     find_cst_source_sutta_example,
 )
-
 from tools.hyphenations import HyphenationFileManager, HyphenationsDict
 from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
-from gui2.example_stash_manager import ExampleStashManager
-from gui2.flet_functions import (
-    highlight_word_in_sentence,
-)
-from gui2.dpd_fields_functions import clean_example
 
 book_codes: dict[str, str] = {
     # vinaya
@@ -23,6 +21,7 @@ book_codes: dict[str, str] = {
     "VIN2 Pācittiya": "vin2",
     "VIN3 Mahāvagga": "vin3",
     "VIN4 Cūlavagga": "vin4",
+    "VIN5 Parivāra": "vin5",
     # dn
     "DN1 Sīlakkhandhavagga": "dn1",
     "DN2 Mahāvagga": "dn2",

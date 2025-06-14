@@ -1,15 +1,13 @@
 import re
 import time
 from collections import namedtuple
+from typing import List
 
 from bs4 import BeautifulSoup, element
-
-
 from rich import print
-from typing import Tuple, List
 
-from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
+from tools.paths import ProjectPaths
 from tools.tokenizer import split_sentences
 
 """This code relies completely on tools.pali_text_files."""
@@ -157,7 +155,7 @@ def get_cst_filenames(books: list[str] | str) -> list[str]:
 
 class GlobalData:
     def __init__(self, book: str, text_to_find: str) -> None:
-        self.debug: bool = False
+        self.debug: bool = True
         self.pth = ProjectPaths()
 
         self.book: str = book
@@ -645,6 +643,30 @@ def vin3_vin4_maha_culavagga(g: GlobalData):
         #     subtitle, _ = get_text_and_number(x.text.strip())
         #     g.source = f"{book}.{g.section_counter}.{g.sutta_counter}"
         #     g.sutta = f"{g.sutta_clean}, {subtitle}".lower()
+
+
+def vin5_parivara(g: GlobalData):
+    # <head rend="chapter">Soḷasamahāvāro</head>
+    # <p rend="subhead">1. Anuvijjakaanuyogo</p>
+
+    x = g.x
+    book_code = "VIN5"
+
+    # Extract text and number once for the current element
+    current_text, current_number = get_text_and_number(x.text.strip())
+    g.section_counter = 0
+
+    if x["rend"] == "chapter":  # Handles <head rend="chapter">Soḷasamahāvāro</head>
+        g.vagga = current_text
+        g.vagga_counter = (
+            int(current_number) if current_number is not None else g.vagga_counter + 1
+        )
+        # Reset lower-level counters when a new chapter starts
+        g.source = f"{book_code}.{g.vagga_counter}"
+        g.sutta = current_text.lower()
+
+    elif x["rend"] == "subhead":
+        g.sutta = f"{g.vagga}, {current_text}".lower()
 
 
 def dn_digha_nikaya(g: GlobalData):
@@ -2609,6 +2631,8 @@ def find_cst_source_sutta_example(
                     vin2_pacittiya(g)
                 case "vin3" | "vin4":
                     vin3_vin4_maha_culavagga(g)
+                case "vin5":
+                    vin5_parivara(g)
 
                 case "dn1" | "dn2" | "dn3":
                     dn_digha_nikaya(g)
@@ -2766,7 +2790,7 @@ def find_cst_source_sutta_example(
 
 
 if __name__ == "__main__":
-    book = "dn1"
-    text_to_find = "akatvā"
+    book = "vin5"
+    text_to_find = "adhipātimokkh"
     sutta_examples = find_cst_source_sutta_example(book, text_to_find)
     # print(len(sutta_examples))
