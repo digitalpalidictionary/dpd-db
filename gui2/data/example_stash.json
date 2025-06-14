@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "MN150",
-        "sutta": "nagaravindeyyasuttaṃ",
-        "example": "evaṃ puṭṭhā tumhe, gahapatayo, tesaṃ aññatitthiyānaṃ paribbājakānaṃ evaṃ byākareyyātha, tathā hi te āyasmanto araññavanapatthāni pantāni sen'āsanāni paṭisevanti. n'atthi//natthi kho pana tattha tathārūpā cakkhuviññeyyā rūpā ye disvā disvā abhirameyyuṃ, n'atthi//natthi kho pana tattha tathārūpā sotaviññeyyā saddā ye sutvā sutvā abhirameyyuṃ, n'atthi//natthi kho pana tattha tathārūpā ghānaviññeyyā gandhā ye ghāyitvā ghāyitvā abhirameyyuṃ, n'atthi//natthi kho pana tattha tathārūpā jivhāviññeyyā rasā ye sāyitvā sāyitvā abhirameyyuṃ, n'atthi//natthi kho pana tattha tathārūpā kāyaviññeyyā phoṭṭhabbā ye phusitvā phusitvā abhirameyyuṃ. ime kho no, āvuso, ākārā, ime anvayā, yena mayaṃ evaṃ vadema, addhā te āyasmanto vītarāgā vā rāgavinayāya vā paṭipannā, vītadosā vā dosavinayāya vā paṭipannā, vītamohā vā mohavinayāya vā paṭipannā'ti."
+        "source": "UDa1",
+        "sutta": "paṭhamabodhisuttavaṇṇanā",
+        "example": "atha vā paccetuṃ arahanti naṃ paṇḍitā'ti paṭicco, sammā sayam'eva vā uppādetī'ti samuppādo, paṭicco ca so samuppādo cā'ti paṭiccasamuppādo'ti evam'ettha attho daṭṭhabbo."
     },
     "stash": {
-        "source": "SNP71",
-        "sutta": "piṅgiya māṇava pucchā\npārāyanavaggo 16",
-        "example": "jiṇṇo'ham'asmi abalo vītavaṇṇo,\nnettā na suddhā savanaṃ na phāsu,\nm'āhaṃ nassaṃ momuho antarā'va,\nācikkha dhammaṃ yam'ahaṃ vijaññaṃ,\njātijarāya idha vippahānaṃ."
+        "source": "MN108",
+        "sutta": "gopakamoggallānasuttaṃ",
+        "example": "kathaṃ rūpañ'ca, brāhmaṇa, so bhagavā jhānaṃ na vaṇṇesi? idha, brāhmaṇa, ekacco kāmarāgapariyuṭṭhitena cetasā viharati kāmarāgaparetena, uppannassa ca kāmarāgassa nissaraṇaṃ yathābhūtaṃ nappajānāti, so kāmarāgaṃ'y'eva antaraṃ karitvā jhāyati pajjhāyati nijjhāyati apajjhāyati."
     }
 }

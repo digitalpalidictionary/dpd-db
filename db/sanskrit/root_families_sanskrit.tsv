@@ -146,7 +146,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ikkh	1	a	see, mark	√īkṣ	1	see	abhi √ikkh	abhīkṣ	abhīkṣṇa, abhīkṣṇam, abhīkṣṇam, abhīṣṇam (bsk), abhīṣṇam (bsk), abhīkṣṇam, na + abhīkṣṇam
 √ikkh	1	a	see, mark	√īkṣ	1	see	ava √ikkh	avekṣ	avekṣat, avekṣate, avekṣitvā, avekṣyate
 √ikkh	1	a	see, mark	√īkṣ	1	see	ud √ikkh	udīkṣ	udīkṣate, udīkṣitṛ
-√ikkh	1	a	see, mark	√īkṣ	1	see	upa √ikkh	upekṣ	upīkṣate, upekṣaka, upekṣā
+√ikkh	1	a	see, mark	√īkṣ	1	see	upa √ikkh	upekṣ	upīkṣate, upekṣa, upekṣā, upekṣaka, upekṣā
 √ikkh	1	a	see, mark	√īkṣ	1	see	upa pari √ikkh	upaparīkṣ	upaparīkṣaṇa, upaparīkṣat, upaparīkṣate, upaparīkṣā, upaparīkṣitavya, upaparīkṣitvā, upaparīkṣin, na + upaparīkṣat
 √ikkh	1	a	see, mark	√īkṣ	1	see	pa √ikkh	prekṣ	prekṣaṇa, prekṣat, prekṣate, prekṣamāṇa, prekṣayati, prekṣayitvā, prekṣā, prekṣita, prekṣitavya, prekṣitum, prekṣitvā, prekṣitṛ
 √ikkh	1	a	see, mark	√īkṣ	1	see	pati √ikkh	pratīkṣ	pratīkṣat
@@ -893,7 +893,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	√cuṇṇ	cūrṇ	cūrṇa, cūrṇaka
 √cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	vi √cuṇṇ	vicūrṇ	vicūrṇita, vicūrṇya
 √cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	saṃ √cuṇṇ	saṃcūrṇ	
-√cud	8	*e	impel, accuse	√cud	1	impel	√cud	cud	codaka, codanā, codayat, codayati, codayamāna, codayitavya, codayitum, codayitvā, codita, codya, codyamāna, na + codita, na + codyamāna
+√cud	8	*e	impel, accuse	√cud	1	impel	√cud	cud	codaka, codana, codanā, codayat, codayati, codayamāna, codayitavya, codayitum, codayitvā, codita, codya, codyamāna, na + codita, na + codyamāna
 √cud	8	*e	impel, accuse	√cud	1	impel	pati √cud	praticud	praticudayitvā, praticodayati, praticodita (impelled)
 √cud	8	*e	impel, accuse	√cud	1	impel	saṃ √cud	saṃcud	
 √cup	1	*e	move	√cup	1	stir	√cup	cup	copayati
@@ -1643,7 +1643,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pad	3	ya	go, step	√pad	4	go	ni √pad	nipad	na + nipattvā, nipattvā, nipaditavya, nipaditum, nipadya, nipadyat, nipadyate, nipanna (bsk), nipādayati
 √pad	3	ya	go, step	√pad	4	go	nī √pad	niṣpad	na + niṣpatti, na + niṣpanna, niṣpatti, niṣpadayitum, niṣpaditavya, niṣpadyate, niṣpanna, niṣpādaka, niṣpādana, niṣpādayati, niṣpādita
 √pad	3	ya	go, step	√pad	4	go	pa √pad	prapad	prapada
-√pad	3	ya	go, step	√pad	4	go	pati √pad	pratipad	dus + pratipatti, prati + apādi, prati + pāda, pratipatti, pratipad, pratipadayitvā, pratipaditavya, pratipadtum, pratipadyat, pratipadyate, pratipadyana +, pratipadyamāna, pratipanna, pratipanna +, pratipannaka, pratipādaka, pratipādana, pratipādayati, pratipādita, prātipada, prātipadika (explicit), su + pratipatti, supratipanna, supratipanna +
+√pad	3	ya	go, step	√pad	4	go	pati √pad	pratipad	dus + pratipatti, prati + apādi, prati + pāda, pratipatti, pratipad, pratipada, pratipadā, pratipada, prātipada, pratipadayitvā, pratipaditavya, pratipadtum, pratipadyat, pratipadyate, pratipadyana +, pratipadyamāna, pratipanna, pratipanna +, pratipannaka, pratipādaka, pratipādana, pratipādayati, pratipādita, prātipada, prātipadika (explicit), su + pratipatti, supratipanna, supratipanna +
 √pad	3	ya	go, step	√pad	4	go	pati ud √pad	utpad	prati + apādi, pratyutpanna
 √pad	3	ya	go, step	√pad	4	go	pari √pad	paripad	pari + panna
 √pad	3	ya	go, step	√pad	4	go	pari ā √pad	āpad	pari + āpadyate, paryā + pādayati, paryāpanna (bsk)
