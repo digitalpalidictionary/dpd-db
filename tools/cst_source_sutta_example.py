@@ -155,7 +155,7 @@ def get_cst_filenames(books: list[str] | str) -> list[str]:
 
 class GlobalData:
     def __init__(self, book: str, text_to_find: str) -> None:
-        self.debug: bool = True
+        self.debug: bool = False
         self.pth = ProjectPaths()
 
         self.book: str = book
