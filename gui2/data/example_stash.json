@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "MN120",
-        "sutta": "saṅkhārupapattisuttaṃ",
-        "example": "anupāda-sodhana-porisadhammo,\nsevitabba-bahudhātu-vibhatti,\nbuddhassa kittināma-cattārīsena,\nānāpāno kāyagato upapatti."
+        "source": "MN22",
+        "sutta": "alagaddūpamasuttaṃ",
+        "example": "evaṃ svākkhāte, bhikkhave, mayā dhamme uttāne vivaṭe pakāsite chinnapilotike ye te bhikkhū arahanto khīṇ'āsavā vusitavanto katakaraṇīyā ohitabhārā anuppattasadatthā parikkhīṇabhavasaṃyojanā samma'd'aññā vimuttā, vaṭṭaṃ tesaṃ n'atthi paññāpanāya."
     },
     "stash": {
-        "source": "MN108",
-        "sutta": "gopakamoggallānasuttaṃ",
-        "example": "kathaṃ rūpañ'ca, brāhmaṇa, so bhagavā jhānaṃ na vaṇṇesi? idha, brāhmaṇa, ekacco kāmarāgapariyuṭṭhitena cetasā viharati kāmarāgaparetena, uppannassa ca kāmarāgassa nissaraṇaṃ yathābhūtaṃ nappajānāti, so kāmarāgaṃ'y'eva antaraṃ karitvā jhāyati pajjhāyati nijjhāyati apajjhāyati."
+        "source": "MN146",
+        "sutta": "nandakovādasuttaṃ",
+        "example": "atha kho bhagavā āyasmantaṃ ānandaṃ āmantesi, kassa nu kho, ānanda, ajja pariyāyo bhikkhuniyo ovadituṃ pariyāyenā'ti? sabbeh'eva, bhante, kato pariyāyo bhikkhuniyo ovadituṃ pariyāyena. ayaṃ, bhante, āyasmā nandako na icchati bhikkhuniyo ovadituṃ pariyāyenā'ti."
     }
 }
