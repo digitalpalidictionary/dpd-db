@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Find the most frequent words and generate audio files using ElevenLabs."""
 

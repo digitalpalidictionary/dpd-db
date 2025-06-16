@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Extract bold defined words from the CST corpus and ad to database."""
 

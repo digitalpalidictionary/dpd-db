@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 
 from gui2.books import SuttaCentralSegment

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """A simple system of for Pāḷi word lookup consisting of:
 1. inflection to headwords

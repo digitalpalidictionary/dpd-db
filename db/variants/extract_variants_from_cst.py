@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Extract variants readings from CST texts."""
 
 import re

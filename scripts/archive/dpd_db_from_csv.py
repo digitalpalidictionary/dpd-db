@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """Coverts the PALI and ROOTS tables from the original dpd.ods into the DB."""
 
 import sys

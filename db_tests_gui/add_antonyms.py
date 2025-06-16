@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Add missing family compounds and idioms
 """

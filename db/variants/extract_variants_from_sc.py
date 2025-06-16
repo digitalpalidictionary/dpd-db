@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Extract variants readings from Sutta Central texts."""
 
 import json

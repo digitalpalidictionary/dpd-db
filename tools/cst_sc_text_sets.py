@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Make sets of clean words in Chaṭṭha Saṅgāyana and Sutta Central texts.
 Optionally change the niggahita character.
 How to use: feed in a list of books and get a set in return.

@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 version = __version__ = "4.61.0.166 Unreleased"
 

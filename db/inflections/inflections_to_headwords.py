@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
 Save a TSV of every inflection found in texts or deconstructed compounds

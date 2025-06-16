@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from tools.paths import ProjectPaths
 import flet as ft
 

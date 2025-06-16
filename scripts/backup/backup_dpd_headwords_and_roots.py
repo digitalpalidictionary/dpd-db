@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Save latest DpdHeadword and DpdRoot tables to backup_tsv folder."""
 

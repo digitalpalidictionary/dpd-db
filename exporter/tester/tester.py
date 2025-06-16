@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """A test dictionary for prototyping new dictionary features."""
 
 from pathlib import Path

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Test the bold word in examples is an actual inflection of the headword."""
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Find all the nuns names in Therigāthā."""
 
 import csv

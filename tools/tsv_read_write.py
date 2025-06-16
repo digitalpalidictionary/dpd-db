@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Modules for reading and writing TSV files."""
 
 import csv

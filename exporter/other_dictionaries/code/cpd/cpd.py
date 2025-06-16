@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Export Crital Pāḷi dictionary into GoldenDict, MDict and JSON formats."""
 
 import re

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Find specific deconstructions in the 1GB matches.tsv file,
 and save to a temp file.

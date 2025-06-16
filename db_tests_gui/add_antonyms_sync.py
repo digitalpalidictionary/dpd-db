@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Add missing antonyms from existing words with antonyms.
 """

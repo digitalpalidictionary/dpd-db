@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Database functions related to the GUI."""
 
 import re

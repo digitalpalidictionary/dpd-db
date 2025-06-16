@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import csv
 
 csv1 = "../../csvs/dpd-full.csv"

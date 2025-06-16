@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import flet as ft
 
 from tools.configger import config_read, config_update

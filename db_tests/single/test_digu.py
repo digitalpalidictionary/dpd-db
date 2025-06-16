@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Find numerals in compounds, and change the compound type to digu."""
 

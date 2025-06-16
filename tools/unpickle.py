@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """A Pickle file reader."""
 
 import pickle

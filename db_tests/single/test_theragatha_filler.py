@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Fill in the missing details of auto-added monks' names in Theragāthā"""
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pickle
 from rich import print
 

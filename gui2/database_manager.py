@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import re
 from sqlalchemy.orm.session import Session
 from sqlalchemy import desc, func, or_

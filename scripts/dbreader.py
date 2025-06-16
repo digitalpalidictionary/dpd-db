@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 import dbf
 # from dbf import TABLE_DIRECTORY

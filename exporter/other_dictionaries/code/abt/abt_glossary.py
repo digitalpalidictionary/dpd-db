@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import csv
 import re
 from pathlib import Path

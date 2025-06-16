@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pickle
 
 with open("temp/limited_data_list", "rb") as f:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 writemdict.py - a library for creating dictionary files in the MDict file format.
 

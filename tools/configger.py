@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Modules for initializing, reading, writing, updating and testing
 config.ini file."""

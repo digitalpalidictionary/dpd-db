@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Find words in sutta central texts whcih contain the letter ṅ."""
 

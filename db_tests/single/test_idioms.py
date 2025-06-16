@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Test idioms to see that their component words contain the correct family idiom."""
 

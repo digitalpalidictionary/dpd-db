@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Export DPR Analysis data into Goldendict, MDict and JSON formats."""
 
 import json

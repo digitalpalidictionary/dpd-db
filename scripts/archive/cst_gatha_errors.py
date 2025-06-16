@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Find all gatha1 gathalast errors in a CST text."""
 
 

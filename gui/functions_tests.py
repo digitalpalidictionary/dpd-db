@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ "Functions related to running database tests using GUI.
 Types of tests:
 1. individual internal tests - runs in edit tab

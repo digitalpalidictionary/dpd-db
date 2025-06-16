@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Export PEU into Goldendict, MDict and JSON formats."""
 
 # the most up to date data is always available from

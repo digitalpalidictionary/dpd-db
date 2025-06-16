@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Compile HTML data for variants and spelling mistakes."""
 
 import csv

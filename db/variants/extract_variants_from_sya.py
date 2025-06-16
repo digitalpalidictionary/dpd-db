@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Extract variants readings from Syāmaraṭṭḥa (Thai) texts."""
 
 import re

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from spellchecker import SpellChecker
 from tools.paths import ProjectPaths
 from typing import Dict, List

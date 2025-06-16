@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """find compounds with sukha and dukkha which don't have antonyms"""
 

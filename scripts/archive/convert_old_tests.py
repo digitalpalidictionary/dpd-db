@@ -1,4 +1,5 @@
 #!/usr/bin/env python_3.11
+# -*- coding: utf-8 -*-
 
 import csv
 from db_tests.helpers import InternalTestRow

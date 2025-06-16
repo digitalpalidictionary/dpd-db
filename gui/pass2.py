@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Go thru each word and its components in a text to find missing examples."""
 
 import json

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Export a tsv of all Pali Root Families for adding Sanskrit lemma."""
 

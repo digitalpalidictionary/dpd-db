@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from json import JSONDecodeError, dump, dumps, load, loads
 from pathlib import Path
 

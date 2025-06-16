@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 
 AdditionsDict = dict[str, dict[str, str | int]]

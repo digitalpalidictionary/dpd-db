@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from collections import defaultdict, namedtuple
 from json import load
 from pathlib import Path

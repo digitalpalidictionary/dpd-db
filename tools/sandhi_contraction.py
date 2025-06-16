@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Finds all words in examples and commentary that contain an apostrophe
 denoting sandhi or contraction, eg. ajj'uposatho, tañ'ca"""
 
