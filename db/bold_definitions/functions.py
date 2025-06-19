@@ -1,8 +1,9 @@
 import re
+from copy import deepcopy
+from typing import Dict
 
 from rich import print
-from typing import Dict
-from copy import deepcopy
+
 from tools.printer import printer as pr
 
 
@@ -146,7 +147,7 @@ file_list = {
     # padarūpasiddhi
     "e0805n.nrf.xml": "PRS",
     # abhidhānappadīpikā
-    "e0809n.nrf.xml": "APP",
+    "e0809n.nrf.xml": "AP",
     "e0810n.nrf.xml": "APt",
 }
 
