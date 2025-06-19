@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "DNa1.3",
-        "sutta": "brahmajālasuttavaṇṇanā, majjhimasīlavaṇṇanā",
-        "example": "pallaṅko'ti pādesu vāḷarūpāni ṭhapetvā kato. gonako'ti dīghalomako mahākojavo, caturaṅgul'ādhikāni kira tassa lomāni."
+        "source": "MN119",
+        "sutta": "kāyagatāsatisuttaṃ",
+        "example": "seyyathā'pi, bhikkhave, dakkho goghātako vā goghātak'antevāsī vā gāviṃ vadhitvā cātummahāpathe bilaso paṭivibhajitvā nisinno assa"
     },
     "stash": {
-        "source": "MN146",
-        "sutta": "nandakovādasuttaṃ",
-        "example": "atha kho bhagavā āyasmantaṃ ānandaṃ āmantesi, kassa nu kho, ānanda, ajja pariyāyo bhikkhuniyo ovadituṃ pariyāyenā'ti? sabbeh'eva, bhante, kato pariyāyo bhikkhuniyo ovadituṃ pariyāyena. ayaṃ, bhante, āyasmā nandako na icchati bhikkhuniyo ovadituṃ pariyāyenā'ti."
+        "source": "THa73",
+        "sutta": "māṇavattheragāthāvaṇṇanā",
+        "example": "so tena puññakammena sugatīsu'y'eva saṃsaranto imasmiṃ buddh'uppāde sāvatthiyaṃ brāhmaṇamahāsālassa gehe nibbattitvā yāva sattavassāni, tāva antoghare'y'eva vaḍḍhitvā sattame saṃvacchare upanayan'atthaṃ uyyānaṃ nīto antarāmagge jiṇṇ'āturamate disvā tesaṃ adiṭṭhapubbattā te parijane pucchitvā..."
     }
 }

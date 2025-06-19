@@ -336,5 +336,17 @@
         "pass2_add": 7,
         "pass2_pre": 0,
         "pass2_update": 20
+    },
+    "2025-06-18": {
+        "pass1": 0,
+        "pass2_add": 15,
+        "pass2_pre": 0,
+        "pass2_update": 26
+    },
+    "2025-06-19": {
+        "pass1": 0,
+        "pass2_add": 6,
+        "pass2_pre": 0,
+        "pass2_update": 165
     }
 }
