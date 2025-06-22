@@ -236,6 +236,7 @@ class DpdCommentaryField(ft.Column):
                                     f"{i.nikaya}, {i.book}, {i.title}, {i.subhead}",
                                     size=10,
                                     color=ft.Colors.GREY_500,
+                                    selectable=True,
                                 )
                             ]
                         ),
