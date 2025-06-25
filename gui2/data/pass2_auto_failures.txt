@@ -32,3 +32,37 @@
     'comment': 'In the contextual sentence, juṇhapakkha is compared to the waxing moon (candimā) to illustrate how one's fame increases when following the Dhamma.'
 }
 
+{
+    'id': 35074,
+    'lemma_1': 'dhātuvibhaṅga',
+    'lemma_2': 'dhātuvibhaṅgo',
+    'pos': 'masc',
+    'grammar': 'masc, comp',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'detailed analysis of states',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': '',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'dhātu vibhaṅga',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': 'dhātu + vibhaṅga',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': 'tappurisa',
+    'compound_construction': 'dhātu + vibhaṅga',
+    'stem': 'dhātuvibhaṅg',
+    'pattern': 'a masc',
+    'comment': 'Refers to the detailed analysis of the elements (dhātus) as found in MN140, showing the Buddha's method of breaking down experience into its fundamental components.'
+}
+
