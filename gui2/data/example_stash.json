@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "MN141",
-        "sutta": "saccavibhaṅgasuttaṃ",
-        "example": "dukkhassa ariyasaccassa ācikkhanā desanā paññāpanā paṭṭhapanā vivaraṇā vibhajanā uttānīkammaṃ, dukkhasamudayassa ariyasaccassa ācikkhanā desanā paññāpanā paṭṭhapanā vivaraṇā vibhajanā uttānīkammaṃ"
+        "source": "AN6.16",
+        "sutta": "sāraṇīyavaggo, nakulapitusuttaṃ",
+        "example": "na kho pan'etaṃ, gahapati, evaṃ daṭṭhabbaṃ. yāvatā kho, gahapati, tassa bhagavato sāvikā gihī odātavasanā imasmiṃ dhammavinaye ogādhappattā patigādhappattā assāsappattā tiṇṇavicikicchā vigatakathaṃkathā vesārajjappattā aparappaccayā satthusāsane viharanti, ahaṃ tāsaṃ aññatarā."
     },
     "stash": {
-        "source": "MN140",
-        "sutta": "dhātuvibhaṅgasuttaṃ",
-        "example": "seyyathā'pi, bhikkhu, dvinnaṃ kaṭṭhānaṃ saṅghaṭṭā samodhānā usmā jāyati, tejo abhinibbattati, tesaṃ'y'eva dvinnaṃ kaṭṭhānaṃ nānābhāvā vikkhepā yā tajjā usmā sā nirujjhati, sā vūpasammati."
+        "source": "MN89",
+        "sutta": "dhammacetiyasuttaṃ",
+        "example": "addasā kho rājā pasenadi kosalo ārāme jaṅghāvihāraṃ anucaṅkamamāno anuvicaramāno rukkhamūlāni pāsādikāni pasādanīyāni appasaddāni appanigghosāni vijanavātāni manussarāhasseyyakāni"
     }
 }
