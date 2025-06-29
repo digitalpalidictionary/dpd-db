@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "AN6.16",
-        "sutta": "sāraṇīyavaggo, nakulapitusuttaṃ",
-        "example": "na kho pan'etaṃ, gahapati, evaṃ daṭṭhabbaṃ. yāvatā kho, gahapati, tassa bhagavato sāvikā gihī odātavasanā imasmiṃ dhammavinaye ogādhappattā patigādhappattā assāsappattā tiṇṇavicikicchā vigatakathaṃkathā vesārajjappattā aparappaccayā satthusāsane viharanti, ahaṃ tāsaṃ aññatarā."
+        "source": "MN146",
+        "sutta": "nandakovādasuttaṃ",
+        "example": "sabbeh'eva, bhante, kato pariyāyo bhikkhuniyo ovadituṃ pariyāyena. ayaṃ, bhante, āyasmā nandako na icchati bhikkhuniyo ovadituṃ pariyāyenā'ti."
     },
     "stash": {
-        "source": "MN89",
-        "sutta": "dhammacetiyasuttaṃ",
-        "example": "addasā kho rājā pasenadi kosalo ārāme jaṅghāvihāraṃ anucaṅkamamāno anuvicaramāno rukkhamūlāni pāsādikāni pasādanīyāni appasaddāni appanigghosāni vijanavātāni manussarāhasseyyakāni"
+        "source": "PMa3.1",
+        "sutta": "mahāpaññākathā",
+        "example": "tathā paññāpitānaṃ nicchayakaraṇena nijjhāpetā. tathā nijjhāyitassa atthassa paṭipattipayojanavasena pekkhetā. tathāpaṭipanne paṭipattiphalena pasādetā."
     }
 }
