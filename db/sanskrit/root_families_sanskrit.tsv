@@ -338,7 +338,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi √kar	vikṛ	avikāra, nirvikāra, vikaṭa +, vikaraṇa, vikāra, vikurute, vikurvaṇa, vikurvaṇa +, vikurvaṇā, vikṛta, vikṛta +, vikṛta, vikaṭa, vikṛti
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi ava √kar	vyākṛ	vyākaraṇa, vyākāra
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi ā √kar	vyākṛ	avyākṛta, na + vyākaraṇa, vaiyākaraṇa < vyākaraṇa, vyā + kurvat, vyākaraṇa, vyākaraṇāt, vyākaraṇīya, vyākariṣyati, vyākaret, vyākaroti, vyākartavya, vyākartum, vyākartṛ, vyākāra, vyākārṣīt, vyākurvat, vyākurvāṇa, vyākriyamāṇa, vyākṛta, vyākṛtya
-√kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi pa √kar	viprakṛ	viprakāra, viprakṛta (thwarted)
+√kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi pa √kar	viprakṛ	viprakāra, viprakṛta, viprakṛta (thwarted)
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	vi saṃ √kar		vi + saṃskāra, vi + saṃskṛta
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	saṃ √kar	saṃskṛ	asaṃskāra, asaṃskṛta, na + saṃ + kurvāṇa, na + saṃskāraka, sa + saṃskāra, sa + saṃskāreṇa, saṃkāra, saṃkurvat, saṃkriyate, saṃkṛ, saṃkṛti, saṃkṛtvā, saṃskaroti, saṃskāra, saṃskāraka, saṃskāratā, saṃskāravat, saṃskṛta, saṃskṛta +, saṃskṛti, sāṃkṛtya, susaṃskṛta
 √kal 1	8	*e	spend time	√kal	10	drive, produce	√kal	kal	akāla (na + kāla), akālika, akāle (na + kāle), akālena, kāla, kālāḥ, kālika, kāle, kālena
@@ -658,6 +658,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gar 1	1	a	esteem, be heavy	√gur	6	raise	√gar	gur	agauravatā, agaru, aguru, gaurava, gauravatā, guru, guruka, gurutara, gurutā, gurutva, na + gaurava, sagaurava, sagauravaṃ
 √gar 1	1	a	esteem, be heavy	√gur	6	raise	ati √gar	gur	atiguru
 √gar 1	1	a	esteem, be heavy	√gur	6	raise	saṃ √gar	gur	śārṅgarava
+√gar 2	1	a	drip, swallow	√gṝ	6, 9	swallow	√gar		gara
 √gar 2	1	a	drip, swallow	√gṝ	6, 9	swallow	ud √gar	udgṝ	udgāra
 √garah	1	a	blame	√garh	1	chide	√garah	garh	garhaṇa, garhat, garhati, garhamāṇa, garhā, garhita, garhitavya, garhin, garhya
 √garah	1	a	blame	√garh	1	chide	vi √garah	vigarh	vigarhat, vigarhati
@@ -1416,7 +1417,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	ava √dhā	avadhā	anavadhi, avadadhāti, avadhāna, avadhi, avadhimat, avadhuh, avahita, avahitvā, na + avadhimat
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	ā √dhā	ādhā	ādhātum, ādhāna, ādhāya, ādhīyate, ādheya, āhita
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	ud √dhā	uddhā	uddhāna
-√dhā	1	a	place, support	√dhā	1, 2, 3	put	upa √dhā	upadhā	aupadhika, anupadhīka, upadadhāti, upadhana, upadhātum, upadhāna, upadhi, upadhitvā, upadhetavya, na + upadhika, nirupādhi, sa + upadhika
+√dhā	1	a	place, support	√dhā	1, 2, 3	put	upa √dhā	upadhā	aupadhika, anupadhīka, upadadhāti, upadhana, upadhā, upadhātum, upadhāna, upadhi, upadhitvā, upadhetavya, na + upadhika, nirupādhi, sa + upadhika
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	upa ni √dhā	upanidhā	upanidhāya, upanidhi, na + upanidhāya
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	upa saṃ √dhā	upasaṃdhā	upasaṃhita
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	ni √dhā	nidhā	anihita, na + nidhāna + vantṛ, nidhāna, nidhāna + vantṛ, nidhāpayati, nidhāya, nidhi, nidhītvā, nidhetavya, nidheya, ninidhāt, nihita, sunihita
@@ -1642,7 +1643,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pad	3	ya	go, step	√pad	4	go	ni √pad	nipad	na + nipattvā, nipattvā, nipaditavya, nipaditum, nipadya, nipadyat, nipadyate, nipanna (bsk), nipādayati
 √pad	3	ya	go, step	√pad	4	go	nī √pad	niṣpad	na + niṣpatti, na + niṣpanna, niṣpatti, niṣpadayitum, niṣpaditavya, niṣpadyate, niṣpanna, niṣpādaka, niṣpādana, niṣpādayati, niṣpādita
 √pad	3	ya	go, step	√pad	4	go	pa √pad	prapad	prapada
-√pad	3	ya	go, step	√pad	4	go	pati √pad	pratipad	dus + pratipatti, prati + apādi, prati + pāda, pratipatti, pratipad, pratipada, pratipadā, pratipada, prātipada, pratipadayitvā, pratipaditavya, pratipadtum, pratipadyat, pratipadyate, pratipadyana +, pratipadyamāna, pratipanna, pratipanna +, pratipannaka, pratipādaka, pratipādana, pratipādayati, pratipādita, prātipada, prātipadika (explicit), su + pratipatti, supratipanna, supratipanna +
+√pad	3	ya	go, step	√pad	4	go	pati √pad	pratipad	dus + pratipatti, prati + apādi, prati + pāda, pratipatti, pratipad, pratipada, pratipadā, pratipada, prātipada, pratipadayitvā, pratipaditavya, pratipadtum, pratipadyat, pratipadyate, pratipadyana +, pratipadyamāna, pratipanna, pratipanna +, pratipannaka, pratipādaka, pratipādana, pratipādayati, pratipādita, prātipada, prātipadika, prātipadika (explicit), su + pratipatti, supratipanna, supratipanna +
 √pad	3	ya	go, step	√pad	4	go	pati ud √pad	utpad	prati + apādi, pratyutpanna
 √pad	3	ya	go, step	√pad	4	go	pari √pad	paripad	pari + panna
 √pad	3	ya	go, step	√pad	4	go	pari ā √pad	āpad	pari + āpadyate, paryā + pādayati, paryāpanna (bsk)
@@ -2037,7 +2038,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √man	3	ya	think	√man	3, 4, 8	think	saṃ anu √man	samanuman	samanumanyate
 √mant	8	*e	counsel, invite	√mantr	10	speak	√mant	mantr	durmantrita, durmantrin, na + mantrayitvā, mantrya, maitrāyaṇī, mantra, mantraṇa, mantrayat, mantrayati, mantrayate, mantrayamāṇa, mantrayitavya, mantrayitum, mantrayitvā, mantrayitvā, mantrya, mantravat, mantrin, sumantrita
 √mant	8	*e	counsel, invite	√mantr	10	speak	abhi ni √mant	abhinimantr	abhi + nimantraṇa, abhinimantrayati
-√mant	8	*e	counsel, invite	√mantr	10	speak	ā √mant	āmantr	āmantraṇa, āmantraṇā, āmantrayate, āmantrita, na +, na + āmantrya
+√mant	8	*e	counsel, invite	√mantr	10	speak	ā √mant	āmantr	āmantraṇa, āmantraṇa, āmantrita, āmantraṇā, āmantrayate, āmantrita, na +, na + āmantrya
 √mant	8	*e	counsel, invite	√mantr	10	speak	ni √mant	nimantr	na + nimantrita, naimantraṇaka, nimantraṇa, nimantrayat, nimantrayati, nimantrayitum, nimantrayitvā, nimantrita, nimantrya, nimantryamāṇa
 √mant	8	*e	counsel, invite	√mantr	10	speak	pati √mant	pratimantr	dus + pratimantrayitavya, pratimanta, pratimantraṇa, pratimantrayati, pratimantrayitavya, pratimantrayitum, pratimantṛ
 √mant	8	*aya	counsel, invite	√mantr	10	speak	saṃ √mant	sammantr	sammantrayati
@@ -3031,7 +3032,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	√si	śri	śrita
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	adhi √si	adhiśri	
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	adhi ā √si	āśri	adhyāśaya, adhyāśaya (bsk)
-√si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	apa √si	apaśri	apaśayitṛ?, apaśraya, apaśraya +, apāśritya
+√si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	apa √si	apaśri	apaśraya, apaśraya +, apāśritya
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ava √si		ava + śri, avasa, āśraya
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ā √si	āśri	āśrita
 √si 1	1	a	depend on, associate with	√śri √śṛ	1	resort	ud √si	ucchri	ucchrayati, ucchrāyayati (bsk), ucchrāpayat (bsk), ucchrāpayati, ucchrāpayatum, ucchrita, utsṛta (bsk), udśri, na + ucchrita
