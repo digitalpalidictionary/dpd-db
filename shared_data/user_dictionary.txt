@@ -3152,3 +3152,5 @@ Dantabhūmisutta
 Bhūmijasutta
 colour
 endeavoured
+downslope
+upslope

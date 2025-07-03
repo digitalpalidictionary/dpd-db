@@ -1,6 +1,5 @@
 initial	final	correct	wrong	without	exceptions
-ī + p	ipp	īp > ipp	x	ī + ph	gihippaṭisaṃyutta, kusāvatīrājadhānippamukha, cetovasippatta, jagatippadesa, pāramippatta, rājadhānippamukha, subhaddādevippamukha, hatthippabhinna
--
+
 a + u	o	au > o	u > o	o	okkhita
 a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
 a + ṭ	iṭ	a > i	x	a + ṭh	x
@@ -18,7 +17,7 @@ ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
 ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
 xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
 ā + th	atth	āth > atth	x	x	x
-ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta
+ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta, dhammānupassanābojjhaṅgapabba
 ā + s	ass	ās > ass	x	ass	x
 ānaṃ	annaṃ	ān > ann	x	x	x
 
@@ -28,6 +27,7 @@ i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭ�
 
 ī + a	aya	ī > ay	x	x	samannānayamāna
 ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
+ī + p	ipp	īp > ipp	x	ī + ph	gihippaṭisaṃyutta, kusāvatīrājadhānippamukha, cetovasippatta, jagatippadesa, pāramippatta, rājadhānippamukha, subhaddādevippamukha, hatthippabhinna
 ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
 ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
 ī + l	ill	īl > ill	x	x	x
@@ -41,7 +41,7 @@ u + u	ū	uu > ū	u > ū	ū	x
 uj	og	uj > oj > og	u > o\nj > g uj	og	upabhoggā, bhogga 1.1, bhogga 1.2, yogga 1, yogga 2, yogga 3, yogga 4, yoggā, bhogga 1.3
 uṭ	oṭ	u > o	x	x	x
 ud + h	ūh	ud > ū before h	ud > ū	x	x
-uh + t	dh	ht > dh	x	x	duddha 1, muddha 1.1
+uh + t	dh	ht > dh	x	ddh	duddha 1, muddha 1.1
 
 ūy	ubb	ūy > ūv > uvv > ubb	x	x	x
 
@@ -163,7 +163,7 @@ r + g	gg	rg > gg	r > g	r + gh	x
 r + gh	ggh	rgh > ggh	rg > gg	x	x
 r + j	jj	rj > jj	x	x	x
 r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x
-r + t	tt	rt > tt	r > t	r + th	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1, adhikatatta
+r + t	tt	rt > tt	r > t	r + th	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1, adhikatatta, kaṭatta, supaccatthata
 xr + t	ṭ	rt > ṭ (sk ṛt) 	rt > ṭ	x	x
 r + th	tth	rth > tth	r > t	x	x
 r + d	dd	rd > dd	r > d	r + dh	x
