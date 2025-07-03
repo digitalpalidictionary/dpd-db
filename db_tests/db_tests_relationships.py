@@ -4,18 +4,16 @@
 words in the db."""
 
 import re
-import pyperclip
-
 from typing import Dict, Optional
+
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
-from db.models import DpdRoot
-from db.models import DpdHeadword
-from db.models import FamilyCompound
-from tools.printer import printer as pr
+from db.models import DpdHeadword, DpdRoot, FamilyCompound
 from tools.pali_alphabet import consonants
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 from tools.sandhi_contraction import SandhiContractionManager
 
 # generic tests that return tuples of results
@@ -1009,6 +1007,13 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "āgatāgata",
         "uparūpari 1",
         "uparūpari 2",
+        "bahūtara",
+        "dvidugama",
+        "jīvañjīvaka",
+        "jīvañjīvakasadda",
+        "nāsaññī",
+        "saso",
+        "saṇḍasaṇḍa",
     ]
 
     results = []
