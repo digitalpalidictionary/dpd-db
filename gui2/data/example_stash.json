@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "VIN1.4.3.2",
-        "sutta": "ūnapañcabandhanasikkhāpadaṃ",
-        "example": "yo na chand'āgatiṃ gaccheyya, na dos'āgatiṃ gaccheyya, na moh'āgatiṃ gaccheyya, na bhay'āgatiṃ gaccheyya, gāhita-agāhitañ'ca jāneyya."
+        "source": "SNP37",
+        "sutta": "mahāvaggo, nālakasuttaṃ",
+        "example": "taṃ saddaṃ sutvā turitam'avasarī so,\nsuddhodanassa tada bhavanaṃ upāvisi,\nnisajja tattha idam'avocāsi sakye,\nkuhiṃ kumāro aham'api daṭṭhu'kāmo."
     },
     "stash": {
-        "source": "THa27",
-        "sutta": "lomasakaṅgiyattheragāthāvaṇṇanā",
-        "example": "tattha dabban'ti dabbatiṇam'āha, yaṃ saddulo'ti'pi vuccati. kusan'ti kusatiṇaṃ, yo kāso'ti vuccati."
+        "source": "TH192",
+        "sutta": "sambhūtattheragāthā",
+        "example": "yo dandhakāle tarati,\ntaraṇīye ca dandhaye,\nayoni saṃvidhānena,\nbālo dukkhaṃ nigacchati."
     }
 }
