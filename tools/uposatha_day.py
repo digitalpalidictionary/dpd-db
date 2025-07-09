@@ -42,6 +42,7 @@ class UposathaManger:
         date(2025, 4, 13),
         date(2025, 5, 12),
         date(2025, 6, 11),
+        date(2025, 7, 9),
         date(2025, 7, 10),
         date(2025, 8, 9),
         date(2025, 9, 7),

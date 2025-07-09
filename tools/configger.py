@@ -6,6 +6,7 @@ config.ini file."""
 
 import configparser
 from typing import Optional
+
 from tools.printer import printer as pr
 
 config = configparser.ConfigParser()
@@ -104,7 +105,7 @@ def config_update(section: str, option: str, value, silent=False) -> None:
         config.set(section, option, str(value))
     config_write()
     if not silent:
-        pr.green(f"config updated: {section}: {option} --> {value}")
+        pr.green_title(f"config updated: {section}: {option} --> {value}")
 
 
 def config_test(section: str, option: str, value) -> bool:

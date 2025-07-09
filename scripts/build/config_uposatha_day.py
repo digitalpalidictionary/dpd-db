@@ -25,6 +25,8 @@ def uposatha_day_configger():
         config_update("dictionary", "show_id", "no")
         config_update("dictionary", "data_limit", "0")
 
+        config_update("deconstructor", "use_premade", "no")
+
         config_update("exporter", "make_grammar", "yes")
         config_update("exporter", "make_deconstructor", "yes")
         config_update("exporter", "make_ebook", "yes")
