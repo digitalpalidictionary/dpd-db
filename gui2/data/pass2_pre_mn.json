@@ -6427,18 +6427,76 @@
         ],
         "atthaṅgamāya": [
             2632
+        ],
+        "saddaṃ": [
+            83215
+        ],
+        "saddā": [
+            83215
+        ],
+        "vippakatā": [
+            83220
+        ],
+        "vippakatāti": [
+            83220
+        ],
+        "sadde": [
+            83215
+        ],
+        "saddaṃpāhaṃ": [
+            83215
+        ],
+        "saddo": [
+            83215
+        ],
+        "nāmāni": [
+            83214
+        ],
+        "āmaṇḍaṃ": [
+            83194
+        ],
+        "āmaṇḍāni": [
+            83194
+        ],
+        "nadiyā": [
+            83216
+        ],
+        "saddāti": [
+            83215
+        ],
+        "paṭipucchimha": [
+            83184
+        ],
+        "saddānaṃ": [
+            83215
+        ],
+        "saddesu": [
+            83215
+        ],
+        "nānābhāvā": [
+            77752
+        ],
+        "anuggāhakā": [
+            4422
+        ],
+        "āharesi": [
+            13222
+        ],
+        "dentīti": [
+            33954
+        ],
+        "ayyassa": [
+            8816
+        ],
+        "paṇṇāsakehi": [
+            41677
+        ],
+        "vattamāne": [
+            66016,
+            66017
         ]
     },
-    "matched": {
-        "dhātuvibhaṅgassa": {
-            "id": 35074,
-            "sentence": [
-                "mn140:7.4",
-                "ayamuddeso dhātuvibhaṅgassa. ",
-                "This is the summary recital for the analysis of the elements. "
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
     "processed": [
         "mūlapariyāyavaggo",
@@ -7263,6 +7321,7 @@
         "uparipaṇṇāsake",
         "uparipaṇṇāsakaṃ",
         "paṇṇāsakehi",
-        "gahapativaggo"
+        "gahapativaggo",
+        "dhātuvibhaṅgassa"
     ]
 }

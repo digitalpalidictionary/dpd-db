@@ -1,7 +1,51 @@
 [
     {
+        "id": 35074,
+        "lemma_1": "dhātuvibhaṅga"
+    },
+    {
+        "id": 75233,
+        "lemma_1": "paṭhamuppattika"
+    },
+    {
+        "id": 12087,
+        "lemma_1": "āmaya"
+    },
+    {
+        "id": 45428,
+        "lemma_1": "pātimokkha 2"
+    },
+    {
+        "id": 47324,
+        "lemma_1": "pesaka 1"
+    },
+    {
+        "id": 11724,
+        "lemma_1": "ānandajāta"
+    },
+    {
         "id": 30088,
         "lemma_1": "tarati 2"
+    },
+    {
+        "id": 47350,
+        "lemma_1": "pesiyamāna"
+    },
+    {
+        "id": 83253,
+        "lemma_1": "nāsapuṭa"
+    },
+    {
+        "id": 83252,
+        "lemma_1": "macchapitta"
+    },
+    {
+        "id": 83251,
+        "lemma_1": "acchapitta"
+    },
+    {
+        "id": 83250,
+        "lemma_1": "vādayati 2"
     },
     {
         "id": 18749,
@@ -20,10 +64,6 @@
         "lemma_1": "bhuja 2"
     },
     {
-        "id": 83250,
-        "lemma_1": "vādayati 2"
-    },
-    {
         "id": 75373,
         "lemma_1": "bhamayati"
     },
@@ -38,45 +78,5 @@
     {
         "id": 20098,
         "lemma_1": "kapparukkha"
-    },
-    {
-        "id": 72576,
-        "lemma_1": "akiliṭṭhavasana"
-    },
-    {
-        "id": 63693,
-        "lemma_1": "sucivasana"
-    },
-    {
-        "id": 11724,
-        "lemma_1": "ānandajāta"
-    },
-    {
-        "id": 47352,
-        "lemma_1": "pesīyati"
-    },
-    {
-        "id": 47350,
-        "lemma_1": "pesiyamāna"
-    },
-    {
-        "id": 47347,
-        "lemma_1": "pesita 4"
-    },
-    {
-        "id": 47324,
-        "lemma_1": "pesaka 2"
-    },
-    {
-        "id": 6759,
-        "lemma_1": "apesita"
-    },
-    {
-        "id": 58227,
-        "lemma_1": "santaṃ"
-    },
-    {
-        "id": 45327,
-        "lemma_1": "pāṭimokkha"
     }
 ]
