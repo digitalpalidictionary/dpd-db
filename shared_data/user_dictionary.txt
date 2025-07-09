@@ -3154,3 +3154,4 @@ colour
 endeavoured
 downslope
 upslope
+honours

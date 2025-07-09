@@ -1,5 +1,25 @@
 [
     {
+        "id": 83254,
+        "lemma_1": "cittīkaroti"
+    },
+    {
+        "id": 23601,
+        "lemma_1": "khaḷopimukha"
+    },
+    {
+        "id": 1947,
+        "lemma_1": "aḍḍhamāsika"
+    },
+    {
+        "id": 38410,
+        "lemma_1": "nivāpapuṭṭha"
+    },
+    {
+        "id": 62385,
+        "lemma_1": "sāmukkaṃsika"
+    },
+    {
         "id": 35074,
         "lemma_1": "dhātuvibhaṅga"
     },
@@ -58,25 +78,5 @@
     {
         "id": 8427,
         "lemma_1": "abhyatikkhetta"
-    },
-    {
-        "id": 50068,
-        "lemma_1": "bhuja 2"
-    },
-    {
-        "id": 75373,
-        "lemma_1": "bhamayati"
-    },
-    {
-        "id": 26696,
-        "lemma_1": "cittīkāra 2"
-    },
-    {
-        "id": 52954,
-        "lemma_1": "muditamana"
-    },
-    {
-        "id": 20098,
-        "lemma_1": "kapparukkha"
     }
 ]
