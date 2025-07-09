@@ -281,6 +281,9 @@ class ProjectPaths:
 
         # exporter/other_dictionaries/css
         self.cone_css_path = base_dir / "exporter/other_dictionaries/code/cone/cone.css"
+        self.dppn_css_path = (
+            base_dir / "exporter/other_dictionaries/code/dppn/dppn.css/"
+        )
         self.dpr_css_path = base_dir / "exporter/other_dictionaries/code/dpr/dpr.css/"
         self.whitney_css_path = (
             base_dir / "exporter/other_dictionaries/code/whitney/whitney.css/"
@@ -299,6 +302,9 @@ class ProjectPaths:
         )
         self.cpd_source_path = (
             base_dir / "exporter/other_dictionaries/code/cpd/source/en-critical.json"
+        )
+        self.dppn_source_path = (
+            base_dir / "exporter/other_dictionaries/code/dppn/source/DPPN.json"
         )
         self.dpr_source_path = (
             base_dir / "exporter/other_dictionaries/code/dpr/source/dpr.json"
@@ -335,11 +341,13 @@ class ProjectPaths:
         self.sin_eng_sin_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
         self.vri_gd_path = base_dir / "exporter/other_dictionaries/goldendict/vri.zip"
         self.whitney_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
+        self.dppn_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
 
         # exporter/other_dictionaries/json
         self.bhs_json_path = base_dir / "exporter/other_dictionaries/json/bhs.json"
         self.cone_json_path = base_dir / "exporter/other_dictionaries/json/cone.json"
         self.cpd_json_path = base_dir / "exporter/other_dictionaries/json/cpd.json"
+        self.dppn_json = base_dir / "exporter/other_dictionaries/json/dppn.json"
         self.dpr_json_path = base_dir / "exporter/other_dictionaries/json/dpr.json"
         self.mw_json_path = base_dir / "exporter/other_dictionaries/json/mw.json"
         self.peu_json_path = base_dir / "exporter/other_dictionaries/json/peu.json"
@@ -358,6 +366,7 @@ class ProjectPaths:
         self.bhs_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.cone_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.cpd_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
+        self.dppn_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.dpr_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.mw_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
         self.peu_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"

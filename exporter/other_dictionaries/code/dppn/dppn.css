@@ -1,0 +1,27 @@
+abbr {
+    color: purple;
+}
+
+abbr.Original,
+abbr.Original b {
+    color: #0070C0 !important;
+}
+
+abbr.Modified,
+abbr.Modified b {
+    color: #800000 !important;
+}
+
+.Head {
+    color: green;
+    font-variant-caps: small-caps;
+}
+
+.Head b {
+    color: green;
+    font-variant-caps: small-caps;
+}
+
+b {
+    color: darkblue;
+}
