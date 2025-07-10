@@ -9,7 +9,7 @@ Click the individual links to download.
 ## GoldenDict
 Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1CeO4_4C3rYH2pb0mzAJAH1c5FK2H5cbK" target="_blank">bhs</a>  
 Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=17-lQ7iVAFdghd2ZOzyQw5JmfN6Ha1W1z" target="_blank">cpd</a>  
-Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1iKzoLK9r0eHka8OmFpgqiuLaeDovVNbh"target="_blank">dppn</a>
+Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1iKzoLK9r0eHka8OmFpgqiuLaeDovVNbh" target="_blank">dppn</a>  
 DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1cMDFnvEZml6cixAts4onqVpD4fI0nuTq" target="_blank">dpr</a>  
 Monier Williams <a href="https://drive.google.com/uc?export=download&id=1SSNNYJlAk655Ckw1MHslzwLcoysjDvtx" target="_blank">mw</a>  
 Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1hT-l8Np_rarYCrfT-bs2LML-KxpvXBDB" target="_blank">peu</a>  
@@ -18,9 +18,8 @@ Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1HBTahdf
 
 ## MDict
 Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1T0UpidujRZCox4edJ-6oDXVtJd-Y67Ur" target="_blank">bhs</a>  
-Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=14EIgLKPY-lKqzX4QNC4YAYZHjzMWG6vl" target="_blank">cpd</a>
-Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1DS-iMV_Or3zxyciB5DTFZCchDIqyFflJ"
- target="_blank">dppn</a>
+Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=14EIgLKPY-lKqzX4QNC4YAYZHjzMWG6vl" target="_blank">cpd</a>  
+Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1DS-iMV_Or3zxyciB5DTFZCchDIqyFflJ" target="_blank">dppn</a>  
 DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1sgXzQt0hmnwLCGZNX5NVJ1XoabGfDCDJ" target="_blank">dpr</a>  
 Monier Williams <a href="https://drive.google.com/uc?export=download&id=1ciEuTzt8UlqozRRfU9A6WyDElzsX10pL" target="_blank">mw</a>  
 Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1F0Fo4aepTzXQ7mZpFrX3YT8ZI2RvPcl-" target="_blank">peu</a>  
