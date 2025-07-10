@@ -8,6 +8,7 @@ from tools.goldendict_exporter import (
     DictVariables,
     export_to_goldendict_with_pyglossary,
 )
+from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -18,8 +19,8 @@ def main():
     pr.tic()
     pr.title("exporting DPPN")
 
+    pr.green("preparing data")
     pth = ProjectPaths()
-
     dict_data: list[DictEntry] = []
 
     with open(pth.dppn_source_path) as f:
@@ -29,7 +30,7 @@ def main():
         clean_lemma = re.sub(r"<[^>]+>", "", i["name"].strip())
         synonyms = []
 
-        # split on "."
+        # split up the heading for synonyms
         parts = re.split(
             r"v\.l\.|also called|Also called|Sometimes called|wrongly called| or | and |called|\.|,|\(",
             clean_lemma,
@@ -83,6 +84,12 @@ def main():
     pr.yes(len(dict_data))
 
     export_to_goldendict_with_pyglossary(
+        dict_info,
+        dict_vars,
+        dict_data,
+    )
+
+    export_to_mdict(
         dict_info,
         dict_vars,
         dict_data,

@@ -4,11 +4,12 @@ Here is the link to the [folder on Google Drive](https://drive.google.com/drive/
 
 ---
 
-Click the individual links to download
+Click the individual links to download.
 
 ## GoldenDict
 Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1CeO4_4C3rYH2pb0mzAJAH1c5FK2H5cbK" target="_blank">bhs</a>  
 Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=17-lQ7iVAFdghd2ZOzyQw5JmfN6Ha1W1z" target="_blank">cpd</a>  
+Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1iKzoLK9r0eHka8OmFpgqiuLaeDovVNbh"target="_blank">dppn</a>
 DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1cMDFnvEZml6cixAts4onqVpD4fI0nuTq" target="_blank">dpr</a>  
 Monier Williams <a href="https://drive.google.com/uc?export=download&id=1SSNNYJlAk655Ckw1MHslzwLcoysjDvtx" target="_blank">mw</a>  
 Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1hT-l8Np_rarYCrfT-bs2LML-KxpvXBDB" target="_blank">peu</a>  
@@ -17,7 +18,9 @@ Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1HBTahdf
 
 ## MDict
 Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1T0UpidujRZCox4edJ-6oDXVtJd-Y67Ur" target="_blank">bhs</a>  
-Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=14EIgLKPY-lKqzX4QNC4YAYZHjzMWG6vl" target="_blank">cpd</a>  
+Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=14EIgLKPY-lKqzX4QNC4YAYZHjzMWG6vl" target="_blank">cpd</a>
+Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1DS-iMV_Or3zxyciB5DTFZCchDIqyFflJ"
+ target="_blank">dppn</a>
 DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1sgXzQt0hmnwLCGZNX5NVJ1XoabGfDCDJ" target="_blank">dpr</a>  
 Monier Williams <a href="https://drive.google.com/uc?export=download&id=1ciEuTzt8UlqozRRfU9A6WyDElzsX10pL" target="_blank">mw</a>  
 Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1F0Fo4aepTzXQ7mZpFrX3YT8ZI2RvPcl-" target="_blank">peu</a>  
@@ -41,3 +44,6 @@ For more information about the Simsapa Dhamma Reader, please visit [https://sims
 Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.
     
 PEU is a project in progress to translate the Abhidhan's definitions into English, currently at about 80% human translated, the remainder is by Google. You can find the [Project Website](https://pm12e.pali.tools/) here. PEU dictionary is integrated into [Tipitaka Pali Reader](https://github.com/bksubhuti/tipitaka-pali-reader).
+
+## Dictionary of Pāli Proper Names (DPPN)
+The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti in June 2025. It is available online from his website, [Ancient Buddhist Texts](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm) or via the links above for offline use.
