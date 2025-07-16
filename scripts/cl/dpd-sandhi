@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd ~/Code/dpd-db
+cd ~/MyFiles/3_Active/Code/dpd-db
 uv run python3 gui2/utilities/sandhi_contraction_find_replace_gui.py

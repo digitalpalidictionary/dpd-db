@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd ~/Code/dpd-db
+cd ~/MyFiles/3_Active/Code/dpd-db
 uv run flet run gui2/main.py

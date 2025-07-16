@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/Code/dpd-db/
+cd ~/MyFiles/3_Active/Code/dpd-db
 
 # Ensure the logs directory exists
 mkdir -p logs

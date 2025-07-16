@@ -1,1 +1,37 @@
-{}
+{
+    "āgamehi": {
+        "source_1": "mn35:24.2",
+        "sutta_1": "“āgamehi tvaṃ, dummukha, āgamehi tvaṃ, dummukha, (…) na mayaṃ tayā saddhiṃ mantema, idha mayaṃ bhotā gotamena saddhiṃ mantema. ",
+        "example_1": "“Hold on, Dummukha, hold on! I wasn’t talking with you, I was talking with Mister Gotama. "
+    },
+    "rajataputto": {
+        "source_1": "MN56",
+        "sutta_1": "upālisuttaṃ",
+        "example_1": "atha kho, bhante, so brāhmaṇo tassā māṇavikāya sāratto paṭibaddhacitto āpaṇā makkaṭacchāpakaṃ kiṇitvā ānetvā taṃ māṇavikaṃ etadavoca, ayaṃ te, bhoti, āpaṇā makkaṭacchāpako kiṇitvā ānīto, yo te kumārakassa kīḷāpanako bhavissatīti. evaṃ vutte, bhante, sā māṇavikā taṃ brāhmaṇaṃ etadavoca, gaccha tvaṃ, brāhmaṇa, imaṃ makkaṭacchāpakaṃ ādāya yena rattapāṇi rajataputto tenupasaṅkama, upasaṅkamitvā rattapāṇiṃ rajakaputtaṃ evaṃ vadehi, icchāmahaṃ, samma rattapāṇi, imaṃ makkaṭacchāpakaṃ pītāvalepanaṃ nāma raṅgajātaṃ rajitaṃ ākoṭitapaccākoṭitaṃ ubhatobhāgavimaṭṭhanti."
+    },
+    "kandaranāgarasekhavato": {
+        "source_1": "mn60:58.1",
+        "sutta_1": "kandaranāgarasekhavato ca, ",
+        "example_1": ""
+    },
+    "jīvakabhacco": {
+        "source_1": "mn60:58.2",
+        "sutta_1": "potaliyo puna jīvakabhacco; ",
+        "example_1": ""
+    },
+    "upālidamatho": {
+        "source_1": "mn60:58.3",
+        "sutta_1": "upālidamatho kukkuraabhayo, ",
+        "example_1": ""
+    },
+    "kukkuraabhayo": {
+        "source_1": "mn60:58.3",
+        "sutta_1": "upālidamatho kukkuraabhayo, ",
+        "example_1": ""
+    },
+    "bahuvedanīyāpaṇṇakato": {
+        "source_1": "mn60:58.4",
+        "sutta_1": "bahuvedanīyāpaṇṇakato dasamo. ",
+        "example_1": ""
+    }
+}
