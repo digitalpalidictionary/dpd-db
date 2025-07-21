@@ -1,1 +1,27 @@
-{}
+{
+    "maṇiko": {
+        "source_1": "mn80:18.4",
+        "sutta_1": "maṇiko tathākaccāno varavaggo. ",
+        "example_1": ""
+    },
+    "aggisaha": {
+        "source_1": "mn80:18.1",
+        "sutta_1": "puṇḍarī aggisaha kathināmo, ",
+        "example_1": ""
+    },
+    "sandakaudāyimuṇḍikaputto": {
+        "source_1": "mn80:18.3",
+        "sutta_1": "sandakaudāyimuṇḍikaputto, ",
+        "example_1": ""
+    },
+    "akāraṇe": {
+        "source_1": "MN81",
+        "sutta_1": "ghaṭikārasuttaṃ",
+        "example_1": "atha kho āyasmato ānandassa etadahosi, ko nu kho hetu, ko paccayo bhagavato sitassa pātukammāya? na akāraṇena [na akāraṇe] tathāgatā sitaṃ pātukarontīti. atha kho āyasmā ānando ekaṃsaṃ cīvaraṃ [uttarāsaṅga] katvā yena bhagavā tenañjaliṃ paṇāmetvā bhagavantaṃ etadavoca, ko nu kho, bhante, hetu, ko paccayo bhagavato sitassa pātukammāya? "
+    },
+    "uddiṭṭhā": {
+        "source_1": "mn82:35.1",
+        "sutta_1": "“atthi kho, mahārāja, tena bhagavatā jānatā passatā arahatā sammāsambuddhena cattāro dhammuddesā uddiṭṭhā, ye ahaṃ ñatvā ca disvā ca sutvā ca agārasmā anagāriyaṃ pabbajito. ",
+        "example_1": "“Great king, the Blessed One who knows and sees, the perfected one, the fully awakened Buddha has taught these four summaries of the teaching for recitation. It was after knowing and seeing and hearing these that I went forth from the lay life to homelessness. "
+    }
+}

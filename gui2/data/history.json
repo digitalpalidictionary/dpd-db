@@ -1,5 +1,21 @@
 [
     {
+        "id": 49608,
+        "lemma_1": "bhavābhava 1"
+    },
+    {
+        "id": 11106,
+        "lemma_1": "ākirati 2"
+    },
+    {
+        "id": 83278,
+        "lemma_1": "āraññaka 2"
+    },
+    {
+        "id": 83277,
+        "lemma_1": "yāvajīva 2"
+    },
+    {
         "id": 62695,
         "lemma_1": "sāhuḷacīvara"
     },
@@ -62,21 +78,5 @@
     {
         "id": 83274,
         "lemma_1": "mālukyaputta 2"
-    },
-    {
-        "id": 60416,
-        "lemma_1": "sampahaṃsati"
-    },
-    {
-        "id": 83272,
-        "lemma_1": "dunnivattha 2"
-    },
-    {
-        "id": 33605,
-        "lemma_1": "dunnivattha 1"
-    },
-    {
-        "id": 80559,
-        "lemma_1": "duppāruta 2"
     }
 ]
