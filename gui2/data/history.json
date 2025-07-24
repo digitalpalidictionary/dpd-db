@@ -1,5 +1,33 @@
 [
     {
+        "id": 78692,
+        "lemma_1": "kappeti 5"
+    },
+    {
+        "id": 23431,
+        "lemma_1": "khantivāda 1"
+    },
+    {
+        "id": 45882,
+        "lemma_1": "pāsarāsisutta"
+    },
+    {
+        "id": 34824,
+        "lemma_1": "dhammamaya 1"
+    },
+    {
+        "id": 56689,
+        "lemma_1": "saṅkucita 1"
+    },
+    {
+        "id": 44584,
+        "lemma_1": "pasata"
+    },
+    {
+        "id": 14318,
+        "lemma_1": "uccāretvā"
+    },
+    {
         "id": 49608,
         "lemma_1": "bhavābhava 1"
     },
@@ -50,33 +78,5 @@
     {
         "id": 29518,
         "lemma_1": "tatiyavāra"
-    },
-    {
-        "id": 42088,
-        "lemma_1": "padarasamācāra"
-    },
-    {
-        "id": 25399,
-        "lemma_1": "golissāni"
-    },
-    {
-        "id": 26961,
-        "lemma_1": "cūḷagosiṅga"
-    },
-    {
-        "id": 83276,
-        "lemma_1": "nāḷakaraññikiṭāgirināma"
-    },
-    {
-        "id": 83275,
-        "lemma_1": "khuddadijāthasahampatiyāca"
-    },
-    {
-        "id": 83273,
-        "lemma_1": "kuñjararāhulasassataloka"
-    },
-    {
-        "id": 83274,
-        "lemma_1": "mālukyaputta 2"
     }
 ]
