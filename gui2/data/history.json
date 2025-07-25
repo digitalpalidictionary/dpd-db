@@ -1,5 +1,25 @@
 [
     {
+        "id": 64994,
+        "lemma_1": "sela 4"
+    },
+    {
+        "id": 9571,
+        "lemma_1": "asambhinna 1"
+    },
+    {
+        "id": 10514,
+        "lemma_1": "avijita 1"
+    },
+    {
+        "id": 7853,
+        "lemma_1": "abhinibbatta 1"
+    },
+    {
+        "id": 83279,
+        "lemma_1": "vīriyasamādhi"
+    },
+    {
         "id": 78692,
         "lemma_1": "kappeti 5"
     },
@@ -58,25 +78,5 @@
     {
         "id": 1533,
         "lemma_1": "aññatthācariyaka"
-    },
-    {
-        "id": 43751,
-        "lemma_1": "paribbājakavagga"
-    },
-    {
-        "id": 10396,
-        "lemma_1": "avasussati"
-    },
-    {
-        "id": 44027,
-        "lemma_1": "pariyogayha"
-    },
-    {
-        "id": 77838,
-        "lemma_1": "āraññika 2"
-    },
-    {
-        "id": 29518,
-        "lemma_1": "tatiyavāra"
     }
 ]
