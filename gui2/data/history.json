@@ -1,5 +1,9 @@
 [
     {
+        "id": 6299,
+        "lemma_1": "aparapura"
+    },
+    {
         "id": 64994,
         "lemma_1": "sela 4"
     },
@@ -74,9 +78,5 @@
     {
         "id": 52146,
         "lemma_1": "māgandiya"
-    },
-    {
-        "id": 1533,
-        "lemma_1": "aññatthācariyaka"
     }
 ]
