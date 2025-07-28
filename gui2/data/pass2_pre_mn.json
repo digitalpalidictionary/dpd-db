@@ -12027,6 +12027,271 @@
         "tatthekassa": [
             9940,
             10033
+        ],
+        "kattha": [
+            19772,
+            19781
+        ],
+        "appasamārambho": [
+            7033
+        ],
+        "cittassāhaṃ": [
+            26563
+        ],
+        "parikkhāre": [
+            77843
+        ],
+        "saccavādīmhīti": [
+            8691,
+            12879
+        ],
+        "parikkhāraṃ": [
+            77843
+        ],
+        "cāgabahulomhīti": [
+            8691,
+            12879
+        ],
+        "āsanne": [
+            12783
+        ],
+        "tāvadeva": [
+            30373
+        ],
+        "apasakkaṃ": [
+            6505
+        ],
+        "brahmānañcāhaṃ": [
+            78547
+        ],
+        "mettāya": [
+            53226,
+            53227
+        ],
+        "paripuṇṇo": [
+            43680
+        ],
+        "nūnassa": [
+            9940,
+            10033
+        ],
+        "pasaṃsatīti": [
+            44634
+        ],
+        "cittassete": [
+            26563
+        ],
+        "saṅgāravasuttaṃ": [
+            56961,
+            56962,
+            56963,
+            56964,
+            56965,
+            56966
+        ],
+        "cayaṃ": [
+            26255
+        ],
+        "vijjamānānaṃ": [
+            67621
+        ],
+        "bhāsissatīti": [
+            49756
+        ],
+        "bhāsatīti": [
+            49756
+        ],
+        "paṭijānantānampi": [
+            40436
+        ],
+        "aṭṭhita": [
+            1869,
+            78177
+        ],
+        "adhidevāti": [
+            3233
+        ],
+        "devātipadesu": [
+            42055
+        ],
+        "atidevāti": [
+            76604
+        ],
+        "adhidevātipadesu": [
+            3233,
+            42055
+        ],
+        "gantabbaṃ": [
+            24260
+        ],
+        "sammataṃ": [
+            60717
+        ],
+        "subhagāravoti": [
+            54751,
+            54757,
+            12431
+        ],
+        "paribbājakanāmako": [
+            72914,
+            36432,
+            83214
+        ],
+        "majjhimaāgame": [
+            50743,
+            50745,
+            11192
+        ],
+        "majjhimapaṇṇāsakaṃ": [
+            50754
+        ],
+        "vāyato": [
+            80927
+        ],
+        "bhūte": [
+            76401,
+            80796
+        ],
+        "bhūtato": [
+            76401,
+            80796
+        ],
+        "abhibhūto": [
+            8017,
+            76355
+        ],
+        "sutato": [
+            63773
+        ],
+        "sutasmiṃ": [
+            63773
+        ],
+        "ekattato": [
+            17474
+        ],
+        "ekattasmiṃ": [
+            17474
+        ],
+        "rāgassa": [
+            54790
+        ],
+        "bhavā": [
+            49553,
+            80057
+        ],
+        "taṇhānaṃ": [
+            29349
+        ],
+        "abhisambuddhoti": [
+            8236
+        ],
+        "tebhikkhū": [
+            49882
+        ],
+        "dassanā": [
+            32110
+        ],
+        "saṃvarā": [
+            61901
+        ],
+        "vado": [
+            66141
+        ],
+        "dhuvo": [
+            35232
+        ],
+        "yañhissa": [
+            9940,
+            10033
+        ],
+        "asaṃvutassa": [
+            9662
+        ],
+        "siriṃsapa": [
+            63013
+        ],
+        "caṇḍaṃ": [
+            25818
+        ],
+        "pāpake": [
+            45582,
+            45583
+        ],
+        "pāpakesu": [
+            45582,
+            45583
+        ],
+        "ādiyā": [
+            11593,
+            11603
+        ],
+        "ādiyo": [
+            11603
+        ],
+        "pavārito": [
+            44920
+        ],
+        "ākaṅkhatha": [
+            10995
+        ],
+        "vītināmeyyanti": [
+            69844
+        ],
+        "vītināmeyya": [
+            69844
+        ],
+        "saṃvattissati": [
+            61878
+        ],
+        "nānusikkhanti": [
+            36353
+        ],
+        "nānusikkhantīti": [
+            36353
+        ],
+        "issā": [
+            13879
+        ],
+        "pāpikā": [
+            45582
+        ],
+        "thambho": [
+            31443,
+            31444
+        ],
+        "ekatte": [
+            17474
+        ],
+        "araññe": [
+            73713
+        ],
+        "kaṅkhī": [
+            19240
+        ],
+        "vicikicchī": [
+            67469
+        ],
+        "abhilakkhitā": [
+            76593
+        ],
+        "nipannassa": [
+            80442
+        ],
+        "nipannova": [
+            80442
+        ],
+        "ekaggaṃ": [
+            17412
+        ],
+        "vatāyaṃ": [
+            65969
+        ],
+        "yenimesaṃ": [
+            18034
+        ],
+        "tassaṅgaṇassa": [
+            78601,
+            24070
         ]
     },
     "matched": {
@@ -12500,6 +12765,78 @@
                 "mn99:17.2",
                 "yaṃ vā tiṇakaṭṭhupādānaṃ paṭicca aggiṃ jāleyya yaṃ vā nissaṭṭhatiṇakaṭṭhupādānaṃ aggiṃ jāleyya, katamo nu khvāssa aggi accimā ceva vaṇṇavā ca pabhassaro cā”ti? ",
                 "Which would have better flames, color, and radiance: a fire that depends on grass and logs as fuel, or one that does not?” "
+            ]
+        },
+        "pāṭhoyeva": {
+            "id": 45339,
+            "sentence": [
+                "MN99",
+                "subhasuttaṃ",
+                "evaṃ bhāvitāya kho, māṇava, mettāya cetovimuttiyā yaṃ pamāṇakataṃ kammaṃ na taṃ tatrāvasissati, na taṃ tatrāvatiṭṭhati. seyyathāpi, māṇava, balavā saṅkhadhamo appakasireneva cātuddisā viññāpeyya [evameva kho māṇava evaṃ bhāvitāya mettāya (sī. syā. kaṃ. pī. dī. ni. 1.556) tathāpi idha pāṭhoyeva upamāya saṃsandiyamāno paripuṇṇo viya dissati], evameva kho, māṇava … evaṃ bhāvitāya kho, māṇava, mettāya [evameva kho māṇava evaṃ bhāvitāya mettāya (sī. syā. kaṃ. pī. dī. ni. 1.556) tathāpi idha pāṭhoyeva upamāya saṃsandiyamāno paripuṇṇo viya dissati] cetovimuttiyā yaṃ pamāṇakataṃ kammaṃ na taṃ tatrāvasissati, na taṃ tatrāvatiṭṭhati. ayampi kho, māṇava, brahmānaṃ sahabyatāya maggo. "
+            ]
+        },
+        "maṇḍalakappe": {
+            "id": 50895,
+            "sentence": [
+                "MN100",
+                "saṅgāravasuttaṃ",
+                "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā kosalesu cārikaṃ carati mahatā bhikkhusaṅghena saddhiṃ. tena kho pana samayena dhanañjānī [dhānañjānī] nāma brāhmaṇī cañcalikappe [maṇḍalakappe, paccalakappe, caṇḍalakappe] paṭivasati abhippasannā buddhe ca dhamme ca saṅghe ca. atha kho dhanañjānī brāhmaṇī upakkhalitvā tikkhattuṃ udānaṃ udānesi, namo tassa bhagavato arahato sammāsambuddhassa. "
+            ]
+        },
+        "paccalakappe": {
+            "id": 39408,
+            "sentence": [
+                "MN100",
+                "saṅgāravasuttaṃ",
+                "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā kosalesu cārikaṃ carati mahatā bhikkhusaṅghena saddhiṃ. tena kho pana samayena dhanañjānī [dhānañjānī] nāma brāhmaṇī cañcalikappe [maṇḍalakappe, paccalakappe, caṇḍalakappe] paṭivasati abhippasannā buddhe ca dhamme ca saṅghe ca. atha kho dhanañjānī brāhmaṇī upakkhalitvā tikkhattuṃ udānaṃ udānesi, namo tassa bhagavato arahato sammāsambuddhassa. "
+            ]
+        },
+        "parābhūtā": {
+            "id": 43109,
+            "sentence": [
+                "MN100",
+                "saṅgāravasuttaṃ",
+                "assosi kho saṅgāravo māṇavo dhanañjāniyā brāhmaṇiyā evaṃ vācaṃ bhāsamānāya. sutvā dhanañjāniṃ brāhmaṇiṃ etadavoca, avabhūtāva ayaṃ [avabhūtā cayaṃ] dhanañjānī brāhmaṇī, parabhūtāva ayaṃ [parābhūtā cayaṃ] dhanañjānī brāhmaṇī, vijjamānānaṃ (tevijjānaṃ) [( ) sī. syā. "
+            ]
+        },
+        "majjhimapaṇṇāsakaṃ": {
+            "id": 50753,
+            "sentence": [
+                "mn100:45.5",
+                "majjhimapaṇṇāsakaṃ samattaṃ. ",
+                ""
+            ]
+        },
+        "satthuvasena": {
+            "id": 57931,
+            "sentence": [
+                "MN1",
+                "mūlapariyāyasuttaṃ",
+                "sekkhavasena [satthāravasena, satthuvasena] dutiyanayabhūmiparicchedo niṭṭhito."
+            ]
+        },
+        "pahātabbāsavā": {
+            "id": 45074,
+            "sentence": [
+                "MN2",
+                "sabbāsavasuttaṃ, dassanā pahātabbāsavā",
+                "dassanā pahātabbāsavā"
+            ]
+        },
+        "ḍaṃsamakasavātātapasarīṃsapa": {
+            "id": 29159,
+            "sentence": [
+                "MN2",
+                "sabbāsavasuttaṃ, paṭisevanā pahātabbāsavā",
+                "katame ca, bhikkhave, āsavā paṭisevanā pahātabbā? idha, bhikkhave, bhikkhu paṭisaṅkhā yoniso cīvaraṃ paṭisevati, yāvadeva sītassa paṭighātāya, uṇhassa paṭighātāya, ḍaṃsamakasavātātapasarīṃsapa- [siriṃsapa] samphassānaṃ paṭighātāya, yāvadeva hirikopīnappaṭicchādanatthaṃ."
+            ]
+        },
+        "samādāpetā": {
+            "id": 59595,
+            "sentence": [
+                "MN4",
+                "bhayabheravasuttaṃ",
+                "sammodanīyaṃ kathaṃ sāraṇīyaṃ [sārāṇīyaṃ] vītisāretvā ekamantaṃ nisīdi. ekamantaṃ nisinno kho jāṇussoṇi brāhmaṇo bhagavantaṃ etadavoca, yeme, bho gotama, kulaputtā bhavantaṃ gotamaṃ uddissa saddhā agārasmā anagāriyaṃ pabbajitā, bhavaṃ tesaṃ gotamo pubbaṅgamo, bhavaṃ tesaṃ gotamo bahukāro, bhavaṃ tesaṃ gotamo samādapetā [samādāpetā (?)], bhoto ca pana gotamassa sā janatā diṭṭhānugatiṃ āpajjatīti. evametaṃ, brāhmaṇa, evametaṃ, brāhmaṇa! "
             ]
         }
     },

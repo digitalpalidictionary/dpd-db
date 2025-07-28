@@ -1,5 +1,9 @@
 [
     {
+        "id": 36352,
+        "lemma_1": "nānusikkhati 1"
+    },
+    {
         "id": 6299,
         "lemma_1": "aparapura"
     },
@@ -74,9 +78,5 @@
     {
         "id": 59245,
         "lemma_1": "samaṇaseyyārūpa"
-    },
-    {
-        "id": 52146,
-        "lemma_1": "māgandiya"
     }
 ]
