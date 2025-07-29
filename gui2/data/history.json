@@ -1,5 +1,13 @@
 [
     {
+        "id": 43579,
+        "lemma_1": "parinibbāna 1"
+    },
+    {
+        "id": 8440,
+        "lemma_1": "amacchariya"
+    },
+    {
         "id": 36352,
         "lemma_1": "nānusikkhati 1"
     },
@@ -70,13 +78,5 @@
     {
         "id": 83277,
         "lemma_1": "yāvajīva 2"
-    },
-    {
-        "id": 62695,
-        "lemma_1": "sāhuḷacīvara"
-    },
-    {
-        "id": 59245,
-        "lemma_1": "samaṇaseyyārūpa"
     }
 ]

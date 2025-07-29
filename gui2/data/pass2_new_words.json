@@ -63,5 +63,20 @@
         "source_1": "mn100:45.2",
         "sutta_1": "paribbājakanāmako; ",
         "example_1": ""
+    },
+    "dassanena": {
+        "source_1": "mn5:30.9",
+        "sutta_1": "tassa saha dassanena manāpatā ca saṇṭhaheyya, appāṭikulyatā ca saṇṭhaheyya, ajegucchatā ca saṇṭhaheyya; ",
+        "example_1": "And as soon as they saw it they were filled with liking, attraction, and relish. "
+    },
+    "samaṃ": {
+        "source_1": "mn8:14.2",
+        "sutta_1": "seyyathā vā pana, cunda, visamaṃ titthaṃ assa, tassa aññaṃ samaṃ titthaṃ parikkamanāya; ",
+        "example_1": "Or suppose there was a rough ford and another smooth ford to get around it. "
+    },
+    "sandhayo": {
+        "source_1": "mn8:17.7",
+        "sutta_1": "sandhayo pañca desitā; ",
+        "example_1": "organized into five sections. "
     }
 }
