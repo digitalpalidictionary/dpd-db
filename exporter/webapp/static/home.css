@@ -78,12 +78,17 @@ body.dark-mode #header-image {
     flex-direction: column;
 }
 
-/* NEW CSS for top controls container */
 .top-controls {
-    display: flex; /* Use flexbox for layout */
+    display: flex; 
     justify-content: space-between; /* Push tab buttons left, switcher right */
     align-items: flex-end; /* To this - aligns items to the bottom */
-    padding: 5px 10px; /* Add some padding */
+    padding: 5px 10px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .header-pane {
@@ -446,10 +451,30 @@ p.message {
     color: var(--primary-alt);
 }
 
+.email-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    margin: 0 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.email-button:hover {
+    border-color: var(--primary);
+}
+
 .language-switcher {
     position: relative;
     display: inline-block;
-    margin: 0; /* Removed margin */
+    margin: 0;
 }
 
 .language-icon {
@@ -462,6 +487,7 @@ p.message {
 
 .language-icon:hover {
     color: var(--primary-alt);
+    border-color: var(--primary);
 }
 
 .dropdown {
