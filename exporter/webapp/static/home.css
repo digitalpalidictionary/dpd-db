@@ -458,7 +458,7 @@ p.message {
     font-size: 1.2rem;
     width: 32px;
     height: 32px;
-    margin: 0 10px;
+    margin: 0 2px;
     border-radius: 4px;
     text-decoration: none;
     color: var(--text-color);
@@ -473,8 +473,19 @@ p.message {
 
 .language-switcher {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.language-switcher:hover {
+    border-color: var(--primary);
 }
 
 .language-icon {
@@ -487,7 +498,6 @@ p.message {
 
 .language-icon:hover {
     color: var(--primary-alt);
-    border-color: var(--primary);
 }
 
 .dropdown {
