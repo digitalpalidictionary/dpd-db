@@ -78,5 +78,20 @@
         "source_1": "mn8:17.7",
         "sutta_1": "sandhayo pañca desitā; ",
         "example_1": "organized into five sections. "
+    },
+    "pāyantiyā": {
+        "source_1": "MN12",
+        "sutta_1": "mahāsīhanādasuttaṃ",
+        "example_1": "tatrāssu me idaṃ, sāriputta, tapassitāya hoti, acelako homi muttācāro hatthāpalekhano [hatthāvalekhano], na ehibhaddantiko na tiṭṭhabhaddantiko, nābhihaṭaṃ na uddissakataṃ na nimantanaṃ sādiyāmi. so na kumbhimukhā paṭiggaṇhāmi, na kaḷopimukhā paṭiggaṇhāmi, na eḷakamantaraṃ, na daṇḍamantaraṃ, na musalamantaraṃ, na dvinnaṃ bhuñjamānānaṃ, na gabbhiniyā, na pāyamānāya [pāyantiyā], na purisantaragatāya, na saṅkittīsu, na yattha sā upaṭṭhito hoti, na yattha makkhikā saṇḍasaṇḍacārinī, na macchaṃ na maṃsaṃ na suraṃ na merayaṃ na thusodakaṃ pivāmi, so ekāgāriko vā homi ekālopiko, dvāgāriko vā homi dvālopiko … sattāgāriko vā homi sattālopiko, ekissāpi dattiyā yāpemi, dvīhipi dattīhi yāpemi … sattahipi dattīhi yāpemi, ekāhikampi āhāraṃ āhāremi, dvīhikampi āhāraṃ āhāremi … sattāhikampi āhāraṃ āhāremi, iti evarūpaṃ addhamāsikampi pariyāyabhattabhojanānuyogamanuyutto viharāmi."
+    },
+    "saṅkhāya": {
+        "source_1": "MN13",
+        "sutta_1": "mahādukkhakkhandhasuttaṃ",
+        "example_1": "ko ca, bhikkhave, kāmānaṃ ādīnavo? idha, bhikkhave, kulaputto yena sippaṭṭhānena jīvikaṃ kappeti, yadi muddāya yadi gaṇanāya yadi saṅkhānena [saṅkhāya] yadi kasiyā yadi vaṇijjāya yadi gorakkhena yadi issatthena yadi rājaporisena yadi sippaññatarena, sītassa purakkhato uṇhassa purakkhato ḍaṃsamakasavātātapasarīṃsapasamphassehi rissamāno [īrayamāno, samphassamāno (cūḷani. khaggavisāṇasutta 136)] khuppipāsāya mīyamāno, ayampi, bhikkhave, kāmānaṃ ādīnavo sandiṭṭhiko, dukkhakkhandho kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu."
+    },
+    "pakaṭṭhiyāpi": {
+        "source_1": "MN13",
+        "sutta_1": "mahādukkhakkhandhasuttaṃ",
+        "example_1": "puna caparaṃ, bhikkhave, kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu asicammaṃ gahetvā, dhanukalāpaṃ sannayhitvā, addāvalepanā [aṭṭāvalepanā] upakāriyo pakkhandanti usūsupi khippamānesu, sattīsupi khippamānāsu, asīsupi vijjotalantesu. te tattha usūhipi vijjhanti, sattiyāpi vijjhanti, chakaṇakāyapi [pakaṭṭhiyāpi] osiñcanti, abhivaggenapi omaddanti, asināpi sīsaṃ chindanti. te tattha maraṇampi nigacchanti, maraṇamattampi dukkhaṃ. "
     }
 }

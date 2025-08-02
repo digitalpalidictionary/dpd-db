@@ -1,5 +1,13 @@
 [
     {
+        "id": 62445,
+        "lemma_1": "sārajjanta"
+    },
+    {
+        "id": 44647,
+        "lemma_1": "pasāda 1"
+    },
+    {
         "id": 43579,
         "lemma_1": "parinibbāna 1"
     },
@@ -70,13 +78,5 @@
     {
         "id": 11106,
         "lemma_1": "ākirati 2"
-    },
-    {
-        "id": 83278,
-        "lemma_1": "āraññaka 2"
-    },
-    {
-        "id": 83277,
-        "lemma_1": "yāvajīva 2"
     }
 ]
