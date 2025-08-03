@@ -1,5 +1,41 @@
 [
     {
+        "id": 83281,
+        "lemma_1": "paripūra 4"
+    },
+    {
+        "id": 4745,
+        "lemma_1": "anupalabbhamāna 2"
+    },
+    {
+        "id": 29816,
+        "lemma_1": "tadārammaṇa 2"
+    },
+    {
+        "id": 83280,
+        "lemma_1": "uṭṭhāsi 2"
+    },
+    {
+        "id": 14538,
+        "lemma_1": "uṭṭhāsi 1"
+    },
+    {
+        "id": 31920,
+        "lemma_1": "dantebhidantamādhāya"
+    },
+    {
+        "id": 21856,
+        "lemma_1": "kilameti"
+    },
+    {
+        "id": 11128,
+        "lemma_1": "ākoṭeti 1"
+    },
+    {
+        "id": 68260,
+        "lemma_1": "vinoda"
+    },
+    {
         "id": 62445,
         "lemma_1": "sārajjanta"
     },
@@ -42,41 +78,5 @@
     {
         "id": 83279,
         "lemma_1": "vīriyasamādhi"
-    },
-    {
-        "id": 78692,
-        "lemma_1": "kappeti 5"
-    },
-    {
-        "id": 23431,
-        "lemma_1": "khantivāda 1"
-    },
-    {
-        "id": 45882,
-        "lemma_1": "pāsarāsisutta"
-    },
-    {
-        "id": 34824,
-        "lemma_1": "dhammamaya 1"
-    },
-    {
-        "id": 56689,
-        "lemma_1": "saṅkucita 1"
-    },
-    {
-        "id": 44584,
-        "lemma_1": "pasata"
-    },
-    {
-        "id": 14318,
-        "lemma_1": "uccāretvā"
-    },
-    {
-        "id": 49608,
-        "lemma_1": "bhavābhava 1"
-    },
-    {
-        "id": 11106,
-        "lemma_1": "ākirati 2"
     }
 ]
