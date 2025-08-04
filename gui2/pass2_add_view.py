@@ -376,7 +376,14 @@ class Pass2AddView(ft.Column, PopUpMixin):
         word_in_text, source_sutta_example = new_word_data
         if source_sutta_example:
             self.clear_all_fields()
-            self.update_message(f"new word: {word_in_text}")
+            # Show the saved comment in the existing message field
+            saved_comment = ""
+            if isinstance(source_sutta_example, dict):
+                saved_comment = str(source_sutta_example.get("comment", ""))
+            prefix = f"new word: {word_in_text}"
+            self.update_message(
+                prefix if not saved_comment else f"{prefix} — {saved_comment}"
+            )
             self.dpd_fields.update_add_fields(source_sutta_example)
 
         # then process pass2_auto entries

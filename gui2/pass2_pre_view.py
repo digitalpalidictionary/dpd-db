@@ -306,12 +306,48 @@ class Pass2PreProcessView(ft.Column):
         if sentence is None:
             return
 
-        message = self.pass2_new_word_manager.update_new_word(
-            self.controller.word_in_text, sentence
+        def on_ok(e: ft.ControlEvent):
+            self.new_word_dialog.open = False
+            self.page.update()
+            comment_val = comment_input.value or ""
+            message = self.pass2_new_word_manager.update_new_word(
+                self.controller.word_in_text,
+                sentence,
+                comment=comment_val,
+            )
+            self.selected_sentence_index = 0
+            self.update_message(message)
+            self.controller.daily_log.increment("pass2_pre")
+
+        comment_input = ft.TextField(expand=True, autofocus=True, on_submit=on_ok)
+
+        self.new_word_dialog = ft.AlertDialog(
+            modal=True,
+            content=ft.Column(
+                controls=[
+                    ft.Row(
+                        [
+                            ft.Text(
+                                "Whats the meaning of the new word?",
+                                size=14,
+                                color=ft.Colors.GREY_500,
+                            )
+                        ]
+                    ),
+                    ft.Row([comment_input]),
+                ],
+                expand=True,
+                scroll=ft.ScrollMode.AUTO,
+            ),
+            alignment=ft.alignment.center,
+            title_padding=ft.padding.all(25),
+            actions=[
+                ft.TextButton("OK", on_click=on_ok),
+            ],
         )
-        self.selected_sentence_index = 0
-        self.update_message(message)
-        self.controller.daily_log.increment("pass2_pre")
+
+        self.page.open(self.new_word_dialog)
+        self.page.update()
 
     def make_examples_list(
         self,
