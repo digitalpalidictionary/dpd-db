@@ -2,151 +2,265 @@
     "maṇiko": {
         "source_1": "mn80:18.4",
         "sutta_1": "maṇiko tathākaccāno varavaggo. ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "aggisaha": {
         "source_1": "mn80:18.1",
         "sutta_1": "puṇḍarī aggisaha kathināmo, ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "sandakaudāyimuṇḍikaputto": {
         "source_1": "mn80:18.3",
         "sutta_1": "sandakaudāyimuṇḍikaputto, ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "akāraṇe": {
         "source_1": "MN81",
         "sutta_1": "ghaṭikārasuttaṃ",
-        "example_1": "atha kho āyasmato ānandassa etadahosi, ko nu kho hetu, ko paccayo bhagavato sitassa pātukammāya? na akāraṇena [na akāraṇe] tathāgatā sitaṃ pātukarontīti. atha kho āyasmā ānando ekaṃsaṃ cīvaraṃ [uttarāsaṅga] katvā yena bhagavā tenañjaliṃ paṇāmetvā bhagavantaṃ etadavoca, ko nu kho, bhante, hetu, ko paccayo bhagavato sitassa pātukammāya? "
+        "example_1": "atha kho āyasmato ānandassa etadahosi, ko nu kho hetu, ko paccayo bhagavato sitassa pātukammāya? na akāraṇena [na akāraṇe] tathāgatā sitaṃ pātukarontīti. atha kho āyasmā ānando ekaṃsaṃ cīvaraṃ [uttarāsaṅga] katvā yena bhagavā tenañjaliṃ paṇāmetvā bhagavantaṃ etadavoca, ko nu kho, bhante, hetu, ko paccayo bhagavato sitassa pātukammāya? ",
+        "comment": ""
     },
     "uddiṭṭhā": {
         "source_1": "mn82:35.1",
         "sutta_1": "“atthi kho, mahārāja, tena bhagavatā jānatā passatā arahatā sammāsambuddhena cattāro dhammuddesā uddiṭṭhā, ye ahaṃ ñatvā ca disvā ca sutvā ca agārasmā anagāriyaṃ pabbajito. ",
-        "example_1": "“Great king, the Blessed One who knows and sees, the perfected one, the fully awakened Buddha has taught these four summaries of the teaching for recitation. It was after knowing and seeing and hearing these that I went forth from the lay life to homelessness. "
+        "example_1": "“Great king, the Blessed One who knows and sees, the perfected one, the fully awakened Buddha has taught these four summaries of the teaching for recitation. It was after knowing and seeing and hearing these that I went forth from the lay life to homelessness. ",
+        "comment": ""
     },
     "aṅkena": {
         "source_1": "mn85:61.12",
         "sutta_1": "atha kho maṃ dhāti aṅkena haritvā yena bhagavā tenupasaṅkami; upasaṅkamitvā bhagavantaṃ abhivādetvā ekamantaṃ aṭṭhāsi. ekamantaṃ ṭhitā kho maṃ dhāti bhagavantaṃ etadavoca: ",
-        "example_1": "Then my nursemaid, carrying me on her hip, went to the Buddha, bowed, stood to one side, and said to him, "
+        "example_1": "Then my nursemaid, carrying me on her hip, went to the Buddha, bowed, stood to one side, and said to him, ",
+        "comment": ""
     },
     "khomha": {
         "source_1": "mn27:7.17",
         "sutta_1": "idāni khomha samaṇā, idāni khomha brāhmaṇā, idāni khomha arahanto’ti. ",
-        "example_1": "But now we really are ascetics, brahmins, and perfected ones!’ "
+        "example_1": "But now we really are ascetics, brahmins, and perfected ones!’ ",
+        "comment": ""
     },
     "yebhuyyena": {
         "source_1": "mn12:50.3",
         "sutta_1": "yo koci avītarāgo taṃ vanasaṇḍaṃ pavisati, yebhuyyena lomāni haṃsanti. ",
-        "example_1": "normally it would make your hair stand on end if you weren’t free of greed. "
+        "example_1": "normally it would make your hair stand on end if you weren’t free of greed. ",
+        "comment": ""
     },
     "avijahantābhāvena": {
         "source_1": "MN91",
         "sutta_1": "brahmāyusuttaṃ",
-        "example_1": "yathāparisaṃ kho pana so bhavaṃ gotamo sarena viññāpeti, na cassa bahiddhā parisāya ghoso niccharati. te tena bhotā gotamena dhammiyā kathāya sandassitā samādapitā samuttejitā sampahaṃsitā uṭṭhāyāsanā pakkamanti avalokayamānāyeva [apalokayamānāyeva] avijahitattā [avijahantābhāvena] . addasāma kho mayaṃ, bho, taṃ bhavantaṃ gotamaṃ gacchantaṃ, addasāma ṭhitaṃ, addasāma antaragharaṃ pavisantaṃ, addasāma antaraghare nisinnaṃ tuṇhībhūtaṃ, addasāma antaraghare bhuñjantaṃ, addasāma bhuttāviṃ nisinnaṃ tuṇhībhūtaṃ, addasāma bhuttāviṃ anumodantaṃ, addasāma ārāmaṃ gacchantaṃ, addasāma ārāmagataṃ nisinnaṃ tuṇhībhūtaṃ, addasāma ārāmagataṃ parisati dhammaṃ desentaṃ. "
+        "example_1": "yathāparisaṃ kho pana so bhavaṃ gotamo sarena viññāpeti, na cassa bahiddhā parisāya ghoso niccharati. te tena bhotā gotamena dhammiyā kathāya sandassitā samādapitā samuttejitā sampahaṃsitā uṭṭhāyāsanā pakkamanti avalokayamānāyeva [apalokayamānāyeva] avijahitattā [avijahantābhāvena] . addasāma kho mayaṃ, bho, taṃ bhavantaṃ gotamaṃ gacchantaṃ, addasāma ṭhitaṃ, addasāma antaragharaṃ pavisantaṃ, addasāma antaraghare nisinnaṃ tuṇhībhūtaṃ, addasāma antaraghare bhuñjantaṃ, addasāma bhuttāviṃ nisinnaṃ tuṇhībhūtaṃ, addasāma bhuttāviṃ anumodantaṃ, addasāma ārāmaṃ gacchantaṃ, addasāma ārāmagataṃ nisinnaṃ tuṇhībhūtaṃ, addasāma ārāmagataṃ parisati dhammaṃ desentaṃ. ",
+        "comment": ""
     },
     "cakkaṃ": {
         "source_1": "mn92:17.3",
         "sutta_1": "dhammena cakkaṃ vattemi, ",
-        "example_1": "By the teaching I roll forth the wheel "
+        "example_1": "By the teaching I roll forth the wheel ",
+        "comment": ""
     },
     "nadatī": {
         "source_1": "mn92:20.4",
         "sutta_1": "sīhova nadatī vane. ",
-        "example_1": "roars like a lion in the jungle. "
+        "example_1": "roars like a lion in the jungle. ",
+        "comment": ""
     },
     "subhagāravoti": {
         "source_1": "mn100:44.4",
         "sutta_1": "vāseṭṭho subhagāravoti. ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "paribbājakanāmako": {
         "source_1": "mn100:45.2",
         "sutta_1": "paribbājakanāmako; ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "dassanena": {
         "source_1": "mn5:30.9",
         "sutta_1": "tassa saha dassanena manāpatā ca saṇṭhaheyya, appāṭikulyatā ca saṇṭhaheyya, ajegucchatā ca saṇṭhaheyya; ",
-        "example_1": "And as soon as they saw it they were filled with liking, attraction, and relish. "
+        "example_1": "And as soon as they saw it they were filled with liking, attraction, and relish. ",
+        "comment": ""
     },
     "samaṃ": {
         "source_1": "mn8:14.2",
         "sutta_1": "seyyathā vā pana, cunda, visamaṃ titthaṃ assa, tassa aññaṃ samaṃ titthaṃ parikkamanāya; ",
-        "example_1": "Or suppose there was a rough ford and another smooth ford to get around it. "
+        "example_1": "Or suppose there was a rough ford and another smooth ford to get around it. ",
+        "comment": ""
     },
     "sandhayo": {
         "source_1": "mn8:17.7",
         "sutta_1": "sandhayo pañca desitā; ",
-        "example_1": "organized into five sections. "
+        "example_1": "organized into five sections. ",
+        "comment": ""
     },
     "pāyantiyā": {
         "source_1": "MN12",
         "sutta_1": "mahāsīhanādasuttaṃ",
-        "example_1": "tatrāssu me idaṃ, sāriputta, tapassitāya hoti, acelako homi muttācāro hatthāpalekhano [hatthāvalekhano], na ehibhaddantiko na tiṭṭhabhaddantiko, nābhihaṭaṃ na uddissakataṃ na nimantanaṃ sādiyāmi. so na kumbhimukhā paṭiggaṇhāmi, na kaḷopimukhā paṭiggaṇhāmi, na eḷakamantaraṃ, na daṇḍamantaraṃ, na musalamantaraṃ, na dvinnaṃ bhuñjamānānaṃ, na gabbhiniyā, na pāyamānāya [pāyantiyā], na purisantaragatāya, na saṅkittīsu, na yattha sā upaṭṭhito hoti, na yattha makkhikā saṇḍasaṇḍacārinī, na macchaṃ na maṃsaṃ na suraṃ na merayaṃ na thusodakaṃ pivāmi, so ekāgāriko vā homi ekālopiko, dvāgāriko vā homi dvālopiko … sattāgāriko vā homi sattālopiko, ekissāpi dattiyā yāpemi, dvīhipi dattīhi yāpemi … sattahipi dattīhi yāpemi, ekāhikampi āhāraṃ āhāremi, dvīhikampi āhāraṃ āhāremi … sattāhikampi āhāraṃ āhāremi, iti evarūpaṃ addhamāsikampi pariyāyabhattabhojanānuyogamanuyutto viharāmi."
+        "example_1": "tatrāssu me idaṃ, sāriputta, tapassitāya hoti, acelako homi muttācāro hatthāpalekhano [hatthāvalekhano], na ehibhaddantiko na tiṭṭhabhaddantiko, nābhihaṭaṃ na uddissakataṃ na nimantanaṃ sādiyāmi. so na kumbhimukhā paṭiggaṇhāmi, na kaḷopimukhā paṭiggaṇhāmi, na eḷakamantaraṃ, na daṇḍamantaraṃ, na musalamantaraṃ, na dvinnaṃ bhuñjamānānaṃ, na gabbhiniyā, na pāyamānāya [pāyantiyā], na purisantaragatāya, na saṅkittīsu, na yattha sā upaṭṭhito hoti, na yattha makkhikā saṇḍasaṇḍacārinī, na macchaṃ na maṃsaṃ na suraṃ na merayaṃ na thusodakaṃ pivāmi, so ekāgāriko vā homi ekālopiko, dvāgāriko vā homi dvālopiko … sattāgāriko vā homi sattālopiko, ekissāpi dattiyā yāpemi, dvīhipi dattīhi yāpemi … sattahipi dattīhi yāpemi, ekāhikampi āhāraṃ āhāremi, dvīhikampi āhāraṃ āhāremi … sattāhikampi āhāraṃ āhāremi, iti evarūpaṃ addhamāsikampi pariyāyabhattabhojanānuyogamanuyutto viharāmi.",
+        "comment": ""
     },
     "saṅkhāya": {
         "source_1": "MN13",
         "sutta_1": "mahādukkhakkhandhasuttaṃ",
-        "example_1": "ko ca, bhikkhave, kāmānaṃ ādīnavo? idha, bhikkhave, kulaputto yena sippaṭṭhānena jīvikaṃ kappeti, yadi muddāya yadi gaṇanāya yadi saṅkhānena [saṅkhāya] yadi kasiyā yadi vaṇijjāya yadi gorakkhena yadi issatthena yadi rājaporisena yadi sippaññatarena, sītassa purakkhato uṇhassa purakkhato ḍaṃsamakasavātātapasarīṃsapasamphassehi rissamāno [īrayamāno, samphassamāno (cūḷani. khaggavisāṇasutta 136)] khuppipāsāya mīyamāno, ayampi, bhikkhave, kāmānaṃ ādīnavo sandiṭṭhiko, dukkhakkhandho kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu."
+        "example_1": "ko ca, bhikkhave, kāmānaṃ ādīnavo? idha, bhikkhave, kulaputto yena sippaṭṭhānena jīvikaṃ kappeti, yadi muddāya yadi gaṇanāya yadi saṅkhānena [saṅkhāya] yadi kasiyā yadi vaṇijjāya yadi gorakkhena yadi issatthena yadi rājaporisena yadi sippaññatarena, sītassa purakkhato uṇhassa purakkhato ḍaṃsamakasavātātapasarīṃsapasamphassehi rissamāno [īrayamāno, samphassamāno (cūḷani. khaggavisāṇasutta 136)] khuppipāsāya mīyamāno, ayampi, bhikkhave, kāmānaṃ ādīnavo sandiṭṭhiko, dukkhakkhandho kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu.",
+        "comment": ""
     },
     "pakaṭṭhiyāpi": {
         "source_1": "MN13",
         "sutta_1": "mahādukkhakkhandhasuttaṃ",
-        "example_1": "puna caparaṃ, bhikkhave, kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu asicammaṃ gahetvā, dhanukalāpaṃ sannayhitvā, addāvalepanā [aṭṭāvalepanā] upakāriyo pakkhandanti usūsupi khippamānesu, sattīsupi khippamānāsu, asīsupi vijjotalantesu. te tattha usūhipi vijjhanti, sattiyāpi vijjhanti, chakaṇakāyapi [pakaṭṭhiyāpi] osiñcanti, abhivaggenapi omaddanti, asināpi sīsaṃ chindanti. te tattha maraṇampi nigacchanti, maraṇamattampi dukkhaṃ. "
+        "example_1": "puna caparaṃ, bhikkhave, kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu asicammaṃ gahetvā, dhanukalāpaṃ sannayhitvā, addāvalepanā [aṭṭāvalepanā] upakāriyo pakkhandanti usūsupi khippamānesu, sattīsupi khippamānāsu, asīsupi vijjotalantesu. te tattha usūhipi vijjhanti, sattiyāpi vijjhanti, chakaṇakāyapi [pakaṭṭhiyāpi] osiñcanti, abhivaggenapi omaddanti, asināpi sīsaṃ chindanti. te tattha maraṇampi nigacchanti, maraṇamattampi dukkhaṃ. ",
+        "comment": ""
     },
     "bhāgamakāsiṃ": {
         "source_1": "mn19:2.4",
         "sutta_1": "imaṃ ekaṃ bhāgamakāsiṃ; ",
-        "example_1": "to one class. "
+        "example_1": "to one class. ",
+        "comment": ""
     },
     "atītakālikakiriyāpadāniyeva": {
         "source_1": "MN19",
         "sutta_1": "dvedhāvitakkasuttaṃ",
-        "example_1": "attabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, parabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, ubhayabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, paññānirodhiko vighātapakkhiko anibbānasaṃvattanikotipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati. so kho ahaṃ, bhikkhave, uppannuppannaṃ kāmavitakkaṃ pajahameva [atītakālikakiriyāpadāniyeva] vinodameva [atītakālikakiriyāpadāniyeva] byantameva [byanteva] naṃ akāsiṃ."
+        "example_1": "attabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, parabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, ubhayabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, paññānirodhiko vighātapakkhiko anibbānasaṃvattanikotipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati. so kho ahaṃ, bhikkhave, uppannuppannaṃ kāmavitakkaṃ pajahameva [atītakālikakiriyāpadāniyeva] vinodameva [atītakālikakiriyāpadāniyeva] byantameva [byanteva] naṃ akāsiṃ.",
+        "comment": ""
     },
     "byantameva": {
         "source_1": "mn19:3.9",
         "sutta_1": "so kho ahaṃ, bhikkhave, uppannuppannaṃ kāmavitakkaṃ pajahameva vinodameva byantameva naṃ akāsiṃ. ",
-        "example_1": "So I gave up, got rid of, and eliminated any sensual thoughts that arose. "
+        "example_1": "So I gave up, got rid of, and eliminated any sensual thoughts that arose. ",
+        "comment": ""
     },
     "āpajjeyya": {
         "source_1": "mn19:25.5",
         "sutta_1": "evañhi so, bhikkhave, mahāmigasaṅgho aparena samayena anayabyasanaṃ āpajjeyya. ",
-        "example_1": "so that, in due course, that herd of deer would fall to ruin and disaster. "
+        "example_1": "so that, in due course, that herd of deer would fall to ruin and disaster. ",
+        "comment": ""
     },
     "cūḷasīhanādalomahaṃsavaro": {
         "source_1": "mn20:9.1",
         "sutta_1": "cūḷasīhanādalomahaṃsavaro, ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "mahācūḷadukkhakkhandhaanumānikasuttaṃ": {
         "source_1": "mn20:9.2",
         "sutta_1": "mahācūḷadukkhakkhandhaanumānikasuttaṃ; ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "khilapatthamadhupiṇḍikadvidhāvitakka": {
         "source_1": "mn20:9.3",
         "sutta_1": "khilapatthamadhupiṇḍikadvidhāvitakka, ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "pañcanimittakathā": {
         "source_1": "mn20:9.4",
         "sutta_1": "pañcanimittakathā puna vaggo. ",
-        "example_1": ""
+        "example_1": "",
+        "comment": ""
     },
     "adhikaraṇampi": {
         "source_1": "mn21:2.3",
         "sutta_1": "sace koci bhikkhu āyasmato moḷiyaphaggunassa sammukhā tāsaṃ bhikkhunīnaṃ avaṇṇaṃ bhāsati, tenāyasmā moḷiyaphagguno kupito anattamano adhikaraṇampi karoti. ",
-        "example_1": "if any mendicant criticized those nuns in his presence, Phagguna of the Top-Knot got angry and upset, and even instigated disciplinary proceedings. "
+        "example_1": "if any mendicant criticized those nuns in his presence, Phagguna of the Top-Knot got angry and upset, and even instigated disciplinary proceedings. ",
+        "comment": ""
     },
     "āyogaṃ": {
         "source_1": "mn21:7.14",
         "sutta_1": "tasmātiha, bhikkhave, tumhepi akusalaṃ pajahatha, kusalesu dhammesu āyogaṃ karotha. ",
-        "example_1": "So, mendicants, you too should give up what’s unskillful and devote yourselves to skillful qualities. "
+        "example_1": "So, mendicants, you too should give up what’s unskillful and devote yourselves to skillful qualities. ",
+        "comment": ""
     },
     "uṭṭhāsīti": {
         "source_1": "mn21:9.15",
         "sutta_1": "‘kiṃ, je, divā uṭṭhāsī’ti? ",
-        "example_1": "‘You’re getting up in the day—what’s up with you, wench?’ "
+        "example_1": "‘You’re getting up in the day—what’s up with you, wench?’ ",
+        "comment": ""
+    },
+    "daṇḍavāgurāhi": {
+        "source_1": "MN25",
+        "sutta_1": "nivāpasuttaṃ",
+        "example_1": "tatra, bhikkhave, nevāpikassa ca nevāpikaparisāya ca etadahosi, saṭhāssunāmime tatiyā migajātā ketabino, iddhimantāssunāmime tatiyā migajātā parajanā, imañca nāma nivāpaṃ nivuttaṃ paribhuñjanti, na ca nesaṃ jānāma āgatiṃ vā gatiṃ vā. yaṃnūna mayaṃ imaṃ nivāpaṃ nivuttaṃ mahatīhi daṇḍavākarāhi [daṇḍavāgurāhi] samantā sappadesaṃ anuparivāreyyāma, appeva nāma tatiyānaṃ migajātānaṃ āsayaṃ passeyyāma, yattha te gāhaṃ gaccheyyunti. te amuṃ nivāpaṃ nivuttaṃ mahatīhi daṇḍavākarāhi samantā sappadesaṃ anuparivāresuṃ. ",
+        "comment": ""
+    },
+    "gāhaṃ": {
+        "source_1": "mn25:6.36",
+        "sutta_1": "neva kho, bhikkhave, addasaṃsu nevāpiko ca nevāpikaparisā ca catutthānaṃ migajātānaṃ āsayaṃ, yattha te gāhaṃ gaccheyyuṃ. ",
+        "example_1": "But they couldn’t see the lair where the fourth herd of deer went to hide out. ",
+        "comment": ""
+    },
+    "atītakālavasena": {
+        "source_1": "MN26",
+        "sutta_1": "pāsarāsisuttaṃ",
+        "example_1": "so kho ahaṃ, bhikkhave, kiṃ kusalagavesī anuttaraṃ santivarapadaṃ pariyesamāno yena udako [uddako] rāmaputto tenupasaṅkamiṃ, upasaṅkamitvā udakaṃ rāmaputtaṃ etadavocaṃ, icchāmahaṃ, āvuso [āvuso rāma mahāsatto rāmaputtameva avoca, na rāmaṃ, rāmo hi tattha gaṇācariyo bhaveyya, tadā ca kālaṅkato asanto. tenevettha rāmāyattāni kriyapadāni atītakālavasena āgatāni, udako ca rāmaputto mahāsattassa sabrahmacārītveva vutto, na ācariyoti. ṭīkāyaṃ ca pāḷiyaṃ rāmasseva samāpattilābhitā āgatā na udakassāti ādi pacchābhāge pakāsitā], imasmiṃ dhammavinaye brahmacariyaṃ caritunti. ",
+        "comment": ""
+    },
+    "santosakathāvasāne": {
+        "source_1": "MN27",
+        "sutta_1": "cūḷahatthipadopamasuttaṃ",
+        "example_1": "293. so bījagāmabhūtagāmasamārambhā paṭivirato hoti, ekabhattiko hoti rattūparato, virato vikālabhojanā, naccagītavāditavisūkadassanā paṭivirato hoti, mālāgandhavilepanadhāraṇamaṇḍanavibhūsanaṭṭhānā paṭivirato hoti, uccāsayanamahāsayanā paṭivirato hoti, jātarūparajatapaṭiggahaṇā paṭivirato hoti, āmakadhaññapaṭiggahaṇā paṭivirato hoti, āmakamaṃsapaṭiggahaṇā paṭivirato hoti, itthikumārikapaṭiggahaṇā paṭivirato hoti, dāsidāsapaṭiggahaṇā paṭivirato hoti, ajeḷakapaṭiggahaṇā paṭivirato hoti, kukkuṭasūkarapaṭiggahaṇā paṭivirato hoti, hatthigavāssavaḷavāpaṭiggahaṇā paṭivirato hoti, khettavatthupaṭiggahaṇā paṭivirato hoti, dūteyyapahiṇagamanānuyogā paṭivirato hoti, kayavikkayā paṭivirato hoti, tulākūṭakaṃsakūṭamānakūṭā paṭivirato hoti, ukkoṭanavañcananikatisāciyogā paṭivirato hoti, chedanavadhabandhanaviparāmosaālopasahasākārā [sāhasākārā] paṭivirato hoti [imassa anantaraṃ so iminā ariyena sīlakkhandhena samannāgato ajjhattaṃ anavajjasukhaṃ paṭisaṃvedetīti vacanaṃ dīghanikāye āgataṃ, taṃ idha santosakathāvasāne āgataṃ, sā ca santosakathā tattha satisampajaññānantarameva āgatā] .",
+        "comment": ""
+    },
+    "satisampajaññānantarameva": {
+        "source_1": "MN27",
+        "sutta_1": "cūḷahatthipadopamasuttaṃ",
+        "example_1": "293. so bījagāmabhūtagāmasamārambhā paṭivirato hoti, ekabhattiko hoti rattūparato, virato vikālabhojanā, naccagītavāditavisūkadassanā paṭivirato hoti, mālāgandhavilepanadhāraṇamaṇḍanavibhūsanaṭṭhānā paṭivirato hoti, uccāsayanamahāsayanā paṭivirato hoti, jātarūparajatapaṭiggahaṇā paṭivirato hoti, āmakadhaññapaṭiggahaṇā paṭivirato hoti, āmakamaṃsapaṭiggahaṇā paṭivirato hoti, itthikumārikapaṭiggahaṇā paṭivirato hoti, dāsidāsapaṭiggahaṇā paṭivirato hoti, ajeḷakapaṭiggahaṇā paṭivirato hoti, kukkuṭasūkarapaṭiggahaṇā paṭivirato hoti, hatthigavāssavaḷavāpaṭiggahaṇā paṭivirato hoti, khettavatthupaṭiggahaṇā paṭivirato hoti, dūteyyapahiṇagamanānuyogā paṭivirato hoti, kayavikkayā paṭivirato hoti, tulākūṭakaṃsakūṭamānakūṭā paṭivirato hoti, ukkoṭanavañcananikatisāciyogā paṭivirato hoti, chedanavadhabandhanaviparāmosaālopasahasākārā [sāhasākārā] paṭivirato hoti [imassa anantaraṃ so iminā ariyena sīlakkhandhena samannāgato ajjhattaṃ anavajjasukhaṃ paṭisaṃvedetīti vacanaṃ dīghanikāye āgataṃ, taṃ idha santosakathāvasāne āgataṃ, sā ca santosakathā tattha satisampajaññānantarameva āgatā] .",
+        "comment": ""
+    },
+    "oramatha": {
+        "source_1": "MN91",
+        "sutta_1": "brahmāyusuttaṃ",
+        "example_1": "addasā kho sā parisā brahmāyuṃ brāhmaṇaṃ dūratova āgacchantaṃ. disvāna oramiya [oramattha, oramatha, oramati, atha naṃ, oramiyāti pana tvāpaccayantatathasaṃvaṇṇanānurūpaṃ visodhitapadaṃ] okāsamakāsi yathā taṃ ñātassa yasassino. atha kho brahmāyu brāhmaṇo taṃ parisaṃ etadavoca, alaṃ, bho! ",
+        "comment": "this is just a test"
+    },
+    "moḷiyaphaggunariṭṭhañca": {
+        "source_1": "mn30:25.1",
+        "sutta_1": "moḷiyaphaggunariṭṭhañca nāmo, ",
+        "example_1": "",
+        "comment": "do the whole verse"
+    },
+    "kathipuṇṇaṃ": {
+        "source_1": "mn30:25.2",
+        "sutta_1": "andhavane kathipuṇṇaṃ nivāpo; ",
+        "example_1": "",
+        "comment": "in reference to"
+    },
+    "rāsikaṇerumahāgajanāmo": {
+        "source_1": "mn30:25.3",
+        "sutta_1": "rāsikaṇerumahāgajanāmo, ",
+        "example_1": "",
+        "comment": "in reference to"
+    },
+    "sārūpamo": {
+        "source_1": "mn30:25.4",
+        "sutta_1": "sārūpamo puna piṅgalakoccho. ",
+        "example_1": "",
+        "comment": "in reference to"
+    },
+    "sāravaro": {
+        "source_1": "MN30",
+        "sutta_1": "cūḷasāropamasuttaṃ",
+        "example_1": "moḷiyaphaggunariṭṭhañca nāmo,\nandhavane kathipuṇṇaṃ nivāpo,\nrāsikaṇerumahāgajanāmo,\nsārūpamo [sāravaro,\nsāravano] puna piṅgalakoccho.",
+        "comment": "in ref to"
+    },
+    "ñātike": {
+        "source_1": "MN31",
+        "sutta_1": "cūḷagosiṅgasuttaṃ",
+        "example_1": "325. evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā nātike [nādike, ñātike] viharati giñjakāvasathe. tena kho pana samayena āyasmā ca anuruddho āyasmā ca nandiyo āyasmā ca kimilo [kimbilo] gosiṅgasālavanadāye viharanti. ",
+        "comment": "name of a village, var"
+    },
+    "etthevassa": {
+        "source_1": "mn35:13.13",
+        "sutta_1": "yo koci, aggivessana tathāgatena yāvatatiyaṃ sahadhammikaṃ pañhaṃ puṭṭho na byākaroti, etthevassa sattadhā muddhā phalatī”ti. ",
+        "example_1": "If someone fails to answer a legitimate question when asked three times by the Buddha, their head explodes into seven pieces there and then.” ",
+        "comment": "sandhi, right here, immediately"
+    },
+    "hanūna": {
+        "source_1": "MN36",
+        "sutta_1": "mahāsaccakasuttaṃ",
+        "example_1": "na hi nūna [na hanūna] bhoto gotamassa uppajjati tathārūpā sukhā vedanā yathārūpā uppannā sukhā vedanā cittaṃ pariyādāya tiṭṭheyya, na hi nūna bhoto gotamassa uppajjati tathārūpā dukkhā vedanā yathārūpā uppannā dukkhā vedanā cittaṃ pariyādāya tiṭṭheyyāti.",
+        "comment": "sandhi defintely etc"
     }
 }

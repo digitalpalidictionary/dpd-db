@@ -175,7 +175,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	vi √is	vīṣ	
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	saṃ pati √is	sampratīṣ	saṃpratīcchat, saṃpratīcchati, saṃpratīcchana (bsk), saṃpratyeṣita (bsk)
 √iss	1	a	be envious, be jealous	√īrṣy	1	be jealous	√iss	īrṣy	īrṣuka +, īrṣyaka +, īrṣyati, īrṣyā, na + īrṣyaka +
-√īr 1	1	a	move, shake	√īr	1, 2	set in motion	√īr	īr	anīrita, īrat, īrate, īrayat, īrayati, īrayamāṇa, īrāṇa, īrita, īrte, īryā, na + īrayati, svairavartin, svairin
+√īr 1	1	a	move, shake	√īr	1, 2	set in motion	√īr	īr	anīrita, īrat, īrate, īrayat, īrayati, īrāṇa, īrita, īrte, īryā, na + īrayati, svairavartin, svairin
 √īr 1	1	a	move, shake	√īr	1, 2	set in motion	saṃ √īr	samīr	samīraṇa, samīrita, samīrte
 √īr 2	8	*e	speak	√īr	1, 2	set in motion	√īr	īr	īrayati
 √īr 2	8	*aya	speak	√īr	1, 2	set in motion	abhi ud √īr	abhyudīr	+ udīrayati, abhyudīrayati
@@ -419,7 +419,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ ava √kir	samavakṝ	samavakṛtya < samavakṛ
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ ā √kir	samākṝ	samākīrṇa
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ pari √kir	parikṝ	sam + parikīrṇa
-√kilam	1	a	be weary	√klam	1, 4	be weary	√kilam	klam	aklānta (na + klānta), klamati, klamatha, klamyamāna, klānta, klāmayat, klāmyat, na + klamyamāna, na + klāmyat
+√kilam	1	a	be weary	√klam	1, 4	be weary	√kilam	klam	aklānta (na + klānta), klamati, klamatha, klamyamāna, klānta, klāmayat, klāmayati, klāmyat, na + klamyamāna, na + klāmyat
 √kilam	1	a	be weary	√klam	1, 4	be weary	pari √kilam	pariklam	
 √kilid	3	ya	be wet	√klid	4	be wet	√kilid		
 √kilis 1	3	ya	be dirty, be molested	√kliś	4, 9	distress	√kilis	kliś	akliṣṭa, kilbiṣa, kilbiṣin, kliśyati, kliśyamāna, kliṣṭa, kleśa, na + kliśyamāna, sa + kleśa
@@ -1567,7 +1567,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nud	1	*e	drive out, reject	√nud	6	push	ava √nud	nud	avanejayati
 √nud	1	ya	drive out, reject	√nud	6	push	pa √nud	praṇud	praṇuda, praṇudati, praṇudita, praṇudyamāna, praṇunna, praṇodayati, pranudamāna
 √nud	1	*e	drive out, reject	√nud	6	push	pati vi √nud	prativinud	na +, prativinutta, prativinuttvā, prativinudati, prativinodana, prativinoditavya
-√nud	1	*aya	drive out, reject	√nud	6	push	vi √nud	vinud	na + vinodayat, vinodana (bsk), vinodanena (bsk), vinodayat, vinodayati, vinodayitavya, vinodayitum
+√nud	1	*aya	drive out, reject	√nud	6	push	vi √nud	vinud	na + vinodayat, vinoda, vinodana (bsk), vinodanena (bsk), vinodayat, vinodayati, vinodayitavya, vinodayitum
 √nud	1	a	drive out, reject	√nud	6	push	vi apa √nud	vyapanud	vyapanudya
 √ness	1	a	take away	√neṣ	1	go, move	√ness	neṣ	neṣate
 √nhā	3	ya	bathe	√snā	2, 4	bathe	√nhā	snā	a + snāta, asnāsīt, susnāta, snāta, snāta +, snātaka, snāti, snāyate, snātum, snātvā, snāna, snānīya, snāpaka, snāpana, snāpayat, snāpayati, snāpayita, snāpayitum, snāpayitvā, snāpita, snāyat, snāyati, snāyitṛ, snāsnapayitavya
@@ -1717,7 +1717,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	nī √puñch	proñch	
 √puñch	1	a	wipe	pra√uñch √proñch	1, 6	wipe out	pari √puñch		pari + proñchat
 √puṭ	1	a	wrap, envelop	√puṭ	6	clasp	√puṭ		puṭa, puṭaka
-√puṭ	1	a	wrap, envelop	√puṭ	6	clasp	saṃ √puṭ		saṃpuṭa
 √puṭh	8	*e	beat, hurt	√sphuṭ	1, 6	burst	√puṭh	sphuṭ	na + sphoṭayat, sphuṭita, sphoṭayat, sphoṭayati, sphoṭayitvā, sphoṭita, sphoṭyate, sphoṭyamāna
 √puṭh	8	*e	beat, hurt	√sphuṭ	1, 6	burst	ā √puṭh	āsphuṭ	
 √puṭh	8	*e	beat, hurt	√sphuṭ	1, 6	burst	ud √puṭh	sphuṭ	
@@ -3165,7 +3164,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sur	1	a	shine, be supreme	√sur	6	possess power	ud √sur	sur	utsūra (evening), uṣas, utsūra (evening)
 √sur	1	a	shine, be supreme	√sur	6	possess power	pa √sur	sur	pra + sūra
 √sur	1	a	shine, be supreme	√sur	6	possess power	pati √sur	sur	prati + śūra
-√sus	3	*e	dry, wither	√śuṣ	4	dry	√sus	śuṣ	na + śoṣita +, śuṣka, śuṣka +, śuṣya, śuṣyati, śuṣyamāṇa, śoṣa, śoṣaka, śoṣayat, śoṣayamāṇa, śoṣita, śoṣita +
+√sus	3	ya	dry, wither	√śuṣ	4	dry	√sus	śuṣ	śuṣka, śuṣka +, śuṣya, śuṣyati, śuṣyamāṇa, śoṣa, śoṣaka, śoṣayat, śoṣayamāṇa, śoṣita, śoṣita +
 √sus	3	ya	dry, wither	√śuṣ	4	dry	ava √sus	avaśuṣ	avaśuṣyati
 √sus	3	ya	dry, wither	√śuṣ	4	dry	ud √sus	ucchuṣ	ucchuṣyati
 √sus	3	ya	dry, wither	√śuṣ	4	dry	upa √sus	upaśuṣ	upaśuṣyati, na + upaśoṣayati

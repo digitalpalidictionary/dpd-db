@@ -1,5 +1,17 @@
 [
     {
+        "id": 44058,
+        "lemma_1": "pariyosāna 1"
+    },
+    {
+        "id": 61534,
+        "lemma_1": "saṃkicca 1"
+    },
+    {
+        "id": 66444,
+        "lemma_1": "vasa 1.2"
+    },
+    {
         "id": 83281,
         "lemma_1": "paripūra 4"
     },
@@ -66,17 +78,5 @@
     {
         "id": 9571,
         "lemma_1": "asambhinna 1"
-    },
-    {
-        "id": 10514,
-        "lemma_1": "avijita 1"
-    },
-    {
-        "id": 7853,
-        "lemma_1": "abhinibbatta 1"
-    },
-    {
-        "id": 83279,
-        "lemma_1": "vīriyasamādhi"
     }
 ]

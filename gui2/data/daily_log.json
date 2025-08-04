@@ -550,7 +550,13 @@
     "2025-08-03": {
         "pass1": 0,
         "pass2_add": 2,
-        "pass2_pre": 237,
+        "pass2_pre": 415,
         "pass2_update": 8
+    },
+    "2025-08-04": {
+        "pass1": 0,
+        "pass2_add": 0,
+        "pass2_pre": 237,
+        "pass2_update": 3
     }
 }
