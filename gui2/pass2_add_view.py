@@ -21,10 +21,8 @@ from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
-from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.fast_api_utils import request_dpd_server
 from tools.hyphenations import HyphenationFileManager, HyphenationsDict
-from tools.paths import ProjectPaths
 from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
 
 LABEL_WIDTH = 250
@@ -216,11 +214,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                 width=BUTTON_WIDTH,
                                 on_hover=self._on_delete_hover,
                             ),
-                            ft.ElevatedButton(
-                                "Backup & Quit",
-                                on_click=self._click_backup_db,
-                                width=BUTTON_WIDTH,
-                            ),  # Add backup button here
+                            # Backup & Quit moved to Global tab
                         ],
                     ),
                 ],
@@ -724,23 +718,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _click_delete_cancel(self, e: ft.ControlEvent) -> None:
         self.delete_alert.open = False
         self.page.update()
-
-    def _click_backup_db(self, e: ft.ControlEvent) -> None:
-        """Runs the backup script for DpdHeadword and DpdRoot tables."""
-        # Instantiate ProjectPaths here
-        pth = ProjectPaths()
-
-        self.update_message("Running database backup...")
-
-        try:
-            # Call the function directly
-            backup_dpd_headwords_and_roots(pth)
-            self.update_message("Database backup completed successfully.")
-            self.page.window.close()
-
-        except Exception as ex:
-            self.update_message(f"An unexpected error occurred during backup: {ex}")
-            print(f"Backup error: {ex}")  # Log the error to console for debugging
 
     def _click_corrections_button(self, e: ft.ControlEvent) -> None:
         """Loads the next correction and populates the _add fields."""

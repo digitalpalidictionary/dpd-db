@@ -11,6 +11,7 @@ from tools.fast_api_utils import start_dpd_server
 
 class App:
     def __init__(self, page: ft.Page) -> None:
+        from gui2.global_tab_view import GlobalTabView
         from gui2.pass1_add_view import Pass1AddView
         from gui2.pass1_auto_view import Pass1AutoView
         from gui2.pass2_add_view import Pass2AddView
@@ -42,6 +43,7 @@ class App:
         )
 
         # Now create views
+        self.global_view: GlobalTabView = GlobalTabView(self.page, self.toolkit)
         self.pass1_auto_view: Pass1AutoView = Pass1AutoView(self.page, self.toolkit)
         self.pass1_add_view: Pass1AddView = Pass1AddView(self.page, self.toolkit)
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
@@ -81,6 +83,10 @@ class App:
             animation_duration=300,
             on_click=self.tab_clicked,
             tabs=[
+                ft.Tab(
+                    text="Global",
+                    content=self.global_view,
+                ),
                 ft.Tab(
                     text="Pass1Auto",
                     content=self.pass1_auto_view,
