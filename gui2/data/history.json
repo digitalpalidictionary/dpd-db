@@ -1,5 +1,21 @@
 [
     {
+        "id": 14965,
+        "lemma_1": "udabbahi 1"
+    },
+    {
+        "id": 24550,
+        "lemma_1": "garubhārā"
+    },
+    {
+        "id": 24549,
+        "lemma_1": "garubhāra"
+    },
+    {
+        "id": 26964,
+        "lemma_1": "cūḷataṇhāsaṅkhayasutta"
+    },
+    {
         "id": 44058,
         "lemma_1": "pariyosāna 1"
     },
@@ -62,21 +78,5 @@
     {
         "id": 8440,
         "lemma_1": "amacchariya"
-    },
-    {
-        "id": 36352,
-        "lemma_1": "nānusikkhati 1"
-    },
-    {
-        "id": 6299,
-        "lemma_1": "aparapura"
-    },
-    {
-        "id": 64994,
-        "lemma_1": "sela 4"
-    },
-    {
-        "id": 9571,
-        "lemma_1": "asambhinna 1"
     }
 ]

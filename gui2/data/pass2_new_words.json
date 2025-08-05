@@ -262,5 +262,41 @@
         "sutta_1": "mahāsaccakasuttaṃ",
         "example_1": "na hi nūna [na hanūna] bhoto gotamassa uppajjati tathārūpā sukhā vedanā yathārūpā uppannā sukhā vedanā cittaṃ pariyādāya tiṭṭheyya, na hi nūna bhoto gotamassa uppajjati tathārūpā dukkhā vedanā yathārūpā uppannā dukkhā vedanā cittaṃ pariyādāya tiṭṭheyyāti.",
         "comment": "sandhi defintely etc"
+    },
+    "garumbhāraṃ": {
+        "source_1": "MN38",
+        "sutta_1": "mahātaṇhāsaṅkhayasuttaṃ",
+        "example_1": "yato ca kho, bhikkhave, mātāpitaro ca sannipatitā honti, mātā ca utunī hoti, gandhabbo ca paccupaṭṭhito hoti, evaṃ tiṇṇaṃ sannipātā gabbhassāvakkanti hoti. tamenaṃ, bhikkhave, mātā nava vā dasa vā māse gabbhaṃ kucchinā pariharati mahatā saṃsayena garubhāraṃ [garumbhāraṃ] . tamenaṃ, bhikkhave, mātā navannaṃ vā dasannaṃ vā māsānaṃ accayena vijāyati mahatā saṃsayena garubhāraṃ. ",
+        "comment": "copy garubhāra"
+    },
+    "giñjakasālavanaṃ": {
+        "source_1": "mn40:15.1",
+        "sutta_1": "giñjakasālavanaṃ pariharituṃ, ",
+        "example_1": "",
+        "comment": "in ref to"
+    },
+    "saccakanisedho": {
+        "source_1": "mn40:15.2",
+        "sutta_1": "paññavato puna saccakanisedho; ",
+        "example_1": "",
+        "comment": "in reference to"
+    },
+    "mukhavaṇṇapasīdanatāpindo": {
+        "source_1": "mn40:15.3",
+        "sutta_1": "mukhavaṇṇapasīdanatāpindo, ",
+        "example_1": "",
+        "comment": "in ref to"
+    },
+    "vanadāho": {
+        "source_1": "MN45",
+        "sutta_1": "cūḷadhammasamādānasuttaṃ",
+        "example_1": "atha kho, bhikkhave, yā tasmiṃ sāle adhivatthā devatā sā bhītā saṃviggā santāsaṃ āpajjeyya. atha kho, bhikkhave, tasmiṃ sāle adhivatthāya devatāya mittāmaccā ñātisālohitā ārāmadevatā vanadevatā rukkhadevatā osadhitiṇavanappatīsu adhivatthā devatā saṅgamma samāgamma evaṃ samassāseyyuṃ, mā bhavaṃ bhāyi, mā bhavaṃ bhāyi, appeva nāmetaṃ māluvābījaṃ moro vā gileyya [moro vā gileyya, godhā vā khādeyya], mago vā khādeyya, davaḍāho [vanadāho] vā ḍaheyya, vanakammikā vā uddhareyyuṃ, upacikā vā uṭṭhaheyyuṃ [udrabheyyuṃ], abījaṃ vā panassāti. atha kho taṃ, bhikkhave, māluvābījaṃ neva moro gileyya, na mago khādeyya, na davaḍāho ḍaheyya, na vanakammikā uddhareyyuṃ, na upacikā uṭṭhaheyyuṃ, bījañca panassa taṃ pāvussakena meghena abhippavuṭṭhaṃ sammadeva viruheyya. ",
+        "comment": "same as davaḍāho"
+    },
+    "saṃsaṭṭhaṃ": {
+        "source_1": "mn46:20.1",
+        "sutta_1": "seyyathāpi, bhikkhave, pūtimuttaṃ nānābhesajjehi saṃsaṭṭhaṃ. ",
+        "example_1": "Suppose there was some rancid urine mixed with different medicines. ",
+        "comment": "ekajjhaṃ together altogether. maybe!?"
     }
 }
