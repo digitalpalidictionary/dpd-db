@@ -15077,1415 +15077,435 @@
         "sakkharaṃ": [
             56483,
             56484
+        ],
+        "bhindissāmīti": [
+            49980,
+            82806
+        ],
+        "nāmadheyyā": [
+            36445
+        ],
+        "chaphassāyataniko": [
+            27490
+        ],
+        "hadaye": [
+            70948
+        ],
+        "samāgaccheyya": [
+            80564
+        ],
+        "paccamānassāti": [
+            39374
+        ],
+        "ussade": [
+            17142
+        ],
+        "accimanto": [
+            992
+        ],
+        "accharā": [
+            1030
+        ],
+        "naccanti": [
+            35475
+        ],
+        "saṃvejesi": [
+            61986,
+            61991
+        ],
+        "sudhammāyābhito": [
+            82470,
+            63369,
+            63370
+        ],
+        "pabhassaraṃ": [
+            42573
+        ],
+        "vajjaṃ": [
+            65711,
+            65712
+        ],
+        "niccomhi": [
+            74592
+        ],
+        "saṃphusaṃ": [
+            74168
+        ],
+        "nibbinda": [
+            37677
+        ],
+        "āsaṃ": [
+            12733
+        ],
+        "verañjaduve": [
+            70424,
+            70430,
+            1464,
+            1489
+        ],
+        "tuṭṭhi": [
+            30970
+        ],
+        "cūḷamahādhammasamādānañca": [
+            52045,
+            8544,
+            34985,
+            81863
+        ],
+        "mūlapaṇṇāsakaṃ": [
+            53118
+        ],
+        "majjhima": [
+            50743,
+            50745
+        ],
+        "nikāya": [
+            36648
+        ],
+        "dassanāpahātabbaāsava": [
+            32110,
+            12833,
+            12850
+        ],
+        "saṃvarāpahātabbaāsava": [
+            61901,
+            12833,
+            12850
+        ],
+        "paṭisevanāpahātabbaāsava": [
+            12833,
+            12850
+        ],
+        "adhivāsanāpahātabbaāsava": [
+            12833,
+            12850
+        ],
+        "parivajjanāpahātabbaāsava": [
+            12833,
+            12850
+        ],
+        "vinodanāpahātabbaāsava": [
+            12833,
+            12850
+        ],
+        "bhāvanāpahātabbaāsava": [
+            12833,
+            12850
+        ],
+        "thinamiddhapariyuṭṭhānasandosahetu": [
+            58356,
+            71434,
+            71436
+        ],
+        "vatthasutta": [
+            66070
+        ],
+        "sālīnañcepi": [
+            62593
+        ],
+        "sammādiṭṭhisutta": [
+            60810,
+            60811
+        ],
+        "satipaṭṭhānasutta": [
+            57631,
+            57632
+        ],
+        "kāyānupassanāsampajānapabba": [
+            4771,
+            71830
+        ],
+        "satipaṭṭhānasuttaṃ": [
+            57631,
+            57632
+        ],
+        "lomahaṃsanapariyāyotveva": [
+            14600,
+            14601,
+            43976,
+            43977,
+            43978
+        ],
+        "ahampāssaṃ": [
+            10033
+        ],
+        "cetokhilasutta": [
+            27116,
+            27117,
+            27118
+        ],
+        "mañcepi": [
+            52101
+        ],
+        "madhupiṇḍikapariyāyotveva": [
+            14600,
+            14601,
+            43976,
+            43977,
+            43978
+        ],
+        "kāmavitakkañce": [
+            67820
+        ],
+        "byāpādavitakkañce": [
+            67820
+        ],
+        "vihiṃsāvitakkañce": [
+            69726,
+            69730,
+            69738,
+            67820
+        ],
+        "mattāya": [
+            50945
+        ],
+        "sīlavisuddhiñce": [
+            63149,
+            82613
+        ],
+        "cittavisuddhiñce": [
+            26563,
+            82613
+        ],
+        "diṭṭhivisuddhiñce": [
+            82613
+        ],
+        "kaṅkhāvitaraṇavisuddhiñce": [
+            19239,
+            82613
+        ],
+        "paṭipadāñāṇadassanavisuddhiñce": [
+            40550
+        ],
+        "ñāṇadassanavisuddhiñce": [
+            82613
+        ],
+        "mayhampatthi": [
+            2757,
+            51437
+        ],
+        "agārantveva": [
+            5647,
+            5805
+        ],
+        "rūpantveva": [
+            55149,
+            55150,
+            45424,
+            5647,
+            5805,
+            55156,
+            55157,
+            55158
+        ],
+        "sabbesānampāssa": [
+            9940,
+            10033
+        ],
+        "viññāṇantveva": [
+            5647,
+            5805
+        ],
+        "cakkhuviññāṇantveva": [
+            5647,
+            5805
+        ],
+        "sotaviññāṇantveva": [
+            5647,
+            5805
+        ],
+        "ghānaviññāṇantveva": [
+            5647,
+            5805
+        ],
+        "jivhāviññāṇantveva": [
+            5647,
+            5805
+        ],
+        "kāyaviññāṇantveva": [
+            5647,
+            5805,
+            19162,
+            21160
+        ],
+        "manoviññāṇantveva": [
+            5647,
+            5805
+        ],
+        "brahmanimantanikantveva": [
+            5647,
+            5805,
+            36664,
+            36667,
+            8525
+        ],
+        "samphusaṃ": [
+            60538
+        ],
+        "aṭṭhakanāgarasutta": [
+            1729
+        ],
+        "sekhasutta": [
+            64806,
+            64807
+        ],
+        "potaliyasutta": [
+            47442
+        ],
+        "jīvakasutta": [
+            28576
+        ],
+        "upālisutta": [
+            16400,
+            16401
+        ],
+        "apaṇṇakasutta": [
+            6143,
+            6144
+        ],
+        "nibbutotveva": [
+            14600,
+            14601
+        ],
+        "māgaṇḍiyasutta": [
+            52140
+        ],
+        "subhāsitañcidaṃ": [
+            63369,
+            63370
+        ],
+        "selasutta": [
+            65000
+        ],
+        "sampurekkharontīti": [
+            60498
+        ],
+        "vessañcepi": [
+            70495
+        ],
+        "suddañcepi": [
+            63905
+        ],
+        "vāseṭṭhasutta": [
+            67029,
+            67030
+        ],
+        "subhasutta": [
+            64246
+        ],
+        "saṅgāravasutta": [
+            56961,
+            56962,
+            56963,
+            56964,
+            56965,
+            56966
+        ],
+        "devadahasutta": [
+            34070,
+            34071
+        ],
+        "paṭijānissāmīti": [
+            40442
+        ],
+        "māyākatametaṃ": [
+            17970,
+            80558,
+            19598
+        ],
+        "tasmiñce": [
+            30155
+        ],
+        "cūḷapuṇṇañcāti": [
+            80440
+        ],
+        "sappurisasutta": [
+            58752,
+            58753,
+            58754
+        ],
+        "rūpampāhaṃ": [
+            55156,
+            55157,
+            55158
+        ],
+        "saddampāhaṃ": [
+            83215
+        ],
+        "rasampāhaṃ": [
+            54687,
+            54689,
+            54691,
+            54692,
+            54702
+        ],
+        "phoṭṭhabbampāhaṃ": [
+            47826
+        ],
+        "alaṃvacanāyāti": [
+            9110
+        ],
+        "sammādiṭṭhimpahaṃ": [
+            60800
+        ],
+        "sammādiṭṭhiñce": [
+            60800
+        ],
+        "sammāvācañce": [
+            66693
+        ],
+        "sammāvāyāmañce": [
+            66886,
+            66887,
+            80927
+        ],
+        "sammāsatiñce": [
+            57661,
+            74591
+        ],
+        "kāyagatāsatisutta": [
+            21151
+        ],
+        "anupada": [
+            80396
+        ],
+        "yampāyasmā": [
+            12185,
+            12242
+        ],
+        "bhūmijasutta": [
+            50220
+        ],
+        "anuruddhasutta": [
+            5149,
+            5150
+        ],
+        "upakkilesasutta": [
+            15375,
+            15376,
+            15377
+        ],
+        "bālapaṇḍitasutta": [
+            48289
+        ],
+        "devadūtasutta": [
+            34081
+        ],
+        "yannūnassāhaṃ": [
+            9940,
+            10033
+        ],
+        "tannissitā": [
+            29905
         ]
     },
     "matched": {
-        "anārādhanapakkhe": {
-            "id": 4028,
-            "sentence": [
-                "MN76",
-                "sandakasuttaṃ",
-                "evaṃ bhoti kho sandako paribbājako āyasmato ānandassa paccassosi. āyasmā ānando etadavoca, cattārome, sandaka, tena bhagavatā jānatā passatā arahatā sammāsambuddhena abrahmacariyavāsā akkhātā cattāri ca anassāsikāni brahmacariyāni akkhātāni, yattha viññū puriso sasakkaṃ brahmacariyaṃ na vaseyya, vasanto ca [vasanto vā evamuparipi anārādhanapakkhe] nārādheyya ñāyaṃ dhammaṃ kusalanti. katame pana te, bho ānanda, tena bhagavatā jānatā passatā arahatā sammāsambuddhena cattāro abrahmacariyavāsā akkhātā, yattha viññū puriso sasakkaṃ brahmacariyaṃ na vaseyya, vasanto ca nārādheyya ñāyaṃ dhammaṃ kusalanti?"
-            ]
-        },
-        "nibbijjāpakkamati": {
-            "id": 37645,
-            "sentence": [
-                "MN76",
-                "sandakasuttaṃ",
-                "abhisamparāyaṃ sohaṃ kiṃ jānanto kiṃ passanto imasmiṃ satthari brahmacariyaṃ carissāmi? so abrahmacariyavāso ayanti, iti viditvā tasmā brahmacariyā nibbijja pakkamati [nibbijjāpakkamati] . ayaṃ kho, sandaka, tena bhagavatā jānatā passatā arahatā sammāsambuddhena paṭhamo abrahmacariyavāso akkhāto yattha viññū puriso sasakkaṃ brahmacariyaṃ na vaseyya, vasanto ca nārādheyya ñāyaṃ dhammaṃ kusalaṃ."
-            ]
-        },
-        "socato": {
-            "id": 65129,
-            "sentence": [
-                "mn76:11.3",
-                "karoto kārayato chindato chedāpayato pacato pācāpayato socato socāpayato kilamato kilamāpayato phandato phandāpayato pāṇamatipātayato adinnaṃ ādiyato sandhiṃ chindato nillopaṃ harato ekāgārikaṃ karoto paripanthe tiṭṭhato paradāraṃ gacchato musā bhaṇato karoto na karīyati pāpaṃ khurapariyantena cepi cakkena yo imissā pathaviyā pāṇe ekaṃ maṃsakhalaṃ ekaṃ maṃsapuñjaṃ kareyya, natthi tatonidānaṃ pāpaṃ, natthi pāpassa āgamo. ",
-                ""
-            ]
-        },
-        "ucchinditvā": {
-            "id": 14366,
-            "sentence": [
-                "MN77",
-                "mahāsakuludāyisuttaṃ",
-                "santuṭṭho samaṇo gotamo itarītarena cīvarena, itarītaracīvarasantuṭṭhiyā ca vaṇṇavādīti, iti ce maṃ, udāyi, sāvakā sakkareyyuṃ garuṃ kareyyuṃ māneyyuṃ pūjeyyuṃ, sakkatvā garuṃ katvā upanissāya vihareyyuṃ, santi kho pana me, udāyi, sāvakā paṃsukūlikā lūkhacīvaradharā te susānā vā saṅkārakūṭā vā pāpaṇikā vā nantakāni [pāpaṇikāni vā nantakāni vā] uccinitvā [ucchinditvā] saṅghāṭiṃ karitvā dhārenti. ahaṃ kho panudāyi, appekadā gahapaticīvarāni dhāremi daḷhāni satthalūkhāni alābulomasāni. "
-            ]
-        },
-        "abhisaddena": {
-            "id": 8182,
-            "sentence": [
-                "MN79",
-                "cūḷasakuludāyisuttaṃ",
-                "taṃ kiṃ maññasi, udāyi, yā vā rattiyā paccūsasamayaṃ viddhe vigatavalāhake deve osadhitārakā, yo vā tadahuposathe pannarase viddhe vigatavalāhake deve abhido [abhide, abhidosaṃ abhidoti abhisaddena samānatthanipātapadaṃ (chakkaṅguttaraṭīkā mahāvagga aṭṭhamasuttavaṇṇanā)] aḍḍharattasamayaṃ cando, imesaṃ ubhinnaṃ vaṇṇānaṃ katamo vaṇṇo abhikkantataro ca paṇītataro cāti? yvāyaṃ, bhante, tadahuposathe pannarase viddhe vigatavalāhake deve abhido aḍḍharattasamayaṃ cando, ayaṃ imesaṃ ubhinnaṃ vaṇṇānaṃ abhikkantataro ca paṇītataro cāti."
-            ]
-        },
-        "samānatthanipātapadaṃ": {
-            "id": 59696,
-            "sentence": [
-                "MN79",
-                "cūḷasakuludāyisuttaṃ",
-                "taṃ kiṃ maññasi, udāyi, yā vā rattiyā paccūsasamayaṃ viddhe vigatavalāhake deve osadhitārakā, yo vā tadahuposathe pannarase viddhe vigatavalāhake deve abhido [abhide, abhidosaṃ abhidoti abhisaddena samānatthanipātapadaṃ (chakkaṅguttaraṭīkā mahāvagga aṭṭhamasuttavaṇṇanā)] aḍḍharattasamayaṃ cando, imesaṃ ubhinnaṃ vaṇṇānaṃ katamo vaṇṇo abhikkantataro ca paṇītataro cāti? yvāyaṃ, bhante, tadahuposathe pannarase viddhe vigatavalāhake deve abhido aḍḍharattasamayaṃ cando, ayaṃ imesaṃ ubhinnaṃ vaṇṇānaṃ abhikkantataro ca paṇītataro cāti."
-            ]
-        },
-        "uddekaniko": {
-            "id": 15143,
-            "sentence": [
-                "MN79",
-                "cūḷasakuludāyisuttaṃ",
-                "evaṃ vutte, sakuludāyissa paribbājakassa parisā sakuludāyiṃ paribbājakaṃ etadavocuṃ, mā bhavaṃ, udāyi, samaṇe gotame brahmacariyaṃ cari, mā bhavaṃ, udāyi, ācariyo hutvā antevāsīvāsaṃ vasi. seyyathāpi nāma udakamaṇiko [maṇiko] hutvā udañcaniko [uddekaniko] assa, evaṃ sampadamidaṃ [evaṃ sampadametaṃ] bhoto udāyissa bhavissati. mā bhavaṃ, udāyi, samaṇe gotame brahmacariyaṃ cari, mā bhavaṃ, udāyi, ācariyo hutvā antevāsīvāsaṃ vasīti. "
-            ]
-        },
-        "sottisinānaṃ": {
-            "id": 65268,
-            "sentence": [
-                "MN81",
-                "ghaṭikārasuttaṃ",
-                "kiṃ pana tena muṇḍakena samaṇakena diṭṭhenāti? tena hi, samma jotipāla, sottisināniṃ [sottiṃ sināniṃ, sottisinānaṃ] ādāya [āhara] nadiṃ gamissāma sināyitunti. evaṃ sammāti kho, ānanda, jotipālo māṇavo ghaṭikārassa kumbhakārassa paccassosi. "
-            ]
-        },
         "yāvetadohipi": {
             "id": 17872,
             "sentence": [
                 "MN81",
                 "ghaṭikārasuttaṃ",
                 "atha kho, ānanda, jotipālassa māṇavassa etadahosi, acchariyaṃ vata, bho, abbhutaṃ vata, bho! yatra hi nāmāyaṃ ghaṭikāro kumbhakāro ittarajacco samāno amhākaṃ sīsaṃnhātānaṃ kesesu parāmasitabbaṃ maññissati, na vatidaṃ kira orakaṃ maññe bhavissatīti, ghaṭikāraṃ kumbhakāraṃ etadavoca, yāvatādohipi [yāvetadohipi], samma ghaṭikārāti? yāvatādohipi, samma jotipāla. "
-            ]
-        },
-        "vijahi": {
-            "id": 67565,
-            "sentence": [
-                "MN81",
-                "ghaṭikārasuttaṃ",
-                "atha kho, mahārāja, ghaṭikārassa kumbhakārassa etadahosi, lābhā vata me, suladdhaṃ vata me, yassa me kassapo bhagavā arahaṃ sammāsambuddho evaṃ abhivissatthoti. atha kho, mahārāja, ghaṭikāraṃ kumbhakāraṃ aḍḍhamāsaṃ pītisukhaṃ na vijahati [na vijahi], sattāhaṃ mātāpitūnaṃ."
-            ]
-        },
-        "navacchadanaṃ": {
-            "id": 35908,
-            "sentence": [
-                "MN81",
-                "ghaṭikārasuttaṃ",
-                "atha khvāhaṃ, mahārāja, bhikkhū āmantesiṃ, gacchatha, bhikkhave, ghaṭikārassa kumbhakārassa nivesane tiṇaṃ jānāthāti. evaṃ vutte, mahārāja, te bhikkhū maṃ etadavocuṃ, natthi kho, bhante, ghaṭikārassa kumbhakārassa nivesane tiṇaṃ, atthi ca khvāssa āvesane  [āvesanaṃ] tiṇacchadana [navacchadanaṃ] nti. gacchatha, bhikkhave, ghaṭikārassa kumbhakārassa āvesanaṃ uttiṇaṃ karothāti. "
-            ]
-        },
-        "aggakulikassa": {
-            "id": 567,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "294. tena kho pana samayena raṭṭhapālo nāma kulaputto tasmiṃyeva thullakoṭṭhike aggakulassa [aggakulikassa] putto tissaṃ parisāyaṃ nisinno hoti. atha kho raṭṭhapālassa kulaputtassa etadahosi, yathā yathā khvāhaṃ bhagavatā dhammaṃ desitaṃ ājānāmi [yathā yathā kho bhagavā dhammaṃ deseti], nayidaṃ sukaraṃ agāraṃ ajjhāvasatā ekantaparipuṇṇaṃ ekantaparisuddhaṃ saṅkhalikhitaṃ brahmacariyaṃ carituṃ. "
-            ]
-        },
-        "vākyadvayaṃ": {
-            "id": 66677,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "labheyyāhaṃ, bhante, bhagavato santike pabbajjaṃ, labheyyaṃ upasampadaṃ. pabbājetu maṃ bhagavāti [ettha labheyyāhaṃ … upasampadaṃti vākyadvayaṃ sabbesupi mūlapotthakesu dissati, pārājikapāḷiyaṃ pana sudinnabhāṇavāre etaṃ natthi. pabbājetu maṃ bhagavāti idaṃ pana vākyaṃ marammapotthake yeva dissati, pārājikapāḷiyañca tadeva atthi] . "
-            ]
-        },
-        "sudinnabhāṇavāre": {
-            "id": 63887,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "labheyyāhaṃ, bhante, bhagavato santike pabbajjaṃ, labheyyaṃ upasampadaṃ. pabbājetu maṃ bhagavāti [ettha labheyyāhaṃ … upasampadaṃti vākyadvayaṃ sabbesupi mūlapotthakesu dissati, pārājikapāḷiyaṃ pana sudinnabhāṇavāre etaṃ natthi. pabbājetu maṃ bhagavāti idaṃ pana vākyaṃ marammapotthake yeva dissati, pārājikapāḷiyañca tadeva atthi] . "
-            ]
-        },
-        "vākyaṃ": {
-            "id": 66676,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "pabbājetu maṃ bhagavāti [ettha labheyyāhaṃ … upasampadaṃti vākyadvayaṃ sabbesupi mūlapotthakesu dissati, pārājikapāḷiyaṃ pana sudinnabhāṇavāre etaṃ natthi. pabbājetu maṃ bhagavāti idaṃ pana vākyaṃ marammapotthake yeva dissati, pārājikapāḷiyañca tadeva atthi] . anuññātosi pana tvaṃ, raṭṭhapāla, mātāpitūhi agārasmā anagāriyaṃ pabbajjāyāti? "
-            ]
-        },
-        "sudinnakaṇḍe": {
-            "id": 63886,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "anujānātha maṃ agārasmā anagāriyaṃ pabbajjāyāti. evaṃ vutte, raṭṭhapālassa kulaputtassa mātāpitaro raṭṭhapālaṃ kulaputtaṃ etadavocuṃ, tvaṃ khosi, tāta raṭṭhapāla, amhākaṃ ekaputtako piyo manāpo sukhedhito sukhaparibhato [sukhaparihato (ehi tvaṃ tāta raṭṭhapāla bhuñja ca piva ca paricāre hi ca, bhuñjanto pivanto paricārento kāme paribhuñjanto puññāni karonto abhiramassu, na taṃ mayaṃ anujānāma agārasmā anagāriyaṃ pabbajjāya,) sabbattha dissati, sudinnakaṇḍe pana natthi, aṭṭhakathāsupi na dassitaṃ] . na tvaṃ, tāta raṭṭhapāla, kassaci dukkhassa jānāsi. "
-            ]
-        },
-        "dassitaṃ": {
-            "id": 32144,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "anujānātha maṃ agārasmā anagāriyaṃ pabbajjāyāti. evaṃ vutte, raṭṭhapālassa kulaputtassa mātāpitaro raṭṭhapālaṃ kulaputtaṃ etadavocuṃ, tvaṃ khosi, tāta raṭṭhapāla, amhākaṃ ekaputtako piyo manāpo sukhedhito sukhaparibhato [sukhaparihato (ehi tvaṃ tāta raṭṭhapāla bhuñja ca piva ca paricāre hi ca, bhuñjanto pivanto paricārento kāme paribhuñjanto puññāni karonto abhiramassu, na taṃ mayaṃ anujānāma agārasmā anagāriyaṃ pabbajjāya,) sabbattha dissati, sudinnakaṇḍe pana natthi, aṭṭhakathāsupi na dassitaṃ] . na tvaṃ, tāta raṭṭhapāla, kassaci dukkhassa jānāsi. "
-            ]
-        },
-        "dutiyaṭṭhāne": {
-            "id": 33252,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "potthakesu dutiyaṭṭhāne yeva dissati, pārājikapāḷiyaṃ pana paṭhamaṭṭhāne yeva dissati. tasmā idha dutiyaṭṭhāne punāgataṃ adhikaṃ viya dissati] . maraṇenapi te mayaṃ akāmakā vinā bhavissāma. "
-            ]
-        },
-        "paṭhamaṭṭhāne": {
-            "id": 41247,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "pī. potthakesu dutiyaṭṭhāne yeva dissati, pārājikapāḷiyaṃ pana paṭhamaṭṭhāne yeva dissati. tasmā idha dutiyaṭṭhāne punāgataṃ adhikaṃ viya dissati] . "
-            ]
-        },
-        "punāgataṃ": {
-            "id": 46770,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "potthakesu dutiyaṭṭhāne yeva dissati, pārājikapāḷiyaṃ pana paṭhamaṭṭhāne yeva dissati. tasmā idha dutiyaṭṭhāne punāgataṃ adhikaṃ viya dissati] . maraṇenapi te mayaṃ akāmakā vinā bhavissāma. "
-            ]
-        },
-        "adhikaṃ": {
-            "id": 3096,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "potthakesu dutiyaṭṭhāne yeva dissati, pārājikapāḷiyaṃ pana paṭhamaṭṭhāne yeva dissati. tasmā idha dutiyaṭṭhāne punāgataṃ adhikaṃ viya dissati] . maraṇenapi te mayaṃ akāmakā vinā bhavissāma. "
-            ]
-        },
-        "kaṭṭhatthare": {
-            "id": 19383,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "sammodanīyaṃ kathaṃ sāraṇīyaṃ vītisāretvā ekamantaṃ aṭṭhāsi. ekamantaṃ ṭhito kho rājā korabyo āyasmantaṃ raṭṭhapālaṃ etadavoca, idha bhavaṃ raṭṭhapāla hatthatthare [kaṭṭhatthare] nisīdatūti. alaṃ, mahārāja, nisīda tvaṃ, nisinno ahaṃ sake āsaneti. "
-            ]
-        },
-        "balatthena": {
-            "id": 47990,
-            "sentence": [
-                "MN82",
-                "raṭṭhapālasuttaṃ",
-                "bahū tattha hatthikāyā assakāyā rathakāyā pattikāyā, bahu tattha dhanadhaññaṃ [dantājinaṃ], bahu tattha hiraññasuvaṇṇaṃ akatañceva katañca, bahu tattha itthipariggaho. sakkā ca tāvatakeneva balamattena [balatthena, bahalatthena] abhivijinituṃ. abhivijina, mahārājāti, kinti naṃ kareyyāsīti? "
-            ]
-        },
-        "thokaṃ": {
-            "id": 31651,
-            "sentence": [
-                "mn36:28.2",
-                "‘yannūnāhaṃ thokaṃ thokaṃ āhāraṃ āhāreyyaṃ, pasataṃ pasataṃ, yadi vā muggayūsaṃ, yadi vā kulatthayūsaṃ, yadi vā kaḷāyayūsaṃ, yadi vā hareṇukayūsan’ti. ",
-                "‘Why don’t I just take a little bit of food each time, a handful of broth made from mung beans, horse gram, chickpeas, or green gram?’ "
-            ]
-        },
-        "tittakālābu": {
-            "id": 30590,
-            "sentence": [
-                "mn12:52.18",
-                "seyyathāpi nāma tittakālābu āmakacchinno vātātapena samphuṭito hoti sammilāto; evamevassu me sīsacchavi samphuṭitā hoti sammilātā tāyevappāhāratāya. ",
-                "Due to eating so little, my scalp shriveled and withered like a green bitter-gourd in the wind and sun. "
-            ]
-        },
-        "saṃghabhedasikkhāpadavaṇṇanāya": {
-            "id": 65919,
-            "sentence": [
-                "MN85",
-                "bodhirājakumārasuttaṃ",
-                "tena kho pana maṃ, rājakumāra, samayena pañcavaggiyā bhikkhū paccupaṭṭhitā honti, yaṃ kho samaṇo gotamo dhammaṃ adhigamissati taṃ no ārocessatīti. yato kho ahaṃ, rājakumāra, oḷārikaṃ āhāraṃ āhāresiṃ odanakummāsaṃ, atha me te pañcavaggiyā bhikkhū nibbijja pakkamiṃsu, bāhulliko [bāhuliko sāratthaṭīkāya saṃghabhedasikkhāpadavaṇṇanāya sameti] samaṇo gotamo padhānavibbhanto, āvatto bāhullāyāti."
-            ]
-        },
-        "hatthārūyhe": {
-            "id": 70872,
-            "sentence": [
-                "MN85",
-                "bodhirājakumārasuttaṃ",
-                "yathā te khameyya, tathā naṃ byākareyyāsi. taṃ kiṃ maññasi, rājakumāra, kusalo tvaṃ hatthārūḷhe [hatthārūyhe] aṅkusagayhe [aṅkusagaṇhe] sippeti? evaṃ, bhante, kusalo ahaṃ hatthārūḷhe aṅkusagayhe sippeti. "
-            ]
-        },
-        "saṅgaritvā": {
-            "id": 56912,
-            "sentence": [
-                "MN86",
-                "aṅgulimālasuttaṃ",
-                "so manusse vadhitvā vadhitvā aṅgulīnaṃ mālaṃ dhāreti. etañhi, samaṇa, maggaṃ dasapi purisā vīsampi purisā tiṃsampi purisā cattārīsampi purisā paññāsampi purisā saṅkaritvā saṅkaritvā [saṃharitvā saṃharitvā, saṅgaritvā] paṭipajjanti. tepi corassa aṅgulimālassa hatthatthaṃ gacchantīti. "
-            ]
-        },
-        "tuvamaṭṭhitosīti": {
-            "id": 75677,
-            "sentence": [
-                "mn86:6.9",
-                "tasmā ṭhitohaṃ tuvamaṭṭhitosī”ti. ",
-                "that’s why I’ve stopped, but you have not.” "
-            ]
-        },
-        "khantivādānaṃ": {
-            "id": 23430,
-            "sentence": [
-                "mn86:18.19",
-                "disā hi me khantivādānaṃ, ",
-                "May even my enemies <j>hear Dhamma at the right time, "
-            ]
-        },
-        "paṭibhattesu": {
-            "id": 40677,
-            "sentence": [
-                "MN86",
-                "aṅgulimālasuttaṃ",
-                "svāgataṃ [sāgataṃ] nāpagataṃ [nāma sagataṃ],\nnayidaṃ dummantitaṃ mama,\nsaṃvibhattesu [suvibhattesu,\nsavibhattesu,\npaṭibhattesu] dhammesu,\nyaṃ seṭṭhaṃ tadupāgamaṃ."
-            ]
-        },
-        "uppāṭesi": {
-            "id": 16649,
-            "sentence": [
-                "MN87",
-                "piyajātikasuttaṃ",
-                "ahañca taṃ na icchāmīti. atha kho so puriso taṃ itthiṃ dvidhā chetvā attānaṃ upphālesi [uppāṭesi, ophāresi], ubho pecca bhavissāmāti. imināpi kho etaṃ, brāhmaṇa, pariyāyena veditabbaṃ yathā piyajātikā sokaparidevadukkhadomanassupāyāsā piyappabhavikāti."
-            ]
-        },
-        "ācāmehīti": {
-            "id": 11318,
-            "sentence": [
-                "MN87",
-                "piyajātikasuttaṃ",
-                "yāvañca so bhagavā paññāya ativijjha maññe [paṭivijjha paññāya] passati. ehi, mallike, ācamehīti [ācāmehīti] . atha kho rājā pasenadi kosalo uṭṭhāyāsanā ekaṃsaṃ uttarāsaṅgaṃ karitvā yena bhagavā tenañjaliṃ paṇāmetvā tikkhattuṃ udānaṃ udānesi, namo tassa bhagavato arahato sammāsambuddhassa, namo tassa bhagavato arahato sammāsambuddhassa, namo tassa bhagavato arahato sammāsambuddhassāti."
-            ]
-        },
-        "chattanāḷiyā": {
-            "id": 27346,
-            "sentence": [
-                "MN88",
-                "bāhitikasuttaṃ",
-                "api ca, bhante, mayampetaṃ [mayameva taṃ, mayampanetaṃ] jānāma, netaṃ āyasmato ānandassa kappatīti. ayaṃ me, bhante, bāhitikā raññā māgadhena ajātasattunā vedehiputtena vatthanāḷiyā [chattanāḷiyā] pakkhipitvā pahitā soḷasasamā āyāmena, aṭṭhasamā vitthārena. taṃ, bhante, āyasmā ānando paṭiggaṇhātu anukampaṃ upādāyāti. "
-            ]
-        },
-        "āpāṇakoṭikaṃ": {
-            "id": 11913,
-            "sentence": [
-                "mn89:10.5",
-                "idha panāhaṃ, bhante, bhikkhū passāmi yāvajīvaṃ āpāṇakoṭikaṃ paripuṇṇaṃ parisuddhaṃ brahmacariyaṃ carante. ",
-                "But here I see the mendicants leading the spiritual life entirely full and pure as long as they live, to their last breath. "
-            ]
-        },
-        "pīṇitindriye": {
-            "id": 46357,
-            "sentence": [
-                "MN89",
-                "dhammacetiyasuttaṃ",
-                "te evamāhaṃsu, bandhukarogo no [paṇḍukarogino], mahārājāti. idha panāhaṃ, bhante, bhikkhū passāmi haṭṭhapahaṭṭhe udaggudagge abhiratarūpe pīṇindriye [pīṇitindriye] appossukke pannalome paradattavutte migabhūtena cetasā viharante. tassa mayhaṃ, bhante, etadahosi, addhā ime āyasmanto tassa bhagavato sāsane uḷāraṃ pubbenāparaṃ visesaṃ jānanti, tathā hi ime āyasmanto haṭṭhapahaṭṭhā udaggudaggā abhiratarūpā pīṇindriyā appossukkā pannalomā paradattavuttā migabhūtena cetasā viharantīti. "
-            ]
-        },
-        "udaññāyaṃ": {
-            "id": 14947,
-            "sentence": [
-                "MN90",
-                "kaṇṇakatthalasuttaṃ",
-                "375. evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā uruññāyaṃ [ujuññāyaṃ, udaññāyaṃ] viharati kaṇṇakatthale migadāye. tena kho pana samayena rājā pasenadi kosalo uruññaṃ anuppatto hoti kenacideva karaṇīyena. "
-            ]
-        },
-        "sāmicikammānanti": {
-            "id": 62364,
-            "sentence": [
-                "MN90",
-                "kaṇṇakatthalasuttaṃ",
-                "cattārome, mahārāja, vaṇṇā, khattiyā, brāhmaṇā, vessā, suddā. imesaṃ kho, mahārāja, catunnaṃ vaṇṇānaṃ dve vaṇṇā aggamakkhāyanti, khattiyā ca brāhmaṇā ca, yadidaṃ abhivādanapaccuṭṭhānaañjalikammasāmīcikammānīti [sāmicikammānanti] . nāhaṃ, bhante, bhagavantaṃ diṭṭhadhammikaṃ pucchāmi, samparāyikāhaṃ, bhante, bhagavantaṃ pucchāmi. "
-            ]
-        },
-        "nippharati": {
-            "id": 37472,
-            "sentence": [
-                "MN90",
-                "kaṇṇakatthalasuttaṃ",
-                "no hetaṃ, bhante. evameva kho, mahārāja, yaṃ taṃ tejaṃ vīriyā nimmathitaṃ padhānābhinibbattaṃ [viriyaṃ nippharati, taṃ pacchābhinibbattaṃ], nāhaṃ tattha kiñci nānākaraṇaṃ vadāmi, yadidaṃ vimuttiyā vimuttinti. heturūpaṃ, bhante, bhagavā āha, saheturūpaṃ, bhante, bhagavā āha. "
-            ]
-        },
-        "pacchābhinibbattaṃ": {
-            "id": 39625,
-            "sentence": [
-                "MN90",
-                "kaṇṇakatthalasuttaṃ",
-                "no hetaṃ, bhante. evameva kho, mahārāja, yaṃ taṃ tejaṃ vīriyā nimmathitaṃ padhānābhinibbattaṃ [viriyaṃ nippharati, taṃ pacchābhinibbattaṃ], nāhaṃ tattha kiñci nānākaraṇaṃ vadāmi, yadidaṃ vimuttiyā vimuttinti. heturūpaṃ, bhante, bhagavā āha, saheturūpaṃ, bhante, bhagavā āha. "
-            ]
-        },
-        "cāvetuṃ": {
-            "id": 26511,
-            "sentence": [
-                "mn90:14.10",
-                "yāvatā rañño pasenadissa kosalassa vijitaṃ yattha ca rājā pasenadi kosalo issariyādhipaccaṃ rajjaṃ kāreti, pahoti tattha rājā pasenadi kosalo samaṇaṃ vā brāhmaṇaṃ vā puññavantaṃ vā apuññavantaṃ vā brahmacariyavantaṃ vā abrahmacariyavantaṃ vā tamhā ṭhānā cāvetuṃ vā pabbājetuṃ vā”ti? ",
-                "As far as the dominion of King Pasenadi of Kosala extends, where he rules as sovereign lord, can he topple or expel from that place any ascetic or brahmin, regardless of whether they are good or bad, or whether or not they are genuine spiritual practitioners?” "
-            ]
-        },
-        "brāhmaṇavaggo": {
-            "id": 49076,
-            "sentence": [
-                "mn100:43.7",
-                "brāhmaṇavaggo niṭṭhito pañcamo. ",
-                ""
-            ]
-        },
-        "nāsikāsotāni": {
-            "id": 36563,
-            "sentence": [
-                "MN91",
-                "brahmāyusuttaṃ",
-                "atha kho bhagavā tathārūpaṃ iddhābhisaṅkhāraṃ abhisaṅkhāsi yathā addasa uttaro māṇavo bhagavato kosohitaṃ vatthaguyhaṃ. atha kho bhagavā jivhaṃ ninnāmetvā ubhopi kaṇṇasotāni anumasi paṭimasi [parimasi], ubhopi nāsikasotāni [nāsikāsotāni] anumasi paṭimasi, kevalampi nalāṭamaṇḍalaṃ jivhāya chādesi. atha kho uttarassa māṇavassa etadahosi, samannāgato kho samaṇo gotamo dvattiṃsamahāpurisalakkhaṇehi. "
-            ]
-        },
-        "upādiyitvā": {
-            "id": 16370,
-            "sentence": [
-                "MN91",
-                "brahmāyusuttaṃ",
-                "so nātidūre nāccāsanne āsanassa parivattati, na ca pāṇinā ālambitvā āsane nisīdati, na ca āsanasmiṃ kāyaṃ pakkhipati. so antaraghare nisinno samāno na hatthakukkuccaṃ āpajjati, na pādakukkuccaṃ āpajjati, na adduvena adduvaṃ āropetvā nisīdati, na ca gopphakena gopphakaṃ āropetvā nisīdati, na ca pāṇinā hanukaṃ upadahitvā [upādiyitvā] nisīdati. so antaraghare nisinno samāno na chambhati na kampati na vedhati na paritassati. "
-            ]
-        },
-        "bulubulukārakaṃ": {
-            "id": 48617,
-            "sentence": [
-                "MN91",
-                "brahmāyusuttaṃ",
-                "so pattodakaṃ paṭiggaṇhāti nātithokaṃ nātibahuṃ. so na khulukhulukārakaṃ [bulubulukārakaṃ] pattaṃ dhovati, na samparivattakaṃ pattaṃ dhovati, na pattaṃ bhūmiyaṃ nikkhipitvā hatthe dhovati, hatthesu dhotesu patto dhoto hoti, patte dhote hatthā dhotā honti. so pattodakaṃ chaḍḍeti nātidūre nāccāsanne, na ca vicchaḍḍayamāno. "
-            ]
-        },
-        "avijahantābhāvena": {
-            "id": 10505,
-            "sentence": [
-                "MN91",
-                "brahmāyusuttaṃ",
-                "yathāparisaṃ kho pana so bhavaṃ gotamo sarena viññāpeti, na cassa bahiddhā parisāya ghoso niccharati. te tena bhotā gotamena dhammiyā kathāya sandassitā samādapitā samuttejitā sampahaṃsitā uṭṭhāyāsanā pakkamanti avalokayamānāyeva [apalokayamānāyeva] avijahitattā [avijahantābhāvena] . addasāma kho mayaṃ, bho, taṃ bhavantaṃ gotamaṃ gacchantaṃ, addasāma ṭhitaṃ, addasāma antaragharaṃ pavisantaṃ, addasāma antaraghare nisinnaṃ tuṇhībhūtaṃ, addasāma antaraghare bhuñjantaṃ, addasāma bhuttāviṃ nisinnaṃ tuṇhībhūtaṃ, addasāma bhuttāviṃ anumodantaṃ, addasāma ārāmaṃ gacchantaṃ, addasāma ārāmagataṃ nisinnaṃ tuṇhībhūtaṃ, addasāma ārāmagataṃ parisati dhammaṃ desentaṃ. "
-            ]
-        },
-        "kāyaveyyāvatikaṃ": {
-            "id": 21259,
-            "sentence": [
-                "MN92",
-                "selasuttaṃ",
-                "atha kho keṇiyo jaṭilo bhagavato adhivāsanaṃ viditvā uṭṭhāyāsanā yena sako assamo tenupasaṅkami, upasaṅkamitvā mittāmacce ñātisālohite āmantesi, suṇantu me bhonto, mittāmaccā ñātisālohitā, samaṇo me gotamo nimantito svātanāya bhattaṃ saddhiṃ bhikkhusaṅghena. yena me kāyaveyyāvaṭikaṃ [kāyaveyāvaṭṭikaṃ, kāyaveyyāvatikaṃ] kareyyāthāti. evaṃ, bhoti kho keṇiyassa jaṭilassa mittāmaccā ñātisālohitā keṇiyassa jaṭilassa paṭissutvā appekacce uddhanāni khaṇanti, appekacce kaṭṭhāni phālenti, appekacce bhājanāni dhovanti, appekacce udakamaṇikaṃ patiṭṭhāpenti, appekacce āsanāni paññapenti. "
-            ]
-        },
-        "vaṇṇimā": {
-            "id": 65953,
-            "sentence": [
-                "MN93",
-                "assalāyanasuttaṃ",
-                "taṃ kiṃ maññasi, assalāyana, yo evaṃ nu kho so [yo ca nu kho] khattiyakulā brāhmaṇakulā rājaññakulā uppannehi sākassa vā sālassa vā salaḷassa vā candanassa vā padumakassa vā uttarāraṇiṃ ādāya aggi abhinibbatto, tejo pātukato, so eva nu khvāssa aggi accimā ceva [ca] vaṇṇavā [vaṇṇimā] ca pabhassaro ca, tena ca sakkā agginā aggikaraṇīyaṃ kātuṃ, yo pana so caṇḍālakulā nesādakulā venakulā rathakārakulā pukkusakulā uppannehi sāpānadoṇiyā vā sūkaradoṇiyā vā rajakadoṇiyā vā eraṇḍakaṭṭhassa vā uttarāraṇiṃ ādāya aggi abhinibbatto, tejo pātukato svāssa aggi na ceva accimā na ca vaṇṇavā na ca pabhassaro, na ca tena sakkā agginā aggikaraṇīyaṃ kātunti? no hidaṃ, bho gotama! "
-            ]
-        },
-        "vekulajo": {
-            "id": 70156,
-            "sentence": [
-                "MN93",
-                "assalāyanasuttaṃ",
-                "taṃ kiṃ maññasi, assalāyana idha vaḷavaṃ gadrabhena sampayojeyyuṃ [saṃyojeyya], tesaṃ sampayogamanvāya kisoro jāyetha, yo so vaḷavāya gadrabhena kisoro uppanno, siyā so mātupi sadiso pitupi sadiso, assotipi vattabbo gadrabhotipi vattabboti? kuṇḍañhi so [vekurañjāya hi so, so kumāraṇḍupi so, vekulajo hi so (?)], bho gotama, assataro hoti. idaṃ hissa, bho gotama, nānākaraṇaṃ passāmi, amutra ca panesānaṃ na kiñci nānākaraṇaṃ passāmīti."
-            ]
-        },
-        "aṭaliyo": {
-            "id": 1679,
-            "sentence": [
-                "MN93",
-                "assalāyanasuttaṃ",
-                "assosi kho, assalāyana, asito devalo isi, sattannaṃ kira brāhmaṇisīnaṃ araññāyatane paṇṇakuṭīsu sammantānaṃ evarūpaṃ pāpakaṃ diṭṭhigataṃ uppannaṃ, brāhmaṇova seṭṭho vaṇṇo … brahmadāyādāti. atha kho, assalāyana, asito devalo isi kesamassuṃ kappetvā mañjiṭṭhavaṇṇāni dussāni nivāsetvā paṭaliyo [aṭaliyo, agaliyo] upāhanā āruhitvā jātarūpamayaṃ daṇḍaṃ gahetvā sattannaṃ brāhmaṇisīnaṃ patthaṇḍile pāturahosi. atha kho, assalāyana, asito devalo isi sattannaṃ brāhmaṇisīnaṃ patthaṇḍile caṅkamamāno evamāha, handa, ko nu kho ime bhavanto brāhmaṇisayo gatā [gantā], handa, ko nu kho ime bhavanto brāhmaṇisayo gatāti? "
-            ]
-        },
-        "agaliyo": {
-            "id": 517,
-            "sentence": [
-                "MN93",
-                "assalāyanasuttaṃ",
-                "assosi kho, assalāyana, asito devalo isi, sattannaṃ kira brāhmaṇisīnaṃ araññāyatane paṇṇakuṭīsu sammantānaṃ evarūpaṃ pāpakaṃ diṭṭhigataṃ uppannaṃ, brāhmaṇova seṭṭho vaṇṇo … brahmadāyādāti. atha kho, assalāyana, asito devalo isi kesamassuṃ kappetvā mañjiṭṭhavaṇṇāni dussāni nivāsetvā paṭaliyo [aṭaliyo, agaliyo] upāhanā āruhitvā jātarūpamayaṃ daṇḍaṃ gahetvā sattannaṃ brāhmaṇisīnaṃ patthaṇḍile pāturahosi. atha kho, assalāyana, asito devalo isi sattannaṃ brāhmaṇisīnaṃ patthaṇḍile caṅkamamāno evamāha, handa, ko nu kho ime bhavanto brāhmaṇisayo gatā [gantā], handa, ko nu kho ime bhavanto brāhmaṇisayo gatāti? "
-            ]
-        },
-        "capalī": {
-            "id": 26215,
-            "sentence": [
-                "MN93",
-                "assalāyanasuttaṃ",
-                "handa, naṃ abhisapāmāti. atha kho, assalāyana, satta brāhmaṇisayo asitaṃ devalaṃ isiṃ abhisapiṃsu, bhasmā, vasala [vasalī, vasali, capalī], hohi, bhasmā, vasala, hohīti [bhasmā vasala hohīti abhisapavacanaṃ sī. pī. "
-            ]
-        },
-        "guṇapadaṃ": {
-            "id": 25078,
-            "sentence": [
-                "MN95",
-                "caṅkīsuttaṃ",
-                "ni. 1.304 aññampi guṇapadaṃ dissati] . samaṇo khalu, bho, gotamo pahūtaṃ hiraññasuvaṇṇaṃ ohāya pabbajito bhūmigatañca vehāsaṭṭhañca … samaṇo khalu, bho, gotamo daharova samāno yuvā susukāḷakeso bhadrena yobbanena samannāgato paṭhamena vayasā agārasmā anagāriyaṃ pabbajito … samaṇo khalu, bho, gotamo akāmakānaṃ mātāpitūnaṃ assumukhānaṃ rudantānaṃ kesamassuṃ ohāretvā kāsāyāni vatthāni acchādetvā agārasmā anagāriyaṃ pabbajito … samaṇo khalu, bho, gotamo abhirūpo dassanīyo pāsādiko paramāya vaṇṇapokkharatāya samannāgato brahmavaṇṇī brahmavacchasī akhuddāvakāso dassanāya … samaṇo khalu, bho, gotamo sīlavā ariyasīlī kusalasīlī kusalena sīlena samannāgato … samaṇo khalu, bho, gotamo kalyāṇavāco kalyāṇavākkaraṇo poriyā vācāya samannāgato vissaṭṭhāya anelagalāya atthassa viññāpaniyā … samaṇo khalu, bho, gotamo bahūnaṃ ācariyapācariyo … samaṇo khalu, bho, gotamo khīṇakāmarāgo vigatacāpallo … samaṇo khalu, bho, gotamo kammavādī kiriyavādī apāpapurekkhāro brahmaññāya pajāya … samaṇo khalu, bho, gotamo uccā kulā pabbajito asambhinnā khattiyakulā … samaṇo khalu, bho, gotamo aḍḍhā kulā pabbajito mahaddhanā mahābhogā … samaṇaṃ khalu, bho, gotamaṃ tiroraṭṭhā tirojanapadā saṃpucchituṃ āgacchanti … samaṇaṃ khalu, bho, gotamaṃ anekāni devatāsahassāni pāṇehi saraṇaṃ gatāni … samaṇaṃ khalu, bho, gotamaṃ evaṃ kalyāṇo kittisaddo abbhuggato, itipi so bhagavā arahaṃ sammāsambuddho vijjācaraṇasampanno sugato lokavidū anuttaro purisadammasārathi satthā devamanussānaṃ buddho bhagavāti … samaṇo khalu, bho, gotamo dvattiṃsamahāpurisalakkhaṇehi samannāgato …  [etthāpi dī. "
-            ]
-        },
-        "guṇapadānaṃ": {
-            "id": 25078,
-            "sentence": [
-                "MN95",
-                "caṅkīsuttaṃ",
-                "ni. 1.304 aññānipi guṇapadānaṃ dissanti] samaṇaṃ khalu, bho, gotamaṃ rājā māgadho seniyo bimbisāro saputtadāro pāṇehi saraṇaṃ gato … samaṇaṃ khalu, bho, gotamaṃ rājā pasenadi kosalo saputtadāro pāṇehi saraṇaṃ gato … samaṇaṃ khalu, bho, gotamaṃ brāhmaṇo pokkharasāti saputtadāro pāṇehi saraṇaṃ gato … samaṇo khalu, bho, gotamo opāsādaṃ anuppatto opāsāde viharati uttarena opāsādaṃ devavane sālavane. ye kho te samaṇā vā brāhmaṇā vā amhākaṃ gāmakkhettaṃ āgacchanti, atithī no te honti. "
-            ]
-        },
-        "kāpadiko": {
-            "id": 20949,
-            "sentence": [
-                "MN95",
-                "caṅkīsuttaṃ",
-                "tena kho pana samayena bhagavā vuddhehi vuddhehi brāhmaṇehi saddhiṃ kiñci kiñci kathaṃ sāraṇīyaṃ vītisāretvā nisinno hoti. tena kho pana samayena kāpaṭiko [kāpaṭhiko, kāpadiko] nāma māṇavo daharo vuttasiro soḷasavassuddesiko jātiyā, tiṇṇaṃ vedānaṃ pāragū sanighaṇḍukeṭubhānaṃ sākkharappabhedānaṃ itihāsapañcamānaṃ, padako, veyyākaraṇo, lokāyatamahāpurisalakkhaṇesu anavayo tassaṃ parisāyaṃ nisinno hoti. so vuddhānaṃ vuddhānaṃ brāhmaṇānaṃ bhagavatā saddhiṃ mantayamānānaṃ antarantarā kathaṃ opāteti. "
-            ]
-        },
-        "daḷiddo": {
-            "id": 32200,
-            "sentence": [
-                "MN96",
-                "esukārīsuttaṃ",
-                "no hidaṃ, bho gotama. seyyathāpi, brāhmaṇa, puriso daliddo [daḷiddo] assako anāḷhiyo. tassa akāmassa bilaṃ olaggeyyuṃ, idaṃ te, ambho purisa, maṃsaṃ khāditabbaṃ, mūlañca anuppadātabbanti. "
-            ]
-        },
-        "varattabandhanena": {
-            "id": 66363,
-            "sentence": [
-                "MN97",
-                "dhanañjānisuttaṃ",
-                "abhikkamosānaṃ paññāyati, no paṭikkamo. seyyathāpi, bho sāriputta, balavā puriso daḷhena varattakkhaṇḍena [varattabandhanena] sīse sīsaveṭhaṃ dadeyya, evameva kho, bho sāriputta, adhimattā sīse sīsavedanā. na me, bho sāriputta, khamanīyaṃ na yāpanīyaṃ. "
-            ]
-        },
-        "jāṇusoṇī": {
-            "id": 28170,
-            "sentence": [
-                "MN98",
-                "vāseṭṭhasuttaṃ",
-                "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā icchānaṅgale [icchānaṅkale] viharati icchānaṅgalavanasaṇḍe. tena kho pana samayena sambahulā abhiññātā abhiññātā brāhmaṇamahāsālā icchānaṅgale paṭivasanti, seyyathidaṃ, caṅkī brāhmaṇo, tārukkho brāhmaṇo, pokkharasāti brāhmaṇo, jāṇussoṇi [jāṇussoṇī, jāṇusoṇī] brāhmaṇo, todeyyo brāhmaṇo, aññe ca abhiññātā abhiññātā brāhmaṇamahāsālā. atha kho vāseṭṭhabhāradvājānaṃ māṇavānaṃ jaṅghāvihāraṃ anucaṅkamantānaṃ anuvicarantānaṃ [anucaṅkamamānānaṃ anuvicaramānānaṃ] ayamantarākathā udapādi, kathaṃ, bho, brāhmaṇo hotīti? "
-            ]
-        },
-        "jāleyya": {
-            "id": 78365,
-            "sentence": [
-                "mn99:17.2",
-                "yaṃ vā tiṇakaṭṭhupādānaṃ paṭicca aggiṃ jāleyya yaṃ vā nissaṭṭhatiṇakaṭṭhupādānaṃ aggiṃ jāleyya, katamo nu khvāssa aggi accimā ceva vaṇṇavā ca pabhassaro cā”ti? ",
-                "Which would have better flames, color, and radiance: a fire that depends on grass and logs as fuel, or one that does not?” "
-            ]
-        },
-        "pāṭhoyeva": {
-            "id": 45339,
-            "sentence": [
-                "MN99",
-                "subhasuttaṃ",
-                "evaṃ bhāvitāya kho, māṇava, mettāya cetovimuttiyā yaṃ pamāṇakataṃ kammaṃ na taṃ tatrāvasissati, na taṃ tatrāvatiṭṭhati. seyyathāpi, māṇava, balavā saṅkhadhamo appakasireneva cātuddisā viññāpeyya [evameva kho māṇava evaṃ bhāvitāya mettāya (sī. syā. kaṃ. pī. dī. ni. 1.556) tathāpi idha pāṭhoyeva upamāya saṃsandiyamāno paripuṇṇo viya dissati], evameva kho, māṇava … evaṃ bhāvitāya kho, māṇava, mettāya [evameva kho māṇava evaṃ bhāvitāya mettāya (sī. syā. kaṃ. pī. dī. ni. 1.556) tathāpi idha pāṭhoyeva upamāya saṃsandiyamāno paripuṇṇo viya dissati] cetovimuttiyā yaṃ pamāṇakataṃ kammaṃ na taṃ tatrāvasissati, na taṃ tatrāvatiṭṭhati. ayampi kho, māṇava, brahmānaṃ sahabyatāya maggo. "
-            ]
-        },
-        "maṇḍalakappe": {
-            "id": 50895,
-            "sentence": [
-                "MN100",
-                "saṅgāravasuttaṃ",
-                "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā kosalesu cārikaṃ carati mahatā bhikkhusaṅghena saddhiṃ. tena kho pana samayena dhanañjānī [dhānañjānī] nāma brāhmaṇī cañcalikappe [maṇḍalakappe, paccalakappe, caṇḍalakappe] paṭivasati abhippasannā buddhe ca dhamme ca saṅghe ca. atha kho dhanañjānī brāhmaṇī upakkhalitvā tikkhattuṃ udānaṃ udānesi, namo tassa bhagavato arahato sammāsambuddhassa. "
-            ]
-        },
-        "paccalakappe": {
-            "id": 39408,
-            "sentence": [
-                "MN100",
-                "saṅgāravasuttaṃ",
-                "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā kosalesu cārikaṃ carati mahatā bhikkhusaṅghena saddhiṃ. tena kho pana samayena dhanañjānī [dhānañjānī] nāma brāhmaṇī cañcalikappe [maṇḍalakappe, paccalakappe, caṇḍalakappe] paṭivasati abhippasannā buddhe ca dhamme ca saṅghe ca. atha kho dhanañjānī brāhmaṇī upakkhalitvā tikkhattuṃ udānaṃ udānesi, namo tassa bhagavato arahato sammāsambuddhassa. "
-            ]
-        },
-        "parābhūtā": {
-            "id": 43109,
-            "sentence": [
-                "MN100",
-                "saṅgāravasuttaṃ",
-                "assosi kho saṅgāravo māṇavo dhanañjāniyā brāhmaṇiyā evaṃ vācaṃ bhāsamānāya. sutvā dhanañjāniṃ brāhmaṇiṃ etadavoca, avabhūtāva ayaṃ [avabhūtā cayaṃ] dhanañjānī brāhmaṇī, parabhūtāva ayaṃ [parābhūtā cayaṃ] dhanañjānī brāhmaṇī, vijjamānānaṃ (tevijjānaṃ) [( ) sī. syā. "
-            ]
-        },
-        "majjhimapaṇṇāsakaṃ": {
-            "id": 50753,
-            "sentence": [
-                "mn100:45.5",
-                "majjhimapaṇṇāsakaṃ samattaṃ. ",
-                ""
-            ]
-        },
-        "satthuvasena": {
-            "id": 57931,
-            "sentence": [
-                "MN1",
-                "mūlapariyāyasuttaṃ",
-                "sekkhavasena [satthāravasena, satthuvasena] dutiyanayabhūmiparicchedo niṭṭhito."
-            ]
-        },
-        "pahātabbāsavā": {
-            "id": 45074,
-            "sentence": [
-                "MN2",
-                "sabbāsavasuttaṃ, dassanā pahātabbāsavā",
-                "dassanā pahātabbāsavā"
-            ]
-        },
-        "ḍaṃsamakasavātātapasarīṃsapa": {
-            "id": 29159,
-            "sentence": [
-                "MN2",
-                "sabbāsavasuttaṃ, paṭisevanā pahātabbāsavā",
-                "katame ca, bhikkhave, āsavā paṭisevanā pahātabbā? idha, bhikkhave, bhikkhu paṭisaṅkhā yoniso cīvaraṃ paṭisevati, yāvadeva sītassa paṭighātāya, uṇhassa paṭighātāya, ḍaṃsamakasavātātapasarīṃsapa- [siriṃsapa] samphassānaṃ paṭighātāya, yāvadeva hirikopīnappaṭicchādanatthaṃ."
-            ]
-        },
-        "samādāpetā": {
-            "id": 59595,
-            "sentence": [
-                "MN4",
-                "bhayabheravasuttaṃ",
-                "sammodanīyaṃ kathaṃ sāraṇīyaṃ [sārāṇīyaṃ] vītisāretvā ekamantaṃ nisīdi. ekamantaṃ nisinno kho jāṇussoṇi brāhmaṇo bhagavantaṃ etadavoca, yeme, bho gotama, kulaputtā bhavantaṃ gotamaṃ uddissa saddhā agārasmā anagāriyaṃ pabbajitā, bhavaṃ tesaṃ gotamo pubbaṅgamo, bhavaṃ tesaṃ gotamo bahukāro, bhavaṃ tesaṃ gotamo samādapetā [samādāpetā (?)], bhoto ca pana gotamassa sā janatā diṭṭhānugatiṃ āpajjatīti. evametaṃ, brāhmaṇa, evametaṃ, brāhmaṇa! "
-            ]
-        },
-        "icchāvacarā": {
-            "id": 78012,
-            "sentence": [
-                "mn5:29.1",
-                "yassa kassaci, āvuso, bhikkhuno ime pāpakā akusalā icchāvacarā appahīnā dissanti ceva sūyanti ca, kiñcāpi so hoti āraññiko pantasenāsano piṇḍapātiko sapadānacārī paṃsukūliko lūkhacīvaradharo, atha kho naṃ sabrahmacārī na ceva sakkaronti na garuṃ karonti na mānenti na pūjenti. ",
-                "Suppose these spheres of bad, unskillful wishes are seen and heard to be not given up by a mendicant. Even though they dwell in the wilderness, in remote lodgings, eat only almsfood, wander indiscriminately for almsfood, wear rag robes, and wear shabby robes, their spiritual companions don’t honor, respect, revere, and venerate them. "
-            ]
-        },
-        "paṭikūlatā": {
-            "id": 40230,
-            "sentence": [
-                "MN5",
-                "anaṅgaṇasuttaṃ",
-                "tamenaṃ uṭṭhahitvā apāpuritvā [avāpuritvā] olokeyya. tassa sahadassanena amanāpatā ca saṇṭhaheyya, pāṭikulyatā [paṭikūlatā, pāṭikūlyatā] ca saṇṭhaheyya, jegucchatā ca [jegucchitā ca] saṇṭhaheyya, jighacchitānampi na bhottukamyatā assa, pageva suhitānaṃ. evameva kho, āvuso, yassa kassaci bhikkhuno ime pāpakā akusalā icchāvacarā appahīnā dissanti ceva sūyanti ca, kiñcāpi so hoti āraññiko pantasenāsano piṇḍapātiko sapadānacārī paṃsukūliko lūkhacīvaradharo, atha kho naṃ sabrahmacārī na ceva sakkaronti na garuṃ karonti na mānenti na pūjenti. "
-            ]
-        },
-        "pāṭikūlyatā": {
-            "id": 45313,
-            "sentence": [
-                "MN5",
-                "anaṅgaṇasuttaṃ",
-                "tamenaṃ uṭṭhahitvā apāpuritvā [avāpuritvā] olokeyya. tassa sahadassanena amanāpatā ca saṇṭhaheyya, pāṭikulyatā [paṭikūlatā, pāṭikūlyatā] ca saṇṭhaheyya, jegucchatā ca [jegucchitā ca] saṇṭhaheyya, jighacchitānampi na bhottukamyatā assa, pageva suhitānaṃ. evameva kho, āvuso, yassa kassaci bhikkhuno ime pāpakā akusalā icchāvacarā appahīnā dissanti ceva sūyanti ca, kiñcāpi so hoti āraññiko pantasenāsano piṇḍapātiko sapadānacārī paṃsukūliko lūkhacīvaradharo, atha kho naṃ sabrahmacārī na ceva sakkaronti na garuṃ karonti na mānenti na pūjenti. "
-            ]
-        },
-        "ākaṅkheyyasuttaṃ": {
-            "id": 10999,
-            "sentence": [
-                "mn6:20.5",
-                "ākaṅkheyyasuttaṃ niṭṭhitaṃ chaṭṭhaṃ. ",
-                ""
-            ]
-        },
-        "garubhāvaniyo": {
-            "id": 24551,
-            "sentence": [
-                "MN6",
-                "ākaṅkheyyasuttaṃ",
-                "65. ākaṅkheyya ce, bhikkhave, bhikkhu, sabrahmacārīnaṃ piyo ca assaṃ manāpo ca garu ca bhāvanīyo cāti [manāpo garubhāvaniyo cāti], sīlesvevassa paripūrakārī ajjhattaṃ cetosamathamanuyutto anirākatajjhāno vipassanāya samannāgato brūhetā suññāgārānaṃ."
-            ]
-        },
-        "cīvarapiṇḍapātasenāsana": {
-            "id": 26853,
-            "sentence": [
-                "MN6",
-                "ākaṅkheyyasuttaṃ",
-                "ākaṅkheyya ce, bhikkhave, bhikkhu, yesāhaṃ cīvarapiṇḍapātasenāsana gilānappaccayabhesajjaparikkhāraṃ paribhuñjāmi tesaṃ te kārā mahapphalā assu mahānisaṃsāti, sīlesvevassa paripūrakārī ajjhattaṃ cetosamathamanuyutto anirākatajjhāno vipassanāya samannāgato brūhetā suññāgārānaṃ."
-            ]
-        },
-        "vatthasuttaṃ": {
-            "id": 66069,
-            "sentence": [
-                "mn7:22.5",
-                "vatthasuttaṃ niṭṭhitaṃ sattamaṃ. ",
-                ""
-            ]
-        },
-        "mokkhasammatā": {
-            "id": 53303,
-            "sentence": [
-                "MN7",
-                "vatthasuttaṃ",
-                "kiṃ bāhukā nadī karissatīti? lokkhasammatā [lokhyasammatā, mokkhasammatā] hi, bho gotama, bāhukā nadī bahujanassa, puññasammatā hi, bho gotama, bāhukā nadī bahujanassa, bāhukāya pana nadiyā bahujano pāpakammaṃ kataṃ pavāhetīti. atha kho bhagavā sundarikabhāradvājaṃ brāhmaṇaṃ gāthāhi ajjhabhāsi –"
-            ]
-        },
-        "pakkhando": {
-            "id": 39112,
-            "sentence": [
-                "mn7:20.6",
-                "niccampi bālo pakkhando, ",
-                "a fool can constantly plunge into them "
-            ]
-        },
-        "amaccharī": {
-            "id": 8442,
-            "sentence": [
-                "mn15:5.38",
-                "puna caparaṃ, āvuso, bhikkhu anissukī hoti amaccharī. ",
-                ""
-            ]
-        },
-        "sallekhasuttaṃ": {
-            "id": 61224,
-            "sentence": [
-                "mn8:17.10",
-                "sallekhasuttaṃ niṭṭhitaṃ aṭṭhamaṃ. ",
-                ""
-            ]
-        },
-        "catuttālīsapadā": {
-            "id": 25895,
-            "sentence": [
-                "mn8:17.6",
-                "catuttālīsapadā vuttā, ",
-                "Forty-four items have been stated, "
-            ]
-        },
-        "sāgarūpamoti": {
-            "id": 62087,
-            "sentence": [
-                "mn8:17.9",
-                "gambhīro sāgarūpamoti. ",
-                "which is deep as the ocean. "
-            ]
-        },
-        "sammādiṭṭhisuttaṃ": {
-            "id": 60809,
-            "sentence": [
-                "mn9:71.5",
-                "sammādiṭṭhisuttaṃ niṭṭhitaṃ navamaṃ. ",
-                ""
-            ]
-        },
-        "catukkanayo": {
-            "id": 25865,
-            "sentence": [
-                "MN9",
-                "sammādiṭṭhisuttaṃ",
-                "[ito paraṃ kesuci potthakesu imāpi gāthāyo§evaṃ dissanti –§dukkhaṃ jarāmaraṇaṃ upādānaṃ, saḷāyatanaṃ nāmarūpaṃ. viññāṇaṃ yā sā pare, katamā panāvuso padānaṃ§kiṃ jāti taṇhā ca vedanā, avijjāya catukkanayo. cattāri pare katamā, panāvuso padānaṃ kevalaṃ§āhāro ca bhavo phasso, saṅkhāro āsavapañcamo. "
-            ]
-        },
-        "āsavapañcamo": {
-            "id": 12838,
-            "sentence": [
-                "MN9",
-                "sammādiṭṭhisuttaṃ",
-                "viññāṇaṃ yā sā pare, katamā panāvuso padānaṃ§kiṃ jāti taṇhā ca vedanā, avijjāya catukkanayo. cattāri pare katamā, panāvuso padānaṃ kevalaṃ§āhāro ca bhavo phasso, saṅkhāro āsavapañcamo. yāva pañca pare katamā, panāvuso padānaṃ kiṃ§katamanti chabbidhā vuttaṃ, katamāni catubbidhāni. "
-            ]
-        },
-        "chabbidhā": {
-            "id": 27498,
-            "sentence": [
-                "MN9",
-                "sammādiṭṭhisuttaṃ",
-                "cattāri pare katamā, panāvuso padānaṃ kevalaṃ§āhāro ca bhavo phasso, saṅkhāro āsavapañcamo. yāva pañca pare katamā, panāvuso padānaṃ kiṃ§katamanti chabbidhā vuttaṃ, katamāni catubbidhāni. katamo pañcavidho vutto, sabbesaṃ ekasaṅkhānaṃ pañcanayapadāni cāti ]"
-            ]
-        },
-        "ekasaṅkhānaṃ": {
-            "id": 17644,
-            "sentence": [
-                "MN9",
-                "sammādiṭṭhisuttaṃ",
-                "yāva pañca pare katamā, panāvuso padānaṃ kiṃ§katamanti chabbidhā vuttaṃ, katamāni catubbidhāni. katamo pañcavidho vutto, sabbesaṃ ekasaṅkhānaṃ pañcanayapadāni cāti ]"
-            ]
-        },
-        "pañcanayapadāni": {
-            "id": 39813,
-            "sentence": [
-                "MN9",
-                "sammādiṭṭhisuttaṃ",
-                "yāva pañca pare katamā, panāvuso padānaṃ kiṃ§katamanti chabbidhā vuttaṃ, katamāni catubbidhāni. katamo pañcavidho vutto, sabbesaṃ ekasaṅkhānaṃ pañcanayapadāni cāti ]"
-            ]
-        },
-        "mahāsatipaṭṭhānasuttaṃ": {
-            "id": 51931,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "mahāsatipaṭṭhānasuttaṃ niṭṭhitaṃ dasamaṃ."
-            ]
-        },
-        "cuddasakāyānupassanā": {
-            "id": 26916,
-            "sentence": [
-                "mn10:31.6",
-                "cuddasakāyānupassanā niṭṭhitā. ",
-                ""
-            ]
-        },
-        "sumaṅgalavilāsiniyaṃpi": {
-            "id": 64283,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, dukkhasaccaniddeso",
-                "pī. potthakesu na dissati, sumaṅgalavilāsiniyaṃpi taṃsaṃvaṇṇanā natthi], yampicchaṃ na labhati tampi dukkhaṃ, saṃkhittena pañcupādānakkhandhā [pañcupādānakkhandhāpi] dukkhā."
-            ]
-        },
-        "sumaṅgalavilāsinī": {
-            "id": 64283,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, dukkhasaccaniddeso",
-                "katamañca, bhikkhave, maraṇaṃ? yaṃ [sumaṅgalavilāsinī oloketabbā] tesaṃ tesaṃ sattānaṃ tamhā tamhā sattanikāyā cuti cavanatā bhedo antaradhānaṃ maccu maraṇaṃ kālaṅkiriyā khandhānaṃ bhedo kaḷevarassa nikkhepo jīvitindriyassupacchedo, idaṃ vuccati, bhikkhave, maraṇaṃ."
-            ]
-        },
-        "amatādhigamaṃ": {
-            "id": 8480,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. "
-            ]
-        },
-        "phalamagganidassanaṃ": {
-            "id": 47614,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. "
-            ]
-        },
-        "sahitattaṃ": {
-            "id": 61486,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. "
-            ]
-        },
-        "mahārasahassakaraṃ": {
-            "id": 51906,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. "
-            ]
-        },
-        "vasupūritaṃ": {
-            "id": 66519,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. "
-            ]
-        },
-        "ghammapathe": {
-            "id": 25525,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. "
-            ]
-        },
-        "tividhaggipiḷesitanibbāpanaṃ": {
-            "id": 30881,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tassuddānaṃ, [ito paraṃ kesuci potthakesu imāpi gāthāyo evaṃ dissanti –§ajaraṃ amataṃ amatādhigamaṃ, phalamagganidassanaṃ dukkhanudaṃ. sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. "
-            ]
-        },
-        "pacchimasuttapavarā": {
-            "id": 39665,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. "
-            ]
-        },
-        "ṭhapitā": {
-            "id": 29001,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. tevanāmagataṃ ca anupubbaṃ, ekamanā nisāmetha mudaggaṃ.]"
-            ]
-        },
-        "jananimanusaṅghātaṃ": {
-            "id": 5186,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "sahitattaṃ mahārasahassakaraṃ, bhūtamiti sāraṃ vividhaṃ suṇātha.§taḷākaṃ vasupūritaṃ ghammapathe, tividhaggipiḷesitanibbāpanaṃ. byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. "
-            ]
-        },
-        "sakyaputtānamabhidamanatthāya": {
-            "id": 7750,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. tevanāmagataṃ ca anupubbaṃ, ekamanā nisāmetha mudaggaṃ.]"
-            ]
-        },
-        "paññāsaṃ": {
-            "id": 40084,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. tevanāmagataṃ ca anupubbaṃ, ekamanā nisāmetha mudaggaṃ.]"
-            ]
-        },
-        "diyaḍḍhasataṃ": {
-            "id": 32633,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "byādhipanudanaosadhayo, pacchimasuttapavarā ṭhapitā.§madhumandavarasāmadānaṃ, khiḍḍārati jananimanusaṅghātaṃ. tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. tevanāmagataṃ ca anupubbaṃ, ekamanā nisāmetha mudaggaṃ.]"
-            ]
-        },
-        "mudaggaṃ": {
-            "id": 52947,
-            "sentence": [
-                "MN10",
-                "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
-                "tathā sutte veyyākaraṇā ṭhapitā, sakyaputtānamabhidamanatthāya.§paññāsaṃ ca diyaḍḍhasataṃ, dve ca veyyākaraṇaṃ apare ca. tevanāmagataṃ ca anupubbaṃ, ekamanā nisāmetha mudaggaṃ.]"
-            ]
-        },
-        "sīhanādavaggo": {
-            "id": 63328,
-            "sentence": [
-                "mn20:8.17",
-                "sīhanādavaggo niṭṭhito dutiyo. ",
-                ""
-            ]
-        },
-        "cūḷasīhanādasuttaṃ": {
-            "id": 26994,
-            "sentence": [
-                "mn11:17.6",
-                "cūḷasīhanādasuttaṃ niṭṭhitaṃ paṭhamaṃ. ",
-                ""
-            ]
-        },
-        "saccābhiññehīti": {
-            "id": 57171,
-            "sentence": [
-                "MN11",
-                "cūḷasīhanādasuttaṃ",
-                "idheva, bhikkhave, samaṇo, idha dutiyo samaṇo, idha tatiyo samaṇo, idha catuttho samaṇo, suññā parappavādā samaṇebhi aññehīti [samaṇehi aññeti ettha aññehīti sakāya paṭiññāya saccābhiññehīti attho veditabbo] . evametaṃ [evameva], bhikkhave, sammā sīhanādaṃ nadatha."
-            ]
-        },
-        "mahāsīhanādasuttaṃ": {
-            "id": 51977,
-            "sentence": [
-                "mn12:64.9",
-                "mahāsīhanādasuttaṃ niṭṭhitaṃ dutiyaṃ. ",
-                ""
-            ]
-        },
-        "hetuso": {
-            "id": 71449,
-            "sentence": [
-                "mn12:11.1",
-                "puna caparaṃ, sāriputta, tathāgato atītānāgatapaccuppannānaṃ kammasamādānānaṃ ṭhānaso hetuso vipākaṃ yathābhūtaṃ pajānāti. ",
-                "Furthermore, the Realized One truly understands the result of deeds undertaken in the past, future, and present in terms of grounds and causes. "
-            ]
-        },
-        "pāyantiyā": {
-            "id": 45700,
-            "sentence": [
-                "MN12",
-                "mahāsīhanādasuttaṃ",
-                "tatrāssu me idaṃ, sāriputta, tapassitāya hoti, acelako homi muttācāro hatthāpalekhano [hatthāvalekhano], na ehibhaddantiko na tiṭṭhabhaddantiko, nābhihaṭaṃ na uddissakataṃ na nimantanaṃ sādiyāmi. so na kumbhimukhā paṭiggaṇhāmi, na kaḷopimukhā paṭiggaṇhāmi, na eḷakamantaraṃ, na daṇḍamantaraṃ, na musalamantaraṃ, na dvinnaṃ bhuñjamānānaṃ, na gabbhiniyā, na pāyamānāya [pāyantiyā], na purisantaragatāya, na saṅkittīsu, na yattha sā upaṭṭhito hoti, na yattha makkhikā saṇḍasaṇḍacārinī, na macchaṃ na maṃsaṃ na suraṃ na merayaṃ na thusodakaṃ pivāmi, so ekāgāriko vā homi ekālopiko, dvāgāriko vā homi dvālopiko … sattāgāriko vā homi sattālopiko, ekissāpi dattiyā yāpemi, dvīhipi dattīhi yāpemi … sattahipi dattīhi yāpemi, ekāhikampi āhāraṃ āhāremi, dvīhikampi āhāraṃ āhāremi … sattāhikampi āhāraṃ āhāremi, iti evarūpaṃ addhamāsikampi pariyāyabhattabhojanānuyogamanuyutto viharāmi."
-            ]
-        },
-        "pāṭhapadeso": {
-            "id": 45344,
-            "sentence": [
-                "MN12",
-                "mahāsīhanādasuttaṃ",
-                "so sāṇānipi dhāremi, masāṇānipi dhāremi, chavadussānipi dhāremi, paṃsukūlānipi dhāremi, tirīṭānipi dhāremi, ajinampi dhāremi, ajinakkhipampi dhāremi, kusacīrampi dhāremi, vākacīrampi dhāremi, phalakacīrampi dhāremi, kesakambalampi dhāremi, vāḷakambalampi dhāremi, ulūkapakkhampi dhāremi, kesamassulocakopi homi kesamassulocanānuyogamanuyutto, ubbhaṭṭhakopi homi āsanapaṭikkhitto, ukkuṭikopi homi ukkuṭikappadhānamanuyutto, kaṇṭakāpassayikopi homi kaṇṭakāpassaye seyyaṃ kappemi [imassānantare aññopi koci pāṭhapadeso aññesu ājīvakavatadīpakasuttesu dissati], sāyatatiyakampi udakorohanānuyogamanuyutto viharāmi, iti evarūpaṃ anekavihitaṃ kāyassa ātāpanaparitāpanānuyogamanuyutto viharāmi. idaṃsu me, sāriputta, tapassitāya hoti."
-            ]
-        },
-        "ājīvakavatadīpakasuttesu": {
-            "id": 11394,
-            "sentence": [
-                "MN12",
-                "mahāsīhanādasuttaṃ",
-                "so sāṇānipi dhāremi, masāṇānipi dhāremi, chavadussānipi dhāremi, paṃsukūlānipi dhāremi, tirīṭānipi dhāremi, ajinampi dhāremi, ajinakkhipampi dhāremi, kusacīrampi dhāremi, vākacīrampi dhāremi, phalakacīrampi dhāremi, kesakambalampi dhāremi, vāḷakambalampi dhāremi, ulūkapakkhampi dhāremi, kesamassulocakopi homi kesamassulocanānuyogamanuyutto, ubbhaṭṭhakopi homi āsanapaṭikkhitto, ukkuṭikopi homi ukkuṭikappadhānamanuyutto, kaṇṭakāpassayikopi homi kaṇṭakāpassaye seyyaṃ kappemi [imassānantare aññopi koci pāṭhapadeso aññesu ājīvakavatadīpakasuttesu dissati], sāyatatiyakampi udakorohanānuyogamanuyutto viharāmi, iti evarūpaṃ anekavihitaṃ kāyassa ātāpanaparitāpanānuyogamanuyutto viharāmi. idaṃsu me, sāriputta, tapassitāya hoti."
-            ]
-        },
-        "cariyāpiṭakaaṭṭhakathā": {
-            "id": 26323,
-            "sentence": [
-                "MN12",
-                "mahāsīhanādasuttaṃ",
-                "so kho ahaṃ, sāriputta, susāne seyyaṃ kappemi chavaṭṭhikāni upadhāya. apissu maṃ, sāriputta, gāmaṇḍalā [gomaṇḍalā (bahūsu) cariyāpiṭakaaṭṭhakathā oloketabbā] upasaṅkamitvā oṭṭhubhantipi, omuttentipi, paṃsukenapi okiranti, kaṇṇasotesupi salākaṃ pavesenti. na kho panāhaṃ, sāriputta, abhijānāmi tesu pāpakaṃ cittaṃ uppādetā. "
-            ]
-        },
-        "tittakālābuāmakacchinno": {
-            "id": 30591,
-            "sentence": [
-                "MN12",
-                "mahāsīhanādasuttaṃ",
-                "seyyathāpi nāma gambhīre udapāne udakatārakā gambhīragatā okkhāyikā dissanti, evamevassu me akkhikūpesu akkhitārakā gambhīragatā okkhāyikā dissanti tāyevappāhāratāya. seyyathāpi nāma tittakālābuāmakacchinno vātātapena saṃphuṭito [samphusito, saṃpuṭito ettha saṃphuṭitoti saṅkucitoti attho] hoti sammilāto, evamevassu me sīsacchavi saṃphuṭitā hoti sammilātā tāyevappāhāratāya. so kho ahaṃ, sāriputta, udaracchaviṃ parimasissāmīti piṭṭhikaṇṭakaṃyeva pariggaṇhāmi, piṭṭhikaṇṭakaṃ parimasissāmīti udaracchaviṃyeva pariggaṇhāmi, yāvassu me, sāriputta, udaracchavi piṭṭhikaṇṭakaṃ allīnā hoti tāyevappāhāratāya. "
-            ]
-        },
-        "anāvutthapubbo": {
-            "id": 4094,
-            "sentence": [
-                "MN12",
-                "mahāsīhanādasuttaṃ",
-                "santi kho pana, sāriputta, eke samaṇabrāhmaṇā evaṃvādino evaṃdiṭṭhino, āvāsena suddhīti. na kho pana so, sāriputta, āvāso sulabharūpo yo mayā anāvuṭṭhapubbo [anāvutthapubbo] iminā dīghena addhunā, aññatra suddhāvāsehi devehi. suddhāvāse cāhaṃ, sāriputta, deve āvaseyyaṃ, nayimaṃ lokaṃ punarāgaccheyyaṃ."
-            ]
-        },
-        "lahukena": {
-            "id": 55680,
-            "sentence": [
-                "mn12:62.7",
-                "seyyathāpi, sāriputta, daḷhadhammā dhanuggaho sikkhito katahattho katūpāsano lahukena asanena appakasireneva tiriyaṃ tālacchāyaṃ atipāteyya, ",
-                "Imagine how easily a well-trained expert archer with a strong bow would shoot a light arrow across the shadow of a palm tree. "
-            ]
-        },
-        "mahādukkhakkhandhasuttaṃ": {
-            "id": 51734,
-            "sentence": [
-                "mn13:38.5",
-                "mahādukkhakkhandhasuttaṃ niṭṭhitaṃ tatiyaṃ. ",
-                ""
-            ]
-        },
-        "samphassamāno": {
-            "id": 60525,
-            "sentence": [
-                "MN13",
-                "mahādukkhakkhandhasuttaṃ",
-                "ko ca, bhikkhave, kāmānaṃ ādīnavo? idha, bhikkhave, kulaputto yena sippaṭṭhānena jīvikaṃ kappeti, yadi muddāya yadi gaṇanāya yadi saṅkhānena [saṅkhāya] yadi kasiyā yadi vaṇijjāya yadi gorakkhena yadi issatthena yadi rājaporisena yadi sippaññatarena, sītassa purakkhato uṇhassa purakkhato ḍaṃsamakasavātātapasarīṃsapasamphassehi rissamāno [īrayamāno, samphassamāno (cūḷani. khaggavisāṇasutta 136)] khuppipāsāya mīyamāno, ayampi, bhikkhave, kāmānaṃ ādīnavo sandiṭṭhiko, dukkhakkhandho kāmahetu kāmanidānaṃ kāmādhikaraṇaṃ kāmānameva hetu."
-            ]
-        },
-        "omaddanti": {
-            "id": 18806,
-            "sentence": [
-                "mn13:13.2",
-                "te tattha usūhipi vijjhanti, sattiyāpi vijjhanti, chakaṇakāyapi osiñcanti, abhivaggenapi omaddanti, asināpi sīsaṃ chindanti. ",
-                "There they are struck with arrows and spears, splashed with dung, crushed by a superior force, and their heads are chopped off, "
-            ]
-        },
-        "palitakesiṃ": {
-            "id": 44507,
-            "sentence": [
-                "MN13",
-                "mahādukkhakkhandhasuttaṃ",
-                "ko ca, bhikkhave, rūpānaṃ ādīnavo? idha, bhikkhave, tameva bhaginiṃ passeyya aparena samayena āsītikaṃ vā nāvutikaṃ vā vassasatikaṃ vā jātiyā, jiṇṇaṃ gopānasivaṅkaṃ bhoggaṃ daṇḍaparāyanaṃ pavedhamānaṃ gacchantiṃ āturaṃ gatayobbanaṃ khaṇḍadantaṃ [khaṇḍadantiṃ] palitakesaṃ [palitakesiṃ], vilūnaṃ khalitasiraṃ valinaṃ tilakāhatagattaṃ [tilakāhatagattiṃ (bahūsu) aṭṭhakathā ṭīkā oloketabbā] . taṃ kiṃ maññatha, bhikkhave, yā purimā subhā vaṇṇanibhā sā antarahitā, ādīnavo pātubhūtoti? "
-            ]
-        },
-        "cūḷadukkhakkhandhasuttaṃ": {
-            "id": 26965,
-            "sentence": [
-                "mn14:21.24",
-                "cūḷadukkhakkhandhasuttaṃ niṭṭhitaṃ catutthaṃ. ",
-                ""
-            ]
-        },
-        "nijjaretha": {
-            "id": 37067,
-            "sentence": [
-                "MN14",
-                "cūḷadukkhakkhandhasuttaṃ",
-                "evaṃ vutte, mahānāma, te nigaṇṭhā maṃ etadavocuṃ, nigaṇṭho, āvuso, nāṭaputto [nāthaputto] sabbaññū sabbadassāvī aparisesaṃ ñāṇadassanaṃ paṭijānāti, carato ca me tiṭṭhato ca suttassa ca jāgarassa ca satataṃ samitaṃ ñāṇadassanaṃ paccupaṭṭhitanti. so evamāha, atthi kho vo [atthi kho bho], nigaṇṭhā, pubbe pāpakammaṃ kataṃ, taṃ imāya kaṭukāya dukkarakārikāya nijjīretha [nijjaretha], yaṃ panettha [mayaṃ panettha] etarahi kāyena saṃvutā vācāya saṃvutā manasā saṃvutā taṃ āyatiṃ pāpassa kammassa akaraṇaṃ, iti purāṇānaṃ kammānaṃ tapasā byantibhāvā, navānaṃ kammānaṃ akaraṇā, āyatiṃ anavassavo, āyatiṃ anavassavā kammakkhayo, kammakkhayā dukkhakkhayo, dukkhakkhayā vedanākkhayo, vedanākkhayā sabbaṃ dukkhaṃ nijjiṇṇaṃ bhavissatīti. tañca panamhākaṃ ruccati ceva khamati ca, tena camha attamanāti."
-            ]
-        },
-        "anumānasuttaṃ": {
-            "id": 5046,
-            "sentence": [
-                "mn15:8.10",
-                "anumānasuttaṃ niṭṭhitaṃ pañcamaṃ. ",
-                ""
-            ]
-        },
-        "suṃsumāragire": {
-            "id": 64662,
-            "sentence": [
-                "MN15",
-                "anumānasuttaṃ",
-                "181. evaṃ me sutaṃ, ekaṃ samayaṃ āyasmā mahāmoggallāno bhaggesu viharati susumāragire [suṃsumāragire] bhesakaḷāvane migadāye. tatra kho āyasmā mahāmoggallāno bhikkhū āmantesi, āvuso, bhikkhavoti. "
-            ]
-        },
-        "amaccharīti": {
-            "id": 8442,
-            "sentence": [
-                "mn15:6.40",
-                "evaṃ jānantenāvuso, bhikkhunā ‘anissukī bhavissāmi amaccharī’ti cittaṃ uppādetabbaṃ. ",
-                ""
-            ]
-        },
-        "cetokhilasuttaṃ": {
-            "id": 27115,
-            "sentence": [
-                "mn16:27.10",
-                "cetokhilasuttaṃ niṭṭhitaṃ chaṭṭhaṃ. ",
-                ""
-            ]
-        },
-        "cetasovinibaddhā": {
-            "id": 27064,
-            "sentence": [
-                "MN16",
-                "cetokhilasuttaṃ",
-                "yassa kassaci, bhikkhave, bhikkhuno pañca cetokhilā appahīnā, pañca cetasovinibandhā [cetasovinibaddhā, cetovinibaddhā (sāratthadīpanīṭīkā)] asamucchinnā, so vatimasmiṃ dhammavinaye vuddhiṃ virūḷhiṃ vepullaṃ āpajjissatīti, netaṃ ṭhānaṃ vijjati."
-            ]
-        },
-        "cetovinibaddhā": {
-            "id": 27147,
-            "sentence": [
-                "MN16",
-                "cetokhilasuttaṃ",
-                "yassa kassaci, bhikkhave, bhikkhuno pañca cetokhilā appahīnā, pañca cetasovinibandhā [cetasovinibaddhā, cetovinibaddhā (sāratthadīpanīṭīkā)] asamucchinnā, so vatimasmiṃ dhammavinaye vuddhiṃ virūḷhiṃ vepullaṃ āpajjissatīti, netaṃ ṭhānaṃ vijjati."
-            ]
-        },
-        "āpajjissatīti": {
-            "id": 11842,
-            "sentence": [
-                "mn16:2.1",
-                "“yassa kassaci, bhikkhave, bhikkhuno pañca cetokhilā appahīnā, pañca cetasovinibandhā asamucchinnā, so vatimasmiṃ dhammavinaye vuddhiṃ virūḷhiṃ vepullaṃ āpajjissatīti—netaṃ ṭhānaṃ vijjati. ",
-                "“Mendicants, when a mendicant has not given up five kinds of hard-heartedness and severed five shackles of the heart, it’s not possible for them to achieve growth, improvement, or maturity in this teaching and training. "
-            ]
-        },
-        "vanapatthasuttaṃ": {
-            "id": 66200,
-            "sentence": [
-                "mn17:26.10",
-                "vanapatthasuttaṃ niṭṭhitaṃ sattamaṃ. ",
-                ""
-            ]
-        },
-        "madhupiṇḍikasuttaṃ": {
-            "id": 51055,
-            "sentence": [
-                "mn18:22.8",
-                "madhupiṇḍikasuttaṃ niṭṭhitaṃ aṭṭhamaṃ. ",
-                ""
-            ]
-        },
-        "dvedhāvitakkasuttaṃ": {
-            "id": 34474,
-            "sentence": [
-                "mn19:27.5",
-                "dvedhāvitakkasuttaṃ niṭṭhitaṃ navamaṃ. ",
-                ""
-            ]
-        },
-        "atītakālikakiriyāpadāniyeva": {
-            "id": 21828,
-            "sentence": [
-                "MN19",
-                "dvedhāvitakkasuttaṃ",
-                "attabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, parabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, ubhayabyābādhāya saṃvattatītipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati, paññānirodhiko vighātapakkhiko anibbānasaṃvattanikotipi me, bhikkhave, paṭisañcikkhato abbhatthaṃ gacchati. so kho ahaṃ, bhikkhave, uppannuppannaṃ kāmavitakkaṃ pajahameva [atītakālikakiriyāpadāniyeva] vinodameva [atītakālikakiriyāpadāniyeva] byantameva [byanteva] naṃ akāsiṃ."
-            ]
-        },
-        "kilamante": {
-            "id": 21844,
-            "sentence": [
-                "MN19",
-                "dvedhāvitakkasuttaṃ",
-                "api ca kho me aticiraṃ anuvitakkayato anuvicārayato kāyo kilameyya. kāye kilante [kilamante] cittaṃ ūhaññeyya. ūhate citte ārā cittaṃ samādhimhāti. "
-            ]
-        },
-        "ugghāṭīti": {
-            "id": 14247,
-            "sentence": [
-                "MN19",
-                "dvedhāvitakkasuttaṃ",
-                "taṃ kissa hetu? mā me cittaṃ ūhaññīti [ugghāṭīti, ūhanīti] ."
-            ]
-        },
-        "sabbasassesu": {
-            "id": 58966,
-            "sentence": [
-                "mn19:12.1",
-                "seyyathāpi, bhikkhave, gimhānaṃ pacchime māse sabbasassesu gāmantasambhatesu gopālako gāvo rakkheyya, tassa rukkhamūlagatassa vā abbhokāsagatassa vā satikaraṇīyameva hoti: ",
-                "Suppose it’s the last month of summer, when all the crops have been gathered within a village, and a cowherd must take care of the cattle. While at the root of a tree or in the open he need only be mindful that "
-            ]
-        },
-        "abhidantaṃ": {
-            "id": 7749,
-            "sentence": [
-                "MN20",
-                "vitakkasaṇṭhānasuttaṃ",
-                "tassa ce, bhikkhave, bhikkhuno tesampi vitakkānaṃ vitakkasaṅkhārasaṇṭhānaṃ manasikaroto uppajjanteva pāpakā akusalā vitakkā chandūpasaṃhitāpi dosūpasaṃhitāpi mohūpasaṃhitāpi. tena, bhikkhave, bhikkhunā dantebhidantamādhāya [dante + abhidantaṃ + ādhāyāti ṭīkāyaṃ padacchedo, dantebhīti panettha karaṇattho yutto viya dissati] jivhāya tāluṃ āhacca cetasā cittaṃ abhiniggaṇhitabbaṃ abhinippīḷetabbaṃ abhisantāpetabbaṃ. tassa dantebhidantamādhāya jivhāya tāluṃ āhacca cetasā cittaṃ abhiniggaṇhato abhinippīḷayato abhisantāpayato ye pāpakā akusalā vitakkā chandūpasaṃhitāpi dosūpasaṃhitāpi mohūpasaṃhitāpi te pahīyanti te abbhatthaṃ gacchanti. "
-            ]
-        },
-        "opammavaggo": {
-            "id": 18703,
-            "sentence": [
-                "mn30:24.5",
-                "opammavaggo niṭṭhito tatiyo. ",
-                ""
-            ]
-        },
-        "kakacūpamasuttaṃ": {
-            "id": 19167,
-            "sentence": [
-                "mn21:21.8",
-                "kakacūpamasuttaṃ niṭṭhitaṃ paṭhamaṃ. ",
-                ""
-            ]
-        },
-        "tūlinī": {
-            "id": 31129,
-            "sentence": [
-                "mn21:18.1",
-                "seyyathāpi, bhikkhave, biḷārabhastā madditā sumadditā suparimadditā, mudukā tūlinī chinnasassarā chinnabhabbharā. ",
-                "Suppose there was a catskin bag that was rubbed, well-rubbed, very well-rubbed, soft, silky, rid of rustling and crackling. "
-            ]
-        },
-        "tūliniṃ": {
-            "id": 31129,
-            "sentence": [
-                "mn21:18.4",
-                "‘ahaṃ imaṃ biḷārabhastaṃ madditaṃ sumadditaṃ suparimadditaṃ, mudukaṃ tūliniṃ, chinnasassaraṃ chinnabhabbharaṃ kaṭṭhena vā kathalena vā sarasaraṃ karissāmi bharabharaṃ karissāmī’ti. ",
-                "‘I shall make this soft catskin bag rustle and crackle with this stick or stone.’ "
-            ]
-        },
-        "gandhabādhipubbassa": {
-            "id": 24309,
-            "sentence": [
-                "MN22",
-                "alagaddūpamasuttaṃ",
-                "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā sāvatthiyaṃ viharati jetavane anāthapiṇḍikassa ārāme. tena kho pana samayena ariṭṭhassa nāma bhikkhuno gaddhabādhipubbassa [gandhabādhipubbassa] evarūpaṃ pāpakaṃ diṭṭhigataṃ uppannaṃ hoti, tathāhaṃ bhagavatā dhammaṃ desitaṃ ājānāmi yathā yeme antarāyikā dhammā vuttā bhagavatā te paṭisevato nālaṃ antarāyāyāti. assosuṃ kho sambahulā bhikkhū, ariṭṭhassa kira nāma bhikkhuno gaddhabādhipubbassa evarūpaṃ pāpakaṃ diṭṭhigataṃ uppannaṃ, tathāhaṃ bhagavatā dhammaṃ desitaṃ ājānāmi yathā yeme antarāyikā dhammā vuttā bhagavatā te paṭisevato nālaṃ antarāyāyāti. "
-            ]
-        },
-        "sakkatānurūpaṃ": {
-            "id": 56397,
-            "sentence": [
-                "MN23",
-                "vammikasuttaṃ",
-                "bhikkhu bhikkhu, ayaṃ vammiko [vammīko (katthaci) sakkatānurūpaṃ] rattiṃ dhūmāyati, divā pajjalati. brāhmaṇo evamāha, abhikkhaṇa, sumedha, satthaṃ ādāyāti. "
-            ]
-        },
-        "parimaddanabhedana": {
-            "id": 43883,
-            "sentence": [
-                "MN23",
-                "vammikasuttaṃ",
-                "251. vammikoti kho, bhikkhu, imassetaṃ cātumahābhūtikassa [cātummahābhūtikassa] kāyassa adhivacanaṃ, mātāpettikasambhavassa odanakummāsūpacayassa aniccucchādana-parimaddanabhedana-viddhaṃsana-dhammassa."
-            ]
-        },
-        "rathavinītasuttaṃ": {
-            "id": 54633,
-            "sentence": [
-                "mn24:17.14",
-                "rathavinītasuttaṃ niṭṭhitaṃ catutthaṃ. ",
-                ""
-            ]
-        },
-        "celaṇḍakena": {
-            "id": 27168,
-            "sentence": [
-                "MN24",
-                "rathavinītasuttaṃ",
-                "lābhā sabrahmacārīnaṃ, suladdhalābhā sabrahmacārīnaṃ, ye āyasmantaṃ puṇṇaṃ mantāṇiputtaṃ labhanti dassanāya, labhanti payirūpāsanāya. celaṇḍukena [celaṇḍakena, celaṇḍupekena (?)] cepi sabrahmacārī āyasmantaṃ puṇṇaṃ mantāṇiputtaṃ muddhanā pariharantā labheyyuṃ dassanāya, labheyyuṃ payirūpāsanāya, tesampi lābhā tesampi suladdhaṃ, amhākampi lābhā amhākampi suladdhaṃ, ye mayaṃ āyasmantaṃ puṇṇaṃ mantāṇiputtaṃ labhāma dassanāya, labhāma payirūpāsanāyāti."
-            ]
-        },
-        "nivāpasuttaṃ": {
-            "id": 38412,
-            "sentence": [
-                "mn25:20.5",
-                "nivāpasuttaṃ niṭṭhitaṃ pañcamaṃ. ",
-                ""
-            ]
-        },
-        "daṇḍavāgurāhi": {
-            "id": 66678,
-            "sentence": [
-                "MN25",
-                "nivāpasuttaṃ",
-                "tatra, bhikkhave, nevāpikassa ca nevāpikaparisāya ca etadahosi, saṭhāssunāmime tatiyā migajātā ketabino, iddhimantāssunāmime tatiyā migajātā parajanā, imañca nāma nivāpaṃ nivuttaṃ paribhuñjanti, na ca nesaṃ jānāma āgatiṃ vā gatiṃ vā. yaṃnūna mayaṃ imaṃ nivāpaṃ nivuttaṃ mahatīhi daṇḍavākarāhi [daṇḍavāgurāhi] samantā sappadesaṃ anuparivāreyyāma, appeva nāma tatiyānaṃ migajātānaṃ āsayaṃ passeyyāma, yattha te gāhaṃ gaccheyyunti. te amuṃ nivāpaṃ nivuttaṃ mahatīhi daṇḍavākarāhi samantā sappadesaṃ anuparivāresuṃ. "
-            ]
-        },
-        "kriyapadāni": {
-            "id": 23242,
-            "sentence": [
-                "MN26",
-                "pāsarāsisuttaṃ",
-                "so kho ahaṃ, bhikkhave, kiṃ kusalagavesī anuttaraṃ santivarapadaṃ pariyesamāno yena udako [uddako] rāmaputto tenupasaṅkamiṃ, upasaṅkamitvā udakaṃ rāmaputtaṃ etadavocaṃ, icchāmahaṃ, āvuso [āvuso rāma mahāsatto rāmaputtameva avoca, na rāmaṃ, rāmo hi tattha gaṇācariyo bhaveyya, tadā ca kālaṅkato asanto. tenevettha rāmāyattāni kriyapadāni atītakālavasena āgatāni, udako ca rāmaputto mahāsattassa sabrahmacārītveva vutto, na ācariyoti. ṭīkāyaṃ ca pāḷiyaṃ rāmasseva samāpattilābhitā āgatā na udakassāti ādi pacchābhāge pakāsitā], imasmiṃ dhammavinaye brahmacariyaṃ caritunti. "
-            ]
-        },
-        "atītakālavasena": {
-            "id": 2400,
-            "sentence": [
-                "MN26",
-                "pāsarāsisuttaṃ",
-                "so kho ahaṃ, bhikkhave, kiṃ kusalagavesī anuttaraṃ santivarapadaṃ pariyesamāno yena udako [uddako] rāmaputto tenupasaṅkamiṃ, upasaṅkamitvā udakaṃ rāmaputtaṃ etadavocaṃ, icchāmahaṃ, āvuso [āvuso rāma mahāsatto rāmaputtameva avoca, na rāmaṃ, rāmo hi tattha gaṇācariyo bhaveyya, tadā ca kālaṅkato asanto. tenevettha rāmāyattāni kriyapadāni atītakālavasena āgatāni, udako ca rāmaputto mahāsattassa sabrahmacārītveva vutto, na ācariyoti. ṭīkāyaṃ ca pāḷiyaṃ rāmasseva samāpattilābhitā āgatā na udakassāti ādi pacchābhāge pakāsitā], imasmiṃ dhammavinaye brahmacariyaṃ caritunti. "
-            ]
-        },
-        "pacchābhāge": {
-            "id": 39624,
-            "sentence": [
-                "MN26",
-                "pāsarāsisuttaṃ",
-                "tenevettha rāmāyattāni kriyapadāni atītakālavasena āgatāni, udako ca rāmaputto mahāsattassa sabrahmacārītveva vutto, na ācariyoti. ṭīkāyaṃ ca pāḷiyaṃ rāmasseva samāpattilābhitā āgatā na udakassāti ādi pacchābhāge pakāsitā], imasmiṃ dhammavinaye brahmacariyaṃ caritunti. evaṃ vutte, bhikkhave, udako rāmaputto maṃ etadavoca, viharatāyasmā, tādiso ayaṃ dhammo yattha viññū puriso nacirasseva sakaṃ ācariyakaṃ sayaṃ abhiññā sacchikatvā upasampajja vihareyyāti. "
-            ]
-        },
-        "sāratthadīpanīṭīkāya": {
-            "id": 62467,
-            "sentence": [
-                "MN26",
-                "pāsarāsisuttaṃ",
-                "addasaṃsu kho maṃ, bhikkhave, pañcavaggiyā bhikkhū dūrato āgacchantaṃ. disvāna aññamaññaṃ saṇṭhapesuṃ [aññamaññaṃ katikaṃ saṇṭhapesuṃ (vinayapiṭake mahāvagge)], ayaṃ kho, āvuso, samaṇo gotamo āgacchati bāhulliko [bāhuliko sāratthadīpanīṭīkāya sameti] padhānavibbhanto āvatto bāhullāya. so neva abhivādetabbo, na paccuṭṭhātabbo, nāssa pattacīvaraṃ paṭiggahetabbaṃ. "
-            ]
-        },
-        "cūḷahatthipadopamasuttaṃ": {
-            "id": 27011,
-            "sentence": [
-                "mn27:27.6",
-                "cūḷahatthipadopamasuttaṃ niṭṭhitaṃ sattamaṃ. ",
-                ""
-            ]
-        },
-        "santosakathāvasāne": {
-            "id": 58315,
-            "sentence": [
-                "MN27",
-                "cūḷahatthipadopamasuttaṃ",
-                "293. so bījagāmabhūtagāmasamārambhā paṭivirato hoti, ekabhattiko hoti rattūparato, virato vikālabhojanā, naccagītavāditavisūkadassanā paṭivirato hoti, mālāgandhavilepanadhāraṇamaṇḍanavibhūsanaṭṭhānā paṭivirato hoti, uccāsayanamahāsayanā paṭivirato hoti, jātarūparajatapaṭiggahaṇā paṭivirato hoti, āmakadhaññapaṭiggahaṇā paṭivirato hoti, āmakamaṃsapaṭiggahaṇā paṭivirato hoti, itthikumārikapaṭiggahaṇā paṭivirato hoti, dāsidāsapaṭiggahaṇā paṭivirato hoti, ajeḷakapaṭiggahaṇā paṭivirato hoti, kukkuṭasūkarapaṭiggahaṇā paṭivirato hoti, hatthigavāssavaḷavāpaṭiggahaṇā paṭivirato hoti, khettavatthupaṭiggahaṇā paṭivirato hoti, dūteyyapahiṇagamanānuyogā paṭivirato hoti, kayavikkayā paṭivirato hoti, tulākūṭakaṃsakūṭamānakūṭā paṭivirato hoti, ukkoṭanavañcananikatisāciyogā paṭivirato hoti, chedanavadhabandhanaviparāmosaālopasahasākārā [sāhasākārā] paṭivirato hoti [imassa anantaraṃ so iminā ariyena sīlakkhandhena samannāgato ajjhattaṃ anavajjasukhaṃ paṭisaṃvedetīti vacanaṃ dīghanikāye āgataṃ, taṃ idha santosakathāvasāne āgataṃ, sā ca santosakathā tattha satisampajaññānantarameva āgatā] ."
-            ]
-        },
-        "nadissati": {
-            "id": 35568,
-            "sentence": [
-                "MN27",
-                "cūḷahatthipadopamasuttaṃ",
-                "296. so iminā ca ariyena sīlakkhandhena samannāgato, (imāya ca ariyāya santuṭṭhiyā samannāgato) [( ) etthantare pāṭho idha nadissati, catukkaṅguttare pana imasmiṃ ṭhāne dissati, aṭṭhakathāṭīkāsu ca tadattho pakāsito. tasmā so ettha paṭīpūrito] iminā ca ariyena indriyasaṃvarena samannāgato, iminā ca ariyena satisampajaññena samannāgato vivittaṃ senāsanaṃ bhajati araññaṃ rukkhamūlaṃ pabbataṃ kandaraṃ giriguhaṃ susānaṃ vanapatthaṃ abbhokāsaṃ palālapuñjaṃ. "
-            ]
-        },
-        "catukkaṅguttare": {
-            "id": 25862,
-            "sentence": [
-                "MN27",
-                "cūḷahatthipadopamasuttaṃ",
-                "296. so iminā ca ariyena sīlakkhandhena samannāgato, (imāya ca ariyāya santuṭṭhiyā samannāgato) [( ) etthantare pāṭho idha nadissati, catukkaṅguttare pana imasmiṃ ṭhāne dissati, aṭṭhakathāṭīkāsu ca tadattho pakāsito. tasmā so ettha paṭīpūrito] iminā ca ariyena indriyasaṃvarena samannāgato, iminā ca ariyena satisampajaññena samannāgato vivittaṃ senāsanaṃ bhajati araññaṃ rukkhamūlaṃ pabbataṃ kandaraṃ giriguhaṃ susānaṃ vanapatthaṃ abbhokāsaṃ palālapuñjaṃ. "
-            ]
-        },
-        "tadattho": {
-            "id": 29749,
-            "sentence": [
-                "MN27",
-                "cūḷahatthipadopamasuttaṃ",
-                "296. so iminā ca ariyena sīlakkhandhena samannāgato, (imāya ca ariyāya santuṭṭhiyā samannāgato) [( ) etthantare pāṭho idha nadissati, catukkaṅguttare pana imasmiṃ ṭhāne dissati, aṭṭhakathāṭīkāsu ca tadattho pakāsito. tasmā so ettha paṭīpūrito] iminā ca ariyena indriyasaṃvarena samannāgato, iminā ca ariyena satisampajaññena samannāgato vivittaṃ senāsanaṃ bhajati araññaṃ rukkhamūlaṃ pabbataṃ kandaraṃ giriguhaṃ susānaṃ vanapatthaṃ abbhokāsaṃ palālapuñjaṃ. "
-            ]
-        },
-        "paṭīpūrito": {
-            "id": 41114,
-            "sentence": [
-                "MN27",
-                "cūḷahatthipadopamasuttaṃ",
-                "so iminā ca ariyena sīlakkhandhena samannāgato, (imāya ca ariyāya santuṭṭhiyā samannāgato) [( ) etthantare pāṭho idha nadissati, catukkaṅguttare pana imasmiṃ ṭhāne dissati, aṭṭhakathāṭīkāsu ca tadattho pakāsito. tasmā so ettha paṭīpūrito] iminā ca ariyena indriyasaṃvarena samannāgato, iminā ca ariyena satisampajaññena samannāgato vivittaṃ senāsanaṃ bhajati araññaṃ rukkhamūlaṃ pabbataṃ kandaraṃ giriguhaṃ susānaṃ vanapatthaṃ abbhokāsaṃ palālapuñjaṃ. so pacchābhattaṃ piṇḍapātapaṭikkanto nisīdati pallaṅkaṃ ābhujitvā, ujuṃ kāyaṃ paṇidhāya, parimukhaṃ satiṃ upaṭṭhapetvā. "
-            ]
-        },
-        "mahāhatthipadopamasuttaṃ": {
-            "id": 52042,
-            "sentence": [
-                "mn28:38.15",
-                "mahāhatthipadopamasuttaṃ niṭṭhitaṃ aṭṭhamaṃ. ",
-                ""
-            ]
-        },
-        "sijjhatīti": {
-            "id": 62848,
-            "sentence": [
-                "MN95",
-                "caṅkīsuttaṃ",
-                "saccānurakkhaṇaṃ mayaṃ bhavantaṃ gotamaṃ pucchāmāti. saddhā cepi, bhāradvāja, purisassa hoti, evaṃ me saddhāti, iti vadaṃ saccamanurakkhati [evameva sijjhatīti iti vā, taṃ saccamanurakkhati], natveva tāva ekaṃsena niṭṭhaṃ gacchati, idameva saccaṃ, moghamaññanti ( ) [(ettāvatā kho bhāradvāja saccānurakkhaṇā hoti, ettāvatā saccamanurakkhati, ettāvatā ca mayaṃ saccānurakkhaṇaṃ paññāpema, na tveva tāva saccānubodho hoti)] . ruci cepi, bhāradvāja, purisassa hoti … anussavo cepi, bhāradvāja, purisassa hoti … ākāraparivitakko cepi, bhāradvāja, purisassa hoti … diṭṭhinijjhānakkhanti cepi, bhāradvāja, purisassa hoti, evaṃ me diṭṭhinijjhānakkhantīti, iti vadaṃ saccamanurakkhati, natveva tāva ekaṃsena niṭṭhaṃ gacchati, idameva saccaṃ, moghamaññanti. "
-            ]
-        },
-        "santosakathā": {
-            "id": 58315,
-            "sentence": [
-                "MN27",
-                "cūḷahatthipadopamasuttaṃ",
-                "293. so bījagāmabhūtagāmasamārambhā paṭivirato hoti, ekabhattiko hoti rattūparato, virato vikālabhojanā, naccagītavāditavisūkadassanā paṭivirato hoti, mālāgandhavilepanadhāraṇamaṇḍanavibhūsanaṭṭhānā paṭivirato hoti, uccāsayanamahāsayanā paṭivirato hoti, jātarūparajatapaṭiggahaṇā paṭivirato hoti, āmakadhaññapaṭiggahaṇā paṭivirato hoti, āmakamaṃsapaṭiggahaṇā paṭivirato hoti, itthikumārikapaṭiggahaṇā paṭivirato hoti, dāsidāsapaṭiggahaṇā paṭivirato hoti, ajeḷakapaṭiggahaṇā paṭivirato hoti, kukkuṭasūkarapaṭiggahaṇā paṭivirato hoti, hatthigavāssavaḷavāpaṭiggahaṇā paṭivirato hoti, khettavatthupaṭiggahaṇā paṭivirato hoti, dūteyyapahiṇagamanānuyogā paṭivirato hoti, kayavikkayā paṭivirato hoti, tulākūṭakaṃsakūṭamānakūṭā paṭivirato hoti, ukkoṭanavañcananikatisāciyogā paṭivirato hoti, chedanavadhabandhanaviparāmosaālopasahasākārā [sāhasākārā] paṭivirato hoti [imassa anantaraṃ so iminā ariyena sīlakkhandhena samannāgato ajjhattaṃ anavajjasukhaṃ paṭisaṃvedetīti vacanaṃ dīghanikāye āgataṃ, taṃ idha santosakathāvasāne āgataṃ, sā ca santosakathā tattha satisampajaññānantarameva āgatā] ."
-            ]
-        },
-        "mahāsāropamasuttaṃ": {
-            "id": 51959,
-            "sentence": [
-                "mn29:7.6",
-                "mahāsāropamasuttaṃ niṭṭhitaṃ navamaṃ. ",
-                ""
-            ]
-        },
-        "anubhavissatīti": {
-            "id": 5000,
-            "sentence": [
-                "mn29:6.22",
-                "yañcassa sārena sārakaraṇīyaṃ tañcassa atthaṃ anubhavissatī’ti. ",
-                "Whatever he needs to make from heartwood, he will succeed.’ … "
-            ]
-        },
-        "cūḷasāropamasuttaṃ": {
-            "id": 26992,
-            "sentence": [
-                "mn30:24.4",
-                "cūḷasāropamasuttaṃ niṭṭhitaṃ dasamaṃ. ",
-                ""
-            ]
-        },
-        "anubhavissati": {
-            "id": 5000,
-            "sentence": [
-                "mn30:22.2",
-                "yañcassa sārena sārakaraṇīyaṃ tañcassa atthaṃ anubhavissati. ",
-                "Whatever he needs to make from heartwood, he will succeed. "
-            ]
-        },
-        "mahāyamakavaggo": {
-            "id": 51897,
-            "sentence": [
-                "mn40:14.7",
-                "mahāyamakavaggo niṭṭhito catuttho. ",
-                ""
-            ]
-        },
-        "cūḷagosiṅgasuttaṃ": {
-            "id": 26962,
-            "sentence": [
-                "mn31:22.16",
-                "cūḷagosiṅgasuttaṃ niṭṭhitaṃ paṭhamaṃ. ",
-                ""
-            ]
-        },
-        "mahāgosiṅgasuttaṃ": {
-            "id": 51692,
-            "sentence": [
-                "mn32:17.10",
-                "mahāgosiṅgasuttaṃ niṭṭhitaṃ dutiyaṃ. ",
-                ""
-            ]
-        },
-        "mahāgopālakasuttaṃ": {
-            "id": 51691,
-            "sentence": [
-                "mn33:27.9",
-                "mahāgopālakasuttaṃ niṭṭhitaṃ tatiyaṃ. ",
-                ""
-            ]
-        },
-        "cūḷagopālakasuttaṃ": {
-            "id": 26960,
-            "sentence": [
-                "mn34:12.15",
-                "cūḷagopālakasuttaṃ niṭṭhitaṃ catutthaṃ. ",
-                ""
-            ]
-        },
-        "cūḷasaccakasuttaṃ": {
-            "id": 26991,
-            "sentence": [
-                "mn35:30.8",
-                "cūḷasaccakasuttaṃ niṭṭhitaṃ pañcamaṃ. ",
-                ""
-            ]
-        },
-        "suvaṇṇavaṇṇaṃ": {
-            "id": 64579,
-            "sentence": [
-                "mn35:22.12",
-                "iti bhagavā tasmiṃ parisati suvaṇṇavaṇṇaṃ kāyaṃ vivari. ",
-                "So the Buddha revealed his golden body to the assembly. "
-            ]
-        },
-        "mahāsaccakasuttaṃ": {
-            "id": 51928,
-            "sentence": [
-                "mn36:48.18",
-                "mahāsaccakasuttaṃ niṭṭhitaṃ chaṭṭhaṃ. ",
-                ""
-            ]
-        },
-        "saṃghabhedasikkhāpadaṭīkāya": {
-            "id": 61596,
-            "sentence": [
-                "MN36",
-                "mahāsaccakasuttaṃ",
-                "tena kho pana maṃ, aggivessana, samayena pañca [pañcavaggiyā (aññasuttesu)] bhikkhū paccupaṭṭhitā honti, yaṃ kho samaṇo gotamo dhammaṃ adhigamissati, taṃ no ārocessatīti. yato kho ahaṃ, aggivessana, oḷārikaṃ āhāraṃ āhāresiṃ odanakummāsaṃ, atha me te pañca bhikkhū nibbijja pakkamiṃsu, bāhulliko [bāhuliko saṃghabhedasikkhāpadaṭīkāya sameti] samaṇo gotamo, padhānavibbhanto, āvatto bāhullāyāti."
-            ]
-        },
-        "cūḷataṇhāsaṅkhayasuttaṃ": {
-            "id": 26964,
-            "sentence": [
-                "mn37:15.20",
-                "cūḷataṇhāsaṅkhayasuttaṃ niṭṭhitaṃ sattamaṃ. ",
-                ""
             ]
         },
         "evañcetaṃ": {
@@ -16496,52 +15516,12 @@
                 "When a mendicant has heard that "
             ]
         },
-        "mahātaṇhāsaṅkhayasuttaṃ": {
-            "id": 51726,
+        "abhivādanapaccuṭṭhānaañjalikammasāmīcikammacīvarapiṇḍapātasenāsanagilānappaccayabhesajjaparikkhārānuppadānena": {
+            "id": 8324,
             "sentence": [
-                "mn38:41.14",
-                "mahātaṇhāsaṅkhayasuttaṃ niṭṭhitaṃ aṭṭhamaṃ. ",
-                ""
-            ]
-        },
-        "ukkoṭanavañcana": {
-            "id": 14077,
-            "sentence": [
-                "MN38",
-                "mahātaṇhāsaṅkhayasuttaṃ",
-                "so bījagāmabhūtagāmasamārambhā paṭivirato hoti, ekabhattiko hoti rattūparato, virato vikālabhojanā. naccagītavāditavisūkadassanā paṭivirato hoti, mālāgandhavilepanadhāraṇamaṇḍanavibhūsanaṭṭhānā paṭivirato hoti, uccāsayanamahāsayanā paṭivirato hoti, jātarūparajatapaṭiggahaṇā paṭivirato hoti, āmakadhaññapaṭiggahaṇā paṭivirato hoti, āmakamaṃsapaṭiggahaṇā paṭivirato hoti, itthikumārikapaṭiggahaṇā paṭivirato hoti, dāsidāsapaṭiggahaṇā paṭivirato hoti, ajeḷakapaṭiggahaṇā paṭivirato hoti, kukkuṭasūkarapaṭiggahaṇā paṭivirato hoti, hatthigavāssavaḷavapaṭiggahaṇā paṭivirato hoti, khettavatthupaṭiggahaṇā paṭivirato hoti, dūteyyapahiṇagamanānuyogā paṭivirato hoti, kayavikkayā paṭivirato hoti, tulākūṭakaṃsakūṭamānakūṭā paṭivirato hoti, ukkoṭanavañcana-nikati-sāciyogā paṭivirato hoti, chedana-vadhabandhanaviparāmosa-ālopa-sahasākārā paṭivirato hoti [passa ma. ni. "
-            ]
-        },
-        "vadhabandhanaviparāmosa": {
-            "id": 66164,
-            "sentence": [
-                "MN38",
-                "mahātaṇhāsaṅkhayasuttaṃ",
-                "so bījagāmabhūtagāmasamārambhā paṭivirato hoti, ekabhattiko hoti rattūparato, virato vikālabhojanā. naccagītavāditavisūkadassanā paṭivirato hoti, mālāgandhavilepanadhāraṇamaṇḍanavibhūsanaṭṭhānā paṭivirato hoti, uccāsayanamahāsayanā paṭivirato hoti, jātarūparajatapaṭiggahaṇā paṭivirato hoti, āmakadhaññapaṭiggahaṇā paṭivirato hoti, āmakamaṃsapaṭiggahaṇā paṭivirato hoti, itthikumārikapaṭiggahaṇā paṭivirato hoti, dāsidāsapaṭiggahaṇā paṭivirato hoti, ajeḷakapaṭiggahaṇā paṭivirato hoti, kukkuṭasūkarapaṭiggahaṇā paṭivirato hoti, hatthigavāssavaḷavapaṭiggahaṇā paṭivirato hoti, khettavatthupaṭiggahaṇā paṭivirato hoti, dūteyyapahiṇagamanānuyogā paṭivirato hoti, kayavikkayā paṭivirato hoti, tulākūṭakaṃsakūṭamānakūṭā paṭivirato hoti, ukkoṭanavañcana-nikati-sāciyogā paṭivirato hoti, chedana-vadhabandhanaviparāmosa-ālopa-sahasākārā paṭivirato hoti [passa ma. ni. "
-            ]
-        },
-        "vinibbhujjitvā": {
-            "id": 68200,
-            "sentence": [
-                "MN43",
-                "mahāvedallasuttaṃ",
-                "yā cāvuso, paññā yañca viññāṇaṃ, ime dhammā saṃsaṭṭhā udāhu visaṃsaṭṭhā? labbhā ca panimesaṃ dhammānaṃ vinibbhujitvā [vinibbhujjitvā vinibbhujjitvā] vinibbhujitvā nānākaraṇaṃ paññāpetunti? yā cāvuso, paññā yañca viññāṇaṃ, ime dhammā saṃsaṭṭhā, no visaṃsaṭṭhā. "
-            ]
-        },
-        "viṭapaṃ": {
-            "id": 67808,
-            "sentence": [
-                "MN45",
-                "cūḷadhammasamādānasuttaṃ",
-                "sā taṃ sālaṃ anuparihareyya. sā taṃ sālaṃ anupariharitvā upari viṭabhiṃ [viṭapaṃ] kareyya. upari viṭabhiṃ karitvā oghanaṃ janeyya. "
-            ]
-        },
-        "siriṃ": {
-            "id": 62991,
-            "sentence": [
-                "mn49:5.9",
-                "sace kho tvaṃ, bhikkhu, brahmuno vacanaṃ upātivattissasi, seyyathāpi nāma puriso siriṃ āgacchantiṃ daṇḍena paṭippaṇāmeyya, seyyathāpi vā pana, bhikkhu, puriso narakappapāte papatanto hatthehi ca pādehi ca pathaviṃ virādheyya, evaṃ sampadamidaṃ, bhikkhu, tuyhaṃ bhavissati. ",
-                "If you do, then you’ll end up like a person who, when approached by Lady Luck, would ward her off with a staff; or who, as they are falling over a cliff, would lose grip of the ground with their hands and feet. "
+                "mn142:4.3",
+                "abhivādanapaccuṭṭhānaañjalikammasāmīcikammacīvarapiṇḍapātasenāsanagilānappaccayabhesajjaparikkhārānuppadānena. ",
+                "by bowing down to them, rising up for them, greeting them with joined palms, and observing proper etiquette for them; or by providing them with robes, almsfood, lodgings, and medicines and supplies for the sick. "
             ]
         }
     },
@@ -17400,6 +16380,236 @@
         "aññatthācariyakena",
         "māgandiyo",
         "samaṇaseyyārūpaṃ",
-        "sāhuḷacīvarena"
+        "sāhuḷacīvarena",
+        "anārādhanapakkhe",
+        "nibbijjāpakkamati",
+        "socato",
+        "ucchinditvā",
+        "abhisaddena",
+        "samānatthanipātapadaṃ",
+        "uddekaniko",
+        "sottisinānaṃ",
+        "vijahi",
+        "navacchadanaṃ",
+        "aggakulikassa",
+        "vākyadvayaṃ",
+        "sudinnabhāṇavāre",
+        "vākyaṃ",
+        "sudinnakaṇḍe",
+        "dassitaṃ",
+        "dutiyaṭṭhāne",
+        "paṭhamaṭṭhāne",
+        "punāgataṃ",
+        "adhikaṃ",
+        "kaṭṭhatthare",
+        "balatthena",
+        "thokaṃ",
+        "tittakālābu",
+        "saṃghabhedasikkhāpadavaṇṇanāya",
+        "hatthārūyhe",
+        "saṅgaritvā",
+        "tuvamaṭṭhitosīti",
+        "khantivādānaṃ",
+        "paṭibhattesu",
+        "uppāṭesi",
+        "ācāmehīti",
+        "chattanāḷiyā",
+        "āpāṇakoṭikaṃ",
+        "pīṇitindriye",
+        "udaññāyaṃ",
+        "sāmicikammānanti",
+        "nippharati",
+        "pacchābhinibbattaṃ",
+        "cāvetuṃ",
+        "brāhmaṇavaggo",
+        "nāsikāsotāni",
+        "upādiyitvā",
+        "bulubulukārakaṃ",
+        "avijahantābhāvena",
+        "kāyaveyyāvatikaṃ",
+        "vaṇṇimā",
+        "vekulajo",
+        "aṭaliyo",
+        "agaliyo",
+        "capalī",
+        "guṇapadaṃ",
+        "guṇapadānaṃ",
+        "kāpadiko",
+        "daḷiddo",
+        "varattabandhanena",
+        "jāṇusoṇī",
+        "jāleyya",
+        "pāṭhoyeva",
+        "maṇḍalakappe",
+        "paccalakappe",
+        "parābhūtā",
+        "majjhimapaṇṇāsakaṃ",
+        "satthuvasena",
+        "pahātabbāsavā",
+        "ḍaṃsamakasavātātapasarīṃsapa",
+        "samādāpetā",
+        "icchāvacarā",
+        "paṭikūlatā",
+        "pāṭikūlyatā",
+        "ākaṅkheyyasuttaṃ",
+        "garubhāvaniyo",
+        "cīvarapiṇḍapātasenāsana",
+        "vatthasuttaṃ",
+        "mokkhasammatā",
+        "pakkhando",
+        "amaccharī",
+        "sallekhasuttaṃ",
+        "catuttālīsapadā",
+        "sāgarūpamoti",
+        "sammādiṭṭhisuttaṃ",
+        "catukkanayo",
+        "āsavapañcamo",
+        "chabbidhā",
+        "ekasaṅkhānaṃ",
+        "pañcanayapadāni",
+        "mahāsatipaṭṭhānasuttaṃ",
+        "cuddasakāyānupassanā",
+        "sumaṅgalavilāsiniyaṃpi",
+        "sumaṅgalavilāsinī",
+        "amatādhigamaṃ",
+        "phalamagganidassanaṃ",
+        "sahitattaṃ",
+        "mahārasahassakaraṃ",
+        "vasupūritaṃ",
+        "ghammapathe",
+        "tividhaggipiḷesitanibbāpanaṃ",
+        "pacchimasuttapavarā",
+        "ṭhapitā",
+        "jananimanusaṅghātaṃ",
+        "sakyaputtānamabhidamanatthāya",
+        "paññāsaṃ",
+        "diyaḍḍhasataṃ",
+        "mudaggaṃ",
+        "sīhanādavaggo",
+        "cūḷasīhanādasuttaṃ",
+        "saccābhiññehīti",
+        "mahāsīhanādasuttaṃ",
+        "hetuso",
+        "pāyantiyā",
+        "pāṭhapadeso",
+        "ājīvakavatadīpakasuttesu",
+        "cariyāpiṭakaaṭṭhakathā",
+        "tittakālābuāmakacchinno",
+        "anāvutthapubbo",
+        "lahukena",
+        "mahādukkhakkhandhasuttaṃ",
+        "samphassamāno",
+        "omaddanti",
+        "palitakesiṃ",
+        "cūḷadukkhakkhandhasuttaṃ",
+        "nijjaretha",
+        "anumānasuttaṃ",
+        "suṃsumāragire",
+        "amaccharīti",
+        "cetokhilasuttaṃ",
+        "cetasovinibaddhā",
+        "cetovinibaddhā",
+        "āpajjissatīti",
+        "vanapatthasuttaṃ",
+        "madhupiṇḍikasuttaṃ",
+        "dvedhāvitakkasuttaṃ",
+        "atītakālikakiriyāpadāniyeva",
+        "kilamante",
+        "ugghāṭīti",
+        "sabbasassesu",
+        "abhidantaṃ",
+        "opammavaggo",
+        "kakacūpamasuttaṃ",
+        "tūlinī",
+        "tūliniṃ",
+        "gandhabādhipubbassa",
+        "sakkatānurūpaṃ",
+        "parimaddanabhedana",
+        "rathavinītasuttaṃ",
+        "celaṇḍakena",
+        "nivāpasuttaṃ",
+        "daṇḍavāgurāhi",
+        "kriyapadāni",
+        "atītakālavasena",
+        "pacchābhāge",
+        "sāratthadīpanīṭīkāya",
+        "cūḷahatthipadopamasuttaṃ",
+        "santosakathāvasāne",
+        "nadissati",
+        "catukkaṅguttare",
+        "tadattho",
+        "paṭīpūrito",
+        "mahāhatthipadopamasuttaṃ",
+        "sijjhatīti",
+        "santosakathā",
+        "mahāsāropamasuttaṃ",
+        "anubhavissatīti",
+        "cūḷasāropamasuttaṃ",
+        "anubhavissati",
+        "mahāyamakavaggo",
+        "cūḷagosiṅgasuttaṃ",
+        "mahāgosiṅgasuttaṃ",
+        "mahāgopālakasuttaṃ",
+        "cūḷagopālakasuttaṃ",
+        "cūḷasaccakasuttaṃ",
+        "suvaṇṇavaṇṇaṃ",
+        "mahāsaccakasuttaṃ",
+        "saṃghabhedasikkhāpadaṭīkāya",
+        "cūḷataṇhāsaṅkhayasuttaṃ",
+        "mahātaṇhāsaṅkhayasuttaṃ",
+        "ukkoṭanavañcana",
+        "vadhabandhanaviparāmosa",
+        "vinibbhujjitvā",
+        "viṭapaṃ",
+        "siriṃ",
+        "mūlapariyāyo",
+        "mūlapaṇṇāsakaṃ",
+        "saṅkiliṭṭhatarā",
+        "ākaṅkheyyasutta",
+        "vatthasutta",
+        "asaṅkiliṭṭhe",
+        "sallekhasutta",
+        "cittupapādapariyāya",
+        "sammādiṭṭhisutta",
+        "satipaṭṭhānasutta",
+        "satipaṭṭhānasuttaṃ",
+        "cūḷasīhanādasutta",
+        "mahāsīhanādasutta",
+        "mahādukkhakkhandhasutta",
+        "cūḷadukkhakkhandhasutta",
+        "anumānasutta",
+        "cetokhilasutta",
+        "vanapatthasutta",
+        "madhupiṇḍikasutta",
+        "dvedhāvitakkasutta",
+        "kakacūpamasutta",
+        "evaṅkārī",
+        "kathaṅkārī",
+        "saṅkiṇṇaparikkho",
+        "rathavinītasutta",
+        "nivāpasutta",
+        "asaṅkiliṭṭhaṃ",
+        "cūḷahatthipadopamasutta",
+        "mahāhatthipadopamasutta",
+        "mahāsāropamasutta",
+        "cūḷasāropamasutta",
+        "cūḷagosiṅgasutta",
+        "mahāgosiṅgasutta",
+        "mahāgopālakasutta",
+        "cūḷagopālakasutta",
+        "cūḷasaccakasutta",
+        "mahāsaccakasutta",
+        "saṅkicco",
+        "cūḷataṇhāsaṅkhayasutta",
+        "mahātaṇhāsaṅkhayasutta",
+        "vasaṅgatā",
+        "vasaṅgatoti",
+        "upassussatu",
+        "sodariyā",
+        "gaṇakamoggallānasuttante",
+        "saṅkiliṭṭhābhāti",
+        "saṅkiliṭṭhābhānaṃ",
+        "saṅkiliṭṭhābhā",
+        "uddhampādaṃ"
     ]
 }

@@ -1,5 +1,21 @@
 [
     {
+        "id": 56658,
+        "lemma_1": "saṅkicca"
+    },
+    {
+        "id": 62600,
+        "lemma_1": "sāleyyavagga"
+    },
+    {
+        "id": 61990,
+        "lemma_1": "saṃvejesi 1"
+    },
+    {
+        "id": 61985,
+        "lemma_1": "saṃvejeti 1"
+    },
+    {
         "id": 14965,
         "lemma_1": "udabbahi 1"
     },
@@ -62,21 +78,5 @@
     {
         "id": 68260,
         "lemma_1": "vinoda"
-    },
-    {
-        "id": 62445,
-        "lemma_1": "sārajjanta"
-    },
-    {
-        "id": 44647,
-        "lemma_1": "pasāda 1"
-    },
-    {
-        "id": 43579,
-        "lemma_1": "parinibbāna 1"
-    },
-    {
-        "id": 8440,
-        "lemma_1": "amacchariya"
     }
 ]

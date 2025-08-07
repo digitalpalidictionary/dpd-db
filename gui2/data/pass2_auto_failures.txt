@@ -66,3 +66,39 @@
     'comment': 'Refers to the detailed analysis of the elements (dhātus) as found in MN140, showing the Buddha's method of breaking down experience into its fundamental components.'
 }
 
+{
+    'id': 75770,
+    'lemma_1': 'evañcetaṃ 2',
+    'lemma_2': 'evañcetaṃ',
+    'pos': 'sandhi',
+    'grammar': 'sandhi, adv + ind + pron',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'thus and this; and this is the case',
+    'meaning_lit': 'thus and this',
+    'non_ia': '',
+    'sanskrit': 'evam + ca + etam',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': '',
+    'family_idioms': 'evaṃ ca etaṃ',
+    'family_set': '',
+    'construction': 'evaṃ + ca + etaṃ',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': 'ṃc > ñc',
+    'compound_type': '',
+    'compound_construction': '',
+    'stem': '-',
+    'pattern': '',
+    'meaning_2': 'and this; and in this way'
+    'related_words': 'None',
+    'comment': 'Sandhi of evaṃ + ca + etaṃ, with nasal + c > ñc. In the MN 37 context, it introduces a reported proposition: “and this (is what) has been heard,” linking “thus” (evaṃ) with the deictic “this” (etaṃ) via ca.'
+}
+
