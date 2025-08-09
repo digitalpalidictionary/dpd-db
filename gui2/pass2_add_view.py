@@ -90,15 +90,21 @@ class Pass2AddView(ft.Column, PopUpMixin):
             text_size=14,
             width=700,
         )
-        self._next_pass2_auto_button = ft.ElevatedButton(
-            "NextPass2Auto",
-            on_click=self._click_load_next_pass2_entry,
+        self._pass2_auto_button = ft.ElevatedButton(
+            "P2",
+            on_click=self._click_load_pass2_auto,
+            tooltip="Next Pass2Auto",
+        )
+        self._new_word_button = ft.ElevatedButton(
+            "N",
+            on_click=self._click_load_new_word,
+            tooltip="Next new word",
         )
         self._corrections_button = ft.ElevatedButton(
-            "C", on_click=self._click_corrections_button
+            "C", on_click=self._click_corrections_button, tooltip="corrections"
         )
         self._additions_button = ft.ElevatedButton(
-            "A", on_click=self._click_additions_button
+            "A", on_click=self._click_additions_button, tooltip="additions"
         )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
@@ -169,7 +175,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._enter_id_or_lemma_field,
                             self._clone_headword_button,
                             self._split_headword_button,
-                            self._next_pass2_auto_button,
+                            self._new_word_button,
+                            self._pass2_auto_button,
                             self._corrections_button,
                             self._additions_button,
                             self._clear_all_button,
@@ -362,10 +369,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.page.update()
         current_lemma_1_field.focus()
 
-    def _click_load_next_pass2_entry(self, e: ft.ControlEvent | None = None) -> None:
-        """Load next pass2 entry into the view."""
-
-        # first try loading new words
+    def _click_load_new_word(self, e: ft.ControlEvent | None = None) -> None:
+        """Load next new word into the view."""
         new_word_data = self.pass2_new_word_manager.get_next_new_word()
         word_in_text, source_sutta_example = new_word_data
         if source_sutta_example:
@@ -374,40 +379,47 @@ class Pass2AddView(ft.Column, PopUpMixin):
             saved_comment = ""
             if isinstance(source_sutta_example, dict):
                 saved_comment = str(source_sutta_example.get("comment", ""))
-            prefix = f"new word: {word_in_text}"
+            
+            remaining = len(self.pass2_new_word_manager.new_words_dict)
+            prefix = f"[{remaining}] {word_in_text}"
+
             self.update_message(
-                prefix if not saved_comment else f"{prefix} — {saved_comment}"
+                prefix if not saved_comment else f"{prefix}: {saved_comment}"
             )
             self.dpd_fields.update_add_fields(source_sutta_example)
-
-        # then process pass2_auto entries
         else:
-            headword_id, pass2_auto_data, count = (
-                self._pass2_auto_file_manager.get_next_headword_data()
-            )
+            self.clear_all_fields()
+            self.update_message("No more new words")
+        self.update()
 
-            if headword_id is not None:
-                self.clear_all_fields()
-                headword = self._db.get_headword_by_id(int(headword_id))
-                self.update_message(f"{count} pass2auto remaining")
+    def _click_load_pass2_auto(self, e: ft.ControlEvent | None = None) -> None:
+        """Load next pass2_auto entry into the view."""
+        headword_id, pass2_auto_data, count = (
+            self._pass2_auto_file_manager.get_next_headword_data()
+        )
 
-                if headword is not None:
-                    self.headword = headword
-                    self.headword_original = copy.deepcopy(headword)
+        if headword_id is not None:
+            self.clear_all_fields()
+            headword = self._db.get_headword_by_id(int(headword_id))
+            self.update_message(f"{count} pass2auto remaining")
 
-                    self.dpd_fields.update_db_fields(self.headword)
-                    self.dpd_fields.update_add_fields(pass2_auto_data)
-                    self.add_headword_to_examples_and_commentary()
-                else:
-                    self.update_message(f"{headword_id}: headword not found—deleting")
-                    self._pass2_auto_file_manager.delete_item(headword_id)
-                    self._click_load_next_pass2_entry()
+            if headword is not None:
+                self.headword = headword
+                self.headword_original = copy.deepcopy(headword)
 
+                self.dpd_fields.update_db_fields(self.headword)
+                self.dpd_fields.update_add_fields(pass2_auto_data)
+                self.add_headword_to_examples_and_commentary()
             else:
-                self.clear_all_fields()
-                self.update_message("No more pass2auto entries")
+                self.update_message(f"{headword_id}: headword not found—deleting")
+                self._pass2_auto_file_manager.delete_item(headword_id)
+                self._click_load_pass2_auto()
 
-            self.update()
+        else:
+            self.clear_all_fields()
+            self.update_message("No more pass2auto entries")
+
+        self.update()
 
     def _click_clear_all(self, e: ft.ControlEvent) -> None:
         self.clear_all_fields()
