@@ -91,20 +91,20 @@ class Pass2AddView(ft.Column, PopUpMixin):
             width=700,
         )
         self._pass2_auto_button = ft.ElevatedButton(
-            "P2",
+            "P2A",
             on_click=self._click_load_pass2_auto,
             tooltip="Next Pass2Auto",
         )
         self._new_word_button = ft.ElevatedButton(
-            "N",
+            "New",
             on_click=self._click_load_new_word,
             tooltip="Next new word",
         )
         self._corrections_button = ft.ElevatedButton(
-            "C", on_click=self._click_corrections_button, tooltip="corrections"
+            "Cor", on_click=self._click_corrections_button, tooltip="corrections"
         )
         self._additions_button = ft.ElevatedButton(
-            "A", on_click=self._click_additions_button, tooltip="additions"
+            "Add", on_click=self._click_additions_button, tooltip="additions"
         )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
@@ -175,8 +175,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._enter_id_or_lemma_field,
                             self._clone_headword_button,
                             self._split_headword_button,
-                            self._new_word_button,
                             self._pass2_auto_button,
+                            self._new_word_button,
                             self._corrections_button,
                             self._additions_button,
                             self._clear_all_button,
@@ -379,7 +379,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             saved_comment = ""
             if isinstance(source_sutta_example, dict):
                 saved_comment = str(source_sutta_example.get("comment", ""))
-            
+
             remaining = len(self.pass2_new_word_manager.new_words_dict)
             prefix = f"[{remaining}] {word_in_text}"
 
