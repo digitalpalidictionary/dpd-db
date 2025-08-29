@@ -593,7 +593,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	vi √khī	vikṣi	vikṣīṇa
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	saṃ √khī	saṃkṣi	saṃkṣaya, saṃkṣiṇāti
 √khud	1	a	be hungry	√kṣudh	4	be hungry	√khud	kṣudh	
-√khubh	1	a	shake, agitate	√kṣubh	1, 4, 5, 9	quake	√khubh	kṣubh	a + kṣobhya, kṣubhyate, kṣobha, kṣobhaṇa, kṣobhate, kṣobhayat, kṣobhayati, kṣobhayamāṇa
+√khubh	1	a	shake, agitate	√kṣubh	1, 4, 5, 9	quake	√khubh	kṣubh	a + kṣobhya, akṣobhya, kṣubhyate, kṣobha, kṣobhaṇa, kṣobhate, kṣobhayat, kṣobhayati, kṣobhayamāṇa
 √khubh	1		shake, agitate	√kṣubh	1, 4, 5, 9	quake	pari √khubh	-	na + parikṣobha + -tā
 √khubh	1	*e	shake, agitate	√kṣubh	1, 4, 5, 9	quake	vi √khubh	vikṣubh	
 √khubh	1	a	shake, agitate	√kṣubh	1, 4, 5, 9	quake	saṃ √khubh	saṃkṣubh	saṃkṣubhita, saṃkṣobha, saṃkṣobhaṇa
@@ -749,7 +749,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √guḷ	1	a	roll around, protect	√guḍ	6	guard	saṃ √guḷ		sam + guḍikā
 √gū	1	a	excrete	√gu √gū	6	void	√gū	gū	gūtha, gūtha +
 √ghaṭ 1	8	*aya	strike, kill	√han √ghaṭ	1, 2, 8	smite	√ghaṭ	han	ghaṭ, ghaṭā (head), ghaṭṭita (closed), ghāṭayat, ghāṭayitavya, ghāṭayitum, ghāta, ghātaka, ghātana, ghātayati, ghātita, ghātita +, ghātin, ghātya, ghnī, na + ghāṭayat, hantṛ
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	anu saṃ √ghaṭ		
+√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	anu saṃ √ghaṭ		anu + saṃghāta
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi √ghaṭ	abhihan	abhighāta, abhighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi ā √ghaṭ	abhyāhan	abhyāghāta (assault)
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ā √ghaṭ	āhan	anāghāta, āghāta, āghāta +, āghātana

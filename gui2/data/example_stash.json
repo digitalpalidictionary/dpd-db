@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "MN30",
-        "sutta": "cūḷasāropamasuttaṃ",
-        "example": "moḷiyaphaggun'ariṭṭhañ'ca nāmo,\nandhavane kathipuṇṇaṃ nivāpo,\nrāsi-kaṇeru-mahāgajanāmo,\nsār'ūpamo puna piṅgalakoccho."
+        "source": "MN20",
+        "sutta": "vitakkasaṇṭhānasuttaṃ",
+        "example": "[dante + abhidantaṃ + ādhāyā'ti ṭīkāyaṃ padacchedo, dantebhī'ti pan'ettha karaṇ'attho yutto viya dissati]"
     },
     "stash": {
-        "source": "MN30",
-        "sutta": "cūḷasāropamasuttaṃ",
-        "example": "moḷiyaphaggun'ariṭṭhañ'ca nāmo,\nandhavane kathipuṇṇaṃ nivāpo,\nrāsi-kaṇeru-mahāgajanāmo,\nsār'ūpamo puna piṅgalakoccho."
+        "source": "MN10",
+        "sutta": "mahāsatipaṭṭhānasuttaṃ, maggasaccaniddeso",
+        "example": "ajaraṃ amataṃ amat'ādhigamaṃ,\nphalamagganidassanaṃ dukkhanudaṃ,\nsahitattaṃ mah'ārasahassakaraṃ,\nbhūtam'iti sāraṃ vividhaṃ suṇātha."
     }
 }
