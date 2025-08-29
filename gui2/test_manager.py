@@ -1,5 +1,4 @@
 import subprocess
-from pathlib import Path
 
 import flet as ft
 
@@ -168,9 +167,7 @@ class GuiTestManager(PopUpMixin):
 
     def _handle_open_test_file(self, e: ft.ControlEvent) -> None:
         """Opens the main db_tests_columns.tsv file in LibreOffice Calc."""
-        test_file_path = Path(
-            "/home/bodhirasa/Code/dpd-db/db_tests/db_tests_columns.tsv"
-        )
+        test_file_path = self.toolkit.project_paths.internal_tests_path
 
         if test_file_path.exists():
             self.ui.update_message(f"Opening test file: {test_file_path}")

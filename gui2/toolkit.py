@@ -1,5 +1,7 @@
 import flet as ft
 
+from tools.paths import ProjectPaths
+
 
 class ToolKit:
     def __init__(self, page: ft.Page):
@@ -23,6 +25,7 @@ class ToolKit:
         self.page: ft.Page = page
 
         # Managers with no ToolKit internal dependencies (or only page)
+        self.project_paths = ProjectPaths()
         self.paths: Gui2Paths = Gui2Paths()
         self.db_test_manager: DbTestManager = DbTestManager()
         self.test_manager: GuiTestManager = GuiTestManager(self)
