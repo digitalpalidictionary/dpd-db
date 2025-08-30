@@ -1,5 +1,25 @@
 [
     {
+        "id": 56675,
+        "lemma_1": "saṅkiliṭṭhābhā"
+    },
+    {
+        "id": 57931,
+        "lemma_1": "satthuvasena"
+    },
+    {
+        "id": 8324,
+        "lemma_1": "abhivādanapaccuṭṭhānaañjalikammasāmīcikammacīvarapiṇḍapātasenāsanagilānappaccayabhesajjaparikkhārānuppadāna"
+    },
+    {
+        "id": 18063,
+        "lemma_1": "evañcetaṃ 1"
+    },
+    {
+        "id": 75770,
+        "lemma_1": "evañcetaṃ 2"
+    },
+    {
         "id": 9214,
         "lemma_1": "alaṃvacanāya"
     },
@@ -58,25 +78,5 @@
     {
         "id": 83355,
         "lemma_1": "garumbhāraṃ"
-    },
-    {
-        "id": 83354,
-        "lemma_1": "hanūna"
-    },
-    {
-        "id": 83353,
-        "lemma_1": "etthevassa"
-    },
-    {
-        "id": 15200,
-        "lemma_1": "uddhampādaṃ"
-    },
-    {
-        "id": 83352,
-        "lemma_1": "saṅkiliṭṭhābha"
-    },
-    {
-        "id": 24076,
-        "lemma_1": "gaṇakamoggallānasuttanta"
     }
 ]

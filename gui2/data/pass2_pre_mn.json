@@ -15497,34 +15497,38 @@
         ],
         "tannissitā": [
             29905
+        ],
+        "ucchinditvā": [
+            83323
+        ],
+        "hatthārūyhe": [
+            70810,
+            70812,
+            12521
+        ],
+        "khantivādānaṃ": [
+            23430
+        ],
+        "jāleyya": [
+            78365
+        ],
+        "icchāvacarā": [
+            78012
+        ],
+        "vītamohassāvuso": [
+            76209
+        ],
+        "nippapañcārāmassāvuso": [
+            76209
+        ],
+        "saṅkiliṭṭhābhānaṃ": [
+            56675
+        ],
+        "saṅkiliṭṭhābhā": [
+            56675
         ]
     },
-    "matched": {
-        "yāvetadohipi": {
-            "id": 17872,
-            "sentence": [
-                "MN81",
-                "ghaṭikārasuttaṃ",
-                "atha kho, ānanda, jotipālassa māṇavassa etadahosi, acchariyaṃ vata, bho, abbhutaṃ vata, bho! yatra hi nāmāyaṃ ghaṭikāro kumbhakāro ittarajacco samāno amhākaṃ sīsaṃnhātānaṃ kesesu parāmasitabbaṃ maññissati, na vatidaṃ kira orakaṃ maññe bhavissatīti, ghaṭikāraṃ kumbhakāraṃ etadavoca, yāvatādohipi [yāvetadohipi], samma ghaṭikārāti? yāvatādohipi, samma jotipāla. "
-            ]
-        },
-        "evañcetaṃ": {
-            "id": 75770,
-            "sentence": [
-                "mn37:3.3",
-                "evañcetaṃ, devānaminda, bhikkhuno sutaṃ hoti: ",
-                "When a mendicant has heard that "
-            ]
-        },
-        "abhivādanapaccuṭṭhānaañjalikammasāmīcikammacīvarapiṇḍapātasenāsanagilānappaccayabhesajjaparikkhārānuppadānena": {
-            "id": 8324,
-            "sentence": [
-                "mn142:4.3",
-                "abhivādanapaccuṭṭhānaañjalikammasāmīcikammacīvarapiṇḍapātasenāsanagilānappaccayabhesajjaparikkhārānuppadānena. ",
-                "by bowing down to them, rising up for them, greeting them with joined palms, and observing proper etiquette for them; or by providing them with robes, almsfood, lodgings, and medicines and supplies for the sick. "
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
     "processed": [
         "mūlapariyāyavaggo",
@@ -16610,6 +16614,11 @@
         "saṅkiliṭṭhābhāti",
         "saṅkiliṭṭhābhānaṃ",
         "saṅkiliṭṭhābhā",
-        "uddhampādaṃ"
+        "uddhampādaṃ",
+        "yāvetadohipi",
+        "evañcetaṃ",
+        "abhivādanapaccuṭṭhānaañjalikammasāmīcikammacīvarapiṇḍapātasenāsanagilānappaccayabhesajjaparikkhārānuppadānena",
+        "satthuvasena",
+        "saṅkiliṭṭhābhāti"
     ]
 }
