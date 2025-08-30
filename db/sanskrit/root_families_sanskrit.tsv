@@ -415,7 +415,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	vi √kir	vikṝ	na + vikirat, na + vikīrṇa, vikaryate, vikiraṇa, vikirat, vikirati, vikiramāṇa, vikīrṇa, vikīrṇa +, vikīrya, vikīryamāṇa
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	vi ava √kir	vyavakṝ	na + vyavakīrṇa, vyavakīrṇa
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	vi pa √kir	prakṝ	na + viprakīrṇa, vi, vi + prakirati, vi + prakīryate, viprakīrṇa, viprakīrya
-√kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ √kir	saṃkṝ	na + saṃkīrṇa, saṃkīrṇa, saṃkīrṇatā, saṃkīryate
+√kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ √kir	saṃkṝ	na + saṃkīrṇa, saṃkīrṇa, saṃkīrṇa +, saṃkīrṇatā, saṃkīryate
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ ava √kir	samavakṝ	samavakṛtya < samavakṛ
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ ā √kir	samākṝ	samākīrṇa
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	saṃ pari √kir	parikṝ	sam + parikīrṇa
@@ -972,7 +972,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √jambh	1	a	yawn, stretch, wake up	√jṛmbh	1	gape	√jambh	jṛmbh	jambuka, jṛmbhaṇa, jṛmbha, jṛmbhate
 √jambh	1	a	yawn, stretch, wake up	√jṛmbh	1	gape	vi √jambh	vijṛmbh	vijṛmbhaṇa, vijṛmbhate, vijṛmbhikā, vijṛmbhita, vijṛmbhitvā
 √jar	1	a	age	√jṛ √jṝ	1, 4, 6, 9, 10	waste away	√jar	jṝ	ajaras, jara, jara +, jarayā, jaras, jarā, jarjara, jīryati, jvar, na + jarjara, nirjara
-√jar	1	a	age	√jṛ √jṝ	1, 4, 6, 9, 10	waste away	nī √jar	nirjṝ	nirjara
+√jar	1	a	age	√jṛ √jṝ	1, 4, 6, 9, 10	waste away	nī √jar	nirjṝ	nirjara, nirjārayati
 √jal 1	1	a	shine, blaze	√jval	1	burn, flame	√jal	jval	ajvālīt, ujjvalana, jājvalati, jājvalyamāna, jvalat, jvalati, jvalana, jvalayati, jvalita, jvalitvā, jvāla, jvālayat, jvālayati, jvālayamāna, jvālayitum, jvālayitvā, jvālā, jvālin
 √jal 1	1	a	shine, blaze	√jval	1	burn, flame	abhi ud √jal	abhyujjval	
 √jal 1	1	a	shine, blaze	√jval	1	burn, flame	ud √jal	ujjval	ujjvalana, ujjvalayitavya, ujjvalayitum, ujjvalayitvā, ujjvālya
@@ -1258,7 +1258,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	√dar	dṝ	darvī, darvī, darvya??, dārita, dārī , darī, dāru, dāruka, dāruṇa, dāruṇatā, dṛṇāti, su + dāruṇa
 √dar 1	1	*e + iya	break, split apart	√dṝ √dṛ	2, 9	pierce, split	ava √dar	avadṝ	
 √dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	ā √dar	ādṝ	ā + dārita
-√dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	ud √dar	uddṝ	audarika, audarika +, audarya, avadīrṇa, udara, udarya, uddarīṣyate, uddīryate, na + audarika +, sodarī
+√dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	ud √dar	uddṝ	audarika, audarika +, audarya, avadīrṇa, udara, udarya, uddarīṣyate, uddīryate, na + audarika +, sodara, sodarī, sodarī
 √dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	pa √dar	pradṝ	pradara, pradara, pradāraṇa (bsk)
 √dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	vi √dar	vidṝ	
 √dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	vi ā √dar		na + vyādīrṇa, vyādīrṇa
