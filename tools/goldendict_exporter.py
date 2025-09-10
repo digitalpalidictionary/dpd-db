@@ -3,15 +3,15 @@
 
 """Generic GoldenDict exporter using pyglossary."""
 
-import shutil
-import idzip
 import os
-
+import shutil
 from pathlib import Path
-from pyglossary import Glossary
 from subprocess import Popen
 from typing import Optional
-from zipfile import ZipFile, ZIP_DEFLATED
+from zipfile import ZIP_DEFLATED, ZipFile
+
+import idzip
+from pyglossary import Glossary
 
 from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
@@ -76,6 +76,10 @@ class DictVariables:
         self.gd_path: Path = gd_path.joinpath(dict_name)
         self.gd_name_name: Path = Path(dict_name).with_suffix(".ifo")
         self.gd_path_name: Path = self.gd_path.joinpath(dict_name).with_suffix(".ifo")
+
+        self.dictfile = self.gd_path_name.with_suffix(".dict")
+        self.dictfile_zip = self.gd_path_name.with_suffix(".dict.dz")
+
         self.synfile: Path = self.gd_path_name.with_suffix(".syn")
         self.synfile_zip: Path = self.synfile.with_suffix(".syn.dz")
 
@@ -118,36 +122,21 @@ class DictVariables:
             self.md_zip_path = md_path.joinpath(dict_name).with_suffix(".zip")
 
 
-def export_to_goldendict_with_pyglossary(
-    dict_info: DictInfo,
-    dict_var: DictVariables,
-    dict_data: list[DictEntry],
-    include_slob=False,
-) -> None:
-    """Usage:
-    export_to_goldendict_with_pyglossary(
-        dict_info,
-        dict_var,
-        dict_data,
-        include_slob = False,
-    )
-    """
-
-    pr.green_title("exporting to goldendict with pyglossary")
-    glos = create_glossary(dict_info)
-    glos = add_css(glos, dict_var)
-    glos = add_js(glos, dict_var)
-    glos = add_fonts(glos, dict_var)
-    glos = add_data(glos, dict_data)
-    write_to_file(glos, dict_var)
-    add_icon(dict_var)
-    copy_dir(dict_var)
-    if dict_var.zip_up:
-        zip_folder(dict_var)
-    if dict_var.delete_original:
-        delete_original(dict_var)
-    if include_slob:
-        write_to_slob(glos, dict_var)
+def delete_old_directory(dict_var: DictVariables) -> bool:
+    """Delete old dictionary directory if it exists."""
+    pr.white("deleting old directory")
+    if dict_var.gd_path.exists():
+        try:
+            shutil.rmtree(dict_var.gd_path)
+            pr.yes("ok")
+            return True
+        except Exception as e:
+            pr.no("error")
+            pr.red(str(e))
+            return False
+    else:
+        pr.yes("no old directory found")
+        return True
 
 
 def create_glossary(dict_info: DictInfo) -> Glossary:
@@ -246,32 +235,41 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
         filename=str(dict_var.gd_path_name),
         format="Stardict",
         # dictzip=True,
-        dictzip=True,
-        # merge_syns=False,  # when True, include synonyms in compressed main file rather than *.syn
+        dictzip=False,
         sametypesequence="h",
-        sqlite=False,  # when False, more RAM but faster
+        sqlite=True,  # when False, more RAM but faster
     )
     pr.yes("ok")
 
 
-def write_to_slob(glos: Glossary, dict_var: DictVariables) -> None:
-    """Write to slob format files."""
+def zip_dictfile(dict_var: DictVariables) -> None:
+    """Compress .dict file into dictzip format using idzip."""
 
-    pr.white("writing slob file")
-    glos.write(
-        filename=str(dict_var.slob_path_name),
-        format="Aard2Slob",
-        compression="",  # "", "bz2", "zlib", "lzma2"
-        content_type="text/html; charset=utf-8",
-        word_title=True,
-    )
-    pr.yes("ok")
+    pr.white("zipping .dict")
+
+    try:
+        with (
+            open(dict_var.dictfile, "rb") as input_f,
+            open(dict_var.dictfile_zip, "wb") as output_f,
+        ):
+            input_info = os.fstat(input_f.fileno())
+            idzip.compressor.compress(  # type:ignore
+                input_f,
+                input_info.st_size,
+                output_f,
+                dict_var.dictfile.name,
+                int(input_info.st_mtime),
+            )
+            dict_var.dictfile.unlink()
+            pr.yes("ok")
+    except FileNotFoundError:
+        pr.no(f"error, {dict_var.dictfile} not found")
 
 
 def zip_synfile(dict_var: DictVariables) -> None:
     """Compress .syn file into dictzip format"""
 
-    pr.white("synzip")
+    pr.white("zipping synonyms")
     try:
         with (
             open(dict_var.synfile, "rb") as input_f,
@@ -288,7 +286,7 @@ def zip_synfile(dict_var: DictVariables) -> None:
             dict_var.synfile.unlink()
             pr.yes("ok")
     except FileNotFoundError:
-        pr.no("no")
+        pr.no(f"error, {dict_var.synfile} not found")
 
 
 def add_icon(v: DictVariables) -> None:
@@ -307,19 +305,32 @@ def add_icon(v: DictVariables) -> None:
 
 
 def copy_dir(v: DictVariables) -> None:
-    "Copy to Goldendict dir"
+    """Copy to Goldendict dir, cleaning up the destination first."""
 
     pr.white("copying to GoldenDict dir")
     goldendict_pth: Path | str = make_goldendict_path()
     if goldendict_pth:
         if goldendict_pth.exists():
+            target_dir = goldendict_pth.joinpath(v.gd_path.name)
+
+            # Delete old version in GoldenDict dir if it exists
+            if target_dir.exists():
+                try:
+                    shutil.rmtree(target_dir)
+                    # pr.yes("ok")
+                except Exception as e:
+                    pr.no("error")
+                    pr.red(str(e))
+
+            # Copy new version
             try:
-                Popen(["cp", "-r", v.gd_path, "-t", goldendict_pth])
+                shutil.copytree(v.gd_path, target_dir)
                 pr.yes("ok")
-            except Exception:
+            except Exception as e:
                 pr.no("error")
+                pr.red(str(e))
     else:
-        pr.yes("no")
+        pr.yes("no goldendict path found")
 
 
 def zip_folder(dict_var: DictVariables):
@@ -345,3 +356,59 @@ def delete_original(dict_var: DictVariables):
     except Exception as e:
         pr.no("error")
         pr.red(str(e))
+
+
+def write_to_slob(glos: Glossary, dict_var: DictVariables) -> None:
+    """Write to slob format files."""
+
+    pr.white("writing slob file")
+    glos.write(
+        filename=str(dict_var.slob_path_name),
+        format="Aard2Slob",
+        compression="",  # "", "bz2", "zlib", "lzma2"
+        content_type="text/html; charset=utf-8",
+        word_title=True,
+    )
+    pr.yes("ok")
+
+
+def export_to_goldendict_with_pyglossary(
+    dict_info: DictInfo,
+    dict_var: DictVariables,
+    dict_data: list[DictEntry],
+    include_slob=False,
+) -> None:
+    """Usage:
+    export_to_goldendict_with_pyglossary(
+        dict_info,
+        dict_var,
+        dict_data,
+        include_slob = False,
+    )
+    """
+
+    pr.green_title("exporting to goldendict with pyglossary")
+
+    if not delete_old_directory(dict_var):
+        return
+
+    glos = create_glossary(dict_info)
+    glos = add_css(glos, dict_var)
+    glos = add_js(glos, dict_var)
+    glos = add_fonts(glos, dict_var)
+    glos = add_data(glos, dict_data)
+
+    write_to_file(glos, dict_var)
+    zip_dictfile(dict_var)
+    zip_synfile(dict_var)
+    add_icon(dict_var)
+    copy_dir(dict_var)
+
+    if dict_var.zip_up:
+        zip_folder(dict_var)
+
+    if dict_var.delete_original:
+        delete_original(dict_var)
+
+    if include_slob:
+        write_to_slob(glos, dict_var)
