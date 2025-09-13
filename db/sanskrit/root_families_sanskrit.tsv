@@ -1051,7 +1051,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ñā	5	nā	know	√jñā	9	know	pari √ñā	parijñā	na + parijānat, na + parijñāta, na + parijñāta +, na + parijñāya, parijānat, parijānāti, parijñāta, parijñāta +, parijñātavya, parijñātāvin (bsk), parijñātavān, parijñāna, parijñāya, parijñeya
 √ñā	5	nā	know	√jñā	9	know	vi √ñā	vijñā	avijānat, avijña, avijñāta, avijñātṛ, avijñāna, avijñāna (na + vijñāna), jñā, durvijñāna, durvijñeya, durvijñeya +, dus + vijñāpanīya, vijñāpya, na + vijñeya, vijānat, vijānatā, vijānāti, vijña, vijñatā, vijñapayat, vijñapayati, vijñapta, vijñāpita, vijñapti, vijñāta, vijñātavya, vijñātva, vijñātṛ, vijñāna, vijñāna +, vijñānatā, vijñānavat, vijñāpaka, vijñāpana, vijñāpana +, vijñāpanīya, vijñāpanīya, vijñāpya, vijñāpayati, vijñāpayitum, vijñāyamāna, vijñāyāt, vijñāyitavya, vijñāyeta, vijñāsyati, vijñetum, vijñeya, savijñāna, savijñānaka (bsk), su + vijñāpanīya, vijñāpya, suvijñāna, suvijñeya
 √ñā	5	nā	know	√jñā	9	know	vi saṃ √ñā	saṃjñā	visaṃjña
-√ñā	5	nā	know	√jñā	9	know	saṃ √ñā	saṃjñā	asaṃjña, asaṃjñin, na +, na + asaṃjñin (bsk), na + saṃjānat, na + saṃjñātvā, sa + saṃjñin, sañjñāpayitavya, sañjñīya, sasaṃjña, saṃjānat, saṃjānāti, saṃjña, saṃjñin, saṃjñatā, saṃjñapta, saṃjñapti, saṃjñā, saṃjñāta, saṃjñātvā, saṃjñāna, saṃjñāpaka, saṃjñāpana, saṃjñāpayati, saṃjñāpayitum, saṃjñāya, saṃjñāvat, saṃjñin
+√ñā	5	nā	know	√jñā	9	know	saṃ √ñā	saṃjñā	asaṃjña, asaṃjñin, na +, na + asaṃjñin (bsk), na + saṃjānat, na + saṃjñātvā, sa + saṃjñin, sañjñāpayitavya, sañjñīya, sasaṃjña, saṃjānat, saṃjānāti, saṃjña, saṃjñin, saṃjñatā, saṃjñapta, saṃjñapti, saṃjñā, saṃjñāta, saṃjñātvā, saṃjñāna, saṃjñāpaka, saṃjñāpana, saṃjñāpayati, saṃjñāpayitum, saṃjñāya, saṃjñāvat, saṃjñita, saṃjñin
 √ñā	5	nā	know	√jñā	9	know	saṃ anu √ñā	samanujñā	samanujānāti <, samanujñāta
 √ñā	5	nā	know	√jñā	9	know	saṃ ā √ñā	samājñā	samājñāta
 √ñā	5	nā	know	√jñā	9	know	saṃ pa √ñā	samprajñā	na + samprajanya, na + samprajāna, samprajanya, samprajāna
@@ -1507,7 +1507,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nam	1	a	bend	√nam	1	bend, bow	abhi ud √nam	unnam	abhi + unnamayati, abhyunnata, abhyunnamayya, abhyunnamya
 √nam	1	*e	bend	√nam	1	bend, bow	abhi nī √nam	nirṇam	abhinirṇāmayati
 √nam	1	a	bend	√nam	1	bend, bow	ava √nam	avanam	avanata, avanati, avanamat, avanamati, avanāma, avanāmayat, avanāmayati, na + avanāma
-√nam	1	a	bend	√nam	1	bend, bow	ud √nam	unnam	anunnata, unnata, unnati, unnamati, unnamayati, unnamayitum, unnamya, unnāma, unnāmayati, unnāmya, na + unnāma, namayat
+√nam	1	a	bend	√nam	1	bend, bow	ud √nam	unnam	anunnata, unnata, unnati, unnamati, unnamayati, unnamayitum, unnamya, unnāma, unnāmayati, unnāmya, na + unnamayati, na + unnāma, namayat
 √nam	1	a	bend	√nam	1	bend, bow	upa √nam	upanam	upa + anaṃsīt, upanamat, upanāmayat, upanāmayati, upanāmayitavya, upanāmita
 √nam	1	a	bend	√nam	1	bend, bow	ni √nam	avanam	avanāma, na + nirṇāma, nimna
 √nam	1	*aya	bend	√nam	1	bend, bow	nī √nam	nirṇam	+ nāmita, nirṇamayati, nirṇāmayitvā
@@ -2872,7 +2872,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √saj 2	1	a	relinquish, let loose	√sṛj	1, 6	send forth	pati nī √saj	pratiniḥsṛj	pratiniḥsṛjati
 √saj 2	1	a	relinquish, let loose	√sṛj	1, 6	send forth	vi ava √saj	vyavasṛj	vyava + visṛṣṭa, vyavasṛjya
 √saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	√saj	sañj	sajati
-√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pa √saj	prasañj	sañj, sañjati
+√saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pa √saj	prasañj	prasajati, prasañjati
 √saj 3	1	a	embrace	√sañj √sajj	1	hang, cling	pari √saj	sañj	pari + sajati
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	√sajj	sṛj	sarga
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	abhi √sajj	abhisṛj	abhisarjitum, abhisartṛ, abhisṛjati, na + abhisṛjati
@@ -2966,7 +2966,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sar 1	1	a	go, flow	√sṛ	1, 3	flow	ā √sar	āsṛ	
 √sar 1	1	a	go, flow	√sṛ	1, 3	flow	ud √sar	utsṛ	utsārayati, utsrita, utsṛta, utsṛtvā
 √sar 1	1	a	go, flow	√sṛ	1, 3	flow	nī √sar	niḥsṛ	na + nisṛta, nisṛta, nisṛta +, niḥsaraṇa, niḥsaraṇīya (bsk), niḥsarati, niḥsartum, niḥsaryate, niḥsārayati, su + niḥsārita
-√sar 1	1	a	go, flow	√sṛ	1, 3	flow	pa √sar	prasṛ	prasartavya, prasāraṇa, prasārayat, prasārayati, prasārayet, prasita, prasṛta
+√sar 1	1	a	go, flow	√sṛ	1, 3	flow	pa √sar	prasṛ	prasartavya, prasāraṇa, prasārayat, prasārayati, prasārayet, prasita, prasṛta, prasṛtam
 √sar 1	1	a	go, flow	√sṛ	1, 3	flow	pati √sar	pratisṛ	na + pratisaraṇa, pratisaraṇa, pratisārin, sa + pratisaraṇa
 √sar 1	1	*e	go, flow	√sṛ	1, 3	flow	pati ā √sar	āsṛ	pratisārayati, pratyupasārayati
 √sar 1	1	a	go, flow	√sṛ	1, 3	flow	pati nī √sar	niḥsṛ	prati + niḥsarati
@@ -2984,6 +2984,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sar 2	1	a	remember	√smṛ	1	remember	saṃ anu √sar	samanusmṛ	samanusmarat, samanusmarati
 √sar 2	1	*e	remember	√smṛ	1	remember	saṃ ava √sar		sam + ava + asmārṣīt
 √sar 3	1	a	make sound	√svṛ √svar	1	sound	√sar	svṛ	asvara, susvara +, svara, svaratā, svaravat, svareṇa
+√sar 3	1	a	make sound	√svṛ √svar	1	sound	anu √sar		anusvāra
 √sar 3	1	a	make sound	√svṛ √svar	1	sound	vi √sar	svṛ	visvara
 √sar 4	1	a	shine	√svar	1	shine	√sar	svar	svarga +, svarga, suvarga
 √sar 5	1	a	hurt, injure	√sṝ √svṛ	9	hurt	√sar	sṝ	sarītavya, sīrta
