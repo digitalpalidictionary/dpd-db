@@ -1,5 +1,9 @@
 # In gui2/test_app.py
 import flet as ft
+
+from gui2.filter_tab_view import (
+    FilterTabView,
+)
 from gui2.tests_tab_view import (
     TestsTabView,
 )
@@ -19,8 +23,28 @@ def main(page: ft.Page):
 
     toolkit = ToolKit(page)
 
+    # Create tabs for both Tests and Filter functionality
     tests_tab_view = TestsTabView(page, toolkit)
-    page.add(tests_tab_view)
+    filter_tab_view = FilterTabView(page, toolkit)
+
+    # Create tabs
+    tabs = ft.Tabs(
+        selected_index=0,
+        animation_duration=300,
+        tabs=[
+            ft.Tab(
+                text="Tests",
+                content=tests_tab_view,
+            ),
+            ft.Tab(
+                text="Filter",
+                content=filter_tab_view,
+            ),
+        ],
+        expand=True,
+    )
+
+    page.add(tabs)
 
 
 if __name__ == "__main__":
