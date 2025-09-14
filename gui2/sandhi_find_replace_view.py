@@ -1,6 +1,6 @@
 import re
+
 import flet as ft
-from icecream import ic
 from sqlalchemy import or_
 
 from db.db_helpers import get_db_session
@@ -22,6 +22,7 @@ class SandhiFindReplaceView(ft.Column):
         self.find_me: str = ""
         self.replace_me: str = ""
         self.data: Data = Data()
+        self.phase: int = 1  # 1 = regular search, 2 = bold search
 
         # UI elements
         self.find_text = ft.TextField("", width=400)
@@ -30,7 +31,11 @@ class SandhiFindReplaceView(ft.Column):
         self.clear_button = ft.ElevatedButton("Clear", on_click=self.clear_search)
         self.message = ft.Text("", expand=True)
         self.found_field = ft.Text(width=800, expand=True, selectable=True)
-        self.replaced_field = ft.Text(width=800, expand=True, selectable=True)
+        self.replaced_field_text = ft.Text(width=800, expand=True, selectable=True)
+        self.replaced_field_input = ft.TextField(
+            "", width=800, expand=True, multiline=True, disabled=True
+        )
+        self.replaced_field = self.replaced_field_text  # Reference to current widget
         self.commit_button = ft.ElevatedButton("Commit", on_click=self.commit_clicked)
         self.ignore_button = ft.ElevatedButton("Ignore", on_click=self.ignore_clicked)
 
@@ -93,6 +98,33 @@ class SandhiFindReplaceView(ft.Column):
 
         self.controls = [self._top_section, self._middle_section]
 
+    def _set_replaced_field_mode(self, editable: bool):
+        """Set the replaced field to be editable (TextField) or read-only (Text)."""
+
+        # Find the row containing the replaced field (line 87-92 in the UI structure)
+        replaced_row = self._middle_section.content.controls[
+            2
+        ]  # The row with "Replaced:" label
+
+        if editable:
+            # Switch to editable mode (TextField)
+            current_value = getattr(self.replaced_field, "value", "")
+            self.replaced_field_input.value = current_value
+            self.replaced_field_input.disabled = False
+            self.replaced_field = self.replaced_field_input
+            # Update the UI to show the TextField instead of Text
+            replaced_row.controls[1] = self.replaced_field_input
+            self.update()
+        else:
+            # Switch to read-only mode (Text)
+            current_value = getattr(self.replaced_field, "value", "")
+            self.replaced_field_text.value = current_value
+            self.replaced_field_text.spans = []  # Clear any existing spans
+            self.replaced_field = self.replaced_field_text
+            # Update the UI to show the Text instead of TextField
+            replaced_row.controls[1] = self.replaced_field_text
+            self.update()
+
     def update_message(self, text: str):
         self.message.value = text
         self.update()
@@ -100,8 +132,11 @@ class SandhiFindReplaceView(ft.Column):
     def clear_fields(self):
         self.found_field.value = ""
         self.found_field.spans = []
-        self.replaced_field.value = ""
-        self.replaced_field.spans = []
+        self.replaced_field_text.value = ""
+        self.replaced_field_text.spans = []
+        self.replaced_field_input.value = ""
+        # Reset replaced_field to disabled state
+        self.replaced_field_input.disabled = True
         self.update()
 
     def clear_search(self, e):
@@ -110,6 +145,19 @@ class SandhiFindReplaceView(ft.Column):
         self.message.value = ""
         self.found_field.value = ""
         self.replaced_field.value = ""
+        # Reset replaced_field to disabled state
+        if self.replaced_field != self.replaced_field_text:
+            self._set_replaced_field_mode(editable=False)
+        self.replaced_field_text.value = ""
+        self.replaced_field_input.value = ""
+        # Reset phase back to 1 for next search
+        self.phase = 1
+        self.data.phase = 1
+        # Reset column index
+        self.data.column_index = 0
+        # Clear db_results to force a new search
+        self.data.db_results = []
+        self.data.index = 0
         self.update()
 
     def find_clicked(self, e):
@@ -117,35 +165,93 @@ class SandhiFindReplaceView(ft.Column):
             self.update_message("")
             self.find_me = self.find_text.value
             self.replace_me = self.replace_text.value
+            # Always start from a clean slate
+            self.phase = 1
+            self.data.phase = 1
+            self.data.column_index = 0
+            self.data.index = 0
+            # Clear previous results to force a new search
+            self.data.db_results = []
             self._initiate_find_replace()
         else:
             self.update_message("Please enter both find and replace values")
 
-    def _initiate_find_replace(self):
-        message = self.data.search_db(self.find_me)
+    def _initiate_phase_2(self):
+        self.phase = 2
+        self.data.phase = 2
+        message = self.data.search_db_bold(self.find_me)
         if len(self.data.db_results) > 0:
             self.update_message(message)
             self._load_next_result()
         else:
-            self.update_message("No results found")
+            self.update_message("No bold results found")
             self.clear_fields()
+
+    def _initiate_find_replace(self):
+        if self.phase == 1:
+            message = self.data.search_db(self.find_me)
+            if len(self.data.db_results) > 0:
+                self.update_message(message)
+                self._load_next_result()
+            else:
+                self.update_message("No results found, checking for bold entries...")
+                # Automatically transition to Phase 2
+                self._initiate_phase_2()
+        else:  # Phase 2
+            self._initiate_phase_2()
 
     def _load_next_result(self):
         if self.data.index >= len(self.data.db_results):
-            self.update_message("End of results")
-            self.clear_fields()
-            self.data.index = 0
-            return
+            if self.phase == 1:
+                # End of Phase 1, automatically start Phase 2
+                self.update_message("Phase 1 complete, starting Phase 2...")
+                self._initiate_phase_2()
+                return
+            else:
+                self.update_message("End of results")
+                self.clear_fields()
+                self.data.index = 0
+                # Reset phase back to 1 for next search
+                self.phase = 1
+                self.data.phase = 1
+                # Reset column index
+                self.data.column_index = 0
+                # Clear db_results to force a new search
+                self.data.db_results = []
+                return
 
         self.update_message(
-            f"{self.data.index + 1}/{len(self.data.db_results)} {self.data.this_field_name}"
+            f"Phase {self.phase}: {self.data.index + 1}/{len(self.data.db_results)} {self.data.this_field_name}"
         )
 
-        if re.findall(self.find_me, self.data.this_field_text):
-            self._highlight_found(self.data.this_field_text)
-            self._highlight_replaced(self.data.this_field_text)
+        if self.phase == 1:
+            # Phase 1 logic (existing)
+            if re.findall(self.find_me, self.data.this_field_text):
+                self._highlight_found(self.data.this_field_text)
+                # Ensure we're in read-only mode for phase 1
+                if self.replaced_field != self.replaced_field_text:
+                    self._set_replaced_field_mode(editable=False)
+                self._highlight_replaced(self.data.this_field_text)
+            else:
+                self._increment()
         else:
-            self._increment()
+            # Phase 2 logic (bold search)
+            field_text = self.data.this_field_text
+            bold_pattern = "".join(
+                [rf"(?:<b>)?{re.escape(char)}(?:</b>)?" for char in self.find_me]
+            )
+
+            if re.search(bold_pattern, field_text):
+                self._highlight_found(field_text)
+                # For Phase 2, show the actual field content in replaced_field (not auto-replaced)
+                # Make replaced_field editable
+                self._set_replaced_field_mode(editable=True)
+                self.replaced_field.value = field_text
+                # Also highlight the replaced text (with the replacement)
+                self._highlight_replaced(field_text)
+                self.update()
+            else:
+                self._increment()
 
     def _increment(self):
         if self.data.column_index == 2:  # last column
@@ -158,10 +264,19 @@ class SandhiFindReplaceView(ft.Column):
             self._load_next_result()
 
     def commit_clicked(self, e):
-        new_value = re.sub(self.find_me, self.replace_me, self.data.this_field_text)
-        setattr(self.data.this_headword, self.data.this_field_name, new_value)
-        self.data.commit()
-        self._increment()
+        if self.phase == 1:
+            # Phase 1 logic (existing)
+            new_value = re.sub(self.find_me, self.replace_me, self.data.this_field_text)
+            setattr(self.data.this_headword, self.data.this_field_name, new_value)
+            self.data.commit()
+            self._increment()
+        else:
+            # Phase 2 logic (manual edit)
+            # Save the edited content from replaced_field
+            new_value = self.replaced_field.value
+            setattr(self.data.this_headword, self.data.this_field_name, new_value)
+            self.data.commit()
+            self._increment()
 
     def ignore_clicked(self, e):
         self._increment()
@@ -183,6 +298,7 @@ class SandhiFindReplaceView(ft.Column):
         self.update()
 
     def _highlight_replaced(self, text):
+        # Highlight for both phases
         spans = []
         parts = re.split(self.find_me, text)
         for i, part in enumerate(parts):
@@ -194,7 +310,16 @@ class SandhiFindReplaceView(ft.Column):
                         style=ft.TextStyle(bgcolor=ft.Colors.GREEN),
                     )
                 )
-        self.replaced_field.spans = spans
+
+        # Apply spans to the appropriate widget
+        if self.replaced_field == self.replaced_field_text:
+            # Phase 1 - using Text widget
+            self.replaced_field_text.spans = spans
+        else:
+            # Phase 2 - using TextField widget
+            # For TextField, we need to set the value with the highlighted text
+            # But TextField doesn't support spans, so we'll just show the text as is
+            pass
         self.update()
 
 
@@ -208,6 +333,7 @@ class Data:
         self.index: int = 0
         self.column_index: int = 0
         self.columns: list[str] = ["example_1", "example_2", "commentary"]
+        self.phase: int = 1  # 1 = regular search, 2 = bold search
 
     @property
     def this_headword(self) -> DpdHeadword:
@@ -252,3 +378,27 @@ class Data:
             print(f"Commit failed: {str(e)}")
             self.db_session.rollback()
             raise
+
+    def search_db_bold(self, find_me: str) -> str:
+        self.refresh_db_session()
+
+        # Pattern to match text with bold tags
+        bold_pattern = "".join(
+            [rf"(?:<b>)?{re.escape(char)}(?:</b>)?" for char in find_me]
+        )
+
+        self.db_results = (
+            self.db_session.query(DpdHeadword)
+            .filter(
+                or_(
+                    DpdHeadword.example_1.regexp_match(bold_pattern),
+                    DpdHeadword.example_2.regexp_match(bold_pattern),
+                    DpdHeadword.commentary.regexp_match(bold_pattern),
+                )
+            )
+            .all()
+        )
+
+        if len(self.db_results) > 0:
+            return f"{len(self.db_results)} bold results found"
+        return "No bold results found"
