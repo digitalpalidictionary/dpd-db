@@ -121,7 +121,10 @@ class FilterTabView(ft.Column):
         apply_button = ft.ElevatedButton(
             "Apply Filters", on_click=self._apply_filters_clicked
         )
-        buttons_section = ft.Row([apply_button])
+        clear_button = ft.ElevatedButton(
+            "Clear Filters", on_click=self._clear_filters_clicked
+        )
+        buttons_section = ft.Row([apply_button, clear_button])
 
         # Assemble all sections
         self.controls.extend(
@@ -308,4 +311,20 @@ class FilterTabView(ft.Column):
         )
 
         self.filter_component_container.content = new_filter_component
+        self.page.update()
+
+    def _clear_filters_clicked(self, e: ft.ControlEvent | None) -> None:
+        """Handle the Clear Filters button click."""
+        # Clear all filter inputs
+        for column_dropdown in self.column_dropdowns:
+            column_dropdown.value = None
+        for regex_input in self.regex_inputs:
+            regex_input.value = ""
+        
+        # Clear limit input
+        if self.limit_input:
+            self.limit_input.value = "100"
+        
+        # Clear the filter component container
+        self.filter_component_container.content = ft.Column([])
         self.page.update()
