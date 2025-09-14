@@ -297,13 +297,13 @@ class FilterTabView(ft.Column):
         """Handle the Apply Filters button click."""
         # Refresh the database session to get the latest data
         self.toolkit.db_manager.new_db_session()
-
+        
         data_filters = []
         for i, (column_dropdown, regex_input) in enumerate(
             zip(self.column_dropdowns, self.regex_inputs)
         ):
-            if column_dropdown.value and regex_input.value:
-                data_filters.append((column_dropdown.value, regex_input.value))
+            if column_dropdown.value:  # Only check if column is selected
+                data_filters.append((column_dropdown.value, regex_input.value or ""))
 
         display_filters = []
         for checkbox in self.column_checkboxes:
@@ -330,16 +330,14 @@ class FilterTabView(ft.Column):
 
     def _clear_filters_clicked(self, e: ft.ControlEvent | None) -> None:
         """Handle the Clear Filters button click."""
-        # Clear all filter inputs
-        for column_dropdown in self.column_dropdowns:
-            column_dropdown.value = None
+        # Clear only the regex input fields, not the dropdown selections
         for regex_input in self.regex_inputs:
             regex_input.value = ""
-
+        
         # Clear limit input
         if self.limit_input:
             self.limit_input.value = "100"
-
+        
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
         self.page.update()
