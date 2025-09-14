@@ -1,10 +1,11 @@
-import flet as ft
 from typing import TypedDict
 
-from db.models import DpdHeadword
+import flet as ft
+
 from db_tests.db_tests_manager import InternalTestRow
+from gui2.filter_component import FilterComponent
+from gui2.tests_tab_controller import TestsTabController
 from gui2.toolkit import ToolKit
-from gui2.test_tab_controller import TestsTabController
 
 LOGIC_OPTIONS: list[str] = [
     "equals",
@@ -55,6 +56,7 @@ class TestsTabView(ft.Column):
             tooltip="Run internal database tests",
             on_click=self.controller.handle_run_tests_clicked,
         )
+        self.progress_bar = ft.ProgressBar(visible=False)
         self.stop_tests_button = ft.ElevatedButton(
             "Stop Tests",
             key="test_stop",
@@ -173,13 +175,10 @@ class TestsTabView(ft.Column):
         )
 
         # Row 13 Elements
-        self.test_results_table = ft.DataTable(
-            columns=[
-                ft.DataColumn(ft.Text("")),
-                ft.DataColumn(ft.Text("")),
-                ft.DataColumn(ft.Text("")),
-            ],
-            rows=[],
+        self.filter_component_container = ft.Container(
+            content=ft.Column([], expand=True),
+            expand=True,
+            height=300,
         )
 
         # Row 14 Elements
@@ -224,6 +223,7 @@ class TestsTabView(ft.Column):
                 self.run_tests_button,
                 self.stop_tests_button,
                 self.edit_tests_button,
+                self.progress_bar,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
@@ -315,14 +315,7 @@ class TestsTabView(ft.Column):
                     text_align=ft.TextAlign.RIGHT,
                     color=LABEL_COLOUR,
                 ),
-                ft.Container(  # To control size of DataTable
-                    content=self.test_results_table,
-                    border=ft.border.all(1, ft.Colors.OUTLINE),
-                    width=920,
-                    height=300,
-                    expand=True,
-                    alignment=ft.alignment.top_left,
-                ),
+                self.filter_component_container,
             ],
             alignment=ft.MainAxisAlignment.START,
             vertical_alignment=ft.CrossAxisAlignment.START,
@@ -417,7 +410,7 @@ class TestsTabView(ft.Column):
         self.test_results_total_text.value = "0"
 
         # Clear results table
-        self.test_results_table.rows = []
+        # Results table is now handled by filter component
 
         self.page.update()
 
@@ -427,28 +420,8 @@ class TestsTabView(ft.Column):
         self.page.update()
 
     def update_datatable_columns(self, test_definition: InternalTestRow | None):
-        if test_definition:
-            col1_name = (
-                test_definition.display_1 if test_definition.display_1 else "Display 1"
-            )
-            col2_name = (
-                test_definition.display_2 if test_definition.display_2 else "Display 2"
-            )
-            col3_name = (
-                test_definition.display_3 if test_definition.display_3 else "Display 3"
-            )
-            self.test_results_table.columns = [
-                ft.DataColumn(ft.Text(col1_name)),
-                ft.DataColumn(ft.Text(col2_name)),
-                ft.DataColumn(ft.Text(col3_name)),
-            ]
-        else:  # Reset to default/empty columns
-            self.test_results_table.columns = [
-                ft.DataColumn(ft.Text("1")),
-                ft.DataColumn(ft.Text("2")),
-                ft.DataColumn(ft.Text("3")),
-            ]
-        self.page.update()
+        # This method is no longer needed as the filter component handles column display
+        pass
 
     def populate_with_test_definition(self, test_def: InternalTestRow):
         """Populates the view's input fields with data from the test definition."""
@@ -484,42 +457,8 @@ class TestsTabView(ft.Column):
         )
         self.page.update()
 
-    def _add_failure_to_view_datatable(  # Ensure this method is indented correctly
-        self,
-        headword: DpdHeadword,
-        test_definition: InternalTestRow,
-    ):
-        try:
-            cell1_content = (
-                str(getattr(headword, test_definition.display_1, "N/A"))
-                if test_definition.display_1
-                else "N/A"
-            )
-            cell2_content = (
-                str(getattr(headword, test_definition.display_2, "N/A"))
-                if test_definition.display_2
-                else "N/A"
-            )
-            cell3_content = (
-                str(getattr(headword, test_definition.display_3, "N/A"))
-                if test_definition.display_3
-                else "N/A"
-            )
-        except AttributeError as e:
-            print(
-                f"AttributeError for headword {headword.id} with display fields: {e}"
-            )  # Log this
-            cell1_content, cell2_content, cell3_content = "Error", "Error", "Error"
-
-        assert self.test_results_table.rows is not None, (
-            "DataTable rows should be initialized to a list"
+    def set_filter_component(self, filter_component: FilterComponent | None) -> None:
+        self.filter_component_container.content = (
+            filter_component if filter_component else ft.Column([], expand=True)
         )
-        self.test_results_table.rows.append(
-            ft.DataRow(
-                cells=[
-                    ft.DataCell(ft.Text(cell1_content, selectable=True)),
-                    ft.DataCell(ft.Text(cell2_content, selectable=True)),
-                    ft.DataCell(ft.Text(cell3_content, selectable=True)),
-                ]
-            )
-        )
+        self.page.update()

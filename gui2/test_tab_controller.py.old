@@ -1,5 +1,6 @@
-import flet as ft
 from typing import Generator
+
+import flet as ft
 
 from db.models import DpdHeadword
 from db_tests.db_tests_manager import DbTestManager, InternalTestRow
@@ -103,16 +104,40 @@ class TestsTabController:
             return
 
         if failing_headwords_for_this_test:
-            for hw in failing_headwords_for_this_test:
-                self._current_test_failures_for_table.append(
-                    {"headword": hw, "test_definition": test_def}
-                )
-                self.ui._add_failure_to_view_datatable(hw, test_def)
-
+            # For failing tests, create a FilterComponent with the failures and set it in the view
+            # Create data filters for the failing headwords
+            data_filters = [
+                ("id", "|".join(str(hw.id) for hw in failing_headwords_for_this_test))
+            ]
+            # Create display filters from the test definition
+            display_filters = [
+                test_def.display_1,
+                test_def.display_2,
+                test_def.display_3,
+            ]
+            # Filter out empty display filters
+            display_filters = [f for f in display_filters if f]
+            # Create the FilterComponent
+            filter_component = FilterComponent(
+                self.page,
+                self.toolkit,
+                data_filters=data_filters,
+                display_filters=display_filters,
+                limit=test_def.iterations,
+            )
+            # Set the FilterComponent in the view
+            self.ui.set_filter_component(filter_component)
+            # Update results summary
+            self.ui.update_results_summary_display(
+                len(failing_headwords_for_this_test),
+                len(failing_headwords_for_this_test),
+            )
             self.page.update()
 
         else:
-            self._run_next_test_from_generator()
+            # For passing tests, update UI to indicate success and wait for user to click "Next"
+            self.ui.test_name_input.value = f"{test_def.test_name} - PASSED"
+            self.page.update()
 
     def _finalize_test_run(self, message: str):
         self.ui.run_tests_button.disabled = False

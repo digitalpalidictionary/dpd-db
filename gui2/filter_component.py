@@ -41,6 +41,17 @@ class FilterComponent(ft.Column):
             "id": lambda x: x.isdigit() if x else True,
         }
 
+        # Debug print the parameters passed to the FilterComponent
+        print("DEBUG: FilterComponent initialized with:")
+        print(f"  data_filters: {data_filters}")
+        print(f"  display_filters: {display_filters}")
+        print(f"  limit: {limit}")
+
+        # Additional debug info
+        if data_filters:
+            for i, (col, pattern) in enumerate(data_filters):
+                print(f"DEBUG: data_filter {i}: column='{col}', pattern='{pattern}'")
+
         self._build_ui()
         self._apply_filters()
 
@@ -63,6 +74,7 @@ class FilterComponent(ft.Column):
         placeholder_column = ft.DataColumn(label=ft.Text("ID"))
 
         self.results_table = ft.DataTable(
+            data_text_style=ft.TextStyle(size=8, color=ft.Colors.BLUE_GREY_500),
             columns=[placeholder_column],
             rows=[],
             border=ft.border.all(2, ft.Colors.BLACK),
@@ -74,8 +86,9 @@ class FilterComponent(ft.Column):
             heading_text_style=ft.TextStyle(
                 color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD, size=14
             ),
-            data_row_min_height=40,
-            data_row_max_height=80,
+            heading_row_height=30,
+            data_row_min_height=30,
+            data_row_max_height=60,
             show_checkbox_column=False,
         )
 
@@ -83,7 +96,7 @@ class FilterComponent(ft.Column):
         table_container = ft.Container(
             content=self.results_table,
             expand=True,
-            width=2500,  # Fixed width for horizontal scrolling
+            width=1300,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
@@ -111,19 +124,28 @@ class FilterComponent(ft.Column):
 
     def _apply_filters(self) -> None:
         """Apply all active filters and display results."""
+        print("DEBUG: _apply_filters called")
         try:
             active_filters = []
             if self.data_filters:
+                print(f"DEBUG: Processing data_filters: {self.data_filters}")
                 for column, pattern in self.data_filters:
+                    print(
+                        f"DEBUG: Adding filter - column: {column}, pattern: {pattern}"
+                    )
                     active_filters.append({"column": column, "pattern": pattern})
+            else:
+                print("DEBUG: No data_filters provided")
 
+            print(f"DEBUG: Active filters: {active_filters}")
             for i, filter_info in enumerate(active_filters):
+                print(f"DEBUG: Compiling regex for filter {i}: {filter_info}")
                 try:
                     re.compile(filter_info["pattern"])
                 except re.error as ex:
-                    self._show_error(
-                        f"Invalid regex pattern in filter {i + 1}: {str(ex)}"
-                    )
+                    error_msg = f"Invalid regex pattern in filter {i + 1}: {str(ex)}"
+                    print(f"DEBUG: Regex compilation error: {error_msg}")
+                    self._show_error(error_msg)
                     return
 
             display_columns = (
@@ -131,35 +153,103 @@ class FilterComponent(ft.Column):
                 if self.display_filters
                 else [column.name for column in DpdHeadword.__table__.columns]
             )
+            print(f"DEBUG: Display columns: {display_columns}")
 
             result_limit = self.limit if self.limit is not None else 0
+            print(f"DEBUG: Result limit: {result_limit}")
 
+            # Refresh the database session to ensure we have the latest connection
+            self.toolkit.db_manager.new_db_session()
             query = self.toolkit.db_manager.db_session.query(DpdHeadword)
+            print("DEBUG: Created initial query")
 
             for filter_info in active_filters:
                 column_name = filter_info["column"]
                 pattern = filter_info["pattern"]
+                print(
+                    f"DEBUG: Applying filter - column: {column_name}, pattern: {pattern}"
+                )
 
                 column_attr = getattr(DpdHeadword, column_name, None)
                 if column_attr is None:
-                    self._show_error(f"Column '{column_name}' not found in DpdHeadword")
+                    error_msg = f"Column '{column_name}' not found in DpdHeadword"
+                    print(f"DEBUG: Column not found error: {error_msg}")
+                    self._show_error(error_msg)
                     return
 
-                query = query.filter(column_attr.regexp_match(pattern))
+                # Special handling for ID filtering - convert regex pattern to list of IDs
+                if column_name == "id":
+                    # Extract IDs from the regex pattern like ^(1571|3106|4365|...)$
+
+                    # Match pattern like ^(1571|3106|4365|...)$
+                    print(f"DEBUG: Attempting to parse ID pattern: {pattern}")
+                    # Fix the regex pattern - we need to match ^(1571|3106|4365|...)$
+                    # The pattern has literal parentheses, not escaped ones
+                    match = re.match(r"^\^\(([^)]+)\)\$$", pattern)
+                    if match:
+                        id_strings = match.group(1).split("|")
+                        print(f"DEBUG: Found ID strings: {id_strings}")
+                        id_list = []
+                        for id_str in id_strings:
+                            try:
+                                id_list.append(int(id_str))
+                            except ValueError:
+                                pass  # Skip invalid IDs
+                        if id_list:
+                            query = query.filter(column_attr.in_(id_list))
+                            # print(
+                            #     f"DEBUG: Query after ID filter with {len(id_list)} IDs: {query}"
+                            # )
+                        else:
+                            # Fallback to regexp_match if no valid IDs found
+                            query = query.filter(column_attr.regexp_match(pattern))
+                            print(
+                                f"DEBUG: Query after regexp filter (no valid IDs): {query}"
+                            )
+                    else:
+                        # Fallback to regexp_match if pattern is not in expected format
+                        query = query.filter(column_attr.regexp_match(pattern))
+                        print(
+                            f"DEBUG: Query after regexp filter (pattern mismatch): {query}"
+                        )
+                else:
+                    query = query.filter(column_attr.regexp_match(pattern))
+                    print(f"DEBUG: Query after filter: {query}")
 
             if result_limit > 0:
                 query = query.limit(result_limit)
+                # print(f"DEBUG: Query after limit: {query}")
 
+            print("DEBUG: Executing query")
             self.filtered_results = query.all()
+            print(f"DEBUG: Query executed, found {len(self.filtered_results)} results")
+
+            # Debug: Print first few results
+            if self.filtered_results:
+                print(f"DEBUG: First result ID: {self.filtered_results[0].id}")
+                if len(self.filtered_results) > 1:
+                    print(f"DEBUG: Second result ID: {self.filtered_results[1].id}")
+
             self._update_results_table(display_columns)
             self._show_message(f"Found {len(self.filtered_results)} results")
-
         except Exception as ex:
-            self._show_error(f"Error applying filters: {str(ex)}")
+            error_msg = f"Error applying filters: {str(ex)}"
+            print(f"DEBUG: Exception in _apply_filters: {error_msg}")
+            import traceback
+
+            print(f"DEBUG: Full traceback: {traceback.format_exc()}")
+            self._show_error(error_msg)
+            print("DEBUG: Completed exception handling in _apply_filters")
 
     def _update_results_table(self, display_columns: List[str]) -> None:
         """Update the results table with filtered data."""
+        print(
+            f"DEBUG: _update_results_table called with {len(self.filtered_results)} results"
+        )
+        print(f"DEBUG: Display columns: {display_columns}")
+
         if not hasattr(self, "results_table") or not self.results_table:
+            print("DEBUG: results_table not found")
             return
 
         # Clear existing data
@@ -244,7 +334,16 @@ class FilterComponent(ft.Column):
 
                 cells.append(ft.DataCell(text_field))
 
-            self.results_table.rows.append(ft.DataRow(cells=cells))
+            # Create a function that captures the row_index by value
+            def make_on_select_handler(r):
+                return lambda e: self._on_row_select(e, r)
+
+            self.results_table.rows.append(
+                ft.DataRow(
+                    cells=cells,
+                    on_select_changed=make_on_select_handler(row_index),
+                )
+            )
 
         self.page.update()
 
@@ -358,3 +457,26 @@ class FilterComponent(ft.Column):
                     return False, f"ID must be a valid integer in row {row_index + 1}"
 
         return True, ""
+
+    def _on_row_select(self, e: ft.ControlEvent, row_index: int) -> None:
+        """Handle row selection event."""
+        # If FilterComponent supports row selection, implement logic to copy display_1 value to clipboard when a row is selected
+        if e.data == "true":  # Row is selected
+            # Get the display_1 value for this row
+            if self.display_filters and len(self.display_filters) >= 1:
+                display_1_column = self.display_filters[0]
+                record = self.filtered_results[row_index]
+                display_1_value = getattr(record, display_1_column, "")
+
+                # Copy to clipboard
+                import pyperclip
+
+                pyperclip.copy(str(display_1_value))
+
+                # Show a snackbar confirmation
+                self.page.overlay.append(
+                    ft.SnackBar(
+                        content=ft.Text(f"Copied {display_1_column} to clipboard")
+                    )
+                )
+                self.page.update()
