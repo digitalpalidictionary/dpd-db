@@ -3,7 +3,7 @@ from typing import List
 import flet as ft
 
 from db.models import DpdHeadword
-from gui2.dpd_fields_classes import DpdDropdown
+from gui2.dpd_fields_classes import DpdDropdown, DpdTextField
 from gui2.filter_component import FilterComponent
 from gui2.toolkit import ToolKit
 
@@ -148,7 +148,12 @@ class FilterTabView(ft.Column):
         initial_dropdown = DpdDropdown(
             name="column_selector_0", options=self.dpd_headword_columns
         )
-        initial_regex_input = ft.TextField(width=300, hint_text="Enter regex pattern")
+        initial_regex_input = DpdTextField(
+            name="regex_pattern_0",
+            multiline=False,
+        )
+        initial_regex_input.hint_text = "enter regex"
+        initial_regex_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
 
         self.column_dropdowns.append(initial_dropdown)
         self.regex_inputs.append(initial_regex_input)
@@ -182,7 +187,12 @@ class FilterTabView(ft.Column):
         new_dropdown = DpdDropdown(
             name=f"column_selector_{new_index}", options=self.dpd_headword_columns
         )
-        new_regex_input = ft.TextField(width=300, hint_text="Enter regex pattern")
+        new_regex_input = DpdTextField(
+            name=f"regex_pattern_{new_index}",
+            multiline=False,
+        )
+        new_regex_input.hint_text = "enter regex"
+        new_regex_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
 
         self.column_dropdowns.append(new_dropdown)
         self.regex_inputs.append(new_regex_input)
@@ -223,7 +233,7 @@ class FilterTabView(ft.Column):
     def _create_display_filters_controls(self) -> ft.Column:
         """Create the controls for the display filters section."""
         column_names = [column.name for column in DpdHeadword.__table__.columns]
-        self.selected_columns_text = ft.Text("Select columns...", size=14, color=LABEL_COLOUR)
+        self.selected_columns_text = ft.Text("Select columns...", size=14)
         self.column_checkboxes = []
 
         # Create checkboxes in a scrollable column that always shows scrollbar
@@ -268,25 +278,26 @@ class FilterTabView(ft.Column):
                 ", ".join(selected_options) if selected_options else "Select columns..."
             )
             self.selected_columns_text.size = 14
-            self.selected_columns_text.color = LABEL_COLOUR
+            self.selected_columns_text.color = ft.Colors.WHITE
         self.page.update()
 
     def _create_limit_controls(self) -> ft.Row:
         """Create the controls for the result limit section."""
-        self.limit_input = ft.TextField(
-            label="Result Limit",
-            hint_text="0 for all results",
-            width=200,
-            keyboard_type=ft.KeyboardType.NUMBER,
-            value="100",
+        self.limit_input = DpdTextField(
+            name="result_limit",
+            multiline=False,
         )
+        self.limit_input.hint_text = "0 for all results"
+        self.limit_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
+        self.limit_input.width = 200
+        self.limit_input.value = "20"
         return ft.Row([self.limit_input])
 
     def _apply_filters_clicked(self, e: ft.ControlEvent | None) -> None:
         """Handle the Apply Filters button click."""
         # Refresh the database session to get the latest data
         self.toolkit.db_manager.new_db_session()
-        
+
         data_filters = []
         for i, (column_dropdown, regex_input) in enumerate(
             zip(self.column_dropdowns, self.regex_inputs)
@@ -324,11 +335,11 @@ class FilterTabView(ft.Column):
             column_dropdown.value = None
         for regex_input in self.regex_inputs:
             regex_input.value = ""
-        
+
         # Clear limit input
         if self.limit_input:
             self.limit_input.value = "100"
-        
+
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
         self.page.update()
