@@ -129,6 +129,11 @@ class SandhiFindReplaceView(ft.Column):
         self.message.value = text
         self.update()
 
+    def _reset_state(self):
+        """Reset all state variables to start a fresh search."""
+        self.phase = 1
+        self.data.reset_state()
+
     def clear_fields(self):
         self.found_field.value = ""
         self.found_field.spans = []
@@ -150,14 +155,8 @@ class SandhiFindReplaceView(ft.Column):
             self._set_replaced_field_mode(editable=False)
         self.replaced_field_text.value = ""
         self.replaced_field_input.value = ""
-        # Reset phase back to 1 for next search
-        self.phase = 1
-        self.data.phase = 1
-        # Reset column index
-        self.data.column_index = 0
-        # Clear db_results to force a new search
-        self.data.db_results = []
-        self.data.index = 0
+        # Reset to clean state
+        self._reset_state()
         self.update()
 
     def find_clicked(self, e):
@@ -166,19 +165,14 @@ class SandhiFindReplaceView(ft.Column):
             self.find_me = self.find_text.value
             self.replace_me = self.replace_text.value
             # Always start from a clean slate
-            self.phase = 1
-            self.data.phase = 1
-            self.data.column_index = 0
-            self.data.index = 0
-            # Clear previous results to force a new search
-            self.data.db_results = []
+            self._reset_state()
             self._initiate_find_replace()
         else:
             self.update_message("Please enter both find and replace values")
 
     def _initiate_phase_2(self):
         self.phase = 2
-        self.data.phase = 2
+        self.data.set_phase(2)
         message = self.data.search_db_bold(self.find_me)
         if len(self.data.db_results) > 0:
             self.update_message(message)
@@ -210,14 +204,8 @@ class SandhiFindReplaceView(ft.Column):
             else:
                 self.update_message("End of results")
                 self.clear_fields()
-                self.data.index = 0
-                # Reset phase back to 1 for next search
-                self.phase = 1
-                self.data.phase = 1
-                # Reset column index
-                self.data.column_index = 0
-                # Clear db_results to force a new search
-                self.data.db_results = []
+                # Reset to clean state for next search
+                self._reset_state()
                 return
 
         self.update_message(
@@ -254,14 +242,9 @@ class SandhiFindReplaceView(ft.Column):
                 self._increment()
 
     def _increment(self):
-        if self.data.column_index == 2:  # last column
-            if self.data.index < len(self.data.db_results):
-                self.data.column_index = 0
-                self.data.index += 1
-                self._load_next_result()
-        else:
-            self.data.column_index += 1
-            self._load_next_result()
+        # Move to next column, or next record if at last column
+        self.data.increment()
+        self._load_next_result()
 
     def commit_clicked(self, e):
         if self.phase == 1:
@@ -298,7 +281,6 @@ class SandhiFindReplaceView(ft.Column):
         self.update()
 
     def _highlight_replaced(self, text):
-        # Highlight for both phases
         spans = []
         parts = re.split(self.find_me, text)
         for i, part in enumerate(parts):
@@ -313,12 +295,9 @@ class SandhiFindReplaceView(ft.Column):
 
         # Apply spans to the appropriate widget
         if self.replaced_field == self.replaced_field_text:
-            # Phase 1 - using Text widget
             self.replaced_field_text.spans = spans
         else:
-            # Phase 2 - using TextField widget
-            # For TextField, we need to set the value with the highlighted text
-            # But TextField doesn't support spans, so we'll just show the text as is
+            # TextField doesn't support spans, so we'll just show the text as is
             pass
         self.update()
 
@@ -330,10 +309,26 @@ class Data:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db_results: list[DpdHeadword] = []
-        self.index: int = 0
-        self.column_index: int = 0
+        self._index: int = 0
+        self._column_index: int = 0
         self.columns: list[str] = ["example_1", "example_2", "commentary"]
         self.phase: int = 1  # 1 = regular search, 2 = bold search
+
+    @property
+    def index(self) -> int:
+        return self._index
+
+    @index.setter
+    def index(self, value: int) -> None:
+        self._index = value
+
+    @property
+    def column_index(self) -> int:
+        return self._column_index
+
+    @column_index.setter
+    def column_index(self, value: int) -> None:
+        self._column_index = value
 
     @property
     def this_headword(self) -> DpdHeadword:
@@ -350,6 +345,27 @@ class Data:
     def refresh_db_session(self):
         self.db_session.close()
         self.db_session = get_db_session(self.pth.dpd_db_path)
+
+    def reset_state(self) -> None:
+        """Reset all data state variables."""
+        self.phase = 1
+        self._column_index = 0
+        self._index = 0
+        self.db_results = []
+
+    def set_phase(self, phase: int) -> None:
+        """Set the search phase."""
+        self.phase = phase
+
+    def increment(self) -> None:
+        """Move to next column, or next record if at last column."""
+        last_column_index = len(self.columns) - 1
+        if self.column_index == last_column_index:
+            if self.index < len(self.db_results):
+                self.column_index = 0
+                self.index += 1
+        else:
+            self.column_index += 1
 
     def search_db(self, find_me) -> str:
         self.refresh_db_session()
