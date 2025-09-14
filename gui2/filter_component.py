@@ -83,7 +83,7 @@ class FilterComponent(ft.Column):
         table_container = ft.Container(
             content=self.results_table,
             expand=True,
-            width=1200,  # Fixed width for horizontal scrolling
+            width=1500,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
@@ -173,6 +173,9 @@ class FilterComponent(ft.Column):
             self.page.update()
             return
 
+        # Add the row number column as the first column
+        self.results_table.columns.append(ft.DataColumn(label=ft.Text("#")))
+
         # Calculate column widths based on content - adjusted for DataTable's content-based sizing
         column_widths = {}
         for col_name in display_columns:
@@ -188,12 +191,12 @@ class FilterComponent(ft.Column):
                 max_len = max(max_len, len(value_str))
 
             # Adjusted width calculation for more compact to wider columns
-            min_width = 30  # Even more compact minimum width
+            min_width = 10  # Even more compact minimum width
             calculated_width = (
                 max_len * 12 + 25
             )  # Slightly more aggressive width calculation
             column_widths[col_name] = max(
-                min_width, min(calculated_width, 1200)
+                min_width, min(calculated_width, 1500)
             )  # Wider maximum cap
 
         # Create columns
@@ -203,6 +206,17 @@ class FilterComponent(ft.Column):
         # Create rows with editable cells
         for row_index, result in enumerate(self.filtered_results):
             cells = []
+            # Add the row number as the first cell
+            row_number_field = ft.TextField(
+                value=str(row_index + 1),
+                read_only=True,
+                dense=True,
+                text_align=ft.TextAlign.CENTER,
+                content_padding=5,
+                border=ft.InputBorder.NONE,
+            )
+            cells.append(ft.DataCell(row_number_field))
+
             for col_name in display_columns:
                 value = getattr(result, col_name, "")
                 if value is None:
