@@ -59,27 +59,31 @@ class FilterComponent(ft.Column):
     def _create_results_section(self) -> ft.Column:
         """Create the results display section."""
 
+        # Create a placeholder column to avoid the AssertionError
+        placeholder_column = ft.DataColumn(label=ft.Text("ID"))
+
         self.results_table = ft.DataTable(
-            columns=[],
+            columns=[placeholder_column],
             rows=[],
             border=ft.border.all(2, ft.Colors.BLACK),
             horizontal_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             vertical_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             heading_row_color=ft.Colors.BLUE_900,  # Dark blue background for headings
-            column_spacing=10,
+            column_spacing=20,  # Increased column spacing for better readability
+            horizontal_margin=30,  # Increased horizontal margin
             heading_text_style=ft.TextStyle(
-                color=ft.Colors.WHITE,
-                weight=ft.FontWeight.BOLD,
-                size=14
+                color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD, size=14
             ),
             data_row_min_height=40,
             data_row_max_height=80,
+            show_checkbox_column=False,
         )
 
         # Wrap in containers for proper scrolling
         table_container = ft.Container(
             content=self.results_table,
             expand=True,
+            width=1200,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
@@ -155,20 +159,46 @@ class FilterComponent(ft.Column):
 
     def _update_results_table(self, display_columns: List[str]) -> None:
         """Update the results table with filtered data."""
-        if not hasattr(self, 'results_table') or not self.results_table:
+        if not hasattr(self, "results_table") or not self.results_table:
             return
 
         # Clear existing data
         self.results_table.columns = []
         self.results_table.rows = []
 
+        # Handle case where no display columns are specified
+        if not display_columns:
+            # Add a default column to avoid AssertionError
+            self.results_table.columns.append(ft.DataColumn(label=ft.Text("ID")))
+            self.page.update()
+            return
+
+        # Calculate column widths based on content - adjusted for DataTable's content-based sizing
+        column_widths = {}
+        for col_name in display_columns:
+            max_len = len(col_name)  # Start with header length
+            for result in self.filtered_results:
+                value = getattr(result, col_name, "")
+                if value is None:
+                    value_str = ""
+                elif isinstance(value, list):
+                    value_str = ", ".join(str(v) for v in value)
+                else:
+                    value_str = str(value)
+                max_len = max(max_len, len(value_str))
+
+            # Adjusted width calculation for more compact to wider columns
+            min_width = 30  # Even more compact minimum width
+            calculated_width = (
+                max_len * 12 + 25
+            )  # Slightly more aggressive width calculation
+            column_widths[col_name] = max(
+                min_width, min(calculated_width, 1200)
+            )  # Wider maximum cap
+
         # Create columns
         for col_name in display_columns:
-            self.results_table.columns.append(
-                ft.DataColumn(
-                    label=ft.Text(col_name),
-                )
-            )
+            self.results_table.columns.append(ft.DataColumn(label=ft.Text(col_name)))
 
         # Create rows with editable cells
         for row_index, result in enumerate(self.filtered_results):

@@ -16,10 +16,17 @@ class FilterTabView(ft.Column):
         page: ft.Page,
         toolkit: ToolKit,
         data_filters: List[tuple[str, str]] = [("root_key", ""), ("family_root", "")],
-        display_filters: List[str] = ["id", "lemma_1", "meaning_1", "meaning_lit"],
+        display_filters: List[str] = [
+            "id",
+            "lemma_1",
+            "meaning_1",
+            "meaning_lit",
+            "root_key",
+            "family_root",
+        ],
         limit: int = 10,
     ) -> None:
-        super().__init__(expand=True, spacing=5, controls=[])
+        super().__init__(expand=True, spacing=5, scroll=ft.ScrollMode.AUTO, controls=[])
         self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
 
@@ -33,12 +40,11 @@ class FilterTabView(ft.Column):
         self.limit_input: ft.TextField | None = None
         self.data_filters_container: ft.Column | None = None
         self.selected_columns_text: ft.Text | None = None
-        self.options_container: ft.Column | None = None
+        self.options_container: ft.Container | None = None
         self.dropdown_button: ft.ElevatedButton | None = None
 
         self.filter_component_container = ft.Container(
             content=ft.Column([], expand=True, scroll=ft.ScrollMode.AUTO),
-            height=800,
             expand=True,
         )
 
@@ -127,6 +133,7 @@ class FilterTabView(ft.Column):
                 limit_section,
                 ft.Divider(),
                 buttons_section,
+                ft.Divider(),
                 self.filter_component_container,
             ]
         )
@@ -213,7 +220,11 @@ class FilterTabView(ft.Column):
         column_names = [column.name for column in DpdHeadword.__table__.columns]
         self.selected_columns_text = ft.Text("Select columns...")
         self.column_checkboxes = []
-        self.options_container = ft.Column(visible=False)
+
+        # Create checkboxes in a scrollable column that always shows scrollbar
+        checkboxes_column = ft.Column(
+            scroll=ft.ScrollMode.ALWAYS, height=200, auto_scroll=False
+        )
 
         for col_name in column_names:
             is_selected = col_name in ["id", "lemma_1"]
@@ -223,7 +234,11 @@ class FilterTabView(ft.Column):
                 on_change=self._on_column_checkbox_change,
             )
             self.column_checkboxes.append(checkbox)
-            self.options_container.controls.append(checkbox)
+            checkboxes_column.controls.append(checkbox)
+
+        self.options_container = ft.Container(
+            content=checkboxes_column, visible=False, expand=False
+        )
 
         self.dropdown_button = ft.ElevatedButton(
             "Select Columns", on_click=self._toggle_column_options
