@@ -177,27 +177,29 @@ class FilterComponent(ft.Column):
         self.results_table.columns.append(ft.DataColumn(label=ft.Text("#")))
 
         # Calculate column widths based on content - adjusted for DataTable's content-based sizing
-        column_widths = {}
-        for col_name in display_columns:
-            max_len = len(col_name)  # Start with header length
-            for result in self.filtered_results:
-                value = getattr(result, col_name, "")
-                if value is None:
-                    value_str = ""
-                elif isinstance(value, list):
-                    value_str = ", ".join(str(v) for v in value)
-                else:
-                    value_str = str(value)
-                max_len = max(max_len, len(value_str))
+        # This calculation is currently unused as Flet's DataColumn doesn't support width parameter
+        # Keeping this code for potential future use or for influencing other aspects of the UI
+        # column_widths = {}
+        # for col_name in display_columns:
+        #     max_len = len(col_name)  # Start with header length
+        #     for result in self.filtered_results:
+        #         value = getattr(result, col_name, "")
+        #         if value is None:
+        #             value_str = ""
+        #         elif isinstance(value, list):
+        #             value_str = ", ".join(str(v) for v in value)
+        #         else:
+        #             value_str = str(value)
+        #         max_len = max(max_len, len(value_str))
 
-            # Adjusted width calculation for more compact to wider columns
-            min_width = 10  # Even more compact minimum width
-            calculated_width = (
-                max_len * 12 + 25
-            )  # Slightly more aggressive width calculation
-            column_widths[col_name] = max(
-                min_width, min(calculated_width, 1500)
-            )  # Wider maximum cap
+        #     # Adjusted width calculation for more compact to wider columns
+        #     min_width = 10  # Even more compact minimum width
+        #     calculated_width = (
+        #         max_len * 12 + 25
+        #     )  # Slightly more aggressive width calculation
+        #     column_widths[col_name] = max(
+        #         min_width, min(calculated_width, 1500)
+        #     )  # Wider maximum cap
 
         # Create columns
         for col_name in display_columns:
