@@ -15,9 +15,9 @@ class FilterTabView(ft.Column):
         self,
         page: ft.Page,
         toolkit: ToolKit,
-        data_filters: List[tuple[str, str]] | None = None,
-        display_filters: List[str] | None = None,
-        limit: int | None = None,
+        data_filters: List[tuple[str, str]] = [("root_key", ""), ("family_root", "")],
+        display_filters: List[str] = ["id", "lemma_1", "meaning_1", "meaning_lit"],
+        limit: int = 10,
     ) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
         self.page: ft.Page = page
@@ -36,7 +36,11 @@ class FilterTabView(ft.Column):
         self.options_container: ft.Column | None = None
         self.dropdown_button: ft.ElevatedButton | None = None
 
-        self.filter_component_container = ft.Container()
+        self.filter_component_container = ft.Container(
+            content=ft.Column([], expand=True, scroll=ft.ScrollMode.AUTO),
+            height=800,
+            expand=True,
+        )
 
         self._build_ui()
         self._initialize_filters(data_filters, display_filters, limit)
@@ -252,7 +256,7 @@ class FilterTabView(ft.Column):
             hint_text="0 for all results",
             width=200,
             keyboard_type=ft.KeyboardType.NUMBER,
-            value="0",
+            value="100",
         )
         return ft.Row([self.limit_input])
 

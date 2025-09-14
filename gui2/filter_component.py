@@ -67,12 +67,34 @@ class FilterComponent(ft.Column):
             vertical_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             heading_row_color=ft.Colors.BLUE_900,  # Dark blue background for headings
             column_spacing=10,
+            heading_text_style=ft.TextStyle(
+                color=ft.Colors.WHITE,
+                weight=ft.FontWeight.BOLD,
+                size=14
+            ),
+            data_row_min_height=40,
+            data_row_max_height=80,
         )
 
-        scrollable_table_container = ft.Column(
-            [ft.Row([self.results_table], scroll=ft.ScrollMode.AUTO)],
+        # Wrap in containers for proper scrolling
+        table_container = ft.Container(
+            content=self.results_table,
+            expand=True,
+        )
+
+        # Horizontal scroll for wide tables
+        horizontal_scroll = ft.Row(
+            [table_container],
             scroll=ft.ScrollMode.AUTO,
             expand=True,
+        )
+
+        # Vertical scroll for tall tables
+        scrollable_table_container = ft.Column(
+            [horizontal_scroll],
+            scroll=ft.ScrollMode.AUTO,
+            expand=True,
+            height=600,  # Fixed height for vertical scrolling
         )
 
         return ft.Column(
@@ -100,9 +122,11 @@ class FilterComponent(ft.Column):
                     )
                     return
 
-            display_columns = self.display_filters if self.display_filters else [
-                column.name for column in DpdHeadword.__table__.columns
-            ]
+            display_columns = (
+                self.display_filters
+                if self.display_filters
+                else [column.name for column in DpdHeadword.__table__.columns]
+            )
 
             result_limit = self.limit if self.limit is not None else 0
 
@@ -131,33 +155,24 @@ class FilterComponent(ft.Column):
 
     def _update_results_table(self, display_columns: List[str]) -> None:
         """Update the results table with filtered data."""
-        if not self.results_table:
+        if not hasattr(self, 'results_table') or not self.results_table:
             return
 
-        max_widths = {}
-        for col_name in display_columns:
-            max_len = len(col_name)
-            for result in self.filtered_results:
-                value = getattr(result, col_name, "")
-                if value is None:
-                    value_str = ""
-                elif isinstance(value, list):
-                    value_str = ", ".join(str(v) for v in value)
-                else:
-                    value_str = str(value)
-                max_len = max(max_len, len(value_str))
-
-            estimated_width = min(600, max(80, max_len * 10 + 50))
-            max_widths[col_name] = estimated_width
-
+        # Clear existing data
         self.results_table.columns = []
         self.results_table.rows = []
 
+        # Create columns
         for col_name in display_columns:
-            self.results_table.columns.append(ft.DataColumn(ft.Text(col_name)))
+            self.results_table.columns.append(
+                ft.DataColumn(
+                    label=ft.Text(col_name),
+                )
+            )
 
+        # Create rows with editable cells
         for row_index, result in enumerate(self.filtered_results):
-            row_cells = []
+            cells = []
             for col_name in display_columns:
                 value = getattr(result, col_name, "")
                 if value is None:
@@ -170,6 +185,7 @@ class FilterComponent(ft.Column):
                 def make_on_change_handler(r, c):
                     return lambda e: self._on_cell_change(e, r, c)
 
+                # Create editable text field for each cell
                 text_field = ft.TextField(
                     value=value_str,
                     on_change=make_on_change_handler(row_index, col_name),
@@ -180,14 +196,9 @@ class FilterComponent(ft.Column):
                     border=ft.InputBorder.NONE,
                 )
 
-                cell_container = ft.Container(
-                    content=text_field,
-                    width=max_widths[col_name],
-                    padding=0,
-                )
+                cells.append(ft.DataCell(text_field))
 
-                row_cells.append(ft.DataCell(cell_container))
-            self.results_table.rows.append(ft.DataRow(cells=row_cells))
+            self.results_table.rows.append(ft.DataRow(cells=cells))
 
         self.page.update()
 
@@ -235,6 +246,7 @@ class FilterComponent(ft.Column):
             self.toolkit.db_manager.db_session.rollback()
             self._show_error(f"Error saving changes: {str(ex)}")
             import traceback
+
             print(f"Full traceback: {traceback.format_exc()}")
 
     def _show_message(self, message: str) -> None:

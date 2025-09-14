@@ -11,6 +11,7 @@ from tools.fast_api_utils import start_dpd_server
 
 class App:
     def __init__(self, page: ft.Page) -> None:
+        from gui2.filter_tab_view import FilterTabView
         from gui2.global_tab_view import GlobalTabView
         from gui2.pass1_add_view import Pass1AddView
         from gui2.pass1_auto_view import Pass1AutoView
@@ -53,6 +54,7 @@ class App:
         self.pass2_add_view: Pass2AddView = Pass2AddView(self.page, self.toolkit)
         self.tests_tab_view: TestsTabView = TestsTabView(self.page, self.toolkit)
         self.sandhi_view = SandhiFindReplaceView(self.page, self.toolkit)
+        self.filter_tab_view = FilterTabView(self.page, self.toolkit)
 
         self.build_ui()
 
@@ -116,8 +118,8 @@ class App:
                     content=self.sandhi_view,
                 ),
                 ft.Tab(
-                    text="-",
-                    content=ft.Column(),
+                    text="√",
+                    content=self.filter_tab_view,
                 ),
             ],
             expand=True,
