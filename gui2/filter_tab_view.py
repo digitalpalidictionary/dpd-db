@@ -41,7 +41,7 @@ class FilterTabView(ft.Column):
         self.column_checkboxes: List[ft.Checkbox] = []
         self.limit_input: ft.TextField | None = None
         self.data_filters_container: ft.Column | None = None
-        self.selected_columns_text: ft.Text | None = None
+        self.selected_columns_container: ft.Row | None = None
         self.options_container: ft.Container | None = None
         self.dropdown_button: ft.ElevatedButton | None = None
 
@@ -244,7 +244,7 @@ class FilterTabView(ft.Column):
     def _create_display_filters_controls(self) -> ft.Column:
         """Create the controls for the display filters section."""
         column_names = [column.name for column in DpdHeadword.__table__.columns]
-        self.selected_columns_text = ft.Text("Select columns...", size=14)
+        self.selected_columns_container = ft.Row([], wrap=True)
         self.column_checkboxes = []
 
         # Create checkboxes in a scrollable column that always shows scrollbar
@@ -270,7 +270,11 @@ class FilterTabView(ft.Column):
             "Select Columns", on_click=self._toggle_column_options
         )
         return ft.Column(
-            [self.selected_columns_text, self.dropdown_button, self.options_container]
+            [
+                self.selected_columns_container,
+                self.dropdown_button,
+                self.options_container,
+            ]
         )
 
     def _toggle_column_options(self, e: ft.ControlEvent) -> None:
@@ -284,12 +288,26 @@ class FilterTabView(ft.Column):
         selected_options = [
             str(checkbox.label) for checkbox in self.column_checkboxes if checkbox.value
         ]
-        if self.selected_columns_text:
-            self.selected_columns_text.value = (
-                ", ".join(selected_options) if selected_options else "Select columns..."
-            )
-            self.selected_columns_text.size = 14
-            self.selected_columns_text.color = ft.Colors.WHITE
+
+        # Clear the container
+        if self.selected_columns_container:
+            self.selected_columns_container.controls.clear()
+
+            # Add blue rounded buttons for each selected option
+            for option in selected_options:
+                button = ft.Container(
+                    content=ft.Text(option, size=14, color=ft.Colors.WHITE),
+                    bgcolor=ft.Colors.BLUE_GREY_500,
+                    border_radius=12,
+                    padding=ft.Padding(10, 2, 10, 2),
+                )
+                self.selected_columns_container.controls.append(button)
+
+            # If no options selected, show a placeholder
+            if not selected_options:
+                placeholder = ft.Text("Select columns...", size=14)
+                self.selected_columns_container.controls.append(placeholder)
+
         self.page.update()
 
     def _create_limit_controls(self) -> ft.Row:
