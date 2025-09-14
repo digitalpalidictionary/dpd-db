@@ -110,16 +110,16 @@ class App:
                     content=self.pass2_add_view,
                 ),
                 ft.Tab(
-                    text="Tests",
-                    content=self.tests_tab_view,
-                ),
-                ft.Tab(
                     text="'",
                     content=self.sandhi_view,
                 ),
                 ft.Tab(
                     text="√",
                     content=self.filter_tab_view,
+                ),
+                ft.Tab(
+                    text="Tests",
+                    content=self.tests_tab_view,
                 ),
             ],
             expand=True,

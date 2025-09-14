@@ -90,7 +90,7 @@ class FilterTabView(ft.Column):
                 ),
                 data_filters_controls,
             ],
-            vertical_alignment=ft.CrossAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
         # --- Display Filters Section ---
@@ -103,7 +103,7 @@ class FilterTabView(ft.Column):
                 ),
                 display_filters_controls,
             ],
-            vertical_alignment=ft.CrossAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
         # --- Results Limit Section ---
@@ -116,7 +116,7 @@ class FilterTabView(ft.Column):
                 ),
                 limit_controls,
             ],
-            vertical_alignment=ft.CrossAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
         # --- Action Buttons & Results ---
@@ -126,7 +126,18 @@ class FilterTabView(ft.Column):
         clear_button = ft.ElevatedButton(
             "Clear Filters", on_click=self._clear_filters_clicked
         )
-        buttons_section = ft.Row([apply_button, clear_button])
+        buttons_section = ft.Row(
+            [
+                ft.Container(
+                    ft.Text("Filters", size=14, color=LABEL_COLOUR),
+                    width=150,
+                ),
+                apply_button,
+                clear_button,
+            ],
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+        )
+        # ft.Row([apply_button, clear_button])
 
         # Assemble all sections
         self.controls.extend(
@@ -297,7 +308,7 @@ class FilterTabView(ft.Column):
         """Handle the Apply Filters button click."""
         # Refresh the database session to get the latest data
         self.toolkit.db_manager.new_db_session()
-        
+
         data_filters = []
         for i, (column_dropdown, regex_input) in enumerate(
             zip(self.column_dropdowns, self.regex_inputs)
@@ -333,11 +344,11 @@ class FilterTabView(ft.Column):
         # Clear only the regex input fields, not the dropdown selections
         for regex_input in self.regex_inputs:
             regex_input.value = ""
-        
+
         # Clear limit input
         if self.limit_input:
-            self.limit_input.value = "100"
-        
+            self.limit_input.value = "10"
+
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
         self.page.update()
