@@ -7,6 +7,8 @@ from gui2.dpd_fields_classes import DpdDropdown
 from gui2.filter_component import FilterComponent
 from gui2.toolkit import ToolKit
 
+LABEL_COLOUR = ft.Colors.GREY_500
+
 
 class FilterTabView(ft.Column):
     """Filter tab for database filtering functionality."""
@@ -83,7 +85,7 @@ class FilterTabView(ft.Column):
         data_filters_section = ft.Row(
             [
                 ft.Container(
-                    ft.Text("Data Filters", size=16, weight=ft.FontWeight.BOLD),
+                    ft.Text("Data Filters", size=14, color=LABEL_COLOUR),
                     width=150,
                 ),
                 data_filters_controls,
@@ -96,7 +98,7 @@ class FilterTabView(ft.Column):
         display_filters_section = ft.Row(
             [
                 ft.Container(
-                    ft.Text("Display Filters", size=16, weight=ft.FontWeight.BOLD),
+                    ft.Text("Display Filters", size=14, color=LABEL_COLOUR),
                     width=150,
                 ),
                 display_filters_controls,
@@ -109,7 +111,7 @@ class FilterTabView(ft.Column):
         limit_section = ft.Row(
             [
                 ft.Container(
-                    ft.Text("Results Limit", size=16, weight=ft.FontWeight.BOLD),
+                    ft.Text("Results Limit", size=14, color=LABEL_COLOUR),
                     width=150,
                 ),
                 limit_controls,
@@ -221,7 +223,7 @@ class FilterTabView(ft.Column):
     def _create_display_filters_controls(self) -> ft.Column:
         """Create the controls for the display filters section."""
         column_names = [column.name for column in DpdHeadword.__table__.columns]
-        self.selected_columns_text = ft.Text("Select columns...")
+        self.selected_columns_text = ft.Text("Select columns...", size=14, color=LABEL_COLOUR)
         self.column_checkboxes = []
 
         # Create checkboxes in a scrollable column that always shows scrollbar
@@ -265,6 +267,8 @@ class FilterTabView(ft.Column):
             self.selected_columns_text.value = (
                 ", ".join(selected_options) if selected_options else "Select columns..."
             )
+            self.selected_columns_text.size = 14
+            self.selected_columns_text.color = LABEL_COLOUR
         self.page.update()
 
     def _create_limit_controls(self) -> ft.Row:
