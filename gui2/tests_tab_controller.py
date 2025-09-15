@@ -42,9 +42,7 @@ class TestsTabController:
         db_entries, tests_list = self.load_db_and_tests()
         if db_entries is None or tests_list is None:
             # Show error in view.test_name_input (red)
-            self.view.test_name_input.value = "Error loading DB or tests"
-            self.view.test_name_input.color = ft.Colors.RED
-            self.view.page.update()
+            self.view.update_test_name("Error loading DB or tests")
             # Re-enable run, disable stop, return
             self.view.set_run_tests_button_disabled_state(False)
             self.view.set_stop_tests_button_disabled_state(True)
@@ -117,9 +115,6 @@ class TestsTabController:
             if failures:
                 self._handle_test_failures(current_test, failures, query)
             else:
-                # For passing tests, update UI to indicate success and auto-advance
-                self.view.test_name_input.value = f"{current_test.test_name} - PASSED"
-                self.view.page.update()
                 # Auto-advance to the next test
                 self._run_next_test_from_generator()
 
@@ -135,17 +130,11 @@ class TestsTabController:
         # Step 7d-i: Populate view fields
         self.view.populate_with_test_definition(test)
 
-        # Step 7d-ii: Populate exceptions dropdown
+        # Step 7d-ii: Populate test_add_exception_dropdown with failure IDs not in test.exceptions (max 10)
         failure_ids = [
             str(failure.id) for failure in failures if failure.id not in test.exceptions
         ]
         limited_ids = failure_ids[:10]
-        self.view.exceptions_dropdown.options = [
-            ft.dropdown.Option(id) for id in limited_ids
-        ]
-        self.view.exceptions_dropdown.value = None
-
-        # Populate test_add_exception_dropdown with failure IDs not in test.exceptions (max 10)
         self.view.test_add_exception_dropdown.options = [
             ft.dropdown.Option(id) for id in limited_ids
         ]
@@ -231,9 +220,7 @@ class TestsTabController:
         if not result_ok:
             if failures:
                 first_failure = failures[0]
-                self.view.test_name_input.value = first_failure.test_name
-                self.view.test_name_input.color = ft.Colors.RED
-                self.view.page.update()
+                self.view.update_test_name(f"{first_failure.test_name}")
             return False
         return True
 
@@ -333,8 +320,25 @@ class TestsTabController:
             self.view.display_3_input.value or current_test.display_3
         )
 
-        # Exceptions: For now, keep existing as view doesn't support full editing
-        # Could add a text field for JSON editing in future
+        # Parse exceptions from TextField (comma-separated IDs)
+        exceptions_str = (self.view.exceptions_textfield.value or "").strip()
+        if exceptions_str:
+            try:
+                exception_ids = [
+                    int(id_str.strip())
+                    for id_str in exceptions_str.split(",")
+                    if id_str.strip()
+                ]
+                current_test.exceptions = sorted(exception_ids)
+            except ValueError:
+                snackbar = ft.SnackBar(
+                    content=ft.Text("Invalid exception IDs; keeping existing."),
+                    bgcolor=ft.Colors.ORANGE,
+                )
+                self.page.overlay.append(snackbar)
+                self.page.update()
+        else:
+            current_test.exceptions = []
 
         # Update the manager's list
         self.toolkit.db_test_manager.internal_tests_list = self._tests_list
@@ -437,6 +441,11 @@ class TestsTabController:
                 self.view.show_snackbar(
                     f"Added exception {selected_id}", ft.Colors.GREEN
                 )
+                # Update the exceptions TextField
+                self.view.exceptions_textfield.value = ", ".join(
+                    map(str, sorted(current_test.exceptions))
+                )
+                self.page.update()
             else:
                 self.view.show_snackbar(
                     f"Exception {selected_id} already exists", ft.Colors.ORANGE

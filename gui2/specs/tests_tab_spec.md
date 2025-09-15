@@ -62,11 +62,10 @@ This document specifies the functionality, behavior, and implementation details 
 - **Trigger**: Click on "Update Tests" button
 - **Behavior**:
   - Checks if a current test is active (from ongoing test run)
-  - Reads test_name, iterations, all 6 search criteria, error_column, and display fields from view
+  - Reads test_name, iterations, all 6 search criteria, error_column, display fields, and exceptions (comma-separated IDs from TextField, parsed to list[int])
   - Updates the corresponding InternalTestRow in the test manager's list
   - Saves the updated tests to file via DbTestManager
-  - Shows success feedback via snackbar
-  - Note: Exceptions are not edited via this button; use "Add Exception" during test run for that
+  - Shows success feedback via snackbar; warns if exception parsing fails
 
 #### `handle_add_new_test`
 - **Trigger**: Click on "Add New Test" button
@@ -173,8 +172,8 @@ Tests are defined using `InternalTestRow` objects with the following properties:
 ### Exception Workflow
 1. **Detection**: Failed test IDs are identified during test execution
 2. **Filtering**: IDs already in exceptions list are filtered out
-3. **Presentation**: Remaining IDs are displayed in exceptions dropdown
-4. **Management**: Users can add exceptions through the "Add Exception" interface
+3. **Presentation**: Current exceptions shown as comma-separated string in TextField; new failures available for adding via separate dropdown
+4. **Management**: Users can edit exceptions in TextField or add via "Add Exception" during run
 
 ### Data Validation
 - Exception IDs are validated before addition
@@ -206,7 +205,7 @@ Tests are defined using `InternalTestRow` objects with the following properties:
 - Search criteria (column, operator, value) for up to 6 conditions
 - Display column selectors (up to 3)
 - Error column specification
-- Exception management dropdowns
+- Exceptions as editable TextField with comma-separated IDs
 
 ### Action Buttons
 - Run/Stop test execution

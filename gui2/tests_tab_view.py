@@ -151,11 +151,10 @@ class TestsTabView(ft.Column):
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
         )
-        self.exceptions_dropdown = ft.Dropdown(
+        self.exceptions_textfield = ft.TextField(
             label="Exceptions",
             key="exceptions",
             width=COLUMN_WIDTH,
-            options=[],  # Initially empty
             label_style=TEXT_FIELD_LABEL_STYLE,
         )
 
@@ -244,7 +243,7 @@ class TestsTabView(ft.Column):
         )
 
         # Rows 3-8: Test Criteria
-        test_criteria_rows = []
+        rows_test_criteria = []
         for i in range(6):
             elements = self.search_criteria_elements[i]
             row = ft.Row(
@@ -256,7 +255,7 @@ class TestsTabView(ft.Column):
                 ],
                 alignment=ft.MainAxisAlignment.START,
             )
-            test_criteria_rows.append(row)
+            rows_test_criteria.append(row)
 
         # Row 9: Display Fields
         row_display = ft.Row(
@@ -284,7 +283,7 @@ class TestsTabView(ft.Column):
                     color=LABEL_COLOUR,
                 ),
                 self.error_column_input,
-                self.exceptions_dropdown,
+                self.exceptions_textfield,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
@@ -292,7 +291,7 @@ class TestsTabView(ft.Column):
         # Row 11: Action Buttons
         row_test_add_delete_except = ft.Row(
             controls=[
-                # ft.Container(width=LABEL_WIDTH),  # Spacer
+                ft.Container(width=LABEL_WIDTH),  # Spacer
                 self.update_tests_button,
                 self.add_new_test_button,
                 self.delete_test_button,
@@ -338,7 +337,7 @@ class TestsTabView(ft.Column):
                 row_start_stop_edit,
                 ft.Divider(),
                 row_test_name_etc,
-                *test_criteria_rows,
+                *rows_test_criteria,
                 row_display,
                 row_commentary_exceptions,
                 ft.Divider(),
@@ -385,8 +384,7 @@ class TestsTabView(ft.Column):
         self.display_3_input.value = ""
 
         self.error_column_input.value = ""
-        self.exceptions_dropdown.value = None  # Clears dropdown selection
-        # self.exceptions_dropdown.options = [] # Optionally clear options if dynamically populated
+        self.exceptions_textfield.value = ""
 
         self.test_add_exception_dropdown.value = None  # Clears dropdown selection
         # self.test_add_exception_dropdown.options = [] # Optionally clear options
@@ -442,8 +440,10 @@ class TestsTabView(ft.Column):
         self.display_2_input.value = test_def.display_2
         self.display_3_input.value = test_def.display_3
         self.error_column_input.value = test_def.error_column
-        self.exceptions_dropdown.value = (
-            None  # Or set based on how exceptions are meant to be displayed
+        self.exceptions_textfield.value = (
+            ", ".join(map(str, sorted(test_def.exceptions)))
+            if test_def.exceptions
+            else ""
         )
         self.page.update()
 
