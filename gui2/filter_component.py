@@ -1,14 +1,14 @@
 import re
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from db.models import DpdHeadword
-
-
 import flet as ft
 
 from db.models import DpdHeadword
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import show_global_snackbar
+
+if TYPE_CHECKING:
+    from db.models import DpdHeadword
 
 
 class FilterComponent(ft.Column):
@@ -130,7 +130,7 @@ class FilterComponent(ft.Column):
                     re.compile(filter_info["pattern"])
                 except re.error as ex:
                     error_msg = f"Invalid regex pattern in filter {i + 1}: {str(ex)}"
-                    self._show_error(error_msg)
+                    show_global_snackbar(self.page, error_msg, "error", 5000)
                     return
 
             display_columns = (
@@ -152,13 +152,12 @@ class FilterComponent(ft.Column):
                 column_attr = getattr(DpdHeadword, column_name, None)
                 if column_attr is None:
                     error_msg = f"Column '{column_name}' not found in DpdHeadword"
-                    self._show_error(error_msg)
+                    show_global_snackbar(self.page, error_msg, "error", 5000)
                     return
 
                 # Special handling for ID filtering - convert regex pattern to list of IDs
                 if column_name == "id":
                     # Extract IDs from the regex pattern like ^(1571|3106|4365|...)$
-
                     # Match pattern like ^(1571|3106|4365|...)$
                     # Fix the regex pattern - we need to match ^(1571|3106|4365|...)$
                     # The pattern has literal parentheses, not escaped ones
@@ -189,11 +188,15 @@ class FilterComponent(ft.Column):
 
             self._update_results_table(display_columns)
             if not self._just_saved:
-                self._show_message(f"Found {len(self.filtered_results)} results")
+                show_global_snackbar(
+                    self.page,
+                    f"Found {len(self.filtered_results)} results",
+                    "info",
+                    3000,
+                )
         except Exception as ex:
             error_msg = f"Error applying filters: {str(ex)}"
-
-            self._show_error(error_msg)
+            show_global_snackbar(self.page, error_msg, "error", 5000)
 
     def _update_results_table(self, display_columns: list[str]) -> None:
         """Update the results table with filtered data."""
@@ -305,12 +308,12 @@ class FilterComponent(ft.Column):
     def _save_changes(self, e: ft.ControlEvent) -> None:
         """Save any changes back to the database."""
         if not self.modified_cells:
-            self._show_message("No changes to save")
+            show_global_snackbar(self.page, "No changes to save", "info", 3000)
             return
 
         is_valid, error_message = self._validate_data()
         if not is_valid:
-            self._show_error(error_message)
+            show_global_snackbar(self.page, error_message, "error", 5000)
             return
 
         try:
@@ -331,8 +334,11 @@ class FilterComponent(ft.Column):
 
                 success, error = self.toolkit.db_manager.update_word_in_db(record)
                 if not success:
-                    self._show_error(
-                        f"Failed to save changes for row {row_index + 1}: {error}"
+                    show_global_snackbar(
+                        self.page,
+                        f"Failed to save changes for row {row_index + 1}: {error}",
+                        "error",
+                        5000,
                     )
                     self.toolkit.db_manager.db_session.rollback()
                     return
@@ -342,37 +348,21 @@ class FilterComponent(ft.Column):
             self._just_saved = True
             self._refresh_results_table()
             self._just_saved = False
-            self._show_message(f"Successfully saved {len(changes_by_row)} records")
+            show_global_snackbar(
+                self.page,
+                f"Successfully saved {len(changes_by_row)} records",
+                "info",
+                4000,
+            )
 
         except Exception as ex:
             self.toolkit.db_manager.db_session.rollback()
-            self._show_error(f"Error saving changes: {str(ex)}")
+            show_global_snackbar(
+                self.page, f"Error saving changes: {str(ex)}", "error", 5000
+            )
             import traceback
 
             print(f"Full traceback: {traceback.format_exc()}")
-
-    def _show_message(self, message: str) -> None:
-        """Show a message to the user."""
-        snackbar = ft.SnackBar(
-            content=ft.Text(message),
-            action="OK",
-            duration=3000,
-        )
-        self.page.overlay.append(snackbar)
-        snackbar.open = True
-        self.page.update()
-
-    def _show_error(self, error: str) -> None:
-        """Show an error message to the user."""
-        snackbar = ft.SnackBar(
-            content=ft.Text(f"Error: {error}"),
-            action="OK",
-            duration=5000,
-            bgcolor=ft.Colors.RED_100,
-        )
-        self.page.overlay.append(snackbar)
-        snackbar.open = True
-        self.page.update()
 
     def _on_cell_change(
         self, e: ft.ControlEvent, row_index: int, col_name: str
@@ -431,9 +421,9 @@ class FilterComponent(ft.Column):
                 pyperclip.copy(str(display_1_value))
 
                 # Show a snackbar confirmation
-                self.page.overlay.append(
-                    ft.SnackBar(
-                        content=ft.Text(f"Copied {display_1_column} to clipboard")
-                    )
+                show_global_snackbar(
+                    self.page,
+                    f"Copied {display_1_column} to clipboard",
+                    "info",
+                    3000,
                 )
-                self.page.update()

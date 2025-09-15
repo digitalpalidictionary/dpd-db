@@ -6,6 +6,7 @@ import flet as ft
 from db.models import DpdHeadword
 from db_tests.db_tests_manager import DbTestManager, InternalTestRow
 from gui2.filter_component import FilterComponent
+from gui2.ui_utils import show_global_snackbar
 from tools.db_search_string import db_search_string
 
 if TYPE_CHECKING:
@@ -248,11 +249,7 @@ class TestsTabController:
         self._db_entries = None
         self._tests_list = None
         self.view.clear_all_fields()
-        snackbar = ft.SnackBar(
-            content=ft.Text("Tests stopped."), bgcolor=ft.Colors.ORANGE
-        )
-        self.page.overlay.append(snackbar)
-        self.page.update()
+        show_global_snackbar(self.page, "Tests stopped.", "warning", 3000)
 
     def handle_edit_tests_clicked(self, e: ft.ControlEvent) -> None:
         """Handle edit tests button click."""
@@ -269,17 +266,13 @@ class TestsTabController:
 
     def handle_test_update(self, e: ft.ControlEvent) -> None:
         """Handle update test button click."""
-        print("DEBUG: handle_test_update called")
-        print(
-            f"DEBUG: _current_test_index={self._current_test_index}, _tests_list={self._tests_list is not None}"
-        )
         if self._current_test_index is None or self._tests_list is None:
-            snackbar = ft.SnackBar(
-                content=ft.Text("No current test to update. Run tests first."),
-                bgcolor=ft.Colors.RED,
+            show_global_snackbar(
+                self.page,
+                "No current test to update. Run tests first.",
+                "error",
+                5000,
             )
-            self.page.overlay.append(snackbar)
-            self.page.update()
             return
 
         current_test = self._tests_list[self._current_test_index]
@@ -339,12 +332,12 @@ class TestsTabController:
                 ]
                 current_test.exceptions = sorted(exception_ids)
             except ValueError:
-                snackbar = ft.SnackBar(
-                    content=ft.Text("Invalid exception IDs; keeping existing."),
-                    bgcolor=ft.Colors.ORANGE,
+                show_global_snackbar(
+                    self.page,
+                    "Invalid exception IDs; keeping existing.",
+                    "warning",
+                    5000,
                 )
-                self.page.overlay.append(snackbar)
-                self.page.update()
         else:
             current_test.exceptions = []
 
@@ -354,18 +347,19 @@ class TestsTabController:
         try:
             # Save via manager.save_tests()
             self.toolkit.db_test_manager.save_tests()
-            snackbar = ft.SnackBar(
-                content=ft.Text("Test updated successfully!"), bgcolor=ft.Colors.GREEN
+            show_global_snackbar(
+                self.page,
+                "Test updated successfully!",
+                "info",
+                4000,
             )
         except Exception as save_error:
-            snackbar = ft.SnackBar(
-                content=ft.Text(f"Failed to update test: {str(save_error)}"),
-                bgcolor=ft.Colors.RED,
+            show_global_snackbar(
+                self.page,
+                f"Failed to update test: {str(save_error)}",
+                "error",
+                5000,
             )
-        print("DEBUG: About to show snackbar")
-        self.page.overlay.append(snackbar)
-        snackbar.open = True
-        self.page.update()
 
     def handle_add_new_test(self, e: ft.ControlEvent) -> None:
         """Handle add new test button click."""
@@ -440,7 +434,12 @@ class TestsTabController:
     def handle_add_exception_button(self, e: ft.ControlEvent) -> None:
         """Handle add exception button click."""
         if self._current_test_index is None or self._tests_list is None:
-            self.view.show_snackbar("No current test. Run tests first.", ft.Colors.RED)
+            show_global_snackbar(
+                self.page,
+                "No current test. Run tests first.",
+                "error",
+                5000,
+            )
             return
 
         selected_id = self.view.test_add_exception_dropdown.value
@@ -453,8 +452,11 @@ class TestsTabController:
                 current_test.exceptions.sort()
                 self.toolkit.db_test_manager.internal_tests_list = self._tests_list
                 self.toolkit.db_test_manager.save_tests()
-                self.view.show_snackbar(
-                    f"Added exception {selected_id}", ft.Colors.GREEN
+                show_global_snackbar(
+                    self.page,
+                    f"Added exception {selected_id}",
+                    "info",
+                    3000,
                 )
                 # Update the exceptions TextField
                 self.view.exceptions_textfield.value = ", ".join(
@@ -462,8 +464,11 @@ class TestsTabController:
                 )
                 self.page.update()
             else:
-                self.view.show_snackbar(
-                    f"Exception {selected_id} already exists", ft.Colors.ORANGE
+                show_global_snackbar(
+                    self.page,
+                    f"Exception {selected_id} already exists",
+                    "warning",
+                    3000,
                 )
 
             # Remove from dropdown
@@ -474,7 +479,12 @@ class TestsTabController:
             self.view.test_add_exception_dropdown.value = None
             self.page.update()
         else:
-            self.view.show_snackbar("No exception selected", ft.Colors.ORANGE)
+            show_global_snackbar(
+                self.page,
+                "No exception selected",
+                "warning",
+                3000,
+            )
 
     def handle_test_db_query_copy(self, e: ft.ControlEvent) -> None:
         """Handle copy DB query button click."""
@@ -484,10 +494,12 @@ class TestsTabController:
             pyperclip.copy(self.view.test_db_query_input.value)
 
             # Show a snackbar confirmation
-            self.page.overlay.append(
-                ft.SnackBar(content=ft.Text("Query copied to clipboard"))
+            show_global_snackbar(
+                self.page,
+                "Query copied to clipboard",
+                "info",
+                3000,
             )
-            self.page.update()
 
     def handle_next_test_clicked(self, e: ft.ControlEvent) -> None:
         """Handle next test button click."""

@@ -6,6 +6,7 @@ from db_tests.db_tests_manager import InternalTestRow
 from gui2.filter_component import FilterComponent
 from gui2.tests_tab_controller import TestsTabController
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import show_global_snackbar
 
 LOGIC_OPTIONS: list[str] = [
     "equals",
@@ -122,7 +123,7 @@ class TestsTabView(ft.Column):
                     label_style=TEXT_FIELD_LABEL_STYLE,
                 ),
             }
-            self.search_criteria_elements.append(TestElements(elements))
+            self.search_criteria_elements.append(elements)
 
         # Row 9 Elements
         self.display_1_input = ft.TextField(
@@ -454,10 +455,4 @@ class TestsTabView(ft.Column):
 
     def show_snackbar(self, message: str, color: str = ft.Colors.BLUE_100) -> None:
         """Show a snackbar message."""
-        snackbar = ft.SnackBar(
-            content=ft.Text(message),
-            bgcolor=color,
-        )
-        self.page.overlay.append(snackbar)
-        snackbar.open = True
-        self.page.update()
+        show_global_snackbar(self.page, message, "info", 3000)
