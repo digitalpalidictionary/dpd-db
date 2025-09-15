@@ -61,11 +61,13 @@ class TestsTabView(ft.Column):
             "Stop Tests",
             key="test_stop",
             tooltip="Stop ongoing tests",
+            on_click=self.controller.handle_stop_tests_clicked,
         )
         self.edit_tests_button = ft.ElevatedButton(
             "Edit Tests",
             key="test_edit",
             tooltip="Open tests file for editing",
+            on_click=self.controller.handle_edit_tests_clicked,
         )
 
         # Row 2 Elements
@@ -398,6 +400,7 @@ class TestsTabView(ft.Column):
 
         # Clear results table
         # Results table is now handled by filter component
+        self.set_filter_component(None)
 
         self.page.update()
 
@@ -445,9 +448,7 @@ class TestsTabView(ft.Column):
         self.page.update()
 
     def set_filter_component(self, filter_component: FilterComponent | None) -> None:
-        self.filter_component_container.content = (
-            filter_component if filter_component else ft.Column([], expand=True)
-        )
+        self.filter_component_container.content = filter_component
         self.page.update()
 
     def show_snackbar(self, message: str, color: str = ft.Colors.BLUE_100) -> None:

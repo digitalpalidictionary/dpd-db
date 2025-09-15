@@ -250,7 +250,18 @@ class TestsTabController:
     def handle_stop_tests_clicked(self, e: ft.ControlEvent) -> None:
         """Handle stop tests button click."""
         self._stop_requested = True
+        self.view.set_run_tests_button_disabled_state(False)
+        self.view.set_stop_tests_button_disabled_state(True)
+        self.view.progress_bar.visible = False
+        self._current_test_generator = None
+        self._db_entries = None
+        self._tests_list = None
         self.view.clear_all_fields()
+        snackbar = ft.SnackBar(
+            content=ft.Text("Tests stopped."), bgcolor=ft.Colors.ORANGE
+        )
+        self.page.overlay.append(snackbar)
+        self.page.update()
 
     def handle_edit_tests_clicked(self, e: ft.ControlEvent) -> None:
         """Handle edit tests button click."""

@@ -41,8 +41,12 @@ This document specifies the functionality, behavior, and implementation details 
 #### `handle_stop_tests_clicked`
 - **Trigger**: Click on "Stop Tests" button
 - **Behavior**:
-  - Sets stop flag to terminate test execution
-  - Clears all fields in the view
+  - Immediately stops test execution by setting stop flag and calling finalize
+  - Re-enables run button, disables stop button
+  - Hides progress bar
+  - Resets generator, db entries, and tests list
+  - Clears all fields in the view, including the FilterComponent/datatable by setting it to None
+  - Shows "Tests stopped" snackbar
 
 #### `handle_edit_tests_clicked`
 - **Trigger**: Click on "Edit Tests" button
