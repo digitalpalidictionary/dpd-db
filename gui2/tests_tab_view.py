@@ -158,7 +158,11 @@ class TestsTabView(ft.Column):
         )
 
         # Row 11 Elements
-        self.update_tests_button = ft.ElevatedButton("Update Tests", key="test_update")
+        self.update_tests_button = ft.ElevatedButton(
+            "Update Test",
+            key="test_update",
+            on_click=self.controller.handle_test_update,
+        )
         self.add_new_test_button = ft.ElevatedButton("Add New Test", key="test_new")
         self.delete_test_button = ft.ElevatedButton("Delete Test", key="test_delete")
         self.test_add_exception_dropdown = ft.Dropdown(
@@ -172,6 +176,7 @@ class TestsTabView(ft.Column):
             "Add Exception",
             key="test_add_exception_button",
             width=COLUMN_WIDTH,
+            on_click=self.controller.handle_add_exception_button,
         )
 
         # Row 12 Elements
@@ -443,4 +448,14 @@ class TestsTabView(ft.Column):
         self.filter_component_container.content = (
             filter_component if filter_component else ft.Column([], expand=True)
         )
+        self.page.update()
+
+    def show_snackbar(self, message: str, color: str = ft.Colors.BLUE_100) -> None:
+        """Show a snackbar message."""
+        snackbar = ft.SnackBar(
+            content=ft.Text(message),
+            bgcolor=color,
+        )
+        self.page.overlay.append(snackbar)
+        snackbar.open = True
         self.page.update()

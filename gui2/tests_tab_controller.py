@@ -21,6 +21,7 @@ class TestsTabController:
         self._current_test_generator: Generator[InternalTestRow, None, None] | None = (
             None
         )
+        self._current_test_index: int | None = None
         self._db_entries: list[DpdHeadword] | None = None
         self._tests_list: list[InternalTestRow] | None = None
 
@@ -97,7 +98,8 @@ class TestsTabController:
 
             # Update view with test number and name
             if self._tests_list:
-                test_index = self._tests_list.index(current_test) + 1
+                self._current_test_index = self._tests_list.index(current_test)
+                test_index = self._current_test_index + 1
                 self.view.update_test_number_display(str(test_index))
             self.view.update_test_name(current_test.test_name)
 
@@ -265,51 +267,75 @@ class TestsTabController:
 
     def handle_test_update(self, e: ft.ControlEvent) -> None:
         """Handle update test button click."""
+        if self._current_test_index is None or self._tests_list is None:
+            snackbar = ft.SnackBar(
+                content=ft.Text("No current test to update. Run tests first."),
+                bgcolor=ft.Colors.RED,
+            )
+            self.page.overlay.append(snackbar)
+            self.page.update()
+            return
+
+        current_test = self._tests_list[self._current_test_index]
+
         # Read all test fields from view
-        test_name = self.view.test_name_input.value or ""
-        iterations = (
-            int(self.view.iterations_input.value)
-            if self.view.iterations_input.value
-            else 0
+        current_test.test_name = (
+            self.view.test_name_input.value or current_test.test_name
+        )
+        try:
+            current_test.iterations = int(
+                self.view.iterations_input.value or str(current_test.iterations)
+            )
+        except ValueError:
+            current_test.iterations = 10  # Default fallback
+
+        # Read search criteria 1-6
+        for i in range(6):
+            elements = self.view.search_criteria_elements[i]
+            setattr(
+                current_test,
+                f"search_column_{i + 1}",
+                elements["search_column"].value or "",
+            )
+            setattr(
+                current_test,
+                f"search_sign_{i + 1}",
+                elements["search_sign"].value or "",
+            )
+            setattr(
+                current_test,
+                f"search_string_{i + 1}",
+                elements["search_string"].value or "",
+            )
+
+        # Read other fields
+        current_test.error_column = (
+            self.view.error_column_input.value or current_test.error_column
+        )
+        current_test.display_1 = (
+            self.view.display_1_input.value or current_test.display_1
+        )
+        current_test.display_2 = (
+            self.view.display_2_input.value or current_test.display_2
+        )
+        current_test.display_3 = (
+            self.view.display_3_input.value or current_test.display_3
         )
 
-        # Create a new InternalTestRow with the updated values
-        # Note: This is a simplified implementation. In a real scenario, you would need to
-        # get the current test index and update that specific test in the manager's list.
-        # Also, you would need to map all fields correctly.
-        updated_test = InternalTestRow(
-            test_name=test_name,
-            search_column_1="",
-            search_sign_1="",
-            search_string_1="",
-            search_column_2="",
-            search_sign_2="",
-            search_string_2="",
-            search_column_3="",
-            search_sign_3="",
-            search_string_3="",
-            search_column_4="",
-            search_sign_4="",
-            search_string_4="",
-            search_column_5="",
-            search_sign_5="",
-            search_string_5="",
-            search_column_6="",
-            search_sign_6="",
-            search_string_6="",
-            error_column="",
-            exceptions=[],
-            iterations=iterations,
-            display_1="",
-            display_2="",
-            display_3="",
-        )
+        # Exceptions: For now, keep existing as view doesn't support full editing
+        # Could add a text field for JSON editing in future
+
+        # Update the manager's list
+        self.toolkit.db_test_manager.internal_tests_list = self._tests_list
 
         # Save via manager.save_tests()
         self.toolkit.db_test_manager.save_tests()
 
-        # Show success message in view
-        # This would require adding a method to the view to show messages
+        snackbar = ft.SnackBar(
+            content=ft.Text("Test updated successfully!"), bgcolor=ft.Colors.GREEN
+        )
+        self.page.overlay.append(snackbar)
+        self.page.update()
 
     def handle_add_new_test(self, e: ft.ControlEvent) -> None:
         """Handle add new test button click."""
@@ -383,32 +409,37 @@ class TestsTabController:
 
     def handle_add_exception_button(self, e: ft.ControlEvent) -> None:
         """Handle add exception button click."""
-        # Get selected ID from dropdown
+        if self._current_test_index is None or self._tests_list is None:
+            self.view.show_snackbar("No current test. Run tests first.", ft.Colors.RED)
+            return
+
         selected_id = self.view.test_add_exception_dropdown.value
         if selected_id:
-            # Add to current test exceptions via manager
-            # Note: This implementation assumes we have access to the current test
-            # In a full implementation, you would need to track the current test
-            # For now, we'll just print to console as a placeholder
-            print(f"Adding exception ID: {selected_id}")
+            exception_id = int(selected_id)
+            current_test = self._tests_list[self._current_test_index]
 
-            # Save via manager.save_tests()
-            # Note: This would require access to the test manager
-            # self.toolkit.db_test_manager.save_tests()
+            if exception_id not in current_test.exceptions:
+                current_test.exceptions.append(exception_id)
+                current_test.exceptions.sort()
+                self.toolkit.db_test_manager.internal_tests_list = self._tests_list
+                self.toolkit.db_test_manager.save_tests()
+                self.view.show_snackbar(
+                    f"Added exception {selected_id}", ft.Colors.GREEN
+                )
+            else:
+                self.view.show_snackbar(
+                    f"Exception {selected_id} already exists", ft.Colors.ORANGE
+                )
 
-            # Remove ID from dropdown
+            # Remove from dropdown
+            options = self.view.test_add_exception_dropdown.options or []
             self.view.test_add_exception_dropdown.options = [
-                option
-                for option in (self.view.test_add_exception_dropdown.options or [])
-                if option.key != selected_id
+                ft.dropdown.Option(opt.key) for opt in options if opt.key != selected_id
             ]
             self.view.test_add_exception_dropdown.value = None
-
-            # Update message in view
-            # This would require adding a method to the view to show messages
-            # self.view.show_message(f"Added exception: {selected_id}")
-
-            self.view.page.update()
+            self.page.update()
+        else:
+            self.view.show_snackbar("No exception selected", ft.Colors.ORANGE)
 
     def handle_test_db_query_copy(self, e: ft.ControlEvent) -> None:
         """Handle copy DB query button click."""

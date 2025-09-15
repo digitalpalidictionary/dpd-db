@@ -57,9 +57,12 @@ This document specifies the functionality, behavior, and implementation details 
 #### `handle_test_update`
 - **Trigger**: Click on "Update Tests" button
 - **Behavior**:
-  - Reads test fields from view
-  - Updates test definition in test manager
-  - Saves updated tests to file
+  - Checks if a current test is active (from ongoing test run)
+  - Reads test_name, iterations, all 6 search criteria, error_column, and display fields from view
+  - Updates the corresponding InternalTestRow in the test manager's list
+  - Saves the updated tests to file via DbTestManager
+  - Shows success feedback via snackbar
+  - Note: Exceptions are not edited via this button; use "Add Exception" during test run for that
 
 #### `handle_add_new_test`
 - **Trigger**: Click on "Add New Test" button
