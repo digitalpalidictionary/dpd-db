@@ -209,6 +209,7 @@ class TestsTabView(ft.Column):
             icon=ft.Icons.COPY,
             key="test_db_query_copy",
             tooltip="Copy DB Query",
+            on_click=self.controller.handle_test_db_query_copy,
         )
 
         # Row 15 Elements

@@ -6,9 +6,12 @@ import flet as ft
 from db.models import DpdHeadword
 from db_tests.db_tests_manager import DbTestManager, InternalTestRow
 from gui2.filter_component import FilterComponent
+from tools.db_search_string import db_search_string
 
 if TYPE_CHECKING:
     from gui2.tests_tab_view import TestsTabView
+import pyperclip
+
 from gui2.toolkit import ToolKit
 
 
@@ -109,11 +112,11 @@ class TestsTabController:
             if self._db_entries is None:
                 self._finalize_test_run("DB entries not loaded.")
                 return
-            failures, query = self.run_single_test(current_test, self._db_entries)
+            failures = self.run_single_test(current_test, self._db_entries)
 
             # Handle failures or success
             if failures:
-                self._handle_test_failures(current_test, failures, query)
+                self._handle_test_failures(current_test, failures)
             else:
                 # Auto-advance to the next test
                 self._run_next_test_from_generator()
@@ -124,7 +127,9 @@ class TestsTabController:
             self._finalize_test_run(f"Error during test run: {ex}")
 
     def _handle_test_failures(
-        self, test: InternalTestRow, failures: list[DpdHeadword], query: str
+        self,
+        test: InternalTestRow,
+        failures: list[DpdHeadword],
     ) -> None:
         """Handle the display of test failures."""
         # Step 7d-i: Populate view fields
@@ -134,11 +139,14 @@ class TestsTabController:
         failure_ids = [
             str(failure.id) for failure in failures if failure.id not in test.exceptions
         ]
-        limited_ids = failure_ids[:10]
+        limited_ids = failure_ids[: test.iterations]
         self.view.test_add_exception_dropdown.options = [
             ft.dropdown.Option(id) for id in limited_ids
         ]
         self.view.test_add_exception_dropdown.value = None
+
+        # Step 7d-v: Update query field
+        self.view.test_db_query_input.value = db_search_string(limited_ids)
 
         # Step 7d-iii: Update results summary
         displayed_count = min(len(failures), test.iterations)
@@ -185,8 +193,6 @@ class TestsTabController:
         # Display in view
         self.view.set_filter_component(filter_component)
 
-        # Step 7d-v: Update query field
-        self.view.test_db_query_input.value = query
         self.view.page.update()
 
     def _finalize_test_run(self, message: str) -> None:
@@ -227,13 +233,10 @@ class TestsTabController:
 
     def run_single_test(
         self, test: InternalTestRow, db_entries: list[DpdHeadword]
-    ) -> tuple[list[DpdHeadword], str]:
+    ) -> list[DpdHeadword]:
         manager = DbTestManager()
         failures = manager.run_test_on_all_db_entries(test, db_entries)
-        failure_ids = [str(failure.id) for failure in failures]
-        limited_ids = failure_ids[:10]
-        query = f"/^({'|'.join(limited_ids)})$/" if limited_ids else "/^$/"
-        return (failures, query)
+        return failures
 
     def handle_stop_tests_clicked(self, e: ft.ControlEvent) -> None:
         """Handle stop tests button click."""
@@ -465,16 +468,15 @@ class TestsTabController:
     def handle_test_db_query_copy(self, e: ft.ControlEvent) -> None:
         """Handle copy DB query button click."""
         # Copy query text from view.test_db_query_input to clipboard using pyperclip.copy()
-        import pyperclip
 
-        query_text = self.view.test_db_query_input.value or ""
-        pyperclip.copy(query_text)
+        if self.view.test_db_query_input.value:
+            pyperclip.copy(self.view.test_db_query_input.value)
 
-        # Show a snackbar confirmation
-        self.page.overlay.append(
-            ft.SnackBar(content=ft.Text("Query copied to clipboard"))
-        )
-        self.page.update()
+            # Show a snackbar confirmation
+            self.page.overlay.append(
+                ft.SnackBar(content=ft.Text("Query copied to clipboard"))
+            )
+            self.page.update()
 
     def handle_next_test_clicked(self, e: ft.ControlEvent) -> None:
         """Handle next test button click."""
