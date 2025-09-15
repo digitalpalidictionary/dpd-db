@@ -1,5 +1,9 @@
 import re
-from typing import Dict, List
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from db.models import DpdHeadword
+
 
 import flet as ft
 
@@ -14,8 +18,8 @@ class FilterComponent(ft.Column):
         self,
         page: ft.Page,
         toolkit: ToolKit,
-        data_filters: List[tuple[str, str]] | None = None,
-        display_filters: List[str] | None = None,
+        data_filters: list[tuple[str, str]] | None = None,
+        display_filters: list[str] | None = None,
         limit: int | None = None,
     ) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
@@ -23,16 +27,17 @@ class FilterComponent(ft.Column):
         self.toolkit: ToolKit = toolkit
 
         # State management
-        self.filtered_results: List[DpdHeadword] = []
+        self.filtered_results: list["DpdHeadword"] = []
         self.dpd_headword_columns = [c.name for c in DpdHeadword.__table__.columns]
         self.display_filters = display_filters
         self.data_filters = data_filters
         self.limit = limit
+        self._just_saved: bool = False
 
         # UI Controls
         self.results_table: ft.DataTable | None = None
         # Change tracking
-        self.modified_cells: Dict[
+        self.modified_cells: dict[
             tuple[int, str], str
         ] = {}  # {(row_index, column_name): new_value}
 
@@ -183,13 +188,14 @@ class FilterComponent(ft.Column):
             self.filtered_results = query.all()
 
             self._update_results_table(display_columns)
-            self._show_message(f"Found {len(self.filtered_results)} results")
+            if not self._just_saved:
+                self._show_message(f"Found {len(self.filtered_results)} results")
         except Exception as ex:
             error_msg = f"Error applying filters: {str(ex)}"
 
             self._show_error(error_msg)
 
-    def _update_results_table(self, display_columns: List[str]) -> None:
+    def _update_results_table(self, display_columns: list[str]) -> None:
         """Update the results table with filtered data."""
 
         if not hasattr(self, "results_table") or not self.results_table:
@@ -308,7 +314,7 @@ class FilterComponent(ft.Column):
             return
 
         try:
-            changes_by_row: Dict[int, Dict[str, str]] = {}
+            changes_by_row: dict[int, dict[str, str]] = {}
             for (row_index, col_name), value in self.modified_cells.items():
                 if row_index not in changes_by_row:
                     changes_by_row[row_index] = {}
@@ -333,7 +339,9 @@ class FilterComponent(ft.Column):
 
             self.toolkit.db_manager.db_session.commit()
             self.modified_cells.clear()
+            self._just_saved = True
             self._refresh_results_table()
+            self._just_saved = False
             self._show_message(f"Successfully saved {len(changes_by_row)} records")
 
         except Exception as ex:

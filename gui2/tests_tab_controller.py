@@ -269,6 +269,10 @@ class TestsTabController:
 
     def handle_test_update(self, e: ft.ControlEvent) -> None:
         """Handle update test button click."""
+        print("DEBUG: handle_test_update called")
+        print(
+            f"DEBUG: _current_test_index={self._current_test_index}, _tests_list={self._tests_list is not None}"
+        )
         if self._current_test_index is None or self._tests_list is None:
             snackbar = ft.SnackBar(
                 content=ft.Text("No current test to update. Run tests first."),
@@ -347,13 +351,20 @@ class TestsTabController:
         # Update the manager's list
         self.toolkit.db_test_manager.internal_tests_list = self._tests_list
 
-        # Save via manager.save_tests()
-        self.toolkit.db_test_manager.save_tests()
-
-        snackbar = ft.SnackBar(
-            content=ft.Text("Test updated successfully!"), bgcolor=ft.Colors.GREEN
-        )
+        try:
+            # Save via manager.save_tests()
+            self.toolkit.db_test_manager.save_tests()
+            snackbar = ft.SnackBar(
+                content=ft.Text("Test updated successfully!"), bgcolor=ft.Colors.GREEN
+            )
+        except Exception as save_error:
+            snackbar = ft.SnackBar(
+                content=ft.Text(f"Failed to update test: {str(save_error)}"),
+                bgcolor=ft.Colors.RED,
+            )
+        print("DEBUG: About to show snackbar")
         self.page.overlay.append(snackbar)
+        snackbar.open = True
         self.page.update()
 
     def handle_add_new_test(self, e: ft.ControlEvent) -> None:
