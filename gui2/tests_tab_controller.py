@@ -25,7 +25,6 @@ class TestsTabController:
         self._tests_list: list[InternalTestRow] | None = None
 
     def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
-        print("DEBUG: handle_run_tests_clicked called")
         # Step 2: Disable run button
         self.view.set_run_tests_button_disabled_state(True)
         # Step 3: Enable stop button
@@ -38,11 +37,9 @@ class TestsTabController:
         self.view.page.update()
 
         # Step 5: Load DB/tests
-        print("DEBUG: Loading DB and tests")
         self.view.update_test_name("loading database...")
         db_entries, tests_list = self.load_db_and_tests()
         if db_entries is None or tests_list is None:
-            print("DEBUG: Error loading DB or tests")
             # Show error in view.test_name_input (red)
             self.view.test_name_input.value = "Error loading DB or tests"
             self.view.test_name_input.color = ft.Colors.RED
@@ -59,9 +56,7 @@ class TestsTabController:
         self._tests_list = tests_list
 
         # Step 6: Integrity check
-        print("DEBUG: Performing integrity check")
         if not self.integrity_check(tests_list):
-            print("DEBUG: Integrity check failed")
             # Re-enable run, disable stop, return
             self.view.set_run_tests_button_disabled_state(False)
             self.view.set_stop_tests_button_disabled_state(True)
@@ -71,43 +66,32 @@ class TestsTabController:
             return
 
         # Initialize the generator
-        print("DEBUG: Initializing test generator")
         self._current_test_generator = self._test_definitions_generator()
         # Start the first test
         self._run_next_test_from_generator()
 
     def _test_definitions_generator(self) -> Generator[InternalTestRow, None, None]:
         """Generator that yields test definitions one by one."""
-        print(
-            f"DEBUG: _test_definitions_generator started with {len(self._tests_list or [])} tests"
-        )
         if self._tests_list is None:
             return
         for test in self._tests_list:
-            print(f"DEBUG: _test_definitions_generator yielding test: {test.test_name}")
             yield test
-        print("DEBUG: _test_definitions_generator finished")
 
     def _run_next_test_from_generator(self) -> None:
         """Run the next test from the generator."""
-        print("DEBUG: _run_next_test_from_generator called")
         # Check if stop was requested
         if self._stop_requested:
-            print("DEBUG: Stop requested, finalizing test run")
             self._finalize_test_run("Stopped by user.")
             return
 
         # Check if generator is initialized
         if self._current_test_generator is None:
-            print("DEBUG: Test generator not initialized")
             self._finalize_test_run("Test generator not initialized.")
             return
 
         try:
             # Get the next test from the generator
-            print("DEBUG: Getting next test from generator")
             current_test = next(self._current_test_generator)
-            print(f"DEBUG: Got test: {current_test.test_name}")
 
             self.view.clear_all_fields()
 
@@ -122,20 +106,15 @@ class TestsTabController:
             self.view.page.update()
 
             # Run the test
-            print("DEBUG: Running single test")
             if self._db_entries is None:
-                print("DEBUG: DB entries not loaded")
                 self._finalize_test_run("DB entries not loaded.")
                 return
             failures, query = self.run_single_test(current_test, self._db_entries)
-            print(f"DEBUG: Test completed with {len(failures)} failures")
 
             # Handle failures or success
             if failures:
-                print("DEBUG: Handling test failures")
                 self._handle_test_failures(current_test, failures, query)
             else:
-                print("DEBUG: Test passed, auto-advancing to next test")
                 # For passing tests, update UI to indicate success and auto-advance
                 self.view.test_name_input.value = f"{current_test.test_name} - PASSED"
                 self.view.page.update()
@@ -143,17 +122,14 @@ class TestsTabController:
                 self._run_next_test_from_generator()
 
         except StopIteration:
-            print("DEBUG: All tests completed")
             self._finalize_test_run("All tests completed.")
         except Exception as ex:
-            print(f"DEBUG: Error during test run: {ex}")
             self._finalize_test_run(f"Error during test run: {ex}")
 
     def _handle_test_failures(
         self, test: InternalTestRow, failures: list[DpdHeadword], query: str
     ) -> None:
         """Handle the display of test failures."""
-        print("DEBUG: _handle_test_failures called")
         # Step 7d-i: Populate view fields
         self.view.populate_with_test_definition(test)
 
@@ -181,11 +157,9 @@ class TestsTabController:
         # Step 7d-iv: Create and set filter component
         # Create data filters using failure IDs
         if failures:
-            # Debug: Print the IDs we're working with
             failure_ids = [
                 str(f.id) for f in failures[: min(len(failures), test.iterations)]
             ]
-            print(f"DEBUG: Creating data filters with failure IDs: {failure_ids}")
 
             # Create the regex pattern
             if failure_ids:
@@ -193,11 +167,9 @@ class TestsTabController:
             else:
                 regex_pattern = "^$"
 
-            print(f"DEBUG: Regex pattern: {regex_pattern}")
             data_filters = [("id", regex_pattern)]
         else:
             data_filters = []
-            print("DEBUG: No failures, creating empty data_filters")
 
         # Create display filters from test.display_1/2/3 (filter out empty strings)
         display_filters = [
@@ -227,7 +199,6 @@ class TestsTabController:
 
     def _finalize_test_run(self, message: str) -> None:
         """Finalize the test run and reset the UI."""
-        print(f"DEBUG: _finalize_test_run called with message: {message}")
         self.view.set_run_tests_button_disabled_state(False)
         self.view.set_stop_tests_button_disabled_state(True)
         # Hide progress bar
@@ -455,7 +426,6 @@ class TestsTabController:
 
     def handle_next_test_clicked(self, e: ft.ControlEvent) -> None:
         """Handle next test button click."""
-        print("DEBUG: handle_next_test_clicked called")
         self.view.clear_all_fields()
         # Run the next test
         self._run_next_test_from_generator()

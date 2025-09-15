@@ -161,6 +161,18 @@ class TestsTabView(ft.Column):
         self.update_tests_button = ft.ElevatedButton("Update Tests", key="test_update")
         self.add_new_test_button = ft.ElevatedButton("Add New Test", key="test_new")
         self.delete_test_button = ft.ElevatedButton("Delete Test", key="test_delete")
+        self.test_add_exception_dropdown = ft.Dropdown(
+            label="Exception",
+            key="test_add_exception",
+            width=COLUMN_WIDTH,
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            options=[],
+        )
+        self.test_add_exception_button = ft.ElevatedButton(
+            "Add Exception",
+            key="test_add_exception_button",
+            width=COLUMN_WIDTH,
+        )
 
         # Row 12 Elements
         self.test_results_redux_text = ft.Text(
@@ -178,22 +190,9 @@ class TestsTabView(ft.Column):
         self.filter_component_container = ft.Container(
             content=ft.Column([], expand=True),
             expand=True,
-            height=300,
         )
 
         # Row 14 Elements
-        self.test_add_exception_dropdown = ft.Dropdown(
-            label="Add Exception",
-            key="test_add_exception",
-            width=COLUMN_WIDTH,
-            label_style=TEXT_FIELD_LABEL_STYLE,
-            options=[],
-        )
-        self.test_add_exception_button = ft.ElevatedButton(
-            "Add",
-            key="test_add_exception_button",
-            width=COLUMN_WIDTH,
-        )
         self.test_db_query_input = ft.TextField(
             label="DB Query",
             key="test_db_query",
@@ -217,7 +216,7 @@ class TestsTabView(ft.Column):
         # --- Construct Rows and Add to self.controls ---
 
         # Row 1: Buttons
-        row1 = ft.Row(
+        row_start_stop_edit = ft.Row(
             controls=[
                 ft.Container(width=LABEL_WIDTH),
                 self.run_tests_button,
@@ -228,7 +227,7 @@ class TestsTabView(ft.Column):
             alignment=ft.MainAxisAlignment.START,
         )
         # Row 2: Test Info
-        row2 = ft.Row(
+        row_test_name_etc = ft.Row(
             controls=[
                 self.test_number_text,
                 self.test_name_input,
@@ -253,7 +252,7 @@ class TestsTabView(ft.Column):
             test_criteria_rows.append(row)
 
         # Row 9: Display Fields
-        row9 = ft.Row(
+        row_display = ft.Row(
             controls=[
                 ft.Text(
                     "display",
@@ -269,7 +268,7 @@ class TestsTabView(ft.Column):
         )
 
         # Row 10: Error Info
-        row10 = ft.Row(
+        row_commentary_exceptions = ft.Row(
             controls=[
                 ft.Text(
                     "",
@@ -284,84 +283,67 @@ class TestsTabView(ft.Column):
         )
 
         # Row 11: Action Buttons
-        row11 = ft.Row(
+        row_test_add_delete_except = ft.Row(
             controls=[
-                ft.Container(width=LABEL_WIDTH),  # Spacer
+                # ft.Container(width=LABEL_WIDTH),  # Spacer
                 self.update_tests_button,
                 self.add_new_test_button,
                 self.delete_test_button,
+                self.test_add_exception_dropdown,
+                self.test_add_exception_button,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
 
         # Row 12: Results Summary
-        row12 = ft.Row(
+        row_test_results = ft.Row(
             controls=[
-                ft.Container(width=LABEL_WIDTH),  # Spacer
                 ft.Text("displaying", color=LIGHT_BLUE),
                 self.test_results_redux_text,
                 ft.Text("of", color=LIGHT_BLUE),
                 self.test_results_total_text,
                 ft.Text("results", color=LIGHT_BLUE),
-            ],
-            alignment=ft.MainAxisAlignment.START,
-        )
-
-        # Row 13: Results Table
-        row13 = ft.Row(
-            controls=[
-                ft.Text(
-                    width=LABEL_WIDTH,
-                    text_align=ft.TextAlign.RIGHT,
-                    color=LABEL_COLOUR,
-                ),
-                self.filter_component_container,
-            ],
-            alignment=ft.MainAxisAlignment.START,
-            vertical_alignment=ft.CrossAxisAlignment.START,
-        )
-
-        # Row 14: Add Exception
-        row14 = ft.Row(
-            controls=[
-                ft.Text(
-                    width=LABEL_WIDTH,
-                    text_align=ft.TextAlign.RIGHT,
-                    color=LABEL_COLOUR,
-                ),
-                self.test_add_exception_dropdown,
-                self.test_add_exception_button,
+                ft.Container(width=250),  # space
                 self.test_db_query_input,
                 self.test_db_query_copy_button,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
 
-        # Row 15: Next Button
-        row15 = ft.Row(
+        # Row 13: Results Table
+        row_datatable = ft.Row(
             controls=[
-                ft.Container(width=LABEL_WIDTH),  # Spacer
-                self.test_next_button,
+                self.filter_component_container,
             ],
+            alignment=ft.MainAxisAlignment.START,
+            vertical_alignment=ft.CrossAxisAlignment.START,
+        )
+
+        # Row 15: Next Button
+        row_next_button = ft.Row(
+            controls=[self.test_next_button],
             alignment=ft.MainAxisAlignment.START,
         )
 
         # Add all rows to the Column's controls
         self.controls.extend(
             [
-                row1,
+                row_start_stop_edit,
                 ft.Divider(),
-                row2,
+                row_test_name_etc,
                 *test_criteria_rows,
-                row9,
-                row10,
+                row_display,
+                row_commentary_exceptions,
                 ft.Divider(),
-                row11,
+                row_test_add_delete_except,
                 ft.Divider(),
-                row12,
-                row13,
-                row14,
-                row15,
+                row_next_button,
+                ft.Divider(),
+                row_test_results,
+                row_datatable,
+                ft.Divider(),
+                row_next_button,
+                ft.Divider(),
             ]
         )
 

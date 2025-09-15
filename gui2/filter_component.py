@@ -41,17 +41,6 @@ class FilterComponent(ft.Column):
             "id": lambda x: x.isdigit() if x else True,
         }
 
-        # Debug print the parameters passed to the FilterComponent
-        print("DEBUG: FilterComponent initialized with:")
-        print(f"  data_filters: {data_filters}")
-        print(f"  display_filters: {display_filters}")
-        print(f"  limit: {limit}")
-
-        # Additional debug info
-        if data_filters:
-            for i, (col, pattern) in enumerate(data_filters):
-                print(f"DEBUG: data_filter {i}: column='{col}', pattern='{pattern}'")
-
         self._build_ui()
         self._apply_filters()
 
@@ -74,21 +63,23 @@ class FilterComponent(ft.Column):
         placeholder_column = ft.DataColumn(label=ft.Text("ID"))
 
         self.results_table = ft.DataTable(
-            data_text_style=ft.TextStyle(size=8, color=ft.Colors.BLUE_GREY_500),
+            data_text_style=ft.TextStyle(
+                size=12, color=ft.Colors.GREY_300
+            ),  # 12-point slightly darker than white text
             columns=[placeholder_column],
             rows=[],
             border=ft.border.all(2, ft.Colors.BLACK),
             horizontal_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             vertical_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             heading_row_color=ft.Colors.BLUE_900,  # Dark blue background for headings
-            column_spacing=20,  # Increased column spacing for better readability
-            horizontal_margin=30,  # Increased horizontal margin
+            column_spacing=50,  # Increased column spacing for better readability
+            horizontal_margin=10,
             heading_text_style=ft.TextStyle(
-                color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD, size=14
+                color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD, size=12
             ),
             heading_row_height=30,
             data_row_min_height=30,
-            data_row_max_height=60,
+            data_row_max_height=float("inf"),
             show_checkbox_column=False,
         )
 
@@ -96,7 +87,7 @@ class FilterComponent(ft.Column):
         table_container = ft.Container(
             content=self.results_table,
             expand=True,
-            width=1300,  # Fixed width for horizontal scrolling
+            width=1350,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
@@ -104,6 +95,7 @@ class FilterComponent(ft.Column):
             [table_container],
             scroll=ft.ScrollMode.AUTO,
             expand=True,
+            alignment=ft.MainAxisAlignment.START,
         )
 
         # Vertical scroll for tall tables
@@ -111,40 +103,28 @@ class FilterComponent(ft.Column):
             [horizontal_scroll],
             scroll=ft.ScrollMode.AUTO,
             expand=True,
-            height=600,  # Fixed height for vertical scrolling
         )
 
         return ft.Column(
-            [
-                ft.Text("Results", size=20, weight=ft.FontWeight.BOLD),
-                scrollable_table_container,
-            ],
+            [scrollable_table_container],
             expand=True,
         )
 
     def _apply_filters(self) -> None:
         """Apply all active filters and display results."""
-        print("DEBUG: _apply_filters called")
         try:
             active_filters = []
             if self.data_filters:
-                print(f"DEBUG: Processing data_filters: {self.data_filters}")
                 for column, pattern in self.data_filters:
-                    print(
-                        f"DEBUG: Adding filter - column: {column}, pattern: {pattern}"
-                    )
                     active_filters.append({"column": column, "pattern": pattern})
             else:
                 print("DEBUG: No data_filters provided")
 
-            print(f"DEBUG: Active filters: {active_filters}")
             for i, filter_info in enumerate(active_filters):
-                print(f"DEBUG: Compiling regex for filter {i}: {filter_info}")
                 try:
                     re.compile(filter_info["pattern"])
                 except re.error as ex:
                     error_msg = f"Invalid regex pattern in filter {i + 1}: {str(ex)}"
-                    print(f"DEBUG: Regex compilation error: {error_msg}")
                     self._show_error(error_msg)
                     return
 
@@ -153,27 +133,20 @@ class FilterComponent(ft.Column):
                 if self.display_filters
                 else [column.name for column in DpdHeadword.__table__.columns]
             )
-            print(f"DEBUG: Display columns: {display_columns}")
 
             result_limit = self.limit if self.limit is not None else 0
-            print(f"DEBUG: Result limit: {result_limit}")
 
             # Refresh the database session to ensure we have the latest connection
             self.toolkit.db_manager.new_db_session()
             query = self.toolkit.db_manager.db_session.query(DpdHeadword)
-            print("DEBUG: Created initial query")
 
             for filter_info in active_filters:
                 column_name = filter_info["column"]
                 pattern = filter_info["pattern"]
-                print(
-                    f"DEBUG: Applying filter - column: {column_name}, pattern: {pattern}"
-                )
 
                 column_attr = getattr(DpdHeadword, column_name, None)
                 if column_attr is None:
                     error_msg = f"Column '{column_name}' not found in DpdHeadword"
-                    print(f"DEBUG: Column not found error: {error_msg}")
                     self._show_error(error_msg)
                     return
 
@@ -182,13 +155,11 @@ class FilterComponent(ft.Column):
                     # Extract IDs from the regex pattern like ^(1571|3106|4365|...)$
 
                     # Match pattern like ^(1571|3106|4365|...)$
-                    print(f"DEBUG: Attempting to parse ID pattern: {pattern}")
                     # Fix the regex pattern - we need to match ^(1571|3106|4365|...)$
                     # The pattern has literal parentheses, not escaped ones
                     match = re.match(r"^\^\(([^)]+)\)\$$", pattern)
                     if match:
                         id_strings = match.group(1).split("|")
-                        print(f"DEBUG: Found ID strings: {id_strings}")
                         id_list = []
                         for id_str in id_strings:
                             try:
@@ -197,59 +168,31 @@ class FilterComponent(ft.Column):
                                 pass  # Skip invalid IDs
                         if id_list:
                             query = query.filter(column_attr.in_(id_list))
-                            # print(
-                            #     f"DEBUG: Query after ID filter with {len(id_list)} IDs: {query}"
-                            # )
                         else:
                             # Fallback to regexp_match if no valid IDs found
                             query = query.filter(column_attr.regexp_match(pattern))
-                            print(
-                                f"DEBUG: Query after regexp filter (no valid IDs): {query}"
-                            )
                     else:
                         # Fallback to regexp_match if pattern is not in expected format
                         query = query.filter(column_attr.regexp_match(pattern))
-                        print(
-                            f"DEBUG: Query after regexp filter (pattern mismatch): {query}"
-                        )
                 else:
                     query = query.filter(column_attr.regexp_match(pattern))
-                    print(f"DEBUG: Query after filter: {query}")
 
             if result_limit > 0:
                 query = query.limit(result_limit)
-                # print(f"DEBUG: Query after limit: {query}")
 
-            print("DEBUG: Executing query")
             self.filtered_results = query.all()
-            print(f"DEBUG: Query executed, found {len(self.filtered_results)} results")
-
-            # Debug: Print first few results
-            if self.filtered_results:
-                print(f"DEBUG: First result ID: {self.filtered_results[0].id}")
-                if len(self.filtered_results) > 1:
-                    print(f"DEBUG: Second result ID: {self.filtered_results[1].id}")
 
             self._update_results_table(display_columns)
             self._show_message(f"Found {len(self.filtered_results)} results")
         except Exception as ex:
             error_msg = f"Error applying filters: {str(ex)}"
-            print(f"DEBUG: Exception in _apply_filters: {error_msg}")
-            import traceback
 
-            print(f"DEBUG: Full traceback: {traceback.format_exc()}")
             self._show_error(error_msg)
-            print("DEBUG: Completed exception handling in _apply_filters")
 
     def _update_results_table(self, display_columns: List[str]) -> None:
         """Update the results table with filtered data."""
-        print(
-            f"DEBUG: _update_results_table called with {len(self.filtered_results)} results"
-        )
-        print(f"DEBUG: Display columns: {display_columns}")
 
         if not hasattr(self, "results_table") or not self.results_table:
-            print("DEBUG: results_table not found")
             return
 
         # Clear existing data
@@ -269,27 +212,27 @@ class FilterComponent(ft.Column):
         # Calculate column widths based on content - adjusted for DataTable's content-based sizing
         # This calculation is currently unused as Flet's DataColumn doesn't support width parameter
         # Keeping this code for potential future use or for influencing other aspects of the UI
-        # column_widths = {}
-        # for col_name in display_columns:
-        #     max_len = len(col_name)  # Start with header length
-        #     for result in self.filtered_results:
-        #         value = getattr(result, col_name, "")
-        #         if value is None:
-        #             value_str = ""
-        #         elif isinstance(value, list):
-        #             value_str = ", ".join(str(v) for v in value)
-        #         else:
-        #             value_str = str(value)
-        #         max_len = max(max_len, len(value_str))
+        column_widths = {}
+        for col_name in display_columns:
+            max_len = len(col_name)  # Start with header length
+            for result in self.filtered_results:
+                value = getattr(result, col_name, "")
+                if value is None:
+                    value_str = ""
+                elif isinstance(value, list):
+                    value_str = ", ".join(str(v) for v in value)
+                else:
+                    value_str = str(value)
+                max_len = max(max_len, len(value_str))
 
-        #     # Adjusted width calculation for more compact to wider columns
-        #     min_width = 10  # Even more compact minimum width
-        #     calculated_width = (
-        #         max_len * 12 + 25
-        #     )  # Slightly more aggressive width calculation
-        #     column_widths[col_name] = max(
-        #         min_width, min(calculated_width, 1500)
-        #     )  # Wider maximum cap
+            # Adjusted width calculation for more compact to wider columns
+            min_width = 10  # Even more compact minimum width
+            calculated_width = (
+                max_len * 12 + 25
+            )  # Slightly more aggressive width calculation
+            column_widths[col_name] = max(
+                min_width, min(calculated_width, 1350)
+            )  # Wider maximum cap
 
         # Create columns
         for col_name in display_columns:
@@ -300,12 +243,15 @@ class FilterComponent(ft.Column):
             cells = []
             # Add the row number as the first cell
             row_number_field = ft.TextField(
-                value=str(row_index + 1),
-                read_only=True,
-                dense=True,
-                text_align=ft.TextAlign.CENTER,
-                content_padding=5,
                 border=ft.InputBorder.NONE,
+                content_padding=3,
+                dense=True,
+                multiline=False,
+                read_only=True,
+                text_align=ft.TextAlign.LEFT,
+                text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
+                value=str(row_index + 1),
+                width=50,
             )
             cells.append(ft.DataCell(row_number_field))
 
@@ -321,6 +267,8 @@ class FilterComponent(ft.Column):
                 def make_on_change_handler(r, c):
                     return lambda e: self._on_cell_change(e, r, c)
 
+                calculated_width = column_widths.get(col_name, 400)
+
                 # Create editable text field for each cell
                 text_field = ft.TextField(
                     value=value_str,
@@ -330,6 +278,8 @@ class FilterComponent(ft.Column):
                     text_align=ft.TextAlign.LEFT,
                     content_padding=5,
                     border=ft.InputBorder.NONE,
+                    width=calculated_width,
+                    text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
                 )
 
                 cells.append(ft.DataCell(text_field))
