@@ -193,3 +193,4 @@ exporter/other_dictionaries/bmp_files/
 
 .gemini/
 gha-creds-*.json
+gui2/!todo.md

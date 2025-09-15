@@ -1,5 +1,13 @@
 [
     {
+        "id": 1147,
+        "lemma_1": "ajaras"
+    },
+    {
+        "id": 35358,
+        "lemma_1": "na kassaci"
+    },
+    {
         "id": 83405,
         "lemma_1": "saṅgharati"
     },
@@ -70,13 +78,5 @@
     {
         "id": 5365,
         "lemma_1": "anusvāra"
-    },
-    {
-        "id": 83384,
-        "lemma_1": "mūlaka 4"
-    },
-    {
-        "id": 83389,
-        "lemma_1": "pāṇika 2"
     }
 ]
