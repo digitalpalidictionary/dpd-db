@@ -117,8 +117,8 @@ This document specifies the functionality, behavior, and implementation details 
 - **Limit**: Maximum number of results to display
 
 ### Result Display
-- FilterComponent displays test failures in an editable data table
-- Users can modify data directly in the table
+- FilterComponent displays test failures in an editable data table with only specified columns; no row number column
+- Users can modify data directly in the table, including selecting/copying ID values
 - Changes can be saved back to the database
 - Row selection copies display values to clipboard
 

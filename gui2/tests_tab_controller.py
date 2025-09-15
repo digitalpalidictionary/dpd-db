@@ -162,12 +162,13 @@ class TestsTabController:
         else:
             data_filters = []
 
-        # Create display filters from test.display_1/2/3 (filter out empty strings)
-        display_filters = [
+        # Create display filters from test.display_1/2/3 (filter out empty strings), with 'id' first
+        dynamic_displays = [
             display
             for display in [test.display_1, test.display_2, test.display_3]
             if display
         ]
+        display_filters = ["id"] + dynamic_displays
 
         # Refresh the database session to ensure we have the latest connection
         self.toolkit.db_manager.new_db_session()

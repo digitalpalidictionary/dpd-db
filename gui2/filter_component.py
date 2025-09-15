@@ -206,9 +206,6 @@ class FilterComponent(ft.Column):
             self.page.update()
             return
 
-        # Add the row number column as the first column
-        self.results_table.columns.append(ft.DataColumn(label=ft.Text("#")))
-
         # Calculate column widths based on content - adjusted for DataTable's content-based sizing
         # This calculation is currently unused as Flet's DataColumn doesn't support width parameter
         # Keeping this code for potential future use or for influencing other aspects of the UI
@@ -241,19 +238,6 @@ class FilterComponent(ft.Column):
         # Create rows with editable cells
         for row_index, result in enumerate(self.filtered_results):
             cells = []
-            # Add the row number as the first cell
-            row_number_field = ft.TextField(
-                border=ft.InputBorder.NONE,
-                content_padding=3,
-                dense=True,
-                multiline=False,
-                read_only=True,
-                text_align=ft.TextAlign.LEFT,
-                text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
-                value=str(row_index + 1),
-                width=50,
-            )
-            cells.append(ft.DataCell(row_number_field))
 
             for col_name in display_columns:
                 value = getattr(result, col_name, "")
@@ -264,23 +248,38 @@ class FilterComponent(ft.Column):
                 else:
                     value_str = str(value)
 
-                def make_on_change_handler(r, c):
-                    return lambda e: self._on_cell_change(e, r, c)
-
                 calculated_width = column_widths.get(col_name, 400)
 
-                # Create editable text field for each cell
-                text_field = ft.TextField(
-                    value=value_str,
-                    on_change=make_on_change_handler(row_index, col_name),
-                    dense=True,
-                    multiline=True,
-                    text_align=ft.TextAlign.LEFT,
-                    content_padding=5,
-                    border=ft.InputBorder.NONE,
-                    width=calculated_width,
-                    text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
-                )
+                if col_name == "id":
+                    # ID column: read-only, selectable for copying
+                    text_field = ft.TextField(
+                        value=value_str,
+                        read_only=True,
+                        dense=True,
+                        multiline=False,
+                        text_align=ft.TextAlign.LEFT,
+                        content_padding=5,
+                        border=ft.InputBorder.NONE,
+                        width=calculated_width,
+                        text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
+                    )
+                else:
+
+                    def make_on_change_handler(r, c):
+                        return lambda e: self._on_cell_change(e, r, c)
+
+                    # Create editable text field for each cell
+                    text_field = ft.TextField(
+                        value=value_str,
+                        on_change=make_on_change_handler(row_index, col_name),
+                        dense=True,
+                        multiline=True,
+                        text_align=ft.TextAlign.LEFT,
+                        content_padding=5,
+                        border=ft.InputBorder.NONE,
+                        width=calculated_width,
+                        text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
+                    )
 
                 cells.append(ft.DataCell(text_field))
 
