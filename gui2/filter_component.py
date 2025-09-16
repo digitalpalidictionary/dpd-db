@@ -187,13 +187,7 @@ class FilterComponent(ft.Column):
             self.filtered_results = query.all()
 
             self._update_results_table(display_columns)
-            if not self._just_saved:
-                show_global_snackbar(
-                    self.page,
-                    f"Found {len(self.filtered_results)} results",
-                    "info",
-                    3000,
-                )
+
         except Exception as ex:
             error_msg = f"Error applying filters: {str(ex)}"
             show_global_snackbar(self.page, error_msg, "error", 5000)

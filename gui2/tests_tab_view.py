@@ -185,8 +185,12 @@ class TestsTabView(ft.Column):
         self.test_add_exception_button = ft.ElevatedButton(
             "Add Exception",
             key="test_add_exception_button",
-            width=COLUMN_WIDTH,
             on_click=self.controller.handle_add_exception_button,
+        )
+        self.test_add_all_exceptions_button = ft.ElevatedButton(
+            "Add All Exceptions",
+            key="test_add_all_exceptions_button",
+            on_click=self.controller.handle_add_all_exceptions_clicked,
         )
 
         # Row 12 Elements
@@ -308,6 +312,7 @@ class TestsTabView(ft.Column):
                 self.delete_test_button,
                 self.test_add_exception_dropdown,
                 self.test_add_exception_button,
+                self.test_add_all_exceptions_button,
             ],
             alignment=ft.MainAxisAlignment.START,
         )

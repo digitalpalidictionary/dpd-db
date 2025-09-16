@@ -91,6 +91,16 @@ This document specifies the functionality, behavior, and implementation details 
   - Removes ID from dropdown options
   - Updates view
 
+#### `handle_add_all_exceptions_clicked`
+- **Trigger**: Click on "Add All Exceptions" button
+- **Behavior**:
+  - Checks for valid state (`_current_test_index`, `_tests_list`, `_current_failures`)
+  - Computes `new_ids` from `self._current_failures[:current_test.iterations]` excluding existing exceptions
+  - If `new_ids`, shows `ft.AlertDialog` confirmation with count and test name
+    - On OK: Adds all to `current_test.exceptions`, saves via `DbTestManager`, updates view's `exceptions_textfield` and `test_add_exception_dropdown` (filters out added options), shows success snackbar, refreshes `FilterComponent` by calling `_handle_test_failures`
+    - On Cancel: Closes dialog
+  - If no `new_ids`, shows "No new exceptions to add" snackbar
+
 #### `handle_test_db_query_copy`
 - **Trigger**: Click on copy query button
 - **Behavior**:
@@ -211,7 +221,7 @@ Tests are defined using `InternalTestRow` objects with the following properties:
 - Run/Stop test execution
 - Edit tests in external editor
 - Test management (Add, Update, Delete)
-- Exception handling
+- Exception handling (single add and batch add all)
 - Navigation controls
 - Query copy
 

@@ -28,6 +28,7 @@ class TestsTabController:
         self._current_test_index: int | None = None
         self._db_entries: list[DpdHeadword] | None = None
         self._tests_list: list[InternalTestRow] | None = None
+        self._current_failures: list[DpdHeadword] | None = None
 
     def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
         # Step 2: Disable run button
@@ -190,6 +191,9 @@ class TestsTabController:
             display_filters=display_filters,
             limit=test.iterations,
         )
+
+        # Store current failures for batch exception handling
+        self._current_failures = failures
 
         # Display in view
         self.view.set_filter_component(filter_component)
@@ -613,6 +617,108 @@ class TestsTabController:
                 "info",
                 3000,
             )
+
+    def handle_add_all_exceptions_clicked(self, e: ft.ControlEvent) -> None:
+        """Handle add all exceptions button click."""
+        if (
+            self._current_test_index is None
+            or self._tests_list is None
+            or self._current_failures is None
+        ):
+            show_global_snackbar(
+                self.page,
+                "No current test or failures. Run tests first.",
+                "error",
+                5000,
+            )
+            return
+
+        current_test = self._tests_list[self._current_test_index]
+        # Get new failure IDs from limited displayed failures (failures[:test.iterations] excluding existing exceptions)
+        new_ids: list[int] = [
+            f.id
+            for f in self._current_failures[: current_test.iterations]
+            if f.id not in current_test.exceptions
+        ]
+
+        if not new_ids:
+            show_global_snackbar(
+                self.page,
+                "No new exceptions to add.",
+                "info",
+                3000,
+            )
+            return
+
+        # Create confirmation dialog
+        def _on_ok_click(e: ft.ControlEvent) -> None:
+            # Add all new IDs to exceptions
+            current_test.exceptions.extend(new_ids)
+            current_test.exceptions.sort()
+            # Save via db_test_manager
+            if self._tests_list is not None:
+                self.toolkit.db_test_manager.internal_tests_list = self._tests_list
+            self.toolkit.db_test_manager.save_tests()
+            # Update view's exceptions_textfield
+            self.view.exceptions_textfield.value = ", ".join(
+                map(str, sorted(current_test.exceptions))
+            )
+            # Update view's test_add_exception_dropdown: filter out added options
+            existing_options = self.view.test_add_exception_dropdown.options or []
+            self.view.test_add_exception_dropdown.options = [
+                ft.dropdown.Option(opt.key)
+                for opt in existing_options
+                if opt.key is not None
+                and opt.key.isdigit()
+                and int(opt.key) not in new_ids
+            ]
+            self.view.test_add_exception_dropdown.value = None
+            # Show success snackbar
+            show_global_snackbar(
+                self.page,
+                f"Added {len(new_ids)} exceptions.",
+                "info",
+                3000,
+            )
+            # Refresh FilterComponent by re-calling _handle_test_failures
+            # This will exclude new exceptions and update the datatable
+            if self._current_failures:
+                self._handle_test_failures(current_test, self._current_failures)
+            # Close dialog
+            self.add_all_alert.open = False
+            self.page.update()
+
+        def _on_cancel_click(e: ft.ControlEvent) -> None:
+            # Close dialog
+            self.add_all_alert.open = False
+            self.page.update()
+
+        # Create AlertDialog following pass2_add_view.py pattern
+        self.add_all_alert = ft.AlertDialog(
+            modal=True,
+            content=ft.Column(
+                controls=[
+                    ft.Text("Add Exceptions", color=ft.Colors.RED_900, size=20),
+                    ft.Text(
+                        f"Add {len(new_ids)} exceptions to '{current_test.test_name}'?"
+                    ),
+                ],
+                height=100,
+                width=400,
+                expand=True,
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            ),
+            alignment=ft.alignment.center,
+            actions=[
+                ft.TextButton("OK", on_click=_on_ok_click),
+                ft.TextButton("Cancel", on_click=_on_cancel_click),
+            ],
+        )
+
+        # Open the dialog
+        self.page.open(self.add_all_alert)
+        self.page.update()
 
     def handle_next_test_clicked(self, e: ft.ControlEvent) -> None:
         """Handle next test button click."""
