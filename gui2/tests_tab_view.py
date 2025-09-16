@@ -227,6 +227,12 @@ class TestsTabView(ft.Column):
         )
 
         # Row 15 Elements
+        self.test_rerun_button = ft.ElevatedButton(
+            "Rerun",
+            key="test_rerun",
+            width=150,
+            on_click=self.controller.handle_rerun_test_clicked,
+        )
         self.test_next_button = ft.ElevatedButton(
             "Next",
             key="test_next",
@@ -341,9 +347,12 @@ class TestsTabView(ft.Column):
             vertical_alignment=ft.CrossAxisAlignment.START,
         )
 
-        # Row 15: Next Button
+        # Row 15: Navigation Buttons
         row_next_button = ft.Row(
-            controls=[self.test_next_button],
+            controls=[
+                self.test_rerun_button,
+                self.test_next_button,
+            ],
             alignment=ft.MainAxisAlignment.START,
         )
 

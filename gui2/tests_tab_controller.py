@@ -725,3 +725,49 @@ class TestsTabController:
         self.view.clear_all_fields()
         # Run the next test
         self._run_next_test_from_generator()
+
+    def handle_rerun_test_clicked(self, e: ft.ControlEvent) -> None:
+        """Handle rerun test button click: re-run the current test."""
+        if self._current_test_index is None or self._tests_list is None:
+            return
+
+        current_test = self._tests_list[self._current_test_index]
+
+        # Show snackbar feedback
+        self.view.show_snackbar("Rerunning test...", ft.Colors.BLUE_100)
+
+        # Refresh DB entries for fresh data
+        try:
+            self._db_entries = self.toolkit.db_manager.db_session.query(
+                DpdHeadword
+            ).all()
+        except Exception as ex:
+            self.view.update_test_name(f"Error reloading DB: {ex}")
+            self.page.update()
+            return
+
+        # Copy-paste logic from _run_next_test_from_generator (lines 100-124)
+        self.view.clear_all_fields()
+
+        # Update view with test number and name
+        test_index = self._current_test_index + 1
+        self.view.update_test_number_display(str(test_index))
+        self.view.update_test_name(current_test.test_name)
+
+        # Clear filter component
+        self.view.set_filter_component(None)
+        self.page.update()
+
+        # Run the test
+        if self._db_entries is None:
+            self._finalize_test_run("DB entries not loaded.")
+            return
+        failures = self.run_single_test(current_test, self._db_entries)
+
+        # Handle failures or success
+        if failures:
+            self._handle_test_failures(current_test, failures)
+        else:
+            # On pass, show success message and stop (no auto-advance)
+            self.view.update_test_name(f"Passed: {current_test.test_name}")
+            self.page.update()
