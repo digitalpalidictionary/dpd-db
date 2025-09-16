@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Generator
 import flet as ft
 
 from db.models import DpdHeadword
-from db_tests.db_tests_manager import DbTestManager, InternalTestRow
+from db_tests.db_tests_manager import DbTestManager, InternalTestRow, IntegrityFailure
 from gui2.filter_component import FilterComponent
 from gui2.ui_utils import show_global_snackbar
 from tools.db_search_string import db_search_string
@@ -29,46 +29,83 @@ class TestsTabController:
         self._db_entries: list[DpdHeadword] | None = None
         self._tests_list: list[InternalTestRow] | None = None
         self._current_failures: list[DpdHeadword] | None = None
+        self._integrity_failures: list | None = None
+        self._current_integrity_failure = None
 
     def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
-        # Step 2: Disable run button
-        self.view.set_run_tests_button_disabled_state(True)
-        # Step 3: Enable stop button
-        self.view.set_stop_tests_button_disabled_state(False)
-        # Step 4: Initialize stop flag
-        self._stop_requested = False
+        # Step 1: Clear previous integrity failure highlights
+        self.view.reset_field_highlights()
 
+        # Step 2: Disable run button and enable stop button
+        self.view.set_run_tests_button_disabled_state(True)
+        self.view.set_stop_tests_button_disabled_state(False)
+        self._stop_requested = False
         self.view.page.update()
 
-        # Step 5: Load DB/tests
-        self.view.update_test_name("loading database...")
-        db_entries, tests_list = self.load_db_and_tests()
-        if db_entries is None or tests_list is None:
-            # Show error in view.test_name_input (red)
-            self.view.update_test_name("Error loading DB or tests")
-            # Re-enable run, disable stop, return
+        # Step 3: Load tests first
+        self.view.update_test_name("Loading tests...")
+        tests_list = self.load_tests()
+        if tests_list is None:
+            self.view.update_test_name("Error loading tests")
             self.view.set_run_tests_button_disabled_state(False)
             self.view.set_stop_tests_button_disabled_state(True)
+            self.view.page.update()
+            return
 
+        self._tests_list = tests_list
+
+        # Step 4: Integrity check before loading the DB
+        self.view.update_test_name("Running integrity check...")
+        integrity_result, failures = self.integrity_check(tests_list)
+        if not integrity_result:
+            self._integrity_failures = failures
+            if failures:
+                self._load_failing_test_row_and_populate_ui(failures[0])
+            self.view.set_run_tests_button_disabled_state(False)
+            self.view.set_stop_tests_button_disabled_state(True)
+            self.view.page.update()
+            return
+
+        # Step 5: Load DB (only if integrity is OK)
+        self.view.update_test_name("Loading database...")
+        db_entries = self.load_db()
+        if db_entries is None:
+            self.view.update_test_name("Error loading database")
+            self.view.set_run_tests_button_disabled_state(False)
+            self.view.set_stop_tests_button_disabled_state(True)
             self.view.page.update()
             return
 
         self._db_entries = db_entries
-        self._tests_list = tests_list
 
-        # Step 6: Integrity check
-        if not self.integrity_check(tests_list):
-            # Re-enable run, disable stop, return
-            self.view.set_run_tests_button_disabled_state(False)
-            self.view.set_stop_tests_button_disabled_state(True)
+        # Step 6: Start running tests
+        self._current_test_generator = self._test_definitions_generator()
+        self._run_next_test_from_generator()
 
-            self.view.page.update()
+    def _load_failing_test_row_and_populate_ui(self, failure: IntegrityFailure):
+        """Populate the UI with the data of a failing test and highlight the invalid field."""
+        if not self._tests_list:
             return
 
-        # Initialize the generator
-        self._current_test_generator = self._test_definitions_generator()
-        # Start the first test
-        self._run_next_test_from_generator()
+        # The test_row from IntegrityFailure is 1-based for the file, and the file has a header.
+        # The self._tests_list is 0-based. So, index is test_row - 2.
+        test_index = failure.test_row - 2
+
+        if 0 <= test_index < len(self._tests_list):
+            test_definition = self._tests_list[test_index]
+
+            self.view.clear_all_fields()
+            self.view.populate_with_test_definition(test_definition)
+
+            # Update UI with failure info
+            self.view.update_test_number_display(str(failure.test_row - 1))
+            self.view.update_test_name(
+                f"Integrity Fail: {failure.test_name} - Invalid value: '{failure.invalid_value}'"
+            )
+
+            # Highlight the specific field that failed
+            self.view.highlight_invalid_field(failure.invalid_field_name)
+            self.view.page.update()
 
     def _test_definitions_generator(self) -> Generator[InternalTestRow, None, None]:
         """Generator that yields test definitions one by one."""
@@ -207,20 +244,25 @@ class TestsTabController:
         self._db_entries = None
         self._tests_list = None
 
-    def load_db_and_tests(
-        self,
-    ) -> tuple[list[DpdHeadword] | None, list[InternalTestRow] | None]:
+    def load_tests(self) -> list[InternalTestRow] | None:
+        try:
+            manager = DbTestManager()
+            tests_list = manager.load_tests()
+            return tests_list
+        except Exception as e:
+            print(f"Error loading tests: {e}")
+            return None
+
+    def load_db(self) -> list[DpdHeadword] | None:
         try:
             db_session = self.toolkit.db_manager.db_session
             db_entries = db_session.query(DpdHeadword).all()
-            manager = DbTestManager()
-            tests_list = manager.load_tests()
-            return (db_entries, tests_list)
+            return db_entries
         except Exception as e:
-            print(f"Error loading DB and tests: {e}")
-            return (None, None)
+            print(f"Error loading DB: {e}")
+            return None
 
-    def integrity_check(self, tests_list: list[InternalTestRow]) -> bool:
+    def integrity_check(self, tests_list: list[InternalTestRow]) -> tuple[bool, list]:
         manager = DbTestManager()
         manager.internal_tests_list = tests_list
         result_ok, failures = manager.integrity_check()
@@ -228,8 +270,8 @@ class TestsTabController:
             if failures:
                 first_failure = failures[0]
                 self.view.update_test_name(f"{first_failure.test_name}")
-            return False
-        return True
+            return False, failures
+        return True, []
 
     def run_single_test(
         self, test: InternalTestRow, db_entries: list[DpdHeadword]

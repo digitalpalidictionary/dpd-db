@@ -465,6 +465,8 @@ class TestsTabView(ft.Column):
         # Results table is now handled by filter component
         self.set_filter_component(None)
 
+        self.reset_field_highlights()
+
         self.page.update()
 
     def update_results_summary_display(self, displayed_count: int, total_found: int):
@@ -526,3 +528,27 @@ class TestsTabView(ft.Column):
     def show_snackbar(self, message: str, color: str = ft.Colors.BLUE_100) -> None:
         """Show a snackbar message."""
         show_global_snackbar(self.page, message, "info", 3000)
+
+    def highlight_invalid_field(self, field_name: str):
+        """Highlights the specified field with a red border."""
+        try:
+            # e.g. "search_column_2" -> "search_column", "2"
+            base_name, index_str = field_name.rsplit("_", 1)
+            index = int(index_str) - 1
+
+            if 0 <= index < len(self.search_criteria_elements):
+                elements = self.search_criteria_elements[index]
+                if base_name in elements:
+                    control = elements[base_name]
+                    control.border_color = ft.Colors.RED
+                    self.page.update()
+        except (ValueError, KeyError) as e:
+            print(f"Error highlighting field '{field_name}': {e}")
+
+    def reset_field_highlights(self):
+        """Resets the border color of all fields."""
+        for elements in self.search_criteria_elements:
+            for control in elements.values():
+                if isinstance(control, (ft.Dropdown, ft.TextField)):
+                    control.border_color = None
+        self.page.update()
