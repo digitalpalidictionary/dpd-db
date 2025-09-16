@@ -293,13 +293,9 @@ class FilterComponent(ft.Column):
                 cells.append(ft.DataCell(text_field))
 
             # Create a function that captures the row_index by value
-            def make_on_select_handler(r):
-                return lambda e: self._on_row_select(e, r)
-
             self.results_table.rows.append(
                 ft.DataRow(
                     cells=cells,
-                    on_select_changed=make_on_select_handler(row_index),
                 )
             )
 
@@ -404,26 +400,3 @@ class FilterComponent(ft.Column):
                     return False, f"ID must be a valid integer in row {row_index + 1}"
 
         return True, ""
-
-    def _on_row_select(self, e: ft.ControlEvent, row_index: int) -> None:
-        """Handle row selection event."""
-        # If FilterComponent supports row selection, implement logic to copy display_1 value to clipboard when a row is selected
-        if e.data == "true":  # Row is selected
-            # Get the display_1 value for this row
-            if self.display_filters and len(self.display_filters) >= 1:
-                display_1_column = self.display_filters[0]
-                record = self.filtered_results[row_index]
-                display_1_value = getattr(record, display_1_column, "")
-
-                # Copy to clipboard
-                import pyperclip
-
-                pyperclip.copy(str(display_1_value))
-
-                # Show a snackbar confirmation
-                show_global_snackbar(
-                    self.page,
-                    f"Copied {display_1_column} to clipboard",
-                    "info",
-                    3000,
-                )
