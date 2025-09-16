@@ -29,7 +29,7 @@ LIGHT_BLUE = ft.Colors.BLUE_200
 
 class TestElements(TypedDict):
     label: ft.Text
-    search_column: ft.TextField
+    search_column: ft.Dropdown
     search_sign: ft.Dropdown
     search_string: ft.TextField
 
@@ -45,6 +45,16 @@ class TestsTabView(ft.Column):
         self.page: ft.Page = page
         self.toolkit = toolkit
 
+        # Get DpdHeadword column names for dropdown options
+        from db.models import DpdHeadword
+
+        self.dpd_column_names: list[str] = [
+            column.name for column in DpdHeadword.__table__.columns
+        ]
+        self.dpd_column_options: list[ft.dropdown.Option] = [
+            ft.dropdown.Option(name) for name in self.dpd_column_names
+        ]
+
         # Instantiate the controller after all UI elements are defined
         self.controller = TestsTabController(self, toolkit)
 
@@ -56,19 +66,45 @@ class TestsTabView(ft.Column):
             key="test_db_internal",
             tooltip="Run internal database tests",
             on_click=self.controller.handle_run_tests_clicked,
+            height=50,
+            width=150,
         )
-        self.progress_bar = ft.ProgressBar(visible=False)
         self.stop_tests_button = ft.ElevatedButton(
             "Stop Tests",
             key="test_stop",
             tooltip="Stop ongoing tests",
             on_click=self.controller.handle_stop_tests_clicked,
+            height=50,
+            width=150,
         )
         self.edit_tests_button = ft.ElevatedButton(
             "Edit Tests",
             key="test_edit",
             tooltip="Open tests file for editing",
             on_click=self.controller.handle_edit_tests_clicked,
+            height=50,
+            width=150,
+        )
+        self.update_tests_button = ft.ElevatedButton(
+            "Update Test",
+            key="test_update",
+            on_click=self.controller.handle_test_update,
+            height=50,
+            width=150,
+        )
+        self.add_new_test_button = ft.ElevatedButton(
+            "Add New Test",
+            key="test_new",
+            on_click=self.controller.handle_add_new_test,
+            height=50,
+            width=150,
+        )
+        self.delete_test_button = ft.ElevatedButton(
+            "Delete Test",
+            key="test_delete",
+            on_click=self.controller.handle_delete_test,
+            height=50,
+            width=150,
         )
 
         # Row 2 Elements
@@ -103,11 +139,16 @@ class TestsTabView(ft.Column):
                     text_align=ft.TextAlign.RIGHT,
                     color=LABEL_COLOUR,
                 ),
-                "search_column": ft.TextField(
+                "search_column": ft.Dropdown(
                     label="",
                     key=f"search_column_{i + 1}",
                     width=COLUMN_WIDTH,
                     label_style=TEXT_FIELD_LABEL_STYLE,
+                    options=self.dpd_column_options,
+                    editable=True,
+                    enable_filter=True,
+                    enable_search=True,
+                    menu_height=300,
                 ),
                 "search_sign": ft.Dropdown(
                     label="",
@@ -126,57 +167,61 @@ class TestsTabView(ft.Column):
             self.search_criteria_elements.append(elements)
 
         # Row 9 Elements
-        self.display_1_input = ft.TextField(
+        self.display_1_input = ft.Dropdown(
             label="",
             key="display_1",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
+            options=self.dpd_column_options,
+            editable=True,
+            enable_filter=True,
+            enable_search=True,
+            menu_height=300,
         )
-        self.display_2_input = ft.TextField(
+        self.display_2_input = ft.Dropdown(
             label="",
             key="display_2",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
+            options=self.dpd_column_options,
+            editable=True,
+            enable_filter=True,
+            enable_search=True,
+            menu_height=300,
         )
-        self.display_3_input = ft.TextField(
+        self.display_3_input = ft.Dropdown(
             label="",
             key="display_3",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
+            options=self.dpd_column_options,
+            editable=True,
+            enable_filter=True,
+            enable_search=True,
+            menu_height=300,
         )
 
         # Row 10 Elements
-        self.error_column_input = ft.TextField(
+        self.error_column_input = ft.Dropdown(
             label="Error Column",
             key="error_column",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
+            options=self.dpd_column_options,
+            editable=True,
+            enable_filter=True,
+            enable_search=True,
+            menu_height=300,
         )
         self.exceptions_textfield = ft.TextField(
             label="Exceptions",
             key="exceptions",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
-        )
-
-        # Row 11 Elements
-        self.update_tests_button = ft.ElevatedButton(
-            "Update Test",
-            key="test_update",
-            on_click=self.controller.handle_test_update,
-        )
-        self.add_new_test_button = ft.ElevatedButton(
-            "Add New Test",
-            key="test_new",
-            on_click=self.controller.handle_add_new_test,
-        )
-        self.delete_test_button = ft.ElevatedButton(
-            "Delete Test",
-            key="test_delete",
-            on_click=self.controller.handle_delete_test,
+            read_only=True,
         )
         self.test_add_exception_dropdown = ft.Dropdown(
-            label="Exception",
+            label="Add Exception",
             key="test_add_exception",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -187,14 +232,30 @@ class TestsTabView(ft.Column):
             menu_height=200,
         )
         self.test_add_exception_button = ft.ElevatedButton(
-            "Add Exception",
+            "Add 1",
             key="test_add_exception_button",
             on_click=self.controller.handle_add_exception_button,
         )
         self.test_add_all_exceptions_button = ft.ElevatedButton(
-            "Add All Exceptions",
+            "Add All",
             key="test_add_all_exceptions_button",
             on_click=self.controller.handle_add_all_exceptions_clicked,
+        )
+
+        # Row 11 Elements
+        self.test_rerun_button = ft.ElevatedButton(
+            "Rerun",
+            key="test_rerun",
+            width=150,
+            height=50,
+            on_click=self.controller.handle_rerun_test_clicked,
+        )
+        self.test_next_button = ft.ElevatedButton(
+            "Next",
+            key="test_next",
+            expand=True,
+            height=50,
+            on_click=self.controller.handle_next_test_clicked,
         )
 
         # Row 12 Elements
@@ -208,16 +269,8 @@ class TestsTabView(ft.Column):
             key="test_results_total",
             color=ft.Colors.WHITE,
         )
-
-        # Row 13 Elements
-        self.filter_component_container = ft.Container(
-            content=ft.Column([], expand=True),
-            expand=True,
-        )
-
-        # Row 14 Elements
         self.test_db_query_input = ft.TextField(
-            label="DB Query",
+            label="DB Browser Query",
             key="test_db_query",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -226,34 +279,30 @@ class TestsTabView(ft.Column):
         self.test_db_query_copy_button = ft.IconButton(
             icon=ft.Icons.COPY,
             key="test_db_query_copy",
-            tooltip="Copy DB Query",
+            tooltip="Copy DB Browser Query",
             on_click=self.controller.handle_test_db_query_copy,
         )
 
-        # Row 15 Elements
-        self.test_rerun_button = ft.ElevatedButton(
-            "Rerun",
-            key="test_rerun",
-            width=150,
-            on_click=self.controller.handle_rerun_test_clicked,
-        )
-        self.test_next_button = ft.ElevatedButton(
-            "Next",
-            key="test_next",
+        # Row 13 Elements
+        self.filter_component_container = ft.Container(
+            content=ft.Column([], expand=True),
             expand=True,
-            on_click=self.controller.handle_next_test_clicked,
         )
 
         # --- Construct Rows and Add to self.controls ---
 
+        spacer_row = ft.Row(height=10)
+
         # Row 1: Buttons
         row_start_stop_edit = ft.Row(
             controls=[
-                ft.Container(width=LABEL_WIDTH),
                 self.run_tests_button,
                 self.stop_tests_button,
                 self.edit_tests_button,
-                self.progress_bar,
+                ft.Container(width=25),  # Spacer
+                self.update_tests_button,
+                self.add_new_test_button,
+                self.delete_test_button,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
@@ -309,20 +358,18 @@ class TestsTabView(ft.Column):
                 ),
                 self.error_column_input,
                 self.exceptions_textfield,
+                self.test_add_exception_dropdown,
+                self.test_add_exception_button,
+                self.test_add_all_exceptions_button,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
 
-        # Row 11: Action Buttons
-        row_test_add_delete_except = ft.Row(
+        # Row 11: Navigation Buttons
+        row_next_button = ft.Row(
             controls=[
-                ft.Container(width=LABEL_WIDTH),  # Spacer
-                self.update_tests_button,
-                self.add_new_test_button,
-                self.delete_test_button,
-                self.test_add_exception_dropdown,
-                self.test_add_exception_button,
-                self.test_add_all_exceptions_button,
+                self.test_rerun_button,
+                self.test_next_button,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
@@ -351,18 +398,10 @@ class TestsTabView(ft.Column):
             vertical_alignment=ft.CrossAxisAlignment.START,
         )
 
-        # Row 15: Navigation Buttons
-        row_next_button = ft.Row(
-            controls=[
-                self.test_rerun_button,
-                self.test_next_button,
-            ],
-            alignment=ft.MainAxisAlignment.START,
-        )
-
         # Add all rows to the Column's controls
         self.controls.extend(
             [
+                spacer_row,
                 row_start_stop_edit,
                 ft.Divider(),
                 row_test_name_etc,
@@ -370,15 +409,12 @@ class TestsTabView(ft.Column):
                 row_display,
                 row_commentary_exceptions,
                 ft.Divider(),
-                row_test_add_delete_except,
-                ft.Divider(),
                 row_next_button,
                 ft.Divider(),
                 row_test_results,
                 row_datatable,
                 ft.Divider(),
                 row_next_button,
-                ft.Divider(),
             ]
         )
 
@@ -404,15 +440,15 @@ class TestsTabView(ft.Column):
         self.iterations_input.value = ""
 
         for elements in self.search_criteria_elements:
-            elements["search_column"].value = ""
+            elements["search_column"].value = None  # Clears dropdown selection
             elements["search_sign"].value = None  # Clears dropdown selection
             elements["search_string"].value = ""
 
-        self.display_1_input.value = ""
-        self.display_2_input.value = ""
-        self.display_3_input.value = ""
+        self.display_1_input.value = None  # Clears dropdown selection
+        self.display_2_input.value = None  # Clears dropdown selection
+        self.display_3_input.value = None  # Clears dropdown selection
 
-        self.error_column_input.value = ""
+        self.error_column_input.value = None  # Clears dropdown selection
         self.exceptions_textfield.value = ""
 
         self.test_add_exception_dropdown.value = None  # Clears dropdown selection
@@ -448,8 +484,11 @@ class TestsTabView(ft.Column):
         for i in range(6):
             if i < len(self.search_criteria_elements):
                 view_elements = self.search_criteria_elements[i]
-                view_elements["search_column"].value = getattr(
-                    test_def, f"search_column_{i + 1}", ""
+                # For dropdowns, set .value to the string value from test_def.
+                # If the value is not in the options, Flet will handle it (likely show empty or allow custom input due to editable=True).
+                search_column_value = getattr(test_def, f"search_column_{i + 1}", "")
+                view_elements["search_column"].value = (
+                    search_column_value if search_column_value else None
                 )
                 # Ensure the value for dropdown is one of its options or None
                 sign_value = getattr(test_def, f"search_sign_{i + 1}", "")
@@ -465,10 +504,14 @@ class TestsTabView(ft.Column):
                     test_def, f"search_string_{i + 1}", ""
                 )
 
-        self.display_1_input.value = test_def.display_1
-        self.display_2_input.value = test_def.display_2
-        self.display_3_input.value = test_def.display_3
-        self.error_column_input.value = test_def.error_column
+        # For dropdowns, set .value to the string value from test_def.
+        # If the value is not in the options, Flet will handle it.
+        self.display_1_input.value = test_def.display_1 if test_def.display_1 else None
+        self.display_2_input.value = test_def.display_2 if test_def.display_2 else None
+        self.display_3_input.value = test_def.display_3 if test_def.display_3 else None
+        self.error_column_input.value = (
+            test_def.error_column if test_def.error_column else None
+        )
         self.exceptions_textfield.value = (
             ", ".join(map(str, sorted(test_def.exceptions)))
             if test_def.exceptions

@@ -38,8 +38,6 @@ class TestsTabController:
         # Step 4: Initialize stop flag
         self._stop_requested = False
 
-        # Show progress bar
-        self.view.progress_bar.visible = True
         self.view.page.update()
 
         # Step 5: Load DB/tests
@@ -51,8 +49,7 @@ class TestsTabController:
             # Re-enable run, disable stop, return
             self.view.set_run_tests_button_disabled_state(False)
             self.view.set_stop_tests_button_disabled_state(True)
-            # Hide progress bar
-            self.view.progress_bar.visible = False
+
             self.view.page.update()
             return
 
@@ -64,8 +61,7 @@ class TestsTabController:
             # Re-enable run, disable stop, return
             self.view.set_run_tests_button_disabled_state(False)
             self.view.set_stop_tests_button_disabled_state(True)
-            # Hide progress bar
-            self.view.progress_bar.visible = False
+
             self.view.page.update()
             return
 
@@ -204,8 +200,7 @@ class TestsTabController:
         """Finalize the test run and reset the UI."""
         self.view.set_run_tests_button_disabled_state(False)
         self.view.set_stop_tests_button_disabled_state(True)
-        # Hide progress bar
-        self.view.progress_bar.visible = False
+
         self.view.page.update()
         # Reset generator
         self._current_test_generator = None
@@ -248,7 +243,6 @@ class TestsTabController:
         self._stop_requested = True
         self.view.set_run_tests_button_disabled_state(False)
         self.view.set_stop_tests_button_disabled_state(True)
-        self.view.progress_bar.visible = False
         self._current_test_generator = None
         self._db_entries = None
         self._tests_list = None
@@ -295,10 +289,12 @@ class TestsTabController:
         # Read search criteria 1-6
         for i in range(6):
             elements = self.view.search_criteria_elements[i]
+            # For dropdowns, .value is a string or None. Convert None to "".
+            search_column_value = elements["search_column"].value
             setattr(
                 current_test,
                 f"search_column_{i + 1}",
-                elements["search_column"].value or "",
+                search_column_value if search_column_value is not None else "",
             )
             setattr(
                 current_test,
@@ -311,18 +307,25 @@ class TestsTabController:
                 elements["search_string"].value or "",
             )
 
-        # Read other fields
+        # Read other fields (dropdowns)
+        # For dropdowns, .value is a string or None. Convert None to "".
+        error_column_value = self.view.error_column_input.value
         current_test.error_column = (
-            self.view.error_column_input.value or current_test.error_column
+            error_column_value
+            if error_column_value is not None
+            else current_test.error_column
         )
+        display_1_value = self.view.display_1_input.value
         current_test.display_1 = (
-            self.view.display_1_input.value or current_test.display_1
+            display_1_value if display_1_value is not None else current_test.display_1
         )
+        display_2_value = self.view.display_2_input.value
         current_test.display_2 = (
-            self.view.display_2_input.value or current_test.display_2
+            display_2_value if display_2_value is not None else current_test.display_2
         )
+        display_3_value = self.view.display_3_input.value
         current_test.display_3 = (
-            self.view.display_3_input.value or current_test.display_3
+            display_3_value if display_3_value is not None else current_test.display_3
         )
 
         # Parse exceptions from TextField (comma-separated IDs)
@@ -436,8 +439,10 @@ class TestsTabController:
             search_criteria = {}
             for i in range(6):
                 elements = self.view.search_criteria_elements[i]
+                # For dropdowns, .value is a string or None. Convert None to "".
+                search_column_value = elements["search_column"].value
                 search_criteria[f"search_column_{i + 1}"] = (
-                    elements["search_column"].value or ""
+                    search_column_value if search_column_value is not None else ""
                 )
                 search_criteria[f"search_sign_{i + 1}"] = (
                     elements["search_sign"].value or ""
@@ -446,11 +451,16 @@ class TestsTabController:
                     elements["search_string"].value or ""
                 )
 
-            # Read other fields
-            error_column = self.view.error_column_input.value or ""
-            display_1 = self.view.display_1_input.value or ""
-            display_2 = self.view.display_2_input.value or ""
-            display_3 = self.view.display_3_input.value or ""
+            # Read other fields (dropdowns)
+            # For dropdowns, .value is a string or None. Convert None to "".
+            error_column_value = self.view.error_column_input.value
+            error_column = error_column_value if error_column_value is not None else ""
+            display_1_value = self.view.display_1_input.value
+            display_1 = display_1_value if display_1_value is not None else ""
+            display_2_value = self.view.display_2_input.value
+            display_2 = display_2_value if display_2_value is not None else ""
+            display_3_value = self.view.display_3_input.value
+            display_3 = display_3_value if display_3_value is not None else ""
 
             # Parse exceptions from TextField (comma-separated IDs)
             exceptions_str = (self.view.exceptions_textfield.value or "").strip()
