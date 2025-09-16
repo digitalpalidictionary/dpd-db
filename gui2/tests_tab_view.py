@@ -213,6 +213,7 @@ class TestsTabView(ft.Column):
             key="test_db_query",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
+            text_size=12,
         )
         self.test_db_query_copy_button = ft.IconButton(
             icon=ft.Icons.COPY,
