@@ -1,5 +1,9 @@
 [
     {
+        "id": 74945,
+        "lemma_1": "durācāratta"
+    },
+    {
         "id": 1147,
         "lemma_1": "ajaras"
     },
@@ -74,9 +78,5 @@
     {
         "id": 83390,
         "lemma_1": "akkharasaññita"
-    },
-    {
-        "id": 5365,
-        "lemma_1": "anusvāra"
     }
 ]
