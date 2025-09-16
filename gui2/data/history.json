@@ -1,5 +1,17 @@
 [
     {
+        "id": 19440,
+        "lemma_1": "kaṇerukā"
+    },
+    {
+        "id": 16559,
+        "lemma_1": "uppaṭipāṭi"
+    },
+    {
+        "id": 16561,
+        "lemma_1": "uppaṭipāṭikā"
+    },
+    {
         "id": 74945,
         "lemma_1": "durācāratta"
     },
@@ -66,17 +78,5 @@
     {
         "id": 83395,
         "lemma_1": "anusvāralopa"
-    },
-    {
-        "id": 83402,
-        "lemma_1": "anusāralopa"
-    },
-    {
-        "id": 78522,
-        "lemma_1": "pāsādadabba"
-    },
-    {
-        "id": 83390,
-        "lemma_1": "akkharasaññita"
     }
 ]
