@@ -165,8 +165,16 @@ class TestsTabView(ft.Column):
             key="test_update",
             on_click=self.controller.handle_test_update,
         )
-        self.add_new_test_button = ft.ElevatedButton("Add New Test", key="test_new")
-        self.delete_test_button = ft.ElevatedButton("Delete Test", key="test_delete")
+        self.add_new_test_button = ft.ElevatedButton(
+            "Add New Test",
+            key="test_new",
+            on_click=self.controller.handle_add_new_test,
+        )
+        self.delete_test_button = ft.ElevatedButton(
+            "Delete Test",
+            key="test_delete",
+            on_click=self.controller.handle_delete_test,
+        )
         self.test_add_exception_dropdown = ft.Dropdown(
             label="Exception",
             key="test_add_exception",

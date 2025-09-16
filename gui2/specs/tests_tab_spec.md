@@ -72,7 +72,7 @@ This document specifies the functionality, behavior, and implementation details 
 - **Behavior**:
   - Reads test fields from view
   - Creates new test definition
-  - Adds test to test manager list
+  - Adds test to test manager list after the current test
   - Saves updated tests to file
   - Clears view fields
 

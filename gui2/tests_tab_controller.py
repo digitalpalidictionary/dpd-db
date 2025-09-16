@@ -249,7 +249,7 @@ class TestsTabController:
         self._db_entries = None
         self._tests_list = None
         self.view.clear_all_fields()
-        show_global_snackbar(self.page, "Tests stopped.", "warning", 3000)
+        show_global_snackbar(self.page, "Tests stopped.", "info", 2000)
 
     def handle_edit_tests_clicked(self, e: ft.ControlEvent) -> None:
         """Handle edit tests button click."""
@@ -363,73 +363,186 @@ class TestsTabController:
 
     def handle_add_new_test(self, e: ft.ControlEvent) -> None:
         """Handle add new test button click."""
-        # Read fields from view
-        test_name = self.view.test_name_input.value or ""
-        iterations = (
-            int(self.view.iterations_input.value)
-            if self.view.iterations_input.value
-            else 0
-        )
+        manager = self.toolkit.db_test_manager
+        if self._current_test_index is not None and self._tests_list is not None:
+            # Duplicate current test, insert before current to make it active, populate view for editing
+            current_test = self._tests_list[self._current_test_index]
+            new_test = InternalTestRow(
+                test_name=current_test.test_name + " added",
+                search_column_1=current_test.search_column_1,
+                search_sign_1=current_test.search_sign_1,
+                search_string_1=current_test.search_string_1,
+                search_column_2=current_test.search_column_2,
+                search_sign_2=current_test.search_sign_2,
+                search_string_2=current_test.search_string_2,
+                search_column_3=current_test.search_column_3,
+                search_sign_3=current_test.search_sign_3,
+                search_string_3=current_test.search_string_3,
+                search_column_4=current_test.search_column_4,
+                search_sign_4=current_test.search_sign_4,
+                search_string_4=current_test.search_string_4,
+                search_column_5=current_test.search_column_5,
+                search_sign_5=current_test.search_sign_5,
+                search_string_5=current_test.search_string_5,
+                search_column_6=current_test.search_column_6,
+                search_sign_6=current_test.search_sign_6,
+                search_string_6=current_test.search_string_6,
+                error_column=current_test.error_column,
+                exceptions=[],
+                iterations=current_test.iterations,
+                display_1=current_test.display_1,
+                display_2=current_test.display_2,
+                display_3=current_test.display_3,
+            )
+            # Insert after current
+            insert_index = self._current_test_index + 1
+            self._tests_list.insert(insert_index, new_test)
+            manager.internal_tests_list = self._tests_list
+            # Current index now points to new test
+            # Save the new test
+            try:
+                manager.save_tests()
+                show_global_snackbar(
+                    self.page,
+                    f"New test '{new_test.test_name}' added; edit and update to save changes.",
+                    "info",
+                    4000,
+                )
+            except Exception as save_error:
+                show_global_snackbar(
+                    self.page,
+                    f"Failed to save new test: {str(save_error)}",
+                    "error",
+                    5000,
+                )
+            # Populate view with new test for editing (no clear)
+            self.view.populate_with_test_definition(new_test)
+            self.view.update_test_number_display(str(self._current_test_index + 1))
+            self.page.update()
+        else:
+            # Standalone: read from view, append, save, clear
+            test_name = self.view.test_name_input.value or ""
+            iterations = (
+                int(self.view.iterations_input.value)
+                if self.view.iterations_input.value
+                else 10  # Default to 10 like in update
+            )
 
-        # Create new InternalTestRow
-        new_test = InternalTestRow(
-            test_name=test_name,
-            search_column_1="",
-            search_sign_1="",
-            search_string_1="",
-            search_column_2="",
-            search_sign_2="",
-            search_string_2="",
-            search_column_3="",
-            search_sign_3="",
-            search_string_3="",
-            search_column_4="",
-            search_sign_4="",
-            search_string_4="",
-            search_column_5="",
-            search_sign_5="",
-            search_string_5="",
-            search_column_6="",
-            search_sign_6="",
-            search_string_6="",
-            error_column="",
-            exceptions=[],
-            iterations=iterations,
-            display_1="",
-            display_2="",
-            display_3="",
-        )
+            # Read search criteria 1-6
+            search_criteria = {}
+            for i in range(6):
+                elements = self.view.search_criteria_elements[i]
+                search_criteria[f"search_column_{i + 1}"] = (
+                    elements["search_column"].value or ""
+                )
+                search_criteria[f"search_sign_{i + 1}"] = (
+                    elements["search_sign"].value or ""
+                )
+                search_criteria[f"search_string_{i + 1}"] = (
+                    elements["search_string"].value or ""
+                )
 
-        # Insert after current test in manager's list
-        # Note: This is a simplified implementation. In a real scenario, you would need to
-        # determine the current test index.
-        self.toolkit.db_test_manager.internal_tests_list.append(new_test)
+            # Read other fields
+            error_column = self.view.error_column_input.value or ""
+            display_1 = self.view.display_1_input.value or ""
+            display_2 = self.view.display_2_input.value or ""
+            display_3 = self.view.display_3_input.value or ""
 
-        # Save via manager.save_tests()
-        self.toolkit.db_test_manager.save_tests()
+            # Parse exceptions from TextField (comma-separated IDs)
+            exceptions_str = (self.view.exceptions_textfield.value or "").strip()
+            exceptions = []
+            if exceptions_str:
+                try:
+                    exceptions = [
+                        int(id_str.strip())
+                        for id_str in exceptions_str.split(",")
+                        if id_str.strip()
+                    ]
+                    exceptions = sorted(exceptions)
+                except ValueError:
+                    show_global_snackbar(
+                        self.page,
+                        "Invalid exception IDs for new test; starting with empty list.",
+                        "warning",
+                        5000,
+                    )
 
-        # Clear view
-        self.view.clear_all_fields()
+            # Create new InternalTestRow
+            new_test = InternalTestRow(
+                test_name=test_name,
+                **search_criteria,
+                error_column=error_column,
+                exceptions=exceptions,
+                iterations=iterations,
+                display_1=display_1,
+                display_2=display_2,
+                display_3=display_3,
+            )
 
-    def handle_delete_test(self, e: ft.ControlEvent) -> None:
-        """Handle delete test button click."""
-        # Show confirmation dialog (if possible in Flet)
-        # This is a simplified implementation. In a real scenario, you would need to
-        # implement a proper confirmation dialog.
-        confirmed = True  # Placeholder for confirmation
-
-        if confirmed:
-            # Remove current test from manager's list
-            # Note: This is a simplified implementation. In a real scenario, you would need to
-            # determine the current test index.
-            if self.toolkit.db_test_manager.internal_tests_list:
-                self.toolkit.db_test_manager.internal_tests_list.pop()
+            # Append to manager's list
+            manager.internal_tests_list.append(new_test)
 
             # Save via manager.save_tests()
-            self.toolkit.db_test_manager.save_tests()
+            try:
+                manager.save_tests()
+                show_global_snackbar(
+                    self.page,
+                    "New test added successfully!",
+                    "info",
+                    4000,
+                )
+            except Exception as save_error:
+                show_global_snackbar(
+                    self.page,
+                    f"Failed to save new test: {str(save_error)}",
+                    "error",
+                    5000,
+                )
 
             # Clear view
             self.view.clear_all_fields()
+
+    def handle_delete_test(self, e: ft.ControlEvent) -> None:
+        """Handle delete test button click."""
+        # Check if there's a current test to delete
+        if self._current_test_index is None or self._tests_list is None:
+            show_global_snackbar(
+                self.page,
+                "No current test to delete. Run tests first.",
+                "error",
+                5000,
+            )
+            return
+
+        # Show confirmation dialog (if possible in Flet)
+        # For now, we'll proceed with deletion without confirmation
+        # In a real implementation, you would show a proper confirmation dialog
+
+        # Remove current test from manager's list
+        current_test = self._tests_list[self._current_test_index]
+        self._tests_list.pop(self._current_test_index)
+        self.toolkit.db_test_manager.internal_tests_list = self._tests_list
+
+        # Save via manager.save_tests()
+        try:
+            self.toolkit.db_test_manager.save_tests()
+            show_global_snackbar(
+                self.page,
+                f"Test '{current_test.test_name}' deleted successfully!",
+                "info",
+                4000,
+            )
+        except Exception as save_error:
+            show_global_snackbar(
+                self.page,
+                f"Failed to delete test: {str(save_error)}",
+                "error",
+                5000,
+            )
+            return
+
+        # Trigger the real next button behavior
+        self.handle_next_test_clicked(e)
 
     def handle_add_exception_button(self, e: ft.ControlEvent) -> None:
         """Handle add exception button click."""
