@@ -181,6 +181,10 @@ class TestsTabView(ft.Column):
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
             options=[],
+            editable=True,
+            enable_filter=True,
+            enable_search=True,
+            menu_height=200,
         )
         self.test_add_exception_button = ft.ElevatedButton(
             "Add Exception",
