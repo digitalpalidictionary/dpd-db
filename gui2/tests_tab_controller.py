@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Generator
 import flet as ft
 
 from db.models import DpdHeadword
-from db_tests.db_tests_manager import DbTestManager, InternalTestRow, IntegrityFailure
+from db_tests.db_tests_manager import DbTestManager, IntegrityFailure, InternalTestRow
 from gui2.filter_component import FilterComponent
 from gui2.ui_utils import show_global_snackbar
 from tools.db_search_string import db_search_string
@@ -22,6 +22,7 @@ class TestsTabController:
         self.toolkit: ToolKit = toolkit
         self.page: ft.Page = view.page
         self._stop_requested: bool = False
+        self._reverse_order: bool = False
         self._current_test_generator: Generator[InternalTestRow, None, None] | None = (
             None
         )
@@ -31,6 +32,15 @@ class TestsTabController:
         self._current_failures: list[DpdHeadword] | None = None
         self._integrity_failures: list | None = None
         self._current_integrity_failure = None
+
+    def handle_toggle_test_direction(self, e: ft.ControlEvent) -> None:
+        """Toggle the test direction and update the button icon."""
+        self._reverse_order = not self._reverse_order
+        if self._reverse_order:
+            self.view.test_direction_button.icon = ft.Icons.ARROW_BACK
+        else:
+            self.view.test_direction_button.icon = ft.Icons.ARROW_FORWARD
+        self.view.page.update()
 
     def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
         # Step 1: Clear previous integrity failure highlights
@@ -51,6 +61,9 @@ class TestsTabController:
             self.view.set_stop_tests_button_disabled_state(True)
             self.view.page.update()
             return
+
+        if self._reverse_order:
+            tests_list.reverse()
 
         self._tests_list = tests_list
 

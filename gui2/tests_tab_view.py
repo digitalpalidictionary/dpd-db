@@ -69,6 +69,11 @@ class TestsTabView(ft.Column):
             height=50,
             width=150,
         )
+        self.test_direction_button = ft.IconButton(
+            icon=ft.Icons.ARROW_FORWARD,
+            tooltip="Toggle test direction",
+            on_click=self.controller.handle_toggle_test_direction,
+        )
         self.stop_tests_button = ft.ElevatedButton(
             "Stop Tests",
             key="test_stop",
@@ -297,6 +302,7 @@ class TestsTabView(ft.Column):
         row_start_stop_edit = ft.Row(
             controls=[
                 self.run_tests_button,
+                self.test_direction_button,
                 self.stop_tests_button,
                 self.edit_tests_button,
                 ft.Container(width=25),  # Spacer
