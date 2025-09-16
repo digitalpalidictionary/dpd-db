@@ -81,14 +81,14 @@ class TestsTabView(ft.Column):
         self.test_name_input = ft.TextField(
             label="",
             key="test_name",
-            width=900 + 10 - 50,
+            width=900 + 10 - 100,
             label_style=TEXT_FIELD_LABEL_STYLE,
             text_style=ft.TextStyle(color=ft.Colors.WHITE),
         )
         self.iterations_input = ft.TextField(
             label="Iter",
             key="iterations",
-            width=50,
+            width=100,
             label_style=TEXT_FIELD_LABEL_STYLE,
         )
 
