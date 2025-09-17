@@ -492,6 +492,9 @@ class TestsTabView(ft.Column):
         self.test_number_text.value = test_number
         self.page.update()
 
+    def update_message(self, message: str):
+        print(message)
+
     def clear_all_fields(self):
         """Clears all input fields and resets test results in the view."""
         self.test_name_input.value = ""
