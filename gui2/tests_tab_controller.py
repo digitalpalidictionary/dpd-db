@@ -309,10 +309,10 @@ class TestsTabController:
             # Disable the sort button during sorting
             self.view.set_sort_tests_button_disabled_state(True)
             self.view.page.update()
-            
+
             # Sort the tests
             self.toolkit.db_test_manager.sort_tests_by_name()
-            
+
             # Show success message
             show_global_snackbar(self.page, "Tests sorted successfully!", "info", 3000)
         except Exception as ex:
@@ -861,4 +861,4 @@ class TestsTabController:
         else:
             # On pass, show success message and stop (no auto-advance)
             self.view.update_test_name(f"Passed: {current_test.test_name}")
-            self.page.update()
+            self._run_next_test_from_generator()
