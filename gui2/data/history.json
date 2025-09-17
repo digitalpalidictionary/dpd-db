@@ -1,5 +1,9 @@
 [
     {
+        "id": 9105,
+        "lemma_1": "arogiya"
+    },
+    {
         "id": 7583,
         "lemma_1": "abhikkhuka"
     },
@@ -74,9 +78,5 @@
     {
         "id": 83258,
         "lemma_1": "niggaṇṭhi 2"
-    },
-    {
-        "id": 83256,
-        "lemma_1": "niddā okkami"
     }
 ]
