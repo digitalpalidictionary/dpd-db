@@ -388,6 +388,18 @@ class DbTestManager:
         # Fallback, should ideally not be reached
         return False
 
+    def sort_tests_by_name(self) -> None:
+        """Sorts the tests alphabetically by test_name, preserving the header row."""
+        if not self.internal_tests_list:
+            pr.red("No tests loaded, nothing to sort.")
+            return
+            
+        # Sort the internal tests list by test_name
+        self.internal_tests_list.sort(key=lambda test: test.test_name)
+        
+        # Save the sorted tests back to the TSV file
+        self.save_tests()
+
 
 def main() -> None:
     session = get_db_session(Path("dpd.db"))

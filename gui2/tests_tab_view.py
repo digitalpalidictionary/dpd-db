@@ -90,6 +90,14 @@ class TestsTabView(ft.Column):
             height=50,
             width=150,
         )
+        self.sort_tests_button = ft.ElevatedButton(
+            "Sort Tests",
+            key="test_sort",
+            tooltip="Sort tests alphabetically by name",
+            on_click=self.controller.handle_sort_tests_clicked,
+            height=50,
+            width=150,
+        )
         self.update_tests_button = ft.ElevatedButton(
             "Update Test",
             key="test_update",
@@ -328,6 +336,7 @@ class TestsTabView(ft.Column):
                 self.test_direction_button,
                 self.stop_tests_button,
                 self.edit_tests_button,
+                self.sort_tests_button,
                 ft.Container(width=25),  # Spacer
                 self.update_tests_button,
                 self.add_new_test_button,
@@ -473,6 +482,10 @@ class TestsTabView(ft.Column):
 
     def set_stop_tests_button_disabled_state(self, disabled: bool):
         self.stop_tests_button.disabled = disabled
+        self.page.update()
+
+    def set_sort_tests_button_disabled_state(self, disabled: bool):
+        self.sort_tests_button.disabled = disabled
         self.page.update()
 
     def update_test_number_display(self, test_number: str):

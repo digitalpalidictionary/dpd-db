@@ -49,6 +49,7 @@ class TestsTabController:
         # Step 2: Disable run button and enable stop button
         self.view.set_run_tests_button_disabled_state(True)
         self.view.set_stop_tests_button_disabled_state(False)
+        self.view.set_sort_tests_button_disabled_state(True)
         self._stop_requested = False
         self.view.page.update()
 
@@ -248,6 +249,7 @@ class TestsTabController:
         """Finalize the test run and reset the UI."""
         self.view.set_run_tests_button_disabled_state(False)
         self.view.set_stop_tests_button_disabled_state(True)
+        self.view.set_sort_tests_button_disabled_state(False)
 
         self.view.page.update()
         # Reset generator
@@ -294,11 +296,31 @@ class TestsTabController:
         self._stop_requested = True
         self.view.set_run_tests_button_disabled_state(False)
         self.view.set_stop_tests_button_disabled_state(True)
+        self.view.set_sort_tests_button_disabled_state(False)
         self._current_test_generator = None
         self._db_entries = None
         self._tests_list = None
         self.view.clear_all_fields()
         show_global_snackbar(self.page, "Tests stopped.", "info", 2000)
+
+    def handle_sort_tests_clicked(self, e: ft.ControlEvent) -> None:
+        """Handle sort tests button click."""
+        try:
+            # Disable the sort button during sorting
+            self.view.set_sort_tests_button_disabled_state(True)
+            self.view.page.update()
+            
+            # Sort the tests
+            self.toolkit.db_test_manager.sort_tests_by_name()
+            
+            # Show success message
+            show_global_snackbar(self.page, "Tests sorted successfully!", "info", 3000)
+        except Exception as ex:
+            show_global_snackbar(self.page, f"Error sorting tests: {ex}", "error", 5000)
+        finally:
+            # Re-enable the sort button
+            self.view.set_sort_tests_button_disabled_state(False)
+            self.view.page.update()
 
     def handle_edit_tests_clicked(self, e: ft.ControlEvent) -> None:
         """Handle edit tests button click."""
