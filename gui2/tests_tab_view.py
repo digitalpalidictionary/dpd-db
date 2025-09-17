@@ -114,7 +114,7 @@ class TestsTabView(ft.Column):
 
         # Row 2 Elements
         self.test_number_text = ft.Text(
-            "0",
+            "",
             key="test_number",
             width=LABEL_WIDTH,
             text_align=ft.TextAlign.RIGHT,
@@ -122,15 +122,9 @@ class TestsTabView(ft.Column):
         self.test_name_input = ft.TextField(
             label="",
             key="test_name",
-            width=900 + 10 - 100,
+            width=920,
             label_style=TEXT_FIELD_LABEL_STYLE,
             text_style=ft.TextStyle(color=ft.Colors.WHITE),
-        )
-        self.iterations_input = ft.TextField(
-            label="Iter",
-            key="iterations",
-            width=100,
-            label_style=TEXT_FIELD_LABEL_STYLE,
         )
 
         # Rows 3-8: Test Criteria Elements
@@ -143,6 +137,7 @@ class TestsTabView(ft.Column):
                     width=LABEL_WIDTH,
                     text_align=ft.TextAlign.RIGHT,
                     color=LABEL_COLOUR,
+                    size=12,
                 ),
                 "search_column": ft.Dropdown(
                     label="",
@@ -154,6 +149,7 @@ class TestsTabView(ft.Column):
                     enable_filter=True,
                     enable_search=True,
                     menu_height=300,
+                    text_style=ft.TextStyle(size=12),
                 ),
                 "search_sign": ft.Dropdown(
                     label="",
@@ -161,12 +157,17 @@ class TestsTabView(ft.Column):
                     width=COLUMN_WIDTH,
                     options=[ft.dropdown.Option(logic) for logic in LOGIC_OPTIONS],
                     label_style=TEXT_FIELD_LABEL_STYLE,
+                    text_style=ft.TextStyle(size=12),
+                    editable=True,
+                    enable_filter=True,
+                    enable_search=True,
                 ),
                 "search_string": ft.TextField(
                     label="",
                     key=f"search_string_{i + 1}",
                     width=COLUMN_WIDTH,
                     label_style=TEXT_FIELD_LABEL_STYLE,
+                    text_size=12,
                 ),
             }
             self.search_criteria_elements.append(elements)
@@ -182,6 +183,7 @@ class TestsTabView(ft.Column):
             enable_filter=True,
             enable_search=True,
             menu_height=300,
+            text_style=ft.TextStyle(size=12),
         )
         self.display_2_input = ft.Dropdown(
             label="",
@@ -193,6 +195,7 @@ class TestsTabView(ft.Column):
             enable_filter=True,
             enable_search=True,
             menu_height=300,
+            text_style=ft.TextStyle(size=12),
         )
         self.display_3_input = ft.Dropdown(
             label="",
@@ -204,6 +207,14 @@ class TestsTabView(ft.Column):
             enable_filter=True,
             enable_search=True,
             menu_height=300,
+            text_style=ft.TextStyle(size=12),
+        )
+        self.iterations_input = ft.TextField(
+            label="",
+            key="iterations",
+            width=100,
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            text_style=ft.TextStyle(size=12),
         )
 
         # Row 10 Elements
@@ -217,13 +228,15 @@ class TestsTabView(ft.Column):
             enable_filter=True,
             enable_search=True,
             menu_height=300,
+            text_style=ft.TextStyle(size=12),
         )
         self.exceptions_textfield = ft.TextField(
             label="Exceptions",
             key="exceptions",
-            width=200,
+            width=300,
             label_style=TEXT_FIELD_LABEL_STYLE,
             read_only=True,
+            text_size=12,
         )
 
         self.notes_input = ft.TextField(
@@ -231,18 +244,20 @@ class TestsTabView(ft.Column):
             key="notes",
             width=920,
             label_style=TEXT_FIELD_LABEL_STYLE,
+            text_size=12,
         )
 
         self.test_add_exception_dropdown = ft.Dropdown(
             label="Add Exception",
             key="test_add_exception",
-            width=200,
+            width=300,
             label_style=TEXT_FIELD_LABEL_STYLE,
             options=[],
             editable=True,
             enable_filter=True,
             enable_search=True,
             menu_height=200,
+            text_style=ft.TextStyle(size=12),
         )
         self.test_add_exception_button = ft.ElevatedButton(
             "Add 1",
@@ -273,12 +288,12 @@ class TestsTabView(ft.Column):
 
         # Row 12 Elements
         self.test_results_redux_text = ft.Text(
-            "0",
+            "",
             key="test_results_redux",
             color=ft.Colors.WHITE,
         )
         self.test_results_total_text = ft.Text(
-            "0",
+            "",
             key="test_results_total",
             color=ft.Colors.WHITE,
         )
@@ -325,7 +340,6 @@ class TestsTabView(ft.Column):
             controls=[
                 self.test_number_text,
                 self.test_name_input,
-                self.iterations_input,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
@@ -353,10 +367,12 @@ class TestsTabView(ft.Column):
                     width=LABEL_WIDTH,
                     text_align=ft.TextAlign.RIGHT,
                     color=LABEL_COLOUR,
+                    size=12,
                 ),
                 self.display_1_input,
                 self.display_2_input,
                 self.display_3_input,
+                self.iterations_input,
             ],
             alignment=ft.MainAxisAlignment.START,
         )
@@ -488,8 +504,8 @@ class TestsTabView(ft.Column):
 
         # Reset text displays
         self.test_number_text.value = ""
-        self.test_results_redux_text.value = "0"
-        self.test_results_total_text.value = "0"
+        self.test_results_redux_text.value = ""
+        self.test_results_total_text.value = ""
 
         # Clear results table
         # Results table is now handled by filter component
