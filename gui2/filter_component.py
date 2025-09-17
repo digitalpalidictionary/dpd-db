@@ -123,7 +123,7 @@ class FilterComponent(ft.Column):
         table_container = ft.Container(
             content=self.results_table,
             expand=True,
-            width=1200,  # Fixed width for horizontal scrolling
+            width=1350,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
