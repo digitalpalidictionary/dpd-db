@@ -17,7 +17,7 @@ class GuiTestManager(PopUpMixin):
         self.toolkit: ToolKit = toolkit
         self.db_test_manager: DbTestManager = self.toolkit.db_test_manager
 
-        self.ui
+        self.ui: Pass1AddView | Pass2AddView | TestsTabView
         self.page: ft.Page
 
         self.passed: bool
