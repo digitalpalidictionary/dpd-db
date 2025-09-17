@@ -257,9 +257,7 @@ class TestsTabController:
 
     def load_tests(self) -> list[InternalTestRow] | None:
         try:
-            manager = DbTestManager()
-            tests_list = manager.load_tests()
-            return tests_list
+            return list(self.toolkit.db_test_manager.internal_tests_list)
         except Exception as e:
             print(f"Error loading tests: {e}")
             return None
@@ -402,9 +400,6 @@ class TestsTabController:
             current_test.exceptions = []
 
         current_test.notes = self.view.notes_input.value or ""
-
-        # Update the manager's list
-        self.toolkit.db_test_manager.internal_tests_list = self._tests_list
 
         try:
             # Save via manager.save_tests()
