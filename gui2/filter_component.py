@@ -11,6 +11,53 @@ if TYPE_CHECKING:
     from db.models import DpdHeadword
 
 
+class DpdDatatable(ft.DataTable):
+    def __init__(self, columns, rows):
+        super().__init__(
+            columns=columns,
+            rows=rows,
+            data_text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
+            border=ft.border.all(2, ft.Colors.BLACK),
+            horizontal_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
+            vertical_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
+            heading_row_color=ft.Colors.BLUE_900,
+            column_spacing=20,
+            horizontal_margin=10,
+            heading_text_style=ft.TextStyle(
+                color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD, size=12
+            ),
+            heading_row_height=30,
+            data_row_min_height=30,
+            data_row_max_height=float("inf"),
+            show_checkbox_column=False,
+        )
+
+
+class ColumnText(ft.Text):
+    def __init__(self, text, width):
+        super().__init__(
+            value=text,
+            expand=True,
+            width=width,
+            show_selection_cursor=True,
+        )
+
+
+class CellTextField(ft.TextField):
+    def __init__(self, text):
+        super().__init__(
+            value=text,
+            multiline=True,
+            border_radius=10,
+            border=ft.InputBorder.NONE,
+            text_align=ft.TextAlign.LEFT,
+            text_style=ft.TextStyle(
+                size=12,
+                color=ft.Colors.GREY_300,
+            ),
+        )
+
+
 class FilterComponent(ft.Column):
     """A modular filter component for DPD database filtering."""
 
@@ -67,32 +114,16 @@ class FilterComponent(ft.Column):
         # Create a placeholder column to avoid the AssertionError
         placeholder_column = ft.DataColumn(label=ft.Text("ID"))
 
-        self.results_table = ft.DataTable(
-            data_text_style=ft.TextStyle(
-                size=12, color=ft.Colors.GREY_300
-            ),  # 12-point slightly darker than white text
+        self.results_table = DpdDatatable(
             columns=[placeholder_column],
             rows=[],
-            border=ft.border.all(2, ft.Colors.BLACK),
-            horizontal_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
-            vertical_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
-            heading_row_color=ft.Colors.BLUE_900,  # Dark blue background for headings
-            column_spacing=50,  # Increased column spacing for better readability
-            horizontal_margin=10,
-            heading_text_style=ft.TextStyle(
-                color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD, size=12
-            ),
-            heading_row_height=30,
-            data_row_min_height=30,
-            data_row_max_height=float("inf"),
-            show_checkbox_column=False,
         )
 
         # Wrap in containers for proper scrolling
         table_container = ft.Container(
             content=self.results_table,
             expand=True,
-            width=1350,  # Fixed width for horizontal scrolling
+            width=1200,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
@@ -209,34 +240,39 @@ class FilterComponent(ft.Column):
             self.page.update()
             return
 
-        # Calculate column widths based on content - adjusted for DataTable's content-based sizing
-        # This calculation is currently unused as Flet's DataColumn doesn't support width parameter
-        # Keeping this code for potential future use or for influencing other aspects of the UI
+        # Calculate column widths based on content
         column_widths = {}
-        for col_name in display_columns:
-            max_len = len(col_name)  # Start with header length
-            for result in self.filtered_results:
-                value = getattr(result, col_name, "")
-                if value is None:
-                    value_str = ""
-                elif isinstance(value, list):
-                    value_str = ", ".join(str(v) for v in value)
-                else:
-                    value_str = str(value)
-                max_len = max(max_len, len(value_str))
+        if self.filtered_results:
+            # Calculate max length for each column
+            max_lengths = {}
+            for col_name in display_columns:
+                max_len = len(col_name)
+                for result in self.filtered_results:
+                    value = getattr(result, col_name, "")
+                    if value is None:
+                        value_str = ""
+                    elif isinstance(value, list):
+                        value_str = ", ".join(str(v) for v in value)
+                    else:
+                        value_str = str(value)
+                    max_len = max(max_len, len(value_str))
+                max_lengths[col_name] = max_len
 
-            # Adjusted width calculation for more compact to wider columns
-            min_width = 10  # Even more compact minimum width
-            calculated_width = (
-                max_len * 12 + 25
-            )  # Slightly more aggressive width calculation
-            column_widths[col_name] = max(
-                min_width, min(calculated_width, 1350)
-            )  # Wider maximum cap
+            # Calculate proportional widths
+            total_max_len = sum(max_lengths.values())
+            if total_max_len > 0:
+                for col_name in display_columns:
+                    # Proportionate width
+                    width = (max_lengths[col_name] / total_max_len) * 1200
+                    # Apply min/max constraints
+                    column_widths[col_name] = max(50, min(width, 800))
 
         # Create columns
         for col_name in display_columns:
-            self.results_table.columns.append(ft.DataColumn(label=ft.Text(col_name)))
+            width = column_widths.get(col_name, 150)  # Default width if no results
+            self.results_table.columns.append(
+                ft.DataColumn(label=ColumnText(col_name, width))
+            )
 
         # Create rows with editable cells
         for row_index, result in enumerate(self.filtered_results):
@@ -251,42 +287,20 @@ class FilterComponent(ft.Column):
                 else:
                     value_str = str(value)
 
-                calculated_width = column_widths.get(col_name, 400)
+                text_field = CellTextField(text=value_str)
 
                 if col_name == "id":
-                    # ID column: read-only, selectable for copying
-                    text_field = ft.TextField(
-                        value=value_str,
-                        read_only=True,
-                        dense=True,
-                        multiline=False,
-                        text_align=ft.TextAlign.LEFT,
-                        content_padding=5,
-                        border=ft.InputBorder.NONE,
-                        width=calculated_width,
-                        text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
-                    )
+                    text_field.read_only = True
+                    text_field.multiline = False
                 else:
 
                     def make_on_change_handler(r, c):
                         return lambda e: self._on_cell_change(e, r, c)
 
-                    # Create editable text field for each cell
-                    text_field = ft.TextField(
-                        value=value_str,
-                        on_change=make_on_change_handler(row_index, col_name),
-                        dense=True,
-                        multiline=True,
-                        text_align=ft.TextAlign.LEFT,
-                        content_padding=5,
-                        border=ft.InputBorder.NONE,
-                        width=calculated_width,
-                        text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
-                    )
+                    text_field.on_change = make_on_change_handler(row_index, col_name)
 
                 cells.append(ft.DataCell(text_field))
 
-            # Create a function that captures the row_index by value
             self.results_table.rows.append(
                 ft.DataRow(
                     cells=cells,

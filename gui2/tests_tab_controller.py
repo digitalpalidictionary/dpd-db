@@ -68,7 +68,7 @@ class TestsTabController:
         self._tests_list = tests_list
 
         # Step 4: Integrity check before loading the DB
-        self.view.update_test_name("Running integrity check...")
+        self.view.update_test_name("running integrity check...")
         integrity_result, failures = self.integrity_check(tests_list)
         if not integrity_result:
             self._integrity_failures = failures
@@ -80,7 +80,7 @@ class TestsTabController:
             return
 
         # Step 5: Load DB (only if integrity is OK)
-        self.view.update_test_name("Loading database...")
+        self.view.update_test_name("loading database...")
         db_entries = self.load_db()
         if db_entries is None:
             self.view.update_test_name("Error loading database")
