@@ -1,5 +1,25 @@
 [
     {
+        "id": 7583,
+        "lemma_1": "abhikkhuka"
+    },
+    {
+        "id": 56273,
+        "lemma_1": "sakakkasa"
+    },
+    {
+        "id": 54067,
+        "lemma_1": "yidaṃ"
+    },
+    {
+        "id": 51514,
+        "lemma_1": "malamacchera"
+    },
+    {
+        "id": 47720,
+        "lemma_1": "phāsuka 1"
+    },
+    {
         "id": 19440,
         "lemma_1": "kaṇerukā"
     },
@@ -58,25 +78,5 @@
     {
         "id": 83256,
         "lemma_1": "niddā okkami"
-    },
-    {
-        "id": 76809,
-        "lemma_1": "kodhappattamanatthaddha"
-    },
-    {
-        "id": 44599,
-        "lemma_1": "pasannacitta"
-    },
-    {
-        "id": 75147,
-        "lemma_1": "anomapañña"
-    },
-    {
-        "id": 83401,
-        "lemma_1": "anusāra 2.1"
-    },
-    {
-        "id": 83395,
-        "lemma_1": "anusvāralopa"
     }
 ]
