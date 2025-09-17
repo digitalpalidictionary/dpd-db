@@ -143,8 +143,6 @@ class TestsTabController:
             # Get the next test from the generator
             current_test = next(self._current_test_generator)
 
-            self.view.clear_all_fields()
-
             # Update view with test number and name
             if self._tests_list:
                 self._current_test_index = self._tests_list.index(current_test)
