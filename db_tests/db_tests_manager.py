@@ -5,8 +5,8 @@ import csv
 import json
 import re
 from json import dumps
-from typing import NamedTuple
 from pathlib import Path
+from typing import NamedTuple
 
 from rich import print
 
@@ -44,6 +44,7 @@ class InternalTestRow:
         display_1: str,
         display_2: str,
         display_3: str,
+        notes: str = "",
     ) -> None:
         self.test_name: str = test_name
         self.search_column_1: str = search_column_1
@@ -68,6 +69,7 @@ class InternalTestRow:
         self.display_1: str = display_1
         self.display_2: str = display_2
         self.display_3: str = display_3
+        self.notes: str = notes
 
         # Process exceptions
         self.exceptions: list[int] = []
@@ -119,12 +121,15 @@ class DbTestManager:
     def __init__(self):
         self.pth = ProjectPaths()
         self.tests_path = self.pth.internal_tests_path
+        self.fieldnames: list[str] = []
         self.internal_tests_list = self.load_tests()
         self.integrity_ok, self.integrity_failures = self.integrity_check()
 
     def load_tests(self):
         with open(self.tests_path, newline="") as csvfile:
             reader = csv.DictReader(csvfile, delimiter="\t")
+            if reader.fieldnames:
+                self.fieldnames = reader.fieldnames
             internal_tests_list = [InternalTestRow(**row) for row in reader]
         return internal_tests_list
 
@@ -316,11 +321,16 @@ class DbTestManager:
             pr.red("No tests loaded, nothing to save.")
             return
 
-        fieldnames = list(self.internal_tests_list[0].__dict__.keys())
+        fieldnames = self.fieldnames
 
         try:
             with open(self.tests_path, "w", newline="", encoding="utf-8") as csvfile:
-                writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
+                writer = csv.DictWriter(
+                    csvfile,
+                    delimiter="\t",
+                    fieldnames=fieldnames,
+                    quoting=csv.QUOTE_ALL,
+                )
                 writer.writeheader()
                 for test_row in self.internal_tests_list:
                     # Create a dictionary representation for writing

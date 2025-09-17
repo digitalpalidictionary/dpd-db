@@ -221,14 +221,22 @@ class TestsTabView(ft.Column):
         self.exceptions_textfield = ft.TextField(
             label="Exceptions",
             key="exceptions",
-            width=COLUMN_WIDTH,
+            width=200,
             label_style=TEXT_FIELD_LABEL_STYLE,
             read_only=True,
         )
+
+        self.notes_input = ft.TextField(
+            label="Notes",
+            key="notes",
+            width=920,
+            label_style=TEXT_FIELD_LABEL_STYLE,
+        )
+
         self.test_add_exception_dropdown = ft.Dropdown(
             label="Add Exception",
             key="test_add_exception",
-            width=COLUMN_WIDTH,
+            width=200,
             label_style=TEXT_FIELD_LABEL_STYLE,
             options=[],
             editable=True,
@@ -371,7 +379,21 @@ class TestsTabView(ft.Column):
             alignment=ft.MainAxisAlignment.START,
         )
 
-        # Row 11: Navigation Buttons
+        # Row 11: Notes
+        row_notes = ft.Row(
+            controls=[
+                ft.Text(
+                    "",
+                    width=LABEL_WIDTH,
+                    text_align=ft.TextAlign.RIGHT,
+                    color=LABEL_COLOUR,
+                ),
+                self.notes_input,
+            ],
+            width=900,
+        )
+
+        # Row 12: Navigation Buttons
         row_next_button = ft.Row(
             controls=[
                 self.test_rerun_button,
@@ -380,7 +402,7 @@ class TestsTabView(ft.Column):
             alignment=ft.MainAxisAlignment.START,
         )
 
-        # Row 12: Results Summary
+        # Row 13: Results Summary
         row_test_results = ft.Row(
             controls=[
                 ft.Text("displaying", color=LIGHT_BLUE),
@@ -395,7 +417,7 @@ class TestsTabView(ft.Column):
             alignment=ft.MainAxisAlignment.START,
         )
 
-        # Row 13: Results Table
+        # Row 14: Results Table
         row_datatable = ft.Row(
             controls=[
                 self.filter_component_container,
@@ -414,6 +436,7 @@ class TestsTabView(ft.Column):
                 *rows_test_criteria,
                 row_display,
                 row_commentary_exceptions,
+                row_notes,
                 ft.Divider(),
                 row_next_button,
                 ft.Divider(),
@@ -456,6 +479,7 @@ class TestsTabView(ft.Column):
 
         self.error_column_input.value = None  # Clears dropdown selection
         self.exceptions_textfield.value = ""
+        self.notes_input.value = ""
 
         self.test_add_exception_dropdown.value = None  # Clears dropdown selection
         # self.test_add_exception_dropdown.options = [] # Optionally clear options
@@ -463,7 +487,7 @@ class TestsTabView(ft.Column):
         self.test_db_query_input.value = ""
 
         # Reset text displays
-        self.test_number_text.value = "0"
+        self.test_number_text.value = ""
         self.test_results_redux_text.value = "0"
         self.test_results_total_text.value = "0"
 
@@ -525,6 +549,7 @@ class TestsTabView(ft.Column):
             if test_def.exceptions
             else ""
         )
+        self.notes_input.value = test_def.notes if test_def.notes else ""
         self.page.update()
 
     def set_filter_component(self, filter_component: FilterComponent | None) -> None:

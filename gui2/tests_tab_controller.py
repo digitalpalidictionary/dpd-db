@@ -403,6 +403,8 @@ class TestsTabController:
         else:
             current_test.exceptions = []
 
+        current_test.notes = self.view.notes_input.value or ""
+
         # Update the manager's list
         self.toolkit.db_test_manager.internal_tests_list = self._tests_list
 
@@ -455,6 +457,7 @@ class TestsTabController:
                 display_1=current_test.display_1,
                 display_2=current_test.display_2,
                 display_3=current_test.display_3,
+                notes=current_test.notes,
             )
             # Insert after current
             insert_index = self._current_test_index + 1
@@ -536,6 +539,8 @@ class TestsTabController:
                         5000,
                     )
 
+            notes = self.view.notes_input.value or ""
+
             # Create new InternalTestRow
             new_test = InternalTestRow(
                 test_name=test_name,
@@ -546,6 +551,7 @@ class TestsTabController:
                 display_1=display_1,
                 display_2=display_2,
                 display_3=display_3,
+                notes=notes,
             )
 
             # Append to manager's list
