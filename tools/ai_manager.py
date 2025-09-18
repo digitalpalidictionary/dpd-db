@@ -26,12 +26,12 @@ class AIManager:
         ("gemini", "gemini-2.5-pro"),
         ("deepseek", "deepseek-chat"),
         ("deepseek", "deepseek-reasoner"),
-        ("openrouter", "openrouter/horizon-beta"),
+        ("openrouter", "openrouter/sonoma-dusk-alpha"),
     ]
 
     # Grounded models for internet searches
     GROUNDED_MODELS = [
-        ("gemini", "gemini-2.5-flash-preview-04-17"),
+        ("gemini", "gemini-2.5-flash"),
     ]
 
     def __init__(self):
