@@ -1,0 +1,18 @@
+{
+    "ghaṭiyā": {
+        "lemma_1": "ghaṭiyā",
+        "lemma_2": "ghaṭiyā",
+        "pos": "fem",
+        "grammar": "fem, comp",
+        "meaning_2": "bad; wicked; faulty",
+        "root_key": "",
+        "root_sign": "",
+        "root_base": "",
+        "family_root": "",
+        "family_compound": "ghaṭa iya",
+        "construction": "ghaṭa + iya",
+        "stem": "ghaṭiyā",
+        "pattern": "",
+        "comment": "[openrouter: openrouter/sonoma-dusk-alpha] Likely an inflected form of a feminine adjective derived from 'ghaṭa' (pot, vessel) with suffix '-iya', indicating something related to or characterized by 'ghaṭa', but in Pāḷi idiomatically used for 'bad' or 'wicked' in moral sense. Context not provided, so meaning based on standard usage."
+    }
+}
