@@ -72,12 +72,11 @@ class Pass1AutoController:
         )
 
     def auto_process_book(self, book: str):
+        self.ui.clear_all_fields()
         self.stop_flag = False
-        self.missing_words_dict = {} # Clear for new book
+        self.missing_words_dict = {}  # Clear for new book
 
-        # should only run once.
-        # actually no, should run clean every time to update changes in db
-        # if not self.db.all_inflections:
+        # should run clean every time to update changes in db
         self.ui.update_message("Loading database...")
         self.db.make_inflections_lists()
 
