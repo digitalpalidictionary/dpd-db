@@ -73,6 +73,7 @@ class Pass1AutoController:
 
     def auto_process_book(self, book: str):
         self.stop_flag = False
+        self.missing_words_dict = {} # Clear for new book
 
         # should only run once.
         # actually no, should run clean every time to update changes in db
