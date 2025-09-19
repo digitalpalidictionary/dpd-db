@@ -55,7 +55,7 @@ class DpdCommentaryField(ft.Column):
             name=field_name,
             multiline=True,
             on_focus=on_focus,
-            on_change=on_change,
+            on_change=self.clean_text,
             on_submit=on_submit,
             on_blur=on_blur,
         )
@@ -300,4 +300,10 @@ class DpdCommentaryField(ft.Column):
 
     def click_commentary_clear(self, e: ft.ControlEvent):
         self.commentary_field.value = ""
+        self.page.update()
+
+    def clean_text(self, e: ft.ControlEvent):
+        self.commentary_field.value = e.control.value.replace(" ...", "…").replace(
+            "...", "…"
+        )
         self.page.update()

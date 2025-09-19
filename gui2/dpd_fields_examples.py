@@ -155,7 +155,7 @@ class DpdExampleField(ft.Column):
             name=field_name,
             multiline=True,
             on_focus=self.update_counter,
-            on_change=self.update_counter,
+            on_change=self.clean_text,
             on_submit=on_submit,
             on_blur=on_blur,
         )
@@ -537,6 +537,15 @@ class DpdExampleField(ft.Column):
             sutta.value = last_example[1]
             example.value = last_example[2]
             self.page.update()
+
+    def clean_text(self, e: ft.ControlEvent):
+        self.text_field.value = (
+            e.control.value.replace(" ...", "…")
+            .replace("...", "…")
+            .replace("'nti", "n'ti")
+        )
+        self.update_counter(e)
+        self.page.update()
 
     def update_counter(self, e: ft.ControlEvent):
         max_length = 300
