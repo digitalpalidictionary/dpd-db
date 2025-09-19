@@ -73,18 +73,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 bdSearchBox1.addEventListener("input", function () {
   let textInput = bdSearchBox1.value;
-  console.log("BD Search Box 1 input:", textInput);
   let convertedText = uniCoder(textInput);
   bdSearchBox1.value = convertedText;
-  console.log("BD Search Box 1 after conversion:", convertedText);
 });
 
 bdSearchBox2.addEventListener("input", function () {
   let textInput = bdSearchBox2.value;
-  console.log("BD Search Box 2 input:", textInput);
   let convertedText = uniCoder(textInput);
   bdSearchBox2.value = convertedText;
-  console.log("BD Search Box 2 after conversion:", convertedText);
 });
 
 function uniCoder(textInput) {

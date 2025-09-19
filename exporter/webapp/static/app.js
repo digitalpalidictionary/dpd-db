@@ -18,33 +18,25 @@ const appState = {
 
 // Initialize the application
 function initializeApp() {
-  console.log("Initializing app...");
-  
   // Initialize history panel entries array
   appState.historyPanelEntries = [];
-  
+
   // Load history from LOCAL storage if available
   try {
     // Load full history
     const savedFullHistory = localStorage.getItem("dpdFullHistory");
-    console.log("Raw saved full history from LOCAL storage:", savedFullHistory);
     if (savedFullHistory) {
       appState.history = JSON.parse(savedFullHistory);
       // Update history index to point to the last item
       appState.historyIndex = appState.history.length - 1;
-      console.log("Loaded full history from LOCAL storage:", appState.history);
     } else {
-      console.log("No full history found in LOCAL storage");
     }
-    
     // Load history panel entries
     const savedHistoryPanelEntries = localStorage.getItem("dpdHistoryPanel");
-    console.log("Raw saved history panel entries from LOCAL storage:", savedHistoryPanelEntries);
+
     if (savedHistoryPanelEntries) {
       appState.historyPanelEntries = JSON.parse(savedHistoryPanelEntries);
-      console.log("Loaded history panel entries from LOCAL storage:", appState.historyPanelEntries);
     } else {
-      console.log("No history panel entries found in LOCAL storage");
     }
   } catch (e) {
     console.log("Failed to load history from LOCAL storage:", e);
@@ -85,17 +77,12 @@ function initializeApp() {
 
   // Render the initial UI
   render();
-  
+
   // Set up event listener for clear history button
   const clearHistoryButton = document.getElementById("clear-history-button");
   if (clearHistoryButton) {
     clearHistoryButton.addEventListener("click", clearHistory);
   }
-  
-  // Log the initial state for debugging
-  console.log("Initial appState:", appState);
-  console.log("Initial history:", appState.history);
-  console.log("Initial history panel entries:", appState.historyPanelEntries);
 }
 
 // Perform a search operation
@@ -314,6 +301,23 @@ function switchTab(tabName) {
   render();
 }
 
+// Extract ID and title from HTML results for numeric ID searches
+function extractIdAndTitleFromHTML(html) {
+  // Create a temporary div to parse the HTML
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = html;
+
+  // Find the first h3 element with an id attribute
+  const h3Element = tempDiv.querySelector("h3[id]");
+  if (h3Element) {
+    const id = h3Element.getAttribute("id");
+    const title = h3Element.textContent;
+    return { id, title };
+  }
+
+  return null;
+}
+
 // Add a new state to the history array
 function addToHistory() {
   // Create a snapshot of the current state
@@ -332,25 +336,93 @@ function addToHistory() {
   // Add the new state to the history array
   appState.history.push(stateSnapshot);
   appState.historyIndex = appState.history.length - 1;
-  
+
   // For the history panel, we only care about DPD search terms
   if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
-    // Add the search term to the history panel entries
-    // Avoid duplicates by checking if the term already exists
-    if (!appState.historyPanelEntries.includes(appState.dpd.searchTerm)) {
-      appState.historyPanelEntries.unshift(appState.dpd.searchTerm); // Add to beginning
-      
-      // Limit to 50 entries to prevent excessive storage
-      if (appState.historyPanelEntries.length > 50) {
-        appState.historyPanelEntries = appState.historyPanelEntries.slice(0, 50);
+    // Check if the search term is numeric (ID search)
+    if (/^\d+$/.test(appState.dpd.searchTerm) && appState.dpd.resultsHTML) {
+      // Extract ID and title from results
+      const idTitleInfo = extractIdAndTitleFromHTML(appState.dpd.resultsHTML);
+      if (idTitleInfo) {
+        // Create a simple string entry with ID and title
+        const historyEntry = `${appState.dpd.searchTerm} ${idTitleInfo.title}`;
+
+        // Check if this entry already exists in history
+        const existingIndex = appState.historyPanelEntries.indexOf(historyEntry);
+        if (existingIndex > -1) {
+          // Move existing entry to the beginning of the history
+          const existingEntry = appState.historyPanelEntries.splice(
+            existingIndex,
+            1
+          )[0];
+          appState.historyPanelEntries.unshift(existingEntry);
+        } else {
+          // Add new entry to the beginning of the history
+          appState.historyPanelEntries.unshift(historyEntry);
+
+          // Limit to 50 entries
+          if (appState.historyPanelEntries.length > 50) {
+            appState.historyPanelEntries = appState.historyPanelEntries.slice(
+              0,
+              50
+            );
+          }
+        }
+      } else {
+        // Fallback to regular search term if extraction failed
+        const existingIndex = appState.historyPanelEntries.indexOf(
+          appState.dpd.searchTerm
+        );
+        if (existingIndex > -1) {
+          // Move existing entry to the beginning of the history
+          const existingEntry = appState.historyPanelEntries.splice(
+            existingIndex,
+            1
+          )[0];
+          appState.historyPanelEntries.unshift(existingEntry);
+        } else {
+          // Add new entry to the beginning of the history
+          appState.historyPanelEntries.unshift(appState.dpd.searchTerm);
+
+          // Limit to 50 entries
+          if (appState.historyPanelEntries.length > 50) {
+            appState.historyPanelEntries = appState.historyPanelEntries.slice(
+              0,
+              50
+            );
+          }
+        }
+      }
+    } else {
+      // Regular search term - existing logic with moving to top
+      const existingIndex = appState.historyPanelEntries.indexOf(
+        appState.dpd.searchTerm
+      );
+      if (existingIndex > -1) {
+        // Move existing entry to the beginning of the history
+        const existingEntry = appState.historyPanelEntries.splice(
+          existingIndex,
+          1
+        )[0];
+        appState.historyPanelEntries.unshift(existingEntry);
+      } else {
+        // Add new entry to the beginning of the history
+        appState.historyPanelEntries.unshift(appState.dpd.searchTerm);
+
+        // Limit to 50 entries
+        if (appState.historyPanelEntries.length > 50) {
+          appState.historyPanelEntries = appState.historyPanelEntries.slice(
+            0,
+            50
+          );
+        }
       }
     }
-    
+
     // Save history panel entries to LOCAL storage (persists across tabs)
     try {
       const historyPanelString = JSON.stringify(appState.historyPanelEntries);
       localStorage.setItem("dpdHistoryPanel", historyPanelString);
-      console.log("Saved history panel entries to LOCAL storage:", historyPanelString);
     } catch (e) {
       console.log("Failed to save history panel entries to LOCAL storage:", e);
     }
@@ -360,11 +432,9 @@ function addToHistory() {
   try {
     const historyString = JSON.stringify(appState.history);
     localStorage.setItem("dpdFullHistory", historyString);
-    console.log("Saved full history to LOCAL storage:", historyString);
-    
+
     // Verify that the history was actually saved
     const verification = localStorage.getItem("dpdFullHistory");
-    console.log("Verification - Retrieved full history from LOCAL storage:", verification);
   } catch (e) {
     console.log("Failed to save full history to LOCAL storage:", e);
   }
@@ -373,9 +443,6 @@ function addToHistory() {
   updateURL();
 
   // Log the history update for debugging
-  console.log("History updated:", appState.history);
-  console.log("Current history index:", appState.historyIndex);
-  console.log("History panel entries:", appState.historyPanelEntries);
 }
 
 // Update the browser's URL
@@ -702,52 +769,44 @@ function wrapApostrophesInHTML(html) {
 
 // Function to update the history panel
 function updateHistoryPanel() {
-  console.log("Updating history panel");
   const historyListPane = document.getElementById("history-list-pane");
   if (!historyListPane) {
     console.log("History list pane not found");
     return;
   }
-  
+
   // Clear the current content
   historyListPane.innerHTML = "";
-  
+
   // Create a list element
   const ul = document.createElement("ul");
-  
-  // Use the history panel entries array directly
-  // Show latest searches at the top (they're already in the right order)
-  appState.historyPanelEntries.forEach((searchTerm, index) => {
+
+  // Process each history entry
+  appState.historyPanelEntries.forEach((entry, index) => {
     const li = document.createElement("li");
-    let displayText = searchTerm || "(empty)";
-    
-    li.textContent = displayText;
-    li.style.cursor = "pointer";
-    
-    // Add click event to search for this history item
-    li.addEventListener("click", () => {
-      searchHistoryItem(searchTerm);
-    });
-    
+    li.style.cursor = "text"; // Show text cursor instead of pointer
+
+    // Handle string entries (both plain strings and ID-title combinations)
+    if (typeof entry === "string") {
+      li.textContent = entry || "(empty)";
+    }
+
     ul.appendChild(li);
   });
-  
+
   // Add the list to the history panel
   historyListPane.appendChild(ul);
-  
-  console.log("History panel updated with", appState.historyPanelEntries.length, "items");
 }
 
 // Function to clear the history
 function clearHistory() {
-  console.log("Clearing history");
   // Clear the history array
   appState.history = [];
   appState.historyIndex = -1;
-  
+
   // Clear the history panel entries
   appState.historyPanelEntries = [];
-  
+
   // Remove history from LOCAL storage
   try {
     localStorage.removeItem("dpdFullHistory");
@@ -755,37 +814,82 @@ function clearHistory() {
   } catch (e) {
     console.log("Failed to remove history from LOCAL storage:", e);
   }
-  
+
   // Update the history panel
   updateHistoryPanel();
-  
+
   // Update the URL to remove query parameters
   window.history.pushState({ ...appState }, "", "/");
 }
 
 // Function to perform a search for a specific history item
-function searchHistoryItem(searchTerm) {
-  console.log("Searching for history item:", searchTerm);
+function searchHistoryItem(entry) {
+  // Determine the search term based on entry type
+  let searchTerm;
+  if (typeof entry === "string") {
+    searchTerm = entry;
+  } else if (typeof entry === "object" && entry.id) {
+    searchTerm = entry.id;
+  } else {
+    return; // Invalid entry
+  }
+
+  // Move the searched item to the top of the list
+  let entryIndex = -1;
+  for (let i = 0; i < appState.historyPanelEntries.length; i++) {
+    const historyEntry = appState.historyPanelEntries[i];
+    if (
+      typeof entry === "string" &&
+      typeof historyEntry === "string" &&
+      entry === historyEntry
+    ) {
+      entryIndex = i;
+      break;
+    } else if (
+      typeof entry === "object" &&
+      typeof historyEntry === "object" &&
+      entry.id === historyEntry.id
+    ) {
+      entryIndex = i;
+      break;
+    }
+  }
+
+  if (entryIndex > -1) {
+    // Remove the entry from its current position
+    appState.historyPanelEntries.splice(entryIndex, 1);
+    // Add it to the beginning of the list
+    appState.historyPanelEntries.unshift(entry);
+    // Update the history panel
+    updateHistoryPanel();
+    // Save to localStorage
+    try {
+      const historyPanelString = JSON.stringify(appState.historyPanelEntries);
+      localStorage.setItem("dpdHistoryPanel", historyPanelString);
+    } catch (e) {
+      console.log("Failed to save history panel entries to LOCAL storage:", e);
+    }
+  }
+
   // Set the search term in the search box
   const searchBox = document.getElementById("search-box");
   if (searchBox) {
     searchBox.value = searchTerm;
   }
-  
+
   // Update appState with the search term
   appState.dpd.searchTerm = searchTerm;
-  
+
   // Perform the search
   performSearch();
 }
 
 // Function to restore a specific history state (deprecated)
 function restoreHistoryState(index) {
-  console.log("Restoring history state at index", index);
   if (index >= 0 && index < appState.history.length) {
     // Get the state from history
     const state = appState.history[index];
-    
+
     // For DPD searches, perform a simple search
     if (state.activeTab === "dpd" && state.dpd.searchTerm) {
       searchHistoryItem(state.dpd.searchTerm);
