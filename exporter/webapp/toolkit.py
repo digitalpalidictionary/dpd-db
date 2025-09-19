@@ -1,7 +1,8 @@
 import difflib
 import re
+import time
 
-from sqlalchemy.orm import joinedload
+from sqlalchemy.exc import OperationalError
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, FamilyRoot, Lookup
@@ -16,7 +17,6 @@ from exporter.webapp.data_classes import (
     SpellingData,
     VariantData,
 )
-
 from tools.exporter_functions import (
     get_family_compounds,
     get_family_idioms,
@@ -24,10 +24,6 @@ from tools.exporter_functions import (
 )
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-
-
-from sqlalchemy.exc import OperationalError
-import time
 
 
 def make_dpd_html(

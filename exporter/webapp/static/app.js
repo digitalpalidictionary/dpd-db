@@ -206,6 +206,8 @@ async function performSearch(addHistory = true) {
 
       // Update the UI with the new search results
       render();
+      // Highlight matching inflections after rendering
+      highlightInflections(appState.dpd.searchTerm);
     }
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -283,6 +285,8 @@ function render() {
     }
     // Apply sandhi toggle to the newly rendered content
     showHideSandhi();
+    // Highlight matching inflections after rendering
+    highlightInflections(appState.dpd.searchTerm);
   }
   if (bdResults) {
     bdResults.innerHTML = appState.bd.resultsHTML;
@@ -895,6 +899,52 @@ function restoreHistoryState(index) {
       searchHistoryItem(state.dpd.searchTerm);
     }
   }
+}
+
+// Function to highlight matching inflections in tables
+function highlightInflections(searchTerm) {
+    if (!searchTerm) return;
+    
+    // Find all inflection tables
+    const inflectionTables = document.querySelectorAll("table.inflection");
+    
+    // Process each inflection table
+    inflectionTables.forEach(function(table) {
+        // Find all td elements (inflection cells)
+        const cells = table.querySelectorAll("td");
+        
+        // Process each cell
+        cells.forEach(function(cell) {
+            // Get the innerHTML of the cell
+            const cellHTML = cell.innerHTML;
+            
+            // Split the cell content by <br> tags to get individual inflections
+            // We need to handle both <br> and <br/> tags
+            const parts = cellHTML.split(/<br\s*\/?>/i);
+            
+            // Process each part
+            let modified = false;
+            const newParts = parts.map(function(part) {
+                // Create a temporary element to get the text content of this part
+                const tempElement = document.createElement("div");
+                tempElement.innerHTML = part;
+                const partText = tempElement.textContent || tempElement.innerText || "";
+                
+                // Check if the search term matches this part exactly (not partially)
+                if (partText === searchTerm) {
+                    // Wrap this part with the highlight class
+                    modified = true;
+                    return '<span class="inflection-highlight">' + part + '</span>';
+                }
+                return part;
+            });
+            
+            // If we modified any parts, update the cell content
+            if (modified) {
+                cell.innerHTML = newParts.join("<br>");
+            }
+        });
+    });
 }
 
 // Expose performSearch to the global scope
