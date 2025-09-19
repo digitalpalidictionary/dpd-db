@@ -12,10 +12,44 @@ const appState = {
   },
   history: [], // An array of state snapshots
   historyIndex: -1, // Current position in the history stack
+  // History panel entries - simpler list of search terms for persistence
+  historyPanelEntries: [], // Array of search terms for the history panel
 };
 
 // Initialize the application
 function initializeApp() {
+  console.log("Initializing app...");
+  
+  // Initialize history panel entries array
+  appState.historyPanelEntries = [];
+  
+  // Load history from LOCAL storage if available
+  try {
+    // Load full history
+    const savedFullHistory = localStorage.getItem("dpdFullHistory");
+    console.log("Raw saved full history from LOCAL storage:", savedFullHistory);
+    if (savedFullHistory) {
+      appState.history = JSON.parse(savedFullHistory);
+      // Update history index to point to the last item
+      appState.historyIndex = appState.history.length - 1;
+      console.log("Loaded full history from LOCAL storage:", appState.history);
+    } else {
+      console.log("No full history found in LOCAL storage");
+    }
+    
+    // Load history panel entries
+    const savedHistoryPanelEntries = localStorage.getItem("dpdHistoryPanel");
+    console.log("Raw saved history panel entries from LOCAL storage:", savedHistoryPanelEntries);
+    if (savedHistoryPanelEntries) {
+      appState.historyPanelEntries = JSON.parse(savedHistoryPanelEntries);
+      console.log("Loaded history panel entries from LOCAL storage:", appState.historyPanelEntries);
+    } else {
+      console.log("No history panel entries found in LOCAL storage");
+    }
+  } catch (e) {
+    console.log("Failed to load history from LOCAL storage:", e);
+  }
+
   // Parse the URL to determine the initial state
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get("tab") || "dpd";
@@ -51,6 +85,17 @@ function initializeApp() {
 
   // Render the initial UI
   render();
+  
+  // Set up event listener for clear history button
+  const clearHistoryButton = document.getElementById("clear-history-button");
+  if (clearHistoryButton) {
+    clearHistoryButton.addEventListener("click", clearHistory);
+  }
+  
+  // Log the initial state for debugging
+  console.log("Initial appState:", appState);
+  console.log("Initial history:", appState.history);
+  console.log("Initial history panel entries:", appState.historyPanelEntries);
 }
 
 // Perform a search operation
@@ -224,6 +269,9 @@ function render() {
   const dpdResults = document.getElementById("dpd-results");
   const bdResults = document.getElementById("bd-results");
 
+  // Update the history panel
+  updateHistoryPanel();
+
   if (dpdResults) {
     // If there are no search results, show the startMessage
     if (appState.dpd.resultsHTML === "" && appState.dpd.searchTerm === "") {
@@ -284,9 +332,50 @@ function addToHistory() {
   // Add the new state to the history array
   appState.history.push(stateSnapshot);
   appState.historyIndex = appState.history.length - 1;
+  
+  // For the history panel, we only care about DPD search terms
+  if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
+    // Add the search term to the history panel entries
+    // Avoid duplicates by checking if the term already exists
+    if (!appState.historyPanelEntries.includes(appState.dpd.searchTerm)) {
+      appState.historyPanelEntries.unshift(appState.dpd.searchTerm); // Add to beginning
+      
+      // Limit to 50 entries to prevent excessive storage
+      if (appState.historyPanelEntries.length > 50) {
+        appState.historyPanelEntries = appState.historyPanelEntries.slice(0, 50);
+      }
+    }
+    
+    // Save history panel entries to LOCAL storage (persists across tabs)
+    try {
+      const historyPanelString = JSON.stringify(appState.historyPanelEntries);
+      localStorage.setItem("dpdHistoryPanel", historyPanelString);
+      console.log("Saved history panel entries to LOCAL storage:", historyPanelString);
+    } catch (e) {
+      console.log("Failed to save history panel entries to LOCAL storage:", e);
+    }
+  }
+
+  // Save full history to LOCAL storage (persists across tabs)
+  try {
+    const historyString = JSON.stringify(appState.history);
+    localStorage.setItem("dpdFullHistory", historyString);
+    console.log("Saved full history to LOCAL storage:", historyString);
+    
+    // Verify that the history was actually saved
+    const verification = localStorage.getItem("dpdFullHistory");
+    console.log("Verification - Retrieved full history from LOCAL storage:", verification);
+  } catch (e) {
+    console.log("Failed to save full history to LOCAL storage:", e);
+  }
 
   // Update the browser's URL
   updateURL();
+
+  // Log the history update for debugging
+  console.log("History updated:", appState.history);
+  console.log("Current history index:", appState.historyIndex);
+  console.log("History panel entries:", appState.historyPanelEntries);
 }
 
 // Update the browser's URL
@@ -611,6 +700,102 @@ function wrapApostrophesInHTML(html) {
   return tempDiv.innerHTML;
 }
 
+// Function to update the history panel
+function updateHistoryPanel() {
+  console.log("Updating history panel");
+  const historyListPane = document.getElementById("history-list-pane");
+  if (!historyListPane) {
+    console.log("History list pane not found");
+    return;
+  }
+  
+  // Clear the current content
+  historyListPane.innerHTML = "";
+  
+  // Create a list element
+  const ul = document.createElement("ul");
+  
+  // Use the history panel entries array directly
+  // Show latest searches at the top (they're already in the right order)
+  appState.historyPanelEntries.forEach((searchTerm, index) => {
+    const li = document.createElement("li");
+    let displayText = searchTerm || "(empty)";
+    
+    li.textContent = displayText;
+    li.style.cursor = "pointer";
+    
+    // Add click event to search for this history item
+    li.addEventListener("click", () => {
+      searchHistoryItem(searchTerm);
+    });
+    
+    ul.appendChild(li);
+  });
+  
+  // Add the list to the history panel
+  historyListPane.appendChild(ul);
+  
+  console.log("History panel updated with", appState.historyPanelEntries.length, "items");
+}
+
+// Function to clear the history
+function clearHistory() {
+  console.log("Clearing history");
+  // Clear the history array
+  appState.history = [];
+  appState.historyIndex = -1;
+  
+  // Clear the history panel entries
+  appState.historyPanelEntries = [];
+  
+  // Remove history from LOCAL storage
+  try {
+    localStorage.removeItem("dpdFullHistory");
+    localStorage.removeItem("dpdHistoryPanel");
+  } catch (e) {
+    console.log("Failed to remove history from LOCAL storage:", e);
+  }
+  
+  // Update the history panel
+  updateHistoryPanel();
+  
+  // Update the URL to remove query parameters
+  window.history.pushState({ ...appState }, "", "/");
+}
+
+// Function to perform a search for a specific history item
+function searchHistoryItem(searchTerm) {
+  console.log("Searching for history item:", searchTerm);
+  // Set the search term in the search box
+  const searchBox = document.getElementById("search-box");
+  if (searchBox) {
+    searchBox.value = searchTerm;
+  }
+  
+  // Update appState with the search term
+  appState.dpd.searchTerm = searchTerm;
+  
+  // Perform the search
+  performSearch();
+}
+
+// Function to restore a specific history state (deprecated)
+function restoreHistoryState(index) {
+  console.log("Restoring history state at index", index);
+  if (index >= 0 && index < appState.history.length) {
+    // Get the state from history
+    const state = appState.history[index];
+    
+    // For DPD searches, perform a simple search
+    if (state.activeTab === "dpd" && state.dpd.searchTerm) {
+      searchHistoryItem(state.dpd.searchTerm);
+    }
+  }
+}
+
 // Expose performSearch to the global scope
 window.performSearch = performSearch;
 window.switchTab = switchTab;
+window.updateHistoryPanel = updateHistoryPanel;
+window.clearHistory = clearHistory;
+window.searchHistoryItem = searchHistoryItem;
