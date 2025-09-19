@@ -123,7 +123,7 @@ jobs:
       run: uv run python scripts/build/deconstructor_output_add_to_db.py
 
     - name: Add api ca eva iti to inflections
-      run: uv run python scripts/build/api_ca_evi_iti.py
+      run: uv run python scripts/build/api_ca_eva_iti_iva_hi.py
 
     - name: Transliterate Inflections
       run: uv run python db/inflections/transliterate_inflections.py

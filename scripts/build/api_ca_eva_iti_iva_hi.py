@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-Find all api ca eva iti iva in deconstructor and add to inflections and lookup table.
+Find all api ca eva iti iva hi in deconstructor and add to inflections and lookup table.
 
-'api' 'ca' 'eva' 'iti' and 'iva' are the most common words appearing in sandhi compounds,
+'api' 'ca' 'eva' 'iti' 'iva' 'hi' are the most common words appearing in sandhi compounds,
 so in those cases, just show the actual inflected word itself first, then the deconstruction.
 """
 
@@ -68,17 +68,17 @@ def add_apicaevaitihi_to_inflections(g: ProgData):
     updated_list: list[str] = []  # which headwords get updated?
     for counter, i in enumerate(g.headwords_db):
         inflection_list = i.inflections_list
-        api_ca_eva_iti_list = i.inflections_list_api_ca_eva_iti
+        api_ca_eva_iti_iva_hi_list = i.inflections_list_api_ca_eva_iti
 
         for inflection in inflection_list:
             if (
                 g.apicaevaitihi_dict[inflection] != []
-                and g.apicaevaitihi_dict[inflection] not in api_ca_eva_iti_list
+                and g.apicaevaitihi_dict[inflection] not in api_ca_eva_iti_iva_hi_list
             ):
-                api_ca_eva_iti_list.extend(g.apicaevaitihi_dict[inflection])
+                api_ca_eva_iti_iva_hi_list.extend(g.apicaevaitihi_dict[inflection])
 
-        api_ca_eva_iti_list = pali_list_sorter(set(api_ca_eva_iti_list))
-        i.inflections_api_ca_eva_iti = ",".join(api_ca_eva_iti_list)
+        api_ca_eva_iti_iva_hi_list = pali_list_sorter(set(api_ca_eva_iti_iva_hi_list))
+        i.inflections_api_ca_eva_iti = ",".join(api_ca_eva_iti_iva_hi_list)
         updated_list.append(i.lemma_1)
 
         if counter % 10000 == 0:
