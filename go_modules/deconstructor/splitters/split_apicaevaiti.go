@@ -6,7 +6,7 @@ import (
 	"slices"
 )
 
-func SplitApiCaEvaIti(w data.WordData) {
+func SplitApiCaEvaItiHi(w data.WordData) {
 
 	if len(w.Middle) > 3 {
 
@@ -14,7 +14,7 @@ func SplitApiCaEvaIti(w data.WordData) {
 		data.M.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
-		processName := "apicaevaiti"
+		processName := "apicaevaitihi"
 
 		var wordA, wordB []rune
 		thirdLastLetter := word[len(word)-3]
@@ -47,17 +47,17 @@ func SplitApiCaEvaIti(w data.WordData) {
 					w2.ToBack(word1, word2)
 					w2.ToRuleBack(sr.Index)
 					w2.AddWeight(sr.Weight)
-					w2.AddPath("apicaevaiti")
+					w2.AddPath("apicaevaitihi")
 					data.M.MakeMatch(processName, w2)
 
-				} else if slices.Contains([]string{"api", "ca", "eva", "iti"}, string(word2)) {
-					// check if word2 is apicaevaiti and recurse
+				} else if slices.Contains([]string{"api", "ca", "ce", "eva", "iti", "hi"}, string(word2)) {
+					// check if word2 is apicaevaitihi and recurse
 
 					w2 := w.MakeCopy()
 					w2.ToBack(word1, word2)
 					w2.ToRuleBack(sr.Index)
-					w2.AddWeight(sr.Weight)
-					w2.AddPath("apicaevaiti")
+					w2.AddWeight(sr.Weight)	
+					w2.AddPath("apicaevaitihi")
 					SplitRecursive(w2)
 				}
 			}

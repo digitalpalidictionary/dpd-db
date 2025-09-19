@@ -12,9 +12,9 @@ from collections import defaultdict
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
+from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.pali_sort_key import pali_list_sorter
 
 
 class ProgData:
@@ -22,7 +22,7 @@ class ProgData:
         pr.green("making prog data")
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.apicaevaiti_dict = defaultdict(list[str])
+        self.apicaevaitihi_dict = defaultdict(list[str])
         self.lookup_db: list[Lookup] = self.db_session.query(Lookup).all()
         self.lookup_db_len: int = len(self.lookup_db)
         self.headwords_db: list[DpdHeadword] = self.db_session.query(DpdHeadword).all()
@@ -30,7 +30,7 @@ class ProgData:
         pr.yes("ok")
 
 
-def make_apicaeveiti_dict(g: ProgData):
+def make_apicaevaitihi_dict(g: ProgData):
     """
     Make a dictionary of
     {"clean inflection": ["sandhi"]}
@@ -48,22 +48,22 @@ def make_apicaeveiti_dict(g: ProgData):
                     deconstruction = re.sub(
                         r" \[.+", "", deconstruction
                     )  # remove the rule
-                    find_me = re.compile(r" \+ (api|ca|eva|iti|iva)$")
+                    find_me = re.compile(r" \+ (api|ca|eva|iti|iva|hi)$")
                     if re.findall(find_me, deconstruction):
                         clean_inflection = re.sub(find_me, "", deconstruction)
-                        g.apicaevaiti_dict[clean_inflection].append(i.lookup_key)
+                        g.apicaevaitihi_dict[clean_inflection].append(i.lookup_key)
 
         if counter % 100000 == 0:
             pr.counter(counter, g.lookup_db_len, i.lookup_key)
 
-    pr.green("apicaeveiti_dict size")
-    pr.yes(len(g.apicaevaiti_dict))
+    pr.green("apicaevaitihi_dict size")
+    pr.yes(len(g.apicaevaitihi_dict))
 
 
-def add_apicaevaiti_to_inflections(g: ProgData):
+def add_apicaevaitihi_to_inflections(g: ProgData):
     """Update i.inflections with sandhi forms."""
 
-    pr.green_title("adding apicaevaiti to inflections")
+    pr.green_title("adding apicaevaitihi to inflections")
 
     updated_list: list[str] = []  # which headwords get updated?
     for counter, i in enumerate(g.headwords_db):
@@ -72,10 +72,10 @@ def add_apicaevaiti_to_inflections(g: ProgData):
 
         for inflection in inflection_list:
             if (
-                g.apicaevaiti_dict[inflection] != []
-                and g.apicaevaiti_dict[inflection] not in api_ca_eva_iti_list
+                g.apicaevaitihi_dict[inflection] != []
+                and g.apicaevaitihi_dict[inflection] not in api_ca_eva_iti_list
             ):
-                api_ca_eva_iti_list.extend(g.apicaevaiti_dict[inflection])
+                api_ca_eva_iti_list.extend(g.apicaevaitihi_dict[inflection])
 
         api_ca_eva_iti_list = pali_list_sorter(set(api_ca_eva_iti_list))
         i.inflections_api_ca_eva_iti = ",".join(api_ca_eva_iti_list)
@@ -91,10 +91,10 @@ def add_apicaevaiti_to_inflections(g: ProgData):
 
 def main():
     pr.tic()
-    pr.title("adding api ca eva iti to inflections and lookup table")
+    pr.title("adding api ca eva iti hi to inflections and lookup table")
     g = ProgData()
-    make_apicaeveiti_dict(g)
-    add_apicaevaiti_to_inflections(g)
+    make_apicaevaitihi_dict(g)
+    add_apicaevaitihi_to_inflections(g)
     pr.toc()
 
 
