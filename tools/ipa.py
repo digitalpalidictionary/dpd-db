@@ -1,11 +1,11 @@
 """Convert Pāḷi text to IPA"""
 
-from pathlib import Path
 import re
+from pathlib import Path
+
 from rich import print
 
-from tools.tsv_read_write import read_tsv_dot_dict
-from tools.tsv_read_write import write_tsv_dot_dict
+from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
 class ProgData:
@@ -138,7 +138,7 @@ def convert_uni_to_ipa(text: str, ipa_or_tts: str):
         dict = g.uni_to_tts_dict
     text = clean_text(text)
     text = long_e_o(text)
-    text = a_at_the_end(text)
+    # text = a_at_the_end(text) # no schwas
 
     ipa_text = ""
     i = 0
