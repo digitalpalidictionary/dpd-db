@@ -12,15 +12,23 @@ SuttaCentralSegment = namedtuple("SuttaCentralSegment", ["segment", "pali", "eng
 
 class SuttaCentralSource:
     def __init__(
-        self, book: str, cst_books: list[str], pali_path: str, english_path: str
+        self,
+        book: str,
+        cst_books: list[str],
+        pali_path: str | None,
+        english_path: str | None,
     ) -> None:
         self.sc_book: str = book
         self.cst_books: list[str] = cst_books
-        self.pali_path: Path = Path(pali_path)
-        self.english_path: Path = Path(english_path)
+        self.pali_path: Path | None = Path(pali_path) if pali_path else None
+        self.english_path: Path | None = Path(english_path) if english_path else None
 
-        self.pali_file_list: list[Path] = self.make_file_list(self.pali_path)
-        self.english_file_list: list[Path] = self.make_file_list(self.english_path)
+        self.pali_file_list: list[Path] = (
+            self.make_file_list(self.pali_path) if self.pali_path else []
+        )
+        self.english_file_list: list[Path] = (
+            self.make_file_list(self.english_path) if self.english_path else []
+        )
 
         self.segment_dict: dict[str, SuttaCentralSegment] = {}
         self.make_segment_dict()
@@ -31,29 +39,35 @@ class SuttaCentralSource:
 
         # print(self.word_dict["virāgo"])
 
-    def make_file_list(self, folder: Path) -> list[Path]:
-        return natural_sort([f for f in folder.iterdir() if f.is_file()])
+    def make_file_list(self, folder: Path | None) -> list[Path]:
+        if not folder or not folder.exists() or not folder.is_dir():
+            return []
+        return natural_sort([p for p in folder.rglob("*") if p.is_file()])
 
     def make_segment_dict(self) -> None:
-        for file_path in self.pali_file_list:
-            data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
-            for segment, sentence in data.items():
-                sentence = sentence.replace("ṁ", "ṃ").lower()
-                self.segment_dict[segment] = SuttaCentralSegment(segment, sentence, "")
+        if self.pali_file_list:
+            for file_path in self.pali_file_list:
+                data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
+                for segment, sentence in data.items():
+                    sentence = sentence.replace("ṁ", "ṃ").lower()
+                    self.segment_dict[segment] = SuttaCentralSegment(
+                        segment, sentence, ""
+                    )
 
-        for file_path in self.english_file_list:
-            data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
-            for segment, sentence in data.items():
-                if segment in self.segment_dict:
-                    current = self.segment_dict[segment]
-                    self.segment_dict[segment] = SuttaCentralSegment(
-                        current.segment, current.pali, sentence
-                    )
-                else:
-                    # sometimes only english exists
-                    self.segment_dict[segment] = SuttaCentralSegment(
-                        segment, "", sentence
-                    )
+        if self.english_file_list:
+            for file_path in self.english_file_list:
+                data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
+                for segment, sentence in data.items():
+                    if segment in self.segment_dict:
+                        current = self.segment_dict[segment]
+                        self.segment_dict[segment] = SuttaCentralSegment(
+                            current.segment, current.pali, sentence
+                        )
+                    else:
+                        # sometimes only english exists
+                        self.segment_dict[segment] = SuttaCentralSegment(
+                            segment, "", sentence
+                        )
 
     def process_words(self) -> None:
         for segment in self.segment_dict.values():
@@ -152,5 +166,11 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         ["kn14"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
+    ),
+    "dhpa": SuttaCentralSource(
+        "dhpa",
+        ["kn14a"],
+        None,
+        None,
     ),
 }
