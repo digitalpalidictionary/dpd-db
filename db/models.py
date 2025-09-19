@@ -2,31 +2,23 @@
 
 import json
 import re
+from typing import List, Optional
 
-from typing import List
-from typing import Optional
-
-from sqlalchemy import and_
-from sqlalchemy import case
-from sqlalchemy import DateTime
-from sqlalchemy import ForeignKey
-from sqlalchemy import null
+from sqlalchemy import DateTime, ForeignKey, and_, case, null
 from sqlalchemy.ext.hybrid import hybrid_property
-
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import foreign
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import object_session
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import (
+    DeclarativeBase,
+    Mapped,
+    foreign,
+    mapped_column,
+    object_session,
+    relationship,
+)
 from sqlalchemy.sql import func
 
 from tools.link_generator import generate_link
-
 from tools.pali_sort_key import pali_sort_key
-from tools.pos import CONJUGATIONS
-from tools.pos import DECLENSIONS
-from tools.pos import EXCLUDE_FROM_FREQ
+from tools.pos import CONJUGATIONS, DECLENSIONS, EXCLUDE_FROM_FREQ
 
 
 class Base(DeclarativeBase):
@@ -706,6 +698,12 @@ class DpdHeadword(Base):
         from tools.lemma_traditional import make_lemma_trad
 
         return make_lemma_trad(self)
+
+    @property
+    def lemma_trad_clean(self) -> str:
+        from tools.lemma_traditional import make_lemma_trad_clean
+
+        return make_lemma_trad_clean(self)
 
     # root
 
