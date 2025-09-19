@@ -152,30 +152,28 @@ async function performSearch(addHistory = true) {
       }
     } else if (appState.activeTab === "bd") {
       // BD search
-      if (
-        appState.bd.searchTerm1.trim() !== "" ||
-        appState.bd.searchTerm2.trim() !== ""
-      ) {
-        const response = await fetch(
-          `/bd_search?q1=${encodeURIComponent(
-            appState.bd.searchTerm1
-          )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${
-            appState.bd.searchOption
-          }`
-        );
-        const data = await response.text();
+      // Always perform BD search if we're on the BD tab, regardless of whether search terms are empty
+      // This ensures history is properly managed even when search terms are cleared
 
-        // Update the appState with the new search results
-        appState.bd.resultsHTML = data;
+      const response = await fetch(
+        `/bd_search?q1=${encodeURIComponent(
+          appState.bd.searchTerm1
+        )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${
+          appState.bd.searchOption
+        }`
+      );
+      const data = await response.text();
 
-        // If addHistory is true, add the new state to the history stack
-        if (addHistory) {
-          addToHistory();
-        }
+      // Update the appState with the new search results
+      appState.bd.resultsHTML = data;
 
-        // Update the UI with the new search results
-        render();
+      // If addHistory is true, add the new state to the history stack
+      if (addHistory) {
+        addToHistory();
       }
+
+      // Update the UI with the new search results
+      render();
     }
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -251,7 +249,9 @@ function render() {
     // Apply sandhi toggle to the newly rendered content
     showHideSandhi();
   }
-  if (bdResults) bdResults.innerHTML = appState.bd.resultsHTML;
+  if (bdResults) {
+    bdResults.innerHTML = appState.bd.resultsHTML;
+  }
 }
 
 // Switch to a different tab
@@ -378,6 +378,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (bdSearchButton) {
     bdSearchButton.addEventListener("click", function (e) {
       e.preventDefault();
+
       if (bdSearchBox1) appState.bd.searchTerm1 = bdSearchBox1.value;
       if (bdSearchBox2) appState.bd.searchTerm2 = bdSearchBox2.value;
 
