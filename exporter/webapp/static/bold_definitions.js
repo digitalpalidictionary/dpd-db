@@ -3,7 +3,7 @@
 const bdTitleClear = document.getElementById("bd-title-clear");
 const bdSearchBox1 = document.getElementById("bd-search-box-1");
 const bdSearchBox2 = document.getElementById("bd-search-box-2");
-const bdSearchForm = document.getElementById('bd-search-form');
+// const bdSearchForm = document.getElementById('bd-search-form'); // Not needed anymore
 const bdSearchButton = document.getElementById("bd-search-button");
 const bdResults = document.getElementById("bd-results");
 const bdFooterText = document.querySelector("#bold-def-tab .footer-pane");
@@ -12,44 +12,6 @@ const bdStartsWithButton = document.getElementById("option1");
 
 // Make bdLanguage accessible in the script's scope
 let bdLanguage;
-
-/*
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split('=');
-
-      if (pair[0] === variable) {
-        return decodeURIComponent(pair[1].replace(/\+/g, '%20'));
-      }
-    }
-}
-*/
-
-/*
-function applyUrlQuery() {
-    const search1 = getQueryVariable('search_1');
-    const search2 = getQueryVariable('search_2');
-    const option = getQueryVariable('option');
-
-    if (search1) {
-        bdSearchBox1.value = search1;
-    }
-    if (search2) {
-        bdSearchBox2.value = search2;
-    }
-    if (option) {
-        for (const bdSearchOption of bdSearchOptions) {
-            if (bdSearchOption.value === option) {
-                bdSearchOption.checked = true;
-                break;
-            }
-        }
-    }
-}
-*/
 
 const bdRegexButton = document.getElementById("option2");
 const bdFuzzyButton = document.getElementById("option3");
@@ -62,41 +24,48 @@ function clearBdResults() {
     bdResults.innerHTML = '';
     bdSearchBox1.value = '';
     bdSearchBox2.value = '';
-    history.pushState({}, "", "/");
 }
 
 bdClearButton.addEventListener('click', clearBdResults);
 
 // trigger search
 
-bdSearchBox1.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        handleBdFormSubmit(event);
-    }
-});
+// Let app.js handle the search
+// bdSearchBox1.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//         handleBdFormSubmit(event);
+//     }
+// });
 
-bdSearchBox2.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        handleBdFormSubmit(event);
-    }
-});
+// bdSearchBox2.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//         handleBdFormSubmit(event);
+//     }
+// });
 
-bdSearchButton.addEventListener('click', handleBdFormSubmit);
+// bdSearchButton.addEventListener('click', handleBdFormSubmit);
 
-// trigger search by click
-
+// Set up event listeners when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     const htmlElement = document.documentElement;
     bdLanguage = htmlElement.lang || 'en'; // Assign to the outer scope variable
-
-    // applyUrlQuery();
-    // handleBdFormSubmit()
-
-    document.body.addEventListener('dblclick', function () {
-        var selection = window.getSelection().toString().toLowerCase();
-        bdSearchBox1.value = selection.slice(0, -1);
-        bdSearchBox2.value = "";
-        handleBdFormSubmit();
+    
+    // Set up event listeners for search boxes and button
+    bdSearchBox1.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            window.performSearch();
+        }
+    });
+    
+    bdSearchBox2.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            window.performSearch();
+        }
+    });
+    
+    bdSearchButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        window.performSearch();
     });
 });
 
@@ -228,29 +197,43 @@ function hoverHelp(event) {
     }
 }
 
-async function handleBdFormSubmit(event) {
-    if (event) {
-        event.preventDefault();
+// Let app.js handle the search
+// async function handleBdFormSubmit(event) {
+//     if (event) {
+//         event.preventDefault();
+//     }
+//     // Let app.js handle the search
+//     window.performSearch();
+// }
+
+// Add double-click event listener for BD tab
+document.addEventListener('DOMContentLoaded', function () {
+    // Add double-click listener to BD results area
+    const bdResults = document.getElementById("bd-results");
+    if (bdResults) {
+        bdResults.addEventListener("dblclick", processBdSelection);
     }
-    const searchQuery1 = bdSearchBox1.value;
-    const searchQuery2 = bdSearchBox2.value;
-    let selectedOption = "regex"; // Default option
-    for (const option of bdSearchOptions) {
-        if (option.checked) {
-            selectedOption = option.value;
-            break;
+});
+
+
+function processBdSelection() {
+    const selection = window.getSelection().toString();
+    if (selection.trim() !== "") {
+        // Switch to BD tab if not already active
+        if (typeof appState !== 'undefined' && appState.activeTab !== 'bd') {
+            window.switchTab('bd');
+        }
+        
+        // Set the selected text in the first BD search box
+        const bdSearchBox1 = document.getElementById("bd-search-box-1");
+        if (bdSearchBox1) {
+            bdSearchBox1.value = selection;
+            // Update appState
+            if (typeof appState !== 'undefined') {
+                appState.bd.searchTerm1 = selection;
+            }
+            // Trigger BD search
+            window.performSearch();
         }
     }
-    const searchUrl = '/bd_search';
-    if (searchQuery1.trim() !== "" || searchQuery2.trim() !== "") {
-        try {
-            const response = await fetch(`${searchUrl}?q1=${encodeURIComponent(searchQuery1)}&q2=${encodeURIComponent(searchQuery2)}&option=${selectedOption}`);
-            const data = await response.text();
-            // Process the response data and update the DOM as needed
-            bdResults.innerHTML = data;
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
-    // history.pushState({ search_1: searchQuery1, search_2: searchQuery2, option: selectedOption }, "", url);
 }
