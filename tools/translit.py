@@ -1,7 +1,7 @@
 from aksharamukha import transliterate
 
-from tools.printer import printer as pr
 from tools.pali_alphabet import pali_alphabet
+from tools.printer import printer as pr
 
 
 def auto_translit_to_roman(text: str) -> str:
@@ -13,10 +13,11 @@ def auto_translit_to_roman(text: str) -> str:
     if len(text) >= 2 and text[0].isupper() and text[1].isupper():
         return text
 
-    # Pure Pāḷi gets a pass
-    if text[0] in pali_alphabet:
+    # Pure Pāḷi, even UpperCase, gets a pass
+    if text[0].lower() in pali_alphabet:
         return text
 
+    # Convert to Roman
     else:
         try:
             transliterated_text = transliterate.process(
