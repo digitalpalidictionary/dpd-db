@@ -14,7 +14,7 @@ jobs:
     # ----------------------------------------
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
       with:
         repository: 'digitalpalidictionary/dpd-db'
         ref: 'main'
@@ -40,7 +40,7 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y dictzip
 
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v6
       with:
         python-version: 3.11
 
@@ -51,7 +51,7 @@ jobs:
       run: uv sync
 
     - name: Set up Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v5
       with:
         go-version: '1.22.2'
 
