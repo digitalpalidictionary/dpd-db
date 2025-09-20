@@ -65,17 +65,20 @@ In the example above, 1.1 and 1.2 are both related to Sanskrit *śara* , while 2
 
 As DPD is a work in progress, it is useful to know how complete a word's data is. This is indicated by a gray icon (<span style='color:gray'>✓~✗</span>) after the entry.  
 
-![complete](../pics/features/complete_fin.png)
+![complete](../pics/features/complete_fin_dark.png#only-dark)
+![complete](../pics/features/complete_fin_light.png#only-light)
 
 <span style='color:gray'>✓</span> a gray tick means the word data is mostly complete with contextual meaning, grammar, sutta example and other relevant information. 
 
-![half_complete](../pics/features/complete_half.png)
+![half_complete](../pics/features/complete_half_dark.png#only-dark)
+![half_complete](../pics/features/complete_half_light.png#only-light)
 
-<span style='color:gray'>~</span>  a gray dash means the word data is partially complete with a meaning in context and grammatical construction, but minimal other information.
+<span style='color:gray'>◑</span> a gray half-moon means the word data is partially complete with a meaning in context and grammatical construction, but minimal other information.
 
-![half_complete](../pics/features/complete_no.png)
+![half_complete](../pics/features/complete_no_dark.png#only-dark)
+![half_complete](../pics/features/complete_no_light.png#only-light)
 
-<span style='color:gray'>✗</span> a gray cross means the word data is still under construction with only an inflection table, frequency table and very basic information.
+<span style='color:gray'>✘</span> a gray cross means the word data is still under construction with only an inflection table, frequency table and very basic information.
 
 
 
