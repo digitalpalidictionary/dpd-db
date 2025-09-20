@@ -3,25 +3,28 @@
 <h3 id="{{ d.r.root_ }}">root: {{d.r.root}}</h3>
 <div class='dpd summary'>
     <p>
-        root. 
+        root.
         <b>{{d.r.root_clean}}</b>
         <sup>
             {{d.r.root_has_verb}}
         </sup>
-        {{d.r.root_group}} 
-        {{d.r.root_sign}} 
-        ({{d.r.root_meaning}}) 
+        {{d.r.root_group}}
+        {{d.r.root_sign}}
+        ({{d.r.root_meaning}})
         {{count}}
-    </p> 
+    </p>
 </div>
 
 <!-- root buttons -->
 
-<div class="button_box">
-    <a class="button" href="#" data-target="root_info_{{d.r.root_}}">root info</a>
-    <a class="button" href="#" data-target="root_matrix_{{d.r.root_}}">root matrix</a>
+<div class="button-box">
+    <a class="button" href="#" data-target="root_info_{{d.r.root_}}">root
+        info</a>
+    <a class="button" href="#" data-target="root_matrix_{{d.r.root_}}">root
+        matrix</a>
     {% for fr in d.frs: %}
-        <a class="button" href="#" data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
+    <a class="button" href="#"
+        data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
     {% endfor %}
 </div>
 
@@ -30,7 +33,9 @@
 <div id="root_info_{{d.r.root_}}" class="dpd content hidden">
     {{d.r.root_info|safe}}
     <p class="footer">
-        Something out of place? <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Root+Info&entry.1433863141={{d.app_name}}+{{d.date}}" target="_blank">Report it here</a>.
+        Something out of place? <a class="link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Root+Info&entry.1433863141={{d.app_name}}+{{d.date}}"
+            target="_blank">Report it here</a>.
     </p>
 </div>
 
@@ -39,9 +44,9 @@
 <div id="root_matrix_{{d.r.root_}}" class="dpd content hidden">
     <p>
         {% if d.count <= 1: %}
-        <b>{{d.count}}</b> word is derived from the root 
+        <b>{{d.count}}</b> word is derived from the root
         {% else: %}
-        <b>{{d.count}}</b> words are derived from the root 
+        <b>{{d.count}}</b> words are derived from the root
         {% endif %}
         <b>
             {{d.r.root_clean}}
@@ -49,15 +54,15 @@
         <sup>
             {{d.r.root_has_verb}}
         </sup>
-        {{d.r.root_group}} 
-        {{d.r.root_sign}} 
+        {{d.r.root_group}}
+        {{d.r.root_sign}}
         ({{d.r.root_meaning}})
     </p>
     {{d.r.root_matrix|safe}}
     <p class="footer">
-        Did you spot a mistake? 
-        <a class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Root+Matrix&entry.1433863141={{d.app_name}}+{{d.date}}" 
+        Did you spot a mistake?
+        <a class="link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}&entry.326955045=Root+Matrix&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">
             Log it here.
         </a>
@@ -67,18 +72,18 @@
 <!-- root families -->
 
 {% for fr in d.frs: %}
-    <div 
-    id="family_root_{{d.r.root_}}_{{fr.root_family_}}" 
+<div
+    id="family_root_{{d.r.root_}}_{{fr.root_family_}}"
     class="dpd hidden">
-        {{fr.html|safe}}
-        <p class='footer'>
-            Does something look wrong? 
-            <a 
-            class="link" 
-            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}_{{fr.root_family_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}" 
+    {{fr.html|safe}}
+    <p class='footer'>
+        Does something look wrong?
+        <a
+            class="link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.link}}_{{fr.root_family_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">
             Report it here
         </a>.
-        </p>
-    </div>
+    </p>
+</div>
 {% endfor %}
