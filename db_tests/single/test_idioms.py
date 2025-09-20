@@ -3,20 +3,21 @@
 
 """Test idioms to see that their component words contain the correct family idiom."""
 
-from collections import defaultdict
 import json
 import re
-import pyperclip
+from collections import defaultdict
 
+import pyperclip
 from rich import print
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyIdiom, Lookup
-from tools.meaning_construction import clean_construction, make_meaning_combo
+from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths
 
-class ProgData():
+
+class ProgData:
     pth: ProjectPaths = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
     idioms_table_list: list[str] = []
@@ -59,11 +60,13 @@ def tupler(i: DpdHeadword):
 
 
 def get_headword_ids(g: ProgData, key):
-    lookup = g.db_session.query(Lookup)\
-        .filter_by(lookup_key=key) \
-        .filter(Lookup.headwords !="") \
+    lookup = (
+        g.db_session.query(Lookup)
+        .filter_by(lookup_key=key)
+        .filter(Lookup.headwords != "")
         .first()
-    
+    )
+
     if lookup:
         return lookup.headwords_unpack
     else:
@@ -74,14 +77,11 @@ def make_words_in_idioms_dict(g: ProgData):
     """Find all the idioms and their component words."""
 
     for i in g.headwords_db:
-        if (
-            i.pos == "idiom"
-            and i.meaning_1
-        ):
+        if i.pos == "idiom" and i.meaning_1:
             for part in i.lemma_clean.split(" "):
                 headwords_ids = get_headword_ids(g, part)
                 for headword_id in headwords_ids:
-                   g.words_in_idioms_dict[headword_id].append(tupler(i))
+                    g.words_in_idioms_dict[headword_id].append(tupler(i))
 
 
 def add_words_in_compounds(g: ProgData):
@@ -89,7 +89,7 @@ def add_words_in_compounds(g: ProgData):
     for i in g.headwords_db:
         if i.id in g.words_in_idioms_dict:
             if re.findall("\\bcomp\\b", i.grammar):
-                construction = clean_construction(i.construction)
+                construction = i.construction_clean
                 parts = construction.split(" + ")
                 for part in parts:
                     headwords_ids = get_headword_ids(g, part)
@@ -99,14 +99,16 @@ def add_words_in_compounds(g: ProgData):
 
 def add_family_idioms(g: ProgData):
     for i in g.headwords_db:
-        if (
-            not i.family_idioms
-            and i.lemma_clean not in g.idioms_table_list 
-        ):
+        if not i.family_idioms and i.lemma_clean not in g.idioms_table_list:
             if i.id in g.words_in_idioms_dict:
-                for idiom, meaning, family_idioms, family_compounds in g.words_in_idioms_dict[i.id]:
+                for (
+                    idiom,
+                    meaning,
+                    family_idioms,
+                    family_compounds,
+                ) in g.words_in_idioms_dict[i.id]:
                     if i.id not in g.exceptions_dict.get(idiom, []):
-                        print("_"*50)                
+                        print("_" * 50)
                         print()
                         print(f"[green]{'id':<30}[green1]{i.id}")
                         print(f"[green]{'lemma':<30}[green1]{i.lemma_1}")
@@ -114,7 +116,9 @@ def add_family_idioms(g: ProgData):
                         meaning_combo = make_meaning_combo(i)
                         print(f"[green]{'meaning':<30}[green1]{meaning_combo}")
                         print(f"[green]{'family_idioms':<30}[green1]{i.family_idioms}")
-                        print(f"[green]{'family_compounds':<30}[green1]{i.family_compound}")
+                        print(
+                            f"[green]{'family_compounds':<30}[green1]{i.family_compound}"
+                        )
                         if i.family_compound:
                             pyperclip.copy(i.family_compound)
                         print()
@@ -122,8 +126,12 @@ def add_family_idioms(g: ProgData):
 
                         print(f"[green]{'idiom:':<30}[medium_spring_green]{idiom}")
                         print(f"[green]{'meaning:':<30}[spring_green1]{meaning}")
-                        print(f"[green]{'family_idioms:':<30}[spring_green2]{family_idioms}")
-                        print(f"[green]{'family_compounds:':<30}[spring_green2]{family_compounds}")
+                        print(
+                            f"[green]{'family_idioms:':<30}[spring_green2]{family_idioms}"
+                        )
+                        print(
+                            f"[green]{'family_compounds:':<30}[spring_green2]{family_compounds}"
+                        )
                         print()
                         message = "idiom or [white]e[green]xception"
                         print(f"[green]{message:<30}", end="            ")
@@ -131,13 +139,14 @@ def add_family_idioms(g: ProgData):
 
                         if idiom_to_add == "e":
                             add_exception(g, idiom, i.id)
-                        
+
                         elif idiom_to_add:
                             i.family_idioms = idiom_to_add
                             g.db_session.commit()
-                            print(f"[white]{idiom_to_add}[green] added to [white]{i.lemma_1}")
+                            print(
+                                f"[white]{idiom_to_add}[green] added to [white]{i.lemma_1}"
+                            )
                             print()
-
 
 
 def main():
@@ -147,6 +156,7 @@ def main():
     make_words_in_idioms_dict(g)
     add_words_in_compounds(g)
     add_family_idioms(g)
+
 
 if __name__ == "__main__":
     main()

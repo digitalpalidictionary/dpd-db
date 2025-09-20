@@ -9,24 +9,23 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
 
 
 class ProgData:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
+    db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     i: DpdHeadword
     constr_no_root_or_base: Optional[str]
     root_fam_prefix: Optional[str]
-    construc_prefix: Optional[str]
+    construction_prefix: Optional[str]
 
     def update_prog_data(self, i):
         self.i = i
         self.constr_no_root_or_base = None
         self.root_fam_prefix = None
-        self.construc_prefix = None
+        self.construction_prefix = None
 
 
 def main():
@@ -36,7 +35,7 @@ def main():
         test_logic(pd)
 
 
-def test_logic(pd):
+def test_logic(pd: ProgData):
     if not (pd.i.root_key and pd.i.meaning_1):
         return
 
@@ -47,7 +46,7 @@ def test_logic(pd):
     else:
         make_construction_without_root(pd)
 
-    if pd.root_fam_prefix != pd.construc_prefix:
+    if pd.root_fam_prefix != pd.construction_prefix:
         fix_root_or_construction(pd)
         return
 
@@ -58,20 +57,20 @@ def test_logic(pd):
     else:
         make_construction_without_root(pd)
 
-    if pd.root_fam_prefix != pd.construc_prefix:
+    if pd.root_fam_prefix != pd.construction_prefix:
         fix_root_or_construction(pd)
         make_root_family_prefix(pd)
         if pd.i.root_base:
             make_construction_without_base(pd)
-            if pd.root_fam_prefix != pd.construc_prefix:
+            if pd.root_fam_prefix != pd.construction_prefix:
                 fix_root_or_construction(pd)
         else:
             make_construction_without_root(pd)
-            if pd.root_fam_prefix != pd.construc_prefix:
+            if pd.root_fam_prefix != pd.construction_prefix:
                 fix_root_or_construction(pd)
 
 
-def fix_root_or_construction(pd):
+def fix_root_or_construction(pd: ProgData):
     printer(pd)
     print(
         "[cyan]change the [white]r[cyan]oot family or [white]c[cyan]onstruction? ",
@@ -112,17 +111,17 @@ def fix_root_or_construction(pd):
                 test_logic(pd)
 
 
-def make_root_family_prefix(pd):
+def make_root_family_prefix(pd: ProgData):
     pd.root_fam_prefix = re.sub("√.+$", "", pd.i.family_root).strip()
 
 
-def make_construction_without_root(pd):
-    constr_clean = clean_construction(pd.i.construction)
+def make_construction_without_root(pd: ProgData):
+    constr_clean = pd.i.construction_clean
     pd.constr_no_root_or_base = re.sub("√.+$", "", constr_clean)
     make_construction_prefix(pd)
 
 
-def make_construction_without_base(pd):
+def make_construction_without_base(pd: ProgData):
     # remove base types: pass, caus, denom etc.
     base_clean = re.sub(" \\(.+\\)$", "", pd.i.root_base)
 
@@ -130,7 +129,7 @@ def make_construction_without_base(pd):
     base = re.sub("(.+ )(.+?$)", "\\2", base_clean)
 
     # construction without '>' etc
-    constr_clean = clean_construction(pd.i.construction)
+    constr_clean = pd.i.construction_clean
 
     # remove base onwards from construction
     constr_no_base = re.sub(f"{base}.+$", "", constr_clean)
@@ -140,7 +139,7 @@ def make_construction_without_base(pd):
     make_construction_prefix(pd)
 
 
-def make_construction_prefix(pd):
+def make_construction_prefix(pd: ProgData):
     c = pd.constr_no_root_or_base
 
     # remove other prefix and plus space
@@ -172,7 +171,7 @@ def make_construction_prefix(pd):
     # and finally strip
     c = c.strip()
 
-    pd.construc_prefix = c
+    pd.construction_prefix = c
 
 
 def printer(pd):

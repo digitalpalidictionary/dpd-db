@@ -10,7 +10,7 @@ from db.models import DbInfo, DpdHeadword, FamilyCompound
 from scripts.build.anki_updater import family_updater
 from tools.configger import config_test
 from tools.degree_of_completion import degree_of_completion
-from tools.meaning_construction import clean_construction, make_meaning_combo
+from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -90,7 +90,7 @@ def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
     return cf_dict
 
 
-def compile_cf_html(dpd_db, cf_dict):
+def compile_cf_html(dpd_db: list[DpdHeadword], cf_dict):
     pr.green("compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -126,9 +126,7 @@ def compile_cf_html(dpd_db, cf_dict):
 
                     # anki data
                     if i.meaning_1:
-                        construction = (
-                            clean_construction(i.construction) if i.meaning_1 else ""
-                        )
+                        construction = i.construction_clean if i.meaning_1 else ""
                         cf_dict[cf]["anki"] += [
                             (i.lemma_1, i.pos, meaning, construction)
                         ]

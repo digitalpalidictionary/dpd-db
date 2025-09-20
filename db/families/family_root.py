@@ -4,26 +4,22 @@
 and add to db."""
 
 import re
-
 from collections import defaultdict
 
-from root_matrix import generate_root_matrix
 from root_info import generate_root_info_html
+from root_matrix import generate_root_matrix
 
 from db.db_helpers import get_db_session
-from db.models import DpdRoot, DpdHeadword, FamilyRoot, Lookup
-
+from db.models import DpdHeadword, DpdRoot, FamilyRoot, Lookup
 from scripts.build.anki_updater import family_updater
-
 from tools.configger import config_test
-from tools.lookup_is_another_value import is_another_value
 from tools.degree_of_completion import degree_of_completion
-from tools.meaning_construction import clean_construction
+from tools.lookup_is_another_value import is_another_value
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
-from tools.superscripter import superscripter_uni
 from tools.printer import printer as pr
+from tools.superscripter import superscripter_uni
 from tools.update_test_add import update_test_add
 
 
@@ -110,7 +106,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
     return rf_dict, bases_dict
 
 
-def compile_rf_html(dpd_db, rf_dict):
+def compile_rf_html(dpd_db: list[DpdHeadword], rf_dict):
     pr.green("compiling html")
 
     for __counter__, i in enumerate(dpd_db):
@@ -141,7 +137,7 @@ def compile_rf_html(dpd_db, rf_dict):
             # anki data
             anki_family = f"<b>{i.family_root}</b> "
             anki_family += f"{i.rt.root_group} ({i.rt.root_meaning})"
-            construction = clean_construction(i.construction)
+            construction = i.construction_clean
             if not i.meaning_1:
                 construction = f"-{construction}"
             rf_dict[family]["anki"].append(

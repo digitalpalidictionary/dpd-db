@@ -13,14 +13,12 @@
 
 import json
 import re
+
 import pyperclip
-
-
 from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.terminal_highlights import terminal_bold
@@ -138,7 +136,7 @@ def find_bahubbihis():
         #     and i.id not in g.bahubbihi_dict["maybe"]
         # ):
         #     # check if the last word of the construction is a noun
-        #     constr = clean_construction(i.construction)
+        #     constr = i.construction_clean
         #     constr_list = constr.split(" + ")
 
         #     if constr_list[-1] in g.nouns_set:
@@ -162,7 +160,7 @@ def find_bahubbihis():
         #     and i.id not in g.bahubbihi_dict["maybe"]
         # ):
         #     # check if the last word of the construction is a noun
-        #     constr = clean_construction(i.construction)
+        #     constr = i.construction_clean
         #     constr_list = constr.split(" + ")
 
         #     if constr_list[-1] in g.adjectives_set:
@@ -185,7 +183,7 @@ def find_bahubbihis():
         #     and i.id not in g.bahubbihi_dict["maybe"]
         # ):
         #     # check if the last word of the construction is a noun
-        #     constr = clean_construction(i.construction)
+        #     constr = i.construction_clean
         #     constr_list = constr.split(" + ")
 
         #     if constr_list[-1] in g.pp_set:
@@ -212,7 +210,7 @@ def find_bahubbihis():
         # ):
 
         #     # check if the last word of the construction is a noun
-        #     constr = clean_construction(i.construction)
+        #     constr = i.construction_clean
 
         #     total_matches +=  1
         #     matching_lemmas.append(i.lemma_1)
@@ -230,7 +228,7 @@ def find_bahubbihis():
             and i.id not in g.bahubbihi_dict["maybe"]
         ):
             # check if the last word of the construction is a noun
-            constr = clean_construction(i.construction)
+            constr = i.construction_clean
 
             total_matches += 1
             matching_lemmas.append(i.lemma_1)
@@ -248,7 +246,7 @@ def find_bahubbihis():
         # ):
 
         #     # check if the last word of the construction is a noun
-        #     constr = clean_construction(i.construction)
+        #     constr = i.construction_clean
 
         #     total_matches +=  1
         #     matching_lemmas.append(i.lemma_1)

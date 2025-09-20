@@ -4,17 +4,14 @@
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyWord
-
 from scripts.build.anki_updater import family_updater
-
 from tools.configger import config_test
-from tools.meaning_construction import clean_construction
 from tools.degree_of_completion import degree_of_completion
 from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.superscripter import superscripter_uni
 from tools.printer import printer as pr
+from tools.superscripter import superscripter_uni
 
 
 def main():
@@ -36,7 +33,7 @@ def main():
 
     wf_db = db_session.query(DpdHeadword).filter(DpdHeadword.family_word != "").all()
 
-    wf_db = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
+    wf_db: list[DpdHeadword] = sorted(wf_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     wf_dict = make_word_fam_dict(wf_db)
     wf_dict = compile_wf_html(wf_db, wf_dict)
@@ -80,7 +77,7 @@ def make_word_fam_dict(wf_db: list[DpdHeadword]):
     return wf_dict
 
 
-def compile_wf_html(wf_db, wf_dict):
+def compile_wf_html(wf_db: list[DpdHeadword], wf_dict):
     pr.green("compiling html")
 
     for __counter__, i in enumerate(wf_db):
@@ -103,7 +100,7 @@ def compile_wf_html(wf_db, wf_dict):
             wf_dict[wf]["html"] = html_string
 
             # anki data
-            construction = clean_construction(i.construction) if i.meaning_1 else ""
+            construction = i.construction_clean if i.meaning_1 else ""
             wf_dict[wf]["anki"] += [(i.lemma_1, i.pos, meaning, construction)]
 
             # data

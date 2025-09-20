@@ -3,17 +3,16 @@
 
 """Find missing compound families."""
 
-import re
 import pickle
-import pyperclip
+import re
 
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.printer import printer as pr
-from tools.meaning_construction import clean_construction
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 
 def make_dict_of_sets(db):
@@ -28,7 +27,7 @@ def make_dict_of_sets(db):
     }
 
     for i in db:
-        construction = clean_construction(i.construction)
+        construction = i.construction_clean
 
         # all_words_in_construction
         if (
