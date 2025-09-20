@@ -281,7 +281,7 @@
             missing?
             <a
                 class="link"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.1433863141={{ d.app_name }}+{{ d.date }}"
                 target="_blank">
                 Report it here.</a>
         </p>
@@ -310,7 +310,7 @@
             missing?
             <a
                 class="link"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469={{d.i.lemma_link}}&entry.1433863141={{d.app_name}}+{{d.date}}"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.1433863141={{ d.app_name }}+{{ d.date }}"
                 target="_blank">
                 Report it here.</a>
         </p>
@@ -463,6 +463,14 @@
             <b>{{f.set}}</b>
         </p>
         {{f.html|safe}} {% endfor %}
+        <p class="footer">
+            Spot a mistake?
+            <a
+                class="link"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.id}}%20{{d.i.lemma_link}}&entry.326955045=Set&entry.1433863141={{d.app_name}}+{{d.date}}"
+                target="_blank">
+                Fix it here</a>.
+        </p>
     </div>
     {% endif %}
 

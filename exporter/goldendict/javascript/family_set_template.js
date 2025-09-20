@@ -60,7 +60,7 @@ function makeFamilySets(data) {
         }%20${data.lemma.replace(
     / /g,
     "%20"
-  )}&entry.326955045=set+Family&entry.1433863141=GoldenDict+${data.date}"
+  )}&entry.326955045=Set&entry.1433863141=GoldenDict+${data.date}"
         target="_blank">
         Fix it here</a>.`;
 
