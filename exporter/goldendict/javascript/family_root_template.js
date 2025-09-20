@@ -1,13 +1,11 @@
-
 function makeFamilyRootHtml(data, fr, source, link) {
-    
-    if (link == undefined) {
-        const link = data.lemma.replace(" ", "%20")
-    }
+  if (link == undefined) {
+    const link = data.lemma.replace(" ", "%20");
+  }
 
-    //// header
-    
-    var html = `
+  //// header
+
+  var html = `
         <p class="heading underlined">
             <b>${fr.count}</b> words belong to the root family 
             <b>${fr.root_family}</b> 
@@ -15,12 +13,12 @@ function makeFamilyRootHtml(data, fr, source, link) {
         </p>
     `;
 
-    //// table
+  //// table
 
-    html += `<table class="family"><tbody>`;
+  html += `<table class="family"><tbody>`;
 
-    fr.data.forEach(item => {
-        html += `
+  fr.data.forEach((item) => {
+    html += `
             <tr>
             <th>${item[0]}</th>
             <td><b>${item[1]}</b></td>
@@ -28,17 +26,17 @@ function makeFamilyRootHtml(data, fr, source, link) {
             <td><span class="gray">${item[3]}</span></td>
             </tr>
         `;
-    });
+  });
 
-    html += `
+  html += `
         </tbody>
         </table>
     `;
 
-    //// footer
+  //// footer
 
-    if (source == "root") {
-        html += `
+  if (source == "root") {
+    html += `
         <p class="footer">
         Something out of place? 
         <a class="link" 
@@ -48,18 +46,25 @@ function makeFamilyRootHtml(data, fr, source, link) {
         </a>.
         </p>
     `;
-    } else {
-        html += `
+  } else {
+    html += `
         <p class="footer">
         Something out of place? 
         <a class="link" 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${link}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${data.date}" 
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&amp;entry.438735500=${
+          data.id
+        }%20${data.lemma.replace(
+      / /g,
+      "%20"
+    )}&amp;entry.326955045=Root+Family&amp;entry.1433863141=GoldenDict+${
+      data.date
+    }" 
         target="_blank">
         Report it here
         </a>.
         </p>
     `;
-    }
+  }
 
-    return html
+  return html;
 }
