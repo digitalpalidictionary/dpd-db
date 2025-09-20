@@ -4,7 +4,7 @@
 *{{ i.count }}* compounds which contain *{{ i.compound_family }}*
 
 #block(
-  stroke: 1pt + rgb("#00A4CC"),
+  stroke: 1pt + rgb("#1a8bdb"),
   radius: 5pt,
   table(
     columns: (auto, auto, 4fr, auto),
@@ -14,7 +14,7 @@
     [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2].replace("*", "\*")|safe }}], [#gray[{{ d[3] }}]],
   //// endfor \\\\
 
-    table.hline(stroke: 0.1pt + rgb("#00A4CC")),
+    table.hline(stroke: 0.1pt + rgb("#1a8bdb")),
     table.cell(colspan: 4)[
       #feedback-link(
         "Correct a mistake",

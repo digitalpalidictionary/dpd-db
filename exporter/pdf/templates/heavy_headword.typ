@@ -6,7 +6,7 @@
 // grammar table
 //// if i.meaning_1 \\\\
 #block(
-  stroke: 1pt + rgb("#00A4CC"),
+  stroke: 1pt + rgb("#1a8bdb"),
   radius: 5pt,
   table(
     columns: (1fr, 3fr),
@@ -90,7 +90,7 @@
     [#blue[Sanskrit Root]], [{{ i.rt.sanskrit_root }} {{ i.rt.sanskrit_root_class }} ({{ i.rt.sanskrit_root_meaning }})],
   //// endif \\\\
 
-    table.hline(stroke: 0.1pt + rgb("#00A4CC")),
+    table.hline(stroke: 0.1pt + rgb("#1a8bdb")),
     table.cell(colspan: 2)[
       #feedback-link(
         "Correct a mistake",
@@ -104,7 +104,7 @@
 // example(s)
 //// if i.meaning_1 and i.example_1 \\\\
 #block(
-  stroke: 1pt + rgb("#00A4CC"),
+  stroke: 1pt + rgb("#1a8bdb"),
   radius: 5pt,
   table(
     columns: (1fr),
@@ -120,7 +120,7 @@
     ],
   //// endif \\\\
 
-    table.hline(stroke: 0.1pt + rgb("#00A4CC")),
+    table.hline(stroke: 0.1pt + rgb("#1a8bdb")),
     table.cell(colspan: 1)[
       #feedback-link(
         "Add a better example",

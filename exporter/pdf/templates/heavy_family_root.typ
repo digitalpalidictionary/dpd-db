@@ -4,7 +4,7 @@
 {{ i.count }} words belong to the root family *{{ i.root_family }}* ({{ i.root_meaning }})
 
 #block(
-  stroke: 1pt + rgb("#00A4CC"),
+  stroke: 1pt + rgb("#1a8bdb"),
   radius: 5pt,
   table(
     columns: (3fr, 1fr, 8fr, 0.5fr),
@@ -13,7 +13,7 @@
     [#blue-bold[{{ d[0] }}]], [*{{ d[1] }}*], [{{ d[2]|safe }}], [#gray[{{ d[3].replace("~", "\~") }}]],
   //// endfor \\\\
 
-    table.hline(stroke: 0.1pt + rgb("#00A4CC")),
+    table.hline(stroke: 0.1pt + rgb("#1a8bdb")),
     table.cell(colspan: 4)[
       #feedback-link(
         "Correct a mistake",
