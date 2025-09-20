@@ -1,14 +1,14 @@
 <div id="grammar_${i.lemma_1_}" class="dpd content hidden">
     <table class="grammar">
-        % if d.i.lemma_trad_clean != d.i.lemma_clean:
+        % if i.lemma_trad_clean != i.lemma_clean:
         <tr>
             <th>Traditional Lemma</th>
-            <td>{{d.i.lemma_trad_clean}}</td>
+            <td>{{i.lemma_trad_clean}}</td>
         </tr>
         % else:
         <tr>
             <th>Lemma</th>
-            <td>{{d.i.lemma_2}}</td>
+            <td>{{i.lemma_2}}</td>
         </tr>
         % endif
         <tr>
