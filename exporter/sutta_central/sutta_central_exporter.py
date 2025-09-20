@@ -19,17 +19,19 @@ A list of dictionaries containing basic definitions
 """
 
 from json import dump
+
 from rich import print
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
-
 from tools.cst_sc_text_sets import make_sc_text_set
-from tools.pali_sort_key import pali_list_sorter, pali_sort_key
+from tools.pali_sort_key import pali_sort_key
 from tools.pali_text_files import sc_texts
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+
+DEBUG = False
 
 
 class SuttaCentralExporter:
@@ -69,8 +71,21 @@ class SuttaCentralExporter:
         "kn3",
         "kn4",
         "kn5",
+        "kn6",
+        "kn7",
         "kn8",
         "kn9",
+        "kn10",
+        "kn11",
+        "kn12",
+        "kn13",
+        "kn14",
+        "kn15",
+        "kn16",
+        "kn17",
+        "kn18",
+        "kn19",
+        "kn20",
     ]
 
     # sc_books_list: list[str] = []
@@ -88,7 +103,6 @@ class SuttaCentralExporter:
 
     def __init__(self):
         pr.title("exporting for sutta central")
-        # self.make_sc_books_list()
 
         self.sc_word_set = make_sc_text_set(
             self.pth,
@@ -102,9 +116,10 @@ class SuttaCentralExporter:
         self.make_headwords_dict()
         self.make_sc_dict()
         self.compile_sc_dict()
-        # self.print_sc_dict()
         self.save_sc_dict()
-        # self.print_no_entries()
+        if DEBUG:
+            self.print_sc_dict()
+            self.print_no_entries()
 
     def make_sc_books_list(self):
         """A list of SC books which have associated text files."""
@@ -186,7 +201,6 @@ class SuttaCentralExporter:
 
         pr.green("compiling sc dict")
 
-        # sc_word_set_sorted = pali_list_sorter(self.sc_word_set)
         sc_word_set_sorted = sorted(self.sc_word_set)
 
         for word in sc_word_set_sorted:
@@ -200,7 +214,6 @@ class SuttaCentralExporter:
                         sc_entry["definition"].append(
                             f"{self.flip(headword)}: {self.flip(definition)}"
                         )
-                        # sc_entry["definition"].append(definition)
                     else:
                         sc_entry["definition"].append(self.flip(definition))
                 self.sc_dict_compiled.append(sc_entry)
@@ -225,7 +238,7 @@ class SuttaCentralExporter:
         """Save to JSON."""
 
         pr.green("saving sc dict")
-        with open("exporter/sutta_central/sc_dict.json", "w") as f:
+        with open(self.pth.sc_pli2en_dpd_json, "w") as f:
             dump(self.sc_dict_compiled, f, ensure_ascii=False, indent=2)
         pr.yes("OK")
 

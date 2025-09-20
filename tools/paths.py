@@ -442,24 +442,31 @@ class ProjectPaths:
         )
 
         # resources/sc-data
+
         self.sc_data_dir = base_dir / "resources/sc-data/sc_bilara_data/root/pli/ms/"
         self.sc_variants_dir = (
             base_dir / "resources/sc-data/sc_bilara_data/variant/pli/ms/"
         )
-        self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
 
-        self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
-        self.sc_i2h_json_path = base_dir / "resources/sc-data/dpd/dpd_i2h.json"
+        self.sc_pli2en_dpd_json = (
+            base_dir / "resources/sc-data/dictionaries/simple/en/pli2en_dpd.json"
+        )  # final dictionary format
 
-        self.sc_dpd_ebts_js_path = base_dir / "resources/sc-data/dpd/dpd_ebts.js"
-        self.sc_dpd_ebts_json_path = base_dir / "resources/sc-data/dpd/dpd_ebts.json"
+        # FIXME part of the old sc exporter, delete when tested
+        # self.sc_data_dpd_dir = base_dir / "resources/sc-data/dpd/"
 
-        self.sc_deconstructor_js_path = (
-            base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
-        )
-        self.sc_deconstructor_json_path = (
-            base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
-        )
+        # self.sc_i2h_js_path = base_dir / "resources/sc-data/dpd/dpd_i2h.js"
+        # self.sc_i2h_json_path = base_dir / "resources/sc-data/dpd/dpd_i2h.json"
+
+        # self.sc_dpd_ebts_js_path = base_dir / "resources/sc-data/dpd/dpd_ebts.js"
+        # self.sc_dpd_ebts_json_path = base_dir / "resources/sc-data/dpd/dpd_ebts.json"
+
+        # self.sc_deconstructor_js_path = (
+        #     base_dir / "resources/sc-data/dpd/dpd_deconstructor.js"
+        # )
+        # self.sc_deconstructor_json_path = (
+        #     base_dir / "resources/sc-data/dpd/dpd_deconstructor.json"
+        # )
 
         # resources/syāmaraṭṭha_1927
         self.sya_dir = base_dir / "resources/syāmaraṭṭha_1927/"

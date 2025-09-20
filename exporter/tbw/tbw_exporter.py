@@ -6,7 +6,7 @@
 2. dictionary data for EBTS.
 3. compound deconstruction
 
-Export to `TBW2` and `sc-data` repos
+Export to `TBW2` and `fdg_dpd` repos
 """
 
 import json
@@ -14,12 +14,11 @@ import json
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from tools.configger import config_test
-from tools.pali_sort_key import pali_list_sorter, pali_sort_key
-from tools.printer import printer as pr
 from tools.cst_sc_text_sets import make_sc_text_set
-from tools.meaning_construction import make_meaning_combo_html
-from tools.meaning_construction import summarize_construction
+from tools.meaning_construction import make_meaning_combo_html, summarize_construction
+from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 
 class ProgData:
@@ -262,26 +261,27 @@ def save_js_files_for_fdg(g: ProgData):
     pr.yes("ok")
 
 
-def save_json_files_for_sc(g: ProgData):
-    """Copy json files to sc-data dir"""
+# FIXME cleanup when tested
+# def save_json_files_for_sc(g: ProgData):
+#     """Copy json files to sc-data dir"""
 
-    pr.green("copying json files to sc-data")
+#     pr.green("copying json files to sc-data")
 
-    with open(g.pth.sc_i2h_json_path, "w") as f:
-        json.dump(g.i2h_dict, f, ensure_ascii=False, indent=2)
+#     with open(g.pth.sc_i2h_json_path, "w") as f:
+#         json.dump(g.i2h_dict, f, ensure_ascii=False, indent=2)
 
-    with open(g.pth.sc_dpd_ebts_json_path, "w") as f:
-        json.dump(g.dpd_dict, f, ensure_ascii=False, indent=2)
+#     with open(g.pth.sc_dpd_ebts_json_path, "w") as f:
+#         json.dump(g.dpd_dict, f, ensure_ascii=False, indent=2)
 
-    with open(g.pth.sc_deconstructor_json_path, "w") as f:
-        json.dump(g.deconstructor_dict, f, ensure_ascii=False, indent=2)
+#     with open(g.pth.sc_deconstructor_json_path, "w") as f:
+#         json.dump(g.deconstructor_dict, f, ensure_ascii=False, indent=2)
 
-    pr.yes("ok")
+#     pr.yes("ok")
 
 
 def main():
     pr.tic()
-    pr.title("export dpd data for TBW and Sutta Central")
+    pr.title("export dpd data for TBW and FDG")
 
     if not config_test("exporter", "make_tbw", "yes"):
         pr.green_title("disabled in config.ini")
@@ -303,7 +303,8 @@ def main():
 
     save_js_files_for_tbw(g)
     save_js_files_for_fdg(g)
-    save_json_files_for_sc(g)
+    # FIXME cleanup when tested
+    # save_json_files_for_sc(g)
 
     pr.toc()
 
