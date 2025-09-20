@@ -1,12 +1,12 @@
 function makeFrequency(data) {
-    const lemmaLink = data.lemma.replace(/ /g, "%20")
-    var html = `
+  const lemmaLink = data.lemma.replace(/ /g, "%20");
+  var html = `
 <p class="heading underlined">
         ${data.FreqHeading}
     </p>
-`
+`;
 
-if (data.CstFreq[0] != undefined) {
+  if (data.CstFreq[0] != undefined) {
     html += `
 <table class="freq">
     <thead>
@@ -106,7 +106,7 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[1]}">${data.SyaFreq[1]}</td>
-            <td class="gap"></td>      
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[2]}">${data.ScFreq[2]}</td>
         </tr>
@@ -122,7 +122,7 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[2]}">${data.SyaFreq[2]}</td>
-            <td class="gap"></td>     
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[3]}">${data.ScFreq[3]}</td>
         </tr>
@@ -138,7 +138,7 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[3]}">${data.SyaFreq[3]}</td>
-            <td class="gap"></td>          
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[4]}">${data.ScFreq[4]}</td>
         </tr>
@@ -158,8 +158,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[4]}">${data.SyaFreq[4]}</td>
-            <td class="gr${data.SyaGrad[18]}">${data.SyaFreq[18]}</td>  
-            <td class="gap"></td>          
+            <td class="gr${data.SyaGrad[18]}">${data.SyaFreq[18]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[5]}">${data.ScFreq[5]}</td>
         </tr>
@@ -176,8 +176,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[5]}">${data.SyaFreq[5]}</td>
-            <td class="gr${data.SyaGrad[19]}">${data.SyaFreq[19]}</td>   
-            <td class="gap"></td>         
+            <td class="gr${data.SyaGrad[19]}">${data.SyaFreq[19]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[6]}">${data.ScFreq[6]}</td>
         </tr>
@@ -194,8 +194,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[6]}">${data.SyaFreq[6]}</td>
-            <td class="gr${data.SyaGrad[20]}">${data.SyaFreq[20]}</td>  
-            <td class="gap"></td>          
+            <td class="gr${data.SyaGrad[20]}">${data.SyaFreq[20]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[7]}">${data.ScFreq[7]}</td>
         </tr>
@@ -212,8 +212,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[7]}">${data.SyaFreq[7]}</td>
-            <td class="gr${data.SyaGrad[21]}">${data.SyaFreq[21]}</td>      
-            <td class="gap"></td>      
+            <td class="gr${data.SyaGrad[21]}">${data.SyaFreq[21]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[8]}">${data.ScFreq[8]}</td>
         </tr>
@@ -230,8 +230,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[8]}">${data.SyaFreq[8]}</td>
-            <td class="gr${data.SyaGrad[22]}">${data.SyaFreq[22]}</td>  
-            <td class="gap"></td>          
+            <td class="gr${data.SyaGrad[22]}">${data.SyaFreq[22]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[9]}">${data.ScFreq[9]}</td>
         </tr>
@@ -248,8 +248,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[9]}">${data.SyaFreq[9]}</td>
-            <td class="gr${data.SyaGrad[23]}">${data.SyaFreq[23]}</td>   
-            <td class="gap"></td>         
+            <td class="gr${data.SyaGrad[23]}">${data.SyaFreq[23]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[10]}">${data.ScFreq[10]}</td>
         </tr>
@@ -267,7 +267,7 @@ if (data.CstFreq[0] != undefined) {
             <!-- SYA -->
             <td class="gr${data.SyaGrad[10]}">${data.SyaFreq[10]}</td>
             <td class="gr${data.SyaGrad[24]}">${data.SyaFreq[24]}</td>
-            <td class="gap"></td>            
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[11]}">${data.ScFreq[11]}</td>
         </tr>
@@ -287,8 +287,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[11]}">${data.SyaFreq[11]}</td>
-            <td class="gr${data.SyaGrad[25]}" rowspan="7">${data.SyaFreq[25]}</td>       
-            <td class="gap"></td>     
+            <td class="gr${data.SyaGrad[25]}" rowspan="7">${data.SyaFreq[25]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[12]}">${data.ScFreq[12]}</td>
         </tr>
@@ -303,7 +303,7 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[12]}">${data.SyaFreq[12]}</td>
-            <td class="gap"></td>          
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[13]}">${data.ScFreq[13]}</td>
         </tr>
@@ -317,8 +317,8 @@ if (data.CstFreq[0] != undefined) {
             <td class="gr${data.BjtGrad[33]}">${data.BjtFreq[33]}</td>
             <td class="gap"></td>
             <!-- SYA -->
-            <td class="gr${data.SyaGrad[13]}" rowspan="2">${data.SyaFreq[13]}</td>  
-            <td class="gap"></td>        
+            <td class="gr${data.SyaGrad[13]}" rowspan="2">${data.SyaFreq[13]}</td>
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[14]}">${data.ScFreq[14]}</td>
         </tr>
@@ -333,7 +333,7 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <!-- included in Dhātukathā -->
-            <td class="gap"></td>        
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[15]}">${data.ScFreq[15]}</td>
         </tr>
@@ -378,7 +378,7 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- SYA -->
             <td class="gr${data.SyaGrad[16]}">${data.SyaFreq[16]}</td>
-            <td class="gap"></td>            
+            <td class="gap"></td>
             <!-- SC -->
             <td class="gr${data.ScGrad[18]}">${data.ScFreq[18]}</td>
         </tr>
@@ -394,14 +394,14 @@ if (data.CstFreq[0] != undefined) {
             <td class="gap"></td>
             <!-- BJT -->
             <td class="void"></td>
-            <td class="gr${data.BjtGrad[38]}">${data.BjtFreq[38]}</td>  
-            <td class="gap"></td>      
+            <td class="gr${data.BjtGrad[38]}">${data.BjtFreq[38]}</td>
+            <td class="gap"></td>
             <!-- SYA -->
             <td class="void"></td>
-            <td class="gr${data.SyaGrad[26]}">${data.SyaFreq[26]}</td> 
-            <td class="gap"></td>           
+            <td class="gr${data.SyaGrad[26]}">${data.SyaFreq[26]}</td>
+            <td class="gap"></td>
             <!-- SC -->
-            <td class="void"></td>  
+            <td class="void"></td>
         </tr>
         <tr>
             <th>Leḍī Sayāḍo</th>
@@ -465,26 +465,29 @@ if (data.CstFreq[0] != undefined) {
 <p>
     <b>MST</b>: Mahāsaṅgīti Tipiṭaka (Sutta Central)
 </p>
-`
-} else {
+`;
+  } else {
     html += `
 <p>
     It probably only occurs in compounds. Or perhaps there is an error.
 </p>
-`
-}
-html += `
+`;
+  }
+  html += `
 <p>
     For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies,
     please refer to <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/">this webpage</a>.
 </p>
 <p class='footer'>
     If something looks out of place, <a class="link"
-        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${lemmaLink}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${
+          data.id
+        }%20${data.lemma.replace(
+    / /g,
+    "%20"
+  )}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
         target="_blank">log it here.</a>
 </p>
-`
-    return html
+`;
+  return html;
 }
-
-
