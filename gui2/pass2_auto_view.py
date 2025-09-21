@@ -48,7 +48,7 @@ class Pass2AutoView(ft.Column):
             ft.dropdown.Option(
                 key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
             )
-            for provider, model_name in toolkit.ai_manager.DEFAULT_MODELS
+            for provider, model_name, wait_time in toolkit.ai_manager.DEFAULT_MODELS
         ]
         self.ai_model_dropdown = ft.Dropdown(
             options=self.ai_model_options,
