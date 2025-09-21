@@ -19,7 +19,6 @@ from db.models import DpdHeadword, Lookup
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.deconstructed_words import make_words_in_deconstructions
-from tools.degree_of_completion import degree_of_completion
 from tools.diacritics_cleaner import diacritics_cleaner
 from tools.first_letter import find_first_letter
 from tools.meaning_construction import make_grammar_line
@@ -201,7 +200,7 @@ def render_ebook_entry(
     if construction:
         summary += f" [{construction}]"
 
-    summary += f" {degree_of_completion(i)}"
+    summary += f" {i.degree_of_completion_html}"
 
     if "&" in summary:
         summary = summary.replace(" & ", " &amp; ")

@@ -685,12 +685,24 @@ class DpdHeadword(Base):
 
     @property
     def degree_of_completion_html(self) -> str:
+        """How complete is a word's information?
+        ✔ complete, meaning_1 and example.
+        ◑ semi-complete, meaning_1 and no example.
+        ✘ incomplete, meaning_2 and no example.
+        Styled in gray html tags.
+        """
         from tools.degree_of_completion import degree_of_completion
 
         return degree_of_completion(self)
 
     @property
     def degree_of_completion(self) -> str:
+        """How complete is a word's information?
+        ✔ complete, meaning_1 and example.
+        ◑ semi-complete, meaning_1 and no example.
+        ✘ incomplete, meaning_2 and no example.
+        Styled in plain text.
+        """
         from tools.degree_of_completion import degree_of_completion
 
         return degree_of_completion(self, html=False)

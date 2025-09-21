@@ -25,7 +25,6 @@ from exporter.goldendict.helpers import TODAY
 from tools.configger import config_test
 from tools.css_manager import CSSManager
 from tools.date_and_time import year_month_day_dash
-from tools.degree_of_completion import degree_of_completion
 from tools.exporter_functions import (
     get_family_compounds,
     get_family_idioms,
@@ -398,30 +397,10 @@ def render_dpd_definition_templ(
     4. summary
     5. degree of completion"""
 
-    pos: str = i.pos
-
-    # plus_case
-    plus_case: str = ""
-    if i.plus_case is not None and i.plus_case:
-        plus_case: str = i.plus_case
-
-    # meaning
-    summary = i.construction_summary
-    complete = degree_of_completion(i)
-
-    # id
-    id: int = i.id
-
     return str(
         dpd_definition_templ.render(
             i=i,
             make_link=make_link,
-            pos=pos,
-            plus_case=plus_case,
-            meaning=i.meaning_combo_html,
-            summary=summary,
-            complete=complete,
-            id=id,
             show_id=show_id,
         )
     )

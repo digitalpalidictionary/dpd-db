@@ -5,7 +5,6 @@
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilySet
 from tools.configger import config_test
-from tools.degree_of_completion import degree_of_completion
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -86,7 +85,7 @@ def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
                     html_string += f"<td>{i.meaning_combo}</td>"
-                    html_string += f"<td>{degree_of_completion(i)}</td>"
+                    html_string += f"<td>{i.degree_of_completion_html}</td>"
                     html_string += "</tr>"
 
                     sets_dict[sf]["html"] = html_string
@@ -97,7 +96,7 @@ def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
                             i.lemma_1,
                             i.pos,
                             i.meaning_combo,
-                            degree_of_completion(i, html=False),
+                            i.degree_of_completion,
                         )
                     )
 

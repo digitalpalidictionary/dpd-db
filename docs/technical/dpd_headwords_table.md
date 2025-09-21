@@ -148,7 +148,7 @@ Here is a quick overview:
 
 - *`degree_of_completion`* `[str]` how complete is a word's data?
 
-- *`degree_of_completion_html`* `[str]` how complete is a word's data, embedded in html tags?
+- *`degree_of_completion_html`* `[str]` how complete is a word's data? embedded in html tags
 
 - **`antonym`** `[str]` what is the antonym of the headword, comma space separated?
 

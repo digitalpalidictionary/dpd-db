@@ -9,7 +9,6 @@ from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword, FamilyCompound
 from scripts.build.anki_updater import family_updater
 from tools.configger import config_test
-from tools.degree_of_completion import degree_of_completion
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -107,7 +106,7 @@ def compile_cf_html(dpd_db: list[DpdHeadword], cf_dict):
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
                     html_string += f"<td>{i.meaning_combo}</td>"
-                    html_string += f"<td>{degree_of_completion(i)}</td>"
+                    html_string += f"<td>{i.degree_of_completion_html}</td>"
                     html_string += "</tr>"
 
                     cf_dict[cf]["html"] = html_string
@@ -119,7 +118,7 @@ def compile_cf_html(dpd_db: list[DpdHeadword], cf_dict):
                                 i.lemma_1,
                                 i.pos,
                                 i.meaning_combo,
-                                degree_of_completion(i, html=False),
+                                i.degree_of_completion,
                             )
                         )
 
