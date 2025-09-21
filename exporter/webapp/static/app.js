@@ -63,7 +63,11 @@ function initializeApp() {
     (q1 && q1.trim() !== "") ||
     (q2 && q2.trim() !== "")
   ) {
-    performSearch(false); // Don't add to history on initial load
+    if (/^\d+$/.test(q.trim())) {
+      performSearch(true);
+    } else {
+      performSearch(false);
+    }
   }
 
   // Add the initial state to the history stack only if there's an actual search
