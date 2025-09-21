@@ -118,7 +118,7 @@ class Pass1AutoController:
                 self.ui.update_message("stopped")
                 break
 
-        #
+        self.ui.update_message(f"Finished processing missing words in {self.book}")
 
     def is_missing(self, word: str):
         if (
