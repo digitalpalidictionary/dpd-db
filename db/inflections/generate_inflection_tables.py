@@ -3,21 +3,21 @@
 
 """Generate all inflection tables and lists and save to database."""
 
-import re
 import json
 import pickle
-from typing import Optional, Set
+import re
+from typing import Optional
+
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, InflectionTemplates, DbInfo
-
+from db.models import DbInfo, DpdHeadword, InflectionTemplates
+from tools.all_tipitaka_words import make_all_tipitaka_word_set
 from tools.configger import config_test, config_update
-from tools.printer import printer as pr
-from tools.pos import CONJUGATIONS
-from tools.pos import DECLENSIONS
-from tools.superscripter import superscripter_uni
 from tools.paths import ProjectPaths
+from tools.pos import CONJUGATIONS, DECLENSIONS
+from tools.printer import printer as pr
+from tools.superscripter import superscripter_uni
 
 
 class InflectionsManager:
@@ -54,8 +54,7 @@ class InflectionsManager:
         self.inflections_html: str = ""
         self.inflections_list: list[str] = []
 
-        with open(self.pth.all_tipitaka_words_path, "rb") as f:
-            self.all_tipitaka_words: Set = pickle.load(f)
+        self.all_tipitaka_words = make_all_tipitaka_word_set()
 
         self.regenerate_all: bool = config_test(
             "regenerate", "inflections", "yes"
@@ -307,8 +306,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# FIXME how is all_tipitaka_words getting generated?
 
 # tests
 # ---------------------------

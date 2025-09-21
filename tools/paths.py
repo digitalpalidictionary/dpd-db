@@ -591,7 +591,6 @@ class ProjectPaths:
         )
 
         # share
-        self.all_tipitaka_words_path = base_dir / "shared_data/all_tipitaka_words"
         self.changed_headwords_path = base_dir / "shared_data/changed_headwords"
         self.headword_stem_pattern_dict_path = (
             base_dir / "shared_data/headword_stem_pattern_dict"
