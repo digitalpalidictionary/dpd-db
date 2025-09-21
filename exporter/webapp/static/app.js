@@ -303,7 +303,7 @@ function switchTab(tabName) {
   appState.activeTab = tabName;
 
   // Add the new state to the history stack
-  addToHistory();
+  // addToHistory();
 
   // Display the new active tab
   render();
@@ -328,11 +328,19 @@ function extractIdAndTitleFromHTML(html) {
 
 // Add a new state to the history array
 function addToHistory() {
-  // Create a snapshot of the current state
+  // Create a snapshot of the current state (excluding large HTML content)
   const stateSnapshot = {
     activeTab: appState.activeTab,
-    dpd: { ...appState.dpd },
-    bd: { ...appState.bd },
+    dpd: {
+      searchTerm: appState.dpd.searchTerm,
+      // Exclude resultsHTML to prevent localStorage quota issues
+    },
+    bd: {
+      searchTerm1: appState.bd.searchTerm1,
+      searchTerm2: appState.bd.searchTerm2,
+      searchOption: appState.bd.searchOption,
+      // Exclude resultsHTML to prevent localStorage quota issues
+    },
   };
 
   // Handle the history stack (truncating forward history if necessary)
@@ -492,8 +500,15 @@ function handlePopState(event) {
     }
     window.history.replaceState({ ...appState }, "", url);
 
-    // Update the UI
-    render();
+    // Re-perform the search to get the results (since we don't store HTML in history)
+    if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
+      performSearch(false); // false to avoid adding to history again
+    } else if (appState.activeTab === "bd" && (appState.bd.searchTerm1 || appState.bd.searchTerm2)) {
+      performSearch(false); // false to avoid adding to history again
+    } else {
+      // Update the UI for empty state
+      render();
+    }
   }
 }
 
