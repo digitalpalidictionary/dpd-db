@@ -13,7 +13,6 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyIdiom, Lookup
-from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths
 
 
@@ -55,8 +54,7 @@ def make_idioms_table_list(g: ProgData):
 
 
 def tupler(i: DpdHeadword):
-    meaning = make_meaning_combo(i)
-    return (i.lemma_1, meaning, i.family_idioms, i.family_compound)
+    return (i.lemma_1, i.meaning_combo, i.family_idioms, i.family_compound)
 
 
 def get_headword_ids(g: ProgData, key):
@@ -113,8 +111,7 @@ def add_family_idioms(g: ProgData):
                         print(f"[green]{'id':<30}[green1]{i.id}")
                         print(f"[green]{'lemma':<30}[green1]{i.lemma_1}")
                         print(f"[green]{'pos':<30}[green1]{i.pos}")
-                        meaning_combo = make_meaning_combo(i)
-                        print(f"[green]{'meaning':<30}[green1]{meaning_combo}")
+                        print(f"[green]{'meaning':<30}[green1]{i.meaning_combo}")
                         print(f"[green]{'family_idioms':<30}[green1]{i.family_idioms}")
                         print(
                             f"[green]{'family_compounds':<30}[green1]{i.family_compound}"

@@ -23,9 +23,8 @@ def make_meaning_combo(i: DpdHeadword) -> str:
 
 
 def make_meaning_combo_html(i: DpdHeadword) -> str:
-    """Compile html of meaning_1 and meaning_lit,
-    or return meaning_2 and meaning_lit
-    Meaning_1 in <b>bold</b>"""
+    """Compile meaning_1 in bold tags and meaning_lit,
+    or return meaning_2 and meaning_lit."""
 
     if i.meaning_1:
         meaning: str = f"<b>{i.meaning_1}</b>"

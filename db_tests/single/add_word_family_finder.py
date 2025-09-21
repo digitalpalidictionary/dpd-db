@@ -3,18 +3,16 @@
 
 """Find missing word families."""
 
-import re
 import pickle
-import pyperclip
+import re
 
+import pyperclip
 from rich import print
 from rich.prompt import Prompt
-
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.meaning_construction import make_meaning_combo
 from tools.paths import ProjectPaths
 
 
@@ -46,13 +44,13 @@ def build_word_family_dict(dpd_db):
 
     for i in dpd_db:
         if (
-            not i.family_word and
-            i.family_compound and
-            not re.findall(r"\bcomp\b", i.grammar) and
-            not i.root_key and
-            "idiom" not in i.pos and
-            "sandhi" not in i.pos
-                ):
+            not i.family_word
+            and i.family_compound
+            and not re.findall(r"\bcomp\b", i.grammar)
+            and not i.root_key
+            and "idiom" not in i.pos
+            and "sandhi" not in i.pos
+        ):
             for cf in i.family_compound_list:
                 if cf not in word_family_dict:
                     word_family_dict[cf] = [i.lemma_1]
@@ -72,14 +70,16 @@ def order_word_family_dict(word_family_dict):
     print("[green]sorting word_family_dict")
 
     word_order = sorted(
-        word_family_dict,
-        key=lambda k: len(word_family_dict[k]), reverse=True)
+        word_family_dict, key=lambda k: len(word_family_dict[k]), reverse=True
+    )
 
     return word_order
 
 
-def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_dict, word_order):
-    """Test if word is compound or word_family and add info to db. """
+def find_in_family_compound(
+    pth: ProjectPaths, db_session: Session, word_family_dict, word_order
+):
+    """Test if word is compound or word_family and add info to db."""
     print("[green]finding word families in family_compound")
 
     processed_words = []
@@ -104,12 +104,15 @@ def find_in_family_compound(pth: ProjectPaths, db_session: Session, word_family_
         print(f"/^({'|'.join(word_family_dict[word])})$/")
         for x in word_family_dict[word]:
             if x not in processed_words:
-                headword = db_session.query(DpdHeadword) \
-                    .filter(DpdHeadword.lemma_1 == x) \
+                headword = (
+                    db_session.query(DpdHeadword)
+                    .filter(DpdHeadword.lemma_1 == x)
                     .first()
+                )
                 if headword is not None and headword.lemma_1 not in exceptions_list:
-                    meaning = make_meaning_combo(headword)
-                    query = Prompt.ask(f"{x}: [green]{headword.pos}. [light_green]{meaning} ")
+                    query = Prompt.ask(
+                        f"{x}: [green]{headword.pos}. [light_green]{headword.meaning_combo} "
+                    )
                     if query == "c":
                         headword.grammar += ", comp"
                         processed_words += [x]
@@ -171,9 +174,7 @@ def make_word_family_set(db_session):
         except TypeError:
             print(i.lemma_1)
 
-    exceptions = [
-        "", "ka", "na", "a", "vi"
-    ]
+    exceptions = ["", "ka", "na", "a", "vi"]
 
     for e in exceptions:
         if e in word_family_set:
@@ -236,14 +237,15 @@ def find_in_construction(dpd_db, word_family_set):
         wf_list = []
         for i in dpd_db:
             if (
-                not re.findall(r"\bcomp\b", i.grammar) and
-                not re.findall(r"\bdeno", i.grammar) and
-                not re.findall("sandhi", i.pos) and
-                not re.findall("idiom", i.pos) and
-                not re.findall("prefix", i.pos) and
-                re.findall(fr"\b{wf}\b", i.construction) and
-                not i.family_word and
-                not i.root_key):
+                not re.findall(r"\bcomp\b", i.grammar)
+                and not re.findall(r"\bdeno", i.grammar)
+                and not re.findall("sandhi", i.pos)
+                and not re.findall("idiom", i.pos)
+                and not re.findall("prefix", i.pos)
+                and re.findall(rf"\b{wf}\b", i.construction)
+                and not i.family_word
+                and not i.root_key
+            ):
                 wf_list += [i.lemma_1]
             for e in exceptions:
                 if e in wf_list:
@@ -251,7 +253,7 @@ def find_in_construction(dpd_db, word_family_set):
 
         if len(wf_list) > 0:
             print(f"{counter}. {wf}: {wf_list}")
-            regex = fr"/\b{wf}\b|^({'|'.join(wf_list)})$/"
+            regex = rf"/\b{wf}\b|^({'|'.join(wf_list)})$/"
             print(regex)
             pyperclip.copy(regex)
             input()
@@ -279,25 +281,27 @@ def find_in_lemma_1(dpd_db, word_family_set):
         "sata 3.1",
         "sattu 1.1",
         "samma 2",
-        "sāla 2.1"
+        "sāla 2.1",
     ]
 
     pos_exceptions = ["abbrev", "prefix", "suffix", "cs", "ve", "sandhi"]
 
     for i in dpd_db:
-        if (i.lemma_clean in word_family_set and
-                i.lemma_1 not in exceptions and
-                not i.family_word and
-                not i.root_key and
-                i.pos not in pos_exceptions):
+        if (
+            i.lemma_clean in word_family_set
+            and i.lemma_1 not in exceptions
+            and not i.family_word
+            and not i.root_key
+            and i.pos not in pos_exceptions
+        ):
             if i.lemma_clean not in wf_dict:
                 wf_dict[i.lemma_clean] = [i.lemma_1]
             else:
                 wf_dict[i.lemma_clean] += [i.lemma_1]
 
     for counter, wf in enumerate(wf_dict):
-        print(f"{counter+1} / {len(wf_dict)}\t{wf}")
-        regex = fr"/\b{wf}\b|^({'|'.join(wf_dict[wf])})$/"
+        print(f"{counter + 1} / {len(wf_dict)}\t{wf}")
+        regex = rf"/\b{wf}\b|^({'|'.join(wf_dict[wf])})$/"
         print(regex)
         pyperclip.copy(regex)
         input()

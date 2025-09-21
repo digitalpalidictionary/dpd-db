@@ -16,7 +16,6 @@ from gui.functions import load_gui_config
 from tools.cst_sc_text_sets import make_cst_text_list, make_sc_text_list
 from tools.cst_source_sutta_example import find_cst_source_sutta_example
 from tools.goldendict_tools import open_in_goldendict
-from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 
@@ -582,7 +581,7 @@ def update_gui(p2d: Pass2Data, wd: WordData, headword: DpdHeadword):
     p2d.pass2_window["pass2_id"].update(value=headword.id)
     p2d.pass2_window["pass2_headword"].update(value=headword.lemma_1)
     p2d.pass2_window["pass2_pos"].update(value=headword.pos)
-    p2d.pass2_window["pass2_meaning"].update(value=f"{make_meaning_combo(headword)}")
+    p2d.pass2_window["pass2_meaning"].update(value=headword.meaning_combo)
     p2d.pass2_window.refresh()
 
 

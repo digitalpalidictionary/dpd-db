@@ -4,14 +4,12 @@
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilySet
+from tools.configger import config_test
 from tools.degree_of_completion import degree_of_completion
-from tools.printer import printer as pr
-from tools.superscripter import superscripter_uni
-from tools.meaning_construction import make_meaning_combo
-
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
-from tools.configger import config_test
+from tools.printer import printer as pr
+from tools.superscripter import superscripter_uni
 
 
 def main():
@@ -72,7 +70,7 @@ def make_sets_dict(sets_db):
     return sets_dict
 
 
-def compile_sf_html(sets_db, sets_dict):
+def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
     pr.green("compiling html")
 
     for __counter__, i in enumerate(sets_db):
@@ -84,12 +82,10 @@ def compile_sf_html(sets_db, sets_dict):
                     else:
                         html_string = sets_dict[sf]["html"]
 
-                    meaning = make_meaning_combo(i)
-
                     html_string += "<tr>"
                     html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
                     html_string += f"<td><b>{i.pos}</b></td>"
-                    html_string += f"<td>{meaning}</td>"
+                    html_string += f"<td>{i.meaning_combo}</td>"
                     html_string += f"<td>{degree_of_completion(i)}</td>"
                     html_string += "</tr>"
 
@@ -97,7 +93,12 @@ def compile_sf_html(sets_db, sets_dict):
 
                     # data
                     sets_dict[sf]["data"].append(
-                        (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
+                        (
+                            i.lemma_1,
+                            i.pos,
+                            i.meaning_combo,
+                            degree_of_completion(i, html=False),
+                        )
                     )
 
     for i in sets_dict:

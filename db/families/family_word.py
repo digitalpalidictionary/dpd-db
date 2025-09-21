@@ -7,7 +7,6 @@ from db.models import DpdHeadword, FamilyWord
 from scripts.build.anki_updater import family_updater
 from tools.configger import config_test
 from tools.degree_of_completion import degree_of_completion
-from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -88,12 +87,10 @@ def compile_wf_html(wf_db: list[DpdHeadword], wf_dict):
             else:
                 html_string = wf_dict[wf]["html"]
 
-            meaning = make_meaning_combo(i)
-
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"
-            html_string += f"<td>{meaning}</td>"
+            html_string += f"<td>{i.meaning_combo}</td>"
             html_string += f"<td>{degree_of_completion(i)}</td>"
             html_string += "</tr>"
 
@@ -101,11 +98,11 @@ def compile_wf_html(wf_db: list[DpdHeadword], wf_dict):
 
             # anki data
             construction = i.construction_clean if i.meaning_1 else ""
-            wf_dict[wf]["anki"] += [(i.lemma_1, i.pos, meaning, construction)]
+            wf_dict[wf]["anki"] += [(i.lemma_1, i.pos, i.meaning_combo, construction)]
 
             # data
             wf_dict[wf]["data"].append(
-                (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
+                (i.lemma_1, i.pos, i.meaning_combo, degree_of_completion(i, html=False))
             )
 
     for i in wf_dict:

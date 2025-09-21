@@ -653,13 +653,14 @@ class DpdHeadword(Base):
 
     @property
     def meaning_combo(self) -> str:
+        """`meaning_1` if it exists, else `meaning_2`, plus `literal meaning` if it exists."""
         from tools.meaning_construction import make_meaning_combo
 
         return make_meaning_combo(self)
 
     @property
     def meaning_combo_html(self) -> str:
-        """meaning_1 if it exists, else meaning_1, plus lit"""
+        """`meaning_1` in bold tags if it exists, else `meaning_1`, plus `literal meaning` if it exists."""
         from tools.meaning_construction import make_meaning_combo_html
 
         return make_meaning_combo_html(self)

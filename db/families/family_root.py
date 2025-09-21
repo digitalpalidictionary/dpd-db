@@ -15,7 +15,6 @@ from scripts.build.anki_updater import family_updater
 from tools.configger import config_test
 from tools.degree_of_completion import degree_of_completion
 from tools.lookup_is_another_value import is_another_value
-from tools.meaning_construction import make_meaning_combo
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -118,12 +117,12 @@ def compile_rf_html(dpd_db: list[DpdHeadword], rf_dict):
             else:
                 html_string = rf_dict[family]["html"]
 
-            meaning = make_meaning_combo(i)
+            # meaning = i.meaning_combo
 
             html_string += "<tr>"
             html_string += f"<th>{superscripter_uni(i.lemma_1)}</th>"
             html_string += f"<td><b>{i.pos}</b></td>"
-            html_string += f"<td>{meaning}</td>"
+            html_string += f"<td>{i.meaning_combo}</td>"
             html_string += f"<td>{degree_of_completion(i)}</td>"
             html_string += "</tr>"
 
@@ -131,7 +130,7 @@ def compile_rf_html(dpd_db: list[DpdHeadword], rf_dict):
 
             # data
             rf_dict[family]["data"].append(
-                (i.lemma_1, i.pos, meaning, degree_of_completion(i, html=False))
+                (i.lemma_1, i.pos, i.meaning_combo, degree_of_completion(i, html=False))
             )
 
             # anki data
@@ -141,7 +140,7 @@ def compile_rf_html(dpd_db: list[DpdHeadword], rf_dict):
             if not i.meaning_1:
                 construction = f"-{construction}"
             rf_dict[family]["anki"].append(
-                (anki_family, i.lemma_1, i.pos, meaning, construction)
+                (anki_family, i.lemma_1, i.pos, i.meaning_combo, construction)
             )
 
     for rf in rf_dict:
