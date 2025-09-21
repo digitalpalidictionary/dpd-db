@@ -32,7 +32,7 @@ from tools.exporter_functions import (
     get_family_set,
 )
 from tools.goldendict_exporter import DictEntry
-from tools.meaning_construction import make_grammar_line, make_meaning_combo_html
+from tools.meaning_construction import make_grammar_line
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS, INDECLINABLES
@@ -406,7 +406,6 @@ def render_dpd_definition_templ(
         plus_case: str = i.plus_case
 
     # meaning
-    meaning = make_meaning_combo_html(i)
     summary = i.construction_summary
     complete = degree_of_completion(i)
 
@@ -419,7 +418,7 @@ def render_dpd_definition_templ(
             make_link=make_link,
             pos=pos,
             plus_case=plus_case,
-            meaning=meaning,
+            meaning=i.meaning_combo_html,
             summary=summary,
             complete=complete,
             id=id,
@@ -575,14 +574,13 @@ def render_grammar_templ(
             i.construction = ""
 
     grammar = make_grammar_line(i)
-    meaning = f"{make_meaning_combo_html(i)}"
 
     return str(
         grammar_templ.render(
             i=i,
             rt=rt,
             grammar=grammar,
-            meaning=meaning,
+            meaning=i.meaning_combo_html,
             today=TODAY,
         )
     )

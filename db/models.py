@@ -659,6 +659,7 @@ class DpdHeadword(Base):
 
     @property
     def meaning_combo_html(self) -> str:
+        """meaning_1 if it exists, else meaning_1, plus lit"""
         from tools.meaning_construction import make_meaning_combo_html
 
         return make_meaning_combo_html(self)

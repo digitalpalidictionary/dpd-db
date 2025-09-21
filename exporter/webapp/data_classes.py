@@ -4,13 +4,12 @@ from tools.date_and_time import year_month_day_dash
 from tools.degree_of_completion import degree_of_completion
 from tools.meaning_construction import (
     make_grammar_line,
-    make_meaning_combo_html,
 )
 
 
 class HeadwordData:
     def __init__(self, i: DpdHeadword, fc, fi, fs):
-        self.meaning = make_meaning_combo_html(i)
+        self.meaning = i.meaning_combo_html
         self.summary = i.construction_summary
         self.complete = degree_of_completion(i)
         self.grammar = make_grammar_line(i)

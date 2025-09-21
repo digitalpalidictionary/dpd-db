@@ -23,7 +23,8 @@ def make_meaning_combo(i: DpdHeadword) -> str:
 
 
 def make_meaning_combo_html(i: DpdHeadword) -> str:
-    """Compile html of meaning_1 and literal meaning, or return meaning_2.
+    """Compile html of meaning_1 and meaning_lit,
+    or return meaning_2 and meaning_lit
     Meaning_1 in <b>bold</b>"""
 
     if i.meaning_1:
@@ -109,7 +110,7 @@ def summarize_construction(i: DpdHeadword) -> str:
                 root_plus_sign = f"{i.root_clean} + {i.root_sign}"
                 construction = re.sub(base, root_plus_sign, construction)
             else:
-                # reaplce base with base construction
+                # replace base with base construction
                 construction = re.sub(base, base_construction, construction)
             return construction
     else:

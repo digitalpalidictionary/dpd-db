@@ -22,7 +22,7 @@ from tools.deconstructed_words import make_words_in_deconstructions
 from tools.degree_of_completion import degree_of_completion
 from tools.diacritics_cleaner import diacritics_cleaner
 from tools.first_letter import find_first_letter
-from tools.meaning_construction import make_grammar_line, make_meaning_combo_html
+from tools.meaning_construction import make_grammar_line
 from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -195,7 +195,7 @@ def render_ebook_entry(
     summary = f"{i.pos}. "
     if i.plus_case:
         summary += f"({i.plus_case}) "
-    summary += make_meaning_combo_html(i)
+    summary += i.meaning_combo_html
 
     construction = i.construction_summary
     if construction:
@@ -254,16 +254,13 @@ def render_grammar_templ(
 
     if i.meaning_1:
         grammar = make_grammar_line(i)
-
-        meaning = f"{make_meaning_combo_html(i)}"
-
         ebook_grammar_templ = Template(filename=str(pth.ebook_grammar_templ_path))
 
         return str(
             ebook_grammar_templ.render(
                 i=i,
                 grammar=grammar,
-                meaning=meaning,
+                meaning=i.meaning_combo_html,
             )
         )
 
