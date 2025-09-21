@@ -7,30 +7,26 @@ The word set is limited to
 - words in deconstructed compounds."""
 
 import subprocess
-from pathlib import Path
-
 from datetime import datetime
+from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile
+
 from mako.template import Template
 from rich import print
-from zipfile import ZipFile, ZIP_DEFLATED
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
-
 from tools.configger import config_test
-from tools.cst_sc_text_sets import make_cst_text_set
-from tools.cst_sc_text_sets import make_sc_text_set
+from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
+from tools.deconstructed_words import make_words_in_deconstructions
+from tools.degree_of_completion import degree_of_completion
 from tools.diacritics_cleaner import diacritics_cleaner
 from tools.first_letter import find_first_letter
-from tools.meaning_construction import make_meaning_combo_html
-from tools.meaning_construction import make_grammar_line
-from tools.meaning_construction import summarize_construction
-from tools.degree_of_completion import degree_of_completion
+from tools.meaning_construction import make_grammar_line, make_meaning_combo_html
 from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
-from tools.deconstructed_words import make_words_in_deconstructions
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict
 
@@ -201,7 +197,7 @@ def render_ebook_entry(
         summary += f"({i.plus_case}) "
     summary += make_meaning_combo_html(i)
 
-    construction = summarize_construction(i)
+    construction = i.construction_summary
     if construction:
         summary += f" [{construction}]"
 

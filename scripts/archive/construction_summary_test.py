@@ -7,7 +7,6 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.meaning_construction import summarize_construction
 
 
 def main():
@@ -23,7 +22,7 @@ def main():
         "niddara",
         "niddarathaṃ",
         "niddasa",
-        "sududdasa"
+        "sududdasa",
     ]
 
     for counter, i in enumerate(db):
@@ -34,7 +33,7 @@ def main():
             # and i.construction.startswith("ku ")
             # and i.root_base
         ):
-            construction = summarize_construction(i)
+            construction = i.construction_summary
             if (
                 ">" in construction
                 or " + +" in construction

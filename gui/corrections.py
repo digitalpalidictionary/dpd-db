@@ -4,27 +4,25 @@
 """GUI to add corrections.tsv to the database and give feedback."""
 
 import csv
-import PySimpleGUI as sg # type: ignore
 
+import PySimpleGUI as sg  # type: ignore
 from rich import print
 
-from tools.goldendict_tools import open_in_goldendict
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-
-from tools.meaning_construction import make_meaning_combo
-from tools.meaning_construction import summarize_construction
+from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
-class ProgData():
+class ProgData:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.corrections_list = load_corrections_tsv(self.pth)
         self.headword: DpdHeadword = DpdHeadword()
         self.index: int
+
 
 def main():
     window = make_window()
@@ -40,10 +38,9 @@ def main():
 
         if event == "id_enter":
             id_val = values["id"]
-            headword = g.db_session \
-                .query(DpdHeadword) \
-                .filter(DpdHeadword.id == id_val) \
-                .first()
+            headword = (
+                g.db_session.query(DpdHeadword).filter(DpdHeadword.id == id_val).first()
+            )
             if headword:
                 g.headword = headword
                 summary = make_summary(g)
@@ -59,32 +56,24 @@ def main():
             if values["field1"] == "source_1":
                 print("!")
                 window["field2"].update(value="sutta_1")
-                window["value2_old"].update(
-                    getattr(g.headword, "sutta_1"))
+                window["value2_old"].update(getattr(g.headword, "sutta_1"))
                 window["field3"].update(value="example_1")
-                window["value3_old"].update(
-                    getattr(g.headword, "example_1"))
+                window["value3_old"].update(getattr(g.headword, "example_1"))
 
             if values["field1"] == "source_2":
                 print("!")
                 window["field2"].update(value="sutta_2")
-                window["value2_old"].update(
-                    getattr(g.headword, "sutta_2"))
+                window["value2_old"].update(getattr(g.headword, "sutta_2"))
                 window["field3"].update(value="example_2")
-                window["value3_old"].update(
-                    getattr(g.headword, "example_2"))
+                window["value3_old"].update(getattr(g.headword, "example_2"))
 
         elif event == "field2":
-            window["value2_old"].update(
-                getattr(g.headword, values["field2"]))
-            window["value2_new"].update(
-                getattr(g.headword, values["field2"]))
+            window["value2_old"].update(getattr(g.headword, values["field2"]))
+            window["value2_new"].update(getattr(g.headword, values["field2"]))
 
         elif event == "field3":
-            window["value3_old"].update(
-                getattr(g.headword, values["field3"]))
-            window["value3_new"].update(
-                getattr(g.headword, values["field3"]))
+            window["value3_old"].update(getattr(g.headword, values["field3"]))
+            window["value3_new"].update(getattr(g.headword, values["field3"]))
 
         elif event == "clear_all":
             clear_all(values, window)
@@ -131,8 +120,8 @@ def main():
                 find_next_correction(g, window, values)
             else:
                 sg.popup(
-                    "Warning!", "Can't reject without feedback!",
-                    title="No Feedback!")
+                    "Warning!", "Can't reject without feedback!", title="No Feedback!"
+                )
 
         elif event == "pass_button":
             values["add_approved"] = ""
@@ -162,101 +151,106 @@ def make_window():
         [
             sg.Text("id", size=(15, 1)),
             sg.Input("", key="add_id", size=(20, 1)),
-            sg.Button(
-                "Start", key="start", font=(None, 13)),
+            sg.Button("Start", key="start", font=(None, 13)),
         ],
         [
             sg.Text("summary", size=(15, 1)),
             sg.Multiline(
-                "", key="add_summary", size=(50, 1), disabled=True,
-                pad=((0, 100), (0, 0)))
+                "",
+                key="add_summary",
+                size=(50, 1),
+                disabled=True,
+                pad=((0, 100), (0, 0)),
+            ),
         ],
         [
             sg.Text("field1", size=(15, 1)),
             sg.Input(
-                key="add_field1", size=(50, 1), text_color="#00bfff",
-                enable_events=True)
+                key="add_field1", size=(50, 1), text_color="#00bfff", enable_events=True
+            ),
         ],
         [
             sg.Text("value1_new", size=(15, 1)),
-            sg.Multiline(
-                "", key="add_value1_new", size=(50, 4),
-                enable_events=True),
+            sg.Multiline("", key="add_value1_new", size=(50, 4), enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
-                "", key="add_value1_old", size=(50, 4), disabled=True,
-                background_color="black"),
+                "",
+                key="add_value1_old",
+                size=(50, 4),
+                disabled=True,
+                background_color="black",
+            ),
         ],
         [
             sg.Text("field2", size=(15, 1)),
             sg.Input(
-                key="add_field2", size=(50, 1), text_color="#00bfff",
-                enable_events=True)
+                key="add_field2", size=(50, 1), text_color="#00bfff", enable_events=True
+            ),
         ],
         [
             sg.Text("value2_new", size=(15, 1)),
-            sg.Multiline(
-                key="add_value2_new", size=(50, 4),
-                enable_events=True),
+            sg.Multiline(key="add_value2_new", size=(50, 4), enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
-                "", key="add_value2_old", size=(50, 4), disabled=True,
-                background_color="black"),
+                "",
+                key="add_value2_old",
+                size=(50, 4),
+                disabled=True,
+                background_color="black",
+            ),
         ],
         [
             sg.Text("field3", size=(15, 1)),
             sg.Input(
-                key="add_field3", size=(50, 1), text_color="#00bfff",
-                enable_events=True),
+                key="add_field3", size=(50, 1), text_color="#00bfff", enable_events=True
+            ),
         ],
         [
             sg.Text("value3_new", size=(15, 1)),
-            sg.Multiline(
-                key="add_value3_new", size=(50, 4), enable_events=True),
+            sg.Multiline(key="add_value3_new", size=(50, 4), enable_events=True),
             sg.Text("old", size=(5, 1), justification="right"),
             sg.Multiline(
-                key="add_value3_old", size=(50, 4), disabled=True,
-                background_color="black"),
+                key="add_value3_old",
+                size=(50, 4),
+                disabled=True,
+                background_color="black",
+            ),
         ],
         [
             sg.Text("comment", size=(15, 1)),
-            sg.Input(
-                "", key="add_comment", size=(50, 1), enable_events=True),
+            sg.Input("", key="add_comment", size=(50, 1), enable_events=True),
         ],
         [
             sg.Text("", size=(15, 1)),
         ],
         [
             sg.Text("feedback", size=(15, 1)),
-            sg.Input(
-                "", key="add_feedback", size=(50, 1), enable_events=True),
+            sg.Input("", key="add_feedback", size=(50, 1), enable_events=True),
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Reject", key="reject_button", size=(50, 1))
+            sg.Button("Reject", key="reject_button", size=(50, 1)),
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Approve", key="approve_button", size=(50, 1))
+            sg.Button("Approve", key="approve_button", size=(50, 1)),
         ],
-        [
-            sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Pass", key="pass_button", size=(50, 1))
-        ],
+        [sg.Text("", size=(15, 1)), sg.Button("Pass", key="pass_button", size=(50, 1))],
     ]
 
     tab_group = sg.TabGroup(
-        [[
-            sg.Tab(
-                "Add Corrections to DB", add_corrections_tab,
-                key="add_corrections_tab"),
-        ]],
+        [
+            [
+                sg.Tab(
+                    "Add Corrections to DB",
+                    add_corrections_tab,
+                    key="add_corrections_tab",
+                ),
+            ]
+        ],
         key="tabgroup",
         enable_events=True,
-        size=(None, None)
+        size=(None, None),
     )
 
     layout = [
@@ -274,20 +268,21 @@ def make_window():
 
 
 def make_summary(g: ProgData):
-    word = g.headword.lemma_1
-    pos = g.headword.pos
-    meaning = make_meaning_combo(g.headword)
-    construction = summarize_construction(g.headword)
-    return f"{word}: {pos}. {meaning} [{construction}]"
+    return f"{g.headword.lemma_1}: {g.headword.pos}. {g.headword.meaning_combo} [{g.headword.construction_summary}]"
 
 
 def save_corrections_tsv(values, g: ProgData):
     headings = [
         "id",
-        "field1", "value1_new",
-        "field2", "value2_new",
-        "field3", "value3_new",
-        "comment", "feedback", "approved"
+        "field1",
+        "value1_new",
+        "field2",
+        "value2_new",
+        "field3",
+        "value3_new",
+        "comment",
+        "feedback",
+        "approved",
     ]
 
     if not g.pth.corrections_tsv_path.exists():
@@ -313,9 +308,9 @@ def clear_all(values, window):
 def clear_all_add_tab(values, window):
     for value in values:
         if (
-            value.startswith("add_") and
-            "_tab" not in value and
-            "_approved" not in value
+            value.startswith("add_")
+            and "_tab" not in value
+            and "_approved" not in value
         ):
             window[value].update("")
 
@@ -341,10 +336,9 @@ def find_next_correction(g: ProgData, window, values):
 
 
 def load_next_correction(g: ProgData, correction, window):
-    headword = g.db_session \
-        .query(DpdHeadword) \
-        .filter(correction.id == DpdHeadword.id) \
-        .first()
+    headword = (
+        g.db_session.query(DpdHeadword).filter(correction.id == DpdHeadword.id).first()
+    )
     if headword:
         g.headword = headword
         window["remaining"].update(get_remaining_corrections(g))
@@ -382,23 +376,34 @@ def write_to_db(g: ProgData, values):
 
         if field1:
             setattr(g.headword, field1, value1)
-            print(f'{g.headword.id} {g.headword.lemma_1} [yellow]{field1} [white]updated to [yellow]{value1}')
+            print(
+                f"{g.headword.id} {g.headword.lemma_1} [yellow]{field1} [white]updated to [yellow]{value1}"
+            )
         if field2:
             setattr(g.headword, field2, value2)
-            print(f'{g.headword.id} {g.headword.lemma_1} [yellow]{field2} [white]updated to [yellow]{value2}')
+            print(
+                f"{g.headword.id} {g.headword.lemma_1} [yellow]{field2} [white]updated to [yellow]{value2}"
+            )
         if field3:
             setattr(g.headword, field3, value3)
-            print(f'{g.headword.id} {g.headword.lemma_1} [yellow]{field3} [white]updated to [yellow]{value3}')
+            print(
+                f"{g.headword.id} {g.headword.lemma_1} [yellow]{field3} [white]updated to [yellow]{value3}"
+            )
         g.db_session.commit()
 
 
 def update_corrections_tsv(g: ProgData, values):
     fields = [
         "add_id",
-        "add_field1", "add_value1_new",
-        "add_field2", "add_value2_new",
-        "add_field3", "add_value3_new",
-        "add_comment", "add_feedback", "add_approved"
+        "add_field1",
+        "add_value1_new",
+        "add_field2",
+        "add_value2_new",
+        "add_field3",
+        "add_value3_new",
+        "add_comment",
+        "add_feedback",
+        "add_approved",
     ]
 
     correction = g.corrections_list[g.index]

@@ -1,30 +1,27 @@
 """Compile HTML data for DpdHeadword."""
 
+from multiprocessing import Manager, Process
+from multiprocessing.managers import ListProxy
+from typing import List, Set, Tuple, TypedDict
+
 import psutil
-
-from sqlalchemy.sql import func
-
 
 # from css_html_js_minify import css_minify, js_minify
 from mako.template import Template
 from minify_html import minify
-from multiprocessing.managers import ListProxy
-from multiprocessing import Process, Manager
-from typing import List, Set, TypedDict, Tuple
-
 from sqlalchemy.orm.session import Session
+from sqlalchemy.sql import func
 
+from db.models import (
+    DpdHeadword,
+    DpdRoot,
+    FamilyCompound,
+    FamilyIdiom,
+    FamilyRoot,
+    FamilySet,
+    FamilyWord,
+)
 from exporter.goldendict.helpers import TODAY
-
-from db.models import DpdHeadword
-from db.models import DpdRoot
-from db.models import FamilyCompound
-from db.models import FamilyIdiom
-from db.models import FamilyRoot
-from db.models import FamilySet
-from db.models import FamilyWord
-
-
 from tools.configger import config_test
 from tools.css_manager import CSSManager
 from tools.date_and_time import year_month_day_dash
@@ -35,16 +32,20 @@ from tools.exporter_functions import (
     get_family_set,
 )
 from tools.goldendict_exporter import DictEntry
-from tools.meaning_construction import make_meaning_combo_html, make_grammar_line
-from tools.meaning_construction import summarize_construction
+from tools.meaning_construction import make_grammar_line, make_meaning_combo_html
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS, INDECLINABLES
 from tools.printer import printer as pr
 from tools.sandhi_contraction import SandhiContractionDict
 from tools.superscripter import superscripter_uni
-from tools.utils import RenderedSizes, default_rendered_sizes, list_into_batches
-from tools.utils import sum_rendered_sizes, squash_whitespaces
+from tools.utils import (
+    RenderedSizes,
+    default_rendered_sizes,
+    list_into_batches,
+    squash_whitespaces,
+    sum_rendered_sizes,
+)
 
 
 class DpdHeadwordTemplates:
@@ -406,7 +407,7 @@ def render_dpd_definition_templ(
 
     # meaning
     meaning = make_meaning_combo_html(i)
-    summary = summarize_construction(i)
+    summary = i.construction_summary
     complete = degree_of_completion(i)
 
     # id

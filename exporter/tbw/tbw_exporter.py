@@ -15,7 +15,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from tools.configger import config_test
 from tools.cst_sc_text_sets import make_sc_text_set
-from tools.meaning_construction import make_meaning_combo_html, summarize_construction
+from tools.meaning_construction import make_meaning_combo_html
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -157,7 +157,7 @@ def generate_dpd_ebt_dict(g: ProgData):
             string = f"{i.pos}. "
             string += make_meaning_combo_html(i)
             if i.construction:
-                string += f" [{summarize_construction(i)}]"
+                string += f" [{i.construction_summary}]"
             g.dpd_dict[i.lemma_1] = string
 
     g.dpd_dict = dict(sorted(g.dpd_dict.items(), key=lambda x: pali_sort_key(x[0])))
