@@ -15,7 +15,7 @@ from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -26,7 +26,7 @@ class ProgData:
 
 def main():
     window = make_window()
-    g = ProgData()
+    g = GlobalVars()
 
     while True:
         event, values = window.read()
@@ -267,11 +267,11 @@ def make_window():
     return window
 
 
-def make_summary(g: ProgData):
+def make_summary(g: GlobalVars):
     return f"{g.headword.lemma_1}: {g.headword.pos}. {g.headword.meaning_combo} [{g.headword.construction_summary}]"
 
 
-def save_corrections_tsv(values, g: ProgData):
+def save_corrections_tsv(values, g: GlobalVars):
     headings = [
         "id",
         "field1",
@@ -321,7 +321,7 @@ def load_corrections_tsv(pth: ProjectPaths):
     return corrections_list
 
 
-def find_next_correction(g: ProgData, window, values):
+def find_next_correction(g: GlobalVars, window, values):
     for index, correction in enumerate(g.corrections_list):
         if (
             (correction.field1 and not correction.approved)
@@ -335,7 +335,7 @@ def find_next_correction(g: ProgData, window, values):
             break
 
 
-def load_next_correction(g: ProgData, correction, window):
+def load_next_correction(g: GlobalVars, correction, window):
     headword = (
         g.db_session.query(DpdHeadword).filter(correction.id == DpdHeadword.id).first()
     )
@@ -365,7 +365,7 @@ def load_next_correction(g: ProgData, correction, window):
         window["add_summary"].update(message, text_color="red")
 
 
-def write_to_db(g: ProgData, values):
+def write_to_db(g: GlobalVars, values):
     if g.headword:
         field1 = values["add_field1"]
         field2 = values["add_field2"]
@@ -392,7 +392,7 @@ def write_to_db(g: ProgData, values):
         g.db_session.commit()
 
 
-def update_corrections_tsv(g: ProgData, values):
+def update_corrections_tsv(g: GlobalVars, values):
     fields = [
         "add_id",
         "add_field1",

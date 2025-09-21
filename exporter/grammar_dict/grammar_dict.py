@@ -6,18 +6,21 @@ from mako.template import Template
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
-
 from tools.configger import config_test
 from tools.css_manager import CSSManager
-from tools.goldendict_exporter import DictInfo, DictVariables, DictEntry
-from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import (
+    DictEntry,
+    DictInfo,
+    DictVariables,
+    export_to_goldendict_with_pyglossary,
+)
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         if config_test("dictionary", "make_mdict", "yes"):
             self.make_mdict = True
@@ -49,7 +52,7 @@ def main():
         pr.toc()
         return
 
-    g = ProgData()
+    g = GlobalVars()
 
     generate_html_from_lookup(g)  # New function replaces old ones
 
@@ -69,7 +72,7 @@ def render_header_templ(
     return str(header_templ.render(css=css, js=js))
 
 
-def generate_html_from_lookup(g: ProgData):
+def generate_html_from_lookup(g: GlobalVars):
     """Generate HTML grammar tables from Lookup table data."""
     pr.green("querying database")
 
@@ -147,7 +150,7 @@ def generate_html_from_lookup(g: ProgData):
     pr.yes(len(g.html_dict))
 
 
-def make_data_lists(g: ProgData):
+def make_data_lists(g: GlobalVars):
     """Make the data_lists to be consumed by GoldenDict and MDict"""
     pr.green("making data lists")
 
@@ -166,7 +169,7 @@ def make_data_lists(g: ProgData):
     pr.yes("ok")
 
 
-def prepare_gd_mdict_and_export(g: ProgData):
+def prepare_gd_mdict_and_export(g: GlobalVars):
     """Prepare the metadata and export to goldendict & mdict."""
 
     dict_info = DictInfo(

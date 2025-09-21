@@ -6,19 +6,19 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from gui.functions_tests import make_internal_tests_list, write_internal_tests_list
 from tools.paths import ProjectPaths
 
-from gui.functions_tests import make_internal_tests_list
-from gui.functions_tests import write_internal_tests_list
 
-class ProgData():
+class GlobalVars:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     pali_to_id_dict: dict
     internal_tests_list: list
 
-g = ProgData()
+
+g = GlobalVars()
 
 
 def make_pali_to_id_dict():
@@ -33,15 +33,15 @@ def main():
     g.internal_tests_list = make_internal_tests_list(g.pth)
     for i in g.internal_tests_list:
         exceptions_ids = []
-        for exception in i.exceptions:            
+        for exception in i.exceptions:
             exception_id = g.pali_to_id_dict.get(exception, None)
-            
+
             if exception_id:
                 exceptions_ids.append(exception_id)
             else:
                 print(exception, end=" > ")
                 print(exception_id)
-        
+
         print(f"{i.test_name:<30}", end="")
         print(i.exceptions)
         print(f"{i.test_name:<30}", end="")
@@ -49,13 +49,6 @@ def main():
         print(i.exceptions)
 
     write_internal_tests_list(g.pth, g.internal_tests_list)
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

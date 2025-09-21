@@ -12,7 +12,7 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
-class ProgData:
+class GlobalVars:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
@@ -29,49 +29,49 @@ class ProgData:
 
 
 def main():
-    pd = ProgData()
-    for i in pd.db:
-        pd.update_prog_data(i)
-        test_logic(pd)
+    g = GlobalVars()
+    for i in g.db:
+        g.update_prog_data(i)
+        test_logic(g)
 
 
-def test_logic(pd: ProgData):
-    if not (pd.i.root_key and pd.i.meaning_1):
+def test_logic(g: GlobalVars):
+    if not (g.i.root_key and g.i.meaning_1):
         return
 
-    make_root_family_prefix(pd)
+    make_root_family_prefix(g)
 
-    if pd.i.root_base:
-        make_construction_without_base(pd)
+    if g.i.root_base:
+        make_construction_without_base(g)
     else:
-        make_construction_without_root(pd)
+        make_construction_without_root(g)
 
-    if pd.root_fam_prefix != pd.construction_prefix:
-        fix_root_or_construction(pd)
+    if g.root_fam_prefix != g.construction_prefix:
+        fix_root_or_construction(g)
         return
 
-    make_root_family_prefix(pd)
+    make_root_family_prefix(g)
 
-    if pd.i.root_base:
-        make_construction_without_base(pd)
+    if g.i.root_base:
+        make_construction_without_base(g)
     else:
-        make_construction_without_root(pd)
+        make_construction_without_root(g)
 
-    if pd.root_fam_prefix != pd.construction_prefix:
-        fix_root_or_construction(pd)
-        make_root_family_prefix(pd)
-        if pd.i.root_base:
-            make_construction_without_base(pd)
-            if pd.root_fam_prefix != pd.construction_prefix:
-                fix_root_or_construction(pd)
+    if g.root_fam_prefix != g.construction_prefix:
+        fix_root_or_construction(g)
+        make_root_family_prefix(g)
+        if g.i.root_base:
+            make_construction_without_base(g)
+            if g.root_fam_prefix != g.construction_prefix:
+                fix_root_or_construction(g)
         else:
-            make_construction_without_root(pd)
-            if pd.root_fam_prefix != pd.construction_prefix:
-                fix_root_or_construction(pd)
+            make_construction_without_root(g)
+            if g.root_fam_prefix != g.construction_prefix:
+                fix_root_or_construction(g)
 
 
-def fix_root_or_construction(pd: ProgData):
-    printer(pd)
+def fix_root_or_construction(g: GlobalVars):
+    printer(g)
     print(
         "[cyan]change the [white]r[cyan]oot family or [white]c[cyan]onstruction? ",
         end="",
@@ -83,64 +83,64 @@ def fix_root_or_construction(pd: ProgData):
         new_root_family = input()
         if new_root_family:
             print(f"[green]{'change the root family from':<40}", end="")
-            print(f"[cyan]{pd.i.family_root}[/cyan]")
+            print(f"[cyan]{g.i.family_root}[/cyan]")
             print(f"[green]{'to':<40}", end="")
             print(f"[yellow]{new_root_family}")
             print(f"[green]{'y/n':<40}", end="")
             confirm = input()
             if confirm == "y":
-                pd.i.family_root = new_root_family
-                pd.db_session.commit()
+                g.i.family_root = new_root_family
+                g.db_session.commit()
                 print("[green]family root updated in db!")
-                test_logic(pd)
+                test_logic(g)
 
     if route == "c":
         print(f"[green]{'enter the new construction':<40}", end="")
         new_construction = input()
         if new_construction:
             print(f"[green]{'change the construction from':<40}", end="")
-            print(f"[cyan]{pd.i.construction}[/cyan]")
+            print(f"[cyan]{g.i.construction}[/cyan]")
             print(f"[green]{'to':<40}", end="")
             print(f"[yellow]{new_construction}")
             print(f"[green]{'y/n':<40}", end="")
             confirm = input()
             if confirm == "y":
-                pd.i.construction = new_construction
-                pd.db_session.commit()
+                g.i.construction = new_construction
+                g.db_session.commit()
                 print("[green]construction updated in db!")
-                test_logic(pd)
+                test_logic(g)
 
 
-def make_root_family_prefix(pd: ProgData):
-    pd.root_fam_prefix = re.sub("√.+$", "", pd.i.family_root).strip()
+def make_root_family_prefix(g: GlobalVars):
+    g.root_fam_prefix = re.sub("√.+$", "", g.i.family_root).strip()
 
 
-def make_construction_without_root(pd: ProgData):
-    constr_clean = pd.i.construction_clean
-    pd.constr_no_root_or_base = re.sub("√.+$", "", constr_clean)
-    make_construction_prefix(pd)
+def make_construction_without_root(g: GlobalVars):
+    constr_clean = g.i.construction_clean
+    g.constr_no_root_or_base = re.sub("√.+$", "", constr_clean)
+    make_construction_prefix(g)
 
 
-def make_construction_without_base(pd: ProgData):
+def make_construction_without_base(g: GlobalVars):
     # remove base types: pass, caus, denom etc.
-    base_clean = re.sub(" \\(.+\\)$", "", pd.i.root_base)
+    base_clean = re.sub(" \\(.+\\)$", "", g.i.root_base)
 
     # remove base root + sign
     base = re.sub("(.+ )(.+?$)", "\\2", base_clean)
 
     # construction without '>' etc
-    constr_clean = pd.i.construction_clean
+    constr_clean = g.i.construction_clean
 
     # remove base onwards from construction
     constr_no_base = re.sub(f"{base}.+$", "", constr_clean)
 
-    pd.constr_no_root_or_base = constr_no_base
+    g.constr_no_root_or_base = constr_no_base
 
-    make_construction_prefix(pd)
+    make_construction_prefix(g)
 
 
-def make_construction_prefix(pd: ProgData):
-    c = pd.constr_no_root_or_base
+def make_construction_prefix(g: GlobalVars):
+    c = g.constr_no_root_or_base
 
     # remove other prefix and plus space
     c = re.sub("\\?\\?", "", c)
@@ -171,19 +171,19 @@ def make_construction_prefix(pd: ProgData):
     # and finally strip
     c = c.strip()
 
-    pd.construction_prefix = c
+    g.construction_prefix = c
 
 
-def printer(pd):
+def printer(g):
     print("_" * 50)
     print()
-    print(f"[green]{'i.id':<40}[white]{pd.i.id}")
-    print(f"[green]{'i.lemma_1':<40}[white]{pd.i.lemma_1}")
-    print(f"[green]{'i.pos':<40}[white]{pd.i.pos}")
-    print(f"[green]{'i.family_root':<40}[white]{pd.i.family_root}")
-    print(f"[green]{'i.construction':<40}[white]{pd.i.construction}")
-    print(f"[green]{'root_fam_prefix':<40}[white]'{pd.root_fam_prefix}'")
-    print(f"[green]{'construc_prefix':<40}[white]'{pd.construc_prefix}'")
+    print(f"[green]{'i.id':<40}[white]{g.i.id}")
+    print(f"[green]{'i.lemma_1':<40}[white]{g.i.lemma_1}")
+    print(f"[green]{'i.pos':<40}[white]{g.i.pos}")
+    print(f"[green]{'i.family_root':<40}[white]{g.i.family_root}")
+    print(f"[green]{'i.construction':<40}[white]{g.i.construction}")
+    print(f"[green]{'root_fam_prefix':<40}[white]'{g.root_fam_prefix}'")
+    print(f"[green]{'construc_prefix':<40}[white]'{g.construc_prefix}'")
     print()
 
 

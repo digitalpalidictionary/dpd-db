@@ -3,49 +3,53 @@
 
 """Convert lemma_1 to id in various places."""
 
-from copy import deepcopy
 import json
 import pickle
+from copy import deepcopy
+
 from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
-class ProgData():
+
+class GlobalVars:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     pali_to_id_dict: dict
     pass2_dict: dict
 
-pd = ProgData()
+
+g = GlobalVars()
 
 
 def make_pali_to_id_dict():
     pali_to_id_dict = {}
-    for i in pd.db:
+    for i in g.db:
         pali_to_id_dict[i.lemma_1] = i.id
 
-    pd.pali_to_id_dict = pali_to_id_dict
+    g.pali_to_id_dict = pali_to_id_dict
+
 
 def get_pass2_dict():
-    with open(pd.pth.pass2_checked_path, "rb") as file:
-        pd.pass2_dict = pickle.load(file)
+    with open(g.pth.pass2_checked_path, "rb") as file:
+        g.pass2_dict = pickle.load(file)
 
 
 def main():
     make_pali_to_id_dict()
     get_pass2_dict()
 
-    # pass2 structure 
+    # pass2 structure
     # book : data1
     #   data1 : data2
-    #       data2: word :tried 
+    #       data2: word :tried
 
-    pd.pass2_dict["kn9"].pop("nami 1")
+    g.pass2_dict["kn9"].pop("nami 1")
 
-    pass2_dict = deepcopy(pd.pass2_dict)
+    pass2_dict = deepcopy(g.pass2_dict)
 
     for book, data in pass2_dict.items():
         if book != "last_word":
@@ -54,25 +58,20 @@ def main():
                 # print(f"{inflection=}")
                 for headword, tried in data2.items():
                     try:
-                        pd.pass2_dict[book][inflection][pd.pali_to_id_dict[headword]] = list(tried)
-                        pd.pass2_dict[book][inflection].pop(headword)
+                        g.pass2_dict[book][inflection][g.pali_to_id_dict[headword]] = (
+                            list(tried)
+                        )
+                        g.pass2_dict[book][inflection].pop(headword)
                         # print(f"{headword=}")
                     except Exception:
                         print(book, inflection, headword)
-                        pd.pass2_dict[book][inflection].pop(headword)
+                        g.pass2_dict[book][inflection].pop(headword)
                         print()
-    
-    print(pd.pass2_dict)
 
+    print(g.pass2_dict)
 
     with open("scripts/pass2.json", "w") as file:
-        json.dump(pd.pass2_dict, file, ensure_ascii=False, indent=4)
-
-
-
-
-
-
+        json.dump(g.pass2_dict, file, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":

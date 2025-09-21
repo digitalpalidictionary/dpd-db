@@ -27,7 +27,7 @@ from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import UposathaManger
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
@@ -49,7 +49,7 @@ class ProgData:
         return dpd_db
 
 
-def generate_tpr_data(g: ProgData):
+def generate_tpr_data(g: GlobalVars):
     pr.green("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
@@ -248,7 +248,7 @@ def generate_tpr_data(g: ProgData):
     pr.yes(counter)
 
 
-def generate_deconstructor_data(g: ProgData):
+def generate_deconstructor_data(g: GlobalVars):
     """Compile deconstructor data."""
     pr.green("compiling deconstructor data")
 
@@ -330,7 +330,7 @@ def add_roots_to_i2h(g):
     pr.yes(len(roots_db))
 
 
-def write_tsvs(g: ProgData):
+def write_tsvs(g: GlobalVars):
     """Write TSV files of dpd, deconstructor."""
     pr.green("writing tsv files")
 
@@ -349,7 +349,7 @@ def write_tsvs(g: ProgData):
     pr.yes("OK")
 
 
-def copy_to_sqlite_db(g: ProgData):
+def copy_to_sqlite_db(g: GlobalVars):
     pr.green("copying data_list to tpr db")
 
     # data frames
@@ -409,7 +409,7 @@ def copy_to_sqlite_db(g: ProgData):
     g.deconstructor_df = deconstructor_df
 
 
-def tpr_updater(g: ProgData):
+def tpr_updater(g: GlobalVars):
     pr.green("making tpr sql updater")
 
     sql_string = ""
@@ -451,7 +451,7 @@ def tpr_updater(g: ProgData):
     pr.yes("OK")
 
 
-def copy_zip_to_tpr_downloads(g: ProgData):
+def copy_zip_to_tpr_downloads(g: GlobalVars):
     pr.green("updating tpr_downloads")
 
     if not g.pth.tpr_download_list_path.exists():
@@ -534,7 +534,7 @@ def main():
         pr.toc()
         return
 
-    g = ProgData()
+    g = GlobalVars()
 
     if g.pth.tpr_release_path.exists():
         g.all_headwords_clean = make_clean_headwords_set(g.dpd_db)

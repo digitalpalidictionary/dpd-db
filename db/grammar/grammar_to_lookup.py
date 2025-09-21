@@ -5,10 +5,7 @@
 from json import loads
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword
-from db.models import InflectionTemplates
-from db.models import Lookup
-
+from db.models import DpdHeadword, InflectionTemplates, Lookup
 from tools.all_tipitaka_words import make_all_tipitaka_word_set
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.lookup_is_another_value import is_another_value
@@ -18,10 +15,8 @@ from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
-
-
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db = self.load_db()
@@ -53,7 +48,7 @@ def main():
     pr.tic()
     pr.title("exporting grammar data")
 
-    g = ProgData()
+    g = GlobalVars()
 
     modify_pos(g)
     make_sets_of_words(g)
@@ -67,7 +62,7 @@ def main():
     pr.toc()
 
 
-def modify_pos(g: ProgData):
+def modify_pos(g: GlobalVars):
     """Modify parts of speech into general categories."""
 
     # modify parts of speech
@@ -88,7 +83,7 @@ def modify_pos(g: ProgData):
             i.pos = "interr"
 
 
-def make_sets_of_words(g: ProgData):
+def make_sets_of_words(g: GlobalVars):
     """Make the set of all words to be used,
     all words in the tipitaka + all the words in deconstructed compounds"""
 
@@ -108,10 +103,7 @@ def make_sets_of_words(g: ProgData):
     pr.yes(len(g.all_words_set))
 
 
-
-
-
-def generate_grammar_data(g: ProgData):
+def generate_grammar_data(g: GlobalVars):
     pr.green_title("generating grammar data")
 
     # grammar_data is pure data {inflection: [(headword, pos, grammar)]}
@@ -223,15 +215,12 @@ def generate_grammar_data(g: ProgData):
         if counter % 5000 == 0:
             pr.counter(counter, len(g.db), i.lemma_1)
 
-
-
     g.grammar_data = grammar_data
 
     pr.yes(len(g.grammar_data))
 
 
-
-def add_to_lookup_table(g: ProgData):
+def add_to_lookup_table(g: GlobalVars):
     """Add the grammar data items to the Lookup table."""
 
     pr.green("saving to Lookup table")
@@ -265,7 +254,6 @@ def add_to_lookup_table(g: ProgData):
     g.commit_db()
 
     pr.yes("ok")
-
 
 
 if __name__ == "__main__":

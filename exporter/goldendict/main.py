@@ -10,7 +10,6 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-
 from exporter.goldendict.export_dpd import generate_dpd_html
 from exporter.goldendict.export_epd import generate_epd_html
 from exporter.goldendict.export_help import generate_help_html
@@ -32,7 +31,7 @@ from tools.sandhi_contraction import SandhiContractionManager
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
@@ -65,7 +64,7 @@ def main():
         pr.toc()
         return
 
-    g = ProgData()
+    g = GlobalVars()
 
     dpd_data_list, sizes = generate_dpd_html(
         g.db_session,
@@ -116,7 +115,7 @@ def main():
     pr.toc()
 
 
-def prepare_export_to_goldendict_mdict(g: ProgData) -> None:
+def prepare_export_to_goldendict_mdict(g: GlobalVars) -> None:
     """Prepare info and variables for export."""
 
     description = """
@@ -185,7 +184,7 @@ def write_size_dict(pth: ProjectPaths, size_dict):
     pr.yes("ok")
 
 
-def write_limited_datalist(g: ProgData):
+def write_limited_datalist(g: GlobalVars):
     """A limited dataset for troubleshooting purposes"""
 
     limited_data = [item for item in g.dict_data if item.word.startswith("ab")]

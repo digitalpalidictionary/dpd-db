@@ -5,14 +5,13 @@
 
 from functools import reduce
 from zipfile import ZIP_DEFLATED, ZipFile
-from tools.goldendict_exporter import DictEntry
-from tools.goldendict_exporter import DictInfo
-from tools.goldendict_exporter import DictVariables
+
+from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
 from tools.printer import printer as pr
 from tools.writemdict.writemdict import MDictWriter
 
 
-class ProgData:
+class GlobalVars:
     def __init__(
         self,
         dict_info: DictInfo,
@@ -37,7 +36,7 @@ def export_to_mdict(
     """Export to MDict"""
 
     pr.green_title("exporting to mdict")
-    g = ProgData(dict_info, dict_var, dict_data, h3_header)
+    g = GlobalVars(dict_info, dict_var, dict_data, h3_header)
 
     replace_goldendict(g)
 
@@ -56,21 +55,21 @@ def export_to_mdict(
         delete_original(g)
 
 
-def replace_goldendict(g: ProgData) -> None:
+def replace_goldendict(g: GlobalVars) -> None:
     pr.white("adding 'mdict'")
     for i in g.dict_data:
         i.definition_html = i.definition_html.replace("GoldenDict", "MDict")
     pr.yes("ok")
 
 
-def add_h3_header(g: ProgData) -> None:
+def add_h3_header(g: GlobalVars) -> None:
     pr.white("adding h3 tag")
     for i in g.dict_data:
         i.definition_html = f"<h3>{i.word}</h3>{i.definition_html}"
     pr.yes("ok")
 
 
-def reduce_synonyms(g: ProgData) -> None:
+def reduce_synonyms(g: GlobalVars) -> None:
     pr.white("reducing synonyms")
     try:
         g.reduced_data = reduce(make_synonyms, g.dict_data, [])
@@ -88,7 +87,7 @@ def make_synonyms(all_items, item: DictEntry):
     return all_items
 
 
-def write_mdx_file(g: ProgData) -> None:
+def write_mdx_file(g: GlobalVars) -> None:
     pr.white("writing .mdx file")
     try:
         writer = MDictWriter(
@@ -104,7 +103,7 @@ def write_mdx_file(g: ProgData) -> None:
         pr.red(e)
 
 
-def compile_css_js_assets(g: ProgData) -> None:
+def compile_css_js_assets(g: GlobalVars) -> None:
     """Add CSS and JS and create a list with the format:
     (file_path, file_content_binary)"""
 
@@ -138,7 +137,7 @@ def compile_css_js_assets(g: ProgData) -> None:
         pr.red(e)
 
 
-def write_mdd_file(g: ProgData) -> None:
+def write_mdd_file(g: GlobalVars) -> None:
     pr.white("writing .mdd file")
     try:
         writer = MDictWriter(
@@ -156,7 +155,7 @@ def write_mdd_file(g: ProgData) -> None:
         pr.red(e)
 
 
-def zip_files(g: ProgData) -> None:
+def zip_files(g: GlobalVars) -> None:
     pr.white("zipping mdict files")
     try:
         with ZipFile(g.dict_var.md_zip_path, "w", ZIP_DEFLATED) as zipf:
@@ -169,7 +168,7 @@ def zip_files(g: ProgData) -> None:
         pr.red(e)
 
 
-def delete_original(g: ProgData) -> None:
+def delete_original(g: GlobalVars) -> None:
     """Delete the original output folder"""
 
     pr.white("deleting original files")

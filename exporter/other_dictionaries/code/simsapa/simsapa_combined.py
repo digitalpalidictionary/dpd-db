@@ -6,8 +6,12 @@ import sqlite3
 from bs4 import BeautifulSoup
 
 from tools.configger import config_read
-from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
-from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import (
+    DictEntry,
+    DictInfo,
+    DictVariables,
+    export_to_goldendict_with_pyglossary,
+)
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.pali_sort_key import pali_sort_key
@@ -15,14 +19,14 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     pth = ProjectPaths()
     simsapa_db_path = config_read("simsapa", "db_path")
     simsapa_db: list[tuple[str, str, str]]
     dict_data: list[DictEntry]
 
 
-def extract_simsapa_db_data(g: ProgData):
+def extract_simsapa_db_data(g: GlobalVars):
     """Query Simsapa DB for dict data
     - 1. Nyanatiloka's Buddhist Dictionary
     - 3. Dictionary of Pali Proper Names (DPPN)
@@ -49,7 +53,7 @@ def extract_simsapa_db_data(g: ProgData):
     pr.yes(len(simsapa_db))
 
 
-def make_data_list(g: ProgData):
+def make_data_list(g: GlobalVars):
     pr.green("making data list")
     dict_data: list[DictEntry] = []
     processed_headwords = set()
@@ -107,7 +111,7 @@ def make_data_list(g: ProgData):
     pr.yes(len(dict_data))
 
 
-def save_goldendict_and_mdict(g: ProgData):
+def save_goldendict_and_mdict(g: GlobalVars):
     """Save as Goldendict"""
 
     dict_info = DictInfo(
@@ -144,7 +148,7 @@ def save_goldendict_and_mdict(g: ProgData):
 def main():
     pr.tic()
     pr.title("exporting Simsapa Combined to GoldenDict and MDict")
-    g = ProgData()
+    g = GlobalVars()
     extract_simsapa_db_data(g)
     make_data_list(g)
     save_goldendict_and_mdict(g)

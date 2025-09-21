@@ -4,9 +4,9 @@
 """Find synonyms and variants and add to database."""
 
 import json
-import pyperclip
 import re
 
+import pyperclip
 from rich import print
 from rich.prompt import Prompt
 from sqlalchemy.orm import Session
@@ -19,7 +19,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
@@ -51,7 +51,7 @@ class ProgData:
 def main():
     pr.tic()
     print("[bright_yellow]finding synonyms and variants")
-    g = ProgData()
+    g = GlobalVars()
 
     find_identical_meanings(g)
     add_identical_meanings(g)
@@ -63,7 +63,7 @@ def main():
     pr.toc()
 
 
-def find_identical_meanings(g: ProgData):
+def find_identical_meanings(g: GlobalVars):
     """Find words with the same pos and identical clean meanings."""
     print(f"[green]{'finding identical meanings'}", end=" ")
 
@@ -111,7 +111,7 @@ def clean_meaning(text):
     return text
 
 
-def add_identical_meanings(g: ProgData):
+def add_identical_meanings(g: GlobalVars):
     """Process identical meanings and add to db."""
     print("[green]adding identical meanings to db")
 
@@ -205,7 +205,7 @@ def add_identical_meanings(g: ProgData):
         count += 1
 
 
-def find_single_meanings(g: ProgData):
+def find_single_meanings(g: GlobalVars):
     """Find words with the same pos and identical single meaning."""
     print(f"[green]{'finding single meanings'}", end=" ")
 
@@ -253,7 +253,7 @@ def find_single_meanings(g: ProgData):
     g.single_meanings_dict = single_meanings_dict
 
 
-def find_dual_meanings(g: ProgData):
+def find_dual_meanings(g: GlobalVars):
     print("[green]Finding dual meanings")
     dual_meanings_dict = {}
     done_list = set()
@@ -284,7 +284,7 @@ def find_dual_meanings(g: ProgData):
     g.dual_meanings_dict = dual_meanings_dict
 
 
-def add_dual_meanings(g: ProgData):
+def add_dual_meanings(g: GlobalVars):
     """Process dual meanings and add to db."""
     print("[green]adding dual meanings to db")
 

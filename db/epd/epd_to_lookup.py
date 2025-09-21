@@ -3,6 +3,7 @@
 """Compile data for English to Pāḷi dictionary and add to the Lookup table."""
 
 import re
+
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
@@ -15,7 +16,7 @@ from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
 
 
-class ProgData:
+class GlobalVars:
     pr.tic()
     pr.title("generating epd data for lookup table")
     pr.green("making global data")
@@ -38,7 +39,7 @@ class ProgData:
     pr.yes("")
 
 
-def compile_headwords_data(g: ProgData):
+def compile_headwords_data(g: GlobalVars):
     """Compile meanings and sutta names in DpdHeadword."""
     pr.green_title("compiling headwords data")
 
@@ -67,7 +68,7 @@ def compile_headwords_data(g: ProgData):
             pr.counter(counter, g.dpd_db_length, i.lemma_1)
 
 
-def compile_roots_data(g: ProgData):
+def compile_roots_data(g: GlobalVars):
     """Compile root meanings in DpdRoot."""
     pr.green("compiling roots data")
 
@@ -157,7 +158,7 @@ def extract_sutta_numbers(meaning_2) -> list[str]:
     return combined_numbers
 
 
-def update_epd_sutta(g: ProgData, combined_numbers, i: DpdHeadword):
+def update_epd_sutta(g: GlobalVars, combined_numbers, i: DpdHeadword):
     """Use Sutta number as key in EPD"""
 
     for combined_number in combined_numbers:
@@ -178,7 +179,7 @@ def update_epd_sutta(g: ProgData, combined_numbers, i: DpdHeadword):
                 g.epd_data_dict[combined_number] = [epd_data]
 
 
-def add_to_lookup_table(g: ProgData):
+def add_to_lookup_table(g: GlobalVars):
     """Add EPD data to lookup table."""
 
     pr.green_title("saving to Lookup table")
@@ -219,7 +220,7 @@ def add_to_lookup_table(g: ProgData):
 
 
 def main():
-    g = ProgData()
+    g = GlobalVars()
     compile_headwords_data(g)
     compile_roots_data(g)
     add_to_lookup_table(g)

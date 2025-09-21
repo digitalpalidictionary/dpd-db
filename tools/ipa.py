@@ -8,7 +8,7 @@ from rich import print
 from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.file_path: Path = Path("tools/ipa.tsv")
         self.tsv: list = read_tsv_dot_dict(self.file_path)
@@ -37,7 +37,7 @@ class ProgData:
 
 
 def update_tsv():
-    g = ProgData()
+    g = GlobalVars()
     for i in g.tsv:
         i.ipa_eg = convert_uni_to_ipa(i.unicode_eg, "ipa")
         i.tts_eg = convert_uni_to_ipa(i.unicode_eg, "tts")
@@ -130,7 +130,7 @@ def convert_uni_to_ipa(text: str, ipa_or_tts: str):
     """Use the "ipa" option to return academic IPA
     or the "tts" option to return IPA for text-to-speech-engines."""
 
-    g = ProgData()
+    g = GlobalVars()
 
     if ipa_or_tts == "ipa":
         dict = g.uni_to_ipa_dict

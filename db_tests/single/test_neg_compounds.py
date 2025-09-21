@@ -14,14 +14,14 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     exceptions_list: list[int]
 
 
-def load_exceptions_list(g: ProgData):
+def load_exceptions_list(g: GlobalVars):
     if g.pth.neg_compound_exceptions.exists():
         with open(g.pth.neg_compound_exceptions) as f:
             g.exceptions_list = json.load(f)
@@ -29,12 +29,12 @@ def load_exceptions_list(g: ProgData):
         g.exceptions_list = []
 
 
-def add_exception(g: ProgData, id: int):
+def add_exception(g: GlobalVars, id: int):
     g.exceptions_list.append(id)
     save_exceptions_list(g)
 
 
-def save_exceptions_list(g: ProgData):
+def save_exceptions_list(g: GlobalVars):
     with open(g.pth.neg_compound_exceptions, "w") as f:
         json.dump(g.exceptions_list, f, indent=2)
 
@@ -42,7 +42,7 @@ def save_exceptions_list(g: ProgData):
 def main():
     pr.tic()
     print("[bright_yellow]find negative kammadhārayas")
-    g = ProgData()
+    g = GlobalVars()
     load_exceptions_list(g)
 
     for i in g.db:

@@ -16,7 +16,7 @@ from db.models import DpdHeadword, FamilyIdiom, Lookup
 from tools.paths import ProjectPaths
 
 
-class ProgData:
+class GlobalVars:
     pth: ProjectPaths = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
     idioms_table_list: list[str] = []
@@ -25,7 +25,7 @@ class ProgData:
     exceptions_dict: dict[str, list[int]]
 
 
-def load_exceptions_dict(g: ProgData):
+def load_exceptions_dict(g: GlobalVars):
     if g.pth.idioms_exceptions_dict.exists():
         with open(g.pth.idioms_exceptions_dict) as f:
             g.exceptions_dict = json.load(f)
@@ -33,7 +33,7 @@ def load_exceptions_dict(g: ProgData):
         g.exceptions_dict = {}
 
 
-def add_exception(g: ProgData, idiom: str, id: int):
+def add_exception(g: GlobalVars, idiom: str, id: int):
     if idiom in g.exceptions_dict:
         g.exceptions_dict[idiom] += [id]
     else:
@@ -41,12 +41,12 @@ def add_exception(g: ProgData, idiom: str, id: int):
     save_exceptions_dict(g)
 
 
-def save_exceptions_dict(g: ProgData):
+def save_exceptions_dict(g: GlobalVars):
     with open(g.pth.idioms_exceptions_dict, "w") as f:
         json.dump(g.exceptions_dict, f, ensure_ascii=False, indent=2)
 
 
-def make_idioms_table_list(g: ProgData):
+def make_idioms_table_list(g: GlobalVars):
     """Make a list of all worsd in the idioms table"""
     idioms_table: list[FamilyIdiom] = g.db_session.query(FamilyIdiom).all()
     for i in idioms_table:
@@ -57,7 +57,7 @@ def tupler(i: DpdHeadword):
     return (i.lemma_1, i.meaning_combo, i.family_idioms, i.family_compound)
 
 
-def get_headword_ids(g: ProgData, key):
+def get_headword_ids(g: GlobalVars, key):
     lookup = (
         g.db_session.query(Lookup)
         .filter_by(lookup_key=key)
@@ -71,7 +71,7 @@ def get_headword_ids(g: ProgData, key):
         return []
 
 
-def make_words_in_idioms_dict(g: ProgData):
+def make_words_in_idioms_dict(g: GlobalVars):
     """Find all the idioms and their component words."""
 
     for i in g.headwords_db:
@@ -82,7 +82,7 @@ def make_words_in_idioms_dict(g: ProgData):
                     g.words_in_idioms_dict[headword_id].append(tupler(i))
 
 
-def add_words_in_compounds(g: ProgData):
+def add_words_in_compounds(g: GlobalVars):
     i: DpdHeadword
     for i in g.headwords_db:
         if i.id in g.words_in_idioms_dict:
@@ -95,7 +95,7 @@ def add_words_in_compounds(g: ProgData):
                         g.words_in_idioms_dict[headword_id].append(tupler(i))
 
 
-def add_family_idioms(g: ProgData):
+def add_family_idioms(g: GlobalVars):
     for i in g.headwords_db:
         if not i.family_idioms and i.lemma_clean not in g.idioms_table_list:
             if i.id in g.words_in_idioms_dict:
@@ -147,7 +147,7 @@ def add_family_idioms(g: ProgData):
 
 
 def main():
-    g = ProgData()
+    g = GlobalVars()
     load_exceptions_dict(g)
     make_idioms_table_list(g)
     make_words_in_idioms_dict(g)

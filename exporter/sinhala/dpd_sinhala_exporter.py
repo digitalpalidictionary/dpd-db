@@ -2,8 +2,9 @@
 
 """Export Sinhala Version of DPD for GoldenDict and MDict."""
 
-from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
+
+from jinja2 import Environment, FileSystemLoader
 from sqlalchemy.orm import joinedload
 
 from db.db_helpers import get_db_session
@@ -20,7 +21,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -37,7 +38,7 @@ def main():
     pr.tic()
     pr.title("exporting dpd sinhala")
     pr.green("initializing data sources")
-    g = ProgData()
+    g = GlobalVars()
     dict_data: list[DictEntry] = []
     pr.yes("ok")
 

@@ -13,7 +13,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -66,7 +66,7 @@ class ProgData:
 def main():
     pr.tic()
     print("[bright_yellow]find missing antonyms and mistakes in antonyms")
-    g = ProgData()
+    g = GlobalVars()
 
     for i in g.db:
         if i.id > g.last_word:

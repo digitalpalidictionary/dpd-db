@@ -24,7 +24,7 @@ from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionMan
 from tools.utils import squash_whitespaces
 
 
-class ProgData:
+class GlobalVars:
     """Global variables."""
 
     def __init__(self) -> None:
@@ -41,7 +41,7 @@ class ProgData:
         self.dict_data: list[DictEntry]
 
 
-def make_deconstructor_dict_data(g: ProgData) -> None:
+def make_deconstructor_dict_data(g: GlobalVars) -> None:
     """Prepare data set for GoldenDict of deconstructions and synonyms."""
 
     pr.green("making deconstructor data list")
@@ -110,7 +110,7 @@ def make_deconstructor_dict_data(g: ProgData) -> None:
     pr.yes(len(dict_data))
 
 
-def prepare_and_export_to_gd_mdict(g: ProgData) -> None:
+def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
     """Prepare data to export to GoldenDict using pyglossary."""
 
     dict_info = DictInfo(
@@ -150,7 +150,7 @@ def main():
         pr.green("disabled in config.ini")
         return
 
-    g = ProgData()
+    g = GlobalVars()
     make_deconstructor_dict_data(g)
     prepare_and_export_to_gd_mdict(g)
     pr.toc()

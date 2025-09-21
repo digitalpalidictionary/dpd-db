@@ -17,7 +17,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         pr.green("making prog data")
         self.pth = ProjectPaths()
@@ -30,7 +30,7 @@ class ProgData:
         pr.yes("ok")
 
 
-def make_apicaevaitihi_dict(g: ProgData):
+def make_apicaevaitihi_dict(g: GlobalVars):
     """
     Make a dictionary of
     {"clean inflection": ["sandhi"]}
@@ -60,7 +60,7 @@ def make_apicaevaitihi_dict(g: ProgData):
     pr.yes(len(g.apicaevaitihi_dict))
 
 
-def add_apicaevaitihi_to_inflections(g: ProgData):
+def add_apicaevaitihi_to_inflections(g: GlobalVars):
     """Update i.inflections with sandhi forms."""
 
     pr.green_title("adding apicaevaitihi to inflections")
@@ -92,7 +92,7 @@ def add_apicaevaitihi_to_inflections(g: ProgData):
 def main():
     pr.tic()
     pr.title("adding api ca eva iti hi to inflections and lookup table")
-    g = ProgData()
+    g = GlobalVars()
     make_apicaevaitihi_dict(g)
     add_apicaevaitihi_to_inflections(g)
     pr.toc()

@@ -24,7 +24,7 @@ from tools.printer import printer as pr
 from tools.terminal_highlights import terminal_bold
 
 
-class ProgData:
+class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -72,7 +72,7 @@ class ProgData:
         self.save_bahubbhihi_dict()
 
 
-g = ProgData()
+g = GlobalVars()
 
 
 def main():
