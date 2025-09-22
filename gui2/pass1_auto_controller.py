@@ -85,6 +85,8 @@ class Pass1AutoController:
         self.load_auto_processed()
         self.find_missing_words_in_cst()
         self.find_missing_words_in_sutta_central()
+        self.unbroken_loop = True
+
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
             self.ui.update_message(f"Processing {self.word_in_text}")
 
@@ -108,17 +110,22 @@ class Pass1AutoController:
             self.ai_status_message = ai_resp.status_message
             self.ui.update_message(ai_resp.status_message)
             if self.response is None:
+                self.unbroken_loop = False
+                self.ui.update_message(f"Error processing {self.book}")
                 break
 
             elif not self.update_auto_processed(provider_preference, model_name):
+                self.ui.update_message(f"Error processing {self.book}")
                 pass
 
             if self.stop_flag:
                 self.ui.clear_all_fields()
-                self.ui.update_message("stopped")
+                self.ui.update_message(f"Stopped processing {self.book}")
+                self.unbroken_loop = False
                 break
 
-        self.ui.update_message(f"Finished processing missing words in {self.book}")
+        if self.unbroken_loop:
+            self.ui.update_message(f"Finished processing {self.book}")
 
     def is_missing(self, word: str):
         if (

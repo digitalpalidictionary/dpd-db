@@ -167,6 +167,12 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
     ),
+    "nidd1&2": SuttaCentralSource(
+        "nidd1&2",
+        ["kn15", "kn16"],
+        None,
+        None,
+    ),
     "dhpa": SuttaCentralSource(
         "dhpa",
         ["kn14a"],
