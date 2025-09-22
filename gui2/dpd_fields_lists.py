@@ -309,6 +309,7 @@ PASS1_FIELDS = [
     "pos",
     "grammar",
     "meaning_2",
+    "meaning_lit",
     "root_key",
     "family_root",
     "root_sign",

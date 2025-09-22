@@ -72,7 +72,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             controls=[
                 ft.Row(
                     controls=[
-                        ft.Text("", width=LABEL_WIDTH),
+                        ft.Text("", width=150),
                         self.message_field,
                     ],
                 ),
