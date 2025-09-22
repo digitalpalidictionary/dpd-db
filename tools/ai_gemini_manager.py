@@ -3,11 +3,11 @@ from typing import Optional
 
 from google import genai
 from google.api_core import exceptions as google_exceptions
-from google.genai.types import GenerateContentConfig, GoogleSearch, Tool, HttpOptions
+from google.genai.types import GenerateContentConfig, GoogleSearch, HttpOptions, Tool
 
+from tools.ai_manager import AIResponse
 from tools.configger import config_read
 from tools.printer import printer as pr
-from tools.ai_manager import AIResponse
 
 DEFAULT_API_KEY_NAME = "gemini"
 
@@ -108,7 +108,7 @@ class GeminiManager:
                     if text_content:
                         return AIResponse(
                             content=text_content,
-                            status_message=f"Success with Gemini ({api_model_string}) in {duration:.2f}s (extracted from parts).",
+                            status_message=f"Success in {duration:.2f}s",
                         )
 
                 # Fallback if no text and not explicitly blocked

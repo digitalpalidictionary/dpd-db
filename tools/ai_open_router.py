@@ -66,7 +66,7 @@ class OpenRouterManager:
                 content = completion.choices[0].message.content
                 return AIResponse(
                     content=content,
-                    status_message=f"Success with OpenRouter ({model}) in {duration:.2f}s.",
+                    status_message=f"Success in {duration:.2f}s.",
                 )
             else:
                 message = completion.model_extra["error"]["message"]

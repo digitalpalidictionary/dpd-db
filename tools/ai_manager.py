@@ -25,11 +25,8 @@ class AIManager:
         ("gemini", "gemini-2.5-pro", 12),
         ("gemini", "gemini-2.5-flash", 6),
         ("gemini", "gemini-2.5-flash-lite", 4),
-        ("deepseek", "deepseek-chat", 0),
-        ("deepseek", "deepseek-reasoner", 0),
         ("openrouter", "x-ai/grok-4-fast:free", 0),
-        ("openrouter", "google/gemini-2.0-flash-exp:free", 0),
-        ("openrouter", "moonshotai/kimi-k2:free", 0),
+        ("openrouter", "deepseek/deepseek-chat-v3.1:free", 0),
     ]
 
     # Grounded models for internet searches
