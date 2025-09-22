@@ -135,7 +135,7 @@ def delete_old_directory(dict_var: DictVariables) -> bool:
             pr.red(str(e))
             return False
     else:
-        pr.yes("no old directory found")
+        pr.yes("no")
         return True
 
 
@@ -286,6 +286,8 @@ def zip_synfile(dict_var: DictVariables) -> None:
             dict_var.synfile.unlink()
             pr.yes("ok")
     except FileNotFoundError:
+        pr.yes("no")
+    except Exception:
         pr.no(f"error, {dict_var.synfile} not found")
 
 
