@@ -27,20 +27,6 @@ class ProjectPaths:
             base_dir / "db/bold_definitions/bold_definitions.tsv"
         )
 
-        # db/frequency/output
-        self.ebt_raw_text_path = base_dir / "db/frequency/output/raw_text/ebts.txt"
-        self.ebt_word_count_path = base_dir / "db/frequency/output/word_count/ebts.csv"
-        self.freq_html_dir = base_dir / "db/frequency/output/html/"
-        self.frequency_output_dir = base_dir / "db/frequency/output/"
-        self.raw_text_dir = base_dir / "db/frequency/output/raw_text/"
-        self.tipitaka_raw_text_path = (
-            base_dir / "db/frequency/output/raw_text/tipitaka.txt"
-        )
-        self.tipitaka_word_count_path = (
-            base_dir / "db/frequency/output/word_count/tipitaka.csv"
-        )
-        self.word_count_dir = base_dir / "db/frequency/output/word_count"
-
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
         self.kindlegen_path = base_dir / "exporter/kindle/kindlegen"
@@ -666,16 +652,12 @@ class ProjectPaths:
             self.bjt_roman_txt_dir,
             self.cst_txt_dir,
             self.epub_text_dir,
-            self.freq_html_dir,
-            self.frequency_output_dir,
             self.go_deconstructor_output_dir,
             self.grammar_dict_output_dir,
             self.grammar_dict_output_html_dir,
-            self.raw_text_dir,
             self.share_dir,
             self.stash_dir,
             self.temp_dir,
             self.tpr_output_dir,
-            self.word_count_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)
