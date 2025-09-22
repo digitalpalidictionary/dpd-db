@@ -57,27 +57,18 @@ function initializeApp() {
   appState.bd.searchTerm2 = q2;
   appState.bd.searchOption = option;
 
-  // If the URL contains search parameters, perform an initial search
-  if (
-    (q && q.trim() !== "") ||
-    (q1 && q1.trim() !== "") ||
-    (q2 && q2.trim() !== "")
-  ) {
-    if (/^\d+$/.test(q.trim())) {
-      performSearch(true);
-    } else {
-      performSearch(false);
-    }
-  }
-
-  // Add the initial state to the history stack only if there's an actual search
-  if (
-    (q && q.trim() !== "") ||
-    (q1 && q1.trim() !== "") ||
-    (q2 && q2.trim() !== "")
-  ) {
-    addToHistory();
-  }
+   // If the URL contains search parameters, perform an initial search
+   if (
+     (q && q.trim() !== "") ||
+     (q1 && q1.trim() !== "") ||
+     (q2 && q2.trim() !== "")
+   ) {
+     if (/^\d+$/.test(q.trim())) {
+       performSearch(true);
+     } else {
+       performSearch(false);
+     }
+   }
 
   // Render the initial UI
   render();
