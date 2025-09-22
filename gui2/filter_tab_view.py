@@ -126,6 +126,9 @@ class FilterTabView(ft.Column):
         clear_button = ft.ElevatedButton(
             "Clear Filters", on_click=self._clear_filters_clicked
         )
+        reset_button = ft.ElevatedButton(
+            "Reset to Default", on_click=self._reset_to_default_clicked
+        )
         buttons_section = ft.Row(
             [
                 ft.Container(
@@ -134,6 +137,7 @@ class FilterTabView(ft.Column):
                 ),
                 apply_button,
                 clear_button,
+                reset_button,
             ],
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
@@ -297,7 +301,7 @@ class FilterTabView(ft.Column):
             for option in selected_options:
                 button = ft.Container(
                     content=ft.Text(option, size=14, color=ft.Colors.WHITE),
-                    bgcolor=ft.Colors.BLUE_GREY_500,
+                    bgcolor=ft.Colors.BLUE_700,
                     border_radius=12,
                     padding=ft.Padding(10, 2, 10, 2),
                 )
@@ -366,6 +370,35 @@ class FilterTabView(ft.Column):
         # Clear limit input
         if self.limit_input:
             self.limit_input.value = "10"
+
+        # Clear the filter component container
+        self.filter_component_container.content = ft.Column([])
+        self.page.update()
+
+    def _reset_to_default_clicked(self, e: ft.ControlEvent | None) -> None:
+        """Handle the Reset to Default button click."""
+        # Reset data filters to default values
+        default_data_filters = [("root_key", ""), ("family_root", "")]
+
+        # Reset display filters to default values
+        default_display_filters = [
+            "id",
+            "lemma_1",
+            "meaning_1",
+            "meaning_lit",
+            "root_key",
+            "family_root",
+        ]
+
+        # Reset limit to default
+        default_limit = 20
+
+        # Re-initialize filters with default values
+        self._initialize_filters(
+            data_filters=default_data_filters,
+            display_filters=default_display_filters,
+            limit=default_limit,
+        )
 
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
