@@ -514,53 +514,6 @@ class ProjectPaths:
         )
         self.deconstructor_output_dir = base_dir / "resources/deconstructor_output/"
 
-        # db/deconstructor/assets
-        self.all_inflections_set_path = (
-            base_dir / "db/deconstructor/assets/all_inflections_set"
-        )
-        self.matches_dict_path = base_dir / "db/deconstructor/assets/matches_dict"
-        self.neg_inflections_set_path = (
-            base_dir / "db/deconstructor/assets/neg_inflections_set"
-        )
-        self.sandhi_assets_dir = base_dir / "db/deconstructor/assets"
-        self.text_set_path = base_dir / "db/deconstructor/assets/text_set"
-        self.unmatched_set_path = base_dir / "db/deconstructor/assets/unmatched_set"
-
-        # db/deconstructor/output
-        self.matches_do_path = base_dir / "db/deconstructor/output_do/matches.tsv"
-        self.matches_path = base_dir / "db/deconstructor/output/matches.tsv"
-        self.matches_sorted = base_dir / "db/deconstructor/output/matches_sorted.tsv"
-        self.process_path = base_dir / "db/deconstructor/output/process.tsv"
-        self.rule_counts_path = (
-            base_dir / "db/deconstructor/output/rule_counts/rule_counts.tsv"
-        )
-        self.sandhi_dict_df_path = (
-            base_dir / "db/deconstructor/output/sandhi_dict_df.tsv"
-        )
-        self.sandhi_dict_path = base_dir / "db/deconstructor/output/sandhi_dict"
-        self.sandhi_log_path = base_dir / "db/deconstructor/output/logfile.log"
-        self.sandhi_output_dir = base_dir / "db/deconstructor/output/"
-        self.sandhi_output_do_dir = base_dir / "db/deconstructor/output_do/"
-        self.sandhi_timer_path = base_dir / "db/deconstructor/output/timer.tsv"
-        self.unmatched_path = base_dir / "db/deconstructor/output/unmatched.tsv"
-
-        # db/deconstructor/output/rule_counts
-        self.rule_counts_dir = base_dir / "db/deconstructor/output/rule_counts/"
-
-        # db/deconstructor/output/letters
-        self.letters_dir = base_dir / "db/deconstructor/output/letters/"
-        self.letters = base_dir / "db/deconstructor/output/letters/letters.tsv"
-        self.letters1 = base_dir / "db/deconstructor/output/letters/letters1.tsv"
-        self.letters2 = base_dir / "db/deconstructor/output/letters/letters2.tsv"
-        self.letters3 = base_dir / "db/deconstructor/output/letters/letters3.tsv"
-        self.letters4 = base_dir / "db/deconstructor/output/letters/letters4.tsv"
-        self.letters5 = base_dir / "db/deconstructor/output/letters/letters5.tsv"
-        self.letters6 = base_dir / "db/deconstructor/output/letters/letters6.tsv"
-        self.letters7 = base_dir / "db/deconstructor/output/letters/letters7.tsv"
-        self.letters8 = base_dir / "db/deconstructor/output/letters/letters8.tsv"
-        self.letters9 = base_dir / "db/deconstructor/output/letters/letters9.tsv"
-        self.letters10 = base_dir / "db/deconstructor/output/letters/letters10plus.tsv"
-
         # docs
         self.mk_docs_yaml = base_dir / "mkdocs.yaml"
         self.docs_css_path = base_dir / "docs/stylesheets/extra.css"
@@ -718,12 +671,7 @@ class ProjectPaths:
             self.go_deconstructor_output_dir,
             self.grammar_dict_output_dir,
             self.grammar_dict_output_html_dir,
-            self.letters_dir,
             self.raw_text_dir,
-            self.rule_counts_dir,
-            self.sandhi_assets_dir,
-            self.sandhi_output_dir,
-            self.sandhi_output_do_dir,
             self.share_dir,
             self.stash_dir,
             self.temp_dir,
