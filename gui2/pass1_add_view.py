@@ -6,12 +6,15 @@ from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
+from gui2.wordfinder_widget import WordFinderWidget
 from tools.sandhi_contraction import SandhiContractionManager
+from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
+TEXT_FIELD_LABEL_STYLE = ft.TextStyle(color=LABEL_COLOUR, size=10)
 
 
 class Pass1AddView(ft.Column, PopUpMixin):
@@ -40,31 +43,43 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.history_manager = self.toolkit.history_manager
         self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
         self.test_manager: GuiTestManager = self.toolkit.test_manager
+        self.wordfinder_manager: WordFinderManager = self.toolkit.wordfinder_manager
+        self.wordfinder_widget = WordFinderWidget(self.toolkit)
 
         # --- Top Section Controls ---
-        self.message_field = ft.Text("", color=HIGHLIGHT_COLOUR, selectable=True)
+        self.message_field = ft.Text(
+            "",
+            color=HIGHLIGHT_COLOUR,
+            selectable=True,
+        )
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)
             for item in self.controller.pass1_books_list
         ]
         self.books_dropdown = ft.Dropdown(
+            label="Book",
+            label_style=TEXT_FIELD_LABEL_STYLE,
             autofocus=True,
             options=self.book_options,
             width=300,
             text_size=14,
             border_color=HIGHLIGHT_COLOUR,
+            border_radius=10,
         )
         self.word_in_text = ft.TextField(
-            value="",
+            label="Word in text",
+            label_style=TEXT_FIELD_LABEL_STYLE,
             width=LABEL_WIDTH,
             color=HIGHLIGHT_COLOUR,
             expand=True,
+            border_radius=10,
         )
         self.remaining_to_process = ft.TextField(
-            value="",
-            width=LABEL_WIDTH,
+            label="Remaining",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            width=150,
             color=HIGHLIGHT_COLOUR,
-            expand=True,
+            border_radius=10,
         )
 
         # Create the top section Column
@@ -78,12 +93,6 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text(
-                            "book",
-                            color=ft.Colors.GREY_500,
-                            width=150,
-                            size=12,
-                        ),
                         self.books_dropdown,
                         ft.ElevatedButton(
                             "Process Book",
@@ -104,26 +113,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text(
-                            "word_in_text",
-                            color=ft.Colors.GREY_500,
-                            width=150,
-                            size=12,
-                        ),
                         self.word_in_text,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "remaining",
-                            color=ft.Colors.GREY_500,
-                            width=150,
-                            size=12,
-                        ),
                         self.remaining_to_process,
                     ],
                 ),
+                self.wordfinder_widget.get_widget(),
+                ft.Divider(),
             ],
             spacing=5,
         )

@@ -21,6 +21,7 @@ class ToolKit:
         from tools.ai_manager import AIManager
         from tools.hyphenations import HyphenationFileManager
         from tools.sandhi_contraction import SandhiContractionManager
+        from tools.wordfinder_manager import WordFinderManager
 
         self.page: ft.Page = page
 
@@ -44,6 +45,7 @@ class ToolKit:
         self.appbar_updater: AppBarUpdater = AppBarUpdater(self.page)
         self.daily_log: DailyLog = DailyLog(self)
         self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)
+        self.wordfinder_manager: WordFinderManager = WordFinderManager()
 
         # Initialize DB parts needed early
         self.db_manager.pre_initialize_gui_data()

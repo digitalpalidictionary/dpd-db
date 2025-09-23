@@ -21,6 +21,7 @@ from gui2.user import UsernameManager
 from gui2.variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict_os
+from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -42,6 +43,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.gui2pth: Gui2Paths = toolkit.paths
         self.additions_manager: AdditionsManager = toolkit.additions_manager
         self.username_manager: UsernameManager = toolkit.username_manager
+        self.wordfinder_manager: WordFinderManager = toolkit.wordfinder_manager
 
         self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
@@ -105,6 +107,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
                 self.ui.dpd_fields.fields[field].value = data
 
         self.ui.page.update()
+
+        self.ui.wordfinder_widget.search_field.value = self.word_in_text[:-2]
+        self.ui.wordfinder_widget.widget.update()
 
     def make_dpd_headword_and_add_to_db(self):
         # Collect data from UI fields into a dictionary
