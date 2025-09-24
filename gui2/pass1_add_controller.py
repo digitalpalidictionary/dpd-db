@@ -109,6 +109,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.ui.page.update()
 
         self.ui.wordfinder_widget.search_field.value = self.word_in_text[:-2]
+        self.ui.wordfinder_widget.clear_wordfinder_results(
+            None
+        )  # Clear the wordfinder results panel
         self.ui.wordfinder_widget.widget.update()
 
     def make_dpd_headword_and_add_to_db(self):
@@ -154,7 +157,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             if is_next_item:
                 self.load_into_gui()
                 self.ui.update_message(
-                    f"{self.ui.dpd_fields.fields['lemma_1'].value} added to db"
+                    f"{self.ui.dpd_fields.fields['lemma_1'].value} loaded"
                 )
             else:
                 self.ui.clear_all_fields()

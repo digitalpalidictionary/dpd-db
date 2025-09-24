@@ -41,7 +41,7 @@ class WordFinderWidget:
 
         self.clear_button = ft.ElevatedButton(
             text="Clear",
-            on_click=self.on_clear,
+            on_click=self.clear_wordfinder_results,
         )
 
         self.search_type_dropdown = ft.Dropdown(
@@ -121,7 +121,7 @@ class WordFinderWidget:
         except Exception as ex:
             self.show_error(f"Search error: {str(ex)}")
 
-    def on_clear(self, e):
+    def clear_wordfinder_results(self, e):
         self.results_container.visible = False
         self.results_container.content = ft.Column(
             [],
