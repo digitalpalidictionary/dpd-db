@@ -47,10 +47,11 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.wordfinder_widget = WordFinderWidget(self.toolkit)
 
         # --- Top Section Controls ---
-        self.message_field = ft.Text(
-            "",
-            color=HIGHLIGHT_COLOUR,
-            selectable=True,
+        self.message_field = ft.TextField(
+            # color=HIGHLIGHT_COLOUR,
+            expand=True,
+            border_radius=10,
+            text_style=ft.TextStyle(color=ft.Colors.BLUE_200),
         )
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)
@@ -83,44 +84,45 @@ class Pass1AddView(ft.Column, PopUpMixin):
         )
 
         # Create the top section Column
-        self.top_section = ft.Column(
-            controls=[
-                ft.Row(
-                    controls=[
-                        ft.Text("", width=150),
-                        self.message_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        self.books_dropdown,
-                        ft.ElevatedButton(
-                            "Process Book",
-                            width=BUTTON_WIDTH,
-                            on_click=self.handle_process_book_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Refresh DB",
-                            width=BUTTON_WIDTH,
-                            on_click=self.handle_refresh_db_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Clear All",
-                            width=BUTTON_WIDTH,
-                            on_click=self.clear_all_fields,
-                        ),
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        self.word_in_text,
-                        self.remaining_to_process,
-                    ],
-                ),
-                self.wordfinder_widget.get_widget(),
-                ft.Divider(),
-            ],
-            spacing=5,
+        self.top_section = ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Row(
+                        controls=[
+                            self.books_dropdown,
+                            ft.ElevatedButton(
+                                "Process Book",
+                                width=BUTTON_WIDTH,
+                                on_click=self.handle_process_book_click,
+                            ),
+                            ft.ElevatedButton(
+                                "Refresh DB",
+                                width=BUTTON_WIDTH,
+                                on_click=self.handle_refresh_db_click,
+                            ),
+                            ft.ElevatedButton(
+                                "Clear All",
+                                width=BUTTON_WIDTH,
+                                on_click=self.clear_all_fields,
+                            ),
+                        ],
+                    ),
+                    ft.Row(
+                        controls=[
+                            self.word_in_text,
+                            self.remaining_to_process,
+                        ],
+                    ),
+                    self.wordfinder_widget.get_widget(),
+                    ft.Row(
+                        controls=[self.message_field],
+                    ),
+                    ft.Divider(height=10, color=HIGHLIGHT_COLOUR),
+                ],
+                spacing=10,
+            ),
+            border_radius=10,
+            padding=ft.Padding(0, 10, 0, 0),
         )
 
         # Initialize middle section

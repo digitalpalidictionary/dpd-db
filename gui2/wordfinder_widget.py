@@ -25,13 +25,13 @@ class WordFinderWidget:
         )
 
         self.search_field = ft.TextField(
+            text_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
             label="Wordfinder",
             label_style=TEXT_FIELD_LABEL_STYLE,
             value=self.initial_word or "",
             width=300,
             on_submit=self.clicked_search,
             border_radius=10,
-            color=ft.Colors.BLUE_100,
         )
 
         self.search_button = ft.ElevatedButton(
@@ -53,9 +53,9 @@ class WordFinderWidget:
             ],
             value="STARTS_WITH",  # Default
             label="Search Type",
-            label_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
+            label_style=TEXT_FIELD_LABEL_STYLE,
             width=300,
-            text_size=14,
+            text_size=10,
             border_color=ft.Colors.BLUE_200,
             border_radius=10,
         )

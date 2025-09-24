@@ -4,6 +4,13 @@ from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
 
+LABEL_WIDTH = 250
+COLUMN_WIDTH: int = 700
+BUTTON_WIDTH = 250
+LABEL_COLOUR = ft.Colors.GREY_500
+HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
+TEXT_FIELD_LABEL_STYLE = ft.TextStyle(color=LABEL_COLOUR, size=10)
+
 
 class Pass1AutoView(ft.Column):
     def __init__(
@@ -23,10 +30,6 @@ class Pass1AutoView(ft.Column):
             toolkit,
         )
 
-        # Define constants
-        LABEL_WIDTH: int = 150
-        COLUMN_WIDTH: int = 700
-
         # Define controls
         self.message_field = ft.Text(
             "",
@@ -39,11 +42,14 @@ class Pass1AutoView(ft.Column):
             for item in self.controller.pass1_books_list
         ]
         self.books_dropdown = ft.Dropdown(
+            label="Book",
+            label_style=TEXT_FIELD_LABEL_STYLE,
             autofocus=True,
             options=self.book_options,
             width=300,
             text_size=14,
             border_color=ft.Colors.BLUE_200,
+            border_radius=10,
         )
         self.ai_model_options = [
             ft.dropdown.Option(
@@ -52,41 +58,51 @@ class Pass1AutoView(ft.Column):
             for provider, model_name, wait_time in toolkit.ai_manager.DEFAULT_MODELS
         ]
         self.ai_model_dropdown = ft.Dropdown(
+            label="AI Model",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            autofocus=True,
             options=self.ai_model_options,
             width=300,
-            menu_width=500,
-            expand=True,
             text_size=14,
             border_color=ft.Colors.BLUE_200,
-            hint_text="Select AI Model",
+            border_radius=10,
         )
         self.auto_processed_count_field = ft.TextField(
             "",
-            expand=True,
+            label="Counter",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            width=150,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=10,
         )
         self.word_in_text_field = ft.TextField(
             "",
-            width=COLUMN_WIDTH,
             expand=True,
+            label="Word in text",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=10,
         )
         self.ai_results_field = ft.TextField(
             "",
             width=COLUMN_WIDTH,
             multiline=True,
             expand=True,
+            label="Results",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=10,
         )
 
         self.controls.extend(
             [
                 ft.Row(
                     controls=[
-                        ft.Text("", width=LABEL_WIDTH),
                         self.message_field,
                     ],
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("book", width=LABEL_WIDTH),
                         self.books_dropdown,
                         ft.ElevatedButton(
                             "AutoProcess Book",
@@ -109,19 +125,13 @@ class Pass1AutoView(ft.Column):
                 ),
                 ft.Row(
                     controls=[
-                        ft.Text("auto processed", width=LABEL_WIDTH),
+                        self.word_in_text_field,
                         self.auto_processed_count_field,
                     ],
                 ),
+                ft.Divider(),
                 ft.Row(
                     controls=[
-                        ft.Text("word in text", width=LABEL_WIDTH),
-                        self.word_in_text_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text("ai results", width=LABEL_WIDTH),
                         self.ai_results_field,
                     ]
                 ),
