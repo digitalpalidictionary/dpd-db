@@ -51,6 +51,7 @@ class Pass1AutoController:
 
         self.variant_readings = VariantReadingFileManager()
         self.spelling_mistakes = SpellingMistakesFileManager()
+        self.gd_toggle: bool = True
 
     def load_auto_processed(self):
         self.ui.update_message(f"Loading auto processed data for {self.book}")
@@ -367,7 +368,8 @@ ve: verbal ending
                 )
 
             # update gui
-            open_in_goldendict_os(self.word_in_text)
+            if self.gd_toggle:
+                open_in_goldendict_os(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
             self.ui.update_auto_processed_count(
                 f"{len(self.auto_processed_dict)} / {len(self.missing_words_dict)}"

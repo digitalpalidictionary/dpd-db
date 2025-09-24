@@ -66,14 +66,20 @@ class Pass1AutoView(ft.Column):
             text_size=14,
             border_color=ft.Colors.BLUE_200,
             border_radius=10,
+            menu_width=700,
         )
         self.auto_processed_count_field = ft.TextField(
             "",
             label="Counter",
             label_style=TEXT_FIELD_LABEL_STYLE,
-            width=150,
+            width=200,
             color=HIGHLIGHT_COLOUR,
             border_radius=10,
+        )
+        self.gd_switch = ft.Switch(
+            label="GD",
+            value=True,
+            on_change=self.handle_gd_toggle,
         )
         self.word_in_text_field = ft.TextField(
             "",
@@ -121,6 +127,7 @@ class Pass1AutoView(ft.Column):
                             "Update inflections",
                             on_click=self.handle_update_inflections_click,
                         ),
+                        self.gd_switch,
                     ],
                 ),
                 ft.Row(
@@ -154,6 +161,9 @@ class Pass1AutoView(ft.Column):
         inflections_manager.run()
         self.controller.db.make_inflections_lists()
         self.update_message("inflections updated")
+
+    def handle_gd_toggle(self, e):
+        self.controller.gd_toggle = self.gd_switch.value
 
     def update_message(self, message: str):
         self.message_field.value = message
