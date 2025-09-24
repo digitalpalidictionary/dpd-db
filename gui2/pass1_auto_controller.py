@@ -52,6 +52,9 @@ class Pass1AutoController:
         self.variant_readings = VariantReadingFileManager()
         self.spelling_mistakes = SpellingMistakesFileManager()
         self.gd_toggle: bool = True
+        self.current_book_processed: int = 0
+        self.initial_auto_processed: int = 0
+        self.total_missing: int = 0
 
     def load_auto_processed(self):
         self.ui.update_message(f"Loading auto processed data for {self.book}")
@@ -68,9 +71,7 @@ class Pass1AutoController:
         else:
             self.auto_processed_dict = {}
 
-        self.ui.update_auto_processed_count(
-            f"{len(self.auto_processed_dict)} / {len(self.missing_words_dict)}"
-        )
+        self.ui.update_auto_processed_count("0 / 0")
 
     def auto_process_book(self, book: str):
         self.ui.clear_all_fields()
@@ -84,8 +85,11 @@ class Pass1AutoController:
         self.book = book
         self.cst_books = sutta_central_books[book].cst_books
         self.load_auto_processed()
+        self.current_book_processed = 0
         self.find_missing_words_in_cst()
         self.find_missing_words_in_sutta_central()
+        self.initial_auto_processed = len(self.auto_processed_dict)
+        self.total_missing = len(self.missing_words_dict)
         self.unbroken_loop = True
 
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
@@ -371,8 +375,9 @@ ve: verbal ending
             if self.gd_toggle:
                 open_in_goldendict_os(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
+            self.current_book_processed += 1
             self.ui.update_auto_processed_count(
-                f"{len(self.auto_processed_dict)} / {len(self.missing_words_dict)}"
+                f"{self.initial_auto_processed + self.current_book_processed} / {self.initial_auto_processed + self.total_missing}"
             )
             self.ui.update_ai_results(
                 dumps(
