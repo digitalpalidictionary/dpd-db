@@ -1,17 +1,17 @@
 <div class="dpd">
     <p>
-        ${i.pos}.&nbsp;
-        % if plus_case:
-        (${i.plus_case})&nbsp;
+        ${i.pos}.
+        % if i.plus_case:
+        (${i.plus_case})
         % endif
-        ${i.meaning_combo_html}&nbsp;
+        ${i.meaning_combo_html}
         % if i.construction_summary:
-        [${i.construction_summary}]&nbsp;
+        [${i.construction_summary}]
         % endif
         % if make_link and i.source_link_sutta:
-        <a class="link" href="${i.source_link_sutta}">link</a>&nbsp;
+        <a class="link" href="${i.source_link_sutta}">link</a>
         % endif
-        ${i.degree_of_completion_html}&nbsp;
+        ${i.degree_of_completion_html}
         % if show_id:
         <span class="gray">${i.id}</span>
         % endif
