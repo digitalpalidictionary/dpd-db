@@ -360,7 +360,7 @@ func (m MatchData) SaveTopEntriesJson() {
 			} else {
 				// limit the Dictionary entries
 				if len(entryList) < L.TopDictLimit {
-					if mi.ProcessCount <= processCounter[mi.Word]+1 { // only allow words with 1 or 2 more ProcessCount
+					if mi.ProcessCount <= processCounter[mi.Word]+0 { // only allow words with 1 or 2 more ProcessCount
 						if extraCounter[mi.Word] < 2 { // only allow two more
 							topDict[mi.Word] = append(entryList, entry)
 						}

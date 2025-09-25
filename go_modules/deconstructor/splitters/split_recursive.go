@@ -37,7 +37,15 @@ func SplitRecursive(w data.WordData) {
 					SplitTissa(w)
 				} else if w.EndsWithList([]string{"pi", "ca", "ce", "va", "ti", "hi"}) {
 					SplitApiCaEvaItiHi(w)
+				} else if w.EndsWithList(
+					[]string{
+						"ko", "kā", "kāse", "kāyo", "kaṃ", "kāni", "ke",
+						"kena", "kebhi", "kehi", "kāya", "kābhi", "kāhi",
+						"kassa", "kānaṃ", "kato", "kamhā", "kasmā", "kamhi",
+						"kasmiṃ", "kesu", "kāsu"}) {
+					SplitKa(w)
 				}
+
 			}
 			if w.EndsWith("ādi") {
 				SplitAdi(w)
