@@ -223,28 +223,43 @@ func (m *MatchData) Summary() {
 	timeInSec := time.Since(m.StartTime).Seconds()
 	timeInMin := time.Since(m.StartTime).Minutes()
 
-	pf("blocked tries:		%d\n", BlockedTries)
-	pf("maxed out:		%d\n", MaxedOut)
-	pl()
-	pf("initial words:		%d\n", initial)
-	pf("words matched:     	%d\n", matched)
-	pf("words unmatched:	%d\n", unmatched)
-	pf("match items:		%d\n", matchItemsLen)
-	pf("average matches:	%.3f\n", averMatches)
-	pf("matched %%:		%f %%\n", matchedPrc)
-	pf("unmatched %%:		%f %%\n", unmatchedPrc)
-	pl()
-	pf("match longest time:	%.3f sec\n", MTimeLongest)
-	pf("match average time:	%.3f sec\n", MTimeAverage)
-	pf("match slowest word:	%v\n", MSlowestWord.Word)
-	pf("total seconds:		%.3f sec\n", timeInSec)
-	pf("total minutes:		%.3f min\n", timeInMin)
-	pl()
+	tools.PTitle("Summary")
+	tools.PGreen("blocked tries:")
+	tools.POk(fmt.Sprintf("%d", BlockedTries))
+	tools.PGreen("maxed out:")
+	tools.POk(fmt.Sprintf("%d", MaxedOut))
+	tools.POk("")
+	tools.PGreen("initial words:")
+	tools.POk(fmt.Sprintf("%d", initial))
+	tools.PGreen("words matched:")
+	tools.POk(fmt.Sprintf("%d", matched))
+	tools.PGreen("words unmatched:")
+	tools.POk(fmt.Sprintf("%d", unmatched))
+	tools.PGreen("match items:")
+	tools.POk(fmt.Sprintf("%d", matchItemsLen))
+	tools.PGreen("average matches:")
+	tools.POk(fmt.Sprintf("%.3f", averMatches))
+	tools.PGreen("matched %%:")
+	tools.POk(fmt.Sprintf("%.6f %%", matchedPrc))
+	tools.PGreen("unmatched %%:")
+	tools.POk(fmt.Sprintf("%.6f %%", unmatchedPrc))
+	tools.POk("")
+	tools.PGreen("match longest time:")
+	tools.POk(fmt.Sprintf("%.3f sec", MTimeLongest))
+	tools.PGreen("match average time:")
+	tools.POk(fmt.Sprintf("%.3f sec", MTimeAverage))
+	tools.PGreen("match slowest word:")
+	tools.POk(MSlowestWord.Word)
+	tools.PGreen("total seconds:")
+	tools.POk(fmt.Sprintf("%.3f sec", timeInSec))
+	tools.PGreen("total minutes:")
+	tools.POk(fmt.Sprintf("%.3f min", timeInMin))
+	tools.POk("")
 
 }
 
 func (m MatchData) SaveMatchedTsv() {
-	pf("saving matches:		")
+	tools.PGreen("saving matches:")
 
 	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.MatchesTsv)
 	separator := "\t"
@@ -278,7 +293,7 @@ func (m MatchData) SaveMatchedTsv() {
 	}
 	tools.SaveTsv(filePath, separator, header, data)
 	fileInfo, _ := os.Stat(filePath)
-	pf("%v rows, %.1fMB\n", len(data), float64(fileInfo.Size())/1000/1000)
+	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(data), float64(fileInfo.Size())/1000/1000))
 
 }
 
@@ -291,7 +306,7 @@ type unMatchedItem struct {
 }
 
 func (m MatchData) SaveUnmatchedTsv() {
-	pf("saving unmatched:	")
+	tools.PGreen("saving unmatched:")
 
 	// make a list of unmatchedItems to sort
 	cstFreqMap := tools.LoadCstFreqMap()
@@ -334,11 +349,11 @@ func (m MatchData) SaveUnmatchedTsv() {
 
 	tools.SaveTsv(filePath, separator, header, data)
 	fileInfo, _ := os.Stat(filePath)
-	pf("%v rows, %.1fMB\n", len(data), float64(fileInfo.Size())/1000/1000)
+	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(data), float64(fileInfo.Size())/1000/1000))
 }
 
 func (m MatchData) SaveTopEntriesJson() {
-	pf("making top %v json:	", L.TopDictLimit)
+	tools.PGreen(fmt.Sprintf("making top %v json:", L.TopDictLimit))
 
 	topDict := map[string][]string{}   // top five entries
 	processCounter := map[string]int{} // process counter
@@ -378,15 +393,14 @@ func (m MatchData) SaveTopEntriesJson() {
 	filePath := tools.Pth.DeconstructorOutput
 	tools.SaveJson(filePath, topDict)
 	fileInfo, _ := os.Stat(filePath)
-	pf("%v rows, %.1fMB\n", len(topDict), float64(fileInfo.Size())/1000/1000)
+	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(topDict), float64(fileInfo.Size())/1000/1000))
 }
 
 // get the lookup db
 // for each entry add update or delete
 
 func (m MatchData) SaveToDb() {
-	pl()
-	pl("saving to db")
+	tools.PTitle("Saving to DB")
 	db, results := dpdDb.GetLookup()
 
 	// iterate through results
@@ -453,12 +467,18 @@ func (m MatchData) SaveToDb() {
 	tx.CreateInBatches(updatedResults, 2000)
 	tx.Commit()
 
-	pf("added: 			%v\n", addedCount)
-	pf("updated: 		%v\n", updatedCount)
-	pf("deleted: 		%v\n", deletedCount)
-	pf("muted: 			%v\n", mutedCount)
-	pf("db time: 		%v\n", time.Since(saveTime).Seconds())
-	pf("total time:		%v\n", time.Since(m.StartTime).Seconds())
+	tools.PGreen("added:")
+	tools.POk(fmt.Sprintf("%v", addedCount))
+	tools.PGreen("updated:")
+	tools.POk(fmt.Sprintf("%v", updatedCount))
+	tools.PGreen("deleted:")
+	tools.POk(fmt.Sprintf("%v", deletedCount))
+	tools.PGreen("muted:")
+	tools.POk(fmt.Sprintf("%v", mutedCount))
+	tools.PGreen("db time:")
+	tools.POk(fmt.Sprintf("%v", time.Since(saveTime).Seconds()))
+	tools.PGreen("total time:")
+	tools.POk(fmt.Sprintf("%v", time.Since(m.StartTime).Seconds()))
 }
 
 func shouldDelete(l dpdDb.Lookup) bool {

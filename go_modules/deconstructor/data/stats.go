@@ -3,6 +3,7 @@ package data
 import (
 	"cmp"
 	"dpd/go_modules/tools"
+	"fmt"
 	"os"
 	"slices"
 	"time"
@@ -34,7 +35,7 @@ func (m *MatchData) SaveWordStats(w WordData) {
 }
 
 func (m MatchData) SaveStatsTsv() {
-	pf("saving stats:		")
+	tools.PGreen("saving stats:")
 	filePath := tools.Pth.StatsTsv
 	header := []string{
 		"word", "time", "matched", "processes", "comment",
@@ -53,5 +54,5 @@ func (m MatchData) SaveStatsTsv() {
 	}
 	tools.SaveTsv(filePath, "\t", header, statsData)
 	fileInfo, _ := os.Stat(filePath)
-	pf("%v rows, %.1fMB\n", len(statsData), float64(fileInfo.Size())/1000/1000)
+	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(statsData), float64(fileInfo.Size())/1000/1000))
 }
