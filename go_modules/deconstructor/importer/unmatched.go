@@ -115,10 +115,8 @@ func makeDpdWords() {
 	for _, i := range results {
 
 		var comp string
-		// if no meaning_1, don't use the examples
-		if i.Meaning1 == "" {
-			comp = i.Commentary
-		} else {
+		// if no meaning_1, don't use the examples and commentary
+		if i.Meaning1 != "" {
 			comp = i.Example1 + " " + i.Example2 + " " + i.Commentary
 		}
 		compClean := tools.CleanMachine(comp, "ṃ", true, "dpd")
