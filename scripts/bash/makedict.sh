@@ -10,6 +10,9 @@ if [ ! -e "dpd.db" ]; then
     exit 1
 fi
 
+start_time=$(date +%s)
+echo "Script started at: $(date -d @$start_time)"
+
 uv run scripts/bash/generate_components.sh
 
 uv run exporter/goldendict/main.py
@@ -29,3 +32,8 @@ uv run tools/docs_update_abbreviations.py
 uv run tools/docs_update_bibliography.py
 uv run tools/docs_update_thanks.py
 uv run tools/docs_changelog_and_release_notes.py
+
+end_time=$(date +%s)
+elapsed=$((end_time - start_time))
+elapsed_min=$((elapsed / 60))
+echo "Total time taken: $elapsed_min minutes"
