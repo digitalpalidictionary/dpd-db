@@ -46,5 +46,5 @@
   )
 }
 
-#let thin-line() = line(length: 100%, stroke: 0.1pt + rgb("1a8bdb"))
+#let thin-line() = line(length: 100%, stroke: 0.1pt + rgb("#1a8bdb"))
 
