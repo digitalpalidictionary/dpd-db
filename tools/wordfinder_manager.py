@@ -19,6 +19,9 @@ class WordFinderManager:
         # word being looked for
         self.word: str = ""
 
+        # configurable limit for results
+        self.max_results: int = 100
+
         # text files and books
         self.cst_texts = cst_texts
         self.cst_files: dict[str, str] = {}
@@ -87,12 +90,15 @@ class WordFinderManager:
         return ordered_results
 
     def search_for(
-        self, word: str, search_type: SearchType = "STARTS_WITH", printer=True
+        self,
+        word: str,
+        search_type: SearchType = "STARTS_WITH",
+        printer: bool = True,
+        max_results: int | None = None,
     ) -> None:
         self.word = word
         self.search_results = []
         results_dict: dict[str, list[tuple[str, int]]] = {}
-        total_results = 0
         for file in self.cst_file_freq:
             words_in_file = list(self.cst_file_freq[file].keys())
             matching_words = self._matches(word, words_in_file, search_type)
@@ -102,12 +108,10 @@ class WordFinderManager:
                 if book not in results_dict:
                     results_dict[book] = []
                 results_dict[book].append((match, freq))
-                total_results += 1
-                if total_results >= 100:
-                    break
-            if total_results >= 100:
-                break
         self.search_results = self._order_results_by_cst_texts(results_dict)
+        # Reduce to top max_results after sorting
+        limit = max_results if max_results is not None else self.max_results
+        self.search_results = self.search_results[:limit]
         if printer:
             print(self.format_results(self.search_results))
 
@@ -125,8 +129,8 @@ class WordFinderManager:
                 print("Goodbye!")
                 break
             if user_input:
-                manager.search_for(user_input, "REGEX")
-                results = manager.format_results(manager.search_results)
+                self.search_for(user_input, "REGEX")
+                results = self.format_results(self.search_results)
                 if results:
                     print("\n".join(results))
                 else:
