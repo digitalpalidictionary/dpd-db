@@ -227,6 +227,30 @@ def get_github_issues_list(g: GlobalVars) -> None:
     # [label.name for label in i.labels]
 
 
+def get_github_issues_section(g: GlobalVars) -> str:
+    return f"""
+### GitHub Issues Closed
+{g.github_issues}
+"""
+
+
+def get_dictionary_data_updates(g: GlobalVars) -> str:
+    return f"""
+### Dictionary Data Updates
+- {g.line_1_headwords}
+- {g.line_2_roots}
+- {g.line_3_deconstructor}
+- {g.line_4_inflections}
+- {g.line_5_cell_of_pali_data}
+- {g.line_6_cells_of_root_data}
+- Pass1 complete: VIN1-3, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN4
+- Pass2 complete: DN1-3, MN1-3
+- Pass2 in progress: SN1 
+- numerous additions and corrections based on user feedback
+"""
+
+
 def make_release_notes(g: GlobalVars) -> str:
     return f"""
 Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and for StarDict, GoldenDict, MDict, DictTango, Kindle, Kobo, ePub and SQLite, or any application which supports these formats. It is also built into many popular [Pāḷi readers and websites](https://digitalpalidictionary.github.io/tpr.html).
@@ -239,23 +263,9 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 
 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" width="117" height="41" ></a><br />
 
-### GitHub Issues Closed
+{get_github_issues_section(g)}
 
-{g.github_issues}
-
-### Dictionary Data Updates
-
-- {g.line_1_headwords}
-- {g.line_2_roots}
-- {g.line_3_deconstructor}
-- {g.line_4_inflections}
-- {g.line_5_cell_of_pali_data}
-- {g.line_6_cells_of_root_data}
-- Pass1 complete: VIN1-3, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
-- Pass1 in progress: VIN4
-- Pass2 complete: DN1-3, MN1
-- Pass2 in progress: MN2
-- numerous additions and corrections based on user feedback
+{get_dictionary_data_updates(g)}
 
 """
 
@@ -264,21 +274,9 @@ def make_website_changelog(g: GlobalVars) -> str:
     return f"""
 ## {g.date}
 
-### GitHub Issues Closed
-{g.github_issues}
+{get_github_issues_section(g)}
 
-### Dictionary Data Updates
-- {g.line_1_headwords}
-- {g.line_2_roots}
-- {g.line_3_deconstructor}
-- {g.line_4_inflections}
-- {g.line_5_cell_of_pali_data}
-- {g.line_6_cells_of_root_data}
-- Pass1 complete: VIN1-2, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
-- Pass1 in progress: VIN3
-- Pass2 complete: DN1, MN1
-- Pass2 in progress: DN2 
-- numerous additions and corrections based on user feedback
+{get_dictionary_data_updates(g)}
 
 ### New Words
 {g.new_words}
