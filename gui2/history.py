@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, List
 
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
@@ -20,6 +20,7 @@ class HistoryManager:
         self._history_path: Path = self._gui2pth.history_json_path
         self.max_size: int = max_size
         self.history: List[Dict[str, Any]] = []
+        self._refresh_callbacks: List[Callable[[], None]] = []
         self._load()
 
     def _load(self) -> None:
@@ -74,8 +75,18 @@ class HistoryManager:
         self.history.insert(0, new_item)
         self.history = self.history[: self.max_size]  # Ensure max size
         self._save()
+        self._notify_refresh()
         return not was_already_first  # Return True if it wasn't the first item
 
     def get_history(self) -> List[Dict[str, Any]]:
         """Returns a copy of the current history."""
         return self.history[:]
+
+    def register_refresh_callback(self, callback: Callable[[], None]) -> None:
+        """Register a callback to be called when history is updated."""
+        self._refresh_callbacks.append(callback)
+
+    def _notify_refresh(self) -> None:
+        """Call all registered refresh callbacks."""
+        for callback in self._refresh_callbacks:
+            callback()

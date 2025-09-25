@@ -41,6 +41,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.dpd_fields: DpdFields
         self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
         self.history_manager = self.toolkit.history_manager
+        self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
         self.test_manager: GuiTestManager = self.toolkit.test_manager
         self.wordfinder_manager: WordFinderManager = self.toolkit.wordfinder_manager

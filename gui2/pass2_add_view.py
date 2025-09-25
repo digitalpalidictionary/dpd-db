@@ -67,6 +67,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.hyphenations_manager.hyphenations_dict
         )
         self.history_manager = self.toolkit.history_manager
+        self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.corrections_manager = self.toolkit.corrections_manager
         self.additions_manager = self.toolkit.additions_manager
 
