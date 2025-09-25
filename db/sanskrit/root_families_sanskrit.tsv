@@ -464,6 +464,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kuṭṭ	8	*e	smash, powder	√kuṭṭ	10	divide, crush	ati √kuṭṭ	kuṭṭ	+ kuṭṭita
 √kuṭṭ	8	*e	smash, powder	√kuṭṭ	10	divide, crush	adhi √kuṭṭ	kuṭṭ	adhi + kuṭṭana, adhi + koṭṭana
 √kuṭṭ	8	*e	smash, powder	√kuṭṭ	10	divide, crush	ā √kuṭṭ	kuṭṭ	kuṭṭana
+√kuṭṭ	8	*e	smash, powder	√kuṭṭ	10	divide, crush	pa √kuṭṭ		
 √kuṭṭ	8	*e	smash, powder	√kuṭṭ	10	divide, crush	pati √kuṭṭ	kuṭṭ	prati + kuṭṭayati, prati + kuṭṭayitum
 √kuṇ	8	*e	be crooked, be bent	√kuñc	6	shrink, curl	√kuṇ	kuñc	kuṇi, koṇa
 √kuṇ	8	*e	be crooked, be bent	√kuñc	6	shrink, curl	vi √kuṇ	vikuñc	vikuñcita
@@ -890,7 +891,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cint	8	*e	think	√cint	10	think	saṃ √cint	saṃcint	saṃcintayati
 √cil	1	a	clothe	√cil	6	put on clothes	√cil	cil	acelaka (bsk), cillati, cela, celaka, na + cela, nis + cela
 √cu	1	a	shift, fall away, die	√cyu	1	move, stir	√cu	cyu	acyuta, acyutāḥ < acyuta, cyavate, cyavana, cyavana +, cyavitum, cyāvana, cyāvayat, cyāvayati, cyāvayatuṃ, cyāvayamāna, cyāvayitvā, cyuta, cyuti, cyutya, cyutvā, chyavamāna, na + cyavana, na + cyuti
-√cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	√cuṇṇ	cūrṇ	cūrṇa, cūrṇaka
+√cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	√cuṇṇ	cūrṇ	cūrṇa, cūrṇaka, cūrṇana
 √cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	vi √cuṇṇ	vicūrṇ	vicūrṇita, vicūrṇya
 √cuṇṇ	8	*e	grind, crush, powder	√cūrṇ	10	powder	saṃ √cuṇṇ	saṃcūrṇ	
 √cud	8	*e	impel, accuse	√cud	1	impel	√cud	cud	codaka, codana, codanā, codayat, codayati, codayamāna, codayitavya, codayitum, codayitvā, codita, codya, codyamāna, na + codita, na + codyamāna
@@ -1421,6 +1422,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	upa ni √dhā	upanidhā	upanidhāya, upanidhi, na + upanidhāya
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	upa saṃ √dhā	upasaṃdhā	upasaṃhita
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	ni √dhā	nidhā	anihita, na + nidhāna + vantṛ, nidhāna, nidhāna + vantṛ, nidhāpayati, nidhāya, nidhi, nidhītvā, nidhetavya, nidheya, ninidhāt, nihita, sunihita
+√dhā	1	*āpe	place, support	√dhā	1, 2, 3	put	nī √dhā		
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	pa √dhā	pradhā	a + pradhāna, praṇidhāna + vat, praṇihita, pradadhat, pradadhāti, pradhāna (bsk), praṇidhāna, pradhitvā, pradhetavya, prahāṇika (bsk)
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	pa ni √dhā	praṇidhā	a, apraṇihita, dus + praṇihita, na + praṇidadhāti, na + praṇidhāna, praṇidadhat, praṇidadhāti, praṇidhātavya, praṇidhāna, praṇidhi, praṇidhīya, praṇihita, su + praṇihita
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	pati √dhā	pratidhā	pratihita
@@ -2831,6 +2833,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vedh	1	a	shake, fear	√vyath √vedh	1	waver	saṃ pa √vedh	pravyath	na + sampravyathita, sam, sampravyathate
 √vell	1	iya	shake, sway	√vell	1	stagger	√vell	vell	vellita
 √vell	1	a	shake, sway	√vell	1	stagger	ā √vell	vell	ā + vellita
+√vell	1	a	shake, sway	√vell	1	stagger	saṃ √vell		
 √vyath	1	a	fear, shake	√vyath	1	waver	√vyath	vyath	vyathate, vyathana, vyathita
 √vyadh	3	ya	strike, pierce	√vyadh	4	pierce	√vyadh	vyadh	vidhyati, vyādha
 √vyadh	3	ya	strike, pierce	√vyadh	4	pierce	pati √vyadh	prativyadh	prativyadh (shot, hit)
