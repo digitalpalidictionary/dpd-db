@@ -148,6 +148,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.ui.history_manager.add_item(
                 new_word.id, new_word.lemma_1
             )  # Use ui's history_manager
+            self.ui._update_history_dropdown()
 
             self.remove_word_and_save_json()
             self.ui.clear_all_fields()

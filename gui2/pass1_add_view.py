@@ -82,6 +82,16 @@ class Pass1AddView(ft.Column, PopUpMixin):
             color=HIGHLIGHT_COLOUR,
             border_radius=10,
         )
+        self._history_dropdown = ft.Dropdown(
+            hint_text="History",
+            hint_style=ft.TextStyle(color=ft.Colors.BLUE_200),
+            options=[],
+            expand=True,
+            expand_loose=True,
+            border_radius=20,
+            text_size=14,
+            on_change=self._handle_history_selection,
+        )
 
         # Create the top section Column
         self.top_section = ft.Container(
@@ -105,6 +115,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
                                 width=BUTTON_WIDTH,
                                 on_click=self.clear_all_fields,
                             ),
+                            self._history_dropdown,
                         ],
                     ),
                     ft.Row(
@@ -197,6 +208,9 @@ class Pass1AddView(ft.Column, PopUpMixin):
             self.middle_section,
             self.bottom_section,
         ]
+
+        # Populate history dropdown initially
+        self._update_history_dropdown()
 
     def load_database(self) -> None:
         self.controller.db.make_inflections_lists()
@@ -379,3 +393,40 @@ class Pass1AddView(ft.Column, PopUpMixin):
             self.test_manager._handle_open_test_file(e)
             self.add_to_db_button.color = None  # Reset to default text color
         self.page.update()
+
+    def _update_history_dropdown(self) -> None:
+        """Populates the history dropdown with the latest history."""
+        history_items = self.history_manager.get_history()
+        if self._history_dropdown.options is not None:
+            self._history_dropdown.options.clear()
+            for item in history_items:
+                self._history_dropdown.options.append(
+                    ft.dropdown.Option(
+                        key=str(item.get("id")),  # Key must be string for Dropdown
+                        text=f"{item.get('id')}: {item.get('lemma_1', 'N/A')}",
+                    )
+                )
+        self.page.update()
+
+    def _handle_history_selection(self, e: ft.ControlEvent) -> None:
+        """Loads the selected headword from history."""
+        selected_id_str = e.control.value
+        if selected_id_str:
+            try:
+                selected_id = int(selected_id_str)
+                headword = self.db.get_headword_by_id(selected_id)
+                if headword:
+                    # Load into fields
+                    for field_name, ui_field in self.dpd_fields.fields.items():
+                        if hasattr(headword, field_name):
+                            ui_field.value = getattr(headword, field_name)
+                    self.update_message(f"loaded {headword.lemma_clean} from history")
+                else:
+                    self.update_message(
+                        f"History item ID {selected_id} not found in DB"
+                    )
+            except ValueError:
+                self.update_message("Invalid history item ID selected")
+            finally:
+                self._history_dropdown.value = None  # Reset dropdown selection
+                self.page.update()
