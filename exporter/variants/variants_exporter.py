@@ -4,17 +4,21 @@
 """Export Variants Dict to GoldenDict and MDict."""
 
 import re
-from db.db_helpers import get_db_session
 
+from db.db_helpers import get_db_session
+from db.models import Lookup
+from tools.configger import config_test
 from tools.css_manager import CSSManager
-from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
-from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
+from tools.goldendict_exporter import (
+    DictEntry,
+    DictInfo,
+    DictVariables,
+    export_to_goldendict_with_pyglossary,
+)
 from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from db.models import Lookup
-from tools.configger import config_test
 
 
 def make_synonyms(synonyms_list: list[str], variant: str) -> list[str]:
@@ -48,7 +52,7 @@ def main():
     pr.title("exporting variants to mdict and goldendict")
 
     if config_test("exporter", "make_variants", "no"):
-        pr.green("disabled in config.ini")
+        pr.green_title("disabled in config.ini")
         pr.toc()
         return
 
