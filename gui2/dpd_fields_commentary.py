@@ -303,7 +303,18 @@ class DpdCommentaryField(ft.Column):
         self.page.update()
 
     def clean_text(self, e: ft.ControlEvent):
-        self.commentary_field.value = e.control.value.replace(" ...", "…").replace(
-            "...", "…"
+        self.commentary_field.value = (
+            e.control.value.replace(
+                " ...",
+                "…",
+            )
+            .replace(
+                "...",
+                "…",
+            )
+            .replace(
+                " …",
+                "…",
+            )
         )
         self.page.update()
