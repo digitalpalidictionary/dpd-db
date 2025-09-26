@@ -126,16 +126,22 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # Create the DpdHeadword object using the imported function
         new_word = make_dpd_headword_from_dict(field_data)
 
-        # Set fields not derived directly from the input dict
-        new_word.id = self.db.get_next_id()
-        new_word.origin = "pass1"
+        # Check if this is an existing word loaded from history (has an ID)
+        if new_word.id is not None:
+            # Update existing word - keep the same ID
+            new_word.origin = "pass1"
+            committed, message = self.db.update_word_in_db(new_word)
+        else:
+            # Create new word - assign new ID
+            new_word.id = self.db.get_next_id()
+            new_word.origin = "pass1"
 
-        # add to additions
-        if self.username_manager.is_not_primary():
-            self.additions_manager.add_additions(new_word, comment)
+            # add to additions
+            if self.username_manager.is_not_primary():
+                self.additions_manager.add_additions(new_word, comment)
 
-        # add to db
-        committed, message = self.db.add_word_to_db(new_word)
+            # add to db
+            committed, message = self.db.add_word_to_db(new_word)
 
         if committed:
             # open in browser
