@@ -28,6 +28,6 @@ func InitLimits() Limits {
 	l.LwCleanMinLen = 4        // 4
 	l.LwFuzzyListMaxLen = 5    // 5
 	l.LwFuzzyMinLen = 3        // 3
-	l.TopDictLimit = 4         // 4 entries in GoldenDict
+	l.TopDictLimit = 3         // number of entries in GoldenDict
 	return l
 }
