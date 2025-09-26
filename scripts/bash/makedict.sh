@@ -11,7 +11,7 @@ if [ ! -e "dpd.db" ]; then
 fi
 
 start_time=$(date +%s)
-echo "Script started at: $(date -d @$start_time)"
+echo "$(date -d @$start_time)"
 
 uv run scripts/bash/generate_components.sh
 
@@ -36,4 +36,4 @@ uv run tools/docs_changelog_and_release_notes.py
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))
 elapsed_min=$((elapsed / 60))
-echo "Total time taken: $elapsed_min minutes"
+echo "$elapsed_min minutes"

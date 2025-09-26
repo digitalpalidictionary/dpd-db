@@ -26695,5 +26695,23 @@
         "stem": "-",
         "pattern": "",
         "comment": "[openrouter: x-ai/grok-4-fast:free] This is a sandhi combination of the genitive singular 'ramatassa' (from the present participle of ramati, meaning 'of the one delighting') and the locative singular 'assame' (in the hermitage), forming a possessive locative phrase. No contextual sentence is provided, but it typically indicates a location associated with someone enjoying or delighting, such as a recluse's retreat."
+    },
+    "dānavaroṭṭhapi": {
+        "lemma_1": "dānavaroṭṭhapi",
+        "lemma_2": "dānavaroṭṭhapi",
+        "pos": "sandhi",
+        "grammar": "sandhi, masc + nt + ind",
+        "meaning_2": "even the excellent charioteer of the gift",
+        "root_key": "",
+        "root_sign": "",
+        "root_base": "",
+        "family_root": "",
+        "family_compound": "dāna vara aṭṭhā api",
+        "construction": "",
+        "stem": "-",
+        "pattern": "",
+        "comment": "[openrouter: deepseek/deepseek-chat-v3.1:free] This appears to be a sandhi compound consisting of dāna (gift) + vara (excellent) + aṭṭhā (was established/stood) + api (even). The context suggests it refers to 'even the excellent charioteer of the gift', though the exact interpretation is somewhat ambiguous without more context. The word 'aṭṭhā' appears to be functioning as a past participle form of tiṭṭhati (to stand/be established).",
+        "example_1": "atha dānavaroṭṭhapi sārathinā, ",
+        "translation_1": ""
     }
 }
