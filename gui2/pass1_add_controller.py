@@ -126,8 +126,11 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # Create the DpdHeadword object using the imported function
         new_word = make_dpd_headword_from_dict(field_data)
 
+        # Track if this is a new word or an update for logging purposes
+        already_in_db = bool(new_word.id)
+
         # Check if this is an existing word loaded from history (has an ID)
-        if new_word.id is not None:
+        if already_in_db:
             # Update existing word - keep the same ID
             new_word.origin = "pass1"
             committed, message = self.db.update_word_in_db(new_word)
@@ -147,8 +150,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             # open in browser
             request_dpd_server(new_word.id)
 
-            # update the log (this now automatically updates the appbar)
-            self.daily_log.increment("pass1")
+            # Only increment daily log for new words, not re-edited words from history
+            if not already_in_db:
+                self.daily_log.increment("pass1")
 
             # Add to history
             self.ui.history_manager.add_item(
@@ -174,15 +178,18 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             )
 
     def remove_word_and_save_json(self):
-        try:
-            del self.auto_processed_dict[self.word_in_text]
-            dump(
-                self.auto_processed_dict,
-                self.auto_processed_filepath.open("w"),
-                ensure_ascii=False,
-                indent=4,
-            )
-            self.ui.update_message(f"{self.word_in_text} deleted")
-        except KeyError as e:
-            self.ui.clear_all_fields()
-            self.ui.update_message(f"{e}")
+        # Only remove from auto-processed dict if word_in_text exists
+        # (i.e., when processing from a book, not when loading from history)
+        if hasattr(self, "word_in_text") and self.word_in_text:
+            try:
+                del self.auto_processed_dict[self.word_in_text]
+                dump(
+                    self.auto_processed_dict,
+                    self.auto_processed_filepath.open("w"),
+                    ensure_ascii=False,
+                    indent=4,
+                )
+                self.ui.update_message(f"{self.word_in_text} deleted")
+            except KeyError as e:
+                self.ui.clear_all_fields()
+                self.ui.update_message(f"{e}")
