@@ -91,9 +91,10 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             print(self.sentence_data)
             return True
         except StopIteration:
+            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
             self.ui.clear_all_fields()
             self.ui.update_message("No more words to process.")
-            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
+
             return False
 
     def load_into_gui(self):
