@@ -7,6 +7,8 @@ import (
 )
 
 func SplitKa(w data.WordData) {
+	w.InitNewSplitter()
+	data.M.ProcessPlusOne(w)
 	word := w.Middle
 	w.RecurseFlag = true
 	processName := "ka"
@@ -15,12 +17,13 @@ func SplitKa(w data.WordData) {
 		"ko", "kā", "kāse", "kāyo", "kaṃ", "kāni", "ke",
 		"kena", "kebhi", "kehi", "kāya", "kābhi", "kāhi",
 		"kassa", "kānaṃ", "kato", "kamhā", "kasmā",
-		"kamhi", "kasmiṃ", "kesu", "kāsu"}
+		"kamhi", "kasmiṃ", "kesu", "kāsu",
+	}
+
 	for _, suffix := range suffixes {
 		if strings.HasSuffix(string(word), suffix) && len(w.Middle) > len(suffix)+2 {
-			w.InitNewSplitter()
-			data.M.ProcessPlusOne(w)
-			suffixLen := len(suffix)
+
+			suffixLen := len(t.Str2Rune(suffix))
 			middle := word[:len(word)-suffixLen]
 			back := t.Str2Rune(suffix)
 			w.ToBack(middle, back)

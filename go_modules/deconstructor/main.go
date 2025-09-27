@@ -48,7 +48,7 @@ func main() {
 	// only for testing
 	tools.PGreenTitle("loading go routines")
 	testSet := map[string]string{
-		// "lūnāvasiṭṭhavisukkhatiladaṇḍakā": "",
+		// "ūrujaghanathanadassanādikaṃ": "",
 	}
 	if len(testSet) > 0 {
 		data.G.Unmatched = maps.Clone(testSet)
