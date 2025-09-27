@@ -388,6 +388,21 @@ ve: verbal ending
                 )
             )
 
+            # RE-READ FILE BEFORE WRITING to get latest changes from Pass1AddController
+            try:
+                with self.auto_processed_path.open("r", encoding="utf-8") as f:
+                    current_file_dict = load(f)
+
+                # Merge current file data with our new word
+                if self.word_in_text not in current_file_dict:
+                    current_file_dict[self.word_in_text] = self.auto_processed_dict[
+                        self.word_in_text
+                    ]
+                    self.auto_processed_dict = current_file_dict
+            except (FileNotFoundError, JSONDecodeError):
+                # File was deleted or corrupted, use our current data
+                pass
+
             # save updated dictionary to main file
             with self.auto_processed_path.open("w") as f:
                 dump(

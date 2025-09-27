@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from json import dump, load
+from json import JSONDecodeError, dump, load
 from pathlib import Path
 
 import flet as ft
@@ -183,14 +183,26 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # (i.e., when processing from a book, not when loading from history)
         if hasattr(self, "word_in_text") and self.word_in_text:
             try:
-                del self.auto_processed_dict[self.word_in_text]
-                dump(
-                    self.auto_processed_dict,
-                    self.auto_processed_filepath.open("w"),
-                    ensure_ascii=False,
-                    indent=4,
-                )
-                self.ui.update_message(f"{self.word_in_text} deleted")
-            except KeyError as e:
+                # Re-read file to get latest state
+                with self.auto_processed_filepath.open("r", encoding="utf-8") as f:
+                    current_dict = load(f)
+
+                # Remove our word if it still exists
+                if self.word_in_text in current_dict:
+                    del current_dict[self.word_in_text]
+
+                    # Write back the updated dictionary
+                    with self.auto_processed_filepath.open("w") as f:
+                        dump(
+                            current_dict,
+                            f,
+                            ensure_ascii=False,
+                            indent=4,
+                        )
+                    self.ui.update_message(f"{self.word_in_text} deleted")
+                else:
+                    self.ui.update_message(f"{self.word_in_text} already removed")
+
+            except (FileNotFoundError, JSONDecodeError) as e:
                 self.ui.clear_all_fields()
-                self.ui.update_message(f"{e}")
+                self.ui.update_message(f"File error: {e}")
