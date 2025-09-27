@@ -699,8 +699,14 @@
     },
     "2025-09-26": {
         "pass1": 80,
-        "pass2_add": 14,
+        "pass2_add": 15,
         "pass2_pre": 0,
-        "pass2_update": 3
+        "pass2_update": 4
+    },
+    "2025-09-27": {
+        "pass1": 143,
+        "pass2_add": 4,
+        "pass2_pre": 83,
+        "pass2_update": 8
     }
 }
