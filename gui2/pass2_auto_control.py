@@ -11,8 +11,8 @@ from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_controller import Pass2PreFileManager
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
-from tools.goldendict_tools import open_in_goldendict_os
 from tools.ai_manager import AIResponse
+from tools.goldendict_tools import open_in_goldendict_os
 from tools.printer import printer as pr
 
 debug = False

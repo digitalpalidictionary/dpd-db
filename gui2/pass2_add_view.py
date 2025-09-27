@@ -528,6 +528,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.update_message("")  # Clear message field
         self.page.update()
 
+        self.wordfinder_widget.clear_wordfinder_results(
+            None
+        )  # Clear the wordfinder results panel
+        self.wordfinder_widget.widget.update()
+
     def _click_run_tests(self, e: ft.ControlEvent) -> None:
         """Run tests on current field values"""
 
