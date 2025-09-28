@@ -165,122 +165,70 @@
         ],
         "vutto": [
             70039
+        ],
+        "bhikkhū": [
+            49882
+        ],
+        "bhadanteti": [
+            49336
+        ],
+        "nandane": [
+            35617
+        ],
+        "vane": [
+            75087
+        ],
+        "tāyaṃ": [
+            30295
+        ],
+        "nandanaṃ": [
+            35617
+        ],
+        "naradevānaṃ": [
+            35852
+        ],
+        "tidasānaṃ": [
+            30636
+        ],
+        "vutte": [
+            70038,
+            70039,
+            72473,
+            83222
+        ],
+        "bāle": [
+            48274,
+            48275,
+            48304
+        ],
+        "arahataṃ": [
+            8897,
+            8903
+        ],
+        "vaco": [
+            65574
+        ],
+        "aniccā": [
+            4129
         ]
     },
-    "matched": {
-        "sagāthāvaggo": {
-            "id": 56544,
-            "sentence": [
-                "sn36.10:1.15",
-                "vedanāsaṃyuttassa sagāthāvaggo paṭhamo. ",
-                ""
-            ]
-        },
-        "devatāsaṃyuttaṃ": {
-            "id": 34050,
-            "sentence": [
-                "sn1.81:5.5",
-                "devatāsaṃyuttaṃ samattaṃ. ",
-                "The Linked Discourses on Deities are complete. "
-            ]
-        },
-        "naḷavaggo": {
-            "id": 36012,
-            "sentence": [
-                "sn1.10:4.5",
-                "naḷavaggo paṭhamo. ",
-                ""
-            ]
-        },
-        "oghataraṇasuttaṃ": {
-            "id": 18415,
-            "sentence": [
-                "SN1.1",
-                "devatāsaṃyuttaṃ, oghataraṇasuttaṃ",
-                "1. oghataraṇasuttaṃ"
-            ]
-        },
-        "nivuyhāmi": {
-            "id": 38470,
-            "sentence": [
-                "SN1.1",
-                "devatāsaṃyuttaṃ, oghataraṇasuttaṃ",
-                "yathā kathaṃ pana tvaṃ, mārisa, appatiṭṭhaṃ anāyūhaṃ oghamatarīti? yadākhvāhaṃ, āvuso, santiṭṭhāmi tadāssu saṃsīdāmi, yadākhvāhaṃ, āvuso, āyūhāmi tadāssu nibbuyhāmi [nivuyhāmi] . evaṃ khvāhaṃ, āvuso, appatiṭṭhaṃ anāyūhaṃ oghamatarinti."
-            ]
-        },
-        "nandibhavaparikkhayā": {
-            "id": 35646,
-            "sentence": [
-                "SN1.2",
-                "devatāsaṃyuttaṃ, nimokkhasuttaṃ",
-                "nandībhavaparikkhayā  [nandibhavaparikkhayā], saññāviññāṇasaṅkhayā, vedanānaṃ nirodhā upasamā, evaṃ khvāhaṃ, āvuso, jānāmi sattānaṃ nimokkhaṃ pamokkhaṃ vivekanti."
-            ]
-        },
-        "kayirātha": {
-            "id": 20421,
-            "sentence": [
-                "sn1.3:2.4",
-                "puññāni kayirātha sukhāvahānī”ti. ",
-                "do good deeds that bring you joy.” "
-            ]
-        },
-        "accentisuttaṃ": {
-            "id": 1014,
-            "sentence": [
-                "SN1.4",
-                "devatāsaṃyuttaṃ, accentisuttaṃ",
-                "4. accentisuttaṃ"
-            ]
-        },
-        "pāranti": {
-            "id": 45756,
-            "sentence": [
-                "sn4.25:20.4",
-                "acchejja nessati maccurājassa pāran”ti. ",
-                "and lead them past the King of Death!” "
-            ]
-        },
-        "araññasuttaṃ": {
-            "id": 8853,
-            "sentence": [
-                "SN1.10",
-                "devatāsaṃyuttaṃ, araññasuttaṃ",
-                "10. araññasuttaṃ"
-            ]
-        },
-        "katichindi": {
-            "id": 19705,
-            "sentence": [
-                "sn1.10:5.2",
-                "accenti katichindi ca; ",
-                ""
-            ]
-        },
-        "mānakāminā": {
-            "id": 52261,
-            "sentence": [
-                "sn1.10:5.4",
-                "susammuṭṭhā mānakāminā; ",
-                ""
-            ]
-        },
-        "nandanavaggo": {
-            "id": 35620,
-            "sentence": [
-                "sn1.20:28.5",
-                "nandanavaggo dutiyo. ",
-                ""
-            ]
-        },
-        "nandanasuttaṃ": {
-            "id": 35619,
-            "sentence": [
-                "SN2.14",
-                "devaputtasaṃyuttaṃ, nandanasuttaṃ",
-                "4. nandanasuttaṃ"
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
-    "processed": []
+    "processed": [
+        "sagāthāvaggo",
+        "devatāsaṃyuttaṃ",
+        "naḷavaggo",
+        "oghataraṇasuttaṃ",
+        "nivuyhāmi",
+        "nandibhavaparikkhayā",
+        "kayirātha",
+        "accentisuttaṃ",
+        "pāranti",
+        "araññasuttaṃ",
+        "katichindi",
+        "mānakāminā",
+        "nandanavaggo",
+        "nandanasuttaṃ",
+        "nandatisuttaṃ"
+    ]
 }
