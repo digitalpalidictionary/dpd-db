@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from json import JSONDecodeError, dump, dumps, load, loads
 from pathlib import Path
+import time
 
 from gui2.books import (
     SuttaCentralSegment,
@@ -27,6 +28,7 @@ class Pass1AutoController:
         self.ui: Pass1AutoView = ui
         self.db = toolkit.db_manager
         self.ai_manager = toolkit.ai_manager
+        self.locked = False
 
         self.gui2pth = toolkit.paths
         self.pass1_books: dict[str, SuttaCentralSource] = sutta_central_books
@@ -59,17 +61,24 @@ class Pass1AutoController:
     def load_auto_processed(self):
         self.ui.update_message(f"Loading auto processed data for {self.book}")
 
-        self.auto_processed_path: Path = (
-            self.gui2pth.gui2_data_path / f"pass1_auto_{self.book}.json"
-        )
-        if self.auto_processed_path.exists():
-            self.auto_processed_dict = load(
-                self.auto_processed_path.open("r", encoding="utf-8")
-            )
-            self.auto_processed_keys = list(self.auto_processed_dict.keys())
+        while self.locked:
+            time.sleep(0.1)
 
-        else:
-            self.auto_processed_dict = {}
+        self.locked = True
+        try:
+            self.auto_processed_path: Path = (
+                self.gui2pth.gui2_data_path / f"pass1_auto_{self.book}.json"
+            )
+            if self.auto_processed_path.exists():
+                self.auto_processed_dict = load(
+                    self.auto_processed_path.open("r", encoding="utf-8")
+                )
+                self.auto_processed_keys = list(self.auto_processed_dict.keys())
+
+            else:
+                self.auto_processed_dict = {}
+        finally:
+            self.locked = False
 
         self.ui.update_auto_processed_count("0 / 0")
 
@@ -389,28 +398,35 @@ ve: verbal ending
             )
 
             # RE-READ FILE BEFORE WRITING to get latest changes from Pass1AddController
+            while self.locked:
+                time.sleep(0.1)
+            
+            self.locked = True
             try:
-                with self.auto_processed_path.open("r", encoding="utf-8") as f:
-                    current_file_dict = load(f)
+                try:
+                    with self.auto_processed_path.open("r", encoding="utf-8") as f:
+                        current_file_dict = load(f)
 
-                # Merge current file data with our new word
-                if self.word_in_text not in current_file_dict:
-                    current_file_dict[self.word_in_text] = self.auto_processed_dict[
-                        self.word_in_text
-                    ]
-                    self.auto_processed_dict = current_file_dict
-            except (FileNotFoundError, JSONDecodeError):
-                # File was deleted or corrupted, use our current data
-                pass
+                    # Merge current file data with our new word
+                    if self.word_in_text not in current_file_dict:
+                        current_file_dict[self.word_in_text] = self.auto_processed_dict[
+                            self.word_in_text
+                        ]
+                        self.auto_processed_dict = current_file_dict
+                except (FileNotFoundError, JSONDecodeError):
+                    # File was deleted or corrupted, use our current data
+                    pass
 
-            # save updated dictionary to main file
-            with self.auto_processed_path.open("w") as f:
-                dump(
-                    self.auto_processed_dict,
-                    f,
-                    indent=4,
-                    ensure_ascii=False,
-                )
+                # save updated dictionary to main file
+                with self.auto_processed_path.open("w") as f:
+                    dump(
+                        self.auto_processed_dict,
+                        f,
+                        indent=4,
+                        ensure_ascii=False,
+                    )
+            finally:
+                self.locked = False
 
         except JSONDecodeError as e:
             # Handle the case where the response is not valid JSON
