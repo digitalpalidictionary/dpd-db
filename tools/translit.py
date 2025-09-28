@@ -1,6 +1,6 @@
 from aksharamukha import transliterate
 
-from tools.pali_alphabet import pali_alphabet
+from tools.pali_alphabet import english_alphabet, pali_alphabet
 from tools.printer import printer as pr
 
 
@@ -8,16 +8,17 @@ def auto_translit_to_roman(text: str) -> str:
     if not text:
         return ""
 
-    # If the first two characters are uppercase, return the text as is
-    # e.g. DN1, DHPa
-    if len(text) >= 2 and text[0].isupper() and text[1].isupper():
+    if (
+        (
+            # If the first two characters are uppercase e.g. DN1, DHPa
+            len(text) >= 2 and text[0].isupper() and text[1].isupper()
+        )
+        or text[0].lower() in pali_alphabet  # if pure Pāḷi, even UpperCase
+        or text[0].lower() in english_alphabet  # if English, even UpperCase
+    ):
         return text
 
-    # Pure Pāḷi, even UpperCase, gets a pass
-    if text[0].lower() in pali_alphabet:
-        return text
-
-    # Convert to Roman
+    # else convert to Roman
     else:
         try:
             transliterated_text = transliterate.process(
