@@ -48,7 +48,7 @@ class CellTextField(ft.TextField):
         super().__init__(
             value=text,
             multiline=True,
-            border_radius=10,
+            border_radius=20,
             border=ft.InputBorder.NONE,
             text_align=ft.TextAlign.LEFT,
             text_style=ft.TextStyle(

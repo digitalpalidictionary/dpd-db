@@ -193,7 +193,7 @@ class DpdExampleField(ft.Column):
                 editable=True,
                 enable_filter=True,
                 border_color=ft.Colors.GREY_800,
-                border_radius=10,
+                border_radius=20,
                 border_width=1,
                 on_blur=self._handle_book_blur,
             )
@@ -204,7 +204,7 @@ class DpdExampleField(ft.Column):
                 label="word to find",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 on_submit=self._click_search_dialog_ok,
-                border_radius=10,
+                border_radius=20,
             )
 
             # Toggle Button

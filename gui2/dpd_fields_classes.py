@@ -42,7 +42,7 @@ class DpdTextField(ft.TextField):
             on_blur=on_blur,
             min_lines=1,
             width=700,
-            border_radius=10,
+            border_radius=20,
         )
 
 
@@ -69,7 +69,7 @@ class DpdDropdown(ft.Dropdown):
             width=700,
             menu_width=200,
             border_color=ft.Colors.GREY_800,
-            border_radius=10,
+            border_radius=20,
             border_width=1,
         )
 

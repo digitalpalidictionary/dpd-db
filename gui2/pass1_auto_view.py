@@ -32,7 +32,7 @@ class Pass1AutoView(ft.Column):
             self,
             toolkit,
         )
-        
+
         self.wordfinder_manager: WordFinderManager = self.toolkit.wordfinder_manager
         self.wordfinder_widget = WordFinderWidget(self.toolkit)
 
@@ -55,7 +55,7 @@ class Pass1AutoView(ft.Column):
             width=300,
             text_size=14,
             border_color=ft.Colors.BLUE_200,
-            border_radius=10,
+            border_radius=20,
         )
         self.ai_model_options = [
             ft.dropdown.Option(
@@ -71,7 +71,7 @@ class Pass1AutoView(ft.Column):
             width=300,
             text_size=14,
             border_color=ft.Colors.BLUE_200,
-            border_radius=10,
+            border_radius=20,
             menu_width=700,
         )
         self.auto_processed_count_field = ft.TextField(
@@ -80,7 +80,7 @@ class Pass1AutoView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=200,
             color=HIGHLIGHT_COLOUR,
-            border_radius=10,
+            border_radius=20,
         )
         self.gd_switch = ft.Switch(
             label="GD",
@@ -93,7 +93,7 @@ class Pass1AutoView(ft.Column):
             label="Word in text",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=10,
+            border_radius=20,
         )
         self.ai_results_field = ft.TextField(
             "",
@@ -103,52 +103,60 @@ class Pass1AutoView(ft.Column):
             label="Results",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=10,
+            border_radius=20,
         )
 
         self.controls.extend(
             [
-                ft.Row(
-                    controls=[
-                        self.books_dropdown,
-                        ft.ElevatedButton(
-                            "AutoProcess Book",
-                            on_click=self.handle_book_click,
-                        ),
-                        self.ai_model_dropdown,
-                        ft.ElevatedButton(
-                            "Stop",
-                            on_click=self.handle_stop_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Clear",
-                            on_click=self.handle_clear_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Update inflections",
-                            on_click=self.handle_update_inflections_click,
-                        ),
-                        self.gd_switch,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        self.word_in_text_field,
-                        self.auto_processed_count_field,
-                    ],
-                ),
-                self.wordfinder_widget.get_widget(),
-                ft.Row(
-                    controls=[
-                        self.message_field,
-                    ],
-                ),
-                ft.Divider(),
-                ft.Row(
-                    controls=[
-                        self.ai_results_field,
-                    ]
-                ),
+                ft.Container(
+                    ft.Column(
+                        controls=[
+                            ft.Row(
+                                controls=[
+                                    self.books_dropdown,
+                                    ft.ElevatedButton(
+                                        "AutoProcess Book",
+                                        on_click=self.handle_book_click,
+                                    ),
+                                    self.ai_model_dropdown,
+                                    ft.ElevatedButton(
+                                        "Stop",
+                                        on_click=self.handle_stop_click,
+                                    ),
+                                    ft.ElevatedButton(
+                                        "Clear",
+                                        on_click=self.handle_clear_click,
+                                    ),
+                                    ft.ElevatedButton(
+                                        "Update inflections",
+                                        on_click=self.handle_update_inflections_click,
+                                    ),
+                                    self.gd_switch,
+                                ],
+                            ),
+                            ft.Row(
+                                controls=[
+                                    self.word_in_text_field,
+                                    self.auto_processed_count_field,
+                                ],
+                            ),
+                            self.wordfinder_widget.get_widget(),
+                            ft.Row(
+                                controls=[
+                                    self.message_field,
+                                ],
+                            ),
+                            ft.Divider(),
+                            ft.Row(
+                                controls=[
+                                    self.ai_results_field,
+                                ]
+                            ),
+                        ]
+                    ),
+                    border_radius=20,
+                    padding=ft.Padding(0, 10, 0, 0),
+                )
             ]
         )
 

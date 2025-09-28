@@ -31,7 +31,7 @@ class WordFinderWidget:
             value=self.initial_word or "",
             width=300,
             on_submit=self.clicked_search,
-            border_radius=10,
+            border_radius=20,
         )
 
         self.search_button = ft.ElevatedButton(
@@ -57,14 +57,14 @@ class WordFinderWidget:
             width=300,
             text_size=10,
             border_color=ft.Colors.BLUE_200,
-            border_radius=10,
+            border_radius=20,
         )
 
         self.results_container = ft.Container(
             content=ft.Column([], scroll=ft.ScrollMode.AUTO),
             visible=False,
             padding=10,
-            border_radius=10,
+            border_radius=20,
             width=1350,
             height=150,
             border=ft.border.all(1, HIGHLIGHT_COLOUR),

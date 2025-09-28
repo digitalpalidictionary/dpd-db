@@ -51,7 +51,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.message_field = ft.TextField(
             # color=HIGHLIGHT_COLOUR,
             expand=True,
-            border_radius=10,
+            border_radius=20,
             text_style=ft.TextStyle(color=ft.Colors.BLUE_200),
         )
         self.book_options = [
@@ -66,7 +66,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             width=300,
             text_size=14,
             border_color=HIGHLIGHT_COLOUR,
-            border_radius=10,
+            border_radius=20,
         )
         self.word_in_text = ft.TextField(
             label="Word in text",
@@ -74,14 +74,14 @@ class Pass1AddView(ft.Column, PopUpMixin):
             width=LABEL_WIDTH,
             color=HIGHLIGHT_COLOUR,
             expand=True,
-            border_radius=10,
+            border_radius=20,
         )
         self.remaining_to_process = ft.TextField(
             label="Remaining",
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=150,
             color=HIGHLIGHT_COLOUR,
-            border_radius=10,
+            border_radius=20,
         )
         self._history_dropdown = ft.Dropdown(
             hint_text="History",
@@ -133,7 +133,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 ],
                 spacing=10,
             ),
-            border_radius=10,
+            border_radius=20,
             padding=ft.Padding(0, 10, 0, 0),
         )
 

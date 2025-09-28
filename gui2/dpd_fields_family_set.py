@@ -1,10 +1,10 @@
-import flet as ft
 from typing import List
 
-from gui2.dpd_fields_classes import DpdTextField
-from tools.pali_sort_key import pali_sort_key
+import flet as ft
 
+from gui2.dpd_fields_classes import DpdTextField
 from tools.fuzzy_tools import find_closest_matches
+from tools.pali_sort_key import pali_sort_key
 
 
 class DpdFamilySetField(ft.Column):
@@ -42,7 +42,7 @@ class DpdFamilySetField(ft.Column):
             enable_filter=True,
             editable=True,
             border_color=ft.Colors.GREY_800,
-            border_radius=10,
+            border_radius=20,
             border_width=1,
         )
 

@@ -3,6 +3,12 @@ import flet as ft
 from gui2.pass2_auto_control import Pass2AutoController
 from gui2.toolkit import ToolKit
 
+LABEL_WIDTH = 250
+BUTTON_WIDTH = 250
+LABEL_COLOUR = ft.Colors.GREY_500
+HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
+TEXT_FIELD_LABEL_STYLE = ft.TextStyle(color=LABEL_COLOUR, size=10)
+
 
 class Pass2AutoView(ft.Column):
     def __init__(
@@ -22,27 +28,29 @@ class Pass2AutoView(ft.Column):
         )
         self.controller.ui = self
 
-        # Define constants
-        LABEL_WIDTH: int = 150
-        COLUMN_WIDTH: int = 700
-
         # Define controls
-        self._message_field = ft.Text(
+        self._message_field = ft.TextField(
             "",
             expand=True,
-            color=ft.Colors.BLUE_200,
-            selectable=True,
+            label="Message",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            color=HIGHLIGHT_COLOUR,
+            border_color=HIGHLIGHT_COLOUR,
+            border_radius=20,
         )
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)
             for item in self.controller.sc_books_list
         ]
         self.books_dropdown = ft.Dropdown(
+            label="Book",
+            label_style=TEXT_FIELD_LABEL_STYLE,
             autofocus=True,
             options=self.book_options,
             width=300,
             text_size=14,
-            border_color=ft.Colors.BLUE_200,
+            border_color=HIGHLIGHT_COLOUR,
+            border_radius=20,
         )
         self.ai_model_options = [
             ft.dropdown.Option(
@@ -51,100 +59,81 @@ class Pass2AutoView(ft.Column):
             for provider, model_name, wait_time in toolkit.ai_manager.DEFAULT_MODELS
         ]
         self.ai_model_dropdown = ft.Dropdown(
+            label="AI Model",
+            label_style=TEXT_FIELD_LABEL_STYLE,
             options=self.ai_model_options,
             width=300,
             menu_width=500,
             text_size=14,
-            border_color=ft.Colors.BLUE_200,
+            border_color=HIGHLIGHT_COLOUR,
+            border_radius=20,
             hint_text="Select AI Model",
         )
         self.auto_processed_count_field = ft.TextField(
             "",
-            expand=True,
+            label="Counter",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            width=150,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=20,
         )
         self.word_in_text_field = ft.TextField(
             "",
-            width=COLUMN_WIDTH,
             expand=True,
+            label="Word in text",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=20,
         )
 
-        self.top_section = ft.Column(
-            [
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self._message_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "book",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.books_dropdown,
-                        ft.ElevatedButton(
-                            "AutoProcess Book",
-                            on_click=self.handle_book_click,
-                        ),
-                        self.ai_model_dropdown,
-                        ft.ElevatedButton(
-                            "Stop",
-                            on_click=self.handle_stop_click,
-                        ),
-                        ft.ElevatedButton(
-                            "Clear",
-                            on_click=self.handle_clear_click,
-                        ),
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "auto processed",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.auto_processed_count_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "word in text",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.word_in_text_field,
-                    ],
-                ),
-            ],
+        self.top_section = ft.Container(
+            content=ft.Column(
+                [
+                    ft.Row(
+                        controls=[
+                            self.books_dropdown,
+                            ft.ElevatedButton(
+                                "AutoProcess Book",
+                                on_click=self.handle_book_click,
+                            ),
+                            self.ai_model_dropdown,
+                            ft.ElevatedButton(
+                                "Stop",
+                                on_click=self.handle_stop_click,
+                            ),
+                            ft.ElevatedButton(
+                                "Clear",
+                                on_click=self.handle_clear_click,
+                            ),
+                        ],
+                    ),
+                    ft.Row(
+                        controls=[
+                            self.word_in_text_field,
+                            self.auto_processed_count_field,
+                        ],
+                    ),
+                    ft.Row(
+                        controls=[
+                            self._message_field,
+                        ],
+                    ),
+                ],
+                spacing=10,
+            ),
+            border_radius=20,
+            padding=ft.Padding(0, 10, 0, 0),
         )
 
         self.ai_results_field = ft.TextField(
-            "",
-            width=COLUMN_WIDTH,
             multiline=True,
             expand=True,
+            border_width=0,
         )
 
         self.results_section = ft.Column(
             [
-                ft.Row(
-                    controls=[
-                        ft.Text(
-                            "ai results",
-                            width=LABEL_WIDTH,
-                            color=ft.Colors.GREY_500,
-                        ),
-                        self.ai_results_field,
-                    ]
-                ),
+                self.ai_results_field,
             ],
             expand=True,
             scroll=ft.ScrollMode.AUTO,

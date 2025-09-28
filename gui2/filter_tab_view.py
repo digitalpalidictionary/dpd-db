@@ -302,7 +302,7 @@ class FilterTabView(ft.Column):
                 button = ft.Container(
                     content=ft.Text(option, size=14, color=ft.Colors.WHITE),
                     bgcolor=ft.Colors.BLUE_700,
-                    border_radius=12,
+                    border_radius=20,
                     padding=ft.Padding(10, 2, 10, 2),
                 )
                 self.selected_columns_container.controls.append(button)
