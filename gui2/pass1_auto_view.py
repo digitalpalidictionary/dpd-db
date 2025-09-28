@@ -3,6 +3,8 @@ import flet as ft
 from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
+from gui2.wordfinder_widget import WordFinderWidget
+from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
 COLUMN_WIDTH: int = 700
@@ -25,10 +27,14 @@ class Pass1AutoView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
+        self.toolkit: ToolKit = toolkit
         self.controller = Pass1AutoController(
             self,
             toolkit,
         )
+        
+        self.wordfinder_manager: WordFinderManager = self.toolkit.wordfinder_manager
+        self.wordfinder_widget = WordFinderWidget(self.toolkit)
 
         # Define controls
         self.message_field = ft.Text(
@@ -104,11 +110,6 @@ class Pass1AutoView(ft.Column):
             [
                 ft.Row(
                     controls=[
-                        self.message_field,
-                    ],
-                ),
-                ft.Row(
-                    controls=[
                         self.books_dropdown,
                         ft.ElevatedButton(
                             "AutoProcess Book",
@@ -134,6 +135,12 @@ class Pass1AutoView(ft.Column):
                     controls=[
                         self.word_in_text_field,
                         self.auto_processed_count_field,
+                    ],
+                ),
+                self.wordfinder_widget.get_widget(),
+                ft.Row(
+                    controls=[
+                        self.message_field,
                     ],
                 ),
                 ft.Divider(),
@@ -187,4 +194,5 @@ class Pass1AutoView(ft.Column):
         self.books_dropdown.value = ""
         self.ai_results_field.value = ""
         self.word_in_text_field.value = ""
+        self.wordfinder_widget.clear_wordfinder_results(None)
         self.page.update()
