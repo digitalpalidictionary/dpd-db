@@ -16,6 +16,7 @@ lemma_trad_dict: dict[str, str] = {
     "arahant masc": "arahanta",  # like arahant
     "as masc": "a",  # like manas
     "bhavant masc": "bhavantu",  # like bhavant
+    "mātar fem": "mātu",  # like mātar
 }
 
 

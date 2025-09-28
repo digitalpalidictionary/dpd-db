@@ -77,18 +77,18 @@
     name="grammar-div"
     class="dpd content hidden">
     <table class="grammar">
-        {% if d.i.lemma_trad_clean != d.i.lemma_clean %}
-        <tr>
-            <th>Traditional Lemma</th>
-            <td>{{d.i.lemma_trad_clean}}</td>
-        </tr>
-        {% else %}
         <tr>
             <th>Lemma</th>
             <td>{{d.i.lemma_2}}</td>
         </tr>
 
+        {% if d.i.lemma_trad_clean != d.i.lemma_clean %}
+        <tr>
+            <th>Traditional Lemma</th>
+            <td>{{d.i.lemma_trad_clean}}</td>
+        </tr>
         {% endif %}
+
         <tr>
             <th>IPA</th>
             <td>/{{d.i.lemma_ipa}}/</td>
