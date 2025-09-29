@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from json import JSONDecodeError, dump, load
+from json import JSONDecodeError
 from pathlib import Path
 
 import flet as ft
@@ -14,6 +14,7 @@ from gui2.database_manager import DatabaseManager
 from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from gui2.mixins import SandhiOK, SnackBarMixin
 from gui2.pass1_add_view import Pass1AddView
+from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.paths import Gui2Paths
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
@@ -36,6 +37,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self,
         ui: Pass1AddView,
         toolkit: ToolKit,
+        pass1_auto_controller: Pass1AutoController,
     ) -> None:
         self.ui: Pass1AddView = ui
         self.db: DatabaseManager = toolkit.db_manager
@@ -44,12 +46,12 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.additions_manager: AdditionsManager = toolkit.additions_manager
         self.username_manager: UsernameManager = toolkit.username_manager
         self.wordfinder_manager: WordFinderManager = toolkit.wordfinder_manager
+        self.pass1_auto_controller = pass1_auto_controller
 
         self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
         self.book_to_process: str
 
-        self.auto_processed_filepath: Path
         self.auto_processed_dict: dict[str, dict[str, str]] = {}
         self.auto_processed_iter = iter([])
 
@@ -69,19 +71,15 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.ui.clear_all_fields()
 
     def load_json(self):
-        self.auto_processed_filepath = (
-            self.gui2pth.gui2_data_path / f"pass1_auto_{self.book_to_process}.json"
-        )
-        try:
-            self.auto_processed_dict = load(
-                self.auto_processed_filepath.open("r", encoding="utf-8")
-            )
-            # dict will change size, so work on a copy
-            self.auto_processed_dict_copy = self.auto_processed_dict.copy()
-            self.auto_processed_iter = iter(self.auto_processed_dict_copy.items())
-            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
-        except FileNotFoundError:
-            self.ui.update_message("file not found.")
+        self.auto_processed_dict = self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+        if not self.auto_processed_dict:
+            self.ui.update_message("file not found or empty.")
+            return
+
+        # dict will change size, so work on a copy
+        self.auto_processed_dict_copy = self.auto_processed_dict.copy()
+        self.auto_processed_iter = iter(self.auto_processed_dict_copy.items())
+        self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
 
     def get_next_item(self):
         try:
@@ -182,27 +180,5 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # Only remove from auto-processed dict if word_in_text exists
         # (i.e., when processing from a book, not when loading from history)
         if hasattr(self, "word_in_text") and self.word_in_text:
-            try:
-                # Re-read file to get latest state
-                with self.auto_processed_filepath.open("r", encoding="utf-8") as f:
-                    current_dict = load(f)
-
-                # Remove our word if it still exists
-                if self.word_in_text in current_dict:
-                    del current_dict[self.word_in_text]
-
-                    # Write back the updated dictionary
-                    with self.auto_processed_filepath.open("w") as f:
-                        dump(
-                            current_dict,
-                            f,
-                            ensure_ascii=False,
-                            indent=4,
-                        )
-                    self.ui.update_message(f"{self.word_in_text} deleted")
-                else:
-                    self.ui.update_message(f"{self.word_in_text} already removed")
-
-            except (FileNotFoundError, JSONDecodeError) as e:
-                self.ui.clear_all_fields()
-                self.ui.update_message(f"File error: {e}")
+            self.pass1_auto_controller.remove_word(self.book_to_process, self.word_in_text)
+            self.ui.update_message(f"{self.word_in_text} deleted")

@@ -22,6 +22,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self,
         page: ft.Page,
         toolkit: ToolKit,
+        pass1_auto_controller: "Pass1AutoController",
     ) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(
@@ -37,7 +38,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.toolkit: ToolKit = toolkit
 
         self.db: DatabaseManager = self.toolkit.db_manager
-        self.controller = Pass1AddController(self, self.toolkit)
+        self.controller = Pass1AddController(self, self.toolkit, pass1_auto_controller)
         self.dpd_fields: DpdFields
         self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
         self.history_manager = self.toolkit.history_manager

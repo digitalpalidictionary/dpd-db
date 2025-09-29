@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from json import JSONDecodeError, dump, dumps, load, loads
+from json import JSONDecodeError, dump, dumps, loads
 from pathlib import Path
-import time
+import threading
 
 from gui2.books import (
     SuttaCentralSegment,
     SuttaCentralSource,
     sutta_central_books,
 )
+from gui2.pass1_file_manager import Pass1FileManager
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
@@ -28,7 +29,8 @@ class Pass1AutoController:
         self.ui: Pass1AutoView = ui
         self.db = toolkit.db_manager
         self.ai_manager = toolkit.ai_manager
-        self.locked = False
+        self.file_manager = Pass1FileManager(toolkit.paths)
+        self._lock = threading.Lock()
 
         self.gui2pth = toolkit.paths
         self.pass1_books: dict[str, SuttaCentralSource] = sutta_central_books
@@ -58,28 +60,33 @@ class Pass1AutoController:
         self.initial_auto_processed: int = 0
         self.total_missing: int = 0
 
+    def get_auto_processed_dict(self, book: str) -> dict:
+        with self._lock:
+            if not self.auto_processed_dict or self.book != book:
+                self.auto_processed_dict = self.file_manager.read(book)
+            return self.auto_processed_dict.copy()
+
+    def remove_word(self, book: str, word: str):
+        def update_func(data):
+            if word in data:
+                del data[word]
+            return data
+        self.file_manager.update(book, update_func)
+        if self.book == book:
+            self.auto_processed_dict = self.file_manager.read(book)
+
+    def add_word(self, book: str, word: str, data: dict):
+        def update_func(current_data):
+            current_data[word] = data
+            return current_data
+        self.file_manager.update(book, update_func)
+        if self.book == book:
+            self.auto_processed_dict = self.file_manager.read(book)
+
     def load_auto_processed(self):
         self.ui.update_message(f"Loading auto processed data for {self.book}")
-
-        while self.locked:
-            time.sleep(0.1)
-
-        self.locked = True
-        try:
-            self.auto_processed_path: Path = (
-                self.gui2pth.gui2_data_path / f"pass1_auto_{self.book}.json"
-            )
-            if self.auto_processed_path.exists():
-                self.auto_processed_dict = load(
-                    self.auto_processed_path.open("r", encoding="utf-8")
-                )
-                self.auto_processed_keys = list(self.auto_processed_dict.keys())
-
-            else:
-                self.auto_processed_dict = {}
-        finally:
-            self.locked = False
-
+        self.auto_processed_dict = self.get_auto_processed_dict(self.book)
+        self.auto_processed_keys = list(self.auto_processed_dict.keys())
         self.ui.update_auto_processed_count("0 / 0")
 
     def auto_process_book(self, book: str):
@@ -358,27 +365,26 @@ ve: verbal ending
             with open(tempfile, "w") as f:
                 dump(parsed_json, f, ensure_ascii=False, indent=4)
 
-            # update auto processed_dict
-            self.auto_processed_dict[self.word_in_text] = parsed_json
-
             # add examples and translations
             if len(self.sentence_data) > 0:
                 first_sentence = self.sentence_data[0]
-                self.auto_processed_dict[self.word_in_text]["example_1"] = (
+                parsed_json["example_1"] = (
                     first_sentence.pali
                 )
-                self.auto_processed_dict[self.word_in_text]["translation_1"] = (
+                parsed_json["translation_1"] = (
                     first_sentence.english
                 )
 
             if len(self.sentence_data) > 1:
                 second_sentence = self.sentence_data[1]
-                self.auto_processed_dict[self.word_in_text]["example_2"] = (
+                parsed_json["example_2"] = (
                     second_sentence.pali
                 )
-                self.auto_processed_dict[self.word_in_text]["translation_2"] = (
+                parsed_json["translation_2"] = (
                     second_sentence.english
                 )
+
+            self.add_word(self.book, self.word_in_text, parsed_json)
 
             # update gui
             if self.gd_toggle:
@@ -396,37 +402,6 @@ ve: verbal ending
                     separators=("", ":"),
                 )
             )
-
-            # RE-READ FILE BEFORE WRITING to get latest changes from Pass1AddController
-            while self.locked:
-                time.sleep(0.1)
-            
-            self.locked = True
-            try:
-                try:
-                    with self.auto_processed_path.open("r", encoding="utf-8") as f:
-                        current_file_dict = load(f)
-
-                    # Merge current file data with our new word
-                    if self.word_in_text not in current_file_dict:
-                        current_file_dict[self.word_in_text] = self.auto_processed_dict[
-                            self.word_in_text
-                        ]
-                        self.auto_processed_dict = current_file_dict
-                except (FileNotFoundError, JSONDecodeError):
-                    # File was deleted or corrupted, use our current data
-                    pass
-
-                # save updated dictionary to main file
-                with self.auto_processed_path.open("w") as f:
-                    dump(
-                        self.auto_processed_dict,
-                        f,
-                        indent=4,
-                        ensure_ascii=False,
-                    )
-            finally:
-                self.locked = False
 
         except JSONDecodeError as e:
             # Handle the case where the response is not valid JSON
