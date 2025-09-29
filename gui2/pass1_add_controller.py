@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from json import JSONDecodeError
-from pathlib import Path
 
 import flet as ft
 import pyperclip
@@ -71,9 +69,13 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.ui.clear_all_fields()
 
     def load_json(self):
-        self.auto_processed_dict = self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+        self.auto_processed_dict = self.pass1_auto_controller.get_auto_processed_dict(
+            self.book_to_process
+        )
         if not self.auto_processed_dict:
             self.ui.update_message("file not found or empty.")
+            self.auto_processed_dict_copy = {}
+            self.auto_processed_iter = iter([])
             return
 
         # dict will change size, so work on a copy
@@ -180,5 +182,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # Only remove from auto-processed dict if word_in_text exists
         # (i.e., when processing from a book, not when loading from history)
         if hasattr(self, "word_in_text") and self.word_in_text:
-            self.pass1_auto_controller.remove_word(self.book_to_process, self.word_in_text)
+            self.pass1_auto_controller.remove_word(
+                self.book_to_process, self.word_in_text
+            )
             self.ui.update_message(f"{self.word_in_text} deleted")

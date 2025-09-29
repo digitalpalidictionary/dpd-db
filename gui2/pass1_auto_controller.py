@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+import threading
 from json import JSONDecodeError, dump, dumps, loads
 from pathlib import Path
-import threading
 
 from gui2.books import (
     SuttaCentralSegment,
@@ -62,7 +62,8 @@ class Pass1AutoController:
 
     def get_auto_processed_dict(self, book: str) -> dict:
         with self._lock:
-            if not self.auto_processed_dict or self.book != book:
+            current_book = getattr(self, "book", None)
+            if not self.auto_processed_dict or current_book != book:
                 self.auto_processed_dict = self.file_manager.read(book)
             return self.auto_processed_dict.copy()
 
@@ -71,6 +72,7 @@ class Pass1AutoController:
             if word in data:
                 del data[word]
             return data
+
         self.file_manager.update(book, update_func)
         if self.book == book:
             self.auto_processed_dict = self.file_manager.read(book)
@@ -79,6 +81,7 @@ class Pass1AutoController:
         def update_func(current_data):
             current_data[word] = data
             return current_data
+
         self.file_manager.update(book, update_func)
         if self.book == book:
             self.auto_processed_dict = self.file_manager.read(book)
@@ -368,21 +371,13 @@ ve: verbal ending
             # add examples and translations
             if len(self.sentence_data) > 0:
                 first_sentence = self.sentence_data[0]
-                parsed_json["example_1"] = (
-                    first_sentence.pali
-                )
-                parsed_json["translation_1"] = (
-                    first_sentence.english
-                )
+                parsed_json["example_1"] = first_sentence.pali
+                parsed_json["translation_1"] = first_sentence.english
 
             if len(self.sentence_data) > 1:
                 second_sentence = self.sentence_data[1]
-                parsed_json["example_2"] = (
-                    second_sentence.pali
-                )
-                parsed_json["translation_2"] = (
-                    second_sentence.english
-                )
+                parsed_json["example_2"] = second_sentence.pali
+                parsed_json["translation_2"] = second_sentence.english
 
             self.add_word(self.book, self.word_in_text, parsed_json)
 
