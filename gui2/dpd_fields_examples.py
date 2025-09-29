@@ -361,9 +361,11 @@ class DpdExampleField(ft.Column):
         if not self.cst_examples:
             return
 
+        # Limit the number of examples to prevent UI issues
+        examples_to_show = self.cst_examples[:50]
         example_list = []
 
-        for counter, i in enumerate(self.cst_examples):
+        for counter, i in enumerate(examples_to_show):
             source, sutta, example = i
             example_list.append(
                 ft.Column(
