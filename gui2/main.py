@@ -46,7 +46,11 @@ class App:
         # Now create views
         self.global_view: GlobalTabView = GlobalTabView(self.page, self.toolkit)
         self.pass1_auto_view: Pass1AutoView = Pass1AutoView(self.page, self.toolkit)
-        self.pass1_add_view: Pass1AddView = Pass1AddView(self.page, self.toolkit, self.pass1_auto_view.controller)
+        self.pass1_add_view: Pass1AddView = Pass1AddView(
+            self.page,
+            self.toolkit,
+            self.pass1_auto_view.controller,
+        )
         self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
             self.page, self.toolkit
         )
@@ -66,9 +70,14 @@ class App:
             self.page.window.close()
         elif e.key == "A" and e.ctrl and e.shift:
             self.toolkit.ai_search_popup.open_popup()
-        elif e.key == "W" and e.ctrl:
+        elif e.key == "F" and e.ctrl:
+            self.toolkit.wordfinder_popup.open_popup()
+        elif e.key == "W":
+            # Universal close key - close any open dialog
             if self.toolkit.ai_search_popup.is_dialog_open():
                 self.toolkit.ai_search_popup.close_dialog()
+            elif self.toolkit.wordfinder_popup.is_dialog_open():
+                self.toolkit.wordfinder_popup.close_dialog()
 
     def tab_clicked(self, e: ft.ControlEvent) -> None:
         """Handles tab clicks."""

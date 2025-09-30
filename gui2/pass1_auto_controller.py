@@ -74,7 +74,7 @@ class Pass1AutoController:
             return data
 
         self.file_manager.update(book, update_func)
-        if self.book == book:
+        if hasattr(self, "book") and self.book == book:
             self.auto_processed_dict = self.file_manager.read(book)
 
     def add_word(self, book: str, word: str, data: dict):

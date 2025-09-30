@@ -109,12 +109,6 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
 
         self.ui.page.update()
 
-        self.ui.wordfinder_widget.search_field.value = self.word_in_text[:-2]
-        self.ui.wordfinder_widget.clear_wordfinder_results(
-            None
-        )  # Clear the wordfinder results panel
-        self.ui.wordfinder_widget.widget.update()
-
     def make_dpd_headword_and_add_to_db(self):
         # Collect data from UI fields into a dictionary
         field_data: dict[str, str] = {

@@ -1,5 +1,6 @@
 import flet as ft
 
+from gui2.wordfinder_popup import WordFinderPopup
 from tools.paths import ProjectPaths
 
 
@@ -46,6 +47,7 @@ class ToolKit:
         self.daily_log: DailyLog = DailyLog(self)
         self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)
         self.wordfinder_manager: WordFinderManager = WordFinderManager()
+        self.wordfinder_popup: WordFinderPopup = WordFinderPopup(self)
 
         # Initialize DB parts needed early
         self.db_manager.pre_initialize_gui_data()

@@ -21,11 +21,9 @@ from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
-from gui2.wordfinder_widget import WordFinderWidget
 from tools.fast_api_utils import request_dpd_server
 from tools.hyphenations import HyphenationFileManager, HyphenationsDict
 from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
-from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -70,9 +68,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.corrections_manager = self.toolkit.corrections_manager
         self.additions_manager = self.toolkit.additions_manager
-
-        self.wordfinder_manager: WordFinderManager = self.toolkit.wordfinder_manager
-        self.wordfinder_widget = WordFinderWidget(self.toolkit)
 
         self.dpd_fields: DpdFields
         self._pass2_auto_file_manager = Pass2AutoFileManager(self.toolkit)
@@ -194,7 +189,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         alignment=ft.MainAxisAlignment.START,
                     ),
                     ft.Row([self._message_field, self._filter_radios]),
-                    self.wordfinder_widget.get_widget(),
                 ],
             ),
             border=ft.Border(
@@ -527,11 +521,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         self.update_message("")  # Clear message field
         self.page.update()
-
-        self.wordfinder_widget.clear_wordfinder_results(
-            None
-        )  # Clear the wordfinder results panel
-        self.wordfinder_widget.widget.update()
 
     def _click_run_tests(self, e: ft.ControlEvent) -> None:
         """Run tests on current field values"""

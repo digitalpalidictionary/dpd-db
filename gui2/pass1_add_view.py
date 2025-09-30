@@ -5,10 +5,9 @@ from gui2.database_manager import DatabaseManager
 from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.mixins import PopUpMixin
+from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
-from gui2.wordfinder_widget import WordFinderWidget
 from tools.sandhi_contraction import SandhiContractionManager
-from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -22,7 +21,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self,
         page: ft.Page,
         toolkit: ToolKit,
-        pass1_auto_controller: "Pass1AutoController",
+        pass1_auto_controller: Pass1AutoController,
     ) -> None:
         # Main column: expands, does NOT scroll
         super().__init__(
@@ -45,8 +44,6 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
         self.test_manager: GuiTestManager = self.toolkit.test_manager
-        self.wordfinder_manager: WordFinderManager = self.toolkit.wordfinder_manager
-        self.wordfinder_widget = WordFinderWidget(self.toolkit)
 
         # --- Top Section Controls ---
         self.message_field = ft.TextField(
@@ -126,7 +123,6 @@ class Pass1AddView(ft.Column, PopUpMixin):
                             self.remaining_to_process,
                         ],
                     ),
-                    self.wordfinder_widget.get_widget(),
                     ft.Row(
                         controls=[self.message_field],
                     ),
