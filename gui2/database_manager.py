@@ -219,6 +219,9 @@ class DatabaseManager:
     def get_related_dict_entries(self, word_in_text) -> list[str]:
         """Get all the possible lemma, pos meaning for a word."""
 
+        # Refresh the session to ensure it's not in committed state
+        self.new_db_session()
+
         related_entries_list: list[str] = []
         lookup_results: list[Lookup] = (
             self.db_session.query(Lookup)
