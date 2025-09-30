@@ -14,10 +14,9 @@ class WordFinderPopup:
 
         # UI elements - adapted from WordFinderWidget
         self.search_field = ft.TextField(
-            text_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             label="Wordfinder",
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
-            width=300,
+            width=500,
             on_submit=self._handle_search,
             border_radius=20,
             border=None,
@@ -46,8 +45,6 @@ class WordFinderPopup:
             label="Search Type",
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             width=300,
-            text_size=10,
-            border_color=ft.Colors.BLUE_200,
             border_radius=20,
         )
 
