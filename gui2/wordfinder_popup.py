@@ -56,7 +56,6 @@ class WordFinderPopup:
             width=1350,
             height=1000,  # Reduced to ensure it fits within screen bounds
             bgcolor=ft.Colors.GREY_900,  # Darker background for results
-            border=ft.border.all(1, ft.Colors.BLUE_200),
         )
 
         self.dialog = ft.AlertDialog(
@@ -97,17 +96,53 @@ class WordFinderPopup:
 
         try:
             self.wordfinder.search_for(word, search_type, printer=False)
-            results = self.wordfinder.format_results(self.wordfinder.search_results)
+            results = (
+                self.wordfinder.search_results
+            )  # Get raw results to format manually
             if results:
-                self.results_container.content = ft.Column(
-                    [
-                        ft.Text(
-                            result,
-                            color=ft.Colors.WHITE,
-                            selectable=True,
-                        )
-                        for result in results
+                # Create DataTable with headers and data rows
+                data_table = ft.DataTable(
+                    border=ft.border.all(1, ft.Colors.BLUE_200),
+                    border_radius=10,
+                    data_row_color={ft.ControlState.HOVERED: ft.Colors.GREY_700},
+                    column_spacing=10,
+                    columns=[
+                        ft.DataColumn(ft.Text("Book", color=ft.Colors.WHITE)),
+                        ft.DataColumn(ft.Text("Word", color=ft.Colors.WHITE)),
+                        ft.DataColumn(ft.Text("Freq", color=ft.Colors.WHITE)),
                     ],
+                    rows=[
+                        ft.DataRow(
+                            cells=[
+                                ft.DataCell(
+                                    ft.Text(
+                                        book,
+                                        color=ft.Colors.WHITE,
+                                        selectable=True,
+                                    )
+                                ),
+                                ft.DataCell(
+                                    ft.Text(
+                                        word,
+                                        color=ft.Colors.WHITE,
+                                        selectable=True,
+                                    ),
+                                ),
+                                ft.DataCell(
+                                    ft.Text(
+                                        str(freq),
+                                        color=ft.Colors.WHITE,
+                                        selectable=True,
+                                    ),
+                                ),
+                            ],
+                        )
+                        for book, word, freq in results
+                    ],
+                )
+
+                self.results_container.content = ft.Column(
+                    [data_table],
                     scroll=ft.ScrollMode.AUTO,
                 )
                 self.results_container.visible = True
