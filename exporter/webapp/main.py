@@ -223,7 +223,7 @@ def update_history(
     if history_tuple in history_list:
         history_list.remove(history_tuple)
     history_list.insert(0, history_tuple)
-    return history_list[:25]
+    return history_list[:250]
 
 
 if __name__ == "__main__":

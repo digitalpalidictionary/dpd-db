@@ -57,18 +57,18 @@ function initializeApp() {
   appState.bd.searchTerm2 = q2;
   appState.bd.searchOption = option;
 
-   // If the URL contains search parameters, perform an initial search
-   if (
-     (q && q.trim() !== "") ||
-     (q1 && q1.trim() !== "") ||
-     (q2 && q2.trim() !== "")
-   ) {
-     if (/^\d+$/.test(q.trim())) {
-       performSearch(true);
-     } else {
-       performSearch(false);
-     }
-   }
+  // If the URL contains search parameters, perform an initial search
+  if (
+    (q && q.trim() !== "") ||
+    (q1 && q1.trim() !== "") ||
+    (q2 && q2.trim() !== "")
+  ) {
+    if (/^\d+$/.test(q.trim())) {
+      performSearch(true);
+    } else {
+      performSearch(false);
+    }
+  }
 
   // Render the initial UI
   render();
@@ -368,11 +368,11 @@ function addToHistory() {
           // Add new entry to the beginning of the history
           appState.historyPanelEntries.unshift(historyEntry);
 
-          // Limit to 50 entries
-          if (appState.historyPanelEntries.length > 50) {
+          // Limit to 250 entries
+          if (appState.historyPanelEntries.length > 250) {
             appState.historyPanelEntries = appState.historyPanelEntries.slice(
               0,
-              50
+              250
             );
           }
         }
@@ -392,11 +392,11 @@ function addToHistory() {
           // Add new entry to the beginning of the history
           appState.historyPanelEntries.unshift(appState.dpd.searchTerm);
 
-          // Limit to 50 entries
-          if (appState.historyPanelEntries.length > 50) {
+          // Limit to 250 entries
+          if (appState.historyPanelEntries.length > 250) {
             appState.historyPanelEntries = appState.historyPanelEntries.slice(
               0,
-              50
+              250
             );
           }
         }
@@ -417,11 +417,11 @@ function addToHistory() {
         // Add new entry to the beginning of the history
         appState.historyPanelEntries.unshift(appState.dpd.searchTerm);
 
-        // Limit to 50 entries
-        if (appState.historyPanelEntries.length > 50) {
+        // Limit to 250 entries
+        if (appState.historyPanelEntries.length > 250) {
           appState.historyPanelEntries = appState.historyPanelEntries.slice(
             0,
-            50
+            250
           );
         }
       }
@@ -494,7 +494,10 @@ function handlePopState(event) {
     // Re-perform the search to get the results (since we don't store HTML in history)
     if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
       performSearch(false); // false to avoid adding to history again
-    } else if (appState.activeTab === "bd" && (appState.bd.searchTerm1 || appState.bd.searchTerm2)) {
+    } else if (
+      appState.activeTab === "bd" &&
+      (appState.bd.searchTerm1 || appState.bd.searchTerm2)
+    ) {
       performSearch(false); // false to avoid adding to history again
     } else {
       // Update the UI for empty state
