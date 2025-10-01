@@ -195,3 +195,4 @@ exporter/other_dictionaries/bmp_files/
 gha-creds-*.json
 gui2/!todo.md
 docs_site
+gui2/build/
