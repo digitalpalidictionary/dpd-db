@@ -76,25 +76,29 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.ui.update_message("file not found or empty.")
             self.auto_processed_dict_copy = {}
             self.auto_processed_iter = iter([])
+            self.ui.update_remaining(0)
             return
 
         # dict will change size, so work on a copy
         self.auto_processed_dict_copy = self.auto_processed_dict.copy()
         self.auto_processed_iter = iter(self.auto_processed_dict_copy.items())
-        self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
+        self.ui.update_remaining(len(self.auto_processed_dict))
 
     def get_next_item(self):
         try:
             self.word_in_text, self.sentence_data = next(self.auto_processed_iter)
-            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
+            # Update from the current file state to show accurate remaining count
+            current_dict = self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+            self.ui.update_remaining(len(current_dict))
             print(self.word_in_text)
             print(self.sentence_data)
             return True
         except StopIteration:
-            self.ui.update_remaining(f"{len(self.auto_processed_dict)}")
+            # Update from the current file state when no more items
+            current_dict = self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+            self.ui.update_remaining(len(current_dict))
             self.ui.clear_all_fields()
             self.ui.update_message("No more words to process.")
-
             return False
 
     def load_into_gui(self):
@@ -179,4 +183,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.pass1_auto_controller.remove_word(
                 self.book_to_process, self.word_in_text
             )
+            # Update the auto_processed_dict to reflect the removal
+            self.auto_processed_dict = self.pass1_auto_controller.get_auto_processed_dict(
+                self.book_to_process
+            )
+            self.ui.update_remaining(len(self.auto_processed_dict))
             self.ui.update_message(f"{self.word_in_text} deleted")

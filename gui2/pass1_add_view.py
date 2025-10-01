@@ -217,8 +217,8 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.message_field.value = message
         self.page.update()
 
-    def update_remaining(self, message: str):
-        self.remaining_to_process.value = message
+    def update_remaining(self, count: int):
+        self.remaining_to_process.value = str(count)
         self.page.update()
 
     def handle_process_book_click(self, e: ft.ControlEvent) -> None:
@@ -279,16 +279,24 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
     def handle_pass_click(self, e: ft.ControlEvent) -> None:
         self.clear_all_fields()
-        self.controller.get_next_item()
-        self.controller.load_into_gui()
+        # For pass, we just want to load the next item without removing current from JSON
+        # So we need to get next item from the current iterator state
+        is_next_item = self.controller.get_next_item()
+        if is_next_item:
+            self.controller.load_into_gui()
+        else:
+            self.clear_all_fields()
 
     def handle_delete_click(self, e: ft.ControlEvent) -> None:
         print(self.dpd_fields)
         if self.word_in_text.value:
             self.controller.remove_word_and_save_json()
             self.clear_all_fields()
-            self.controller.get_next_item()
-            self.controller.load_into_gui()
+            is_next_item = self.controller.get_next_item()
+            if is_next_item:
+                self.controller.load_into_gui()
+            else:
+                self.clear_all_fields()
         else:
             self.update_message("No word_in_text.")
 
