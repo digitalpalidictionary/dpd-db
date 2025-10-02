@@ -1,0 +1,39 @@
+{
+    "root family": {
+        "data_filters": [
+            [
+                "root_key",
+                ""
+            ],
+            [
+                "family_root",
+                ""
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "meaning_1",
+            "meaning_lit",
+            "root_key",
+            "family_root"
+        ],
+        "limit": 50
+    },
+    "family compound": {
+        "data_filters": [
+            [
+                "family_compound"
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "family_compound",
+            "family_idioms"
+        ],
+        "limit": 10
+    }
+}
