@@ -123,7 +123,7 @@ class App:
                     content=self.sandhi_view,
                 ),
                 ft.Tab(
-                    text="√",
+                    text="DB",
                     content=self.filter_tab_view,
                 ),
                 ft.Tab(

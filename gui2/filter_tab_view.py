@@ -9,6 +9,8 @@ from gui2.toolkit import ToolKit
 
 LABEL_COLOUR = ft.Colors.GREY_500
 
+DEFAULT_LIMIT = 50
+
 
 class FilterTabView(ft.Column):
     """Filter tab for database filtering functionality."""
@@ -26,7 +28,7 @@ class FilterTabView(ft.Column):
             "root_key",
             "family_root",
         ],
-        limit: int = 10,
+        limit: int = 50,
     ) -> None:
         super().__init__(expand=True, spacing=5, scroll=ft.ScrollMode.AUTO, controls=[])
         self.page: ft.Page = page
@@ -44,6 +46,9 @@ class FilterTabView(ft.Column):
         self.selected_columns_container: ft.Row | None = None
         self.options_container: ft.Container | None = None
         self.dropdown_button: ft.ElevatedButton | None = None
+        self.preset_dropdown: ft.Dropdown | None = None
+        self.save_preset_button: ft.ElevatedButton | None = None
+        self.delete_preset_button: ft.ElevatedButton | None = None
 
         self.filter_component_container = ft.Container(
             content=ft.Column([], expand=True, scroll=ft.ScrollMode.AUTO),
@@ -51,7 +56,32 @@ class FilterTabView(ft.Column):
         )
 
         self._build_ui()
-        self._initialize_filters(data_filters, display_filters, limit)
+
+        # Load the first preset as default if available, otherwise use provided defaults
+        first_preset_data = self.toolkit.filter_presets_manager.get_first_preset()
+        if first_preset_data and isinstance(first_preset_data, dict):
+            # Load preset data
+            preset_data_filters = first_preset_data.get("data_filters", data_filters)
+            preset_display_filters = first_preset_data.get(
+                "display_filters", display_filters
+            )
+            preset_limit = first_preset_data.get("limit", limit)
+
+            # Ensure correct types before passing to initialize_filters
+            if (
+                isinstance(preset_data_filters, list)
+                and isinstance(preset_display_filters, list)
+                and isinstance(preset_limit, int)
+            ):
+                self._initialize_filters(
+                    preset_data_filters, preset_display_filters, preset_limit
+                )
+            else:
+                # Fallback to provided defaults if types don't match
+                self._initialize_filters(data_filters, display_filters, limit)
+        else:
+            # Use provided defaults
+            self._initialize_filters(data_filters, display_filters, limit)
 
     def _initialize_filters(
         self,
@@ -60,21 +90,27 @@ class FilterTabView(ft.Column):
         limit: int | None = None,
     ):
         """Initialize the filter with predefined values."""
-        if data_filters:
-            for i in range(len(data_filters) - len(self.column_dropdowns)):
+        if data_filters and isinstance(data_filters, list):
+            # Ensure we have enough filter rows
+            while len(self.column_dropdowns) < len(data_filters):
                 self._add_filter_row(None)
 
-            for i, (column, value) in enumerate(data_filters):
-                if i < len(self.column_dropdowns):
-                    self.column_dropdowns[i].value = column
-                    self.regex_inputs[i].value = value
+            # Update existing filter rows
+            for i, item in enumerate(data_filters):
+                if isinstance(item, (list, tuple)) and len(item) >= 1:
+                    column = item[0]
+                    value = item[1] if len(item) > 1 else ""
+                    if i < len(self.column_dropdowns):
+                        self.column_dropdowns[i].value = column
+                        self.regex_inputs[i].value = value
 
-        if display_filters:
+        if display_filters and isinstance(display_filters, list):
             for checkbox in self.column_checkboxes:
-                checkbox.value = checkbox.label in display_filters
+                if checkbox.label and isinstance(checkbox.label, str):
+                    checkbox.value = checkbox.label in display_filters
             self._on_column_checkbox_change(None)
 
-        if limit is not None and self.limit_input:
+        if limit is not None and isinstance(limit, int) and self.limit_input:
             self.limit_input.value = str(limit)
 
     def _build_ui(self) -> None:
@@ -129,6 +165,9 @@ class FilterTabView(ft.Column):
         reset_button = ft.ElevatedButton(
             "Reset to Default", on_click=self._reset_to_default_clicked
         )
+        # --- Preset Controls ---
+        preset_controls = self._create_preset_controls()
+
         buttons_section = ft.Row(
             [
                 ft.Container(
@@ -138,6 +177,17 @@ class FilterTabView(ft.Column):
                 apply_button,
                 clear_button,
                 reset_button,
+            ],
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+        )
+
+        preset_section = ft.Row(
+            [
+                ft.Container(
+                    ft.Text("Presets", size=14, color=LABEL_COLOUR),
+                    width=150,
+                ),
+                preset_controls,
             ],
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
@@ -154,6 +204,8 @@ class FilterTabView(ft.Column):
                 ft.Divider(),
                 buttons_section,
                 ft.Divider(),
+                preset_section,
+                ft.Divider(),
                 self.filter_component_container,
             ]
         )
@@ -166,6 +218,7 @@ class FilterTabView(ft.Column):
         initial_regex_input = DpdTextField(
             name="regex_pattern_0",
             multiline=False,
+            on_submit=self._apply_filters_clicked,
         )
         initial_regex_input.hint_text = "enter regex"
         initial_regex_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
@@ -205,6 +258,7 @@ class FilterTabView(ft.Column):
         new_regex_input = DpdTextField(
             name=f"regex_pattern_{new_index}",
             multiline=False,
+            on_submit=self._apply_filters_clicked,
         )
         new_regex_input.hint_text = "enter regex"
         new_regex_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
@@ -319,12 +373,50 @@ class FilterTabView(ft.Column):
         self.limit_input = DpdTextField(
             name="result_limit",
             multiline=False,
+            on_submit=self._apply_filters_clicked,
         )
         self.limit_input.hint_text = "0 for all results"
         self.limit_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
         self.limit_input.width = 200
-        self.limit_input.value = "20"
+        self.limit_input.value = "50"
         return ft.Row([self.limit_input])
+
+    def _create_preset_controls(self) -> ft.Row:
+        """Create the controls for the filter presets section."""
+        # Preset dropdown
+        preset_names = self.toolkit.filter_presets_manager.list_presets()
+        self.preset_dropdown = ft.Dropdown(
+            options=[ft.dropdown.Option(name) for name in preset_names],
+            width=500,
+            on_change=self._on_preset_selected,
+        )
+
+        # Set first preset as default if available
+        if preset_names:
+            self.preset_dropdown.value = preset_names[0]
+
+        # Save preset button
+        self.save_preset_button = ft.ElevatedButton(
+            "Save",
+            on_click=self._save_preset_clicked,
+            width=80,
+        )
+
+        # Delete preset button
+        self.delete_preset_button = ft.ElevatedButton(
+            "Delete",
+            on_click=self._delete_preset_clicked,
+            width=80,
+            disabled=len(preset_names) == 0,  # Disable if no presets
+        )
+
+        return ft.Row(
+            [
+                self.preset_dropdown,
+                self.save_preset_button,
+                self.delete_preset_button,
+            ]
+        )
 
     def _apply_filters_clicked(self, e: ft.ControlEvent | None) -> None:
         """Handle the Apply Filters button click."""
@@ -369,36 +461,251 @@ class FilterTabView(ft.Column):
 
         # Clear limit input
         if self.limit_input:
-            self.limit_input.value = "10"
+            self.limit_input.value = "50"
 
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
         self.page.update()
 
+    def _on_preset_selected(self, e: ft.ControlEvent) -> None:
+        """Handle preset selection from dropdown."""
+        if self.preset_dropdown and self.preset_dropdown.value:
+            preset_name = self.preset_dropdown.value
+            preset_data = self.toolkit.filter_presets_manager.get_preset(preset_name)
+
+            if preset_data and isinstance(preset_data, dict):
+                # Load preset data into current filters
+                data_filters = preset_data.get("data_filters", [])
+                display_filters = preset_data.get("display_filters", [])
+                limit = preset_data.get("limit", 50)
+
+                # Update data filters - ensure proper types
+                if isinstance(data_filters, list):
+                    # Clear existing filter rows beyond the first one
+                    while len(self.filter_rows) > 1:
+                        # Remove from UI
+                        if self.data_filters_container and self.filter_rows[1:]:
+                            self.data_filters_container.controls.remove(
+                                self.filter_rows[-1]
+                            )
+                        # Remove from lists
+                        self.filter_rows.pop()
+                        self.column_dropdowns.pop()
+                        self.regex_inputs.pop()
+
+                    # Ensure we have enough filter rows for the data
+                    while len(self.column_dropdowns) < len(data_filters):
+                        self._add_filter_row(None)
+
+                    # Update existing filter rows
+                    for i, item in enumerate(data_filters):
+                        if isinstance(item, (list, tuple)) and len(item) >= 1:
+                            column = item[0]
+                            value = item[1] if len(item) > 1 else ""
+                            if (
+                                isinstance(column, str)
+                                and isinstance(value, str)
+                                and i < len(self.column_dropdowns)
+                            ):
+                                self.column_dropdowns[i].value = column
+                                self.regex_inputs[i].value = value
+
+                # Update display filters - ensure proper types
+                if isinstance(display_filters, list):
+                    for checkbox in self.column_checkboxes:
+                        if checkbox.label and isinstance(checkbox.label, str):
+                            checkbox.value = checkbox.label in display_filters
+                    self._on_column_checkbox_change(None)
+
+                # Update limit - ensure proper type
+                if isinstance(limit, int) and self.limit_input:
+                    self.limit_input.value = str(limit)
+                elif self.limit_input:
+                    self.limit_input.value = "50"
+
+                self.page.update()
+
+    def _save_preset_clicked(self, e: ft.ControlEvent) -> None:
+        """Handle save preset button click."""
+        # Get current filter values
+        data_filters = []
+        for i, (column_dropdown, regex_input) in enumerate(
+            zip(self.column_dropdowns, self.regex_inputs)
+        ):
+            if column_dropdown.value:
+                # Save only the column name if no value is provided
+                if regex_input.value:
+                    data_filters.append([column_dropdown.value, regex_input.value])
+                else:
+                    data_filters.append([column_dropdown.value])
+
+        display_filters = []
+        for checkbox in self.column_checkboxes:
+            if checkbox.value:
+                display_filters.append(str(checkbox.label))
+
+        limit = DEFAULT_LIMIT
+        if self.limit_input and self.limit_input.value:
+            try:
+                limit = int(self.limit_input.value)
+            except ValueError:
+                limit = DEFAULT_LIMIT
+
+        # Show input dialog for preset name
+        name_field = ft.TextField(label="Preset Name", autofocus=True)
+
+        def on_save_click(e: ft.ControlEvent) -> None:
+            preset_name = name_field.value.strip() if name_field.value else ""
+            if preset_name:
+                self.toolkit.filter_presets_manager.save_preset(
+                    preset_name, data_filters, display_filters, limit
+                )
+
+                # Update dropdown options
+                if self.preset_dropdown:
+                    preset_names = self.toolkit.filter_presets_manager.list_presets()
+                    self.preset_dropdown.options = [
+                        ft.dropdown.Option(name) for name in preset_names
+                    ]
+                    self.preset_dropdown.value = preset_name
+
+                # Enable delete button if it was disabled
+                if self.delete_preset_button:
+                    self.delete_preset_button.disabled = False
+
+                # Close the dialog
+                self.page.close(name_dialog)
+
+                # Refresh the UI to show the newly saved preset
+                self.page.update()
+
+        def on_cancel_click(e: ft.ControlEvent) -> None:
+            self.page.close(name_dialog)
+
+        name_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Save Filter Preset"),
+            content=name_field,
+            actions=[
+                ft.TextButton("Cancel", on_click=on_cancel_click),
+                ft.TextButton("Save", on_click=on_save_click),
+            ],
+        )
+
+        self.page.open(name_dialog)
+        self.page.update()
+
+    def _delete_preset_clicked(self, e: ft.ControlEvent) -> None:
+        """Handle delete preset button click."""
+        if not self.preset_dropdown or not self.preset_dropdown.value:
+            return
+
+        preset_name = self.preset_dropdown.value
+
+        def on_delete_click(e: ft.ControlEvent) -> None:
+            # Delete the preset
+            self.toolkit.filter_presets_manager.delete_preset(preset_name)
+
+            # Update dropdown options
+            if self.preset_dropdown:
+                preset_names = self.toolkit.filter_presets_manager.list_presets()
+                self.preset_dropdown.options = [
+                    ft.dropdown.Option(name) for name in preset_names
+                ]
+
+                # Select first preset or None
+                self.preset_dropdown.value = preset_names[0] if preset_names else None
+
+                # Disable delete button if no presets left
+                if self.delete_preset_button:
+                    self.delete_preset_button.disabled = len(preset_names) == 0
+
+            # Refresh the UI to show the updated preset list before closing dialog
+            self.page.update()
+
+            # Close the dialog
+            self.page.close(delete_dialog)
+
+            # Final page update after closing dialog
+            self.page.update()
+
+        def on_cancel_delete(e: ft.ControlEvent) -> None:
+            self.page.close(delete_dialog)
+
+        # Show confirmation dialog
+        delete_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Delete Filter Preset"),
+            content=ft.Text(
+                f"Are you sure you want to delete the preset '{preset_name}'?"
+            ),
+            actions=[
+                ft.TextButton("Cancel", on_click=on_cancel_delete),
+                ft.TextButton("Delete", on_click=on_delete_click),
+            ],
+        )
+
+        self.page.open(delete_dialog)
+        self.page.update()
+
     def _reset_to_default_clicked(self, e: ft.ControlEvent | None) -> None:
         """Handle the Reset to Default button click."""
-        # Reset data filters to default values
-        default_data_filters = [("root_key", ""), ("family_root", "")]
+        # Load the first preset as default if available
+        first_preset_data = self.toolkit.filter_presets_manager.get_first_preset()
 
-        # Reset display filters to default values
-        default_display_filters = [
-            "id",
-            "lemma_1",
-            "meaning_1",
-            "meaning_lit",
-            "root_key",
-            "family_root",
-        ]
+        if first_preset_data:
+            # Load preset data into current filters
+            data_filters = first_preset_data.get("data_filters", [])
+            display_filters = first_preset_data.get("display_filters", [])
+            limit = first_preset_data.get("limit", DEFAULT_LIMIT)
 
-        # Reset limit to default
-        default_limit = 20
+            # Update data filters - ensure proper types
+            if isinstance(data_filters, list):
+                for i, item in enumerate(data_filters):
+                    if isinstance(item, (list, tuple)) and len(item) >= 1:
+                        column = item[0]
+                        value = item[1] if len(item) > 1 else ""
+                        if i < len(self.column_dropdowns):
+                            self.column_dropdowns[i].value = column
+                            self.regex_inputs[i].value = value
 
-        # Re-initialize filters with default values
-        self._initialize_filters(
-            data_filters=default_data_filters,
-            display_filters=default_display_filters,
-            limit=default_limit,
-        )
+                # Add more filter rows if needed
+                for i in range(len(data_filters) - len(self.column_dropdowns)):
+                    self._add_filter_row(None)
+
+            # Update display filters - ensure proper types
+            if isinstance(display_filters, list):
+                for checkbox in self.column_checkboxes:
+                    if checkbox.label and isinstance(checkbox.label, str):
+                        checkbox.value = checkbox.label in display_filters
+                self._on_column_checkbox_change(None)
+
+            # Update limit - ensure proper type
+            if isinstance(limit, int) and self.limit_input:
+                self.limit_input.value = str(limit)
+        else:
+            # Fallback to original hardwired values if no presets exist
+            default_data_filters = [("root_key", ""), ("family_root", "")]
+
+            # Reset display filters to default values
+            default_display_filters = [
+                "id",
+                "lemma_1",
+                "meaning_1",
+                "meaning_lit",
+                "root_key",
+                "family_root",
+            ]
+
+            # Reset limit to default
+            default_limit = 50
+
+            # Re-initialize filters with default values
+            self._initialize_filters(
+                data_filters=default_data_filters,
+                display_filters=default_display_filters,
+                limit=default_limit,
+            )
 
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
