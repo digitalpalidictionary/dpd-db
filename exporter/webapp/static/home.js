@@ -67,8 +67,20 @@ document.addEventListener("DOMContentLoaded", function () {
     dpdResults.innerHTML = startMessage;
   }
 
-  applySavedTheme();
-  loadToggleState("theme-toggle");
+  // Set the toggle switch to the correct state and apply the theme
+  try {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      themeToggle.checked = true;
+      document.documentElement.classList.add("dark-mode");
+    } else {
+      themeToggle.checked = false;
+      document.documentElement.classList.remove("dark-mode");
+    }
+  } catch (e) {
+    console.log("LocalStorage is not available.");
+  }
+
   loadToggleState("sans-serif-toggle");
   loadToggleState("niggahita-toggle");
   loadToggleState("grammar-toggle");
@@ -99,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   } else {
     console.error(
-      "Error: .language-icon or .dropdown element not found in the DOM."
+      "Error: .language-icon or .dropdown element not found in the DOM.",
     );
   }
 });
@@ -215,7 +227,14 @@ function changeLanguage(lang) {
 
 //// save settings on toggle
 
-themeToggle.addEventListener("change", saveToggleState);
+function saveToggleState(event) {
+  try {
+    localStorage.setItem(event.target.id, JSON.stringify(event.target.checked));
+  } catch (e) {
+    console.log("LocalStorage is not available.");
+  }
+}
+
 sansSerifToggle.addEventListener("change", saveToggleState);
 niggahitaToggle.addEventListener("change", saveToggleState);
 grammarToggle.addEventListener("change", saveToggleState);
@@ -224,29 +243,16 @@ oneButtonToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
 
-function saveToggleState(event) {
-  localStorage.setItem(event.target.id, event.target.checked);
-}
-
 //// theme
 
-function toggleTheme(event) {
-  document.body.classList.toggle("dark-mode", event.target.checked);
-  localStorage.setItem("theme", event.target.checked ? "dark" : "light");
-}
-
-//// Event listener for theme toggle
-themeToggle.addEventListener("change", toggleTheme);
-
-//// Function to apply the saved theme state
-function applySavedTheme() {
-  var savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    document.body.classList.remove("dark-mode", "light-mode"); // Remove both classes
-    document.body.classList.add(savedTheme + "-mode"); // Add the saved theme class
-    themeToggle.checked = savedTheme === "dark"; // Sync toggle state
+themeToggle.addEventListener("change", function (event) {
+  document.documentElement.classList.toggle("dark-mode", event.target.checked);
+  try {
+    localStorage.setItem("theme", event.target.checked ? "dark" : "light");
+  } catch (e) {
+    console.log("LocalStorage is not available.");
   }
-}
+});
 
 //// toggle sans / serif
 
