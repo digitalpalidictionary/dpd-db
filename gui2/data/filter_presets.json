@@ -35,5 +35,20 @@
             "family_idioms"
         ],
         "limit": 10
+    },
+    "inflections empty": {
+        "data_filters": [
+            [
+                "inflections",
+                "^$"
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "pos",
+            "meaning_2"
+        ],
+        "limit": 0
     }
 }
