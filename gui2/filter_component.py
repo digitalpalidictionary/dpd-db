@@ -268,6 +268,7 @@ class FilterComponent(ft.Column):
                     column_widths[col_name] = max(50, min(width, 800))
 
         # Create columns
+        self.results_table.columns.append(ft.DataColumn(label=ColumnText("#", 40)))
         for col_name in display_columns:
             width = column_widths.get(col_name, 150)  # Default width if no results
             self.results_table.columns.append(
@@ -277,6 +278,12 @@ class FilterComponent(ft.Column):
         # Create rows with editable cells
         for row_index, result in enumerate(self.filtered_results):
             cells = []
+
+            # Add row number cell
+            row_num_field = CellTextField(text=str(row_index + 1))
+            row_num_field.read_only = True
+            row_num_field.multiline = False
+            cells.append(ft.DataCell(row_num_field))
 
             for col_name in display_columns:
                 value = getattr(result, col_name, "")
