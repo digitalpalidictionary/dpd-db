@@ -186,17 +186,27 @@ function changeLanguage(lang) {
 
   let newHostname = hostname;
 
-  if (lang === "ru") {
-    // Add ru. prefix if not already present
-    if (!hostname.startsWith("ru.")) {
-      newHostname = `ru.${hostname}`;
-    }
-  } else if (lang === "en") {
-    // Remove ru. prefix if present
-    if (hostname.startsWith("ru.")) {
-      newHostname = hostname.substring(3); // Remove 'ru.'
-    }
-  }
+   if (lang === "ru") {
+     // For Russian: remove www. and ru. if present, then add ru.
+     if (hostname.startsWith("www.")) {
+       newHostname = `ru.${hostname.substring(4)}`;
+     } else if (hostname.startsWith("ru.")) {
+       newHostname = hostname;
+     } else {
+       newHostname = `ru.${hostname}`;
+     }
+   } else if (lang === "en") {
+     // For English: remove ru. if present, and ensure www. is added
+     if (hostname.startsWith("ru.www.")) {
+       newHostname = `www.${hostname.substring(7)}`;
+     } else if (hostname.startsWith("ru.")) {
+       newHostname = `www.${hostname.substring(3)}`;
+     } else if (!hostname.startsWith("www.")) {
+       newHostname = `www.${hostname}`;
+     } else {
+       newHostname = hostname;
+     }
+   }
 
   // Only redirect if the hostname actually changed
   if (newHostname !== hostname) {
