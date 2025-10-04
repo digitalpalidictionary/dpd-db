@@ -72,7 +72,7 @@ class App:
             self.toolkit.ai_search_popup.open_popup()
         elif e.key == "F" and e.ctrl:
             self.toolkit.wordfinder_popup.open_popup()
-        elif e.key == "W":
+        elif e.key == "W" and e.ctrl:
             # Universal close key - close any open dialog
             if self.toolkit.ai_search_popup.is_dialog_open():
                 self.toolkit.ai_search_popup.close_dialog()
