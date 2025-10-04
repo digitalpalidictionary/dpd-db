@@ -1,10 +1,10 @@
 <h3>spelling: {{d.headword}}</h3>
-<div class='variant'>
-    <p class='variant'>
+<div class='dpd'>
+    <p>
         {% for spelling in d.spellings: %}
         incorrect spelling of <b><i>{{spelling}}</i></b>
         {% if not loop.last: %}
-            <br>
+        <br>
         {% endif %}
         {% endfor %}
     </p>
