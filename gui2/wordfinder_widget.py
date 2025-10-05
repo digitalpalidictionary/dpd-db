@@ -25,6 +25,7 @@ class WordFinderWidget:
         )
 
         self.search_field = ft.TextField(
+            autofocus=True,
             text_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
             label="Wordfinder",
             label_style=TEXT_FIELD_LABEL_STYLE,

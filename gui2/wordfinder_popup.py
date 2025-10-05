@@ -14,13 +14,13 @@ class WordFinderPopup:
 
         # UI elements - adapted from WordFinderWidget
         self.search_field = ft.TextField(
+            autofocus=True,
             label="Wordfinder",
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             width=500,
             on_submit=self._handle_search,
             border_radius=20,
             border=None,
-            autofocus=True,
             bgcolor=ft.Colors.GREY_900,  # Darker field background
         )
 
