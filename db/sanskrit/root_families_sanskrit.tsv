@@ -3,7 +3,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √akkh	1	a	see	√akṣ	1	attain	pati √akkh	-	apratyakṣa, prātyakṣa
 √agg	1	a	move crookedly	√ag	1	move tortuously	√agg	ag	agni, agninā, āgnika
 √agg	1	a	move crookedly	√ag	1	move tortuously	pati √agg	pratyag	? + agni
-√aggh	1	a	be worth	√argh √arh	1	be worth	√aggh	arh	argha, argha + āpaṇaka, arghati, arghya, arghya?, arhayat, na + arghati
+√aggh	1	a	be worth	√argh √arh	1	be worth	√aggh	arh	anargha, argha, argha + āpaṇaka, arghati, arghya, arghya?, arhayat, na + arghati
 √aggh	1	a	be worth	√argh √arh	1	be worth	pati √aggh	-	
 √aṅg	1	a	walk	√aṅg	1	move	√aṅg	aṅg	aṅgaṇa
 √acc 1	1	a	shine, praise	√arc	1	shine, praise	√acc	arc	arcanā, arcanam, arci, arcita (honoured), arciṣmat
@@ -995,6 +995,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	apa √ji	apaji	ajaya
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	abhi vi √ji	viji	abhi + vijayitum, abhi + vijināti, abhivijīta, abhivijītya, abhivijītvā
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	ava √ji	avaji	na + avajīyate
+√ji 2	5	nā	conquer	√ji √jyā	9	conquer	pati √ji		
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	parā √ji	parāji	parājayate
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	vi √ji	viji	na + vijita, vijita, vijitavān, vijitya, vijināti, vijītvā
 √jī	3	ya	age, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jī	jṝ	ajīryamāṇa, ajeya, jīrṇa, jīryati, jīryamāṇa
@@ -1430,7 +1431,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	pati √dhā	pratidhā	pratihita
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	pati saṃ √dhā	pratisaṃdhā	na + pratisaṃdhi +, prati, pratisandhi, pratisaṃdhi, pratisaṃdhi +
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	pari √dhā	paridhā	paridhāsyati, paridhita, paridhītvā, paridhīya, paridhetum, parihita
-√dhā	1	a	place, support	√dhā	1, 2, 3	put	vi √dhā	vidhā	na + vidheya, vidadhāti, vidha, vidhāna, vidhānavat, vidhāyaka, vidhi, vidheya, vihita, suvihita
+√dhā	1	a	place, support	√dhā	1, 2, 3	put	vi √dhā	vidhā	na + vidheya, vidadhāti, vidha, vidhāna, vidhānavat, vidhāyaka, vidhi, vidheya, vihita, vihita +, suvihita
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	vi ava √dhā	vyavadhā	vyavadhāna
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	vi ā √dhā	vyādhā	na + vyādhi, vyādhi, vyādhi +, vyādhita, vyādhīyate, vyādhīyamāna
 √dhā	1	a	place, support	√dhā	1, 2, 3	put	vi ni √dhā	vinidhā	
@@ -3067,7 +3068,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sikkh	1	a	learn, train	√śikṣ	1	learn	anu √sikkh	anuśikṣ	anuśikṣat, anuśikṣati, anuśikṣamāṇa, anuśikṣin, na +
 √siṅgh	1	a	sniff, smell	√śiṅgh	1	snuff	√siṅgh	śiṅgh	siṅghāṇaka, śiṅghati
 √siṅgh	1	a	sniff, smell	√śiṅgh	1	snuff	upa √siṅgh	upaśiṅgh	upaśiṅghat, upaśiṅghati, upaśiṅghana
-√sic	2	ṃa	sprinkle, pour	√sic	6	pour out	√sic	sic	asicat, asecanaka, asecanaka +, sikta, siktvā, siñcati, siñcamāna, secana, secayati, ṣeka
+√sic	2	ṃa	sprinkle, pour	√sic	6	pour out	√sic	sic	asicat, asecanaka, asecanaka +, sikta, siktvā, siñcati, siñcamāna, secana, secanaka, secayati, ṣeka
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	abhi √sic	abhiṣic	abhisiñcati, abhiṣikta, abhiṣiktvā, abhiṣeka, abhiṣecana, abhiṣeka
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	ava √sic	avasic	avasikta, avasiktvā, avasiñcat, avasiñcati, avasiñcana, avaseka, avaseka (irrigating), na + avaseka
 √sic	2	ṃa	sprinkle, pour	√sic	6	pour out	ā √sic	āsic	āsikta, āsiñcati, āsektum, āsecitavya, na + āsikta
