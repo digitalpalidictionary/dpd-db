@@ -171,7 +171,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √is	1	*a	wish for	√iṣ	1, 4, 6, 9	seek, desire	adhi √is	adhīṣ	adhīṣṭa, adhyeṣaṇa, adhyeṣate, adhyeṣi
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	abhi √is		abhīṣṭa
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	ā √is	eṣ	anāśa, āśā, āśāvat, āśis, na + āśā, nirāśa, nirāśā
-√is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	pati √is	pratīṣ	pratīcchati, pratīṣya
+√is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	pati √is	pratīṣ	apaptat + pati + apti + prati + tri iti ti, pratīcchati, pratīṣya
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	pati ā √is	pratyeṣ	pratyāśā, pratyāśā, prāptyāśā
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	vi √is	vīṣ	
 √is	1	a	wish for	√iṣ	1, 4, 6, 9	seek, desire	saṃ pati √is	sampratīṣ	saṃpratīcchat, saṃpratīcchati, saṃpratīcchana (bsk), saṃpratyeṣita (bsk)
@@ -1000,10 +1000,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ji 2	5	nā	conquer	√ji √jyā	9	conquer	vi √ji	viji	na + vijita, vijita, vijitavān, vijitya, vijināti, vijītvā
 √jī	3	ya	age, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jī	jṝ	ajīryamāṇa, ajeya, jīrṇa, jīryati, jīryamāṇa
 √jī	3	ya	age, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	ava √jī	-	
-√jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jīr	jṝ	ajārīt, ajarat, ajīrṇa, ajīrṇa (na + jīrṇa), jarayat, jīrṇa, jīrṇaka, jīrṇatā, jīryati, jīryamāṇa, jṛṇāti, na + jāraṇa, na + jṛṇāti
+√jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jīr	jṝ	ajārīt, ajarat, ajīrṇa, ajīrṇa (na + jīrṇa), jarayat, jīrṇa, jīrṇa +, jīrṇaka, jīrṇatā, jīryati, jīryamāṇa, jṛṇāti, na + jāraṇa, na + jṛṇāti
 √jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	nī √jīr	nirjṝ	nirjarati, nirjarayitavya, nirjīrṇa
 √jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	pari √jīr	parijṝ	parijīrṇa, parijūnya (bsk)
-√jīv	1	a	live	√jīv	1	live	√jīv	jīv	jīva, jīvaka, jīvat, jīvati, jīvamāna, jīvā, jīvikā, jīvita, jīvitavya, jīvitum, jīvin, durjīva, durjīva +, durjīvita, nir + jīva, saṃjīvana, sujīva, sujīvita
+√jīv	1	a	live	√jīv	1	live	√jīv	jīv	jīva, jīvaka, jīvat, jīvati, jīvamāna, jīvā, jīvikā, jīvita, jīvitavya, jīvitum, jīvin, durjīva, durjīva +, durjīvita, nir + jīva, sajīva, saṃjīvana, sujīva, sujīvita
 √jīv	1	a	live	√jīv	1	live	adhi ā √jīv		adhi + ājīva
 √jīv	1	a	live	√jīv	1	live	anu √jīv	anujīv	
 √jīv	1	a	live	√jīv	1	live	ā √jīv	ājīv	ājīva, ājīvaka, ājīvaka +, ājīvati, ājīvita, ājīvin, sajjīva (bsk)
@@ -1301,7 +1301,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dikkh	1	ya	consecrate	√dīkṣ	a	consecrate	√dikkh	dīkṣ	dīkṣita
 √div	3	ya	shine	√div	4	play	√div	div	daivasaka, dina, diva, divasa, divasa +, divasam, divasāt, divasya, divā, divātara, divya, dīvyati, deva, devatā, devatva, devala, devānām, devila, devī, dyus, sadevaka, sadyas
 √div	3	ya	shine	√div	4	play	ati √div	atidiv	ati + divā, atideva, na + ati + divā
-√dis 1	1	a	see	√dṛś	1	see	√dis	dṛś	a + darśanīya, adarśat, adarśan, adarśana, adarśam, adarśas, adarśi, adarśur, adarśma, adīdṛśat, adṛsyamāna, adṛṣṭa, adṛṣṭatva, adṛṣṭi, adṛṣṭvā, apaśyat, apaśyamāna, asadṛśa, kudṛśya, darśa, darśana, darśanāya, darśanīya, darśanīya +, darśanena, darśayat, darśayati, darśayitavya, darśayitum, darśayitvā, darśayitṛ, darśita, darśin, darśivān (darśivas, kvasu pratyaya), dur, dur + dṛṣṭi, durdṛśa, durdṛṣṭa, drakṣyati, draṣṭavya, draṣṭum, draṣṭṛ, driśaye, dṛśa, dṛśeyam, dṛśya, dṛśyat, dṛśyate, dṛśyamāna, dṛṣṭa, dṛṣṭa, darśita, dṛṣṭatva, dṛṣṭi, dṛṣṭi +, dṛṣṭika, dṛṣṭin, dṛṣṭvā, dṛṣṭvā, dṛśya, na + adarśat, na + adarśam, na + adrākṣīt, na + darśayamāna, na + darśita, na + darśin, na + darśivān (darśivas, kvasu pratyaya), na + dṛśyate, na + dṛṣṭvā, na + sadṛśa, na + sadṛśatā, paś, paśya, paśyat, paśyati, paśyati, drakṣati, paśyamāna, paśyasi, sadṛśa, sadṛśatā, sadṛśatva, su + dṛṣṭatva, sudarśa, sudarśana, sudurdarśa, sudṛśa, sudṛṣṭa
+√dis 1	1	a	see	√dṛś	1	see	√dis	dṛś	a + darśanīya, adarśat, adarśan, adarśana, adarśam, adarśas, adarśi, adarśur, adarśma, adīdṛśat, adṛsyamāna, adṛṣṭa, adṛṣṭatva, adṛṣṭi, adṛṣṭvā, apaśyat, apaśyamāna, asadṛśa, kudṛśya, darśa, darśana, darśanāya, darśanīya, darśanīya +, darśanena, darśayat, darśayati, darśayitavya, darśayitum, darśayitvā, darśayitṛ, darśita, darśin, darśivān (darśivas, kvasu pratyaya), dur, dur + dṛṣṭi, durdṛśa, durdṛṣṭa, drakṣyati, draṣṭavya, draṣṭum, draṣṭṛ, driśaye, dṛśa, dṛśeyam, dṛśya, dṛśyat, dṛśyate, dṛśyamāna, dṛṣṭa, dṛṣṭa, darśita, dṛṣṭatva, dṛṣṭi, dṛṣṭi +, dṛṣṭika, dṛṣṭin, dṛṣṭvā, dṛṣṭvā, dṛśya, na + adarśat, na + adarśam, na + adrākṣīt, na + darśayamāna, na + darśita, na + darśin, na + darśivān (darśivas, kvasu pratyaya), na + dṛśyate, na + dṛṣṭvā, na + sadṛśa, na + sadṛśatā, paś, paśya, paśyat, paśyati, paśyati, drakṣati, paśyana, paśyamāna, paśyasi, sadṛśa, sadṛśatā, sadṛśatva, su + dṛṣṭatva, sudarśa, sudarśana, sudurdarśa, sudṛśa, sudṛṣṭa
 √dis 1	1	a	see	√dṛś	1	see	ati √dis		ati + dṛṣṭi, atidṛṣṭvā
 √dis 1	1	*e	see	√dṛś	1	see	anu √dis	anudṛś	anudarśana, anupaśyanā (bsk), anudṛṣṭi, anudṛṣṭi +, anupaśya, anudarśana, anupaśyanā (bsk), anupaśyat, anupaśyati, anupaśyin (bsk), anupaśyin (bsk) +, na + anupaś, anupaśyati
 √dis 1	1	a	see	√dṛś	1	see	abhi √dis	abhidṛś	abhipaśyat
@@ -1738,7 +1738,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pupph	1	a	flower, expand	√puṣp	4	open, expand, bloom	saṃ √pupph	-	saṃ + puṣpita
 √pul	8	*e	increase	√pul	1, 6, 10	be great	ati vi √pul	pul	ati + vaipulya +
 √pul	8	*e	increase	√pul	1, 6, 10	be great	vi √pul	pul	vaipulya, vaipulya +, vipula, vipula, vaipulya, vipulatā < vipula, vipulatva
-√pus	1	*a	nourish, take care	√puṣ	1, 4, 9	thrive	√pus	puṣ	apoṣi, duṣpoṣa, duṣpoṣatā, puṣṭa, puṣṭim, pota, potaka, potikā, poṣa, poṣaka, poṣaṇa, poṣaṇa +, poṣaṇīya, poṣat, poṣati, poṣayat, poṣayati, poṣayita, poṣita, poṣitavya, poṣin, supoṣa, supoṣatā
+√pus	1	*a	nourish, take care	√puṣ	1, 4, 9	thrive	√pus	puṣ	apoṣi, duṣpoṣa, duṣpoṣatā, puṣṭa, puṣṭim, pota, potaka, potikā, poṣa, poṣaka, poṣaṇa, poṣaṇa +, poṣaṇīya, poṣat, poṣati, poṣayat, poṣayati, poṣayana, poṣayita, poṣita, poṣitavya, poṣin, supoṣa, supoṣatā
 √pus	1	*a	nourish, take care	√puṣ	1, 4, 9	thrive	anu √pus	anupuṣ	
 √pūj	8	*e	honour, venerate	√pūj	1, 10	reverence	√pūj	pūj	a + pūjya, apūjita, apūpujat, pūjaka, pūjana, pūjanīya, pūjayat, pūjayati, pūjayamāna, pūjayitavya, pūjayitum, pūjayitvā, pūjayitṛ, pūjā, pūjārha, pūjita, pūjya, pūjya + tara, pūjyate, pūjyamāna, supūjita
 √pūj	8	*e	honour, venerate	√pūj	1, 10	reverence	abhi √pūj	abhipūj	abhipūjanīya, abhipūjayati
@@ -2806,7 +2806,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vis 1	1	a	enter	√viś	6	enter	upa √vis	upaviś	upaviśya, upaviṣṭa
 √vis 1	1	a	enter	√viś	6	enter	ni √vis	niviś	aniviṣṭa, aniveśana, dus + niviṣṭa, niviśate, niviśamāna, niviśya, niviṣṭa, niviṣṭa +, niveśa, niveśana, niveśayati, niveśayitavya, suniviṣṭa
 √vis 1	1	a	enter	√viś	6	enter	nī √vis	nirviś	anirvista, na + niviśat, nirveśa, nirveśamāna, niviśat
-√vis 1	1	*e	enter	√viś	6	enter	pa √vis	praviś	duṣpraveśa, na + praveśayati, pra, praviśat, praviśati, praviśana, praviśamāna, praviśayitvā, praviśya, praviṣṭa, praviṣṭvā, pravekṣyati, praveśa, praveśana, praveśayat, praveśayati, praveśayitavya, praveśita, praveṣṭum, praveṣṭum (non-caus), praveśayitum (caus), praveṣṭṛ
+√vis 1	1	*e	enter	√viś	6	enter	pa √vis	praviś	duṣpraveśa, na + praviṣṭvā, na + praveśayati, pra, praviśat, praviśati, praviśana, praviśamāna, praviśayitvā, praviśya, praviṣṭa, praviṣṭvā, pravekṣyati, praveśa, praveśana, praveśayat, praveśayati, praveśayitavya, praveśita, praveṣṭum, praveṣṭum (non-caus), praveśayitum (caus), praveṣṭṛ
 √vis 1	1	a	enter	√viś	6	enter	pati √vis	viś	prativeśa, prativeśya, pratyaṃśa, prātiveśika, prativeśaka (bsk)
 √vis 1	1	a	enter	√viś	6	enter	pati pa √vis	pratipraviś	pratipraviṣṭa, pratipraviṣṭvā
 √vis 1	1	a	enter	√viś	6	enter	pari √vis	pariviś	pariveṣa
@@ -2846,6 +2846,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vhe	1	a	call, name	√hve √hū	1	call	ā √vhe	āhve	āhva, āhva, āhvā, āhvaya, āhvayati, āhvayati, ābṛhati (bsk), āvarhati (bsk), āhvayana, āhvayitavya, āhvāyitavya, āhvāna, āhvāyaka, na + āhūta, sa + āhvaya
 √vhe	1	a	call, name	√hve √hū	1	call	upa √vhe	upahve	upahvayat, upahvayati, upahvayet
 √sak	4	ṇo	be able, be powerful	√śak	5	be able	√sak	śak	aśakat, aśaknuvat, na + aśakat, na + śakanīya, na + śakanīya +, na + śakya, śakanīya +, saśakya (bsk), śakanīya, śakanīya +, śakeyam, śakti, śaknuvan, śaknoti, śakya, śakra, śakratva, śakṣyati, śakṣyasi, śākya, śākyāḥ < śākya
+√sak	4	uṇā	be able, be powerful	√śak	5	be able	a √sak		
 √sak	4	ṇo	be able, be powerful	√śak	5	be able	saṃ √sak	saṃśak	saśakya (bsk)
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	√sakk	ṣvaṣk	
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	anu √sakk	ṣvaṣk	

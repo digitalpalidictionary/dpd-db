@@ -18,7 +18,7 @@
             "root_key",
             "family_root"
         ],
-        "limit": 50
+        "limit": 0
     },
     "family compound": {
         "data_filters": [
@@ -34,7 +34,7 @@
             "family_compound",
             "family_idioms"
         ],
-        "limit": 10
+        "limit": 0
     },
     "inflections empty": {
         "data_filters": [
@@ -47,6 +47,56 @@
             "id",
             "lemma_1",
             "pos",
+            "meaning_2"
+        ],
+        "limit": 0
+    },
+    "family compound lemma_1": {
+        "data_filters": [
+            [
+                "lemma_1",
+                "yott"
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "family_compound",
+            "family_idioms"
+        ],
+        "limit": 0
+    },
+    "meaning_2": {
+        "data_filters": [
+            [
+                "meaning_2",
+                "resentment"
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "meaning_lit",
+            "meaning_2"
+        ],
+        "limit": 0
+    },
+    "meaning_1": {
+        "data_filters": [
+            [
+                "meaning_1"
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "meaning_lit",
             "meaning_2"
         ],
         "limit": 0
