@@ -9,8 +9,6 @@ from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
 from tools.cst_source_sutta_example import CstSourceSuttaExample
 
-LABEL_WIDTH = 250
-BUTTON_WIDTH = 250
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 TEXT_FIELD_LABEL_STYLE = ft.TextStyle(color=LABEL_COLOUR, size=10)
@@ -44,9 +42,6 @@ class Pass2PreProcessView(ft.Column):
         self.exceptions_set: set[str] = toolkit.pass2_exceptions_manager.exceptions_set
         self.selected_sentence_index: int = 0
         self.examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample] = []
-
-        # Define constants
-        COLUMN_WIDTH: int = 700
 
         # Define controls
         self.message_field = ft.Text(
@@ -133,7 +128,6 @@ class Pass2PreProcessView(ft.Column):
                     self.books_dropdown,
                     ft.ElevatedButton(
                         "PreProcess Book",
-                        width=BUTTON_WIDTH,
                         on_click=self.handle_book_click,
                     ),
                     self.preprocessed_count_field,
@@ -164,22 +158,18 @@ class Pass2PreProcessView(ft.Column):
                 controls=[
                     ft.ElevatedButton(
                         "Yes",
-                        width=BUTTON_WIDTH,
                         on_click=self.handle_yes_click,
                     ),
                     ft.ElevatedButton(
                         "No",
-                        width=BUTTON_WIDTH,
                         on_click=self.handle_no_click,
                     ),
                     ft.ElevatedButton(
                         "New",
-                        width=BUTTON_WIDTH,
                         on_click=self.handle_new_click,
                     ),
                     ft.ElevatedButton(
                         "Pass",
-                        width=BUTTON_WIDTH,
                         on_click=self.handle_pass_click,
                     ),
                     self.exceptions_field,
@@ -198,13 +188,11 @@ class Pass2PreProcessView(ft.Column):
                 expand=False,
                 spacing=5,
             ),
-            border_radius=20,
             padding=ft.Padding(0, 10, 0, 0),
         )
 
         self.examples_field = ft.Container(
             content=None,
-            width=COLUMN_WIDTH,
             expand=True,
         )
 
