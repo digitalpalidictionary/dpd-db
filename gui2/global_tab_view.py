@@ -1,3 +1,5 @@
+import subprocess
+
 import flet as ft
 
 from gui2.toolkit import ToolKit
@@ -33,7 +35,17 @@ class GlobalTabView(ft.Column):
                                     ),
                                     self._message,
                                 ]
-                            )
+                            ),
+                            ft.Row(
+                                controls=[
+                                    ft.ElevatedButton(
+                                        "Open Internal Tests",
+                                        on_click=self._handle_open_test_file,
+                                        width=250,
+                                    ),
+                                    self._message,
+                                ]
+                            ),
                         ]
                     ),
                     padding=10,
@@ -61,3 +73,10 @@ class GlobalTabView(ft.Column):
                 self.page.window.close()
         except Exception as ex:
             self._update_message(f"Backup failed: {ex}")
+
+    def _handle_open_test_file(self, e: ft.ControlEvent) -> None:
+        """Opens the main db_tests_columns.tsv file in LibreOffice Calc."""
+        test_file_path = self.toolkit.project_paths.internal_tests_path
+
+        if test_file_path.exists():
+            subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
