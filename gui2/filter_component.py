@@ -174,8 +174,9 @@ class FilterComponent(ft.Column):
 
             # Refresh the database session to ensure we have the latest connection
             self.toolkit.db_manager.new_db_session()
-            query = self.toolkit.db_manager.db_session.query(DpdHeadword)
-
+            query = self.toolkit.db_manager.db_session.query(DpdHeadword).order_by(
+                DpdHeadword.lemma_1
+            )
             for filter_info in active_filters:
                 column_name = filter_info["column"]
                 pattern = filter_info["pattern"]

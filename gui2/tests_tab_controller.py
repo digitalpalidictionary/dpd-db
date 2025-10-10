@@ -259,7 +259,7 @@ class TestsTabController:
 
     def load_tests(self) -> list[InternalTestRow] | None:
         try:
-            return list(self.toolkit.db_test_manager.internal_tests_list)
+            return self.toolkit.db_test_manager.load_tests()
         except Exception as e:
             print(f"Error loading tests: {e}")
             return None
