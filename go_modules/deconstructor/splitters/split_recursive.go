@@ -33,6 +33,8 @@ func SplitRecursive(w data.WordData) {
 					SplitSu(w)
 				} else if w.StartsWith("du") {
 					SplitDur(w)
+				} else if w.StartsWith("ni") {
+					SplitNir(w)
 				} else if w.EndsWithList([]string{"tissa", "tissā"}) {
 					SplitTissa(w)
 				} else if w.EndsWithList([]string{"pi", "ca", "ce", "va", "ti", "hi"}) {
