@@ -762,5 +762,41 @@
         "pass2_add": 7,
         "pass2_pre": 0,
         "pass2_update": 4
+    },
+    "2025-10-07": {
+        "pass1": 0,
+        "pass2_add": 1,
+        "pass2_pre": 115,
+        "pass2_update": 1
+    },
+    "2025-10-08": {
+        "pass1": 0,
+        "pass2_add": 15,
+        "pass2_pre": 165,
+        "pass2_update": 31
+    },
+    "2025-10-09": {
+        "pass1": 0,
+        "pass2_add": 0,
+        "pass2_pre": 57,
+        "pass2_update": 33
+    },
+    "2025-10-10": {
+        "pass1": 0,
+        "pass2_add": 3,
+        "pass2_pre": 0,
+        "pass2_update": 134
+    },
+    "2025-10-11": {
+        "pass1": 0,
+        "pass2_add": 5,
+        "pass2_pre": 0,
+        "pass2_update": 89
+    },
+    "2025-10-12": {
+        "pass1": 0,
+        "pass2_add": 0,
+        "pass2_pre": 0,
+        "pass2_update": 31
     }
 }

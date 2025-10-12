@@ -3,18 +3,19 @@
         "data_filters": [
             [
                 "root_key",
-                ""
+                "√kit 1"
             ],
             [
                 "family_root",
-                ""
+                "√kit"
             ]
         ],
         "display_filters": [
-            "id",
             "lemma_1",
+            "pos",
             "meaning_1",
             "meaning_lit",
+            "meaning_2",
             "root_key",
             "family_root"
         ],
@@ -93,6 +94,22 @@
         ],
         "display_filters": [
             "id",
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "meaning_lit",
+            "meaning_2"
+        ],
+        "limit": 0
+    },
+    "lemma_1": {
+        "data_filters": [
+            [
+                "lemma_1",
+                "dhanaccheda"
+            ]
+        ],
+        "display_filters": [
             "lemma_1",
             "pos",
             "meaning_1",

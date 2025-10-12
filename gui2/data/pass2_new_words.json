@@ -10,5 +10,59 @@
         "sutta_1": "bāle na tvaṃ bhāyasi dhuttakānan”ti. ",
         "example_1": "silly girl, aren’t you afraid of rascals?” ",
         "comment": "add to bālā 2"
+    },
+    "katihaṃ": {
+        "source_1": "sn1.17:2.1",
+        "sutta_1": "“katihaṃ careyya sāmaññaṃ, ",
+        "example_1": "“How many days could an ascetic live ",
+        "comment": "make katiha ind"
+    },
+    "athavā": {
+        "source_1": "sn36.6:6.1",
+        "sutta_1": "tassānurodhā athavā virodhā, ",
+        "example_1": "Both favoring and opposing ",
+        "comment": "and; as well as"
+    },
+    "vadetha": {
+        "source_1": "sn22.79:2.1",
+        "sutta_1": "kiñca, bhikkhave, rūpaṃ vadetha? ",
+        "example_1": "And why do you call it form? ",
+        "comment": "split vadeti 1 into 1: say speak 2: call; describes as"
+    },
+    "saṇamāno": {
+        "source_1": "sn1.20:29.3",
+        "sutta_1": "khattiyo saṇamāno ca, ",
+        "example_1": "",
+        "comment": "in ref to SN1.15 saṇamānasutta. del main entry"
+    },
+    "pacceti": {
+        "source_1": "sn7.21:1.2",
+        "sutta_1": "tena kho pana samayena saṅgāravo nāma brāhmaṇo sāvatthiyaṃ paṭivasati udakasuddhiko, udakena parisuddhiṃ pacceti, sāyaṃ pātaṃ udakorohanānuyogamanuyutto viharati. ",
+        "example_1": "Now at that time there was a brahmin named Saṅgārava staying in Sāvatthī. He practiced purification by water, believing in purification by water. He lived committed to the practice of immersing himself in water at dawn and dusk. ",
+        "comment": ""
+    },
+    "krubbetha": {
+        "source_1": "SN1.31",
+        "sutta_1": "devatāsaṃyuttaṃ, sabbhisuttaṃ",
+        "example_1": "sabbhireva samāsetha,\nsabbhi kubbetha [krubbetha] santhavaṃ,\nsataṃ saddhammamaññāya,\nseyyo hoti na pāpiyoti.",
+        "comment": "makes; creates"
+    },
+    "saggaparāyanāti": {
+        "source_1": "sn1.32:11.4",
+        "sutta_1": "santo saggaparāyanā”ti. ",
+        "example_1": "while the virtuous are bound for heaven.” ",
+        "comment": "saggaparāyana destined for heaven"
+    },
+    "nibbānamevajjhagamuṃ": {
+        "source_1": "sn1.33:19.4",
+        "sutta_1": "nibbānamevajjhagamuṃ sapaññā”ti. ",
+        "example_1": "even attained extinction with wisdom.” ",
+        "comment": "nibbānamevajjhagamuṃ sandhi they attained nibbāna"
+    },
+    "sabbamatikkameyya": {
+        "source_1": "sn1.34:5.2",
+        "sutta_1": "saṃyojanaṃ sabbamatikkameyya; ",
+        "example_1": "and get past all the fetters. ",
+        "comment": "comp vb"
     }
 }
