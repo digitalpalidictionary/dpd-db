@@ -2,6 +2,7 @@ import sys
 from typing import Any, cast
 
 from bs4 import BeautifulSoup
+from rich import print
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, declared_attr, sessionmaker
 
@@ -67,9 +68,7 @@ class jaa4(SameSchemaMixin, Base):
     __tablename__ = "s0513a4_att"  # type: ignore
 
 
-def search_tipitaka(
-    class_name: str, search_string: str
-) -> tuple[str, str] | tuple[None, None]:
+def search_tipitaka(class_name: str, search_string: str) -> list[tuple[str, str]]:
     """
     Search Tipitaka texts for a string and return cleaned pali text and English translation.
 
@@ -83,29 +82,47 @@ def search_tipitaka(
     TargetTable = getattr(current_module, class_name, None)
 
     if TargetTable is None or not issubclass(TargetTable, Base):
-        return None, None
+        return []
 
     AnyTable = cast(Any, TargetTable)
     query_result = (
         db_session.query(AnyTable)
         .filter(AnyTable.pali_text.contains(search_string))
-        .first()
+        .all()
     )
 
+    compiled_results = []
     if query_result:
-        any_result = cast(Any, query_result)
-        soup = BeautifulSoup(any_result.pali_text, "html.parser")
-        pali_text = soup.get_text()
-        english_translation = any_result.english_translation
-        return pali_text, english_translation
+        for q in query_result:
+            soup = BeautifulSoup(q.pali_text, "html.parser")
+            pali_text = soup.get_text()
+            compiled_results.append((pali_text, q.english_translation))
+        return compiled_results
     else:
-        return None, None
+        return []
+
+
+def tui_interface():
+    user_book = ""
+    while user_book != "exit":
+        print("[green]what book? dhpa jaa1 jaa2 jaa3 jaa4", end=" ")
+        user_book = input()
+        print("[green]what word?", end=" ")
+        user_word = input()
+
+        compiled_results = search_tipitaka(user_book, user_word)
+        for result in compiled_results:
+            pali_text, english_translation = result
+            pali_text_highlighted = pali_text.replace(
+                user_word, f"[white]{user_word}[/white]"
+            )
+            print()
+            print(f"[green]{pali_text_highlighted}")
+            print(f"[cyan]{english_translation}")
+            print()
+        print("-" * 50)
+        print()
 
 
 if __name__ == "__main__":
-    pali_text, english_translation = search_tipitaka("dhpa", "suvaṇṇasaraṇ")
-    if pali_text and english_translation:
-        print(pali_text)
-        print()
-        print(english_translation)
-        print()
+    tui_interface()
