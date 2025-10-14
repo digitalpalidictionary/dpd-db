@@ -47,8 +47,24 @@ class SameSchemaMixin:
         return cls.__name__.lower()  # type: ignore
 
 
-class DhpA(SameSchemaMixin, Base):
+class dhpa(SameSchemaMixin, Base):
     __tablename__ = "s0502a_att"  # type: ignore
+
+
+class jaa1(SameSchemaMixin, Base):
+    __tablename__ = "s0513a1_att"  # type: ignore
+
+
+class jaa2(SameSchemaMixin, Base):
+    __tablename__ = "s0513a2_att"  # type: ignore
+
+
+class jaa3(SameSchemaMixin, Base):
+    __tablename__ = "s0513a3_att"  # type: ignore
+
+
+class jaa4(SameSchemaMixin, Base):
+    __tablename__ = "s0513a4_att"  # type: ignore
 
 
 def search_tipitaka(
@@ -87,11 +103,9 @@ def search_tipitaka(
 
 
 if __name__ == "__main__":
-    pali_text, english_translation = search_tipitaka("DhpA", "katakicc")
+    pali_text, english_translation = search_tipitaka("dhpa", "suvaṇṇasaraṇ")
     if pali_text and english_translation:
         print(pali_text)
         print()
         print(english_translation)
         print()
-
-# windows server "remina"
