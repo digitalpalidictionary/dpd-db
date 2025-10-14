@@ -1064,7 +1064,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ṭhā	1	a	stand	√sthā	1	stand	adhi √ṭhā	abhiṣṭhā	adhi + sthita, adhitiṣṭhat, adhitiṣṭhati, adhitiṣṭhitvā, adhisthītvā, adhiṣṭhā, adhiṣṭhātavya, adhiṣṭhāna, adhiṣṭhāmāna, adhiṣṭhīya, anadhiṣṭhāna (na + adhiṣṭhāna), abhitiṣṭhati, abhiṣṭhīta, na + adhi + sthita, na + adhitiṣṭhati, na + adhiṣṭhā, adhiṣṭhīya, su + adhi + sthita
 √ṭhā	1	a	stand	√sthā	1	stand	anu √ṭhā	anuṣṭhā	anutiṣṭhati
 √ṭhā	1	a	stand	√sthā	1	stand	abhi √ṭhā	abhiṣṭhā	abhitiṣṭhati, abhiṣṭhā (defeat)
-√ṭhā	1	a	stand	√sthā	1	stand	abhi ud √ṭhā	abhyutthā	abhyuttiṣṭhati, abhyutthāna (abhi + ut + sthā + lyuṭ), abhyutthita
+√ṭhā	1	a	stand	√sthā	1	stand	abhi ud √ṭhā	abhyutthā	abhyuttiṣṭhati, abhyutthita
 √ṭhā	1	a	stand	√sthā	1	stand	ava √ṭhā	avasthā	anavastha, anavasthita, anavasthitatva, avatiṣṭhati, avasthāna, avasthita, avasthitatva, na + avatiṣṭhati
 √ṭhā	1	a	stand	√sthā	1	stand	ava saṃ √ṭhā	saṃsthā	ava + saṃsthita
 √ṭhā	1	a	stand	√sthā	1	stand	ā √ṭhā	sthā	āsthita
@@ -2846,7 +2846,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vhe	1	a	call, name	√hve √hū	1	call	ā √vhe	āhve	āhva, āhva, āhvā, āhvaya, āhvayati, āhvayati, ābṛhati (bsk), āvarhati (bsk), āhvayana, āhvayitavya, āhvāyitavya, āhvāna, āhvāyaka, na + āhūta, sa + āhvaya
 √vhe	1	a	call, name	√hve √hū	1	call	upa √vhe	upahve	upahvayat, upahvayati, upahvayet
 √sak	4	ṇo	be able, be powerful	√śak	5	be able	√sak	śak	aśakat, aśaknuvat, na + aśakat, na + śakanīya, na + śakanīya +, na + śakya, śakanīya +, saśakya (bsk), śakanīya, śakanīya +, śakeyam, śakti, śaknuvan, śaknoti, śakya, śakra, śakratva, śakṣyati, śakṣyasi, śākya, śākyāḥ < śākya
-√sak	4	uṇā	be able, be powerful	√śak	5	be able	a √sak		
 √sak	4	ṇo	be able, be powerful	√śak	5	be able	saṃ √sak	saṃśak	saśakya (bsk)
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	√sakk	ṣvaṣk	
 √sakk	1	a	move	√ṣvaṣk √ṣvakk	1	go, move	anu √sakk	ṣvaṣk	
@@ -3015,7 +3014,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	pa √sah	prasah	duṣprasaha, na + prasahate, na + prasahya, prasahate, prasahya
 √sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	pari √sah	pariṣah	
 √sah 1	1	a	overcome, prevail	√sah	1, 2, 4	prevail	vi √sah	viṣah	na + viṣahat, visahamāna, viṣahat, viṣahate
-√sah 1	1	*e	overcome, prevail	√sah	1, 2, 4	prevail	saṃ ud √sah	samutsah	samutsāḍha
+√sah 1	1	*e	overcome, prevail	√sah	1, 2, 4	prevail	saṃ ud √sah	samutsah	samutsahayitavya, samutsāḍha, samutsāhayat, samutsāhayati, samutsāhayitvā
 √sah 2	1	a	be able	√sah	1	prevail	√sah	sah	sahate
 √sah 2	1	a	be able	√sah	1	prevail	ud √sah	utsah	utsahate
 √sah 2	1	ya	be able	√sah	1	prevail	vi √sah	viṣah	aviṣaya, viṣahate, viṣahya
