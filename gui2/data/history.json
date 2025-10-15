@@ -1,67 +1,23 @@
 [
     {
-        "id": 83405,
-        "lemma_1": "saṅgharati"
+        "id": 39049,
+        "lemma_1": "pakudhakaccāyanavāda"
     },
     {
-        "id": 945,
-        "lemma_1": "accantasaṃyoga"
+        "id": 25850,
+        "lemma_1": "catuapāyamukha"
     },
     {
-        "id": 76482,
-        "lemma_1": "hemantikakālaratti"
+        "id": 85891,
+        "lemma_1": "pakuddha 2"
     },
     {
-        "id": 36175,
-        "lemma_1": "nātibahu"
-    },
-    {
-        "id": 2222,
-        "lemma_1": "atibāḷhaṃ"
-    },
-    {
-        "id": 56858,
-        "lemma_1": "saṅkhobhesi"
-    },
-    {
-        "id": 56857,
-        "lemma_1": "saṅkhobhenta"
-    },
-    {
-        "id": 56856,
-        "lemma_1": "saṅkhobhetvā"
-    },
-    {
-        "id": 56855,
-        "lemma_1": "saṅkhobheti"
-    },
-    {
-        "id": 56854,
-        "lemma_1": "saṅkhobhita"
-    },
-    {
-        "id": 56846,
-        "lemma_1": "saṅkhubhitvā"
-    },
-    {
-        "id": 83842,
-        "lemma_1": "pādapaṃsu"
-    },
-    {
-        "id": 85882,
-        "lemma_1": "pañcavatthu"
+        "id": 39046,
+        "lemma_1": "pakuddha"
     },
     {
         "id": 85881,
         "lemma_1": "pañcavatthuyācanā"
-    },
-    {
-        "id": 83851,
-        "lemma_1": "saṅghabhedakathā"
-    },
-    {
-        "id": 83864,
-        "lemma_1": "jagganta"
     },
     {
         "id": 85880,
@@ -72,11 +28,55 @@
         "lemma_1": "āgantukavatta"
     },
     {
-        "id": 83876,
-        "lemma_1": "āgantukavattakathā"
+        "id": 29442,
+        "lemma_1": "tatiyaibbhavāda"
     },
     {
-        "id": 83893,
-        "lemma_1": "bhattaggavattakathā"
+        "id": 36849,
+        "lemma_1": "nigaṇṭhanāṭaputtavāda"
+    },
+    {
+        "id": 34492,
+        "lemma_1": "dvelakkhaṇādassana"
+    },
+    {
+        "id": 33171,
+        "lemma_1": "dutiyaibbhavāda"
+    },
+    {
+        "id": 35410,
+        "lemma_1": "nagaraghāta 1"
+    },
+    {
+        "id": 24760,
+        "lemma_1": "gāmaghāta 2"
+    },
+    {
+        "id": 36867,
+        "lemma_1": "nigamaghāta 2"
+    },
+    {
+        "id": 35411,
+        "lemma_1": "nagaraghāta 2"
+    },
+    {
+        "id": 36866,
+        "lemma_1": "nigamaghāta 1"
+    },
+    {
+        "id": 24759,
+        "lemma_1": "gāmaghāta 1"
+    },
+    {
+        "id": 22900,
+        "lemma_1": "kevaṭṭagahapatiputtavatthu"
+    },
+    {
+        "id": 25980,
+        "lemma_1": "catuparikkhāra"
+    },
+    {
+        "id": 29957,
+        "lemma_1": "tapopakkamaniratthakathā"
     }
 ]
