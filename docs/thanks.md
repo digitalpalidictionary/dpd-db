@@ -9,10 +9,10 @@ Thank you, appreciation and <i>anumodana</i> to the following people who have co
 - **Ven. Gambhīro** in Portugal for the technical expertise, and the GoldenDict exporter that started this whole chain of events
 - **Ven. Kusalacitto** in Thailand for help with the JavaScript in the GoldenDict and MDict exporters
 - **Ven. Santamanasa** in Sri Lanka for helping me through the hurdles of visa bureaucracy
-- **Ven. Sujāto** in Australia for detailed Pāḷi feedback
+- **Ven. Sujāto** in Australia for detailed feedback
 - **Prof. Aleix Ruiz Falqués** in Spain for internet classes on the classical Pāḷi grammars during Covid
 - **Prof. Bryan Levman** in Canada for detailed grammatical analysis of Dīgha Nikāya and Theragāthā
-- **CJ Yeh** in Taiwan for detailed grammatical grammatical feedback
+- **CJ Yeh** in Taiwan for detailed grammatical feedback
 - **Deepika** in Australia for the laptop in 2024
 - **Falko** in Germany for setting up <a href=”www.dpdict.net”>www.dpdict.net</a>
 - **Inka Kendzia** in South Africa for the internet connection

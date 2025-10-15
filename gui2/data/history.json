@@ -1,5 +1,49 @@
 [
     {
+        "id": 83405,
+        "lemma_1": "saṅgharati"
+    },
+    {
+        "id": 945,
+        "lemma_1": "accantasaṃyoga"
+    },
+    {
+        "id": 76482,
+        "lemma_1": "hemantikakālaratti"
+    },
+    {
+        "id": 36175,
+        "lemma_1": "nātibahu"
+    },
+    {
+        "id": 2222,
+        "lemma_1": "atibāḷhaṃ"
+    },
+    {
+        "id": 56858,
+        "lemma_1": "saṅkhobhesi"
+    },
+    {
+        "id": 56857,
+        "lemma_1": "saṅkhobhenta"
+    },
+    {
+        "id": 56856,
+        "lemma_1": "saṅkhobhetvā"
+    },
+    {
+        "id": 56855,
+        "lemma_1": "saṅkhobheti"
+    },
+    {
+        "id": 56854,
+        "lemma_1": "saṅkhobhita"
+    },
+    {
+        "id": 56846,
+        "lemma_1": "saṅkhubhitvā"
+    },
+    {
         "id": 83842,
         "lemma_1": "pādapaṃsu"
     },
@@ -34,49 +78,5 @@
     {
         "id": 83893,
         "lemma_1": "bhattaggavattakathā"
-    },
-    {
-        "id": 84953,
-        "lemma_1": "haṃsavatī"
-    },
-    {
-        "id": 24250,
-        "lemma_1": "gadrabha"
-    },
-    {
-        "id": 84840,
-        "lemma_1": "patiṭṭhita 4"
-    },
-    {
-        "id": 85130,
-        "lemma_1": "bhāraka"
-    },
-    {
-        "id": 56486,
-        "lemma_1": "sakkhali 2"
-    },
-    {
-        "id": 85323,
-        "lemma_1": "pariggāhaka 2"
-    },
-    {
-        "id": 85298,
-        "lemma_1": "aparajjha"
-    },
-    {
-        "id": 85363,
-        "lemma_1": "ganthika"
-    },
-    {
-        "id": 85379,
-        "lemma_1": "paharaṇa 3"
-    },
-    {
-        "id": 17330,
-        "lemma_1": "ūnodara"
-    },
-    {
-        "id": 85451,
-        "lemma_1": "milāyana"
     }
 ]
