@@ -19,6 +19,7 @@ class App:
         from gui2.pass2_auto_view import Pass2AutoView
         from gui2.pass2_pre_view import Pass2PreProcessView
         from gui2.tests_tab_view import TestsTabView
+        from gui2.translations_view import TranslationsView
 
         self.page = page
 
@@ -59,6 +60,7 @@ class App:
         self.tests_tab_view: TestsTabView = TestsTabView(self.page, self.toolkit)
         self.sandhi_view = SandhiFindReplaceView(self.page, self.toolkit)
         self.filter_tab_view = FilterTabView(self.page, self.toolkit)
+        self.translations_view = TranslationsView(self.page, self.toolkit)
 
         self.build_ui()
 
@@ -117,6 +119,10 @@ class App:
                 ft.Tab(
                     text="Pass2Add",
                     content=self.pass2_add_view,
+                ),
+                ft.Tab(
+                    text="Transl",
+                    content=self.translations_view,
                 ),
                 ft.Tab(
                     text="'",

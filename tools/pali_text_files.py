@@ -7692,7 +7692,7 @@ sc_texts: dict[str, list[str]] = {
     "anna": [],
 }
 
-bjt_texts: dict[str, [list[str]]] = {
+bjt_texts: dict[str, list[str]] = {
     "vin1": [
         "vp-prj.json",
         "vp-prj-2-3.json",
