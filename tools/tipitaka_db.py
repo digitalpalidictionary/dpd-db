@@ -1,12 +1,27 @@
+import re
 from typing import Any, cast
 
 from bs4 import BeautifulSoup
 from rich import print
 from rich.progress import track
-from sqlalchemy import Column, Integer, String, create_engine, inspect
+from sqlalchemy import Column, Integer, String, create_engine, event, inspect
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, declared_attr, sessionmaker
 
 from tools.pali_text_files import cst_texts
+
+
+@event.listens_for(Engine, "connect")
+def sqlite_engine_connect(dbapi_connection, connection_record):
+    """Enable case-insensitive REGEXP for SQLite connections."""
+
+    def regexp(expr, item):
+        if item is None:
+            return False
+        reg = re.compile(expr, re.IGNORECASE)
+        return reg.search(item) is not None
+
+    dbapi_connection.create_function("REGEXP", 2, regexp)
 
 
 def get_db_engine():
@@ -47,7 +62,7 @@ class SameSchemaMixin:
     @declared_attr
     def __tablename__(cls):
         # This is a fallback and will be overridden by dynamic class creation
-        return cls.__name__.lower()
+        return cls.__name__.lower()  # type: ignore
 
 
 _class_cache = {}
@@ -100,7 +115,7 @@ def search_tipitaka(table_name: str, search_string: str) -> list[tuple[str, str,
     try:
         query_result = (
             db_session.query(AnyTable)
-            .filter(AnyTable.pali_text.contains(search_string))
+            .filter(AnyTable.pali_text.op("REGEXP")(search_string))
             .all()
         )
     except Exception:
@@ -117,35 +132,26 @@ def search_tipitaka(table_name: str, search_string: str) -> list[tuple[str, str,
     return compiled_results
 
 
-def search_book(book_name: str, search_string: str) -> list[tuple[str, str, str]]:
+def search_book(book_name: str, search_string: str) -> list[tuple[str, str, str, str]]:
     """Search all tables related to a book."""
     table_names = get_table_names_for_book(book_name)
     if not table_names:
-        print(f"[yellow]No tables found for book '{book_name}'.")
         return []
 
     all_results = []
     for table_name in table_names:
         results = search_tipitaka(table_name, search_string)
-        all_results.extend(results)
+        for pali, eng, table in results:
+            all_results.append((pali, eng, table, book_name))
     return all_results
 
 
-def search_all_cst_texts(search_string: str) -> list[tuple[str, str, str]]:
-    """Search all tables derived from cst_texts."""
+def search_all_cst_texts(search_string: str) -> list[tuple[str, str, str, str]]:
+    """Search all tables derived from cst_texts, in the order they appear."""
     all_results = []
-    all_table_names = set()
-    for book_name in cst_texts.keys():
-        table_names = get_table_names_for_book(book_name)
-        for table_name in table_names:
-            all_table_names.add(table_name)
-
-    for table_name in track(
-        sorted(list(all_table_names)), description="Searching all tables..."
-    ):
-        results = search_tipitaka(table_name, search_string)
+    for book_name in track(cst_texts.keys(), description="Searching all books..."):
+        results = search_book(book_name, search_string)
         all_results.extend(results)
-
     return all_results
 
 
@@ -232,12 +238,13 @@ def tui_interface():
 
         print(f"\nFound {len(compiled_results)} results.")
         for result in compiled_results:
-            pali_text, english_translation, table_name = result
+            pali_text, english_translation, table_name, book_name = result
             pali_text_highlighted = pali_text.replace(
                 user_word, f"[white on black]{user_word}[/white on black]"
             )
             print()
-            print(f"[yellow]from table: {table_name}[/yellow]")
+            print(f"[bright_yellow]book: {book_name}")
+            print(f"[yellow]table: {table_name}")
             print(f"[green]{pali_text_highlighted}")
             print(f"[cyan]{english_translation}")
             print()
@@ -247,6 +254,6 @@ def tui_interface():
 
 if __name__ == "__main__":
     # To compare DB tables with cst_texts, uncomment the line below
-    # compare_db_and_cst_tables()
+    compare_db_and_cst_tables()
 
     tui_interface()
