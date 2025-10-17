@@ -2,20 +2,16 @@
     "root family": {
         "data_filters": [
             [
-                "root_key",
-                "√kit 1"
+                "root_key"
             ],
             [
-                "family_root",
-                "√kit"
+                "family_root"
             ]
         ],
         "display_filters": [
             "lemma_1",
             "pos",
-            "meaning_1",
             "meaning_lit",
-            "meaning_2",
             "root_key",
             "family_root"
         ],
