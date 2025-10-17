@@ -3,7 +3,6 @@ from typing import Any, cast
 
 from bs4 import BeautifulSoup
 from rich import print
-from rich.progress import track
 from sqlalchemy import Column, Integer, String, create_engine, event, inspect
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, declared_attr, sessionmaker
@@ -149,7 +148,7 @@ def search_book(book_name: str, search_string: str) -> list[tuple[str, str, str,
 def search_all_cst_texts(search_string: str) -> list[tuple[str, str, str, str]]:
     """Search all tables derived from cst_texts, in the order they appear."""
     all_results = []
-    for book_name in track(cst_texts.keys(), description="Searching all books..."):
+    for book_name in cst_texts.keys():
         results = search_book(book_name, search_string)
         all_results.extend(results)
     return all_results
