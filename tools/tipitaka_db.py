@@ -93,12 +93,15 @@ def get_table_names_for_book(book_name: str) -> list[str]:
     return table_names
 
 
-def search_tipitaka(table_name: str, search_string: str) -> list[tuple[str, str, str]]:
+def search_tipitaka(
+    table_name: str, search_string: str, search_column: str = "pali_text"
+) -> list[tuple[str, str, str]]:
     """
     Search a single Tipitaka table for a string and return cleaned pali text and English translation.
 
     :param table_name: The name of the table to search.
-    :param search_string: The string to search for in pali_text.
+    :param search_string: The string to search for in the specified column.
+    :param search_column: The name of the column to search ('pali_text' or 'english_translation').
     :return: A list of tuples (pali_text, english_translation, table_name).
     """
     db_session = get_tipitaka_db_session()
@@ -112,12 +115,13 @@ def search_tipitaka(table_name: str, search_string: str) -> list[tuple[str, str,
     AnyTable = cast(Any, TargetTable)
 
     try:
+        search_column_attr = getattr(AnyTable, search_column)
         query_result = (
             db_session.query(AnyTable)
-            .filter(AnyTable.pali_text.op("REGEXP")(search_string))
+            .filter(search_column_attr.op("REGEXP")(search_string))
             .all()
         )
-    except Exception:
+    except (AttributeError, Exception):
         # This can happen if the table doesn't exist in the db, which is expected
         # for some filenames in cst_texts. Suppress error printing.
         return []
@@ -131,7 +135,9 @@ def search_tipitaka(table_name: str, search_string: str) -> list[tuple[str, str,
     return compiled_results
 
 
-def search_book(book_name: str, search_string: str) -> list[tuple[str, str, str, str]]:
+def search_book(
+    book_name: str, search_string: str, search_column: str = "pali_text"
+) -> list[tuple[str, str, str, str]]:
     """Search all tables related to a book."""
     table_names = get_table_names_for_book(book_name)
     if not table_names:
@@ -139,17 +145,19 @@ def search_book(book_name: str, search_string: str) -> list[tuple[str, str, str,
 
     all_results = []
     for table_name in table_names:
-        results = search_tipitaka(table_name, search_string)
+        results = search_tipitaka(table_name, search_string, search_column)
         for pali, eng, table in results:
             all_results.append((pali, eng, table, book_name))
     return all_results
 
 
-def search_all_cst_texts(search_string: str) -> list[tuple[str, str, str, str]]:
+def search_all_cst_texts(
+    search_string: str, search_column: str = "pali_text"
+) -> list[tuple[str, str, str, str]]:
     """Search all tables derived from cst_texts, in the order they appear."""
     all_results = []
     for book_name in cst_texts.keys():
-        results = search_book(book_name, search_string)
+        results = search_book(book_name, search_string, search_column)
         all_results.extend(results)
     return all_results
 

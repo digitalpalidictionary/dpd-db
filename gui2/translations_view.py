@@ -18,6 +18,21 @@ class TranslationsView(ft.Column):
         self.toolkit = toolkit
 
         # --- UI Controls ---
+        self.language_dropdown = ft.Dropdown(
+            label="Language",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            width=150,
+            options=[
+                ft.dropdown.Option("Pāḷi"),
+                ft.dropdown.Option("English"),
+            ],
+            value="Pāḷi",
+            text_size=14,
+            border_color=ft.Colors.BLUE_200,
+            border_radius=20,
+            editable=True,
+            enable_filter=True,
+        )
         self.search_term_field = ft.TextField(
             label="Regex to search for",
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -32,12 +47,16 @@ class TranslationsView(ft.Column):
         self.books_dropdown = ft.Dropdown(
             label="Book",
             label_style=TEXT_FIELD_LABEL_STYLE,
-            width=300,
+            width=200,
+            menu_width=200,
+            menu_height=500,
             options=[ft.dropdown.Option(key) for key in book_options],
             value="all",
             text_size=14,
             border_color=ft.Colors.BLUE_200,
             border_radius=20,
+            editable=True,
+            enable_filter=True,
         )
 
         self.search_button = ft.ElevatedButton(
@@ -64,7 +83,6 @@ class TranslationsView(ft.Column):
 
         self.results_container = ft.Container(
             content=self.results_column,
-
             border_radius=ft.border_radius.all(20),
             padding=10,
             expand=True,
@@ -77,6 +95,7 @@ class TranslationsView(ft.Column):
                 controls=[
                     ft.Row(
                         controls=[
+                            self.language_dropdown,
                             self.search_term_field,
                             self.books_dropdown,
                             self.search_button,
@@ -97,6 +116,7 @@ class TranslationsView(ft.Column):
 
     def search_clicked(self, e):
         search_term = self.search_term_field.value
+        language = self.language_dropdown.value
 
         if not search_term:
             self.page.snack_bar = ft.SnackBar(  # type: ignore
@@ -117,10 +137,12 @@ class TranslationsView(ft.Column):
         # --- Perform search ---
         book = self.books_dropdown.value
         results = []
+        search_column = "pali_text" if language == "Pāḷi" else "english_translation"
+
         if book == "all":
-            results = search_all_cst_texts(search_term)
+            results = search_all_cst_texts(search_term, search_column=search_column)
         elif book:
-            results = search_book(book, search_term)
+            results = search_book(book, search_term, search_column=search_column)
 
         # --- After search: show results ---
         self.results_column.controls.clear()
@@ -143,49 +165,52 @@ class TranslationsView(ft.Column):
 
             for pali_text, eng_trans, table_name, book_name in results_to_display:
                 pali_text_lower = pali_text.lower()
+                eng_trans_lower = (eng_trans or "").lower()
 
-                text_spans = []
-                last_end = 0
-
-                try:
-                    # Find all matches of the regex, case-insensitively
-                    for match in re.finditer(
-                        search_term, pali_text_lower, re.IGNORECASE
-                    ):
-                        start, end = match.span()
-                        # Add the part before the match
-                        text_spans.append(ft.TextSpan(pali_text_lower[last_end:start]))
-                        # Add the highlighted match
-                        text_spans.append(
-                            ft.TextSpan(
-                                pali_text_lower[start:end],
-                                ft.TextStyle(
-                                    color=ft.Colors.BLACK, bgcolor=ft.Colors.YELLOW_200
-                                ),
+                def get_highlighted_spans(text, term):
+                    spans = []
+                    last_end = 0
+                    try:
+                        for match in re.finditer(term, text, re.IGNORECASE):
+                            start, end = match.span()
+                            spans.append(ft.TextSpan(text[last_end:start]))
+                            spans.append(
+                                ft.TextSpan(
+                                    text[start:end],
+                                    ft.TextStyle(
+                                        color=ft.Colors.BLACK,
+                                        bgcolor=ft.Colors.YELLOW_200,
+                                    ),
+                                )
                             )
-                        )
-                        last_end = end
+                            last_end = end
+                        spans.append(ft.TextSpan(text[last_end:]))
+                        return spans
+                    except re.error as e:
+                        return [
+                            ft.TextSpan(
+                                f"Invalid Regex: {e}\n\n",
+                                style=ft.TextStyle(color=ft.Colors.RED),
+                            ),
+                            ft.TextSpan(text),
+                        ]
 
-                    # Add the remaining part of the text
-                    text_spans.append(ft.TextSpan(pali_text_lower[last_end:]))
+                if language == "Pāḷi":
+                    pali_text_spans = get_highlighted_spans(
+                        pali_text_lower, search_term
+                    )
+                    eng_text_spans = [ft.TextSpan(eng_trans_lower)]
+                else:  # English
+                    pali_text_spans = [ft.TextSpan(pali_text_lower)]
+                    eng_text_spans = get_highlighted_spans(eng_trans_lower, search_term)
 
-                except re.error as e:
-                    # Handle invalid regex by not highlighting and showing an error
-                    text_spans = [
-                        ft.TextSpan(
-                            f"Invalid Regex: {e}\n\n",
-                            style=ft.TextStyle(color=ft.Colors.RED),
-                        ),
-                        ft.TextSpan(pali_text_lower),
-                    ]
-
-                pali_text_widget = ft.Text(spans=text_spans, selectable=True)
-                pali_text_widget.data = text_spans
+                pali_text_widget = ft.Text(spans=pali_text_spans, selectable=True)
+                pali_text_widget.data = pali_text_spans
 
                 eng_text_widget = ft.Text(
-                    eng_trans, selectable=True, color=ft.Colors.GREY_700
+                    spans=eng_text_spans, selectable=True, color=ft.Colors.GREY_700
                 )
-                eng_text_widget.data = eng_trans
+                eng_text_widget.data = eng_text_spans
 
                 result_card = ft.Card(
                     content=ft.Container(
@@ -211,6 +236,7 @@ class TranslationsView(ft.Column):
 
     def clear_clicked(self, e):
         self.search_term_field.value = ""
+        self.results_search_field.value = ""
         self.results_column.controls.clear()
         self.results_container.visible = False  # Hide container on clear
         self.page.update()
@@ -244,25 +270,26 @@ class TranslationsView(ft.Column):
 
             # English text
             if hasattr(eng_text_widget, "data") and eng_text_widget.data:
-                original_text = eng_text_widget.data
-                if query:
+                original_spans = eng_text_widget.data
+
+                if isinstance(original_spans, str):
                     original_spans = [
                         ft.TextSpan(
-                            original_text,
-                            style=ft.TextStyle(color=eng_text_widget.color),
+                            original_spans, style=ft.TextStyle(color=ft.Colors.GREY_700)
                         )
                     ]
+
+                if query:
                     new_spans, found = self._create_highlighted_spans(
                         original_spans, query
                     )
                     eng_text_widget.spans = new_spans
                     if found:
                         found_in_card = True
-
-                    eng_text_widget.value = None
                 else:
-                    eng_text_widget.spans = None
-                    eng_text_widget.value = original_text
+                    eng_text_widget.spans = original_spans
+
+                eng_text_widget.value = None
 
             if query and found_in_card:
                 card.content.border = ft.border.all(2, HIGHLIGHT_COLOUR)  # type: ignore
