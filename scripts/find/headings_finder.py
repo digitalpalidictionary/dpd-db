@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.goldendict_tools import open_in_goldendict_os
 from tools.paths import ProjectPaths
 
 files_to_process = [
@@ -49,26 +50,35 @@ def make_all_subheadings_set():
     return all_subheadings_set
 
 
-def print_missing_subheadings(subheading):
+def print_missing_subheadings(missing_subheadings_set):
+    counter = len(missing_subheadings_set)
     print()
-    print(subheading)
-    pyperclip.copy(subheading)
-    # open_in_goldendict_os(subheading)
-    # input("press any key to continue...")
+    print("press enter to continue, q to quit")
+    print()
+    for subheading in missing_subheadings_set:
+        print(f"{counter} {subheading}", end=" ")
+        pyperclip.copy(subheading)
+        open_in_goldendict_os(subheading)
+        user_input = input()
+        if user_input == "q":
+            break
+        else:
+            counter -= 1
+    print(f"{counter} remaining")
 
 
 if __name__ == "__main__":
-    # make a list of all inflections without meaning_1
+    # make a set of all inflections without meaning_1
     all_inflections_without_meaning_1: set[str] = (
         make_all_inflections_without_meaning_1()
     )
 
-    # make a list of all subheadings
+    # make a set of all subheadings
     all_subheadings_set: set[str] = make_all_subheadings_set()
 
-    counter = 0
-    for subheading in all_subheadings_set:
-        if subheading in all_inflections_without_meaning_1:
-            print_missing_subheadings(subheading)
-            counter += 1
-    print(counter)
+    # make a set of missing subheadings
+    missing_subheadings_set = set(
+        s for s in all_subheadings_set if s in all_inflections_without_meaning_1
+    )
+
+    print_missing_subheadings(missing_subheadings_set)
