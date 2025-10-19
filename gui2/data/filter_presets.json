@@ -20,7 +20,8 @@
     "family compound": {
         "data_filters": [
             [
-                "family_compound"
+                "family_compound",
+                ""
             ]
         ],
         "display_filters": [
@@ -52,7 +53,7 @@
         "data_filters": [
             [
                 "lemma_1",
-                "yott"
+                ""
             ]
         ],
         "display_filters": [
@@ -69,7 +70,7 @@
         "data_filters": [
             [
                 "meaning_2",
-                "resentment"
+                ""
             ]
         ],
         "display_filters": [
@@ -85,7 +86,8 @@
     "meaning_1": {
         "data_filters": [
             [
-                "meaning_1"
+                "meaning_1",
+                ""
             ]
         ],
         "display_filters": [
@@ -102,7 +104,7 @@
         "data_filters": [
             [
                 "lemma_1",
-                "dhanaccheda"
+                ""
             ]
         ],
         "display_filters": [

@@ -1014,6 +1014,9 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "nāsaññī",
         "saso",
         "saṇḍasaṇḍa",
+        "bhavābhavatā",
+        "sattasattāha",
+        "gahitagahita",
     ]
 
     results = []
