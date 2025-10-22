@@ -248,7 +248,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
     def handle_sandhi_ok_click(self, e: ft.ControlEvent):
         current_word = self.word_in_text.value
         if current_word:
-            self.controller.update_sandhi_checked(current_word)
+            self.toolkit.sandhi_files_manager.add_sandhi_to_checked_csv(current_word)
             self.update_message(f"{current_word} added to sandhi checked")
 
     def handle_add_to_variants_click(self, e: ft.ControlEvent):

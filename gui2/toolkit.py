@@ -18,6 +18,7 @@ class ToolKit:
         from gui2.pass2_exceptions import Pass2ExceptionsFileManager
         from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
         from gui2.paths import Gui2Paths
+        from gui2.sandhi_files_manager import SandhiFileManager
         from gui2.test_manager import GuiTestManager
         from gui2.user import UsernameManager
         from tools.ai_manager import AIManager
@@ -33,6 +34,7 @@ class ToolKit:
         self.db_test_manager: DbTestManager = DbTestManager()
         self.test_manager: GuiTestManager = GuiTestManager(self)
         self.sandhi_manager: SandhiContractionManager = SandhiContractionManager()
+        self.sandhi_files_manager: SandhiFileManager = SandhiFileManager()
         self.hyphenation_manager: HyphenationFileManager = HyphenationFileManager()
         self.history_manager: HistoryManager = HistoryManager(self)
         self.ai_manager: AIManager = AIManager()

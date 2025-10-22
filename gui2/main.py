@@ -5,6 +5,7 @@ from pathlib import Path
 import flet as ft
 
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
+from gui2.sandhi_view import SandhiView
 from gui2.toolkit import ToolKit
 from tools.fast_api_utils import start_dpd_server
 
@@ -59,6 +60,7 @@ class App:
         self.pass2_add_view: Pass2AddView = Pass2AddView(self.page, self.toolkit)
         self.tests_tab_view: TestsTabView = TestsTabView(self.page, self.toolkit)
         self.sandhi_view = SandhiFindReplaceView(self.page, self.toolkit)
+        self.sandhi_view2 = SandhiView(self.page, self.toolkit)
         self.filter_tab_view = FilterTabView(self.page, self.toolkit)
         self.translations_view = TranslationsView(self.page, self.toolkit)
 
@@ -127,6 +129,10 @@ class App:
                 ft.Tab(
                     text="'",
                     content=self.sandhi_view,
+                ),
+                ft.Tab(
+                    text="Sandhi",
+                    content=self.sandhi_view2,
                 ),
                 ft.Tab(
                     text="DB",
