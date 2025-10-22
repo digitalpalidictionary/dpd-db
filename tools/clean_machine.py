@@ -1,11 +1,15 @@
 """A text cleaning machine."""
 
 import re
+
 from rich import print
+
 from tools.unicode_char import unicode_char
 
 
-def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
+def clean_machine(
+    text: str, niggahita="ṃ", remove_hyphen=True, show_errors=True
+) -> str:
     """
     Return clean text with only allowable characters
     - optionally change the niggahita character
@@ -104,7 +108,7 @@ def clean_machine(text: str, niggahita="ṃ", remove_hyphen=True) -> str:
         allowed_characters += "-"
     errors = set([c for c in text if c not in allowed_characters])
 
-    if len(errors) != 0:
+    if show_errors and len(errors) != 0:
         print(f"[bright_red]errors:{errors}", end=" ")
         unicode_errors = [unicode_char(error) for error in errors]
         for error in unicode_errors:

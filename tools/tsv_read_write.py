@@ -15,6 +15,15 @@ def read_tsv(file_path):
         return data
 
 
+def read_tsv_single_column(file_path):
+    with open(file_path, "r") as file:
+        reader = csv.reader(file, delimiter="\t")
+        data = []
+        for row in reader:
+            data.append(row[0])
+        return data
+
+
 def read_tsv_dict(file_path):
     with open(file_path, "r") as file:
         reader = csv.DictReader(file, delimiter="\t")
@@ -43,6 +52,7 @@ def read_tsv_dot_dict(file_path):
 
 
 def write_tsv_dot_dict(file_path, data):
+    """Write a list of dicts."""
     with open(file_path, "w", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=data[0].keys(), delimiter="\t")
         writer.writeheader()

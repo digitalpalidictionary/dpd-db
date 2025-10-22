@@ -88,12 +88,14 @@ def make_cst_text_list(
     niggahita="ṃ",
     dedupe=True,
     add_hyphenated_parts=True,
+    show_errors=True,
 ) -> List[str]:
     """
     Make a list of words in CST texts from a list of books.
     - Use when keeping the order *is* important.
     - Optionally change the niggahita character (niggahita="ṁ").
     - Optionally dedupe the list (dedupe=True).
+    - Optionally show errors (show_errors=True)
     Usage:
     - word_list = make_cst_text_list(pth, ["kn8"], niggahita="ŋ")
     - word_list = make_cst_text_list(pth, ["kn8", "kn9"], dedupe=False)
@@ -117,7 +119,10 @@ def make_cst_text_list(
             if add_hyphenated_parts:
                 # dont remove the hyphen, deal with it later
                 text_string = clean_machine(
-                    text_string, niggahita=niggahita, remove_hyphen=False
+                    text_string,
+                    niggahita=niggahita,
+                    remove_hyphen=False,
+                    show_errors=show_errors,
                 )
             else:
                 # remove the hyphen immediately
