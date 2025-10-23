@@ -9,7 +9,7 @@ Click the individual links to download.
 ## GoldenDict
 Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1CeO4_4C3rYH2pb0mzAJAH1c5FK2H5cbK" target="_blank">bhs</a>  
 CST Bold Definitions <a href="https://drive.google.com/file/d/1QjNibCe9ctwl57wOnQPlizX5Mu5qYHAZ"target="_blank">bold definitions</a>  
-Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=17-lQ7iVAFdghd2ZOzyQw5JmfN6Ha1W1z" target="_blank">cpd</a>
+Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=17-lQ7iVAFdghd2ZOzyQw5JmfN6Ha1W1z" target="_blank">cpd</a>  
 Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1iKzoLK9r0eHka8OmFpgqiuLaeDovVNbh" target="_blank">dppn</a>  
 DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1cMDFnvEZml6cixAts4onqVpD4fI0nuTq" target="_blank">dpr</a>  
 Monier Williams <a href="https://drive.google.com/uc?export=download&id=1SSNNYJlAk655Ckw1MHslzwLcoysjDvtx" target="_blank">mw</a>  
