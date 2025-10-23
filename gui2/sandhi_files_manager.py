@@ -1,6 +1,7 @@
 import csv
-from pathlib import Path
+
 from tools.paths import ProjectPaths
+
 
 class SandhiFileManager:
     def __init__(self):
@@ -11,7 +12,7 @@ class SandhiFileManager:
     def _read_checked_csv(self) -> set[str]:
         """Read the checked.csv file and return a set of words."""
         try:
-            with open(self._pth.decon_checked, 'r', newline='') as f:
+            with open(self._pth.decon_checked, "r", newline="") as f:
                 reader = csv.reader(f)
                 return {row[0] for row in reader if row}
         except FileNotFoundError:
@@ -20,8 +21,8 @@ class SandhiFileManager:
     def _read_corrections_csv(self) -> set[str]:
         """Read the manual_corrections.tsv file and return a set of sandhi words."""
         try:
-            with open(self._pth.decon_manual_corrections, 'r', newline='') as f:
-                reader = csv.reader(f, delimiter='\t')
+            with open(self._pth.decon_manual_corrections, "r", newline="") as f:
+                reader = csv.reader(f, delimiter="\t")
                 return {row[0] for row in reader if row}
         except FileNotFoundError:
             return set()
@@ -51,3 +52,5 @@ class SandhiFileManager:
             writer = csv.writer(f, delimiter="\t")
             writer.writerow([sandhi_word, correction])
         self._corrections.add(sandhi_word)
+
+        self.add_sandhi_to_checked_csv(sandhi_word)

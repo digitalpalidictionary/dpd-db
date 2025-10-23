@@ -152,7 +152,7 @@ class SandhiView(ft.Column, PopUpMixin):
         if word_list_str:
             try:
                 # Process the string to get a list of words
-                cleaned_str = re.sub(r"['\"\,\;\[\]]", " ", word_list_str)
+                cleaned_str = re.sub(r"['\"\,\;\[\]\{\}]", " ", word_list_str)
                 words = cleaned_str.split()
 
                 for word in words:
