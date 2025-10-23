@@ -9,7 +9,7 @@ Create all the data necessary for release notes and website changelog
 4. New Words
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, List, Optional
 
 from github import Github
@@ -179,11 +179,15 @@ class ChangelogGenerator:
 
     def _get_github_issues_list(self) -> None:
         pr.green("get github issues")
-        last_30_days = datetime.now() - timedelta(days=30)
         github = Github()
         try:
             repo = github.get_repo("digitalpalidictionary/dpd-db")
-            issues = repo.get_issues(state="closed", since=last_30_days, sort="number")
+
+            # Get the last release date
+            latest_release = repo.get_releases()[0]
+            since_date = latest_release.published_at
+
+            issues = repo.get_issues(state="closed", since=since_date, sort="number")
 
             md = [
                 rf"- [#{i.number} {i.title}]({i.html_url})"
@@ -194,6 +198,7 @@ class ChangelogGenerator:
                 sorted(md, key=lambda x: int(x.split("#")[1].split()[0]))
             )
             pr.yes("ok")
+            pr.info(f"fetched all github issues since {since_date}")
         except Exception as e:
             pr.no("no")
             pr.red(f"GitHub not available.\n{e}")
