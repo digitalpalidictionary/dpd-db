@@ -1,6 +1,5 @@
 """Find most common words in a list, grouping by Levenshtein distance."""
 
-from collections import Counter
 from pathlib import Path
 
 import Levenshtein
@@ -92,6 +91,17 @@ def get_sandhi_checked_list():
     return read_tsv_single_column(pth.decon_checked)
 
 
+def get_list_of_cst_words_in_books(commentary_books):
+    pr.green("making cst text list")
+    cst_word_list = make_cst_text_list(
+        commentary_books,
+        dedupe=False,
+        show_errors=False,
+    )
+    pr.yes(len(cst_word_list))
+    return cst_word_list
+
+
 def reduce_commentary_words(
     commentary_words,
     dpd_inflections,
@@ -106,6 +116,23 @@ def reduce_commentary_words(
             commentary_words_reduced.append(word)
     pr.yes(len(commentary_words_reduced))
     return commentary_words_reduced
+
+
+def make_word_count_dict(cst_word_list_reduced: list[str]) -> dict[str, int]:
+    """Return a dict of words and their counts"""
+
+    pr.green("making word count dict")
+
+    word_count_dict: dict[str, int] = {}
+    for i in cst_word_list_reduced:
+        if i not in word_count_dict:
+            word_count_dict[i] = 1
+        else:
+            word_count_dict[i] += 1
+
+    pr.yes(len(word_count_dict))
+
+    return word_count_dict
 
 
 def test_similar(word: str, representative: str):
@@ -125,60 +152,40 @@ def test_similar(word: str, representative: str):
         return False
 
 
-def find_most_common_words(words: list[str]) -> list[tuple[str, int, set[str]]]:
+def group_similar_words(
+    words: dict[str, int],
+) -> dict[dict[str, int], dict[str, set[str]]]:
     if not words:
-        return []
+        return {}
 
-    groups: list[list[str]] = []
+    # {taṅhā: {"count":212, "members":{"taṅhā", "taṅhāti", taṅhāyāpi"}}}
+    groups = {}
 
-    for word in track(words, description="[green]making groups"):  # , transient=True
+    for word, count in track(words.items(), description="[green]grouping"):
         found_group = False
-        for group in groups:
-            representative = group[0]
+        for representative, data in groups.items():
             if (
-                word[:3] == representative[:3]  # same starting letters
+                word[:4] == representative[:4]  # same starting letters
                 and test_similar(word, representative)
                 and Levenshtein.distance(word, representative) <= lev_distance
             ):
-                group.append(word)
+                groups[representative]["count"] += count
+                groups[representative]["members"].add(word)
                 found_group = True
                 break
         if not found_group:
-            groups.append([word])
-
-    pr.green("making word_counts")
-    # For each group, find the most common item to be the representative
-    # and count the total number of items.
-    word_counts = []
-    for group in groups:
-        if group:
-            # Find the most common word in the group to act as the representative
-            count = len(group)
-            most_common_in_group = Counter(group).most_common(1)[0][0]
-            word_counts.append((most_common_in_group, count, set(group)))
-
-    # Sort by frequency
-    word_counts.sort(key=lambda x: x[1], reverse=True)
-    pr.yes(len(word_counts))
-
-    return word_counts
+            groups[word] = {"representative": word, "count": count, "members": {word}}
+    return groups
 
 
-def unpack_common_words(common_words):
-    pr.green("making dict for tsv")
-    common_words_unpack = []
-    for i in common_words:
-        word, count, word_list = i
+def sort_groups(
+    groups: dict[dict[str, int], dict[str, set[str]]],
+) -> list:
+    group_list = []
+    for key, values in groups.items():
+        group_list.append(values)
 
-        common_words_unpack.append(
-            {
-                "word": word,
-                "count": count,
-                "word list": word_list,
-            }
-        )
-    pr.yes(len(common_words_unpack))
-    return common_words_unpack
+    return sorted(group_list, key=lambda x: x["count"], reverse=True)
 
 
 def save_to_tsv(common_words_unpack):
@@ -196,33 +203,19 @@ def save_to_tsv(common_words_unpack):
 def main():
     pr.tic()
     pr.title("find most common missing words")
-
-    commentary_books: list[str] = make_list_of_commentary_books()
-
+    commentary_books = make_list_of_commentary_books()
     sandhi_checked_list = get_sandhi_checked_list()
-
-    pr.green("making cst text list")
-    commentary_words = make_cst_text_list(
-        commentary_books,
-        dedupe=False,
-        show_errors=False,
+    cst_word_list = get_list_of_cst_words_in_books(commentary_books)
+    dpd_inflections_set = get_dpd_inflections_set()
+    cst_word_list_reduced = reduce_commentary_words(
+        cst_word_list,
+        dpd_inflections_set,
+        sandhi_checked_list,
     )
-    pr.yes(len(commentary_words))
-
-    dpd_inflections = get_dpd_inflections_set()
-
-    commentary_words_reduced = reduce_commentary_words(
-        commentary_words, dpd_inflections, sandhi_checked_list
-    )
-
-    common_words = find_most_common_words(
-        commentary_words_reduced,
-    )
-
-    common_words_unpack = unpack_common_words(common_words)
-
-    save_to_tsv(common_words_unpack)
-
+    word_count_dict = make_word_count_dict(cst_word_list_reduced)
+    groups = group_similar_words(word_count_dict)
+    sorted_groups = sort_groups(groups)
+    save_to_tsv(sorted_groups)
     pr.toc()
 
 
