@@ -29,7 +29,7 @@ Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1F
 Simsapa Combined Dictionary* <a href="https://drive.google.com/uc?export=download&id=1Fj5JUessCAU8_tC0iwCiA3MZLXbtMWCK" target="_blank">simsapa</a>  
 Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1PRg6S55sXa70b71cIZxmXzpcWcDGhotn" target="_blank">whitney</a>  
 
-Here are detailed instructions on how to install these MDict files on your [Android](https://digitalpalidictionary.github.io/install/android_dicttango/) or [IOS](https://digitalpalidictionary.github.io/install/ios/) device. 
+Here are detailed instructions on how to install these MDict files on your [Android](https://digitalpalidictionary.github.io/install/android_dicttango/){target="_blank"} or [IOS](https://digitalpalidictionary.github.io/install/ios/){target="_blank"} device. 
 
 ---
 
@@ -40,15 +40,15 @@ This is a composite dictionary which contains
 - New Concise Pali English Dictionary (NCPED)
 - Nyanatiloka's Buddhist Dictionary
 
-For more information about the Simsapa Dhamma Reader, please visit [https://simsapa.github.io/](https://simsapa.github.io/) 
+For more information about the Simsapa Dhamma Reader, please visit [https://simsapa.github.io/](https://simsapa.github.io/){target="_blank"}.
 
 ## Pali English Ultimate (PEU)
 Pali Myanmar Abhidhan is the world's largest Pali dictionary, a massive 23 volumes, with more than 200 000 words, a complete reference guide to the language of the root texts and commentaries.
     
-PEU is a project in progress to translate the Abhidhan's definitions into English, currently at about 80% human translated, the remainder is by Google. You can find the [Project Website](https://pm12e.pali.tools/) here. PEU dictionary is integrated into [Tipitaka Pali Reader](https://github.com/bksubhuti/tipitaka-pali-reader).
+PEU is a project in progress to translate the Abhidhan's definitions into English, currently at about 80% human translated, the remainder is by Google. You can find the [Project Website](https://pm12e.pali.tools/){target="_blank"} here. PEU dictionary is integrated into [Tipitaka Pali Reader](https://github.com/bksubhuti/tipitaka-pali-reader){target="_blank"}.
 
 ## Dictionary of Pāli Proper Names (DPPN)
-The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti in June 2025. It is available online from his website, [Ancient Buddhist Texts](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm) or via the links above for offline use.
+The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti in June 2025. It is available online from his website, [Ancient Buddhist Texts](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm){target="_blank"} or via the links above for offline use.
 
 ## CST Bold Definitions
-These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd).
+These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd){target="_blank"}.
