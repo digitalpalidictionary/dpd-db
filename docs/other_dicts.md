@@ -51,4 +51,4 @@ PEU is a project in progress to translate the Abhidhan's definitions into Englis
 The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti in June 2025. It is available online from his website, [Ancient Buddhist Texts](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm) or via the links above for offline use.
 
 ## CST Bold Definitions
-These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. 
+These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd).
