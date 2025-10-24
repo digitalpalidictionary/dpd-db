@@ -1,5 +1,17 @@
 [
     {
+        "id": 86728,
+        "lemma_1": "oḷārikatta"
+    },
+    {
+        "id": 86727,
+        "lemma_1": "oḷārikatā"
+    },
+    {
+        "id": 60291,
+        "lemma_1": "sampanna x"
+    },
+    {
         "id": 3760,
         "lemma_1": "anabhinibbatti"
     },
@@ -66,17 +78,5 @@
     {
         "id": 86711,
         "lemma_1": "sīlādiguṇa"
-    },
-    {
-        "id": 86710,
-        "lemma_1": "vedanāvasena"
-    },
-    {
-        "id": 86709,
-        "lemma_1": "saṅkhatadhamma"
-    },
-    {
-        "id": 86708,
-        "lemma_1": "gāthamabhāsi"
     }
 ]
