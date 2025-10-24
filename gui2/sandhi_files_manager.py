@@ -1,13 +1,22 @@
 import csv
 
 from tools.paths import ProjectPaths
+from gui2.toolkit import ToolKit
 
 
 class SandhiFileManager:
-    def __init__(self):
+    def __init__(self, toolkit: ToolKit):
         self._pth = ProjectPaths()
         self._checked_words: set[str] = self._read_checked_csv()
         self._corrections: set[str] = self._read_corrections_csv()
+        self.variants = toolkit.variants
+        self.spelling_mistakes = toolkit.spelling_mistakes
+
+    def add_variant(self, word: str, main_reading: str) -> None:
+        self.variants.update_and_save(word, main_reading)
+
+    def add_spelling_mistake(self, word: str, correct_spelling: str) -> None:
+        self.spelling_mistakes.update_and_save(word, correct_spelling)
 
     def _read_checked_csv(self) -> set[str]:
         """Read the checked.csv file and return a set of words."""
