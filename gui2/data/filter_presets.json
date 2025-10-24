@@ -115,5 +115,22 @@
             "meaning_2"
         ],
         "limit": 0
+    },
+    "source_1 -": {
+        "data_filters": [
+            [
+                "source_1",
+                "^-$"
+            ],
+            [
+                "family_compound",
+                "."
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "family_compound"
+        ],
+        "limit": 0
     }
 }
