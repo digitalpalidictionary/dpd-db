@@ -103,6 +103,10 @@ class App:
                     content=self.global_view,
                 ),
                 ft.Tab(
+                    text="Transl",
+                    content=self.translations_view,
+                ),
+                ft.Tab(
                     text="Pass1Auto",
                     content=self.pass1_auto_view,
                 ),
@@ -121,10 +125,6 @@ class App:
                 ft.Tab(
                     text="Pass2Add",
                     content=self.pass2_add_view,
-                ),
-                ft.Tab(
-                    text="Transl",
-                    content=self.translations_view,
                 ),
                 ft.Tab(
                     text="'",
