@@ -101,6 +101,64 @@ class WordFinderPopup:
             )  # Get raw results to format manually
             if results:
                 # Create DataTable with headers and data rows
+                total_words = sum(freq for book, word, freq in results)
+                # Create DataTable with headers and data rows
+                data_rows = [
+                    ft.DataRow(
+                        cells=[
+                            ft.DataCell(
+                                ft.Text(
+                                    book,
+                                    color=ft.Colors.WHITE,
+                                    selectable=True,
+                                )
+                            ),
+                            ft.DataCell(
+                                ft.Text(
+                                    word,
+                                    color=ft.Colors.WHITE,
+                                    selectable=True,
+                                ),
+                            ),
+                            ft.DataCell(
+                                ft.Text(
+                                    str(freq),
+                                    color=ft.Colors.WHITE,
+                                    selectable=True,
+                                ),
+                            ),
+                        ],
+                    )
+                    for book, word, freq in results
+                ]
+
+                # Add the total row
+                data_rows.append(
+                    ft.DataRow(
+                        cells=[
+                            ft.DataCell(
+                                ft.Text(
+                                    "Total words found:",
+                                    color=ft.Colors.WHITE,
+                                    weight=ft.FontWeight.BOLD,
+                                    selectable=True,
+                                )
+                            ),
+                            ft.DataCell(
+                                ft.Text("", selectable=True)
+                            ),  # Empty cell for alignment
+                            ft.DataCell(
+                                ft.Text(
+                                    str(total_words),
+                                    color=ft.Colors.WHITE,
+                                    weight=ft.FontWeight.BOLD,
+                                    selectable=True,
+                                )
+                            ),
+                        ],
+                    )
+                )
+
                 data_table = ft.DataTable(
                     border=ft.border.all(1, ft.Colors.BLUE_200),
                     border_radius=10,
@@ -111,38 +169,11 @@ class WordFinderPopup:
                         ft.DataColumn(ft.Text("Word", color=ft.Colors.WHITE)),
                         ft.DataColumn(ft.Text("Freq", color=ft.Colors.WHITE)),
                     ],
-                    rows=[
-                        ft.DataRow(
-                            cells=[
-                                ft.DataCell(
-                                    ft.Text(
-                                        book,
-                                        color=ft.Colors.WHITE,
-                                        selectable=True,
-                                    )
-                                ),
-                                ft.DataCell(
-                                    ft.Text(
-                                        word,
-                                        color=ft.Colors.WHITE,
-                                        selectable=True,
-                                    ),
-                                ),
-                                ft.DataCell(
-                                    ft.Text(
-                                        str(freq),
-                                        color=ft.Colors.WHITE,
-                                        selectable=True,
-                                    ),
-                                ),
-                            ],
-                        )
-                        for book, word, freq in results
-                    ],
+                    rows=data_rows,  # Use the modified data_rows
                 )
 
                 self.results_container.content = ft.Column(
-                    [data_table],
+                    [data_table],  # Only data_table here, as total is inside it
                     scroll=ft.ScrollMode.AUTO,
                 )
                 self.results_container.visible = True
