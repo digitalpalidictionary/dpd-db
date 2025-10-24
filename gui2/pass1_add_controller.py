@@ -48,7 +48,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
 
         self.pass1_books = sutta_central_books
         self.pass1_books_list = [k for k in self.pass1_books]
-        self.book_to_process: str
+        self.book_to_process: str | None = None
 
         self.auto_processed_dict: dict[str, dict[str, str]] = {}
         self.auto_processed_iter = iter([])
@@ -85,6 +85,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.ui.update_remaining(len(self.auto_processed_dict))
 
     def get_next_item(self):
+        if self.book_to_process is None:
+            self.ui.update_message("Please select a book to process first.")
+            return False
         try:
             self.word_in_text, self.sentence_data = next(self.auto_processed_iter)
             # Update from the current file state to show accurate remaining count
