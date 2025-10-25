@@ -7,8 +7,8 @@ from gui2.mixins import PopUpMixin
 from gui2.sandhi_files_manager import SandhiFileManager
 from gui2.toolkit import ToolKit
 
-FIELD_WIDTH = 700
-BUTTON_WIDTH = 150
+FIELD_WIDTH = 1000
+BUTTON_WIDTH = 100
 LABEL_WIDTH = 200
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
@@ -248,7 +248,9 @@ class SandhiView(ft.Column, PopUpMixin):
         correction = self.spelling_mistake_correction.value
         if word and correction:
             self.sandhi_files_manager.add_spelling_mistake(word, correction)
-            self.update_message(f"Spelling correction '{correction}' added for '{word}'")
+            self.update_message(
+                f"Spelling correction '{correction}' added for '{word}'"
+            )
             self.spelling_mistake_word.value = ""
             self.spelling_mistake_correction.value = ""
             self.page.update()
