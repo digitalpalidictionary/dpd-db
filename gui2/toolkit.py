@@ -24,6 +24,7 @@ class ToolKit:
         from gui2.user import UsernameManager
         from gui2.variants import VariantReadingFileManager
         from tools.ai_manager import AIManager
+        from tools.bold_definitions_search import BoldDefinitionsSearchManager
         from tools.hyphenations import HyphenationFileManager
         from tools.sandhi_contraction import SandhiContractionManager
         from tools.wordfinder_manager import WordFinderManager
@@ -54,6 +55,7 @@ class ToolKit:
         self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)
         self.wordfinder_manager: WordFinderManager = WordFinderManager()
         self.wordfinder_popup: WordFinderPopup = WordFinderPopup(self)
+        self.bold_definitions_search_manager: BoldDefinitionsSearchManager = BoldDefinitionsSearchManager()
         self.variants: VariantReadingFileManager = VariantReadingFileManager()
         self.spelling_mistakes: SpellingMistakesFileManager = (
             SpellingMistakesFileManager()
