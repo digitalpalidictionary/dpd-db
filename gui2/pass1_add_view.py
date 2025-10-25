@@ -478,14 +478,21 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 continue
 
             # Explicitly check if the field_name is in PASS1_FIELDS
-            if field_name in PASS1_FIELDS and hasattr(headword_to_clone, field_name):
-                # Check if the UI field is empty (or None)
-                # Only clone if the target field is empty to avoid overwriting existing data
-                if not ui_field.value:
-                    db_value = getattr(headword_to_clone, field_name)
-                    if db_value is not None:  # Only clone non-None values
-                        ui_field.value = db_value
-                        cloned_count += 1
+            if field_name in PASS1_FIELDS:
+                # Special handling for meaning_2 field: copy from meaning_1
+                if field_name == "meaning_2":
+                    if headword_to_clone.meaning_1:
+                        if not ui_field.value:
+                            cloned_count += 1
+                        ui_field.value = headword_to_clone.meaning_1
+
+                # Standard handling for other fields
+                elif hasattr(headword_to_clone, field_name):
+                    if not ui_field.value:
+                        db_value = getattr(headword_to_clone, field_name)
+                        if db_value is not None:
+                            ui_field.value = db_value
+                            cloned_count += 1
 
         self.update_message(
             f"Cloned {cloned_count} fields from {headword_to_clone.lemma_1}."
