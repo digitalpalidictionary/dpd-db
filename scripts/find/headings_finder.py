@@ -1,3 +1,5 @@
+"""Find missing heading in DN and MN"""
+
 from pathlib import Path
 
 import pyperclip
