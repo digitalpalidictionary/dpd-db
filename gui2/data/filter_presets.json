@@ -132,5 +132,19 @@
             "family_compound"
         ],
         "limit": 0
+    },
+    "family word": {
+        "data_filters": [
+            [
+                "lemma_1",
+                "^haṃsa"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "meaning_1",
+            "family_word"
+        ],
+        "limit": 0
     }
 }

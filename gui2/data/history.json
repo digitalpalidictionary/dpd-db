@@ -1,82 +1,82 @@
 [
     {
-        "id": 86809,
-        "lemma_1": "apariyesitvā"
-    },
-    {
-        "id": 86808,
-        "lemma_1": "bhavādāna"
-    },
-    {
-        "id": 86807,
-        "lemma_1": "paṭipakkhavasena"
-    },
-    {
-        "id": 86806,
-        "lemma_1": "paṭicchannaṭṭhāna"
-    },
-    {
-        "id": 86805,
-        "lemma_1": "sādhukāramadāsi"
-    },
-    {
-        "id": 86804,
-        "lemma_1": "tadaṅgappahāna"
-    },
-    {
         "id": 86803,
         "lemma_1": "dukkhaṭṭha"
     },
     {
-        "id": 86802,
-        "lemma_1": "diṭṭhimaññanā"
+        "id": 86811,
+        "lemma_1": "phalasamāpattisukha"
     },
     {
-        "id": 86801,
-        "lemma_1": "sabbabhūtānamissara"
+        "id": 86815,
+        "lemma_1": "abhisambuddhagāthā"
     },
     {
-        "id": 86800,
-        "lemma_1": "duppūra"
+        "id": 86854,
+        "lemma_1": "antarāpatti"
     },
     {
-        "id": 86799,
-        "lemma_1": "jūjaka"
+        "id": 86857,
+        "lemma_1": "tatthacchati"
     },
     {
-        "id": 86798,
-        "lemma_1": "giridugga"
+        "id": 86870,
+        "lemma_1": "dānito"
     },
     {
-        "id": 86797,
-        "lemma_1": "asītikoṭi"
+        "id": 24999,
+        "lemma_1": "gihigata 1"
     },
     {
-        "id": 86796,
-        "lemma_1": "susara"
+        "id": 26671,
+        "lemma_1": "cittahatthisāriputtapoṭṭhapādavatthu"
     },
     {
-        "id": 86795,
-        "lemma_1": "susañña"
+        "id": 64615,
+        "lemma_1": "suvibhattaṃ"
     },
     {
-        "id": 86794,
-        "lemma_1": "saññitabba"
+        "id": 76818,
+        "lemma_1": "tejita 1"
     },
     {
-        "id": 86793,
-        "lemma_1": "devavara"
+        "id": 58583,
+        "lemma_1": "sannissaya"
     },
     {
-        "id": 86792,
-        "lemma_1": "devavaṇṇa"
+        "id": 86879,
+        "lemma_1": "sannissaya 2"
     },
     {
-        "id": 86791,
-        "lemma_1": "devavaṇṇī"
+        "id": 41850,
+        "lemma_1": "patta 2.5"
     },
     {
-        "id": 86790,
-        "lemma_1": "dhammaguṇa"
+        "id": 39220,
+        "lemma_1": "paggharaṇa 1"
+    },
+    {
+        "id": 76672,
+        "lemma_1": "abhisambhonta 2"
+    },
+    {
+        "id": 86878,
+        "lemma_1": "asaññābhava"
+    },
+    {
+        "id": 86877,
+        "lemma_1": "saññābhava"
+    },
+    {
+        "id": 86876,
+        "lemma_1": "māraṇatthāya"
+    },
+    {
+        "id": 86875,
+        "lemma_1": "māraṇatthaṃ"
+    },
+    {
+        "id": 86874,
+        "lemma_1": "atthajāta 2"
     }
 ]
