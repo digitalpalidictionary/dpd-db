@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "SNP24",
-        "sutta": "cūḷavaggo, nigrodhakappasuttaṃ",
-        "example": "parovaraṃ ariyadhammaṃ viditvā,\nmā mohayī jānam'anomavīra,\nvāriṃ yathā ghammani ghammatatto,\nvāc'ābhikaṅkhāmi sutaṃ pavassa."
+        "source": "APA4",
+        "sutta": "mahāmoggallānattheraapadānaṃ",
+        "example": "āraddhavīriyo pahit'atto,\niddhiyā pāramiṃ gato,\nsabb'āsave pariññāya,\nnibbāyissati'nāsavo."
     },
     "stash": {
-        "source": "VIN1.1.2",
-        "sutta": "dutiyapārājikaṃ",
-        "example": "catuppadaṃ nāma, hatthī assā oṭṭhā goṇā gadrabhā pasukā. theyyacitto āmasati, āpatti dukkaṭassa."
+        "source": "DNa4.2",
+        "sutta": "soṇadaṇḍasuttavaṇṇanā, buddhaguṇakathā",
+        "example": "tathāgatassa pana jātadivaseyeva saṅkho, elo, uppalo, puṇḍarīko'ti cattāro nidhayo uggatā. tesu saṅkho gāvutiko, elo aḍḍhayojaniko, uppalo tigāvutiko, puṇḍarīko yojaniko. tesu'pi gahitaṃ gahitaṃ pūrati'y'eva, iti bhagavā pahūtaṃ hiraññasuvaṇṇaṃ ohāya pabbajito'ti veditabbo."
     }
 }
