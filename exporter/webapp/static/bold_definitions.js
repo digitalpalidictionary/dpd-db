@@ -50,23 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const htmlElement = document.documentElement;
   bdLanguage = htmlElement.lang || "en"; // Assign to the outer scope variable
 
-  // Set up event listeners for search boxes and button
-  bdSearchBox1.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      window.performSearch();
-    }
-  });
-
-  bdSearchBox2.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      window.performSearch();
-    }
-  });
-
-  bdSearchButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    window.performSearch();
-  });
+  // Note: Search event listeners are now consolidated in app.js to prevent race conditions
+  // The bold_definitions.js file handles only UI-specific functionality
 });
 
 // text to unicode
