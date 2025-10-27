@@ -442,12 +442,23 @@ class FilterTabView(ft.Column):
             except ValueError:
                 limit = 0
 
+        # Determine sort column - always use the first selected display filter
+        sort_column = "id"  # Default to first database column
+        if display_filters:
+            sort_column = display_filters[0]  # First selected column
+        else:
+            # If no display filters selected, use the first column from the database schema
+            sort_column = (
+                self.dpd_headword_columns[0] if self.dpd_headword_columns else "id"
+            )
+
         new_filter_component = FilterComponent(
             page=self.page,
             toolkit=self.toolkit,
             data_filters=data_filters,
             display_filters=display_filters,
             limit=limit,
+            sort_column=sort_column,
         )
 
         self.filter_component_container.content = new_filter_component

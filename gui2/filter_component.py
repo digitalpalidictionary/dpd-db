@@ -68,6 +68,7 @@ class FilterComponent(ft.Column):
         data_filters: list[tuple[str, str]] | None = None,
         display_filters: list[str] | None = None,
         limit: int | None = None,
+        sort_column: str | None = None,
     ) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
         self.page: ft.Page = page
@@ -79,6 +80,7 @@ class FilterComponent(ft.Column):
         self.display_filters = display_filters
         self.data_filters = data_filters
         self.limit = limit
+        self.sort_column = sort_column or "lemma_1"
         self._just_saved: bool = False
 
         # UI Controls
@@ -174,8 +176,9 @@ class FilterComponent(ft.Column):
 
             # Refresh the database session to ensure we have the latest connection
             self.toolkit.db_manager.new_db_session()
+            sort_column_attr = getattr(DpdHeadword, self.sort_column, DpdHeadword.id)
             query = self.toolkit.db_manager.db_session.query(DpdHeadword).order_by(
-                DpdHeadword.lemma_1
+                sort_column_attr
             )
             for filter_info in active_filters:
                 column_name = filter_info["column"]
