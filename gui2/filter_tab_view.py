@@ -196,6 +196,8 @@ class FilterTabView(ft.Column):
         # Assemble all sections
         self.controls.extend(
             [
+                preset_section,
+                ft.Divider(),
                 data_filters_section,
                 ft.Divider(),
                 display_filters_section,
@@ -203,8 +205,6 @@ class FilterTabView(ft.Column):
                 limit_section,
                 ft.Divider(),
                 buttons_section,
-                ft.Divider(),
-                preset_section,
                 ft.Divider(),
                 self.filter_component_container,
             ]
