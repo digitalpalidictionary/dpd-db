@@ -6,6 +6,7 @@ from gui2.toolkit import ToolKit
 from scripts.backup.backup_dpd_headwords_and_roots import (
     backup_dpd_headwords_and_roots,
 )
+from scripts.build.anki_updater import main as anki_updater_main
 from tools.paths import ProjectPaths
 
 
@@ -46,6 +47,16 @@ class GlobalTabView(ft.Column):
                                     self._message,
                                 ]
                             ),
+                            ft.Row(
+                                controls=[
+                                    ft.ElevatedButton(
+                                        "Update Anki Database",
+                                        on_click=self._click_update_anki,
+                                        width=250,
+                                    ),
+                                    self._message,
+                                ]
+                            ),
                         ]
                     ),
                     padding=10,
@@ -80,3 +91,45 @@ class GlobalTabView(ft.Column):
 
         if test_file_path.exists():
             subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
+
+    def _click_update_anki(self, e: ft.ControlEvent) -> None:
+        """Close Anki if open, run anki updater, and show completion message."""
+        self._update_message("Closing Anki and updating database...")
+
+        try:
+            # First, forcefully close any running Anki processes
+            subprocess.run(["pkill", "-9", "-f", "anki"], capture_output=True)
+
+            # Wait a few seconds to ensure Anki has released its database locks
+            import time
+
+            time.sleep(3)
+
+            # Verify Anki is truly closed by checking for any remaining processes
+            result = subprocess.run(
+                ["pgrep", "-f", "anki"], capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                self._update_message(
+                    "Warning: Anki may still be running, but proceeding anyway..."
+                )
+                time.sleep(2)  # Give it a bit more time
+
+            # Run the anki updater script
+            anki_updater_main()
+
+            self._update_message(
+                "Anki database update completed successfully! Restarting Anki..."
+            )
+
+            # Automatically restart Anki
+            try:
+                subprocess.Popen(["anki"])
+                self._update_message("Anki has been restarted successfully!")
+            except Exception as restart_ex:
+                self._update_message(
+                    f"Anki update completed, but failed to restart Anki: {restart_ex}. You can manually restart Anki now."
+                )
+
+        except Exception as ex:
+            self._update_message(f"Anki update failed: {ex}")
