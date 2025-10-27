@@ -21,13 +21,18 @@ def main():
         .filter(DpdHeadword.example_1 != "")
         .all()
     )
+    total = len(db_results)
+    print(f"{total} words with example and no meaning 1")
+    print("press [blue]enter[/blue] to continue or [blue]q[/blue] to quit")
 
-    print(f"{len(db_results)} words with example and no meaning 1")
-    print()
     for index, i in enumerate(db_results):
-        print(f"{index + 1:3n} / {len(db_results)} {i.lemma_1}")
+        print(f"{total} {i.lemma_1}", end=" ")
         pyperclip.copy(i.lemma_1)
-        input("press any key to continue... ")
+        user_input = input()
+        if user_input == "q":
+            break
+        else:
+            total -= 1
 
 
 if __name__ == "__main__":
