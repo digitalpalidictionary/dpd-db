@@ -3168,3 +3168,4 @@ kilometres
 odour
 odours
 favourable
+unapprehensive
