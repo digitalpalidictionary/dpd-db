@@ -1,6 +1,4 @@
 initial	final	correct	wrong	without	exceptions
-
--
 a a	a	aa > a	x	x	x
 a a	ā	aa > ā	a > ā	x	x
 a ā	ā	aā > ā	a > ā	x	x

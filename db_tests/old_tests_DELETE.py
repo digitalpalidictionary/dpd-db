@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Class for internal tests."""
 
-import json
-
 import csv
+import json
 from json import dumps, loads
+
 from tools.paths import ProjectPaths
 
 pth = ProjectPaths()
@@ -38,6 +38,7 @@ class InternalTestRow:
         display_1,
         display_2,
         display_3,
+        notes,
     ):
         self.test_name = test_name
         self.search_column_1 = search_column_1
@@ -62,6 +63,7 @@ class InternalTestRow:
         self.display_1 = display_1
         self.display_2 = display_2
         self.display_3 = display_3
+        self.notes = notes
 
         try:
             self.exceptions = json.loads(exceptions)

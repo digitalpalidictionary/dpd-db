@@ -884,7 +884,14 @@ def sandhi_contraction_errors(db_session) -> tuple:
 def duplicate_phrases(searches: dict) -> tuple:
     """Test for duplcate phrases in meaning_1."""
 
-    exceptions = ["jāta 1", "jhāyati 1", "patati 1", "paresaṃ 2", "vussati"]
+    exceptions = [
+        "jāta 1",
+        "jhāyati 1",
+        "patati 1",
+        "paresaṃ 2",
+        "vussati",
+        "nābhāsamāna",
+    ]
 
     results = []
     for i in searches["dpd_headword"]:
@@ -906,7 +913,12 @@ def duplicate_phrases(searches: dict) -> tuple:
 def duplicate_words(searches: dict) -> tuple:
     """Test for consecutive duplcate words in meaning_1."""
 
-    exceptions = ["000", '"', "blah", "'"]
+    exceptions = [
+        "000",
+        '"',
+        "blah",
+        "'",
+    ]
 
     results = []
     for i in searches["dpd_headword"]:
@@ -942,6 +954,7 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
         "taṭatatāyati",
         "taṭatatāyāyi",
         "nahuta 2",
+        "navutikoṭisahassa",
     ]
 
     results = []
@@ -1017,6 +1030,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "bhavābhavatā",
         "sattasattāha",
         "gahitagahita",
+        "ekattatā",
     ]
 
     results = []

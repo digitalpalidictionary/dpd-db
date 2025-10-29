@@ -393,10 +393,10 @@ class DbTestManager:
         if not self.internal_tests_list:
             pr.red("No tests loaded, nothing to sort.")
             return
-            
+
         # Sort the internal tests list by test_name
         self.internal_tests_list.sort(key=lambda test: test.test_name)
-        
+
         # Save the sorted tests back to the TSV file
         self.save_tests()
 
@@ -405,7 +405,7 @@ def main() -> None:
     session = get_db_session(Path("dpd.db"))
 
     test_manager = DbTestManager()
-    entry = session.query(DpdHeadword).filter_by(id=122).first()
+    entry = session.query(DpdHeadword).filter_by(id=112).first()
 
     if entry is not None:
         print(test_manager.run_all_tests_on_headword(entry))

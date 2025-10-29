@@ -145,6 +145,7 @@ def make_construction_prefix(g: GlobalVars):
     # remove other prefix and plus space
     c = re.sub("\\?\\?", "", c)
     c = re.sub("^na \\+ ", "", c)
+    c = re.sub("^no \\+ ", "", c)
     c = re.sub("^na \\+ ", "", c)
     c = re.sub("^a \\+ ", "", c)
     c = re.sub("^su \\+ ", "", c)
@@ -174,7 +175,7 @@ def make_construction_prefix(g: GlobalVars):
     g.construction_prefix = c
 
 
-def printer(g):
+def printer(g: GlobalVars):
     print("_" * 50)
     print()
     print(f"[green]{'i.id':<40}[white]{g.i.id}")
@@ -183,7 +184,7 @@ def printer(g):
     print(f"[green]{'i.family_root':<40}[white]{g.i.family_root}")
     print(f"[green]{'i.construction':<40}[white]{g.i.construction}")
     print(f"[green]{'root_fam_prefix':<40}[white]'{g.root_fam_prefix}'")
-    print(f"[green]{'construc_prefix':<40}[white]'{g.construc_prefix}'")
+    print(f"[green]{'construc_prefix':<40}[white]'{g.construction_prefix}'")
     print()
 
 

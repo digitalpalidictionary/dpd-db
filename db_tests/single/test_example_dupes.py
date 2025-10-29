@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
 """Find duplicate examples in example_1 and example_2"""
-import pyperclip
 
 from difflib import SequenceMatcher
+
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
-threshold=0.82
+threshold = 0.81
+
 
 def main():
     print("[bright_yellow]find duplicate or similar examples")
@@ -18,8 +20,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     for i in db:
-        if i.example_1 and i.example_2:
-            
+        if i.meaning_1 and i.example_1 and i.example_2:
             # test if identical
             if i.example_1 == i.example_2:
                 print(i.lemma_1)
@@ -46,11 +47,13 @@ def main():
                     db_session.commit()
                     print("[red]example_2 swapped")
 
+
 def delete_example_2(i):
     i.source_2 = ""
     i.sutta_2 = ""
     i.example_2 = ""
     return i
+
 
 def swop_example_1_and_2(i):
     i.source_1 = i.source_2
@@ -59,13 +62,10 @@ def swop_example_1_and_2(i):
     return i
 
 
-
-
 def paragraphs_are_similar(paragraph1, paragraph2, threshold=threshold):
     matcher = SequenceMatcher(None, paragraph1, paragraph2)
     similarity_ratio = matcher.ratio()
     return similarity_ratio >= threshold
-
 
 
 if __name__ == "__main__":

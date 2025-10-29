@@ -3,9 +3,9 @@
 """Test to see if lemma_1 and lemma_2 are almost identical"""
 
 import difflib
-import pyperclip
 import re
 
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -27,6 +27,7 @@ exceptions = [
     "sat 1",
     "sat 2",
     "vihāsi 2",
+    "verañjaduve",
 ]
 
 pos_differs = ["masc", "nt", "prefix", "card", "cs", "letter", "root", "suffix", "ve"]
