@@ -2,7 +2,7 @@
 
 """
 Remove extra brackets in meaning_1
-e.g. `goes (to); travels (to)` >> `goes; travels (to)`
+e.g. `(of a bird) goes (to); travels (to)` >>> `(of a bird) goes; travels (to)`
 """
 
 import re
@@ -25,6 +25,24 @@ def test_brackets_list(brackets_list: list[str]) -> bool:
     return True
 
 
+def make_brackets_list(i: DpdHeadword) -> list[str]:
+    # first remove the starting brackets
+    meaning_clean = re.sub(r"\(.+?\) ", "", i.meaning_1)
+    brackets_list = re.findall(r"\(.*?\)", meaning_clean)
+    return brackets_list
+
+
+def process_brackets(i: DpdHeadword, brackets_list: list[str]) -> None:
+    find = re.escape(brackets_list[0])
+    subs = len(brackets_list) - 1
+    i.meaning_1 = re.sub(
+        f" {find}",
+        "",
+        i.meaning_1,
+        subs,
+    )
+
+
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -33,25 +51,20 @@ def main():
     found_count = 0
     for i in db:
         if "(" in i.meaning_1:
-            brackets_list = re.findall(r"\(.*?\)", i.meaning_1)
+            brackets_list = make_brackets_list(i)
+
             if len(brackets_list) > 1 and test_brackets_list(brackets_list):
                 found_count += 1
                 print(found_count)
                 print(i.meaning_1)
                 print(brackets_list)
 
-                find = re.escape(brackets_list[0])
-                subs = len(brackets_list) - 1
-                i.meaning_1 = re.sub(
-                    f" {find}",
-                    "",
-                    i.meaning_1,
-                    subs,
-                )
+                process_brackets(i, brackets_list)
+
                 print(i.meaning_1)
                 print()
 
-    # db_session.commit()
+    db_session.commit()
 
 
 if __name__ == "__main__":
