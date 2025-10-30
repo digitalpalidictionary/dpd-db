@@ -12184,9 +12184,80 @@
             55156,
             55157,
             55158
+        ],
+        "pacchābhattaṃ": [
+            86676
+        ],
+        "vippakatāti": [
+            83220
+        ],
+        "vippakatā": [
+            83220
+        ],
+        "pañcamaṃ": [
+            86140
+        ],
+        "vinaye": [
+            86469
+        ],
+        "pañcamopi": [
+            86140
+        ],
+        "mātari": [
+            84123
+        ],
+        "paribhāsāya": [
+            83201
+        ],
+        "upari": [
+            84885
+        ],
+        "kathañhi": [
+            19853
+        ],
+        "vāhentīti": [
+            83457
+        ],
+        "nadito": [
+            83216
+        ],
+        "saddā": [
+            83215
+        ],
+        "saddaṃ": [
+            83215
+        ],
+        "etañhi": [
+            17970,
+            80558
+        ],
+        "santeke": [
+            19162,
+            86882
+        ],
+        "saddehi": [
+            83215
+        ],
+        "nāgasenāya": [
+            85159
+        ],
+        "anuyanti": [
+            82982
+        ],
+        "paribhāsāhi": [
+            83201
         ]
     },
-    "matched": {},
+    "matched": {
+        "catuṭṭhānaṃ": {
+            "id": 25890,
+            "sentence": [
+                "DN31",
+                "siṅgālasuttaṃ, catuṭṭhānaṃ",
+                "catuṭṭhānaṃ"
+            ]
+        }
+    },
     "new_word": {},
     "processed": [
         "pāthikavaggapāḷi",

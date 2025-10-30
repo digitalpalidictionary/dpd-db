@@ -11,6 +11,9 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
+find: str = "makuṭa"
+replace: str = "makula"
+
 
 def main():
     pr.tic()
@@ -18,9 +21,6 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
-
-    find: str = "āma"
-    replace: str = "āma2"
 
     for i in db:
         if re.findall(rf"\b{find}\b", str(i.family_word)):
