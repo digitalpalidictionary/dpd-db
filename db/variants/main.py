@@ -31,6 +31,7 @@ def main():
     variants_dict = process_bjt(variants_dict, pth)
     variants_dict = process_sya(variants_dict, pth)
     variants_dict = process_sc(variants_dict, pth)
+    variants_dict.pop("")
 
     save_json(variants_dict)
 
