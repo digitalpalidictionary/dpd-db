@@ -16,6 +16,7 @@ uv run scripts/build/config_uposatha_day.py
 uv run python db/inflections/create_inflection_templates.py
 uv run python db/inflections/generate_inflection_tables.py
 
+uv run python scripts/build/root_has_verb_updater.py
 uv run python scripts/build/sanskrit_root_families_updater.py
 
 uv run python db/families/family_root.py

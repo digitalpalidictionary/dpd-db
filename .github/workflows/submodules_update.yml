@@ -95,6 +95,9 @@ jobs:
     - name: Create Inflection Tables
       run: uv run python db/inflections/generate_inflection_tables.py
 
+    - name: Update Root Has Verb values
+      run: uv run python scripts/build/root_has_verb_updater.py
+
     - name: Update Sanskrit Family Roots
       run: uv run python scripts/build/sanskrit_root_families_updater.py
 
