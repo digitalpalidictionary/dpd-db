@@ -113,6 +113,10 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
 def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
     """Prepare data to export to GoldenDict using pyglossary."""
 
+    # the dictionary is too large so needs to be split in two.
+    # find the halfway mark to use as a split point
+    half = int(len(g.dict_data) / 2)
+
     dict_info = DictInfo(
         bookname="DPD Deconstructor",
         author="Bodhirasa",
@@ -121,22 +125,47 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
         source_lang="pi",
         target_lang="pi",
     )
-    dict_name = "dpd-deconstructor"
 
     dict_vars = DictVariables(
         css_paths=[g.pth.dpd_css_and_fonts_path],
         js_paths=None,
         gd_path=g.pth.share_dir,
         md_path=g.pth.share_dir,
-        dict_name=dict_name,
+        dict_name="dpd-deconstructor",
         icon_path=g.pth.dpd_logo_svg,
         font_path=g.pth.fonts_dir,
         zip_up=False,
         delete_original=False,
     )
 
-    export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data)
+    export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data[:half])
 
+    # export the other half
+
+    dict_info = DictInfo(
+        bookname="DPD Deconstructor2",
+        author="Bodhirasa",
+        description="<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/features/deconstructor/'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io'>DPD website</a>.</p>",
+        website="https://digitalpalidictionary.github.io/features/deconstructor/",
+        source_lang="pi",
+        target_lang="pi",
+    )
+
+    dict_vars = DictVariables(
+        css_paths=[g.pth.dpd_css_and_fonts_path],
+        js_paths=None,
+        gd_path=g.pth.share_dir,
+        md_path=g.pth.share_dir,
+        dict_name="dpd-deconstructor2",
+        icon_path=g.pth.dpd_logo_svg,
+        font_path=g.pth.fonts_dir,
+        zip_up=False,
+        delete_original=False,
+    )
+
+    export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data[half:])
+
+    # export to mdict
     if g.make_mdict:
         export_to_mdict(dict_info, dict_vars, g.dict_data)
 
