@@ -146,5 +146,21 @@
             "family_word"
         ],
         "limit": 0
+    },
+    "family set": {
+        "data_filters": [
+            [
+                "family_set",
+                "stages of"
+            ]
+        ],
+        "display_filters": [
+            "id",
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "family_set"
+        ],
+        "limit": 0
     }
 }
