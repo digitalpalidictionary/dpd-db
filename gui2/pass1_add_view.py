@@ -480,7 +480,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             # Explicitly check if the field_name is in PASS1_FIELDS
             if field_name in PASS1_FIELDS:
                 # Special handling for meaning_1 field
-                if field_name == "meaning_1":
+                if field_name == "meaning_2":
                     if not ui_field.value:
                         if headword_to_clone.meaning_1:
                             ui_field.value = headword_to_clone.meaning_1
