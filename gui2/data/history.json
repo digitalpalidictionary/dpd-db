@@ -1,5 +1,33 @@
 [
     {
+        "id": 30941,
+        "lemma_1": "tīhākārehi"
+    },
+    {
+        "id": 87588,
+        "lemma_1": "abhiharanta 2"
+    },
+    {
+        "id": 87587,
+        "lemma_1": "apariggahita 4"
+    },
+    {
+        "id": 87586,
+        "lemma_1": "pariggahita 4"
+    },
+    {
+        "id": 87585,
+        "lemma_1": "osārenta"
+    },
+    {
+        "id": 87584,
+        "lemma_1": "acittīkata"
+    },
+    {
+        "id": 25617,
+        "lemma_1": "ghāyita"
+    },
+    {
         "id": 87583,
         "lemma_1": "āsaṅkanta"
     },
@@ -50,33 +78,5 @@
     {
         "id": 87571,
         "lemma_1": "upacchinditabba"
-    },
-    {
-        "id": 87570,
-        "lemma_1": "jaggāpetabba"
-    },
-    {
-        "id": 87569,
-        "lemma_1": "palāpenta"
-    },
-    {
-        "id": 87568,
-        "lemma_1": "paharāpetvā"
-    },
-    {
-        "id": 87567,
-        "lemma_1": "parivajjanīya"
-    },
-    {
-        "id": 87566,
-        "lemma_1": "nidassenta"
-    },
-    {
-        "id": 87565,
-        "lemma_1": "nidassetuṃ"
-    },
-    {
-        "id": 87564,
-        "lemma_1": "āsevīyati"
     }
 ]
