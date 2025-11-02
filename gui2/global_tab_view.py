@@ -94,7 +94,7 @@ class GlobalTabView(ft.Column):
 
     def _click_update_anki(self, e: ft.ControlEvent) -> None:
         """Close Anki if open, run anki updater, and show completion message."""
-        self._update_message("Closing Anki and updating database...")
+        self._update_message("Closing Anki...")
 
         try:
             # First, forcefully close any running Anki processes
@@ -116,6 +116,7 @@ class GlobalTabView(ft.Column):
                 time.sleep(2)  # Give it a bit more time
 
             # Run the anki updater script
+            self._update_message("Updating Anki database...")
             anki_updater_main()
 
             self._update_message(
