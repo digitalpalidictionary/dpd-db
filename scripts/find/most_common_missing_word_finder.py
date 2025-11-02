@@ -65,9 +65,13 @@ def make_list_of_commentary_books() -> list[str]:
             # and not book.endswith("a")
             and not book.endswith("t")
             and book not in anna_list
+            and not book.startswith("kn")
+            and not book.startswith("ap")
+            and not book.startswith("vism")
         ):
             keep_list.append(book)
     pr.yes(len(keep_list))
+    print(keep_list)
 
     return keep_list
     # return ["kn15", "kn16"]
@@ -191,7 +195,7 @@ def sort_groups(
 def save_to_tsv(common_words_unpack):
     pr.green("saving to tsv")
 
-    file_path = Path("temp/most_common_missing_words.tsv")
+    file_path = Path("scripts/find/most_common_missing_words.tsv")
     write_tsv_dot_dict(
         file_path,
         data=common_words_unpack,

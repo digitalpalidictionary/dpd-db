@@ -5,9 +5,9 @@ from tools.tsv_read_write import read_tsv_dict
 
 def open_file():
     try:
-        return read_tsv_dict("temp/most_common_missing_words.tsv")
+        return read_tsv_dict("scripts/find/most_common_missing_words.tsv")
     except FileNotFoundError:
-        return read_tsv_dict("temp/most_common_missing_words_old.tsv")
+        return read_tsv_dict("scripts/find/most_common_missing_words_old.tsv")
 
 
 def get_stats(data):
