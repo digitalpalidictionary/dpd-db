@@ -176,6 +176,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |MST|Mahāsaṅgīti Tipiṭaka (Sutta Central)||
 |MW|Monier-Williams Sanskrit-English Dictionary|<a class="link" href="https://www.sanskrit-lexicon.uni-koeln.de/scans/MW72Scan/2020/web/index.php">web-link</a>|
 |NDB|The Numerical Discourses of the Buddha: A Complete Translation of the Anguttara Nikaya by Bhikkhu Bodhi||
+|NDP|Niruttidīpanīpāṭha|A Burmese grammar from the early modern period; lit. text illuminating grammar|
 |NIDD1|Mahāniddesa|Book 16 of the Khuddaka Nikāya; canonical commentary on the Aṭṭhakavagga of the Sutta Nipāta; lit. great detailed analysis|
 |NIDD1a|Mahāniddesa Aṭṭhakathā|Commentary to Mahāniddesa|
 |NIDD2|Cūḷaniddesa|Book 17 of the Khuddaka Nikāya; canonical commentary on the Pārāyanavagga of the Sutta Nipāta; lit. smaller detailed analysis|
