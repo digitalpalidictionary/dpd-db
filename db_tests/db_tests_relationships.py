@@ -679,7 +679,7 @@ def root_sign_x_base_mismatch(searches: dict) -> tuple:
     for i in searches["dpd_headword"]:
         if i.root_key and i.root_base:
             root_sign_clean = re.sub(r"\*|\+", "", i.root_sign)
-            base_clean = re.sub(r"\*|\+", "", i.root_base)
+            base_clean = re.sub(r"\*| \+", "", i.root_base)
 
             if f" {root_sign_clean} " not in base_clean:
                 if not re.findall("intens|desid|perf|fut", i.root_base):
