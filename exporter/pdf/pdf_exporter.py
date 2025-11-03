@@ -144,9 +144,12 @@ def make_english_to_pali(g: GlobalVars):
     problem_characters = [" ", "'", "(", "*", "-", ".", "?", "√"]
 
     for counter, i in enumerate(epd_db):
-        first_letter = i.lookup_key[
-            0
-        ].casefold()  # consider "A" and "a" as the same letter
+        try:
+            first_letter = i.lookup_key[
+                0
+            ].casefold()  # consider "A" and "a" as the same letter
+        except IndexError:  # sometimes there a blank line in the lookup db
+            continue
 
         if (
             first_letter in problem_characters

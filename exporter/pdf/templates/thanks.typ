@@ -11,6 +11,7 @@
   
 //// endfor \\\\
 #v(1em)
-Wishing you all success with your Dhamma studies and practice, \
+Wishing you all success with your Dhamma studies and practice,
+
 Bodhirasa 
 
