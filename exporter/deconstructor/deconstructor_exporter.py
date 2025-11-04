@@ -107,17 +107,12 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
             pr.counter(counter, deconstructor_db_length, i.lookup_key)
 
     g.dict_data = dict_data
-    pr.yes(len(dict_data))
 
 
 def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
     """Prepare data to export to GoldenDict using pyglossary."""
 
-    # the dictionary is too large so needs to be split in two.
-    # find the halfway mark to use as a split point
-    half = int(len(g.dict_data) / 2)
-
-    dict_info = DictInfo(
+    dict_info1 = DictInfo(
         bookname="DPD Deconstructor",
         author="Bodhirasa",
         description="<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/features/deconstructor/'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io'>DPD website</a>.</p>",
@@ -126,7 +121,7 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
         target_lang="pi",
     )
 
-    dict_vars = DictVariables(
+    dict_vars1 = DictVariables(
         css_paths=[g.pth.dpd_css_and_fonts_path],
         js_paths=None,
         gd_path=g.pth.share_dir,
@@ -138,11 +133,15 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
         delete_original=False,
     )
 
-    export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data[:half])
+    # the deconstructor is too large for goldendict, so needs to be split in two.
+    # find the halfway mark to use as a split point
+    half = int(len(g.dict_data) / 2)
 
-    # export the other half
+    # export the first half of goldendict
+    export_to_goldendict_with_pyglossary(dict_info1, dict_vars1, g.dict_data[:half])
 
-    dict_info = DictInfo(
+    # export the other half of goldendict
+    dict_info2 = DictInfo(
         bookname="DPD Deconstructor2",
         author="Bodhirasa",
         description="<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/features/deconstructor/'>Deconstrutor page</a> on the <a href='https://digitalpalidictionary.github.io'>DPD website</a>.</p>",
@@ -151,7 +150,7 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
         target_lang="pi",
     )
 
-    dict_vars = DictVariables(
+    dict_vars2 = DictVariables(
         css_paths=[g.pth.dpd_css_and_fonts_path],
         js_paths=None,
         gd_path=g.pth.share_dir,
@@ -163,11 +162,11 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
         delete_original=False,
     )
 
-    export_to_goldendict_with_pyglossary(dict_info, dict_vars, g.dict_data[half:])
+    export_to_goldendict_with_pyglossary(dict_info2, dict_vars2, g.dict_data[half:])
 
     # export to mdict
     if g.make_mdict:
-        export_to_mdict(dict_info, dict_vars, g.dict_data)
+        export_to_mdict(dict_info1, dict_vars1, g.dict_data)
 
 
 def main():
