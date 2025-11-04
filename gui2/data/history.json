@@ -1,5 +1,33 @@
 [
     {
+        "id": 87880,
+        "lemma_1": "okandati"
+    },
+    {
+        "id": 87879,
+        "lemma_1": "chakalī"
+    },
+    {
+        "id": 87878,
+        "lemma_1": "chakala"
+    },
+    {
+        "id": 87877,
+        "lemma_1": "paccudeti"
+    },
+    {
+        "id": 87876,
+        "lemma_1": "vācapeyya"
+    },
+    {
+        "id": 87875,
+        "lemma_1": "khomaka"
+    },
+    {
+        "id": 87874,
+        "lemma_1": "utrāsana"
+    },
+    {
         "id": 84290,
         "lemma_1": "suyyi"
     },
@@ -50,33 +78,5 @@
     {
         "id": 87863,
         "lemma_1": "harāpetuṃ"
-    },
-    {
-        "id": 87862,
-        "lemma_1": "aghosetvā"
-    },
-    {
-        "id": 87861,
-        "lemma_1": "paccāharāpetuṃ"
-    },
-    {
-        "id": 87860,
-        "lemma_1": "anuṭṭhāpetvā"
-    },
-    {
-        "id": 87859,
-        "lemma_1": "rakkhāpita"
-    },
-    {
-        "id": 87858,
-        "lemma_1": "rakkhāpetuṃ"
-    },
-    {
-        "id": 87857,
-        "lemma_1": "apidahitvā"
-    },
-    {
-        "id": 87856,
-        "lemma_1": "añatvā"
     }
 ]
