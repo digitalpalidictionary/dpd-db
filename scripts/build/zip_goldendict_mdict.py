@@ -24,7 +24,7 @@ def zip_goldendict(pth: ProjectPaths):
             (pth.dpd_goldendict_dir, "dpd"),
             (pth.dpd_grammar_goldendict_dir, "dpd-grammar"),
             (pth.dpd_deconstructor_goldendict_dir, "dpd-deconstructor"),
-            (pth.dpd_deconstructor_goldendict_dir, "dpd-deconstructor2"),
+            (pth.dpd_deconstructor_goldendict_dir2, "dpd-deconstructor2"),
             (pth.dpd_variants_goldendict_dir, "dpd-variants"),
         ]
 
