@@ -116,6 +116,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √i 1	1	a	come, go	√i	1, 2	go	pa √i	pre	pitṛ, preta, praiti, preta, pretatva +, pretī (bsk), pretya, prehi
 √i 1	1	a	come, go	√i	1, 2	go	pati √i	pratī	apratīta, apratyaya (disbelief), na + pratītya, pratīta, pratītya, pratyaya, pratyaya +, pratyayatva, pratyayāt, pratyayika, pratyāyat, pratyāyana, pratyeti, pratyetum, sa + pratyaya, sapratyaya, supratīta
 √i 1	1	a	come, go	√i	1, 2	go	pati ava √i	pratyave	pratyavaīti
+√i 1	1	a	come, go	√i	1, 2	go	pati ud √i		
 √i 1	1	a	come, go	√i	1, 2	go	pati vi √i	prativī	prativeti
 √i 1	1	a	come, go	√i	1, 2	go	parā √i	parye	parāyaṇa, pārāyaṇa
 √i 1	1	a	come, go	√i	1, 2	go	pari √i	parī	niṣ + paryāya, niṣparyāya, niṣparyāyena, parīta, parītya, paryāya, paryāyena
@@ -263,6 +264,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kath	8	*e	speak, narrate	√kath	10	talk	saṃ √kath	saṃkath	saṅkathayamāna, saṃkathayat, saṃkathayati, saṃkathayatum, sāṃkathya
 √kan	1	a	shine, like	√kan	4	be pleased, enjoy	√kan	kan	kanaka, kanyā, kānana
 √kand	1	a	wail, cry out	√krand √kand	1	cry out	√kand	krand	akrandīt, kandara, kandarā, kandarā +, krandat, krandati
+√kand	1	a	wail, cry out	√krand √kand	1	cry out	ava √kand		
 √kand	1	a	wail, cry out	√krand √kand	1	cry out	ā √kand	ākrand	ākranda
 √kand	1	a	wail, cry out	√krand √kand	1	cry out	pa √kand	prakrand	
 √kand	1	a	wail, cry out	√krand √kand	1	cry out	vi √kand	krandd	vi + krandat, vikranditavya
@@ -845,6 +847,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √car 2	1	a	act, behave	√car	1	move	saṃ ā √car	samācar	samācaraṇa, samācarat, samācarati, samācaret, samācarta, samācāra, samācāra +, samācīrṇa
 √car 2	1	a	act, behave	√car	1	move	saṃ ud ā √car	samuccar	samudācar, samudācarati, samudācāra, samudācīrṇa, samudācharaṇa
 √cal	1	a	shake, tremble	√cal	1	stir	√cal	cal	acala, acala, parvata, giri, acalat, cañcala, cala, calat, calati, calana, calamāna, calayat, calayati, calayamāna, calā, calita, calitvā, cāla, cālanī, cālayitum, cālayitvā, na + calamāna, na + calita, niścala, niścala +, ??
+√cal	1	*e	shake, tremble	√cal	1	stir	ud √cal		
 √cal	1	a	shake, tremble	√cal	1	stir	pa √cal	pracal	acapala, capala, capalatā, cāpala, cāpalya, pracala, pracalati, pracalāyamāna, pracalita, pracālaka, pracālayati
 √cal	1		shake, tremble	√cal	1	stir	vi √cal	vical	
 √cal	1	a	shake, tremble	√cal	1	stir	saṃ √cal	saṃcal	saṃcalati, saṃcālayat
@@ -1071,7 +1074,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ṭhā	1	a	stand	√sthā	1	stand	ava √ṭhā	avasthā	anavastha, anavasthita, anavasthitatva, avatiṣṭhati, avasthāna, avasthita, avasthitatva, na + avatiṣṭhati
 √ṭhā	1	a	stand	√sthā	1	stand	ava saṃ √ṭhā	saṃsthā	ava + saṃsthita
 √ṭhā	1	a	stand	√sthā	1	stand	ā √ṭhā	sthā	āsthita
-√ṭhā	1	a	stand	√sthā	1	stand	ud √ṭhā	utthā	anutthātṛ, anutthāna, anuṣṭhā, asthāt, utasthāt, uttiṣṭha, vyuttiṣṭha, uttiṣṭhati, uttiṣṭhati, vyuttiṣṭhati, utthāt, utthāti, utthātum, utthātṛ, utthāna, utthāna +, utthānavat, utthāpana, utthāpayati, utthāpayana, utthāpayitavya, utthāpayitvā, utthāpita, utthāpya, utthāya, utthāyat, utthāyin, utthita, utthītvā, utthīyamāna, utthetavya, utthetum, na + uttiṣṭhati, na + utthita, na + uṣṭhāmāna, sūtthita
+√ṭhā	1	a	stand	√sthā	1	stand	ud √ṭhā	utthā	anutthātṛ, anutthāna, anuṣṭhā, asthāt, utasthāt, uttiṣṭha, vyuttiṣṭha, uttiṣṭhati, uttiṣṭhati, vyuttiṣṭhati, utthāt, utthāti, utthātum, utthātṛ, utthāna, utthāna +, utthānavat, utthāpana, utthāpayati, utthāpayana, utthāpayitavya, utthāpayitvā, utthāpita, utthāpya, utthāya, utthāya, utthāyuka, utthāyat, utthāyin, utthita, utthītvā, utthīyamāna, utthetavya, utthetum, na + uttiṣṭhati, na + utthita, na + uṣṭhāmāna, sūtthita
 √ṭhā	1	a	stand	√sthā	1	stand	upa √ṭhā	upasthā	anupasthita, upatiṣṭhati, upasthāt, upasthātavya, upasthāti, upasthātum, upasthāna, upasthāpana, upasthāpayat, upasthāpayati, upasthāpayitavya, upasthāpayitum, upasthāpayitvā, upasthāpayitṛ, upasthāpita, upasthāmāna, upasthāyaka, upasthāyaka +, upasthāyaka, upasthāka (bsk), upasthāyamāna, upasthāyika, upasthāyika, upasthāyikā (bsk), upasthita, upasthītvā, upasthīyate, upasthīyamāna, na + upasthīyamāna, su + upasthita, su + upasthita +
 √ṭhā	1	a	stand	√sthā	1	stand	ni √ṭhā	niṣṭhā	na + niṣṭhita, niṣṭhā, niṣṭhāti, niṣṭhāna (sauce), niṣṭhāpayat, niṣṭhāpayati, niṣṭhāpayitvā, niṣṭhāpita, niṣṭhita, suniṣṭhita
 √ṭhā	1	*āpe	stand	√sthā	1	stand	pa √ṭhā	prasthā	na + prasthāpana, prathama, prathamaka, prathamataram, prathamā, prastha, prasthāna, prasthāpana, prasthāpayati, prasthāpayamāna, prasthāpayitum, prasthāpayitvā, prasthāpita (sent away), prasthāyitavya, prasthita, praṣṭha, pṛṣṭha, pṛṣṭhe
@@ -1206,12 +1209,12 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √tul	8	*e	weigh	√tul	10	lift, weigh	ati √tul	tul	nistula
 √tul	8	*e	weigh	√tul	10	lift, weigh	pari √tul	tul	
 √tuvaṭṭ	8	*e	lie down	-	-	-	√tuvaṭṭ		??
-√tus	3	ya	be content, be pleased	√tuṣ	4	be content	√tus	tuṣ	atuṣat, tuṣita (bsk), tuṣṭa, tuṣṭa, tuṣṭāḥ < tuṣṭa, tuṣṭi, tuṣyat, tuṣyati, tuṣyamāṇa, toṣa, saṃtoṣa, toṣaṇa, toṣayat, toṣayati, toṣayamāṇa, toṣayitvā, toṣayitvā (caus), tuṣṭvā (non-caus), toṣṭavya, na + tuṣṭi
+√tus	3	ya	be content, be pleased	√tuṣ	4	be content	√tus	tuṣ	atuṣat, tuṣita (bsk), tuṣṭa, tuṣṭa, tuṣṭāḥ < tuṣṭa, tuṣṭi, tuṣyat, tuṣyati, tuṣyana, tuṣyamāṇa, toṣa, saṃtoṣa, toṣaṇa, toṣayat, toṣayati, toṣayamāṇa, toṣayitvā, toṣayitvā (caus), tuṣṭvā (non-caus), toṣṭavya, na + tuṣṭi
 √tus	3	*aya	be content, be pleased	√tuṣ	4	be content	abhi √tus	abhituṣ	abhitoṣayat
 √tus	3	*e	be content, be pleased	√tuṣ	4	be content	pari √tus	parituṣ	parituṣita, parituṣṭa, paritoṣayati, paritoṣayitvā
 √tus	3	ya	be content, be pleased	√tuṣ	4	be content	saṃ √tus	saṃtuṣ	asaṃtuṣṭa, asaṃtuṣṭa +, asaṃtuṣṭi +, na + saṃtuṣṭi, santuṣyati, santuṣyamāṇa, samtuṣṭa, saṃtuṣṭa, saṃtuṣṭa +, saṃtuṣṭi, saṃtuṣṭi +, saṃtoṣa, susaṃtoṣa
 √tūl	1	a	be light	√tūl	10	extract	√tūl	tūl	tūla, tūlaka, tūlikā, tūlī
-√tras	1	a	fear, shake	√tras	1	be terrified	ud √tras	uttras	uttrasta, uttrāsa, uttrāsayitvā, uttrāsita, na + uttrasta
+√tras	1	a	fear, shake	√tras	1	be terrified	ud √tras	uttras	uttrasta, uttrāsa, uttrāsana (bsk), uttrāsayitvā, uttrāsita, na + uttrasta
 √thak	8	*e	close	√stak	1	strike against	√thak	stak	stakayati, stakayitavya, stakayitvā
 √than	1	a	thunder, roar	√stan	1, 2	thunder	√than	stan	stanayat, stanayitvā, stanita
 √than	1	a	thunder, roar	√stan	1, 2	thunder	abhi √than	abhiṣṭan	
