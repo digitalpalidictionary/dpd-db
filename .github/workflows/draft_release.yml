@@ -198,7 +198,8 @@ jobs:
     # ----------------------------------------
     
     - name: Sync all submodules with Upstream
-      if: steps.uposatha_check.outputs.is_uposatha == 'True'
+      # if: steps.uposatha_check.outputs.is_uposatha == 'True'
+      if: false
       run: |
         for submodule in resources/fdg_dpd resources/bw2 resources/sc-data resources/tpr_downloads; do
           echo "Syncing $submodule..."
@@ -229,7 +230,8 @@ jobs:
     # ----------------------------------------
 
     - name: Update All Submodules
-      if: steps.uposatha_check.outputs.is_uposatha == 'True'
+      # if: steps.uposatha_check.outputs.is_uposatha == 'True'
+      if: false
       shell: bash
       run: |
         declare -A submodules=(
