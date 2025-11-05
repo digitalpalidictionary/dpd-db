@@ -14,6 +14,7 @@ search:
 - [#69 Bold Definitions: Export to GoldenDict and MDict](https://github.com/digitalpalidictionary/dpd-db/issues/69)
 - [#70 Deconstructor: recognise -ka & -ika, and other improvements ](https://github.com/digitalpalidictionary/dpd-db/issues/70)
 - [#106 PDF Exporter: Update colour theme & logo](https://github.com/digitalpalidictionary/dpd-db/issues/106)
+- [#121 Deconstructor: Fix dictzip error, read file error](https://github.com/digitalpalidictionary/dpd-db/issues/121)
 - [#125 Webapp: Refactor URL handling for tabs, browser forward and backward buttons](https://github.com/digitalpalidictionary/dpd-db/issues/125)
 - [#126 Gui2: Add db filter and tests tab  ](https://github.com/digitalpalidictionary/dpd-db/issues/126)
 - [#130 Deconstrutor: Add 'hi' to automatically recognised sandhi, like api ca ce eva iti etc.](https://github.com/digitalpalidictionary/dpd-db/issues/130)
