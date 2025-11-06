@@ -9,7 +9,7 @@ from gui2.toolkit import ToolKit
 
 LABEL_COLOUR = ft.Colors.GREY_500
 
-DEFAULT_LIMIT = 50
+DEFAULT_LIMIT = 0
 
 
 class FilterTabView(ft.Column):
@@ -28,7 +28,7 @@ class FilterTabView(ft.Column):
             "root_key",
             "family_root",
         ],
-        limit: int = 50,
+        limit: int = DEFAULT_LIMIT,
     ) -> None:
         super().__init__(expand=True, spacing=5, scroll=ft.ScrollMode.AUTO, controls=[])
         self.page: ft.Page = page
@@ -139,7 +139,7 @@ class FilterTabView(ft.Column):
                 ),
                 display_filters_controls,
             ],
-            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+            vertical_alignment=ft.CrossAxisAlignment.START,
         )
 
         # --- Results Limit Section ---
@@ -302,7 +302,7 @@ class FilterTabView(ft.Column):
     def _create_display_filters_controls(self) -> ft.Column:
         """Create the controls for the display filters section."""
         column_names = [column.name for column in DpdHeadword.__table__.columns]
-        self.selected_columns_container = ft.Row([], wrap=True)
+        self.selected_columns_container = ft.Row([], wrap=True, expand=True)
         self.column_checkboxes = []
 
         # Create checkboxes in a scrollable column that always shows scrollbar
@@ -327,12 +327,15 @@ class FilterTabView(ft.Column):
         self.dropdown_button = ft.ElevatedButton(
             "Select Columns", on_click=self._toggle_column_options
         )
+
+        top_row = ft.Row(
+            [self.dropdown_button, self.selected_columns_container],
+            vertical_alignment=ft.CrossAxisAlignment.START,
+        )
+
         return ft.Column(
-            [
-                self.selected_columns_container,
-                self.dropdown_button,
-                self.options_container,
-            ]
+            [top_row, self.options_container],
+            expand=True,
         )
 
     def _toggle_column_options(self, e: ft.ControlEvent) -> None:
@@ -378,7 +381,7 @@ class FilterTabView(ft.Column):
         self.limit_input.hint_text = "0 for all results"
         self.limit_input.hint_style = ft.TextStyle(color=LABEL_COLOUR, size=10)
         self.limit_input.width = 200
-        self.limit_input.value = "50"
+        self.limit_input.value = str(DEFAULT_LIMIT)
         return ft.Row([self.limit_input])
 
     def _create_preset_controls(self) -> ft.Row:
@@ -472,7 +475,7 @@ class FilterTabView(ft.Column):
 
         # Clear limit input
         if self.limit_input:
-            self.limit_input.value = "50"
+            self.limit_input.value = str(DEFAULT_LIMIT)
 
         # Clear the filter component container
         self.filter_component_container.content = ft.Column([])
@@ -488,7 +491,7 @@ class FilterTabView(ft.Column):
                 # Load preset data into current filters
                 data_filters = preset_data.get("data_filters", [])
                 display_filters = preset_data.get("display_filters", [])
-                limit = preset_data.get("limit", 50)
+                limit = preset_data.get("limit", DEFAULT_LIMIT)
 
                 # Update data filters - ensure proper types
                 if isinstance(data_filters, list):
@@ -532,7 +535,7 @@ class FilterTabView(ft.Column):
                 if isinstance(limit, int) and self.limit_input:
                     self.limit_input.value = str(limit)
                 elif self.limit_input:
-                    self.limit_input.value = "50"
+                    self.limit_input.value = str(DEFAULT_LIMIT)
 
                 self.page.update()
 
@@ -709,7 +712,7 @@ class FilterTabView(ft.Column):
             ]
 
             # Reset limit to default
-            default_limit = 50
+            default_limit = DEFAULT_LIMIT
 
             # Re-initialize filters with default values
             self._initialize_filters(
