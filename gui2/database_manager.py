@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
-from sqlalchemy.orm.session import Session
+
 from sqlalchemy import desc, func, or_
+from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import (
@@ -262,7 +263,10 @@ class DatabaseManager:
         [
             self.all_inflections_missing_example.update(i.inflections_list_all)
             for i in self.db
-            if ((i.meaning_1 and not i.source_1) or (not i.meaning_1))
+            if (
+                (i.meaning_1 and not i.source_1 and not i.source_1 == "-")
+                or (not i.meaning_1)
+            )
         ]
 
         self.all_suffixes: set[str] = set()  # reset
