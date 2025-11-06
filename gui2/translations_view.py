@@ -125,6 +125,10 @@ class TranslationsView(ft.Column):
             self.page.update()
             return
 
+        # Make search case-insensitive
+        if not search_term.startswith("(?i)"):
+            search_term = f"(?i){search_term}"
+
         # --- Start of search: show progress ring with no border ---
         self.results_container.visible = True
         self.results_container.border = None  # Hide border during loading
@@ -165,7 +169,6 @@ class TranslationsView(ft.Column):
 
             for pali_text, eng_trans, table_name, book_name in results_to_display:
                 pali_text_lower = pali_text.lower()
-                eng_trans_lower = (eng_trans or "").lower()
 
                 def get_highlighted_spans(text, term):
                     spans = []
@@ -199,10 +202,12 @@ class TranslationsView(ft.Column):
                     pali_text_spans = get_highlighted_spans(
                         pali_text_lower, search_term
                     )
-                    eng_text_spans = [ft.TextSpan(eng_trans_lower)]
+                    eng_text_spans = [ft.TextSpan(eng_trans or "")]
                 else:  # English
                     pali_text_spans = [ft.TextSpan(pali_text_lower)]
-                    eng_text_spans = get_highlighted_spans(eng_trans_lower, search_term)
+                    eng_text_spans = get_highlighted_spans(
+                        eng_trans or "", search_term
+                    )
 
                 pali_text_widget = ft.Text(spans=pali_text_spans, selectable=True)
                 pali_text_widget.data = pali_text_spans
