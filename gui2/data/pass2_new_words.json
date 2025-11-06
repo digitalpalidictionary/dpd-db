@@ -40,5 +40,23 @@
         "sutta_1": "saṃyojanaṃ sabbamatikkameyya; ",
         "example_1": "and get past all the fetters. ",
         "comment": "comp vb"
+    },
+    "sitaṃ": {
+        "source_1": "sn1.35:6.4",
+        "sutta_1": "atha kho bhagavā sitaṃ pātvākāsi. ",
+        "example_1": "At that, the Buddha smiled. ",
+        "comment": "sita 3.2 stuck attached"
+    },
+    "saṃkhittamatthaṃ": {
+        "source_1": "SN1.40",
+        "sutta_1": "devatāsaṃyuttaṃ, dutiyapajjunnadhītusuttaṃ",
+        "example_1": "bahunāpi kho taṃ vibhajeyyaṃ,\npariyāyena tādiso dhammo,\nsaṃkhittamatthaṃ [saṃkhittamattaṃ] lapayissāmi,\nyāvatā me manasā pariyattaṃ.",
+        "comment": "sandhi, meaning in brief "
+    },
+    "rajjaṃ": {
+        "source_1": "sn4.20:1.3",
+        "sutta_1": "“sakkā nu kho rajjaṃ kāretuṃ ahanaṃ aghātayaṃ ajinaṃ ajāpayaṃ asocaṃ asocāpayaṃ dhammenā”ti? ",
+        "example_1": "“I wonder if it’s possible to rule legitimately, without killing or having someone kill for you; without conquering or having someone conquer for you; without sorrowing or causing sorrow?” ",
+        "comment": "kāretuṃ to cause to make"
     }
 }
