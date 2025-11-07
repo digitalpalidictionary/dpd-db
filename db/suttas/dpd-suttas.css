@@ -50,6 +50,10 @@ div.suttas {
   text-align: left;
 }
 
+table {
+  overflow-x: auto;
+}
+
 table.sutta th {
   text-align: left;
   vertical-align: top;
@@ -60,6 +64,9 @@ table.sutta th {
 
 table.sutta td {
   vertical-align: top;
+  overflow-x: auto;
+  text-wrap: wrap, auto;
+  overflow-wrap: break-word;
 }
 
 a {
