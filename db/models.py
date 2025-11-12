@@ -4,7 +4,7 @@ import json
 import re
 from typing import List, Optional
 
-from sqlalchemy import DateTime, ForeignKey, and_, case, null
+from sqlalchemy import DateTime, ForeignKey, and_, case, null, or_
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import (
     DeclarativeBase,
@@ -505,11 +505,102 @@ thai:          {self.thai}
 #         DateTime(timezone=True), onupdate=func.now())
 
 
+class SuttaInfo(Base):
+    __tablename__ = "sutta_info"
+    # dpd
+    book: Mapped[str] = mapped_column(default="")
+    book_code: Mapped[str] = mapped_column(default="")
+    dpd_code: Mapped[str] = mapped_column(default="")
+    dpd_sutta: Mapped[str] = mapped_column(primary_key=True)
+    dpd_sutta_var: Mapped[str] = mapped_column(default="")
+    # cst
+    cst_code: Mapped[str] = mapped_column(default="")
+    cst_nikaya: Mapped[str] = mapped_column(default="")
+    cst_book: Mapped[str] = mapped_column(default="")
+    cst_section: Mapped[str] = mapped_column(default="")
+    cst_vagga: Mapped[str] = mapped_column(default="")
+    cst_sutta: Mapped[str] = mapped_column(default="")
+    cst_paranum: Mapped[str] = mapped_column(default="")
+    cst_m_page: Mapped[str] = mapped_column(default="")
+    cst_v_page: Mapped[str] = mapped_column(default="")
+    cst_p_page: Mapped[str] = mapped_column(default="")
+    cst_t_page: Mapped[str] = mapped_column(default="")
+    cst_file: Mapped[str] = mapped_column(default="")
+    # sutta central
+    sc_code: Mapped[str] = mapped_column(default="")
+    sc_book: Mapped[str] = mapped_column(default="")
+    sc_vagga: Mapped[str] = mapped_column(default="")
+    sc_sutta: Mapped[str] = mapped_column(default="")
+    sc_eng_sutta: Mapped[str] = mapped_column(default="")
+    sc_blurb: Mapped[str] = mapped_column(default="")
+    # sc_card_link: Mapped[str] = mapped_column(default="")
+    # sc_pali_link: Mapped[str] = mapped_column(default="")
+    # sc_eng_link: Mapped[str] = mapped_column(default="")
+    sc_file_path: Mapped[str] = mapped_column(default="")
+
+    @property
+    def sc_card_link(self) -> str:
+        return f"https://suttacentral.net/{self.sc_code}"
+
+    @property
+    def sc_pali_link(self) -> str:
+        return f"https://suttacentral.net/{self.sc_code}/pli/ms"
+
+    @property
+    def sc_eng_link(self) -> str:
+        return f"https://suttacentral.net/{self.sc_code}/en/sujato"
+
+    @property
+    def sc_book_code(self) -> str:
+        return re.sub(r"\d+\.*-*\d*", "", self.sc_code)
+
+    @property
+    def dhamma_gift(self) -> str:
+        return f"https://find.dhamma.gift/read/?q={self.sc_code}"
+
+    @property
+    def tbw(self) -> str:
+        if self.sc_book_code == "iti":
+            return "https://thebuddhaswords.net/it/it.html"
+        else:
+            return (
+                f"https://thebuddhaswords.net/{self.sc_book_code}/{self.sc_code}.html"
+            )
+
+    @property
+    def tpp_org(self) -> str | None:
+        if self.cst_code:
+            tpp_org_code = re.sub(r"romn\/|\.xml", "", self.cst_file)
+            return f"https://tipitakapali.org/book/{tpp_org_code}"
+        else:
+            return None
+
+    @property
+    def sutta_info_count(self) -> int:
+        db_session = object_session(self)
+        if db_session is None:
+            raise Exception("No db_session")
+
+        return (
+            db_session.query(SuttaInfo)
+            .filter(
+                or_(
+                    DpdHeadword.lemma_1 == self.dpd_sutta,
+                    DpdHeadword.lemma_1 == self.dpd_sutta_var,
+                )
+            )
+            .count()
+        )
+
+    def __repr__(self) -> str:
+        return f"SuttaInfo: {self.dpd_code} {self.dpd_sutta}"
+
+
 class DpdHeadword(Base):
     __tablename__ = "dpd_headwords"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    lemma_1: Mapped[str] = mapped_column(unique=True)
+    lemma_1: Mapped[str] = mapped_column(ForeignKey("sutta_info.dpd_sutta"), default="")
     lemma_2: Mapped[str] = mapped_column(default="")
     pos: Mapped[str] = mapped_column(default="")
     grammar: Mapped[str] = mapped_column(default="")
@@ -607,6 +698,9 @@ class DpdHeadword(Base):
 
     # inflection templates
     it: Mapped[InflectionTemplates] = relationship()
+
+    # sutta info
+    su: Mapped[SuttaInfo] = relationship()
 
     @hybrid_property
     def root_family_key(self):  # type:ignore
@@ -1016,6 +1110,13 @@ class DpdHeadword(Base):
         return self.sutta_2.replace("\n", ", ")
 
     # needs_button
+
+    @property
+    def needs_sutta_info_button(self) -> int:
+        from tools.cache_load import load_sutta_info_set
+
+        sutta_info_set = load_sutta_info_set()
+        return self.lemma_1 in sutta_info_set
 
     @property
     def needs_grammar_button(self) -> bool:

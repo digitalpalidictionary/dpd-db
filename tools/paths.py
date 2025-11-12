@@ -18,6 +18,7 @@ class ProjectPaths:
         # backup_tsv
         self.pali_root_path = base_dir / "db/backup_tsv/dpd_roots.tsv"
         self.pali_word_path = base_dir / "db/backup_tsv/dpd_headwords.tsv"
+        self.sutta_info_tsv_path = base_dir / "db/backup_tsv/sutta_info.tsv"
 
         # db/bold_definitions
         self.bold_definitions_json_path = (

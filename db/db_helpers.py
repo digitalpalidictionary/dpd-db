@@ -23,6 +23,12 @@ def create_db_if_not_exists(db_path: Path):
         Base.metadata.create_all(bind=engine)
 
 
+def create_tables(db_path: Path):
+    """Create tables if they don't exist."""
+    engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
+    Base.metadata.create_all(bind=engine)
+
+
 def get_db_session(db_path: Path) -> Session:
     """Get the db session, used ubiquitously."""
     if not os.path.isfile(db_path):
