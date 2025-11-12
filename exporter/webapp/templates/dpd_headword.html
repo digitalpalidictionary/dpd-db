@@ -12,6 +12,17 @@
 <!-- button box -->
 
 <div class="button-box">
+
+    {% if d.i.needs_sutta_info_button %}
+    <a
+        class="button"
+        name="sutta-info-button"
+        href="#"
+        data-target="sutta_info_{{d.i.lemma_1_}}">
+        sutta</a>
+
+    {% endif %}
+
     {% if d.i.needs_grammar_button %}
     <a
         class="button"
@@ -68,6 +79,341 @@
     <a class="button" href="#" data-target="feedback_{{d.i.lemma_1_}}">
         feedback</a>
 </div>
+
+<!-- sutta info -->
+
+{% if d.i.needs_sutta_info_button %}
+<div
+    id="sutta_info_{{d.i.lemma_1_}}"
+    name="sutta-info-div"
+    class="dpd content hidden">
+    <table class="sutta-info">
+
+    <!-- CST -->
+
+    {% if d.su.cst_code %}
+    <tr>
+        <th class="heading top" colspan="2">
+            Chaṭṭha Saṅgāyana
+        </th>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_code %}
+    <tr>
+        <th>
+            CST Code
+        </th>
+        <td>
+            {{ d.su.cst_code }}
+        </td>
+    </tr>
+    {% endif %}
+    
+    {% if d.su.cst_nikaya %}
+    <tr>
+        <th>
+            Nikāya
+        </th>
+        <td>
+            {{ d.su.cst_nikaya }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_book %}
+    <tr>
+        <th>
+            Book
+        </th>
+        <td>
+            {{ d.su.cst_book }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_section %}
+    <tr>
+        <th>
+            Section
+        </th>
+        <td>
+            {{ d.su.cst_section }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_vagga %}
+    <tr>
+        <th>
+            Vagga
+        </th>
+        <td>
+            {{ d.su.cst_vagga }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_sutta %}
+    <tr>
+        <th>
+            Sutta
+        </th>
+        <td>
+            {{ d.su.cst_sutta }}
+        </td>
+    </tr>
+    {% endif %}
+    
+    {% if d.su.cst_paranum %}
+    <tr>
+        <th>
+            Paragraph
+        </th>
+        <td>
+            {{ d.su.cst_paranum }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_file %}
+    <tr>
+        <th>
+            File
+        </th>
+        <td>
+            {{ d.su.cst_file }}
+        </td>
+
+    </tr>
+    {% endif %}
+
+    <!-- sutta central -->
+
+    {% if d.su.sc_code %}
+    <tr>
+        <th class="heading" colspan="2">
+            Sutta Central
+        </th>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_code %}
+    <tr>
+        <th>
+            SC Code 
+        </th>
+        <td>
+            {{ d.su.sc_code }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_book %}
+    <tr>
+        <th>
+            Book
+        </th>
+        <td>
+            {{ d.su.sc_book }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_vagga %}
+    <tr>
+        <th>
+            Vagga
+        </th>
+        <td>
+            {{ d.su.sc_vagga }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_sutta %}
+    <tr>
+        <th>
+            Sutta
+        </th>
+        <td>
+            {{ d.su.sc_sutta }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_eng_sutta %}
+    <tr>
+        <th>
+            Title
+        </th>
+        <td>
+            <i>{{ d.su.sc_eng_sutta }}</i>
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_blurb %}
+    <tr>
+        <th>
+            Blurb
+        </th>
+        <td>
+            <i>{{ d.su.sc_blurb }}</i>
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_card_link %}
+    <tr>
+        <th>
+            Links
+        </th>
+        <td>
+            {% if d.su.sc_card_link %}<a href="{{ d.su.sc_card_link }}" target="_blank">Sutta Card</a>, {% endif %}
+            {% if d.su.sc_pali_link %}<a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a></i>, {% endif %}
+            {% if d.su.sc_eng_link %}<a href="{{ d.su.sc_eng_link }}" target="_blank">English Translation</a></i><br> {% endif %}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.sc_file_path %}
+    <tr>
+        <th>
+            File
+        </th>
+        <td>
+            {{ d.su.sc_file_path }}
+        </td>
+    </tr>
+    {% endif %}
+    
+<!-- websites -->
+    <tr>
+        <th class="heading" colspan="2">
+            Websites
+        </th>
+    </tr>
+
+    {% if d.su.dhamma_gift %}
+    <tr>
+        <th>
+            Dhamma.gift
+        </th>
+        <td>
+            <a href="{{ d.su.dhamma_gift }}" target="_blank">{{ d.su.dhamma_gift }}</a>
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.tbw %}
+    <tr>
+        <th>
+            The Buddha's Words
+        </th>
+        <td>
+            <a href="{{ d.su.tbw }}" target="_blank">{{ d.su.tbw }}</a>
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.tpp_org %}
+    <tr>
+        <th>
+            TipitakaPali.org
+        </th>
+        <td>
+            <a href="{{ d.su.tpp_org }}" target="_blank">{{ d.su.tpp_org }}</a>
+        </td>
+    </tr>
+    {% endif %}
+
+
+    <tr>
+        <th>
+            Access to Insight
+        </th>
+        <td>
+            ...
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            Dhammatalks.org
+        </th>
+        <td>
+            ...
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            Tipitaka.sl
+        </th>
+        <td>
+            ...
+        </td>
+    </tr>
+
+    <!-- page numbers -->
+
+    {% if d.su.cst_m_page %}
+    <tr>
+        <th class="heading" colspan="2">
+            Printed Editions
+        </th>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_m_page %}
+    <tr>
+        <th>
+            Myanmar
+        </th>
+        <td>
+            {{ d.su.cst_m_page }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_t_page %}
+    <tr>
+        <th>
+            Thai
+        </th>
+        <td>
+            {{ d.su.cst_t_page }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_v_page %}
+    <tr>
+        <th>
+            VRI
+        </th>
+        <td>
+            {{ d.su.cst_v_page }}
+        </td>
+    </tr>
+    {% endif %}
+
+    {% if d.su.cst_p_page %}
+    <tr>
+        <th>
+            PTS
+        </th>
+        <td>
+            {{ d.su.cst_p_page }}
+        </td>
+    </tr>
+    {% endif %}
+
+</table>
+</div>
+
+{% endif %}
 
 <!-- grammar -->
 

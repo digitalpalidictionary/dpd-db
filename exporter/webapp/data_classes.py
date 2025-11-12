@@ -16,6 +16,7 @@ class HeadwordData:
         self.fc = fc
         self.fi = fi
         self.fs = fs
+        self.su = i.su
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
         if config_test("dictionary", "make_link", "yes"):
