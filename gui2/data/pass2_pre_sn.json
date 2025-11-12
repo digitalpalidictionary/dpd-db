@@ -2317,231 +2317,864 @@
         ],
         "pāranti": [
             45756
+        ],
+        "vimuttaṃ": [
+            87979
+        ],
+        "vimuttā": [
+            87979
+        ],
+        "vimutte": [
+            87979
+        ],
+        "bhoge": [
+            50335
+        ],
+        "majjanti": [
+            50693
+        ],
+        "pamajjanti": [
+            75898
+        ],
+        "āpajjanti": [
+            11841
+        ],
+        "sattesu": [
+            57677,
+            57679
+        ],
+        "atisāraṃ": [
+            2336
+        ],
+        "kūṭaṃva": [
+            22755
+        ],
+        "pāpakoti": [
+            45582,
+            45583
+        ],
+        "atthakaraṇe": [
+            71637
+        ],
+        "bhāsante": [
+            49756
+        ],
+        "alaṃ": [
+            9110
+        ],
+        "paññāyissatīti": [
+            40075
+        ],
+        "potthakesu": [
+            47446,
+            47449
+        ],
+        "bhāsanti": [
+            49756
+        ],
+        "deviyā": [
+            34162
+        ],
+        "deviṃ": [
+            34162
+        ],
+        "mayhampi": [
+            51437
+        ],
+        "devī": [
+            34162
+        ],
+        "kammakarāti": [
+            20244
+        ],
+        "parikammāni": [
+            43173,
+            43174,
+            43175
+        ],
+        "piṇḍāya": [
+            46043
+        ],
+        "pacchābhattaṃ": [
+            86676
+        ],
+        "nettha": [
+            38816
+        ],
+        "eso": [
+            18034
+        ],
+        "etañhi": [
+            17970,
+            80558
+        ],
+        "bandhāpito": [
+            47932
+        ],
+        "bandhanamāhu": [
+            76276
+        ],
+        "apekkhā": [
+            6725,
+            6735
+        ],
+        "etampi": [
+            17970,
+            80558
+        ],
+        "pahāyāti": [
+            45099
+        ],
+        "attānarakkhito": [
+            71819,
+            76254
+        ],
+        "yaññabandhananti": [
+            76276
+        ],
+        "sattajaṭilasuttaṃ": [
+            57702
+        ],
+        "paṭisallānā": [
+            40864
+        ],
+        "avidūre": [
+            10591
+        ],
+        "atikkamanti": [
+            78609
+        ],
+        "ekaṃsaṃ": [
+            17694
+        ],
+        "nihantvā": [
+            38514
+        ],
+        "sāvesi": [
+            62678
+        ],
+        "ajjhāvasantena": [
+            1365
+        ],
+        "dhārayantena": [
+            35109
+        ],
+        "ittaraṃ": [
+            13527
+        ],
+        "sākacchāya": [
+            62033
+        ],
+        "carā": [
+            77685
+        ],
+        "ociṇṇaṃ": [
+            18445
+        ],
+        "oyāyissāmi": [
+            18830
+        ],
+        "odātavatthā": [
+            18632
+        ],
+        "paricāressantīti": [
+            43342
+        ],
+        "patirūpako": [
+            41818,
+            41820
+        ],
+        "saddā": [
+            83215
+        ],
+        "rasā": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "phoṭṭhabbā": [
+            47826
+        ],
+        "āyāma": [
+            12268,
+            12269,
+            12270
+        ],
+        "rūpehi": [
+            55156,
+            55157,
+            55158
+        ],
+        "saddehi": [
+            83215
+        ],
+        "rasehi": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "rasaṃ": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "phoṭṭhabbehi": [
+            47826
+        ],
+        "phoṭṭhabbaṃ": [
+            47826
+        ],
+        "hontīti": [
+            71495
+        ],
+        "sammukhā": [
+            60884
+        ],
+        "padumaṃ": [
+            42182,
+            42183,
+            74873
+        ],
+        "sugandhaṃ": [
+            63630,
+            76198
+        ],
+        "acchādesīti": [
+            1065
+        ],
+        "mattaṃ": [
+            50945
+        ],
+        "tanu": [
+            29855,
+            29857
+        ],
+        "āyupālayanti": [
+            12634,
+            12635,
+            12636,
+            73204
+        ],
+        "māṇavo": [
+            76248
+        ],
+        "piṭṭhito": [
+            46022
+        ],
+        "māṇavaṃ": [
+            76248
+        ],
+        "ehi": [
+            80558
+        ],
+        "kaṃ": [
+            19162,
+            86882
+        ],
+        "bhāsa": [
+            49751,
+            49756,
+            49766
+        ],
+        "bhikkhaṃ": [
+            49864,
+            49882,
+            74434
+        ],
+        "bhāsati": [
+            49756
+        ],
+        "saṇṭhāsi": [
+            75135
+        ],
+        "atthena": [
+            72784
+        ],
+        "sannayhitvā": [
+            58505
+        ],
+        "abbhuyyāsi": [
+            7364
+        ],
+        "kira": [
+            21810,
+            21814
+        ],
+        "kāsīti": [
+            78921
+        ],
+        "paccuyyāsi": [
+            39552
+        ],
+        "parājesi": [
+            43089
+        ],
+        "sakameva": [
+            56272
+        ],
+        "pāyāsi": [
+            45708
+        ],
+        "paccuyyāsīti": [
+            39552
+        ],
+        "pāpamitto": [
+            45623
+        ],
+        "jayaṃ": [
+            28009
+        ],
+        "abbhuyyāsīti": [
+            7364
+        ],
+        "bhavitabbaṃ": [
+            49617
+        ],
+        "parājaye": [
+            78302
+        ],
+        "vuttaṃ": [
+            70038,
+            70039,
+            72473,
+            83222
+        ],
+        "pariyādiyitvā": [
+            43958
+        ],
+        "pattikāyaṃ": [
+            41926,
+            41927
+        ],
+        "vilumpateva": [
+            69056
+        ],
+        "akkosaṃ": [
+            343
+        ],
+        "upakaṇṇake": [
+            15320
+        ],
+        "seyyā": [
+            64968,
+            64969
+        ],
+        "posa": [
+            47499
+        ],
+        "sūro": [
+            64751
+        ],
+        "rajjampi": [
+            54457,
+            54468
+        ],
+        "anusāsatīti": [
+            5271
+        ],
+        "appamādasuttaṃ": [
+            6993,
+            6994,
+            6995
+        ],
+        "jaṅgalānaṃ": [
+            27787
+        ],
+        "vaṇṇaṃ": [
+            65897,
+            65905
+        ],
+        "saggaṃ": [
+            56556
+        ],
+        "ratiyo": [
+            54536
+        ],
+        "pāpamittassa": [
+            45623
+        ],
+        "sakyānaṃ": [
+            56510
+        ],
+        "sammādiṭṭhiṃ": [
+            60800
+        ],
+        "rakkhitaṃ": [
+            76254
+        ],
+        "rūpiyassa": [
+            55312
+        ],
+        "pīṇeti": [
+            80529
+        ],
+        "samaṇabrāhmaṇesu": [
+            59204
+        ],
+        "vahati": [
+            66622,
+            66623
+        ],
+        "appiyā": [
+            7115
+        ],
+        "bhogā": [
+            50335
+        ],
+        "paribhogaṃ": [
+            43842,
+            43844,
+            43845
+        ],
+        "paṭipādesi": [
+            40588,
+            40589
+        ],
+        "piṇḍanti": [
+            46043
+        ],
+        "varametaṃ": [
+            17970,
+            80558
+        ],
+        "kammakarā": [
+            20244
+        ],
+        "kāraṇā": [
+            21305,
+            21306,
+            21324
+        ],
+        "kammassa": [
+            20240
+        ],
+        "paccittha": [
+            39579
+        ],
+        "paveseti": [
+            45042,
+            45043
+        ],
+        "upapannoti": [
+            15878
+        ],
+        "rajataṃ": [
+            54413,
+            54428
+        ],
+        "pariggahaṃ": [
+            43297,
+            43299,
+            43300,
+            43301,
+            43302,
+            83778
+        ],
+        "tatiyavaggo": [
+            29515,
+            29516,
+            29517
+        ],
+        "puggalasuttaṃ": [
+            46462,
+            46463
+        ],
+        "dubbaṇṇo": [
+            73793
+        ],
+        "kuṇī": [
+            22261
+        ],
+        "khañjo": [
+            23311
+        ],
+        "vatthassa": [
+            66054
+        ],
+        "bhedā": [
+            50272,
+            50273,
+            50274,
+            50275,
+            50276
+        ],
+        "apāyaṃ": [
+            6624,
+            6631
+        ],
+        "andhakārā": [
+            75641
+        ],
+        "andhakāraṃ": [
+            75641
+        ],
+        "tamā": [
+            30023
+        ],
+        "tamaṃ": [
+            30023
+        ],
+        "āroheyya": [
+            12591
+        ],
+        "pāsādiko": [
+            45910
+        ],
+        "rāja": [
+            54889,
+            54971
+        ],
+        "pāpasaṅkappo": [
+            45630
+        ],
+        "anādaro": [
+            3953,
+            74352
+        ],
+        "dadamānaṃ": [
+            31831
+        ],
+        "yācamānāna": [
+            53918
+        ],
+        "bhojanaṃ": [
+            50383
+        ],
+        "ayyikā": [
+            8823,
+            8824
+        ],
+        "jiṇṇā": [
+            28450
+        ],
+        "vuḍḍhā": [
+            70027
+        ],
+        "piyā": [
+            46172,
+            46227
+        ],
+        "yathākammaṃ": [
+            53583
+        ],
+        "dātabbanti": [
+            32244,
+            32245
+        ],
+        "dātabbaṃ": [
+            32244,
+            32245
+        ],
+        "palāyī": [
+            44471
+        ],
+        "purisenāti": [
+            47035
+        ],
+        "vessakumāro": [
+            70496
+        ],
+        "kasmā": [
+            19162
+        ],
+        "kulā": [
+            22530
+        ],
+        "anagāriyaṃ": [
+            3464
+        ],
+        "pañcaṅgāni": [
+            39781
+        ],
+        "vicikicchā": [
+            67469
+        ],
+        "issatthaṃ": [
+            13884
+        ],
+        "māṇave": [
+            76248
+        ],
+        "vāsayettha": [
+            17946,
+            66982,
+            66995
+        ],
+        "dugge": [
+            33032
+        ],
+        "saṅkamanāni": [
+            56611
+        ],
+        "pānaṃ": [
+            80427
+        ],
+        "khādanīyaṃ": [
+            23618
+        ],
+        "thanayaṃ": [
+            31424
+        ],
+        "pūreti": [
+            47238
+        ],
+        "abhivassaṃ": [
+            8317,
+            8320
+        ],
+        "dethāti": [
+            33954
+        ],
+        "gajjitaṃ": [
+            24063
+        ],
+        "mahantaṃ": [
+            51580
+        ],
+        "ajjhāvasantānaṃ": [
+            1365
+        ],
+        "pāṇe": [
+            45355
+        ],
+        "uttarāya": [
+            14666,
+            14667,
+            14697,
+            76292,
+            76310
+        ],
+        "mahati": [
+            51580
+        ],
+        "manussakāye": [
+            51183
+        ],
+        "kusalakiriyāya": [
+            75702
+        ],
+        "adhivattati": [
+            3355
+        ],
+        "adhivattamāne": [
+            76060
+        ],
+        "visayo": [
+            69176,
+            69177,
+            69178
+        ],
+        "yānipi": [
+            53976
+        ],
+        "mantino": [
+            76089
+        ],
+        "mantehi": [
+            76090
+        ],
+        "yathāpi": [
+            53577
+        ],
+        "vesse": [
+            70495
+        ],
+        "sudde": [
+            63905
+        ],
+        "cari": [
+            77685
+        ],
+        "dhammacārī": [
+            34691
+        ],
+        "pamodatīti": [
+            85858
+        ],
+        "vatamhi": [
+            65969
+        ],
+        "tāya": [
+            30288,
+            30295
+        ],
+        "māṇavā": [
+            76248
+        ],
+        "suddho": [
+            63915
+        ],
+        "aparaddho": [
+            6278
+        ],
+        "amaraṃ": [
+            8529
+        ],
+        "aparaṃ": [
+            6310
+        ],
+        "dhammani": [
+            34756
+        ],
+        "dhammasaddo": [
+            34858
+        ],
+        "dhanvanaṃsaddena": [
+            83215
+        ],
+        "saddena": [
+            83215
+        ],
+        "daḷhadhammātipadaṃ": [
+            42055
         ]
     },
     "matched": {
-        "katichindi": {
-            "id": 19705,
+        "candanasuttaṃ": {
+            "id": 26173,
             "sentence": [
-                "sn1.10:5.2",
-                "accenti katichindi ca; ",
-                ""
+                "SN2.15",
+                "devaputtasaṃyuttaṃ, candanasuttaṃ",
+                "5. candanasuttaṃ"
             ]
         },
-        "mānakāminā": {
-            "id": 52261,
+        "kammavivaṭṭena": {
+            "id": 20373,
             "sentence": [
-                "sn1.10:5.4",
-                "susammuṭṭhā mānakāminā; ",
-                ""
+                "sn3.15:9.5",
+                "atha kammavivaṭṭena, ",
+                "And so as deeds unfold "
             ]
         },
-        "nandanavaggo": {
-            "id": 35620,
+        "atiharitvā": {
+            "id": 2393,
             "sentence": [
-                "sn1.20:28.5",
-                "nandanavaggo dutiyo. ",
-                ""
+                "sn3.19:2.2",
+                "tamahaṃ aputtakaṃ sāpateyyaṃ rājantepuraṃ atiharitvā āgacchāmi. ",
+                "Since he died childless, I have come after transferring his fortune to the royal compound. "
             ]
         },
-        "nandanasuttaṃ": {
-            "id": 35619,
+        "tipakkhavasanaṃ": {
+            "id": 30658,
             "sentence": [
-                "SN2.14",
-                "devaputtasaṃyuttaṃ, nandanasuttaṃ",
-                "4. nandanasuttaṃ"
+                "sn3.19:2.7",
+                "sāṇaṃ dhāreti tipakkhavasanaṃ. ",
+                "three patches of sunn hemp. "
             ]
         },
-        "nandatisuttaṃ": {
-            "id": 35613,
+        "kiccakaro": {
+            "id": 21620,
             "sentence": [
-                "SN4.8",
-                "mārasaṃyuttaṃ, nandatisuttaṃ",
-                "8. nandatisuttaṃ"
+                "sn3.19:8.2",
+                "so bhuñjati kiccakaro ca hoti; ",
+                "they use it, being dutiful. "
             ]
         },
-        "puttāna": {
-            "id": 46662,
+        "seṭṭhittaṃ": {
+            "id": 64842,
             "sentence": [
-                "sn1.14:1.4",
-                "yo ca puttāna pubbajo”ti. ",
-                "and a first-born the best of sons.” "
+                "sn3.20:4.2",
+                "tasseva kammassa vipākāvasesena imissāyeva sāvatthiyā sattakkhattuṃ seṭṭhittaṃ kāresi. ",
+                "And as a residual result of that same deed he held the position of financier seven times right here in Sāvatthī. "
             ]
         },
-        "nappakāsati": {
-            "id": 74521,
+        "jotitamaparāyano": {
+            "id": 28721,
             "sentence": [
-                "sn1.16:1.3",
-                "etena nappakāsati, ",
-                "because of this the noble path "
+                "sn3.21:1.7",
+                "jotitamaparāyano, ",
+                "the light bound for darkness, "
             ]
         },
-        "dukkarasuttaṃ": {
-            "id": 32874,
+        "jotijotiparāyano": {
+            "id": 28718,
             "sentence": [
-                "SN39.2",
-                "sāmaṇḍakasaṃyuttaṃ, dukkarasuttaṃ",
-                "2. dukkarasuttaṃ"
+                "sn3.21:1.8",
+                "jotijotiparāyano. ",
+                "and the light bound for light. "
             ]
         },
-        "aññamaheṭhayāno": {
-            "id": 1583,
+        "assapiṭṭhiṃ": {
+            "id": 9971,
             "sentence": [
-                "sn1.17:3.3",
-                "anissito aññamaheṭhayāno, ",
-                "Independent, not disturbing others, "
+                "sn3.21:5.1",
+                "seyyathāpi, mahārāja, puriso pathaviyā vā pallaṅkaṃ āroheyya, pallaṅkā vā assapiṭṭhiṃ āroheyya, assapiṭṭhiyā vā hatthikkhandhaṃ āroheyya, hatthikkhandhā vā pāsādaṃ āroheyya. ",
+                "This person is like someone who ascends from the ground to a couch; from a couch to horseback; from horseback to an elephant; and from an elephant to a stilt longhouse. "
             ]
         },
-        "ājānāmi": {
-            "id": 11372,
+        "yācamānāna": {
+            "id": 53919,
             "sentence": [
-                "sn55.23:2.1",
-                "“tīhi khvāhaṃ, mahānāma, dhammehi samannāgataṃ sotāpannapuggalaṃ ājānāmi avinipātadhammaṃ niyataṃ sambodhiparāyaṇaṃ. ",
-                "“Mahānāma, a person must have three things for me to recognize them as a stream-enterer. "
+                "sn3.21:12.2",
+                "yācamānāna bhojanaṃ; ",
+                "food to beggars. "
             ]
         },
-        "vimānamajjhagā": {
-            "id": 68680,
+        "seṭṭhasaṅkappo": {
+            "id": 64835,
             "sentence": [
-                "sn1.20:25.1",
-                "“pahāsi saṅkhaṃ na vimānamajjhagā, ",
-                "“They gave up judgement, did not fall into conceit; "
+                "sn3.21:13.3",
+                "dadāti seṭṭhasaṅkappo, ",
+                "They give with best of intentions, "
             ]
         },
-        "niddātandī": {
-            "id": 37222,
+        "abyaggamanaso": {
+            "id": 7390,
             "sentence": [
-                "sn1.20:29.4",
-                "niddātandī ca dukkaraṃ; ",
-                ""
+                "sn3.21:13.4",
+                "abyaggamanaso naro. ",
+                "that peaceful-hearted person. "
             ]
         },
-        "sattivaggo": {
-            "id": 57851,
+        "jotijotiparāyanoti": {
+            "id": 28718,
             "sentence": [
-                "sn1.30:2.5",
-                "sattivaggo tatiyo. ",
-                ""
+                "sn3.21:21.6",
+                "jotijotiparāyano”ti. ",
+                "from light they’re bound for light.” "
             ]
         },
-        "sattisuttaṃ": {
-            "id": 57848,
+        "ayyikā": {
+            "id": 8825,
             "sentence": [
-                "SN20.5",
-                "opammasaṃyuttaṃ, sattisuttaṃ",
-                "5. sattisuttaṃ"
+                "sn3.22:2.1",
+                "“ayyikā me, bhante, kālaṅkatā jiṇṇā vuḍḍhā mahallikā addhagatā vayoanuppattā vīsavassasatikā jātiyā. ",
+                "“Sir, my grandmother has passed away. She was old, elderly and senior. She was advanced in years and had reached the final stage of life; she was a hundred and twenty years old. "
             ]
         },
-        "jaṭāsuttaṃ": {
-            "id": 27829,
+        "kumbhakārabhājanāni": {
+            "id": 22445,
             "sentence": [
-                "SN7.6",
-                "brāhmaṇasaṃyuttaṃ, jaṭāsuttaṃ",
-                "6. jaṭāsuttaṃ"
+                "sn3.22:3.3",
+                "seyyathāpi, mahārāja, yāni kānici kumbhakārabhājanāni āmakāni ceva pakkāni ca sabbāni tāni bhedanadhammāni bhedanapariyosānāni bhedanaṃ anatītāni; ",
+                "It’s like the vessels made by potters. Whatever kind they are, whether baked or unbaked, all of them are liable to break apart. Breaking is their end; they’re not exempt from breakage. "
             ]
         },
-        "arahantasuttaṃ": {
-            "id": 8937,
+        "bhedanapariyosānāni": {
+            "id": 50288,
             "sentence": [
-                "SN56.24",
-                "saccasaṃyuttaṃ, arahantasuttaṃ",
-                "4. arahantasuttaṃ"
+                "sn3.22:3.3",
+                "seyyathāpi, mahārāja, yāni kānici kumbhakārabhājanāni āmakāni ceva pakkāni ca sabbāni tāni bhedanadhammāni bhedanapariyosānāni bhedanaṃ anatītāni; ",
+                "It’s like the vessels made by potters. Whatever kind they are, whether baked or unbaked, all of them are liable to break apart. Breaking is their end; they’re not exempt from breakage. "
             ]
         },
-        "pabhāsati": {
-            "id": 42595,
+        "samupabyūḷho": {
+            "id": 78324,
             "sentence": [
-                "SN1.26",
-                "devatāsaṃyuttaṃ, pajjotasuttaṃ",
-                "kati lokasmiṃ pajjotā,\nyehi loko pakāsati [pabhāsati],\nbhagavantaṃ [bhavantaṃ] puṭṭhumāgamma,\nkathaṃ jānemu taṃ mayanti."
+                "sn3.24:1.10",
+                "idha tyassa yuddhaṃ paccupaṭṭhitaṃ saṅgāmo samupabyūḷho. ",
+                "Suppose you were at war, ready to fight a battle. "
             ]
         },
-        "rattimābhāti": {
-            "id": 54586,
+        "akatahattho": {
+            "id": 63,
             "sentence": [
-                "sn1.26:2.4",
-                "rattimābhāti candimā. ",
-                "the moon radiates at night, "
-            ]
-        },
-        "rodhataṇhaṃ": {
-            "id": 55391,
-            "sentence": [
-                "SN1.28",
-                "devatāsaṃyuttaṃ, mahaddhanasuttaṃ",
-                "tesu ussukkajātesu,\nbhavasotānusārisu,\nkedha taṇhaṃ [rodhataṇhaṃ,\ngedhataṇhaṃ] pajahiṃsu [pavāhiṃsu],\nke lokasmiṃ anussukāti."
-            ]
-        },
-        "pavāhiṃsu": {
-            "id": 44937,
-            "sentence": [
-                "SN1.28",
-                "devatāsaṃyuttaṃ, mahaddhanasuttaṃ",
-                "tesu ussukkajātesu,\nbhavasotānusārisu,\nkedha taṇhaṃ [rodhataṇhaṃ,\ngedhataṇhaṃ] pajahiṃsu [pavāhiṃsu],\nke lokasmiṃ anussukāti."
-            ]
-        },
-        "manonivāraṇā": {
-            "id": 51257,
-            "sentence": [
-                "sn1.30:3.2",
-                "jaṭā manonivāraṇā; ",
-                ""
-            ]
-        },
-        "satullapakāyikavaggo": {
-            "id": 57668,
-            "sentence": [
-                "sn1.40:4.5",
-                "satullapakāyikavaggo catuttho. ",
-                ""
-            ]
-        },
-        "maccharisuttaṃ": {
-            "id": 50669,
-            "sentence": [
-                "SN1.49",
-                "devatāsaṃyuttaṃ, maccharisuttaṃ",
-                "9. maccharisuttaṃ"
-            ]
-        },
-        "sīhaḷapotthake": {
-            "id": 63362,
-            "sentence": [
-                "SN1.32",
-                "devatāsaṃyuttaṃ, maccharisuttaṃ",
-                "kenesa yañño vipulo mahaggato,\nsamena dinnassa na agghameti,\nkathaṃ [idaṃ padaṃ katthaci sīhaḷapotthake natthi] sataṃ sahassānaṃ sahassayāginaṃ,\nkalampi nāgghanti tathāvidhassa teti."
-            ]
-        },
-        "mānamajjhagā": {
-            "id": 52282,
-            "sentence": [
-                "SN1.34",
-                "devatāsaṃyuttaṃ, nasantisuttaṃ",
-                "pahāsi saṅkhaṃ na vimānamajjhagā [na ca mānamajjhagā,\nna vimānamāgā],\nacchecchi taṇhaṃ idha nāmarūpe,\ntaṃ chinnaganthaṃ anighaṃ nirāsaṃ,\npariyesamānā nājjhagamuṃ,\ndevā manussā idha vā huraṃ vā,\nsaggesu vā sabbanivesanesūti."
-            ]
-        },
-        "vimānamāgā": {
-            "id": 68681,
-            "sentence": [
-                "SN1.34",
-                "devatāsaṃyuttaṃ, nasantisuttaṃ",
-                "pahāsi saṅkhaṃ na vimānamajjhagā [na ca mānamajjhagā,\nna vimānamāgā],\nacchecchi taṇhaṃ idha nāmarūpe,\ntaṃ chinnaganthaṃ anighaṃ nirāsaṃ,\npariyesamānā nājjhagamuṃ,\ndevā manussā idha vā huraṃ vā,\nsaggesu vā sabbanivesanesūti."
-            ]
-        },
-        "yathābālā": {
-            "id": 53640,
-            "sentence": [
-                "SN1.35",
-                "devatāsaṃyuttaṃ, ujjhānasaññisuttaṃ",
-                "atha kho tā devatāyo pathaviyaṃ patiṭṭhahitvā bhagavato pādesu sirasā nipatitvā bhagavantaṃ etadavocuṃ, accayo no, bhante, accagamā yathābālaṃ yathāmūḷhaṃ yathāakusalaṃ [yathābālā yathāmūḷhā yathāakusalā (sabbattha)], yā mayaṃ bhagavantaṃ āsādetabbaṃ amaññimhā. tāsaṃ no, bhante, bhagavā accayaṃ accayato paṭiggaṇhātu āyatiṃ saṃvarāyāti. "
-            ]
-        },
-        "yathāmūḷhā": {
-            "id": 53664,
-            "sentence": [
-                "SN1.35",
-                "devatāsaṃyuttaṃ, ujjhānasaññisuttaṃ",
-                "atha kho tā devatāyo pathaviyaṃ patiṭṭhahitvā bhagavato pādesu sirasā nipatitvā bhagavantaṃ etadavocuṃ, accayo no, bhante, accagamā yathābālaṃ yathāmūḷhaṃ yathāakusalaṃ [yathābālā yathāmūḷhā yathāakusalā (sabbattha)], yā mayaṃ bhagavantaṃ āsādetabbaṃ amaññimhā. tāsaṃ no, bhante, bhagavā accayaṃ accayato paṭiggaṇhātu āyatiṃ saṃvarāyāti. "
+                "sn3.24:1.11",
+                "atha āgaccheyya khattiyakumāro asikkhito akatahattho akatayoggo akatūpāsano bhīru chambhī utrāsī palāyī. ",
+                "Then along comes an aristocrat youth who is untrained, inexpert, unfit, inexperienced. And he’s fearful, scared, nervous, quick to flee. "
             ]
         }
     },
@@ -2689,6 +3322,151 @@
         "piyasuttaṃ",
         "anupāyinī",
         "attarakkhitasuttaṃ",
-        "appakasuttaṃ"
+        "appakasuttaṃ",
+        "katichindi",
+        "mānakāminā",
+        "nandanavaggo",
+        "nandanasuttaṃ",
+        "nandatisuttaṃ",
+        "puttāna",
+        "nappakāsati",
+        "dukkarasuttaṃ",
+        "aññamaheṭhayāno",
+        "ājānāmi",
+        "vimānamajjhagā",
+        "niddātandī",
+        "sattivaggo",
+        "sattisuttaṃ",
+        "jaṭāsuttaṃ",
+        "arahantasuttaṃ",
+        "pabhāsati",
+        "rattimābhāti",
+        "rodhataṇhaṃ",
+        "pavāhiṃsu",
+        "manonivāraṇā",
+        "satullapakāyikavaggo",
+        "maccharisuttaṃ",
+        "sīhaḷapotthake",
+        "mānamajjhagā",
+        "vimānamāgā",
+        "yathābālā",
+        "yathāmūḷhā",
+        "sakalikasuttaṃ",
+        "ādittasuttaṃ",
+        "ghaṭīkārasuttaṃ",
+        "bandhanasuttaṃ",
+        "chetvāsuttaṃ",
+        "phalagaṇḍo",
+        "piṅgiyo",
+        "susimasuttaṃ",
+        "purisasuttaṃ",
+        "jarāmaraṇasuttaṃ",
+        "vippaṭipajjantīti",
+        "mallikāsuttaṃ",
+        "yaññasuttaṃ",
+        "sattajaṭilasuttaṃ",
+        "avidūre",
+        "ittaraṃ",
+        "pañcarājasuttaṃ",
+        "padumaṃ",
+        "nāḷikodanamattāya",
+        "garahappatto",
+        "vuttajayakāraṇaṃ",
+        "abhiuyyāsīti",
+        "adubbhantassa",
+        "pariyādiyitvā",
+        "osajji",
+        "ossajji",
+        "viluppati",
+        "jetāraṃ",
+        "akkosako",
+        "rosetārañca",
+        "viluppatīti",
+        "subhagiyā",
+        "subhariyāputto",
+        "appamādasuttaṃ",
+        "samadhiggayha",
+        "arogiyaṃ",
+        "atthābhisamayā",
+        "kalyāṇamittasuttaṃ",
+        "kosakoṭṭhāgārampi",
+        "bhattabhogo",
+        "vatthabhogo",
+        "yānabhogo",
+        "jajjararathakena",
+        "paṇṇachattakena",
+        "aparibhuñjiyamāne",
+        "aparibhuñjamāno",
+        "paribhogaṃ",
+        "amanussaṭṭhāne",
+        "aparibhuñjiyamānaṃ",
+        "tadapeyyamānaṃ",
+        "parisosameti",
+        "bharitvā",
+        "dutiyaaputtakasuttaṃ",
+        "bhattabhogāya",
+        "vatthabhogāya",
+        "yānabhogāya",
+        "bhogāya",
+        "anupacitaṃ",
+        "mahāroruve",
+        "anujīvino",
+        "nikkhippagāminaṃ",
+        "puggalasuttaṃ",
+        "tamotamaparāyano",
+        "tamojotiparāyano",
+        "puññapāpaphalūpagā",
+        "pāpakammantā",
+        "asikkhito",
+        "akatayoggo",
+        "akatūpāsano",
+        "utrāsī",
+        "palāyī",
+        "suddakumāro",
+        "abhīru",
+        "acchambhī",
+        "anutrāsī",
+        "apalāyī",
+        "balaviriyañca",
+        "yuddhattho",
+        "nāsūraṃ",
+        "ariyavuttiṃ",
+        "hīnajaccampi",
+        "vāsayettha",
+        "saṅkamanāni",
+        "vatthasenāsanāni",
+        "vijjumālī",
+        "satakkaku",
+        "abhisaṅkhacca",
+        "tappayati",
+        "āmodamāno",
+        "pavassato",
+        "puññadhārā",
+        "issariyamadamattānaṃ",
+        "kāmagedhapariyuṭṭhitānaṃ",
+        "rājakaraṇīyāni",
+        "abbhasamaṃ",
+        "nippothento",
+        "manussakkhaye",
+        "adhivattamāne",
+        "rathayuddhāni",
+        "mantino",
+        "bhedayituṃ",
+        "upalāpetuṃ",
+        "dhanayuddhānaṃ",
+        "samantānupariyāyeyyuṃ",
+        "caṇḍālapukkuse",
+        "jetuṃ",
+        "pabbatūpamā",
+        "mārasaṃyuttaṃ",
+        "tapokammasuttaṃ",
+        "ajapālanigrodhamūle",
+        "bodhisamajjhagūti",
+        "suddhimaggā",
+        "suddhimaggamaparaddho",
+        "maruvācakoti",
+        "hatthirājavaṇṇasuttaṃ",
+        "hatthirājavaṇṇaṃ",
+        "mahāariṭṭhako"
     ]
 }

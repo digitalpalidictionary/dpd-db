@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "SN3.4",
-        "sutta": "kosalasaṃyuttaṃ, piyasuttaṃ",
-        "example": "antaken'ādhipannassa,\njahato mānusaṃ bhavaṃ,\nkiñ'hi tassa sakaṃ hoti,\nkiñ'ca ādāya gacchati,\nkiñ'c'assa anugaṃ hoti,\nchāyā'va anupāyinī."
+        "source": "SN4.1",
+        "sutta": "mārasaṃyuttaṃ, tapokammasuttaṃ",
+        "example": "dhammani [… etth'āyaṃ dhammasaddo sakkate dhanvanaṃ-saddena sadiso maruvācakoti veditabbo, yathā daḷhadhammā'ti-padaṃ]."
     },
     "stash": {
-        "source": "AN4.61",
-        "sutta": "pattakammasuttaṃ",
-        "example": "sa kho so, gahapati, ariyasāvako uṭṭhānavīriy'ādhigatehi bhogehi bāhābalaparicitehi sed'āvakkhittehi dhammikehi dhammaladdhehi imāni cattāri pattakammāni kattā hoti."
+        "source": "SN3.11",
+        "sutta": "kosalasaṃyuttaṃ, sattajaṭilasuttaṃ",
+        "example": "sākacchāya, kho, mahārāja, paññā veditabbā. sā ca kho dīghena addhunā, na ittaraṃ, manasikarotā, no amanasikarotā, paññavatā, no duppaññenā'ti."
     }
 }
