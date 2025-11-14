@@ -79,18 +79,19 @@ class OpenRouterManager:
             status_code_val = None
 
             # 1. Try to get HTTP status code directly from the exception attribute
-            if hasattr(e, "status_code") and e.status_code:
-                status_code_val = e.status_code
+            if hasattr(e, "status_code") and getattr(e, "status_code", None):
+                status_code_val = getattr(e, "status_code")
 
             # 2. Parse e.body for more detailed error information
-            if isinstance(e.body, dict):
+            if isinstance(getattr(e, "body", {}), dict):
                 error_details_dict = None
+                e_body = getattr(e, "body", {})
                 # Check for a nested 'error' dictionary, common in OpenAI-like responses
-                if "error" in e.body and isinstance(e.body["error"], dict):
-                    error_details_dict = e.body["error"]
+                if "error" in e_body and isinstance(e_body["error"], dict):
+                    error_details_dict = e_body["error"]
                 # Fallback: e.body itself might be the error dictionary
-                elif "message" in e.body or "code" in e.body:
-                    error_details_dict = e.body
+                elif "message" in e_body or "code" in e_body:
+                    error_details_dict = e_body
 
                 if error_details_dict:
                     body_message = error_details_dict.get("message")
@@ -104,10 +105,10 @@ class OpenRouterManager:
                         if body_code is not None:  # Can be int or str
                             status_code_val = body_code
             # 3. Fallback to e.message if e.body wasn't helpful or not a dict
-            elif (
-                hasattr(e, "message") and e.message
+            elif hasattr(e, "message") and getattr(
+                e, "message", None
             ):  # Fallback if body is not dict or no suitable message in body
-                error_description = e.message
+                error_description = getattr(e, "message", str(e))
 
             status_code_str = (
                 f" (Status: {status_code_val})" if status_code_val is not None else ""

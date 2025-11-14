@@ -29,6 +29,7 @@ class AIManager:
         ("openrouter", "deepseek/deepseek-chat-v3.1:free", 5),
         ("openrouter", "z-ai/glm-4.5-air:free", 5),
         ("openrouter", "qwen/qwen3-235b-a22b:free", 5),
+        ("openrouter", "tngtech/deepseek-r1t2-chimera:free  ", 5),
     ]
 
     # Grounded models for internet searches
