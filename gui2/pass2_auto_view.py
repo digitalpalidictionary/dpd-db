@@ -85,6 +85,11 @@ class Pass2AutoView(ft.Column):
             color=HIGHLIGHT_COLOUR,
             border_radius=20,
         )
+        self.gd_switch = ft.Switch(
+            label="GD",
+            value=True,
+            on_change=self.handle_gd_toggle,
+        )
 
         self.top_section = ft.Container(
             content=ft.Column(
@@ -105,6 +110,7 @@ class Pass2AutoView(ft.Column):
                                 "Clear",
                                 on_click=self.handle_clear_click,
                             ),
+                            self.gd_switch,
                         ],
                     ),
                     ft.Row(
@@ -166,6 +172,9 @@ class Pass2AutoView(ft.Column):
 
     def handle_clear_click(self, e):
         self.clear_all_fields()
+
+    def handle_gd_toggle(self, e):
+        self.controller.gd_toggle = self.gd_switch.value
 
     def update_message(self, message: str):
         self._message_field.value = message

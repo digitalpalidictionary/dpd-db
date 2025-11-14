@@ -101,6 +101,7 @@ class Pass2AutoController:
 
         # flag
         self.stop_flag: bool = False
+        self.gd_toggle: bool = True
 
     def auto_process_book(
         self,
@@ -209,7 +210,8 @@ class Pass2AutoController:
                 self.ui.update_ai_results(
                     json.dumps(response_dict, indent=4, ensure_ascii=False)
                 )
-                open_in_goldendict_os(self._word_in_text)  # Keep GD lookup for batch
+                if self.gd_toggle:
+                    open_in_goldendict_os(self._word_in_text)
 
                 if debug:
                     temp_file = Path(
