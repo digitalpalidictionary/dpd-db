@@ -51,6 +51,7 @@ class Pass2AutoView(ft.Column):
             text_size=14,
             border_color=HIGHLIGHT_COLOUR,
             border_radius=20,
+            hint_text="Select a book",
         )
         self.ai_model_options = [
             ft.dropdown.Option(
@@ -195,7 +196,6 @@ class Pass2AutoView(ft.Column):
     def clear_all_fields(self):
         self._message_field.value = ""
         self.auto_processed_count_field.value = ""
-        self.books_dropdown.value = ""
         self.ai_results_field.value = ""
         self.word_in_text_field.value = ""
         self.page.update()
