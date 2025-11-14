@@ -7,6 +7,8 @@ The word set is limited to
 - words in deconstructed compounds."""
 
 import subprocess
+import platform
+import shutil
 from datetime import datetime
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -396,19 +398,43 @@ def zip_epub(pth: ProjectPaths):
 
 
 def make_mobi(pth: ProjectPaths):
-    """Run kindlegen to convert epub to mobi."""
+    """Convert epub to mobi using available tool."""
     pr.green_title("converting epub to mobi")
 
-    process = subprocess.Popen(
-        [str(pth.kindlegen_path), str(pth.dpd_epub_path)],
-        stdout=subprocess.PIPE,
-        text=True,
-    )
+    system = platform.system()
+    epub_path = str(pth.dpd_epub_path)
+    mobi_path = epub_path.replace(".epub", ".mobi")
 
-    if process.stdout is not None:
-        for line in process.stdout:
-            print(line, end="")
-    process.wait()
+    if system == "Darwin":
+        # Try Calibre
+        # brew install --cask calibre
+        if shutil.which("ebook-convert"):
+            process = subprocess.Popen(
+                ["ebook-convert", epub_path, mobi_path],
+                stdout=subprocess.PIPE,
+                text=True,
+            )
+            if process.stdout is not None:
+                for line in process.stdout:
+                    print(line, end="")
+            process.wait()
+            pr.yes("Converted with Calibre")
+            return
+        else:
+            pr.red("No compatible MOBI converter found on macOS.")
+            return
+    else:
+        # Default: try kindlegen
+        process = subprocess.Popen(
+            [str(pth.kindlegen_path), epub_path],
+            stdout=subprocess.PIPE,
+            text=True,
+        )
+        if process.stdout is not None:
+            for line in process.stdout:
+                print(line, end="")
+        process.wait()
+        pr.yes("Converted with kindlegen")
 
 
 def html_friendly(text: str):
