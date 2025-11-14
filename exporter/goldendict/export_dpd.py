@@ -85,14 +85,16 @@ class DpdHeadwordDbParts(TypedDict):
     family_set: List[FamilySet]
 
 
-class DpdHeadwordRenderData(TypedDict):
-    pth: ProjectPaths
-    word_templates: DpdHeadwordTemplates
+class DpdHeadwordRenderDataBase(TypedDict):
     sandhi_contractions: SandhiContractionDict
     cf_set: Set[str]
     idioms_set: Set[str]
     make_link: bool
     show_id: bool
+
+class DpdHeadwordRenderData(DpdHeadwordRenderDataBase):
+    pth: ProjectPaths
+    word_templates: DpdHeadwordTemplates
 
 
 def render_pali_word_dpd_html(
@@ -254,6 +256,36 @@ def render_pali_word_dpd_html(
     return (res, size_dict)
 
 
+def _parse_batch_top_level(
+    batch: List[DpdHeadwordDbParts],
+    path: ProjectPaths,
+    render_data: DpdHeadwordRenderData,
+    dpd_data_results_list: ListProxy,
+    rendered_sizes_results_list: ListProxy,
+):
+    """Helper function for multiprocessing, now at top level."""
+    # Create templates locally in child process
+    word_templates = DpdHeadwordTemplates(path)
+    
+    # Reconstruct full render data with local templates
+    full_render_data: DpdHeadwordRenderData = {
+        **render_data,
+        "pth": path,
+        "word_templates": word_templates
+    }
+
+    res: List[Tuple[DictEntry, RenderedSizes]] = [
+        render_pali_word_dpd_html(
+            i, full_render_data
+        )
+        for i in batch
+    ]
+
+    for i, j in res:
+        dpd_data_results_list.append(i)
+        rendered_sizes_results_list.append(j)
+
+
 def generate_dpd_html(
     db_session: Session,
     pth: ProjectPaths,
@@ -266,8 +298,6 @@ def generate_dpd_html(
     pr.green_title("generating dpd html")
 
     paths = pth
-
-    word_templates = DpdHeadwordTemplates(paths)
 
     if config_test("dictionary", "show_id", "yes"):
         show_id: bool = True
@@ -299,6 +329,8 @@ def generate_dpd_html(
     dpd_data_results_list: ListProxy = manager.list()
     rendered_sizes_results_list: ListProxy = manager.list()
     num_logical_cores = psutil.cpu_count()
+    if num_logical_cores is None:
+        num_logical_cores = 1  # Default to single core if count fails
     pr.green_title(f"running with {num_logical_cores} cores")
 
     while offset <= pali_words_count:
@@ -343,28 +375,26 @@ def generate_dpd_html(
 
         processes: List[Process] = []
 
-        render_data = DpdHeadwordRenderData(
-            pth=pth,
-            word_templates=word_templates,
-            sandhi_contractions=sandhi_contractions,
-            cf_set=cf_set,
-            idioms_set=idioms_set,
-            make_link=make_link,
-            show_id=show_id,
-        )
-
-        def _parse_batch(batch: List[DpdHeadwordDbParts]):
-            res: List[Tuple[DictEntry, RenderedSizes]] = [
-                render_pali_word_dpd_html(i, render_data) for i in batch
-            ]
-
-            for i, j in res:
-                dpd_data_results_list.append(i)
-                rendered_sizes_results_list.append(j)
+        # Create base render data without unpickleable fields
+        render_data: DpdHeadwordRenderDataBase = {
+            "sandhi_contractions": sandhi_contractions,
+            "cf_set": cf_set,
+            "idioms_set": idioms_set,
+            "make_link": make_link,
+            "show_id": show_id,
+        }
 
         for batch in batches:
-            p = Process(target=_parse_batch, args=(batch,))
-
+            p = Process(
+                target=_parse_batch_top_level,
+                args=(
+                    batch,
+                    paths,  # Pass paths separately
+                    render_data,
+                    dpd_data_results_list,
+                    rendered_sizes_results_list,
+                )
+            )
             p.start()
             processes.append(p)
 
