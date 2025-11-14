@@ -26,6 +26,8 @@ def transliterate_json():
 
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
+            if file == ".DS_Store":
+                continue
             pr.counter(counter, 285, file)
             in_path = sinhala_dir.joinpath(file)
             out_path = roman_dir.joinpath(file)
@@ -46,6 +48,8 @@ def get_file_names():
     file_list = []
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
+            if file == ".DS_Store":
+                continue
             file_list.append(file)
     file_list = sorted(file_list)
     pr.yes(len(file_list))
@@ -149,6 +153,8 @@ def save_text_files() -> None:
     counter = 1
     for root, dirs, files in os.walk(pth.bjt_roman_json_dir):
         for file in files:
+            if file == ".DS_Store":
+                continue
             bjt_dicts = get_bjt_json([file])
             bjt_text = ""
             for bjt_dict in bjt_dicts:

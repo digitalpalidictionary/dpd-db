@@ -78,7 +78,7 @@ func makeFileList(baseDir string) []string {
 			if info.IsDir() && info.Name() == skipFolder {
 				return filepath.SkipDir
 			}
-			if !info.IsDir() {
+			if !info.IsDir() && info.Name() != ".DS_Store" {
 				relativePath, err := filepath.Rel(baseDir, path)
 				tools.HardCheck(err)
 				fileList = append(fileList, relativePath)
