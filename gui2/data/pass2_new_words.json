@@ -1,1 +1,32 @@
-{}
+{
+    "carakā": {
+        "source_1": "sn4.6:5.1",
+        "sutta_1": "carakā bahū bheravā bahū, ",
+        "example_1": "Though there are lots of creepy crawlies, ",
+        "comment": "roaming animals; wandering beasties"
+    },
+    "caleyya": {
+        "source_1": "sn4.6:6.1",
+        "sutta_1": "nabhaṃ phaleyya pathavī caleyya, ",
+        "example_1": "Though the firmament may split <j>and the earth may quake, ",
+        "comment": "quakes; trembles"
+    },
+    "kattabbaṃ": {
+        "source_1": "sn4.9:2.2",
+        "sutta_1": "gamanīyo samparāyo, kattabbaṃ kusalaṃ, caritabbaṃ brahmacariyaṃ. ",
+        "example_1": "You must go to the next life. So you should do what is skillful, you should practice the spiritual life. ",
+        "comment": "kālaṃ kattabba to die"
+    },
+    "vivitte": {
+        "source_1": "sn9.4:2.2",
+        "sutta_1": "bahuke disvāna vivitte āsane; ",
+        "example_1": "seeing so many vacated seats. ",
+        "comment": "empty; unoccupied"
+    },
+    "adhimucceyya": {
+        "source_1": "sn4.20:2.6",
+        "sutta_1": "ākaṅkhamāno ca, bhante, bhagavā himavantaṃ pabbatarājaṃ suvaṇṇaṃ tveva adhimucceyya suvaṇṇañca panassā”ti. ",
+        "example_1": "If he wished, the Blessed One need only determine that the Himalaya, king of mountains, was gold, and it would turn into gold.” ",
+        "comment": "determines; resolves"
+    }
+}
