@@ -1,6 +1,5 @@
 import flet as ft
 
-from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
 
@@ -122,10 +121,6 @@ class Pass1AutoView(ft.Column):
                                         "Clear",
                                         on_click=self.handle_clear_click,
                                     ),
-                                    ft.ElevatedButton(
-                                        "Update inflections",
-                                        on_click=self.handle_update_inflections_click,
-                                    ),
                                     self.gd_switch,
                                 ],
                             ),
@@ -163,13 +158,6 @@ class Pass1AutoView(ft.Column):
 
     def handle_clear_click(self, e):
         self.clear_all_fields()
-
-    def handle_update_inflections_click(self, e):
-        self.update_message("updating inflections...")
-        inflections_manager = InflectionsManager()
-        inflections_manager.run()
-        self.controller.db.make_inflections_lists()
-        self.update_message("inflections updated")
 
     def handle_gd_toggle(self, e):
         self.controller.gd_toggle = self.gd_switch.value

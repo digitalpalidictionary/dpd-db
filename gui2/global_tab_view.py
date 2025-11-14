@@ -2,6 +2,7 @@ import subprocess
 
 import flet as ft
 
+from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.toolkit import ToolKit
 from scripts.backup.backup_dpd_headwords_and_roots import (
     backup_dpd_headwords_and_roots,
@@ -57,6 +58,16 @@ class GlobalTabView(ft.Column):
                                     self._message,
                                 ]
                             ),
+                            ft.Row(
+                                controls=[
+                                    ft.ElevatedButton(
+                                        "Update Inflections",
+                                        on_click=self._click_update_inflections,
+                                        width=250,
+                                    ),
+                                    self._message,
+                                ]
+                            ),
                         ]
                     ),
                     padding=10,
@@ -91,6 +102,17 @@ class GlobalTabView(ft.Column):
 
         if test_file_path.exists():
             subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
+
+    def _click_update_inflections(self, e: ft.ControlEvent) -> None:
+        """Update inflections from templates."""
+        self._update_message("Updating inflections...")
+        try:
+            inflections_manager = InflectionsManager()
+            inflections_manager.run()
+            self.toolkit.db_manager.make_inflections_lists()
+            self._update_message("Inflections updated successfully.")
+        except Exception as ex:
+            self._update_message(f"Inflections update failed: {ex}")
 
     def _click_update_anki(self, e: ft.ControlEvent) -> None:
         """Close Anki if open, run anki updater, and show completion message."""
