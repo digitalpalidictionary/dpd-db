@@ -28,6 +28,8 @@ def main():
         css = c.read()
 
     for filename in os.listdir(pth.whitney_source_dir):
+        if filename == ".DS_Store":
+            continue
         with open(f"{pth.whitney_source_dir}/{filename}") as f:
             soup = BeautifulSoup(f, "xml")
             root = str(soup.h2)

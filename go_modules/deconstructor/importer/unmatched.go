@@ -179,6 +179,9 @@ func makeOtherPaliTexts() {
 	tools.HardCheck(err)
 
 	for _, file := range dir {
+		if file.Name() == ".DS_Store" {
+			continue
+		}
 		fileName := filepath.Join(filePath, file.Name())
 		data, err := os.ReadFile(fileName)
 		tools.HardCheck(err)

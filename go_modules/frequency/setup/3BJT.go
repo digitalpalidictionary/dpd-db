@@ -20,6 +20,9 @@ func makeBjtFreq() {
 
 	fileFreqMap := map[string]map[string]int{}
 	for i, file := range directory {
+		if file.Name() == ".DS_Store" {
+			continue
+		}
 		fileName := file.Name()
 		fileNameClean := strings.TrimSuffix(fileName, ".txt")
 		filePath := filepath.Join(dirName, fileName)

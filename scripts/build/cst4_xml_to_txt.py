@@ -22,6 +22,8 @@ def main():
 
     counter = 1
     for filename in sorted(os.listdir(pth.cst_xml_dir)):
+        if filename == ".DS_Store":
+            continue
         if "xml" in filename and "toc" not in filename:
             pr.counter(counter, 217, filename)
             try:

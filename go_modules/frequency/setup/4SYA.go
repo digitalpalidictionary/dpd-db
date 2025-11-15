@@ -27,6 +27,9 @@ func makeSyaFreq() {
 		tools.HardCheck(err)
 
 		for _, file := range directory {
+			if file.Name() == ".DS_Store" {
+				continue
+			}
 
 			fileName := file.Name()
 			filePath := filepath.Join(dirName, fileName)
