@@ -37,16 +37,18 @@ def make_tsv_entry(i: DpdHeadword) -> str:
     return entry_line.replace("ṃ", "ṁ")
 
 
-def process_db(db: list[DpdHeadword]):
+def process_db(db: list[DpdHeadword]) -> tuple[list[str], list[str]]:
     pr.green_title("processing db")
     txt_entry_list: list[str] = []
     tsv_entry_list: list[str] = []
+
     for counter, i in enumerate(db):
         if i.meaning_1 and i.sanskrit:
             txt_entry_list.append(make_txt_entry(i))
             tsv_entry_list.append(make_tsv_entry(i))
         if counter % 10000 == 0:
             pr.counter(counter, len(db), i.lemma_1)
+
     return txt_entry_list, tsv_entry_list
 
 
@@ -60,17 +62,22 @@ def save_txt(txt_entry_list: list[str]) -> None:
 def save_tsv(tsv_entry_list: list[str]) -> None:
     tsv_path = Path("temp/DPD Pāḷi Sanskrit.tsv")
     pr.green(f"saving '{tsv_path}'")
-    tsv_path.write_text("\n".join(tsv_entry_list))
+    header = "Pāḷi\tSanskrit\tPOS\tMeaning"
+    tsv_content = [header] + tsv_entry_list
+    tsv_path.write_text("\n".join(tsv_content), encoding="utf-8")
     pr.yes("ok")
 
 
 def main():
     pr.tic()
     pr.title("making DPD Sanskrit dict")
+
     db = make_db()
     txt_entry_list, tsv_entry_list = process_db(db)
     save_txt(txt_entry_list)
     save_tsv(tsv_entry_list)
+
+    pr.info(f"Exported {len(txt_entry_list)} entries")
     pr.toc()
 
 
