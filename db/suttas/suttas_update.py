@@ -103,7 +103,8 @@ def main():
     pr.tic()
     pr.title("update sutta_info table")
     pth = ProjectPaths()
-    # download_tsv_from_sheets(pth) # TODO upload manual additions made to the downloaded file
+    # TODO upload manual additions made to the downloaded file
+    download_tsv_from_sheets(pth)
     update_sutta_info_table(pth)
     pr.toc()
 

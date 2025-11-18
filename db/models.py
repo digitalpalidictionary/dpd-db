@@ -537,6 +537,8 @@ class SuttaInfo(Base):
     # sc_pali_link: Mapped[str] = mapped_column(default="")
     # sc_eng_link: Mapped[str] = mapped_column(default="")
     sc_file_path: Mapped[str] = mapped_column(default="")
+    dpr_code: Mapped[str] = mapped_column(default="")
+    dpr_link: Mapped[str] = mapped_column(default="")
 
     @property
     def sc_card_link(self) -> str:
