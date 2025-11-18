@@ -557,6 +557,10 @@ class SuttaInfo(Base):
         return re.sub(r"\d+\.*-*\d*", "", self.sc_code)
 
     @property
+    def sc_github(self) -> str:
+        return f"https://github.com/suttacentral/sc-data/blob/main/{self.sc_file_path}"
+
+    @property
     def dhamma_gift(self) -> str:
         return f"https://find.dhamma.gift/read/?q={self.sc_code}"
 
@@ -573,7 +577,9 @@ class SuttaInfo(Base):
     def tpp_org(self) -> str | None:
         if self.cst_code:
             tpp_org_code = re.sub(r"romn\/|\.xml", "", self.cst_file)
-            return f"https://tipitakapali.org/book/{tpp_org_code}"
+            return (
+                f"https://tipitakapali.org/book/{tpp_org_code}#para{self.cst_paranum}"
+            )
         else:
             return None
 
