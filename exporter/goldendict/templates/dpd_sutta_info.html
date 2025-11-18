@@ -1,0 +1,345 @@
+<div
+    id="sutta_info_${ i.lemma_1_ }"
+    name="sutta-info-div"
+    class="dpd content hidden">
+    <table class="sutta-info">
+
+    <!-- CST -->
+
+    % if su.cst_code:
+    <tr>
+        <th class="heading top" colspan="2">
+            Chaṭṭha Saṅgāyana
+        </th>
+    </tr>
+    % endif 
+
+    % if su.cst_code:
+    <tr>
+        <th>
+            CST Code
+        </th>
+        <td>
+            ${ su.cst_code }
+        </td>
+    </tr>
+    % endif
+    
+    % if su.cst_nikaya:
+    <tr>
+        <th>
+            Nikāya
+        </th>
+        <td>
+            ${ su.cst_nikaya }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_book:
+    <tr>
+        <th>
+            Book
+        </th>
+        <td>
+            ${ su.cst_book }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_section:
+    <tr>
+        <th>
+            Section
+        </th>
+        <td>
+            ${ su.cst_section }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_vagga:
+    <tr>
+        <th>
+            Vagga
+        </th>
+        <td>
+            ${ su.cst_vagga }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_sutta:
+    <tr>
+        <th>
+            Sutta
+        </th>
+        <td>
+            ${ su.cst_sutta }
+        </td>
+    </tr>
+    % endif
+    
+    % if su.cst_paranum:
+    <tr>
+        <th>
+            Paragraph
+        </th>
+        <td>
+            ${ su.cst_paranum }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_file:
+    <tr>
+        <th>
+            File
+        </th>
+        <td>
+            ${ su.cst_file }
+        </td>
+
+    </tr>
+    % endif
+
+    <!-- sutta central -->
+
+    % if su.sc_code:
+    <tr>
+        <th class="heading" colspan="2">
+            Sutta Central
+        </th>
+    </tr>
+    % endif
+
+    % if su.sc_code:
+    <tr>
+        <th>
+            SC Code 
+        </th>
+        <td>
+            ${ su.sc_code }
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_book:
+    <tr>
+        <th>
+            Book
+        </th>
+        <td>
+            ${ su.sc_book }
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_vagga:
+    <tr>
+        <th>
+            Vagga
+        </th>
+        <td>
+            ${ su.sc_vagga }
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_sutta:
+    <tr>
+        <th>
+            Sutta
+        </th>
+        <td>
+            ${ su.sc_sutta }
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_eng_sutta:
+    <tr>
+        <th>
+            Title
+        </th>
+        <td>
+            <i>${ su.sc_eng_sutta }</i>
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_blurb:
+    <tr>
+        <th>
+            Blurb
+        </th>
+        <td>
+            <i>${ su.sc_blurb }</i>
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_card_link:
+    <tr>
+        <th>
+            Links
+        </th>
+        <td>
+            % if su.sc_card_link:
+            <a href="${ su.sc_card_link }" target="_blank">Sutta Card</a>, 
+            % endif
+            % if su.sc_pali_link:
+            <a href="${ su.sc_pali_link }" target="_blank">Pāḷi Text</a></i>,
+            % endif
+            % if su.sc_eng_link:
+            <a href="${ su.sc_eng_link }" target="_blank">English Translation</a></i><br>
+            % endif
+        </td>
+    </tr>
+    % endif
+
+    % if su.sc_file_path:
+    <tr>
+        <th>
+            File
+        </th>
+        <td>
+            ${ su.sc_file_path }
+        </td>
+    </tr>
+    % endif
+    
+<!-- websites -->
+    <tr>
+        <th class="heading" colspan="2">
+            Websites
+        </th>
+    </tr>
+
+    % if su.dhamma_gift:
+    <tr>
+        <th>
+            Dhamma.gift
+        </th>
+        <td>
+            <a href="${ su.dhamma_gift }" target="_blank">${ su.dhamma_gift }</a>
+        </td>
+    </tr>
+    % endif
+
+    % if su.tbw:
+    <tr>
+        <th>
+            The Buddha's Words
+        </th>
+        <td>
+            <a href="${ su.tbw }" target="_blank">${ su.tbw }</a>
+        </td>
+    </tr>
+    % endif
+
+    % if su.tpp_org:
+    <tr>
+        <th>
+            TipitakaPali.org
+        </th>
+        <td>
+            <a href="${ su.tpp_org }" target="_blank">${ su.tpp_org }</a>
+        </td>
+    </tr>
+    % endif
+
+    % if su.dpr_link:
+    <tr>
+        <th>
+            Digital Pali Reader 
+        </th>
+        <td>
+            <a href="${ su.dpr_link }" target="_blank">${ su.dpr_link }</a>
+        </td>
+    </tr>
+    % endif
+
+    <tr>
+        <th>
+            Access to Insight
+        </th>
+        <td>
+            ...
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            Dhammatalks.org
+        </th>
+        <td>
+            ...
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            Tipitaka.sl
+        </th>
+        <td>
+            ...
+        </td>
+    </tr>
+
+    <!-- page numbers -->
+
+    % if su.cst_m_page:
+    <tr>
+        <th class="heading" colspan="2">
+            Printed Editions
+        </th>
+    </tr>
+    % endif
+
+    % if su.cst_m_page:
+    <tr>
+        <th>
+            Myanmar
+        </th>
+        <td>
+            ${ su.cst_m_page }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_t_page:
+    <tr>
+        <th>
+            Thai
+        </th>
+        <td>
+            ${ su.cst_t_page }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_v_page:
+    <tr>
+        <th>
+            VRI
+        </th>
+        <td>
+            ${ su.cst_v_page }
+        </td>
+    </tr>
+    % endif
+
+    % if su.cst_p_page:
+    <tr>
+        <th>
+            PTS
+        </th>
+        <td>
+            ${ su.cst_p_page }
+        </td>
+    </tr>
+    % endif
+
+</table>
+</div>

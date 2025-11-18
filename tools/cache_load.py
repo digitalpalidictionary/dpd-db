@@ -23,9 +23,13 @@ def load_sutta_info_set():
     if _sutta_info_cache is not None:
         return _sutta_info_cache
     else:
-        db = db_session.query(SuttaInfo.dpd_sutta, SuttaInfo.dpd_sutta_var).all()
+        db = (
+            db_session.query(SuttaInfo.dpd_sutta, SuttaInfo.dpd_sutta_var)
+            .filter(SuttaInfo.dpd_code != "")
+            .all()
+        )
         _sutta_info_cache = set([i[0] for i in db])
-        _sutta_info_cache.update([i[1] for i in db if i[1]])
+        # _sutta_info_cache.update([i[1] for i in db if i[1]]) exclude for now
         return _sutta_info_cache
 
 
