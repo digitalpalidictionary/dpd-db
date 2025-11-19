@@ -90,6 +90,14 @@ def update_sutta_info_table(pth: ProjectPaths):
                 if "sc_code" in filtered_data:
                     filtered_data["sc_code"] = filtered_data["sc_code"].upper()
 
+                # Format page numbers to have 4 decimal places
+                for col in ["cst_m_page", "cst_v_page", "cst_p_page", "cst_t_page"]:
+                    if col in filtered_data and filtered_data[col]:
+                        value = filtered_data[col]
+                        if '.' in value:
+                            book, page = value.split('.', 1)
+                            filtered_data[col] = f"{book}.{page.ljust(4, '0')}"
+
                 suttas_to_add.append(filtered_data)
         pr.yes("ok")
     except Exception as e:
