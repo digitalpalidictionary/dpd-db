@@ -565,13 +565,26 @@ class SuttaInfo(Base):
         return f"https://find.dhamma.gift/read/?q={self.sc_code}"
 
     @property
-    def tbw(self) -> str:
-        if self.sc_book_code == "iti":
-            return "https://thebuddhaswords.net/it/it.html"
+    def tbw(self) -> str | None:
+        if self.book_code in [
+            "DN",
+            "MN",
+            "SN",
+            "AN",
+            "KHP",
+            "DHP",
+            "UD",
+            "ITI",
+            "SNP",
+            "TH",
+            "THI",
+        ]:
+            if self.sc_book_code == "iti":
+                return "https://thebuddhaswords.net/it/it.html"
+            else:
+                return f"https://thebuddhaswords.net/{self.sc_book_code}/{self.sc_code}.html"
         else:
-            return (
-                f"https://thebuddhaswords.net/{self.sc_book_code}/{self.sc_code}.html"
-            )
+            return None
 
     @property
     def tpp_org(self) -> str | None:
