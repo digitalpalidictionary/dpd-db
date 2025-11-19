@@ -54,6 +54,7 @@ def update_sutta_info_table(pth: ProjectPaths):
     # skips duplicates and only adds the first instance. The duplicates
     # should be cleaned in the source data.
     seen_dpd_suttas = set()
+    duplicates = []
 
     try:
         with open(pth.sutta_info_tsv_path, "r", encoding="utf-8") as f:
@@ -68,7 +69,11 @@ def update_sutta_info_table(pth: ProjectPaths):
 
                 dpd_sutta_key = row_data.get("dpd_sutta")
 
-                if not dpd_sutta_key or dpd_sutta_key in seen_dpd_suttas:
+                if not dpd_sutta_key:
+                    continue
+                
+                if dpd_sutta_key in seen_dpd_suttas:
+                    duplicates.append(dpd_sutta_key)
                     continue
 
                 seen_dpd_suttas.add(dpd_sutta_key)
@@ -77,13 +82,25 @@ def update_sutta_info_table(pth: ProjectPaths):
                     k: v for k, v in row_data.items() if k in model_columns
                 }
 
+                # Convert specified codes to uppercase
+                if "cst_code" in filtered_data:
+                    filtered_data["cst_code"] = filtered_data["cst_code"].upper()
+                if "dpr_code" in filtered_data:
+                    filtered_data["dpr_code"] = filtered_data["dpr_code"].upper()
+                if "sc_code" in filtered_data:
+                    filtered_data["sc_code"] = filtered_data["sc_code"].upper()
+
                 suttas_to_add.append(filtered_data)
         pr.yes("ok")
-        pr.red("fix dupes in suttas names")
     except Exception as e:
         pr.no(f"failed reading tsv: {e}")
         db_session.close()
         return
+
+    if duplicates:
+        pr.red("Duplicate dpd_sutta names found:")
+        for d in sorted(list(set(duplicates))):
+            pr.red(d)
 
     pr.green(f"adding {len(suttas_to_add)} suttas to db")
     try:
@@ -103,7 +120,6 @@ def main():
     pr.tic()
     pr.title("update sutta_info table")
     pth = ProjectPaths()
-    # TODO upload manual additions made to the downloaded file
     download_tsv_from_sheets(pth)
     update_sutta_info_table(pth)
     pr.toc()

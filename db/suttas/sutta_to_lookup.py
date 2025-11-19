@@ -76,6 +76,7 @@ def make_sutta_info_dict(g: GlobalVars):
             else:
                 sutta_codes = make_list_of_sutta_codes(i.dpd_code)
                 for code in sutta_codes:
+                    g.sutta_code = code
                     add_code_to_dict(g)
 
         if i.sc_code:
@@ -86,6 +87,7 @@ def make_sutta_info_dict(g: GlobalVars):
             else:
                 sutta_codes = make_list_of_sutta_codes(i.sc_code.upper())
                 for code in sutta_codes:
+                    g.sutta_code = code
                     add_code_to_dict(g)
 
     pr.yes(len(g.sutta_info_dict))
