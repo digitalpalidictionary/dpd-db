@@ -270,9 +270,9 @@
             Links
         </th>
         <td>
-            {% if d.su.sc_card_link %}<a href="{{ d.su.sc_card_link }}" target="_blank">Sutta Card</a>, {% endif %}
-            {% if d.su.sc_pali_link %}<a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a></i>, {% endif %}
-            {% if d.su.sc_eng_link %}<a href="{{ d.su.sc_eng_link }}" target="_blank">English Translation</a></i><br> {% endif %}
+            {% if d.su.sc_code %}<a href="{{ d.su.sc_card_link }}" target="_blank">Sutta Card</a>, {% endif %}
+            {% if d.su.sc_code %}<a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a></i>, {% endif %}
+            {% if d.su.sc_code %}<a href="{{ d.su.sc_eng_link }}" target="_blank">English Translation</a></i><br> {% endif %}
         </td>
     </tr>
     {% endif %}
@@ -296,7 +296,7 @@
         </th>
     </tr>
 
-    {% if d.su.dhamma_gift %}
+    {% if d.su.sc_code %}
     <tr>
         <th>
             Dhamma.gift
@@ -307,7 +307,7 @@
     </tr>
     {% endif %}
 
-    {% if d.su.tbw %}
+    {% if d.su.sc_code %}
     <tr>
         <th>
             The Buddha's Words
@@ -318,7 +318,7 @@
     </tr>
     {% endif %}
 
-    {% if d.su.tpp_org %}
+    {% if d.su.cst_code %}
     <tr>
         <th>
             TipitakaPali.org
@@ -340,18 +340,7 @@
     </tr>
     {% endif %}
 
-    <!-- {% if d.su.dpr_code %}
-    <tr>
-        <th>
-            DPR Quick Link
-        </th>
-        <td>
-            {{ d.su.dpr_code }}</a>
-        </td>
-    </tr>
-    {% endif %} -->
-
-    <tr>
+    <!-- <tr>
         <th>
             Access to Insight
         </th>
@@ -376,7 +365,7 @@
         <td>
             ...
         </td>
-    </tr>
+    </tr> -->
 
     <!-- page numbers -->
 
