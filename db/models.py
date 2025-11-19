@@ -582,7 +582,7 @@ class SuttaInfo(Base):
             if self.sc_book_code == "iti":
                 return "https://thebuddhaswords.net/it/it.html"
             else:
-                return f"https://thebuddhaswords.net/{self.sc_book_code}/{self.sc_code}.html"
+                return f"https://thebuddhaswords.net/{self.sc_book_code.lower()}/{self.sc_code.lower()}.html"
         else:
             return None
 

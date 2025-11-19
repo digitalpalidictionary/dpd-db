@@ -9,7 +9,7 @@
     % if su.cst_code:
     <tr>
         <th class="heading top" colspan="2">
-            Chaṭṭha Saṅgāyana
+            Chaṭṭha Saṅgāyana Tipiṭaka
         </th>
     </tr>
     % endif 
@@ -100,6 +100,15 @@
             ${ su.cst_file }
         </td>
 
+    </tr>
+    <tr>
+        <th>
+            Github
+        </th>
+        <td>
+            <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/${ su.cst_file }" target="_blank">${ su.cst_file }</a>
+            
+        </td>
     </tr>
     % endif
 
@@ -205,6 +214,15 @@
         </th>
         <td>
             ${ su.sc_file_path }
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Github
+        </th>
+        <td>
+            ${ su.sc_file_path }
+            <a href="${ d.su.sc_github }" target="_blank">${ su.sc_file_path }</a>
         </td>
     </tr>
     % endif
@@ -342,4 +360,13 @@
     % endif
 
 </table>
+<p class="footer">
+    Did you spot a mistake?
+    <a
+        class="link"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${i.id}%20${i.lemma_link}&entry.326955045=Grammar&entry.1433863141=GoldenDict+${today}"
+        target="_blank">
+            Correct it here
+    </a>.
+</p>
 </div>

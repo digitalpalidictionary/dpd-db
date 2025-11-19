@@ -89,258 +89,288 @@
     class="dpd content hidden">
     <table class="sutta-info">
 
-    <!-- CST -->
+        <!-- CST -->
 
-    {% if d.su.cst_code %}
-    <tr>
-        <th class="heading top" colspan="2">
-            Chaṭṭha Saṅgāyana
-        </th>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_code %}
+        <tr>
+            <th class="heading top" colspan="2">
+                Chaṭṭha Saṅgāyana Tipiṭaka
+            </th>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_code %}
-    <tr>
-        <th>
-            CST Code
-        </th>
-        <td>
-            {{ d.su.cst_code }}
-        </td>
-    </tr>
-    {% endif %}
-    
-    {% if d.su.cst_nikaya %}
-    <tr>
-        <th>
-            Nikāya
-        </th>
-        <td>
-            {{ d.su.cst_nikaya }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_code %}
+        <tr>
+            <th>
+                CST Code
+            </th>
+            <td>
+                {{ d.su.cst_code }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_book %}
-    <tr>
-        <th>
-            Book
-        </th>
-        <td>
-            {{ d.su.cst_book }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_nikaya %}
+        <tr>
+            <th>
+                Nikāya
+            </th>
+            <td>
+                {{ d.su.cst_nikaya }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_section %}
-    <tr>
-        <th>
-            Section
-        </th>
-        <td>
-            {{ d.su.cst_section }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_book %}
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                {{ d.su.cst_book }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_vagga %}
-    <tr>
-        <th>
-            Vagga
-        </th>
-        <td>
-            {{ d.su.cst_vagga }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_section %}
+        <tr>
+            <th>
+                Section
+            </th>
+            <td>
+                {{ d.su.cst_section }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_sutta %}
-    <tr>
-        <th>
-            Sutta
-        </th>
-        <td>
-            {{ d.su.cst_sutta }}
-        </td>
-    </tr>
-    {% endif %}
-    
-    {% if d.su.cst_paranum %}
-    <tr>
-        <th>
-            Paragraph
-        </th>
-        <td>
-            {{ d.su.cst_paranum }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_vagga %}
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                {{ d.su.cst_vagga }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_file %}
-    <tr>
-        <th>
-            File
-        </th>
-        <td>
-            {{ d.su.cst_file }}
-        </td>
+        {% if d.su.cst_sutta %}
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                {{ d.su.cst_sutta }}
+            </td>
+        </tr>
+        {% endif %}
 
-    </tr>
-    {% endif %}
+        {% if d.su.cst_paranum %}
+        <tr>
+            <th>
+                Paragraph
+            </th>
+            <td>
+                {{ d.su.cst_paranum }}
+            </td>
+        </tr>
+        {% endif %}
 
-    <!-- sutta central -->
+        {% if d.su.cst_file %}
+        <tr>
+            <th>
+                File
+            </th>
+            <td>
+                {{ d.su.cst_file }}
+            </td>
 
-    {% if d.su.sc_code %}
-    <tr>
-        <th class="heading" colspan="2">
-            Sutta Central
-        </th>
-    </tr>
-    {% endif %}
+        </tr>
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a
+                    href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}"
+                    target="_blank">{{ d.su.cst_file }}</a>
 
-    {% if d.su.sc_code %}
-    <tr>
-        <th>
-            SC Code 
-        </th>
-        <td>
-            {{ d.su.sc_code }}
-        </td>
-    </tr>
-    {% endif %}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_book %}
-    <tr>
-        <th>
-            Book
-        </th>
-        <td>
-            {{ d.su.sc_book }}
-        </td>
-    </tr>
-    {% endif %}
+        <!-- sutta central -->
 
-    {% if d.su.sc_vagga %}
-    <tr>
-        <th>
-            Vagga
-        </th>
-        <td>
-            {{ d.su.sc_vagga }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Sutta Central
+            </th>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_sutta %}
-    <tr>
-        <th>
-            Sutta
-        </th>
-        <td>
-            {{ d.su.sc_sutta }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                SC Code
+            </th>
+            <td>
+                {{ d.su.sc_code }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_eng_sutta %}
-    <tr>
-        <th>
-            Title
-        </th>
-        <td>
-            <i>{{ d.su.sc_eng_sutta }}</i>
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_book %}
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                {{ d.su.sc_book }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_blurb %}
-    <tr>
-        <th>
-            Blurb
-        </th>
-        <td>
-            <i>{{ d.su.sc_blurb }}</i>
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_vagga %}
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                {{ d.su.sc_vagga }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_card_link %}
-    <tr>
-        <th>
-            Links
-        </th>
-        <td>
-            {% if d.su.sc_code %}<a href="{{ d.su.sc_card_link }}" target="_blank">Sutta Card</a>, {% endif %}
-            {% if d.su.sc_code %}<a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a></i>, {% endif %}
-            {% if d.su.sc_code %}<a href="{{ d.su.sc_eng_link }}" target="_blank">English Translation</a></i><br> {% endif %}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_sutta %}
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                {{ d.su.sc_sutta }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_file_path %}
-    <tr>
-        <th>
-            File
-        </th>
-        <td>
-            {{ d.su.sc_file_path }} 
-            <a href="{{ d.su.sc_github }}" target="_blank">Github</a></i><br>
-        </td>
-    </tr>
-    {% endif %}
-    
-<!-- websites -->
-    <tr>
-        <th class="heading" colspan="2">
-            Websites
-        </th>
-    </tr>
+        {% if d.su.sc_eng_sutta %}
+        <tr>
+            <th>
+                Title
+            </th>
+            <td>
+                <i>{{ d.su.sc_eng_sutta }}</i>
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_code %}
-    <tr>
-        <th>
-            Dhamma.gift
-        </th>
-        <td>
-            <a href="{{ d.su.dhamma_gift }}" target="_blank">{{ d.su.dhamma_gift }}</a>
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_blurb %}
+        <tr>
+            <th>
+                Blurb
+            </th>
+            <td>
+                <i>{{ d.su.sc_blurb }}</i>
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.sc_code %}
-    <tr>
-        <th>
-            The Buddha's Words
-        </th>
-        <td>
-            <a href="{{ d.su.tbw }}" target="_blank">{{ d.su.tbw }}</a>
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_card_link %}
+        <tr>
+            <th>
+                Links
+            </th>
+            <td>
+                {% if d.su.sc_code %}
+                <a href="{{ d.su.sc_card_link }}" target="_blank">Sutta
+                    Card</a>,
+                {% endif %}
+                {% if d.su.sc_code %}
+                <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
+                {% endif %}
+                {% if d.su.sc_code %}
+                <a href="{{ d.su.sc_eng_link }}" target="_blank">English
+                    Translation</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_code %}
-    <tr>
-        <th>
-            TipitakaPali.org
-        </th>
-        <td>
-            <a href="{{ d.su.tpp_org }}" target="_blank">{{ d.su.tpp_org }}</a>
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.sc_file_path %}
+        <tr>
+            <th>
+                File
+            </th>
+            <td>
+                {{ d.su.sc_file_path }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a href="{{ d.su.sc_github }}" target="_blank">{{
+                    d.su.sc_file_path }}</a>
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.dpr_link %}
-    <tr>
-        <th>
-            Digital Pali Reader 
-        </th>
-        <td>
-            <a href="{{ d.su.dpr_link }}" target="_blank">{{ d.su.dpr_link }}</a>
-        </td>
-    </tr>
-    {% endif %}
+        <!-- websites -->
+        <tr>
+            <th class="heading" colspan="2">
+                Websites
+            </th>
+        </tr>
 
-    <!-- <tr>
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                Dhamma.gift
+            </th>
+            <td>
+                <a href="{{ d.su.dhamma_gift }}" target="_blank">{{
+                    d.su.dhamma_gift }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                The Buddha's Words
+            </th>
+            <td>
+                <a href="{{ d.su.tbw }}" target="_blank">{{ d.su.tbw }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th>
+                TipitakaPali.org
+            </th>
+            <td>
+                <a href="{{ d.su.tpp_org }}" target="_blank">{{ d.su.tpp_org
+                    }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dpr_link %}
+        <tr>
+            <th>
+                Digital Pali Reader
+            </th>
+            <td>
+                <a href="{{ d.su.dpr_link }}" target="_blank">{{ d.su.dpr_link
+                    }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- <tr>
         <th>
             Access to Insight
         </th>
@@ -367,61 +397,70 @@
         </td>
     </tr> -->
 
-    <!-- page numbers -->
+        <!-- page numbers -->
 
-    {% if d.su.cst_m_page %}
-    <tr>
-        <th class="heading" colspan="2">
-            Printed Editions
-        </th>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_m_page %}
+        <tr>
+            <th class="heading" colspan="2">
+                Printed Editions
+            </th>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_m_page %}
-    <tr>
-        <th>
-            Myanmar
-        </th>
-        <td>
-            {{ d.su.cst_m_page }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_m_page %}
+        <tr>
+            <th>
+                Myanmar
+            </th>
+            <td>
+                {{ d.su.cst_m_page }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_t_page %}
-    <tr>
-        <th>
-            Thai
-        </th>
-        <td>
-            {{ d.su.cst_t_page }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_t_page %}
+        <tr>
+            <th>
+                Thai
+            </th>
+            <td>
+                {{ d.su.cst_t_page }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_v_page %}
-    <tr>
-        <th>
-            VRI
-        </th>
-        <td>
-            {{ d.su.cst_v_page }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_v_page %}
+        <tr>
+            <th>
+                VRI
+            </th>
+            <td>
+                {{ d.su.cst_v_page }}
+            </td>
+        </tr>
+        {% endif %}
 
-    {% if d.su.cst_p_page %}
-    <tr>
-        <th>
-            PTS
-        </th>
-        <td>
-            {{ d.su.cst_p_page }}
-        </td>
-    </tr>
-    {% endif %}
+        {% if d.su.cst_p_page %}
+        <tr>
+            <th>
+                PTS
+            </th>
+            <td>
+                {{ d.su.cst_p_page }}
+            </td>
+        </tr>
+        {% endif %}
 
-</table>
+    </table>
+
+    <p class="footer">
+        Did you spot a mistake?
+        <a
+            class="link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.i.id}}%20{{d.i.lemma_link}}&entry.326955045=Grammar&entry.1433863141={{d.app_name}}+{{d.date}}"
+            target="_blank">
+            Correct it here.</a>
+    </p>
 </div>
 
 {% endif %}
