@@ -30,6 +30,9 @@ uv run python scripts/build/anki_updater.py
 
 uv run python db/variants/main.py 
 
+uv run db/suttas/suttas_update.py
+uv run db/suttas/sutta_to_lookup.py
+
 uv run python scripts/build/deconstructor_extract_archive.py
 uv run python scripts/build/deconstructor_output_add_to_db.py
 go run go_modules/deconstructor/main.go
