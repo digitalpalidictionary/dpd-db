@@ -3,6 +3,7 @@ from scripts.suttas.cst.an import extract_an_data
 from scripts.suttas.cst.dn import extract_dn_data
 from scripts.suttas.cst.kn10 import extract_kn10_data
 from scripts.suttas.cst.kn12 import extract_kn12_data
+from scripts.suttas.cst.kn2 import extract_kn2_data
 from scripts.suttas.cst.kn13 import extract_kn13_data
 from scripts.suttas.cst.kn14 import extract_kn14_data
 from scripts.suttas.cst.kn15 import extract_kn15_data
@@ -23,33 +24,34 @@ from tools.paths import ProjectPaths
 pth = ProjectPaths()
 
 PROCESSING_STEPS = [
-    (["dn1", "dn2", "dn3"], extract_dn_data),
-    (["mn1", "mn2", "mn3"], extract_mn_data),
-    (["sn1", "sn2", "sn3", "sn4", "sn5"], extract_sn_data),
-    (
-        ["an2", "an3", "an4", "an5", "an6", "an7", "an8", "an9", "an10", "an11"],
-        extract_an_data,
-    ),
-    (["kn1"], extract_kn1_data),
-    (["kn3"], extract_kn3_data),
-    (["kn4"], extract_kn4_data),
-    (["kn5"], extract_kn5_data),
-    (["kn6"], extract_kn6_data),
-    (["kn7"], extract_kn5_data),
-    (["kn8"], extract_kn6_data),
-    (["kn9"], extract_kn9_data),
-    (["kn10", "kn11"], extract_kn10_data),
-    (["kn12"], extract_kn12_data),
-    (["kn13"], extract_kn13_data),
-    (["kn14"], extract_kn14_data),
-    (["kn15"], extract_kn15_data),
-    (["kn16"], extract_kn16_data),
-    (["kn17"], extract_kn17_data),
+    # (["dn1", "dn2", "dn3"], extract_dn_data),
+    # (["mn1", "mn2", "mn3"], extract_mn_data),
+    # (["sn1", "sn2", "sn3", "sn4", "sn5"], extract_sn_data),
+    # (
+    #     ["an2", "an3", "an4", "an5", "an6", "an7", "an8", "an9", "an10", "an11"],
+    #     extract_an_data,
+    # ),
+    # (["kn1"], extract_kn1_data),
+    (["kn2"], extract_kn2_data),
+    # (["kn3"], extract_kn3_data),
+    # (["kn4"], extract_kn4_data),
+    # (["kn5"], extract_kn5_data),
+    # (["kn6"], extract_kn6_data),
+    # (["kn7"], extract_kn5_data),
+    # (["kn8"], extract_kn6_data),
+    # (["kn9"], extract_kn9_data),
+    # (["kn10", "kn11"], extract_kn10_data),
+    # (["kn12"], extract_kn12_data),
+    # (["kn13"], extract_kn13_data),
+    # (["kn14"], extract_kn14_data),
+    # (["kn15"], extract_kn15_data),
+    # (["kn16"], extract_kn16_data),
+    # (["kn17"], extract_kn17_data),
 ]
 
 
 def extract_sutta_data(cst_data, book_list, extract_x_data):
-    source_path = Path("/home/bodhirasa/Code/dpd-db/resources/dpd_submodules/cst")
+    source_path = Path("/home/bodhirasa/MyFiles/3_Active/dpd-db/resources/dpd_submodules/cst")
 
     for file_string in book_list:
         file_list = cst_texts[file_string]

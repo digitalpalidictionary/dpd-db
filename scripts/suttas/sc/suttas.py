@@ -89,6 +89,8 @@ def extract_pali(file_path, pali_data, eng_data):
                         data_dict,
                     )
 
+                    
+
         if folder_name_clean in ["vagga"] and folder_parent in ["ud"]:
             if ":0.1" in line_code:
                 code = line_code.replace(":0.1", "")
@@ -244,5 +246,25 @@ def extract_pali(file_path, pali_data, eng_data):
             update_data_dict(
                 code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
             )
+
+        if folder_name_clean in ["dhp"]:
+            if ":0.1" in line_code:
+                code = line_code.replace(":0.1", "")
+                book = pali_text.strip()
+            if ":0.2" in line_code:
+                nipata = pali_text.strip()
+            if ":0.3" in line_code:
+                vagga = pali_text.strip()
+                eng_sutta = eng_text.strip()
+            if ":0.4" in line_code:
+                sutta = pali_text.strip()
+                # pass
+
+                # vagga = f"{nipata}, {vagga}"
+                book = f"{book}, {nipata}"
+
+                update_data_dict(
+                    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
+                )
 
     return data_dict

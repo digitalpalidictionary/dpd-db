@@ -26,8 +26,13 @@ class GlobalVars:
 
 
 def make_list_of_sutta_codes(code_with_dash: str) -> list[str]:
-    # find the base of the code, 'SN12.' in 'SN12.5-8'
-    code_base = re.sub(r"(?<=\.).+", "", code_with_dash)
+    if "." in code_with_dash:
+        # find the base of the code, 'SN12.' in 'SN12.5-8'
+        code_base = re.sub(r"(?<=\.).+", "", code_with_dash)
+    else:
+        # if DHP return early
+        return []   
+
     # find the part with dashes, '5-8.' in 'SN12.5-8'
     code_dash = re.sub(code_base, "", code_with_dash)
     # find the first digit, 5 in 'SN12.5-8'
