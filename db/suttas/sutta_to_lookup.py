@@ -71,9 +71,9 @@ def make_sutta_info_dict(g: GlobalVars):
         get_id(g)
 
         if i.dpd_code:
-            if "-" not in i.dpd_code:
-                add_code_to_dict(g)
-            else:
+            add_code_to_dict(g)
+
+            if "-" in i.dpd_code:
                 sutta_codes = make_list_of_sutta_codes(i.dpd_code)
                 for code in sutta_codes:
                     g.sutta_code = code
@@ -81,10 +81,9 @@ def make_sutta_info_dict(g: GlobalVars):
 
         if i.sc_code:
             g.sutta_code = i.sc_code.upper()
+            add_code_to_dict(g)
 
-            if "-" not in i.sc_code:
-                add_code_to_dict(g)
-            else:
+            if "-" in i.sc_code:
                 sutta_codes = make_list_of_sutta_codes(i.sc_code.upper())
                 for code in sutta_codes:
                     g.sutta_code = code
