@@ -99,7 +99,7 @@ table.sutta-info th {
 
 table.sutta-info th {
   color: var(--primary-text);
-  font-weight: normal;
+  font-weight: 700;
   white-space: nowrap;
   padding: 0px 5px 2px 0px;
 }
@@ -108,17 +108,8 @@ table.sutta-info th.heading {
   color: unset;
   font-weight: 700;
   white-space: nowrap;
-  /* padding: 5px 0px 5px 0px; */
   background-color: var(--gray-transparent);
-  /* border-top: 1px solid var(--primary); */
-  /* border-bottom: 1px solid var(--primary); */
-  /* margin-top: 5px; */
 }
-
-/* table.sutta-info th.top {
-  border-top: 0px solid var(--primary);
-  margin-top: 0px;
-} */
 
 /* grammar */
 
