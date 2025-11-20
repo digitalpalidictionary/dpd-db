@@ -605,6 +605,31 @@ class SuttaInfo(Base):
             return None
 
     @property
+    def tbw_legacy(self) -> str | None:
+        if self.sc_code:
+            if self.book_code in [
+            "DN",
+            "MN",
+            "SN",
+            "AN",
+            "KHP",
+            "DHP",
+            "UD",
+            "ITI",
+            "SNP",
+            "TH",
+            "THI",
+        ]:
+                if self.sc_book_code == "iti":
+                    return "https://find.dhamma.gift/bw/it/it.html"
+                else:
+                    return f"https://find.dhamma.gift/bw/{self.sc_book_code.lower()}/{self.sc_code.lower()}.html"
+            else:
+                return None
+        else:
+            return None
+
+    @property
     def sc_voice_link(self)-> str | None:
         if self.sc_code:
             return f"https://www.sc-voice.net/#/sutta/{self.sc_code.lower()}/en/sujato"
