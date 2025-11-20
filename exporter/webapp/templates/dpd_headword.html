@@ -326,6 +326,17 @@
         </tr>
         {% endif %}
 
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                SC Voice
+            </th>
+            <td>
+                <a href="{{ d.su.sc_voice_link }}" target="_blank">{{ d.su.sc_voice_link }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
         {% if d.su.cst_code %}
         <tr>
             <th>

@@ -546,27 +546,43 @@ class SuttaInfo(Base):
 
     @property
     def sc_pali_link(self) -> str:
-        return f"https://suttacentral.net/{self.sc_code}/pli/ms"
+        if self.sc_code:
+            return f"https://suttacentral.net/{self.sc_code}/pli/ms"
+        else: 
+            return None
 
     @property
     def sc_eng_link(self) -> str:
-        return f"https://suttacentral.net/{self.sc_code}/en/sujato"
+        if self.sc_code:
+            return f"https://suttacentral.net/{self.sc_code}/en/sujato"
+        else:
+            return None
 
     @property
     def sc_book_code(self) -> str:
-        return re.sub(r"\d+\.*-*\d*", "", self.sc_code)
+        if self.sc_code:
+            return re.sub(r"\d+\.*-*\d*", "", self.sc_code)
+        else:
+            return None
 
     @property
     def sc_github(self) -> str:
-        return f"https://github.com/suttacentral/sc-data/blob/main/{self.sc_file_path}"
+        if self.sc_code:
+            return f"https://github.com/suttacentral/sc-data/blob/main/{self.sc_file_path}"
+        else:
+            return None
 
     @property
     def dhamma_gift(self) -> str:
-        return f"https://find.dhamma.gift/read/?q={self.sc_code}"
+        if self.sc_code:
+            return f"https://find.dhamma.gift/read/?q={self.sc_code}"
+        else:
+            return None
 
     @property
     def tbw(self) -> str | None:
-        if self.book_code in [
+        if self.sc_code:
+            if self.book_code in [
             "DN",
             "MN",
             "SN",
@@ -579,10 +595,19 @@ class SuttaInfo(Base):
             "TH",
             "THI",
         ]:
-            if self.sc_book_code == "iti":
-                return "https://thebuddhaswords.net/it/it.html"
+                if self.sc_book_code == "iti":
+                    return "https://thebuddhaswords.net/it/it.html"
+                else:
+                    return f"https://thebuddhaswords.net/{self.sc_book_code.lower()}/{self.sc_code.lower()}.html"
             else:
-                return f"https://thebuddhaswords.net/{self.sc_book_code.lower()}/{self.sc_code.lower()}.html"
+                return None
+        else:
+            return None
+
+    @property
+    def sc_voice_link(self)-> str | None:
+        if self.sc_code:
+            return f"https://www.sc-voice.net/#/sutta/{self.sc_code.lower()}/en/sujato"
         else:
             return None
 
