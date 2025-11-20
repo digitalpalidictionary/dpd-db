@@ -43,8 +43,6 @@ DEFAULT_CONFIG = {
     "goldendict": {"copy_unzip": "no", "path": ""},
     "dictionary": {
         "make_mdict": "yes",
-        "link_url": "https://www.thebuddhaswords.net/",
-        "make_link": "yes",
         "show_id": "no",
         "data_limit": "0",
     },

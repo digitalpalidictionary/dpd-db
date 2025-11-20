@@ -32,10 +32,7 @@ class GlobalVars:
 
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
     epd_data_dict: dict[str, list[tuple[str, str, str]]] = {}
-    if config_test("dictionary", "make_link", "yes"):
-        make_link = True
-    else:
-        make_link = False
+
     pr.yes("")
 
 
@@ -54,15 +51,6 @@ def compile_headwords_data(g: GlobalVars):
                     g.epd_data_dict[meaning].append(epd_data)
                 else:
                     g.epd_data_dict[meaning] = [epd_data]
-
-        # Generate links for suttas
-        if i.meaning_2 and (
-            i.family_set.startswith("suttas of")
-            or i.family_set == "bhikkhupātimokkha rules"
-            or i.family_set == "chapters of the Saṃyutta Nikāya"
-        ):
-            combined_numbers = extract_sutta_numbers(i.meaning_2)
-            update_epd_sutta(g, combined_numbers, i)
 
         if counter % 10000 == 0:
             pr.counter(counter, g.dpd_db_length, i.lemma_1)
@@ -118,65 +106,6 @@ def make_meaning_plus_case(i: DpdHeadword):
         return f"{i.meaning_1} ({i.plus_case})"
     else:
         return i.meaning_1
-
-
-def extract_sutta_numbers(meaning_2) -> list[str]:
-    """Extract sutta number from i.meaning_2"""
-
-    unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)(-\d+)?\)|([A-Z]+)[\s]?([\d\.]+)(-\d+)?"
-    match = re.finditer(unified_pattern, meaning_2)
-    combined_numbers = []
-
-    for m in match:
-        prefix = m.group(1) if m.group(1) else m.group(3)
-        number = m.group(2) if m.group(2) else m.group(4)
-        combined_number_without_space = (
-            f"{prefix}{number}" if prefix and number else None
-        )
-        combined_number_with_space = f"{prefix} {number}" if prefix and number else None
-
-        if "." in number:
-            combined_number_with_colon_with_space = (
-                f"{prefix} {number.replace('.', ':')}" if prefix and number else None
-            )
-            combined_number_with_colon_without_space = (
-                f"{prefix}{number.replace('.', ':')}" if prefix and number else None
-            )
-        else:
-            combined_number_with_colon_with_space = None
-            combined_number_with_colon_without_space = None
-
-        combined_numbers.extend(
-            [
-                combined_number_without_space,
-                combined_number_with_space,
-                combined_number_with_colon_with_space,
-                combined_number_with_colon_without_space,
-            ]
-        )
-
-    return combined_numbers
-
-
-def update_epd_sutta(g: GlobalVars, combined_numbers, i: DpdHeadword):
-    """Use Sutta number as key in EPD"""
-
-    for combined_number in combined_numbers:
-        if combined_number:
-            number_link = i.source_link_sutta
-
-            if g.make_link and number_link:
-                anchor_link = f'<a class="link" href="{number_link}">link</a>'
-                data_3 = f"{i.meaning_2} {anchor_link}"
-            else:
-                data_3 = f"{i.meaning_2}"
-
-            epd_data = (i.lemma_clean, "sutta", data_3)
-
-            if combined_number in g.epd_data_dict.keys():
-                g.epd_data_dict[combined_number].append(epd_data)
-            else:
-                g.epd_data_dict[combined_number] = [epd_data]
 
 
 def add_to_lookup_table(g: GlobalVars):

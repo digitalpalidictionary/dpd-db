@@ -19,10 +19,6 @@ class HeadwordData:
         self.su = i.su
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
-        if config_test("dictionary", "make_link", "yes"):
-            self.make_link = True
-        else:
-            self.make_link = False
 
     @staticmethod
     def convert_newlines(obj):

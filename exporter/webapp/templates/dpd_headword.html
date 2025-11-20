@@ -617,22 +617,23 @@
 <div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
     {% elif d.i.needs_examples_button %}
     <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
-        {% endif %} {% if d.i.example_1 and d.i.meaning_1 %}
-        <p>{{d.i.example_1|safe}}</p>
+        {% endif %}
+
+        {% if d.i.example_1 and d.i.meaning_1 %}
+        <p>
+            {{d.i.example_1|safe}}
+        </p>
         <p class="sutta">
-            {% if d.make_link and d.i.source_link_1 %}
-            <a class="sutta_link" href="{{d.i.source_link_1}}" target="_blank">
-                {{d.i.source_1}}</a>
-            {% else %} {{d.i.source_1}} {% endif %} {{d.i.sutta_1|safe}}
+            {{d.i.source_1}} {{d.i.sutta_1|safe}}
         </p>
 
+
         {% if d.i.example_2 and d.i.meaning_1 %}
-        <p>{{d.i.example_2|safe}}</p>
+        <p>
+            {{d.i.example_2|safe}}
+        </p>
         <p class="sutta">
-            {% if d.make_link and d.i.source_link_2 %}
-            <a class="sutta_link" href="{{d.i.source_link_2}}" target="_blank">
-                {{d.i.source_2}}</a>
-            {% else %} {{d.i.source_2}} {% endif %} {{d.i.sutta_2|safe}}
+            {{d.i.source_2}} {{d.i.sutta_2|safe}}
         </p>
         {% endif %}
 

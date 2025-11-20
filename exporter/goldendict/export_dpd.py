@@ -92,7 +92,6 @@ class DpdHeadwordRenderDataBase(TypedDict):
     sandhi_contractions: SandhiContractionDict
     cf_set: Set[str]
     idioms_set: Set[str]
-    make_link: bool
     show_id: bool
 
 
@@ -151,7 +150,6 @@ def render_pali_word_dpd_html(
         pth,
         i,
         tt.dpd_definition_templ,
-        rd["make_link"],
         rd["show_id"],
     )
     html += summary
@@ -191,7 +189,7 @@ def render_pali_word_dpd_html(
         size_dict["dpd_grammar"] += len(grammar)
 
     if i.needs_example_button or i.needs_examples_button:
-        example = render_example_templ(pth, i, tt.example_templ, rd["make_link"])
+        example = render_example_templ(pth, i, tt.example_templ)
         html += example
         size_dict["dpd_example"] += len(example)
 
@@ -317,7 +315,6 @@ def generate_dpd_html(
     sandhi_contractions: SandhiContractionDict,
     cf_set: Set[str],
     idioms_set: set[str],
-    make_link=False,
     data_limit: int = 0,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     pr.green_title("generating dpd html")
@@ -406,7 +403,6 @@ def generate_dpd_html(
             "sandhi_contractions": sandhi_contractions,
             "cf_set": cf_set,
             "idioms_set": idioms_set,
-            "make_link": make_link,
             "show_id": show_id,
         }
 
@@ -443,7 +439,6 @@ def render_dpd_definition_templ(
     __pth__: ProjectPaths,
     i: DpdHeadword,
     dpd_definition_templ: Template,
-    make_link=False,
     show_id=False,
 ) -> str:
     """render the definition of a word's most relevant information:
@@ -456,7 +451,6 @@ def render_dpd_definition_templ(
     return str(
         dpd_definition_templ.render(
             i=i,
-            make_link=make_link,
             show_id=show_id,
         )
     )
@@ -649,11 +643,10 @@ def render_example_templ(
     __pth__: ProjectPaths,
     i: DpdHeadword,
     example_templ: Template,
-    make_link=False,
 ) -> str:
     """render sutta examples html"""
 
-    return str(example_templ.render(i=i, make_link=make_link, today=TODAY))
+    return str(example_templ.render(i=i, today=TODAY))
 
 
 def render_inflection_templ(

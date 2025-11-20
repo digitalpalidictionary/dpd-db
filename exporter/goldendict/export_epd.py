@@ -21,7 +21,6 @@ from tools.goldendict_exporter import DictEntry
 def generate_epd_html(
     db_session: Session,
     pth: ProjectPaths,
-    make_link=False,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generate html for english to pali dictionary"""
 
@@ -88,15 +87,6 @@ def generate_epd_html(
                     epd_string = f"<b class='epd'>{i.lemma_clean}</b> {i.pos}. {i.meaning_1} ({i.plus_case})"
                     epd.update({meaning: epd_string})
 
-        # Generate links for suttas
-        if i.meaning_2 and (
-            i.family_set.startswith("suttas of")
-            or i.family_set == "bhikkhupātimokkha rules"
-            or i.family_set == "chapters of the Saṃyutta Nikāya"
-        ):
-            combined_numbers = extract_sutta_numbers(i.meaning_2)
-            update_epd(epd, combined_numbers, i, make_link)
-
     for counter, i in enumerate(roots_db):
         root_meanings_list: list = i.root_meaning.split(", ")
 
@@ -134,62 +124,6 @@ def generate_epd_html(
     pr.yes(len(epd_data_list))
 
     return epd_data_list, size_dict
-
-
-def extract_sutta_numbers(meaning_2):
-    # Extract sutta number from i.meaning_2
-    unified_pattern = r"\(([A-Z]+)\s?([\d\.]+)(-\d+)?\)|([A-Z]+)[\s]?([\d\.]+)(-\d+)?"
-    match = re.finditer(unified_pattern, meaning_2)
-    combined_numbers = []
-
-    for m in match:
-        prefix = m.group(1) if m.group(1) else m.group(3)
-        number = m.group(2) if m.group(2) else m.group(4)
-        combined_number_without_space = (
-            f"{prefix}{number}" if prefix and number else None
-        )
-        combined_number_with_space = f"{prefix} {number}" if prefix and number else None
-
-        if "." in number:
-            combined_number_with_colon_with_space = (
-                f"{prefix} {number.replace('.', ':')}" if prefix and number else None
-            )
-            combined_number_with_colon_without_space = (
-                f"{prefix}{number.replace('.', ':')}" if prefix and number else None
-            )
-        else:
-            combined_number_with_colon_with_space = None
-            combined_number_with_colon_without_space = None
-
-        combined_numbers.extend(
-            [
-                combined_number_without_space,
-                combined_number_with_space,
-                combined_number_with_colon_with_space,
-                combined_number_with_colon_without_space,
-            ]
-        )
-
-    return combined_numbers
-
-
-def update_epd(epd, combined_numbers, i, make_link=True):
-    # Use sutta number as key in epd
-    for combined_number in combined_numbers:
-        if combined_number:
-            number_link = i.source_link_sutta
-            if make_link and number_link:
-                anchor_link = f'<a class="link" href="{number_link}">link</a>'
-                epd_string = (
-                    f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2} {anchor_link}"
-                )
-            else:
-                epd_string = f"<b class='epd'>{i.lemma_clean}</b>. {i.meaning_2}"
-
-            if combined_number in epd.keys():
-                epd[combined_number] += f"<br>{epd_string}"
-            else:
-                epd.update({combined_number: epd_string})
 
 
 if __name__ == "__main__":

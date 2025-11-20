@@ -20,8 +20,6 @@ def uposatha_day_configger():
         config_update("regenerate", "db_rebuild", "yes")
 
         config_update("dictionary", "make_mdict", "yes")
-        config_update("dictionary", "make_link", "yes")
-        config_update("dictionary", "link_url", "https://thebuddhaswords.net/")
         config_update("dictionary", "show_id", "no")
         config_update("dictionary", "data_limit", "0")
 

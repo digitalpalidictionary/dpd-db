@@ -48,9 +48,6 @@ class GlobalVars:
         self.make_mdict: bool = False
         if config_test("dictionary", "make_mdict", "yes"):
             self.make_mdict: bool = True
-        self.make_link: bool = False
-        if config_test("dictionary", "make_link", "yes"):
-            self.make_link: bool = True
 
         self.paths = self.pth
 
@@ -72,7 +69,6 @@ def main():
         g.sandhi_contractions,
         g.cf_set,
         g.idioms_set,
-        g.make_link,
         g.data_limit,
     )
     g.rendered_sizes.append(sizes)

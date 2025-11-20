@@ -130,17 +130,11 @@ Here is a quick overview:
 
 - **`source_1`** `[str]` what is the source of the first example ?
 
-- *`source_link_1`* `[str]` source of the first example with an embedded HTML link
-
 - **`sutta_1`** `[str]` from which sutta does the first example come?
 
 - **`example_1`** `[str]` what is a good contextual example of the headword?
 
 - **`source_2`** `[str]` what is the source of the second example?
-
-- *`source_link_2`* `[str]` source of the second example with an embedded HTML link
-
-- *`source_link_sutta`* `[str]` sutta code from example with an embedded HTML link
 
 - **`sutta_2`** `[str]` from which sutta does the second example come?
 

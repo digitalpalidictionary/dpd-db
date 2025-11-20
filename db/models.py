@@ -984,43 +984,6 @@ class DpdHeadword(Base):
             return []
 
     @property
-    def source_link_1(self) -> str:
-        return generate_link(self.source_1) if self.source_1 else ""
-
-    @property
-    def source_link_2(self) -> str:
-        return generate_link(self.source_2) if self.source_2 else ""
-
-    @property
-    def source_link_sutta(self) -> str:
-        if self.meaning_2:
-            if (
-                self.family_set.startswith("suttas of")
-                or self.family_set == "bhikkhupātimokkha rules"
-                or self.family_set == "chapters of the Saṃyutta Nikāya"
-            ):
-                unified_pattern = (
-                    r"\(([A-Z]+)\s?([\d\.]+)(-\d+)?\)|([A-Z]+)[\s]?([\d\.]+)(-\d+)?"
-                )
-                match = re.finditer(unified_pattern, self.meaning_2)
-
-                for m in match:
-                    prefix = m.group(1) if m.group(1) else m.group(3)
-                    number = m.group(2) if m.group(2) else m.group(4)
-
-                    combined_number = f"{prefix}{number}" if prefix and number else None
-
-                    if combined_number:
-                        link = generate_link(combined_number)
-
-                        if link:
-                            return link
-
-            return ""
-        else:
-            return ""
-
-    @property
     def sanskrit_clean(self) -> str:
         sanskrit_clean = re.sub(r"\[.+\]", "", self.sanskrit)
         return sanskrit_clean.strip()
