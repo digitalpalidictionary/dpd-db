@@ -1,5 +1,45 @@
 [
     {
+        "id": 88034,
+        "lemma_1": "apettha"
+    },
+    {
+        "id": 28542,
+        "lemma_1": "jīna 1"
+    },
+    {
+        "id": 28643,
+        "lemma_1": "jutindhara 2"
+    },
+    {
+        "id": 739,
+        "lemma_1": "aghātayanta"
+    },
+    {
+        "id": 29696,
+        "lemma_1": "tathādhota"
+    },
+    {
+        "id": 46065,
+        "lemma_1": "piṇḍamalattha"
+    },
+    {
+        "id": 62347,
+        "lemma_1": "sāmayika 2"
+    },
+    {
+        "id": 25310,
+        "lemma_1": "godhika"
+    },
+    {
+        "id": 48808,
+        "lemma_1": "byādhayati"
+    },
+    {
+        "id": 51843,
+        "lemma_1": "mahābhayabheravasadda"
+    },
+    {
         "id": 38143,
         "lemma_1": "nillāletvā"
     },
@@ -38,45 +78,5 @@
     {
         "id": 49081,
         "lemma_1": "brāhmaṇavaṇṇa"
-    },
-    {
-        "id": 63043,
-        "lemma_1": "silāvati"
-    },
-    {
-        "id": 32932,
-        "lemma_1": "dukkhamaddasa"
-    },
-    {
-        "id": 59169,
-        "lemma_1": "samañcarati"
-    },
-    {
-        "id": 34402,
-        "lemma_1": "dvittā"
-    },
-    {
-        "id": 64556,
-        "lemma_1": "suvaṇṇapabbata"
-    },
-    {
-        "id": 87984,
-        "lemma_1": "vadeti 1.2"
-    },
-    {
-        "id": 9891,
-        "lemma_1": "asocāpayanta"
-    },
-    {
-        "id": 9889,
-        "lemma_1": "asocanta"
-    },
-    {
-        "id": 1177,
-        "lemma_1": "ajāpayanta"
-    },
-    {
-        "id": 1201,
-        "lemma_1": "ajinanta"
     }
 ]

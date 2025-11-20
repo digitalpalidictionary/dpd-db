@@ -3363,6 +3363,86 @@
         "āhareyyanti": [
             13194,
             13196
+        ],
+        "iddhiyā": [
+            13648
+        ],
+        "jala": [
+            28095
+        ],
+        "jutindhara": [
+            28643
+        ],
+        "kathañhi": [
+            19853
+        ],
+        "parinibbutoti": [
+            43604
+        ],
+        "gacchateva": [
+            24040
+        ],
+        "uttaraṃ": [
+            14666,
+            14667,
+            14679,
+            14697,
+            76292,
+            76310,
+            80941
+        ],
+        "gatoti": [
+            77840
+        ],
+        "anuyuñjaṃ": [
+            5087
+        ],
+        "kacchā": [
+            19287
+        ],
+        "jīno": [
+            28543,
+            28544
+        ],
+        "sakkhiṃ": [
+            56505,
+            56507
+        ],
+        "sakkhī": [
+            56507
+        ],
+        "mūlaṃ": [
+            53096
+        ],
+        "anubuddhaṃ": [
+            4975
+        ],
+        "nikkhamitvā": [
+            36785
+        ],
+        "aḷaṃ": [
+            10968
+        ],
+        "kathalāya": [
+            19820
+        ],
+        "sañchindeyyuṃ": [
+            57318
+        ],
+        "aḷehi": [
+            10968
+        ],
+        "apettha": [
+            6758
+        ],
+        "vindema": [
+            68277
+        ],
+        "vāyasetto": [
+            66854
+        ],
+        "apakkame": [
+            6021
         ]
     },
     "matched": {},
@@ -3766,6 +3846,137 @@
         "sāmayikaṃ",
         "piṇḍamalatthāti",
         "tathādhotena",
-        "aghātayaṃ"
+        "aghātayaṃ",
+        "katichindasuttaṃ",
+        "jāgarasuttaṃ",
+        "appaṭividitasuttaṃ",
+        "saṇamānasuttaṃ",
+        "niddātandīsuttaṃ",
+        "sattisuttaṃ",
+        "phusatisuttaṃ",
+        "jaṭāsuttaṃ",
+        "manonivāraṇasuttaṃ",
+        "arahantasuttaṃ",
+        "sarasuttaṃ",
+        "mahaddhanasuttaṃ",
+        "eṇijaṅghasuttaṃ",
+        "sabbhisuttaṃ",
+        "maccharisuttaṃ",
+        "ujjhānasaññisuttaṃ",
+        "saddhāsuttaṃ",
+        "kiṃdadasuttaṃ",
+        "annasuttaṃ",
+        "anomasuttaṃ",
+        "vanaropasuttaṃ",
+        "jetavanasuttaṃ",
+        "ajarasāsuttaṃ",
+        "vatthusuttaṃ",
+        "paṭhamajanasuttaṃ",
+        "tatiyajanasuttaṃ",
+        "uppathasuttaṃ",
+        "bandhanasuttaṃ",
+        "uḍḍitasuttaṃ",
+        "rathasuttaṃ",
+        "vittasuttaṃ",
+        "vuṭṭhisuttaṃ",
+        "bhītāsuttaṃ",
+        "najīratisuttaṃ",
+        "issariyasuttaṃ",
+        "pātheyyasuttaṃ",
+        "araṇasuttaṃ",
+        "paṭhamakassapasuttaṃ",
+        "māgadhasuttaṃ",
+        "dāmalisuttaṃ",
+        "pañcālacaṇḍasuttaṃ",
+        "candimasuttaṃ",
+        "sūriyasuttaṃ",
+        "candimasasuttaṃ",
+        "veṇḍusuttaṃ",
+        "dīghalaṭṭhisuttaṃ",
+        "vāsudattasuttaṃ",
+        "anāthapiṇḍikasuttaṃ",
+        "jantusuttaṃ",
+        "nandivisālasuttaṃ",
+        "mallikāsuttaṃ",
+        "doṇapākasuttaṃ",
+        "paṭhamasaṅgāmasuttaṃ",
+        "dutiyasaṅgāmasuttaṃ",
+        "kalyāṇamittasuttaṃ",
+        "ayyikāsuttaṃ",
+        "pabbatūpamasuttaṃ",
+        "naṅgalasīsā",
+        "subhasuttaṃ",
+        "sappasuttaṃ",
+        "supatisuttaṃ",
+        "paṭhamaāyusuttaṃ",
+        "dutiyaāyusuttaṃ",
+        "pāsāṇasuttaṃ",
+        "kinnusīhasuttaṃ",
+        "patirūpasuttaṃ",
+        "yadaññamanusāsasi",
+        "mānasasuttaṃ",
+        "piṇḍasuttaṃ",
+        "rajjasuttaṃ",
+        "godhikasuttaṃ",
+        "kubbanti",
+        "vivattakkhandhaṃ",
+        "anikāmayaṃ",
+        "abhassatha",
+        "otārāpekkho",
+        "sakkhiṃ",
+        "pamattabandhūti",
+        "visūkāyikāni",
+        "otārāpekkhoti",
+        "nibbejanīyā",
+        "nibbijjāpema",
+        "nandatisuttaṃ",
+        "natthiputtasamasuttaṃ",
+        "hirīsuttaṃ",
+        "kuṭikāsuttaṃ",
+        "catucakkasuttaṃ",
+        "nasantisuttaṃ",
+        "paṭhamapajjunnadhītusuttaṃ",
+        "dutiyapajjunnadhītusuttaṃ",
+        "ādittasuttaṃ",
+        "ekamūlasuttaṃ",
+        "dutiyajanasuttaṃ",
+        "attahatasuttaṃ",
+        "pihitasuttaṃ",
+        "kāmadasuttaṃ",
+        "tāyanasuttaṃ",
+        "kakudhasuttaṃ",
+        "sivasuttaṃ",
+        "serīsuttaṃ",
+        "nānātitthiyasāvakasuttaṃ",
+        "aḍḍakaraṇasuttaṃ",
+        "issattasuttaṃ",
+        "paṭhamamārapāsasuttaṃ",
+        "dutiyamārapāsasuttaṃ",
+        "susammuṭṭhasuttaṃ",
+        "mānakāmasuttaṃ",
+        "dukkarasuttaṃ",
+        "cittasuttaṃ",
+        "dutiyakassapasuttaṃ",
+        "pattasuttaṃ",
+        "chaphassāyatanasuttaṃ",
+        "kassakasuttaṃ",
+        "sambahulasuttaṃ",
+        "maraṇābhibhū",
+        "soppamānaṃ",
+        "tumhe",
+        "jetvāna",
+        "bhetvā",
+        "anāgantvā",
+        "sakkhī",
+        "palikhāya",
+        "anāgu",
+        "asocamāno",
+        "kimaññamanusāsasīti",
+        "selamāsajja",
+        "māradhītusuttaṃ",
+        "anuyuñjaṃ",
+        "sattavassānubandhasuttaṃ",
+        "bhavalobhajappaṃ",
+        "jala"
     ]
 }
