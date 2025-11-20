@@ -613,6 +613,12 @@ class SuttaInfo(Base):
             .count()
         )
 
+    @property
+    def sutta_codes_list(self) -> list[str]:
+        from tools.sutta_codes import make_list_of_sutta_codes
+
+        return make_list_of_sutta_codes(self)
+
     def __repr__(self) -> str:
         return f"SuttaInfo: {self.dpd_code} {self.dpd_sutta}"
 

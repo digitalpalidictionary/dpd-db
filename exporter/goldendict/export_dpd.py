@@ -178,7 +178,7 @@ def render_pali_word_dpd_html(
             html += sutta_info
         except Exception as e:
             pr.red(i.lemma_1)
-            pr.red(e)
+            pr.red(f"{e}")
 
     if i.needs_grammar_button:
         grammar = render_grammar_templ(
@@ -248,19 +248,25 @@ def render_pali_word_dpd_html(
     size_dict["dpd_header"] += len(header)
     html = squash_whitespaces(header) + minify(html)
 
+    # lots of synonyms
     synonyms: List[str] = i.inflections_list_all  # include api ca eva iti
     synonyms = add_niggahitas(synonyms)
+
     for synonym in synonyms:
         if synonym in sandhi_contractions:
             contractions = sandhi_contractions[synonym]
             for contraction in contractions:
                 if "'" in contraction:
                     synonyms.append(contraction)
+
     synonyms += i.inflections_sinhala_list
     synonyms += i.inflections_devanagari_list
     synonyms += i.inflections_thai_list
     synonyms += i.family_set_list
     synonyms += [str(i.id)]
+
+    if i.needs_sutta_info_button:
+        synonyms += i.su.sutta_codes_list
 
     size_dict["dpd_synonyms"] += len(str(synonyms))
 

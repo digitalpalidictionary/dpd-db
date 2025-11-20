@@ -1,6 +1,5 @@
 """Add all the sutta codes to the lookup table referring to the original sutta(s)."""
 
-import re
 from dataclasses import dataclass, field
 
 from db.db_helpers import get_db_session
@@ -8,6 +7,7 @@ from db.models import DpdHeadword, Lookup, SuttaInfo
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.sutta_codes import make_list_of_sutta_codes
 from tools.update_test_add import update_test_add
 
 SuttaInfoDict = dict[str, set[int]]
@@ -25,28 +25,6 @@ class GlobalVars:
     sutta_id: int = field(default_factory=int)
 
 
-def make_list_of_sutta_codes(code_with_dash: str) -> list[str]:
-    if "." in code_with_dash:
-        # find the base of the code, 'SN12.' in 'SN12.5-8'
-        code_base = re.sub(r"(?<=\.).+", "", code_with_dash)
-    else:
-        # if DHP return early
-        return []   
-
-    # find the part with dashes, '5-8.' in 'SN12.5-8'
-    code_dash = re.sub(code_base, "", code_with_dash)
-    # find the first digit, 5 in 'SN12.5-8'
-    code_first = int(re.sub(r"-.+", "", code_dash))
-    # find the last digit, 8 in 'SN12.5-8'
-    code_last = int(re.sub(r".+-", "", code_dash))
-
-    sutta_code_list = []
-    for num in range(code_first, code_last + 1):
-        sutta_code_list.append(f"{code_base}{num}")
-        # print(code_with_dash, f"{code_base}{num}")
-    return sutta_code_list
-
-
 def add_code_to_dict(
     g: GlobalVars,
 ) -> None:
@@ -57,42 +35,31 @@ def add_code_to_dict(
 
 
 def get_id(g: GlobalVars):
-    id = (
-        g.db_session.query(DpdHeadword.id)
-        .filter(DpdHeadword.lemma_1 == g.sutta_name)
-        .first()
-    )
-    if id:
-        g.sutta_id = id[0]
+    """Needs sutta_name"""
+
+    if g.sutta_name:
+        id = (
+            g.db_session.query(DpdHeadword.id)
+            .filter(DpdHeadword.lemma_1 == g.sutta_name)
+            .first()
+        )
+        if id:
+            g.sutta_id = id[0]
+        else:
+            pr.red(f"error: '{g.sutta_name}'")
     else:
-        pr.red(g.sutta_name)
+        pr.red(f"error: '{g.sutta_name}'")
 
 
 def make_sutta_info_dict(g: GlobalVars):
     pr.green("make sutta info dict")
-    for i in g.sutta_db:
-        g.sutta_name = i.dpd_sutta
-        g.sutta_code = i.dpd_code
+    for su in g.sutta_db:
+        g.sutta_name = su.dpd_sutta
         get_id(g)
-
-        if i.dpd_code:
+        sutta_codes = make_list_of_sutta_codes(su)
+        for code in sutta_codes:
+            g.sutta_code = code
             add_code_to_dict(g)
-
-            if "-" in i.dpd_code:
-                sutta_codes = make_list_of_sutta_codes(i.dpd_code)
-                for code in sutta_codes:
-                    g.sutta_code = code
-                    add_code_to_dict(g)
-
-        if i.sc_code:
-            g.sutta_code = i.sc_code.upper()
-            add_code_to_dict(g)
-
-            if "-" in i.sc_code:
-                sutta_codes = make_list_of_sutta_codes(i.sc_code.upper())
-                for code in sutta_codes:
-                    g.sutta_code = code
-                    add_code_to_dict(g)
 
     pr.yes(len(g.sutta_info_dict))
 
@@ -148,7 +115,6 @@ def main() -> None:
     pr.title("add sutta codes to lookup table")
     g: GlobalVars = GlobalVars()
     make_sutta_info_dict(g)
-    # print_results(g)
     add_to_lookup_table(g)
     pr.toc()
 
