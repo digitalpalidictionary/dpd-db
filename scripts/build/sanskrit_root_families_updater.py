@@ -43,6 +43,7 @@ exceptions = [
     "vidhā",
     "vidyut",
     "upamā",
+    "nidrā",
 ]
 
 
