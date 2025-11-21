@@ -1017,8 +1017,8 @@
     },
     "2025-11-21": {
         "pass1": 0,
-        "pass2_add": 2,
+        "pass2_add": 3,
         "pass2_pre": 0,
-        "pass2_update": 50
+        "pass2_update": 100
     }
 }
