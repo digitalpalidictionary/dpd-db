@@ -14,19 +14,23 @@
 <div class="button-box">
 
     {% if d.i.needs_sutta_info_button %}
-    <a class="button" name="sutta-info-button" href="#" data-target="sutta_info_{{d.i.lemma_1_}}">
+    <a class="button" name="sutta-info-button" href="#"
+        data-target="sutta_info_{{d.i.lemma_1_}}">
         sutta</a>
 
     {% endif %}
 
     {% if d.i.needs_grammar_button %}
-    <a class="button" name="grammar-button" href="#" data-target="grammar_{{d.i.lemma_1_}}">
+    <a class="button" name="grammar-button" href="#"
+        data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %} {% if d.i.needs_example_button %}
-    <a class="button" name="example-button" href="#" data-target="example_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#"
+        data-target="example_{{d.i.lemma_1_}}">
         example</a>
     {% endif %} {% if d.i.needs_examples_button %}
-    <a class="button" name="example-button" href="#" data-target="examples_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#"
+        data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
     {% endif %} {% if d.i.needs_conjugation_button %}
     <a class="button" href="#" data-target="conjugation_{{d.i.lemma_1_}}">
@@ -67,7 +71,8 @@
 <!-- sutta info -->
 
 {% if d.i.needs_sutta_info_button %}
-<div id="sutta_info_{{d.i.lemma_1_}}" name="sutta-info-div" class="dpd content hidden">
+<div id="sutta_info_{{d.i.lemma_1_}}" name="sutta-info-div"
+    class="dpd content hidden">
     <table class="sutta-info">
 
         <!-- CST -->
@@ -172,7 +177,9 @@
                 Github
             </th>
             <td>
-                <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}" target="_blank">{{
+                <a
+                    href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}"
+                    target="_blank">{{
                     d.su.cst_file }}</a>
 
             </td>
@@ -414,7 +421,7 @@
         {% if d.su.cst_m_page %}
         <tr>
             <th class="heading" colspan="2">
-                Printed Editions
+                Printed Editions Page Numbers
             </th>
         </tr>
         {% endif %}
@@ -480,7 +487,8 @@
 <!-- grammar -->
 
 {% if d.i.needs_grammar_button %}
-<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd content hidden">
+<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div"
+    class="dpd content hidden">
     <table class="grammar">
         <tr>
             <th>Lemma</th>
@@ -624,9 +632,11 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
+<div id="example_{{d.i.lemma_1_}}" name="example-div"
+    class="dpd content hidden">
     {% elif d.i.needs_examples_button %}
-    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
+    <div id="examples_{{d.i.lemma_1_}}" name="example-div"
+        class="dpd content hidden">
         {% endif %}
 
         {% if d.i.example_1 and d.i.meaning_1 %}
@@ -778,7 +788,8 @@
         {% for f in d.fc %} {% if loop.index == 0 %}
         <p class="heading underlined overlined">{% else %}</p>
 
-        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" class="heading underlined overlined">
+        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}"
+            class="heading underlined overlined">
             {% endif %} {% if f.count == 1 %}
             <b>{{f.count}}</b>
             compound which contains
@@ -871,7 +882,8 @@
         {% for f in d.fs %} {% if loop.index0 == 0 %}
         <p class="heading underlined overlined">{% else %}</p>
 
-        <p id="{{d.i.lemma_1_}}sets_{{f.set}}" class="heading underlined overlined">
+        <p id="{{d.i.lemma_1_}}sets_{{f.set}}"
+            class="heading underlined overlined">
             {% endif %}
             <b>{{d.i.lemma_clean}}</b>
             belongs to the set of
@@ -934,7 +946,9 @@
             For a detailed explanation of how this word frequency chart is
             calculated,
             it's accuracies and inaccuracies, please refer to
-            <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/" target="_blank">
+            <a class="link"
+                href="https://digitalpalidictionary.github.io/features/frequency/"
+                target="_blank">
                 this webpage </a>.
         </p>
         <p class="footer">
@@ -989,7 +1003,8 @@
             </span>
         </p>
         <p>
-            <a class="link" href="https://digitalpalidictionary.github.io/" target="_blank">
+            <a class="link" href="https://digitalpalidictionary.github.io/"
+                target="_blank">
                 Read the docs
             </a>
             <span>
