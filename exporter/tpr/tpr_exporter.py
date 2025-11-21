@@ -58,7 +58,10 @@ def generate_tpr_data(g: GlobalVars):
     for counter, i in enumerate(g.dpd_db):
         # headword
         html_string = render_dpd_definition_templ(
-            g.pth, i, dpd_definition_templ, False, False
+            g.pth,
+            i,
+            dpd_definition_templ,
+            False,
         )
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
