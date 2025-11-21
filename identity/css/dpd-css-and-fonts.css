@@ -1,15 +1,15 @@
 @font-face {
-    font-family: 'Inter';
-    src: url('Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
-    font-weight: 100 900;
-    font-style: normal;
+  font-family: 'Inter';
+  src: url('Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Inter';
-    src: url('Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
-    font-weight: 100 900;
-    font-style: italic;
+  font-family: 'Inter';
+  src: url('Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
 }
 
 body {
@@ -338,10 +338,9 @@ table.freq tbody th {
 .vertical-text {
   text-orientation: upright;
   inline-size: fit-content;
-  word-break: break-all; /* breaks word at any character */
-  max-width: 1ex; /* no wider than a single character */
-  white-space: break-spaces; /* overrides table.freq tbody th no-wrap */
-  /* align-content: center; */
+  word-break: break-all;
+  max-width: 1ex;
+  white-space: break-spaces;
   align-items: center;
 }
 

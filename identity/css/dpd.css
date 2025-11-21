@@ -324,10 +324,9 @@ table.freq tbody th {
 .vertical-text {
   text-orientation: upright;
   inline-size: fit-content;
-  word-break: break-all; /* breaks word at any character */
-  max-width: 1ex; /* no wider than a single character */
-  white-space: break-spaces; /* overrides table.freq tbody th no-wrap */
-  /* align-content: center; */
+  word-break: break-all;
+  max-width: 1ex;
+  white-space: break-spaces;
   align-items: center;
 }
 

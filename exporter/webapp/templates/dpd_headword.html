@@ -75,7 +75,7 @@
         {% if d.su.cst_code %}
         <tr>
             <th class="heading top" colspan="2">
-                Chaṭṭha Saṅgāyana Tipiṭaka
+                Chaṭṭha Saṅgāyana Tipiṭaka (CST)
             </th>
         </tr>
         {% endif %}
@@ -175,6 +175,38 @@
                 <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}" target="_blank">{{
                     d.su.cst_file }}</a>
 
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Websites using CST
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dpr_link %}
+        <tr>
+            <th>
+                Digital Pali Reader
+            </th>
+            <td>
+                <a href="{{ d.su.dpr_link }}" target="_blank">{{ d.su.dpr_link
+                    }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th>
+                TipitakaPali.org
+            </th>
+            <td>
+                <a href="{{ d.su.tpp_org }}" target="_blank">{{ d.su.tpp_org
+                    }}</a>
             </td>
         </tr>
         {% endif %}
@@ -299,14 +331,37 @@
         <!-- websites -->
         <tr>
             <th class="heading" colspan="2">
-                Websites
+                Websites using Sutta Central
             </th>
         </tr>
 
         {% if d.su.sc_code %}
         <tr>
             <th>
-                Dhamma.gift (SC)
+                The Buddha's Words
+            </th>
+            <td>
+                <a href="{{ d.su.tbw }}" target="_blank">{{ d.su.tbw }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                TBW Legacy
+            </th>
+            <td>
+                <a href="{{ d.su.tbw_legacy }}" target="_blank">{{
+                    d.su.tbw_legacy }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                Dhamma.gift
             </th>
             <td>
                 <a href="{{ d.su.dhamma_gift }}" target="_blank">{{
@@ -318,56 +373,11 @@
         {% if d.su.sc_code %}
         <tr>
             <th>
-                The Buddha's Words (SC)
+                SC Voice
             </th>
             <td>
-                <a href="{{ d.su.tbw }}" target="_blank">{{ d.su.tbw }}</a>
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.sc_code %}
-        <tr>
-            <th>
-                TBW Legacy (SC)
-            </th>
-            <td>
-                <a href="{{ d.su.tbw_legacy }}" target="_blank">{{ d.su.tbw_legacy }}</a>
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.sc_code %}
-        <tr>
-            <th>
-                SC Voice (SC)
-            </th>
-            <td>
-                <a href="{{ d.su.sc_voice_link }}" target="_blank">{{ d.su.sc_voice_link }}</a>
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.cst_code %}
-        <tr>
-            <th>
-                TipitakaPali.org (CST)
-            </th>
-            <td>
-                <a href="{{ d.su.tpp_org }}" target="_blank">{{ d.su.tpp_org
-                    }}</a>
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.dpr_link %}
-        <tr>
-            <th>
-                Digital Pali Reader (CST)
-            </th>
-            <td>
-                <a href="{{ d.su.dpr_link }}" target="_blank">{{ d.su.dpr_link
-                    }}</a>
+                <a href="{{ d.su.sc_voice_link }}" target="_blank">{{
+                    d.su.sc_voice_link }}</a>
             </td>
         </tr>
         {% endif %}
@@ -626,7 +636,6 @@
         <p class="sutta">
             {{d.i.source_1}} {{d.i.sutta_1|safe}}
         </p>
-
 
         {% if d.i.example_2 and d.i.meaning_1 %}
         <p>

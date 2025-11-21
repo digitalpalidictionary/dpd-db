@@ -6,7 +6,7 @@
         % if su.cst_code:
         <tr>
             <th class="heading top" colspan="2">
-                Chaṭṭha Saṅgāyana Tipiṭaka
+                Chaṭṭha Saṅgāyana Tipiṭaka (CST)
             </th>
         </tr>
         % endif
@@ -106,6 +106,36 @@
                 <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/${ su.cst_file }" target="_blank">${
                     su.cst_file }</a>
 
+            </td>
+        </tr>
+        % endif
+
+        % if su.cst_code:
+        <tr>
+            <th class="heading" colspan="2">
+                Websites using CST
+            </th>
+        </tr>
+        % endif
+
+        % if su.dpr_link:
+        <tr>
+            <th>
+                Digital Pali Reader
+            </th>
+            <td>
+                <a href="${ su.dpr_link }" target="_blank">${ su.dpr_link }</a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.tpp_org:
+        <tr>
+            <th>
+                TipitakaPali.org
+            </th>
+            <td>
+                <a href="${ su.tpp_org }" target="_blank">${ su.tpp_org }</a>
             </td>
         </tr>
         % endif
@@ -227,25 +257,14 @@
         <!-- websites -->
         <tr>
             <th class="heading" colspan="2">
-                Websites
+                Websites using Sutta Central
             </th>
         </tr>
 
         % if su.sc_code:
         <tr>
             <th>
-                Dhamma.gift (SC)
-            </th>
-            <td>
-                <a href="${ su.dhamma_gift }" target="_blank">${ su.dhamma_gift }</a>
-            </td>
-        </tr>
-        % endif
-
-        % if su.sc_code:
-        <tr>
-            <th>
-                The Buddha's Words (SC)
+                The Buddha's Words
             </th>
             <td>
                 <a href="${ su.tbw }" target="_blank">${ su.tbw }</a>
@@ -256,7 +275,7 @@
         % if su.sc_code:
         <tr>
             <th>
-                TBW Legacy (SC)
+                TBW Legacy
             </th>
             <td>
                 <a href="${ su.tbw_legacy }" target="_blank">${ su.tbw_legacy }</a>
@@ -267,32 +286,21 @@
         % if su.sc_code:
         <tr>
             <th>
-                SC Voice (SC)
+                Dhamma.gift
+            </th>
+            <td>
+                <a href="${ su.dhamma_gift }" target="_blank">${ su.dhamma_gift }</a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.sc_code:
+        <tr>
+            <th>
+                SC Voice
             </th>
             <td>
                 <a href="${ su.sc_voice_link }" target="_blank">${ su.sc_voice_link }</a>
-            </td>
-        </tr>
-        % endif
-
-        % if su.tpp_org:
-        <tr>
-            <th>
-                TipitakaPali.org (CST)
-            </th>
-            <td>
-                <a href="${ su.tpp_org }" target="_blank">${ su.tpp_org }</a>
-            </td>
-        </tr>
-        % endif
-
-        % if su.dpr_link:
-        <tr>
-            <th>
-                Digital Pali Reader (CST)
-            </th>
-            <td>
-                <a href="${ su.dpr_link }" target="_blank">${ su.dpr_link }</a>
             </td>
         </tr>
         % endif
