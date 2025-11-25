@@ -99,6 +99,16 @@ def make_dpd_html(
                                         "root.html"
                                     ).render(d=d)
 
+                            # abbreviations
+                            if lookup_result.abbrev:
+                                d = AbbreviationsData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "abbreviations_summary.html"
+                                ).render(d=d)
+                                dpd_html += templates.get_template(
+                                    "abbreviations.html"
+                                ).render(d=d)
+
                             # deconstructor
                             if lookup_result.deconstructor:
                                 d = DeconstructorData(lookup_result)
@@ -128,16 +138,6 @@ def make_dpd_html(
                                 dpd_html += templates.get_template("help.html").render(
                                     d=d
                                 )
-
-                            # abbreviations
-                            if lookup_result.abbrev:
-                                d = AbbreviationsData(lookup_result)
-                                summary_html += templates.get_template(
-                                    "abbreviations_summary.html"
-                                ).render(d=d)
-                                dpd_html += templates.get_template(
-                                    "abbreviations.html"
-                                ).render(d=d)
 
                             # epd
                             if lookup_result.epd:
@@ -279,6 +279,14 @@ def make_dpd_html(
                         ).render(d=d)
                         dpd_html += templates.get_template("root.html").render(d=d)
 
+                # abbreviations
+                if lookup_result.abbrev:
+                    d = AbbreviationsData(lookup_result)
+                    summary_html += templates.get_template(
+                        "abbreviations_summary.html"
+                    ).render(d=d)
+                    dpd_html += templates.get_template("abbreviations.html").render(d=d)
+
                 # deconstructor
                 if lookup_result.deconstructor:
                     d = DeconstructorData(lookup_result)
@@ -303,6 +311,7 @@ def make_dpd_html(
                     ).render(d=d)
                     dpd_html += templates.get_template("spelling.html").render(d=d)
 
+                # grammar
                 if lookup_result.grammar:
                     d = GrammarData(lookup_result)
                     summary_html += templates.get_template(
@@ -315,14 +324,6 @@ def make_dpd_html(
                     d = HelpData(lookup_result)
                     summary_html += templates.get_template("help_summary.html").render(d=d)
                     dpd_html += templates.get_template("help.html").render(d=d)
-
-                # abbreviations
-                if lookup_result.abbrev:
-                    d = AbbreviationsData(lookup_result)
-                    summary_html += templates.get_template(
-                        "abbreviations_summary.html"
-                    ).render(d=d)
-                    dpd_html += templates.get_template("abbreviations.html").render(d=d)
 
                 # epd
                 if lookup_result.epd:
