@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from contextlib import contextmanager
 import re
+from contextlib import contextmanager
 
 import uvicorn
 from fastapi import FastAPI, Request
@@ -22,11 +22,10 @@ from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.translit import auto_translit_to_roman
 
+pth: ProjectPaths = ProjectPaths()
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
-app.mount("/static", StaticFiles(directory="exporter/webapp/static"), name="static")
-
-pth: ProjectPaths = ProjectPaths()
+app.mount("/static", StaticFiles(directory=str(pth.webapp_static_dir)), name="static")
 
 # Create session factory for database connections
 SessionLocal = sessionmaker(
@@ -52,20 +51,20 @@ with get_db() as db_session:
     bd_count = db_session.query(BoldDefinition).count()
 
 # Set up templates
-templates = Jinja2Templates(directory="exporter/webapp/templates")
+templates = Jinja2Templates(directory=str(pth.webapp_templates_dir))
 
 # Update CSS
 css_manager = CSSManager()
 css_manager.update_webapp_css()
 
 # Global CSS and JS
-with open("exporter/webapp/static/dpd.css") as f:
+with open(pth.webapp_css_path) as f:
     dpd_css = f.read()
 
-with open("exporter/webapp/static/dpd.js") as f:
+with open(pth.webapp_js_path) as f:
     dpd_js = f.read()
 
-with open("exporter/webapp/static/home_simple.css") as f:
+with open(pth.webapp_home_simple_css_path) as f:
     home_simple_css = f.read()
 
 
@@ -233,7 +232,7 @@ if __name__ == "__main__":
         host="127.1.1.1",
         port=8080,
         reload=True,
-        reload_dirs="exporter/webapp/",
+        reload_dirs=str(pth.webapp_static_dir.parent),
     )
 
 # Run on local machine with reload on changes

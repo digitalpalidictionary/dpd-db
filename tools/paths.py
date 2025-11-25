@@ -383,6 +383,42 @@ class ProjectPaths:
 
         # exporter/webapp
         self.webapp_css_path = base_dir / "exporter/webapp/static/dpd.css"
+        self.webapp_templates_dir = base_dir / "exporter/webapp/templates"
+        self.webapp_static_dir = base_dir / "exporter/webapp/static"
+        self.webapp_js_path = base_dir / "exporter/webapp/static/dpd.js"
+        self.webapp_home_simple_css_path = (
+            base_dir / "exporter/webapp/static/home_simple.css"
+        )
+        self.webapp_home_css_path = base_dir / "exporter/webapp/static/home.css"
+        self.webapp_bold_definitions_js_path = (
+            base_dir / "exporter/webapp/static/bold_definitions.js"
+        )
+        self.webapp_logo_svg_path = base_dir / "exporter/webapp/static/dpd-logo.svg"
+        self.webapp_logo_dark_svg_path = (
+            base_dir / "exporter/webapp/static/dpd-logo-dark.svg"
+        )
+        self.webapp_app_js_path = base_dir / "exporter/webapp/static/app.js"
+        self.webapp_switch_css_path = base_dir / "exporter/webapp/static/switch.css"
+
+        # webapp template names as constants
+        self.dpd_summary_template = "dpd_summary.html"
+        self.dpd_headword_template = "dpd_headword.html"
+        self.root_summary_template = "root_summary.html"
+        self.root_template = "root.html"
+        self.abbreviations_summary_template = "abbreviations_summary.html"
+        self.abbreviations_template = "abbreviations.html"
+        self.deconstructor_summary_template = "deconstructor_summary.html"
+        self.deconstructor_template = "deconstructor.html"
+        self.grammar_summary_template = "grammar_summary.html"
+        self.grammar_template = "grammar.html"
+        self.help_summary_template = "help_summary.html"
+        self.help_template = "help.html"
+        self.epd_summary_template = "epd_summary.html"
+        self.epd_template = "epd.html"
+        self.variant_summary_template = "variant_summary.html"
+        self.variant_template = "variant.html"
+        self.spelling_summary_template = "spelling_summary.html"
+        self.spelling_template = "spelling.html"
 
         # identity/
         self.dpd_css_path = base_dir / "identity/css/dpd.css"
