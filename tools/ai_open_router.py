@@ -120,3 +120,71 @@ class OpenRouterManager:
             duration = time.monotonic() - start_time
             error_message = f"Unexpected error with OpenRouter ({model}) request after {duration:.2f}s: {e}"
             return AIResponse(content=None, status_message=error_message)
+
+
+def main():
+    """Test the OpenRouterManager with different models."""
+    from tools.printer import printer as pr
+
+    manager = OpenRouterManager()
+
+    if not manager.client:
+        pr.error(
+            "OpenRouter client not initialized. Please check your API key configuration."
+        )
+        return
+
+    # Test prompt
+    prompt = (
+        "What is the capital of Sri Lanka and what are some interesting facts about it?"
+    )
+    sys_prompt = (
+        "You are a helpful assistant that provides concise and accurate information."
+    )
+
+    # Test models from the DEFAULT_MODELS list
+    test_models = [
+        "x-ai/grok-4.1-fast",
+        "kwaipilot/kat-coder-pro:free",
+        "tngtech/deepseek-r1t-chimera:free",
+        "nvidia/nemotron-nano-12b-v2-vl:free",
+        "openrouter/bert-nebulon-alpha",
+        # "z-ai/glm-4.5-air:free",
+        # "qwen/qwen3-235b-a22b:free",
+        # "meta-llama/llama-4-maverick:free",
+    ]
+
+    pr.info("=== Testing OpenRouter Models ===")
+
+    for model in test_models:
+        pr.info(f"\n--- Testing model: {model} ---")
+        start_time = time.monotonic()
+
+        response = manager.request(
+            prompt=prompt, model=model, prompt_sys=sys_prompt, timeout=30.0
+        )
+
+        duration = time.monotonic() - start_time
+
+        pr.info(f"Duration: {duration:.2f}s")
+        pr.info(f"Status: {response.status_message}")
+
+        if response.content:
+            # Show first 200 characters of content
+            preview = (
+                response.content[:200] + "..."
+                if len(response.content) > 200
+                else response.content
+            )
+            pr.info(f"Content preview: {preview}")
+        else:
+            pr.warning("No content received")
+
+        # Small delay between requests
+        time.sleep(2)
+
+    pr.info("\n=== Testing Complete ===")
+
+
+if __name__ == "__main__":
+    main()
