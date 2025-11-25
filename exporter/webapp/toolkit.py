@@ -70,10 +70,10 @@ def make_dpd_html(
                                     fs = get_family_set(i)
                                     d = HeadwordData(i, fc, fi, fs)
                                     summary_html += templates.get_template(
-                                        pth.dpd_summary_template
+                                        pth.template_dpd_summary
                                     ).render(d=d)
                                     dpd_html += templates.get_template(
-                                        pth.dpd_headword_template
+                                        pth.template_dpd_headword
                                     ).render(d=d)
 
                             # roots
@@ -93,80 +93,80 @@ def make_dpd_html(
                                     )
                                     d = RootsData(r, frs, roots_count_dict)
                                     summary_html += templates.get_template(
-                                        pth.root_summary_template
+                                        pth.template_root_summary
                                     ).render(d=d)
                                     dpd_html += templates.get_template(
-                                        pth.root_template
+                                        pth.template_root
                                     ).render(d=d)
 
                             # abbreviations
                             if lookup_result.abbrev:
                                 d = AbbreviationsData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.abbreviations_summary_template
+                                    pth.template_abbreviations_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.abbreviations_template
+                                    pth.template_abbreviations
                                 ).render(d=d)
 
                             # deconstructor
                             if lookup_result.deconstructor:
                                 d = DeconstructorData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.deconstructor_summary_template
+                                    pth.template_deconstructor_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.deconstructor_template
+                                    pth.template_deconstructor
                                 ).render(d=d)
 
                             # grammar
                             if lookup_result.grammar:
                                 d = GrammarData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.grammar_summary_template
+                                    pth.template_grammar_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.grammar_template
+                                    pth.template_grammar
                                 ).render(d=d)
 
                             # help
                             if lookup_result.help:
                                 d = HelpData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.help_summary_template
+                                    pth.template_help_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.help_template
+                                    pth.template_help
                                 ).render(d=d)
 
                             # epd
                             if lookup_result.epd:
                                 d = EpdData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.epd_summary_template
+                                    pth.template_epd_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.epd_template
+                                    pth.template_epd
                                 ).render(d=d)
 
                             # variant
                             if lookup_result.variant:
                                 d = VariantData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.variant_summary_template
+                                    pth.template_variant_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.variant_template
+                                    pth.template_variant
                                 ).render(d=d)
 
                             # spelling mistake
                             if lookup_result.spelling:
                                 d = SpellingData(lookup_result)
                                 summary_html += templates.get_template(
-                                    pth.spelling_summary_template
+                                    pth.template_spelling_summary
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
-                                    pth.spelling_template
+                                    pth.template_spelling
                                 ).render(d=d)
 
                     # the two cases below search directly in the DpdHeadwords table
@@ -183,7 +183,7 @@ def make_dpd_html(
                             fs = get_family_set(headword_result)
                             d = HeadwordData(headword_result, fc, fi, fs)
                             dpd_html += templates.get_template(
-                                pth.dpd_headword_template
+                                pth.template_dpd_headword
                             ).render(d=d)
 
                         # return closest matches
@@ -204,7 +204,7 @@ def make_dpd_html(
                             fs = get_family_set(headword_result)
                             d = HeadwordData(headword_result, fc, fi, fs)
                             dpd_html += templates.get_template(
-                                pth.dpd_headword_template
+                                pth.template_dpd_headword
                             ).render(d=d)
 
                         # return closest matches
@@ -254,10 +254,10 @@ def make_dpd_html(
                         fs = get_family_set(i)
                         d = HeadwordData(i, fc, fi, fs)
                         summary_html += templates.get_template(
-                            pth.dpd_summary_template
+                            pth.template_dpd_summary
                         ).render(d=d)
                         dpd_html += templates.get_template(
-                            pth.dpd_headword_template
+                            pth.template_dpd_headword
                         ).render(d=d)
 
                 # roots
@@ -275,9 +275,9 @@ def make_dpd_html(
                         frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
                         d = RootsData(r, frs, roots_count_dict)
                         summary_html += templates.get_template(
-                            pth.root_summary_template
+                            pth.template_root_summary
                         ).render(d=d)
-                        dpd_html += templates.get_template(pth.root_template).render(
+                        dpd_html += templates.get_template(pth.template_root).render(
                             d=d
                         )
 
@@ -285,37 +285,37 @@ def make_dpd_html(
                 if lookup_result.abbrev:
                     d = AbbreviationsData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.abbreviations_summary_template
+                        pth.template_abbreviations_summary
                     ).render(d=d)
                     dpd_html += templates.get_template(
-                        pth.abbreviations_template
+                        pth.template_abbreviations
                     ).render(d=d)
 
                 # deconstructor
                 if lookup_result.deconstructor:
                     d = DeconstructorData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.deconstructor_summary_template
+                        pth.template_deconstructor_summary
                     ).render(d=d)
                     dpd_html += templates.get_template(
-                        pth.deconstructor_template
+                        pth.template_deconstructor
                     ).render(d=d)
 
                 # variant
                 if lookup_result.variant:
                     d = VariantData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.variant_summary_template
+                        pth.template_variant_summary
                     ).render(d=d)
-                    dpd_html += templates.get_template(pth.variant_template).render(d=d)
+                    dpd_html += templates.get_template(pth.template_variant).render(d=d)
 
                 # spelling mistake
                 if lookup_result.spelling:
                     d = SpellingData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.spelling_summary_template
+                        pth.template_spelling_summary
                     ).render(d=d)
-                    dpd_html += templates.get_template(pth.spelling_template).render(
+                    dpd_html += templates.get_template(pth.template_spelling).render(
                         d=d
                     )
 
@@ -323,25 +323,25 @@ def make_dpd_html(
                 if lookup_result.grammar:
                     d = GrammarData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.grammar_summary_template
+                        pth.template_grammar_summary
                     ).render(d=d)
-                    dpd_html += templates.get_template(pth.grammar_template).render(d=d)
+                    dpd_html += templates.get_template(pth.template_grammar).render(d=d)
 
                 # help
                 if lookup_result.help:
                     d = HelpData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.help_summary_template
+                        pth.template_help_summary
                     ).render(d=d)
-                    dpd_html += templates.get_template(pth.help_template).render(d=d)
+                    dpd_html += templates.get_template(pth.template_help).render(d=d)
 
                 # epd
                 if lookup_result.epd:
                     d = EpdData(lookup_result)
                     summary_html += templates.get_template(
-                        pth.epd_summary_template
+                        pth.template_epd_summary
                     ).render(d=d)
-                    dpd_html += templates.get_template(pth.epd_template).render(d=d)
+                    dpd_html += templates.get_template(pth.template_epd).render(d=d)
 
         # the two cases below search directly in the DpdHeadwords table
 
@@ -357,7 +357,7 @@ def make_dpd_html(
                 fi = get_family_idioms(headword_result)
                 fs = get_family_set(headword_result)
                 d = HeadwordData(headword_result, fc, fi, fs)
-                dpd_html += templates.get_template(pth.dpd_headword_template).render(
+                dpd_html += templates.get_template(pth.template_dpd_headword).render(
                     d=d
                 )
 
@@ -376,7 +376,7 @@ def make_dpd_html(
                 fi = get_family_idioms(headword_result)
                 fs = get_family_set(headword_result)
                 d = HeadwordData(headword_result, fc, fi, fs)
-                dpd_html += templates.get_template(pth.dpd_headword_template).render(
+                dpd_html += templates.get_template(pth.template_dpd_headword).render(
                     d=d
                 )
 
