@@ -162,5 +162,19 @@
             "family_set"
         ],
         "limit": 0
+    },
+    "lemma coupound type & construction": {
+        "data_filters": [
+            [
+                "lemma_1"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "meaning_1",
+            "compound_type",
+            "compound_construction"
+        ],
+        "limit": 0
     }
 }

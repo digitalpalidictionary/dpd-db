@@ -35,3 +35,37 @@
     'comment': "This entry refers to Sutta 1.76 of the Saṃyutta Nikāya. The title 'Najīratisutta' literally translates to 'The Discourse on "Does Not Age"', where 'najīrati' is a Pāḷi verb meaning 'does not age' or 'does not decay'. The sutta itself discusses the impermanence of various phenomena, leading to the conclusion that what is subject to aging and decay should not be clung to as self. The 'family_compound' field is derived by removing the negative particle 'na' from 'najīrati', following the pattern of other negative compounds in the related headwords, such as 'anantara' becoming 'antara'."
 }
 
+{
+    'id': 8934,
+    'lemma_1': 'arahantasutta 4',
+    'lemma_2': 'arahantasuttaṃ',
+    'pos': 'nt',
+    'grammar': 'nt, comp',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'discourse regarding the arahant; sutta about the perfected one',
+    'meaning_lit': 'discourse on the arahant',
+    'non_ia': '',
+    'sanskrit': 'arhat + sūtra',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'arahanta sutta',
+    'family_idioms': '',
+    'family_set': 'suttas of Saṃyutta Nikāya 23',
+    'construction': '',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'arahanta + sutta',
+    'stem': 'arahantasutt',
+    'pattern': 'a nt',
+    'comment': 'This sutta appears in the Rādha Saṃyutta (SN 23) focused on the nature of the arahant. Number 4 indicates its sequence within similarly titled discourses.'}
+}
+
