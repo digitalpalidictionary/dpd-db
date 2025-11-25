@@ -102,6 +102,9 @@ def make_dpd_html(
                             # deconstructor
                             if lookup_result.deconstructor:
                                 d = DeconstructorData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "deconstructor_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template(
                                     "deconstructor.html"
                                 ).render(d=d)
@@ -109,6 +112,9 @@ def make_dpd_html(
                             # grammar
                             if lookup_result.grammar:
                                 d = GrammarData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "grammar_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template(
                                     "grammar.html"
                                 ).render(d=d)
@@ -116,6 +122,9 @@ def make_dpd_html(
                             # help
                             if lookup_result.help:
                                 d = HelpData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "help_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template("help.html").render(
                                     d=d
                                 )
@@ -123,6 +132,9 @@ def make_dpd_html(
                             # abbreviations
                             if lookup_result.abbrev:
                                 d = AbbreviationsData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "abbreviations_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template(
                                     "abbreviations.html"
                                 ).render(d=d)
@@ -130,6 +142,9 @@ def make_dpd_html(
                             # epd
                             if lookup_result.epd:
                                 d = EpdData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "epd_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template("epd.html").render(
                                     d=d
                                 )
@@ -137,6 +152,9 @@ def make_dpd_html(
                             # variant
                             if lookup_result.variant:
                                 d = VariantData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "variant_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template(
                                     "variant.html"
                                 ).render(d=d)
@@ -144,6 +162,9 @@ def make_dpd_html(
                             # spelling mistake
                             if lookup_result.spelling:
                                 d = SpellingData(lookup_result)
+                                summary_html += templates.get_template(
+                                    "spelling_summary.html"
+                                ).render(d=d)
                                 dpd_html += templates.get_template(
                                     "spelling.html"
                                 ).render(d=d)
@@ -261,35 +282,52 @@ def make_dpd_html(
                 # deconstructor
                 if lookup_result.deconstructor:
                     d = DeconstructorData(lookup_result)
+                    summary_html += templates.get_template(
+                        "deconstructor_summary.html"
+                    ).render(d=d)
                     dpd_html += templates.get_template("deconstructor.html").render(d=d)
 
                 # variant
                 if lookup_result.variant:
                     d = VariantData(lookup_result)
+                    summary_html += templates.get_template(
+                        "variant_summary.html"
+                    ).render(d=d)
                     dpd_html += templates.get_template("variant.html").render(d=d)
 
                 # spelling mistake
                 if lookup_result.spelling:
                     d = SpellingData(lookup_result)
+                    summary_html += templates.get_template(
+                        "spelling_summary.html"
+                    ).render(d=d)
                     dpd_html += templates.get_template("spelling.html").render(d=d)
 
                 if lookup_result.grammar:
                     d = GrammarData(lookup_result)
+                    summary_html += templates.get_template(
+                        "grammar_summary.html"
+                    ).render(d=d)
                     dpd_html += templates.get_template("grammar.html").render(d=d)
 
                 # help
                 if lookup_result.help:
                     d = HelpData(lookup_result)
+                    summary_html += templates.get_template("help_summary.html").render(d=d)
                     dpd_html += templates.get_template("help.html").render(d=d)
 
                 # abbreviations
                 if lookup_result.abbrev:
                     d = AbbreviationsData(lookup_result)
+                    summary_html += templates.get_template(
+                        "abbreviations_summary.html"
+                    ).render(d=d)
                     dpd_html += templates.get_template("abbreviations.html").render(d=d)
 
                 # epd
                 if lookup_result.epd:
                     d = EpdData(lookup_result)
+                    summary_html += templates.get_template("epd_summary.html").render(d=d)
                     dpd_html += templates.get_template("epd.html").render(d=d)
 
         # the two cases below search directly in the DpdHeadwords table

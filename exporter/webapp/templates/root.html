@@ -1,6 +1,6 @@
 <!-- definition -->
 
-<h3 id="{{ d.r.root_ }}">root: {{d.r.root}}</h3>
+<h3 id="root: {{ d.r.root_ }}">root: {{d.r.root}}</h3>
 <div class='dpd summary'>
     <p>
         root.
@@ -23,8 +23,7 @@
     <a class="button" href="#" data-target="root_matrix_{{d.r.root_}}">root
         matrix</a>
     {% for fr in d.frs: %}
-    <a class="button" href="#"
-        data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
+    <a class="button" href="#" data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
     {% endfor %}
 </div>
 
@@ -43,20 +42,19 @@
 
 <div id="root_matrix_{{d.r.root_}}" class="dpd content hidden">
     <p>
-        {% if d.count <= 1: %}
-        <b>{{d.count}}</b> word is derived from the root
-        {% else: %}
-        <b>{{d.count}}</b> words are derived from the root
-        {% endif %}
-        <b>
-            {{d.r.root_clean}}
-        </b>
-        <sup>
-            {{d.r.root_has_verb}}
-        </sup>
-        {{d.r.root_group}}
-        {{d.r.root_sign}}
-        ({{d.r.root_meaning}})
+        {% if d.count <= 1: %} <b>{{d.count}}</b> word is derived from the root
+            {% else: %}
+            <b>{{d.count}}</b> words are derived from the root
+            {% endif %}
+            <b>
+                {{d.r.root_clean}}
+            </b>
+            <sup>
+                {{d.r.root_has_verb}}
+            </sup>
+            {{d.r.root_group}}
+            {{d.r.root_sign}}
+            ({{d.r.root_meaning}})
     </p>
     {{d.r.root_matrix|safe}}
     <p class="footer">
@@ -72,14 +70,11 @@
 <!-- root families -->
 
 {% for fr in d.frs: %}
-<div
-    id="family_root_{{d.r.root_}}_{{fr.root_family_}}"
-    class="dpd hidden">
+<div id="family_root_{{d.r.root_}}_{{fr.root_family_}}" class="dpd hidden">
     {{fr.html|safe}}
     <p class='footer'>
         Does something look wrong?
-        <a
-            class="link"
+        <a class="link"
             href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}:%20{{fr.root_family_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">
             Report it here

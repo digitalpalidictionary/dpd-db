@@ -1,4 +1,4 @@
-<h3>grammar: {{d.headword}}</h3>
+<h3 id="grammar: {{ d.headword }}">grammar: {{d.headword}}</h3>
 <div class='dpd'>
     <table class='grammar_dict'>
         <thead>
@@ -24,7 +24,7 @@
                 </td>
             </tr>
             {% else %}
-            
+
             <tr>
                 <td>
                     {{item[1]}}
@@ -40,12 +40,13 @@
                 </td>
             </tr>
             {% endif %}
-            {%  endfor %}
-        
+            {% endfor %}
+
         </tbody>
     </table>
     <p class="footer">
-            For more information, please <a class='link' href='https://digitalpalidictionary.github.io/features/grammardict/' target='_blank'>read the docs</a>.
-        </p>
+        For more information, please <a class='link'
+            href='https://digitalpalidictionary.github.io/features/grammardict/' target='_blank'>read the docs</a>.
+    </p>
     </p>
 </div>
