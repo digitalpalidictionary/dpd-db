@@ -119,17 +119,17 @@ jobs:
     - name: Inflections to Headwords
       run: uv run python db/inflections/inflections_to_headwords.py
 
-    - name: Generate Grammar data
-      run: uv run python db/grammar/grammar_to_lookup.py
-
-    - name: Lookup Variants and Spelling Mistakes 
-      run: uv run python db/lookup/spelling_mistakes.py
-    
     - name: Populate Sutta table
       run: uv run db/suttas/suttas_update.py
 
     - name: Add Suttas to Lookup table
       run: uv run db/suttas/sutta_to_lookup.py
+
+    - name: Generate Grammar data
+      run: uv run python db/grammar/grammar_to_lookup.py
+
+    - name: Lookup Variants and Spelling Mistakes 
+      run: uv run python db/lookup/spelling_mistakes.py
 
     - name: Lookup Transliterate
       run: uv run python db/lookup/transliterate_lookup_table.py
