@@ -44,9 +44,10 @@ This section contains all information relevant to the Sutta Central website.
 | **Sutta** | Sutta name|
 | **Title** | English name of the sutta |
 | **Blurb** | A brief description of the sutta |
-| **File** | .JSON source file  containing the sutta|
+| **Links** | Links to the Sutta Card, Pāḷi text and English translation
+| **File** | .JSON source file containing the sutta|
 | **GitHub** | A link to the source file on GitHub
-| **Websites using Sutta Central** |Links to all websites which use SC texts as a source|
+| **Websites using Sutta Central** | Links to all websites which use SC texts as a source | 
 
 ## Buddha Jayanti Tipiṭaka
 
