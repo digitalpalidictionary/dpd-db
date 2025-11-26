@@ -8,6 +8,7 @@ nav:
   - Features:
     - "features/index.md"
     - Features: "features/features.md"
+    - Sutta Info: "features/sutta_info.md"
     - Roots Dict: "features/rootdict.md"
     - Word Frequency: "features/frequency.md"
     - Deconstructor: "features/deconstructor.md"
