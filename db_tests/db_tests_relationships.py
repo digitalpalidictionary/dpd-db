@@ -384,8 +384,7 @@ def pali_words_in_english_meaning(searches: dict) -> tuple:
     for i in searches["dpd_headword"]:
         pali_words.add(i.lemma_clean)
         meaning = i.meaning_1.lower()
-        # FIXME unsupported escape sequence \-, use r"" string
-        meaning = re.sub("[^A-Za-zāīūṭḍḷñṅṇṃ1234567890\-'’ ]", "", meaning)
+        meaning = re.sub(r"[^A-Za-zāīūṭḍḷñṅṇṃ1234567890\-'’ ]", "", meaning)
         english_words.update(meaning.split())
 
     english_words = english_words - exceptions
@@ -890,7 +889,6 @@ def duplicate_phrases(searches: dict) -> tuple:
         "patati 1",
         "paresaṃ 2",
         "vussati",
-        "nābhāsamāna",
     ]
 
     results = []
