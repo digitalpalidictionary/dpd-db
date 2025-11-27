@@ -186,27 +186,27 @@ function changeLanguage(lang) {
 
   let newHostname = hostname;
 
-   if (lang === "ru") {
-     // For Russian: remove www. and ru. if present, then add ru.
-     if (hostname.startsWith("www.")) {
-       newHostname = `ru.${hostname.substring(4)}`;
-     } else if (hostname.startsWith("ru.")) {
-       newHostname = hostname;
-     } else {
-       newHostname = `ru.${hostname}`;
-     }
-   } else if (lang === "en") {
-     // For English: remove ru. if present, and ensure www. is added
-     if (hostname.startsWith("ru.www.")) {
-       newHostname = `www.${hostname.substring(7)}`;
-     } else if (hostname.startsWith("ru.")) {
-       newHostname = `www.${hostname.substring(3)}`;
-     } else if (!hostname.startsWith("www.")) {
-       newHostname = `www.${hostname}`;
-     } else {
-       newHostname = hostname;
-     }
-   }
+  if (lang === "ru") {
+    // For Russian: remove www. and ru. if present, then add ru.
+    if (hostname.startsWith("www.")) {
+      newHostname = `ru.${hostname.substring(4)}`;
+    } else if (hostname.startsWith("ru.")) {
+      newHostname = hostname;
+    } else {
+      newHostname = `ru.${hostname}`;
+    }
+  } else if (lang === "en") {
+    // For English: remove ru. if present, and ensure www. is added
+    if (hostname.startsWith("ru.www.")) {
+      newHostname = `www.${hostname.substring(7)}`;
+    } else if (hostname.startsWith("ru.")) {
+      newHostname = `www.${hostname.substring(3)}`;
+    } else if (!hostname.startsWith("www.")) {
+      newHostname = `www.${hostname}`;
+    } else {
+      newHostname = hostname;
+    }
+  }
 
   // Only redirect if the hostname actually changed
   if (newHostname !== hostname) {
@@ -402,6 +402,9 @@ function uniCoder(textInput) {
     .replace(/\.l/g, "ḷ")
     .replace(/\.h/g, "ḥ");
 }
+
+// Expose uniCoder to the global scope
+window.uniCoder = uniCoder;
 
 searchBox.addEventListener("input", function () {
   let textInput = searchBox.value;

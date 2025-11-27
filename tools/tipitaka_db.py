@@ -1,13 +1,21 @@
+import os
 import re
+import shutil
+import zipfile
+from pathlib import Path
 from typing import Any, cast
 
+import requests
 from bs4 import BeautifulSoup
-from rich import print
+from rich.progress import Progress
+
 from sqlalchemy import Column, Integer, String, create_engine, event, inspect
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, declared_attr, sessionmaker
 
 from tools.pali_text_files import cst_texts
+from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 
 @event.listens_for(Engine, "connect")
@@ -22,11 +30,78 @@ def sqlite_engine_connect(dbapi_connection, connection_record):
 
     dbapi_connection.create_function("REGEXP", 2, regexp)
 
+def ensure_db_exists():
+    """Ensure the Tipitaka translation database exists, downloading it if necessary."""
+    pth = ProjectPaths()
+    
+    if not pth.tipitaka_translation_db_path.exists():
+        pr.info(f"Tipitaka translation database not found at {pth.tipitaka_translation_db_path}")
+        pr.info("Downloading... (approx 185 MB)")
+        
+        # Create directory if it doesn't exist
+        pth.tipitaka_translation_dir.mkdir(parents=True, exist_ok=True)
+        
+        url = "https://dhamma.paauksociety.org/Root/Tipitaka/tipitaka-translation-data.db.zip"
+        zip_path = pth.tipitaka_translation_dir / "tipitaka.zip"
+        
+        try:
+            # Download
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
+            
+            total_size = int(response.headers.get('content-length', 0))
+            
+            with open(zip_path, "wb") as f:
+                with Progress() as progress:
+                    task = progress.add_task("[cyan]Downloading...", total=total_size)
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                        progress.update(task, advance=len(chunk))
+            
+            pr.info("Download complete. Extracting...")
+            
+            # Extract
+            with zipfile.ZipFile(zip_path, "r") as zip_ref:
+                zip_ref.extractall(pth.tipitaka_translation_dir)
+            
+            # Find the .db file (it might have a different name inside the zip)
+            db_files = list(pth.tipitaka_translation_dir.glob("*.db"))
+            found_db = False
+            
+            for db_file in db_files:
+                # If we found the correct file already, skip
+                if db_file.name == "tipitaka-translation-data.db":
+                    found_db = True
+                    break
+                
+                # If we found another db file, rename it
+                # We assume the largest db file is the one we want if there are multiple
+                # But typically there's only one
+                if db_file.name != "tipitaka-translation-data.db":
+                    pr.info(f"Renaming {db_file.name} to tipitaka-translation-data.db")
+                    db_file.rename(pth.tipitaka_translation_db_path)
+                    found_db = True
+                    break
+            
+            if not found_db:
+                pr.red("Error: Could not find a .db file in the extracted archive.")
+            else:
+                pr.info("Database setup complete.")
+                
+        except Exception as e:
+            pr.red(f"Error downloading or setting up database: {e}")
+        finally:
+            # Cleanup zip file
+            if zip_path.exists():
+                zip_path.unlink()
+
 
 def get_db_engine():
     """Gets the SQLAlchemy engine for the Tipitaka DB."""
+    ensure_db_exists()
+    pth = ProjectPaths()
     return create_engine(
-        "sqlite:///resources/tipitaka_translation_data/tipitaka_translation_data.db",
+        f"sqlite:///{pth.tipitaka_translation_db_path}",
         echo=False,
     )
 
@@ -181,86 +256,88 @@ def get_all_cst_table_names():
 
 def compare_db_and_cst_tables():
     """Compares tables in the DB with tables derived from cst_texts."""
-    print("Comparing database tables with cst_texts dictionary...")
+    pr.info("Comparing database tables with cst_texts dictionary...")
 
     db_tables = get_all_db_table_names()
     cst_tables = get_all_cst_table_names()
 
-    print(f"\nFound {len(db_tables)} tables in the database.")
-    print(f"Found {len(cst_tables)} tables derived from cst_texts.")
+    pr.info(f"Found {len(db_tables)} tables in the database.")
+    pr.info(f"Found {len(cst_tables)} tables derived from cst_texts.")
 
     db_only_tables = sorted(list(db_tables - cst_tables))
     cst_only_tables = sorted(list(cst_tables - db_tables))
 
-    print("\n" + "=" * 40)
+    pr.info("=" * 40)
     if db_only_tables:
-        print(
-            f"[yellow]Tables in the database but NOT in cst_texts ({len(db_only_tables)}):[/yellow]"
+        pr.warning(
+            f"Tables in the database but NOT in cst_texts ({len(db_only_tables)}):"
         )
         for table in db_only_tables:
-            print(f"- {table}")
+            pr.info(f"- {table}")
     else:
-        print("[green]All tables in the database are represented in cst_texts.[/green]")
+        pr.info("All tables in the database are represented in cst_texts.")
 
-    print("\n" + "=" * 40)
+    pr.info("=" * 40)
     if cst_only_tables:
-        print(
-            f"[yellow]Tables in cst_texts but NOT in the database ({len(cst_only_tables)}):[/yellow]"
+        pr.warning(
+            f"Tables in cst_texts but NOT in the database ({len(cst_only_tables)}):"
         )
         for table in cst_only_tables:
-            print(f"- {table}")
+            pr.info(f"- {table}")
     else:
-        print("[green]All tables derived from cst_texts exist in the database.[/green]")
-    print("\n" + "=" * 40)
+        pr.info("All tables derived from cst_texts exist in the database.")
+    pr.info("=" * 40)
 
 
 def tui_interface():
     user_input = ""
     while user_input != "exit":
-        print("[green]what book? (e.g. kn14), 'all', or 'exit'", end=" ")
+        pr.info("what book? (e.g. kn14), 'all', or 'exit'", end=" ")
         user_input = input()
 
         if user_input == "exit":
             break
 
-        print("[green]what word?", end=" ")
+        pr.info("what word?", end=" ")
         user_word = input()
 
         if not user_word:
-            print("[yellow]Please enter a word to search.")
+            pr.warning("Please enter a word to search.")
             continue
 
         compiled_results = []
         if user_input == "all":
             compiled_results = search_all_cst_texts(user_word)
         elif user_input in cst_texts:
-            print(f"Searching in book '{user_input}'...")
+            pr.info(f"Searching in book '{user_input}'...")
             compiled_results = search_book(user_input, user_word)
         else:
-            print(f"[red]Book '{user_input}' not found.")
+            pr.error(f"Book '{user_input}' not found.")
             continue
 
         if not compiled_results:
-            print(f"[yellow]No results found for '{user_word}' in '{user_input}'.")
+            pr.warning(f"No results found for '{user_word}' in '{user_input}'.")
 
-        print(f"\nFound {len(compiled_results)} results.")
+        pr.info(f"Found {len(compiled_results)} results.")
         for result in compiled_results:
             pali_text, english_translation, table_name, book_name = result
             pali_text_highlighted = pali_text.replace(
                 user_word, f"[white on black]{user_word}[/white on black]"
             )
             print()
-            print(f"[bright_yellow]book: {book_name}")
-            print(f"[yellow]table: {table_name}")
-            print(f"[green]{pali_text_highlighted}")
-            print(f"[cyan]{english_translation}")
+            pr.info(f"book: {book_name}")
+            pr.info(f"table: {table_name}")
+            pr.info(f"{pali_text_highlighted}")
+            pr.info(f"{english_translation}")
             print()
-        print("-" * 50)
+        pr.info("-" * 50)
         print()
 
 
 if __name__ == "__main__":
+    # Ensure DB exists before starting interface
+    ensure_db_exists()
+
     # To compare DB tables with cst_texts, uncomment the line below
     compare_db_and_cst_tables()
-
-    tui_interface()
+    # tui_interface()

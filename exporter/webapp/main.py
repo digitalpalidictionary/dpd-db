@@ -20,6 +20,8 @@ from exporter.webapp.preloads import (
 from exporter.webapp.toolkit import make_dpd_html
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
+from tools.pali_text_files import cst_texts
+from tools.tipitaka_db import search_all_cst_texts, search_book
 from tools.translit import auto_translit_to_roman
 
 pth: ProjectPaths = ProjectPaths()
@@ -77,7 +79,13 @@ def home_page(request: Request, response_class=HTMLResponse):
     """Home page."""
 
     return templates.TemplateResponse(
-        "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
+        "home.html",
+        {
+            "request": request,
+            "dpd_results": "",
+            "bd_count": bd_count,
+            "book_options": list(cst_texts.keys()),
+        },
     )
 
 
@@ -86,7 +94,13 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
     """Bold definitions landing page"""
 
     return templates.TemplateResponse(
-        "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
+        "home.html",
+        {
+            "request": request,
+            "dpd_results": "",
+            "bd_count": bd_count,
+            "book_options": list(cst_texts.keys()),
+        },
     )
 
 
@@ -110,6 +124,7 @@ def db_search_html(request: Request, q: str):
             "request": request,
             "q": q,
             "dpd_results": dpd_html,
+            "book_options": list(cst_texts.keys()),
         },
     )
 
@@ -212,6 +227,78 @@ def db_search_bd(
             "history": history_list,
         },
     )
+
+
+@app.get("/tt_search", response_class=JSONResponse)
+def tt_search(request: Request, q: str, book: str, lang: str):
+    """Search Tipiṭaka Translations."""
+    
+    # Limit results
+    limit = 100
+    
+    # Determine search column
+    search_column = "pali_text" if lang == "Pāḷi" else "english_translation"
+    
+    # Perform search
+    if book == "all":
+        results = search_all_cst_texts(q, search_column=search_column)
+    else:
+        results = search_book(book, q, search_column=search_column)
+    
+    total_count = len(results)
+    results = results[:limit]
+    
+    # Generate HTML
+    html_content = ""
+    
+    if not results:
+        html_content = "<div class='tt-no-results'>No results found.</div>"
+    else:
+        count_message = f"Found {total_count} results"
+        if total_count > limit:
+            count_message += f", displaying the first {limit}"
+        count_message += "."
+        
+        html_content += f"<div class='tt-count'>{count_message}</div>"
+        
+        for i, (pali_text, eng_trans, table_name, book_name) in enumerate(results, 1):
+            pali_text = pali_text.lower()
+            
+            # Highlight search term
+            if q:
+                try:
+                    if lang == "Pāḷi":
+                        pali_text = re.sub(
+                            f"({q})", 
+                            r"<span class='hi'>\1</span>", 
+                            pali_text, 
+                            flags=re.IGNORECASE
+                        )
+                    else:
+                        eng_trans = re.sub(
+                            f"({q})", 
+                            r"<span class='hi'>\1</span>", 
+                            eng_trans, 
+                            flags=re.IGNORECASE
+                        )
+                except re.error:
+                    pass # Ignore invalid regex
+            
+            html_content += f"""
+            <div class="tt-item">
+                <div class="tt-pali">
+                    {i}. {pali_text}
+                </div>
+                <div class="tt-eng">
+                    {eng_trans}
+                </div>
+                <div class="tt-meta">
+                    Book: {book_name}, Table: {table_name}
+                </div>
+            </div>
+            """
+            
+    return JSONResponse(content={"html": html_content})
 
 
 def update_history(
