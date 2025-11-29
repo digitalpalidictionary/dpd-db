@@ -218,6 +218,60 @@
         </tr>
         {% endif %}
 
+        <!-- page numbers -->
+
+        {% if d.su.cst_m_page %}
+        <tr>
+            <th class="heading" colspan="2">
+                CST Page Numbers in Printed Editions
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_m_page %}
+        <tr>
+            <th>
+                Myanmar
+            </th>
+            <td>
+                {{ d.su.cst_m_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_t_page %}
+        <tr>
+            <th>
+                Thai
+            </th>
+            <td>
+                {{ d.su.cst_t_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_v_page %}
+        <tr>
+            <th>
+                VRI
+            </th>
+            <td>
+                {{ d.su.cst_v_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_p_page %}
+        <tr>
+            <th>
+                PTS
+            </th>
+            <td>
+                {{ d.su.cst_p_page }}
+            </td>
+        </tr>
+        {% endif %}
+
         <!-- sutta central -->
 
         {% if d.su.sc_code %}
@@ -389,6 +443,22 @@
         </tr>
         {% endif %}
 
+        {% if d.su.cst_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Buddha Jayanti Tipiṭaka
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Coming soon...
+            </th>
+            <td>
+                ...
+            </td>
+        </tr>
+        {% endif %}
+
         <!-- <tr>
         <th>
             Access to Insight
@@ -416,56 +486,291 @@
         </td>
     </tr> -->
 
-        <!-- page numbers -->
+        <!-- DV catalogue -->
 
-        {% if d.su.cst_m_page %}
+        {% if d.su.dv_pts or d.su.dv_general or d.su.dv_particular or
+        d.su.dv_stage or d.su.dv_training or d.su.dv_aspect or d.su.dv_teacher
+        or d.su.dv_audience or d.su.dv_method or d.su.dv_length or
+        d.su.dv_prominence %}
         <tr>
             <th class="heading" colspan="2">
-                Printed Editions Page Numbers
+                Dhamma Vinaya Tools: Sutta Catalogue
             </th>
         </tr>
-        {% endif %}
 
-        {% if d.su.cst_m_page %}
         <tr>
             <th>
-                Myanmar
+                Github
             </th>
             <td>
-                {{ d.su.cst_m_page }}
+                <a
+                    href="https://github.com/dhammavinaya-tools">https://github.com/dhammavinaya-tools</a>
             </td>
         </tr>
+
         {% endif %}
 
-        {% if d.su.cst_t_page %}
-        <tr>
-            <th>
-                Thai
-            </th>
-            <td>
-                {{ d.su.cst_t_page }}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.cst_v_page %}
-        <tr>
-            <th>
-                VRI
-            </th>
-            <td>
-                {{ d.su.cst_v_page }}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.cst_p_page %}
+        {% if d.su.dv_pts %}
         <tr>
             <th>
                 PTS
             </th>
             <td>
-                {{ d.su.cst_p_page }}
+                {{ d.su.dv_pts }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_general %}
+        <tr>
+            <th>
+                General Theme
+            </th>
+            <td>
+                {{ d.su.dv_general }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_particular %}
+        <tr>
+            <th>
+                Particular Topic
+            </th>
+            <td>
+                {{ d.su.dv_particular }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_stage %}
+        <tr>
+            <th>
+                Stage of Training
+            </th>
+            <td>
+                {{ d.su.dv_stage }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_training %}
+        <tr>
+            <th>
+                Training In
+            </th>
+            <td>
+                {{ d.su.dv_training }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_aspect %}
+        <tr>
+            <th>
+                Type of Teaching
+            </th>
+            <td>
+                {{ d.su.dv_aspect }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_teacher %}
+        <tr>
+            <th>
+                Teacher
+            </th>
+            <td>
+                {{ d.su.dv_teacher }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_audience %}
+        <tr>
+            <th>
+                Audience
+            </th>
+            <td>
+                {{ d.su.dv_audience }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_method %}
+        <tr>
+            <th>
+                Method of Teaching
+            </th>
+            <td>
+                {{ d.su.dv_method }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_length %}
+        <tr>
+            <th>
+                Length of Teaching
+            </th>
+            <td>
+                {{ d.su.dv_length }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_prominence %}
+        <tr>
+            <th>
+                Importance
+            </th>
+            <td>
+                {{ d.su.dv_prominence }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_summary %}
+        <tr>
+            <th>
+                Summary
+            </th>
+            <td>
+                {{ d.su.dv_summary }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_subjects %}
+        <tr>
+            <th>
+                Subjects
+            </th>
+            <td>
+                {{ d.su.dv_subjects }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_key_contents %}
+        <tr>
+            <th>
+                Key Contents
+            </th>
+            <td>
+                {{ d.su.dv_key_contents }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_similes %}
+        <tr>
+            <th>
+                Similes
+            </th>
+            <td>
+                {{ d.su.dv_similes }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_suggested %}
+        <tr>
+            <th>
+                Suggested Reading
+            </th>
+            <td>
+                {{ d.su.dv_suggested }}
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- DV parallel texts -->
+
+        {% if d.su.dv_parallel_nikayas or d.su.dv_parallel_āgamas or
+        d.su.dv_parallel_taisho or d.su.dv_parallel_sanskrit or
+        d.su.dv_parallel_vinaya or d.su.dv_parallel_others %}
+        <tr>
+            <th class="heading" colspan="2">
+                Parallels
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_nikayas %}
+        <tr>
+            <th>
+                Nikāyas
+            </th>
+            <td>
+                {{ d.su.dv_parallel_nikayas }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_āgamas %}
+        <tr>
+            <th>
+                Āgamas
+            </th>
+            <td>
+                {{ d.su.dv_parallel_āgamas }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_taisho %}
+        <tr>
+            <th>
+                Taisho
+            </th>
+            <td>
+                {{ d.su.dv_parallel_taisho }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_sanskrit %}
+        <tr>
+            <th>
+                Sanskrit
+            </th>
+            <td>
+                {{ d.su.dv_parallel_sanskrit }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_vinaya %}
+        <tr>
+            <th>
+                Vinaya
+            </th>
+            <td>
+                {{ d.su.dv_parallel_vinaya }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_others %}
+        <tr>
+            <th>
+                Others
+            </th>
+            <td>
+                {{ d.su.dv_parallel_others }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_parallel_partial_details %}
+        <tr>
+            <th>
+                Partial Parallels
+            </th>
+            <td>
+                {{ d.su.dv_parallel_partial_details }}
             </td>
         </tr>
         {% endif %}

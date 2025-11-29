@@ -16,7 +16,6 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.sql import func
 
-from tools.link_generator import generate_link
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS, DECLENSIONS, EXCLUDE_FROM_FREQ
 
@@ -539,6 +538,30 @@ class SuttaInfo(Base):
     sc_file_path: Mapped[str] = mapped_column(default="")
     dpr_code: Mapped[str] = mapped_column(default="")
     dpr_link: Mapped[str] = mapped_column(default="")
+    dv_pts: Mapped[str] = mapped_column(default="")
+    dv_general: Mapped[str] = mapped_column(default="")
+    dv_particular: Mapped[str] = mapped_column(default="")
+    dv_stage: Mapped[str] = mapped_column(default="")
+    dv_training: Mapped[str] = mapped_column(default="")
+    dv_aspect: Mapped[str] = mapped_column(default="")
+    dv_teacher: Mapped[str] = mapped_column(default="")
+    dv_audience: Mapped[str] = mapped_column(default="")
+    dv_method: Mapped[str] = mapped_column(default="")
+    dv_length: Mapped[str] = mapped_column(default="")
+    dv_prominence: Mapped[str] = mapped_column(default="")
+    dv_parallel_nikayas: Mapped[str] = mapped_column(default="")
+    dv_parallel_āgamas: Mapped[str] = mapped_column(default="")
+    dv_parallel_taisho: Mapped[str] = mapped_column(default="")
+    dv_parallel_sanskrit: Mapped[str] = mapped_column(default="")
+    dv_parallel_vinaya: Mapped[str] = mapped_column(default="")
+    dv_parallel_others: Mapped[str] = mapped_column(default="")
+    dv_parallel_partial: Mapped[str] = mapped_column(default="")
+    dv_parallel_partial_details: Mapped[str] = mapped_column(default="")
+    dv_summary: Mapped[str] = mapped_column(default="")
+    dv_subjects: Mapped[str] = mapped_column(default="")
+    dv_key_contents: Mapped[str] = mapped_column(default="")
+    dv_similes: Mapped[str] = mapped_column(default="")
+    dv_suggested: Mapped[str] = mapped_column(default="")
 
     @property
     def sc_card_link(self) -> str:
@@ -548,7 +571,7 @@ class SuttaInfo(Base):
     def sc_pali_link(self) -> str:
         if self.sc_code:
             return f"https://suttacentral.net/{self.sc_code}/pli/ms"
-        else: 
+        else:
             return None
 
     @property
@@ -568,7 +591,9 @@ class SuttaInfo(Base):
     @property
     def sc_github(self) -> str:
         if self.sc_code:
-            return f"https://github.com/suttacentral/sc-data/blob/main/{self.sc_file_path}"
+            return (
+                f"https://github.com/suttacentral/sc-data/blob/main/{self.sc_file_path}"
+            )
         else:
             return None
 
@@ -583,18 +608,18 @@ class SuttaInfo(Base):
     def tbw(self) -> str | None:
         if self.sc_code:
             if self.book_code in [
-            "DN",
-            "MN",
-            "SN",
-            "AN",
-            "KHP",
-            "DHP",
-            "UD",
-            "ITI",
-            "SNP",
-            "TH",
-            "THI",
-        ]:
+                "DN",
+                "MN",
+                "SN",
+                "AN",
+                "KHP",
+                "DHP",
+                "UD",
+                "ITI",
+                "SNP",
+                "TH",
+                "THI",
+            ]:
                 if self.sc_book_code == "iti":
                     return "https://thebuddhaswords.net/it/it.html"
                 else:
@@ -608,18 +633,18 @@ class SuttaInfo(Base):
     def tbw_legacy(self) -> str | None:
         if self.sc_code:
             if self.book_code in [
-            "DN",
-            "MN",
-            "SN",
-            "AN",
-            "KHP",
-            "DHP",
-            "UD",
-            "ITI",
-            "SNP",
-            "TH",
-            "THI",
-        ]:
+                "DN",
+                "MN",
+                "SN",
+                "AN",
+                "KHP",
+                "DHP",
+                "UD",
+                "ITI",
+                "SNP",
+                "TH",
+                "THI",
+            ]:
                 if self.sc_book_code == "iti":
                     return "https://find.dhamma.gift/bw/it/it.html"
                 else:
@@ -630,7 +655,7 @@ class SuttaInfo(Base):
             return None
 
     @property
-    def sc_voice_link(self)-> str | None:
+    def sc_voice_link(self) -> str | None:
         if self.sc_code:
             return f"https://www.sc-voice.net/#/sutta/{self.sc_code.lower()}/en/sujato"
         else:
