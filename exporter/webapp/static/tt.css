@@ -6,7 +6,6 @@
     border: 2px solid var(--gray-transparent);
     background-color: var(--light);
     color: var(--dark);
-    font-size: 130%;
     margin-right: 10px;
     margin-left: 10px;
     height: 30px;
@@ -49,7 +48,6 @@
     border: 2px solid var(--gray-transparent);
     background-color: var(--light);
     color: var(--dark);
-    font-size: 130%;
     margin-right: 10px;
     margin-left: 10px;
     height: 30px;
@@ -68,7 +66,6 @@
 }
 
 .tt-label {
-    font-size: 130%;
     white-space: nowrap;
 }
 
@@ -107,7 +104,6 @@
 }
 
 .tt-pali {
-    font-size: 1.2em;
     line-height: 1.6;
     margin-bottom: 8px;
     color: var(--dark);
@@ -119,7 +115,6 @@
 }
 
 .tt-eng {
-    font-size: 1.2em;
     line-height: 1.6;
     margin-bottom: 8px;
     color: #555;
@@ -144,7 +139,7 @@
 
 .tt-th {
     color: var(--dark);
-    font-size: 1.1em;
+    font-size: 100%;
     font-weight: normal;
     line-height: 1.5;
     padding: 5px;
@@ -160,7 +155,7 @@
 
 .tt-td {
     color: var(--dark);
-    font-size: 1.1em;
+    font-size: 100%;
     font-weight: normal;
     line-height: 1.5;
     padding: 5px;

@@ -113,13 +113,57 @@ async function performTTSearch(addHistory = true) {
         const response = await fetch(`/tt_search?q=${encodeURIComponent(q)}&book=${encodeURIComponent(book)}&lang=${encodeURIComponent(lang)}`);
         const data = await response.json();
 
+        let html = "";
+        if (data.results.length === 0) {
+            html = "<div class='tt-no-results'>No results found.</div>";
+        } else {
+            const totalCount = data.total;
+            const limit = 100; // This should match backend limit if any, or just be display limit
+            let countMessage = `Found ${totalCount} results`;
+            if (totalCount > limit) {
+                countMessage += `, displaying the first ${limit}`;
+            }
+            countMessage += ".";
+
+            html += `<div class='tt-count'>${countMessage}</div>`;
+
+            data.results.forEach(item => {
+                let paliText = item.pali.toLowerCase();
+                let engTrans = item.eng;
+
+                // Highlight search term
+                if (q) {
+                    const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+                    if (lang === "Pāḷi") {
+                        paliText = paliText.replace(regex, "<span class='hi'>$1</span>");
+                    } else {
+                        engTrans = engTrans.replace(regex, "<span class='hi'>$1</span>");
+                    }
+                }
+
+                html += `
+                <div class="tt-item">
+                    <div class="tt-pali">
+                        ${item.id}. ${paliText}
+                    </div>
+                    <div class="tt-eng">
+                        ${engTrans}
+                    </div>
+                    <div class="tt-meta">
+                        Book: ${item.book}, Table: ${item.table}
+                    </div>
+                </div>
+                `;
+            });
+        }
+
         if (ttResults) {
-            ttResults.innerHTML = data.html;
+            ttResults.innerHTML = html;
         }
 
         // Update appState results
         if (typeof appState !== "undefined") {
-            appState.tt.resultsHTML = data.html;
+            appState.tt.resultsHTML = html;
 
             if (addHistory) {
                 addToHistory();
@@ -139,11 +183,7 @@ async function performTTSearch(addHistory = true) {
             const countDiv = ttResults.querySelector(".tt-count");
             if (countDiv) {
                 ttResults.dataset.originalCountText = countDiv.textContent;
-                // Extract number from "Found X results"
-                const match = countDiv.textContent.match(/Found (\d+) results/);
-                if (match) {
-                    ttResults.dataset.totalCount = match[1];
-                }
+                ttResults.dataset.totalCount = data.total;
             }
         }
 

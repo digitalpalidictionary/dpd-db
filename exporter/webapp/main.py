@@ -248,57 +248,23 @@ def tt_search(request: Request, q: str, book: str, lang: str):
     total_count = len(results)
     results = results[:limit]
     
-    # Generate HTML
-    html_content = ""
+    # Generate JSON
+    response_data = {
+        "total": total_count,
+        "results": []
+    }
     
-    if not results:
-        html_content = "<div class='tt-no-results'>No results found.</div>"
-    else:
-        count_message = f"Found {total_count} results"
-        if total_count > limit:
-            count_message += f", displaying the first {limit}"
-        count_message += "."
-        
-        html_content += f"<div class='tt-count'>{count_message}</div>"
-        
+    if results:
         for i, (pali_text, eng_trans, table_name, book_name) in enumerate(results, 1):
-            pali_text = pali_text.lower()
+            response_data["results"].append({
+                "id": i,
+                "pali": pali_text,
+                "eng": eng_trans,
+                "book": book_name,
+                "table": table_name
+            })
             
-            # Highlight search term
-            if q:
-                try:
-                    if lang == "Pāḷi":
-                        pali_text = re.sub(
-                            f"({q})", 
-                            r"<span class='hi'>\1</span>", 
-                            pali_text, 
-                            flags=re.IGNORECASE
-                        )
-                    else:
-                        eng_trans = re.sub(
-                            f"({q})", 
-                            r"<span class='hi'>\1</span>", 
-                            eng_trans, 
-                            flags=re.IGNORECASE
-                        )
-                except re.error:
-                    pass # Ignore invalid regex
-            
-            html_content += f"""
-            <div class="tt-item">
-                <div class="tt-pali">
-                    {i}. {pali_text}
-                </div>
-                <div class="tt-eng">
-                    {eng_trans}
-                </div>
-                <div class="tt-meta">
-                    Book: {book_name}, Table: {table_name}
-                </div>
-            </div>
-            """
-            
-    return JSONResponse(content={"html": html_content})
+    return JSONResponse(content=response_data)
 
 
 def update_history(
