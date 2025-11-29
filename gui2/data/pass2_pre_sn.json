@@ -4731,9 +4731,29 @@
         "navakammikakaṭṭhahāraṃ": [
             35899,
             35900
+        ],
+        "puññabhāgāti": [
+            46545
         ]
     },
-    "matched": {},
+    "matched": {
+        "arahantasuttaṃ": {
+            "id": 8932,
+            "sentence": [
+                "SN22.76",
+                "khandhasaṃyuttaṃ, arahantasuttaṃ",
+                "4. arahantasuttaṃ"
+            ]
+        },
+        "pamādakokālikatissako": {
+            "id": 30856,
+            "sentence": [
+                "sn6.10:11.3",
+                "pamādakokālikatissako ca, ",
+                ""
+            ]
+        }
+    },
     "new_word": {},
     "processed": [
         "sagāthāvaggo",
