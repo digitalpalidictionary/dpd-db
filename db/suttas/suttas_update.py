@@ -48,7 +48,7 @@ def update_dv_fields_in_db(pth: ProjectPaths):
     pr.green("reading DV catalogue Excel")
     try:
         dv_catalogue = read_dv_catalogue_excel()
-        pr.yes(f"ok - loaded {len(dv_catalogue)} entries")
+        pr.yes(f"{len(dv_catalogue)}")
     except Exception as e:
         pr.no(f"failed to read DV catalogue: {e}")
         db_session.close()
@@ -84,9 +84,9 @@ def update_dv_fields_in_db(pth: ProjectPaths):
                 not_found_count += 1
 
         db_session.commit()
-        pr.yes(
-            f"ok - updated {updated_count} records, {not_found_count} sc_codes not found in DV catalogue"
-        )
+        pr.yes(updated_count)
+        if not_found_count:
+            pr.red(f"{not_found_count} sc_codes not found in DV catalogue")
 
     except Exception as e:
         pr.no(f"failed to update DV fields: {e}")
