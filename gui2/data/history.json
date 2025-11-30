@@ -1,5 +1,13 @@
 [
     {
+        "id": 83333,
+        "lemma_1": "avijahantabhāvena"
+    },
+    {
+        "id": 88088,
+        "lemma_1": "gacchanta 2"
+    },
+    {
         "id": 12724,
         "lemma_1": "āloletvā"
     },
@@ -70,13 +78,5 @@
     {
         "id": 14985,
         "lemma_1": "udayasutta"
-    },
-    {
-        "id": 54220,
-        "lemma_1": "yogakkhemādhivāhana"
-    },
-    {
-        "id": 35446,
-        "lemma_1": "naṅgalasata"
     }
 ]
