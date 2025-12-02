@@ -12,8 +12,8 @@ from sqlalchemy.orm.session import Session
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.pali_alphabet import pali_alphabet
-from tools.paths import ProjectPaths
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
@@ -157,6 +157,7 @@ class SandhiContractionManager:
             (":", " "),
             ("\n", " "),
             ("\r", " "),
+            ("…", " "),
         ]
 
         for old, new in replacements:

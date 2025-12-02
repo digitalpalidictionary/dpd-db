@@ -11,8 +11,8 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-find: str = "makuṭa"
-replace: str = "makula"
+find: str = "dissati"
+replace: str = "dissati1"
 
 
 def main():

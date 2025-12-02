@@ -140,7 +140,7 @@ def add_sf_to_db(db_session, sets_dict):
 def print_errors_list(errors_list):
     if errors_list != []:
         pr.red("ERROR: less than 3 names in set: ")
-        for error in errors_list:
+        for error in sorted(errors_list):
             pr.red(f"{error}")
 
 
