@@ -123,7 +123,7 @@ jobs:
       run: uv run db/suttas/suttas_update.py
 
     - name: Add Suttas to Lookup table
-      run: uv run db/suttas/sutta_to_lookup.py
+      run: uv run db/suttas/suttas_to_lookup.py
 
     - name: Generate Grammar data
       run: uv run python db/grammar/grammar_to_lookup.py
