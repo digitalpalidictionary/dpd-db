@@ -1,99 +1,13 @@
 import csv
 
-import pandas as pd
 import requests
 from sqlalchemy import inspect
 
 from db.db_helpers import create_tables, get_db_session
 from db.models import SuttaInfo
-from db.suttas.dv_catalogue import read_dv_catalogue_excel
+from db.suttas.dv_catalogue_suttas import update_dv_fields_in_db
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-
-
-def get_dv_column_mapping() -> dict[str, str]:
-    """Map Excel column names to database dv_ field names."""
-    return {
-        "pts": "dv_pts",
-        "general": "dv_general",
-        "particular": "dv_particular",
-        "stage": "dv_stage",
-        "training": "dv_training",
-        "aspect": "dv_aspect",
-        "teacher": "dv_teacher",
-        "audience": "dv_audience",
-        "method": "dv_method",
-        "length": "dv_length",
-        "prominence": "dv_prominence",
-        "nikayas": "dv_parallel_nikayas",
-        "āgamas": "dv_parallel_āgamas",
-        "taisho": "dv_parallel_taisho",
-        "sanskrit": "dv_parallel_sanskrit",
-        "vinaya": "dv_parallel_vinaya",
-        "others": "dv_parallel_others",
-        "partial ": "dv_parallel_partial",  # Note: space at end
-        "partial w details": "dv_parallel_partial_details",
-        "summary": "dv_summary",
-        "subjects": "dv_subjects",
-        "key contents": "dv_key_contents",
-        "similes": "dv_similes",
-        "suggested": "dv_suggested",
-    }
-
-
-def update_dv_fields_in_db(pth: ProjectPaths):
-    """Update DV catalogue fields in existing SuttaInfo records."""
-    db_session = get_db_session(pth.dpd_db_path)
-
-    pr.green("reading DV catalogue Excel")
-    try:
-        dv_catalogue = read_dv_catalogue_excel()
-        pr.yes(f"{len(dv_catalogue)}")
-    except Exception as e:
-        pr.no(f"failed to read DV catalogue: {e}")
-        db_session.close()
-        return
-
-    pr.green("updating DV fields in database")
-    try:
-        dv_mapping = get_dv_column_mapping()
-        updated_count = 0
-        not_found_count = 0
-
-        # Get all SuttaInfo records that have an sc_code
-        all_sutta_records = (
-            db_session.query(SuttaInfo).filter(SuttaInfo.sc_code.isnot(None)).all()
-        )
-
-        for sutta_record in all_sutta_records:
-            sc_code = sutta_record.sc_code
-
-            # Check if this sc_code exists in the DV catalogue
-            if sc_code in dv_catalogue:
-                dv_data = dv_catalogue[sc_code]
-
-                # Update fields that exist in both the DV catalogue and our mapping
-                for excel_col, db_field in dv_mapping.items():
-                    if excel_col in dv_data and pd.notna(dv_data[excel_col]):
-                        # Only update if the field exists in the SuttaInfo model
-                        if hasattr(sutta_record, db_field):
-                            setattr(sutta_record, db_field, str(dv_data[excel_col]))
-
-                updated_count += 1
-            else:
-                not_found_count += 1
-
-        db_session.commit()
-        pr.yes(updated_count)
-        if not_found_count:
-            pr.red(f"{not_found_count} sc_codes not found in DV catalogue")
-
-    except Exception as e:
-        pr.no(f"failed to update DV fields: {e}")
-        db_session.rollback()
-    finally:
-        db_session.close()
-
 
 def download_tsv_from_sheets(pth: ProjectPaths):
     pr.green("downloading tsv from google sheets")

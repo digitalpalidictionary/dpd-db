@@ -129,13 +129,67 @@
         </tr>
         % endif
 
-        % if su.tpp_org:
+        % if su.cst_code:
         <tr>
             <th>
                 TipitakaPali.org
             </th>
             <td>
                 <a href="${ su.tpp_org }" target="_blank">${ su.tpp_org }</a>
+            </td>
+        </tr>
+        % endif
+
+        <!-- page numbers -->
+
+        % if su.cst_m_page:
+        <tr>
+            <th class="heading" colspan="2">
+                CST Page Numbers in Printed Editions
+            </th>
+        </tr>
+        % endif
+
+        % if su.cst_m_page:
+        <tr>
+            <th>
+                Myanmar
+            </th>
+            <td>
+                ${ su.cst_m_page }
+            </td>
+        </tr>
+        % endif
+
+        % if su.cst_t_page:
+        <tr>
+            <th>
+                Thai
+            </th>
+            <td>
+                ${ su.cst_t_page }
+            </td>
+        </tr>
+        % endif
+
+        % if su.cst_v_page:
+        <tr>
+            <th>
+                VRI
+            </th>
+            <td>
+                ${ su.cst_v_page }
+            </td>
+        </tr>
+        % endif
+
+        % if su.cst_p_page:
+        <tr>
+            <th>
+                PTS
+            </th>
+            <td>
+                ${ su.cst_p_page }
             </td>
         </tr>
         % endif
@@ -216,20 +270,22 @@
         </tr>
         % endif
 
-        % if su.sc_code:
+        % if su.sc_card_link:
         <tr>
             <th>
                 Links
             </th>
             <td>
-                % if su.sc_card_link:
-                <a href="${ su.sc_card_link }" target="_blank">Sutta Card</a>,
+                % if su.sc_code:
+                <a href="${ su.sc_card_link }" target="_blank">Sutta
+                    Card</a>,
                 % endif
-                % if su.sc_pali_link:
-                <a href="${ su.sc_pali_link }" target="_blank">Pāḷi Text</a></i>,
+                % if su.sc_code:
+                <a href="${ su.sc_pali_link }" target="_blank">Pāḷi Text</a>,
                 % endif
-                % if su.sc_eng_link:
-                <a href="${ su.sc_eng_link }" target="_blank">English Translation</a></i><br>
+                % if su.sc_code:
+                <a href="${ su.sc_eng_link }" target="_blank">English
+                    Translation</a>
                 % endif
             </td>
         </tr>
@@ -249,7 +305,8 @@
                 Github
             </th>
             <td>
-                <a href="${ su.sc_github }" target="_blank">${ su.sc_file_path }</a>
+                <a href="${ su.sc_github }" target="_blank">${ su.sc_file_path
+                    }</a>
             </td>
         </tr>
         % endif
@@ -278,7 +335,8 @@
                 TBW Legacy
             </th>
             <td>
-                <a href="${ su.tbw_legacy }" target="_blank">${ su.tbw_legacy }</a>
+                <a href="${ su.tbw_legacy }" target="_blank">${ su.tbw_legacy
+                    }</a>
             </td>
         </tr>
         % endif
@@ -289,7 +347,8 @@
                 Dhamma.gift
             </th>
             <td>
-                <a href="${ su.dhamma_gift }" target="_blank">${ su.dhamma_gift }</a>
+                <a href="${ su.dhamma_gift }" target="_blank">${ su.dhamma_gift
+                    }</a>
             </td>
         </tr>
         % endif
@@ -300,7 +359,24 @@
                 SC Voice
             </th>
             <td>
-                <a href="${ su.sc_voice_link }" target="_blank">${ su.sc_voice_link }</a>
+                <a href="${ su.sc_voice_link }" target="_blank">${
+                    su.sc_voice_link }</a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.cst_code:
+        <tr>
+            <th class="heading" colspan="2">
+                Buddha Jayanti Tipiṭaka
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Coming soon...
+            </th>
+            <td>
+                ...
             </td>
         </tr>
         % endif
@@ -332,61 +408,294 @@
         </td>
     </tr> -->
 
-        <!-- page numbers -->
+        <!-- DV catalogue -->
 
-        % if su.cst_m_page:
+        % if su.dv_exists:
         <tr>
             <th class="heading" colspan="2">
-                Printed Editions Page Numbers
+                Dhamma Vinaya Tools: Sutta Catalogue
             </th>
         </tr>
+
         % endif
 
-        % if su.cst_m_page:
-        <tr>
-            <th>
-                Myanmar
-            </th>
-            <td>
-                ${ su.cst_m_page }
-            </td>
-        </tr>
-        % endif
-
-        % if su.cst_t_page:
-        <tr>
-            <th>
-                Thai
-            </th>
-            <td>
-                ${ su.cst_t_page }
-            </td>
-        </tr>
-        % endif
-
-        % if su.cst_v_page:
-        <tr>
-            <th>
-                VRI
-            </th>
-            <td>
-                ${ su.cst_v_page }
-            </td>
-        </tr>
-        % endif
-
-        % if su.cst_p_page:
+        % if su.dv_pts:
         <tr>
             <th>
                 PTS
             </th>
             <td>
-                ${ su.cst_p_page }
+                ${ su.dv_pts }
             </td>
         </tr>
         % endif
 
+        % if su.dv_main_theme:
+        <tr>
+            <th>
+                General Theme
+            </th>
+            <td>
+                ${ su.dv_main_theme }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_subtopic:
+        <tr>
+            <th>
+                Particular Topic
+            </th>
+            <td>
+                ${ su.dv_subtopic }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_summary:
+        <tr>
+            <th>
+                Summary
+            </th>
+            <td>
+                ${ su.dv_summary }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_key_excerpt1:
+        <tr>
+            <th>
+                Key Excerpts 1
+            </th>
+            <td>
+                ${ su.dv_key_excerpt1 }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_key_excerpt2:
+        <tr>
+            <th>
+                Key Excerpts 2
+            </th>
+            <td>
+                ${ su.dv_key_excerpt2 }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_similes:
+        <tr>
+            <th>
+                Similes
+            </th>
+            <td>
+                ${ su.dv_similes }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_stage:
+        <tr>
+            <th>
+                Stage of Training
+            </th>
+            <td>
+                ${ su.dv_stage }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_training:
+        <tr>
+            <th>
+                Training In
+            </th>
+            <td>
+                ${ su.dv_training }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_aspect:
+        <tr>
+            <th>
+                Type of Teaching
+            </th>
+            <td>
+                ${ su.dv_aspect }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_teacher:
+        <tr>
+            <th>
+                Teacher
+            </th>
+            <td>
+                ${ su.dv_teacher }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_audience:
+        <tr>
+            <th>
+                Audience
+            </th>
+            <td>
+                ${ su.dv_audience }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_method:
+        <tr>
+            <th>
+                Method of Teaching
+            </th>
+            <td>
+                ${ su.dv_method }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_length:
+        <tr>
+            <th>
+                Sutta Length
+            </th>
+            <td>
+                ${ su.dv_length }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_prominence:
+        <tr>
+            <th>
+                Prominence
+            </th>
+            <td>
+                ${ su.dv_prominence }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_suggested_suttas:
+        <tr>
+            <th>
+                Suggested Reading
+            </th>
+            <td>
+                ${ su.dv_suggested_suttas }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_exists:
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a
+                    href="https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue">https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue</a>
+            </td>
+        </tr>
+        % endif
+
+        <!-- DV parallel texts -->
+
+        % if su.dv_parallels_exists:
+        <tr>
+            <th class="heading" colspan="2">
+                Parallels
+            </th>
+        </tr>
+        % endif
+
+        % if su.dv_nikayas_parallels:
+        <tr>
+            <th>
+                Nikāyas
+            </th>
+            <td>
+                ${ su.dv_nikayas_parallels }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_āgamas_parallels:
+        <tr>
+            <th>
+                Āgamas
+            </th>
+            <td>
+                ${ su.dv_āgamas_parallels }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_taisho_parallels:
+        <tr>
+            <th>
+                Taisho
+            </th>
+            <td>
+                ${ su.dv_taisho_parallels }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_sanskrit_parallels:
+        <tr>
+            <th>
+                Sanskrit
+            </th>
+            <td>
+                ${ su.dv_sanskrit_parallels }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_vinaya_parallels:
+        <tr>
+            <th>
+                Vinaya
+            </th>
+            <td>
+                ${ su.dv_vinaya_parallels }
+            </td>
+        </tr>
+        % endif
+
+        % if su.dv_others_parallels:
+        <tr>
+            <th>
+                Others
+            </th>
+            <td>
+                ${ su.dv_others_parallels }
+            </td>
+        </tr>
+        % endif
+
+        ## % if su.dv_partial_parallels_all:
+        ## <tr>
+            ## <th>
+                ## Partial Parallels
+                ## </th>
+            ## <td>
+                ## ${ su.dv_partial_parallels_all }
+                ## </td>
+            ## </tr>
+        ## % endif
+
     </table>
+
     <p class="footer">
         Did you spot a mistake?
         <a class="link"

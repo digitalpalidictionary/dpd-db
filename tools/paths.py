@@ -28,6 +28,9 @@ class ProjectPaths:
             base_dir / "db/bold_definitions/bold_definitions.tsv"
         )
 
+        # db/suttas
+        self.dv_catalogue_suttas_tsv_path = base_dir / "db/suttas/dv_catalogue_suttas.tsv"
+
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
         self.kindlegen_path = base_dir / "exporter/kindle/kindlegen"

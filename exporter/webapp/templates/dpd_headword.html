@@ -14,23 +14,19 @@
 <div class="button-box">
 
     {% if d.i.needs_sutta_info_button %}
-    <a class="button" name="sutta-info-button" href="#"
-        data-target="sutta_info_{{d.i.lemma_1_}}">
+    <a class="button" name="sutta-info-button" href="#" data-target="sutta_info_{{d.i.lemma_1_}}">
         sutta</a>
 
     {% endif %}
 
     {% if d.i.needs_grammar_button %}
-    <a class="button" name="grammar-button" href="#"
-        data-target="grammar_{{d.i.lemma_1_}}">
+    <a class="button" name="grammar-button" href="#" data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %} {% if d.i.needs_example_button %}
-    <a class="button" name="example-button" href="#"
-        data-target="example_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#" data-target="example_{{d.i.lemma_1_}}">
         example</a>
     {% endif %} {% if d.i.needs_examples_button %}
-    <a class="button" name="example-button" href="#"
-        data-target="examples_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#" data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
     {% endif %} {% if d.i.needs_conjugation_button %}
     <a class="button" href="#" data-target="conjugation_{{d.i.lemma_1_}}">
@@ -71,8 +67,7 @@
 <!-- sutta info -->
 
 {% if d.i.needs_sutta_info_button %}
-<div id="sutta_info_{{d.i.lemma_1_}}" name="sutta-info-div"
-    class="dpd content hidden">
+<div id="sutta_info_{{d.i.lemma_1_}}" name="sutta-info-div" class="dpd content hidden">
     <table class="sutta-info">
 
         <!-- CST -->
@@ -177,9 +172,7 @@
                 Github
             </th>
             <td>
-                <a
-                    href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}"
-                    target="_blank">{{
+                <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}" target="_blank">{{
                     d.su.cst_file }}</a>
 
             </td>
@@ -451,7 +444,7 @@
         </tr>
         <tr>
             <th>
-                Coming soon...
+                Coming soon
             </th>
             <td>
                 ...
@@ -488,26 +481,12 @@
 
         <!-- DV catalogue -->
 
-        {% if d.su.dv_pts or d.su.dv_general or d.su.dv_particular or
-        d.su.dv_stage or d.su.dv_training or d.su.dv_aspect or d.su.dv_teacher
-        or d.su.dv_audience or d.su.dv_method or d.su.dv_length or
-        d.su.dv_prominence %}
+        {% if d.su.dv_exists %}
         <tr>
             <th class="heading" colspan="2">
                 Dhamma Vinaya Tools: Sutta Catalogue
             </th>
         </tr>
-
-        <tr>
-            <th>
-                Github
-            </th>
-            <td>
-                <a
-                    href="https://github.com/dhammavinaya-tools">https://github.com/dhammavinaya-tools</a>
-            </td>
-        </tr>
-
         {% endif %}
 
         {% if d.su.dv_pts %}
@@ -521,24 +500,68 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_general %}
+        {% if d.su.dv_main_theme %}
         <tr>
             <th>
                 General Theme
             </th>
             <td>
-                {{ d.su.dv_general }}
+                {{ d.su.dv_main_theme }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_particular %}
+        {% if d.su.dv_subtopic %}
         <tr>
             <th>
                 Particular Topic
             </th>
             <td>
-                {{ d.su.dv_particular }}
+                {{ d.su.dv_subtopic }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_summary %}
+        <tr>
+            <th>
+                Summary
+            </th>
+            <td>
+                {{ d.su.dv_summary }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_key_excerpt1 %}
+        <tr>
+            <th>
+                Key Excerpts 1
+            </th>
+            <td>
+                {{ d.su.dv_key_excerpt1 }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_key_excerpt2 %}
+        <tr>
+            <th>
+                Key Excerpts 2
+            </th>
+            <td>
+                {{ d.su.dv_key_excerpt2 }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_similes %}
+        <tr>
+            <th>
+                Similes
+            </th>
+            <td>
+                {{ d.su.dv_similes }}
             </td>
         </tr>
         {% endif %}
@@ -631,66 +654,33 @@
         </tr>
         {% endif %}
 
-        <!-- {% if d.su.dv_summary %}
-        <tr>
-            <th>
-                Summary
-            </th>
-            <td>
-                {{ d.su.dv_summary }}
-            </td>
-        </tr>
-        {% endif %} -->
-
-        {% if d.su.dv_subjects %}
-        <tr>
-            <th>
-                Key Excerpts 1
-            </th>
-            <td>
-                {{ d.su.dv_subjects }}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.dv_key_contents %}
-        <tr>
-            <th>
-                Key Excerpts 2
-            </th>
-            <td>
-                {{ d.su.dv_key_contents }}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.dv_similes %}
-        <tr>
-            <th>
-                Similes
-            </th>
-            <td>
-                {{ d.su.dv_similes }}
-            </td>
-        </tr>
-        {% endif %}
-
-        {% if d.su.dv_suggested %}
+        {% if d.su.dv_suggested_suttas %}
         <tr>
             <th>
                 Suggested Reading
             </th>
             <td>
-                {{ d.su.dv_suggested }}
+                {{ d.su.dv_suggested_suttas }}
             </td>
         </tr>
         {% endif %}
 
+        {% if d.su.dv_exists %}
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a
+                    href="https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue">https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue</a>
+            </td>
+        </tr>
+        {% endif %}
+
+
         <!-- DV parallel texts -->
 
-        {% if d.su.dv_parallel_nikayas or d.su.dv_parallel_āgamas or
-        d.su.dv_parallel_taisho or d.su.dv_parallel_sanskrit or
-        d.su.dv_parallel_vinaya or d.su.dv_parallel_others %}
+        {% if d.su.dv_parallels_exists %}
         <tr>
             <th class="heading" colspan="2">
                 Parallels
@@ -698,82 +688,82 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_nikayas %}
+        {% if d.su.dv_nikayas_parallels %}
         <tr>
             <th>
                 Nikāyas
             </th>
             <td>
-                {{ d.su.dv_parallel_nikayas }}
+                {{ d.su.dv_nikayas_parallels }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_āgamas %}
+        {% if d.su.dv_āgamas_parallels %}
         <tr>
             <th>
                 Āgamas
             </th>
             <td>
-                {{ d.su.dv_parallel_āgamas }}
+                {{ d.su.dv_āgamas_parallels }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_taisho %}
+        {% if d.su.dv_taisho_parallels %}
         <tr>
             <th>
                 Taisho
             </th>
             <td>
-                {{ d.su.dv_parallel_taisho }}
+                {{ d.su.dv_taisho_parallels }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_sanskrit %}
+        {% if d.su.dv_sanskrit_parallels %}
         <tr>
             <th>
                 Sanskrit
             </th>
             <td>
-                {{ d.su.dv_parallel_sanskrit }}
+                {{ d.su.dv_sanskrit_parallels }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_vinaya %}
+        {% if d.su.dv_vinaya_parallels %}
         <tr>
             <th>
                 Vinaya
             </th>
             <td>
-                {{ d.su.dv_parallel_vinaya }}
+                {{ d.su.dv_vinaya_parallels }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_others %}
+        {% if d.su.dv_others_parallels %}
         <tr>
             <th>
                 Others
             </th>
             <td>
-                {{ d.su.dv_parallel_others }}
+                {{ d.su.dv_others_parallels }}
             </td>
         </tr>
         {% endif %}
 
-        {% if d.su.dv_parallel_partial_details %}
+        <!-- {% if d.su.dv_partial_parallels_all %}
         <tr>
             <th>
                 Partial Parallels
             </th>
             <td>
-                {{ d.su.dv_parallel_partial_details }}
+                {{ d.su.dv_partial_parallels_all }}
             </td>
         </tr>
-        {% endif %}
+        {% endif %} -->
 
     </table>
 
@@ -792,8 +782,7 @@
 <!-- grammar -->
 
 {% if d.i.needs_grammar_button %}
-<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div"
-    class="dpd content hidden">
+<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd content hidden">
     <table class="grammar">
         <tr>
             <th>Lemma</th>
@@ -937,11 +926,9 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.lemma_1_}}" name="example-div"
-    class="dpd content hidden">
+<div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
     {% elif d.i.needs_examples_button %}
-    <div id="examples_{{d.i.lemma_1_}}" name="example-div"
-        class="dpd content hidden">
+    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
         {% endif %}
 
         {% if d.i.example_1 and d.i.meaning_1 %}
@@ -1093,8 +1080,7 @@
         {% for f in d.fc %} {% if loop.index == 0 %}
         <p class="heading underlined overlined">{% else %}</p>
 
-        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}"
-            class="heading underlined overlined">
+        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" class="heading underlined overlined">
             {% endif %} {% if f.count == 1 %}
             <b>{{f.count}}</b>
             compound which contains
@@ -1187,8 +1173,7 @@
         {% for f in d.fs %} {% if loop.index0 == 0 %}
         <p class="heading underlined overlined">{% else %}</p>
 
-        <p id="{{d.i.lemma_1_}}sets_{{f.set}}"
-            class="heading underlined overlined">
+        <p id="{{d.i.lemma_1_}}sets_{{f.set}}" class="heading underlined overlined">
             {% endif %}
             <b>{{d.i.lemma_clean}}</b>
             belongs to the set of
@@ -1251,9 +1236,7 @@
             For a detailed explanation of how this word frequency chart is
             calculated,
             it's accuracies and inaccuracies, please refer to
-            <a class="link"
-                href="https://digitalpalidictionary.github.io/features/frequency/"
-                target="_blank">
+            <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/" target="_blank">
                 this webpage </a>.
         </p>
         <p class="footer">
@@ -1308,8 +1291,7 @@
             </span>
         </p>
         <p>
-            <a class="link" href="https://digitalpalidictionary.github.io/"
-                target="_blank">
+            <a class="link" href="https://digitalpalidictionary.github.io/" target="_blank">
                 Read the docs
             </a>
             <span>

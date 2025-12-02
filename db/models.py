@@ -538,9 +538,14 @@ class SuttaInfo(Base):
     sc_file_path: Mapped[str] = mapped_column(default="")
     dpr_code: Mapped[str] = mapped_column(default="")
     dpr_link: Mapped[str] = mapped_column(default="")
+    
     dv_pts: Mapped[str] = mapped_column(default="")
-    dv_general: Mapped[str] = mapped_column(default="")
-    dv_particular: Mapped[str] = mapped_column(default="")
+    dv_main_theme: Mapped[str] = mapped_column(default="")
+    dv_subtopic: Mapped[str] = mapped_column(default="")
+    dv_summary: Mapped[str] = mapped_column(default="")
+    dv_similes: Mapped[str] = mapped_column(default="")
+    dv_key_excerpt1: Mapped[str] = mapped_column(default="")
+    dv_key_excerpt2: Mapped[str] = mapped_column(default="")
     dv_stage: Mapped[str] = mapped_column(default="")
     dv_training: Mapped[str] = mapped_column(default="")
     dv_aspect: Mapped[str] = mapped_column(default="")
@@ -549,19 +554,15 @@ class SuttaInfo(Base):
     dv_method: Mapped[str] = mapped_column(default="")
     dv_length: Mapped[str] = mapped_column(default="")
     dv_prominence: Mapped[str] = mapped_column(default="")
-    dv_parallel_nikayas: Mapped[str] = mapped_column(default="")
-    dv_parallel_āgamas: Mapped[str] = mapped_column(default="")
-    dv_parallel_taisho: Mapped[str] = mapped_column(default="")
-    dv_parallel_sanskrit: Mapped[str] = mapped_column(default="")
-    dv_parallel_vinaya: Mapped[str] = mapped_column(default="")
-    dv_parallel_others: Mapped[str] = mapped_column(default="")
-    dv_parallel_partial: Mapped[str] = mapped_column(default="")
-    dv_parallel_partial_details: Mapped[str] = mapped_column(default="")
-    dv_summary: Mapped[str] = mapped_column(default="")
-    dv_subjects: Mapped[str] = mapped_column(default="")
-    dv_key_contents: Mapped[str] = mapped_column(default="")
-    dv_similes: Mapped[str] = mapped_column(default="")
-    dv_suggested: Mapped[str] = mapped_column(default="")
+    dv_nikayas_parallels: Mapped[str] = mapped_column(default="")
+    dv_āgamas_parallels: Mapped[str] = mapped_column(default="")
+    dv_taisho_parallels: Mapped[str] = mapped_column(default="")
+    dv_sanskrit_parallels: Mapped[str] = mapped_column(default="")
+    dv_vinaya_parallels: Mapped[str] = mapped_column(default="")
+    dv_others_parallels: Mapped[str] = mapped_column(default="")
+    dv_partial_parallels_nā: Mapped[str] = mapped_column(default="")
+    dv_partial_parallels_all: Mapped[str] = mapped_column(default="")
+    dv_suggested_suttas: Mapped[str] = mapped_column(default="")
 
     @property
     def sc_card_link(self) -> str:
@@ -693,6 +694,54 @@ class SuttaInfo(Base):
         from tools.sutta_codes import make_list_of_sutta_codes
 
         return make_list_of_sutta_codes(self)
+
+    @property
+    def dv_exists(self) -> bool:
+        if (
+            self.dv_pts or
+            self.dv_main_theme or
+            self.dv_subtopic or
+            self.dv_stage or
+            self.dv_training or
+            self.dv_aspect or
+            self.dv_teacher or
+            self.dv_audience or
+            self.dv_method or
+            self.dv_length or
+            self.dv_prominence or
+            self.dv_nikayas_parallels or
+            self.dv_āgamas_parallels or
+            self.dv_taisho_parallels or
+            self.dv_sanskrit_parallels or
+            self.dv_vinaya_parallels or
+            self.dv_others_parallels or
+            self.dv_partial_parallels_nā or
+            self.dv_partial_parallels_all or
+            self.dv_summary or
+            self.dv_key_excerpt1 or
+            self.dv_key_excerpt2 or
+            self.dv_similes or
+            self.dv_suggested_suttas
+        ):
+            return True
+        else:
+            return False
+
+    @property
+    def dv_parallels_exists(self) -> bool:
+        if (
+            self.dv_nikayas_parallels or
+            self.dv_āgamas_parallels or
+            self.dv_taisho_parallels or
+            self.dv_sanskrit_parallels or
+            self.dv_vinaya_parallels or
+            self.dv_others_parallels or
+            self.dv_partial_parallels_nā or
+            self.dv_partial_parallels_all
+        ):
+            return True
+        else:
+            return False
 
     def __repr__(self) -> str:
         return f"SuttaInfo: {self.dpd_code} {self.dpd_sutta}"
