@@ -761,7 +761,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	anu saṃ √ghaṭ		anu + saṃghāta
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi √ghaṭ	abhihan	abhighāta, abhighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi ā √ghaṭ	abhyāhan	abhyāghāta (assault)
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ā √ghaṭ	āhan	anāghāta, āghāta, āghāta +, āghātana, āghātayitvā
+√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ā √ghaṭ	āhan	anāghāta, āghāta, āghāta +, āghātana, āghātayati, āghātayitvā
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ud √ghaṭ	uddhan	udghaṭayati, udghāṭita, udghātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	upa √ghaṭ	upahan	upaghāṭayati, upaghāta, upaghātaka, upaghātin, na + upaghāta, sa + upaghāta, sa + upaghātaka
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ni √ghaṭ	nihan	nighāta, nighātin
@@ -1217,8 +1217,8 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √tūl	1	a	be light	√tūl	10	extract	√tūl	tūl	tūla, tūlaka, tūlikā, tūlī
 √tras	1	a	fear, shake	√tras	1	be terrified	ud √tras	uttras	uttrasta, uttrāsa, uttrāsana (bsk), uttrāsayitvā, uttrāsita, uttrāsin, na + uttrasta, na + uttrāsin
 √thak	8	*e	close	√stak	1	strike against	√thak	stak	stakayati, stakayitavya, stakayitvā
-√than	1	a	thunder, roar	√stan	1, 2	thunder	√than	stan	stanayat, stanayati, stanayitvā, stanita
-√than	1	a	thunder, roar	√stan	1, 2	thunder	abhi √than	abhiṣṭan	
+√than	1	a	roar, thunder	√stan	1, 2	thunder	√than	stan	stanayat, stanayati, stanayitvā, stanita
+√than	1	a	roar, thunder	√stan	1, 2	thunder	abhi √than	abhiṣṭan	
 √tham	1	a	hang	√stam	1	be disturbed	√tham		
 √thambh	1	a	support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	√thambh	stambh	astabdha, astabdha +, stabdha, stabdhatā, stabh, stabdha, stabhāyat, stabhāyati, stambha, stambhaka, stambhana
 √thambh	1		support, be stiff	√ṣṭabh √stabh √ṣṭambh √stambh	1, 5, 9	prop	ati √thambh	atistambh	
@@ -2389,7 +2389,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √rudh 1	2	ya	obstruct	√rudh	2, 7	obstruct	saṃ ni √rudh	saṃnirudh	sannirudhayitvā, sannirodhayat, saṃniruṇaddhi
 √rudh 2	3	ya	please, accept	√rudh	2, 7	obstruct	anu √rudh	anurudh	anuruddha, anurudhyati, anurodha, na + anuruddha, na + anurudhyati
 √rup	3	ya	be broken apart, hurt	√rup √lup	4	break, pain	√rup	rup	rupyat, rupyamāṇa, lumpati
-√rus	1	*e	be angry	√ruṣ	1, 4, 6, 10	be vexed	√rus	ruṣ	na + roṣayat, ruṣat, ruṣati, ruṣita, ruṣṭa, roṣa, roṣaka, roṣayati, roṣayitṛ, roṣyamāṇa
+√rus	1	*e	be angry	√ruṣ	1, 4, 6, 10	be vexed	√rus	ruṣ	na + roṣayat, ruṣat, ruṣati, ruṣita, ruṣṭa, roṣa, roṣaka, roṣayat, roṣayati, roṣayitṛ, roṣyamāṇa
 √rus	1	*a	be angry	√ruṣ	1, 4, 6, 10	be vexed	pati √rus	ruṣ	prati + roṣayati, pratiroṣayati (bsk)
 √rus	1	*e	be angry	√ruṣ	1, 4, 6, 10	be vexed	vi √rus	viruṣ	viroṣayati
 √rus	1	*e	be angry	√ruṣ	1, 4, 6, 10	be vexed	vi ā √rus	āruṣ	vyāroṣa
