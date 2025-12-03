@@ -172,6 +172,9 @@ jobs:
 
     - name: Export Variants
       run: uv run exporter/variants/variants_exporter.py
+
+    - name: Export TXT
+      run: uv run python exporter/txt/export_txt.py
     
     - name: Check disk space and memory
       run: |
@@ -407,4 +410,14 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: exporter/share/dicthtml-pi-en.zip
         asset_name: dpd-kobo.zip
+        asset_content_type: application/zip
+
+    - name: Upload Asset dpd-txt.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exporter/share/dpd-txt.zip
+        asset_name: dpd-txt.zip
         asset_content_type: application/zip

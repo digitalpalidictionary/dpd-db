@@ -24,6 +24,7 @@ uv run exporter/tpr/tpr_exporter.py
 uv run exporter/kindle/kindle_exporter.py
 uv run exporter/tbw/tbw_exporter.py
 uv run exporter/pdf/pdf_exporter.py
+uv run exporter/txt/export_txt.py
 
 uv run scripts/build/zip_goldendict_mdict.py
 uv run scripts/build/tarball_db.py

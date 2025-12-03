@@ -6,7 +6,9 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pali_sort_key import pali_sort_key
+from tools.zip_up import zip_up_file
 import re
+
 
 @dataclass
 class GLobalVars:
@@ -19,6 +21,7 @@ class GLobalVars:
     db_sorted = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
     db_length = len(db_sorted)
     dpd_entry_list = []
+    dpd_text = ""
     pr.yes(db_length)
 
 
@@ -42,7 +45,9 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
         if i.meaning_lit:
             data.append(f"; lit. {i.meaning_lit}")
         if i.root_key:
-            data.append(f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
+            data.append(
+                f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
+            )
         if i.root_base:
             data.append(f". base: {i.root_base}")
         if i.construction:
@@ -69,7 +74,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
             data.append(f". Sanskrit: {i.sanskrit}")
         if i.cognate:
             data.append(f". English cognate: {i.cognate}")
-    
+
     # no meaning_1 but pass1 or pass2, show root and construction
     elif not i.meaning_1 and i.origin in ["pass1", "pass2"]:
         data.append(f", {i.pos}")
@@ -77,12 +82,14 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
         if i.meaning_lit:
             data.append(f"; lit. {i.meaning_lit}")
         if i.root_key:
-            data.append(f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
+            data.append(
+                f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
+            )
         if i.root_base:
             data.append(f". base: {i.root_base}")
         if i.construction:
             data.append(f". construction: {i.construction_line1}")
-    
+
     # no meaning_1 and no origin, only show the basics
     else:
         data.append(f", {i.pos}")
@@ -90,8 +97,10 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
         if i.meaning_lit:
             data.append(f"; lit. {i.meaning_lit}")
         if i.root_key:
-            data.append(f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
-    
+            data.append(
+                f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
+            )
+
     data.append(f" {i.degree_of_completion}")
 
     return "".join(data)
@@ -108,16 +117,32 @@ def export_txt(g: GLobalVars):
     g.dpd_text = "\n".join(g.dpd_entry_list)
 
 
+def zip_txt_file(g: GLobalVars):
+    """Zip the DPD txt file after export."""
+    import time
+
+    pr.green("zipping txt file")
+    # Wait a few seconds for the file to be fully written
+    time.sleep(3)
+
+    zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
+    pr.yes("ok")
+    pr.info(f"saved to {g.pth.dpd_txt_zip_path}")
+
+
 def save_txt(g: GLobalVars):
     pr.green("saving txt")
     g.pth.dpd_txt_path.write_text(g.dpd_text)
     pr.yes(len(g.dpd_entry_list))
 
+
 def main():
     g = GLobalVars()
     export_txt(g)
     save_txt(g)
+    zip_txt_file(g)
     pr.toc()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

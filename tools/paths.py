@@ -29,7 +29,9 @@ class ProjectPaths:
         )
 
         # db/suttas
-        self.dv_catalogue_suttas_tsv_path = base_dir / "db/suttas/dv_catalogue_suttas.tsv"
+        self.dv_catalogue_suttas_tsv_path = (
+            base_dir / "db/suttas/dv_catalogue_suttas.tsv"
+        )
 
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
@@ -136,6 +138,7 @@ class ProjectPaths:
         self.release_notes_md_path = base_dir / "exporter/share/release_notes.md"
         self.change_log_md_path = base_dir / "exporter/share/change_log.md"
         self.dpd_txt_path = base_dir / "exporter/share/dpd.txt"
+        self.dpd_txt_zip_path = base_dir / "exporter/share/dpd-txt.zip"
 
         # exporter/share/mdict
         self.dpd_deconstructor_mdd_path = (
@@ -527,11 +530,10 @@ class ProjectPaths:
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
 
         # resources/tipitaka_translation_data
-        self.tipitaka_translation_dir = (
-            base_dir / "resources/tipitaka_translation_data"
-        )
+        self.tipitaka_translation_dir = base_dir / "resources/tipitaka_translation_data"
         self.tipitaka_translation_db_path = (
-            base_dir / "resources/tipitaka_translation_data/tipitaka-translation-data.db"
+            base_dir
+            / "resources/tipitaka_translation_data/tipitaka-translation-data.db"
         )
 
         # resources/tpr
