@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "AN5.31",
-        "sutta": "sumanavaggo, sumanasuttaṃ",
-        "example": "yathā'pi megho thanayaṃ,\nvijjumālī satakkaku,\nthalaṃ ninnañ'ca pūreti,\nabhivassaṃ vasun'dharaṃ."
+        "source": "SN19.10",
+        "sutta": "lakkhaṇasaṃyuttaṃ, kumbhaṇḍasuttaṃ",
+        "example": "idh'āhaṃ, āvuso, gijjhakūṭā pabbatā orohanto addasaṃ kumbhaṇḍaṃ purisaṃ vehāsaṃ gacchantaṃ. so gacchanto'pi t'eva aṇḍe khandhe āropetvā gacchati."
     },
     "stash": {
-        "source": "SN6.10",
-        "sutta": "brahmasaṃyuttaṃ, kokālikasuttaṃ",
-        "example": "kalāyamattiyo hutvā kol'aṭṭhimattiyo ahesuṃ, kol'aṭṭhimattiyo hutvā kolamattiyo ahesuṃ, kolamattiyo hutvā āmalakamattiyo ahesuṃ, āmalakamattiyo hutvā beluvasalāṭukamattiyo ahesuṃ, beluvasalāṭukamattiyo hutvā billamattiyo ahesuṃ, billamattiyo hutvā pabhijjiṃsu. pubbañ'ca lohitañ'ca pagghariṃsu."
+        "source": "SNP6",
+        "sutta": "parābhavasuttaṃ\nuragavaggo 6",
+        "example": "atītayobbano poso,\nāneti timbarutthaniṃ,\ntassā issā na supati,\ntaṃ parābhavato mukhaṃ."
     }
 }
