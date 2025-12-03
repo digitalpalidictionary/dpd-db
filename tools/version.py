@@ -2,19 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import tomlkit
-
 from rich import print
 
-from db.models import DbInfo
 from db.db_helpers import get_db_session
+from db.models import DbInfo
 from tools.configger import config_update
 from tools.date_and_time import year_month_day
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-
 major = 0
-minor = 2
+minor = 3
 
 
 def printer(key, value):
