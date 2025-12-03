@@ -1162,8 +1162,19 @@ class DpdHeadword(Base):
         )
 
     @property
+    def compound_construction_txt(self) -> str:
+        return (
+            self.compound_construction.replace("<b>", "")
+            .replace("</b>", "")
+        )
+
+    @property
     def phonetic_typst(self) -> str:
         return self.phonetic.replace("\n", r"\ ")
+
+    @property
+    def phonetic_txt(self) -> str:
+        return self.phonetic.replace("\n", r", ")
 
     @property
     def commentary_typst(self) -> str:
@@ -1183,6 +1194,18 @@ class DpdHeadword(Base):
             .replace("<i>", "_")
             .replace("</i>", "_")
         )
+
+    @property
+    def notes_txt(self) -> str:
+        notes_clean = (
+            self.notes.replace("\n", r" ")
+            .replace("<b>", "")
+            .replace("</b>", "")
+            .replace("<i>", "")
+            .replace("</i>", "")
+        )
+        return re.sub(r"\.$", "", notes_clean)
+
 
     @property
     def cognate_typst(self) -> str:

@@ -135,6 +135,7 @@ class ProjectPaths:
         self.share_dir = base_dir / "exporter/share"
         self.release_notes_md_path = base_dir / "exporter/share/release_notes.md"
         self.change_log_md_path = base_dir / "exporter/share/change_log.md"
+        self.dpd_txt_path = base_dir / "exporter/share/dpd.txt"
 
         # exporter/share/mdict
         self.dpd_deconstructor_mdd_path = (
