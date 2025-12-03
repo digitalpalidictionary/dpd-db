@@ -13,7 +13,7 @@ def download_tsv_from_sheets(pth: ProjectPaths):
     pr.green("downloading tsv from google sheets")
     try:
         url = "https://docs.google.com/spreadsheets/d/1sR8NT204STTwOoDrr9GBjhXVYEn0qqZTxgjoLKMmaaE/export?format=tsv"
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
         pr.yes("ok")
     except Exception:
         pr.no("failed")

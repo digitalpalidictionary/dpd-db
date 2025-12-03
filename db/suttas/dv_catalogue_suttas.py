@@ -12,11 +12,12 @@ def download_dv_catalogue(filepath: Path) -> bool:
     url = "https://raw.githubusercontent.com/dhammavinaya-tools/dhamma-vinaya-catalogue/main/DV_Catalogue5_suttas.tsv"
     try:
         pr.green(f"downloading dv catalogue")
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
         
+        content = response.content.replace(b"\r\n", b"\n")
         with open(filepath, "wb") as f:
-            f.write(response.content)
+            f.write(content)
         pr.yes("ok")
         return True
     except Exception as e:
