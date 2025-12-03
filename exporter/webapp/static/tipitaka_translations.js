@@ -6,6 +6,7 @@ const ttBookSelect = document.getElementById("tt-book-select");
 const ttSearchButton = document.getElementById("tt-search-button");
 const ttClearButton = document.getElementById("tt-clear-button");
 const ttFilterBox = document.getElementById("tt-filter-box");
+const ttFilterMode = document.getElementById("tt-filter-mode");
 const ttResults = document.getElementById("tt-results");
 
 // Event Listeners
@@ -35,6 +36,12 @@ if (ttSearchBox) {
 if (ttFilterBox) {
     ttFilterBox.addEventListener("input", function (e) {
         filterTTResults(e.target.value);
+    });
+}
+
+if (ttFilterMode) {
+    ttFilterMode.addEventListener("change", function () {
+        filterTTResults(ttFilterBox.value);
     });
 }
 
@@ -133,7 +140,18 @@ async function performTTSearch(addHistory = true) {
 
                 // Highlight search term
                 if (q) {
-                    const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+                    // Try to use as regex first, fall back to escaped literal if invalid
+                    let regex;
+                    try {
+                        regex = new RegExp(`(${q})`, "gi");
+                        // Test if it's valid by running it once
+                        regex.test("");
+                        regex.lastIndex = 0; // Reset after test
+                    } catch (e) {
+                        // Invalid regex, escape it as literal string
+                        regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, "gi");
+                    }
+
                     if (lang === "Pāḷi") {
                         paliText = paliText.replace(regex, "<span class='hi'>$1</span>");
                     } else {
@@ -215,8 +233,21 @@ function filterTTResults(filterText) {
     if (!ttResults) return;
 
     const items = ttResults.querySelectorAll(".tt-item");
-    const filter = filterText.toLowerCase();
+    const mode = ttFilterMode ? ttFilterMode.value : "with";
     let visibleCount = 0;
+
+    // Try to create a regex, fall back to literal string if invalid
+    let regex = null;
+    let isRegex = false;
+    if (filterText) {
+        try {
+            regex = new RegExp(filterText, "i"); // case-insensitive
+            isRegex = true;
+        } catch (e) {
+            // Invalid regex, use literal string matching
+            isRegex = false;
+        }
+    }
 
     items.forEach(item => {
         // Restore original HTML
@@ -224,21 +255,42 @@ function filterTTResults(filterText) {
             item.innerHTML = item.dataset.originalHtml;
         }
 
-        if (filter === "") {
+        if (!filterText) {
             item.style.display = "";
             visibleCount++;
             return;
         }
 
-        const textContent = item.textContent.toLowerCase();
+        const textContent = item.textContent;
+        let containsFilter = false;
 
-        if (textContent.includes(filter)) {
+        if (isRegex) {
+            containsFilter = regex.test(textContent);
+        } else {
+            // Fallback to case-insensitive string matching
+            containsFilter = textContent.toLowerCase().includes(filterText.toLowerCase());
+        }
+
+        // Show item based on mode
+        let shouldShow = false;
+        if (mode === "with") {
+            shouldShow = containsFilter;
+        } else if (mode === "without") {
+            shouldShow = !containsFilter;
+        }
+
+        if (shouldShow) {
             item.style.display = "";
             visibleCount++;
 
-            // Highlight matches in text nodes only
-            highlightTextNodes(item, filter);
-
+            // Only highlight matches in "with" mode
+            if (mode === "with") {
+                if (isRegex) {
+                    highlightTextNodesRegex(item, regex);
+                } else {
+                    highlightTextNodes(item, filterText.toLowerCase());
+                }
+            }
         } else {
             item.style.display = "none";
         }
@@ -247,7 +299,7 @@ function filterTTResults(filterText) {
     // Update count message
     const countDiv = ttResults.querySelector(".tt-count");
     if (countDiv) {
-        if (filter === "") {
+        if (!filterText) {
             if (ttResults.dataset.originalCountText) {
                 countDiv.textContent = ttResults.dataset.originalCountText;
             }
@@ -275,8 +327,39 @@ function highlightTextNodes(element, filter) {
 
     nodesToReplace.forEach(node => {
         const span = document.createElement("span");
-        const regex = new RegExp(`(${filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+        const regex = new RegExp(`(${filter.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, "gi");
         span.innerHTML = node.nodeValue.replace(regex, '<span class="hi-filter">$1</span>');
+        node.parentNode.replaceChild(span, node);
+
+        // Unwrap the outer span we just created, keeping the inner structure
+        const parent = span.parentNode;
+        while (span.firstChild) {
+            parent.insertBefore(span.firstChild, span);
+        }
+        parent.removeChild(span);
+    });
+}
+
+function highlightTextNodesRegex(element, regex) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+    const nodesToReplace = [];
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.parentNode.classList.contains("hi") || node.parentNode.tagName === "SCRIPT" || node.parentNode.tagName === "STYLE") {
+            continue;
+        }
+
+        if (regex.test(node.nodeValue)) {
+            nodesToReplace.push(node);
+        }
+    }
+
+    nodesToReplace.forEach(node => {
+        const span = document.createElement("span");
+        // Reset regex lastIndex for global flag
+        regex.lastIndex = 0;
+        span.innerHTML = node.nodeValue.replace(regex, '<span class="hi-filter">$&</span>');
         node.parentNode.replaceChild(span, node);
 
         // Unwrap the outer span we just created, keeping the inner structure

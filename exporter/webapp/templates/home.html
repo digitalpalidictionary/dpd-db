@@ -289,7 +289,7 @@
                     <div class="tt-search-row">
                         <label class="tt-label">Search for</label>
                         <input class="search-box tt-search-box" type="text" id="tt-search-box" autocomplete="off"
-                            inputmode="text" autocapitalize="off" />
+                            inputmode="text" autocapitalize="off" placeholder="use plain text or regex" />
                         <label class="tt-label">in</label>
                         <select id="tt-lang-select" class="tt-select">
                             <option value="Pāḷi">Pāḷi texts</option>
@@ -305,8 +305,13 @@
                         <button class="search-button" id="tt-search-button">search</button>
                     </div>
                     <div class="tt-search-row">
-                        <label class="tt-label">Only show results with</label>
-                        <input class="search-box tt-search-box" type="text" id="tt-filter-box" autocomplete="off" />
+                        <label class="tt-label">Only show results</label>
+                        <select id="tt-filter-mode" class="tt-select">
+                            <option value="with">with</option>
+                            <option value="without">without</option>
+                        </select>
+                        <input class="search-box tt-search-box" type="text" id="tt-filter-box" autocomplete="off"
+                            placeholder="use plain text or regex" />
                         <label class="tt-label">in them.</label>
                         <button type="button" class="search-button" id="tt-clear-button"
                             style="margin-left: auto;">clear</button>
