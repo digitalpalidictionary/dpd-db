@@ -86,11 +86,21 @@ def render_xhtml(
 
     # words in deconstructor in cst_text_set & sc_text_set
     pr.green("querying lookup for deconstructor")
-    deconstructor_db = (
-        db_session.query(Lookup)
-        .filter(Lookup.deconstructor != "", Lookup.lookup_key.in_(combined_text_set))
-        .all()
-    )
+
+    # Process in chunks to avoid SQLite's "too many SQL variables" error
+    chunk_size = 900  # Leave some buffer under SQLite's 999 limit
+    deconstructor_db = []
+
+    combined_text_list = list(combined_text_set)
+    for i in range(0, len(combined_text_list), chunk_size):
+        chunk = combined_text_list[i : i + chunk_size]
+        chunk_result = (
+            db_session.query(Lookup)
+            .filter(Lookup.deconstructor != "", Lookup.lookup_key.in_(chunk))
+            .all()
+        )
+        deconstructor_db.extend(chunk_result)
+
     words_in_deconstructor_set = make_words_in_deconstructions(db_session)
     pr.yes(len(words_in_deconstructor_set))
 
