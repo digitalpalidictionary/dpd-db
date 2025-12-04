@@ -15,11 +15,19 @@ class AddVariantsToDb:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
 
-        self.lookup_table = (
-            self.db_session.query(Lookup)
-            .filter(Lookup.lookup_key.in_(self.variant_dict_keys))
-            .all()
-        )
+        # Query in chunks to avoid SQLite variable limit
+        chunk_size = 900
+        self.lookup_table = []
+        
+        for i in range(0, len(self.variant_dict_keys), chunk_size):
+            chunk_keys = self.variant_dict_keys[i : i + chunk_size]
+            chunk_results = (
+                self.db_session.query(Lookup)
+                .filter(Lookup.lookup_key.in_(chunk_keys))
+                .all()
+            )
+            self.lookup_table.extend(chunk_results)
+        
         self.lookup_keys: list[str] = [i.lookup_key for i in self.lookup_table]
 
         pr.yes("")
