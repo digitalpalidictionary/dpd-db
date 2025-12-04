@@ -1,5 +1,9 @@
 [
     {
+        "id": 88130,
+        "lemma_1": "saddasaññaka"
+    },
+    {
         "id": 29561,
         "lemma_1": "tato 3"
     },
@@ -74,9 +78,5 @@
     {
         "id": 88113,
         "lemma_1": "sambhuñjati 3"
-    },
-    {
-        "id": 35349,
-        "lemma_1": "naattapaññatti"
     }
 ]
