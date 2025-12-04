@@ -538,7 +538,7 @@ class SuttaInfo(Base):
     sc_file_path: Mapped[str] = mapped_column(default="")
     dpr_code: Mapped[str] = mapped_column(default="")
     dpr_link: Mapped[str] = mapped_column(default="")
-    
+
     dv_pts: Mapped[str] = mapped_column(default="")
     dv_main_theme: Mapped[str] = mapped_column(default="")
     dv_subtopic: Mapped[str] = mapped_column(default="")
@@ -698,30 +698,30 @@ class SuttaInfo(Base):
     @property
     def dv_exists(self) -> bool:
         if (
-            self.dv_pts or
-            self.dv_main_theme or
-            self.dv_subtopic or
-            self.dv_stage or
-            self.dv_training or
-            self.dv_aspect or
-            self.dv_teacher or
-            self.dv_audience or
-            self.dv_method or
-            self.dv_length or
-            self.dv_prominence or
-            self.dv_nikayas_parallels or
-            self.dv_āgamas_parallels or
-            self.dv_taisho_parallels or
-            self.dv_sanskrit_parallels or
-            self.dv_vinaya_parallels or
-            self.dv_others_parallels or
-            self.dv_partial_parallels_nā or
-            self.dv_partial_parallels_all or
-            self.dv_summary or
-            self.dv_key_excerpt1 or
-            self.dv_key_excerpt2 or
-            self.dv_similes or
-            self.dv_suggested_suttas
+            self.dv_pts
+            or self.dv_main_theme
+            or self.dv_subtopic
+            or self.dv_stage
+            or self.dv_training
+            or self.dv_aspect
+            or self.dv_teacher
+            or self.dv_audience
+            or self.dv_method
+            or self.dv_length
+            or self.dv_prominence
+            or self.dv_nikayas_parallels
+            or self.dv_āgamas_parallels
+            or self.dv_taisho_parallels
+            or self.dv_sanskrit_parallels
+            or self.dv_vinaya_parallels
+            or self.dv_others_parallels
+            or self.dv_partial_parallels_nā
+            or self.dv_partial_parallels_all
+            or self.dv_summary
+            or self.dv_key_excerpt1
+            or self.dv_key_excerpt2
+            or self.dv_similes
+            or self.dv_suggested_suttas
         ):
             return True
         else:
@@ -730,14 +730,14 @@ class SuttaInfo(Base):
     @property
     def dv_parallels_exists(self) -> bool:
         if (
-            self.dv_nikayas_parallels or
-            self.dv_āgamas_parallels or
-            self.dv_taisho_parallels or
-            self.dv_sanskrit_parallels or
-            self.dv_vinaya_parallels or
-            self.dv_others_parallels or
-            self.dv_partial_parallels_nā or
-            self.dv_partial_parallels_all
+            self.dv_nikayas_parallels
+            or self.dv_āgamas_parallels
+            or self.dv_taisho_parallels
+            or self.dv_sanskrit_parallels
+            or self.dv_vinaya_parallels
+            or self.dv_others_parallels
+            or self.dv_partial_parallels_nā
+            or self.dv_partial_parallels_all
         ):
             return True
         else:
@@ -1163,10 +1163,7 @@ class DpdHeadword(Base):
 
     @property
     def compound_construction_txt(self) -> str:
-        return (
-            self.compound_construction.replace("<b>", "")
-            .replace("</b>", "")
-        )
+        return self.compound_construction.replace("<b>", "").replace("</b>", "")
 
     @property
     def phonetic_typst(self) -> str:
@@ -1206,7 +1203,6 @@ class DpdHeadword(Base):
         )
         return re.sub(r"\.$", "", notes_clean)
 
-
     @property
     def cognate_typst(self) -> str:
         return self.cognate.replace("*", "\\*")
@@ -1217,6 +1213,10 @@ class DpdHeadword(Base):
         for website in self.link.split("\n"):
             link_string += f"""#link("{website}")\\n"""
         return link_string
+
+    @property
+    def link_txt(self) -> str:
+        return ", ".join(self.link.split("\n"))
 
     @property
     def link_list(self) -> list[str]:

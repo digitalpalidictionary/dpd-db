@@ -7,7 +7,6 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pali_sort_key import pali_sort_key
 from tools.zip_up import zip_up_file
-import re
 
 
 @dataclass
@@ -27,12 +26,20 @@ class GLobalVars:
 
 def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
     data: list[str] = []
-    data.append(i.lemma_1)
+
+    # summary line
+    data.append(f"{i.lemma_1}, {i.pos}. {i.meaning_combo} {i.degree_of_completion}")
+
+    # table underneath summary
+    # data.append(f"\n  Lemma: {i.lemma_clean}")
+    if i.lemma_trad_clean != i.lemma_clean:
+        data.append(f"\n  Traditional Lemma: {i.lemma_trad_clean}")
+    data.append(f"\n  IPA: /{i.lemma_ipa}/")
 
     # has meaning_1, show everything
     if i.meaning_1:
-        if i.grammar:
-            data.append(f", {i.grammar}")
+        # grammar line
+        data.append(f"\n  Grammar: {i.grammar}")
         if i.neg:
             data.append(f", {i.neg}")
         if i.verb:
@@ -41,73 +48,85 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
             data.append(f", {i.trans}")
         if i.plus_case:
             data.append(f" ({i.plus_case})")
-        data.append(f": {i.meaning_1}")
-        if i.meaning_lit:
-            data.append(f"; lit. {i.meaning_lit}")
+
+        # root line
         if i.root_key:
             data.append(
-                f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
+                f"\n  Root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
             )
+            if i.rt.root_in_comps:
+                data.append(f"\n  √ In Sandhi: {i.rt.root_in_comps}")
+
         if i.root_base:
-            data.append(f". base: {i.root_base}")
+            data.append(f"\n  Base: {i.root_base}")
         if i.construction:
-            data.append(f". construction: {i.construction_line1}")
-        if i.phonetic:
-            data.append(f". phonetic change: {i.phonetic_txt}")
+            data.append(f"\n  Construction: {i.construction_line1}")
         if i.derivative and i.suffix:
-            data.append(f". derivative: {i.derivative} ({i.suffix})")
-        if i.compound_type:
-            data.append(f". compound: {i.compound_type}")
+            data.append(f"\n  Derivative: {i.derivative} ({i.suffix})")
+        if i.phonetic:
+            data.append(f"\n  Phonetic Change: {i.phonetic_txt}")
+        if i.compound_type and "?" not in i.compound_type:
+            data.append(f"\n  Compound: {i.compound_type}")
         if i.compound_construction:
             data.append(f" ({i.compound_construction_txt})")
         if i.antonym:
-            data.append(f". antonym: {i.antonym}")
+            data.append(f"\n  Antonym: {i.antonym}")
         if i.synonym:
-            data.append(f". synonym: {i.synonym}")
+            data.append(f"\n  Synonym: {i.synonym}")
         if i.variant:
-            data.append(f". variant: {i.variant}")
+            data.append(f"\n  Variant: {i.variant}")
         if i.notes:
-            data.append(f". notes: {i.notes_txt}")
-        if i.non_ia:
-            data.append(f". non-IA: {i.non_ia}")
-        if i.sanskrit:
-            data.append(f". Sanskrit: {i.sanskrit}")
+            data.append(f"\n  Notes: {i.notes_txt}")
         if i.cognate:
-            data.append(f". English cognate: {i.cognate}")
+            data.append(f"\n  English cognate: {i.cognate}")
+        if i.link:
+            data.append(f"\n  Web Link: {i.link_txt}")
+        if i.non_ia:
+            data.append(f"\n  Non IA: {i.non_ia}")
+        if i.sanskrit:
+            data.append(f"\n  Sanskrit: {i.sanskrit}")
+        if i.root_key and i.rt.sanskrit_root:
+            data.append(f"\n  Sanskrit Root: {i.rt.sanskrit_root}")
+            data.append(f" {i.rt.sanskrit_root_class}")
+            data.append(f" ({i.rt.sanskrit_root_meaning})")
+        data.append(f"\n  ID: {i.id}")
 
     # no meaning_1 but pass1 or pass2, show root and construction
     elif not i.meaning_1 and i.origin in ["pass1", "pass2"]:
-        data.append(f", {i.pos}")
-        data.append(f": {i.meaning_2}")
-        if i.meaning_lit:
-            data.append(f"; lit. {i.meaning_lit}")
+        # root line
         if i.root_key:
             data.append(
-                f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
+                f"\n  Root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
             )
+            if i.rt.root_in_comps:
+                data.append(f"\n  √ In Sandhi: {i.rt.root_in_comps}")
         if i.root_base:
-            data.append(f". base: {i.root_base}")
+            data.append(f"\n  Base: {i.root_base}")
         if i.construction:
-            data.append(f". construction: {i.construction_line1}")
+            data.append(f"\n  Construction: {i.construction_line1}")
+        data.append(f"\n  ID: {i.id}")
 
     # no meaning_1 and no origin, only show the basics
     else:
-        data.append(f", {i.pos}")
-        data.append(f": {i.meaning_2}")
-        if i.meaning_lit:
-            data.append(f"; lit. {i.meaning_lit}")
+        # root line
         if i.root_key:
-            data.append(
-                f". root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
-            )
+            data.append(f"\n  Root: {i.family_root} {i.rt.root_group} ")
+            if i.root_sign:
+                data.append(i.root_sign)
+            else:
+                data.append(i.rt.root_sign)
+            data.append(f" ({i.rt.root_meaning})")
+            if i.rt.root_in_comps:
+                data.append(f"\n  √ In Sandhi: {i.rt.root_in_comps}")
+        data.append(f"\n  ID: {i.id}")
 
-    data.append(f" {i.degree_of_completion}")
+    data.append("\n")
 
     return "".join(data)
 
 
 def export_txt(g: GLobalVars):
-    pr.green_title("exporting txt")
+    pr.green_title("compiling txt")
     for counter, i in enumerate(g.db_sorted):
         if counter % 10000 == 0:
             pr.counter(counter, g.db_length, i.lemma_1)

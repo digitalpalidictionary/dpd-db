@@ -14,19 +14,23 @@
 <div class="button-box">
 
     {% if d.i.needs_sutta_info_button %}
-    <a class="button" name="sutta-info-button" href="#" data-target="sutta_info_{{d.i.lemma_1_}}">
+    <a class="button" name="sutta-info-button" href="#"
+        data-target="sutta_info_{{d.i.lemma_1_}}">
         sutta</a>
 
     {% endif %}
 
     {% if d.i.needs_grammar_button %}
-    <a class="button" name="grammar-button" href="#" data-target="grammar_{{d.i.lemma_1_}}">
+    <a class="button" name="grammar-button" href="#"
+        data-target="grammar_{{d.i.lemma_1_}}">
         grammar</a>
     {% endif %} {% if d.i.needs_example_button %}
-    <a class="button" name="example-button" href="#" data-target="example_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#"
+        data-target="example_{{d.i.lemma_1_}}">
         example</a>
     {% endif %} {% if d.i.needs_examples_button %}
-    <a class="button" name="example-button" href="#" data-target="examples_{{d.i.lemma_1_}}">
+    <a class="button" name="example-button" href="#"
+        data-target="examples_{{d.i.lemma_1_}}">
         examples</a>
     {% endif %} {% if d.i.needs_conjugation_button %}
     <a class="button" href="#" data-target="conjugation_{{d.i.lemma_1_}}">
@@ -67,7 +71,8 @@
 <!-- sutta info -->
 
 {% if d.i.needs_sutta_info_button %}
-<div id="sutta_info_{{d.i.lemma_1_}}" name="sutta-info-div" class="dpd content hidden">
+<div id="sutta_info_{{d.i.lemma_1_}}" name="sutta-info-div"
+    class="dpd content hidden">
     <table class="sutta-info">
 
         <!-- CST -->
@@ -172,7 +177,9 @@
                 Github
             </th>
             <td>
-                <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}" target="_blank">{{
+                <a
+                    href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}"
+                    target="_blank">{{
                     d.su.cst_file }}</a>
 
             </td>
@@ -671,13 +678,14 @@
                 Github
             </th>
             <td>
-                <a href="https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue" target="_blank">
+                <a
+                    href="https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue"
+                    target="_blank">
                     https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue
                 </a>
             </td>
         </tr>
         {% endif %}
-
 
         <!-- DV parallel texts -->
 
@@ -783,7 +791,8 @@
 <!-- grammar -->
 
 {% if d.i.needs_grammar_button %}
-<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div" class="dpd content hidden">
+<div id="grammar_{{d.i.lemma_1_}}" name="grammar-div"
+    class="dpd content hidden">
     <table class="grammar">
         <tr>
             <th>Lemma</th>
@@ -811,7 +820,8 @@
             <th>Root Family</th>
             <td>{{d.i.family_root}}</td>
         </tr>
-        {% endif %} {% if d.i.root_key %}
+        {% endif %}
+        {% if d.i.root_key %}
         <tr>
             <th>Root</th>
             <td>
@@ -819,12 +829,14 @@
                 {{d.i.root_sign}} ({{d.i.rt.root_meaning}})
             </td>
         </tr>
-        {% endif %} {% if d.i.rt.root_in_comps %}
+        {% endif %}
+        {% if d.i.rt.root_in_comps %}
         <tr>
             <th>√ In Sandhi</th>
             <td>{{d.i.rt.root_in_comps}}</td>
         </tr>
-        {% endif %} {% if d.i.root_base %}
+        {% endif %}
+        {% if d.i.root_base %}
         <tr>
             <th>Base</th>
             <td>{{d.i.root_base}}</td>
@@ -834,17 +846,20 @@
             <th>Construction</th>
             <td>{{d.i.construction|safe}}</td>
         </tr>
-        {% endif %} {% if d.i.derivative %}
+        {% endif %}
+        {% if d.i.derivative %}
         <tr>
             <th>Derivative</th>
             <td>{{d.i.derivative}} ({{d.i.suffix}})</td>
         </tr>
-        {% endif %} {% if d.i.phonetic %}
+        {% endif %}
+        {% if d.i.phonetic %}
         <tr>
             <th>Phonetic Change</th>
             <td>{{d.i.phonetic|safe}}</td>
         </tr>
-        {% endif %} {% if d.i.compound_type and "?" not in d.i.compound_type %}
+        {% endif %}
+        {% if d.i.compound_type and "?" not in d.i.compound_type %}
         <tr>
             <th>Compound</th>
             <td>{{d.i.compound_type}} ({{d.i.compound_construction|safe}})</td>
@@ -854,7 +869,8 @@
             <th>Antonym</th>
             <td>{{d.i.antonym}}</td>
         </tr>
-        {% endif %} {% if d.i.synonym %}
+        {% endif %}
+        {% if d.i.synonym %}
         <tr>
             <th>Synonym</th>
             <td>{{d.i.synonym}}</td>
@@ -864,17 +880,20 @@
             <th>Variant</th>
             <td>{{d.i.variant}}</td>
         </tr>
-        {% endif %} {% if d.i.commentary and d.i.commentary !="-" %}
+        {% endif %}
+        {% if d.i.commentary and d.i.commentary !="-" %}
         <tr>
             <th>Commentary</th>
             <td>{{d.i.commentary|safe}}</td>
         </tr>
-        {% endif %} {% if d.i.notes %}
+        {% endif %}
+        {% if d.i.notes %}
         <tr>
             <th>Notes</th>
             <td>{{d.i.notes|safe}}</td>
         </tr>
-        {% endif %} {% if d.i.cognate %}
+        {% endif %}
+        {% if d.i.cognate %}
         <tr>
             <th>English Cognate</th>
             <td>{{d.i.cognate}}</td>
@@ -890,19 +909,22 @@
                 {% endfor %}
             </td>
         </tr>
-        {% endif %} {% if d.i.non_ia %}
+        {% endif %}
+        {% if d.i.non_ia %}
         <tr>
             <th>Non IA</th>
             <td>{{d.i.non_ia}}</td>
         </tr>
-        {% endif %} {% if d.i.sanskrit %}
+        {% endif %}
+        {% if d.i.sanskrit %}
         <tr>
             <th>Sanskrit</th>
             <td>
                 <i> {{d.i.sanskrit}} </i>
             </td>
         </tr>
-        {% endif %} {% if d.i.rt.sanskrit_root %}
+        {% endif %}
+        {% if d.i.rt.sanskrit_root %}
         <tr>
             <th>Sanskrit Root</th>
             <td>
@@ -927,9 +949,11 @@
 <!-- examples -->
 
 {% if d.i.needs_example_button %}
-<div id="example_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
+<div id="example_{{d.i.lemma_1_}}" name="example-div"
+    class="dpd content hidden">
     {% elif d.i.needs_examples_button %}
-    <div id="examples_{{d.i.lemma_1_}}" name="example-div" class="dpd content hidden">
+    <div id="examples_{{d.i.lemma_1_}}" name="example-div"
+        class="dpd content hidden">
         {% endif %}
 
         {% if d.i.example_1 and d.i.meaning_1 %}
@@ -1081,7 +1105,8 @@
         {% for f in d.fc %} {% if loop.index == 0 %}
         <p class="heading underlined overlined">{% else %}</p>
 
-        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}" class="heading underlined overlined">
+        <p id="{{d.i.lemma_1_}}cf_{{f.compound_family}}"
+            class="heading underlined overlined">
             {% endif %} {% if f.count == 1 %}
             <b>{{f.count}}</b>
             compound which contains
@@ -1174,7 +1199,8 @@
         {% for f in d.fs %} {% if loop.index0 == 0 %}
         <p class="heading underlined overlined">{% else %}</p>
 
-        <p id="{{d.i.lemma_1_}}sets_{{f.set}}" class="heading underlined overlined">
+        <p id="{{d.i.lemma_1_}}sets_{{f.set}}"
+            class="heading underlined overlined">
             {% endif %}
             <b>{{d.i.lemma_clean}}</b>
             belongs to the set of
@@ -1237,7 +1263,9 @@
             For a detailed explanation of how this word frequency chart is
             calculated,
             it's accuracies and inaccuracies, please refer to
-            <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/" target="_blank">
+            <a class="link"
+                href="https://digitalpalidictionary.github.io/features/frequency/"
+                target="_blank">
                 this webpage </a>.
         </p>
         <p class="footer">
@@ -1292,7 +1320,8 @@
             </span>
         </p>
         <p>
-            <a class="link" href="https://digitalpalidictionary.github.io/" target="_blank">
+            <a class="link" href="https://digitalpalidictionary.github.io/"
+                target="_blank">
                 Read the docs
             </a>
             <span>
