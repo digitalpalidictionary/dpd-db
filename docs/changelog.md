@@ -5,6 +5,30 @@ search:
 
 # Changelog
 
+## 2025-12-05
+
+### GitHub Issues Closed
+GitHub issues not available right now...
+
+
+### Dictionary Data Updates
+- 87 689 headwords, 46 597 complete, 11 970 partially complete, 29 122 incomplete entries
+- 752 roots, 3 341 root families, 36 144 words derived from roots
+- 859 562 deconstructed compounds
+- 1 466 792 unique inflected forms recognized
+- 2 169 933 cells of Pāḷi word data
+- 18 291 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: missing verbal forms
+- Pass2 complete: DN1-3, MN1-3
+- Pass2 in progress: SN1 
+- numerous additions and corrections based on user feedback
+
+### New Words
+akataparicaya, aggahesi 4, ajāta 3, ajjhāvasanta 3, adhippāya 1.2, adhimuccati 3, adhivattati 3, analla, anallīna, anupariyāti 2, anusūyati, aparaddha 5, aparaddha 6, apettha, abyābajjha 1.3, abhitthanayati, abhinipphādeti 2, avivaṭa 2, asajji, āghātita 1, āghātita 2, ānīta 2, āpanna 5, udahāra, uddesaggahaṇa, uddharati 5, upakkamati 2, upanāmesi 2, uppabbājetuṃ, ūhata 3,1, ūhadita, ekaputta 2, ekāhaṃ 1, etaṃmamādisutta 2, eḷagalā 2, kaku 2, kaṇiṭṭha 2, kammattha, kalāya, kiñceti, kumbhaṇḍa 3, krubbati 1, khandhāsaṃ, gacchanta 2, ghaṭṭetar, ghara 3, ghuru, caraka 3, calati 2, cittānukūla, jayakāraṇa, jāta 9, tappayanta, tappayitvā, tavevetaṃ, titthika 2, timbaru 1, tenāyaṃ 2, tyāyaṃ, thina 2, dakkhi 2.1, dissati 2.1, devānampiya, devānampiyatissa, dhammasadda 1.1, nadīpabbatasobhita, nabhas 2, navakammika 3, nādāya, niggahita 4, nibbānamevajjhagamuṃ, nibbivara, niroṭṭha, nillāleti, nissajitabba, nemi 4, nhāna 2, paccitabba, pacceti 3, pajjalitaggi, paññāsattha, paṭicchādanatthaṃ, paṭipādesi 3, parato 4, parāmasati 1.5, paricaritvā 1, paripūrayanta, paribhogaṃ gacchati, pāpasaṅkappa 1, piṅgiya 2, pitāmahī, puññakamma 2, puññabhāga 1, pubbahetukasīla, purato 2, phalagaṇḍa 2, bakabrahma, bahudhītara, bodheti 2, brahmāyācana, brahmāsana, brāhmaṇavaṇṇa 2, bhattābhihāra 4, bhāsi 2, bhinna 4, matta 1.2, manta 1.3, mametamāyuṃ, maraṇābhibhū 2, mānatthaddha 3, mukhena 2, moggaliputta 2, myāyaṃ 5, yamāsi, yasseso, yuddhatthika, rajjaṃ kāretuṃ, rathaka 2, rocati 1, rosenta, lokādhipati, vadeti 1.2, varametaṃ, vasimhi, vātāhata, vi 1.4, viññāpetuṃ 1, vippavadati, vimutta 4, vilutta 2, vilumpaka, vilumpiyati, vivitta 3, visūka 2.1, vuttiresā, sakkata 2, sakkhī 1.1, sakkhī 2.1, saggaparāyana, saṅkati 3, sañcarati 2, sattupalabbhati, saddasaññaka, sabbamatikkamati, sabyābajjha 2, samatitthika, samantānupariyāti, sambandha 5, sambhuñjati 3, saraṇa 1.3, sarati 2.1, saṃkhittamatthaṃ, sita 3.2, sukhamāyatika, suphassita 1, subhariyā, suhuta 2 [157]
+
+
+
 ## 2025-11-05
 
 ### GitHub Issues Closed
