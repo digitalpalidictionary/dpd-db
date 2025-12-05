@@ -201,3 +201,4 @@ scripts/find/most_common_missing_words.tsv
 db/suttas/code/*
 db/suttas/Untitled Document
 db/suttas/todo.md
+resources/tipitaka_translation_data/tipitaka-translation-data.db.zip

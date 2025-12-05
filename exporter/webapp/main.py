@@ -21,7 +21,7 @@ from exporter.webapp.toolkit import make_dpd_html
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
-from tools.tipitaka_db import search_all_cst_texts, search_book
+# from tools.tipitaka_db import search_all_cst_texts, search_book
 from tools.translit import auto_translit_to_roman
 
 pth: ProjectPaths = ProjectPaths()
@@ -229,42 +229,42 @@ def db_search_bd(
     )
 
 
-@app.get("/tt_search", response_class=JSONResponse)
-def tt_search(request: Request, q: str, book: str, lang: str):
-    """Search Tipiṭaka Translations."""
-    
-    # Limit results
-    limit = 100
-    
-    # Determine search column
-    search_column = "pali_text" if lang == "Pāḷi" else "english_translation"
-    
-    # Perform search
-    if book == "all":
-        results = search_all_cst_texts(q, search_column=search_column)
-    else:
-        results = search_book(book, q, search_column=search_column)
-    
-    total_count = len(results)
-    results = results[:limit]
-    
-    # Generate JSON
-    response_data = {
-        "total": total_count,
-        "results": []
-    }
-    
-    if results:
-        for i, (pali_text, eng_trans, table_name, book_name) in enumerate(results, 1):
-            response_data["results"].append({
-                "id": i,
-                "pali": pali_text,
-                "eng": eng_trans,
-                "book": book_name,
-                "table": table_name
-            })
-            
-    return JSONResponse(content=response_data)
+# @app.get("/tt_search", response_class=JSONResponse)
+# def tt_search(request: Request, q: str, book: str, lang: str):
+#     """Search Tipiṭaka Translations."""
+#     
+#     # Limit results
+#     limit = 100
+#     
+#     # Determine search column
+#     search_column = "pali_text" if lang == "Pāḷi" else "english_translation"
+#     
+#     # Perform search
+#     if book == "all":
+#         results = search_all_cst_texts(q, search_column=search_column)
+#     else:
+#         results = search_book(book, q, search_column=search_column)
+#     
+#     total_count = len(results)
+#     results = results[:limit]
+#     
+#     # Generate JSON
+#     response_data = {
+#         "total": total_count,
+#         "results": []
+#     }
+#     
+#     if results:
+#         for i, (pali_text, eng_trans, table_name, book_name) in enumerate(results, 1):
+#             response_data["results"].append({
+#                 "id": i,
+#                 "pali": pali_text,
+#                 "eng": eng_trans,
+#                 "book": book_name,
+#                 "table": table_name
+#             })
+#             
+#     return JSONResponse(content=response_data)
 
 
 def update_history(
