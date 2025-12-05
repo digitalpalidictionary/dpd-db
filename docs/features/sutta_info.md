@@ -73,7 +73,7 @@ Page numbers for various printed editions of the Tipiṭaka:
 ![dvt sutta catalogue](pics/sutta_info/dvt_sutta_dark.png#only-dark)
 ![dvt sutta catalogue](pics/sutta_info/dvt_sutta_light.png#only-light)
 
-Dhamma Vinaya Tools on [GitHub](https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue) offers detailed information on each discourse.
+**Dhamma Vinaya Tools** offers detailed information on each discourse. This amazing resource can be found on [GitHub](https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue){target="_blank"}.
 
 | |  |
 | --- | --- |
