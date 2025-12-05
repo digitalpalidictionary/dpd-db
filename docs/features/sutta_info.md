@@ -68,6 +68,49 @@ Page numbers for various printed editions of the Tipiṭaka:
 | **VRI** | Page number in the printed Vipassana Research Institute edition |
 | **PTS** | Page number in the printed Pali Text Society edition |
 
+## Dhamma Vinaya Tools: Sutta Catalogue
+
+![dvt sutta catalogue](pics/sutta_info/dvt_sutta_dark.png#only-dark)
+![dvt sutta catalogue](pics/sutta_info/dvt_sutta_light.png#only-light)
+
+Dhamma Vinaya Tools on [GitHub](https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue) offers detailed information on each discourse.
+
+| |  |
+| --- | --- |
+| **PTS** | Page number in printed PTS edition |
+| **General Theme** | General theme of the discourse |
+| **Particular Topic** | Particular topic of the discourse |
+| **Summary** | A brief summary of the discourse contents |
+| **Key Excerpts 1** | Most important takeaway from the discourse |
+| **Key Excerpts 2** | Other important takeaways from the discourse |
+| **Similes** | Similes found in the discourse |
+| **Stage of Training** | What stage of training does the discourse refer to |
+| **Training In** | Sīla, samādhi and / or paññā |
+| **Type of Teaching** | Doctrinal, training, biographical, practical, inspirational, etc. |
+| **Teacher** | Who preached the discourse |
+| **Audience** | Who heard the discourse |
+| **Method of Teaching** | What method of teaching was employed in the discourse |
+| **Sutta Length** | Relative length of the discourse |
+| **Prominence** | How does the discourse stand out |
+| **Suggested Reading** | Further discourses on the same theme |
+| **GitHub** | Link to the repo on GitHub  |
+
+## Parallels
+
+![parallels](pics/sutta_info/parallels_dark.png#only-dark)
+![parallels](pics/sutta_info/parallels_light.png#only-light)
+
+Versions of the same discourse in other textual collections.
+
+| |  |
+| --- | --- |
+| **Nikāyas** | Parallels in other Pāḷi Nikāyas |
+| **Āgamas** | Parallels in Chinese Āgamas |
+| **Taisho** | Parallels in Chinese Taisho Catalogue |
+| **Sanskrit** | Parallels in Sanskrit |
+| **Vinaya** | Parallels in Vinaya |
+| **Other** | Parallels in other places |
+
 
 ## Feedback
 
