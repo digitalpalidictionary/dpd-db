@@ -1,6 +1,6 @@
 # The Buddha's Words Website
 
-A light version of DPD is now integrated into [The Buddha's Words](https://https://thebuddhaswords.net){target="_blank"} website.
+A light version of DPD is now integrated into [The Buddha's Words](https://thebuddhaswords.net){target="_blank"} website.
 
 This offers a very comfortable Pāḷi reading experience with 
 
