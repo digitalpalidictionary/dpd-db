@@ -200,3 +200,4 @@ scripts/find/most_common_missing_words_old.tsv
 scripts/find/most_common_missing_words.tsv
 db/suttas/code/*
 db/suttas/Untitled Document
+db/suttas/todo.md
