@@ -8,7 +8,11 @@ search:
 ## 2025-12-05
 
 ### GitHub Issues Closed
-GitHub issues not available right now...
+- [#56 Table of sutta data](https://github.com/digitalpalidictionary/dpd-db/issues/56)
+- [#155 Webapp: Add help, abbreviations, EPD, grammar to summary](https://github.com/digitalpalidictionary/dpd-db/issues/155)
+- [#182 mobi coverter depends on OS](https://github.com/digitalpalidictionary/dpd-db/pull/182)
+- [#185 Add Tipiṭaka Translation tab to webapp](https://github.com/digitalpalidictionary/dpd-db/issues/185)
+- [#187 Export plain .txt file](https://github.com/digitalpalidictionary/dpd-db/issues/187)
 
 
 ### Dictionary Data Updates
