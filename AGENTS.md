@@ -67,10 +67,10 @@
 
 ### Commit
 - "Commit" means commit the changed files using execute_command.
-- Use this format, all in lowercase. area: change1, change2 #issue number. E.g. webapp: updated css, fixed overflow #67
+- Use this format, all in lowercase. #issue number area: change1, change2 . E.g. #67 webapp: updated css, fixed overflow
 
 # Code Review
-- When completed the task, run `coderabbit --prompt-only` in the terminal to get a review
+- When completed the task, ask the user for permission to run `coderabbit --prompt-only` in the terminal to get a review
 - Fix all the suggested issues
 - If there are no issues, there's nothing to fix.
 
