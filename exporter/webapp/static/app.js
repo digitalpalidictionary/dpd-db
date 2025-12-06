@@ -10,12 +10,12 @@ const appState = {
     searchOption: "regex",
     resultsHTML: "",
   },
-  // tt: {
-  //   searchTerm: "",
-  //   language: "Pāḷi",
-  //   book: "all",
-  //   resultsHTML: "",
-  // },
+  tt: {
+    searchTerm: "",
+    language: "Pāḷi",
+    book: "all",
+    resultsHTML: "",
+  },
   history: [], // An array of state snapshots
   historyIndex: -1, // Current position in the history stack
   // History panel entries - simpler list of search terms for persistence
@@ -64,9 +64,9 @@ function initializeApp() {
   appState.bd.searchTerm1 = q1;
   appState.bd.searchTerm2 = q2;
   appState.bd.searchOption = option;
-  // appState.tt.searchTerm = q; // Reusing q for tt search term
-  // appState.tt.book = book;
-  // appState.tt.language = lang;
+  appState.tt.searchTerm = q; // Reusing q for tt search term
+  appState.tt.book = book;
+  appState.tt.language = lang;
 
   // If the URL contains search parameters, perform an initial search
   if (
@@ -74,15 +74,14 @@ function initializeApp() {
     (q1 && q1.trim() !== "") ||
     (q2 && q2.trim() !== "")
   ) {
-    // if (tab === "tt" && q && q.trim() !== "") {
-    //   // Perform TT search - use setTimeout to ensure performTTSearch is loaded
-    //   setTimeout(() => {
-    //     if (typeof window.performTTSearch === "function") {
-    //       window.performTTSearch(false);
-    //     }
-    //   }, 0);
-    // } else
-    if (/^\d+$/.test(q.trim())) {
+    if (tab === "tt" && q && q.trim() !== "") {
+      // Perform TT search - use setTimeout to ensure performTTSearch is loaded
+      setTimeout(() => {
+        if (typeof window.performTTSearch === "function") {
+          window.performTTSearch(false);
+        }
+      }, 0);
+    } else if (/^\d+$/.test(q.trim())) {
       performSearch(true);
     } else {
       performSearch(false);
@@ -107,7 +106,7 @@ async function performSearch(addHistory = true) {
       if (appState.dpd.searchTerm.trim() !== "") {
         // Sync search term to other tabs
         appState.bd.searchTerm1 = appState.dpd.searchTerm;
-        // appState.tt.searchTerm = appState.dpd.searchTerm;
+        appState.tt.searchTerm = appState.dpd.searchTerm;
 
         const response = await fetch(
           `/search_json?q=${encodeURIComponent(appState.dpd.searchTerm)}`
@@ -205,7 +204,7 @@ async function performSearch(addHistory = true) {
       // Sync search term to other tabs (use searchTerm1 as the primary term)
       if (appState.bd.searchTerm1.trim() !== "") {
         appState.dpd.searchTerm = appState.bd.searchTerm1;
-        // appState.tt.searchTerm = appState.bd.searchTerm1;
+        appState.tt.searchTerm = appState.bd.searchTerm1;
       }
 
       // Always perform BD search if we're on the BD tab, regardless of whether search terms are empty
@@ -257,21 +256,21 @@ function render() {
     bdTabLink.classList.add("active");
   }
 
-  // const ttTab = document.getElementById("tt-tab");
-  // const ttTabLink = document.querySelector(".tab-link[data-tab='tt-tab']");
+  const ttTab = document.getElementById("tt-tab");
+  const ttTabLink = document.querySelector(".tab-link[data-tab='tt-tab']");
 
-  // if (appState.activeTab === "tt") {
-  //   ttTab.classList.add("active");
-  //   if (ttTabLink) ttTabLink.classList.add("active");
+  if (appState.activeTab === "tt") {
+    ttTab.classList.add("active");
+    if (ttTabLink) ttTabLink.classList.add("active");
 
-  //   dpdTab.classList.remove("active");
-  //   bdTab.classList.remove("active");
-  //   dpdTabLink.classList.remove("active");
-  //   bdTabLink.classList.remove("active");
-  // } else {
-  //   ttTab.classList.remove("active");
-  //   if (ttTabLink) ttTabLink.classList.remove("active");
-  // }
+    dpdTab.classList.remove("active");
+    bdTab.classList.remove("active");
+    dpdTabLink.classList.remove("active");
+    bdTabLink.classList.remove("active");
+  } else {
+    ttTab.classList.remove("active");
+    if (ttTabLink) ttTabLink.classList.remove("active");
+  }
 
   // Update the content of the search input fields
   const searchBox = document.getElementById("search-box");
@@ -282,13 +281,13 @@ function render() {
   if (bdSearchBox1) bdSearchBox1.value = appState.bd.searchTerm1;
   if (bdSearchBox2) bdSearchBox2.value = appState.bd.searchTerm2;
 
-  // const ttSearchBox = document.getElementById("tt-search-box");
-  // const ttLangSelect = document.getElementById("tt-lang-select");
-  // const ttBookSelect = document.getElementById("tt-book-select");
+  const ttSearchBox = document.getElementById("tt-search-box");
+  const ttLangSelect = document.getElementById("tt-lang-select");
+  const ttBookSelect = document.getElementById("tt-book-select");
 
-  // if (ttSearchBox) ttSearchBox.value = appState.tt.searchTerm;
-  // if (ttLangSelect) ttLangSelect.value = appState.tt.language;
-  // if (ttBookSelect) ttBookSelect.value = appState.tt.book;
+  if (ttSearchBox) ttSearchBox.value = appState.tt.searchTerm;
+  if (ttLangSelect) ttLangSelect.value = appState.tt.language;
+  if (ttBookSelect) ttBookSelect.value = appState.tt.book;
 
   // Update the search option
   const bdSearchOptions = document.getElementsByName("option");
@@ -304,7 +303,7 @@ function render() {
   // Update the content of the results panes
   const dpdResults = document.getElementById("dpd-results");
   const bdResults = document.getElementById("bd-results");
-  // const ttResults = document.getElementById("tt-results");
+  const ttResults = document.getElementById("tt-results");
 
   // Update the history panel
   updateHistoryPanel();
@@ -339,10 +338,10 @@ function render() {
   if (bdResults) {
     bdResults.innerHTML = appState.bd.resultsHTML;
   }
-  // if (ttResults) {
-  //   ttResults.innerHTML = appState.tt.resultsHTML;
+  if (ttResults) {
+    ttResults.innerHTML = appState.tt.resultsHTML;
+  }
 }
-// }
 
 // Switch to a different tab
 function switchTab(tabName) {
@@ -388,11 +387,11 @@ function addToHistory() {
       searchOption: appState.bd.searchOption,
       // Exclude resultsHTML to prevent localStorage quota issues
     },
-    // tt: {
-    //   searchTerm: appState.tt.searchTerm,
-    //   language: appState.tt.language,
-    //   book: appState.tt.book,
-    // }
+    tt: {
+      searchTerm: appState.tt.searchTerm,
+      language: appState.tt.language,
+      book: appState.tt.book,
+    }
   };
 
   // Handle the history stack (truncating forward history if necessary)
@@ -524,8 +523,8 @@ function updateURL() {
       appState.bd.searchTerm1
     )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${appState.bd.searchOption
       }`;
-    // } else if (appState.activeTab === "tt") {
-    //   url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.book)}&lang=${encodeURIComponent(appState.tt.language)}`;
+  } else if (appState.activeTab === "tt") {
+    url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.book)}&lang=${encodeURIComponent(appState.tt.language)}`;
   }
 
   // Update the browser's URL using history.pushState()
@@ -539,7 +538,7 @@ function handlePopState(event) {
     appState.activeTab = event.state.activeTab;
     appState.dpd = { ...event.state.dpd };
     appState.bd = { ...event.state.bd };
-    // appState.tt = { ...event.state.tt };
+    appState.tt = { ...event.state.tt };
 
     // Update the browser's URL to match the restored state without adding to history
     let url;
@@ -550,8 +549,8 @@ function handlePopState(event) {
         appState.bd.searchTerm1
       )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${appState.bd.searchOption
         }`;
-      // } else if (appState.activeTab === "tt") {
-      //   url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.book)}&lang=${encodeURIComponent(appState.tt.language)}`;
+    } else if (appState.activeTab === "tt") {
+      url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.book)}&lang=${encodeURIComponent(appState.tt.language)}`;
     }
     window.history.replaceState({ ...appState }, "", url);
 
@@ -563,10 +562,10 @@ function handlePopState(event) {
       (appState.bd.searchTerm1 || appState.bd.searchTerm2)
     ) {
       performSearch(false); // false to avoid adding to history again
-      // } else if (appState.activeTab === "tt" && appState.tt.searchTerm) {
-      //   if (typeof window.performTTSearch === "function") {
-      //     window.performTTSearch(false);
-      //   }
+    } else if (appState.activeTab === "tt" && appState.tt.searchTerm) {
+      if (typeof window.performTTSearch === "function") {
+        window.performTTSearch(false);
+      }
     } else {
       // Update the UI for empty state
       render();
@@ -600,13 +599,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // const ttTabLink = document.querySelector(".tab-link[data-tab='tt-tab']");
-  // if (ttTabLink) {
-  //   ttTabLink.addEventListener("click", function (e) {
-  //     e.preventDefault();
-  //     switchTab("tt");
-  //   });
-  // }
+  const ttTabLink = document.querySelector(".tab-link[data-tab='tt-tab']");
+  if (ttTabLink) {
+    ttTabLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      switchTab("tt");
+    });
+  }
 
   // Set up event listeners for search forms
   const searchForm = document.getElementById("search-form");
