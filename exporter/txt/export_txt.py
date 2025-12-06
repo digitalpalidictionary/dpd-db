@@ -21,11 +21,17 @@ class GLobalVars:
     db_length = len(db_sorted)
     dpd_entry_list = []
     dpd_text = ""
+    aj_version = True  # version for Ven. AJ with Sanskrit first
+    debug = False  # limit to 10 000 entries
     pr.yes(db_length)
 
 
 def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
     data: list[str] = []
+
+    # for aj version, sanskrit first
+    if i.sanskrit and g.aj_version and i.meaning_1:
+        data.append(f"{i.sanskrit}\n")
 
     # summary line
     data.append(f"{i.lemma_1}, {i.pos}. {i.meaning_combo} {i.degree_of_completion}")
@@ -83,8 +89,11 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
             data.append(f"\n  Web Link: {i.link_txt}")
         if i.non_ia:
             data.append(f"\n  Non IA: {i.non_ia}")
-        if i.sanskrit:
+
+        # for aj version sanskrit is at the top, otherwise here
+        if i.sanskrit and not g.aj_version:
             data.append(f"\n  Sanskrit: {i.sanskrit}")
+
         if i.root_key and i.rt.sanskrit_root:
             data.append(f"\n  Sanskrit Root: {i.rt.sanskrit_root}")
             data.append(f" {i.rt.sanskrit_root_class}")
@@ -130,6 +139,8 @@ def export_txt(g: GLobalVars):
     for counter, i in enumerate(g.db_sorted):
         if counter % 10000 == 0:
             pr.counter(counter, g.db_length, i.lemma_1)
+        if counter == 10000 and g.debug:
+            break
         word_entry = make_word_entry(i, g)
         g.dpd_entry_list.append(word_entry)
 
@@ -138,20 +149,27 @@ def export_txt(g: GLobalVars):
 
 def zip_txt_file(g: GLobalVars):
     """Zip the DPD txt file after export."""
-    import time
 
-    pr.green("zipping txt file")
-    # Wait a few seconds for the file to be fully written
-    time.sleep(3)
+    if g.aj_version:
+        pass
+    else:
+        import time
 
-    zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
-    pr.yes("ok")
-    pr.info(f"saved to {g.pth.dpd_txt_zip_path}")
+        pr.green("zipping txt file")
+        # Wait a few seconds for the file to be fully written
+        time.sleep(3)
+
+        zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
+        pr.yes("ok")
 
 
 def save_txt(g: GLobalVars):
     pr.green("saving txt")
-    g.pth.dpd_txt_path.write_text(g.dpd_text)
+    if not g.aj_version:
+        g.pth.dpd_txt_path.write_text(g.dpd_text)
+    else:
+        aj_path = g.pth.dpd_txt_path.with_name("dpd_aj.txt")
+        aj_path.write_text(g.dpd_text)
     pr.yes(len(g.dpd_entry_list))
 
 
