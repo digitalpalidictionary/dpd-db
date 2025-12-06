@@ -565,32 +565,35 @@ class SuttaInfo(Base):
     dv_suggested_suttas: Mapped[str] = mapped_column(default="")
 
     @property
-    def sc_card_link(self) -> str:
-        return f"https://suttacentral.net/{self.sc_code}"
+    def sc_card_link(self) -> str | None:
+        if self.sc_code:
+            return f"https://suttacentral.net/{self.sc_code}"
+        else:
+            return None
 
     @property
-    def sc_pali_link(self) -> str:
+    def sc_pali_link(self) -> str | None:
         if self.sc_code:
             return f"https://suttacentral.net/{self.sc_code}/pli/ms"
         else:
             return None
 
     @property
-    def sc_eng_link(self) -> str:
+    def sc_eng_link(self) -> str | None:
         if self.sc_code:
             return f"https://suttacentral.net/{self.sc_code}/en/sujato"
         else:
             return None
 
     @property
-    def sc_book_code(self) -> str:
+    def sc_book_code(self) -> str | None:
         if self.sc_code:
             return re.sub(r"\d+\.*-*\d*", "", self.sc_code)
         else:
             return None
 
     @property
-    def sc_github(self) -> str:
+    def sc_github(self) -> str | None:
         if self.sc_code:
             return (
                 f"https://github.com/suttacentral/sc-data/blob/main/{self.sc_file_path}"
@@ -599,7 +602,7 @@ class SuttaInfo(Base):
             return None
 
     @property
-    def dhamma_gift(self) -> str:
+    def dhamma_gift(self) -> str | None:
         if self.sc_code:
             return f"https://find.dhamma.gift/read/?q={self.sc_code}"
         else:
