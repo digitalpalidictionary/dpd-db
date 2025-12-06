@@ -602,6 +602,13 @@ class SuttaInfo(Base):
             return None
 
     @property
+    def sc_express_link(self) -> str | None:
+        if self.sc_code:
+            return f"https://suttacentral.express/{self.sc_code.lower()}/en/sujato"
+        else:
+            return None
+
+    @property
     def dhamma_gift(self) -> str | None:
         if self.sc_code:
             return f"https://find.dhamma.gift/read/?q={self.sc_code}"

@@ -357,11 +357,7 @@
                 {% if d.su.sc_code %}
                 <a href="{{ d.su.sc_card_link }}" target="_blank">Sutta
                     Card</a>,
-                {% endif %}
-                {% if d.su.sc_code %}
                 <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
-                {% endif %}
-                {% if d.su.sc_code %}
                 <a href="{{ d.su.sc_eng_link }}" target="_blank">English
                     Translation</a>
                 {% endif %}
@@ -427,6 +423,18 @@
             <td>
                 <a href="{{ d.su.dhamma_gift }}" target="_blank">{{
                     d.su.dhamma_gift }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                SC Express
+            </th>
+            <td>
+                <a href="{{ d.su.sc_express_link }}" target="_blank">{{
+                    d.su.sc_express_link }}</a>
             </td>
         </tr>
         {% endif %}

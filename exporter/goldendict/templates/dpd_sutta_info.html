@@ -282,11 +282,7 @@
                 % if su.sc_code:
                 <a href="${ su.sc_card_link }" target="_blank">Sutta
                     Card</a>,
-                % endif
-                % if su.sc_code:
                 <a href="${ su.sc_pali_link }" target="_blank">Pāḷi Text</a>,
-                % endif
-                % if su.sc_code:
                 <a href="${ su.sc_eng_link }" target="_blank">English
                     Translation</a>
                 % endif
@@ -352,6 +348,17 @@
             <td>
                 <a href="${ su.dhamma_gift }" target="_blank">${ su.dhamma_gift
                     }</a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.sc_code:
+        <tr>
+            <th>
+                SC Voice
+            </th>
+            <td>
+                <a href="${ su.sc_express_link}" target="_blank">SC Express</a>
             </td>
         </tr>
         % endif
