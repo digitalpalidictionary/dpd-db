@@ -393,7 +393,9 @@
                 Websites using Sutta Central
             </th>
         </tr>
+        {% endif %}
 
+        {% if d.su.tbw %}
         <tr>
             <th>
                 The Buddha's Words
@@ -404,7 +406,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_code %}
+        {% if d.su.tbw_legacy %}
         <tr>
             <th>
                 TBW Legacy
@@ -416,7 +418,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_code %}
+        {% if d.su.dhamma_gift %}
         <tr>
             <th>
                 Dhamma.gift
@@ -428,7 +430,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_code %}
+        {% if d.su.sc_express_link %}
         <tr>
             <th>
                 SC Express
@@ -440,7 +442,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_code %}
+        {% if d.su.sc_voice_link %}
         <tr>
             <th>
                 SC Voice
