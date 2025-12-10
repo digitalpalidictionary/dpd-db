@@ -1,1 +1,38 @@
-{}
+{
+    "agārasmānagāriyaṃ": {
+        "source_1": "sn8.1:2.2",
+        "sutta_1": "agārasmānagāriyaṃ; ",
+        "example_1": "the home life for homelessness ",
+        "comment": "from home to homelessness"
+    },
+    "adhammā": {
+        "source_1": "sn8.2:5.2",
+        "sutta_1": "puthū janatāya adhammā niviṭṭhā; ",
+        "example_1": "ordinary people are fixed in wrong principles. ",
+        "comment": "wrong principles"
+    },
+    "nibbāpanaṃ": {
+        "source_1": "sn8.4:2.3",
+        "sutta_1": "sādhu nibbāpanaṃ brūhi, ",
+        "example_1": "Please, out of compassion, Gotama, ",
+        "comment": "add eg to nibbāpana 1"
+    },
+    "adhammaṃ": {
+        "source_1": "sn8.5:2.3",
+        "sutta_1": "idha, bhikkhave, bhikkhu subhāsitaṃyeva bhāsati no dubbhāsitaṃ, dhammaṃyeva bhāsati no adhammaṃ, piyaṃyeva bhāsati no appiyaṃ, saccaṃyeva bhāsati no alikaṃ. ",
+        "example_1": "It’s when a mendicant speaks well, not poorly; their speech is principled, not unprincipled; they speak pleasantly, not unpleasantly; and they speak truthfully, not falsely. ",
+        "comment": "masc, what is unprincipled, against reality"
+    },
+    "yāyattānaṃ": {
+        "source_1": "sn8.5:5.2",
+        "sutta_1": "yāyattānaṃ na tāpaye; ",
+        "example_1": "as do not hurt yourself ",
+        "comment": "by which onself"
+    },
+    "ativijjha": {
+        "source_1": "sn48.50:6.3",
+        "sutta_1": "tenāhaṃ etarahi kāyena ca phusitvā viharāmi, paññāya ca ativijjha passāmī’ti. ",
+        "example_1": "But now I have direct meditative experience of them, and see them with penetrating wisdom.’ ",
+        "comment": "ativijjha +instr in this example"
+    }
+}
