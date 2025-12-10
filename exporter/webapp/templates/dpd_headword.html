@@ -386,13 +386,14 @@
         {% endif %}
 
         <!-- websites -->
+
+        {% if d.su.sc_code %}
         <tr>
             <th class="heading" colspan="2">
                 Websites using Sutta Central
             </th>
         </tr>
 
-        {% if d.su.sc_code %}
         <tr>
             <th>
                 The Buddha's Words
@@ -451,18 +452,204 @@
         </tr>
         {% endif %}
 
-        {% if d.su.cst_code %}
+        {% if d.su.bjt_sutta_code %}
         <tr>
             <th class="heading" colspan="2">
-                Buddha Jayanti Tipiṭaka
+                Buddha Jayanti Tipiṭaka (BJT)
             </th>
         </tr>
+        {% endif %}
+
+        {% if d.su.bjt_sutta_code %}
         <tr>
             <th>
-                Coming soon
+                Sutta Code
             </th>
             <td>
-                ...
+                {{ d.su.bjt_sutta_code }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_piṭaka %}
+        <tr>
+            <th>
+                Piṭaka
+            </th>
+            <td>
+                {{ d.su.bjt_piṭaka }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_nikāya %}
+        <tr>
+            <th>
+                Nikāya
+            </th>
+            <td>
+                {{ d.su.bjt_nikāya }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_major_section %}
+        <tr>
+            <th>
+                Major Section
+            </th>
+            <td>
+                {{ d.su.bjt_major_section }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_book %}
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                {{ d.su.bjt_book }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_minor_section %}
+        <tr>
+            <th>
+                Minor Section
+            </th>
+            <td>
+                {{ d.su.bjt_minor_section }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_vagga %}
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                {{ d.su.bjt_vagga }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_sutta %}
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                {{ d.su.bjt_sutta }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_book_id %}
+        <tr>
+            <th>
+                Book ID
+            </th>
+            <td>
+                {{ d.su.bjt_book_id }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_page_num %}
+        <tr>
+            <th>
+                Page Number
+            </th>
+            <td>
+                {{ d.su.bjt_page_num }}
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- {% if d.su.bjt_page_offset %}
+        <tr>
+            <th>
+                Page Offset
+            </th>
+            <td>
+                {{ d.su.bjt_page_offset }}
+            </td>
+        </tr>
+        {% endif %} -->
+
+        {% if d.su.bjt_filename %}
+        <tr>
+            <th>
+                Filename
+            </th>
+            <td>
+                {{ d.su.bjt_filename }}.json
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_github_link %}
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_github_link }}" target="_blank">
+                    {{ d.su.bjt_filename}}.json
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_web_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Websites using BJT
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_tipitaka_lk_link %}
+        <tr>
+            <th>
+                tipiṭaka.lk (Sinhala)
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_tipitaka_lk_link }}" target="_blank">
+                    {{ d.su.bjt_tipitaka_lk_link}}
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_open_tipitaka_lk_link %}
+        <tr>
+            <th>
+                open.tipiṭaka.lk (Roman)
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_open_tipitaka_lk_link }}" target="_blank">
+                    {{ d.su.bjt_open_tipitaka_lk_link}}
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_open_tipitaka_lk_link %}
+        <tr>
+            <th>
+                open.tipiṭaka.lk (Devanagari)
+            </th>
+            <td>
+                <a
+                    href="{{ d.su.bjt_open_tipitaka_lk_link.replace('latn', 'deva') }}"
+                    target="_blank">
+                    {{ d.su.bjt_open_tipitaka_lk_link.replace('latn', 'deva') }}
+                </a>
             </td>
         </tr>
         {% endif %}
@@ -870,7 +1057,8 @@
         {% if d.i.compound_type and "?" not in d.i.compound_type %}
         <tr>
             <th>Compound</th>
-            <td>{{d.i.compound_type}} ({{d.i.compound_construction|safe}})</td>
+            <td>{{d.i.compound_type}}
+                ({{d.i.compound_construction|safe}})</td>
         </tr>
         {% endif %} {% if d.i.antonym %}
         <tr>
@@ -912,7 +1100,8 @@
             <td>
                 {% for website in d.i.link_list %}
                 <p>
-                    <a href="{{ website }}" target="_blank"> {{ website }} </a>
+                    <a href="{{ website }}" target="_blank"> {{ website }}
+                    </a>
                 </p>
                 {% endfor %}
             </td>
@@ -995,7 +1184,8 @@
 
     {% if d.i.needs_declension_button %}
     <div id="declension_{{d.i.lemma_1_}}" class="dpd content hidden">
-        {{d.i.inflections_html|safe}} {% if "gray" in d.i.inflections_html %}
+        {{d.i.inflections_html|safe}} {% if "gray" in d.i.inflections_html
+        %}
         <p>
             Inflections not found in any Pāḷi corpus, or within
             processed
@@ -1020,7 +1210,8 @@
 
     {% if d.i.needs_conjugation_button %}
     <div id="conjugation_{{d.i.lemma_1_}}" class="dpd content hidden">
-        {{d.i.inflections_html|safe}} {% if "gray" in d.i.inflections_html %}
+        {{d.i.inflections_html|safe}} {% if "gray" in d.i.inflections_html
+        %}
         <p>
             Inflections not found in any Pāḷi corpus, or within
             processed
@@ -1103,7 +1294,8 @@
     <div id="family_compound_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p id="{{d.i.lemma_1_}}cf_top" class="heading">
             jump to: {% for f in d.fc%}
-            <a class="jump" href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
+            <a class="jump"
+                href="#{{d.i.lemma_1_}}cf_{{f.compound_family}}">
                 {% if not loop.last %} {{f.compound_family}}, {% else%}
                 {{f.compound_family}} {% endif %}
             </a>
@@ -1198,7 +1390,8 @@
         <p id="{{d.i.lemma_1_}}sets_top" class="heading">
             jump to: {% for set in d.i.family_set_list %}
             <a class="jump" href="#{{d.i.lemma_1_}}sets_{{set}}">
-                {% if not loop.last %} {{set|safe}}, {% else%} {{set|safe}} {%
+                {% if not loop.last %} {{set|safe}}, {% else%} {{set|safe}}
+                {%
                 endif %}
             </a>
             {% endfor %}
@@ -1260,9 +1453,11 @@
         <p class="heading underlined">
             {% if d.i.needs_declension_button %} Frequency of
             <b>{{d.i.lemma_1}}</b> and its declensions {% elif
-            d.i.needs_conjugation_button %} Frequency of <b>{{d.i.lemma_1}}</b>
+            d.i.needs_conjugation_button %} Frequency of
+            <b>{{d.i.lemma_1}}</b>
             and
-            its conjugations {% else %} Frequency of <b>{{d.i.lemma_1}}</b> {%
+            its conjugations {% else %} Frequency of <b>{{d.i.lemma_1}}</b>
+            {%
             endif
             %} {{d.i.freq_html|safe}} {% endif %}
         </p>
@@ -1292,14 +1487,16 @@
     <div id="feedback_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p>ID <b>{{d.i.id}}</b></p>
         <p>
-            Digital Pāḷi Dictionary is a work in progress, made available for
+            Digital Pāḷi Dictionary is a work in progress, made available
+            for
             testing
             and feedback purposes.
         </p>
         <p>
             <a class="link"
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141={{d.app_name}}+{{d.date}}"
-                target="_blank">Add a missing word</a><span>. Please use this
+                target="_blank">Add a missing word</a><span>. Please use
+                this
             </span>
             <a class="link"
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&amp;entry.1433863141={{d.app_name}}+{{d.date}}"
@@ -1311,7 +1508,8 @@
             <a class="link" download="true"
                 href="https://github.com/digitalpalidictionary/dpd-db/raw/main/misc/DPD%20Add%20Words.xlsx"
                 target="_blank">
-                spreadsheet to download</a><span>, fill in and submit. </span>
+                spreadsheet to download</a><span>, fill in and submit.
+            </span>
         </p>
         <p>
             <a class="link"
@@ -1320,10 +1518,13 @@
                 Correct a mistake
             </a>
             <span>
-                . Did you spot a mistake in the dictionary? Have something to
+                . Did you spot a mistake in the dictionary? Have something
+                to
                 add?
-                Please report it. It generally takes less than a minute and your
-                corrections and suggestions help to improve the quality of this
+                Please report it. It generally takes less than a minute and
+                your
+                corrections and suggestions help to improve the quality of
+                this
                 dictionary for everyone who uses it.
             </span>
         </p>
