@@ -25,16 +25,16 @@ scripts/suttas/bjt/
 
 ### Output Format
 All scripts produce TSV files with consistent schema:
-- `bjt_sutta_code`: Internal coding system (e.g., `dn-1-1`, `kn-thag-16-1-1`)
-- `bjt_web_code`: Web URL mapping (often simplified version of sutta_code)
+- `bjt_sutta_code`: Internal coding system preserving original text format (e.g., `1. 1. 1.`, `1. 15. 14-16`)
+- `bjt_web_code`: Web URL mapping (sequential numbering within vagga)
 - `bjt_filename`: Source JSON file name
 - `bjt_book_id`: Numeric book identifier
 - `bjt_page_num`: Page number in source
 - `bjt_page_offset`: Page offset in source
 - `bjt_piṭaka`: Piṭaka level (e.g., `suttantapiṭake`)
-- `bjt_nikāya`: Nikāya level (e.g., `khuddakanikāyo`)
+- `bjt_nikāya`: Nikāya level (e.g., `aṅguttaranikāyo`)
 - `bjt_book`: Book level (e.g., `theragāthāpāḷi`)
-- `bjt_minor_section`: Minor section (e.g., `1. ekakanipāto`)
+- `bjt_paṇṇāsa`: Paṇṇāsa level (when applicable, e.g., `1. ekakanipāto`)
 - `bjt_vagga`: Vagga level (when applicable)
 - `bjt_sutta`: Sutta name
 
@@ -44,7 +44,15 @@ All scripts produce TSV files with consistent schema:
 - **AN**: `an-{nipāta}-{paṇṇāsa}-{vagga}-{sutta}` (paṇṇāsa optional)
 - **KN**: `kn-{book_abbr}-{nipāta}-{vagga}-{sutta}` (vagga often omitted for later nipātas)
 
+### Web Code Generation Rules
+- **Sequential Numbering**: Web codes increment by 1 within each vagga
+- **Vagga Reset**: Counter resets to 1 at start of each new vagga
+- **Range Handling**: For ranges (e.g., "1. 15. 14-16"), use previous + 1
+- **Format**: `an-{nipāta}-{vagga}-{sequential_number}` for AN
+- **Original Format**: `bjt_sutta_code` preserves exact text format with trailing period (e.g., "1. 1. 1.", "1. 15. 14-16.")
+
 ### Web Code Mapping Rules
+- **AN**: Sequential numbering within each vagga, resets at vagga boundaries
 - **KN 8 (Theragāthā)**: Nipātas 3+ have 2-digit web codes (no vagga)
 - **KN 8**: Nipātas > 14 map to web nipātas starting from 15
 - **KN 9 (Therīgāthā)**: Nipātas > 9 map to web nipātas starting from 10
@@ -64,17 +72,20 @@ All scripts produce TSV files with consistent schema:
    - Solution: Separate web_code generation with mapping logic
 
 ### Recent Fixes (as of Dec 2025)
+- **AN**: Implemented book boundary detection, vagga-based web code reset, original format preservation
 - **KN 8**: Fixed nipāta detection regex, implemented 2-digit web codes for nipātas 3+
 - **KN 9**: Fixed nipāta fullstop removal, implemented web code mapping for nipātas > 9
 - **Both**: Added Sumedhātherīgāthā special case handling
 
 ### Testing & Validation
-- Run individual scripts: `python scripts/suttas/bjt/kn8_thag.py`
+- Run individual scripts: `python scripts/suttas/bjt/an.py`, `python scripts/suttas/bjt/kn8_thag.py`
 - Verify output: Check TSV files for correct web_code mapping
 - Key test cases:
-  - `kn-thag-16-1-1` → `kn-thag-15-1` (Aññākoṇḍaññattheragāthā)
-  - `kn-thag-3-1-1` → `kn-thag-3-1` (2-digit format)
-  - `kn-thig-1-2` → `kn-thig-16-1` (Sumedhātherīgāthā)
+  - **AN**: `1. 1. 1.` → `an-1-1-1`, `1. 2. 1.` → `an-1-2-1` (vagga reset)
+  - **AN**: `1. 10. 21-30.` → `an-1-10-118`, `1. 10. 31.` → `an-1-10-119` (sequential)
+  - **KN 8**: `kn-thag-16-1-1` → `kn-thag-15-1` (Aññākoṇḍaññattheragāthā)
+  - **KN 8**: `kn-thag-3-1-1` → `kn-thag-3-1` (2-digit format)
+  - **KN 9**: `kn-thig-1-2` → `kn-thig-16-1` (Sumedhātherīgāthā)
 
 ### File Locations
 - **Source JSON**: `resources/dpd_submodules/bjt/public/static/roman_json/`
@@ -166,6 +177,18 @@ All scripts produce TSV files with consistent schema:
     - **Peyyāla Ranges**: Some entries are ranges (e.g., `11. 3. 9-48.`).
     - **Numbered Suttas**: Suttas in the first few books (AN 1) often lack names and are just numbers (`1. 1. 1.`).
     - **Variable Hierarchy**: Smaller Nipātas skip the `Paṇṇāsa` level.
+    - **Dual Sutta Code Patterns**: Two different patterns for locating sutta codes:
+        - **Pattern 1** (an-1, an-2, an-3): Sutta codes in `heading` entries with `level: 1`
+        - **Pattern 2** (an-4+): Sutta codes in `centered` entries with `level: 1`
+    - **Book ID Mapping**: Specific book_id assignments based on filename:
+        - an-1, an-2, an-3: book_id = 22
+        - an-4: book_id = 23  
+        - an-5: book_id = 24
+        - an-6, an-7: book_id = 25
+        - an-8, an-9: book_id = 26
+        - an-10, an-11: book_id = 27
+    - **Complex File Naming**: Some files have simple numbering (an-1, an-2) while others have complex numbering (an-3-2, an-4-3, etc.)
+    - **Page Offset**: Always 0 in backup data
 
 ---
 
@@ -175,6 +198,11 @@ All scripts produce TSV files with consistent schema:
 ### KN 1: Khuddakapāṭha (KHP)
 - **Structure**: Simple list of suttas.
 - **Handling**: Identifies suttas starting with a number. No vagga divisions.
+- **Idiosyncrasies**:
+  - **Numbered Suttas**: Suttas are numbered 1-9 with simple headings like "1. saraṇagamanaṃ{1}"
+  - **Footnote References**: Some sutta names contain footnote references in curly braces like "{1}" that need cleaning
+  - **No Vagga Structure**: Unlike other KN books, KHP has no vagga divisions - just a simple list of suttas
+  - **Mixed Entry Types**: Some numbered entries appear as "heading" type, others as different patterns
 
 ### KN 2: Dhammapada (DHP)
 - **Structure**: Verses grouped into Vaggas. No individual "suttas".
@@ -183,19 +211,56 @@ All scripts produce TSV files with consistent schema:
 ### KN 3: Udāna (UD)
 - **Structure**: `Vagga -> Sutta`.
 - **Handling**: Standard extraction.
+- **Idiosyncrasies**:
+  - **Mixed Entry Types**: Sutta numbers appear in "centered" entries (like "1. 1.") not "heading" entries like other books
+  - **Vagga Detection**: Vagga names appear in "heading" entries with level 2 (like "bodhivaggo paṭhamo")
+  - **Sequential Processing**: Must process all entries on a page before moving to next page to properly detect vaggas before sutta numbers
 
 ### KN 4: Itivuttaka (ITI)
 - **Structure**: `Nipāta -> Vagga -> Sutta`.
 - **Handling**: Handles sections like `Catukkanipāto` which lack explicit Vaggas by using consecutive numbering logic (`4. 1. 1.`).
-- **Web Code Exception**: For *Catukkanipāto*, `bjt_web_code` omits the vagga number (e.g., `kn-iti-4-11` instead of `kn-iti-4-1-11`).
+- **Idiosyncrasies**:
+    - **Sutta Number Pattern**: Uses 3-part numbering `{nipāta_num}. {vagga_num}. {sutta_num}.` (e.g., "1. 1. 1.", "4. 1. 1.")
+    - **Entry Type Detection**: Sutta numbers appear in `centered` entries with `level: 1`, not in `heading` entries like other books
+    - **Web Code Exception**: For *Catukkanipāto*, `bjt_web_code` omits the vagga number (e.g., `kn-iti-4-11` instead of `kn-iti-4-1-11`)
+    - **File Structure**: Single JSON file `kn-iti.json` contains all 4 nipātas
+    - **Hierarchy Detection**: 
+        - Nipāta headings: `level: 3` entries ending in "nipāto" (e.g., "ekakanipāto")
+        - Vagga headings: `level: 2` entries ending in "vaggo" (e.g., "paṭhamo vaggo")
+        - Sutta numbers: `level: 1` `centered` entries with pattern `^\d+\.\s*\d+\.\s*\d+\.$`
 
 ### KN 5: Sutta Nipāta (SNP)
 - **Structure**: `Vagga -> Sutta`.
 - **Handling**: Standard extraction.
+- **Idiosyncrasies**:
+    - **Multiple File Structure**: Split across 5 files (`kn-snp.json`, `kn-snp-2.json` through `kn-snp-5.json`) requiring custom natural sorting
+    - **File Naming Pattern**: `kn-snp.json` (no number) for vagga 1, then `kn-snp-{vagga_num}.json` for vaggas 2-5
+    - **Sutta Number Pattern**: Uses 2-part numbering `{vagga_num}. {sutta_num}.` (e.g., "1. 1.", "2. 1.", "5. 16.")
+    - **Entry Type Detection**: Sutta numbers appear in `centered` entries with `level: 1`
+    - **Vagga Headings**: `level: 3` entries with pattern `^\d+\.\s*\w+.*vaggo?$` (e.g., "1. uragavaggo", "2. cullavaggo")
+    - **Natural Sorting Requirement**: Files must be processed in order (1, 2, 3, 4, 5) to maintain sutta code sequence in final TSV
+    - **Web Code Format**: `kn-snp-{vagga_num}-{sequential_num}` with sequential numbering resetting for each vagga
+    - **Duplicate Entries**: Some sutta numbers appear twice in JSON (both Pali and Sinhala sections), script handles this correctly
 
 ### KN 6: Vimānavatthu (VV) & KN 7: Petavatthu (PV)
 - **Structure**: `Vagga -> Vatthu`.
 - **Handling**: Extracts stories identified by `vimānaṃ` or `vatthuṃ`.
+- **Idiosyncrasies**:
+    - **Single File Structure**: All 7 vaggas contained in one JSON file (kn-vv.json), not split across multiple files
+    - **Vimāna Numbering**: Each vimāna appears as individual `heading` entry with `level: 1` (e.g., "paṭhamapīṭhavimānaṃ", "dutiyapīṭhavimānaṃ")
+    - **No Sequential Counters**: Unlike other books, vimānas are individually present in JSON, so no counter logic needed - each vimāna gets its own entry
+    - **Vagga Detection**: `level: 2` entries with pattern `^\d+\.\s*\w+.*vaggo?$` (e.g., "1. pīṭhavaggo", "2. cittalatāvaggo")
+    - **Vimāna Name Extraction**: All `heading` entries with `level: 1` are treated as vimāna names, regardless of preceding number entries
+    - **Web Code Format**: `kn-vv-{vagga_num}-{vimāna_num}` where vimāna_num is sequential within each vagga
+    - **Numbering Logic**: Vimāna numbers are determined by counting existing vimānas within each vagga (e.g., first vimāna in vagga 3 becomes "3.1", second becomes "3.2")
+    - **Example Structure**: 
+        - Vagga 1: "1. pīṭhavaggo" → vimānas 1.1 through 1.17
+        - Vagga 2: "2. cittalatāvaggo" → vimānas 2.1 through 2.12
+        - Vagga 3: "3. pāricchattakavaggo" → vimānas 3.1 through 3.12
+        - Vagga 4: "4. mañjeṭṭhakavaggo" → vimānas 4.1 through 4.11
+        - Vagga 5: "5. mahārathavaggo" → vimānas 5.1 through 5.10
+        - Vagga 6: "6. pāyāsivaggo" → vimānas 6.1 through 6.10
+        - Vagga 7: "7. sunikkhittavaggo" → vimānas 7.1 through 7.11
 
 ### KN 8: Theragāthā (THAG) & KN 9: Therīgāthā (THIG)
 - **Structure**: `Nipāta -> Vagga -> Gāthā`.
@@ -254,3 +319,539 @@ All scripts produce TSV files with consistent schema:
 ### KN 19: Milindapañha (MIL)
 - **Structure**: Questions (`Pañha`).
 - **Handling**: Searches for `pañho` or numbered questions. (Often missing in BJT source).
+
+---
+
+## AN Processing Implementation Details
+
+### General Approach for JSON File Processing
+
+The `an.py` script demonstrates a comprehensive approach for processing BJT JSON files that can be applied to other Nikāyas:
+
+#### 1. File Discovery and Sorting
+```python
+def find_an_files(json_dir: Path) -> List[Path]:
+    """Find all JSON files starting with 'an-' in directory."""
+    an_files = list(json_dir.glob("an-*.json"))
+    return natural_sort(an_files)
+```
+- Use glob patterns to find relevant files
+- Apply natural sorting to maintain proper order (an-1, an-2, an-10, an-11)
+
+#### 2. Book Boundary Detection
+```python
+def get_book_number(filename: str) -> str:
+    """Extract base book number from filename like 'an-1', 'an-2', 'an-3-1'"""
+    return filename.replace('an-', '').split('-')[0]
+```
+- Extract base book number to determine when to reset hierarchy
+- Handle both simple (an-1) and complex (an-3-1) naming patterns
+
+#### 3. Hierarchy State Management
+```python
+# Global hierarchy state to preserve across files
+current_piṭaka = "suttantapiṭake"
+current_nikaya = "aṅguttaranikāyo"
+current_book = ""
+current_paṇṇāsa = ""
+current_vagga = ""
+last_web_sutta_num = 0
+current_vagga_for_web = ""
+```
+- Track hierarchical levels across file boundaries
+- Maintain separate tracking for web code generation
+
+#### 4. File Processing Loop with Smart Reset Logic
+```python
+for json_file in an_files:
+    filename = json_file.stem
+    if all_data:  # Not the first file
+        last_record = all_data[-1]
+        last_filename = last_record["bjt_filename"]
+        
+        # Get current and previous book numbers
+        current_book_num = get_book_number(filename)
+        last_book_num = get_book_number(last_filename)
+        
+        # Only reset if moving to a different book
+        if current_book_num != last_book_num:
+            current_piṭaka = "suttantapiṭake"
+            current_nikaya = "aṅguttaranikāyo" 
+            current_book = ""
+            current_paṇṇāsa = ""
+            current_vagga = ""
+```
+- Reset hierarchy only when crossing book boundaries
+- Preserve state within the same book (including parts)
+
+#### 5. Dual Pattern Handling for Sutta Detection
+The script handles two different sutta code patterns:
+
+**Pattern 1 (an-1, an-2, an-3):**
+```python
+elif entry_type == "heading":
+    if level == 1 and re.match(r"^\d+\.\s*\d+\.\s*\d+", text):
+        # Sutta codes in heading entries
+```
+
+**Pattern 2 (an-4+):**
+```python
+if entry_type == "centered":
+    if level == 1 and re.match(r"^\d+\.\s*\d+\.\s*\d+", text):
+        # Sutta codes in centered entries
+```
+
+#### 6. Sutta Code Parsing and Web Code Generation
+```python
+# Parse the sutta code
+sutta_parts = text.rstrip(".").split(".")
+if len(sutta_parts) >= 3:
+    try:
+        nipata_num = int(sutta_parts[0].strip())
+        vagga_num = int(sutta_parts[1].strip())
+        sutta_part = sutta_parts[2].strip()
+
+        # Check if vagga changed and reset web counter if needed
+        if current_vagga != current_vagga_for_web:
+            last_web_sutta_num = 0
+            current_vagga_for_web = current_vagga
+        
+        # Always increment by 1 from previous sutta
+        web_sutta_num = last_web_sutta_num + 1
+        
+        # Keep original format for bjt_sutta_code (preserve trailing period)
+        sutta_code = text  # Keep exact format including trailing period
+        web_code = f"an-{nipata_num}-{vagga_num}-{web_sutta_num}"
+        last_web_sutta_num = web_sutta_num
+```
+
+#### 7. Sutta Name Extraction with Lookahead
+```python
+# Look ahead for sutta name in next entry
+sutta_name = text  # fallback to number
+entry_index = pali_entries.index(entry)
+if entry_index + 1 < len(pali_entries):
+    next_entry = pali_entries[entry_index + 1]
+    if (next_entry.get("type") == "heading" and 
+        next_entry.get("level") == 1):
+        next_text = next_entry.get("text", "").strip()
+        # Check if it's a sutta name (not another number)
+        if not re.match(r"^\d+\.\s*\d+\.\s*\d+", next_text):
+            # Clean up sutta name
+            sutta_name = next_text
+            sutta_name = sutta_name.replace("[", "").replace("]", "")
+            sutta_name = re.sub(r"\{[^}]*\}", "", sutta_name)
+            # Additional cleanup for heading entries
+            sutta_name = sutta_name.replace("vaggo", "").strip()
+```
+
+#### 8. Hierarchy Update Logic
+```python
+# Update hierarchy based on entry type and content
+if entry_type == "centered":
+    if "suttantapiṭake" in text.lower():
+        current_piṭaka = text
+    elif "aṅguttaranikāyo" in text.lower():
+        current_nikaya = text
+    elif "nipāto" in text.lower() and level == 3:
+        current_book = text
+    elif "paṇṇāsako" in text.lower() and level == 3:
+        current_paṇṇāsa = text
+```
+
+### Key Principles for Adapting to Other Nikāyas
+
+1. **Identify File Patterns**: Determine the naming convention and glob pattern for files
+2. **Map Hierarchy Levels**: Understand how `piṭaka`, `nikāya`, `book`, `vagga` map to the source text
+3. **Detect Sutta Code Patterns**: Find the regex patterns and entry types that contain sutta codes
+4. **Handle Range Logic**: Determine if ranges exist and how they should be processed
+5. **Implement Web Code Rules**: Define the web code format and reset behavior
+6. **Manage State Across Files**: Decide when to reset hierarchy vs. preserve it
+7. **Extract Sutta Names**: Implement lookahead logic and name cleanup
+8. **Handle Edge Cases**: Account for missing headings, special entries, formatting variations
+
+### Function Template for New Extractors
+
+```python
+def extract_sutta_data(
+    json_file: Path,
+    current_piṭaka: str,
+    current_nikaya: str,
+    current_book: str,
+    current_paṇṇāsa: str,
+    current_vagga: str,
+    last_web_sutta_num: int,
+    current_vagga_for_web: str,
+) -> tuple[List[Dict[str, Any]], int, str]:
+    """Extract sutta data from a single JSON file."""
+    results = []
+    
+    # Load JSON data
+    with open(json_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    # Process pages and entries
+    for page in data.get("pages", []):
+        for entry in page.get("pali", {}).get("entries", []):
+            # Apply hierarchy and sutta detection logic
+            # Generate records with proper field mapping
+            pass
+    
+    return results, last_web_sutta_num, current_vagga_for_web
+```
+
+This approach provides a robust framework that can be adapted for different BJT JSON structures while maintaining consistent output format and handling complex hierarchical relationships.
+
+---
+
+## SN Implementation Guide
+
+### SN-Specific Challenges and Solutions
+
+#### 1. Deeper Hierarchy Structure
+SN has 6 levels: `Piṭaka -> Nikāya -> Mahāvagga -> Saṃyutta -> Vagga -> Sutta`
+
+**Implementation Strategy:**
+```python
+# Add mahāvagga tracking to function signature
+def extract_sutta_data(
+    json_file: Path,
+    current_piṭaka: str,
+    current_nikaya: str,
+    current_mahāvagga: str,  # NEW: Track mahāvagga
+    current_saṃyutta: str,   # NEW: Track saṃyutta  
+    current_book: str,         # Maps to saṃyutta
+    current_vagga: str,
+    last_web_sutta_num: int,
+    current_vagga_for_web: str,
+) -> tuple[List[Dict[str, Any]], int, str]:
+```
+
+#### 2. Field Mapping for SN
+```python
+record = {
+    "bjt_sutta_code": sutta_code,
+    "bjt_web_code": web_code,
+    "bjt_filename": filename,
+    "bjt_book_id": book_id,
+    "bjt_page_num": page_num,
+    "bjt_page_offset": 0,
+    "bjt_piṭaka": current_piṭaka,
+    "bjt_nikāya": current_nikaya,
+    "bjt_mahāvagga": current_mahāvagga,  # NEW FIELD
+    "bjt_book": current_saṃyutta,        # Maps to saṃyutta
+    "bjt_vagga": current_vagga,
+    "bjt_sutta": sutta_name,
+}
+```
+
+#### 3. Hierarchy Detection Patterns for SN
+```python
+# Update hierarchy based on entry type and content
+if entry_type == "centered":
+    if "suttantapiṭake" in text.lower():
+        current_piṭaka = text
+    elif "saṃyuttanikāyo" in text.lower():
+        current_nikaya = text
+    elif "mahāvaggo" in text.lower() and level == 2:
+        current_mahāvagga = text
+    elif "saṃyuttaṃ" in text.lower() and level == 3:
+        current_saṃyutta = text
+    elif "vaggo" in text.lower() and level == 3:
+        current_vagga = text
+    elif level == 1 and re.match(r"^\d+\.\s*\d+\.\s*\d+\.\s*\d+", text):
+        # SN pattern: 1. 1. 1. 1 (mahāvagga.saṃyutta.vagga.sutta)
+```
+
+#### 4. SN Sutta Code Pattern
+SN uses 4-part numbering: `1. 1. 1. 1` (mahāvagga.saṃyutta.vagga.sutta)
+
+```python
+# Parse SN sutta code
+sutta_parts = text.rstrip(".").split(".")
+if len(sutta_parts) >= 4:
+    try:
+        mahāvagga_num = int(sutta_parts[0].strip())
+        saṃyutta_num = int(sutta_parts[1].strip())
+        vagga_num = int(sutta_parts[2].strip())
+        sutta_num = int(sutta_parts[3].strip())
+        
+        # Web code: sn-{mahāvagga}-{saṃyutta}-{vagga}-{sutta}
+        web_code = f"sn-{mahāvagga_num}-{saṃyutta_num}-{vagga_num}-{sutta_num}"
+```
+
+#### 5. SN File Structure and Book ID Mapping
+SN files typically follow pattern: `sn-1-1.json`, `sn-1-2.json`, etc.
+
+```python
+# SN book ID mapping (example - needs verification)
+book_id_map = {
+    "sn-1-1": 1,  # Sagāthavaggo - Devatāsaṃyutta
+    "sn-1-2": 1,  # Sagāthavaggo - Devaputtasaṃyutta
+    # ... continue mapping
+}
+```
+
+#### 6. SN Web Code Reset Logic
+For SN, web codes should reset at each vagga level, not just book level:
+
+```python
+# Check if vagga changed and reset web counter if needed
+if current_vagga != current_vagga_for_web:
+    last_web_sutta_num = 0
+    current_vagga_for_web = current_vagga
+
+# Increment and generate web code
+web_sutta_num = last_web_sutta_num + 1
+web_code = f"sn-{mahāvagga_num}-{saṃyutta_num}-{vagga_num}-{web_sutta_num}"
+last_web_sutta_num = web_sutta_num
+```
+
+### SN Implementation Checklist
+
+#### Pre-Implementation Tasks:
+1. **Examine SN JSON files**: 
+   - List files in `resources/dpd_submodules/bjt/public/static/roman_json/sn-*.json`
+   - Analyze file naming patterns
+   - Check actual hierarchy structure in JSON
+
+2. **Identify Entry Patterns**:
+   - Find sutta code patterns (likely 4-part numbers)
+   - Determine entry types (centered/heading)
+   - Locate hierarchy markers (mahāvaggo, saṃyuttaṃ, vaggo)
+
+3. **Map Book IDs**:
+   - Create book_id mapping for SN files
+   - Verify against existing data if available
+
+#### Implementation Steps:
+1. **Create `sn.py`** with AN as template
+2. **Update function signature** to include mahāvagga and saṃyutta tracking
+3. **Implement hierarchy detection** for SN-specific markers
+4. **Parse 4-part sutta codes** (mahāvagga.saṃyutta.vagga.sutta)
+5. **Generate web codes** with vagga-level reset
+6. **Test with sample files** and verify output
+
+#### Testing Strategy:
+1. **Run on single file**: `python scripts/suttas/bjt/sn.py`
+2. **Check output format**: Verify all required fields present
+3. **Validate web codes**: Ensure sequential numbering within vaggas
+4. **Cross-reference**: Compare with known SN sutta lists if available
+
+### Common SN Pitfalls to Avoid:
+
+1. **Incorrect Hierarchy Levels**: SN has deeper structure than AN
+2. **Missing Mahāvagga Tracking**: Essential for correct sutta codes
+3. **Wrong Field Mapping**: `bjt_book` maps to `saṃyutta`, not `mahāvagga`
+4. **4-Part Number Parsing**: Different from AN's 3-part pattern
+5. **File Naming Complexity**: SN may have complex file naming patterns
+
+### SN Adaptation Template
+
+```python
+def find_sn_files(json_dir: Path) -> List[Path]:
+    """Find all JSON files starting with 'sn-' in directory."""
+    sn_files = list(json_dir.glob("sn-*.json"))
+    return natural_sort(sn_files)
+
+def get_sn_book_number(filename: str) -> str:
+    """Extract base book info from SN filename like 'sn-1-1', 'sn-1-2'"""
+    # Adapt for SN naming pattern
+    parts = filename.replace('sn-', '').split('-')
+    return f"{parts[0]}-{parts[1]}"  # e.g., "1-1"
+
+# Main processing loop adapted for SN
+for json_file in sn_files:
+    filename = json_file.stem
+    if all_data:
+        last_record = all_data[-1]
+        last_filename = last_record["bjt_filename"]
+        
+        # SN-specific boundary detection
+        current_book_info = get_sn_book_number(filename)
+        last_book_info = get_sn_book_number(last_filename)
+        
+        # Reset if moving to different saṃyutta
+        if current_book_info != last_book_info:
+            # Reset appropriate hierarchy levels
+            pass
+```
+
+This comprehensive guide should enable a new agent to successfully implement SN processing by adapting proven AN methodology while accounting for SN's unique structural requirements.
+
+---
+
+## SN Implementation Guide
+
+### SN-Specific Challenges and Solutions
+
+#### 1. Deeper Hierarchy Structure
+SN has 6 levels: `Piṭaka -> Nikāya -> Mahāvagga -> Saṃyutta -> Vagga -> Sutta`
+
+**Implementation Strategy:**
+```python
+# Add mahāvagga tracking to function signature
+def extract_sutta_data(
+    json_file: Path,
+    current_piṭaka: str,
+    current_nikaya: str,
+    current_mahāvagga: str,  # NEW: Track mahāvagga
+    current_saṃyutta: str,   # NEW: Track saṃyutta  
+    current_book: str,         # Maps to saṃyutta
+    current_vagga: str,
+    last_web_sutta_num: int,
+    current_vagga_for_web: str,
+) -> tuple[List[Dict[str, Any]], int, str]:
+```
+
+#### 2. Field Mapping for SN
+```python
+record = {
+    "bjt_sutta_code": sutta_code,
+    "bjt_web_code": web_code,
+    "bjt_filename": filename,
+    "bjt_book_id": book_id,
+    "bjt_page_num": page_num,
+    "bjt_page_offset": 0,
+    "bjt_piṭaka": current_piṭaka,
+    "bjt_nikāya": current_nikaya,
+    "bjt_mahāvagga": current_mahāvagga,  # NEW FIELD
+    "bjt_book": current_saṃyutta,        # Maps to saṃyutta
+    "bjt_vagga": current_vagga,
+    "bjt_sutta": sutta_name,
+}
+```
+
+#### 3. Hierarchy Detection Patterns for SN
+```python
+# Update hierarchy based on entry type and content
+if entry_type == "centered":
+    if "suttantapiṭake" in text.lower():
+        current_piṭaka = text
+    elif "saṃyuttanikāyo" in text.lower():
+        current_nikaya = text
+    elif "mahāvaggo" in text.lower() and level == 2:
+        current_mahāvagga = text
+    elif "saṃyuttaṃ" in text.lower() and level == 3:
+        current_saṃyutta = text
+    elif "vaggo" in text.lower() and level == 3:
+        current_vagga = text
+    elif level == 1 and re.match(r"^\d+\.\s*\d+\.\s*\d+\.\s*\d+", text):
+        # SN pattern: 1. 1. 1. 1 (mahāvagga.saṃyutta.vagga.sutta)
+```
+
+#### 4. SN Sutta Code Pattern
+SN uses 4-part numbering: `1. 1. 1. 1` (mahāvagga.saṃyutta.vagga.sutta)
+
+```python
+# Parse SN sutta code
+sutta_parts = text.rstrip(".").split(".")
+if len(sutta_parts) >= 4:
+    try:
+        mahāvagga_num = int(sutta_parts[0].strip())
+        saṃyutta_num = int(sutta_parts[1].strip())
+        vagga_num = int(sutta_parts[2].strip())
+        sutta_num = int(sutta_parts[3].strip())
+        
+        # Web code: sn-{mahāvagga}-{saṃyutta}-{vagga}-{sutta}
+        web_code = f"sn-{mahāvagga_num}-{saṃyutta_num}-{vagga_num}-{sutta_num}"
+```
+
+#### 5. SN File Structure and Book ID Mapping
+SN files typically follow pattern: `sn-1-1.json`, `sn-1-2.json`, etc.
+
+```python
+# SN book ID mapping (example - needs verification)
+book_id_map = {
+    "sn-1-1": 1,  # Sagāthavaggo - Devatāsaṃyutta
+    "sn-1-2": 1,  # Sagāthavaggo - Devaputtasaṃyutta
+    # ... continue mapping
+}
+```
+
+#### 6. SN Web Code Reset Logic
+For SN, web codes should reset at each vagga level, not just book level:
+
+```python
+# Check if vagga changed and reset web counter if needed
+if current_vagga != current_vagga_for_web:
+    last_web_sutta_num = 0
+    current_vagga_for_web = current_vagga
+
+# Increment and generate web code
+web_sutta_num = last_web_sutta_num + 1
+web_code = f"sn-{mahāvagga_num}-{saṃyutta_num}-{vagga_num}-{web_sutta_num}"
+last_web_sutta_num = web_sutta_num
+```
+
+### SN Implementation Checklist
+
+#### Pre-Implementation Tasks:
+1. **Examine SN JSON files**: 
+   - List files in `resources/dpd_submodules/bjt/public/static/roman_json/sn-*.json`
+   - Analyze file naming patterns
+   - Check actual hierarchy structure in JSON
+
+2. **Identify Entry Patterns**:
+   - Find sutta code patterns (likely 4-part numbers)
+   - Determine entry types (centered/heading)
+   - Locate hierarchy markers (mahāvaggo, saṃyuttaṃ, vaggo)
+
+3. **Map Book IDs**:
+   - Create book_id mapping for SN files
+   - Verify against existing data if available
+
+#### Implementation Steps:
+1. **Create `sn.py`** with AN as template
+2. **Update function signature** to include mahāvagga and saṃyutta tracking
+3. **Implement hierarchy detection** for SN-specific markers
+4. **Parse 4-part sutta codes** (mahāvagga.saṃyutta.vagga.sutta)
+5. **Generate web codes** with vagga-level reset
+6. **Test with sample files** and verify output
+
+#### Testing Strategy:
+1. **Run on single file**: `python scripts/suttas/bjt/sn.py`
+2. **Check output format**: Verify all required fields present
+3. **Validate web codes**: Ensure sequential numbering within vaggas
+4. **Cross-reference**: Compare with known SN sutta lists if available
+
+### Common SN Pitfalls to Avoid:
+
+1. **Incorrect Hierarchy Levels**: SN has deeper structure than AN
+2. **Missing Mahāvagga Tracking**: Essential for correct sutta codes
+3. **Wrong Field Mapping**: `bjt_book` maps to `saṃyutta`, not `mahāvagga`
+4. **4-Part Number Parsing**: Different from AN's 3-part pattern
+5. **File Naming Complexity**: SN may have complex file naming patterns
+
+### SN Adaptation Template
+
+```python
+def find_sn_files(json_dir: Path) -> List[Path]:
+    """Find all JSON files starting with 'sn-' in directory."""
+    sn_files = list(json_dir.glob("sn-*.json"))
+    return natural_sort(sn_files)
+
+def get_sn_book_number(filename: str) -> str:
+    """Extract base book info from SN filename like 'sn-1-1', 'sn-1-2'"""
+    # Adapt for SN naming pattern
+    parts = filename.replace('sn-', '').split('-')
+    return f"{parts[0]}-{parts[1]}"  # e.g., "1-1"
+
+# Main processing loop adapted for SN
+for json_file in sn_files:
+    filename = json_file.stem
+    if all_data:
+        last_record = all_data[-1]
+        last_filename = last_record["bjt_filename"]
+        
+        # SN-specific boundary detection
+        current_book_info = get_sn_book_number(filename)
+        last_book_info = get_sn_book_number(last_filename)
+        
+        # Reset if moving to different saṃyutta
+        if current_book_info != last_book_info:
+            # Reset appropriate hierarchy levels
+            pass
+```
+
+This comprehensive guide should enable a new agent to successfully implement SN processing by adapting the proven AN methodology while accounting for SN's unique structural requirements.
