@@ -538,6 +538,20 @@ class SuttaInfo(Base):
     sc_file_path: Mapped[str] = mapped_column(default="")
     dpr_code: Mapped[str] = mapped_column(default="")
     dpr_link: Mapped[str] = mapped_column(default="")
+    # bjt
+    bjt_sutta_code: Mapped[str] = mapped_column(default="")
+    bjt_web_code: Mapped[str] = mapped_column(default="")
+    bjt_filename: Mapped[str] = mapped_column(default="")
+    bjt_book_id: Mapped[str] = mapped_column(default="")
+    bjt_page_num: Mapped[str] = mapped_column(default="")
+    bjt_page_offset: Mapped[str] = mapped_column(default="")
+    bjt_piṭaka: Mapped[str] = mapped_column(default="")
+    bjt_nikāya: Mapped[str] = mapped_column(default="")
+    bjt_major_section: Mapped[str] = mapped_column(default="")
+    bjt_book: Mapped[str] = mapped_column(default="")
+    bjt_minor_section: Mapped[str] = mapped_column(default="")
+    bjt_vagga: Mapped[str] = mapped_column(default="")
+    bjt_sutta: Mapped[str] = mapped_column(default="")
 
     dv_pts: Mapped[str] = mapped_column(default="")
     dv_main_theme: Mapped[str] = mapped_column(default="")
@@ -755,6 +769,27 @@ class SuttaInfo(Base):
 
     def __repr__(self) -> str:
         return f"SuttaInfo: {self.dpd_code} {self.dpd_sutta}"
+
+    @property
+    def bjt_github_link(self):
+        if self.bjt_filename:
+            return f"https://github.com/pathnirvana/tipitaka.lk/blob/master/public/static/text/{self.bjt_filename}.json"
+        else:
+            return None
+
+    @property
+    def bjt_tipitaka_lk_link(self):
+        if self.bjt_web_code:
+            return f"https://tipitaka.lk/{self.bjt_web_code}"
+        else:
+            return None
+
+    @property
+    def bjt_open_tipitaka_lk_link(self):
+        if self.bjt_web_code:
+            return f"https://open.tipitaka.lk/latn/{self.bjt_web_code}"
+        else:
+            return None
 
 
 class DpdHeadword(Base):
