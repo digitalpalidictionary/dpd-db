@@ -8,125 +8,147 @@ from pathlib import Path
 import csv
 from typing import List, Dict, Any
 import re
-import sys
-
-sys.path.append("/home/bodhirasa/MyFiles/3_Active/dpd-db/tools")
-from tools.sort_naturally import natural_sort
-
-
-def clean_sutta_name(text: str) -> str:
-    """Clean sutta name by removing brackets and curly braces only."""
-    cleaned = text.replace("[", "").replace("]", "")  # Remove brackets
-    cleaned = re.sub(r"\{[^}]*\}", "", cleaned)  # Remove {.*} patterns
-    return cleaned.strip()
+from natsort import natsorted, ns
+from rich import print
+from tools.paths import ProjectPaths
+from tools.printer import printer as pr
+from helpers import clean_string
 
 
-def find_dn_files(json_dir: Path) -> List[Path]:
-    """Find all JSON files starting with 'dn-' in directory."""
-    dn_files = list(json_dir.glob("dn-*.json"))
-    return natural_sort(dn_files)
+class GlobalVars:
+    """Global variables and config."""
+
+    json_prefix = "dn-"
+    tsv_filename = "dn"
+    this_piṭaka: str = "suttantapiṭake"
+    this_nikāya: str = "dīghanikāyo"
+
+    # file vars
+    pth = ProjectPaths()
+    json_dir = pth.bjt_roman_json_dir
+    json_file_list = natsorted(
+        json_dir.glob(f"{json_prefix}*.json"),
+        key=lambda x: x.name,
+        alg=ns.PATH,
+    )
+    pr.title(f"extracting from {len(json_file_list)} files starting with {json_prefix}")
+
+    tsv_working_dir = Path("scripts/suttas/bjt")
+    tsv_filepath = tsv_working_dir.joinpath(f"{tsv_filename}.tsv")
+
+    # running vars
+    this_json_file: Path
+    this_sutta_code: str
+    this_web_code: str
+    this_filename: str
+    this_book_id: str
+    this_page_num: str
+    this_page_offset: str
+    this_major_section: str = ""
+    this_book: str
+    this_minor_section: str = ""
+    this_vagga: str = ""
+    this_sutta: str
+
+    # counter vars
+    this_book_num: int = 0
+    # this_vagga_num: int = 0
+    this_sutta_num: int = 0
+
+    # data vars
+    data_current_file: List[Dict[str, Any]] = []
+    data_all: List[Dict[str, Any]] = []
 
 
-def extract_sutta_data(json_file: Path) -> List[Dict[str, Any]]:
+def extract_data(g: GlobalVars):
     """Extract sutta data from a single JSON file."""
-    results = []
 
     try:
-        with open(json_file, "r", encoding="utf-8") as f:
+        with open(g.this_json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        filename = data.get("filename", "")
-
-        # Get book ID from filename pattern (based on existing dn.tsv)
-        book_id = 10  # Default for DN books
-        if "dn-1" in filename or "dn-2" in filename:
-            book_id = 10
-        elif "dn-3" in filename:
-            book_id = 11
-        elif "dn-4" in filename or "dn-5" in filename:
-            book_id = 12
-
-        # Get pages
+        g.this_filename = data.get("filename", "")
+        g.this_book_id = data.get("bookId", "")
+        g.this_page_offset = data.get("pageOffset", "")
         pages = data.get("pages", [])
 
-        current_piṭaka = "suttantapiṭake"
-        current_nikaya = "dīghanikāyo"
-        current_book = ""
-        current_vagga = ""
+        # reset hierarchy for each file
+        g.data_current_file = []
+        # g.this_book = ""
+        # g.this_vagga = ""
 
         for page in pages:
-            page_num = page.get("pageNum", 0)
-
-            # Get Pali entries
+            g.this_page_num = str(page.get("pageNum", 0))
             pali_entries = page.get("pali", {}).get("entries", [])
 
             for entry in pali_entries:
                 entry_type = entry.get("type", "")
-                text = entry.get("text", "").strip()
-                level = entry.get("level", 0)
+                entry_text = entry.get("text", "").strip()
+                entry_level = entry.get("level", 0)
 
-                # Update hierarchy based on entry type and content
                 if entry_type == "centered":
-                    if "suttantapiṭake" in text.lower():
-                        current_piṭaka = text
-                    elif "dīghanikāyo" in text.lower():
-                        current_nikaya = text
+                    if "piṭak" in entry_text and entry_level == 2:
+                        g.this_piṭaka = clean_string(entry_text)
+                    elif "nikāy" in entry_text and entry_level == 5:
+                        g.this_nikāya = clean_string(entry_text)
+                    elif re.search(r"\d", entry_text):
+                        sutta_num_match = re.match(r"^(\d+)\.", entry_text)
+                        if sutta_num_match:
+                            g.this_sutta_num = int(sutta_num_match.group(1))
 
                 elif entry_type == "heading":
-                    if "dīghanikāyo" in text.lower():
-                        current_nikaya = text
                     # Look for book/vagga headings like "sīlakkhandhavaggo"
-                    elif "vaggo" in text.lower() and level == 2:
-                        current_book = clean_sutta_name(text)  # Apply cleaning to book names
-                    # Look for sutta patterns in level 1 entries
-                    elif level == 1:
-                        # Look for sutta codes like "dn-1-1", "dn-2-3", etc. in the text or use next entry
-                        # Extract sutta information from the entry
-                        sutta_match = re.search(r"dn-(\d+)-(\d+)", filename)
-                        if sutta_match:
-                            book_num = int(sutta_match.group(1))
-                            sutta_num = int(sutta_match.group(2))
-                            
-                            # Use this entry if it looks like a sutta title
-                            if not re.match(r"^\d+\.?\s*$", text) and len(text) > 0:
-                                # Generate sutta code as "{book_num}-{sutta_num}"
-                                sutta_code = f"{book_num}-{sutta_num}"
-                                web_code = f"dn-{book_num}-{sutta_num}"
-                                
-                                # Clean the sutta name
-                                cleaned_sutta_name = clean_sutta_name(text)
-                                
-                                # Create record with the required 13 fields
-                                record = {
-                                    "bjt_sutta_code": sutta_code,
-                                    "bjt_web_code": web_code,
-                                    "bjt_filename": filename,
-                                    "bjt_book_id": book_id,
-                                    "bjt_page_num": page_num,
-                                    "bjt_page_offset": 0,
-                                    "bjt_piṭaka": current_piṭaka,
-                                    "bjt_nikāya": current_nikaya,
-                                    "bjt_major_section": "",  # Mostly blank
-                                    "bjt_book": current_book,
-                                    "bjt_minor_section": "",  # DN doesn't have paṇṇāsa/nipāta structure
-                                    "bjt_vagga": current_vagga,  # Cleaned using clean_sutta_name if needed
-                                    "bjt_sutta": cleaned_sutta_name,
-                                }
+                    if "vaggo" in entry_text.lower():
+                        g.this_book_num += 1
+                        g.this_book = f"{g.this_book_num}. {clean_string(entry_text)}"
 
-                                results.append(record)
+                    # Look for sutta patterns in level 1 entries
+                    elif entry_level == 3:
+                        sutta_match = re.search("suttaṃ", entry_text)
+                        if sutta_match:
+                            if (
+                                not re.match(r"^\d+\.?\s*$", entry_text)
+                                and len(entry_text) > 0
+                            ):
+                                g.this_sutta_code = f"{g.tsv_filename} {g.this_book_num}. {g.this_sutta_num}."
+                                g.this_web_code = (
+                                    f"dn-{g.this_book_num}-{g.this_sutta_num}"
+                                )
+                                g.this_sutta = (
+                                    f"{g.this_sutta_num}. {clean_string(entry_text)}"
+                                )
+
+                                record = {
+                                    "bjt_sutta_code": g.this_sutta_code,
+                                    "bjt_web_code": g.this_web_code,
+                                    "bjt_filename": g.this_filename,
+                                    "bjt_book_id": g.this_book_id,
+                                    "bjt_page_num": g.this_page_num,
+                                    "bjt_page_offset": g.this_page_offset,
+                                    "bjt_piṭaka": g.this_piṭaka,
+                                    "bjt_nikāya": g.this_nikāya,
+                                    "bjt_major_section": g.this_major_section,
+                                    "bjt_book": g.this_book,
+                                    "bjt_minor_section": g.this_minor_section,
+                                    "bjt_vagga": g.this_vagga,
+                                    "bjt_sutta": g.this_sutta,
+                                }
+                                g.data_current_file.append(record)
+                        else:
+                            print(entry)
 
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON in {json_file}: {e}")
+        pr.red(f"Error decoding JSON in {g.this_json_file}: {e}")
     except Exception as e:
-        print(f"Error processing {json_file}: {e}")
+        pr.red(f"Error processing {g.this_json_file}: {e}")
 
-    return results
+    g.data_all.extend(g.data_current_file)
 
 
-def save_to_tsv(data: List[Dict[str, Any]], output_file: Path):
+def save_to_tsv(g: GlobalVars):
     """Save data to TSV file."""
-    if not data:
-        print("No data to save")
+    if not g.data_all:
+        pr.warning("No data to save")
         return
 
     # Define the exact field order as required
@@ -146,46 +168,32 @@ def save_to_tsv(data: List[Dict[str, Any]], output_file: Path):
         "bjt_sutta",
     ]
 
-    with open(output_file, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
+    with open(g.tsv_filepath, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=fieldnames,
+            delimiter="\t",
+        )
         writer.writeheader()
-        writer.writerows(data)
+        writer.writerows(g.data_all)
+    pr.info(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
 def main():
-    # Define paths
-    json_dir = Path(
-        "/home/bodhirasa/MyFiles/3_Active/dpd-db/resources/dpd_submodules/bjt/public/static/roman_json"
-    )
-    output_file = Path(
-        "/home/bodhirasa/MyFiles/3_Active/dpd-db/scripts/suttas/bjt/dn.tsv"
-    )
-
-    # Check if JSON directory exists
-    if not json_dir.exists():
-        print(f"JSON directory not found: {json_dir}")
+    pr.tic()
+    g = GlobalVars()
+    if not g.json_file_list:
+        pr.warning("No JSON files found")
         return
 
-    # Find all dn- files
-    dn_files = find_dn_files(json_dir)
-    print(f"Found {len(dn_files)} dn- JSON files")
+    for g.this_json_file in g.json_file_list:
+        pr.green(f"processing {g.this_json_file.name}")
+        extract_data(g)
+        pr.yes(len(g.data_current_file))
 
-    if not dn_files:
-        print("No dn- JSON files found")
-        return
-
-    all_data = []
-    for json_file in dn_files:
-        print(f"Processing {json_file.name}...")
-        data = extract_sutta_data(json_file)
-        all_data.extend(data)
-        print(f"  Extracted {len(data)} records")
-
-    # Save to TSV
-    print(f"\nTotal records extracted: {len(all_data)}")
-    print(f"Saving to {output_file}...")
-    save_to_tsv(all_data, output_file)
-    print("Done!")
+    pr.green_title(f"total: {len(g.data_all)}")
+    save_to_tsv(g)
+    pr.toc()
 
 
 if __name__ == "__main__":

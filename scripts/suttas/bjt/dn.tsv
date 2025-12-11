@@ -1,35 +1,35 @@
-bjt_sutta_code	bjt_web_code	bjt_filename	bjt_book_id	bjt_page_num	bjt_page_offset	bjt_piṭaka	bjt_nikāya	bjt_book	bjt_vagga	bjt_sutta
-dn-1-1	dn-1-1	dn-1	10	2	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		brahmajālasuttaṃ
-dn-1-2	dn-1-2	dn-1	10	82	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		sāmaññaphalasuttaṃ
-dn-1-3	dn-1-3	dn-1-3	10	150	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		ambaṭṭhasuttaṃ
-dn-1-4	dn-1-4	dn-1-3	10	222	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		soṇadaṇḍasuttaṃ
-dn-1-5	dn-1-5	dn-1-3	10	248	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		kūṭadantasuttaṃ
-dn-1-6	dn-1-6	dn-1-6	10	324	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		mahālisuttaṃ
-dn-1-7	dn-1-7	dn-1-6	10	348	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		jāliyasuttaṃ
-dn-1-8	dn-1-8	dn-1-6	10	356	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		sīhanādasuttaṃ
-dn-1-9	dn-1-9	dn-1-6	10	388	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		poṭṭhapādasuttaṃ
-dn-1-10	dn-1-10	dn-1-6	10	438	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		subhasuttaṃ
-dn-1-11	dn-1-11	dn-1-11	10	484	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		kevaḍḍhasuttaṃ
-dn-1-12	dn-1-12	dn-1-11	10	540	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		lohiccasuttaṃ
-dn-1-13	dn-1-13	dn-1-11	10	594	0	suttantapiṭake	dīghanikāyo	sīlakkhandhavaggo		tevijjasuttaṃ
-dn-2-1	dn-2-1	dn-2	11	2	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahāpadānasuttaṃ
-dn-2-2	dn-2-2	dn-2	11	80	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahānidānasuttaṃ
-dn-2-3	dn-2-3	dn-2-3	11	110	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahāparinibbānasuttaṃ
-dn-2-4	dn-2-4	dn-2-4	11	266	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahāsudassanasuttaṃ
-dn-2-5	dn-2-5	dn-2-4	11	306	0	suttantapiṭake	dīghanikāyo	mahāvaggo		janavasabhasuttaṃ
-dn-2-6	dn-2-6	dn-2-4	11	334	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahāgovindasuttaṃ
-dn-2-7	dn-2-7	dn-2-7	11	382	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahāsamayasuttaṃ
-dn-2-8	dn-2-8	dn-2-7	11	396	0	suttantapiṭake	dīghanikāyo	mahāvaggo		sakkapañhasuttaṃ
-dn-2-9	dn-2-9	dn-2-7	11	436	0	suttantapiṭake	dīghanikāyo	mahāvaggo		mahāsatipaṭṭhānasuttaṃ
-dn-2-10	dn-2-10	dn-2-7	11	504	0	suttantapiṭake	dīghanikāyo	mahāvaggo		pāyāsisuttaṃ
-dn-3-1	dn-3-1	dn-3	12	2	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		pāthikasuttaṃ
-dn-3-2	dn-3-2	dn-3	12	58	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		udumbarikasuttaṃ
-dn-3-3	dn-3-3	dn-3	12	96	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		cakkavattisuttaṃ
-dn-3-4	dn-3-4	dn-3	12	136	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		aggaññasuttaṃ
-dn-3-5	dn-3-5	dn-3-5	12	166	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		sampasādaniyasuttaṃ
-dn-3-6	dn-3-6	dn-3-5	12	194	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		pāsādikasuttaṃ
-dn-3-7	dn-3-7	dn-3-5	12	236	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		lakkhaṇasuttaṃ
-dn-3-8	dn-3-8	dn-3-5	12	288	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		sigālasuttaṃ
-dn-3-9	dn-3-9	dn-3-5	12	312	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		āṭānāṭiyasuttaṃ
-dn-3-10	dn-3-10	dn-3-10	12	352	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		saṅgītisuttaṃ
-dn-3-11	dn-3-11	dn-3-10	12	468	0	suttantapiṭake	dīghanikāyo	pāthikavaggo		dasuttarasuttaṃ
+bjt_sutta_code	 bjt_web_code	 bjt_filename	 bjt_book_id	 bjt_page_num	 bjt_page_offset	 bjt_piṭaka    	 bjt_nikāya 	 bjt_major_section	 bjt_book            	 bjt_minor_section	 bjt_vagga	 bjt_sutta
+dn 1. 1.      	 dn-1-1      	 dn-1        	          10	            2	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 1. brahmajālasuttaṃ
+dn 1. 2.      	 dn-1-2      	 dn-1        	          10	           82	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 2. sāmaññaphalasuttaṃ
+dn 1. 3.      	 dn-1-3      	 dn-1-3      	          10	          150	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 3. ambaṭṭhasuttaṃ
+dn 1. 4.      	 dn-1-4      	 dn-1-3      	          10	          222	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 4. soṇadaṇḍasuttaṃ
+dn 1. 5.      	 dn-1-5      	 dn-1-3      	          10	          248	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 5. kūṭadantasuttaṃ
+dn 1. 6.      	 dn-1-6      	 dn-1-6      	          10	          324	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 6. mahālisuttaṃ
+dn 1. 7.      	 dn-1-7      	 dn-1-6      	          10	          348	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 7. jāliyasuttaṃ
+dn 1. 8.      	 dn-1-8      	 dn-1-6      	          10	          356	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 8. sīhanādasuttaṃ
+dn 1. 9.      	 dn-1-9      	 dn-1-6      	          10	          388	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 9. poṭṭhapādasuttaṃ
+dn 1. 10.     	 dn-1-10     	 dn-1-6      	          10	          438	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 10. subhasuttaṃ
+dn 1. 11.     	 dn-1-11     	 dn-1-11     	          10	          484	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 11. kevaḍḍhasuttaṃ
+dn 1. 12.     	 dn-1-12     	 dn-1-11     	          10	          540	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 12. lohiccasuttaṃ
+dn 1. 13.     	 dn-1-13     	 dn-1-11     	          10	          594	               0	 suttantapiṭake	 dīghanikāyo	                  	 1. sīlakkhandhavaggo	                  	          	 13. tevijjasuttaṃ
+dn 2. 1.      	 dn-2-1      	 dn-2        	          11	            2	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 1. mahāpadānasuttaṃ
+dn 2. 2.      	 dn-2-2      	 dn-2        	          11	           80	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 2. mahānidānasuttaṃ
+dn 2. 3.      	 dn-2-3      	 dn-2-3      	          11	          110	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 3. mahāparinibbānasuttaṃ
+dn 2. 4.      	 dn-2-4      	 dn-2-4      	          11	          266	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 4. mahāsudassanasuttaṃ
+dn 2. 5.      	 dn-2-5      	 dn-2-4      	          11	          306	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 5. janavasabhasuttaṃ
+dn 2. 6.      	 dn-2-6      	 dn-2-4      	          11	          334	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 6. mahāgovindasuttaṃ
+dn 2. 7.      	 dn-2-7      	 dn-2-7      	          11	          382	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 7. mahāsamayasuttaṃ
+dn 2. 8.      	 dn-2-8      	 dn-2-7      	          11	          396	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 8. sakkapañhasuttaṃ
+dn 2. 9.      	 dn-2-9      	 dn-2-7      	          11	          436	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 9. mahāsatipaṭṭhānasuttaṃ
+dn 2. 10.     	 dn-2-10     	 dn-2-7      	          11	          504	               0	 suttantapiṭake	 dīghanikāyo	                  	 2. mahāvaggo        	                  	          	 10. pāyāsisuttaṃ
+dn 3. 1.      	 dn-3-1      	 dn-3        	          12	            2	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 1. pāthikasuttaṃ
+dn 3. 2.      	 dn-3-2      	 dn-3        	          12	           58	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 2. udumbarikasuttaṃ
+dn 3. 3.      	 dn-3-3      	 dn-3        	          12	           96	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 3. cakkavattisuttaṃ
+dn 3. 4.      	 dn-3-4      	 dn-3        	          12	          136	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 4. aggaññasuttaṃ
+dn 3. 5.      	 dn-3-5      	 dn-3-5      	          12	          166	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 5. sampasādaniyasuttaṃ
+dn 3. 6.      	 dn-3-6      	 dn-3-5      	          12	          194	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 6. pāsādikasuttaṃ
+dn 3. 7.      	 dn-3-7      	 dn-3-5      	          12	          236	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 7. lakkhaṇasuttaṃ
+dn 3. 8.      	 dn-3-8      	 dn-3-5      	          12	          288	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 8. sigālasuttaṃ
+dn 3. 9.      	 dn-3-9      	 dn-3-5      	          12	          312	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 9. āṭānāṭiyasuttaṃ
+dn 3. 10.     	 dn-3-10     	 dn-3-10     	          12	          352	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 10. saṅgītisuttaṃ
+dn 3. 11.     	 dn-3-11     	 dn-3-10     	          12	          468	               0	 suttantapiṭake	 dīghanikāyo	                  	 3. pāthikavaggo     	                  	          	 11. dasuttarasuttaṃ

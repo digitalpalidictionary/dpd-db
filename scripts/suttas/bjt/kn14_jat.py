@@ -13,6 +13,7 @@ from natsort import natsorted, ns
 from rich import print
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from helpers import clean_string
 
 
 class GlobalVars:
@@ -61,17 +62,8 @@ class GlobalVars:
     data_all: List[Dict[str, Any]] = []
 
 
-def clean_string(text: str) -> str:
-    """Clean string by removing brackets, curly braces, trailing fullstops, and footnote markers."""
-    cleaned = text.replace("[", "").replace("]", "")  # Remove brackets
-    cleaned = text.replace("(", "").replace(")", "")  # Remove brackets
-    cleaned = re.sub(r"\{[^}]*\}", "", cleaned)  # Remove {.*} patterns
-    cleaned = cleaned.rstrip(".")  # Remove trailing fullstops
-    return cleaned.strip()
-
-
 def extract_data(g: GlobalVars):
-    """Extract data json files."""
+    """Extract sutta data from a single JSON file."""
 
     try:
         with open(g.this_json_file, "r", encoding="utf-8") as f:
@@ -289,7 +281,11 @@ def save_to_tsv(g: GlobalVars):
     ]
 
     with open(g.tsv_filepath, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
+        writer = csv.DictWriter(
+            f,
+            fieldnames=fieldnames,
+            delimiter="\t",
+        )
         writer.writeheader()
         writer.writerows(g.data_all)
 
