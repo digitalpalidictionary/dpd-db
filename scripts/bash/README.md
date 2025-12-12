@@ -1,20 +1,20 @@
-# Bash
-Bash scripts to perform various procedures:
+# Bash 
+The bash scripts have been converted to Python to perform various procedures on all platforms.
 
 ## Initial setup
 
-`initial_setup_run_once.sh` Initial setup, only need to run once.
+`initial_setup_run_once.py` Initial setup, only need to run once.
 
 ## First build
 
-`initial_build_db.sh`: Build the database for the first time.
+`initial_build_db.py`: Build the database for the first time.
 
-`initial_build_db_and_export_all.sh`: Build the database for the first time and export all dictionaries.
+`initial_build_db_and_export_all.py`: Build the database for the first time and export all dictionaries.
 
 ## Daily builds
 
-`generate_components.sh`: Generate all the db components.
+`generate_components.py`: Generate all the db components.
 
-`makedict.sh`: Generate all the db components and export DPD into various formats.
+`makedict.py`: Generate all the db components and export DPD into various formats.
 
-`update_db.sh`: Update the database from tsv.
+`update_db.py`: Update the database from tsv.

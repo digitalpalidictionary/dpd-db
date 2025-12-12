@@ -69,7 +69,7 @@ jobs:
       run: uv run python scripts/build/db_rebuild_from_tsv.py
 
     - name: Run initial setup script
-      run: uv run bash scripts/bash/initial_setup_run_once.sh
+      run: uv run python scripts/bash/initial_setup_run_once.py
     
     - name: Create version
       run: uv run python tools/version.py

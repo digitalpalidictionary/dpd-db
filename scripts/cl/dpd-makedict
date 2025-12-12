@@ -11,5 +11,5 @@ mkdir -p logs
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 # Run the command and save output with timestamped filename
-script -q -c "uv run bash scripts/bash/makedict.sh" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
 

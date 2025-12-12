@@ -42,13 +42,13 @@ uv sync
 (10) Run this once to initialize the project
 
 ```shell
-uv run bash scripts/bash/initial_setup_run_once.sh
+uv run python scripts/bash/initial_setup_run_once.py
 ```
 
 (11) Build the database, this can take up to an hour the first time.
 
 ```shell
-uv run bash scripts/bash/initial_build_db.sh
+uv run python scripts/bash/initial_build_db.py
 ```
 
 That should create an SQLite database `dpd.db` in the root folder which can be accessed with [DB Browser](https://sqlitebrowser.org/){target="_blank"}, [DBeaver](https://dbeaver.io/){target="_blank"}, through [SQLAlechmy](https://www.sqlalchemy.org/){target="_blank"} or your preferred method.
