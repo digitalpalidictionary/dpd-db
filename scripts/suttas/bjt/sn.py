@@ -61,14 +61,6 @@ class GlobalVars:
     data_current_file: List[Dict[str, Any]] = []
     data_all: List[Dict[str, Any]] = []
 
-    book_id_map = {
-        "sn-1": "16",
-        "sn-2": "16",
-        "sn-3": "17",
-        "sn-4": "18",
-        "sn-5": "18",
-    }
-
 
 def extract_data(g: GlobalVars):
     """Extract sutta data from a single JSON file."""

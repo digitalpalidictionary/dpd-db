@@ -3,20 +3,23 @@
 Script to extract sutta data from BJT JSON files starting with 'an-' and save to TSV.
 """
 
-import json
-from pathlib import Path
 import csv
-from typing import List, Dict, Any
+import json
 import re
+from pathlib import Path
+from typing import Any, Dict, List
+
+from helpers import clean_string
 from natsort import natsorted, ns
+from rich import print
+
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from helpers import clean_string
 
 
 def get_book_number(filename: str) -> str:
     """Extract base book number from filename like 'an-1', 'an-2', 'an-3-1'"""
-    return filename.replace('an-', '').split('-')[0]
+    return filename.replace("an-", "").split("-")[0]
 
 
 class GlobalVars:
@@ -24,8 +27,6 @@ class GlobalVars:
 
     json_prefix = "an-"
     tsv_filename = "an"
-    this_piṭaka: str = "suttantapiṭake"
-    this_nikāya: str = "aṅguttaranikāyo"
 
     # file vars
     pth = ProjectPaths()
@@ -41,19 +42,29 @@ class GlobalVars:
     tsv_filepath = tsv_working_dir.joinpath(f"{tsv_filename}.tsv")
 
     # running vars
+    this_piṭaka: str
+    this_nikāya: str
     this_json_file: Path
+    last_json_file: str = ""
     this_sutta_code: str
     this_web_code: str
     this_filename: str
     this_book_id: str
     this_page_num: str
-    this_page_offset: str = "0"
+    this_page_offset: str
     this_major_section: str = ""
-    this_book: str = "" # Nipāta
-    this_minor_section: str = "" # Paṇṇāsaka
-    this_vagga: str = ""
-    this_sutta: str
-    last_filename: str = ""
+    this_book: str
+    this_minor_section: str = ""  # Paṇṇāsaka
+    this_vagga: str
+    inner_vagga: str = ""
+    this_sutta: str = ""
+
+    # counter vars
+    this_major_section_num: int = 0
+    this_book_num: int = 0
+    this_minor_section_num: int = 0  # paṇṇāsaka
+    this_vagga_num: int = 0
+    this_sutta_num: int = 0
 
     # state for web code generation
     last_web_sutta_num: int = 0
@@ -62,38 +73,29 @@ class GlobalVars:
     # data vars
     data_current_file: List[Dict[str, Any]] = []
     data_all: List[Dict[str, Any]] = []
-
-    book_id_map = {
-        "an-1": "22", "an-2": "22", "an-3": "22", "an-4": "23",
-        "an-5": "24", "an-6": "25", "an-7": "25", "an-8": "26",
-        "an-9": "26", "an-10": "27", "an-11": "27",
-    }
+    recorded_suttas: set[str] = set()
 
 
 def extract_data(g: GlobalVars):
     """Extract sutta data from a single JSON file."""
-    g.data_current_file = []
-
-    # Reset hierarchy if we are moving to a new book (e.g. from an-3 to an-4)
-    if g.last_filename:
-        current_book_num = get_book_number(g.this_json_file.stem)
-        last_book_num = get_book_number(g.last_filename)
-        if current_book_num != last_book_num:
-            g.this_book = ""
-            g.this_minor_section = ""
-            g.this_vagga = ""
-            g.last_web_sutta_num = 0
-            g.current_vagga_for_web = ""
-
 
     try:
         with open(g.this_json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         g.this_filename = data.get("filename", "")
-        g.this_book_id = g.book_id_map.get(g.this_filename, "22")
-
+        g.this_book_id = data.get("bookId", "")
+        g.this_page_offset = data.get("pageOffset", "")
         pages = data.get("pages", [])
+
+        # Reset hierarchy if we are moving to a new book
+        g.data_current_file = []
+        g.recorded_suttas = set()
+        g.this_minor_section = ""
+        g.this_vagga = ""
+        g.this_sutta = ""
+        g.last_web_sutta_num = 0
+        g.current_vagga_for_web = ""
 
         for page in pages:
             g.this_page_num = str(page.get("pageNum", 0))
@@ -101,45 +103,166 @@ def extract_data(g: GlobalVars):
 
             for i, entry in enumerate(pali_entries):
                 entry_type = entry.get("type", "")
-                text = entry.get("text", "").strip()
-                level = entry.get("level", 0)
+                entry_text = entry.get("text", "").strip()
+                entry_level = entry.get("level", 0)
 
-                # Update hierarchy
-                if "nipāto" in text.lower() and (entry_type == "centered" or (entry_type == "heading" and level < 3)):
-                    g.this_book = clean_string(text)
-                elif "paṇṇāsako" in text.lower() and (entry_type == "centered" or entry_type == "heading") and level <= 3:
-                    g.this_minor_section = clean_string(text)
-                elif "vaggo" in text.lower() and (entry_type == "centered" or entry_type == "heading") and level <= 3:
-                    g.this_vagga = clean_string(text)
+                # --------------------------------------------------
+                # match four digits 2. 1. 1. 2.
+                if (
+                    re.match(
+                        r"^(\d+)\b\.*\s*(\d+)\b\.*\s*(\d+)\b\.*\s*(\d+)\b", entry_text
+                    )
+                    and entry_level >= 1
+                ):
+                    sutta_num_match = re.match(
+                        r"^(\d+)\b\.*\s*(\d+)\b\.*\s*(\d+)\b\.*\s*(\d+)\b", entry_text
+                    )
+                    if sutta_num_match:
+                        g.this_sutta = entry_text
+                        g.this_sutta_code = f"{g.tsv_filename} {entry_text}"
+                        g.this_book_num = int(sutta_num_match.group(1))
+                        g.this_major_section_num = int(sutta_num_match.group(2))
+                        g.this_vagga_num = int(sutta_num_match.group(3))
+                        g.this_sutta_num = int(sutta_num_match.group(4))
 
-                # Find sutta
-                sutta_code_match = re.match(r"^\d+\.\s*\d+\.\s*\d+", text)
-                if sutta_code_match and (entry_type == "centered" or entry_type == "heading") and level == 1:
-                    sutta_parts = text.rstrip(".").split(".")
-                    if len(sutta_parts) < 3:
-                        continue
+                # --------------------------------------------------
+                # match three digits '4. 6. 1.'
+                elif (
+                    re.match(r"^(\d+)\b\.*\s*(\d+)\b\.*\s*(\d+)\b", entry_text)
+                    and entry_level >= 1
+                ):
+                    sutta_num_match = re.match(
+                        r"^(\d+)\b\.*\s*(\d+)\b\.*\s*(\d+)\b", entry_text
+                    )
+                    if sutta_num_match:
+                        g.this_sutta = entry_text
+                        g.this_sutta_code = f"{g.tsv_filename} {entry_text}"
+                        g.this_book_num = int(sutta_num_match.group(1))
+                        g.this_major_section_num = 0
+                        g.this_vagga_num = int(sutta_num_match.group(2))
+                        g.this_sutta_num = int(sutta_num_match.group(3))
 
-                    try:
-                        nipata_num = int(sutta_parts[0].strip())
-                        vagga_num = int(sutta_parts[1].strip())
+                # --------------------------------------------------
+                # match two digits 1-50.
+                elif re.match(r"^(\d+)-(\d+)", entry_text) and entry_level >= 1:
+                    sutta_num_match = re.match(r"^(\d+)-(\d+)", entry_text)
+                    if sutta_num_match:
+                        g.this_sutta = (
+                            f"{g.tsv_filename} {g.this_vagga_num} {entry_text}"
+                        )
+                        g.this_sutta_num = int(sutta_num_match.group(1))
 
+                if entry_type == "centered":
+                    if "piṭak" in entry_text.lower():
+                        g.this_piṭaka = entry_text
+
+                    elif "nikāy" in entry_text.lower() and entry_level == 5:
+                        g.this_nikāya = entry_text
+
+                    elif "bhāgo" in entry_text.lower() and 2 <= entry_level == 3:
+                        g.this_major_section = entry_text
+
+                    elif re.findall(
+                        r"(paṭham|dutiyo|tatiy|catutth|pañcam|chaṭṭh|sattam|aṭṭham|navam|dasam|terasam|paṇṇarasam|soḷasam|niṭṭhit|samatt|samatet|sambuddhassa|paṇṇāsak|vagguddān|vaggo|bhāgo|nipāt|uddānagāthā|^$|\{\*\d*\})|\{\d{1,2}\}$",
+                        entry_text,
+                    ):
+                        pass
+
+                    # else:
+                    #     pr.red(f"\n{entry}")
+
+                elif entry_type == "heading":
+                    if "nipāto" in entry_text.lower() and entry_level == 4:
+                        g.this_book = clean_string(entry_text)
+                        g.this_book_num += 1
+                        g.this_minor_section = ""  # reset paṇṇāsaka
+                        g.this_minor_section_num = 0
+                        g.inner_vagga = ""  # reset inner_vagga
+
+                    elif "paṇṇāsak" in entry_text.lower() and entry_level == 3:
+                        g.this_minor_section_num += 1
+                        g.this_minor_section = (
+                            f"{g.this_minor_section_num}. {clean_string(entry_text)}"
+                        )
+
+                    elif "vaggo" in entry_text.lower() and entry_level == 3:
+                        g.this_vagga = clean_string(entry_text)
+                        g.inner_vagga = ""  # reset inner_vagga
+
+                    elif "pāḷi" in entry_text.lower() and entry_level == 3:
+                        g.this_vagga = clean_string(entry_text)
+                        g.inner_vagga = g.this_vagga
+
+                    # --------------------------------------------------
+                    # special case of vagga inside pāli
+                    elif (
+                        re.findall(
+                            r"vaggo|papeyyālo|soḷasapasādakaradhammā",
+                            entry_text.lower(),
+                        )
+                        and entry_level == 2
+                        and g.inner_vagga
+                    ):
+                        g.this_vagga = f"{g.inner_vagga}, {clean_string(entry_text)}"
+
+                    # --------------------------------------------------
+                    # sometimes vaggas are level 2
+                    elif "vaggo" in entry_text.lower() and entry_level == 2:
+                        g.this_vagga = clean_string(entry_text)
+                        g.inner_vagga = ""  # reset inner_vagga
+
+                    # --------------------------------------------------
+                    # special case when vagga is not called vagga
+                    elif (
+                        re.findall(r"suttāni|rāgādipeyyālaṃ", entry_text.lower())
+                        and entry_level == 2
+                    ):
+                        g.this_vagga = clean_string(entry_text)
+
+                    # --------------------------------------------------
+                    # special case when vagga is not called vagga and level 3
+                    elif (
+                        re.findall(r"suttāni|rāgādipeyyālaṃ", entry_text.lower())
+                        and entry_level == 3
+                    ):
+                        g.this_vagga = clean_string(entry_text)
+
+                    # --------------------------------------------------
+                    # suttas
+                    elif (
+                        re.findall(
+                            r"suttaṃ|peyyālaṃ|suttāni|suttādīni|suttādinī", entry_text
+                        )
+                        and entry_level == 1
+                    ):
+                        g.this_sutta = f"{g.this_sutta_num}. {clean_string(entry_text)}"
+
+                    # --------------------------------------------------
+                    elif (
+                        re.findall(r"^\[*\d", entry_text)
+                        # and entry_text != g.this_sutta
+                    ):
+                        pass
+
+                    # --------------------------------------------------
+                    else:
+                        pr.red(f"\n{entry}")
+
+                    # --------------------------------------------------
+                    # make a record
+                    if g.this_sutta and g.this_sutta not in g.recorded_suttas:
                         # Check if vagga changed and reset web counter if needed
                         if g.this_vagga != g.current_vagga_for_web:
                             g.last_web_sutta_num = 0
                             g.current_vagga_for_web = g.this_vagga
 
                         g.last_web_sutta_num += 1
-                        g.this_sutta_code = text.rstrip(".")
-                        g.this_web_code = f"an-{nipata_num}-{vagga_num}-{g.last_web_sutta_num}"
+                        # g.this_sutta_code = entry_text.rstrip(".")
 
-                        # Look ahead for sutta name
-                        g.this_sutta = text  # fallback to number
-                        if i + 1 < len(pali_entries):
-                            next_entry = pali_entries[i + 1]
-                            if next_entry.get("type") == "heading" and next_entry.get("level") == 1:
-                                next_text = next_entry.get("text", "").strip()
-                                if not re.match(r"^\d+\.\s*\d+\.\s*\d+", next_text):
-                                    g.this_sutta = clean_string(next_text).replace("vaggo", "").strip()
+                        if g.this_major_section_num:
+                            g.this_web_code = f"{g.tsv_filename}-{g.this_book_num}-{g.this_major_section_num}-{g.this_vagga_num}-{g.last_web_sutta_num}"
+                        else:
+                            g.this_web_code = f"{g.tsv_filename}-{g.this_book_num}-{g.this_vagga_num}-{g.last_web_sutta_num}"
 
                         record = {
                             "bjt_sutta_code": g.this_sutta_code,
@@ -157,9 +280,8 @@ def extract_data(g: GlobalVars):
                             "bjt_sutta": g.this_sutta,
                         }
                         g.data_current_file.append(record)
-
-                    except (ValueError, IndexError):
-                        continue
+                        g.recorded_suttas.add(g.this_sutta)
+                        # print(record)
 
     except json.JSONDecodeError as e:
         pr.red(f"Error decoding JSON in {g.this_json_file}: {e}")
@@ -167,7 +289,7 @@ def extract_data(g: GlobalVars):
         pr.red(f"Error processing {g.this_json_file}: {e}")
 
     g.data_all.extend(g.data_current_file)
-    g.last_filename = g.this_json_file.stem
+    g.last_json_file = g.this_json_file.stem
 
 
 def save_to_tsv(g: GlobalVars):
@@ -218,3 +340,21 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# exceptions with 4 numbers
+# 16. Ekadhammapāḷi
+#   1. Paṭhamovaggo
+#       1. 16. 1. 1
+#       1. 16. 1. 2-10
+
+# numbering errors
+# 6. Chaṭṭhapaṇṇāsakaṃ
+# 1. Upasampadāvaggo
+# Vaggātireka suttāni
+# Bhattuddesaka suttaṃ
+# Dutiyabhattuddesakādisuttāni
+# Senāsana paññāpakādi suttāni
+# Bhikkhusuttaṃ
+# Bhikkhunī suttādīni
+# Ājīvaka suttaṃ
+# Nigaṇṭhasuttādīni
