@@ -181,9 +181,13 @@ def extract_data(g: GlobalVars):
 
                     elif "paṇṇāsak" in entry_text.lower() and entry_level == 3:
                         g.this_minor_section_num += 1
-                        g.this_minor_section = (
-                            f"{g.this_minor_section_num}. {clean_string(entry_text)}"
-                        )
+                        clean_entry_text = clean_string(entry_text)
+                        if re.findall(r"^\d", clean_entry_text):
+                            g.this_minor_section = clean_entry_text
+                        else:
+                            g.this_minor_section = (
+                                f"{g.this_minor_section_num}. {clean_entry_text}"
+                            )
 
                     elif "vaggo" in entry_text.lower() and entry_level == 3:
                         g.this_vagga = clean_string(entry_text)
