@@ -111,3 +111,4 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
+db/audio/bhashini/*

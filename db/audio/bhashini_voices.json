@@ -1,0 +1,243 @@
+{
+    "voices": [
+        {
+            "id": "kn-f1",
+            "name": "Kannada Female 1",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Conversational",
+                "Book",
+                "Command",
+                "Happy",
+                "Sad",
+                "Fear",
+                "Disgust",
+                "Anger",
+                "Surprise"
+            ]
+        },
+        {
+            "id": "kn-f2",
+            "name": "Kannada Female 2",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "Conversational",
+                "Book",
+                "Command",
+                "Happy",
+                "Sad",
+                "Fear",
+                "Disgust",
+                "Anger",
+                "Surprise"
+            ]
+        },
+        {
+            "id": "kn-f3",
+            "name": "Kannada Female 3",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Book"
+            ]
+        },
+        {
+            "id": "kn-f4",
+            "name": "Kannada Female 4",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral"
+            ]
+        },
+        {
+            "id": "kn-f5",
+            "name": "Kannada Female 5",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "Book"
+            ]
+        },
+        {
+            "id": "kn-m1",
+            "name": "Kannada Male 1",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Conversational",
+                "Book",
+                "Command",
+                "Happy",
+                "Sad",
+                "Fear",
+                "Disgust",
+                "Anger",
+                "Surprise"
+            ]
+        },
+        {
+            "id": "kn-m2",
+            "name": "Kannada Male 2",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "Book"
+            ]
+        },
+        {
+            "id": "kn-m3",
+            "name": "Kannada Male 3",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Conversational",
+                "Book"
+            ]
+        },
+        {
+            "id": "kn-m4",
+            "name": "Kannada Male 4",
+            "nativeLanguage": "Kannada",
+            "supportedStyles": [
+                "Neutral",
+                "Conversational",
+                "Command",
+                "Happy",
+                "Sad",
+                "Fear",
+                "Disgust",
+                "Anger",
+                "Surprise"
+            ]
+        },
+        {
+            "id": "mr-f1",
+            "name": "Marathi Female 1",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Conversational",
+                "Book",
+                "Command",
+                "Happy",
+                "Sad",
+                "Fear",
+                "Disgust",
+                "Anger",
+                "Surprise"
+            ]
+        },
+        {
+            "id": "mr-f2",
+            "name": "Marathi Female 2",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "Book"
+            ]
+        },
+        {
+            "id": "mr-f3",
+            "name": "Marathi Female 3",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral"
+            ]
+        },
+        {
+            "id": "mr-f4",
+            "name": "Marathi Female 4",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "Book"
+            ]
+        },
+        {
+            "id": "mr-f5",
+            "name": "Marathi Female 5",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral"
+            ]
+        },
+        {
+            "id": "mr-f6",
+            "name": "Marathi Female 6",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral"
+            ]
+        },
+        {
+            "id": "mr-m1",
+            "name": "Marathi Male 1",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Conversational",
+                "Book",
+                "Command",
+                "Happy",
+                "Sad",
+                "Fear",
+                "Disgust",
+                "Anger",
+                "Surprise"
+            ]
+        },
+        {
+            "id": "mr-m2",
+            "name": "Marathi Male 2",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "Book"
+            ]
+        },
+        {
+            "id": "mr-m3",
+            "name": "Marathi Male 3",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Book"
+            ]
+        },
+        {
+            "id": "mr-m4",
+            "name": "Marathi Male 4",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral",
+                "News",
+                "Book"
+            ]
+        },
+        {
+            "id": "mr-m5",
+            "name": "Marathi Male 5",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral"
+            ]
+        },
+        {
+            "id": "mr-m6",
+            "name": "Marathi Male 6",
+            "nativeLanguage": "Marathi",
+            "supportedStyles": [
+                "Neutral"
+            ]
+        }
+    ]
+}
