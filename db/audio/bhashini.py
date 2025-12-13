@@ -1,54 +1,16 @@
 import json
+import time
 from pathlib import Path
 
 import requests
 from aksharamukha import transliterate
 from rich import print
 
+from db.db_helpers import get_db_session
+from db.models import DpdHeadword
 from tools.configger import config_read
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-
-test_text = """
-etarahi.
-kho.
-pana.
-bhante.
-bhikkhuniyo.
-bhagavato.
-sāvikā.
-viyattā.
-vinītā.
-visāradā.
-bahussutā.
-dhammadharā.
-dhammānudhammappaṭipannā.
-sāmīcippaṭipannā.
-anudhammacāriniyo.
-sakaṃ.
-ācariyakaṃ.
-uggahetvā.
-ācikkhanti.
-desenti.
-paññapenti.
-paṭṭhapenti.
-vivaranti.
-vibhajanti.
-uttānīkaronti.
-uppannaṃ.
-parappavādaṃ.
-sahadhammena.
-suniggahitaṃ.
-niggahetvā.
-sappāṭihāriyaṃ.
-dhammaṃ.
-desenti..
-parinibbātudāni.
-bhante.
-bhagavā.
-parinibbātu.
-sugato.
-parinibbānakālodāni.
-"""
 
 
 class Bashini:
@@ -61,35 +23,69 @@ class Bashini:
         "Content-Type": "application/json",
         "X-API-KEY": f"{api_key}",
     }
-    file_name: str
+    subdir_name: Path
     output_path: Path
+    completed_count: int = 0
+
+    def transliterate_text(self, language: str, text_roman: str):
+        if language in ["Sanskrit", "Marathi"]:
+            language = "Devanagari"
+        return transliterate.process(
+            "IASTPali",
+            language,
+            text_roman,
+            nativize=False,
+        )
 
     def tts(
         self,
-        text: str,
+        text_roman: str,
         language: str,
         voice_name: str,
         voice_style: str,
     ):
+        text_transliterated = self.transliterate_text(language, text_roman)
+
         payload = {
-            "text": text,
+            "text": f"{text_transliterated}.",
             "language": language,
             "voiceName": voice_name,
             "voiceStyle": voice_style,
         }
-        self.file_name = f"{language} {voice_name} {voice_style}"
-        self.output_path = self.output_dir.joinpath(self.file_name).with_suffix(".mp3")
+        self.filename = Path(text_roman).with_suffix(".mp3")
+        self.subdir_name = self.output_dir.joinpath(
+            f"{language}_{voice_name}_{voice_style}"
+        )
+        if not self.subdir_name.exists():
+            self.subdir_name.mkdir()
+        self.output_path = self.subdir_name / self.filename
 
+        #  TODO rather make a new numbered copy
         if self.output_path.is_file():
-            pr.warning(f"skipping: {self.output_path}")
             return
 
-        pr.info(f"synthesizing: {self.output_path}")
-        resp = requests.post(
-            self.api_url,
-            headers=self.headers,
-            data=json.dumps(payload),
-        )
+        self.completed_count += 1
+        pr.info(f"[{self.completed_count}] synthesizing: {self.output_path}")
+
+        # Simple retry logic - 3 attempts
+        for attempt in range(3):
+            try:
+                resp = requests.post(
+                    self.api_url,
+                    headers=self.headers,
+                    data=json.dumps(payload),
+                    timeout=30,  # 30-second
+                )
+                break  # Success, exit retry loop
+            except (
+                requests.exceptions.ConnectionError,
+                requests.exceptions.Timeout,
+            ) as e:
+                if attempt == 2:  # Last attempt failed
+                    pr.error(f"Connection failed after 3 attempts: {str(e)}")
+                    return
+                pr.warning(f"Connection error, retrying ({attempt + 1}/3)...")
+                time.sleep(1)  # Simple 1-second delay between retries
         try:
             resp.raise_for_status()
         except Exception as e:
@@ -103,50 +99,28 @@ class Bashini:
             pr.red(resp.text)
 
 
-def load_voices():
-    voices_json_path = Path("db/audio/bhashini_voices.json")
-    with open(voices_json_path) as f:
-        return json.load(f)
-
-
-def transliterate_text(language: str):
-    if language in ["Sanskrit", "Marathi"]:
-        language = "Devanagari"
-    return transliterate.process(
-        "IASTPali",
-        language,
-        test_text,
-        nativize=False,
-    )
-
-
-def cycle_through_options():
+def iterate_through_dpd():
     bashini = Bashini()
-    voices_dict = load_voices()
-    for _, voices in voices_dict.items():
-        for voice in voices:
-            id = voice.get("id")
-            name = voice.get("name")
-            language = voice.get("nativeLanguage")
-            styles = voice.get("supportedStyles")
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(DpdHeadword).all()
+    seen_headwords: set[str] = set()
 
-            text_trans = transliterate_text(language)
+    language = "Kannada"
+    voice = "kn-m4"
+    style = "Neutral"
 
-            for style in styles:
-                text_trans = transliterate_text(language)
-                if text_trans:
-                    bashini.tts(text_trans, language, id, style)
-                else:
-                    pr.red(f"error transliterating to {language}")
-
-                # add Sanskrit
-                language2 = "Sanskrit"
-                text_trans = transliterate_text(language2)
-                if text_trans:
-                    bashini.tts(text_trans, language2, id, style)
-                else:
-                    pr.red(f"error transliterating to {language2}")
+    for i in db:
+        if i.lemma_clean not in seen_headwords:
+            bashini.tts(i.lemma_clean, language, voice, style)
+            seen_headwords.add(i.lemma_clean)
 
 
 if __name__ == "__main__":
-    cycle_through_options()
+    iterate_through_dpd()
+
+# need a solution for problem files, just re-making them
+# doesn't solve the problem, just repeats it.
+# 1. make a folder for wrong files
+# 2. use another voice to create them
+#
