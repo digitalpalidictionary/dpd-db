@@ -58,6 +58,7 @@
 
 ## GitHub
 - Unless otherwise specified the repository in question is https://github.com/digitalpalidictionary/dpd-db.
+- DO NOT add or commit to GitHub, unless specifically instructed to do so.
 
 ### Solve
 - "Solve" means read the specified GitHub issue using get_issue and offer solutions. Don't think about it, don't ask questions, just read it.
