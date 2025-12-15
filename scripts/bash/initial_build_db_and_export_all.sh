@@ -9,6 +9,3 @@ scripts/bash/initial_setup_run_once.sh
 scripts/bash/initial_build_db.sh
 
 scripts/bash/makedict.sh
-
-
-
