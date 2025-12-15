@@ -15,16 +15,15 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     seen_headwords: set[str] = set()
-    pr.yes(len(db))
 
-    pr.green("init bashini tts")
     bashini = Bashini(
         language="Kannada",
         voice_name="kn-f4",
         voice_style="Neutral",
         speech_rate=0.85,
     )
-    pr.yes("ok")
+
+    pr.yes(len(db))
 
     try:
         for db_count, i in enumerate(db):
@@ -33,7 +32,7 @@ def main():
                 bashini.tts(i.lemma_clean, remaining)
                 seen_headwords.add(i.lemma_clean)
     except KeyboardInterrupt:
-        pr.green(f"\n{len(db) - db_count} words remaining to process")
+        pr.green(f"\n{len(db) - db_count} words remaining to process\n")
         sys.exit(0)
 
 

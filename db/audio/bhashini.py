@@ -75,7 +75,7 @@ class Bashini:
             return
 
         text_transliterated = self._transliterate_text(text_roman)
-        text_for_api = f"।{text_transliterated}।"
+        text_for_api = f"। {text_transliterated} ।"
 
         payload = {
             "text": text_for_api,
@@ -201,3 +201,45 @@ class Bashini:
             pr.error(f"Error playing audio: {e}")
         except FileNotFoundError:
             pr.error("ffplay not found. Please install ffmpeg.")
+
+    @staticmethod
+    def ping_api() -> bool:
+        """Test Bhashini API connectivity with a minimal request."""
+        import time
+
+        # Minimal test payload
+        test_payload = {
+            "text": "test",
+            "language": "Kannada",
+            "voiceName": "kn-f4",
+            "voiceStyle": "Neutral",
+            "speechRate": 1.0,
+        }
+
+        start_time = time.time()
+
+        try:
+            pr.green("pinging API")
+            resp = requests.post(
+                Bashini.tts_api_url,
+                headers=Bashini.headers,
+                data=json.dumps(test_payload),
+                timeout=10,  # 10-second timeout for quick ping
+            )
+            resp.raise_for_status()
+            result = resp.headers.get("Content-Type", "").startswith("audio")
+            response_time = time.time() - start_time
+            pr.yes(f"{response_time:.2f} sec")
+            return result
+
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ) as e:
+            pr.no("fail")
+            pr.red(str(e))
+            return False
+        except Exception as e:
+            pr.no("fail")
+            pr.red(str(e))
+            return False
