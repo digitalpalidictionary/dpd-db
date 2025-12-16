@@ -47,6 +47,7 @@ dependencies = [
     "fuzzywuzzy>=0.18.0",
     "python-levenshtein>=0.27.1",
     "natsort>=8.4.0",
+    "indic-transliteration>=2.3.75",
 ]
 
 [dependency-groups]

@@ -258,6 +258,15 @@ wheels = [
 ]
 
 [[package]]
+name = "backports-functools-lru-cache"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c0/dc/a1962ae19f83d2a92b8ac76ad2dfdeccf2748464f1560a51d343b9e2609a/backports.functools_lru_cache-2.0.0.tar.gz", hash = "sha256:dcbfa5e0dae8a014168807c9e026d33eead71df5af76c1fb78fd248bf07f6f99", size = 11578 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c6/c6/4761a2ccb03d650ca803b11a7cdd69ff0696926d3fea218c8ca22c808448/backports.functools_lru_cache-2.0.0-py2.py3-none-any.whl", hash = "sha256:0a754323a46847735a112677fb8807b45f6d824d02a5795a50905218ac56a0d6", size = 6657 },
+]
+
+[[package]]
 name = "backrefs"
 version = "5.8"
 source = { registry = "https://pypi.org/simple" }
@@ -669,6 +678,7 @@ dependencies = [
     { name = "gitpython" },
     { name = "google-generativeai" },
     { name = "gtts" },
+    { name = "indic-transliteration" },
     { name = "jinja2" },
     { name = "mako" },
     { name = "marimo" },
@@ -731,6 +741,7 @@ requires-dist = [
     { name = "gitpython", specifier = ">=3.1.43" },
     { name = "google-generativeai", specifier = ">=0.8.4" },
     { name = "gtts", specifier = ">=2.5.4" },
+    { name = "indic-transliteration", specifier = ">=2.3.75" },
     { name = "jinja2", specifier = ">=3.1.2" },
     { name = "mako", specifier = ">=1.2.4" },
     { name = "marimo", specifier = ">=0.12.4" },
@@ -1566,6 +1577,21 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7590aa73f1f1d3fa9a380e654b86af429e0934a32f7d/idna-3.10.tar.gz", hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9", size = 190490 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3", size = 70442 },
+]
+
+[[package]]
+name = "indic-transliteration"
+version = "2.3.75"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "backports-functools-lru-cache" },
+    { name = "regex" },
+    { name = "roman" },
+    { name = "toml" },
+    { name = "typer" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ca/1a/85748fd7a63cf684616bffb4d2f31669321dff65db5613c73903a68a568d/indic_transliteration-2.3.75-py3-none-any.whl", hash = "sha256:6618ba23c6d623757fdfb3239d468417f1686f1d34aa4720ab91b5e99c865797", size = 159557 },
 ]
 
 [[package]]
@@ -3251,6 +3277,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz", hash = "sha256:439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098", size = 223149 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/19/71/39c7c0d87f8d4e6c020a393182060eaefeeae6c01dab6a84ec346f2567df/rich-13.9.4-py3-none-any.whl", hash = "sha256:6049d5e6ec054bf2779ab3358186963bac2ea89175919d699e378b99738c2a90", size = 242424 },
+]
+
+[[package]]
+name = "roman"
+version = "5.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/7c/3901b35ed856329bf98e84da8e5e0b4d899ea0027eee222f1be42a24ff3f/roman-5.2.tar.gz", hash = "sha256:275fe9f46290f7d0ffaea1c33251b92b8e463ace23660508ceef522e7587cb6f", size = 8185 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/10/14/ea3cdd7276fcd731a9003fe4abeb6b395a38110ddff6a6a509f4ee00f741/roman-5.2-py3-none-any.whl", hash = "sha256:89d3b47400388806d06ff77ea77c79ab080bc127820dea6bf34e1f1c1b8e676e", size = 6041 },
 ]
 
 [[package]]
