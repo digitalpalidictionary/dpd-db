@@ -33,6 +33,9 @@ class ProjectPaths:
             base_dir / "db/suttas/dv_catalogue_suttas.tsv"
         )
 
+        # resources/dpd_audio
+        self.dpd_audio_db_path = base_dir / "resources/dpd_audio/db/dpd_audio.db"
+
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
         self.kindlegen_path = base_dir / "exporter/kindle/kindlegen"

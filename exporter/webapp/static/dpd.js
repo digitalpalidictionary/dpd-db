@@ -1,7 +1,7 @@
 
 //// listen for button clicks
 
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var target = event.target;
     const classNames = ["button"]
     if (classNames.some(className => target.classList.contains(className))) {
@@ -21,7 +21,7 @@ function button_click(el) {
     }
     const target_id = el.getAttribute("data-target");
     var target = document.getElementById(target_id);
-    
+
     if (target) {
         if (target.textContent.includes("loading...")) {
             loadData()
@@ -31,14 +31,14 @@ function button_click(el) {
 
         if (oneButtonToggleEnabled) {
             var allButtons = document.querySelectorAll('.button');
-            allButtons.forEach(function(button) {
-                if (button !== el) { 
+            allButtons.forEach(function (button) {
+                if (button !== el) {
                     button.classList.remove("active");
                 }
             });
 
             var allContentAreas = document.querySelectorAll('.content');
-            allContentAreas.forEach(function(contentArea) {
+            allContentAreas.forEach(function (contentArea) {
                 if (contentArea !== target && !contentArea.classList.contains("summary")) {
                     contentArea.classList.add("hidden");
                 }
@@ -60,4 +60,19 @@ function button_click(el) {
             el.classList.toggle("active");
         }
     }
+}
+
+function playAudio(headword) {
+    let gender = "male";
+    try {
+        const audioToggle = localStorage.getItem("audio-toggle");
+        if (audioToggle === "true") {
+            gender = "female";
+        }
+    } catch (e) {
+        console.log("LocalStorage is not available.");
+    }
+
+    var audio = new Audio('/audio/' + headword + '?gender=' + gender);
+    audio.play();
 }

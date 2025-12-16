@@ -25,6 +25,7 @@ const exampleToggle = document.getElementById("example-toggle");
 const oneButtonToggle = document.getElementById("one-button-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
+const audioToggle = document.getElementById("audio-toggle");
 var fontSize;
 const fontSizeUp = document.getElementById("font-size-up");
 const fontSizeDown = document.getElementById("font-size-down");
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadToggleState("one-button-toggle");
   loadToggleState("summary-toggle");
   loadToggleState("sandhi-toggle");
+  loadToggleState("audio-toggle");
   loadFontSize();
   swopSansSerif();
 
@@ -252,6 +254,7 @@ exampleToggle.addEventListener("change", saveToggleState);
 oneButtonToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
+audioToggle.addEventListener("change", saveToggleState);
 
 //// theme
 
