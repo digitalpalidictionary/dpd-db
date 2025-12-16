@@ -78,10 +78,17 @@ def add_to_lookup_table(g: GlobalVars) -> None:
     # update test add
     for i in g.lookup_db:
         if i.lookup_key in update_set:
-            i.headwords_pack(list(g.sutta_info_dict[i.lookup_key]))
+            if i.headwords:
+                headwords = g.sutta_info_dict[i.lookup_key]
+                headwords.update(g.sutta_info_dict[i.lookup_key])
+                i.headwords_pack(list(headwords))
+            else:
+                i.headwords_pack(list(g.sutta_info_dict[i.lookup_key]))
         elif i.lookup_key in test_set:
             if is_another_value(i, "headwords"):
                 # i.headwords_pack([])
+                pass
+            elif i.headwords:
                 pass
             else:
                 g.db_session.delete(i)
