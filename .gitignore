@@ -12,7 +12,6 @@ archive/db/deconstructor/output_do/
 archive/db/deconstructor/output/
 archive/db/frequency/output/
 config.ini
-db/audio/mp3/
 db/bold_definitions/bold_definitions.json
 db/bold_definitions/bold_definitions.tsv
 db/sinhala/dpd sinhala 1.1.xlsx
@@ -111,4 +110,4 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
-db/audio/bhashini/*
+
