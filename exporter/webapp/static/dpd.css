@@ -620,3 +620,32 @@ table.root_matrix td b {
   border-radius: 3px;
   padding: 0 2px;
 }
+
+/* play button */
+
+a.button.play {
+  padding: 2px 5px;
+  /* match standard button padding */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  /* ensure height matches neighbors */
+}
+
+a.button.play:hover {
+  background-color: var(--primary-alt);
+  border-color: var(--primary-alt);
+}
+
+a.button.play:hover svg {
+  fill: var(--light);
+  stroke: var(--light);
+}
+
+a.button.play svg {
+  width: 1em;
+  height: 1em;
+  fill: var(--dark);
+  stroke: var(--dark);
+}
