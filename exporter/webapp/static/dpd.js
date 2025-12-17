@@ -62,7 +62,7 @@ function button_click(el) {
     }
 }
 
-function playAudio(headword) {
+function playAudio(headword, buttonElement) {
     let gender = "male";
     try {
         const audioToggle = localStorage.getItem("audio-toggle");
@@ -74,5 +74,28 @@ function playAudio(headword) {
     }
 
     var audio = new Audio('/audio/' + headword + '?gender=' + gender);
-    audio.play();
+
+    audio.addEventListener("error", function () {
+        if (buttonElement) {
+            // Change icon to cross
+            buttonElement.innerHTML = `
+                <svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            `;
+            // Disable button
+            buttonElement.classList.add("disabled");
+            buttonElement.style.pointerEvents = "none";
+            buttonElement.title = "Audio not found";
+            buttonElement.removeAttribute("onclick");
+        }
+    });
+
+    audio.play().catch(function (error) {
+        // This catch block handles cases where play() Promise rejects 
+        // (e.g. user interaction policy, or source error which might also trigger the error event)
+        console.log("Audio play failed: ", error);
+        // The error listener above usually catches the 404, but we can double check here or just rely on the listener.
+    });
 }
