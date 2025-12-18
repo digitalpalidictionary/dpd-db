@@ -21,6 +21,7 @@
 [submodule "resources/fdg_dpd"]
 	path = resources/fdg_dpd
 	url = https://github.com/o28o/dictPlugin.git
+	
 [submodule "resources/dpd_audio"]
 	path = resources/dpd_audio
 	url = https://github.com/digitalpalidictionary/dpd-audio.git
