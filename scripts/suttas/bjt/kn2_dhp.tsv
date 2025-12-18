@@ -1,27 +1,27 @@
-bjt_sutta_code	bjt_web_code	bjt_filename	bjt_book_id	bjt_page_num	bjt_page_offset	bjt_piṭaka	bjt_nikāya	bjt_major_section	bjt_book	bjt_minor_section	bjt_vagga	bjt_sutta
-1.	kn-dhp-1	kn-dhp	28	26	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		yamakavaggo	
-2.	kn-dhp-2	kn-dhp	28	30	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		appamādavaggo	
-3.	kn-dhp-3	kn-dhp	28	34	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		cittavaggo	
-4.	kn-dhp-4	kn-dhp	28	36	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		pupphavaggo	
-5.	kn-dhp-5	kn-dhp	28	38	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		bālavaggo	
-6.	kn-dhp-6	kn-dhp	28	40	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		paṇḍitavaggo	
-7.	kn-dhp-7	kn-dhp	28	44	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		arahantavaggo	
-8.	kn-dhp-8	kn-dhp	28	46	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		sahassavaggo	
-9.	kn-dhp-9	kn-dhp	28	50	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		pāpavaggo	
-10.	kn-dhp-10	kn-dhp	28	56	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		daṇḍavaggo	
-11.	kn-dhp-11	kn-dhp	28	60	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		jarāvaggo	
-12.	kn-dhp-12	kn-dhp	28	64	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		attavaggo	
-13.	kn-dhp-13	kn-dhp	28	66	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		lokavaggo	
-14.	kn-dhp-14	kn-dhp	28	70	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		buddhavaggo	
-15.	kn-dhp-15	kn-dhp	28	74	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		sukhavaggo	
-16.	kn-dhp-16	kn-dhp	28	78	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		piyavaggo	
-17.	kn-dhp-17	kn-dhp	28	80	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		kodhavaggo	
-18.	kn-dhp-18	kn-dhp	28	84	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		malavaggo	
-19.	kn-dhp-19	kn-dhp	28	88	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		dhammaṭṭhavaggo	
-20.	kn-dhp-20	kn-dhp	28	92	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		maggavaggo	
-21.	kn-dhp-21	kn-dhp	28	96	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		pakiṇṇakavaggo	
-22.	kn-dhp-22	kn-dhp	28	100	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		nirayavaggo	
-23.	kn-dhp-23	kn-dhp	28	104	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		nāgavaggo	
-24.	kn-dhp-24	kn-dhp	28	108	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		taṇhāvaggo	
-25.	kn-dhp-25	kn-dhp	28	114	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		bhikkhuvaggo	
-26.	kn-dhp-26	kn-dhp	28	118	0	suttantapiṭake	khuddakanikāyo		dhammapadapāḷi		brāhmaṇavaggo	
+bjt_sutta_code	 bjt_web_code	 bjt_filename	 bjt_book_id	 bjt_page_num	 bjt_page_offset	 bjt_piṭaka    	 bjt_nikāya    	 bjt_major_section	 bjt_book      	 bjt_minor_section	 bjt_vagga      	 bjt_sutta
+dhp 1.        	 kn-dhp-1    	 kn-dhp      	          28	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 yamakavaggo    	 
+dhp 2.        	 kn-dhp-2    	 kn-dhp      	          28	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 appamādavaggo  	 
+dhp 3.        	 kn-dhp-3    	 kn-dhp      	          28	           34	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 cittavaggo     	 
+dhp 4.        	 kn-dhp-4    	 kn-dhp      	          28	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 pupphavaggo    	 
+dhp 5.        	 kn-dhp-5    	 kn-dhp      	          28	           38	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 bālavaggo      	 
+dhp 6.        	 kn-dhp-6    	 kn-dhp      	          28	           40	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 paṇḍitavaggo   	 
+dhp 7.        	 kn-dhp-7    	 kn-dhp      	          28	           44	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 arahantavaggo  	 
+dhp 8.        	 kn-dhp-8    	 kn-dhp      	          28	           46	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 sahassavaggo   	 
+dhp 9.        	 kn-dhp-9    	 kn-dhp      	          28	           50	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 pāpavaggo      	 
+dhp 10.       	 kn-dhp-10   	 kn-dhp      	          28	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 daṇḍavaggo     	 
+dhp 11.       	 kn-dhp-11   	 kn-dhp      	          28	           60	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 jarāvaggo      	 
+dhp 12.       	 kn-dhp-12   	 kn-dhp      	          28	           64	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 attavaggo      	 
+dhp 13.       	 kn-dhp-13   	 kn-dhp      	          28	           66	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 lokavaggo      	 
+dhp 14.       	 kn-dhp-14   	 kn-dhp      	          28	           70	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 buddhavaggo    	 
+dhp 15.       	 kn-dhp-15   	 kn-dhp      	          28	           74	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 sukhavaggo     	 
+dhp 16.       	 kn-dhp-16   	 kn-dhp      	          28	           78	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 piyavaggo      	 
+dhp 17.       	 kn-dhp-17   	 kn-dhp      	          28	           80	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 kodhavaggo     	 
+dhp 18.       	 kn-dhp-18   	 kn-dhp      	          28	           84	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 malavaggo      	 
+dhp 19.       	 kn-dhp-19   	 kn-dhp      	          28	           88	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 dhammaṭṭhavaggo	 
+dhp 20.       	 kn-dhp-20   	 kn-dhp      	          28	           92	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 maggavaggo     	 
+dhp 21.       	 kn-dhp-21   	 kn-dhp      	          28	           96	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 pakiṇṇakavaggo 	 
+dhp 22.       	 kn-dhp-22   	 kn-dhp      	          28	          100	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 nirayavaggo    	 
+dhp 23.       	 kn-dhp-23   	 kn-dhp      	          28	          104	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 nāgavaggo      	 
+dhp 24.       	 kn-dhp-24   	 kn-dhp      	          28	          108	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 taṇhāvaggo     	 
+dhp 25.       	 kn-dhp-25   	 kn-dhp      	          28	          114	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 bhikkhuvaggo   	 
+dhp 26.       	 kn-dhp-26   	 kn-dhp      	          28	          118	               0	 suttantapiṭake	 khuddakanikāyo	                  	 dhammapadapāḷi	                  	 brāhmaṇavaggo  	 

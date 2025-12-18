@@ -1,548 +1,548 @@
-bjt_sutta_code	bjt_web_code	bjt_filename	bjt_book_id	bjt_page_num	bjt_page_offset	bjt_piṭaka	bjt_nikāya	bjt_major_section	bjt_book	bjt_minor_section	bjt_vagga	bjt_sutta
-kn-jat 1. 1. 1.	kn-jat-1-1-1	kn-jat	32	2	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	1. apaṇṇakajātakaṃ
-kn-jat 1. 1. 2.	kn-jat-1-1-2	kn-jat	32	2	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	2. vaṇṇupathajātakaṃ
-kn-jat 1. 1. 3.	kn-jat-1-1-3	kn-jat	32	2	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	3. serivāvāṇijajātakaṃ
-kn-jat 1. 1. 4.	kn-jat-1-1-4	kn-jat	32	2	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	4. cullaseṭṭhijātakaṃ
-kn-jat 1. 1. 5.	kn-jat-1-1-5	kn-jat	32	4	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	5. taṇḍulanāḷijātakaṃ
-kn-jat 1. 1. 6.	kn-jat-1-1-6	kn-jat	32	4	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	6. devadhammajātakaṃ
-kn-jat 1. 1. 7.	kn-jat-1-1-7	kn-jat	32	4	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	7. kaṭṭhahārijātakaṃ
-kn-jat 1. 1. 8.	kn-jat-1-1-8	kn-jat	32	4	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	8. gāmaṇījātakaṃ
-kn-jat 1. 1. 9.	kn-jat-1-1-9	kn-jat	32	4	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	9. makhādevajātakaṃ
-kn-jat 1. 1. 10.	kn-jat-1-1-10	kn-jat	32	4	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	1. apaṇṇakavaggo	10. sukhavihārijātakaṃ
-kn-jat 1. 2. 1.	kn-jat-1-2-1	kn-jat	32	6	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	1. lakkhaṇamigajātakaṃ
-kn-jat 1. 2. 2.	kn-jat-1-2-2	kn-jat	32	6	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	2. nigrodhamigajātakaṃ
-kn-jat 1. 2. 3.	kn-jat-1-2-3	kn-jat	32	6	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	3. kaṇḍinajātakaṃ
-kn-jat 1. 2. 4.	kn-jat-1-2-4	kn-jat	32	6	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	4. vātamigajātakaṃ
-kn-jat 1. 2. 5.	kn-jat-1-2-5	kn-jat	32	6	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	5. kharādiyajātakaṃ
-kn-jat 1. 2. 6.	kn-jat-1-2-6	kn-jat	32	6	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	6. tipallatthamigajātakaṃ
-kn-jat 1. 2. 7.	kn-jat-1-2-7	kn-jat	32	8	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	7. mālutajātakaṃ
-kn-jat 1. 2. 8.	kn-jat-1-2-8	kn-jat	32	8	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	8. matakabhattajātakaṃ
-kn-jat 1. 2. 9.	kn-jat-1-2-9	kn-jat	32	8	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	9. āyācitabhattajātakaṃ
-kn-jat 1. 2. 10.	kn-jat-1-2-10	kn-jat	32	8	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	2. sīlavaggo	10. naḷapānajātakaṃ
-kn-jat 1. 3. 1.	kn-jat-1-3-1	kn-jat	32	10	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	1. kuruṅgamigajātakaṃ
-kn-jat 1. 3. 2.	kn-jat-1-3-2	kn-jat	32	10	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	2. kukkurajātakaṃ
-kn-jat 1. 3. 3.	kn-jat-1-3-3	kn-jat	32	10	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	3. bhojājānīyajātakaṃ
-kn-jat 1. 3. 4.	kn-jat-1-3-4	kn-jat	32	10	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	4. ājaññajātakaṃ
-kn-jat 1. 3. 5.	kn-jat-1-3-5	kn-jat	32	10	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	5. titthajātakaṃ
-kn-jat 1. 3. 6.	kn-jat-1-3-6	kn-jat	32	10	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	6. mahilāmukhajātakaṃ
-kn-jat 1. 3. 7.	kn-jat-1-3-7	kn-jat	32	12	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	7. abhiṇhajātakaṃ
-kn-jat 1. 3. 8.	kn-jat-1-3-8	kn-jat	32	12	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	8. nandivisālajātakaṃ
-kn-jat 1. 3. 9.	kn-jat-1-3-9	kn-jat	32	12	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	9. kaṇhajātakaṃ
-kn-jat 1. 3. 10.	kn-jat-1-3-10	kn-jat	32	12	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	3. kuruṅgavaggo	10. munikajātakaṃ
-kn-jat 1. 4. 1.	kn-jat-1-4-1	kn-jat	32	14	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	1. kulāvakajātakaṃ
-kn-jat 1. 4. 2.	kn-jat-1-4-2	kn-jat	32	14	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	2. naccajātakaṃ
-kn-jat 1. 4. 3.	kn-jat-1-4-3	kn-jat	32	14	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	3. sammodamānajātakaṃ
-kn-jat 1. 4. 4.	kn-jat-1-4-4	kn-jat	32	14	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	4. macchajātakaṃ
-kn-jat 1. 4. 5.	kn-jat-1-4-5	kn-jat	32	14	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	5. vaṭṭakajātakaṃ
-kn-jat 1. 4. 6.	kn-jat-1-4-6	kn-jat	32	16	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	6. sakuṇajātakaṃ
-kn-jat 1. 4. 7.	kn-jat-1-4-7	kn-jat	32	16	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	7. tittirajātakaṃ
-kn-jat 1. 4. 8.	kn-jat-1-4-8	kn-jat	32	16	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	8. bakajātakaṃ
-kn-jat 1. 4. 9.	kn-jat-1-4-9	kn-jat	32	16	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	9. nandajātakaṃ
-kn-jat 1. 4. 10.	kn-jat-1-4-10	kn-jat	32	16	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	4. kulāvakavaggo	10. khadiraṅgārajātakaṃ
-kn-jat 1. 5. 1.	kn-jat-1-5-1	kn-jat	32	18	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	1. losakajātakaṃ
-kn-jat 1. 5. 2.	kn-jat-1-5-2	kn-jat	32	18	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	2. kapotakajātakaṃ
-kn-jat 1. 5. 3.	kn-jat-1-5-3	kn-jat	32	18	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	3. veḷukajātakaṃ
-kn-jat 1. 5. 4.	kn-jat-1-5-4	kn-jat	32	18	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	4. makasajātakaṃ
-kn-jat 1. 5. 5.	kn-jat-1-5-5	kn-jat	32	18	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	5. rohiṇījātakaṃ
-kn-jat 1. 5. 6.	kn-jat-1-5-6	kn-jat	32	18	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	6. ārāmadūsakajātakaṃ
-kn-jat 1. 5. 7.	kn-jat-1-5-7	kn-jat	32	20	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	7. vāruṇīdūsakajātakaṃ
-kn-jat 1. 5. 8.	kn-jat-1-5-8	kn-jat	32	20	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	8. vedabbhajātakaṃ
-kn-jat 1. 5. 9.	kn-jat-1-5-9	kn-jat	32	20	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	9. nakkhattajātakaṃ
-kn-jat 1. 5. 10.	kn-jat-1-5-10	kn-jat	32	20	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	5. atthakāmavaggo	10. dummedhajātakaṃ
-kn-jat 1. 6. 1.	kn-jat-1-6-1	kn-jat	32	22	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	1. mahāsīlavajātakaṃ
-kn-jat 1. 6. 2.	kn-jat-1-6-2	kn-jat	32	22	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	2. cūḷajanakajātakaṃ
-kn-jat 1. 6. 3.	kn-jat-1-6-3	kn-jat	32	22	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	3. puṇṇapātijātakaṃ
-kn-jat 1. 6. 4.	kn-jat-1-6-4	kn-jat	32	22	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	4. kiṃphalajātakaṃ
-kn-jat 1. 6. 5.	kn-jat-1-6-5	kn-jat	32	22	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	5. pañcāvudhajātakaṃ
-kn-jat 1. 6. 6.	kn-jat-1-6-6	kn-jat	32	22	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	6. kañcanakkhandhajātakaṃ
-kn-jat 1. 6. 7.	kn-jat-1-6-7	kn-jat	32	24	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	7. vānarinda jātakaṃ
-kn-jat 1. 6. 8.	kn-jat-1-6-8	kn-jat	32	24	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	8. tayodhammajātakaṃ
-kn-jat 1. 6. 9.	kn-jat-1-6-9	kn-jat	32	24	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	9. bherivādajātakaṃ
-kn-jat 1. 6. 10.	kn-jat-1-6-10	kn-jat	32	24	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	6. āsiṃsavaggo	10. saṅkhadhamanajātakaṃ
-kn-jat 1. 7. 1.	kn-jat-1-7-1	kn-jat	32	26	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	1. asātamantajātakaṃ
-kn-jat 1. 7. 2.	kn-jat-1-7-2	kn-jat	32	26	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	2. andhabhūtajātakaṃ
-kn-jat 1. 7. 3.	kn-jat-1-7-3	kn-jat	32	26	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	3. takkajātakaṃ
-kn-jat 1. 7. 4.	kn-jat-1-7-4	kn-jat	32	26	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	4. durājānajātakaṃ
-kn-jat 1. 7. 5.	kn-jat-1-7-5	kn-jat	32	26	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	5. anabhiratijātakaṃ
-kn-jat 1. 7. 6.	kn-jat-1-7-6	kn-jat	32	28	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	6. mudulakkhaṇajātakaṃ
-kn-jat 1. 7. 7.	kn-jat-1-7-7	kn-jat	32	28	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	7. ucchaṅgajātakaṃ
-kn-jat 1. 7. 8.	kn-jat-1-7-8	kn-jat	32	28	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	8. sāketajātakaṃ
-kn-jat 1. 7. 9.	kn-jat-1-7-9	kn-jat	32	28	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	9. visavantajātakaṃ
-kn-jat 1. 7. 10.	kn-jat-1-7-10	kn-jat	32	28	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	7. itthivaggo	10. kuddālajātakaṃ
-kn-jat 1. 8. 1.	kn-jat-1-8-1	kn-jat	32	30	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	1. varaṇajātakaṃ
-kn-jat 1. 8. 2.	kn-jat-1-8-2	kn-jat	32	30	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	2. sīlavanāgarājajātakaṃ
-kn-jat 1. 8. 3.	kn-jat-1-8-3	kn-jat	32	30	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	3. saccaṃkirajātakaṃ
-kn-jat 1. 8. 4.	kn-jat-1-8-4	kn-jat	32	30	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	4. rukkhadhammajātakaṃ
-kn-jat 1. 8. 5.	kn-jat-1-8-5	kn-jat	32	30	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	5. macchajātakaṃ
-kn-jat 1. 8. 6.	kn-jat-1-8-6	kn-jat	32	30	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	6. asaṅkiyajātakaṃ
-kn-jat 1. 8. 7.	kn-jat-1-8-7	kn-jat	32	32	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	7. mahāsupinajātakaṃ
-kn-jat 1. 8. 8.	kn-jat-1-8-8	kn-jat	32	32	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	8. illīsajātakaṃ
-kn-jat 1. 8. 9.	kn-jat-1-8-9	kn-jat	32	32	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	9. kharassarajātakaṃ
-kn-jat 1. 8. 10.	kn-jat-1-8-10	kn-jat	32	32	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	8. varaṇavaggo	10. bhīmasenajātakaṃ
-kn-jat 1. 9. 1.	kn-jat-1-9-1	kn-jat	32	34	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	1. surāpānajātakaṃ
-kn-jat 1. 9. 2.	kn-jat-1-9-2	kn-jat	32	34	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	2. mittavindajātakaṃ
-kn-jat 1. 9. 3.	kn-jat-1-9-3	kn-jat	32	34	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	3. kālakaṇṇijātakaṃ
-kn-jat 1. 9. 4.	kn-jat-1-9-4	kn-jat	32	34	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	4. atthassadvārajātakaṃ
-kn-jat 1. 9. 5.	kn-jat-1-9-5	kn-jat	32	34	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	5. kimpakkajātakaṃ
-kn-jat 1. 9. 6.	kn-jat-1-9-6	kn-jat	32	36	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	6. sīlavīmaṃsajātakaṃ
-kn-jat 1. 9. 7.	kn-jat-1-9-7	kn-jat	32	36	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	7. maṅgalajātakaṃ
-kn-jat 1. 9. 8.	kn-jat-1-9-8	kn-jat	32	36	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	8. sāramhajātakaṃ
-kn-jat 1. 9. 9.	kn-jat-1-9-9	kn-jat	32	36	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	9. kuhakajātakaṃ
-kn-jat 1. 9. 10.	kn-jat-1-9-10	kn-jat	32	36	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	9. apāyimhavaggo	10. akataññujātakaṃ
-kn-jat 1. 10. 1.	kn-jat-1-10-1	kn-jat	32	38	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	1. littajātakaṃ
-kn-jat 1. 10. 2.	kn-jat-1-10-2	kn-jat	32	38	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	2. mahāsārajātakaṃ
-kn-jat 1. 10. 3.	kn-jat-1-10-3	kn-jat	32	38	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	3. vissāsabhojanajātakaṃ
-kn-jat 1. 10. 4.	kn-jat-1-10-4	kn-jat	32	38	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	4. lomahaṃsajātakaṃ
-kn-jat 1. 10. 5.	kn-jat-1-10-5	kn-jat	32	38	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	5. mahāsudassanajātakaṃ
-kn-jat 1. 10. 6.	kn-jat-1-10-6	kn-jat	32	40	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	6. telapattajātakaṃ
-kn-jat 1. 10. 7.	kn-jat-1-10-7	kn-jat	32	40	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	7. nāmasiddhijātakaṃ
-kn-jat 1. 10. 8.	kn-jat-1-10-8	kn-jat	32	40	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	8. kūṭavāṇijajātakaṃ
-kn-jat 1. 10. 9.	kn-jat-1-10-9	kn-jat	32	40	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	9. parosahassajātakaṃ
-kn-jat 1. 10. 10.	kn-jat-1-10-10	kn-jat	32	40	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	10. littavaggo	10. asātarūpajātakaṃ
-kn-jat 1. 11. 1.	kn-jat-1-11-1	kn-jat	32	42	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	1. parosatajātakaṃ
-kn-jat 1. 11. 2.	kn-jat-1-11-2	kn-jat	32	42	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	2. paṇṇikajātakaṃ
-kn-jat 1. 11. 3.	kn-jat-1-11-3	kn-jat	32	42	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	3. verījātakaṃ
-kn-jat 1. 11. 4.	kn-jat-1-11-4	kn-jat	32	42	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	4. mittavindajātakaṃ
-kn-jat 1. 11. 5.	kn-jat-1-11-5	kn-jat	32	42	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	5. dubbalakaṭṭhajātakaṃ
-kn-jat 1. 11. 6.	kn-jat-1-11-6	kn-jat	32	44	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	6. udañcanījātakaṃ
-kn-jat 1. 11. 7.	kn-jat-1-11-7	kn-jat	32	44	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	7. sālittakajātakaṃ
-kn-jat 1. 11. 8.	kn-jat-1-11-8	kn-jat	32	44	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	8. bāhiyajātakaṃ
-kn-jat 1. 11. 9.	kn-jat-1-11-9	kn-jat	32	44	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	9. kuṇḍapūvajātakaṃ
-kn-jat 1. 11. 10.	kn-jat-1-11-10	kn-jat	32	44	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	11. parosatavaggo	10. sabbasaṃhārakapañho
-kn-jat 1. 12. 1.	kn-jat-1-12-1	kn-jat	32	46	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	1. gadrabhapañho
-kn-jat 1. 12. 2.	kn-jat-1-12-2	kn-jat	32	46	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	2. amarādevipañho
-kn-jat 1. 12. 3.	kn-jat-1-12-3	kn-jat	32	46	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	3. sigālajātakaṃ
-kn-jat 1. 12. 4.	kn-jat-1-12-4	kn-jat	32	46	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	4. mitacinatījātakaṃ
-kn-jat 1. 12. 5.	kn-jat-1-12-5	kn-jat	32	46	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	5. anusāsikajātakaṃ
-kn-jat 1. 12. 6.	kn-jat-1-12-6	kn-jat	32	48	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	6. dubbacajātakaṃ
-kn-jat 1. 12. 7.	kn-jat-1-12-7	kn-jat	32	48	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	7. tittirajātakaṃ
-kn-jat 1. 12. 8.	kn-jat-1-12-8	kn-jat	32	48	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	8. vaṭṭakajātakaṃ
-kn-jat 1. 12. 9.	kn-jat-1-12-9	kn-jat	32	48	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	9. akālarāvījātakaṃ
-kn-jat 1. 12. 10.	kn-jat-1-12-10	kn-jat	32	48	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	12. haṃsivaggo	10. bandhanamokkhajātakaṃ
-kn-jat 1. 13. 1.	kn-jat-1-13-1	kn-jat	32	50	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	1. kusanāḷijātakaṃ
-kn-jat 1. 13. 2.	kn-jat-1-13-2	kn-jat	32	50	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	2. dummedha jātakaṃ
-kn-jat 1. 13. 3.	kn-jat-1-13-3	kn-jat	32	50	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	3. naṅgalīsajātakaṃ
-kn-jat 1. 13. 4.	kn-jat-1-13-4	kn-jat	32	50	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	4. ambajātakaṃ
-kn-jat 1. 13. 5.	kn-jat-1-13-5	kn-jat	32	50	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	5. kaṭāhakajātakaṃ
-kn-jat 1. 13. 6.	kn-jat-1-13-6	kn-jat	32	52	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	6. asilakkhaṇajātakaṃ
-kn-jat 1. 13. 7.	kn-jat-1-13-7	kn-jat	32	52	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	7. kalaṇḍukajātakaṃ
-kn-jat 1. 13. 8.	kn-jat-1-13-8	kn-jat	32	52	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	8. biḷāravatajātakaṃ
-kn-jat 1. 13. 9.	kn-jat-1-13-9	kn-jat	32	52	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	9. aggikajātakaṃ
-kn-jat 1. 13. 10.	kn-jat-1-13-10	kn-jat	32	52	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	13. kusanāḷivaggo	10. kosiyajātakaṃ
-kn-jat 1. 14. 1.	kn-jat-1-14-1	kn-jat	32	54	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	1. asampadānajātakaṃ
-kn-jat 1. 14. 2.	kn-jat-1-14-2	kn-jat	32	54	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	2. pañcagarukajātakaṃ
-kn-jat 1. 14. 3.	kn-jat-1-14-3	kn-jat	32	54	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	3. ghatāsanajātakaṃ
-kn-jat 1. 14. 4.	kn-jat-1-14-4	kn-jat	32	54	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	4. jhānasodhanajātakaṃ
-kn-jat 1. 14. 5.	kn-jat-1-14-5	kn-jat	32	54	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	5. candābhajātakaṃ
-kn-jat 1. 14. 6.	kn-jat-1-14-6	kn-jat	32	56	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	6. suvaṇṇahaṃsajātakaṃ
-kn-jat 1. 14. 7.	kn-jat-1-14-7	kn-jat	32	56	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	7. babbukajātakaṃ
-kn-jat 1. 14. 8.	kn-jat-1-14-8	kn-jat	32	56	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	8. godhajātakaṃ
-kn-jat 1. 14. 9.	kn-jat-1-14-9	kn-jat	32	56	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	9. ubhatobhaṭṭhajātakaṃ
-kn-jat 1. 14. 10.	kn-jat-1-14-10	kn-jat	32	56	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	14. asampadānavaggo.	10. kākajātakaṃ
-kn-jat 1. 15. 1.	kn-jat-1-15-1	kn-jat	32	58	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	1. godhajātakaṃ
-kn-jat 1. 15. 2.	kn-jat-1-15-2	kn-jat	32	58	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	2. sigālajātakaṃ
-kn-jat 1. 15. 3.	kn-jat-1-15-3	kn-jat	32	58	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	3. virocanajātakaṃ
-kn-jat 1. 15. 4.	kn-jat-1-15-4	kn-jat	32	58	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	4. naṅguṭṭhajātakaṃ
-kn-jat 1. 15. 5.	kn-jat-1-15-5	kn-jat	32	58	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	5. rādhajātakaṃ
-kn-jat 1. 15. 6.	kn-jat-1-15-6	kn-jat	32	58	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	6. kākajātakaṃ
-kn-jat 1. 15. 7.	kn-jat-1-15-7	kn-jat	32	60	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	7. puppharatajātakaṃ
-kn-jat 1. 15. 8.	kn-jat-1-15-8	kn-jat	32	60	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	8. sigālajātakaṃ
-kn-jat 1. 15. 9.	kn-jat-1-15-9	kn-jat	32	60	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	9. ekapaṇṇajātakaṃ
-kn-jat 1. 15. 10.	kn-jat-1-15-10	kn-jat	32	60	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	1. ekakanipāto	15. kakaṇṭakavaggo.	10. sañjivajātakaṃ
-kn-jat 2. 1. 1.	kn-jat-2-1-1	kn-jat	32	62	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	1. rājovādajātakaṃ
-kn-jat 2. 1. 2.	kn-jat-2-1-2	kn-jat	32	62	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	2. sigālajātakaṃ
-kn-jat 2. 1. 3.	kn-jat-2-1-3	kn-jat	32	62	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	3. sūkarajātakaṃ
-kn-jat 2. 1. 4.	kn-jat-2-1-4	kn-jat	32	64	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	4. uragajātakaṃ
-kn-jat 2. 1. 5.	kn-jat-2-1-5	kn-jat	32	64	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	5. gaggajātakaṃ
-kn-jat 2. 1. 6.	kn-jat-2-1-6	kn-jat	32	64	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	6. alīnacittajātakaṃ
-kn-jat 2. 1. 7.	kn-jat-2-1-7	kn-jat	32	64	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	7. guṇajātakaṃ
-kn-jat 2. 1. 8.	kn-jat-2-1-8	kn-jat	32	66	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	8. suhanujātakaṃ
-kn-jat 2. 1. 9.	kn-jat-2-1-9	kn-jat	32	66	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	9. morajātakaṃ
-kn-jat 2. 1. 10.	kn-jat-2-1-10	kn-jat	32	68	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	1. daḷhavaggo	10. vinīlakajātakaṃ
-kn-jat 2. 2. 1.	kn-jat-2-2-1	kn-jat	32	70	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	1. indasamānagottajātakaṃ
-kn-jat 2. 2. 2.	kn-jat-2-2-2	kn-jat	32	70	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	2. santhavajātakaṃ
-kn-jat 2. 2. 3.	kn-jat-2-2-3	kn-jat	32	70	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	3. susīmajātakaṃ
-kn-jat 2. 2. 4.	kn-jat-2-2-4	kn-jat	32	72	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	4. gijjhajātakaṃ
-kn-jat 2. 2. 5.	kn-jat-2-2-5	kn-jat	32	72	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	5. nakulajātakaṃ
-kn-jat 2. 2. 6.	kn-jat-2-2-6	kn-jat	32	72	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	6. upasāḷhajātakaṃ
-kn-jat 2. 2. 7.	kn-jat-2-2-7	kn-jat	32	72	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	7. samiddhijātakaṃ
-kn-jat 2. 2. 8.	kn-jat-2-2-8	kn-jat	32	74	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	8. sakuṇagghijātakaṃ
-kn-jat 2. 2. 9.	kn-jat-2-2-9	kn-jat	32	74	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	9. arakajātakaṃ
-kn-jat 2. 2. 10.	kn-jat-2-2-10	kn-jat	32	74	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	2. santhavavaggo	10. kakaṇṭaka jātakaṃ
-kn-jat 2. 3. 1.	kn-jat-2-3-1	kn-jat	32	76	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	1. kalyāṇadhammajātakaṃ
-kn-jat 2. 3. 2.	kn-jat-2-3-2	kn-jat	32	76	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	2. daddarajātakaṃ
-kn-jat 2. 3. 3.	kn-jat-2-3-3	kn-jat	32	76	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	3. makkaṭajātakaṃ
-kn-jat 2. 3. 4.	kn-jat-2-3-4	kn-jat	32	76	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	4. dutiyamakkaṭajātakaṃ
-kn-jat 2. 3. 5.	kn-jat-2-3-5	kn-jat	32	78	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	5. ādiccupaṭṭhānajātakaṃ
-kn-jat 2. 3. 6.	kn-jat-2-3-6	kn-jat	32	78	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	6. kaḷāyamuṭṭhijātakaṃ
-kn-jat 2. 3. 7.	kn-jat-2-3-7	kn-jat	32	78	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	7. tindukajātakaṃ
-kn-jat 2. 3. 8.	kn-jat-2-3-8	kn-jat	32	80	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	8. kacchapajātakaṃ
-kn-jat 2. 3. 9.	kn-jat-2-3-9	kn-jat	32	80	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	9. satadhammajātakaṃ
-kn-jat 2. 3. 10.	kn-jat-2-3-10	kn-jat	32	80	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	3. kalyāṇadhammavaggo	10. duddadajātakaṃ
-kn-jat 2. 4. 1.	kn-jat-2-4-1	kn-jat	32	82	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	1. asadisajātakaṃ
-kn-jat 2. 4. 2.	kn-jat-2-4-2	kn-jat	32	82	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	2. saṅgāmāvacarajātakaṃ
-kn-jat 2. 4. 3.	kn-jat-2-4-3	kn-jat	32	82	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	3. vāḷodakajātakaṃ
-kn-jat 2. 4. 4.	kn-jat-2-4-4	kn-jat	32	82	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	4. giridattajātakaṃ
-kn-jat 2. 4. 5.	kn-jat-2-4-5	kn-jat	32	84	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	5. anabhiratijātakaṃ
-kn-jat 2. 4. 6.	kn-jat-2-4-6	kn-jat	32	84	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	6. dadhivāhanajātakaṃ
-kn-jat 2. 4. 7.	kn-jat-2-4-7	kn-jat	32	84	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	7. catumaṭṭhajātakaṃ
-kn-jat 2. 4. 8.	kn-jat-2-4-8	kn-jat	32	86	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	8. sīhakotthukajātakaṃ
-kn-jat 2. 4. 9.	kn-jat-2-4-9	kn-jat	32	86	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	9. sīhacammajātakaṃ
-kn-jat 2. 4. 10.	kn-jat-2-4-10	kn-jat	32	86	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	4. asadisavaggo	10. sīlānisaṃsajātakaṃ
-kn-jat 2. 5. 1.	kn-jat-2-5-1	kn-jat	32	88	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	1. ruhakajātakaṃ
-kn-jat 2. 5. 2.	kn-jat-2-5-2	kn-jat	32	88	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	2. sirikālakaṇṇi jātakaṃ
-kn-jat 2. 5. 3.	kn-jat-2-5-3	kn-jat	32	88	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	3. cullapadumajātakaṃ
-kn-jat 2. 5. 4.	kn-jat-2-5-4	kn-jat	32	90	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	4. maṇicorajātakaṃ
-kn-jat 2. 5. 5.	kn-jat-2-5-5	kn-jat	32	90	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	5. pabbatūpattharajātakaṃ
-kn-jat 2. 5. 6.	kn-jat-2-5-6	kn-jat	32	90	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	6. valāhassajātakaṃ
-kn-jat 2. 5. 7.	kn-jat-2-5-7	kn-jat	32	90	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	7. mittāmittajātakaṃ
-kn-jat 2. 5. 8.	kn-jat-2-5-8	kn-jat	32	92	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	8. rādhajātakaṃ
-kn-jat 2. 5. 9.	kn-jat-2-5-9	kn-jat	32	92	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	9. gahapatijātakaṃ
-kn-jat 2. 5. 10.	kn-jat-2-5-10	kn-jat	32	92	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	5. ruhakavaggo	10. sādhusīlajātakaṃ
-kn-jat 2. 6. 1.	kn-jat-2-6-1	kn-jat	32	94	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	1. bandhanāgārajātakaṃ
-kn-jat 2. 6. 2.	kn-jat-2-6-2	kn-jat	32	94	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	2. keḷisīlajātakaṃ
-kn-jat 2. 6. 3.	kn-jat-2-6-3	kn-jat	32	96	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	3. khandhavattajātakaṃ
-kn-jat 2. 6. 4.	kn-jat-2-6-4	kn-jat	32	96	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	4. vīrakajātakaṃ
-kn-jat 2. 6. 5.	kn-jat-2-6-5	kn-jat	32	96	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	5. gaṅgeyyajātakaṃ
-kn-jat 2. 6. 6.	kn-jat-2-6-6	kn-jat	32	96	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	6. kuruṅgamigajātakaṃ
-kn-jat 2. 6. 7.	kn-jat-2-6-7	kn-jat	32	98	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	7. assakajātakaṃ
-kn-jat 2. 6. 8.	kn-jat-2-6-8	kn-jat	32	98	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	8. suṃsumārajātakaṃ
-kn-jat 2. 6. 9.	kn-jat-2-6-9	kn-jat	32	98	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	9. kakkarajātakaṃ
-kn-jat 2. 6. 10.	kn-jat-2-6-10	kn-jat	32	98	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	6. nataṃdaḷhavaggo	10. kandagaḷakajātakaṃ
-kn-jat 2. 7. 1.	kn-jat-2-7-1	kn-jat	32	100	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	1. somadatta jātakaṃ
-kn-jat 2. 7. 2.	kn-jat-2-7-2	kn-jat	32	100	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	2. ucchiṭṭhabhattajātakaṃ
-kn-jat 2. 7. 3.	kn-jat-2-7-3	kn-jat	32	100	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	3. bharujātakaṃ
-kn-jat 2. 7. 4.	kn-jat-2-7-4	kn-jat	32	100	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	4. puṇṇanadījātakaṃ
-kn-jat 2. 7. 5.	kn-jat-2-7-5	kn-jat	32	102	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	5. kacchapajātakaṃ
-kn-jat 2. 7. 6.	kn-jat-2-7-6	kn-jat	32	102	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	6. macchajātakaṃ
-kn-jat 2. 7. 7.	kn-jat-2-7-7	kn-jat	32	102	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	7. seggujātakaṃ
-kn-jat 2. 7. 8.	kn-jat-2-7-8	kn-jat	32	104	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	8. kūṭavāṇijajātakaṃ
-kn-jat 2. 7. 9.	kn-jat-2-7-9	kn-jat	32	104	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	9. garahitajātakaṃ
-kn-jat 2. 7. 10.	kn-jat-2-7-10	kn-jat	32	104	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	7. bīraṇatthambhaka vaggo	10. dhammaddhajajātakaṃ
-kn-jat 2. 8. 1.	kn-jat-2-8-1	kn-jat	32	106	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	1. kāsāvajātakaṃ
-kn-jat 2. 8. 2.	kn-jat-2-8-2	kn-jat	32	106	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	2. cūḷanandiyajātakaṃ
-kn-jat 2. 8. 3.	kn-jat-2-8-3	kn-jat	32	106	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	3. puṭabhattajātakaṃ
-kn-jat 2. 8. 4.	kn-jat-2-8-4	kn-jat	32	108	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	4. kumbhīlajātakaṃ
-kn-jat 2. 8. 5.	kn-jat-2-8-5	kn-jat	32	108	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	5. khantivaṇṇanajātakaṃ
-kn-jat 2. 8. 6.	kn-jat-2-8-6	kn-jat	32	108	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	6. kosiyajātakaṃ
-kn-jat 2. 8. 7.	kn-jat-2-8-7	kn-jat	32	108	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	7. gūthapāṇakajātakaṃ
-kn-jat 2. 8. 8.	kn-jat-2-8-8	kn-jat	32	110	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	8. kāmanītajātakaṃ
-kn-jat 2. 8. 9.	kn-jat-2-8-9	kn-jat	32	110	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	9. palāsijātakaṃ
-kn-jat 2. 8. 10.	kn-jat-2-8-10	kn-jat	32	110	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	8. kāsāvavaggo	10. dutiyapalāsijātakaṃ
-kn-jat 2. 9. 1.	kn-jat-2-9-1	kn-jat	32	112	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	1. upāhanajātakaṃ
-kn-jat 2. 9. 2.	kn-jat-2-9-2	kn-jat	32	112	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	2. vīṇāthūṇajātakaṃ
-kn-jat 2. 9. 3.	kn-jat-2-9-3	kn-jat	32	112	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	3. vikaṇṇakajātakaṃ
-kn-jat 2. 9. 4.	kn-jat-2-9-4	kn-jat	32	114	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	4. asitābhūjātakaṃ
-kn-jat 2. 9. 5.	kn-jat-2-9-5	kn-jat	32	114	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	5. vacchanakhajātakaṃ
-kn-jat 2. 9. 6.	kn-jat-2-9-6	kn-jat	32	114	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	6. bakajātakaṃ
-kn-jat 2. 9. 7.	kn-jat-2-9-7	kn-jat	32	114	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	7. sāketajātakaṃ
-kn-jat 2. 9. 8.	kn-jat-2-9-8	kn-jat	32	116	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	8. ekapadajātakaṃ
-kn-jat 2. 9. 9.	kn-jat-2-9-9	kn-jat	32	116	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	9. haritamātujātakaṃ
-kn-jat 2. 9. 10.	kn-jat-2-9-10	kn-jat	32	116	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	9. upāhanavaggo	10. mahāpiṅgalajātakaṃ
-kn-jat 2. 10. 1.	kn-jat-2-10-1	kn-jat	32	118	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	1. sabbadāṭhajātakaṃ
-kn-jat 2. 10. 2.	kn-jat-2-10-2	kn-jat	32	118	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	2. sunakhajātakaṃ
-kn-jat 2. 10. 3.	kn-jat-2-10-3	kn-jat	32	118	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	3. guttilajātakaṃ
-kn-jat 2. 10. 4.	kn-jat-2-10-4	kn-jat	32	120	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	4. vīticchajātakaṃ
-kn-jat 2. 10. 5.	kn-jat-2-10-5	kn-jat	32	120	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	5. mūlapariyāyajātakaṃ
-kn-jat 2. 10. 6.	kn-jat-2-10-6	kn-jat	32	120	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	6. telovādajātakaṃ
-kn-jat 2. 10. 7.	kn-jat-2-10-7	kn-jat	32	120	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	7. pādañjalijātakaṃ
-kn-jat 2. 10. 8.	kn-jat-2-10-8	kn-jat	32	122	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	8. kiṃsukopamajātakaṃ
-kn-jat 2. 10. 9.	kn-jat-2-10-9	kn-jat	32	122	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	9. sālakajātakaṃ
-kn-jat 2. 10. 10.	kn-jat-2-10-10	kn-jat	32	122	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	2. dukanipāto	10. sigālavaggo	10. kapijātakaṃ
-kn-jat 3. 1. 1.	kn-jat-3-1-1	kn-jat	32	124	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	1. saṅkappajātakaṃ
-kn-jat 3. 1. 2.	kn-jat-3-1-2	kn-jat	32	124	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	2. tilamuṭṭhijātakaṃ
-kn-jat 3. 1. 3.	kn-jat-3-1-3	kn-jat	32	126	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	3. maṇikaṇṭhajātakaṃ
-kn-jat 3. 1. 4.	kn-jat-3-1-4	kn-jat	32	126	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	4. kuṇḍakakucchisindhavajātakaṃ
-kn-jat 3. 1. 5.	kn-jat-3-1-5	kn-jat	32	126	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	5. sukajātakaṃ
-kn-jat 3. 1. 6.	kn-jat-3-1-6	kn-jat	32	128	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	6. jarūdapānajātakaṃ
-kn-jat 3. 1. 7.	kn-jat-3-1-7	kn-jat	32	128	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	7. gāmaṇīcaṇḍajātakaṃ
-kn-jat 3. 1. 8.	kn-jat-3-1-8	kn-jat	32	128	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	8. mandhātujātakaṃ
-kn-jat 3. 1. 9.	kn-jat-3-1-9	kn-jat	32	130	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	9. tirīṭavacchajātakaṃ
-kn-jat 3. 1. 10.	kn-jat-3-1-10	kn-jat	32	130	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	1. saṅkappavaggo	10. dūtajātakaṃ
-kn-jat 3. 2. 1.	kn-jat-3-2-1	kn-jat	32	132	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	1. padumajātakaṃ
-kn-jat 3. 2. 2.	kn-jat-3-2-2	kn-jat	32	132	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	2. mudupāṇījātakaṃ
-kn-jat 3. 2. 3.	kn-jat-3-2-3	kn-jat	32	132	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	3. cullapalobhanajātakaṃ
-kn-jat 3. 2. 4.	kn-jat-3-2-4	kn-jat	32	134	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	4. mahāpaṇādajātakaṃ
-kn-jat 3. 2. 5.	kn-jat-3-2-5	kn-jat	32	134	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	5. khurappajātakaṃ
-kn-jat 3. 2. 6.	kn-jat-3-2-6	kn-jat	32	134	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	6. vātaggajātakaṃ
-kn-jat 3. 2. 7.	kn-jat-3-2-7	kn-jat	32	134	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	7. kakkaṭakajātakaṃ
-kn-jat 3. 2. 8.	kn-jat-3-2-8	kn-jat	32	136	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	8. ārāmadūsakajātakaṃ
-kn-jat 3. 2. 9.	kn-jat-3-2-9	kn-jat	32	136	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	9. sujātajātakaṃ
-kn-jat 3. 2. 10.	kn-jat-3-2-10	kn-jat	32	136	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	2. padumavaggo	10. ulūkajātakaṃ
-kn-jat 3. 3. 1.	kn-jat-3-3-1	kn-jat	32	138	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	1. udapānadūsakajātakaṃ
-kn-jat 3. 3. 2.	kn-jat-3-3-2	kn-jat	32	138	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	2. vyagghajātakaṃ
-kn-jat 3. 3. 3.	kn-jat-3-3-3	kn-jat	32	138	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	3. kacchapajātakaṃ
-kn-jat 3. 3. 4.	kn-jat-3-3-4	kn-jat	32	140	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	4. lolajātakaṃ
-kn-jat 3. 3. 5.	kn-jat-3-3-5	kn-jat	32	140	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	5. rucirajātakaṃ
-kn-jat 3. 3. 6.	kn-jat-3-3-6	kn-jat	32	142	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	6. kurudhammajātakaṃ
-kn-jat 3. 3. 7.	kn-jat-3-3-7	kn-jat	32	142	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	7. romakajātakaṃ
-kn-jat 3. 3. 8.	kn-jat-3-3-8	kn-jat	32	142	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	8. mahisajātakaṃ
-kn-jat 3. 3. 9.	kn-jat-3-3-9	kn-jat	32	144	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	9. satapattajātakaṃ
-kn-jat 3. 3. 10.	kn-jat-3-3-10	kn-jat	32	144	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	3. araññavaggo	10. puṭadūsakajātakaṃ
-kn-jat 3. 4. 1.	kn-jat-3-4-1	kn-jat	32	146	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	1. abbhantarajātakaṃ
-kn-jat 3. 4. 2.	kn-jat-3-4-2	kn-jat	32	146	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	2. seyyaṃsajātakaṃ
-kn-jat 3. 4. 3.	kn-jat-3-4-3	kn-jat	32	148	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	3. vaḍḍhakīsūkarajātakaṃ
-kn-jat 3. 4. 4.	kn-jat-3-4-4	kn-jat	32	148	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	4. sirijātakaṃ
-kn-jat 3. 4. 5.	kn-jat-3-4-5	kn-jat	32	148	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	5. maṇisūkarajātakaṃ
-kn-jat 3. 4. 6.	kn-jat-3-4-6	kn-jat	32	150	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	6. sālukajātakaṃ
-kn-jat 3. 4. 7.	kn-jat-3-4-7	kn-jat	32	150	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	7. lābhagarahajātakaṃ
-kn-jat 3. 4. 8.	kn-jat-3-4-8	kn-jat	32	152	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	8. macchuddānajātakaṃ
-kn-jat 3. 4. 9.	kn-jat-3-4-9	kn-jat	32	152	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	9. nānācchandajātakaṃ
-kn-jat 3. 4. 10.	kn-jat-3-4-10	kn-jat	32	152	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	4. abbhantaravaggo	10. sīlavīmaṃsajātakaṃ
-kn-jat 3. 5. 1.	kn-jat-3-5-1	kn-jat	32	154	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	1. bhadraghaṭajātakaṃ
-kn-jat 3. 5. 2.	kn-jat-3-5-2	kn-jat	32	154	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	2. supattajātakaṃ
-kn-jat 3. 5. 3.	kn-jat-3-5-3	kn-jat	32	154	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	3. kāyavicchandajātakaṃ
-kn-jat 3. 5. 4.	kn-jat-3-5-4	kn-jat	32	156	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	4. jambukhādakajātakaṃ
-kn-jat 3. 5. 5.	kn-jat-3-5-5	kn-jat	32	156	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	5. antajātakaṃ
-kn-jat 3. 5. 6.	kn-jat-3-5-6	kn-jat	32	156	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	6. samuddajātakaṃ
-kn-jat 3. 5. 7.	kn-jat-3-5-7	kn-jat	32	158	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	7. kāmavilāpajātakaṃ
-kn-jat 3. 5. 8.	kn-jat-3-5-8	kn-jat	32	158	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	8. udumbarajātakaṃ
-kn-jat 3. 5. 9.	kn-jat-3-5-9	kn-jat	32	160	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	9. komāyaputtajātakaṃ
-kn-jat 3. 5. 10.	kn-jat-3-5-10	kn-jat	32	160	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	3. tikanipāto	5. kumbhavaggo	10. vakajātakaṃ
-kn-jat 4. 1. 1.	kn-jat-4-1-1	kn-jat	32	162	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	1. cullakāliṅgajātakaṃ
-kn-jat 4. 1. 2.	kn-jat-4-1-2	kn-jat	32	164	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	2. mahāassārohajātakaṃ
-kn-jat 4. 1. 3.	kn-jat-4-1-3	kn-jat	32	164	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	3. ekarājajātakaṃ
-kn-jat 4. 1. 4.	kn-jat-4-1-4	kn-jat	32	166	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	4. daddarajātakaṃ
-kn-jat 4. 1. 5.	kn-jat-4-1-5	kn-jat	32	166	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	5. sīlavīmaṃsajātakaṃ
-kn-jat 4. 1. 6.	kn-jat-4-1-6	kn-jat	32	168	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	6. sujātājātakaṃ
-kn-jat 4. 1. 7.	kn-jat-4-1-7	kn-jat	32	168	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	7. palāsajātakaṃ
-kn-jat 4. 1. 8.	kn-jat-4-1-8	kn-jat	32	168	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	8. javasakuṇajātakaṃ
-kn-jat 4. 1. 9.	kn-jat-4-1-9	kn-jat	32	170	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	9. chavakajātakaṃ
-kn-jat 4. 1. 10.	kn-jat-4-1-10	kn-jat	32	170	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	1. vivaravaggo	10. sayhajātakaṃ
-kn-jat 4. 2. 1.	kn-jat-4-2-1	kn-jat	32	172	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	1. pucimandajātakaṃ
-kn-jat 4. 2. 2.	kn-jat-4-2-2	kn-jat	32	172	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	2. kassapamandiyajātakaṃ
-kn-jat 4. 2. 3.	kn-jat-4-2-3	kn-jat	32	174	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	3. khantivādijātakaṃ
-kn-jat 4. 2. 4.	kn-jat-4-2-4	kn-jat	32	174	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	4. lohakumbhijātakaṃ
-kn-jat 4. 2. 5.	kn-jat-4-2-5	kn-jat	32	174	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	5. māṃsajātakaṃ
-kn-jat 4. 2. 6.	kn-jat-4-2-6	kn-jat	32	176	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	6. sasajātakaṃ
-kn-jat 4. 2. 7.	kn-jat-4-2-7	kn-jat	32	176	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	7. matarodanajātakaṃ
-kn-jat 4. 2. 8.	kn-jat-4-2-8	kn-jat	32	178	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	8. kaṇaverajātakaṃ
-kn-jat 4. 2. 9.	kn-jat-4-2-9	kn-jat	32	178	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	9. tittirajātakaṃ
-kn-jat 4. 2. 10.	kn-jat-4-2-10	kn-jat	32	178	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	2. pucimandavaggo	10. succajajātakaṃ
-kn-jat 4. 3. 1.	kn-jat-4-3-1	kn-jat	32	180	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	1. kuṭidūsakajātakaṃ
-kn-jat 4. 3. 2.	kn-jat-4-3-2	kn-jat	32	180	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	2. daddabhajātakaṃ
-kn-jat 4. 3. 3.	kn-jat-4-3-3	kn-jat	32	182	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	3. brahmadattajātakaṃ
-kn-jat 4. 3. 4.	kn-jat-4-3-4	kn-jat	32	182	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	4. cammasāṭakajātakaṃ
-kn-jat 4. 3. 5.	kn-jat-4-3-5	kn-jat	32	182	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	5. godhajātakaṃ
-kn-jat 4. 3. 6.	kn-jat-4-3-6	kn-jat	32	184	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	6. kakkārujātakaṃ
-kn-jat 4. 3. 7.	kn-jat-4-3-7	kn-jat	32	184	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	7. kākātījātakaṃ
-kn-jat 4. 3. 8.	kn-jat-4-3-8	kn-jat	32	184	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	8. ananusociyajātakaṃ
-kn-jat 4. 3. 9.	kn-jat-4-3-9	kn-jat	32	186	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	9. kāḷabāhujātakaṃ
-kn-jat 4. 3. 10.	kn-jat-4-3-10	kn-jat	32	186	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	3. kuṭidūsakavaggo	10. sīlavīmaṃsajātakaṃ
-kn-jat 4. 4. 1.	kn-jat-4-4-1	kn-jat	32	188	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	1. kokālikajātakaṃ
-kn-jat 4. 4. 2.	kn-jat-4-4-2	kn-jat	32	188	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	2. rathalaṭṭhijātakaṃ
-kn-jat 4. 4. 3.	kn-jat-4-4-3	kn-jat	32	190	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	3. pakkagodhajātakaṃ
-kn-jat 4. 4. 4.	kn-jat-4-4-4	kn-jat	32	190	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	4. rājovādajātakaṃ
-kn-jat 4. 4. 5.	kn-jat-4-4-5	kn-jat	32	190	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	5. jambukajātakaṃ
-kn-jat 4. 4. 6.	kn-jat-4-4-6	kn-jat	32	192	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	6. brahāchattajātakaṃ
-kn-jat 4. 4. 7.	kn-jat-4-4-7	kn-jat	32	192	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	7. pīṭhajātakaṃ
-kn-jat 4. 4. 8.	kn-jat-4-4-8	kn-jat	32	192	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	8. thusajātakaṃ
-kn-jat 4. 4. 9.	kn-jat-4-4-9	kn-jat	32	194	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	9. bāverujātakaṃ
-kn-jat 4. 4. 10.	kn-jat-4-4-10	kn-jat	32	194	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	4. kokālika vaggo	10. visayhajātakaṃ
-kn-jat 4. 5. 1.	kn-jat-4-5-1	kn-jat	32	196	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	1. kinnarījātakaṃ
-kn-jat 4. 5. 2.	kn-jat-4-5-2	kn-jat	32	196	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	2. vānarajātakaṃ
-kn-jat 4. 5. 3.	kn-jat-4-5-3	kn-jat	32	198	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	3. kuntinījātakaṃ
-kn-jat 4. 5. 4.	kn-jat-4-5-4	kn-jat	32	198	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	4. ambacorajātakaṃ
-kn-jat 4. 5. 5.	kn-jat-4-5-5	kn-jat	32	200	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	5. gajakumbhajātakaṃ
-kn-jat 4. 5. 6.	kn-jat-4-5-6	kn-jat	32	200	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	6. kesavajātakaṃ
-kn-jat 4. 5. 7.	kn-jat-4-5-7	kn-jat	32	202	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	7. ayakūṭajātakaṃ
-kn-jat 4. 5. 8.	kn-jat-4-5-8	kn-jat	32	202	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	8. āraññajātakaṃ
-kn-jat 4. 5. 9.	kn-jat-4-5-9	kn-jat	32	204	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	9. sandhibhedajātakaṃ
-kn-jat 4. 5. 10.	kn-jat-4-5-10	kn-jat	32	204	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	4. catukkanipāto	5. cūḷakuṇālavaggo	10. devatāpañho
-kn-jat 5. 1. 1.	kn-jat-5-1-1	kn-jat-5	32	206	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	1. maṇikuṇḍalajātakaṃ
-kn-jat 5. 1. 2.	kn-jat-5-1-2	kn-jat-5	32	208	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	2. sujātajātakaṃ
-kn-jat 5. 1. 3.	kn-jat-5-1-3	kn-jat-5	32	208	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	3. dhonasākha jātakaṃ
-kn-jat 5. 1. 4.	kn-jat-5-1-4	kn-jat-5	32	210	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	4. uragajātakaṃ
-kn-jat 5. 1. 5.	kn-jat-5-1-5	kn-jat-5	32	212	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	5. ghatajātakaṃ
-kn-jat 5. 1. 6.	kn-jat-5-1-6	kn-jat-5	32	212	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	6. kāraṇḍiyajātakaṃ
-kn-jat 5. 1. 7.	kn-jat-5-1-7	kn-jat-5	32	214	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	7. laṭukikajātakaṃ
-kn-jat 5. 1. 8.	kn-jat-5-1-8	kn-jat-5	32	214	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	8. culladhammapālajātakaṃ
-kn-jat 5. 1. 9.	kn-jat-5-1-9	kn-jat-5	32	216	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	9. suvaṇṇamigajātakaṃ
-kn-jat 5. 1. 10.	kn-jat-5-1-10	kn-jat-5	32	216	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	1. maṇikuṇḍalavaggo	10. susandhijātakaṃ
-kn-jat 5. 2. 1.	kn-jat-5-2-1	kn-jat-5	32	218	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	1. vaṇṇārohajātakaṃ
-kn-jat 5. 2. 2.	kn-jat-5-2-2	kn-jat-5	32	218	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	2. sīlavīmaṃsa jātakaṃ
-kn-jat 5. 2. 3.	kn-jat-5-2-3	kn-jat-5	32	220	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	3. hirijātakaṃ
-kn-jat 5. 2. 4.	kn-jat-5-2-4	kn-jat-5	32	220	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	4. khajjopaṇakapañho
-kn-jat 5. 2. 5.	kn-jat-5-2-5	kn-jat-5	32	222	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	5. ahituṇḍikajātakaṃ
-kn-jat 5. 2. 6.	kn-jat-5-2-6	kn-jat-5	32	222	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	6. gumbiyajātakaṃ
-kn-jat 5. 2. 7.	kn-jat-5-2-7	kn-jat-5	32	224	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	7. sāḷiyajātakaṃ
-kn-jat 5. 2. 8.	kn-jat-5-2-8	kn-jat-5	32	224	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	8. tacasārajātakaṃ
-kn-jat 5. 2. 9.	kn-jat-5-2-9	kn-jat-5	32	226	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	9. mittavindakajātakaṃ
-kn-jat 5. 2. 10.	kn-jat-5-2-10	kn-jat-5	32	226	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	2. vaṇṇārohavaggo	10. palāsajātakaṃ
-kn-jat 5. 3. 1.	kn-jat-5-3-1	kn-jat-5	32	228	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	3. aḍḍhavaggo	1. dīghitikosalajātakaṃ
-kn-jat 5. 3. 2.	kn-jat-5-3-2	kn-jat-5	32	230	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	3. aḍḍhavaggo	2. migapotajātakaṃ
-kn-jat 5. 3. 3.	kn-jat-5-3-3	kn-jat-5	32	230	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	3. aḍḍhavaggo	3. mūsikajātakaṃ
-kn-jat 5. 3. 4.	kn-jat-5-3-4	kn-jat-5	32	232	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	3. aḍḍhavaggo	4. culladhanuggahajātakaṃ
-kn-jat 5. 3. 5.	kn-jat-5-3-5	kn-jat-5	32	232	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	5. pañcakanipāto	3. aḍḍhavaggo	5. kapotajātakaṃ
-kn-jat 6. 1. 1.	kn-jat-6-1-1	kn-jat-5	32	234	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	1. avāriyajātakaṃ
-kn-jat 6. 1. 2.	kn-jat-6-1-2	kn-jat-5	32	236	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	2. setaketujātakaṃ
-kn-jat 6. 1. 3.	kn-jat-6-1-3	kn-jat-5	32	238	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	3. darīmukhajātakaṃ
-kn-jat 6. 1. 4.	kn-jat-6-1-4	kn-jat-5	32	238	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	4. nerujātakaṃ
-kn-jat 6. 1. 5.	kn-jat-6-1-5	kn-jat-5	32	240	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	5. āsaṅkajātakaṃ
-kn-jat 6. 1. 6.	kn-jat-6-1-6	kn-jat-5	32	240	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	6. migālopajātakaṃ
-kn-jat 6. 1. 7.	kn-jat-6-1-7	kn-jat-5	32	244	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	7. sirikālakaṇṇijātakaṃ
-kn-jat 6. 1. 8.	kn-jat-6-1-8	kn-jat-5	32	246	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	8. kukkuṭajātakaṃ
-kn-jat 6. 1. 9.	kn-jat-6-1-9	kn-jat-5	32	248	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	9. dhammadhajajātakaṃ
-kn-jat 6. 1. 10.	kn-jat-6-1-10	kn-jat-5	32	248	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	1. avāriyavaggo	10. nandiyamigajātakaṃ
-kn-jat 6. 2. 1.	kn-jat-6-2-1	kn-jat-5	32	250	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	1. kharaputtajātakaṃ
-kn-jat 6. 2. 2.	kn-jat-6-2-2	kn-jat-5	32	252	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	2. sūcijātakaṃ
-kn-jat 6. 2. 3.	kn-jat-6-2-3	kn-jat-5	32	252	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	3. tuṇḍilajātakaṃ
-kn-jat 6. 2. 4.	kn-jat-6-2-4	kn-jat-5	32	254	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	4. suvaṇṇakakkaṭaka jātakaṃ
-kn-jat 6. 2. 5.	kn-jat-6-2-5	kn-jat-5	32	256	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	5. mayhakajātakaṃ
-kn-jat 6. 2. 6.	kn-jat-6-2-6	kn-jat-5	32	258	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	6. dhajaviheṭhajātakaṃ
-kn-jat 6. 2. 7.	kn-jat-6-2-7	kn-jat-5	32	258	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	7. bhisapupphajātakaṃ
-kn-jat 6. 2. 8.	kn-jat-6-2-8	kn-jat-5	32	260	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	8. vighāsajātakaṃ
-kn-jat 6. 2. 9.	kn-jat-6-2-9	kn-jat-5	32	260	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	9. vaṭṭakajātakaṃ
-kn-jat 6. 2. 10.	kn-jat-6-2-10	kn-jat-5	32	262	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	6. chakkanipāto	2. senakavaggo	10. kākajātakaṃ
-kn-jat 7. 1. 1.	kn-jat-7-1-1	kn-jat-5	32	264	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	1. kukkujātakaṃ
-kn-jat 7. 1. 2.	kn-jat-7-1-2	kn-jat-5	32	266	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	2. manojajātakaṃ
-kn-jat 7. 1. 3.	kn-jat-7-1-3	kn-jat-5	32	268	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	3. sutanujātakaṃ
-kn-jat 7. 1. 4.	kn-jat-7-1-4	kn-jat-5	32	268	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	4. gijjhajātakaṃ
-kn-jat 7. 1. 5.	kn-jat-7-1-5	kn-jat-5	32	270	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	5. dab_hapupphajātakaṃ
-kn-jat 7. 1. 6.	kn-jat-7-1-6	kn-jat-5	32	272	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	6. dasaṇṇakajātakaṃ
-kn-jat 7. 1. 7.	kn-jat-7-1-7	kn-jat-5	32	274	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	7. sattubhastajātakaṃ
-kn-jat 7. 1. 8.	kn-jat-7-1-8	kn-jat-5	32	276	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	8. aṭṭhisenajātakaṃ
-kn-jat 7. 1. 9.	kn-jat-7-1-9	kn-jat-5	32	278	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	9. kapijātakaṃ
-kn-jat 7. 1. 10.	kn-jat-7-1-10	kn-jat-5	32	280	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	1. kukkuvaggo	10. bakabrahmajātakaṃ
-kn-jat 7. 2. 1.	kn-jat-7-2-1	kn-jat-5	32	282	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	1. gandhārajātakaṃ
-kn-jat 7. 2. 2.	kn-jat-7-2-2	kn-jat-5	32	284	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	2. mahākapijātakaṃ
-kn-jat 7. 2. 3.	kn-jat-7-2-3	kn-jat-5	32	286	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	3. kumbhakārajātakaṃ
-kn-jat 7. 2. 4.	kn-jat-7-2-4	kn-jat-5	32	288	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	4. daḷhadhammajātakaṃ
-kn-jat 7. 2. 5.	kn-jat-7-2-5	kn-jat-5	32	288	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	5. somadattajātakaṃ
-kn-jat 7. 2. 6.	kn-jat-7-2-6	kn-jat-5	32	290	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	6. susīmajātakaṃ
-kn-jat 7. 2. 7.	kn-jat-7-2-7	kn-jat-5	32	292	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	7. koṭisimbalijātakaṃ
-kn-jat 7. 2. 8.	kn-jat-7-2-8	kn-jat-5	32	294	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	8. dhūmakārijātakaṃ
-kn-jat 7. 2. 9.	kn-jat-7-2-9	kn-jat-5	32	294	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	9. jāgarajātakaṃ
-kn-jat 7. 2. 10.	kn-jat-7-2-10	kn-jat-5	32	298	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	10. kummāsapiṇḍajātakaṃ
-kn-jat 7. 2. 11.	kn-jat-7-2-11	kn-jat-5	32	300	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	7. sattakanipātaṃ	2. gandhāravaggo	11. parantapajātakaṃ
-kn-jat 8. 1.	kn-jat-8-1	kn-jat-5	32	304	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		1. kaccānijātakaṃ
-kn-jat 8. 2.	kn-jat-8-2	kn-jat-5	32	304	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		2. aṭṭhasaddajātakaṃ
-kn-jat 8. 3.	kn-jat-8-3	kn-jat-5	32	306	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		3. sulasājātakaṃ
-kn-jat 8. 4.	kn-jat-8-4	kn-jat-5	32	310	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		4. sumaṅgalajātakaṃ
-kn-jat 8. 5.	kn-jat-8-5	kn-jat-5	32	312	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		5. gaṅgamālajātakaṃ
-kn-jat 8. 6.	kn-jat-8-6	kn-jat-5	32	314	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		6. cetiyajātakaṃ
-kn-jat 8. 7.	kn-jat-8-7	kn-jat-5	32	316	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		7. indriyajātakaṃ
-kn-jat 8. 8.	kn-jat-8-8	kn-jat-5	32	318	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		8. ādittajātakaṃ
-kn-jat 8. 9.	kn-jat-8-9	kn-jat-5	32	320	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		9. aṭṭhānajātakaṃ
-kn-jat 8. 10.	kn-jat-8-10	kn-jat-5	32	322	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	8. aṭṭhakanipāto		10. dīpijātakaṃ
-kn-jat 9. 1.	kn-jat-9-1	kn-jat-5	32	324	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		1. gijjhajātakaṃ
-kn-jat 9. 2.	kn-jat-9-2	kn-jat-5	32	326	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		2. kosambajātakaṃ
-kn-jat 9. 3.	kn-jat-9-3	kn-jat-5	32	330	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		3. mahāsukajātakaṃ
-kn-jat 9. 4.	kn-jat-9-4	kn-jat-5	32	332	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		4. cullasukajātakaṃ
-kn-jat 9. 5.	kn-jat-9-5	kn-jat-5	32	332	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		5. hāritajātakaṃ
-kn-jat 9. 6.	kn-jat-9-6	kn-jat-5	32	334	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		6. padamāṇavakajātakaṃ
-kn-jat 9. 7.	kn-jat-9-7	kn-jat-5	32	336	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		7. lomasakassapajātakaṃ
-kn-jat 9. 8.	kn-jat-9-8	kn-jat-5	32	338	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		8. cakkavākajātakaṃ
-kn-jat 9. 9.	kn-jat-9-9	kn-jat-5	32	340	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		9. haḷiddirāgajātakaṃ
-kn-jat 9. 10.	kn-jat-9-10	kn-jat-5	32	344	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		10. samuggajātakaṃ
-kn-jat 9. 11.	kn-jat-9-11	kn-jat-5	32	344	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		11. pūtimaṃsajātakaṃ
-kn-jat 9. 12.	kn-jat-9-12	kn-jat-5	32	346	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	9. navakanipāto		12. tittirajātakaṃ
-kn-jat 10. 1.	kn-jat-10-1	kn-jat-5	32	348	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		1. catudvārajātakaṃ
-kn-jat 10. 2.	kn-jat-10-2	kn-jat-5	32	350	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		2. kaṇhajātakaṃ
-kn-jat 10. 3.	kn-jat-10-3	kn-jat-5	32	354	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		3. catuposathikajātakaṃ
-kn-jat 10. 4.	kn-jat-10-4	kn-jat-5	32	356	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		4. saṅkhajātakaṃ
-kn-jat 10. 5.	kn-jat-10-5	kn-jat-5	32	360	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		5. cullabodhijātakaṃ
-kn-jat 10. 6.	kn-jat-10-6	kn-jat-5	32	362	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		6. kaṇhadīpāyanajātakaṃ
-kn-jat 10. 7.	kn-jat-10-7	kn-jat-5	32	364	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		7. nigrodhajātakaṃ
-kn-jat 10. 8.	kn-jat-10-8	kn-jat-5	32	368	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		8. takkalajātakaṃ
-kn-jat 10. 9.	kn-jat-10-9	kn-jat-5	32	370	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		9. mahādhammapālajātakaṃ
-kn-jat 10. 10.	kn-jat-10-10	kn-jat-5	32	372	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		10. kukkuṭajātakaṃ
-kn-jat 10. 11.	kn-jat-10-11	kn-jat-5	32	374	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		11. maṭṭakuṇḍalījātakaṃ
-kn-jat 10. 12.	kn-jat-10-12	kn-jat-5	32	376	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		12. khiḷārakosiyajātakaṃ
-kn-jat 10. 13.	kn-jat-10-13	kn-jat-5	32	378	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		13. cakkavākajātakaṃ
-kn-jat 10. 14.	kn-jat-10-14	kn-jat-5	32	382	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		14. bhūripaññajātakaṃ
-kn-jat 10. 15.	kn-jat-10-15	kn-jat-5	32	384	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		15. mahāmaṅgalajātakaṃ
-kn-jat 10. 16.	kn-jat-10-16	kn-jat-5	32	386	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	10. dasakanipāto		16. ghatapaṇḍitajātakaṃ
-kn-jat 11. 1.	kn-jat-11-1	kn-jat-11	32	388	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		1. mātuposakajātakaṃ
-kn-jat 11. 2.	kn-jat-11-2	kn-jat-11	32	392	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		2. juṇhajātakaṃ
-kn-jat 11. 3.	kn-jat-11-3	kn-jat-11	32	394	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		3. dhammajātakaṃ
-kn-jat 11. 4.	kn-jat-11-4	kn-jat-11	32	400	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		4. udayajātakaṃ
-kn-jat 11. 5.	kn-jat-11-5	kn-jat-11	32	402	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		5. pānīyajātakaṃ
-kn-jat 11. 6.	kn-jat-11-6	kn-jat-11	32	404	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		6. yudhañjaya jātakaṃ
-kn-jat 11. 7.	kn-jat-11-7	kn-jat-11	32	406	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		7. dasarathajātakaṃ
-kn-jat 11. 8.	kn-jat-11-8	kn-jat-11	32	408	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		8. saṃvarajātakaṃ
-kn-jat 11. 9.	kn-jat-11-9	kn-jat-11	32	410	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	11. ekādasakanipāto		9. suppārakajātakaṃ
-kn-jat 12. 1.	kn-jat-12-1	kn-jat-11	32	414	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		1. cūḷakuṇālajātakaṃ
-kn-jat 12. 2.	kn-jat-12-2	kn-jat-11	32	416	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		2. bhaddasāla jātakaṃ
-kn-jat 12. 3.	kn-jat-12-3	kn-jat-11	32	420	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		3. samuddavāṇija jātakaṃ
-kn-jat 12. 4.	kn-jat-12-4	kn-jat-11	32	422	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		4. kāmajātakaṃ
-kn-jat 12. 5.	kn-jat-12-5	kn-jat-11	32	424	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		5. janasandha jātakaṃ
-kn-jat 12. 6.	kn-jat-12-6	kn-jat-11	32	426	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		6. mahākaṇha jātakaṃ
-kn-jat 12. 7.	kn-jat-12-7	kn-jat-11	32	430	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		7. kosiyajātakaṃ
-kn-jat 12. 8.	kn-jat-12-8	kn-jat-11	32	434	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		8. meṇḍakapañho
-kn-jat 12. 9.	kn-jat-12-9	kn-jat-11	32	436	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		9. mahāpadumajātakaṃ
-kn-jat 12. 10.	kn-jat-12-10	kn-jat-11	32	440	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	12. dvādasakanipāto		10. mittāmittajātakaṃ
-kn-jat 13. 1.	kn-jat-13-1	kn-jat-11	32	444	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		1. ambajātakaṃ
-kn-jat 13. 2.	kn-jat-13-2	kn-jat-11	32	448	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		2. phandanajātakaṃ
-kn-jat 13. 3.	kn-jat-13-3	kn-jat-11	32	450	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		3. javanahaṃsajātakaṃ
-kn-jat 13. 4.	kn-jat-13-4	kn-jat-11	32	452	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		4. cullanāradajātakaṃ
-kn-jat 13. 5.	kn-jat-13-5	kn-jat-11	32	454	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		5. dūtajātakaṃ
-kn-jat 13. 6.	kn-jat-13-6	kn-jat-11	32	460	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		6. kāliṅgabodhijātakaṃ
-kn-jat 13. 7.	kn-jat-13-7	kn-jat-11	32	464	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		7. akittijātakaṃ
-kn-jat 13. 8.	kn-jat-13-8	kn-jat-11	32	466	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		8. takkāriyajātakaṃ
-kn-jat 13. 9.	kn-jat-13-9	kn-jat-11	32	470	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		9. rūrumigajātakaṃ
-kn-jat 13. 10.	kn-jat-13-10	kn-jat-11	32	474	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	13. terasakanipāto		10. sarabhamigajātakaṃ
-kn-jat 14. 1.	kn-jat-14-1	kn-jat-11	32	478	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		1. sālikedārajātakaṃ
-kn-jat 14. 2.	kn-jat-14-2	kn-jat-11	32	484	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		2. candakinnarajātakaṃ
-kn-jat 14. 3.	kn-jat-14-3	kn-jat-11	32	490	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		3. mahāukkusajātakaṃ
-kn-jat 14. 4.	kn-jat-14-4	kn-jat-11	32	492	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		4. uddālakajātakaṃ
-kn-jat 14. 5.	kn-jat-14-5	kn-jat-11	32	498	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		5. bhisajātakaṃ
-kn-jat 14. 6.	kn-jat-14-6	kn-jat-11	32	502	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		6. surucijātakaṃ
-kn-jat 14. 7.	kn-jat-14-7	kn-jat-11	32	508	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		7. pañcuposathajātakaṃ
-kn-jat 14. 8.	kn-jat-14-8	kn-jat-11	32	512	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		8. mahāmorajātakaṃ
-kn-jat 14. 9.	kn-jat-14-9	kn-jat-11	32	516	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		9. tacchasūkarajātakaṃ
-kn-jat 14. 10.	kn-jat-14-10	kn-jat-11	32	518	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		10. mahāvāṇijajātakaṃ
-kn-jat 14. 11.	kn-jat-14-11	kn-jat-11	32	522	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		11. sādhīnajātakaṃ
-kn-jat 14. 12.	kn-jat-14-12	kn-jat-11	32	530	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		12. dasabrāhmaṇajātakaṃ
-kn-jat 14. 13.	kn-jat-14-13	kn-jat-11	32	534	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	14. pakiṇṇakanipāto		13. bhikkhāparamparajātakaṃ
-kn-jat 15. 1.	kn-jat-15-1	kn-jat-15	33	2	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		1. mātaṅgajātakaṃ
-kn-jat 15. 2.	kn-jat-15-2	kn-jat-15	33	8	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		2. cittasambhutajātakaṃ
-kn-jat 15. 3.	kn-jat-15-3	kn-jat-15	33	14	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		3. sivijātakaṃ
-kn-jat 15. 4.	kn-jat-15-4	kn-jat-15	33	20	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		4. sirimandajātakaṃ
-kn-jat 15. 5.	kn-jat-15-5	kn-jat-15	33	26	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		5. rohantamigajātakaṃ
-kn-jat 15. 6.	kn-jat-15-6	kn-jat-15	33	32	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		6. cūlahaṃsajātakaṃ
-kn-jat 15. 7.	kn-jat-15-7	kn-jat-15	33	36	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		7. sattigumbajātakaṃ
-kn-jat 15. 8.	kn-jat-15-8	kn-jat-15	33	42	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		8. hallāṭiyajātakaṃ
-kn-jat 15. 9.	kn-jat-15-9	kn-jat-15	33	48	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		9. somanassajātakaṃ
-kn-jat 15. 10.	kn-jat-15-10	kn-jat-15	33	54	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		10. campeyyajātakaṃ
-kn-jat 15. 11.	kn-jat-15-11	kn-jat-15	33	64	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		11. palobhanajātakaṃ
-kn-jat 15. 12.	kn-jat-15-12	kn-jat-15	33	70	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		12. pañcapaṇḍitapañho
-kn-jat 15. 13.	kn-jat-15-13	kn-jat-15	33	76	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		13. hatthipālajātakaṃ
-kn-jat 15. 14.	kn-jat-15-14	kn-jat-15	33	82	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	15. vīsatinipāto		14. ayogharajātakaṃ
-kn-jat 16. 1.	kn-jat-16-1	kn-jat-15	33	88	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		1. kiṃchandajātakaṃ
-kn-jat 16. 2.	kn-jat-16-2	kn-jat-15	33	94	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		2. kumbhajātakaṃ
-kn-jat 16. 3.	kn-jat-16-3	kn-jat-15	33	100	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		3. jayaddisajātakaṃ
-kn-jat 16. 4.	kn-jat-16-4	kn-jat-15	33	110	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		4. chaddantajātakaṃ
-kn-jat 16. 5.	kn-jat-16-5	kn-jat-15	33	118	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		5. sambhavajātakaṃ
-kn-jat 16. 6.	kn-jat-16-6	kn-jat-15	33	126	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		6. mahākapijātakaṃ
-kn-jat 16. 7.	kn-jat-16-7	kn-jat-15	33	134	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		7. dakarakkhasapañho
-kn-jat 16. 8.	kn-jat-16-8	kn-jat-15	33	140	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		8. paṇḍarakajātakaṃ
-kn-jat 16. 9.	kn-jat-16-9	kn-jat-15	33	150	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		9. sambulājātakaṃ
-kn-jat 16. 10.	kn-jat-16-10	kn-jat-15	33	156	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	16. tiṃsatinipāto		10. gandhatindukajātakaṃ
-kn-jat 17. 1.	kn-jat-17-1	kn-jat-15	33	166	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	17. cattāḷīsanipāto		1. tesakuṇajātakaṃ
-kn-jat 17. 2.	kn-jat-17-2	kn-jat-15	33	174	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	17. cattāḷīsanipāto		2. sarabhaṅgajātakaṃ
-kn-jat 17. 3.	kn-jat-17-3	kn-jat-15	33	186	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	17. cattāḷīsanipāto		3. alambusājātakaṃ
-kn-jat 17. 4.	kn-jat-17-4	kn-jat-15	33	194	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	17. cattāḷīsanipāto		4. saṅkhapālajātakaṃ
-kn-jat 17. 5.	kn-jat-17-5	kn-jat-15	33	206	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	17. cattāḷīsanipāto		5. cullasutasomajātakaṃ
-kn-jat 18. 1.	kn-jat-18-1	kn-jat-18	33	218	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	18. paññāsanipāto		1. nalinikājātakaṃ
-kn-jat 18. 2.	kn-jat-18-2	kn-jat-18	33	230	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	18. paññāsanipāto		2. ummādantījātakaṃ
-kn-jat 18. 3.	kn-jat-18-3	kn-jat-18	33	246	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	18. paññāsanipāto		3. mahābodhijātakaṃ
-kn-jat 19. 1.	kn-jat-19-1	kn-jat-18	33	260	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	19. saṭṭhinipāto		1. soṇakajātakaṃ
-kn-jat 19. 2.	kn-jat-19-2	kn-jat-18	33	272	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	19. saṭṭhinipāto		2. saṅkiccajātakaṃ
-kn-jat 20. 1.	kn-jat-20-1	kn-jat-18	33	286	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	20. sattatinipāto		1. kusajātakaṃ
-kn-jat 20. 2.	kn-jat-20-2	kn-jat-18	33	304	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	20. sattatinipāto		2. soṇanandajātakaṃ
-kn-jat 21. 1.	kn-jat-21-1	kn-jat-18	33	322	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	21. asītinipāto		1. cullahaṃsajātakaṃ
-kn-jat 21. 2.	kn-jat-21-2	kn-jat-18	33	336	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	21. asītinipāto		2. mahāhaṃsajātakaṃ
-kn-jat 21. 3.	kn-jat-21-3	kn-jat-18	33	354	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	21. asītinipāto		3. sudhābhojanajātakaṃ
-kn-jat 21. 4.	kn-jat-21-4	kn-jat-18	33	378	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	21. asītinipāto		4. kuṇālajātakaṃ
-kn-jat 21. 5.	kn-jat-21-5	kn-jat-18	33	412	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	21. asītinipāto		5. mahāsutasomajātakaṃ
-kn-jat 22 1.	kn-jat-22-1	kn-jat-22	34	2	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		1. mūgapakkhajātakaṃ
-kn-jat 22 2.	kn-jat-22-2	kn-jat-22	34	24	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		2. mahājanakajātakaṃ
-kn-jat 22 3.	kn-jat-22-3	kn-jat-22	34	56	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		3. sāmajātakaṃ
-kn-jat 22 4.	kn-jat-22-4	kn-jat-22	34	78	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		4. nimijātakaṃ
-kn-jat 22 5.	kn-jat-22-5	kn-jat-22	34	116	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		5. khaṇḍahālajātakaṃ
-kn-jat 22 6.	kn-jat-22-6	kn-jat-22-6	34	148	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		6. bhūridattajātakaṃ
-kn-jat 22 7.	kn-jat-22-7	kn-jat-22-6	34	188	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		7. mahānāradakassapajātakaṃ
-kn-jat 22 8.	kn-jat-22-8	kn-jat-22-6	34	226	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		8. vidhurajātakaṃ
-kn-jat 22 9.	kn-jat-22-9	kn-jat-22-6	34	294	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		9. ummaggajātakaṃ
-kn-jat 22 10.	kn-jat-22-10	kn-jat-22-10	34	354	0	suttantapiṭake	khuddakanikāye		jātakapāḷi	22. mahānipāto		10. mahāvessantarajātakaṃ
+bjt_sutta_code	 bjt_web_code  	 bjt_filename	 bjt_book_id	 bjt_page_num	 bjt_page_offset	 bjt_piṭaka    	 bjt_nikāya    	 bjt_major_section	 bjt_book  	 bjt_minor_section  	 bjt_vagga                	 bjt_sutta
+jat 1. 1. 1.  	 kn-jat-1-1-1  	 kn-jat      	          32	            2	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 1. apaṇṇakajātakaṃ
+jat 1. 1. 2.  	 kn-jat-1-1-2  	 kn-jat      	          32	            2	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 2. vaṇṇupathajātakaṃ
+jat 1. 1. 3.  	 kn-jat-1-1-3  	 kn-jat      	          32	            2	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 3. serivāvāṇijajātakaṃ
+jat 1. 1. 4.  	 kn-jat-1-1-4  	 kn-jat      	          32	            2	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 4. cullaseṭṭhijātakaṃ
+jat 1. 1. 5.  	 kn-jat-1-1-5  	 kn-jat      	          32	            4	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 5. taṇḍulanāḷijātakaṃ
+jat 1. 1. 6.  	 kn-jat-1-1-6  	 kn-jat      	          32	            4	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 6. devadhammajātakaṃ
+jat 1. 1. 7.  	 kn-jat-1-1-7  	 kn-jat      	          32	            4	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 7. kaṭṭhahārijātakaṃ
+jat 1. 1. 8.  	 kn-jat-1-1-8  	 kn-jat      	          32	            4	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 8. gāmaṇījātakaṃ
+jat 1. 1. 9.  	 kn-jat-1-1-9  	 kn-jat      	          32	            4	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 9. makhādevajātakaṃ
+jat 1. 1. 10. 	 kn-jat-1-1-10 	 kn-jat      	          32	            4	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 1. apaṇṇakavaggo         	 10. sukhavihārijātakaṃ
+jat 1. 2. 1.  	 kn-jat-1-2-1  	 kn-jat      	          32	            6	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 1. lakkhaṇamigajātakaṃ
+jat 1. 2. 2.  	 kn-jat-1-2-2  	 kn-jat      	          32	            6	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 2. nigrodhamigajātakaṃ
+jat 1. 2. 3.  	 kn-jat-1-2-3  	 kn-jat      	          32	            6	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 3. kaṇḍinajātakaṃ
+jat 1. 2. 4.  	 kn-jat-1-2-4  	 kn-jat      	          32	            6	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 4. vātamigajātakaṃ
+jat 1. 2. 5.  	 kn-jat-1-2-5  	 kn-jat      	          32	            6	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 5. kharādiyajātakaṃ
+jat 1. 2. 6.  	 kn-jat-1-2-6  	 kn-jat      	          32	            6	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 6. tipallatthamigajātakaṃ
+jat 1. 2. 7.  	 kn-jat-1-2-7  	 kn-jat      	          32	            8	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 7. mālutajātakaṃ
+jat 1. 2. 8.  	 kn-jat-1-2-8  	 kn-jat      	          32	            8	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 8. matakabhattajātakaṃ
+jat 1. 2. 9.  	 kn-jat-1-2-9  	 kn-jat      	          32	            8	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 9. āyācitabhattajātakaṃ
+jat 1. 2. 10. 	 kn-jat-1-2-10 	 kn-jat      	          32	            8	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 2. sīlavaggo             	 10. naḷapānajātakaṃ
+jat 1. 3. 1.  	 kn-jat-1-3-1  	 kn-jat      	          32	           10	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 1. kuruṅgamigajātakaṃ
+jat 1. 3. 2.  	 kn-jat-1-3-2  	 kn-jat      	          32	           10	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 2. kukkurajātakaṃ
+jat 1. 3. 3.  	 kn-jat-1-3-3  	 kn-jat      	          32	           10	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 3. bhojājānīyajātakaṃ
+jat 1. 3. 4.  	 kn-jat-1-3-4  	 kn-jat      	          32	           10	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 4. ājaññajātakaṃ
+jat 1. 3. 5.  	 kn-jat-1-3-5  	 kn-jat      	          32	           10	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 5. titthajātakaṃ
+jat 1. 3. 6.  	 kn-jat-1-3-6  	 kn-jat      	          32	           10	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 6. mahilāmukhajātakaṃ
+jat 1. 3. 7.  	 kn-jat-1-3-7  	 kn-jat      	          32	           12	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 7. abhiṇhajātakaṃ
+jat 1. 3. 8.  	 kn-jat-1-3-8  	 kn-jat      	          32	           12	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 8. nandivisālajātakaṃ
+jat 1. 3. 9.  	 kn-jat-1-3-9  	 kn-jat      	          32	           12	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 9. kaṇhajātakaṃ
+jat 1. 3. 10. 	 kn-jat-1-3-10 	 kn-jat      	          32	           12	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 3. kuruṅgavaggo          	 10. munikajātakaṃ
+jat 1. 4. 1.  	 kn-jat-1-4-1  	 kn-jat      	          32	           14	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 1. kulāvakajātakaṃ
+jat 1. 4. 2.  	 kn-jat-1-4-2  	 kn-jat      	          32	           14	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 2. naccajātakaṃ
+jat 1. 4. 3.  	 kn-jat-1-4-3  	 kn-jat      	          32	           14	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 3. sammodamānajātakaṃ
+jat 1. 4. 4.  	 kn-jat-1-4-4  	 kn-jat      	          32	           14	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 4. macchajātakaṃ
+jat 1. 4. 5.  	 kn-jat-1-4-5  	 kn-jat      	          32	           14	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 5. vaṭṭakajātakaṃ
+jat 1. 4. 6.  	 kn-jat-1-4-6  	 kn-jat      	          32	           16	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 6. sakuṇajātakaṃ
+jat 1. 4. 7.  	 kn-jat-1-4-7  	 kn-jat      	          32	           16	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 7. tittirajātakaṃ
+jat 1. 4. 8.  	 kn-jat-1-4-8  	 kn-jat      	          32	           16	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 8. bakajātakaṃ
+jat 1. 4. 9.  	 kn-jat-1-4-9  	 kn-jat      	          32	           16	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 9. nandajātakaṃ
+jat 1. 4. 10. 	 kn-jat-1-4-10 	 kn-jat      	          32	           16	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 4. kulāvakavaggo         	 10. khadiraṅgārajātakaṃ
+jat 1. 5. 1.  	 kn-jat-1-5-1  	 kn-jat      	          32	           18	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 1. losakajātakaṃ
+jat 1. 5. 2.  	 kn-jat-1-5-2  	 kn-jat      	          32	           18	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 2. kapotakajātakaṃ
+jat 1. 5. 3.  	 kn-jat-1-5-3  	 kn-jat      	          32	           18	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 3. veḷukajātakaṃ
+jat 1. 5. 4.  	 kn-jat-1-5-4  	 kn-jat      	          32	           18	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 4. makasajātakaṃ
+jat 1. 5. 5.  	 kn-jat-1-5-5  	 kn-jat      	          32	           18	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 5. rohiṇījātakaṃ
+jat 1. 5. 6.  	 kn-jat-1-5-6  	 kn-jat      	          32	           18	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 6. ārāmadūsakajātakaṃ
+jat 1. 5. 7.  	 kn-jat-1-5-7  	 kn-jat      	          32	           20	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 7. vāruṇīdūsakajātakaṃ
+jat 1. 5. 8.  	 kn-jat-1-5-8  	 kn-jat      	          32	           20	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 8. vedabbhajātakaṃ
+jat 1. 5. 9.  	 kn-jat-1-5-9  	 kn-jat      	          32	           20	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 9. nakkhattajātakaṃ
+jat 1. 5. 10. 	 kn-jat-1-5-10 	 kn-jat      	          32	           20	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 5. atthakāmavaggo        	 10. dummedhajātakaṃ
+jat 1. 6. 1.  	 kn-jat-1-6-1  	 kn-jat      	          32	           22	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 1. mahāsīlavajātakaṃ
+jat 1. 6. 2.  	 kn-jat-1-6-2  	 kn-jat      	          32	           22	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 2. cūḷajanakajātakaṃ
+jat 1. 6. 3.  	 kn-jat-1-6-3  	 kn-jat      	          32	           22	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 3. puṇṇapātijātakaṃ
+jat 1. 6. 4.  	 kn-jat-1-6-4  	 kn-jat      	          32	           22	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 4. kiṃphalajātakaṃ
+jat 1. 6. 5.  	 kn-jat-1-6-5  	 kn-jat      	          32	           22	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 5. pañcāvudhajātakaṃ
+jat 1. 6. 6.  	 kn-jat-1-6-6  	 kn-jat      	          32	           22	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 6. kañcanakkhandhajātakaṃ
+jat 1. 6. 7.  	 kn-jat-1-6-7  	 kn-jat      	          32	           24	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 7. vānarinda jātakaṃ
+jat 1. 6. 8.  	 kn-jat-1-6-8  	 kn-jat      	          32	           24	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 8. tayodhammajātakaṃ
+jat 1. 6. 9.  	 kn-jat-1-6-9  	 kn-jat      	          32	           24	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 9. bherivādajātakaṃ
+jat 1. 6. 10. 	 kn-jat-1-6-10 	 kn-jat      	          32	           24	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 6. āsiṃsavaggo           	 10. saṅkhadhamanajātakaṃ
+jat 1. 7. 1.  	 kn-jat-1-7-1  	 kn-jat      	          32	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 1. asātamantajātakaṃ
+jat 1. 7. 2.  	 kn-jat-1-7-2  	 kn-jat      	          32	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 2. andhabhūtajātakaṃ
+jat 1. 7. 3.  	 kn-jat-1-7-3  	 kn-jat      	          32	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 3. takkajātakaṃ
+jat 1. 7. 4.  	 kn-jat-1-7-4  	 kn-jat      	          32	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 4. durājānajātakaṃ
+jat 1. 7. 5.  	 kn-jat-1-7-5  	 kn-jat      	          32	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 5. anabhiratijātakaṃ
+jat 1. 7. 6.  	 kn-jat-1-7-6  	 kn-jat      	          32	           28	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 6. mudulakkhaṇajātakaṃ
+jat 1. 7. 7.  	 kn-jat-1-7-7  	 kn-jat      	          32	           28	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 7. ucchaṅgajātakaṃ
+jat 1. 7. 8.  	 kn-jat-1-7-8  	 kn-jat      	          32	           28	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 8. sāketajātakaṃ
+jat 1. 7. 9.  	 kn-jat-1-7-9  	 kn-jat      	          32	           28	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 9. visavantajātakaṃ
+jat 1. 7. 10. 	 kn-jat-1-7-10 	 kn-jat      	          32	           28	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 7. itthivaggo            	 10. kuddālajātakaṃ
+jat 1. 8. 1.  	 kn-jat-1-8-1  	 kn-jat      	          32	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 1. varaṇajātakaṃ
+jat 1. 8. 2.  	 kn-jat-1-8-2  	 kn-jat      	          32	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 2. sīlavanāgarājajātakaṃ
+jat 1. 8. 3.  	 kn-jat-1-8-3  	 kn-jat      	          32	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 3. saccaṃkirajātakaṃ
+jat 1. 8. 4.  	 kn-jat-1-8-4  	 kn-jat      	          32	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 4. rukkhadhammajātakaṃ
+jat 1. 8. 5.  	 kn-jat-1-8-5  	 kn-jat      	          32	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 5. macchajātakaṃ
+jat 1. 8. 6.  	 kn-jat-1-8-6  	 kn-jat      	          32	           30	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 6. asaṅkiyajātakaṃ
+jat 1. 8. 7.  	 kn-jat-1-8-7  	 kn-jat      	          32	           32	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 7. mahāsupinajātakaṃ
+jat 1. 8. 8.  	 kn-jat-1-8-8  	 kn-jat      	          32	           32	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 8. illīsajātakaṃ
+jat 1. 8. 9.  	 kn-jat-1-8-9  	 kn-jat      	          32	           32	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 9. kharassarajātakaṃ
+jat 1. 8. 10. 	 kn-jat-1-8-10 	 kn-jat      	          32	           32	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 8. varaṇavaggo           	 10. bhīmasenajātakaṃ
+jat 1. 9. 1.  	 kn-jat-1-9-1  	 kn-jat      	          32	           34	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 1. surāpānajātakaṃ
+jat 1. 9. 2.  	 kn-jat-1-9-2  	 kn-jat      	          32	           34	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 2. mittavindajātakaṃ
+jat 1. 9. 3.  	 kn-jat-1-9-3  	 kn-jat      	          32	           34	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 3. kālakaṇṇijātakaṃ
+jat 1. 9. 4.  	 kn-jat-1-9-4  	 kn-jat      	          32	           34	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 4. atthassadvārajātakaṃ
+jat 1. 9. 5.  	 kn-jat-1-9-5  	 kn-jat      	          32	           34	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 5. kimpakkajātakaṃ
+jat 1. 9. 6.  	 kn-jat-1-9-6  	 kn-jat      	          32	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 6. sīlavīmaṃsajātakaṃ
+jat 1. 9. 7.  	 kn-jat-1-9-7  	 kn-jat      	          32	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 7. maṅgalajātakaṃ
+jat 1. 9. 8.  	 kn-jat-1-9-8  	 kn-jat      	          32	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 8. sāramhajātakaṃ
+jat 1. 9. 9.  	 kn-jat-1-9-9  	 kn-jat      	          32	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 9. kuhakajātakaṃ
+jat 1. 9. 10. 	 kn-jat-1-9-10 	 kn-jat      	          32	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 9. apāyimhavaggo         	 10. akataññujātakaṃ
+jat 1. 10. 1. 	 kn-jat-1-10-1 	 kn-jat      	          32	           38	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 1. littajātakaṃ
+jat 1. 10. 2. 	 kn-jat-1-10-2 	 kn-jat      	          32	           38	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 2. mahāsārajātakaṃ
+jat 1. 10. 3. 	 kn-jat-1-10-3 	 kn-jat      	          32	           38	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 3. vissāsabhojanajātakaṃ
+jat 1. 10. 4. 	 kn-jat-1-10-4 	 kn-jat      	          32	           38	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 4. lomahaṃsajātakaṃ
+jat 1. 10. 5. 	 kn-jat-1-10-5 	 kn-jat      	          32	           38	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 5. mahāsudassanajātakaṃ
+jat 1. 10. 6. 	 kn-jat-1-10-6 	 kn-jat      	          32	           40	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 6. telapattajātakaṃ
+jat 1. 10. 7. 	 kn-jat-1-10-7 	 kn-jat      	          32	           40	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 7. nāmasiddhijātakaṃ
+jat 1. 10. 8. 	 kn-jat-1-10-8 	 kn-jat      	          32	           40	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 8. kūṭavāṇijajātakaṃ
+jat 1. 10. 9. 	 kn-jat-1-10-9 	 kn-jat      	          32	           40	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 9. parosahassajātakaṃ
+jat 1. 10. 10.	 kn-jat-1-10-10	 kn-jat      	          32	           40	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 10. littavaggo           	 10. asātarūpajātakaṃ
+jat 1. 11. 1. 	 kn-jat-1-11-1 	 kn-jat      	          32	           42	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 1. parosatajātakaṃ
+jat 1. 11. 2. 	 kn-jat-1-11-2 	 kn-jat      	          32	           42	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 2. paṇṇikajātakaṃ
+jat 1. 11. 3. 	 kn-jat-1-11-3 	 kn-jat      	          32	           42	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 3. verījātakaṃ
+jat 1. 11. 4. 	 kn-jat-1-11-4 	 kn-jat      	          32	           42	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 4. mittavindajātakaṃ
+jat 1. 11. 5. 	 kn-jat-1-11-5 	 kn-jat      	          32	           42	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 5. dubbalakaṭṭhajātakaṃ
+jat 1. 11. 6. 	 kn-jat-1-11-6 	 kn-jat      	          32	           44	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 6. udañcanījātakaṃ
+jat 1. 11. 7. 	 kn-jat-1-11-7 	 kn-jat      	          32	           44	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 7. sālittakajātakaṃ
+jat 1. 11. 8. 	 kn-jat-1-11-8 	 kn-jat      	          32	           44	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 8. bāhiyajātakaṃ
+jat 1. 11. 9. 	 kn-jat-1-11-9 	 kn-jat      	          32	           44	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 9. kuṇḍapūvajātakaṃ
+jat 1. 11. 10.	 kn-jat-1-11-10	 kn-jat      	          32	           44	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 11. parosatavaggo        	 10. sabbasaṃhārakapañho
+jat 1. 12. 1. 	 kn-jat-1-12-1 	 kn-jat      	          32	           46	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 1. gadrabhapañho
+jat 1. 12. 2. 	 kn-jat-1-12-2 	 kn-jat      	          32	           46	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 2. amarādevipañho
+jat 1. 12. 3. 	 kn-jat-1-12-3 	 kn-jat      	          32	           46	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 3. sigālajātakaṃ
+jat 1. 12. 4. 	 kn-jat-1-12-4 	 kn-jat      	          32	           46	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 4. mitacinatījātakaṃ
+jat 1. 12. 5. 	 kn-jat-1-12-5 	 kn-jat      	          32	           46	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 5. anusāsikajātakaṃ
+jat 1. 12. 6. 	 kn-jat-1-12-6 	 kn-jat      	          32	           48	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 6. dubbacajātakaṃ
+jat 1. 12. 7. 	 kn-jat-1-12-7 	 kn-jat      	          32	           48	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 7. tittirajātakaṃ
+jat 1. 12. 8. 	 kn-jat-1-12-8 	 kn-jat      	          32	           48	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 8. vaṭṭakajātakaṃ
+jat 1. 12. 9. 	 kn-jat-1-12-9 	 kn-jat      	          32	           48	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 9. akālarāvījātakaṃ
+jat 1. 12. 10.	 kn-jat-1-12-10	 kn-jat      	          32	           48	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 12. haṃsivaggo           	 10. bandhanamokkhajātakaṃ
+jat 1. 13. 1. 	 kn-jat-1-13-1 	 kn-jat      	          32	           50	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 1. kusanāḷijātakaṃ
+jat 1. 13. 2. 	 kn-jat-1-13-2 	 kn-jat      	          32	           50	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 2. dummedha jātakaṃ
+jat 1. 13. 3. 	 kn-jat-1-13-3 	 kn-jat      	          32	           50	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 3. naṅgalīsajātakaṃ
+jat 1. 13. 4. 	 kn-jat-1-13-4 	 kn-jat      	          32	           50	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 4. ambajātakaṃ
+jat 1. 13. 5. 	 kn-jat-1-13-5 	 kn-jat      	          32	           50	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 5. kaṭāhakajātakaṃ
+jat 1. 13. 6. 	 kn-jat-1-13-6 	 kn-jat      	          32	           52	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 6. asilakkhaṇajātakaṃ
+jat 1. 13. 7. 	 kn-jat-1-13-7 	 kn-jat      	          32	           52	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 7. kalaṇḍukajātakaṃ
+jat 1. 13. 8. 	 kn-jat-1-13-8 	 kn-jat      	          32	           52	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 8. biḷāravatajātakaṃ
+jat 1. 13. 9. 	 kn-jat-1-13-9 	 kn-jat      	          32	           52	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 9. aggikajātakaṃ
+jat 1. 13. 10.	 kn-jat-1-13-10	 kn-jat      	          32	           52	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 13. kusanāḷivaggo        	 10. kosiyajātakaṃ
+jat 1. 14. 1. 	 kn-jat-1-14-1 	 kn-jat      	          32	           54	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 1. asampadānajātakaṃ
+jat 1. 14. 2. 	 kn-jat-1-14-2 	 kn-jat      	          32	           54	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 2. pañcagarukajātakaṃ
+jat 1. 14. 3. 	 kn-jat-1-14-3 	 kn-jat      	          32	           54	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 3. ghatāsanajātakaṃ
+jat 1. 14. 4. 	 kn-jat-1-14-4 	 kn-jat      	          32	           54	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 4. jhānasodhanajātakaṃ
+jat 1. 14. 5. 	 kn-jat-1-14-5 	 kn-jat      	          32	           54	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 5. candābhajātakaṃ
+jat 1. 14. 6. 	 kn-jat-1-14-6 	 kn-jat      	          32	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 6. suvaṇṇahaṃsajātakaṃ
+jat 1. 14. 7. 	 kn-jat-1-14-7 	 kn-jat      	          32	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 7. babbukajātakaṃ
+jat 1. 14. 8. 	 kn-jat-1-14-8 	 kn-jat      	          32	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 8. godhajātakaṃ
+jat 1. 14. 9. 	 kn-jat-1-14-9 	 kn-jat      	          32	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 9. ubhatobhaṭṭhajātakaṃ
+jat 1. 14. 10.	 kn-jat-1-14-10	 kn-jat      	          32	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 14. asampadānavaggo      	 10. kākajātakaṃ
+jat 1. 15. 1. 	 kn-jat-1-15-1 	 kn-jat      	          32	           58	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 1. godhajātakaṃ
+jat 1. 15. 2. 	 kn-jat-1-15-2 	 kn-jat      	          32	           58	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 2. sigālajātakaṃ
+jat 1. 15. 3. 	 kn-jat-1-15-3 	 kn-jat      	          32	           58	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 3. virocanajātakaṃ
+jat 1. 15. 4. 	 kn-jat-1-15-4 	 kn-jat      	          32	           58	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 4. naṅguṭṭhajātakaṃ
+jat 1. 15. 5. 	 kn-jat-1-15-5 	 kn-jat      	          32	           58	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 5. rādhajātakaṃ
+jat 1. 15. 6. 	 kn-jat-1-15-6 	 kn-jat      	          32	           58	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 6. kākajātakaṃ
+jat 1. 15. 7. 	 kn-jat-1-15-7 	 kn-jat      	          32	           60	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 7. puppharatajātakaṃ
+jat 1. 15. 8. 	 kn-jat-1-15-8 	 kn-jat      	          32	           60	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 8. sigālajātakaṃ
+jat 1. 15. 9. 	 kn-jat-1-15-9 	 kn-jat      	          32	           60	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 9. ekapaṇṇajātakaṃ
+jat 1. 15. 10.	 kn-jat-1-15-10	 kn-jat      	          32	           60	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 1. ekakanipāto     	 15. kakaṇṭakavaggo       	 10. sañjivajātakaṃ
+jat 2. 1. 1.  	 kn-jat-2-1-1  	 kn-jat      	          32	           62	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 1. rājovādajātakaṃ
+jat 2. 1. 2.  	 kn-jat-2-1-2  	 kn-jat      	          32	           62	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 2. sigālajātakaṃ
+jat 2. 1. 3.  	 kn-jat-2-1-3  	 kn-jat      	          32	           62	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 3. sūkarajātakaṃ
+jat 2. 1. 4.  	 kn-jat-2-1-4  	 kn-jat      	          32	           64	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 4. uragajātakaṃ
+jat 2. 1. 5.  	 kn-jat-2-1-5  	 kn-jat      	          32	           64	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 5. gaggajātakaṃ
+jat 2. 1. 6.  	 kn-jat-2-1-6  	 kn-jat      	          32	           64	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 6. alīnacittajātakaṃ
+jat 2. 1. 7.  	 kn-jat-2-1-7  	 kn-jat      	          32	           64	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 7. guṇajātakaṃ
+jat 2. 1. 8.  	 kn-jat-2-1-8  	 kn-jat      	          32	           66	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 8. suhanujātakaṃ
+jat 2. 1. 9.  	 kn-jat-2-1-9  	 kn-jat      	          32	           66	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 9. morajātakaṃ
+jat 2. 1. 10. 	 kn-jat-2-1-10 	 kn-jat      	          32	           68	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 1. daḷhavaggo            	 10. vinīlakajātakaṃ
+jat 2. 2. 1.  	 kn-jat-2-2-1  	 kn-jat      	          32	           70	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 1. indasamānagottajātakaṃ
+jat 2. 2. 2.  	 kn-jat-2-2-2  	 kn-jat      	          32	           70	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 2. santhavajātakaṃ
+jat 2. 2. 3.  	 kn-jat-2-2-3  	 kn-jat      	          32	           70	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 3. susīmajātakaṃ
+jat 2. 2. 4.  	 kn-jat-2-2-4  	 kn-jat      	          32	           72	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 4. gijjhajātakaṃ
+jat 2. 2. 5.  	 kn-jat-2-2-5  	 kn-jat      	          32	           72	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 5. nakulajātakaṃ
+jat 2. 2. 6.  	 kn-jat-2-2-6  	 kn-jat      	          32	           72	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 6. upasāḷhajātakaṃ
+jat 2. 2. 7.  	 kn-jat-2-2-7  	 kn-jat      	          32	           72	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 7. samiddhijātakaṃ
+jat 2. 2. 8.  	 kn-jat-2-2-8  	 kn-jat      	          32	           74	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 8. sakuṇagghijātakaṃ
+jat 2. 2. 9.  	 kn-jat-2-2-9  	 kn-jat      	          32	           74	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 9. arakajātakaṃ
+jat 2. 2. 10. 	 kn-jat-2-2-10 	 kn-jat      	          32	           74	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 2. santhavavaggo         	 10. kakaṇṭaka jātakaṃ
+jat 2. 3. 1.  	 kn-jat-2-3-1  	 kn-jat      	          32	           76	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 1. kalyāṇadhammajātakaṃ
+jat 2. 3. 2.  	 kn-jat-2-3-2  	 kn-jat      	          32	           76	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 2. daddarajātakaṃ
+jat 2. 3. 3.  	 kn-jat-2-3-3  	 kn-jat      	          32	           76	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 3. makkaṭajātakaṃ
+jat 2. 3. 4.  	 kn-jat-2-3-4  	 kn-jat      	          32	           76	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 4. dutiyamakkaṭajātakaṃ
+jat 2. 3. 5.  	 kn-jat-2-3-5  	 kn-jat      	          32	           78	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 5. ādiccupaṭṭhānajātakaṃ
+jat 2. 3. 6.  	 kn-jat-2-3-6  	 kn-jat      	          32	           78	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 6. kaḷāyamuṭṭhijātakaṃ
+jat 2. 3. 7.  	 kn-jat-2-3-7  	 kn-jat      	          32	           78	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 7. tindukajātakaṃ
+jat 2. 3. 8.  	 kn-jat-2-3-8  	 kn-jat      	          32	           80	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 8. kacchapajātakaṃ
+jat 2. 3. 9.  	 kn-jat-2-3-9  	 kn-jat      	          32	           80	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 9. satadhammajātakaṃ
+jat 2. 3. 10. 	 kn-jat-2-3-10 	 kn-jat      	          32	           80	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 3. kalyāṇadhammavaggo    	 10. duddadajātakaṃ
+jat 2. 4. 1.  	 kn-jat-2-4-1  	 kn-jat      	          32	           82	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 1. asadisajātakaṃ
+jat 2. 4. 2.  	 kn-jat-2-4-2  	 kn-jat      	          32	           82	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 2. saṅgāmāvacarajātakaṃ
+jat 2. 4. 3.  	 kn-jat-2-4-3  	 kn-jat      	          32	           82	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 3. vāḷodakajātakaṃ
+jat 2. 4. 4.  	 kn-jat-2-4-4  	 kn-jat      	          32	           82	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 4. giridattajātakaṃ
+jat 2. 4. 5.  	 kn-jat-2-4-5  	 kn-jat      	          32	           84	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 5. anabhiratijātakaṃ
+jat 2. 4. 6.  	 kn-jat-2-4-6  	 kn-jat      	          32	           84	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 6. dadhivāhanajātakaṃ
+jat 2. 4. 7.  	 kn-jat-2-4-7  	 kn-jat      	          32	           84	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 7. catumaṭṭhajātakaṃ
+jat 2. 4. 8.  	 kn-jat-2-4-8  	 kn-jat      	          32	           86	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 8. sīhakotthukajātakaṃ
+jat 2. 4. 9.  	 kn-jat-2-4-9  	 kn-jat      	          32	           86	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 9. sīhacammajātakaṃ
+jat 2. 4. 10. 	 kn-jat-2-4-10 	 kn-jat      	          32	           86	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 4. asadisavaggo          	 10. sīlānisaṃsajātakaṃ
+jat 2. 5. 1.  	 kn-jat-2-5-1  	 kn-jat      	          32	           88	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 1. ruhakajātakaṃ
+jat 2. 5. 2.  	 kn-jat-2-5-2  	 kn-jat      	          32	           88	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 2. sirikālakaṇṇi jātakaṃ
+jat 2. 5. 3.  	 kn-jat-2-5-3  	 kn-jat      	          32	           88	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 3. cullapadumajātakaṃ
+jat 2. 5. 4.  	 kn-jat-2-5-4  	 kn-jat      	          32	           90	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 4. maṇicorajātakaṃ
+jat 2. 5. 5.  	 kn-jat-2-5-5  	 kn-jat      	          32	           90	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 5. pabbatūpattharajātakaṃ
+jat 2. 5. 6.  	 kn-jat-2-5-6  	 kn-jat      	          32	           90	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 6. valāhassajātakaṃ
+jat 2. 5. 7.  	 kn-jat-2-5-7  	 kn-jat      	          32	           90	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 7. mittāmittajātakaṃ
+jat 2. 5. 8.  	 kn-jat-2-5-8  	 kn-jat      	          32	           92	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 8. rādhajātakaṃ
+jat 2. 5. 9.  	 kn-jat-2-5-9  	 kn-jat      	          32	           92	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 9. gahapatijātakaṃ
+jat 2. 5. 10. 	 kn-jat-2-5-10 	 kn-jat      	          32	           92	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 5. ruhakavaggo           	 10. sādhusīlajātakaṃ
+jat 2. 6. 1.  	 kn-jat-2-6-1  	 kn-jat      	          32	           94	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 1. bandhanāgārajātakaṃ
+jat 2. 6. 2.  	 kn-jat-2-6-2  	 kn-jat      	          32	           94	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 2. keḷisīlajātakaṃ
+jat 2. 6. 3.  	 kn-jat-2-6-3  	 kn-jat      	          32	           96	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 3. khandhavattajātakaṃ
+jat 2. 6. 4.  	 kn-jat-2-6-4  	 kn-jat      	          32	           96	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 4. vīrakajātakaṃ
+jat 2. 6. 5.  	 kn-jat-2-6-5  	 kn-jat      	          32	           96	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 5. gaṅgeyyajātakaṃ
+jat 2. 6. 6.  	 kn-jat-2-6-6  	 kn-jat      	          32	           96	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 6. kuruṅgamigajātakaṃ
+jat 2. 6. 7.  	 kn-jat-2-6-7  	 kn-jat      	          32	           98	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 7. assakajātakaṃ
+jat 2. 6. 8.  	 kn-jat-2-6-8  	 kn-jat      	          32	           98	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 8. suṃsumārajātakaṃ
+jat 2. 6. 9.  	 kn-jat-2-6-9  	 kn-jat      	          32	           98	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 9. kakkarajātakaṃ
+jat 2. 6. 10. 	 kn-jat-2-6-10 	 kn-jat      	          32	           98	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 6. nataṃdaḷhavaggo       	 10. kandagaḷakajātakaṃ
+jat 2. 7. 1.  	 kn-jat-2-7-1  	 kn-jat      	          32	          100	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 1. somadatta jātakaṃ
+jat 2. 7. 2.  	 kn-jat-2-7-2  	 kn-jat      	          32	          100	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 2. ucchiṭṭhabhattajātakaṃ
+jat 2. 7. 3.  	 kn-jat-2-7-3  	 kn-jat      	          32	          100	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 3. bharujātakaṃ
+jat 2. 7. 4.  	 kn-jat-2-7-4  	 kn-jat      	          32	          100	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 4. puṇṇanadījātakaṃ
+jat 2. 7. 5.  	 kn-jat-2-7-5  	 kn-jat      	          32	          102	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 5. kacchapajātakaṃ
+jat 2. 7. 6.  	 kn-jat-2-7-6  	 kn-jat      	          32	          102	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 6. macchajātakaṃ
+jat 2. 7. 7.  	 kn-jat-2-7-7  	 kn-jat      	          32	          102	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 7. seggujātakaṃ
+jat 2. 7. 8.  	 kn-jat-2-7-8  	 kn-jat      	          32	          104	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 8. kūṭavāṇijajātakaṃ
+jat 2. 7. 9.  	 kn-jat-2-7-9  	 kn-jat      	          32	          104	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 9. garahitajātakaṃ
+jat 2. 7. 10. 	 kn-jat-2-7-10 	 kn-jat      	          32	          104	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 7. bīraṇatthambhaka vaggo	 10. dhammaddhajajātakaṃ
+jat 2. 8. 1.  	 kn-jat-2-8-1  	 kn-jat      	          32	          106	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 1. kāsāvajātakaṃ
+jat 2. 8. 2.  	 kn-jat-2-8-2  	 kn-jat      	          32	          106	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 2. cūḷanandiyajātakaṃ
+jat 2. 8. 3.  	 kn-jat-2-8-3  	 kn-jat      	          32	          106	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 3. puṭabhattajātakaṃ
+jat 2. 8. 4.  	 kn-jat-2-8-4  	 kn-jat      	          32	          108	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 4. kumbhīlajātakaṃ
+jat 2. 8. 5.  	 kn-jat-2-8-5  	 kn-jat      	          32	          108	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 5. khantivaṇṇanajātakaṃ
+jat 2. 8. 6.  	 kn-jat-2-8-6  	 kn-jat      	          32	          108	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 6. kosiyajātakaṃ
+jat 2. 8. 7.  	 kn-jat-2-8-7  	 kn-jat      	          32	          108	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 7. gūthapāṇakajātakaṃ
+jat 2. 8. 8.  	 kn-jat-2-8-8  	 kn-jat      	          32	          110	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 8. kāmanītajātakaṃ
+jat 2. 8. 9.  	 kn-jat-2-8-9  	 kn-jat      	          32	          110	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 9. palāsijātakaṃ
+jat 2. 8. 10. 	 kn-jat-2-8-10 	 kn-jat      	          32	          110	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 8. kāsāvavaggo           	 10. dutiyapalāsijātakaṃ
+jat 2. 9. 1.  	 kn-jat-2-9-1  	 kn-jat      	          32	          112	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 1. upāhanajātakaṃ
+jat 2. 9. 2.  	 kn-jat-2-9-2  	 kn-jat      	          32	          112	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 2. vīṇāthūṇajātakaṃ
+jat 2. 9. 3.  	 kn-jat-2-9-3  	 kn-jat      	          32	          112	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 3. vikaṇṇakajātakaṃ
+jat 2. 9. 4.  	 kn-jat-2-9-4  	 kn-jat      	          32	          114	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 4. asitābhūjātakaṃ
+jat 2. 9. 5.  	 kn-jat-2-9-5  	 kn-jat      	          32	          114	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 5. vacchanakhajātakaṃ
+jat 2. 9. 6.  	 kn-jat-2-9-6  	 kn-jat      	          32	          114	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 6. bakajātakaṃ
+jat 2. 9. 7.  	 kn-jat-2-9-7  	 kn-jat      	          32	          114	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 7. sāketajātakaṃ
+jat 2. 9. 8.  	 kn-jat-2-9-8  	 kn-jat      	          32	          116	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 8. ekapadajātakaṃ
+jat 2. 9. 9.  	 kn-jat-2-9-9  	 kn-jat      	          32	          116	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 9. haritamātujātakaṃ
+jat 2. 9. 10. 	 kn-jat-2-9-10 	 kn-jat      	          32	          116	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 9. upāhanavaggo          	 10. mahāpiṅgalajātakaṃ
+jat 2. 10. 1. 	 kn-jat-2-10-1 	 kn-jat      	          32	          118	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 1. sabbadāṭhajātakaṃ
+jat 2. 10. 2. 	 kn-jat-2-10-2 	 kn-jat      	          32	          118	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 2. sunakhajātakaṃ
+jat 2. 10. 3. 	 kn-jat-2-10-3 	 kn-jat      	          32	          118	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 3. guttilajātakaṃ
+jat 2. 10. 4. 	 kn-jat-2-10-4 	 kn-jat      	          32	          120	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 4. vīticchajātakaṃ
+jat 2. 10. 5. 	 kn-jat-2-10-5 	 kn-jat      	          32	          120	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 5. mūlapariyāyajātakaṃ
+jat 2. 10. 6. 	 kn-jat-2-10-6 	 kn-jat      	          32	          120	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 6. telovādajātakaṃ
+jat 2. 10. 7. 	 kn-jat-2-10-7 	 kn-jat      	          32	          120	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 7. pādañjalijātakaṃ
+jat 2. 10. 8. 	 kn-jat-2-10-8 	 kn-jat      	          32	          122	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 8. kiṃsukopamajātakaṃ
+jat 2. 10. 9. 	 kn-jat-2-10-9 	 kn-jat      	          32	          122	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 9. sālakajātakaṃ
+jat 2. 10. 10.	 kn-jat-2-10-10	 kn-jat      	          32	          122	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 2. dukanipāto      	 10. sigālavaggo          	 10. kapijātakaṃ
+jat 3. 1. 1.  	 kn-jat-3-1-1  	 kn-jat      	          32	          124	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 1. saṅkappajātakaṃ
+jat 3. 1. 2.  	 kn-jat-3-1-2  	 kn-jat      	          32	          124	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 2. tilamuṭṭhijātakaṃ
+jat 3. 1. 3.  	 kn-jat-3-1-3  	 kn-jat      	          32	          126	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 3. maṇikaṇṭhajātakaṃ
+jat 3. 1. 4.  	 kn-jat-3-1-4  	 kn-jat      	          32	          126	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 4. kuṇḍakakucchisindhavajātakaṃ
+jat 3. 1. 5.  	 kn-jat-3-1-5  	 kn-jat      	          32	          126	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 5. sukajātakaṃ
+jat 3. 1. 6.  	 kn-jat-3-1-6  	 kn-jat      	          32	          128	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 6. jarūdapānajātakaṃ
+jat 3. 1. 7.  	 kn-jat-3-1-7  	 kn-jat      	          32	          128	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 7. gāmaṇīcaṇḍajātakaṃ
+jat 3. 1. 8.  	 kn-jat-3-1-8  	 kn-jat      	          32	          128	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 8. mandhātujātakaṃ
+jat 3. 1. 9.  	 kn-jat-3-1-9  	 kn-jat      	          32	          130	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 9. tirīṭavacchajātakaṃ
+jat 3. 1. 10. 	 kn-jat-3-1-10 	 kn-jat      	          32	          130	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 1. saṅkappavaggo         	 10. dūtajātakaṃ
+jat 3. 2. 1.  	 kn-jat-3-2-1  	 kn-jat      	          32	          132	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 1. padumajātakaṃ
+jat 3. 2. 2.  	 kn-jat-3-2-2  	 kn-jat      	          32	          132	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 2. mudupāṇījātakaṃ
+jat 3. 2. 3.  	 kn-jat-3-2-3  	 kn-jat      	          32	          132	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 3. cullapalobhanajātakaṃ
+jat 3. 2. 4.  	 kn-jat-3-2-4  	 kn-jat      	          32	          134	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 4. mahāpaṇādajātakaṃ
+jat 3. 2. 5.  	 kn-jat-3-2-5  	 kn-jat      	          32	          134	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 5. khurappajātakaṃ
+jat 3. 2. 6.  	 kn-jat-3-2-6  	 kn-jat      	          32	          134	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 6. vātaggajātakaṃ
+jat 3. 2. 7.  	 kn-jat-3-2-7  	 kn-jat      	          32	          134	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 7. kakkaṭakajātakaṃ
+jat 3. 2. 8.  	 kn-jat-3-2-8  	 kn-jat      	          32	          136	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 8. ārāmadūsakajātakaṃ
+jat 3. 2. 9.  	 kn-jat-3-2-9  	 kn-jat      	          32	          136	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 9. sujātajātakaṃ
+jat 3. 2. 10. 	 kn-jat-3-2-10 	 kn-jat      	          32	          136	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 2. padumavaggo           	 10. ulūkajātakaṃ
+jat 3. 3. 1.  	 kn-jat-3-3-1  	 kn-jat      	          32	          138	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 1. udapānadūsakajātakaṃ
+jat 3. 3. 2.  	 kn-jat-3-3-2  	 kn-jat      	          32	          138	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 2. vyagghajātakaṃ
+jat 3. 3. 3.  	 kn-jat-3-3-3  	 kn-jat      	          32	          138	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 3. kacchapajātakaṃ
+jat 3. 3. 4.  	 kn-jat-3-3-4  	 kn-jat      	          32	          140	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 4. lolajātakaṃ
+jat 3. 3. 5.  	 kn-jat-3-3-5  	 kn-jat      	          32	          140	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 5. rucirajātakaṃ
+jat 3. 3. 6.  	 kn-jat-3-3-6  	 kn-jat      	          32	          142	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 6. kurudhammajātakaṃ
+jat 3. 3. 7.  	 kn-jat-3-3-7  	 kn-jat      	          32	          142	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 7. romakajātakaṃ
+jat 3. 3. 8.  	 kn-jat-3-3-8  	 kn-jat      	          32	          142	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 8. mahisajātakaṃ
+jat 3. 3. 9.  	 kn-jat-3-3-9  	 kn-jat      	          32	          144	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 9. satapattajātakaṃ
+jat 3. 3. 10. 	 kn-jat-3-3-10 	 kn-jat      	          32	          144	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 3. araññavaggo           	 10. puṭadūsakajātakaṃ
+jat 3. 4. 1.  	 kn-jat-3-4-1  	 kn-jat      	          32	          146	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 1. abbhantarajātakaṃ
+jat 3. 4. 2.  	 kn-jat-3-4-2  	 kn-jat      	          32	          146	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 2. seyyaṃsajātakaṃ
+jat 3. 4. 3.  	 kn-jat-3-4-3  	 kn-jat      	          32	          148	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 3. vaḍḍhakīsūkarajātakaṃ
+jat 3. 4. 4.  	 kn-jat-3-4-4  	 kn-jat      	          32	          148	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 4. sirijātakaṃ
+jat 3. 4. 5.  	 kn-jat-3-4-5  	 kn-jat      	          32	          148	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 5. maṇisūkarajātakaṃ
+jat 3. 4. 6.  	 kn-jat-3-4-6  	 kn-jat      	          32	          150	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 6. sālukajātakaṃ
+jat 3. 4. 7.  	 kn-jat-3-4-7  	 kn-jat      	          32	          150	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 7. lābhagarahajātakaṃ
+jat 3. 4. 8.  	 kn-jat-3-4-8  	 kn-jat      	          32	          152	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 8. macchuddānajātakaṃ
+jat 3. 4. 9.  	 kn-jat-3-4-9  	 kn-jat      	          32	          152	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 9. nānācchandajātakaṃ
+jat 3. 4. 10. 	 kn-jat-3-4-10 	 kn-jat      	          32	          152	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 4. abbhantaravaggo       	 10. sīlavīmaṃsajātakaṃ
+jat 3. 5. 1.  	 kn-jat-3-5-1  	 kn-jat      	          32	          154	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 1. bhadraghaṭajātakaṃ
+jat 3. 5. 2.  	 kn-jat-3-5-2  	 kn-jat      	          32	          154	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 2. supattajātakaṃ
+jat 3. 5. 3.  	 kn-jat-3-5-3  	 kn-jat      	          32	          154	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 3. kāyavicchandajātakaṃ
+jat 3. 5. 4.  	 kn-jat-3-5-4  	 kn-jat      	          32	          156	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 4. jambukhādakajātakaṃ
+jat 3. 5. 5.  	 kn-jat-3-5-5  	 kn-jat      	          32	          156	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 5. antajātakaṃ
+jat 3. 5. 6.  	 kn-jat-3-5-6  	 kn-jat      	          32	          156	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 6. samuddajātakaṃ
+jat 3. 5. 7.  	 kn-jat-3-5-7  	 kn-jat      	          32	          158	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 7. kāmavilāpajātakaṃ
+jat 3. 5. 8.  	 kn-jat-3-5-8  	 kn-jat      	          32	          158	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 8. udumbarajātakaṃ
+jat 3. 5. 9.  	 kn-jat-3-5-9  	 kn-jat      	          32	          160	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 9. komāyaputtajātakaṃ
+jat 3. 5. 10. 	 kn-jat-3-5-10 	 kn-jat      	          32	          160	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 3. tikanipāto      	 5. kumbhavaggo           	 10. vakajātakaṃ
+jat 4. 1. 1.  	 kn-jat-4-1-1  	 kn-jat      	          32	          162	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 1. cullakāliṅgajātakaṃ
+jat 4. 1. 2.  	 kn-jat-4-1-2  	 kn-jat      	          32	          164	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 2. mahāassārohajātakaṃ
+jat 4. 1. 3.  	 kn-jat-4-1-3  	 kn-jat      	          32	          164	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 3. ekarājajātakaṃ
+jat 4. 1. 4.  	 kn-jat-4-1-4  	 kn-jat      	          32	          166	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 4. daddarajātakaṃ
+jat 4. 1. 5.  	 kn-jat-4-1-5  	 kn-jat      	          32	          166	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 5. sīlavīmaṃsajātakaṃ
+jat 4. 1. 6.  	 kn-jat-4-1-6  	 kn-jat      	          32	          168	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 6. sujātājātakaṃ
+jat 4. 1. 7.  	 kn-jat-4-1-7  	 kn-jat      	          32	          168	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 7. palāsajātakaṃ
+jat 4. 1. 8.  	 kn-jat-4-1-8  	 kn-jat      	          32	          168	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 8. javasakuṇajātakaṃ
+jat 4. 1. 9.  	 kn-jat-4-1-9  	 kn-jat      	          32	          170	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 9. chavakajātakaṃ
+jat 4. 1. 10. 	 kn-jat-4-1-10 	 kn-jat      	          32	          170	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 1. vivaravaggo           	 10. sayhajātakaṃ
+jat 4. 2. 1.  	 kn-jat-4-2-1  	 kn-jat      	          32	          172	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 1. pucimandajātakaṃ
+jat 4. 2. 2.  	 kn-jat-4-2-2  	 kn-jat      	          32	          172	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 2. kassapamandiyajātakaṃ
+jat 4. 2. 3.  	 kn-jat-4-2-3  	 kn-jat      	          32	          174	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 3. khantivādijātakaṃ
+jat 4. 2. 4.  	 kn-jat-4-2-4  	 kn-jat      	          32	          174	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 4. lohakumbhijātakaṃ
+jat 4. 2. 5.  	 kn-jat-4-2-5  	 kn-jat      	          32	          174	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 5. māṃsajātakaṃ
+jat 4. 2. 6.  	 kn-jat-4-2-6  	 kn-jat      	          32	          176	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 6. sasajātakaṃ
+jat 4. 2. 7.  	 kn-jat-4-2-7  	 kn-jat      	          32	          176	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 7. matarodanajātakaṃ
+jat 4. 2. 8.  	 kn-jat-4-2-8  	 kn-jat      	          32	          178	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 8. kaṇaverajātakaṃ
+jat 4. 2. 9.  	 kn-jat-4-2-9  	 kn-jat      	          32	          178	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 9. tittirajātakaṃ
+jat 4. 2. 10. 	 kn-jat-4-2-10 	 kn-jat      	          32	          178	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 2. pucimandavaggo        	 10. succajajātakaṃ
+jat 4. 3. 1.  	 kn-jat-4-3-1  	 kn-jat      	          32	          180	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 1. kuṭidūsakajātakaṃ
+jat 4. 3. 2.  	 kn-jat-4-3-2  	 kn-jat      	          32	          180	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 2. daddabhajātakaṃ
+jat 4. 3. 3.  	 kn-jat-4-3-3  	 kn-jat      	          32	          182	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 3. brahmadattajātakaṃ
+jat 4. 3. 4.  	 kn-jat-4-3-4  	 kn-jat      	          32	          182	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 4. cammasāṭakajātakaṃ
+jat 4. 3. 5.  	 kn-jat-4-3-5  	 kn-jat      	          32	          182	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 5. godhajātakaṃ
+jat 4. 3. 6.  	 kn-jat-4-3-6  	 kn-jat      	          32	          184	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 6. kakkārujātakaṃ
+jat 4. 3. 7.  	 kn-jat-4-3-7  	 kn-jat      	          32	          184	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 7. kākātījātakaṃ
+jat 4. 3. 8.  	 kn-jat-4-3-8  	 kn-jat      	          32	          184	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 8. ananusociyajātakaṃ
+jat 4. 3. 9.  	 kn-jat-4-3-9  	 kn-jat      	          32	          186	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 9. kāḷabāhujātakaṃ
+jat 4. 3. 10. 	 kn-jat-4-3-10 	 kn-jat      	          32	          186	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 3. kuṭidūsakavaggo       	 10. sīlavīmaṃsajātakaṃ
+jat 4. 4. 1.  	 kn-jat-4-4-1  	 kn-jat      	          32	          188	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 1. kokālikajātakaṃ
+jat 4. 4. 2.  	 kn-jat-4-4-2  	 kn-jat      	          32	          188	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 2. rathalaṭṭhijātakaṃ
+jat 4. 4. 3.  	 kn-jat-4-4-3  	 kn-jat      	          32	          190	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 3. pakkagodhajātakaṃ
+jat 4. 4. 4.  	 kn-jat-4-4-4  	 kn-jat      	          32	          190	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 4. rājovādajātakaṃ
+jat 4. 4. 5.  	 kn-jat-4-4-5  	 kn-jat      	          32	          190	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 5. jambukajātakaṃ
+jat 4. 4. 6.  	 kn-jat-4-4-6  	 kn-jat      	          32	          192	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 6. brahāchattajātakaṃ
+jat 4. 4. 7.  	 kn-jat-4-4-7  	 kn-jat      	          32	          192	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 7. pīṭhajātakaṃ
+jat 4. 4. 8.  	 kn-jat-4-4-8  	 kn-jat      	          32	          192	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 8. thusajātakaṃ
+jat 4. 4. 9.  	 kn-jat-4-4-9  	 kn-jat      	          32	          194	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 9. bāverujātakaṃ
+jat 4. 4. 10. 	 kn-jat-4-4-10 	 kn-jat      	          32	          194	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 4. kokālika vaggo        	 10. visayhajātakaṃ
+jat 4. 5. 1.  	 kn-jat-4-5-1  	 kn-jat      	          32	          196	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 1. kinnarījātakaṃ
+jat 4. 5. 2.  	 kn-jat-4-5-2  	 kn-jat      	          32	          196	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 2. vānarajātakaṃ
+jat 4. 5. 3.  	 kn-jat-4-5-3  	 kn-jat      	          32	          198	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 3. kuntinījātakaṃ
+jat 4. 5. 4.  	 kn-jat-4-5-4  	 kn-jat      	          32	          198	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 4. ambacorajātakaṃ
+jat 4. 5. 5.  	 kn-jat-4-5-5  	 kn-jat      	          32	          200	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 5. gajakumbhajātakaṃ
+jat 4. 5. 6.  	 kn-jat-4-5-6  	 kn-jat      	          32	          200	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 6. kesavajātakaṃ
+jat 4. 5. 7.  	 kn-jat-4-5-7  	 kn-jat      	          32	          202	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 7. ayakūṭajātakaṃ
+jat 4. 5. 8.  	 kn-jat-4-5-8  	 kn-jat      	          32	          202	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 8. āraññajātakaṃ
+jat 4. 5. 9.  	 kn-jat-4-5-9  	 kn-jat      	          32	          204	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 9. sandhibhedajātakaṃ
+jat 4. 5. 10. 	 kn-jat-4-5-10 	 kn-jat      	          32	          204	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 4. catukkanipāto   	 5. cūḷakuṇālavaggo       	 10. devatāpañho
+jat 5. 1. 1.  	 kn-jat-5-1-1  	 kn-jat-5    	          32	          206	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 1. maṇikuṇḍalajātakaṃ
+jat 5. 1. 2.  	 kn-jat-5-1-2  	 kn-jat-5    	          32	          208	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 2. sujātajātakaṃ
+jat 5. 1. 3.  	 kn-jat-5-1-3  	 kn-jat-5    	          32	          208	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 3. dhonasākha jātakaṃ
+jat 5. 1. 4.  	 kn-jat-5-1-4  	 kn-jat-5    	          32	          210	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 4. uragajātakaṃ
+jat 5. 1. 5.  	 kn-jat-5-1-5  	 kn-jat-5    	          32	          212	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 5. ghatajātakaṃ
+jat 5. 1. 6.  	 kn-jat-5-1-6  	 kn-jat-5    	          32	          212	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 6. kāraṇḍiyajātakaṃ
+jat 5. 1. 7.  	 kn-jat-5-1-7  	 kn-jat-5    	          32	          214	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 7. laṭukikajātakaṃ
+jat 5. 1. 8.  	 kn-jat-5-1-8  	 kn-jat-5    	          32	          214	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 8. culladhammapālajātakaṃ
+jat 5. 1. 9.  	 kn-jat-5-1-9  	 kn-jat-5    	          32	          216	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 9. suvaṇṇamigajātakaṃ
+jat 5. 1. 10. 	 kn-jat-5-1-10 	 kn-jat-5    	          32	          216	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 1. maṇikuṇḍalavaggo      	 10. susandhijātakaṃ
+jat 5. 2. 1.  	 kn-jat-5-2-1  	 kn-jat-5    	          32	          218	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 1. vaṇṇārohajātakaṃ
+jat 5. 2. 2.  	 kn-jat-5-2-2  	 kn-jat-5    	          32	          218	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 2. sīlavīmaṃsa jātakaṃ
+jat 5. 2. 3.  	 kn-jat-5-2-3  	 kn-jat-5    	          32	          220	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 3. hirijātakaṃ
+jat 5. 2. 4.  	 kn-jat-5-2-4  	 kn-jat-5    	          32	          220	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 4. khajjopaṇakapañho
+jat 5. 2. 5.  	 kn-jat-5-2-5  	 kn-jat-5    	          32	          222	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 5. ahituṇḍikajātakaṃ
+jat 5. 2. 6.  	 kn-jat-5-2-6  	 kn-jat-5    	          32	          222	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 6. gumbiyajātakaṃ
+jat 5. 2. 7.  	 kn-jat-5-2-7  	 kn-jat-5    	          32	          224	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 7. sāḷiyajātakaṃ
+jat 5. 2. 8.  	 kn-jat-5-2-8  	 kn-jat-5    	          32	          224	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 8. tacasārajātakaṃ
+jat 5. 2. 9.  	 kn-jat-5-2-9  	 kn-jat-5    	          32	          226	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 9. mittavindakajātakaṃ
+jat 5. 2. 10. 	 kn-jat-5-2-10 	 kn-jat-5    	          32	          226	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 2. vaṇṇārohavaggo        	 10. palāsajātakaṃ
+jat 5. 3. 1.  	 kn-jat-5-3-1  	 kn-jat-5    	          32	          228	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 3. aḍḍhavaggo            	 1. dīghitikosalajātakaṃ
+jat 5. 3. 2.  	 kn-jat-5-3-2  	 kn-jat-5    	          32	          230	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 3. aḍḍhavaggo            	 2. migapotajātakaṃ
+jat 5. 3. 3.  	 kn-jat-5-3-3  	 kn-jat-5    	          32	          230	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 3. aḍḍhavaggo            	 3. mūsikajātakaṃ
+jat 5. 3. 4.  	 kn-jat-5-3-4  	 kn-jat-5    	          32	          232	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 3. aḍḍhavaggo            	 4. culladhanuggahajātakaṃ
+jat 5. 3. 5.  	 kn-jat-5-3-5  	 kn-jat-5    	          32	          232	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 5. pañcakanipāto   	 3. aḍḍhavaggo            	 5. kapotajātakaṃ
+jat 6. 1. 1.  	 kn-jat-6-1-1  	 kn-jat-5    	          32	          234	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 1. avāriyajātakaṃ
+jat 6. 1. 2.  	 kn-jat-6-1-2  	 kn-jat-5    	          32	          236	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 2. setaketujātakaṃ
+jat 6. 1. 3.  	 kn-jat-6-1-3  	 kn-jat-5    	          32	          238	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 3. darīmukhajātakaṃ
+jat 6. 1. 4.  	 kn-jat-6-1-4  	 kn-jat-5    	          32	          238	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 4. nerujātakaṃ
+jat 6. 1. 5.  	 kn-jat-6-1-5  	 kn-jat-5    	          32	          240	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 5. āsaṅkajātakaṃ
+jat 6. 1. 6.  	 kn-jat-6-1-6  	 kn-jat-5    	          32	          240	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 6. migālopajātakaṃ
+jat 6. 1. 7.  	 kn-jat-6-1-7  	 kn-jat-5    	          32	          244	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 7. sirikālakaṇṇijātakaṃ
+jat 6. 1. 8.  	 kn-jat-6-1-8  	 kn-jat-5    	          32	          246	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 8. kukkuṭajātakaṃ
+jat 6. 1. 9.  	 kn-jat-6-1-9  	 kn-jat-5    	          32	          248	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 9. dhammadhajajātakaṃ
+jat 6. 1. 10. 	 kn-jat-6-1-10 	 kn-jat-5    	          32	          248	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 1. avāriyavaggo          	 10. nandiyamigajātakaṃ
+jat 6. 2. 1.  	 kn-jat-6-2-1  	 kn-jat-5    	          32	          250	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 1. kharaputtajātakaṃ
+jat 6. 2. 2.  	 kn-jat-6-2-2  	 kn-jat-5    	          32	          252	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 2. sūcijātakaṃ
+jat 6. 2. 3.  	 kn-jat-6-2-3  	 kn-jat-5    	          32	          252	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 3. tuṇḍilajātakaṃ
+jat 6. 2. 4.  	 kn-jat-6-2-4  	 kn-jat-5    	          32	          254	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 4. suvaṇṇakakkaṭaka jātakaṃ
+jat 6. 2. 5.  	 kn-jat-6-2-5  	 kn-jat-5    	          32	          256	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 5. mayhakajātakaṃ
+jat 6. 2. 6.  	 kn-jat-6-2-6  	 kn-jat-5    	          32	          258	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 6. dhajaviheṭhajātakaṃ
+jat 6. 2. 7.  	 kn-jat-6-2-7  	 kn-jat-5    	          32	          258	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 7. bhisapupphajātakaṃ
+jat 6. 2. 8.  	 kn-jat-6-2-8  	 kn-jat-5    	          32	          260	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 8. vighāsajātakaṃ
+jat 6. 2. 9.  	 kn-jat-6-2-9  	 kn-jat-5    	          32	          260	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 9. vaṭṭakajātakaṃ
+jat 6. 2. 10. 	 kn-jat-6-2-10 	 kn-jat-5    	          32	          262	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 6. chakkanipāto    	 2. senakavaggo           	 10. kākajātakaṃ
+jat 7. 1. 1.  	 kn-jat-7-1-1  	 kn-jat-5    	          32	          264	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 1. kukkujātakaṃ
+jat 7. 1. 2.  	 kn-jat-7-1-2  	 kn-jat-5    	          32	          266	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 2. manojajātakaṃ
+jat 7. 1. 3.  	 kn-jat-7-1-3  	 kn-jat-5    	          32	          268	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 3. sutanujātakaṃ
+jat 7. 1. 4.  	 kn-jat-7-1-4  	 kn-jat-5    	          32	          268	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 4. gijjhajātakaṃ
+jat 7. 1. 5.  	 kn-jat-7-1-5  	 kn-jat-5    	          32	          270	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 5. dab_hapupphajātakaṃ
+jat 7. 1. 6.  	 kn-jat-7-1-6  	 kn-jat-5    	          32	          272	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 6. dasaṇṇakajātakaṃ
+jat 7. 1. 7.  	 kn-jat-7-1-7  	 kn-jat-5    	          32	          274	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 7. sattubhastajātakaṃ
+jat 7. 1. 8.  	 kn-jat-7-1-8  	 kn-jat-5    	          32	          276	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 8. aṭṭhisenajātakaṃ
+jat 7. 1. 9.  	 kn-jat-7-1-9  	 kn-jat-5    	          32	          278	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 9. kapijātakaṃ
+jat 7. 1. 10. 	 kn-jat-7-1-10 	 kn-jat-5    	          32	          280	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 1. kukkuvaggo            	 10. bakabrahmajātakaṃ
+jat 7. 2. 1.  	 kn-jat-7-2-1  	 kn-jat-5    	          32	          282	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 1. gandhārajātakaṃ
+jat 7. 2. 2.  	 kn-jat-7-2-2  	 kn-jat-5    	          32	          284	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 2. mahākapijātakaṃ
+jat 7. 2. 3.  	 kn-jat-7-2-3  	 kn-jat-5    	          32	          286	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 3. kumbhakārajātakaṃ
+jat 7. 2. 4.  	 kn-jat-7-2-4  	 kn-jat-5    	          32	          288	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 4. daḷhadhammajātakaṃ
+jat 7. 2. 5.  	 kn-jat-7-2-5  	 kn-jat-5    	          32	          288	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 5. somadattajātakaṃ
+jat 7. 2. 6.  	 kn-jat-7-2-6  	 kn-jat-5    	          32	          290	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 6. susīmajātakaṃ
+jat 7. 2. 7.  	 kn-jat-7-2-7  	 kn-jat-5    	          32	          292	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 7. koṭisimbalijātakaṃ
+jat 7. 2. 8.  	 kn-jat-7-2-8  	 kn-jat-5    	          32	          294	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 8. dhūmakārijātakaṃ
+jat 7. 2. 9.  	 kn-jat-7-2-9  	 kn-jat-5    	          32	          294	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 9. jāgarajātakaṃ
+jat 7. 2. 10. 	 kn-jat-7-2-10 	 kn-jat-5    	          32	          298	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 10. kummāsapiṇḍajātakaṃ
+jat 7. 2. 11. 	 kn-jat-7-2-11 	 kn-jat-5    	          32	          300	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 7. sattakanipātaṃ  	 2. gandhāravaggo         	 11. parantapajātakaṃ
+jat 8. 1.     	 kn-jat-8-1    	 kn-jat-5    	          32	          304	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 1. kaccānijātakaṃ
+jat 8. 2.     	 kn-jat-8-2    	 kn-jat-5    	          32	          304	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 2. aṭṭhasaddajātakaṃ
+jat 8. 3.     	 kn-jat-8-3    	 kn-jat-5    	          32	          306	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 3. sulasājātakaṃ
+jat 8. 4.     	 kn-jat-8-4    	 kn-jat-5    	          32	          310	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 4. sumaṅgalajātakaṃ
+jat 8. 5.     	 kn-jat-8-5    	 kn-jat-5    	          32	          312	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 5. gaṅgamālajātakaṃ
+jat 8. 6.     	 kn-jat-8-6    	 kn-jat-5    	          32	          314	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 6. cetiyajātakaṃ
+jat 8. 7.     	 kn-jat-8-7    	 kn-jat-5    	          32	          316	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 7. indriyajātakaṃ
+jat 8. 8.     	 kn-jat-8-8    	 kn-jat-5    	          32	          318	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 8. ādittajātakaṃ
+jat 8. 9.     	 kn-jat-8-9    	 kn-jat-5    	          32	          320	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 9. aṭṭhānajātakaṃ
+jat 8. 10.    	 kn-jat-8-10   	 kn-jat-5    	          32	          322	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 8. aṭṭhakanipāto   	                          	 10. dīpijātakaṃ
+jat 9. 1.     	 kn-jat-9-1    	 kn-jat-5    	          32	          324	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 1. gijjhajātakaṃ
+jat 9. 2.     	 kn-jat-9-2    	 kn-jat-5    	          32	          326	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 2. kosambajātakaṃ
+jat 9. 3.     	 kn-jat-9-3    	 kn-jat-5    	          32	          330	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 3. mahāsukajātakaṃ
+jat 9. 4.     	 kn-jat-9-4    	 kn-jat-5    	          32	          332	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 4. cullasukajātakaṃ
+jat 9. 5.     	 kn-jat-9-5    	 kn-jat-5    	          32	          332	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 5. hāritajātakaṃ
+jat 9. 6.     	 kn-jat-9-6    	 kn-jat-5    	          32	          334	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 6. padamāṇavakajātakaṃ
+jat 9. 7.     	 kn-jat-9-7    	 kn-jat-5    	          32	          336	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 7. lomasakassapajātakaṃ
+jat 9. 8.     	 kn-jat-9-8    	 kn-jat-5    	          32	          338	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 8. cakkavākajātakaṃ
+jat 9. 9.     	 kn-jat-9-9    	 kn-jat-5    	          32	          340	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 9. haḷiddirāgajātakaṃ
+jat 9. 10.    	 kn-jat-9-10   	 kn-jat-5    	          32	          344	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 10. samuggajātakaṃ
+jat 9. 11.    	 kn-jat-9-11   	 kn-jat-5    	          32	          344	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 11. pūtimaṃsajātakaṃ
+jat 9. 12.    	 kn-jat-9-12   	 kn-jat-5    	          32	          346	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 9. navakanipāto    	                          	 12. tittirajātakaṃ
+jat 10. 1.    	 kn-jat-10-1   	 kn-jat-5    	          32	          348	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 1. catudvārajātakaṃ
+jat 10. 2.    	 kn-jat-10-2   	 kn-jat-5    	          32	          350	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 2. kaṇhajātakaṃ
+jat 10. 3.    	 kn-jat-10-3   	 kn-jat-5    	          32	          354	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 3. catuposathikajātakaṃ
+jat 10. 4.    	 kn-jat-10-4   	 kn-jat-5    	          32	          356	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 4. saṅkhajātakaṃ
+jat 10. 5.    	 kn-jat-10-5   	 kn-jat-5    	          32	          360	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 5. cullabodhijātakaṃ
+jat 10. 6.    	 kn-jat-10-6   	 kn-jat-5    	          32	          362	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 6. kaṇhadīpāyanajātakaṃ
+jat 10. 7.    	 kn-jat-10-7   	 kn-jat-5    	          32	          364	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 7. nigrodhajātakaṃ
+jat 10. 8.    	 kn-jat-10-8   	 kn-jat-5    	          32	          368	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 8. takkalajātakaṃ
+jat 10. 9.    	 kn-jat-10-9   	 kn-jat-5    	          32	          370	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 9. mahādhammapālajātakaṃ
+jat 10. 10.   	 kn-jat-10-10  	 kn-jat-5    	          32	          372	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 10. kukkuṭajātakaṃ
+jat 10. 11.   	 kn-jat-10-11  	 kn-jat-5    	          32	          374	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 11. maṭṭakuṇḍalījātakaṃ
+jat 10. 12.   	 kn-jat-10-12  	 kn-jat-5    	          32	          376	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 12. khiḷārakosiyajātakaṃ
+jat 10. 13.   	 kn-jat-10-13  	 kn-jat-5    	          32	          378	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 13. cakkavākajātakaṃ
+jat 10. 14.   	 kn-jat-10-14  	 kn-jat-5    	          32	          382	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 14. bhūripaññajātakaṃ
+jat 10. 15.   	 kn-jat-10-15  	 kn-jat-5    	          32	          384	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 15. mahāmaṅgalajātakaṃ
+jat 10. 16.   	 kn-jat-10-16  	 kn-jat-5    	          32	          386	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 10. dasakanipāto   	                          	 16. ghatapaṇḍitajātakaṃ
+jat 11. 1.    	 kn-jat-11-1   	 kn-jat-11   	          32	          388	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 1. mātuposakajātakaṃ
+jat 11. 2.    	 kn-jat-11-2   	 kn-jat-11   	          32	          392	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 2. juṇhajātakaṃ
+jat 11. 3.    	 kn-jat-11-3   	 kn-jat-11   	          32	          394	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 3. dhammajātakaṃ
+jat 11. 4.    	 kn-jat-11-4   	 kn-jat-11   	          32	          400	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 4. udayajātakaṃ
+jat 11. 5.    	 kn-jat-11-5   	 kn-jat-11   	          32	          402	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 5. pānīyajātakaṃ
+jat 11. 6.    	 kn-jat-11-6   	 kn-jat-11   	          32	          404	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 6. yudhañjaya jātakaṃ
+jat 11. 7.    	 kn-jat-11-7   	 kn-jat-11   	          32	          406	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 7. dasarathajātakaṃ
+jat 11. 8.    	 kn-jat-11-8   	 kn-jat-11   	          32	          408	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 8. saṃvarajātakaṃ
+jat 11. 9.    	 kn-jat-11-9   	 kn-jat-11   	          32	          410	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 11. ekādasakanipāto	                          	 9. suppārakajātakaṃ
+jat 12. 1.    	 kn-jat-12-1   	 kn-jat-11   	          32	          414	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 1. cūḷakuṇālajātakaṃ
+jat 12. 2.    	 kn-jat-12-2   	 kn-jat-11   	          32	          416	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 2. bhaddasāla jātakaṃ
+jat 12. 3.    	 kn-jat-12-3   	 kn-jat-11   	          32	          420	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 3. samuddavāṇija jātakaṃ
+jat 12. 4.    	 kn-jat-12-4   	 kn-jat-11   	          32	          422	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 4. kāmajātakaṃ
+jat 12. 5.    	 kn-jat-12-5   	 kn-jat-11   	          32	          424	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 5. janasandha jātakaṃ
+jat 12. 6.    	 kn-jat-12-6   	 kn-jat-11   	          32	          426	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 6. mahākaṇha jātakaṃ
+jat 12. 7.    	 kn-jat-12-7   	 kn-jat-11   	          32	          430	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 7. kosiyajātakaṃ
+jat 12. 8.    	 kn-jat-12-8   	 kn-jat-11   	          32	          434	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 8. meṇḍakapañho
+jat 12. 9.    	 kn-jat-12-9   	 kn-jat-11   	          32	          436	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 9. mahāpadumajātakaṃ
+jat 12. 10.   	 kn-jat-12-10  	 kn-jat-11   	          32	          440	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 12. dvādasakanipāto	                          	 10. mittāmittajātakaṃ
+jat 13. 1.    	 kn-jat-13-1   	 kn-jat-11   	          32	          444	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 1. ambajātakaṃ
+jat 13. 2.    	 kn-jat-13-2   	 kn-jat-11   	          32	          448	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 2. phandanajātakaṃ
+jat 13. 3.    	 kn-jat-13-3   	 kn-jat-11   	          32	          450	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 3. javanahaṃsajātakaṃ
+jat 13. 4.    	 kn-jat-13-4   	 kn-jat-11   	          32	          452	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 4. cullanāradajātakaṃ
+jat 13. 5.    	 kn-jat-13-5   	 kn-jat-11   	          32	          454	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 5. dūtajātakaṃ
+jat 13. 6.    	 kn-jat-13-6   	 kn-jat-11   	          32	          460	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 6. kāliṅgabodhijātakaṃ
+jat 13. 7.    	 kn-jat-13-7   	 kn-jat-11   	          32	          464	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 7. akittijātakaṃ
+jat 13. 8.    	 kn-jat-13-8   	 kn-jat-11   	          32	          466	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 8. takkāriyajātakaṃ
+jat 13. 9.    	 kn-jat-13-9   	 kn-jat-11   	          32	          470	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 9. rūrumigajātakaṃ
+jat 13. 10.   	 kn-jat-13-10  	 kn-jat-11   	          32	          474	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 13. terasakanipāto 	                          	 10. sarabhamigajātakaṃ
+jat 14. 1.    	 kn-jat-14-1   	 kn-jat-11   	          32	          478	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 1. sālikedārajātakaṃ
+jat 14. 2.    	 kn-jat-14-2   	 kn-jat-11   	          32	          484	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 2. candakinnarajātakaṃ
+jat 14. 3.    	 kn-jat-14-3   	 kn-jat-11   	          32	          490	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 3. mahāukkusajātakaṃ
+jat 14. 4.    	 kn-jat-14-4   	 kn-jat-11   	          32	          492	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 4. uddālakajātakaṃ
+jat 14. 5.    	 kn-jat-14-5   	 kn-jat-11   	          32	          498	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 5. bhisajātakaṃ
+jat 14. 6.    	 kn-jat-14-6   	 kn-jat-11   	          32	          502	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 6. surucijātakaṃ
+jat 14. 7.    	 kn-jat-14-7   	 kn-jat-11   	          32	          508	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 7. pañcuposathajātakaṃ
+jat 14. 8.    	 kn-jat-14-8   	 kn-jat-11   	          32	          512	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 8. mahāmorajātakaṃ
+jat 14. 9.    	 kn-jat-14-9   	 kn-jat-11   	          32	          516	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 9. tacchasūkarajātakaṃ
+jat 14. 10.   	 kn-jat-14-10  	 kn-jat-11   	          32	          518	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 10. mahāvāṇijajātakaṃ
+jat 14. 11.   	 kn-jat-14-11  	 kn-jat-11   	          32	          522	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 11. sādhīnajātakaṃ
+jat 14. 12.   	 kn-jat-14-12  	 kn-jat-11   	          32	          530	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 12. dasabrāhmaṇajātakaṃ
+jat 14. 13.   	 kn-jat-14-13  	 kn-jat-11   	          32	          534	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 14. pakiṇṇakanipāto	                          	 13. bhikkhāparamparajātakaṃ
+jat 15. 1.    	 kn-jat-15-1   	 kn-jat-15   	          33	            2	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 1. mātaṅgajātakaṃ
+jat 15. 2.    	 kn-jat-15-2   	 kn-jat-15   	          33	            8	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 2. cittasambhutajātakaṃ
+jat 15. 3.    	 kn-jat-15-3   	 kn-jat-15   	          33	           14	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 3. sivijātakaṃ
+jat 15. 4.    	 kn-jat-15-4   	 kn-jat-15   	          33	           20	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 4. sirimandajātakaṃ
+jat 15. 5.    	 kn-jat-15-5   	 kn-jat-15   	          33	           26	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 5. rohantamigajātakaṃ
+jat 15. 6.    	 kn-jat-15-6   	 kn-jat-15   	          33	           32	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 6. cūlahaṃsajātakaṃ
+jat 15. 7.    	 kn-jat-15-7   	 kn-jat-15   	          33	           36	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 7. sattigumbajātakaṃ
+jat 15. 8.    	 kn-jat-15-8   	 kn-jat-15   	          33	           42	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 8. hallāṭiyajātakaṃ
+jat 15. 9.    	 kn-jat-15-9   	 kn-jat-15   	          33	           48	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 9. somanassajātakaṃ
+jat 15. 10.   	 kn-jat-15-10  	 kn-jat-15   	          33	           54	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 10. campeyyajātakaṃ
+jat 15. 11.   	 kn-jat-15-11  	 kn-jat-15   	          33	           64	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 11. palobhanajātakaṃ
+jat 15. 12.   	 kn-jat-15-12  	 kn-jat-15   	          33	           70	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 12. pañcapaṇḍitapañho
+jat 15. 13.   	 kn-jat-15-13  	 kn-jat-15   	          33	           76	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 13. hatthipālajātakaṃ
+jat 15. 14.   	 kn-jat-15-14  	 kn-jat-15   	          33	           82	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 15. vīsatinipāto   	                          	 14. ayogharajātakaṃ
+jat 16. 1.    	 kn-jat-16-1   	 kn-jat-15   	          33	           88	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 1. kiṃchandajātakaṃ
+jat 16. 2.    	 kn-jat-16-2   	 kn-jat-15   	          33	           94	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 2. kumbhajātakaṃ
+jat 16. 3.    	 kn-jat-16-3   	 kn-jat-15   	          33	          100	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 3. jayaddisajātakaṃ
+jat 16. 4.    	 kn-jat-16-4   	 kn-jat-15   	          33	          110	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 4. chaddantajātakaṃ
+jat 16. 5.    	 kn-jat-16-5   	 kn-jat-15   	          33	          118	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 5. sambhavajātakaṃ
+jat 16. 6.    	 kn-jat-16-6   	 kn-jat-15   	          33	          126	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 6. mahākapijātakaṃ
+jat 16. 7.    	 kn-jat-16-7   	 kn-jat-15   	          33	          134	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 7. dakarakkhasapañho
+jat 16. 8.    	 kn-jat-16-8   	 kn-jat-15   	          33	          140	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 8. paṇḍarakajātakaṃ
+jat 16. 9.    	 kn-jat-16-9   	 kn-jat-15   	          33	          150	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 9. sambulājātakaṃ
+jat 16. 10.   	 kn-jat-16-10  	 kn-jat-15   	          33	          156	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 16. tiṃsatinipāto  	                          	 10. gandhatindukajātakaṃ
+jat 17. 1.    	 kn-jat-17-1   	 kn-jat-15   	          33	          166	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 17. cattāḷīsanipāto	                          	 1. tesakuṇajātakaṃ
+jat 17. 2.    	 kn-jat-17-2   	 kn-jat-15   	          33	          174	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 17. cattāḷīsanipāto	                          	 2. sarabhaṅgajātakaṃ
+jat 17. 3.    	 kn-jat-17-3   	 kn-jat-15   	          33	          186	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 17. cattāḷīsanipāto	                          	 3. alambusājātakaṃ
+jat 17. 4.    	 kn-jat-17-4   	 kn-jat-15   	          33	          194	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 17. cattāḷīsanipāto	                          	 4. saṅkhapālajātakaṃ
+jat 17. 5.    	 kn-jat-17-5   	 kn-jat-15   	          33	          206	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 17. cattāḷīsanipāto	                          	 5. cullasutasomajātakaṃ
+jat 18. 1.    	 kn-jat-18-1   	 kn-jat-18   	          33	          218	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 18. paññāsanipāto  	                          	 1. nalinikājātakaṃ
+jat 18. 2.    	 kn-jat-18-2   	 kn-jat-18   	          33	          230	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 18. paññāsanipāto  	                          	 2. ummādantījātakaṃ
+jat 18. 3.    	 kn-jat-18-3   	 kn-jat-18   	          33	          246	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 18. paññāsanipāto  	                          	 3. mahābodhijātakaṃ
+jat 19. 1.    	 kn-jat-19-1   	 kn-jat-18   	          33	          260	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 19. saṭṭhinipāto   	                          	 1. soṇakajātakaṃ
+jat 19. 2.    	 kn-jat-19-2   	 kn-jat-18   	          33	          272	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 19. saṭṭhinipāto   	                          	 2. saṅkiccajātakaṃ
+jat 20. 1.    	 kn-jat-20-1   	 kn-jat-18   	          33	          286	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 20. sattatinipāto  	                          	 1. kusajātakaṃ
+jat 20. 2.    	 kn-jat-20-2   	 kn-jat-18   	          33	          304	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 20. sattatinipāto  	                          	 2. soṇanandajātakaṃ
+jat 21. 1.    	 kn-jat-21-1   	 kn-jat-18   	          33	          322	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 21. asītinipāto    	                          	 1. cullahaṃsajātakaṃ
+jat 21. 2.    	 kn-jat-21-2   	 kn-jat-18   	          33	          336	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 21. asītinipāto    	                          	 2. mahāhaṃsajātakaṃ
+jat 21. 3.    	 kn-jat-21-3   	 kn-jat-18   	          33	          354	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 21. asītinipāto    	                          	 3. sudhābhojanajātakaṃ
+jat 21. 4.    	 kn-jat-21-4   	 kn-jat-18   	          33	          378	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 21. asītinipāto    	                          	 4. kuṇālajātakaṃ
+jat 21. 5.    	 kn-jat-21-5   	 kn-jat-18   	          33	          412	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 21. asītinipāto    	                          	 5. mahāsutasomajātakaṃ
+jat 22. 1.    	 kn-jat-22-1   	 kn-jat-22   	          34	            2	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 1. mūgapakkhajātakaṃ
+jat 22. 2.    	 kn-jat-22-2   	 kn-jat-22   	          34	           24	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 2. mahājanakajātakaṃ
+jat 22. 3.    	 kn-jat-22-3   	 kn-jat-22   	          34	           56	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 3. sāmajātakaṃ
+jat 22. 4.    	 kn-jat-22-4   	 kn-jat-22   	          34	           78	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 4. nimijātakaṃ
+jat 22. 5.    	 kn-jat-22-5   	 kn-jat-22   	          34	          116	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 5. khaṇḍahālajātakaṃ
+jat 22. 6.    	 kn-jat-22-6   	 kn-jat-22-6 	          34	          148	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 6. bhūridattajātakaṃ
+jat 22. 7.    	 kn-jat-22-7   	 kn-jat-22-6 	          34	          188	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 7. mahānāradakassapajātakaṃ
+jat 22. 8.    	 kn-jat-22-8   	 kn-jat-22-6 	          34	          226	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 8. vidhurajātakaṃ
+jat 22. 9.    	 kn-jat-22-9   	 kn-jat-22-6 	          34	          294	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 9. ummaggajātakaṃ
+jat 22. 10.   	 kn-jat-22-10  	 kn-jat-22-10	          34	          354	               0	 suttantapiṭake	 khuddakanikāyo	                  	 jātakapāḷi	 22. mahānipāto     	                          	 10. mahāvessantarajātakaṃ

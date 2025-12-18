@@ -9,107 +9,120 @@ from pathlib import Path
 import csv
 from typing import List, Dict, Any
 import re
-import sys
-sys.path.append("/home/bodhirasa/MyFiles/3_Active/dpd-db/tools")
-from tools.sort_naturally import natural_sort
+from natsort import natsorted, ns
+from rich import print
+from tools.paths import ProjectPaths
+from tools.printer import printer as pr
+from helpers import clean_string
 
 
-def sort_snp_files(file_list):
-    """Custom sort for kn-snp files to handle kn-snp.json (no number) coming first."""
-    def sort_key(filename):
-        name = filename.name
-        if name == "kn-snp.json":
-            return (0, 1)  # First file
-        elif name.startswith("kn-snp-"):
-            # Extract number after kn-snp-
-            num_part = name.replace("kn-snp-", "").replace(".json", "")
-            try:
-                num = int(num_part)
-                return (0, num + 1)  # kn-snp-1.json should be second, etc.
-            except ValueError:
-                return (1, name)
-        else:
-            return (2, name)
-    
-    return sorted(file_list, key=sort_key)
+class GlobalVars:
+    """Global variables and config."""
+
+    json_prefix = "kn-snp"
+    tsv_filename = "kn5_snp"
+    sutta_code_prefix = "snp"
+    this_piṭaka: str = "suttantapiṭake"  # This gets updated by file content
+    this_nikāya: str = "khuddakanikāyo"  # This gets updated by file content
+
+    # file vars
+    pth = ProjectPaths()
+    json_dir = pth.bjt_roman_json_dir
+
+    json_file_list = natsorted(
+        json_dir.glob(f"{json_prefix}*.json"),
+        key=lambda x: x.name,
+        alg=ns.PATH,
+    )
+
+    pr.title(f"extracting from {len(json_file_list)} files starting with {json_prefix}")
+
+    tsv_working_dir = Path("scripts/suttas/bjt")
+    tsv_filepath = tsv_working_dir.joinpath(f"{tsv_filename}.tsv")
+
+    # running vars
+    this_json_file: Path
+    this_sutta_code: str
+    this_web_code: str
+    this_filename: str
+    this_book_id: str
+    this_page_num: str
+    this_page_offset: str
+    this_major_section: str = ""
+    this_book: str = "suttanipātapāḷi"
+    this_minor_section: str = ""  # Empty for SNP (doesn't have nipāta structure)
+    this_vagga: str = ""
+    this_sutta: str
+
+    # counter vars
+    this_vagga_num: int = 0
+    this_sutta_num: int = 0
+
+    # These need to be reset per file, so will be handled in extract_data
+    last_web_sutta_num: int = 0
+    current_vagga_for_web: str = ""
+
+    # data vars
+    data_current_file: List[Dict[str, Any]] = []
+    data_all: List[Dict[str, Any]] = []
 
 
-def clean_sutta_name(text: str) -> str:
-    """Clean sutta name by removing brackets and curly braces only."""
-    cleaned = text.replace("[", "").replace("]", "")  # Remove brackets
-    cleaned = re.sub(r"\{[^}]*\}", "", cleaned)  # Remove {.*} patterns
-    return cleaned.strip()
-
-
-def extract_sutta_data(json_file: Path) -> List[Dict[str, Any]]:
-    """Extract sutta data from kn-snp*.json files."""
-    results = []
+def extract_data(g: GlobalVars):
+    """Extract sutta data from a single JSON file."""
 
     try:
-        with open(json_file, "r", encoding="utf-8") as f:
+        with open(g.this_json_file, "r", encoding="utf-8") as f:
             data = json.load(f)
 
-        filename = data.get("filename", "")
-        book_id = 28  # KN books use book_id 28
-
-        # Get pages
+        g.this_filename = data.get("filename", "")
+        g.this_book_id = data.get("bookId", "")
+        g.this_page_offset = data.get("pageOffset", "")
         pages = data.get("pages", [])
 
-        current_piṭaka = "suttantapiṭake"
-        current_nikaya = "khuddakanikāyo"
-        current_book = "suttanipātapāḷi"
-        current_vagga = ""
-        sutta_counter = 0
-        last_web_sutta_num = 0
-        current_vagga_for_web = ""
-        
-        # Reset counters for each file to ensure proper sequencing
-        last_web_sutta_num = 0
-        current_vagga_for_web = ""
+        # reset hierarchy for each file
+        g.data_current_file = []
+        g.this_vagga = ""
+        g.this_vagga_num = 0
+        g.last_web_sutta_num = 0
+        g.current_vagga_for_web = ""
 
         for page in pages:
-            page_num = page.get("pageNum", 0)
-
-            # Get Pali entries
+            g.this_page_num = str(page.get("pageNum", 0))
             pali_entries = page.get("pali", {}).get("entries", [])
 
-            for entry in pali_entries:
+            for entry_index, entry in enumerate(pali_entries):
                 entry_type = entry.get("type", "")
-                text = entry.get("text", "").strip()
-                level = entry.get("level", 0)
+                entry_text = entry.get("text", "").strip()
+                entry_level = entry.get("level", 0)
 
-                # Update hierarchy based on entry type and content
                 if entry_type == "centered":
-                    if "khuddakanikāye" in text.lower():
-                        current_piṭaka = text
-                    # Look for sutta numbers like "1. 1.", "2. 1.", "4-13.", etc.
-                    elif re.match(r"^\d+[\.\-]\s*\d+\.$", text):
-                        sutta_counter += 1
+                    if "nikāye" in entry_text.lower():
+                        g.this_piṭaka = clean_string(entry_text)
 
+                    # Look for sutta numbers like "1. 1.", "2. 1.", etc.
+                    elif re.match(r"^\d+[\.\-]\s*\d+\.$", entry_text):
                         # Extract sutta numbers
-                        sutta_match = re.match(r"^(\d+)\.\s*(\d+)\.$", text)
+                        sutta_match = re.match(r"^(\d+)\.\s*(\d+)\.$", entry_text)
                         if sutta_match:
-                            vagga_num = int(sutta_match.group(1))
-                            sutta_num = int(sutta_match.group(2))
+                            g.this_vagga_num = int(sutta_match.group(1))
+                            g.this_sutta_num = int(sutta_match.group(2))
 
                             # Check if vagga changed and reset web counter if needed
-                            if current_vagga != current_vagga_for_web:
-                                last_web_sutta_num = 0
-                                current_vagga_for_web = current_vagga
+                            if g.this_vagga != g.current_vagga_for_web:
+                                g.last_web_sutta_num = 0
+                                g.current_vagga_for_web = g.this_vagga
 
                             # Always increment by 1 from previous sutta
-                            web_sutta_num = last_web_sutta_num + 1
+                            g.last_web_sutta_num += 1
 
-                            # Generate sutta_code as "{vagga_num}. {sutta_num}."
-                            sutta_code = f"{vagga_num}. {sutta_num}."
+                            # Generate sutta_code as "{sutta_code_prefix} {vagga_num}. {sutta_num}."
+                            g.this_sutta_code = f"{g.sutta_code_prefix} {g.this_vagga_num}. {g.this_sutta_num}."
 
                             # Generate web_code as "kn-snp-{vagga_num}-{web_sutta_num}"
-                            web_code = f"kn-snp-{vagga_num}-{web_sutta_num}"
-                            last_web_sutta_num = web_sutta_num
+                            g.this_web_code = f"{g.json_prefix}-{g.this_vagga_num}-{g.last_web_sutta_num}"
 
                             # Look ahead for sutta name in next entry
-                            sutta_name = text  # fallback to number
-                            entry_index = pali_entries.index(entry)
+                            g.this_sutta = entry_text  # fallback to number
                             if entry_index + 1 < len(pali_entries):
                                 next_entry = pali_entries[entry_index + 1]
                                 if (
@@ -120,123 +133,110 @@ def extract_sutta_data(json_file: Path) -> List[Dict[str, Any]]:
                                     # Check if it's a sutta name (not another number)
                                     if not re.match(r"^\d+\.\s*\d+\.$", next_text):
                                         # Clean up sutta name
-                                        sutta_name = clean_sutta_name(next_text)
+                                        g.this_sutta = f"{g.this_sutta_num}. {clean_string(next_text)}"
 
-                            # Create record
                             record = {
-                                "bjt_sutta_code": sutta_code,
-                                "bjt_web_code": web_code,
-                                "bjt_filename": filename,
-                                "bjt_book_id": book_id,
-                                "bjt_page_num": page_num,
-                                "bjt_page_offset": 0,  # Always 0 based on backup
-                                "bjt_piṭaka": current_piṭaka,
-                                "bjt_nikāya": current_nikaya,
-                                "bjt_major_section": "",  # Mostly blank
-                                "bjt_book": current_book,
-                                "bjt_minor_section": "",  # Empty for SNP (doesn't have nipāta structure)
-                                "bjt_vagga": current_vagga,
-                                "bjt_sutta": sutta_name,
+                                "bjt_sutta_code": g.this_sutta_code,
+                                "bjt_web_code": g.this_web_code,
+                                "bjt_filename": g.this_filename,
+                                "bjt_book_id": g.this_book_id,
+                                "bjt_page_num": g.this_page_num,
+                                "bjt_page_offset": g.this_page_offset,
+                                "bjt_piṭaka": g.this_piṭaka,
+                                "bjt_nikāya": g.this_nikāya,
+                                "bjt_major_section": g.this_major_section,
+                                "bjt_book": g.this_book,
+                                "bjt_minor_section": g.this_minor_section,
+                                "bjt_vagga": g.this_vagga,
+                                "bjt_sutta": g.this_sutta,
                             }
-
-                            results.append(record)
+                            g.data_current_file.append(record)
 
                 elif entry_type == "heading":
-                    if "suttanipāto" in text.lower():
-                        current_book = text
+                    if "suttanipātapāḷi" in entry_text.lower():
+                        g.this_book = clean_string(entry_text)
                     # Special case: vatthugāthā in 5th vagga should be treated as 5. 0.
-                    elif text == "vatthugāthā" and level == 1 and "pārāyanavaggo" in current_vagga:
-                        # Create record for vatthugāthā as 5. 0.
-                        sutta_code = "5. 0."
-                        web_code = "kn-snp-5-0"  # Use actual sutta number from sutta_code
-                        
+                    elif (
+                        entry_text == "vatthugāthā"
+                        and entry_level == 1
+                        and "pārāyanavaggo" in g.this_vagga
+                    ):
+                        g.this_sutta_code = f"{g.sutta_code_prefix} 5. 0."
+                        g.this_web_code = f"{g.json_prefix}-5-0"  # Use actual sutta number from sutta_code
+                        g.this_sutta = f"0. {entry_text}"
+
                         record = {
-                            "bjt_sutta_code": sutta_code,
-                            "bjt_web_code": web_code,
-                            "bjt_filename": filename,
-                            "bjt_book_id": book_id,
-                            "bjt_page_num": page_num,
-                            "bjt_page_offset": 0,
-                            "bjt_piṭaka": current_piṭaka,
-                            "bjt_nikāya": current_nikaya,
-                            "bjt_major_section": "",  # Mostly blank
-                            "bjt_book": current_book,
-                            "bjt_minor_section": "",  # Empty for SNP
-                            "bjt_vagga": current_vagga,
-                            "bjt_sutta": text,
+                            "bjt_sutta_code": g.this_sutta_code,
+                            "bjt_web_code": g.this_web_code,
+                            "bjt_filename": g.this_filename,
+                            "bjt_book_id": g.this_book_id,
+                            "bjt_page_num": g.this_page_num,
+                            "bjt_page_offset": g.this_page_offset,
+                            "bjt_piṭaka": g.this_piṭaka,
+                            "bjt_nikāya": g.this_nikāya,
+                            "bjt_major_section": g.this_major_section,
+                            "bjt_book": g.this_book,
+                            "bjt_minor_section": g.this_minor_section,
+                            "bjt_vagga": g.this_vagga,
+                            "bjt_sutta": g.this_sutta,
                         }
-                        results.append(record)
-                    
-                    # Special case: pārāyanatthutigāthā in 5th vagga - should be 5. 17.
-                    elif "atthutigāthā" in text.lower() and level == 1 and "pārāyanavaggo" in current_vagga:
-                        # This should be the 17th sutta in the pārāyanavaggo (after 0-16)
-                        sutta_num = 17
-                        sutta_code = f"5. {sutta_num}."
-                        web_code = f"kn-snp-5-{sutta_num}"
-                        
-                        record = {
-                            "bjt_sutta_code": sutta_code,
-                            "bjt_web_code": web_code,
-                            "bjt_filename": filename,
-                            "bjt_book_id": book_id,
-                            "bjt_page_num": page_num,
-                            "bjt_page_offset": 0,
-                            "bjt_piṭaka": current_piṭaka,
-                            "bjt_nikāya": current_nikaya,
-                            "bjt_major_section": "",  # Mostly blank
-                            "bjt_book": current_book,
-                            "bjt_minor_section": "",  # Empty for SNP
-                            "bjt_vagga": current_vagga,
-                            "bjt_sutta": text,
-                        }
-                        results.append(record)
-                    
+                        g.data_current_file.append(record)
+
                     # Special case: pārāyanānugītigāthā in 5th vagga - should follow the sequence after other suttas in the vagga
-                    elif text == "pārāyanānugītigāthā" and level == 1 and "pārāyanavaggo" in current_vagga:
-                        # Count existing suttas in this vagga to determine the next number
-                        existing_suttas_in_vagga = [r for r in results if r["bjt_vagga"] == current_vagga and r["bjt_sutta_code"].startswith("5.")]
-                        sutta_num = len(existing_suttas_in_vagga) + 1
-                        
+                    elif (
+                        entry_text == "pārāyanānugītigāthā"
+                        and entry_level == 1
+                        and "pārāyanavaggo" in g.this_vagga
+                    ):
+                        sutta_num = 17
+
                         # Create record with calculated sutta number
-                        sutta_code = f"5. {sutta_num}."
-                        web_code = f"kn-snp-5-{sutta_num}"
-                        
+                        sutta_code = f"{g.sutta_code_prefix} 5. {sutta_num}."
+                        web_code = f"{g.json_prefix}-5-{sutta_num}"
+                        g.this_sutta = "17. pārāyanānugītigāthā"
+
                         record = {
                             "bjt_sutta_code": sutta_code,
                             "bjt_web_code": web_code,
-                            "bjt_filename": filename,
-                            "bjt_book_id": book_id,
-                            "bjt_page_num": page_num,
-                            "bjt_page_offset": 0,
-                            "bjt_piṭaka": current_piṭaka,
-                            "bjt_nikāya": current_nikaya,
-                            "bjt_major_section": "",  # Mostly blank
-                            "bjt_book": current_book,
-                            "bjt_minor_section": "",  # Empty for SNP
-                            "bjt_vagga": current_vagga,
-                            "bjt_sutta": text,
+                            "bjt_filename": g.this_filename,
+                            "bjt_book_id": g.this_book_id,
+                            "bjt_page_num": g.this_page_num,
+                            "bjt_page_offset": g.this_page_offset,
+                            "bjt_piṭaka": g.this_piṭaka,
+                            "bjt_nikāya": g.this_nikāya,
+                            "bjt_major_section": g.this_major_section,
+                            "bjt_book": g.this_book,
+                            "bjt_minor_section": g.this_minor_section,
+                            "bjt_vagga": g.this_vagga,
+                            "bjt_sutta": g.this_sutta,
                         }
-                        results.append(record)
-                    
+                        g.data_current_file.append(record)
+
                     # Look for vagga headings like "1. uragavaggo", "2. cullavaggo", etc.
-                    elif re.match(r"^\d+\.\s*\w+.*vaggo?$", text) and level == 3:
-                        current_vagga = text
-                        sutta_counter = 0  # Reset sutta counter for new vagga
-                        last_web_sutta_num = 0
-                        current_vagga_for_web = current_vagga
+                    elif (
+                        re.match(r"^\d+\.\s*\w+.*vaggo?$", entry_text)
+                        and entry_level == 3
+                    ):
+                        g.this_vagga = clean_string(entry_text)
+                        # Reset counters as new vagga starts
+                        g.this_vagga_num = int(
+                            re.match(r"^(\d+)\.", entry_text).group(1)
+                        )
+                        g.last_web_sutta_num = 0
+                        g.current_vagga_for_web = g.this_vagga
 
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON in {json_file}: {e}")
+        pr.red(f"Error decoding JSON in {g.this_json_file}: {e}")
     except Exception as e:
-        print(f"Error processing {json_file}: {e}")
+        pr.red(f"Error processing {g.this_json_file}: {e}")
 
-    return results
+    g.data_all.extend(g.data_current_file)
 
 
-def save_to_tsv(data: List[Dict[str, Any]], output_file: Path):
+def save_to_tsv(g: GlobalVars):
     """Save data to TSV file."""
-    if not data:
-        print("No data to save")
+    if not g.data_all:
+        pr.warning("No data to save")
         return
 
     # Define exact field order as required
@@ -256,47 +256,30 @@ def save_to_tsv(data: List[Dict[str, Any]], output_file: Path):
         "bjt_sutta",
     ]
 
-    with open(output_file, "w", newline="", encoding="utf-8") as f:
+    with open(g.tsv_filepath, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()
-        writer.writerows(data)
+        writer.writerows(g.data_all)
+    pr.info(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
 def main():
-    # Define paths
-    json_dir = Path(
-        "/home/bodhirasa/MyFiles/3_Active/dpd-db/resources/dpd_submodules/bjt/public/static/roman_json"
-    )
-    output_file = Path(
-        "/home/bodhirasa/MyFiles/3_Active/dpd-db/scripts/suttas/bjt/kn5_snp.tsv"
-    )
+    pr.tic()
+    g = GlobalVars()
 
-    # Find all kn-snp*.json files
-    snp_files = sort_snp_files(list(json_dir.glob("kn-snp*.json")))
-    
-    if not snp_files:
-        print("No kn-snp*.json files found")
+    if not g.json_file_list:
+        pr.warning("No JSON files found")
         return
 
-    print(f"Found {len(snp_files)} files to process:")
-    for f in snp_files:
-        print(f"  - {f.name}")
-
-    all_data = []
-
     # Process each file
-    for json_file in snp_files:
-        print(f"Processing {json_file.name}...")
-        data = extract_sutta_data(json_file)
-        all_data.extend(data)
-        print(f"  Extracted {len(data)} suttas")
-
-    print(f"Total extracted: {len(all_data)} suttas")
+    for g.this_json_file in g.json_file_list:
+        pr.green(f"processing {g.this_json_file.name}")
+        extract_data(g)
+        pr.yes(f"extracted {len(g.data_current_file)} records")
 
     # Save to TSV
-    print(f"Saving to {output_file}...")
-    save_to_tsv(all_data, output_file)
-    print("Done!")
+    save_to_tsv(g)
+    pr.toc()
 
 
 if __name__ == "__main__":

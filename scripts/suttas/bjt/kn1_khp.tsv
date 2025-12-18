@@ -1,10 +1,10 @@
 bjt_sutta_code	bjt_web_code	bjt_filename	bjt_book_id	bjt_page_num	bjt_page_offset	bjt_piṭaka	bjt_nikāya	bjt_major_section	bjt_book	bjt_minor_section	bjt_vagga	bjt_sutta
-1.	kn-khp-1	kn-khp	28	2	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			saraṇagamanaṃ
-2.	kn-khp-2	kn-khp	28	2	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			dasasikkhāpadaṃ
-3.	kn-khp-3	kn-khp	28	4	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			dvattiṃsākāraṃ
-4.	kn-khp-4	kn-khp	28	4	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			kumārapañhā
-5.	kn-khp-5	kn-khp	28	6	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			maṅgalasuttaṃ
-6.	kn-khp-6	kn-khp	28	8	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			ratanasuttaṃ
-7.	kn-khp-7	kn-khp	28	14	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			tirokuḍḍasuttaṃ
-8.	kn-khp-8	kn-khp	28	16	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			nidhikaṇḍasuttaṃ
-9.	kn-khp-9	kn-khp	28	20	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			mettasuttaṃ.
+khp 1.	kn-khp-1	kn-khp	28	2	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			1. saraṇagamanaṃ
+khp 2.	kn-khp-2	kn-khp	28	2	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			2. dasasikkhāpadaṃ
+khp 3.	kn-khp-3	kn-khp	28	4	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			3. dvattiṃsākāraṃ
+khp 4.	kn-khp-4	kn-khp	28	4	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			4. kumārapañhā
+khp 5.	kn-khp-5	kn-khp	28	6	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			5. maṅgalasuttaṃ
+khp 6.	kn-khp-6	kn-khp	28	8	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			6. ratanasuttaṃ
+khp 7.	kn-khp-7	kn-khp	28	14	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			7. tirokuḍḍasuttaṃ
+khp 8.	kn-khp-8	kn-khp	28	16	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			8. nidhikaṇḍasuttaṃ
+khp 9.	kn-khp-9	kn-khp	28	20	0	suttantapiṭake	khuddakanikāyo		khuddakapāṭhapāḷi			9. mettasuttaṃ

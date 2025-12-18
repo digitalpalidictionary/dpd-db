@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
 Script to extract jātaka data from BJT JSON files kn-jat*.json and save to TSV.
-Jātaka has Nipāta -> Vagga -> Jātaka structure.
+Jātaka has Nipāta -> Vagga -> Jātaka structure (early nipātas)
+or Nipāta -> Jātaka structure (later nipātas and Mahānipāto).
 """
 
 import json
 from pathlib import Path
 import csv
-from typing import List, Dict, Any
 import re
+from typing import Any
 from natsort import natsorted, ns
-from rich import print
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from helpers import clean_string
@@ -21,8 +21,9 @@ class GlobalVars:
 
     json_prefix = "kn-jat"
     tsv_filename = "kn14_jat"
+    sutta_code_prefix = "jat"
     this_piṭaka: str = "suttantapiṭake"
-    this_nikāya: str = "khuddakanikāye"
+    this_nikāya: str = "khuddakanikāyo"
     this_book: str = "jātakapāḷi"
 
     # file vars
@@ -45,21 +46,23 @@ class GlobalVars:
     this_filename: str
     this_book_id: str
     this_page_num: str
-    this_page_offset: str
-    this_major_section: str
-    this_minor_section: str
-    this_vagga: str
+    this_page_offset: int
+    this_major_section: str = ""
+    this_minor_section: str = ""  # nipāta
+    this_vagga: str = ""
     this_sutta: str
 
     # counter vars
-    this_nipāta_num: int
-    this_vagga_num: int
-    this_sutta_num: int
+    this_minor_section_num: int = 0
+    this_vagga_num: int = 0
+    this_sutta_num: int = 0
+
+    # Track processed suttas
+    processed_suttas: set[str] = set()
 
     # data vars
-    processed_suttas: set[str]
-    data_current_file: List[Dict[str, Any]] = []
-    data_all: List[Dict[str, Any]] = []
+    data_current_file: list[dict[str, Any]] = []
+    data_all: list[dict[str, Any]] = []
 
 
 def extract_data(g: GlobalVars):
@@ -74,20 +77,11 @@ def extract_data(g: GlobalVars):
         g.this_page_offset = data.get("pageOffset", "")
         pages = data.get("pages", [])
 
-        # reset
+        # reset hierarchy for each file
         g.data_current_file = []
-        g.processed_suttas = set()
-        g.this_major_section = ""
-        # g.this_minor_section = ""
-        g.this_vagga = ""
-        # g.this_nipāta_num = 0
-        g.this_vagga_num = 0
-
-        # Track numbers within each section
-        tracker_dict = {}
 
         for page in pages:
-            g.this_page_num = page.get("pageNum", 0)
+            g.this_page_num = str(page.get("pageNum", ""))
             pali_entries = page.get("pali", {}).get("entries", [])
 
             for entry in pali_entries:
@@ -96,136 +90,90 @@ def extract_data(g: GlobalVars):
                 entry_level = entry.get("level", 0)
 
                 if entry_type == "heading":
-                    # Look for nipāta headings like "1. ekakanipāto", "2. dukanipāto", etc.
-                    if entry_level == 3 and re.match(
-                        r"^\d+\.\s*\w+.*nipāt", entry_text
-                    ):
-                        g.this_minor_section = entry_text
+                    if "mahānipāto" in entry_text.lower():
+                        g.this_minor_section = "22. mahānipāto"
+                        g.this_minor_section_num = 22
+                        g.this_vagga = ""
+                        g.this_vagga_num = 0
+
+                    elif "nipāt" in entry_text and entry_level != 1:
+                        g.this_minor_section = clean_string(entry_text)
                         nipāta_match = re.match(r"^(\d+)", entry_text)
                         if nipāta_match:
-                            g.this_nipāta_num = int(nipāta_match.group(1))
+                            g.this_minor_section_num = int(nipāta_match.group(1))
                         g.this_vagga = ""
                         g.this_vagga_num = 0
 
-                    # Special case: Mahānipāto heading (no number)
-                    elif entry_level == 3 and entry_text.strip() == "mahānipāto":
-                        g.this_minor_section = "22. mahānipāto"
-                        g.this_nipāta_num = 22
-                        g.this_vagga = ""
-                        g.this_vagga_num = 0
-
-                    # Look for vagga headings like "1. apaṇṇakavaggo", "2. sīlavaggo", etc.
-                    # But skip if it's a jātaka heading (level 2 jātaka entries in Mahānipāto)
-                    elif (
-                        entry_level == 2
-                        and re.match(r"^\d+\.\s*\w+.*vaggo", entry_text)
-                        and "jātakaṃ" not in entry_text
-                    ):
-                        g.this_vagga = entry_text
+                    elif "vaggo" in entry_text.lower():
+                        g.this_vagga = clean_string(entry_text)
                         vagga_match = re.match(r"^(\d+)", entry_text)
                         if vagga_match:
                             g.this_vagga_num = int(vagga_match.group(1))
-                            # Initialize counter for this vagga
-                            vagga_key = f"{g.this_nipāta_num}-{g.this_vagga_num}"
-                            if vagga_key not in tracker_dict:
-                                tracker_dict[vagga_key] = 0
 
-                    # Special case: Mahānipāto jātakas (level 2 headings) - CHECK FIRST
-                    elif (
-                        entry_level == 2
-                        and "mahānipāto" in g.this_minor_section.lower()
-                        and re.match(r"^\d+\.\s*\w+.*(jātakaṃ|pañho)", entry_text)
-                    ):
-                        g.this_sutta = clean_string(entry_text)
-
-                        # Check if we've already processed this jātaka name to avoid duplicates
-                        # if g.this_sutta not in g.processed_suttas:
-                        # Extract jātaka number from heading
+                    elif "jātakaṃ" in entry_text or "pañho" in entry_text:
                         sutta_match = re.match(r"^(\d+)\.", entry_text)
                         if sutta_match:
                             g.this_sutta_num = int(sutta_match.group(1))
 
-                            # Increment counter for Mahānipāto
-                            if "mahānipāto" not in tracker_dict:
-                                tracker_dict["mahānipāto"] = 0
-                            tracker_dict["mahānipāto"] = tracker_dict["mahānipāto"] + 1
-                            sequential_num = tracker_dict["mahānipāto"]
+                            g.this_sutta = clean_string(entry_text)
 
-                            # Generate sutta code (two-digit: 22.jātaka)
-                            g.this_sutta_code = f"{g.json_prefix} {g.this_nipāta_num} {g.this_sutta_num}."
-
-                            # Generate web code (kn-jat-22-{jātaka})
-                            g.this_web_code = f"kn-jat-22-{g.this_sutta_num}"
-
-                            # Create record immediately for Mahānipāto
-                            record = {
-                                "bjt_sutta_code": g.this_sutta_code,
-                                "bjt_web_code": g.this_web_code,
-                                "bjt_filename": g.this_filename,
-                                "bjt_book_id": g.this_book_id,
-                                "bjt_page_num": g.this_page_num,
-                                "bjt_page_offset": g.this_page_offset,
-                                "bjt_piṭaka": g.this_piṭaka,
-                                "bjt_nikāya": g.this_nikāya,
-                                "bjt_major_section": g.this_major_section,
-                                "bjt_book": g.this_book,
-                                "bjt_minor_section": g.this_minor_section,  # nipāta
-                                "bjt_vagga": "",  # No vagga for Mahānipāto
-                                "bjt_sutta": g.this_sutta,
-                            }
-
-                            g.data_current_file.append(record)
-                            g.processed_suttas.add(g.this_sutta)
-                            continue
-
-                    # Look for jātaka story headings ending in "jātakaṃ."
-                    # But skip if it's a Mahānipāto jātaka (handled separately)
-                    elif (
-                        (entry_level == 1 or entry_level == 2)
-                        and re.match(r"^\d+\.\s*\w+.*(jātakaṃ|pañho)", entry_text)
-                        and "mahānipāto" not in g.this_minor_section.lower()
-                    ):
-                        g.this_sutta = clean_string(entry_text)
-
-                        # Check if we've already processed this jātaka name to avoid duplicates
-                        # if g.this_sutta not in g.processed_suttas:
-                        # Extract jātaka number from the heading
-                        sutta_match = re.match(r"^(\d+)\.", entry_text)
-                        if sutta_match:
-                            g.this_sutta_num = int(sutta_match.group(1))
-
-                            # For nipātas 8+, there are no vaggas, so use nipāta-level counting
-                            if g.this_nipāta_num >= 8:
-                                # Use nipāta-level counter
-                                nipāta_key = f"{g.this_nipāta_num}"
-                                if nipāta_key not in tracker_dict:
-                                    tracker_dict[nipāta_key] = 0
-                                tracker_dict[nipāta_key] = tracker_dict[nipāta_key] + 1
-                                sequential_num = tracker_dict[nipāta_key]
-
-                                # Generate sutta code (two-digit: nipāta.jātaka)
-                                g.this_sutta_code = f"{g.json_prefix} {g.this_nipāta_num}. {g.this_sutta_num}."
-
-                                # Generate web code (two-digit: kn-jat-{nipāta}-{jātaka})
-                                g.this_web_code = (
-                                    f"kn-jat-{g.this_nipāta_num}-{sequential_num}"
-                                )
-
-                                # Empty vagga field
-                                g.this_vagga = ""
+                            if g.this_vagga_num == 0:
+                                g.this_web_code = f"{g.json_prefix}-{g.this_minor_section_num}-{g.this_sutta_num}"
+                                g.this_sutta_code = f"{g.sutta_code_prefix} {g.this_minor_section_num}. {g.this_sutta_num}."
                             else:
-                                # Earlier nipātas have vaggas
-                                vagga_key = f"{g.this_nipāta_num}-{g.this_vagga_num}"
-                                tracker_dict[vagga_key] = (
-                                    tracker_dict.get(vagga_key, 0) + 1
-                                )
-                                sequential_num = tracker_dict[vagga_key]
+                                g.this_web_code = f"{g.json_prefix}-{g.this_minor_section_num}-{g.this_vagga_num}-{g.this_sutta_num}"
+                                g.this_sutta_code = f"{g.sutta_code_prefix} {g.this_minor_section_num}. {g.this_vagga_num}. {g.this_sutta_num}."
 
-                                # Generate sutta code
-                                g.this_sutta_code = f"{g.json_prefix} {g.this_nipāta_num}. {g.this_vagga_num}. {g.this_sutta_num}."
+                            g.processed_suttas.add(g.this_sutta_code)
 
-                                # Generate web code
-                                g.this_web_code = f"kn-jat-{g.this_nipāta_num}-{g.this_vagga_num}-{sequential_num}"
+                            # Generate Web Code
+                            # Logic:
+                            # 1. Mahānipāto (22) -> kn-jat-22-{sutta_num}
+                            # 2. Early Nipātas (with Vaggas) -> kn-jat-{nipāta}-{vagga}-{seq_in_vagga} ??
+                            #    Wait, standard convention usually ignores vagga in web code if sequential?
+                            #    Let's check `kn8_thag` style: prefix-nip-vag-sut OR prefix-nip-sut.
+                            #    Jatakas are globally numbered (1-547).
+                            #    Maybe `kn-jat-{nipāta}-{sutta_num}`? Or `kn-jat-{nipāta}-{sutta_num}`?
+                            #    Let's stick to the previous script's logic if it makes sense,
+                            #    or the standard `kn-jat-{nipāta}-{sutta}` if unique within nipāta.
+                            #    Actually, `kn14_jat.py` old version had complex counter logic.
+                            #    Let's try to simplify. Jataka numbers do NOT reset. They go 1..547.
+                            #    So `kn-jat-{nipāta}-{sutta_num}` is redundant but descriptive.
+                            #    However, BJT web identifiers might expect the section-based index.
+
+                            # Let's use a simpler counter strategy:
+                            # If Vagga exists: kn-jat-{nipāta}-{vagga}-{sutta_num} (or sequential index?)
+                            # The old script calculated `sequential_num` within the vagga.
+                            # Let's try to replicate "sequential index within parent container".
+
+                            # seq_num = 0
+
+                            # if g.this_vagga:
+                            #     vagga_key = f"{g.this_minor_section_num}-{g.this_vagga_num}"
+                            #     g.vagga_counter[vagga_key] = (
+                            #         g.vagga_counter.get(vagga_key, 0) + 1
+                            #     )
+                            #     seq_num = g.vagga_counter[vagga_key]
+                            #     g.this_web_code = f"{g.json_prefix}-{g.this_minor_section_num}-{g.this_vagga_num}-{seq_num}"
+
+                            #     # Sutta code with 3 parts
+                            #     g.this_sutta_code = f"{g.json_prefix} {g.this_minor_section_num}. {g.this_vagga_num}. {g.this_sutta_num}."
+
+                            # else:
+                            #     # No vagga (Mahānipāto or mid-range)
+                            #     nip_key = g.this_minor_section_num
+                            #     g.nipāta_sutta_counter[nip_key] = (
+                            #         g.nipāta_sutta_counter.get(nip_key, 0) + 1
+                            #     )
+                            #     seq_num = g.nipāta_sutta_counter[nip_key]
+                            #     # Web code: kn-jat-{nipāta}-{seq_num} ?? Or {sutta_num}?
+                            #     # Old script used {sequential_num}. Let's stick to that to be safe.
+                            #     g.this_web_code = (
+                            #         f"{g.json_prefix}-{g.this_minor_section_num}-{seq_num}"
+                            #     )
+
+                            #     # Sutta code with 2 parts
+                            #     g.this_sutta_code = f"{g.json_prefix} {g.this_minor_section_num}. {g.this_sutta_num}."
 
                             # Create record
                             record = {
@@ -239,20 +187,17 @@ def extract_data(g: GlobalVars):
                                 "bjt_nikāya": g.this_nikāya,
                                 "bjt_major_section": g.this_major_section,
                                 "bjt_book": g.this_book,
-                                "bjt_minor_section": g.this_minor_section,  # nipāta
+                                "bjt_minor_section": g.this_minor_section,
                                 "bjt_vagga": g.this_vagga,
                                 "bjt_sutta": g.this_sutta,
                             }
 
                             g.data_current_file.append(record)
-                            g.processed_suttas.add(g.this_sutta)
-                        else:
-                            print(f"[red]{entry}")
 
     except json.JSONDecodeError as e:
-        print(f"Error decoding JSON in {g.this_json_file}: {e}")
+        pr.red(f"Error decoding JSON in {g.this_json_file}: {e}")
     except Exception as e:
-        print(f"Error processing {g.this_json_file}: {e}")
+        pr.red(f"Error processing {g.this_json_file}: {e}")
 
     g.data_all.extend(g.data_current_file)
 
@@ -260,7 +205,7 @@ def extract_data(g: GlobalVars):
 def save_to_tsv(g: GlobalVars):
     """Save data to TSV file."""
     if not g.data_all:
-        print("No data to save")
+        pr.warning("No data to save")
         return
 
     # Define exact field order as required
@@ -288,21 +233,21 @@ def save_to_tsv(g: GlobalVars):
         )
         writer.writeheader()
         writer.writerows(g.data_all)
+    pr.info(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
 def main():
     pr.tic()
     g = GlobalVars()
     if not g.json_file_list:
-        print("No JSON files found")
+        pr.warning("No JSON files found")
         return
 
     for g.this_json_file in g.json_file_list:
         pr.green(f"processing {g.this_json_file.name}")
         extract_data(g)
-        pr.yes(len(g.data_current_file))
+        pr.yes(f"extracted {len(g.data_current_file)} records")
 
-    pr.green_title(f"total: {len(g.data_all)}")
     save_to_tsv(g)
     pr.toc()
 
