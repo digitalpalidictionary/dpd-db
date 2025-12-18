@@ -31,6 +31,7 @@
 ### uv
 - Use astral uv to manage dependencies.
 - Install with "uv add" not "pip install" or "uv pip install" etc.
+- DO NOT run any scripts with uv UNLESS specifically asked to do so. 
 
 ## Plan Mode
 - When starting to plan, show that you've understood the question by saying "Hmmm...". If not, ask more questions to clarify.
@@ -75,3 +76,7 @@
 - Fix all the suggested issues
 - If there are no issues, there's nothing to fix.
 
+## Update Gemini CLI
+```bash
+npm install -g @google/gemini-cli@latest
+```
