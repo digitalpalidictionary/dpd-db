@@ -12,7 +12,7 @@ from tools.paths import ProjectPaths
 from tools.pali_sort_key import pali_sort_key
 
 
-class RootFamily():
+class RootFamily:
     def __init__(self, i: DpdHeadword) -> None:
         self.root_family_key = i.root_family_key
         self.root_key: str = i.root_key
@@ -27,7 +27,7 @@ class RootFamily():
             self.sanskrit: set = {i.sanskrit}
         else:
             self.sanskrit: set = set()
-    
+
     def __repr__(self) -> str:
         return f"""
 {self.root_family_key}
@@ -37,14 +37,15 @@ class RootFamily():
 {self.root_family}
 {self.sanskrit}
 """
-               
+
 
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     db = sorted(
-        db, key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.family_root)))
+        db, key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.family_root))
+    )
 
     root_dict = {}
     for i in db:
@@ -55,11 +56,10 @@ def main():
             else:
                 if i.sanskrit:
                     root_dict[root_family_key].sanskrit.add(i.sanskrit)
-    
+
     return
     # writing is disable in case of stupidity.
-    with open(
-        pth.root_families_sanskrit_path, "w", newline="") as csvfile:
+    with open(pth.root_families_sanskrit_path, "w", newline="") as csvfile:
         fieldnames = [
             "root_key",
             "root_group",
@@ -70,13 +70,14 @@ def main():
             "sanskrit_root_meaning",
             "pali_root_family",
             "sanskrit_root_family",
-            "sanskrit_dump"
-            ]
+            "sanskrit_dump",
+        ]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()
 
         for key, i in root_dict.items():
-                writer.writerow({
+            writer.writerow(
+                {
                     "root_key": i.root_key,
                     "root_group": i.root_group,
                     "root_sign": i.root_sign,
@@ -86,8 +87,9 @@ def main():
                     "sanskrit_root_meaning": i.sanskrit_root_meaning,
                     "pali_root_family": i.root_family,
                     "sanskrit_root_family": "",
-                    "sanskrit_dump": ", ".join(i.sanskrit)
-                })
+                    "sanskrit_dump": ", ".join(i.sanskrit),
+                }
+            )
 
 
 if __name__ == "__main__":

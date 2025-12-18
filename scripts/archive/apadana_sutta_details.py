@@ -1,4 +1,4 @@
-""""Find names, chapters and verses of Apadana titles,
+""" "Find names, chapters and verses of Apadana titles,
 and update current names in db"""
 
 import re
@@ -24,21 +24,17 @@ def find_names_and_number():
 
     name_list: List[Tuple[str, int, str, int]] = []
 
-    heads = soup.find_all('head', {'rend': 'chapter'})
+    heads = soup.find_all("head", {"rend": "chapter"})
     for head in heads:
         chapter_number += 1
         chapter_counter = 0
 
-        ps = head.find_next_siblings('p')
+        ps = head.find_next_siblings("p")
         for p in ps:
-
-            first_verse_flag = True 
+            first_verse_flag = True
 
             # paragraph number
-            if (
-                p["rend"] == "hangnum"
-                and first_verse_flag
-            ):
+            if p["rend"] == "hangnum" and first_verse_flag:
                 verse = int(p["n"]) + 1
                 first_verse_flag = False
 
@@ -50,10 +46,10 @@ def find_names_and_number():
                 # remove digits fullstop
                 name = re.sub(r"\d*\. ", "", p.text)
                 name = name_cleaner(name)
-                name_list.append((
-                    name, sutta_counter,
-                    f"{chapter_number}.{chapter_counter}", verse))
-    
+                name_list.append(
+                    (name, sutta_counter, f"{chapter_number}.{chapter_counter}", verse)
+                )
+
     return name_list
 
 
@@ -62,7 +58,7 @@ def test_missing_numbers(name_list):
     for i in name_list:
         name, number, chapter, verse = i
         has_number.add(number)
-    
+
     for i in range(1, 74):
         if i not in has_number:
             print(i)
@@ -109,19 +105,20 @@ def sutta_chapter_name_dict(name_list):
         if name in multiples:
             multiples[name] += 1
             name = f"{name} {multiples[name]}"
-            
+
         dict[name] = {
             "sutta": sutta_number,
             "chapter": chapter,
             "first_verse": verse,
-            "last_verse": 0}
-        
+            "last_verse": 0,
+        }
+
         if previous_name:
-            dict[previous_name]["last_verse"] = verse-1
+            dict[previous_name]["last_verse"] = verse - 1
         if name == "sumedhātherīgāthā":
             dict[name]["last_verse"] = 524
         previous_name = name
-        
+
     return dict
 
 
@@ -151,14 +148,13 @@ def add_to_db(name_dict):
         else:
             if "aññataratherīgāthā" in i.lemma_1:
                 print(f"[red]{i.lemma_1} not added")
-    
+
     db_session.commit()
     print(count)
 
     for i in range(1, 73):
         if i not in test_set:
             print(f"[red]{i} missing")
-
 
 
 if __name__ == "__main__":

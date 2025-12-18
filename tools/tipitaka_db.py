@@ -30,50 +30,53 @@ def sqlite_engine_connect(dbapi_connection, connection_record):
 
     dbapi_connection.create_function("REGEXP", 2, regexp)
 
+
 def ensure_db_exists():
     """Ensure the Tipitaka translation database exists, downloading it if necessary."""
     pth = ProjectPaths()
-    
+
     if not pth.tipitaka_translation_db_path.exists():
-        pr.info(f"Tipitaka translation database not found at {pth.tipitaka_translation_db_path}")
+        pr.info(
+            f"Tipitaka translation database not found at {pth.tipitaka_translation_db_path}"
+        )
         pr.info("Downloading... (approx 185 MB)")
-        
+
         # Create directory if it doesn't exist
         pth.tipitaka_translation_dir.mkdir(parents=True, exist_ok=True)
-        
+
         url = "https://dhamma.paauksociety.org/Root/Tipitaka/tipitaka-translation-data.db.zip"
         zip_path = pth.tipitaka_translation_dir / "tipitaka.zip"
-        
+
         try:
             # Download
             response = requests.get(url, stream=True)
             response.raise_for_status()
-            
-            total_size = int(response.headers.get('content-length', 0))
-            
+
+            total_size = int(response.headers.get("content-length", 0))
+
             with open(zip_path, "wb") as f:
                 with Progress() as progress:
                     task = progress.add_task("[cyan]Downloading...", total=total_size)
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
                         progress.update(task, advance=len(chunk))
-            
+
             pr.info("Download complete. Extracting...")
-            
+
             # Extract
             with zipfile.ZipFile(zip_path, "r") as zip_ref:
                 zip_ref.extractall(pth.tipitaka_translation_dir)
-            
+
             # Find the .db file (it might have a different name inside the zip)
             db_files = list(pth.tipitaka_translation_dir.glob("*.db"))
             found_db = False
-            
+
             for db_file in db_files:
                 # If we found the correct file already, skip
                 if db_file.name == "tipitaka-translation-data.db":
                     found_db = True
                     break
-                
+
                 # If we found another db file, rename it
                 # We assume the largest db file is the one we want if there are multiple
                 # But typically there's only one
@@ -82,12 +85,12 @@ def ensure_db_exists():
                     db_file.rename(pth.tipitaka_translation_db_path)
                     found_db = True
                     break
-            
+
             if not found_db:
                 pr.red("Error: Could not find a .db file in the extracted archive.")
             else:
                 pr.info("Database setup complete.")
-                
+
         except Exception as e:
             pr.red(f"Error downloading or setting up database: {e}")
         finally:

@@ -14,10 +14,22 @@ base_url = load_link()
 
 
 def generate_link(source: str) -> str:
-
     # List of functions to check each pattern
-    pattern_funcs = [link_vin, link_vin_pat, link_pat, link_dn_mn, link_an, link_sn, 
-        link_khp, link_dhp, link_snp, link_ud, link_iti, link_thi, link_th]
+    pattern_funcs = [
+        link_vin,
+        link_vin_pat,
+        link_pat,
+        link_dn_mn,
+        link_an,
+        link_sn,
+        link_khp,
+        link_dhp,
+        link_snp,
+        link_ud,
+        link_iti,
+        link_thi,
+        link_th,
+    ]
 
     # Iterate over each function and return the first valid URL
     for func in pattern_funcs:
@@ -33,9 +45,8 @@ def link_vin(source: str, base_url: str) -> str:
     # Logic for Bhikkhu Vibhanga
     source = source.strip().upper()
     if re.match(r"^(VIN\s?1|VIN\s?2).*", source):
-
         # Logic for VIN verses
-        vin_match = re.match(r'VIN\s?(\d+)(\.(\d+))?(\.(\d+))?(\.(\d+))?', source)
+        vin_match = re.match(r"VIN\s?(\d+)(\.(\d+))?(\.(\d+))?(\.(\d+))?", source)
         if vin_match:
             vin_main = int(vin_match.group(1))
             vin_sub1 = int(vin_match.group(3)) if vin_match.group(3) else None
@@ -83,18 +94,18 @@ def link_vin(source: str, base_url: str) -> str:
 
 def link_vin_pat(source: str, base_url: str) -> str:
     # Logic for VIN PAT
-    vin_pat_match = re.match(r'VIN PAT (PA|SA|AN|NP|PC|PD|SE|AS)(?: (\d+))?', source)
+    vin_pat_match = re.match(r"VIN PAT (PA|SA|AN|NP|PC|PD|SE|AS)(?: (\d+))?", source)
     if vin_pat_match:
         pat_code, pat_number = vin_pat_match.groups()
         vin_pat_map = {
-            'PA': 'pr',
-            'SA': 'sg',
-            'AN': 'ay',
-            'NP': 'np',
-            'PC': 'pc',
-            'PD': 'pd',
-            'SE': 'sk',
-            'AS': 'as'
+            "PA": "pr",
+            "SA": "sg",
+            "AN": "ay",
+            "NP": "np",
+            "PC": "pc",
+            "PD": "pd",
+            "SE": "sk",
+            "AS": "as",
         }
         return f"{base_url}vi/bu-pt.html#{vin_pat_map[pat_code]}"
 
@@ -103,17 +114,17 @@ def link_vin_pat(source: str, base_url: str) -> str:
 
 def link_pat(source: str, base_url: str) -> str:
     # Logic for VIN PAT
-    pattern = re.match(r'(PA|SA|NP|PC|PD|SE|AS)\s?(\d+)', source)
+    pattern = re.match(r"(PA|SA|NP|PC|PD|SE|AS)\s?(\d+)", source)
     if pattern:
         pat_code, pat_number = pattern.groups()
         vin_pat_map = {
-            'PA': 'pr',
-            'SA': 'sg',
-            'NP': 'np',
-            'PC': 'pc',
-            'PD': 'pd',
-            'SE': 'sk',
-            'AS': 'as'
+            "PA": "pr",
+            "SA": "sg",
+            "NP": "np",
+            "PC": "pc",
+            "PD": "pd",
+            "SE": "sk",
+            "AS": "as",
         }
         return f"{base_url}vi/bu-pt.html#{vin_pat_map[pat_code]}"
 
@@ -121,7 +132,7 @@ def link_pat(source: str, base_url: str) -> str:
 
 
 def link_dn_mn(source: str, base_url: str) -> str:
-    match = re.match(r'(DN|MN)\s?(\d+)(\.\d+)?', source)
+    match = re.match(r"(DN|MN)\s?(\d+)(\.\d+)?", source)
     if match:
         book, number = match.groups()[0], match.groups()[1]
         return f"{base_url}{book.lower()}/{book.lower()}{number}.html"
@@ -131,7 +142,7 @@ def link_dn_mn(source: str, base_url: str) -> str:
 
 def link_an(source: str, base_url: str) -> str:
     # Special case for AN3.x
-    an_match = re.match(r'AN\s?3\.(\d+)', source)
+    an_match = re.match(r"AN\s?3\.(\d+)", source)
     if an_match:
         sub_num = int(an_match.group(1))
         if 48 <= sub_num <= 183:
@@ -143,7 +154,7 @@ def link_an(source: str, base_url: str) -> str:
 
 def link_sn(source: str, base_url: str) -> str:
     # Regular cases for AN, SN (whole number valid with sub numbers)
-    sub_match = re.match(r'(AN|SN)\s?(\d+(\.\d+)?)', source)
+    sub_match = re.match(r"(AN|SN)\s?(\d+(\.\d+)?)", source)
     if sub_match:
         book, number = sub_match.groups()[0], sub_match.groups()[1]
         return f"{base_url}{book.lower()}/{book.lower()}{number}.html"
@@ -153,7 +164,7 @@ def link_sn(source: str, base_url: str) -> str:
 
 def link_khp(source: str, base_url: str) -> str:
     # Logic for KHP verses
-    khp_match = re.match(r'KHP\s?(\d+)', source)
+    khp_match = re.match(r"KHP\s?(\d+)", source)
     if khp_match:
         khp_number = int(khp_match.group(1))
         return f"{base_url}kp/kp{khp_number}.html"
@@ -163,7 +174,7 @@ def link_khp(source: str, base_url: str) -> str:
 
 # Example of a more data-driven approach:
 def link_dhp(source: str, base_url: str) -> str:
-    match = re.match(r'DHP\s?(\d+)', source)
+    match = re.match(r"DHP\s?(\d+)", source)
     if match:
         verse_number = int(match.group(1))
         dhp_ranges = {
@@ -203,10 +214,10 @@ def link_dhp(source: str, base_url: str) -> str:
 
 def link_snp(source: str, base_url: str) -> str:
     # Logic for SNP verses
-    snp_match = re.match(r'SNP\s?(\d+)', source)
+    snp_match = re.match(r"SNP\s?(\d+)", source)
     if snp_match:
         snp_number = int(snp_match.group(1))
-        
+
         if 1 <= snp_number <= 12:
             return base_url + f"snp/snp1.{snp_number}.html"
         elif 13 <= snp_number <= 26:
@@ -225,31 +236,31 @@ def link_snp(source: str, base_url: str) -> str:
 
 def link_ud(source: str, base_url: str) -> str:
     # Logic for UD verses
-    ud_match = re.match(r'UD\s?(\d+)', source)
+    ud_match = re.match(r"UD\s?(\d+)", source)
     if ud_match:
         ud_number = int(ud_match.group(1))
         if 1 <= ud_number <= 10:
             return f"{base_url}ud/ud1.{ud_number}.html"
         elif 11 <= ud_number <= 20:
-            return f"{base_url}ud/ud2.{ud_number-10}.html"
+            return f"{base_url}ud/ud2.{ud_number - 10}.html"
         elif 21 <= ud_number <= 30:
-            return f"{base_url}ud/ud3.{ud_number-20}.html"
+            return f"{base_url}ud/ud3.{ud_number - 20}.html"
         elif 31 <= ud_number <= 40:
-            return f"{base_url}ud/ud4.{ud_number-30}.html"
+            return f"{base_url}ud/ud4.{ud_number - 30}.html"
         elif 41 <= ud_number <= 50:
-            return f"{base_url}ud/ud5.{ud_number-40}.html"
+            return f"{base_url}ud/ud5.{ud_number - 40}.html"
         elif 51 <= ud_number <= 60:
-            return f"{base_url}ud/ud6.{ud_number-50}.html"
+            return f"{base_url}ud/ud6.{ud_number - 50}.html"
         elif 61 <= ud_number <= 70:
-            return f"{base_url}ud/ud7.{ud_number-60}.html"
+            return f"{base_url}ud/ud7.{ud_number - 60}.html"
         elif 71 <= ud_number <= 80:
-            return f"{base_url}ud/ud8.{ud_number-70}.html"
+            return f"{base_url}ud/ud8.{ud_number - 70}.html"
 
     return ""
 
 
 def link_iti(source: str, base_url: str) -> str:
-    # Logic for ITI verses 
+    # Logic for ITI verses
     if source.startswith("ITI"):
         return base_url + "it/it.html"
 
@@ -258,7 +269,7 @@ def link_iti(source: str, base_url: str) -> str:
 
 def link_thi(source: str, base_url: str) -> str:
     # Logic for THI verses
-    thi_match = re.match(r'THI\s?(\d+)', source)
+    thi_match = re.match(r"THI\s?(\d+)", source)
     if thi_match:
         thi_number = int(thi_match.group(1))
         if 1 <= thi_number <= 18:
@@ -299,7 +310,7 @@ def link_thi(source: str, base_url: str) -> str:
 
 def link_th(source: str, base_url: str) -> str:
     # Logic for TH verses
-    th_match = re.match(r'TH\s?(\d+)', source)
+    th_match = re.match(r"TH\s?(\d+)", source)
     if th_match:
         th_number = int(th_match.group(1))
         if 1 <= th_number <= 120:

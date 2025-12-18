@@ -8,7 +8,7 @@ import dbf
 # dbf.ENCODING = 'tis-620'  # Thai Industrial Standard encoding
 
 # Open the table
-table = dbf.Table('/media/bodhirasa/123gb/Tipitaka/Dbf1/wordat.dbf')
+table = dbf.Table("/media/bodhirasa/123gb/Tipitaka/Dbf1/wordat.dbf")
 table.open()
 
 # Print field names first

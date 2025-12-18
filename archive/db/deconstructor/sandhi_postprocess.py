@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Postprocess the results, find top five 
+Postprocess the results, find top five
 most likely candidates and save to database.
 """
 
@@ -26,7 +26,7 @@ from tools.configger import config_test
 def main():
     tic()
     print("[bright_yellow]post-processing sandhi-splitter")
-    
+
     if not (
         config_test("exporter", "make_deconstructor", "yes")
         or config_test("exporter", "make_tpr", "yes")
@@ -154,7 +154,7 @@ def make_top_five_dict(matches_df):
 def add_to_dpd_db(db_session: Session, top_five_dict):
     print("[green]adding to dpd_db", end=" ")
 
-    lookup_table = (db_session.query(Lookup).all())
+    lookup_table = db_session.query(Lookup).all()
     update_set, test_set, add_set = update_test_add(lookup_table, top_five_dict)
 
     # update test add
@@ -165,7 +165,7 @@ def add_to_dpd_db(db_session: Session, top_five_dict):
             if is_another_value(i, "deconstructor"):
                 i.deconstructor = ""
             else:
-                db_session.delete(i) 
+                db_session.delete(i)
 
     db_session.commit()
 
@@ -231,7 +231,6 @@ def letter_counts(pth: ProjectPaths, df):
                 letters[len(word)].append(word)
             except KeyError:
                 print(f"[red][underline]{word}[/underline] is causing problems")
-
 
     for i in range(1, 11):
         letters_df = pd.DataFrame(letters[i])

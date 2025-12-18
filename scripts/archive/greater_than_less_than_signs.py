@@ -22,6 +22,5 @@ def main():
     print(fields_with_signs)
 
 
-
 if __name__ == "__main__":
     main()

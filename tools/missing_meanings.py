@@ -16,7 +16,8 @@ from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths
 from tools.clean_machine import clean_machine
 
-class GlobalVars():
+
+class GlobalVars:
     def __init__(self, db_session: Session, text: str, level=1) -> None:
         self.db_session: Session = db_session
         self.text: str = text
@@ -25,7 +26,7 @@ class GlobalVars():
         self.word: str
         self.lookup: Lookup | None
         self.level: int = level
-    
+
     def append_to_text_list(self, word):
         if word not in self.text_list:
             self.text_list.append(word)
@@ -34,25 +35,20 @@ class GlobalVars():
 def make_clean_word_list(g: GlobalVars):
     """Clean up the text and make a list of words."""
 
-    g.text = re.sub("\(.*?\)", "", g.text)      # remove word in brackets
-    g.text = g.text.replace("<b>", "")            # remove bold tags
-    g.text = g.text.replace("</b>", "")     
+    g.text = re.sub("\(.*?\)", "", g.text)  # remove word in brackets
+    g.text = g.text.replace("<b>", "")  # remove bold tags
+    g.text = g.text.replace("</b>", "")
     g.text = clean_machine(g.text)
     g.text_list = sorted(set(g.text.split()))
 
 
 def check_in_lookup(g: GlobalVars):
-    g.lookup = g.db_session.query(Lookup) \
-        .filter_by(lookup_key=g.word) \
-        .first()
+    g.lookup = g.db_session.query(Lookup).filter_by(lookup_key=g.word).first()
 
 
 def check_in_dpd_headwords(g: GlobalVars):
-
     for dpd_id in g.lookup.headwords_unpack:
-        headword = g.db_session.query(DpdHeadword) \
-            .filter_by(id=dpd_id) \
-            .first()
+        headword = g.db_session.query(DpdHeadword).filter_by(id=dpd_id).first()
         if g.level == 2:
             if not headword.meaning_1:
                 g.missing_meanings.append(headword.lemma_1)
@@ -105,6 +101,3 @@ if __name__ == "__main__":
     db_session = get_db_session(pth.dpd_db_path)
     missing_meanings = find_missing_meanings(db_session, text, level=1)
     # print(missing_meanings)
-    
-
-

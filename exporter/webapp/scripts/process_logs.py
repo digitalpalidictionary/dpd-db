@@ -11,7 +11,7 @@ def parse_single_line(line):
 
     if match:
         ip, method, path, status_code, status_message = match.groups()
-        
+
         route = ""
         query = ""
         pattern = r"([^?]+)\?(?:[^=]+)=(.+)"

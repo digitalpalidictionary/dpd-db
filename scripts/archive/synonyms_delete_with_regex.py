@@ -17,16 +17,18 @@ def main():
     lemma_clean = "paṭijānāti"
     search_term = f"( |^){lemma_clean}(,|$)"
 
-    results = db_session \
-        .query(DpdHeadword) \
-        .filter(DpdHeadword.synonym.regexp_match(search_term)) \
+    results = (
+        db_session.query(DpdHeadword)
+        .filter(DpdHeadword.synonym.regexp_match(search_term))
         .all()
-    
+    )
+
     for r in results:
         print(f"{r.lemma_1:<30}[green]{r.synonym} {len(r.synonym.split(', '))}")
         r.synonym = re.sub(search_term, "", r.synonym).strip()
         print(f"{r.lemma_1:<30}[light_green]{r.synonym} {len(r.synonym.split(', '))}")
         print()
+
 
 if __name__ == "__main__":
     main()

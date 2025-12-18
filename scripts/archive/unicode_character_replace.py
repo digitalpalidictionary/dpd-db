@@ -23,7 +23,7 @@ def main():
                 if character in getattr(i, field):
                     setattr(i, field, getattr(i, field).replace(character, replacement))
                     print(getattr(i, field))
-        
+
     # db_session.commit()
 
 

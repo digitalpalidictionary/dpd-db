@@ -1,8 +1,9 @@
 import urllib.parse
 
+
 def decode_url(input_string: str) -> str:
     return urllib.parse.unquote(input_string)
-    
+
 
 if __name__ == "__main__":
     encoded_string = "niya%E1%B9%81"

@@ -14,8 +14,8 @@ def main():
     pth = ProjectPaths()
     with open(pth.syn_var_exceptions_old_path, "rb") as f:
         exceptions_list: list = pickle.load(f)
-    print(len(exceptions_list)) 
-    
+    print(len(exceptions_list))
+
     new_exceptions_set: set = set()
     for i in exceptions_list:
         if "[" in i:
@@ -24,7 +24,6 @@ def main():
     print(len(new_exceptions_set))
     with open(pth.syn_var_exceptions_path, "w") as f:
         json.dump(list(new_exceptions_set), f, ensure_ascii=False, indent=2)
-
 
 
 if __name__ == "__main__":

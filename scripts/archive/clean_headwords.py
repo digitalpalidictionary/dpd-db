@@ -16,7 +16,9 @@ def main():
 
     clean_headwords = set()
     for i in dpd_db:
-        if not re.findall(r"\b(nom|acc|instr|dat|abl|gen|loc|voc|1st|2nd|reflx|pl)\b", i.grammar):
+        if not re.findall(
+            r"\b(nom|acc|instr|dat|abl|gen|loc|voc|1st|2nd|reflx|pl)\b", i.grammar
+        ):
             clean_headwords.add(i.lemma_clean)
 
     clean_headwords = pali_list_sorter(list(clean_headwords))

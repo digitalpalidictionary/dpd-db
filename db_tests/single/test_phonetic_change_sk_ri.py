@@ -12,29 +12,23 @@ from tools.paths import ProjectPaths
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    
-    results = db_session \
-        .query(DpdHeadword) \
-        .all()
-    
+
+    results = db_session.query(DpdHeadword).all()
+
     reduced_results = []
     for r in results:
         if r.root_key:
-            if (
-                "ṛ" in r.rt.sanskrit_root
-                and ">" in r.phonetic
-                and r.meaning_1
-            ):
+            if "ṛ" in r.rt.sanskrit_root and ">" in r.phonetic and r.meaning_1:
                 reduced_results.append(r)
-    
+
     length = len(reduced_results)
     start_point = 448
 
     for index, r in enumerate(reduced_results):
         if index > start_point:
-            print(f"[green]{index+1} / {length+1}")
+            print(f"[green]{index + 1} / {length + 1}")
             print(f"[green]{'headword':40}[white]{r.lemma_1}")
-            
+
             phonetic_split = r.phonetic.split("\n")
             if len(phonetic_split) == 1:
                 print(f"[green]{'phonetic':<40}[yellow]{phonetic_split[0]}")
@@ -71,8 +65,7 @@ if __name__ == "__main__":
     # ṭ > t (anuvattana)
     # ṛ > ar (sabbathā)
     # hāriya > hira (asaṃhira)
-    # 
-
+    #
 
     # ignore
     # a > ā

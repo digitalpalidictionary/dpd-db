@@ -19,13 +19,13 @@ def main():
         # if re.findall(r".*? </b>", i.compound_construction):
         if "<b> " in i.compound_construction:
             # i.compound_construction = i.compound_construction.replace(
-                # " +</b>", "</b> +")
+            # " +</b>", "</b> +")
             print(i.lemma_1)
             print(i.compound_construction)
             pyperclip.copy(i.lemma_1)
             count += 1
             input()
-    
+
     print(count)
     # db_session.commit()
 

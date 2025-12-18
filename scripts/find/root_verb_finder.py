@@ -29,8 +29,8 @@ def main():
 
     for pos, words in root_family_dict.items():
         print(f"{pos:<10}", end=" ")
-        print(f"{", ".join([word for word in words])}")
+        print(f"{', '.join([word for word in words])}")
+
 
 if __name__ == "__main__":
     main()
-

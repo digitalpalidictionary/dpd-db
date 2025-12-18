@@ -9,8 +9,7 @@ from db.models import DpdHeadword
 
 TODAY = date.today()
 
-EXCLUDE_FROM_SETS: set = {
-    "dps", "ncped", "pass1", "sandhi"}
+EXCLUDE_FROM_SETS: set = {"dps", "ncped", "pass1", "sandhi"}
 
 
 def make_roots_count_dict(db_session: Session) -> Dict[str, int]:

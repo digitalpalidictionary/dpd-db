@@ -22,7 +22,7 @@ def main():
             print(i.sanskrit)
             print()
             count += 1
-    
+
     # db_session.commit()
     print(count)
 

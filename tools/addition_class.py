@@ -11,12 +11,11 @@ pth = ProjectPaths()
 
 # When secondary user adds new words to their db > save it to the Additions TSV
 # When secondary user updates a word in their db > update the Additions TVS
-# When primary user adds the Additions to their database, save the new id and comments 
+# When primary user adds the Additions to their database, save the new id and comments
 # TODO Process to add new Additions one by one.
 
 
-class Additions():
-
+class Additions:
     def __init__(
         self,
         headword: DpdHeadword,
@@ -26,10 +25,10 @@ class Additions():
         self.add_me = {
             "new_id": "",
             "comment": "",
-            "date_created": str(datetime.now().strftime('%Y-%m-%d')),
+            "date_created": str(datetime.now().strftime("%Y-%m-%d")),
             "added_to_db": "",
             "date_added_to_db": "",
-            "name": config_read("user", "username")
+            "name": config_read("user", "username"),
         }
         self.add_me.update(headword.__dict__)
         self.add_me.pop("_sa_instance_state")
@@ -47,7 +46,6 @@ class Additions():
             else:
                 self.needs_updating = True
 
-
     def load_additions_tsv(self):
         try:
             return read_tsv_dot_dict(pth.additions_tsv_path)
@@ -56,12 +54,11 @@ class Additions():
 
     def save_additions_tsv(self):
         write_tsv_dot_dict(pth.additions_tsv_path, self.additions_list)
-    
+
     def test_id(self):
         self.id_index: int | None = None
         for counter, add_list in enumerate(self.additions_list):
             if str(add_list["id"]) == str(self.add_me["id"]):
-                
                 # pop and add if it exists
                 self.additions_list.pop(counter)
                 return False
@@ -86,7 +83,6 @@ class Additions():
 
 
 if __name__ == "__main__":
-
     # db_session = get_db_session(pth.dpd_db_path)
     # headword = db_session.query(DpdHeadword).filter_by(id=45673).first()
     # if headword:

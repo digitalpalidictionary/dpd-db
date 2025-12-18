@@ -16,16 +16,36 @@ def make_dicts(pth: ProjectPaths):
 
     wc_dir = pth.word_count_dir
 
-    vinaya_pārājika_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None)
-    vinaya_pācittiya_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pācittiya_mūla.csv"), sep="\t", header=None)
-    vinaya_mahāvagga_mūla = pd.read_csv(wc_dir.joinpath("vinaya_mahāvagga_mūla.csv"), sep="\t", header=None)
-    vinaya_cūḷavagga_mūla = pd.read_csv(wc_dir.joinpath("vinaya_cūḷavagga_mūla.csv"), sep="\t", header=None)
-    vinaya_parivāra_mūla = pd.read_csv(wc_dir.joinpath("vinaya_parivāra_mūla.csv"), sep="\t", header=None)
-    sutta_dīgha_mūla = pd.read_csv(wc_dir.joinpath("sutta_dīgha_mūla.csv"), sep="\t", header=None)
-    sutta_majjhima_mūla = pd.read_csv(wc_dir.joinpath("sutta_majjhima_mūla.csv"), sep="\t", header=None)
-    sutta_saṃyutta_mūla = pd.read_csv(wc_dir.joinpath("sutta_saṃyutta_mūla.csv"), sep="\t", header=None)
-    sutta_aṅguttara_mūla = pd.read_csv(wc_dir.joinpath("sutta_aṅguttara_mūla.csv"), sep="\t", header=None)
-    sutta_khuddaka1_mūla = pd.read_csv(wc_dir.joinpath("sutta_khuddaka1_mūla.csv"), sep="\t", header=None)
+    vinaya_pārājika_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_pācittiya_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_pācittiya_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_mahāvagga_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_mahāvagga_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_cūḷavagga_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_cūḷavagga_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_parivāra_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_parivāra_mūla.csv"), sep="\t", header=None
+    )
+    sutta_dīgha_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_dīgha_mūla.csv"), sep="\t", header=None
+    )
+    sutta_majjhima_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_majjhima_mūla.csv"), sep="\t", header=None
+    )
+    sutta_saṃyutta_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_saṃyutta_mūla.csv"), sep="\t", header=None
+    )
+    sutta_aṅguttara_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_aṅguttara_mūla.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka1_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka1_mūla.csv"), sep="\t", header=None
+    )
 
     vinaya_pārājika_mūla_dict = dict(vinaya_pārājika_mūla.values.tolist())
     vinaya_pācittiya_mūla_dict = dict(vinaya_pācittiya_mūla.values.tolist())
@@ -68,7 +88,6 @@ def calculate_ebt_count():
     dictionary_counts = [{} for _ in dicts]
 
     for __counter__, i in enumerate(dpd_db):
-        
         inflections = i.inflections_list
 
         for idx, dictionary in enumerate(dicts):
@@ -83,7 +102,9 @@ def calculate_ebt_count():
     # Calculate and print the total counts for all words
     total_word_counts = {}
     for word in dpd_db:
-        total_count = sum(dictionary_counts[idx].get(word.lemma_1, 0) for idx in range(len(dicts)))
+        total_count = sum(
+            dictionary_counts[idx].get(word.lemma_1, 0) for idx in range(len(dicts))
+        )
         total_word_counts[word.lemma_1] = total_count
 
         word.ebt_count = total_count

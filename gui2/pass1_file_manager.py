@@ -32,7 +32,9 @@ class Pass1FileManager:
             with filepath.open("w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
 
-    def update(self, book: str, update_function: Callable[[Dict[str, Any]], Any]) -> Any:
+    def update(
+        self, book: str, update_function: Callable[[Dict[str, Any]], Any]
+    ) -> Any:
         with self._lock:
             filepath = self._get_filepath(book)
             data = {}
@@ -43,10 +45,10 @@ class Pass1FileManager:
                 except json.JSONDecodeError:
                     # Handle corrupted or empty file
                     pass
-            
+
             result = update_function(data)
 
             with filepath.open("w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
-            
+
             return result

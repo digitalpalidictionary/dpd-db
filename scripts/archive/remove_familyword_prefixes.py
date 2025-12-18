@@ -15,10 +15,9 @@ def remove_space_in_family_word():
 
     add_to_db = []
     for __counter__, i in enumerate(dpd_db):
-
         if i.family_word is not None and " " in i.family_word:
             new_fw = re.sub("^.* ", "", i.family_word)
-            print(f"{ i.family_word:>15} ---> {new_fw:<15}")
+            print(f"{i.family_word:>15} ---> {new_fw:<15}")
 
             add_to_db += [{"id": i.id, "family_word": new_fw}]
 

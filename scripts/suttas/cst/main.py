@@ -51,7 +51,9 @@ PROCESSING_STEPS = [
 
 
 def extract_sutta_data(cst_data, book_list, extract_x_data):
-    source_path = Path("/home/bodhirasa/MyFiles/3_Active/dpd-db/resources/dpd_submodules/cst")
+    source_path = Path(
+        "/home/bodhirasa/MyFiles/3_Active/dpd-db/resources/dpd_submodules/cst"
+    )
 
     for file_string in book_list:
         file_list = cst_texts[file_string]

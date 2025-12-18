@@ -14,10 +14,7 @@ def main():
     dpd_db = db_session.query(DpdHeadword).all()
 
     for i in dpd_db:
-        if (
-            i.derivative == "kicca" and
-            i.pos == "adj"
-        ):
+        if i.derivative == "kicca" and i.pos == "adj":
             i.pos = "ptp"
             i.pattern = "a ptp"
             i.grammar = re.sub("adj, ptp of", "ptp of", i.grammar)

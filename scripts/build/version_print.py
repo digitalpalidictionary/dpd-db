@@ -4,6 +4,7 @@
 
 from tools.configger import config_read
 
+
 def main():
     print(config_read("version", "version"))
 

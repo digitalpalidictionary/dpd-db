@@ -27,5 +27,6 @@ def main():
     print(counter)
     db_session.commit()
 
+
 if __name__ == "__main__":
     main()

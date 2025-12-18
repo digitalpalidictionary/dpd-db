@@ -21,11 +21,12 @@ class AutoSuggestData:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.id = id
-        self.headword: list[DpdHeadword] = self.db_session.query(DpdHeadword).filter(DpdHeadword.id==id).all()
+        self.headword: list[DpdHeadword] = (
+            self.db_session.query(DpdHeadword).filter(DpdHeadword.id == id).all()
+        )
         self.type: str | None = self.get_type()
         self.completed: list[DpdHeadword] | None = self.get_complete_data()
-    
-    
+
     def get_type(self):
         if self.headword:
             headword = self.headword[0]
@@ -41,39 +42,40 @@ class AutoSuggestData:
         if self.headword and self.type == "root":
             return (
                 self.db_session.query(DpdHeadword)
-                .filter(DpdHeadword.root_key==self.headword[0].root_key)
+                .filter(DpdHeadword.root_key == self.headword[0].root_key)
                 .filter(DpdHeadword.meaning_1 != "")
                 .all()
             )
-        
+
+
 class AutoSuggestController:
     columns_excluded = [
-        'lemma_2', # its already complete
-        'non_root_in_comps', # useless field which should get deleted
-        'source_1', # don't need examples
-        'sutta_1',
-        'example_1',
-        'source_2',
-        'sutta_2',
-        'example_2',
-        'commentary',
-        'notes',
-        'cognate',
-        'link',
-        'origin',
-        'stem',
-        'pattern',
-        'created_at',
-        'updated_at',
-        'inflections',
-        'inflections_api_ca_eva_iti',
-        'inflections_sinhala',
-        'inflections_devanagari',
-        'inflections_thai',
-        'inflections_html',
-        'freq_data',
-        'freq_html',
-        'ebt_count'
+        "lemma_2",  # its already complete
+        "non_root_in_comps",  # useless field which should get deleted
+        "source_1",  # don't need examples
+        "sutta_1",
+        "example_1",
+        "source_2",
+        "sutta_2",
+        "example_2",
+        "commentary",
+        "notes",
+        "cognate",
+        "link",
+        "origin",
+        "stem",
+        "pattern",
+        "created_at",
+        "updated_at",
+        "inflections",
+        "inflections_api_ca_eva_iti",
+        "inflections_sinhala",
+        "inflections_devanagari",
+        "inflections_thai",
+        "inflections_html",
+        "freq_data",
+        "freq_html",
+        "ebt_count",
     ]
 
     def __init__(self, id) -> None:
@@ -90,14 +92,21 @@ class AutoSuggestController:
         print(self.response.text)
 
     def make_tsv(self, data: list[DpdHeadword]) -> str:
-        columns_yes = [column for column in get_column_names(DpdHeadword) if column not in self.columns_excluded]
+        columns_yes = [
+            column
+            for column in get_column_names(DpdHeadword)
+            if column not in self.columns_excluded
+        ]
         output = io.StringIO()
-        writer = csv.DictWriter(output, fieldnames=columns_yes, delimiter="\t", quoting=csv.QUOTE_ALL)
+        writer = csv.DictWriter(
+            output, fieldnames=columns_yes, delimiter="\t", quoting=csv.QUOTE_ALL
+        )
         writer.writeheader()
         for headword in data:
-            writer.writerow({column: getattr(headword, column) for column in columns_yes})
+            writer.writerow(
+                {column: getattr(headword, column) for column in columns_yes}
+            )
         return output.getvalue()
-        
 
     def make_prompt(self):
         return f"""
@@ -120,8 +129,7 @@ Make a new column at the end of the JSON called "comments".
 Any comments you want to make about your choices can be included in that. Use plain text in that field, not markdown.
 
 
-"""  
-
+"""
 
     def cleanup_response(self):
         if self.response and self.response.text:
@@ -140,7 +148,7 @@ Any comments you want to make about your choices can be included in that. Use pl
                     print(json_string)
             else:
                 print("Could not find JSON block within ```json ... ``` fences.")
-        
+
 
 def main():
     pr.tic()

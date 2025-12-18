@@ -19,7 +19,8 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    find: list[str] = ["ekadhā",
+    find: list[str] = [
+        "ekadhā",
         "catudhā",
         "chaddhā",
         "chadhā",
@@ -30,8 +31,8 @@ def main():
         "nekadhā 1",
         "nekadhā 2",
         "nekadhā 3",
-        ]
-    
+    ]
+
     db = db_session.query(DpdHeadword).filter(DpdHeadword.lemma_1.in_(find)).all()
 
     for i in db:

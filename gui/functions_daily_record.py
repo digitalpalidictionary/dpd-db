@@ -25,27 +25,27 @@ def get_daily_record(pth: ProjectPaths):
 
 
 def daily_record_read(pth) -> dict:
-        with open(pth.daily_record_path, "rb") as f:
-            return pickle.load(f)
+    with open(pth.daily_record_path, "rb") as f:
+        return pickle.load(f)
 
 
 def daily_record_save(pth: ProjectPaths, daily_record: dict) -> None:
-        with open(pth.daily_record_path, "wb") as f:
-            pickle.dump(daily_record, f)
+    with open(pth.daily_record_path, "wb") as f:
+        pickle.dump(daily_record, f)
 
 
 def daily_record_add_date(daily_record: dict, date: str) -> dict:
-   if date not in daily_record:
-       daily_record.update({date: {"added": [], "edited": [], "deleted": [], "checked": []}})
-   return daily_record
+    if date not in daily_record:
+        daily_record.update(
+            {date: {"added": [], "edited": [], "deleted": [], "checked": []}}
+        )
+    return daily_record
 
 
-def daily_record_update(window,
-                        pth:ProjectPaths,
-                        action: str,
-                        word_id: Union[int, str]):
-
-    """"Actions are "add", "edit", "delete", "check", refresh"""
+def daily_record_update(
+    window, pth: ProjectPaths, action: str, word_id: Union[int, str]
+):
+    """ "Actions are "add", "edit", "delete", "check", refresh"""
 
     date = year_month_day_dash()
     daily_record = get_daily_record(pth)

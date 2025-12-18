@@ -22,5 +22,6 @@ def main():
     pos_list = sorted(pos_set)
     print(pos_list)
 
+
 if __name__ == "__main__":
     main()

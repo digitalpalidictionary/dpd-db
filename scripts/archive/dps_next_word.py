@@ -20,16 +20,13 @@ def main():
     counter = 0
     dps_set = set()
     for i in dpd_db:
-        if (
-            not i.meaning_1 and
-            i.origin == "dps"
-        ):
+        if not i.meaning_1 and i.origin == "dps":
             dps_set.update([i.lemma_1])
             counter += 1
 
     done = 0
     for word in dps_set:
-        print(f"{counter-done}. {word}", end=" ")
+        print(f"{counter - done}. {word}", end=" ")
         pyperclip.copy(word)
         done += 1
         x = input()

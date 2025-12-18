@@ -19,7 +19,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
 
-    # load ram's changes to exclude    # 
+    # load ram's changes to exclude    #
     with open("db/sanskrit/sanskrit_update_1_backup", "rb") as f:
         sk_dict = pickle.load(f)
 
@@ -33,8 +33,8 @@ def main():
                 print(i.sanskrit + "\n")
                 counter += 1
 
-    
     # db_session.commit()
+
 
 if __name__ == "__main__":
     main()

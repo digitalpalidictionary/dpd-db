@@ -76,10 +76,7 @@ def extract_sn_data(soup, relative_path):
                 # Find all pb elements in this paragraph
                 pbs = next_para.find_all("pb")
                 if (
-                    m_page is None
-                    or v_page is None
-                    or p_page is None
-                    or t_page is None
+                    m_page is None or v_page is None or p_page is None or t_page is None
                 ) or (
                     pb.previous_sibling is None
                     or (
@@ -111,7 +108,7 @@ def extract_sn_data(soup, relative_path):
             data["cst_p_page"] = p_page
             data["cst_t_page"] = t_page
             data["cst_file"] = relative_path
-            
+
             data_list.append(data)
 
     return data_list

@@ -3,7 +3,9 @@
 from db.models import Lookup
 
 
-def update_test_add(lookup_table: list[Lookup], the_dict: dict) -> tuple[set[str], set[str], set[str]]:
+def update_test_add(
+    lookup_table: list[Lookup], the_dict: dict
+) -> tuple[set[str], set[str], set[str]]:
     """Input a db_session and a dictionary.
     Return three sets:
     1. update_set = all words in the Lookup table & dict
@@ -13,7 +15,7 @@ def update_test_add(lookup_table: list[Lookup], the_dict: dict) -> tuple[set[str
 
     # FIXME use four lists: add update clear delete
 
-    #keys of the dict       
+    # keys of the dict
     dict_keys = set([key for key in the_dict])
 
     # keys of the Lookup table

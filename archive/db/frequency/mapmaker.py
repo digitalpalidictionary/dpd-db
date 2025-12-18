@@ -29,21 +29,20 @@ from tools.utils import list_into_batches
 def main():
     tic()
     print("[bright_yellow]mapmaker")
-    
+
     if not (
-        config_test("exporter", "make_dpd", "yes") or 
-        config_test("regenerate", "db_rebuild", "yes") or 
-        config_test("exporter", "make_tpr", "yes") or 
-        config_test("exporter", "make_ebook", "yes")
+        config_test("exporter", "make_dpd", "yes")
+        or config_test("regenerate", "db_rebuild", "yes")
+        or config_test("exporter", "make_tpr", "yes")
+        or config_test("exporter", "make_ebook", "yes")
     ):
         print("[green]disabled in config.ini")
         toc()
         return
 
     # check config
-    if (
-        config_test("regenerate", "freq_maps", "yes")
-        or config_test("regenerate", "db_rebuild", "yes")
+    if config_test("regenerate", "freq_maps", "yes") or config_test(
+        "regenerate", "db_rebuild", "yes"
     ):
         regenerate_all: bool = True
     else:
@@ -76,7 +75,7 @@ def main():
     if regenerate_all:
         config_update("regenerate", "freq_maps", "no")
     if config_test("regenerate", "db_rebuild", "yes"):
-            config_update("regenerate", "db_rebuild", "no")
+        config_update("regenerate", "db_rebuild", "no")
 
     toc()
 
@@ -96,7 +95,7 @@ def test_inflection_template_changed(pth: ProjectPaths):
 
     except FileNotFoundError as e:
         print(f"[red]{e}")
-        assert(changed_templates == [])
+        assert changed_templates == []
 
 
 def test_changed_headwords(pth: ProjectPaths):
@@ -113,23 +112,25 @@ def test_changed_headwords(pth: ProjectPaths):
 
     except FileNotFoundError as e:
         print(f"[bright_red]{e}")
-        assert(changed_templates == [])
+        assert changed_templates == []
 
 
 def test_html_file_missing(db_session: Session):
     print("[green]test if html file is missing", end=" ")
 
-    idioms_db = db_session.query(DpdHeadword.id, DpdHeadword.pos) \
-        .filter(DpdHeadword.pos == "idiom") \
+    idioms_db = (
+        db_session.query(DpdHeadword.id, DpdHeadword.pos)
+        .filter(DpdHeadword.pos == "idiom")
         .all()
+    )
 
     idioms_list = [i.id for i in idioms_db]
 
-    missing_html_db = db_session.query(DpdHeadword.id, DpdHeadword.freq_html) \
-        .filter(
-            DpdHeadword.freq_html == "",
-            DpdHeadword.id.notin_(idioms_list)) \
+    missing_html_db = (
+        db_session.query(DpdHeadword.id, DpdHeadword.freq_html)
+        .filter(DpdHeadword.freq_html == "", DpdHeadword.id.notin_(idioms_list))
         .all()
+    )
 
     global html_file_missing
     html_file_missing = [i.id for i in missing_html_db]
@@ -145,54 +146,142 @@ def make_dfs_and_dicts(pth: ProjectPaths) -> List[dict]:
 
     wc_dir = pth.word_count_dir
 
-    vinaya_pārājika_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None)
-    vinaya_pārājika_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_pārājika_aṭṭhakathā.csv"), sep="\t", header=None)
+    vinaya_pārājika_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_pārājika_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_pārājika_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("vinaya_pārājika_aṭṭhakathā.csv"), sep="\t", header=None
+    )
     vinaya_ṭīkā = pd.read_csv(wc_dir.joinpath("vinaya_ṭīkā.csv"), sep="\t", header=None)
-    vinaya_pācittiya_mūla = pd.read_csv(wc_dir.joinpath("vinaya_pācittiya_mūla.csv"), sep="\t", header=None)
-    vinaya_pācittiya_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_pācittiya_aṭṭhakathā.csv"), sep="\t", header=None)
-    vinaya_mahāvagga_mūla = pd.read_csv(wc_dir.joinpath("vinaya_mahāvagga_mūla.csv"), sep="\t", header=None)
-    vinaya_mahāvagga_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_mahāvagga_aṭṭhakathā.csv"), sep="\t", header=None)
-    vinaya_cūḷavagga_mūla = pd.read_csv(wc_dir.joinpath("vinaya_cūḷavagga_mūla.csv"), sep="\t", header=None)
-    vinaya_cūḷavagga_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_cūḷavagga_aṭṭhakathā.csv"), sep="\t", header=None)
-    vinaya_parivāra_mūla = pd.read_csv(wc_dir.joinpath("vinaya_parivāra_mūla.csv"), sep="\t", header=None)
-    vinaya_parivāra_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("vinaya_parivāra_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_dīgha_mūla = pd.read_csv(wc_dir.joinpath("sutta_dīgha_mūla.csv"), sep="\t", header=None)
-    sutta_dīgha_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_dīgha_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_dīgha_ṭīkā = pd.read_csv(wc_dir.joinpath("sutta_dīgha_ṭīkā.csv"), sep="\t", header=None)
-    sutta_majjhima_mūla = pd.read_csv(wc_dir.joinpath("sutta_majjhima_mūla.csv"), sep="\t", header=None)
-    sutta_majjhima_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_majjhima_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_majjhima_ṭīkā = pd.read_csv(wc_dir.joinpath("sutta_majjhima_ṭīkā.csv"), sep="\t", header=None)
-    sutta_saṃyutta_mūla = pd.read_csv(wc_dir.joinpath("sutta_saṃyutta_mūla.csv"), sep="\t", header=None)
-    sutta_saṃyutta_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_saṃyutta_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_saṃyutta_ṭīkā = pd.read_csv(wc_dir.joinpath("sutta_saṃyutta_ṭīkā.csv"), sep="\t", header=None)
-    sutta_aṅguttara_mūla = pd.read_csv(wc_dir.joinpath("sutta_aṅguttara_mūla.csv"), sep="\t", header=None)
-    sutta_aṅguttara_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_aṅguttara_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_aṅguttara_ṭīkā = pd.read_csv(wc_dir.joinpath("sutta_aṅguttara_ṭīkā.csv"), sep="\t", header=None)
-    sutta_khuddaka1_mūla = pd.read_csv(wc_dir.joinpath("sutta_khuddaka1_mūla.csv"), sep="\t", header=None)
-    sutta_khuddaka1_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_khuddaka1_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_khuddaka2_mūla = pd.read_csv(wc_dir.joinpath("sutta_khuddaka2_mūla.csv"), sep="\t", header=None)
-    sutta_khuddaka2_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_khuddaka2_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_khuddaka3_mūla = pd.read_csv(wc_dir.joinpath("sutta_khuddaka3_mūla.csv"), sep="\t", header=None)
-    sutta_khuddaka3_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("sutta_khuddaka3_aṭṭhakathā.csv"), sep="\t", header=None)
-    sutta_khuddaka3_ṭīkā = pd.read_csv(wc_dir.joinpath("sutta_khuddaka3_ṭīkā.csv"), sep="\t", header=None)
-    abhidhamma_dhammasaṅgaṇī_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_dhammasaṅgaṇī_mūla.csv"), sep="\t", header=None)
-    abhidhamma_vibhāṅga_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_vibhāṅga_mūla.csv"), sep="\t", header=None)
-    abhidhamma_dhātukathā_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_dhātukathā_mūla.csv"), sep="\t", header=None)
-    abhidhamma_puggalapaññatti_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_puggalapaññatti_mūla.csv"), sep="\t", header=None)
-    abhidhamma_kathāvatthu_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_kathāvatthu_mūla.csv"), sep="\t", header=None)
-    abhidhamma_yamaka_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_yamaka_mūla.csv"), sep="\t", header=None)
-    abhidhamma_paṭṭhāna_mūla = pd.read_csv(wc_dir.joinpath("abhidhamma_paṭṭhāna_mūla.csv"), sep="\t", header=None)
-    abhidhamma_aṭṭhakathā = pd.read_csv(wc_dir.joinpath("abhidhamma_aṭṭhakathā.csv"), sep="\t", header=None)
-    abhidhamma_ṭīkā = pd.read_csv(wc_dir.joinpath("abhidhamma_ṭīkā.csv"), sep="\t", header=None)
-    aññā_visuddhimagga = pd.read_csv(wc_dir.joinpath("aññā_visuddhimagga.csv"), sep="\t", header=None)
-    aññā_visuddhimagga_ṭīkā = pd.read_csv(wc_dir.joinpath("aññā_visuddhimagga_ṭīkā.csv"), sep="\t", header=None)
+    vinaya_pācittiya_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_pācittiya_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_pācittiya_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("vinaya_pācittiya_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    vinaya_mahāvagga_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_mahāvagga_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_mahāvagga_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("vinaya_mahāvagga_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    vinaya_cūḷavagga_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_cūḷavagga_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_cūḷavagga_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("vinaya_cūḷavagga_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    vinaya_parivāra_mūla = pd.read_csv(
+        wc_dir.joinpath("vinaya_parivāra_mūla.csv"), sep="\t", header=None
+    )
+    vinaya_parivāra_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("vinaya_parivāra_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_dīgha_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_dīgha_mūla.csv"), sep="\t", header=None
+    )
+    sutta_dīgha_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_dīgha_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_dīgha_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("sutta_dīgha_ṭīkā.csv"), sep="\t", header=None
+    )
+    sutta_majjhima_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_majjhima_mūla.csv"), sep="\t", header=None
+    )
+    sutta_majjhima_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_majjhima_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_majjhima_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("sutta_majjhima_ṭīkā.csv"), sep="\t", header=None
+    )
+    sutta_saṃyutta_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_saṃyutta_mūla.csv"), sep="\t", header=None
+    )
+    sutta_saṃyutta_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_saṃyutta_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_saṃyutta_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("sutta_saṃyutta_ṭīkā.csv"), sep="\t", header=None
+    )
+    sutta_aṅguttara_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_aṅguttara_mūla.csv"), sep="\t", header=None
+    )
+    sutta_aṅguttara_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_aṅguttara_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_aṅguttara_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("sutta_aṅguttara_ṭīkā.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka1_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka1_mūla.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka1_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka1_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka2_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka2_mūla.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka2_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka2_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka3_mūla = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka3_mūla.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka3_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka3_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    sutta_khuddaka3_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("sutta_khuddaka3_ṭīkā.csv"), sep="\t", header=None
+    )
+    abhidhamma_dhammasaṅgaṇī_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_dhammasaṅgaṇī_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_vibhāṅga_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_vibhāṅga_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_dhātukathā_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_dhātukathā_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_puggalapaññatti_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_puggalapaññatti_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_kathāvatthu_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_kathāvatthu_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_yamaka_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_yamaka_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_paṭṭhāna_mūla = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_paṭṭhāna_mūla.csv"), sep="\t", header=None
+    )
+    abhidhamma_aṭṭhakathā = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_aṭṭhakathā.csv"), sep="\t", header=None
+    )
+    abhidhamma_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("abhidhamma_ṭīkā.csv"), sep="\t", header=None
+    )
+    aññā_visuddhimagga = pd.read_csv(
+        wc_dir.joinpath("aññā_visuddhimagga.csv"), sep="\t", header=None
+    )
+    aññā_visuddhimagga_ṭīkā = pd.read_csv(
+        wc_dir.joinpath("aññā_visuddhimagga_ṭīkā.csv"), sep="\t", header=None
+    )
     aññā_leḍī = pd.read_csv(wc_dir.joinpath("aññā_leḍī.csv"), sep="\t", header=None)
-    aññā_buddha_vandanā = pd.read_csv(wc_dir.joinpath("aññā_buddha_vandanā.csv"), sep="\t", header=None)
+    aññā_buddha_vandanā = pd.read_csv(
+        wc_dir.joinpath("aññā_buddha_vandanā.csv"), sep="\t", header=None
+    )
     aññā_vaṃsa = pd.read_csv(wc_dir.joinpath("aññā_vaṃsa.csv"), sep="\t", header=None)
-    aññā_byākaraṇa = pd.read_csv(wc_dir.joinpath("aññā_byākaraṇa.csv"), sep="\t", header=None)
-    aññā_pucchavisajjana = pd.read_csv(wc_dir.joinpath("aññā_pucchavisajjana.csv"), sep="\t", header=None)
+    aññā_byākaraṇa = pd.read_csv(
+        wc_dir.joinpath("aññā_byākaraṇa.csv"), sep="\t", header=None
+    )
+    aññā_pucchavisajjana = pd.read_csv(
+        wc_dir.joinpath("aññā_pucchavisajjana.csv"), sep="\t", header=None
+    )
     aññā_nīti = pd.read_csv(wc_dir.joinpath("aññā_nīti.csv"), sep="\t", header=None)
-    aññā_pakiṇṇaka = pd.read_csv(wc_dir.joinpath("aññā_pakiṇṇaka.csv"), sep="\t", header=None)
+    aññā_pakiṇṇaka = pd.read_csv(
+        wc_dir.joinpath("aññā_pakiṇṇaka.csv"), sep="\t", header=None
+    )
     aññā_sihaḷa = pd.read_csv(wc_dir.joinpath("aññā_sihaḷa.csv"), sep="\t", header=None)
 
     vinaya_pārājika_mūla_dict = dict(vinaya_pārājika_mūla.values.tolist())
@@ -225,10 +314,14 @@ def make_dfs_and_dicts(pth: ProjectPaths) -> List[dict]:
     sutta_khuddaka3_mūla_dict = dict(sutta_khuddaka3_mūla.values.tolist())
     sutta_khuddaka3_aṭṭhakathā_dict = dict(sutta_khuddaka3_aṭṭhakathā.values.tolist())
     sutta_khuddaka3_ṭīkā_dict = dict(sutta_khuddaka3_ṭīkā.values.tolist())
-    abhidhamma_dhammasaṅgaṇī_mūla_dict = dict(abhidhamma_dhammasaṅgaṇī_mūla.values.tolist())
+    abhidhamma_dhammasaṅgaṇī_mūla_dict = dict(
+        abhidhamma_dhammasaṅgaṇī_mūla.values.tolist()
+    )
     abhidhamma_vibhāṅga_mūla_dict = dict(abhidhamma_vibhāṅga_mūla.values.tolist())
     abhidhamma_dhātukathā_mūla_dict = dict(abhidhamma_dhātukathā_mūla.values.tolist())
-    abhidhamma_puggalapaññatti_mūla_dict = dict(abhidhamma_puggalapaññatti_mūla.values.tolist())
+    abhidhamma_puggalapaññatti_mūla_dict = dict(
+        abhidhamma_puggalapaññatti_mūla.values.tolist()
+    )
     abhidhamma_kathāvatthu_mūla_dict = dict(abhidhamma_kathāvatthu_mūla.values.tolist())
     abhidhamma_yamaka_mūla_dict = dict(abhidhamma_yamaka_mūla.values.tolist())
     abhidhamma_paṭṭhāna_mūla_dict = dict(abhidhamma_paṭṭhāna_mūla.values.tolist())
@@ -294,7 +387,7 @@ def make_dfs_and_dicts(pth: ProjectPaths) -> List[dict]:
         aññā_pucchavisajjana_dict,
         aññā_nīti_dict,
         aññā_pakiṇṇaka_dict,
-        aññā_sihaḷa_dict
+        aññā_sihaḷa_dict,
     ]
     return dicts
 
@@ -304,17 +397,17 @@ def colourme(value, hi, low):
     hi = hi
     low = low
     vrange = hi - low
-    step = (vrange/9)
+    step = vrange / 9
     group0 = 0
-    group1 = step*1
-    group2 = step*2
-    group3 = step*3
-    group4 = step*4
-    group5 = step*5
-    group6 = step*6
-    group7 = step*7
-    group8 = step*8
-    group9 = step*9
+    group1 = step * 1
+    group2 = step * 2
+    group3 = step * 3
+    group4 = step * 4
+    group5 = step * 5
+    group6 = step * 6
+    group7 = step * 7
+    group8 = step * 8
+    group9 = step * 9
     group10 = hi
 
     if value == group0:
@@ -345,8 +438,9 @@ class ParsedResult(TypedDict):
     id: int
     freq_html: str
 
+
 def _parse_item(i: DpdHeadword, dicts: List[dict]) -> ParsedResult:
-    inflections = i.inflections_list_all    # this include all api ca eva iti
+    inflections = i.inflections_list_all  # this include all api ca eva iti
 
     section = 1
     d = {}
@@ -361,7 +455,7 @@ def _parse_item(i: DpdHeadword, dicts: List[dict]) -> ParsedResult:
         d[str(section)] = {"data": count, "class": ""}
         section += 1
 
-    d_values = [v["data"] for __k__, v, in d.items()]
+    d_values = [v["data"] for __k__, v in d.items()]
 
     value_max = max(d_values)
     value_min = min(d_values)
@@ -377,7 +471,6 @@ def _parse_item(i: DpdHeadword, dicts: List[dict]) -> ParsedResult:
     map_html = ""
 
     if value_max > 0:
-
         if i.pos in INDECLINABLES or re.match(r"^!", i.stem):
             map_html += f"""<p class="heading underlined">Exact matches of the word <b>{superscripter_uni(i.lemma_1)}</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
@@ -387,7 +480,7 @@ def _parse_item(i: DpdHeadword, dicts: List[dict]) -> ParsedResult:
         elif i.pos in DECLENSIONS:
             map_html += f"""<p class="heading underlined">Exact matches of <b>{superscripter_uni(i.lemma_1)} and its declensions</b> in the Chaṭṭha Saṅgāyana corpus.</p>"""
 
-        template = Template(filename='db/frequency/frequency.html')
+        template = Template(filename="db/frequency/frequency.html")
         map_html += str(template.render(d=d))
 
     else:
@@ -395,25 +488,26 @@ def _parse_item(i: DpdHeadword, dicts: List[dict]) -> ParsedResult:
 
     return ParsedResult(id=i.id, freq_html=map_html)
 
+
 def make_data_dict_and_html(
-        pth: ProjectPaths,
-        db_session: Session,
-        dicts: List[dict],
-        use_n_processes: int,
-        regenerate_all: bool
+    pth: ProjectPaths,
+    db_session: Session,
+    dicts: List[dict],
+    use_n_processes: int,
+    regenerate_all: bool,
 ):
     print("[green]compiling data csvs and html")
 
     dpd_db = db_session.query(DpdHeadword).all()
 
     def _keep(i: DpdHeadword) -> bool:
-        """Filter predicate function which returns whether an item should be kept.
-        """
-        return (i.pos != "idiom" and \
-                (i.pattern in changed_templates or \
-                 i.lemma_1 in changed_headwords or \
-                 i.id in html_file_missing or \
-                 regenerate_all is True))
+        """Filter predicate function which returns whether an item should be kept."""
+        return i.pos != "idiom" and (
+            i.pattern in changed_templates
+            or i.lemma_1 in changed_headwords
+            or i.id in html_file_missing
+            or regenerate_all is True
+        )
 
     # Filter the DpdHeadword and Derived data list, while keeping the related items together in a Tuple.
     filtered_pairs: List = [i for i in dpd_db if _keep(i)]
@@ -449,13 +543,19 @@ def make_data_dict_and_html(
         first_map_html = res[0]["freq_html"]
 
         with open(
-            pth.freq_html_dir.joinpath(
-                first_word.lemma_1).with_suffix(".html"), "w") as f:
+            pth.freq_html_dir.joinpath(first_word.lemma_1).with_suffix(".html"), "w"
+        ) as f:
             f.write(first_map_html)
 
     for batch_idx, batch in enumerate(batches):
         # Assign a Process() thread to each batch list.
-        p = Process(target=_parse_batch, args=(batch, batch_idx,))
+        p = Process(
+            target=_parse_batch,
+            args=(
+                batch,
+                batch_idx,
+            ),
+        )
 
         # Start the Process's target function, i.e. _parse_batch()
         p.start()
@@ -492,4 +592,3 @@ def make_data_dict_and_html(
 
 if __name__ == "__main__":
     main()
-

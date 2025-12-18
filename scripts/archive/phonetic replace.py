@@ -25,7 +25,7 @@ def main():
             print(i.phonetic)
             print()
             print()
-    
+
     # db_session.commit()
 
 

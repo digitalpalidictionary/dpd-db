@@ -6,21 +6,22 @@ from string import Template
 from datetime import datetime
 from datetime import timedelta
 
-s = os.getenv('LOG_TIME')
-if s is not None and s.lower() == 'true':
-   LOG_TIME = True
+s = os.getenv("LOG_TIME")
+if s is not None and s.lower() == "true":
+    LOG_TIME = True
 else:
-   LOG_TIME = False
+    LOG_TIME = False
 
 LOG_FILE = Path("time_log.dat")
 
 # https://stackoverflow.com/questions/8906926/formatting-timedelta-objects#49226644
 
+
 class DeltaTemplate(Template):
     delimiter = "%"
 
-def strfdelta(td: timedelta, fmt='%H:%M:%S') -> str:
 
+def strfdelta(td: timedelta, fmt="%H:%M:%S") -> str:
     # Get the timedelta’s sign and absolute number of seconds.
     sign = "-" if td.days < 0 else "+"
     secs = abs(td).total_seconds()
@@ -40,12 +41,14 @@ def strfdelta(td: timedelta, fmt='%H:%M:%S') -> str:
         S="{:02d}".format(int(secs)),
     )
 
+
 class LogPrecision(str, Enum):
     Seconds = "s"
     Micro = "µs"
 
+
 class TimeLog:
-    def __init__(self, precision = LogPrecision.Seconds):
+    def __init__(self, precision=LogPrecision.Seconds):
         self.t0 = datetime.now()
         self.t_prev = self.t0
         self.precision = precision
@@ -59,7 +62,7 @@ class TimeLog:
         if start_new and LOG_FILE.exists():
             LOG_FILE.unlink()
 
-    def log(self, msg: str, trim = True):
+    def log(self, msg: str, trim=True):
         if not LOG_TIME:
             return
 
@@ -85,7 +88,7 @@ class TimeLog:
 
         dat_line = f"{t}\t{tp}\t{dat_msg}\n"
 
-        with open(LOG_FILE, "a", encoding='utf-8') as f:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
             f.write(dat_line)
 
         print(f"{strfdelta(delta)} {tp}{self.precision.value} {msg}")

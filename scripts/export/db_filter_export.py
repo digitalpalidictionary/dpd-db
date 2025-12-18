@@ -18,23 +18,23 @@ def table_to_dataframe(conn, table_name):
     df = pd.read_sql_query(query, conn)
 
     # copy meaning_2 to empty meaning_1
-    df['meaning_1'] = df['meaning_1'].replace("", pd.NA)
+    df["meaning_1"] = df["meaning_1"].replace("", pd.NA)
     df["meaning_1"] = df["meaning_1"].fillna(df["meaning_2"])
     return df
 
 
 def export_to_xlsx(df, file_path, columns_to_show):
     """Export the DataFrame to an .xlsx file, showing only specified columns."""
-    
+
     # Select only the specified columns from the DataFrame
     selected_df = df[columns_to_show]
-    
+
     # Export the selected DataFrame to an .xlsx file
     selected_df.to_excel(file_path, index=False)
 
 
 def main():
-    print("~"*50)
+    print("~" * 50)
 
     # where is the db located on your computer?
     db_path = "dpd.db"
@@ -47,20 +47,16 @@ def main():
     df = table_to_dataframe(conn, table_name)
 
     try:
-
         # here's some logic to filter the database, adapt this part to your needs
         # you can have as many or as few filter criteria as you want here
 
         filtered_df = df
 
-        filtered_df = filtered_df[
-            filtered_df["trans"] == "ditrans"]
-        
-        filtered_df = filtered_df[
-            filtered_df["plus_case"].str.contains("\\+acc")]
-        
-        filtered_df = filtered_df[
-            filtered_df["pos"] == "pr"]
+        filtered_df = filtered_df[filtered_df["trans"] == "ditrans"]
+
+        filtered_df = filtered_df[filtered_df["plus_case"].str.contains("\\+acc")]
+
+        filtered_df = filtered_df[filtered_df["pos"] == "pr"]
 
         # which columns do you want in the excel file?
         columns_to_show = ["lemma_1", "grammar", "trans", "meaning_1", "root_key"]
@@ -71,17 +67,17 @@ def main():
 
         # where would you like to save the output file?
         output_file_path = "temp/dpd_db_filter.xlsx"
-        
+
         # export to excel file
         export_to_xlsx(sorted_df, output_file_path, columns_to_show)
 
         print(f"DPD data exported to {output_file_path}")
-        print("~"*50)
-    
+        print("~" * 50)
+
     except Exception as e:
         print("there was an error exporting the file")
         print(e)
-    
+
     conn.close()
 
 

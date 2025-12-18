@@ -3,7 +3,6 @@
 
 """Import Ram's Sanskrit additions."""
 
-
 import pandas as pd
 import pickle
 
@@ -20,7 +19,7 @@ def main():
     df = df.fillna("")
     df = df.rename(columns={"sanskrit": "sanskrit_old", "sanskrit2": "sanskrit_new"})
     sk_dict = df[["lemma_1", "sanskrit_old", "sanskrit_new"]].to_dict(orient="index")
-    
+
     # setup db session
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -39,8 +38,9 @@ def main():
 
     with open("db/sanskrit/sanskrit_update_1", "wb") as f:
         pickle.dump(sk_dict, f)
-    
+
     db_session.commit()
+
 
 if __name__ == "__main__":
     main()

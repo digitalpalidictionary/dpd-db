@@ -324,15 +324,15 @@ ve: verbal ending
         self, provider_preference: str | None = None, model: str | None = None
     ) -> AIResponse:  # Changed return type
         import time  # Add at top if not present
-        
+
         max_retries: int = 3
         retry_delay: float = 1.0  # Seconds between retries
-        
+
         for attempt in range(max_retries):
             self.ui.update_message(
                 f"Sending prompt for {self.word_in_text} using {model or 'default model'}... (Attempt {attempt + 1}/{max_retries})"
             )
-            
+
             try:
                 ai_response = self.ai_manager.request(
                     prompt=self.prompt,
@@ -340,21 +340,25 @@ ve: verbal ending
                     provider_preference=provider_preference,
                     model=model,
                 )
-                
+
                 if ai_response.content is not None:
                     return ai_response  # Success, no need for more retries
-                
+
                 # Log failure for this attempt
-                pr.warning(f"AI request failed for {self.word_in_text} on attempt {attempt + 1}: {ai_response.status_message}")
-                
+                pr.warning(
+                    f"AI request failed for {self.word_in_text} on attempt {attempt + 1}: {ai_response.status_message}"
+                )
+
                 if attempt < max_retries - 1:  # Not the last attempt
                     time.sleep(retry_delay)
-            
+
             except Exception as e:
-                pr.error(f"Exception during AI request for {self.word_in_text} on attempt {attempt + 1}: {e}")
+                pr.error(
+                    f"Exception during AI request for {self.word_in_text} on attempt {attempt + 1}: {e}"
+                )
                 if attempt < max_retries - 1:
                     time.sleep(retry_delay)
-        
+
         # All retries failed
         return AIResponse(
             content=None,

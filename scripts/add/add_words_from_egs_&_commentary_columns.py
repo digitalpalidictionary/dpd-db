@@ -21,8 +21,9 @@ from tools.clean_machine import clean_machine
 # 2: find missing meaning_1
 # 3: find missing examples
 
-class GlobalData():
-    route: int = 3 
+
+class GlobalData:
+    route: int = 3
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
@@ -40,19 +41,17 @@ def refresh_db_session(g: GlobalData):
 
 def make_clean_word_list(g: GlobalData) -> list:
     """Clean up the text in the column and return a list of words."""
-    g.text = getattr(g.i, g.column)  
-    g.text = re.sub("\(.*?\)", "", g.text)      # remove word in brackets
-    g.text = g.text.replace("<b>", "")          # remove bold tags
-    g.text = g.text.replace("</b>", "")     
+    g.text = getattr(g.i, g.column)
+    g.text = re.sub("\(.*?\)", "", g.text)  # remove word in brackets
+    g.text = g.text.replace("<b>", "")  # remove bold tags
+    g.text = g.text.replace("</b>", "")
     g.text = clean_machine(g.text)
-    g.text = g.text.replace("-", " ")           # remove punctuation
+    g.text = g.text.replace("-", " ")  # remove punctuation
     return g.text.split()
 
 
 def check_in_lookup(g: GlobalData):
-    g.lookup = g.db_session.query(Lookup) \
-        .filter_by(lookup_key=g.word) \
-        .first()
+    g.lookup = g.db_session.query(Lookup).filter_by(lookup_key=g.word).first()
 
 
 def print_results(g: GlobalData):
@@ -68,7 +67,6 @@ def print_results(g: GlobalData):
     print(f"[cyan]{g.word}")
     pyperclip.copy(g.word)
     input()
-
 
 
 def find_missing_meaning_1(g: GlobalData):
@@ -87,7 +85,7 @@ def find_missing_meaning_1(g: GlobalData):
 
 def find_missing_eg(g: GlobalData):
     """Check if any word in the lookup is missing an eg"""
-    
+
     needs_eg = True
     dpd_ids = g.lookup.headwords_unpack
     if dpd_ids:
@@ -96,12 +94,12 @@ def find_missing_eg(g: GlobalData):
             if headword.meaning_1 and headword.example_1:
                 needs_eg = False
         if needs_eg:
-                print_results(g)
+            print_results(g)
 
 
 def check_word(g: GlobalData):
     """
-    Check if a word 
+    Check if a word
     1. exists in the lookup table.
     2. (check if word has meaning_1)
     3. (check if word has example_1)
@@ -122,7 +120,7 @@ def main():
     g = GlobalData()
     for g.i in g.db:
         refresh_db_session(g)
-        for g.column in ["example_1", "example_2"]: #, "commentary"]:  
+        for g.column in ["example_1", "example_2"]:  # , "commentary"]:
             clean_word_list = make_clean_word_list(g)
             for g.word in clean_word_list:
                 check_word(g)
@@ -130,5 +128,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

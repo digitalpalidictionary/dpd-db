@@ -97,10 +97,12 @@ def extract_data(g: GlobalVars):
                         vagga_match = re.match(r"^(\d+)\.\s+(.+)$", text)
                         if vagga_match:
                             g.this_vagga_num = int(vagga_match.group(1))
-                            
+
                             if g.this_vagga_num not in g.processed_vagga_numbers:
                                 g.this_vagga = clean_string(text)
-                                g.this_sutta_code = f"{g.sutta_code_prefix} {g.this_vagga_num}."
+                                g.this_sutta_code = (
+                                    f"{g.sutta_code_prefix} {g.this_vagga_num}."
+                                )
                                 g.this_web_code = f"{g.json_prefix}-{g.this_vagga_num}"
 
                                 record = {

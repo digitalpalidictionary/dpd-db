@@ -28,15 +28,12 @@ def root_numbering(dpd_db):
     counter = 0
 
     for i in dpd_db:
-        if (
-            re.findall(r"\d", i.lemma_1) and
-            "." not in i.lemma_1
-        ):
+        if re.findall(r"\d", i.lemma_1) and "." not in i.lemma_1:
             if i.lemma_clean not in hw_rt_dict:
                 hw_rt_dict[i.lemma_clean] = i.root_key
             else:
                 if hw_rt_dict[i.lemma_clean] != i.root_key:
-                    db_search = fr"/^{i.lemma_clean} \d/"
+                    db_search = rf"/^{i.lemma_clean} \d/"
                     print(i.lemma_clean, end=" ")
                     pyperclip.copy(db_search)
                     input()
@@ -50,17 +47,14 @@ def root_numbering_dot(dpd_db):
     counter = 0
 
     for i in dpd_db:
-        if (
-            re.findall(r"\d", i.lemma_1) and
-            "." in i.lemma_1
-        ):
+        if re.findall(r"\d", i.lemma_1) and "." in i.lemma_1:
             first_number = re.sub(r"\..+", "", i.lemma_1)
 
             if first_number not in hw_rt_dict:
                 hw_rt_dict[first_number] = i.root_key
             else:
                 if hw_rt_dict[first_number] != i.root_key:
-                    db_search = fr"/^{i.lemma_clean} /"
+                    db_search = rf"/^{i.lemma_clean} /"
                     print(first_number, end=" ")
                     pyperclip.copy(db_search)
                     input()
@@ -76,17 +70,17 @@ def compound_numbering(dpd_db):
 
     for i in dpd_db:
         if (
-            i.lemma_clean not in exceptions and
-            re.findall(r"\d", i.lemma_1) and
-            "." not in i.lemma_1 and
-            re.findall(r"\bcomp\b", i.grammar) and
-            i.meaning_1
+            i.lemma_clean not in exceptions
+            and re.findall(r"\d", i.lemma_1)
+            and "." not in i.lemma_1
+            and re.findall(r"\bcomp\b", i.grammar)
+            and i.meaning_1
         ):
             if i.lemma_clean not in hw_cnstr_dict:
                 hw_cnstr_dict[i.lemma_clean] = i.family_compound
             else:
                 if hw_cnstr_dict[i.lemma_clean] != i.family_compound:
-                    db_search = fr"/^{i.lemma_clean} \d/"
+                    db_search = rf"/^{i.lemma_clean} \d/"
                     print(i.lemma_clean, end=" ")
                     pyperclip.copy(db_search)
                     input()
@@ -101,10 +95,10 @@ def compound_numbering_dot(dpd_db):
 
     for i in dpd_db:
         if (
-            re.findall(r"\d", i.lemma_1) and
-            "." in i.lemma_1 and
-            re.findall(r"\bcomp\b", i.grammar) and
-            i.meaning_1
+            re.findall(r"\d", i.lemma_1)
+            and "." in i.lemma_1
+            and re.findall(r"\bcomp\b", i.grammar)
+            and i.meaning_1
         ):
             first_number = re.sub(r"\..+", "", i.lemma_1)
 
@@ -112,7 +106,7 @@ def compound_numbering_dot(dpd_db):
                 hw_cnstr_dict[first_number] = i.family_compound
             else:
                 if hw_cnstr_dict[first_number] != i.family_compound:
-                    db_search = fr"/^{i.lemma_clean} /"
+                    db_search = rf"/^{i.lemma_clean} /"
                     print(first_number, end=" ")
                     pyperclip.copy(db_search)
                     input()

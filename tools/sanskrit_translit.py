@@ -18,7 +18,8 @@ def hk_translit(text: str):
         "D": "ḍ",
         "N": "ṇ",
         "z": "ṣ",
-        "S": "ś",}
+        "S": "ś",
+    }
 
     translit: str = str()
     for char in text:
@@ -59,12 +60,13 @@ def slp1_translit(text: str):
         # "/": "\u0951",
         # "\\": "\u0952,",
         # "^": "\u1ce0",
-        }
+    }
 
     translit: str = str()
     for char in text:
         translit += slp1_translit_dict.get(char, char)
     return translit
+
 
 # with open("temp/translit.txt", "w") as file:
 #     file.write(slp1_translit("aha/m, a\kzA, anu^"))

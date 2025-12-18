@@ -10,6 +10,7 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from collections import Counter
 
+
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -17,10 +18,7 @@ def main():
     total_counter = 0
     for i in db:
         prepositions = re.findall(r"\((.*?)\)", i.meaning_1)
-        if (
-            prepositions
-            and len(prepositions) > 1
-        ):
+        if prepositions and len(prepositions) > 1:
             counter = Counter([prep for prep in prepositions])
             for word, count in counter.items():
                 if count > 1:
@@ -28,8 +26,8 @@ def main():
                     print(f"{i.meaning_1}")
                     print(f"{word}: {count}")
                     print()
-                    total_counter +=1
-            
+                    total_counter += 1
+
     print(total_counter)
 
 

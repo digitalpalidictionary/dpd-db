@@ -645,7 +645,7 @@ class DpdFields(PopUpMixin):
         # Autofill search fields for new entries (not loaded from DB)
         if not self.flags.loaded_from_db and value:
             # Check if the UI has the method before calling it
-            if hasattr(self.ui, 'add_headword_to_examples_and_commentary'):
+            if hasattr(self.ui, "add_headword_to_examples_and_commentary"):
                 self.ui.add_headword_to_examples_and_commentary()
 
         self.page.update()

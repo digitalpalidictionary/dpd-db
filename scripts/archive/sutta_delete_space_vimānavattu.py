@@ -22,7 +22,7 @@ def main():
             print(i.sutta_2)
             i.sutta_2 = i.sutta_2.replace(" ", "")
             print(i.sutta_2)
-    
+
     # db_session.commit()
 
 

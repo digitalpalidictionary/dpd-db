@@ -14,7 +14,7 @@ from tools.paths import ProjectPaths
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(Lookup).filter(Lookup.deconstructor!="").all()
+    db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
 
     old_decon_set = set()
     for i in db:
@@ -24,10 +24,10 @@ def main():
     with open("../deconstructor_go/output/matches.json") as f:
         new_decon = json.load(f)
         print("new_decon:", len(new_decon))
-    
+
     new_decon_set = set(new_decon.keys())
     print("new_decon_set:", len(new_decon_set))
-    
+
     diff1 = old_decon_set.difference(new_decon_set)
     print("diff1", len(diff1))
 
@@ -43,9 +43,6 @@ def main():
     # print(diff1)
     # print()
     # print(diff2)
-
-
-
 
 
 if __name__ == "__main__":

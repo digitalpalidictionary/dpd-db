@@ -13,9 +13,7 @@ glos = Glossary()
 glos.convert(
     inputFilename="exporter/share/dpd/dpd.ifo",
     outputFilename="temp/gd_raw.tsv",
-    outputFormat="Tabfile", # Specify the output format as Tabfile
+    outputFormat="Tabfile",  # Specify the output format as Tabfile
     # Optionally, you can specify readOptions or writeOptions as a dict
     writeOptions={"encoding": "utf-8"},
 )
-
-

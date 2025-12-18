@@ -18,19 +18,15 @@ def main():
     counter: int = 0
 
     for i in db:
-            if (
-                i.construction.startswith("su + ")
-                and "kammadhāraya" not in i.compound_type 
-            ):
-                print(i.lemma_1, i.pos)
-                print(i.meaning_combo)
-                print(i.construction)
-                counter += 1
-                pyperclip.copy(i.lemma_1)
-                input()
-    
-    print(counter)
+        if i.construction.startswith("su + ") and "kammadhāraya" not in i.compound_type:
+            print(i.lemma_1, i.pos)
+            print(i.meaning_combo)
+            print(i.construction)
+            counter += 1
+            pyperclip.copy(i.lemma_1)
+            input()
 
+    print(counter)
 
 
 if __name__ == "__main__":

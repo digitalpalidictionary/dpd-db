@@ -17,14 +17,15 @@ def main():
     change_list = []
 
     for i in db:
-        if (i.lemma_1.startswith("su") and
-            i.construction is not None and
-            i.construction.startswith("su + ") and
-            not i.compound_type and
-            "comp" not in i.grammar and
-            i.derivative is not None and
-            "taddhita" not in i.derivative):
-
+        if (
+            i.lemma_1.startswith("su")
+            and i.construction is not None
+            and i.construction.startswith("su + ")
+            and not i.compound_type
+            and "comp" not in i.grammar
+            and i.derivative is not None
+            and "taddhita" not in i.derivative
+        ):
             cc1 = re.sub("(su)(.+)", r"\1", i.lemma_clean)
             cc2 = re.sub("(su)(.+)", r"\2", i.lemma_clean)
             if re.findall(r"^(\w)\1", cc2):

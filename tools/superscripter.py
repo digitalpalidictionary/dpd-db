@@ -1,4 +1,5 @@
 """Superscript numerals using Unicode or HTML."""
+
 import re
 
 
@@ -11,7 +12,7 @@ def superscripter_html(text):
 
 def superscripter_uni(text):
     """Superscipt using unicode characters."""
-    text = re.sub("( )(\\d)", "\u200A\\2", text)
+    text = re.sub("( )(\\d)", "\u200a\\2", text)
     text = re.sub("0", "⁰", text)
     text = re.sub("1", "¹", text)
     text = re.sub("2", "²", text)

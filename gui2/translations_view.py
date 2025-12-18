@@ -205,9 +205,7 @@ class TranslationsView(ft.Column):
                     eng_text_spans = [ft.TextSpan(eng_trans or "")]
                 else:  # English
                     pali_text_spans = [ft.TextSpan(pali_text_lower)]
-                    eng_text_spans = get_highlighted_spans(
-                        eng_trans or "", search_term
-                    )
+                    eng_text_spans = get_highlighted_spans(eng_trans or "", search_term)
 
                 pali_text_widget = ft.Text(spans=pali_text_spans, selectable=True)
                 pali_text_widget.data = pali_text_spans

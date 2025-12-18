@@ -2,6 +2,7 @@ import re
 
 from scripts.suttas.cst.modules import get_sutta_num
 
+
 def extract_mn_data(soup, relative_path):
     data_list = []
 
@@ -105,8 +106,7 @@ def extract_mn_data(soup, relative_path):
             data["cst_p_page"] = p_page
             data["cst_t_page"] = t_page
             data["cst_file"] = relative_path
-            
+
             data_list.append(data)
 
     return data_list
-

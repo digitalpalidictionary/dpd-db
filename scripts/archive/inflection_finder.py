@@ -9,7 +9,8 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
-find_me = "āma$" 
+find_me = "āma$"
+
 
 def main():
     pth = ProjectPaths()

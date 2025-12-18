@@ -20,21 +20,23 @@ def main():
     for thera in theras:
         if thera.add != "n":
             # find any matching lemma_1 in the db
-            search = db_session.query(DpdHeadword)\
-                .filter(DpdHeadword.lemma_1==thera.lemma_1)\
+            search = (
+                db_session.query(DpdHeadword)
+                .filter(DpdHeadword.lemma_1 == thera.lemma_1)
                 .first()
+            )
             if search:
                 print(thera.lemma_1)
                 print(search)
                 input()
-            
+
             # create and populate DpdHeadword
             p = DpdHeadword()
             for key, value in thera.items():
                 setattr(p, key, value)
 
             db_session.add(p)
-    
+
     db_session.commit()
 
     db = db_session.query(DpdHeadword).all()

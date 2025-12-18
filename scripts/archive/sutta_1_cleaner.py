@@ -22,6 +22,5 @@ def main():
             print(i.sutta_2)
 
 
-
 if __name__ == "__main__":
     main()

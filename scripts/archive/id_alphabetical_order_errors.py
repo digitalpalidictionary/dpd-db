@@ -20,18 +20,15 @@ def main():
     for i in range(1, len(db)):
         if db[i].id < 71508:
             first_letter = db[i].lemma_1[0]
-            next1_letter =  db[i+1].lemma_1[0]
-            next2_letter = db[i+2].lemma_1[0]
-            if (
-                first_letter != next1_letter
-                and next1_letter != next2_letter
-            ):
-                print(db[i-1].id, db[i-1].lemma_1)
+            next1_letter = db[i + 1].lemma_1[0]
+            next2_letter = db[i + 2].lemma_1[0]
+            if first_letter != next1_letter and next1_letter != next2_letter:
+                print(db[i - 1].id, db[i - 1].lemma_1)
                 print(db[i].id, db[i].lemma_1)
-                print(db[i+1].id, db[i+1].lemma_1)
-                print(db[i+2].id, db[i+2].lemma_1)
+                print(db[i + 1].id, db[i + 1].lemma_1)
+                print(db[i + 2].id, db[i + 2].lemma_1)
                 print()
-                out_of_place.append(db[i+1].id)
+                out_of_place.append(db[i + 1].id)
 
     last_id = db[-1].id
     next_id = last_id + 1
@@ -47,12 +44,12 @@ def main():
             i.id = next_id
             print(i)
             next_id += 1
-    
+
     db_session.commit()
-    
+
     with open("temp/id_dict.json", "w") as f:
         json.dump(id_dict, f, indent=2)
-    
+
 
 if __name__ == "__main__":
     main()

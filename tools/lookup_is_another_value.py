@@ -1,9 +1,7 @@
-
 from db.models import Lookup
 
-def is_another_value(
-        row: Lookup, column_name: str
-) -> bool:
+
+def is_another_value(row: Lookup, column_name: str) -> bool:
     """
     Test whether any other columns in the Lookup table have a value.
     It is used to determine whether a row in the Lookup table can be safely deleted or not.
@@ -14,4 +12,3 @@ def is_another_value(
             if getattr(row, column.name):
                 return True
     return False
-

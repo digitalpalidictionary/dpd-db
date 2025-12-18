@@ -3,7 +3,6 @@
 
 """Fill in the missing details of auto-added monks' names in Theragāthā"""
 
-
 import pickle
 import pyperclip
 
@@ -13,8 +12,6 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
-
-
 
 
 def main():
@@ -38,15 +35,14 @@ def main():
     print("Press any key to contine or X to exit")
 
     for counter, i in enumerate(db):
-        if (
-            first <= i.id <= last
-            and i.id not in done_list
-        ):
+        if first <= i.id <= last and i.id not in done_list:
             pyperclip.copy(i.id)
             open_in_goldendict(i.lemma_clean)
-            
+
             processed = len(done_list)
-            print(f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.lemma_1}", end=" ")
+            print(
+                f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.lemma_1}", end=" "
+            )
             inp = input()
 
             if inp == "x":
@@ -64,13 +60,13 @@ def load_pickle():
 
 
 def dump_pickle(done_list):
-        with open("tests/test_theragatha_filler", "wb") as f:
-            pickle.dump(done_list, f)
+    with open("tests/test_theragatha_filler", "wb") as f:
+        pickle.dump(done_list, f)
 
 
 def print_done(done_list):
     print(f"completed: {len(done_list)}")
-    
+
 
 if __name__ == "__main__":
     main()

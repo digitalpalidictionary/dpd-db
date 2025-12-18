@@ -18,7 +18,7 @@ class AddVariantsToDb:
         # Query in chunks to avoid SQLite variable limit
         chunk_size = 900
         self.lookup_table = []
-        
+
         for i in range(0, len(self.variant_dict_keys), chunk_size):
             chunk_keys = self.variant_dict_keys[i : i + chunk_size]
             chunk_results = (
@@ -27,7 +27,7 @@ class AddVariantsToDb:
                 .all()
             )
             self.lookup_table.extend(chunk_results)
-        
+
         self.lookup_keys: list[str] = [i.lookup_key for i in self.lookup_table]
 
         pr.yes("")

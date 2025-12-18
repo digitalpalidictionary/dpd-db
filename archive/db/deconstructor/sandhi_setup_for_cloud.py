@@ -14,6 +14,7 @@ from tools.configger import config_update
 from sandhi_setup import setup_deconstructor
 from tools.tic_toc import tic, toc
 
+
 def main():
     tic()
     print("[bright_yellow]setting up for deconstruction in the cloud")
@@ -44,7 +45,7 @@ def zip_for_cloud():
         "db/deconstructor/sandhi_setup.py",
         "db/deconstructor/sandhi_splitter.py",
         "db/deconstructor/sandhi.sh",
-        "tools"
+        "tools",
     ]
 
     zip_path = Path("./")
@@ -54,8 +55,9 @@ def zip_for_cloud():
         for root, __dirs__, files in os.walk(path):
             for file in files:
                 if not any(
-                        os.path.relpath(
-                            os.path.join(root, file), path).startswith(i) for i in include):
+                    os.path.relpath(os.path.join(root, file), path).startswith(i)
+                    for i in include
+                ):
                     continue
                 ziph.write(os.path.join(root, file))
 

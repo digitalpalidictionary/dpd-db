@@ -92,9 +92,11 @@ def extract_data(g: GlobalVars):
                     sutta_match = re.match(r"^(\d+)\.", entry_text)
                     if sutta_match:
                         g.this_sutta_num = int(sutta_match.group(1))
-                        
+
                         if g.this_sutta_num not in g.processed_sutta_numbers:
-                            g.this_sutta_code = f"{g.sutta_code_prefix} {g.this_sutta_num}."
+                            g.this_sutta_code = (
+                                f"{g.sutta_code_prefix} {g.this_sutta_num}."
+                            )
                             g.this_web_code = f"{g.json_prefix}-{g.this_sutta_num}"
                             g.this_sutta = clean_string(entry_text)
 

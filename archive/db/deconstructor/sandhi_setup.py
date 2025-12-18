@@ -217,9 +217,7 @@ def make_abbreviations_set(db_session: Session) -> Set[str]:
     p_green("making abbreviations set")
     abbreviations_set: Set[str] = set()
 
-    abbreviations_db = db_session.query(DpdHeadword).filter(
-        DpdHeadword.pos == "abbrev"
-    )
+    abbreviations_db = db_session.query(DpdHeadword).filter(DpdHeadword.pos == "abbrev")
 
     for i in abbreviations_db:
         lemma_1_clean = re.sub(r" \d.*", "", i.lemma_1)
@@ -346,6 +344,7 @@ def make_neg_inflections_set(
     p_yes(len(neg_inflections_set))
 
     return neg_inflections_set
+
 
 if __name__ == "__main__":
     setup_deconstructor()

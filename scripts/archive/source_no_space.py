@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """Remove spaces from sutta sodes"""
+
 import re
 from rich import print
 
@@ -22,20 +23,20 @@ def main():
         if find_me != "":
             if re.match(r"^VIN \d", i.source_1):
                 if i.source_1.startswith(find_me):
-                    i.source_1 =  i.source_1.replace(find_me, replace_me)
+                    i.source_1 = i.source_1.replace(find_me, replace_me)
                     print(i.source_1)
 
             if re.match(r"^VIN \d", i.source_2):
                 if i.source_2.startswith(find_me):
-                    i.source_2 =  i.source_2.replace(find_me, replace_me)
+                    i.source_2 = i.source_2.replace(find_me, replace_me)
                     print(i.source_2)
 
-        # # add to sutta_codes set 
+        # # add to sutta_codes set
         # if " " in i.source_1:
         #     sutta_codes.add(i.source_1)
         # if " " in i.source_2:
         #     sutta_codes.add(i.source_2)
-    
+
     with open("temp/source.txt", "w") as f:
         sutta_codes_sorted = pali_list_sorter(sutta_codes)
         for s in sutta_codes_sorted:

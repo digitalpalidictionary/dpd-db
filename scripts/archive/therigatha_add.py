@@ -19,10 +19,12 @@ def main():
 
     for theri in theris:
         # find any matching lemma_1 in the db
-        result = db_session.query(DpdHeadword)\
-            .filter(DpdHeadword.lemma_1==theri.lemma_1)\
+        result = (
+            db_session.query(DpdHeadword)
+            .filter(DpdHeadword.lemma_1 == theri.lemma_1)
             .first()
-        
+        )
+
         if theri.add != "n" and theri.add != "u":
             # add_theri(db_session, theri)
             pass
@@ -54,8 +56,8 @@ def update_theri(db_session, theri, db):
         print(f"{db.lemma_1:<20}[green]{db.family_set}")
     print()
 
+
 def add_theri(db_session, theri):
-  
     # create and populate DpdHeadword
     p = DpdHeadword()
     for key, value in theri.items():

@@ -2,6 +2,7 @@
 
 from typing import List
 
+
 def add_niggahitas(words: List[str], all=True) -> List[str]:
     """Add various types of niggahitas (ŋ ṁ) to a list."""
 

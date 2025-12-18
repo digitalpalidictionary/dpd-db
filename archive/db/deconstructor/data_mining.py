@@ -15,22 +15,23 @@ do_matches_pairs_path = Path("db/deconstructor/output/mining/matches_pairs.tsv")
 
 tipitaka_word_freq = Path("db/frequency/output/word_count/tipitaka.csv")
 tipitaka_umatched_freq_path = Path(
-    "db/deconstructor/output/mining/umatched_freq_tipitaka.tsv")
+    "db/deconstructor/output/mining/umatched_freq_tipitaka.tsv"
+)
 
 ebts_word_freq = Path("db/frequency/output/word_count/ebts.csv")
 ebts_umatched_freq_path = Path("db/deconstructor/output/mining/umatched_freq_ebts.tsv")
 
 
 def mine_unmatched():
-    with open(do_unmatched_path)as f:
+    with open(do_unmatched_path) as f:
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 
     groups = {}
     for word in do_unmatched:
-        for i in range(len(word)-5):
+        for i in range(len(word) - 5):
             # iterate over all possible group lengths from 4 to len(word)
-            for j in range(i+6, len(word)+1):
+            for j in range(i + 6, len(word) + 1):
                 group = word[i:j]
                 if len(group) < 4:  # skip groups shorter than 4 letters
                     continue
@@ -39,19 +40,18 @@ def mine_unmatched():
                 else:
                     groups[group] = [word]
 
-    sorted_groups = sorted(
-        groups.items(), key=lambda x: len(x[1]), reverse=True)
+    sorted_groups = sorted(groups.items(), key=lambda x: len(x[1]), reverse=True)
 
     with open(do_unmatched_groups_path, "w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
-        writer.writerow(['Count', 'Group', 'Words'])
+        writer.writerow(["Count", "Group", "Words"])
         for group, words in sorted_groups:
             if len(words) > 10:
-                writer.writerow([len(words), group, ', '.join(words)])
+                writer.writerow([len(words), group, ", ".join(words)])
 
 
 def mine_matches():
-    with open(do_matches_path)as f:
+    with open(do_matches_path) as f:
         reader = csv.reader(f, delimiter="\t")
         do_matches: list = [row[1] for row in reader]
 
@@ -63,7 +63,7 @@ def mine_matches():
 
     with open(do_matches_pairs_path, "w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
-        writer.writerow(['count', 'pair'])
+        writer.writerow(["count", "pair"])
         for pair, count in word_pairs.most_common():
             writer.writerow([count, pair])
 
@@ -75,7 +75,7 @@ def tipitaka_unmatched_frequency():
         for row in reader:
             tipitaka_freq[row[0]] = int(row[1])
 
-    with open(do_unmatched_path)as f:
+    with open(do_unmatched_path) as f:
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 
@@ -87,9 +87,12 @@ def tipitaka_unmatched_frequency():
             pass
             # print(f"{word} doesnt exist")
 
-    tipitaka_unmatched_freq_sorted = [(k, v) for k, v in sorted(
-        tipitaka_unmatched_freq.items(),
-        key=lambda item: item[1], reverse=True)]
+    tipitaka_unmatched_freq_sorted = [
+        (k, v)
+        for k, v in sorted(
+            tipitaka_unmatched_freq.items(), key=lambda item: item[1], reverse=True
+        )
+    ]
 
     with open(tipitaka_umatched_freq_path, "w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
@@ -105,7 +108,7 @@ def ebts_unmatched_frequency():
         for row in reader:
             ebts_freq[row[0]] = int(row[1])
 
-    with open(do_unmatched_path)as f:
+    with open(do_unmatched_path) as f:
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 
@@ -117,8 +120,12 @@ def ebts_unmatched_frequency():
             pass
             # print(f"{word} doesnt exist")
 
-    ebts_unmatched_freq_sorted = [(k, v) for k, v in sorted(
-        ebts_unmatched_freq.items(), key=lambda item: item[1], reverse=True)]
+    ebts_unmatched_freq_sorted = [
+        (k, v)
+        for k, v in sorted(
+            ebts_unmatched_freq.items(), key=lambda item: item[1], reverse=True
+        )
+    ]
 
     with open(ebts_umatched_freq_path, "w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")

@@ -55,7 +55,9 @@ class ToolKit:
         self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)
         self.wordfinder_manager: WordFinderManager = WordFinderManager()
         self.wordfinder_popup: WordFinderPopup = WordFinderPopup(self)
-        self.bold_definitions_search_manager: BoldDefinitionsSearchManager = BoldDefinitionsSearchManager()
+        self.bold_definitions_search_manager: BoldDefinitionsSearchManager = (
+            BoldDefinitionsSearchManager()
+        )
         self.variants: VariantReadingFileManager = VariantReadingFileManager()
         self.spelling_mistakes: SpellingMistakesFileManager = (
             SpellingMistakesFileManager()

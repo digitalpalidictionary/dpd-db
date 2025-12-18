@@ -91,14 +91,18 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         try:
             self.word_in_text, self.sentence_data = next(self.auto_processed_iter)
             # Update from the current file state to show accurate remaining count
-            current_dict = self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+            current_dict = self.pass1_auto_controller.get_auto_processed_dict(
+                self.book_to_process
+            )
             self.ui.update_remaining(len(current_dict))
             print(self.word_in_text)
             print(self.sentence_data)
             return True
         except StopIteration:
             # Update from the current file state when no more items
-            current_dict = self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+            current_dict = self.pass1_auto_controller.get_auto_processed_dict(
+                self.book_to_process
+            )
             self.ui.update_remaining(len(current_dict))
             self.ui.clear_all_fields()
             self.ui.update_message("No more words to process.")
@@ -187,8 +191,8 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
                 self.book_to_process, self.word_in_text
             )
             # Update the auto_processed_dict to reflect the removal
-            self.auto_processed_dict = self.pass1_auto_controller.get_auto_processed_dict(
-                self.book_to_process
+            self.auto_processed_dict = (
+                self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
             )
             self.ui.update_remaining(len(self.auto_processed_dict))
             self.ui.update_message(f"{self.word_in_text} deleted")

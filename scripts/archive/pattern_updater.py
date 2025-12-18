@@ -14,10 +14,7 @@ def main():
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
     for counter, i in enumerate(db):
-        if (
-            i.stem != "-"
-            and not i.pattern
-        ):  
+        if i.stem != "-" and not i.pattern:
             last_letter = i.lemma_clean[-1]
             if last_letter == "r":
                 pattern = "ar masc"
@@ -27,7 +24,7 @@ def main():
 
             i.pattern = pattern
             print(f"{i.id:<10}{i.lemma_1:<30}{i.pattern:<20}")
-    
+
     # db_session.commit()
 
 

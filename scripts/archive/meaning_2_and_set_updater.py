@@ -17,8 +17,7 @@ def main():
     count = 0
 
     for csv in csv_dict:
-        db = db_session.query(DpdHeadword).filter(
-            DpdHeadword.id == csv.id).first()
+        db = db_session.query(DpdHeadword).filter(DpdHeadword.id == csv.id).first()
         if db.meaning_2 != csv.meaning_2:
             print(f"{db.lemma_1:<40}{db.meaning_2:<40} {csv.meaning_2}")
             db.meaning_2 = csv.meaning_2
@@ -27,12 +26,11 @@ def main():
             print(f"{db.lemma_1:<40}{db.family_set:<40} {csv.family_set}")
             db.family_set = csv.family_set
             count += 1
-    
+
     print(count)
 
     db_session.commit()
     db_session.close()
-
 
 
 if __name__ == "__main__":

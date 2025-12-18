@@ -8,7 +8,7 @@ from tools.meaning_construction import degree_of_completion
 from tools.date_and_time import year_month_day_dash
 
 
-class HeadwordData():
+class HeadwordData:
     def __init__(self, i, fc, fi, fs, sbs, ru):
         self.meaning = make_meaning_combo_html(i)
         self.summary = summarize_construction(i)
@@ -35,8 +35,7 @@ class HeadwordData():
     def convert_newlines(obj):
         for attr_name in dir(obj):
             if (
-                not attr_name.startswith('_')
-                and "html" not in attr_name
+                not attr_name.startswith("_") and "html" not in attr_name
             ):  # skip private and protected attributes
                 attr_value = getattr(obj, attr_name)
                 if isinstance(attr_value, str):
@@ -47,16 +46,16 @@ class HeadwordData():
         return obj
 
 
-class RootsData():
+class RootsData:
     def __init__(self, r, frs, roots_count_dict) -> None:
         self.r: DpdRoot = r
         self.frs = frs
         self.app_name = "Jinja"
         self.date = year_month_day_dash()
         self.count = roots_count_dict[self.r.root]
-    
 
-class DeconstructorData():
+
+class DeconstructorData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.deconstructions = result.deconstructor_unpack
@@ -64,7 +63,7 @@ class DeconstructorData():
         self.date = year_month_day_dash()
 
 
-class VariantData():
+class VariantData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.variants = result.variants_unpack
@@ -72,7 +71,7 @@ class VariantData():
         self.date = year_month_day_dash()
 
 
-class SpellingData():
+class SpellingData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.spellings = result.spelling_unpack
@@ -80,19 +79,19 @@ class SpellingData():
         self.date = year_month_day_dash()
 
 
-class GrammarData():
+class GrammarData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.grammar = result.grammar_unpack
 
 
-class HelpData():
+class HelpData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.help = result.help_unpack
 
 
-class AbbreviationsData():
+class AbbreviationsData:
     def __init__(self, result: Lookup):
         data = result.abbrev_unpack
         self.headword = result.lookup_key

@@ -1,4 +1,3 @@
-
 """
 A general lookup system using dpd-db
 
@@ -17,20 +16,15 @@ if result
     if result:
         render html of deconstructor data
 else:
-    lookup word in sandhi table: (!2) 
-    if result:  
+    lookup word in sandhi table: (!2)
+    if result:
         render html of deconstructor data
     else:
         sorry, word not in dpd-db
 
-display compiled html 
+display compiled html
 
 !1 this data is currently generated here `db/inflections/inflections_to_headwords.py` but yet added to the db model or db tables
 !2 this will probably be renamed at some point
 
- """
-
-
-
-
-
+"""

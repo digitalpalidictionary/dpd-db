@@ -89,8 +89,6 @@ def extract_pali(file_path, pali_data, eng_data):
                         data_dict,
                     )
 
-                    
-
         if folder_name_clean in ["vagga"] and folder_parent in ["ud"]:
             if ":0.1" in line_code:
                 code = line_code.replace(":0.1", "")

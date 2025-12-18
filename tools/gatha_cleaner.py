@@ -10,6 +10,7 @@ def main():
     from rich import print
     from db.db_helpers import get_db_session
     from db.models import DpdHeadword
+
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -19,10 +20,7 @@ def main():
         if i.example_2 is None:
             continue
         example = i.example_2
-        if (
-            "\n" in example and
-            re.findall(r"(,.+\.|,.+,)", example)
-        ):
+        if "\n" in example and re.findall(r"(,.+\.|,.+,)", example):
             print(f"[green]{i.lemma_1}")
             example = clean_gatha(example)
             i.example_2 = example

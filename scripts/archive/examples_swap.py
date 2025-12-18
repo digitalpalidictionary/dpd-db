@@ -10,7 +10,6 @@ from tools.paths import ProjectPaths
 
 
 def main():
-    
     print("[bright_yellow]swap examples")
     headword = None
 
@@ -24,11 +23,8 @@ def main():
         if headword == "x":
             break
 
-        result = db_session \
-            .query(DpdHeadword) \
-            .filter_by(lemma_1=headword) \
-            .first()
-        
+        result = db_session.query(DpdHeadword).filter_by(lemma_1=headword).first()
+
         if result:
             if result.example_1 and result.example_2:
                 print("[bright_yellow]before")
@@ -67,13 +63,13 @@ def main():
 
 
 def printer(hw: DpdHeadword) -> None:
-
     print(f"[chartreuse3]{hw.source_1} [sea_green3]{hw.sutta_1}")
     print(f"[aquamarine3]{hw.example_1}")
     print()
     print(f"[chartreuse3]{hw.source_2} [sea_green3]{hw.sutta_2}")
     print(f"[aquamarine3]{hw.example_2}")
     print()
+
 
 if __name__ == "__main__":
     main()

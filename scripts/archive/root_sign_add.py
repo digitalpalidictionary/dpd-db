@@ -16,11 +16,7 @@ def main():
     db = db_session.query(DpdHeadword).all()
     headwords = []
     for i in db:
-        if (
-            i.meaning_1 and
-            i.root_key and
-            not i.root_sign
-        ):
+        if i.meaning_1 and i.root_key and not i.root_sign:
             i.root_sign = i.rt.root_sign
             print(f"{i.lemma_1:<20}{i.root_key:<10}{i.root_sign}")
             headwords.append(i.lemma_1)

@@ -14,8 +14,9 @@ def main():
 
     for i in db:
         if (
-            not i.meaning_1 and i.construction is not None and
-            i.construction.startswith("a +")
+            not i.meaning_1
+            and i.construction is not None
+            and i.construction.startswith("a +")
         ):
             i.construction = re.sub(r"^a \+", "na > a +", i.construction)
             print(i.lemma_1)

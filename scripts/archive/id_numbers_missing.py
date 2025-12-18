@@ -10,8 +10,8 @@ def main():
     db = sorted(db, key=lambda x: x.id)
 
     for count, i in enumerate(db):
-        print(f"count: {count+1:<10}id: {i.id}")
-        if count+1 != i.id:
+        print(f"count: {count + 1:<10}id: {i.id}")
+        if count + 1 != i.id:
             break
 
 

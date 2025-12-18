@@ -8,6 +8,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
+
 def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -17,6 +18,7 @@ def main():
             i.compound_construction = i.compound_construction.replace("<b>ca</b>", "ca")
             print(i.lemma_1, "\t", i.compound_construction)
     db_session.commit()
+
 
 if __name__ == "__main__":
     main()

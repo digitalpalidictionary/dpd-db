@@ -33,6 +33,7 @@ def main():
         pyperclip.copy(key)
         input()
 
+
 if __name__ == "__main__":
     main()
 

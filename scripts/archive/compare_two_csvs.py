@@ -7,12 +7,12 @@ csv2 = "../csvs/dpd-full.csv"
 # csv1 = ("../../csvs/roots.csv")
 # csv2 = ("../csvs/roots.csv")
 
-with open(csv1, 'r') as file:
+with open(csv1, "r") as file:
     reader1 = csv.reader(file)
     data1 = list(reader1)
 
 
-with open(csv2, 'r') as file:
+with open(csv2, "r") as file:
     reader2 = csv.reader(file)
     data2 = list(reader2)
 

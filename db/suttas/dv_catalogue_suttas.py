@@ -7,36 +7,38 @@ from db.models import SuttaInfo
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
+
 def download_dv_catalogue(filepath: Path) -> bool:
     """Download DV Catalogue TSV file from GitHub."""
     url = "https://raw.githubusercontent.com/dhammavinaya-tools/dhamma-vinaya-catalogue/main/DV_Catalogue5_suttas.tsv"
     try:
-        pr.green(f"downloading dv catalogue")
+        pr.green("downloading dv catalogue")
         response = requests.get(url, timeout=10)
         response.raise_for_status()
-        
+
         content = response.content.replace(b"\r\n", b"\n")
         with open(filepath, "wb") as f:
             f.write(content)
         pr.yes("ok")
         return True
     except Exception as e:
-        pr.no(f"failed")
-        pr.red(e)
+        pr.no("failed")
+        pr.red(str(e))
         return False
+
 
 def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
     """Read DV Catalogue TSV file and convert to dict with SUTTACODE as key.
-    
+
     Always attempts to download fresh file first.
     Falls back to local file if download fails.
     """
     tsv_path = pth.dv_catalogue_suttas_tsv_path
-    
+
     # Always try to download fresh
     if not download_dv_catalogue(tsv_path):
         pr.red("using local file if available")
-    
+
     if not tsv_path.exists():
         pr.red("no local file available")
         return {}
@@ -45,10 +47,10 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
     try:
         pr.green("reading dv sutta catalogue")
         df = pd.read_csv(tsv_path, sep="\t")
-        
+
     except Exception as e:
-        pr.no(f"failed")
-        pr.red(e)
+        pr.no("failed")
+        pr.red(str(e))
         return {}
 
     # Convert column names to lowercase
@@ -57,7 +59,7 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
     # Remove duplicates by keeping first occurrence of each SUTTACODE
     if "suttacode" in df.columns:
         df = df.drop_duplicates(subset=["suttacode"], keep="first")
-        
+
         # Set SUTTACODE as index and convert to dict
         df.set_index("suttacode", inplace=True)
         catalogue_dict = df.to_dict("index")
@@ -152,7 +154,7 @@ def update_dv_fields_in_db(pth: ProjectPaths):
 
 def main():
     pth = ProjectPaths()
-    
+
     catalogue_dict = read_dv_catalogue(pth)
     pr.green(f"Loaded {len(catalogue_dict)} entries")
     if catalogue_dict:

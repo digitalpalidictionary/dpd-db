@@ -5,12 +5,9 @@ import re
 from tools.pali_alphabet import pali_alphabet
 
 
-def replace_sandhi(
-        text: str, 
-        sandhi_dict: dict, hyphenations_dict: dict
-    ) -> str:
+def replace_sandhi(text: str, sandhi_dict: dict, hyphenations_dict: dict) -> str:
     """Replace Sandhi and hypenated words."""
-    
+
     pali_alphabet_string = "".join(pali_alphabet)
     splits = re.split(f"([^{pali_alphabet_string}])", text)
 
@@ -21,7 +18,7 @@ def replace_sandhi(
 
         if word in hyphenations_dict:
             splits[i] = hyphenations_dict[word]
-    
+
     text = "".join(splits)
 
     # replace ṁ with ṃ

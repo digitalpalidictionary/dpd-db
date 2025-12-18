@@ -26,6 +26,6 @@ def day():
 
 
 def make_timestamp() -> str:
-    """ Make current time iso-formatted UTC datetime string """
+    """Make current time iso-formatted UTC datetime string"""
     now = datetime.utcnow().replace(microsecond=0)
     return now.isoformat()
