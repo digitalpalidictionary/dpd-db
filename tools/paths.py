@@ -532,11 +532,16 @@ class ProjectPaths:
         # resources/other_pali_texts
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
 
-        # resources/tipitaka_translation_data
-        self.tipitaka_translation_dir = base_dir / "resources/tipitaka_translation_data"
+        # resources/tipitaka_translation_db
+        self.tipitaka_translation_db_dir = (
+            base_dir / "resources/tipitaka_translation_db"
+        )
         self.tipitaka_translation_db_path = (
+            base_dir / "resources/tipitaka_translation_db/tipitaka-translation-data.db"
+        )
+        self.tipitaka_translation_db_tarball = (
             base_dir
-            / "resources/tipitaka_translation_data/tipitaka-translation-data.db"
+            / "resources/tipitaka_translation_db/tipitaka-translation-data.db.zip"
         )
 
         # resources/tpr

@@ -1,13 +1,7 @@
-import os
 import re
-import shutil
-import zipfile
-from pathlib import Path
 from typing import Any, cast
 
-import requests
 from bs4 import BeautifulSoup
-from rich.progress import Progress
 
 from sqlalchemy import Column, Integer, String, create_engine, event, inspect
 from sqlalchemy.engine import Engine
@@ -39,64 +33,25 @@ def ensure_db_exists():
         pr.info(
             f"Tipitaka translation database not found at {pth.tipitaka_translation_db_path}"
         )
-        pr.info("Downloading... (approx 185 MB)")
-
-        # Create directory if it doesn't exist
-        pth.tipitaka_translation_dir.mkdir(parents=True, exist_ok=True)
-
-        url = "https://dhamma.paauksociety.org/Root/Tipitaka/tipitaka-translation-data.db.zip"
-        zip_path = pth.tipitaka_translation_dir / "tipitaka.zip"
+        pr.info("Setting up database from GitHub releases...")
 
         try:
-            # Download
-            response = requests.get(url, stream=True)
-            response.raise_for_status()
+            # Import and run the unzip script which handles download from GitHub releases
+            from resources.tipitaka_translation_db.download_and_unzip_db import (
+                main as unzip_main,
+            )
 
-            total_size = int(response.headers.get("content-length", 0))
+            unzip_main()
 
-            with open(zip_path, "wb") as f:
-                with Progress() as progress:
-                    task = progress.add_task("[cyan]Downloading...", total=total_size)
-                    for chunk in response.iter_content(chunk_size=8192):
-                        f.write(chunk)
-                        progress.update(task, advance=len(chunk))
+            # Check if the database file was extracted successfully
+            if not pth.tipitaka_translation_db_path.exists():
+                pr.red("Error: Database file not found after extraction.")
+                return
 
-            pr.info("Download complete. Extracting...")
-
-            # Extract
-            with zipfile.ZipFile(zip_path, "r") as zip_ref:
-                zip_ref.extractall(pth.tipitaka_translation_dir)
-
-            # Find the .db file (it might have a different name inside the zip)
-            db_files = list(pth.tipitaka_translation_dir.glob("*.db"))
-            found_db = False
-
-            for db_file in db_files:
-                # If we found the correct file already, skip
-                if db_file.name == "tipitaka-translation-data.db":
-                    found_db = True
-                    break
-
-                # If we found another db file, rename it
-                # We assume the largest db file is the one we want if there are multiple
-                # But typically there's only one
-                if db_file.name != "tipitaka-translation-data.db":
-                    pr.info(f"Renaming {db_file.name} to tipitaka-translation-data.db")
-                    db_file.rename(pth.tipitaka_translation_db_path)
-                    found_db = True
-                    break
-
-            if not found_db:
-                pr.red("Error: Could not find a .db file in the extracted archive.")
-            else:
-                pr.info("Database setup complete.")
+            pr.info("Database setup complete.")
 
         except Exception as e:
-            pr.red(f"Error downloading or setting up database: {e}")
-        finally:
-            # Cleanup zip file
-            if zip_path.exists():
-                zip_path.unlink()
+            pr.red(f"Error setting up database: {e}")
 
 
 def get_db_engine():

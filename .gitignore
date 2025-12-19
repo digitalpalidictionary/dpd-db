@@ -96,7 +96,6 @@ gui2/build/
 logs/
 memory-bank/
 resources/flet-docs/
-resources/tipitaka_translation_data/tipitaka-translation-data.db.zip
 resources/tipitaka.lk.tar.gz
 sandhi.zip
 scratchpad.py
@@ -110,4 +109,4 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
-
+resources/tipitaka_translation_data_old/*

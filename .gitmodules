@@ -25,3 +25,6 @@
 [submodule "resources/dpd_audio"]
 	path = resources/dpd_audio
 	url = https://github.com/digitalpalidictionary/dpd-audio.git
+[submodule "resources/tipitaka_translation_db"]
+	path = resources/tipitaka_translation_db
+	url = https://github.com/digitalpalidictionary/tipitaka-translation-db

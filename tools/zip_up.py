@@ -1,6 +1,7 @@
 import os
 import zipfile
 from pathlib import Path
+from tools.printer import printer as pr
 
 
 def zip_up_file(
@@ -96,3 +97,20 @@ def zip_up_directory(
             input_dir.rmdir()
         except PermissionError:
             print(f"Unable to delete {input_dir} due to permission error.")
+
+
+def unzip_file(zip_path: Path, destination_dir: Path):
+    """
+    Unzip a file to the destination directory.
+    """
+    pr.green(f"unzipping {zip_path.name}")
+
+    if not zip_path.exists():
+        raise FileNotFoundError(f"Zip file not found: {zip_path}")
+
+    destination_dir.mkdir(parents=True, exist_ok=True)
+
+    with zipfile.ZipFile(zip_path, "r") as zip_ref:
+        zip_ref.extractall(destination_dir)
+
+    pr.yes("ok")
