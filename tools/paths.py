@@ -35,6 +35,7 @@ class ProjectPaths:
 
         # resources/dpd_audio
         self.dpd_audio_db_path = base_dir / "resources/dpd_audio/db/dpd_audio.db"
+        self.dpd_audio_mp3_dir = base_dir / "resources/dpd_audio/mp3s"
 
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
