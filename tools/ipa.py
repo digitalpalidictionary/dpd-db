@@ -1,4 +1,7 @@
-"""Convert Pāḷi text to IPA"""
+"""
+Convert Pāḷi text to IPA
+2025/12/20 REPLACED BY AKSHARAMUKHA IPA
+"""
 
 import re
 from pathlib import Path
