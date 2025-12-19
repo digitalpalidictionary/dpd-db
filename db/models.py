@@ -941,12 +941,6 @@ class DpdHeadword(Base):
             )
         )
 
-    @property
-    def lemma_tts(self) -> str:
-        from tools.ipa import convert_uni_to_ipa
-
-        return convert_uni_to_ipa(self.lemma_clean, "tts")
-
     # meaning construction
 
     @property

@@ -28,8 +28,6 @@ Here is a quick overview:
 
 - *`lemma_ipa`* `[str]` lemma_clean in International Phonetic Alphabet
 
-- *`lemma_tts`* `[str]` lemma_clean in International Phonetic Alphabet suitable for Text-to-Speech engines
-
 - *`lemma_trad`* `[str]` form of the lemma found in traditional Pāḷi grammars
 
 - *`lemma_si`* `[str]` form of the lemma found in traditional Pāḷi grammars, in Sinhala script
