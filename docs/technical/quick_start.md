@@ -6,8 +6,8 @@ Welcome to the Digital Pāḷi Dictionary (DPD) developer guide. This page will 
 
 ### Prerequisites
 
-1. **Database**: Download the latest `dpd.db.tar.bz2` from the [dpd-db releases page](https://github.com/digitalPāḷidictionary/dpd-db/releases){target="_blank"}
-2. **Python Environment**: Install [uv](https://astral.sh/uv/install){target="_blank"} for dependency management
+1. **Database**: Download the latest `dpd.db.tar.bz2` from the [dpd-db releases page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}
+2. **Python Environment**: Install [uv](https://docs.astral.sh/uv/getting-started/installation/){target="_blank"} for dependency management
 3. **Dependencies**: Run `uv sync` to install all required dependencies
 
 ### Basic Database Usage
@@ -112,9 +112,9 @@ if grammar_data:
 3. **Leverage Virtual Columns**: The `DpdHeadword` model includes many virtual properties that provide computed data (e.g., `lemma_clean`, `inflections_list`).
 
 4. **Database Relationships**: Use the built-in relationships to access related data:
-   - `.rt` for root information
-   - `.fr` for family roots
-   - `.fw` for family words
+    - `.rt` for root information
+    - `.fr` for family roots
+    - `.fw` for family words
     - etc.
 
 ## Resources
@@ -122,7 +122,7 @@ if grammar_data:
 - [Full DPD Headwords Table Documentation](dpd_headwords_table.md){target="_blank"}
 - [Using the DB Guide](use_db.md){target="_blank"}
 - [Project Folder Structure](project_folder_structure.md){target="_blank"}
-- [GitHub Repository](https://github.com/digitalPāḷidictionary/dpd-db){target="_blank"}
+- [GitHub Repository](https://github.com/digitalpalidictionary/dpd-db){target="_blank"}
 
 ## Need Help?
 
