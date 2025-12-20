@@ -36,6 +36,15 @@ class ProjectPaths:
         # resources/dpd_audio
         self.dpd_audio_db_path = base_dir / "resources/dpd_audio/db/dpd_audio.db"
         self.dpd_audio_mp3_dir = base_dir / "resources/dpd_audio/mp3s"
+        self.dpd_audio_male2_dir = (
+            base_dir / "resources/dpd_audio/mp3s/Kannada_kn-m4_Neutral_0.85"
+        )
+        self.dpd_audio_male1_dir = (
+            base_dir / "resources/dpd_audio/mp3s/Kannada_kn-m1_Neutral_0.85"
+        )
+        self.dpd_audio_female1_dir = (
+            base_dir / "resources/dpd_audio/mp3s/Kannada_kn-f4_Neutral_0.85"
+        )
 
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
