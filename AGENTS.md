@@ -13,10 +13,11 @@
 
 ## Python Type Hints
 - Please add type hints to all code, especially when it is missing in existing code. 
-- Use modern type hints `dict[str, str]` not old type hints like `Dict[str, str]` 
-- Use `tuple[str, str]` not `Tuple[str, str]`
-- Use `list[str]` not `List[str]`
-- Use `| None` not Optional[None]
+- Use modern type hints not old type hints
+  - Use `dict[str, str]` not `Dict[str, str]` 
+  - Use `tuple[str, str]` not `Tuple[str, str]`
+  - Use `list[str]` not `List[str]`
+  - Use `| None` not Optional[None]
 
 ## Use Path from Pathlib
 - Use Path for anything related to filepaths, not os.
