@@ -33,7 +33,7 @@ def run_script(title: str, commands: list[str]) -> None:
     import datetime
 
     print(
-        f"Starting: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        f"Starting: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
     )
     start_time = time.time()
 
@@ -55,7 +55,7 @@ def run_script(title: str, commands: list[str]) -> None:
     print(
         f"Finished: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
     )
-    print(f"Completed in {int(elapsed // 60)} minutes")
+    print(f"Completed in {int(elapsed // 60)} minutes\n")
 
 
 def _build_command(command: str) -> str:
