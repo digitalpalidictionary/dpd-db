@@ -95,7 +95,7 @@ from gui.functions_tests import (
 
 from gui.pass2 import Pass2Data, pass2_gui, start_from_where_gui
 from gui.window_layout import window_layout
-from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
+from db.backup_tsv.backup_dpd_headwords_and_roots import backup_dpd_headwords_and_roots
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
 from tools.fast_api_utils import (
     request_bold_def_server,
