@@ -317,7 +317,7 @@
             </th>
         </tr>
 
-        % if su.sc_code:
+        % if su.tbw:
         <tr>
             <th>
                 The Buddha's Words
@@ -328,7 +328,7 @@
         </tr>
         % endif
 
-        % if su.sc_code:
+        % if su.tbw_legacy:
         <tr>
             <th>
                 TBW Legacy
@@ -340,7 +340,7 @@
         </tr>
         % endif
 
-        % if su.sc_code:
+        % if su.dhamma_gift:
         <tr>
             <th>
                 Dhamma.gift
@@ -352,18 +352,19 @@
         </tr>
         % endif
 
-        % if su.sc_code:
+        % if su.sc_express_link:
         <tr>
             <th>
-                SC Voice
+                SC Express
             </th>
             <td>
-                <a href="${ su.sc_express_link}" target="_blank">SC Express</a>
+                <a href="${ su.sc_express_link }" target="_blank">${
+                    su.sc_express_link }</a>
             </td>
         </tr>
         % endif
 
-        % if su.sc_code:
+        % if su.sc_voice_link:
         <tr>
             <th>
                 SC Voice
@@ -375,18 +376,202 @@
         </tr>
         % endif
 
-        % if su.cst_code:
+        % if su.bjt_sutta_code:
         <tr>
             <th class="heading" colspan="2">
-                Buddha Jayanti Tipiṭaka
+                Buddha Jayanti Tipiṭaka (BJT)
             </th>
         </tr>
+        % endif
+
+        % if su.bjt_sutta_code:
         <tr>
             <th>
-                Coming soon...
+                Sutta Code
             </th>
             <td>
-                ...
+                ${ su.bjt_sutta_code }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_piṭaka:
+        <tr>
+            <th>
+                Piṭaka
+            </th>
+            <td>
+                ${ su.bjt_piṭaka }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_nikāya:
+        <tr>
+            <th>
+                Nikāya
+            </th>
+            <td>
+                ${ su.bjt_nikāya }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_major_section:
+        <tr>
+            <th>
+                Major Section
+            </th>
+            <td>
+                ${ su.bjt_major_section }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_book:
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                ${ su.bjt_book }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_minor_section:
+        <tr>
+            <th>
+                Minor Section
+            </th>
+            <td>
+                ${ su.bjt_minor_section }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_vagga:
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                ${ su.bjt_vagga }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_sutta:
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                ${ su.bjt_sutta }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_book_id:
+        <tr>
+            <th>
+                Book ID
+            </th>
+            <td>
+                ${ su.bjt_book_id }
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_page_num:
+        <tr>
+            <th>
+                Page Number
+            </th>
+            <td>
+                ${ su.bjt_page_num }
+            </td>
+        </tr>
+        % endif
+
+        ## % if su.bjt_page_offset:
+        ## <tr>
+        ##     <th>
+        ##         Page Offset
+        ##     </th>
+        ##     <td>
+        ##         ${ su.bjt_page_offset }
+        ##     </td>
+        ## </tr>
+        ## % endif
+
+        % if su.bjt_filename:
+        <tr>
+            <th>
+                Filename
+            </th>
+            <td>
+                ${ su.bjt_filename }.json
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_github_link:
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a href="${ su.bjt_github_link }" target="_blank">
+                    ${ su.bjt_filename }.json
+                </a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_web_code:
+        <tr>
+            <th class="heading" colspan="2">
+                Websites using BJT
+            </th>
+        </tr>
+        % endif
+
+        % if su.bjt_tipitaka_lk_link:
+        <tr>
+            <th>
+                tipiṭaka.lk (Sinhala)
+            </th>
+            <td>
+                <a href="${ su.bjt_tipitaka_lk_link }" target="_blank">
+                    ${ su.bjt_tipitaka_lk_link }
+                </a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_open_tipitaka_lk_link:
+        <tr>
+            <th>
+                open.tipiṭaka.lk (Roman)
+            </th>
+            <td>
+                <a href="${ su.bjt_open_tipitaka_lk_link }" target="_blank">
+                    ${ su.bjt_open_tipitaka_lk_link }
+                </a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.bjt_open_tipitaka_lk_link:
+        <tr>
+            <th>
+                open.tipiṭaka.lk (Devanagari)
+            </th>
+            <td>
+                <a href="${ su.bjt_open_tipitaka_lk_link.replace('latn', 'deva') }" target="_blank">
+                    ${ su.bjt_open_tipitaka_lk_link.replace('latn', 'deva') }
+                </a>
             </td>
         </tr>
         % endif
