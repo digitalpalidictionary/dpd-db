@@ -1,6 +1,10 @@
-# Deconstructor
-All code and files related to deconstructing compounds and splitting sandhi. 
+# archive/db/deconstructor/
 
-ARCHIVED! DO NOT USE! FOR REFERENCE ONLY!
+## Purpose & Rationale
+This directory preserves the early evolution of the compound deconstruction logic. Its rationale is to document the transition from rule-based Python scripts to the current high-performance Go-based architecture.
 
-Replace by go_modules/deconstructor
+## Architectural Logic
+Contains legacy sandhi splitting rules and experimental heuristics that informed the development of the modern deconstructor.
+
+## Interface
+Preserved for historical analysis of splitting logic.

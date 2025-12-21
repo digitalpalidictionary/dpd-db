@@ -1,56 +1,18 @@
-# Single Source of Truth
+# identity/css/
 
-This folder contains the Single Source of Truth for all CSS used across the project.
+## Purpose & Rationale
+`identity/css/` is the project's visual master-template. Its rationale is to provide a single, version-controlled source for all styling rules used across the DPD ecosystem. By centralizing CSS here, we ensure that a change to a color or font choice automatically propagates to the WebApp, GoldenDict, and other exported formats, maintaining a unified brand identity.
 
-# CSSManager
+## Architectural Logic
+The CSS is structured using a "Variable-First" and "Component-Based" pattern:
+1.  **Variables (`dpd-variables.css`):** Defines the core palette, spacing, and semantic tokens. This allows for easy implementation of dark/light modes and thematic updates.
+2.  **Typography (`dpd-fonts.css`):** Encapsulates the complex font-face rules required for Pāḷi diacritics.
+3.  **Master Styles (`dpd.css`):** The primary stylesheet for dictionary entries, focusing on readability and information hierarchy.
+4.  **Legacy Support (`legacy.css`):** Preserves styles needed for older interfaces or specific backward-compatibility requirements.
 
-`tools/css_manager.py` handles syncing all CSS across the project.
+## Relationships & Data Flow
+- **Export Pipeline:** Every subsystem in **exporter/** (GoldenDict, WebApp, PDF) references these files during their build or runtime rendering phases.
+- **Identity Root:** Complements the logos and fonts in the parent **identity/** directory.
 
-The two main files are
-
-## dpd.css
-Contains all CSS classes used everywhere
-
-## dpd-fonts.css
-Imports the fonts from disk / res folder
-
-## dpd-css-and-fonts.css
-This is an automatically generated combo of the above two files. Don't adjust manually.
-
-## dpd-variables.css
-
-This is automatically added to header files:
-
-- GoldenDict — DPD Header: [exporter/goldendict/templates/dpd_header.html](../../exporter/goldendict/templates/dpd_header.html)
-
-- GoldenDict - Root Header [exporter/goldendict/templates/root_header.html](../../exporter/goldendict/templates/root_header.html)
-
-- GoldenDict — Deconstructor Header: [exporter/deconstructor/deconstructor_header.html](../../exporter/deconstructor/deconstructor_header.html)
-
-- GoldenDict — DPD Header plain:[exporter/goldendict/templates/dpd_header_plain.html](../../exporter/goldendict/templates/dpd_header_plain.html)
-
-- GoldenDict — GrammarDict Header: [exporter/grammar_dict/grammar_dict_header.html](../../exporter/grammar_dict/grammar_dict_header.html)
-
-- GoldenDict — Variants Header: [exporter/variants/variants_header.html](../../exporter/variants/variants_header.html)
-
-The file is copied to:
-
-- WebApp: [exporter/webapp/static/dpd.css](../../exporter/webapp/static/dpd.css)
-
-- Docs: [docs/stylesheets/dpd-variables.css](../../docs/stylesheets/dpd-variables.css)
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- This should definitely be simplified into one  -->
+## Interface
+These are static assets. Developers update the project's look-and-feel by modifying the rules here. No execution is required.

@@ -1,17 +1,20 @@
-# scripts
+# scripts/
 
-Various scripts to run frequently performed operations.
+## Purpose & Rationale
+The `scripts/` directory is the automation engine of the project. It exists to provide a clear, standardized set of entry points for common developer tasks, build processes, and maintenance routines. It encapsulates the operational workflows of the project.
 
-- __add__ scripts to add data to the db
+## Architectural Logic
+Scripts are organized by their **intent** (Action-Oriented):
+- **build/:** To create or rebuild project artifacts.
+- **export/:** To output the database in specific intermediate formats.
+- **fix/:** To perform batch corrections on the database.
+- **add/:** To find new data to add.
+- **info/:** To query or report on the project state.
 
-- __archive__ scripts past their prime
+## Relationships & Data Flow
+- **Orchestration:** Scripts import logic from **db/**, **exporter/**, and **tools/** to execute high-level workflows.
+- **Integration:** They are the primary way the project interacts with CI/CD systems or local development environments.
 
-- __backup__ scripts to backup the database to tsv
-
-- __bash__ bash scripts
-
-- __build__ scripts to build the database
-
-- __export__ scripts to export selected data from the db
-
-- __find__ scripts to find data in the db
+## Interface
+The interface is the CLI. Most scripts are intended to be run from the project root.
+Example: `uv run python scripts/export/export_goldendict.py`

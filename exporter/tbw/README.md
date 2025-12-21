@@ -1,28 +1,19 @@
-# tbw
-Prototype Pāḷi word lookup system to integrate a lite version of DPD into websites.
-- [The Buddha's Words](https://thebuddhaswords.net/home/index.html)
-- [DhammaGift](https://find.dhamma.gift/)
-- [Sutta Cental](https://suttacentral.net/ )
+# exporter/tbw/
 
+## Purpose & Rationale
+"The Buddha's Words" (TBW) is a platform dedicated to making Early Buddhist Texts (EBTs) accessible. The `tbw/` directory provides a targeted, lightweight version of the DPD database designed for the TBW website and browser extensions (like `fdg_dpd`). It solves the problem of high-latency lookups on the web by providing compact, pre-processed JSON data that focuses on the vocabulary found in the most ancient strata of Pāḷi literature.
 
-## Flowchart
-Here's a visual representation of how the system works. 
+## Architectural Logic
+This subsystem follows a "Context-Aware Micro-Index" pattern:
+1.  **Filtering:** `tbw_exporter.py` limits its scope to words found in specific SuttaCentral text sets (EBTs).
+2.  **Aggregation:** It combines three crucial data points for every word: its headword mapping (inflection-to-lemma), its core dictionary definition, and its compound deconstruction splits.
+3.  **Compaction:** Entries are stripped of exhaustive academic metadata, focusing on clear, concise meanings and structural analysis.
+4.  **Distribution:** The output is designed to be easily synced with the separate `TBW2` and `fdg_dpd` repositories.
 
-![flowchart](https://github.com/digitalpalidictionary/dpd-db/blob/main/exporter/tbw/docs/dpd%20lookup%20systen.png)
+## Relationships & Data Flow
+- **Source:** Consumes `DpdHeadword` and `Lookup` (specifically deconstructor and variant data) from **db/**.
+- **Consumption:** Powers the lookup features on [thebuddhaswords.net](https://thebuddhaswords.net) and related browser-based tools.
+- **Integration:** The `docs/` folder within this directory contains additional integration-specific documentation for these external consumers.
 
-## Examples
-
-the word clicked on is **buddhena**
-
-1. lookup word in dpd_i2h.json
-2. the results are ["buddha 1", "buddha 2"]
-3. lookup those headwords in dpd_ebts.json
-4. lookup word in dpd_deconstructor.json
-5. display all the results with your preferred styling
-
-the word clicked on is **akatañca**
-
-1. lookup word in dpd_i2h.json
-2. it's not found there
-3. then lookup word in dpd_deconstructor.json
-4. display those results
+## Interface
+- **Export:** `uv run python exporter/tbw/tbw_exporter.py`
