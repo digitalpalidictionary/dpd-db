@@ -49,6 +49,7 @@ dependencies = [
     "natsort>=8.4.0",
     "indic-transliteration>=2.3.75",
     "miniaudio>=1.61",
+    "pathspec>=0.12.1",
 ]
 
 [dependency-groups]
