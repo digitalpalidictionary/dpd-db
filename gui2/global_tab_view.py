@@ -4,7 +4,7 @@ import flet as ft
 
 from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.toolkit import ToolKit
-from scripts.backup.backup_dpd_headwords_and_roots import (
+from db.backup_tsv.backup_dpd_headwords_and_roots import (
     backup_dpd_headwords_and_roots,
 )
 from scripts.build.anki_updater import main as anki_updater_main
