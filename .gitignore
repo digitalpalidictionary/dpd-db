@@ -110,3 +110,4 @@ shared_data/headword_stem_pattern_dict
 temp/
 typescript
 resources/tipitaka_translation_data_old/*
+conductor/
