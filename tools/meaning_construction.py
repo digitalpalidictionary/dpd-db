@@ -4,8 +4,10 @@
 3. Cleaning construction of all brackets and phonetic changes,
 4. Creating an HTML styled symbol of a word data's degree of completion."""
 
+from pathlib import Path
 import re
 
+from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 
 
@@ -106,7 +108,8 @@ def summarize_construction(i: DpdHeadword) -> str:
 
             if i.pos != "fut":
                 # replace base with root + sign
-                root_plus_sign = f"{i.root_clean} + {i.root_sign}"
+                root_sign_plus = i.root_sign.replace(" ", " + ")
+                root_plus_sign = f"{i.root_clean} + {root_sign_plus}"
                 construction = re.sub(base, root_plus_sign, construction)
             else:
                 # replace base with base construction
@@ -131,3 +134,15 @@ def clean_construction(construction):
     # remove ??
     construction = re.sub("\\?\\? ", "", construction)
     return construction
+
+
+if __name__ == "__main__":
+    session = get_db_session(Path("dpd.db"))
+    results = (
+        session.query(DpdHeadword)
+        .filter(DpdHeadword.root_sign.contains(" "))
+        .limit(50)
+        .all()
+    )
+    for i in results:
+        print(i.lemma_1, ": ", summarize_construction(i))
