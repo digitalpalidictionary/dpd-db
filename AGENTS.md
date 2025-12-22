@@ -27,6 +27,14 @@
 - Only add comments when truly necessary to explain WHY something is being done. Never WHAT is being done. 
 - Leave existing comments as they are.
 
+## Imports
+- NEVER use `sys.path` hacks or manual directory traversal (e.g., `Path(__file__).resolve().parents[n]`) to handle absolute imports. 
+- Assume the script will be run from the project root or within a correctly configured environment where absolute imports work naturally.
+
+## Execution
+- NEVER run the actual file being worked on or any scripts unless specifically asked to do so by the user. 
+- Always ask for permission before running any file. The user will typically handle the execution.
+
 ## Dependencies
 
 ### uv
