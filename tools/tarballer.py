@@ -85,7 +85,7 @@ def extract_tarball_to_paths(
         tarball_path: Path to the tarball file
         base_dir: Base directory for extraction
         extraction_map: Dict mapping tarball paths to local paths
-                       e.g., {"db/dpd_audio.db": "resources/dpd_audio/db/dpd_audio.db"}
+                       e.g., {"db/dpd_audio.db": "audio/db/dpd_audio.db"}
     """
     pr.green_title(f"Extracting [white]{tarball_path.name} with mapping")
 

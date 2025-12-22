@@ -33,17 +33,17 @@ class ProjectPaths:
             base_dir / "db/suttas/dv_catalogue_suttas.tsv"
         )
 
-        # resources/dpd_audio
-        self.dpd_audio_db_path = base_dir / "resources/dpd_audio/db/dpd_audio.db"
-        self.dpd_audio_mp3_dir = base_dir / "resources/dpd_audio/mp3s"
+        # audio
+        self.dpd_audio_db_path = base_dir / "audio/db/dpd_audio.db"
+        self.dpd_audio_mp3_dir = base_dir / "audio/mp3s"
         self.dpd_audio_male1_dir = (
-            base_dir / "resources/dpd_audio/mp3s/Kannada_kn-m4_Neutral_0.85"
+            base_dir / "audio/mp3s/Kannada_kn-m4_Neutral_0.85"
         )
         self.dpd_audio_male2_dir = (
-            base_dir / "resources/dpd_audio/mp3s/Kannada_kn-m1_Neutral_0.85"
+            base_dir / "audio/mp3s/Kannada_kn-m1_Neutral_0.85"
         )
         self.dpd_audio_female1_dir = (
-            base_dir / "resources/dpd_audio/mp3s/Kannada_kn-f4_Neutral_0.85"
+            base_dir / "audio/mp3s/Kannada_kn-f4_Neutral_0.85"
         )
 
         # exporter/kindle/

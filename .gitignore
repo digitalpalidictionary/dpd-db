@@ -111,3 +111,8 @@ temp/
 typescript
 resources/tipitaka_translation_data_old/*
 conductor/
+
+# Audio
+audio/mp3s/
+audio/tests/mp3s/
+audio/db/dpd_audio.db
