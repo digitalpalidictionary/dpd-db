@@ -158,64 +158,62 @@ def process_one_file(filepath: Path) -> tuple[str, Path]:
     info = get_audio_info(filepath)
     if info:
         start, end, original_duration = info
-        
+
         new_duration = end - start
         reduction = original_duration - new_duration
-        
+
         # Check if reduction is significant enough
         if reduction < TRIM_THRESHOLD_MS / 1000:
             return "skipped_threshold", filepath
-        
+
         if trim_file(filepath, start, end):
             return "trimmed", filepath
         return "error_trimming", filepath
-            
+
     return "skipped_analysis", filepath
 
-def save_results(file_list: list[Path], filename: str) -> None:
-    """
-    Save a list of files to a text file.
-    """
-    output_path = Path(__file__).parent / filename
-    with open(output_path, "w") as f:
-        for path in file_list:
-            f.write(f"{path}\n")
-    pr.info(f"results saved to: {output_path}")
 
 def main():
     files = gather_mp3_files()
     if not files:
         pr.error("no files found.")
         return
-    
+
     num_processes = multiprocessing.cpu_count()
-    results = {"trimmed": 0, "skipped_threshold": 0, "skipped_analysis": 0, "error_trimming": 0}
-    trimmed_list: list[Path] = []
-    skipped_threshold_list: list[Path] = []
+    results = {
+        "trimmed": 0,
+        "skipped_threshold": 0,
+        "skipped_analysis": 0,
+        "error_trimming": 0,
+    }
 
-    with Progress() as progress:
-        task = progress.add_task("[cyan]Trimming Audio...", total=len(files))
-        
-        with multiprocessing.Pool(processes=num_processes) as pool:
-            for result, filepath in pool.imap_unordered(process_one_file, files):
-                results[result] += 1
-                if result == "trimmed":
-                    trimmed_list.append(filepath)
-                elif result == "skipped_threshold":
-                    skipped_threshold_list.append(filepath)
-                progress.update(task, advance=1)
+    trimmed_path = Path(__file__).parent / "trimmed_files.txt"
+    skipped_path = Path(__file__).parent / "skipped_threshold.txt"
 
-    pr.info(f"Done. Summary:")
+    with open(trimmed_path, "w") as trimmed_f, open(skipped_path, "w") as skipped_f:
+        with Progress() as progress:
+            task = progress.add_task("[cyan]Trimming Audio...", total=len(files))
+
+            with multiprocessing.Pool(processes=num_processes) as pool:
+                for result, filepath in pool.imap_unordered(process_one_file, files):
+                    results[result] += 1
+                    if result == "trimmed":
+                        trimmed_f.write(f"{filepath}\n")
+                        trimmed_f.flush()
+                    elif result == "skipped_threshold":
+                        skipped_f.write(f"{filepath}\n")
+                        skipped_f.flush()
+                    progress.update(task, advance=1)
+
+    pr.info("Done. Summary:")
     pr.info(f"  Trimmed: {results['trimmed']}")
-    pr.info(f"  Skipped (threshold < {TRIM_THRESHOLD_MS}ms): {results['skipped_threshold']}")
+    pr.info(
+        f"  Skipped (threshold < {TRIM_THRESHOLD_MS}ms): {results['skipped_threshold']}"
+    )
     pr.info(f"  Skipped (analysis/silent): {results['skipped_analysis']}")
     pr.info(f"  Errors: {results['error_trimming']}")
 
-    if trimmed_list:
-        save_results(trimmed_list, "trimmed_files.txt")
-    
-    if skipped_threshold_list:
-        save_results(skipped_threshold_list, "skipped_threshold.txt")
+    pr.info(f"Results saved to: {trimmed_path} and {skipped_path}")
 
 
 if __name__ == "__main__":

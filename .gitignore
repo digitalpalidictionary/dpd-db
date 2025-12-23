@@ -116,3 +116,6 @@ conductor/
 audio/mp3s/
 audio/tests/mp3s/
 audio/db/dpd_audio.db
+audio/db/*.tar.gz
+audio/error_check/skipped_threshold.txt
+audio/error_check/trimmed_files.txt

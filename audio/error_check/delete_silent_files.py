@@ -116,7 +116,7 @@ def save_results(silent_files: list[Path]) -> None:
     Save the list of silent files to a file.
     """
     # Save list to a file in the same directory as the script
-    output_path = Path(__file__).parent / "silent_files.txt"
+    output_path = Path(__file__).parent / "deleted_silent_files.txt"
     with open(output_path, "w") as f:
         for path in silent_files:
             f.write(f"{path}\n")
