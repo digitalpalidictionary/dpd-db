@@ -24,6 +24,9 @@ func makeCstFreq() {
 
 	fileFreqMap := map[string]map[string]int{}
 	for i, dirEntry := range directory {
+		if dirEntry.Name() == ".DS_Store" {
+			continue
+		}
 
 		fileName := dirEntry.Name()
 		fileNameClean, _ := strings.CutSuffix(fileName, ".txt")
