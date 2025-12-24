@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=gui2
+Comment=Digital Pāḷi Dictionary GUI
+Exec=/home/bodhirasa/MyFiles/3_Active/dpd-db/scripts/cl/dpd-gui2
+Icon=/home/bodhirasa/MyFiles/3_Active/dpd-db/identity/logo/dpd-logo-dark.svg
+Terminal=false
+Categories=Education;Language;
+Keywords=Pali;Dictionary;Buddhist;
+StartupWMClass=flet
