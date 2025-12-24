@@ -21,3 +21,6 @@ To start the modern GUI:
 uv run flet run gui2/main.py
 ```
 Specific maintenance utilities can be run from the `utilities/` subfolder.
+
+## GUI Assets
+- **Linux Integration:** A `dpd-gui2.desktop` file is provided in `gui2/linux/` to ensure the custom icon is correctly displayed in the Linux Mint taskbar and Alt-Tab switcher.
