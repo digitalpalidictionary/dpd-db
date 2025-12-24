@@ -53,7 +53,10 @@ def main():
             synonyms = []
 
         dict_entry = DictEntry(
-            word=headword, definition_html=html, definition_plain="", synonyms=synonyms
+            word=headword,
+            definition_html=html,
+            definition_plain="",
+            synonyms=synonyms,
         )
         dict_data.append(dict_entry)
 
@@ -80,12 +83,20 @@ def main():
         delete_original=True,
     )
 
-    export_to_goldendict_with_pyglossary(dict_info, dict_vars, dict_data)
+    export_to_goldendict_with_pyglossary(
+        dict_info,
+        dict_vars,
+        dict_data,
+    )
 
     # save as mdict
     print("[green]saving mdict")
 
-    export_to_mdict(dict_info, dict_vars, dict_data)
+    export_to_mdict(
+        dict_info,
+        dict_vars,
+        dict_data,
+    )
 
     pr.toc()
 
