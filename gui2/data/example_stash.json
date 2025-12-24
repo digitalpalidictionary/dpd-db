@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "SN42.6",
-        "sutta": "asibandhakaputtasuttaṃ",
-        "example": "brāhmaṇā, bhante, pacchā bhūmakā kāmaṇḍalukā sevālamālikā udak'orohakā aggiparicārakā. te mataṃ kālaṅ'kataṃ uyyāpenti nāma saññāpenti nāma saggaṃ nāma okkāmenti."
+        "source": "JA535",
+        "sutta": "sudhābhojanajātakaṃ",
+        "example": "āsāya yanti vāṇijā dhan'esino,\nnāvaṃ samāruyha parenti aṇṇave,\nte tattha sīdanti atho'pi ekadā,\njīnādhanā enti vinaṭṭhapābhatā."
     },
     "stash": {
-        "source": "SN42.6",
-        "sutta": "asibandhakaputtasuttaṃ",
-        "example": "brāhmaṇā, bhante, pacchā bhūmakā kāmaṇḍalukā sevālamālikā udak'orohakā aggiparicārakā. te mataṃ kālaṅ'kataṃ uyyāpenti nāma saññāpenti nāma saggaṃ nāma okkāmenti."
+        "source": "MNa12",
+        "sutta": "mahāsīhanādasuttavaṇṇanā, dasabalañāṇādivaṇṇanā",
+        "example": "kālāvakañ'ca gaṅgeyyaṃ,\npaṇḍaraṃ tambapiṅgalaṃ,\ngandha-maṅgala-hemañ'ca,\nuposatha-chaddant'ime dasā'ti."
     }
 }
