@@ -3,5 +3,10 @@
     "fileFiltering": {
       "respectGitIgnore": false
     }
+  },
+  "ui": {
+    "accessibility": {
+      "disableLoadingPhrases": true
+    }
   }
 }
