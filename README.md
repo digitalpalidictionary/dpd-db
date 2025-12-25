@@ -11,6 +11,7 @@ DPD is a freely-available, non-commercial project, providing hi-quality Pāḷi 
 ## Developer Docs
 
 [All Developer Docs](https://digitalpalidictionary.github.io/technical/)  
+[Developer Quick Start Guide](https://digitalpalidictionary.github.io/technical/quick_start/)
 [Build the database from scratch](https://digitalpalidictionary.github.io/technical/build_db/)  
 [Use the database with Python or any other language](https://digitalpalidictionary.github.io/technical/use_db/)  
 [Project folder structure](https://digitalpalidictionary.github.io/technical/project_folder_structure/)  
