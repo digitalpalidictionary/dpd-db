@@ -94,7 +94,7 @@ def main():
     # model = "mistralai/devstral-2512:free"
     # model = "z-ai/glm-4.5-air:free"
 
-    db_session = get_db_session(db_path)
+    db_session = get_db_session(Path(db_path))
     data = get_db_data(db_session)
     pr.info(f"Extracted {len(data)} entries from database.")
 
@@ -172,10 +172,19 @@ class ProofreaderManager:
             with open(self.tsv_path, "w", newline="", encoding="utf-8") as f:
                 if not self.corrections:
                     # Write header even if empty
-                    writer = csv.DictWriter(f, fieldnames=["id", "lemma_1", "meaning_1", "meaning_1_corrected"], delimiter="\t")
+                    writer = csv.DictWriter(
+                        f,
+                        fieldnames=[
+                            "id",
+                            "lemma_1",
+                            "meaning_1",
+                            "meaning_1_corrected",
+                        ],
+                        delimiter="\t",
+                    )
                     writer.writeheader()
                     return
-                
+
                 fieldnames = list(self.corrections[0].keys())
                 writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
                 writer.writeheader()
