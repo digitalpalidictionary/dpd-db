@@ -26,6 +26,7 @@ class ToolKit:
         from tools.ai_manager import AIManager
         from tools.bold_definitions_search import BoldDefinitionsSearchManager
         from tools.hyphenations import HyphenationFileManager
+        from tools.proofreader import ProofreaderManager
         from tools.sandhi_contraction import SandhiContractionManager
         from tools.wordfinder_manager import WordFinderManager
 
@@ -50,6 +51,9 @@ class ToolKit:
         self.corrections_manager: CorrectionsManager = CorrectionsManager(self)
         self.filter_presets_manager: FilterPresetsManager = FilterPresetsManager(self)
         self.additions_manager: AdditionsManager = AdditionsManager(self)
+        self.proofreader_manager: ProofreaderManager = ProofreaderManager(
+            self.project_paths.proofreader_tsv_path
+        )
         self.appbar_updater: AppBarUpdater = AppBarUpdater(self.page)
         self.daily_log: DailyLog = DailyLog(self)
         self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)

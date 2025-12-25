@@ -107,6 +107,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._additions_button = ft.ElevatedButton(
             "Add", on_click=self._click_additions_button, tooltip="additions"
         )
+        self._pread_button = ft.ElevatedButton(
+            "PRead", on_click=self._click_pread_button, tooltip="proofreader"
+        )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
             autofocus=True,
@@ -180,6 +183,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._new_word_button,
                             self._corrections_button,
                             self._additions_button,
+                            self._pread_button,
                             self._clear_all_button,
                             self.update_sandhi_button,
                             self._update_with_ai_button,
@@ -820,5 +824,41 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         except Exception as ex:
             self.update_message(f"Error loading addition: {str(ex)}")
+
+        self.page.update()
+
+    def _click_pread_button(self, e: ft.ControlEvent) -> None:
+        """Loads the next proofreader correction and populates the gui."""
+        correction, remaining = self.toolkit.proofreader_manager.get_next_correction()
+
+        if not correction:
+            self.update_message("No more proofreadings available")
+            return
+
+        try:
+            headword_id = int(correction["id"])
+            headword = self._db.get_headword_by_id(headword_id)
+
+            if not headword:
+                self.update_message(f"Headword ID {headword_id} not found in DB")
+                return
+
+            self.clear_all_fields()
+            self.headword = headword
+            self._enter_id_or_lemma_field.value = headword.lemma_1
+            self.headword_original = copy.deepcopy(headword)
+            self.dpd_fields.update_db_fields(headword)
+            self.add_headword_to_examples_and_commentary()
+
+            # Load correction into meaning_1_add
+            meaning_1_corrected = correction.get("meaning_1_corrected", "")
+            self.dpd_fields.update_add_fields({"meaning_1": meaning_1_corrected})
+
+            self.update_message(
+                f"Loaded proofreading for {headword.lemma_clean}. {remaining} proofreadings remaining."
+            )
+
+        except Exception as ex:
+            self.update_message(f"Error loading proofreading: {str(ex)}")
 
         self.page.update()

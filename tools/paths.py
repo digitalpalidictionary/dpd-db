@@ -633,6 +633,7 @@ class ProjectPaths:
         self.major_change_meaning_history_pth = (
             base_dir / "shared_data/major_change_meaning_history.tsv"
         )
+        self.proofreader_tsv_path = base_dir / "tools/proofreader.tsv"
 
         # share/frequency
         self.cst_file_freq = base_dir / "shared_data/frequency/cst_file_freq.json"
