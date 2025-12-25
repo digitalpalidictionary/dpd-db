@@ -1,3 +1,5 @@
+
+
 __pycache__/
 .venv
 .vscode/
@@ -11,6 +13,13 @@ archive/db/deconstructor/output_do.zip
 archive/db/deconstructor/output_do/
 archive/db/deconstructor/output/
 archive/db/frequency/output/
+audio/db/*.tar.gz
+audio/db/dpd_audio.db
+audio/error_check/skipped_threshold.txt
+audio/error_check/trimmed_files.txt
+audio/mp3s/
+audio/tests/mp3s/
+conductor/
 config.ini
 db/bold_definitions/bold_definitions.json
 db/bold_definitions/bold_definitions.tsv
@@ -71,6 +80,7 @@ exporter/kindle/epub/OEBPS/Text/8_k.xhtml
 exporter/kindle/epub/OEBPS/Text/9_kh.xhtml
 exporter/kindle/epub/OEBPS/Text/abbreviations.xhtml
 exporter/kindle/epub/OEBPS/Text/titlepage.xhtml
+exporter/mcp/output/*
 exporter/other_dictionaries/bmp_files/
 exporter/other_dictionaries/code/cone/bulk_dump_html.html
 exporter/other_dictionaries/code/cone/source/cone_dict.json
@@ -96,6 +106,7 @@ gui2/build/
 logs/
 memory-bank/
 resources/flet-docs/
+resources/tipitaka_translation_data_old/*
 resources/tipitaka.lk.tar.gz
 sandhi.zip
 scratchpad.py
@@ -109,13 +120,3 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
-resources/tipitaka_translation_data_old/*
-conductor/
-
-# Audio
-audio/mp3s/
-audio/tests/mp3s/
-audio/db/dpd_audio.db
-audio/db/*.tar.gz
-audio/error_check/skipped_threshold.txt
-audio/error_check/trimmed_files.txt
