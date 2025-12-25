@@ -1,0 +1,8 @@
+{
+  "track_id": "sync_sutta_info_20251221",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2025-12-21T13:40:00Z",
+  "updated_at": "2025-12-21T13:40:00Z",
+  "description": "Sync Sutta Info template between Webapp and GoldenDict, including BJT data and SC Express label fix."
+}

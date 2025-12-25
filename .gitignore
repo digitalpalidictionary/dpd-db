@@ -19,7 +19,6 @@ audio/error_check/skipped_threshold.txt
 audio/error_check/trimmed_files.txt
 audio/mp3s/
 audio/tests/mp3s/
-conductor/
 config.ini
 db/bold_definitions/bold_definitions.json
 db/bold_definitions/bold_definitions.tsv
