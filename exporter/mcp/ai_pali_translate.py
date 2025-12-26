@@ -22,6 +22,8 @@ Your task is to translate a Pāḷi sentence into English using the provided dic
 ### Dictionary Context (Word-by-Word Analysis)
 {context_str}
 
+**Note on Analysis Data:** For compounds and sandhi words, the context includes a `components` field containing dictionary details for each part of the word. Use these details to fill in the component rows in your analysis table.
+
 ### Examples of Expected Output Format
 {examples}
 
@@ -32,6 +34,17 @@ Your task is to translate a Pāḷi sentence into English using the provided dic
 4. **Word-by-Word Analysis Table:** Provide a Markdown table with exactly the following 6 columns:
     1. **ID**: The DPD ID of the headword.
     2. **Word in Sentence**: The word as it appears in the original Pāḷi sentence.
+       *   **MANDATORY FOR COMPOUNDS & SANDHI:** If the provided JSON analysis contains a `components` field for a word, you **MUST** list the main word first, and then **IMMEDIATELY** below it, create a new row for **EACH** component found in that `components` dictionary.
+       *   **Structure:**
+           *   Row 1: The full compound/sandhi word (e.g., *mahesiṃ*).
+           *   Row 2: First component, starting with a hyphen (e.g., *- mahā*).
+           *   Row 3: Second component, starting with a hyphen (e.g., *- isi*).
+       *   **Component Columns:**
+           *   **ID**: Use the ID from the component's data.
+           *   **Word in Sentence**: The component's lemma, **prefixed with a hyphen and a space** (e.g., `- mahā`).
+           *   **Grammar**: Write "in comp" or "in sandhi" followed by its grammar (e.g., "in comp, adj").
+           *   **Meaning**: Use the component's meaning.
+           *   **Root**: Use the component's root info if available.
     3. **Grammar**: The specific grammatical role of this word in this sentence.
     4. **Meaning**: The most contextually appropriate English meaning for this word in this sentence.
     5. **Construction**: The compound construction details (e.g., prefix + root + suffix or compound components).
@@ -85,21 +98,25 @@ def main():
 
             print("\n--- Raw Analysis Data (from DB) ---")
             print(json.dumps(analysis, ensure_ascii=False, indent=2))
-            print("-----------------------------------\
-")
+            print(
+                "-----------------------------------\
+"
+            )
 
             sys_prompt = build_system_prompt(analysis, examples_content)
 
             print("--- System Prompt Sent to LLM ---")
             print(sys_prompt)
-            print("---------------------------------\
-")
+            print(
+                "---------------------------------\
+"
+            )
 
             print(f"Requesting translation from {model}...")
             response = ai_manager.request(
                 prompt=f"Please translate this sentence: {sentence}",
                 model=model,
-                prompt_sys=sys_prompt
+                prompt_sys=sys_prompt,
             )
 
             if response.content:
@@ -111,14 +128,17 @@ def main():
                 # Save output to file
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
                 # Clean up sentence for filename: first 10 chars, lower, no special chars
-                clean_sentence = re.sub(r"[^a-zA-Z]", "_", sentence[:10].lower()).strip("_")
+                clean_sentence = re.sub(r"[^a-zA-Z]", "_", sentence[:10].lower()).strip(
+                    "_"
+                )
                 filename = f"{timestamp}_{clean_sentence}.md"
                 file_path = output_dir / filename
-                
+
                 with open(file_path, "w") as f:
+                    f.write("---\n\n")
                     f.write(f"# Analysis of: {sentence}\n\n")
                     f.write(response.content)
-                
+
                 print(f"Output saved to: {file_path}")
 
             else:
