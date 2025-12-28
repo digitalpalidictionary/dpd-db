@@ -1,0 +1,3 @@
+/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m4_Neutral_0.85/ya.mp3
+/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m4_Neutral_0.85/jha.mp3
+/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-f4_Neutral_0.85/la.mp3

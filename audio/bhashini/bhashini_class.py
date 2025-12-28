@@ -128,7 +128,9 @@ class Bashini:
         text_transliterated = self.translit_with_aksharamukha(text_roman)
 
         # often short words don't get pronounced by the ai, so repeat them twice
-        if self.problem or len(text_roman) < 5:
+        if self.problem:
+            text_for_api = f"{text_transliterated} {text_transliterated} {text_transliterated}.... "
+        elif len(text_roman) < 5:
             text_for_api = f"--- {text_transliterated} ... {text_transliterated} ... {text_transliterated} ... ---"
         else:
             text_for_api = f"। {text_transliterated} ।"
