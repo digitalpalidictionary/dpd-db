@@ -1,5 +1,25 @@
 [
     {
+        "id": 6221,
+        "lemma_1": "apanīta 1"
+    },
+    {
+        "id": 88267,
+        "lemma_1": "maccharita"
+    },
+    {
+        "id": 82896,
+        "lemma_1": "āhuneyyaggi"
+    },
+    {
+        "id": 19995,
+        "lemma_1": "kandara 1"
+    },
+    {
+        "id": 88134,
+        "lemma_1": "kandara 2"
+    },
+    {
         "id": 88317,
         "lemma_1": "desanika"
     },
@@ -58,25 +78,5 @@
     {
         "id": 88303,
         "lemma_1": "siñcana"
-    },
-    {
-        "id": 88302,
-        "lemma_1": "dutiyapārājikasamuṭṭhāna"
-    },
-    {
-        "id": 88301,
-        "lemma_1": "tepaññāsā"
-    },
-    {
-        "id": 88300,
-        "lemma_1": "pubbūpaparipācita"
-    },
-    {
-        "id": 88299,
-        "lemma_1": "paṭhamika"
-    },
-    {
-        "id": 88298,
-        "lemma_1": "paṭhamapārājikasamuṭṭhāna"
     }
 ]
