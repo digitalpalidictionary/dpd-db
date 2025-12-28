@@ -30,7 +30,7 @@ class AIManager:
         ("openrouter", "z-ai/glm-4.5-air:free", 5),
         ("openrouter", "qwen/qwen3-235b-a22b:free", 5),
         ("openrouter", "tngtech/deepseek-r1t2-chimera:free", 5),
-        ("openrouter", "openrouter/bert-nebulon-alpha", 5),
+        ("openrouter", "xiaomi/mimo-v2-flash:free", 5),
     ]
 
     # Grounded models for internet searches
@@ -196,7 +196,7 @@ if __name__ == "__main__":
         prompt=prompt,
         prompt_sys=sys_prompt,
         provider_preference="openrouter",
-        model="meta-llama/llama-4-maverick:free",
+        model="xiaomi/mimo-v2-flash:free",
     )
     pr.info(f"Status: {open_router_response.status_message}")
     pr.info(f"Content: {open_router_response.content}")
