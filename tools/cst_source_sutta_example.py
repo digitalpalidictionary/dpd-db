@@ -659,9 +659,10 @@ def vin5_parivara(g: GlobalData):
 
     if x["rend"] == "chapter":  # Handles <head rend="chapter">Soḷasamahāvāro</head>
         g.vagga = current_text
-        g.vagga_counter = (
-            int(current_number) if current_number is not None else g.vagga_counter + 1
-        )
+        if is_int(current_number):
+            g.vagga_counter = int(current_number)
+        else:
+            g.vagga_counter += 1
         # Reset lower-level counters when a new chapter starts
         g.source = f"{book_code}.{g.vagga_counter}"
         g.sutta = current_text.lower()
