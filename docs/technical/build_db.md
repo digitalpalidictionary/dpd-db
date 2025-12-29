@@ -34,7 +34,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 (8) Install all the dependencies with uv
 
 ```bash
-uv sync
+uv sync --all-groups
 ```
 
 (9) Having at least 20 GB of RAM can be helpful. If you have less, consider [increasing the swap memory.](https://www.reddit.com/r/linuxmint/comments/uhjyir/how_to_increase_swap_size/?rdt=34113){target="_blank"}.

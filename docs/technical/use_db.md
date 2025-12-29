@@ -14,10 +14,15 @@ Install [uv](https://astral.sh/uv/install){target="_blank"} for your operating s
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Install all the dependencies with uv
+Install the dependencies with uv
 
+**Minimal dependencies for running database and webapp:** 
 ```bash
 uv sync
+```
+**Full set of dependencies for running exporters:** 
+```bash
+uv sync --group tools
 ```
 
 Here's a quick tutorial how to use the database with Python and SQLAlchemy and the DPD project dependencies, but of course you can use it with your software tools of choice. 

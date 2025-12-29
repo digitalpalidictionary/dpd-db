@@ -8,7 +8,15 @@ Welcome to the Digital Pāḷi Dictionary (DPD) developer guide. This page will 
 
 1. **Database**: Download the latest `dpd.db.tar.bz2` from the [dpd-db releases page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}
 2. **Python Environment**: Install [uv](https://docs.astral.sh/uv/getting-started/installation/){target="_blank"} for dependency management
-3. **Dependencies**: Run `uv sync` to install all required dependencies
+3. **Dependencies**: \
+    To install a minimal set of dependencies for running the database and webapp: 
+    ```bash
+    uv sync
+    ```
+    To install ALL dependencies for development, run: 
+    ```bash
+    uv sync --all-groups
+    ```
 
 ### Basic Database Usage
 
