@@ -3,6 +3,7 @@
 ## Design Principles
 - **Clarity and Precision:** Dictionary definitions and grammatical info must be easy to read and technically accurate.
 - **Consistency:** Use consistent terminology and formatting across all platforms (Web, GoldenDict, etc.).
+- **CSS Single Source of Truth:** All styles MUST originate from `identity/css/`. Never modify CSS files directly in `exporter/` or `webapp/` subdirectories; use `tools/css_manager.py` to propagate changes from the source.
 - **Accessibility:** Ensure the content into accessible to users with different technical abilities and scripts.
 
 ## Visual Aesthetic: Minimalist and Functional

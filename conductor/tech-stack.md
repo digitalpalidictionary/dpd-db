@@ -18,6 +18,7 @@
 ## Tooling and Infrastructure
 - **Astral uv:** Fast Python package manager and resolver.
 - **Ruff:** Extremely fast Python linter and code formatter.
+- **CSS Management:** `identity/css/` is the **Single Source of Truth** for all project styles. CSS files are distributed to the Webapp, exporters, and documentation via `tools/css_manager.py`.
 - **MkDocs & MkDocs Material:** Documentation generator and theme for project docs.
 - **Pytest:** Testing framework for Python.
 - **Typst:** New markup-based typesetting system for PDF generation.
