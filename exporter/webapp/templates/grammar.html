@@ -3,45 +3,32 @@
     <table class='grammar_dict'>
         <thead>
             <tr>
-                <th id='col1'>pos</th>
-                <th id='col2'>grammar</th>
-                <th id='col3'></th>
-                <th id='col4'>word</th>
+                <th id='col1'>pos ⇅</th>
+                <th id='col2'>⇅</th>
+                <th id='col3'>⇅</th>
+                <th id='col4'>⇅</th>
+                <th id='col5'></th>
+                <th id='col6'>word ⇅</th>
             </tr>
         </thead>
         <tbody>
             {% for item in d.grammar: %}
-            {% if item[2] == "indeclinable" %}
+            {# item is (headword, pos, components_list) #}
             <tr>
-                <td>
-                    {{item[1]}}
-                </td>
-                <td>
-                    {{item[2]}}
-                </td>
-                <td colspan="2">
+                <td><b>{{item[1]}}</b></td>
+                
+                {% for comp in item[2]: %}
+                    {% if comp == "" %}
+                    <td class='col_empty'></td>
+                    {% else %}
+                    <td>{{comp}}</td>
+                    {% endif %}
+                {% endfor %}
 
-                </td>
+                <td>of</td>
+                <td>{{item[0]}}</td>
             </tr>
-            {% else %}
-
-            <tr>
-                <td>
-                    {{item[1]}}
-                </td>
-                <td>
-                    {{item[2]}}
-                </td>
-                <td>
-                    of
-                </td>
-                <td>
-                    {{item[0]}}
-                </td>
-            </tr>
-            {% endif %}
             {% endfor %}
-
         </tbody>
     </table>
     <p class="footer">

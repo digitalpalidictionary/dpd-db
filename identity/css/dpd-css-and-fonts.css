@@ -466,6 +466,10 @@ table.grammar_dict {
   vertical-align: center;
 }
 
+.grammar_dict .col_empty {
+  display: none;
+}
+
 .variants td:first-child,
 .variants td:nth-child(2) {
   white-space: nowrap;

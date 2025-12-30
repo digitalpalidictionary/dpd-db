@@ -75,7 +75,41 @@ class SpellingData:
 class GrammarData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
-        self.grammar = result.grammar_unpack
+        # self.grammar = result.grammar_unpack
+        self.grammar = self._process_grammar(result.grammar_unpack)
+    
+    def _process_grammar(self, grammar_list):
+        processed_list = []
+        for item in grammar_list:
+            headword, pos, grammar_str = item
+            components = []
+            
+            if grammar_str.startswith("reflx"):
+                parts = grammar_str.split()
+                if len(parts) >= 2:
+                    components.append(parts[0] + " " + parts[1])
+                    components += parts[2:]
+                else:
+                    components.append(grammar_str)
+            elif grammar_str.startswith("in comps"):
+                # Handle 'in comps' specifically if needed, 
+                # but based on my previous fix, we treat it as a normal component
+                # and let the template handle empty cells.
+                # Actually, for the webapp, let's just split it as is or keep it as one.
+                # In grammar_dict.py, I used:
+                # html_line += f"<td>{grammar_str}</td>"
+                # html_line += "<td class='col_empty'></td>"
+                # html_line += "<td class='col_empty'></td>"
+                components.append(grammar_str)
+            else:
+                components = grammar_str.split()
+            
+            # Pad with empty strings to ensure 3 components
+            while len(components) < 3:
+                components.append("")
+                
+            processed_list.append((headword, pos, components))
+        return processed_list
 
 
 class HelpData:

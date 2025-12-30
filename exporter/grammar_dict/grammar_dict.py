@@ -72,6 +72,45 @@ def render_header_templ(
     return str(header_templ.render(css=css, js=js))
 
 
+def generate_grammar_row_html(data_tuple: tuple[str, str, str]) -> str:
+    """Generate HTML for a single row in the grammar table."""
+    headword, pos, grammar_str = data_tuple
+    html_line = "<tr>"
+    html_line += f"<td><b>{pos}</b></td>"
+
+    # get grammatical_categories from grammar_str
+    grammatical_categories: list[str] = []
+    if grammar_str.startswith("reflx"):
+        parts = grammar_str.split()
+        if len(parts) >= 2:
+            grammatical_categories.append(parts[0] + " " + parts[1])
+            grammatical_categories += parts[2:]
+        else:
+            grammatical_categories.append(grammar_str)
+
+        for grammatical_category in grammatical_categories:
+            html_line += f"<td>{grammatical_category}</td>"
+    elif grammar_str.startswith("in comps"):
+        html_line += f"<td>{grammar_str}</td>"
+        html_line += "<td class='col_empty'></td>"
+        html_line += "<td class='col_empty'></td>"
+    else:
+        grammatical_categories = grammar_str.split()
+        # adding empty values if there are less than 3
+        while len(grammatical_categories) < 3:
+            grammatical_categories.append("")
+        for grammatical_category in grammatical_categories:
+            if grammatical_category == "":
+                html_line += "<td class='col_empty'></td>"
+            else:
+                html_line += f"<td>{grammatical_category}</td>"
+
+    html_line += "<td>of</td>"
+    html_line += f"<td>{headword}</td>"
+    html_line += "</tr>"
+    return html_line
+
+
 def generate_html_from_lookup(g: GlobalVars):
     """Generate HTML grammar tables from Lookup table data."""
     pr.green("querying database")
@@ -85,7 +124,7 @@ def generate_html_from_lookup(g: GlobalVars):
 
     pr.yes(f"{len(lookup_results)}")
 
-    pr.green_title("compiling html")
+    pr.green("compiling html")
 
     html_dict = {}
 
@@ -97,54 +136,39 @@ def generate_html_from_lookup(g: GlobalVars):
     css_manager = CSSManager()
     html_header = css_manager.update_style(html_header, "primary")
 
-    html_header += "<body><div class='dpd'><table class='grammar_dict'>"
-    html_header += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>"
+    html_table_start = "<body><div class='dpd'><table class='grammar_dict'>"
+    html_table_start += "<thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>"
+
+    # Cache for identical grammar sets
+    grammar_cache: dict[str, str] = {}
 
     # Process each lookup entry
     for counter, lookup_entry in enumerate(lookup_results):
         inflected_word = lookup_entry.lookup_key
-        grammar_data_list = (
-            lookup_entry.grammar_unpack
-        )  # [(headword, pos, grammar_str)]
+        grammar_data = lookup_entry.grammar
 
-        html_lines = []
-        for data_tuple in grammar_data_list:
-            headword, pos, grammar_str = data_tuple
-            html_line = "<tr>"
-            html_line += f"<td><b>{pos}</b></td>"
+        if grammar_data in grammar_cache:
+            html_body = grammar_cache[grammar_data]
+        else:
+            grammar_data_list = (
+                lookup_entry.grammar_unpack
+            )  # [(headword, pos, grammar_str)]
 
-            # get grammatical_categories from grammar_str
-            grammatical_categories = []
-            if grammar_str.startswith("reflx"):
-                grammatical_categories.append(
-                    grammar_str.split()[0] + " " + grammar_str.split()[1]
-                )
-                grammatical_categories += grammar_str.split()[2:]
-                for grammatical_category in grammatical_categories:
-                    html_line += f"<td>{grammatical_category}</td>"
-            elif grammar_str.startswith("in comps"):
-                html_line += f"<td colspan='3'>{grammar_str}</td>"
-            else:
-                grammatical_categories = grammar_str.split()
-                # adding empty values if there are less than 3
-                while len(grammatical_categories) < 3:
-                    grammatical_categories.append("")
-                for grammatical_category in grammatical_categories:
-                    html_line += f"<td>{grammatical_category}</td>"
+            html_lines = []
+            for data_tuple in grammar_data_list:
+                html_lines.append(generate_grammar_row_html(data_tuple))
 
-            html_line += "<td>of</td>"
-            html_line += f"<td>{headword}</td>"
-            html_line += "</tr>"
-            html_lines.append(html_line)
+            html_body = "".join(html_lines)
+            grammar_cache[grammar_data] = html_body
 
         # Assemble the full HTML for the entry
         entry_html = (
-            html_header + "".join(html_lines) + "</tbody></table></div></body></html>"
+            html_header
+            + html_table_start
+            + html_body
+            + "</tbody></table></div></body></html>"
         )
         html_dict[inflected_word] = entry_html
-
-        if counter % 10000 == 0:
-            pr.counter(counter, len(lookup_results), inflected_word)
 
     g.html_dict = html_dict
     pr.yes(len(g.html_dict))

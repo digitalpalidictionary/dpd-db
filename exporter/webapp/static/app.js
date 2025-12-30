@@ -198,6 +198,11 @@ async function performSearch(addHistory = true) {
 
         // Update the UI with the new search results
         render();
+
+        // Initialize grammar table sorter for newly loaded content
+        if (typeof window.initSorter === "function") {
+          window.initSorter();
+        }
       }
     } else if (appState.activeTab === "bd") {
       // BD search
