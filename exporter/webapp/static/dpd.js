@@ -1,5 +1,6 @@
-
 function playAudio(headword) {
+    if (!headword) return;
+    
     let gender = "male";
     try {
         const audioToggle = localStorage.getItem("audio-toggle");
@@ -8,20 +9,20 @@ function playAudio(headword) {
         }
     } catch (e) {}
 
-    // Use a fresh audio object and play immediately
-    var audio = new Audio('/audio/' + encodeURIComponent(headword) + '?gender=' + gender);
+    const url = '/audio/' + encodeURIComponent(headword) + '?gender=' + gender;
+    var audio = new Audio(url);
     audio.play().catch(function (error) {
         console.error("Audio playback error:", error);
     });
 }
 
+// Attach to window so it's always accessible
+window.playAudio = playAudio;
+
 // Global delegated click listener
-// This handles clicks even on search results added later via innerHTML
 document.addEventListener("click", function (event) {
-    // Find if the clicked element or its parent is a play button
     var playButton = event.target.closest(".button.play");
     if (playButton) {
-        // Extract the headword from a data attribute (which we will add to the HTML)
         var headword = playButton.getAttribute("data-headword");
         if (headword) {
             playAudio(headword);
@@ -30,7 +31,6 @@ document.addEventListener("click", function (event) {
         }
     }
 
-    // Existing handler for other buttons
     var otherButton = event.target.closest(".button");
     if (otherButton && otherButton.getAttribute("data-target")) {
         const target_id = otherButton.getAttribute("data-target");
