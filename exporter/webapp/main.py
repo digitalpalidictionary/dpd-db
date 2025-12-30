@@ -268,19 +268,12 @@ def tt_search(request: Request, q: str, book: str, lang: str):
 
 
 @app.get("/audio/{headword}", response_class=Response)
-def get_audio(headword: str, gender: str = "male"):
-    """Serve audio file for a headword."""
+def get_audio(request: Request, headword: str, gender: str = "male"):
+    """Serve audio file for a headword with byte-range support."""
 
     conn = sqlite3.connect(pth.dpd_audio_db_path)
     cursor = conn.cursor()
 
-    # Try requested gender, fallback to other if not available?
-    # User said: "return male by default, but female if requested"
-    # I'll stick to strict request: return what is requested.
-    # But usually fallback is good. I'll just query both and logic it.
-
-    # Strip digits from headword for audio lookup
-    # "hara 1.2" -> "hara", "udakasuddhika 2" -> "udakasuddhika"
     cleaned_headword = re.sub(r" \d.*$", "", headword)
 
     cursor.execute(
@@ -298,7 +291,34 @@ def get_audio(headword: str, gender: str = "male"):
             audio_data = male1 if male1 else female1
 
         if audio_data:
-            return Response(content=audio_data, media_type="audio/mpeg")
+            file_size = len(audio_data)
+            range_header = request.headers.get("range")
+
+            headers = {
+                "Accept-Ranges": "bytes",
+                "Content-Length": str(file_size),
+            }
+
+            if range_header:
+                match = re.match(r"bytes=(\d+)-(\d*)", range_header)
+                if match:
+                    start = int(match.group(1))
+                    end = int(match.group(2)) if match.group(2) else file_size - 1
+
+                    if start < file_size:
+                        chunk = audio_data[start : end + 1]
+                        headers["Content-Range"] = f"bytes {start}-{end}/{file_size}"
+                        headers["Content-Length"] = str(len(chunk))
+                        return Response(
+                            content=chunk,
+                            status_code=206,
+                            headers=headers,
+                            media_type="audio/mpeg",
+                        )
+
+            return Response(
+                content=audio_data, headers=headers, media_type="audio/mpeg"
+            )
 
     return Response(status_code=404)
 
@@ -333,7 +353,5 @@ if __name__ == "__main__":
 
 # TODO make help popup tooltips and a toggle to turn them off
 # TODO dropdown menu when searching
-# TODO summary of roots
-# TODO history forward and backwards buttons
 # TODO include mw, cpd, dppn, cone, etc.
 # TODO add set names in lookup table
