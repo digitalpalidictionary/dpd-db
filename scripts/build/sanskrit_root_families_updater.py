@@ -52,12 +52,21 @@ class RootFamily:
 
     def __init__(self, i, tsv_dict):
         self.root_key = i.root_key
-        self.root_group = i.rt.root_group
-        self.root_sign = i.root_sign
-        self.root_meaning = i.rt.root_meaning
-        self.sanskrit_root = i.rt.sanskrit_root
-        self.sanskrit_root_class = i.rt.sanskrit_root_class
-        self.sanskrit_root_meaning = i.rt.sanskrit_root_meaning
+        if i.rt is None:
+            pr.error("!!! ERROR: `i.rt` is None for lemma_1: `{i.lemma_1}`")
+            self.root_group = ""
+            self.root_sign = ""
+            self.root_meaning = ""
+            self.sanskrit_root = ""
+            self.sanskrit_root_class = ""
+            self.sanskrit_root_meaning = ""
+        else:
+            self.root_group = i.rt.root_group
+            self.root_sign = i.root_sign
+            self.root_meaning = i.rt.root_meaning
+            self.sanskrit_root = i.rt.sanskrit_root
+            self.sanskrit_root_class = i.rt.sanskrit_root_class
+            self.sanskrit_root_meaning = i.rt.sanskrit_root_meaning
         self.pali_root_family = i.family_root
         self.sanskrit_root_family = tsv_dict.get(i.root_family_key, "")
         self.sanskrit_dump = set([i.sanskrit_clean])
