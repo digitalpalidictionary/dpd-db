@@ -35,7 +35,7 @@ sleep 2
 # Start the app in the background using uv
 # Ensure the logs directory exists in the dpd-db root
 mkdir -p logs
-LOG_FILE="logs/$(date '+%Y-%m-%d').uvicorn.log"
+LOG_FILE="logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log"
 
 echo "=== 7. Starting Uvicorn Webapp ==="
 nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "$LOG_FILE" 2>&1 &
@@ -44,3 +44,5 @@ echo "=== DONE ==="
 echo "App started in background."
 echo "Check logs with: tail -f $LOG_FILE"
 ps -ef | grep uvicorn | grep -v grep
+
+# scp scripts/server/update-dpd.sh django@85.215.66.115:~/update-dpd.sh
