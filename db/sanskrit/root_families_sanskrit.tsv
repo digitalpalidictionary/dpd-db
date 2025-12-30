@@ -331,7 +331,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	ni √kar	nikṛ	naikṛtika, naikṛtin, ni + karaṇa, ni + kuryeta, nikaroti, nikṛta, nikṛti, nikṛti +, nikṛtvāya
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	ni saṃ √kar		ni + saṃskṛti
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	nī ā √kar	nirākṛ	anirākṛta, nirākaraṇa, nirākaroti, nirākṛta, nirākṛtvā
-√kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	pa √kar	prakṛ	na + prakaṭa, na + prākaṭa, prakaṭa, prakaraṇa, prakaroti, prakāra, prakāraka, prakurvat, prakurvāṇa, prakṛta, prakṛti, prakṛtika, prakṛtyā, prākṛta, prākṛtika, su + prākṛta
+√kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	pa √kar	prakṛ	na + prakaṭa, na + prākaṭa, prakaṭa, prakaraṇa, prakaroti, prakāra, prakāraka, prakurvat, prakurvāṇa, prakṛta, prakṛtatā, prakṛti, prakṛtika, prakṛtyā, prākṛta, prākṛtika, su + prākṛta
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	pa ā √kar	prākṛ	prākāra
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	pa vi ā √kar		
 √kar	7	o	do, make	√kṛ	1, 2, 5, 8	make	pati √kar	pratikṛ	apratikāra, duṣ + pratikāra + -tā, na + pratikaroti, na + pratikarman, pratikara (counteracting), pratikaraṇa (bsk), pratikaroti, pratikarman, pratikāra, pratikurvat, pratikṛta, sa + pratikarman, supratikara, su + pratikāra
@@ -1063,7 +1063,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ñā	5	nā	know	√jñā	9	know	pari √ñā	parijñā	na + parijānat, na + parijñāta, na + parijñāta +, na + parijñāya, parijānat, parijānāti, parijñāta, parijñāta +, parijñātavya, parijñātāvin (bsk), parijñātavān, parijñāna, parijñāya, parijñeya
 √ñā	5	nā	know	√jñā	9	know	vi √ñā	vijñā	avijānat, avijña, avijñāta, avijñātṛ, avijñāna, avijñāna (na + vijñāna), jñā, durvijñāna, durvijñeya, durvijñeya +, dus + vijñāpanīya, vijñāpya, na + vijñeya, vijānat, vijānatā, vijānāti, vijña, vijñatā, vijñapayat, vijñapayati, vijñapta, vijñāpita, vijñapti, vijñāta, vijñātavya, vijñātva, vijñātṛ, vijñāna, vijñāna +, vijñānatā, vijñānavat, vijñāpaka, vijñāpana, vijñāpana +, vijñāpanīya, vijñāpanīya, vijñāpya, vijñāpayati, vijñāpayitum, vijñāyamāna, vijñāyāt, vijñāyitavya, vijñāyeta, vijñāsyati, vijñetum, vijñeya, savijñāna, savijñānaka (bsk), su + vijñāpanīya, vijñāpya, suvijñāna, suvijñeya
 √ñā	5	nā	know	√jñā	9	know	vi saṃ √ñā	saṃjñā	visaṃjña, visaṃjñā, visaṃjñin (bsk)
-√ñā	5	nā	know	√jñā	9	know	saṃ √ñā	saṃjñā	asaṃjña, asaṃjñin, na +, na + asaṃjñin (bsk), na + saṃjānat, na + saṃjñātvā, sa + saṃjñin, sañjñāpayitavya, sañjñīya, sasaṃjña, saṃjānat, saṃjānāti, saṃjña, saṃjñin, saṃjñaka, saṃjñatā, saṃjñapta, saṃjñapti, saṃjñā, saṃjñāta, saṃjñātvā, saṃjñāna, saṃjñāpaka, saṃjñāpana, saṃjñāpayati, saṃjñāpayitum, saṃjñāya, saṃjñāvat, saṃjñita, saṃjñin, su + saṃjña, saṃjñin
+√ñā	5	nā	know	√jñā	9	know	saṃ √ñā	saṃjñā	asaṃjña, asaṃjñin, na +, na + asaṃjñin (bsk), na + saṃjānat, na + saṃjñātvā, sa + saṃjñin, sañjñāpayitavya, sañjñīya, sasaṃjña, saṃjānat, saṃjānāti, saṃjña, saṃjñin, saṃjñaka, saṃjñatā, saṃjñapta, saṃjñapti, saṃjñā, saṃjñāta, saṃjñātvā, saṃjñāna, saṃjñāpaka, saṃjñāpana, saṃjñāpayati, saṃjñāpayitum, saṃjñāya, saṃjñāvat, saṃjñita, saṃjñitā, saṃjñitva, saṃjñin, su + saṃjña, saṃjñin
 √ñā	5	nā	know	√jñā	9	know	saṃ anu √ñā	samanujñā	samanujānāti <, samanujñāta
 √ñā	5	nā	know	√jñā	9	know	saṃ ā √ñā	samājñā	samājñāta
 √ñā	5	nā	know	√jñā	9	know	saṃ pa √ñā	samprajñā	na + samprajanya, na + samprajāna, samprajanya, samprajāna
@@ -3269,7 +3269,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √har 1	1	a	carry	√hṛ	1	take	pa √har	prahṛ	na + praharat, praharaṇa, praharat, praharati, prahartum, prahartvā, prahāra, prahāra +, prahārin
 √har 1	1	a	carry	√hṛ	1	take	pa vi ā √har	pravyāhṛ	pravyāharati
 √har 1	1	a	carry	√hṛ	1	take	pati √har	pratihṛ	apratihārya, pratiharaṇa, pratiharati, pratihartavya, pratihāra, pratīhartṛ, pratihāraka (juggler)
-√har 1	1	a	carry	√hṛ	1	take	pati √hariya		prātihārya, sa + prātihārya
 √har 1	1	a	carry	√hṛ	1	take	pati ā √har	pratyāhṛ	pratyāharati, pratyāharayati, pratyāhāra
 √har 1	1	a	carry	√hṛ	1	take	pati ud ā √har		
 √har 1	1	a	carry	√hṛ	1	take	pati pa √har	prahṛ	pratiprahāra
@@ -3296,7 +3295,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √har 2	1	a	take, seize	√hṛ	1	take	ā √har	āhṛ	anāhāra, āharati, āharayat, āharayati, āharayamāṇa, āhartṛ, āhāra, āhārayati, āhrayitvā, na + āhāra, sa + āhāra
 √har 3	1	a	live	√hṛ	1	take	vi √har	vihṛ	viaharan, viharat, viharati, viharamāṇa, viharitum, vihariṣyati, vihariṣyasi, vihariṣyāmi, viharema, vihartavya, vihāra, vihāra +, vihārin, vihṛtvā
 √har 4	3	āya	be ashamed	√hrī	3	be ashamed	√har	hrī	hrayāṇa, hriyāyat, hriyāyati
-√hariy	1	a	like	√hary	1	yearn	pati √hariya		na + prātihārya, prātihārika, prātihārya
+√hariy	1	a	like	√hary	1	yearn	pati √hariy		na + prātihārya, prātihārika, prātihārya, sa + prātihārya
 √has	1	a	elate, laugh	√hṛṣ √has	1	laugh	√has	has	harṣa, harṣati, harṣamāṇa, harṣamāṇa +, harṣayat, harṣayamāṇa, hasa, hasat, hasati, hasanīya, hasita, hasitavya +, hasitum, hāsa, hāsayat, hāsayati, hāsya, hāsya +
 √has	1	a	elate, laugh	√hṛṣ √has	1	laugh	anu √has	-	anu + hāsya
 √has	1	a	elate, laugh	√hṛṣ √has	1	laugh	abhi √has	-	
