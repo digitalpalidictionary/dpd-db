@@ -10,15 +10,19 @@ function playAudio(headword, buttonElement) {
 
     // Single source of truth for audio requests
     // Using a fresh timestamp to force bypass of any cached errors
-    var audio = new Audio('/audio/' + encodeURIComponent(headword) + '?gender=' + gender + '&v=' + Date.now());
+    const url = '/audio/' + encodeURIComponent(headword) + '?gender=' + gender + '&v=' + Date.now();
+    console.log("DPD_AUDIO_REQUEST:", url);
+    var audio = new Audio(url);
     
     // Explicitly set handlers to see if we can catch the exact moment of failure
     audio.onerror = function() {
-        console.error("Audio failed to load:", audio.error);
+        console.error("DPD_AUDIO_ERROR_LOAD:", audio.error);
     };
 
-    audio.play().catch(function (error) {
-        console.error("Audio playback error:", error);
+    audio.play().then(() => {
+        console.log("DPD_AUDIO_PLAY_STARTED");
+    }).catch(function (error) {
+        console.error("DPD_AUDIO_ERROR_PLAY:", error.name, error.message);
     });
 }
 
