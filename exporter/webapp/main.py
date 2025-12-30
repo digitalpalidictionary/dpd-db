@@ -296,7 +296,6 @@ def get_audio(request: Request, headword: str, gender: str = "male"):
 
             headers = {
                 "Accept-Ranges": "bytes",
-                "Content-Length": str(file_size),
             }
 
             if range_header:
@@ -316,8 +315,12 @@ def get_audio(request: Request, headword: str, gender: str = "male"):
                             media_type="audio/mpeg",
                         )
 
+            headers["Content-Length"] = str(file_size)
             return Response(
-                content=audio_data, headers=headers, media_type="audio/mpeg"
+                content=audio_data, 
+                status_code=200,
+                headers=headers, 
+                media_type="audio/mpeg"
             )
 
     return Response(status_code=404)
