@@ -13,6 +13,7 @@ db_session = get_db_session(pth.dpd_db_path)
 _cf_set_cache = None
 _idioms_set_cache = None
 _sutta_info_cache = None
+_audio_set_cache = None
 
 
 def load_sutta_info_set():
@@ -61,6 +62,38 @@ def load_idioms_set() -> set[str]:
         idioms_set = json.loads(idioms_set_cache.value)
         _idioms_set_cache = idioms_set
         return idioms_set
+
+
+def load_audio_set() -> set[str]:
+    """generate a set of all audio headwords"""
+    from sqlalchemy import or_
+
+    from audio.db.db_helpers import get_audio_session
+    from audio.db.models import DpdAudio
+
+    global _audio_set_cache
+
+    if _audio_set_cache is not None:
+        return _audio_set_cache
+    else:
+        audio_session = get_audio_session()
+        try:
+            results = (
+                audio_session.query(DpdAudio.lemma_clean)
+                .filter(
+                    or_(
+                        DpdAudio.male1.isnot(None),
+                        DpdAudio.male2.isnot(None),
+                        DpdAudio.female1.isnot(None),
+                    )
+                )
+                .distinct()
+                .all()
+            )
+            _audio_set_cache = {r[0] for r in results}
+            return _audio_set_cache
+        finally:
+            audio_session.close()
 
 
 if __name__ == "__main__":

@@ -12,11 +12,13 @@
 <!-- button box -->
 
 <div class="button-box">
+    {% if d.i.needs_audio_button %}
     <a class="button play" onclick="playAudio('{{d.i.lemma_1}}', this)" title="Play Audio">
         <svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0">
             <path d="M8 5v14l11-7z"></path>
         </svg>
     </a>
+    {% endif %}
 
     {% if d.i.needs_sutta_info_button %}
     <a class="button" name="sutta-info-button" href="#" data-target="sutta_info_{{d.i.lemma_1_}}">

@@ -1303,6 +1303,13 @@ class DpdHeadword(Base):
         return self.lemma_1 in sutta_info_set
 
     @property
+    def needs_audio_button(self) -> bool:
+        from tools.cache_load import load_audio_set
+
+        audio_set = load_audio_set()
+        return self.lemma_clean in audio_set
+
+    @property
     def needs_grammar_button(self) -> bool:
         return bool(self.meaning_1)
 
