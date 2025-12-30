@@ -36,15 +36,9 @@ class ProjectPaths:
         # audio
         self.dpd_audio_db_path = base_dir / "audio/db/dpd_audio.db"
         self.dpd_audio_mp3_dir = base_dir / "audio/mp3s"
-        self.dpd_audio_male1_dir = (
-            base_dir / "audio/mp3s/Kannada_kn-m4_Neutral_0.85"
-        )
-        self.dpd_audio_male2_dir = (
-            base_dir / "audio/mp3s/Kannada_kn-m1_Neutral_0.85"
-        )
-        self.dpd_audio_female1_dir = (
-            base_dir / "audio/mp3s/Kannada_kn-f4_Neutral_0.85"
-        )
+        self.dpd_audio_male1_dir = base_dir / "audio/mp3s/Kannada_kn-m4_Neutral_0.85"
+        self.dpd_audio_male2_dir = base_dir / "audio/mp3s/Kannada_kn-m1_Neutral_0.85"
+        self.dpd_audio_female1_dir = base_dir / "audio/mp3s/Kannada_kn-f4_Neutral_0.85"
 
         # exporter/kindle/
         self.epub_dir = base_dir / "exporter/kindle/epub/"
@@ -277,19 +271,6 @@ class ProjectPaths:
 
         self.grammar_dict_header_templ_path = (
             base_dir / "exporter/grammar_dict/grammar_dict_header.html"
-        )
-
-        # exporter/grammar_dict/output
-
-        self.grammar_dict_output_dir = base_dir / "exporter/grammar_dict/output"
-        self.grammar_dict_output_html_dir = (
-            base_dir / "exporter/grammar_dict/output/html"
-        )
-        self.grammar_dict_pickle_path = (
-            base_dir / "exporter/grammar_dict/output/grammar_dict_pickle"
-        )
-        self.grammar_dict_tsv_path = (
-            base_dir / "exporter/grammar_dict/output/grammar_dict.tsv"
         )
 
         # exporter/other_dictionaries/css
@@ -729,8 +710,6 @@ class ProjectPaths:
             self.cst_txt_dir,
             self.epub_text_dir,
             self.go_deconstructor_output_dir,
-            self.grammar_dict_output_dir,
-            self.grammar_dict_output_html_dir,
             self.share_dir,
             self.stash_dir,
             self.temp_dir,

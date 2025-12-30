@@ -129,8 +129,17 @@ def generate_html_from_lookup(g: GlobalVars):
     html_dict = {}
 
     # create the header from a template
-    header_templ = Template(filename=str(g.pth.grammar_dict_header_templ_path))
-    html_header = render_header_templ(g.pth, css="", js="", header_templ=header_templ)
+    header_templ = Template(
+        filename=str(
+            g.pth.grammar_dict_header_templ_path,
+        )
+    )
+    html_header = render_header_templ(
+        g.pth,
+        css="",
+        js="",
+        header_templ=header_templ,
+    )
 
     # Add variables and fonts to header
     css_manager = CSSManager()
