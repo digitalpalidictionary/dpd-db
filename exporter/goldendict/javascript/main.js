@@ -165,8 +165,7 @@ function superScripter(text) {
 
 function playAudio(headword, buttonElement) {
   const gender = "male";
-  // const baseUrl = "https://www.dpdict.net/audio/";
-  const baseUrl = "http://127.1.1.1:8080/audio/";
+  const baseUrl = "https://www.dpdict.net/audio/";
   var audio = new Audio(baseUrl + headword + "?gender=" + gender);
 
   audio.addEventListener("error", function () {
