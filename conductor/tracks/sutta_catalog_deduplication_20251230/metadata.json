@@ -1,0 +1,8 @@
+{
+  "track_id": "sutta_catalog_deduplication_20251230",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2025-12-30T00:00:00Z",
+  "updated_at": "2025-12-30T00:00:00Z",
+  "description": "look at db/suttas/dv_catalogue_suttas.tsv and the code to ad it to the db db/suttas/dv_catalogue_suttas.py. first sort by sutta code using natsort filename or book, i cant remember what it's called, but letters and numbera and dashes will get sorted naturally. secondly. look at consectutive suttas that contain the same summary or key_excerpt or key_excerpt2. in that case i dont want the repeat suttas added to the db. dont read the whole tsv file, the first 100 lines should give you everything you need. ask if you have any questions"
+}

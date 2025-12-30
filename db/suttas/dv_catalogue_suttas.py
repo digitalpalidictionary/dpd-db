@@ -1,6 +1,8 @@
 from pathlib import Path
-import requests
+
 import pandas as pd
+import requests
+from natsort import natsorted, ns
 
 from db.db_helpers import get_db_session
 from db.models import SuttaInfo
@@ -32,6 +34,9 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
 
     Always attempts to download fresh file first.
     Falls back to local file if download fails.
+
+    Sorts sutta codes naturally and removes consecutive duplicates with identical
+    summary, key_excerpt1, and key_excerpt2 fields.
     """
     tsv_path = pth.dv_catalogue_suttas_tsv_path
 
@@ -59,6 +64,64 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
     # Remove duplicates by keeping first occurrence of each SUTTACODE
     if "suttacode" in df.columns:
         df = df.drop_duplicates(subset=["suttacode"], keep="first")
+
+        # Natural sort by suttacode column using natsorted
+        df = df.iloc[
+            natsorted(
+                range(len(df)), key=lambda i: df.iloc[i]["suttacode"], alg=ns.PATH
+            )
+        ]
+        df = df.reset_index(drop=True)
+
+        # Remove consecutive duplicates where summary, key_excerpt1, and key_excerpt2 are identical
+        comparison_cols = ["summary", "key_excerpt1", "key_excerpt2"]
+        rows_to_keep = []
+        duplicate_codes = []
+        prev_row = None
+        duplicates_removed = 0
+
+        for idx, row in df.iterrows():
+            if prev_row is not None:
+                # Check if all comparison columns match and none are NaN
+                cols_match = True
+                all_values_present = True
+
+                for col in comparison_cols:
+                    if col not in df.columns:
+                        cols_match = False
+                        break
+
+                    curr_val = row[col]
+                    prev_val = prev_row[col]
+
+                    # Skip duplicate detection if any value is NaN/empty
+                    if pd.isna(curr_val) or pd.isna(prev_val):
+                        all_values_present = False
+                        break
+
+                    if curr_val != prev_val:
+                        cols_match = False
+                        break
+
+                if cols_match and all_values_present:
+                    duplicates_removed += 1
+                    duplicate_codes.append(row["suttacode"])
+                    continue  # Skip this row (consecutive duplicate)
+
+            rows_to_keep.append(idx)
+            prev_row = row
+
+        df = df.loc[rows_to_keep]
+
+        if duplicates_removed > 0:
+            pr.red(f"removed {duplicates_removed} consecutive duplicates")
+
+            # Save duplicate codes to temp file
+            temp_dir = pth.dpd_db_path.parent / "temp"
+            temp_dir.mkdir(exist_ok=True)
+            dupes_file = temp_dir / "sutta_codes_dupes.txt"
+            dupes_file.write_text("\n".join(duplicate_codes), encoding="utf-8")
+            pr.green(f"saved duplicate codes to {dupes_file}")
 
         # Set SUTTACODE as index and convert to dict
         df.set_index("suttacode", inplace=True)
@@ -154,13 +217,7 @@ def update_dv_fields_in_db(pth: ProjectPaths):
 
 def main():
     pth = ProjectPaths()
-
-    catalogue_dict = read_dv_catalogue(pth)
-    pr.green(f"Loaded {len(catalogue_dict)} entries")
-    if catalogue_dict:
-        first_key = list(catalogue_dict.keys())[0]
-        pr.green(f"Sample entry ({first_key}):")
-        pr.green(str(catalogue_dict[first_key]))
+    update_dv_fields_in_db(pth)
 
 
 if __name__ == "__main__":
