@@ -1,5 +1,9 @@
 [
     {
+        "id": 88404,
+        "lemma_1": "pucchiya"
+    },
+    {
         "id": 88542,
         "lemma_1": "chakkavāra"
     },
@@ -74,9 +78,5 @@
     {
         "id": 88525,
         "lemma_1": "bhāsapariyanta"
-    },
-    {
-        "id": 88524,
-        "lemma_1": "upacinati"
     }
 ]
