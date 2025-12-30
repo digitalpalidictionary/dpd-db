@@ -22,6 +22,12 @@ def test_word_length(word: str, length: int) -> bool:
 def main():
     pr.title("bashini tts")
 
+    pr.green("loading data")
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(DpdHeadword).all()
+    pr.yes(len(db))
+
     for voice_name in ["kn-m4", "kn-m1", "kn-f4"]:
         pr.green_title(voice_name)
 
@@ -36,13 +42,6 @@ def main():
         )
 
         if bashini.ping_api():
-            pr.green("loading data")
-            pth = ProjectPaths()
-            db_session = get_db_session(pth.dpd_db_path)
-            db = db_session.query(DpdHeadword).all()
-
-            pr.yes(len(db))
-
             seen_headwords: set[str] = set()
             try:
                 for db_count, i in enumerate(db):

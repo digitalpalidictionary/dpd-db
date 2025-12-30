@@ -129,7 +129,7 @@ class Bashini:
 
         # often short words don't get pronounced by the ai, so repeat them twice
         if self.problem:
-            text_for_api = f"{text_transliterated} {text_transliterated} {text_transliterated}.... "
+            text_for_api = f"{text_transliterated}{text_transliterated}{text_transliterated}{text_transliterated}"
         elif len(text_roman) < 5:
             text_for_api = f"--- {text_transliterated} ... {text_transliterated} ... {text_transliterated} ... ---"
         else:
