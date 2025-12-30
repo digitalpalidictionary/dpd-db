@@ -30,7 +30,7 @@ def main():
             voice_name=voice_name,
             voice_style="Neutral",
             speech_rate=0.85,
-            play_audio=True,
+            play_audio=False,
             overwrite=False,
             problem=False,
         )
