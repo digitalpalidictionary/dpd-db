@@ -95,9 +95,17 @@ Check out this guide for setting up the API in [GoldenDict](https://digitalpalid
 ### Audio
 - **URL:** `/audio/{headword}`
 - **Method:** `GET`
-- **Description:** Serves the audio file for a specific headword.
+- **Description:** Serves the audio file for a specific headword with byte-range support.
 - **Parameters:**
     - `headword` (path parameter): The headword to retrieve audio for.
     - `gender` (query parameter, optional): Preferred voice gender ("male" or "female"). Defaults to "male".
-- **Response:** Audio file (`audio/mpeg`) or 404 if not found.
+- **Response:** Audio file (`audio/mpeg`). Returns `200 OK` for full file, `206 Partial Content` for range requests, or `404 Not Found` if the headword does not exist.
+
+**Examples:**
+- `GET /audio/buddha?gender=male`
+- `GET /audio/buddha?gender=female`
+- `GET /audio/dhamma?gender=male`
+- `GET /audio/dhamma?gender=female`
+- `GET /audio/saṅgha?gender=male`
+- `GET /audio/saṅgha?gender=female`
 
