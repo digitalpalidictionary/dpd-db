@@ -34,6 +34,8 @@ def uposatha_day_configger():
         config_update("exporter", "make_abbrev", "yes")
         config_update("exporter", "tarball_db", "yes")
         config_update("exporter", "make_changelog", "yes")
+        config_update("exporter", "make_audio_db", "yes")
+        config_update("exporter", "upload_audio_db", "yes")
 
         config_update("goldendict", "copy_unzip", "yes")
     else:

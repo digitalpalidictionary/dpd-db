@@ -14,7 +14,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 from github import Github, Auth
 from github.GithubException import UnknownObjectException
 
-from tools.configger import config_read
+from tools.configger import config_read, config_test
 from tools.printer import printer as pr
 from tools.paths import ProjectPaths
 from audio.db.db_helpers import make_version
@@ -92,6 +92,11 @@ def main():
     pr.tic()
     version = make_version()
     pr.title(f"upload db release {version}")
+
+    if config_test("exporter", "upload_audio_db", "no"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
 
     archive_path = get_archive_path(version)
     if not archive_path:

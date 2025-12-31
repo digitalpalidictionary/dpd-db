@@ -56,6 +56,9 @@ COMMANDS = [
     
     "db/epd/epd_to_lookup.py",
     
+    "audio/db_create.py",
+    "audio/db_release_upload.py",
+    
     "scripts/build/dealbreakers.py",
 ]
 

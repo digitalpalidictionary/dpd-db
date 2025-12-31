@@ -15,6 +15,7 @@ from audio.db.models import Base, DpdAudio
 from audio.error_check.delete_silent_files import (
     find_and_delete_silent_files,
 )
+from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tarballer import create_tarball
@@ -179,6 +180,12 @@ def main():
     """Main function to populate the audio database."""
     pr.tic()
     pr.title("populating audio database")
+
+    if config_test("exporter", "make_audio_db", "no"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
+
     find_and_delete_silent_files()
     create_audio_database()
     populate_audio_database()

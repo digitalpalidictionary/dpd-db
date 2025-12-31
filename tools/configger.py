@@ -59,6 +59,8 @@ DEFAULT_CONFIG = {
         "tarball_db": "no",
         "make_changelog": "no",
         "update_simsapa_db": "no",
+        "make_audio_db": "yes",
+        "upload_audio_db": "no",
     },
     "apis": {"openai": "", "deepseek": "", "gemini": "", "openrouter": ""},
     "anki": {"update": "no", "db_path": "", "backup_path": ""},
