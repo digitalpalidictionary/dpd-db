@@ -1,0 +1,8 @@
+{
+  "track_id": "audio_db_integration_20251231",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2025-12-31T12:00:00Z",
+  "updated_at": "2025-12-31T12:00:00Z",
+  "description": "integrate the building of the audio database at least once a month. study the tools/configger.py, which sets the monthly uposatha release components. study audio/db_create.py and audio/db_release_upload.py. study config.ini to see how things get activated. and study scripts/bash/generate_components.py which controls the building of all necessary components. suggest a solution so that the audio database gets created and uploaded at least once a month on the uposatha day, but also manually if want to update it myself i can run the command."
+}
