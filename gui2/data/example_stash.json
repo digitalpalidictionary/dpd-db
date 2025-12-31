@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "VINa1.1.2",
-        "sutta": "dutiyapārājikaṃ, dhaniyavatthuvaṇṇanā",
-        "example": "yāvatatiyakan'ti yāvatatiyavāraṃ."
+        "source": "DN1",
+        "sutta": "brahmajālasuttaṃ, diṭṭhadhammanibbānavādo",
+        "example": "taṃ kissa hetu? yadeva tattha sukham'iti cetaso ābhogo, eten'etaṃ oḷārikaṃ akkhāyati."
     },
     "stash": {
-        "source": "ANa4.196",
-        "sutta": "sāḷhasuttavaṇṇanā",
-        "example": "anto avisuddhā'ti abbhantare asuddhā apanītasārā."
+        "source": "PV11",
+        "sutta": "uragavaggo, nāgapetavatthu",
+        "example": "purato'va setena paleti hatthinā,\nmajjhe pana assatarīrathena,\npacchā ca kaññā sivikāya nīyati,\nobhāsayantī dasa sabbato disā."
     }
 }

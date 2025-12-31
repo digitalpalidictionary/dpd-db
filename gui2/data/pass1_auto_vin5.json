@@ -1,24 +1,4 @@
 {
-    "aṭṭhāsītisataṃ": {
-        "lemma_1": "aṭṭhāsītisataṃ",
-        "lemma_2": "aṭṭhāsītisatam",
-        "pos": "card",
-        "grammar": "card, nt sg",
-        "meaning_2": "one hundred and eighty-eight",
-        "root_key": "",
-        "root_sign": "",
-        "root_base": "",
-        "family_root": "",
-        "family_compound": "aṭṭha asīti sata",
-        "construction": "aṭṭha + asīti + sata",
-        "stem": "aṭṭhāsītisat",
-        "pattern": "aṃ card",
-        "comment": "[openrouter: openrouter/sonoma-dusk-alpha] The form aṭṭhāsītisataṃ is the neuter singular accusative of the compound numeral, used here as the object of implied 'are' in the context of counting pācittiya offenses in the Vinaya.",
-        "example_1": "aṭṭhāsītisataṃ pācittiyā; ",
-        "translation_1": "One hundred and eighty-eight offenses entailing confession; ",
-        "example_2": "aṭṭhāsītisataṃ pācittiyā vuttā, ",
-        "translation_2": "One hundred and eighty-eight offenses entailing confession "
-    },
     "pārājikādiāpatti": {
         "lemma_1": "pārājikādiāpatti",
         "lemma_2": "pārājikādiāpatti",
