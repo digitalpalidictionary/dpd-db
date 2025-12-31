@@ -181,15 +181,8 @@ async function performSearch(addHistory = true) {
         const processedHTML = dpdDiv.innerHTML;
         window.dpdResultsContent = processedHTML; // Make it available globally for sandhi toggle
 
-        // Apply sandhi toggle to the processed HTML
-        const sandhiToggle = document.getElementById("sandhi-toggle");
-        if (sandhiToggle && !sandhiToggle.checked) {
-          // If sandhi toggle is OFF, wrap apostrophes in spans for hiding
-          appState.dpd.resultsHTML = wrapApostrophesInHTML(processedHTML);
-        } else {
-          // If sandhi toggle is ON or not found, keep the processed HTML as is
-          appState.dpd.resultsHTML = processedHTML;
-        }
+        // Always wrap apostrophes in spans for hiding/showing via CSS
+        appState.dpd.resultsHTML = wrapApostrophesInHTML(processedHTML);
 
         // If addHistory is true, add the new state to the history stack
         if (addHistory) {

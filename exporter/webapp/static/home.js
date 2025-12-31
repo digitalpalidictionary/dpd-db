@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadToggleState("audio-toggle");
   loadFontSize();
   swopSansSerif();
+  showHideSandhi();
 
   // Language switcher dropdown control
   const languageIcon = document.querySelector(".language-icon");
