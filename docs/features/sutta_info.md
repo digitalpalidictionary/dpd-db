@@ -26,8 +26,23 @@ This section contains all information relevant to the digitized version of the 6
 | **Sutta** |Sutta number within the vagga, and sutta name|
 | **Paragraph** |Paragraph number within the text |
 | **File** | .XML source file containing the sutta|
-| **GitHub** |A link to the source file on GitHub
-| **Websites using CST** |Links to all websites which use CST as a source|
+| **GitHub** |A link to the source file on GitHub|
+
+### Websites using CST
+
+| | |
+| --- | --- |
+| **Digital Pali Reader** | Link to the Digital Pali Reader website |
+| **TipitakaPali.org** | Link to TipitakaPali.org website |
+
+### CST Page Numbers in Printed Editions
+
+| |  |
+| --- | --- |
+| **Myanmar** | Page number in the printed Burmese edition |
+| **Thai** | Page number in the printed Thai edition |
+| **VRI** | Page number in the printed Vipassana Research Institute edition |
+| **PTS** | Page number in the printed Pali Text Society edition |
 
 ## Sutta Central
 
@@ -46,27 +61,47 @@ This section contains all information relevant to the Sutta Central website.
 | **Blurb** | A brief description of the sutta |
 | **Links** | Links to the Sutta Card, Pāḷi text and English translation
 | **File** | .JSON source file containing the sutta|
-| **GitHub** | A link to the source file on GitHub
-| **Websites using Sutta Central** | Links to all websites which use SC texts as a source | 
+| **GitHub** | A link to the source file on GitHub|
 
-## Buddha Jayanti Tipiṭaka
+### Websites using Sutta Central
 
-Coming soon...
-
-
-## Printed Editions
-
-![printed editions](pics/sutta_info/printed_dark.png#only-dark)
-![printed editions](pics/sutta_info/printed_light.png#only-light)
-
-Page numbers for various printed editions of the Tipiṭaka:
-
-| |  |
+| | |
 | --- | --- |
-| **Myanmar** | Page number in the printed Burmese edition |
-| **Thai** | Page number in the printed Thai edition |
-| **VRI** | Page number in the printed Vipassana Research Institute edition |
-| **PTS** | Page number in the printed Pali Text Society edition |
+| **The Buddha's Words** | Link to the Buddha's Words website |
+| **TBW Legacy** | Link to the TBW Legacy website |
+| **Dhamma.gift** | Link to the Dhamma.gift website |
+| **SC Express** | Link to the SC Express website |
+| **SC Voice** | Link to the SC Voice website | 
+
+## Buddha Jayanti Tipiṭaka (BJT)
+
+This section contains all information relevant to the Buddha Jayanti Tipiṭaka.
+
+![Buddha Jayant Tipiṭaka](pics/sutta_info/bjt_dark.png#only-dark)
+![Buddha Jayant Tipiṭaka](pics/sutta_info/bjt_light.png#only-light)
+
+| | |
+| --- | --- |
+| **Sutta Code** | The sutta code in BJT |
+| **Piṭaka** | Suttapiṭaka, Vinayapiṭaka, or Abhidhammapiṭaka |
+| **Nikāya** | The collection within the Suttapiṭaka |
+| **Major Section** | A major section within the nikāya |
+| **Book** | The book within the nikāya |
+| **Minor Section** | A section within the book |
+| **Vagga** | A group of suttas within the book |
+| **Sutta** | The sutta name |
+| **Book ID** | The book number on the spine of the printed edition |
+| **Page Number** | The page number in the printed edition |
+| **Filename** | The JSON file containing the sutta |
+| **GitHub** | Link to the source file on GitHub |
+
+### Websites using BJT
+
+| | |
+| --- | --- |
+| **tipiṭaka.lk** | Primary website for Sri Lankan Pāḷi texts and Sinhala translations  |
+| **open.tipiṭaka.lk (Roman)** | Sri Lankan Pāḷi texts in Roman script |
+| **open.tipiṭaka.lk (Devanagari)** | Sri Lankan Pāḷi texts in Devanagari script |
 
 ## Dhamma Vinaya Tools: Sutta Catalogue
 
