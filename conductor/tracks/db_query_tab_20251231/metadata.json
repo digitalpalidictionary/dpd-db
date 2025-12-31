@@ -1,0 +1,8 @@
+{
+  "track_id": "db_query_tab_20251231",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2025-12-31T14:42:00Z",
+  "updated_at": "2025-12-31T14:42:00Z",
+  "description": "A new feature for the webapp. exporter/webapp. Make a new tab at the end that provides access to do database search query and presents tabulated data as a result. you can copy the same kind of idea from gui2/filter_tab_view.py. the important parts are beign able to build quite complex sqlite queries from simple dropdown menus. so it asks for the field, there's a dropdown with all the fields. ayou start typing the fields get reduced. . then what kind of search do you want to do, there's a dropdown with starts with, contains, ends with, or regex. then the value you want to use, which gets converted into a regex search using the current sqlalchemy model. then there's a dropdown to select which fields must get displayed. otherwise it can be way to complex. and a field to limit the results, which cannot go more than 100. the results gets displayed in a horizontal and vertical scolling html table, as it will ceratinly be larger than the screen. in all cases use the existing methods, nothing new needs to be created for this. "
+}
