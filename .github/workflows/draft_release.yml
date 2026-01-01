@@ -161,38 +161,75 @@ jobs:
     # ----------------------------------------
     # Exporter
     # ----------------------------------------
+
+    - name: Setup disk space checker
+      run: |
+        cat << 'EOF' >> $HOME/check_disk.sh
+        #!/bin/bash
+        echo "=== Disk space and large files (>1GB) ==="
+        df -h
+        du -h --max-depth=2 ${{ github.workspace }} | grep -E "^[0-9.]+[GT]" || echo "No files >1GB found"
+        EOF
+        chmod +x $HOME/check_disk.sh
            
     - name: Export Grammar Dictionary
       run: uv run python exporter/grammar_dict/grammar_dict.py
     
     - name: Export GoldenDict & MDict
-      run: uv run python exporter/goldendict/main.py
+      run: |
+        uv run python exporter/goldendict/main.py
+        echo "=== After GoldenDict export ==="
+        $HOME/check_disk.sh
+
+    - name: Delete Audio Database to free space
+      run: |
+        echo "=== Before deleting audio DB ==="
+        $HOME/check_disk.sh
+        rm -rf ${{ github.workspace }}/audio/db/dpd_audio.db
+        echo "=== After deleting audio DB ==="
+        $HOME/check_disk.sh
 
     - name: Export Deconstructor
-      run: uv run python exporter/deconstructor/deconstructor_exporter.py
+      run: |
+        uv run python exporter/deconstructor/deconstructor_exporter.py
+        echo "=== After Deconstructor export ==="
+        $HOME/check_disk.sh
 
     - name: Export Kindle & ePub
-      run: uv run python exporter/kindle/kindle_exporter.py
+      run: |
+        uv run python exporter/kindle/kindle_exporter.py
+        echo "=== After Kindle export ==="
+        $HOME/check_disk.sh
 
     - name: Export Kobo
-      run: uv run python exporter/kobo/kobo.py
+      run: |
+        uv run python exporter/kobo/kobo.py
+        echo "=== After Kobo export ==="
+        $HOME/check_disk.sh
 
     - name: Export Variants
-      run: uv run exporter/variants/variants_exporter.py
+      run: |
+        uv run exporter/variants/variants_exporter.py
+        echo "=== After Variants export ==="
+        $HOME/check_disk.sh
 
     - name: Export TXT
-      run: uv run python exporter/txt/export_txt.py
-    
-    - name: Check disk space and memory
       run: |
-        free -h  # Check available memory
-        df -h    # Check disk space
-           
+        uv run python exporter/txt/export_txt.py
+        echo "=== After TXT export ==="
+        $HOME/check_disk.sh
+
     - name: Zip GoldenDict & Mdict
-      run: uv run python scripts/build/zip_goldendict_mdict.py
+      run: |
+        uv run python scripts/build/zip_goldendict_mdict.py
+        echo "=== After zipping ==="
+        $HOME/check_disk.sh
 
     - name: Tarball DB
-      run: uv run python scripts/build/tarball_db.py
+      run: |
+        uv run python scripts/build/tarball_db.py
+        echo "=== After tarball ==="
+        $HOME/check_disk.sh
 
     # ----------------------------------------
     # Uposatha Day Check
