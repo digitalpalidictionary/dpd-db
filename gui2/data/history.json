@@ -1,82 +1,82 @@
 [
     {
+        "id": 85151,
+        "lemma_1": "uddhumāyitvā"
+    },
+    {
+        "id": 88259,
+        "lemma_1": "navavaggakhuddaka"
+    },
+    {
+        "id": 88237,
+        "lemma_1": "osārenta 2.1"
+    },
+    {
+        "id": 87585,
+        "lemma_1": "osārenta 1.1"
+    },
+    {
+        "id": 88223,
+        "lemma_1": "obhāsana 1.1"
+    },
+    {
+        "id": 18777,
+        "lemma_1": "obhāsana 2.1"
+    },
+    {
+        "id": 88609,
+        "lemma_1": "adhimuccati 5"
+    },
+    {
+        "id": 88091,
+        "lemma_1": "ūhata 3.1"
+    },
+    {
+        "id": 2712,
+        "lemma_1": "atthavasika 1"
+    },
+    {
+        "id": 88361,
+        "lemma_1": "dhammadiṭṭhi 2"
+    },
+    {
+        "id": 88281,
+        "lemma_1": "kativāra 2"
+    },
+    {
+        "id": 58629,
+        "lemma_1": "saparikkhāra 1.1"
+    },
+    {
+        "id": 88260,
+        "lemma_1": "saṅkamanīya 1"
+    },
+    {
+        "id": 65399,
+        "lemma_1": "sosānika 1"
+    },
+    {
+        "id": 31322,
+        "lemma_1": "tevācika 1"
+    },
+    {
+        "id": 16446,
+        "lemma_1": "upekkhaka 1"
+    },
+    {
+        "id": 88308,
+        "lemma_1": "vācika 1"
+    },
+    {
+        "id": 12040,
+        "lemma_1": "ābhoga 1.1"
+    },
+    {
+        "id": 83872,
+        "lemma_1": "dhammadiṭṭhi 1"
+    },
+    {
         "id": 19867,
         "lemma_1": "kathāsallāpa"
-    },
-    {
-        "id": 88613,
-        "lemma_1": "ābhoga 2.1"
-    },
-    {
-        "id": 52540,
-        "lemma_1": "migabhūta 1"
-    },
-    {
-        "id": 31644,
-        "lemma_1": "therī"
-    },
-    {
-        "id": 29561,
-        "lemma_1": "tato 3"
-    },
-    {
-        "id": 1612,
-        "lemma_1": "aññāṇadukkha"
-    },
-    {
-        "id": 28882,
-        "lemma_1": "ñāṇasukha"
-    },
-    {
-        "id": 68340,
-        "lemma_1": "vipariṇāmasukha"
-    },
-    {
-        "id": 29120,
-        "lemma_1": "ṭhitidukkha"
-    },
-    {
-        "id": 68335,
-        "lemma_1": "vipariṇāmadukkha 1"
-    },
-    {
-        "id": 29126,
-        "lemma_1": "ṭhitisukha"
-    },
-    {
-        "id": 43544,
-        "lemma_1": "paridevamacchara"
-    },
-    {
-        "id": 50658,
-        "lemma_1": "macchara 3"
-    },
-    {
-        "id": 88612,
-        "lemma_1": "aṭṭhāsītisata"
-    },
-    {
-        "id": 65105,
-        "lemma_1": "sokapparidevamacchara"
-    },
-    {
-        "id": 50657,
-        "lemma_1": "macchara 2"
-    },
-    {
-        "id": 88611,
-        "lemma_1": "upekkhaka 2"
-    },
-    {
-        "id": 64847,
-        "lemma_1": "seṭṭhī"
-    },
-    {
-        "id": 64838,
-        "lemma_1": "seṭṭhi 1.1"
-    },
-    {
-        "id": 55039,
-        "lemma_1": "rittassāda"
     }
 ]

@@ -271,7 +271,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kand	1	a	wail, cry out	√krand √kand	1	cry out	vi √kand	krandd	vi + krandat, vikranditavya
 √kap	1	a	take pity	√kṛp	1, 6	lament	√kap	kṛp	kṛpaṇa, kṛpaṇa +, kṛpaṇatva < kṛpaṇa
 √kapp 1	1	*aya	be fit, be suitable	√kḷp	1	be adapted	√kapp	kḷp	akalpayat, akalpika, akalpayat (na + kalpayat), akalpika, akalpayan (na + kalpayan), kalpa, kalpaka, kalpatā, kalpate, kalpana +, kalpanā, kalpayat, kalpayati, kalpayitvā, kalpika, kalpita, kalpita +, kalpetṛ, kalptavya, kalpitavya, sukalpita
-√kapp 1	1	*e	be fit, be suitable	√kḷp	1	be adapted	a vi √kapp		
 √kapp 1	1	a	be fit, be suitable	√kḷp	1	be adapted	ā √kapp		ākalpa
 √kapp 1	1	a	be fit, be suitable	√kḷp	1	be adapted	upa √kapp	upakḷp	upakalpat, upakalpate, upakalpayati
 √kapp 1	1	*aya	be fit, be suitable	√kḷp	1	be adapted	pa √kapp	prakḷp	prakalpayati
@@ -595,7 +594,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khip 1	1	a	throw	√kṣip	6	throw	saṃ √khip	saṃkṣip	asaṃkṣipta, saṅkṣiptvā, saṅkṣepitum, saṃkṣipat, saṃkṣipamāṇa, saṃkṣipta, saṃkṣiptena, saṃkṣepa
 √khip 1	1	a	throw	√kṣip	6	throw	saṃ ni √khip	saṃnikṣip	
 √khip 2	1	a	sneeze	√kṣu	2	sneeze	√khip	kṣu	kṣauti, kṣip, kṣut, kṣuta, kṣutvā, kṣuvat
-√khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	√khī	kṣi	a, akhila, akṣaya, khila, kṣaya, kṣayitavya, kṣiyat, kṣīṇa, kṣīṇatā, kṣīṇatva, kṣīyate
+√khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	√khī	kṣi	a, akhila, akṣaya, khila, kṣaya, kṣayati, kṣayitavya, kṣiyat, kṣīṇa, kṣīṇatā, kṣīṇatva, kṣīyate
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	ati √khī		ati + kṣaya, ati + kṣīṇa
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	ava √khī	avakṣi	avakṣaya, avakṣīṇa
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	pari √khī	parikṣi	na + parikṣīṇa, parikṣaya, parikṣayamāṇa, parikṣīṇa, parikṣīyate
@@ -1973,7 +1972,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhī	1	a	fear	√bhī	1, 3, 10	fear	saṃ √bhī	bhī	na + sambhīta
 √bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	√bhuj	bhuj	abūbhujat, abhaukṣīt, abhuktvā (na + bhuktvā), abhoga, abhoji, dus + bhojana, na + bhukta +, na + bhuñjat, na + bhoktum, na + bhoga, na + bhogavat, na + bhojanīya, na + bhojya, nirbhoga, bubhukṣati, bubhukṣita, bhukta, bhuktavān, bhuktvā, bhujet, bhuñjaka, bhuñjat, bhuñjāna, bhuñjitavya, bhunakti, bhuṅkte, bhuñjati, bhunakṣi, bhoktum, bhoktṛ, bhoga, bhogavat, bhogika, bhogin, bhogya, bhoja, bhojaka, bhojana, bhojanīya, bhojayat, bhojayati, bhojayamāna, bhojayitavya, bhojayitum, bhojayitvā, bhojin, bhojya, sa + bhoga, sa + bhojana, saṃnikāśa, subhojana
 √bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	ava √bhuj		ava + bhukta, ava + bhoktum
-√bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	ā √bhuj	ābhuj	abhuktvā (na + bhuktvā), na + ābhoga
+√bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	ā √bhuj	ābhuj	abhuktvā (na + bhuktvā), ābhoga, na + ābhoga
 √bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	upa √bhuj	upabhuj	upabhoga, upabhogin, upabhogya
 √bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	pati √bhuj	pratibhuj	pratibhunakti, pratibhuṅkte, pratibhuñjati, pratibhoga +, prātibhāvya
 √bhuj 1	2	ṃa	use, eat, enjoy	√bhuj	6, 7	enjoy	pari √bhuj	paribhuj	aparibhukta, aparibhoga, na + paribhujyamāna, na + paribhuñjāna, na + paribhoga, pari + bhuñjāna, paribhukta, paribhuktvā, paribhujati, paribhujyamāna, paribhuñjat, paribhuñjāna, paribhoga, paribhogya (bsk), paribhojanīya, paribhojitum
