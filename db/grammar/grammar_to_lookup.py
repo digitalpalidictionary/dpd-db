@@ -215,8 +215,8 @@ def generate_grammar_data(g: GlobalVars):
         if counter % 5000 == 0:
             pr.counter(counter, len(g.db), i.lemma_1)
 
+    pr.green("compiling grammar data")
     g.grammar_data = grammar_data
-
     pr.yes(len(g.grammar_data))
 
 

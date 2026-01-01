@@ -180,7 +180,7 @@ def generate_html_from_lookup(g: GlobalVars):
         html_dict[inflected_word] = entry_html
 
     g.html_dict = html_dict
-    pr.yes(len(g.html_dict))
+    pr.yes(len(html_dict))
 
 
 def make_data_lists(g: GlobalVars):

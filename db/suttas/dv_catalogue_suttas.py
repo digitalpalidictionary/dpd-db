@@ -113,6 +113,11 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
 
         df = df.loc[rows_to_keep]
 
+        # Set SUTTACODE as index and convert to dict
+        df.set_index("suttacode", inplace=True)
+        catalogue_dict = df.to_dict("index")
+        pr.yes(len(catalogue_dict))
+
         if duplicates_removed > 0:
             pr.red(f"removed {duplicates_removed} consecutive duplicates")
 
@@ -121,12 +126,9 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
             temp_dir.mkdir(exist_ok=True)
             dupes_file = temp_dir / "sutta_codes_dupes.txt"
             dupes_file.write_text("\n".join(duplicate_codes), encoding="utf-8")
-            pr.green(f"saved duplicate codes to {dupes_file}")
+            pr.info("saved duplicate codes to:")
+            pr.info(str(dupes_file))
 
-        # Set SUTTACODE as index and convert to dict
-        df.set_index("suttacode", inplace=True)
-        catalogue_dict = df.to_dict("index")
-        pr.yes(len(catalogue_dict))
         return catalogue_dict  # type: ignore[return-value]
     else:
         pr.red("suttacode column not found in TSV")
@@ -206,7 +208,9 @@ def update_dv_fields_in_db(pth: ProjectPaths):
         db_session.commit()
         pr.yes(updated_count)
         if not_found_count:
-            pr.red(f"{not_found_count} sc_codes not found in DV catalogue")
+            pr.red(
+                f"{not_found_count} / {len(all_sutta_records)} sc_codes not found in DV catalogue"
+            )
 
     except Exception as e:
         pr.no(f"failed to update DV fields: {e}")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Find super long words and hyphenate them."""
+"""Find missing antonyms, mistakes in antonyms, extra antonyms."""
 
 import json
 
