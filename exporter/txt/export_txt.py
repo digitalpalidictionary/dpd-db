@@ -51,7 +51,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
             data.append(f" ({i.plus_case})")
 
         # root line
-        if i.root_key:
+        if i.root_key and i.rt:
             data.append(
                 f"\n  Root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
             )
@@ -88,7 +88,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
         if i.sanskrit:
             data.append(f"\n  Sanskrit: {i.sanskrit}")
 
-        if i.root_key and i.rt.sanskrit_root:
+        if i.root_key and i.rt and i.rt.sanskrit_root:
             data.append(f"\n  Sanskrit Root: {i.rt.sanskrit_root}")
             data.append(f" {i.rt.sanskrit_root_class}")
             data.append(f" ({i.rt.sanskrit_root_meaning})")
@@ -97,7 +97,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
     # no meaning_1 but pass1 or pass2, show root and construction
     elif not i.meaning_1 and i.origin in ["pass1", "pass2"]:
         # root line
-        if i.root_key:
+        if i.root_key and i.rt:
             data.append(
                 f"\n  Root: {i.family_root} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
             )
@@ -112,7 +112,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
     # no meaning_1 and no origin, only show the basics
     else:
         # root line
-        if i.root_key:
+        if i.root_key and i.rt:
             data.append(f"\n  Root: {i.family_root} {i.rt.root_group} ")
             if i.root_sign:
                 data.append(i.root_sign)
@@ -156,7 +156,7 @@ def zip_txt_file(g: GLobalVars):
 
 def save_txt(g: GLobalVars):
     pr.green("saving txt")
-    g.pth.dpd_txt_path.write_text(g.dpd_text)
+    g.pth.dpd_txt_path.write_text(g.dpd_text, encoding="utf-8")
     pr.yes(len(g.dpd_entry_list))
 
 
