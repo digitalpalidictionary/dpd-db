@@ -61,8 +61,7 @@ def summarize_construction(i: DpdHeadword) -> str:
     """Create a summary of a word's construction,
     excluding brackets and phonetic changes."""
 
-    if "<b>" in i.construction:
-        i.construction = i.construction.replace("<b>", "").replace("</b>", "")
+    construction = i.construction.replace("<b>", "").replace("</b>", "")
 
     # if no meaning then show root, word family or nothing
     if not i.meaning_1 and i.origin not in ["pass1", "pass2"]:
@@ -79,7 +78,7 @@ def summarize_construction(i: DpdHeadword) -> str:
 
         # clean construction
         # remove line2
-        construction = re.sub(r"\n.+$", "", i.construction)
+        construction = re.sub(r"\n.+$", "", construction)
         # remove phonetic changes
         construction = re.sub("> .[^ ]*? ", "", construction)
         # remove phonetic changes at end
