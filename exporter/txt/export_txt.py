@@ -21,17 +21,12 @@ class GLobalVars:
     db_length = len(db_sorted)
     dpd_entry_list = []
     dpd_text = ""
-    aj_version = True  # version for Ven. AJ with Sanskrit first
     debug = False  # limit to 10 000 entries
     pr.yes(db_length)
 
 
 def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
     data: list[str] = []
-
-    # for aj version, sanskrit first
-    if i.sanskrit and g.aj_version and i.meaning_1:
-        data.append(f"{i.sanskrit}\n")
 
     # summary line
     data.append(f"{i.lemma_1}, {i.pos}. {i.meaning_combo} {i.degree_of_completion}")
@@ -90,8 +85,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
         if i.non_ia:
             data.append(f"\n  Non IA: {i.non_ia}")
 
-        # for aj version sanskrit is at the top, otherwise here
-        if i.sanskrit and not g.aj_version:
+        if i.sanskrit:
             data.append(f"\n  Sanskrit: {i.sanskrit}")
 
         if i.root_key and i.rt.sanskrit_root:
@@ -149,27 +143,20 @@ def export_txt(g: GLobalVars):
 
 def zip_txt_file(g: GLobalVars):
     """Zip the DPD txt file after export."""
+    import time
 
-    if g.aj_version:
-        pass
-    else:
-        import time
+    pr.green("zipping txt file")
+    # Wait a few seconds for the file to be fully written
+    time.sleep(3)
 
-        pr.green("zipping txt file")
-        # Wait a few seconds for the file to be fully written
-        time.sleep(3)
-
-        zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
-        pr.yes("ok")
+    zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
+    pr.yes("ok")
+    pr.info(f"saved to {g.pth.dpd_txt_zip_path}")
 
 
 def save_txt(g: GLobalVars):
     pr.green("saving txt")
-    if not g.aj_version:
-        g.pth.dpd_txt_path.write_text(g.dpd_text)
-    else:
-        aj_path = g.pth.dpd_txt_path.with_name("dpd_aj.txt")
-        aj_path.write_text(g.dpd_text)
+    g.pth.dpd_txt_path.write_text(g.dpd_text)
     pr.yes(len(g.dpd_entry_list))
 
 
