@@ -152,6 +152,13 @@ jobs:
       run: uv run python scripts/build/dealbreakers.py
 
     # ----------------------------------------
+    # Download Audio Database
+    # ----------------------------------------
+
+    - name: Download Audio Database
+      run: uv run python audio/db_release_download.py
+
+    # ----------------------------------------
     # Exporter
     # ----------------------------------------
            
