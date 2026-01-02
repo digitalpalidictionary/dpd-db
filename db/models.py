@@ -15,6 +15,7 @@ from sqlalchemy.orm import (
     relationship,
 )
 from sqlalchemy.sql import func
+from aksharamukha import transliterate
 
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS, DECLENSIONS, EXCLUDE_FROM_FREQ
@@ -931,7 +932,6 @@ class DpdHeadword(Base):
     def lemma_ipa(self) -> str:
         # from tools.ipa import convert_uni_to_ipa
         # return convert_uni_to_ipa(self.lemma_clean, "ipa")
-        from aksharamukha import transliterate
 
         return str(
             transliterate.process(

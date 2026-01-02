@@ -1,6 +1,7 @@
 """Export DPD as a plain .txt file."""
 
 from dataclasses import dataclass
+from typing import Any
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
@@ -10,22 +11,17 @@ from tools.zip_up import zip_up_file
 
 
 @dataclass
-class GLobalVars:
-    pr.tic()
-    pr.title("exporting DPD as txt")
-    pr.green("loading db")
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
-    db_sorted = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
-    db_length = len(db_sorted)
-    dpd_entry_list = []
-    dpd_text = ""
-    debug = False  # limit to 10 000 entries
-    pr.yes(db_length)
+class GlobalVars:
+    pth: ProjectPaths
+    db_session: Any
+    db_sorted: list[DpdHeadword]
+    db_length: int
+    dpd_entry_list: list[str]
+    dpd_text: str = ""
+    debug: bool = False  # limit to 10 000 entries
 
 
-def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
+def make_word_entry(i: DpdHeadword, g: GlobalVars) -> str:
     data: list[str] = []
 
     # summary line
@@ -128,7 +124,7 @@ def make_word_entry(i: DpdHeadword, g: GLobalVars) -> str:
     return "".join(data)
 
 
-def export_txt(g: GLobalVars):
+def export_txt(g: GlobalVars):
     pr.green_title("compiling txt")
     for counter, i in enumerate(g.db_sorted):
         if counter % 10000 == 0:
@@ -141,30 +137,43 @@ def export_txt(g: GLobalVars):
     g.dpd_text = "\n".join(g.dpd_entry_list)
 
 
-def zip_txt_file(g: GLobalVars):
+def zip_txt_file(g: GlobalVars):
     """Zip the DPD txt file after export."""
-    import time
-
     pr.green("zipping txt file")
-    # Wait a few seconds for the file to be fully written
-    time.sleep(3)
-
     zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
     pr.yes("ok")
     pr.info(f"saved to {g.pth.dpd_txt_zip_path}")
 
 
-def save_txt(g: GLobalVars):
+def save_txt(g: GlobalVars):
     pr.green("saving txt")
     g.pth.dpd_txt_path.write_text(g.dpd_text, encoding="utf-8")
     pr.yes(len(g.dpd_entry_list))
 
 
 def main():
-    g = GLobalVars()
+    pr.tic()
+    pr.title("exporting DPD as txt")
+    pr.green("loading db")
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    db = db_session.query(DpdHeadword).all()
+    db_sorted = sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
+    db_length = len(db_sorted)
+    pr.yes(db_length)
+
+    g = GlobalVars(
+        pth=pth,
+        db_session=db_session,
+        db_sorted=db_sorted,
+        db_length=db_length,
+        dpd_entry_list=[],
+    )
+
     export_txt(g)
     save_txt(g)
     zip_txt_file(g)
+    db_session.close()
     pr.toc()
 
 

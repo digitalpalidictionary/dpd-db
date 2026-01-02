@@ -209,7 +209,7 @@ jobs:
 
     - name: Export Variants
       run: |
-        uv run exporter/variants/variants_exporter.py
+        uv run python exporter/variants/variants_exporter.py
         echo "=== After Variants export ==="
         $HOME/check_disk.sh
 
@@ -231,7 +231,7 @@ jobs:
         echo "=== After tarball ==="
         $HOME/check_disk.sh
 
-    # Create Draft Release
+    # Create Draft Release and Upload Assets
     # ----------------------------------------
 
     - name: Make Release Notes
@@ -244,102 +244,38 @@ jobs:
     - name: Set Release Tag
       id: set_release_tag
       run: echo "RELEASE_TAG=$(uv run python scripts/build/version_print.py)" >> $GITHUB_ENV
+
+    - name: Prepare Kobo Asset
+      run: cp exporter/share/dicthtml-pi-en.zip exporter/share/dpd-kobo.zip
     
-    - name: Create Draft Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        tag_name: ${{ env.RELEASE_TAG }}
-        release_name: ${{ env.RELEASE_DATE }}
-        body_path: exporter/share/release_notes.md
-
-        draft: true
-        prerelease: false
-
-    # ----------------------------------------
-    # Update Release Assets
-    # ----------------------------------------
-
-    - name: Upload Asset dpd-goldendict.zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-goldendict.zip
-        asset_name: dpd-goldendict.zip
-        asset_content_type: application/zip
-
-    - name: Upload Asset dpd-mdict.zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-mdict.zip
-        asset_name: dpd-mdict.zip
-        asset_content_type: application/zip
-
-    - name: Upload Asset dpd-kindle.epub
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-kindle.epub
-        asset_name: dpd-kindle.epub
-        asset_content_type: application/zip
-
-    - name: Upload Asset dpd-kindle.mobi
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-kindle.mobi
-        asset_name: dpd-kindle.mobi
-        asset_content_type: application/zip
-
-    - name: Upload Asset dpd.db.tar.bz2
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd.db.tar.bz2
-        asset_name: dpd.db.tar.bz2
-        asset_content_type: application/zip
-
-    - name: Upload Asset dpd-kobo.zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dicthtml-pi-en.zip
-        asset_name: dpd-kobo.zip
-        asset_content_type: application/zip
-
     - name: Verify dpd-txt.zip exists
       run: |
         echo "=== Checking for dpd-txt.zip ==="
         if [ -f "exporter/share/dpd-txt.zip" ]; then
           ls -lh exporter/share/dpd-txt.zip
           file exporter/share/dpd-txt.zip
+          unzip -t exporter/share/dpd-txt.zip
         else
           echo "ERROR: dpd-txt.zip not found!"
-          ls -la exporter/share/ | grep -E "\.zip|\.txt"
+          ls -la exporter/share/
           exit 1
         fi
 
-    - name: Upload Asset dpd-txt.zip
-      uses: actions/upload-release-asset@v1
+    - name: Create Release and Upload Assets
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ env.RELEASE_TAG }}
+        name: ${{ env.RELEASE_DATE }}
+        body_path: exporter/share/release_notes.md
+        draft: true
+        prerelease: false
+        files: |
+          exporter/share/dpd-goldendict.zip
+          exporter/share/dpd-mdict.zip
+          exporter/share/dpd-kindle.epub
+          exporter/share/dpd-kindle.mobi
+          exporter/share/dpd.db.tar.bz2
+          exporter/share/dpd-kobo.zip
+          exporter/share/dpd-txt.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exporter/share/dpd-txt.zip
-        asset_name: dpd-txt.zip
-        asset_content_type: application/zip
