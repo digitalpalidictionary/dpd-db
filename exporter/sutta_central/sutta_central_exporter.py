@@ -25,6 +25,7 @@ from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
+from tools.configger import config_test
 from tools.cst_sc_text_sets import make_sc_text_set
 from tools.pali_sort_key import pali_sort_key
 from tools.pali_text_files import sc_texts
@@ -245,6 +246,12 @@ class SuttaCentralExporter:
 
 def main():
     pr.tic()
+
+    if not config_test("exporter", "make_tbw", "yes"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
+
     SuttaCentralExporter()
     pr.toc()
 
