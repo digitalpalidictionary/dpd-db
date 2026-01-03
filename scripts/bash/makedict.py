@@ -13,20 +13,20 @@ check_db_exists()
 COMMANDS = [
     # Generate components first
     "scripts/bash/generate_components.py",
-    
+
     # Export to various formats
     "exporter/goldendict/main.py",
     "exporter/grammar_dict/grammar_dict.py",
     "exporter/deconstructor/deconstructor_exporter.py",
     "exporter/variants/variants_exporter.py",
-    
+
     # Additional exporters
     "exporter/tpr/tpr_exporter.py",
     "exporter/kindle/kindle_exporter.py",
     "exporter/tbw/tbw_exporter.py",
-    "exporter/pdf/pdf_exporter.py",
+    "exporter/sutta_central/sutta_central_exporter.pyexporter/pdf/pdf_exporter.py",
     "exporter/txt/export_txt.py",
-    
+
     # Zip and tarball creation
     "scripts/build/zip_goldendict_mdict.py",
     "scripts/build/tarball_db.py",
