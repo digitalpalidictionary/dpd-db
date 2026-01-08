@@ -76,6 +76,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
+        self.current_correction: dict | None = None
+        self.current_addition: dict | None = None
 
         self._message_field = ft.TextField(
             "",
@@ -406,9 +408,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         if headword_id is not None:
             self.clear_all_fields()
             headword = self._db.get_headword_by_id(int(headword_id))
-            self.update_message(f"{headword.lemma_1}. {count} pass2auto remaining")
 
             if headword is not None:
+                self.update_message(f"{headword.lemma_1}. {count} pass2auto remaining")
                 self.headword = headword
                 self.headword_original = copy.deepcopy(headword)
 
@@ -522,6 +524,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.headword = None  # Resetting the data model reference
         self._filter_radios.value = "all"  # Reset filter to 'all'
         self.headword_original = None  # Resetting the original data reference
+        self.current_correction = None
+        self.current_addition = None
 
         self.update_message("")  # Clear message field
         self.page.update()
@@ -645,7 +649,26 @@ class Pass2AddView(ft.Column, PopUpMixin):
             if self.dpd_fields.flags.correction:
                 word_data = self.dpd_fields.get_current_values()
                 if word_data:
+                    # Fix:
+                    # Base fields = the original PROPOSAL (from corrections.json)
+                    # _add fields = the final modified GUI values (the user's result)
+                    if hasattr(self, "current_correction") and self.current_correction:
+                        current_gui_values = copy.deepcopy(word_data)
+                        for key in word_data.keys():
+                            if key.endswith("_add"):
+                                # Set logged _add field to the current UI BASE field value
+                                base_key = key[:-4]
+                                word_data[key] = current_gui_values.get(base_key, "")
+                            else:
+                                # Set logged base field to the original PROPOSAL value
+                                if key in self.current_correction:
+                                    val = self.current_correction[key]
+                                    word_data[key] = str(val) if val is not None else ""
+                                # Otherwise keep current UI value if not in correction (e.g. ID)
+
                     self.corrections_manager.save_processed_correction(word_data)
+
+            self.page.set_clipboard(word_to_save.lemma_1)
 
             self._update_history_dropdown()
             self.page.update()
@@ -746,6 +769,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.update_message("No more corrections available")
             return
 
+        self.current_correction = copy.deepcopy(correction_data)
+
         try:
             # Clear any existing add fields
             self.dpd_fields.clear_fields()
@@ -795,6 +820,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         if not addition_data:
             self.update_message("No more additions available")
             return
+
+        self.current_addition = copy.deepcopy(addition_data)
 
         try:
             # Clear any existing fields
