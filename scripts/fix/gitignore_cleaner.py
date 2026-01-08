@@ -69,7 +69,7 @@ def main():
         line = line.strip()
 
         # Skip empty lines and comments
-        if not line or line.startswith("#"):
+        if not line or line.startswith("#") or ".DS_Store" in line:
             continue
 
         # Create a spec for just this pattern
