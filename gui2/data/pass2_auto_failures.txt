@@ -103,3 +103,37 @@
     'comment': 'In the contextual sentence 'sn8.8:7.3', the word functions as an adjective agreeing with 'gāthāyo' (verses) in the feminine accusative plural. The translation 'spontaneously inspired' captures the pragmatic sense of 'not thought out beforehand' (unpremeditated) in the context of poetic utterance.'
 }
 
+{
+    'id': 53314,
+    'lemma_1': 'moggallānasutta 2',
+    'lemma_2': 'moggallānasuttaṃ',
+    'pos': 'nt',
+    'grammar': 'nt, comp',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'the Sutta of Moggallāna',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': '',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'moggallāna sutta',
+    'family_idioms': '',
+    'family_set': 'suttas of Saṃyutta Nikāya 44',
+    'construction': 'moggallāna + sutta',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'moggallāna + sutta',
+    'stem': 'moggallānasutt',
+    'pattern': 'a nt',
+    'comment': 'This entry refers to the second Sutta named after Moggallāna within the Saṃyutta Nikāya, specifically within the Abyākata Saṃyutta (SN 44). The literal meaning is "Moggallāna's Sutta".'
+}
+

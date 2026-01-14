@@ -22,5 +22,29 @@
         "sutta_1": "vanasaṃyuttaṃ, upaṭṭhānasuttaṃ",
         "example_1": "uṭṭhehi bhikkhu kiṃ sesi,\nko attho supitena [supinena] te,\nāturassa hi kā niddā,\nsallaviddhassa ruppato.",
         "comment": "nt sleep"
+    },
+    "saṇṭhāne": {
+        "source_1": "sn9.8:2.1",
+        "sutta_1": "“nadītīresu saṇṭhāne, ",
+        "example_1": "“At river banks and guest houses, ",
+        "comment": "meeting hall, assemlby place, lit. standing together"
+    },
+    "mantenti": {
+        "source_1": "sn9.8:2.3",
+        "sutta_1": "janā saṅgamma mantenti, ",
+        "example_1": "people gather to gossip about ",
+        "comment": "converses"
+    },
+    "tūriyatāḷitavāditanigghosasaddaṃ": {
+        "source_1": "sn9.9:1.3",
+        "sutta_1": "atha kho so bhikkhu vesāliyā tūriyatāḷitavāditanigghosasaddaṃ sutvā paridevamāno tāyaṃ velāyaṃ imaṃ gāthaṃ abhāsi: ",
+        "example_1": "Then that mendicant, complaining at the noise of musical instruments being beaten and played, on that occasion spoke this verse: ",
+        "comment": "add new word"
+    },
+    "nāmamhehi": {
+        "source_1": "sn9.9:2.4",
+        "sutta_1": "ko su nāmamhehi pāpiyo”ti. ",
+        "example_1": "who’s worse off than me?” ",
+        "comment": "add to amhehi 3"
     }
 }
