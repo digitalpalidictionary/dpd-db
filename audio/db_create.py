@@ -23,6 +23,32 @@ from tools.tarballer import create_tarball
 pth = ProjectPaths()
 
 
+def cleanup_old_tarballs() -> None:
+    """
+    Delete all but the latest three tarballs to save disk space.
+    """
+    db_dir = pth.dpd_audio_db_path.parent
+
+    # Find all tarball files in the db directory
+    tarballs = list(db_dir.glob("dpd_audio_*.tar.gz"))
+
+    # Sort by modification time (newest first)
+    tarballs.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+
+    # Keep only the latest 3, delete the rest
+    if len(tarballs) > 3:
+        pr.green_title("cleaning up old tarballs")
+
+        # Files to delete are all except the first 3
+        files_to_delete = tarballs[3:]
+
+        for tarball in files_to_delete:
+            pr.info(f"deleting: {tarball.name}")
+            tarball.unlink()
+
+        pr.info(f"deleted {len(files_to_delete)} old tarball(s)")
+
+
 def create_audio_database() -> Path:
     """
     Create the audio database if it doesn't exist.
@@ -190,6 +216,7 @@ def main():
     create_audio_database()
     populate_audio_database()
     create_archive()
+    cleanup_old_tarballs()
     pr.toc()
 
 
