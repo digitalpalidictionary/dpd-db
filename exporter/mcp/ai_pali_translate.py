@@ -1,3 +1,4 @@
+import copy
 import json
 import re
 import sys
@@ -6,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from sqlalchemy.orm import Session
 from tools.paths import ProjectPaths
 from db.db_helpers import get_db_session
 from exporter.mcp.analyzer import analyze_sentence
@@ -25,124 +27,225 @@ Your task is to analyze a Pāḷi sentence and perform word-sense disambiguation
 
 ### Instructions:
 1. **Analyze the Sentence:** Use the context to understand grammatical relationships.
-2. **Disambiguate:** For each word in the sentence, review the provided options. Each option has a unique `key` and specific grammatical info.
-3. **Select Best Option:** Select the single `key` that corresponds to the correct meaning AND specific grammatical form (case, number, etc.) for the context.
-4. **Handle Compounds/Sandhi:** If a word has components, select the correct `key` for each component as well.
-5. **Output Format:** You **MUST** respond with a JSON object exactly in this format:
+2. **Disambiguate:** For each word in the sentence, identify the correct dictionary option (`key`).
+3. **Score Options:** 
+   - Assign a score of **10** to the correct `key` for the context.
+   - Assign lower scores (0-9) to alternative options if there is ambiguity.
+   - Assign **10** to the correct `key` for *components* of compounds as well.
+4. **Contextualize:**
+   - **`contextual_meaning`**: Adjust the dictionary `meaning_combo` to fit the grammar (e.g., "dwells" -> "I would dwell").
+     - **CRITICAL:** Do this for the main word AND for any components that are **sandhi** (pos: "sandhi"). 
+     - You do NOT need to adjust meanings for standard compound components unless necessary for clarity.
+   - **`selected_pos`**: If `pos` is "sandhi/compound", specify "sandhi" or "compound".
+5. **Handle Deconstructions (MANDATORY):** If an option key starts with `decon_` or has `meaning_combo: "[Deconstructed]"`, you **MUST** provide a full English translation of that sandhi/compound in the `contextual_meaning` field. 
+   - **NEVER** leave a `decon_` key with a score of 10 without providing its `contextual_meaning`.
+   - **Example:** If `okassa` is deconstructed as `oka + assa`, `contextual_meaning` should be something like "to the house" or "of the dwelling".
+
+### Output Format:
+Return a JSON object with translations and a flat map of **scores** keyed by the option `key`.
+
 ```json
 {{
   "translation": "Fluent English translation",
   "literal_translation": "Literal English translation",
-  "analysis": [
-    {{
-      "word": "word_in_sentence",
-      "selected_key": "12345_0", 
-      "components": [
-        {{ "word": "part1", "selected_key": "67890_default" }},
-        {{ "word": "part2", "selected_key": "11223_1" }}
-      ]
+  "scores": {{
+    "decon_word_0": {{ 
+      "score": 10, 
+      "contextual_meaning": "Full meaning of the deconstruction", 
+      "selected_pos": "sandhi" 
+    }},
+    "12345_0": {{ 
+      "score": 10, 
+      "contextual_meaning": "I would dwell", 
+      "selected_pos": "verb" 
     }}
-  ]
+  }}
 }}
 ```
 **CRITICAL:**
-- Only output the JSON object.
-- `selected_key` must match one of the `key` values provided in the Dictionary Context.
-- If a word is found via deconstruction (e.g. `decon_...`), select that key.
-- Do not paraphrase or add data; only provide the keys.
+- **Keys in `scores` MUST match the `key` values in the Dictionary Context.**
+- Only output the JSON object. Do not explain.
 """
     return prompt
 
 
 def format_markdown_table(
-    analysis_data: list[dict[str, Any]], ai_response: dict[str, Any]
+    enriched_analysis: list[dict[str, Any]]
 ) -> str:
-    """Reconstruct the Markdown table using AI's selections and DB data."""
-
-    # Build a structured lookup: word -> key -> entry_data
-    # This ensures we find the exact specific-grammar option the AI picked.
-    token_map = {}
-
-    # Also build a global key lookup for components, as they might be shared or found via deconstruction
-    global_key_lookup = {}
-
-    for token_data in analysis_data:
-        word = token_data["word"]
-        if word not in token_map:
-            token_map[word] = {}
-
-        for entry in token_data["data"]:
-            entry_key = entry["key"]
-            token_map[word][entry_key] = entry
-            global_key_lookup[entry_key] = entry
-
-            if "components" in entry:
-                for comp_options in entry["components"]:
-                    if isinstance(comp_options, list):
-                        for comp in comp_options:
-                            comp_key = comp.get("key")
-                            if comp_key:
-                                global_key_lookup[comp_key] = comp
+    """
+    Reconstruct the Markdown table using the enriched Python structure.
+    We iterate through the Python data (which contains all components)
+    and simply pick the highest-scored option to display.
+    """
 
     table_rows = [
         "| ID | Word in Sentence | Grammar | Meaning | Construction | Root |",
         "| :--- | :--- | :--- | :--- | :--- | :--- |",
     ]
 
-    for selection in ai_response.get("analysis", []):
-        word = selection["word"]
-        selected_key = str(selection.get("selected_key", ""))
+    def add_rows_recursive(option: dict[str, Any], depth: int):
+        if "components" in option:
+            for part_options in option["components"]:
+                if not part_options:
+                    continue
+                
+                # Each part has multiple lookups (homonyms). Pick the best scored one.
+                best_part = max(part_options, key=lambda x: x.get("ai_score", 0))
+                
+                # Format component row
+                clean_comp_word = best_part.get("pali", "").replace("- ", "").strip()
+                indent_prefix = "- " * depth
+                
+                comp_meaning = best_part.get("meaning_combo", "")
+                
+                # Cleanup if AI failed to provide a meaning for a deconstruction
+                if not comp_meaning and best_part.get("key", "").startswith("decon_"):
+                     comp_meaning = "*(AI analysis of deconstruction)*"
 
-        # Find the main word entry
-        hw = None
-        if word in token_map and selected_key in token_map[word]:
-            hw = token_map[word][selected_key]
+                # Prefer grammar (for sandhi/comp vb), fallback to POS (for pure compound parts)
+                comp_grammar = best_part.get("grammar") or best_part.get("pos", "")
+                
+                if "selected_pos" in best_part and best_part["selected_pos"]:
+                     if comp_grammar == "sandhi/compound":
+                         comp_grammar = best_part["selected_pos"]
+                
+                # Construction Column: prefer compound_construction if available, else construction
+                comp_construction = best_part.get("compound_construction", "")
+                if not comp_construction:
+                    comp_construction = best_part.get("construction", "")
+                # Clean up formatting if needed (though analyzer usually sends clean strings for construction)
+                comp_construction = comp_construction.replace("<b>", "").replace("</b>", "")
 
-        if hw:
-            # Use specific grammar from the selected option
-            grammar = hw.get("grammar", "")
-            table_rows.append(
-                f"| {hw.get('id', '')} | {word} | {grammar} | {hw['meaning_combo']} | {hw['construction']} | {hw.get('root_key', '')} |"
-            )
-        else:
-            # Fallback
-            table_rows.append(f"| | {word} | | | | |")
-
-        # Component rows
-        for comp_sel in selection.get("components", []):
-            comp_word = comp_sel["word"]
-            # AI might return the word with hyphen, strip it for lookup if needed
-            clean_comp_word = comp_word.replace("- ", "").strip()
-
-            comp_key = str(comp_sel.get("selected_key", ""))
-
-            chw = None
-            if comp_key in global_key_lookup:
-                chw = global_key_lookup[comp_key]
-
-            # Fallback check within parent's components if we have the parent
-            if not chw and hw and "components" in hw:
-                for comp_options in hw["components"]:
-                    for comp in comp_options:
-                        if comp.get("key") == comp_key:
-                            chw = comp
-                            break
-                    if chw:
-                        break
-
-            if chw:
-                grammar = chw.get("grammar", "")
-                # Ensure "in comp" prefix if not present, unless it's a sandhi component which might be different?
-                # Actually DB usually says "in comp" or user wants it.
-                # Let's trust the DB value first. If it looks like a stem, maybe prepend "in comp"?
-                # User requested "- " prefix for word.
                 table_rows.append(
-                    f"| {chw.get('id', '')} | - {clean_comp_word} | {grammar} | {chw['meaning_combo']} | {chw['construction']} | {chw.get('root_key', '')} |"
+                    f"| {best_part.get('id', '')} | {indent_prefix}{clean_comp_word} | {comp_grammar} | {comp_meaning} | {comp_construction} | {best_part.get('root_key', '')} |"
                 )
-            else:
-                table_rows.append(f"| | - {clean_comp_word} | | | | |")
+                
+                # Recurse
+                add_rows_recursive(best_part, depth + 1)
+
+    for token_data in enriched_analysis:
+        word = token_data["word"]
+        options = token_data["data"]
+        
+        if not options:
+             table_rows.append(f"| | {word} | | | | |")
+             continue
+
+        # Sort options by AI score (desc), then by completeness/original score
+        # We assume 'ai_score' has been merged into the options. Default to 0.
+        best_option = max(options, key=lambda x: x.get("ai_score", 0))
+        
+        # Determine values to display
+        hw_id = best_option.get("id", "")
+        meaning = best_option.get("meaning_combo", "")
+        
+        # Cleanup if AI failed to provide a meaning for a deconstruction
+        if not meaning and best_option.get("key", "").startswith("decon_"):
+             meaning = "*(AI analysis of deconstruction)*"
+             
+        grammar = best_option.get("grammar", "")
+        
+        # Handle POS override
+        if "selected_pos" in best_option and best_option["selected_pos"]:
+             if grammar == "sandhi/compound":
+                 grammar = best_option["selected_pos"]
+        
+        # Construction Column: prefer compound_construction if available
+        construction = best_option.get("compound_construction", "")
+        if not construction:
+            construction = best_option.get("construction", "")
+        construction = construction.replace("<b>", "").replace("</b>", "")
+
+        table_rows.append(
+            f"| {hw_id} | {word} | {grammar} | {meaning} | {construction} | {best_option.get('root_key', '')} |"
+        )
+
+        # Start Recursion
+        add_rows_recursive(best_option, 1)
 
     return "\n".join(table_rows)
+
+
+def merge_ai_selections(analysis_data: list[dict[str, Any]], ai_response: dict[str, Any]) -> dict[str, Any]:
+    """
+    Merge AI scores and meanings into the analysis data structure.
+    Returns a new object containing translation and the enriched analysis.
+    """
+    # Create a deep copy to avoid mutating the original input
+    enriched_analysis = copy.deepcopy(analysis_data)
+    scores_map = ai_response.get("scores", {})
+
+    # Helper to traverse and update
+    def update_entries(data_list):
+        for item in data_list:
+            key = item.get("key")
+            if key in scores_map:
+                update = scores_map[key]
+                item["ai_score"] = update.get("score", 0)
+                
+                # Apply contextual info if score is positive (implying relevance)
+                if update.get("score", 0) > 0:
+                    if "contextual_meaning" in update:
+                        item["meaning_combo"] = update["contextual_meaning"]
+                    if "selected_pos" in update:
+                        item["selected_pos"] = update["selected_pos"]
+            else:
+                item["ai_score"] = 0
+
+            # Recursively update components
+            if "components" in item:
+                for comp_list in item["components"]:
+                    if isinstance(comp_list, list):
+                        update_entries(comp_list)
+
+    for word_obj in enriched_analysis:
+        update_entries(word_obj["data"])
+
+    return {
+        "translation": ai_response.get("translation", ""),
+        "literal_translation": ai_response.get("literal_translation", ""),
+        "analysis": enriched_analysis
+    }
+
+
+def translate_sentence(sentence: str, db_session: Session, model: str = "xiaomi/mimo-v2-flash:free") -> dict[str, Any]:
+    """
+    Full pipeline: Analyze -> AI Translate -> Merge.
+    Returns the enriched analysis object.
+    """
+    # 1. Analyze
+    analysis = analyze_sentence(sentence, db_session)
+    
+    # 2. Build Prompt
+    sys_prompt = build_system_prompt(analysis)
+    
+    # 3. Call AI
+    ai_manager = OpenRouterManager()
+    
+    response = ai_manager.request(
+        prompt=f"Please translate and analyze: {sentence}",
+        model=model,
+        prompt_sys=sys_prompt,
+    )
+    
+    if not response.content:
+        raise ValueError(f"AI Request Failed: {response.status_message}")
+        
+    # 4. Parse Response
+    json_str = response.content.strip()
+    if json_str.startswith("```json"):
+        json_str = json_str[7:-3].strip()
+    elif json_str.startswith("```"):
+        json_str = json_str[3:-3].strip()
+        
+    try:
+        ai_data = json.loads(json_str)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON from AI: {e}\nResponse: {response.content}")
+        
+    # 5. Merge
+    result = merge_ai_selections(analysis, ai_data)
+    return result
 
 
 def main():
@@ -198,15 +301,21 @@ def main():
 
                     ai_data = json.loads(json_str)
 
+                    # 5. Merge (Logic duplicated from translate_sentence for standalone main)
+                    # Ideally we should just call translate_sentence but here we want streaming/print control
+                    # Let's just use the merge function we defined
+                    merged_result = merge_ai_selections(analysis, ai_data)
+                    enriched_analysis = merged_result["analysis"]
+
                     # Generate final report
                     report = []
                     report.append(f"### English Translation")
-                    report.append(f"**Translation:** {ai_data.get('translation', '')}")
+                    report.append(f"**Translation:** {merged_result.get('translation', '')}")
                     report.append(
-                        f"**Literal Translation:** {ai_data.get('literal_translation', '')}"
+                        f"**Literal Translation:** {merged_result.get('literal_translation', '')}"
                     )
                     report.append("\n### Word-by-Word Analysis")
-                    report.append(format_markdown_table(analysis, ai_data))
+                    report.append(format_markdown_table(enriched_analysis))
 
                     final_content = "\n\n".join(report)
 
@@ -216,9 +325,9 @@ def main():
 
                     # Save output to file
                     timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-                    clean_sentence = re.sub(
-                        r"[^a-zA-Z]", "_", sentence[:10].lower()
-                    ).strip("_")
+                    clean_sentence = re.sub(r"[^a-zA-Z]", "_", sentence[:10].lower()).strip(
+                        "_"
+                    )
                     filename = f"{timestamp}_{clean_sentence}.md"
                     file_path = output_dir / filename
 

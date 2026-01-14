@@ -9,10 +9,13 @@ def generate_dump():
     session = get_db_session(pth.dpd_db_path)
 
     sentences = [
-        "buddho dhammena desetvā",
-        "yo'dha",
-        "dhammacakkappavattana",
-        "dve'me bhikkhave antā pabbajitena na sevitabbā",
+        # "buddho dhammena desetvā",
+        # "yo'dha",
+        # "dhammacakkappavattana",
+        # "dve'me bhikkhave antā pabbajitena na sevitabbā",
+        # "abaddhapittañca",
+        # "ātāpinī pahit'attā vihareyyan'ti",
+        "ān'āpānassatisamādhi",
     ]
 
     full_output = {}
