@@ -1,4 +1,5 @@
 import json
+import re
 import subprocess
 import time
 from datetime import datetime
@@ -60,13 +61,6 @@ class Bashini:
         if not self.output_dir.exists():
             self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Create output subdir based on language settings
-        self.output_subdir = self.output_dir.joinpath(
-            f"{self.language}_{self.voice_name}_{self.voice_style}_{str(self.speech_rate)}"
-        )
-        if not self.output_subdir.exists():
-            self.output_subdir.mkdir(parents=True, exist_ok=True)
-
     def tts_dpd(self, text_roman: str, remaining: int):
         """
         Bashini Text to Speech
@@ -77,9 +71,16 @@ class Bashini:
         :type remaining: int
         """
 
+        # Create output subdir based on language settings
+        output_subdir = self.output_dir.joinpath(
+            f"{self.language}_{self.voice_name}_{self.voice_style}_{str(self.speech_rate)}"
+        )
+        if not output_subdir.exists():
+            output_subdir.mkdir(parents=True, exist_ok=True)
+
         # individual filepath
         file_name = Path(text_roman).with_suffix(".mp3")
-        output_filepath = self.output_subdir / file_name
+        output_filepath = output_subdir / file_name
 
         # don't overwrite existing files unless specifically instructed
         if output_filepath.is_file() and not self.overwrite:
@@ -125,11 +126,14 @@ class Bashini:
             self._handle_audio(audio_bytes, output_filepath)
 
     def _prepare_text(self, text_roman: str) -> str:
+        # replace "ñ" with "ñy" when followed by a vowel for better pronunciation
+        text_roman = re.sub(r"ñ(?=[aāiīuūeo])", "ñy", text_roman)
+
         text_transliterated = self.translit_with_aksharamukha(text_roman)
 
         # often short words don't get pronounced by the ai, so repeat them twice
         if self.problem:
-            text_for_api = f"{text_transliterated}{text_transliterated}{text_transliterated}{text_transliterated}"
+            text_for_api = f"{text_transliterated}. {text_transliterated}. {text_transliterated}. {text_transliterated}"
         elif len(text_roman) < 5:
             text_for_api = f"--- {text_transliterated} ... {text_transliterated} ... {text_transliterated} ... ---"
         else:

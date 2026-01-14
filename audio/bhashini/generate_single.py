@@ -1,7 +1,7 @@
 from audio.bhashini.bhashini_class import Bashini
 
 
-text = "dhaṃ"
+text = "mayañhi"
 
 
 bashini = Bashini(
@@ -10,8 +10,8 @@ bashini = Bashini(
     voice_style="Neutral",
     speech_rate=0.85,
     play_audio=True,
-    overwrite=False,
-    problem=True,
+    overwrite=True,
+    problem=False,
 )
 
 bashini.tts_single(text)
