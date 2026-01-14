@@ -274,6 +274,7 @@ class DpdCommentaryField(ft.Column):
 
     def click_choose_example_cancel(self, e: ft.ControlEvent):
         self.choose_example_dialog.open = False
+        self.commentary_field.value = "-"
         self.commentary_field.focus()
         self.page.update()
 
