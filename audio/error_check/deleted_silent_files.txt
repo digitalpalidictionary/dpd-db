@@ -1,6 +1,0 @@
-/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m4_Neutral_0.85/jha.mp3
-/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m4_Neutral_0.85/ṅa.mp3
-/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m4_Neutral_0.85/chaūna.mp3
-/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m4_Neutral_0.85/ña.mp3
-/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-f4_Neutral_0.85/ṅa.mp3
-/home/bodhirasa/MyFiles/3_Active/dpd-db/audio/mp3s/Kannada_kn-m1_Neutral_0.85/sodasa.mp3
