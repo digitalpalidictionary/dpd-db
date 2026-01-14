@@ -4991,706 +4991,57 @@
         ],
         "moggallānena": [
             53309
+        ],
+        "anissito": [
+            88536
+        ],
+        "yāyaṃ": [
+            88258
+        ],
+        "hāniṃ": [
+            88292
+        ],
+        "mānasaṃ": [
+            78687
+        ],
+        "tiṭṭhaṃ": [
+            88189
+        ],
+        "pāpake": [
+            45582,
+            45583
+        ],
+        "vitakke": [
+            67820
+        ],
+        "niccharatī": [
+            37021
+        ],
+        "vidhunaṃ": [
+            68052
+        ],
+        "pātayati": [
+            86940
+        ],
+        "supinena": [
+            73315
+        ],
+        "niddāya": [
+            37228,
+            37231
+        ],
+        "mandova": [
+            51359
+        ],
+        "baddhesu": [
+            47876,
+            47877
+        ],
+        "tape": [
+            29927
         ]
     },
-    "matched": {
-        "arahantasuttaṃ": {
-            "id": 8932,
-            "sentence": [
-                "SN22.76",
-                "khandhasaṃyuttaṃ, arahantasuttaṃ",
-                "4. arahantasuttaṃ"
-            ]
-        },
-        "pamādakokālikatissako": {
-            "id": 30856,
-            "sentence": [
-                "sn6.10:11.3",
-                "pamādakokālikatissako ca, ",
-                ""
-            ]
-        },
-        "saṃvejehīti": {
-            "id": 61986,
-            "sentence": [
-                "sn6.14:4.4",
-                "tena hi tvaṃ, brāhmaṇa, bhiyyoso mattāya brahmānañca brahmaparisañca brahmapārisajje ca saṃvejehī’ti. ",
-                "Well then, brahmin, stir them up even more!’ "
-            ]
-        },
-        "suddhikasuttaṃ": {
-            "id": 63955,
-            "sentence": [
-                "SN22.98",
-                "khandhasaṃyuttaṃ, suddhikasuttaṃ",
-                "6. suddhikasuttaṃ"
-            ]
-        },
-        "upāsakavaggo": {
-            "id": 16421,
-            "sentence": [
-                "sn7.22:3.6",
-                "upāsakavaggo dutiyo. ",
-                ""
-            ]
-        },
-        "sakkareyyāna": {
-            "id": 56418,
-            "sentence": [
-                "sn7.13:4.2",
-                "sakkareyyāna sakkato; ",
-                "who is esteemed by the estimable, "
-            ]
-        },
-        "udakasuddhiṃ": {
-            "id": 14894,
-            "sentence": [
-                "sn7.21:2.6",
-                "“kiṃ pana tvaṃ, brāhmaṇa, atthavasaṃ sampassamāno udakasuddhiko, udakasuddhiṃ paccesi, sāyaṃ pātaṃ udakorohanānuyogamanuyutto viharasī”ti? ",
-                "“But brahmin, for what reason do you practice purification by water?” "
-            ]
-        },
-        "vaṅgīso": {
-            "id": 65569,
-            "sentence": [
-                "sn8.1:1.2",
-                "ekaṃ samayaṃ āyasmā vaṅgīso āḷaviyaṃ viharati aggāḷave cetiye āyasmatā nigrodhakappena upajjhāyena saddhiṃ. ",
-                "At one time Venerable Vaṅgīsa was staying near Āḷavī, at Āḷavī’s premier shrine, together with his mentor, Venerable Nigrodhakappa. "
-            ]
-        },
-        "āḷaviyaṃ": {
-            "id": 13298,
-            "sentence": [
-                "sn8.1:1.2",
-                "ekaṃ samayaṃ āyasmā vaṅgīso āḷaviyaṃ viharati aggāḷave cetiye āyasmatā nigrodhakappena upajjhāyena saddhiṃ. ",
-                "At one time Venerable Vaṅgīsa was staying near Āḷavī, at Āḷavī’s premier shrine, together with his mentor, Venerable Nigrodhakappa. "
-            ]
-        },
-        "aggāḷave": {
-            "id": 646,
-            "sentence": [
-                "sn8.1:1.2",
-                "ekaṃ samayaṃ āyasmā vaṅgīso āḷaviyaṃ viharati aggāḷave cetiye āyasmatā nigrodhakappena upajjhāyena saddhiṃ. ",
-                "At one time Venerable Vaṅgīsa was staying near Āḷavī, at Āḷavī’s premier shrine, together with his mentor, Venerable Nigrodhakappa. "
-            ]
-        },
-        "nigrodhakappena": {
-            "id": 36947,
-            "sentence": [
-                "sn8.1:1.2",
-                "ekaṃ samayaṃ āyasmā vaṅgīso āḷaviyaṃ viharati aggāḷave cetiye āyasmatā nigrodhakappena upajjhāyena saddhiṃ. ",
-                "At one time Venerable Vaṅgīsa was staying near Āḷavī, at Āḷavī’s premier shrine, together with his mentor, Venerable Nigrodhakappa. "
-            ]
-        },
-        "ohiyyako": {
-            "id": 19140,
-            "sentence": [
-                "sn8.1:1.3",
-                "tena kho pana samayena āyasmā vaṅgīso navako hoti acirapabbajito ohiyyako vihārapālo. ",
-                "Now at that time Vaṅgīsa was junior, recently gone forth. He had been left behind to look after the dwelling. "
-            ]
-        },
-        "vihārapālo": {
-            "id": 69698,
-            "sentence": [
-                "sn8.1:1.3",
-                "tena kho pana samayena āyasmā vaṅgīso navako hoti acirapabbajito ohiyyako vihārapālo. ",
-                "Now at that time Vaṅgīsa was junior, recently gone forth. He had been left behind to look after the dwelling. "
-            ]
-        },
-        "samalaṅkaritvā": {
-            "id": 59475,
-            "sentence": [
-                "sn8.1:1.4",
-                "atha kho sambahulā itthiyo samalaṅkaritvā yena aggāḷavako ārāmo tenupasaṅkamiṃsu vihārapekkhikāyo. ",
-                "Then several women dressed in all their finery went to the monastery at Āḷavī’s premier shrine in order to inspect the dwelling. "
-            ]
-        },
-        "aggāḷavako": {
-            "id": 647,
-            "sentence": [
-                "sn8.1:1.4",
-                "atha kho sambahulā itthiyo samalaṅkaritvā yena aggāḷavako ārāmo tenupasaṅkamiṃsu vihārapekkhikāyo. ",
-                "Then several women dressed in all their finery went to the monastery at Āḷavī’s premier shrine in order to inspect the dwelling. "
-            ]
-        },
-        "vihārapekkhikāyo": {
-            "id": 69699,
-            "sentence": [
-                "sn8.1:1.4",
-                "atha kho sambahulā itthiyo samalaṅkaritvā yena aggāḷavako ārāmo tenupasaṅkamiṃsu vihārapekkhikāyo. ",
-                "Then several women dressed in all their finery went to the monastery at Āḷavī’s premier shrine in order to inspect the dwelling. "
-            ]
-        },
-        "upadhāvanti": {
-            "id": 15678,
-            "sentence": [
-                "sn8.1:2.3",
-                "vitakkā upadhāvanti, ",
-                "I’m overrun "
-            ]
-        },
-        "uggaputtā": {
-            "id": 14171,
-            "sentence": [
-                "sn8.1:3.1",
-                "uggaputtā mahissāsā, ",
-                "Even if a thousand warrior chiefs and great archers, "
-            ]
-        },
-        "mahissāsā": {
-            "id": 52067,
-            "sentence": [
-                "sn8.1:3.1",
-                "uggaputtā mahissāsā, ",
-                "Even if a thousand warrior chiefs and great archers, "
-            ]
-        },
-        "parikireyyuṃ": {
-            "id": 43190,
-            "sentence": [
-                "sn8.1:3.3",
-                "samantā parikireyyuṃ, ",
-                "were to completely surround me; "
-            ]
-        },
-        "etato": {
-            "id": 17854,
-            "sentence": [
-                "sn8.1:4.1",
-                "sacepi etato bhiyyo, ",
-                "And even if women come, "
-            ]
-        },
-        "byāthayissanti": {
-            "id": 48804,
-            "sentence": [
-                "SN8.1",
-                "vaṅgīsasaṃyuttaṃ, nikkhantasuttaṃ",
-                "sacepi etato [ettato,\nettakā] bhiyyo,\nāgamissanti itthiyo,\nneva maṃ byādhayissanti [byāthayissanti (?)],\ndhamme samhi patiṭṭhitaṃ."
-            ]
-        },
-        "aratisuttaṃ": {
-            "id": 8885,
-            "sentence": [
-                "SN8.2",
-                "vaṅgīsasaṃyuttaṃ, aratisuttaṃ",
-                "2. aratisuttaṃ"
-            ]
-        },
-        "nigrodhakappo": {
-            "id": 36947,
-            "sentence": [
-                "sn8.2:1.2",
-                "tena kho pana samayena āyasmā nigrodhakappo pacchābhattaṃ piṇḍapātapaṭikkanto vihāraṃ pavisati, sāyaṃ vā nikkhamati aparajju vā kāle. ",
-                "Now at that time after Venerable Nigrodhakappa had finished his meal, on his return from almsround, he would enter his dwelling and not emerge for the rest of that day, or the next. "
-            ]
-        },
-        "arato": {
-            "id": 73701,
-            "sentence": [
-                "sn8.2:2.4",
-                "nibbanatho arato sa hi bhikkhu. ",
-                "unsnarled, undesiring: that’s a real mendicant. "
-            ]
-        },
-        "yamidha": {
-            "id": 53794,
-            "sentence": [
-                "sn8.2:3.1",
-                "yamidha pathaviñca vehāsaṃ, ",
-                "Whatever here is included in form—"
-            ]
-        },
-        "rūpagatañca": {
-            "id": 55181,
-            "sentence": [
-                "sn8.2:3.2",
-                "rūpagatañca jagatogadhaṃ; ",
-                "on earth, in the sky, or in planet’s deep—"
-            ]
-        },
-        "jagatogadhaṃ": {
-            "id": 27768,
-            "sentence": [
-                "sn8.2:3.2",
-                "rūpagatañca jagatogadhaṃ; ",
-                "on earth, in the sky, or in planet’s deep—"
-            ]
-        },
-        "parijīyati": {
-            "id": 43394,
-            "sentence": [
-                "sn8.2:3.3",
-                "kiñci parijīyati sabbamaniccaṃ, ",
-                "wears out, it is all impermanent: "
-            ]
-        },
-        "mutattā": {
-            "id": 52909,
-            "sentence": [
-                "sn8.2:3.4",
-                "evaṃ samecca caranti mutattā. ",
-                "the self-examined live having comprehended this. "
-            ]
-        },
-        "saṭṭhinissitā": {
-            "id": 57491,
-            "sentence": [
-                "sn8.2:5.1",
-                "atha saṭṭhinissitā savitakkā, ",
-                "Trapped in the sixty wrong views, <j>full of their own opinions, "
-            ]
-        },
-        "vaggagatassa": {
-            "id": 65528,
-            "sentence": [
-                "sn8.2:5.3",
-                "na ca vaggagatassa kuhiñci, ",
-                "But that mendicant wouldn’t join a sect, "
-            ]
-        },
-        "duṭṭhullabhāṇī": {
-            "id": 33105,
-            "sentence": [
-                "sn8.2:5.4",
-                "no pana duṭṭhullabhāṇī sa bhikkhu. ",
-                "still less would they utter lewd speech. "
-            ]
-        },
-        "cirarattasamāhito": {
-            "id": 26785,
-            "sentence": [
-                "sn8.2:6.1",
-                "dabbo cirarattasamāhito, ",
-                "Clever, serene for a long time, "
-            ]
-        },
-        "pesalasuttaṃ": {
-            "id": 47335,
-            "sentence": [
-                "SN8.3",
-                "vaṅgīsasaṃyuttaṃ, pesalasuttaṃ",
-                "3. pesalasuttaṃ"
-            ]
-        },
-        "mānapathañca": {
-            "id": 52280,
-            "sentence": [
-                "sn8.3:2.2",
-                "mānapathañca pajahassu; ",
-                "Completely abandon the different kinds of conceit! "
-            ]
-        },
-        "mānapathasmiṃ": {
-            "id": 52280,
-            "sentence": [
-                "sn8.3:2.3",
-                "asesaṃ mānapathasmiṃ, ",
-                "Besotted with the different kinds of conceit, "
-            ]
-        },
-        "vippaṭisārīhuvā": {
-            "id": 68473,
-            "sentence": [
-                "sn8.3:2.4",
-                "samucchito vippaṭisārīhuvā cirarattaṃ. ",
-                "you’ve had regrets for a long time. "
-            ]
-        },
-        "mānahatā": {
-            "id": 52301,
-            "sentence": [
-                "sn8.3:3.2",
-                "mānahatā nirayaṃ papatanti; ",
-                "people fall into hell. "
-            ]
-        },
-        "maggajino": {
-            "id": 50512,
-            "sentence": [
-                "sn8.3:4.2",
-                "maggajino sammāpaṭipanno; ",
-                "a path-victor, never grieves. "
-            ]
-        },
-        "dhammadasoti": {
-            "id": 34725,
-            "sentence": [
-                "sn8.3:4.4",
-                "dhammadasoti tamāhu pahitattaṃ. ",
-                "and they rightly call him a ‘Seer of Truth’. "
-            ]
-        },
-        "vijjāyantakaro": {
-            "id": 67638,
-            "sentence": [
-                "sn8.3:5.4",
-                "vijjāyantakaro samitāvī”ti. ",
-                "the one who makes an end with knowledge is assuaged.” "
-            ]
-        },
-        "ānandasuttaṃ": {
-            "id": 11734,
-            "sentence": [
-                "SN8.4",
-                "vaṅgīsasaṃyuttaṃ, ānandasuttaṃ",
-                "4. ānandasuttaṃ"
-            ]
-        },
-        "vipariyesā": {
-            "id": 68353,
-            "sentence": [
-                "sn8.4:3.1",
-                "“saññāya vipariyesā, ",
-                "“Your mind is on fire "
-            ]
-        },
-        "rāgūpasaṃhitaṃ": {
-            "id": 54850,
-            "sentence": [
-                "sn8.4:3.4",
-                "subhaṃ rāgūpasaṃhitaṃ. ",
-                "that’s attractive, provoking lust. "
-            ]
-        },
-        "mahārāgaṃ": {
-            "id": 51908,
-            "sentence": [
-                "sn8.4:4.3",
-                "nibbāpehi mahārāgaṃ, ",
-                "Extinguish the great fire of lust, "
-            ]
-        },
-        "nibbidābahulo": {
-            "id": 37665,
-            "sentence": [
-                "sn8.4:5.4",
-                "nibbidābahulo bhava. ",
-                "be full of disillusionment. "
-            ]
-        },
-        "subhāsitasuttaṃ": {
-            "id": 64259,
-            "sentence": [
-                "SN8.5",
-                "vaṅgīsasaṃyuttaṃ, subhāsitasuttaṃ",
-                "5. subhāsitasuttaṃ"
-            ]
-        },
-        "nādhammaṃ": {
-            "id": 36212,
-            "sentence": [
-                "sn8.5:3.2",
-                "dhammaṃ bhaṇe nādhammaṃ taṃ dutiyaṃ; ",
-                "second, speech ought be principled, not unprincipled; "
-            ]
-        },
-        "nāppiyaṃ": {
-            "id": 36377,
-            "sentence": [
-                "sn8.5:3.3",
-                "piyaṃ bhaṇe nāppiyaṃ taṃ tatiyaṃ, ",
-                "third, speak pleasantly, not unpleasantly; "
-            ]
-        },
-        "nālikaṃ": {
-            "id": 36540,
-            "sentence": [
-                "sn8.5:3.4",
-                "saccaṃ bhaṇe nālikaṃ taṃ catutthan”ti. ",
-                "and fourth, speak truthfully, not falsely.” "
-            ]
-        },
-        "vācānamuttamāti": {
-            "id": 66696,
-            "sentence": [
-                "sn8.5:8.4",
-                "sā ve vācānamuttamā”ti. ",
-                "this really is the best kind of speech.” "
-            ]
-        },
-        "sāriputtasuttaṃ": {
-            "id": 62530,
-            "sentence": [
-                "SN8.6",
-                "vaṅgīsasaṃyuttaṃ, sāriputtasuttaṃ",
-                "6. sāriputtasuttaṃ"
-            ]
-        },
-        "udīrayi": {
-            "id": 15051,
-            "sentence": [
-                "sn8.6:4.4",
-                "paṭibhānaṃ udīrayi. ",
-                "overflows with inspiration. "
-            ]
-        },
-        "udīriyati": {
-            "id": 15053,
-            "sentence": [
-                "SN8.6",
-                "vaṅgīsasaṃyuttaṃ, sāriputtasuttaṃ",
-                "saṃkhittenapi deseti,\nvitthārenapi bhāsati,\nsāḷikāyiva nigghoso,\npaṭibhānaṃ udīrayi [udīriyi udīriyati (sāmaññaphalasuttaṭīkānurūpaṃ)]."
-            ]
-        },
-        "odhenti": {
-            "id": 18653,
-            "sentence": [
-                "sn8.6:5.6",
-                "sotaṃ odhenti bhikkhavo”ti. ",
-                "their hearts elated.” "
-            ]
-        },
-        "pavāraṇāsuttaṃ": {
-            "id": 44916,
-            "sentence": [
-                "SN8.7",
-                "vaṅgīsasaṃyuttaṃ, pavāraṇāsuttaṃ",
-                "7. pavāraṇāsuttaṃ"
-            ]
-        },
-        "amaccaparivārito": {
-            "id": 8438,
-            "sentence": [
-                "sn8.7:7.2",
-                "amaccaparivārito; ",
-                "surrounded by ministers "
-            ]
-        },
-        "anupariyeti": {
-            "id": 4720,
-            "sentence": [
-                "sn8.7:7.3",
-                "samantā anupariyeti, ",
-                "travels all around this "
-            ]
-        },
-        "sāgarantaṃ": {
-            "id": 62085,
-            "sentence": [
-                "sn8.7:7.4",
-                "sāgarantaṃ mahiṃ imaṃ. ",
-                "land girt by sea. "
-            ]
-        },
-        "parosahassasuttaṃ": {
-            "id": 44429,
-            "sentence": [
-                "SN8.8",
-                "vaṅgīsasaṃyuttaṃ, parosahassasuttaṃ",
-                "8. parosahassasuttaṃ"
-            ]
-        },
-        "satthudassanakamyatā": {
-            "id": 57915,
-            "sentence": [
-                "sn8.8:6.2",
-                "satthudassanakamyatā; ",
-                "out of desire to see the teacher. "
-            ]
-        },
-        "satthudassanakāmatā": {
-            "id": 57916,
-            "sentence": [
-                "SN8.8",
-                "vaṅgīsasaṃyuttaṃ, parosahassasuttaṃ",
-                "divāvihārā nikkhamma,\nsatthudassanakamyatā [satthudassanakāmatā],\nsāvako te mahāvīra,\npāde vandati vaṅgīsoti."
-            ]
-        },
-        "aparivitakkitā": {
-            "id": 6446,
-            "sentence": [
-                "sn8.8:7.3",
-                "“tena hi taṃ, vaṅgīsa, bhiyyoso mattāya pubbe aparivitakkitā gāthāyo paṭibhantū”ti. ",
-                "“Well then, Vaṅgīsa, speak some more spontaneously inspired verses.” "
-            ]
-        },
-        "dhammaddasā": {
-            "id": 34744,
-            "sentence": [
-                "sn8.8:9.4",
-                "dhammaddasā ṭhitā asaṃhīrā. ",
-                "in the freedom from death explained by you. "
-            ]
-        },
-        "pajjotakaro": {
-            "id": 39741,
-            "sentence": [
-                "sn8.8:10.1",
-                "pajjotakaro ativijjha, ",
-                "As the bringer of light who has pierced the truth, "
-            ]
-        },
-        "sabbaṭṭhitīnaṃ": {
-            "id": 58832,
-            "sentence": [
-                "sn8.8:10.2",
-                "sabbaṭṭhitīnaṃ atikkamamaddasa; ",
-                "you’ve seen what lies beyond all planes. "
-            ]
-        },
-        "atikkamamaddasa": {
-            "id": 2074,
-            "sentence": [
-                "sn8.8:10.2",
-                "sabbaṭṭhitīnaṃ atikkamamaddasa; ",
-                "you’ve seen what lies beyond all planes. "
-            ]
-        },
-        "dasaddhānaṃ": {
-            "id": 32019,
-            "sentence": [
-                "sn8.8:10.4",
-                "aggaṃ so desayi dasaddhānaṃ. ",
-                "you taught it first to the group of five. "
-            ]
-        },
-        "koṇḍaññasuttaṃ": {
-            "id": 23037,
-            "sentence": [
-                "SN8.9",
-                "vaṅgīsasaṃyuttaṃ, koṇḍaññasuttaṃ",
-                "9. koṇḍaññasuttaṃ"
-            ]
-        },
-        "aññākoṇḍañño": {
-            "id": 1604,
-            "sentence": [
-                "SN8.9",
-                "vaṅgīsasaṃyuttaṃ, koṇḍaññasuttaṃ",
-                "ekaṃ samayaṃ bhagavā rājagahe viharati veḷuvane kalandakanivāpe. atha kho āyasmā aññāsikoṇḍañño [aññākoṇḍañño] sucirasseva yena bhagavā tenupasaṅkami, upasaṅkamitvā bhagavato pādesu sirasā nipatitvā bhagavato pādāni mukhena ca paricumbati, pāṇīhi ca parisambāhati, nāmañca sāveti, koṇḍaññohaṃ, bhagavā, koṇḍaññohaṃ, sugatāti. atha kho āyasmato vaṅgīsassa etadahosi, ayaṃ kho āyasmā aññāsikoṇḍañño sucirasseva yena bhagavā tenupasaṅkami, upasaṅkamitvā bhagavato pādesu sirasā nipatitvā bhagavato pādāni mukhena ca paricumbati, pāṇīhi ca parisambāhati, nāmañca sāveti, koṇḍaññohaṃ, bhagavā, koṇḍaññohaṃ, sugatāti. "
-            ]
-        },
-        "buddhānubuddho": {
-            "id": 48575,
-            "sentence": [
-                "sn8.9:3.1",
-                "“buddhānubuddho so thero, ",
-                "“The senior monk awakened after the Buddha, "
-            ]
-        },
-        "tibbanikkamo": {
-            "id": 30689,
-            "sentence": [
-                "sn8.9:3.2",
-                "koṇḍañño tibbanikkamo; ",
-                "Koṇḍañña, is keenly energetic. "
-            ]
-        },
-        "buddhadāyādo": {
-            "id": 48529,
-            "sentence": [
-                "sn8.9:5.3",
-                "koṇḍañño buddhadāyādo, ",
-                "Koṇḍañña, the heir to the Buddha, "
-            ]
-        },
-        "moggallānasuttaṃ": {
-            "id": 53313,
-            "sentence": [
-                "SN8.10",
-                "vaṅgīsasaṃyuttaṃ, moggallānasuttaṃ",
-                "10. moggallānasuttaṃ"
-            ]
-        },
-        "anupariyesati": {
-            "id": 4721,
-            "sentence": [
-                "SN8.10",
-                "vaṅgīsasaṃyuttaṃ, moggallānasuttaṃ",
-                "te cetasā anupariyeti [anupariyesati],\nmoggallāno mahiddhiko,\ncittaṃ nesaṃ samannesaṃ [samanvesaṃ],\nvippamuttaṃ nirūpadhiṃ."
-            ]
-        },
-        "samannesaṃ": {
-            "id": 59421,
-            "sentence": [
-                "sn8.10:4.3",
-                "cittaṃ nesaṃ samannesaṃ, ",
-                "scrutinizing their minds, "
-            ]
-        },
-        "anekākārasampannaṃ": {
-            "id": 5537,
-            "sentence": [
-                "sn8.10:5.3",
-                "anekākārasampannaṃ, ",
-                "the sage gone beyond suffering, "
-            ]
-        },
-        "gaggarāsuttaṃ": {
-            "id": 24005,
-            "sentence": [
-                "SN8.11",
-                "vaṅgīsasaṃyuttaṃ, gaggarāsuttaṃ",
-                "11. gaggarāsuttaṃ"
-            ]
-        },
-        "vigatamalova": {
-            "id": 67335,
-            "sentence": [
-                "sn8.11:3.2",
-                "virocati vigatamalova bhāṇumā; ",
-                "like the shining immaculate sun, "
-            ]
-        },
-        "bhāṇumā": {
-            "id": 49694,
-            "sentence": [
-                "sn8.11:3.2",
-                "virocati vigatamalova bhāṇumā; ",
-                "like the shining immaculate sun, "
-            ]
-        },
-        "vaṅgīsasuttaṃ": {
-            "id": 65572,
-            "sentence": [
-                "SN8.12",
-                "vaṅgīsasaṃyuttaṃ, vaṅgīsasuttaṃ",
-                "12. vaṅgīsasuttaṃ"
-            ]
-        },
-        "aciraarahattappatto": {
-            "id": 889,
-            "sentence": [
-                "sn8.12:1.2",
-                "tena kho pana samayena āyasmā vaṅgīso aciraarahattappatto hutvā vimuttisukhaṃ paṭisaṃvedī tāyaṃ velāyaṃ imā gāthāyo abhāsi: ",
-                "Now at that time Vaṅgīsa had recently attained perfection. While experiencing the bliss of freedom, on that occasion he recited these verses: "
-            ]
-        },
-        "niyāmagataddasā": {
-            "id": 37908,
-            "sentence": [
-                "sn8.12:4.4",
-                "ye niyāmagataddasā. ",
-                "who see that they’ve reached certainty. "
-            ]
-        },
-        "tisso": {
-            "id": 76270,
-            "sentence": [
-                "sn22.84:1.2",
-                "tena kho pana samayena āyasmā tisso bhagavato pitucchāputto sambahulānaṃ bhikkhūnaṃ evamāroceti: ",
-                "Now at that time Venerable Tissa, the Buddha’s paternal cousin, informed several mendicants: "
-            ]
-        },
-        "atimaññanā": {
-            "id": 2233,
-            "sentence": [
-                "sn8.12:7.2",
-                "pesalā atimaññanā; ",
-                ""
-            ]
-        },
-        "vivekasuttaṃ": {
-            "id": 69626,
-            "sentence": [
-                "SN9.1",
-                "vanasaṃyuttaṃ, vivekasuttaṃ",
-                "1. vivekasuttaṃ"
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
     "processed": [
         "sagāthāvaggo",
@@ -6561,6 +5912,107 @@
         "sabhādhammaṃ",
         "nikkhantasuttaṃ",
         "daditvā",
-        "pajappitā"
+        "pajappitā",
+        "arahantasuttaṃ",
+        "pamādakokālikatissako",
+        "saṃvejehīti",
+        "suddhikasuttaṃ",
+        "upāsakavaggo",
+        "sakkareyyāna",
+        "udakasuddhiṃ",
+        "vaṅgīso",
+        "āḷaviyaṃ",
+        "aggāḷave",
+        "nigrodhakappena",
+        "ohiyyako",
+        "vihārapālo",
+        "samalaṅkaritvā",
+        "aggāḷavako",
+        "vihārapekkhikāyo",
+        "upadhāvanti",
+        "uggaputtā",
+        "mahissāsā",
+        "parikireyyuṃ",
+        "etato",
+        "byāthayissanti",
+        "aratisuttaṃ",
+        "nigrodhakappo",
+        "arato",
+        "yamidha",
+        "rūpagatañca",
+        "jagatogadhaṃ",
+        "parijīyati",
+        "mutattā",
+        "saṭṭhinissitā",
+        "vaggagatassa",
+        "duṭṭhullabhāṇī",
+        "cirarattasamāhito",
+        "pesalasuttaṃ",
+        "mānapathañca",
+        "mānapathasmiṃ",
+        "vippaṭisārīhuvā",
+        "mānahatā",
+        "maggajino",
+        "dhammadasoti",
+        "vijjāyantakaro",
+        "ānandasuttaṃ",
+        "vipariyesā",
+        "rāgūpasaṃhitaṃ",
+        "mahārāgaṃ",
+        "nibbidābahulo",
+        "subhāsitasuttaṃ",
+        "nādhammaṃ",
+        "nāppiyaṃ",
+        "nālikaṃ",
+        "vācānamuttamāti",
+        "sāriputtasuttaṃ",
+        "udīrayi",
+        "udīriyati",
+        "odhenti",
+        "pavāraṇāsuttaṃ",
+        "amaccaparivārito",
+        "anupariyeti",
+        "sāgarantaṃ",
+        "parosahassasuttaṃ",
+        "satthudassanakamyatā",
+        "satthudassanakāmatā",
+        "dhammaddasā",
+        "pajjotakaro",
+        "sabbaṭṭhitīnaṃ",
+        "atikkamamaddasa",
+        "dasaddhānaṃ",
+        "koṇḍaññasuttaṃ",
+        "aññākoṇḍañño",
+        "buddhānubuddho",
+        "tibbanikkamo",
+        "buddhadāyādo",
+        "moggallānasuttaṃ",
+        "anupariyesati",
+        "samannesaṃ",
+        "anekākārasampannaṃ",
+        "gaggarāsuttaṃ",
+        "vigatamalova",
+        "bhāṇumā",
+        "vaṅgīsasuttaṃ",
+        "aciraarahattappatto",
+        "niyāmagataddasā",
+        "tisso",
+        "atimaññanā",
+        "vivekasuttaṃ",
+        "mānaso",
+        "vaṅgīsassa",
+        "aparivitakkitāhi",
+        "saṃvejetukāmā",
+        "vivekakāmosi",
+        "sārayāmase",
+        "pātālarajo",
+        "kāmarajo",
+        "avāhari",
+        "paṃsukunthito",
+        "vidhunaṃ",
+        "pātayati",
+        "upaṭṭhānasuttaṃ",
+        "tape",
+        "aparivitakkitā"
     ]
 }

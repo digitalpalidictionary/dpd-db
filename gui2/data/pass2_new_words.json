@@ -10,5 +10,17 @@
         "sutta_1": "tenāhaṃ etarahi kāyena ca phusitvā viharāmi, paññāya ca ativijjha passāmī’ti. ",
         "example_1": "But now I have direct meditative experience of them, and see them with penetrating wisdom.’ ",
         "comment": "ativijjha +instr in this example"
+    },
+    "niccharatī": {
+        "source_1": "sn9.1:2.2",
+        "sutta_1": "atha te mano niccharatī bahiddhā; ",
+        "example_1": "yet your mind strays to outward things. ",
+        "comment": "pr. wanders; roams; lit. goes out"
+    },
+    "supinena": {
+        "source_1": "SN9.2",
+        "sutta_1": "vanasaṃyuttaṃ, upaṭṭhānasuttaṃ",
+        "example_1": "uṭṭhehi bhikkhu kiṃ sesi,\nko attho supitena [supinena] te,\nāturassa hi kā niddā,\nsallaviddhassa ruppato.",
+        "comment": "nt sleep"
     }
 }

@@ -69,3 +69,37 @@
     'comment': 'This sutta appears in the Rādha Saṃyutta (SN 23) focused on the nature of the arahant. Number 4 indicates its sequence within similarly titled discourses.'}
 }
 
+{
+    'id': 6446,
+    'lemma_1': 'aparivitakkita',
+    'lemma_2': 'aparivitakkita',
+    'pos': 'pp',
+    'grammar': 'pp of na parivitakketi',
+    'derived_from': 'parivitakketi',
+    'neg': 'neg',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'unpremeditated; unplanned; spontaneous',
+    'meaning_lit': 'not thought',
+    'non_ia': '',
+    'sanskrit': 'na + parivitarkita [vitark]',
+    'root_key': '√takk',
+    'root_sign': '*e',
+    'root_base': '',
+    'family_root': 'pari vi √takk',
+    'family_word': '',
+    'family_compound': 'parivitakkita',
+    'family_idioms': 'parivitakkita',
+    'family_set': '',
+    'construction': 'na > a + pari + vi + √takk + ita',
+    'derivative': 'kita',
+    'suffix': 'ita',
+    'phonetic': '',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'na + parivitakkita',
+    'stem': 'aparivitakkit',
+    'pattern': 'a pp',
+    'comment': 'In the contextual sentence 'sn8.8:7.3', the word functions as an adjective agreeing with 'gāthāyo' (verses) in the feminine accusative plural. The translation 'spontaneously inspired' captures the pragmatic sense of 'not thought out beforehand' (unpremeditated) in the context of poetic utterance.'
+}
+
