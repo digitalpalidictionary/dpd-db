@@ -1,7 +1,7 @@
 from audio.bhashini.bhashini_class import Bashini
 
 
-text = "mayañhi"
+text = "ñātika"
 
 
 bashini = Bashini(

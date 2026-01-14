@@ -126,6 +126,9 @@ class Bashini:
             self._handle_audio(audio_bytes, output_filepath)
 
     def _prepare_text(self, text_roman: str) -> str:
+        # replace starting ñ with ny
+        text_roman = re.sub(r"^ñ", "ny", text_roman)
+
         # replace "ñ" with "ñy" when followed by a vowel for better pronunciation
         text_roman = re.sub(r"ñ(?=[aāiīuūeo])", "ñy", text_roman)
 
