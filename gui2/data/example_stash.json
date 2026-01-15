@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "JA407",
-        "sutta": "mahākapijātakaṃ",
-        "example": "taṃ maṃ na tapate bandho,\nmato me na tapessati,\nsukham'āharitaṃ tesaṃ,\nyesaṃ rajjam'akārayiṃ."
+        "source": "SN9.9",
+        "sutta": "vanasaṃyuttaṃ, vajjiputtasuttaṃ",
+        "example": "ekakā mayaṃ araññe viharāma,\napaviddhaṃva vanasmiṃ dārukaṃ,\netādisikāya rattiyā,\nko su nām'amhehi pāpiyo'ti."
     },
     "stash": {
-        "source": "JA407",
-        "sutta": "mahākapijātakaṃ",
-        "example": "taṃ maṃ na tapate bandho,\nmato me na tapessati,\nsukham'āharitaṃ tesaṃ,\nyesaṃ rajjam'akārayiṃ."
+        "source": "NIDD1.10",
+        "sutta": "purābhedasuttaniddeso",
+        "example": "asantāsī'ti idh'ekacco tāsī hoti uttāsī parittāsī, so tasati na uttasati parittasati bhāyati santāsaṃ āpajjati."
     }
 }
