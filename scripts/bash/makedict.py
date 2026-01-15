@@ -24,7 +24,8 @@ COMMANDS = [
     "exporter/tpr/tpr_exporter.py",
     "exporter/kindle/kindle_exporter.py",
     "exporter/tbw/tbw_exporter.py",
-    "exporter/sutta_central/sutta_central_exporter.pyexporter/pdf/pdf_exporter.py",
+    "exporter/sutta_central/sutta_central_exporter.py",
+    "exporter/pdf/pdf_exporter.py",
     "exporter/txt/export_txt.py",
 
     # Zip and tarball creation
