@@ -10,6 +10,8 @@ const summaryResults = document.getElementById("summary-results");
 const dpdResults = document.getElementById("dpd-results");
 const historyPane = document.getElementById("history-pane");
 const historyListPane = document.getElementById("history-list-pane");
+const historyCollapseToggle = document.getElementById("history-collapse-toggle");
+const settingsCollapseToggle = document.getElementById("settings-collapse-toggle");
 const subTitle = document.getElementById("subtitle");
 const searchBox = document.getElementById("search-box");
 const entryBoxClass = document.getElementsByClassName("search-box");
@@ -424,4 +426,53 @@ clearButton.addEventListener("click", function () {
     appState.dpd.searchTerm = "";
   }
   searchBox.focus();
+});
+
+//// collapse/expand functionality for mobile
+
+function initCollapseToggle(toggleButton, paneElement) {
+  if (!toggleButton || !paneElement) return;
+
+  const isMobile = window.innerWidth <= 576;
+
+  const handleToggle = function () {
+    paneElement.classList.toggle("collapsed");
+    const isCollapsed = paneElement.classList.contains("collapsed");
+    try {
+      localStorage.setItem(paneElement.id + "_collapsed", isCollapsed);
+    } catch (e) {
+      console.log("LocalStorage is not available.");
+    }
+  };
+
+  toggleButton.addEventListener("click", handleToggle);
+
+  const paneHeader = paneElement.querySelector(".pane-header");
+  if (paneHeader) {
+    paneHeader.addEventListener("click", function(e) {
+      if (e.target !== toggleButton && !toggleButton.contains(e.target)) {
+        handleToggle();
+      }
+    });
+  }
+
+  if (!isMobile) {
+    return;
+  }
+
+  const savedState = localStorage.getItem(paneElement.id + "_collapsed");
+  if (savedState === "true") {
+    paneElement.classList.add("collapsed");
+  } else if (savedState === null) {
+    paneElement.classList.add("collapsed");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  initCollapseToggle(historyCollapseToggle, historyPane);
+
+  const settingsPane = document.querySelector(".settings-pane");
+  if (settingsPane) {
+    initCollapseToggle(settingsCollapseToggle, settingsPane);
+  }
 });

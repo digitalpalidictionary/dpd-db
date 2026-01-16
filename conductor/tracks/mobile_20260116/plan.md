@@ -16,15 +16,15 @@
 - [x] Task: Conductor - User Manual Verification 'Add Clear Button to DPD Search' (Protocol in workflow.md)
 
 ## Phase 4: Make History & Settings Collapsible
-- [ ] Task: Add collapse/expand toggle button to history-pane header
-- [ ] Task: Add collapse/expand toggle button to settings-pane header
-- [ ] Task: Add CSS for collapsed/expanded states (display: none/block)
-- [ ] Task: Add JavaScript for toggle functionality
-- [ ] Task: Add @media query for ≤576px to enable collapsible behavior
-- [ ] Task: Conductor - User Manual Verification 'Make History & Settings Collapsible' (Protocol in workflow.md)
+- [x] Task: Add collapse/expand toggle button to history-pane header
+- [x] Task: Add collapse/expand toggle button to settings-pane header
+- [x] Task: Add CSS for collapsed/expanded states (display: none/block)
+- [x] Task: Add JavaScript for toggle functionality
+- [x] Task: Add @media query for ≤576px to enable collapsible behavior
+- [x] Task: Conductor - User Manual Verification 'Make History & Settings Collapsible' (Protocol in workflow.md)
 
 ## Phase 5: Make Logo Click Clear Search
-- [ ] Task: Wrap logo image in anchor tag with onclick handler
+- [~] Task: Wrap logo image in anchor tag with onclick handler
 - [ ] Task: Add JavaScript to clear #search-box and #dpd-results on logo click
 - [ ] Task: Conductor - User Manual Verification 'Make Logo Click Clear Search' (Protocol in workflow.md)
 

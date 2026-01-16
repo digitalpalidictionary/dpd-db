@@ -218,6 +218,78 @@ a {
     padding: 5px 10px;
 }
 
+.pane-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.history-pane .pane-header,
+.settings-pane .pane-header {
+    margin-bottom: 5px;
+}
+
+.history-pane h3,
+.settings-pane h3 {
+    margin: 0;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.collapse-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 0.8em;
+    color: var(--primary);
+    transition: transform 0.3s;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+}
+
+.collapse-toggle:hover {
+    color: var(--primary-alt);
+}
+
+.collapse-toggle .collapse-icon {
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.collapsed .collapse-toggle .collapse-icon {
+    transform: rotate(-90deg);
+}
+
+.clear-history-button {
+    background-color: var(--primary);
+    border-radius: 50%;
+    border: none;
+    box-shadow: var(--shadow-default);
+    color: var(--dark);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.8em;
+    padding: 5px 10px;
+    transition: 1s;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+}
+
+.clear-history-button:hover {
+    box-shadow: var(--shadow-hover);
+    background-color: red;
+}
+
 @media (max-width: 576px) {
     #search-form {
         flex-wrap: wrap;
@@ -240,6 +312,55 @@ a {
         height: 1.3em;
         flex-shrink: 0;
     }
+
+    .history-pane,
+    .settings-pane {
+        width: auto;
+        margin: 5px;
+        box-sizing: border-box;
+    }
+
+    .pane-header {
+        justify-content: space-between;
+    }
+
+    .collapse-toggle {
+        display: flex;
+        padding: 8px;
+        min-width: 28px;
+        height: 28px;
+    }
+
+    .history-pane.collapsed .history-list-pane,
+    .settings-pane.collapsed > p:not(.pane-header) {
+        display: none;
+    }
+
+    .history-pane.collapsed .clear-history-button,
+    .settings-pane.collapsed .clear-history-button {
+        display: none;
+    }
+
+    .history-pane:not(.collapsed) .clear-history-button,
+    .settings-pane:not(.collapsed) .clear-history-button {
+        display: inline-flex;
+    }
+
+    .history-pane.collapsed .pane-header,
+    .settings-pane.collapsed .pane-header {
+        justify-content: center;
+    }
+
+    .history-pane.collapsed h3,
+    .settings-pane.collapsed h3 {
+        margin: 0 auto;
+    }
+
+    .history-pane:not(.collapsed) .pane-header,
+    .settings-pane:not(.collapsed) .pane-header {
+        justify-content: space-between;
+    }
+}
 }
 
 .help {
@@ -345,14 +466,15 @@ a {
     box-shadow: var(--shadow-default);
     color: var(--dark);
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
     font-size: 0.8em;
     padding: 5px 10px;
-    position: absolute;
-    right: 5px;
-    top: 5px;
     transition: 1s;
     width: auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
 }
 
 .clear-history-button:hover {
