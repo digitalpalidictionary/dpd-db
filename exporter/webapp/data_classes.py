@@ -1,5 +1,4 @@
 from db.models import DpdHeadword, DpdRoot, Lookup
-from tools.configger import config_test
 from tools.date_and_time import year_month_day_dash
 from tools.meaning_construction import (
     make_grammar_line,
@@ -132,3 +131,11 @@ class EpdData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.epd = result.epd_unpack
+
+
+class ManualVariantData:
+    def __init__(self, variant: str, main: str):
+        self.headword = variant
+        self.main = main
+        self.app_name = "dpdict.net"
+        self.date = year_month_day_dash()

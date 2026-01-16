@@ -13,6 +13,7 @@ from exporter.webapp.data_classes import (
     GrammarData,
     HeadwordData,
     HelpData,
+    ManualVariantData,
     RootsData,
     SpellingData,
     VariantData,
@@ -24,6 +25,17 @@ from tools.exporter_functions import (
 )
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from tools.variants_manager import VariantManager
+
+
+_variant_manager: VariantManager | None = None
+
+
+def get_variant_manager() -> VariantManager:
+    global _variant_manager
+    if _variant_manager is None:
+        _variant_manager = VariantManager()
+    return _variant_manager
 
 
 def make_dpd_html(
@@ -35,6 +47,8 @@ def make_dpd_html(
     ascii_to_unicode_dict,
 ) -> tuple[str, str]:
     retries = 3
+    vm = get_variant_manager()
+
     for attempt in range(retries):
         try:
             with get_db_session(pth.dpd_db_path) as db_session:
@@ -48,6 +62,17 @@ def make_dpd_html(
                         .filter(Lookup.lookup_key.ilike(q))
                         .all()
                     )
+
+                    # Check manual variants from TSV first
+                    main_form = vm.get_main(q)
+                    if main_form:
+                        d = ManualVariantData(variant=q, main=main_form)
+                        summary_html += templates.get_template(
+                            pth.template_manual_variant_summary
+                        ).render(d=d)
+                        dpd_html += templates.get_template(
+                            pth.template_manual_variant
+                        ).render(d=d)
 
                     # first try the lookup table, if no results, then try other options
                     if lookup_results:
@@ -232,6 +257,15 @@ def make_dpd_html(
         lookup_results = (
             db_session.query(Lookup).filter(Lookup.lookup_key.ilike(q)).all()
         )
+
+        # Check manual variants from TSV first
+        main_form = vm.get_main(q)
+        if main_form:
+            d = ManualVariantData(variant=q, main=main_form)
+            summary_html += templates.get_template(
+                pth.template_manual_variant_summary
+            ).render(d=d)
+            dpd_html += templates.get_template(pth.template_manual_variant).render(d=d)
 
         # first try the lookup table, if no results, then try other options
 

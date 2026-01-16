@@ -420,6 +420,8 @@ class ProjectPaths:
         self.template_variant = "variant.html"
         self.template_spelling_summary = "spelling_summary.html"
         self.template_spelling = "spelling.html"
+        self.template_manual_variant = "manual_variant.html"
+        self.template_manual_variant_summary = "manual_variant_summary.html"
 
         # identity/
         self.dpd_css_path = base_dir / "identity/css/dpd.css"
