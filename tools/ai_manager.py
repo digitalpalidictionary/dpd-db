@@ -27,7 +27,6 @@ class AIManager:
         ("gemini", "gemini-2.5-flash-lite", 4),
         ("gemini", "gemini-3-flash-preview", 12),
         ("openrouter", "x-ai/grok-4.1-fast", 5),
-        ("openrouter", "kwaipilot/kat-coder-pro:free", 5),
         ("openrouter", "z-ai/glm-4.5-air:free", 5),
         ("openrouter", "qwen/qwen3-235b-a22b:free", 5),
         ("openrouter", "tngtech/deepseek-r1t2-chimera:free", 5),

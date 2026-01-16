@@ -88,7 +88,6 @@ def main():
     output_file = "tools/proofreader.tsv"
     db_path = "dpd.db"
     model = "nvidia/nemotron-3-nano-30b-a3b:free"
-    # model = "kwaipilot/kat-coder-pro:free"
     # model = "xiaomi/mimo-v2-flash:free"
     # model = "google/gemini-2.0-flash-exp:free"
     # model = "mistralai/devstral-2512:free"
