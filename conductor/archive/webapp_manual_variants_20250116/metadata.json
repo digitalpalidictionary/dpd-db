@@ -1,0 +1,8 @@
+{
+  "track_id": "webapp_manual_variants_20250116",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-16T16:30:00Z",
+  "updated_at": "2026-01-16T16:30:00Z",
+  "description": "Add support for manual variant readings from variant_readings.tsv to the webapp, matching GoldenDict behavior"
+}
