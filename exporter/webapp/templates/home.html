@@ -71,8 +71,9 @@
             </div>
             <form id="search-form">
                 <input class="search-box" type="text" name="search" id="search-box" value="{{ search }}"
-                    autocomplete="off" inputmode="text" autocapitalize="off" />
+                    autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
                 <button class="search-button" id="search-button">search</button>
+                <button class="search-button clear-button" id="clear-button">clear</button>
                 <button class="help small-button" id="search-help-button">
                     ?
                     <span class="tooltip velthuis">
@@ -221,12 +222,12 @@
                 <h4>Search for definitions of the term</h4>
                 <form id="bd-search-form-1">
                     <input class="search-box bd-search-box" type="text" name="bd-search-1" id="bd-search-box-1"
-                        value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" />
+                        value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
                 </form>
                 <h4>which contain</h4>
                 <form id="bd-search-form-2">
                     <input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2"
-                        value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" />
+                        value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
                 </form>
                 <h4>within them.</h4>
                 <button class="search-button" id="bd-search-button">search</button>
@@ -296,7 +297,7 @@
                     <div class="tt-search-row">
                         <label class="tt-label">Search for</label>
                         <input class="search-box tt-search-box" type="text" id="tt-search-box" autocomplete="off"
-                            inputmode="text" autocapitalize="off" placeholder="use plain text or regex" />
+                            inputmode="text" autocapitalize="off" placeholder="use plain text or regex" autofocus />
                         <label class="tt-label">in</label>
                         <select id="tt-lang-select" class="tt-select">
                             <option value="Pāḷi">Pāḷi texts</option>
@@ -320,8 +321,6 @@
                         <input class="search-box tt-search-box" type="text" id="tt-filter-box" autocomplete="off"
                             placeholder="use plain text or regex" />
                         <label class="tt-label">in them.</label>
-                        <button type="button" class="search-button" id="tt-clear-button"
-                            style="margin-left: auto;">clear</button>
                     </div>
                 </form>
             </div>

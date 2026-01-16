@@ -15,6 +15,7 @@ const searchBox = document.getElementById("search-box");
 const entryBoxClass = document.getElementsByClassName("search-box");
 const searchForm = document.getElementById("search-form");
 const searchButton = document.getElementById("search-button");
+const clearButton = document.getElementById("clear-button");
 const footerText = document.getElementById("footer");
 
 const themeToggle = document.getElementById("theme-toggle");
@@ -34,22 +35,7 @@ var fontSizeDisplay = document.getElementById("font-size-display");
 let dpdResultsContent = "";
 let language;
 
-//// load state
-
-function loadToggleState(id) {
-  var savedState = localStorage.getItem(id);
-  if (savedState !== null) {
-    document.getElementById(id).checked = JSON.parse(savedState);
-  }
-}
-
-//// Page load
-document.addEventListener("DOMContentLoaded", function () {
-  const htmlElement = document.documentElement;
-  language = htmlElement.lang || "en";
-  let startMessage;
-
-  startMessage = `
+const startMessage = `
         <p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
         <p class="message"><b>Double click</b> on any word to search for it.</p>
         <p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
@@ -63,6 +49,20 @@ document.addEventListener("DOMContentLoaded", function () {
         <p class="message">Start by <b>double clicking</b> on any word in the list below:</p>
         <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
         `;
+
+//// load state
+
+function loadToggleState(id) {
+  var savedState = localStorage.getItem(id);
+  if (savedState !== null) {
+    document.getElementById(id).checked = JSON.parse(savedState);
+  }
+}
+
+//// Page load
+document.addEventListener("DOMContentLoaded", function () {
+  const htmlElement = document.documentElement;
+  language = htmlElement.lang || "en";
 
   if (dpdResults.innerHTML.trim() === "") {
     dpdResults.innerHTML = startMessage;
@@ -414,4 +414,14 @@ searchBox.addEventListener("input", function () {
   let textInput = searchBox.value;
   let convertedText = uniCoder(textInput);
   searchBox.value = convertedText;
+});
+
+clearButton.addEventListener("click", function () {
+  searchBox.value = "";
+  dpdResults.innerHTML = startMessage;
+  summaryResults.innerHTML = "";
+  if (typeof appState !== "undefined") {
+    appState.dpd.searchTerm = "";
+  }
+  searchBox.focus();
 });
