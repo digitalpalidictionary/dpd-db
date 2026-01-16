@@ -1,1 +1,32 @@
-{}
+{
+    "sajjati": {
+        "source_1": "sn10.1:2.4",
+        "sutta_1": "kathaṃ nvayaṃ sajjati gabbharasmin”ti. ",
+        "example_1": "How does this one coalesce in the womb?” ",
+        "comment": "coalesces; aggregates"
+    },
+    "sānu": {
+        "source_1": "sn10.5:1.2",
+        "sutta_1": "tena kho pana samayena aññatarissā upāsikāya sānu nāma putto yakkhena gahito hoti. ",
+        "example_1": "Now at that time a certain lay woman had a son named Sānu who had been seized by a native spirit. ",
+        "comment": "son named Sānu who had been seized by a native spirit. "
+    },
+    "bhaddante": {
+        "source_1": "sn10.5:11.1",
+        "sutta_1": "abhidhāvatha bhaddante, ",
+        "example_1": "Hurry up, good luck to you! ",
+        "comment": "dear; beloved"
+    },
+    "nibhataṃ": {
+        "source_1": "SN10.5",
+        "sutta_1": "yakkhasaṃyuttaṃ, sānusuttaṃ",
+        "example_1": "abhidhāvatha bhaddante,\nkassa ujjhāpayāmase,\nādittā nīhataṃ [nibbhataṃ,\nnibhataṃ] bhaṇḍaṃ,\npuna ḍayhitumicchasīti.",
+        "comment": "add this eg to nibbhata"
+    },
+    "jālini": {
+        "source_1": "sn9.6:6.2",
+        "sutta_1": "devakāyasmi jālini; ",
+        "example_1": "there are no more abodes for me in the host of gods. ",
+        "comment": "name of a deity"
+    }
+}

@@ -137,3 +137,38 @@
     'comment': 'This entry refers to the second Sutta named after Moggallāna within the Saṃyutta Nikāya, specifically within the Abyākata Saṃyutta (SN 44). The literal meaning is "Moggallāna's Sutta".'
 }
 
+{
+    'id': 62257,
+    'lemma_1': 'sānu 2',
+    'lemma_2': 'sānu',
+    'pos': 'masc',
+    'grammar': 'masc',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'name of a spirit',
+    'meaning_2': 'Sānu (name of a yakkha)',
+    'meaning_lit': 'plateau',
+    'non_ia': '',
+    'sanskrit': '',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': '',
+    'family_idioms': '',
+    'family_set': 'names of deities',
+    'construction': '',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': '',
+    'compound_construction': '',
+    'stem': 'sān',
+    'pattern': 'u masc',
+    'comment': 'The contextual sentence shows Sānu as the object of the yakkhas' action (kīḷanti, 'are playing/messing with'), indicating it is a proper noun referring to a specific spirit or place. The meaning 'plateau' is a literal Sanskrit/Pāḷi etymology, but the context shows it is used as a name.'
+}
+
