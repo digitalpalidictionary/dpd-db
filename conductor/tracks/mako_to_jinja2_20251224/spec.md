@@ -72,3 +72,15 @@ This track aims to modernize the Digital Pāḷi Dictionary (DPD) project by ref
 - Modifying the data models or database schema
 - Changes to the core database logic
 - Performance optimizations beyond the natural benefits of Jinja2
+
+## Real Issues to Address
+
+1. **Syntax Translation Complexity:** The conversion from Mako `${var}` and `% if condition:` to Jinja2 `{{var}}` and `{% if condition %}` requires careful handling.
+
+2. **Template Logic Consistency:** Ensuring all conditional logic, loops, and expressions work identically after conversion.
+
+3. **Testing and Verification:** Making sure the output remains functionally identical after conversion with proper test coverage.
+
+## Assumptions Validated
+
+- The multiprocessing architecture in `goldendict/export_dpd.py` does NOT have serialization issues, as templates are created locally in each child process rather than being passed between processes.
