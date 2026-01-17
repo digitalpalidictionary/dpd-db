@@ -40,12 +40,12 @@
 - [x] Task: Increase margin between dictionary entries for better readability
 
 ## Phase 7: Mobile Double-Tap Search
-- [ ] Task: Improve double-tap/double-click search functionality on mobile
+- [x] Task: Improve double-tap/double-click search functionality on mobile
 
 ## Phase 8: Final Testing & Verification
-- [ ] Task: Run all tests with `CI=true pytest`
-- [ ] Task: Verify layout on Pixel 9 (~412px viewport)
-- [ ] Task: Verify layout on iPhone Pro Max (~430px viewport)
-- [ ] Task: Run `uv run ruff check` for linting
-- [ ] Task: Run `uv run ruff format` for formatting
-- [ ] Task: Conductor - User Manual Verification 'Final Testing & Verification' (Protocol in workflow.md)
+- [x] Task: Run all tests with `CI=true pytest`
+- [x] Task: Verify layout on Pixel 9 (~412px viewport)
+- [x] Task: Verify layout on iPhone Pro Max (~430px viewport)
+- [x] Task: Run `uv run ruff check` for linting
+- [x] Task: Run `uv run ruff format` for formatting
+- [x] Task: Conductor - User Manual Verification 'Final Testing & Verification' (Protocol in workflow.md)

@@ -11,6 +11,7 @@ To be the world's most precise, comprehensive, and accessible digital resource f
 ## Core Features & Functionality
 - **Word-by-Word Analysis:** Every word in the CST4 Pāḷi corpus is analyzed for its root, case, gender, and construction.
 - **Compound Deconstructor:** A sophisticated engine (Python/Go) that breaks down complex Pāḷi compounds into their constituent parts.
+- **Mobile-Optimized Webapp:** Responsive design with double-tap-to-lookup, collapsible panels, and touch-optimized interactions for a seamless experience on smartphones.
 - **Multi-Format Exporters:** Automated pipelines that generate production-ready dictionary files for GoldenDict, MDict, Kindle, Kobo, and PDF (via Typst).
 - **Modern GUI:** A Flet-based interface for lexicographers to add, edit, and verify data with real-time integrity checks.
 - **Audio Integration:** Synthesized and recorded Pāḷi pronunciations integrated directly into the lookup experience.
