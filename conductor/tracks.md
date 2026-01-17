@@ -7,7 +7,4 @@
 
 ## [ ] Track: Database Query Tab Feature
 *Link: [./conductor/tracks/db_query_tab_20251231/](./conductor/tracks/db_query_tab_20251231/)*
----
 
-## [ ] Track: Speech Marks Unification
-*Link: [./conductor/tracks/speech_marks_unification_20260117/](./conductor/tracks/speech_marks_unification_20260117/)*---

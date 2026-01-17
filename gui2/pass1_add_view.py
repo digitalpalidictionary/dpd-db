@@ -7,7 +7,7 @@ from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.mixins import PopUpMixin
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
-from tools.sandhi_contraction import SandhiContractionManager
+from tools.speech_marks import SpeechMarkManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -39,10 +39,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.db: DatabaseManager = self.toolkit.db_manager
         self.controller = Pass1AddController(self, self.toolkit, pass1_auto_controller)
         self.dpd_fields: DpdFields
-        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
+        self.speech_marks_manager: SpeechMarkManager = (
+            self.toolkit.speech_marks_manager
+        )
         self.history_manager = self.toolkit.history_manager
         self.history_manager.register_refresh_callback(self._update_history_dropdown)
-        self.sandhi_dict = self.sandhi_manager.get_sandhi_contractions_simple()
+        self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
         self.test_manager: GuiTestManager = self.toolkit.test_manager
 
         # --- Top Section Controls ---

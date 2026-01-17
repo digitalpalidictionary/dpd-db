@@ -3,9 +3,10 @@
 import re
 
 from tools.pali_alphabet import pali_alphabet
+from tools.speech_marks import SpeechMarkManager
 
 
-def replace_sandhi(text: str, sandhi_dict: dict, hyphenations_dict: dict) -> str:
+def replace_speech_marks(text: str, speech_marks_manager: SpeechMarkManager) -> str:
     """Replace Sandhi and hypenated words."""
 
     pali_alphabet_string = "".join(pali_alphabet)
@@ -13,11 +14,15 @@ def replace_sandhi(text: str, sandhi_dict: dict, hyphenations_dict: dict) -> str
 
     for i in range(len(splits)):
         word = splits[i]
-        if word in sandhi_dict:
-            splits[i] = "//".join(sandhi_dict[word]["contractions"])
+        # Skip empty strings
+        if not word:
+            continue
 
-        if word in hyphenations_dict:
-            splits[i] = hyphenations_dict[word]
+        # Check variants in unified manager
+        if speech_marks_manager.has_variants(word):
+            variants = speech_marks_manager.get_variants(word)
+            if variants:
+                splits[i] = "//".join(variants)
 
     text = "".join(splits)
 

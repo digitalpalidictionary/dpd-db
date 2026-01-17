@@ -17,13 +17,10 @@ from tools.paths import ProjectPaths
 from tools.pali_alphabet import pali_alphabet
 from tools.printer import printer as pr
 from tools.db_search_string import db_search_string
+from tools.speech_marks import SpeechMarkManager
 
 max_length = 20
 only_do_hyphenated_words = True
-# True max_length =  20
-# True only finds existing hyphenated words
-# False max_length = 29
-# False finds all long words for hyphenation
 
 
 class GlobalVars:
@@ -33,7 +30,8 @@ class GlobalVars:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db = self.db_session.query(DpdHeadword).all()
-        self.hyphenations_dict: dict[str, str] = self.load_hyphenations_dict()
+        self.speech_marks_manager = SpeechMarkManager()
+        self.hyphenations_dict = self.speech_marks_manager.get_speech_marks()
 
         self.clean_words_dict: dict
         self.hyphenated_words_dict: dict
@@ -47,24 +45,16 @@ class GlobalVars:
 
         self.yes_no: str = "[white]y[green]es [white]n[green]o "
 
-    def load_hyphenations_dict(self):
-        if self.pth.hyphenations_dict_path.exists():
-            with open(self.pth.hyphenations_dict_path) as file:
-                return json.load(file)
-        else:
-            return {}
-
     def save_hyphenations_dict(self):
-        with open(self.pth.hyphenations_dict_path, "w") as file:
-            json.dump(self.hyphenations_dict, file, ensure_ascii=False, indent=2)
+        self.speech_marks_manager.save()
 
     def update_hyphenations_dict(self, clean_word, dirty_word):
         if clean_word in self.hyphenations_dict:
-            print("[red]replacing entry in [white]test_hyphenations.json")
+            print("[red]replacing entry in [white]speech_marks.json")
             print(f"{clean_word}: {self.hyphenations_dict[clean_word]}")
             print("[red]with")
             print(f"[light_green]{clean_word}: {dirty_word}")
-        self.hyphenations_dict[clean_word] = dirty_word
+        self.speech_marks_manager.update_variants(clean_word, dirty_word)
         self.save_hyphenations_dict()
 
 

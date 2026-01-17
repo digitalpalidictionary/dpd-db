@@ -27,7 +27,7 @@ from tools.goldendict_exporter import (
 from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractionManager
+from tools.speech_marks import SpeechMarkManager
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
 
@@ -35,8 +35,8 @@ class GlobalVars:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
-        self.sandhi_finder = SandhiContractionManager()
-        self.sandhi_contractions = self.sandhi_finder.get_sandhi_contractions_simple()
+        self.speech_marks_manager = SpeechMarkManager()
+        self.speech_marks = self.speech_marks_manager.get_speech_marks()
         self.cf_set: set = load_cf_set()
         self.idioms_set: set = load_idioms_set()
         self.roots_count_dict = make_roots_count_dict(self.db_session)
@@ -66,7 +66,7 @@ def main():
     dpd_data_list, sizes = generate_dpd_html(
         g.db_session,
         g.pth,
-        g.sandhi_contractions,
+        g.speech_marks,
         g.cf_set,
         g.idioms_set,
         g.data_limit,

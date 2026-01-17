@@ -639,8 +639,7 @@ class ProjectPaths:
         self.temp_dir = base_dir / "temp/"
 
         # tools
-        self.sandhi_contractions_path = base_dir / "tools/sandhi_contractions.json"
-        self.hyphenations_dict_path = base_dir / "tools/hyphenations.json"
+        self.speech_marks_path = base_dir / "tools/speech_marks.json"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
 
         # db_tests/

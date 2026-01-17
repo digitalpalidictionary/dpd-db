@@ -25,9 +25,8 @@ class ToolKit:
         from gui2.variants import VariantReadingFileManager
         from tools.ai_manager import AIManager
         from tools.bold_definitions_search import BoldDefinitionsSearchManager
-        from tools.hyphenations import HyphenationFileManager
         from tools.proofreader import ProofreaderManager
-        from tools.sandhi_contraction import SandhiContractionManager
+        from tools.speech_marks import SpeechMarkManager
         from tools.wordfinder_manager import WordFinderManager
 
         self.page: ft.Page = page
@@ -37,9 +36,8 @@ class ToolKit:
         self.paths: Gui2Paths = Gui2Paths()
         self.db_test_manager: DbTestManager = DbTestManager()
         self.test_manager: GuiTestManager = GuiTestManager(self)
-        self.sandhi_manager: SandhiContractionManager = SandhiContractionManager()
+        self.speech_marks_manager: SpeechMarkManager = SpeechMarkManager()
 
-        self.hyphenation_manager: HyphenationFileManager = HyphenationFileManager()
         self.history_manager: HistoryManager = HistoryManager(self)
         self.ai_manager: AIManager = AIManager()
         self.db_manager: DatabaseManager = DatabaseManager()

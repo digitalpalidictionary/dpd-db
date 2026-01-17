@@ -1,10 +1,9 @@
 import re
 
 from db.models import DpdHeadword
-from tools.hyphenations import HyphenationsDict
 from tools.pali_alphabet import pali_alphabet
 from tools.pos import INDECLINABLES
-from tools.sandhi_contraction import SandhiContractionDict
+from tools.speech_marks import SpeechMarkManager
 
 
 def clean_lemma_1(lemma_1: str) -> str:
@@ -360,21 +359,21 @@ def make_dpd_headword_from_dict(field_data: dict[str, str]) -> DpdHeadword:
     return new_word
 
 
-def clean_sandhi(
+def clean_speech_marks(
     text: str,
-    sandhi_dict: SandhiContractionDict,
-    hyphenation_dict: HyphenationsDict,
+    speech_marks_manager: SpeechMarkManager,
 ) -> str:
     pali_alphabet_string = "".join(pali_alphabet)
     splits = re.split(f"([^{pali_alphabet_string}])", text)
 
     for i in range(len(splits)):
         word = splits[i]
-        if word in sandhi_dict:
-            splits[i] = "//".join(sandhi_dict[word])
+        if not word:
+            continue
 
-        if word in hyphenation_dict:
-            splits[i] = hyphenation_dict[word]
+        variants = speech_marks_manager.get_variants(word)
+        if variants:
+            splits[i] = "//".join(variants)
 
     return "".join(splits)
 
@@ -414,19 +413,17 @@ def clean_text(text: str) -> str:
 
 def clean_commentary(
     text: str,
-    sandhi_dict: SandhiContractionDict,
-    hyphenation_dict: HyphenationsDict,
+    speech_marks_manager: SpeechMarkManager,
 ) -> str:
-    text = clean_sandhi(text, sandhi_dict, hyphenation_dict)
+    text = clean_speech_marks(text, speech_marks_manager)
     text = clean_text(text)
     return text
 
 
 def clean_example(
     text: str,
-    sandhi_dict: SandhiContractionDict,
-    hyphenation_dict: HyphenationsDict,
+    speech_marks_manager: SpeechMarkManager,
 ) -> str:
-    text = clean_sandhi(text, sandhi_dict, hyphenation_dict)
+    text = clean_speech_marks(text, speech_marks_manager)
     text = clean_text(text)
     return text

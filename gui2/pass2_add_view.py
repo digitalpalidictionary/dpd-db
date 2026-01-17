@@ -22,8 +22,7 @@ from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
 from tools.fast_api_utils import request_dpd_server
-from tools.hyphenations import HyphenationFileManager, HyphenationsDict
-from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
+from tools.speech_marks import SpeechMarkManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -54,16 +53,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.test_manager: GuiTestManager = self.toolkit.test_manager
         self.toolkit: ToolKit = toolkit
 
-        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
-        self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.sandhi_contractions_simple
+        self.speech_marks_manager: SpeechMarkManager = (
+            self.toolkit.speech_marks_manager
         )
-        self.hyphenations_manager: HyphenationFileManager = (
-            self.toolkit.hyphenation_manager
-        )
-        self.hyphenation_dict: HyphenationsDict = (
-            self.hyphenations_manager.hyphenations_dict
-        )
+        self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
         self.history_manager = self.toolkit.history_manager
         self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.corrections_manager = self.toolkit.corrections_manager
@@ -134,8 +127,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._clear_all_button = ft.ElevatedButton(
             "Clear All", on_click=self._click_clear_all
         )
-        self.update_sandhi_button = ft.ElevatedButton(
-            "Update Sandhi", on_click=self._click_update_sandhi
+        self.update_speech_marks_button = ft.ElevatedButton(
+            "Update Speech Marks", on_click=self._click_update_sandhi
         )
         self._update_with_ai_button = ft.ElevatedButton(
             "AiAutofill", on_click=self._click_update_with_ai
@@ -187,7 +180,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._additions_button,
                             self._pread_button,
                             self._clear_all_button,
-                            self.update_sandhi_button,
+                            self.update_speech_marks_button,
                             self._update_with_ai_button,
                             self._history_dropdown,
                         ],
@@ -432,9 +425,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.clear_all_fields()
 
     def _click_update_sandhi(self, e: ft.ControlEvent) -> None:
-        self.update_message("updating sandhi... please wait...")
-        self.sandhi_dict = self.sandhi_manager.regenerate_contractions_simple()
-        self.update_message("sandhi updated")
+        self.update_message("updating speech marks... please wait...")
+        self.speech_marks_manager.regenerate_from_db()
+        self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
+        self.update_message("speech marks updated")
 
     def _handle_filter_change(self, e: ft.ControlEvent) -> None:
         """Handles changes in the field filter RadioGroup."""

@@ -30,9 +30,8 @@ from gui2.dpd_fields_notes import DpdNotesField
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
 from tools.fuzzy_tools import find_closest_matches
-from tools.hyphenations import HyphenationFileManager, HyphenationsDict
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
-from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
+from tools.speech_marks import SpeechMarkManager
 from tools.spelling import CustomSpellChecker
 
 DpdFieldType = Union[
@@ -66,16 +65,8 @@ class DpdFields(PopUpMixin):
         self.spellchecker = CustomSpellChecker()
         self.toolkit: ToolKit = toolkit
 
-        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
-        self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.sandhi_contractions_simple
-        )
-        self.hyphenations_manager: HyphenationFileManager = (
-            self.toolkit.hyphenation_manager
-        )
-        self.hyphenation_dict: HyphenationsDict = (
-            self.hyphenations_manager.hyphenations_dict
-        )
+        self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
+        self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
         self.simple_examples = simple_examples  # Store the flag
 
         # Fetch compound types (ensure db is initialized first if needed)

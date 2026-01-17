@@ -13,8 +13,7 @@ from tools.cst_source_sutta_example import (
     CstSourceSuttaExample,
     find_cst_source_sutta_example,
 )
-from tools.hyphenations import HyphenationFileManager, HyphenationsDict
-from tools.sandhi_contraction import SandhiContractionDict, SandhiContractionManager
+from tools.speech_marks import SpeechMarkManager
 
 book_codes: dict[str, str] = {
     # vinaya
@@ -132,17 +131,10 @@ class DpdExampleField(ft.Column):
 
         self.toolkit: ToolKit = toolkit
 
-        self.sandhi_manager: SandhiContractionManager = self.toolkit.sandhi_manager
-        self.sandhi_dict: SandhiContractionDict = (
-            self.sandhi_manager.sandhi_contractions_simple
+        self.speech_marks_manager: SpeechMarkManager = (
+            self.toolkit.speech_marks_manager
         )
-
-        self.hyphenation_manager: HyphenationFileManager = (
-            self.toolkit.hyphenation_manager
-        )
-        self.hyphenation_dict: HyphenationsDict = (
-            self.hyphenation_manager.hyphenations_dict
-        )
+        self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
 
         self.simple_mode = simple_mode
         self.stash_manager = ExampleStashManager(self.ui.toolkit)
@@ -228,7 +220,7 @@ class DpdExampleField(ft.Column):
             # Action buttons row (initially hidden)
             self._actions_row = ft.Row(
                 [
-                    ft.ElevatedButton("Clean", on_click=self.click_clean_example),
+                    ft.ElevatedButton("Add '-", on_click=self.click_clean_example),
                     ft.ElevatedButton("Delete", on_click=self.click_delete_example),
                     ft.ElevatedButton("Swap", on_click=self.click_swap_example),
                     ft.ElevatedButton("Stash", on_click=self._click_stash_example),
@@ -338,10 +330,9 @@ class DpdExampleField(ft.Column):
     def _handle_hyphens_and_apostrophes(self, text):
         text_list: list[str] = split_pali_sentence_into_words(text)
         for word in text_list:
-            if "-" in word:
-                self.hyphenation_manager.update_hyphenations_dict(word)
-            elif "'" in word:
-                self.sandhi_manager.update_sandhi_contractions(word)
+            if "-" in word or "'" in word:
+                clean_word = word.replace("-", "").replace("'", "")
+                self.speech_marks_manager.update_variants(clean_word, word)
 
     def click_book_and_word(self, e: ft.ControlEvent):
         self.word_to_find_field.error_text = None
@@ -457,9 +448,7 @@ class DpdExampleField(ft.Column):
         source, sutta, example = self.get_fields()
         source.value = cst_example.source
         sutta.value = cst_example.sutta
-        example.value = clean_example(
-            cst_example.example, self.sandhi_dict, self.hyphenation_dict
-        )
+        example.value = clean_example(cst_example.example, self.speech_marks_manager)
         self.page.update()
 
     def click_bold_example(self, e: ft.ControlEvent):
@@ -471,7 +460,7 @@ class DpdExampleField(ft.Column):
 
     def click_clean_example(self, e: ft.ControlEvent):
         if self.value:
-            self.value = self.value.replace("<b>", "").replace("</b>", "")
+            self.value = clean_example(self.value, self.speech_marks_manager)
             self.update()
 
     def click_swap_example(self, e: ft.ControlEvent):
