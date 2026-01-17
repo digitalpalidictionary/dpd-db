@@ -5279,15 +5279,165 @@
         ],
         "jālini": [
             28398
+        ],
+        "nibbattatī": [
+            37537
+        ],
+        "khandhajā": [
+            75083
+        ],
+        "puttakaṃ": [
+            46627,
+            46628
+        ],
+        "tosesi": [
+            31364,
+            31368
+        ],
+        "kari": [
+            20499,
+            20501,
+            20515
+        ],
+        "muccema": [
+            52825
+        ],
+        "puttake": [
+            46627,
+            46628
+        ],
+        "uttarike": [
+            14716
+        ],
+        "punabbasu": [
+            46746
+        ],
+        "sako": [
+            56272
+        ],
+        "pati": [
+            41718,
+            77695
+        ],
+        "magganā": [
+            50522
+        ],
+        "punabbasūti": [
+            46746
+        ],
+        "tuṇhībhūtāyamuttarā": [
+            8711,
+            8712,
+            14666,
+            14667,
+            14679,
+            76292,
+            76310,
+            80941
+        ],
+        "carāmase": [
+            26279
+        ],
+        "sammūḷhānaṃ": [
+            60923
+        ],
+        "uttarāpi": [
+            14666,
+            14667,
+            14679,
+            76292,
+            76310,
+            80941
+        ],
+        "sudattasuttaṃ": [
+            63867
+        ],
+        "satiyā": [
+            57661
+        ],
+        "nipajji": [
+            37374
+        ],
+        "pabhātanti": [
+            42591
+        ],
+        "vivariṃsu": [
+            69563
+        ],
+        "nikkhamantassa": [
+            36776
+        ],
+        "andhakāro": [
+            75641
+        ],
+        "sivako": [
+            76189,
+            76322
+        ],
+        "sīvako": [
+            76321
+        ],
+        "assā": [
+            10033
+        ],
+        "kalaṃ": [
+            20569
+        ],
+        "abhikkama": [
+            7570
+        ],
+        "paṭikkamananti": [
+            40249
+        ],
+        "nāmena": [
+            83214
+        ],
+        "hadaye": [
+            70948
+        ],
+        "sukkā": [
+            63412
+        ],
+        "sukkāya": [
+            63412
+        ],
+        "katā": [
+            19598
+        ],
+        "sukkaṃ": [
+            63412
+        ],
+        "valāhakamivaddhagūti": [
+            66411,
+            20197,
+            66152
+        ],
+        "adāsi": [
+            2836
+        ],
+        "cirāya": [
+            26798,
+            26799
+        ],
+        "āḷavakasuttaṃ": [
+            13294
         ]
     },
     "matched": {
-        "sānunāti": {
-            "id": 62257,
+        "sabbayogehi": {
+            "id": 58934,
             "sentence": [
-                "sn10.5:3.6",
-                "yakkhā kīḷanti sānunā”ti. ",
-                "native spirits messing with Sānu.” "
+                "sn10.11:2.4",
+                "sabbayogehi vippamuttiyā”ti. ",
+                "who is released from all yokes.” "
+            ]
+        },
+        "āḷavakasuttaṃ": {
+            "id": 13293,
+            "sentence": [
+                "SN10.12",
+                "yakkhasaṃyuttaṃ, āḷavakasuttaṃ",
+                "12. āḷavakasuttaṃ"
             ]
         }
     },
@@ -6368,6 +6518,38 @@
         "ḍayhitumicchasīti",
         "piyaṅkarasuttaṃ",
         "piyaṅkaramātā",
-        "indako"
+        "indako",
+        "sānunāti",
+        "suddhikasuttaṃ",
+        "moggallānasuttaṃ",
+        "sakkanāmasuttaṃ",
+        "anukampituṃ",
+        "kukkuḷā",
+        "piyaṅkara",
+        "vijāniya",
+        "saṃyamāmase",
+        "pisācayoniyāti",
+        "punabbasusuttaṃ",
+        "punabbasumātā",
+        "punabbasu",
+        "piyāyanā",
+        "jarāmaraṇasaṃyute",
+        "abhisambudhaṃ",
+        "sotumicchāmi",
+        "tuṇhībhūtāyamuttarā",
+        "uresayo",
+        "uttarāpi",
+        "sudattasuttaṃ",
+        "tāvadeva",
+        "sivathikadvāraṃ",
+        "sīvathikadvāraṃ",
+        "kaññāsahassāni",
+        "abhikkamanaṃ",
+        "paṭhamasukkāsuttaṃ",
+        "seyare",
+        "panthagūti",
+        "dutiyasukkāsuttaṃ",
+        "vippamuttiyāti",
+        "cīrāsuttaṃ"
     ]
 }

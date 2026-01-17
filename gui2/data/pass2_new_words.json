@@ -28,5 +28,41 @@
         "sutta_1": "devakāyasmi jālini; ",
         "example_1": "there are no more abodes for me in the host of gods. ",
         "comment": "name of a deity"
+    },
+    "tosesi": {
+        "source_1": "sn10.6:1.3",
+        "sutta_1": "atha kho piyaṅkaramātā yakkhinī puttakaṃ evaṃ tosesi: ",
+        "example_1": "Then the native spirit Piyaṅkara’s Mother soothed her little child, saying: ",
+        "comment": "soothed; calmed; comforted; consoled"
+    },
+    "uttarike": {
+        "source_1": "sn10.7:2.1",
+        "sutta_1": "“tuṇhī uttarike hohi, ",
+        "example_1": "“Hush, little Uttarā! ",
+        "comment": "name of a young daemon"
+    },
+    "tuṇhībhūtāyamuttarā": {
+        "source_1": "sn10.7:7.2",
+        "sutta_1": "tuṇhībhūtāyamuttarā; ",
+        "example_1": "and Uttarā is silent, too. ",
+        "comment": "add eg to uttarā 3"
+    },
+    "sīvako": {
+        "source_1": "SN10.8",
+        "sutta_1": "yakkhasaṃyuttaṃ, sudattasuttaṃ",
+        "example_1": "atha kho anāthapiṇḍikassa gahapatissa nagaramhā nikkhamantassa āloko antaradhāyi, andhakāro pāturahosi, bhayaṃ chambhitattaṃ lomahaṃso udapādi, tatova puna nivattitukāmo ahosi. atha kho sivako [sīvako] yakkho antarahito saddamanussāvesi –",
+        "comment": "daemon"
+    },
+    "paṭikkamananti": {
+        "source_1": "sn10.8:3.4",
+        "sutta_1": "no paṭikkamanan”ti. ",
+        "example_1": "not turning back!” ",
+        "comment": "add to paṭikkamana 1"
+    },
+    "cirāya": {
+        "source_1": "SN10.11",
+        "sutta_1": "yakkhasaṃyuttaṃ, cīrāsuttaṃ",
+        "example_1": "evaṃ me sutaṃ, ekaṃ samayaṃ bhagavā rājagahe viharati veḷuvane kalandakanivāpe. tena kho pana samayena aññataro upāsako cīrāya [cirāya] bhikkhuniyā cīvaraṃ adāsi. atha kho cīrāya bhikkhuniyā abhippasanno yakkho rājagahe rathikāya rathikaṃ siṅghāṭakena siṅghāṭakaṃ upasaṅkamitvā tāyaṃ velāyaṃ imaṃ gāthaṃ abhāsi –",
+        "comment": "syn with cīrā"
     }
 }
