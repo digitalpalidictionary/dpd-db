@@ -698,16 +698,71 @@ document.addEventListener("DOMContentLoaded", function () {
         // Prevent default behavior (like zooming)
         event.preventDefault();
 
-        // Get the selection and process it
-        const selection = window.getSelection().toString();
+        // Helper function to get word under point
+        const getWordAtPoint = (x, y) => {
+          let range;
+          if (document.caretRangeFromPoint) {
+            range = document.caretRangeFromPoint(x, y);
+          } else if (document.caretPositionFromPoint) {
+            const pos = document.caretPositionFromPoint(x, y);
+            range = document.createRange();
+            range.setStart(pos.offsetNode, pos.offset);
+            range.collapse(true);
+          }
+
+          if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+            // Expand range to word boundaries
+            const textNode = range.startContainer;
+            const text = textNode.textContent;
+            let start = range.startOffset;
+            let end = range.startOffset;
+
+            // Move start back to beginning of word
+            while (start > 0 && /[\w\u0080-\uFFFF]/.test(text.charAt(start - 1))) {
+              start--;
+            }
+            // Move end forward to end of word
+            while (end < text.length && /[\w\u0080-\uFFFF]/.test(text.charAt(end))) {
+              end++;
+            }
+
+            if (start < end) {
+              const wordRange = document.createRange();
+              wordRange.setStart(textNode, start);
+              wordRange.setEnd(textNode, end);
+              return { word: text.substring(start, end), range: wordRange };
+            }
+          }
+          return null;
+        };
+
+        // Try to get existing selection first
+        let selection = window.getSelection().toString();
+        let wordToSearch = "";
+
         if (selection.trim() !== "") {
+          wordToSearch = selection;
+        } else {
+          // If no selection, try to identify word at tap point
+          const touch = event.changedTouches[0];
+          const result = getWordAtPoint(touch.clientX, touch.clientY);
+          if (result) {
+            wordToSearch = result.word;
+            // Visually select the word
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(result.range);
+          }
+        }
+
+        if (wordToSearch.trim() !== "") {
           // Update appState before calling performSearch to prevent flashing
           if (typeof appState !== "undefined" && appState.activeTab === "dpd") {
-            appState.dpd.searchTerm = selection;
+            appState.dpd.searchTerm = wordToSearch;
           }
           const searchBox = document.getElementById("search-box");
           if (searchBox) {
-            searchBox.value = selection;
+            searchBox.value = wordToSearch;
             performSearch();
           }
         }
@@ -727,16 +782,71 @@ document.addEventListener("DOMContentLoaded", function () {
         // Prevent default behavior (like zooming)
         event.preventDefault();
 
-        // Get the selection and process it
-        const selection = window.getSelection().toString();
+        // Helper function to get word under point
+        const getWordAtPoint = (x, y) => {
+          let range;
+          if (document.caretRangeFromPoint) {
+            range = document.caretRangeFromPoint(x, y);
+          } else if (document.caretPositionFromPoint) {
+            const pos = document.caretPositionFromPoint(x, y);
+            range = document.createRange();
+            range.setStart(pos.offsetNode, pos.offset);
+            range.collapse(true);
+          }
+
+          if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+            // Expand range to word boundaries
+            const textNode = range.startContainer;
+            const text = textNode.textContent;
+            let start = range.startOffset;
+            let end = range.startOffset;
+
+            // Move start back to beginning of word
+            while (start > 0 && /[\w\u0080-\uFFFF]/.test(text.charAt(start - 1))) {
+              start--;
+            }
+            // Move end forward to end of word
+            while (end < text.length && /[\w\u0080-\uFFFF]/.test(text.charAt(end))) {
+              end++;
+            }
+
+            if (start < end) {
+              const wordRange = document.createRange();
+              wordRange.setStart(textNode, start);
+              wordRange.setEnd(textNode, end);
+              return { word: text.substring(start, end), range: wordRange };
+            }
+          }
+          return null;
+        };
+
+        // Try to get existing selection first
+        let selection = window.getSelection().toString();
+        let wordToSearch = "";
+
         if (selection.trim() !== "") {
+          wordToSearch = selection;
+        } else {
+          // If no selection, try to identify word at tap point
+          const touch = event.changedTouches[0];
+          const result = getWordAtPoint(touch.clientX, touch.clientY);
+          if (result) {
+            wordToSearch = result.word;
+            // Visually select the word
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(result.range);
+          }
+        }
+
+        if (wordToSearch.trim() !== "") {
           // Update appState before calling performSearch to prevent flashing
           if (typeof appState !== "undefined" && appState.activeTab === "dpd") {
-            appState.dpd.searchTerm = selection;
+            appState.dpd.searchTerm = wordToSearch;
           }
           const searchBox = document.getElementById("search-box");
           if (searchBox) {
-            searchBox.value = selection;
+            searchBox.value = wordToSearch;
             performSearch();
           }
         }
@@ -758,9 +868,64 @@ document.addEventListener("DOMContentLoaded", function () {
         // Prevent default behavior (like zooming)
         event.preventDefault();
 
-        // Get the selection and process it
-        const selection = window.getSelection().toString();
+        // Helper function to get word under point (replicated to ensure scope availability)
+        const getWordAtPoint = (x, y) => {
+          let range;
+          if (document.caretRangeFromPoint) {
+            range = document.caretRangeFromPoint(x, y);
+          } else if (document.caretPositionFromPoint) {
+            const pos = document.caretPositionFromPoint(x, y);
+            range = document.createRange();
+            range.setStart(pos.offsetNode, pos.offset);
+            range.collapse(true);
+          }
+
+          if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+            // Expand range to word boundaries
+            const textNode = range.startContainer;
+            const text = textNode.textContent;
+            let start = range.startOffset;
+            let end = range.startOffset;
+
+            // Move start back to beginning of word
+            while (start > 0 && /[\w\u0080-\uFFFF]/.test(text.charAt(start - 1))) {
+              start--;
+            }
+            // Move end forward to end of word
+            while (end < text.length && /[\w\u0080-\uFFFF]/.test(text.charAt(end))) {
+              end++;
+            }
+
+            if (start < end) {
+              const wordRange = document.createRange();
+              wordRange.setStart(textNode, start);
+              wordRange.setEnd(textNode, end);
+              return { word: text.substring(start, end), range: wordRange };
+            }
+          }
+          return null;
+        };
+
+        // Try to get existing selection first
+        let selection = window.getSelection().toString();
+        let wordToSearch = "";
+
         if (selection.trim() !== "") {
+          wordToSearch = selection;
+        } else {
+          // If no selection, try to identify word at tap point
+          const touch = event.changedTouches[0];
+          const result = getWordAtPoint(touch.clientX, touch.clientY);
+          if (result) {
+            wordToSearch = result.word;
+            // Visually select the word
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(result.range);
+          }
+        }
+
+        if (wordToSearch.trim() !== "") {
           // Switch to BD tab if not already active
           if (typeof appState !== "undefined" && appState.activeTab !== "bd") {
             switchTab("bd");
@@ -769,10 +934,10 @@ document.addEventListener("DOMContentLoaded", function () {
           // Set the selected text in the first BD search box
           const bdSearchBox1 = document.getElementById("bd-search-box-1");
           if (bdSearchBox1) {
-            bdSearchBox1.value = selection;
+            bdSearchBox1.value = wordToSearch;
             // Update appState
             if (typeof appState !== "undefined") {
-              appState.bd.searchTerm1 = selection;
+              appState.bd.searchTerm1 = wordToSearch;
             }
             // Trigger BD search
             performSearch();

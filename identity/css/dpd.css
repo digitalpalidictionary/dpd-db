@@ -1,5 +1,6 @@
 body {
   font-family: "Inter", "sans-serif";
+  touch-action: manipulation;
 }
 
 h3 {
@@ -16,6 +17,7 @@ div.dpd {
   overflow: auto;
   padding: 3px 7px;
   text-align: left;
+  touch-action: manipulation;
 }
 
 p {
