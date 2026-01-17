@@ -4,6 +4,7 @@ const c = console.log;
 
 const docBody = document.body;
 const titleClear = document.getElementById("title-clear");
+const logoLink = document.getElementById("logo-link");
 const mainPane = document.getElementById("main-pane");
 const dpdPane = document.getElementById("dpd-pane");
 const summaryResults = document.getElementById("summary-results");
@@ -127,6 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 titleClear.addEventListener("dblclick", function () {
   dpdPane.innerHTML = "";
+});
+
+logoLink.addEventListener("click", function(e) {
+  e.preventDefault();
+  clearSearch();
 });
 
 // Original double-click functionality
@@ -418,15 +424,20 @@ searchBox.addEventListener("input", function () {
   searchBox.value = convertedText;
 });
 
-clearButton.addEventListener("click", function () {
+//// clear search function
+
+function clearSearch() {
   searchBox.value = "";
-  dpdResults.innerHTML = startMessage;
+  dpdResults.innerHTML = "";
   summaryResults.innerHTML = "";
   if (typeof appState !== "undefined") {
     appState.dpd.searchTerm = "";
   }
+  window.history.pushState({}, "", window.location.pathname);
   searchBox.focus();
-});
+}
+
+clearButton.addEventListener("click", clearSearch);
 
 //// collapse/expand functionality for mobile
 

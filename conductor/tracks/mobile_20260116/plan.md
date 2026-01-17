@@ -23,9 +23,17 @@
 - [x] Task: Add @media query for ≤576px to enable collapsible behavior
 - [x] Task: Conductor - User Manual Verification 'Make History & Settings Collapsible' (Protocol in workflow.md)
 
+## Phase 4.5: Clear Button Behavior Fix
+- [x] Task: Clear button should not restore default text
+- [x] Task: Clear button should show empty dpd pane
+- [x] Task: Clear button should have no other side effects
+- [x] Task: Conductor - User Manual Verification 'Clear Button Behavior Fix' (Protocol in workflow.md)
+
 ## Phase 5: Make Logo Click Clear Search
-- [~] Task: Wrap logo image in anchor tag with onclick handler
-- [ ] Task: Add JavaScript to clear #search-box and #dpd-results on logo click
+- [x] Task: Wrap logo image in anchor tag with onclick handler
+- [x] Task: Add JavaScript to clear #search-box and #dpd-results on logo click
+- [x] Task: Reset URL to clean path when logo clicked
+- [x] Task: Make clear button use same clear function as logo click
 - [ ] Task: Conductor - User Manual Verification 'Make Logo Click Clear Search' (Protocol in workflow.md)
 
 ## Phase 6: Mobile Layout Consolidation

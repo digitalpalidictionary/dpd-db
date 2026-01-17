@@ -20,6 +20,9 @@ All three tab textboxes (DPD, CST Bold Definitions, Tipiṭaka Translations) rec
 ### 3. Collapsible Panels (DPD tab)
 - History section: Convert to toggleable button on mobile
 - Settings section: Convert to toggleable button on mobile
+- Clear button behavior: When clicked, clear dpd pane without showing default start message (empty pane only, no other changes or side effects)
+- Header icons: Move GitHub icon to top header with email and language icons
+- Scrollbars: Ensure consistent theming across all scrollable elements
 
 ### 4. Logo Behavior
 Clicking the DPD logo clears the current search/screen.
@@ -56,3 +59,7 @@ Improve double-tap/double-click search functionality on mobile devices for bette
 - [ ] Search options consolidated to 3 lines max on mobile
 - [ ] Tipiṭaka Translations tab uses structured table layout matching CST Bold Definitions
 - [ ] Theme transitions don't cause visual glitches
+- [ ] Clear history button shows empty DPD pane (no default message) when clicked
+- [ ] Clear history button has no side effects
+- [ ] Scrollbars have consistent theming across all elements
+- [ ] GitHub icon moved to top header panel
