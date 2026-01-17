@@ -6,9 +6,9 @@
   border: 2px solid var(--gray-transparent);
   background-color: var(--light);
   color: var(--dark);
-  margin-right: 10px;
-  margin-left: 10px;
   height: 30px;
+  min-height: 30px;
+  box-sizing: border-box;
   outline: none;
   transition: 1s;
   font-family: "Inter", sans-serif;
@@ -39,6 +39,14 @@
   margin-bottom: 10px;
   justify-content: flex-start;
   flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid var(--gray-transparent);
+  padding-bottom: 10px;
+}
+
+.tt-search-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .tt-search-box {
@@ -48,12 +56,52 @@
   border: 2px solid var(--gray-transparent);
   background-color: var(--light);
   color: var(--dark);
-  margin-right: 10px;
-  margin-left: 10px;
-  height: 30px;
+  margin: 0;
+  height: 36px;
+  min-height: 36px;
+  box-sizing: border-box;
   outline: none;
   transition: 1s;
   font-family: "Inter", sans-serif;
+  font-size: 1em;
+}
+
+.dark-mode .tt-search-box {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.tt-search-box::placeholder {
+  font-size: 0.75em;
+  color: #999;
+  opacity: 1;
+}
+
+.dark-mode .tt-search-box::placeholder {
+  color: #666;
+}
+
+.tt-search-box:focus {
+  border-color: var(--primary);
+}
+
+.tt-label {
+  white-space: nowrap;
+}
+
+.tt-select {
+  padding: 2px 10px;
+  border-radius: 7px;
+  border: 2px solid var(--gray-transparent);
+  background-color: var(--light);
+  color: var(--dark);
+  height: 36px;
+  min-height: 36px;
+  box-sizing: border-box;
+  outline: none;
+  transition: 1s;
+  font-family: "Inter", sans-serif;
+  font-size: 1em;
 }
 
 .dark-mode .tt-search-box {
@@ -218,15 +266,4 @@
   color: var(--dark);
   /* Keep text dark for contrast on yellow */
   background-color: #ffeb3b;
-}
-
-@media (max-width: 750px) {
-  .tt-search-row {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .tt-search-box {
-    width: 100%;
-  }
 }

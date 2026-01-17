@@ -37,11 +37,7 @@
 - [ ] Task: Conductor - User Manual Verification 'Make Logo Click Clear Search' (Protocol in workflow.md)
 
 ## Phase 6: Mobile Layout Consolidation
-- [~] Task: Add @media query for ≤576px in home.css
-- [ ] Task: Consolidate TT search row elements to 3 lines:
-       - Line 1: Search box (full width)
-       - Line 2: "in" + lang dropdown + "in" + book dropdown (single line)
-       - Line 3: "only show results" + filter dropdown + filter box + clear button (single line)
+- [x] Task: Consolidate TT search row elements to 3 lines
 - [ ] Task: Restructure Tipiṭaka Translations results to match CST Bold Definitions table layout (bd-table, bd-row, bd-th, bd-td pattern)
 - [ ] Task: Conductor - User Manual Verification 'Mobile Layout Consolidation' (Protocol in workflow.md)
 
