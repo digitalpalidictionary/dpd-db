@@ -100,6 +100,17 @@ function initializeApp() {
 
 // Perform a search operation
 async function performSearch(addHistory = true) {
+  let activeBtnId = "";
+  if (appState.activeTab === "dpd") {
+    activeBtnId = "search-button";
+  } else if (appState.activeTab === "bd") {
+    activeBtnId = "bd-search-button";
+  }
+
+  if (activeBtnId) {
+    showLoading(activeBtnId);
+  }
+
   try {
     if (appState.activeTab === "dpd") {
       // DPD search
@@ -231,6 +242,10 @@ async function performSearch(addHistory = true) {
     }
   } catch (error) {
     console.error("Error fetching data:", error);
+  } finally {
+    if (activeBtnId) {
+      hideLoading(activeBtnId);
+    }
   }
 }
 
@@ -1205,9 +1220,33 @@ function highlightInflections(searchTerm) {
   });
 }
 
+// Helper function to show loading state on a button
+function showLoading(buttonId) {
+  const button = document.getElementById(buttonId);
+  if (button) {
+    button.dataset.originalText = button.textContent;
+    button.classList.add("loading");
+    button.disabled = true;
+  }
+}
+
+// Helper function to hide loading state on a button
+function hideLoading(buttonId) {
+  const button = document.getElementById(buttonId);
+  if (button) {
+    button.classList.remove("loading");
+    button.disabled = false;
+    if (button.dataset.originalText) {
+      button.textContent = button.dataset.originalText;
+    }
+  }
+}
+
 // Expose performSearch to the global scope
 window.performSearch = performSearch;
 window.switchTab = switchTab;
 window.updateHistoryPanel = updateHistoryPanel;
 window.clearHistory = clearHistory;
 window.searchHistoryItem = searchHistoryItem;
+window.showLoading = showLoading;
+window.hideLoading = hideLoading;

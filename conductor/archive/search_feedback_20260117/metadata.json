@@ -1,0 +1,8 @@
+{
+  "track_id": "search_feedback_20260117",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-17T15:00:00Z",
+  "updated_at": "2026-01-17T15:00:00Z",
+  "description": "Add a visual spinner to search buttons in the webapp for feedback during search operations."
+}

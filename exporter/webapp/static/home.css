@@ -188,6 +188,7 @@ a {
     padding: 5px 10px;
     transition: 0.15s;
     white-space: nowrap;
+    position: relative;
 }
 
 #search-form {
@@ -1071,4 +1072,42 @@ label {
 /* Sandhi toggle - hide apostrophes when class is applied */
 .hide-apostrophes .apostrophe {
     display: none;
+}
+
+/* Spinner styles */
+.search-button.loading {
+    color: transparent !important;
+    pointer-events: none;
+    position: relative; /* Ensure it's relative */
+}
+
+.search-button.loading::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    transform: translate(-50%, -50%);
+    border: 0.15em solid var(--light);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+    z-index: 10;
+    margin: 0; /* Reset margins */
+}
+
+.dark-mode .search-button.loading::after {
+    border-color: var(--dark);
+    border-right-color: transparent;
+}
+
+@keyframes spin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }

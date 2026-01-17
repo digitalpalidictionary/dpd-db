@@ -90,6 +90,11 @@ if (ttFilterBox) {
 
 
 async function performTTSearch(addHistory = true) {
+    const buttonId = "tt-search-button";
+    if (typeof window.showLoading === "function") {
+        window.showLoading(buttonId);
+    }
+
     // Try to get values from DOM elements first, fallback to appState
     const q = ttSearchBox ? ttSearchBox.value.trim() : (appState?.tt?.searchTerm || "");
     const lang = ttLangSelect ? ttLangSelect.value : (appState?.tt?.language || "Pāḷi");
@@ -209,6 +214,10 @@ async function performTTSearch(addHistory = true) {
         console.error("Error fetching TT results:", error);
         if (ttResults) {
             ttResults.innerHTML = "<div class='error'>Error fetching results.</div>";
+        }
+    } finally {
+        if (typeof window.hideLoading === "function") {
+            window.hideLoading(buttonId);
         }
     }
 }
