@@ -27,13 +27,6 @@ All three tab textboxes (DPD, CST Bold Definitions, Tipiṭaka Translations) rec
 ### 4. Logo Behavior
 Clicking the DPD logo clears the current search/screen.
 
-### 5. Mobile Layout Consolidation
-Consolidate input/option boxes and fix Tipiṭaka Translations tab:
-- Line 1: Search box (full width)
-- Line 2: "in" + Pāḷi/English dropdown + "in" + book dropdown (single line)
-- Line 3: "only show results" + with/without dropdown (single line)
-- Tipiṭaka Translations: Replicate CST Bold Definitions tab structure (table-based with clear headers/rows)
-
 ### 6. Dark/Light Theme Transition
 Evaluate and disable if causing glitchy popup loading.
 

@@ -34,25 +34,15 @@
 - [x] Task: Add JavaScript to clear #search-box and #dpd-results on logo click
 - [x] Task: Reset URL to clean path when logo clicked
 - [x] Task: Make clear button use same clear function as logo click
-- [ ] Task: Conductor - User Manual Verification 'Make Logo Click Clear Search' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Make Logo Click Clear Search' (Protocol in workflow.md)
 
-## Phase 6: Mobile Layout Consolidation
-- [x] Task: Consolidate TT search row elements to 3 lines
-- [ ] Task: Restructure Tipiṭaka Translations results to match CST Bold Definitions table layout (bd-table, bd-row, bd-th, bd-td pattern)
-- [ ] Task: Conductor - User Manual Verification 'Mobile Layout Consolidation' (Protocol in workflow.md)
+## Phase 6: Dictionary Entry Spacing
+- [x] Task: Increase margin between dictionary entries for better readability
 
-## Phase 7: Theme Transition Check
-- [ ] Task: Evaluate current theme transition (body { transition: 1s })
-- [ ] Task: Reduce or disable transition for popup mode if causing issues
-- [ ] Task: Conductor - User Manual Verification 'Theme Transition Check' (Protocol in workflow.md)
-
-## Phase 8: Dictionary Entry Spacing
-- [ ] Task: Increase margin between dictionary entries for better readability
-
-## Phase 9: Mobile Double-Tap Search
+## Phase 7: Mobile Double-Tap Search
 - [ ] Task: Improve double-tap/double-click search functionality on mobile
 
-## Phase 10: Final Testing & Verification
+## Phase 8: Final Testing & Verification
 - [ ] Task: Run all tests with `CI=true pytest`
 - [ ] Task: Verify layout on Pixel 9 (~412px viewport)
 - [ ] Task: Verify layout on iPhone Pro Max (~430px viewport)
