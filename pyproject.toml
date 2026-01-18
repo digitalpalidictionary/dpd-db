@@ -3,7 +3,7 @@ name = "dpd-db"
 version = "v0.2"
 description = ""
 authors = [{ name = "Bodhirasa", email = "digitalpalidictionary@gmail.com" }]
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.13,<3.14"
 readme = "README.md"
 dependencies = [
     "fastapi>=0.110.2",
