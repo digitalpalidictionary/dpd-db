@@ -623,3 +623,80 @@ a.button.play svg {
   fill: var(--dark);
   stroke: var(--dark);
 }
+
+/* small play button */
+
+a.button.play.small {
+  padding: 0px;
+  margin: 0px 2px;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  background-color: var(--dark);
+  border: 1px solid var(--dark);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
+}
+
+a.button.play.small svg {
+  fill: var(--light);
+  stroke: var(--light);
+  width: 0.7em;
+  height: 0.7em;
+}
+
+a.button.play.small:hover {
+  background-color: var(--primary-alt);
+  border-color: var(--primary-alt);
+}
+
+a.button.play.small:hover svg {
+  fill: var(--light);
+  stroke: var(--light);
+}
+
+.dark-mode a.button.play.small {
+  background-color: var(--light);
+  border: 1px solid var(--light);
+}
+
+.dark-mode a.button.play.small svg {
+  fill: var(--dark);
+  stroke: var(--dark);
+}
+
+.dark-mode a.button.play.small:hover {
+  background-color: var(--primary-alt);
+  border-color: var(--primary-alt);
+}
+
+.dark-mode a.button.play.small:hover svg {
+  fill: var(--light);
+  stroke: var(--light);
+}
+
+/* tooltips */
+
+[data-title] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-title]:hover::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: var(--shadow-default);
+  pointer-events: none;
+}

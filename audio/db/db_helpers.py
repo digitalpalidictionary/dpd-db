@@ -54,7 +54,7 @@ def get_audio_record(headword: str, gender: str) -> Optional[bytes]:
 
     Args:
         headword: The lemma_clean value to search for.
-        gender: 'male' or 'female' to specify which audio to return.
+        gender: 'male', 'female', 'male1', 'male2', 'female1' to specify which audio to return.
 
     Returns:
         Audio data as bytes if found, None otherwise.
@@ -70,12 +70,16 @@ def get_audio_record(headword: str, gender: str) -> Optional[bytes]:
             return None
 
         gender = gender.lower()
-        if gender == "male":
+        if gender == "male1":
             return record.male1
-        elif gender == "female":
+        elif gender == "male2":
+            return record.male2
+        elif gender == "female1":
             return record.female1
+        elif gender == "female":
+            return record.female1 if record.female1 else record.male1
         else:
-            raise ValueError("Gender must be 'male' or 'female'")
+            return record.male1 if record.male1 else record.female1
     finally:
         session.close()
 

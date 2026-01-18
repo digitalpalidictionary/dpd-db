@@ -163,8 +163,11 @@ function superScripter(text) {
   return text.replace(regex, (match) => `&hairsp;<sup>${match}</sup>`);
 }
 
-function playAudio(headword, buttonElement) {
-  const gender = "male";
+function playAudio(headword, buttonElement, gender) {
+  const validGenders = ["male", "female", "male1", "male2", "female1"];
+  if (!validGenders.includes(gender)) {
+    gender = "male";
+  }
   const baseUrl = "https://www.dpdict.net/audio/";
   var audio = new Audio(baseUrl + headword + "?gender=" + gender);
 

@@ -8,11 +8,11 @@ from fastapi.responses import HTMLResponse, Response, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import sessionmaker
-import sqlite3
 import re
 
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition
+from audio.db.db_helpers import get_audio_record
 from exporter.webapp.preloads import (
     make_ascii_to_unicode_dict,
     make_headwords_clean_set,
@@ -271,57 +271,41 @@ def tt_search(request: Request, q: str, book: str, lang: str):
 def get_audio(request: Request, headword: str, gender: str = "male"):
     """Serve audio file for a headword with byte-range support."""
 
-    conn = sqlite3.connect(pth.dpd_audio_db_path)
-    cursor = conn.cursor()
-
     cleaned_headword = re.sub(r" \d.*$", "", headword)
+    audio_data = get_audio_record(cleaned_headword, gender)
 
-    cursor.execute(
-        "SELECT female1, male1 FROM dpd_audio WHERE lemma_clean = ?",
-        (cleaned_headword,),
-    )
-    result = cursor.fetchone()
-    conn.close()
+    if audio_data:
+        file_size = len(audio_data)
+        range_header = request.headers.get("range")
 
-    if result:
-        female1, male1 = result
-        if gender == "female":
-            audio_data = female1 if female1 else male1
-        else:
-            audio_data = male1 if male1 else female1
+        headers = {
+            "Accept-Ranges": "bytes",
+        }
 
-        if audio_data:
-            file_size = len(audio_data)
-            range_header = request.headers.get("range")
+        if range_header:
+            match = re.match(r"bytes=(\d+)-(\d*)", range_header)
+            if match:
+                start = int(match.group(1))
+                end = int(match.group(2)) if match.group(2) else file_size - 1
 
-            headers = {
-                "Accept-Ranges": "bytes",
-            }
+                if start < file_size:
+                    chunk = audio_data[start : end + 1]
+                    headers["Content-Range"] = f"bytes {start}-{end}/{file_size}"
+                    headers["Content-Length"] = str(len(chunk))
+                    return Response(
+                        content=chunk,
+                        status_code=206,
+                        headers=headers,
+                        media_type="audio/mpeg",
+                    )
 
-            if range_header:
-                match = re.match(r"bytes=(\d+)-(\d*)", range_header)
-                if match:
-                    start = int(match.group(1))
-                    end = int(match.group(2)) if match.group(2) else file_size - 1
-
-                    if start < file_size:
-                        chunk = audio_data[start : end + 1]
-                        headers["Content-Range"] = f"bytes {start}-{end}/{file_size}"
-                        headers["Content-Length"] = str(len(chunk))
-                        return Response(
-                            content=chunk,
-                            status_code=206,
-                            headers=headers,
-                            media_type="audio/mpeg",
-                        )
-
-            headers["Content-Length"] = str(file_size)
-            return Response(
-                content=audio_data, 
-                status_code=200,
-                headers=headers, 
-                media_type="audio/mpeg"
-            )
+        headers["Content-Length"] = str(file_size)
+        return Response(
+            content=audio_data, 
+            status_code=200,
+            headers=headers, 
+            media_type="audio/mpeg"
+        )
 
     return Response(status_code=404)
 

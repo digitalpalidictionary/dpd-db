@@ -14,3 +14,6 @@
 ## Communication Style
 - **Technical Accuracy:** Use standard linguistic and Buddhist terminology consistently.
 - **Directness:** Present information without unnecessary ornamentation, focusing on the utility of the dictionary data.
+
+## Testing & Verification
+- **Human-Centric UI Tweaking:** Automated tests are NOT required for UI elements, CSS, or HTML. These visual and structural components are best verified and refined by a human through direct interaction. Automated testing should focus on data integrity and output accuracy.

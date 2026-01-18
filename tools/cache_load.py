@@ -14,6 +14,7 @@ _cf_set_cache = None
 _idioms_set_cache = None
 _sutta_info_cache = None
 _audio_set_cache = None
+_audio_dict_cache = None
 
 
 def load_sutta_info_set():
@@ -92,6 +93,39 @@ def load_audio_set() -> set[str]:
             )
             _audio_set_cache = {r[0] for r in results}
             return _audio_set_cache
+        finally:
+            audio_session.close()
+
+
+def load_audio_dict() -> dict[str, tuple[bool, bool, bool]]:
+    """generate a dict of audio headwords with voice availability (male1, male2, female1)"""
+    from audio.db.db_helpers import get_audio_session
+    from audio.db.models import DpdAudio
+
+    global _audio_dict_cache
+
+    if _audio_dict_cache is not None:
+        return _audio_dict_cache
+    else:
+        audio_session = get_audio_session()
+        try:
+            results = (
+                audio_session.query(
+                    DpdAudio.lemma_clean,
+                    DpdAudio.male1,
+                    DpdAudio.male2,
+                    DpdAudio.female1,
+                ).all()
+            )
+            _audio_dict_cache = {
+                r[0]: (
+                    r[1] is not None,
+                    r[2] is not None,
+                    r[3] is not None,
+                )
+                for r in results
+            }
+            return _audio_dict_cache
         finally:
             audio_session.close()
 

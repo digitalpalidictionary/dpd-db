@@ -1000,7 +1000,30 @@
 
         <tr>
             <th>IPA</th>
-            <td>/{{d.i.lemma_ipa}}/</td>
+            <td>
+                /{{d.i.lemma_ipa}}/
+                {% if d.i.audio_male1 %}
+                <a class="button play small" data-title="male1" onclick="playAudio('{{d.i.lemma_clean}}', 'male1')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if d.i.audio_male2 %}
+                <a class="button play small" data-title="male2" onclick="playAudio('{{d.i.lemma_clean}}', 'male2')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if d.i.audio_female1 %}
+                <a class="button play small" data-title="female1" onclick="playAudio('{{d.i.lemma_clean}}', 'female1')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Grammar</th>

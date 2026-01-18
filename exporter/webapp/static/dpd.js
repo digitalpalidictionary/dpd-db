@@ -1,13 +1,16 @@
-function playAudio(headword) {
+function playAudio(headword, gender) {
     if (!headword) return;
     
-    let gender = "male";
-    try {
-        const audioToggle = localStorage.getItem("audio-toggle");
-        if (audioToggle === "true") {
-            gender = "female";
-        }
-    } catch (e) {}
+    const validGenders = ["male", "female", "male1", "male2", "female1"];
+    if (!validGenders.includes(gender)) {
+        gender = "male";
+        try {
+            const audioToggle = localStorage.getItem("audio-toggle");
+            if (audioToggle === "true") {
+                gender = "female";
+            }
+        } catch (e) {}
+    }
 
     const url = '/audio/' + encodeURIComponent(headword) + '?gender=' + gender;
     var audio = new Audio(url);

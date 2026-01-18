@@ -1310,6 +1310,27 @@ class DpdHeadword(Base):
         return self.lemma_clean in audio_set
 
     @property
+    def audio_male1(self) -> bool:
+        from tools.cache_load import load_audio_dict
+
+        audio_dict = load_audio_dict()
+        return audio_dict.get(self.lemma_clean, (False, False, False))[0]
+
+    @property
+    def audio_male2(self) -> bool:
+        from tools.cache_load import load_audio_dict
+
+        audio_dict = load_audio_dict()
+        return audio_dict.get(self.lemma_clean, (False, False, False))[1]
+
+    @property
+    def audio_female1(self) -> bool:
+        from tools.cache_load import load_audio_dict
+
+        audio_dict = load_audio_dict()
+        return audio_dict.get(self.lemma_clean, (False, False, False))[2]
+
+    @property
     def needs_grammar_button(self) -> bool:
         return bool(self.meaning_1)
 

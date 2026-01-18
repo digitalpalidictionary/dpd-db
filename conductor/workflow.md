@@ -5,7 +5,7 @@
 1. **The Plan is the Source of Truth:** All work must be tracked in `plan.md`
 2. **NO AGENT COMMITS:** The AI agent must NEVER execute `git commit`, `git add`, or `git notes`. The user will perform all git operations manually.
 3. **The Tech Stack is Deliberate:** Changes to the tech stack must be documented in `tech-stack.md` *before* implementation
-4. **Data Output Verification:** Write tests to verify accurate data output. Do not test UI components - user interaction will reveal UI issues. Do not test internal function implementation details.
+4. **Data Output Verification:** Write tests to verify accurate data output. Automated tests are NOT required for UI elements, CSS, or HTML, as these are best verified and tweaked by a human. Do not test UI components - user interaction will reveal UI issues. Do not test internal function implementation details.
 5. **User Experience First:** Every decision should prioritize user experience
 6. **README Maintenance:** Each project folder contains a `README.md`, which MUST be updated if anything within the folder changes to ensure documentation stays in sync with code.
 7. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
