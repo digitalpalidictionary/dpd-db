@@ -1,24 +1,23 @@
-/**
- * Pāḷi-aware table sorting for DPD Grammar Dictionary.
- * Cycles through: Ascending -> Descending -> Reset (original order).
- */
-
+// Robust Sorter for Chrome Extension
 (function() {
-    function initSorter() {
-        const tables = document.querySelectorAll('table.grammar_dict:not(.sorter-initialized)');
+    if (window.initSorterInitialized) return;
+    window.initSorterInitialized = true;
+
+    window.initSorter = function() {
+        const tables = document.querySelectorAll('table.grammar_dict');
         tables.forEach(table => {
-            initializeTable(table);
+            if (!table.dataset.sorterActive) {
+                initializeTable(table);
+            }
         });
-    }
+    };
 
     function initializeTable(table) {
         const tbody = table.querySelector('tbody');
         const headers = table.querySelectorAll('th');
         if (!tbody || !headers.length) return;
 
-        table.classList.add('sorter-initialized');
-        
-        // Store original order for Reset state
+        table.dataset.sorterActive = "true";
         const originalRows = Array.from(tbody.querySelectorAll('tr'));
 
         const letterToNumber = {
@@ -33,9 +32,7 @@
 
         function paliSortKey(word) {
             if (!word) return "";
-            return word.toLowerCase().replace(pattern, (match) => {
-                return letterToNumber[match] || match;
-            });
+            return word.toLowerCase().replace(pattern, (match) => letterToNumber[match] || match);
         }
 
         function updateArrows(activeHeader, order) {
@@ -55,57 +52,44 @@
 
         headers.forEach(header => {
             if (header.id === 'col5') return;
-
             header.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
                 let order = header.dataset.order || '';
-                let nextOrder = '';
+                let nextOrder = (order === '') ? 'asc' : (order === 'asc' ? 'desc' : '');
 
-                if (order === '') nextOrder = 'asc';
-                else if (order === 'asc') nextOrder = 'desc';
-                else nextOrder = '';
-
-                let rowsToSort = [];
-                if (nextOrder === '') {
-                    rowsToSort = [...originalRows];
-                } else {
-                    rowsToSort = Array.from(tbody.querySelectorAll('tr'));
+                let rowsToSort = (nextOrder === '') ? [...originalRows] : Array.from(tbody.querySelectorAll('tr'));
+                
+                if (nextOrder !== '') {
                     const colIndex = header.cellIndex;
                     const isPaliCol = (header.id === 'col1' || header.id === 'col6');
-
                     rowsToSort.sort((a, b) => {
-                        let aCell = a.cells[colIndex];
-                        let bCell = b.cells[colIndex];
-                        let aVal = aCell ? aCell.textContent.trim() : "";
-                        let bVal = bCell ? bCell.textContent.trim() : "";
-
-                        if (isPaliCol) {
-                            aVal = paliSortKey(aVal);
-                            bVal = paliSortKey(bVal);
-                        }
-
-                        let cmp = aVal.localeCompare(bVal);
-                        return nextOrder === 'asc' ? cmp : -cmp;
+                        let aVal = a.cells[colIndex] ? a.cells[colIndex].textContent.trim() : "";
+                        let bVal = b.cells[colIndex] ? b.cells[colIndex].textContent.trim() : "";
+                        if (isPaliCol) { aVal = paliSortKey(aVal); bVal = paliSortKey(bVal); }
+                        return nextOrder === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
                     });
                 }
 
                 tbody.innerHTML = '';
                 rowsToSort.forEach(row => tbody.appendChild(row));
-
                 headers.forEach(h => h.dataset.order = '');
                 header.dataset.order = nextOrder;
                 updateArrows(header, nextOrder);
-                event.stopPropagation();
             });
         });
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSorter);
+        document.addEventListener('DOMContentLoaded', window.initSorter);
     } else {
-        initSorter();
+        window.initSorter();
     }
 
-    // Export to window for explicit calls
-    window.initSorter = initSorter;
+    // Dynamic listener for clicks - identical to webapp
+    document.addEventListener('click', function() {
+        setTimeout(window.initSorter, 100);
+    }, true);
 
 })();

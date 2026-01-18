@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "DPD Dictionary",
-  "description": "A Chrome extension that allows you to access digital Pāḷi dictionary resources from any website.",
+  "description": "A Chrome extension that allows you to access Digital Pāḷi Dictionary resources from any website.",
   "version": "1.0",
   "icons": {
     "16": "images/dpd-logo_16.png",
@@ -17,12 +17,24 @@
       "32": "images/dpd-logo_32.png"
     }
   },
-  "permissions": ["activeTab", "scripting", "storage"],
-  "host_permissions": ["https://www.dpdict.net/*"],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.dpdict.net/*"
+  ],
   "web_accessible_resources": [
     {
-      "resources": ["images/*.png", "images/*.svg", "css/*.css"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "images/*.png",
+        "images/*.svg",
+        "css/*.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }

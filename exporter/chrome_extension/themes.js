@@ -1,4 +1,5 @@
-const THEMES = {
+// Use window object to prevent SyntaxError on re-injection
+window.THEMES = window.THEMES || {
   default: {
     name: "Default",
     bg: "hsl(198, 100%, 95%)",
@@ -17,111 +18,76 @@ const THEMES = {
     name: "SuttaCentral",
     bg: "#fff8f3", 
     text: "rgb(32, 27, 19)",
-    primary: "#c68b05", /* SC Orange for buttons */
+    primary: "#c68b05",
     accent: "#c68b05",
     border: "#e0e0e0",
     font: '"Skolar Sans PE Variable", sans-serif'
   }
 };
 
-function detectTheme() {
+window.detectTheme = window.detectTheme || function() {
   const url = window.location.href;
-  if (url.includes("digitalpalireader.online")) {
-    return "dpr";
-  }
-  if (url.includes("suttacentral.net")) {
-    return "suttacentral";
-  }
-  return "auto"; // Default to auto detection or default theme
-}
+  if (url.includes("digitalpalireader.online")) return "dpr";
+  if (url.includes("suttacentral.net")) return "suttacentral";
+  return "auto"; 
+};
 
-function extractColors() {
+window.extractColors = window.extractColors || function() {
   const bodyStyle = window.getComputedStyle(document.body);
   let bgColor = bodyStyle.backgroundColor;
-  let textColor = bodyStyle.color;
-  const fontFamily = bodyStyle.fontFamily;
-
-  // If background is transparent, try to find the actual background color
   let el = document.body;
   while (bgColor === "rgba(0, 0, 0, 0)" || bgColor === "transparent") {
-    if (!el.parentElement) {
-      bgColor = "#ffffff";
-      break;
-    }
+    if (!el.parentElement) { bgColor = "#ffffff"; break; }
     el = el.parentElement;
     bgColor = window.getComputedStyle(el).backgroundColor;
   }
-
-  // Simple heuristic for primary color: look for links or prominent headers
   const link = document.querySelector('a');
   const primaryColor = link ? window.getComputedStyle(link).color : "hsl(198, 100%, 50%)";
-
   return {
     name: "Extracted",
-    bg: bgColor,
-    text: textColor,
-    primary: primaryColor,
-    border: "hsla(0, 0%, 50%, 0.25)",
-    font: fontFamily
+    bg: bgColor, text: bodyStyle.color,
+    primary: primaryColor, border: "hsla(0, 0%, 50%, 0.25)",
+    font: bodyStyle.fontFamily
   };
-}
+};
 
-function applyTheme(themeKey) {
-  let theme = THEMES[themeKey];
-  
+window.applyTheme = window.applyTheme || function(themeKey) {
+  let theme = window.THEMES[themeKey];
   if (themeKey === "auto") {
-    const detected = detectTheme();
-    if (detected !== "auto") {
-      theme = THEMES[detected];
-    } else {
-      // Fallback for unknown sites: Dynamic extraction
-      theme = extractColors();
-    }
+    const detected = window.detectTheme();
+    theme = detected !== "auto" ? window.THEMES[detected] : window.extractColors();
   }
+  if (!theme) theme = window.THEMES.default;
 
-  if (!theme) theme = THEMES.default;
+  const panelEl = document.getElementById("dict-panel-25445");
+  if (panelEl) {
+    panelEl.style.setProperty("--dpd-bg", theme.bg);
+    panelEl.style.setProperty("--light", theme.bg);
+    panelEl.style.setProperty("--dpd-text", theme.text);
+    panelEl.style.setProperty("--dark", theme.text);
+    panelEl.style.setProperty("--dpd-primary", theme.primary);
+    panelEl.style.setProperty("--primary", theme.primary);
+    panelEl.style.setProperty("--primary-alt", theme.primary);
+    panelEl.style.setProperty("--dpd-border", theme.border);
 
-  const panel = document.getElementById("dict-panel-25445");
-  if (panel) {
-    // Apply CSS Variables for both the panel and the injected DPD content
-    panel.style.setProperty("--dpd-bg", theme.bg);
-    panel.style.setProperty("--light", theme.bg);
-    
-    panel.style.setProperty("--dpd-text", theme.text);
-    panel.style.setProperty("--dark", theme.text);
-    
-    panel.style.setProperty("--dpd-primary", theme.primary);
-    panel.style.setProperty("--primary", theme.primary);
-    panel.style.setProperty("--primary-alt", theme.primary);
-    
-    panel.style.setProperty("--dpd-border", theme.border);
-
-    // Accent handling
     if (theme.accent) {
-      panel.style.setProperty("--dpd-accent", theme.accent);
-      panel.style.setProperty("--primary-text", theme.accent);
+      panelEl.style.setProperty("--dpd-accent", theme.accent);
+      panelEl.style.setProperty("--primary-text", theme.accent);
     } else {
-      panel.style.setProperty("--dpd-accent", theme.primary);
+      panelEl.style.setProperty("--dpd-accent", theme.primary);
     }
     
-    // Apply Font Family
-    if (theme.font) {
-      panel.style.fontFamily = theme.font;
-    } else {
-      panel.style.fontFamily = '"Inter", "sans-serif"';
+    panelEl.style.fontFamily = theme.font || '"Inter", "sans-serif"';
+    if (!panelEl.style.fontSize) {
+      panelEl.style.fontSize = window.getComputedStyle(document.body).fontSize;
     }
 
-    // Dynamic Font Size
-    const bodyFontSize = window.getComputedStyle(document.body).fontSize;
-    panel.style.fontSize = bodyFontSize;
-
-    // Apply Theme Class for specific overrides
-    panel.className = ""; // Reset classes
-    if (themeKey === "suttacentral" || (themeKey === "auto" && detectTheme() === "suttacentral")) {
-      panel.classList.add("dpd-theme-suttacentral");
-      panel.style.setProperty("--dpd-header-text", "rgb(124, 118, 111)");
+    panelEl.classList.remove("dpd-theme-suttacentral");
+    if (themeKey === "suttacentral" || (themeKey === "auto" && window.detectTheme() === "suttacentral")) {
+      panelEl.classList.add("dpd-theme-suttacentral");
+      panelEl.style.setProperty("--dpd-header-text", "rgb(124, 118, 111)");
     } else {
-      panel.style.setProperty("--dpd-header-text", theme.text);
+      panelEl.style.setProperty("--dpd-header-text", theme.text);
     }
   }
-}
+};
