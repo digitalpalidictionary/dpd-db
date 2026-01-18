@@ -651,9 +651,7 @@ class ProjectPaths:
         self.bold_example_path = base_dir / "db_tests/single/test_bold.json"
         self.compound_type_path = base_dir / "db_tests/single/add_compound_type.tsv"
         self.digu_json_path = base_dir / "db_tests/single/test_digu.json"
-        self.hyphenations_dict_path_old = (
-            base_dir / "db_tests/single/test_hyphenations.json"
-        )
+
         self.hyphenations_scratchpad_path = (
             base_dir / "db_tests/single/test_hyphenations.txt"
         )

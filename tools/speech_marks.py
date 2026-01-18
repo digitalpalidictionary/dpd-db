@@ -37,16 +37,6 @@ class SpeechMarkManager:
             with open(self.pth.speech_marks_path, "r", encoding="utf-8") as f:
                 self.speech_marks_dict = json.load(f)
 
-        # Load and merge old hyphenations for migration period
-        if self.pth.hyphenations_dict_path.exists():
-            with open(self.pth.hyphenations_dict_path, "r", encoding="utf-8") as f:
-                old_hyphenations: dict[str, str] = json.load(f)
-                for clean_word, variant in old_hyphenations.items():
-                    if clean_word not in self.speech_marks_dict:
-                        self.speech_marks_dict[clean_word] = [variant]
-                    elif variant not in self.speech_marks_dict[clean_word]:
-                        self.speech_marks_dict[clean_word].append(variant)
-
     def get_speech_marks(self) -> SpeechMarksDict:
         return self.speech_marks_dict
 
