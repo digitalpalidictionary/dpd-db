@@ -68,6 +68,7 @@ nav:
   - Developer Docs:
     - "technical/index.md"
     - Quick Start Guide: "technical/quick_start.md"
+    - Local Server Setup: "technical/local_server_setup.md"
     - Build the DB from Scratch: "technical/build_db.md"
     - Use the DB in a Project: "technical/use_db.md"
     - Project Folder Structure: "technical/project_folder_structure.md" 

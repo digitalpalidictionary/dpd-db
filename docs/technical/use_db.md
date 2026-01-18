@@ -2,7 +2,12 @@
 
 There is a comprehensive database model and lots of pre-existing tools in the repo. To use them:
 
-Clone this repo.
+Clone this repo (using `--depth 1` for a faster download).
+
+```bash
+git clone --depth 1 https://github.com/digitalpalidictionary/dpd-db.git
+cd dpd-db
+```
 
 Download **dpd.db.tar.bz2** from [the dpd-db release page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}, 
 
@@ -13,6 +18,8 @@ Install [uv](https://astral.sh/uv/install){target="_blank"} for your operating s
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
+**Python**: `uv` will automatically manage and install the required Python version for you when you run the sync commands below. There is no need to install Python manually.
 
 Install the dependencies with uv
 
