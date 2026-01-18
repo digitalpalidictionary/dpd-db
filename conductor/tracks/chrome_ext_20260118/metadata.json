@@ -1,0 +1,8 @@
+{
+  "track_id": "chrome_ext_20260118",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-18T00:00:00Z",
+  "updated_at": "2026-01-18T00:00:00Z",
+  "description": "Fix bugs in existing DPD Chrome extension, move to dpd-db/exporter/chrome_extension, implement JSON API rendering, add theme detection with manual override, prepare for Chrome Web Store release"
+}

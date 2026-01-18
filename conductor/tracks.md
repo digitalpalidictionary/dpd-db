@@ -13,3 +13,8 @@
 
 ## [~] Track: Dual Voice Play Buttons
 *Link: [./conductor/tracks/dual_voice_buttons_20260117/](./conductor/tracks/dual_voice_buttons_20260117/)*
+
+---
+
+## [~] Track: Chrome Extension - Bug Fixes, Theme Detection & Chrome Store Release
+*Link: [./conductor/tracks/chrome_ext_20260118/](./conductor/tracks/chrome_ext_20260118/)*

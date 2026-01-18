@@ -1,0 +1,26 @@
+{
+  "name": "dpd-chrome-extension",
+  "version": "1.0.0",
+  "description": "Digital Pāḷi Dictionary Chrome Extension",
+  "main": "main.js",
+  "scripts": {
+    "build-icons": "node scripts/generate-icons.js",
+    "build-css": "node scripts/build-css.js",
+    "build": "npm run build-icons && npm run build-css",
+    "zip": "bestzip dpd-chrome-extension.zip manifest.json background.js main.js themes.js dictionary-panel.js sorter.js utils.js css/* images/*"
+  },
+  "keywords": [
+    "pali",
+    "dictionary",
+    "buddhism"
+  ],
+  "author": "Bodhirasa",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "bestzip": "^2.2.1"
+  }
+}
