@@ -64,7 +64,6 @@ class PopUpMixin:
 
     def _handle_popup_ok(self, e):
         self.popup_result = self._popup_textfield.value
-        print(f"Value entered: {self.popup_result}")
         self._dialog.open = False
         if self._current_page:
             self._current_page.update()

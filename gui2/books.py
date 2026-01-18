@@ -37,8 +37,6 @@ class SuttaCentralSource:
         self.allowable_chars: list[str] = pali_alphabet + [" "]
         self.process_words()
 
-        # print(self.word_dict["virāgo"])
-
     def make_file_list(self, folder: Path | None) -> list[Path]:
         if not folder or not folder.exists() or not folder.is_dir():
             return []

@@ -440,10 +440,6 @@ class Pass2PreProcessView(ft.Column):
         if selected_example_index_str is not None:
             self.selected_sentence_index = int(selected_example_index_str)
 
-        print(
-            f"Selected index stored: {self.selected_sentence_index}"
-        )  # Optional: for debugging
-
     def handle_search(self, e: ft.ControlEvent) -> None:
         query = str(e.data or "").lower()
         if not self.examples_field.content or not query:

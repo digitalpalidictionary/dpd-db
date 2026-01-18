@@ -38,9 +38,7 @@ class DpdCommentaryField(ft.Column):
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.toolkit: ToolKit = toolkit
-        self.speech_marks_manager: SpeechMarkManager = (
-            self.toolkit.speech_marks_manager
-        )
+        self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
 
         self.commentary_field = DpdTextField(
@@ -261,7 +259,6 @@ class DpdCommentaryField(ft.Column):
             self.checked_items.append(item_index)
         elif not checkbox_value and item_index in self.checked_items:
             self.checked_items.remove(item_index)
-        print(self.checked_items)
 
     def click_choose_example_cancel(self, e: ft.ControlEvent):
         self.choose_example_dialog.open = False
