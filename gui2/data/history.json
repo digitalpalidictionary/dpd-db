@@ -1,5 +1,29 @@
 [
     {
+        "id": 58934,
+        "lemma_1": "sabbayoga"
+    },
+    {
+        "id": 68934,
+        "lemma_1": "viruddha 1"
+    },
+    {
+        "id": 88644,
+        "lemma_1": "pihayati 3"
+    },
+    {
+        "id": 3079,
+        "lemma_1": "adhammika 1"
+    },
+    {
+        "id": 34970,
+        "lemma_1": "dhammika 2"
+    },
+    {
+        "id": 30576,
+        "lemma_1": "titikkhā 1"
+    },
+    {
         "id": 26818,
         "lemma_1": "cīrāsutta"
     },
@@ -54,29 +78,5 @@
     {
         "id": 14697,
         "lemma_1": "uttarā 3"
-    },
-    {
-        "id": 65262,
-        "lemma_1": "sotumicchati"
-    },
-    {
-        "id": 8238,
-        "lemma_1": "abhisambudha"
-    },
-    {
-        "id": 28049,
-        "lemma_1": "jarāmaraṇasaṃyuta"
-    },
-    {
-        "id": 46238,
-        "lemma_1": "piyāyanā"
-    },
-    {
-        "id": 46745,
-        "lemma_1": "punabbasu 1"
-    },
-    {
-        "id": 46748,
-        "lemma_1": "punabbasumātar"
     }
 ]
