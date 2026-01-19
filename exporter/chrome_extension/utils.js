@@ -10,7 +10,7 @@ window.addListenersToTextElements = window.addListenersToTextElements || functio
   // Use dblclick exclusively for lookup to avoid UI collisions
   document.body.addEventListener("dblclick", (e) => {
     // Ignore UI elements
-    if (e.target.closest('.button') || 
+     if (e.target.closest('.dpd-button') || 
         e.target.closest('.theme-selector-btn') || 
         e.target.closest('.dpd-dropdown') ||
         e.target.closest('.dpd-search-box')) {

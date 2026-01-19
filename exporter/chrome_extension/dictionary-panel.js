@@ -127,12 +127,12 @@ if (typeof DictionaryPanel === 'undefined') {
       this.textNode.classList.remove("loading");
 
       const processedHtml = wrapApostrophesInHTML(html);
-      const parts = processedHtml.split("<hr>");
+      const parts = processedHtml.split("<hr class=\"dpd\">");
 
       if (parts.length >= 2) {
         this.content.innerHTML = `
-          <div class="summary-results">${parts[0]}<hr></div>
-          <div id="dpd-results" class="dpd-results">${parts.slice(1).join("<hr>")}</div>
+          <div class="summary-results">${parts[0]}<hr class="dpd"></div>
+          <div id="dpd-results" class="dpd-results">${parts.slice(1).join("<hr class=\"dpd\">")}</div>
         `;
       } else {
         this.content.innerHTML = `
@@ -172,7 +172,7 @@ if (typeof DictionaryPanel === 'undefined') {
 
     _setupEvents() {
       this.content.addEventListener("click", (event) => {
-        const button = event.target.closest(".button");
+        const button = event.target.closest(".dpd-button");
         if (button && button.hasAttribute("data-target")) {
           event.preventDefault();
           const targetId = button.getAttribute("data-target");
@@ -180,7 +180,7 @@ if (typeof DictionaryPanel === 'undefined') {
 
           if (target) {
             if (this.settings.oneButton) {
-              const allButtons = this.content.querySelectorAll('.button');
+              const allButtons = this.content.querySelectorAll('.dpd-button');
               allButtons.forEach(btn => { if (btn !== button && btn.getAttribute("data-target")) btn.classList.remove("active"); });
               const allContentAreas = this.content.querySelectorAll('.content');
               allContentAreas.forEach(area => { if (area !== target && !area.classList.contains("summary")) area.classList.add("hidden"); });
@@ -191,7 +191,7 @@ if (typeof DictionaryPanel === 'undefined') {
           return;
         }
 
-        const playBtn = event.target.closest(".button.play");
+        const playBtn = event.target.closest(".dpd-button.play");
         if (playBtn) {
           event.preventDefault();
           const headword = playBtn.getAttribute("data-headword");

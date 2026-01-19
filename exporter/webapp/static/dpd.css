@@ -110,14 +110,14 @@ p.heading b {
   font-weight: 700;
 }
 
-p.footer {
+p.dpd-footer {
   border-top: 1px solid var(--primary);
   font-size: 80%;
   padding: 5px 0px;
   margin-top: 5px;
 }
 
-hr {
+hr.dpd {
   background-color: var(--gray-transparent);
   width: 100%;
   border: none;
@@ -295,7 +295,7 @@ div.button-box {
   flex-wrap: wrap;
 }
 
-a.button {
+a.dpd-button {
   background-color: var(--primary);
   border: 1px solid var(--primary);
   border-radius: 7px;
@@ -311,19 +311,19 @@ a.button {
   box-shadow: var(--shadow-default);
 }
 
-a.button.close {
+a.dpd-button.close {
   float: right;
   margin: 10px;
 }
 
-a.button.active {
+a.dpd-button.active {
   background-color: var(--primary-alt);
   border-color: var(--primary-alt);
   color: var(--light);
   user-select: none;
 }
 
-a.button:hover {
+a.dpd-button:hover {
   box-shadow: var(--shadow-hover);
   border: 1px solid var(--primary-alt);
   background-color: var(--primary-alt);
@@ -331,13 +331,13 @@ a.button:hover {
   user-select: none;
 }
 
-.link {
+.dpd-link {
   color: var(--primary-text);
   font-weight: 700;
   text-decoration: none;
 }
 
-.link:hover {
+.dpd-link:hover {
   color: var(--primary-alt);
   text-decoration: underline;
 }
@@ -630,7 +630,7 @@ table.root_matrix td b {
 
 /* play button */
 
-a.button.play {
+a.dpd-button.play {
   padding: 2px 5px;
   /* match standard button padding */
   display: inline-flex;
@@ -640,17 +640,17 @@ a.button.play {
   /* ensure height matches neighbors */
 }
 
-a.button.play:hover {
+a.dpd-button.play:hover {
   background-color: var(--primary-alt);
   border-color: var(--primary-alt);
 }
 
-a.button.play:hover svg {
+a.dpd-button.play:hover svg {
   fill: var(--light);
   stroke: var(--light);
 }
 
-a.button.play svg {
+a.dpd-button.play svg {
   width: 1em;
   height: 1em;
   fill: var(--dark);
@@ -659,7 +659,7 @@ a.button.play svg {
 
 /* small play button */
 
-a.button.play.small {
+a.dpd-button.play.small {
   padding: 0px;
   margin: 0px 2px;
   width: 1.1em;
@@ -673,39 +673,39 @@ a.button.play.small {
   box-shadow: none;
 }
 
-a.button.play.small svg {
+a.dpd-button.play.small svg {
   fill: var(--light);
   stroke: var(--light);
   width: 0.7em;
   height: 0.7em;
 }
 
-a.button.play.small:hover {
+a.dpd-button.play.small:hover {
   background-color: var(--primary-alt);
   border-color: var(--primary-alt);
 }
 
-a.button.play.small:hover svg {
+a.dpd-button.play.small:hover svg {
   fill: var(--light);
   stroke: var(--light);
 }
 
-.dark-mode a.button.play.small {
+.dark-mode a.dpd-button.play.small {
   background-color: var(--light);
   border: 1px solid var(--light);
 }
 
-.dark-mode a.button.play.small svg {
+.dark-mode a.dpd-button.play.small svg {
   fill: var(--dark);
   stroke: var(--dark);
 }
 
-.dark-mode a.button.play.small:hover {
+.dark-mode a.dpd-button.play.small:hover {
   background-color: var(--primary-alt);
   border-color: var(--primary-alt);
 }
 
-.dark-mode a.button.play.small:hover svg {
+.dark-mode a.dpd-button.play.small:hover svg {
   fill: var(--light);
   stroke: var(--light);
 }

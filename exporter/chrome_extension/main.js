@@ -31,7 +31,7 @@ function handleSelectedWord(word) {
           return;
         }
         panel?.setText("Result for " + word);
-        panel?.setContent(data.summary_html + "<hr>" + data.dpd_html);
+        panel?.setContent(data.summary_html + "<hr class=\"dpd\">" + data.dpd_html);
       } else {
         console.error(response?.error);
         if (response?.error?.includes("429")) {

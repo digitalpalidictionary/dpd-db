@@ -18,12 +18,12 @@
 <!-- root buttons -->
 
 <div class="button-box">
-    <a class="button" href="#" data-target="root_info_{{d.r.root_}}">root
+    <a class="dpd-button" href="#" data-target="root_info_{{d.r.root_}}">root
         info</a>
-    <a class="button" href="#" data-target="root_matrix_{{d.r.root_}}">root
+    <a class="dpd-button" href="#" data-target="root_matrix_{{d.r.root_}}">root
         matrix</a>
     {% for fr in d.frs: %}
-    <a class="button" href="#" data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
+    <a class="dpd-button" href="#" data-target="family_root_{{d.r.root_}}_{{fr.root_family_}}">{{fr.root_family}}</a>
     {% endfor %}
 </div>
 
@@ -31,8 +31,8 @@
 
 <div id="root_info_{{d.r.root_}}" class="dpd content hidden">
     {{d.r.root_info|safe}}
-    <p class="footer">
-        Something out of place? <a class="link"
+    <p class="dpd-footer">
+        Something out of place? <a class="dpd-link"
             href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Root+Info&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">Report it here</a>.
     </p>
@@ -57,9 +57,9 @@
             ({{d.r.root_meaning}})
     </p>
     {{d.r.root_matrix|safe}}
-    <p class="footer">
+    <p class="dpd-footer">
         Did you spot a mistake?
-        <a class="link"
+        <a class="dpd-link"
             href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}&entry.326955045=Root+Matrix&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">
             Log it here.
@@ -72,9 +72,9 @@
 {% for fr in d.frs: %}
 <div id="family_root_{{d.r.root_}}_{{fr.root_family_}}" class="dpd hidden">
     {{fr.html|safe}}
-    <p class='footer'>
+    <p class='dpd-footer'>
         Does something look wrong?
-        <a class="link"
+        <a class="dpd-link"
             href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{d.r.root_link}}:%20{{fr.root_family_link}}&entry.326955045=Root+Family&entry.1433863141={{d.app_name}}+{{d.date}}"
             target="_blank">
             Report it here

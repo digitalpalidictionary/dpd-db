@@ -6,7 +6,7 @@ const bdSearchBox2 = document.getElementById("bd-search-box-2");
 // const bdSearchForm = document.getElementById('bd-search-form'); // Not needed anymore
 const bdSearchButton = document.getElementById("bd-search-button");
 const bdResults = document.getElementById("bd-results");
-const bdFooterText = document.querySelector("#bold-def-tab .footer-pane");
+const bdFooterText = document.querySelector("#bold-def-tab .dpd-footer-pane");
 const bdSearchOptions = document.getElementsByName("option");
 const bdStartsWithButton = document.getElementById("option1");
 

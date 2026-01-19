@@ -24,7 +24,7 @@ window.playAudio = playAudio;
 
 // Global delegated click listener
 document.addEventListener("click", function (event) {
-    var playButton = event.target.closest(".button.play");
+    var playButton = event.target.closest(".dpd-button.play");
     if (playButton) {
         var headword = playButton.getAttribute("data-headword");
         if (headword) {
@@ -34,7 +34,7 @@ document.addEventListener("click", function (event) {
         }
     }
 
-    var otherButton = event.target.closest(".button");
+    var otherButton = event.target.closest(".dpd-button");
     if (otherButton && otherButton.getAttribute("data-target")) {
         const target_id = otherButton.getAttribute("data-target");
         var target = document.getElementById(target_id);
@@ -47,7 +47,7 @@ document.addEventListener("click", function (event) {
             }
 
             if (oneButtonToggleEnabled) {
-                var allButtons = document.querySelectorAll('.button');
+                 var allButtons = document.querySelectorAll('.dpd-button');
                 allButtons.forEach(function (button) {
                     if (button !== otherButton) {
                         button.classList.remove("active");
@@ -69,7 +69,7 @@ document.addEventListener("click", function (event) {
             }
 
             if (otherButton.classList.contains("close")) {
-                var target_control = document.querySelector('a.button[data-target="' + target_id + '"]');
+                 var target_control = document.querySelector('a.dpd-button[data-target="' + target_id + '"]');
                 if (target_control) {
                     target_control.classList.toggle("active");
                 }

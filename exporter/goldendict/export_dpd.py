@@ -472,7 +472,7 @@ def render_button_box_templ(
     # play_button
     if i.needs_audio_button:
         play_button = (
-            f'<a class="button play" onclick="playAudio(\'{i.lemma_clean}\', this)" title="Play Audio">'
+            f'<a class="dpd-button play" onclick="playAudio(\'{i.lemma_clean}\', this)" title="Play Audio">'
             '<svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0">'
             '<path d="M8 5v14l11-7z"></path>'
             "</svg>"
