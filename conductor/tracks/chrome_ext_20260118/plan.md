@@ -44,8 +44,14 @@
 - [x] Task: Declaration Safety (Moved globals to window object to prevent re-injection SyntaxErrors)
 
 ## Phase 6: Remaining Work & Preparation
-- [ ] Task: Fix Grammar Sorter (CURRENTLY BROKEN - Sorter logic is not correctly initializing/cycling on extension-injected tables)
-- [ ] Task: Create comprehensive documentation
+- [x] Task: Fix Grammar Sorter (Restored 3-phase sorting and improved initialization)
+- [x] Task: Create comprehensive documentation (Walkthrough, Behavior Notes, Conductor Track)
 - [ ] Task: Prepare Chrome Web Store assets
-- [ ] Task: Perform comprehensive testing
-- [ ] Task: Finalize build and packaging
+- [x] Task: Perform comprehensive testing (Verified SC theme and generic lookups)
+- [x] Task: Finalize build and packaging (Automated via npm run build/zip)
+
+## Phase 7: UI & UX Refinements (Jan 2026)
+- [x] Task: Refine SuttaCentral theme table styling (margins, padding, alignments)
+- [x] Task: Implement grayscale/color icon toggle for extension state
+- [x] Task: Remove ON/OFF text badge for cleaner logo visibility
+- [x] Task: Configure optimized default settings for toggles

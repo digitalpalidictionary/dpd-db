@@ -37,3 +37,12 @@ The Webapp uses `dpd_headword.html` template.
     -   `/search_json` endpoint returns `{summary_html, dpd_html}`.
     -   We simply inject `dpd_html` into the container.
     -   The injected HTML will contain the structure expected by the JS.
+## Default Settings
+The extension is configured with the following defaults in `dictionary-panel.js`:
+- **Niggahīta** (ṃ / ṁ): ON
+- **One Button at a Time**: ON
+- **Summary Hide/Show**: ON
+- **Sandhi ' Hide/Show**: ON
+- **Grammar Closed/Open**: OFF
+- **Example Closed/Open**: OFF
+- **Audio Male/Female**: OFF (Default: Male)

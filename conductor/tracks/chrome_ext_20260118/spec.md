@@ -64,10 +64,10 @@ Fix critical bugs in the existing DPD Chrome extension, move it to `dpd-db/expor
 - Use JSON response format: `{summary_html: string, dpd_html: string}`
 - Add proper error handling for API failures
 
-#### 2.2 Grammar Sorter (PENDING FIX)
-- **Status**: Non-functional in current version.
+#### 2.2 Grammar Sorter (FIXED)
+- **Status**: Functional.
 - **Goal**: Restore 3-phase Pāḷi sorting (Asc -> Desc -> Reset) for grammar tables.
-- **Issue**: Sorter logic fails to initialize or cycle correctly when tables are injected into the extension panel.
+- **Fix**: Re-implemented sorter logic within `dictionary-panel.js` to ensure reliable initialization on dynamically loaded extension content.
 
 #### 2.2 Add Host Permissions
 - Update manifest.json to include:

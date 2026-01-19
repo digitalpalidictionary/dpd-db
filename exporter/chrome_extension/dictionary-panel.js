@@ -4,16 +4,16 @@ if (typeof DictionaryPanel === 'undefined') {
     textNode;
     searchInput;
     isResizing = false;
-    
+
     settings = {
       fontSize: 16,
-      niggahita: false,
+      niggahita: true,
       grammar: false,
       example: false,
-      oneButton: false,
+      oneButton: true,
       summary: true,
       sandhi: true,
-      audio: false 
+      audio: false
     };
 
     constructor() {
@@ -114,7 +114,7 @@ if (typeof DictionaryPanel === 'undefined') {
 
       const processedHtml = wrapApostrophesInHTML(html);
       const parts = processedHtml.split("<hr>");
-      
+
       if (parts.length >= 2) {
         this.content.innerHTML = `
           <div class="summary-results">${parts[0]}<hr></div>
@@ -128,8 +128,8 @@ if (typeof DictionaryPanel === 'undefined') {
       }
 
       this.content.scrollTop = 0;
-      if (window.initSorter) window.initSorter();
       this._applyContentSettings();
+      this._initGrammarSorter();
     }
 
     setSearchValue(value) {
@@ -163,7 +163,7 @@ if (typeof DictionaryPanel === 'undefined') {
           event.preventDefault();
           const targetId = button.getAttribute("data-target");
           const target = this.content.querySelector("#" + CSS.escape(targetId));
-          
+
           if (target) {
             if (this.settings.oneButton) {
               const allButtons = this.content.querySelectorAll('.button');
@@ -192,6 +192,89 @@ if (typeof DictionaryPanel === 'undefined') {
       const url = "https://www.dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
       const audio = new Audio(url);
       audio.play().catch(err => console.error("Audio playback error:", err));
+    }
+
+    _initGrammarSorter() {
+      const tables = this.content.querySelectorAll('table.grammar_dict:not(.sorter-initialized)');
+      tables.forEach(table => {
+        const tbody = table.querySelector('tbody');
+        const headers = table.querySelectorAll('th');
+        if (!tbody || !headers.length) return;
+
+        table.classList.add('sorter-initialized');
+        const originalRows = Array.from(tbody.querySelectorAll('tr'));
+
+        const letterToNumber = {
+          "√": "00", "a": "01", "ā": "02", "i": "03", "ī": "04", "u": "05", "ū": "06", "e": "07", "o": "08",
+          "k": "09", "kh": "10", "g": "11", "gh": "12", "ṅ": "13", "c": "14", "ch": "15", "j": "16", "jh": "17", "ñ": "18",
+          "ṭ": "19", "ṭh": "20", "ḍ": "21", "ḍh": "22", "ṇ": "23", "t": "24", "th": "25", "d": "26", "dh": "27", "n": "28",
+          "p": "29", "ph": "30", "b": "31", "bh": "32", "m": "33", "y": "34", "r": "35", "l": "36", "v": "37", "s": "38",
+          "h": "39", "ḷ": "40", "ṃ": "41"
+        };
+
+        const pattern = new RegExp("kh|gh|ch|jh|ṭh|ḍh|th|ph|" + Object.keys(letterToNumber).sort((a, b) => b.length - a.length).join("|"), "g");
+
+        const paliSortKey = (word) => {
+          if (!word) return "";
+          return word.toLowerCase().replace(pattern, (match) => letterToNumber[match] || match);
+        };
+
+        const updateArrows = (activeHeader, order) => {
+          headers.forEach(h => {
+            if (h.id === 'col5') return;
+            let text = h.textContent.replace(/[⇅▲▼]/g, '').trim();
+            if (h === activeHeader) {
+              if (order === 'asc') text += ' ▲';
+              else if (order === 'desc') text += ' ▼';
+              else text += ' ⇅';
+            } else {
+              text += ' ⇅';
+            }
+            h.textContent = text;
+          });
+        };
+
+        headers.forEach(header => {
+          if (header.id === 'col5') return;
+
+          header.style.cursor = 'pointer';
+          header.addEventListener('click', (event) => {
+            event.stopPropagation();
+            let order = header.dataset.order || '';
+            let nextOrder = '';
+
+            if (order === '') nextOrder = 'asc';
+            else if (order === 'asc') nextOrder = 'desc';
+            else nextOrder = '';
+
+            let rowsToSort = [];
+            if (nextOrder === '') {
+              rowsToSort = [...originalRows];
+            } else {
+              rowsToSort = Array.from(tbody.querySelectorAll('tr'));
+              const colIndex = header.cellIndex;
+              const isPaliCol = (header.id === 'col1' || header.id === 'col6');
+
+              rowsToSort.sort((a, b) => {
+                let aVal = a.cells[colIndex] ? a.cells[colIndex].textContent.trim() : "";
+                let bVal = b.cells[colIndex] ? b.cells[colIndex].textContent.trim() : "";
+                if (isPaliCol) {
+                  aVal = paliSortKey(aVal);
+                  bVal = paliSortKey(bVal);
+                }
+                let cmp = aVal.localeCompare(bVal);
+                return nextOrder === 'asc' ? cmp : -cmp;
+              });
+            }
+
+            tbody.innerHTML = '';
+            rowsToSort.forEach(row => tbody.appendChild(row));
+            headers.forEach(h => h.dataset.order = '');
+            header.dataset.order = nextOrder;
+            updateArrows(header, nextOrder);
+          });
+        });
+      });
     }
 
     _createHeader() {
@@ -276,15 +359,15 @@ if (typeof DictionaryPanel === 'undefined') {
       dropdown.style.zIndex = "2147483647"; dropdown.style.width = "180px";
 
       [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral" }]
-      .forEach(opt => {
-        var item = document.createElement("div"); item.className = "dpd-dropdown-item"; item.textContent = opt.name;
-        item.style.padding = "8px 12px"; item.style.cursor = "pointer"; item.style.fontSize = "0.85rem";
-        item.style.borderBottom = "1px solid var(--dpd-border)";
-        item.onmouseover = () => item.style.background = "var(--dpd-border)";
-        item.onmouseout = () => item.style.background = "none";
-        item.onclick = () => { this._setTheme(opt.key); dropdown.remove(); };
-        dropdown.appendChild(item);
-      });
+        .forEach(opt => {
+          var item = document.createElement("div"); item.className = "dpd-dropdown-item"; item.textContent = opt.name;
+          item.style.padding = "8px 12px"; item.style.cursor = "pointer"; item.style.fontSize = "0.85rem";
+          item.style.borderBottom = "1px solid var(--dpd-border)";
+          item.onmouseover = () => item.style.background = "var(--dpd-border)";
+          item.onmouseout = () => item.style.background = "none";
+          item.onclick = () => { this._setTheme(opt.key); dropdown.remove(); };
+          dropdown.appendChild(item);
+        });
       document.getElementById("dict-panel-25445").appendChild(dropdown);
       var closeDropdown = (e) => { if (!dropdown.contains(e.target)) { dropdown.remove(); document.removeEventListener("click", closeDropdown); } };
       setTimeout(() => document.addEventListener("click", closeDropdown), 0);
@@ -378,7 +461,7 @@ if (typeof DictionaryPanel === 'undefined') {
 }
 
 if (typeof wrapApostrophesInHTML === 'undefined') {
-  window.wrapApostrophesInHTML = function(html) {
+  window.wrapApostrophesInHTML = function (html) {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
     const walker = document.createTreeWalker(tempDiv, NodeFilter.SHOW_TEXT, null, false);
@@ -407,7 +490,7 @@ if (typeof wrapApostrophesInHTML === 'undefined') {
 }
 
 if (typeof niggahitaUp === 'undefined') {
-  window.niggahitaUp = function() {
+  window.niggahitaUp = function () {
     var dpdPane = document.querySelector(".dpd-content");
     if (!dpdPane) return;
     dpdPane.innerHTML = dpdPane.innerHTML.replace(/ṃ/g, "ṁ");
@@ -415,7 +498,7 @@ if (typeof niggahitaUp === 'undefined') {
 }
 
 if (typeof niggahitaDown === 'undefined') {
-  window.niggahitaDown = function() {
+  window.niggahitaDown = function () {
     var dpdPane = document.querySelector(".dpd-content");
     if (!dpdPane) return;
     dpdPane.innerHTML = dpdPane.innerHTML.replace(/ṁ/g, "ṃ");

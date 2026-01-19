@@ -1,7 +1,26 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.action.setBadgeText({
-    text: "OFF",
+const updateIcon = (tabId, state) => {
+  const iconSet = state === "ON"
+    ? {
+      16: "images/dpd-logo_16.png",
+      32: "images/dpd-logo_32.png",
+      64: "images/dpd-logo_64.png",
+      128: "images/dpd-logo_128.png"
+    }
+    : {
+      16: "images/dpd-logo-gray_16.png",
+      32: "images/dpd-logo-gray_32.png",
+      64: "images/dpd-logo-gray_64.png",
+      128: "images/dpd-logo-gray_128.png"
+    };
+
+  chrome.action.setIcon({
+    tabId: tabId,
+    path: iconSet
   });
+};
+
+chrome.runtime.onInstalled.addListener(() => {
+  console.log("DPD Extension installed");
 });
 
 const tipitakaOrg = "https://tipitaka.org";
@@ -11,29 +30,27 @@ chrome.action.onClicked.addListener(async (tab) => {
 
   const initialize = async (id) => {
     if (!initialized) {
-      // utils.js must be loaded before others as it contains helper functions
       await chrome.scripting.executeScript({
         target: { tabId: id },
-        files: ["utils.js", "themes.js", "dictionary-panel.js", "sorter.js"],
+        files: ["utils.js", "themes.js", "dictionary-panel.js"],
       });
       initialized = true;
     }
   };
 
-  // if (tab.url.startsWith(tipitakaOrg)) {
-  // Retrieve the action badge to check if the extension is 'ON' or 'OFF'
-  const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
-  // Next state will always be the opposite
+  // Retrieve the state for the current tab (defaults to OFF)
+  const key = `state_${tab.id}`;
+  const data = await chrome.storage.local.get(key);
+  const prevState = data[key] || "OFF";
   const nextState = prevState === "ON" ? "OFF" : "ON";
 
-  // Set the action badge to the next state
-  await chrome.action.setBadgeText({
-    tabId: tab.id,
-    text: nextState,
-  });
+  // Update storage
+  await chrome.storage.local.set({ [key]: nextState });
+
+  // Update the icon
+  updateIcon(tab.id, nextState);
 
   if (nextState === "ON") {
-    // Insert the CSS files when the user turns the extension on
     await chrome.scripting.insertCSS({
       files: [
         "css/chrome-extension.css",
@@ -52,7 +69,6 @@ chrome.action.onClicked.addListener(async (tab) => {
   } else if (nextState === "OFF") {
     chrome.tabs.sendMessage(tab.id, "destroy");
 
-    // Remove the CSS files when the user turns the extension off
     await chrome.scripting.removeCSS({
       files: [
         "css/chrome-extension.css",
@@ -61,10 +77,12 @@ chrome.action.onClicked.addListener(async (tab) => {
       ],
       target: { tabId: tab.id },
     });
-
-    // console.debug("custom-style.css");
   }
-  // }
+});
+
+// Cleanup storage when tab is closed
+chrome.tabs.onRemoved.addListener((tabId) => {
+  chrome.storage.local.remove(`state_${tabId}`);
 });
 
 // Handle messages from content scripts (e.g., for fetching data to avoid CORS)
@@ -79,7 +97,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       })
       .then(data => sendResponse({ success: true, data: data }))
       .catch(error => sendResponse({ success: false, error: error.message }));
-    
+
     // Return true to indicate we want to send a response asynchronously
     return true;
   }

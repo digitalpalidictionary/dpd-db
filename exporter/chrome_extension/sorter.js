@@ -1,23 +1,24 @@
-// Robust Sorter for Chrome Extension
-(function() {
-    if (window.initSorterInitialized) return;
-    window.initSorterInitialized = true;
+/**
+ * Pāḷi-aware table sorting for DPD Grammar Dictionary.
+ * Cycles through: Ascending -> Descending -> Reset (original order).
+ */
 
-    window.initSorter = function() {
-        const tables = document.querySelectorAll('table.grammar_dict');
+(function () {
+    function initSorter() {
+        const tables = document.querySelectorAll('table.grammar_dict:not(.sorter-initialized)');
         tables.forEach(table => {
-            if (!table.dataset.sorterActive) {
-                initializeTable(table);
-            }
+            initializeTable(table);
         });
-    };
+    }
 
     function initializeTable(table) {
         const tbody = table.querySelector('tbody');
         const headers = table.querySelectorAll('th');
         if (!tbody || !headers.length) return;
 
-        table.dataset.sorterActive = "true";
+        table.classList.add('sorter-initialized');
+
+        // Store original order for Reset state
         const originalRows = Array.from(tbody.querySelectorAll('tr'));
 
         const letterToNumber = {
@@ -32,7 +33,9 @@
 
         function paliSortKey(word) {
             if (!word) return "";
-            return word.toLowerCase().replace(pattern, (match) => letterToNumber[match] || match);
+            return word.toLowerCase().replace(pattern, (match) => {
+                return letterToNumber[match] || match;
+            });
         }
 
         function updateArrows(activeHeader, order) {
@@ -52,44 +55,77 @@
 
         headers.forEach(header => {
             if (header.id === 'col5') return;
+
             header.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-
                 let order = header.dataset.order || '';
-                let nextOrder = (order === '') ? 'asc' : (order === 'asc' ? 'desc' : '');
+                let nextOrder = '';
 
-                let rowsToSort = (nextOrder === '') ? [...originalRows] : Array.from(tbody.querySelectorAll('tr'));
-                
-                if (nextOrder !== '') {
+                if (order === '') nextOrder = 'asc';
+                else if (order === 'asc') nextOrder = 'desc';
+                else nextOrder = '';
+
+                let rowsToSort = [];
+                if (nextOrder === '') {
+                    rowsToSort = [...originalRows];
+                } else {
+                    rowsToSort = Array.from(tbody.querySelectorAll('tr'));
                     const colIndex = header.cellIndex;
                     const isPaliCol = (header.id === 'col1' || header.id === 'col6');
+
                     rowsToSort.sort((a, b) => {
-                        let aVal = a.cells[colIndex] ? a.cells[colIndex].textContent.trim() : "";
-                        let bVal = b.cells[colIndex] ? b.cells[colIndex].textContent.trim() : "";
-                        if (isPaliCol) { aVal = paliSortKey(aVal); bVal = paliSortKey(bVal); }
-                        return nextOrder === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                        let aCell = a.cells[colIndex];
+                        let bCell = b.cells[colIndex];
+                        let aVal = aCell ? aCell.textContent.trim() : "";
+                        let bVal = bCell ? bCell.textContent.trim() : "";
+
+                        if (isPaliCol) {
+                            aVal = paliSortKey(aVal);
+                            bVal = paliSortKey(bVal);
+                        }
+
+                        let cmp = aVal.localeCompare(bVal);
+                        return nextOrder === 'asc' ? cmp : -cmp;
                     });
                 }
 
                 tbody.innerHTML = '';
                 rowsToSort.forEach(row => tbody.appendChild(row));
+
                 headers.forEach(h => h.dataset.order = '');
                 header.dataset.order = nextOrder;
                 updateArrows(header, nextOrder);
+                event.stopPropagation();
             });
         });
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', window.initSorter);
+
+        document.addEventListener('DOMContentLoaded', initSorter);
+
     } else {
-        window.initSorter();
+
+        initSorter();
+
     }
 
-    // Dynamic listener for clicks - identical to webapp
-    document.addEventListener('click', function() {
-        setTimeout(window.initSorter, 100);
+
+
+    // Also listen for potential dynamic updates (GoldenDict specific)
+
+    document.addEventListener('click', function () {
+
+        setTimeout(initSorter, 100);
+
     }, true);
 
+
+
+    // Export to window for explicit calls (e.g. from webapp AJAX)
+
+    window.initSorter = initSorter;
+
+
+
 })();
+

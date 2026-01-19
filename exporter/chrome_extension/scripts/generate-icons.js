@@ -17,17 +17,27 @@ if (!fs.existsSync(DEST_DIR)) {
 
 async function generateIcons() {
     console.log(`Generating icons from ${SOURCE_FILE}...`);
-    
+
     for (const size of SIZES) {
         const destFile = path.join(DEST_DIR, `dpd-logo_${size}.png`);
+        const destFileGray = path.join(DEST_DIR, `dpd-logo-gray_${size}.png`);
         try {
+            // Color version
             await sharp(SOURCE_FILE)
                 .resize(size, size)
                 .png()
                 .toFile(destFile);
             console.log(`Generated ${destFile}`);
+
+            // Grayscale version
+            await sharp(SOURCE_FILE)
+                .resize(size, size)
+                .grayscale()
+                .png()
+                .toFile(destFileGray);
+            console.log(`Generated ${destFileGray}`);
         } catch (error) {
-            console.error(`Error generating ${size}x${size} icon:`, error);
+            console.error(`Error generating ${size}x${size} icons:`, error);
             process.exit(1);
         }
     }
