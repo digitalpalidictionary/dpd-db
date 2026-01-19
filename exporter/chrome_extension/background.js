@@ -21,20 +21,30 @@ const updateIcon = (tabId, state) => {
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log("DPD Extension installed");
+  // Clear all states on install/update
+  chrome.storage.local.get(null, (items) => {
+    const keysToRemove = Object.keys(items).filter(key => key.startsWith('state_'));
+    chrome.storage.local.remove(keysToRemove);
+  });
+});
+
+// Also clear states when the background script loads (e.g. browser restart or extension reload)
+chrome.storage.local.get(null, (items) => {
+  const keysToRemove = Object.keys(items).filter(key => key.startsWith('state_'));
+  chrome.storage.local.remove(keysToRemove);
 });
 
 const tipitakaOrg = "https://tipitaka.org";
+const initializedTabs = new Set();
 
 chrome.action.onClicked.addListener(async (tab) => {
-  let initialized = false;
-
   const initialize = async (id) => {
-    if (!initialized) {
+    if (!initializedTabs.has(id)) {
       await chrome.scripting.executeScript({
         target: { tabId: id },
         files: ["utils.js", "themes.js", "dictionary-panel.js"],
       });
-      initialized = true;
+      initializedTabs.add(id);
     }
   };
 
@@ -83,6 +93,7 @@ chrome.action.onClicked.addListener(async (tab) => {
 // Cleanup storage when tab is closed
 chrome.tabs.onRemoved.addListener((tabId) => {
   chrome.storage.local.remove(`state_${tabId}`);
+  initializedTabs.delete(tabId);
 });
 
 // Handle messages from content scripts (e.g., for fetching data to avoid CORS)

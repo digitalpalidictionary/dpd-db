@@ -7,6 +7,7 @@ h3.dpd {
   font-size: 130%;
   margin-top: 10px;
   margin-bottom: 1px;
+  color: var(--dpd-text);
 }
 
 div.dpd {
@@ -668,6 +669,11 @@ a.button.play.small:hover svg {
 [data-title] {
   position: relative;
   cursor: pointer;
+}
+
+.summary-link,
+.root-summary-link {
+  text-decoration: none;
 }
 
 [data-title]:hover::after {

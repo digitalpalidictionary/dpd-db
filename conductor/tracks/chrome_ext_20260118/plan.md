@@ -57,3 +57,4 @@
 - [x] Task: Configure optimized default settings for toggles
 - [x] Task: Implement Digital Pāli Reader theme (Tiled background, specific colors)
 - [x] Task: Standardize `<h3>` heading styling with `class="dpd"` and 130% font-size across all platforms.
+- [x] Task: Implement VRI theme (tipitaka.org) with autodetection and specific branding colors.

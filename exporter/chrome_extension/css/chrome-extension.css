@@ -63,7 +63,8 @@ body.dpd-active {
   justify-content: center;
   align-items: center;
   padding: 4px 10px;
-  background-color: var(--dpd-bg);
+  background-color: var(--dpd-header-bg, var(--dpd-bg));
+  color: var(--dpd-header-text);
 }
 
 #dict-panel-25445 .dpd-status-text {
@@ -105,6 +106,33 @@ body.dpd-active {
 
 #dict-panel-25445.dpd-theme-suttacentral .dpd-header img {
   filter: hue-rotate(-158deg) saturate(1.2) brightness(0.9);
+}
+
+#dict-panel-25445.dpd-theme-vri .dpd-header img {
+  filter: hue-rotate(22deg);
+}
+
+#dict-panel-25445 table.help th {
+  background-color: var(--dpd-primary);
+  color: #ffffff;
+}
+
+#dict-panel-25445.dpd-theme-vri {
+  --freq0: hsla(240, 90%, 50%, 0.1);
+  --freq1: hsla(240, 90%, 50%, 0.2);
+  --freq2: hsla(240, 90%, 50%, 0.3);
+  --freq3: hsla(240, 90%, 50%, 0.4);
+  --freq4: hsla(240, 90%, 50%, 0.5);
+  --freq5: hsla(240, 90%, 50%, 0.6);
+  --freq6: hsla(240, 90%, 50%, 0.7);
+  --freq7: hsla(240, 90%, 50%, 0.8);
+  --freq8: hsla(240, 90%, 50%, 0.9);
+  --freq9: hsla(240, 90%, 50%, 1);
+  --freq10: hsla(240, 90%, 50%, 1);
+}
+
+#dict-panel-25445.dpd-theme-vri h3.dpd {
+  color: var(--dpd-header-text);
 }
 
 /* SuttaCentral Theme Overrides */

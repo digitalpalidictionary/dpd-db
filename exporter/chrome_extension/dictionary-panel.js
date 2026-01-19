@@ -62,6 +62,8 @@ if (typeof DictionaryPanel === 'undefined') {
           this.settings.niggahita = false; // Default OFF for DPR (ṃ)
         } else if (domain.includes("suttacentral")) {
           this.settings.niggahita = true; // Default ON for SC (ṁ)
+        } else if (domain.includes("tipitaka.org")) {
+          this.settings.niggahita = false; // Default OFF for VRI (ṃ)
         }
       }
 
@@ -306,7 +308,11 @@ if (typeof DictionaryPanel === 'undefined') {
       logo.style.height = "20px"; logo.style.width = "20px";
 
       const title = document.createElement("h3");
-      title.style.margin = "0 5px"; title.style.fontSize = "0.8rem";
+      title.className = "dpd-title";
+      title.style.margin = "0 5px"; 
+      title.style.fontSize = "var(--dpd-title-size, 100%)";
+      title.style.padding = "var(--dpd-title-padding, 0px)";
+      title.style.fontFamily = "inherit";
       title.textContent = "Digital Pāḷi Dictionary";
 
       logoGroup.appendChild(logo); logoGroup.appendChild(title);
@@ -335,7 +341,7 @@ if (typeof DictionaryPanel === 'undefined') {
 
       const input = document.createElement("input");
       this.searchInput = input; input.type = "text"; input.placeholder = "Search..."; input.style.flex = "1";
-      input.style.fontSize = "0.85rem"; input.style.padding = "2px 6px"; input.style.border = "1px solid var(--dpd-border)";
+      input.style.fontSize = "inherit"; input.style.fontFamily = "inherit"; input.style.padding = "2px 6px"; input.style.border = "1px solid var(--dpd-border)";
       input.style.borderRadius = "3px"; input.style.background = "var(--dpd-bg)"; input.style.color = "var(--dpd-text)";
 
       const searchBtn = document.createElement("button");
@@ -370,7 +376,7 @@ if (typeof DictionaryPanel === 'undefined') {
       dropdown.style.borderRadius = "4px"; dropdown.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
       dropdown.style.zIndex = "2147483647"; dropdown.style.width = "180px";
 
-      [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral" }]
+      [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral" }, { key: "vri", name: "VRI (tipitaka.org)" }]
         .forEach(opt => {
           var item = document.createElement("div"); item.className = "dpd-dropdown-item"; item.textContent = opt.name;
           item.style.padding = "8px 12px"; item.style.cursor = "pointer"; item.style.fontSize = "0.85rem";
