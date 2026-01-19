@@ -245,6 +245,10 @@ body.dpd-active {
   display: inline-block;
 }
 
+.dpd-search-btn.loading {
+  animation: dpd-pulse 1.2s infinite ease-in-out;
+}
+
 /* Button styling */
 #dict-panel-25445 .button {
   padding: 2px 6px;

@@ -27,8 +27,9 @@ document.addEventListener("click", function (event) {
     var playButton = event.target.closest(".dpd-button.play");
     if (playButton) {
         var headword = playButton.getAttribute("data-headword");
+        var gender = playButton.getAttribute("data-gender");
         if (headword) {
-            playAudio(headword);
+            playAudio(headword, gender);
             event.preventDefault();
             return false;
         }

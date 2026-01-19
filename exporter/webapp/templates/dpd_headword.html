@@ -13,7 +13,7 @@
 
 <div class="button-box">
     {% if d.i.needs_audio_button %}
-    <a class="dpd-button play" href="#" data-headword="{{ d.i.lemma_1 }}" title="Play Audio">
+    <a class="dpd-button play" data-headword="{{ d.i.lemma_1 }}" data-title="Play Audio">
         <svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0">
             <path d="M8 5v14l11-7z"></path>
         </svg>
@@ -1003,21 +1003,21 @@
             <td>
                 /{{d.i.lemma_ipa}}/
                 {% if d.i.audio_male1 %}
-                <a class="dpd-button play small" data-title="male1" onclick="playAudio('{{d.i.lemma_clean}}', 'male1')">
+                <a class="dpd-button play small" data-headword="{{d.i.lemma_1}}" data-gender="male1" data-title="male1">
                     <svg viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"></path>
                     </svg>
                 </a>
                 {% endif %}
                 {% if d.i.audio_male2 %}
-                <a class="dpd-button play small" data-title="male2" onclick="playAudio('{{d.i.lemma_clean}}', 'male2')">
+                <a class="dpd-button play small" data-headword="{{d.i.lemma_1}}" data-gender="male2" data-title="male2">
                     <svg viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"></path>
                     </svg>
                 </a>
                 {% endif %}
                 {% if d.i.audio_female1 %}
-                <a class="dpd-button play small" data-title="female1" onclick="playAudio('{{d.i.lemma_clean}}', 'female1')">
+                <a class="dpd-button play small" data-headword="{{d.i.lemma_1}}" data-gender="female1" data-title="female1">
                     <svg viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"></path>
                     </svg>

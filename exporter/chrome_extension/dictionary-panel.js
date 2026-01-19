@@ -3,6 +3,7 @@ if (typeof DictionaryPanel === 'undefined') {
     content;
     textNode;
     searchInput;
+    searchBtn;
     isResizing = false;
 
     settings = {
@@ -120,11 +121,13 @@ if (typeof DictionaryPanel === 'undefined') {
       this.textNode.style.display = "block";
       this.textNode.classList.toggle("loading", text.includes("..."));
       this.textNode.style.color = "var(--dpd-primary)";
+      this.searchBtn?.classList.toggle("loading", text.includes("..."));
     }
 
     setContent(html) {
       this.textNode.style.display = "none";
       this.textNode.classList.remove("loading");
+      this.searchBtn?.classList.remove("loading");
 
       const processedHtml = wrapApostrophesInHTML(html);
       const parts = processedHtml.split("<hr class=\"dpd\">");
@@ -191,23 +194,25 @@ if (typeof DictionaryPanel === 'undefined') {
           return;
         }
 
-        const playBtn = event.target.closest(".dpd-button.play");
-        if (playBtn) {
-          event.preventDefault();
-          const headword = playBtn.getAttribute("data-headword");
-          if (headword) this._playAudio(headword);
-          return;
+                const playBtn = event.target.closest(".dpd-button.play");
+                if (playBtn) {
+                    event.preventDefault();
+                    const headword = playBtn.getAttribute("data-headword");
+                    const gender = playBtn.getAttribute("data-gender");
+                    if (headword) this._playAudio(headword, gender);
+                    return;
+                }
+            });
         }
-      });
-    }
-
-    _playAudio(headword) {
-      const gender = this.settings.audio ? "female" : "male";
-      const url = "https://www.dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
-      const audio = new Audio(url);
-      audio.play().catch(err => console.error("Audio playback error:", err));
-    }
-
+        
+        _playAudio(headword, gender) {
+            if (!gender || gender === "auto") {
+                gender = this.settings.audio ? "female" : "male";
+            }
+            const url = "https://www.dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
+            const audio = new Audio(url);
+            audio.play().catch(err => console.error("Audio playback error:", err));
+        }
     _initGrammarSorter() {
       const tables = this.content.querySelectorAll('table.grammar_dict:not(.sorter-initialized)');
       tables.forEach(table => {
@@ -345,9 +350,11 @@ if (typeof DictionaryPanel === 'undefined') {
       input.style.borderRadius = "3px"; input.style.background = "var(--dpd-bg)"; input.style.color = "var(--dpd-text)";
 
       const searchBtn = document.createElement("button");
+      searchBtn.className = "dpd-search-btn";
       searchBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`;
       searchBtn.style.background = "var(--dpd-primary)"; searchBtn.style.color = "#ffffff"; searchBtn.style.border = "none";
       searchBtn.style.borderRadius = "3px"; searchBtn.style.padding = "2px 8px"; searchBtn.style.cursor = "pointer";
+      this.searchBtn = searchBtn;
 
       var performSearch = () => { var q = input.value.trim(); if (q) handleSelectedWord(q); };
       searchBtn.onclick = performSearch;
