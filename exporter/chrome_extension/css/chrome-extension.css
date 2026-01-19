@@ -14,7 +14,9 @@ html.dpd-active {
 
 body.dpd-active {
   display: grid !important;
-  grid-template-columns: calc(100vw - var(--dpd-panel-width)) var(--dpd-panel-width) !important;
+  grid-template-columns: calc(100vw - var(--dpd-panel-width)) var(
+      --dpd-panel-width
+    ) !important;
   width: 100vw !important;
 }
 
@@ -85,6 +87,16 @@ body.dpd-active {
   display: none !important;
 }
 
+/* Digital Pāli Reader Theme Overrides */
+#dict-panel-25445.dpd-theme-dpr {
+  background-image: var(--dpd-bg-image);
+  background-repeat: repeat;
+}
+
+#dict-panel-25445.dpd-theme-dpr .dpd-header {
+  background-color: transparent;
+}
+
 /* SuttaCentral Theme Overrides */
 #dict-panel-25445.dpd-theme-suttacentral .dpd-header {
   color: var(--dpd-header-text);
@@ -125,15 +137,15 @@ body.dpd-active {
 
 #dict-panel-25445.dpd-theme-suttacentral .vertical-text {
   text-align: center !important;
-  padding: 5px 10px !important;
+  padding: 5px 30px !important;
 }
 
 #dict-panel-25445 .vertical-text {
-  padding: 5px 10px;
+  padding: 5px 20px;
 }
 
 #dict-panel-25445 p {
-  margin-top: 0 !important;
+  margin: 0 !important;
 }
 
 /* Toggle Switch Styling */
@@ -174,11 +186,11 @@ body.dpd-active {
   border-radius: 50%;
 }
 
-.dpd-switch input:checked+.dpd-slider {
+.dpd-switch input:checked + .dpd-slider {
   background-color: var(--dpd-primary);
 }
 
-.dpd-switch input:checked+.dpd-slider:before {
+.dpd-switch input:checked + .dpd-slider:before {
   transform: translateX(16px);
 }
 

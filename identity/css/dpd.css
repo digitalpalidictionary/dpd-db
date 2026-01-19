@@ -3,7 +3,7 @@ body {
   touch-action: manipulation;
 }
 
-h3 {
+h3.dpd {
   font-size: 130%;
   margin-top: 10px;
   margin-bottom: 1px;

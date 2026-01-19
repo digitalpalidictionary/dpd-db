@@ -52,7 +52,19 @@ if (typeof DictionaryPanel === 'undefined') {
       ]);
 
       if (result.settingsFontSize !== undefined) this.settings.fontSize = result.settingsFontSize;
-      if (result.settingsNiggahita !== undefined) this.settings.niggahita = result.settingsNiggahita;
+      
+      // DOMAIN AWARE DEFAULTS for Niggahita
+      if (result.settingsNiggahita !== undefined) {
+        this.settings.niggahita = result.settingsNiggahita;
+      } else {
+        const domain = window.location.hostname;
+        if (domain.includes("digitalpalireader")) {
+          this.settings.niggahita = false; // Default OFF for DPR (ṃ)
+        } else if (domain.includes("suttacentral")) {
+          this.settings.niggahita = true; // Default ON for SC (ṁ)
+        }
+      }
+
       if (result.settingsGrammar !== undefined) this.settings.grammar = result.settingsGrammar;
       if (result.settingsExample !== undefined) this.settings.example = result.settingsExample;
       if (result.settingsSummary !== undefined) this.settings.summary = result.settingsSummary;
@@ -294,7 +306,7 @@ if (typeof DictionaryPanel === 'undefined') {
       logo.style.height = "20px"; logo.style.width = "20px";
 
       const title = document.createElement("h3");
-      title.style.margin = "0 5px"; title.style.fontSize = "0.9rem";
+      title.style.margin = "0 5px"; title.style.fontSize = "0.8rem";
       title.textContent = "Digital Pāḷi Dictionary";
 
       logoGroup.appendChild(logo); logoGroup.appendChild(title);

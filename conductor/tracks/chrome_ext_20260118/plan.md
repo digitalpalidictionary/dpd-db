@@ -55,3 +55,5 @@
 - [x] Task: Implement grayscale/color icon toggle for extension state
 - [x] Task: Remove ON/OFF text badge for cleaner logo visibility
 - [x] Task: Configure optimized default settings for toggles
+- [x] Task: Implement Digital Pāli Reader theme (Tiled background, specific colors)
+- [x] Task: Standardize `<h3>` heading styling with `class="dpd"` and 130% font-size across all platforms.

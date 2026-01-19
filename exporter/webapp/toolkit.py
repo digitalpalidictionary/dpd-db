@@ -446,7 +446,7 @@ def find_closest_matches(
         [item for item in closest_headword_matches if item not in ascii_matches]
     )
 
-    string = "<h3>No results found. "
+    string = '<h3 class="dpd">No results found. '
     if combined_list:
         string += "The closest matches are:</h3><br>"
         string += "<p>"

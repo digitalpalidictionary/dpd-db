@@ -201,7 +201,7 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
     html = ""
     html += "<body>"
     html += "<div class='tertiary'>"
-    html += "<h2>Bibliography</h1>"
+    html += "<h2>Bibliography</h2>"
 
     # i = current item, n = next item
     for x in range(len(bibliography_dict)):
@@ -212,7 +212,7 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
             n = bibliography_dict[x + 1]
 
         if i.category:
-            html += f"<h3>{i.category}</h3>"
+            html += f"<h3 class='dpd'>{i.category}</h3>"
             html += "<ul>"
         if i.surname:
             html += f"<li><b>{i.surname}</b>"

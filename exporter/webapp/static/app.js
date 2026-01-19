@@ -133,9 +133,9 @@ async function performSearch(addHistory = true) {
             const language = htmlElement.lang || "en";
 
             if (language === "en") {
-              summaryResults.innerHTML = "<h3>Summary</h3>";
+              summaryResults.innerHTML = '<h3 class="dpd">Summary</h3>';
             } else {
-              summaryResults.innerHTML = "<h3>Сводка</h3>";
+              summaryResults.innerHTML = '<h3 class="dpd">Сводка</h3>';
             }
             summaryResults.innerHTML += data.summary_html;
             summaryResults.innerHTML += "<hr>";

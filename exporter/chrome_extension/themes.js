@@ -9,10 +9,12 @@ window.THEMES = window.THEMES || {
   },
   dpr: {
     name: "Digital Pāli Reader",
-    bg: "#f8f9fa",
-    text: "#212529",
-    primary: "#8b0000",
-    border: "#dee2e6"
+    bg: "#FFFFDD",
+    text: "hsl(198, 100%, 5%)",
+    primary: "hsl(198, 100%, 50%)",
+    border: "hsla(0, 0%, 50%, 0.25)",
+    font: '"Noto Sans", sans-serif',
+    bgImage: "dpr_imgbk.png"
   },
   suttacentral: {
     name: "SuttaCentral",
@@ -68,14 +70,13 @@ window.applyTheme = window.applyTheme || function(themeKey) {
     panelEl.style.setProperty("--dpd-primary", theme.primary);
     panelEl.style.setProperty("--primary", theme.primary);
     panelEl.style.setProperty("--primary-alt", theme.primary);
+    panelEl.style.setProperty("--primary-text", theme.primary);
     panelEl.style.setProperty("--dpd-border", theme.border);
+    panelEl.style.setProperty("--gray", "#808080");
+    panelEl.style.setProperty("--gray-light", "#808080");
 
-    if (theme.accent) {
-      panelEl.style.setProperty("--dpd-accent", theme.accent);
-      panelEl.style.setProperty("--primary-text", theme.accent);
-    } else {
-      panelEl.style.setProperty("--dpd-accent", theme.primary);
-    }
+    panelEl.style.setProperty("--dpd-accent", theme.accent || theme.primary);
+    panelEl.style.setProperty("--dpd-bg-image", theme.bgImage ? `url(${chrome.runtime.getURL("images/" + theme.bgImage)})` : "none");
     
     panelEl.style.fontFamily = theme.font || '"Inter", "sans-serif"';
     if (!panelEl.style.fontSize) {
@@ -83,9 +84,13 @@ window.applyTheme = window.applyTheme || function(themeKey) {
     }
 
     panelEl.classList.remove("dpd-theme-suttacentral");
+    panelEl.classList.remove("dpd-theme-dpr");
     if (themeKey === "suttacentral" || (themeKey === "auto" && window.detectTheme() === "suttacentral")) {
       panelEl.classList.add("dpd-theme-suttacentral");
       panelEl.style.setProperty("--dpd-header-text", "rgb(124, 118, 111)");
+    } else if (themeKey === "dpr" || (themeKey === "auto" && window.detectTheme() === "dpr")) {
+      panelEl.classList.add("dpd-theme-dpr");
+      panelEl.style.setProperty("--dpd-header-text", theme.text);
     } else {
       panelEl.style.setProperty("--dpd-header-text", theme.text);
     }

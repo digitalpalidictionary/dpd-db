@@ -121,22 +121,27 @@ Fix critical bugs in the existing DPD Chrome extension, move it to `dpd-db/expor
   - Copy webapp templates if needed
   - Zip extension for Chrome Store submission
 
-### 3. Theme Detection System
+### 3. Theme Detection System (COMPLETED)
 
-#### 3.1 URL-Based Theme Detection
+#### 3.1 URL-Based Theme Detection (COMPLETED)
 - Detect Digital Pāli Reader: URL contains "digitalpalireader"
 - Detect SuttaCentral: URL contains "suttacentral"
 - Apply pre-configured theme based on detected site
 - Cache detected theme per domain to avoid recalculating
 
-#### 3.2 Pre-Defined Themes
-- **Digital Pāli Reader Theme**: Match DPR's color scheme (light background, warm accents)
-- **SuttaCentral Theme**: Match SuttaCentral's color scheme (modern, clean, potentially dark mode)
+#### 3.2 Pre-Defined Themes (COMPLETED)
+- **Digital Pāli Reader Theme**: Match DPR's color scheme (tiled background, specific light colors)
+- **SuttaCentral Theme**: Match SuttaCentral's modern look (orange branding, specific fonts)
 - **Default Theme**: Fallback theme for unknown sites
 - Themes defined in separate file: `themes.js`
 - Each theme includes: background, text, accent colors, font family, font size
 
-#### 3.3 Theme Dropdown (Manual Override)
+#### 3.3 Theme Dropdown (Manual Override) (COMPLETED)
+...
+#### 3.7 Header and Heading Styling (COMPLETED)
+- **Goal**: Ensure consistent styling for all DPD headers.
+- **Fix**: All `<h3>` tags in templates and generated HTML now include `class="dpd"`.
+- **CSS**: `identity/css/dpd.css` and extension-specific CSS target `h3.dpd` with `font-size: 130%`.
 - Add theme selector icon in top-left header of panel
 - Dropdown shows list of all available themes:
   - Auto (default - automatic detection)
