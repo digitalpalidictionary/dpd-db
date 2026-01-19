@@ -35,13 +35,13 @@ function makeFamilyWordHtml(data) {
   html += `
         <p class="footer">
         Something out of place?
-        <a class="link"
+        <a class="dpd-link"
         href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${
           data.id
         }%20${data.lemma.replace(
-    / /g,
-    "%20"
-  )}&entry.326955045=Word+Family&entry.1433863141=GoldenDict+${data.date}"
+          / /g,
+          "%20",
+        )}&entry.326955045=Word+Family&entry.1433863141=GoldenDict+${data.date}"
         target="_blank">
         Report it here
         </a>.

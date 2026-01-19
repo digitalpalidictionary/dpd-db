@@ -476,16 +476,16 @@ function makeFrequency(data) {
   html += `
 <p>
     For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies,
-    please refer to <a class="link" href="https://digitalpalidictionary.github.io/features/frequency/">this webpage</a>.
+    please refer to <a class="dpd-link" href="https://digitalpalidictionary.github.io/features/frequency/">this webpage</a>.
 </p>
 <p class='footer'>
-    If something looks out of place, <a class="link"
+    If something looks out of place, <a class="dpd-link"
         href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${
           data.id
         }%20${data.lemma.replace(
-    / /g,
-    "%20"
-  )}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
+          / /g,
+          "%20",
+        )}&entry.326955045=Frequency&entry.1433863141=GoldenDict+${data.date}"
         target="_blank">log it here.</a>
 </p>
 `;
