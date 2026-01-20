@@ -65,64 +65,46 @@ window.adjustForLogo = window.adjustForLogo || function(targetHsl) {
 window.getContrastText = window.getContrastText || function(colorInput) {
   console.log("[DPD] getContrastText INPUT:", colorInput, "type:", typeof colorInput);
 
-  const hslToRgb = (h, s, l) => {
-    s /= 100; l /= 100;
-    const a = s * Math.min(l, 1 - l);
-    const f = n => {
-      const k = (n + h / 30) % 12;
-      return l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    };
-    const rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
-    console.log("[DPD] HSL to RGB:", `hsl(${h}, ${s}%, ${l}%)`, "-> rgb:", rgb);
-    return rgb;
+  // Helper function to parse any color to RGB values
+  const parseColorToRGB = (color) => {
+    // Create a temporary element to get computed RGB values
+    const tempEl = document.createElement('div');
+    tempEl.style.color = color;
+    document.body.appendChild(tempEl);
+    const computed = window.getComputedStyle(tempEl).color;
+    document.body.removeChild(tempEl);
+
+    // Parse the computed color (should be in rgb() or rgba() format)
+    const rgbMatch = computed.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/);
+    if (rgbMatch) {
+      return [
+        parseInt(rgbMatch[1]),
+        parseInt(rgbMatch[2]),
+        parseInt(rgbMatch[3])
+      ];
+    }
+    return [255, 255, 255]; // Default to white if parsing fails
   };
 
-  let h, s, l;
+  // Convert any color input to RGB first
+  const [r, g, b] = parseColorToRGB(colorInput);
+  console.log("[DPD] Parsed RGB:", [r, g, b]);
 
-  if (typeof colorInput === 'string') {
-    console.log("[DPD] Parsing string:", colorInput);
-    const hslMatch = colorInput.match(/^hsla?\((\d+),\s*(\d+)%,?\s*(\d+)%,?(?:\s*([\d.]+))?\)$/);
-    console.log("[DPD] HSL regex match:", hslMatch);
-    if (hslMatch) {
-      h = parseInt(hslMatch[1]);
-      s = parseInt(hslMatch[2]);
-      l = parseInt(hslMatch[3]);
-      console.log("[DPD] Parsed HSL:", `h:${h}, s:${s}, l:${l}`);
-    } else {
-      console.log("[DPD] HSL regex failed, falling back to DOM");
-      const tempEl = document.createElement('div');
-      tempEl.style.color = colorInput;
-      document.body.appendChild(tempEl);
-      const computed = window.getComputedStyle(tempEl).color;
-      document.body.removeChild(tempEl);
-      console.log("[DPD] DOM computed color:", computed);
-      const rgbMatch = computed.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/);
-      if (!rgbMatch) {
-        console.log("[DPD] RGB regex failed, returning white");
-        return '#ffffff';
-      }
-      h = s = l = null;
-      const rgb = [parseInt(rgbMatch[1]), parseInt(rgbMatch[2]), parseInt(rgbMatch[3])];
-      console.log("[DPD] Parsed RGB:", rgb);
-      const luminance = 0.2126 * (rgb[0] / 255) + 0.7152 * (rgb[1] / 255) + 0.0722 * (rgb[2] / 255);
-      const result = luminance > 0.5 ? '#000000' : '#ffffff';
-      console.log("[DPD] RGB luminance:", luminance.toFixed(3), "->", result);
-      return result;
-    }
-  } else if (colorInput && typeof colorInput === 'object' && 'h' in colorInput) {
-    h = colorInput.h;
-    s = colorInput.s;
-    l = colorInput.l;
-    console.log("[DPD] Using HSL object:", colorInput);
-  } else {
-    console.log("[DPD] Invalid input, returning white");
+  // Special case: if all RGB values are very low, return white text immediately
+  // This handles cases like pure black (0,0,0) or near-black colors
+  if (r < 30 && g < 30 && b < 30) {
+    console.log("[DPD] Very dark color detected, returning white text");
     return '#ffffff';
   }
 
-  const [r, g, b] = hslToRgb(h, s, l);
+  // Calculate luminance using the standard formula
   const luminance = 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
-  const result = luminance > 0.5 ? '#000000' : '#ffffff';
-  console.log("[DPD] Final luminance:", luminance.toFixed(3), "->", result);
+
+  // For very dark colors, ensure we get light text
+  // Use a lower threshold to ensure better contrast on dark backgrounds
+  const result = luminance > 0.35 ? '#000000' : '#ffffff';  // Even lower threshold
+
+  console.log("[DPD] Color:", colorInput, "Luminance:", luminance.toFixed(3), "->", result);
   return result;
 };
 
@@ -163,6 +145,16 @@ window.THEMES = window.THEMES || {
     font: '"Skolar Sans PE Variable", sans-serif',
     niggahita: true
   },
+  suttacentral_dark: {
+    name: "SuttaCentral Dark",
+    bg: "#414141",
+    text: "#cccccc",
+    primary: "#c68b05",
+    accent: "#c68b05",
+    border: "#666666",
+    font: '"Skolar Sans PE Variable", sans-serif',
+    niggahita: true
+  },
   vri: {
     name: "Vipassana Research Institute",
     bg: "#ffffff",
@@ -180,13 +172,26 @@ window.THEMES = window.THEMES || {
 window.detectTheme = window.detectTheme || function() {
   const url = window.location.href;
   if (url.includes("digitalpalireader.online")) return "dpr";
-  if (url.includes("suttacentral.net")) return "suttacentral";
+  if (url.includes("suttacentral.net")) {
+    return window.isSuttaCentralDark() ? "suttacentral_dark" : "suttacentral";
+  }
   if (url.includes("tipitaka.org")) return "vri";
   if (url.includes("open.tipitaka.lk")) {
     console.log("[DPD] Detected Tipitaka.lk");
     return "tipitakalk";
   }
   return "auto";
+};
+
+window.isSuttaCentralDark = window.isSuttaCentralDark || function() {
+  const bg = window.getComputedStyle(document.body).backgroundColor;
+  const rgb = bg.match(/\d+/g);
+  if (rgb && rgb.length >= 3) {
+    // Calculate perceived brightness (standard formula)
+    const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+    return brightness < 128; // Return true if dark
+  }
+  return false;
 };
 
 window.extractColors = window.extractColors || function() {
@@ -324,9 +329,16 @@ window.applyTheme = window.applyTheme || function(themeKey) {
       window.panel.settings.niggahita = theme.niggahita;
     }
 
-    if (themeKey === "suttacentral" || (themeKey === "auto" && window.detectTheme() === "suttacentral")) {
+    const isSC = themeKey === "suttacentral" || themeKey === "suttacentral_dark" || 
+                 (themeKey === "auto" && (window.detectTheme() === "suttacentral" || window.detectTheme() === "suttacentral_dark"));
+
+    if (isSC) {
       panelEl.classList.add("dpd-theme-suttacentral");
-      panelEl.style.setProperty("--dpd-header-text", "rgb(124, 118, 111)");
+      if (themeKey === "suttacentral_dark" || (themeKey === "auto" && window.detectTheme() === "suttacentral_dark")) {
+        panelEl.style.setProperty("--dpd-header-text", "#cccccc");
+      } else {
+        panelEl.style.setProperty("--dpd-header-text", "rgb(124, 118, 111)");
+      }
     } else if (themeKey === "dpr" || (themeKey === "auto" && window.detectTheme() === "dpr")) {
       panelEl.classList.add("dpd-theme-dpr");
       panelEl.style.setProperty("--dpd-header-text", theme.text);

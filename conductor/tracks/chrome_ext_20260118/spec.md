@@ -132,6 +132,11 @@ Fix critical bugs in the existing DPD Chrome extension, move it to `dpd-db/expor
 #### 3.2 Pre-Defined Themes (COMPLETED)
 - **Digital Pāli Reader Theme**: Match DPR's color scheme (tiled background, specific light colors)
 - **SuttaCentral Theme**: Match SuttaCentral's modern look (orange branding, specific fonts)
+- **SuttaCentral Dark Theme**:
+  - Background: #414141
+  - Accent/Colour: #c68b05
+  - Text: #cccccc
+  - Detection: Check SuttaCentral's `body` class or computed styles for dark mode indicators (e.g., `theme-dark`, background color).
 - **VRI Theme (tipitaka.org)**: 
   - Background: #ffffff
   - Secondary/Accent: #b78730

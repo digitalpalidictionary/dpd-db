@@ -125,13 +125,14 @@ body.dpd-active {
 #dict-panel-25445.dpd-theme-suttacentral .grammar,
 #dict-panel-25445.dpd-theme-suttacentral .inflection,
 #dict-panel-25445.dpd-theme-suttacentral .family {
-  margin: 3px 0 !important;
+  margin: 0 !important;
 }
 
 #dict-panel-25445.dpd-theme-suttacentral table.family th,
 #dict-panel-25445.dpd-theme-suttacentral table.family td {
   padding: 1px !important;
   vertical-align: top !important;
+  text-align: left !important;
 }
 
 #dict-panel-25445.dpd-theme-suttacentral .vertical-text {
@@ -226,7 +227,7 @@ body.dpd-active {
   background: var(--dpd-border);
   border: none;
   cursor: pointer;
-  color: inherit;
+  color: var(--dpd-button-text, #fff);
   font-size: 0.85rem;
   border-radius: 3px;
 }
@@ -236,8 +237,16 @@ body.dpd-active {
   color: var(--dpd-button-text, #fff) !important;
 }
 
+#dict-panel-25445 a.dpd-button,
 #dict-panel-25445 a.dpd-button.active,
 #dict-panel-25445 a.dpd-button:hover {
+  color: var(--dpd-button-text) !important;
+}
+
+/* Ensure SVG icons inside buttons also get the proper contrast color */
+#dict-panel-25445 .button svg,
+#dict-panel-25445 .dpd-button svg {
+  fill: currentColor !important;
   color: var(--dpd-button-text) !important;
 }
 

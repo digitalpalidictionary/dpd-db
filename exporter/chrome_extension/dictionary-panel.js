@@ -387,7 +387,7 @@ if (typeof DictionaryPanel === 'undefined') {
       dropdown.style.borderRadius = "4px"; dropdown.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
       dropdown.style.zIndex = "2147483647"; dropdown.style.width = "180px";
 
-      [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral" }, { key: "vri", name: "VRI (tipitaka.org)" }, { key: "tipitakalk", name: "Tipitaka.lk" }]
+      [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral Light" }, { key: "suttacentral_dark", name: "SuttaCentral Dark" }, { key: "vri", name: "VRI (tipitaka.org)" }, { key: "tipitakalk", name: "Tipitaka.lk" }]
         .forEach(opt => {
           var item = document.createElement("div"); item.className = "dpd-dropdown-item"; item.textContent = opt.name;
           item.style.padding = "8px 12px"; item.style.cursor = "pointer"; item.style.fontSize = "0.85rem";

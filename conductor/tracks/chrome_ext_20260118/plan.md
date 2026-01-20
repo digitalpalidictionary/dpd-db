@@ -58,3 +58,11 @@
 - [x] Task: Implement Digital Pāli Reader theme (Tiled background, specific colors)
 - [x] Task: Standardize `<h3>` heading styling with `class="dpd"` and 130% font-size across all platforms.
 - [x] Task: Implement VRI theme (tipitaka.org) with autodetection and specific branding colors.
+
+## Phase 8: Sutta Central Dark Theme
+
+- [x] Task: Define Sutta Central Dark theme in `themes.js`
+
+- [x] Task: Implement dark mode detection logic for Sutta Central
+
+- [x] Task: Style Chrome Extension accordingly
