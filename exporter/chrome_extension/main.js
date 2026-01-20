@@ -9,7 +9,8 @@ function handleSelectedWord(word) {
   panel?.setText("Loading...");
 
   const url =
-    "https://www.dpdict.net/search_json?q=" + encodeURIComponent(word);
+    // "https://www.dpdict.net/search_json?q=" + encodeURIComponent(word);
+    "http://0.0.0.0:8080/search_json?q=" + encodeURIComponent(word);
 
   // Use background script to fetch data to avoid CORS issues
   chrome.runtime.sendMessage(

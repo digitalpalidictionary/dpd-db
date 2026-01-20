@@ -65,6 +65,8 @@ if (typeof DictionaryPanel === 'undefined') {
           this.settings.niggahita = true; // Default ON for SC (ṁ)
         } else if (domain.includes("tipitaka.org")) {
           this.settings.niggahita = false; // Default OFF for VRI (ṃ)
+        } else if (domain.includes("open.tipitaka.lk")) {
+          this.settings.niggahita = false; // Default OFF for Tipitaka.lk (ṃ)
         }
       }
 
@@ -209,7 +211,9 @@ if (typeof DictionaryPanel === 'undefined') {
             if (!gender || gender === "auto") {
                 gender = this.settings.audio ? "female" : "male";
             }
-            const url = "https://www.dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
+            const url =
+                // "https://www.dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
+                "http://0.0.0.0:8080/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
             const audio = new Audio(url);
             audio.play().catch(err => console.error("Audio playback error:", err));
         }
@@ -383,7 +387,7 @@ if (typeof DictionaryPanel === 'undefined') {
       dropdown.style.borderRadius = "4px"; dropdown.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
       dropdown.style.zIndex = "2147483647"; dropdown.style.width = "180px";
 
-      [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral" }, { key: "vri", name: "VRI (tipitaka.org)" }]
+      [{ key: "auto", name: "Auto (Detect)" }, { key: "default", name: "DPD Light" }, { key: "dpr", name: "Digital Pāli Reader" }, { key: "suttacentral", name: "SuttaCentral" }, { key: "vri", name: "VRI (tipitaka.org)" }, { key: "tipitakalk", name: "Tipitaka.lk" }]
         .forEach(opt => {
           var item = document.createElement("div"); item.className = "dpd-dropdown-item"; item.textContent = opt.name;
           item.style.padding = "8px 12px"; item.style.cursor = "pointer"; item.style.fontSize = "0.85rem";

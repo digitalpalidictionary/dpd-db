@@ -5,6 +5,10 @@
   --dpd-primary: hsl(198, 100%, 50%);
   --dpd-border: hsla(0, 0%, 50%, 0.25);
   --dpd-panel-width: 33.33vw;
+  --dpd-logo-hue-rotate: 0deg;
+  --dpd-logo-saturate: 1;
+  --dpd-logo-brightness: 1;
+  --dpd-button-text: #ffffff;
 }
 
 /* Layout for Host Page */
@@ -104,12 +108,8 @@ body.dpd-active {
   font-variant: small-caps;
 }
 
-#dict-panel-25445.dpd-theme-suttacentral .dpd-header img {
-  filter: hue-rotate(-158deg) saturate(1.2) brightness(0.9);
-}
-
-#dict-panel-25445.dpd-theme-vri .dpd-header img {
-  filter: hue-rotate(22deg);
+#dict-panel-25445 .dpd-header img {
+  filter: hue-rotate(var(--dpd-logo-hue-rotate, 0deg)) saturate(var(--dpd-logo-saturate, 1)) brightness(var(--dpd-logo-brightness, 1)) !important;
 }
 
 #dict-panel-25445 table.help th {
@@ -117,37 +117,8 @@ body.dpd-active {
   color: #ffffff;
 }
 
-#dict-panel-25445.dpd-theme-vri {
-  --freq0: hsla(240, 90%, 50%, 0.1);
-  --freq1: hsla(240, 90%, 50%, 0.2);
-  --freq2: hsla(240, 90%, 50%, 0.3);
-  --freq3: hsla(240, 90%, 50%, 0.4);
-  --freq4: hsla(240, 90%, 50%, 0.5);
-  --freq5: hsla(240, 90%, 50%, 0.6);
-  --freq6: hsla(240, 90%, 50%, 0.7);
-  --freq7: hsla(240, 90%, 50%, 0.8);
-  --freq8: hsla(240, 90%, 50%, 0.9);
-  --freq9: hsla(240, 90%, 50%, 1);
-  --freq10: hsla(240, 90%, 50%, 1);
-}
-
 #dict-panel-25445.dpd-theme-vri h3.dpd {
   color: var(--dpd-header-text);
-}
-
-/* SuttaCentral Theme Overrides */
-#dict-panel-25445.dpd-theme-suttacentral {
-  --freq0: hsla(42, 90%, 50%, 0.1);
-  --freq1: hsla(42, 90%, 50%, 0.2);
-  --freq2: hsla(42, 90%, 50%, 0.3);
-  --freq3: hsla(42, 90%, 50%, 0.4);
-  --freq4: hsla(42, 90%, 50%, 0.5);
-  --freq5: hsla(42, 90%, 50%, 0.6);
-  --freq6: hsla(42, 90%, 50%, 0.7);
-  --freq7: hsla(42, 90%, 50%, 0.8);
-  --freq8: hsla(42, 90%, 50%, 0.9);
-  --freq9: hsla(42, 90%, 50%, 1);
-  --freq10: hsla(42, 90%, 50%, 1);
 }
 
 #dict-panel-25445.dpd-theme-suttacentral .grammar_dict,
@@ -262,7 +233,12 @@ body.dpd-active {
 
 #dict-panel-25445 .button.active {
   background: var(--dpd-primary);
-  color: #fff;
+  color: var(--dpd-button-text, #fff) !important;
+}
+
+#dict-panel-25445 a.dpd-button.active,
+#dict-panel-25445 a.dpd-button:hover {
+  color: var(--dpd-button-text) !important;
 }
 
 .hidden {
