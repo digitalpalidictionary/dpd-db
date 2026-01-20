@@ -478,7 +478,7 @@ function makeFrequency(data) {
     For a detailed explanation of how this word frequency chart is calculated, it's accuracies and inaccuracies,
     please refer to <a class="dpd-link" href="https://digitalpalidictionary.github.io/features/frequency/">this webpage</a>.
 </p>
-<p class='footer'>
+<p class='dpd-footer'>
     If something looks out of place, <a class="dpd-link"
         href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${
           data.id

@@ -52,7 +52,7 @@ function makeFamilySets(data) {
   //// footer
 
   html += `
-        <p class="footer">
+        <p class="dpd-footer">
         Spot a mistake?
         <a class="dpd-link"
         href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500=${
