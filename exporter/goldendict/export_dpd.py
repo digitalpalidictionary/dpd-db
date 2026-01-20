@@ -467,7 +467,7 @@ def render_button_box_templ(
 ) -> str:
     """render buttons for each section of the dictionary"""
 
-    button_html = '<a class="button" href="#" data-target="{target}">{name}</a>'
+    button_html = '<a class="dpd-button" href="#" data-target="{target}">{name}</a>'
 
     # play_button
     if i.needs_audio_button:
