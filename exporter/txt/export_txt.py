@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Any
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pali_sort_key import pali_sort_key
@@ -154,6 +155,12 @@ def save_txt(g: GlobalVars):
 def main():
     pr.tic()
     pr.title("exporting DPD as txt")
+
+    if not config_test("exporter", "make_txt", "yes"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
+
     pr.green("loading db")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

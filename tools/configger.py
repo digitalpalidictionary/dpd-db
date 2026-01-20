@@ -55,6 +55,7 @@ DEFAULT_CONFIG = {
         "make_ebook": "no",
         "make_tbw": "no",
         "make_pdf": "no",
+        "make_txt": "no",
         "make_abbrev": "no",
         "tarball_db": "no",
         "make_changelog": "no",

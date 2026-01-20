@@ -31,6 +31,7 @@ def uposatha_day_configger():
         config_update("exporter", "make_tpr", "yes")
         config_update("exporter", "make_tbw", "yes")
         config_update("exporter", "make_pdf", "yes")
+        config_update("exporter", "make_txt", "yes")
         config_update("exporter", "make_abbrev", "yes")
         config_update("exporter", "tarball_db", "yes")
         config_update("exporter", "make_changelog", "yes")
