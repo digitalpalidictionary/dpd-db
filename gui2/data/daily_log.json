@@ -1200,5 +1200,11 @@
         "pass2_add": 2,
         "pass2_pre": 311,
         "pass2_update": 50
+    },
+    "2026-01-20": {
+        "pass1": 4,
+        "pass2_add": 2,
+        "pass2_pre": 0,
+        "pass2_update": 70
     }
 }
