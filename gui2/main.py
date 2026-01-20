@@ -84,6 +84,14 @@ class App:
                 self.toolkit.ai_search_popup.close_dialog()
             elif self.toolkit.wordfinder_popup.is_dialog_open():
                 self.toolkit.wordfinder_popup.close_dialog()
+        elif e.key == "Arrow Left" and e.alt:
+            if self.tabs.selected_index > 0:
+                self.tabs.selected_index -= 1
+                self.page.update()
+        elif e.key == "Arrow Right" and e.alt:
+            if self.tabs.selected_index < len(self.tabs.tabs) - 1:
+                self.tabs.selected_index += 1
+                self.page.update()
 
     def tab_clicked(self, e: ft.ControlEvent) -> None:
         """Handles tab clicks."""
@@ -95,7 +103,7 @@ class App:
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
 
-        tabs: ft.Tabs = ft.Tabs(
+        self.tabs: ft.Tabs = ft.Tabs(
             selected_index=0,
             animation_duration=300,
             on_click=self.tab_clicked,
@@ -151,7 +159,7 @@ class App:
             ],
             expand=True,
         )
-        self.page.add(tabs)
+        self.page.add(self.tabs)
         self.page.update()
 
 
