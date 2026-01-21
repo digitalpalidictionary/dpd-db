@@ -1,0 +1,8 @@
+{
+  "track_id": "webapp_memory_overload_20260121",
+  "type": "bug",
+  "status": "new",
+  "created_at": "2026-01-21T10:00:00Z",
+  "updated_at": "2026-01-21T10:00:00Z",
+  "description": "Critical memory overload problem in webapp in the last 72 hours. Investigate recent commits and optimize memory management."
+}

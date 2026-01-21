@@ -18,3 +18,8 @@
 
 ## [~] Track: Chrome Extension - Bug Fixes, Theme Detection & Chrome Store Release
 *Link: [./conductor/tracks/chrome_ext_20260118/](./conductor/tracks/chrome_ext_20260118/)*
+
+---
+
+- [~] **Track: Webapp Critical Memory Overload Investigation & Optimization**
+*Link: [./conductor/tracks/webapp_memory_overload_20260121/](./conductor/tracks/webapp_memory_overload_20260121/)*

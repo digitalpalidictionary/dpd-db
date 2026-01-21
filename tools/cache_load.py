@@ -112,16 +112,16 @@ def load_audio_dict() -> dict[str, tuple[bool, bool, bool]]:
             results = (
                 audio_session.query(
                     DpdAudio.lemma_clean,
-                    DpdAudio.male1,
-                    DpdAudio.male2,
-                    DpdAudio.female1,
+                    (DpdAudio.male1 != None),
+                    (DpdAudio.male2 != None),
+                    (DpdAudio.female1 != None),
                 ).all()
             )
             _audio_dict_cache = {
                 r[0]: (
-                    r[1] is not None,
-                    r[2] is not None,
-                    r[3] is not None,
+                    r[1],
+                    r[2],
+                    r[3],
                 )
                 for r in results
             }

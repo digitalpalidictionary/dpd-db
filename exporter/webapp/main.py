@@ -301,10 +301,10 @@ def get_audio(request: Request, headword: str, gender: str = "male"):
 
         headers["Content-Length"] = str(file_size)
         return Response(
-            content=audio_data, 
+            content=audio_data,
             status_code=200,
-            headers=headers, 
-            media_type="audio/mpeg"
+            headers=headers,
+            media_type="audio/mpeg",
         )
 
     return Response(status_code=404)
@@ -318,7 +318,8 @@ def update_history(
     if history_tuple in history_list:
         history_list.remove(history_tuple)
     history_list.insert(0, history_tuple)
-    return history_list[:250]
+    history_list = history_list[:250]
+    return history_list
 
 
 if __name__ == "__main__":
