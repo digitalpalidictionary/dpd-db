@@ -1,62 +1,8 @@
 {
-    "ajjhāruhati": {
-        "source_1": "sn11.4:6.5",
-        "sutta_1": "ajjhāruhati dummedho, ",
-        "example_1": "the simpleton will go after you even harder, ",
-        "comment": "dominates; persecutes"
-    },
-    "tiṭṭha": {
-        "source_1": "sn11.7:1.7",
-        "sutta_1": "‘tiṭṭha, vepacitti, gahitosī’ti. ",
-        "example_1": "‘Stop, Vepacitti, you’re caught!’ ",
-        "comment": "add imperative stop! halt!"
-    },
-    "atthajātā": {
-        "source_1": "sn11.8:4.1",
-        "sutta_1": "“sabbe sattā atthajātā, ",
-        "example_1": "“All beings are in need, ",
-        "comment": "born for a purpose; (comm) born for duties"
-    },
-    "sambhogā": {
-        "source_1": "sn11.8:4.4",
-        "sutta_1": "sambhogā sabbapāṇinaṃ; ",
-        "example_1": "thing of value for all living creatures. ",
-        "comment": "sexual intercourse"
-    },
-    "aggadvārena": {
-        "source_1": "sn11.9:1.4",
-        "sutta_1": "atha kho, bhikkhave, vepacitti asurindo paṭaliyo upāhanā ārohitvā khaggaṃ olaggetvā chattena dhāriyamānena aggadvārena assamaṃ pavisitvā te isayo sīlavante kalyāṇadhamme apabyāmato karitvā atikkami. ",
-        "example_1": "Vepacitti put on his lined sandals, strapped on his sword, and, carrying a sunshade, entered the hermitage through the main gate. He walked right past those seers, keeping them at arm’s length. ",
-        "comment": "main gate; main entrance"
-    },
-    "anuvātaṃ": {
-        "source_1": "sn11.9:1.5",
-        "sutta_1": "atha kho, bhikkhave, sakko devānamindo paṭaliyo upāhanā orohitvā khaggaṃ aññesaṃ datvā chattaṃ apanāmetvā dvāreneva assamaṃ pavisitvā te isayo sīlavante kalyāṇadhamme anuvātaṃ pañjaliko namassamāno aṭṭhāsi. ",
-        "example_1": "Sakka took off his lined sandals, gave his sword to others, and, putting down his sunshade, entered the hermitage through the same gate. He stood downwind of those seers, revering them with joined palms. ",
-        "comment": "ind downwind"
-    },
-    "ubbijjīti": {
-        "source_1": "sn11.10:6.2",
-        "sutta_1": "atha kho, bhikkhave, sambaro asurindo tehi isīhi sīlavantehi kalyāṇadhammehi abhisapito rattiyā sudaṃ tikkhattuṃ ubbijjī”ti. ",
-        "example_1": "But after being cursed by the seers, Sambara woke in alarm three times that night.” ",
-        "comment": "add to ubbijji"
-    },
-    "yassatthi": {
-        "source_1": "sn11.14:5.1",
-        "sutta_1": "saṅghe pasādo yassatthi, ",
-        "example_1": "who has confidence in the Saṅgha, ",
-        "comment": "for whom there is"
-    },
-    "rāmaṇeyyakaṃ": {
-        "source_1": "sn11.20:10.2",
-        "sutta_1": "daliddañca rāmaṇeyyakaṃ; ",
-        "example_1": "",
-        "comment": "in refreence to"
-    },
-    "atthamattanoti": {
-        "source_1": "sn11.22:5.4",
-        "sutta_1": "sampassaṃ atthamattano’”ti. ",
-        "example_1": "out of regard for my own welfare.’” ",
-        "comment": "one's own benefit good advantage"
+    "cime": {
+        "source_1": "sn12.11:2.15",
+        "sutta_1": "saṅkhārā cime, bhikkhave, kiṃnidānā kiṃsamudayā kiṃjātikā kiṃpabhavā? ",
+        "example_1": "And what is the source of choices? ",
+        "comment": "sandhi and these"
     }
 }

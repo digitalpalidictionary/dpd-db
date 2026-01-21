@@ -5801,82 +5801,234 @@
         ],
         "buddhavaggo": [
             48561
+        ],
+        "abhiyanti": [
+            8056
+        ],
+        "issariyādhipaccaṃ": [
+            13912
+        ],
+        "susīmañceva": [
+            64490
+        ],
+        "payatapāṇi": [
+            42784
+        ],
+        "accasarā": [
+            967
+        ],
+        "sādhukaṃ": [
+            62225
+        ],
+        "bhāsissāmīti": [
+            49756
+        ],
+        "nāmarūpaṃ": [
+            36457
+        ],
+        "saḷāyatanaṃ": [
+            61507
+        ],
+        "phassapaccayā": [
+            47660
+        ],
+        "taṇhāpaccayā": [
+            29377
+        ],
+        "tamhi": [
+            30062
+        ],
+        "paripāko": [
+            43635
+        ],
+        "bhedo": [
+            50272,
+            50273,
+            50274,
+            50275,
+            50276
+        ],
+        "khandhānaṃ": [
+            23442
+        ],
+        "kaḷevarassa": [
+            78893
+        ],
+        "nikkhepo": [
+            36822,
+            36823,
+            36824
+        ],
+        "ayañca": [
+            8711,
+            8712
+        ],
+        "sañjāti": [
+            57341
+        ],
+        "āyatanānaṃ": [
+            12203
+        ],
+        "bhavā": [
+            49553,
+            80057
+        ],
+        "aññāṇaṃ": [
+            72751
+        ],
+        "paṭipadāya": [
+            40550
+        ],
+        "pubbeva": [
+            46904
+        ],
+        "bodhisattasseva": [
+            48685
+        ],
+        "kicchaṃ": [
+            21638
+        ],
+        "paññāyissati": [
+            40075
+        ],
+        "bodhisattassa": [
+            48685
+        ],
+        "kimhi": [
+            22022
+        ],
+        "phasse": [
+            47651,
+            47683
+        ],
+        "saḷāyatane": [
+            61507
+        ],
+        "saḷāyatananti": [
+            61507
+        ],
+        "nāmarūpanti": [
+            36457
+        ],
+        "asati": [
+            9393,
+            9394,
+            9429
+        ],
+        "vibhaṅgapaṭipadā": [
+            68558,
+            68559,
+            88294,
+            40550
+        ],
+        "āhārā": [
+            13227
+        ],
+        "bhūtānaṃ": [
+            76401,
+            80796
+        ],
+        "ṭhitiyā": [
+            29114,
+            29115
+        ],
+        "āhāro": [
+            13227
+        ],
+        "saḷāyatanañcidaṃ": [
+            61507
+        ],
+        "nāmarūpañcidaṃ": [
+            86368,
+            36457
+        ],
+        "cime": [
+            26756
+        ],
+        "kallo": [
+            20701
+        ],
+        "vadeyyaṃ": [
+            66126,
+            66146
+        ],
+        "kallaṃ": [
+            20701
+        ],
+        "paccayo": [
+            76343
+        ],
+        "bhūte": [
+            76401,
+            80796
+        ],
+        "phusatīti": [
+            47765,
+            47771
+        ],
+        "tasatīti": [
+            30138
+        ],
+        "phagguna": [
+            47526
+        ],
+        "samaṇabrāhmaṇasuttaṃ": [
+            59212,
+            59213
+        ],
+        "paṭipadaṃ": [
+            40550
+        ],
+        "sammādiṭṭhi": [
+            60800
+        ],
+        "sammādiṭṭhīti": [
+            60800
+        ],
+        "passato": [
+            44735,
+            44754
+        ],
+        "adhiṭṭhānaṃ": [
+            3206,
+            3209,
+            3210,
+            3211
+        ],
+        "vicikicchati": [
+            67453
+        ],
+        "aparapaccayā": [
+            73105,
+            73106
+        ],
+        "ñāṇamevassa": [
+            9940,
+            10033
+        ],
+        "ettāvatā": [
+            17942
+        ],
+        "atthīti": [
+            2757
+        ],
+        "ante": [
+            5647
+        ],
+        "anupagamma": [
+            4636
+        ],
+        "majjhena": [
+            78606
+        ],
+        "pañcamaṃ": [
+            86140
+        ],
+        "dhammakathikasuttaṃ": [
+            34651
         ]
     },
-    "matched": {
-        "sadatthaparamā": {
-            "id": 57940,
-            "sentence": [
-                "sn11.4:7.3",
-                "sadatthaparamā atthā, ",
-                "For the highest goal, one’s own, "
-            ]
-        },
-        "dhammaguttassa": {
-            "id": 34675,
-            "sentence": [
-                "sn11.4:9.3",
-                "balassa dhammaguttassa, ",
-                "But no-one can challenge a person "
-            ]
-        },
-        "akalaho": {
-            "id": 124,
-            "sentence": [
-                "sn11.5:14.6",
-                "tā ca kho adaṇḍāvacarā asatthāvacarā, iti abhaṇḍanaṃ iti aviggaho iti akalaho. ",
-                "don’t evoke punishment and violence. That’s how you stay free of fights, arguments, and quarrels. "
-            ]
-        },
-        "apanāmetvā": {
-            "id": 6211,
-            "sentence": [
-                "sn11.9:1.5",
-                "atha kho, bhikkhave, sakko devānamindo paṭaliyo upāhanā orohitvā khaggaṃ aññesaṃ datvā chattaṃ apanāmetvā dvāreneva assamaṃ pavisitvā te isayo sīlavante kalyāṇadhamme anuvātaṃ pañjaliko namassamāno aṭṭhāsi. ",
-                "Sakka took off his lined sandals, gave his sword to others, and, putting down his sunshade, entered the hermitage through the same gate. He stood downwind of those seers, revering them with joined palms. "
-            ]
-        },
-        "yācamānānaṃ": {
-            "id": 53918,
-            "sentence": [
-                "sn11.10:3.3",
-                "abhayaṃ yācamānānaṃ, ",
-                "Though you beg me for your safety, "
-            ]
-        },
-        "rathamāruhīti": {
-            "id": 54619,
-            "sentence": [
-                "sn11.18:7.4",
-                "pamukho rathamāruhī”ti. ",
-                "climbed into his chariot.” "
-            ]
-        },
-        "sambarimāyanti": {
-            "id": 60554,
-            "sentence": [
-                "sn11.23:1.8",
-                "‘vācehi maṃ, vepacitti, sambarimāyan’ti. ",
-                "‘Teach me, Vepacitti, the Sambari sorcery.’ "
-            ]
-        },
-        "ajjhabhavi": {
-            "id": 1311,
-            "sentence": [
-                "sn11.25:2.1",
-                "‘mā vo kodho ajjhabhavi, ",
-                "‘Don’t let anger be your master, "
-            ]
-        },
-        "buddhavaggo": {
-            "id": 48560,
-            "sentence": [
-                "sn12.10:7.6",
-                "buddhavaggo paṭhamo. ",
-                ""
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
     "processed": [
         "sagāthāvaggo",
@@ -7120,6 +7272,36 @@
         "kujjhataṃ",
         "sagāthāvaggasaṃyuttapāḷi",
         "nidānavaggo",
-        "paṭiccasamuppādasuttaṃ"
+        "paṭiccasamuppādasuttaṃ",
+        "sadatthaparamā",
+        "dhammaguttassa",
+        "akalaho",
+        "apanāmetvā",
+        "yācamānānaṃ",
+        "rathamāruhīti",
+        "sambarimāyanti",
+        "ajjhabhavi",
+        "buddhavaggo",
+        "daliddasuttaṃ",
+        "vibhaṅgasuttaṃ",
+        "paṭipadāsuttaṃ",
+        "vipassīsuttaṃ",
+        "sikhīsuttaṃ",
+        "vessabhūsuttaṃ",
+        "kakusandhasuttaṃ",
+        "koṇāgamanasuttaṃ",
+        "kassapasuttaṃ",
+        "gotamasuttaṃ",
+        "mahāsakyamuni",
+        "āhāravaggo",
+        "āhārasuttaṃ",
+        "kabaḷiṃkāro",
+        "moḷiyaphaggunasuttaṃ",
+        "taṇhīyatīti",
+        "samaṇabrāhmaṇasuttaṃ",
+        "āyasmanto",
+        "dutiyasamaṇabrāhmaṇasuttaṃ",
+        "kaccānagottasuttaṃ",
+        "dhammakathikasuttaṃ"
     ]
 }
