@@ -329,8 +329,9 @@ metrics = {
     "total_requests": 0,
     "active_requests": 0,
     "total_time": 0.0,
-    "official": {},  # route_pattern -> {"count": 0, "history": []}
-    "other": {"count": 0, "history": []}, # Single collection for spam
+    "ema_time": 0.0,  # Exponential Moving Average for recent performance
+    "official": {},  # route_pattern -> {"count": 0, "history": [], "avg_time": 0, "max_time": 0}
+    "other": {"count": 0, "history": []},
 }
 
 
@@ -354,44 +355,61 @@ async def track_performance(request: Request, call_next):
     metrics["active_requests"] += 1
     metrics["total_requests"] += 1
 
-    # Resolve the route pattern manually since middleware runs before routing
-    route_pattern = None
-    for route in request.app.router.routes:
-        match, _ = route.matches(request.scope)
-        if match == Match.FULL:
-            route_pattern = getattr(route, "path", None)
-            break
-    
-    # Decode Unicode request string
-    request_display = unquote(str(request.url.path))
-    if request.url.query:
-        request_display += f"?{unquote(str(request.url.query))}"
-
-    if route_pattern:
-        # Official Endpoint
-        if route_pattern not in metrics["official"]:
-            metrics["official"][route_pattern] = {"count": 0, "history": []}
-        
-        metrics["official"][route_pattern]["count"] += 1
-        history = metrics["official"][route_pattern]["history"]
-        if request_display not in history:
-            history.insert(0, request_display)
-            metrics["official"][route_pattern]["history"] = history[:10]
-    else:
-        # Other / Spam
-        metrics["other"]["count"] += 1
-        history = metrics["other"]["history"]
-        if request_display not in history:
-            history.insert(0, request_display)
-            metrics["other"]["history"] = history[:10]
-
     try:
         response = await call_next(request)
         return response
     finally:
-        process_time = time.time() - start_time
-        metrics["total_time"] += process_time
+        process_time = (time.time() - start_time) * 1000  # Convert to ms
+        metrics["total_time"] += (process_time / 1000)
         metrics["active_requests"] -= 1
+
+        # Update Exponential Moving Average (alpha=0.1)
+        if metrics["ema_time"] == 0:
+            metrics["ema_time"] = process_time
+        else:
+            metrics["ema_time"] = (process_time * 0.1) + (metrics["ema_time"] * 0.9)
+
+        # Resolve the route pattern
+        route_pattern = None
+        for route in request.app.router.routes:
+            match, _ = route.matches(request.scope)
+            if match == Match.FULL:
+                route_pattern = getattr(route, "path", None)
+                break
+        
+        # Decode Unicode request string
+        request_display = unquote(str(request.url.path))
+        if request.url.query:
+            request_display += f"?{unquote(str(request.url.query))}"
+
+        if route_pattern:
+            # Official Endpoint
+            if route_pattern not in metrics["official"]:
+                metrics["official"][route_pattern] = {
+                    "count": 0, 
+                    "history": [], 
+                    "avg_time": 0.0, 
+                    "max_time": 0.0
+                }
+            
+            m = metrics["official"][route_pattern]
+            m["count"] += 1
+            # Update endpoint average and max
+            m["avg_time"] = (process_time * 0.1) + (m["avg_time"] * 0.9) if m["avg_time"] > 0 else process_time
+            if process_time > m["max_time"]:
+                m["max_time"] = process_time
+
+            history = m["history"]
+            if request_display not in history:
+                history.insert(0, request_display)
+                m["history"] = history[:10]
+        else:
+            # Other / Spam
+            metrics["other"]["count"] += 1
+            history = metrics["other"]["history"]
+            if request_display not in history:
+                history.insert(0, request_display)
+                metrics["other"]["history"] = history[:10]
 
 
 @app.get("/status", response_class=HTMLResponse)
@@ -418,15 +436,10 @@ def status_page(request: Request):
     sys_percent = sys_mem.percent
 
     health_color = "green"
-    if app_percent > 70:
+    if app_percent > 70 or metrics["ema_time"] > 300:
         health_color = "orange"
-    if app_percent > 90:
+    if app_percent > 90 or metrics["ema_time"] > 600:
         health_color = "red"
-
-    # Performance stats
-    avg_time = 0
-    if metrics["total_requests"] > 0:
-        avg_time = metrics["total_time"] / metrics["total_requests"]
 
     stats = {
         "pid": os.getpid(),
@@ -451,8 +464,7 @@ def status_page(request: Request):
         # Performance
         "active_requests": metrics["active_requests"],
         "total_requests": metrics["total_requests"],
-        "avg_response_time": f"{avg_time * 1000:.2f} ms",
-        "history_count": len(history_list),
+        "ema_response_time": f"{metrics['ema_time']:.2f} ms",
         "official": metrics["official"],
         "other": metrics["other"],
         "audio_cache_loaded": _audio_dict_cache is not None,

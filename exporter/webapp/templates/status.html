@@ -119,7 +119,13 @@
         {% for route, data in stats.official.items() %}
         <div style="margin-bottom: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: var(--primary); font-weight: bold; font-family: monospace;">{{ route }}</span>
+                <div>
+                    <span style="color: var(--primary); font-weight: bold; font-family: monospace;">{{ route }}</span>
+                    <span style="font-size: 0.8em; color: var(--gray); margin-left: 10px;">
+                        Avg: <span style="color: {% if data.avg_time < 100 %}#4caf50{% elif data.avg_time < 300 %}#ff9800{% else %}#f44336{% endif %};">{{ "{:.1f}".format(data.avg_time) }}ms</span> | 
+                        Max: <span style="color: var(--gray);">{{ "{:.1f}".format(data.max_time) }}ms</span>
+                    </span>
+                </div>
                 <span style="background: var(--gray-transparent); padding: 2px 10px; border-radius: 10px; font-size: 0.85em;">{{ data.count }} hits</span>
             </div>
             {% if data.history %}
@@ -151,6 +157,31 @@
             {% endif %}
         </div>
         {% endif %}
+
+        <h2>Server Load & Performance</h2>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-label">Active Requests</div>
+                <div class="stat-value">{{ stats.active_requests }}</div>
+                <div style="font-size: 0.8em; color: #9e9e9e;">Currently processing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Requests</div>
+                <div class="stat-value">{{ "{:,}".format(stats.total_requests) }}</div>
+                <div style="font-size: 0.8em; color: #9e9e9e;">Since restart</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Recent Response Time</div>
+                <div class="stat-value" style="color: {% if stats.ema_response_time|float < 100 %}#4caf50{% elif stats.ema_response_time|float < 300 %}#ff9800{% else %}#f44336{% endif %};">
+                    {{ stats.ema_response_time }}
+                </div>
+                <div style="font-size: 0.8em; color: #9e9e9e;">EMA (Current Speed)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Audio Cache</div>
+                <div class="stat-value">{% if stats.audio_cache_loaded %}Ready{% else %}Empty{% endif %}</div>
+            </div>
+        </div>
 
         <h2>System & Process Info</h2>
         <table>
