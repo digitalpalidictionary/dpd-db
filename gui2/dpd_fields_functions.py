@@ -395,8 +395,6 @@ def clean_text(text: str) -> str:
     text = text.replace("'</b>'", "</b>'")
     # fix 'tipi
     text = text.replace("'tipi", "'ti'pi")
-    # remove [...]
-    text = re.sub(r"\[[^]]*\]", "", text)
     # remove double spaces
     text = re.sub(" +", " ", text)
     # remove digits in front
@@ -418,6 +416,16 @@ def clean_commentary(
     text = clean_speech_marks(text, speech_marks_manager)
     text = clean_text(text)
     return text
+
+
+def remove_brackets(text: str) -> str:
+    """Remove all content within square brackets [like this]."""
+    return re.sub(r"\[[^]]*\]", "", text)
+
+
+def remove_bold_tags(text: str) -> str:
+    """Remove <b> and </b> tags from text."""
+    return text.replace("<b>", "").replace("</b>", "")
 
 
 def clean_example(

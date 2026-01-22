@@ -2,7 +2,7 @@
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.dpd_fields_functions import clean_example
+from gui2.dpd_fields_functions import clean_example, remove_brackets, remove_bold_tags
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import (
     highlight_word_in_sentence,
@@ -221,6 +221,8 @@ class DpdExampleField(ft.Column):
             self._actions_row = ft.Row(
                 [
                     ft.ElevatedButton("Add '-", on_click=self.click_clean_example),
+                    ft.ElevatedButton("[]", on_click=self.click_remove_brackets),
+                    ft.ElevatedButton("<b>", on_click=self.click_remove_bold_tags),
                     ft.ElevatedButton("Delete", on_click=self.click_delete_example),
                     ft.ElevatedButton("Swap", on_click=self.click_swap_example),
                     ft.ElevatedButton("Stash", on_click=self._click_stash_example),
@@ -461,6 +463,16 @@ class DpdExampleField(ft.Column):
     def click_clean_example(self, e: ft.ControlEvent):
         if self.value:
             self.value = clean_example(self.value, self.speech_marks_manager)
+            self.update()
+
+    def click_remove_brackets(self, e: ft.ControlEvent):
+        if self.value:
+            self.value = remove_brackets(self.value)
+            self.update()
+
+    def click_remove_bold_tags(self, e: ft.ControlEvent):
+        if self.value:
+            self.value = remove_bold_tags(self.value)
             self.update()
 
     def click_swap_example(self, e: ft.ControlEvent):

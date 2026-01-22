@@ -4,7 +4,7 @@
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from gui2.dpd_fields_functions import clean_example
+from gui2.dpd_fields_functions import clean_example, remove_brackets
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sandhi_contraction import SandhiContractionManager
@@ -19,13 +19,13 @@ def main():
     for counter, i in enumerate(db):
         if i.meaning_1 == "":
             if i.example_1:
-                i.example_1 = clean_example(i.example_1, sandhi_dict)
+                i.example_1 = remove_brackets(clean_example(i.example_1, sandhi_dict))
                 print()
                 print(i.lemma_1)
                 print(i.example_1)
 
             if i.example_2:
-                i.example_2 = clean_example(i.example_2, sandhi_dict)
+                i.example_2 = remove_brackets(clean_example(i.example_2, sandhi_dict))
                 print()
                 print(i.lemma_1)
                 print(i.example_2)
