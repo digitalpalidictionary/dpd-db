@@ -329,7 +329,8 @@ metrics = {
     "total_requests": 0,
     "active_requests": 0,
     "total_time": 0.0,
-    "endpoints": {},  # route -> {"count": 0, "history": []}
+    "official": {},  # route_pattern -> {"count": 0, "history": []}
+    "other": {"count": 0, "history": []}, # Single collection for spam
 }
 
 
@@ -347,28 +348,42 @@ async def track_performance(request: Request, call_next):
 
     import time
     from urllib.parse import unquote
+    from starlette.routing import Match
 
     start_time = time.time()
     metrics["active_requests"] += 1
     metrics["total_requests"] += 1
 
-    # Identify the route pattern (e.g. /audio/{headword})
-    route = request.scope.get("route")
-    route_path = route.path if route else path
+    # Resolve the route pattern manually since middleware runs before routing
+    route_pattern = None
+    for route in request.app.router.routes:
+        match, _ = route.matches(request.scope)
+        if match == Match.FULL:
+            route_pattern = getattr(route, "path", None)
+            break
+    
+    # Decode Unicode request string
+    request_display = unquote(str(request.url.path))
+    if request.url.query:
+        request_display += f"?{unquote(str(request.url.query))}"
 
-    if route_path not in metrics["endpoints"]:
-        metrics["endpoints"][route_path] = {"count": 0, "history": []}
-
-    metrics["endpoints"][route_path]["count"] += 1
-
-    # Capture decoded Unicode request string
-    full_query = unquote(str(request.url.query))
-    request_display = f"{path}?{full_query}" if full_query else path
-
-    history = metrics["endpoints"][route_path]["history"]
-    if request_display not in history:
-        history.insert(0, request_display)
-        metrics["endpoints"][route_path]["history"] = history[:10]
+    if route_pattern:
+        # Official Endpoint
+        if route_pattern not in metrics["official"]:
+            metrics["official"][route_pattern] = {"count": 0, "history": []}
+        
+        metrics["official"][route_pattern]["count"] += 1
+        history = metrics["official"][route_pattern]["history"]
+        if request_display not in history:
+            history.insert(0, request_display)
+            metrics["official"][route_pattern]["history"] = history[:10]
+    else:
+        # Other / Spam
+        metrics["other"]["count"] += 1
+        history = metrics["other"]["history"]
+        if request_display not in history:
+            history.insert(0, request_display)
+            metrics["other"]["history"] = history[:10]
 
     try:
         response = await call_next(request)
@@ -438,7 +453,8 @@ def status_page(request: Request):
         "total_requests": metrics["total_requests"],
         "avg_response_time": f"{avg_time * 1000:.2f} ms",
         "history_count": len(history_list),
-        "endpoints": metrics["endpoints"],
+        "official": metrics["official"],
+        "other": metrics["other"],
         "audio_cache_loaded": _audio_dict_cache is not None,
     }
 

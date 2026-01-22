@@ -114,9 +114,9 @@
         </div>
         <div style="text-align: right; font-size: 0.9em; margin-bottom: 30px;">{{ stats.app_mem_percent }} of 4GB limit used</div>
 
-        <h2>Endpoint Performance (Total: {{ stats.total_requests }})</h2>
-        {% if stats.endpoints %}
-        {% for route, data in stats.endpoints.items() %}
+        <h2>Official Endpoints (Total: {{ stats.total_requests }})</h2>
+        {% if stats.official %}
+        {% for route, data in stats.official.items() %}
         <div style="margin-bottom: 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="color: var(--primary); font-weight: bold; font-family: monospace;">{{ route }}</span>
@@ -134,7 +134,22 @@
         </div>
         {% endfor %}
         {% else %}
-        <p style="color: var(--gray);">No user requests processed since restart.</p>
+        <p style="color: var(--gray);">No official requests processed since restart.</p>
+        {% endif %}
+
+        {% if stats.other.count > 0 %}
+        <h2 style="color: #f44336; border-bottom-color: rgba(244, 67, 54, 0.3);">Other / Spam (Total: {{ stats.other.count }})</h2>
+        <div style="margin-bottom: 20px;">
+            {% if stats.other.history %}
+            <div style="padding-left: 15px; border-left: 2px solid rgba(244, 67, 54, 0.3);">
+                {% for req in stats.other.history %}
+                <div style="font-size: 0.85em; margin-bottom: 3px; color: #9e9e9e;">
+                    <span style="color: #f44336;">{{ loop.index }}.</span> {{ req }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
         {% endif %}
 
         <h2>System & Process Info</h2>
