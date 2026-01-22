@@ -24,9 +24,11 @@ from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 from tools.tipitaka_db import search_all_cst_texts, search_book
 from tools.translit import auto_translit_to_roman
+from prometheus_fastapi_instrumentator import Instrumentator
 
 pth: ProjectPaths = ProjectPaths()
 app = FastAPI()
+
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.mount("/static", StaticFiles(directory=str(pth.webapp_static_dir)), name="static")
 
@@ -320,6 +322,137 @@ def update_history(
     history_list.insert(0, history_tuple)
     history_list = history_list[:250]
     return history_list
+
+
+# Global metrics for /status
+metrics = {
+    "total_requests": 0,
+    "active_requests": 0,
+    "total_time": 0.0,
+    "endpoints": {},  # route -> {"count": 0, "history": []}
+}
+
+
+@app.middleware("http")
+async def track_performance(request: Request, call_next):
+    # Ignore background noise
+    path = request.url.path
+    if (
+        path.startswith("/static")
+        or path == "/favicon.ico"
+        or path == "/metrics"
+        or path == "/status"
+    ):
+        return await call_next(request)
+
+    import time
+    from urllib.parse import unquote
+
+    start_time = time.time()
+    metrics["active_requests"] += 1
+    metrics["total_requests"] += 1
+
+    # Identify the route pattern (e.g. /audio/{headword})
+    route = request.scope.get("route")
+    route_path = route.path if route else path
+
+    if route_path not in metrics["endpoints"]:
+        metrics["endpoints"][route_path] = {"count": 0, "history": []}
+
+    metrics["endpoints"][route_path]["count"] += 1
+
+    # Capture decoded Unicode request string
+    full_query = unquote(str(request.url.query))
+    request_display = f"{path}?{full_query}" if full_query else path
+
+    history = metrics["endpoints"][route_path]["history"]
+    if request_display not in history:
+        history.insert(0, request_display)
+        metrics["endpoints"][route_path]["history"] = history[:10]
+
+    try:
+        response = await call_next(request)
+        return response
+    finally:
+        process_time = time.time() - start_time
+        metrics["total_time"] += process_time
+        metrics["active_requests"] -= 1
+
+
+@app.get("/status", response_class=HTMLResponse)
+def status_page(request: Request):
+    """Human-readable status dashboard."""
+    import psutil
+    import platform
+    import os
+    from datetime import datetime
+    from tools.cache_load import _audio_dict_cache
+
+    process = psutil.Process()
+    mem_info = process.memory_info()
+    sys_mem = psutil.virtual_memory()
+
+    # Memory Calculation (App)
+    app_used = mem_info.rss
+    app_total = 4096 * 1024 * 1024  # 4GB Limit
+    app_percent = (app_used / app_total) * 100
+
+    # Memory Calculation (System)
+    sys_used = sys_mem.used
+    sys_total = sys_mem.total
+    sys_percent = sys_mem.percent
+
+    health_color = "green"
+    if app_percent > 70:
+        health_color = "orange"
+    if app_percent > 90:
+        health_color = "red"
+
+    # Performance stats
+    avg_time = 0
+    if metrics["total_requests"] > 0:
+        avg_time = metrics["total_time"] / metrics["total_requests"]
+
+    stats = {
+        "pid": os.getpid(),
+        "python_version": platform.python_version(),
+        "start_time": datetime.fromtimestamp(process.create_time()).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        ),
+        "uptime": str(
+            datetime.now() - datetime.fromtimestamp(process.create_time())
+        ).split(".")[0],
+        # App Mem
+        "app_mem_used": f"{app_used / 1024 / 1024:.2f} MB",
+        "app_mem_total": f"{app_total / 1024 / 1024 / 1024:.2f} GB",
+        "app_mem_percent": f"{app_percent:.1f}%",
+        # Sys Mem
+        "sys_mem_used": f"{sys_used / 1024 / 1024 / 1024:.2f} GB",
+        "sys_mem_total": f"{sys_total / 1024 / 1024 / 1024:.2f} GB",
+        "sys_mem_percent": f"{sys_percent:.1f}%",
+        "health_color": health_color,
+        "cpu_percent": f"{process.cpu_percent(interval=0.1)}%",
+        "threads": process.num_threads(),
+        # Performance
+        "active_requests": metrics["active_requests"],
+        "total_requests": metrics["total_requests"],
+        "avg_response_time": f"{avg_time * 1000:.2f} ms",
+        "history_count": len(history_list),
+        "endpoints": metrics["endpoints"],
+        "audio_cache_loaded": _audio_dict_cache is not None,
+    }
+
+    return templates.TemplateResponse(
+        "status.html",
+        {
+            "request": request,
+            "stats": stats,
+        },
+    )
+
+
+# Proactively monitor memory and performance
+Instrumentator().instrument(app).expose(app)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Dict
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, defer
 from unidecode import unidecode
 
 from db.models import DpdHeadword, Lookup
@@ -9,7 +9,20 @@ from tools.pali_sort_key import pali_list_sorter
 
 
 def make_roots_count_dict(db_session: Session) -> Dict[str, int]:
-    roots_db = db_session.query(DpdHeadword).all()
+    # Load objects but defer all large columns to save memory
+    roots_db = (
+        db_session.query(DpdHeadword)
+        .options(
+            defer(DpdHeadword.inflections_html),
+            defer(DpdHeadword.freq_html),
+            defer(DpdHeadword.inflections_sinhala),
+            defer(DpdHeadword.inflections_devanagari),
+            defer(DpdHeadword.inflections_thai),
+            defer(DpdHeadword.freq_data),
+        )
+        .all()
+    )
+
     roots_count_dict: Dict[str, int] = dict()
     for i in roots_db:
         if i.root_key is None:
@@ -25,13 +38,25 @@ def make_roots_count_dict(db_session: Session) -> Dict[str, int]:
 def make_headwords_clean_set(db_session: Session) -> set[str]:
     """Make a set of Pāḷi headwords and English meanings."""
 
-    # add headwords
-    results = db_session.query(DpdHeadword).all()
+    # Use the model's lemma_clean property
+    results = (
+        db_session.query(DpdHeadword)
+        .options(
+            defer(DpdHeadword.inflections_html),
+            defer(DpdHeadword.freq_html),
+            defer(DpdHeadword.inflections_sinhala),
+            defer(DpdHeadword.inflections_devanagari),
+            defer(DpdHeadword.inflections_thai),
+            defer(DpdHeadword.freq_data),
+        )
+        .all()
+    )
     headwords_clean_set = set([i.lemma_clean for i in results])
 
     # add all english meanings
-    results = db_session.query(Lookup).filter(Lookup.epd != "").all()
-    headwords_clean_set.update([i.lookup_key for i in results])
+    # lookup_key is a primary key (column), so this is efficient
+    lookup_results = db_session.query(Lookup.lookup_key).filter(Lookup.epd != "").all()
+    headwords_clean_set.update([i.lookup_key for i in lookup_results])
 
     return headwords_clean_set
 
@@ -39,7 +64,19 @@ def make_headwords_clean_set(db_session: Session) -> set[str]:
 def make_ascii_to_unicode_dict(db_session: Session) -> dict[str, list[str]]:
     """ASCII Key: Unicode Value."""
 
-    results = db_session.query(DpdHeadword).all()
+    results = (
+        db_session.query(DpdHeadword)
+        .options(
+            defer(DpdHeadword.inflections_html),
+            defer(DpdHeadword.freq_html),
+            defer(DpdHeadword.inflections_sinhala),
+            defer(DpdHeadword.inflections_devanagari),
+            defer(DpdHeadword.inflections_thai),
+            defer(DpdHeadword.freq_data),
+        )
+        .all()
+    )
+
     headwords_clean_set: set[str] = set()
     for i in results:
         headwords_clean_set.add(i.lemma_clean)

@@ -18,11 +18,15 @@ A critical memory overload issue has emerged in the `dpd-db` webapp within the l
 1.  **General Audit:** Review global state, `uvicorn` configuration, and caching strategies.
 2.  **Optimization:** Implement refactors to reduce baseline memory footprint.
 
-### Phase 3: Observability & Monitoring
+### Phase 3: Observability & Hardening
 1.  **Instrumentation:**
     -   Integrate **Prometheus** metrics into the FastAPI app (e.g., using `prometheus-fastapi-instrumentator`).
     -   Expose a `/metrics` endpoint to allow scraping of memory usage, garbage collection stats, and request counts.
-2.  **Visibility:**
+2.  **Human-Readable Dashboard:**
+    -   Implement a `/status` dashboard for manual health checks.
+    -   Display MB/GB memory usage, CPU load, and system uptime.
+    -   Include server-wide memory availability and data volume counts (Headwords, Roots, Bold Defs).
+3.  **Visibility:**
     -   Provide a way to query these metrics (exploring the use of a Prometheus MCP server pattern if credentials allow).
 
 ## Acceptance Criteria

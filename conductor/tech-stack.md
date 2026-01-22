@@ -12,6 +12,7 @@
 - **SQLAlchemy:** SQL Toolkit and Object-Relational Mapper (ORM) for Python.
 - **GORM:** Object-Relational Mapper (ORM) for Go.
 - **FastAPI & Uvicorn:** Modern, high-performance web framework and server for building the Webapp API.
+- **Prometheus FastAPI Instrumentator:** Exposes performance and memory metrics for real-time monitoring.
 - **Flet:** Framework to build interactive multi-platform apps in Python (replaces legacy PySimpleGUI).
 - **MCP Python SDK & FastMCP:** Official SDK for implementing Model Context Protocol servers.
 

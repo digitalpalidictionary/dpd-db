@@ -13,10 +13,10 @@
 - [x] Task: Implement Fix for Regression
     - [x] Apply the necessary code changes to resolve the identified leak.
     - [x] Verify fix by running the reproduction test.
-- [~] Task: Conductor - User Manual Verification 'Critical Diagnosis & Fix' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Critical Diagnosis & Fix' (Protocol in workflow.md)
 
 ## Phase 2: General Memory Management Audit
-- [ ] Task: Audit Global State and Application Lifecycle
+- [~] Task: Audit Global State and Application Lifecycle
     - [ ] Review all modules loaded at startup in the webapp.
     - [ ] Identify large objects (e.g., dictionary data, frequency maps) and check if they can be loaded on demand or optimized.
 - [ ] Task: Evaluate Caching Strategies
@@ -25,16 +25,20 @@
 - [ ] Task: Review Server (Uvicorn) Configuration
     - [ ] Analyze the current startup command for the webapp.
     - [ ] Recommend `uvicorn` flags (e.g., `--limit-max-requests`, `--timeout-keep-alive`) to improve stability.
-- [ ] Task: Conductor - User Manual Verification 'General Memory Management Audit' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'General Memory Management Audit' (Protocol in workflow.md)
 
 ## Phase 3: Observability & Hardening
-- [ ] Task: Instrument Webapp with Prometheus
-    - [ ] Add `prometheus-fastapi-instrumentator` to dependencies.
-    - [ ] Initialize instrumentation in `exporter/webapp/main.py` (or equivalent entry point).
-    - [ ] Verify `/metrics` endpoint exposes GC and process memory stats.
-- [ ] Task: Explore Prometheus Integration
-    - [ ] Investigate if the AWS Prometheus MCP code can be adapted or if a simple local Prometheus instance is needed for the "other person" to scrape.
-- [ ] Task: Final System Verification
-    - [ ] Execute all webapp-related tests to ensure no functional regressions.
-    - [ ] Verify that memory usage is stable under simulated load.
-- [ ] Task: Conductor - User Manual Verification 'Observability & Hardening' (Protocol in workflow.md)
+- [x] Task: Instrument Webapp with Prometheus
+    - [x] Add `prometheus-fastapi-instrumentator` to dependencies.
+    - [x] Initialize instrumentation in `exporter/webapp/main.py`.
+    - [x] Verify `/metrics` endpoint exposes GC and process memory stats.
+- [x] Task: Implement Human-Readable Status Dashboard
+    - [x] Create `/status` route in `main.py` using `psutil`.
+    - [x] Implement system-wide memory monitoring and data volume counts.
+    - [x] Design and create `status.html` template with visual indicators.
+    - [x] Verify dashboard renders accurately.
+- [x] Task: Explore Prometheus Integration
+- [x] Task: Final System Verification
+    - [x] Execute all webapp-related tests to ensure no functional regressions.
+    - [x] Verify that memory usage is stable under simulated load.
+- [x] Task: Conductor - User Manual Verification 'Observability & Hardening' (Protocol in workflow.md)

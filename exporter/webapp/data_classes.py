@@ -21,20 +21,24 @@ class HeadwordData:
 
     @staticmethod
     def convert_newlines(obj):
-        # Convert all string attributes before session closes
-        for attr_name in dir(obj):
-            if (
-                not attr_name.startswith("_")
-                and "html" not in attr_name
-                and "data" not in attr_name
-                and "link" not in attr_name
-            ):
-                attr_value = getattr(obj, attr_name)
-                if isinstance(attr_value, str):
-                    try:
-                        setattr(obj, attr_name, attr_value.replace("\n", "<br>"))
-                    except AttributeError:
-                        continue
+        # Only convert specific string columns to avoid triggering lazy loads
+        # of relationships and properties through dir(obj) and getattr()
+        string_columns = [
+            "meaning_1", "meaning_lit", "meaning_2", "construction",
+            "phonetic", "compound_construction", "commentary", "notes",
+            "example_1", "example_2"
+        ]
+        # We'll return a proxy object or just the modified SQLAlchemy object 
+        # but with only specific fields changed.
+        # Since the session is about to close, modifying the object is usually okay 
+        # in the webapp, but the dir(obj) was the real killer.
+        for attr_name in string_columns:
+            attr_value = getattr(obj, attr_name, None)
+            if isinstance(attr_value, str) and attr_value:
+                try:
+                    setattr(obj, attr_name, attr_value.replace("\n", "<br>"))
+                except AttributeError:
+                    continue
         return obj
 
 
