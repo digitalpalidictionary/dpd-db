@@ -4,5 +4,17 @@
         "sutta_1": "saṅkhārā cime, bhikkhave, kiṃnidānā kiṃsamudayā kiṃjātikā kiṃpabhavā? ",
         "example_1": "And what is the source of choices? ",
         "comment": "sandhi and these"
+    },
+    "pareti": {
+        "source_1": "sn12.17:5.1",
+        "sutta_1": "“‘so karoti so paṭisaṃvedayatī’ti kho, kassapa, ādito sato ‘sayaṅkataṃ dukkhan’ti iti vadaṃ sassataṃ etaṃ pareti. ",
+        "example_1": "“Suppose that he who does the deed and he who experiences the result are one and the same. Then for one who has existed since the beginning, suffering is made by oneself. In speaking like this, one implies this is eternal. ",
+        "comment": "implies; tends towards"
+    },
+    "suttaṃ": {
+        "source_1": "SN12.23",
+        "sutta_1": "nidānasaṃyuttaṃ, upanisasuttaṃ",
+        "example_1": "seyyathāpi, bhikkhave, uparipabbate thullaphusitake deve vassante taṃ udakaṃ yathāninnaṃ pavattamānaṃ pabbatakandarapadarasākhā paripūreti. pabbatakandarapadarasākhāparipūrā kusobbhe [kussubbhe, kusubbhe ṇvādi 129 suttaṃ oloketabbaṃ] paripūrenti. kusobbhā paripūrā mahāsobbhe paripūrenti. ",
+        "comment": "(gram) grammatical rule"
     }
 }
