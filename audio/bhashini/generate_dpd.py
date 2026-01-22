@@ -38,7 +38,7 @@ def main():
             speech_rate=0.85,
             play_audio=False,
             overwrite=False,
-            problem=False,
+            problem=True,
         )
 
         if bashini.ping_api():
