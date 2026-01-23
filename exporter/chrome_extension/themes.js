@@ -177,12 +177,10 @@ window.THEMES = window.THEMES || {
     name: "Vipassana Research Institute",
     bg: "#ffffff",
     text: "#4f4d47",
-    primary: "rgb(0, 0, 255)",
+    primary: "#b78730",
     border: "#dddddd",
     font: "'Maitree', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
-    headerBg: "#ffffff",
-    headerText: "#B78730",
-    gray: "#dddddd",
+    fontSize: "16px",
     niggahita: false
   }
 };
@@ -388,9 +386,8 @@ window.applyTheme = window.applyTheme || function(themeKey) {
       panelEl.style.setProperty("--dpd-header-text", theme.text);
     } else if (themeKey === "vri" || (themeKey === "auto" && window.detectTheme() === "vri")) {
       panelEl.classList.add("dpd-theme-vri");
-      panelEl.style.setProperty("--dpd-header-bg", theme.headerBg);
-      panelEl.style.setProperty("--dpd-header-text", theme.headerText);
-      panelEl.style.setProperty("--dpd-title-font", theme.font);
+      panelEl.style.setProperty("--dpd-header-bg", theme.bg);
+      panelEl.style.setProperty("--dpd-header-text", theme.primary);
     } else {
       panelEl.style.setProperty("--dpd-header-text", theme.text);
     }

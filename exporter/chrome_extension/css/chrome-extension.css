@@ -123,8 +123,8 @@ body.dpd-active {
   color: #ffffff;
 }
 
-#dict-panel-25445.dpd-theme-vri h3.dpd {
-  color: var(--dpd-header-text);
+#dict-panel-25445.dpd-theme-vri .dpd-title {
+  color: var(--dpd-primary) !important;
 }
 
 #dict-panel-25445.dpd-theme-suttacentral .grammar_dict,
