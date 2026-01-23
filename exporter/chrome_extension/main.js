@@ -40,7 +40,7 @@ function handleSelectedWord(word) {
         } else {
           panel?.setText("Error: " + (response?.error || "Unknown error"));
         }
-        panel?.setContent("<p style='padding:10px;'>Could not fetch data. Please check your connection.</p>");
+        panel?.setContent("<p style='padding:10px;'>You must have a working internet connection to look up words. It seems you are not connected to the internet.</p>");
       }
     }
   );
