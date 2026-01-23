@@ -1,110 +1,74 @@
-/**
- * Handle a selected word by looking it up in the dictionary.
- *
- * @param {string} word - The selected word.
- */
+let panel = null;
+
 function handleSelectedWord(word) {
-  console.log("Selected word:", word);
-
-  // Remove various apostrophes and quotes
-  word = word.replace(/[’‘'“”"]/g, "");
-
-  // Check for doubled words (common in some Pali reader integrations)
-  if (word.length >= 6 && word.length % 2 === 0) {
-    const mid = word.length / 2;
-    const firstHalf = word.slice(0, mid);
-    const secondHalf = word.slice(mid);
-    if (firstHalf.toLowerCase() === secondHalf.toLowerCase()) {
-      console.log("[DPD] Doubled word detected in selection:", word);
-      word = firstHalf;
-      console.log("[DPD] Corrected to:", word);
+  console.log("[DPD] Searching for:", word);
+  let cleanWord = word.replace(/[’‘'“”"]/g, "");
+  if (cleanWord.length >= 6 && cleanWord.length % 2 === 0) {
+    const mid = cleanWord.length / 2;
+    if (cleanWord.slice(0, mid).toLowerCase() === cleanWord.slice(mid).toLowerCase()) {
+      cleanWord = cleanWord.slice(0, mid);
     }
   }
 
-  panel?.setSearchValue(word);
-  panel?.setText("Loading...");
+  if (panel) {
+    panel.setSearchValue(cleanWord);
+    panel.setText("Loading...");
+  }
 
-  const url =
-    "https://dpdict.net/search_json?q=" + encodeURIComponent(word);
-    // "http://0.0.0.0:8080/search_json?q=" + encodeURIComponent(word);
-
-  // Use background script to fetch data to avoid CORS issues
   chrome.runtime.sendMessage(
-    { action: "fetchData", url: url },
+    { action: "fetchData", url: "https://dpdict.net/search_json?q=" + encodeURIComponent(cleanWord) },
     (response) => {
-      // Handle the response from the background script
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError);
-        panel?.setText("Error: " + chrome.runtime.lastError.message);
-        panel?.setContent("<p style='padding:10px;'>Communication error. Please reload the page and try again.</p>");
-        return;
-      }
-
-      if (response && response.success) {
+      if (response?.success) {
         const data = response.data;
         if (!data || (!data.summary_html && !data.dpd_html)) {
-          panel?.setText("No results for " + word);
-          panel?.setContent("<p style='padding:10px;'>Try another word or check the spelling.</p>");
-          return;
-        }
-        panel?.setText("Result for " + word);
-        panel?.setContent(data.summary_html + "<hr class=\"dpd\">" + data.dpd_html);
-      } else {
-        console.error(response?.error);
-        if (response?.error?.includes("429")) {
-          panel?.setText("Error: Too many requests");
+          panel?.setText("No results for " + cleanWord);
         } else {
-          panel?.setText("Error: " + (response?.error || "Unknown error"));
+          panel?.setText("Result for " + cleanWord);
+          panel?.setContent(data.summary_html + "<hr class=\"dpd\">" + data.dpd_html);
         }
-        panel?.setContent("<p style='padding:10px;'>You must have a working internet connection to look up words. It seems you are not connected to the internet.</p>");
+      } else {
+        panel?.setText("Error: " + (response?.error || "Unknown error"));
       }
     }
   );
 }
 
 async function init() {
+  if (panel) return;
   document.documentElement.classList.add("dpd-active");
   document.body.classList.add("dpd-active");
 
-  if (document.getElementById("main-content-32050248") === null) {
-    const newContentContainer = document.createElement("div");
-    const nodes = document.body.childNodes;
-    newContentContainer.id = "main-content-32050248";
-    [...nodes]
-      .filter((node) => node.tagName !== "SCRIPT")
-      .forEach((node) => {
-        newContentContainer.appendChild(node);
-      });
-
-    document.body.appendChild(newContentContainer);
-    addListenersToTextElements();
-    chrome.runtime.onMessage.addListener(function (
-      request,
-      sender,
-      sendResponse
-    ) {
-      if (request === "destroy") {
-        document.documentElement.classList.remove("dpd-active");
-        document.body.classList.remove("dpd-active");
-        panel?.destroy();
-        delete panel;
-        panel = null;
-        sendResponse("done");
-      }
+  if (!document.getElementById("main-content-32050248")) {
+    const container = document.createElement("div");
+    container.id = "main-content-32050248";
+    Array.from(document.body.childNodes).forEach(node => {
+      if (node.tagName !== "SCRIPT" && node.id !== "dict-panel-25445") container.appendChild(node);
     });
+    document.body.appendChild(container);
   }
 
-  panel = panel || new DictionaryPanel();
-  
+  window.addListenersToTextElements();
+  panel = new DictionaryPanel();
   const domain = window.location.hostname;
   const storage = await chrome.storage.local.get(`theme_${domain}`);
-  const savedTheme = storage[`theme_${domain}`] || "auto";
-  applyTheme(savedTheme);
+  applyTheme(storage[`theme_${domain}`] || "auto");
 }
 
-// Run the script after the DOM is loaded
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
-} else {
-  init();
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request === "init") init();
+  if (request === "destroy") {
+    document.documentElement.classList.remove("dpd-active");
+    document.body.classList.remove("dpd-active");
+    panel?.destroy();
+    panel = null;
+    window.removeListenersFromTextElements();
+  }
+});
+
+const AUTO_DOMAINS = ["suttacentral.net", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
+if (AUTO_DOMAINS.some(d => window.location.hostname.includes(d))) init();
+else {
+  chrome.storage.local.get(`state_${window.location.hostname}`).then(data => {
+    if (data[`state_${window.location.hostname}`] === "ON") init();
+  });
 }

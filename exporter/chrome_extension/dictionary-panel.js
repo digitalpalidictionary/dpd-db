@@ -1,49 +1,48 @@
-if (typeof DictionaryPanel === "undefined") {
-  window.DictionaryPanel = class {
-    content;
-    textNode;
-    searchInput;
-    searchBtn;
-    isResizing = false;
+window.DictionaryPanel = class {
+  content;
+  textNode;
+  searchInput;
+  searchBtn;
+  isResizing = false;
 
-    settings = {
-      fontSize: 16,
-      niggahita: true,
-      grammar: false,
-      example: false,
-      oneButton: true,
-      summary: true,
-      sandhi: true,
-      audio: false,
-    };
+  settings = {
+    fontSize: 16,
+    niggahita: true,
+    grammar: false,
+    example: false,
+    oneButton: true,
+    summary: true,
+    sandhi: true,
+    audio: false,
+  };
 
-    constructor() {
-      const panelEl = document.createElement("div");
-      panelEl.id = "dict-panel-25445";
+  constructor() {
+    const panelEl = document.createElement("div");
+    panelEl.id = "dict-panel-25445";
 
-      const header = this._createHeader();
-      header.className = "dpd-header";
+    const header = this._createHeader();
+    header.className = "dpd-header";
 
-      this.textNode = document.createElement("div");
-      this.textNode.className = "dpd-status-text";
-      this.textNode.style.display = "none";
-      header.appendChild(this.textNode);
+    this.textNode = document.createElement("div");
+    this.textNode.className = "dpd-status-text";
+    this.textNode.style.display = "none";
+    header.appendChild(this.textNode);
 
-      this.content = document.createElement("div");
-      this.content.className = "dpd-content";
+    this.content = document.createElement("div");
+    this.content.className = "dpd-content";
 
-      const handle = document.createElement("div");
-      handle.className = "dpd-resize-handle";
-      panelEl.appendChild(handle);
-      panelEl.appendChild(header);
-      panelEl.appendChild(this.content);
+    const handle = document.createElement("div");
+    handle.className = "dpd-resize-handle";
+    panelEl.appendChild(handle);
+    panelEl.appendChild(header);
+    panelEl.appendChild(this.content);
 
-      document.body.appendChild(panelEl);
+    document.body.appendChild(panelEl);
 
-      this._setupEvents();
-      this._setupResize(handle);
-      this._loadInitialSettings();
-    }
+    this._setupEvents();
+    this._setupResize(handle);
+    this._loadInitialSettings();
+  }
 
     async _loadInitialSettings() {
       const result = await chrome.storage.local.get([
@@ -497,7 +496,13 @@ if (typeof DictionaryPanel === "undefined") {
 
       var performSearch = () => {
         var q = input.value.trim();
-        if (q) handleSelectedWord(q);
+        if (q) {
+          if (typeof window.handleSelectedWord === 'function') {
+            window.handleSelectedWord(q);
+          } else {
+            console.error("[DPD] handleSelectedWord not found");
+          }
+        }
       };
       searchBtn.onclick = performSearch;
       input.onkeydown = (e) => {
@@ -705,7 +710,6 @@ if (typeof DictionaryPanel === "undefined") {
       document.getElementById("dict-panel-25445")?.remove();
     }
   };
-}
 
 if (typeof wrapApostrophesInHTML === "undefined") {
   window.wrapApostrophesInHTML = function (html) {

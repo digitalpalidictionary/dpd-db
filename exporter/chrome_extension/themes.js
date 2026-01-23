@@ -202,38 +202,36 @@ window.detectTheme = window.detectTheme || function() {
   return "auto";
 };
 
-window.isSuttaCentralDark = window.isSuttaCentralDark || function() {
-  const bg = window.getComputedStyle(document.body).backgroundColor;
-  const rgb = bg.match(/\d+/g);
-  if (rgb && rgb.length >= 3) {
-    // Calculate perceived brightness (standard formula)
-    const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
-    return brightness < 128; // Return true if dark
+window.isDark = window.isDark || function() {
+  // Check common classes and attributes
+  if (document.documentElement.classList.contains('dark') || 
+      document.body.classList.contains('dark') ||
+      document.documentElement.getAttribute('data-theme') === 'dark') {
+    return true;
   }
-  return false;
-};
 
-window.isTBWDark = window.isTBWDark || function() {
-  // Check body background
   let bg = window.getComputedStyle(document.body).backgroundColor;
-  
-  // If transparent, try to find a non-transparent ancestor or check HTML element
   if (bg === "rgba(0, 0, 0, 0)" || bg === "transparent") {
     bg = window.getComputedStyle(document.documentElement).backgroundColor;
   }
   
-  // If still transparent, default to light (false) to be safe, 
-  // or check if there is a specific class like "dark-mode" if known.
-  // For now, let's assume if we can't find a color, it's likely light.
+  // If still transparent, it's likely light (default)
   if (bg === "rgba(0, 0, 0, 0)" || bg === "transparent") return false;
 
   const rgb = bg.match(/\d+/g);
   if (rgb && rgb.length >= 3) {
     const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
-    // Dark if brightness < 100 (conservative)
-    return brightness < 100; 
+    return brightness < 128; 
   }
   return false;
+};
+
+window.isSuttaCentralDark = window.isSuttaCentralDark || function() {
+  return window.isDark();
+};
+
+window.isTBWDark = window.isTBWDark || function() {
+  return window.isDark();
 };
 
 window.extractColors = window.extractColors || function() {

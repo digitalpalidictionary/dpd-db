@@ -25,6 +25,25 @@
     "scripting",
     "storage"
   ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.suttacentral.net/*",
+        "*://*.digitalpalireader.online/*",
+        "*://*.thebuddhaswords.net/*",
+        "*://*.tipitaka.org/*",
+        "*://*.tipitaka.lk/*",
+        "*://*.open.tipitaka.lk/*"
+      ],
+      "js": ["utils.js", "themes.js", "dictionary-panel.js", "main.js"],
+      "css": [
+        "css/chrome-extension.css",
+        "css/dpd-variables.css",
+        "css/dpd.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
   "host_permissions": [
     "https://dpdict.net/*",
     "http://0.0.0.0:8080/*"
