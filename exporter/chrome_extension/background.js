@@ -35,6 +35,10 @@ chrome.storage.local.get(null, (items) => {
 });
 
 const tipitakaOrg = "https://tipitaka.org";
+const ALLOWED_ORIGINS = [
+  "https://www.dpdict.net",
+  "http://0.0.0.0:8080"
+];
 const initializedTabs = new Set();
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -99,6 +103,18 @@ chrome.tabs.onRemoved.addListener((tabId) => {
 // Handle messages from content scripts (e.g., for fetching data to avoid CORS)
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "fetchData") {
+    try {
+      const url = new URL(request.url);
+      if (!ALLOWED_ORIGINS.includes(url.origin)) {
+        console.error("Blocked request to unauthorized origin:", url.origin);
+        sendResponse({ success: false, error: "Unauthorized origin" });
+        return true;
+      }
+    } catch (e) {
+      sendResponse({ success: false, error: "Invalid URL" });
+      return true;
+    }
+
     fetch(request.url)
       .then(response => {
         if (!response.ok) {
