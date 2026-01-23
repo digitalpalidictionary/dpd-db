@@ -90,14 +90,16 @@ if (typeof DictionaryPanel === 'undefined') {
       panelEl.classList.toggle("dpd-hide-summary", !this.settings.summary);
       panelEl.classList.toggle("dpd-hide-sandhi", !this.settings.sandhi);
 
-      this._applyContentSettings();
+      this._updateNiggahita();
     }
 
-    _applyContentSettings() {
+    _updateNiggahita() {
       if (!this.content) return;
-
-      // Niggahita replacement
       if (this.settings.niggahita) { niggahitaUp(); } else { niggahitaDown(); }
+    }
+
+    _applySectionVisibility() {
+      if (!this.content) return;
 
       // Initial State only for Grammar/Example (allows manual override later)
       const grammarButtons = this.content.querySelectorAll('[name="grammar-button"]');
@@ -116,6 +118,10 @@ if (typeof DictionaryPanel === 'undefined') {
       const storageKey = "settings" + key.charAt(0).toUpperCase() + key.slice(1);
       chrome.storage.local.set({ [storageKey]: value });
       this._applySettings();
+      
+      if (key === "grammar" || key === "example") {
+        this._applySectionVisibility();
+      }
     }
 
     setText(text) {
@@ -147,7 +153,8 @@ if (typeof DictionaryPanel === 'undefined') {
       }
 
       this.content.scrollTop = 0;
-      this._applyContentSettings();
+      this._updateNiggahita();
+      this._applySectionVisibility();
       this._initGrammarSorter();
     }
 
@@ -522,7 +529,12 @@ if (typeof niggahitaUp === 'undefined') {
   window.niggahitaUp = function () {
     var dpdPane = document.querySelector(".dpd-content");
     if (!dpdPane) return;
-    dpdPane.innerHTML = dpdPane.innerHTML.replace(/ṃ/g, "ṁ");
+    
+    const walker = document.createTreeWalker(dpdPane, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while ((node = walker.nextNode())) {
+      node.nodeValue = node.nodeValue.replace(/ṃ/g, "ṁ");
+    }
   };
 }
 
@@ -530,7 +542,12 @@ if (typeof niggahitaDown === 'undefined') {
   window.niggahitaDown = function () {
     var dpdPane = document.querySelector(".dpd-content");
     if (!dpdPane) return;
-    dpdPane.innerHTML = dpdPane.innerHTML.replace(/ṁ/g, "ṃ");
+
+    const walker = document.createTreeWalker(dpdPane, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while ((node = walker.nextNode())) {
+      node.nodeValue = node.nodeValue.replace(/ṁ/g, "ṃ");
+    }
   };
 }
 
