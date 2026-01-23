@@ -381,7 +381,7 @@ if (typeof DictionaryPanel === 'undefined') {
       const stickyMsg = document.createElement("div");
       stickyMsg.style.fontSize = "0.7rem"; stickyMsg.style.textAlign = "center";
       stickyMsg.style.marginTop = "2px"; stickyMsg.style.opacity = "0.8";
-      stickyMsg.textContent = "double-click any word on the webpage to search";
+      stickyMsg.textContent = "double-click any word on the webpage or sidebar to search";
 
       header.appendChild(topRow); header.appendChild(searchRow); header.appendChild(stickyMsg);
       return header;
