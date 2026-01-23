@@ -270,8 +270,23 @@ body.dpd-active {
   background-color: var(--dpd-border);
 }
 
-/* Ensure summary links always use the theme color */
+/* Ensure summary links always use the theme color and no underline */
 #dict-panel-25445 .summary-link,
 #dict-panel-25445 .root-summary-link {
-  color: var(--primary) !important;
+  color: var(--dpd-primary) !important;
+  text-decoration: none !important;
+}
+
+/* Table font size fix */
+#dict-panel-25445 table th,
+#dict-panel-25445 table td {
+  font-size: 100% !important;
+}
+
+/* Active button underline fix */
+#dict-panel-25445 a.dpd-button,
+#dict-panel-25445 a.dpd-button.active,
+#dict-panel-25445 a.dpd-button:hover,
+#dict-panel-25445 a.dpd-button:visited {
+  text-decoration: none !important;
 }

@@ -155,6 +155,24 @@ window.THEMES = window.THEMES || {
     font: '"Skolar Sans PE Variable", sans-serif',
     niggahita: true
   },
+  tbw_light: {
+    name: "The Buddha's Words",
+    bg: "#ffffff",
+    text: "#000000",
+    primary: "hsl(198, 100%, 50%)",
+    border: "hsla(0, 0%, 50%, 0.25)",
+    font: "URWPalladioITU, serif",
+    niggahita: true
+  },
+  tbw_dark: {
+    name: "The Buddha's Words Dark",
+    bg: "#141516",
+    text: "#ffffff",
+    primary: "hsl(198, 100%, 50%)",
+    border: "hsla(0, 0%, 50%, 0.25)",
+    font: "URWPalladioITU, serif",
+    niggahita: true
+  },
   vri: {
     name: "Vipassana Research Institute",
     bg: "#ffffff",
@@ -175,6 +193,9 @@ window.detectTheme = window.detectTheme || function() {
   if (url.includes("suttacentral.net")) {
     return window.isSuttaCentralDark() ? "suttacentral_dark" : "suttacentral";
   }
+  if (url.includes("thebuddhaswords")) {
+    return window.isTBWDark() ? "tbw_dark" : "tbw_light";
+  }
   if (url.includes("tipitaka.org")) return "vri";
   if (url.includes("open.tipitaka.lk")) {
     console.log("[DPD] Detected Tipitaka.lk");
@@ -190,6 +211,29 @@ window.isSuttaCentralDark = window.isSuttaCentralDark || function() {
     // Calculate perceived brightness (standard formula)
     const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
     return brightness < 128; // Return true if dark
+  }
+  return false;
+};
+
+window.isTBWDark = window.isTBWDark || function() {
+  // Check body background
+  let bg = window.getComputedStyle(document.body).backgroundColor;
+  
+  // If transparent, try to find a non-transparent ancestor or check HTML element
+  if (bg === "rgba(0, 0, 0, 0)" || bg === "transparent") {
+    bg = window.getComputedStyle(document.documentElement).backgroundColor;
+  }
+  
+  // If still transparent, default to light (false) to be safe, 
+  // or check if there is a specific class like "dark-mode" if known.
+  // For now, let's assume if we can't find a color, it's likely light.
+  if (bg === "rgba(0, 0, 0, 0)" || bg === "transparent") return false;
+
+  const rgb = bg.match(/\d+/g);
+  if (rgb && rgb.length >= 3) {
+    const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+    // Dark if brightness < 100 (conservative)
+    return brightness < 100; 
   }
   return false;
 };

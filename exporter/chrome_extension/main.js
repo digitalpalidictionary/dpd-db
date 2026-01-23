@@ -5,6 +5,22 @@
  */
 function handleSelectedWord(word) {
   console.log("Selected word:", word);
+
+  // Remove various apostrophes and quotes
+  word = word.replace(/[’‘'“”"]/g, "");
+
+  // Check for doubled words (common in some Pali reader integrations)
+  if (word.length >= 6 && word.length % 2 === 0) {
+    const mid = word.length / 2;
+    const firstHalf = word.slice(0, mid);
+    const secondHalf = word.slice(mid);
+    if (firstHalf.toLowerCase() === secondHalf.toLowerCase()) {
+      console.log("[DPD] Doubled word detected in selection:", word);
+      word = firstHalf;
+      console.log("[DPD] Corrected to:", word);
+    }
+  }
+
   panel?.setSearchValue(word);
   panel?.setText("Loading...");
 
