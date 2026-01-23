@@ -1,5 +1,41 @@
 [
     {
+        "id": 5110,
+        "lemma_1": "anuyyutta"
+    },
+    {
+        "id": 5111,
+        "lemma_1": "anuyyuttasaññī"
+    },
+    {
+        "id": 16962,
+        "lemma_1": "uyyuttasaññī"
+    },
+    {
+        "id": 40544,
+        "lemma_1": "paṭipatha"
+    },
+    {
+        "id": 11343,
+        "lemma_1": "ācikkhitvā"
+    },
+    {
+        "id": 35512,
+        "lemma_1": "natatuttari"
+    },
+    {
+        "id": 35513,
+        "lemma_1": "natatuttarisaññī"
+    },
+    {
+        "id": 29547,
+        "lemma_1": "tatuttarisaññī"
+    },
+    {
+        "id": 49324,
+        "lemma_1": "bhattiya 1.1"
+    },
+    {
         "id": 68754,
         "lemma_1": "vimuttūpanisa"
     },
@@ -42,41 +78,5 @@
     {
         "id": 1528,
         "lemma_1": "aññatitthiyasutta 1"
-    },
-    {
-        "id": 29185,
-        "lemma_1": "ṇvādi"
-    },
-    {
-        "id": 22707,
-        "lemma_1": "kussubbha"
-    },
-    {
-        "id": 68891,
-        "lemma_1": "virāgūpanisa"
-    },
-    {
-        "id": 37675,
-        "lemma_1": "nibbidūpanisa"
-    },
-    {
-        "id": 53660,
-        "lemma_1": "yathābhūtañāṇadassanūpanisa"
-    },
-    {
-        "id": 59687,
-        "lemma_1": "samādhūpanisa"
-    },
-    {
-        "id": 63599,
-        "lemma_1": "sukhūpanisa"
-    },
-    {
-        "id": 44752,
-        "lemma_1": "passaddhūpanisa"
-    },
-    {
-        "id": 46415,
-        "lemma_1": "pītūpanisa"
     }
 ]
