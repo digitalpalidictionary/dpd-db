@@ -3,3 +3,4 @@ images/*.png
 css/dpd.css
 css/dpd-variables.css
 *.zip
+!dpd-chrome-extension.zip
