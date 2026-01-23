@@ -1048,7 +1048,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √jhe	1	a	burn, blaze	√jval √kṣai	1, 4	burn, flame	pari √jhe		parijvalati
 √jhe	1	*āpe	burn, blaze	√jval √kṣai	1, 4	burn, flame	vi √jhe		
 √jhe	1	a	burn, blaze	√jval √kṣai	1, 4	burn, flame	saṃ √jhe		
-√ñā	5	nā	know	√jñā	9	know	√ñā	jñā	-jña, ajānaka (na + jānaka), ajānat, ajānāna, ajña, ajñāta, ajñātaka, ajñāti, ajñāna, ajñāna +, ajñānatā, ajñānatva, ajñāpayitvā, ajñāsīt, ā, jānat, jānatā, jānāti, jānātu, jānāna, jānāmi, jānīyāt, jānīyāta < jānāti, jānīyāma, jñāyemahi, jña, jñapana, jñapayat, jñapayati, jñapti, jñāta, jñāta +, jñātaka, jñātavya, jñāti, jñātum, jñāteḥ, jñātva, jñātvā, jñāna, jñāna +, jñānatas, jñānatā, jñānatva, jñānin, jñāpaka, jñāpayitavya, jñāpayitum, jñāpita, jñāpyate, jñāya, jñāyate, jñāyamāna, jñāyāt, jñāyāt, jñeyāt, jñāsyati, jñeya, durjñāna, na + jñātvā, na + jñāna, na + jñānaka (bsk), neya, su + durjñāna, sujñāna
+√ñā	5	nā	know	√jñā	9	know	√ñā	jñā	-jña, ajānaka (na + jānaka), ajānat, ajānāna, ajña, ajñāta, ajñātaka, ajñāti, ajñāna, ajñāna +, ajñānatā, ajñānatva, ajñāpayitvā, ajñāsīt, ā, jānat, jānatā, jānāti, jānātu, jānāna, jānāmi, jānīyāt, jānīyāta < jānāti, jānīyāma, jñāyemahi, jña, jñapana, jñapayat, jñapayati, jñapti, jñāta, jñāta +, jñātaka, jñātavya, jñāti, jñātika, jñātum, jñāteḥ, jñātva, jñātvā, jñāna, jñāna +, jñānatas, jñānatā, jñānatva, jñānin, jñāpaka, jñāpayitavya, jñāpayitum, jñāpita, jñāpyate, jñāya, jñāyate, jñāyamāna, jñāyāt, jñāyāt, jñeyāt, jñāsyati, jñeya, durjñāna, na + jñātvā, na + jñāna, na + jñānaka (bsk), neya, su + durjñāna, sujñāna
 √ñā	5	nā	know	√jñā	9	know	adhi pa √ñā	abhiprajñā	adhi + prajñapti, adhiprajñā, adhiprajñā (bsk)
 √ñā	5	nā	know	√jñā	9	know	anu √ñā	anujñā	ananujñāta (na + anujñāta), anu + aṇu + tum, anujānat, anujñāta, anujñāna, anujñānāti, anujñānīyāt, anujñetavya, anujñeya, anujñāpya, na +, na + anujānat, na + anujñānāti, na + anujñetavya
 √ñā	5	*āpe	know	√jñā	9	know	anu pa √ñā	anuprajñā	
@@ -2054,7 +2054,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √man	3	ya	think	√man	3, 4, 8	think	abhi √man	abhiman	abhimanas, abhimanyate, abhimāna
 √man	3	ya	think	√man	3, 4, 8	think	ava √man	avaman	avamanitavya, avamanyat, avamanyate, avamanyamāna, avamāna, avamāna, apamāna, avamānana, na + avamata
 √man	3	*e	think	√man	3, 4, 8	think	pati √man	pratiman	pratimānayat, pratimānayat (honouring), pratimānayati (honours)
-√man	3	sa	think	√man	3, 4, 8	think	pari √man	pariman	pari + man, pari + mīmāṃsamāna, pari + mīmāṃsā, parimīmāṃsate
+√man	3	sa	think	√man	3, 4, 8	think	pari √man	pariman	pari + man, pari + mīmāṃsamāna, pari + mīmāṃsā, parimīmāṃsate, parimīmāṃsā (bsk)
 √man	3	ya	think	√man	3, 4, 8	think	vi √man	viman	avimanas, na + vimānana, nis + vaimatika, vaimatika, vimati, vimanas, vimāna, vimānayati
 √man	3	ya	think	√man	3, 4, 8	think	saṃ √man	samman	na + sammata, na + sammāna, sammata, sammati, sammanitavya, sammanitum, sammanta, sammantvā, sammanyate, sammāna, sammānana, sammānayati
 √man	3	ya	think	√man	3, 4, 8	think	saṃ anu √man	samanuman	samanumanyate
@@ -2379,7 +2379,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √rud	1	*a	cry	√rud	2	weep	anu √rud	anurud	
 √rud	1	*a	cry	√rud	2	weep	ā √rud	rud	ārodana
 √rud	1	*a	cry	√rud	2	weep	pa √rud	prarud	praroditi
-√rudh 1	2	ya	obstruct	√rudh	2, 7	obstruct	√rudh	rudh	rundhat, rundhati, rodha
+√rudh 1	2	ya	obstruct	√rudh	2, 7	obstruct	√rudh	rudh	ruddha, rundhat, rundhati, rodha
 √rudh 1	2	ṃa	obstruct	√rudh	2, 7	obstruct	ava √rudh	avarudh	avaruṇaddhi, avaruddha, avarodha, avarodhaka, avarodhana, avarodhayati, na + avarudhyate
 √rudh 1	2	ṃa	obstruct	√rudh	2, 7	obstruct	ā √rudh	ārudh	
 √rudh 1	2	ya	obstruct	√rudh	2, 7	obstruct	upa √rudh	uparudh	uparuddha, uparudhyate, uparundhati, uparundhya, uparodha, uparodhana, uparodhayati, na + uparudhyate
