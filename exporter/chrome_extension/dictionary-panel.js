@@ -316,8 +316,11 @@ if (typeof DictionaryPanel === 'undefined') {
       topRow.style.display = "flex"; topRow.style.alignItems = "center";
       topRow.style.justifyContent = "space-between"; topRow.style.width = "100%";
 
-      const logoGroup = document.createElement("div");
+      const logoGroup = document.createElement("a");
+      logoGroup.href = "https://dpdict.net";
+      logoGroup.target = "_blank";
       logoGroup.style.display = "flex"; logoGroup.style.alignItems = "center";
+      logoGroup.style.textDecoration = "none"; logoGroup.style.color = "inherit";
 
       const logo = document.createElement("img");
       logo.src = chrome.runtime.getURL("images/dpd-logo.svg");
