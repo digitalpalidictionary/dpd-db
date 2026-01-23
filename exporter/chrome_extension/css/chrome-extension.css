@@ -269,3 +269,9 @@ body.dpd-active {
 #dict-panel-25445 .grammar_dict th:hover {
   background-color: var(--dpd-border);
 }
+
+/* Ensure summary links always use the theme color */
+#dict-panel-25445 .summary-link,
+#dict-panel-25445 .root-summary-link {
+  color: var(--primary) !important;
+}
