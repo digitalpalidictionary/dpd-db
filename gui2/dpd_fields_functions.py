@@ -420,7 +420,7 @@ def clean_commentary(
 
 def remove_brackets(text: str) -> str:
     """Remove all content within square brackets [like this]."""
-    return re.sub(r"\[[^]]*\]", "", text)
+    return re.sub(r"\s*\[[^]]*\]\s*", " ", text)
 
 
 def remove_bold_tags(text: str) -> str:
