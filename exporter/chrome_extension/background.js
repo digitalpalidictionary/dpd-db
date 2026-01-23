@@ -36,7 +36,7 @@ chrome.storage.local.get(null, (items) => {
 
 const tipitakaOrg = "https://tipitaka.org";
 const ALLOWED_ORIGINS = [
-  "https://www.dpdict.net",
+  "https://dpdict.net",
   "http://0.0.0.0:8080"
 ];
 const initializedTabs = new Set();

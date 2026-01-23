@@ -219,8 +219,8 @@ if (typeof DictionaryPanel === 'undefined') {
                 gender = this.settings.audio ? "female" : "male";
             }
             const url =
-                // "https://www.dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
-                "http://0.0.0.0:8080/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
+                "https://dpdict.net/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
+                // "http://0.0.0.0:8080/audio/" + encodeURIComponent(headword) + "?gender=" + gender;
             const audio = new Audio(url);
             audio.play().catch(err => console.error("Audio playback error:", err));
         }

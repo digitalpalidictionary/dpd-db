@@ -26,7 +26,7 @@
     "storage"
   ],
   "host_permissions": [
-    // "https://www.dpdict.net/*",
+    "https://dpdict.net/*",
     "http://0.0.0.0:8080/*"
   ],
   "web_accessible_resources": [
