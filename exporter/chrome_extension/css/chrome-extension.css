@@ -102,6 +102,10 @@ body.dpd-active {
   background-color: transparent;
 }
 
+#dict-panel-25445.dpd-theme-dpr .dpd-link {
+  font-size: 100% !important;
+}
+
 /* SuttaCentral Theme Overrides */
 #dict-panel-25445.dpd-theme-suttacentral .dpd-header {
   color: var(--dpd-header-text);
@@ -109,7 +113,9 @@ body.dpd-active {
 }
 
 #dict-panel-25445 .dpd-header img {
-  filter: hue-rotate(var(--dpd-logo-hue-rotate, 0deg)) saturate(var(--dpd-logo-saturate, 1)) brightness(var(--dpd-logo-brightness, 1)) !important;
+  filter: hue-rotate(var(--dpd-logo-hue-rotate, 0deg))
+    saturate(var(--dpd-logo-saturate, 1))
+    brightness(var(--dpd-logo-brightness, 1)) !important;
 }
 
 #dict-panel-25445 table.help th {
