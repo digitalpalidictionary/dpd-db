@@ -120,3 +120,7 @@ shared_data/headword_stem_pattern_dict
 temp/
 typescript
 .DS_Store
+
+# exporter/chrome_extension
+exporter/chrome_extension/node_modules/
+exporter/chrome_extension/images/*.png
