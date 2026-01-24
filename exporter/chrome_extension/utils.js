@@ -7,27 +7,91 @@ window.expandSelectionToWord = function() {
   // trust it and don't try to expand/modify it.
   if (range.startContainer !== range.endContainer) return;
 
-  const node = range.startContainer;
-  if (node.nodeType !== Node.TEXT_NODE) return;
+  const initialNode = range.startContainer;
+  if (initialNode.nodeType !== Node.TEXT_NODE) return;
 
-  const text = node.nodeValue;
-  let start = range.startOffset;
-  let end = range.endOffset;
-  
-  // Characters to stop on. Apostrophes and quotes are excluded so they are selected.
+  // Characters to stop on.
   const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>]/;
   const isStop = (char) => !char || stopChars.test(char);
 
-  while (start > 0 && !isStop(text[start - 1])) start--;
-  while (end < text.length && !isStop(text[end])) end++;
+  let startNode = initialNode;
+  let startOffset = range.startOffset;
+  let endNode = initialNode;
+  let endOffset = range.endOffset;
 
-  // Only update if the expansion actually found more text
-  if (start !== range.startOffset || end !== range.endOffset) {
-    const newRange = document.createRange();
-    newRange.setStart(node, start);
-    newRange.setEnd(node, end);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+  // Helper to find the next/previous text node in the document order
+  const getNextTextNode = (node, forward) => {
+    let current = node;
+    while (current) {
+      // Move to sibling or parent's sibling
+      let next = forward ? current.nextSibling : current.previousSibling;
+      if (!next) {
+        current = current.parentElement;
+        // Don't cross out of a block element
+        if (current && window.getComputedStyle(current).display !== 'inline') return null;
+        continue;
+      }
+      current = next;
+
+      // If we hit a block element, stop
+      if (current.nodeType === Node.ELEMENT_NODE && window.getComputedStyle(current).display !== 'inline') {
+        return null;
+      }
+
+      // If it's a text node, return it
+      if (current.nodeType === Node.TEXT_NODE) return current;
+
+      // If it's an inline element, go inside it
+      if (current.nodeType === Node.ELEMENT_NODE) {
+        const walker = document.createTreeWalker(current, NodeFilter.SHOW_TEXT, null, false);
+        const textNode = forward ? walker.firstChild() : walker.lastChild();
+        if (textNode) return textNode;
+      }
+    }
+    return null;
+  };
+
+  // Expand backwards
+  while (true) {
+    const text = startNode.nodeValue;
+    while (startOffset > 0 && !isStop(text[startOffset - 1])) {
+      startOffset--;
+    }
+    
+    if (startOffset === 0) {
+      const prev = getNextTextNode(startNode, false);
+      if (prev && prev.nodeValue.length > 0 && !isStop(prev.nodeValue[prev.nodeValue.length - 1])) {
+        startNode = prev;
+        startOffset = prev.nodeValue.length;
+        continue;
+      }
+    }
+    break;
+  }
+
+  // Expand forwards
+  while (true) {
+    const text = endNode.nodeValue;
+    while (endOffset < text.length && !isStop(text[endOffset])) {
+      endOffset++;
+    }
+
+    if (endOffset === text.length) {
+      const next = getNextTextNode(endNode, true);
+      if (next && next.nodeValue.length > 0 && !isStop(next.nodeValue[0])) {
+        endNode = next;
+        endOffset = 0;
+        continue;
+      }
+    }
+    break;
+  }
+
+  // Update selection
+  try {
+    selection.setBaseAndExtent(startNode, startOffset, endNode, endOffset);
+  } catch (e) {
+    console.error("[DPD] Expansion error:", e);
   }
 };
 
@@ -36,8 +100,7 @@ window.getSelectedWord = function() {
   const selection = window.getSelection();
   const text = selection.toString().trim();
   if (!text || text === '⇅' || text === '▲' || text === '▼') return null;
-  if (text.split(/\s+/).length === 1) return text;
-  return null;
+  return text;
 };
 
 let dragStartX = 0;
