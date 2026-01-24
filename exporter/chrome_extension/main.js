@@ -2,7 +2,8 @@ let panel = null;
 
 function handleSelectedWord(word) {
   console.log("[DPD] Searching for:", word);
-  let cleanWord = word.replace(/[’‘'“”"]/g, "");
+  // Normalize all single and double curly quotes to straight apostrophes
+  let cleanWord = word.replace(/[’‘“”]/g, "'").replace(/[". ,;:\!\?\(\)\[\]\{\}\\\/]/g, "");
   if (cleanWord.length >= 6 && cleanWord.length % 2 === 0) {
     const mid = cleanWord.length / 2;
     if (cleanWord.slice(0, mid).toLowerCase() === cleanWord.slice(mid).toLowerCase()) {
@@ -52,6 +53,19 @@ async function init() {
   const domain = window.location.hostname;
   const storage = await chrome.storage.local.get(`theme_${domain}`);
   applyTheme(storage[`theme_${domain}`] || "auto");
+
+  // Watch for theme changes on the host page
+  const observer = new MutationObserver(() => {
+    chrome.storage.local.get(`theme_${domain}`).then(data => {
+      if ((data[`theme_${domain}`] || "auto") === "auto") {
+        applyTheme("auto");
+      }
+    });
+  });
+  observer.observe(document.documentElement, { 
+    attributes: true, 
+    attributeFilter: ["class", "theme", "data-theme"] 
+  });
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

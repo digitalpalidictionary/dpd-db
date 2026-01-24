@@ -2,22 +2,33 @@ window.expandSelectionToWord = function() {
   const selection = window.getSelection();
   if (!selection.rangeCount) return;
   const range = selection.getRangeAt(0);
+  
+  // If the selection already spans across multiple nodes (like in the panel), 
+  // trust it and don't try to expand/modify it.
+  if (range.startContainer !== range.endContainer) return;
+
   const node = range.startContainer;
   if (node.nodeType !== Node.TEXT_NODE) return;
 
-  const text = node.textContent;
+  const text = node.nodeValue;
   let start = range.startOffset;
   let end = range.endOffset;
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}]/;
+  
+  // Characters to stop on. Apostrophes and quotes are excluded so they are selected.
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>]/;
+  const isStop = (char) => !char || stopChars.test(char);
 
-  while (start > 0 && !stopChars.test(text[start - 1])) start--;
-  while (end < text.length && !stopChars.test(text[end])) end++;
+  while (start > 0 && !isStop(text[start - 1])) start--;
+  while (end < text.length && !isStop(text[end])) end++;
 
-  const newRange = document.createRange();
-  newRange.setStart(node, start);
-  newRange.setEnd(node, end);
-  selection.removeAllRanges();
-  selection.addRange(newRange);
+  // Only update if the expansion actually found more text
+  if (start !== range.startOffset || end !== range.endOffset) {
+    const newRange = document.createRange();
+    newRange.setStart(node, start);
+    newRange.setEnd(node, end);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+  }
 };
 
 window.getSelectedWord = function() {

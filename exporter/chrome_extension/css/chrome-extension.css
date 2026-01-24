@@ -89,7 +89,14 @@ body.dpd-active {
 }
 
 #dict-panel-25445.dpd-hide-sandhi .apostrophe {
-  display: none !important;
+  visibility: hidden !important;
+  font-size: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Allow double-click to work through the span regardless of setting */
+.apostrophe {
+  pointer-events: none !important;
 }
 
 /* Digital Pāli Reader Theme Overrides */
