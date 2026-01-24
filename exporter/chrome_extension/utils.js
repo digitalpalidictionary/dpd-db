@@ -11,7 +11,7 @@ window.expandSelectionToWord = function() {
   if (initialNode.nodeType !== Node.TEXT_NODE) return;
 
   // Characters to stop on.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦]/;
   const isStop = (char) => !char || stopChars.test(char);
 
   let startNode = initialNode;
