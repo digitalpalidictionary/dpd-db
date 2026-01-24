@@ -37,6 +37,10 @@ window.DictionaryPanel = class {
     panelEl.appendChild(header);
     panelEl.appendChild(this.content);
 
+    // Add feedback footer
+    const footer = this._createFooter();
+    panelEl.appendChild(footer);
+
     document.body.appendChild(panelEl);
 
     this._setupEvents();
@@ -558,6 +562,19 @@ window.DictionaryPanel = class {
     header.appendChild(searchRow);
     header.appendChild(stickyMsg);
     return header;
+  }
+
+  _createFooter() {
+    const footer = document.createElement("p");
+    footer.className = "dpd-footer";
+    
+    const version = chrome.runtime.getManifest().version;
+    const currentUrl = encodeURIComponent(window.location.href);
+    const feedbackUrl = `https://docs.google.com/forms/d/e/1FAIpQLSePKf3i_M70mK6zi9YB2WL4VTLhg0AXOCelwSQlBVTr-tJRBA/viewform?usp=pp_url&entry.438735500=${currentUrl}&entry.1433863141=${version}`;
+    
+    footer.innerHTML = `Having a problem? Let us know about it <a href="${feedbackUrl}" target="_blank" rel="noopener noreferrer" class="dpd-link">here</a>`;
+    
+    return footer;
   }
 
   _showInfo() {
