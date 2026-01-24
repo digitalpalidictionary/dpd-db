@@ -2,11 +2,16 @@ let panel = null;
 
 function handleSelectedWord(word) {
   console.log("[DPD] Searching for:", word);
-  // Normalize all single and double curly quotes to straight apostrophes
-  let cleanWord = word.replace(/[’‘“”]/g, "'").replace(/[". ,;:\!\?\(\)\[\]\{\}\\\/]/g, "");
+  // Normalize curly quotes and remove common punctuation but PRESERVE spaces
+  let cleanWord = word
+    .replace(/[’‘“”]/g, "'")
+    .replace(/[".,;:\!\?\(\)\[\]\{\}\\\/]/g, "");
   if (cleanWord.length >= 6 && cleanWord.length % 2 === 0) {
     const mid = cleanWord.length / 2;
-    if (cleanWord.slice(0, mid).toLowerCase() === cleanWord.slice(mid).toLowerCase()) {
+    if (
+      cleanWord.slice(0, mid).toLowerCase() ===
+      cleanWord.slice(mid).toLowerCase()
+    ) {
       cleanWord = cleanWord.slice(0, mid);
     }
   }
@@ -17,7 +22,10 @@ function handleSelectedWord(word) {
   }
 
   chrome.runtime.sendMessage(
-    { action: "fetchData", url: "https://dpdict.net/search_json?q=" + encodeURIComponent(cleanWord) },
+    {
+      action: "fetchData",
+      url: "https://dpdict.net/search_json?q=" + encodeURIComponent(cleanWord),
+    },
     (response) => {
       if (response?.success) {
         const data = response.data;
@@ -25,12 +33,14 @@ function handleSelectedWord(word) {
           panel?.setText("No results for " + cleanWord);
         } else {
           panel?.setText("Result for " + cleanWord);
-          panel?.setContent(data.summary_html + "<hr class=\"dpd\">" + data.dpd_html);
+          panel?.setContent(
+            data.summary_html + '<hr class="dpd">' + data.dpd_html,
+          );
         }
       } else {
         panel?.setText("Error: " + (response?.error || "Unknown error"));
       }
-    }
+    },
   );
 }
 
@@ -42,8 +52,9 @@ async function init() {
   if (!document.getElementById("main-content-32050248")) {
     const container = document.createElement("div");
     container.id = "main-content-32050248";
-    Array.from(document.body.childNodes).forEach(node => {
-      if (node.tagName !== "SCRIPT" && node.id !== "dict-panel-25445") container.appendChild(node);
+    Array.from(document.body.childNodes).forEach((node) => {
+      if (node.tagName !== "SCRIPT" && node.id !== "dict-panel-25445")
+        container.appendChild(node);
     });
     document.body.appendChild(container);
   }
@@ -66,20 +77,20 @@ async function init() {
 
   // Watch for theme changes on the host page
   const observer = new MutationObserver(() => {
-    chrome.storage.local.get(`theme_${domain}`).then(data => {
+    chrome.storage.local.get(`theme_${domain}`).then((data) => {
       if ((data[`theme_${domain}`] || "auto") === "auto") {
         applyTheme("auto");
       }
     });
   });
-  observer.observe(document.documentElement, { 
-    attributes: true, 
-    attributeFilter: ["class", "theme", "data-theme"] 
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class", "theme", "data-theme"],
   });
   // Also watch body as some sites put themes there
-  observer.observe(document.body, { 
-    attributes: true, 
-    attributeFilter: ["class", "theme", "data-theme"] 
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ["class", "theme", "data-theme"],
   });
 }
 
@@ -94,10 +105,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-const AUTO_DOMAINS = ["suttacentral.net", "suttacentral.express", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
-if (AUTO_DOMAINS.some(d => window.location.hostname.includes(d))) init();
+const AUTO_DOMAINS = [
+  "suttacentral.net",
+  "suttacentral.express",
+  "digitalpalireader.online",
+  "thebuddhaswords.net",
+  "tipitaka.org",
+  "tipitaka.lk",
+  "open.tipitaka.lk",
+];
+if (AUTO_DOMAINS.some((d) => window.location.hostname.includes(d))) init();
 else {
-  chrome.storage.local.get(`state_${window.location.hostname}`).then(data => {
+  chrome.storage.local.get(`state_${window.location.hostname}`).then((data) => {
     if (data[`state_${window.location.hostname}`] === "ON") init();
   });
 }
