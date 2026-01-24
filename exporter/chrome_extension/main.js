@@ -52,7 +52,17 @@ async function init() {
   panel = new DictionaryPanel();
   const domain = window.location.hostname;
   const storage = await chrome.storage.local.get(`theme_${domain}`);
-  applyTheme(storage[`theme_${domain}`] || "auto");
+  const savedTheme = storage[`theme_${domain}`] || "auto";
+  applyTheme(savedTheme);
+
+  // Notify background that we've started to sync icon state
+  chrome.runtime.sendMessage({ action: "started" });
+
+  // If auto, try again shortly in case the SPA theme applied late
+  if (savedTheme === "auto") {
+    setTimeout(() => applyTheme("auto"), 300);
+    setTimeout(() => applyTheme("auto"), 1000);
+  }
 
   // Watch for theme changes on the host page
   const observer = new MutationObserver(() => {
@@ -63,6 +73,11 @@ async function init() {
     });
   });
   observer.observe(document.documentElement, { 
+    attributes: true, 
+    attributeFilter: ["class", "theme", "data-theme"] 
+  });
+  // Also watch body as some sites put themes there
+  observer.observe(document.body, { 
     attributes: true, 
     attributeFilter: ["class", "theme", "data-theme"] 
   });
@@ -79,7 +94,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-const AUTO_DOMAINS = ["suttacentral.net", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
+const AUTO_DOMAINS = ["suttacentral.net", "suttacentral.express", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
 if (AUTO_DOMAINS.some(d => window.location.hostname.includes(d))) init();
 else {
   chrome.storage.local.get(`state_${window.location.hostname}`).then(data => {

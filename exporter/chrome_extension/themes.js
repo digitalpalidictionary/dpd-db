@@ -203,19 +203,25 @@ window.detectTheme = window.detectTheme || function() {
 };
 
 window.isDark = window.isDark || function() {
-  // Check common classes and attributes
-  if (document.documentElement.classList.contains('dark') || 
-      document.body.classList.contains('dark') ||
-      document.documentElement.getAttribute('data-theme') === 'dark') {
+  const html = document.documentElement;
+  const body = document.body;
+
+  if (html.classList.contains('dark') || 
+      html.classList.contains('dark-theme') ||
+      body.classList.contains('dark') ||
+      body.classList.contains('dark-theme') ||
+      html.getAttribute('data-theme') === 'dark' ||
+      html.getAttribute('theme') === 'dark' ||
+      body.getAttribute('data-theme') === 'dark' ||
+      body.getAttribute('theme') === 'dark') {
     return true;
   }
 
-  let bg = window.getComputedStyle(document.body).backgroundColor;
+  let bg = window.getComputedStyle(body).backgroundColor;
   if (bg === "rgba(0, 0, 0, 0)" || bg === "transparent") {
-    bg = window.getComputedStyle(document.documentElement).backgroundColor;
+    bg = window.getComputedStyle(html).backgroundColor;
   }
   
-  // If still transparent, it's likely light (default)
   if (bg === "rgba(0, 0, 0, 0)" || bg === "transparent") return false;
 
   const rgb = bg.match(/\d+/g);

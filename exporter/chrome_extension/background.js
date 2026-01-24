@@ -5,14 +5,22 @@ const updateIcon = (tabId, state) => {
   chrome.action.setIcon({ tabId, path: iconSet });
 };
 
-const AUTO_DOMAINS = ["suttacentral.net", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
+const AUTO_DOMAINS = ["suttacentral.net", "suttacentral.express", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
 
 const getDomainState = async (url) => {
-  if (!url || url.startsWith("chrome://")) return "OFF";
-  const domain = new URL(url).hostname;
-  const data = await chrome.storage.local.get(`state_${domain}`);
-  if (data[`state_${domain}`]) return data[`state_${domain}`];
-  return AUTO_DOMAINS.some(d => domain.includes(d)) ? "ON" : "OFF";
+  if (!url || url.startsWith("chrome://") || url.startsWith("about:")) return "OFF";
+  try {
+    const urlObj = new URL(url);
+    const domain = urlObj.hostname;
+    const data = await chrome.storage.local.get(`state_${domain}`);
+    if (data[`state_${domain}`]) return data[`state_${domain}`];
+    
+    // Check if it's an auto-domain (matching main.js logic)
+    const isAuto = AUTO_DOMAINS.some(d => domain.includes(d));
+    return isAuto ? "ON" : "OFF";
+  } catch (e) {
+    return "OFF";
+  }
 };
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -25,17 +33,26 @@ chrome.action.onClicked.addListener(async (tab) => {
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete' && tab.url) {
+  if ((changeInfo.status === 'complete' || changeInfo.url) && tab.url) {
     updateIcon(tabId, await getDomainState(tab.url));
   }
 });
 
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
-  const tab = await chrome.tabs.get(activeInfo.tabId);
-  updateIcon(activeInfo.tabId, await getDomainState(tab.url));
+  try {
+    const tab = await chrome.tabs.get(activeInfo.tabId);
+    if (tab.url) {
+      updateIcon(activeInfo.tabId, await getDomainState(tab.url));
+    }
+  } catch (e) {
+    console.error("[DPD] Error in onActivated:", e);
+  }
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "started" && sender.tab) {
+    updateIcon(sender.tab.id, "ON");
+  }
   if (request.action === "fetchData") {
     fetch(request.url).then(r => r.json()).then(d => sendResponse({ success: true, data: d })).catch(e => sendResponse({ success: false, error: e.message }));
     return true;

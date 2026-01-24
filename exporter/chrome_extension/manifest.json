@@ -28,12 +28,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.suttacentral.net/*",
-        "*://*.digitalpalireader.online/*",
-        "*://*.thebuddhaswords.net/*",
-        "*://*.tipitaka.org/*",
-        "*://*.tipitaka.lk/*",
-        "*://*.open.tipitaka.lk/*"
+        "<all_urls>"
       ],
       "js": ["utils.js", "themes.js", "dictionary-panel.js", "main.js"],
       "css": [
