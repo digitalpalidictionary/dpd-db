@@ -7,10 +7,10 @@
   "scripts": {
     "dev": "wxt",
     "dev:chrome": "wxt -b chrome",
-    "dev:firefox": "wxt -b firefox",
+    "dev:firefox": "wxt -b firefox --mv3",
     "build": "wxt build",
     "build:chrome": "wxt build -b chrome",
-    "build:firefox": "wxt build -b firefox",
+    "build:firefox": "wxt build -b firefox --mv3",
     "zip": "wxt zip",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"

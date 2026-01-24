@@ -1,0 +1,401 @@
+:root {
+  /* DPD Theme Variables */
+  --dpd-bg: hsl(198, 100%, 95%);
+  --dpd-text: inherit;
+  --dpd-primary: hsl(198, 100%, 50%);
+  --dpd-border: hsla(0, 0%, 50%, 0.25);
+  --dpd-panel-width: 33.33vw;
+  --dpd-logo-hue-rotate: 0deg;
+  --dpd-logo-saturate: 1;
+  --dpd-logo-brightness: 1;
+  --dpd-button-text: #ffffff;
+}
+
+/* Layout for Host Page */
+html.dpd-active {
+  overflow-x: hidden !important;
+}
+
+body.dpd-active {
+  display: grid !important;
+  grid-template-columns: calc(100vw - var(--dpd-panel-width)) var(
+      --dpd-panel-width
+    ) !important;
+  width: 100vw !important;
+}
+
+/* Panel Styling */
+#dict-panel-25445 {
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  background: var(--dpd-bg);
+  color: var(--dpd-text);
+  border-left: 2px solid var(--dpd-border);
+  z-index: 2147483647;
+  width: var(--dpd-panel-width);
+  box-sizing: border-box;
+  font-family: "Inter", "sans-serif";
+  text-align: left !important;
+  direction: ltr !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reset internal elements to prevent CSS leakage from host sites */
+#dict-panel-25445 div,
+#dict-panel-25445 p,
+#dict-panel-25445 h3,
+#dict-panel-25445 table,
+#dict-panel-25445 tr,
+#dict-panel-25445 td,
+#dict-panel-25445 th {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+  color: inherit;
+}
+
+#dict-panel-25445 .dpd-resize-handle {
+  position: absolute;
+  left: -5px;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2147483647;
+  background: transparent;
+}
+
+#dict-panel-25445 .dpd-resize-handle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#dict-panel-25445 * {
+  box-sizing: border-box;
+}
+
+#dict-panel-25445 .dpd-header {
+  height: auto;
+  min-height: 36px;
+  border-bottom: 1px solid var(--dpd-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px !important;
+  background-color: var(--dpd-header-bg, var(--dpd-bg));
+  color: var(--dpd-header-text);
+}
+
+#dict-panel-25445 .dpd-status-text {
+  font-size: 0.85rem;
+  text-align: center !important;
+  margin-top: 2px;
+}
+
+#dict-panel-25445 .dpd-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 10px 60px 10px !important;
+  text-align: left !important;
+  min-height: 0;
+}
+
+/* State Toggles (Panel Level) */
+#dict-panel-25445.dpd-hide-summary .summary-results {
+  display: none !important;
+}
+
+#dict-panel-25445.dpd-hide-sandhi .apostrophe {
+  visibility: hidden !important;
+  font-size: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Allow double-click to work through the span regardless of setting */
+.apostrophe {
+  pointer-events: none !important;
+}
+
+/* Digital Pāli Reader Theme Overrides */
+#dict-panel-25445.dpd-theme-dpr {
+  background-image: var(--dpd-bg-image);
+  background-repeat: repeat;
+}
+
+#dict-panel-25445.dpd-theme-dpr .dpd-header {
+  background-color: transparent;
+}
+
+#dict-panel-25445.dpd-theme-dpr .dpd-link {
+  font-size: 100% !important;
+}
+
+/* SuttaCentral Theme Overrides */
+#dict-panel-25445.dpd-theme-suttacentral .dpd-header {
+  color: var(--dpd-header-text);
+  font-variant: small-caps;
+}
+
+#dict-panel-25445 .dpd-header img {
+  filter: hue-rotate(var(--dpd-logo-hue-rotate, 0deg))
+    saturate(var(--dpd-logo-saturate, 1))
+    brightness(var(--dpd-logo-brightness, 1)) !important;
+}
+
+#dict-panel-25445 table.help th {
+  background-color: var(--dpd-primary);
+  color: #ffffff;
+}
+
+#dict-panel-25445.dpd-theme-vri .dpd-title {
+  color: var(--dpd-primary) !important;
+}
+
+#dict-panel-25445.dpd-theme-suttacentral .grammar_dict,
+#dict-panel-25445.dpd-theme-suttacentral .grammar,
+#dict-panel-25445.dpd-theme-suttacentral .inflection,
+#dict-panel-25445.dpd-theme-suttacentral .family {
+  margin: 0 !important;
+}
+
+#dict-panel-25445.dpd-theme-suttacentral table.family th,
+#dict-panel-25445.dpd-theme-suttacentral table.family td {
+  padding: 1px !important;
+  vertical-align: top !important;
+  text-align: left !important;
+}
+
+#dict-panel-25445.dpd-theme-suttacentral .vertical-text {
+  text-align: center !important;
+  padding: 5px 30px !important;
+}
+
+#dict-panel-25445 .vertical-text {
+  padding: 5px 20px;
+}
+
+#dict-panel-25445 p {
+  margin: 0 !important;
+}
+
+/* Toggle Switch Styling */
+.dpd-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.dpd-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.dpd-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--dpd-border);
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.dpd-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--dpd-bg);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.dpd-switch input:checked + .dpd-slider {
+  background-color: var(--dpd-primary);
+}
+
+.dpd-switch input:checked + .dpd-slider:before {
+  transform: translateX(16px);
+}
+
+/* Loading Animation */
+@keyframes dpd-pulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+}
+
+.dpd-status-text.loading {
+  animation: dpd-pulse 1.2s infinite ease-in-out;
+  display: inline-block;
+}
+
+.dpd-search-btn.loading {
+  animation: dpd-pulse 1.2s infinite ease-in-out;
+}
+
+/* Button styling */
+#dict-panel-25445 .button {
+  padding: 2px 6px;
+  background: var(--dpd-border);
+  border: none;
+  cursor: pointer;
+  color: var(--dpd-button-text, #fff);
+  font-size: 0.85rem;
+  border-radius: 3px;
+}
+
+#dict-panel-25445 .button.active {
+  background: var(--dpd-primary);
+  color: var(--dpd-button-text, #fff) !important;
+}
+
+#dict-panel-25445 a.dpd-button,
+#dict-panel-25445 a.dpd-button.active,
+#dict-panel-25445 a.dpd-button:hover {
+  color: var(--dpd-button-text) !important;
+}
+
+/* Ensure SVG icons inside buttons also get the proper contrast color */
+#dict-panel-25445 .button svg,
+#dict-panel-25445 .dpd-button svg {
+  fill: currentColor !important;
+  color: var(--dpd-button-text) !important;
+}
+
+#dict-panel-25445 .hidden {
+  display: none !important;
+}
+
+/* Custom Header Tooltips */
+.dpd-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dpd-tooltip .dpd-tooltip-text {
+  visibility: hidden;
+  background-color: var(--dpd-primary);
+  color: var(--dpd-tooltip-text-color, #ffffff);
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1000000;
+  top: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: normal;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  line-height: 1.2;
+}
+
+.dpd-tooltip .dpd-tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent var(--dpd-primary) transparent;
+}
+
+.dpd-tooltip:hover .dpd-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Feedback Footer Styling */
+#dict-panel-25445 .dpd-footer {
+  border-top: 1px solid var(--primary);
+  font-size: 80%;
+  padding: 5px 0px;
+  margin-top: 5px;
+}
+
+/* Fixed footer for feedback link - positioned at bottom of extension panel */
+#dict-panel-25445 > .dpd-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--dpd-bg);
+  border-top: 1px solid var(--dpd-border);
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  text-align: center;
+  z-index: 1000;
+  margin: 0;
+}
+
+#dict-panel-25445 .dpd-footer a {
+  color: var(--dpd-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#dict-panel-25445 .dpd-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Grammar Dictionary Table Sorting */
+#dict-panel-25445 .grammar_dict th {
+  cursor: pointer;
+  user-select: none;
+}
+
+#dict-panel-25445 .grammar_dict th:hover {
+  background-color: var(--dpd-border);
+}
+
+/* Ensure summary links always use the theme color and no underline */
+#dict-panel-25445 .summary-link,
+#dict-panel-25445 .root-summary-link {
+  color: var(--dpd-primary) !important;
+  text-decoration: none !important;
+}
+
+/* Table font size fix */
+#dict-panel-25445 table th,
+#dict-panel-25445 table td {
+  font-size: 100% !important;
+}
+
+/* Active button underline fix */
+#dict-panel-25445 a.dpd-button,
+#dict-panel-25445 a.dpd-button.active,
+#dict-panel-25445 a.dpd-button:hover,
+#dict-panel-25445 a.dpd-button:visited {
+  text-decoration: none !important;
+}

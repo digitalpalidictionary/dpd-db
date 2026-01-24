@@ -10,20 +10,20 @@
 - [x] Set up entrypoints directory structure
 
 ### Task 1.2: Configure WXT for Cross-Browser Support
-- [ ] Configure manifest generation for Chrome and Firefox
-- [ ] Set up browser-specific settings in wxt.config.ts
-- [ ] Configure webextension-polyfill integration
-- [ ] Set up asset handling for icons and CSS
-- [ ] Test basic WXT build for both browsers
+- [x] Configure manifest generation for Chrome and Firefox
+- [x] Set up browser-specific settings in wxt.config.ts
+- [x] Configure webextension-polyfill integration
+- [x] Set up asset handling for icons and CSS
+- [x] Test basic WXT build for both browsers
 
 ### Task 1.3: Migrate Assets to WXT Structure
-- [ ] Copy all icon assets from chrome_extension to wxt_extension
-- [ ] Copy all CSS files from chrome_extension to wxt_extension
-- [ ] Configure asset imports in TypeScript
-- [ ] Test asset loading in both browsers
-- [ ] Remove old build scripts and dependencies
+- [x] Copy all icon assets from chrome_extension to wxt_extension
+- [x] Copy all CSS files from chrome_extension to wxt_extension
+- [x] Configure asset imports in TypeScript
+- [x] Test asset loading in both browsers
+- [x] Remove old build scripts and dependencies
 
-- [ ] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Phase 1' (Protocol in workflow.md)
 
 ## Phase 2: TypeScript Migration and API Conversion
 
