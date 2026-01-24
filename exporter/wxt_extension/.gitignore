@@ -1,0 +1,4 @@
+node_modules
+.wxt
+.output
+.DS_Store

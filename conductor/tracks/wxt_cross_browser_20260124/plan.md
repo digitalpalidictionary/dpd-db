@@ -3,11 +3,11 @@
 ## Phase 1: Project Setup and WXT Configuration
 
 ### Task 1.1: Initialize WXT Project Structure
-- [ ] Create exporter/wxt_extension directory structure
-- [ ] Set up package.json with WXT dependencies
-- [ ] Configure TypeScript settings for strict mode
-- [ ] Create basic wxt.config.ts configuration
-- [ ] Set up entrypoints directory structure
+- [x] Create exporter/wxt_extension directory structure
+- [x] Set up package.json with WXT dependencies
+- [x] Configure TypeScript settings for strict mode
+- [x] Create basic wxt.config.ts configuration
+- [x] Set up entrypoints directory structure
 
 ### Task 1.2: Configure WXT for Cross-Browser Support
 - [ ] Configure manifest generation for Chrome and Firefox

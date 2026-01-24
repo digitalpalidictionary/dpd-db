@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "entrypoints/**/*",
+    "components/**/*",
+    "hooks/**/*",
+    "assets/**/*",
+    "utils/**/*",
+    "types/**/*",
+    "wxt.config.ts"
+  ],
+  "exclude": ["node_modules", ".output", ".wxt"]
+}
