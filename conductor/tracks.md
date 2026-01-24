@@ -16,10 +16,5 @@
 
 ---
 
-## [~] Track: Chrome Extension - Bug Fixes, Theme Detection & Chrome Store Release
-*Link: [./conductor/tracks/chrome_ext_20260118/](./conductor/tracks/chrome_ext_20260118/)*
-
----
-
 ## [ ] Track: WXT Cross-Browser Extension Implementation
 *Link: [./conductor/tracks/wxt_cross_browser_20260124/](./conductor/tracks/wxt_cross_browser_20260124/)*

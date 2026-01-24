@@ -14,6 +14,7 @@ To be the world's most precise, comprehensive, and accessible digital resource f
 - **Mobile-Optimized Webapp:** Responsive design with double-tap-to-lookup, collapsible panels, and touch-optimized interactions for a seamless experience on smartphones.
 - **Multi-Format Exporters:** Automated pipelines that generate production-ready dictionary files for GoldenDict, MDict, Kindle, Kobo, and PDF (via Typst).
 - **Modern GUI:** A Flet-based interface for lexicographers to add, edit, and verify data with real-time integrity checks.
+- **Chrome Extension:** Instant Pāḷi lookup for SuttaCentral, Digital Pāli Reader, and other Dhamma websites with intelligent theme matching and customizable lookup settings.
 - **Audio Integration:** Synthesized and recorded Pāḷi pronunciations integrated directly into the lookup experience.
 - **Pāḷi MCP Server:** A Model Context Protocol server that enables AI agents to interact with the DPD database for high-precision linguistic analysis.
 
@@ -28,5 +29,4 @@ DPD is uniquely positioned for the AI era. By providing a structured MCP interfa
 
 ## Future Road Map
 - **DPD Mobile (Expo):** A full-featured mobile application with "Tap-to-Lookup" capabilities across the OS.
-- **Chrome Extension:** Instant Pāḷi lookup for SuttaCentral and other Dhamma websites.
 - **AI-Assisted Lexicography:** Integrated AI tools in the GUI to suggest spelling and grammar corrections, identify rare grammatical forms, and suggest literal meanings for verification.

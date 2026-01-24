@@ -46,7 +46,7 @@
 ## Phase 6: Remaining Work & Preparation
 - [x] Task: Fix Grammar Sorter (Restored 3-phase sorting and improved initialization)
 - [x] Task: Create comprehensive documentation (Walkthrough, Behavior Notes, Conductor Track)
-- [ ] Task: Prepare Chrome Web Store assets
+- [x] Task: Prepare Chrome Web Store assets
 - [x] Task: Perform comprehensive testing (Verified SC theme and generic lookups)
 - [x] Task: Finalize build and packaging (Automated via npm run build/zip)
 

@@ -4,6 +4,7 @@
 - **Python (3.12+):** Primary language for database management, data processing, exporters, and the modern GUI.
 - **Go (1.22+):** Used for performance-critical modules where Python execution is a bottleneck.
 - **SQLite:** The primary relational database for storing dictionary data.
+- **Web Extensions (Manifest V3):** Technologies used for building the DPD Chrome extension, ensuring cross-browser compatibility and security.
 
 ## System Dependencies
 - **FFmpeg:** Used for audio processing tasks such as trimming and silence detection.
