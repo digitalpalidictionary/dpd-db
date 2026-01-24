@@ -445,6 +445,19 @@ window.DictionaryPanel = class {
     buttonGroup.style.alignItems = "center";
     buttonGroup.style.gap = "4px";
 
+    const infoBtn = document.createElement("button");
+    infoBtn.className = "info-btn dpd-tooltip";
+    infoBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
+    const infoTooltip = document.createElement("span");
+    infoTooltip.className = "dpd-tooltip-text";
+    infoTooltip.textContent = "How to use";
+    infoBtn.appendChild(infoTooltip);
+    infoBtn.style.background = "none";
+    infoBtn.style.border = "none";
+    infoBtn.style.cursor = "pointer";
+    infoBtn.style.color = "inherit";
+    infoBtn.onclick = () => this._showInfo();
+
     const themeBtn = document.createElement("button");
     themeBtn.className = "theme-selector-btn dpd-tooltip";
     themeBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4c-.83 0-1.5-.67-1.5-1.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>`;
@@ -471,6 +484,7 @@ window.DictionaryPanel = class {
     settingsBtn.style.color = "inherit";
     settingsBtn.onclick = () => this._toggleSettingsDropdown();
 
+    buttonGroup.appendChild(infoBtn);
     buttonGroup.appendChild(themeBtn);
     buttonGroup.appendChild(settingsBtn);
     topRow.appendChild(logoGroup);
@@ -544,6 +558,36 @@ window.DictionaryPanel = class {
     header.appendChild(searchRow);
     header.appendChild(stickyMsg);
     return header;
+  }
+
+  _showInfo() {
+    const pinImgUrl = chrome.runtime.getURL("images/pin_extension.png");
+    const html = `
+      <div style="padding: 10px; line-height: 1.5;">
+        <h3 style="margin-top: 0; color: var(--dpd-primary);">How to Use</h3>
+        
+        <div style="margin-bottom: 15px;">
+          <b>Pin the Extension:</b><br>
+          1. Click the extensions icon (🧩) in Chrome.<br>
+          2. Pin the DPD extension.<br>
+          3. Click the DPD icon to toggle the extension on and off<br>
+          <img src="${pinImgUrl}" style="width: 100%; margin-top: 8px; border-radius: 4px; border: 1px solid var(--dpd-border);">
+        </div>
+
+        <p style="margin-bottom: 12px !important;">
+          <b>Internet Required:</b><br>
+          An active internet connection is required to look up words.
+        </p>
+
+        <p style="margin-bottom: 12px !important;">
+          <b>How to Search:</b><br>
+          • <b>Double-click</b> any word on a webpage or within this sidebar.<br>
+          • <b>Highlight/Select</b> any word or phrase on the webpage.
+        </p>
+
+        </div>
+    `;
+    this.setContent(html);
   }
 
   _toggleThemeDropdown() {

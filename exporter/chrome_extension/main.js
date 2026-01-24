@@ -65,6 +65,16 @@ async function init() {
 
   window.addListenersToTextElements();
   panel = new DictionaryPanel();
+  window.panel = panel; // Assign to window so inline event handlers work
+
+  // Show info on first run
+  chrome.storage.local.get("isFirstRun").then((data) => {
+    if (data.isFirstRun !== false) {
+      panel._showInfo();
+      chrome.storage.local.set({ isFirstRun: false });
+    }
+  });
+
   const domain = window.location.hostname;
   const storage = await chrome.storage.local.get(`theme_${domain}`);
   const savedTheme = storage[`theme_${domain}`] || "auto";

@@ -123,4 +123,3 @@ typescript
 
 # exporter/chrome_extension
 exporter/chrome_extension/node_modules/
-exporter/chrome_extension/images/*.png

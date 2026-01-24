@@ -1,3 +1,9 @@
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === "install") {
+    chrome.storage.local.set({ isFirstRun: true });
+  }
+});
+
 const updateIcon = (tabId, state) => {
   const iconSet = state === "ON"
     ? { 16: "images/dpd-logo_16.png", 32: "images/dpd-logo_32.png", 64: "images/dpd-logo_64.png", 128: "images/dpd-logo_128.png" }
