@@ -40,14 +40,40 @@ window.getSelectedWord = function() {
   return null;
 };
 
-window.handleDblClick = function(e) {
-  if (e.target.closest('.dpd-button') || 
-      e.target.closest('.theme-selector-btn') || 
-      e.target.closest('.dpd-dropdown') ||
-      e.target.closest('.dpd-search-box') ||
-      e.target.closest('.dpd-header')) {
-    return;
+let dragStartX = 0;
+let dragStartY = 0;
+
+window.handleMouseDown = function(e) {
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+};
+
+window.handleMouseUp = function(e) {
+  // Ignore clicks inside the dictionary panel or header
+  if (e.target.closest('#dict-panel-25445')) return;
+
+  const dx = Math.abs(e.clientX - dragStartX);
+  const dy = Math.abs(e.clientY - dragStartY);
+  
+  // If moved more than 5px, it's likely a drag selection
+  // or if there is a substantial selection that was manually created
+  if (dx > 5 || dy > 5) {
+    const selection = window.getSelection().toString().trim();
+    if (selection && selection.length > 0) {
+      // Small delay to ensure we don't conflict with double-click expansion
+      setTimeout(() => {
+        const finalSelection = window.getSelection().toString().trim();
+        if (finalSelection && typeof handleSelectedWord === 'function') {
+          handleSelectedWord(finalSelection);
+        }
+      }, 10);
+    }
   }
+};
+
+window.handleDblClick = function(e) {
+  if (e.target.closest('#dict-panel-25445')) return;
+  
   const word = window.getSelectedWord();
   if (word && typeof handleSelectedWord === 'function') {
     handleSelectedWord(word);
@@ -56,9 +82,16 @@ window.handleDblClick = function(e) {
 
 window.addListenersToTextElements = function() {
   document.body.removeEventListener("dblclick", window.handleDblClick);
+  document.body.removeEventListener("mousedown", window.handleMouseDown);
+  document.body.removeEventListener("mouseup", window.handleMouseUp);
+  
   document.body.addEventListener("dblclick", window.handleDblClick);
+  document.body.addEventListener("mousedown", window.handleMouseDown);
+  document.body.addEventListener("mouseup", window.handleMouseUp);
 };
 
 window.removeListenersFromTextElements = function() {
   document.body.removeEventListener("dblclick", window.handleDblClick);
+  document.body.removeEventListener("mousedown", window.handleMouseDown);
+  document.body.removeEventListener("mouseup", window.handleMouseUp);
 };

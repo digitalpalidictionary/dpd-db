@@ -2,11 +2,15 @@ let panel = null;
 
 function handleSelectedWord(word) {
   console.log("[DPD] Searching for:", word);
-  // Normalize curly quotes and remove common punctuation but PRESERVE spaces
+  // Normalize curly quotes to straight apostrophes
+  // Remove common punctuation but PRESERVE internal spaces
   let cleanWord = word
     .replace(/[’‘“”]/g, "'")
-    .replace(/[".,;:\!\?\(\)\[\]\{\}\\\/]/g, "");
-  if (cleanWord.length >= 6 && cleanWord.length % 2 === 0) {
+    .replace(/[.,;:!?()\[\]{}\\\/"]/g, "")
+    .trim();
+
+  // Handle double-click "word expansion" artifact for some Pāli words
+  if (cleanWord.length >= 6 && cleanWord.length % 2 === 0 && !cleanWord.includes(" ")) {
     const mid = cleanWord.length / 2;
     if (
       cleanWord.slice(0, mid).toLowerCase() ===
