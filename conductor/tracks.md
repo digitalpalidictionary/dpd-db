@@ -8,12 +8,6 @@
 ## [ ] Track: Database Query Tab Feature
 *Link: [./conductor/tracks/db_query_tab_20251231/](./conductor/tracks/db_query_tab_20251231/)*
 
-
----
-
-## [~] Track: Dual Voice Play Buttons
-*Link: [./conductor/tracks/dual_voice_buttons_20260117/](./conductor/tracks/dual_voice_buttons_20260117/)*
-
 ---
 
 ## [ ] Track: WXT Cross-Browser Extension Implementation
