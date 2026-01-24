@@ -2,17 +2,10 @@
   font-family: "Inter", "sans-serif";
   touch-action: manipulation;
 }
-#dict-panel-25445 h3 {
+#dict-panel-25445 h3, #dict-panel-25445 h3.dpd {
   font-size: 130%;
   margin-top: 10px;
   margin-bottom: 1px;
-  color: var(--dpd-text);
-}
-#dict-panel-25445 h3.dpd {
-  font-size: 130%;
-  margin-top: 10px;
-  margin-bottom: 1px;
-  color: var(--dpd-text);
 }
 #dict-panel-25445 div.dpd {
   border: 2px solid var(--primary);

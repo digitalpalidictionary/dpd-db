@@ -1,7 +1,7 @@
 :root {
   /* DPD Theme Variables */
   --dpd-bg: hsl(198, 100%, 95%);
-  --dpd-text: hsl(198, 100%, 5%);
+  --dpd-text: inherit;
   --dpd-primary: hsl(198, 100%, 50%);
   --dpd-border: hsla(0, 0%, 50%, 0.25);
   --dpd-panel-width: 33.33vw;
@@ -57,6 +57,7 @@ body.dpd-active {
   padding: 0;
   margin: 0;
   border-collapse: collapse;
+  color: inherit;
 }
 
 #dict-panel-25445 .dpd-resize-handle {

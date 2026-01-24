@@ -43,24 +43,16 @@
   --freq10: hsla(218, 90%, 50%, 1);
 }
 
-
 body {
   font-family: "Inter", "sans-serif";
   touch-action: manipulation;
 }
 
-h3 {
-  font-size: 130%;
-  margin-top: 10px;
-  margin-bottom: 1px;
-  color: var(--dpd-text);
-}
-
+h3,
 h3.dpd {
   font-size: 130%;
   margin-top: 10px;
   margin-bottom: 1px;
-  color: var(--dpd-text);
 }
 
 div.dpd {
