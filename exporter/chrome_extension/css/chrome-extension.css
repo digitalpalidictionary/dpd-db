@@ -286,6 +286,52 @@ body.dpd-active {
   display: none !important;
 }
 
+/* Custom Header Tooltips */
+.dpd-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dpd-tooltip .dpd-tooltip-text {
+  visibility: hidden;
+  background-color: var(--dpd-primary);
+  color: var(--dpd-tooltip-text-color, #ffffff);
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1000000;
+  top: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: normal;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  line-height: 1.2;
+}
+
+.dpd-tooltip .dpd-tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent var(--dpd-primary) transparent;
+}
+
+.dpd-tooltip:hover .dpd-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* Grammar Dictionary Table Sorting */
 #dict-panel-25445 .grammar_dict th {
   cursor: pointer;

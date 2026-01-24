@@ -347,6 +347,9 @@ window.applyTheme = window.applyTheme || function(themeKey) {
     console.log("[DPD] Resulting button text color:", altTextColor);
     panelEl.style.setProperty("--dpd-button-text", altTextColor);
 
+    const tooltipTextColor = window.getContrastText(primaryStr);
+    panelEl.style.setProperty("--dpd-tooltip-text-color", tooltipTextColor);
+
     if (themeKey !== "default") {
       const freqColors = window.generateFreqColors(primaryHsl);
       Object.entries(freqColors).forEach(([key, value]) => {
