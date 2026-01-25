@@ -13,7 +13,7 @@ export function expandSelectionToWord(): void {
 
   // Characters to stop on.
   // Note: Closing quotes (’ ”) are removed from stopChars so expansion includes suffixes like ”ti.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9‘“]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9‘“<br>]/;
   const isStop = (char: string) => !char || stopChars.test(char);
 
   let startNode: Node | null = initialNode;
