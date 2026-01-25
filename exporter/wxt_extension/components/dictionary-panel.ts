@@ -84,7 +84,13 @@ export class DictionaryPanel {
   textNode!: HTMLDivElement;
   searchInput!: HTMLInputElement;
   searchBtn!: HTMLButtonElement | null;
+  backBtn!: HTMLButtonElement;
+  forwardBtn!: HTMLButtonElement;
   isResizing: boolean = false;
+
+  history: { html: string; query: string }[] = [];
+  historyIndex: number = -1;
+  maxHistory: number = 50;
 
   settings: Settings = {
     fontSize: 16,
@@ -127,6 +133,7 @@ export class DictionaryPanel {
     this._setupEvents();
     this._setupResize(handle);
     this._loadInitialSettings();
+    this._updateNavigationButtons();
   }
 
   async _loadInitialSettings() {
@@ -246,10 +253,24 @@ export class DictionaryPanel {
     this.searchBtn?.classList.toggle("loading", text.includes("..."));
   }
 
-  setContent(html: string) {
+  setContent(html: string, isNavigation: boolean = false) {
     this.textNode.style.display = "none";
     this.textNode.classList.remove("loading");
     this.searchBtn?.classList.remove("loading");
+
+    if (!isNavigation) {
+      // Clear forward history and add new entry
+      if (this.historyIndex < this.history.length - 1) {
+        this.history = this.history.slice(0, this.historyIndex + 1);
+      }
+      this.history.push({ html, query: this.searchInput.value });
+      if (this.history.length > this.maxHistory) {
+        this.history.shift();
+      } else {
+        this.historyIndex++;
+      }
+      this._updateNavigationButtons();
+    }
 
     const processedHtml = wrapApostrophesInHTML(html);
     const parts = processedHtml.split('<hr class="dpd">');
@@ -270,6 +291,28 @@ export class DictionaryPanel {
     this._updateNiggahita();
     this._applySectionVisibility();
     this._initGrammarSorter();
+  }
+
+  _navigateHistory(direction: number) {
+    const newIndex = this.historyIndex + direction;
+    if (newIndex >= 0 && newIndex < this.history.length) {
+      this.historyIndex = newIndex;
+      const entry = this.history[this.historyIndex];
+      this.setSearchValue(entry.query);
+      this.setContent(entry.html, true);
+      this._updateNavigationButtons();
+    }
+  }
+
+  _updateNavigationButtons() {
+    if (this.backBtn) {
+      this.backBtn.disabled = this.historyIndex <= 0;
+      this.backBtn.style.opacity = this.backBtn.disabled ? "0.3" : "1";
+    }
+    if (this.forwardBtn) {
+      this.forwardBtn.disabled = this.historyIndex >= this.history.length - 1;
+      this.forwardBtn.style.opacity = this.forwardBtn.disabled ? "0.3" : "1";
+    }
   }
 
   setSearchValue(value: string) {
@@ -533,6 +576,49 @@ export class DictionaryPanel {
     buttonGroup.style.alignItems = "center";
     buttonGroup.style.gap = "4px";
 
+    const navGroup = document.createElement("div");
+    navGroup.style.display = "flex";
+    navGroup.style.alignItems = "center";
+    navGroup.style.gap = "8px";
+    navGroup.style.margin = "0 10px";
+
+    const backBtn = document.createElement("button");
+    this.backBtn = backBtn;
+    backBtn.className = "dpd-nav-btn";
+    backBtn.style.background = "none";
+    backBtn.style.border = "none";
+    backBtn.style.cursor = "pointer";
+    backBtn.style.color = "inherit";
+    backBtn.style.display = "flex";
+    backBtn.style.alignItems = "center";
+    backBtn.style.fontSize = "0.75rem";
+    backBtn.style.gap = "2px";
+    backBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg><span>Back</span>`;
+    backBtn.onclick = (e) => {
+      e.stopPropagation();
+      this._navigateHistory(-1);
+    };
+
+    const forwardBtn = document.createElement("button");
+    this.forwardBtn = forwardBtn;
+    forwardBtn.className = "dpd-nav-btn";
+    forwardBtn.style.background = "none";
+    forwardBtn.style.border = "none";
+    forwardBtn.style.cursor = "pointer";
+    forwardBtn.style.color = "inherit";
+    forwardBtn.style.display = "flex";
+    forwardBtn.style.alignItems = "center";
+    forwardBtn.style.fontSize = "0.75rem";
+    forwardBtn.style.gap = "2px";
+    forwardBtn.innerHTML = `<span>Forward</span><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>`;
+    forwardBtn.onclick = (e) => {
+      e.stopPropagation();
+      this._navigateHistory(1);
+    };
+
+    navGroup.appendChild(backBtn);
+    navGroup.appendChild(forwardBtn);
+
     const infoBtn = document.createElement("button");
     infoBtn.className = "info-btn dpd-tooltip";
     infoBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
@@ -576,6 +662,7 @@ export class DictionaryPanel {
     buttonGroup.appendChild(themeBtn);
     buttonGroup.appendChild(settingsBtn);
     topRow.appendChild(logoGroup);
+    topRow.appendChild(navGroup);
     topRow.appendChild(buttonGroup);
 
     const searchRow = document.createElement("div");
