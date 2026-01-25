@@ -95,7 +95,7 @@ export default defineContentScript({
       const domain = window.location.hostname;
       const storageKey = `theme_${domain}`;
       const storage = await browser.storage.local.get(storageKey);
-      const savedTheme = storage[storageKey] || "auto";
+      const savedTheme = (storage[storageKey] as string) || "auto";
       applyTheme(savedTheme);
 
       // Notify background that we've started to sync icon state
@@ -110,7 +110,7 @@ export default defineContentScript({
       // Watch for theme changes on the host page
       const observer = new MutationObserver(() => {
         browser.storage.local.get(storageKey).then((data) => {
-          if ((data[storageKey] || "auto") === "auto") {
+          if (((data[storageKey] as string) || "auto") === "auto") {
             applyTheme("auto");
           }
         });
@@ -126,7 +126,7 @@ export default defineContentScript({
       });
     }
 
-    browser.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
+    browser.runtime.onMessage.addListener((request: any) => {
       if (request === "init") init();
       if (request === "destroy") {
         document.documentElement.classList.remove("dpd-active");

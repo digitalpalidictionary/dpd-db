@@ -44,7 +44,7 @@ export function expandSelectionToWord(): void {
 
       // If it's an inline element, go inside it
       if (current.nodeType === Node.ELEMENT_NODE) {
-        const walker = document.createTreeWalker(current, NodeFilter.SHOW_TEXT, null, false);
+        const walker = document.createTreeWalker(current, NodeFilter.SHOW_TEXT, null);
         const textNode = forward ? walker.firstChild() : walker.lastChild();
         if (textNode) return textNode;
       }

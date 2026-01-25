@@ -388,7 +388,7 @@ export function applyTheme(themeKey: string): void {
       // browser.runtime.getURL returns the correct path.
       // Assuming images are in public/ or accessible.
       // If we put dpr_imgbk.png in public/, getURL('dpr_imgbk.png') works.
-      panelEl.style.setProperty("--dpd-bg-image", `url(${browser.runtime.getURL(theme.bgImage)})`);
+      panelEl.style.setProperty("--dpd-bg-image", `url(${(browser.runtime as any).getURL(theme.bgImage)})`);
     } else {
       panelEl.style.setProperty("--dpd-bg-image", "none");
     }

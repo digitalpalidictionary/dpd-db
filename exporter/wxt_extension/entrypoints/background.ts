@@ -101,7 +101,7 @@ export default defineBackground(() => {
   });
 
   // Message Handling
-  browser.runtime.onMessage.addListener(async (request: any, sender) => {
+  browser.runtime.onMessage.addListener(async (request: any, sender: any) => {
     if (request.action === "started" && sender.tab?.id) {
       await updateIcon(sender.tab.id, "ON");
       return;

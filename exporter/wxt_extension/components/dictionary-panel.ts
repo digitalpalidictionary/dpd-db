@@ -8,8 +8,7 @@ export function wrapApostrophesInHTML(html: string): string {
   const walker = document.createTreeWalker(
     tempDiv,
     NodeFilter.SHOW_TEXT,
-    null,
-    false,
+    null
   );
   const textNodes: Node[] = [];
   let node: Node | null;
@@ -50,8 +49,7 @@ export function niggahitaUp(): void {
   const walker = document.createTreeWalker(
     dpdPane,
     NodeFilter.SHOW_TEXT,
-    null,
-    false,
+    null
   );
   let node: Node | null;
   while ((node = walker.nextNode())) {
@@ -68,8 +66,7 @@ export function niggahitaDown(): void {
   const walker = document.createTreeWalker(
     dpdPane,
     NodeFilter.SHOW_TEXT,
-    null,
-    false,
+    null
   );
   let node: Node | null;
   while ((node = walker.nextNode())) {
@@ -146,14 +143,14 @@ export class DictionaryPanel {
       "settingsSandhi",
       "settingsOneButton",
       "settingsAudio",
-    ]);
+    ]) as { [key: string]: any };
 
     if (result.settingsFontSize !== undefined)
-      this.settings.fontSize = result.settingsFontSize;
+      this.settings.fontSize = result.settingsFontSize as number;
 
     // DOMAIN AWARE DEFAULTS for Niggahita
     if (result.settingsNiggahita !== undefined) {
-      this.settings.niggahita = result.settingsNiggahita;
+      this.settings.niggahita = result.settingsNiggahita as boolean;
     } else {
       const domain = window.location.hostname;
       if (domain.includes("digitalpalireader")) {
@@ -170,17 +167,17 @@ export class DictionaryPanel {
     }
 
     if (result.settingsGrammar !== undefined)
-      this.settings.grammar = result.settingsGrammar;
+      this.settings.grammar = result.settingsGrammar as boolean;
     if (result.settingsExample !== undefined)
-      this.settings.example = result.settingsExample;
+      this.settings.example = result.settingsExample as boolean;
     if (result.settingsSummary !== undefined)
-      this.settings.summary = result.settingsSummary;
+      this.settings.summary = result.settingsSummary as boolean;
     if (result.settingsSandhi !== undefined)
-      this.settings.sandhi = result.settingsSandhi;
+      this.settings.sandhi = result.settingsSandhi as boolean;
     if (result.settingsOneButton !== undefined)
-      this.settings.oneButton = result.settingsOneButton;
+      this.settings.oneButton = result.settingsOneButton as boolean;
     if (result.settingsAudio !== undefined)
-      this.settings.audio = result.settingsAudio;
+      this.settings.audio = result.settingsAudio as boolean;
 
     this._applySettings();
   }
@@ -556,7 +553,7 @@ export class DictionaryPanel {
     logoGroup.appendChild(logoTooltip);
 
     const logo = document.createElement("img");
-    logo.src = browser.runtime.getURL("icons/dpd-logo.svg");
+    logo.src = (browser.runtime as any).getURL("icons/dpd-logo.svg");
     logo.style.height = "20px";
     logo.style.width = "20px";
 
@@ -749,9 +746,9 @@ export class DictionaryPanel {
   }
 
   _showInfo() {
-    const isFirefox = import.meta.env.BROWSER === 'firefox';
+    const isFirefox = (import.meta as any).env.BROWSER === 'firefox';
     const pinImgName = isFirefox ? "pin_firefox.png" : "pin_extension.png";
-    const pinImgUrl = browser.runtime.getURL(pinImgName);
+    const pinImgUrl = (browser.runtime as any).getURL(pinImgName);
     
     const chromeInstructions = `
           <b>Pin the Extension:</b><br>
