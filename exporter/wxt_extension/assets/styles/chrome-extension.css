@@ -399,3 +399,11 @@ body.dpd-active {
 #dict-panel-25445 a.dpd-button:visited {
   text-decoration: none !important;
 }
+
+/* Placeholder styling to match stickyMsg */
+#dict-panel-25445 input::placeholder {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  color: var(--dpd-text);
+  text-align: center;
+}

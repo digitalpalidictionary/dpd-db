@@ -316,6 +316,22 @@ export class DictionaryPanel {
     if (this.searchInput) this.searchInput.value = value;
   }
 
+  uniCoder(textInput: string): string {
+    if (!textInput || textInput == "") return textInput;
+    return textInput
+      .replace(/aa/g, "ā")
+      .replace(/ii/g, "ī")
+      .replace(/uu/g, "ū")
+      .replace(/\"n/g, "ṅ")
+      .replace(/\~n/g, "ñ")
+      .replace(/\.t/g, "ṭ")
+      .replace(/\.d/g, "ḍ")
+      .replace(/\.n/g, "ṇ")
+      .replace(/\.m/g, "ṃ")
+      .replace(/\.l/g, "ḷ")
+      .replace(/\.h/g, "ḥ");
+  }
+
   _setupResize(handle: HTMLDivElement) {
     handle.addEventListener("mousedown", (e) => {
       this.isResizing = true;
@@ -672,7 +688,7 @@ export class DictionaryPanel {
     const input = document.createElement("input");
     this.searchInput = input;
     input.type = "text";
-    input.placeholder = "Search...";
+    input.placeholder = "type Unicode or Velthuis text";
     input.style.flex = "1";
     input.style.fontSize = "inherit";
     input.style.fontFamily = "inherit";
@@ -681,6 +697,10 @@ export class DictionaryPanel {
     input.style.borderRadius = "3px";
     input.style.background = "var(--dpd-bg)";
     input.style.color = "var(--dpd-text)";
+
+    input.addEventListener("input", () => {
+      input.value = this.uniCoder(input.value);
+    });
 
     const searchBtn = document.createElement("button");
     searchBtn.className = "dpd-search-btn dpd-tooltip";
@@ -700,8 +720,8 @@ export class DictionaryPanel {
     var performSearch = () => {
       var q = input.value.trim();
       if (q) {
-        if (typeof window.handleSelectedWord === "function") {
-          window.handleSelectedWord(q);
+        if (typeof (window as any).handleSelectedWord === "function") {
+          (window as any).handleSelectedWord(q);
         } else {
           console.error("[DPD] handleSelectedWord not found");
         }
