@@ -10,13 +10,17 @@ export async function getApiBaseUrl(): Promise<string> {
   if (typeof window !== 'undefined' && window.document) {
     try {
       const response = await browser.runtime.sendMessage({ action: "getApiBaseUrl" }) as any;
+      console.log("[DPD] Content script received response:", response);
       if (response && response.baseUrl) {
         return response.baseUrl;
       }
     } catch (e) {
-      console.warn("[DPD] Failed to get base URL from background, falling back to production.");
+      console.error("[DPD] Failed to get base URL from background, error:", e);
+      console.warn("[DPD] Falling back to production due to communication failure.");
       return "https://dpdict.net";
     }
+    console.warn("[DPD] No baseUrl in response, falling back to production.");
+    return "https://dpdict.net";
   }
 
   // Logic for background script detection
@@ -50,9 +54,11 @@ export async function getApiBaseUrl(): Promise<string> {
         cachedBaseUrl = url;
         lastCheckTime = now;
         return url;
+      } else {
+        console.log(`[DPD] Server at ${url} responded with status: ${response.status}`);
       }
     } catch (e) {
-      // ignore failures
+      console.log(`[DPD] Failed to connect to ${url}:`, e.message);
     }
   }
 

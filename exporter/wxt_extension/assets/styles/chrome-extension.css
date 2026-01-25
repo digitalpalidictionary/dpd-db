@@ -43,6 +43,104 @@ body.dpd-active {
   margin: 0 !important;
   display: flex;
   flex-direction: column;
+  container-type: inline-size;
+  container-name: dpd-panel;
+}
+
+/* Header Styling */
+#dict-panel-25445 .dpd-header {
+  border-bottom: 1px solid var(--dpd-border);
+  padding: 4px 6px !important;
+  background-color: var(--dpd-header-bg, var(--dpd-bg));
+  color: var(--dpd-header-text);
+  user-select: none !important;
+}
+
+.dpd-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 4px;
+}
+
+.dpd-logo-title-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dpd-nav-group,
+.dpd-action-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.dpd-logo {
+  height: 20px;
+  width: 20px;
+}
+
+.dpd-title {
+  margin: 0 !important;
+  font-size: 0.95rem;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.title-full {
+  display: inline;
+}
+.title-short {
+  display: none;
+}
+
+.dpd-nav-btn,
+.dpd-action-group button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  gap: 2px;
+}
+
+/* Stage 2: Panel narrower than ~340px */
+@container dpd-panel (max-width: 340px) {
+  .dpd-logo-title-group {
+    flex: 1 0 100%;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  .dpd-nav-group {
+    flex: 1;
+    justify-content: flex-start;
+  }
+  .dpd-action-group {
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
+/* Stage 3: Panel narrower than ~260px */
+@container dpd-panel (max-width: 260px) {
+  .dpd-nav-group,
+  .dpd-action-group {
+    flex: 1 0 100%;
+    justify-content: center;
+    margin-bottom: 2px;
+  }
+  .title-full {
+    display: none;
+  }
+  .title-short {
+    display: inline;
+  }
 }
 
 /* Reset internal elements to prevent CSS leakage from host sites */
@@ -77,19 +175,6 @@ body.dpd-active {
 
 #dict-panel-25445 * {
   box-sizing: border-box;
-}
-
-#dict-panel-25445 .dpd-header {
-  height: auto;
-  min-height: 36px;
-  border-bottom: 1px solid var(--dpd-border);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 10px !important;
-  background-color: var(--dpd-header-bg, var(--dpd-bg));
-  color: var(--dpd-header-text);
 }
 
 #dict-panel-25445 .dpd-status-text {
@@ -316,7 +401,7 @@ body.dpd-active {
   font-size: 11px;
   font-weight: normal;
   pointer-events: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   line-height: 1.2;
 }
 
@@ -357,6 +442,7 @@ body.dpd-active {
   text-align: center;
   z-index: 1000;
   margin: 0;
+  user-select: none !important;
 }
 
 #dict-panel-25445 .dpd-footer a {

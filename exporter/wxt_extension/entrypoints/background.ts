@@ -103,8 +103,10 @@ export default defineBackground(() => {
 
   // Message Handling
   browser.runtime.onMessage.addListener(async (request: any, sender: any) => {
+    console.log("[DPD] Background received message:", request);
     if (request.action === "getApiBaseUrl") {
       const baseUrl = await getApiBaseUrl();
+      console.log("[DPD] Background sending baseUrl:", baseUrl);
       return { baseUrl };
     }
 
@@ -117,6 +119,9 @@ export default defineBackground(() => {
       try {
         const baseUrl = await getApiBaseUrl();
         const url = `${baseUrl}${request.endpoint}`;
+        const isProduction = baseUrl === "https://dpdict.net";
+        const routeDescription = isProduction ? "via dpdict.net" : `via local server ${baseUrl}`;
+        console.log(`[DPD] Searching via ${routeDescription}`);
         const response = await fetch(url);
         const data = await response.json();
         return { success: true, data };

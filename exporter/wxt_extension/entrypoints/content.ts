@@ -14,8 +14,18 @@ export default defineContentScript({
     let panel: DictionaryPanel | null = null;
 
     // Define handleSelectedWord globally so utils and panel can call it
-    (window as any).handleSelectedWord = (word: string) => {
-      console.log("[DPD] Searching for:", word);
+    (window as any).handleSelectedWord = async (word: string) => {
+      // Get API route for logging
+      try {
+        const response = await browser.runtime.sendMessage({ action: "getApiBaseUrl" });
+        const baseUrl = response?.baseUrl || "https://dpdict.net";
+        const isProduction = baseUrl === "https://dpdict.net";
+        const routeDescription = isProduction ? "via dpdict.net" : `via local server ${baseUrl}`;
+        console.log(`[DPD] Searching for: ${word} ${routeDescription}`);
+      } catch (e) {
+        console.log("[DPD] Searching for:", word, "(route detection failed)");
+      }
+      
       // Remove punctuation, quotes, and numbers but PRESERVE internal spaces
       let cleanWord = word
         .replace(/[’‘“”\"'.,;:!?()\[\]{}\\\/0-9]/g, "")

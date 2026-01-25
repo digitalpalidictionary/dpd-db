@@ -542,23 +542,19 @@ export class DictionaryPanel {
 
   _createHeader() {
     const header = document.createElement("div");
-    header.style.padding = "4px 8px";
-    header.style.position = "relative";
+    header.className = "dpd-header";
 
     const topRow = document.createElement("div");
-    topRow.style.display = "flex";
-    topRow.style.alignItems = "center";
-    topRow.style.justifyContent = "space-between";
-    topRow.style.width = "100%";
+    topRow.className = "dpd-top-row";
+
+    // Group 1: Logo & Title
+    const logoTitleGroup = document.createElement("div");
+    logoTitleGroup.className = "dpd-logo-title-group";
 
     const logoGroup = document.createElement("a");
     logoGroup.href = "https://dpdict.net";
     logoGroup.target = "_blank";
-    logoGroup.className = "dpd-tooltip";
-    logoGroup.style.display = "flex";
-    logoGroup.style.alignItems = "center";
-    logoGroup.style.textDecoration = "none";
-    logoGroup.style.color = "inherit";
+    logoGroup.className = "dpd-logo-link dpd-tooltip";
 
     const logoTooltip = document.createElement("span");
     logoTooltip.className = "dpd-tooltip-text";
@@ -567,42 +563,33 @@ export class DictionaryPanel {
 
     const logo = document.createElement("img");
     logo.src = (browser.runtime as any).getURL("icons/dpd-logo.svg");
-    logo.style.height = "20px";
-    logo.style.width = "20px";
+    logo.className = "dpd-logo";
 
     const title = document.createElement("h3");
     title.className = "dpd-title";
-    title.style.margin = "0 5px";
-    title.style.fontSize = "var(--dpd-title-size, 100%)";
-    title.style.padding = "var(--dpd-title-padding, 0px)";
-    title.style.fontFamily = "inherit";
-    title.textContent = "Digital Pāḷi Dictionary";
+    
+    const fullTitle = document.createElement("span");
+    fullTitle.className = "title-full";
+    fullTitle.textContent = "Digital Pāḷi Dictionary";
+    
+    const shortTitle = document.createElement("span");
+    shortTitle.className = "title-short";
+    shortTitle.textContent = "DPD Dictionary";
+    
+    title.appendChild(fullTitle);
+    title.appendChild(shortTitle);
 
     logoGroup.appendChild(logo);
-    logoGroup.appendChild(title);
+    logoTitleGroup.appendChild(logoGroup);
+    logoTitleGroup.appendChild(title);
 
-    const buttonGroup = document.createElement("div");
-    buttonGroup.style.display = "flex";
-    buttonGroup.style.alignItems = "center";
-    buttonGroup.style.gap = "4px";
-
+    // Group 2: Navigation
     const navGroup = document.createElement("div");
-    navGroup.style.display = "flex";
-    navGroup.style.alignItems = "center";
-    navGroup.style.gap = "8px";
-    navGroup.style.margin = "0 10px";
+    navGroup.className = "dpd-nav-group";
 
     const backBtn = document.createElement("button");
     this.backBtn = backBtn;
     backBtn.className = "dpd-nav-btn";
-    backBtn.style.background = "none";
-    backBtn.style.border = "none";
-    backBtn.style.cursor = "pointer";
-    backBtn.style.color = "inherit";
-    backBtn.style.display = "flex";
-    backBtn.style.alignItems = "center";
-    backBtn.style.fontSize = "0.75rem";
-    backBtn.style.gap = "2px";
     backBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg><span>Back</span>`;
     backBtn.onclick = (e) => {
       e.stopPropagation();
@@ -612,14 +599,6 @@ export class DictionaryPanel {
     const forwardBtn = document.createElement("button");
     this.forwardBtn = forwardBtn;
     forwardBtn.className = "dpd-nav-btn";
-    forwardBtn.style.background = "none";
-    forwardBtn.style.border = "none";
-    forwardBtn.style.cursor = "pointer";
-    forwardBtn.style.color = "inherit";
-    forwardBtn.style.display = "flex";
-    forwardBtn.style.alignItems = "center";
-    forwardBtn.style.fontSize = "0.75rem";
-    forwardBtn.style.gap = "2px";
     forwardBtn.innerHTML = `<span>Forward</span><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>`;
     forwardBtn.onclick = (e) => {
       e.stopPropagation();
@@ -629,6 +608,10 @@ export class DictionaryPanel {
     navGroup.appendChild(backBtn);
     navGroup.appendChild(forwardBtn);
 
+    // Group 3: Action Buttons
+    const actionGroup = document.createElement("div");
+    actionGroup.className = "dpd-action-group";
+
     const infoBtn = document.createElement("button");
     infoBtn.className = "info-btn dpd-tooltip";
     infoBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>`;
@@ -636,10 +619,6 @@ export class DictionaryPanel {
     infoTooltip.className = "dpd-tooltip-text";
     infoTooltip.textContent = "How to use";
     infoBtn.appendChild(infoTooltip);
-    infoBtn.style.background = "none";
-    infoBtn.style.border = "none";
-    infoBtn.style.cursor = "pointer";
-    infoBtn.style.color = "inherit";
     infoBtn.onclick = () => this._showInfo();
 
     const themeBtn = document.createElement("button");
@@ -649,10 +628,6 @@ export class DictionaryPanel {
     themeTooltip.className = "dpd-tooltip-text";
     themeTooltip.textContent = "Change Theme";
     themeBtn.appendChild(themeTooltip);
-    themeBtn.style.background = "none";
-    themeBtn.style.border = "none";
-    themeBtn.style.cursor = "pointer";
-    themeBtn.style.color = "inherit";
     themeBtn.onclick = () => this._toggleThemeDropdown();
 
     const settingsBtn = document.createElement("button");
@@ -662,18 +637,15 @@ export class DictionaryPanel {
     settingsTooltip.className = "dpd-tooltip-text";
     settingsTooltip.textContent = "Settings";
     settingsBtn.appendChild(settingsTooltip);
-    settingsBtn.style.background = "none";
-    settingsBtn.style.border = "none";
-    settingsBtn.style.cursor = "pointer";
-    settingsBtn.style.color = "inherit";
     settingsBtn.onclick = () => this._toggleSettingsDropdown();
 
-    buttonGroup.appendChild(infoBtn);
-    buttonGroup.appendChild(themeBtn);
-    buttonGroup.appendChild(settingsBtn);
-    topRow.appendChild(logoGroup);
+    actionGroup.appendChild(infoBtn);
+    actionGroup.appendChild(themeBtn);
+    actionGroup.appendChild(settingsBtn);
+    
+    topRow.appendChild(logoTitleGroup);
     topRow.appendChild(navGroup);
-    topRow.appendChild(buttonGroup);
+    topRow.appendChild(actionGroup);
 
     const searchRow = document.createElement("div");
     searchRow.className = "dpd-search-box";
@@ -687,6 +659,7 @@ export class DictionaryPanel {
     input.type = "text";
     input.placeholder = "type Unicode or Velthuis text";
     input.style.flex = "1";
+    input.style.minWidth = "0";
     input.style.fontSize = "inherit";
     input.style.fontFamily = "inherit";
     input.style.padding = "2px 6px";
@@ -741,7 +714,7 @@ export class DictionaryPanel {
     stickyMsg.style.marginTop = "2px";
     stickyMsg.style.opacity = "0.8";
     stickyMsg.innerHTML =
-      "double-click any word on the webpage or sidebar to search<br>or highlight any word on the webpage to search";
+      "<b>double-click</b> any word on the webpage or this sidebar to search<br><b>highlight</b> any word or phrase on the webpage or this sidebar to search";
 
     header.appendChild(topRow);
     header.appendChild(searchRow);
@@ -757,7 +730,7 @@ export class DictionaryPanel {
     const currentUrl = encodeURIComponent(window.location.href);
     const feedbackUrl = `https://docs.google.com/forms/d/e/1FAIpQLSePKf3i_M70mK6zi9YB2WL4VTLhg0AXOCelwSQlBVTr-tJRBA/viewform?usp=pp_url&entry.438735500=${currentUrl}&entry.1433863141=${version}`;
     
-    footer.innerHTML = `Having a problem? Let us know about it <a href="${feedbackUrl}" target="_blank" rel="noopener noreferrer" class="dpd-link">here</a>`;
+    footer.innerHTML = `Having a problem? Report it <a href="${feedbackUrl}" target="_blank" rel="noopener noreferrer" class="dpd-link">here</a>`;
     
     return footer;
   }
@@ -799,7 +772,7 @@ export class DictionaryPanel {
         <p style="margin-bottom: 12px !important;">
           <b>How to Search:</b><br>
           • <b>Double-click</b> any word on a webpage or within this sidebar.<br>
-          • <b>Highlight/Select</b> any word or phrase on the webpage.
+          • <b>Highlight/Select</b> any word or phrase on the webpage or within this sidebar.
         </p>
 
         </div>
