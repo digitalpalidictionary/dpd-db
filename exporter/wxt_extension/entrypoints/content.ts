@@ -21,7 +21,8 @@ export default defineContentScript({
       let cleanWord = word
         .replace(/[’‘“”]/g, "'")
         .replace(/[.,;:!?()\[\]{}\\\/"0-9]/g, "")
-        .trim();
+        .trim()
+        .toLowerCase();
 
       // Handle double-click "word expansion" artifact for some Pāli words
       if (cleanWord.length >= 6 && cleanWord.length % 2 === 0 && !cleanWord.includes(" ")) {
