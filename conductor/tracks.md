@@ -7,8 +7,3 @@
 
 ## [ ] Track: Database Query Tab Feature
 *Link: [./conductor/tracks/db_query_tab_20251231/](./conductor/tracks/db_query_tab_20251231/)*
-
----
-
-## [x] Track: WXT Cross-Browser Extension Implementation
-*Link: [./conductor/tracks/wxt_cross_browser_20260124/](./conductor/tracks/wxt_cross_browser_20260124/)*
