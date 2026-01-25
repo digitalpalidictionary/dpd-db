@@ -17,10 +17,10 @@ export default defineContentScript({
     (window as any).handleSelectedWord = (word: string) => {
       console.log("[DPD] Searching for:", word);
       // Normalize curly quotes to straight apostrophes
-      // Remove common punctuation but PRESERVE internal spaces
+      // Remove common punctuation and numbers but PRESERVE internal spaces
       let cleanWord = word
         .replace(/[’‘“”]/g, "'")
-        .replace(/[.,;:!?()\[\]{}\\\/"]/g, "")
+        .replace(/[.,;:!?()\[\]{}\\\/"0-9]/g, "")
         .trim();
 
       // Handle double-click "word expansion" artifact for some Pāli words
