@@ -31,7 +31,10 @@ export default defineConfig({
     ],
     host_permissions: [
       "https://dpdict.net/*",
-      "http://0.0.0.0:8080/*"
+      "http://0.0.0.0:8080/*",
+      "http://127.0.0.1:8080/*",
+      "http://127.1.1.1:8080/*",
+      "http://localhost:8080/*"
     ],
     browser_specific_settings: browser === 'firefox' ? {
       gecko: {

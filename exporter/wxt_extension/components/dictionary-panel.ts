@@ -1,5 +1,6 @@
 import { Settings } from '../types/extension';
 import { browser } from 'wxt/browser';
+import { getAudioUrl } from '../utils/api';
 
 // Define helper functions first
 export function wrapApostrophesInHTML(html: string): string {
@@ -396,15 +397,11 @@ export class DictionaryPanel {
     });
   }
 
-  _playAudio(headword: string, gender: string | null) {
+  async _playAudio(headword: string, gender: string | null) {
     if (!gender || gender === "auto") {
       gender = this.settings.audio ? "female" : "male";
     }
-    const url =
-      "https://dpdict.net/audio/" +
-      encodeURIComponent(headword) +
-      "?gender=" +
-      gender;
+    const url = await getAudioUrl(headword, gender);
     const audio = new Audio(url);
     audio.play().catch((err) => console.error("Audio playback error:", err));
   }

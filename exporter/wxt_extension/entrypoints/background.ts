@@ -1,5 +1,6 @@
 import { defineBackground } from 'wxt/sandbox';
 import { browser } from 'wxt/browser';
+import { getApiBaseUrl } from '../utils/api';
 
 interface LocalStorage {
   [key: string]: any;
@@ -102,14 +103,21 @@ export default defineBackground(() => {
 
   // Message Handling
   browser.runtime.onMessage.addListener(async (request: any, sender: any) => {
+    if (request.action === "getApiBaseUrl") {
+      const baseUrl = await getApiBaseUrl();
+      return { baseUrl };
+    }
+
     if (request.action === "started" && sender.tab?.id) {
       await updateIcon(sender.tab.id, "ON");
       return;
     }
     
-    if (request.action === "fetchData" && request.url) {
+    if (request.action === "fetchData" && request.endpoint) {
       try {
-        const response = await fetch(request.url);
+        const baseUrl = await getApiBaseUrl();
+        const url = `${baseUrl}${request.endpoint}`;
+        const response = await fetch(url);
         const data = await response.json();
         return { success: true, data };
       } catch (e: any) {

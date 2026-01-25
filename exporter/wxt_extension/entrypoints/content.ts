@@ -41,7 +41,7 @@ export default defineContentScript({
       browser.runtime.sendMessage(
         {
           action: "fetchData",
-          url: "https://dpdict.net/search_json?q=" + encodeURIComponent(cleanWord),
+          endpoint: "/search_json?q=" + encodeURIComponent(cleanWord),
         }
       ).then((response: any) => {
           if (response?.success) {
