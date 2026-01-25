@@ -49,7 +49,7 @@ The Digital Pāḷi Dictionary (DPD) browser extension built with WXT framework 
 - `getDomainState(url)`: Determines if extension should be active for domain.
 - `handleAutoDomains()`: Manages predefined auto-activation domains.
 
-**Auto-Domains**: suttacentral.net, suttacentral.express, suttacentral.now, digitalpalireader.online, thebuddhaswords.net, tipitaka.org, tipitaka.lk, open.tipitaka.lk
+**Auto-Domains**: suttacentral.net, suttacentral.express, suttacentral.now, digitalpalireader.online, thebuddhaswords.net, tipitaka.org, tipitaka.lk, open.tipitaka.lk, tipitaka.paauksociety.org
 
 **Event Handlers**:
 - `onInstalled`: Sets first-run flag.
@@ -112,7 +112,7 @@ The Digital Pāḷi Dictionary (DPD) browser extension built with WXT framework 
 - **Theme Collection**: 
     - `default` (Light)
     - `dpd_dark` (Dark mode matching main CSS)
-    - `dpr`, `suttacentral`, `tbw`, `vri`, `tipitakalk`.
+    - `dpr`, `suttacentral`, `tbw`, `vri`, `tipitakalk`, `paauksociety`.
 - **Logic**:
     - Automatic theme detection based on URL.
     - `dark-mode` class toggling for component-specific styles.

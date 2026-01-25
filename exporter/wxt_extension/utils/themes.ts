@@ -185,6 +185,16 @@ export const THEMES: Themes = {
     font: "'Maitree', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
     fontSize: "16px",
     niggahita: false
+  },
+  paauksociety: {
+    name: "PAUK Society",
+    bg: "#f3ddb6",
+    text: "#000000",
+    primary: "#637b3aff",
+    border: "hsla(0, 0%, 50%, 0.25)",
+    font: "Liberation Serif, serif",
+    fontSize: "17px",
+    niggahita: false
   }
 };
 
@@ -284,6 +294,8 @@ export function extractTipitakaLkTheme(): Theme {
   return theme;
 }
 
+
+
 export function extractColors(): Theme {
   const bodyStyle = window.getComputedStyle(document.body);
   let bgColor = bodyStyle.backgroundColor;
@@ -332,6 +344,9 @@ export function detectTheme(): string {
   if (url.includes("tipitaka.org")) return "vri";
   if (url.includes("tipitaka.lk")) {
     return "tipitakalk";
+  }
+  if (url.includes("tipitaka.paauksociety.org")) {
+    return "paauksociety";
   }
   return "auto";
 }
