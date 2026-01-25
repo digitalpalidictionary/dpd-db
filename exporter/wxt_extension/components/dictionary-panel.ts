@@ -769,14 +769,14 @@ export class DictionaryPanel {
     
     const chromeInstructions = `
           <b>Pin the Extension:</b><br>
-          1. Click the extensions icon (🧩) in Chrome.<br>
+          1. Click the extensions icon in Chrome.<br>
           2. Pin the DPD extension.<br>
           3. Click the DPD icon to toggle the extension on and off<br>
     `;
     
     const firefoxInstructions = `
           <b>Pin the Extension:</b><br>
-          1. Click the extensions icon (🧩) in Firefox toolbar.<br>
+          1. Click the extensions icon in Firefox toolbar.<br>
           2. Click the gear icon next to DPD Dictionary.<br>
           3. Select "Pin to Toolbar".<br>
           4. Click the DPD icon to toggle the extension on and off<br>
