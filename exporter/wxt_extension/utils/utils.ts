@@ -12,7 +12,7 @@ export function expandSelectionToWord(): void {
   if (initialNode.nodeType !== Node.TEXT_NODE) return;
 
   // Characters to stop on.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9'\"’‘“”]/;
   const isStop = (char: string) => !char || stopChars.test(char);
 
   let startNode: Node | null = initialNode;

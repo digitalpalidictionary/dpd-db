@@ -16,11 +16,9 @@ export default defineContentScript({
     // Define handleSelectedWord globally so utils and panel can call it
     (window as any).handleSelectedWord = (word: string) => {
       console.log("[DPD] Searching for:", word);
-      // Normalize curly quotes to straight apostrophes
-      // Remove common punctuation and numbers but PRESERVE internal spaces
+      // Remove punctuation, quotes, and numbers but PRESERVE internal spaces
       let cleanWord = word
-        .replace(/[’‘“”]/g, "'")
-        .replace(/[.,;:!?()\[\]{}\\\/"0-9]/g, "")
+        .replace(/[’‘“”\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
         .trim()
         .toLowerCase();
 
