@@ -13,7 +13,7 @@ export function expandSelectionToWord(): void {
 
   // Characters to stop on.
   // Note: Closing quotes (’ ”) are removed from stopChars so expansion includes suffixes like ”ti.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9‘“<br>]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9‘“]/;
   const isStop = (char: string) => !char || stopChars.test(char);
 
   let startNode: Node | null = initialNode;
@@ -35,9 +35,12 @@ export function expandSelectionToWord(): void {
       }
       current = next;
 
-      // If we hit a block element, stop
-      if (current.nodeType === Node.ELEMENT_NODE && window.getComputedStyle(current as Element).display !== 'inline') {
-        return null;
+      // If we hit a block element or <br> tag, stop
+      if (current.nodeType === Node.ELEMENT_NODE) {
+        const element = current as Element;
+        if (window.getComputedStyle(element).display !== 'inline' || element.tagName.toLowerCase() === 'br') {
+          return null;
+        }
       }
 
       // If it's a text node, return it
