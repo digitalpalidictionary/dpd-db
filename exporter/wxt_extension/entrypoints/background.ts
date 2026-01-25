@@ -35,7 +35,7 @@ export default defineBackground(() => {
     await browser.action.setIcon({ tabId, path: iconSet });
   };
 
-  const AUTO_DOMAINS = ["suttacentral.net", "suttacentral.express", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
+  const AUTO_DOMAINS = ["suttacentral.net", "suttacentral.express", "suttacentral.now", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk"];
 
   const getDomainState = async (url: string | undefined): Promise<"ON" | "OFF"> => {
     if (!url || url.startsWith("chrome://") || url.startsWith("about:") || url.startsWith("moz-extension://")) return "OFF";

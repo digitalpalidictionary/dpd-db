@@ -149,6 +149,7 @@ export default defineContentScript({
     const AUTO_DOMAINS = [
       "suttacentral.net",
       "suttacentral.express",
+      "suttacentral.now",
       "digitalpalireader.online",
       "thebuddhaswords.net",
       "tipitaka.org",
