@@ -580,3 +580,37 @@
     'comment': 'In the context of sn42.7, "antamaso gobhattampi bhavissatīti" translates to "because at least it can be fodder for the cattle." Here, antamaso functions as an indeclinable adverb meaning "even" or "at least," indicating a minimal sufficient condition (i.e., even being cattle fodder is enough). This usage aligns with the Sanskrit antamaśah, meaning "at the end" or "finally," often used to denote extremity or minimality. The lemma_2 field is set to the indeclinable form antamaso, consistent with the entry for antamaso 1. The meaning_1 field is updated to reflect the contextual usage, emphasizing sufficiency or adequacy rather than literal \"good enough for.\" The construction field retains the morphological derivation antama + so, indicating the taddhita formation with the suffix -so. The related headwords include entries for anta, antama, and other derivatives, providing a comprehensive view of the semantic field. The comment field notes the adverbial usage and the semantic shift from extremity to sufficiency in this context."
 }
 
+{
+    'id': 53064,
+    'lemma_1': 'musila',
+    'lemma_2': 'musilo',
+    'pos': 'masc',
+    'grammar': 'masc',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'name of a monk',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': '',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': '',
+    'family_idioms': '',
+    'family_set': 'names of monks',
+    'construction': '',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': '',
+    'compound_construction': '',
+    'stem': 'musil',
+    'pattern': 'a masc',
+    'comment': 'The contextual sentence (SN 12.68) identifies Musila as one of four monks staying at Ghosita\\'s monastery in Kosambī. The name appears in the instrumental case as āyasmā ca musilo (vocative) and likely in the nominative as Musīla in the English translation, suggesting a variation in declension or a typo. As a proper name, it has no semantic meaning beyond its referential function.'
+}
+

@@ -1,5 +1,69 @@
 [
     {
+        "id": 11011,
+        "lemma_1": "ākaḍḍheti"
+    },
+    {
+        "id": 48383,
+        "lemma_1": "bāhujañña 2"
+    },
+    {
+        "id": 88699,
+        "lemma_1": "tiṇalāyana"
+    },
+    {
+        "id": 88698,
+        "lemma_1": "haritvā 3"
+    },
+    {
+        "id": 88697,
+        "lemma_1": "bhikkhācariyavaṃsa"
+    },
+    {
+        "id": 88696,
+        "lemma_1": "duggatakāla"
+    },
+    {
+        "id": 88695,
+        "lemma_1": "ekavelā"
+    },
+    {
+        "id": 88694,
+        "lemma_1": "asītikoṭidhana"
+    },
+    {
+        "id": 88693,
+        "lemma_1": "porāṇakabrāhmaṇā"
+    },
+    {
+        "id": 88692,
+        "lemma_1": "koṭidhana"
+    },
+    {
+        "id": 88691,
+        "lemma_1": "nikkhamanatthaṃ 1"
+    },
+    {
+        "id": 88690,
+        "lemma_1": "nikkhamanatthaṃ"
+    },
+    {
+        "id": 88689,
+        "lemma_1": "gahita 5"
+    },
+    {
+        "id": 88688,
+        "lemma_1": "goṇamaṃsa"
+    },
+    {
+        "id": 88687,
+        "lemma_1": "mahākantārapaṭipanna"
+    },
+    {
+        "id": 88686,
+        "lemma_1": "satthadhamma"
+    },
+    {
         "id": 18166,
         "lemma_1": "evaṃpaṭipanna"
     },
@@ -14,69 +78,5 @@
     {
         "id": 51281,
         "lemma_1": "manosañcetanāhāra"
-    },
-    {
-        "id": 29905,
-        "lemma_1": "tannissita 2"
-    },
-    {
-        "id": 11059,
-        "lemma_1": "ākāsanissita"
-    },
-    {
-        "id": 14858,
-        "lemma_1": "udakanissita"
-    },
-    {
-        "id": 55059,
-        "lemma_1": "rukkhanissita"
-    },
-    {
-        "id": 47678,
-        "lemma_1": "phassāhāra"
-    },
-    {
-        "id": 19975,
-        "lemma_1": "kantāramagga"
-    },
-    {
-        "id": 46648,
-        "lemma_1": "puttamaṃsūpamasutta"
-    },
-    {
-        "id": 36302,
-        "lemma_1": "nānābhāvāvinikkhepa"
-    },
-    {
-        "id": 36255,
-        "lemma_1": "nānākatavinibbhoga"
-    },
-    {
-        "id": 57006,
-        "lemma_1": "saṅghaṭṭanasamodhāna"
-    },
-    {
-        "id": 63549,
-        "lemma_1": "sukhavedanā"
-    },
-    {
-        "id": 33150,
-        "lemma_1": "dutiyaassutavāsutta"
-    },
-    {
-        "id": 10108,
-        "lemma_1": "assutavāsutta"
-    },
-    {
-        "id": 25148,
-        "lemma_1": "guḷāguṇṭhikajāta"
-    },
-    {
-        "id": 37201,
-        "lemma_1": "nidānasutta 1"
-    },
-    {
-        "id": 67740,
-        "lemma_1": "viññāṇasutta 1"
     }
 ]
