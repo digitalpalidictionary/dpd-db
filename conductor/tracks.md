@@ -10,5 +10,5 @@
 
 ---
 
-## [~] Track: WXT Cross-Browser Extension Implementation
+## [x] Track: WXT Cross-Browser Extension Implementation
 *Link: [./conductor/tracks/wxt_cross_browser_20260124/](./conductor/tracks/wxt_cross_browser_20260124/)*
