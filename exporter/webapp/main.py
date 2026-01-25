@@ -371,11 +371,17 @@ async def track_performance(request: Request, call_next):
 
         # Resolve the route pattern
         route_pattern = None
-        for route in request.app.router.routes:
-            match, _ = route.matches(request.scope)
-            if match == Match.FULL:
-                route_pattern = getattr(route, "path", None)
-                break
+        # Try to get the route from the scope first (FastAPI/Starlette set this after routing)
+        route_obj = request.scope.get("route")
+        if route_obj:
+            route_pattern = getattr(route_obj, "path", None)
+
+        if not route_pattern:
+            for route in request.app.router.routes:
+                match, _ = route.matches(request.scope)
+                if match == Match.FULL:
+                    route_pattern = getattr(route, "path", None)
+                    break
         
         # Decode Unicode request string
         request_display = unquote(str(request.url.path))
