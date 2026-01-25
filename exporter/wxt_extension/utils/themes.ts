@@ -121,6 +121,13 @@ export const THEMES: Themes = {
     primary: "hsl(198, 100%, 50%)",
     border: "hsla(0, 0%, 50%, 0.25)"
   },
+  dpd_dark: {
+    name: "DPD Dark",
+    bg: "hsl(198, 100%, 5%)",
+    text: "hsl(198, 100%, 95%)",
+    primary: "hsl(198, 100%, 50%)",
+    border: "hsla(0, 0%, 50%, 0.25)"
+  },
   dpr: {
     name: "Digital Pāli Reader",
     bg: "#FFFFDD",
@@ -406,6 +413,11 @@ export function applyTheme(themeKey: string): void {
     panelEl.classList.remove("dpd-theme-suttacentral");
     panelEl.classList.remove("dpd-theme-dpr");
     panelEl.classList.remove("dpd-theme-vri");
+
+    // Toggle dark-mode class based on theme or detection
+    const isDarkTheme = themeKey === "dpd_dark" || themeKey === "suttacentral_dark" || themeKey === "tbw_dark" ||
+                        (themeKey === "auto" && isDark());
+    panelEl.classList.toggle("dark-mode", isDarkTheme);
 
     if (theme.niggahita !== undefined && window.panel && window.panel.settings) {
       window.panel.settings.niggahita = theme.niggahita;

@@ -812,6 +812,7 @@ export class DictionaryPanel {
     const options: { key: string; name: string }[] = [
       { key: "auto", name: "Auto (Detect)" },
       { key: "default", name: "DPD Light" },
+      { key: "dpd_dark", name: "DPD Dark" },
       { key: "dpr", name: "Digital Pāli Reader" },
       { key: "suttacentral", name: "SuttaCentral Light" },
       { key: "suttacentral_dark", name: "SuttaCentral Dark" },
