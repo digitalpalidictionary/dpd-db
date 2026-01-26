@@ -44,6 +44,7 @@ class DpdTextField(ft.TextField):
             width=700,
             border_radius=20,
         )
+        self.name = name
 
 
 class DpdDropdown(ft.Dropdown):
@@ -72,6 +73,7 @@ class DpdDropdown(ft.Dropdown):
             border_radius=20,
             border_width=1,
         )
+        self.name = name
 
 
 class DpdText(ft.TextField):

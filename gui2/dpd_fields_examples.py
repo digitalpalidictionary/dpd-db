@@ -442,6 +442,9 @@ class DpdExampleField(ft.Column):
         return source, sutta, example
 
     def click_choose_example_ok(self, e: ft.ControlEvent):
+        if not self.example_index:
+            return
+
         self.choose_example_dialog.open = False
         self.page.update()
 
