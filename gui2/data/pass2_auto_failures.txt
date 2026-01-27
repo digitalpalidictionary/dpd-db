@@ -614,3 +614,7 @@
     'comment': 'The contextual sentence (SN 12.68) identifies Musila as one of four monks staying at Ghosita\\'s monastery in Kosambī. The name appears in the instrumental case as āyasmā ca musilo (vocative) and likely in the nominative as Musīla in the English translation, suggesting a variation in declension or a typo. As a proper name, it has no semantic meaning beyond its referential function.'
 }
 
+
+
+
+
