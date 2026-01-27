@@ -7151,6 +7151,58 @@
         ],
         "himavā": [
             71246
+        ],
+        "adhigamaṃ": [
+            3161,
+            3162
+        ],
+        "adhigamo": [
+            3161,
+            3162
+        ],
+        "dhammapariyesanā": [
+            34796
+        ],
+        "phassa": [
+            47651
+        ],
+        "dhātuphassañca": [
+            35033,
+            35042
+        ],
+        "cetaṃ": [
+            27029
+        ],
+        "dhātusaññañca": [
+            35033,
+            35042,
+            9364,
+            9365
+        ],
+        "dhātuyoti": [
+            35042
+        ],
+        "paññāyantīti": [
+            40075
+        ],
+        "paññāyati": [
+            40075
+        ],
+        "asubhaṃ": [
+            9815
+        ],
+        "paññāyatīti": [
+            40075
+        ],
+        "sukkhe": [
+            63438
+        ],
+        "hatthehi": [
+            70810,
+            70812
+        ],
+        "āpajjeyyuṃ": [
+            11841
         ]
     },
     "matched": {},
@@ -8619,6 +8671,56 @@
         "dutiyapathavīsuttaṃ",
         "samuddasuttaṃ",
         "dutiyasamuddasuttaṃ",
-        "pabbatasuttaṃ"
+        "pabbatasuttaṃ",
+        "nakhasikhāsuttaṃ",
+        "pokkharaṇīsuttaṃ",
+        "pathavīsuttaṃ",
+        "dutiyasamuddasuttaṃ",
+        "pabbatasuttaṃ",
+        "dutiyapabbatasuttaṃ",
+        "tatiyapabbatasuttaṃ",
+        "aññatitthiyasamaṇabrāhmaṇaparibbājakānaṃ",
+        "mahādhigamo",
+        "mahābhiññoti",
+        "nānattavaggo",
+        "dhātunānattasuttaṃ",
+        "phassanānattasuttaṃ",
+        "nophassanānattasuttaṃ",
+        "vedanānānattasuttaṃ",
+        "dutiyavedanānānattasuttaṃ",
+        "bāhiradhātunānattasuttaṃ",
+        "saññānānattasuttaṃ",
+        "rūpacchando",
+        "rūpapariyesanā",
+        "dhammasaṅkappo",
+        "dhammapariḷāho",
+        "dhammapariyesanā",
+        "nopariyesanānānattasuttaṃ",
+        "bāhiraphassanānattasuttaṃ",
+        "rūpasamphassajā",
+        "dutiyabāhiraphassanānattasuttaṃ",
+        "sattadhātusuttaṃ",
+        "sattimā",
+        "ābhādhātu",
+        "subhadhātu",
+        "ākāsānañcāyatanadhātu",
+        "viññāṇañcāyatanadhātu",
+        "rūpasaṅkappo",
+        "dhammacchando",
+        "rūpapariyesanaṃ",
+        "dhammasamphassajā",
+        "ākiñcaññāyatanadhātu",
+        "nevasaññānāsaññāyatanadhātu",
+        "saññāvedayitanirodhadhātu",
+        "saṅkhārāvasesasamāpatti",
+        "sanidānasuttaṃ",
+        "byāpādacchando",
+        "byāpādapariḷāho",
+        "byāpādapariyesanā",
+        "vihiṃsāchando",
+        "vihiṃsāpariḷāho",
+        "vihiṃsāpariyesanā",
+        "tiṇakaṭṭhanissitā",
+        "nekkhammacchando"
     ]
 }

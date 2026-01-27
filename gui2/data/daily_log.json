@@ -1245,8 +1245,8 @@
     },
     "2026-01-27": {
         "pass1": 1,
-        "pass2_add": 1,
-        "pass2_pre": 110,
-        "pass2_update": 33
+        "pass2_add": 5,
+        "pass2_pre": 185,
+        "pass2_update": 125
     }
 }
