@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "DN16",
-        "sutta": "mahāparinibbānasuttaṃ, mārayācanakathā",
-        "example": "bhāsitā kho pan'esā, bhante, bhagavatā vācā, na tāv'āhaṃ, pāpima, parinibbāyissāmi, yāva me idaṃ brahmacariyaṃ na iddhaṃ c'eva bhavissati phītañ'ca vitthārikaṃ bāhujaññaṃ puthubhūtaṃ yāva devamanussehi suppakāsitan'ti."
+        "source": "VIN5.8",
+        "sutta": "adhikaraṇabhedo, adhikaraṇanidānādi",
+        "example": "āpatt'ādhikaraṇaṃ āpattinidānaṃ āpattisamudayaṃ āpattijātikaṃ āpattipabhavaṃ āpattisambhāraṃ āpattisamuṭṭhānaṃ. kicc'ādhikaraṇaṃ kiccayanidānaṃ kiccayasamudayaṃ kiccayajātikaṃ kiccayapabhavaṃ kiccayasambhāraṃ kiccayasamuṭṭhānaṃ."
     },
     "stash": {
-        "source": "SN10.1",
-        "sutta": "yakkhasaṃyuttaṃ, indakasuttaṃ",
-        "example": "paṭhamaṃ kalalaṃ hoti,\nkalalā hoti abbudaṃ,\nabbudā jāyate pesi,\npesi nibbattatī ghano,\nghanā pasākhā jāyanti,\nkesā lomā nakhā'pi ca."
+        "source": "VIN2.5.5.6",
+        "sutta": "cārittasikkhāpadaṃ",
+        "example": "antar'ārāmaṃ gacchati, bhikkhun'upassayaṃ gacchati, titthiyaseyyaṃ gacchati, paṭikkamanaṃ gacchati, bhattiyagharaṃ gacchati, āpadāsu, ummattakassa, ādikammikassā'ti."
     }
 }
