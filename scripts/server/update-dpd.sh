@@ -17,7 +17,7 @@ uv sync
 
 echo "=== 4. Updating Data (Audio & Translations) ==="
 uv run python audio/db_release_download.py
-# uv run python resources/tipitaka_translation_db/download_and_unzip_db.py
+# uv run python resources/tipitaka_translation_db/download_and_unzip_db.
 
 echo "=== 5. Downloading Latest dpd.db ==="
 wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2 | tar -xj
@@ -25,6 +25,7 @@ if [ ! -f dpd.db ]; then
     echo "Error: dpd.db not found after extraction"
     exit 1
 fi
+uv run exporter/webapp/generate_search_index.py
 
 echo "=== 6. Killing Uvicorn Webapp ==="
 pkill -f "uvicorn exporter.webapp.main:app" || echo "No existing uvicorn process found."

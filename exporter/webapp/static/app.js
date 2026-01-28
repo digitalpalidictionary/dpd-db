@@ -28,14 +28,6 @@ function initializeApp() {
   // Initialize history panel entries array
   appState.historyPanelEntries = [];
 
-  // Fetch search index in the background
-  fetch("/static/search_index.json")
-    .then((response) => response.json())
-    .then((data) => {
-      appState.searchIndex = data;
-    })
-    .catch((error) => console.error("Error fetching search index:", error));
-
   // Load history from LOCAL storage if available
   try {
     // Load full history
@@ -121,6 +113,35 @@ function initializeApp() {
       dropdown.style.display = "none";
     }
   });
+
+  // Background Load Search Index
+  // Wait until the page is interactive to avoid blocking
+  setTimeout(async () => {
+    try {
+      const localVersion = localStorage.getItem("dpdSearchIndexVersion");
+      const localIndex = localStorage.getItem("dpdSearchIndex");
+
+      // Fast check: Fetch version from server
+      const versionResp = await fetch("/static/search_index_version.json");
+      const { version: serverVersion } = await versionResp.json();
+
+      if (localIndex && localVersion === serverVersion) {
+        // Use local cache
+        appState.searchIndex = JSON.parse(localIndex);
+      } else {
+        // Version mismatch or missing: Fetch fresh index
+        const indexResp = await fetch("/static/search_index.json");
+        const indexData = await indexResp.json();
+        appState.searchIndex = indexData;
+
+        // Save to local storage for next time
+        localStorage.setItem("dpdSearchIndex", JSON.stringify(indexData));
+        localStorage.setItem("dpdSearchIndexVersion", serverVersion);
+      }
+    } catch (e) {
+      console.error("Error background loading search index:", e);
+    }
+  }, 500); // Small delay to prioritize main content rendering
 }
 
 // Perform a search operation
