@@ -72,8 +72,11 @@
                     Dictionary</h2>
             </div>
             <form id="search-form">
-                <input class="search-box" type="text" name="search" id="search-box" value="{{ search }}"
-                    autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
+                <div class="search-input-container">
+                    <input class="search-box" type="text" name="search" id="search-box" value="{{ search }}"
+                        autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
+                    <div id="search-dropdown" class="search-dropdown" style="display: none;"></div>
+                </div>
                 <button class="search-button" id="search-button">search</button>
                 <button class="search-button clear-button" id="clear-button">clear</button>
                 <button class="help small-button" id="search-help-button">

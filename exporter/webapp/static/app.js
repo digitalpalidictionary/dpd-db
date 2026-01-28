@@ -20,12 +20,21 @@ const appState = {
   historyIndex: -1, // Current position in the history stack
   // History panel entries - simpler list of search terms for persistence
   historyPanelEntries: [], // Array of search terms for the history panel
+  searchIndex: {}, // Mapping of ASCII keys to Unicode terms
 };
 
 // Initialize the application
 function initializeApp() {
   // Initialize history panel entries array
   appState.historyPanelEntries = [];
+
+  // Fetch search index in the background
+  fetch("/static/search_index.json")
+    .then((response) => response.json())
+    .then((data) => {
+      appState.searchIndex = data;
+    })
+    .catch((error) => console.error("Error fetching search index:", error));
 
   // Load history from LOCAL storage if available
   try {
@@ -96,6 +105,22 @@ function initializeApp() {
   if (clearHistoryButton) {
     clearHistoryButton.addEventListener("click", clearHistory);
   }
+
+  // Set up search dropdown listeners
+  const searchBox = document.getElementById("search-box");
+  if (searchBox) {
+    searchBox.addEventListener("input", handleSearchInput);
+    searchBox.addEventListener("keydown", handleSearchKeydown);
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    const dropdown = document.getElementById("search-dropdown");
+    const searchBoxContainer = document.querySelector(".search-input-container");
+    if (dropdown && !searchBoxContainer.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
 }
 
 // Perform a search operation
@@ -1228,6 +1253,123 @@ function showLoading(buttonId) {
     button.classList.add("loading");
     button.disabled = true;
   }
+}
+
+// Strip diacritics from a string
+function stripDiacritics(text) {
+  if (!text) return "";
+  // Remove root sign and spaces for matching
+  const clean = text.replace(/√/g, "").replace(/ /g, "");
+  return clean.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// Search Dropdown Logic
+let dropdownIndex = -1;
+let debounceTimer;
+
+function updateDropdown(query) {
+  const dropdown = document.getElementById("search-dropdown");
+  if (!dropdown) return;
+
+  if (query.length < 2) {
+    dropdown.style.display = "none";
+    return;
+  }
+
+  const normalizedQuery = stripDiacritics(query).toLowerCase();
+  const matches = [];
+  
+  // Find prefix matches in the searchIndex
+  for (const key in appState.searchIndex) {
+    if (key.startsWith(normalizedQuery)) {
+      appState.searchIndex[key].forEach(term => {
+        if (!matches.includes(term)) {
+          matches.push(term);
+        }
+      });
+    }
+  }
+
+  // Sort matches: shortest ASCII first, then alphabetically by ASCII
+  matches.sort((a, b) => {
+    const cleanA = stripDiacritics(a).toLowerCase();
+    const cleanB = stripDiacritics(b).toLowerCase();
+    
+    if (cleanA.length !== cleanB.length) {
+      return cleanA.length - cleanB.length;
+    }
+    
+    if (cleanA !== cleanB) {
+      return cleanA.localeCompare(cleanB);
+    }
+    
+    // If ASCII is identical, fall back to original Unicode for stable sorting
+    return a.localeCompare(b);
+  });
+
+  const finalMatches = matches.slice(0, 100);
+
+  if (finalMatches.length > 0) {
+    dropdown.innerHTML = "";
+    finalMatches.forEach((term, index) => {
+      const item = document.createElement("div");
+      item.className = "dropdown-item";
+      item.textContent = term;
+      item.addEventListener("click", () => {
+        const searchBox = document.getElementById("search-box");
+        searchBox.value = term;
+        appState.dpd.searchTerm = term;
+        dropdown.style.display = "none";
+        performSearch();
+      });
+      dropdown.appendChild(item);
+    });
+    dropdown.style.display = "block";
+    dropdownIndex = -1;
+  } else {
+    dropdown.style.display = "none";
+  }
+}
+
+function handleSearchInput(e) {
+  clearTimeout(debounceTimer);
+  const query = e.target.value;
+  debounceTimer = setTimeout(() => {
+    updateDropdown(query);
+  }, 200);
+}
+
+function handleSearchKeydown(e) {
+  const dropdown = document.getElementById("search-dropdown");
+  if (!dropdown || dropdown.style.display === "none") return;
+
+  const items = dropdown.querySelectorAll(".dropdown-item");
+
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    dropdownIndex = (dropdownIndex + 1) % items.length;
+    updateDropdownSelection(items);
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    dropdownIndex = (dropdownIndex - 1 + items.length) % items.length;
+    updateDropdownSelection(items);
+  } else if (e.key === "Enter" && dropdownIndex > -1) {
+    e.preventDefault();
+    items[dropdownIndex].click();
+  } else if (e.key === "Escape") {
+    dropdown.style.display = "none";
+  }
+}
+
+function updateDropdownSelection(items) {
+  items.forEach((item, index) => {
+    if (index === dropdownIndex) {
+      item.classList.add("selected");
+      item.scrollIntoView({ block: "nearest" });
+    } else {
+      item.classList.remove("selected");
+    }
+  });
 }
 
 // Helper function to hide loading state on a button

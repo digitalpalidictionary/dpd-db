@@ -21,5 +21,6 @@ This subsystem follows a "Dynamic SSR (Server-Side Rendering)" pattern:
 
 ## Interface
 - **Start Server:** `uv run uvicorn exporter.webapp.main:app --reload`
+- **Generate Search Index:** `uv run python exporter/webapp/generate_search_index.py` (Run this after adding new words to the database)
 - **Primary Endpoint:** Accessible via `/search` or `/word/{lemma}`.
 - **API:** Provides JSON endpoints for external tools to query the database programmatically.

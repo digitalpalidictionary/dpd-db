@@ -7,8 +7,3 @@
 
 ## [ ] Track: Database Query Tab Feature
 *Link: [./conductor/tracks/db_query_tab_20251231/](./conductor/tracks/db_query_tab_20251231/)*
-
----
-
-## [~] Track: Diacritic-Insensitive Pāḷi Search Dropdown
-*Link: [./conductor/tracks/search_dropdown_20260128/](./conductor/tracks/search_dropdown_20260128/)*

@@ -166,6 +166,56 @@ a {
     border-color: var(--primary);
 }
 
+.search-input-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--light);
+    border: 2px solid var(--primary);
+    border-top: none;
+    border-radius: 0 0 7px 7px;
+    max-height: 300px;
+    min-width: 100%;
+    max-width: 90vw;
+    width: max-content;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: var(--shadow-hover);
+}
+
+.dark-mode .search-dropdown {
+    background-color: var(--dark);
+    border-color: var(--primary);
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--gray-transparent);
+    color: var(--dark);
+}
+
+.dark-mode .dropdown-item {
+    color: var(--light);
+    border-bottom-color: var(--gray-transparent);
+}
+
+.dropdown-item:hover, .dropdown-item.selected {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
+.dark-mode .dropdown-item:hover, .dark-mode .dropdown-item.selected {
+    background-color: var(--primary);
+    color: var(--dark);
+}
+
 .dark-mode .search-box {
     background-color: var(--dark);
     border-color: var(--gray-transparent);

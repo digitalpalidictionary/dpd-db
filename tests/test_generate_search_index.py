@@ -3,6 +3,7 @@ from exporter.webapp.generate_search_index import strip_diacritics, build_index
 
 def test_strip_diacritics():
     assert strip_diacritics("bhū") == "bhu"
+    assert strip_diacritics("√bhū") == "bhu"
     assert strip_diacritics("rūpa") == "rupa"
     assert strip_diacritics("ñāṇa") == "nana"
     assert strip_diacritics("Pāḷi") == "Pali"
