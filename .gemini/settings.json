@@ -6,7 +6,8 @@
   },
   "ui": {
     "accessibility": {
-      "disableLoadingPhrases": true
+      "disableLoadingPhrases": true,
+      "enableLoadingPhrases": false
     }
   }
 }
