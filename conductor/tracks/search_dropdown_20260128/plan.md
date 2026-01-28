@@ -1,12 +1,12 @@
 # Plan: Diacritic-Insensitive Pāḷi Search Dropdown
 
 **Phase 1: Backend Data Generation**
-- [ ] Task: Create `scripts/generate_search_index.py`.
-- [ ] Task: Aggregate unique `lemma_clean` from `dpd_headwords`.
-- [ ] Task: Aggregate unique `root_no_sign` from `dpd_roots`.
-- [ ] Task: Aggregate unique `root_family_clean` from `family_root`.
-- [ ] Task: Build a dictionary mapping ASCII-normalized versions of these terms to their original Unicode versions.
-- [ ] Task: Save the result as `exporter/webapp/static/search_index.json`.
+- [x] Task: Create `scripts/generate_search_index.py`.
+- [x] Task: Aggregate unique `lemma_clean` from `dpd_headwords`.
+- [x] Task: Aggregate unique `root_no_sign` from `dpd_roots`.
+- [x] Task: Aggregate unique `root_family_clean` from `family_root`.
+- [x] Task: Build a dictionary mapping ASCII-normalized versions of these terms to their original Unicode versions.
+- [x] Task: Save the result as `exporter/webapp/static/search_index.json`.
 - [ ] Task: Conductor - User Manual Verification 'Backend Data Generation' (Protocol in workflow.md)
 
 **Phase 2: Frontend Implementation**

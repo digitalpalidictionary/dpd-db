@@ -10,5 +10,5 @@
 
 ---
 
-## [ ] Track: Diacritic-Insensitive Pāḷi Search Dropdown
+## [~] Track: Diacritic-Insensitive Pāḷi Search Dropdown
 *Link: [./conductor/tracks/search_dropdown_20260128/](./conductor/tracks/search_dropdown_20260128/)*
