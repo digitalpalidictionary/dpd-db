@@ -11,7 +11,7 @@ from sqlalchemy.orm import sessionmaker
 import re
 
 from db.db_helpers import get_db_session
-from db.models import BoldDefinition
+from db.models import BoldDefinition, DbInfo
 from audio.db.db_helpers import get_audio_record
 from exporter.webapp.preloads import (
     make_ascii_to_unicode_dict,
@@ -54,6 +54,10 @@ with get_db() as db_session:
     headwords_clean_set = make_headwords_clean_set(db_session)
     ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
     bd_count = db_session.query(BoldDefinition).count()
+    
+    # Fetch database version for search index cache-busting
+    db_info = db_session.query(DbInfo).filter(DbInfo.key == "dpd_release_version").first()
+    dpd_release_version = db_info.value if db_info else "unknown"
 
 # Set up templates
 templates = Jinja2Templates(directory=str(pth.webapp_templates_dir))
@@ -88,6 +92,7 @@ def home_page(request: Request, response_class=HTMLResponse):
             "dpd_results": "",
             "bd_count": bd_count,
             "book_options": list(cst_texts.keys()),
+            "dpd_release_version": dpd_release_version,
         },
     )
 
@@ -103,6 +108,7 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
             "dpd_results": "",
             "bd_count": bd_count,
             "book_options": list(cst_texts.keys()),
+            "dpd_release_version": dpd_release_version,
         },
     )
 

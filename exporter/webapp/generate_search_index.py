@@ -2,7 +2,6 @@
 """Generate a diacritic-insensitive search index for the DPD Webapp."""
 
 import json
-import re
 import unicodedata
 
 from db.db_helpers import get_db_session
@@ -22,18 +21,24 @@ def strip_diacritics(text: str) -> str:
     return unicodedata.normalize("NFC", stripped_text)
 
 
-def build_index(terms: set[str]) -> dict[str, list[str]]:
-    """Builds a dictionary mapping ASCII-normalized keys to arrays of actual Pāḷi terms."""
-    index = {}
-    for term in sorted(terms):
+def build_index(terms: set[str]) -> list[str]:
+    """Builds a sorted array of 'ascii|unicode1|unicode2' strings for fast binary search."""
+    index_dict = {}
+    for term in terms:
         if not term:
             continue
         normalized = strip_diacritics(term).lower()
-        if normalized not in index:
-            index[normalized] = []
-        if term not in index[normalized]:
-            index[normalized].append(term)
-    return index
+        if normalized not in index_dict:
+            index_dict[normalized] = set()
+        index_dict[normalized].add(term)
+    
+    # Create sorted list of "key|val1|val2..."
+    sorted_index = []
+    for key in sorted(index_dict.keys()):
+        values = sorted(list(index_dict[key]))
+        sorted_index.append(f"{key}|{'|'.join(values)}")
+    
+    return sorted_index
 
 
 def main():
@@ -51,7 +56,7 @@ def main():
         terms.add(hw.lemma_clean)
     pr.yes(len(headwords))
 
-    # Aggregate Roots (using root_clean to include the √ sign)
+    # Aggregate Roots
     pr.green("fetching roots")
     roots = db_sess.query(DpdRoot).all()
     for rt in roots:
@@ -65,29 +70,16 @@ def main():
         terms.add(fam.root_family)
     pr.yes(len(families))
 
-    # Fetch version
-    pr.green("fetching version")
-    db_info = db_sess.query(DbInfo).filter(DbInfo.key == "dpd_release_version").first()
-    version = db_info.value if db_info else "unknown"
-    pr.yes(version)
-
     # Build index
     pr.green("building index")
     search_index = build_index(terms)
-    pr.yes(len(terms))
+    pr.yes(len(search_index))
 
-    # Save index to JSON
+    # Save to JSON
     pr.green("saving index")
     output_path = pth.webapp_static_dir / "search_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(search_index, f, ensure_ascii=False, indent=0)
-    pr.yes("ok")
-
-    # Save version to JSON
-    pr.green("saving version")
-    version_path = pth.webapp_static_dir / "search_index_version.json"
-    with open(version_path, "w", encoding="utf-8") as f:
-        json.dump({"version": version}, f)
+        json.dump(search_index, f, ensure_ascii=False, indent=None)
     pr.yes("ok")
 
     db_sess.close()

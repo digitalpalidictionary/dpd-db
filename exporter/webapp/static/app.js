@@ -20,7 +20,7 @@ const appState = {
   historyIndex: -1, // Current position in the history stack
   // History panel entries - simpler list of search terms for persistence
   historyPanelEntries: [], // Array of search terms for the history panel
-  searchIndex: {}, // Mapping of ASCII keys to Unicode terms
+  searchIndex: [], // Sorted array of "ascii|unicode1|unicode2" strings
 };
 
 // Initialize the application
@@ -114,34 +114,22 @@ function initializeApp() {
     }
   });
 
-  // Background Load Search Index
-  // Wait until the page is interactive to avoid blocking
-  setTimeout(async () => {
-    try {
-      const localVersion = localStorage.getItem("dpdSearchIndexVersion");
-      const localIndex = localStorage.getItem("dpdSearchIndex");
+  // Non-blocking Background Load Search Index
+  const loadIndex = () => {
+    const version = window.DPD_RELEASE_VERSION || "unknown";
+    fetch(`/static/search_index.json?v=${version}`)
+      .then(response => response.json())
+      .then(data => {
+        appState.searchIndex = data;
+      })
+      .catch(e => console.error("Error loading search index:", e));
+  };
 
-      // Fast check: Fetch version from server
-      const versionResp = await fetch("/static/search_index_version.json");
-      const { version: serverVersion } = await versionResp.json();
-
-      if (localIndex && localVersion === serverVersion) {
-        // Use local cache
-        appState.searchIndex = JSON.parse(localIndex);
-      } else {
-        // Version mismatch or missing: Fetch fresh index
-        const indexResp = await fetch("/static/search_index.json");
-        const indexData = await indexResp.json();
-        appState.searchIndex = indexData;
-
-        // Save to local storage for next time
-        localStorage.setItem("dpdSearchIndex", JSON.stringify(indexData));
-        localStorage.setItem("dpdSearchIndexVersion", serverVersion);
-      }
-    } catch (e) {
-      console.error("Error background loading search index:", e);
-    }
-  }, 500); // Small delay to prioritize main content rendering
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(loadIndex);
+  } else {
+    setTimeout(loadIndex, 1000);
+  }
 }
 
 // Perform a search operation
@@ -1280,8 +1268,28 @@ function showLoading(buttonId) {
 function stripDiacritics(text) {
   if (!text) return "";
   // Remove root sign and spaces for matching
-  const clean = text.replace(/√/g, "").replace(/ /g, "");
+  const clean = text.replace(/[√ ]/g, "");
   return clean.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// Binary Search for prefix matching
+function findFirstMatch(arr, query) {
+  let low = 0;
+  let high = arr.length - 1;
+  let result = -1;
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const midKey = arr[mid].split("|")[0];
+
+    if (midKey >= query) {
+      result = mid;
+      high = mid - 1;
+    } else {
+      low = mid + 1;
+    }
+  }
+  return result;
 }
 
 // Search Dropdown Logic
@@ -1292,39 +1300,41 @@ function updateDropdown(query) {
   const dropdown = document.getElementById("search-dropdown");
   if (!dropdown) return;
 
-  if (query.length < 2) {
+  if (query.length < 2 || appState.searchIndex.length === 0) {
     dropdown.style.display = "none";
     return;
   }
 
   const normalizedQuery = stripDiacritics(query).toLowerCase();
   const matches = [];
+
+  // Find matches using binary search
+  let index = findFirstMatch(appState.searchIndex, normalizedQuery);
   
-  // Find prefix matches in the searchIndex
-  for (const key in appState.searchIndex) {
-    if (key.startsWith(normalizedQuery)) {
-      appState.searchIndex[key].forEach(term => {
-        if (!matches.includes(term)) {
-          matches.push(term);
-        }
-      });
+  if (index !== -1) {
+    while (index < appState.searchIndex.length) {
+      const entry = appState.searchIndex[index];
+      const parts = entry.split("|");
+      const key = parts[0];
+      
+      if (!key.startsWith(normalizedQuery)) break;
+      
+      // Add all Unicode values associated with this ASCII key
+      for (let i = 1; i < parts.length; i++) {
+        matches.push(parts[i]);
+      }
+      
+      if (matches.length >= 100) break;
+      index++;
     }
   }
 
-  // Sort matches: shortest ASCII first, then alphabetically by ASCII
+  // Sort matches: shortest ASCII first, then alphabetically
   matches.sort((a, b) => {
     const cleanA = stripDiacritics(a).toLowerCase();
     const cleanB = stripDiacritics(b).toLowerCase();
-    
-    if (cleanA.length !== cleanB.length) {
-      return cleanA.length - cleanB.length;
-    }
-    
-    if (cleanA !== cleanB) {
-      return cleanA.localeCompare(cleanB);
-    }
-    
-    // If ASCII is identical, fall back to original Unicode for stable sorting
+    if (cleanA.length !== cleanB.length) return cleanA.length - cleanB.length;
+    if (cleanA !== cleanB) return cleanA.localeCompare(cleanB);
     return a.localeCompare(b);
   });
 
