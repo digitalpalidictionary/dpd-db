@@ -1,6 +1,7 @@
 
 
 __pycache__/
+.DS_Store
 .venv
 .vscode/
 *.db
@@ -15,9 +16,9 @@ archive/db/deconstructor/output/
 archive/db/frequency/output/
 audio/db/*.tar.gz
 audio/db/dpd_audio.db
+audio/error_check/deleted_silent_files.txt
 audio/error_check/skipped_threshold.txt
 audio/error_check/trimmed_files.txt
-audio/error_check/deleted_silent_files.txt
 audio/mp3s/
 audio/tests/mp3s/
 config.ini
@@ -30,6 +31,7 @@ db/suttas/todo.md
 db/suttas/Untitled Document
 docs_site
 dpd/
+exporter/chrome_extension/node_modules/
 exporter/goldendict/javascript/family_compound_json.js
 exporter/goldendict/javascript/family_idiom_json.js
 exporter/goldendict/javascript/family_root_json.js
@@ -94,6 +96,7 @@ exporter/share/
 exporter/tester/fonts/
 exporter/tester/tester/
 exporter/tpr/output/
+exporter/webapp/static/search_index.json
 exporter/word_trees/
 go_modules/deconstructor/output/*.json
 go_modules/deconstructor/output/*.tsv
@@ -119,7 +122,3 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
-.DS_Store
-
-# exporter/chrome_extension
-exporter/chrome_extension/node_modules/
