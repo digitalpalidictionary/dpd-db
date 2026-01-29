@@ -139,9 +139,31 @@ logoLink.addEventListener("click", function (e) {
   clearSearch();
 });
 
-// Original double-click functionality
+// Double-click and tap functionality for desktop and mobile
 dpdPane.addEventListener("dblclick", processSelection);
 historyPane.addEventListener("dblclick", processSelection);
+
+// Mobile tap support - detect double-tap
+dpdPane.addEventListener("touchend", handleTouchEnd);
+historyPane.addEventListener("touchend", handleTouchEnd);
+
+let lastTapTime = 0;
+let lastTapTarget = null;
+
+function handleTouchEnd(event) {
+  const currentTime = new Date().getTime();
+  const tapLength = currentTime - lastTapTime;
+  const target = event.target;
+
+  // Check if this is a double-tap (within 300ms and on same element)
+  if (tapLength < 300 && tapLength > 0 && target === lastTapTarget) {
+    event.preventDefault();
+    processSelection(event);
+  }
+
+  lastTapTime = currentTime;
+  lastTapTarget = target;
+}
 
 function processSelection(event) {
   const selection = window.getSelection();
@@ -188,9 +210,10 @@ function expandSelectionToWord() {
   if (initialNode.nodeType !== Node.TEXT_NODE) return;
 
   // Characters to stop on.
-  // Note: Closing quotes (' ") are removed from stopChars so expansion includes suffixes like "ti.
+  // Note: Apostrophe ('), hyphen (-) are removed from stopChars
+  // so expansion includes suffixes like "ti and compound words with hyphens/apostrophes.
   const stopChars =
-    /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9'"]/;
+    /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9"]/;
   const isStop = (char) => !char || stopChars.test(char);
 
   let startNode = initialNode;
