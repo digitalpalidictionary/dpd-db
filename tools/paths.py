@@ -641,6 +641,7 @@ class ProjectPaths:
         # tools
         self.speech_marks_path = base_dir / "tools/speech_marks.json"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"
+        self.tpr_codes_json_path = base_dir / "tools/tpr_codes.json"
 
         # db_tests/
         self.internal_tests_path = base_dir / "db_tests/db_tests_columns.tsv"

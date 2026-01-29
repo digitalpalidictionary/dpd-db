@@ -4,6 +4,8 @@
 
 import json
 
+from pathlib import Path
+
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 
@@ -15,6 +17,7 @@ _idioms_set_cache = None
 _sutta_info_cache = None
 _audio_set_cache = None
 _audio_dict_cache = None
+_tpr_codes_set_cache = None
 
 
 def load_sutta_info_set():
@@ -136,6 +139,21 @@ def load_audio_dict() -> dict[str, tuple[bool, bool, bool]]:
             return _audio_dict_cache
         finally:
             audio_session.close()
+
+
+def load_tpr_codes_set() -> set[str]:
+    """load TPR sutta codes from json file"""
+    global _tpr_codes_set_cache
+
+    if _tpr_codes_set_cache is not None:
+        return _tpr_codes_set_cache
+    else:
+        json_path = pth.tpr_codes_json_path
+        if json_path.exists():
+            with open(json_path, "r", encoding="utf-8") as f:
+                _tpr_codes_set_cache = set(json.load(f))
+                return _tpr_codes_set_cache
+        return set()
 
 
 if __name__ == "__main__":

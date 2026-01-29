@@ -7,3 +7,8 @@
 
 ## [ ] Track: Database Query Tab Feature
 *Link: [./conductor/tracks/db_query_tab_20251231/](./conductor/tracks/db_query_tab_20251231/)*
+
+---
+
+## [~] Track: Add Deep links to Tipiṭaka Pāḷi Reader (TPR)
+*Link: [./conductor/tracks/tpr_links_20260129/](./conductor/tracks/tpr_links_20260129/)*

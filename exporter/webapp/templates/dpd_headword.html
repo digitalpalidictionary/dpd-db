@@ -189,7 +189,7 @@
         {% if d.su.cst_code %}
         <tr>
             <th class="heading" colspan="2">
-                Websites using CST
+                Websites and apps using CST
             </th>
         </tr>
         {% endif %}
@@ -202,6 +202,17 @@
             <td>
                 <a href="{{ d.su.dpr_link }}" target="_blank">{{ d.su.dpr_link
                     }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.has_tpr %}
+        <tr>
+            <th>
+                Tipiṭaka Pāḷi Reader
+            </th>
+            <td>
+                <a href="tpr.pali.tools://open/?sutta={{ d.su.dpd_code.lower() }}" target="_blank">tpr.pali.tools://open/?sutta={{ d.su.dpd_code.lower() }}</a>
             </td>
         </tr>
         {% endif %}

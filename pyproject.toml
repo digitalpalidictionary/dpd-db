@@ -16,6 +16,7 @@ dependencies = [
     "unidecode>=1.3.8",
     "prometheus-fastapi-instrumentator>=7.1.0",
     "psutil>=7.0.0",
+    "natsort>=8.4.0",
 ]
 
 [dependency-groups]

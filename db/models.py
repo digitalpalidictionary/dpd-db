@@ -2,8 +2,10 @@
 
 import json
 import re
+from pathlib import Path
 from typing import List, Optional
 
+from aksharamukha import transliterate
 from sqlalchemy import DateTime, ForeignKey, and_, case, null, or_
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import (
@@ -15,7 +17,6 @@ from sqlalchemy.orm import (
     relationship,
 )
 from sqlalchemy.sql import func
-from aksharamukha import transliterate
 
 from tools.pali_sort_key import pali_sort_key
 from tools.pos import CONJUGATIONS, DECLENSIONS, EXCLUDE_FROM_FREQ
@@ -599,6 +600,23 @@ class SuttaInfo(Base):
             return f"https://suttacentral.net/{self.sc_code}/en/sujato"
         else:
             return None
+
+    @property
+    def has_tpr(self) -> bool:
+        from tools.cache_load import load_tpr_codes_set
+
+        tpr_codes = load_tpr_codes_set()
+
+        if self.dpd_code:
+            code = self.dpd_code.lower().strip()
+            if code in tpr_codes:
+                return True
+            # Handle cases like an5.31.1 -> an5.31
+            if "." in code:
+                base_code = code.split(".")[0]
+                if base_code in tpr_codes:
+                    return True
+        return False
 
     @property
     def sc_book_code(self) -> str | None:
@@ -1312,16 +1330,19 @@ class DpdHeadword(Base):
     @property
     def audio_male1(self) -> bool:
         from tools.cache_load import load_audio_dict
+
         return load_audio_dict().get(self.lemma_clean, (False, False, False))[0]
 
     @property
     def audio_male2(self) -> bool:
         from tools.cache_load import load_audio_dict
+
         return load_audio_dict().get(self.lemma_clean, (False, False, False))[1]
 
     @property
     def audio_female1(self) -> bool:
         from tools.cache_load import load_audio_dict
+
         return load_audio_dict().get(self.lemma_clean, (False, False, False))[2]
 
     @property
