@@ -388,6 +388,9 @@ function render() {
   if (ttResults) {
     ttResults.innerHTML = appState.tt.resultsHTML;
   }
+
+  // Focus the search box for the active tab
+  focusActiveTabSearchBox();
 }
 
 // Switch to a different tab
@@ -1415,6 +1418,19 @@ function hideLoading(buttonId) {
   }
 }
 
+function focusActiveTabSearchBox() {
+  if (appState.activeTab === "dpd") {
+    const searchBox = document.getElementById("search-box");
+    if (searchBox) searchBox.focus();
+  } else if (appState.activeTab === "bd") {
+    const bdSearchBox = document.getElementById("bd-search-box-1");
+    if (bdSearchBox) bdSearchBox.focus();
+  } else if (appState.activeTab === "tt") {
+    const ttSearchBox = document.getElementById("tt-search-box");
+    if (ttSearchBox) ttSearchBox.focus();
+  }
+}
+
 // Expose performSearch to the global scope
 window.performSearch = performSearch;
 window.switchTab = switchTab;
@@ -1423,3 +1439,4 @@ window.clearHistory = clearHistory;
 window.searchHistoryItem = searchHistoryItem;
 window.showLoading = showLoading;
 window.hideLoading = hideLoading;
+window.focusActiveTabSearchBox = focusActiveTabSearchBox;
