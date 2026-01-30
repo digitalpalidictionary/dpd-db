@@ -21,7 +21,7 @@ def generate_epd_html(
 
     size_dict = default_rendered_sizes()
 
-    pr.green("generating epd html from lookup table")
+    pr.green("generating epd html from lookup")
 
     header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
     header = str(header_templ.render())
