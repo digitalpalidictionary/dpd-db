@@ -1,0 +1,18 @@
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="{{ counter }}">
+    <idx:short>
+        <idx:orth value="{{ i['abbrev'] }}"><b>{{ i['abbrev'] }}</b>
+        </idx:orth>
+        <p class="body-space">{{ i['meaning'] }}.
+        {% if i['explanation'] %}
+            {{ i['explanation'] }}.
+        {% endif %}
+        {% if i['pāli'] %}
+            <i>{{ i['pāli'] }}</i> in Pāḷi.
+        {% endif %}
+        {% if i['example'] %}
+            e.g. {{ i['example'] }}.
+        {% endif %}
+        </p>
+    </idx:short>
+</idx:entry>
+<hr class="dpd" />

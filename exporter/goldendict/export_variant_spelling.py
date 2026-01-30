@@ -4,9 +4,10 @@
 import csv
 from typing import List, Tuple
 
-from mako.template import Template
+from jinja2 import Template
 from minify_html import minify
 
+from exporter.jinja2_env import create_jinja2_env
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry
 from tools.niggahitas import add_niggahitas
@@ -20,6 +21,17 @@ from tools.utils import (
 )
 
 
+class VariantSpellingTemplates:
+    """Container for Jinja2 templates used in variant/spelling export."""
+
+    def __init__(self, pth: ProjectPaths):
+        jinja2_env = create_jinja2_env(pth.goldendict_templates_jinja2_dir)
+
+        self.header_plain_templ = jinja2_env.get_template("dpd_header_plain.html")
+        self.variant_templ = jinja2_env.get_template("dpd_variant_reading.html")
+        self.spelling_templ = jinja2_env.get_template("dpd_spelling_mistake.html")
+
+
 def generate_variant_spelling_html(
     pth: ProjectPaths,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
@@ -29,7 +41,7 @@ def generate_variant_spelling_html(
 
     rendered_sizes = []
 
-    header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
+    templates = VariantSpellingTemplates(pth)
 
     variant_dict = test_and_make_variant_dict(pth)
     spelling_dict = test_and_make_spelling_dict(pth)
@@ -37,14 +49,14 @@ def generate_variant_spelling_html(
     variant_data_list, sizes = generate_variant_data_list(
         pth,
         variant_dict,
-        header_templ,
+        templates,
     )
     rendered_sizes.append(sizes)
 
     spelling_data_list, sizes = generate_spelling_data_list(
         pth,
         spelling_dict,
-        header_templ,
+        templates,
     )
     rendered_sizes.append(sizes)
 
@@ -83,13 +95,11 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
 def generate_variant_data_list(
     pth: ProjectPaths,
     variant_dict: dict,
-    header_templ: Template,
+    templates: VariantSpellingTemplates,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
-    variant_templ = Template(filename=str(pth.variant_templ_path))
-
-    header = str(header_templ.render())
+    header = str(templates.header_plain_templ.render())
 
     # Add Variables and fonts
     css_manager = CSSManager()
@@ -100,7 +110,7 @@ def generate_variant_data_list(
     for __counter__, (variant, main) in enumerate(variant_dict.items()):
         html = ""
         html += "<body>"
-        html += str(variant_templ.render(main=main))
+        html += str(templates.variant_templ.render(main=main))
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -152,13 +162,11 @@ def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
 def generate_spelling_data_list(
     pth: ProjectPaths,
     spelling_dict: dict,
-    header_templ: Template,
+    templates: VariantSpellingTemplates,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
-    spelling_templ = Template(filename=str(pth.spelling_templ_path))
-
-    header = str(header_templ.render())
+    header = str(templates.header_plain_templ.render())
 
     # Add Variables and fonts
     css_manager = CSSManager()
@@ -169,7 +177,7 @@ def generate_spelling_data_list(
     for __counter__, (mistake, correction) in enumerate(spelling_dict.items()):
         html = ""
         html += "<body>"
-        html += str(spelling_templ.render(correction=correction))
+        html += str(templates.spelling_templ.render(correction=correction))
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)

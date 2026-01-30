@@ -226,6 +226,11 @@ class ProjectPaths:
             base_dir / "exporter/goldendict/templates/dpd_sutta_info.html"
         )
 
+        # exporter/goldendict/templates_jinja2
+        self.goldendict_templates_jinja2_dir = (
+            base_dir / "exporter/goldendict/templates_jinja2"
+        )
+
         # FIXME delete these and whatever uses them
         # exporter/jinja templates
         self.complete_word_templ_path = (
@@ -538,6 +543,7 @@ class ProjectPaths:
         )
 
         # resources/tpr
+        self.tpr_codes_json_path = base_dir / "resources/tpr/tpr_codes.json"
         self.tpr_beta_path = (
             base_dir / "resources/tpr_downloads/release_zips/dpd_beta.zip"
         )

@@ -1,0 +1,21 @@
+<div class="dpd">
+    <p>
+        {{ i.pos }}. 
+        
+        {% if i.plus_case %}
+        ({{ i.plus_case }}) 
+        {% endif %}
+        
+        {{ i.meaning_combo_html | safe }} 
+        
+        {% if i.construction_summary %}
+        [{{ i.construction_summary }}] 
+        {% endif %}
+        
+        {{ i.degree_of_completion_html | safe }} 
+        
+        {% if show_id %}
+        <span class="gray">{{ i.id }}</span>
+        {% endif %}
+    </p>
+</div>

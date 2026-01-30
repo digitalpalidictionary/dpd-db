@@ -640,6 +640,7 @@ dev = [
     { name = "pylama" },
     { name = "pylint" },
     { name = "pytest" },
+    { name = "ruff" },
 ]
 tools = [
     { name = "anki" },
@@ -653,7 +654,6 @@ tools = [
     { name = "google-generativeai" },
     { name = "gtts" },
     { name = "indic-transliteration" },
-    { name = "mako" },
     { name = "marimo" },
     { name = "mcp" },
     { name = "miniaudio" },
@@ -708,6 +708,7 @@ dev = [
     { name = "pylama", specifier = ">=8.4.1" },
     { name = "pylint", specifier = ">=2.17.0" },
     { name = "pytest", specifier = ">=7.4.3" },
+    { name = "ruff", specifier = ">=0.11.6" },
 ]
 tools = [
     { name = "anki", specifier = ">=23.10.1" },
@@ -721,7 +722,6 @@ tools = [
     { name = "google-generativeai", specifier = ">=0.8.4" },
     { name = "gtts", specifier = ">=2.5.4" },
     { name = "indic-transliteration", specifier = ">=2.3.75" },
-    { name = "mako", specifier = ">=1.2.4" },
     { name = "marimo", specifier = ">=0.12.4" },
     { name = "mcp", specifier = ">=1.6.0" },
     { name = "miniaudio", specifier = ">=1.61" },
@@ -1668,18 +1668,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/ee/cd/95fa2201041a610c4d08ddaf31d43b98ecc4b1d74b1e7245b1abdab443cb/lxml-5.4.0-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:15a665ad90054a3d4f397bc40f73948d48e36e4c09f9bcffc7d90c87410e478a", size = 5021569 },
     { url = "https://files.pythonhosted.org/packages/2d/a6/31da006fead660b9512d08d23d31e93ad3477dd47cc42e3285f143443176/lxml-5.4.0-cp313-cp313-win32.whl", hash = "sha256:d5663bc1b471c79f5c833cffbc9b87d7bf13f87e055a5c86c363ccd2348d7e82", size = 3485270 },
     { url = "https://files.pythonhosted.org/packages/fc/14/c115516c62a7d2499781d2d3d7215218c0731b2c940753bf9f9b7b73924d/lxml-5.4.0-cp313-cp313-win_amd64.whl", hash = "sha256:bcb7a1096b4b6b24ce1ac24d4942ad98f983cd3810f9711bcd0293f43a9d8b9f", size = 3814606 },
-]
-
-[[package]]
-name = "mako"
-version = "1.3.10"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "markupsafe" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/9e/38/bd5b78a920a64d708fe6bc8e0a2c075e1389d53bef8413725c63ba041535/mako-1.3.10.tar.gz", hash = "sha256:99579a6f39583fa7e5630a28c3c1f440e4e97a414b80372649c0ce338da2ea28", size = 392474 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/87/fb/99f81ac72ae23375f22b7afdb7642aba97c00a713c217124420147681a2f/mako-1.3.10-py3-none-any.whl", hash = "sha256:baef24a52fc4fc514a0887ac600f9f1cff3d82c61d4d700a1fa84d597b88db59", size = 78509 },
 ]
 
 [[package]]

@@ -7,7 +7,7 @@ from typing import List, Set, Tuple, TypedDict
 import psutil
 
 # from css_html_js_minify import css_minify, js_minify
-from mako.template import Template
+from jinja2 import Template
 from minify_html import minify
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import func
@@ -25,6 +25,7 @@ from db.models import (
 from audio.db.models import DpdAudio
 from audio.db.db_helpers import get_audio_session
 from exporter.goldendict.helpers import TODAY
+from exporter.jinja2_env import create_jinja2_env
 from tools.configger import config_test
 from tools.css_manager import CSSManager
 from tools.date_and_time import year_month_day_dash
@@ -53,24 +54,24 @@ from tools.utils import (
 class DpdHeadwordTemplates:
     def __init__(self, paths: ProjectPaths):
         self.paths = paths
-        self.header_templ = Template(filename=str(paths.dpd_header_templ_path))
-        self.dpd_definition_templ = Template(
-            filename=str(paths.dpd_definition_templ_path)
-        )
-        self.button_box_templ = Template(filename=str(paths.button_box_templ_path))
-        self.sutta_info_templ = Template(filename=str(paths.sutta_info_templ_path))
-        self.grammar_templ = Template(filename=str(paths.grammar_templ_path))
-        self.example_templ = Template(filename=str(paths.example_templ_path))
-        self.inflection_templ = Template(filename=str(paths.inflection_templ_path))
-        self.family_root_templ = Template(filename=str(paths.family_root_templ_path))
-        self.family_word_templ = Template(filename=str(paths.family_word_templ_path))
-        self.family_compound_templ = Template(
-            filename=str(paths.family_compound_templ_path)
-        )
-        self.family_idiom_templ = Template(filename=str(paths.family_idiom_templ_path))
-        self.family_set_templ = Template(filename=str(paths.family_set_templ_path))
-        self.frequency_templ = Template(filename=str(paths.frequency_templ_path))
-        self.feedback_templ = Template(filename=str(paths.feedback_templ_path))
+
+        # Create Jinja2 environment for GoldenDict templates
+        jinja2_env = create_jinja2_env(paths.goldendict_templates_jinja2_dir)
+
+        self.header_templ = jinja2_env.get_template("dpd_header.html")
+        self.dpd_definition_templ = jinja2_env.get_template("dpd_definition.html")
+        self.button_box_templ = jinja2_env.get_template("dpd_button_box.html")
+        self.sutta_info_templ = jinja2_env.get_template("dpd_sutta_info.html")
+        self.grammar_templ = jinja2_env.get_template("dpd_grammar.html")
+        self.example_templ = jinja2_env.get_template("dpd_example.html")
+        self.inflection_templ = jinja2_env.get_template("dpd_inflection.html")
+        self.family_root_templ = jinja2_env.get_template("dpd_family_root.html")
+        self.family_word_templ = jinja2_env.get_template("dpd_family_word.html")
+        self.family_compound_templ = jinja2_env.get_template("dpd_family_compound.html")
+        self.family_idiom_templ = jinja2_env.get_template("dpd_family_idiom.html")
+        self.family_set_templ = jinja2_env.get_template("dpd_family_set.html")
+        self.frequency_templ = jinja2_env.get_template("dpd_frequency.html")
+        self.feedback_templ = jinja2_env.get_template("dpd_feedback.html")
 
         self.dpd_css = ""
         self.button_js = ""

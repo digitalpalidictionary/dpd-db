@@ -13,6 +13,7 @@
 ## Libraries and Frameworks
 - **SQLAlchemy:** SQL Toolkit and Object-Relational Mapper (ORM) for Python.
 - **GORM:** Object-Relational Mapper (ORM) for Go.
+- **Jinja2:** Modern templating engine for Python, used across all exporters.
 - **FastAPI & Uvicorn:** Modern, high-performance web framework and server for building the Webapp API.
 - **Prometheus FastAPI Instrumentator:** Exposes performance and memory metrics for real-time monitoring.
 - **Flet:** Framework to build interactive multi-platform apps in Python (replaces legacy PySimpleGUI).

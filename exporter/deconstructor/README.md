@@ -6,7 +6,7 @@ Pāḷi literature is characterized by complex, often multi-word compounds (*sam
 ## Architectural Logic
 This subsystem follows a "Specialized Component Export" pattern:
 1.  **Data Retrieval:** It pulls pre-calculated compound splits from the `deconstructor` column of the `Lookup` table.
-2.  **Visualization:** Uses Mako templates (`deconstructor.html`) to render the splits into a consistent, readable format.
+2.  **Visualization:** Uses Jinja2 templates (`templates_jinja2/deconstructor.html`) to render the splits into a consistent, readable format.
 3.  **Cross-Format Export:** Similar to the grammar dictionary, it utilizes `tools/goldendict_exporter.py` and `tools/mdict_exporter.py` to create the final binaries.
 4.  **Synonym Mapping:** It includes logic to map variants and contractions, ensuring that users find the relevant deconstruction even if the search term is slightly varied.
 

@@ -3,12 +3,13 @@
 import re
 from typing import Dict, List, Tuple
 
-from mako.template import Template
+from jinja2 import Template
 from minify_html import minify
 from sqlalchemy.orm import Session
 
 from db.models import DpdRoot, FamilyRoot
 from exporter.goldendict.helpers import TODAY
+from exporter.jinja2_env import create_jinja2_env
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry
 from tools.niggahitas import add_niggahitas
@@ -16,6 +17,20 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
+
+
+class RootsTemplates:
+    """Container for Jinja2 templates used in root export."""
+
+    def __init__(self, pth: ProjectPaths):
+        jinja2_env = create_jinja2_env(pth.goldendict_templates_jinja2_dir)
+
+        self.header_templ = jinja2_env.get_template("root_header.html")
+        self.definition_templ = jinja2_env.get_template("root_definition.html")
+        self.buttons_templ = jinja2_env.get_template("root_buttons.html")
+        self.info_templ = jinja2_env.get_template("root_info.html")
+        self.matrix_templ = jinja2_env.get_template("root_matrix.html")
+        self.families_templ = jinja2_env.get_template("root_families.html")
 
 
 def generate_root_html(
@@ -29,7 +44,7 @@ def generate_root_html(
     size_dict = default_rendered_sizes()
     root_data_list: List[DictEntry] = []
 
-    header_templ = Template(filename=str(pth.root_header_templ_path))
+    templates = RootsTemplates(pth)
 
     roots_db = db_session.query(DpdRoot).all()
 
@@ -46,7 +61,7 @@ def generate_root_html(
         html += "<body>"
 
         root_header = render_root_header_templ(
-            pth, r=r, date=str(TODAY), header_templ=header_templ
+            pth, r=r, date=str(TODAY), header_templ=templates.header_templ
         )
 
         # Add variables and fonts
@@ -57,6 +72,7 @@ def generate_root_html(
             pth,
             r,
             roots_count_dict,
+            definition_templ=templates.definition_templ,
         )
         html += definition
         size_dict["root_definition"] += len(definition)
@@ -65,6 +81,7 @@ def generate_root_html(
             pth,
             r,
             db_session,
+            buttons_templ=templates.buttons_templ,
         )
         html += root_buttons
         size_dict["root_buttons"] += len(root_buttons)
@@ -72,6 +89,7 @@ def generate_root_html(
         root_info = render_root_info_templ(
             pth,
             r,
+            info_templ=templates.info_templ,
         )
         html += root_info
         size_dict["root_info"] += len(root_info)
@@ -80,6 +98,7 @@ def generate_root_html(
             pth,
             r,
             roots_count_dict,
+            matrix_templ=templates.matrix_templ,
         )
         html += root_matrix
         size_dict["root_matrix"] += len(root_matrix)
@@ -88,6 +107,7 @@ def generate_root_html(
             pth,
             r,
             db_session,
+            families_templ=templates.families_templ,
         )
         html += root_families
         size_dict["root_families"] += len(root_families)
@@ -135,10 +155,9 @@ def render_root_definition_templ(
     pth: ProjectPaths,
     r: DpdRoot,
     roots_count_dict,
+    definition_templ: Template,
 ):
     """render html of main root info"""
-
-    root_definition_templ = Template(filename=str(pth.root_definition_templ_path))
 
     try:
         count = roots_count_dict[r.root]
@@ -146,7 +165,7 @@ def render_root_definition_templ(
         count = 0
 
     return str(
-        root_definition_templ.render(
+        definition_templ.render(
             r=r,
             count=count,
             today=TODAY,
@@ -158,35 +177,33 @@ def render_root_buttons_templ(
     pth: ProjectPaths,
     r: DpdRoot,
     db_session: Session,
+    buttons_templ: Template,
 ):
     """render html of root buttons"""
-
-    root_buttons_templ = Template(filename=str(pth.root_button_templ_path))
 
     frs = db_session.query(FamilyRoot).filter(FamilyRoot.root_key == r.root)
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 
-    return str(root_buttons_templ.render(r=r, frs=frs))
+    return str(buttons_templ.render(r=r, frs=frs))
 
 
-def render_root_info_templ(pth: ProjectPaths, r: DpdRoot):
+def render_root_info_templ(pth: ProjectPaths, r: DpdRoot, info_templ: Template):
     """render html of root grammatical info"""
 
-    root_info_templ = Template(filename=str(pth.root_info_templ_path))
     root_info = ""
 
-    return str(root_info_templ.render(r=r, root_info=root_info, today=TODAY))
+    return str(info_templ.render(r=r, root_info=root_info, today=TODAY))
 
 
 def render_root_matrix_templ(
     pth: ProjectPaths,
     r: DpdRoot,
     roots_count_dict,
+    matrix_templ: Template,
 ):
     """render html of root matrix"""
 
-    root_matrix_templ = Template(filename=str(pth.root_matrix_templ_path))
     root_matrix = ""
 
     try:
@@ -195,7 +212,7 @@ def render_root_matrix_templ(
         count = 0
 
     return str(
-        root_matrix_templ.render(r=r, count=count, root_matrix=root_matrix, today=TODAY)
+        matrix_templ.render(r=r, count=count, root_matrix=root_matrix, today=TODAY)
     )
 
 
@@ -203,10 +220,9 @@ def render_root_families_templ(
     pth: ProjectPaths,
     r: DpdRoot,
     db_session: Session,
+    families_templ: Template,
 ):
     """render html of root families"""
-
-    root_families_templ = Template(filename=str(pth.root_families_templ_path))
 
     frs = (
         db_session.query(FamilyRoot)
@@ -218,4 +234,4 @@ def render_root_families_templ(
 
     frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
 
-    return str(root_families_templ.render(r=r, frs=frs, today=TODAY))
+    return str(families_templ.render(r=r, frs=frs, today=TODAY))

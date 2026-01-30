@@ -2,7 +2,9 @@
 
 """Compile HTML table of all grammatical possibilities of every inflected word-form."""
 
-from mako.template import Template
+from pathlib import Path
+
+from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
@@ -18,6 +20,15 @@ from tools.mdict_exporter import export_to_mdict
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+
+
+def get_jinja2_env(templates_dir: Path) -> Environment:
+    """Create a Jinja2 environment for the given templates directory."""
+    return Environment(
+        loader=FileSystemLoader(str(templates_dir)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
 
 
 class GlobalVars:
@@ -65,11 +76,11 @@ def main():
 
 
 def render_header_templ(
-    __pth__: ProjectPaths, css: str, js: str, header_templ: Template
+    __pth__: ProjectPaths, css: str, js: str, header_templ
 ) -> str:
     """render the html header with css and js"""
 
-    return str(header_templ.render(css=css, js=js))
+    return header_templ.render(css=css, js=js)
 
 
 def generate_grammar_row_html(data_tuple: tuple[str, str, str]) -> str:
@@ -129,11 +140,9 @@ def generate_html_from_lookup(g: GlobalVars):
     html_dict = {}
 
     # create the header from a template
-    header_templ = Template(
-        filename=str(
-            g.pth.grammar_dict_header_templ_path,
-        )
-    )
+    templates_dir = g.pth.grammar_dict_header_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    header_templ = jinja_env.get_template(g.pth.grammar_dict_header_templ_path.name)
     html_header = render_header_templ(
         g.pth,
         css="",

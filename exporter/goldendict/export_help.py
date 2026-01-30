@@ -4,16 +4,28 @@
 import csv
 from typing import Dict, List, Tuple
 
-from mako.template import Template
+from jinja2 import Template
 from minify_html import minify
 from sqlalchemy.orm import Session
 
+from exporter.jinja2_env import create_jinja2_env
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict, read_tsv_dot_dict
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
+
+
+class HelpTemplates:
+    """Container for Jinja2 templates used in help export."""
+
+    def __init__(self, pth: ProjectPaths):
+        jinja2_env = create_jinja2_env(pth.goldendict_templates_jinja2_dir)
+
+        self.header_plain_templ = jinja2_env.get_template("dpd_header_plain.html")
+        self.abbrev_templ = jinja2_env.get_template("help_abbrev.html")
+        self.help_templ = jinja2_env.get_template("help_help.html")
 
 
 class Abbreviation:
@@ -66,8 +78,9 @@ def generate_help_html(
     # 3. thank yous
     # 4. bibliography
 
-    header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
-    header = str(header_templ.render())
+    templates = HelpTemplates(pth)
+
+    header = str(templates.header_plain_templ.render())
 
     # Add Variables and fonts
     css_manager = CSSManager()
@@ -75,11 +88,11 @@ def generate_help_html(
 
     help_data_list: List[DictEntry] = []
 
-    abbrev = add_abbrev_html(pth, header)
+    abbrev = add_abbrev_html(pth, header, templates)
     help_data_list.extend(abbrev)
     size_dict["help"] += len(str(abbrev))
 
-    help_html = add_help_html(pth, header)
+    help_html = add_help_html(pth, header, templates)
     help_data_list.extend(help_html)
     size_dict["help"] += len(str(help_html))
 
@@ -98,6 +111,7 @@ def generate_help_html(
 def add_abbrev_html(
     pth: ProjectPaths,
     header: str,
+    templates: HelpTemplates,
 ) -> List[DictEntry]:
     help_data_list = []
 
@@ -126,7 +140,7 @@ def add_abbrev_html(
     for i in items:
         html = ""
         html += "<body>"
-        html += render_abbrev_templ(pth, i)
+        html += render_abbrev_templ(templates, i)
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -148,6 +162,7 @@ def add_abbrev_html(
 def add_help_html(
     pth: ProjectPaths,
     header: str,
+    templates: HelpTemplates,
 ) -> List[DictEntry]:
     help_data_list = []
 
@@ -173,7 +188,7 @@ def add_help_html(
     for i in items:
         html = ""
         html += "<body>"
-        html += render_help_templ(pth, i)
+        html += render_help_templ(templates, i)
         html += "</body></html>"
 
         html = squash_whitespaces(header) + minify(html)
@@ -307,22 +322,18 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
 
 
 def render_abbrev_templ(
-    pth: ProjectPaths,
+    templates: HelpTemplates,
     i: Abbreviation,
 ) -> str:
     """render html of abbreviations"""
 
-    abbrev_templ = Template(filename=str(pth.abbrev_templ_path))
-
-    return str(abbrev_templ.render(i=i))
+    return str(templates.abbrev_templ.render(i=i))
 
 
 def render_help_templ(
-    pth: ProjectPaths,
+    templates: HelpTemplates,
     i: Help,
 ) -> str:
     """render html of help"""
 
-    help_templ = Template(filename=str(pth.help_templ_path))
-
-    return str(help_templ.render(i=i))
+    return str(templates.help_templ.render(i=i))

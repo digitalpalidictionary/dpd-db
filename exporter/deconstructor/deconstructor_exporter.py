@@ -2,7 +2,9 @@
 
 """Export Deconstructor To GoldenDict and MDict formats."""
 
-from mako.template import Template
+from pathlib import Path
+
+from jinja2 import Environment, FileSystemLoader
 from minify_html import minify
 
 from db.db_helpers import get_db_session
@@ -22,6 +24,15 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager, SpeechMarksDict
 from tools.utils import squash_whitespaces
+
+
+def get_jinja2_env(templates_dir: Path) -> Environment:
+    """Create a Jinja2 environment for the given templates directory."""
+    return Environment(
+        loader=FileSystemLoader(str(templates_dir)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
 
 
 class GlobalVars:
@@ -51,14 +62,14 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
     deconstructor_db_length: int = len(deconstructor_db)
 
     speech_marks_manager = SpeechMarkManager()
-    speech_marks: SpeechMarksDict = (
-        speech_marks_manager.get_speech_marks()
-    )
+    speech_marks: SpeechMarksDict = speech_marks_manager.get_speech_marks()
 
     dict_data: list = []
 
-    header_templ = Template(filename=str(g.pth.deconstructor_header_templ_path))
-    deconstructor_header = str(header_templ.render(css="", js=""))
+    templates_dir = g.pth.deconstructor_header_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    header_templ = jinja_env.get_template(g.pth.deconstructor_header_templ_path.name)
+    deconstructor_header = header_templ.render(css="", js="")
 
     # add css variables and roots
     css_manager = CSSManager()
@@ -66,7 +77,7 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
         deconstructor_header, "deconstructor"
     )
 
-    deconstructor_templ = Template(filename=str(g.pth.deconstructor_templ_path))
+    deconstructor_templ = jinja_env.get_template(g.pth.deconstructor_templ_path.name)
 
     pr.yes(len(deconstructor_db))
 
@@ -75,10 +86,8 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
 
         html_string: str = ""
         html_string += "<body>"
-        html_string += str(
-            deconstructor_templ.render(
-                i=i, deconstructions=deconstructions, today=TODAY
-            )
+        html_string += deconstructor_templ.render(
+            i=i, deconstructions=deconstructions, today=TODAY
         )
 
         html_string += "</body></html>"

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta data_key="data_{{ i.lemma_1_ }}">
+
+        <title>Digital Pāḷi Dictionary</title>
+
+        <style>
+        </style>
+
+        <link href="dpd-css-and-fonts.css" rel="stylesheet">
+
+        <link href="family_compound_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_compound_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_idiom_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_idiom_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_root_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_root_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_set_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_set_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_word_json.js" class="load_js" rel="preload"
+            as="script">
+        <link href="family_word_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="feedback_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="frequency_template.js" class="load_js" rel="preload"
+            as="script">
+        <link href="main.js" class="load_js" rel="preload" as="script">
+
+        <script>
+        var data_{{  i.lemma_1_  }} = {
+            "id": {{  i.id  }},
+            "lemma": "{{ i.lemma_1 }}",
+            "date": "{{ date }}",
+            "family_root": "{{ i.root_family_key }}",
+            
+            {% if i.needs_compound_family_button or i.needs_compound_families_button %}
+            "family_compounds": {{  i.family_compound_list  }},
+            {% else %}
+            "family_compounds": [],
+            {% endif %}
+            {% if i.needs_idioms_button %}
+            "family_idioms": {{  i.family_idioms_list  }},
+            {% else %}
+            "family_idioms": [],
+            {% endif %}
+            {% if i.needs_word_family_button %}
+            "family_word": "{{ i.family_word }}",
+            {% endif %}
+            {% if i.needs_set_button or i.needs_sets_button %}
+            "family_sets": {{  i.family_set_list  }},
+            {% else %}
+            "family_sets": [],
+            {% endif %}
+            {% if i.needs_frequency_button %}
+            "FreqHeading": "{{ i.freq_data_unpack["FreqHeading"] }}",
+            "CstFreq": {{  i.freq_data_unpack["CstFreq"]  }},
+            "CstGrad": {{  i.freq_data_unpack["CstGrad"]  }},
+            "BjtFreq": {{  i.freq_data_unpack["BjtFreq"]  }},
+            "BjtGrad": {{  i.freq_data_unpack["BjtGrad"]  }},
+            "SyaFreq": {{  i.freq_data_unpack["SyaFreq"]  }},
+            "SyaGrad": {{  i.freq_data_unpack["SyaGrad"]  }},
+            "ScFreq": {{  i.freq_data_unpack["ScFreq"]  }},
+            "ScGrad": {{  i.freq_data_unpack["ScGrad"]  }}
+            {% endif %}
+        };
+    </script>
+
+        <script>
+        if (typeof progName == "undefined") {
+            var progName = "GoldenDict"
+        }
+    </script>
+
+        <script>
+        var els2load = document.getElementsByClassName("load_js");
+        if (typeof js_already_loaded === "undefined") {
+            var js_already_loaded = true;
+            var elsArray = Array.from(els2load);
+            elsArray.forEach(el => {
+                var s = document.createElement("script");
+                var elName = el.getAttribute("href");
+                s.src = elName;
+                document.head.appendChild(s);
+            });
+        };
+    </script>
+
+    </head>

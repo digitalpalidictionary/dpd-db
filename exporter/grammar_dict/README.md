@@ -6,7 +6,7 @@ While the main dictionary provides definitions, the `grammar_dict/` exporter exi
 ## Architectural Logic
 This subsystem follows a "Specialized Index Export" pattern:
 1.  **Data Extraction:** It pulls "packed" grammatical data from the `Lookup` table, which already contains the pre-calculated results from the `db/grammar/` subsystem.
-2.  **HTML Templating:** It uses Mako templates to transform these grammatical possibilities into clean, consistent HTML tables.
+2.  **HTML Templating:** It uses Jinja2 templates (`templates_jinja2/`) to transform these grammatical possibilities into clean, consistent HTML tables.
 3.  **Cross-Format Export:** It utilizes the project's standard export tools (`tools/goldendict_exporter.py` and `tools/mdict_exporter.py`) to generate the final binaries for GoldenDict and MDict.
 4.  **Minification:** Like other exporters, it applies CSS and HTML minification to ensure the resulting dictionary files are as efficient as possible.
 

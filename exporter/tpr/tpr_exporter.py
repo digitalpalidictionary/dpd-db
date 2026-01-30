@@ -11,7 +11,7 @@ import sqlite3
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import pandas as pd
-from mako.template import Template
+from jinja2 import Environment, FileSystemLoader
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
@@ -25,6 +25,15 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import UposathaManger
+
+
+def get_jinja2_env(templates_dir: Path) -> Environment:
+    """Create a Jinja2 environment for the given templates directory."""
+    return Environment(
+        loader=FileSystemLoader(str(templates_dir)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
 
 
 class GlobalVars:
@@ -53,7 +62,9 @@ def generate_tpr_data(g: GlobalVars):
     pr.green("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
-    dpd_definition_templ = Template(filename=str(g.pth.dpd_definition_templ_path))
+    templates_dir = g.pth.dpd_definition_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    dpd_definition_templ = jinja_env.get_template(g.pth.dpd_definition_templ_path.name)
 
     for counter, i in enumerate(g.dpd_db):
         # headword

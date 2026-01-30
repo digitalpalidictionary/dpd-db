@@ -1,21 +1,31 @@
 """Compile HTML data for English to Pāḷi dictionary."""
 
 import re
+from typing import List, Tuple
 
-from mako.template import Template
+from jinja2 import Template
 from minify_html import minify
 from sqlalchemy.orm import Session
-from typing import List, Tuple
 
 from db.db_helpers import get_db_session
 
 from db.models import DpdHeadword, DpdRoot
+from exporter.jinja2_env import create_jinja2_env
 from tools.css_manager import CSSManager
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
 from tools.goldendict_exporter import DictEntry
+
+
+class EpdTemplates:
+    """Container for Jinja2 templates used in EPD export."""
+
+    def __init__(self, pth: ProjectPaths):
+        jinja2_env = create_jinja2_env(pth.goldendict_templates_jinja2_dir)
+
+        self.header_plain_templ = jinja2_env.get_template("dpd_header_plain.html")
 
 
 def generate_epd_html(
@@ -36,9 +46,9 @@ def generate_epd_html(
     epd: dict = {}
     pos_exclude_list = ["abbrev", "cs", "letter", "root", "suffix", "ve"]
 
-    header_templ = Template(filename=str(pth.dpd_header_plain_templ_path))
+    templates = EpdTemplates(pth)
 
-    header = str(header_templ.render())
+    header = str(templates.header_plain_templ.render())
 
     # Add Variables and fonts
     css_manager = CSSManager()

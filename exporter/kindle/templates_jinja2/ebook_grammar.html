@@ -1,0 +1,134 @@
+<table class="grammar">
+    <tr>
+        <td class='th'>IPA</td>
+        <td>/{{ i.lemma_ipa }}/</td>
+    </tr>
+    <tr>
+        <td class='th'>Grammar</td>
+        <td>{{ grammar }}</td>
+    </tr>
+    {% if i.family_root %}
+    <tr>
+        <td class='th'>Root Family</td>
+        <td>{{ i.family_root }}</td>
+    </tr>
+    {% endif %}
+    {% if i.root_key %}
+    <tr>
+        <td class='th'>Root</td>
+        <td>{{ i.root_clean }}<sup>{{ i.rt.root_has_verb }}</sup>{{ i.rt.root_group }}
+            {{ i.root_sign }} ({{ i.rt.root_meaning }})
+        </td>
+    </tr>
+    {% if i.rt.root_in_comps %}
+    <tr>
+        <td class='th'>√ In Sandhi</td>
+        <td>{{ i.rt.root_in_comps }}</td>
+    </tr>
+    {% endif %}
+    {% endif %}
+    {% if i.root_base %}
+    <tr>
+        <td class='th'>Base</td>
+        <td>{{ i.root_base }}</td>
+    </tr>
+    {% endif %}
+    {% if i.construction %}
+    <tr>
+        <td class='th'>Construction</td>
+        <td>{{ i.construction }}</td>
+    </tr>
+    {% endif %}
+    {% if i.derivative %}
+    <tr>
+        <td class='th'>Derivative</td>
+        <td>{{ i.derivative }} ({{ i.suffix }})</td>
+    </tr>
+    {% endif %}
+    {% if i.phonetic %}
+    <tr>
+        <td class='th'>Phonetic Change</td>
+        <td>{{ i.phonetic }}</td>
+    </tr>
+    {% endif %}
+    {% if i.compound_type and "?" not in i.compound_type %}
+    <tr>
+        <td class='th'>Compound</td>
+        <td>{{ i.compound_type }} ({{ i.compound_construction }})</td>
+    </tr>
+    {% endif %}
+    {% if i.antonym %}
+    <tr>
+        <td class='th'>Antonym</td>
+        <td>{{ i.antonym }}</td>
+    </tr>
+    {% endif %}
+    {% if i.synonym %}
+    <tr>
+        <td class='th'>Synonym</td>
+        <td>{{ i.synonym }}</td>
+    </tr>
+    {% endif %}
+    {% if i.variant %}
+    <tr>
+        <td class='th'>Variant</td>
+        <td>{{ i.variant }}</td>
+    </tr>
+    {% endif %}
+    {% if i.commentary and i.commentary != "-" %}
+    <tr>
+        <td class='th'>Commentary</td>
+        <td>{{ i.commentary }}</td>
+    </tr>
+    {% endif %}
+    {% if i.notes %}
+    <tr>
+        <td class='th'>Notes</td>
+        <td>{{ i.notes }}</td>
+    </tr>
+    {% endif %}
+    {% if i.cognate %}
+    <tr>
+        <td class='th'>English Cognate</td>
+        <td>{{ i.cognate }}</td>
+    </tr>
+    {% endif %}
+    {% if i.link %}
+    <tr>
+        <th>Web Link</th>
+        <td>
+            {% for website in i.link_list %}
+                <p style="margin: 0; padding: 0;">
+                    <a href="{{ website }}" target="_blank">
+                        {{ website }}
+                    </a>
+                </p>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+    {% if i.non_ia %}
+    <tr>
+        <td class='th'>Non IA</td>
+        <td><i>{{ i.non_ia }}</i></td>
+    </tr>
+    {% endif %}
+    {% if i.sanskrit %}
+    <tr>
+        <td class='th'>Sanskrit</td>
+        <td><i>{{ i.sanskrit }}</i></td>
+    </tr>
+    {% endif %}
+    {% if i.root_key %}
+    {% if i.rt.sanskrit_root and i.rt.sanskrit_root != "-" %}
+    <tr>
+        <td class='th'>Sanskrit Root</td>
+        <td>
+            <i>
+                {{ i.rt.sanskrit_root }} {{ i.rt.sanskrit_root_class }} ({{ i.rt.sanskrit_root_meaning }})
+            </i>
+        </td>
+    </tr>
+    {% endif %}
+    {% endif %}
+</table>

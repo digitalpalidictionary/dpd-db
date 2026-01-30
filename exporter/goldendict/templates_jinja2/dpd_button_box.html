@@ -1,0 +1,42 @@
+<div class="button-box">
+    {% if play_button != '' %}
+    {{ play_button | safe }}
+    {% endif %}
+    {% if sutta_info_button != '' %}
+    {{ sutta_info_button | safe }}
+    {% endif %}
+    {% if grammar_button != '' %}
+    {{ grammar_button | safe }}
+    {% endif %}
+    {% if example_button %}
+    {{ example_button | safe }}
+    {% endif %}
+    {% if examples_button %}
+    {{ examples_button | safe }}
+    {% endif %}
+    {% if conjugation_button %}
+    {{ conjugation_button | safe }}
+    {% endif %}
+    {% if declension_button %}
+    {{ declension_button | safe }}
+    {% endif %}
+    {% if root_family_button %}
+    {{ root_family_button | safe }}
+    {% endif %}
+    {% if word_family_button %}
+    {{ word_family_button | safe }}
+    {% endif %}
+    {% if compound_family_button %}
+    {{ compound_family_button | safe }}
+    {% endif %}
+    {% if idioms_button %}
+    {{ idioms_button | safe }}
+    {% endif %}
+    {% if set_family_button %}
+    {{ set_family_button | safe }}
+    {% endif %}
+    {% if frequency_button %}
+    {{ frequency_button | safe }}
+    {% endif %}
+    {{ feedback_button | safe }}
+</div>

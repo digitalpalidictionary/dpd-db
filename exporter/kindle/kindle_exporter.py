@@ -13,7 +13,7 @@ from datetime import datetime
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
-from mako.template import Template
+from jinja2 import Environment, FileSystemLoader
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -30,6 +30,15 @@ from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict
+
+
+def get_jinja2_env(templates_dir: Path) -> Environment:
+    """Create a Jinja2 environment for the given templates directory."""
+    return Environment(
+        loader=FileSystemLoader(str(templates_dir)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
 
 
 def render_xhtml(
@@ -242,18 +251,18 @@ def render_ebook_entry(
 
     examples = render_example_templ(pth, i)
 
-    ebook_entry_templ = Template(filename=str(pth.ebook_entry_templ_path))
+    templates_dir = pth.ebook_entry_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_entry_templ = jinja_env.get_template(pth.ebook_entry_templ_path.name)
 
-    return str(
-        ebook_entry_templ.render(
-            counter=counter,
-            lemma_1=i.lemma_1,
-            lemma_clean=i.lemma_clean,
-            inflections=inflections,
-            summary=summary,
-            grammar_table=grammar_table,
-            examples=examples,
-        )
+    return ebook_entry_templ.render(
+        counter=counter,
+        lemma_1=i.lemma_1,
+        lemma_clean=i.lemma_clean,
+        inflections=inflections,
+        summary=summary,
+        grammar_table=grammar_table,
+        examples=examples,
     )
 
 
@@ -265,14 +274,14 @@ def render_grammar_templ(
 
     if i.meaning_1:
         grammar = make_grammar_line(i)
-        ebook_grammar_templ = Template(filename=str(pth.ebook_grammar_templ_path))
+        templates_dir = pth.ebook_grammar_templ_path.parent
+        jinja_env = get_jinja2_env(templates_dir)
+        ebook_grammar_templ = jinja_env.get_template(pth.ebook_grammar_templ_path.name)
 
-        return str(
-            ebook_grammar_templ.render(
-                i=i,
-                grammar=grammar,
-                meaning=i.meaning_combo_html,
-            )
+        return ebook_grammar_templ.render(
+            i=i,
+            grammar=grammar,
+            meaning=i.meaning_combo_html,
         )
 
     else:
@@ -285,10 +294,12 @@ def render_example_templ(
 ) -> str:
     """render sutta examples html"""
 
-    ebook_example_templ = Template(filename=str(pth.ebook_example_templ_path))
+    templates_dir = pth.ebook_example_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_example_templ = jinja_env.get_template(pth.ebook_example_templ_path.name)
 
     if i.meaning_1 and i.example_1:
-        return str(ebook_example_templ.render(i=i))
+        return ebook_example_templ.render(i=i)
     else:
         return ""
 
@@ -299,21 +310,23 @@ def render_deconstructor_entry(pth: ProjectPaths, counter: int, i: Lookup) -> st
     construction = i.lookup_key
     deconstruction = "<br/>".join(i.deconstructor_unpack)
 
-    ebook_deconstructor_templ = Template(
-        filename=str(pth.ebook_deconstructor_templ_path)
+    templates_dir = pth.ebook_deconstructor_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_deconstructor_templ = jinja_env.get_template(
+        pth.ebook_deconstructor_templ_path.name
     )
 
-    return str(
-        ebook_deconstructor_templ.render(
-            counter=counter, construction=construction, deconstruction=deconstruction
-        )
+    return ebook_deconstructor_templ.render(
+        counter=counter, construction=construction, deconstruction=deconstruction
     )
 
 
 def render_ebook_letter_templ(pth: ProjectPaths, letter: str, entries: str) -> str:
     """Render all entries for a single letter."""
-    ebook_letter_templ = Template(filename=str(pth.ebook_letter_templ_path))
-    return str(ebook_letter_templ.render(letter=letter, entries=entries))
+    templates_dir = pth.ebook_letter_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_letter_templ = jinja_env.get_template(pth.ebook_letter_templ_path.name)
+    return ebook_letter_templ.render(letter=letter, entries=entries)
 
 
 def save_abbreviations_xhtml_page(pth: ProjectPaths, id_counter):
@@ -350,11 +363,13 @@ def render_abbreviation_entry(
 ) -> str:
     """Render a single abbreviations entry."""
 
-    ebook_abbreviation_entry_templ = Template(
-        filename=str(pth.ebook_abbrev_entry_templ_path)
+    templates_dir = pth.ebook_abbrev_entry_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_abbreviation_entry_templ = jinja_env.get_template(
+        pth.ebook_abbrev_entry_templ_path.name
     )
 
-    return str(ebook_abbreviation_entry_templ.render(counter=counter, i=i))
+    return ebook_abbreviation_entry_templ.render(counter=counter, i=i)
 
 
 def save_title_page_xhtml(pth: ProjectPaths):
@@ -365,9 +380,13 @@ def save_title_page_xhtml(pth: ProjectPaths):
     date = current_datetime.strftime("%Y-%m-%d")
     time = current_datetime.strftime("%H:%M")
 
-    ebook_title_page_templ = Template(filename=str(pth.ebook_title_page_templ_path))
+    templates_dir = pth.ebook_title_page_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_title_page_templ = jinja_env.get_template(
+        pth.ebook_title_page_templ_path.name
+    )
 
-    xhtml = str(ebook_title_page_templ.render(date=date, time=time))
+    xhtml = ebook_title_page_templ.render(date=date, time=time)
 
     with open(pth.epub_titlepage_path, "w") as f:
         f.write(xhtml)
@@ -386,9 +405,13 @@ def save_content_opf_xhtml(
 
     date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    ebook_content_opf_templ = Template(filename=str(pth.ebook_content_opf_templ_path))
+    templates_dir = pth.ebook_content_opf_templ_path.parent
+    jinja_env = get_jinja2_env(templates_dir)
+    ebook_content_opf_templ = jinja_env.get_template(
+        pth.ebook_content_opf_templ_path.name
+    )
 
-    content = str(ebook_content_opf_templ.render(date_time_zulu=date_time_zulu))
+    content = ebook_content_opf_templ.render(date_time_zulu=date_time_zulu)
 
     with open(pth.epub_content_opf_path, "w") as f:
         f.write(content)

@@ -5,7 +5,7 @@ The `exporter/` directory bridges the gap between the internal relational databa
 
 ## Architectural Logic
 The exporters are organized by their target platform, following two main patterns:
-1.  **Static Generation:** For offline apps (GoldenDict, Kindle), the system iterates through the database and pre-renders every entry using templates (Mako/Jinja2). This prioritizes end-user speed and offline availability.
+1.  **Static Generation:** For offline apps (GoldenDict, Kindle), the system iterates through the database and pre-renders every entry using Jinja2 templates. This prioritizes end-user speed and offline availability.
 2.  **Dynamic API:** For the webapp, the exporter provides a real-time interface to the data, allowing for features like search and audio streaming that are difficult to package into static files.
 
 ## Relationships & Data Flow
