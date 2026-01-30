@@ -2,6 +2,8 @@
 
 __pycache__/
 .DS_Store
+.opencode/bun.lock
+.opencode/package.json
 .venv
 .vscode/
 *.db
