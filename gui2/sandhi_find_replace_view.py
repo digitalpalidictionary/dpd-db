@@ -25,7 +25,11 @@ class SandhiFindReplaceView(ft.Column):
         self.phase: int = 1  # 1 = regular search, 2 = bold search
 
         # UI elements
-        self.find_text = ft.TextField("", width=400)
+        self.find_text = ft.TextField(
+            "",
+            width=400,
+            on_blur=self.handle_find_blur,
+        )
         self.replace_text = ft.TextField("", width=400)
         self.find_button = ft.ElevatedButton("Find", on_click=self.find_clicked)
         self.clear_button = ft.ElevatedButton("Clear", on_click=self.clear_search)
@@ -264,6 +268,12 @@ class SandhiFindReplaceView(ft.Column):
     def ignore_clicked(self, e):
         self._increment()
         self._load_next_result()
+
+    def handle_find_blur(self, e: ft.ControlEvent):
+        """Copy find text to replace text when user exits find field."""
+        if self.find_text.value and not self.replace_text.value:
+            self.replace_text.value = self.find_text.value
+            self.update()
 
     def _highlight_found(self, text):
         spans = []
