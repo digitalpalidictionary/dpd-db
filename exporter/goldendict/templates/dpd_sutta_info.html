@@ -116,7 +116,7 @@
         % if su.cst_code:
         <tr>
             <th class="heading" colspan="2">
-                Websites using CST
+                Apps & Websites using CST
             </th>
         </tr>
         % endif
@@ -128,6 +128,17 @@
             </th>
             <td>
                 <a href="${ su.dpr_link }" target="_blank">${ su.dpr_link }</a>
+            </td>
+        </tr>
+        % endif
+
+        % if su.has_tpr:
+        <tr>
+            <th>
+                Tipiṭaka Pāḷi Reader
+            </th>
+            <td>
+                <a href="https://tpr.pali.tools/open/?sutta=${ su.dpd_code.lower() }" target="_blank">https://tpr.pali.tools/open/?sutta=${ su.dpd_code.lower() }</a>
             </td>
         </tr>
         % endif
