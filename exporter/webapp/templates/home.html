@@ -317,13 +317,26 @@
                             <option value="English">English translations</option>
                         </select>
                         <label class="tt-label">in</label>
-                        <select id="tt-book-select" class="tt-select">
-                            <option value="all">all books</option>
-                            {% for book in book_options %}
-                            <option value="{{ book }}">{{ book }}</option>
-                            {% endfor %}
-                        </select>
+                        <div class="tt-book-dropdown">
+                            <button type="button" id="tt-book-dropdown-btn" class="tt-book-dropdown-btn">
+                                <span id="tt-book-selected-text">all books</span>
+                                <span class="tt-dropdown-arrow">▼</span>
+                            </button>
+                            <div id="tt-book-dropdown-menu" class="tt-book-dropdown-menu">
+                                <label class="tt-book-dropdown-option">
+                                    <input type="checkbox" class="tt-book-checkbox" value="all" checked>
+                                    all books
+                                </label>
+                                {% for book in book_options %}
+                                <label class="tt-book-dropdown-option">
+                                    <input type="checkbox" class="tt-book-checkbox" value="{{ book }}">
+                                    {{ book }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
                         <button class="search-button" id="tt-search-button">search</button>
+                        <button class="search-button clear-button" id="tt-clear-button">clear</button>
                     </div>
                     <div class="tt-search-row">
                         <label class="tt-label">Only show results</label>

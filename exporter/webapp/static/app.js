@@ -13,7 +13,7 @@ const appState = {
   tt: {
     searchTerm: "",
     language: "Pāḷi",
-    book: "all",
+    books: ["all"],
     resultsHTML: "",
   },
   history: [], // An array of state snapshots
@@ -49,15 +49,16 @@ function initializeApp() {
     console.log("Failed to load history from LOCAL storage:", e);
   }
 
-  // Parse the URL to determine the initial state
   const urlParams = new URLSearchParams(window.location.search);
   const tab = urlParams.get("tab") || "dpd";
   const q = urlParams.get("q") || "";
   const q1 = urlParams.get("q1") || "";
   const q2 = urlParams.get("q2") || "";
   const option = urlParams.get("option") || "regex";
-  const book = urlParams.get("book") || "all";
+  const bookParam = urlParams.get("book") || "all";
   const lang = urlParams.get("lang") || "Pāḷi";
+
+  const books = bookParam.split(",").map(b => b.trim()).filter(b => b);
 
   // Populate appState from the URL
   appState.activeTab = tab;
@@ -65,8 +66,8 @@ function initializeApp() {
   appState.bd.searchTerm1 = q1;
   appState.bd.searchTerm2 = q2;
   appState.bd.searchOption = option;
-  appState.tt.searchTerm = q; // Reusing q for tt search term
-  appState.tt.book = book;
+  appState.tt.searchTerm = q;
+  appState.tt.books = books.length > 0 ? books : ["all"];
   appState.tt.language = lang;
 
   // If the URL contains search parameters, perform an initial search
@@ -330,11 +331,12 @@ function render() {
 
   const ttSearchBox = document.getElementById("tt-search-box");
   const ttLangSelect = document.getElementById("tt-lang-select");
-  const ttBookSelect = document.getElementById("tt-book-select");
 
   if (ttSearchBox) ttSearchBox.value = appState.tt.searchTerm;
   if (ttLangSelect) ttLangSelect.value = appState.tt.language;
-  if (ttBookSelect) ttBookSelect.value = appState.tt.book;
+  if (typeof window.restoreBookSelection === "function") {
+    window.restoreBookSelection(appState.tt.books);
+  }
 
   // Update the search option
   const bdSearchOptions = document.getElementsByName("option");
@@ -440,7 +442,7 @@ function addToHistory() {
     tt: {
       searchTerm: appState.tt.searchTerm,
       language: appState.tt.language,
-      book: appState.tt.book,
+      books: appState.tt.books,
     }
   };
 
@@ -574,7 +576,7 @@ function updateURL() {
     )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${appState.bd.searchOption
       }`;
   } else if (appState.activeTab === "tt") {
-    url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.book)}&lang=${encodeURIComponent(appState.tt.language)}`;
+    url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.books.join(","))}&lang=${encodeURIComponent(appState.tt.language)}`;
   }
 
   // Update the browser's URL using history.pushState()
@@ -600,7 +602,7 @@ function handlePopState(event) {
       )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${appState.bd.searchOption
         }`;
     } else if (appState.activeTab === "tt") {
-      url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.book)}&lang=${encodeURIComponent(appState.tt.language)}`;
+      url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.books.join(","))}&lang=${encodeURIComponent(appState.tt.language)}`;
     }
     window.history.replaceState({ ...appState }, "", url);
 

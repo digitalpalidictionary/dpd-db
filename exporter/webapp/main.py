@@ -22,7 +22,7 @@ from exporter.webapp.toolkit import make_dpd_html
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
-from tools.tipitaka_db import search_all_cst_texts, search_book
+from tools.tipitaka_db import search_all_cst_texts, search_book, search_books
 from tools.translit import auto_translit_to_roman
 from prometheus_fastapi_instrumentator import Instrumentator
 
@@ -245,14 +245,17 @@ def tt_search(request: Request, q: str, book: str, lang: str):
     # Limit results
     limit = 100
 
+    # Parse books (comma-separated list)
+    books = [b.strip() for b in book.split(",") if b.strip()]
+
     # Determine search column
     search_column = "pali_text" if lang == "Pāḷi" else "english_translation"
 
     # Perform search
-    if book == "all":
+    if "all" in books:
         results = search_all_cst_texts(q, search_column=search_column)
     else:
-        results = search_book(book, q, search_column=search_column)
+        results = search_books(books, q, search_column=search_column)
 
     total_count = len(results)
     results = results[:limit]

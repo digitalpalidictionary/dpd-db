@@ -1,5 +1,87 @@
 /* Tipiṭaka Translations Tab Styles */
 
+.tt-book-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.tt-book-dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 150px;
+  padding: 2px 10px;
+  border-radius: 7px;
+  border: 2px solid var(--gray-transparent);
+  background-color: var(--light);
+  color: var(--dark);
+  height: 36px;
+  min-height: 36px;
+  box-sizing: border-box;
+  outline: none;
+  transition: 1s;
+  font-family: "Inter", sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dark-mode .tt-book-dropdown-btn {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.tt-book-dropdown-btn:focus {
+  border-color: var(--primary);
+}
+
+.tt-dropdown-arrow {
+  margin-left: 8px;
+  font-size: 0.7em;
+}
+
+.tt-book-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--light);
+  border: 2px solid var(--gray-transparent);
+  border-radius: 7px;
+  margin-top: 5px;
+  padding: 5px;
+  min-width: 150px;
+}
+
+.dark-mode .tt-book-dropdown-menu {
+  background-color: var(--dark);
+}
+
+.tt-book-dropdown-menu.show {
+  display: block;
+}
+
+.tt-book-dropdown-option {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 0;
+}
+
+.tt-book-dropdown-option:hover {
+  background-color: var(--gray-transparent);
+}
+
+.tt-book-dropdown-option input[type="checkbox"] {
+  margin-right: 8px;
+  margin-left: 0;
+}
+
 .tt-select {
   padding: 2px 10px;
   border-radius: 7px;

@@ -184,6 +184,17 @@ def search_book(
     return all_results
 
 
+def search_books(
+    book_names: list[str], search_string: str, search_column: str = "pali_text"
+) -> list[tuple[str, str, str, str]]:
+    """Search multiple books for a string."""
+    all_results = []
+    for book_name in book_names:
+        results = search_book(book_name, search_string, search_column)
+        all_results.extend(results)
+    return all_results
+
+
 def search_all_cst_texts(
     search_string: str, search_column: str = "pali_text"
 ) -> list[tuple[str, str, str, str]]:

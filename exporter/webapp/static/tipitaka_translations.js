@@ -2,7 +2,10 @@
 
 const ttSearchBox = document.getElementById("tt-search-box");
 const ttLangSelect = document.getElementById("tt-lang-select");
-const ttBookSelect = document.getElementById("tt-book-select");
+const ttBookDropdownBtn = document.getElementById("tt-book-dropdown-btn");
+const ttBookDropdownMenu = document.getElementById("tt-book-dropdown-menu");
+const ttBookSelectedText = document.getElementById("tt-book-selected-text");
+const ttBookCheckboxes = document.querySelectorAll(".tt-book-checkbox");
 const ttSearchButton = document.getElementById("tt-search-button");
 const ttClearButton = document.getElementById("tt-clear-button");
 const ttFilterBox = document.getElementById("tt-filter-box");
@@ -43,6 +46,56 @@ if (ttFilterMode) {
   ttFilterMode.addEventListener("change", function () {
     filterTTResults(ttFilterBox.value);
   });
+}
+
+// Book dropdown toggle
+if (ttBookDropdownBtn && ttBookDropdownMenu) {
+  ttBookDropdownBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    ttBookDropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function(e) {
+    if (!ttBookDropdownBtn.contains(e.target) && !ttBookDropdownMenu.contains(e.target)) {
+      ttBookDropdownMenu.classList.remove("show");
+    }
+  });
+}
+
+// Book checkbox event listeners
+if (ttBookCheckboxes) {
+  ttBookCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function(e) {
+      e.stopPropagation();
+      const value = e.target.value;
+
+      if (value === "all" && e.target.checked) {
+        ttBookCheckboxes.forEach(cb => {
+          if (cb.value !== "all") cb.checked = false;
+        });
+      } else if (value !== "all" && e.target.checked) {
+        const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
+        if (allCheckbox) allCheckbox.checked = false;
+      }
+
+      updateBookDropdownText();
+    });
+  });
+}
+
+function updateBookDropdownText() {
+  const books = getSelectedBooks();
+  const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
+
+  if (allCheckbox && allCheckbox.checked) {
+    ttBookSelectedText.textContent = "all books";
+  } else if (books.length === 0) {
+    ttBookSelectedText.textContent = "select books";
+  } else if (books.length === 1) {
+    ttBookSelectedText.textContent = books[0];
+  } else {
+    ttBookSelectedText.textContent = `${books.length} books`;
+  }
 }
 
 // Double-click to search in DPD tab
@@ -94,39 +147,35 @@ async function performTTSearch(addHistory = true) {
     window.showLoading(buttonId);
   }
 
-  // Try to get values from DOM elements first, fallback to appState
   const q = ttSearchBox
     ? ttSearchBox.value.trim()
     : appState?.tt?.searchTerm || "";
   const lang = ttLangSelect
     ? ttLangSelect.value
     : appState?.tt?.language || "Pāḷi";
-  const book = ttBookSelect ? ttBookSelect.value : appState?.tt?.book || "all";
+  const books = getSelectedBooks();
+  const bookParam = books.join(",");
 
   if (!q) {
-    // Show error or just return
     return;
   }
 
-  // Update appState
   if (typeof appState !== "undefined") {
     appState.tt.searchTerm = q;
     appState.tt.language = lang;
-    appState.tt.book = book;
+    appState.tt.books = books;
 
-    // Sync search term to other tabs
     appState.dpd.searchTerm = q;
     appState.bd.searchTerm1 = q;
   }
 
-  // Show loading state
   if (ttResults) {
     ttResults.innerHTML = '<div class="spinner"></div>';
   }
 
   try {
     const response = await fetch(
-      `/tt_search?q=${encodeURIComponent(q)}&book=${encodeURIComponent(book)}&lang=${encodeURIComponent(lang)}`
+      `/tt_search?q=${encodeURIComponent(q)}&book=${encodeURIComponent(bookParam)}&lang=${encodeURIComponent(lang)}`
     );
     const data = await response.json();
 
@@ -231,18 +280,59 @@ async function performTTSearch(addHistory = true) {
 
 // Expose performTTSearch globally so app.js can call it
 window.performTTSearch = performTTSearch;
+window.restoreBookSelection = restoreBookSelection;
+window.getSelectedBooks = getSelectedBooks;
+window.updateBookDropdownText = updateBookDropdownText;
 
 function clearTTSearch() {
   ttSearchBox.value = "";
   ttFilterBox.value = "";
   ttResults.innerHTML = "";
 
+  ttBookCheckboxes.forEach(cb => cb.checked = false);
+  const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
+  if (allCheckbox) {
+    allCheckbox.checked = true;
+    updateBookDropdownText();
+  }
+
   if (typeof appState !== "undefined") {
     appState.tt.searchTerm = "";
     appState.tt.resultsHTML = "";
-    // Maybe clear URL params too?
+    appState.tt.books = ["all"];
     updateURL();
   }
+}
+
+function getSelectedBooks() {
+  const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
+
+  if (allCheckbox && allCheckbox.checked) {
+    return ["all"];
+  }
+
+  const selectedBooks = [];
+  ttBookCheckboxes.forEach(cb => {
+    if (cb.checked) selectedBooks.push(cb.value);
+  });
+
+  return selectedBooks.length > 0 ? selectedBooks : ["all"];
+}
+
+function restoreBookSelection(books) {
+  ttBookCheckboxes.forEach(cb => cb.checked = false);
+
+  if (books.includes("all")) {
+    const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
+    if (allCheckbox) allCheckbox.checked = true;
+  } else {
+    books.forEach(book => {
+      const checkbox = document.querySelector(`.tt-book-checkbox[value='${book}']`);
+      if (checkbox) checkbox.checked = true;
+    });
+  }
+
+  updateBookDropdownText();
 }
 
 function filterTTResults(filterText) {
