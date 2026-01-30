@@ -70,7 +70,7 @@ if (ttBookCheckboxes) {
       const value = e.target.value;
 
       if (value === "all" && e.target.checked) {
-        ttBookCheckboxes.forEach(cb => {
+        ttBookCheckboxes?.forEach(cb => {
           if (cb.value !== "all") cb.checked = false;
         });
       } else if (value !== "all" && e.target.checked) {
@@ -90,7 +90,8 @@ function updateBookDropdownText() {
   if (allCheckbox && allCheckbox.checked) {
     ttBookSelectedText.textContent = "all books";
   } else if (books.length === 0) {
-    ttBookSelectedText.textContent = "select books";
+    if (allCheckbox) allCheckbox.checked = true;
+    ttBookSelectedText.textContent = "all books";
   } else if (books.length === 1) {
     ttBookSelectedText.textContent = books[0];
   } else {
@@ -289,7 +290,7 @@ function clearTTSearch() {
   ttFilterBox.value = "";
   ttResults.innerHTML = "";
 
-  ttBookCheckboxes.forEach(cb => cb.checked = false);
+  ttBookCheckboxes?.forEach(cb => cb.checked = false);
   const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
   if (allCheckbox) {
     allCheckbox.checked = true;
@@ -312,7 +313,7 @@ function getSelectedBooks() {
   }
 
   const selectedBooks = [];
-  ttBookCheckboxes.forEach(cb => {
+  ttBookCheckboxes?.forEach(cb => {
     if (cb.checked) selectedBooks.push(cb.value);
   });
 
@@ -320,7 +321,7 @@ function getSelectedBooks() {
 }
 
 function restoreBookSelection(books) {
-  ttBookCheckboxes.forEach(cb => cb.checked = false);
+  ttBookCheckboxes?.forEach(cb => cb.checked = false);
 
   if (books.includes("all")) {
     const allCheckbox = document.querySelector(".tt-book-checkbox[value='all']");
