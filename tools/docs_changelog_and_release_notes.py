@@ -221,8 +221,8 @@ class ChangelogGenerator:
 - {self.line_6_cells_of_root_data}
 - Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
 - Pass1 in progress: VIN5
-- Pass2 complete: DN1-3, MN1-3
-- Pass2 in progress: SN1 
+- Pass2 complete: DN1-3, MN1-3, SN1
+- Pass2 in progress: SN2
 - numerous additions and corrections based on user feedback
 """
 
