@@ -1,10 +1,139 @@
 import re
-from copy import deepcopy
+from dataclasses import dataclass, asdict
 from typing import Dict
 
 from rich import print
 
 from tools.printer import printer as pr
+
+
+@dataclass
+class BoldDefinitionEntry:
+    file_name: str
+    ref_code: str
+    nikaya: str
+    book: str
+    title: str
+    subhead: str
+    bold: str
+    bold_end: str
+    commentary: str
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+@dataclass
+class Context:
+    nikaya: str = ""
+    book: str = ""
+    title: str = ""
+    subhead: str = ""
+
+
+def update_context(tag, file_name, context: Context) -> Context:
+    """Update context based on tag and file_name."""
+    
+    rend = tag.get("rend", "")
+    tag_name = tag.name
+    tag_text = tag.get_text().strip()
+
+    # Universal Heading patterns in <p> or <head>
+    if rend == "nikaya":
+        context.nikaya = tag_text
+    elif rend == "book":
+        context.book = tag_text
+    elif rend == "title":
+        context.title = tag_text
+        context.subhead = ""
+    elif rend == "head":
+        context.title = tag_text
+        context.subhead = ""
+    elif rend == "chapter":
+        if tag_name == "head":
+            context.title = tag_text
+            context.subhead = ""
+        else:
+            context.subhead = tag_text
+    elif rend in ["subhead", "subsubhead"]:
+        context.subhead = tag_text
+
+    # Specific handling for <head> tags which might not have rend="title" but are titles
+    if tag_name == "head" and not rend:
+        context.title = tag_text
+
+    # Regex for subhead numbers like [1]
+    if re.findall(r"\[\d+\]", tag_text):
+        context.subhead = tag_text
+
+    # File Specific Overrides
+    jaa = ["s0513a2.att.xml", "s0513a3.att.xml"]
+    if file_name in jaa:
+        context.nikaya = "khuddakanikāye"
+
+    if file_name == "s0514a1.att.xml":
+        context.nikaya = "khuddakanikāye"
+        context.book = "jātaka-aṭṭhakathā"
+        context.title = "(chaṭṭho bhāgo)"
+
+    if file_name == "s0515a.att.xml":
+        context.title = "1. aṭṭhakavaggo"
+        if rend == "chapter":
+            context.subhead = tag_text
+
+    if file_name == "s0515m.mul.xml":
+        # Handle cases from get_nikaya_headings_div
+        if tag_name == "head" and rend == "book":
+            context.book = tag_text
+        if tag_name == "head" and rend == "chapter":
+            context.subhead = tag_text
+
+    if file_name == "s0519a.att.xml":
+        context.nikaya = "khuddakanikāye"
+        if rend == "nikaya":  # some subheads tagged nikaya
+            context.subhead = tag_text
+
+    if file_name == "vin10t.nrf.xml":
+        context.book = "vinayavinicchayo uttaravinicchayo"
+
+    if file_name == "abh03a.att.xml":
+        if rend == "chapter":
+            context.book = tag_text
+
+    if file_name == "abh05t.nrf.xml":
+        context.book = "pañcapakaraṇa-anuṭīkā"
+
+    if file_name == "e0810n.nrf.xml":
+        if rend == "subsubhead":
+            context.title = tag_text
+
+    # Categorize Nikayas
+    aññā = [
+        "e0101n.mul.xml", "e0102n.mul.xml", "e0103n.att.xml", "e0104n.att.xml",
+        "e0802n.nrf.xml", "e0803n.nrf.xml", "e0804n.nrf.xml", "e0805n.nrf.xml",
+        "e0809n.nrf.xml", "e0810n.nrf.xml",
+    ]
+    if file_name in aññā:
+        context.nikaya = "aññā"
+
+    vin_t = [
+        "vin04t.nrf.xml", "vin08t.nrf.xml", "vin09t.nrf.xml", "vin10t.nrf.xml",
+        "vin11t.nrf.xml", "vin13t.nrf.xml",
+    ]
+    if file_name in vin_t:
+        context.nikaya = "vinayapiṭake"
+
+    abh_t = ["abh06t.nrf.xml", "abh07t.nrf.xml", "abh08t.nrf.xml", "abh09t.nrf.xml"]
+    if file_name in abh_t:
+        context.nikaya = "abhidhammapiṭake"
+        if rend == "nikaya":
+            context.book = tag_text
+
+    # Cleanup title
+    if context.title:
+        context.title = re.sub(r"^\(\d*\) ", "", context.title)
+
+    return context
 
 
 def definition_to_dict(
@@ -157,10 +286,13 @@ def dissolve_empty_siblings(para, bolds):
 
     # unwrap bolds with one spaces inbetween
     for bold in bolds:
+        if bold.name is None:
+            continue
         try:
             if (
                 bold.next_sibling == " "
                 and bold.next_sibling.next_sibling.attrs == {"rend": "bold"}  # type:ignore
+                and "." not in bold.text # Don't merge if it contains a dot (likely end of sentence)
             ):
                 appended_text = bold.next_sibling.next_sibling.text  # type:ignore
                 bold.append(f" {appended_text}")
@@ -170,6 +302,8 @@ def dissolve_empty_siblings(para, bolds):
 
     # unwrap bolds with two spaces inbetween
     for bold in bolds:
+        if bold.name is None:
+            continue
         try:
             if (
                 bold.next_sibling == " "
@@ -185,6 +319,8 @@ def dissolve_empty_siblings(para, bolds):
 
     # unwrap bolds with three spaces inbetween
     for bold in bolds:
+        if bold.name is None:
+            continue
         try:
             if (
                 bold.next_sibling == " "
@@ -205,16 +341,15 @@ def dissolve_empty_siblings(para, bolds):
 
     # unwrap empty bold strings
     for bold in bolds:
+        if bold.name is None:
+            continue
         if bold.text == " ":
             bold.unwrap()
 
         if bold.text == "" and bold.attrs == {"rend": "bold"} and bold.next_sibling:
             bold.replace_with(" ")
 
-        if "vimānavatthuṃ" in bold.text:
-            pass
-
-    return bolds
+    return [b for b in bolds if b.name is not None]
 
 
 def get_nikaya_headings_div(file_name, div, para, subhead):
@@ -230,7 +365,7 @@ def get_nikaya_headings_div(file_name, div, para, subhead):
     else:
         try:
             title = div.head.string
-        except:
+        except Exception:
             title = div.p.string
         title = re.sub("^\\(\\d*\\) ", "", title)
 
@@ -394,7 +529,7 @@ def get_bold_strings(bold):
     for prev_sib in prev_sibs:
         try:
             bold_p = f"{prev_sib}{bold_p}"
-        except:
+        except Exception:
             pass
 
     bold_p = text_cleaner(bold_p)
@@ -416,7 +551,6 @@ def get_bold_strings(bold):
         bold_text = bold_text[1:]
         bold_p = f"{bold_p} "
 
-    bold_p_original = deepcopy(bold_p)
     if bold_p:
         bold_p = bold_p_trimmer(bold_p)
 
@@ -427,7 +561,7 @@ def get_bold_strings(bold):
     for next_sib in next_sibs:
         try:
             bold_n = f"{bold_n}{next_sib}"
-        except:
+        except Exception:
             pass
 
     bold_n = text_cleaner(bold_n)
@@ -437,11 +571,10 @@ def get_bold_strings(bold):
     bold_n = re.sub(" *(ti)( |\\.)", "\\1\\2", bold_n)
 
     # remove useless
-    bold_n = re.sub(f"^({useless_beginnings})$", "", bold_n)
+    bold_n = re.sub(f"^({useless_beginnings_str})$", "", bold_n)
     bold_n = bold_n.replace("[iti bhagavā]", "")
 
     if bold_n:
-        bold_n_original = deepcopy(bold_n)
         bold_n = bold_n_trimmer(bold_n)
 
     # bold end

@@ -1,20 +1,47 @@
-# db/bold_definitions/
+# Bold Definitions Extraction
 
-## Purpose & Rationale
-This directory contains the logic for harvesting and managing "Bold Definitions" from the Chaṭṭha Saṅgāyana Tipitaka (CST) corpus. In Pāḷi commentaries, the word being defined is traditionally formatted in bold. By extracting these instances, the project creates a high-quality bridge between dictionary headwords and their authoritative traditional explanations.
+This module extracts bolded words and their accompanying commentary from the CST (Chaṭṭha Saṅgāyana Tipitaka) XML corpus. These extractions provide a dictionary-like view of how words are defined and used within the Pāḷi commentaries and sub-commentaries.
 
-## Architectural Logic
-The subsystem follows an "Extract, Transform, Search" pattern:
-1.  **Extraction:** `extract_bold_definitions.py` parses XML files from the CST corpus, identifying bolded text and their surrounding context (the commentary).
-2.  **Transformation:** The extracted data is cleaned and structured into JSON and TSV formats for easy integration.
-3.  **Database Integration:** `update_bold_definitions_db.py` syncs this data into the `bold_definitions` table in the main database.
-4.  **Application:** `search_bold_definitions.py` provides the logic for querying this corpus, enabling the GUI and other tools to display relevant commentary snippets for any given word.
+## Features
 
-## Relationships & Data Flow
-- **Input:** Reads raw Pāḷi text artifacts from the `resources/` directory (specifically the CST submodules).
-- **Output:** Populates the `BoldDefinition` model in `db/models.py`.
-- **Display:** The results are rendered in the **GUI** and exported to various formats to provide users with traditional context.
+- **End-of-Sentence Capture**: Correctly identifies and extracts bold definitions even when they appear at the very end of a paragraph or sentence.
+- **Tag Splitting**: Automatically detects and splits bold tags that contain multiple distinct definitions (e.g., `<hi>word1. word2</hi>`) into separate searchable entries.
+- **Context Awareness**: Dynamically tracks the Nikāya, Book, Title, and Subhead for every extracted definition, supporting both `div`-based and flat XML structures.
+- **Robust Cleaning**: Refines commentary snippets to remove noise while preserving the essential context of the definition.
 
-## Interface
-- **Update:** `uv run python db/bold_definitions/extract_bold_definitions.py`
-- **Sync:** `uv run python db/bold_definitions/update_bold_definitions_db.py`
+## Core Scripts
+
+- `extract_bold_definitions.py`: The main extraction engine. It parses the entire CST XML corpus and generates `bold_definitions.json` and `bold_definitions.tsv`.
+- `update_bold_definitions_db.py`: Clears the `bold_definitions` table in the DPD database and imports the latest extracted data from the TSV file.
+- `search_bold_definitions.py`: A CLI tool for searching the extracted definitions using plain text or regular expressions.
+- `functions.py`: Contains the data models (`BoldDefinitionEntry`, `Context`), context-tracking logic, and text cleaning utilities.
+
+## Data Structures
+
+The extraction produces entries with the following fields:
+- `file_name`: The source CST XML file.
+- `ref_code`: The short reference code for the text (e.g., `DNa`, `VINt`).
+- `nikaya`, `book`, `title`, `subhead`: The hierarchical context of the definition.
+- `bold`: The bolded headword/phrase.
+- `bold_end`: The immediate suffix or punctuation following the bold tag (e.g., `ti`, `nti`, `.`).
+- `commentary`: The surrounding sentence or paragraph providing the definition.
+
+## Usage
+
+### 1. Extract Data
+To run the full extraction process:
+```bash
+uv run python db/bold_definitions/extract_bold_definitions.py
+```
+
+### 2. Update Database
+To import the extracted data into `dpd.db`:
+```bash
+uv run python db/bold_definitions/update_bold_definitions_db.py
+```
+
+### 3. Search Definitions
+To search the database via CLI:
+```bash
+uv run python db/bold_definitions/search_bold_definitions.py
+```

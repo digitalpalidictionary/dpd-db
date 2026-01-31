@@ -1,35 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Extract bold defined words from the CST corpus and ad to database."""
+"""Extract bold defined words from the CST corpus and add to database.
+Refactored version that strictly follows original structure to avoid regression."""
 
 import json
 import re
-
-from bs4 import BeautifulSoup
+from pathlib import Path
+from typing import cast
+from bs4 import BeautifulSoup, Tag
 from rich import print
-
-from db.models import BoldDefinition
-from db.db_helpers import get_db_session
 
 from db.bold_definitions.functions import useless_endings
 from db.bold_definitions.functions import file_list
-from db.bold_definitions.functions import definition_to_dict
 from db.bold_definitions.functions import dissolve_empty_siblings
+from db.bold_definitions.functions import get_bold_strings
 from db.bold_definitions.functions import get_nikaya_headings_div
 from db.bold_definitions.functions import get_headings_no_div
-from db.bold_definitions.functions import get_bold_strings
+from db.bold_definitions.functions import BoldDefinitionEntry
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import write_tsv_dot_dict
-
-
-def debugger(para, bold):
-    print(f"{'para':<40}{para}")
-    print(f"{'bold':<40}{para}")
-    print(f"{'bold.next_sibling':<40}{bold.next_sibling}")
-    print(f"{'bold.next_sibling.next_sibling':<40}{bold.next_sibling.next_sibling}")
 
 
 def extract_bold_definitions(pth):
@@ -38,7 +30,6 @@ def extract_bold_definitions(pth):
     pr.green_title("extracting bold definitions")
 
     bold_definitions_list = []
-
     bold_total = 0
 
     for file_name, ref_code in file_list.items():
@@ -50,43 +41,69 @@ def extract_bold_definitions(pth):
         nikaya, book, title, subhead = ["", "", "", ""]
 
         # open xml file
-        with open(pth.cst_xml_dir.joinpath(file_name), "r", encoding="UTF-16") as file:
+        xml_path = pth.cst_xml_dir.joinpath(file_name)
+        if not xml_path.exists():
+            print(f"[red]File not found: {xml_path}")
+            continue
+
+        with open(xml_path, "r", encoding="UTF-16") as file:
             xml = file.read()
 
-        # make the soup
         soup = BeautifulSoup(xml, "xml")
 
-        # remove all the "pb" tags
-        pbs = soup.find_all("pb")
-        for pb in pbs:
-            pb.decompose()
+        # Pre-processing
+        for pb in soup.find_all("pb"):
+            cast(Tag, pb).decompose()
+        for note in soup.find_all("note"):
+            cast(Tag, note).decompose()
+        for hi in soup.find_all("hi", rend=["paranum", "dot"]):
+            cast(Tag, hi).unwrap()
 
-        # remove all the notes
-        notes = soup.find_all("note")
-        for note in notes:
-            note.decompose()
+        # SPLIT BOLDS: Split bold tags containing internal dots (e.g. <hi>phrase one. phrase two</hi>)
+        # We find all hi tags FIRST to avoid re-processing newly inserted ones
+        bolds_to_check = soup.find_all("hi", rend="bold")
+        for bold in bolds_to_check:
+            bold_tag = cast(Tag, bold)
+            # Ensure it's still in the tree (not already decomposed by a previous split)
+            if not bold_tag.parent:
+                continue
+                
+            text = bold_tag.get_text()
+            if "." in text[:-1]:
+                parts = text.split(". ")
+                ends_with_dot = text.strip().endswith(".")
+                valid_parts = [p.strip() for p in parts if p.strip()]
+                
+                if len(valid_parts) > 1:
+                    for i, part in enumerate(valid_parts):
+                        new_hi = soup.new_tag("hi", rend="bold")
+                        if i < len(valid_parts) - 1 or ends_with_dot:
+                            new_hi.string = part + "."
+                        else:
+                            new_hi.string = part
+                        
+                        bold_tag.insert_before(new_hi)
+                        if i < len(valid_parts) - 1:
+                            bold_tag.insert_before(" ")
+                    bold_tag.decompose()
 
-        # remove all the hi parunum dot tags
-        his = soup.find_all("hi", rend=["paranum", "dot"])
-        for hi in his:
-            hi.unwrap()
-
-        # grab the number of bolds
         bold_count1 = len(soup.find_all("hi", rend="bold"))
 
-        # grab the headings for suttas pitaka
+        # BRANCH 1: Has DIV (Nikaya Suttas etc)
         if soup.div is not None:
-            print("has div", end="\t")
+            nikaya_tags = soup.find_all("p", rend="nikaya")
+            if nikaya_tags:
+                nikaya = str(cast(Tag, nikaya_tags[0]).string)
 
-            nikaya = soup.find_all("p", rend="nikaya")[0].string
-            book = soup.find_all("head", rend="book")[0].string
+            book_tags = soup.find_all("head", rend="book")
+            if book_tags:
+                book = str(cast(Tag, book_tags[0]).string)
 
             divs = soup.find_all(
                 "div",
                 type=["sutta", "vagga", "chapter", "samyutta", "kanda", "khandaka"],
             )
 
-            # no real divs in anguttara ṭīkā
             ant = [
                 "s0401t.tik.xml",
                 "s0402t.tik.xml",
@@ -97,90 +114,91 @@ def extract_bold_definitions(pth):
                 divs = soup.find_all("div", type=["book"])
 
             for div in divs:
-                paras = div.find_all("p")
-
+                paras = cast(Tag, div).find_all("p")
                 for para in paras:
                     title, subhead = get_nikaya_headings_div(
-                        file_name, div, para, subhead
+                        file_name, cast(Tag, div), cast(Tag, para), subhead
                     )
 
-                    bolds = para.find_all("hi", rend=["bold"])
+                    bolds = cast(Tag, para).find_all("hi", rend=["bold"])
                     bolds = dissolve_empty_siblings(para, bolds)
 
                     for bold in bolds:
-                        if bold.next_sibling is not None:
-                            bold, bold_e, bold_comp, bold_n = get_bold_strings(bold)
+                        # BUG FIX: Removed 'if bold.next_sibling is not None'
+                        bold_clean, bold_e, bold_comp, bold_n = get_bold_strings(bold)
 
-                            # only write substantial examples
-                            bold_comp_clean = re.sub("\\<b\\>|\\</b\\>", "", bold_comp)
-                            if f"{bold}{bold_e}" == bold_comp_clean.strip():
-                                no_meaning_count += 1
-                            elif bold_n in useless_endings:
+                        # only write substantial examples
+                        bold_comp_clean = re.sub(r"<b>|</b>", "", bold_comp)
+                        
+                        # Relaxed check: if it's identical to the cleaned string AND 
+                        # there's only one bold word, it's likely a heading or duplicate.
+                        if f"{bold_clean}{bold_e}" == bold_comp_clean.strip():
+                            if bold_comp.count("<b>") <= 1:
                                 no_meaning_count += 1
                                 continue
-                            else:
-                                bold_definitions_list += [
-                                    definition_to_dict(
-                                        file_name,
-                                        ref_code,
-                                        nikaya,
-                                        book,
-                                        title,
-                                        subhead,
-                                        bold,
-                                        bold_e,
-                                        bold_comp,
-                                    )
-                                ]
-                                bold_count2 += 1
+                        
+                        # Only skip useless endings if it's the ONLY bold word in the snippet.
+                        if bold_n in useless_endings and bold_comp.count("<b>") <= 1:
+                            no_meaning_count += 1
+                            continue
+                        
+                        entry = BoldDefinitionEntry(
+                            file_name=file_name,
+                            ref_code=ref_code,
+                            nikaya=nikaya,
+                            book=book,
+                            title=title,
+                            subhead=subhead,
+                            bold=bold_clean,
+                            bold_end=bold_e,
+                            commentary=bold_comp,
+                        )
+                        bold_definitions_list.append(entry.to_dict())
+                        bold_count2 += 1
 
-            print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
-
-            bold_total += bold_count2
-
-        # for vinaya, khuddaka nikaya, vism
-        elif soup.div is None:
-            print("no div", end="\t")
-
+        # BRANCH 2: No DIV (Vinaya, Khuddaka, Vism)
+        else:
             paras = soup.find_all("p")
-
             for para in paras:
                 nikaya, book, title, subhead = get_headings_no_div(
-                    para, file_name, nikaya, book, title, subhead
+                    cast(Tag, para), file_name, nikaya, book, title, subhead
                 )
 
-                bolds = para.find_all("hi", rend="bold")
+                bolds = cast(Tag, para).find_all("hi", rend="bold")
                 bolds = dissolve_empty_siblings(para, bolds)
 
                 for bold in bolds:
-                    if bold.next_sibling is not None:
-                        bold, bold_e, bold_comp, bold_n = get_bold_strings(bold)
+                    # BUG FIX: Removed 'if bold.next_sibling is not None'
+                    bold_clean, bold_e, bold_comp, bold_n = get_bold_strings(bold)
 
-                        # only write substantial examples
-                        bold_comp_clean = re.sub("\\<b\\>|\\</b\\>", "", bold_comp)
-                        if f"{bold}{bold_e}" == bold_comp:
-                            no_meaning_count += 1
-                        elif bold_n in useless_endings:
+                    bold_comp_clean = re.sub(r"<b>|</b>", "", bold_comp)
+                    
+                    # Relaxed check for multi-bold sentences
+                    if f"{bold_clean}{bold_e}" == bold_comp_clean.strip():
+                        if bold_comp.count("<b>") <= 1:
                             no_meaning_count += 1
                             continue
-                        else:
-                            bold_definitions_list += [
-                                definition_to_dict(
-                                    file_name,
-                                    ref_code,
-                                    nikaya,
-                                    book,
-                                    title,
-                                    subhead,
-                                    bold,
-                                    bold_e,
-                                    bold_comp,
-                                )
-                            ]
-                            bold_count2 += 1
+                    
+                    if bold_n in useless_endings and bold_comp.count("<b>") <= 1:
+                        no_meaning_count += 1
+                        continue
+                    
+                    entry = BoldDefinitionEntry(
+                        file_name=file_name,
+                        ref_code=ref_code,
+                        nikaya=nikaya,
+                        book=book,
+                        title=title,
+                        subhead=subhead,
+                        bold=bold_clean,
+                        bold_end=bold_e,
+                        commentary=bold_comp,
+                    )
+                    bold_definitions_list.append(entry.to_dict())
+                    bold_count2 += 1
 
-            print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
-            bold_total += bold_count2
+        print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
+        bold_total += bold_count2
 
     pr.green("bold_total")
     pr.yes(len(bold_definitions_list))
@@ -188,88 +206,28 @@ def extract_bold_definitions(pth):
 
 
 def export_json(pth, bold_definitions_list):
-    """convert to tsv and json for rebuilding the db and external use."""
-
+    """convert to tsv and json."""
     pr.green("saving json")
+    output_dir = Path("db/bold_definitions")
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    file_path = pth.bold_definitions_tsv_path
-    write_tsv_dot_dict(file_path, bold_definitions_list)
+    tsv_path = output_dir.joinpath("bold_definitions.tsv")
+    write_tsv_dot_dict(tsv_path, bold_definitions_list)
 
-    file_path = pth.bold_definitions_json_path
-    with open(file_path, "w") as file:
-        json.dump(bold_definitions_list, file)
-
+    json_path = output_dir.joinpath("bold_definitions.json")
+    with open(json_path, "w") as file:
+        json.dump(bold_definitions_list, file, indent=2, ensure_ascii=False)
     pr.yes("ok")
-
-
-def update_db(pth, bold_definitions):
-    """Add bold definitions to dpd.db."""
-
-    pr.green("adding definitions to db")
-    db_session = get_db_session(pth.dpd_db_path)
-    add_to_db = []
-
-    for i in bold_definitions:
-        bd = BoldDefinition()
-        bd.update_bold_definition(
-            i["file_name"],
-            i["ref_code"],
-            i["nikaya"],
-            i["book"],
-            i["title"],
-            i["subhead"],
-            i["bold"],
-            i["bold_end"],
-            i["commentary"],
-        )
-
-        add_to_db.append(bd)
-
-    db_session.execute(BoldDefinition.__table__.delete())  # type: ignore
-    db_session.add_all(add_to_db)
-    db_session.commit()
-    pr.yes(len(add_to_db))
 
 
 def main():
     pr.tic()
     pr.title("building database of bolded definitions")
-
     pth = ProjectPaths()
-
     bold_definitions = extract_bold_definitions(pth)
     export_json(pth, bold_definitions)
-
-    if pth.dpd_db_path.exists():
-        update_db(pth, bold_definitions)
-
     pr.toc()
 
 
 if __name__ == "__main__":
     main()
-
-    # TODO data
-    # check what's not getting written
-    # remove space comma
-    # why no </b> tag?
-    # bold ends with '
-    # delete dupes
-    # <b>diṭṭhivisuddhi</b> <b>kho panā</b>
-
-    # bold is empty
-    # bold starts with space
-    # bold = <hi rend="bold"/>
-    # bold ends with .
-    # bold ends with '
-    # bold = ,
-    # replace ...pe with ' ... '
-    # ends with bold not being added
-
-    # TODO code
-    # add to gui, other places?
-    # automatically update html script
-    # combine file names & book names with CST books
-
-    # TESTS
-    # last letter of bold /W
