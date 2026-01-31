@@ -124,3 +124,5 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
+archive/db/bold_definitions/bold_definitions.json
+archive/db/bold_definitions/bold_definitions.tsv
