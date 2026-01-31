@@ -1,22 +1,4 @@
 {
-    "sattasamathanānatthādi": {
-        "lemma_1": "sattasamathanānatthādi",
-        "lemma_2": "sattasamathanānatthādi",
-        "pos": "masc",
-        "grammar": "masc, comp",
-        "meaning_2": "the variety in meaning, etc., between the seven principles for settling legal issues",
-        "root_key": "",
-        "root_sign": "",
-        "root_base": "",
-        "family_root": "",
-        "family_compound": "satta samatha nānattha ādi",
-        "construction": "satta + samatha + nāna + attha + ādi",
-        "stem": "sattasamathanānatthād",
-        "pattern": "i masc",
-        "comment": "[openrouter: openrouter/sonoma-dusk-alpha] This compound refers to the diversity or variations in interpretation (nānattha) and similar aspects (ādi) arising from the seven (satta) methods of settlement (samatha) used in Vinaya legal proceedings, as outlined in the Mahāvagga.",
-        "example_1": "10. sattasamathanānatthādi ",
-        "translation_1": "10. The variety in meaning, etc., between the seven principles for settling legal issues "
-    },
     "nidānahetupaccayā": {
         "lemma_1": "nidānahetupaccayā",
         "lemma_2": "nidānahetupaccayā",

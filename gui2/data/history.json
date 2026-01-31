@@ -1,5 +1,41 @@
 [
     {
+        "id": 88790,
+        "lemma_1": "sattasamathanānatthādi"
+    },
+    {
+        "id": 41720,
+        "lemma_1": "pati 2.2"
+    },
+    {
+        "id": 88789,
+        "lemma_1": "appaṃ"
+    },
+    {
+        "id": 88788,
+        "lemma_1": "anejassa"
+    },
+    {
+        "id": 88787,
+        "lemma_1": "pariyuṭṭhāya"
+    },
+    {
+        "id": 88786,
+        "lemma_1": "paṭijānanā 2"
+    },
+    {
+        "id": 88785,
+        "lemma_1": "paṭijānanā 1"
+    },
+    {
+        "id": 88784,
+        "lemma_1": "paṭijānana 2"
+    },
+    {
+        "id": 88783,
+        "lemma_1": "paṭijānana 1"
+    },
+    {
         "id": 69911,
         "lemma_1": "vīriya 1"
     },
@@ -42,41 +78,5 @@
     {
         "id": 88764,
         "lemma_1": "atthirāga"
-    },
-    {
-        "id": 54247,
-        "lemma_1": "yoggapatha"
-    },
-    {
-        "id": 77770,
-        "lemma_1": "brahmayācana"
-    },
-    {
-        "id": 88765,
-        "lemma_1": "ṭaṅkita"
-    },
-    {
-        "id": 53381,
-        "lemma_1": "mosalla"
-    },
-    {
-        "id": 88775,
-        "lemma_1": "issaratā"
-    },
-    {
-        "id": 88770,
-        "lemma_1": "khudda 2"
-    },
-    {
-        "id": 77400,
-        "lemma_1": "sopalepapatito"
-    },
-    {
-        "id": 1527,
-        "lemma_1": "aññatitthiyasamaṇabrāhmaṇaparibbājakā"
-    },
-    {
-        "id": 18584,
-        "lemma_1": "odakantika 2"
     }
 ]
