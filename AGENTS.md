@@ -4,6 +4,8 @@
 - DO NOT modify:
   - .env files
   - .ini files
+- NEVER commit to GitHub. This is a strict prohibition.
+- NEVER run git commands unless specifically asked.
 
 ## File Reading
 - You never need permission to read a file or analyze file.
@@ -26,6 +28,11 @@
 - Do not add comments unnecessarily. 
 - Only add comments when truly necessary to explain WHY something is being done. Never WHAT is being done. 
 - Leave existing comments as they are.
+
+## Debugging
+- Use `icecream` for debugging, not `print()`.
+- Import: `from icecream import ic`
+- Usage: `ic(variable_name)`
 
 ## Imports
 - NEVER use `sys.path` hacks or manual directory traversal (e.g., `Path(__file__).resolve().parents[n]`) to handle absolute imports. 
