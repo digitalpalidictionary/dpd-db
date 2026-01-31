@@ -1,0 +1,8 @@
+{
+  "track_id": "bold_end_sentence_20260131",
+  "type": "bug",
+  "status": "new",
+  "created_at": "2026-01-31T12:00:00Z",
+  "updated_at": "2026-01-31T12:00:00Z",
+  "description": "GitHub Issue #38: Find bold definitions at the end of sentences. Refactor extraction logic into db/bold_definitions2/ and unify XML processing using a class-based approach."
+}
