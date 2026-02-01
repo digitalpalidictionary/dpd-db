@@ -98,21 +98,32 @@ def compile_dict_data(g: GlobalData):
 def compile_lookup_data(g: GlobalData):
     pr.green_title("compiling lookup data")
 
-    db = g.db_session.query(Lookup).filter(Lookup.lookup_key.in_(g.word_set)).all()
-    db = sorted(db, key=lambda x: pali_sort_key(x.lookup_key))
-    db_len = len(db)
+    # Query all lookup entries with relevant data in one query
+    all_lookups = (
+        g.db_session.query(Lookup)
+        .filter(
+            (Lookup.deconstructor != None) |
+            (Lookup.spelling != None) |
+            (Lookup.variant != None)
+        )
+        .all()
+    )
 
-    for count, i in enumerate(db):
-        if i.deconstructor or i.spelling or i.variant:
-            html = g.lookup_template.render(i=i, css=g.css)
+    # Filter in Python using set lookup (O(1) per check)
+    lookup_results = [l for l in all_lookups if l.lookup_key in g.word_set]
+    lookup_results = sorted(lookup_results, key=lambda x: pali_sort_key(x.lookup_key))
+    db_len = len(lookup_results)
 
-            dict_entry = DictEntry(
-                word=i.lookup_key,
-                definition_html=html,
-                definition_plain="",
-                synonyms=[i.lookup_key],
-            )
-            g.dict_data.append(dict_entry)
+    for count, i in enumerate(lookup_results):
+        html = g.lookup_template.render(i=i, css=g.css)
+
+        dict_entry = DictEntry(
+            word=i.lookup_key,
+            definition_html=html,
+            definition_plain="",
+            synonyms=[i.lookup_key],
+        )
+        g.dict_data.append(dict_entry)
 
         if count % 10000 == 0:
             pr.counter(count, db_len, i.lookup_key)
