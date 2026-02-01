@@ -110,8 +110,16 @@ families:
     uv run python db/families/family_set.py
     uv run python db/families/family_idiom.py
 
+# ===== AUDIO =====
+# Generate missing audio files
+audio:
+    uv run python audio/bhashini/generate_dpd.py
 
 # ===== MAINTENANCE =====
+
+# Backup the database to .tsv
+backup:
+    uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
 
 # Update project documentation
 docs-update:
