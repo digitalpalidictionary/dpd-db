@@ -1,7 +1,12 @@
+.agent/
+.kilocode/
+.metadata_never_index
+.opencode/
+.roo/
+GEMINI.md
+dpd-db.code-workspace
 __pycache__/
 .DS_Store
-.opencode/bun.lock
-.opencode/package.json
 .venv
 .vscode/
 *.db
