@@ -1,5 +1,5 @@
 # DPD Database Justfile
-# A handy command runner for Digital Pali Dictionary workflows
+# A handy command runner for Digital Pāḷi Dictionary workflows
 
 # Default recipe shows available commands
 default:
@@ -15,11 +15,11 @@ initial_setup_run_once:
 initial_build_db:
     uv run python scripts/bash/initial_build_db.py
 
-# Generate/update all components (requires existing db)
+# Generate/update all components
 generate_components:
     uv run python scripts/bash/generate_components.py
 
-# Export all dictionary formats (requires existing db)
+# Export all dictionary formats
 makedict:
     uv run python scripts/bash/makedict.py
 
@@ -31,7 +31,7 @@ initial_build_db_and_export_all:
 
 # Run pytest suite
 test:
-    uv run pytest
+    uv run pytest tests
 
 # Run ruff linter on the codebase
 lint:
@@ -91,6 +91,10 @@ export-pdf:
 export-txt:
     uv run python exporter/txt/export_txt.py
 
+# Build WXT browser extension package
+wxt:
+    @cd exporter/wxt_extension && npm run package
+
 # ===== DATABASE COMPONENTS =====
 
 # Regenerate inflection tables
@@ -106,18 +110,6 @@ families:
     uv run python db/families/family_set.py
     uv run python db/families/family_idiom.py
 
-# Update suttas
-suttas:
-    uv run python db/suttas/suttas_update.py
-    uv run python db/suttas/suttas_to_lookup.py
-
-# Update grammar
-grammar:
-    uv run python db/grammar/grammar_to_lookup.py
-
-# Update variants
-variants:
-    uv run python db/variants/main.py
 
 # ===== MAINTENANCE =====
 
