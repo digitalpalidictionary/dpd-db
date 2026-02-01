@@ -1,5 +1,3 @@
-
-
 __pycache__/
 .DS_Store
 .opencode/bun.lock
@@ -9,6 +7,8 @@ __pycache__/
 *.db
 *.log
 *~lock.*
+archive/db/bold_definitions/bold_definitions.json
+archive/db/bold_definitions/bold_definitions.tsv
 archive/db/deconstructor/assets/
 archive/db/deconstructor/output_do_old.zip
 archive/db/deconstructor/output_do_old/
@@ -39,11 +39,10 @@ exporter/goldendict/javascript/family_idiom_json.js
 exporter/goldendict/javascript/family_root_json.js
 exporter/goldendict/javascript/family_set_json.js
 exporter/goldendict/javascript/family_word_json.js
-# Kindle exporter generated files
 exporter/kindle/epub/OEBPS/content.opf
 exporter/kindle/epub/OEBPS/Text/[0-9]*_*.xhtml
-exporter/kindle/epub/OEBPS/Text/epd_*.xhtml
 exporter/kindle/epub/OEBPS/Text/abbreviations.xhtml
+exporter/kindle/epub/OEBPS/Text/epd_*.xhtml
 exporter/mcp/output/*
 exporter/other_dictionaries/bmp_files/
 exporter/other_dictionaries/code/cone/bulk_dump_html.html
@@ -85,6 +84,3 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
-archive/db/bold_definitions/bold_definitions.json
-archive/db/bold_definitions/bold_definitions.tsv
-
