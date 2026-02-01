@@ -123,6 +123,9 @@ export function handleMouseUp(e: MouseEvent): void {
   // Ignore clicks on inputs or buttons
   if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('button')) return;
 
+  // Ignore drag-selection search if within the dictionary panel to allow copying text
+  if (target.closest('#dict-panel-25445')) return;
+
   const dx = Math.abs(e.clientX - dragStartX);
   const dy = Math.abs(e.clientY - dragStartY);
   

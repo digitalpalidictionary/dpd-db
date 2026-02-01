@@ -1,7 +1,7 @@
 # DPD WXT Extension - Complete Specification
 
 ## Overview
-The Digital Pāḷi Dictionary (DPD) browser extension built with WXT framework for cross-browser compatibility (Chrome and Firefox) using TypeScript. The extension allows users to search Pāli words by double-clicking or selecting text on any website.
+The Digital Pāḷi Dictionary (DPD) browser extension built with WXT framework for cross-browser compatibility (Chrome and Firefox) using TypeScript. The extension allows users to search Pāli words by double-clicking anywhere or selecting text on the webpage.
 
 ## Architecture
 
@@ -104,7 +104,7 @@ The Digital Pāḷi Dictionary (DPD) browser extension built with WXT framework 
 - **Refined Word Expansion**: 
     - Stops at opening quotes (`‘`, `“`) and numbers.
     - **Includes** closing quotes and apostrophes (e.g., `jhānan”ti`) to capture full grammatical units.
-- **Selection Handlers**: Handles both double-click and drag-selection.
+- **Selection Handlers**: Handles both double-click and drag-selection (drag-selection is disabled within the sidebar to allow text copying).
 - **Safety**: Excludes UI buttons and inputs from triggering searches.
 
 #### `utils/themes.ts`

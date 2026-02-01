@@ -714,7 +714,7 @@ export class DictionaryPanel {
     stickyMsg.style.marginTop = "2px";
     stickyMsg.style.opacity = "0.8";
     stickyMsg.innerHTML =
-      "<b>double-click</b> any word on the webpage or this sidebar to search<br><b>highlight</b> any word or phrase on the webpage or this sidebar to search";
+      "<b>double-click</b> anywhere on the webpage or sidebar to search<br><b>highlight / drag</b> any word or phrase on the webpage to search";
 
     header.appendChild(topRow);
     header.appendChild(searchRow);
@@ -771,8 +771,8 @@ export class DictionaryPanel {
 
         <p style="margin-bottom: 12px !important;">
           <b>How to Search:</b><br>
-          • <b>Double-click</b> any word on a webpage or within this sidebar.<br>
-          • <b>Highlight/Select</b> any word or phrase on the webpage or within this sidebar.
+          • <b>Double-click</b> anywhere on the webpage or sidebar to search.<br>
+          • <b>Highlight / Drag</b> any word or phrase on the webpage to search.
         </p>
 
         </div>
