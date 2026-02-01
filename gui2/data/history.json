@@ -1,5 +1,21 @@
 [
     {
+        "id": 63406,
+        "lemma_1": "sukusalasampahaṭṭha"
+    },
+    {
+        "id": 75383,
+        "lemma_1": "anomavaṇṇa"
+    },
+    {
+        "id": 36624,
+        "lemma_1": "nāḷandā"
+    },
+    {
+        "id": 54872,
+        "lemma_1": "rājagaha"
+    },
+    {
         "id": 88801,
         "lemma_1": "vimutta 5"
     },
@@ -62,21 +78,5 @@
     {
         "id": 20001,
         "lemma_1": "kandi"
-    },
-    {
-        "id": 86482,
-        "lemma_1": "āgamanakāla"
-    },
-    {
-        "id": 88792,
-        "lemma_1": "nāseti 3"
-    },
-    {
-        "id": 88791,
-        "lemma_1": "sassabhāga"
-    },
-    {
-        "id": 6688,
-        "lemma_1": "apīḷetvā"
     }
 ]
