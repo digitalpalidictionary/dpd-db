@@ -76,6 +76,12 @@ class ProjectPaths:
         self.ebook_letter_templ_path = (
             base_dir / "exporter/kindle/templates/ebook_letter.html"
         )
+        self.ebook_epd_entry_templ_path = (
+            base_dir / "exporter/kindle/templates/ebook_epd_entry.html"
+        )
+        self.ebook_epd_letter_templ_path = (
+            base_dir / "exporter/kindle/templates/ebook_epd_letter.html"
+        )
         self.ebook_title_page_templ_path = (
             base_dir / "exporter/kindle/templates/ebook_titlepage.html"
         )

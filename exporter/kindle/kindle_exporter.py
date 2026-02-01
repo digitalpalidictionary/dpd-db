@@ -32,7 +32,7 @@ from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict
 
 
-def render_xhtml(
+def render_dpd_xhtml(
     pth: ProjectPaths,
 ):
     pr.green("querying dpd db")
@@ -457,12 +457,125 @@ def html_friendly(text: str):
         return text
 
 
+def render_epd_xhtml(pth: ProjectPaths, id_counter: int) -> int:
+    """Render EPD (English to Pāḷi Dictionary) entries and save to XHTML files."""
+
+    pr.green("querying epd data from lookup table")
+    db_session = get_db_session(pth.dpd_db_path)
+    lookup_db = db_session.query(Lookup).filter(Lookup.epd != "").all()
+    pr.yes(len(lookup_db))
+
+    # Create dictionary for English alphabet letters
+    english_alphabet = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+    ]
+    epd_letter_dict: dict = {}
+    for letter in english_alphabet:
+        epd_letter_dict[letter] = []
+
+    # Process each lookup entry
+    for lookup_entry in lookup_db:
+        english_headword = lookup_entry.lookup_key
+
+        # Get first letter and normalize to lowercase
+        first_letter = english_headword[0].lower() if english_headword else "a"
+
+        # Skip if not a standard English letter (e.g., numbers, symbols)
+        if first_letter not in english_alphabet:
+            first_letter = "a"
+
+        # Unpack EPD data: list[tuple[str, str, str]] = (lemma_clean, pos, meaning_plus_case)
+        epd_entries = lookup_entry.epd_unpack
+
+        # Build Pāḷi equivalents HTML
+        pali_equivalents_list = []
+        for lemma_clean, pos, meaning_plus_case in epd_entries:
+            entry_html = f"<b class='epd'>{lemma_clean}</b> {pos}. {meaning_plus_case}"
+            pali_equivalents_list.append(entry_html)
+
+        pali_equivalents = "<br/>".join(pali_equivalents_list)
+
+        # Render the entry
+        entry = render_epd_entry(pth, id_counter, english_headword, pali_equivalents)
+        epd_letter_dict[first_letter].append(entry)
+        id_counter += 1
+
+    # Save entries to XHTML files for each letter
+    pr.green("saving epd entries xhtml")
+    total = 0
+
+    for counter, letter in enumerate(english_alphabet):
+        entries_list = epd_letter_dict[letter]
+        total += len(entries_list)
+        entries_str = "".join(entries_list)
+
+        xhtml = render_epd_letter_templ(pth, letter, entries_str)
+        output_path = pth.epub_text_dir.joinpath(f"epd_{counter}_{letter}.xhtml")
+
+        with open(output_path, "w") as f:
+            f.write(xhtml)
+
+    pr.yes(total)
+    db_session.close()
+    return id_counter
+
+
+def render_epd_entry(
+    pth: ProjectPaths,
+    counter: int,
+    english_headword: str,
+    pali_equivalents: str,
+) -> str:
+    """Render single EPD entry."""
+    ebook_epd_entry_templ = Template(filename=str(pth.ebook_epd_entry_templ_path))
+
+    return str(
+        ebook_epd_entry_templ.render(
+            counter=counter,
+            english_headword=english_headword,
+            pali_equivalents=pali_equivalents,
+        )
+    )
+
+
+def render_epd_letter_templ(pth: ProjectPaths, letter: str, entries: str) -> str:
+    """Render all EPD entries for a single English letter."""
+    ebook_epd_letter_templ = Template(filename=str(pth.ebook_epd_letter_templ_path))
+    return str(ebook_epd_letter_templ.render(letter=letter, entries=entries))
+
+
 def main():
     pr.tic()
     pr.title("rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         pth = ProjectPaths()
-        id_counter: int = render_xhtml(pth)
+        id_counter: int = render_dpd_xhtml(pth)
+        id_counter = render_epd_xhtml(pth, id_counter)
         save_abbreviations_xhtml_page(pth, id_counter)
         save_title_page_xhtml(pth)
         zip_epub(pth)
