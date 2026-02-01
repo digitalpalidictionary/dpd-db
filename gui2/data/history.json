@@ -1,5 +1,29 @@
 [
     {
+        "id": 28688,
+        "lemma_1": "jeti"
+    },
+    {
+        "id": 27998,
+        "lemma_1": "jayati"
+    },
+    {
+        "id": 23613,
+        "lemma_1": "khādana 1"
+    },
+    {
+        "id": 21841,
+        "lemma_1": "kilamati 2"
+    },
+    {
+        "id": 21372,
+        "lemma_1": "kārī 2"
+    },
+    {
+        "id": 21371,
+        "lemma_1": "kārī 1"
+    },
+    {
         "id": 63406,
         "lemma_1": "sukusalasampahaṭṭha"
     },
@@ -54,29 +78,5 @@
     {
         "id": 88795,
         "lemma_1": "payas 2x"
-    },
-    {
-        "id": 88794,
-        "lemma_1": "taruṇakhīra"
-    },
-    {
-        "id": 6689,
-        "lemma_1": "apīḷenta"
-    },
-    {
-        "id": 88793,
-        "lemma_1": "mandasassa"
-    },
-    {
-        "id": 46425,
-        "lemma_1": "pīḷā"
-    },
-    {
-        "id": 45046,
-        "lemma_1": "pavesetvā 2"
-    },
-    {
-        "id": 20001,
-        "lemma_1": "kandi"
     }
 ]
