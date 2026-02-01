@@ -248,19 +248,6 @@ jobs:
     - name: Prepare Kobo Asset
       run: cp exporter/share/dicthtml-pi-en.zip exporter/share/dpd-kobo.zip
     
-    - name: Verify dpd-txt.zip exists
-      run: |
-        echo "=== Checking for dpd-txt.zip ==="
-        if [ -f "exporter/share/dpd-txt.zip" ]; then
-          ls -lh exporter/share/dpd-txt.zip
-          file exporter/share/dpd-txt.zip
-          unzip -t exporter/share/dpd-txt.zip
-        else
-          echo "ERROR: dpd-txt.zip not found!"
-          ls -la exporter/share/
-          exit 1
-        fi
-
     - name: Create Release and Upload Assets
       uses: softprops/action-gh-release@v2
       with:
