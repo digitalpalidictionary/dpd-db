@@ -5,5 +5,18 @@
 
 ---
 
+
+
 ## [ ] Track: Database Query Tab Feature
+
 *Link: [./tracks/db_query_tab_20251231/](./tracks/db_query_tab_20251231/)*
+
+
+
+---
+
+
+
+## [ ] Track: English to Pāḷi Dictionary (EPD) Integration into Kindle Export
+
+*Link: [./tracks/epd_kindle_20260201/](./tracks/epd_kindle_20260201/)*

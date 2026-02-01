@@ -1,0 +1,8 @@
+{
+  "track_id": "epd_kindle_20260201",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-01T10:00:00Z",
+  "updated_at": "2026-02-01T10:00:00Z",
+  "description": "Include the English to Pāḷi Dictionary (EPD) in the Kindle export as a separate section with its own templates and navigation."
+}
