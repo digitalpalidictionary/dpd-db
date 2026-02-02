@@ -8,8 +8,9 @@
 4. **Data Output Verification:** Write tests to verify accurate data output. Automated tests are NOT required for UI elements, CSS, or HTML, as these are best verified and tweaked by a human. Do not test UI components - user interaction will reveal UI issues. Do not test internal function implementation details.
 5. **User Experience First:** Every decision should prioritize user experience
 6. **README Maintenance:** Each project folder contains a `README.md`, which MUST be updated if anything within the folder changes to ensure documentation stays in sync with code.
-7. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
-8. **Proactive Research:** Always perform a Google Search during the planning and task execution phases for any framework-specific (e.g., Flet), OS-specific (e.g., Linux window management), or non-trivial technical requirements to identify known quirks, limitations, or best practices.
+7. **Documentation is Mandatory:** Once a task is finished and approved by the user, the `docs/` folder MUST be updated with all relevant changes. This is not optional.
+8. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
+9. **Proactive Research:** Always perform a Google Search during the planning and task execution phases for any framework-specific (e.g., Flet), OS-specific (e.g., Linux window management), or non-trivial technical requirements to identify known quirks, limitations, or best practices.
 
 ## Task Workflow
 
@@ -52,8 +53,12 @@ All tasks follow a strict lifecycle:
    - Propose a clear, concise commit message.
 
 9. **Update Plan:**
-    - Read `plan.md`, find the line for the completed task, and update its status from `[~]` to `[x]`.
-    - Write the updated content back to `plan.md`.
+     - Read `plan.md`, find the line for the completed task, and update its status from `[~]` to `[x]`.
+     - Write the updated content back to `plan.md`.
+
+10. **Update Documentation (REQUIRED):**
+     - After user approval, the `docs/` folder MUST be updated with any relevant changes.
+     - This includes: feature documentation, technical specs, API docs, installation guides, or any other docs affected by the changes.
 
 ### Phase Completion Verification and Checkpointing Protocol
 
@@ -92,7 +97,7 @@ Before marking any task complete, verify:
 - [ ] Type safety is enforced
 - [ ] No linting or static analysis errors
 - [ ] Works correctly on mobile (if applicable)
-- [ ] Documentation updated if needed
+- [ ] `docs/` folder updated with all relevant changes (features, technical specs, API docs, etc.)
 
 ## Development Commands
 
@@ -134,10 +139,10 @@ A task is complete when:
 
 1. All code implemented to specification
 2. Tests verify data output accuracy and are passing
-3. Documentation complete (if applicable)
-4. Code passes all configured linting and static analysis checks
-5. Implementation notes added to `plan.md`
-6. User notified to perform manual commit
+3. Code passes all configured linting and static analysis checks
+4. Implementation notes added to `plan.md`
+5. User notified to perform manual commit
+6. **Documentation Updated:** The `docs/` folder has been updated with all relevant changes (features, technical specs, API changes, etc.)
 
 ## Continuous Improvement
 
