@@ -329,25 +329,27 @@ jobs:
           cp ./apple-dictionary-source/Dictionary.css MyDictionary/
           cp ./apple-dictionary-source/Info.plist MyDictionary/
           
-          # Create Makefile
-          cat > MyDictionary/Makefile << 'EOF'
-          DICT_NAME = Digital-Pali-Dictionary
-          DICT_SRC_PATH = Dictionary.xml
-          CSS_PATH = Dictionary.css
-          PLIST_PATH = Info.plist
-          DICT_BUILD_TOOL_DIR = ../Dictionary-Development-Kit
-          
-          include $(DICT_BUILD_TOOL_DIR)/Makefile
-          EOF
+          # Create Makefile with absolute path
+          printf '%s\n' \
+            "DICT_NAME = Digital-Pali-Dictionary" \
+            "DICT_SRC_PATH = Dictionary.xml" \
+            "CSS_PATH = Dictionary.css" \
+            "PLIST_PATH = Info.plist" \
+            "DICT_BUILD_TOOL_DIR = ${{ github.workspace }}/Dictionary-Development-Kit" \
+            "" \
+            "include $(DICT_BUILD_TOOL_DIR)/Makefile" \
+            > MyDictionary/Makefile
           
           echo "=== Dictionary project prepared ==="
           ls -la MyDictionary/
+          echo "=== Makefile content ==="
+          cat MyDictionary/Makefile
           
           # Build
           cd MyDictionary
           make
           echo "=== Build complete ==="
-          ls -la *.dictionary/
+          ls -la
 
       - name: Package Dictionary
         run: |
