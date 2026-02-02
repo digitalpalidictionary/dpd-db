@@ -1,0 +1,8 @@
+{
+  "track_id": "mac_dictionary_20260202",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-02T00:00:00Z",
+  "updated_at": "2026-02-02T00:00:00Z",
+  "description": "Setting up a GitHub Actions workflow to build Mac native .dictionary files that leverages data from the existing 'draft release' workflow. Creates a Python export module that generates Apple Dictionary Development Kit compatible source files (XML, CSS, plist) on Linux, then compiles the final .dictionary bundle on macOS."
+}

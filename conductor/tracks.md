@@ -10,3 +10,9 @@
 ## [ ] Track: Database Query Tab Feature
 
 *Link: [./tracks/db_query_tab_20251231/](./tracks/db_query_tab_20251231/)*
+
+---
+
+## [x] Track: Mac Dictionary Build Integration
+
+*Link: [./tracks/mac_dictionary_20260202/](./tracks/mac_dictionary_20260202/)*
