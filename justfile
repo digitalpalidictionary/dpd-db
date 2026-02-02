@@ -140,3 +140,28 @@ showlog:
     #!/usr/bin/env bash
     latest_file=$(ls -t logs/* | head -1)
     xdg-open "$latest_file"
+
+# ===== SERVER =====
+
+# Complete server update: code, data, db, search index, restart
+server-update:
+    #!/usr/bin/env bash
+    set -e
+    git pull
+    uv sync
+    uv run python audio/db_release_download.py
+    wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2 | tar -xj
+    uv run exporter/webapp/generate_search_index.py
+    pkill -f "uvicorn exporter.webapp.main:app" || true
+    sleep 2
+    mkdir -p logs
+    nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log" 2>&1 &
+
+# Quick reload: pull code and restart server
+server-reload:
+    #!/usr/bin/env bash
+    git pull
+    pkill -f "uvicorn exporter.webapp.main:app" || true
+    sleep 2
+    mkdir -p logs
+    nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log" 2>&1 &
