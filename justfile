@@ -91,6 +91,10 @@ export-pdf:
 export-txt:
     uv run python exporter/txt/export_txt.py
 
+# Export Apple Dictionary format only (generates XML, CSS, plist for macOS)
+export-apple-dictionary:
+    uv run python exporter/apple_dictionary/apple_dictionary.py
+
 # Build WXT browser extension package
 wxt:
     @cd exporter/wxt_extension && npm run package
