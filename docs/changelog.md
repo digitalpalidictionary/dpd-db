@@ -5,6 +5,41 @@ search:
 
 # Changelog
 
+## 2026-02-02
+
+### GitHub Issues Closed
+- [#21 English-to-Pāḷi dictionary for Kindle](https://github.com/digitalpalidictionary/dpd-db/issues/21)
+- [#38 Find bold definitions at the end of sentences](https://github.com/digitalpalidictionary/dpd-db/issues/38)
+- [#76 Grammar dictionary: fix sort buttons not working](https://github.com/digitalpalidictionary/dpd-db/issues/76)
+- [#111 Webapp: UI improvements for mobile](https://github.com/digitalpalidictionary/dpd-db/issues/111)
+- [#172 Webapp: variants not showing in some cases](https://github.com/digitalpalidictionary/dpd-db/issues/172)
+- [#200 Refactor: Unified speech marks manager to handle apostrophes and hyphens](https://github.com/digitalpalidictionary/dpd-db/issues/200)
+- [#201 Refactor: rename all ambiguous CSS classes](https://github.com/digitalpalidictionary/dpd-db/issues/201)
+- [#202 Webapp: fix memory overload bug](https://github.com/digitalpalidictionary/dpd-db/issues/202)
+- [#203 Webapp: show a diacritic insensitive dropdown list when searching](https://github.com/digitalpalidictionary/dpd-db/issues/203)
+- [#204 Add TPR deeplinks to webapp and GoldenDict exporters](https://github.com/digitalpalidictionary/dpd-db/issues/204)
+- [#205 Refactor: remove duplicated EPD code](https://github.com/digitalpalidictionary/dpd-db/issues/205)
+- [#206 Webapp: Allow multiple book selection in Tipiṭaka Translations tab](https://github.com/digitalpalidictionary/dpd-db/issues/206)
+
+
+### Dictionary Data Updates
+- 88 351 headwords, 47 536 complete, 11 472 partially complete, 29 343 incomplete entries
+- 754 roots, 3 350 root families, 36 336 words derived from roots
+- 858 681 deconstructed compounds
+- 1 477 239 unique inflected forms recognized
+- 2 190 712 cells of Pāḷi word data
+- 18 339 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1
+- Pass2 in progress: SN2
+- numerous additions and corrections based on user feedback
+
+### New Words
+ajjhāruhati 2, atikāya, atītampi addhānaṃ, atthajāta 1.1, atthirāga, adhikaraṇanidānādi, adhikaraṇapaccayāpatti, adhikaraṇabheda, adhikaraṇamūlādi, adhikaraṇādhippāya, anivāretvā, anissaratā, anunayamāna 2, anupariyeti 2, anubodhayamāna, anubodheti, anubodhenta, anuvādajātika, anuvādanidāna, anuvādapabhava, anuvādasamuṭṭhāna, anuvādasamudaya, anuvādasambhāra, anejassa, aparittāsī, appaṃ, abhinīhaṭa 2, abhinīhata, abhipāta, amagga 2, amhehi 6, asītikoṭidhana, āgada, āgadana, āpattānāpatti 2, āpattijātika, āpattinidāna, āpattipabhava, āpattisambhāra, issaratā, issaratta, ukkoṭanabhedādi, uṇhāpeti, uṇhāpetvā, uttarikā, upaṭṭhāsi 4, upadhāvati 3, uparivāta, uppādayitvāna, ullokayanta, ekavelā, osarati 2, katihaṅgehi, kapalla 4, karaṇatthaṃ, kiccaya, kiccayajātika, kiccayanidāna, kiccayapabhava, kiccayasamuṭṭhāna, kiccayasamudaya, kiccayasambhāra, kutojāta, kekaka, kekakādhipa, koṭidhana, korajikakorajika, khudda 2, gahita 5, gārayhapatta, goṇamaṃsa, catusaccavimutta, cātumāsapaccayapavāraṇā, cittasammohanaṭṭhāna, cime, chabbi, ñātika, ṭaṅkita, tato paṭṭhāya, taruṇakhīra, taruṇarukkha, tiṭṭha, tiṇalāyana, tūriyatāḷitavāditanigghosasadda, tosesi 2, diṭṭhavant, duggatakāla, dutiya 3, duvinicchita, dussīlyakamma, dhammadassī 2, dhammissaratā, dhammissaratta, nāseti 3, nikkhamanatthaṃ 1, nikkhamanatthaṃ 2, niccharatī, nidānajātika, nidānanidāna, nidānapabhava, nidānasamuṭṭhāna, nidānasamudaya, nidānasambhāra, nibbattatī 2, nimantanā, nissajjitvāna, paccayajātika, paccayanidāna, paccayapabhava, paccayasamuṭṭhāna, paccayasambhāra, paṭijānana 1, paṭijānana 2, paṭijānanā 1, paṭijānanā 2, paṭippassaddha 2, paṭivattar 2, padumapuppha 1, pabhijjati 3, payas 2, paraddha, paramahaṃsa, parittāsī 2, pariyuṭṭhāya, parivīmaṃsana, pareti 3, pānīya 3, pāpayati, pārājikādiāpatti, pihayati 3, porāṇakabrāhmaṇā, bahukālaṃ, bhaddanta 3, bhikkhācariyavaṃsa, bhuvādi, manteti 3, mandasassa, mahākantārapaṭipanna, yavabhatta, yassatthi, yānissa, yāyattānaṃ, rāmaṇeyyaka 4, vajjiputtaka 2, vattanta 2, vinicchitabba, vibhajjati, vimutta 4, vivādajātika, vivādanidāna, vivādapabhava, vivādasamuṭṭhāna, vivādasamudaya, vivādasambhāra, sajjati 1.3, saññamasaṃvara, saññāpayanta, saṇṭhāna 2, sattadhātu, sattasamathanānatthādi, sattasamathanidāna, satthadhamma, saddhācitta, sabhayānaka, sambhoga 3, sassabhāga, sahassabāhu, sināti 2.1, sīvaka 3, sucitra, sutta 1.3, suddhika 2, supina 3, sussūsanta, haritvā 3, hetujātika, hetunidāna, hetupabhava, hetusamuṭṭhāna, hetusamudaya, hetusambhāra [181]
+
+
+
 ## 2026-01-03
 
 ### GitHub Issues Closed
