@@ -1,0 +1,15 @@
+<div class="content">
+    <p>
+        <span class="pos">{{ i.pos }}</span>
+        {% if i.plus_case %}
+        <span class="case-info">({{ i.plus_case }})</span>
+        {% endif %}
+        <span class="meaning">{{ i.meaning_combo_html | safe }}</span>
+        {% if i.construction_summary %}
+        <span class="construction">[{{ i.construction_summary | safe }}]</span>
+        {% endif %}
+    </p>
+    {% if i.degree_of_completion %}
+    <p class="completion">{{ i.degree_of_completion_html | safe }}</p>
+    {% endif %}
+</div>

@@ -1,0 +1,88 @@
+/* DPD Dictionary Stylesheet for Apple Dictionary Development Kit */
+/* Uses DPD brand identity colors */
+
+/* Root variables for DPD colors */
+:root {
+  /* Primary DPD color - cyan/blue */
+  --primary: hsl(198, 100%, 50%);
+  --primary-text: hsl(205, 79%, 48%);
+  
+  /* Background and text colors */
+  --light: hsl(198, 100%, 95%);
+  --dark: hsl(198, 100%, 5%);
+  
+  /* Grays */
+  --gray: hsl(0, 0%, 50%);
+  --gray-light: hsl(0, 0%, 75%);
+  --gray-dark: hsl(0, 0%, 25%);
+}
+
+/* Entry title styling */
+h1 {
+  font-size: 150%;
+  font-weight: bold;
+  color: var(--primary-text);
+  margin-top: 0;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 4px;
+}
+
+/* Part of speech styling */
+.pos {
+  font-style: italic;
+  color: var(--gray-dark);
+  margin-right: 4px;
+}
+
+/* Case info styling */
+.case-info {
+  color: var(--gray);
+  font-size: 90%;
+}
+
+/* Main definition content */
+.content {
+  border: 2px solid var(--primary);
+  border-radius: 7px;
+  line-height: 150%;
+  margin: 8px 0;
+  padding: 8px 12px;
+  background-color: var(--light);
+}
+
+/* Paragraph styling */
+p {
+  line-height: 150%;
+  margin: 6px 0;
+  text-align: left;
+}
+
+/* Meaning/definition text */
+.meaning {
+  color: var(--dark);
+}
+
+/* Construction summary */
+.construction {
+  color: var(--gray-dark);
+  font-size: 90%;
+  font-style: italic;
+}
+
+/* Degree of completion indicator */
+.completion {
+  font-size: 85%;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+/* Links within dictionary entries */
+a {
+  color: var(--primary-text);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
