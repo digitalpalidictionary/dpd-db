@@ -36,17 +36,10 @@ initial_build_db_and_export_all:
 test:
     uv run pytest tests
 
-# Run ruff linter on the codebase
+# Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
-    uv run ruff check .
-
-# Auto-fix ruff issues where possible
-lint-fix:
-    uv run ruff check --fix .
-
-# Format code with ruff
-format:
-    uv run ruff format .
+    uv run ruff check . --exclude archive --exclude resources
+    uv run ruff format . --exclude archive --exclude resources
 
 # Show project version
 version:
