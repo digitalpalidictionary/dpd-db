@@ -249,6 +249,10 @@ export class DictionaryPanel {
     this.textNode.classList.toggle("loading", text.includes("..."));
     this.textNode.style.color = "var(--dpd-primary)";
     this.searchBtn?.classList.toggle("loading", text.includes("..."));
+
+    if (text.includes("...")) {
+      this.content.innerHTML = "";
+    }
   }
 
   setContent(html: string, isNavigation: boolean = false) {
