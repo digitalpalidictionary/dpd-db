@@ -21,7 +21,10 @@ generate_components:
 
 # Export all dictionary formats
 makedict:
-    uv run python scripts/bash/makedict.py
+    #!/usr/bin/env bash
+    mkdir -p logs
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
 
 # Complete rebuild and export everything
 initial_build_db_and_export_all:
@@ -131,3 +134,9 @@ docs-update:
     uv run python tools/docs_update_bibliography.py
     uv run python tools/docs_update_thanks.py
     uv run python tools/docs_changelog_and_release_notes.py
+
+# Open most recent log file in browser
+showlog:
+    #!/usr/bin/env bash
+    latest_file=$(ls -t logs/* | head -1)
+    xdg-open "$latest_file"
