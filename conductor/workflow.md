@@ -9,8 +9,9 @@
 5. **User Experience First:** Every decision should prioritize user experience
 6. **README Maintenance:** Each project folder contains a `README.md`, which MUST be updated if anything within the folder changes to ensure documentation stays in sync with code.
 7. **Documentation is Mandatory:** Once a task is finished and approved by the user, the `docs/` folder MUST be updated with all relevant changes. This is not optional.
-8. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
-9. **Proactive Research:** Always perform a Google Search during the planning and task execution phases for any framework-specific (e.g., Flet), OS-specific (e.g., Linux window management), or non-trivial technical requirements to identify known quirks, limitations, or best practices.
+8. **Code Quality is Mandatory:** All changed files MUST pass `uv run ruff check --fix` and `uv run ruff format` before task completion. This is not optional.
+9. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
+10. **Proactive Research:** Always perform a Google Search during the planning and task execution phases for any framework-specific (e.g., Flet), OS-specific (e.g., Linux window management), or non-trivial technical requirements to identify known quirks, limitations, or best practices.
 
 ## Task Workflow
 
@@ -47,16 +48,21 @@ All tasks follow a strict lifecycle:
    - Add dated note explaining the change
    - Resume implementation
 
-8. **Notify User for Commit:**
+8. **Lint and Format Code (REQUIRED):**
+   - Run `uv run ruff check --fix` on all changed files to fix linting issues automatically.
+   - Run `uv run ruff format` on all changed files to ensure consistent formatting.
+   - Fix any remaining linting errors that cannot be auto-fixed.
+
+9. **Notify User for Commit:**
    - Inform the user that the task is complete and ready for manual review and commit.
    - List all created/modified files.
    - Propose a clear, concise commit message.
 
-9. **Update Plan:**
+10. **Update Plan:**
      - Read `plan.md`, find the line for the completed task, and update its status from `[~]` to `[x]`.
      - Write the updated content back to `plan.md`.
 
-10. **Update Documentation (REQUIRED):**
+11. **Update Documentation (REQUIRED):**
      - After user approval, the `docs/` folder MUST be updated with any relevant changes.
      - This includes: feature documentation, technical specs, API docs, installation guides, or any other docs affected by the changes.
 
@@ -95,7 +101,7 @@ Before marking any task complete, verify:
 - [ ] Code follows project's code style guidelines
 - [ ] All public functions/methods are documented
 - [ ] Type safety is enforced
-- [ ] No linting or static analysis errors
+- [ ] No linting or static analysis errors (ruff check --fix and ruff format run on all changed files)
 - [ ] Works correctly on mobile (if applicable)
 - [ ] `docs/` folder updated with all relevant changes (features, technical specs, API docs, etc.)
 
@@ -139,7 +145,7 @@ A task is complete when:
 
 1. All code implemented to specification
 2. Tests verify data output accuracy and are passing
-3. Code passes all configured linting and static analysis checks
+3. Code passes all configured linting (`uv run ruff check --fix`) and formatting (`uv run ruff format`) on all changed files
 4. Implementation notes added to `plan.md`
 5. User notified to perform manual commit
 6. **Documentation Updated:** The `docs/` folder has been updated with all relevant changes (features, technical specs, API changes, etc.)
