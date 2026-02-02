@@ -2,6 +2,7 @@ import pytest
 from tools.cache_load import load_tpr_codes_set
 from tools.paths import ProjectPaths
 
+
 def test_load_tpr_codes_set():
     pth = ProjectPaths()
     if pth.tpr_codes_json_path.exists():

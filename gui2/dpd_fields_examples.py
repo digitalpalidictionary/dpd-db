@@ -131,9 +131,7 @@ class DpdExampleField(ft.Column):
 
         self.toolkit: ToolKit = toolkit
 
-        self.speech_marks_manager: SpeechMarkManager = (
-            self.toolkit.speech_marks_manager
-        )
+        self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
 
         self.simple_mode = simple_mode

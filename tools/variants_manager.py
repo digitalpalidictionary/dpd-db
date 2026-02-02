@@ -5,7 +5,6 @@ This module provides a reusable VariantManager class that can be used
 by both GUI2 and webapp to manage manual variant readings from TSV files.
 """
 
-
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_2col_to_dict
 
@@ -84,7 +83,9 @@ class VariantManager:
         Returns:
             List of variant spellings that map to the main form.
         """
-        return [variant for variant, main in self.variants_dict.items() if main == main_form]
+        return [
+            variant for variant, main in self.variants_dict.items() if main == main_form
+        ]
 
 
 if __name__ == "__main__":

@@ -53,9 +53,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.test_manager: GuiTestManager = self.toolkit.test_manager
         self.toolkit: ToolKit = toolkit
 
-        self.speech_marks_manager: SpeechMarkManager = (
-            self.toolkit.speech_marks_manager
-        )
+        self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
         self.history_manager = self.toolkit.history_manager
         self.history_manager.register_refresh_callback(self._update_history_dropdown)

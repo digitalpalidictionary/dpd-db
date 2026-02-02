@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.getcwd()))
 
 from exporter.webapp.main import app
 
+
 def test_metrics_endpoint():
     client = TestClient(app)
     response = client.get("/metrics")
@@ -15,11 +16,13 @@ def test_metrics_endpoint():
     assert "process_resident_memory_bytes" in response.text
     print("PASS: /metrics endpoint is live and returning system stats.")
 
+
 def test_home_page():
     client = TestClient(app)
     response = client.get("/")
     assert response.status_code == 200
     print("PASS: Home page is functional.")
+
 
 if __name__ == "__main__":
     try:

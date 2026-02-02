@@ -2,7 +2,6 @@
 
 """Update the family_word column in DpdHeadword with a new value."""
 
-
 from rich import print
 
 from db.db_helpers import get_db_session

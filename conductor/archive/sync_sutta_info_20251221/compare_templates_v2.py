@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 
+
 def main():
     webapp_path = Path("exporter/webapp/templates/dpd_headword.html")
     goldendict_path = Path("exporter/goldendict/templates/dpd_sutta_info.html")
@@ -22,13 +23,14 @@ def main():
     goldendict_matches = re.findall(r"su\[\w+\]", goldendict_content)
     print(f"GoldenDict matches: {len(goldendict_matches)}")
     print(f"Sample: {goldendict_matches[:5]}")
-    
+
     webapp_set = set(webapp_matches)
     goldendict_set = set(goldendict_matches)
-    
+
     print("\n--- Differences ---")
     print(f"In Webapp but not GoldenDict: {sorted(webapp_set - goldendict_set)}")
     print(f"In GoldenDict but not Webapp: {sorted(goldendict_set - webapp_set)}")
+
 
 if __name__ == "__main__":
     main()

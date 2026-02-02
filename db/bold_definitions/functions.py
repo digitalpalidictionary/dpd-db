@@ -33,7 +33,7 @@ class Context:
 
 def update_context(tag, file_name, context: Context) -> Context:
     """Update context based on tag and file_name."""
-    
+
     rend = tag.get("rend", "")
     tag_name = tag.name
     tag_text = tag.get_text().strip()
@@ -109,16 +109,27 @@ def update_context(tag, file_name, context: Context) -> Context:
 
     # Categorize Nikayas
     aññā = [
-        "e0101n.mul.xml", "e0102n.mul.xml", "e0103n.att.xml", "e0104n.att.xml",
-        "e0802n.nrf.xml", "e0803n.nrf.xml", "e0804n.nrf.xml", "e0805n.nrf.xml",
-        "e0809n.nrf.xml", "e0810n.nrf.xml",
+        "e0101n.mul.xml",
+        "e0102n.mul.xml",
+        "e0103n.att.xml",
+        "e0104n.att.xml",
+        "e0802n.nrf.xml",
+        "e0803n.nrf.xml",
+        "e0804n.nrf.xml",
+        "e0805n.nrf.xml",
+        "e0809n.nrf.xml",
+        "e0810n.nrf.xml",
     ]
     if file_name in aññā:
         context.nikaya = "aññā"
 
     vin_t = [
-        "vin04t.nrf.xml", "vin08t.nrf.xml", "vin09t.nrf.xml", "vin10t.nrf.xml",
-        "vin11t.nrf.xml", "vin13t.nrf.xml",
+        "vin04t.nrf.xml",
+        "vin08t.nrf.xml",
+        "vin09t.nrf.xml",
+        "vin10t.nrf.xml",
+        "vin11t.nrf.xml",
+        "vin13t.nrf.xml",
     ]
     if file_name in vin_t:
         context.nikaya = "vinayapiṭake"
@@ -292,7 +303,8 @@ def dissolve_empty_siblings(para, bolds):
             if (
                 bold.next_sibling == " "
                 and bold.next_sibling.next_sibling.attrs == {"rend": "bold"}  # type:ignore
-                and "." not in bold.text # Don't merge if it contains a dot (likely end of sentence)
+                and "."
+                not in bold.text  # Don't merge if it contains a dot (likely end of sentence)
             ):
                 appended_text = bold.next_sibling.next_sibling.text  # type:ignore
                 bold.append(f" {appended_text}")

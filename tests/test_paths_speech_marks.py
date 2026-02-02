@@ -1,5 +1,6 @@
 from tools.paths import ProjectPaths
 
+
 def test_speech_marks_path():
     paths = ProjectPaths()
     assert hasattr(paths, "speech_marks_path")

@@ -6,6 +6,7 @@ from pathlib import Path
 current_dir = Path(__file__).parent
 sys.path.append(str(current_dir))
 
+
 def generate_draft(directory):
     """Generates a draft README.md for the given directory."""
     target_dir = Path(directory)
@@ -19,7 +20,7 @@ def generate_draft(directory):
         return
 
     dir_name = target_dir.name
-    
+
     # List files for Key Components (simple listing)
     files_list = []
     try:
@@ -58,6 +59,7 @@ def generate_draft(directory):
         print(f"Generated draft for {directory}")
     except Exception as e:
         print(f"Failed to write README for {directory}: {e}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

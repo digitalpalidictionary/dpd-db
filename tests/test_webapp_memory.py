@@ -29,16 +29,16 @@ with patch("tools.paths.ProjectPaths") as MockPaths:
 
         # Mock StaticFiles to avoid directory check
         with patch("fastapi.staticfiles.StaticFiles") as MockStaticFiles:
-            
             # Import main
             from exporter.webapp.main import update_history
+
 
 def test_memory_leak():
     # Simulate 1000 searches
     current_list = []
     for i in range(1000):
         current_list = update_history(f"search_{i}", "", "fuzzy")
-        
+
     print(f"History size after 1000 unique searches: {len(current_list)}")
-    
+
     assert len(current_list) <= 250, "History list grew beyond 250 items!"

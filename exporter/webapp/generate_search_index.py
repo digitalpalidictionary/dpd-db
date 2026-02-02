@@ -31,13 +31,13 @@ def build_index(terms: set[str]) -> list[str]:
         if normalized not in index_dict:
             index_dict[normalized] = set()
         index_dict[normalized].add(term)
-    
+
     # Create sorted list of "key|val1|val2..."
     sorted_index = []
     for key in sorted(index_dict.keys()):
         values = sorted(list(index_dict[key]))
         sorted_index.append(f"{key}|{'|'.join(values)}")
-    
+
     return sorted_index
 
 

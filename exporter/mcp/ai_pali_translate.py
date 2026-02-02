@@ -69,9 +69,7 @@ Return a JSON object with translations and a flat map of **scores** keyed by the
     return prompt
 
 
-def format_markdown_table(
-    enriched_analysis: list[dict[str, Any]]
-) -> str:
+def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
     """
     Reconstruct the Markdown table using the enriched Python structure.
     We iterate through the Python data (which contains all components)
@@ -88,68 +86,70 @@ def format_markdown_table(
             for part_options in option["components"]:
                 if not part_options:
                     continue
-                
+
                 # Each part has multiple lookups (homonyms). Pick the best scored one.
                 best_part = max(part_options, key=lambda x: x.get("ai_score", 0))
-                
+
                 # Format component row
                 clean_comp_word = best_part.get("pali", "").replace("- ", "").strip()
                 indent_prefix = "- " * depth
-                
+
                 comp_meaning = best_part.get("meaning_combo", "")
-                
+
                 # Cleanup if AI failed to provide a meaning for a deconstruction
                 if not comp_meaning and best_part.get("key", "").startswith("decon_"):
-                     comp_meaning = "*(AI analysis of deconstruction)*"
+                    comp_meaning = "*(AI analysis of deconstruction)*"
 
                 # Prefer grammar (for sandhi/comp vb), fallback to POS (for pure compound parts)
                 comp_grammar = best_part.get("grammar") or best_part.get("pos", "")
-                
+
                 if "selected_pos" in best_part and best_part["selected_pos"]:
-                     if comp_grammar == "sandhi/compound":
-                         comp_grammar = best_part["selected_pos"]
-                
+                    if comp_grammar == "sandhi/compound":
+                        comp_grammar = best_part["selected_pos"]
+
                 # Construction Column: prefer compound_construction if available, else construction
                 comp_construction = best_part.get("compound_construction", "")
                 if not comp_construction:
                     comp_construction = best_part.get("construction", "")
                 # Clean up formatting if needed (though analyzer usually sends clean strings for construction)
-                comp_construction = comp_construction.replace("<b>", "").replace("</b>", "")
+                comp_construction = comp_construction.replace("<b>", "").replace(
+                    "</b>", ""
+                )
 
                 table_rows.append(
                     f"| {best_part.get('id', '')} | {indent_prefix}{clean_comp_word} | {comp_grammar} | {comp_meaning} | {comp_construction} | {best_part.get('root_key', '')} |"
                 )
-                
+
                 # Recurse
                 add_rows_recursive(best_part, depth + 1)
 
     for token_data in enriched_analysis:
         word = token_data["word"]
         options = token_data["data"]
-        
+
         if not options:
-             table_rows.append(f"| | {word} | | | | |")
-             continue
+            table_rows.append(f"| | {word} | | | | |")
+            continue
 
         # Sort options by AI score (desc), then by completeness/original score
         # We assume 'ai_score' has been merged into the options. Default to 0.
         best_option = max(options, key=lambda x: x.get("ai_score", 0))
-        
+
         # Determine values to display
         hw_id = best_option.get("id", "")
         meaning = best_option.get("meaning_combo", "")
-        
+
         # Cleanup if AI failed to provide a meaning for a deconstruction
         if not meaning and best_option.get("key", "").startswith("decon_"):
-             meaning = "*(AI analysis of deconstruction)*"
-             
+            meaning = "*(AI analysis of deconstruction)*"
+
         grammar = best_option.get("grammar", "")
-        
+
         # Handle POS override
         if "selected_pos" in best_option and best_option["selected_pos"]:
-             if grammar == "sandhi/compound":
-                 grammar = best_option["selected_pos"]
-        
+            if grammar == "sandhi/compound":
+                grammar = best_option["selected_pos"]
+
         # Construction Column: prefer compound_construction if available
         construction = best_option.get("compound_construction", "")
         if not construction:
@@ -166,7 +166,9 @@ def format_markdown_table(
     return "\n".join(table_rows)
 
 
-def merge_ai_selections(analysis_data: list[dict[str, Any]], ai_response: dict[str, Any]) -> dict[str, Any]:
+def merge_ai_selections(
+    analysis_data: list[dict[str, Any]], ai_response: dict[str, Any]
+) -> dict[str, Any]:
     """
     Merge AI scores and meanings into the analysis data structure.
     Returns a new object containing translation and the enriched analysis.
@@ -182,7 +184,7 @@ def merge_ai_selections(analysis_data: list[dict[str, Any]], ai_response: dict[s
             if key in scores_map:
                 update = scores_map[key]
                 item["ai_score"] = update.get("score", 0)
-                
+
                 # Apply contextual info if score is positive (implying relevance)
                 if update.get("score", 0) > 0:
                     if "contextual_meaning" in update:
@@ -204,45 +206,47 @@ def merge_ai_selections(analysis_data: list[dict[str, Any]], ai_response: dict[s
     return {
         "translation": ai_response.get("translation", ""),
         "literal_translation": ai_response.get("literal_translation", ""),
-        "analysis": enriched_analysis
+        "analysis": enriched_analysis,
     }
 
 
-def translate_sentence(sentence: str, db_session: Session, model: str = "xiaomi/mimo-v2-flash:free") -> dict[str, Any]:
+def translate_sentence(
+    sentence: str, db_session: Session, model: str = "xiaomi/mimo-v2-flash:free"
+) -> dict[str, Any]:
     """
     Full pipeline: Analyze -> AI Translate -> Merge.
     Returns the enriched analysis object.
     """
     # 1. Analyze
     analysis = analyze_sentence(sentence, db_session)
-    
+
     # 2. Build Prompt
     sys_prompt = build_system_prompt(analysis)
-    
+
     # 3. Call AI
     ai_manager = OpenRouterManager()
-    
+
     response = ai_manager.request(
         prompt=f"Please translate and analyze: {sentence}",
         model=model,
         prompt_sys=sys_prompt,
     )
-    
+
     if not response.content:
         raise ValueError(f"AI Request Failed: {response.status_message}")
-        
+
     # 4. Parse Response
     json_str = response.content.strip()
     if json_str.startswith("```json"):
         json_str = json_str[7:-3].strip()
     elif json_str.startswith("```"):
         json_str = json_str[3:-3].strip()
-        
+
     try:
         ai_data = json.loads(json_str)
     except json.JSONDecodeError as e:
         raise ValueError(f"Invalid JSON from AI: {e}\nResponse: {response.content}")
-        
+
     # 5. Merge
     result = merge_ai_selections(analysis, ai_data)
     return result
@@ -310,7 +314,9 @@ def main():
                     # Generate final report
                     report = []
                     report.append("### English Translation")
-                    report.append(f"**Translation:** {merged_result.get('translation', '')}")
+                    report.append(
+                        f"**Translation:** {merged_result.get('translation', '')}"
+                    )
                     report.append(
                         f"**Literal Translation:** {merged_result.get('literal_translation', '')}"
                     )
@@ -325,9 +331,9 @@ def main():
 
                     # Save output to file
                     timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-                    clean_sentence = re.sub(r"[^a-zA-Z]", "_", sentence[:10].lower()).strip(
-                        "_"
-                    )
+                    clean_sentence = re.sub(
+                        r"[^a-zA-Z]", "_", sentence[:10].lower()
+                    ).strip("_")
                     filename = f"{timestamp}_{clean_sentence}.md"
                     file_path = output_dir / filename
 

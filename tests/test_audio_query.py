@@ -13,7 +13,7 @@ if not os.path.exists(db_path):
     print(f"Database not found at {db_path}")
     sys.exit(1)
 
-engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=True) # Echo to see SQL
+engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=True)  # Echo to see SQL
 SessionLocal = sessionmaker(bind=engine)
 session = SessionLocal()
 

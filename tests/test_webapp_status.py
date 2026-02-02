@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.getcwd()))
 
 from exporter.webapp.main import app
 
+
 def test_status_endpoint():
     client = TestClient(app)
     response = client.get("/status")
@@ -15,6 +16,7 @@ def test_status_endpoint():
     assert "MB" in response.text
     assert "DPD Webapp Status" in response.text
     print("PASS: /status dashboard is live and readable.")
+
 
 if __name__ == "__main__":
     try:

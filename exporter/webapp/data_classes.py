@@ -24,13 +24,20 @@ class HeadwordData:
         # Only convert specific string columns to avoid triggering lazy loads
         # of relationships and properties through dir(obj) and getattr()
         string_columns = [
-            "meaning_1", "meaning_lit", "meaning_2", "construction",
-            "phonetic", "compound_construction", "commentary", "notes",
-            "example_1", "example_2"
+            "meaning_1",
+            "meaning_lit",
+            "meaning_2",
+            "construction",
+            "phonetic",
+            "compound_construction",
+            "commentary",
+            "notes",
+            "example_1",
+            "example_2",
         ]
-        # We'll return a proxy object or just the modified SQLAlchemy object 
+        # We'll return a proxy object or just the modified SQLAlchemy object
         # but with only specific fields changed.
-        # Since the session is about to close, modifying the object is usually okay 
+        # Since the session is about to close, modifying the object is usually okay
         # in the webapp, but the dir(obj) was the real killer.
         for attr_name in string_columns:
             attr_value = getattr(obj, attr_name, None)
@@ -80,13 +87,13 @@ class GrammarData:
         self.headword = result.lookup_key
         # self.grammar = result.grammar_unpack
         self.grammar = self._process_grammar(result.grammar_unpack)
-    
+
     def _process_grammar(self, grammar_list):
         processed_list = []
         for item in grammar_list:
             headword, pos, grammar_str = item
             components = []
-            
+
             if grammar_str.startswith("reflx"):
                 parts = grammar_str.split()
                 if len(parts) >= 2:
@@ -95,7 +102,7 @@ class GrammarData:
                 else:
                     components.append(grammar_str)
             elif grammar_str.startswith("in comps"):
-                # Handle 'in comps' specifically if needed, 
+                # Handle 'in comps' specifically if needed,
                 # but based on my previous fix, we treat it as a normal component
                 # and let the template handle empty cells.
                 # Actually, for the webapp, let's just split it as is or keep it as one.
@@ -106,11 +113,11 @@ class GrammarData:
                 components.append(grammar_str)
             else:
                 components = grammar_str.split()
-            
+
             # Pad with empty strings to ensure 3 components
             while len(components) < 3:
                 components.append("")
-                
+
             processed_list.append((headword, pos, components))
         return processed_list
 

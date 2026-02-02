@@ -1,8 +1,10 @@
 import re
 from pathlib import Path
 
+
 def extract_variables(text, pattern):
     return set(re.findall(pattern, text))
+
 
 def main():
     webapp_path = Path("exporter/webapp/templates/dpd_headword.html")
@@ -17,11 +19,11 @@ def main():
 
     # Extract Sutta Info section from Webapp (it's inside {% if d.i.needs_sutta_info_button %})
     # This is a rough extraction to focus on the relevant part
-    start_marker = '{% if d.i.needs_sutta_info_button %}'
-    end_marker = '{% endif %}'
-    
+    start_marker = "{% if d.i.needs_sutta_info_button %}"
+    end_marker = "{% endif %}"
+
     # We'll just search the whole file for d.su variables as they differ from d.i variables
-    
+
     webapp_vars = extract_variables(webapp_content, r"d\.su\[(\\w+)\]")
     goldendict_vars = extract_variables(goldendict_content, r"su\[(\\w+)\]")
 
@@ -38,6 +40,7 @@ def main():
     print("\n--- Extra in GoldenDict (To Check) ---")
     for var in sorted(extra_in_goldendict):
         print(var)
+
 
 if __name__ == "__main__":
     main()

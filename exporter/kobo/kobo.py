@@ -102,15 +102,15 @@ def compile_lookup_data(g: GlobalData):
     all_lookups = (
         g.db_session.query(Lookup)
         .filter(
-            (Lookup.deconstructor != None) |
-            (Lookup.spelling != None) |
-            (Lookup.variant != None)
+            (Lookup.deconstructor.isnot(None))
+            | (Lookup.spelling.isnot(None))
+            | (Lookup.variant.isnot(None))
         )
         .all()
     )
 
     # Filter in Python using set lookup (O(1) per check)
-    lookup_results = [l for l in all_lookups if l.lookup_key in g.word_set]
+    lookup_results = [lu for lu in all_lookups if lu.lookup_key in g.word_set]
     lookup_results = sorted(lookup_results, key=lambda x: pali_sort_key(x.lookup_key))
     db_len = len(lookup_results)
 

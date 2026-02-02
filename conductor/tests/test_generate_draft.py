@@ -1,7 +1,10 @@
 import unittest
 import os
 import shutil
-from conductor.tracks.readme_improvements_20251221.generate_readme_draft import generate_draft
+from conductor.tracks.readme_improvements_20251221.generate_readme_draft import (
+    generate_draft,
+)
+
 
 class TestGenerateDraft(unittest.TestCase):
     def setUp(self):
@@ -20,17 +23,18 @@ class TestGenerateDraft(unittest.TestCase):
     def test_draft_creation(self):
         readme_path = os.path.join(self.test_dir, "README.md")
         generate_draft(self.test_dir)
-        
+
         self.assertTrue(os.path.exists(readme_path))
-        
+
         with open(readme_path, "r") as f:
             content = f.read()
-            
+
         self.assertIn("# temp_gen_test", content)
         self.assertIn("## Purpose/Overview", content)
         self.assertIn("## Key Components", content)
         # Check if it listed the script
         self.assertIn("- **script.py**", content)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

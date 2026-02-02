@@ -54,9 +54,11 @@ with get_db() as db_session:
     headwords_clean_set = make_headwords_clean_set(db_session)
     ascii_to_unicode_dict = make_ascii_to_unicode_dict(db_session)
     bd_count = db_session.query(BoldDefinition).count()
-    
+
     # Fetch database version for search index cache-busting
-    db_info = db_session.query(DbInfo).filter(DbInfo.key == "dpd_release_version").first()
+    db_info = (
+        db_session.query(DbInfo).filter(DbInfo.key == "dpd_release_version").first()
+    )
     dpd_release_version = db_info.value if db_info else "unknown"
 
 # Set up templates
@@ -369,7 +371,7 @@ async def track_performance(request: Request, call_next):
         return response
     finally:
         process_time = (time.time() - start_time) * 1000  # Convert to ms
-        metrics["total_time"] += (process_time / 1000)
+        metrics["total_time"] += process_time / 1000
         metrics["active_requests"] -= 1
 
         # Update Exponential Moving Average (alpha=0.1)
@@ -391,7 +393,7 @@ async def track_performance(request: Request, call_next):
                 if match == Match.FULL:
                     route_pattern = getattr(route, "path", None)
                     break
-        
+
         # Decode Unicode request string
         request_display = unquote(str(request.url.path))
         if request.url.query:
@@ -401,16 +403,20 @@ async def track_performance(request: Request, call_next):
             # Official Endpoint
             if route_pattern not in metrics["official"]:
                 metrics["official"][route_pattern] = {
-                    "count": 0, 
-                    "history": [], 
-                    "avg_time": 0.0, 
-                    "max_time": 0.0
+                    "count": 0,
+                    "history": [],
+                    "avg_time": 0.0,
+                    "max_time": 0.0,
                 }
-            
+
             m = metrics["official"][route_pattern]
             m["count"] += 1
             # Update endpoint average and max
-            m["avg_time"] = (process_time * 0.1) + (m["avg_time"] * 0.9) if m["avg_time"] > 0 else process_time
+            m["avg_time"] = (
+                (process_time * 0.1) + (m["avg_time"] * 0.9)
+                if m["avg_time"] > 0
+                else process_time
+            )
             if process_time > m["max_time"]:
                 m["max_time"] = process_time
 

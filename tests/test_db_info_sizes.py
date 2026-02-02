@@ -8,6 +8,6 @@ session = get_db_session(pth.dpd_db_path)
 
 res = session.query(DbInfo.key, func.length(DbInfo.value)).all()
 for k, v in res:
-    print(f"{k}: {v/1024:.2f} KB")
+    print(f"{k}: {v / 1024:.2f} KB")
 
 session.close()

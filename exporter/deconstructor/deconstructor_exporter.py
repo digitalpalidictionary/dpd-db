@@ -51,9 +51,7 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
     deconstructor_db_length: int = len(deconstructor_db)
 
     speech_marks_manager = SpeechMarkManager()
-    speech_marks: SpeechMarksDict = (
-        speech_marks_manager.get_speech_marks()
-    )
+    speech_marks: SpeechMarksDict = speech_marks_manager.get_speech_marks()
 
     dict_data: list = []
 

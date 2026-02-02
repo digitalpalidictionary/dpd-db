@@ -67,13 +67,13 @@ def extract_bold_definitions(pth):
             # Ensure it's still in the tree (not already decomposed by a previous split)
             if not bold_tag.parent:
                 continue
-                
+
             text = bold_tag.get_text()
             if "." in text[:-1]:
                 parts = text.split(". ")
                 ends_with_dot = text.strip().endswith(".")
                 valid_parts = [p.strip() for p in parts if p.strip()]
-                
+
                 if len(valid_parts) > 1:
                     for i, part in enumerate(valid_parts):
                         new_hi = soup.new_tag("hi", rend="bold")
@@ -81,7 +81,7 @@ def extract_bold_definitions(pth):
                             new_hi.string = part + "."
                         else:
                             new_hi.string = part
-                        
+
                         bold_tag.insert_before(new_hi)
                         if i < len(valid_parts) - 1:
                             bold_tag.insert_before(" ")
@@ -129,19 +129,19 @@ def extract_bold_definitions(pth):
 
                         # only write substantial examples
                         bold_comp_clean = re.sub(r"<b>|</b>", "", bold_comp)
-                        
-                        # Relaxed check: if it's identical to the cleaned string AND 
+
+                        # Relaxed check: if it's identical to the cleaned string AND
                         # there's only one bold word, it's likely a heading or duplicate.
                         if f"{bold_clean}{bold_e}" == bold_comp_clean.strip():
                             if bold_comp.count("<b>") <= 1:
                                 no_meaning_count += 1
                                 continue
-                        
+
                         # Only skip useless endings if it's the ONLY bold word in the snippet.
                         if bold_n in useless_endings and bold_comp.count("<b>") <= 1:
                             no_meaning_count += 1
                             continue
-                        
+
                         entry = BoldDefinitionEntry(
                             file_name=file_name,
                             ref_code=ref_code,
@@ -172,17 +172,17 @@ def extract_bold_definitions(pth):
                     bold_clean, bold_e, bold_comp, bold_n = get_bold_strings(bold)
 
                     bold_comp_clean = re.sub(r"<b>|</b>", "", bold_comp)
-                    
+
                     # Relaxed check for multi-bold sentences
                     if f"{bold_clean}{bold_e}" == bold_comp_clean.strip():
                         if bold_comp.count("<b>") <= 1:
                             no_meaning_count += 1
                             continue
-                    
+
                     if bold_n in useless_endings and bold_comp.count("<b>") <= 1:
                         no_meaning_count += 1
                         continue
-                    
+
                     entry = BoldDefinitionEntry(
                         file_name=file_name,
                         ref_code=ref_code,

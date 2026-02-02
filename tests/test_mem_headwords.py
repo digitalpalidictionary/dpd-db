@@ -5,9 +5,11 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
+
 def get_mem():
     process = psutil.Process(os.getpid())
     return process.memory_info().rss / 1024 / 1024
+
 
 pth = ProjectPaths()
 session = get_db_session(pth.dpd_db_path)
