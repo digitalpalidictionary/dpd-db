@@ -1,4 +1,3 @@
-import pytest
 from exporter.webapp.generate_search_index import strip_diacritics, build_index
 
 def test_strip_diacritics():

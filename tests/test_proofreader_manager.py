@@ -1,6 +1,5 @@
 import csv
 import pytest
-from pathlib import Path
 from tools.proofreader import ProofreaderManager
 
 @pytest.fixture

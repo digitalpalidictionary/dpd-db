@@ -10,7 +10,6 @@ import csv
 from typing import List, Dict, Any
 import re
 from natsort import natsorted, ns
-from rich import print
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from helpers import clean_string

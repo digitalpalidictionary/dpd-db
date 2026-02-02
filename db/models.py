@@ -2,7 +2,6 @@
 
 import json
 import re
-from pathlib import Path
 from typing import List, Optional
 
 from aksharamukha import transliterate

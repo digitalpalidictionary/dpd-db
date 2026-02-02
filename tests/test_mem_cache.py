@@ -2,8 +2,6 @@ import time
 import os
 import psutil
 from tools.cache_load import load_cf_set, load_idioms_set, load_sutta_info_set
-from db.db_helpers import get_db_session
-from tools.paths import ProjectPaths
 
 def get_mem():
     process = psutil.Process(os.getpid())

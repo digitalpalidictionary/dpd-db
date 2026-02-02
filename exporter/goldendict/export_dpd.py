@@ -22,8 +22,6 @@ from db.models import (
     FamilyWord,
     SuttaInfo,
 )
-from audio.db.models import DpdAudio
-from audio.db.db_helpers import get_audio_session
 from exporter.goldendict.helpers import TODAY
 from tools.configger import config_test
 from tools.css_manager import CSSManager

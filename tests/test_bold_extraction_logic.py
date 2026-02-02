@@ -1,4 +1,3 @@
-import pytest
 from bs4 import BeautifulSoup
 from db.bold_definitions.functions import Context, update_context
 

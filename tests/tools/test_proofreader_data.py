@@ -1,7 +1,6 @@
 """Tests for get_db_data function in proofreader."""
 
 import pytest
-from sqlalchemy import create_mock_engine
 from sqlalchemy.orm import Session
 from db.models import Base, DpdHeadword
 from tools.proofreader import get_db_data

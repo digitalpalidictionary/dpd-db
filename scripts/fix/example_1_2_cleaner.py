@@ -20,15 +20,15 @@ def main():
         if i.meaning_1 == "":
             if i.example_1:
                 i.example_1 = remove_brackets(clean_example(i.example_1, sandhi_dict))
-                print()
-                print(i.lemma_1)
-                print(i.example_1)
+                pr.info("")
+                pr.info(i.lemma_1)
+                pr.info(i.example_1)
 
             if i.example_2:
                 i.example_2 = remove_brackets(clean_example(i.example_2, sandhi_dict))
-                print()
-                print(i.lemma_1)
-                print(i.example_2)
+                pr.info("")
+                pr.info(i.lemma_1)
+                pr.info(i.example_2)
 
     db_session.commit()
 

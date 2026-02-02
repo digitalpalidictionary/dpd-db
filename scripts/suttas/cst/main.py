@@ -1,23 +1,6 @@
 from pathlib import Path
-from scripts.suttas.cst.an import extract_an_data
-from scripts.suttas.cst.dn import extract_dn_data
-from scripts.suttas.cst.kn10 import extract_kn10_data
-from scripts.suttas.cst.kn12 import extract_kn12_data
 from scripts.suttas.cst.kn2 import extract_kn2_data
-from scripts.suttas.cst.kn13 import extract_kn13_data
-from scripts.suttas.cst.kn14 import extract_kn14_data
-from scripts.suttas.cst.kn15 import extract_kn15_data
-from scripts.suttas.cst.kn16 import extract_kn16_data
-from scripts.suttas.cst.kn17 import extract_kn17_data
-from scripts.suttas.cst.kn3 import extract_kn3_data
-from scripts.suttas.cst.kn4 import extract_kn4_data
-from scripts.suttas.cst.kn5 import extract_kn5_data
-from scripts.suttas.cst.kn6 import extract_kn6_data
-from scripts.suttas.cst.kn9 import extract_kn9_data
-from scripts.suttas.cst.mn import extract_mn_data
 from scripts.suttas.cst.modules import make_soup, write_cst_tsv
-from scripts.suttas.cst.sn import extract_sn_data
-from scripts.suttas.cst.kn1 import extract_kn1_data
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
 

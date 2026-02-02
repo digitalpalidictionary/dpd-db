@@ -6,7 +6,6 @@ VV has Vagga -> Vimāna structure.
 
 import csv
 import json
-import re
 from pathlib import Path
 from typing import Any, Dict, List
 

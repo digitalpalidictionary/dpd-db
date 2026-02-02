@@ -1,7 +1,5 @@
-import tempfile
 from pathlib import Path
 
-import pandas as pd
 
 from db.suttas.dv_catalogue_suttas import read_dv_catalogue
 from tools.paths import ProjectPaths

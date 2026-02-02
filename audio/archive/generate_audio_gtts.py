@@ -8,7 +8,6 @@ from pathlib import Path
 
 from aksharamukha import transliterate
 from gtts import gTTS
-from rich import print
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session

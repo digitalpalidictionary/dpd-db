@@ -3,7 +3,6 @@
 
 """Find super long words and hyphenate them."""
 
-import json
 import re
 import subprocess
 import pyperclip

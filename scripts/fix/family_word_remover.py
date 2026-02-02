@@ -2,7 +2,6 @@
 
 """Update the family_word column in DpdHeadword with a new value."""
 
-import re
 
 from rich import print
 

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import flet as ft
-from rich import print
 
 from db.models import BoldDefinition
 from gui2.dpd_fields_classes import DpdTextField

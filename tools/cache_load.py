@@ -4,7 +4,6 @@
 
 import json
 
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths

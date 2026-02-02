@@ -2,7 +2,6 @@
 
 """Search bold_definitions using vanilla find or regex."""
 
-import re
 from typing import List
 
 from rich import print

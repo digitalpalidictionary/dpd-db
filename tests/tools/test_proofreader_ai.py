@@ -2,7 +2,6 @@
 
 import json
 from unittest.mock import MagicMock
-import pytest
 from tools.proofreader import process_batch, batch_data, construct_prompt
 from tools.ai_manager import AIResponse
 

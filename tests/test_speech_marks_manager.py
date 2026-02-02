@@ -1,5 +1,4 @@
 import json
-import pytest
 from tools.speech_marks import SpeechMarkManager
 from tools.paths import ProjectPaths
 

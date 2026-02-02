@@ -22,7 +22,7 @@ from exporter.webapp.toolkit import make_dpd_html
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
-from tools.tipitaka_db import search_all_cst_texts, search_book, search_books
+from tools.tipitaka_db import search_all_cst_texts, search_books
 from tools.translit import auto_translit_to_roman
 from prometheus_fastapi_instrumentator import Instrumentator
 

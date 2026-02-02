@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock, patch
 from exporter.mcp.ai_pali_translate import merge_ai_selections, translate_sentence
 
@@ -37,7 +36,7 @@ def test_merge_simple_selection():
         ]
     }
 
-    result = merge_ai_selections(analysis_data, ai_response);
+    result = merge_ai_selections(analysis_data, ai_response)
 
     assert result["translation"] == "The Buddha"
     assert result["literal_translation"] == "Awakened One"

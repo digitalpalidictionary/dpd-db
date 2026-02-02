@@ -4,7 +4,6 @@
 """Find which books have the most missing words"""
 
 import json
-from collections import defaultdict
 from typing import Counter
 
 from rich import print

@@ -1,7 +1,6 @@
 from db.db_helpers import get_db_session
 from db.models import DpdRoot, DpdHeadword
 from tools.paths import ProjectPaths
-from tools.printer import printer as pr
 from rich import print
 
 pth = ProjectPaths()

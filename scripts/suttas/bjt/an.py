@@ -11,7 +11,6 @@ from typing import Any, Dict, List
 
 from helpers import clean_string
 from natsort import natsorted, ns
-from rich import print
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr

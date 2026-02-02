@@ -1,5 +1,4 @@
 import json
-import pytest
 from gui2.dpd_fields_functions import clean_speech_marks, clean_commentary, clean_example
 from tools.speech_marks import SpeechMarkManager
 from tools.paths import ProjectPaths

@@ -309,7 +309,7 @@ def main():
 
                     # Generate final report
                     report = []
-                    report.append(f"### English Translation")
+                    report.append("### English Translation")
                     report.append(f"**Translation:** {merged_result.get('translation', '')}")
                     report.append(
                         f"**Literal Translation:** {merged_result.get('literal_translation', '')}"

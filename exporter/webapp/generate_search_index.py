@@ -5,7 +5,7 @@ import json
 import unicodedata
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, DpdRoot, FamilyRoot, DbInfo
+from db.models import DpdHeadword, DpdRoot, FamilyRoot
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 

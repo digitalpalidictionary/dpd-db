@@ -8,7 +8,6 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Lookup
-from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
