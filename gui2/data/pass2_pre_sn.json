@@ -7203,9 +7203,500 @@
         ],
         "āpajjeyyuṃ": [
             11841
+        ],
+        "dhammapariyesanaṃ": [
+            34796
+        ],
+        "avighātaṃ": [
+            10491
+        ],
+        "dhātuṃ": [
+            35042
+        ],
+        "vitakkoti": [
+            67820
+        ],
+        "hīno": [
+            78106
+        ],
+        "vitakko": [
+            67820
+        ],
+        "upapattīti": [
+            15866,
+            15867
+        ],
+        "majjhimaṃ": [
+            50743,
+            50745,
+            86139
+        ],
+        "majjhimā": [
+            50743,
+            50745,
+            86139
+        ],
+        "majjhimo": [
+            50743,
+            50745,
+            86139
+        ],
+        "dhātuso": [
+            74171
+        ],
+        "paṭhamārambhavākyeyeva": [
+            41470,
+            54681,
+            12409,
+            75650,
+            41148,
+            41518
+        ],
+        "upamāsaṃsandananigamanaṭṭhāne": [
+            36868
+        ],
+        "saṃsandissanti": [
+            61757
+        ],
+        "caṅkamasuttaṃ": [
+            25791
+        ],
+        "āyasmāpi": [
+            12185
+        ],
+        "puṇṇo": [
+            80440
+        ],
+        "upāli": [
+            76353
+        ],
+        "moggallānaṃ": [
+            53309
+        ],
+        "upāliṃ": [
+            76353
+        ],
+        "sappi": [
+            58713
+        ],
+        "dārumāruyha": [
+            12507
+        ],
+        "sīde": [
+            63126
+        ],
+        "sīdati": [
+            63126
+        ],
+        "kusītaṃ": [
+            22696
+        ],
+        "ariyehi": [
+            8977
+        ],
+        "kusītā": [
+            22696
+        ],
+        "sagāthā": [
+            56537
+        ],
+        "assaddhamūlakā": [
+            53098,
+            53099
+        ],
+        "ahirikamūlakā": [
+            53098,
+            53099
+        ],
+        "anottappamūlakā": [
+            53098,
+            53099
+        ],
+        "kammapathavaggo": [
+            20318
+        ],
+        "dussīlasuttaṃ": [
+            33844,
+            33845
+        ],
+        "aṭṭhaṅgikasuttaṃ": [
+            1751
+        ],
+        "micchāsatino": [
+            52626
+        ],
+        "suttantānaṃ": [
+            63837
+        ],
+        "catutthavaggo": [
+            25944,
+            25945
+        ],
+        "dhātūnaṃ": [
+            35033,
+            35042
+        ],
+        "nissareyyuṃ": [
+            78045
+        ],
+        "nissaranti": [
+            78045
         ]
     },
-    "matched": {},
+    "matched": {
+        "abyāpādapariḷāho": {
+            "id": 7433,
+            "sentence": [
+                "sn14.12:8.4",
+                "abyāpādapariḷāho … ",
+                "passion for good will … "
+            ]
+        },
+        "avihiṃsāpariyesanā": {
+            "id": 10716,
+            "sentence": [
+                "sn14.12:9.5",
+                "avihiṃsāpariḷāhaṃ paṭicca uppajjati avihiṃsāpariyesanā; ",
+                "the search for harmlessness. "
+            ]
+        },
+        "giñjakāvasathasuttaṃ": {
+            "id": 24900,
+            "sentence": [
+                "SN14.13",
+                "dhātusaṃyuttaṃ, giñjakāvasathasuttaṃ",
+                "3. giñjakāvasathasuttaṃ"
+            ]
+        },
+        "hīnādhimuttikasuttaṃ": {
+            "id": 71348,
+            "sentence": [
+                "SN14.14",
+                "dhātusaṃyuttaṃ, hīnādhimuttikasuttaṃ",
+                "4. hīnādhimuttikasuttaṃ"
+            ]
+        },
+        "dhātusova": {
+            "id": 74171,
+            "sentence": [
+                "sn14.14:1.2",
+                "“dhātusova, bhikkhave, sattā saṃsandanti samenti. ",
+                "“Mendicants, sentient beings join together and converge because of an element. "
+            ]
+        },
+        "upamāsaṃsandananigamanaṭṭhāne": {
+            "id": 36869,
+            "sentence": [
+                "SN14.14",
+                "dhātusaṃyuttaṃ, hīnādhimuttikasuttaṃ",
+                "sāvatthiyaṃ viharati … dhātusova [dhātuso ayañca paṭhamārambhavākyeyeva, na sabbattha. tīsu pana addhāsu ca upamāsaṃsandananigamanaṭṭhāne ca idaṃ pāṭhanānattaṃ natthi], bhikkhave, sattā saṃsandanti samenti. hīnādhimuttikā hīnādhimuttikehi saddhiṃ saṃsandanti samenti, kalyāṇādhimuttikā kalyāṇādhimuttikehi saddhiṃ saṃsandanti samenti."
+            ]
+        },
+        "hīnādhimuttikā": {
+            "id": 71347,
+            "sentence": [
+                "sn14.14:1.3",
+                "hīnādhimuttikā hīnādhimuttikehi saddhiṃ saṃsandanti samenti; ",
+                "Those who have inferior convictions join together and converge with those who have inferior convictions. "
+            ]
+        },
+        "kalyāṇādhimuttikā": {
+            "id": 20691,
+            "sentence": [
+                "sn14.14:1.4",
+                "kalyāṇādhimuttikā kalyāṇādhimuttikehi saddhiṃ saṃsandanti samenti. ",
+                "Those who have good convictions join together and converge with those who have good convictions. "
+            ]
+        },
+        "khosaddo": {
+            "id": 23982,
+            "sentence": [
+                "SN14.14",
+                "dhātusaṃyuttaṃ, hīnādhimuttikasuttaṃ",
+                "atītampi kho [khosaddo sī. syā. "
+            ]
+        },
+        "saṃsandiṃsu": {
+            "id": 61750,
+            "sentence": [
+                "sn14.14:2.1",
+                "atītampi kho, bhikkhave, addhānaṃ dhātusova sattā saṃsandiṃsu samiṃsu. ",
+                "In the past, too, sentient beings came together and converged because of an element. … "
+            ]
+        },
+        "samiṃsu": {
+            "id": 59829,
+            "sentence": [
+                "sn14.14:2.1",
+                "atītampi kho, bhikkhave, addhānaṃ dhātusova sattā saṃsandiṃsu samiṃsu. ",
+                "In the past, too, sentient beings came together and converged because of an element. … "
+            ]
+        },
+        "caṅkamasuttaṃ": {
+            "id": 25790,
+            "sentence": [
+                "SN14.15",
+                "dhātusaṃyuttaṃ, caṅkamasuttaṃ",
+                "5. caṅkamasuttaṃ"
+            ]
+        },
+        "mantāniputto": {
+            "id": 51340,
+            "sentence": [
+                "sn14.15:1.6",
+                "āyasmāpi kho puṇṇo mantāniputto sambahulehi bhikkhūhi saddhiṃ bhagavato avidūre caṅkamati; ",
+                "Venerable Puṇṇa son of Mantāṇī, "
+            ]
+        },
+        "dhutavādā": {
+            "id": 35197,
+            "sentence": [
+                "sn14.15:2.10",
+                "“sabbe kho ete, bhikkhave, bhikkhū dhutavādā. ",
+                "“All of those mendicants advocate austerities. "
+            ]
+        },
+        "sagāthāsuttaṃ": {
+            "id": 56542,
+            "sentence": [
+                "SN14.16",
+                "dhātusaṃyuttaṃ, sagāthāsuttaṃ",
+                "6. sagāthāsuttaṃ"
+            ]
+        },
+        "chijjati": {
+            "id": 27622,
+            "sentence": [
+                "sn14.16:9.2",
+                "asaṃsaggena chijjati; ",
+                "they’re cut off by being aloof. "
+            ]
+        },
+        "kusītamāgamma": {
+            "id": 22691,
+            "sentence": [
+                "sn14.16:10.1",
+                "evaṃ kusītamāgamma, ",
+                "So too, a person who lives well "
+            ]
+        },
+        "sahāvaseti": {
+            "id": 61476,
+            "sentence": [
+                "sn14.16:11.4",
+                "paṇḍitehi sahāvase”ti. ",
+                "the astute who practice absorption.” "
+            ]
+        },
+        "assaddhasaṃsandanasuttaṃ": {
+            "id": 9961,
+            "sentence": [
+                "SN14.17",
+                "dhātusaṃyuttaṃ, assaddhasaṃsandanasuttaṃ",
+                "7. assaddhasaṃsandanasuttaṃ"
+            ]
+        },
+        "assaddhamūlakasuttaṃ": {
+            "id": 9956,
+            "sentence": [
+                "SN14.18",
+                "dhātusaṃyuttaṃ, assaddhamūlakasuttaṃ",
+                "8. assaddhamūlakasuttaṃ"
+            ]
+        },
+        "paṭhamavāro": {
+            "id": 41451,
+            "sentence": [
+                "sn14.18:3.8",
+                "paṭhamavāro viya vitthāretabbo. ",
+                "(The following should be told in full like the first section.) "
+            ]
+        },
+        "ahirikamūlakasuttaṃ": {
+            "id": 10906,
+            "sentence": [
+                "SN14.19",
+                "dhātusaṃyuttaṃ, ahirikamūlakasuttaṃ",
+                "9. ahirikamūlakasuttaṃ"
+            ]
+        },
+        "anottappamūlakasuttaṃ": {
+            "id": 5589,
+            "sentence": [
+                "SN14.20",
+                "dhātusaṃyuttaṃ, anottappamūlakasuttaṃ",
+                "10. anottappamūlakasuttaṃ"
+            ]
+        },
+        "appassutamūlakasuttaṃ": {
+            "id": 7048,
+            "sentence": [
+                "SN14.21",
+                "dhātusaṃyuttaṃ, appassutamūlakasuttaṃ",
+                "11. appassutamūlakasuttaṃ"
+            ]
+        },
+        "kusītamūlakasuttaṃ": {
+            "id": 22692,
+            "sentence": [
+                "SN14.22",
+                "dhātusaṃyuttaṃ, kusītamūlakasuttaṃ",
+                "12. kusītamūlakasuttaṃ"
+            ]
+        },
+        "kammapathavaggo": {
+            "id": 20317,
+            "sentence": [
+                "sn14.29:3.7",
+                "kammapathavaggo tatiyo. ",
+                ""
+            ]
+        },
+        "asamāhitasuttaṃ": {
+            "id": 9539,
+            "sentence": [
+                "SN14.23",
+                "dhātusaṃyuttaṃ, asamāhitasuttaṃ",
+                "1. asamāhitasuttaṃ"
+            ]
+        },
+        "dussīlasuttaṃ": {
+            "id": 33842,
+            "sentence": [
+                "SN14.24",
+                "dhātusaṃyuttaṃ, dussīlasuttaṃ",
+                "2. dussīlasuttaṃ"
+            ]
+        },
+        "pañcasikkhāpadasuttaṃ": {
+            "id": 39885,
+            "sentence": [
+                "SN14.25",
+                "dhātusaṃyuttaṃ, pañcasikkhāpadasuttaṃ",
+                "3. pañcasikkhāpadasuttaṃ"
+            ]
+        },
+        "adinnādāyino": {
+            "id": 72827,
+            "sentence": [
+                "sn14.25:1.4",
+                "adinnādāyino adinnādāyīhi saddhiṃ saṃsandanti samenti; ",
+                "those who steal … "
+            ]
+        },
+        "surāmerayamajjappamādaṭṭhāyino": {
+            "id": 64380,
+            "sentence": [
+                "sn14.25:1.7",
+                "surāmerayamajjappamādaṭṭhāyino surāmerayamajjappamādaṭṭhāyīhi saddhiṃ saṃsandanti samenti. ",
+                "consume beer, wine, and liquor intoxicants … "
+            ]
+        },
+        "sattakammapathasuttaṃ": {
+            "id": 57688,
+            "sentence": [
+                "SN14.26",
+                "dhātusaṃyuttaṃ, sattakammapathasuttaṃ",
+                "4. sattakammapathasuttaṃ"
+            ]
+        },
+        "dasakammapathasuttaṃ": {
+            "id": 32011,
+            "sentence": [
+                "SN14.27",
+                "dhātusaṃyuttaṃ, dasakammapathasuttaṃ",
+                "5. dasakammapathasuttaṃ"
+            ]
+        },
+        "aṭṭhaṅgikasuttaṃ": {
+            "id": 1750,
+            "sentence": [
+                "SN14.28",
+                "dhātusaṃyuttaṃ, aṭṭhaṅgikasuttaṃ",
+                "6. aṭṭhaṅgikasuttaṃ"
+            ]
+        },
+        "dasaṅgasuttaṃ": {
+            "id": 32017,
+            "sentence": [
+                "SN14.29",
+                "dhātusaṃyuttaṃ, dasaṅgasuttaṃ",
+                "7. dasaṅgasuttaṃ"
+            ]
+        },
+        "catutthavaggo": {
+            "id": 25942,
+            "sentence": [
+                "SN14.29",
+                "dhātusaṃyuttaṃ, dasaṅgasuttaṃ",
+                "4. catutthavaggo"
+            ]
+        },
+        "catudhātusuttaṃ": {
+            "id": 25969,
+            "sentence": [
+                "SN14.30",
+                "dhātusaṃyuttaṃ, catudhātusuttaṃ",
+                "1. catudhātusuttaṃ"
+            ]
+        },
+        "pubbesambodhasuttaṃ": {
+            "id": 46938,
+            "sentence": [
+                "SN14.31",
+                "dhātusaṃyuttaṃ, pubbesambodhasuttaṃ",
+                "2. pubbesambodhasuttaṃ"
+            ]
+        },
+        "acariṃsuttaṃ": {
+            "id": 861,
+            "sentence": [
+                "SN14.32",
+                "dhātusaṃyuttaṃ, acariṃsuttaṃ",
+                "3. acariṃsuttaṃ"
+            ]
+        },
+        "assādapariyesanaṃ": {
+            "id": 10045,
+            "sentence": [
+                "sn14.32:1.2",
+                "“pathavīdhātuyāhaṃ, bhikkhave, assādapariyesanaṃ acariṃ, yo pathavīdhātuyā assādo tadajjhagamaṃ, yāvatā pathavīdhātuyā assādo paññāya me so sudiṭṭho. ",
+                "“Mendicants, I went in search of the earth element’s gratification, and I found it. I’ve seen clearly with wisdom the full extent of gratification in the earth element. "
+            ]
+        },
+        "tadajjhagamaṃ": {
+            "id": 29744,
+            "sentence": [
+                "sn14.32:1.2",
+                "“pathavīdhātuyāhaṃ, bhikkhave, assādapariyesanaṃ acariṃ, yo pathavīdhātuyā assādo tadajjhagamaṃ, yāvatā pathavīdhātuyā assādo paññāya me so sudiṭṭho. ",
+                "“Mendicants, I went in search of the earth element’s gratification, and I found it. I’ve seen clearly with wisdom the full extent of gratification in the earth element. "
+            ]
+        },
+        "ādīnavapariyesanaṃ": {
+            "id": 11632,
+            "sentence": [
+                "sn14.32:1.3",
+                "pathavīdhātuyāhaṃ, bhikkhave, ādīnavapariyesanaṃ acariṃ, yo pathavīdhātuyā ādīnavo tadajjhagamaṃ, yāvatā pathavīdhātuyā ādīnavo paññāya me so sudiṭṭho. ",
+                "I went in search of the earth element’s drawback, and I found it. I’ve seen clearly with wisdom the full extent of the drawback in the earth element. "
+            ]
+        },
+        "nissaraṇapariyesanaṃ": {
+            "id": 38313,
+            "sentence": [
+                "sn14.32:1.4",
+                "pathavīdhātuyāhaṃ, bhikkhave, nissaraṇapariyesanaṃ acariṃ, yaṃ pathavīdhātuyā nissaraṇaṃ tadajjhagamaṃ, yāvatā pathavīdhātuyā nissaraṇaṃ paññāya me taṃ sudiṭṭhaṃ. ",
+                "I went in search of escape from the earth element, and I found it. I’ve seen clearly with wisdom the full extent of escape from the earth element. "
+            ]
+        },
+        "nocedaṃsuttaṃ": {
+            "id": 38896,
+            "sentence": [
+                "SN14.33",
+                "dhātusaṃyuttaṃ, nocedaṃsuttaṃ",
+                "4. nocedaṃsuttaṃ"
+            ]
+        }
+    },
     "new_word": {},
     "processed": [
         "sagāthāvaggo",
@@ -8721,6 +9212,13 @@
         "vihiṃsāpariḷāho",
         "vihiṃsāpariyesanā",
         "tiṇakaṭṭhanissitā",
-        "nekkhammacchando"
+        "nekkhammacchando",
+        "nekkhammapariḷāho",
+        "nekkhammapariyesanā",
+        "abyāpādacchando",
+        "abyāpādapariyesanā",
+        "abyāpādapariyesanaṃ",
+        "avihiṃsāchando",
+        "avihiṃsāpariḷāho"
     ]
 }

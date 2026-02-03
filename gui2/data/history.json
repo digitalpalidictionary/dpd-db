@@ -1,5 +1,29 @@
 [
     {
+        "id": 78045,
+        "lemma_1": "nissarati 2"
+    },
+    {
+        "id": 38319,
+        "lemma_1": "nissarati 1"
+    },
+    {
+        "id": 88802,
+        "lemma_1": "sikkhāpayati"
+    },
+    {
+        "id": 32010,
+        "lemma_1": "dasakammapatha"
+    },
+    {
+        "id": 41583,
+        "lemma_1": "paṇītādhimutti"
+    },
+    {
+        "id": 71346,
+        "lemma_1": "hīnādhimutti"
+    },
+    {
         "id": 28688,
         "lemma_1": "jeti"
     },
@@ -54,29 +78,5 @@
     {
         "id": 88799,
         "lemma_1": "tato paṭṭhāya"
-    },
-    {
-        "id": 8259,
-        "lemma_1": "abhisarati"
-    },
-    {
-        "id": 88798,
-        "lemma_1": "osarati 2"
-    },
-    {
-        "id": 88797,
-        "lemma_1": "karaṇatthaṃ"
-    },
-    {
-        "id": 88796,
-        "lemma_1": "dussīlyakamma"
-    },
-    {
-        "id": 119,
-        "lemma_1": "akariyamāna 1"
-    },
-    {
-        "id": 88795,
-        "lemma_1": "payas 2x"
     }
 ]
