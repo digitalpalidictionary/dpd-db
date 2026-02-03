@@ -208,7 +208,8 @@ jobs:
           
           echo "=== Starting dictionary compilation with Rosetta 2 ==="
           # Use arch -x86_64 to run Intel binaries via Rosetta 2
-          arch -x86_64 "/DevTools/Utilities/Dictionary Development Kit/bin/build_dict" \
+          # DDK_PATH is set by previous step
+          arch -x86_64 "$DDK_PATH/bin/build_dict" \
             "DPD-Test" \
             Dictionary.xml \
             Dictionary.css \
