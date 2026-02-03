@@ -5,22 +5,24 @@ on:
 
 jobs:
   test-build-macos:
-    runs-on: macos-latest
+    # Switch to Intel runner (macOS 13) for better legacy tool compatibility
+    runs-on: macos-13
 
     steps:
       - name: Create Dummy Dictionary Source
         run: |
           mkdir -p test-source
           
-          # Create minimal Dictionary.xml
+          # Create minimal Dictionary.xml with proper namespaces
           cat > test-source/Dictionary.xml << 'EOF'
           <?xml version="1.0" encoding="UTF-8"?>
           <d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="http://www.apple.com/DTDs/DictionaryService-1.0.rng">
           <d:entry id="test_1" d:title="Test Word">
               <d:index d:value="Test Word"/>
+              <d:index d:value="test"/>
               <h1>Test Word</h1>
               <div class="content">
-                  <p>This is a test entry to verify the build process works on macOS runners.</p>
+                  <p>This is a test entry to verify the build process works on macOS 13 runners.</p>
               </div>
           </d:entry>
           </d:dictionary>
@@ -28,8 +30,8 @@ jobs:
           
           # Create minimal Dictionary.css
           cat > test-source/Dictionary.css << 'EOF'
-          h1 { color: blue; }
-          .content { font-family: sans-serif; }
+          h1 { color: #007aff; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+          .content { font-size: 14px; line-height: 1.4; }
           EOF
           
           # Create minimal Info.plist
@@ -50,12 +52,13 @@ jobs:
               <string>1.0</string>
               <key>DCSDictionaryCopyright</key>
               <string>Copyright © 2026 Test</string>
+              <key>DCSDictionaryManufacturerName</key>
+              <string>Test Builder</string>
           </dict>
           </plist>
           EOF
           
           echo "✓ Dummy source files created"
-          ls -R test-source
 
       - name: Setup Dictionary Development Kit
         run: |
@@ -65,20 +68,18 @@ jobs:
           
           DDK_PATH="$(pwd)/Dictionary-Development-Kit"
           
-          # THE "PATCH-IN-PLACE" STRATEGY:
-          # Instead of symlinking to root (which is read-only), we find all hardcoded 
-          # /DevTools paths in the DDK scripts and replace them with our local path.
-          grep -r "/DevTools/Utilities/Dictionary Development Kit" . -l | xargs sed -i '' "s|/DevTools/Utilities/Dictionary Development Kit|$DDK_PATH|g"
+          echo "=== Patching DDK Scripts ==="
+          # Safely patch only text files (scripts/makefiles) to avoid corrupting binaries
+          find "$DDK_PATH" -type f \( -name "*.sh" -o -name "Makefile" -o -name "*.plist" \) -exec sed -i '' "s|/DevTools/Utilities/Dictionary Development Kit|$DDK_PATH|g" {} +
           
-          # Verify the tool
+          # Verify the tool exists and check architecture
           DDK_BIN="$DDK_PATH/bin/build_dict"
           if [ -f "$DDK_BIN" ]; then
-            echo "✓ build_dict found and patched"
-            ls -l "$DDK_BIN"
+            echo "✓ build_dict found"
+            file "$DDK_BIN"
             chmod +x "$DDK_BIN"
           else
             echo "✗ ERROR: build_dict not found"
-            find . -name "build_dict"
             exit 1
           fi
 
@@ -93,12 +94,21 @@ jobs:
           echo "=== Starting test build ==="
           cd build
           
-          # Call the local patched binary
-          arch -x86_64 "$DDK_PATH/bin/build_dict" \
+          # Direct call to the patched binary
+          "$DDK_PATH/bin/build_dict" \
             "Test-Dictionary" \
             Dictionary.xml \
             Dictionary.css \
             Info.plist 2>&1 | tee build_log.txt
+            
+          if [ ! -d "Test-Dictionary.dictionary" ]; then
+            echo "✗ ERROR: Build failed to produce .dictionary bundle"
+            cat build_log.txt
+            exit 1
+          fi
+          
+          echo "=== Build complete ==="
+          ls -la "Test-Dictionary.dictionary"
             
           if [ ! -d "Test-Dictionary.dictionary" ]; then
             echo "✗ ERROR: Build failed to produce .dictionary bundle"
