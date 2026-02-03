@@ -19,6 +19,7 @@ Output:
 
 from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
+import xml.etree.ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -94,47 +95,49 @@ def copy_css_file(output_dir: Path) -> None:
 
 
 def create_dictionary_xml_entry(
-    root: Element, headword: DpdHeadword, entry_html: str, entry_id: str
-) -> None:
-    """Create a single d:entry element in the XML dictionary.
+    headword: DpdHeadword, entry_html: str, entry_id: str
+) -> str:
+    """Create a single d:entry string for the XML dictionary.
 
     Args:
-        root: The root d:dictionary element
         headword: DpdHeadword database object
         entry_html: Rendered HTML content for the entry
         entry_id: Unique identifier for this entry
+
+    Returns:
+        XML string for the entry
     """
     # Create entry element
-    entry = SubElement(
-        root, "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}entry"
-    )
-    entry.set("id", entry_id)
-    entry.set(
-        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}title", headword.lemma_1
+    entry = Element(
+        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}entry",
+        {
+            "id": entry_id,
+            "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}title": headword.lemma_1,
+        },
     )
 
     # Add index for the headword
     index = SubElement(
-        entry, "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}index"
-    )
-    index.set(
-        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}value", headword.lemma_1
+        entry,
+        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}index",
+        {
+            "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}value": headword.lemma_1
+        },
     )
 
     # Add index for inflections if available
     if headword.inflections_list_all:
-        for inflection in headword.inflections_list_all:
+        # Use a set to avoid duplicate indices for the same headword
+        inflections = set(headword.inflections_list_all)
+        for inflection in sorted(inflections):
             if inflection and inflection != headword.lemma_1:
                 inflection_index = SubElement(
-                    entry, "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}index"
-                )
-                inflection_index.set(
-                    "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}value",
-                    inflection,
-                )
-                inflection_index.set(
-                    "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}title",
-                    f"{inflection} ({headword.lemma_1})",
+                    entry,
+                    "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}index",
+                    {
+                        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}value": inflection,
+                        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}title": f"{inflection} ({headword.lemma_1})",
+                    },
                 )
 
     # Add title
@@ -142,26 +145,33 @@ def create_dictionary_xml_entry(
     h1.text = headword.lemma_1
 
     # Add the rendered HTML content
-    # We need to parse the HTML and add it as children
-    # For simplicity, we'll wrap it in a div
-    content_div = SubElement(entry, "div")
-    content_div.set("class", "content")
+    # We parse the HTML string and append it as actual elements to avoid escaping
+    try:
+        # Wrap in a div to ensure a single root for parsing
+        # The entry_html from Jinja2 is already well-formed HTML
+        wrapped_html = f'<div xmlns="http://www.w3.org/1999/xhtml">{entry_html}</div>'
+        html_elements = ET.fromstring(wrapped_html)
+        entry.append(html_elements)
+    except Exception as e:
+        pr.red(f"Error parsing HTML for {headword.lemma_1}: {e}")
+        # Fallback to simple div if parsing fails
+        content_div = SubElement(entry, "div")
+        content_div.set("class", "content")
+        content_div.text = "Error rendering content"
 
-    # The entry_html is already rendered HTML from Jinja2 template
-    # We add it as raw text content within the div
-    # Note: In production, you might want to parse this properly
-    content_para = SubElement(content_div, "p")
-    content_para.text = entry_html
+    return tostring(entry, encoding="unicode")
 
 
 def generate_dictionary_xml(output_dir: Path, db_session) -> None:
-    """Generate Dictionary.xml with all DPD entries.
+    """Generate Dictionary.xml with all DPD entries using memory-efficient streaming.
 
     Args:
         output_dir: Directory to write the XML file
         db_session: SQLAlchemy database session
     """
-    # pr.green("generating Dictionary.xml")
+    # Register namespaces to ensure 'd:' prefix is used correctly
+    ET.register_namespace("d", APPLE_NS)
+    ET.register_namespace("", XHTML_NS)
 
     # Set up Jinja2 environment
     env = Environment(
@@ -169,43 +179,57 @@ def generate_dictionary_xml(output_dir: Path, db_session) -> None:
     )
     entry_template = env.get_template("entry.html")
 
-    # Create root element with proper namespaces
-    root = Element("{http://www.apple.com/DTDs/DictionaryService-1.0.rng}dictionary")
-    root.set("xmlns", XHTML_NS)
-    root.set("xmlns:d", APPLE_NS)
+    xml_path = output_dir / "Dictionary.xml"
 
-    # Query all headwords
+    # Query all headword IDs first to avoid loading everything at once
     pr.green("querying database")
-    headwords = db_session.query(DpdHeadword).all()
-    headwords = sorted(headwords, key=lambda x: pali_sort_key(x.lemma_1))
-    total = len(headwords)
+    headword_ids = db_session.query(DpdHeadword.id).all()
+    total = len(headword_ids)
     pr.yes(total)
 
-    # Generate entries
-    pr.green_title("rendering entries")
-    for count, headword in enumerate(headwords):
-        entry_id = f"dpd_{headword.id}"
+    pr.green_title("rendering and streaming entries")
 
-        # Render HTML for this entry
-        entry_html = entry_template.render(i=headword)
+    # Open file for streaming
+    with open(xml_path, "w", encoding="utf-8") as f:
+        # Write XML header and root element
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        f.write(
+            f'<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="{APPLE_NS}">\n'
+        )
 
-        # Create XML entry
-        create_dictionary_xml_entry(root, headword, entry_html, entry_id)
+        # Process headwords in chunks to save memory
+        chunk_size = 1000
+        for i in range(0, total, chunk_size):
+            chunk_ids = [hid[0] for hid in headword_ids[i : i + chunk_size]]
+            chunk_headwords = (
+                db_session.query(DpdHeadword)
+                .filter(DpdHeadword.id.in_(chunk_ids))
+                .all()
+            )
 
-        if count % 5000 == 0:
-            pr.counter(count, total, headword.lemma_1)
+            # Sort the chunk (optional but nice for consistency)
+            chunk_headwords = sorted(chunk_headwords, key=lambda x: pali_sort_key(x.lemma_1))
+
+            for count, headword in enumerate(chunk_headwords):
+                entry_id = f"dpd_{headword.id}"
+
+                # Render HTML for this entry
+                entry_html = entry_template.render(i=headword)
+
+                # Create XML entry string
+                entry_xml = create_dictionary_xml_entry(headword, entry_html, entry_id)
+
+                # Write to file immediately
+                f.write(entry_xml + "\n")
+
+                global_count = i + count
+                if global_count % 5000 == 0:
+                    pr.counter(global_count, total, headword.lemma_1)
+
+        # Close root element
+        f.write("</d:dictionary>")
 
     pr.counter(total, total, "complete")
-
-    # Convert to pretty-printed XML
-    pr.green("formatting XML")
-    xml_string = tostring(root, encoding="unicode")
-    # Add XML declaration
-    xml_output = f'<?xml version="1.0" encoding="UTF-8"?>\n{xml_string}'
-
-    # Write to file
-    xml_path = output_dir / "Dictionary.xml"
-    xml_path.write_text(xml_output, encoding="utf-8")
     pr.yes("ok")
 
 
