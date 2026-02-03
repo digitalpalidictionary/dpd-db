@@ -65,20 +65,17 @@ jobs:
           git clone --depth 1 https://github.com/SebastianSzturo/Dictionary-Development-Kit.git
           
           DDK_PATH="$(pwd)/Dictionary-Development-Kit"
+          DDK_BIN="$DDK_PATH/bin/build_dict.sh"
           
-          echo "=== Patching DDK Scripts ==="
-          # Safely patch only text files (scripts/makefiles) to avoid corrupting binaries
-          find "$DDK_PATH" -type f \( -name "*.sh" -o -name "Makefile" -o -name "*.plist" \) -exec sed -i '' "s|/DevTools/Utilities/Dictionary Development Kit|$DDK_PATH|g" {} +
-          
-          # Verify the tool exists and check architecture
-          DDK_BIN="$DDK_PATH/bin/build_dict"
+          # Verify the tool exists
           if [ -f "$DDK_BIN" ]; then
-            echo "✓ build_dict found and patched"
+            echo "✓ build_dict.sh found"
             chmod +x "$DDK_BIN"
-            # Ensure the sub-binaries are also executable
-            chmod +x "$DDK_PATH/bin/binarize" "$DDK_PATH/bin/xml2dict"
+            # Ensure all sub-binaries are executable
+            chmod +x "$DDK_PATH/bin/"*
           else
-            echo "✗ ERROR: build_dict not found"
+            echo "✗ ERROR: build_dict.sh not found at $DDK_BIN"
+            ls -R "$DDK_PATH"
             exit 1
           fi
 
@@ -93,9 +90,12 @@ jobs:
           echo "=== Starting test build ==="
           cd build
           
-          # macos-14 is ARM64, so we MUST use arch -x86_64 to run the legacy Intel binaries
-          # This invokes the Rosetta 2 translation layer
-          arch -x86_64 "$DDK_PATH/bin/build_dict" \
+          # Call the shell script directly.
+          # It automatically finds its own helper binaries (like make_dict_package).
+          # We execute the script with 'arch -x86_64' so that any child processes 
+          # (the x86_64 binaries) inherit the Rosetta 2 environment.
+          
+          arch -x86_64 "$DDK_PATH/bin/build_dict.sh" \
             "Test-Dictionary" \
             Dictionary.xml \
             Dictionary.css \
