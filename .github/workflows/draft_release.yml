@@ -316,47 +316,82 @@ jobs:
           name: apple-dictionary-source
           path: ./apple-dictionary-source/
 
-      - name: Clone Dictionary Development Kit
+      - name: Setup Dictionary Development Kit
         run: |
+          set -x  # Enable shell tracing for better visibility
+          
+          # Clone the DDK
           git clone --depth 1 https://github.com/SebastianSzturo/Dictionary-Development-Kit.git
-          echo "=== Dictionary Development Kit cloned ==="
+          
+          # THE "OUTSIDE THE BOX" HACK:
+          # The DDK tools have hardcoded paths to /DevTools.
+          sudo mkdir -p "/DevTools/Utilities"
+          sudo ln -s "$(pwd)/Dictionary-Development-Kit" "/DevTools/Utilities/Dictionary Development Kit"
+          
+          # Verify the tool exists and is executable
+          DDK_BIN="/DevTools/Utilities/Dictionary Development Kit/bin/build_dict"
+          if [ -f "$DDK_BIN" ]; then
+            echo "✓ build_dict found"
+            ls -l "$DDK_BIN"
+            chmod +x "$DDK_BIN"
+          else
+            echo "✗ ERROR: build_dict not found at $DDK_BIN"
+            find . -name "build_dict"
+            exit 1
+          fi
+          
+          # Export env vars for subsequent steps
+          echo "DICT_DEV_KIT_DIR=/DevTools/Utilities/Dictionary Development Kit" >> $GITHUB_ENV
+          echo "BINDIR=/DevTools/Utilities/Dictionary Development Kit/bin" >> $GITHUB_ENV
 
       - name: Build Dictionary
         run: |
-          # Create project directory
-          mkdir -p MyDictionary
-          cp ./apple-dictionary-source/Dictionary.xml MyDictionary/
-          cp ./apple-dictionary-source/Dictionary.css MyDictionary/
-          cp ./apple-dictionary-source/Info.plist MyDictionary/
+          set -x  # Enable shell tracing
           
-          # Find the actual directory containing the DDK Makefile
-          # The SebastianSzturo repo often has it in the root or a subfolder
-          DDK_ROOT=$(pwd)/Dictionary-Development-Kit
-          DDK_MAKEFILE_PATH=$(find $DDK_ROOT -name "Makefile" | head -n 1)
-          DDK_DIR=$(dirname $DDK_MAKEFILE_PATH)
+          # Prepare project directory
+          mkdir -p build
+          cp ./apple-dictionary-source/Dictionary.xml ./build/
+          cp ./apple-dictionary-source/Dictionary.css ./build/
+          cp ./apple-dictionary-source/Info.plist ./build/
           
-          echo "=== DDK Makefile found at: $DDK_MAKEFILE_PATH ==="
-          echo "=== DDK Directory: $DDK_DIR ==="
-
-          # Create Makefile with absolute path
-          echo "DICT_NAME = Digital-Pali-Dictionary" > MyDictionary/Makefile
-          echo "DICT_SRC_PATH = Dictionary.xml" >> MyDictionary/Makefile
-          echo "CSS_PATH = Dictionary.css" >> MyDictionary/Makefile
-          echo "PLIST_PATH = Info.plist" >> MyDictionary/Makefile
-          echo "DICT_BUILD_TOOL_DIR = $DDK_DIR" >> MyDictionary/Makefile
-          echo "" >> MyDictionary/Makefile
-          echo 'include $(DICT_BUILD_TOOL_DIR)/Makefile' >> MyDictionary/Makefile
+          echo "=== Validating Source Files ==="
+          ls -lh ./build/
+          head -n 5 ./build/Dictionary.xml
           
-          echo "=== Dictionary project prepared ==="
-          cat MyDictionary/Makefile
-          
-          # Build
           echo "=== Starting dictionary build ==="
-          cd MyDictionary
-          # We use -j1 to avoid race conditions in some DDK versions
-          make
+          cd build
+          
+          # Use arch -x86_64 for Intel binaries on ARM runners
+          # Capture output for debugging
+          arch -x86_64 "/DevTools/Utilities/Dictionary Development Kit/bin/build_dict" \
+            "Digital-Pali-Dictionary" \
+            Dictionary.xml \
+            Dictionary.css \
+            Info.plist 2>&1 | tee build_log.txt
+            
+          if [ ! -d "Digital-Pali-Dictionary.dictionary" ]; then
+            echo "✗ ERROR: Build failed to produce .dictionary bundle"
+            cat build_log.txt
+            exit 1
+          fi
+          
           echo "=== Build complete ==="
           ls -la
+
+      - name: Package Dictionary
+        run: |
+          cd build
+          # The dictionary is a bundle (folder). We zip it for distribution.
+          zip -r Digital-Pali-Dictionary.dictionary.zip Digital-Pali-Dictionary.dictionary
+          echo "=== Dictionary packaged ==="
+          ls -lh *.zip
+
+      - name: Upload macOS Dictionary
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-dictionary
+          path: build/Digital-Pali-Dictionary.dictionary.zip
+          retention-days: 1
 
       - name: Package Dictionary
         run: |
