@@ -1,0 +1,13 @@
+# Dictionary Development Kit Makefile Template
+# Usage: Copy to project directory, update DICT_BUILD_TOOL_DIR path, then run 'make'
+
+DICT_NAME = Digital-Pali-Dictionary
+DICT_SRC_PATH = Dictionary.xml
+CSS_PATH = Dictionary.css
+PLIST_PATH = Info.plist
+# UPDATE THIS PATH to point to your Dictionary Development Kit installation
+# Example: DICT_BUILD_TOOL_DIR = /Users/username/Dictionary-Development-Kit
+# Example: DICT_BUILD_TOOL_DIR = /home/user/work/Dictionary-Development-Kit
+DICT_BUILD_TOOL_DIR = DICT_BUILD_TOOL_DIR_PLACEHOLDER
+
+include $(DICT_BUILD_TOOL_DIR)/Makefile
