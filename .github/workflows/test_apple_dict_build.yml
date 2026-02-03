@@ -163,23 +163,33 @@ jobs:
           # Clone the DDK
           git clone --depth 1 https://github.com/SebastianSzturo/Dictionary-Development-Kit.git
           
-          # Create the expected directory structure (DDK has hardcoded paths)
-          sudo mkdir -p "/DevTools/Utilities"
-          sudo ln -sf "$(pwd)/Dictionary-Development-Kit" "/DevTools/Utilities/Dictionary Development Kit"
+          DDK_PATH="$(pwd)/Dictionary-Development-Kit"
           
-          # Verify setup
-          DDK_BIN="/DevTools/Utilities/Dictionary Development Kit/bin/build_dict"
-          if [ -f "$DDK_BIN" ]; then
-            echo "✓ build_dict found"
-            chmod +x "$DDK_BIN"
-            chmod +x "/DevTools/Utilities/Dictionary Development Kit/bin/binarize" 2>/dev/null || true
-            chmod +x "/DevTools/Utilities/Dictionary Development Kit/bin/xml2dict" 2>/dev/null || true
-            file "$DDK_BIN"
+          # Patch all scripts and makefiles to use local path instead of /DevTools
+          # The DDK has hardcoded paths that we need to replace
+          echo "=== Patching DDK to use local path ==="
+          
+          # Patch the build_dict script (it's a shell script that calls other binaries)
+          if [ -f "$DDK_PATH/bin/build_dict" ]; then
+            # Replace hardcoded /DevTools path with our local path
+            sed -i.bak "s|/DevTools/Utilities/Dictionary Development Kit|$DDK_PATH|g" "$DDK_PATH/bin/build_dict" 2>/dev/null || \
+            sed -i '' "s|/DevTools/Utilities/Dictionary Development Kit|$DDK_PATH|g" "$DDK_PATH/bin/build_dict"
+            
+            chmod +x "$DDK_PATH/bin/build_dict"
+            chmod +x "$DDK_PATH/bin/binarize" 2>/dev/null || true
+            chmod +x "$DDK_PATH/bin/xml2dict" 2>/dev/null || true
+            
+            echo "✓ DDK patched and ready"
+            echo "=== build_dict script content ==="
+            head -30 "$DDK_PATH/bin/build_dict"
           else
             echo "✗ ERROR: build_dict not found"
             find . -name "build_dict" 2>/dev/null
             exit 1
           fi
+          
+          # Export path for next step
+          echo "DDK_PATH=$DDK_PATH" >> $GITHUB_ENV
 
       - name: Build Dictionary
         run: |
