@@ -3,7 +3,7 @@ from typing import Any, cast
 
 from bs4 import BeautifulSoup
 
-from sqlalchemy import Column, Integer, String, create_engine, event, inspect
+from sqlalchemy import Column, Integer, String, create_engine, event, inspect, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, declared_attr, sessionmaker
 
@@ -127,7 +127,10 @@ def get_table_names_for_book(book_name: str) -> list[str]:
 
 
 def search_tipitaka(
-    table_name: str, search_string: str, search_column: str = "pali_text"
+    table_name: str,
+    search_string: str,
+    search_column: str = "pali_text",
+    db_session: Session | None = None,
 ) -> list[tuple[str, str, str]]:
     """
     Search a single Tipitaka table for a string and return cleaned pali text and English translation.
@@ -135,14 +138,18 @@ def search_tipitaka(
     :param table_name: The name of the table to search.
     :param search_string: The string to search for in the specified column.
     :param search_column: The name of the column to search ('pali_text' or 'english_translation').
+    :param db_session: Optional existing session to use. If None, creates a new session.
     :return: A list of tuples (pali_text, english_translation, table_name).
     """
-    db_session = get_tipitaka_db_session()
+    own_session = db_session is None
+    if own_session:
+        db_session = get_tipitaka_db_session()
 
     try:
         TargetTable = get_table_class(table_name)
     except Exception:
-        # This error is unlikely with the current implementation
+        if own_session:
+            db_session.close()
         return []
 
     AnyTable = cast(Any, TargetTable)
@@ -155,8 +162,8 @@ def search_tipitaka(
             .all()
         )
     except (AttributeError, Exception):
-        # This can happen if the table doesn't exist in the db, which is expected
-        # for some filenames in cst_texts. Suppress error printing.
+        if own_session:
+            db_session.close()
         return []
 
     compiled_results = []
@@ -165,45 +172,119 @@ def search_tipitaka(
             soup = BeautifulSoup(q.pali_text, "html.parser")
             pali_text = soup.get_text()
             compiled_results.append((pali_text, q.english_translation, table_name))
+
+    if own_session:
+        db_session.close()
+
     return compiled_results
 
 
 def search_book(
-    book_name: str, search_string: str, search_column: str = "pali_text"
+    book_name: str,
+    search_string: str,
+    search_column: str = "pali_text",
 ) -> list[tuple[str, str, str, str]]:
-    """Search all tables related to a book."""
+    """Search all tables related to a book using UNION for better performance."""
     table_names = get_table_names_for_book(book_name)
     if not table_names:
         return []
 
-    all_results = []
-    for table_name in table_names:
-        results = search_tipitaka(table_name, search_string, search_column)
-        for pali, eng, table in results:
-            all_results.append((pali, eng, table, book_name))
-    return all_results
+    # Build book lookup for this single book
+    book_lookup = {table_name: book_name for table_name in table_names}
+
+    return search_tables_union(table_names, book_lookup, search_string, search_column)
 
 
-def search_books(
-    book_names: list[str], search_string: str, search_column: str = "pali_text"
+def search_tables_union(
+    table_names: list[str],
+    book_lookup: dict[str, str],
+    search_string: str,
+    search_column: str = "pali_text",
 ) -> list[tuple[str, str, str, str]]:
-    """Search multiple books for a string."""
+    """Search multiple tables using a single UNION query. Falls back to individual queries if needed."""
+    if not table_names:
+        return []
+
+    db_session = get_tipitaka_db_session()
     all_results = []
-    for book_name in book_names:
-        results = search_book(book_name, search_string, search_column)
-        all_results.extend(results)
+
+    try:
+        # Build one big UNION query for all tables
+        union_parts = []
+        for table_name in table_names:
+            # Use actual table name in query with proper escaping
+            escaped_table = table_name.replace("'", "''")
+            union_parts.append(
+                f"SELECT pali_text, english_translation, '{escaped_table}' as table_name "
+                f"FROM {table_name} WHERE {search_column} REGEXP '{search_string.replace(chr(39), chr(39) + chr(39))}'"
+            )
+
+        if union_parts:
+            union_query = " UNION ALL ".join(union_parts)
+
+            try:
+                result = db_session.execute(text(union_query))
+                for row in result:
+                    pali_text, eng_trans, table_name = row
+                    book_name = book_lookup.get(table_name, "unknown")
+                    soup = BeautifulSoup(pali_text, "html.parser")
+                    pali_clean = soup.get_text()
+                    all_results.append((pali_clean, eng_trans, table_name, book_name))
+            except Exception:
+                # If massive UNION fails, fall back to individual queries
+                for table_name in table_names:
+                    results = search_tipitaka(
+                        table_name, search_string, search_column, db_session
+                    )
+                    for pali, eng, table in results:
+                        book_name = book_lookup.get(table, "unknown")
+                        all_results.append((pali, eng, table, book_name))
+
+    finally:
+        db_session.close()
+
     return all_results
 
 
 def search_all_cst_texts(
     search_string: str, search_column: str = "pali_text"
 ) -> list[tuple[str, str, str, str]]:
-    """Search all tables derived from cst_texts, in the order they appear."""
-    all_results = []
+    """Search all tables derived from cst_texts using a single massive UNION query."""
+    # Collect all table names and build lookup
+    all_table_names = []
+    book_lookup = {}
+
     for book_name in cst_texts.keys():
-        results = search_book(book_name, search_string, search_column)
-        all_results.extend(results)
-    return all_results
+        table_names = get_table_names_for_book(book_name)
+        for table_name in table_names:
+            all_table_names.append(table_name)
+            book_lookup[table_name] = book_name
+
+    return search_tables_union(
+        all_table_names, book_lookup, search_string, search_column
+    )
+
+
+def search_books(
+    book_names: list[str], search_string: str, search_column: str = "pali_text"
+) -> list[tuple[str, str, str, str]]:
+    """Search multiple books for a string using UNION queries."""
+    if not book_names:
+        return []
+
+    # Collect all table names for specified books
+    all_table_names = []
+    book_lookup = {}
+
+    for book_name in book_names:
+        table_names = get_table_names_for_book(book_name)
+        for table_name in table_names:
+            all_table_names.append(table_name)
+            book_lookup[table_name] = book_name
+
+    return search_tables_union(
+        all_table_names, book_lookup, search_string, search_column
+    )
 
 
 def get_all_db_table_names():
@@ -261,13 +342,13 @@ def compare_db_and_cst_tables():
 def tui_interface():
     user_input = ""
     while user_input != "exit":
-        pr.info("what book? (e.g. kn14), 'all', or 'exit'", end=" ")
+        pr.info("what book? (e.g. kn14), 'all', or 'exit' ")
         user_input = input()
 
         if user_input == "exit":
             break
 
-        pr.info("what word?", end=" ")
+        pr.info("what word? ")
         user_word = input()
 
         if not user_word:
