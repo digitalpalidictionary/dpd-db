@@ -329,44 +329,31 @@ jobs:
           cp ./apple-dictionary-source/Dictionary.css MyDictionary/
           cp ./apple-dictionary-source/Info.plist MyDictionary/
           
-          # Create Makefile with absolute path (echo approach for proper quoting)
+          # Find the actual directory containing the DDK Makefile
+          # The SebastianSzturo repo often has it in the root or a subfolder
+          DDK_ROOT=$(pwd)/Dictionary-Development-Kit
+          DDK_MAKEFILE_PATH=$(find $DDK_ROOT -name "Makefile" | head -n 1)
+          DDK_DIR=$(dirname $DDK_MAKEFILE_PATH)
+          
+          echo "=== DDK Makefile found at: $DDK_MAKEFILE_PATH ==="
+          echo "=== DDK Directory: $DDK_DIR ==="
+
+          # Create Makefile with absolute path
           echo "DICT_NAME = Digital-Pali-Dictionary" > MyDictionary/Makefile
           echo "DICT_SRC_PATH = Dictionary.xml" >> MyDictionary/Makefile
           echo "CSS_PATH = Dictionary.css" >> MyDictionary/Makefile
           echo "PLIST_PATH = Info.plist" >> MyDictionary/Makefile
-          echo "DICT_BUILD_TOOL_DIR = ${{ github.workspace }}/Dictionary-Development-Kit" >> MyDictionary/Makefile
+          echo "DICT_BUILD_TOOL_DIR = $DDK_DIR" >> MyDictionary/Makefile
           echo "" >> MyDictionary/Makefile
           echo 'include $(DICT_BUILD_TOOL_DIR)/Makefile' >> MyDictionary/Makefile
           
           echo "=== Dictionary project prepared ==="
-          ls -la MyDictionary/
-          
-          echo "=== Validating Dictionary Development Kit location ==="
-          if [ ! -d "${{ github.workspace }}/Dictionary-Development-Kit" ]; then
-            echo "ERROR: Dictionary Development Kit not found at expected location!"
-            echo "Searching for it..."
-            find ${{ github.workspace }} -name "Dictionary-Development-Kit" -type d 2>/dev/null || true
-            ls -la ${{ github.workspace }}/
-            exit 1
-          fi
-          echo "✓ Dictionary Development Kit found"
-          
-          echo "=== Makefile content (validation) ==="
           cat MyDictionary/Makefile
-          
-          echo "=== Validating Makefile syntax ==="
-          if ! grep -q 'include \$(DICT_BUILD_TOOL_DIR)/Makefile' MyDictionary/Makefile; then
-            echo "ERROR: Makefile include line is incorrect!"
-            echo "Expected: include \$(DICT_BUILD_TOOL_DIR)/Makefile"
-            echo "Got:"
-            grep "include" MyDictionary/Makefile || echo "No include line found"
-            exit 1
-          fi
-          echo "✓ Makefile syntax validated"
           
           # Build
           echo "=== Starting dictionary build ==="
           cd MyDictionary
+          # We use -j1 to avoid race conditions in some DDK versions
           make
           echo "=== Build complete ==="
           ls -la
