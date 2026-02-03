@@ -307,7 +307,6 @@ jobs:
 
   build-macos:
     needs: build-linux
-    # Use macOS 14 (ARM64) runner
     runs-on: macos-14
 
     steps:
@@ -319,84 +318,52 @@ jobs:
 
       - name: Setup Dictionary Development Kit
         run: |
-          set -x
-          
-          # Explicitly install Rosetta 2 for safety (though often pre-installed)
-          if /usr/bin/pgrep oahd >/dev/null 2>&1; then
-              echo "Rosetta 2 is already running."
-          else
+          # Install Rosetta 2 for legacy binary compatibility
+          if ! /usr/bin/pgrep oahd >/dev/null 2>&1; then
               sudo softwareupdate --install-rosetta --agree-to-license
           fi
           
-          # Clone the DDK
           git clone --depth 1 https://github.com/SebastianSzturo/Dictionary-Development-Kit.git
           
-          # Export DDK path for all subsequent steps
           DDK_PATH="$(pwd)/Dictionary-Development-Kit"
           echo "DDK_PATH=$DDK_PATH" >> $GITHUB_ENV
           
-          DDK_BIN="$DDK_PATH/bin/build_dict.sh"
-          
-          # Verify the tool exists
-          if [ -f "$DDK_BIN" ]; then
-            echo "✓ build_dict.sh found"
-            chmod +x "$DDK_BIN"
-            # Ensure all sub-binaries are executable
-            chmod +x "$DDK_PATH/bin/"*
-          else
-            echo "✗ ERROR: build_dict.sh not found at $DDK_BIN"
-            ls -R "$DDK_PATH"
-            exit 1
-          fi
+          # Ensure binaries are executable
+          chmod +x "$DDK_PATH/bin/"*
 
       - name: Build Dictionary
         run: |
-          set -x
-          
-          # Validation: Ensure source files exist and are not empty
           if [ ! -s "./apple-dictionary-source/Dictionary.xml" ]; then
-            echo "✗ ERROR: Dictionary.xml is missing or empty!"
-            ls -la ./apple-dictionary-source/
+            echo "Error: Dictionary.xml is missing or empty"
             exit 1
           fi
           
-          # Prepare project directory
           mkdir -p build
           cp ./apple-dictionary-source/Dictionary.xml ./build/
           cp ./apple-dictionary-source/Dictionary.css ./build/
           cp ./apple-dictionary-source/Info.plist ./build/
           
-          echo "=== Starting dictionary build ==="
           cd build
           
-          # Call the shell script directly with Rosetta 2 (arch -x86_64)
-          # It automatically finds its own helper binaries (like make_dict_package).
+          # Compile using Rosetta 2 (arch -x86_64)
           arch -x86_64 "$DDK_PATH/bin/build_dict.sh" \
             "Digital-Pali-Dictionary" \
             Dictionary.xml \
             Dictionary.css \
-            Info.plist 2>&1 | tee build_log.txt
+            Info.plist
             
-          # The build script places the output in an 'objects' subdirectory
+          # Move output from objects directory to root for packaging
           if [ -d "objects/Digital-Pali-Dictionary.dictionary" ]; then
-            echo "✓ Build successful, moving dictionary to root"
             mv objects/Digital-Pali-Dictionary.dictionary .
           else
-            echo "✗ ERROR: Build failed to produce .dictionary bundle"
-            cat build_log.txt
+            echo "Error: Build failed to produce .dictionary bundle"
             exit 1
           fi
-          
-          echo "=== Build complete ==="
-          ls -la
 
       - name: Package Dictionary
         run: |
           cd build
-          # The dictionary is a bundle (folder). We zip it for distribution.
           zip -r Digital-Pali-Dictionary.dictionary.zip Digital-Pali-Dictionary.dictionary
-          echo "=== Dictionary packaged ==="
-          ls -lh *.zip
 
       - name: Upload macOS Dictionary
         uses: actions/upload-artifact@v4

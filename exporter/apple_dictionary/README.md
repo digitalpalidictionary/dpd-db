@@ -8,20 +8,20 @@ The `apple_dictionary/` directory provides a specialized export path for Apple D
 
 This subsystem follows a "Template-to-XML" transformation pattern:
 
-1.  **Rendering:** `apple_dictionary.py` iterates through the database, rendering entries into Apple's Dictionary XML format with proper `d:entry` and `d:index` tags.
+1.  **Rendering:** `apple_dictionary.py` iterates through the database, rendering entries into Apple's Dictionary XML format using a memory-efficient streaming approach.
 2.  **Templating:** Uses Jinja2 (`templates/`) to render entry HTML content, maintaining DPD branding and styling.
 3.  **Styling:** Incorporates DPD's identity colors and CSS (`templates/dictionary.css`) to ensure consistent branding.
 4.  **Metadata:** Generates `Info.plist` with proper bundle identifier (`org.digitalpalidictionary.dpd`) and dictionary metadata.
-5.  **Build Process:** The generated source files are intended to be compiled on macOS using the Dictionary Development Kit's `make` command.
+5.  **Build Process:** The generated source files are compiled on macOS using the Dictionary Development Kit's `build_dict.sh` tool, invoked via Rosetta 2 (`arch -x86_64`) on modern Apple Silicon runners.
 
 ## Relationships & Data Flow
 
-- **Source:** Pulls from **db/** models, specifically `DpdHeadword` and `Lookup` tables.
-- **Tools:** Uses Jinja2 for templating and standard Python XML libraries for generation.
-- **Output:** Produces three files:
-    - `Dictionary.xml` - The main dictionary content in Apple XML format
-    - `Dictionary.css` - Stylesheet for entry rendering
-    - `Info.plist` - Dictionary metadata and bundle information
+- **Source:** Pulls from **db/** models, specifically the `DpdHeadword` table.
+- **Tools:** Uses Jinja2 for templating and Python's `xml.etree.ElementTree` for streaming XML generation.
+- **Output:** Produces three files in `exporter/share/apple_dictionary/`:
+    - `Dictionary.xml` - The main dictionary content in Apple XML format.
+    - `Dictionary.css` - Stylesheet for entry rendering.
+    - `Info.plist` - Dictionary metadata and bundle information.
 
 ## Interface
 
@@ -30,12 +30,11 @@ This subsystem follows a "Template-to-XML" transformation pattern:
 
 ## GitHub Actions Integration
 
-This exporter is designed to work with the automated release workflow defined in `.github/workflows/build-mac-dictionary.yml`. The workflow:
+This exporter is integrated into the main automated release workflow defined in `.github/workflows/draft_release.yml`. The process:
 
-1. Runs on Linux to generate the source files (XML, CSS, plist)
-2. Transfers artifacts to macOS runner
-3. Compiles the `.dictionary` bundle using Apple's Dictionary Development Kit
-4. Attaches the final `.dictionary` file to the GitHub release
+1. **Linux Job:** Runs the Python export script to generate the source files (XML, CSS, plist).
+2. **macOS Job:** Downloads the source artifacts, clones the Apple Dictionary Development Kit, and compiles the `.dictionary` bundle directly using the DDK's command-line tools.
+3. **Release:** Attaches the final `.dictionary.zip` file to the GitHub draft release alongside other formats.
 
 ## DPD Styling
 
