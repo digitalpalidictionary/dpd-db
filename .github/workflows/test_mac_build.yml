@@ -63,14 +63,17 @@ jobs:
           # Clone the DDK
           git clone --depth 1 https://github.com/SebastianSzturo/Dictionary-Development-Kit.git
           
-          # The "Outside the Box" Symlink Hack
-          sudo mkdir -p "/DevTools/Utilities"
-          sudo ln -s "$(pwd)/Dictionary-Development-Kit" "/DevTools/Utilities/Dictionary Development Kit"
+          DDK_PATH="$(pwd)/Dictionary-Development-Kit"
+          
+          # THE "PATCH-IN-PLACE" STRATEGY:
+          # Instead of symlinking to root (which is read-only), we find all hardcoded 
+          # /DevTools paths in the DDK scripts and replace them with our local path.
+          grep -r "/DevTools/Utilities/Dictionary Development Kit" . -l | xargs sed -i '' "s|/DevTools/Utilities/Dictionary Development Kit|$DDK_PATH|g"
           
           # Verify the tool
-          DDK_BIN="/DevTools/Utilities/Dictionary Development Kit/bin/build_dict"
+          DDK_BIN="$DDK_PATH/bin/build_dict"
           if [ -f "$DDK_BIN" ]; then
-            echo "✓ build_dict found"
+            echo "✓ build_dict found and patched"
             ls -l "$DDK_BIN"
             chmod +x "$DDK_BIN"
           else
@@ -85,11 +88,13 @@ jobs:
           mkdir -p build
           cp test-source/* build/
           
+          DDK_PATH="$(pwd)/Dictionary-Development-Kit"
+          
           echo "=== Starting test build ==="
           cd build
           
-          # Use arch -x86_64 for Intel binaries on ARM runners
-          arch -x86_64 "/DevTools/Utilities/Dictionary Development Kit/bin/build_dict" \
+          # Call the local patched binary
+          arch -x86_64 "$DDK_PATH/bin/build_dict" \
             "Test-Dictionary" \
             Dictionary.xml \
             Dictionary.css \
@@ -104,9 +109,16 @@ jobs:
           echo "=== Build complete ==="
           ls -la
 
-      - name: Package and Upload
+      - name: Package Dictionary
+        run: |
+          cd build
+          zip -r Test-Dictionary.dictionary.zip Test-Dictionary.dictionary
+          echo "=== Dictionary packaged ==="
+          ls -lh *.zip
+
+      - name: Upload Test Dictionary
         uses: actions/upload-artifact@v4
         with:
           name: test-dictionary
-          path: build/Test-Dictionary.dictionary
+          path: build/Test-Dictionary.dictionary.zip
           retention-days: 1
