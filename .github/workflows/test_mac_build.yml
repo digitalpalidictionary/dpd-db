@@ -5,8 +5,8 @@ on:
 
 jobs:
   test-build-macos:
-    # Switch to Intel runner (macOS 13) for better legacy tool compatibility
-    runs-on: macos-13
+    # Use macOS 14 (supported runner)
+    runs-on: macos-14
 
     steps:
       - name: Create Dummy Dictionary Source
@@ -22,7 +22,7 @@ jobs:
               <d:index d:value="test"/>
               <h1>Test Word</h1>
               <div class="content">
-                  <p>This is a test entry to verify the build process works on macOS 13 runners.</p>
+                  <p>This is a test entry to verify the build process works on macOS 14 runners.</p>
               </div>
           </d:entry>
           </d:dictionary>
@@ -52,8 +52,6 @@ jobs:
               <string>1.0</string>
               <key>DCSDictionaryCopyright</key>
               <string>Copyright © 2026 Test</string>
-              <key>DCSDictionaryManufacturerName</key>
-              <string>Test Builder</string>
           </dict>
           </plist>
           EOF
@@ -75,9 +73,10 @@ jobs:
           # Verify the tool exists and check architecture
           DDK_BIN="$DDK_PATH/bin/build_dict"
           if [ -f "$DDK_BIN" ]; then
-            echo "✓ build_dict found"
-            file "$DDK_BIN"
+            echo "✓ build_dict found and patched"
             chmod +x "$DDK_BIN"
+            # Ensure the sub-binaries are also executable
+            chmod +x "$DDK_PATH/bin/binarize" "$DDK_PATH/bin/xml2dict"
           else
             echo "✗ ERROR: build_dict not found"
             exit 1
@@ -94,8 +93,9 @@ jobs:
           echo "=== Starting test build ==="
           cd build
           
-          # Direct call to the patched binary
-          "$DDK_PATH/bin/build_dict" \
+          # macos-14 is ARM64, so we MUST use arch -x86_64 to run the legacy Intel binaries
+          # This invokes the Rosetta 2 translation layer
+          arch -x86_64 "$DDK_PATH/bin/build_dict" \
             "Test-Dictionary" \
             Dictionary.xml \
             Dictionary.css \
@@ -109,15 +109,6 @@ jobs:
           
           echo "=== Build complete ==="
           ls -la "Test-Dictionary.dictionary"
-            
-          if [ ! -d "Test-Dictionary.dictionary" ]; then
-            echo "✗ ERROR: Build failed to produce .dictionary bundle"
-            cat build_log.txt
-            exit 1
-          fi
-          
-          echo "=== Build complete ==="
-          ls -la
 
       - name: Package Dictionary
         run: |
