@@ -100,8 +100,12 @@ jobs:
             Dictionary.xml \
             Dictionary.css \
             Info.plist 2>&1 | tee build_log.txt
-            
-          if [ ! -d "Test-Dictionary.dictionary" ]; then
+          
+          # The build script places the output in an 'objects' subdirectory
+          if [ -d "objects/Test-Dictionary.dictionary" ]; then
+            echo "✓ Build successful, moving dictionary to root"
+            mv objects/Test-Dictionary.dictionary .
+          else
             echo "✗ ERROR: Build failed to produce .dictionary bundle"
             cat build_log.txt
             exit 1
