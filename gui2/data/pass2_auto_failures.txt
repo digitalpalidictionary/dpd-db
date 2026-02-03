@@ -834,3 +834,37 @@ Wait no, I must ensure only one list. Given time constraints, I'll instead prese
     'structure_maintenance': '",
 }
 
+{
+    'id': 71347,
+    'lemma_1': 'hīnādhimuttika',
+    'lemma_2': 'hīnādhimuttika',
+    'pos': 'adj',
+    'grammar': 'adj, comp',
+    'derived_from': '',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'with inferior disposition; with bad inclination; with low tendencies',
+    'meaning_lit': '',
+    'non_ia': '',
+    'sanskrit': 'hīna + adhimukti +',
+    'root_key': '',
+    'root_sign': '',
+    'root_base': '',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': 'hīna adhimutti',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': 'hīna + adhimuttika',
+    'derivative': '',
+    'suffix': '',
+    'phonetic': '',
+    'compound_type': 'kammadhāraya',
+    'compound_construction': 'hīna + adhimuttika',
+    'stem': 'hīnādhimuttik',
+    'pattern': 'a adj',
+    'comment': 'The contextual sentence shows that "hīnādhimuttika" refers to those who have inferior or low tendencies, as opposed to those with superior inclinations. It describes a person's disposition or inclination towards something of lesser quality or value.'
+}
+
