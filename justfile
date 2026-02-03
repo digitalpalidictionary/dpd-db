@@ -49,6 +49,9 @@ version:
 webapp:
     uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 --reload --reload-dir exporter/webapp
 
+gui:
+    uv run python gui2/main.py
+
 # ===== INDIVIDUAL EXPORTERS (run after generate) =====
 
 # Export GoldenDict format only
