@@ -18,9 +18,7 @@ html.dpd-active {
 
 body.dpd-active {
   display: grid !important;
-  grid-template-columns: calc(100vw - var(--dpd-panel-width)) var(
-      --dpd-panel-width
-    ) !important;
+  grid-template-columns: calc(100vw - var(--dpd-panel-width)) var(--dpd-panel-width) !important;
   width: 100vw !important;
 }
 
@@ -83,9 +81,9 @@ body.dpd-active {
   width: 20px;
 }
 
-.dpd-title {
+#dict-panel-25445 .dpd-title {
   margin: 0 !important;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: normal;
   white-space: nowrap;
 }
@@ -93,19 +91,20 @@ body.dpd-active {
 .title-full {
   display: inline;
 }
+
 .title-short {
   display: none;
 }
 
-.dpd-nav-btn,
-.dpd-action-group button {
+#dict-panel-25445 .dpd-nav-btn,
+#dict-panel-25445 .dpd-action-group button {
   background: none;
   border: none;
   cursor: pointer;
   color: inherit;
   display: flex;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   padding: 2px 4px;
   gap: 2px;
 }
@@ -117,10 +116,12 @@ body.dpd-active {
     justify-content: center;
     margin-bottom: 4px;
   }
+
   .dpd-nav-group {
     flex: 1;
     justify-content: flex-start;
   }
+
   .dpd-action-group {
     flex: 1;
     justify-content: flex-end;
@@ -129,21 +130,27 @@ body.dpd-active {
 
 /* Stage 3: Panel narrower than ~260px */
 @container dpd-panel (max-width: 260px) {
+
   .dpd-nav-group,
   .dpd-action-group {
     flex: 1 0 100%;
     justify-content: center;
     margin-bottom: 2px;
   }
+
   .title-full {
     display: none;
   }
+
   .title-short {
     display: inline;
   }
 }
 
 /* Reset internal elements to prevent CSS leakage from host sites */
+#dict-panel-25445 span,
+#dict-panel-25445 a,
+#dict-panel-25445 font,
 #dict-panel-25445 div,
 #dict-panel-25445 p,
 #dict-panel-25445 h3,
@@ -156,6 +163,7 @@ body.dpd-active {
   margin: 0;
   border-collapse: collapse;
   color: inherit;
+  font-size: inherit;
 }
 
 #dict-panel-25445 .dpd-resize-handle {
@@ -178,7 +186,7 @@ body.dpd-active {
 }
 
 #dict-panel-25445 .dpd-status-text {
-  font-size: 0.85rem;
+  font-size: 0.85em;
   text-align: center !important;
   margin-top: 2px;
 }
@@ -228,9 +236,7 @@ body.dpd-active {
 }
 
 #dict-panel-25445 .dpd-header img {
-  filter: hue-rotate(var(--dpd-logo-hue-rotate, 0deg))
-    saturate(var(--dpd-logo-saturate, 1))
-    brightness(var(--dpd-logo-brightness, 1)) !important;
+  filter: hue-rotate(var(--dpd-logo-hue-rotate, 0deg)) saturate(var(--dpd-logo-saturate, 1)) brightness(var(--dpd-logo-brightness, 1)) !important;
 }
 
 #dict-panel-25445 table.help th {
@@ -307,11 +313,11 @@ body.dpd-active {
   border-radius: 50%;
 }
 
-.dpd-switch input:checked + .dpd-slider {
+.dpd-switch input:checked+.dpd-slider {
   background-color: var(--dpd-primary);
 }
 
-.dpd-switch input:checked + .dpd-slider:before {
+.dpd-switch input:checked+.dpd-slider:before {
   transform: translateX(16px);
 }
 
@@ -349,7 +355,7 @@ body.dpd-active {
   border: none;
   cursor: pointer;
   color: var(--dpd-button-text, #fff);
-  font-size: 0.85rem;
+  font-size: 0.85em;
   border-radius: 3px;
 }
 
@@ -383,7 +389,7 @@ body.dpd-active {
   justify-content: center;
 }
 
-.dpd-tooltip .dpd-tooltip-text {
+#dict-panel-25445 .dpd-tooltip .dpd-tooltip-text {
   visibility: hidden;
   background-color: var(--dpd-primary);
   color: var(--dpd-tooltip-text-color, #ffffff);
@@ -398,7 +404,7 @@ body.dpd-active {
   opacity: 0;
   transition: opacity 0.2s ease;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 0.7em;
   font-weight: normal;
   pointer-events: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -430,7 +436,7 @@ body.dpd-active {
 }
 
 /* Fixed footer for feedback link - positioned at bottom of extension panel */
-#dict-panel-25445 > .dpd-footer {
+#dict-panel-25445>.dpd-footer {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -438,7 +444,7 @@ body.dpd-active {
   background: var(--dpd-bg);
   border-top: 1px solid var(--dpd-border);
   padding: 8px 10px;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   text-align: center;
   z-index: 1000;
   margin: 0;
@@ -488,7 +494,7 @@ body.dpd-active {
 
 /* Placeholder styling to match stickyMsg */
 #dict-panel-25445 input::placeholder {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   opacity: 0.8;
   color: var(--dpd-text);
   text-align: center;
