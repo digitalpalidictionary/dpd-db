@@ -4,22 +4,38 @@ export function expandSelectionToWord(): void {
   const selection = window.getSelection();
   if (!selection || !selection.rangeCount) return;
   const range = selection.getRangeAt(0);
-  
+
   // If the selection already spans across multiple nodes, trust it.
   if (range.startContainer !== range.endContainer) return;
 
   const initialNode = range.startContainer;
   if (initialNode.nodeType !== Node.TEXT_NODE) return;
 
-  // Characters to stop on.
+  // Characters to stop on - SPACE is critical and must never be crossed
   // Note: Closing quotes (’ ”) are removed from stopChars so expansion includes suffixes like ”ti.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9‘“]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9'"]/;
   const isStop = (char: string) => !char || stopChars.test(char);
+
+  // Explicit space check - spaces should NEVER be crossed under any circumstances
+  const isSpace = (char: string) => !char || /[ \t\n\r]/.test(char);
 
   let startNode: Node | null = initialNode;
   let startOffset = range.startOffset;
   let endNode: Node | null = initialNode;
   let endOffset = range.endOffset;
+
+  // First, ensure the current selection boundaries don't include a space
+  // This handles cases where the browser's native double-click included extra whitespace
+  if (startNode.nodeValue) {
+    while (startOffset < endOffset && isSpace(startNode.nodeValue[startOffset])) {
+      startOffset++;
+    }
+  }
+  if (endNode.nodeValue) {
+    while (endOffset > startOffset && isSpace(endNode.nodeValue[endOffset - 1])) {
+      endOffset--;
+    }
+  }
 
   // Helper to find the next/previous text node in the document order
   const getNextTextNode = (node: Node, forward: boolean): Node | null => {
@@ -62,13 +78,18 @@ export function expandSelectionToWord(): void {
     while (startOffset > 0 && !isStop(text[startOffset - 1])) {
       startOffset--;
     }
-    
+
     if (startOffset === 0) {
       const prev = getNextTextNode(startNode, false);
-      if (prev && prev.nodeValue && prev.nodeValue.length > 0 && !isStop(prev.nodeValue[prev.nodeValue.length - 1])) {
-        startNode = prev;
-        startOffset = prev.nodeValue.length;
-        continue;
+      // CRITICAL: Check for space at the boundary - never cross a space
+      if (prev && prev.nodeValue && prev.nodeValue.length > 0) {
+        const lastChar = prev.nodeValue[prev.nodeValue.length - 1];
+        // Only continue if the last char is not a space/stop character
+        if (!isStop(lastChar) && !isSpace(lastChar)) {
+          startNode = prev;
+          startOffset = prev.nodeValue.length;
+          continue;
+        }
       }
     }
     break;
@@ -83,10 +104,15 @@ export function expandSelectionToWord(): void {
 
     if (endOffset === text.length) {
       const next = getNextTextNode(endNode, true);
-      if (next && next.nodeValue && next.nodeValue.length > 0 && !isStop(next.nodeValue[0])) {
-        endNode = next;
-        endOffset = 0;
-        continue;
+      // CRITICAL: Check for space at the boundary - never cross a space
+      if (next && next.nodeValue && next.nodeValue.length > 0) {
+        const firstChar = next.nodeValue[0];
+        // Only continue if the first char is not a space/stop character
+        if (!isStop(firstChar) && !isSpace(firstChar)) {
+          endNode = next;
+          endOffset = 0;
+          continue;
+        }
       }
     }
     break;
@@ -128,7 +154,7 @@ export function handleMouseUp(e: MouseEvent): void {
 
   const dx = Math.abs(e.clientX - dragStartX);
   const dy = Math.abs(e.clientY - dragStartY);
-  
+
   // If moved more than 5px, it's likely a drag selection
   if (dx > 5 || dy > 5) {
     const selection = window.getSelection()?.toString().trim();
@@ -147,7 +173,7 @@ export function handleDblClick(e: MouseEvent): void {
   const target = e.target as Element;
   // Ignore clicks on inputs or buttons
   if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('button')) return;
-  
+
   const word = getSelectedWord();
   if (word && typeof window.handleSelectedWord === 'function') {
     window.handleSelectedWord(word);
@@ -158,7 +184,7 @@ export function addListenersToTextElements(): void {
   document.body.removeEventListener("dblclick", handleDblClick);
   document.body.removeEventListener("mousedown", handleMouseDown);
   document.body.removeEventListener("mouseup", handleMouseUp);
-  
+
   document.body.addEventListener("dblclick", handleDblClick);
   document.body.addEventListener("mousedown", handleMouseDown);
   document.body.addEventListener("mouseup", handleMouseUp);
