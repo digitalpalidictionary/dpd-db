@@ -141,7 +141,6 @@ def create_dictionary_xml_entry(
     indices_str = "\n".join(index_elements)
     entry_xml = f"""<d:entry id="{entry_id}" d:title="{lemma_escaped}">
 {indices_str}
-<h1>{escape(headword.lemma_1)}</h1>
 {entry_html}
 </d:entry>"""
 
