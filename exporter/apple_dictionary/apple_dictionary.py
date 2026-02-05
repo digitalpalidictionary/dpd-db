@@ -17,9 +17,9 @@ Output:
     exporter/share/apple_dictionary/Info.plist
 """
 
+import re
+from html import escape
 from pathlib import Path
-from xml.etree.ElementTree import Element, SubElement, tostring
-import xml.etree.ElementTree as ET
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -33,6 +33,20 @@ from tools.pali_sort_key import pali_sort_key
 # Apple Dictionary XML namespace
 APPLE_NS = "http://www.apple.com/DTDs/DictionaryService-1.0.rng"
 XHTML_NS = "http://www.w3.org/1999/xhtml"
+
+
+def escape_xml_attr(text: str) -> str:
+    """Escape text for use in XML attributes."""
+    return escape(text, quote=True)
+
+
+def fix_ampersands(html: str) -> str:
+    """Fix unescaped ampersands in HTML for valid XML.
+
+    Replaces & with &amp; except when already part of a valid entity like &amp; &lt; etc.
+    """
+    # Match & not followed by a valid entity pattern (word chars ending in ;)
+    return re.sub(r"&(?!(?:[a-zA-Z]+|#[0-9]+|#x[0-9a-fA-F]+);)", "&amp;", html)
 
 
 def get_output_path() -> Path:
@@ -59,7 +73,7 @@ def generate_info_plist(output_dir: Path, version: str = "1.0") -> None:
     <key>CFBundleDevelopmentRegion</key>
     <string>English</string>
     <key>CFBundleDisplayName</key>
-    <string>Digital Pali Dictionary</string>
+    <string>Digital Pāḷi Dictionary</string>
     <key>CFBundleIdentifier</key>
     <string>org.digitalpalidictionary.dpd</string>
     <key>CFBundleName</key>
@@ -67,9 +81,9 @@ def generate_info_plist(output_dir: Path, version: str = "1.0") -> None:
     <key>CFBundleShortVersionString</key>
     <string>{version}</string>
     <key>DCSDictionaryCopyright</key>
-    <string>Copyright © Digital Pali Dictionary. All rights reserved.</string>
+    <string>Copyright © Digital Pāḷi Dictionary. All rights reserved.</string>
     <key>DCSDictionaryManufacturerName</key>
-    <string>Digital Pali Dictionary</string>
+    <string>Digital Pāḷi Dictionary</string>
 </dict>
 </plist>"""
 
@@ -107,59 +121,31 @@ def create_dictionary_xml_entry(
     Returns:
         XML string for the entry
     """
-    # Create entry element
-    entry = Element(
-        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}entry",
-        {
-            "id": entry_id,
-            "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}title": headword.lemma_1,
-        },
-    )
-
-    # Add index for the headword
-    index = SubElement(
-        entry,
-        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}index",
-        {
-            "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}value": headword.lemma_1
-        },
-    )
+    # Build index elements as strings
+    lemma_escaped = escape_xml_attr(headword.lemma_1)
+    index_elements = [f'<d:index d:value="{lemma_escaped}"/>']
 
     # Add index for inflections if available
     if headword.inflections_list_all:
-        # Use a set to avoid duplicate indices for the same headword
         inflections = set(headword.inflections_list_all)
         for inflection in sorted(inflections):
             if inflection and inflection != headword.lemma_1:
-                inflection_index = SubElement(
-                    entry,
-                    "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}index",
-                    {
-                        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}value": inflection,
-                        "{http://www.apple.com/DTDs/DictionaryService-1.0.rng}title": f"{inflection} ({headword.lemma_1})",
-                    },
+                infl_escaped = escape_xml_attr(inflection)
+                title_escaped = escape_xml_attr(f"{inflection} ({headword.lemma_1})")
+                index_elements.append(
+                    f'<d:index d:value="{infl_escaped}" d:title="{title_escaped}"/>'
                 )
 
-    # Add title
-    h1 = SubElement(entry, "h1")
-    h1.text = headword.lemma_1
+    # Build the complete entry as a string
+    # The entry_html from Jinja2 is already well-formed XHTML
+    indices_str = "\n".join(index_elements)
+    entry_xml = f"""<d:entry id="{entry_id}" d:title="{lemma_escaped}">
+{indices_str}
+<h1>{escape(headword.lemma_1)}</h1>
+{entry_html}
+</d:entry>"""
 
-    # Add the rendered HTML content
-    # We parse the HTML string and append it as actual elements to avoid escaping
-    try:
-        # Wrap in a div to ensure a single root for parsing
-        # The entry_html from Jinja2 is already well-formed HTML
-        wrapped_html = f'<div xmlns="http://www.w3.org/1999/xhtml">{entry_html}</div>'
-        html_elements = ET.fromstring(wrapped_html)
-        entry.append(html_elements)
-    except Exception as e:
-        pr.red(f"Error parsing HTML for {headword.lemma_1}: {e}")
-        # Fallback to simple div if parsing fails
-        content_div = SubElement(entry, "div")
-        content_div.set("class", "content")
-        content_div.text = "Error rendering content"
-
-    return tostring(entry, encoding="unicode")
+    return entry_xml
 
 
 def generate_dictionary_xml(output_dir: Path, db_session) -> None:
@@ -169,10 +155,6 @@ def generate_dictionary_xml(output_dir: Path, db_session) -> None:
         output_dir: Directory to write the XML file
         db_session: SQLAlchemy database session
     """
-    # Register namespaces to ensure 'd:' prefix is used correctly
-    ET.register_namespace("d", APPLE_NS)
-    ET.register_namespace("", XHTML_NS)
-
     # Set up Jinja2 environment
     env = Environment(
         loader=FileSystemLoader("exporter/apple_dictionary/templates"), autoescape=True
@@ -213,8 +195,8 @@ def generate_dictionary_xml(output_dir: Path, db_session) -> None:
             for count, headword in enumerate(chunk_headwords):
                 entry_id = f"dpd_{headword.id}"
 
-                # Render HTML for this entry
-                entry_html = entry_template.render(i=headword)
+                # Render HTML for this entry and fix any unescaped ampersands
+                entry_html = fix_ampersands(entry_template.render(i=headword))
 
                 # Create XML entry string
                 entry_xml = create_dictionary_xml_entry(headword, entry_html, entry_id)
