@@ -12,7 +12,7 @@ from tools.printer import printer as pr
 
 def download_dv_catalogue(filepath: Path) -> bool:
     """Download DV Catalogue TSV file from GitHub."""
-    url = "https://raw.githubusercontent.com/dhammavinaya-tools/dhamma-vinaya-catalogue/main/DV_Catalogue5_suttas.tsv"
+    url = "https://raw.githubusercontent.com/dhamma-vinaya-connections/early-buddhist-connections/main/Catalogue/Suttas-Catalogue.tsv"
     try:
         pr.green("downloading dv catalogue")
         response = requests.get(url, timeout=10)
