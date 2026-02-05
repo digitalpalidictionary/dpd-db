@@ -1,0 +1,8 @@
+{
+  "track_id": "dpd_updater_20260204",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-04T16:45:00Z",
+  "updated_at": "2026-02-04T16:45:00Z",
+  "description": "Create a standalone cross-platform updater application for DPD GoldenDict that checks GitHub releases and auto-installs updates"
+}

@@ -16,3 +16,9 @@
 ## [x] Track: Mac Dictionary Build Integration
 
 *Link: [./tracks/mac_dictionary_20260202/](./tracks/mac_dictionary_20260202/)*
+
+---
+
+## [~] Track: DPD Updater/Installer Application
+
+*Link: [./tracks/dpd_updater_20260204/](./tracks/dpd_updater_20260204/)*
