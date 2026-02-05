@@ -57,6 +57,8 @@ COMMANDS = [
     "db/epd/epd_to_lookup.py",
     
     "exporter/webapp/generate_search_index.py",
+    
+    "audio/bhashini/generate_dpd.py"
     "audio/db_create.py",
     "audio/db_release_upload.py",
     
