@@ -30,3 +30,29 @@ DPD is uniquely positioned for the AI era. By providing a structured MCP interfa
 ## Future Road Map
 - **DPD Mobile (Expo):** A full-featured mobile application with "Tap-to-Lookup" capabilities across the OS.
 - **AI-Assisted Lexicography:** Integrated AI tools in the GUI to suggest spelling and grammar corrections, identify rare grammatical forms, and suggest literal meanings for verification.
+
+## Release Schedule
+
+DPD releases follow the **Uposatha** observance days in the Buddhist calendar. Specifically, DPD is released on the **full moon Uposatha** day, which occurs approximately once per month.
+
+### Current Uposatha Dates (2025-2027)
+
+The specific release dates are maintained in `tools/uposatha_day.py`. Key dates include:
+
+**2025:**
+- January 13, February 12, March 14, April 13, May 12, June 11
+- July 9-10, August 9, September 7, October 7, November 5, December 5
+
+**2026:**
+- January 3, February 2, March 3, April 2, May 2, May 31
+- June 30, July 29, August 28, September 27, October 26, November 24, December 24
+
+**2027:**
+- January 22 (and continuing...)
+
+### For Developers
+
+When building features related to update checking or distribution:
+- The `tools/uposatha_day.py` module provides `UposathaManger.uposatha_today()` to check if today is an uposatha day
+- Releases are published to GitHub on these dates
+- Users checking for updates should be informed that new releases come out monthly on Uposatha days
