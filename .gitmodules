@@ -33,3 +33,6 @@
 [submodule "resources/dpd-updater"]
 	path = resources/dpd-updater
 	url = https://github.com/digitalpalidictionary/dpd-updater.git
+[submodule "resources/dpd-updater-go"]
+	path = resources/dpd-updater-go
+	url = ./resources/dpd-updater-go
