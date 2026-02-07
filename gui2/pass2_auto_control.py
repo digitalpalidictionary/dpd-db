@@ -7,6 +7,7 @@ from typing import Any, Iterator, Optional
 from db.models import DpdHeadword
 from gui2.books import SuttaCentralSource, sutta_central_books
 from gui2.database_manager import DatabaseManager
+from gui2.needs_example import has_only_late_examples
 from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_controller import Pass2PreFileManager
 from gui2.paths import Gui2Paths
@@ -183,7 +184,15 @@ class Pass2AutoController:
             )
 
             if response_dict:
-                # Add AI model details to the 'comment' field for the JSON output
+                # NEW: Move old commentary example(s) to example_2
+                if has_only_late_examples(headword_in_db):
+                    response_dict["source_2"] = headword_in_db.source_1
+                    response_dict["sutta_2"] = headword_in_db.sutta_1
+                    response_dict["example_2"] = headword_in_db.example_1
+                    pr.info("moved late example from example_1 to 2")
+                    pr.info(headword_in_db.source_1)
+
+                # Add AI model details to the 'comment' field for JSON output
                 if self._provider_preference and self._model_name:
                     ai_info = f"{self._provider_preference}: {self._model_name}\n"
                     current_comment = response_dict.get("comment", "")

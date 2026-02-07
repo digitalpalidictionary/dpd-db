@@ -16,6 +16,7 @@ from db.models import (
     Lookup,
 )
 from gui2.dpd_fields_functions import clean_lemma_1
+from gui2.needs_example import is_missing_sutta_example
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
@@ -297,10 +298,7 @@ class DatabaseManager:
         [
             self.all_inflections_missing_example.update(i.inflections_list_all)
             for i in self.db
-            if (
-                (i.meaning_1 and not i.source_1 and not i.source_1 == "-")
-                or (not i.meaning_1)
-            )
+            if is_missing_sutta_example(i)
         ]
 
         self.all_suffixes: set[str] = set()  # reset
