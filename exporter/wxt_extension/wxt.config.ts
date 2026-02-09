@@ -5,8 +5,8 @@ export default defineConfig({
   srcDir: '.',
   entrypointsDir: 'entrypoints',
   manifest: ({ browser }) => ({
-    name: "DPD Dictionary",
-    description: "Search Digital Pāḷi Dictionary by double-clicking any word on any website.",
+    name: "Digital Pāḷi Dictionary",
+    description: "Search the Digital Pāḷi Dictionary by double-clicking any word on any website.",
     version: "1.0",
     icons: {
       "16": "icons/dpd-logo_16.png",
