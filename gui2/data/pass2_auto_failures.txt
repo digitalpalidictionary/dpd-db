@@ -902,3 +902,37 @@ Wait no, I must ensure only one list. Given time constraints, I'll instead prese
     'comment': 'Used in the Saṃyuttanikāaya passage to denote a being who has never previously been one\\'s brother, highlighting the endless cycle of rebirth.'
 }
 
+{
+    'id': 18308,
+    'lemma_1': 'okirī',
+    'lemma_2': 'okirī',
+    'pos': 'adj',
+    'grammar': 'adj, from okirati',
+    'derived_from': 'okirati',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'sooty; sweaty; sprinkled; covered (with)',
+    'meaning_lit': 'sprinkled down',
+    'non_ia': '',
+    'sanskrit': '[avakṝ]',
+    'root_key': '√kir',
+    'root_sign': 'a',
+    'root_base': '',
+    'family_root': 'ava √kir',
+    'family_word': '',
+    'family_compound': '',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': 'ava √kir > o √kir + ī',
+    'derivative': '',
+    'suffix': 'ī',
+    'phonetic': 'ava > o',
+    'compound_type': '',
+    'compound_construction': '',
+    'stem': 'okir',
+    'pattern': 'ī adj',
+    'comment': 'Contextually describes a woman covered in body sweat ('okiriniṃ'), revealing its specific application to bodily fluids rather than general scattering'
+}
+

@@ -1,20 +1,44 @@
 {
-    "gahetabbo": {
-        "source_1": "SN17.6",
-        "sutta_1": "lābhasakkārasaṃyuttaṃ, asanisuttaṃ",
-        "example_1": "aṭṭhakathāṭīkāsu ca ayamevattho ñāpito] kaṃ, bhikkhave, asanivicakkaṃ āgacchatu [upari tatiyavagge tariyacatutthasuttesu mā ca kho tvaṃ tāta sekhaṃ… anupāpuṇātūti āgataṃ. tena nayena idhāpi attho gahetabbo. ettha hi kiṃ saddena paṭikkhepatthopi sakkā ñātuṃ, yathā sayaṃ abhiññāya kamuddiseyyanti. ",
-        "comment": "(of meaning) should be taken; should be grasped (by)"
+    "āpajjīti": {
+        "source_1": "sn20.10:1.4",
+        "sutta_1": "“māyasmā ativelaṃ kulesu cārittaṃ āpajjī”ti. ",
+        "example_1": "“Venerable, don’t socialize with families too often.” ",
+        "comment": " vighātaṃ āpajji idiom suffers"
     },
-    "kāretvā": {
-        "source_1": "sn16.11:8.8",
-        "sutta_1": "so khvāhaṃ, āvuso, aparena samayena paṭapilotikānaṃ saṅghāṭiṃ kāretvā ye loke arahanto te uddissa kesamassuṃ ohāretvā kāsāyāni vatthāni acchādetvā agārasmā anagāriyaṃ pabbajiṃ. ",
-        "example_1": "After some time I made an outer robe of patches and, in the name of the perfected ones in the world, I shaved off my hair and beard, dressed in ocher robes, and went forth from the lay life to homelessness. ",
-        "comment": "caused to make"
+    "nigacchi": {
+        "source_1": "sn20.10:2.6",
+        "sutta_1": "so tatonidānaṃ maraṇampi nigacchi maraṇamattampi dukkhaṃ. ",
+        "example_1": "resulting in death and deadly pain. ",
+        "comment": "maraṇampi nigacchi idiom"
     },
-    "tulā": {
-        "source_1": "sn17.23:1.5",
-        "sutta_1": "esā, bhikkhave, tulā etaṃ pamāṇaṃ mama sāvakānaṃ upāsakānaṃ, yadidaṃ citto ca gahapati hatthako ca āḷavako. ",
-        "example_1": "These are a standard and a measure for my male lay disciples, that is, the householder Citta and Hatthaka of Āḷavī. ",
-        "comment": "measure; standard; grade"
+    "vāto": {
+        "source_1": "sn20.11:1.9",
+        "sutta_1": "sītakopi naṃ vāto upavāyati. ",
+        "example_1": "And the cool breeze still blows on it. ",
+        "comment": "vāto vāyeyya idiom"
+    },
+    "appakampi": {
+        "source_1": "sn20.12:1.7",
+        "sutta_1": "na ca no amhesu appakampi kataṃ nassissatī’ti. ",
+        "example_1": "We won’t forget even a small thing done for us.’ ",
+        "comment": "small thing; mintute deed"
+    },
+    "tissaṃ": {
+        "source_1": "sn21.9:1.2",
+        "sutta_1": "atha kho āyasmā tisso bhagavato pitucchāputto yena bhagavā tenupasaṅkami; upasaṅkamitvā bhagavantaṃ abhivādetvā ekamantaṃ nisīdi dukkhī dummano assūni pavattayamāno. atha kho bhagavā āyasmantaṃ tissaṃ etadavoca: ",
+        "example_1": "Then Venerable Tissa—the Buddha’s cousin on his father’s side—went to the Buddha, bowed, and sat down to one side. He was miserable and sad, with tears flowing. Then the Buddha said to him: ",
+        "comment": "buddha's counsin"
+    },
+    "tanukaṃ": {
+        "source_1": "sn21.11:1.5",
+        "sutta_1": "“passatha no tumhe, bhikkhave, etaṃ bhikkhuṃ āgacchantaṃ odātakaṃ tanukaṃ tuṅganāsikan”ti? ",
+        "example_1": "“Mendicants, do you see that monk coming—white, thin, with a pointy nose?” ",
+        "comment": "thin"
+    },
+    "ghaṭo": {
+        "source_1": "sn21.12:5.2",
+        "sutta_1": "ghaṭo cāpi pavuccati; ",
+        "example_1": "",
+        "comment": "in reference"
     }
 }
