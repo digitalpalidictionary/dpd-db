@@ -877,19 +877,14 @@ class DpdFields(PopUpMixin):
             self.page.update()
 
     def sanskrit_blur(self, e: ft.ControlEvent) -> None:
-        """Get Sanskrit"""
+        """Get Sanskrit and clean field."""
 
         sanskrit_field = self.get_field("sanskrit")
 
         # Auto-replace common Sanskrit text errors
         if sanskrit_field.value:
             old_value = sanskrit_field.value
-            new_value = old_value.replace(
-                "supta sūkta, sūtra (bsk) sūtra", "sūkta, sūtra (bsk)"
-            )
-            # If ends with "sūkta, sūtra", add " (bsk)"
-            if new_value.endswith("sūkta, sūtra"):
-                new_value = new_value + " (bsk)"
+            new_value = self._clean_sanskrit_simple(old_value)
             if old_value != new_value:
                 sanskrit_field.value = new_value
                 self.page.update()
@@ -902,6 +897,26 @@ class DpdFields(PopUpMixin):
         sanskrit_field = self.get_field("sanskrit")
         if not self.flags.sanskrit_done and not sanskrit_field.value:
             self._search_and_fill_sanskrit()
+
+    def _clean_sanskrit_simple(self, value: str) -> str:
+        """Standardize Sanskrit sūkta, sūtra (bsk) variations."""
+        if not value:
+            return ""
+
+        # Simple string replacements from the old logic + common mess patterns
+        for mess in [
+            "supta sūkta, sūtra (bsk) sūtra",
+            "supta + sūkta, sūtra (bsk) + sūtra",
+            "supta + sūkta, sūtra + sūtra",
+            "sūkta, sūtra sūtra",
+        ]:
+            value = value.replace(mess, "sūkta, sūtra (bsk)")
+
+        # If ends with "sūkta, sūtra", add " (bsk)"
+        if value.endswith("sūkta, sūtra"):
+            value = value + " (bsk)"
+
+        return value
 
     def _search_and_fill_sanskrit(self) -> None:
         """Search database for Sanskrit and fill the field."""
@@ -917,24 +932,31 @@ class DpdFields(PopUpMixin):
         sanskrit = ""
         already_added = []
         for constr_split in constr_splits:
+            clean_split = constr_split.strip()
+            if not clean_split:
+                continue
+
             results = (
                 self.db.db_session.query(DpdHeadword)
-                .filter(DpdHeadword.lemma_1.like(f"%{constr_split}%"))
+                .filter(DpdHeadword.lemma_1.like(f"%{clean_split}%"))
                 .all()
             )
             for i in results:
-                if i.lemma_clean == constr_split:
-                    if i.sanskrit not in already_added:
-                        if constr_split != constr_splits[-1]:
-                            sanskrit += f"{i.sanskrit} + "
-                        else:
-                            sanskrit += f"{i.sanskrit} "
-                        already_added += [i.sanskrit]
+                if i.lemma_clean == clean_split:
+                    if i.sanskrit and i.sanskrit not in already_added:
+                        if sanskrit:
+                            sanskrit += " + "
+                        sanskrit += i.sanskrit
+                        already_added.append(i.sanskrit)
 
+        # Standard cleanup for compiled DB results
         sanskrit = re.sub(r"\[.*?\]", "", sanskrit)  # remove square brackets
-        sanskrit = re.sub("  ", " ", sanskrit)  # remove double spaces
-        sanskrit = sanskrit.replace("+ +", "+")  # remove double plus signs
+        sanskrit = re.sub(r" +", " ", sanskrit)      # remove double spaces
+        sanskrit = sanskrit.replace("+ +", "+")      # remove double plus signs
         sanskrit = sanskrit.strip()
+
+        # Apply specific standardization logic
+        sanskrit = self._clean_sanskrit_simple(sanskrit)
 
         sanskrit_field.value = sanskrit
         self.flags.sanskrit_done = True
@@ -1102,9 +1124,11 @@ class DpdFields(PopUpMixin):
 
         if not self.flags.family_compound_done and not value:
             lemma_1 = self.get_field("lemma_1").value
-            field.value = clean_lemma_1(lemma_1)
-            field.focus()
-            self.page.update()
+            lemma_clean = clean_lemma_1(lemma_1)
+            if not lemma_clean.endswith(("sutta", "vagga")):
+                field.value = lemma_clean
+                field.focus()
+                self.page.update()
             self.flags.family_compound_done = True
 
     def family_compound_change(self, e: ft.ControlEvent) -> None:
