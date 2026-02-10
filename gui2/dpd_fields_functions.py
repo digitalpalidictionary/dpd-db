@@ -76,8 +76,12 @@ def make_construction(
 
     # compound
     elif re.findall(r"\bcomp\b", grammar):
+        if lemma_clean.endswith("sutta") and len(lemma_clean) > 5:
+            return f"{lemma_clean[:-5]} + sutta"
         return lemma_clean
     else:
+        if lemma_clean.endswith("sutta") and len(lemma_clean) > 5:
+            return f"{lemma_clean[:-5]} + sutta"
         return lemma_clean
 
 

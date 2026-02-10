@@ -31,11 +31,13 @@ class DpdMeaningField(ft.Column):
         self.dpd_fields: DpdFields = dpd_fields
         self.spellchecker = spellchecker  # Store spellchecker instance
 
+        self.on_focus_callback = on_focus
+
         # Main meaning field - use the passed handlers for this one
         self.meaning_field = DpdTextField(
             name=field_name,
             multiline=True,
-            on_focus=self._handle_spell_check,
+            on_focus=self._handle_on_focus,
             on_change=on_change,
             on_submit=on_submit,
             on_blur=self._handle_spell_check,
@@ -82,6 +84,24 @@ class DpdMeaningField(ft.Column):
         self.meaning_field.error_text = value
         self.meaning_field.update()
 
+    @property
+    def color(self):
+        return self.meaning_field.color
+
+    @color.setter
+    def color(self, value):
+        self.meaning_field.color = value
+        self.meaning_field.update()
+
+    @property
+    def helper_text(self):
+        return self.meaning_field.helper_text
+
+    @helper_text.setter
+    def helper_text(self, value):
+        self.meaning_field.helper_text = value
+        self.meaning_field.update()
+
     def _handle_add_to_dict_submit(self, e: ft.ControlEvent):
         word_to_add = e.control.value
         if word_to_add:
@@ -90,6 +110,12 @@ class DpdMeaningField(ft.Column):
             e.control.value = ""
             self.page.update()
             self.meaning_field.focus()
+
+    def _handle_on_focus(self, e: ft.ControlEvent):
+        """Handle focus on meaning field, including spell check and callback."""
+        if self.on_focus_callback:
+            self.on_focus_callback(e)
+        self._handle_spell_check(e)
 
     def _handle_spell_check(self, e: ft.ControlEvent):
         """Common logic for spell checking the meaning field."""

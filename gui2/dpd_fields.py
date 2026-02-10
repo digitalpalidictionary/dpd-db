@@ -135,6 +135,7 @@ class DpdFields(PopUpMixin):
                 "meaning_1",
                 multiline=True,
                 field_type="meaning",
+                on_focus=self.meaning_1_focus,
             ),
             FieldConfig(
                 "meaning_lit",
@@ -695,6 +696,20 @@ class DpdFields(PopUpMixin):
         self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
+
+    def meaning_1_focus(self, e: ft.ControlEvent) -> None:
+        """Copy meaning_2 to meaning_1 for suttas if meaning_1 is empty and not loaded from DB."""
+        field, value = self.get_event_field_and_value(e)
+        if not value or not str(value).strip():
+            lemma_1_field = self.get_field("lemma_1")
+            if lemma_1_field and lemma_1_field.value:
+                lemma_clean = clean_lemma_1(lemma_1_field.value)
+                if lemma_clean.endswith("sutta"):
+                    meaning_2_field = self.get_field("meaning_2")
+                    if meaning_2_field and meaning_2_field.value:
+                        field.value = meaning_2_field.value
+                        field.update()
+                        self.page.update()
 
     def lemma_2_blur(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
