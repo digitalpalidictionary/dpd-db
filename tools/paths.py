@@ -671,9 +671,7 @@ class ProjectPaths:
         self.neg_compound_exceptions = (
             base_dir / "db_tests/single/test_neg_compound_exceptions.json"
         )
-        self.phonetic_changes_path = (
-            base_dir / "db_tests/single/add_phonetic_changes.tsv"
-        )
+        self.phonetic_changes_path = base_dir / "tools/phonetic_changes.tsv"
         self.phonetic_changes_vowels_path = (
             base_dir / "db_tests/single/add_phonetic_changes_vowels.tsv"
         )

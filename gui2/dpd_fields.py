@@ -30,6 +30,7 @@ from gui2.dpd_fields_notes import DpdNotesField
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
 from tools.compound_type_manager import CompoundTypeManager
+from tools.phonetic_change_manager import PhoneticChangeManager
 from tools.fuzzy_tools import find_closest_matches
 from tools.pali_sort_key import pali_list_sorter
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
@@ -200,7 +201,11 @@ class DpdFields(PopUpMixin):
                 "suffix",
                 on_change=self.suffix_on_change,
             ),
-            FieldConfig("phonetic", multiline=True),
+            FieldConfig(
+                "phonetic",
+                multiline=True,
+                on_focus=self.phonetic_focus,
+            ),
             FieldConfig(
                 "compound_type",
                 field_type="dropdown",
@@ -424,6 +429,19 @@ class DpdFields(PopUpMixin):
                 icon_size=16,
                 tooltip="Edit compound type rules",
                 on_click=self._click_edit_compound_types,
+                padding=0,
+                width=24,
+                height=24,
+            )
+            row_controls.append(edit_btn)
+
+        # Add edit button for phonetic field
+        if field_name == "phonetic":
+            edit_btn = ft.IconButton(
+                icon=ft.Icons.EDIT,
+                icon_size=16,
+                tooltip="Edit phonetic change rules",
+                on_click=self._click_edit_phonetic_changes,
                 padding=0,
                 width=24,
                 height=24,
@@ -809,6 +827,38 @@ class DpdFields(PopUpMixin):
                 f"DEBUG: compound_type set to '{detected_type}' for '{lemma}' (on focus)"
             )
             field.value = detected_type
+            self.page.update()
+
+    def phonetic_focus(self, e: ft.ControlEvent) -> None:
+        """Process phonetic changes when field gets focus."""
+        field, value = self.get_event_field_and_value(e)
+
+        # Get current headword data from fields
+        current_headword = self.get_current_headword()
+
+        # Initialize manager and process headword
+        from tools.paths import ProjectPaths
+
+        pth = ProjectPaths()
+        manager = PhoneticChangeManager(pth.phonetic_changes_path)
+
+        result = manager.process_headword(current_headword)
+
+        if result:
+            if result.status in ["auto_add", "auto_update"]:
+                # Auto-fill the phonetic field
+                field.value = result.suggestion
+                print(
+                    f"DEBUG: phonetic auto-filled with '{result.suggestion}' for '{current_headword.lemma_1}'"
+                )
+            elif result.status == "manual_check":
+                # Update phonetic_add field with suggestion
+                phonetic_add_field = self.get_field("phonetic_add")
+                if phonetic_add_field:
+                    phonetic_add_field.value = result.suggestion
+                    print(
+                        f"DEBUG: phonetic suggestion '{result.suggestion}' added to phonetic_add for '{current_headword.lemma_1}'"
+                    )
             self.page.update()
 
     def sanskrit_blur(self, e: ft.ControlEvent) -> None:
@@ -1279,6 +1329,31 @@ class DpdFields(PopUpMixin):
             self.show_message(f"Error: {rte_error}")
         except Exception as error:
             self.show_message(f"Error opening compound types file: {error}")
+
+    def _click_edit_phonetic_changes(self, e: ft.ControlEvent) -> None:
+        """Open the phonetic changes TSV file for editing."""
+        from tools.paths import ProjectPaths
+
+        pth = ProjectPaths()
+
+        if not pth.phonetic_changes_path.exists():
+            self.show_message(
+                f"Error: Phonetic changes file not found at {pth.phonetic_changes_path}"
+            )
+            return
+
+        try:
+            manager = PhoneticChangeManager(pth.phonetic_changes_path)
+            manager.open_tsv_for_editing()
+            self.show_message(
+                f"Opening phonetic changes TSV: {pth.phonetic_changes_path}"
+            )
+        except FileNotFoundError as fnf_error:
+            self.show_message(f"Error: {fnf_error}")
+        except RuntimeError as rte_error:
+            self.show_message(f"Error: {rte_error}")
+        except Exception as error:
+            self.show_message(f"Error opening phonetic changes file: {error}")
 
     def show_message(self, message: str) -> None:
         """Display a message to the user."""

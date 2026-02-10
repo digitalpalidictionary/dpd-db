@@ -1,0 +1,8 @@
+{
+  "track_id": "phonetic_change_automation_20250210",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2025-02-10T00:00:00Z",
+  "updated_at": "2025-02-10T00:00:00Z",
+  "description": "Refactor phonetic changes logic into a manager and integrate with GUI"
+}

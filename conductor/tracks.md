@@ -22,3 +22,9 @@
 ## [~] Track: DPD Updater/Installer Application
 
 *Link: [./tracks/dpd_updater_20260204/](./tracks/dpd_updater_20260204/)*
+
+---
+
+## [~] Track: Phonetic Change Automation
+
+*Link: [./tracks/phonetic_change_automation_20250210/](./tracks/phonetic_change_automation_20250210/)*
