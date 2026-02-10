@@ -91,6 +91,10 @@ class Pass2AutoView(ft.Column):
             value=True,
             on_change=self.handle_gd_toggle,
         )
+        self.no_ai_button = ft.ElevatedButton(
+            "NO AI",
+            on_click=self.handle_no_ai_click,
+        )
 
         self.top_section = ft.Container(
             content=ft.Column(
@@ -112,6 +116,7 @@ class Pass2AutoView(ft.Column):
                                 on_click=self.handle_clear_click,
                             ),
                             self.gd_switch,
+                            self.no_ai_button,
                         ],
                     ),
                     ft.Row(
@@ -176,6 +181,10 @@ class Pass2AutoView(ft.Column):
 
     def handle_gd_toggle(self, e):
         self.controller.gd_toggle = self.gd_switch.value
+
+    def handle_no_ai_click(self, e: ft.ControlEvent):
+        if self.books_dropdown.value:
+            self.controller.auto_process_book_no_ai(self.books_dropdown.value)
 
     def update_message(self, message: str):
         self._message_field.value = message

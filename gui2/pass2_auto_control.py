@@ -157,6 +157,115 @@ class Pass2AutoController:
         except Exception as e:
             pr.red(f"Error during processing: {e}")
 
+    def auto_process_book_no_ai(self, book: str) -> None:
+        """Process all items marked 'yes' in Pass 2 Pre without AI."""
+
+        self._book = book
+        self._cst_books = self._sc_books[self._book].cst_books
+        self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
+        self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
+
+        try:
+            if not self._pass2_pre_file_manager.matched:
+                pr.red("No 'matched' items found")
+                self.ui.update_message("No 'matched' items found. Run Pass2Pre.")
+                return
+
+            matched_items = list(self._pass2_pre_file_manager.matched.items())
+
+            self.ui.update_auto_processed_count(
+                f"{self.processed_count} / {self._pass2_matched_len}"
+            )
+
+            for self._word_in_text, self._sentence_data_batch in matched_items:
+                if self.stop_flag:
+                    break
+
+                if (
+                    self._word_in_text
+                    not in self._pass2_auto_file_manager.pass2_auto_data
+                ):
+                    self._process_single_item_no_ai()
+
+            if self.stop_flag:
+                self.stop_flag = False
+                self.processed_count = 0
+                self.ui.clear_all_fields()
+            else:
+                self.processed_count = 0
+                self.ui.clear_all_fields()
+                self.ui.update_message("All items processed (NO AI)")
+
+        except Exception as e:
+            pr.red(f"Error during processing: {e}")
+
+    def _process_single_item_no_ai(self) -> None:
+        """
+        Process a single item without AI - pass through headword as-is
+        and add sutta example from pass2_pre.
+        """
+        self.ui.update_message(f"processing (NO AI): {self._word_in_text}")
+
+        try:
+            self._id = self._sentence_data_batch["id"]
+            headword_in_db = self.db.get_headword_by_id(self._id)
+
+            if not headword_in_db:
+                pr.red(f"headword with id {self._id} not found in db")
+                return
+
+            # Create response dict from existing headword fields
+            response_dict = {}
+            for field in self._fields:
+                value = getattr(headword_in_db, field, None)
+                if value is not None:
+                    response_dict[field] = value
+
+            # Add sentence data from pass2_pre
+            if self._sentence_data_batch:
+                self._add_sentence_to_response(
+                    response_dict, self._sentence_data_batch
+                )
+
+            # Move old commentary example(s) to example_2 if needed
+            if has_only_late_examples(headword_in_db):
+                response_dict["source_2"] = headword_in_db.source_1
+                response_dict["sutta_2"] = headword_in_db.sutta_1
+                response_dict["example_2"] = headword_in_db.example_1
+                pr.info("moved late example from example_1 to 2")
+                pr.info(headword_in_db.source_1)
+
+            # Add NO AI marker to comment
+            current_comment = response_dict.get("comment", "") or ""
+            response_dict["comment"] = "[NO AI] " + current_comment
+
+            # Update the main auto file
+            self._pass2_auto_file_manager.update_pass2_auto_data(
+                str(headword_in_db.id),
+                response_dict,
+            )
+
+            # Move item from matched to processed
+            message = self._pass2_pre_file_manager.move_matched_item_to_processed(
+                self._word_in_text
+            )
+            self.ui.update_message(message)
+
+            # Update batch UI
+            self.processed_count += 1
+            self.ui.update_auto_processed_count(
+                f"{self.processed_count} / {self._pass2_matched_len}"
+            )
+            self.ui.update_word_in_text(self._word_in_text)
+            self.ui.update_ai_results(
+                json.dumps(response_dict, indent=4, ensure_ascii=False)
+            )
+            if self.gd_toggle:
+                open_in_goldendict_os(self._word_in_text)
+
+        except Exception as e:
+            pr.red(f"Error processing {self._word_in_text}: {e}")
+
     def _process_single_item(self) -> None:
         """
         Fetches data for a single item from the batch list (_pass2_pre_file_manager.matched)
