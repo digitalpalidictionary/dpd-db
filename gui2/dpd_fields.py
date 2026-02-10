@@ -29,6 +29,7 @@ from gui2.dpd_fields_meaning import DpdMeaningField
 from gui2.dpd_fields_notes import DpdNotesField
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
+from tools.compound_type_manager import CompoundTypeManager
 from tools.fuzzy_tools import find_closest_matches
 from tools.pali_sort_key import pali_list_sorter
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
@@ -187,6 +188,7 @@ class DpdFields(PopUpMixin):
                 multiline=True,
                 on_focus=self.construction_focus,
                 on_change=self.construction_change,
+                on_blur=self.construction_blur,
             ),
             FieldConfig(
                 "derivative",
@@ -204,6 +206,7 @@ class DpdFields(PopUpMixin):
                 field_type="dropdown",
                 options=[" "] + compound_types_options,
                 on_blur=self.compound_type_blur,
+                on_focus=self.compound_type_focus,
             ),
             FieldConfig(
                 "compound_construction",
@@ -212,12 +215,17 @@ class DpdFields(PopUpMixin):
             FieldConfig("non_root_in_comps"),
             FieldConfig(
                 "non_ia",
+                on_blur=self.non_ia_blur,
             ),
             FieldConfig(
                 "sanskrit",
                 on_blur=self.sanskrit_blur,
+                on_focus=self.sanskrit_focus,
             ),
-            FieldConfig("source_1"),
+            FieldConfig(
+                "source_1",
+                on_focus=self.source_1_focus,
+            ),
             FieldConfig("sutta_1"),
             FieldConfig("example_1", field_type="example"),
             FieldConfig("translation_1", multiline=True),
@@ -408,6 +416,19 @@ class DpdFields(PopUpMixin):
         )
         main_field = self.fields[field_name]
         row_controls = [label, main_field]  # Add label first
+
+        # Add edit button for compound_type field
+        if field_name == "compound_type":
+            edit_btn = ft.IconButton(
+                icon=ft.Icons.EDIT,
+                icon_size=16,
+                tooltip="Edit compound type rules",
+                on_click=self._click_edit_compound_types,
+                padding=0,
+                width=24,
+                height=24,
+            )
+            row_controls.append(edit_btn)
 
         if include_add_fields:
             add_field = self.fields.get(f"{field_name}_add")
@@ -644,6 +665,15 @@ class DpdFields(PopUpMixin):
             if hasattr(self.ui, "add_headword_to_examples_and_commentary"):
                 self.ui.add_headword_to_examples_and_commentary()
 
+        # Autofill meaning_lit for words ending in "sutta"
+        if e.name == "blur" and value:
+            lemma_clean = clean_lemma_1(value)
+            if lemma_clean.endswith("sutta"):
+                meaning_lit_field = self.get_field("meaning_lit")
+                if meaning_lit_field and not meaning_lit_field.value:
+                    meaning_lit_field.value = "discourse on "
+                    self.page.update()
+
         self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
             field.focus()
@@ -725,38 +755,143 @@ class DpdFields(PopUpMixin):
         compound_construction.compound_construction_field.focus()
         self.page.update()
 
+    def compound_type_focus(self, e: ft.ControlEvent) -> None:
+        """Run compound type detection when field gets focus if empty."""
+        field, value = self.get_event_field_and_value(e)
+
+        # Only run detection if compound_type is empty or whitespace
+        if value and value.strip():
+            return
+
+        # Check if word has a root_key - if so, it's not a compound
+        root_key_field = self.get_field("root_key")
+        root_key = root_key_field.value if root_key_field else ""
+        if root_key and root_key.strip():
+            return
+
+        # Get construction field value
+        construction_field = self.get_field("construction")
+        if not construction_field or not construction_field.value:
+            return
+
+        construction_value = construction_field.value
+
+        # Get other required field values
+        meaning_1_field = self.get_field("meaning_1")
+        meaning_1 = meaning_1_field.value if meaning_1_field else ""
+
+        pos_field = self.get_field("pos")
+        pos = pos_field.value if pos_field else ""
+
+        grammar_field = self.get_field("grammar")
+        grammar = grammar_field.value if grammar_field else ""
+
+        lemma_1_field = self.get_field("lemma_1")
+        lemma = lemma_1_field.value if lemma_1_field else ""
+
+        # Run detection
+        from tools.paths import ProjectPaths
+
+        pth = ProjectPaths()
+        manager = CompoundTypeManager(pth.compound_type_path)
+
+        detected_type = manager.detect_compound_type(
+            construction=construction_value,
+            pos=pos,
+            grammar=grammar,
+            lemma=lemma,
+            meaning_1=meaning_1,
+            compound_type="",  # Empty since we're checking if empty
+        )
+
+        if detected_type:
+            print(
+                f"DEBUG: compound_type set to '{detected_type}' for '{lemma}' (on focus)"
+            )
+            field.value = detected_type
+            self.page.update()
+
     def sanskrit_blur(self, e: ft.ControlEvent) -> None:
         """Get Sanskrit"""
 
         sanskrit_field = self.get_field("sanskrit")
+
+        # Auto-replace common Sanskrit text errors
+        if sanskrit_field.value:
+            old_value = sanskrit_field.value
+            new_value = old_value.replace(
+                "supta sūkta, sūtra (bsk) sūtra", "sūkta, sūtra (bsk)"
+            )
+            # If ends with "sūkta, sūtra", add " (bsk)"
+            if new_value.endswith("sūkta, sūtra"):
+                new_value = new_value + " (bsk)"
+            if old_value != new_value:
+                sanskrit_field.value = new_value
+                self.page.update()
+
         if not self.flags.sanskrit_done and not sanskrit_field.value:
-            construction = self.get_field("construction").value
-            constr_splits = construction.split(" + ")
+            self._search_and_fill_sanskrit()
 
-            sanskrit = ""
-            already_added = []
-            for constr_split in constr_splits:
-                results = (
-                    self.db.db_session.query(DpdHeadword)
-                    .filter(DpdHeadword.lemma_1.like(f"%{constr_split}%"))
-                    .all()
-                )
-                for i in results:
-                    if i.lemma_clean == constr_split:
-                        if i.sanskrit not in already_added:
-                            if constr_split != constr_splits[-1]:
-                                sanskrit += f"{i.sanskrit} + "
-                            else:
-                                sanskrit += f"{i.sanskrit} "
-                            already_added += [i.sanskrit]
+    def sanskrit_focus(self, e: ft.ControlEvent) -> None:
+        """Search for Sanskrit when field gets focus."""
+        sanskrit_field = self.get_field("sanskrit")
+        if not self.flags.sanskrit_done and not sanskrit_field.value:
+            self._search_and_fill_sanskrit()
 
-            sanskrit = re.sub(r"\[.*?\]", "", sanskrit)  # remove square brackets
-            sanskrit = re.sub("  ", " ", sanskrit)  # remove double spaces
-            sanskrit = sanskrit.replace("+ +", "+")  # remove double plus signs
-            sanskrit = sanskrit.strip()
+    def _search_and_fill_sanskrit(self) -> None:
+        """Search database for Sanskrit and fill the field."""
+        sanskrit_field = self.get_field("sanskrit")
+        if not sanskrit_field:
+            return
+        construction = self.get_field("construction").value
+        if not construction:
+            return
 
-            sanskrit_field.value = sanskrit
-            self.flags.sanskrit_done = True  # Set the flag after auto-filling
+        constr_splits = construction.split(" + ")
+
+        sanskrit = ""
+        already_added = []
+        for constr_split in constr_splits:
+            results = (
+                self.db.db_session.query(DpdHeadword)
+                .filter(DpdHeadword.lemma_1.like(f"%{constr_split}%"))
+                .all()
+            )
+            for i in results:
+                if i.lemma_clean == constr_split:
+                    if i.sanskrit not in already_added:
+                        if constr_split != constr_splits[-1]:
+                            sanskrit += f"{i.sanskrit} + "
+                        else:
+                            sanskrit += f"{i.sanskrit} "
+                        already_added += [i.sanskrit]
+
+        sanskrit = re.sub(r"\[.*?\]", "", sanskrit)  # remove square brackets
+        sanskrit = re.sub("  ", " ", sanskrit)  # remove double spaces
+        sanskrit = sanskrit.replace("+ +", "+")  # remove double plus signs
+        sanskrit = sanskrit.strip()
+
+        sanskrit_field.value = sanskrit
+        self.flags.sanskrit_done = True
+        self.page.update()
+
+    def non_ia_blur(self, e: ft.ControlEvent) -> None:
+        """Trigger Sanskrit search when non_ia field loses focus."""
+        sanskrit_field = self.get_field("sanskrit")
+        if not self.flags.sanskrit_done and sanskrit_field and not sanskrit_field.value:
+            self._search_and_fill_sanskrit()
+
+    def source_1_focus(self, e: ft.ControlEvent) -> None:
+        """Autofill source_1 with '-' for words ending in 'sutta'."""
+        field, value = self.get_event_field_and_value(e)
+        if value:
+            return
+        lemma_1_field = self.get_field("lemma_1")
+        if not lemma_1_field or not lemma_1_field.value:
+            return
+        lemma_clean = clean_lemma_1(lemma_1_field.value)
+        if lemma_clean.endswith("sutta"):
+            field.value = "-"
             self.page.update()
 
     def root_key_change(self, e: ft.ControlEvent) -> None:
@@ -1070,6 +1205,89 @@ class DpdFields(PopUpMixin):
                 )
                 self.page.update()
                 return  # Exit early, Enter handled
+
+    def construction_blur(self, e: ft.ControlEvent) -> None:
+        """Detect compound type when construction field loses focus."""
+        field, value = self.get_event_field_and_value(e)
+
+        if not value:
+            return
+
+        # Check if word has a root_key - if so, it's not a compound
+        root_key_field = self.get_field("root_key")
+        root_key = root_key_field.value if root_key_field else ""
+        if root_key and root_key.strip():
+            return
+
+        # Get required field values
+        meaning_1_field = self.get_field("meaning_1")
+        meaning_1 = meaning_1_field.value if meaning_1_field else ""
+
+        pos_field = self.get_field("pos")
+        pos = pos_field.value if pos_field else ""
+
+        grammar_field = self.get_field("grammar")
+        grammar = grammar_field.value if grammar_field else ""
+
+        compound_type_field = self.get_field("compound_type")
+        current_compound_type = compound_type_field.value if compound_type_field else ""
+        # Strip to handle " " (space) as empty
+        current_compound_type_stripped = current_compound_type.strip()
+
+        lemma_1_field = self.get_field("lemma_1")
+        lemma = lemma_1_field.value if lemma_1_field else ""
+
+        # Initialize manager and detect compound type
+        from tools.paths import ProjectPaths
+
+        pth = ProjectPaths()
+        manager = CompoundTypeManager(pth.compound_type_path)
+
+        detected_type = manager.detect_compound_type(
+            construction=value,
+            pos=pos,
+            grammar=grammar,
+            lemma=lemma,
+            meaning_1=meaning_1,
+            compound_type=current_compound_type_stripped,
+        )
+
+        if detected_type and compound_type_field:
+            print(f"DEBUG: compound_type set to '{detected_type}' for '{lemma}'")
+            compound_type_field.value = detected_type
+            self.page.update()
+
+    def _click_edit_compound_types(self, e: ft.ControlEvent) -> None:
+        """Open the compound type TSV file for editing."""
+        from tools.paths import ProjectPaths
+
+        pth = ProjectPaths()
+
+        if not pth.compound_type_path.exists():
+            self.show_message(
+                f"Error: Compound type file not found at {pth.compound_type_path}"
+            )
+            return
+
+        try:
+            manager = CompoundTypeManager(pth.compound_type_path)
+            manager.open_tsv_for_editing()
+            self.show_message(f"Opening compound types TSV: {pth.compound_type_path}")
+        except FileNotFoundError as fnf_error:
+            self.show_message(f"Error: {fnf_error}")
+        except RuntimeError as rte_error:
+            self.show_message(f"Error: {rte_error}")
+        except Exception as error:
+            self.show_message(f"Error opening compound types file: {error}")
+
+    def show_message(self, message: str) -> None:
+        """Display a message to the user."""
+        # Try to use the UI's update_message method if available
+        if hasattr(self.ui, "update_message"):
+            self.ui.update_message(message)
+        else:
+            # Fallback: print to console
+            print(message)
 
     def stem_submit(self, e: ft.ControlEvent) -> None:
         self.update_stem(e)

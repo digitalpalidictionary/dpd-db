@@ -12,74 +12,70 @@ from rich.prompt import Prompt
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.compound_type_manager import CompoundTypeManager
 from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
-from tools.tsv_read_write import read_tsv_dot_dict
 
 
 def main():
     pth = ProjectPaths()
-    csv = read_tsv_dot_dict(pth.compound_type_path)
+
+    # Use CompoundTypeManager for detection logic
+    manager = CompoundTypeManager(pth.compound_type_path)
+    rules = manager.get_rules()
 
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
 
-    pos_exclusions = ["sandhi", "idiom", "aor"]
-
-    for c_counter, c in enumerate(csv):
+    for c_counter, rule in enumerate(rules):
         print("-" * 40)
-        for k, v in c.items():
+        for k, v in rule.items():
             print(f"[green]{str(k):<15}: [cyan]{str(v if v else '[red]None')}")
         print()
-        if c.exceptions:
-            exceptions = c.exceptions.split(", ")
-        else:
-            exceptions = []
-        pos = c.pos.split(", ")
-        type = c.type.split(", ")
+
+        pos_list = (
+            rule["pos"].split(", ")
+            if isinstance(rule["pos"], str) and rule["pos"] != "any"
+            else []
+        )
+        type_list = rule["type"].split(", ") if isinstance(rule["type"], str) else []
         search_list: list = []
         i_counter = 0
 
         for i in db:
-            if (
-                not i.meaning_1
-                or i.lemma_1 in exceptions
-                or i.pos in pos_exclusions
-                or ", comp" not in i.grammar
-            ):
-                continue
-            if c.pos != "any" and i.pos not in pos:
+            # Use manager's detection logic
+            detected_type = manager.detect_compound_type(
+                construction=i.construction,
+                pos=i.pos,
+                grammar=i.grammar,
+                lemma=i.lemma_1,
+                meaning_1=i.meaning_1,
+                compound_type=i.compound_type,
+            )
+
+            if detected_type is None:
                 continue
 
-            if any(t in i.compound_type for t in type):
+            # Check if detected type matches this rule's types
+            if not any(t in detected_type for t in type_list):
                 continue
 
-            if c.position == "first":
-                pattern = f"^{c.word} "
-            elif c.position == "middle":
-                pattern = f" {c.word} "
-            elif c.position == "last":
-                pattern = f" {c.word}$"
-            elif c.position == "any":
-                pattern = f"\\b{c.word}\\b"
-            else:
-                print(f"[red]'{c.position}' position not recognised")
-                break
+            # Additional POS check if rule specifies non-any
+            if rule["pos"] != "any" and i.pos not in pos_list:
+                continue
 
-            search_in = f"{i.construction}"
-            if re.findall(pattern, search_in):
-                search_list += [i.lemma_1]
-                i_counter += 1
-                pyperclip.copy(i.lemma_1)
-                printer(i)
-                input()
+            search_list += [i.lemma_1]
+            i_counter += 1
+            pyperclip.copy(i.lemma_1)
+            printer(i)
+            input()
 
         if search_list:
             print(i_counter)
             search_string = db_search_string(search_list)
             print(f"\n{search_string}")
             pyperclip.copy(search_string)
-            if c_counter < len(csv) - 1:
+            if c_counter < len(rules) - 1:
                 user_input = Prompt.ask("[yellow]Press ENTER to continue or X to exit")
                 if user_input == "x":
                     break

@@ -656,7 +656,7 @@ class ProjectPaths:
         self.antonym_dict_path = base_dir / "db_tests/single/test_antonyms.json"
         self.bahubbihi_dict_path = base_dir / "db_tests/single/test_bahubbihis.json"
         self.bold_example_path = base_dir / "db_tests/single/test_bold.json"
-        self.compound_type_path = base_dir / "db_tests/single/add_compound_type.tsv"
+        self.compound_type_path = base_dir / "tools/compound_type_manager.tsv"
         self.digu_json_path = base_dir / "db_tests/single/test_digu.json"
 
         self.hyphenations_scratchpad_path = (
