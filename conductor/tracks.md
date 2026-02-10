@@ -28,3 +28,8 @@
 ## [~] Track: Phonetic Change Automation
 
 *Link: [./tracks/phonetic_change_automation_20250210/](./tracks/phonetic_change_automation_20250210/)*
+
+---
+
+- [ ] **Track: Extract exporter/other_dictionaries into standalone GitHub repo**
+*Link: [./tracks/other_dictionaries_20260210/](./tracks/other_dictionaries_20260210/)*

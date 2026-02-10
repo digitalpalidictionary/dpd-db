@@ -1,0 +1,8 @@
+{
+  "track_id": "other_dictionaries_20260210",
+  "type": "refactor",
+  "status": "new",
+  "created_at": "2026-02-10T18:51:00+05:30",
+  "updated_at": "2026-02-10T18:51:00+05:30",
+  "description": "Extract exporter/other_dictionaries into a standalone GitHub repo (other-dictionaries) as a Git submodule at resources/other-dictionaries, with vendored DPD tools, independent source data, CI/CD, and auto-versioning."
+}
