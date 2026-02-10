@@ -28,6 +28,8 @@ class AIManager:
         ("gemini", "gemini-2.5-flash-lite", 4),
         ("gemini", "gemini-3-flash-preview", 12),
         # openrouter
+        ("openrouter", "openrouter/aurora-alpha", 5),
+        ("openrouter", "openrouter/pony-alpha", 5),
         ("openrouter", "stepfun/step-3.5-flash:free", 5),
         ("openrouter", "arcee-ai/trinity-large-preview:free", 5),
         ("openrouter", "nvidia/nemotron-3-nano-30b-a3b:free", 5),
