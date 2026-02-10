@@ -38,13 +38,13 @@ def main():
             if isinstance(rule["pos"], str) and rule["pos"] != "any"
             else []
         )
-        type_list = rule["type"].split(", ") if isinstance(rule["type"], str) else []
         search_list: list = []
         i_counter = 0
 
         for i in db:
-            # Use manager's detection logic
-            detected_type = manager.detect_compound_type(
+            # Use manager's optimized single-rule check
+            detected_type = manager.check_headword_against_rule(
+                rule=rule,
                 construction=i.construction,
                 pos=i.pos,
                 grammar=i.grammar,
@@ -54,10 +54,6 @@ def main():
             )
 
             if detected_type is None:
-                continue
-
-            # Check if detected type matches this rule's types
-            if not any(t in detected_type for t in type_list):
                 continue
 
             # Additional POS check if rule specifies non-any

@@ -237,6 +237,48 @@ sīla\tadj\tlast\tkammadhāraya > bahubbīhi\tx
         )
         assert result == "kammadhāraya"
 
+    def test_check_headword_against_rule(self, tmp_path: Path) -> None:
+        """Test the optimized single-rule check method."""
+        tsv_content = """word\tpos\tposition\ttype\texceptions
+sīla\tadj\tlast\tkammadhāraya\tx
+sabba\tmasc\tfirst\tkammadhāraya\tsabbakammakkhaya
+"""
+        tsv_file = tmp_path / "test.tsv"
+        tsv_file.write_text(tsv_content)
+
+        manager = CompoundTypeManager(str(tsv_file))
+        rules = manager.get_rules()
+
+        # Check first rule - should match
+        result = manager.check_headword_against_rule(
+            rule=rules[0],
+            construction="saddhā sīla",
+            pos="adj",
+            grammar=", comp",
+            meaning_1="test",
+        )
+        assert result == "kammadhāraya"
+
+        # Check first rule with non-matching construction - should not match
+        result = manager.check_headword_against_rule(
+            rule=rules[0],
+            construction="saddhā dāna",
+            pos="adj",
+            grammar=", comp",
+            meaning_1="test",
+        )
+        assert result is None
+
+        # Check second rule - should match
+        result = manager.check_headword_against_rule(
+            rule=rules[1],
+            construction="sabba dhamma",
+            pos="masc",
+            grammar=", comp",
+            meaning_1="test",
+        )
+        assert result == "kammadhāraya"
+
     @patch("subprocess.Popen")
     def test_open_tsv_for_editing_libreoffice(
         self, mock_popen: MagicMock, tmp_path: Path

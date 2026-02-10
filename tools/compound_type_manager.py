@@ -71,6 +71,103 @@ class CompoundTypeManager:
         """
         return self.rules
 
+    def _check_rule_logic(
+        self,
+        rule: dict,
+        construction: str,
+        pos: str,
+        lemma: str = "",
+    ) -> str | None:
+        """Check if a specific rule matches the given criteria.
+
+        Args:
+            rule: The rule dictionary to check.
+            construction: The construction field value.
+            pos: Part of speech tag.
+            lemma: Lemma identifier for exception checking.
+
+        Returns:
+            The detected compound type if rule matches, None otherwise.
+        """
+        rule_word = str(rule["word"])
+        rule_pos = str(rule["pos"])
+        rule_position = str(rule["position"])
+        rule_type = str(rule["type"])
+
+        # Check if lemma is in exceptions
+        if lemma and lemma in rule["exceptions"]:
+            return None
+
+        # Check POS match
+        if rule_pos != "any":
+            rule_pos_list = [p.strip() for p in rule_pos.split(",")]
+            if pos not in rule_pos_list:
+                return None
+
+        # Build pattern based on position
+        if rule_position == "first":
+            pattern = rf"^{re.escape(rule_word)} "
+        elif rule_position == "middle":
+            pattern = rf" {re.escape(rule_word)} "
+        elif rule_position == "last":
+            pattern = rf" {re.escape(rule_word)}\b"
+        elif rule_position == "any":
+            pattern = rf"\b{re.escape(rule_word)}\b"
+        else:
+            return None
+
+        # Check if pattern matches in construction
+        if re.search(pattern, construction):
+            # Extract first type if multiple types specified
+            detected_type = rule_type.split(">")[0].strip()
+            return detected_type
+
+        return None
+
+    def check_headword_against_rule(
+        self,
+        rule: dict,
+        construction: str,
+        pos: str,
+        grammar: str,
+        lemma: str = "",
+        meaning_1: str = "placeholder",
+        compound_type: str = "",
+    ) -> str | None:
+        """Check a specific rule against headword fields (for batch processing).
+
+        This is an optimized method for batch scripts that iterate through
+        rules externally. It checks only the provided rule without looping
+        through all rules.
+
+        Args:
+            rule: The specific rule dictionary to check against.
+            construction: The construction field value.
+            pos: Part of speech tag.
+            grammar: Grammar field value.
+            lemma: Lemma identifier for exception checking.
+            meaning_1: Meaning field (must not be empty).
+            compound_type: Existing compound type (if already set).
+
+        Returns:
+            The detected compound type if rule matches, None otherwise.
+        """
+        # Check preconditions
+        if not meaning_1:
+            return None
+
+        if pos in self.POS_EXCLUSIONS:
+            return None
+
+        if ", comp" not in grammar:
+            return None
+
+        if compound_type:
+            return None
+
+        # Check the specific rule
+        return self._check_rule_logic(rule, construction, pos, lemma)
+
     def detect_compound_type(
         self,
         construction: str,
@@ -81,6 +178,10 @@ class CompoundTypeManager:
         compound_type: str = "",
     ) -> str | None:
         """Detect compound type based on construction and other fields.
+
+        This method checks all rules and returns the first match found.
+        For batch processing where you iterate through rules externally,
+        use check_headword_against_rule() instead.
 
         Args:
             construction: The construction field value.
@@ -106,42 +207,18 @@ class CompoundTypeManager:
         if compound_type:
             return None
 
+        # Check all rules
         for rule in self.rules:
-            rule_word = str(rule["word"])
-            rule_pos = str(rule["pos"])
-            rule_position = str(rule["position"])
-            rule_type = str(rule["type"])
-
-            # Check if lemma is in exceptions
-            if lemma and lemma in rule["exceptions"]:
-                continue
-
-            # Check POS match
-            if rule_pos != "any":
-                rule_pos_list = [p.strip() for p in rule_pos.split(",")]
-                if pos not in rule_pos_list:
-                    continue
-
-            # Build pattern based on position
-            if rule_position == "first":
-                pattern = rf"^{re.escape(rule_word)} "
-            elif rule_position == "middle":
-                pattern = rf" {re.escape(rule_word)} "
-            elif rule_position == "last":
-                pattern = rf" {re.escape(rule_word)}\b"
-            elif rule_position == "any":
-                pattern = rf"\b{re.escape(rule_word)}\b"
-            else:
-                continue
-
-            # Check if pattern matches in construction
-            if re.search(pattern, construction):
-                # Extract first type if multiple types specified
-                detected_type = rule_type.split(">")[0].strip()
+            result = self._check_rule_logic(rule, construction, pos, lemma)
+            if result:
+                rule_word = str(rule["word"])
+                rule_pos = str(rule["pos"])
+                rule_position = str(rule["position"])
+                rule_type = str(rule["type"])
                 print(
                     f"DEBUG: Rule MATCHED - word='{rule_word}', pos='{rule_pos}', position='{rule_position}', type='{rule_type}'"
                 )
-                return detected_type
+                return result
 
         return None
 
