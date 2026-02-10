@@ -424,6 +424,11 @@ ve: verbal ending
 - Compare the Pāḷi sentence with the English sentence to understand how the word is being used in context. If possible provide multiple meanings, separated by semicolons. e.g. nara = man; person; human being
 - In vinaya, words ending in vatthu mean 'case of ...'
 
+## meaning_1 and meaning_lit fields for suttas
+- If the word is a sutta (lemma_clean ends in "sutta"):
+  - meaning_1: Copy meaning_2 exactly into this field
+  - meaning_lit: Set to "discourse on the aggregates"
+
 ## construction field
 - Construction must be pure Pāḷi construction, no English. e.g. anupassati = `anu + passa + ti`, māra = `√mar > mār + *a`
 
