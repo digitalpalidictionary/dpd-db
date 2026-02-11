@@ -40,6 +40,7 @@ h1 {
 	font-style: italic;
 	font-weight: normal;
 	color: var(--gray-dark);
+	margin-left: 8px;
 }
 
 /* Case info */
