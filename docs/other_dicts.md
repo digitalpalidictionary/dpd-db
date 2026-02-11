@@ -1,33 +1,44 @@
 # Other Pāḷi and Sanskrit dictionaries
 
-Here is the link to the [folder on Google Drive](https://drive.google.com/drive/folders/1C4_H-dwxHeDFJCUs-43vE25vHpqSUvHT) that contains all the mentioned dictionaries. You can see the date when they were last updated.
+Download the latest dictionary files from the [GitHub Releases page](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest).
 
 ---
 
-Click the individual links to download.
-
 ## GoldenDict
-Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1CeO4_4C3rYH2pb0mzAJAH1c5FK2H5cbK" target="_blank">bhs</a>  
-CST Bold Definitions <a href="https://drive.google.com/file/d/1QjNibCe9ctwl57wOnQPlizX5Mu5qYHAZ"target="_blank">bold definitions</a>  
-Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=17-lQ7iVAFdghd2ZOzyQw5JmfN6Ha1W1z" target="_blank">cpd</a>  
-Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1iKzoLK9r0eHka8OmFpgqiuLaeDovVNbh" target="_blank">dppn</a>  
-DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1cMDFnvEZml6cixAts4onqVpD4fI0nuTq" target="_blank">dpr</a>  
-Monier Williams <a href="https://drive.google.com/uc?export=download&id=1SSNNYJlAk655Ckw1MHslzwLcoysjDvtx" target="_blank">mw</a>  
-Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1hT-l8Np_rarYCrfT-bs2LML-KxpvXBDB" target="_blank">peu</a>  
-Simsapa Combined Dictionary* <a href="https://drive.google.com/uc?export=download&id=1nktxvY89MuowIuzGrmclLmBbgpVxtuO3" target="_blank">simsapa</a>  
-Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1HBTahdfSrDOGW6grMqL1yXXWGl5WOTCZ" target="_blank">whitney</a>
 
+| Dictionary | Download |
+|------------|----------|
+| **All dictionaries (combined)** | [all-dictionaries-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/all-dictionaries-gd.zip) |
+| Ancient Buddhist Texts Glossary | [abt-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/abt-gd.zip) |
+| Buddhist Hybrid Sanskrit | [bhs-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-gd.zip) |
+| CST Bold Definitions | [bold-def-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-gd.zip) |
+| Critical Pāli Dictionary | [cpd-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-gd.zip) |
+| Dictionary of Pāli Proper Names | [dppn-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-gd.zip) |
+| DPR Analysis | [dpr-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-gd.zip) |
+| Margaret Cone Dictionary | [cone-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-gd.zip) |
+| Monier Williams | [mw-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-gd.zip) |
+| Pali English Ultimate | [peu-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-gd.zip) |
+| Simsapa Combined Dictionary | [simsapa-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/simsapa-gd.zip) |
+| Sinhala-English-Sinhala | [sin-eng-sin-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/sin-eng-sin-gd.zip) |
+| Whitney's Roots | [whitney-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/whitney-gd.zip) |
 
 ## MDict
-Buddhist Hybrid Sanskrit Dictionary <a href="https://drive.google.com/uc?export=download&id=1T0UpidujRZCox4edJ-6oDXVtJd-Y67Ur" target="_blank">bhs</a>  
-CST Bold Definitions <a href="https://drive.google.com/file/d/1lHbLp6xFg2KDqMfcUWk0cg4K4eQQZoRn"target="_blank">bold definitions</a>  
-Critical Pali Dictionary <a href="https://drive.google.com/uc?export=download&id=14EIgLKPY-lKqzX4QNC4YAYZHjzMWG6vl" target="_blank">cpd</a>  
-Dictionary of Pāli Proper Names <a href="https://drive.google.com/file/d/1DS-iMV_Or3zxyciB5DTFZCchDIqyFflJ" target="_blank">dppn</a>  
-DPR Analysis <a href="https://drive.google.com/uc?export=download&id=1sgXzQt0hmnwLCGZNX5NVJ1XoabGfDCDJ" target="_blank">dpr</a>  
-Monier Williams <a href="https://drive.google.com/uc?export=download&id=1ciEuTzt8UlqozRRfU9A6WyDElzsX10pL" target="_blank">mw</a>  
-Pali English Ultimate <a href="https://drive.google.com/uc?export=download&id=1F0Fo4aepTzXQ7mZpFrX3YT8ZI2RvPcl-" target="_blank">peu</a>  
-Simsapa Combined Dictionary* <a href="https://drive.google.com/uc?export=download&id=1Fj5JUessCAU8_tC0iwCiA3MZLXbtMWCK" target="_blank">simsapa</a>  
-Whitney's Roots <a href="https://drive.google.com/uc?export=download&id=1PRg6S55sXa70b71cIZxmXzpcWcDGhotn" target="_blank">whitney</a>  
+
+| Dictionary | Download |
+|------------|----------|
+| **All dictionaries (combined)** | [all-dictionaries-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/all-dictionaries-mdict.zip) |
+| Ancient Buddhist Texts Glossary | [abt-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/abt-mdict.zip) |
+| Buddhist Hybrid Sanskrit | [bhs-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-mdict.zip) |
+| CST Bold Definitions | [bold-def-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-mdict.zip) |
+| Critical Pāli Dictionary | [cpd-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-mdict.zip) |
+| Dictionary of Pāli Proper Names | [dppn-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-mdict.zip) |
+| DPR Analysis | [dpr-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-mdict.zip) |
+| Margaret Cone Dictionary | [cone-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-mdict.zip) |
+| Monier Williams | [mw-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-mdict.zip) |
+| Pali English Ultimate | [peu-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-mdict.zip) |
+| Simsapa Combined Dictionary | [simsapa-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/simsapa-mdict.zip) |
+| Sinhala-English-Sinhala | [sin-eng-sin-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/sin-eng-sin-mdict.zip) |
+| Whitney's Roots | [whitney-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/whitney-mdict.zip) |
 
 Here are detailed instructions on how to install these MDict files on your [Android](https://digitalpalidictionary.github.io/install/android_dicttango/){target="_blank"} or [IOS](https://digitalpalidictionary.github.io/install/ios/){target="_blank"} device. 
 
@@ -51,4 +62,4 @@ PEU is a project in progress to translate the Abhidhan's definitions into Englis
 The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti in June 2025. It is available online from his website, [Ancient Buddhist Texts](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm){target="_blank"} or via the links above for offline use.
 
 ## CST Bold Definitions
-These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd){target="_blank"}.
+These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd&q1=&q2=&option=regex){target="_blank"}.

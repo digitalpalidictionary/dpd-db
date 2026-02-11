@@ -10,7 +10,7 @@ Clicking on any word opens it in the same tab. Ctrl-clicking on any word opens i
 
 To add more dictionaries to GoldenDict, simply download any dictionary in a GoldenDict compatible format (Stardict, Babylon, Lingoes, etc.) and add that folder to your GoldenDict folder `Documents/GoldenDict`.
 
-There are a number of Pāḷi and Sanskrit dictionaries available for GoldenDict, try [these ones](https://github.com/digitalpalidictionary/dpd-db/tree/main/exporter/other_dictionaries){target="_blank"} for a start.
+There are a number of Pāḷi and Sanskrit dictionaries available for GoldenDict, try [these ones](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest){target="_blank"} for a start.
 
 ## Search in page
 
