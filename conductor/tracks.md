@@ -31,4 +31,5 @@
 
 ---
 
-
+- [ ] **Track: Group exact matching headwords (by lemma_clean) into single dictionary entries for Apple Dictionary export.**
+*Link: [./tracks/apple_dict_grouping_20260211/](./tracks/apple_dict_grouping_20260211/)*

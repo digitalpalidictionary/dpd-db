@@ -1,0 +1,8 @@
+{
+  "track_id": "apple_dict_grouping_20260211",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-11T09:00:00Z",
+  "updated_at": "2026-02-11T09:00:00Z",
+  "description": "Group exact matching headwords (by lemma_clean) into single dictionary entries for Apple Dictionary export."
+}
