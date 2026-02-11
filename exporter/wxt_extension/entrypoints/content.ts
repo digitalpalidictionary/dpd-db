@@ -1,7 +1,7 @@
 import { defineContentScript } from 'wxt/sandbox';
 import { browser } from 'wxt/browser';
 import { DictionaryPanel } from '../components/dictionary-panel';
-import { addListenersToTextElements, removeListenersFromTextElements } from '../utils/utils';
+import { addListenersToTextElements, removeListenersFromTextElements, cleanWord } from '../utils/utils';
 import { applyTheme } from '../utils/themes';
 import '@/assets/styles/chrome-extension.css';
 import '@/assets/styles/dpd-variables.css';
@@ -15,13 +15,11 @@ export default defineContentScript({
 
     // Define handleSelectedWord globally so utils and panel can call it
     (window as any).handleSelectedWord = async (word: string) => {
+      const cleanedWord = cleanWord(word);
+      
       // Check "Use GoldenDict" setting - if ON, always use GoldenDict
       if (panel?.settings?.goldenDict) {
-        const cleanWord = word
-          .replace(/[-'‘""\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
-          .trim()
-          .toLowerCase();
-        panel.openInGoldenDict(cleanWord);
+        panel.openInGoldenDict(cleanedWord);
         return;
       }
 
@@ -35,59 +33,41 @@ export default defineContentScript({
       } catch (e) {
         console.log("[DPD] Searching for:", word, "(route detection failed)");
       }
-      
-      // Remove punctuation, quotes, and numbers but PRESERVE internal spaces
-      // Characters removed: - ' ' " " " ' . , ; : ! ? ( ) [ ] { } \ / 0-9
-      let cleanWord = word
-        .replace(/[-'‘""\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
-        .trim()
-        .toLowerCase();
-
-      // Handle double-click "word expansion" artifact for some Pāli words
-      if (cleanWord.length >= 6 && cleanWord.length % 2 === 0 && !cleanWord.includes(" ")) {
-        const mid = cleanWord.length / 2;
-        if (
-          cleanWord.slice(0, mid).toLowerCase() ===
-          cleanWord.slice(mid).toLowerCase()
-        ) {
-          cleanWord = cleanWord.slice(0, mid);
-        }
-      }
 
       if (panel) {
-        panel.setSearchValue(cleanWord);
+        panel.setSearchValue(cleanedWord);
         panel.setText("Loading...");
       }
 
       // Check if offline - use GoldenDict fallback
       if (!navigator.onLine) {
-        panel?.openInGoldenDict(cleanWord);
+        panel?.openInGoldenDict(cleanedWord);
         return;
       }
 
       browser.runtime.sendMessage(
         {
           action: "fetchData",
-          endpoint: "/search_json?q=" + encodeURIComponent(cleanWord),
+          endpoint: "/search_json?q=" + encodeURIComponent(cleanedWord),
         }
       ).then((response: any) => {
           if (response?.success) {
             const data = response.data;
             if (!data || (!data.summary_html && !data.dpd_html)) {
-              panel?.setText("No results for " + cleanWord);
+              panel?.setText("No results for " + cleanedWord);
             } else {
-              panel?.setText("Result for " + cleanWord);
+              panel?.setText("Result for " + cleanedWord);
               panel?.setContent(
                 (data.summary_html || "") + '<hr class="dpd">' + (data.dpd_html || ""),
               );
             }
           } else {
             // API error - use GoldenDict fallback
-            panel?.openInGoldenDict(cleanWord);
+            panel?.openInGoldenDict(cleanedWord);
           }
       }).catch(err => {
           // API failure - use GoldenDict fallback
-          panel?.openInGoldenDict(cleanWord);
+          panel?.openInGoldenDict(cleanedWord);
       });
     };
 

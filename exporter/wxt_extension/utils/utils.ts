@@ -1,5 +1,27 @@
 import { MessageRequest } from '../types/extension';
 
+const PUNCTUATION_REGEX = /[-'\u2018\u2019\u201c\u201d\"'.,;:!?()\[\]{}\\\/0-9]/g;
+
+export function cleanWord(word: string): string {
+  let cleaned = word
+    .replace(PUNCTUATION_REGEX, "")
+    .trim()
+    .toLowerCase();
+
+  // Handle double-click "word expansion" artifact for some Pāli words
+  if (cleaned.length >= 6 && cleaned.length % 2 === 0 && !cleaned.includes(" ")) {
+    const mid = cleaned.length / 2;
+    if (
+      cleaned.slice(0, mid).toLowerCase() ===
+      cleaned.slice(mid).toLowerCase()
+    ) {
+      cleaned = cleaned.slice(0, mid);
+    }
+  }
+
+  return cleaned;
+}
+
 export function expandSelectionToWord(): void {
   const selection = window.getSelection();
   if (!selection || !selection.rangeCount) return;
