@@ -36,3 +36,6 @@
 [submodule "resources/dpd-updater-go"]
 	path = resources/dpd-updater-go
 	url = ./resources/dpd-updater-go
+[submodule "resources/other-dictionaries"]
+	path = resources/other-dictionaries
+	url = git@github.com:digitalpalidictionary/other-dictionaries.git
