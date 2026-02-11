@@ -32,7 +32,6 @@ from tools.pali_sort_key import pali_sort_key
 
 # Apple Dictionary XML namespace
 APPLE_NS = "http://www.apple.com/DTDs/DictionaryService-1.0.rng"
-XHTML_NS = "http://www.w3.org/1999/xhtml"
 
 
 def escape_xml_attr(text: str) -> str:
@@ -189,7 +188,9 @@ def generate_dictionary_xml(output_dir: Path, db_session) -> None:
             )
 
             # Sort the chunk (optional but nice for consistency)
-            chunk_headwords = sorted(chunk_headwords, key=lambda x: pali_sort_key(x.lemma_1))
+            chunk_headwords = sorted(
+                chunk_headwords, key=lambda x: pali_sort_key(x.lemma_1)
+            )
 
             for count, headword in enumerate(chunk_headwords):
                 entry_id = f"dpd_{headword.id}"
