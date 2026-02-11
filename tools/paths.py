@@ -279,101 +279,101 @@ class ProjectPaths:
             base_dir / "exporter/grammar_dict/grammar_dict_header.html"
         )
 
-        # exporter/other_dictionaries/css
-        self.cone_css_path = base_dir / "exporter/other_dictionaries/code/cone/cone.css"
+        # resources/other-dictionaries/css
+        self.cone_css_path = base_dir / "resources/other-dictionaries/dictionaries/cone/cone.css"
         self.dppn_css_path = (
-            base_dir / "exporter/other_dictionaries/code/dppn/dppn.css/"
+            base_dir / "resources/other-dictionaries/dictionaries/dppn/dppn.css/"
         )
-        self.dpr_css_path = base_dir / "exporter/other_dictionaries/code/dpr/dpr.css/"
+        self.dpr_css_path = base_dir / "resources/other-dictionaries/dictionaries/dpr/dpr.css/"
         self.whitney_css_path = (
-            base_dir / "exporter/other_dictionaries/code/whitney/whitney.css/"
+            base_dir / "resources/other-dictionaries/dictionaries/whitney/whitney.css/"
         )
 
-        # exporter/other_dictionaries/source
+        # resources/other-dictionaries/source
         self.bhs_source_path = (
-            base_dir / "exporter/other_dictionaries/code/bhs/source/bhs.xml"
+            base_dir / "resources/other-dictionaries/dictionaries/bhs/source/bhs.xml"
         )
         self.cone_front_matter_path = (
             base_dir
-            / "exporter/other_dictionaries/code/cone/source/cone_front_matter.json"
+            / "resources/other-dictionaries/dictionaries/cone/source/cone_front_matter.json"
         )
         self.cone_source_path = (
-            base_dir / "exporter/other_dictionaries/code/cone/source/cone_dict.json"
+            base_dir / "resources/other-dictionaries/dictionaries/cone/source/cone_dict.json"
         )
         self.cpd_source_path = (
-            base_dir / "exporter/other_dictionaries/code/cpd/source/en-critical.json"
+            base_dir / "resources/other-dictionaries/dictionaries/cpd/source/en-critical.json"
         )
         self.dppn_source_path = (
-            base_dir / "exporter/other_dictionaries/code/dppn/source/DPPN.json"
+            base_dir / "resources/other-dictionaries/dictionaries/dppn/source/DPPN.json"
         )
         self.dpr_source_path = (
-            base_dir / "exporter/other_dictionaries/code/dpr/source/dpr.json"
+            base_dir / "resources/other-dictionaries/dictionaries/dpr/source/dpr.json"
         )
         self.eng_sin_source_path = (
             base_dir
-            / "exporter/other_dictionaries/code/sin_eng_sin/source/english-sinhala.tab"
+            / "resources/other-dictionaries/dictionaries/sin_eng_sin/source/english-sinhala.tab"
         )
         self.mw_source_path = (
-            base_dir / "exporter/other_dictionaries/code/mw/source/mw_from_simsapa.json"
+            base_dir / "resources/other-dictionaries/dictionaries/mw/source/mw.json"
         )
         self.peu_source_path = (
-            base_dir / "exporter/other_dictionaries/code/peu/source/latest.json"
+            base_dir / "resources/other-dictionaries/dictionaries/peu/source/peu_dump.js"
         )
         self.sin_eng_source_path = (
             base_dir
-            / "exporter/other_dictionaries/code/sin_eng_sin/source/sinhala-english.tab"
+            / "resources/other-dictionaries/dictionaries/sin_eng_sin/source/sinhala-english.tab"
         )
         self.vri_source_path = (
-            base_dir / "exporter/other_dictionaries/code/vri/source/vri.csv"
+            base_dir / "resources/other-dictionaries/dictionaries/vri/source/vri.csv"
         )
         self.whitney_source_dir = (
-            base_dir / "exporter/other_dictionaries/code/whitney/source/"
+            base_dir / "resources/other-dictionaries/dictionaries/whitney/source/"
         )
 
-        # exporter/other_dictionaries/goldendict
-        self.bhs_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.cone_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.cpd_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.dpr_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.mw_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.peu_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.simsapa_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.sin_eng_sin_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.vri_gd_path = base_dir / "exporter/other_dictionaries/goldendict/vri.zip"
-        self.whitney_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
-        self.dppn_gd_path = base_dir / "exporter/other_dictionaries/goldendict/"
+        # resources/other-dictionaries/build/goldendict
+        self.bhs_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.cone_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.cpd_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.dpr_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.mw_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.peu_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.simsapa_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.sin_eng_sin_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.vri_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/vri.zip"
+        self.whitney_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
+        self.dppn_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
 
-        # exporter/other_dictionaries/json
-        self.bhs_json_path = base_dir / "exporter/other_dictionaries/json/bhs.json"
-        self.cone_json_path = base_dir / "exporter/other_dictionaries/json/cone.json"
-        self.cpd_json_path = base_dir / "exporter/other_dictionaries/json/cpd.json"
-        self.dppn_json = base_dir / "exporter/other_dictionaries/json/dppn.json"
-        self.dpr_json_path = base_dir / "exporter/other_dictionaries/json/dpr.json"
-        self.mw_json_path = base_dir / "exporter/other_dictionaries/json/mw.json"
-        self.peu_json_path = base_dir / "exporter/other_dictionaries/json/peu.json"
+        # Note: JSON output files now in resources/other-dictionaries/build/
+        self.bhs_json_path = base_dir / "resources/other-dictionaries/build/goldendict/bhs.json"
+        self.cone_json_path = base_dir / "resources/other-dictionaries/build/goldendict/cone.json"
+        self.cpd_json_path = base_dir / "resources/other-dictionaries/build/goldendict/cpd.json"
+        self.dppn_json = base_dir / "resources/other-dictionaries/build/goldendict/dppn.json"
+        self.dpr_json_path = base_dir / "resources/other-dictionaries/build/goldendict/dpr.json"
+        self.mw_json_path = base_dir / "resources/other-dictionaries/build/goldendict/mw.json"
+        self.peu_json_path = base_dir / "resources/other-dictionaries/build/goldendict/peu.json"
         self.simsapa_json_path = (
-            base_dir / "exporter/other_dictionaries/json/simsapa.json"
+            base_dir / "resources/other-dictionaries/build/goldendict/simsapa.json"
         )
         self.sin_eng_sin_json_path = (
-            base_dir / "exporter/other_dictionaries/json/sin_eng_sin.json"
+            base_dir / "resources/other-dictionaries/build/goldendict/sin_eng_sin.json"
         )
-        self.vri_json_path = base_dir / "exporter/other_dictionaries/json/vri.json"
+        self.vri_json_path = base_dir / "resources/other-dictionaries/build/goldendict/vri.json"
         self.whitney_json_path = (
-            base_dir / "exporter/other_dictionaries/json/whitney.json"
+            base_dir / "resources/other-dictionaries/build/goldendict/whitney.json"
         )
 
-        # exporter/other_dictionaries/mdict
-        self.bhs_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.cone_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.cpd_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.dppn_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.dpr_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.mw_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.peu_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.simsapa_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.sin_eng_sin_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
-        self.vri_mdict_path = base_dir / "exporter/other_dictionaries/mdict/vri.mdx"
-        self.whitney_mdict_path = base_dir / "exporter/other_dictionaries/mdict/"
+        # resources/other-dictionaries/build/mdict
+        self.bhs_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.cone_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.cpd_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.dppn_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.dpr_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.mw_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.peu_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.simsapa_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.sin_eng_sin_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
+        self.vri_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/vri.mdx"
+        self.whitney_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
 
         # exporter/pdf
         self.typst_data_path = base_dir / "exporter/pdf/typst_data.typ"
