@@ -27,8 +27,9 @@ export default defineContentScript({
       }
       
       // Remove punctuation, quotes, and numbers but PRESERVE internal spaces
+      // Characters removed: - ' ' " " " ' . , ; : ! ? ( ) [ ] { } \ / 0-9
       let cleanWord = word
-        .replace(/[’‘“”\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
+        .replace(/[-’‘“”\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
         .trim()
         .toLowerCase();
 

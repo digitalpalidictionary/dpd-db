@@ -13,7 +13,7 @@ export function expandSelectionToWord(): void {
 
   // Characters to stop on - SPACE is critical and must never be crossed
   // Note: Closing quotes (’ ”) are removed from stopChars so expansion includes suffixes like ”ti.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9'"]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9]/;
   const isStop = (char: string) => !char || stopChars.test(char);
 
   // Explicit space check - spaces should NEVER be crossed under any circumstances
