@@ -1344,6 +1344,7 @@ class DpdFields(PopUpMixin):
         if detected_type and compound_type_field:
             print(f"DEBUG: compound_type set to '{detected_type}' for '{lemma}'")
             compound_type_field.value = detected_type
+            compound_type_field.update()
             self.page.update()
 
     def _click_edit_compound_types(self, e: ft.ControlEvent) -> None:
