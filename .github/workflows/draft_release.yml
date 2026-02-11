@@ -302,7 +302,7 @@ jobs:
         retention-days: 1
 
   # ----------------------------------------
-  # Job 2: Build macOS Dictionary
+  # Job 2: Build Apple Dictionary
   # ----------------------------------------
 
   build-macos:
@@ -365,7 +365,7 @@ jobs:
           cd build
           zip -r dpd-apple.dictionary.zip Digital-Pali-Dictionary.dictionary
 
-      - name: Upload macOS Dictionary
+      - name: Upload Apple Dictionary
         uses: actions/upload-artifact@v4
         with:
           name: macos-dictionary
@@ -387,7 +387,7 @@ jobs:
           name: linux-assets
           path: ./linux-assets/
 
-      - name: Download macOS Dictionary
+      - name: Download Apple Dictionary
         uses: actions/download-artifact@v4
         with:
           name: macos-dictionary

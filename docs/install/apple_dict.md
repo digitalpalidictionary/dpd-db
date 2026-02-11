@@ -1,6 +1,6 @@
-# DPD for macOS Dictionary
+# DPD for Apple Dictionary
 
-DPD is now available as a native macOS Dictionary, allowing you to look up Pāḷi words directly in the built-in Dictionary app and with system-wide lookup.
+DPD is now available as a native Apple Dictionary, allowing you to look up Pāḷi words directly in the built-in Dictionary app and with system-wide lookup.
 
 ## In Brief
 
