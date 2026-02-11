@@ -16,21 +16,26 @@ The new `other-dictionaries` repo must restructure the current layout so that wh
 
 ```
 other-dictionaries/
-├── abt/                    # Ancient Buddhist Texts Glossary
-├── bhs/                    # Buddhist Hybrid Sanskrit
-├── bold_def/               # CST Bold Definitions
-├── cone/                   # Margaret Cone Dictionary of Pāḷi
-├── cpd/                    # Critical Pāḷi Dictionary
-├── dhammika/               # Dhammika (data only, no exporter yet)
-├── dppn/                   # Dict. of Pāḷi Proper Names
-├── dpr/                    # DPR Analysis
-├── mw/                     # Monier-Williams Sanskrit-English
-├── peu/                    # Pali English Ultimate
-├── simsapa/                # Simsapa Combined
-├── sin_eng_sin/            # Sinhala-English-Sinhala
-├── vri/                    # VRI (data only, no exporter yet)
-├── whitney/                # Whitney Sanskrit Roots
-├── wordnet/                # WordNet (data only, incomplete)
+├── dictionaries/           # All dictionary exporters
+│   ├── abt/                # Ancient Buddhist Texts Glossary
+│   ├── bhs/                # Buddhist Hybrid Sanskrit
+│   ├── bold_def/           # CST Bold Definitions
+│   │   └── source/         # bold_definitions.tsv
+│   ├── cone/               # Margaret Cone Dictionary of Pāḷi
+│   ├── cpd/                # Critical Pāḷi Dictionary
+│   ├── dhammika/           # Dhammika (data only, no exporter yet)
+│   ├── dppn/               # Dict. of Pāḷi Proper Names
+│   ├── dpr/                # DPR Analysis
+│   ├── mw/                 # Monier-Williams Sanskrit-English
+│   │   └── source/         # mw.tsv
+│   ├── peu/                # Pali English Ultimate
+│   │   └── source/         # peu.tsv
+│   ├── simsapa/            # Simsapa Combined
+│   │   └── source/         # simsapa.tsv
+│   ├── sin_eng_sin/        # Sinhala-English-Sinhala
+│   ├── vri/                # VRI (data only, no exporter yet)
+│   ├── whitney/            # Whitney Sanskrit Roots
+│   └── wordnet/            # WordNet (data only, incomplete)
 ├── vendor/dpd_tools/       # Vendored DPD tool modules
 ├── scripts/
 │   ├── sync.py             # Refreshes vendor/ and source data
@@ -61,15 +66,16 @@ other-dictionaries/
 
 ### FR-3: Source Data Independence
 
-Exporters that currently query live external databases must be refactored to read from standalone bundled source files:
+Exporters that currently query live external databases must be refactored to read from standalone bundled source files in TSV format:
 
 | Exporter | Current Source | New Source |
 |----------|---------------|------------|
-| `bold_def` | Live DPD SQLite DB (`db.models.BoldDefinition`) | Pre-exported JSON in `bold_def/source/` |
-| `peu` | Live TPR SQLite DB | Pre-exported JSON in `peu/source/` |
-| `simsapa` | Live Simsapa SQLite DB | Pre-exported JSON in `simsapa/source/` |
-| `mw` | Live Simsapa SQLite DB | Pre-exported JSON in `mw/source/` |
+| `bold_def` | Live DPD SQLite DB (`db.models.BoldDefinition`) | Pre-exported TSV in `dictionaries/bold_def/source/bold_definitions.tsv` |
+| `peu` | Live TPR SQLite DB | Pre-exported TSV in `dictionaries/peu/source/peu.tsv` |
+| `simsapa` | Live Simsapa SQLite DB | Pre-exported TSV in `dictionaries/simsapa/source/simsapa.tsv` |
+| `mw` | Live Simsapa SQLite DB | Pre-exported TSV in `dictionaries/mw/source/mw.tsv` |
 
+- TSV format is preferred over JSON for smaller file size, easier diffs, and human readability.
 - Each exporter must have an `update_source.py` (or equivalent mechanism via `scripts/sync.py`) that can re-extract data from the upstream source when needed.
 - `scripts/sync.py` must handle both vendor tools sync AND source data sync in a single command.
 
@@ -117,7 +123,7 @@ Exporters that currently query live external databases must be refactored to rea
 - **NFR-1**: All Python files must pass `ruff check` and `ruff format`.
 - **NFR-2**: The new repo must have its own `pyproject.toml` with required dependencies.
 - **NFR-3**: Large source files (all under 100MB) are committed as-is — no Git LFS.
-- **NFR-4**: Generated/build files (`build/`, `bulk_dump_html.html`, large JSON outputs) must be gitignored.
+- **NFR-4**: Generated/build files (`build/`, `bulk_dump_html.html`) must be gitignored.
 - **NFR-5**: Each dictionary directory should contain a brief `README.md` documenting its source, format, and how to run its exporter.
 
 ## Acceptance Criteria

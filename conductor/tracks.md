@@ -31,5 +31,5 @@
 
 ---
 
-- [ ] **Track: Extract exporter/other_dictionaries into standalone GitHub repo**
+- [~] **Track: Extract exporter/other_dictionaries into standalone GitHub repo**
 *Link: [./tracks/other_dictionaries_20260210/](./tracks/other_dictionaries_20260210/)*
