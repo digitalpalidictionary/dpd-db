@@ -45,7 +45,7 @@ DPD is integrated into the following software and websites.
 [Tipitakapali.org website](https://tipitakapali.org/) | [iOS](https://apps.apple.com/vn/app/tipitakacst/id6743404213) | [Docs](https://digitalpalidictionary.github.io/integrations/tipitakapali/)  
 
 ## Additional Resources
-[Other Pāḷi & Sanskrit dictionaries](https://github.com/digitalpalidictionary/dpd-db/tree/main/exporter/other_dictionaries)  
+[Other Pāḷi & Sanskrit dictionaries](https://github.com/digitalpalidictionary/other-dictionaries)  
 [Monthly Changelog](https://digitalpalidictionary.github.io/changelog.html)  
 [Setup the hotkey in GoldenDict](https://digitalpalidictionary.github.io/setup_hotkey.html)  
 [Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform)
