@@ -13,12 +13,6 @@
 
 ---
 
-## [x] Track: Mac Dictionary Build Integration
-
-*Link: [./tracks/mac_dictionary_20260202/](./tracks/mac_dictionary_20260202/)*
-
----
-
 ## [~] Track: DPD Updater/Installer Application
 
 *Link: [./tracks/dpd_updater_20260204/](./tracks/dpd_updater_20260204/)*
@@ -29,7 +23,3 @@
 
 *Link: [./tracks/phonetic_change_automation_20250210/](./tracks/phonetic_change_automation_20250210/)*
 
----
-
-- [ ] **Track: Group exact matching headwords (by lemma_clean) into single dictionary entries for Apple Dictionary export.**
-*Link: [./tracks/apple_dict_grouping_20260211/](./tracks/apple_dict_grouping_20260211/)*
