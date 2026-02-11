@@ -15,6 +15,16 @@ export default defineContentScript({
 
     // Define handleSelectedWord globally so utils and panel can call it
     (window as any).handleSelectedWord = async (word: string) => {
+      // Check "Use GoldenDict" setting - if ON, always use GoldenDict
+      if (panel?.settings?.goldenDict) {
+        const cleanWord = word
+          .replace(/[-'‘""\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
+          .trim()
+          .toLowerCase();
+        panel.openInGoldenDict(cleanWord);
+        return;
+      }
+
       // Get API route for logging
       try {
         const response = await browser.runtime.sendMessage({ action: "getApiBaseUrl" });
@@ -29,7 +39,7 @@ export default defineContentScript({
       // Remove punctuation, quotes, and numbers but PRESERVE internal spaces
       // Characters removed: - ' ' " " " ' . , ; : ! ? ( ) [ ] { } \ / 0-9
       let cleanWord = word
-        .replace(/[-’‘“”\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
+        .replace(/[-'‘""\"'.,;:!?()\[\]{}\\\/0-9]/g, "")
         .trim()
         .toLowerCase();
 
@@ -49,6 +59,12 @@ export default defineContentScript({
         panel.setText("Loading...");
       }
 
+      // Check if offline - use GoldenDict fallback
+      if (!navigator.onLine) {
+        panel?.openInGoldenDict(cleanWord);
+        return;
+      }
+
       browser.runtime.sendMessage(
         {
           action: "fetchData",
@@ -66,10 +82,12 @@ export default defineContentScript({
               );
             }
           } else {
-            panel?.setText("Error: " + (response?.error || "Unknown error"));
+            // API error - use GoldenDict fallback
+            panel?.openInGoldenDict(cleanWord);
           }
       }).catch(err => {
-         panel?.setText("Error: " + err.message);
+          // API failure - use GoldenDict fallback
+          panel?.openInGoldenDict(cleanWord);
       });
     };
 

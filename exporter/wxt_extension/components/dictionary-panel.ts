@@ -99,6 +99,7 @@ export class DictionaryPanel {
     summary: true,
     sandhi: true,
     audio: false,
+    goldenDict: false,
   };
 
   constructor() {
@@ -179,6 +180,8 @@ export class DictionaryPanel {
       this.settings.oneButton = result.settingsOneButton as boolean;
     if (result.settingsAudio !== undefined)
       this.settings.audio = result.settingsAudio as boolean;
+    if (result.settingsGoldenDict !== undefined)
+      this.settings.goldenDict = result.settingsGoldenDict as boolean;
 
     this._applySettings();
   }
@@ -408,6 +411,11 @@ export class DictionaryPanel {
     const url = await getAudioUrl(headword, gender);
     const audio = new Audio(url);
     audio.play().catch((err) => console.error("Audio playback error:", err));
+  }
+
+  openInGoldenDict(word: string) {
+    this.setText(`Opening "${word}" in GoldenDict...`);
+    window.location.href = `goldendict://${encodeURIComponent(word)}`;
   }
 
   _initGrammarSorter() {
@@ -904,6 +912,10 @@ export class DictionaryPanel {
             <span style="font-size: 0.8rem;">Audio Male / Female</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-audio-toggle" ${this.settings.audio ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
           </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
+            <span style="font-size: 0.8rem;">Use GoldenDict</span>
+            <label class="dpd-switch"><input type="checkbox" id="settings-goldendict-toggle" ${this.settings.goldenDict ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
+          </div>
         </div>
       `;
 
@@ -947,7 +959,8 @@ export class DictionaryPanel {
         "settings-onebutton-toggle",
         "settings-summary-toggle",
         "settings-sandhi-toggle",
-        "settings-audio-toggle"
+        "settings-audio-toggle",
+        "settings-goldendict-toggle"
     ];
 
     toggles.forEach(id => {
@@ -967,6 +980,7 @@ export class DictionaryPanel {
             
             let settingsKey = key;
             if (key === 'onebutton') settingsKey = 'oneButton';
+            if (key === 'goldendict') settingsKey = 'goldenDict';
 
             el.onchange = (e) => this._saveSetting(settingsKey as keyof Settings, (e.target as HTMLInputElement).checked);
         }
