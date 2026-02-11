@@ -1,44 +1,14 @@
 {
-    "āpajjīti": {
-        "source_1": "sn20.10:1.4",
-        "sutta_1": "“māyasmā ativelaṃ kulesu cārittaṃ āpajjī”ti. ",
-        "example_1": "“Venerable, don’t socialize with families too often.” ",
-        "comment": " vighātaṃ āpajji idiom suffers"
+    "nivāsaṃ": {
+        "source_1": "sn22.2:1.4",
+        "sutta_1": "“icchāma mayaṃ, bhante, pacchābhūmaṃ janapadaṃ gantuṃ, pacchābhūme janapade nivāsaṃ kappetun”ti. ",
+        "example_1": "“Sir, we wish to go to a western land to take up residence there.” ",
+        "comment": "nivāsaṃ kappetunti to live; to stay; to reside"
     },
-    "nigacchi": {
-        "source_1": "sn20.10:2.6",
-        "sutta_1": "so tatonidānaṃ maraṇampi nigacchi maraṇamattampi dukkhaṃ. ",
-        "example_1": "resulting in death and deadly pain. ",
-        "comment": "maraṇampi nigacchi idiom"
-    },
-    "vāto": {
-        "source_1": "sn20.11:1.9",
-        "sutta_1": "sītakopi naṃ vāto upavāyati. ",
-        "example_1": "And the cool breeze still blows on it. ",
-        "comment": "vāto vāyeyya idiom"
-    },
-    "appakampi": {
-        "source_1": "sn20.12:1.7",
-        "sutta_1": "na ca no amhesu appakampi kataṃ nassissatī’ti. ",
-        "example_1": "We won’t forget even a small thing done for us.’ ",
-        "comment": "small thing; mintute deed"
-    },
-    "tissaṃ": {
-        "source_1": "sn21.9:1.2",
-        "sutta_1": "atha kho āyasmā tisso bhagavato pitucchāputto yena bhagavā tenupasaṅkami; upasaṅkamitvā bhagavantaṃ abhivādetvā ekamantaṃ nisīdi dukkhī dummano assūni pavattayamāno. atha kho bhagavā āyasmantaṃ tissaṃ etadavoca: ",
-        "example_1": "Then Venerable Tissa—the Buddha’s cousin on his father’s side—went to the Buddha, bowed, and sat down to one side. He was miserable and sad, with tears flowing. Then the Buddha said to him: ",
-        "comment": "buddha's counsin"
-    },
-    "tanukaṃ": {
-        "source_1": "sn21.11:1.5",
-        "sutta_1": "“passatha no tumhe, bhikkhave, etaṃ bhikkhuṃ āgacchantaṃ odātakaṃ tanukaṃ tuṅganāsikan”ti? ",
-        "example_1": "“Mendicants, do you see that monk coming—white, thin, with a pointy nose?” ",
-        "comment": "thin"
-    },
-    "ghaṭo": {
-        "source_1": "sn21.12:5.2",
-        "sutta_1": "ghaṭo cāpi pavuccati; ",
-        "example_1": "",
-        "comment": "in reference"
+    "nānāverajjagataṃ": {
+        "source_1": "sn22.2:4.1",
+        "sutta_1": "“santi hāvuso, nānāverajjagataṃ bhikkhuṃ pañhaṃ pucchitāro—",
+        "example_1": "“Reverends, there are those who question a mendicant who has gone abroad—",
+        "comment": "nānāverajja"
     }
 }
