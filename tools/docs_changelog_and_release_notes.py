@@ -230,9 +230,11 @@ class ChangelogGenerator:
         github_section = self._get_github_issues_section()
         data_updates_section = self._get_dictionary_data_updates()
         self.release_notes = f"""
-Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and for StarDict, GoldenDict, MDict, DictTango, Kindle, Kobo, ePub, SQLite, and plain text or any application which supports these formats. It is also built into many popular [Pāḷi readers and websites](https://digitalpalidictionary.github.io/tpr.html).
+Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and for StarDict, GoldenDict, MDict, DictTango, Apple Dictionary, Kindle, Kobo, ePub, SQLite, and plain text or any application which supports these formats. 
 
-It is a work in progress, made available for testing and feedback purposes.
+It is also built into many popular [Pāḷi readers and websites](https://digitalpalidictionary.github.io/tpr.html).
+
+DPD is a work in progress, made available for testing and feedback purposes.
 
 More information about installation, setup and features can be found [on the DPD docs website](https://digitalpalidictionary.github.io/)
 

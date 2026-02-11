@@ -18,7 +18,9 @@ nav:
     - "install/index.md"
     - Windows: "install/win.md"
     - Android: "install/android_dicttango.md"
+
     - Mac: "install/mac.md"
+    - macOS Dictionary: "install/apple_dict.md"
     - iOS: "install/ios.md"
     - Linux: "install/linux.md"
     - Kindle: "install/kindle.md"
