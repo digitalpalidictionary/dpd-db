@@ -1,12 +1,10 @@
+__pycache__/
 .agent/
+.DS_Store
 .kilocode/
 .metadata_never_index
 .opencode/
 .roo/
-GEMINI.md
-dpd-db.code-workspace
-__pycache__/
-.DS_Store
 .venv
 .vscode/
 *.db
@@ -37,7 +35,18 @@ db/suttas/code/*
 db/suttas/todo.md
 db/suttas/Untitled Document
 docs_site
+dpd-db.code-workspace
 dpd/
+exporter/archive/other_dictionaries_legacy/*
+exporter/archive/other_dictionaries_legacy/bmp_files/
+exporter/archive/other_dictionaries_legacy/code/cone/bulk_dump_html.html
+exporter/archive/other_dictionaries_legacy/code/cone/source/cone_dict.json
+exporter/archive/other_dictionaries_legacy/code/cone/source/cone_front_matter.json
+exporter/archive/other_dictionaries_legacy/code/cpd/output
+exporter/archive/other_dictionaries_legacy/code/peu/source/peu_dump_2024_02_16.js
+exporter/archive/other_dictionaries_legacy/goldendict/
+exporter/archive/other_dictionaries_legacy/json/
+exporter/archive/other_dictionaries_legacy/mdict/
 exporter/chrome_extension/node_modules/
 exporter/goldendict/javascript/family_compound_json.js
 exporter/goldendict/javascript/family_idiom_json.js
@@ -49,15 +58,6 @@ exporter/kindle/epub/OEBPS/Text/[0-9]*_*.xhtml
 exporter/kindle/epub/OEBPS/Text/abbreviations.xhtml
 exporter/kindle/epub/OEBPS/Text/epd_*.xhtml
 exporter/mcp/output/*
-exporter/other_dictionaries/bmp_files/
-exporter/other_dictionaries/code/cone/bulk_dump_html.html
-exporter/other_dictionaries/code/cone/source/cone_dict.json
-exporter/other_dictionaries/code/cone/source/cone_front_matter.json
-exporter/other_dictionaries/code/cpd/output
-exporter/other_dictionaries/code/peu/source/peu_dump_2024_02_16.js
-exporter/other_dictionaries/goldendict/
-exporter/other_dictionaries/json/
-exporter/other_dictionaries/mdict/
 exporter/pdf/typst_data_lite.typ
 exporter/share/
 exporter/tester/fonts/
@@ -65,6 +65,7 @@ exporter/tester/tester/
 exporter/tpr/output/
 exporter/webapp/static/search_index.json
 exporter/word_trees/
+GEMINI.md
 go_modules/deconstructor/output/*.json
 go_modules/deconstructor/output/*.tsv
 gui/icons/
