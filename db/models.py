@@ -946,6 +946,12 @@ class DpdHeadword(Base):
         return re.sub(r" \d.*$", "", self.lemma_1)
 
     @property
+    def lemma_number(self) -> str:
+        """Extract the number portion from lemma_1 (e.g., '1.01' from 'dhamma 1.01')."""
+        match = re.search(r" (\d+\.\d+)$", self.lemma_1)
+        return match.group(1) if match else ""
+
+    @property
     def lemma_ipa(self) -> str:
         # from tools.ipa import convert_uni_to_ipa
         # return convert_uni_to_ipa(self.lemma_clean, "ipa")

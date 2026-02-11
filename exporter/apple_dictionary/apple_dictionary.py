@@ -18,16 +18,17 @@ Output:
 """
 
 import re
+from collections.abc import Generator
 from html import escape
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword
+from db.models import DbInfo, DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.pali_sort_key import pali_sort_key
+from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 
 
 # Apple Dictionary XML namespace
@@ -46,6 +47,34 @@ def fix_ampersands(html: str) -> str:
     """
     # Match & not followed by a valid entity pattern (word chars ending in ;)
     return re.sub(r"&(?!(?:[a-zA-Z]+|#[0-9]+|#x[0-9a-fA-F]+);)", "&amp;", html)
+
+
+def group_headwords_by_lemma_clean(
+    headwords: list[DpdHeadword],
+) -> Generator[list[DpdHeadword], None, None]:
+    """Yield groups of headwords sharing the same lemma_clean.
+
+    Args:
+        headwords: List of DpdHeadword objects, must be sorted by lemma_1
+
+    Yields:
+        Lists of headwords grouped by their lemma_clean property
+    """
+    if not headwords:
+        return
+
+    current_group: list[DpdHeadword] = [headwords[0]]
+    current_lemma: str = headwords[0].lemma_clean
+
+    for hw in headwords[1:]:
+        if hw.lemma_clean == current_lemma:
+            current_group.append(hw)
+        else:
+            yield current_group
+            current_group = [hw]
+            current_lemma = hw.lemma_clean
+
+    yield current_group
 
 
 def get_output_path() -> Path:
@@ -74,13 +103,13 @@ def generate_info_plist(output_dir: Path, version: str = "1.0") -> None:
     <key>CFBundleDisplayName</key>
     <string>Digital Pāḷi Dictionary</string>
     <key>CFBundleIdentifier</key>
-    <string>org.digitalpalidictionary.dpd</string>
+    <string>net.dpdict.dpd</string>
     <key>CFBundleName</key>
     <string>DPD</string>
     <key>CFBundleShortVersionString</key>
     <string>{version}</string>
     <key>DCSDictionaryCopyright</key>
-    <string>Copyright © Digital Pāḷi Dictionary. All rights reserved.</string>
+    <string>CC BY-NC-SA 4.0</string>
     <key>DCSDictionaryManufacturerName</key>
     <string>Digital Pāḷi Dictionary</string>
 </dict>
@@ -108,32 +137,39 @@ def copy_css_file(output_dir: Path) -> None:
 
 
 def create_dictionary_xml_entry(
-    headword: DpdHeadword, entry_html: str, entry_id: str
+    headwords: list[DpdHeadword], entry_html: str, entry_id: str
 ) -> str:
     """Create a single d:entry string for the XML dictionary.
 
+    Groups all headwords with the same lemma_clean into one entry.
+    Merges all inflections from all headwords in the group.
+
     Args:
-        headword: DpdHeadword database object
+        headwords: List of DpdHeadword objects with the same lemma_clean
         entry_html: Rendered HTML content for the entry
         entry_id: Unique identifier for this entry
 
     Returns:
         XML string for the entry
     """
-    # Build index elements as strings
-    lemma_escaped = escape_xml_attr(headword.lemma_1)
+    # Get the lemma_clean from the first headword (they all share it)
+    lemma_clean = headwords[0].lemma_clean
+    lemma_escaped = escape_xml_attr(lemma_clean)
     index_elements = [f'<d:index d:value="{lemma_escaped}"/>']
 
-    # Add index for inflections if available
-    if headword.inflections_list_all:
-        inflections = set(headword.inflections_list_all)
-        for inflection in sorted(inflections):
-            if inflection and inflection != headword.lemma_1:
-                infl_escaped = escape_xml_attr(inflection)
-                title_escaped = escape_xml_attr(f"{inflection} ({headword.lemma_1})")
-                index_elements.append(
-                    f'<d:index d:value="{infl_escaped}" d:title="{title_escaped}"/>'
-                )
+    # Add index for all inflections from all headwords in the group
+    all_inflections: set[str] = set()
+    for hw in headwords:
+        if hw.inflections_list_all:
+            all_inflections.update(hw.inflections_list_all)
+
+    for inflection in pali_list_sorter(all_inflections):
+        if inflection and inflection != lemma_clean:
+            infl_escaped = escape_xml_attr(inflection)
+            title_escaped = escape_xml_attr(f"{inflection} ({lemma_clean})")
+            index_elements.append(
+                f'<d:index d:value="{infl_escaped}" d:title="{title_escaped}"/>'
+            )
 
     # Build the complete entry as a string
     # The entry_html from Jinja2 is already well-formed XHTML
@@ -146,12 +182,17 @@ def create_dictionary_xml_entry(
     return entry_xml
 
 
-def generate_dictionary_xml(output_dir: Path, db_session) -> None:
-    """Generate Dictionary.xml with all DPD entries using memory-efficient streaming.
+def generate_dictionary_xml(
+    output_dir: Path, db_session, limit: int | None = None
+) -> None:
+    """Generate Dictionary.xml with all DPD entries grouped by lemma_clean.
+
+    Groups all headwords with the same lemma_clean into single dictionary entries.
 
     Args:
         output_dir: Directory to write the XML file
         db_session: SQLAlchemy database session
+        limit: Optional limit on number of headwords (for testing)
     """
     # Set up Jinja2 environment
     env = Environment(
@@ -161,15 +202,22 @@ def generate_dictionary_xml(output_dir: Path, db_session) -> None:
 
     xml_path = output_dir / "Dictionary.xml"
 
-    # Query all headword IDs first to avoid loading everything at once
+    # Query headwords and sort by lemma_1 using pali_sort_key
     pr.green("querying database")
-    headword_ids = db_session.query(DpdHeadword.id).all()
-    total = len(headword_ids)
+    query = db_session.query(DpdHeadword)
+    if limit:
+        query = query.limit(limit)
+    headwords = query.all()
+    headwords = sorted(headwords, key=lambda x: pali_sort_key(x.lemma_1))
+    total = len(headwords)
     pr.yes(total)
 
     pr.green_title("rendering and streaming entries")
 
-    # Open file for streaming
+    # Group headwords and render entries
+    groups = list(group_headwords_by_lemma_clean(headwords))
+    total_groups = len(groups)
+
     with open(xml_path, "w", encoding="utf-8") as f:
         # Write XML header and root element
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -177,42 +225,28 @@ def generate_dictionary_xml(output_dir: Path, db_session) -> None:
             f'<d:dictionary xmlns="http://www.w3.org/1999/xhtml" xmlns:d="{APPLE_NS}">\n'
         )
 
-        # Process headwords in chunks to save memory
-        chunk_size = 1000
-        for i in range(0, total, chunk_size):
-            chunk_ids = [hid[0] for hid in headword_ids[i : i + chunk_size]]
-            chunk_headwords = (
-                db_session.query(DpdHeadword)
-                .filter(DpdHeadword.id.in_(chunk_ids))
-                .all()
+        for count, group in enumerate(groups):
+            lemma_clean = group[0].lemma_clean
+            entry_id = f"dpd_group_{lemma_clean}"
+
+            # Render HTML for this group and fix any unescaped ampersands
+            entry_html = fix_ampersands(
+                entry_template.render(headwords=group, lemma_clean=lemma_clean)
             )
 
-            # Sort the chunk (optional but nice for consistency)
-            chunk_headwords = sorted(
-                chunk_headwords, key=lambda x: pali_sort_key(x.lemma_1)
-            )
+            # Create XML entry string
+            entry_xml = create_dictionary_xml_entry(group, entry_html, entry_id)
 
-            for count, headword in enumerate(chunk_headwords):
-                entry_id = f"dpd_{headword.id}"
+            # Write to file
+            f.write(entry_xml + "\n")
 
-                # Render HTML for this entry and fix any unescaped ampersands
-                entry_html = fix_ampersands(entry_template.render(i=headword))
-
-                # Create XML entry string
-                entry_xml = create_dictionary_xml_entry(headword, entry_html, entry_id)
-
-                # Write to file immediately
-                f.write(entry_xml + "\n")
-
-                global_count = i + count
-                if global_count % 5000 == 0:
-                    pr.counter(global_count, total, headword.lemma_1)
+            if count % 5000 == 0:
+                pr.counter(count, total_groups, lemma_clean)
 
         # Close root element
         f.write("</d:dictionary>")
 
-    pr.counter(total, total, "complete")
-    pr.yes("ok")
+    pr.counter(total_groups, total_groups, "complete")
 
 
 def main() -> None:
@@ -224,11 +258,17 @@ def main() -> None:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
+    # Get version from database
+    db_info = (
+        db_session.query(DbInfo).filter(DbInfo.key == "dpd_release_version").first()
+    )
+    version = db_info.value if db_info else "1.0"
+
     # Get output directory
     output_dir = get_output_path()
 
     # Generate source files
-    generate_info_plist(output_dir)
+    generate_info_plist(output_dir, version)
     copy_css_file(output_dir)
     generate_dictionary_xml(output_dir, db_session)
 

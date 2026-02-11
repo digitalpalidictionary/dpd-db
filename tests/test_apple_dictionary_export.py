@@ -40,7 +40,7 @@ class TestGenerateInfoPlist:
 
         plist_path = temp_dir / "Info.plist"
         content = plist_path.read_text()
-        assert "org.digitalpalidictionary.dpd" in content
+        assert "net.dpdict.dpd" in content
         assert "CFBundleIdentifier" in content
 
     def test_contains_dictionary_display_name(self, temp_dir):
@@ -143,6 +143,7 @@ class TestGenerateDictionaryXml:
         """Get real database session."""
         from db.db_helpers import get_db_session
         from tools.paths import ProjectPaths
+
         pth = ProjectPaths()
         session = get_db_session(pth.dpd_db_path)
         yield session
@@ -150,14 +151,14 @@ class TestGenerateDictionaryXml:
 
     def test_creates_dictionary_xml_file(self, temp_dir, db_session):
         """Test that Dictionary.xml file is created."""
-        generate_dictionary_xml(temp_dir, db_session)
+        generate_dictionary_xml(temp_dir, db_session, limit=100)
 
         xml_path = temp_dir / "Dictionary.xml"
         assert xml_path.exists(), "Dictionary.xml should be created"
 
     def test_xml_has_correct_namespace(self, temp_dir, db_session):
         """Test that XML has correct Apple Dictionary namespace."""
-        generate_dictionary_xml(temp_dir, db_session)
+        generate_dictionary_xml(temp_dir, db_session, limit=100)
 
         xml_path = temp_dir / "Dictionary.xml"
         content = xml_path.read_text()
@@ -169,7 +170,7 @@ class TestGenerateDictionaryXml:
 
     def test_xml_has_dictionary_root_element(self, temp_dir, db_session):
         """Test that XML has d:dictionary as root element."""
-        generate_dictionary_xml(temp_dir, db_session)
+        generate_dictionary_xml(temp_dir, db_session, limit=100)
 
         xml_path = temp_dir / "Dictionary.xml"
         content = xml_path.read_text()
@@ -179,23 +180,23 @@ class TestGenerateDictionaryXml:
 
     def test_xml_contains_entry_elements(self, temp_dir, db_session):
         """Test that XML contains entry elements."""
-        generate_dictionary_xml(temp_dir, db_session)
+        generate_dictionary_xml(temp_dir, db_session, limit=100)
 
         xml_path = temp_dir / "Dictionary.xml"
         content = xml_path.read_text()
 
-        assert '<d:entry' in content
+        assert "<d:entry" in content
         assert 'id="dpd_' in content
 
     def test_xml_contains_index_elements(self, temp_dir, db_session):
         """Test that XML contains index elements for headwords."""
-        generate_dictionary_xml(temp_dir, db_session)
+        generate_dictionary_xml(temp_dir, db_session, limit=100)
 
         xml_path = temp_dir / "Dictionary.xml"
         content = xml_path.read_text()
 
-        assert '<d:index' in content
-        assert 'd:value=' in content
+        assert "<d:index" in content
+        assert "d:value=" in content
 
 
 class TestAppleDictionaryConstants:
