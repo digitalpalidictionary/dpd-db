@@ -1,88 +1,92 @@
 /* DPD Dictionary Stylesheet for Apple Dictionary Development Kit */
-/* Uses DPD brand identity colors */
+/* Mixes DPD brand identity colors with Mac system defaults */
 
 /* Root variables for DPD colors */
 :root {
-  /* Primary DPD color - cyan/blue */
-  --primary: hsl(198, 100%, 50%);
-  --primary-text: hsl(205, 79%, 48%);
-  
-  /* Background and text colors */
-  --light: hsl(198, 100%, 95%);
-  --dark: hsl(198, 100%, 5%);
-  
-  /* Grays */
-  --gray: hsl(0, 0%, 50%);
-  --gray-light: hsl(0, 0%, 75%);
-  --gray-dark: hsl(0, 0%, 25%);
+	/* Primary DPD color - cyan/blue */
+	--primary: hsl(198, 100%, 50%);
+	--primary-text: hsl(205, 79%, 48%);
+
+	/* Background and text colors */
+	--light: hsl(198, 100%, 95%);
+	--dark: hsl(198, 100%, 5%);
+
+	/* Grays */
+	--gray: hsl(0, 0%, 50%);
+	--gray-light: hsl(0, 0%, 75%);
+	--gray-dark: hsl(0, 0%, 25%);
+
+	/* Match Apple system default dictionaries (kind of) */
+	font-family: ui-serif;
+	font-size: 12pt;
+	color: CanvasText;
+	line-height: 140%;
+	margin: 1rem;
 }
 
-/* Entry title styling */
+/* Contextual popup */
+html.apple_client-panel body {
+	margin-top: 0;
+}
+
 h1 {
-  font-size: 150%;
-  font-weight: bold;
-  color: var(--primary-text);
-  margin-top: 0;
-  margin-bottom: 8px;
-  border-bottom: 2px solid var(--primary);
-  padding-bottom: 4px;
+	font-size: 150%;
+	margin-top: 0;
 }
 
-/* Part of speech styling */
+/* Part of speech */
 .pos {
-  font-style: italic;
-  color: var(--gray-dark);
-  margin-right: 4px;
+	font-size: 70%;
+	font-style: italic;
+	font-weight: normal;
+	color: var(--gray-dark);
+	margin-left: 8px;
 }
 
-/* Case info styling */
+/* Case info */
 .case-info {
-  color: var(--gray);
-  font-size: 90%;
-}
-
-/* Main definition content */
-.content {
-  border: 2px solid var(--primary);
-  border-radius: 7px;
-  line-height: 150%;
-  margin: 8px 0;
-  padding: 8px 12px;
-  background-color: var(--light);
-}
-
-/* Paragraph styling */
-p {
-  line-height: 150%;
-  margin: 6px 0;
-  text-align: left;
-}
-
-/* Meaning/definition text */
-.meaning {
-  color: var(--dark);
+	font-size: 70%;
+	font-weight: normal;
+	color: var(--gray-dark);
+	margin-left: 8px;
 }
 
 /* Construction summary */
 .construction {
-  color: var(--gray-dark);
-  font-size: 90%;
-  font-style: italic;
+	font-size: 70%;
+	font-weight: normal;
+	color: var(--gray-dark);
+	margin-left: 8px;
 }
 
 /* Degree of completion indicator */
 .completion {
-  font-size: 85%;
-  color: var(--gray);
-  margin-top: 4px;
+	font-size: 70%;
+	font-weight: normal;
+	color: var(--gray-dark);
+	margin-left: 8px;
+}
+
+/* Meaning/definition text */
+.meaning {
+	font-weight: normal;
+	margin-left: 1rem;
 }
 
 /* Links within dictionary entries */
 a {
-  color: var(--primary-text);
-  text-decoration: none;
+	font-weight: normal;
+	color: -webkit-link;
+	text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+html.apple_client-panel a,
+html.apple_client-panel a:hover {
+	color: CanvasText;
+	text-decoration: none;
 }
