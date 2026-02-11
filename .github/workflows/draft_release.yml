@@ -363,13 +363,13 @@ jobs:
       - name: Package Dictionary
         run: |
           cd build
-          zip -r Digital-Pali-Dictionary.dictionary.zip Digital-Pali-Dictionary.dictionary
+          zip -r dpd-apple.dictionary.zip Digital-Pali-Dictionary.dictionary
 
       - name: Upload macOS Dictionary
         uses: actions/upload-artifact@v4
         with:
           name: macos-dictionary
-          path: build/Digital-Pali-Dictionary.dictionary.zip
+          path: build/dpd-apple.dictionary.zip
           retention-days: 1
 
   # ----------------------------------------
@@ -409,6 +409,6 @@ jobs:
             ./linux-assets/dpd.db.tar.bz2
             ./linux-assets/dpd-kobo.zip
             ./linux-assets/dpd-txt.zip
-            ./macos-dictionary/Digital-Pali-Dictionary.dictionary.zip
+            ./macos-dictionary/dpd-apple.dictionary.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
