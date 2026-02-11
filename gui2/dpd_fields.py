@@ -251,7 +251,7 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig("var_phonetic"),
             FieldConfig("var_text"),
-            FieldConfig("commentary", field_type="commentary"),
+            FieldConfig("commentary", field_type="commentary", on_focus=self.commentary_focus),
             FieldConfig(
                 "notes",
                 field_type="notes",
@@ -684,13 +684,18 @@ class DpdFields(PopUpMixin):
             if hasattr(self.ui, "add_headword_to_examples_and_commentary"):
                 self.ui.add_headword_to_examples_and_commentary()
 
-        # Autofill meaning_lit for words ending in "sutta"
+        # Autofill meaning_lit for words ending in "sutta" or "vagga"
         if e.name == "blur" and value:
             lemma_clean = clean_lemma_1(value)
-            if lemma_clean.endswith("sutta"):
-                meaning_lit_field = self.get_field("meaning_lit")
-                if meaning_lit_field and not meaning_lit_field.value:
+            meaning_lit_field = self.get_field("meaning_lit")
+            if meaning_lit_field and not meaning_lit_field.value:
+                if lemma_clean.endswith("sutta"):
                     meaning_lit_field.value = "discourse on "
+                    meaning_lit_field.update()
+                    self.page.update()
+                elif lemma_clean.endswith("vagga"):
+                    meaning_lit_field.value = "chapter on "
+                    meaning_lit_field.update()
                     self.page.update()
 
         self.page.update()
@@ -698,13 +703,13 @@ class DpdFields(PopUpMixin):
             field.focus()
 
     def meaning_1_focus(self, e: ft.ControlEvent) -> None:
-        """Copy meaning_2 to meaning_1 for suttas if meaning_1 is empty and not loaded from DB."""
+        """Copy meaning_2 to meaning_1 for suttas/vaggas if meaning_1 is empty and not loaded from DB."""
         field, value = self.get_event_field_and_value(e)
         if not value or not str(value).strip():
             lemma_1_field = self.get_field("lemma_1")
             if lemma_1_field and lemma_1_field.value:
                 lemma_clean = clean_lemma_1(lemma_1_field.value)
-                if lemma_clean.endswith("sutta"):
+                if lemma_clean.endswith(("sutta", "vagga")):
                     meaning_2_field = self.get_field("meaning_2")
                     if meaning_2_field and meaning_2_field.value:
                         field.value = meaning_2_field.value
@@ -741,6 +746,7 @@ class DpdFields(PopUpMixin):
         lemma_2_field = self.get_field("lemma_2")
         lemma_2 = make_lemma_2(lemma_1, pos, grammar)
         lemma_2_field.value = lemma_2
+        lemma_2_field.update()
         self.page.update()
 
         # then update grammar field
@@ -751,6 +757,7 @@ class DpdFields(PopUpMixin):
                 grammar_field.value = f"{pos}, "
             else:
                 grammar_field.value = f"{pos}, "
+            grammar_field.update()
             grammar_field.focus()
             self.page.update()
 
@@ -769,6 +776,7 @@ class DpdFields(PopUpMixin):
                 # remove comma and everything following
                 derived_from = re.sub(",.+", "", derived_from)
                 derived_from_field.value = derived_from
+                derived_from_field.update()
                 self.flags.derived_from_done = True
                 self.page.update()
                 # derived_from_field.focus() # Focus might be better handled elsewhere or removed
@@ -778,6 +786,7 @@ class DpdFields(PopUpMixin):
         if value == "trans":
             plus_case_field = self.get_field("plus_case")
             plus_case_field.value = "+acc"
+            plus_case_field.update()
             plus_case_field.focus()
             self.page.update()
 
@@ -861,16 +870,16 @@ class DpdFields(PopUpMixin):
 
         if result:
             if result.status in ["auto_add", "auto_update"]:
-                # Auto-fill the phonetic field
                 field.value = result.suggestion
+                field.update()
                 print(
                     f"DEBUG: phonetic auto-filled with '{result.suggestion}' for '{current_headword.lemma_1}'"
                 )
             elif result.status == "manual_check":
-                # Update phonetic_add field with suggestion
                 phonetic_add_field = self.get_field("phonetic_add")
                 if phonetic_add_field:
                     phonetic_add_field.value = result.suggestion
+                    phonetic_add_field.update()
                     print(
                         f"DEBUG: phonetic suggestion '{result.suggestion}' added to phonetic_add for '{current_headword.lemma_1}'"
                     )
@@ -887,6 +896,7 @@ class DpdFields(PopUpMixin):
             new_value = self._clean_sanskrit_simple(old_value)
             if old_value != new_value:
                 sanskrit_field.value = new_value
+                sanskrit_field.update()
                 self.page.update()
 
         if not self.flags.sanskrit_done and not sanskrit_field.value:
@@ -959,6 +969,7 @@ class DpdFields(PopUpMixin):
         sanskrit = self._clean_sanskrit_simple(sanskrit)
 
         sanskrit_field.value = sanskrit
+        sanskrit_field.update()
         self.flags.sanskrit_done = True
         self.page.update()
 
@@ -969,7 +980,7 @@ class DpdFields(PopUpMixin):
             self._search_and_fill_sanskrit()
 
     def source_1_focus(self, e: ft.ControlEvent) -> None:
-        """Autofill source_1 with '-' for words ending in 'sutta'."""
+        """Autofill source_1 with '-' for words ending in 'sutta' or 'vagga'."""
         field, value = self.get_event_field_and_value(e)
         if value:
             return
@@ -977,8 +988,23 @@ class DpdFields(PopUpMixin):
         if not lemma_1_field or not lemma_1_field.value:
             return
         lemma_clean = clean_lemma_1(lemma_1_field.value)
-        if lemma_clean.endswith("sutta"):
+        if lemma_clean.endswith(("sutta", "vagga")):
             field.value = "-"
+            field.update()
+            self.page.update()
+
+    def commentary_focus(self, e: ft.ControlEvent) -> None:
+        """Autofill commentary with '-' for words ending in 'sutta' or 'vagga'."""
+        field, value = self.get_event_field_and_value(e)
+        if value:
+            return
+        lemma_1_field = self.get_field("lemma_1")
+        if not lemma_1_field or not lemma_1_field.value:
+            return
+        lemma_clean = clean_lemma_1(lemma_1_field.value)
+        if lemma_clean.endswith(("sutta", "vagga")):
+            field.value = "-"
+            field.update()
             self.page.update()
 
     def root_key_change(self, e: ft.ControlEvent) -> None:
@@ -1070,12 +1096,13 @@ class DpdFields(PopUpMixin):
             construction = self.get_field("construction").value
 
             if pos in DECLENSIONS and "comp" not in grammar and construction:
-                suffix = re.sub(r"\n.+", "", construction)  # Remove line 2
+                suffix = re.sub(r"\n.+", "", construction)
                 suffix = re.sub(
                     r".+ \+ ", "", suffix
-                )  # Remove everything up to the last ' + '
+                )
                 suffix_field.value = suffix
-                suffix_field.focus()  # Optional: shift focus to suffix field
+                suffix_field.update()
+                suffix_field.focus()
                 self.page.update()
 
     def suffix_on_change(self, e: ft.ControlEvent) -> None:
@@ -1127,6 +1154,7 @@ class DpdFields(PopUpMixin):
             lemma_clean = clean_lemma_1(lemma_1)
             if not lemma_clean.endswith(("sutta", "vagga")):
                 field.value = lemma_clean
+                field.update()
                 field.focus()
                 self.page.update()
             self.flags.family_compound_done = True
@@ -1210,15 +1238,15 @@ class DpdFields(PopUpMixin):
 
         if intersection:
             if triggering_field_name == "synonym":
-                # Remove from variant
                 for word in intersection:
                     var_set.discard(word)
                 var_field.value = ", ".join(pali_list_sorter(list(var_set)))
+                var_field.update()
             elif triggering_field_name == "variant":
-                # Remove from synonym
                 for word in intersection:
                     syn_set.discard(word)
                 syn_field.value = ", ".join(pali_list_sorter(list(syn_set)))
+                syn_field.update()
 
             self.page.update()
 
@@ -1239,6 +1267,7 @@ class DpdFields(PopUpMixin):
                 lemma_clean, grammar, neg, root_key, root_base, family_root
             )
             field.value = construction
+            field.update()
             self.page.update()
             field.focus()
             self.flags.construction_done = True
@@ -1275,6 +1304,7 @@ class DpdFields(PopUpMixin):
         field, value = self.get_event_field_and_value(e)
         if not value:
             field.value = "pass2"
+            field.update()
             self.page.update()
 
     def construction_change(self, e: ft.ControlEvent) -> None:
@@ -1419,8 +1449,10 @@ class DpdFields(PopUpMixin):
         lemma_1 = self.get_field("lemma_1").value
         stem, pattern = find_stem_pattern(pos, grammar, lemma_1)
         field.value = stem
+        field.update()
         pattern_field = self.get_field("pattern")
         pattern_field.value = pattern
+        pattern_field.update()
 
         self.page.update()
         if e.name == "submit":
