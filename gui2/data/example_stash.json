@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "MN141",
-        "sutta": "saccavibhaṅgasuttaṃ",
-        "example": "sevatha, bhikkhave, sāriputtamoggallāne, bhajatha, bhikkhave, sāriputtamoggallāne. paṇḍitā bhikkhū anuggāhakā sabrahmacārīnaṃ. seyyathā'pi, bhikkhave, janetā, evaṃ sāriputto, seyyathā'pi jātassa āpādetā, evaṃ moggallāno."
+        "source": "SN22.7",
+        "sutta": "khandhasaṃyuttaṃ, upādāparitassanāsuttaṃ",
+        "example": "tassa viññāṇavipariṇām'aññathābhāvā viññāṇavipariṇām'ānuparivatti viññāṇaṃ hoti. tassa viññāṇavipariṇāmānuparivattijā paritassanā dhammasamuppādā cittaṃ pariyādāya tiṭṭhanti. cetaso pariyādānā uttāsavā ca hoti vighātavā ca apekkhavā ca upādāya ca paritassati."
     },
     "stash": {
-        "source": "SN9.9",
-        "sutta": "vanasaṃyuttaṃ, vajjiputtasuttaṃ",
-        "example": "tena kho pana samayena vesāliyaṃ vajjiputtako sabbaratticāro hoti. atha kho so bhikkhu vesāliyā tūriya-tāḷita-vādita-nigghosasaddaṃ sutvā paridevamāno tāyaṃ velāyaṃ imaṃ gāthaṃ abhāsi"
+        "source": "SN22.3",
+        "sutta": "khandhasaṃyuttaṃ, hāliddikānisuttaṃ",
+        "example": "rūpanimitta-niketa-visāra-vinibandhā kho, gahapati, niketasārī'ti vuccati. saddanimitta … gandhanimitta… rasanimitta… phoṭṭhabbanimitta… dhammanimitta-niketa-visāra-vinibandhā kho, gahapati, niketasārī'ti vuccati. evaṃ kho, gahapati, niketasārī hoti."
     }
 }
