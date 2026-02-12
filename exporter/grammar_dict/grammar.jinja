@@ -1,0 +1,14 @@
+{{ data.header }}
+<body><div class='dpd'><table class='grammar_dict'><thead><tr><th id='col1'>pos ⇅</th><th id='col2'>⇅</th><th id='col3'>⇅</th><th id='col4'>⇅</th><th id='col5'></th><th id='col6'>word ⇅</th></tr></thead><tbody>
+{%- for row in data.rows -%}
+<tr><td><b>{{ row.pos }}</b></td>
+{%- for comp in row.components -%}
+{%- if comp == "" -%}
+<td class='col_empty'></td>
+{%- else -%}
+<td>{{ comp }}</td>
+{%- endif -%}
+{%- endfor -%}
+<td>of</td><td>{{ row.headword }}</td></tr>
+{%- endfor -%}
+</tbody></table></div></body></html>
