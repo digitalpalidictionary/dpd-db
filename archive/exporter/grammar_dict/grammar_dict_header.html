@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DPD Grammar</title>
+    <link href="dpd-css-and-fonts.css" rel="stylesheet">
+    <link href="sorter.js" class="load_grammar_js" rel="preload" as="script">
+    <style>
+    </style>
+    <script>
+        var els2load = document.getElementsByClassName("load_grammar_js");
+        if (typeof grammar_js_already_loaded === "undefined") {
+            var grammar_js_already_loaded = true;
+            var elsArray = Array.from(els2load);
+            elsArray.forEach(el => {
+                var s = document.createElement("script");
+                var elName = el.getAttribute("href");
+                s.src = elName;
+                document.head.appendChild(s);
+            });
+        };
+    </script>
+</head>
