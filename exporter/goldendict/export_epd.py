@@ -34,7 +34,7 @@ def generate_epd_html(
         # Use ViewModel
         data = EpdData(lookup_entry, pth, jinja_env)
         
-        html_rendered = template.render(data=data)
+        html_rendered = template.render(d=data)
 
         # Re-calculate parts for parity
         header = data.header

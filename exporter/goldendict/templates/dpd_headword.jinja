@@ -1,47 +1,1237 @@
-{{ data.header }}
+{{ d.header }}
 <body>
-{% include 'dpd_definition.jinja' %}
-{% include 'dpd_button_box.jinja' %}
+<div class="dpd">
+    <p>
+        {{ d.i.pos }}. 
+        {% if d.i.plus_case %}
+        ({{ d.i.plus_case }}) 
+        {% endif %}
+        {{ d.i.meaning_combo_html }} 
+        {% if d.i.construction_summary %}
+        [{{ d.i.construction_summary }}] 
+        {% endif %}
+        {{ d.i.degree_of_completion_html }} 
+        {% if d.show_id %}
+        <span class="gray">{{ d.i.id }}</span>
+        {% endif %}
+    </p>
+</div>
+<div class="button-box">
+    {% if d.i.needs_audio_button %}
+    <a class="dpd-button play" onclick="playAudio('{{ d.i.lemma_clean }}', this)" title="Play Audio"><svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0"><path d="M8 5v14l11-7z"></path></svg></a>
+    {% endif %}
+    {% if d.i.needs_sutta_info_button %}
+    <a class="dpd-button" href="#" data-target="sutta_info_{{ d.i.lemma_1_ }}">sutta</a>
+    {% endif %}
+    {% if d.i.needs_grammar_button %}
+    <a class="dpd-button" href="#" data-target="grammar_{{ d.i.lemma_1_ }}">grammar</a>
+    {% endif %}
+    {% if d.i.needs_example_button %}
+    <a class="dpd-button" href="#" data-target="example_{{ d.i.lemma_1_ }}">example</a>
+    {% endif %}
+    {% if d.i.needs_examples_button %}
+    <a class="dpd-button" href="#" data-target="examples_{{ d.i.lemma_1_ }}">examples</a>
+    {% endif %}
+    {% if d.i.needs_conjugation_button %}
+    <a class="dpd-button" href="#" data-target="conjugation_{{ d.i.lemma_1_ }}">conjugation</a>
+    {% endif %}
+    {% if d.i.needs_declension_button %}
+    <a class="dpd-button" href="#" data-target="declension_{{ d.i.lemma_1_ }}">declension</a>
+    {% endif %}
+    {% if d.i.needs_root_family_button %}
+    <a class="dpd-button" href="#" data-target="family_root_{{ d.i.lemma_1_ }}">root family</a>
+    {% endif %}
+    {% if d.i.needs_word_family_button %}
+    <a class="dpd-button" href="#" data-target="family_word_{{ d.i.lemma_1_ }}">word family</a>
+    {% endif %}
+    {% if d.i.needs_compound_family_button %}
+    <a class="dpd-button" href="#" data-target="family_compound_{{ d.i.lemma_1_ }}">compound family</a>
+    {% elif d.i.needs_compound_families_button %}
+    <a class="dpd-button" href="#" data-target="family_compound_{{ d.i.lemma_1_ }}">compound families</a>
+    {% endif %}
+    {% if d.i.needs_idioms_button %}
+    <a class="dpd-button" href="#" data-target="family_idiom_{{ d.i.lemma_1_ }}">idioms</a>
+    {% endif %}
+    {% if d.i.needs_set_button %}
+    <a class="dpd-button" href="#" data-target="family_set_{{ d.i.lemma_1_ }}">set</a>
+    {% elif d.i.needs_sets_button %}
+    <a class="dpd-button" href="#" data-target="family_set_{{ d.i.lemma_1_ }}">sets</a>
+    {% endif %}
+    {% if d.i.needs_frequency_button %}
+    <a class="dpd-button" href="#" data-target="frequency_{{ d.i.lemma_1_ }}">frequency</a>
+    {% endif %}
+    <a class="dpd-button" href="#" data-target="feedback_{{ d.i.lemma_1_ }}">feedback</a>
+</div>
 
-{% if data.i.needs_sutta_info_button %}
-    {% include 'dpd_sutta_info.jinja' %}
+{% if d.i.needs_sutta_info_button %}
+<div id="sutta_info_{{ d.i.lemma_1_ }}" name="sutta-info-div"
+    class="dpd content hidden">
+    <table class="sutta-info">
+
+        <!-- CST -->
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th class="heading top" colspan="2">
+                Chaṭṭha Saṅgāyana Tipiṭaka (CST)
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th>
+                CST Code
+            </th>
+            <td>
+                {{ d.su.cst_code }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_nikaya %}
+        <tr>
+            <th>
+                Nikāya
+            </th>
+            <td>
+                {{ d.su.cst_nikaya }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_book %}
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                {{ d.su.cst_book }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_section %}
+        <tr>
+            <th>
+                Section
+            </th>
+            <td>
+                {{ d.su.cst_section }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_vagga %}
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                {{ d.su.cst_vagga }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_sutta %}
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                {{ d.su.cst_sutta }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_paranum %}
+        <tr>
+            <th>
+                Paragraph
+            </th>
+            <td>
+                {{ d.su.cst_paranum }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_file %}
+        <tr>
+            <th>
+                File
+            </th>
+            <td>
+                {{ d.su.cst_file }}
+            </td>
+
+        </tr>
+        <tr>
+            <th>
+                GitHub
+            </th>
+            <td>
+                <a href="https://github.com/VipassanaTech/tipitaka-xml/tree/main/{{ d.su.cst_file }}" target="_blank">{{
+                    d.su.cst_file }}</a>
+
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Apps & Websites using CST
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dpr_link %}
+        <tr>
+            <th>
+                Digital Pali Reader
+            </th>
+            <td>
+                <a href="{{ d.su.dpr_link }}" target="_blank">{{ d.su.dpr_link }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.has_tpr %}
+        <tr>
+            <th>
+                Tipiṭaka Pāḷi Reader
+            </th>
+            <td>
+                <a href="https://tpr.pali.tools/open/?sutta={{ d.su.dpd_code.lower() }}" target="_blank">https://tpr.pali.tools/open/?sutta={{ d.su.dpd_code.lower() }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_code %}
+        <tr>
+            <th>
+                TipitakaPali.org
+            </th>
+            <td>
+                <a href="{{ d.su.tpp_org }}" target="_blank">{{ d.su.tpp_org }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- page numbers -->
+
+        {% if d.su.cst_m_page %}
+        <tr>
+            <th class="heading" colspan="2">
+                CST Page Numbers in Printed Editions
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_m_page %}
+        <tr>
+            <th>
+                Myanmar
+            </th>
+            <td>
+                {{ d.su.cst_m_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_t_page %}
+        <tr>
+            <th>
+                Thai
+            </th>
+            <td>
+                {{ d.su.cst_t_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_v_page %}
+        <tr>
+            <th>
+                VRI
+            </th>
+            <td>
+                {{ d.su.cst_v_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.cst_p_page %}
+        <tr>
+            <th>
+                PTS
+            </th>
+            <td>
+                {{ d.su.cst_p_page }}
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- sutta central -->
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Sutta Central
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th>
+                SC Code
+            </th>
+            <td>
+                {{ d.su.sc_code }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_book %}
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                {{ d.su.sc_book }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_vagga %}
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                {{ d.su.sc_vagga }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_sutta %}
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                {{ d.su.sc_sutta }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_eng_sutta %}
+        <tr>
+            <th>
+                Title
+            </th>
+            <td>
+                <i>{{ d.su.sc_eng_sutta }}</i>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_blurb %}
+        <tr>
+            <th>
+                Blurb
+            </th>
+            <td>
+                <i>{{ d.su.sc_blurb }}</i>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_card_link %}
+        <tr>
+            <th>
+                Links
+            </th>
+            <td>
+                {% if d.su.sc_code %}
+                <a href="{{ d.su.sc_card_link }}" target="_blank">Sutta
+                    Card</a>,
+                <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
+                <a href="{{ d.su.sc_eng_link }}" target="_blank">English
+                    Translation</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_file_path %}
+        <tr>
+            <th>
+                File
+            </th>
+            <td>
+                {{ d.su.sc_file_path }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                GitHub
+            </th>
+            <td>
+                <a href="{{ d.su.sc_github }}" target="_blank">{{
+                    d.su.sc_file_path }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- websites -->
+
+        {% if d.su.sc_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Websites using Sutta Central
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.tbw %}
+        <tr>
+            <th>
+                The Buddha's Words
+            </th>
+            <td>
+                <a href="{{ d.su.tbw }}" target="_blank">{{ d.su.tbw }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.tbw_legacy %}
+        <tr>
+            <th>
+                TBW Legacy
+            </th>
+            <td>
+                <a href="{{ d.su.tbw_legacy }}" target="_blank">{{
+                    d.su.tbw_legacy }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dhamma_gift %}
+        <tr>
+            <th>
+                Dhamma.gift
+            </th>
+            <td>
+                <a href="{{ d.su.dhamma_gift }}" target="_blank">{{
+                    d.su.dhamma_gift }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_express_link %}
+        <tr>
+            <th>
+                SC Express
+            </th>
+            <td>
+                <a href="{{ d.su.sc_express_link }}" target="_blank">{{
+                    d.su.sc_express_link }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.sc_voice_link %}
+        <tr>
+            <th>
+                SC Voice
+            </th>
+            <td>
+                <a href="{{ d.su.sc_voice_link }}" target="_blank">{{
+                    d.su.sc_voice_link }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_sutta_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Buddha Jayanti Tipiṭaka (BJT)
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_sutta_code %}
+        <tr>
+            <th>
+                Sutta Code
+            </th>
+            <td>
+                {{ d.su.bjt_sutta_code }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_piṭaka %}
+        <tr>
+            <th>
+                Piṭaka
+            </th>
+            <td>
+                {{ d.su.bjt_piṭaka }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_nikāya %}
+        <tr>
+            <th>
+                Nikāya
+            </th>
+            <td>
+                {{ d.su.bjt_nikāya }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_major_section %}
+        <tr>
+            <th>
+                Major Section
+            </th>
+            <td>
+                {{ d.su.bjt_major_section }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_book %}
+        <tr>
+            <th>
+                Book
+            </th>
+            <td>
+                {{ d.su.bjt_book }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_minor_section %}
+        <tr>
+            <th>
+                Minor Section
+            </th>
+            <td>
+                {{ d.su.bjt_minor_section }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_vagga %}
+        <tr>
+            <th>
+                Vagga
+            </th>
+            <td>
+                {{ d.su.bjt_vagga }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_sutta %}
+        <tr>
+            <th>
+                Sutta
+            </th>
+            <td>
+                {{ d.su.bjt_sutta }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_book_id %}
+        <tr>
+            <th>
+                Book ID
+            </th>
+            <td>
+                {{ d.su.bjt_book_id }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_page_num %}
+        <tr>
+            <th>
+                Page Number
+            </th>
+            <td>
+                {{ d.su.bjt_page_num }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_filename %}
+        <tr>
+            <th>
+                Filename
+            </th>
+            <td>
+                {{ d.su.bjt_filename }}.json
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_github_link %}
+        <tr>
+            <th>
+                Github
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_github_link }}" target="_blank">
+                    {{ d.su.bjt_filename }}.json
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_web_code %}
+        <tr>
+            <th class="heading" colspan="2">
+                Websites using BJT
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_tipitaka_lk_link %}
+        <tr>
+            <th>
+                tipiṭaka.lk (Sinhala)
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_tipitaka_lk_link }}" target="_blank">
+                    {{ d.su.bjt_tipitaka_lk_link }}
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_open_tipitaka_lk_link %}
+        <tr>
+            <th>
+                open.tipiṭaka.lk (Roman)
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_open_tipitaka_lk_link }}" target="_blank">
+                    {{ d.su.bjt_open_tipitaka_lk_link }}
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.bjt_open_tipitaka_lk_link %}
+        <tr>
+            <th>
+                open.tipiṭaka.lk (Devanagari)
+            </th>
+            <td>
+                <a href="{{ d.su.bjt_open_tipitaka_lk_link.replace('latn', 'deva') }}" target="_blank">
+                    {{ d.su.bjt_open_tipitaka_lk_link.replace('latn', 'deva') }}
+                </a>
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- DV catalogue -->
+
+        {% if d.su.dv_exists %}
+        <tr>
+            <th class="heading" colspan="2">
+                Dhamma Vinaya Tools: Sutta Catalogue
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_pts %}
+        <tr>
+            <th>
+                PTS
+            </th>
+            <td>
+                {{ d.su.dv_pts }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_main_theme %}
+        <tr>
+            <th>
+                General Theme
+            </th>
+            <td>
+                {{ d.su.dv_main_theme }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_subtopic %}
+        <tr>
+            <th>
+                Particular Topic
+            </th>
+            <td>
+                {{ d.su.dv_subtopic }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_summary %}
+        <tr>
+            <th>
+                Summary
+            </th>
+            <td>
+                {{ d.su.dv_summary }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_key_excerpt1 %}
+        <tr>
+            <th>
+                Key Excerpts 1
+            </th>
+            <td>
+                {{ d.su.dv_key_excerpt1 }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_key_excerpt2 %}
+        <tr>
+            <th>
+                Key Excerpts 2
+            </th>
+            <td>
+                {{ d.su.dv_key_excerpt2 }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_similes %}
+        <tr>
+            <th>
+                Similes
+            </th>
+            <td>
+                {{ d.su.dv_similes }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_stage %}
+        <tr>
+            <th>
+                Stage of Training
+            </th>
+            <td>
+                {{ d.su.dv_stage }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_training %}
+        <tr>
+            <th>
+                Training In
+            </th>
+            <td>
+                {{ d.su.dv_training }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_aspect %}
+        <tr>
+            <th>
+                Type of Teaching
+            </th>
+            <td>
+                {{ d.su.dv_aspect }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_teacher %}
+        <tr>
+            <th>
+                Teacher
+            </th>
+            <td>
+                {{ d.su.dv_teacher }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_audience %}
+        <tr>
+            <th>
+                Audience
+            </th>
+            <td>
+                {{ d.su.dv_audience }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_method %}
+        <tr>
+            <th>
+                Method of Teaching
+            </th>
+            <td>
+                {{ d.su.dv_method }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_length %}
+        <tr>
+            <th>
+                Sutta Length
+            </th>
+            <td>
+                {{ d.su.dv_length }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_prominence %}
+        <tr>
+            <th>
+                Prominence
+            </th>
+            <td>
+                {{ d.su.dv_prominence }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_suggested_suttas %}
+        <tr>
+            <th>
+                Suggested Reading
+            </th>
+            <td>
+                {{ d.su.dv_suggested_suttas }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_exists %}
+        <tr>
+            <th>
+                GitHub
+            </th>
+            <td>
+                <a
+                    href="https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue">https://github.com/dhammavinaya-tools/dhamma-vinaya-catalogue</a>
+            </td>
+        </tr>
+        {% endif %}
+
+        <!-- DV parallel texts -->
+
+        {% if d.su.dv_parallels_exists %}
+        <tr>
+            <th class="heading" colspan="2">
+                Parallels
+            </th>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_nikayas_parallels %}
+        <tr>
+            <th>
+                Nikāyas
+            </th>
+            <td>
+                {{ d.su.dv_nikayas_parallels }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_āgamas_parallels %}
+        <tr>
+            <th>
+                Āgamas
+            </th>
+            <td>
+                {{ d.su.dv_āgamas_parallels }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_taisho_parallels %}
+        <tr>
+            <th>
+                Taisho
+            </th>
+            <td>
+                {{ d.su.dv_taisho_parallels }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_sanskrit_parallels %}
+        <tr>
+            <th>
+                Sanskrit
+            </th>
+            <td>
+                {{ d.su.dv_sanskrit_parallels }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_vinaya_parallels %}
+        <tr>
+            <th>
+                Vinaya
+            </th>
+            <td>
+                {{ d.su.dv_vinaya_parallels }}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.su.dv_others_parallels %}
+        <tr>
+            <th>
+                Others
+            </th>
+            <td>
+                {{ d.su.dv_others_parallels }}
+            </td>
+        </tr>
+        {% endif %}
+
+    </table>
+
+    <p class="dpd-footer">
+        Did you spot a mistake?
+        <a class="dpd-link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.326955045=Sutta&entry.1433863141=GoldenDict+{{ d.today }}"
+            target="_blank">
+            Correct it here
+        </a>.
+    </p>
+</div>
 {% endif %}
 
-{% if data.i.needs_grammar_button %}
-    {% include 'dpd_grammar.jinja' %}
+{% if d.i.needs_grammar_button %}
+<div id="grammar_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    <table class="grammar">
+        <tr>
+            <th>Lemma</th>
+            <td>{{ d.i.lemma_clean }}</td>
+        </tr>
+
+        {% if d.i.lemma_trad_clean != d.i.lemma_clean %}
+        <tr>
+            <th>Traditional Lemma</th>
+            <td>{{ d.i.lemma_trad_clean }}</td>
+        </tr>
+        {% endif %}
+
+        <tr>
+            <th>IPA</th>
+            <td>
+                /{{ d.i.lemma_ipa }}/
+                {% if d.i.audio_male1 %}
+                <a class="dpd-button play small" onclick="playAudio('{{ d.i.lemma_clean }}', this, 'male1')" data-title="male1">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if d.i.audio_male2 %}
+                <a class="dpd-button play small" onclick="playAudio('{{ d.i.lemma_clean }}', this, 'male2')" data-title="male2">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if d.i.audio_female1 %}
+                <a class="dpd-button play small" onclick="playAudio('{{ d.i.lemma_clean }}', this, 'female1')" data-title="female1">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Grammar</th>
+            <td>{{ d.grammar }}</td>
+        </tr>
+
+        {% if d.i.family_root %}
+        <tr>
+            <th>Root Family</th>
+            <td>{{ d.i.family_root }}</td>
+        </tr>
+        {% endif %}
+        {% if d.i.root_key %}
+        <tr>
+            <th>Root</th>
+            <td>
+                {{ d.i.root_clean }}<sup>{{ d.rt.root_has_verb }}</sup>{{ d.rt.root_group }}
+                {{ d.i.root_sign }} ({{ d.rt.root_meaning }})
+            </td>
+        </tr>
+        {% if d.rt.root_in_comps %}
+        <tr>
+            <th>√ In Sandhi</th>
+            <td>{{ d.rt.root_in_comps }}</td>
+        </tr>
+        {% endif %}
+        {% endif %}
+
+        {% if d.i.root_base %}
+        <tr>
+            <th>Base</th>
+            <td>{{ d.i.root_base }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.construction %}
+        <tr>
+            <th>Construction</th>
+            <td>{{ d.i.construction }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.derivative %}
+        <tr>
+            <th>Derivative</th>
+            <td>{{ d.i.derivative }} ({{ d.i.suffix }})</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.phonetic %}
+        <tr>
+            <th>Phonetic Change</th>
+            <td>{{ d.i.phonetic }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.compound_type and "?" not in d.i.compound_type %}
+        <tr>
+            <th>Compound</th>
+            <td>{{ d.i.compound_type }} ({{ d.i.compound_construction }})</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.antonym %}
+        <tr>
+            <th>Antonym</th>
+            <td>{{ d.i.antonym }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.synonym %}
+        <tr>
+            <th>Synonym</th>
+            <td>{{ d.i.synonym }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.variant %}
+        <tr>
+            <th>Variant</th>
+            <td>{{ d.i.variant }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.commentary and d.i.commentary != "-" %}
+        <tr>
+            <th>Commentary</th>
+            <td>{{ d.i.commentary }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.notes %}
+        <tr>
+            <th>Notes</th>
+            <td>{{ d.i.notes }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.cognate %}
+        <tr>
+            <th>English Cognate</th>
+            <td>{{ d.i.cognate }}</td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.link %}
+        <tr>
+            <th>Web Link</th>
+            <td>
+                {% for website in d.i.link_list %}
+                <p style="margin: 0; padding: 0">
+                    <a href="{{ website }}" target="_blank"> {{ website }} </a>
+                </p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.non_ia %}
+        <tr>
+            <th>Non IA</th>
+            <td><i>{{ d.i.non_ia }}</i></td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.sanskrit %}
+        <tr>
+            <th>Sanskrit</th>
+            <td><i>{{ d.i.sanskrit }}</i></td>
+        </tr>
+        {% endif %}
+
+        {% if d.i.root_key %}
+        {% if d.rt.sanskrit_root and d.rt.sanskrit_root != "-" %}
+        <tr>
+            <th>Sanskrit Root</th>
+            <td>
+                <i>
+                    {{ d.rt.sanskrit_root }} {{ d.rt.sanskrit_root_class }}
+                    ({{ d.rt.sanskrit_root_meaning }})
+                </i>
+            </td>
+        </tr>
+        {% endif %}
+        {% endif %}
+
+    </table>
+    <p class="dpd-footer">
+        Did you spot a mistake?
+        <a
+            class="dpd-link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.326955045=Grammar&entry.1433863141=GoldenDict+{{ d.today }}"
+            target="_blank">Correct it here</a>. <br />Is some word missing from
+        the dictionary?
+        <a
+            class="dpd-link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=GoldenDict+{{ d.today }}"
+            target="_blank">Add it here</a>.
+    </p>
+</div>
 {% endif %}
 
-{% if data.i.needs_example_button or data.i.needs_examples_button %}
-    {% include 'dpd_example.jinja' %}
+{% if d.i.needs_example_button or d.i.needs_examples_button %}
+{% if d.i.example_1 and d.i.example_2 %}
+<div id="examples_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    {% elif d.i.example_1 and not d.i.example_2 %}
+    <div id="example_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+        {% endif %}
+
+        {% if d.i.example_1 %}
+        <p>{{ d.i.example_1 }}</p>
+        <p class="sutta">
+            {{ d.i.source_1 }} {{ d.i.sutta_1 }}</p>
+        {% endif %}
+
+        {% if d.i.example_2 %}
+        <p>
+            {{ d.i.example_2 }}
+        </p>
+        <p class="sutta">
+            {{ d.i.source_2 }} {{ d.i.sutta_2 }}
+        </p>
+        {% endif %}
+        <p class='dpd-footer'>
+            Can you think of a better example? <a class="dpd-link"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.326955045=Examples&entry.1433863141=GoldenDict+{{ d.today }}"
+                target="_blank">Add it here.</a>
+        </p>
+    </div>
 {% endif %}
 
-{% if data.i.needs_conjugation_button or data.i.needs_declension_button %}
-    {% include 'dpd_inflection.jinja' %}
+{% if d.i.needs_conjugation_button or d.i.needs_declension_button %}
+{% if d.i.pos in d.declensions %}
+<div id="declension_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    {% elif d.i.pos in d.conjugations %}
+    <div id="conjugation_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+        {% endif %}
+        {{ d.i.inflections_html }}
+        {% if "gray" in d.i.inflections_html %}
+        <p>
+            Inflections not found in any Pāḷi corpus, or within
+            processed sandhi compounds are <span class='gray'>grayed out</span>.
+            They might still occur within compounds.
+        </p>
+        <p class='dpd-footer'>
+            {% else %}
+            <p>
+                {% endif %}
+                {% if d.i.pos in d.declensions %}
+                Did you spot a mistake in the declension table? Something
+                missing? <a class="dpd-link"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfKUBx-icfRCWmhHqUwzX60BVQE21s_NERNfU2VvbjEfE371A/viewform?usp=pp_url&entry.1370304754={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.1433863141=GoldenDict+{{ d.today }}"
+                    target="_blank">Report it here.</a>
+                {% elif d.i.pos in d.conjugations %}
+                Did you spot a mistake in the conjugation table? Something
+                missing? <a class="dpd-link"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdAL2PzavyrtXgGmtNrZAMyh3hV6g3fU0chxhWFxunQEZtH0g/viewform?usp=pp_url&entry.1932605469={{ d.i.id }}%20{{ d.i.lemma_link }}&entry.1433863141=GoldenDict+{{ d.today }}"
+                    target="_blank">Report it here.</a>
+                {% endif %}
+            </p>
+        </div>
 {% endif %}
 
-{% if data.i.needs_root_family_button %}
-    {% include 'dpd_family_root.jinja' %}
+{% if d.i.needs_root_family_button %}
+<div id="family_root_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    root family loading...
+</div>
 {% endif %}
 
-{% if data.i.needs_word_family_button %}
-    {% include 'dpd_family_word.jinja' %}
+{% if d.i.needs_word_family_button %}
+<div id="family_word_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    family word loading...
+</div>
 {% endif %}
 
-{% if data.i.needs_compound_family_button or data.i.needs_compound_families_button %}
-    {% include 'dpd_family_compound.jinja' %}
+{% if d.i.needs_compound_family_button or d.i.needs_compound_families_button %}
+<div id="family_compound_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    compound families loading...
+</div>
 {% endif %}
 
-{% if data.i.needs_idioms_button %}
-    {% include 'dpd_family_idiom.jinja' %}
+{% if d.i.needs_idioms_button %}
+<div id="family_idiom_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    idioms loading...
+</div>
 {% endif %}
 
-{% if data.i.needs_set_button or data.i.needs_sets_button %}
-    {% include 'dpd_family_set.jinja' %}
+{% if d.i.needs_set_button or d.i.needs_sets_button %}
+<div id="family_set_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    sets loading...
+</div>
 {% endif %}
 
-{% if data.i.needs_frequency_button %}
-    {% include 'dpd_frequency.jinja' %}
+{% if d.i.needs_frequency_button %}
+<div id="frequency_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    frequency loading...
+</div>
 {% endif %}
 
-{% include 'dpd_feedback.jinja' %}
+<div id="feedback_{{ d.i.lemma_1_ }}" class="dpd content hidden">
+    feedback loading...
+</div>
 </body></html>

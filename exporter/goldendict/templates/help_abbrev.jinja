@@ -1,31 +1,31 @@
-{{ data.header }}
+{{ d.header }}
 <body>
 <div class="tertiary">
     <table class="help">
         <tr>
             <th>Abbreviation</th>
-            <td><b>{{ data.i.abbrev }}</b></td>
+            <td><b>{{ d.i.abbrev }}</b></td>
         </tr>
         <tr>
             <th>Meaning</th>
-            <td>{{ data.i.meaning }}</td>
+            <td>{{ d.i.meaning }}</td>
         </tr>
-        {% if data.i.pali %}
+        {% if d.i.pali %}
         <tr>
             <th>Pāḷi</th>
-            <td>{{ data.i.pali }}</td>
+            <td>{{ d.i.pali }}</td>
         </tr>
         {% endif %}
-        {% if data.i.example %}
+        {% if d.i.example %}
         <tr>
             <th>Example</th>
-            <td>{{ data.i.example }}</td>
+            <td>{{ d.i.example }}</td>
         </tr>
         {% endif %}
-        {% if data.i.information %}
+        {% if d.i.information %}
         <tr>
             <th>Information</th>
-            <td>{{ data.i.information }}</td>
+            <td>{{ d.i.information }}</td>
         </tr>
         {% endif %}
     </table>

@@ -1,4 +1,4 @@
-from typing import List, Set, Dict
+from typing import Set
 from db.models import DpdHeadword, DpdRoot, FamilyCompound, FamilyIdiom, FamilyRoot, FamilySet, FamilyWord, SuttaInfo, Lookup
 from tools.paths import ProjectPaths
 from tools.meaning_construction import make_grammar_line
@@ -16,9 +16,9 @@ class HeadwordData:
         rt: DpdRoot,
         fr: FamilyRoot,
         fw: FamilyWord,
-        fc: List[FamilyCompound],
-        fi: List[FamilyIdiom],
-        fs: List[FamilySet],
+        fc: list[FamilyCompound],
+        fi: list[FamilyIdiom],
+        fs: list[FamilySet],
         su: SuttaInfo,
         pth: ProjectPaths,
         jinja_env,
@@ -45,8 +45,8 @@ class HeadwordData:
         self.meaning_combo_html = i.meaning_combo_html
         self.declensions = DECLENSIONS
         self.conjugations = CONJUGATIONS
+        self.app_name = "GoldenDict"
         self.header = self._generate_header()
-        self.buttons = self._calculate_buttons()
         
     @staticmethod
     def _convert_newlines(obj):
@@ -65,50 +65,15 @@ class HeadwordData:
 
     def _generate_header(self) -> str:
         template = self.jinja_env.get_template("dpd_header.jinja")
-        html_header = template.render(data=self)
+        html_header = template.render(d=self)
         css_manager = CSSManager()
         return css_manager.update_style(html_header, "dpd")
 
-    def _calculate_buttons(self) -> dict:
-        button_html = '<a class="dpd-button" href="#" data-target="{target}">{name}</a>'
-        res = {}
-        res["play_button"] = ""
-        if self.i.needs_audio_button:
-            res["play_button"] = (
-                f'<a class="dpd-button play" onclick="playAudio(\'{self.i.lemma_clean}\', this)" title="Play Audio">'
-                '<svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0">'
-                '<path d="M8 5v14l11-7z"></path>'
-                "</svg>"
-                "</a>"
-            )
-        res["sutta_info_button"] = button_html.format(target=f"sutta_info_{self.i.lemma_1_}", name="sutta") if self.i.needs_sutta_info_button else ""
-        res["grammar_button"] = button_html.format(target=f"grammar_{self.i.lemma_1_}", name="grammar") if self.i.needs_grammar_button else ""
-        res["example_button"] = button_html.format(target=f"example_{self.i.lemma_1_}", name="example") if self.i.needs_example_button else ""
-        res["examples_button"] = button_html.format(target=f"examples_{self.i.lemma_1_}", name="examples") if self.i.needs_examples_button else ""
-        res["conjugation_button"] = button_html.format(target=f"conjugation_{self.i.lemma_1_}", name="conjugation") if self.i.needs_conjugation_button else ""
-        res["declension_button"] = button_html.format(target=f"declension_{self.i.lemma_1_}", name="declension") if self.i.needs_declension_button else ""
-        res["root_family_button"] = button_html.format(target=f"family_root_{self.i.lemma_1_}", name="root family") if self.i.needs_root_family_button else ""
-        res["word_family_button"] = button_html.format(target=f"family_word_{self.i.lemma_1_}", name="word family") if self.i.needs_word_family_button else ""
-        if self.i.needs_compound_family_button:
-            res["compound_family_button"] = button_html.format(target=f"family_compound_{self.i.lemma_1_}", name="compound family")
-        elif self.i.needs_compound_families_button:
-            res["compound_family_button"] = button_html.format(target=f"family_compound_{self.i.lemma_1_}", name="compound families")
-        else:
-            res["compound_family_button"] = ""
-        res["idioms_button"] = button_html.format(target=f"family_idiom_{self.i.lemma_1_}", name="idioms") if self.i.needs_idioms_button else ""
-        if self.i.needs_set_button:
-            res["set_family_button"] = button_html.format(target=f"family_set_{self.i.lemma_1_}", name="set")
-        elif self.i.needs_sets_button:
-            res["set_family_button"] = button_html.format(target=f"family_set_{self.i.lemma_1_}", name="sets")
-        else:
-            res["set_family_button"] = ""
-        res["frequency_button"] = button_html.format(target=f"frequency_{self.i.lemma_1_}", name="frequency") if self.i.needs_frequency_button else ""
-        res["feedback_button"] = button_html.format(target=f"feedback_{self.i.lemma_1_}", name="feedback")
-        return res
+
 
 
 class RootsData:
-    def __init__(self, r: DpdRoot, roots_count_dict: Dict[str, int], pth: ProjectPaths, jinja_env, frs: List[FamilyRoot]):
+    def __init__(self, r: DpdRoot, roots_count_dict: dict[str, int], pth: ProjectPaths, jinja_env, frs: list[FamilyRoot]):
         self.r = self._convert_newlines(r)
         self.pth = pth
         self.jinja_env = jinja_env
@@ -135,7 +100,7 @@ class RootsData:
 
     def _generate_header(self) -> str:
         template = self.jinja_env.get_template("root_header.jinja")
-        html_header = template.render(data=self)
+        html_header = template.render(d=self)
         css_manager = CSSManager()
         return css_manager.update_style(html_header, "root")
 

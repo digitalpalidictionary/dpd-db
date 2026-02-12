@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <meta data_key="data_{{ data.i.lemma_1_ }}">
+        <meta data_key="data_{{ d.i.lemma_1_ }}">
 
         <title>Digital Pāḷi Dictionary</title>
 
@@ -39,15 +39,15 @@
         <link href="main.js" class="load_js" rel="preload" as="script">
 
         <script>
-        var data_{{ data.i.lemma_1_ }} = {
-            "id": {{ data.i.id }},
-            "lemma": "{{ data.i.lemma_1 }}",
-            "date": "{{ data.date }}",
-            "family_root": "{{ data.i.root_family_key }}",
+        var data_{{ d.i.lemma_1_ }} = {
+            "id": {{ d.i.id }},
+            "lemma": "{{ d.i.lemma_1 }}",
+            "date": "{{ d.date }}",
+            "family_root": "{{ d.i.root_family_key }}",
             
-            {% if data.i.needs_compound_family_button or data.i.needs_compound_families_button %}
+            {% if d.i.needs_compound_family_button or d.i.needs_compound_families_button %}
             "family_compounds": [
-                {%- for item in data.i.family_compound_list -%}
+                {%- for item in d.i.family_compound_list -%}
                 '{{ item }}'{{ ", " if not loop.last }}
                 {%- endfor -%}
             ],
@@ -55,9 +55,9 @@
             "family_compounds": [],
             {% endif %}
 
-            {% if data.i.needs_idioms_button %}
+            {% if d.i.needs_idioms_button %}
             "family_idioms": [
-                {%- for item in data.i.family_idioms_list -%}
+                {%- for item in d.i.family_idioms_list -%}
                 '{{ item }}'{{ ", " if not loop.last }}
                 {%- endfor -%}
             ],
@@ -65,13 +65,13 @@
             "family_idioms": [],
             {% endif %}
 
-            {% if data.i.needs_word_family_button %}
-            "family_word": "{{ data.i.family_word }}",
+            {% if d.i.needs_word_family_button %}
+            "family_word": "{{ d.i.family_word }}",
             {% endif %}
 
-            {% if data.i.needs_set_button or data.i.needs_sets_button %}
+            {% if d.i.needs_set_button or d.i.needs_sets_button %}
             "family_sets": [
-                {%- for item in data.i.family_set_list -%}
+                {%- for item in d.i.family_set_list -%}
                 '{{ item }}'{{ ", " if not loop.last }}
                 {%- endfor -%}
             ],
@@ -79,16 +79,16 @@
             "family_sets": [],
             {% endif %}
 
-            {% if data.i.needs_frequency_button %}
-            "FreqHeading": "{{ data.i.freq_data_unpack["FreqHeading"] }}",
-            "CstFreq": {{ data.i.freq_data_unpack["CstFreq"]|tojson }},
-            "CstGrad": {{ data.i.freq_data_unpack["CstGrad"]|tojson }},
-            "BjtFreq": {{ data.i.freq_data_unpack["BjtFreq"]|tojson }},
-            "BjtGrad": {{ data.i.freq_data_unpack["BjtGrad"]|tojson }},
-            "SyaFreq": {{ data.i.freq_data_unpack["SyaFreq"]|tojson }},
-            "SyaGrad": {{ data.i.freq_data_unpack["SyaGrad"]|tojson }},
-            "ScFreq": {{ data.i.freq_data_unpack["ScFreq"]|tojson }},
-            "ScGrad": {{ data.i.freq_data_unpack["ScGrad"]|tojson }}
+            {% if d.i.needs_frequency_button %}
+            "FreqHeading": "{{ d.i.freq_data_unpack["FreqHeading"] }}",
+            "CstFreq": {{ d.i.freq_data_unpack["CstFreq"]|tojson }},
+            "CstGrad": {{ d.i.freq_data_unpack["CstGrad"]|tojson }},
+            "BjtFreq": {{ d.i.freq_data_unpack["BjtFreq"]|tojson }},
+            "BjtGrad": {{ d.i.freq_data_unpack["BjtGrad"]|tojson }},
+            "SyaFreq": {{ d.i.freq_data_unpack["SyaFreq"]|tojson }},
+            "SyaGrad": {{ d.i.freq_data_unpack["SyaGrad"]|tojson }},
+            "ScFreq": {{ d.i.freq_data_unpack["ScFreq"]|tojson }},
+            "ScGrad": {{ d.i.freq_data_unpack["ScGrad"]|tojson }}
             {% endif %}
         };
     </script>

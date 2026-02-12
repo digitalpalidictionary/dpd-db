@@ -107,7 +107,7 @@ def render_pali_word_dpd_html(
     )
     
     template = jinja_env.get_template("dpd_headword.jinja")
-    html = template.render(data=data)
+    html = template.render(d=data)
 
     # Re-calculate parts for parity
     header = data.header

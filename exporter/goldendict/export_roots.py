@@ -28,7 +28,7 @@ def generate_root_html(
     root_data_list: List[DictEntry] = []
 
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
-    template = jinja_env.get_template("root_definition.jinja")
+    template = jinja_env.get_template("dpd_root.jinja")
 
     roots_db = db_session.query(DpdRoot).all()
 
@@ -38,7 +38,7 @@ def generate_root_html(
         # Use ViewModel
         data = RootsData(r, roots_count_dict, pth, jinja_env, frs)
         
-        html = template.render(data=data)
+        html = template.render(d=data)
 
         # Re-calculate parts for parity
         header = data.header

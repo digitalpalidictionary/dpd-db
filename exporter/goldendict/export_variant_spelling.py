@@ -94,7 +94,7 @@ def generate_variant_data_list(
         # Use ViewModel
         data = VariantData(variant, main, jinja_env)
         
-        html_rendered = template.render(data=data)
+        html_rendered = template.render(d=data)
 
         # Re-calculate parts for parity
         header = data.header
@@ -160,7 +160,7 @@ def generate_spelling_data_list(
         # Use ViewModel
         data = SpellingData(mistake, correction, jinja_env)
         
-        html_rendered = template.render(data=data)
+        html_rendered = template.render(d=data)
 
         # Re-calculate parts for parity
         header = data.header
