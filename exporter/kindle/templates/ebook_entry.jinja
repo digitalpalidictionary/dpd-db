@@ -1,0 +1,22 @@
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="{{ data.counter }}">
+    <idx:short>
+        <idx:orth value="{{ data.i.lemma_clean }}"><h4>{{ data.i.lemma_1 }}</h4>
+            {% if data.inflections %}
+            <idx:infl>
+                {% for inflection in data.inflections %}
+                <idx:iform value="{{ inflection }}" exact="yes"></idx:iform>
+                {% endfor %}
+            </idx:infl>
+            {% endif %}
+        </idx:orth>
+        <p class="body-space">{{ data.summary }}</p>
+        {% if data.grammar_table %}
+            {{ data.grammar_table }}
+        {% endif %}
+        {% if data.examples %}
+            {{ data.examples }}
+        {% endif %}
+    </idx:short>
+</idx:entry>
+<hr class="dpd" />
+
