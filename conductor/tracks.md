@@ -1,6 +1,6 @@
 # Project Tracks
 
-## [~] Track: Mako to Jinja2 Template Refactoring
+## [x] Track: Mako to Jinja2 Template Refactoring
 *Link: [./tracks/mako_to_jinja2_20251224/](./tracks/mako_to_jinja2_20251224/)*
 
 ---
