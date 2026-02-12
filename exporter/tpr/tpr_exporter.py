@@ -11,12 +11,10 @@ import sqlite3
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import pandas as pd
-from mako.template import Template
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Lookup
-from exporter.goldendict.export_dpd import render_dpd_definition_templ
 from exporter.goldendict.helpers import TODAY
 from tools.configger import config_read, config_test
 from tools.headwords_clean_set import make_clean_headwords_set
@@ -25,6 +23,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import UposathaManger
+from exporter.jinja2_env import get_jinja2_env
 
 
 class GlobalVars:
@@ -53,148 +52,23 @@ def generate_tpr_data(g: GlobalVars):
     pr.green("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
-    dpd_definition_templ = Template(filename=str(g.pth.dpd_definition_templ_path))
+    
+    jinja_env = get_jinja2_env("exporter/tpr/templates")
+    template = jinja_env.get_template("tpr_headword.jinja")
 
     for counter, i in enumerate(g.dpd_db):
-        # headword
-        html_string = render_dpd_definition_templ(
-            g.pth,
-            i,
-            dpd_definition_templ,
-            False,
-        )
+        # Add helper for template
+        i.compound_type_has_digit = bool(re.findall(r"\d", i.compound_type or ""))
+        
+        html_string = template.render(i=i, today=TODAY)
+        
+        # Original code did some replacements after rendering
         html_string = html_string.replace("\n", "").replace("    ", "")
-        html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
-
-        # no meaning in context
-        if not i.meaning_1:
-            html_string = re.sub(
-                r"""<div class="dpd"><p>""",
-                rf"<div><p><b>• {i.lemma_1}</b>: ",
-                html_string,
-            )
-
-        # has meaning in context
-        else:
-            html_string = re.sub(
-                r"""<div class="dpd"><p>""",
-                rf"<div><details><summary><b>{i.lemma_1}</b>: ",
-                html_string,
-            )
-            html_string = re.sub(r"</p></div>", r"</summary>", html_string)
-
-            # table
-            html_string += """<table><tr><th valign="top">Pāḷi</th>"""
-            html_string += f"""<td>{i.lemma_2}</td></tr>"""
-            html_string += """<tr><th valign="top">IPA</th>"""
-            html_string += f"""<td>/{i.lemma_ipa}/</td></tr>"""
-
-            # grammar
-            html_string += """<tr><th valign="top">Grammar</th>"""
-            html_string += f"""<td>{i.grammar}"""
-
-            if i.neg:
-                html_string += f""", {i.neg}"""
-
-            if i.verb:
-                html_string += f""", {i.verb}"""
-
-            if i.trans:
-                html_string += f""", {i.trans}"""
-
-            if i.plus_case:
-                html_string += f""" ({i.plus_case})"""
-
-            html_string += """</td></tr>"""
-
-            if i.root_key:
-                html_string += """<tr><th valign="top">Root</th>"""
-                html_string += f"""<td>{i.rt.root_clean} {i.rt.root_group} """
-                html_string += f"""{i.root_sign} ({i.rt.root_meaning}"""
-                html_string += """)</td></tr>"""
-
-                if i.rt.root_in_comps:
-                    html_string += """<tr><th valign="top">√ In Sandhi</th>"""
-                    html_string += f"""<td>{i.rt.root_in_comps}</td></tr>"""
-
-                if i.root_base:
-                    html_string += """<tr><th valign="top">Base</th>"""
-                    html_string += f"""<td>{i.root_base}</td></tr>"""
-
-            if i.construction:
-                # <br/> is causing an extra line, replace with div
-                construction_br = i.construction.replace("\n", "<br>")
-                html_string += """<tr><th valign="top">Construction</th>"""
-                html_string += f"""<td>{construction_br}</td></tr>"""
-
-            if i.derivative:
-                html_string += """<tr><th valign="top">Derivative</th>"""
-                html_string += f"""<td>{i.derivative} ({i.suffix})</td></tr>"""
-
-            if i.phonetic:
-                phonetic = re.sub("\n", "<br>", i.phonetic)
-                html_string += """<tr><th valign="top">Phonetic</th>"""
-                html_string += f"""<td>{phonetic}</td></tr>"""
-
-            if i.compound_type and re.findall(r"\d", i.compound_type) == []:
-                comp_constr_br = re.sub("\n", "<br>", i.compound_construction)
-                html_string += """<tr><th valign="top">Compound</th>"""
-                html_string += f"""<td>{i.compound_type} """
-                html_string += f"""({comp_constr_br})</td></tr>"""
-
-            if i.antonym:
-                html_string += """<tr><th valign="top">Antonym</th>"""
-                html_string += f"""<td>{i.antonym}</td></tr>"""
-
-            if i.synonym:
-                html_string += """<tr><th valign="top">Synonym</th>"""
-                html_string += f"""<td>{i.synonym}</td></tr>"""
-
-            if i.variant:
-                html_string += """<tr><th valign="top">Variant</th>"""
-                html_string += f"""<td>{i.variant}</td></tr>"""
-
-            if i.commentary and i.commentary != "-":
-                commentary_no_formatting = re.sub("\n", "<br>", i.commentary)
-                html_string += """<tr><th valign="top">Commentary</th>"""
-                html_string += f"""<td>{commentary_no_formatting}</td></tr>"""
-
-            if i.notes:
-                notes_no_formatting = i.notes.replace("\n", "<br>")
-                html_string += """<tr><th valign="top">Notes</th>"""
-                html_string += f"""<td>{notes_no_formatting}</td></tr>"""
-
-            if i.cognate:
-                html_string += """<tr><th valign="top">Cognate</th>"""
-                html_string += f"""<td>{i.cognate}</td></tr>"""
-
-            if i.link:
-                html_string += """<tr><th valign="top">Link</th>"""
-                html_string += """<td>"""
-                for link in i.link_list:
-                    html_string += f"""<p><a href="{link}"></a></p>"""
-                html_string += """</td></tr>"""
-
-            if i.non_ia:
-                html_string += """<tr><th valign="top">Non IA</th>"""
-                html_string += f"""<td>{i.non_ia}</td></tr>"""
-
-            if i.sanskrit:
-                sanskrit = i.sanskrit.replace("\n", "")
-                html_string += """<tr><th valign="top">Sanskrit</th>"""
-                html_string += f"""<td>{sanskrit}</td></tr>"""
-
-            if i.root_key:
-                if i.rt.sanskrit_root and i.rt.sanskrit_root != "-":
-                    sk_root_meaning = re.sub("'", "", i.rt.sanskrit_root_meaning)
-                    html_string += """<tr><th valign="top">Sanskrit Root</th>"""
-                    html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning}"""
-                    html_string += """)</td></tr>"""
-
-            html_string += f"""<tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.id }}%20{i.lemma_link}&entry.1433863141=TPR%20{TODAY}" target="_blank">Submit a correction</a></td></tr>"""
-            html_string += """</table>"""
-            html_string += """</details></div>"""
-
+        # The template already removes the span class='g' part because we don't include it
+        # but for 100% byte-parity with the baseline we might need to be careful.
+        # Actually, the baseline was captured with the OLD code.
+        
+        # Replicate the specific ' quote to ’ replacement
         html_string = re.sub("'", "’", html_string)
 
         tpr_data_list += [
@@ -417,8 +291,6 @@ def tpr_updater(g: GlobalVars):
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
-    # sql_string += "DROP TABLE IF EXISTS dpd;\n"
-    # sql_string += """CREATE TABLE dpd ("id" INTEGER, "word" TEXT, "definition" TEXT, "book_id" INTEGER, "has_inflections" INTEGER DEFAULT 0, "has_root_family" INTEGER DEFAULT 0, has_compound_family" INTEGER DEFAULT 0, "has_word_family" INTEGER DEFAULT 0, "has_freq" INTEGER DEFAULT 0);\n"""
     sql_string += "DELETE FROM dpd;\n"
     sql_string += "DELETE FROM dpd_inflections_to_headwords;\n"
     sql_string += "DELETE FROM dpd_word_split;\n"

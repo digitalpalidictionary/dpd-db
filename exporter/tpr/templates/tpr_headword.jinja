@@ -1,0 +1,74 @@
+<div>
+{%- if not i.meaning_1 -%}
+    <p><b>• {{ i.lemma_1 }}</b>: {{ i.pos }}. {{ i.meaning_combo_html }} {{ i.degree_of_completion_html }}</p>
+{%- else -%}
+    <details><summary><b>{{ i.lemma_1 }}</b>: {{ i.pos }}. {{ i.meaning_combo_html }} {{ i.degree_of_completion_html }} </summary>
+    <table>
+        <tr><th valign="top">Pāḷi</th><td>{{ i.lemma_2 }}</td></tr>
+        <tr><th valign="top">IPA</th><td>/{{ i.lemma_ipa }}/</td></tr>
+        <tr><th valign="top">Grammar</th><td>{{ i.grammar }}
+            {%- if i.neg -%}, {{ i.neg }}{%- endif -%}
+            {%- if i.verb -%}, {{ i.verb }}{%- endif -%}
+            {%- if i.trans -%}, {{ i.trans }}{%- endif -%}
+            {%- if i.plus_case -%} ({{ i.plus_case }}){%- endif -%}
+        </td></tr>
+        {%- if i.root_key -%}
+            <tr><th valign="top">Root</th><td>{{ i.rt.root_clean }} {{ i.rt.root_group }} {{ i.root_sign }} ({{ i.rt.root_meaning }})</td></tr>
+            {%- if i.rt.root_in_comps -%}
+                <tr><th valign="top">√ In Sandhi</th><td>{{ i.rt.root_in_comps }}</td></tr>
+            {%- endif -%}
+            {%- if i.root_base -%}
+                <tr><th valign="top">Base</th><td>{{ i.root_base }}</td></tr>
+            {%- endif -%}
+        {%- endif -%}
+        {%- if i.construction -%}
+            <tr><th valign="top">Construction</th><td>{{ i.construction|replace("\n", "<br>") }}</td></tr>
+        {%- endif -%}
+        {%- if i.derivative -%}
+            <tr><th valign="top">Derivative</th><td>{{ i.derivative }} ({{ i.suffix }})</td></tr>
+        {%- endif -%}
+        {%- if i.phonetic -%}
+            <tr><th valign="top">Phonetic</th><td>{{ i.phonetic|replace("\n", "<br>") }}</td></tr>
+        {%- endif -%}
+        {%- if i.compound_type and not i.compound_type_has_digit -%}
+            <tr><th valign="top">Compound</th><td>{{ i.compound_type }} ({{ i.compound_construction|replace("\n", "<br>") }})</td></tr>
+        {%- endif -%}
+        {%- if i.antonym -%}
+            <tr><th valign="top">Antonym</th><td>{{ i.antonym }}</td></tr>
+        {%- endif -%}
+        {%- if i.synonym -%}
+            <tr><th valign="top">Synonym</th><td>{{ i.synonym }}</td></tr>
+        {%- endif -%}
+        {%- if i.variant -%}
+            <tr><th valign="top">Variant</th><td>{{ i.variant }}</td></tr>
+        {%- endif -%}
+        {%- if i.commentary and i.commentary != "-" -%}
+            <tr><th valign="top">Commentary</th><td>{{ i.commentary|replace("\n", "<br>") }}</td></tr>
+        {%- endif -%}
+        {%- if i.notes -%}
+            <tr><th valign="top">Notes</th><td>{{ i.notes|replace("\n", "<br>") }}</td></tr>
+        {%- endif -%}
+        {%- if i.cognate -%}
+            <tr><th valign="top">Cognate</th><td>{{ i.cognate }}</td></tr>
+        {%- endif -%}
+        {%- if i.link -%}
+            <tr><th valign="top">Link</th><td>
+                {%- for link in i.link_list -%}
+                    <p><a href="{{ link }}"></a></p>
+                {%- endfor -%}
+            </td></tr>
+        {%- endif -%}
+        {%- if i.non_ia -%}
+            <tr><th valign="top">Non IA</th><td>{{ i.non_ia }}</td></tr>
+        {%- endif -%}
+        {%- if i.sanskrit -%}
+            <tr><th valign="top">Sanskrit</th><td>{{ i.sanskrit|replace("\n", "") }}</td></tr>
+        {%- endif -%}
+        {%- if i.root_key and i.rt.sanskrit_root and i.rt.sanskrit_root != "-" -%}
+            <tr><th valign="top">Sanskrit Root</th><td>{{ i.rt.sanskrit_root }} {{ i.rt.sanskrit_root_class }} ({{ i.rt.sanskrit_root_meaning|replace("'", "") }})</td></tr>
+        {%- endif -%}
+        <tr><td colspan="2"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ i.id }}%20{{ i.lemma_link }}&entry.1433863141=TPR%20{{ today }}" target="_blank">Submit a correction</a></td></tr>
+    </table>
+    </details>
+{%- endif -%}
+</div>
