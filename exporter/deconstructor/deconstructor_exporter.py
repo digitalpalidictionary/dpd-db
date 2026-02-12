@@ -2,14 +2,9 @@
 
 """Export Deconstructor To GoldenDict and MDict formats."""
 
-from mako.template import Template
-from minify_html import minify
-
 from db.db_helpers import get_db_session
 from db.models import Lookup
-from exporter.goldendict.helpers import TODAY
 from tools.configger import config_test
-from tools.css_manager import CSSManager
 from tools.goldendict_exporter import (
     DictEntry,
     DictInfo,
@@ -22,6 +17,9 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager, SpeechMarksDict
 from tools.utils import squash_whitespaces
+from minify_html import minify
+from exporter.jinja2_env import get_jinja2_env
+from exporter.deconstructor.data_classes import DeconstructorData
 
 
 class GlobalVars:
@@ -55,33 +53,15 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
 
     dict_data: list = []
 
-    header_templ = Template(filename=str(g.pth.deconstructor_header_templ_path))
-    deconstructor_header = str(header_templ.render(css="", js=""))
-
-    # add css variables and roots
-    css_manager = CSSManager()
-    deconstructor_header = css_manager.update_style(
-        deconstructor_header, "deconstructor"
-    )
-
-    deconstructor_templ = Template(filename=str(g.pth.deconstructor_templ_path))
+    jinja_env = get_jinja2_env("exporter/deconstructor")
+    template = jinja_env.get_template("deconstructor.jinja")
 
     pr.yes(len(deconstructor_db))
 
     for counter, i in enumerate(deconstructor_db):
-        deconstructions = i.deconstructor_unpack
-
-        html_string: str = ""
-        html_string += "<body>"
-        html_string += str(
-            deconstructor_templ.render(
-                i=i, deconstructions=deconstructions, today=TODAY
-            )
-        )
-
-        html_string += "</body></html>"
-
-        html_string = squash_whitespaces(deconstructor_header) + minify(html_string)
+        # Use ViewModel
+        data = DeconstructorData(i, g.pth, jinja_env)
+        html_string = data.header + minify(template.render(data=data))
 
         # make synonyms list
         synonyms = add_niggahitas([i.lookup_key], all=False)
@@ -105,6 +85,7 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
             pr.counter(counter, deconstructor_db_length, i.lookup_key)
 
     g.dict_data = dict_data
+    db_session.close()
 
 
 def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
