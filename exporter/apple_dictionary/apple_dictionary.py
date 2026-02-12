@@ -208,7 +208,9 @@ def generate_dictionary_xml(
     if limit:
         query = query.limit(limit)
     headwords = query.all()
-    headwords = sorted(headwords, key=lambda x: pali_sort_key(x.lemma_1))
+    headwords = sorted(
+        headwords, key=lambda x: (pali_sort_key(x.lemma_clean), pali_sort_key(x.lemma_1))
+    )
     total = len(headwords)
     pr.yes(total)
 
