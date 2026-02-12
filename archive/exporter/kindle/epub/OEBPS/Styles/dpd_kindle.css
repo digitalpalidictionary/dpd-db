@@ -1,0 +1,399 @@
+div {
+  font-size: 1em;
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: left;
+  text-indent: 0;
+}
+
+p {
+    font-size: 1em;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: left;
+    text-indent: 0;
+}
+
+.image-title-page {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+}
+
+img {
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+}
+
+.author,.translator {
+  font-style: normal;
+  margin-bottom: .5em;
+  margin-top: 1em;
+  text-align: center;
+}
+
+/* headings */
+h1,h2,h3,h4,h5,h6 {
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: normal;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  text-align: left;
+}
+
+.heading1 {
+  font-size: 1.5em;
+}
+
+.heading2 {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+.heading3,.heading4,.heading5,.heading6 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  margin-left: 1.5em;
+  margin-top: 1em;
+  text-indent: -1.5em;
+}
+
+h1.title-page {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0em;
+  margin-bottom: 0.75em;
+}
+
+h2.title-page {
+  font-size: 1.25em;
+  font-weight: normal;
+  text-align: center;
+  margin-top: 0em;
+  margin-bottom: 1.25em;
+}
+
+h3.title-page {
+  font-size: 1.25em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0em;
+  margin-bottom: 1.75em;
+}
+
+h4.title-page {
+  font-size: 1.25em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.end-page-heading1 {
+  font-size: 1.3em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* paragraph classes */
+.body {
+  font-size: 1em;
+  text-align: left;
+}
+
+.body-space {
+  font-size: 1em;
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: left;
+}
+
+.body-space-above {
+  font-size: 1em;
+  margin-top: 1em;
+  text-align: left;
+}
+
+.body-right {
+  font-size: 1em;
+  line-height: normal;
+  text-align: right;
+}
+
+.body-right-spacious {
+  font-size: 1em;
+  line-height: normal;
+  margin-top: 1.5em;
+  text-align: right;
+}
+
+.body-center {
+  font-size: 1em;
+  text-align: center;
+}
+
+.body-center-space-above {
+  font-size: 1em;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.body-center-space-below {
+  font-size: 1em;
+  margin-bottom: 2em;
+  text-align: center;
+}
+
+.body-center-title {
+  font-size: 1.3em;
+  line-height: normal;
+  margin-top: 1.5em;
+  text-align: center;
+}
+
+.center-bold-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  margin-top: 2em;
+  text-align: center;
+}
+
+.body-indent {
+  font-size: 1em;
+  text-indent: 1.5em;
+}
+
+.body-indent-inline {
+  font-size: 1em;
+  margin-bottom: 0em;
+  text-indent: 1.5em;
+}
+
+.body-outdent {
+  font-size: 1em;
+  margin-left: 1.5em;
+  text-indent: -1.5em;
+}
+
+.body-blockquote {
+  font-size: 1em;
+  margin-left: 1.5em;
+}
+
+.body-blockquote-indent {
+  margin-left: 1.5em;
+  text-indent: 1.5em;
+  font-size: 1em;
+}
+
+.body-blockquote-outdent {
+  font-size: 1em;
+  margin-left: 3em;
+  text-indent: -1.5em;
+}
+
+.body-blockquote-inline {
+  font-size: 1em;
+  margin-bottom: 0em;
+  margin-left: 1.5em;
+}
+
+.body-blockquote-small-space-below {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+  margin-left: 1.5em;
+}
+
+.copyright,.copyright-center,.copyright-center-newpage {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: .2em;
+  margin-top: 0;
+}
+
+.copyright-center,.copyright-center-newpage {
+  text-align: center;
+}
+
+.copyright-center-newpage {
+  margin-top: 1em;
+}
+
+.copyright-space-above {
+  font-size: 1em;
+  margin-bottom: .2em;
+  margin-top: 1em;
+}
+
+.copyright-big-space-above {
+  font-size: 1em;
+  margin-bottom: .2em;
+  margin-top: 2em;
+}
+
+.end-page-body,.end-page-body-hanging {
+  font-size: 1em;
+  margin-top: .3em;
+  text-align: left;
+  text-indent: 0;
+}
+
+.end-page-body-hanging {
+  margin-left: 2em;
+  text-indent: -2em;
+}
+
+.end-page-subheading {
+  font-size: 1.2em;
+  margin-bottom: .5em;
+  margin-top: 1em;
+  text-align: left;
+  text-indent: 0;
+}
+
+/* List style */
+.end-page {
+  margin-top: 0;
+  padding-left: 1.9em;
+}
+
+.end-page-bullets {
+  font-size: 1em;
+  line-height: normal;
+  list-style-position: outside;
+  list-style-type:disc;
+  margin-left: 0;
+  padding-left: 0.1em;
+  text-align: left;
+}
+
+
+ol.styled {
+  font-size: 1em;
+  margin: 0 0 0.5em 1.5em;
+  padding: 0 0 0 1.5em;
+}
+
+li.styled {
+  line-height: normal;
+  margin-bottom: 0.3em;
+  text-align: left;
+}
+
+ol.styled-spacious {
+  font-size: 1em;
+  margin: 0 0 0.5em 1em;
+  padding: 0 0 0 1em;
+}
+
+li.styled-spacious {
+  line-height: normal;
+  margin-bottom: 0.6em;
+  padding-left: 1em;
+  text-align: left;
+}
+
+
+/* Table Styles: List of Abbreviations */
+table.no-line-table {
+  border: none;
+  margin-bottom: 0.5em;
+  margin-top: 0em;
+  padding-bottom: 0em;
+}
+
+td.no-line-table {
+  border: none;
+  padding: 0em;
+}
+
+td.no-line-abbr {
+  border: none;
+  padding: 0em 0em 0.3em 0em; 
+  text-align: left;
+  vertical-align: top;
+}
+
+td.no-line-abbr-nowrap {
+  border: none;
+  padding: 0em 0.5em 0em 0em;
+  text-align: left;
+  text-indent: 1.5em;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+
+
+/* Character Classes */
+a {
+  color: initial;
+  text-decoration-line: underline;
+}
+
+.footnote {
+  font-size: x-small;
+  margin-left: .2em;
+  vertical-align: super;
+}
+
+.numbering {
+  margin-right: 0.4em;
+}
+
+/* Color Classes */
+span.gray {
+  color: gray;
+}
+
+table {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+table.grammar {
+    margin-top: 0.5em;
+    }
+
+.th {
+    color: gray;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+table.grammar td {
+  text-align: left;
+  vertical-align: top;
+}
+
+table.grammar b {
+    font-weight: 700;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+p.example_heading {
+    font-weight: bold;
+    margin-top: 0.4em;
+}
+
+p.example {
+    margin-top: 0em;
+}
+
+p.sutta {
+    color: gray;
+    font-style: italic;
+    margin-bottom: 0.4em
+}
