@@ -1,0 +1,33 @@
+{{ data.header }}
+<body>
+<div class="tertiary">
+    <table class="help">
+        <tr>
+            <th>Abbreviation</th>
+            <td><b>{{ data.i.abbrev }}</b></td>
+        </tr>
+        <tr>
+            <th>Meaning</th>
+            <td>{{ data.i.meaning }}</td>
+        </tr>
+        {% if data.i.pali %}
+        <tr>
+            <th>Pāḷi</th>
+            <td>{{ data.i.pali }}</td>
+        </tr>
+        {% endif %}
+        {% if data.i.example %}
+        <tr>
+            <th>Example</th>
+            <td>{{ data.i.example }}</td>
+        </tr>
+        {% endif %}
+        {% if data.i.information %}
+        <tr>
+            <th>Information</th>
+            <td>{{ data.i.information }}</td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+</body></html>

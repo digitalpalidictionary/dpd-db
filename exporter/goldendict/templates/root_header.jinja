@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta data_key="rootdata_${r.root_no_sign_}">
+    <meta data_key="rootdata_{{ data.r.root_no_sign_ }}">
 
     <title>Digital Pāḷi Dictionary Roots</title>
     <style>
@@ -25,9 +25,9 @@
     <link href="main.js" class="load_js" rel="preload" as="script">
 
     <script>
-        var rootdata_${ r.root_no_sign_ } = {
-            "root": "${r.root}",
-            "date": "${date}",
+        var rootdata_{{ data.r.root_no_sign_ }} = {
+            "root": "{{ data.r.root }}",
+            "date": "{{ data.date }}",
         };
     </script>
 

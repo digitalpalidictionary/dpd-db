@@ -1,0 +1,201 @@
+<div id="grammar_{{ data.i.lemma_1_ }}" class="dpd content hidden">
+    <table class="grammar">
+        <tr>
+            <th>Lemma</th>
+            <td>{{ data.i.lemma_clean }}</td>
+        </tr>
+
+        {% if data.i.lemma_trad_clean != data.i.lemma_clean %}
+        <tr>
+            <th>Traditional Lemma</th>
+            <td>{{ data.i.lemma_trad_clean }}</td>
+        </tr>
+        {% endif %}
+
+        <tr>
+            <th>IPA</th>
+            <td>
+                /{{ data.i.lemma_ipa }}/
+                {% if data.i.audio_male1 %}
+                <a class="dpd-button play small" data-title="male1" onclick="playAudio('{{ data.i.lemma_clean }}', this, 'male1')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if data.i.audio_male2 %}
+                <a class="dpd-button play small" data-title="male2" onclick="playAudio('{{ data.i.lemma_clean }}', this, 'male2')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if data.i.audio_female1 %}
+                <a class="dpd-button play small" data-title="female1" onclick="playAudio('{{ data.i.lemma_clean }}', this, 'female1')">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Grammar</th>
+            <td>{{ data.grammar }}</td>
+        </tr>
+
+        {% if data.i.family_root %}
+        <tr>
+            <th>Root Family</th>
+            <td>{{ data.i.family_root }}</td>
+        </tr>
+        {% endif %}
+        {% if data.i.root_key %}
+        <tr>
+            <th>Root</th>
+            <td>
+                {{ data.i.root_clean }}<sup>{{ data.rt.root_has_verb }}</sup>{{ data.rt.root_group }}
+                {{ data.i.root_sign }} ({{ data.rt.root_meaning }})
+            </td>
+        </tr>
+        {% if data.rt.root_in_comps %}
+        <tr>
+            <th>√ In Sandhi</th>
+            <td>{{ data.rt.root_in_comps }}</td>
+        </tr>
+        {% endif %}
+        {% endif %}
+
+        {% if data.i.root_base %}
+        <tr>
+            <th>Base</th>
+            <td>{{ data.i.root_base }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.construction %}
+        <tr>
+            <th>Construction</th>
+            <td>{{ data.i.construction }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.derivative %}
+        <tr>
+            <th>Derivative</th>
+            <td>{{ data.i.derivative }} ({{ data.i.suffix }})</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.phonetic %}
+        <tr>
+            <th>Phonetic Change</th>
+            <td>{{ data.i.phonetic }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.compound_type and "?" not in data.i.compound_type %}
+        <tr>
+            <th>Compound</th>
+            <td>{{ data.i.compound_type }} ({{ data.i.compound_construction }})</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.antonym %}
+        <tr>
+            <th>Antonym</th>
+            <td>{{ data.i.antonym }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.synonym %}
+        <tr>
+            <th>Synonym</th>
+            <td>{{ data.i.synonym }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.variant %}
+        <tr>
+            <th>Variant</th>
+            <td>{{ data.i.variant }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.commentary and data.i.commentary != "-" %}
+        <tr>
+            <th>Commentary</th>
+            <td>{{ data.i.commentary }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.notes %}
+        <tr>
+            <th>Notes</th>
+            <td>{{ data.i.notes }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.cognate %}
+        <tr>
+            <th>English Cognate</th>
+            <td>{{ data.i.cognate }}</td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.link %}
+        <tr>
+            <th>Web Link</th>
+            <td>
+                {% for website in data.i.link_list %}
+                <p style="margin: 0; padding: 0">
+                    <a href="{{ website }}" target="_blank"> {{ website }} </a>
+                </p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.non_ia %}
+        <tr>
+            <th>Non IA</th>
+            <td><i>{{ data.i.non_ia }}</i></td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.sanskrit %}
+        <tr>
+            <th>Sanskrit</th>
+            <td><i>{{ data.i.sanskrit }}</i></td>
+        </tr>
+        {% endif %}
+
+        {% if data.i.root_key %}
+        {% if data.rt.sanskrit_root and data.rt.sanskrit_root != "-" %}
+        <tr>
+            <th>Sanskrit Root</th>
+            <td>
+                <i>
+                    {{ data.rt.sanskrit_root }} {{ data.rt.sanskrit_root_class }}
+                    ({{ data.rt.sanskrit_root_meaning }})
+                </i>
+            </td>
+        </tr>
+        {% endif %}
+        {% endif %}
+
+    </table>
+    <p class="dpd-footer">
+        Did you spot a mistake?
+        <a
+            class="dpd-link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.438735500={{ data.i.id }}%20{{ data.i.lemma_link }}&entry.326955045=Grammar&entry.1433863141=GoldenDict+{{ data.today }}"
+            target="_blank">Correct it here</a>. <br />Is some word missing from
+        the dictionary?
+        <a
+            class="dpd-link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfResxEUiRCyFITWPkzoQ2HhHEvUS5fyg68Rl28hFH6vhHlaA/viewform?usp=pp_url&entry.1433863141=GoldenDict+{{ data.today }}"
+            target="_blank">Add it here</a>.
+    </p>
+</div>

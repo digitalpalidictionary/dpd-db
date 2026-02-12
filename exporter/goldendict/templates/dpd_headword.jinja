@@ -1,0 +1,47 @@
+{{ data.header }}
+<body>
+{% include 'dpd_definition.jinja' %}
+{% include 'dpd_button_box.jinja' %}
+
+{% if data.i.needs_sutta_info_button %}
+    {% include 'dpd_sutta_info.jinja' %}
+{% endif %}
+
+{% if data.i.needs_grammar_button %}
+    {% include 'dpd_grammar.jinja' %}
+{% endif %}
+
+{% if data.i.needs_example_button or data.i.needs_examples_button %}
+    {% include 'dpd_example.jinja' %}
+{% endif %}
+
+{% if data.i.needs_conjugation_button or data.i.needs_declension_button %}
+    {% include 'dpd_inflection.jinja' %}
+{% endif %}
+
+{% if data.i.needs_root_family_button %}
+    {% include 'dpd_family_root.jinja' %}
+{% endif %}
+
+{% if data.i.needs_word_family_button %}
+    {% include 'dpd_family_word.jinja' %}
+{% endif %}
+
+{% if data.i.needs_compound_family_button or data.i.needs_compound_families_button %}
+    {% include 'dpd_family_compound.jinja' %}
+{% endif %}
+
+{% if data.i.needs_idioms_button %}
+    {% include 'dpd_family_idiom.jinja' %}
+{% endif %}
+
+{% if data.i.needs_set_button or data.i.needs_sets_button %}
+    {% include 'dpd_family_set.jinja' %}
+{% endif %}
+
+{% if data.i.needs_frequency_button %}
+    {% include 'dpd_frequency.jinja' %}
+{% endif %}
+
+{% include 'dpd_feedback.jinja' %}
+</body></html>
