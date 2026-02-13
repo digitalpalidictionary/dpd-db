@@ -851,6 +851,7 @@ class DpdFields(PopUpMixin):
                 f"DEBUG: compound_type set to '{detected_type}' for '{lemma}' (on focus)"
             )
             field.value = detected_type
+            field.update()
             self.page.update()
 
     def phonetic_focus(self, e: ft.ControlEvent) -> None:
@@ -933,6 +934,7 @@ class DpdFields(PopUpMixin):
         sanskrit_field = self.get_field("sanskrit")
         if not sanskrit_field:
             return
+
         construction = self.get_field("construction").value
         if not construction:
             return
@@ -941,23 +943,34 @@ class DpdFields(PopUpMixin):
 
         sanskrit = ""
         already_added = []
-        for constr_split in constr_splits:
-            clean_split = constr_split.strip()
-            if not clean_split:
-                continue
 
-            results = (
-                self.db.db_session.query(DpdHeadword)
-                .filter(DpdHeadword.lemma_1.like(f"%{clean_split}%"))
-                .all()
-            )
-            for i in results:
-                if i.lemma_clean == clean_split:
-                    if i.sanskrit and i.sanskrit not in already_added:
-                        if sanskrit:
-                            sanskrit += " + "
-                        sanskrit += i.sanskrit
-                        already_added.append(i.sanskrit)
+        # Create thread-local session for thread safety
+        from db.db_helpers import get_db_session
+        from tools.paths import ProjectPaths
+
+        pth = ProjectPaths()
+        thread_session = get_db_session(pth.dpd_db_path)
+
+        try:
+            for constr_split in constr_splits:
+                clean_split = constr_split.strip()
+                if not clean_split:
+                    continue
+
+                results = (
+                    thread_session.query(DpdHeadword)
+                    .filter(DpdHeadword.lemma_1.like(f"%{clean_split}%"))
+                    .all()
+                )
+                for i in results:
+                    if i.lemma_clean == clean_split:
+                        if i.sanskrit and i.sanskrit not in already_added:
+                            if sanskrit:
+                                sanskrit += " + "
+                            sanskrit += i.sanskrit
+                            already_added.append(i.sanskrit)
+        finally:
+            thread_session.close()
 
         # Standard cleanup for compiled DB results
         sanskrit = re.sub(r"\[.*?\]", "", sanskrit)  # remove square brackets
@@ -1350,8 +1363,7 @@ class DpdFields(PopUpMixin):
 
         compound_type_field = self.get_field("compound_type")
         current_compound_type = compound_type_field.value if compound_type_field else ""
-        # Strip to handle " " (space) as empty
-        current_compound_type_stripped = current_compound_type.strip()
+        current_compound_type_stripped = current_compound_type.strip() if current_compound_type else ""
 
         lemma_1_field = self.get_field("lemma_1")
         lemma = lemma_1_field.value if lemma_1_field else ""

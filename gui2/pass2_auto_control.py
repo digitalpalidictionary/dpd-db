@@ -223,9 +223,7 @@ class Pass2AutoController:
 
             # Add sentence data from pass2_pre
             if self._sentence_data_batch:
-                self._add_sentence_to_response(
-                    response_dict, self._sentence_data_batch
-                )
+                self._add_sentence_to_response(response_dict, self._sentence_data_batch)
 
             # Move old commentary example(s) to example_2 if needed
             if has_only_late_examples(headword_in_db):
@@ -536,7 +534,7 @@ ve: verbal ending
 ## meaning_1 and meaning_lit fields for suttas
 - If the word is a sutta (lemma_clean ends in "sutta"):
   - meaning_1: Copy meaning_2 exactly into this field
-  - meaning_lit: Set to "discourse on the aggregates"
+  - meaning_lit: Set to "discourse on [fill in the literal meaning]"
 
 ## construction field
 - Construction must be pure Pāḷi construction, no English. e.g. anupassati = `anu + passa + ti`, māra = `√mar > mār + *a`
