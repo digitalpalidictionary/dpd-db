@@ -936,3 +936,36 @@ Wait no, I must ensure only one list. Given time constraints, I'll instead prese
     'comment': 'Contextually describes a woman covered in body sweat ('okiriniṃ'), revealing its specific application to bodily fluids rather than general scattering'
 }
 
+{
+    'id': 25906,
+    'lemma_1': 'catutthaka',
+    'lemma_2': 'catutthaka',
+    'pos': 'adj',
+    'grammar': 'adj, comp',
+    'derived_from': 'catuttha',
+    'neg': '',
+    'verb': '',
+    'trans': '',
+    'plus_case': '',
+    'meaning_1': 'fourth',
+    'meaning_lit': 'fourth',
+    'non_ia': '',
+    'sanskrit': 'caturtha',
+    'root_key': '√cat',
+    'root_sign': 'u',
+    'root_base': 'cat',
+    'family_root': '',
+    'family_word': '',
+    'family_compound': '',
+    'family_idioms': '',
+    'family_set': '',
+    'construction': 'catuttha + -ka',
+    'derivative': '',
+    'suffix': 'ka',
+    'phonetic': '',
+    'compound_type': '',
+    'compound_construction': '',
+    'stem': 'catutthak',
+    'pattern': 'aī adj',
+    'comment': 'In the sentence “chandarāgaṃ catutthakaṃ”, catutthaka functions as an adjective meaning “fourth”, modifying the noun chandārāga. It is formed from the ordinal catuttha “fourth” with the adjectival suffix -ka, and its Sanskrit cognate is caturtha.'
+
