@@ -31,7 +31,7 @@ The Digital Pāḷi Dictionary (DPD) browser extension built with WXT framework 
 #### `wxt.config.ts`
 - **Manifest Configuration**: Extension metadata (DPD Dictionary), description, and versioning.
 - **Action Block**: Explicitly defines `default_icon` for Manifest V3 compliance.
-- **Permissions**: `storage`, `activeTab`, `scripting`.
+- **Permissions**: `storage`, `activeTab`.
 - **Host Permissions**: `dpdict.net` and multiple local development addresses (`127.1.1.1:8080`, `0.0.0.0:8080`, etc.).
 - **Web Accessible Resources**: Exposes icons, SVG assets, and CSS files to host pages.
 - **Browser-Specific Settings**: Gecko ID for Firefox identity.

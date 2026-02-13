@@ -22,7 +22,7 @@ export default defineConfig({
         "128": "icons/dpd-logo-gray_128.png"
       }
     },
-    permissions: ["storage", "activeTab", "scripting"],
+    permissions: ["storage", "activeTab"],
     web_accessible_resources: [
       {
         resources: ["icons/*.png", "icons/*.svg", "*.png", "*.css"],
@@ -38,8 +38,11 @@ export default defineConfig({
     ],
     browser_specific_settings: browser === 'firefox' ? {
       gecko: {
-        id: "digitalpalidictionary@digitalpalidictionary.github.io",
-        strict_min_version: "109.0"
+        id: "dpd@dpdict.net",
+        strict_min_version: "109.0",
+        data_collection_permissions: {
+          required: ["searchTerms"]
+        }
       }
     } : undefined
   }),
