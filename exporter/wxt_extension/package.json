@@ -16,7 +16,7 @@
     "zip:chrome": "wxt zip -b chrome",
     "zip:firefox": "wxt zip -b firefox --mv3",
     "zip:safari": "wxt zip -b safari",
-    "package": "wxt build -b chrome && wxt build -b firefox --mv3 && wxt zip -b chrome && wxt zip -b firefox --mv3",
+    "package": "wxt build -b chrome && wxt build -b firefox --mv3 && wxt build -b safari && wxt zip -b chrome && wxt zip -b firefox --mv3 && wxt zip -b safari",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"
   },
