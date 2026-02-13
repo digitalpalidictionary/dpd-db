@@ -170,8 +170,8 @@ server-reload:
 
 # Turn off deconstructor premade mode
 nodecon:
-    uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'no')"
+    uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'yes')"
 
 # Turn on deconstructor premade mode
 decon:
-    uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'yes')"
+    uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'no')"
