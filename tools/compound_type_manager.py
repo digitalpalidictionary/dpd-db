@@ -204,7 +204,7 @@ class CompoundTypeManager:
         if ", comp" not in grammar:
             return None
 
-        if compound_type:
+        if compound_type and compound_type.strip():
             return None
 
         # Check all rules

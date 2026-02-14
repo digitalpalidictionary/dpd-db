@@ -212,7 +212,6 @@ class DpdFields(PopUpMixin):
                 field_type="dropdown",
                 options=[" "] + compound_types_options,
                 on_blur=self.compound_type_blur,
-                on_focus=self.compound_type_focus,
             ),
             FieldConfig(
                 "compound_construction",
@@ -251,7 +250,9 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig("var_phonetic"),
             FieldConfig("var_text"),
-            FieldConfig("commentary", field_type="commentary", on_focus=self.commentary_focus),
+            FieldConfig(
+                "commentary", field_type="commentary", on_focus=self.commentary_focus
+            ),
             FieldConfig(
                 "notes",
                 field_type="notes",
@@ -797,63 +798,6 @@ class DpdFields(PopUpMixin):
         compound_construction.compound_construction_field.focus()
         self.page.update()
 
-    def compound_type_focus(self, e: ft.ControlEvent) -> None:
-        """Run compound type detection when field gets focus if empty."""
-        field, value = self.get_event_field_and_value(e)
-
-        # Only run detection if compound_type is empty or whitespace
-        if value and value.strip():
-            return
-
-        # Check if word has a root_key - if so, it's not a compound
-        root_key_field = self.get_field("root_key")
-        root_key = root_key_field.value if root_key_field else ""
-        if root_key and root_key.strip():
-            return
-
-        # Get construction field value
-        construction_field = self.get_field("construction")
-        if not construction_field or not construction_field.value:
-            return
-
-        construction_value = construction_field.value
-
-        # Get other required field values
-        meaning_1_field = self.get_field("meaning_1")
-        meaning_1 = meaning_1_field.value if meaning_1_field else ""
-
-        pos_field = self.get_field("pos")
-        pos = pos_field.value if pos_field else ""
-
-        grammar_field = self.get_field("grammar")
-        grammar = grammar_field.value if grammar_field else ""
-
-        lemma_1_field = self.get_field("lemma_1")
-        lemma = lemma_1_field.value if lemma_1_field else ""
-
-        # Run detection
-        from tools.paths import ProjectPaths
-
-        pth = ProjectPaths()
-        manager = CompoundTypeManager(pth.compound_type_path)
-
-        detected_type = manager.detect_compound_type(
-            construction=construction_value,
-            pos=pos,
-            grammar=grammar,
-            lemma=lemma,
-            meaning_1=meaning_1,
-            compound_type="",  # Empty since we're checking if empty
-        )
-
-        if detected_type:
-            print(
-                f"DEBUG: compound_type set to '{detected_type}' for '{lemma}' (on focus)"
-            )
-            field.value = detected_type
-            field.update()
-            self.page.update()
-
     def phonetic_focus(self, e: ft.ControlEvent) -> None:
         """Process phonetic changes when field gets focus."""
         field, value = self.get_event_field_and_value(e)
@@ -867,7 +811,9 @@ class DpdFields(PopUpMixin):
         pth = ProjectPaths()
         manager = PhoneticChangeManager(pth.phonetic_changes_path)
 
-        results, all_suggestions = manager.process_headword_all_matches(current_headword)
+        results, all_suggestions = manager.process_headword_all_matches(
+            current_headword
+        )
 
         if results:
             if all_suggestions:
@@ -981,8 +927,8 @@ class DpdFields(PopUpMixin):
 
         # Standard cleanup for compiled DB results
         sanskrit = re.sub(r"\[.*?\]", "", sanskrit)  # remove square brackets
-        sanskrit = re.sub(r" +", " ", sanskrit)      # remove double spaces
-        sanskrit = sanskrit.replace("+ +", "+")      # remove double plus signs
+        sanskrit = re.sub(r" +", " ", sanskrit)  # remove double spaces
+        sanskrit = sanskrit.replace("+ +", "+")  # remove double plus signs
         sanskrit = sanskrit.strip()
 
         # Apply specific standardization logic
@@ -1117,9 +1063,7 @@ class DpdFields(PopUpMixin):
 
             if pos in DECLENSIONS and "comp" not in grammar and construction:
                 suffix = re.sub(r"\n.+", "", construction)
-                suffix = re.sub(
-                    r".+ \+ ", "", suffix
-                )
+                suffix = re.sub(r".+ \+ ", "", suffix)
                 suffix_field.value = suffix
                 suffix_field.update()
                 suffix_field.focus()
@@ -1370,7 +1314,9 @@ class DpdFields(PopUpMixin):
 
         compound_type_field = self.get_field("compound_type")
         current_compound_type = compound_type_field.value if compound_type_field else ""
-        current_compound_type_stripped = current_compound_type.strip() if current_compound_type else ""
+        current_compound_type_stripped = (
+            current_compound_type.strip() if current_compound_type else ""
+        )
 
         lemma_1_field = self.get_field("lemma_1")
         lemma = lemma_1_field.value if lemma_1_field else ""
@@ -1392,8 +1338,14 @@ class DpdFields(PopUpMixin):
 
         if detected_type and compound_type_field:
             print(f"DEBUG: compound_type set to '{detected_type}' for '{lemma}'")
-            compound_type_field.value = detected_type
-            compound_type_field.update()
+
+            # Only populate compound_type_add field (shows in red as suggestion)
+            compound_type_add_field = self.get_field("compound_type_add")
+            if compound_type_add_field:
+                compound_type_add_field.value = detected_type
+                compound_type_add_field.update()
+                self.check_and_color_add_fields()
+
             self.page.update()
 
     def _click_edit_compound_types(self, e: ft.ControlEvent) -> None:
