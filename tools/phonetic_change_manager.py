@@ -250,6 +250,37 @@ class PhoneticChangeManager:
 
         return None
 
+    def process_headword_all_matches(
+        self, headword
+    ) -> tuple[list[PhoneticChangeResult], str]:
+        """Process a headword and return ALL matching phonetic change rules.
+
+        Args:
+            headword: A DpdHeadword instance to process.
+
+        Returns:
+            Tuple of (list of PhoneticChangeResult, concatenated suggestions joined by newline)
+        """
+        results: list[PhoneticChangeResult] = []
+
+        if not headword.meaning_1:
+            return results, ""
+
+        if not headword.construction:
+            return results, ""
+
+        construction_clean, base_clean = self._clean_headword_data(headword)
+
+        for rule in self.rules:
+            result = self._check_rule_logic(
+                headword, rule, construction_clean, base_clean
+            )
+            if result:
+                results.append(result)
+
+        suggestions = "\n".join(r.suggestion for r in results)
+        return results, suggestions
+
     def open_tsv_for_editing(self) -> None:
         """Open the TSV file in LibreOffice Calc.
 

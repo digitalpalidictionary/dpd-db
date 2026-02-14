@@ -867,23 +867,30 @@ class DpdFields(PopUpMixin):
         pth = ProjectPaths()
         manager = PhoneticChangeManager(pth.phonetic_changes_path)
 
-        result = manager.process_headword(current_headword)
+        results, all_suggestions = manager.process_headword_all_matches(current_headword)
 
-        if result:
-            if result.status in ["auto_add", "auto_update"]:
-                field.value = result.suggestion
-                field.update()
+        if results:
+            if all_suggestions:
+                # If phonetic field is empty, put suggestions there; otherwise use phonetic_add field
+                if not field.value:
+                    field.value = all_suggestions
+                    field.update()
+                else:
+                    phonetic_add_field = self.get_field("phonetic_add")
+                    if phonetic_add_field:
+                        phonetic_add_field.value = all_suggestions
+                        phonetic_add_field.update()
+                        self.check_and_color_add_fields()
+                        print(
+                            f"DEBUG: phonetic suggestions '{all_suggestions}' added to phonetic_add for '{current_headword.lemma_1}'"
+                        )
                 print(
-                    f"DEBUG: phonetic auto-filled with '{result.suggestion}' for '{current_headword.lemma_1}'"
+                    f"DEBUG: phonetic auto-filled with '{all_suggestions}' for '{current_headword.lemma_1}'"
                 )
-            elif result.status == "manual_check":
-                phonetic_add_field = self.get_field("phonetic_add")
-                if phonetic_add_field:
-                    phonetic_add_field.value = result.suggestion
-                    phonetic_add_field.update()
-                    print(
-                        f"DEBUG: phonetic suggestion '{result.suggestion}' added to phonetic_add for '{current_headword.lemma_1}'"
-                    )
+
+            first_result = results[0]
+            if first_result.status in ["auto_add", "auto_update"]:
+                pass  # Already handled above
             self.page.update()
 
     def sanskrit_blur(self, e: ft.ControlEvent) -> None:
