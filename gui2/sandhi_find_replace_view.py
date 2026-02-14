@@ -251,6 +251,10 @@ class SandhiFindReplaceView(ft.Column):
         self._load_next_result()
 
     def commit_clicked(self, e):
+        if not self.data.db_results or self.data.index >= len(self.data.db_results):
+            self.update_message("No valid result to commit")
+            return
+
         if self.phase == 1:
             # Phase 1 logic (existing)
             new_value = re.sub(self.find_me, self.replace_me, self.data.this_field_text)
@@ -266,6 +270,10 @@ class SandhiFindReplaceView(ft.Column):
             self._increment()
 
     def ignore_clicked(self, e):
+        if not self.data.db_results or self.data.index >= len(self.data.db_results):
+            self.update_message("No valid result to ignore")
+            return
+
         self._increment()
         self._load_next_result()
 
