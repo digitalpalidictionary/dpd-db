@@ -1116,7 +1116,12 @@ class DpdFields(PopUpMixin):
         if not self.flags.family_compound_done and not value:
             lemma_1 = self.get_field("lemma_1").value
             lemma_clean = clean_lemma_1(lemma_1)
-            if not lemma_clean.endswith(("sutta", "vagga")):
+            pos = self.get_field("pos").value
+
+            if not lemma_clean.endswith(("sutta", "vagga")) and pos not in (
+                "sandhi",
+                "idiom",
+            ):
                 field.value = lemma_clean
                 field.update()
                 field.focus()
