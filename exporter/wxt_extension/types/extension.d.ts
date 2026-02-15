@@ -14,6 +14,7 @@ export interface Settings {
     sandhi: boolean;
     audio: boolean;
     goldenDict: boolean;
+    minimized: boolean;
 }
 
 export interface Theme {

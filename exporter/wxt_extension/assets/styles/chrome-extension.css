@@ -499,3 +499,121 @@ body.dpd-active {
   color: var(--dpd-text);
   text-align: center;
 }
+
+/* Default hidden state for maximize button */
+.maximize-btn {
+  display: none !important;
+}
+
+/* Minimized State Styling */
+#dict-panel-25445.dpd-minimized {
+  width: 30px !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  align-items: center !important;
+  background: #eaf6fc !important; /* Fallback */
+  background: var(--dpd-bg) !important;
+  border-left: 2px solid var(--dpd-border) !important;
+}
+
+#dict-panel-25445.dpd-minimized .dpd-header {
+  width: 100% !important;
+  padding: 12px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 15px !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  height: auto !important;
+  min-height: 150px;
+}
+
+#dict-panel-25445.dpd-minimized .dpd-top-row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  gap: 15px !important;
+  height: auto !important;
+}
+
+#dict-panel-25445.dpd-minimized .dpd-action-group {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 15px !important;
+  width: 100% !important;
+  flex: 0 0 auto !important; /* Override container query */
+  margin: 0 !important; /* Override container query */
+}
+
+/* Ensure Settings button is visible and sized correctly */
+#dict-panel-25445.dpd-minimized .settings-selector-btn {
+  display: flex !important;
+  width: 20px !important;
+  height: 20px !important;
+  justify-content: center;
+  align-items: center;
+  color: var(--dpd-text) !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#dict-panel-25445.dpd-minimized .settings-selector-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+    fill: currentColor !important;
+}
+
+/* Show Maximize button */
+#dict-panel-25445.dpd-minimized .maximize-btn {
+  display: flex !important;
+  width: 22px !important;
+  height: 22px !important;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--dpd-border);
+  color: var(--dpd-text);
+  cursor: pointer;
+  padding: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#dict-panel-25445.dpd-minimized .maximize-btn:hover {
+  background: var(--dpd-primary);
+  color: white;
+}
+
+#dict-panel-25445.dpd-minimized .dpd-logo-title-group {
+  justify-content: center !important;
+  margin: 0 !important;
+  width: 100% !important;
+  flex: 0 0 auto !important; /* Override container query */
+}
+
+#dict-panel-25445.dpd-minimized .dpd-logo {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+}
+
+/* Hide elements when minimized */
+#dict-panel-25445.dpd-minimized .dpd-title,
+#dict-panel-25445.dpd-minimized .dpd-nav-group,
+#dict-panel-25445.dpd-minimized .info-btn,
+#dict-panel-25445.dpd-minimized .theme-selector-btn,
+#dict-panel-25445.dpd-minimized .dpd-search-box,
+#dict-panel-25445.dpd-minimized .dpd-sticky-msg,
+#dict-panel-25445.dpd-minimized .dpd-status-text,
+#dict-panel-25445.dpd-minimized .dpd-content,
+#dict-panel-25445.dpd-minimized .dpd-resize-handle,
+#dict-panel-25445.dpd-minimized .dpd-footer {
+  display: none !important;
+}
+
