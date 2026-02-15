@@ -28,6 +28,7 @@ class AIManager:
         ("gemini", "gemini-2.5-flash-lite", 4),
         ("gemini", "gemini-3-flash-preview", 12),
         # openrouter
+        ("openrouter", "deepseek/deepseek-v3.2", 5),
         ("openrouter", "openrouter/aurora-alpha", 5),
         ("openrouter", "openrouter/pony-alpha", 5),
         ("openrouter", "stepfun/step-3.5-flash:free", 5),
