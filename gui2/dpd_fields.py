@@ -226,6 +226,7 @@ class DpdFields(PopUpMixin):
                 "sanskrit",
                 on_blur=self.sanskrit_blur,
                 on_focus=self.sanskrit_focus,
+                on_submit=self.sanskrit_submit,
             ),
             FieldConfig(
                 "source_1",
@@ -861,6 +862,10 @@ class DpdFields(PopUpMixin):
         sanskrit_field = self.get_field("sanskrit")
         if not self.flags.sanskrit_done and not sanskrit_field.value:
             self._search_and_fill_sanskrit()
+
+    def sanskrit_submit(self, e: ft.ControlEvent) -> None:
+        """Re-initiate Sanskrit search on Enter."""
+        self._search_and_fill_sanskrit()
 
     def _clean_sanskrit_simple(self, value: str) -> str:
         """Standardize Sanskrit sūkta, sūtra (bsk) variations."""
