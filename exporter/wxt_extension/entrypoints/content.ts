@@ -3,6 +3,7 @@ import { browser } from 'wxt/browser';
 import { DictionaryPanel } from '../components/dictionary-panel';
 import { addListenersToTextElements, removeListenersFromTextElements, cleanWord } from '../utils/utils';
 import { applyTheme } from '../utils/themes';
+import { isAutoDomain, isExcludedDomain } from '../utils/domains';
 import '@/assets/styles/chrome-extension.css';
 import '@/assets/styles/dpd-variables.css';
 import '@/assets/styles/dpd.css';
@@ -76,17 +77,6 @@ export default defineContentScript({
       document.documentElement.classList.add("dpd-active");
       document.body.classList.add("dpd-active");
 
-      // Wrap content to avoid interference (or whatever the original reason was)
-      if (!document.getElementById("main-content-32050248")) {
-        const container = document.createElement("div");
-        container.id = "main-content-32050248";
-        Array.from(document.body.childNodes).forEach((node) => {
-          if (node.nodeName !== "SCRIPT" && (node as Element).id !== "dict-panel-25445")
-            container.appendChild(node);
-        });
-        document.body.appendChild(container);
-      }
-
       addListenersToTextElements();
       panel = new DictionaryPanel();
       (window as any).panel = panel; // Assign to window so inline event handlers work
@@ -145,22 +135,19 @@ export default defineContentScript({
       }
     });
 
-    const AUTO_DOMAINS = [
-      "suttacentral.net",
-      "suttacentral.express",
-      "suttacentral.now",
-      "digitalpalireader.online",
-      "thebuddhaswords.net",
-      "tipitaka.org",
-      "tipitaka.lk",
-      "open.tipitaka.lk",
-    ];
-    if (AUTO_DOMAINS.some((d) => window.location.hostname.includes(d))) {
+    const hostname = window.location.hostname;
+
+    browser.storage.local.get(`state_${hostname}`).then((data) => {
+      const savedState = data[`state_${hostname}`];
+      
+      if (savedState === "ON") {
         init();
-    } else {
-      browser.storage.local.get(`state_${window.location.hostname}`).then((data) => {
-        if (data[`state_${window.location.hostname}`] === "ON") init();
-      });
-    }
+      } else if (savedState === "OFF") {
+        // User explicitly turned it off - do nothing
+      } else if (!isExcludedDomain(hostname) && isAutoDomain(hostname)) {
+        // No saved state, use default behavior for auto-domains
+        init();
+      }
+    });
   },
 });

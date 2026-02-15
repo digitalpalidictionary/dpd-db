@@ -16,10 +16,10 @@ html.dpd-active {
   overflow-x: hidden !important;
 }
 
-body.dpd-active {
-  display: grid !important;
-  grid-template-columns: calc(100vw - var(--dpd-panel-width)) var(--dpd-panel-width) !important;
+html.dpd-active body {
+  padding-right: var(--dpd-panel-width) !important;
   width: 100vw !important;
+  box-sizing: border-box !important;
 }
 
 /* Panel Styling */

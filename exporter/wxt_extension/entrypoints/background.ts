@@ -1,6 +1,7 @@
 import { defineBackground } from 'wxt/sandbox';
 import { browser } from 'wxt/browser';
 import { getApiBaseUrl } from '../utils/api';
+import { isAutoDomain, isExcludedDomain } from '../utils/domains';
 
 interface LocalStorage {
   [key: string]: any;
@@ -35,8 +36,6 @@ export default defineBackground(() => {
     await browser.action.setIcon({ tabId, path: iconSet });
   };
 
-  const AUTO_DOMAINS = ["suttacentral.net", "suttacentral.express", "suttacentral.now", "digitalpalireader.online", "thebuddhaswords.net", "tipitaka.org", "tipitaka.lk", "open.tipitaka.lk", "tipitaka.paauksociety.org"];
-
   const getDomainState = async (url: string | undefined): Promise<"ON" | "OFF"> => {
     if (!url || url.startsWith("chrome://") || url.startsWith("about:") || url.startsWith("moz-extension://")) return "OFF";
     try {
@@ -47,9 +46,7 @@ export default defineBackground(() => {
       
       if (data[key]) return data[key];
       
-      // Check if it's an auto-domain
-      const isAuto = AUTO_DOMAINS.some(d => domain.includes(d));
-      return isAuto ? "ON" : "OFF";
+      return (!isExcludedDomain(domain) && isAutoDomain(domain)) ? "ON" : "OFF";
     } catch (e) {
       console.error("Error getting domain state:", e);
       return "OFF";
