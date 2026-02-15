@@ -1,4 +1,5 @@
 import { defineConfig } from 'wxt';
+import { version } from './package.json';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
@@ -7,7 +8,7 @@ export default defineConfig({
   manifest: ({ browser }) => ({
     name: "Digital Pāḷi Dictionary",
     description: "Search the Digital Pāḷi Dictionary by double-clicking any word on any website.",
-    version: "1.0",
+    version,
     icons: {
       "16": "icons/dpd-logo_16.png",
       "32": "icons/dpd-logo_32.png",
