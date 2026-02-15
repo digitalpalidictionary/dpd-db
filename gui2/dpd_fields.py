@@ -248,6 +248,7 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "variant",
                 on_change=self.synonym_variant_check,
+                on_blur=self.variant_blur,
             ),
             FieldConfig("var_phonetic"),
             FieldConfig("var_text"),
@@ -1172,7 +1173,6 @@ class DpdFields(PopUpMixin):
 
         field, value = self.get_event_field_and_value(e)
 
-        # Only run if the synonyms haven't been generated yet
         if not self.flags.synonyms_done:
             pos = self.get_field("pos").value
             meaning_1 = self.get_field("meaning_1").value
@@ -1181,6 +1181,12 @@ class DpdFields(PopUpMixin):
             if pos and meaning_1 and lemma_1:
                 synonyms_string = self.db.get_synonyms(pos, meaning_1, lemma_1)
                 if synonyms_string:
+                    var_field = self.get_field("variant")
+                    var_value = var_field.value or ""
+                    var_set = set(word.strip() for word in var_value.split(",") if word.strip())
+                    syn_set = set(word.strip() for word in synonyms_string.split(",") if word.strip())
+                    syn_set = syn_set - var_set
+                    synonyms_string = ", ".join(pali_list_sorter(list(syn_set)))
                     field.value = synonyms_string
                     self.ui.update_message("Synonyms auto-generated")
                     self.flags.synonyms_done = True
@@ -1223,6 +1229,13 @@ class DpdFields(PopUpMixin):
                 syn_field.update()
 
             self.page.update()
+
+    def variant_blur(self, e: ft.ControlEvent) -> None:
+        field, value = self.get_event_field_and_value(e)
+        var_text_field = self.get_field("var_text")
+        var_text_field.value = value
+        var_text_field.update()
+        self.page.update()
 
     def construction_focus(self, e: ft.ControlEvent) -> None:
         """Make a construction from the parts."""
