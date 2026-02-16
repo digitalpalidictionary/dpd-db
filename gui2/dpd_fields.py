@@ -32,6 +32,7 @@ from gui2.toolkit import ToolKit
 from tools.compound_type_manager import CompoundTypeManager
 from tools.phonetic_change_manager import PhoneticChangeManager
 from tools.fuzzy_tools import find_closest_matches
+from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter
 from tools.pos import DECLENSIONS, NOUNS, PARTICIPLES, POS, VERBS
 from tools.speech_marks import SpeechMarkManager
@@ -239,11 +240,14 @@ class DpdFields(PopUpMixin):
             FieldConfig("sutta_2"),
             FieldConfig("example_2", field_type="example"),
             FieldConfig("translation_2", multiline=True),
-            FieldConfig("antonym"),
+            FieldConfig(
+                "antonym",
+                on_change=self.clean_pali_field,
+            ),
             FieldConfig(
                 "synonym",
                 on_focus=self.synonym_focus,
-                on_change=self.synonym_variant_check,
+                on_change=self.synonym_field_change,
             ),
             FieldConfig(
                 "variant",
@@ -1167,6 +1171,28 @@ class DpdFields(PopUpMixin):
 
         # Always focus the field when it gains focus
         field.focus()
+
+    def clean_pali_field(self, e: ft.ControlEvent) -> None:
+        """Clean field value to only allow Pali chars, comma and space."""
+        field = e.control
+        if not field.value:
+            return
+
+        # Build allowed characters: Pali alphabet + comma + space
+        allowed = set(pali_alphabet + [",", " "])
+        cleaned = "".join(char for char in field.value if char in allowed)
+
+        # Only update if changed
+        if cleaned != field.value:
+            field.value = cleaned
+            field.update()
+
+    def synonym_field_change(self, e: ft.ControlEvent) -> None:
+        """Clean text and check for duplicates in variant field."""
+        # First clean the field
+        self.clean_pali_field(e)
+        # Then check for duplicates
+        self.synonym_variant_check(e)
 
     def synonym_focus(self, e: ft.ControlEvent) -> None:
         """Auto-generate synonyms if the field is empty."""
