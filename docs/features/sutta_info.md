@@ -71,7 +71,7 @@ This section contains all information relevant to the Sutta Central website.
 | **TBW Legacy** | Link to the TBW Legacy website |
 | **Dhamma.gift** | Link to the Dhamma.gift website |
 | **SC Express** | Link to the SC Express website |
-| **SC Now** | [SuttaCentral.now](https://suttacentral.now) |
+| **SC Now** | Link to SC Now website |
 | **SC Voice** | Link to the SC Voice website | 
 
 ## Buddha Jayanti Tipiṭaka (BJT)
