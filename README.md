@@ -40,6 +40,7 @@ DPD is integrated into the following software and websites.
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)    
 [Sutta Central](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
 [Sutta Central Voice](https://www.sc-voice.net/#/sutta/dn15:0.1/en/sujato) | Docs  
+[Sutta Central Now](https://suttacentral.now) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central_now/)  
 [The Buddha's Words](https://thebuddhaswords.net/mn/mn1.html#content) | [Docs](https://digitalpalidictionary.github.io/integrations/tbw/)  
 [Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [Win](https://apps.microsoft.com/store/detail/tipitaka-pali-reader/9MTH9TD82TGR?hl=en-ms&gl=ms) | [Mac](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Linux](https://github.com/bksubhuti/tipitaka-pali-reader/releases/) | [Android](https://play.google.com/store/apps/details?id=com.paauk.tipitakapalireader) | [iOS](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)  
 [Tipitakapali.org website](https://tipitakapali.org/) | [iOS](https://apps.apple.com/vn/app/tipitakacst/id6743404213) | [Docs](https://digitalpalidictionary.github.io/integrations/tipitakapali/)  
