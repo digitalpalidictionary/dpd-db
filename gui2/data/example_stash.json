@@ -5,13 +5,13 @@
         "example": "yo hi koci, mārisa, amanusso ... nāgo vā nāgī vā nāgapotako vā nāgapotikā vā nāgamah'āmatto vā nāgapārisajjo vā nāgapacāro vā paduṭṭhacitto bhikkhuṃ vā bhikkhuniṃ vā upāsakaṃ vā upāsikaṃ vā gacchantaṃ vā anugaccheyya, ṭhitaṃ vā upatiṭṭheyya, nisinnaṃ vā upanisīdeyya, nipannaṃ vā upanipajjeyya."
     },
     "last": {
-        "source": "SN22.80",
-        "sutta": "khandhasaṃyuttaṃ, piṇḍolyasuttaṃ",
-        "example": "api ca kho otiṇṇ'āmha jātiyā jarāya maraṇena sokehi paridevehi dukkhehi domanassehi upāyāsehi dukkhotiṇṇā dukkhaparetā app'eva nāma imassa kevalassa dukkhakkhandhassa antakiriyā paññāyethā'ti."
+        "source": "SN22.117",
+        "sutta": "khandhasaṃyuttaṃ, bandhanasuttaṃ",
+        "example": "ayaṃ vuccati, bhikkhave, assutavā puthujjano vedanābandhanabaddho santarabāhirabandhanabaddho atīradassī apāradassī, baddho jīyati baddho mīyati baddho asmā lokā paraṃ lokaṃ gacchati."
     },
     "stash": {
-        "source": "SN22.3",
-        "sutta": "khandhasaṃyuttaṃ, hāliddikānisuttaṃ",
-        "example": "rūpanimitta-niketa-visāra-vinibandhā kho, gahapati, niketasārī'ti vuccati. saddanimitta … gandhanimitta… rasanimitta… phoṭṭhabbanimitta… dhammanimitta-niketa-visāra-vinibandhā kho, gahapati, niketasārī'ti vuccati. evaṃ kho, gahapati, niketasārī hoti."
+        "source": "AN3.63",
+        "sutta": "mahāvaggo, titthāyatanādisuttaṃ",
+        "example": "gāmesu'pi ḍayhamānesu nigamesu'pi ḍayhamānesu nagaresu'pi ḍayhamānesu tattha mātā'pi puttaṃ nappaṭilabhati, putto'pi mātaraṃ nappaṭilabhati. "
     }
 }
