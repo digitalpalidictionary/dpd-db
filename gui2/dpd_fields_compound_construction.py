@@ -78,14 +78,28 @@ class DpdCompoundConstructionField(ft.Column):
     def _handle_bolding_submit(self, e: ft.ControlEvent):
         bold_text = e.control.value
         current_value = self.compound_construction_field.value
-        if bold_text and current_value and bold_text in current_value:
+
+        if bold_text and current_value:
+            # Try to match bold_text followed by " + " first (space plus)
+            pattern_with_plus = re.escape(bold_text) + r"(?=\s\+)"
+
+            # Attempt replacement with preferred pattern
             new_value = re.sub(
-                re.escape(bold_text), f"<b>{bold_text}</b>", current_value, count=1
+                pattern_with_plus, f"<b>{bold_text}</b>", current_value, count=1
             )
-            self.compound_construction_field.value = new_value
-            e.control.value = ""
-            self.page.update()
-            self.compound_construction_field.focus()
+
+            # If no change, fallback to simple replacement anywhere
+            if new_value == current_value:
+                new_value = re.sub(
+                    re.escape(bold_text), f"<b>{bold_text}</b>", current_value, count=1
+                )
+
+            # Update if any change occurred
+            if new_value != current_value:
+                self.compound_construction_field.value = new_value
+                e.control.value = ""
+                self.compound_construction_field.focus()
+                self.page.update()
 
     def compound_construction_focus(self, e: ft.ControlEvent) -> None:
         """Autofill compound_construction."""
