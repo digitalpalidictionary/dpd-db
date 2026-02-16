@@ -40,7 +40,6 @@ h1 {
 	font-style: italic;
 	font-weight: normal;
 	color: var(--gray-dark);
-	margin-left: 8px;
 }
 
 /* Case info */
@@ -48,7 +47,6 @@ h1 {
 	font-size: 70%;
 	font-weight: normal;
 	color: var(--gray-dark);
-	margin-left: 8px;
 }
 
 /* Construction summary */
@@ -56,7 +54,6 @@ h1 {
 	font-size: 70%;
 	font-weight: normal;
 	color: var(--gray-dark);
-	margin-left: 8px;
 }
 
 /* Degree of completion indicator */
@@ -64,13 +61,11 @@ h1 {
 	font-size: 70%;
 	font-weight: normal;
 	color: var(--gray-dark);
-	margin-left: 8px;
 }
 
 /* Meaning/definition text */
 .meaning {
 	font-weight: normal;
-	margin-left: 1rem;
 }
 
 /* Links within dictionary entries */

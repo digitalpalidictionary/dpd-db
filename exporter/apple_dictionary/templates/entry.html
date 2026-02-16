@@ -1,12 +1,26 @@
 <h1>{{ lemma_clean }}</h1>
+{% if headwords|length > 1 %}
 <ol class="entries">
 {% for hw in headwords %}
   <li value="{{ loop.index }}">
-    {% if hw.pos %}<span class="pos">{{ hw.pos }}</span>{% endif %}
-    {% if hw.plus_case %}<span class="case-info">({{ hw.plus_case }})</span>{% endif %}
-    {% if hw.construction_summary %}<span class="construction">[{{ hw.construction_summary | safe }}]</span>{% endif %}
+    {% if hw.pos %}<span class="pos">{{ hw.pos }}</span>. {% endif %}
+    {% if hw.plus_case %}<span class="case-info">({{ hw.plus_case }})</span> {% endif %}
+    <span class="meaning">{{ hw.meaning_combo_html | safe }}</span>. 
+    {% if hw.construction_summary %}<span class="construction">[{{ hw.construction_summary | safe }}]</span> {% endif %}
     {% if hw.degree_of_completion %}<span class="completion">{{ hw.degree_of_completion_html | safe }}</span>{% endif %}
-    <p class="meaning">{{ hw.meaning_combo_html | safe }}</p>
   </li>
 {% endfor %}
 </ol>
+{% else %}
+<div class="entries">
+{% for hw in headwords %}
+  <div class="entry">
+    {% if hw.pos %}<span class="pos">{{ hw.pos }}</span>. {% endif %}
+    {% if hw.plus_case %}<span class="case-info">({{ hw.plus_case }})</span> {% endif %}
+    <span class="meaning">{{ hw.meaning_combo_html | safe }}</span>. 
+    {% if hw.construction_summary %}<span class="construction">[{{ hw.construction_summary | safe }}]</span> {% endif %}
+    {% if hw.degree_of_completion %}<span class="completion">{{ hw.degree_of_completion_html | safe }}</span>{% endif %}
+  </div>
+{% endfor %}
+</div>
+{% endif %}
