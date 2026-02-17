@@ -12,23 +12,30 @@ aḍḍha	any	first	chaṭṭhī	aḍḍhakumbhūpama, aḍḍhakula, aḍḍhak
 adhigata	adj	last	tatiyā	amatamadhigata, ekodibhāvādhigata
 adhimutta	any	last	sattamī	x
 adhimutti	any	last	sattamī	ajjhāsayādhimutti
-agga	nt	last	chaṭṭhī	
 agga	adj	last	kammadhāraya	
+agga	nt	last	chaṭṭhī	
 aggi	masc	last	pañcamī	āhuneyyaggi, kāyaggi, gahapataggi
 ajjhatta	any	first	kammadhāraya	ajjhattabahiddhārūpa, ajjhattabāhira
 āloka	any	last	chaṭṭhī	
 āmukka	any	any	tatiyā	
 aneka	any	first	kammadhāraya	
+aniccatā	fem	last	chaṭṭhī	
 ānisaṃsa	adj	last	kammadhāraya	x
 ānisaṃsa	masc	last	sattamī	x
+aññatara	adj	first	kammadhāraya	
+anu	masc	first	kammadhāraya	
+anuggāhaka	masc	last	chaṭṭhī	
+anuparivattī	adj	last	dutiyā	
+anupassī	adj	last	dutiyā	
 anupaviṭṭha	any	last	dutiyā	x
+anuppatta	adj	last	dutiyā	
 anusocanā	any	lasy	catutthī	
 apagata	any	last	pañcamī	x
 apagata	any	last	pañcamī	x
 apaṇṇaka	any	first	kammadhāraya	
 apasādanā	any	last	chaṭṭhī	x
-apekkha	any	last	dutiyā	arahopekkha
 apekkha	adj	last	dutiyā	arahopekkha
+apekkha	any	last	dutiyā	arahopekkha
 apeto	any	last	pañcamī	x
 appa	any	first	kammadhāraya	appakasirena, appatara 1, appasaddena, appicchakathā
 apuñña	any	first	kammadhāraya	apuññalābha, apuññūpaga, apuññakara
@@ -45,13 +52,14 @@ aṭṭha	any	first	digu	aṭṭhakathā, aṭṭhaguṇaṃ, aṭṭhaṅgasusa
 aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha
 aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha
 atthika	adj	last	tatiyā	sabbatthika, mahatthika
-aṭṭhika	nt	last	chaṭṭhī	setaṭṭhika
 aṭṭhika	adj	last	dutiyā	setaṭṭhika
+aṭṭhika	nt	last	chaṭṭhī	setaṭṭhika
 avadhāna	any	any	chaṭṭhī	
 avasesa	any	last	chaṭṭhī	x
 avasitta	any	last	sattamī	x
 bahu	any	first	kammadhāraya	bāhujañña 1, bāhujañña 2, bāhusacca
 bhadda	any	first	kammadhāraya	
+bhaya	nt	last	sattamī	
 bojī	any	last	dutiyā	
 bubbuḷa	any	last	chaṭṭhī	
 cakkha	nt	last	chaṭṭhī	
@@ -89,12 +97,14 @@ gārava	any	last	sattamī	adhammagārava, tibbagārava
 gāravatā	any	last	sattamī	x
 gata	adj	last	dutiyā	aghagata, aṭṭhānagata, anāpāthagata, antogata 1, antogata 2, apattagata, abahigata, amahaggata, ākāsagata 3, evaṅgata, evaṃgata, ñātimajjhagata, tejogata, nāvāsagata, parahatthagata 1, pūgamajjhagata, bahigata 1
 gata	adj	last	dutiyā	
+ghara	masc	last	chaṭṭhī	
 gū	any	last	dutiyā	avedagū
 gū	any	last	dutiyā	avedagū
 heṭṭhā	any	any	chaṭṭhī	heṭṭhāgata, heṭṭhāchidda, heṭṭhima, heṭṭhūpapattika
 hetu	any	last	chaṭṭhī	kāmarāgābhinivesavinibandhapaligedhapariyuṭṭhānajjhosānahetu, diṭṭhirāgābhinivesavinibandhapaligedhapariyuṭṭhānajjhosānahetu
 indriya	nt	last	chaṭṭhī	pañcindriya, anaññātaññassāmītindriya
 ja	adj	last	pañcamī	ekaja, dvija 1, pubbaja, sahaja 1, anutuja
+jāla	nt	last	chaṭṭhī	
 jātika	adj	last	pañcamī	adhivāsakajātika, anadhivāsakajātika, apparajakkhajātika, abālajātika, alasajātika, alolajātika, aviheṭhakajātika, ujujātika, kāḷakajātika, tibbadosajātika, tibbamohajātika, tibbarāgajātika, dabbajātika, duppaññajātika, dubbacajātika, dhārakajātika, dhāraṇajātika, bālajātika, bhīrukajātika, maṇḍanakajātika, maṇḍanajātika, mānātimānajātika, lolajātika, sappaññajātika, vīriyajātika, saṃsappajātika, huṃhuṅkajātika, brāhmaṇajātika, mukharajātika, viññujātika, taruṇajātika
 kalyāṇa	any	first	kammadhāraya	
 kāma	adj	last	dutiyā, tuṃpaccaya	
@@ -129,13 +139,14 @@ mahā	any	first	kammadhāraya
 majjha	any	last	chaṭṭhī	x
 mala	nt	last	chaṭṭhī	kilesamala, timala 2
 mātar	any	last	chaṭṭhī	janikāmātū, janimātar, sakamātar, samātar
-matta	nt	last	chaṭṭhī	
 matta	adj	last	kammadhāraya	kāveyyamatta
+matta	nt	last	chaṭṭhī	
 micchā	any	first	kammadhāraya	micchādiṭṭhihata
 missa	any	last	tatiyā	
 mokkha	any	last	pañcamī	aññamokkha, saggamokkha
 mukha	any	last	x	
 mutta	any	any	pañcamī	gomutta, pūtimutta, pūtimuttabhesajja, muttakarīsa, muttagata, muttacāga, muttappaṭibhāna, muttabhāva, muttavatthi, muttacāgī, muttaharītaka, muttasaddha, sādhumutta
+ñāṇa	nt	last	chaṭṭhī	
 nava	any	first	digu	navakammika 2, navaṅgavasena, navacchadana, navanavutiya, navanīta, navapabbajita, navapurāṇa, navaphala, navambu, navalokuttaradhammasannissita, navasassa, navasivathikapabba, navavāda 1, navavāda 2, navuti, nāvutika, navānukampita, navoropita
 nibbāpana	nt	last	dutiyā	
 nidāna	adj	last	kammadhāraya	ekanidāna
@@ -153,15 +164,19 @@ pabbata	any	last	kammadhāraya	mīḷhapabbata, aṅgārapabbata
 pabhava	adj	last	pañcamī	
 pādaka	any	any	kammadhāraya	
 paguṇa	any	last	kammadhāraya	x
+pahāna	nt	last	chaṭṭhī	
+pahotika	adj	last 	pañcamī	
 pahūta	any	last	pañcamī	
 pakata	adj	last	tatiyā	puratthāpakata
+pakata	adj	last	tatiyā	
+pamocana	nt	last	pañcamī	
 paṇḍita	any	first	kammadhāraya	paṇḍitatara, paṇḍitanimitta, paṇḍitabālalakkhaṇa, paṇḍitalakkhaṇa, paṇḍitavedanīya, paṇḍitavatthu, paṇḍitabhūmi, paṇḍitāpadāna
 paṇīta	any	first	kammadhāraya	paṇītagāmī, paṇītasaṅkhātatara, paṇītādhimuttika
 paṇṇa	nt	last	chaṭṭhī	tiṇapaṇṇa, haritakapaṇṇa
 paribhāvita	any	last	tatiyā	
 paricāga	any	last	chaṭṭhī	x
-paricāraka	masc	last	chaṭṭhī	
 paricāraka	adj	last	dutiyā	
+paricāraka	masc	last	chaṭṭhī	
 paricariyā	fem	last	sattamī	
 paricita	any	any	tatiyā	yathāpabbajjāparicita
 parivāsa	any	last	chaṭṭhī	
@@ -179,8 +194,11 @@ patita	any	last	pañcamī	upalepapatita, chamāpatita
 patta	adj	last	dutiyā	ucchiṭṭhapatta, ūnakasatapatta, naṭṭhapatta, bhinnapatta, satapatta 3, sañchinnapatta, saṃsīnapatta, sañchannapatta 1.1, sañchannapatta 2.1, dhotapatta
 patti	fem	last	chaṭṭhī	x
 pavāraṇā	fem	last	tatiyā	catumāsappaccayapavāraṇā, niccapavāraṇā, punapavāraṇā
+pavedita	adj	last	tatiyā	
 pema	any	last	sattamī	avigatapema, vigatapema, adhigatapema, niviṭṭhapema, ittarapema
 phala	nt	last	chaṭṭhī	tatiyaphala, ariyaphala, tiphala, navaphala, maggaphala, madhuraphala, rukkhaphala, sukhapphala, kiṃphala 2, puttaphala
+pitar	masc	last	chaṭṭhī	
+pubba	adj	last	kammadhāraya	
 pubba	any	first	kammadhāraya	
 pubbaṅgama	any	last	kammadhāraya	
 pubbuḷa	any	last	chaṭṭhī	
@@ -190,23 +208,28 @@ pupphuḷa	any	last	chaṭṭhī
 purakkhata	any	last	tatiyā	apurakkhata
 puṭa	masc	last	chaṭṭhī	tālapuṭa
 pūti	any	first	kammadhāraya	pūtidehasaya
+putta	masc	last	chaṭṭhī	
 rāga	any	last	sattamī	adhammarāga, avigatarāga, avītarāga, chandarāga, tibbarāga, nandirāga, nandīrāga, saṅkapparāga, vigatarāga, vītarāga 1, vītarāga 2
 rāsi	any	last	chaṭṭhī	mahāpuppharāsi, mahāsāsaparāsi
 rati	any	last	sattamī	aratirati, khiḍḍārati, sabbarati
 ratta  	any	last	sattamī	
+ritta	adj	last	pañcamī	
+rūpa	adj	last	kammadhāraya > bahubbīhi	
 sa	any	first	tatiyā	x
 sabba	masc	first	kammadhāraya	sabbakammakkhaya, sabbajī, sabbaññū 2, sabbadukkhakkhaya, sabbanavaka, sabbanissagga, sabbasaṅkhārasamatha, sabbasaṃyojanakkhaya, sabbupādānakkhaya, sabbūpadhipaṭinissagga, sabbūpadhiparikkhaya, sabbūpadhippaṭinissagga, sabbaratticāra
 sabyatā	any	last	tatiyā	
 sadda	masc	last	chaṭṭhī	
 sadisa	any	last	tatiyā	visadisa
 sahassa	nt	any	digu	
+sakkharā	fem	last	chaṭṭhī	
 sālā	fem	last	catutthī	ekasālā, kūṭāgārasālā 1, kūṭāgārasālā 2, jarasālā, dvārasālā, paṇṇasālā, migasālā
 sama	adj	last	tatiyā	samasama 1
-samācāra	masc	last	chaṭṭhī	saritabbasamācāra
 samācāra	adj	last	kammadhāraya	
+samācāra	masc	last	chaṭṭhī	saritabbasamācāra
 samāna	any	last	tatiyā	seyyasamāna
 sāmaññagata	any	last	tatiyā	diṭṭhisāmaññagata, samādhisāmaññagata, paññāsāmaññagata, sīlasāmaññagata
 samāyuta	adj	last	tatiyā	x
+sambhūta	adj	last	tatiyā	
 saṃgha	any	last	chaṭṭhī	
 sammissa	any	last	tatiyā	x
 sampadā	fem	last	chaṭṭhī	
@@ -222,6 +245,7 @@ saṃvuta	any	last	tatiyā	cirarattasaṃvuta
 saṃyata	adj	last	sattamī	x
 saṃyojana	any	last	chaṭṭhī	ajjhattasaṃyojana, khīṇasaṃyojana, parikkhīṇabhavasaṃyojana, sabbasaṃyojana, ekasaṃyojana
 saṅgha	any	last	chaṭṭhī	
+saṅghāṭa	masc	last	chaṭṭhī	
 saññā	any	last	sattamī	akusalasaññā 1
 sannibha	adj	last	chaṭṭhī	
 sannibha	last	any	kammadhāraya	
@@ -262,7 +286,9 @@ upari	any	any	chaṭṭhī	uparipaṇṇāsaka 1, uparipaṇṇāsaka 2, uparima
 uttama	any	first	kammadhāraya	uttamaṅgaruha, uttamadamathasamathamanuppatta, uttamaggarasadāyaka, uttamapattipatta, uttamappamukhatā
 vāda	masc	last	kammadhāraya	isivāda, ajitakesakambalavāda, aññātavāda, jātivāda, theravāda 1, paravāda 1, paravāda 2, makkhalivāda
 vaḍḍhaka	any	any	chaṭṭhī	ubhatovaḍḍhaka
+vadha	masc	last	chaṭṭhī	
 vādī	any	last	dutiyā	akālavādī, aggavādī, kālavādī, evaṃvādī, ucchedavādī, kiriyavādī 1, kiṃvādī, tathāvādī 1, tathāvādī 2, paravādī, puggalavādī, musāvādī, yathāvādī, sassatavādī, suññatavādī, suyuttavādī, aññavādī
+vagga	masc	last	kammadhāraya	
 vāma	any	first	kammadhāraya	
 vana	nt	last	kammadhāraya	antovana, jetavana, naḷavana
 vāsa	any	last	sattamī	antevāsīvāsa, abrahmacariyavāsa
@@ -285,29 +311,3 @@ visaṃyoga	masc	last	pañcamī
 visaññoga	masc	last	pañcamī	
 vuddha	any	last	tatiyā	x
 yutta	adj	last	kammadhāraya	itthiyutta, dhammayutta, purisayutta, maccherayutta, yogayutta, sabbavāriyutta, kāmayogayutta, bhavayogayutta, kāmayutta
-vadha	masc	last	chaṭṭhī	
-pakata	adj	last	tatiyā	
-saṅghāṭa	masc	last	chaṭṭhī	
-sakkharā	fem	last	chaṭṭhī	
-putta	masc	last	chaṭṭhī	
-pavedita	adj	last	tatiyā	
-vagga	masc	last	kammadhāraya	
-pamocana	nt	last	pañcamī	
-rūpa	adj	last	kammadhāraya > bahubbīhi	
-pubba	adj	last	kammadhāraya	
-anuggāhaka	masc	last	chaṭṭhī	
-ritta	adj	last	pañcamī	
-pitar	masc	last	chaṭṭhī	
-ghara	masc	last	chaṭṭhī	
-anuparivattī	adj	last	dutiyā	
-sambhūta	adj	last	tatiyā	
-aññatara	adj	first	kammadhāraya	
-anupassī	adj	last	dutiyā	
-pahotika	adj	last 	pañcamī	
-bhaya	nt	last	sattamī	
-jāla	nt	last	chaṭṭhī	
-ñāṇa	nt	last	chaṭṭhī	
-anuppatta	adj	last	dutiyā	
-aniccatā	fem	last	chaṭṭhī	
-anu	masc	first	kammadhāraya	
-pahāna	nt	last	chaṭṭhī	
