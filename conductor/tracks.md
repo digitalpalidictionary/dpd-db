@@ -16,3 +16,8 @@
 ## [~] Track: DPD Updater/Installer Application
 
 *Link: [./tracks/dpd_updater_20260204/](./tracks/dpd_updater_20260204/)*
+
+---
+
+## [ ] Track: Flet 1.0 Migration (gui2 -> gui3)
+*Link: [./tracks/flet_1_0_migration_20260217/](./tracks/flet_1_0_migration_20260217/)*
