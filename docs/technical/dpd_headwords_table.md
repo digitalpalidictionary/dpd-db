@@ -70,7 +70,7 @@ Here is a quick overview:
 
 - **`non_ia`** `[str]` what non Indo-Aryan word is the headword derived from?
 
-- **`sanskrit`** `[str]` what is the closest Sanskrit cognate in Monier-Williams or Edgerton?
+- **`sanskrit`** `[str]` what is the closest Sanskrit cognate in Monier-Williams or Edgerton? The prefix and root found in MW is in square brackets [kṛ]
 
 - *`sanskrit_clean`* `[str]` what is the Sanskrit stripped of all content in `[square brackets]`?
 
@@ -237,6 +237,16 @@ Here is a quick overview:
 - *`idioms_set`* `[set]` set of all the idioms in the database
 
 - *`__repr__`* `[str]` quick overview of headword data
+
+## Idiosyncratic Symbols
+
+A few fields contain symbols that might not be immediately apparent.
+
+- `sanskrit`: `[square brackets]` contain the prefix and root found in Monier Williams, e.g. `[anukṛ]`
+- `source_1`: `-` means no real example can be found. Often used for sutta names and other structural aspects of Pāḷi texts. The entry is considered complete even without an example. 
+- `stem`: `!` means no actual stem. The word is derived entirely from the `pattern` column.
+- `stem`: `*` means do not generate a full list of inflections for the `inflection` column. The word is often an irregular form, and only the exact spelling of the `lemma_clean` needs to be recognized.
+
 
 ## Database Relationships
 
