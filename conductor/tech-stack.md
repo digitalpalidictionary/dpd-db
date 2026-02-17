@@ -1,7 +1,7 @@
 # Technology Stack
 
 ## Core Technologies
-- **Python (3.12+):** Primary language for database management, data processing, exporters, and the modern GUI.
+- **Python (3.13):** Primary language for database management, data processing, exporters, and the modern GUI.
 - **Go (1.22+):** Used for performance-critical modules where Python execution is a bottleneck.
 - **SQLite:** The primary relational database for storing dictionary data.
 - **Web Extensions (Manifest V3):** Built using the **WXT** framework and **Vite** for cross-browser compatibility (Chrome & Firefox) and security.
@@ -21,6 +21,7 @@
 ## Tooling and Infrastructure
 - **Astral uv:** Fast Python package manager and resolver.
 - **Ruff:** Extremely fast Python linter and code formatter.
+- **ty:** Extremely fast Python type checker and language server from Astral.
 - **CSS Management:** `identity/css/` is the **Single Source of Truth** for all project styles. CSS files are distributed to the Webapp, exporters, and documentation via `tools/css_manager.py`.
 - **MkDocs & MkDocs Material:** Documentation generator and theme for project docs.
 - **Pytest:** Testing framework for Python.
