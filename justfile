@@ -175,3 +175,11 @@ nodecon:
 # Turn on deconstructor premade mode
 decon:
     uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'no')"
+
+# Set data limit to 100
+limit100:
+    uv run python -c "from tools.configger import config_update; config_update('dictionary', 'data_limit', '100')"
+
+# Set data limit to 0 (no limit)
+limit0:
+    uv run python -c "from tools.configger import config_update; config_update('dictionary', 'data_limit', '0')"
