@@ -166,6 +166,18 @@ server-reload:
     mkdir -p logs
     nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log" 2>&1 &
 
+# ===== CONE DICTIONARY IMPORT =====
+
+# Extract Cone entries to TSV (includes comparison)
+cone:
+    uv run python scripts/extractor/extract_cone.py
+
+# ===== CPD DICTIONARY IMPORT =====
+
+# Extract CPD entries to TSV (includes comparison)
+cpd:
+    uv run python scripts/extractor/extract_cpd.py
+
 # ===== CONFIGURATION =====
 
 # Turn off deconstructor premade mode
