@@ -1,31 +1,40 @@
 # Help with Coding
 
-If you're a software developer and would like to contribute to the project, please get involved.
+If you're a software developer and would like to contribute to the project, please get involved. Code contributions are very welcome, and every helping hand makes a real difference.
 
-## DPD Project Management
-Here's the [DPD Codebase](https://GitHub.com/orgs/digitalpalidictionary/projects/1/views/2){target="_blank"} Project Management on GitHub with all the open and in-progress issues. Just comment on any issue to find out more, or [please get in touch by email](mailto:digitalpalidictionary@gmail.com).
+## Getting Started
 
-## DPD Project repo
+1. Browse the [DPD Project Board](https://github.com/orgs/digitalpalidictionary/projects/1/views/2){target="_blank"} for open and in-progress issues.
+2. Comment on any issue to find out more, or [get in touch by email](mailto:digitalpalidictionary@gmail.com).
+3. Read the full [CONTRIBUTING.md](https://github.com/digitalpalidictionary/dpd-db/blob/main/CONTRIBUTING.md){target="_blank"} for the complete contribution workflow, including development setup, pull request process, and commit conventions.
 
-Here's the [dpd-db](https://GitHub.com/digitalpalidictionary/dpd-db){target="_blank"}  GitHub repo, which contains the code for all aspects of the project.
+## Contribution Areas
 
-## Technical Docs
-Here are the [technical docs](../technical/index.md), for building the database, or just working with the pre-built database
+- __Bug fixes__ — squash a bug you've encountered.
+- __New features__ — implement something from the project board or your own idea.
+- __Exporters__ — improve existing dictionary exporters (GoldenDict, Kindle, Apple Dictionary, PDF, etc.) or create new ones.
+- __Webapp / Frontend__ — improve the [dpdict.net](https://www.dpdict.net/){target="_blank"} web interface.
+- __Browser extension__ — work on the WXT-based cross-browser extension.
+- __Documentation__ — improve developer docs or this website.
 
-## GitHub Releases
-You can find the [latest releases](https://GitHub.com/digitalpalidictionary/dpd-db/releases){target="_blank"}  here on GitHub, which includes the latest version of the database. 
+The best way to get started is to find something that you want DPD to do, and make it happen.
 
 ## Languages
-DPD uses a few languages.
 
-- __Python__: Most of the project backend is written in Python.   
+- __Python__: Most of the project backend is written in Python.
+- __HTML CSS JS__: Most of the frontend is written in HTML, CSS and vanilla JavaScript.
+- __Go__: A few of the more time-consuming operations, like the Deconstructor and generating Frequency tables, are written in Go.
+- __TypeScript__: The cross-browser extension is built with WXT and TypeScript.
+- __Markdown__: This website and all the project docs are written in Markdown.
 
-- __HTML CSS JS__: Most of the frontend is written in HTML, CSS and vanilla JavaScript.  
+## Development Prerequisites
 
-- __Go__: A few of the more time-consuming operations, like the Deconstructor and generating Frequency tables, are written in Go to take advantage of its speed and concurrency.
+You only need __Git__ and __uv__ (for Python dependency management) to get started. Go and Node.js are only required for their specific components. See the [CONTRIBUTING.md](https://github.com/digitalpalidictionary/dpd-db/blob/main/CONTRIBUTING.md#development-setup){target="_blank"} for full setup instructions, and the [Quick Start Guide](../technical/quick_start.md) for database usage.
 
-- __Markdown__: This website and all the project docs are written in Markdown.  
+## Resources
 
-## App Development
-A long-term goal is to create a custom app for DPD and other Pāḷi Dictionaries. This would replicate the current lookup functionality of GoldenDict and further allow the integration of many requested features, which are not possible within the GoldenDict framework. 
+- [dpd-db GitHub repo](https://github.com/digitalpalidictionary/dpd-db){target="_blank"}
+- [Technical Docs](../technical/index.md)
+- [Latest Releases](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}
+- [Project Folder Structure](../technical/project_folder_structure.md)
 
