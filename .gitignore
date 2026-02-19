@@ -90,3 +90,5 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 typescript
+scripts/extractor/extract_cone.tsv
+scripts/extractor/extract_cpd.tsv
