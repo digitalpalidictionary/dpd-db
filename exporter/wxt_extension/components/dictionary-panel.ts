@@ -298,7 +298,7 @@ export class DictionaryPanel {
       this._updateNavigationButtons();
     }
 
-    const processedHtml = replaceFeedbackSource(wrapApostrophesInHTML(html));
+    const processedHtml = replaceFeedbackSource(wrapApostrophesInHTML(html), window.location.hostname);
     const parts = processedHtml.split('<hr class="dpd">');
 
     if (parts.length >= 2) {

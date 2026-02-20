@@ -218,13 +218,15 @@ export function removeListenersFromTextElements(): void {
   document.body.removeEventListener("mouseup", handleMouseUp);
 }
 
-export function replaceFeedbackSource(html: string): string {
+export function replaceFeedbackSource(html: string, hostname: string = ''): string {
   const browser = (import.meta as any).env.BROWSER;
-  const source = browser === 'firefox' 
-    ? 'dpd-firefox-extension-' 
+  const prefix = browser === 'firefox' 
+    ? 'dpd-firefox-extension ' 
     : browser === 'chrome' 
-      ? 'dpd-chrome-extension-' 
-      : 'dpd-browser-extension-';
+      ? 'dpd-chrome-extension ' 
+      : 'dpd-browser-extension ';
+  
+  const source = hostname ? `${prefix}${hostname} ` : prefix.slice(0, -1);
   
   return html.replace(/dpdict\.net\+/g, source);
 }
