@@ -102,11 +102,11 @@ class Pass2AutoView(ft.Column):
                     ft.Row(
                         controls=[
                             self.books_dropdown,
+                            self.ai_model_dropdown,
                             ft.ElevatedButton(
                                 "AutoProcess Book",
                                 on_click=self.handle_book_click,
                             ),
-                            self.ai_model_dropdown,
                             ft.ElevatedButton(
                                 "Stop",
                                 on_click=self.handle_stop_click,
