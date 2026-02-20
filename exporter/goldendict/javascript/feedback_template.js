@@ -56,8 +56,7 @@ function makeFeedback(data) {
         Help with Pāḷi</a><span>. If you have Pāḷi grammar skills and would like to assist, please make email contact.</span>
     </p>
     <p>
-        <a class="dpd-link"
-        href="mailto:digitalpalidictionary@gmail.com?subject=Keep%20me%20updated!&body=Please%20let%20me%20know%20about%20new%20features%20and%20updates%20as%20soon%20as%20they%20are%20available.">
+        <a class="dpd-link" href="https://forms.gle/gJ7ouhJriYREPm1s8" target="_blank">
         Join the mailing list</a><span>. Get notified of updates and new features as soon as they become available.</span>
     </p>
     `;
