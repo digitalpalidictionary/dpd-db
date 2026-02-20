@@ -143,11 +143,17 @@ if __name__ == "__main__":
     gemini_manager.list_models()
 
     models = [
-        "models/gemini-2.5-pro-exp-03-25",
-        "models/gemini-2.5-pro-preview-03-25",
-        "models/gemini-2.5-flash-preview-04-17",
-        "models/gemini-2.5-flash-preview-04-17-thinking",
-        "models/gemini-2.5-pro-preview-05-06",
+        "models/gemini-2.5-flash",
+        "models/gemini-2.5-pro",
+        "models/gemini-2.5-flash-preview-tts",
+        "models/gemini-2.5-pro-preview-tts",
+        "models/gemini-2.5-flash-lite",
+        "models/gemini-2.5-flash-image",
+        "models/gemini-2.5-flash-lite-preview-09-2025",
+        "models/gemini-2.5-computer-use-preview-10-2025",
+        "models/gemini-2.5-flash-native-audio-latest",
+        "models/gemini-2.5-flash-native-audio-preview-09-2025",
+        "models/gemini-2.5-flash-native-audio-preview-12-2025",
     ]
 
     test_prompt = "Explain the concept of recursion in programming in simple terms."
@@ -157,7 +163,7 @@ if __name__ == "__main__":
     ai_response = gemini_manager.request(
         prompt=test_prompt,
         prompt_sys=test_sys_prompt,
-        model="models/gemini-2.5-pro-preview-05-06",
+        model="models/gemini-2.5-flash",
     )
 
     pr.info(f"Gemini request status: {ai_response.status_message}")
