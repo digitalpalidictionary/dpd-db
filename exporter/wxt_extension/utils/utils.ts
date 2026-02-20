@@ -218,6 +218,17 @@ export function removeListenersFromTextElements(): void {
   document.body.removeEventListener("mouseup", handleMouseUp);
 }
 
+export function replaceFeedbackSource(html: string): string {
+  const browser = (import.meta as any).env.BROWSER;
+  const source = browser === 'firefox' 
+    ? 'dpd-firefox-extension-' 
+    : browser === 'chrome' 
+      ? 'dpd-chrome-extension-' 
+      : 'dpd-browser-extension-';
+  
+  return html.replace(/dpdict\.net\+/g, source);
+}
+
 // Attach to window for legacy compatibility if needed, 
 // though we should prefer importing these functions directly.
 if (typeof window !== 'undefined') {

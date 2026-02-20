@@ -1,6 +1,7 @@
 import { Settings } from '../types/extension';
 import { browser } from 'wxt/browser';
 import { getAudioUrl } from '../utils/api';
+import { replaceFeedbackSource } from '../utils/utils';
 
 // Define helper functions first
 export function wrapApostrophesInHTML(html: string): string {
@@ -297,7 +298,7 @@ export class DictionaryPanel {
       this._updateNavigationButtons();
     }
 
-    const processedHtml = wrapApostrophesInHTML(html);
+    const processedHtml = replaceFeedbackSource(wrapApostrophesInHTML(html));
     const parts = processedHtml.split('<hr class="dpd">');
 
     if (parts.length >= 2) {
