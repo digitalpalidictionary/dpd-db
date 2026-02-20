@@ -12,6 +12,8 @@ check_db_exists()
 
 # List of commands to execute - all commands from the original script
 COMMANDS = [
+    "tools/logo.py",
+    
     "tools/version.py",
     "scripts/build/config_uposatha_day.py",
 

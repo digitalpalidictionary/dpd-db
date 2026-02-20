@@ -14,6 +14,7 @@ touch_file("dpd.db")
 
 # List of commands to execute
 COMMANDS = [
+    "tools/logo.py",
     "scripts/build/db_rebuild_from_tsv.py",
     "db/bold_definitions/update_bold_definitions_db.py",
     "scripts/bash/generate_components.py",

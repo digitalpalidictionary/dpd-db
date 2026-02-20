@@ -3,6 +3,8 @@
 from tools.script_runner import run_script
 
 COMMANDS = [
+    "tools/logo.py",
+    
     # setup config.ini file
     "tools/configger.py",
     

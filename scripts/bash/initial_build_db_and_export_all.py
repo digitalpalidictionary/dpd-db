@@ -10,6 +10,7 @@ from tools.script_runner import run_script
 
 # List of commands - calls the other converted scripts
 COMMANDS = [
+    "tools/logo.py",
     "scripts/bash/initial_setup_run_once.py",
     "scripts/bash/initial_build_db.py",
     "scripts/bash/makedict.py",
