@@ -1,5 +1,9 @@
 [
     {
+        "id": 28225,
+        "lemma_1": "jātijarābyādhimaraṇa"
+    },
+    {
         "id": 88880,
         "lemma_1": "iriyāpathe kappeti"
     },
@@ -74,9 +78,5 @@
     {
         "id": 7291,
         "lemma_1": "abbhavalāhakasutta"
-    },
-    {
-        "id": 25975,
-        "lemma_1": "catupaññāsama"
     }
 ]

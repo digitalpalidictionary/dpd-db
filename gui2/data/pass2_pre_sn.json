@@ -10112,9 +10112,135 @@
         ],
         "vātavassavalāhakāti": [
             66735
+        ],
+        "aniccadhammo": [
+            4135
+        ],
+        "aniccadhammoti": [
+            4135
+        ],
+        "aññāṇā": [
+            72751
+        ],
+        "pavaro": [
+            44888
+        ],
+        "sappimhā": [
+            58713
+        ],
+        "sātaccakārī": [
+            62141
+        ],
+        "kallitārammaṇena": [
+            80718,
+            8686
+        ],
+        "gocarā": [
+            25242
+        ],
+        "abhinīhāro": [
+            7946
+        ],
+        "diṭṭhiokkanta": [
+            18317
+        ],
+        "vacchajhānanti": [
+            28750
+        ],
+        "ajjhattabāhirā": [
+            1274
+        ],
+        "ajjhattabāhirāti": [
+            1274
+        ],
+        "yamakavaggo": [
+            53781,
+            53782,
+            53783
+        ],
+        "cakkhussāhaṃ": [
+            25713
+        ],
+        "rūpānāhaṃ": [
+            55156,
+            55157,
+            55158
+        ],
+        "saddānāhaṃ": [
+            83215
+        ],
+        "rasānāhaṃ": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "phoṭṭhabbānāhaṃ": [
+            47826
+        ],
+        "cetena": [
+            27029
+        ],
+        "sabbasuttaṃ": [
+            58978
+        ],
+        "vācāvatthukamevassa": [
+            9940,
+            10033
+        ],
+        "vācāvatthurevassa": [
+            9940,
+            10033
+        ],
+        "vācāvatthudevassa": [
+            9940,
+            10033
+        ],
+        "uttariñca": [
+            80941
+        ],
+        "pahānasuttaṃ": [
+            45090
+        ],
+        "tasmimpi": [
+            30155
+        ],
+        "rūpato": [
+            55156,
+            55157,
+            55158
+        ],
+        "rasato": [
+            54687,
+            54689,
+            54691,
+            54692
+        ],
+        "bhavamevābhinandati": [
+            49553,
+            80057
+        ],
+        "parijānāpare": [
+            43390,
+            45424
+        ],
+        "upassaṭṭhaṃ": [
+            16201
+        ],
+        "upassaṭṭho": [
+            16201
         ]
     },
-    "matched": {},
+    "matched": {
+        "abhinīhāramūlakasakkaccasuttāditikaṃ": {
+            "id": 7948,
+            "sentence": [
+                "SN34.50-52",
+                "jhānasaṃyuttaṃ, abhinīhāramūlakasakkaccasuttāditikaṃ",
+                "50-52. abhinīhāramūlakasakkaccasuttāditikaṃ"
+            ]
+        }
+    },
     "new_word": {},
     "processed": [
         "sagāthāvaggo",
@@ -12534,6 +12660,135 @@
         "tacagandhe",
         "sāragandhādidātāsuttanavakaṃ",
         "vassavalāhakasuttaṃ",
-        "sattapaññāsamaṃ"
+        "sattapaññāsamaṃ",
+        "sotāpannasuttaṃ",
+        "mārasuttaṃ",
+        "dukkhadhammasuttaṃ",
+        "nirodhadhammasuttaṃ",
+        "mārādisuttaekādasakaṃ",
+        "vātasuttaṃ",
+        "hetusuttaṃ",
+        "catuvīsatimaṃ",
+        "adukkhamasukhīsuttaṃ",
+        "navātasuttaṃ",
+        "samphassajasuttaṃ",
+        "upekkhāsuttaṃ",
+        "aṇḍajadānūpakārasuttadasakaṃ",
+        "sattapaññāsamaṃ",
+        "vedanāaññāṇasuttaṃ",
+        "saññāaññāṇasuttaṃ",
+        "saṅkhāraaññāṇasuttaṃ",
+        "viññāṇaaññāṇasuttaṃ",
+        "rūpaadassanādisuttapañcakaṃ",
+        "rūpaanabhisamayādisuttapañcakaṃ",
+        "rūpaananubodhādisuttapañcakaṃ",
+        "rūpaappaṭivedhādisuttapañcakaṃ",
+        "rūpaasallakkhaṇādisuttapañcakaṃ",
+        "asallakkhaṇā",
+        "tiṃsatimaṃ",
+        "rūpaanupalakkhaṇādisuttapañcakaṃ",
+        "anupalakkhaṇā",
+        "pañcatiṃsatimaṃ",
+        "rūpaappaccupalakkhaṇādisuttapañcakaṃ",
+        "appaccupalakkhaṇā",
+        "cattālīsamaṃ",
+        "rūpaasamapekkhaṇādisuttapañcakaṃ",
+        "asamapekkhaṇā",
+        "pañcacattālīsamaṃ",
+        "rūpaappaccupekkhaṇādisuttapañcakaṃ",
+        "appaccupekkhaṇā",
+        "appaccakkhakammā",
+        "viññāṇaappaccakkhakammasuttaṃ",
+        "samādhimūlakasamāpattisuttaṃ",
+        "samādhimūlakaṭhitisuttaṃ",
+        "samādhimūlakavuṭṭhānasuttaṃ",
+        "samādhimūlakakallitasuttaṃ",
+        "samādhimūlakagocarasuttaṃ",
+        "samādhimūlakaabhinīhārasuttaṃ",
+        "samādhimūlakasakkaccakārīsuttaṃ",
+        "sakkaccakārī",
+        "samādhimūlakasātaccakārīsuttaṃ",
+        "samādhimūlakasappāyakārīsuttaṃ",
+        "samāpattimūlakaṭhitisuttaṃ",
+        "samāpattimūlakavuṭṭhānasuttaṃ",
+        "samāpattimūlakakallitasuttaṃ",
+        "samāpattimūlakaārammaṇasuttaṃ",
+        "samāpattimūlakaabhinīhārasuttaṃ",
+        "samāpattimūlakasakkaccasuttaṃ",
+        "samāpattimūlakasātaccasuttaṃ",
+        "samāpattimūlakasappāyakārīsuttaṃ",
+        "ṭhitimūlakavuṭṭhānasuttādiaṭṭhakaṃ",
+        "vuṭṭhānamūlakakallitasuttādisattakaṃ",
+        "aṭṭhavīsatimaṃ",
+        "kallitamūlakaārammaṇasuttādichakkaṃ",
+        "ārammaṇamūlakagocarasuttādipañcakaṃ",
+        "ekacattālīsamaṃ",
+        "gocaramūlakaabhinīhārasuttādicatukkaṃ",
+        "sattacattālīsamaṃ",
+        "aṭṭhacattālīsamaṃ",
+        "ekūnapaññāsamaṃ",
+        "ekapaññāsamaṃ",
+        "sakkaccamūlakasātaccakārīsuttādidukaṃ",
+        "sātaccamūlakasappāyakārīsuttaṃ",
+        "khandha",
+        "valāha",
+        "khandhavaggasaṃyuttapāḷi",
+        "saḷāyatanavaggo",
+        "ajjhattāniccasuttaṃ",
+        "ajjhattadukkhasuttaṃ",
+        "ajjhattānattasuttaṃ",
+        "bāhirāniccasuttaṃ",
+        "bāhiradukkhasuttaṃ",
+        "bāhirānattasuttaṃ",
+        "ajjhattāniccātītānāgatasuttaṃ",
+        "ajjhattadukkhātītānāgatasuttaṃ",
+        "ajjhattānattātītānāgatasuttaṃ",
+        "bāhirāniccātītānāgatasuttaṃ",
+        "bāhiradukkhātītānāgatasuttaṃ",
+        "bāhirānattātītānāgatasuttaṃ",
+        "yamakavaggo",
+        "paṭhamapubbesambodhasuttaṃ",
+        "dutiyapubbesambodhasuttaṃ",
+        "paṭhamaassādapariyesanasuttaṃ",
+        "dutiyaassādapariyesanasuttaṃ",
+        "paṭhamanoceassādasuttaṃ",
+        "dutiyanoceassādasuttaṃ",
+        "paṭhamābhinandasuttaṃ",
+        "dutiyābhinandasuttaṃ",
+        "paṭhamadukkhuppādasuttaṃ",
+        "dutiyadukkhuppādasuttaṃ",
+        "sabbavaggo",
+        "sabbasuttaṃ",
+        "evamitarayugalesupi",
+        "pahānasuttaṃ",
+        "abhiññāpariññāpahānasuttaṃ",
+        "paṭhamaaparijānanasuttaṃ",
+        "dutiyaaparijānanasuttaṃ",
+        "addhabhūtasuttaṃ",
+        "addhabhūtaṃ",
+        "samugghātasāruppasuttaṃ",
+        "sabbamaññitasamugghātasāruppaṃ",
+        "sabbamaññitasamugghātasāruppā",
+        "paṭhamasamugghātasappāyasuttaṃ",
+        "sabbamaññitasamugghātasappāyaṃ",
+        "sabbamaññitasamugghātasappāyā",
+        "khandhadhātuāyatanaṃ",
+        "dutiyasamugghātasappāyasuttaṃ",
+        "jātidhammavaggo",
+        "saṃkilesikadhammaṃ",
+        "aniccādisuttanavakaṃ",
+        "abhiññāpariññeyyaṃ",
+        "upassaṭṭhasuttaṃ",
+        "upassaṭṭhaṃ",
+        "upasaṭṭhaṃ",
+        "saḷāyatanavagge",
+        "paṭhamapaṇṇāsako",
+        "paññāsamaṃ",
+        "rūpaappaccakkhakammādisuttacatukkaṃ",
+        "samādhimūlakaārammaṇasuttaṃ",
+        "samāpattimūlakagocarasuttaṃ",
+        "itisaddena",
+        "jātidhammādisuttadasakaṃ",
+        "sabbaaniccavaggo"
     ]
 }

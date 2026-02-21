@@ -1,1 +1,20 @@
-{}
+{
+    "pavaro": {
+        "source_1": "sn34.1:1.8",
+        "sutta_1": "tatra, bhikkhave, yvāyaṃ jhāyī samādhismiṃ samādhikusalo ca hoti samādhismiṃ samāpattikusalo ca ayaṃ imesaṃ catunnaṃ jhāyīnaṃ aggo ca seṭṭho ca mokkho ca uttamo ca pavaro ca. ",
+        "example_1": "Of these, the meditator skilled in immersion and in entering it is the foremost, best, chief, highest, and finest of the four. ",
+        "comment": "needs to be comparative or superlative +gen of the four"
+    },
+    "sātaccakārī": {
+        "source_1": "sn34.9:1.4",
+        "sutta_1": "idha, bhikkhave, ekacco jhāyī samādhismiṃ samādhikusalo hoti, na samādhismiṃ sātaccakārī. ",
+        "example_1": "One meditator is skilled in immersion but not in practicing persistently for it. …” ",
+        "comment": "add eg to sātaccakārī 1"
+    },
+    "valāha": {
+        "source_1": "sn34.55:3.5",
+        "sutta_1": "valāha vacchajhānanti, ",
+        "example_1": "",
+        "comment": "name of a horse in jātaka"
+    }
+}
