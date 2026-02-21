@@ -1,82 +1,82 @@
 [
     {
-        "id": 28225,
-        "lemma_1": "jātijarābyādhimaraṇa"
+        "id": 6787,
+        "lemma_1": "appaccupalakkhaṇa"
     },
     {
-        "id": 88880,
-        "lemma_1": "iriyāpathe kappeti"
+        "id": 55165,
+        "lemma_1": "rūpaappaccupalakkhaṇādisuttapañcaka"
     },
     {
-        "id": 32893,
-        "lemma_1": "dukkhadhamma 1"
+        "id": 39798,
+        "lemma_1": "pañcatiṃsatima"
     },
     {
-        "id": 88879,
-        "lemma_1": "anattadhamma 2"
+        "id": 4742,
+        "lemma_1": "anupalakkhaṇa"
     },
     {
-        "id": 88878,
-        "lemma_1": "aniccadhamma 2"
+        "id": 55163,
+        "lemma_1": "rūpaanupalakkhaṇādisuttapañcaka"
+    },
+    {
+        "id": 30895,
+        "lemma_1": "tiṃsatima"
+    },
+    {
+        "id": 9606,
+        "lemma_1": "asallakkhaṇa"
+    },
+    {
+        "id": 55169,
+        "lemma_1": "rūpaasallakkhaṇādisuttapañcaka"
+    },
+    {
+        "id": 55167,
+        "lemma_1": "rūpaappaṭivedhādisuttapañcaka"
+    },
+    {
+        "id": 55161,
+        "lemma_1": "rūpaananubodhādisuttapañcaka"
+    },
+    {
+        "id": 55162,
+        "lemma_1": "rūpaanabhisamayādisuttapañcaka"
+    },
+    {
+        "id": 55160,
+        "lemma_1": "rūpaadassanādisuttapañcaka"
+    },
+    {
+        "id": 67694,
+        "lemma_1": "viññāṇaaññāṇasutta"
+    },
+    {
+        "id": 56773,
+        "lemma_1": "saṅkhāraaññāṇasutta"
+    },
+    {
+        "id": 57398,
+        "lemma_1": "saññāaññāṇasutta"
+    },
+    {
+        "id": 70240,
+        "lemma_1": "vedanāaññāṇasutta"
     },
     {
         "id": 57727,
         "lemma_1": "sattapaññāsama"
     },
     {
-        "id": 66564,
-        "lemma_1": "vassavalāhakasutta"
+        "id": 1990,
+        "lemma_1": "aṇḍajadānūpakārasuttadasaka 2"
     },
     {
-        "id": 62437,
-        "lemma_1": "sāragandhādidātāsuttanavaka"
+        "id": 16474,
+        "lemma_1": "upekkhāsutta 2"
     },
     {
-        "id": 29238,
-        "lemma_1": "tacagandha"
-    },
-    {
-        "id": 63796,
-        "lemma_1": "sutasutta 1"
-    },
-    {
-        "id": 42036,
-        "lemma_1": "pathavīdhātusutta"
-    },
-    {
-        "id": 55328,
-        "lemma_1": "rūpīcaarūpīcaattāsutta"
-    },
-    {
-        "id": 32748,
-        "lemma_1": "dīghamajjhimā"
-    },
-    {
-        "id": 51731,
-        "lemma_1": "mahādiṭṭhisutta"
-    },
-    {
-        "id": 20562,
-        "lemma_1": "karotosutta"
-    },
-    {
-        "id": 55159,
-        "lemma_1": "rūpaaññāṇasutta"
-    },
-    {
-        "id": 27480,
-        "lemma_1": "chappaññāsama"
-    },
-    {
-        "id": 66753,
-        "lemma_1": "vātavalāhakasutta"
-    },
-    {
-        "id": 39823,
-        "lemma_1": "pañcapaññāsama"
-    },
-    {
-        "id": 7291,
-        "lemma_1": "abbhavalāhakasutta"
+        "id": 60523,
+        "lemma_1": "samphassajasutta 2"
     }
 ]
