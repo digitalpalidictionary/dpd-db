@@ -32,11 +32,15 @@ sn_peyyalas = [
     # sn3
     (23, "1-11. Mārādisuttaekādasakaṃ", 23, 33),
     (23, "1-11. Mārādisuttaekādasakaṃ", 35, 45),
+    # sn24
+    (24, "1. Vātasuttaṃ", 19, 44),
+    (24, "1. Navātasuttaṃ", 45, 70),
+    (24, "1. Navātasuttaṃ", 71, 96),
     (29, "11-20. Aṇḍajadānūpakārasuttadasakaṃ", 11, 20),
     (29, "21-50. Jalābujādidānūpakārasuttattiṃsakaṃ", 21, 50),
-    (20, "4-6. Dutiyādidvayakārīsuttattikaṃ", 4, 6),
-    (20, "7-16. Aṇḍajadānūpakārasuttadasakaṃ", 11, 20),
-    (20, "17-46. Jalābujādidānūpakārasuttatiṃsakaṃ", 17, 46),
+    (30, "4-6. Dutiyādidvayakārīsuttattikaṃ", 4, 6),
+    (30, "7-16. Aṇḍajadānūpakārasuttadasakaṃ", 7, 16),
+    (30, "17-46. Jalābujādidānūpakārasuttatiṃsakaṃ", 17, 46),
     (31, "4-12. Sāragandhādidātāsuttanavakaṃ", 4, 12),
     (31, "13-22. Mūlagandhadānūpakārasuttadasakaṃ", 13, 22),
     (31, "23-112. Sāragandhādidānūpakārasuttanavutikaṃ", 23, 112),
@@ -51,7 +55,7 @@ sn_peyyalas = [
     (33, "36-40. Rūpaappaccupalakkhaṇādisuttapañcakaṃ", 36, 40),
     (33, "41-45. Rūpaasamapekkhaṇādisuttapañcakaṃ", 41, 45),
     (33, "46-50. Rūpaappaccupekkhaṇādisuttapañcakaṃ", 46, 50),
-    (33, "51-54. Rūpaappaccakkhakammādisuttacatukkaṃ", 51, 55),
+    (33, "51-54. Rūpaappaccakkhakammādisuttacatukkaṃ", 51, 54),
     (34, "20-27. Ṭhitimūlakavuṭṭhānasuttādiaṭṭhakaṃ", 20, 27),
     (34, "28-34. Vuṭṭhānamūlakakallitasuttādisattakaṃ", 28, 34),
     (34, "35-40. Kallitamūlakaārammaṇasuttādichakkaṃ", 35, 40),
@@ -458,7 +462,7 @@ def is_int(text):
             return True
         else:
             return False
-    except:
+    except Exception:
         return False
 
 
@@ -736,20 +740,10 @@ def sn_samyutta_nikaya(g: GlobalData):
         g.vagga = vagga
         g.vagga_counter = vagga_no
 
-    elif (
-        x["rend"] == "subhead"
-        and re.findall(r"^\d", x.text)
-        and "-" not in x.text  # a "-" in the sutta means it contains multiple suttas
-    ):
-        sutta_name, sutta_no = get_text_and_number(x.text)
-        g.sutta_counter += 1
+    elif x["rend"] == "subhead" and re.findall(r"^\d", x.text):
         sutta_counter_special = ""
+        peyyala_matched = False
 
-    # deal with peyyāla suttas individually
-    elif (
-        x["rend"] == "subhead"
-        and "-" in x.text  # a "-" in the sutta means it contains multiple suttas
-    ):
         for peyyala in sn_peyyalas:
             p_samyutta_counter, p_sutta_name, p_start, p_end = peyyala
             if (
@@ -760,7 +754,12 @@ def sn_samyutta_nikaya(g: GlobalData):
                 sutta_name = re.sub(r"^\d.*\. ", "", x.text)
                 sutta_counter_special = f"{p_start}-{p_end}"
                 g.sutta_counter = p_end
+                peyyala_matched = True
                 break
+
+        if not peyyala_matched and "-" not in x.text:
+            sutta_name, sutta_no = get_text_and_number(x.text)
+            g.sutta_counter += 1
 
     if sutta_name:
         if sutta_counter_special:

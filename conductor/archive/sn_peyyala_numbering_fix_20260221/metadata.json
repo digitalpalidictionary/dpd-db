@@ -1,0 +1,8 @@
+{
+  "track_id": "sn_peyyala_numbering_fix_20260221",
+  "type": "bug",
+  "status": "new",
+  "created_at": "2026-02-21T12:00:00Z",
+  "updated_at": "2026-02-21T12:00:00Z",
+  "description": "Fix sutta numbering errors in sn_peyyalas list for SN24, SN30, and SN33"
+}
