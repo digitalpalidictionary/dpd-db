@@ -168,10 +168,13 @@ export function handleMouseDown(e: MouseEvent): void {
 
 export function handleMouseUp(e: MouseEvent): void {
   const target = e.target as Element;
-  // Ignore clicks on inputs or buttons
-  if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('button')) return;
+  // Ignore clicks on inputs, textareas, or buttons
+  if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON' || target.closest('button')) return;
 
-  // Ignore drag-selection search if within the dictionary panel to allow copying text
+  // Ignore drag-selection search only when within the DPD search bar
+  if (target.closest('.dpd-search-box')) return;
+
+  // Allow drag-selecting text in the extension panel without triggering search
   if (target.closest('#dict-panel-25445')) return;
 
   const dx = Math.abs(e.clientX - dragStartX);
@@ -193,8 +196,11 @@ export function handleMouseUp(e: MouseEvent): void {
 
 export function handleDblClick(e: MouseEvent): void {
   const target = e.target as Element;
-  // Ignore clicks on inputs or buttons
-  if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('button')) return;
+  // Ignore clicks on inputs, textareas, or buttons
+  if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON' || target.closest('button')) return;
+
+  // Ignore double-clicks only within the search bar
+  if (target.closest('.dpd-search-box')) return;
 
   const word = getSelectedWord();
   if (word && typeof window.handleSelectedWord === 'function') {
