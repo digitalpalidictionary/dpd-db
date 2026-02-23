@@ -394,10 +394,13 @@ def update_family_note(note, i):
 
 
 def deck_selector(i):
-    """Choose the deck based on meaning and examples."""
-    if i.meaning_1 and i.example_1:
+    """Choose the deck based on meaning and source."""
+    source_1 = i.source_1
+    source_valid = source_1 and source_1.strip() and source_1.strip() != "-"
+
+    if i.meaning_1 and source_valid:
         return "Vocab"
-    elif i.meaning_1 and not i.source_1:
+    elif i.meaning_1 and not source_valid:
         return "Commentary"
     elif not i.meaning_1 and i.origin == "pass1":
         return "Pass1"
