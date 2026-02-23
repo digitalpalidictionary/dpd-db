@@ -10229,18 +10229,21 @@
         ],
         "upassaṭṭho": [
             16201
+        ],
+        "upassaṭṭhā": [
+            16201
+        ],
+        "vaggaṃ": [
+            77108
+        ],
+        "pahīyantīti": [
+            45141
+        ],
+        "gacchantīti": [
+            88088
         ]
     },
-    "matched": {
-        "abhinīhāramūlakasakkaccasuttāditikaṃ": {
-            "id": 7948,
-            "sentence": [
-                "SN34.50-52",
-                "jhānasaṃyuttaṃ, abhinīhāramūlakasakkaccasuttāditikaṃ",
-                "50-52. abhinīhāramūlakasakkaccasuttāditikaṃ"
-            ]
-        }
-    },
+    "matched": {},
     "new_word": {},
     "processed": [
         "sagāthāvaggo",
@@ -12789,6 +12792,26 @@
         "samāpattimūlakagocarasuttaṃ",
         "itisaddena",
         "jātidhammādisuttadasakaṃ",
-        "sabbaaniccavaggo"
+        "sabbaaniccavaggo",
+        "abhinīhāramūlakasakkaccasuttāditikaṃ",
+        "nirodhadhammasuttaṃ",
+        "catuvīsatimaṃ",
+        "adukkhamasukhīsuttaṃ",
+        "sattapaññāsamaṃ",
+        "pañcatiṃsatimaṃ",
+        "cattālīsamaṃ",
+        "rūpaasamapekkhaṇādisuttapañcakaṃ",
+        "asamapekkhaṇā",
+        "pañcacattālīsamaṃ",
+        "aṭṭhavīsatimaṃ",
+        "ekacattālīsamaṃ",
+        "ekapaññāsamaṃ",
+        "dutiyasamugghātasappāyasuttaṃ",
+        "avijjāpahānasuttaṃ",
+        "saṃyojanapahānasuttaṃ",
+        "saṃyojanasamugghātasuttaṃ",
+        "āsavapahānasuttaṃ",
+        "āsavasamugghātasuttaṃ",
+        "anusayapahānasuttaṃ"
     ]
 }
