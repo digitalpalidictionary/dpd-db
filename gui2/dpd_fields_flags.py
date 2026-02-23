@@ -14,6 +14,7 @@ class Flags:
     sanskrit_done: bool = field(default=False)
     synonyms_done: bool = field(default=False)
     family_word_done: bool = field(default=False)
+    commentary_search_done: bool = field(default=False)
     correction: bool = field(default=False)
     addition: bool = field(default=False)
 

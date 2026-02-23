@@ -3,7 +3,7 @@ import flet as ft
 
 from db.models import BoldDefinition
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.dpd_fields_functions import clean_commentary
+from gui2.dpd_fields_functions import clean_commentary, clean_lemma_1
 from gui2.flet_functions import process_bold_tags
 from gui2.toolkit import ToolKit
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
@@ -53,6 +53,7 @@ class DpdCommentaryField(ft.Column):
         self.search_field_1 = ft.TextField(
             "",
             width=200,
+            on_focus=self._search_field_1_focus,
             on_submit=self.click_commentary_search,
             label="search for",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
@@ -161,7 +162,28 @@ class DpdCommentaryField(ft.Column):
                 clean_word = word.replace("-", "").replace("'", "")
                 self.speech_marks_manager.update_variants(clean_word, word)
 
+    def _search_field_1_focus(self, e: ft.ControlEvent) -> None:
+        """Auto-fill search_field_1 with cleaned lemma_1[:-1] on first focus."""
+        if not self.dpd_fields.flags.commentary_search_done:
+            if not self.search_field_1.value:
+                lemma_1 = self.dpd_fields.get_field("lemma_1").value
+                if lemma_1:
+                    lemma_clean = clean_lemma_1(lemma_1)[:-1]
+                    self.search_field_1.value = lemma_clean
+                    self.dpd_fields.flags.commentary_search_done = True
+                    self.page.update()
+
     def click_commentary_search(self, e: ft.ControlEvent):
+        if (
+            not self.search_field_1.value
+            and not self.dpd_fields.flags.commentary_search_done
+        ):
+            lemma_1 = self.dpd_fields.get_field("lemma_1").value
+            if lemma_1:
+                lemma_clean = clean_lemma_1(lemma_1)[:-1]
+                self.search_field_1.value = lemma_clean
+                self.dpd_fields.flags.commentary_search_done = True
+
         self.search_field_1.error_text = None
 
         commentary_searcher = BoldDefinitionsSearchManager()
