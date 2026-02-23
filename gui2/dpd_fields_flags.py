@@ -7,6 +7,7 @@ class Flags:
 
     construction_done: bool = field(default=False)
     stem_pattern_done: bool = field(default=False)
+    lemma_2_done: bool = field(default=False)
     derived_from_done: bool = field(default=False)
     family_compound_done: bool = field(default=False)
     loaded_from_db: bool = field(default=False)

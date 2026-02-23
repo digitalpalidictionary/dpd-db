@@ -99,6 +99,7 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "lemma_2",
                 on_blur=self.lemma_2_blur,
+                on_submit=self.lemma_2_submit,
             ),
             FieldConfig(
                 "pos",
@@ -725,8 +726,22 @@ class DpdFields(PopUpMixin):
 
     def lemma_2_blur(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
-        new_value = self.get_field("lemma_1").value
-        field.value = clean_lemma_1(new_value)
+        if not self.flags.lemma_2_done:
+            new_value = self.get_field("lemma_1").value
+            field.value = clean_lemma_1(new_value)
+        self.page.update()
+
+    def lemma_2_submit(self, e: ft.ControlEvent) -> None:
+        self.update_lemma_2(e)
+
+    def update_lemma_2(self, e: ft.ControlEvent) -> None:
+        lemma_1 = self.get_field("lemma_1").value
+        pos = self.get_field("pos").value
+        grammar = self.get_field("grammar").value
+        lemma_2_field = self.get_field("lemma_2")
+        lemma_2 = make_lemma_2(lemma_1, pos, grammar)
+        lemma_2_field.value = lemma_2
+        lemma_2_field.update()
         self.page.update()
 
     def pos_blur(self, e: ft.ControlEvent) -> None:
@@ -748,13 +763,15 @@ class DpdFields(PopUpMixin):
             pos_field.error_text = None
         self.page.update()
 
-        # then update lemma_2 based on lemma_1 and pos
-        lemma_1 = self.get_field("lemma_1").value
-        lemma_2_field = self.get_field("lemma_2")
-        lemma_2 = make_lemma_2(lemma_1, pos, grammar)
-        lemma_2_field.value = lemma_2
-        lemma_2_field.update()
-        self.page.update()
+        # then update lemma_2 based on lemma_1 and pos (only once)
+        if not self.flags.lemma_2_done:
+            lemma_1 = self.get_field("lemma_1").value
+            lemma_2_field = self.get_field("lemma_2")
+            lemma_2 = make_lemma_2(lemma_1, pos, grammar)
+            lemma_2_field.value = lemma_2
+            lemma_2_field.update()
+            self.flags.lemma_2_done = True
+            self.page.update()
 
         # then update grammar field
         if grammar == "":
