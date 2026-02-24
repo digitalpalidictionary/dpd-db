@@ -92,3 +92,4 @@ temp/
 typescript
 scripts/extractor/extract_cone.tsv
 scripts/extractor/extract_cpd.tsv
+misc/sutta_subdivisions.md

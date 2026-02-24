@@ -176,5 +176,21 @@
             "compound_construction"
         ],
         "limit": 0
+    },
+    "lemma_1 constructio derivative": {
+        "data_filters": [
+            [
+                "lemma_1"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "construction",
+            "derivative",
+            "suffix"
+        ],
+        "limit": 0
     }
 }
