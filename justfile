@@ -117,7 +117,14 @@ families:
     uv run python db/families/family_set.py
     uv run python db/families/family_idiom.py
 
+# ===== FINDERS =====
+
+# Find commentary words not in the lookup table
+find_comm:
+    uv run python scripts/find/comm_not_in_decon_finder.py
+
 # ===== AUDIO =====
+
 # Generate missing audio files
 audio:
     uv run python audio/bhashini/generate_dpd.py
