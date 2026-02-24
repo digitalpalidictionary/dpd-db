@@ -139,6 +139,16 @@ func (w WordData) StartsWith(prefix string) bool {
 	return strings.HasPrefix(string(w.Middle), prefix)
 }
 
+// Check if w.Middle starts with any of a list of prefixes.
+func (w WordData) StartsWithList(prefixes []string) bool {
+	for _, prefix := range prefixes {
+		if strings.HasPrefix(string(w.Middle), prefix) {
+			return true
+		}
+	}
+	return false
+}
+
 // Check if w.Middle ends with a certain prefix.
 func (w WordData) EndsWith(suffix string) bool {
 	return strings.HasSuffix(string(w.Middle), suffix)
