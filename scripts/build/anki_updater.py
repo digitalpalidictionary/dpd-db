@@ -31,7 +31,7 @@ def main():
     db = db_session.query(DpdHeadword).all()
     pr.yes("ok")
 
-    decks = ["Vocab", "Commentary", "Pass1"]
+    decks = ["Vocab", "Commentary", "Pass1", "Suttas"]
     (col, data_dict, deck_dict, model_dict, carry_on) = setup_anki_updater(decks)
 
     if carry_on:
@@ -395,13 +395,12 @@ def update_family_note(note, i):
 
 def deck_selector(i):
     """Choose the deck based on meaning and source."""
-    source_1 = i.source_1
-    source_valid = source_1 and source_1.strip() and source_1.strip() != "-"
-
-    if i.meaning_1 and source_valid:
+    if i.meaning_1 and i.source_1 and i.source_1 != "-":
         return "Vocab"
-    elif i.meaning_1 and not source_valid:
+    elif i.meaning_1 and not i.source_1:
         return "Commentary"
+    elif i.meaning_1 and i.source_1 == "-":
+        return "Suttas"
     elif not i.meaning_1 and i.origin == "pass1":
         return "Pass1"
     else:
