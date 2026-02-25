@@ -217,6 +217,7 @@ class Lookup(Base):
     roots: Mapped[str] = mapped_column(default="")
     deconstructor: Mapped[str] = mapped_column(default="")
     variant: Mapped[str] = mapped_column(default="")
+    see: Mapped[str] = mapped_column(default="")
     spelling: Mapped[str] = mapped_column(default="")
     grammar: Mapped[str] = mapped_column(default="")
     help: Mapped[str] = mapped_column(default="")
@@ -300,6 +301,21 @@ class Lookup(Base):
     def spelling_unpack(self) -> list[str]:
         if self.spelling:
             return json.loads(self.spelling)
+        else:
+            return []
+
+    # see pack unpack
+
+    def see_pack(self, list: list[str]) -> None:
+        if list:
+            self.see = json.dumps(list, ensure_ascii=False)
+        else:
+            raise ValueError("A list must be provided to pack.")
+
+    @property
+    def see_unpack(self) -> list[str]:
+        if self.see:
+            return json.loads(self.see)
         else:
             return []
 
