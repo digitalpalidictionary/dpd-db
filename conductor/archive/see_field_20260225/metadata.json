@@ -1,0 +1,8 @@
+{
+  "track_id": "see_field_20260225",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-25T00:00:00Z",
+  "updated_at": "2026-02-25T00:00:00Z",
+  "description": "Add a 'see' lookup field for unusual word forms that should point to a main headword, following the spelling mistakes pattern end-to-end."
+}
