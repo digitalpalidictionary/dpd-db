@@ -1,320 +1,249 @@
-initial	final	correct	wrong	without	exceptions
-
-a + u	o	au > o	u > o	o	okkhita
-a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant
-a + ṭ	iṭ	a > i	x	a + ṭh	x
-a + ṭh	iṭṭh	a > i	x	x	x
-ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya, atijaccatā, atijighacchā
-adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x
-adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x
-anu + ā	nnā	uā > nā	anu > ann	n + ā	x
-abhi + a	abbh	bhi > bhy > bbh	x	x	x
-am + ta	ata	mt > t	x	nt	abhikkantatara, santatara
-ar + t	āt	ar > ā	har > hā	x	sāttha, sātthaka 1, sātthaka 2, kātabba 1, kātabba 2, kātuna, kātuṃ 1, kātuṃ 2
-ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī
-
-ā + k	akk	āk > akk	x	ā + kh	akkosabhaṇḍanavihesakārī, chattiṃsakkhattuṃ, sakkapañhaka, sakkharakaṭhala, sakkharakaṭhala, sakkharakathala
-ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1
-xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
-ā + th	atth	āth > atth	x	x	x
-ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta, dhammānupassanābojjhaṅgapabba
-ā + s	ass	ās > ass	x	ass	x
-ānaṃ	annaṃ	ān > ann	x	x	x
-
-i + u	ū	iu > ū	x	ū	payirūpāsanā
-i + s	iṃs	is > iṃs	x	x	x
-i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭṭhisīsa, pacchisīsa, vīsatisahassa
-
-ī + a	aya	ī > ay	x	x	samannānayamāna
-ī + n	inn	īn > inn	x	x	anunnāmāninnāmī
-ī + p	ipp	īp > ipp	x	ī + ph	gihippaṭisaṃyutta, kusāvatīrājadhānippamukha, cetovasippatta, jagatippadesa, pāramippatta, rājadhānippamukha, subhaddādevippamukha, hatthippabhinna
-ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
-ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x
-ī + l	ill	īl > ill	x	x	x
-ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x
-
-u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā, murumurāpetvā
-u + i	vay	ua > va	x	x	anvaya 1, anvaya 3, duranvaya, anvayatā
-u + i + y	by	vy > by	x	x	x
-u + u	ū	uu > ū	u > ū	ū	x
-
-uj	og	uj > oj > og	u > o\nj > g uj	og	upabhoggā, bhogga 1.1, bhogga 1.2, yogga 1, yogga 2, yogga 3, yogga 4, yoggā, bhogga 1.3
-uṭ	oṭ	u > o	x	x	x
-ud + h	ūh	ud > ū before h	ud > ū	x	x
-uh + t	dh	ht > dh	x	ddh	duddha 1, muddha 1.1, muddhatā
-
-ūy	ubb	ūy > ūv > uvv > ubb	x	x	x
-
-e + a	aya	e > ay	x	x	x
-
-kam	caṅ	k > c	x	x	caṅkamādhigata, ṭhānacaṅkama, caṅkamanakoṭi, ṭhānacaṅkamana
-
-c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅkata, avaṅkatā 1, avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 4, vaṅka 5, vaṅka 6, vaṅkatta
-c + t	kk	ct > kk (Kacc 623, 554)	c > k	ñc + t	x
-c + t	kk	ct > kk (Kacc 623, 554)	ct > kk	ñc + t	x
-c + t	tt	ct > tt	c > t	c + th	x
-c + th	tth	cth > tth	c > t	x	x
-c + y	cc	cy > cc	y > c	x	x
-c + ṃ	ñc	cṃ > ñc (metathesis)	x	x	x
-ch + ta	ṭṭh	cht > ṭṭh	x	x	x
-
-g + y	gg	gy > gg	x	x	x
-
-j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha, nissaṭṭhatta
-j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga
-j + t	ṭṭh	jt > ṭṭh	x	j + th	x
-j + th	tth	jth > tth	j > t	x	x
-j + y	jj	jy > jj	y > j	jj + y	verajjaka
-j + y	gg	jy > jj > gg	j > g	gg	x
-j + s	kkh	js > kkh	x	x	x
-
-ja + y	jj	jy > jj	x	x	x
-je + y	gg	jy > gg	j > g	gg	x
-jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x
-jj + y	jj	jjy > jj	y > j	x	x
-j + ṃ	ñj	jṃ > ñj (metathesis)	jṃ > ñj	x	x
-
-ñc	ṅk	ñc > ṅk (Kacc 623, 554)	ñc > ṅk	ṅk	asaṅkaccika, saṅkaccika
-
-ṭh + ṃ	ṇṭh	ṭhṃ > ṇṭh (metathesis)	ṭhṃ > ṇṭh	x	x
-
-ṇ + y	ññ	ṇy > ññ	ṇ > ñ	x	x
-ṇa + y	ññ	ṇy > ññ	ṇ > ñ	x	x
-
-t + ṃ	nt	tṃ > nt (metathesis)	x	x	x
-t + y	cc	ty > cc	x	x	x
-t + y	tt	ty > tt	x	x	x
-t + s	cch	ts > cch	x	x	x
-ta + y	cc	tay > ty > cc	ty > cc	cc	veyyāvacca
-tij	titi	tij > ti	ij > i	x	atitikhiṇa, nātitikhiṇa
-
-n + y	nn	ny > ññ > nn	y > n	x	x
-n + y	ññ	ny > ññ	n > y	x	x
-n + s	ṃs	ns > ṃs	x	x	x
-nī	nāy	ī > āy	x	x	panāyati
-nhā	nahā	nhā > nahā (epenthesis)	x	x	x
-
-d + ī	jj	dy > jj	x	x	x
-d + y	jj	dy > jj	d > j	x	x
-d + c	cc	dc > cc	d > c	d + ch	x
-d + ch	cch	dch > cch	d > c	x	x
-d + ch	cch	dch > cch	dc > cc	x	x
-d + j	jj	dj > jj	d > j	d + jh	x
-d + jh	jjh	djh > jjh	d > j	x	x
-d + k	kk	dk > kk	d > k	d + kh	x
-d + kh	kkh	dkh > kkh	dk > kk	x	x
-d + g	gg	dg > gg	d > g	d + gh	x
-d + gh	ggh	dgh > ggh	d > g	x	x
-d + n	nn	dn > nn	d > n	x	x
-d + ṭh	ṭṭh	dṭh > ṭṭh	d > ṭ	x	x
-d + t	tt	dt > tt	d > t	d + th	x
-d + p	pp	dp > pp	d > p	d + ph	x
-d + ph	pph	dph > pph	d > p	x	x
+initial	final	correct	wrong	without	exceptions	
+						
+a + u	o	au > o	u > o	o	okkhita	
+a + v	bb	v > b	x	bb	ārabbhavant, ubbūḷhavant	
+a + ṭ	iṭ	a > i	x	a + ṭh	x	
+a + ṭh	iṭṭh	a > i	x	x	x	
+ati +	acc	ti > ty > cc	x	gacch	pacchājāta, gatikālādipaccayantarasamavāya, atijaccatā, atijighacchā	
+adhi + a	jjh	dhi > dhy > jjh	adhi > adhy > ajjh	adhi + ā	x	
+adhi + ā	jjh	dhi > dhy > jjh	x	adhi + a	x	
+anu + ā	nnā	uā > nā	anu > ann	n + ā	x	
+abhi + a	abbh	bhi > bhy > bbh	x	x	x	
+am + ta	ata	mt > t	x	nt	abhikkantatara, santatara	
+ar + t	āt	ar > ā	har > hā	x	sāttha, sātthaka 1, sātthaka 2, kātabba 1, kātabba 2, kātuna, kātuṃ 1, kātuṃ 2	
+ava	o	ava > o	x	o	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī	
+						
+ā + k	akk	āk > akk	x	ā + kh	akkosabhaṇḍanavihesakārī, chattiṃsakkhattuṃ, sakkapañhaka, sakkharakaṭhala, sakkharakaṭhala, sakkharakathala	
+ā + ñ	aññ	āñ > aññ	x	x	vadaññutā, sāmaññatā 2.1	
+xā + t	att	āt > att	x	tta, ā + th	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2	
+ā + th	atth	āth > atth	x	x	x	
+ā + b	abb	āb > abb	x	v	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta, dhammānupassanābojjhaṅgapabba	
+ā + s	ass	ās > ass	x	ass	x	
+ānaṃ	annaṃ	ān > ann	x	x	x	
+						
+i + u	ū	iu > ū	x	ū	payirūpāsanā	
+i + s	iṃs	is > iṃs	x	x	x	
+i + s	īs	is > iṃs > īs	x	x	catuvīsatisatasahassa, diṭṭhisīsa, belaṭṭhisīsa, pacchisīsa, vīsatisahassa	
+						
+ī + a	aya	ī > ay	x	x	samannānayamāna	
+ī + n	inn	īn > inn	x	x	anunnāmāninnāmī	
+ī + p	ipp	īp > ipp	x	ī + ph	gihippaṭisaṃyutta, kusāvatīrājadhānippamukha, cetovasippatta, jagatippadesa, pāramippatta, rājadhānippamukha, subhaddādevippamukha, hatthippabhinna	
+ī + b	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x	
+ī + bh	ibbh	ībh > ibbh	īb > ibb	x	x	
+ī + l	ill	īl > ill	x	x	x	
+ī + v	ibb	īv > ivv > ibb	īv > ibb	ī + bh	x	
+						
+u + ā	vā	uā > vā	u > v	x	divādigaṇa, opilāpetvā, suvānaya 1, suvānaya 2, samannāharitvā, lavāpeti, lavāpetvā, murumurāpetvā	
+u + i	vay	ua > va	x	x	anvaya 1, anvaya 3, duranvaya, anvayatā	
+u + i + y	by	vy > by	x	x	x	
+u + u	ū	uu > ū	u > ū	ū	x	
+						
+uj	og	uj > oj > og	u > o\nj > g uj	og	upabhoggā, bhogga 1.1, bhogga 1.2, yogga 1, yogga 2, yogga 3, yogga 4, yoggā, bhogga 1.3	
+uṭ	oṭ	u > o	x	x	x	
+ud + h	ūh	ud > ū before h	ud > ū	x	x	
+uh + t	dh	ht > dh	x	ddh	duddha 1, muddha 1.1, muddhatā	
+						
+ūy	ubb	ūy > ūv > uvv > ubb	x	x	x	
+						
+e + a	aya	e > ay	x	x	x	
+						
+kam	caṅ	k > c	x	x	caṅkamādhigata, ṭhānacaṅkama, caṅkamanakoṭi, ṭhānacaṅkamana	
+						
+c + a	ka	c > k (Kacc 623, 554)	c > k	k	avaṅkata, avaṅkatā 1, avaṅka 1, avaṅkatta, pallaṅka 1, pallaṅka 2, sampavaṅka, sampavaṅkatā, savaṅkatta, vaṅka 1, vaṅka 2, vaṅka 3, vaṅka 4, vaṅka 5, vaṅka 6, vaṅkatta	
+c + t	kk	ct > kk (Kacc 623, 554)	c > k	ñc + t	x	
+c + t	kk	ct > kk (Kacc 623, 554)	ct > kk	ñc + t	x	
+c + t	tt	ct > tt	c > t	c + th	x	
+c + th	tth	cth > tth	c > t	x	x	
+c + y	cc	cy > cc	y > c	x	x	
+c + ṃ	ñc	cṃ > ñc (metathesis)	x	x	x	
+ch + ta	ṭṭh	cht > ṭṭh	x	x	x	
+						
+g + y	gg	gy > gg	x	x	x	
+						
+j + t	tt	jt > tt	j > t	j + th	vissaṭṭhatta, duttitikkha, nissaṭṭhatta	
+j + t	bb	jt > bb	x	x	ubbigga 1, ubbigga 2, anubbigga	
+j + t	ṭṭh	jt > ṭṭh	x	j + th	x	
+j + th	tth	jth > tth	j > t	x	x	
+j + y	jj	jy > jj	y > j	jj + y	verajjaka	
+j + y	gg	jy > jj > gg	j > g	gg	x	
+j + s	kkh	js > kkh	x	x	x	
+						
+ja + y	jj	jy > jj	x	x	x	
+je + y	gg	jy > gg	j > g	gg	x	
+jj + t	ṭṭh	jjt > ṭṭh	jt > ṭṭh	jj + th	x	
+jj + y	jj	jjy > jj	y > j	x	x	
+j + ṃ	ñj	jṃ > ñj (metathesis)	jṃ > ñj	x	x	
+						
+ñc	ṅk	ñc > ṅk (Kacc 623, 554)	ñc > ṅk	ṅk	asaṅkaccika, saṅkaccika	
+						
+ṭh + ṃ	ṇṭh	ṭhṃ > ṇṭh (metathesis)	ṭhṃ > ṇṭh	x	x	
+						
+ṇ + y	ññ	ṇy > ññ	ṇ > ñ	x	x	
+ṇa + y	ññ	ṇy > ññ	ṇ > ñ	x	x	
+						
+t + ṃ	nt	tṃ > nt (metathesis)	x	x	x	
+t + y	cc	ty > cc	x	x	x	
+t + y	tt	ty > tt	x	x	x	
+t + s	cch	ts > cch	x	x	x	
+ta + y	cc	tay > ty > cc	ty > cc	cc	veyyāvacca	
+tij	titi	tij > ti	ij > i	x	atitikhiṇa, nātitikhiṇa	
+						
+n + y	nn	ny > ññ > nn	y > n	x	x	
+n + y	ññ	ny > ññ	n > y	x	x	
+n + s	ṃs	ns > ṃs	x	x	x	
+nī	nāy	ī > āy	x	x	panāyati	
+nhā	nahā	nhā > nahā (epenthesis)	x	x	x	
+nd + n	nn	ndn > nn	x	x	x	
+						
+d + ī	jj	dy > jj	x	x	x	
+d + y	jj	dy > jj	d > j	x	x	
+d + c	cc	dc > cc	d > c	d + ch	x	
+d + ch	cch	dch > cch	d > c	x	x	
+d + ch	cch	dch > cch	dc > cc	x	x	
+d + j	jj	dj > jj	d > j	d + jh	x	
+d + jh	jjh	djh > jjh	d > j	x	x	
+d + k	kk	dk > kk	d > k	d + kh	x	
+d + kh	kkh	dkh > kkh	dk > kk	x	x	
+d + g	gg	dg > gg	d > g	d + gh	x	
+d + gh	ggh	dgh > ggh	d > g	x	x	
+d + n	nn	dn > nn	d > n	nd + n	x	
+d + ṭh	ṭṭh	dṭh > ṭṭh	d > ṭ	x	x	
+d + t	tt	dt > tt	d > t	d + th	x	
+d + p	pp	dp > pp	d > p	d + ph	x	
+d + ph	pph	dph > pph	d > p	x	x	
 xd + b	bb	db > bb	d > b	x	x	need to exlude roots starting with v
-d + bh	bbh	dbh > bbh	d > b	x	x
-d + m	mm	dm > mm	d > m	x	x
+d + bh	bbh	dbh > bbh	d > b	x	x	
+d + m	mm	dm > mm	d > m	x	x	
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
-d + y	yy	dy > yy	d > y	yy	x
-d + l	ll	dl > ll	d > l	ll	x
-d + v	bb	dv > bb	d > b	x	x
-d + s	ss	ds > ss	d > s	x	x
-d + s	cch	ds > cch	d > c	x	x
-d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x
-
-d + a + y	jj	day > dy > jj	dy > jj	jjh	abyāpajjha 2.2, abyāpajjha 2.1
-d + a + y	jjh	day > dy > jjh	dy > jjh	x	x
-da + y	jj	day > dy > jj	dy > jj	x	x
-du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama
-dh + t	ddh	dht > ddh	x	x	x
-dh + y	jjh	dhy > jjh	x	x	x
-dh + ṃ	ndh	dhṃ > ndh (metathesis)	dhṃ > ndh	x	x
-dhi + a	jjh	dhi > dhy > jjh	x	x	x
-
-p + t	tt	pt > tt	p > t	p + th	x
-p + th	tth	pth > tth	p > t	x	x
-p + s	cch	ps > cch	x	x	x
-pa + i	pe	ai > e	i > e	x	x
-pā + pā	pi	pā > pi	x	x	x
-pe + t	tt	pet > tt	pt > tt	x	vavatthāpetuṃ, attharāpetvā
-p + y	pp	py > pp	y > p	x	x
-plu	pil	pl > pil (epenthesis)	x	x	x
-
+d + y	yy	dy > yy	d > y	yy	x	
+d + l	ll	dl > ll	d > l	ll	x	
+d + v	bb	dv > bb	d > b	x	x	
+d + s	ss	ds > ss	d > s	x	x	
+d + s	cch	ds > cch	d > c	x	x	
+d + ṃ	nd	dṃ > nd (metathesis)	ṃ > n	x	x	
+						
+d + a + y	jj	day > dy > jj	dy > jj	jjh	abyāpajjha 2.2, abyāpajjha 2.1	
+d + a + y	jjh	day > dy > jjh	dy > jjh	x	x	
+da + y	jj	day > dy > jj	dy > jj	x	x	
+du	dū	u > ū	x	dur	dūpadhārita, ussāvabindūpama	
+dh + t	ddh	dht > ddh	x	x	x	
+dh + y	jjh	dhy > jjh	x	x	x	
+dh + ṃ	ndh	dhṃ > ndh (metathesis)	dhṃ > ndh	x	x	
+dhi + a	jjh	dhi > dhy > jjh	x	x	x	
+						
+p + t	tt	pt > tt	p > t	p + th	x	
+p + th	tth	pth > tth	p > t	x	x	
+p + s	cch	ps > cch	x	x	x	
+pa + i	pe	ai > e	i > e	x	x	
+pā + pā	pi	pā > pi	x	x	x	
+pe + t	tt	pet > tt	pt > tt	x	vavatthāpetuṃ, attharāpetvā	
+p + y	pp	py > pp	y > p	x	x	
+plu	pil	pl > pil (epenthesis)	x	x	x	
+						
 xbh + a	mbh	bh > mbh	x	x	x	needs to exclude thambh khambh vambh jambh sambh chambh
-
-bh + y	bbh	bhy > bbh	x	x	x
-bha + y	bbh	bhy > bbh	x	x	x
-bhā + y	bbh	bhy > bbh	x	x	x
-
-m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x
-m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x
-m + g	ṅg	mg > ṅg	m > ṅ	m + gh	x
-m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x
+						
+bh + y	bbh	bhy > bbh	x	x	x	
+bha + y	bbh	bhy > bbh	x	x	x	
+bhā + y	bbh	bhy > bbh	x	x	x	
+						
+m + k	ṅk	mk > ṅk	m > ṅ	m + kh	x	
+m + kh	ṅkh	mkh > ṅkh	m > ṅ	x	x	
+m + g	ṅg	mg > ṅg	m > ṅ	m + gh	x	
+m + gh	ṅgh	mgh > ṅgh	m > ṅ	x	x	
 xm + t	t	mt > t	x	x	x	exclude nt in lemma_1 etc
-m + t	nt	mt > nt	m > n	m + th	x
-m + th	nth	mth > nth	m > n	x	x
-m + y	mm	my > mm	y > m	x	x
-man + man	vī	man > vī	m > v	x	x
-mā + nā	min	mā > mi (Kacc 502, 493)	ā > i	x	x
-mb	mm	mb > mm	x	mm	x
-
-r + k	kk	rk > kk	r > k	r + kh	x
-r + kh	kkh	rkh > kkh	r > k	x	x
-r + g	gg	rg > gg	r > g	r + gh	x
-r + gh	ggh	rgh > ggh	rg > gg	x	x
-r + j	jj	rj > jj	x	x	x
-r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x
-r + t	tt	rt > tt	r > t	r + th	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1, adhikatatta, kaṭatta, supaccatthata
-xr + t	ṭ	rt > ṭ (sk ṛt) 	rt > ṭ	x	x
-r + th	tth	rth > tth	r > t	x	x
-r + d	dd	rd > dd	r > d	r + dh	x
-r + dh	ddh	rdh > ddh	r > d	x	x
-r + p	pp	rp > pp	r > p	r + ph	x
-r + ph	pph	rph > pph	r > p	x	x
-r + b	bb	rb > bb	r > b	r + bh	x
-r + bh	bbh	rbh > bbh	r > b	x	x
-r + m	mm	rm > mm	r > m	x	x
-r + l	ll	rl > ll	r > l	ll	x
-r + v	bb	rv > vv > bb	v > b	x	x
-r + v	bb	rv > vv > bb	rv > bb	x	x
-r + s	ss	rs > ss	r > s	x	x
-ri + a	lla	ri > li > ly > ll	x	x	x
-
-l + y	ll	ly > ll	y > l	x	x
-la + y	ll	ly > ll	y > l	x	x
-
-v + t	t	vt > t	v > t	v + th	x
-v + t	tt	vt > tt	v > t	v + th	x
-v + th	th	vth > th	x	x	x
-vi +	by	vi > vy > by	vi > by	x	vedhabyā, vebhabyā
-vi + 	veyy	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x
-
-s + t	ṭṭh	st > ṭṭh	x	x	x
-s + m	ss	sm > ss	s > m	ss	x
-s + y	ss	sy > ss	y > s	x	x
-s + s	cch	ss > cch	x	x	x
-sa + y	ss	sy > ss	y > s	ss	x
-saṃ + 	sā	saṃ > sā	x	sā	vatassāhaṃ, asāmanta, asāmāyika, tesāhaṃ, sampasāda 1, sampasādana 1, saṃsāda, saṃsāra 1, saṃsāra 2, saṃsāra 3, sāmagga, sāmaggiya, sāmaggī 1, sāmaggī 2, sāmanta 1, sāmantā 1, sāmantā 2, sāmāyika, sāmukkaṃsika, sāmuddika, sampasāda 2, sāmayika 2
-snih +	sini	snih > sinih (epenthesis)	x	x	x
-sud	sod	u > o	x	a + u	x
-
-hu	ju	h > j	x	x	khujjuttarā
-hu	jū	h > j	x	x	x
-h + g	gh	hg > gh (metathesis)	x	h + gh	x
-h + t	ddh	ht > ddh	x	bh + t	x
-h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x
-h + y	yh	hy > yh (metathesis)	hy > yh	x	x
-
-ṃ + a	ma	ṃa > ma	ṃ > m	x	bahulīmakasi, mayampi, apubbaṃ acarimaṃ
-ṃ + ava	mo	ṃo > mo	ṃ > m	x	x
-ṃ + ā	mā	ṃā > mā	ṃ > m	x	x
-ṃ + i	mi	ṃi > mi	ṃ > m	x	kinti karomi, tuyhiminā
-ṃ + ī	mī	ṃī > mī	ṃ > m	x	x
-ṃ + u	mu	ṃu > mu	ṃ > m	x	x
-ṃ + u	mū	ṃu > mu	ṃ > m	x	x
-ṃ + ū	mū	ṃū > mū	ṃ > m	x	x
-ṃ + e	me	ṃe > me	ṃ > m	x	x
-ṃ + o	mo	ṃo > mo	ṃ > m	x	x
-ṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	upasaṅkamitukāma, maṅkuṃ karoti
-ṃ + kh	ṅkh	ṃkh > ṅkh	ṃ > ṅ	x	x
-ṃ + g	ṅg	ṃg > ṅg	ṃ > ṅ	ṃ + gh	x
-ṃ + gh	ṅgh	ṃgh > ṅgh	ṃ > ṅ	x	x
-ṃ + c	ñc	ṃc > ñc	ṃ > ñ	ṃ + ch	x
-ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x
-ṃ + ch	ñch	ṃch > ñch	ṃc > ñc	x	x
-ṃ + j	ñj	ṃj > ñj	ṃ > ñ	ṃ + jh	x
-ṃ + jh	ñjh	ṃjh > ñjh	ṃ > ñ	x	x
-ṃ + ñ	ññ	ṃñ > ññ	ṃ > ñ	x	x
-ṃ + ṭ	ṇṭ	ṃṭ > ṇṭ	ṃ > ṇ	ṃ + ṭh	x
-ṃ + ṭh	ṇṭh	ṃṭh > ṇṭh	ṃ > ṇ	x	x
-ṃ + ṭh	nth	ṃṭh > nth	ṃṭ > nt	x	x
-ṃ + ḍ	ṇḍ	ṃḍ > ṇḍ	ṃ > ṇ	ṃ + ḍh	x
-ṃ + ḍh	ṇḍh	ṃḍh > ṇḍh	ṃ > ṇ	x	x
-ṃ + t	nt	ṃt > nt	ṃ > n	ṃ + th	x
-ṃ + th	nth	ṃth > nth	ṃ > n	x	x
-ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	khandhādisa
-ṃ + dh	ndh	ṃdh > ndh	ṃ > n	x	x
-ṃ + n	nn	ṃn > nn	ṃ > n	x	x
-ṃ + p	mp	ṃp > mp	ṃ > m	ṃ + ph	x
-ṃ + p	pp	ṃp > pp	ṃ > p	ṃ + ph	x
-ṃ + ph	pph	ṃph > pph	ṃ > p	x	x
-ṃ + ph	mph	ṃph > mph	ṃ > m	x	x
-ṃ + b	mb	ṃb > mb	ṃ > m	ṃ + bh	x
-ṃ + bh	mbh	ṃbh > mbh	ṃ > m	x	x
-ṃ + m	mm	ṃm > mm	ṃ > m	x	x
-ṃ + y	ññ	ṃy > ññ	x	x	x
-ṃ + l	ll	ṃl > ll	ṃ > l	x	x
-ṃs + t	st	ṃst > st	x	x	x
-ṃs + t	ṭṭh	ṃst > ṭṭh	st > ṭṭh	x	x
-
--
- + pa +	pp	pa > ppa	x	pp	x
-
-
-a + a	a	aa > a	x	x	x
-a + a	ā	aa > ā	x	x	x
-a + a	o	aa > o	x	x	x
-a + ā	ā	aā > ā	x	x	x
-ā + a	ā	āa > ā	x	x	x
-ā + ā	ā	āā > ā	x	x	x
-a + i	a	ai > a	x	x	x
-a + i	ā	ai > ā	x	x	x
-a + i	i	ai > i	x	x	x
-a + i	e	ai > e	x	x	x
-a + ī	e	aī > e	x	x	x
-a + u	u	au > u	x	x	x
-a + u	ū	au > ū	x	x	x
-a + u	o	au > o	x	x	x
-a + ū	o	aū > o	x	x	x
-a + e	e	ae > e	x	x	x
-a + o	o	ao > o	x	x	x
-ā + i	ā	āi > ā	x	x	x
-ā + i	i	āi > i	x	x	x
-ā + i	ī	āi > ī	x	x	x
-ā + i	e	āi > e	x	x	x
-ā + u	ū	āu > ū	x	x	x
-ā + e	ā	āe > ā	x	x	x
-i + a	a	ia > a	x	x	x
-i + a	ā	ia > ā	x	x	x
-i + a	i	ia > i	x	x	x
-i + a	ī	ia > ī	x	x	x
-i + a	ya	ia > ya	x	x	x
-i + ā	yā	iā > yā	x	x	x
-i + i	i	ii > i	x	x	x
-i + i	ī	ii > ī	x	x	x
-i + u	o	iu > o	x	x	x
-i + e	e	ie > e	x	x	x
-i + o	o	io > o	x	x	x
-ī + a	yā	īa > yā	x	x	x
-ī + u	u	īu > u	x	x	x
-ī + i	ī	īi > ī	x	x	x
-u + a	u	ua > u	x	x	x
-u + a	va	ua > va	x	x	x
-u + a	vā	ua > vā	x	x	x
-u + ā	ā	uā > ā	x	x	x
-u + ā	vā	uā > vā	x	x	x
-u + i	u	ui > u	x	x	x
-u + i	ū	ui > ū	x	x	x
-u + u	u	uu > u	x	x	x
-u + u	ū	uu > ū	x	x	x
-u + e	u	ue > u	x	x	x
-u + e	ve	ue > ve	x	x	x
-ū + a	ū	ūa > ū	x	x	x
-e + a	a	ea > a	x	x	x
-e + a	ā	ea > ā	x	x	x
-e + a	e	ea > e	x	x	x
-e + a	ya	ea > ya	x	x	x
-e + a	yā	ea > yā	x	x	x
-e + ā	ā	eā > ā	x	x	x
-e + i	e	ei > e	x	x	x
-e + e	e	ee > e	x	x	x
-o + a	a	oa > a	x	x	x
-o + a	ā	oa > ā	x	x	x
-o + a	o	oa > o	x	x	x
-o + a	va	oa > va	x	x	x
-o + a	vā	oa > vā	x	x	x
-o + e	e	oe > e	x	x	x
-o + e	o	oe > o	x	x	x
-o + i	o	oi > o	x	x	x
-o + u	u	ou > u	x	x	x
-y + a	yā	ya > yā	x	x	x
-v + a	vā	va > vā	x	x	x
+m + t	nt	mt > nt	m > n	m + th	x	
+m + th	nth	mth > nth	m > n	x	x	
+m + y	mm	my > mm	y > m	x	x	
+man + man	vī	man > vī	m > v	x	x	
+mā + nā	min	mā > mi (Kacc 502, 493)	ā > i	x	x	
+mb	mm	mb > mm	x	mm	x	
+						
+r + k	kk	rk > kk	r > k	r + kh	x	
+r + kh	kkh	rkh > kkh	r > k	x	x	
+r + g	gg	rg > gg	r > g	r + gh	x	
+r + gh	ggh	rgh > ggh	rg > gg	x	x	
+r + j	jj	rj > jj	x	x	x	
+r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x	
+r + t	tt	rt > tt	r > t	r + th	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1, adhikatatta, kaṭatta, supaccatthata	
+xr + t	ṭ	rt > ṭ (sk ṛt) 	rt > ṭ	x	x	
+r + th	tth	rth > tth	r > t	x	x	
+r + d	dd	rd > dd	r > d	r + dh	x	
+r + dh	ddh	rdh > ddh	r > d	x	x	
+r + n	nn	rn > nn	r > n	x	x	
+r + p	pp	rp > pp	r > p	r + ph	x	
+r + ph	pph	rph > pph	r > p	x	x	
+r + b	bb	rb > bb	r > b	r + bh	x	
+r + bh	bbh	rbh > bbh	r > b	x	x	
+r + m	mm	rm > mm	r > m	x	x	
+r + l	ll	rl > ll	r > l	ll	x	
+r + v	bb	rv > vv > bb	v > b	x	x	
+r + v	bb	rv > vv > bb	rv > bb	x	x	
+r + s	ss	rs > ss	r > s	x	x	
+ri + a	lla	ri > li > ly > ll	x	x	x	
+						
+l + y	ll	ly > ll	y > l	x	x	
+la + y	ll	ly > ll	y > l	x	x	
+						
+v + t	t	vt > t	v > t	v + th	x	
+v + t	tt	vt > tt	v > t	v + th	x	
+v + th	th	vth > th	x	x	x	
+vi +	by	vi > vy > by	vi > by	x	vedhabyā, vebhabyā	
+vi + 	veyy	vi > veyy (Kacc 401, 375)	vy > veyy	veyy	x	
+						
+s + t	ṭṭh	st > ṭṭh	x	x	x	
+s + m	ss	sm > ss	s > m	ss	x	
+s + y	ss	sy > ss	y > s	x	x	
+s + s	cch	ss > cch	x	x	x	
+sa + y	ss	sy > ss	y > s	ss	x	
+saṃ + 	sā	saṃ > sā	x	sā	vatassāhaṃ, asāmanta, asāmāyika, tesāhaṃ, sampasāda 1, sampasādana 1, saṃsāda, saṃsāra 1, saṃsāra 2, saṃsāra 3, sāmagga, sāmaggiya, sāmaggī 1, sāmaggī 2, sāmanta 1, sāmantā 1, sāmantā 2, sāmāyika, sāmukkaṃsika, sāmuddika, sampasāda 2, sāmayika 2	
+snih +	sini	snih > sinih (epenthesis)	x	x	x	
+sud	sod	u > o	x	a + u	x	
+						
+hu	ju	h > j	x	x	khujjuttarā	
+hu	jū	h > j	x	x	x	
+h + g	gh	hg > gh (metathesis)	x	h + gh	x	
+h + t	ddh	ht > ddh	x	bh + t	x	
+h + t	ḷh	ht > ḍh > ḷh (metathesis)	t > ḍ > ḷ	x	x	
+h + y	yh	hy > yh (metathesis)	hy > yh	x	x	
+						
+ṃ + a	ma	ṃa > ma	ṃ > m	x	bahulīmakasi, mayampi, apubbaṃ acarimaṃ	
+ṃ + ava	mo	ṃo > mo	ṃ > m	x	x	
+ṃ + ā	mā	ṃā > mā	ṃ > m	x	x	
+ṃ + i	mi	ṃi > mi	ṃ > m	x	kinti karomi, tuyhiminā	
+ṃ + ī	mī	ṃī > mī	ṃ > m	x	x	
+ṃ + u	mu	ṃu > mu	ṃ > m	x	x	
+ṃ + u	mū	ṃu > mu	ṃ > m	x	x	
+ṃ + ū	mū	ṃū > mū	ṃ > m	x	x	
+ṃ + e	me	ṃe > me	ṃ > m	x	x	
+ṃ + o	mo	ṃo > mo	ṃ > m	x	x	
+ṃ + k	ṅk	ṃk > ṅk	ṃ > ṅ	ṃ + kh	upasaṅkamitukāma, maṅkuṃ karoti	
+ṃ + kh	ṅkh	ṃkh > ṅkh	ṃ > ṅ	x	x	
+ṃ + g	ṅg	ṃg > ṅg	ṃ > ṅ	ṃ + gh	x	
+ṃ + gh	ṅgh	ṃgh > ṅgh	ṃ > ṅ	x	x	
+ṃ + c	ñc	ṃc > ñc	ṃ > ñ	ṃ + ch	x	
+ṃ + ch	ñch	ṃch > ñch	ṃ > ñ	x	x	
+ṃ + ch	ñch	ṃch > ñch	ṃc > ñc	x	x	
+ṃ + j	ñj	ṃj > ñj	ṃ > ñ	ṃ + jh	x	
+ṃ + jh	ñjh	ṃjh > ñjh	ṃ > ñ	x	x	
+ṃ + ñ	ññ	ṃñ > ññ	ṃ > ñ	x	x	
+ṃ + ṭ	ṇṭ	ṃṭ > ṇṭ	ṃ > ṇ	ṃ + ṭh	x	
+ṃ + ṭh	ṇṭh	ṃṭh > ṇṭh	ṃ > ṇ	x	x	
+ṃ + ṭh	nth	ṃṭh > nth	ṃṭ > nt	x	x	
+ṃ + ḍ	ṇḍ	ṃḍ > ṇḍ	ṃ > ṇ	ṃ + ḍh	x	
+ṃ + ḍh	ṇḍh	ṃḍh > ṇḍh	ṃ > ṇ	x	x	
+ṃ + t	nt	ṃt > nt	ṃ > n	ṃ + th	x	
+ṃ + th	nth	ṃth > nth	ṃ > n	x	x	
+ṃ + d	nd	ṃd > nd	ṃ > n	ṃ + dh	khandhādisa	
+ṃ + dh	ndh	ṃdh > ndh	ṃ > n	x	x	
+ṃ + n	nn	ṃn > nn	ṃ > n	x	x	
+ṃ + p	mp	ṃp > mp	ṃ > m	ṃ + ph	x	
+ṃ + p	pp	ṃp > pp	ṃ > p	ṃ + ph	x	
+ṃ + ph	pph	ṃph > pph	ṃ > p	x	x	
+ṃ + ph	mph	ṃph > mph	ṃ > m	x	x	
+ṃ + b	mb	ṃb > mb	ṃ > m	ṃ + bh	x	
+ṃ + bh	mbh	ṃbh > mbh	ṃ > m	x	x	
+ṃ + m	mm	ṃm > mm	ṃ > m	x	x	
+ṃ + y	ññ	ṃy > ññ	x	x	x	
+ṃ + l	ll	ṃl > ll	ṃ > l	x	x	
+ṃs + t	st	ṃst > st	x	x	x	
+ṃs + t	ṭṭh	ṃst > ṭṭh	st > ṭṭh	x	x	
