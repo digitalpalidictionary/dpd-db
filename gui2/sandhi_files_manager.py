@@ -9,8 +9,12 @@ class SandhiFileManager:
         self._pth = ProjectPaths()
         self._checked_words: set[str] = self._read_checked_csv()
         self._corrections: set[str] = self._read_corrections_csv()
+        self.see_manager = toolkit.see_manager
         self.variants = toolkit.variants
         self.spelling_mistakes = toolkit.spelling_mistakes
+
+    def add_see(self, word: str, headword: str) -> None:
+        self.see_manager.update_and_save(word, headword)
 
     def add_variant(self, word: str, main_reading: str) -> None:
         self.variants.update_and_save(word, main_reading)

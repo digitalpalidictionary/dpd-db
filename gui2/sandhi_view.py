@@ -138,6 +138,29 @@ class SandhiView(ft.Column, PopUpMixin):
             on_click=self.handle_add_to_spelling_mistakes_click,
         )
 
+        # Section 6: Add to See
+        self.see_word = ft.TextField(
+            label="Word",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            width=FIELD_WIDTH / 2 - 5,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=20,
+            on_submit=self.handle_add_to_see_click,
+        )
+        self.see_headword = ft.TextField(
+            label="Headword",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            width=FIELD_WIDTH / 2 - 5,
+            color=HIGHLIGHT_COLOUR,
+            border_radius=20,
+            on_submit=self.handle_add_to_see_click,
+        )
+        self.add_to_see_button = ft.ElevatedButton(
+            "Add",
+            width=BUTTON_WIDTH,
+            on_click=self.handle_add_to_see_click,
+        )
+
         self.controls = [
             ft.Row(controls=[self.message_field]),
             ft.Divider(height=10, color=HIGHLIGHT_COLOUR),
@@ -181,6 +204,15 @@ class SandhiView(ft.Column, PopUpMixin):
                     self.spelling_mistake_word,
                     self.spelling_mistake_correction,
                     self.add_to_spelling_mistakes_button,
+                ]
+            ),
+            ft.Divider(height=10, color=HIGHLIGHT_COLOUR),
+            ft.Row(
+                controls=[
+                    ft.Text("see", width=LABEL_WIDTH),
+                    self.see_word,
+                    self.see_headword,
+                    self.add_to_see_button,
                 ]
             ),
         ]
@@ -256,3 +288,15 @@ class SandhiView(ft.Column, PopUpMixin):
             self.page.update()
         else:
             self.update_message("Both word and correction fields are required.")
+
+    def handle_add_to_see_click(self, e: ft.ControlEvent) -> None:
+        word = self.see_word.value
+        headword = self.see_headword.value
+        if word and headword:
+            self.sandhi_files_manager.add_see(word, headword)
+            self.update_message(f"See entry '{headword}' added for '{word}'")
+            self.see_word.value = ""
+            self.see_headword.value = ""
+            self.page.update()
+        else:
+            self.update_message("Both word and headword fields are required.")

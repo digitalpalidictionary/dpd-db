@@ -19,6 +19,7 @@ class ToolKit:
         from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
         from gui2.paths import Gui2Paths
         from gui2.sandhi_files_manager import SandhiFileManager
+        from gui2.see import SeeFileManager
         from gui2.spelling import SpellingMistakesFileManager
         from gui2.test_manager import GuiTestManager
         from gui2.user import UsernameManager
@@ -60,6 +61,7 @@ class ToolKit:
         self.bold_definitions_search_manager: BoldDefinitionsSearchManager = (
             BoldDefinitionsSearchManager()
         )
+        self.see_manager: SeeFileManager = SeeFileManager()
         self.variants: VariantReadingFileManager = VariantReadingFileManager()
         self.spelling_mistakes: SpellingMistakesFileManager = (
             SpellingMistakesFileManager()
