@@ -47,7 +47,7 @@ COMMANDS = [
     "db/suttas/suttas_to_lookup.py",
     
     "db/grammar/grammar_to_lookup.py",
-    
+    "db/lookup/see.py",
     "db/lookup/spelling_mistakes.py",
     "db/lookup/transliterate_lookup_table.py",
     "db/lookup/help_abbrev_add_to_lookup.py",
