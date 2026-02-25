@@ -38,6 +38,11 @@ function button_click(el) {
 
 document.addEventListener("DOMContentLoaded", function () {
   loadData();
+  const gdParams = new URLSearchParams(window.location.search);
+  const gdWord = gdParams.get("word");
+  if (gdWord) {
+    highlightInflections(gdWord.trim());
+  }
 });
 
 function loadData() {
@@ -155,6 +160,46 @@ function loadRootButtonContent(data) {
     } else {
       console.log(`${key_clean} not found in family_root_json.js`);
     }
+  });
+}
+
+//// highlight the searched word in the inflection table
+
+function highlightInflections(searchTerm) {
+  if (!searchTerm) return;
+
+  const tempDiv = document.createElement("div");
+  tempDiv.textContent = searchTerm;
+  const normalizedSearch = tempDiv.textContent;
+
+  const inflectionTables = document.querySelectorAll("table.inflection");
+
+  inflectionTables.forEach(function (table) {
+    const cells = table.querySelectorAll("td");
+
+    cells.forEach(function (cell) {
+      const parts = cell.innerHTML.split(/<br\s*\/?>/i);
+      let modified = false;
+
+      const newParts = parts.map(function (part) {
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = part;
+        const partText = tempElement.textContent || "";
+
+        if (partText === normalizedSearch) {
+          const span = document.createElement("span");
+          span.className = "inflection-highlight";
+          span.textContent = partText;
+          modified = true;
+          return span.outerHTML;
+        }
+        return part;
+      });
+
+      if (modified) {
+        cell.innerHTML = newParts.join("<br>");
+      }
+    });
   });
 }
 
