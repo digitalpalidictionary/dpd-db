@@ -105,7 +105,7 @@ def generate_see_data_list(
 
         final_html = squash_whitespaces(header) + minify(body)
 
-        size_dict["see_entries"] = size_dict.get("see_entries", 0) + len(final_html)
+        size_dict["see_entries"] += len(final_html)
         synonyms = add_niggahitas([see])
 
         res = DictEntry(

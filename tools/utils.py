@@ -24,6 +24,8 @@ class RenderedSizes(TypedDict):
     root_families: int
     root_synonyms: int
 
+    see_entries: int
+
     variant_readings: int
     variant_synonyms: int
 
@@ -58,6 +60,7 @@ def default_rendered_sizes() -> RenderedSizes:
         root_matrix=0,
         root_families=0,
         root_synonyms=0,
+        see_entries=0,
         variant_readings=0,
         variant_synonyms=0,
         spelling_mistakes=0,
