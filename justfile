@@ -202,3 +202,7 @@ limit100:
 # Set data limit to 0 (no limit)
 limit0:
     uv run python -c "from tools.configger import config_update; config_update('dictionary', 'data_limit', '0')"
+
+# Open config.ini in fresh
+config:
+    fresh config.ini
