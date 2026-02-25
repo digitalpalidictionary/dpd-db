@@ -1,13 +1,23 @@
 from typing import Set
-from db.models import DpdHeadword, DpdRoot, FamilyCompound, FamilyIdiom, FamilyRoot, FamilySet, FamilyWord, SuttaInfo, Lookup
+from db.models import (
+    DpdHeadword,
+    DpdRoot,
+    FamilyCompound,
+    FamilyIdiom,
+    FamilyRoot,
+    FamilySet,
+    FamilyWord,
+    SuttaInfo,
+    Lookup,
+)
 from tools.paths import ProjectPaths
 from tools.meaning_construction import make_grammar_line
-from tools.superscripter import superscripter_uni
-from tools.pos import CONJUGATIONS, DECLENSIONS, INDECLINABLES
+from tools.pos import CONJUGATIONS, DECLENSIONS
 from exporter.goldendict.helpers import TODAY
 from tools.date_and_time import year_month_day_dash
 from tools.css_manager import CSSManager
 from tools.pali_sort_key import pali_sort_key
+
 
 class HeadwordData:
     def __init__(
@@ -24,7 +34,7 @@ class HeadwordData:
         jinja_env,
         cf_set: Set[str],
         idioms_set: Set[str],
-        show_id: bool
+        show_id: bool,
     ):
         self.i = self._convert_newlines(i)
         self.rt = rt
@@ -47,12 +57,20 @@ class HeadwordData:
         self.conjugations = CONJUGATIONS
         self.app_name = "GoldenDict"
         self.header = self._generate_header()
-        
+
     @staticmethod
     def _convert_newlines(obj):
         attrs = [
-            "meaning_1", "sanskrit", "phonetic", "compound_construction",
-            "commentary", "sutta_1", "sutta_2", "example_1", "example_2", "notes"
+            "meaning_1",
+            "sanskrit",
+            "phonetic",
+            "compound_construction",
+            "commentary",
+            "sutta_1",
+            "sutta_2",
+            "example_1",
+            "example_2",
+            "notes",
         ]
         for attr_name in attrs:
             attr_value = getattr(obj, attr_name, None)
@@ -70,10 +88,15 @@ class HeadwordData:
         return css_manager.update_style(html_header, "dpd")
 
 
-
-
 class RootsData:
-    def __init__(self, r: DpdRoot, roots_count_dict: dict[str, int], pth: ProjectPaths, jinja_env, frs: list[FamilyRoot]):
+    def __init__(
+        self,
+        r: DpdRoot,
+        roots_count_dict: dict[str, int],
+        pth: ProjectPaths,
+        jinja_env,
+        frs: list[FamilyRoot],
+    ):
         self.r = self._convert_newlines(r)
         self.pth = pth
         self.jinja_env = jinja_env
@@ -132,6 +155,20 @@ class VariantData:
     def __init__(self, variant: str, main: str, jinja_env):
         self.variant = variant
         self.main = main
+        self.jinja_env = jinja_env
+        self.header = self._generate_header()
+
+    def _generate_header(self) -> str:
+        template = self.jinja_env.get_template("dpd_header_plain.jinja")
+        html_header = template.render()
+        css_manager = CSSManager()
+        return css_manager.update_style(html_header, "primary")
+
+
+class SeeData:
+    def __init__(self, see: str, headword: str, jinja_env):
+        self.see = see
+        self.headword = headword
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
