@@ -52,22 +52,22 @@ def generate_tpr_data(g: GlobalVars):
     pr.green("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
-    
+
     jinja_env = get_jinja2_env("exporter/tpr/templates")
     template = jinja_env.get_template("tpr_headword.jinja")
 
     for counter, i in enumerate(g.dpd_db):
         # Add helper for template
         i.compound_type_has_digit = bool(re.findall(r"\d", i.compound_type or ""))
-        
+
         html_string = template.render(i=i, today=TODAY)
-        
+
         # Original code did some replacements after rendering
         html_string = html_string.replace("\n", "").replace("    ", "")
         # The template already removes the span class='g' part because we don't include it
         # but for 100% byte-parity with the baseline we might need to be careful.
         # Actually, the baseline was captured with the OLD code.
-        
+
         # Replicate the specific ' quote to ’ replacement
         html_string = re.sub("'", "’", html_string)
 
@@ -370,7 +370,7 @@ def copy_zip_to_tpr_downloads(g: GlobalVars):
                 "type": "dictionary",
                 "category": "Dictionaries",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd.zip",
-                "filename": "dpd.sql",
+                "filename": "dpd.zip",
                 "size": f"{filesize} MB",
             }
 
@@ -387,7 +387,7 @@ def copy_zip_to_tpr_downloads(g: GlobalVars):
                 "type": "dictionary",
                 "category": "Other Beta",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_beta.zip",
-                "filename": "dpd.sql",
+                "filename": "dpd.zip",
                 "size": f"{filesize} MB",
             }
 
