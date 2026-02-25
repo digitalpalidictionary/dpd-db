@@ -94,7 +94,7 @@ def get_commentary_words(data: FinderData) -> None:
 
 
 def load_ignore_words(data: FinderData) -> None:
-    pr.green("loading spelling mistakes and variant readings to ignore")
+    pr.green("loading spelling mistakes and variants")
     for tsv_path, col_index in [
         (data.pth.spelling_mistakes_path, 0),
         (data.pth.variant_readings_path, 0),
