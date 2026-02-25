@@ -15,6 +15,7 @@ from exporter.webapp.data_classes import (
     HelpData,
     ManualVariantData,
     RootsData,
+    SeeData,
     SpellingData,
     VariantData,
 )
@@ -182,6 +183,16 @@ def make_dpd_html(
                                 ).render(d=d)
                                 dpd_html += templates.get_template(
                                     pth.template_variant
+                                ).render(d=d)
+
+                            # see
+                            if lookup_result.see:
+                                d = SeeData(lookup_result)
+                                summary_html += templates.get_template(
+                                    pth.template_see_summary
+                                ).render(d=d)
+                                dpd_html += templates.get_template(
+                                    pth.template_see
                                 ).render(d=d)
 
                             # spelling mistake

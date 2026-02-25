@@ -74,6 +74,14 @@ class VariantData:
         self.date = year_month_day_dash()
 
 
+class SeeData:
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.see_headwords = result.see_unpack
+        self.app_name = "dpdict.net"
+        self.date = year_month_day_dash()
+
+
 class SpellingData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key

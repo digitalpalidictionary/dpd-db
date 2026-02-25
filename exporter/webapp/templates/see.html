@@ -1,0 +1,11 @@
+<h3 class="dpd" id="see: {{ d.headword }}">see: {{d.headword}}</h3>
+<div class='dpd'>
+    <p>
+        {% for headword in d.see_headwords: %}
+        see <b><i>{{headword}}</i></b>
+        {% if not loop.last: %}
+        <br>
+        {% endif %}
+        {% endfor %}
+    </p>
+</div>
