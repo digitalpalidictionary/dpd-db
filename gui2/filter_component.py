@@ -343,6 +343,19 @@ class FilterComponent(ft.Column):
             show_global_snackbar(self.page, error_message, "error", 5000)
             return
 
+        for (_, col_name), value in self.modified_cells.items():
+            if col_name in ("meaning_1", "meaning_lit") and value:
+                misspelled = self.spellchecker.check_sentence(value)
+                if misspelled:
+                    error_string = ", ".join(misspelled.keys())
+                    show_global_snackbar(
+                        self.page,
+                        f"spelling mistakes in {col_name}: {error_string}",
+                        "error",
+                        5000,
+                    )
+                    return
+
         try:
             changes_by_row: dict[int, dict[str, str]] = {}
             for (row_index, col_name), value in self.modified_cells.items():

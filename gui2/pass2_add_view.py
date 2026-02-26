@@ -562,6 +562,18 @@ class Pass2AddView(ft.Column, PopUpMixin):
         word_to_save = self.dpd_fields.get_current_headword()
         comment = self.dpd_fields.get_field("comment").value
 
+        for field_name in ("meaning_1", "meaning_lit"):
+            field = self.dpd_fields.get_field(field_name)
+            value = field.value if field else ""
+            if value:
+                misspelled = self.dpd_fields.spellchecker.check_sentence(value)
+                if misspelled:
+                    error_string = ", ".join(misspelled.keys())
+                    self.update_message(
+                        f"spelling mistakes in {field_name}: {error_string}"
+                    )
+                    return
+
         if (
             hasattr(self, "headword")
             and self.headword

@@ -129,6 +129,17 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         }
         comment = self.ui.dpd_fields.get_field("comment").value or ""
 
+        for field_name in ("meaning_1", "meaning_lit"):
+            value = field_data.get(field_name, "")
+            if value:
+                misspelled = self.ui.dpd_fields.spellchecker.check_sentence(value)
+                if misspelled:
+                    error_string = ", ".join(misspelled.keys())
+                    self.ui.update_message(
+                        f"spelling mistakes in {field_name}: {error_string}"
+                    )
+                    return
+
         # Create the DpdHeadword object using the imported function
         new_word = make_dpd_headword_from_dict(field_data)
 
