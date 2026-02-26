@@ -245,19 +245,21 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "antonym",
                 on_change=self.clean_pali_field,
+                on_blur=self.clean_pali_field,
             ),
             FieldConfig(
                 "synonym",
                 on_focus=self.synonym_focus,
                 on_change=self.synonym_field_change,
+                on_blur=self.clean_pali_field,
             ),
             FieldConfig(
                 "variant",
                 on_change=self.synonym_variant_check,
                 on_blur=self.variant_blur,
             ),
-            FieldConfig("var_phonetic"),
-            FieldConfig("var_text"),
+            FieldConfig("var_phonetic", on_blur=self.clean_pali_field),
+            FieldConfig("var_text", on_blur=self.clean_pali_field),
             FieldConfig(
                 "commentary", field_type="commentary", on_focus=self.commentary_focus
             ),
@@ -585,6 +587,7 @@ class DpdFields(PopUpMixin):
         """
         Checks if main fields and their corresponding _add fields have different values
         and changes the _add field's text color to red if they do.
+        Also syncs the transfer button enabled state based on whether the _add field has content.
         """
         for config in self.field_configs:
             main_field_name = config.name
@@ -601,6 +604,19 @@ class DpdFields(PopUpMixin):
                     add_field_control.color = ft.Colors.RED
                 else:
                     add_field_control.color = ft.Colors.GREY_500
+
+                field_row = self.field_containers.get(main_field_name)
+                if field_row:
+                    for control in field_row.controls:
+                        if (
+                            isinstance(control, ft.IconButton)
+                            and control.data == f"{main_field_name}_transfer_btn"
+                        ):
+                            control.disabled = not bool(add_value)
+                            control.on_click = lambda e, mf=main_field_control, af=add_field_control, btn=control: self.transfer_add_value(
+                                e, mf, af, btn
+                            )
+                            break
 
         self.page.update()
 
@@ -1285,6 +1301,7 @@ class DpdFields(PopUpMixin):
             self.page.update()
 
     def variant_blur(self, e: ft.ControlEvent) -> None:
+        self.clean_pali_field(e)
         field, value = self.get_event_field_and_value(e)
         var_text_field = self.get_field("var_text")
         var_text_field.value = value
