@@ -222,7 +222,7 @@ class SandhiView(ft.Column, PopUpMixin):
         self.page.update()
 
     def handle_sandhi_ok_click(self, e: ft.ControlEvent):
-        current_word = self.sandhi_ok_word.value
+        current_word = self.sandhi_ok_word.value.strip()
         if current_word:
             self.sandhi_files_manager.add_sandhi_to_checked_csv(current_word)
             self.update_message(f"{current_word} added to sandhi checked")
@@ -230,8 +230,8 @@ class SandhiView(ft.Column, PopUpMixin):
             self.page.update()
 
     def handle_add_to_sandhi_click(self, e: ft.ControlEvent) -> None:
-        sandhi_word = self.sandhi_word.value
-        correction = self.sandhi_correction.value
+        sandhi_word = self.sandhi_word.value.strip()
+        correction = self.sandhi_correction.value.strip()
         if sandhi_word and correction:
             self.sandhi_files_manager.update_sandhi_corrections_csv(
                 sandhi_word, correction
@@ -264,8 +264,8 @@ class SandhiView(ft.Column, PopUpMixin):
                 self.page.update()
 
     def handle_add_to_variants_click(self, e: ft.ControlEvent) -> None:
-        word = self.variant_word.value
-        main_reading = self.variant_main_reading.value
+        word = self.variant_word.value.strip()
+        main_reading = self.variant_main_reading.value.strip()
         if word and main_reading:
             self.sandhi_files_manager.add_variant(word, main_reading)
             self.update_message(f"Variant '{main_reading}' added for '{word}'")
@@ -276,8 +276,8 @@ class SandhiView(ft.Column, PopUpMixin):
             self.update_message("Both word and main reading fields are required.")
 
     def handle_add_to_spelling_mistakes_click(self, e: ft.ControlEvent) -> None:
-        word = self.spelling_mistake_word.value
-        correction = self.spelling_mistake_correction.value
+        word = self.spelling_mistake_word.value.strip()
+        correction = self.spelling_mistake_correction.value.strip()
         if word and correction:
             self.sandhi_files_manager.add_spelling_mistake(word, correction)
             self.update_message(
@@ -290,8 +290,8 @@ class SandhiView(ft.Column, PopUpMixin):
             self.update_message("Both word and correction fields are required.")
 
     def handle_add_to_see_click(self, e: ft.ControlEvent) -> None:
-        word = self.see_word.value
-        headword = self.see_headword.value
+        word = self.see_word.value.strip()
+        headword = self.see_headword.value.strip()
         if word and headword:
             self.sandhi_files_manager.add_see(word, headword)
             self.update_message(f"See entry '{headword}' added for '{word}'")
