@@ -32,6 +32,7 @@ class DpdMeaningField(ft.Column):
         self.spellchecker = spellchecker  # Store spellchecker instance
 
         self.on_focus_callback = on_focus
+        self.on_blur_callback = on_blur
 
         # Main meaning field - use the passed handlers for this one
         self.meaning_field = DpdTextField(
@@ -40,7 +41,7 @@ class DpdMeaningField(ft.Column):
             on_focus=self._handle_on_focus,
             on_change=on_change,
             on_submit=on_submit,
-            on_blur=self._handle_spell_check,
+            on_blur=self._handle_on_blur,
         )
 
         # Field to add words to the dictionary
@@ -116,6 +117,12 @@ class DpdMeaningField(ft.Column):
         if self.on_focus_callback:
             self.on_focus_callback(e)
         self._handle_spell_check(e)
+
+    def _handle_on_blur(self, e: ft.ControlEvent):
+        """Handle blur on meaning field: spell check then external callback."""
+        self._handle_spell_check(e)
+        if self.on_blur_callback:
+            self.on_blur_callback(e)
 
     def _handle_spell_check(self, e: ft.ControlEvent):
         """Common logic for spell checking the meaning field."""

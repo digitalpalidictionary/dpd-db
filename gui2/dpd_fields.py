@@ -138,6 +138,7 @@ class DpdFields(PopUpMixin):
                 multiline=True,
                 field_type="meaning",
                 on_focus=self.meaning_1_focus,
+                on_blur=self.meaning_1_blur,
             ),
             FieldConfig(
                 "meaning_lit",
@@ -723,6 +724,16 @@ class DpdFields(PopUpMixin):
                         field.value = meaning_2_field.value
                         field.update()
                         self.page.update()
+
+    def meaning_1_blur(self, e: ft.ControlEvent) -> None:
+        """Clear synonyms when meaning_1 loses focus so they regenerate from the new meaning."""
+        syn_field = self.get_field("synonym")
+        if self.flags.synonyms_done or (syn_field and syn_field.value):
+            self.flags.synonyms_done = False
+            syn_field.value = ""
+            syn_field.update()
+            self.ui.update_message("synonyms deleted - redo them")
+            self.page.update()
 
     def lemma_2_blur(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
