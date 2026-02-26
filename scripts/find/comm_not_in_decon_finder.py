@@ -18,37 +18,8 @@ from tools.tsv_read_write import write_tsv_list
 
 @dataclass
 class FinderData:
-    commentray_books = [
-        "kn6",
-        # "kn7",
-        # "kn8",
-        # "vina",
-        # "dna",
-        # "mna",
-        # "sna",
-        # "ana",
-        # "kn1a",
-        # "kn2a",
-        # "kn3a",
-        # "kn4a",
-        # "kn5a",
-        # "kn6a",
-        # "kn7a",
-        # "kn8a",
-        # "kn9a",
-        # "kn10a",
-        # "kn11a",
-        # "kn12a",
-        # "kn13a",
-        # "kn14a",
-        # "kn15a",
-        # "kn16a",
-        # "kn17a",
-        # "kn19a",
-        # "vism",
-        # "visma",
-    ]
-    pth: ProjectPaths = ProjectPaths()
+    commentray_books: list[str] = field(default_factory=list)
+    pth: ProjectPaths = field(default_factory=ProjectPaths)
     frequency_dict: dict[str, int] = field(default_factory=dict)
     lookup_words: set[str] = field(default_factory=set)
     commentary_words: set[str] = field(default_factory=set)
@@ -161,11 +132,26 @@ def run_interactive_loop(data: FinderData) -> None:
             break
 
 
+def ask_for_books() -> list[str]:
+    default_books = [
+        "kn7", "kn8", "vina", "dna", "mna", "sna", "ana",
+        "kn1a", "kn2a", "kn3a", "kn4a", "kn5a", "kn6a", "kn7a",
+        "kn8a", "kn9a", "kn10a", "kn11a", "kn12a", "kn13a", "kn14a",
+        "kn15a", "kn16a", "kn17a", "kn19a", "vism", "visma",
+    ]
+    response = input("enter book(s) [comma-separated, or press enter for all]: ").strip()
+    if not response:
+        return default_books
+    return [b.strip() for b in response.split(",") if b.strip()]
+
+
 def main():
     pr.tic()
     pr.title("commentary words not found in the lookup table")
 
+    books = ask_for_books()
     data = FinderData()
+    data.commentray_books = books
 
     load_combined_frequency(data)
     get_lookup_words(data)
