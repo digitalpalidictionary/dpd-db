@@ -1,6 +1,6 @@
-# dpd-db-mako-to-jinja Project Rules
+# Project Rules
 
-These rules are specific to the dpd-db-mako-to-jinja project. Global rules (security, python type hints, debugging, etc.) are in `~/.agents/AGENTS.md`.
+These rules are specific to the dpd-db project. Global rules (security, python type hints, debugging, etc.) are in `~/.agents/AGENTS.md`.
 
 ## Project Overview
 
@@ -13,7 +13,7 @@ This project converts Mako templates to Jinja2 templates for the Digital Pali Di
 - On a weekly basis, or anytime the project tree changes, check that the project tree matches the tree specified in @docs/technical/project_folder_structure.md
 
 ## Database model
-- On a weekly basis, or anytime the database model changes, check that the database model in @db/models.py matches the docs in @docs/technical/dpd_headwords_table.md
+- On a weekly basis, or anytime the database model changes, check that the database model in `db/models.py` matches the docs in `docs/technical/dpd_headwords_table.md`
 
 ## GitHub
 - Unless otherwise specified the repository in question is https://github.com/digitalpalidictionary/dpd-db.
@@ -26,6 +26,7 @@ This project converts Mako templates to Jinja2 templates for the Digital Pali Di
 - Show code snippets of suggested changes.
 
 ### Commit
+- Only ever commit when asked. NEVER unasked.
 - "Commit" means commit the changed files using execute_command.
 - Use this format, all in lowercase. #issue number area: change1, change2 . E.g. #67 webapp: updated css, fixed overflow
 
