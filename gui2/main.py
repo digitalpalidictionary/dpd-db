@@ -4,6 +4,7 @@ from pathlib import Path
 
 import flet as ft
 
+from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
 from gui2.toolkit import ToolKit
@@ -65,6 +66,7 @@ class App:
         self.filter_tab_view = FilterTabView(self.page, self.toolkit)
         self.translations_view = TranslationsView(self.page, self.toolkit)
         self.bold_search_view = BoldSearchView(self.page, self.toolkit)
+        self.roots_view = RootsTabView(self.page, self.toolkit)
 
         self.build_ui()
 
@@ -155,6 +157,10 @@ class App:
                 ft.Tab(
                     text="Bold Search",
                     content=self.bold_search_view,
+                ),
+                ft.Tab(
+                    text="√",
+                    content=self.roots_view,
                 ),
             ],
             expand=True,

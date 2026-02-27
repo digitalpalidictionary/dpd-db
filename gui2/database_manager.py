@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-from sqlalchemy import desc, func, or_
+from sqlalchemy import delete as sa_delete, desc, func, insert as sa_insert, or_
 from sqlalchemy.orm import defer
 from sqlalchemy.orm.session import Session
 
@@ -428,6 +428,100 @@ class DatabaseManager:
                 pass
 
         return related_headwords
+
+    # --- ROOT CRUD ---
+
+    def get_all_root_keys_sorted(self) -> list[str]:
+        """Query all root keys and return sorted by pali_sort_key."""
+        roots = self.db_session.query(DpdRoot.root).all()
+        return sorted([r[0] for r in roots], key=pali_sort_key)
+
+    def get_root_by_key(self, root_key: str) -> DpdRoot | None:
+        return self.db_session.query(DpdRoot).filter_by(root=root_key).first()
+
+    def add_root_to_db(self, root: DpdRoot) -> tuple[bool, str]:
+        try:
+            self.db_session.add(root)
+            self.db_session.commit()
+            return (True, "")
+        except Exception as e:
+            self.db_session.rollback()
+            return (False, str(e))
+
+    def update_root_in_db(self, original_key: str, root: DpdRoot) -> tuple[bool, str]:
+        """Update root fields, handling primary key rename and cascade.
+
+        root should be a fresh (transient) DpdRoot object with the desired new
+        field values — not a session-tracked object — to avoid autoflush issues.
+        """
+        try:
+            new_key = root.root
+
+            # no_autoflush prevents dirty session objects from being flushed
+            # before we can query by the original key
+            with self.db_session.no_autoflush:
+                existing = (
+                    self.db_session.query(DpdRoot).filter_by(root=original_key).first()
+                )
+                if not existing:
+                    return (False, f"Root '{original_key}' not found")
+
+            if new_key != original_key:
+                # Build field values: start from existing DB values, override with
+                # non-None values from root. Transient DpdRoot objects have None for
+                # unset fields (DB defaults not applied until session flush).
+                field_values: dict[str, object] = {}
+                for col in DpdRoot.__table__.columns:
+                    if col.name in ("created_at", "updated_at"):
+                        continue
+                    new_val = getattr(root, col.name)
+                    field_values[col.name] = (
+                        new_val if new_val is not None else getattr(existing, col.name)
+                    )
+
+                # 1. Insert new root row first (FK constraint always satisfied)
+                self.db_session.execute(sa_insert(DpdRoot).values(**field_values))
+
+                # 2. Cascade root_key update to DpdHeadword (new key now exists in DB)
+                self.db_session.query(DpdHeadword).filter(
+                    DpdHeadword.root_key == original_key
+                ).update({"root_key": new_key}, synchronize_session=False)
+
+                # 3. Delete old root at Core level — bypasses ORM cascade that would
+                #    nullify root_key on related DpdHeadword objects via relationship
+                self.db_session.execute(
+                    sa_delete(DpdRoot).where(DpdRoot.root == original_key)
+                )
+            else:
+                for col in DpdRoot.__table__.columns:
+                    if col.name not in ("root", "created_at", "updated_at"):
+                        setattr(existing, col.name, getattr(root, col.name))
+
+            self.db_session.commit()
+            return (True, "")
+        except Exception as e:
+            self.db_session.rollback()
+            return (False, str(e))
+
+    def delete_root_in_db(self, root_key: str) -> tuple[bool, str]:
+        try:
+            existing = self.db_session.query(DpdRoot).filter_by(root=root_key).first()
+            if not existing:
+                return (False, f"Root '{root_key}' not found")
+            self.db_session.delete(existing)
+            self.db_session.commit()
+            return (True, "")
+        except Exception as e:
+            self.db_session.rollback()
+            return (False, str(e))
+
+    def get_root_headword_count(self, root_key: str) -> int:
+        """Return count of DpdHeadword rows referencing this root_key."""
+        return (
+            self.db_session.query(DpdHeadword)
+            .filter(DpdHeadword.root_key == root_key)
+            .count()
+        )
 
     # --- GENERIC DB SEARCHES ---
 

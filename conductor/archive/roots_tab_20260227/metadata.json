@@ -1,0 +1,8 @@
+{
+  "track_id": "roots_tab_20260227",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-02-27T00:00:00Z",
+  "updated_at": "2026-02-27T00:00:00Z",
+  "description": "Add a Roots tab to gui2 for full CRUD editing of the dpd_roots table"
+}

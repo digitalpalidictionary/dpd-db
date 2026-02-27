@@ -22,5 +22,22 @@ uv run flet run gui2/main.py
 ```
 Specific maintenance utilities can be run from the `utilities/` subfolder.
 
+## Tabs
+
+| Tab | File | Purpose |
+|-----|------|---------|
+| Global | `global_tab_view.py` | Backup, inflections, Anki update |
+| Transl | `translations_view.py` | Translation workflows |
+| Pass1Auto | `pass1_auto_view.py` | Automated pass-1 processing |
+| Pass1Add | `pass1_add_view.py` | Manual pass-1 word addition |
+| Pass2Pre | `pass2_pre_view.py` | Pass-2 preprocessing |
+| Pass2Auto | `pass2_auto_view.py` | Automated pass-2 processing |
+| Pass2Add | `pass2_add_view.py` | Manual pass-2 word editing (CRUD for `dpd_headwords`) |
+| Sandhi | `sandhi_view.py` | Sandhi find/replace |
+| DB | `filter_tab_view.py` | Database query/filter |
+| Tests | `tests_tab_view.py` | Run DB integrity tests |
+| Bold Search | `bold_search_view.py` | Search bold definitions |
+| **Roots** | **`roots_tab_view.py`** | **Full CRUD editor for `dpd_roots` table** |
+
 ## GUI Assets
 - **Linux Integration:** A `dpd-gui2.desktop` file is provided in `gui2/linux/` to ensure the custom icon is correctly displayed in the Linux Mint taskbar and Alt-Tab switcher.
