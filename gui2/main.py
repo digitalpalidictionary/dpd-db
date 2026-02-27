@@ -79,7 +79,7 @@ class App:
         elif e.key == "A" and e.ctrl and e.shift:
             self.toolkit.ai_search_popup.open_popup()
         elif e.key == "F" and e.ctrl:
-            self.toolkit.wordfinder_popup.open_popup()
+            self.toolkit.wordfinder_popup.open_popup(self._get_current_lemma())
         elif e.key == "W" and e.ctrl:
             # Universal close key - close any open dialog
             if self.toolkit.ai_search_popup.is_dialog_open():
@@ -94,6 +94,21 @@ class App:
             if self.tabs.selected_index < len(self.tabs.tabs) - 1:
                 self.tabs.selected_index += 1
                 self.page.update()
+
+    def _get_current_lemma(self) -> str:
+        """Return lemma_1 from the active add-view, or empty string."""
+        tab_to_view = {
+            3: self.pass1_add_view,
+            6: self.pass2_add_view,
+        }
+        view = tab_to_view.get(self.tabs.selected_index)
+        if view is None:
+            return ""
+        try:
+            field = view.dpd_fields.get_field("lemma_1")
+            return (field.value or "").strip() if field else ""
+        except Exception:
+            return ""
 
     def tab_clicked(self, e: ft.ControlEvent) -> None:
         """Handles tab clicks."""

@@ -210,8 +210,8 @@ class WordFinderPopup:
         self.results_container.visible = True
         self.dialog.update()
 
-    def open_popup(self) -> None:
-        self.search_field.value = ""
+    def open_popup(self, lemma: str = "") -> None:
+        self.search_field.value = lemma
         self.results_container.visible = False
         self.results_container.content = ft.Column(
             [],
