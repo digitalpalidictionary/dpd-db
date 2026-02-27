@@ -542,7 +542,7 @@ class DatabaseManager:
         if first_character.isalpha():
             return self.get_headword_by_lemma(user_input)
         elif first_character.isdigit():
-            return self.get_headword_by_id(int(user_input))
+            return self.get_headword_by_id(int(user_input.split()[0]))
 
     # --- DB FUNCTIONS ---
 
