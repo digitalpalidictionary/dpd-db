@@ -25,6 +25,7 @@ nav:
     - Kindle: "install/kindle.md"
     - Kobo: "install/kobo.md"
     - ChromeBook: "install/chromebook.md"
+    - Chrome & Firefox Extension: "install/browser_extension.md"
     - Update: "install/update.md"
   - GoldenDict Features:
     - "goldendict/index.md"
