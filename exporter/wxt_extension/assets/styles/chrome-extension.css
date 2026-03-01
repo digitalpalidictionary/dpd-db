@@ -374,6 +374,7 @@ html.dpd-active body {
 #dict-panel-25445 .button svg,
 #dict-panel-25445 .dpd-button svg {
   fill: currentColor !important;
+  stroke: currentColor !important;
   color: var(--dpd-button-text) !important;
 }
 
