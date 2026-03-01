@@ -192,5 +192,36 @@
             "suffix"
         ],
         "limit": 0
+    },
+    "lemma variant": {
+        "data_filters": [
+            [
+                "lemma_1"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "synonym",
+            "variant",
+            "var_phonetic",
+            "var_text"
+        ],
+        "limit": 0
+    },
+    "lemma_1 variant": {
+        "data_filters": [
+            [
+                "lemma_1"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "variant"
+        ],
+        "limit": 0
     }
 }
