@@ -41,6 +41,16 @@ class FilterPresetsManager:
             del self.presets[name]
             self.save_presets()
 
+    def rename_preset(self, old_name: str, new_name: str) -> bool:
+        if old_name not in self.presets or new_name in self.presets or old_name == new_name:
+            return False
+        self.presets = {
+            (new_name if k == old_name else k): v
+            for k, v in self.presets.items()
+        }
+        self.save_presets()
+        return True
+
     def get_preset(self, name: str) -> PresetData | None:
         return self.presets.get(name)
 

@@ -48,6 +48,7 @@ class FilterTabView(ft.Column):
         self.dropdown_button: ft.ElevatedButton | None = None
         self.preset_dropdown: ft.Dropdown | None = None
         self.save_preset_button: ft.ElevatedButton | None = None
+        self.rename_preset_button: ft.ElevatedButton | None = None
         self.delete_preset_button: ft.ElevatedButton | None = None
 
         self.filter_component_container = ft.Container(
@@ -405,6 +406,14 @@ class FilterTabView(ft.Column):
             width=80,
         )
 
+        # Rename preset button
+        self.rename_preset_button = ft.ElevatedButton(
+            "Rename",
+            on_click=self._rename_preset_clicked,
+            width=100,
+            disabled=len(preset_names) == 0,
+        )
+
         # Delete preset button
         self.delete_preset_button = ft.ElevatedButton(
             "Delete",
@@ -417,6 +426,7 @@ class FilterTabView(ft.Column):
             [
                 self.preset_dropdown,
                 self.save_preset_button,
+                self.rename_preset_button,
                 self.delete_preset_button,
             ]
         )
@@ -583,9 +593,11 @@ class FilterTabView(ft.Column):
                     ]
                     self.preset_dropdown.value = preset_name
 
-                # Enable delete button if it was disabled
+                # Enable delete and rename buttons if they were disabled
                 if self.delete_preset_button:
                     self.delete_preset_button.disabled = False
+                if self.rename_preset_button:
+                    self.rename_preset_button.disabled = False
 
                 # Close the dialog
                 self.page.close(name_dialog)
@@ -609,6 +621,47 @@ class FilterTabView(ft.Column):
         self.page.open(name_dialog)
         self.page.update()
 
+    def _rename_preset_clicked(self, e: ft.ControlEvent) -> None:
+        """Handle rename preset button click."""
+        if not self.preset_dropdown or not self.preset_dropdown.value:
+            return
+
+        old_name = self.preset_dropdown.value
+        name_field = ft.TextField(label="New Name", value=old_name, autofocus=True)
+
+        def on_ok_click(e: ft.ControlEvent) -> None:
+            new_name = name_field.value.strip() if name_field.value else ""
+            if new_name:
+                success = self.toolkit.filter_presets_manager.rename_preset(
+                    old_name, new_name
+                )
+                if success:
+                    if self.preset_dropdown:
+                        preset_names = self.toolkit.filter_presets_manager.list_presets()
+                        self.preset_dropdown.options = [
+                            ft.dropdown.Option(name) for name in preset_names
+                        ]
+                        self.preset_dropdown.value = new_name
+
+            self.page.close(rename_dialog)
+            self.page.update()
+
+        def on_cancel_click(e: ft.ControlEvent) -> None:
+            self.page.close(rename_dialog)
+
+        rename_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Rename Filter Preset"),
+            content=name_field,
+            actions=[
+                ft.TextButton("Cancel", on_click=on_cancel_click),
+                ft.TextButton("OK", on_click=on_ok_click),
+            ],
+        )
+
+        self.page.open(rename_dialog)
+        self.page.update()
+
     def _delete_preset_clicked(self, e: ft.ControlEvent) -> None:
         """Handle delete preset button click."""
         if not self.preset_dropdown or not self.preset_dropdown.value:
@@ -630,9 +683,11 @@ class FilterTabView(ft.Column):
                 # Select first preset or None
                 self.preset_dropdown.value = preset_names[0] if preset_names else None
 
-                # Disable delete button if no presets left
+                # Disable delete and rename buttons if no presets left
                 if self.delete_preset_button:
                     self.delete_preset_button.disabled = len(preset_names) == 0
+                if self.rename_preset_button:
+                    self.rename_preset_button.disabled = len(preset_names) == 0
 
             # Refresh the UI to show the updated preset list before closing dialog
             self.page.update()
