@@ -3,85 +3,80 @@
 
 /* Root variables for DPD colors */
 :root {
-	/* Primary DPD color - cyan/blue */
-	--primary: hsl(198, 100%, 50%);
-	--primary-text: hsl(205, 79%, 48%);
+  /* Primary DPD color - cyan/blue */
+  --primary: hsl(198, 100%, 50%);
+  --primary-text: hsl(205, 79%, 48%);
 
-	/* Background and text colors */
-	--light: hsl(198, 100%, 95%);
-	--dark: hsl(198, 100%, 5%);
+  /* Background and text colors */
+  --light: hsl(198, 100%, 95%);
+  --dark: hsl(198, 100%, 5%);
 
-	/* Grays */
-	--gray: hsl(0, 0%, 50%);
-	--gray-light: hsl(0, 0%, 75%);
-	--gray-dark: hsl(0, 0%, 25%);
+  /* Grays */
+  --gray: hsl(0, 0%, 50%);
+  --gray-light: hsl(0, 0%, 75%);
+  --gray-dark: hsl(0, 0%, 25%);
 
-	/* Match Apple system default dictionaries (kind of) */
-	font-family: ui-serif;
-	font-size: 12pt;
-	color: CanvasText;
-	line-height: 140%;
-	margin: 1rem;
+  /* Match Apple system default dictionaries (kind of) */
+  font-family: ui-serif;
+  font-size: 12pt;
+  color: CanvasText;
+  line-height: 140%;
+  margin: 1rem;
 }
 
 /* Contextual popup */
 html.apple_client-panel body {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 h1 {
-	font-size: 150%;
-	margin-top: 0;
+  font-size: 150%;
+  margin-top: 0;
 }
 
 /* Part of speech */
 .pos {
-	font-size: 70%;
-	font-style: italic;
-	font-weight: normal;
-	color: var(--gray-dark);
+  font-weight: normal;
+  color: var(--gray-dark);
 }
 
 /* Case info */
 .case-info {
-	font-size: 70%;
-	font-weight: normal;
-	color: var(--gray-dark);
+  font-weight: normal;
+  color: var(--gray-dark);
 }
 
 /* Construction summary */
 .construction {
-	font-size: 70%;
-	font-weight: normal;
-	color: var(--gray-dark);
+  font-weight: normal;
+  color: var(--gray-dark);
 }
 
 /* Degree of completion indicator */
 .completion {
-	font-size: 70%;
-	font-weight: normal;
-	color: var(--gray-dark);
+  font-weight: normal;
+  color: var(--gray-dark);
 }
 
 /* Meaning/definition text */
 .meaning {
-	font-weight: normal;
+  font-weight: normal;
 }
 
 /* Links within dictionary entries */
 a {
-	font-weight: normal;
-	color: -webkit-link;
-	text-decoration: none;
+  font-weight: normal;
+  color: -webkit-link;
+  text-decoration: none;
 }
 
 a:hover {
-	font-weight: normal;
-	text-decoration: underline;
+  font-weight: normal;
+  text-decoration: underline;
 }
 
 html.apple_client-panel a,
 html.apple_client-panel a:hover {
-	color: CanvasText;
-	text-decoration: none;
+  color: CanvasText;
+  text-decoration: none;
 }
