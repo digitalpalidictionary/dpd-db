@@ -223,5 +223,22 @@
             "variant"
         ],
         "limit": 0
+    },
+    "root family: grammar & derived from": {
+        "data_filters": [
+            [
+                "root_key"
+            ],
+            [
+                "family_root"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "pos",
+            "grammar",
+            "derived_from"
+        ],
+        "limit": 0
     }
 }
