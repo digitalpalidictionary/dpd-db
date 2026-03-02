@@ -1,4 +1,3 @@
-import re
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.meaning_construction import make_grammar_line

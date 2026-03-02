@@ -16,7 +16,6 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager, SpeechMarksDict
-from tools.utils import squash_whitespaces
 from minify_html import minify
 from exporter.jinja2_env import get_jinja2_env
 from exporter.deconstructor.data_classes import DeconstructorData

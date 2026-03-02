@@ -29,7 +29,6 @@ from tools.exporter_functions import (
 from tools.goldendict_exporter import DictEntry
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
-from tools.pos import CONJUGATIONS, DECLENSIONS
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarksDict
 from tools.utils import (

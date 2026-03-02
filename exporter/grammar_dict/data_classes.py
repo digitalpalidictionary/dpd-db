@@ -1,7 +1,6 @@
 from db.models import Lookup
 from tools.paths import ProjectPaths
 from tools.css_manager import CSSManager
-from exporter.jinja2_env import get_jinja2_env
 
 class GrammarData:
     def __init__(self, lookup_entry: Lookup, pth: ProjectPaths, jinja_env):

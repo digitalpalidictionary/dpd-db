@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Compile HTML data for Help, Abbreviations, Thanks & Bibliography."""
 
-import csv
 from typing import Dict, List, Tuple
 
 from minify_html import minify
