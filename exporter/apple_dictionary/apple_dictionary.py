@@ -163,6 +163,7 @@ def create_dictionary_xml_entry(
     index_elements = [f'<d:index d:value="{lemma_escaped}"/>']
 
     # Add niggahita variant for lemma_clean
+    lemma_niggahita = ""
     if "ṃ" in lemma_clean:
         lemma_niggahita = lemma_clean.replace("ṃ", "ṁ")
         index_elements.append(
@@ -184,8 +185,9 @@ def create_dictionary_xml_entry(
             niggahita_variants.add(inflection.replace("ṃ", "ṁ"))
     mula_inflections |= niggahita_variants
 
+    skip = {lemma_clean, lemma_niggahita}
     for inflection in pali_list_sorter(mula_inflections):
-        if inflection and inflection != lemma_clean:
+        if inflection and inflection not in skip:
             infl_escaped = escape_xml_attr(inflection)
             index_elements.append(
                 f'<d:index d:value="{infl_escaped}" d:title="{inflection}"/>'
