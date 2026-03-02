@@ -26,6 +26,7 @@ from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword
+from tools.cst_sc_text_sets import make_mula_words_set
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -137,17 +138,21 @@ def copy_css_file(output_dir: Path) -> None:
 
 
 def create_dictionary_xml_entry(
-    headwords: list[DpdHeadword], entry_html: str, entry_id: str
+    headwords: list[DpdHeadword],
+    entry_html: str,
+    entry_id: str,
+    mula_word_set: set[str],
 ) -> str:
     """Create a single d:entry string for the XML dictionary.
 
     Groups all headwords with the same lemma_clean into one entry.
-    Merges all inflections from all headwords in the group.
+    Only indexes inflections found in mūla texts.
 
     Args:
         headwords: List of DpdHeadword objects with the same lemma_clean
         entry_html: Rendered HTML content for the entry
         entry_id: Unique identifier for this entry
+        mula_word_set: Set of words from mūla texts (CST + SC)
 
     Returns:
         XML string for the entry
@@ -157,18 +162,33 @@ def create_dictionary_xml_entry(
     lemma_escaped = escape_xml_attr(lemma_clean)
     index_elements = [f'<d:index d:value="{lemma_escaped}"/>']
 
-    # Add index for all inflections from all headwords in the group
+    # Add niggahita variant for lemma_clean
+    if "ṃ" in lemma_clean:
+        lemma_niggahita = lemma_clean.replace("ṃ", "ṁ")
+        index_elements.append(
+            f'<d:index d:value="{escape_xml_attr(lemma_niggahita)}"/>'
+        )
+
+    # Collect inflections and filter to mūla words only
     all_inflections: set[str] = set()
     for hw in headwords:
         if hw.inflections_list_all:
             all_inflections.update(hw.inflections_list_all)
 
-    for inflection in pali_list_sorter(all_inflections):
+    mula_inflections = all_inflections & mula_word_set
+
+    # Add niggahita variants (ṃ → ṁ)
+    niggahita_variants: set[str] = set()
+    for inflection in mula_inflections:
+        if "ṃ" in inflection:
+            niggahita_variants.add(inflection.replace("ṃ", "ṁ"))
+    mula_inflections |= niggahita_variants
+
+    for inflection in pali_list_sorter(mula_inflections):
         if inflection and inflection != lemma_clean:
             infl_escaped = escape_xml_attr(inflection)
-            title_escaped = escape_xml_attr(f"{inflection} ({lemma_clean})")
             index_elements.append(
-                f'<d:index d:value="{infl_escaped}" d:title="{title_escaped}"/>'
+                f'<d:index d:value="{infl_escaped}" d:title="{inflection}"/>'
             )
 
     # Build the complete entry as a string
@@ -183,15 +203,17 @@ def create_dictionary_xml_entry(
 
 
 def generate_dictionary_xml(
-    output_dir: Path, db_session, limit: int | None = None
+    output_dir: Path, db_session, pth: ProjectPaths, limit: int | None = None
 ) -> None:
     """Generate Dictionary.xml with all DPD entries grouped by lemma_clean.
 
     Groups all headwords with the same lemma_clean into single dictionary entries.
+    Only indexes inflections found in mūla texts (CST + SC).
 
     Args:
         output_dir: Directory to write the XML file
         db_session: SQLAlchemy database session
+        pth: ProjectPaths for locating text files
         limit: Optional limit on number of headwords (for testing)
     """
     # Set up Jinja2 environment
@@ -202,6 +224,9 @@ def generate_dictionary_xml(
 
     xml_path = output_dir / "Dictionary.xml"
 
+    # Build mūla word set for filtering inflections
+    mula_word_set = make_mula_words_set(pth)
+
     # Query headwords and sort by lemma_1 using pali_sort_key
     pr.green("querying database")
     query = db_session.query(DpdHeadword)
@@ -209,7 +234,8 @@ def generate_dictionary_xml(
         query = query.limit(limit)
     headwords = query.all()
     headwords = sorted(
-        headwords, key=lambda x: (pali_sort_key(x.lemma_clean), pali_sort_key(x.lemma_1))
+        headwords,
+        key=lambda x: (pali_sort_key(x.lemma_clean), pali_sort_key(x.lemma_1)),
     )
     total = len(headwords)
     pr.yes(total)
@@ -237,7 +263,9 @@ def generate_dictionary_xml(
             )
 
             # Create XML entry string
-            entry_xml = create_dictionary_xml_entry(group, entry_html, entry_id)
+            entry_xml = create_dictionary_xml_entry(
+                group, entry_html, entry_id, mula_word_set
+            )
 
             # Write to file
             f.write(entry_xml + "\n")
@@ -272,7 +300,7 @@ def main() -> None:
     # Generate source files
     generate_info_plist(output_dir, version)
     copy_css_file(output_dir)
-    generate_dictionary_xml(output_dir, db_session)
+    generate_dictionary_xml(output_dir, db_session, pth)
 
     # Close database session
     db_session.close()
