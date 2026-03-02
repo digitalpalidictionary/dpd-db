@@ -52,6 +52,9 @@ webapp:
 gui:
     uv run python gui2/main.py
 
+mkdocs:
+    uv run mkdocs serve
+
 # ===== INDIVIDUAL EXPORTERS (run after generate) =====
 
 # Export GoldenDict format only
