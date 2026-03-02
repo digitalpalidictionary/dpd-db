@@ -576,7 +576,7 @@ table.root_matrix td b {
 }
 
 .inflection-highlight {
-  background-color: yellow;
+  background-color: var(--primary);
   color: var(--dark);
   border-radius: 3px;
   padding: 0 2px;
