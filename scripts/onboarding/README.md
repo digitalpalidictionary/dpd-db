@@ -1,108 +1,134 @@
 # DPD Contributor Setup Guide
 
-This guide walks you through setting up the Digital Pali Dictionary GUI on your computer.
+This guide walks you through setting up the Digital Pali Dictionary GUI on your computer. No programming experience is needed — just follow the steps for your operating system.
 
-## Prerequisites
+## Step 1: Create a GitHub Account
 
-1. **GitHub Account** - Create one at [github.com](https://github.com/join) if you don't have one. Ask the maintainer to grant you repository access.
+If you don't already have one, go to [github.com/join](https://github.com/join) and create a free account. Then ask the maintainer to grant you access to the DPD repository.
 
-2. **Git** - Install git for your operating system:
-   - **Windows**: Download from [git-scm.com/download/win](https://git-scm.com/download/win). During installation, select "Git from the command line and also from 3rd-party software".
-   - **macOS**: Run `xcode-select --install` in Terminal, or install via `brew install git`.
-   - **Linux**: `sudo apt install git` (Ubuntu/Debian), `sudo dnf install git` (Fedora), or `sudo pacman -S git` (Arch).
+## Step 2: Install Git and uv
 
-3. **uv** - Install the Python package manager:
-   - **Windows**: Open PowerShell and run:
-     ```
-     powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-     ```
-   - **macOS/Linux**: Open a terminal and run:
-     ```
-     curl -LsSf https://astral.sh/uv/install.sh | sh
-     ```
+You need two tools installed before you begin. Follow the instructions for your operating system below.
 
-## Setup (3 commands)
+### Windows
 
-Open a terminal and run these commands one at a time:
+1. **Install Git:** Download from [git-scm.com/download/win](https://git-scm.com/download/win) and run the installer. When it asks about "Adjusting your PATH", select **"Git from the command line and also from 3rd-party software"**. For all other options, the defaults are fine.
 
-```bash
-# 1. Clone the repository
+2. **Install uv:** Open **PowerShell** (press the Windows key, type `PowerShell`, and click **"Windows PowerShell"**). Copy and paste this command, then press Enter:
+   ```
+   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+   ```
+   After it finishes, **close PowerShell** completely (you'll reopen it in the next step).
+
+### macOS
+
+1. **Install Git:** Open **Terminal** (press Cmd+Space, type `Terminal`, press Enter). Copy and paste this command, then press Enter:
+   ```
+   xcode-select --install
+   ```
+   A popup will appear asking you to install developer tools — click **Install** and wait for it to finish.
+
+2. **Install uv:** In the same Terminal window, copy and paste this command and press Enter:
+   ```
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+   After it finishes, **close Terminal** completely (you'll reopen it in the next step).
+
+### Linux (Ubuntu/Debian)
+
+1. **Install Git:** Open **Terminal** (press Ctrl+Alt+T or find "Terminal" in your applications). Copy and paste this command and press Enter:
+   ```
+   sudo apt install git
+   ```
+   Enter your password when asked (the characters won't appear as you type — that's normal).
+
+2. **Install uv:** In the same Terminal window, copy and paste this command and press Enter:
+   ```
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+   After it finishes, **close Terminal** completely (you'll reopen it in the next step).
+
+## Step 3: Download and Set Up DPD
+
+Now open a **fresh terminal window** (this is important so it picks up the tools you just installed):
+
+- **Windows:** Press the Windows key, type `PowerShell`, click **"Windows PowerShell"**
+- **macOS:** Press Cmd+Space, type `Terminal`, press Enter
+- **Linux:** Press Ctrl+Alt+T
+
+Then copy and paste the following commands **one at a time**, pressing Enter after each one. Wait for each command to finish before pasting the next.
+
+**Command 1** — Go to your Documents folder:
+```
+cd Documents
+```
+
+**Command 2** — Download the DPD project (this may take a few minutes):
+```
 git clone https://github.com/digitalpalidictionary/dpd-db.git
+```
 
-# 2. Enter the project directory
+**Command 3** — Go into the project folder:
+```
 cd dpd-db
+```
 
-# 3. Run the setup script
+**Command 4** — Run the setup (this will download the database and create a desktop shortcut):
+```
 uv run scripts/onboarding/contributor_setup.py
 ```
 
-The setup script will:
-- Initialize the required data files
-- Download the latest dictionary database
-- Ask for your contributor username
-- Create a desktop shortcut to launch the GUI
+The setup script will ask for your contributor username — type it in and press Enter. When it finishes, you'll have a **"DPD GUI"** shortcut on your Desktop.
+
+Your DPD project is now located in your **Documents/dpd-db** folder.
 
 ## Launching the GUI
 
-**Option 1**: Double-click the "DPD GUI" shortcut on your Desktop.
+Double-click the **"DPD GUI"** shortcut on your Desktop.
 
-**Option 2**: Open a terminal in the `dpd-db` folder and run:
-```bash
-uv run scripts/onboarding/launch_gui.py
-```
+If the shortcut doesn't work the first time:
+- **Windows:** If SmartScreen blocks it, click "More info" then "Run anyway".
+- **macOS:** Right-click the shortcut and select "Open" (only needed the first time).
+- **Linux:** Right-click the shortcut and select "Allow Launching" or "Trust and Launch".
 
 ## Submitting Your Data
 
 When you've made changes and want to submit your work:
 
 1. Click the **"Submit Data"** button in the top-right corner of the GUI.
-2. The system will automatically commit and push your changes.
-3. A dialog will confirm whether the submission was successful.
+2. A dialog will confirm whether the submission was successful.
 
-If the push fails (e.g., someone else pushed changes), the system will automatically pull the latest code and retry.
+That's it! The system handles everything behind the scenes. If something goes wrong, it will tell you in the dialog.
 
 ## Updating Your Environment
 
-To get the latest code and database:
+When the maintainer tells you an update is available:
 
-**Option 1**: Click the **"Update"** button in the top-right corner of the GUI.
+Click the **"Update"** button in the top-right corner of the GUI.
 
-**Option 2**: Open a terminal in the `dpd-db` folder and run:
-```bash
-uv run scripts/onboarding/contributor_update.py
-```
-
-This will:
-- Pull the latest code from GitHub
-- Update any changed dependencies
-- Check if a new database version is available
+This will download the latest code and database updates.
 
 ## Troubleshooting
 
 ### "git is not installed"
-Follow the git installation instructions in the Prerequisites section above.
+Go back to Step 2 above and follow the git installation instructions for your operating system.
 
 ### "uv: command not found"
-Close and reopen your terminal after installing uv. If it still doesn't work, reinstall uv using the commands in the Prerequisites section.
+Close your terminal completely and open a new one. If it still doesn't work, go back to Step 2 and reinstall uv.
 
 ### GUI won't launch
-1. Make sure you're in the `dpd-db` directory.
-2. Try running `uv sync` first to ensure dependencies are up to date.
-3. Try `uv run gui2/main.py` directly to see error messages.
+1. Make sure you completed all 4 commands in Step 3 without errors.
+2. Try running the setup again (Command 4 from Step 3) — it's safe to run multiple times.
 
 ### "Submit Data" fails
 - Check your internet connection.
-- Make sure you have push permissions on the repository (ask the maintainer).
-- If you see "rejected", the system should auto-retry. If it still fails, run `uv run scripts/onboarding/contributor_update.py` first, then try submitting again.
-
-### Desktop shortcut doesn't work
-- **Linux**: Right-click the shortcut and select "Allow Launching" or "Trust and Launch".
-- **macOS**: Right-click the shortcut and select "Open" (needed only the first time).
-- **Windows**: If SmartScreen blocks it, click "More info" then "Run anyway".
+- Make sure you have repository access (ask the maintainer).
+- Click the **"Update"** button first, then try submitting again.
 
 ### Python version issues
-uv automatically manages Python versions. If you encounter Python-related errors, try:
-```bash
+uv automatically manages Python versions. If you see Python-related errors, open a terminal, go to the project folder, and run:
+```
+cd Documents/dpd-db
 uv python install 3.13
 uv sync
 ```
