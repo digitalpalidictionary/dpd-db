@@ -19,7 +19,7 @@ from gui2.toolkit import ToolKit
 from gui2.user import UsernameManager
 from gui2.variants import VariantReadingFileManager
 from tools.fast_api_utils import request_dpd_server
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
@@ -109,7 +109,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             return False
 
     def load_into_gui(self):
-        open_in_goldendict_os(self.word_in_text)
+        open_in_goldendict(self.word_in_text)
         pyperclip.copy(self.word_in_text)
         self.ui.word_in_text.value = self.word_in_text
         self.ui.word_in_text.update()

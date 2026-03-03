@@ -17,7 +17,7 @@ from archive.db_tests.old_tests_DELETE import (
     make_internal_tests_list,
     write_internal_tests_list,
 )
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.negative_to_positive import make_positive
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -136,7 +136,7 @@ class UiManager:
 
     def _on_antonym_change(self, e):
         if self.antonym_field.value:
-            open_in_goldendict_os(self.antonym_field.value)
+            open_in_goldendict(self.antonym_field.value)
         self.show_all_matching_words()
 
     def _on_commit_click(self, e):
@@ -209,7 +209,7 @@ class DataAndLogic:
         self.current_item = i
         self.new_antonym = make_positive(i)
         if self.new_antonym:
-            open_in_goldendict_os(self.new_antonym)
+            open_in_goldendict(self.new_antonym)
         self.current_count += 1
         return (
             self.current_item,

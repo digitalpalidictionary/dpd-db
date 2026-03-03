@@ -13,7 +13,7 @@ from gui2.pass2_pre_controller import Pass2PreFileManager
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
 from tools.ai_manager import AIResponse
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.printer import printer as pr
 
 debug = False
@@ -259,7 +259,7 @@ class Pass2AutoController:
                 json.dumps(response_dict, indent=4, ensure_ascii=False)
             )
             if self.gd_toggle:
-                open_in_goldendict_os(self._word_in_text)
+                open_in_goldendict(self._word_in_text)
 
         except Exception as e:
             pr.red(f"Error processing {self._word_in_text}: {e}")
@@ -327,7 +327,7 @@ class Pass2AutoController:
                     json.dumps(response_dict, indent=4, ensure_ascii=False)
                 )
                 if self.gd_toggle:
-                    open_in_goldendict_os(self._word_in_text)
+                    open_in_goldendict(self._word_in_text)
 
                 if debug:
                     temp_file = Path(

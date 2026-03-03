@@ -279,7 +279,7 @@ class Controller:
                 f"{self.data.index} / {len(self.data.variations_dict)}"
             )
             if self.data.clean_word:
-                goldendict_tools.open_in_goldendict_os(self.data.clean_word)
+                goldendict_tools.open_in_goldendict(self.data.clean_word)
         else:
             self.ui.update_message("no more data")
             time.sleep(2)

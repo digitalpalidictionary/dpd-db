@@ -14,7 +14,7 @@ from tools.cst_source_sutta_example import (
     CstSourceSuttaExample,
     find_cst_source_sutta_example,
 )
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 
 
 class Pass2PreController:
@@ -168,7 +168,7 @@ class Pass2PreController:
         self.ui.update_examples(examples_controls)
 
         self.ui.page.update()
-        open_in_goldendict_os(str(headword.id))
+        open_in_goldendict(str(headword.id))
 
     def clean_examples_list(
         self, examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample]

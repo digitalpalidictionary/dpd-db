@@ -18,7 +18,7 @@ import flet as ft
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from gui2.paths import Gui2Paths
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 
@@ -34,7 +34,7 @@ class Controller:
         self.update_display()
 
     def update_display(self):
-        open_in_goldendict_os(self.data.lemma)
+        open_in_goldendict(self.data.lemma)
         self.ui.message.value = ""
         self.ui.sentence_id.value = str(self.data.sentence_id)
         self.ui.word_in_sentence.value = self.data.word

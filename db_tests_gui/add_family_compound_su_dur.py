@@ -12,7 +12,7 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyIdiom
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dot_dict
@@ -167,7 +167,7 @@ class DataAndLogic:
         self.current_item = i
         self.new_family_compound = self.make_family_compound()
         if self.new_family_compound:
-            open_in_goldendict_os(self.new_family_compound)
+            open_in_goldendict(self.new_family_compound)
         self.current_count += 1
         return (
             self.current_item,

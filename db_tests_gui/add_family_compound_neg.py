@@ -11,7 +11,7 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyIdiom
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.negative_to_positive import make_positive
 from tools.paths import ProjectPaths
 
@@ -156,7 +156,7 @@ class DataAndLogic:
         self.current_item = i
         self.new_family_compound = make_positive(i)
         if self.new_family_compound:
-            open_in_goldendict_os(self.new_family_compound)
+            open_in_goldendict(self.new_family_compound)
         self.current_count += 1
         return (
             self.current_item,

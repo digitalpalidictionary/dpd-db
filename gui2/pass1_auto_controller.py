@@ -14,7 +14,7 @@ from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.ai_manager import AIResponse
 from tools.cst_sc_text_sets import make_cst_text_list
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.printer import printer as pr
 
 
@@ -407,7 +407,7 @@ ve: verbal ending
 
             # update gui
             if self.gd_toggle:
-                open_in_goldendict_os(self.word_in_text)
+                open_in_goldendict(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
             self.current_book_processed += 1
             self.ui.update_auto_processed_count(

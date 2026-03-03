@@ -8,7 +8,7 @@ from pathlib import Path
 from tools.ai_open_router import OpenRouterManager
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 
 from scripts.extractor._signal_handler import state, signal_handler
 from scripts.extractor._ai_extraction import extract_with_ai
@@ -78,7 +78,7 @@ def load_cpd_dictionary(cpd_path):
 
 
 def process_word(word, cpd_data, manager, output_path):
-    open_in_goldendict_os(word)
+    open_in_goldendict(word)
     entries = get_cpd_html_entries(cpd_data, word)
     if not entries:
         pr.no("no source")
@@ -116,12 +116,12 @@ def process_word(word, cpd_data, manager, output_path):
     if all_meanings and dpd_pos:
         headword_out = write_to_tsv(output_path, word, dpd_pos, " ".join(all_meanings))
         pr.yes(f"{dpd_pos}")
-        open_in_goldendict_os(headword_out)
+        open_in_goldendict(headword_out)
         return True
 
     pr.no("no extract")
     write_no_source(output_path, word)
-    open_in_goldendict_os(word)
+    open_in_goldendict(word)
     return False
 
 

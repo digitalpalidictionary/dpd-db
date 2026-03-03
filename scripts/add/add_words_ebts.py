@@ -2,6 +2,8 @@
 
 """Find a word in early texts which needs to be added."""
 
+from typing import cast
+
 import pyperclip
 from rich import print
 from sqlalchemy import desc, or_
@@ -10,7 +12,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.bjt import make_bjt_text_list
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -66,7 +68,7 @@ class GlobalVars:
 def make_ebt_word_set(g: GlobalVars):
     cst_text_set = make_cst_text_set(g.pth, g.ebts)
     sc_text_set = make_sc_text_set(g.pth, g.ebts)
-    bjt_text_set: set[str] = make_bjt_text_list(g.ebts, "set")
+    bjt_text_set: set[str] = cast(set[str], make_bjt_text_list(g.ebts, "set"))
     all_words = cst_text_set | sc_text_set | bjt_text_set
     pr.green("all words in ebts")
     pr.yes(len(all_words))
@@ -107,7 +109,7 @@ def main():
     for i in ebt_db:
         for inflection in i.inflections_list_all:
             if inflection in missing_words_in_ebts:
-                open_in_goldendict_os(inflection)
+                open_in_goldendict(inflection)
                 pyperclip.copy(inflection)
                 print(inflection)
                 user_input = input()

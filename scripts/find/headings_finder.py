@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.goldendict_tools import open_in_goldendict_os
+from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 
 files_to_process = [
@@ -60,7 +60,7 @@ def print_missing_subheadings(missing_subheadings_set):
     for subheading in missing_subheadings_set:
         print(f"{counter} {subheading}", end=" ")
         pyperclip.copy(subheading)
-        open_in_goldendict_os(subheading)
+        open_in_goldendict(subheading)
         user_input = input()
         if user_input == "q":
             break
