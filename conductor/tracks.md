@@ -22,5 +22,5 @@
 
 ---
 
-## [~] Track: Contributor Setup & Data Submission
+## [x] Track: Contributor Setup & Data Submission
 *Link: [./conductor/tracks/contributor_setup_20260303/](./conductor/tracks/contributor_setup_20260303/)*

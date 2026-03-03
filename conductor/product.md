@@ -6,9 +6,11 @@ To be the world's most precise, comprehensive, and accessible digital resource f
 ## Target Audience
 - **Scholars & Translators:** Requiring high-precision grammatical data and Sanskrit cognates for academic work.
 - **Dhamma Practitioners:** Students of Pāḷi looking for contextual meanings and examples from the Suttas.
+- **Contributors:** Non-technical Pāḷi scholars who add and edit dictionary data via the GUI, submitting their work through a simple one-click process.
 - **Developers:** Using our open-source data and API to build the next generation of Buddhist study tools (e.g., Tipitaka Pali Reader, Dhamma Gift).
 
 ## Core Features & Functionality
+- **Contributor Onboarding:** A streamlined setup process (3 terminal commands) that configures the full GUI environment on Windows, Mac, and Linux, with desktop shortcuts and one-click data submission via git.
 - **Word-by-Word Analysis:** Every word in the CST4 Pāḷi corpus is analyzed for its root, case, gender, and construction.
 - **Compound Deconstructor:** A sophisticated engine (Python/Go) that breaks down complex Pāḷi compounds into their constituent parts.
 - **Mobile-Optimized Webapp:** Responsive design with double-tap-to-lookup, collapsible panels, and touch-optimized interactions for a seamless experience on smartphones.
