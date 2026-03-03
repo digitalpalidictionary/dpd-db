@@ -26,3 +26,15 @@ class Gui2Paths:
     find_words_exceptions_path: Path = (
         gui2_dir / "data/find_words_with_examples_no.json"
     )
+
+    @staticmethod
+    def for_user(username: str) -> "Gui2Paths":
+        """Create paths with username-specific data files for contributors."""
+        paths = Gui2Paths()
+        if username and username != "1":
+            data = paths.gui2_data_path
+            paths.additions_path = data / f"additions_{username}.json"
+            paths.additions_added_path = data / f"additions_added_{username}.json"
+            paths.corrections_path = data / f"corrections_{username}.json"
+            paths.corrections_added_path = data / f"corrections_added_{username}.json"
+        return paths

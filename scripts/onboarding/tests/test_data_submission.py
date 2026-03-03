@@ -5,21 +5,33 @@ from unittest.mock import MagicMock, patch
 
 
 from scripts.onboarding.data_submission import (
-    CONTRIBUTOR_DATA_FILES,
+    CONTRIBUTOR_DATA_DIR,
     build_commit_message,
     find_changed_data_files,
+    get_contributor_data_patterns,
     submit_data,
 )
 
 
-class TestContributorDataFiles:
-    """Test that the data file list is correctly defined."""
+class TestContributorDataPatterns:
+    """Test that contributor-specific file patterns are generated correctly."""
 
     def test_includes_additions(self) -> None:
-        assert any("additions" in f for f in CONTRIBUTOR_DATA_FILES)
+        patterns = get_contributor_data_patterns("johndoe")
+        assert any("additions_johndoe" in p for p in patterns)
 
     def test_includes_corrections(self) -> None:
-        assert any("corrections" in f for f in CONTRIBUTOR_DATA_FILES)
+        patterns = get_contributor_data_patterns("johndoe")
+        assert any("corrections_johndoe" in p for p in patterns)
+
+    def test_uses_gui2_data_dir(self) -> None:
+        patterns = get_contributor_data_patterns("johndoe")
+        assert all(p.startswith(CONTRIBUTOR_DATA_DIR) for p in patterns)
+
+    def test_includes_added_files(self) -> None:
+        patterns = get_contributor_data_patterns("johndoe")
+        assert any("additions_added_johndoe" in p for p in patterns)
+        assert any("corrections_added_johndoe" in p for p in patterns)
 
 
 class TestFindChangedDataFiles:
@@ -29,19 +41,19 @@ class TestFindChangedDataFiles:
     def test_returns_changed_files(self, mock_run: MagicMock) -> None:
         mock_run.return_value = MagicMock(
             returncode=0,
-            stdout=" M shared_data/additions.tsv\n",
+            stdout=" M gui2/data/additions_testuser.json\n",
         )
 
-        result = find_changed_data_files(Path("/fake/project"))
+        result = find_changed_data_files(Path("/fake/project"), "testuser")
 
         assert len(result) >= 1
-        assert any("additions" in f for f in result)
+        assert any("additions_testuser" in f for f in result)
 
     @patch("scripts.onboarding.data_submission.subprocess.run")
     def test_returns_empty_when_no_changes(self, mock_run: MagicMock) -> None:
         mock_run.return_value = MagicMock(returncode=0, stdout="")
 
-        result = find_changed_data_files(Path("/fake/project"))
+        result = find_changed_data_files(Path("/fake/project"), "testuser")
 
         assert result == []
 
@@ -50,18 +62,31 @@ class TestFindChangedDataFiles:
         mock_run.return_value = MagicMock(
             returncode=0,
             stdout=(
-                " M shared_data/additions.tsv\n"
-                " M shared_data/corrections.tsv\n"
+                " M gui2/data/additions_testuser.json\n"
+                " M gui2/data/corrections_testuser.json\n"
                 " M some/other/file.py\n"
             ),
         )
 
-        result = find_changed_data_files(Path("/fake/project"))
+        result = find_changed_data_files(Path("/fake/project"), "testuser")
 
-        assert all(
-            any(contrib_file in f for contrib_file in CONTRIBUTOR_DATA_FILES)
-            for f in result
+        assert len(result) == 2
+        assert all("testuser" in f for f in result)
+
+    @patch("scripts.onboarding.data_submission.subprocess.run")
+    def test_ignores_other_users_files(self, mock_run: MagicMock) -> None:
+        mock_run.return_value = MagicMock(
+            returncode=0,
+            stdout=(
+                " M gui2/data/additions_otheruser.json\n"
+                " M gui2/data/additions_testuser.json\n"
+            ),
         )
+
+        result = find_changed_data_files(Path("/fake/project"), "testuser")
+
+        assert len(result) == 1
+        assert "testuser" in result[0]
 
 
 class TestBuildCommitMessage:
@@ -73,7 +98,6 @@ class TestBuildCommitMessage:
 
     def test_includes_date(self) -> None:
         msg = build_commit_message("johndoe")
-        # should contain a date-like pattern (YYYY-MM-DD)
         import re
 
         assert re.search(r"\d{4}-\d{2}-\d{2}", msg)
@@ -93,7 +117,7 @@ class TestSubmitData:
     ) -> None:
         mock_config.return_value = "testuser"
         mock_run.return_value = MagicMock(
-            returncode=0, stdout=" M shared_data/additions.tsv\n"
+            returncode=0, stdout=" M gui2/data/additions_testuser.json\n"
         )
 
         result = submit_data(Path("/fake/project"))
@@ -140,7 +164,10 @@ class TestSubmitData:
             if "push" in cmd:
                 return MagicMock(returncode=1, stderr="push rejected")
             if "status" in cmd:
-                return MagicMock(returncode=0, stdout=" M shared_data/additions.tsv\n")
+                return MagicMock(
+                    returncode=0,
+                    stdout=" M gui2/data/additions_testuser.json\n",
+                )
             return MagicMock(returncode=0, stdout="")
 
         mock_run.side_effect = side_effect
@@ -166,7 +193,10 @@ class TestSubmitData:
                     return MagicMock(returncode=1, stderr="rejected")
                 return MagicMock(returncode=0, stdout="")
             if "status" in cmd:
-                return MagicMock(returncode=0, stdout=" M shared_data/additions.tsv\n")
+                return MagicMock(
+                    returncode=0,
+                    stdout=" M gui2/data/additions_testuser.json\n",
+                )
             return MagicMock(returncode=0, stdout="")
 
         mock_run.side_effect = side_effect

@@ -15,15 +15,42 @@ class AdditionsManager:
         self.additions_dict: AdditionsDict = self.load_additions()
 
     def load_additions(self) -> AdditionsDict:
+        merged: AdditionsDict = {}
+
         try:
             with open(self.additions_path) as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return {}
+                merged = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
+        # Primary user: import all contributor additions_*.json files
+        if self.additions_path.name == "additions.json":
+            data_dir = self.additions_path.parent
+            imported_any = False
+            for contrib_file in sorted(data_dir.glob("additions_*.json")):
+                if "additions_added" in contrib_file.name:
+                    continue
+                try:
+                    with open(contrib_file) as f:
+                        contrib_data = json.load(f)
+                    if contrib_data:
+                        merged.update(contrib_data)
+                        contrib_file.write_text("{}")
+                        imported_any = True
+                except (FileNotFoundError, json.JSONDecodeError):
+                    continue
+
+            if imported_any:
+                self._save_dict(merged)
+
+        return merged
+
+    def _save_dict(self, data: AdditionsDict) -> None:
+        with open(self.additions_path, "w") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
 
     def save_additions(self) -> None:
-        with open(self.additions_path, "w") as f:
-            json.dump(self.additions_dict, f, ensure_ascii=False, indent=4)
+        self._save_dict(self.additions_dict)
 
     def add_additions(self, word: DpdHeadword, comment: str) -> None:
         word_dict = {k: v for k, v in vars(word).items() if not k.startswith("_")}

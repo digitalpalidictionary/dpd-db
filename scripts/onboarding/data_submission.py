@@ -12,10 +12,7 @@ from pathlib import Path
 
 from tools.configger import config_read
 
-CONTRIBUTOR_DATA_FILES: list[str] = [
-    "shared_data/additions.tsv",
-    "shared_data/corrections.tsv",
-]
+CONTRIBUTOR_DATA_DIR = "gui2/data"
 
 
 @dataclass
@@ -24,7 +21,17 @@ class SubmissionResult:
     message: str
 
 
-def find_changed_data_files(project_root: Path) -> list[str]:
+def get_contributor_data_patterns(username: str) -> list[str]:
+    """Return the file patterns for a contributor's data files."""
+    return [
+        f"{CONTRIBUTOR_DATA_DIR}/additions_{username}.json",
+        f"{CONTRIBUTOR_DATA_DIR}/additions_added_{username}.json",
+        f"{CONTRIBUTOR_DATA_DIR}/corrections_{username}.json",
+        f"{CONTRIBUTOR_DATA_DIR}/corrections_added_{username}.json",
+    ]
+
+
+def find_changed_data_files(project_root: Path, username: str) -> list[str]:
     """Find contributor data files that have been modified."""
     result = subprocess.run(
         ["git", "status", "--porcelain"],
@@ -36,10 +43,12 @@ def find_changed_data_files(project_root: Path) -> list[str]:
     if result.returncode != 0:
         return []
 
+    patterns = get_contributor_data_patterns(username)
+
     changed: list[str] = []
     for line in result.stdout.rstrip().splitlines():
         filepath = line[3:].strip()
-        if any(contrib_file in filepath for contrib_file in CONTRIBUTOR_DATA_FILES):
+        if any(pattern in filepath for pattern in patterns):
             changed.append(filepath)
 
     return changed
@@ -60,7 +69,7 @@ def submit_data(project_root: Path) -> SubmissionResult:
             message="No username configured. Please run the setup script first.",
         )
 
-    changed_files = find_changed_data_files(project_root)
+    changed_files = find_changed_data_files(project_root, username)
     if not changed_files:
         return SubmissionResult(
             success=False,

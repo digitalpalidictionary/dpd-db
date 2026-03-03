@@ -15,15 +15,42 @@ class CorrectionsManager:
         self.corrections_dict: CorrectionsDict = self.load_corrections()
 
     def load_corrections(self) -> CorrectionsDict:
+        merged: CorrectionsDict = {}
+
         try:
             with open(self.corrections_path) as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return {}
+                merged = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
+        # Primary user: import all contributor corrections_*.json files
+        if self.corrections_path.name == "corrections.json":
+            data_dir = self.corrections_path.parent
+            imported_any = False
+            for contrib_file in sorted(data_dir.glob("corrections_*.json")):
+                if "corrections_added" in contrib_file.name:
+                    continue
+                try:
+                    with open(contrib_file) as f:
+                        contrib_data = json.load(f)
+                    if contrib_data:
+                        merged.update(contrib_data)
+                        contrib_file.write_text("{}")
+                        imported_any = True
+                except (FileNotFoundError, json.JSONDecodeError):
+                    continue
+
+            if imported_any:
+                self._save_dict(merged)
+
+        return merged
+
+    def _save_dict(self, data: CorrectionsDict) -> None:
+        with open(self.corrections_path, "w") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
 
     def save_corrections(self) -> None:
-        with open(self.corrections_path, "w") as f:
-            json.dump(self.corrections_dict, f, ensure_ascii=False, indent=4)
+        self._save_dict(self.corrections_dict)
 
     def update_corrections(self, word: DpdHeadword, comment: str) -> None:
         word_dict = {k: v for k, v in vars(word).items() if not k.startswith("_")}

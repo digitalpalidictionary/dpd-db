@@ -1,6 +1,7 @@
 import flet as ft
 
 from gui2.wordfinder_popup import WordFinderPopup
+from tools.configger import config_read
 from tools.paths import ProjectPaths
 
 
@@ -34,7 +35,8 @@ class ToolKit:
 
         # Managers with no ToolKit internal dependencies (or only page)
         self.project_paths = ProjectPaths()
-        self.paths: Gui2Paths = Gui2Paths()
+        username = config_read("gui2", "username") or "1"
+        self.paths: Gui2Paths = Gui2Paths.for_user(username)
         self.db_test_manager: DbTestManager = DbTestManager()
         self.test_manager: GuiTestManager = GuiTestManager(self)
         self.speech_marks_manager: SpeechMarkManager = SpeechMarkManager()

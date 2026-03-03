@@ -58,29 +58,24 @@ Now open a **fresh terminal window** (this is important so it picks up the tools
 
 Then copy and paste the following commands **one at a time**, pressing Enter after each one. Wait for each command to finish before pasting the next.
 
-**Command 1** — Go to your Documents folder:
-```
-cd Documents
-```
-
-**Command 2** — Download the DPD project (this may take a few minutes):
+**Command 1** — Download the DPD project (this may take a few minutes):
 ```
 git clone https://github.com/digitalpalidictionary/dpd-db.git
 ```
 
-**Command 3** — Go into the project folder:
+**Command 2** — Go into the project folder:
 ```
 cd dpd-db
 ```
 
-**Command 4** — Run the setup (this will download the database and create a desktop shortcut):
+**Command 3** — Run the setup (this will download the database and create a desktop shortcut):
 ```
 uv run scripts/onboarding/contributor_setup.py
 ```
 
 The setup script will ask for your contributor username — type it in and press Enter. When it finishes, you'll have a **"DPD GUI"** shortcut on your Desktop.
 
-Your DPD project is now located in your **Documents/dpd-db** folder.
+Your DPD project is now in the **dpd-db** folder inside your home directory.
 
 ## Launching the GUI
 
@@ -128,7 +123,7 @@ Close your terminal completely and open a new one. If it still doesn't work, go 
 ### Python version issues
 uv automatically manages Python versions. If you see Python-related errors, open a terminal, go to the project folder, and run:
 ```
-cd Documents/dpd-db
+cd dpd-db
 uv python install 3.13
 uv sync
 ```
