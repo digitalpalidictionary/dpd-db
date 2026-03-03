@@ -48,7 +48,18 @@ You need two tools installed before you begin. Follow the instructions for your 
    ```
    After it finishes, **close Terminal** completely (you'll reopen it in the next step).
 
-## Step 3: Download and Set Up DPD
+## Step 3: Get a Free AI API Key
+
+The DPD GUI uses AI to assist with dictionary work (in the **Pass1Auto** tab). You will need a free API key from Google.
+
+1. Go to [aistudio.google.com/apikey](https://aistudio.google.com/apikey) in your browser.
+2. Sign in with your Google account (or create one — it's free).
+3. Click **"Create API key"**.
+4. Copy the key that appears — it starts with `AIzaSy...`
+
+Keep it ready — the setup script (next step) will ask you to paste it in.
+
+## Step 4: Download and Set Up DPD
 
 Now open a **fresh terminal window** (this is important so it picks up the tools you just installed):
 
@@ -73,7 +84,11 @@ cd dpd-db
 uv run scripts/onboarding/contributor_setup.py
 ```
 
-The setup script will ask for your contributor username — type it in and press Enter. When it finishes, you'll have a **"DPD GUI"** shortcut on your Desktop.
+The setup script will ask two questions — type your answer and press Enter each time:
+1. **Your contributor username** — choose any name you like
+2. **Your Gemini API key** — paste the key you copied in Step 3
+
+When it finishes, you'll have a **"DPD GUI"** shortcut on your Desktop.
 
 Your DPD project is now in the **dpd-db** folder inside your home directory.
 
@@ -112,8 +127,8 @@ Go back to Step 2 above and follow the git installation instructions for your op
 Close your terminal completely and open a new one. If it still doesn't work, go back to Step 2 and reinstall uv.
 
 ### GUI won't launch
-1. Make sure you completed all 4 commands in Step 3 without errors.
-2. Try running the setup again (Command 4 from Step 3) — it's safe to run multiple times.
+1. Make sure you completed all 3 commands in Step 4 without errors.
+2. Try running the setup again (Command 3 from Step 4) — it's safe to run multiple times.
 
 ### "Submit Data" fails
 - Check your internet connection.

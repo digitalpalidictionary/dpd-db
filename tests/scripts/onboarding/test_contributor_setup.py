@@ -15,6 +15,7 @@ from scripts.onboarding.contributor_setup import (
     REQUIRED_SUBMODULES,
     SKIPPED_SUBMODULES,
     check_git,
+    configure_gemini_api_key,
     configure_username,
     download_database,
     get_git_install_instructions,
@@ -292,6 +293,45 @@ class TestConfigureUsername:
 
 
 # ---------------------------------------------------------------------------
+# Gemini API key configuration
+# ---------------------------------------------------------------------------
+
+
+class TestConfigureGeminiApiKey:
+    """Test Gemini API key storage."""
+
+    @patch("scripts.onboarding.contributor_setup.config_update")
+    def test_stores_key_in_config(self, mock_update: MagicMock) -> None:
+        configure_gemini_api_key("AIzaSy_fake_key")
+
+        mock_update.assert_called_once_with(
+            "apis", "gemini", "AIzaSy_fake_key", silent=True
+        )
+
+    @patch("scripts.onboarding.contributor_setup.config_update")
+    def test_strips_whitespace_from_key(self, mock_update: MagicMock) -> None:
+        configure_gemini_api_key("  AIzaSy_fake_key  ")
+
+        mock_update.assert_called_once_with(
+            "apis", "gemini", "AIzaSy_fake_key", silent=True
+        )
+
+    @patch("scripts.onboarding.contributor_setup.config_update")
+    def test_empty_key_does_not_update_config(self, mock_update: MagicMock) -> None:
+        configure_gemini_api_key("")
+
+        mock_update.assert_not_called()
+
+    @patch("scripts.onboarding.contributor_setup.config_update")
+    def test_whitespace_only_key_does_not_update_config(
+        self, mock_update: MagicMock
+    ) -> None:
+        configure_gemini_api_key("   ")
+
+        mock_update.assert_not_called()
+
+
+# ---------------------------------------------------------------------------
 # Idempotent re-runs
 # ---------------------------------------------------------------------------
 
@@ -350,7 +390,7 @@ class TestRunSetup:
 
     @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
     @patch("scripts.onboarding.contributor_setup.configure_username")
-    @patch("builtins.input", return_value="testuser")
+    @patch("builtins.input", side_effect=["testuser", "AIzaSy_fake_key"])
     @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
     @patch(
         "scripts.onboarding.contributor_setup.get_latest_db_release_url",
@@ -388,7 +428,7 @@ class TestRunSetup:
 
     @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
     @patch("scripts.onboarding.contributor_setup.configure_username")
-    @patch("builtins.input", return_value="testuser")
+    @patch("builtins.input", side_effect=["testuser", "AIzaSy_fake_key"])
     @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
     @patch(
         "scripts.onboarding.contributor_setup.get_latest_db_release_url",
@@ -420,6 +460,81 @@ class TestRunSetup:
         run_setup(tmp_path)
 
         mock_shortcut.assert_called_once_with(tmp_path)
+
+    @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
+    @patch("scripts.onboarding.contributor_setup.configure_gemini_api_key")
+    @patch("scripts.onboarding.contributor_setup.configure_username")
+    @patch("builtins.input", side_effect=["testuser", "AIzaSy_fake_key"])
+    @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
+    @patch(
+        "scripts.onboarding.contributor_setup.get_latest_db_release_url",
+        return_value="https://example.com/dpd.db",
+    )
+    @patch("scripts.onboarding.contributor_setup.init_submodules")
+    @patch(
+        "scripts.onboarding.contributor_setup.check_git",
+        return_value=(True, "git version 2.43.0"),
+    )
+    @patch("scripts.onboarding.contributor_setup.subprocess.run")
+    def test_saves_gemini_api_key_when_provided(
+        self,
+        mock_run: MagicMock,
+        mock_git: MagicMock,
+        mock_submodules: MagicMock,
+        mock_release_url: MagicMock,
+        mock_download: MagicMock,
+        mock_input: MagicMock,
+        mock_configure_username: MagicMock,
+        mock_configure_gemini: MagicMock,
+        mock_shortcut: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        mock_run.return_value = MagicMock(returncode=0)
+        mock_shortcut.return_value = tmp_path / "shortcut"
+
+        from scripts.onboarding.contributor_setup import run_setup
+
+        run_setup(tmp_path)
+
+        mock_configure_gemini.assert_called_once_with("AIzaSy_fake_key")
+
+    @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
+    @patch("scripts.onboarding.contributor_setup.configure_gemini_api_key")
+    @patch("scripts.onboarding.contributor_setup.configure_username")
+    @patch("builtins.input", side_effect=["testuser", ""])
+    @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
+    @patch(
+        "scripts.onboarding.contributor_setup.get_latest_db_release_url",
+        return_value="https://example.com/dpd.db",
+    )
+    @patch("scripts.onboarding.contributor_setup.init_submodules")
+    @patch(
+        "scripts.onboarding.contributor_setup.check_git",
+        return_value=(True, "git version 2.43.0"),
+    )
+    @patch("scripts.onboarding.contributor_setup.subprocess.run")
+    def test_skips_gemini_key_when_empty_and_continues(
+        self,
+        mock_run: MagicMock,
+        mock_git: MagicMock,
+        mock_submodules: MagicMock,
+        mock_release_url: MagicMock,
+        mock_download: MagicMock,
+        mock_input: MagicMock,
+        mock_configure_username: MagicMock,
+        mock_configure_gemini: MagicMock,
+        mock_shortcut: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        mock_run.return_value = MagicMock(returncode=0)
+        mock_shortcut.return_value = tmp_path / "shortcut"
+
+        from scripts.onboarding.contributor_setup import run_setup
+
+        result = run_setup(tmp_path)
+
+        mock_configure_gemini.assert_not_called()
+        assert result is True  # setup still completes without a key
 
 
 # ---------------------------------------------------------------------------

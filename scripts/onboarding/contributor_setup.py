@@ -5,8 +5,9 @@ Automates the full environment setup for non-technical contributors:
 2. Initialize only the required submodules
 3. Download the latest dpd.db from GitHub Releases
 4. Configure contributor username
-5. Create a desktop shortcut
-6. Print success message
+5. Configure Gemini AI API key (needed for Pass1Auto tab)
+6. Create a desktop shortcut
+7. Print success message
 """
 
 import platform
@@ -155,6 +156,14 @@ def configure_username(username: str) -> None:
     config_update("gui2", "username", username, silent=True)
 
 
+def configure_gemini_api_key(api_key: str) -> None:
+    """Store the Gemini API key in the project config."""
+    api_key = api_key.strip()
+    if not api_key:
+        return
+    config_update("apis", "gemini", api_key, silent=True)
+
+
 def run_setup(project_root: Path | None = None) -> bool:
     """Run the full contributor setup process."""
     if project_root is None:
@@ -223,7 +232,23 @@ def run_setup(project_root: Path | None = None) -> bool:
     configure_username(username)
     pr.info(f"  Username set to: {username}")
 
-    # Step 6: Create desktop shortcut
+    # Step 6: Configure Gemini AI API key
+    pr.info(
+        "The GUI uses AI to help with dictionary work (Pass1Auto tab).\n"
+        "  Get a free Gemini API key at: https://aistudio.google.com/apikey\n"
+        "  Sign in with your Google account, then click 'Create API key'."
+    )
+    gemini_key = input(
+        "Paste your Gemini API key (or press Enter to skip for now): "
+    ).strip()
+    if gemini_key:
+        configure_gemini_api_key(gemini_key)
+        pr.info("  Gemini API key saved.")
+    else:
+        pr.warning("  No API key entered. Pass1Auto will not work until one is added.")
+        pr.info("  Add it later in config.ini under [apis] → gemini = <your_key>")
+
+    # Step 7: Create desktop shortcut
     pr.green("creating desktop shortcut")
     try:
         from scripts.onboarding.desktop_shortcut import create_desktop_shortcut
