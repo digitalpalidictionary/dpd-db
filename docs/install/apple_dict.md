@@ -6,15 +6,11 @@ DPD is now available as a native Apple Dictionary, allowing you to look up PƒÅ·∏
 
 ## In Brief
 
-(1) Download **dpd-apple.dictionary.zip** from [GitHub Releases](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}
-
-(2) Unzip the file
-
-(3) Move `Digital-Pali-Dictionary.dictionary` to `~/Library/Dictionaries/`
-
-(4) Restart Dictionary app
-
-(5) Enable DPD in Dictionary settings
+1. Download **dpd-apple.dictionary.zip** from [GitHub Releases](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"}
+2. Unzip the file
+3. Move `Digital-Pali-Dictionary.dictionary` to `~/Library/Dictionaries/`
+4. Restart Dictionary app
+5. Enable DPD in Dictionary settings
 
 ## Detailed Instructions
 
