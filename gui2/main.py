@@ -38,13 +38,33 @@ class App:
         # toolkit contains all the managers
         self.toolkit: ToolKit = ToolKit(self.page)
 
+        appbar_actions: list[ft.Control] = [
+            ft.Text(self.toolkit.daily_log.get_counts())
+        ]
+        if self.toolkit.username_manager.is_not_primary():
+            appbar_actions.extend(
+                [
+                    ft.VerticalDivider(),
+                    ft.TextButton(
+                        "Submit Data",
+                        icon=ft.Icons.CLOUD_UPLOAD,
+                        on_click=self._on_submit_data,
+                    ),
+                    ft.TextButton(
+                        "Update",
+                        icon=ft.Icons.REFRESH,
+                        on_click=self._on_check_updates,
+                    ),
+                ]
+            )
+
         page.appbar = ft.AppBar(
             title=ft.Text("dpd gui"),
             bgcolor=ft.Colors.LIGHT_BLUE_900,
             elevation=100,
             title_spacing=20,
             center_title=False,
-            actions=[ft.Text(self.toolkit.daily_log.get_counts())],
+            actions=appbar_actions,
         )
 
         # Now create views
@@ -71,6 +91,34 @@ class App:
         self.build_ui()
 
         self.toolkit.username_manager.get_username()
+
+    def _on_submit_data(self, e: ft.ControlEvent) -> None:
+        """Handle Submit Data button click."""
+        from scripts.onboarding.data_submission import submit_data
+
+        result = submit_data(Path.cwd())
+        dialog = ft.AlertDialog(
+            title=ft.Text("Submit Data"),
+            content=ft.Text(result.message),
+            actions=[
+                ft.TextButton("OK", on_click=lambda _: self.page.close(dialog)),
+            ],
+        )
+        self.page.open(dialog)
+
+    def _on_check_updates(self, e: ft.ControlEvent) -> None:
+        """Handle Update button click."""
+        from scripts.onboarding.contributor_update import update_environment
+
+        summary = update_environment(Path.cwd())
+        dialog = ft.AlertDialog(
+            title=ft.Text("Update Complete"),
+            content=ft.Text(summary),
+            actions=[
+                ft.TextButton("OK", on_click=lambda _: self.page.close(dialog)),
+            ],
+        )
+        self.page.open(dialog)
 
     def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""

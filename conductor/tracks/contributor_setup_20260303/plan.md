@@ -56,10 +56,10 @@
   - [x] Sub-task: Implement git push with error handling
   - [x] Sub-task: Implement pull-and-retry logic for push rejection
 
-- [ ] Task 3.3: Integrate submission into GUI
-  - [ ] Sub-task: Add "Submit Data" button to the GUI (in `gui2/`)
-  - [ ] Sub-task: Wire button to `scripts/onboarding/data_submission.py` logic
-  - [ ] Sub-task: Display success/failure dialog to contributor
+- [x] Task 3.3: Integrate submission into GUI
+  - [x] Sub-task: Add "Submit Data" button to the GUI (in `gui2/`)
+  - [x] Sub-task: Wire button to `scripts/onboarding/data_submission.py` logic
+  - [x] Sub-task: Display success/failure dialog to contributor
 
 ## Phase 4: Contributor Update Script
 
@@ -75,9 +75,9 @@
   - [x] Sub-task: Implement conditional database download
   - [x] Sub-task: Implement update summary output
 
-- [ ] Task 4.3: Optionally integrate update into GUI
-  - [ ] Sub-task: Add "Check for Updates" button to GUI (in `gui2/`)
-  - [ ] Sub-task: Wire button to update script
+- [x] Task 4.3: Optionally integrate update into GUI
+  - [x] Sub-task: Add "Check for Updates" button to GUI (in `gui2/`)
+  - [x] Sub-task: Wire button to update script
 
 ## Phase 5: Documentation
 
