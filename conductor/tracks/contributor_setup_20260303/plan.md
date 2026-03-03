@@ -44,17 +44,17 @@
 
 ## Phase 3: Data Submission via Git
 
-- [ ] Task 3.1: Write tests for data submission — `scripts/onboarding/tests/test_data_submission.py`
-  - [ ] Sub-task: Test git add stages only contributor data files
-  - [ ] Sub-task: Test commit message generation (username, timestamp)
-  - [ ] Sub-task: Test git push logic and error handling
-  - [ ] Sub-task: Test auto-pull and retry when push is rejected (upstream changes)
+- [x] Task 3.1: Write tests for data submission — `scripts/onboarding/tests/test_data_submission.py`
+  - [x] Sub-task: Test git add stages only contributor data files
+  - [x] Sub-task: Test commit message generation (username, timestamp)
+  - [x] Sub-task: Test git push logic and error handling
+  - [x] Sub-task: Test auto-pull and retry when push is rejected (upstream changes)
 
-- [ ] Task 3.2: Implement data submission logic (`scripts/onboarding/data_submission.py`)
-  - [ ] Sub-task: Implement git add for contributor data files (additions.tsv, corrections.tsv, etc.)
-  - [ ] Sub-task: Implement auto-generated commit message with username and date
-  - [ ] Sub-task: Implement git push with error handling
-  - [ ] Sub-task: Implement pull-and-retry logic for push rejection
+- [x] Task 3.2: Implement data submission logic (`scripts/onboarding/data_submission.py`)
+  - [x] Sub-task: Implement git add for contributor data files (additions.tsv, corrections.tsv, etc.)
+  - [x] Sub-task: Implement auto-generated commit message with username and date
+  - [x] Sub-task: Implement git push with error handling
+  - [x] Sub-task: Implement pull-and-retry logic for push rejection
 
 - [ ] Task 3.3: Integrate submission into GUI
   - [ ] Sub-task: Add "Submit Data" button to the GUI (in `gui2/`)
