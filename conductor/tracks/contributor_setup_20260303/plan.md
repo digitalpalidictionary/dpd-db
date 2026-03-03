@@ -63,17 +63,17 @@
 
 ## Phase 4: Contributor Update Script
 
-- [ ] Task 4.1: Write tests for update script — `scripts/onboarding/tests/test_contributor_update.py`
-  - [ ] Sub-task: Test git pull logic and error handling
-  - [ ] Sub-task: Test database version comparison (current vs latest release)
-  - [ ] Sub-task: Test database download when newer version is available
+- [x] Task 4.1: Write tests for update script — `scripts/onboarding/tests/test_contributor_update.py`
+  - [x] Sub-task: Test git pull logic and error handling
+  - [x] Sub-task: Test database version comparison (current vs latest release)
+  - [x] Sub-task: Test database download when newer version is available
 
-- [ ] Task 4.2: Implement contributor update script (`scripts/onboarding/contributor_update.py`)
-  - [ ] Sub-task: Implement `git pull` with error handling (dirty working tree, network errors)
-  - [ ] Sub-task: Implement `uv sync` for dependency updates
-  - [ ] Sub-task: Implement database version check against GitHub Releases
-  - [ ] Sub-task: Implement conditional database download
-  - [ ] Sub-task: Implement update summary output
+- [x] Task 4.2: Implement contributor update script (`scripts/onboarding/contributor_update.py`)
+  - [x] Sub-task: Implement `git pull` with error handling (dirty working tree, network errors)
+  - [x] Sub-task: Implement `uv sync` for dependency updates
+  - [x] Sub-task: Implement database version check against GitHub Releases
+  - [x] Sub-task: Implement conditional database download
+  - [x] Sub-task: Implement update summary output
 
 - [ ] Task 4.3: Optionally integrate update into GUI
   - [ ] Sub-task: Add "Check for Updates" button to GUI (in `gui2/`)
