@@ -33,14 +33,14 @@
 
 ## Phase 2: GUI Launch Wrapper
 
-- [ ] Task 2.1: Write tests for launch wrapper — `scripts/onboarding/tests/test_launch_gui.py`
-  - [ ] Sub-task: Test dependency sync check logic
-  - [ ] Sub-task: Test GUI launch invocation
+- [x] Task 2.1: Write tests for launch wrapper — `scripts/onboarding/tests/test_launch_gui.py`
+  - [x] Sub-task: Test dependency sync check logic
+  - [x] Sub-task: Test GUI launch invocation
 
-- [ ] Task 2.2: Implement GUI launch wrapper (`scripts/onboarding/launch_gui.py`)
-  - [ ] Sub-task: Implement `uv sync` quick-check before launch
-  - [ ] Sub-task: Implement Flet GUI launch
-  - [ ] Sub-task: Ensure the desktop shortcut invokes this wrapper
+- [x] Task 2.2: Implement GUI launch wrapper (`scripts/onboarding/launch_gui.py`)
+  - [x] Sub-task: Implement `uv sync` quick-check before launch
+  - [x] Sub-task: Implement Flet GUI launch
+  - [x] Sub-task: Ensure the desktop shortcut invokes this wrapper
 
 ## Phase 3: Data Submission via Git
 
