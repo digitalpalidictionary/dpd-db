@@ -17,6 +17,7 @@ dependencies = [
     "prometheus-fastapi-instrumentator>=7.1.0",
     "psutil>=7.0.0",
     "natsort>=8.4.0",
+    "requests>=2.32.3",
 ]
 
 [dependency-groups]

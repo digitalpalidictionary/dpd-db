@@ -194,7 +194,28 @@ def run_setup(project_root: Path | None = None) -> bool:
         return False
     pr.yes("ok")
 
-    # Step 4: Configure username
+    # Step 4: Sync dependencies
+    pr.green("installing dependencies")
+    try:
+        sync_result = subprocess.run(
+            ["uv", "sync"],
+            cwd=project_root,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+        if sync_result.returncode == 0:
+            pr.yes("ok")
+        else:
+            pr.no("failed")
+            pr.red("Failed to install dependencies. Try running 'uv sync' manually.")
+            return False
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pr.no("failed")
+        pr.red("Could not run 'uv sync'. Make sure uv is installed.")
+        return False
+
+    # Step 5: Configure username
     username = input("Enter your contributor username: ").strip()
     if not username:
         pr.red("Username cannot be empty. Please re-run the setup.")
@@ -202,8 +223,25 @@ def run_setup(project_root: Path | None = None) -> bool:
     configure_username(username)
     pr.info(f"  Username set to: {username}")
 
+    # Step 6: Create desktop shortcut
+    pr.green("creating desktop shortcut")
+    try:
+        from scripts.onboarding.desktop_shortcut import create_desktop_shortcut
+
+        shortcut_path = create_desktop_shortcut(project_root)
+        pr.yes("ok")
+        pr.info(f"  Shortcut created: {shortcut_path}")
+    except Exception as e:
+        pr.no("failed")
+        pr.warning(f"  Could not create shortcut: {e}")
+        pr.info(
+            "  You can still launch the GUI with: uv run scripts/onboarding/launch_gui.py"
+        )
+
     pr.green_title("Setup complete!")
-    pr.info("You can now launch the GUI with: uv run scripts/onboarding/launch_gui.py")
+    pr.info(
+        "You can now launch the GUI by double-clicking the DPD GUI shortcut on your Desktop."
+    )
 
     return True
 

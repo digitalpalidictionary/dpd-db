@@ -341,6 +341,88 @@ class TestIdempotentRerun:
 
 
 # ---------------------------------------------------------------------------
+# run_setup integration (mocked)
+# ---------------------------------------------------------------------------
+
+
+class TestRunSetup:
+    """Test that run_setup calls uv sync and creates desktop shortcut."""
+
+    @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
+    @patch("scripts.onboarding.contributor_setup.configure_username")
+    @patch("builtins.input", return_value="testuser")
+    @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
+    @patch(
+        "scripts.onboarding.contributor_setup.get_latest_db_release_url",
+        return_value="https://example.com/dpd.db",
+    )
+    @patch("scripts.onboarding.contributor_setup.init_submodules")
+    @patch(
+        "scripts.onboarding.contributor_setup.check_git",
+        return_value=(True, "git version 2.43.0"),
+    )
+    @patch("scripts.onboarding.contributor_setup.subprocess.run")
+    def test_calls_uv_sync(
+        self,
+        mock_run: MagicMock,
+        mock_git: MagicMock,
+        mock_submodules: MagicMock,
+        mock_release_url: MagicMock,
+        mock_download: MagicMock,
+        mock_input: MagicMock,
+        mock_configure: MagicMock,
+        mock_shortcut: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        mock_run.return_value = MagicMock(returncode=0)
+        mock_shortcut.return_value = tmp_path / "shortcut"
+
+        from scripts.onboarding.contributor_setup import run_setup
+
+        run_setup(tmp_path)
+
+        uv_sync_calls = [
+            c for c in mock_run.call_args_list if "uv" in str(c) and "sync" in str(c)
+        ]
+        assert len(uv_sync_calls) >= 1
+
+    @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
+    @patch("scripts.onboarding.contributor_setup.configure_username")
+    @patch("builtins.input", return_value="testuser")
+    @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
+    @patch(
+        "scripts.onboarding.contributor_setup.get_latest_db_release_url",
+        return_value="https://example.com/dpd.db",
+    )
+    @patch("scripts.onboarding.contributor_setup.init_submodules")
+    @patch(
+        "scripts.onboarding.contributor_setup.check_git",
+        return_value=(True, "git version 2.43.0"),
+    )
+    @patch("scripts.onboarding.contributor_setup.subprocess.run")
+    def test_creates_desktop_shortcut(
+        self,
+        mock_run: MagicMock,
+        mock_git: MagicMock,
+        mock_submodules: MagicMock,
+        mock_release_url: MagicMock,
+        mock_download: MagicMock,
+        mock_input: MagicMock,
+        mock_configure: MagicMock,
+        mock_shortcut: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        mock_run.return_value = MagicMock(returncode=0)
+        mock_shortcut.return_value = tmp_path / "shortcut"
+
+        from scripts.onboarding.contributor_setup import run_setup
+
+        run_setup(tmp_path)
+
+        mock_shortcut.assert_called_once_with(tmp_path)
+
+
+# ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 

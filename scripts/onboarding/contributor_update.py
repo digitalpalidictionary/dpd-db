@@ -97,16 +97,22 @@ def update_environment(project_root: Path) -> str:
         pr.no("failed")
         summary_parts.append("Dependencies: sync failed")
 
-    # Step 3: Check for database update
+    # Step 3: Check for database update and download if available
     pr.green("checking for database update")
     current_version = config_read("version", "version", default_value="")
     db_available, db_url = check_db_update_available(current_version or "")
     if db_available and db_url:
         pr.yes("new")
-        pr.info(f"  New database version available: {db_url}")
-        summary_parts.append(
-            "Database: new version available (download manually or re-run setup)"
-        )
+        pr.green("downloading new database")
+        from scripts.onboarding.contributor_setup import download_database
+
+        db_dest = project_root / "dpd.db"
+        if download_database(db_url, db_dest):
+            pr.yes("ok")
+            summary_parts.append("Database: updated to latest version")
+        else:
+            pr.no("failed")
+            summary_parts.append("Database: download failed")
     else:
         pr.yes("ok")
         summary_parts.append("Database: up to date")
