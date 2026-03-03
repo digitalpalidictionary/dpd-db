@@ -81,15 +81,15 @@
 
 ## Phase 5: Documentation
 
-- [ ] Task 5.1: Write contributor guide (`scripts/onboarding/README.md`)
-  - [ ] Sub-task: Document prerequisites (GitHub account, git installation per OS)
-  - [ ] Sub-task: Document the 3 copy-paste setup commands
-  - [ ] Sub-task: Document how to launch the GUI
-  - [ ] Sub-task: Document how to submit data (Submit Data button)
-  - [ ] Sub-task: Document how to update the environment
-  - [ ] Sub-task: Add troubleshooting section for common issues
+- [x] Task 5.1: Write contributor guide (`scripts/onboarding/README.md`)
+  - [x] Sub-task: Document prerequisites (GitHub account, git installation per OS)
+  - [x] Sub-task: Document the 3 copy-paste setup commands
+  - [x] Sub-task: Document how to launch the GUI
+  - [x] Sub-task: Document how to submit data (Submit Data button)
+  - [x] Sub-task: Document how to update the environment
+  - [x] Sub-task: Add troubleshooting section for common issues
 
-- [ ] Task 5.2: Update `scripts/README.md` to reference the onboarding folder
+- [x] Task 5.2: Update `scripts/README.md` to reference the onboarding folder
 
 ## Phase 6: Final Verification (User Required)
 

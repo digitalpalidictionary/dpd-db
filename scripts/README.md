@@ -10,6 +10,7 @@ Scripts are organized by their **intent** (Action-Oriented):
 - **fix/:** To perform batch corrections on the database.
 - **add/:** To find new data to add.
 - **info/:** To query or report on the project state.
+- **onboarding/:** Contributor setup, GUI launch, data submission, and update scripts. See [onboarding/README.md](onboarding/README.md).
 
 ## Relationships & Data Flow
 - **Orchestration:** Scripts import logic from **db/**, **exporter/**, and **tools/** to execute high-level workflows.
