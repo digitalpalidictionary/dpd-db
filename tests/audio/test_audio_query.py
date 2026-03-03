@@ -24,9 +24,9 @@ try:
     results = (
         session.query(
             DpdAudio.lemma_clean,
-            case((DpdAudio.male1 != None, True), else_=False).label("has_male1"),
-            case((DpdAudio.male2 != None, True), else_=False).label("has_male2"),
-            case((DpdAudio.female1 != None, True), else_=False).label("has_female1"),
+            case((DpdAudio.male1 != None, True), else_=False).label("has_male1"),  # noqa: E711
+            case((DpdAudio.male2 != None, True), else_=False).label("has_male2"),  # noqa: E711
+            case((DpdAudio.female1 != None, True), else_=False).label("has_female1"),  # noqa: E711
         )
         .limit(5)
         .all()
