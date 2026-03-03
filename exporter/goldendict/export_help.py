@@ -111,15 +111,17 @@ def add_abbrev_html(
         header = data.header
         body_start = html_rendered.find("<body>")
         body = html_rendered[body_start:]
-        
+
         final_html = squash_whitespaces(header) + minify(body)
 
-        help_data_list.append(DictEntry(
-            word=i.abbrev,
-            definition_html=final_html,
-            definition_plain="",
-            synonyms=[],
-        ))
+        help_data_list.append(
+            DictEntry(
+                word=i.abbrev,
+                definition_html=final_html,
+                definition_plain="",
+                synonyms=[],
+            )
+        )
 
     return help_data_list
 
@@ -150,15 +152,17 @@ def add_help_html(
         header = data.header
         body_start = html_rendered.find("<body>")
         body = html_rendered[body_start:]
-        
+
         final_html = squash_whitespaces(header) + minify(body)
 
-        help_data_list.append(DictEntry(
-            word=i.help,
-            definition_html=final_html,
-            definition_plain="",
-            synonyms=[],
-        ))
+        help_data_list.append(
+            DictEntry(
+                word=i.help,
+                definition_html=final_html,
+                definition_plain="",
+                synonyms=[],
+            )
+        )
 
     return help_data_list
 
@@ -209,12 +213,14 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
     html += "</div></body></html>"
     html = squash_whitespaces(header) + minify(html)
 
-    help_data_list.append(DictEntry(
-        word="bibliography",
-        definition_html=html,
-        definition_plain="",
-        synonyms=["dpd bibliography", "bibliography", "bib"],
-    ))
+    help_data_list.append(
+        DictEntry(
+            word="bibliography",
+            definition_html=html,
+            definition_plain="",
+            synonyms=["dpd bibliography", "bibliography", "bib"],
+        )
+    )
 
     return help_data_list
 
@@ -255,11 +261,13 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
     html += "</div></body></html>"
     html = squash_whitespaces(header) + minify(html)
 
-    help_data_list.append(DictEntry(
-        word="thanks",
-        definition_html=html,
-        definition_plain="",
-        synonyms=["dpd thanks", "thankyou", "thanks", "anumodana"],
-    ))
+    help_data_list.append(
+        DictEntry(
+            word="thanks",
+            definition_html=html,
+            definition_plain="",
+            synonyms=["dpd thanks", "thankyou", "thanks", "anumodana"],
+        )
+    )
 
     return help_data_list

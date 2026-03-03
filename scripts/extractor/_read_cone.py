@@ -1,6 +1,7 @@
 import re
 from scripts.extractor._normalize import normalize_headword
 
+
 def extract_cone_headwords(cone_dict: dict) -> set[str]:
     """Extract normalized headwords from Cone dictionary keys."""
     headwords = set()
@@ -12,6 +13,7 @@ def extract_cone_headwords(cone_dict: dict) -> set[str]:
         headwords.add(normalized)
     return headwords
 
+
 def get_cone_html_entries(cone_dict: dict, word: str) -> list[tuple[str, str]]:
     """Get all Cone HTML entries for a word (handles homonyms like 1abbeti, 2abbeti).
 
@@ -20,12 +22,12 @@ def get_cone_html_entries(cone_dict: dict, word: str) -> list[tuple[str, str]]:
     entries = []
     # The word from the list is already normalized
     target = word.lower()
-    
+
     for key in cone_dict.keys():
         # Strip leading digits and normalize the dictionary key
         clean_key = re.sub(r"^\d+", "", key)
         normalized_key = normalize_headword(clean_key)
-        
+
         if normalized_key == target:
             # Extract homonym number if present
             match = re.match(r"^(\d+)", key)

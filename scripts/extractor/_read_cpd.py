@@ -1,6 +1,7 @@
 import re
 from scripts.extractor._normalize import normalize_headword
 
+
 def extract_cpd_headwords(cpd_data: list) -> set[str]:
     """Extract normalized headwords from CPD data."""
     headwords = set()
@@ -12,6 +13,7 @@ def extract_cpd_headwords(cpd_data: list) -> set[str]:
             headwords.add(normalized)
     return headwords
 
+
 def get_cpd_html_entries(cpd_data: list, word: str) -> list[tuple[str, str]]:
     """Get all CPD HTML entries for a word (handles homonyms).
 
@@ -21,13 +23,13 @@ def get_cpd_html_entries(cpd_data: list, word: str) -> list[tuple[str, str]]:
     entries = []
     # The word from the list is already normalized
     target = word.lower()
-    
+
     for entry in cpd_data:
         if isinstance(entry, list) and len(entry) >= 2:
             # Strip leading digits and normalize the headword in CPD source
             clean_headword = re.sub(r"^\d+", "", entry[0])
             normalized_headword = normalize_headword(clean_headword)
-            
+
             if normalized_headword == target:
                 html = entry[1]
                 # Extract homonym number from <sup>N</sup>

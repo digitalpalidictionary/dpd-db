@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def get_existing_headwords(output_path: Path) -> set[str]:
     """Get set of headwords already in TSV."""
     existing = set()

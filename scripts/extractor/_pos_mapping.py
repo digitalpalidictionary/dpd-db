@@ -1,5 +1,6 @@
 import re
 
+
 def map_pos_to_dpd(source_pos: str, headword: str, mapping_dict: dict) -> str:
     """Map source POS to DPD POS."""
     pos = source_pos.strip().lower()
@@ -7,7 +8,9 @@ def map_pos_to_dpd(source_pos: str, headword: str, mapping_dict: dict) -> str:
     if " " in headword:
         return "idiom"
 
-    pos_no_brackets = pos.replace("(", "").replace(")", "").replace("[", "").replace("]", "")
+    pos_no_brackets = (
+        pos.replace("(", "").replace(")", "").replace("[", "").replace("]", "")
+    )
     pos_clean = pos_no_brackets.replace(".", "").replace(",", "").replace(" ", "")
 
     if pos == "pr. 3 sg.":
@@ -31,7 +34,7 @@ def map_pos_to_dpd(source_pos: str, headword: str, mapping_dict: dict) -> str:
 
     if re.search(r"an[iī]ya$", headword.lower()):
         return "ptp"
-    
+
     if re.search(r"eyya$", headword.lower()) and "mfn" in pos_clean:
         return "ptp"
 

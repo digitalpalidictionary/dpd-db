@@ -613,8 +613,11 @@ class DpdFields(PopUpMixin):
                             and control.data == f"{main_field_name}_transfer_btn"
                         ):
                             control.disabled = not bool(add_value)
-                            control.on_click = lambda e, mf=main_field_control, af=add_field_control, btn=control: self.transfer_add_value(
-                                e, mf, af, btn
+                            control.on_click = (
+                                lambda e,
+                                mf=main_field_control,
+                                af=add_field_control,
+                                btn=control: self.transfer_add_value(e, mf, af, btn)
                             )
                             break
 
@@ -1253,8 +1256,14 @@ class DpdFields(PopUpMixin):
                 if synonyms_string:
                     var_field = self.get_field("variant")
                     var_value = var_field.value or ""
-                    var_set = set(word.strip() for word in var_value.split(",") if word.strip())
-                    syn_set = set(word.strip() for word in synonyms_string.split(",") if word.strip())
+                    var_set = set(
+                        word.strip() for word in var_value.split(",") if word.strip()
+                    )
+                    syn_set = set(
+                        word.strip()
+                        for word in synonyms_string.split(",")
+                        if word.strip()
+                    )
                     syn_set = syn_set - var_set
                     synonyms_string = ", ".join(pali_list_sorter(list(syn_set)))
                     field.value = synonyms_string

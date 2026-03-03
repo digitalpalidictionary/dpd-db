@@ -4,6 +4,7 @@ from multiprocessing import Manager, Process
 from multiprocessing.managers import ListProxy
 from typing import List, Set, Tuple, TypedDict
 
+import jinja2
 import psutil
 
 from minify_html import minify
@@ -65,7 +66,7 @@ class DpdHeadwordRenderDataBase(TypedDict):
 
 class DpdHeadwordRenderData(DpdHeadwordRenderDataBase):
     pth: ProjectPaths
-    jinja_env: any
+    jinja_env: jinja2.Environment
 
 
 def render_pali_word_dpd_html(
@@ -102,9 +103,9 @@ def render_pali_word_dpd_html(
         jinja_env=jinja_env,
         cf_set=rd["cf_set"],
         idioms_set=rd["idioms_set"],
-        show_id=rd["show_id"]
+        show_id=rd["show_id"],
     )
-    
+
     template = jinja_env.get_template("dpd_headword.jinja")
     html = template.render(d=data)
 
@@ -112,9 +113,9 @@ def render_pali_word_dpd_html(
     header = data.header
     body_start = html.find("<body>")
     body = html[body_start:]
-    
+
     final_html = squash_whitespaces(header) + minify(body)
-    
+
     size_dict["dpd_header"] += len(header)
     size_dict["dpd_summary"] += len(data.meaning_combo_html)
 

@@ -33,14 +33,14 @@ def generate_epd_html(
     for lookup_entry in lookup_db:
         # Use ViewModel
         data = EpdData(lookup_entry, pth, jinja_env)
-        
+
         html_rendered = template.render(d=data)
 
         # Re-calculate parts for parity
         header = data.header
         body_start = html_rendered.find("<body>")
         body = html_rendered[body_start:]
-        
+
         final_html = squash_whitespaces(header) + minify(body)
 
         size_dict["epd"] += len(final_html)

@@ -1,5 +1,6 @@
 from jinja2 import Environment, FileSystemLoader
 
+
 def get_jinja2_env(templates_dir: str) -> Environment:
     """Get a Jinja2 environment with standard settings."""
     return Environment(

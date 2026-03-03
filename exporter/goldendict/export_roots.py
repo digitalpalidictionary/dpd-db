@@ -34,21 +34,21 @@ def generate_root_html(
 
     for r in roots_db:
         frs = db_session.query(FamilyRoot).filter(FamilyRoot.root_key == r.root).all()
-        
+
         # Use ViewModel
         data = RootsData(r, roots_count_dict, pth, jinja_env, frs)
-        
+
         html = template.render(d=data)
 
         # Re-calculate parts for parity
         header = data.header
         body_start = html.find("<body>")
         body = html[body_start:]
-        
+
         final_html = squash_whitespaces(header) + minify(body)
 
         size_dict["root_definition"] += len(data.r.root_clean)
-        
+
         synonyms: set = set()
         synonyms.add(r.root_clean)
         synonyms.add(re.sub("√", "", r.root))

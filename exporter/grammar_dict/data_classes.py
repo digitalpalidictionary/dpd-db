@@ -2,13 +2,14 @@ from db.models import Lookup
 from tools.paths import ProjectPaths
 from tools.css_manager import CSSManager
 
+
 class GrammarData:
     def __init__(self, lookup_entry: Lookup, pth: ProjectPaths, jinja_env):
         self.headword = lookup_entry.lookup_key
         self.grammar_data_list = lookup_entry.grammar_unpack
         self.rows = self._process_grammar(self.grammar_data_list)
         self.header = self._generate_header(pth, jinja_env)
-        
+
     def _generate_header(self, pth: ProjectPaths, jinja_env) -> str:
         header_templ = jinja_env.get_template("grammar_dict_header.jinja")
         css_manager = CSSManager()
@@ -32,13 +33,11 @@ class GrammarData:
                 components.append(grammar_str)
             else:
                 components = grammar_str.split()
-            
+
             while len(components) < 3:
                 components.append("")
-                
-            processed_rows.append({
-                "pos": pos,
-                "components": components,
-                "headword": headword
-            })
+
+            processed_rows.append(
+                {"pos": pos, "components": components, "headword": headword}
+            )
         return processed_rows

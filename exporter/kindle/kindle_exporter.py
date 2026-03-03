@@ -44,12 +44,39 @@ def render_dpd_xhtml(
 
     # limit the extent of the dictionary to an ebt text set
     ebt_books = [
-        "vin1", "vin2", "vin3", "vin4",
-        "dn1", "dn2", "dn3",
-        "mn1", "mn2", "mn3",
-        "sn1", "sn2", "sn3", "sn4", "sn5",
-        "an1", "an2", "an3", "an4", "an5", "an6", "an7", "an8", "an9", "an10", "an11",
-        "kn1", "kn2", "kn3", "kn4", "kn5", "kn8", "kn9",
+        "vin1",
+        "vin2",
+        "vin3",
+        "vin4",
+        "dn1",
+        "dn2",
+        "dn3",
+        "mn1",
+        "mn2",
+        "mn3",
+        "sn1",
+        "sn2",
+        "sn3",
+        "sn4",
+        "sn5",
+        "an1",
+        "an2",
+        "an3",
+        "an4",
+        "an5",
+        "an6",
+        "an7",
+        "an8",
+        "an9",
+        "an10",
+        "an11",
+        "kn1",
+        "kn2",
+        "kn3",
+        "kn4",
+        "kn5",
+        "kn8",
+        "kn9",
     ]
 
     # all words in cst and sc texts
@@ -83,10 +110,12 @@ def render_dpd_xhtml(
     inflections_dict: dict[int, list[str]] = {}
     inflections_counter = 0
     for i in dpd_db:
-        inflections_set: set[str] = (set(i.inflections_list_all) & all_words_set)
+        inflections_set: set[str] = set(i.inflections_list_all) & all_words_set
         inflections_set = set(add_niggahitas(list(inflections_set), all=False))
         inflections_sorted: list[str] = pali_list_sorter(list(inflections_set))
-        inflections_filtered: list[str] = [inf for inf in inflections_sorted if inf and inf.strip()]
+        inflections_filtered: list[str] = [
+            inf for inf in inflections_sorted if inf and inf.strip()
+        ]
         inflections_dict[i.id] = inflections_filtered
         inflections_counter += len(inflections_filtered)
     pr.yes(inflections_counter)
@@ -147,15 +176,21 @@ def render_ebook_entry(
     return template.render(data=data)
 
 
-def render_deconstructor_entry(pth: ProjectPaths, jinja_env, counter: int, i: Lookup) -> str:
+def render_deconstructor_entry(
+    pth: ProjectPaths, jinja_env, counter: int, i: Lookup
+) -> str:
     """Render deconstructor word entry."""
     construction = i.lookup_key
     deconstruction = "<br/>".join(i.deconstructor_unpack)
     template = jinja_env.get_template("ebook_deconstructor_entry.jinja")
-    return template.render(counter=counter, construction=construction, deconstruction=deconstruction)
+    return template.render(
+        counter=counter, construction=construction, deconstruction=deconstruction
+    )
 
 
-def render_ebook_letter_templ(pth: ProjectPaths, jinja_env, letter: str, entries: str) -> str:
+def render_ebook_letter_templ(
+    pth: ProjectPaths, jinja_env, letter: str, entries: str
+) -> str:
     """Render all entries for a single letter."""
     template = jinja_env.get_template("ebook_letter.jinja")
     return template.render(letter=letter, entries=entries)
@@ -173,7 +208,9 @@ def save_abbreviations_xhtml_page(pth: ProjectPaths, jinja_env, id_counter):
             if value == ">":
                 value = "&gt;"
             i[key] = html_friendly(value)
-        abbreviation_entries += [render_abbreviation_entry(pth, jinja_env, id_counter, i)]
+        abbreviation_entries += [
+            render_abbreviation_entry(pth, jinja_env, id_counter, i)
+        ]
         id_counter += 1
 
     entries = "".join(abbreviation_entries)
@@ -243,7 +280,11 @@ def make_mobi(pth: ProjectPaths):
 
     if system == "Darwin":
         if shutil.which("ebook-convert"):
-            process = subprocess.Popen(["ebook-convert", epub_path, mobi_path], stdout=subprocess.PIPE, text=True)
+            process = subprocess.Popen(
+                ["ebook-convert", epub_path, mobi_path],
+                stdout=subprocess.PIPE,
+                text=True,
+            )
             if process.stdout is not None:
                 for line in process.stdout:
                     print(line, end="")
@@ -254,7 +295,9 @@ def make_mobi(pth: ProjectPaths):
             pr.red("No compatible MOBI converter found on macOS.")
             return
     else:
-        process = subprocess.Popen([str(pth.kindlegen_path), epub_path], stdout=subprocess.PIPE, text=True)
+        process = subprocess.Popen(
+            [str(pth.kindlegen_path), epub_path], stdout=subprocess.PIPE, text=True
+        )
         if process.stdout is not None:
             for line in process.stdout:
                 print(line, end="")
@@ -279,7 +322,7 @@ def render_epd_xhtml(pth: ProjectPaths, jinja_env, id_counter: int) -> int:
     lookup_db = db_session.query(Lookup).filter(Lookup.epd != "").all()
     pr.yes(len(lookup_db))
 
-    english_alphabet = [chr(i) for i in range(ord('a'), ord('z') + 1)]
+    english_alphabet = [chr(i) for i in range(ord("a"), ord("z") + 1)]
     epd_letter_dict: dict = {letter: [] for letter in english_alphabet}
 
     for lookup_entry in lookup_db:
@@ -295,7 +338,9 @@ def render_epd_xhtml(pth: ProjectPaths, jinja_env, id_counter: int) -> int:
             pali_equivalents_list.append(entry_html)
 
         pali_equivalents = "<br/>".join(pali_equivalents_list)
-        entry = render_epd_entry(pth, jinja_env, id_counter, english_headword, pali_equivalents)
+        entry = render_epd_entry(
+            pth, jinja_env, id_counter, english_headword, pali_equivalents
+        )
         epd_letter_dict[first_letter].append(entry)
         id_counter += 1
 
@@ -324,10 +369,16 @@ def render_epd_entry(
 ) -> str:
     """Render single EPD entry."""
     template = jinja_env.get_template("ebook_epd_entry.jinja")
-    return template.render(counter=counter, english_headword=english_headword, pali_equivalents=pali_equivalents)
+    return template.render(
+        counter=counter,
+        english_headword=english_headword,
+        pali_equivalents=pali_equivalents,
+    )
 
 
-def render_epd_letter_templ(pth: ProjectPaths, jinja_env, letter: str, entries: str) -> str:
+def render_epd_letter_templ(
+    pth: ProjectPaths, jinja_env, letter: str, entries: str
+) -> str:
     """Render all EPD entries for a single English letter."""
     template = jinja_env.get_template("ebook_epd_letter.jinja")
     return template.render(letter=letter, entries=entries)

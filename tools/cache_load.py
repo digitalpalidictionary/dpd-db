@@ -45,9 +45,7 @@ def load_idioms_set() -> frozenset[str]:
     from db.models import DbInfo
 
     with get_db_session(pth.dpd_db_path) as db_session:
-        idioms_set_cache = (
-            db_session.query(DbInfo).filter_by(key="idioms_set").first()
-        )
+        idioms_set_cache = db_session.query(DbInfo).filter_by(key="idioms_set").first()
         if idioms_set_cache:
             idioms_list = json.loads(idioms_set_cache.value)
             return frozenset(idioms_list)

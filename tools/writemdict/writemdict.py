@@ -51,14 +51,16 @@ from tools.writemdict.pureSalsa20 import Salsa20
 # Not using lzo compression.
 HAVE_LZO = False
 
+
 class ParameterError(Exception):
     ### Raised when some parameter to MdxWriter is invalid or uninterpretable.
     pass
 
 
 def _mdx_compress(data, compression_type=2):
-    header = (struct.pack(b"<L", compression_type) +
-           struct.pack(b">L", zlib.adler32(data) & 0xffffffff))  # depending on python version, zlib.adler32 may return a signed number.
+    header = struct.pack(b"<L", compression_type) + struct.pack(
+        b">L", zlib.adler32(data) & 0xFFFFFFFF
+    )  # depending on python version, zlib.adler32 may return a signed number.
     if compression_type == 0:  # no compression
         return header + data
     elif compression_type == 2:
@@ -79,8 +81,8 @@ def _fast_encrypt(data, key):
     key = bytearray(key)
     previous = 0x36
     for i in range(len(b)):
-        t = b[i] ^ previous ^ (i & 0xff) ^ key[i % len(key)]
-        previous = b[i] = ((t >> 4) | (t << 4)) & 0xff
+        t = b[i] ^ previous ^ (i & 0xFF) ^ key[i % len(key)]
+        previous = b[i] = ((t >> 4) | (t << 4)) & 0xFF
     return bytes(b)
 
 
@@ -90,10 +92,10 @@ def _mdx_encrypt(comp_block):
 
 
 def _salsa_encrypt(plaintext, dict_key):
-    assert(isinstance(dict_key, bytes))
-    assert(isinstance(plaintext, bytes))
+    assert isinstance(dict_key, bytes)
+    assert isinstance(plaintext, bytes)
     encrypt_key = ripemd128(dict_key)
-    s20 = Salsa20(key=encrypt_key, IV=b"\x00"*8, rounds=8)
+    s20 = Salsa20(key=encrypt_key, IV=b"\x00" * 8, rounds=8)
     return s20.encryptBytes(plaintext)
 
 
@@ -134,9 +136,12 @@ def encrypt_key(dict_key, **kwargs):
         key = encrypt_key(b"password", device_id="12345678-9012-3456-7890-1234")
     """
 
-    if(("email" not in kwargs and "device_id" not in kwargs) or ("email" in kwargs and "device_id" in kwargs)):
+    if ("email" not in kwargs and "device_id" not in kwargs) or (
+        "email" in kwargs and "device_id" in kwargs
+    ):
         raise ParameterError(
-            "Expected exactly one of email and device_id as keyword argument")
+            "Expected exactly one of email and device_id as keyword argument"
+        )
 
     if "email" in kwargs:
         owner_info_digest = ripemd128(kwargs["email"].encode("ascii"))
@@ -145,7 +150,7 @@ def encrypt_key(dict_key, **kwargs):
 
     dict_key_digest = ripemd128(dict_key)
 
-    s20 = Salsa20(key=owner_info_digest, IV=b"\x00"*8, rounds=8)
+    s20 = Salsa20(key=owner_info_digest, IV=b"\x00" * 8, rounds=8)
     output_key = s20.encryptBytes(dict_key_digest)
     return _hexdump(output_key)
 
@@ -164,18 +169,22 @@ class _OffsetTableEntry(object):
 
 
 class MDictWriter(object):
-
-    def __init__(self, d, title, description,
-                 block_size=65536,
-                 encrypt_index=False,
-                 encoding="utf8",
-                 compression_type=2,
-                 version="2.0",
-                 encrypt_key=None,
-                 register_by=None,
-                 user_email=None,
-                 user_device_id=None,
-                 is_mdd=False):
+    def __init__(
+        self,
+        d,
+        title,
+        description,
+        block_size=65536,
+        encrypt_index=False,
+        encoding="utf8",
+        compression_type=2,
+        version="2.0",
+        encrypt_key=None,
+        register_by=None,
+        user_email=None,
+        user_device_id=None,
+        is_mdd=False,
+    ):
         """
         Prepares the records. A subsequent call to write() writes
         the mdx or mdd file.
@@ -240,7 +249,7 @@ class MDictWriter(object):
         self._description = description
         self._block_size = block_size
         self._encrypt_index = encrypt_index
-        self._encrypt = (encrypt_key is not None)
+        self._encrypt = encrypt_key is not None
         self._encrypt_key = encrypt_key
         if register_by not in ["email", "device_id", None]:
             raise ParameterError("Unkonwn register_by type")
@@ -308,8 +317,8 @@ class MDictWriter(object):
             key1 = key1.lower()
             key2 = key2.lower()
             if not self._is_mdd:
-                key1 = regex_strip.sub('', key1)
-                key2 = regex_strip.sub('', key2)
+                key1 = regex_strip.sub("", key1)
+                key2 = regex_strip.sub("", key2)
             # locale key
             key1 = locale.strxfrm(key1)
             key2 = locale.strxfrm(key2)
@@ -331,8 +340,8 @@ class MDictWriter(object):
 
             # dpd: link to link bug prevention (08.03.2023)
             if prevent_link_to_link or sort_definitions:
-                #if key1 & key2 are equal: compare the values
-                #if value 1&2 are links to another definition: dont change order
+                # if key1 & key2 are equal: compare the values
+                # if value 1&2 are links to another definition: dont change order
                 value1 = item1[1].lower()
                 value2 = item2[1].lower()
                 if value1.startswith("@@@link=") and value2.startswith("@@@link="):
@@ -344,15 +353,15 @@ class MDictWriter(object):
                         if value1 < value2:
                             return -1
                     return 0
-                #if value1 is link, but value2 is not: link->lower pos
+                # if value1 is link, but value2 is not: link->lower pos
                 if value1.startswith("@@@link="):
                     return 1
-                #if value2 is link, but value1 is not: link->lower pos
+                # if value2 is link, but value1 is not: link->lower pos
                 if value2.startswith("@@@link="):
                     return -1
-                #disabled by default: sorting definitions is probably not neccessary..
+                # disabled by default: sorting definitions is probably not neccessary..
                 if sort_definitions:
-                    #if value1&2 are both normal definitions, only compare the fist 50 characters 
+                    # if value1&2 are both normal definitions, only compare the fist 50 characters
                     # (otherwise its probably some long html where the difference could just be some css)
                     value1 = value1[:50]
                     value2 = value2[:50]
@@ -362,7 +371,7 @@ class MDictWriter(object):
                         return -1
             return 0
 
-        pattern = '[%s ]+' % string.punctuation
+        pattern = "[%s ]+" % string.punctuation
         regex_strip = re.compile(pattern)
 
         if isinstance(d, dict):
@@ -375,7 +384,7 @@ class MDictWriter(object):
         offset = 0
         for key, record in items:
             key_enc = key.encode(self._python_encoding)
-            key_null = (key+"\0").encode(self._python_encoding)
+            key_null = (key + "\0").encode(self._python_encoding)
             key_len = len(key_enc) // self._encoding_length
 
             # set record_null to a the the value of the record. If it's
@@ -383,13 +392,16 @@ class MDictWriter(object):
             if self._is_mdd:
                 record_null = record
             else:
-                record_null = (record+"\0").encode(self._python_encoding)
-            self._offset_table.append(_OffsetTableEntry(
-                key=key_enc,
-                key_null=key_null,
-                key_len=key_len,
-                record_null=record_null,
-                offset=offset))
+                record_null = (record + "\0").encode(self._python_encoding)
+            self._offset_table.append(
+                _OffsetTableEntry(
+                    key=key_enc,
+                    key_null=key_null,
+                    key_len=key_len,
+                    record_null=record_null,
+                    offset=offset,
+                )
+            )
             offset += len(record_null)
         self._total_record_len = offset
 
@@ -405,7 +417,7 @@ class MDictWriter(object):
         this_block_start = 0
         cur_size = 0
         blocks = []
-        for ind in range(len(self._offset_table)+1):
+        for ind in range(len(self._offset_table) + 1):
             if ind != len(self._offset_table):
                 t = self._offset_table[ind]
             else:
@@ -420,12 +432,17 @@ class MDictWriter(object):
                 flush = True  # always flush the last block
             elif cur_size + block_type._len_block_entry(t) > self._block_size:
                 flush = True  # Adding this entry to make us larger than
-                     #self._block_size, so flush now.
+                # self._block_size, so flush now.
             else:
                 flush = False
             if flush:
-                blocks.append(block_type(
-                    self._offset_table[this_block_start:ind], self._compression_type, self._version))
+                blocks.append(
+                    block_type(
+                        self._offset_table[this_block_start:ind],
+                        self._compression_type,
+                        self._version,
+                    )
+                )
                 cur_size = 0
                 this_block_start = ind
             if t is not None:  # mentally add this entry to list of things
@@ -464,7 +481,8 @@ class MDictWriter(object):
         # Also sets self._recordb_index_size.
 
         self._recordb_index = b"".join(
-            (b.get_index_entry() for b in self._record_blocks))
+            (b.get_index_entry() for b in self._record_blocks)
+        )
         self._recordb_index_size = len(self._recordb_index)
 
     def _write_key_sect(self, outfile):
@@ -475,24 +493,28 @@ class MDictWriter(object):
 
         keyblocks_total_size = sum(len(b.get_block()) for b in self._key_blocks)
         if self._version == "2.0":
-            preamble = struct.pack(b">QQQQQ",
+            preamble = struct.pack(
+                b">QQQQQ",
                 len(self._key_blocks),
                 self._num_entries,
                 self._keyb_index_decomp_size,
                 self._keyb_index_comp_size,
-                keyblocks_total_size)
+                keyblocks_total_size,
+            )
             preamble_checksum = struct.pack(b">L", zlib.adler32(preamble))
-            if(self._encrypt):
+            if self._encrypt:
                 preamble = _salsa_encrypt(preamble, self._encrypt_key)
             outfile.write(preamble)
             outfile.write(preamble_checksum)
         else:
-            preamble = struct.pack(b">LLLL",
+            preamble = struct.pack(
+                b">LLLL",
                 len(self._key_blocks),
                 self._num_entries,
                 self._keyb_index_decomp_size,
-                keyblocks_total_size)
-            if(self._encrypt):
+                keyblocks_total_size,
+            )
+            if self._encrypt:
                 preamble = _salsa_encrypt(preamble, self._encrypt_key)
             outfile.write(preamble)
 
@@ -506,25 +528,28 @@ class MDictWriter(object):
         #
         # outfile: a file-like object, opened in binary mode.
 
-        recordblocks_total_size = sum(
-            (len(b.get_block()) for b in self._record_blocks))
+        recordblocks_total_size = sum((len(b.get_block()) for b in self._record_blocks))
         if self._version == "2.0":
             format = b">QQQQ"
         else:
             format = b">LLLL"
-        outfile.write(struct.pack(format,
-                            len(self._record_blocks),
-                            self._num_entries,
-                            self._recordb_index_size,
-                            recordblocks_total_size))
+        outfile.write(
+            struct.pack(
+                format,
+                len(self._record_blocks),
+                self._num_entries,
+                self._recordb_index_size,
+                recordblocks_total_size,
+            )
+        )
         outfile.write(self._recordb_index)
         for b in self._record_blocks:
             outfile.write(b.get_block())
 
     def write(self, outfile):
-        """ 
+        """
         Write the mdx file to outfile.
-        
+
         outfile: a file-like object, opened in binary mode.
         """
 
@@ -557,59 +582,69 @@ class MDictWriter(object):
 
         if not self._is_mdd:
             header_string = (
-                            """<Dictionary """
-                            """GeneratedByEngineVersion="{version}" """
-                            """RequiredEngineVersion="{version}" """
-                            """Encrypted="{encrypted}" """
-                            """Encoding="{encoding}" """
-                            """Format="Html" """
-                            """CreationDate="{date.year}-{date.month}-{date.day}" """
-                            """Compact="No" """
-                            """Compat="No" """
-                            """KeyCaseSensitive="No" """
-                            """Description="{description}" """
-                            """Title="{title}" """
-                            """DataSourceFormat="106" """
-                            """StyleSheet="" """
-                            """RegisterBy="{register_by_str}" """
-                            """RegCode="{regcode}"/>\r\n\x00""").format(
-                version=self._version,
-                encrypted=encrypted,
-                encoding=self._encoding,
-                date=datetime.date.today(),
-                description=escape(self._description, quote=True),
-                title=escape(self._title, quote=True),
-                register_by_str=register_by_str,
-                regcode=regcode
-            ).encode("utf_16_le")
+                (
+                    """<Dictionary """
+                    """GeneratedByEngineVersion="{version}" """
+                    """RequiredEngineVersion="{version}" """
+                    """Encrypted="{encrypted}" """
+                    """Encoding="{encoding}" """
+                    """Format="Html" """
+                    """CreationDate="{date.year}-{date.month}-{date.day}" """
+                    """Compact="No" """
+                    """Compat="No" """
+                    """KeyCaseSensitive="No" """
+                    """Description="{description}" """
+                    """Title="{title}" """
+                    """DataSourceFormat="106" """
+                    """StyleSheet="" """
+                    """RegisterBy="{register_by_str}" """
+                    """RegCode="{regcode}"/>\r\n\x00"""
+                )
+                .format(
+                    version=self._version,
+                    encrypted=encrypted,
+                    encoding=self._encoding,
+                    date=datetime.date.today(),
+                    description=escape(self._description, quote=True),
+                    title=escape(self._title, quote=True),
+                    register_by_str=register_by_str,
+                    regcode=regcode,
+                )
+                .encode("utf_16_le")
+            )
         else:
             header_string = (
-                            """<Library_Data """
-                            """GeneratedByEngineVersion="{version}" """
-                            """RequiredEngineVersion="{version}" """
-                            """Encrypted="{encrypted}" """
-                            """Format="" """
-                            """CreationDate="{date.year}-{date.month}-{date.day}" """
-                            """Compact="No" """
-                            """Compat="No" """
-                            """KeyCaseSensitive="No" """
-                            """Description="{description}" """
-                            """Title="{title}" """
-                            """DataSourceFormat="106" """
-                            """StyleSheet="" """
-                            """RegisterBy="{register_by_str}" """
-                            """RegCode="{regcode}"/>\r\n\x00""").format(
-                version=self._version,
-                encrypted=encrypted,
-                date=datetime.date.today(),
-                description=escape(self._description, quote=True),
-                title=escape(self._title, quote=True),
-                register_by_str=register_by_str,
-                regcode=regcode
-            ).encode("utf_16_le")
+                (
+                    """<Library_Data """
+                    """GeneratedByEngineVersion="{version}" """
+                    """RequiredEngineVersion="{version}" """
+                    """Encrypted="{encrypted}" """
+                    """Format="" """
+                    """CreationDate="{date.year}-{date.month}-{date.day}" """
+                    """Compact="No" """
+                    """Compat="No" """
+                    """KeyCaseSensitive="No" """
+                    """Description="{description}" """
+                    """Title="{title}" """
+                    """DataSourceFormat="106" """
+                    """StyleSheet="" """
+                    """RegisterBy="{register_by_str}" """
+                    """RegCode="{regcode}"/>\r\n\x00"""
+                )
+                .format(
+                    version=self._version,
+                    encrypted=encrypted,
+                    date=datetime.date.today(),
+                    description=escape(self._description, quote=True),
+                    title=escape(self._title, quote=True),
+                    register_by_str=register_by_str,
+                    regcode=regcode,
+                )
+                .encode("utf_16_le")
+            )
         f.write(struct.pack(b">L", len(header_string)))
         f.write(header_string)
-        f.write(struct.pack(b"<L", zlib.adler32(header_string) & 0xffffffff))
+        f.write(struct.pack(b"<L", zlib.adler32(header_string) & 0xFFFFFFFF))
 
 
 class _MdxBlock(object):
@@ -637,8 +672,8 @@ class _MdxBlock(object):
         # offset_table is a iterable containing _OffsetTableEntry objects.
 
         decomp_data = b"".join(
-            type(self)._block_entry(t, version)
-            for t in offset_table)
+            type(self)._block_entry(t, version) for t in offset_table
+        )
         self._decomp_size = len(decomp_data)
         self._comp_data = _mdx_compress(decomp_data, compression_type)
         self._comp_size = len(self._comp_data)
@@ -722,12 +757,12 @@ class _MdxKeyBlock(_MdxBlock):
         self._num_entries = len(offset_table)
         if version == "2.0":
             self._first_key = offset_table[0].key_null
-            self._last_key = offset_table[len(offset_table)-1].key_null
+            self._last_key = offset_table[len(offset_table) - 1].key_null
         else:
             self._first_key = offset_table[0].key
-            self._last_key = offset_table[len(offset_table)-1].key
+            self._last_key = offset_table[len(offset_table) - 1].key
         self._first_key_len = offset_table[0].key_len
-        self._last_key_len = offset_table[len(offset_table)-1].key_len
+        self._last_key_len = offset_table[len(offset_table) - 1].key_len
 
     @staticmethod
     def _block_entry(t, version):
@@ -735,7 +770,7 @@ class _MdxKeyBlock(_MdxBlock):
             format = b">Q"
         else:
             format = b">L"
-        return struct.pack(format, t.offset)+t.key_null
+        return struct.pack(format, t.offset) + t.key_null
 
     @staticmethod
     def _len_block_entry(t):
@@ -752,10 +787,10 @@ class _MdxKeyBlock(_MdxBlock):
             short_format = b">B"
         return (
             struct.pack(long_format, self._num_entries)
-                          + struct.pack(short_format, self._first_key_len)
-                          + self._first_key
-                          + struct.pack(short_format, self._last_key_len)
-                          + self._last_key
-          + struct.pack(long_format, self._comp_size)
-          + struct.pack(long_format, self._decomp_size)
-                )
+            + struct.pack(short_format, self._first_key_len)
+            + self._first_key
+            + struct.pack(short_format, self._last_key_len)
+            + self._last_key
+            + struct.pack(long_format, self._comp_size)
+            + struct.pack(long_format, self._decomp_size)
+        )

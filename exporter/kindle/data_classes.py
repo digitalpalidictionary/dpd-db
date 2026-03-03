@@ -2,21 +2,29 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.meaning_construction import make_grammar_line
 
+
 class KindleData:
-    def __init__(self, i: DpdHeadword, pth: ProjectPaths, jinja_env, counter: int, inflections: list):
+    def __init__(
+        self,
+        i: DpdHeadword,
+        pth: ProjectPaths,
+        jinja_env,
+        counter: int,
+        inflections: list,
+    ):
         self.i = i
         self.pth = pth
         self.jinja_env = jinja_env
         self.counter = counter
         self.inflections = inflections
-        
+
         # Ported logic from render_ebook_entry
         self.summary = self._generate_summary()
         self._make_html_friendly()
-        
+
         self.grammar_table = self._render_grammar_table()
         self.examples = self._render_examples()
-        
+
     def _generate_summary(self) -> str:
         summary = f"{self.i.pos}. "
         if self.i.plus_case:
@@ -35,9 +43,18 @@ class KindleData:
 
     def _make_html_friendly(self):
         attrs = [
-            "root_base", "construction", "sanskrit", "compound_type",
-            "phonetic", "example_1", "example_2", "sutta_1", "sutta_2",
-            "commentary", "notes", "cognate"
+            "root_base",
+            "construction",
+            "sanskrit",
+            "compound_type",
+            "phonetic",
+            "example_1",
+            "example_2",
+            "sutta_1",
+            "sutta_2",
+            "commentary",
+            "notes",
+            "cognate",
         ]
         for attr in attrs:
             val = getattr(self.i, attr)
@@ -57,7 +74,9 @@ class KindleData:
         if self.i.meaning_1:
             grammar = make_grammar_line(self.i)
             template = self.jinja_env.get_template("ebook_grammar.jinja")
-            html = template.render(i=self.i, grammar=grammar, meaning=self.i.meaning_combo_html)
+            html = template.render(
+                i=self.i, grammar=grammar, meaning=self.i.meaning_combo_html
+            )
             if "&" in html:
                 html = html.replace(" & ", " &amp; ")
             return html

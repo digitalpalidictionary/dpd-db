@@ -637,7 +637,9 @@ class FilterTabView(ft.Column):
                 )
                 if success:
                     if self.preset_dropdown:
-                        preset_names = self.toolkit.filter_presets_manager.list_presets()
+                        preset_names = (
+                            self.toolkit.filter_presets_manager.list_presets()
+                        )
                         self.preset_dropdown.options = [
                             ft.dropdown.Option(name) for name in preset_names
                         ]

@@ -8,6 +8,7 @@ state = {
     "remaining_words": [],
 }
 
+
 def signal_handler(sig, frame):
     """Handle Ctrl+C gracefully."""
     pr.red("\n\nInterrupted!")

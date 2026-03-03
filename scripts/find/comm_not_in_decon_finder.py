@@ -134,12 +134,37 @@ def run_interactive_loop(data: FinderData) -> None:
 
 def ask_for_books() -> list[str]:
     default_books = [
-        "kn7", "kn8", "vina", "dna", "mna", "sna", "ana",
-        "kn1a", "kn2a", "kn3a", "kn4a", "kn5a", "kn6a", "kn7a",
-        "kn8a", "kn9a", "kn10a", "kn11a", "kn12a", "kn13a", "kn14a",
-        "kn15a", "kn16a", "kn17a", "kn19a", "vism", "visma",
+        "kn7",
+        "kn8",
+        "vina",
+        "dna",
+        "mna",
+        "sna",
+        "ana",
+        "kn1a",
+        "kn2a",
+        "kn3a",
+        "kn4a",
+        "kn5a",
+        "kn6a",
+        "kn7a",
+        "kn8a",
+        "kn9a",
+        "kn10a",
+        "kn11a",
+        "kn12a",
+        "kn13a",
+        "kn14a",
+        "kn15a",
+        "kn16a",
+        "kn17a",
+        "kn19a",
+        "vism",
+        "visma",
     ]
-    response = input("enter book(s) [comma-separated, or press enter for all]: ").strip()
+    response = input(
+        "enter book(s) [comma-separated, or press enter for all]: "
+    ).strip()
     if not response:
         return default_books
     return [b.strip() for b in response.split(",") if b.strip()]

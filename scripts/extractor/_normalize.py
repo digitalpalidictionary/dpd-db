@@ -1,5 +1,6 @@
 import re
 
+
 def normalize_headword(word: str) -> str:
     """Normalize a headword for comparison.
 

@@ -1,5 +1,6 @@
 from db.models import DpdHeadword
 
+
 def extract_dpd_headwords(db_session) -> set[str]:
     """Extract normalized headwords from DPD database."""
     headwords = set()

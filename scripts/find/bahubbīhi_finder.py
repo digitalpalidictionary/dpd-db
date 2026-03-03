@@ -118,7 +118,6 @@ def find_bahubbihis():
     total_matches = 0
 
     for i in g.db:
-
         # skip if already reviewed
         if i.id in g.bahubbihi_dict["no"]:
             continue
@@ -135,10 +134,7 @@ def find_bahubbihis():
 
         #! adjective compound where the last element is a noun
         #! and the meaning contains a relative pronoun
-        if (
-            i.pos == "adj"
-            and re.findall(r"\bcomp\b", i.grammar)
-        ):
+        if i.pos == "adj" and re.findall(r"\bcomp\b", i.grammar):
             constr_list = i.construction_clean.split(" + ")
             last_element = constr_list[-1]
 

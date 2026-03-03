@@ -320,7 +320,9 @@ class TranslationsView(ft.Column):
                 card.visible = False
 
         if query:
-            self.count_widget.value = f"Showing {visible_count} / {total_cards} results."
+            self.count_widget.value = (
+                f"Showing {visible_count} / {total_cards} results."
+            )
         elif hasattr(self, "original_count_text"):
             self.count_widget.value = self.original_count_text
 
@@ -359,7 +361,9 @@ class TranslationsView(ft.Column):
                                 color=ft.Colors.BLACK,
                                 bgcolor=FILTER_HIGHLIGHT_COLOUR,
                             )
-                            new_spans.append(ft.TextSpan(text[start:end], style=new_style))
+                            new_spans.append(
+                                ft.TextSpan(text[start:end], style=new_style)
+                            )
                             last_end = end
                         new_spans.append(ft.TextSpan(text[last_end:]))
                         continue
