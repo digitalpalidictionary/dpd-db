@@ -440,7 +440,7 @@ def status_page(request: Request):
     import platform
     import os
     from datetime import datetime
-    from tools.cache_load import _audio_dict_cache
+    from tools.cache_load import load_audio_dict
 
     process = psutil.Process()
     mem_info = process.memory_info()
@@ -488,7 +488,7 @@ def status_page(request: Request):
         "ema_response_time": f"{metrics['ema_time']:.2f} ms",
         "official": metrics["official"],
         "other": metrics["other"],
-        "audio_cache_loaded": _audio_dict_cache is not None,
+        "audio_cache_loaded": load_audio_dict.cache_info().currsize > 0,
     }
 
     return templates.TemplateResponse(
