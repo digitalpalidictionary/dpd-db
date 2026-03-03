@@ -767,7 +767,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi √ghaṭ	abhihan	abhighāta, abhighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	abhi ā √ghaṭ	abhyāhan	abhyāghāta (assault)
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ā √ghaṭ	āhan	anāghāta, āghāta, āghāta +, āghātana, āghātayati, āghātayitvā
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ud √ghaṭ	uddhan	udghaṭayati, udghāṭita, udghāṭin, udghātin
+√ghaṭ 1	8	*e īya	strike, kill	√han √ghaṭ	1, 2, 8	smite	ud √ghaṭ	uddhan	udghaṭayati, udghāṭita, udghāṭin, udghātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	upa √ghaṭ	upahan	upaghāṭayati, upaghāta, upaghātaka, upaghātin, na + upaghāta, sa + upaghāta, sa + upaghātaka
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ni √ghaṭ	nihan	nighāta, nighātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	nī √ghaṭ	nirhan	nirghāta, nirghātana, nirghātayati
@@ -1940,7 +1940,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhā	1	a	shine, speak	√bhā	2	shine	pati √bhā	pratibhā	na + pratibhāti, pratibhāta, pratibhāti, pratibhāna
 √bhā	1	a	shine, speak	√bhā	2	shine	vi √bhā	vibhā	vibhāta, vibhāti, vibhāyate
 √bhā	1	a	shine, speak	√bhā	2	shine	saṃ ni √bhā	nirbhā	saṃnibha
-√bhās 1	1	a	speak	√bhāṣ	1	speak	√bhās	bhāṣ	a + bhāṣaṇa, abhāṣat, abhāṣiṣṭa, durbhāṣita, na + na + bhāṣamāṇa, na + bhāṣamāṇa, na + bhāṣita, na + bhāṣitavya, na + bhāṣya, bhāṣaṇa, bhāṣat, bhāṣati, bhāṣate, bhāṣamāṇa, bhāṣasi, bhāṣā, bhāṣita, bhāṣitavya, bhāṣitum, bhāṣitvā, bhāṣitṛ, bhāṣin, bhāṣiṣyate, bhāṣeta, bhāṣya, bhāṣyamāṇa, subhāṣita, subhāṣitataḥ , subhāṣitāt < subhāṣita
+√bhās 1	1	a	speak	√bhāṣ	1	speak	√bhās	bhāṣ	a + bhāṣaṇa, abhāsīt, abhāṣat, abhāṣiṣṭa, ābhāsīt, durbhāṣita, na + na + bhāṣamāṇa, na + bhāṣamāṇa, na + bhāṣita, na + bhāṣitavya, na + bhāṣya, bhāṣaṇa, bhāṣat, bhāṣati, bhāṣate, bhāṣamāṇa, bhāṣasi, bhāṣā, bhāṣita, bhāṣitavya, bhāṣitum, bhāṣitvā, bhāṣitṛ, bhāṣin, bhāṣiṣyate, bhāṣeta, bhāṣya, bhāṣyamāṇa, subhāṣita, subhāṣitataḥ , subhāṣitāt < subhāṣita
 √bhās 1	1	a	speak	√bhāṣ	1	speak	adhi √bhās	abhibhāṣ	
 √bhās 1	1	a	speak	√bhāṣ	1	speak	anu √bhās	anubhāṣ	anubhāṣaṇa, anubhāṣati
 √bhās 1	1	a	speak	√bhāṣ	1	speak	abhi √bhās		
@@ -2529,6 +2529,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lu	5	nā	cut, reap, mow	√lū	5, 9	cut	vi √lu	vilū	vilūna
 √luj	3	ya	be broken apart	√ruj	6, 10	break	√luj	ruj	ruktvā, rugṇa, ruja, rujati
 √luj	3	ya	be broken apart	√ruj	6, 10	break	ava √luj	avaruj	avarugṇa, avarujati
+√luj	3	ya	be broken apart	√ruj	6, 10	break	ud √luj		avarujati
 √luj	3	ya	be broken apart	√ruj	6, 10	break	pa √luj	praruj	na + pralupta, prarukta, praruja, prarujati, pralopa, pralopāt
 √luj	3	ya	be broken apart	√ruj	6, 10	break	vi √luj	viruj	virugṇa
 √luj	3	ya	be broken apart	√ruj	6, 10	break	vi pa √luj		vi + prarujati

@@ -49,7 +49,7 @@
         ],
         "limit": 0
     },
-    "family compound lemma_1": {
+    "lemma_1: family compound idioms": {
         "data_filters": [
             [
                 "lemma_1",
@@ -100,7 +100,7 @@
         ],
         "limit": 0
     },
-    "lemma_1": {
+    "lemma_1: meaning 1 2 lit": {
         "data_filters": [
             [
                 "lemma_1",
@@ -116,7 +116,7 @@
         ],
         "limit": 0
     },
-    "source_1 -": {
+    "source_1 -: family compound": {
         "data_filters": [
             [
                 "source_1",
@@ -163,7 +163,7 @@
         ],
         "limit": 0
     },
-    "lemma coupound type & construction": {
+    "lemma: coupound type & construction": {
         "data_filters": [
             [
                 "lemma_1"
@@ -177,7 +177,7 @@
         ],
         "limit": 0
     },
-    "lemma_1 constructio derivative": {
+    "lemma_1: construction derivative suffix": {
         "data_filters": [
             [
                 "lemma_1"
@@ -193,7 +193,7 @@
         ],
         "limit": 0
     },
-    "lemma variant": {
+    "lemma_1: syn vars": {
         "data_filters": [
             [
                 "lemma_1"
@@ -207,20 +207,6 @@
             "variant",
             "var_phonetic",
             "var_text"
-        ],
-        "limit": 0
-    },
-    "lemma_1 variant": {
-        "data_filters": [
-            [
-                "lemma_1"
-            ]
-        ],
-        "display_filters": [
-            "lemma_1",
-            "pos",
-            "meaning_1",
-            "variant"
         ],
         "limit": 0
     },
@@ -238,6 +224,41 @@
             "pos",
             "grammar",
             "derived_from"
+        ],
+        "limit": 0
+    },
+    "lemma_1: phonetic": {
+        "data_filters": [
+            [
+                "lemma_1"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "pos",
+            "meaning_1",
+            "meaning_lit",
+            "meaning_2",
+            "phonetic"
+        ],
+        "limit": 0
+    },
+    "root family: root key sign base construction": {
+        "data_filters": [
+            [
+                "root_key"
+            ],
+            [
+                "family_root"
+            ]
+        ],
+        "display_filters": [
+            "lemma_1",
+            "grammar",
+            "root_key",
+            "root_sign",
+            "root_base",
+            "construction"
         ],
         "limit": 0
     }
