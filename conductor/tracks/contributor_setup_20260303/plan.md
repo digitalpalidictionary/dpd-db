@@ -25,11 +25,11 @@
   - [x] Sub-task: Implement contributor username prompt and config storage
   - [x] Sub-task: Implement friendly progress messages and error handling
 
-- [ ] Task 1.4: Implement desktop shortcut creation
-  - [ ] Sub-task: Research and implement `.desktop` file creation for Linux
-  - [ ] Sub-task: Research and implement `.command` or alias creation for macOS
-  - [ ] Sub-task: Research and implement `.lnk` or `.bat` creation for Windows
-  - [ ] Sub-task: Test shortcut creation on available platforms
+- [x] Task 1.4: Implement desktop shortcut creation
+  - [x] Sub-task: Research and implement `.desktop` file creation for Linux
+  - [x] Sub-task: Research and implement `.command` or alias creation for macOS
+  - [x] Sub-task: Research and implement `.lnk` or `.bat` creation for Windows
+  - [x] Sub-task: Test shortcut creation on available platforms
 
 ## Phase 2: GUI Launch Wrapper
 
