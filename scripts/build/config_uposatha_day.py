@@ -44,5 +44,29 @@ def uposatha_day_configger():
     pr.toc()
 
 
+def uposatha_day_reset():
+    """Reset exporter config to baseline after an uposatha day build."""
+    pr.tic()
+    pr.title("uposatha day reset")
+    pr.green_title("resetting config.ini")
+
+    config_update("exporter", "make_grammar", "yes")
+    config_update("exporter", "make_deconstructor", "yes")
+    config_update("exporter", "make_variants", "no")
+    config_update("exporter", "make_ebook", "no")
+    config_update("exporter", "make_tpr", "yes")
+    config_update("exporter", "make_tbw", "no")
+    config_update("exporter", "make_pdf", "no")
+    config_update("exporter", "make_txt", "no")
+    config_update("exporter", "tarball_db", "no")
+    config_update("exporter", "make_abbrev", "no")
+    config_update("exporter", "make_changelog", "no")
+    config_update("exporter", "update_simsapa_db", "no")
+    config_update("exporter", "make_audio_db", "yes")
+    config_update("exporter", "upload_audio_db", "no")
+
+    pr.toc()
+
+
 if __name__ == "__main__":
     uposatha_day_configger()
