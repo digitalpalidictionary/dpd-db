@@ -23,14 +23,13 @@ class AIManager:
     # Ordered list of (provider, model, delay_seconds) tuples as fallback defaults
     DEFAULT_MODELS: list[tuple[str, str, int]] = [
         # gemini
+        ("gemini", "gemini-1.5-flash", 4),
         ("gemini", "gemini-2.5-pro", 12),
         ("gemini", "gemini-2.5-flash", 6),
         ("gemini", "gemini-2.5-flash-lite", 4),
         ("gemini", "gemini-3-flash-preview", 12),
         # openrouter
         ("openrouter", "deepseek/deepseek-v3.2", 5),
-        ("openrouter", "openrouter/aurora-alpha", 5),
-        ("openrouter", "openrouter/pony-alpha", 5),
         ("openrouter", "stepfun/step-3.5-flash:free", 5),
         ("openrouter", "arcee-ai/trinity-large-preview:free", 5),
         ("openrouter", "nvidia/nemotron-3-nano-30b-a3b:free", 5),
