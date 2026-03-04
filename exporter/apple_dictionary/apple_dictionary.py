@@ -30,6 +30,7 @@ from tools.cst_sc_text_sets import make_mula_words_set
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
+from tools.speech_marks import SpeechMarkManager, SpeechMarksDict
 
 
 # Apple Dictionary XML namespace
@@ -142,6 +143,7 @@ def create_dictionary_xml_entry(
     entry_html: str,
     entry_id: str,
     mula_word_set: set[str],
+    speech_marks: SpeechMarksDict,
 ) -> str:
     """Create a single d:entry string for the XML dictionary.
 
@@ -153,6 +155,7 @@ def create_dictionary_xml_entry(
         entry_html: Rendered HTML content for the entry
         entry_id: Unique identifier for this entry
         mula_word_set: Set of words from mūla texts (CST + SC)
+        speech_marks: Mapping of clean words to their apostrophe contraction variants
 
     Returns:
         XML string for the entry
@@ -184,6 +187,15 @@ def create_dictionary_xml_entry(
         if "ṃ" in inflection:
             niggahita_variants.add(inflection.replace("ṃ", "ṁ"))
     mula_inflections |= niggahita_variants
+
+    # Add speech mark variants (apostrophe contractions) for mūla inflections
+    speech_mark_variants: set[str] = set()
+    for inflection in mula_inflections:
+        if inflection in speech_marks:
+            for contraction in speech_marks[inflection]:
+                if "'" in contraction:
+                    speech_mark_variants.add(contraction)
+    mula_inflections |= speech_mark_variants
 
     skip = {lemma_clean, lemma_niggahita}
     for inflection in pali_list_sorter(mula_inflections):
@@ -229,6 +241,11 @@ def generate_dictionary_xml(
     # Build mūla word set for filtering inflections
     mula_word_set = make_mula_words_set(pth)
 
+    pr.green("loading speech marks")
+    speech_marks_manager = SpeechMarkManager(pth)
+    speech_marks = speech_marks_manager.get_speech_marks()
+    pr.yes(f"{len(speech_marks)}")
+
     # Query headwords and sort by lemma_1 using pali_sort_key
     pr.green("querying database")
     query = db_session.query(DpdHeadword)
@@ -266,7 +283,7 @@ def generate_dictionary_xml(
 
             # Create XML entry string
             entry_xml = create_dictionary_xml_entry(
-                group, entry_html, entry_id, mula_word_set
+                group, entry_html, entry_id, mula_word_set, speech_marks
             )
 
             # Write to file

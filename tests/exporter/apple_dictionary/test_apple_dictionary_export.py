@@ -13,6 +13,9 @@ import pytest
 from exporter.apple_dictionary.apple_dictionary import (
     APPLE_NS,
     copy_css_file,
+    create_dictionary_xml_entry,
+    escape_xml_attr,
+    fix_ampersands,
     generate_dictionary_xml,
     generate_info_plist,
 )
@@ -61,13 +64,13 @@ class TestGenerateInfoPlist:
         assert "<string>2.5</string>" in content
 
     def test_contains_copyright(self, temp_dir):
-        """Test that plist contains copyright information."""
+        """Test that plist contains correct copyright value."""
         generate_info_plist(temp_dir, version="1.0")
 
         plist_path = temp_dir / "Info.plist"
         content = plist_path.read_text()
         assert "DCSDictionaryCopyright" in content
-        assert "Digital Pāḷi Dictionary" in content
+        assert "CC BY-NC-SA 4.0" in content
 
     def test_valid_xml_structure(self, temp_dir):
         """Test that generated plist is valid XML."""
@@ -205,3 +208,123 @@ class TestAppleDictionaryConstants:
     def test_apple_namespace_constant(self):
         """Test that APPLE_NS constant has correct value."""
         assert APPLE_NS == "http://www.apple.com/DTDs/DictionaryService-1.0.rng"
+
+
+class TestEscapeXmlAttr:
+    """Unit tests for escape_xml_attr()."""
+
+    def test_escapes_ampersand(self):
+        assert escape_xml_attr("a & b") == "a &amp; b"
+
+    def test_escapes_double_quote(self):
+        assert escape_xml_attr('say "hello"') == "say &quot;hello&quot;"
+
+    def test_escapes_lt_and_gt(self):
+        assert escape_xml_attr("<tag>") == "&lt;tag&gt;"
+
+    def test_apostrophe_not_escaped(self):
+        # html.escape(quote=True) escapes " but NOT '
+        # A literal ' is valid inside double-quoted XML attributes
+        assert escape_xml_attr("pasavatī'ti") == "pasavatī'ti"
+
+    def test_plain_text_unchanged(self):
+        assert escape_xml_attr("dhamma") == "dhamma"
+
+
+class TestFixAmpersands:
+    """Unit tests for fix_ampersands()."""
+
+    def test_bare_ampersand_escaped(self):
+        assert fix_ampersands("a & b") == "a &amp; b"
+
+    def test_existing_amp_entity_unchanged(self):
+        assert fix_ampersands("a &amp; b") == "a &amp; b"
+
+    def test_named_entities_unchanged(self):
+        assert fix_ampersands("&lt; &gt; &quot;") == "&lt; &gt; &quot;"
+
+    def test_numeric_entity_unchanged(self):
+        assert fix_ampersands("&#65;") == "&#65;"
+
+    def test_hex_entity_unchanged(self):
+        assert fix_ampersands("&#x41;") == "&#x41;"
+
+    def test_mixed_bare_and_escaped(self):
+        assert fix_ampersands("a & b &amp; c") == "a &amp; b &amp; c"
+
+
+class MockHeadwordWithInflections:
+    """Minimal mock for create_dictionary_xml_entry tests."""
+
+    def __init__(self, lemma_clean: str, inflections: list[str]):
+        self._lemma_clean = lemma_clean
+        self._inflections = inflections
+
+    @property
+    def lemma_clean(self) -> str:
+        return self._lemma_clean
+
+    @property
+    def inflections_list_all(self) -> list[str]:
+        return self._inflections
+
+
+class TestSpeechMarksIndexExpansion:
+    """Unit tests for speech mark variant indexing in create_dictionary_xml_entry()."""
+
+    def _make_entry(
+        self,
+        lemma_clean: str,
+        inflections: list[str],
+        mula_word_set: set[str],
+        speech_marks: dict[str, list[str]],
+    ) -> str:
+        hw = MockHeadwordWithInflections(lemma_clean, inflections)
+        return create_dictionary_xml_entry(
+            headwords=[hw],
+            entry_html="<p>test</p>",
+            entry_id="test_id",
+            mula_word_set=mula_word_set,
+            speech_marks=speech_marks,
+        )
+
+    def test_apostrophe_variant_is_indexed(self):
+        """Inflection in mūla set with a speech mark variant gets indexed."""
+        xml = self._make_entry(
+            lemma_clean="passati",
+            inflections=["passati", "passatu"],
+            mula_word_set={"passati"},
+            speech_marks={"passati": ["passatī'ti"]},
+        )
+        assert "passatī'ti" in xml
+
+    def test_no_speech_marks_no_apostrophe_index(self):
+        """Inflection with no entry in speech_marks produces no apostrophe indices."""
+        xml = self._make_entry(
+            lemma_clean="dhamma",
+            inflections=["dhamma", "dhammā"],
+            mula_word_set={"dhamma", "dhammā"},
+            speech_marks={},
+        )
+        assert "'" not in xml
+
+    def test_only_apostrophe_contractions_included(self):
+        """Variants without ' are filtered out even if listed in speech_marks."""
+        xml = self._make_entry(
+            lemma_clean="atha",
+            inflections=["atha"],
+            mula_word_set={"atha"},
+            speech_marks={"atha": ["athaNoApostrophe", "atha'ti"]},
+        )
+        assert "atha'ti" in xml
+        assert "athaNoApostrophe" not in xml
+
+    def test_inflection_not_in_mula_set_skipped(self):
+        """An inflection absent from mūla texts is not indexed, even with speech marks."""
+        xml = self._make_entry(
+            lemma_clean="rara",
+            inflections=["rara"],
+            mula_word_set=set(),  # empty — rara not in mūla
+            speech_marks={"rara": ["rara'ti"]},
+        )
+        assert "rara'ti" not in xml
