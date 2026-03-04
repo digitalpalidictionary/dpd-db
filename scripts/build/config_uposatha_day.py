@@ -48,6 +48,12 @@ def uposatha_day_reset():
     """Reset exporter config to baseline after an uposatha day build."""
     pr.tic()
     pr.title("uposatha day reset")
+
+    if not UposathaManger.uposatha_today():
+        pr.green_title("today is not an uposatha")
+        pr.toc()
+        return
+
     pr.green_title("resetting config.ini")
 
     config_update("exporter", "make_grammar", "yes")
