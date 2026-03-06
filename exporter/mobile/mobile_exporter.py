@@ -11,6 +11,7 @@ from aksharamukha import transliterate
 from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.zip_up import zip_up_file
 
 
 # Columns copied as-is from dpd_headwords.
@@ -281,6 +282,15 @@ def copy_family_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
     src.close()
 
 
+def zip_mobile_db(pth: ProjectPaths) -> None:
+    zip_path = pth.dpd_mobile_db_zip_path
+    pr.green("zipping mobile db")
+    zip_up_file(input_file=pth.dpd_mobile_db_path, output_file=zip_path)
+    pr.yes("ok")
+    zip_size = zip_path.stat().st_size / 1_000_000
+    pr.summary("zip size", f"{zip_size:.1f} MB")
+
+
 def main() -> None:
     pr.tic()
     pr.title("export mobile db")
@@ -313,6 +323,8 @@ def main() -> None:
     pr.summary("source db", f"{source_size:.1f} MB")
     pr.summary("mobile db", f"{mobile_size:.1f} MB")
     pr.summary("size reduction", f"{(1 - mobile_size / source_size) * 100:.1f}%")
+
+    zip_mobile_db(g.pth)
 
     pr.toc()
 
