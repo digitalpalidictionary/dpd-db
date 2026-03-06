@@ -77,6 +77,10 @@ export-deconstructor:
 export-variants:
     uv run python exporter/variants/variants_exporter.py
 
+# Export mobile SQLite database for DPD Flutter app
+export-mobile:
+    uv run python exporter/mobile/mobile_exporter.py
+
 # Export TPR data for Tipitaka Pali Reader
 export-tpr:
     uv run python exporter/tpr/tpr_exporter.py

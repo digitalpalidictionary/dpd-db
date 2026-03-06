@@ -222,6 +222,12 @@ jobs:
         echo "=== After TXT export ==="
         $HOME/check_disk.sh
 
+    - name: Export Mobile DB
+      run: |
+        uv run python exporter/mobile/mobile_exporter.py
+        echo "=== After Mobile DB export ==="
+        $HOME/check_disk.sh
+
     # ----------------------------------------
     # Export Apple Dictionary Source
     # ----------------------------------------
@@ -298,6 +304,7 @@ jobs:
           exporter/share/dpd.db.tar.bz2
           exporter/share/dpd-kobo.zip
           exporter/share/dpd-txt.zip
+          exporter/share/dpd-mobile.db
           exporter/share/release_notes.md
         retention-days: 1
 
@@ -409,6 +416,7 @@ jobs:
             ./linux-assets/dpd.db.tar.bz2
             ./linux-assets/dpd-kobo.zip
             ./linux-assets/dpd-txt.zip
+            ./linux-assets/dpd-mobile.db
             ./macos-dictionary/dpd-apple.dictionary.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
