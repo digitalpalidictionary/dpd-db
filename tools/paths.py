@@ -152,6 +152,7 @@ class ProjectPaths:
         self.change_log_md_path = base_dir / "exporter/share/change_log.md"
         self.dpd_txt_path = base_dir / "exporter/share/dpd.txt"
         self.dpd_txt_zip_path = base_dir / "exporter/share/dpd-txt.zip"
+        self.dpd_mobile_db_path = base_dir / "exporter/share/dpd-mobile.db"
 
         # exporter/share/mdict
         self.dpd_deconstructor_mdd_path = (
