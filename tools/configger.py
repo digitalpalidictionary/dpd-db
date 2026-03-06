@@ -52,6 +52,7 @@ DEFAULT_CONFIG = {
         "make_grammar": "no",
         "make_variants": "no",
         "make_tpr": "no",
+        "make_mobile": "no",
         "make_ebook": "no",
         "make_tbw": "no",
         "make_pdf": "no",
