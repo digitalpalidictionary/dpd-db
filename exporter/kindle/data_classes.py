@@ -10,13 +10,15 @@ class KindleData:
         pth: ProjectPaths,
         jinja_env,
         counter: int,
-        inflections: list,
+        inflections: list[str],
+        devanagari_inflections: list[str],
     ):
         self.i = i
         self.pth = pth
         self.jinja_env = jinja_env
         self.counter = counter
         self.inflections = inflections
+        self.devanagari_inflections = devanagari_inflections
 
         # Ported logic from render_ebook_entry
         self.summary = self._generate_summary()

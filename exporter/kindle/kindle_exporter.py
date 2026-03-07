@@ -128,7 +128,14 @@ def render_dpd_xhtml(
     for counter, i in enumerate(dpd_db):
         inflection_list: list[str] = inflections_dict[i.id]
         first_letter = find_first_letter(i.lemma_1)
-        entry = render_ebook_entry(pth, jinja_env, id_counter, i, inflection_list)
+        entry = render_ebook_entry(
+            pth,
+            jinja_env,
+            id_counter,
+            i,
+            inflection_list,
+            i.inflections_devanagari_list,
+        )
         letter_dict[first_letter] += [entry]
         id_counter += 1
         if counter % 5000 == 0:
@@ -167,11 +174,12 @@ def render_ebook_entry(
     jinja_env,
     counter: int,
     i: DpdHeadword,
-    inflections: list,
+    inflections: list[str],
+    devanagari_inflections: list[str],
 ) -> str:
     """Render single word entry."""
     # Logic now encapsulated in ViewModel
-    data = KindleData(i, pth, jinja_env, counter, inflections)
+    data = KindleData(i, pth, jinja_env, counter, inflections, devanagari_inflections)
     template = jinja_env.get_template("ebook_entry.jinja")
     return template.render(data=data)
 
