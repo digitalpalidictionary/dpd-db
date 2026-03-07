@@ -1,3 +1,5 @@
+import copy
+
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.meaning_construction import make_grammar_line
@@ -11,19 +13,17 @@ class KindleData:
         jinja_env,
         counter: int,
         inflections: list[str],
-        devanagari_inflections: list[str],
+        script_inflections: list[str] | None = None,
     ):
-        self.i = i
+        self.i = copy.deepcopy(i)
         self.pth = pth
         self.jinja_env = jinja_env
         self.counter = counter
         self.inflections = inflections
-        self.devanagari_inflections = devanagari_inflections
+        self.script_inflections = script_inflections or []
 
-        # Ported logic from render_ebook_entry
         self.summary = self._generate_summary()
         self._make_html_friendly()
-
         self.grammar_table = self._render_grammar_table()
         self.examples = self._render_examples()
 

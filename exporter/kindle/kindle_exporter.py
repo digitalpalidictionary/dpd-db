@@ -6,6 +6,7 @@ The word set is limited to
 - Sutta Central EBTS
 - words in deconstructed compounds."""
 
+import argparse
 import subprocess
 import platform
 import shutil
@@ -31,13 +32,21 @@ from tools.tsv_read_write import read_tsv_dict
 from exporter.jinja2_env import get_jinja2_env
 from exporter.kindle.data_classes import KindleData
 
+SCRIPT_CONFIG: dict[str, tuple[str, str]] = {
+    "deva": ("inflections_devanagari_list", "dpd-kindle-deva.epub"),
+    "sinhala": ("inflections_sinhala_list", "dpd-kindle-sinhala.epub"),
+    "thai": ("inflections_thai_list", "dpd-kindle-thai.epub"),
+}
+
 
 def render_dpd_xhtml(
     pth: ProjectPaths,
     jinja_env,
+    script_attr: str | None = None,
 ):
     pr.green("querying dpd db")
     db_session = get_db_session(pth.dpd_db_path)
+    db_session.autoflush = False
     dpd_db = db_session.query(DpdHeadword).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
     pr.yes(len(dpd_db))
@@ -128,13 +137,9 @@ def render_dpd_xhtml(
     for counter, i in enumerate(dpd_db):
         inflection_list: list[str] = inflections_dict[i.id]
         first_letter = find_first_letter(i.lemma_1)
+        script_inflections = getattr(i, script_attr) if script_attr else None
         entry = render_ebook_entry(
-            pth,
-            jinja_env,
-            id_counter,
-            i,
-            inflection_list,
-            i.inflections_devanagari_list,
+            pth, jinja_env, id_counter, i, inflection_list, script_inflections
         )
         letter_dict[first_letter] += [entry]
         id_counter += 1
@@ -175,11 +180,10 @@ def render_ebook_entry(
     counter: int,
     i: DpdHeadword,
     inflections: list[str],
-    devanagari_inflections: list[str],
+    script_inflections: list[str] | None = None,
 ) -> str:
     """Render single word entry."""
-    # Logic now encapsulated in ViewModel
-    data = KindleData(i, pth, jinja_env, counter, inflections, devanagari_inflections)
+    data = KindleData(i, pth, jinja_env, counter, inflections, script_inflections)
     template = jinja_env.get_template("ebook_entry.jinja")
     return template.render(data=data)
 
@@ -268,11 +272,12 @@ def save_content_opf_xhtml(
     pr.yes("OK")
 
 
-def zip_epub(pth: ProjectPaths):
+def zip_epub(pth: ProjectPaths, output_path: Path | None = None):
     """Zip up the epub dir and name it dpd-kindle.epub."""
     pr.green("zipping up epub")
     epub_dir_path = Path(pth.epub_dir)
-    with ZipFile(pth.dpd_epub_path, "w", ZIP_DEFLATED) as zipf:
+    dest = output_path or pth.dpd_epub_path
+    with ZipFile(dest, "w", ZIP_DEFLATED) as zipf:
         for file_path in epub_dir_path.rglob("*"):
             if file_path.is_file():
                 zipf.write(file_path, file_path.relative_to(epub_dir_path))
@@ -392,18 +397,34 @@ def render_epd_letter_templ(
     return template.render(letter=letter, entries=entries)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--script", choices=list(SCRIPT_CONFIG.keys()), default=None)
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+
     pr.tic()
     pr.title("rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         pth = ProjectPaths()
         jinja_env = get_jinja2_env("exporter/kindle/templates")
-        id_counter: int = render_dpd_xhtml(pth, jinja_env)
+
+        if args.script:
+            script_attr, epub_name = SCRIPT_CONFIG[args.script]
+            output_path = pth.dpd_epub_path.parent / epub_name
+        else:
+            script_attr, output_path = None, None
+
+        id_counter: int = render_dpd_xhtml(pth, jinja_env, script_attr)
         id_counter = render_epd_xhtml(pth, jinja_env, id_counter)
         save_abbreviations_xhtml_page(pth, jinja_env, id_counter)
         save_title_page_xhtml(pth, jinja_env)
-        zip_epub(pth)
-        make_mobi(pth)
+        zip_epub(pth, output_path=output_path)
+        if not args.script:
+            make_mobi(pth)
     else:
         pr.green_title("disabled in config.ini")
     pr.toc()

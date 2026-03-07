@@ -1,12 +1,12 @@
 <idx:entry name="Pali" scriptable="yes" spell="yes" id="{{ data.counter }}">
     <idx:short>
         <idx:orth value="{{ data.i.lemma_clean }}"><h4>{{ data.i.lemma_1 }}</h4>
-            {% if data.inflections or data.devanagari_inflections %}
+            {% if data.inflections or data.script_inflections %}
             <idx:infl>
                 {% for inflection in data.inflections %}
                 <idx:iform value="{{ inflection }}" exact="yes"></idx:iform>
                 {% endfor %}
-                {% for inflection in data.devanagari_inflections %}
+                {% for inflection in data.script_inflections %}
                 <idx:iform value="{{ inflection }}" exact="yes"></idx:iform>
                 {% endfor %}
             </idx:infl>
