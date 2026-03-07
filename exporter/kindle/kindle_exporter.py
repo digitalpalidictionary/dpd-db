@@ -4,7 +4,12 @@
 The word set is limited to
 - CST EBTS
 - Sutta Central EBTS
-- words in deconstructed compounds."""
+- words in deconstructed compounds.
+
+Use --script to export with additional script inflections:
+- --script deva    → dpd-kindle-deva.epub (Devanagari)
+- --script sinhala → dpd-kindle-sinhala.epub (Sinhala)
+- --script thai    → dpd-kindle-thai.epub (Thai)"""
 
 import argparse
 import subprocess
@@ -32,10 +37,18 @@ from tools.tsv_read_write import read_tsv_dict
 from exporter.jinja2_env import get_jinja2_env
 from exporter.kindle.data_classes import KindleData
 
-SCRIPT_CONFIG: dict[str, tuple[str, str]] = {
-    "deva": ("inflections_devanagari_list", "dpd-kindle-deva.epub"),
-    "sinhala": ("inflections_sinhala_list", "dpd-kindle-sinhala.epub"),
-    "thai": ("inflections_thai_list", "dpd-kindle-thai.epub"),
+SCRIPT_CONFIG: dict[str, tuple[str, str, str]] = {
+    "deva": (
+        "inflections_devanagari_list",
+        "devanagari_unpack",
+        "dpd-kindle-deva.epub",
+    ),
+    "sinhala": (
+        "inflections_sinhala_list",
+        "sinhala_unpack",
+        "dpd-kindle-sinhala.epub",
+    ),
+    "thai": ("inflections_thai_list", "thai_unpack", "dpd-kindle-thai.epub"),
 }
 
 
@@ -43,6 +56,7 @@ def render_dpd_xhtml(
     pth: ProjectPaths,
     jinja_env,
     script_attr: str | None = None,
+    lookup_script_attr: str | None = None,
 ):
     pr.green("querying dpd db")
     db_session = get_db_session(pth.dpd_db_path)
@@ -151,7 +165,12 @@ def render_dpd_xhtml(
     for counter, i in enumerate(deconstructor_db):
         if bool(set(i.lookup_key) & all_words_set):
             first_letter = find_first_letter(i.lookup_key)
-            entry = render_deconstructor_entry(pth, jinja_env, id_counter, i)
+            script_inflections = (
+                getattr(i, lookup_script_attr) if lookup_script_attr else None
+            )
+            entry = render_deconstructor_entry(
+                pth, jinja_env, id_counter, i, script_inflections
+            )
             letter_dict[first_letter] += [entry]
             id_counter += 1
         if counter % 5000 == 0:
@@ -189,14 +208,21 @@ def render_ebook_entry(
 
 
 def render_deconstructor_entry(
-    pth: ProjectPaths, jinja_env, counter: int, i: Lookup
+    pth: ProjectPaths,
+    jinja_env,
+    counter: int,
+    i: Lookup,
+    script_inflections: list[str] | None = None,
 ) -> str:
     """Render deconstructor word entry."""
     construction = i.lookup_key
     deconstruction = "<br/>".join(i.deconstructor_unpack)
     template = jinja_env.get_template("ebook_deconstructor_entry.jinja")
     return template.render(
-        counter=counter, construction=construction, deconstruction=deconstruction
+        counter=counter,
+        construction=construction,
+        deconstruction=deconstruction,
+        script_inflections=script_inflections or [],
     )
 
 
@@ -413,12 +439,14 @@ def main():
         jinja_env = get_jinja2_env("exporter/kindle/templates")
 
         if args.script:
-            script_attr, epub_name = SCRIPT_CONFIG[args.script]
+            script_attr, lookup_script_attr, epub_name = SCRIPT_CONFIG[args.script]
             output_path = pth.dpd_epub_path.parent / epub_name
         else:
-            script_attr, output_path = None, None
+            script_attr, lookup_script_attr, output_path = None, None, None
 
-        id_counter: int = render_dpd_xhtml(pth, jinja_env, script_attr)
+        id_counter: int = render_dpd_xhtml(
+            pth, jinja_env, script_attr, lookup_script_attr
+        )
         id_counter = render_epd_xhtml(pth, jinja_env, id_counter)
         save_abbreviations_xhtml_page(pth, jinja_env, id_counter)
         save_title_page_xhtml(pth, jinja_env)

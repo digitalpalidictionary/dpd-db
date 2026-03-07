@@ -1,5 +1,3 @@
-import copy
-
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.meaning_construction import make_grammar_line
@@ -15,7 +13,7 @@ class KindleData:
         inflections: list[str],
         script_inflections: list[str] | None = None,
     ):
-        self.i = copy.deepcopy(i)
+        self.i = i
         self.pth = pth
         self.jinja_env = jinja_env
         self.counter = counter
