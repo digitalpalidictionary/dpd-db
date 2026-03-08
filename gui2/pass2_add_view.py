@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import copy
+import json
 
 import flet as ft
 
@@ -219,7 +220,20 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                 width=BUTTON_WIDTH,
                                 on_hover=self._on_delete_hover,
                             ),
-                            # Backup & Quit moved to Global tab
+                        ],
+                    ),
+                    ft.Row(
+                        [
+                            ft.ElevatedButton(
+                                "Stash",
+                                on_click=self._click_stash,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.ElevatedButton(
+                                "Unstash",
+                                on_click=self._click_unstash,
+                                width=BUTTON_WIDTH,
+                            ),
                         ],
                     ),
                 ],
@@ -238,6 +252,50 @@ class Pass2AddView(ft.Column, PopUpMixin):
         e.control.bgcolor = ft.Colors.RED if e.data == "true" else None
         e.control.color = "white" if e.data == "true" else None
         e.control.update()
+
+    def _click_stash(self, e: ft.ControlEvent) -> None:
+        """Save all current field values to a JSON stash file."""
+        values = self.dpd_fields.get_current_values()
+        if not values.get("lemma_1"):
+            self.update_message("Nothing to stash")
+            return
+
+        stash_path = self.toolkit.paths.headword_stash_json_path
+        try:
+            stash_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(stash_path, "w", encoding="utf-8") as f:
+                json.dump(values, f, indent=4, ensure_ascii=False)
+        except (OSError, TypeError, ValueError) as ex:
+            self.update_message(f"Stash failed: {ex}")
+            return
+
+        self.update_message(f"Stashed: {values.get('lemma_1', '')}")
+
+    def _click_unstash(self, e: ft.ControlEvent) -> None:
+        """Restore field values from the JSON stash file."""
+        stash_path = self.toolkit.paths.headword_stash_json_path
+        if not stash_path.exists():
+            self.update_message("No stash found")
+            return
+
+        try:
+            with open(stash_path, "r", encoding="utf-8") as f:
+                values = json.load(f)
+        except (json.JSONDecodeError, OSError) as ex:
+            self.update_message(f"Failed to read stash: {ex}")
+            return
+
+        if not isinstance(values, dict) or not values:
+            self.update_message("Stash is empty or invalid")
+            return
+
+        self.clear_all_fields()
+        for name, value in values.items():
+            if name in self.dpd_fields.fields:
+                self.dpd_fields.fields[name].value = value
+
+        self.update_message(f"Unstashed: {values.get('lemma_1', '')}")
+        self.page.update()
 
     def update_message(self, message: str) -> None:
         self._message_field.value = message

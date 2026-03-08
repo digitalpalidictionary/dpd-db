@@ -79,6 +79,7 @@ gui2/data/example_stash.json
 gui2/data/filter_presets.json
 gui2/data/find_words_with_examples_dump.json
 gui2/data/find_words_with_examples_no.json
+gui2/data/headword_stash.json
 gui2/data/history.json
 gui2/data/pass1_auto_*.json
 gui2/data/pass2_auto_failures.txt
