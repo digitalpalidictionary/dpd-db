@@ -5,6 +5,7 @@
 
 import re
 import sqlite3
+import unicodedata
 
 from aksharamukha import transliterate
 
@@ -117,11 +118,17 @@ FAMILY_SET_COLUMNS: list[str] = ["set", "data", "count"]
 
 # Tables copied verbatim from source db (no html columns in these)
 PASSTHROUGH_TABLES: list[str] = [
-    "lookup",
     "sutta_info",
     "inflection_templates",
     "db_info",
 ]
+
+
+def _strip_diacritics_mobile(text: str) -> str:
+    text = text.replace("√", "").replace(" ", "")
+    normalized = unicodedata.normalize("NFD", text)
+    stripped = "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
+    return unicodedata.normalize("NFC", stripped).lower()
 
 
 class GlobalVars:
@@ -229,6 +236,38 @@ def export_roots(g: GlobalVars, dest: sqlite3.Connection) -> None:
     pr.yes(len(batch))
 
 
+def export_lookup(g: GlobalVars, dest: sqlite3.Connection) -> None:
+    pr.green("exporting lookup")
+
+    rows = g.src.execute("SELECT * FROM lookup").fetchall()
+    if not rows:
+        pr.yes(0)
+        return
+
+    orig_cols = list(rows[0].keys())
+    dest_cols = orig_cols + ["fuzzy_key"]
+    col_list = ", ".join(f'"{c}"' for c in dest_cols)
+    placeholders = ", ".join(["?"] * len(dest_cols))
+
+    dest.execute(f"CREATE TABLE lookup ({col_list})")
+    batch = [
+        tuple(r[c] for c in orig_cols) + (_strip_diacritics_mobile(r["lookup_key"]),)
+        for r in rows
+    ]
+    dest.executemany(f"INSERT INTO lookup ({col_list}) VALUES ({placeholders})", batch)
+
+    for idx in g.src.execute(
+        "SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name='lookup' AND sql IS NOT NULL"
+    ).fetchall():
+        try:
+            dest.execute(idx[0])
+        except sqlite3.OperationalError:
+            pass
+
+    dest.execute("CREATE INDEX idx_lookup_fuzzy_key ON lookup (fuzzy_key)")
+    pr.yes(len(batch))
+
+
 def copy_passthrough_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
     src = sqlite3.connect(g.pth.dpd_db_path)
     src.row_factory = sqlite3.Row
@@ -311,6 +350,7 @@ def main() -> None:
 
     export_headwords(g, dest)
     export_roots(g, dest)
+    export_lookup(g, dest)
     copy_passthrough_tables(g, dest)
     copy_family_tables(g, dest)
 
