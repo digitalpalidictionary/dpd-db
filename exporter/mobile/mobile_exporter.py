@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Export a trimmed, mobile-optimised SQLite database for the DPD Flutter app."""
+"""Export a trimmed, mobile-optimised SQLite database for the DPD Flutter app.
+
+Keep DB_SCHEMA_VERSION in sync with AppDatabase.requiredDbSchemaVersion in
+lib/database/database.dart. Bump both when the Drift table definitions change.
+"""
 
 import re
 import sqlite3
@@ -115,6 +119,10 @@ FAMILY_WORD_COLUMNS: list[str] = ["word_family", "data", "count"]
 FAMILY_COMPOUND_COLUMNS: list[str] = ["compound_family", "data", "count"]
 FAMILY_IDIOM_COLUMNS: list[str] = ["idiom", "data", "count"]
 FAMILY_SET_COLUMNS: list[str] = ["set", "data", "count"]
+
+# Must match AppDatabase.requiredDbSchemaVersion in the Flutter app.
+# Bump when Drift table definitions change (added/removed columns).
+DB_SCHEMA_VERSION: int = 2
 
 # Tables copied verbatim from source db (no html columns in these)
 PASSTHROUGH_TABLES: list[str] = [
@@ -321,6 +329,15 @@ def copy_family_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
     src.close()
 
 
+def write_schema_version(dest: sqlite3.Connection) -> None:
+    pr.green("writing db_schema_version")
+    dest.execute(
+        "INSERT OR REPLACE INTO db_info (key, value) VALUES (?, ?)",
+        ("db_schema_version", str(DB_SCHEMA_VERSION)),
+    )
+    pr.yes(DB_SCHEMA_VERSION)
+
+
 def zip_mobile_db(pth: ProjectPaths) -> None:
     zip_path = pth.dpd_mobile_db_zip_path
     pr.green("zipping mobile db")
@@ -353,6 +370,7 @@ def main() -> None:
     export_lookup(g, dest)
     copy_passthrough_tables(g, dest)
     copy_family_tables(g, dest)
+    write_schema_version(dest)
 
     dest.commit()
     dest.close()
