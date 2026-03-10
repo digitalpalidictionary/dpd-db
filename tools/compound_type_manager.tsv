@@ -9,6 +9,7 @@ abhirati	any	last	sattamī	x
 ācikkhana	any	last	chaṭṭhī	x
 ādāna	nt	last	chaṭṭhī	x
 aḍḍha	any	first	chaṭṭhī	aḍḍhakumbhūpama, aḍḍhakula, aḍḍhakosakāhāra, aḍḍhaṭṭhama, aḍḍhateyya, aḍḍhatelasa, aḍḍhamāsikaṃ, aḍḍhullikhita, aḍḍhaṭṭha, aḍḍharatanika
+adhibhū	masc	last	chaṭṭhī tappurisa	x
 adhigata	adj	last	tatiyā	amatamadhigata, ekodibhāvādhigata
 adhimutta	any	last	sattamī	x
 adhimutti	any	last	sattamī	ajjhāsayādhimutti
@@ -51,13 +52,13 @@ araha	any	last	chaṭṭhī	avaṇṇāraha, pādāraha, mahāraha
 assāda	any	last	sattamī	appassāda, evamassāda, bāhirassāda, mahassāda, rittassāda, madhurassāda
 atiga	adj	last	dutiyā tappurisa	x
 aṭṭa	adj	last	tatiyā tappurisa	x
-aṭṭha	any	first	digu	aṭṭhakathā, aṭṭhaguṇaṃ, aṭṭhaṅgasusamāgata, aṭṭhaṅgulapādaka, aṭṭhacattālīsā, aṭṭhatiṃsati, aṭṭhatiṃsā, aṭṭhadosavimuttatta, aṭṭhasata, aṭṭhasama, aṭṭhavīsa, aṭṭhavīsati, aṭṭhārasa 1, aṭṭhārasa 2, aṭṭhusabhagāmī, asīti 1.1, āsītika 1, āsītika 2, aṭṭhasālinī
 attha	any	last	chaṭṭhī tappurisa	x
-aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha
-aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha
 attha	ind	middle	chaṭṭhī tappurisa	x
-aṭṭhika	adj	last	dutiyā tappurisa	setaṭṭhika
+aṭṭha	any	first	digu	aṭṭhakathā, aṭṭhaguṇaṃ, aṭṭhaṅgasusamāgata, aṭṭhaṅgulapādaka, aṭṭhacattālīsā, aṭṭhatiṃsati, aṭṭhatiṃsā, aṭṭhadosavimuttatta, aṭṭhasata, aṭṭhasama, aṭṭhavīsa, aṭṭhavīsati, aṭṭhārasa 1, aṭṭhārasa 2, aṭṭhusabhagāmī, asīti 1.1, āsītika 1, āsītika 2, aṭṭhasālinī
+aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha
+aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha
 atthika	adj	last	tatiyā	sabbatthika, mahatthika
+aṭṭhika	adj	last	dutiyā tappurisa	setaṭṭhika
 aṭṭhika	nt	last	chaṭṭhī	setaṭṭhika
 avadhāna	any	any	chaṭṭhī	x
 avasesa	any	last	chaṭṭhī	x
@@ -86,9 +87,9 @@ danta	adj	last	kammadhāraya > bahubbīhi	x
 dassī	any	last	dutiyā tappurisa	atīradassī, anissaraṇadassī, apāradassī, abhayadassī, avajjadassī, kathaṃdassī, dīghadassī, piyadassī 1, yāthāvadassī, vivekadassī, aparimitadassī, piyadassī 2, anomadassī 2
 datta	any	last	chaṭṭhī	x
 dhamma	adj	last	kammadhāraya > bahubbīhi	x
+dhara	any	last	dutiyā tappurisa	x
+dhara	any	last	dutiyā tappurisa	x
 dhārā	any	last	chaṭṭhī	sammādhārā, tiṇhadhārā
-dhara	any	last	dutiyā tappurisa	x
-dhara	any	last	dutiyā tappurisa	x
 dhārī	adj	last	dutiyā tappurisa	x
 dhītar	any	last	chaṭṭhī	asakyadhītar, ekadhītar
 dhutta	any	last	sattamī	x
@@ -123,6 +124,7 @@ kalyāṇa	any	first	kammadhāraya	x
 kāma	adj	last	dutiyā, tuṃpaccaya	x
 kāma	masc	last	sattamī tappurisa	x
 kanta	any	last	catutthī tappurisa	x
+kaṇṭaka	adj	last	kammadhāraya > bahubbīhi	x
 kappa	adj	last	tatiyā	akatakappa
 kāraka	any	last	dutiyā tappurisa	asannidhikāraka
 karaṇa	any	last	dutiyā tappurisa	x
