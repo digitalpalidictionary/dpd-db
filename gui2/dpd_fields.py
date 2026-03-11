@@ -148,7 +148,6 @@ class DpdFields(PopUpMixin):
                 "meaning_2",
                 multiline=True,
                 field_type="meaning",
-                on_blur=self._handle_generic_spell_check,
             ),
             FieldConfig(
                 "root_key",
