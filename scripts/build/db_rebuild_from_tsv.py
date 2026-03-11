@@ -8,7 +8,6 @@ import sys
 from pathlib import Path
 from typing import Iterator, List, Tuple
 
-from rich import print
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import create_db_if_not_exists, get_db_session
@@ -28,7 +27,7 @@ def main():
     pth = ProjectPaths()
 
     if pth.dpd_db_path.exists():
-        print("[red]this will destroy your current database!")
+        pr.red("this will destroy your current database!")
         # response = input("are you sure you would like to rebuild the db? [y/n] ")
         # if response != "y":
         #     return
@@ -79,13 +78,11 @@ def get_tsv_files(original_path: Path, base_filename: str) -> List[Path]:
     split_files = sorted(backup_dir.glob(split_pattern))
 
     if split_files:
-        pr.green(f"Found {len(split_files)} split {base_filename} files")
         return split_files
 
     # Fall back to single file format
     single_file = backup_dir / f"{base_filename}.tsv"
     if single_file.exists():
-        pr.green(f"Found single {base_filename} file")
         return [single_file]
 
     return []
@@ -102,8 +99,6 @@ def read_tsv_files(file_paths: List[Path]) -> Iterator[Tuple[List[str], List[str
     columns = None
 
     for file_idx, file_path in enumerate(file_paths):
-        pr.green(f"Reading {file_path.name}")
-
         with open(file_path, "r", newline="") as tsv_file:
             csvreader = csv.reader(tsv_file, delimiter="\t", quotechar='"')
 
