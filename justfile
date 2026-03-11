@@ -52,6 +52,9 @@ webapp:
 gui:
     uv run python gui2/main.py
 
+gui-reload:
+    uv run flet run gui2/main.py -d
+
 mkdocs:
     uv run mkdocs serve
 

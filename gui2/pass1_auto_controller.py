@@ -13,6 +13,7 @@ from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.ai_manager import AIResponse
+from tools.clean_machine import clean_machine
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.goldendict_tools import open_in_goldendict
 from tools.printer import printer as pr
@@ -150,6 +151,75 @@ class Pass1AutoController:
 
         if self.unbroken_loop:
             self.ui.update_message(f"Finished processing {self.book}")
+
+    def auto_process_text(self, text: str) -> None:
+        self.ui.clear_all_fields()
+        self.stop_flag = False
+        self.missing_words_dict = {}
+
+        self.ui.update_message("Loading database...")
+        self.db.make_inflections_lists()
+
+        self.book = "text"
+        self.load_auto_processed()
+        self.current_book_processed = 0
+
+        cleaned = clean_machine(text)
+        words = cleaned.split()
+        seen: set[str] = set()
+        for word in words:
+            if word and word not in seen:
+                seen.add(word)
+                if self.is_missing(word):
+                    self.missing_words_dict[word] = []
+
+        self.initial_auto_processed = len(self.auto_processed_dict)
+        self.total_missing = len(self.missing_words_dict)
+        self.unbroken_loop = True
+
+        self.ui.update_message(f"Found {self.total_missing} missing words in text")
+
+        for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
+            self.ui.update_message(f"Processing {self.word_in_text}")
+
+            self.related_entries_list = self.db.get_related_dict_entries(
+                self.word_in_text
+            )
+            self.compile_prompt()
+
+            selected_model_str = self.ui.ai_model_dropdown.value
+            provider_preference = None
+            model_name = None
+            if selected_model_str:
+                parts = selected_model_str.split("|", 1)
+                if len(parts) == 2:
+                    provider_preference, model_name = parts
+
+            ai_resp = self.send_prompt(
+                provider_preference=provider_preference, model=model_name
+            )
+            self.response = ai_resp.content
+            self.ai_status_message = ai_resp.status_message
+            self.ui.update_message(ai_resp.status_message)
+            if self.response is None:
+                self.ui.update_message(
+                    f"Error processing {self.word_in_text}, skipping"
+                )
+                continue
+
+            elif not self.update_auto_processed(provider_preference, model_name):
+                self.ui.update_message(
+                    f"Error processing {self.word_in_text}, skipping"
+                )
+
+            if self.stop_flag:
+                self.ui.clear_all_fields()
+                self.ui.update_message("Stopped processing text")
+                self.unbroken_loop = False
+                break
+
+        if self.unbroken_loop:
+            self.ui.update_message("Finished processing text")
 
     def is_missing(self, word: str):
         if (

@@ -100,6 +100,27 @@ class Pass1AutoView(ft.Column):
             border_radius=20,
         )
 
+        self.text_input_field = ft.TextField(
+            multiline=True,
+            min_lines=10,
+            max_lines=20,
+            label="Paste Pāḷi text here",
+            label_style=TEXT_FIELD_LABEL_STYLE,
+            border_radius=20,
+            expand=True,
+        )
+        self.text_dialog = ft.AlertDialog(
+            title=ft.Text("AutoProcess Text"),
+            content=ft.Container(
+                content=self.text_input_field,
+                width=600,
+            ),
+            actions=[
+                ft.TextButton("Cancel", on_click=self.handle_text_cancel),
+                ft.ElevatedButton("Process", on_click=self.handle_text_submit),
+            ],
+        )
+
         self.controls.extend(
             [
                 ft.Container(
@@ -113,6 +134,10 @@ class Pass1AutoView(ft.Column):
                                         on_click=self.handle_book_click,
                                     ),
                                     self.ai_model_dropdown,
+                                    ft.ElevatedButton(
+                                        "AutoProcess Text",
+                                        on_click=self.handle_text_button_click,
+                                    ),
                                     ft.ElevatedButton(
                                         "Stop",
                                         on_click=self.handle_stop_click,
@@ -152,6 +177,23 @@ class Pass1AutoView(ft.Column):
     def handle_book_click(self, e):
         if self.books_dropdown.value:
             self.controller.auto_process_book(self.books_dropdown.value)
+
+    def handle_text_button_click(self, e):
+        self.text_input_field.value = ""
+        self.page.overlay.append(self.text_dialog)
+        self.text_dialog.open = True
+        self.page.update()
+
+    def handle_text_cancel(self, e):
+        self.text_dialog.open = False
+        self.page.update()
+
+    def handle_text_submit(self, e):
+        text = self.text_input_field.value
+        self.text_dialog.open = False
+        self.page.update()
+        if text and text.strip():
+            self.controller.auto_process_text(text.strip())
 
     def handle_stop_click(self, e):
         self.controller.stop_flag = True
