@@ -58,7 +58,7 @@ def generate_tpr_data(g: GlobalVars):
 
     for counter, i in enumerate(g.dpd_db):
         # Add helper for template
-        i.compound_type_has_digit = bool(re.findall(r"\d", i.compound_type or ""))
+        i.compound_type_has_digit = bool(re.findall(r"\d", i.compound_type or ""))  # type: ignore
 
         html_string = template.render(i=i, today=TODAY)
 
@@ -146,7 +146,7 @@ def generate_deconstructor_data(g: GlobalVars):
             ]
 
     g.deconstructor_data_list = deconstructor_data_list
-    pr.yes(counter)
+    pr.yes(len(deconstructor_data_list))
 
 
 def add_variants(g):
