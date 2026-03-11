@@ -7,7 +7,7 @@ from tools.configger import config_read, config_update
 class UsernameManager:
     def __init__(self, page: ft.Page):
         self.page = page
-        self.username: str | None = None
+        self.username: str | None = config_read("gui2", "username")
         self.username_field = ft.TextField(
             label="Enter your username",
             autofocus=True,

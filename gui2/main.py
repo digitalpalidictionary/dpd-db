@@ -107,18 +107,45 @@ class App:
         self.page.open(dialog)
 
     def _on_check_updates(self, e: ft.ControlEvent) -> None:
-        """Handle Update button click."""
-        from scripts.onboarding.contributor_update import update_environment
+        """Handle Update button click with confirmation."""
 
-        summary = update_environment(Path.cwd())
-        dialog = ft.AlertDialog(
-            title=ft.Text("Update Complete"),
-            content=ft.Text(summary),
+        def _run_update(e: ft.ControlEvent) -> None:
+            self.page.close(confirm_dialog)
+            from scripts.onboarding.contributor_update import update_environment
+
+            summary = update_environment(Path.cwd())
+            result_dialog = ft.AlertDialog(
+                title=ft.Text("Update Complete"),
+                content=ft.Text(summary),
+                actions=[
+                    ft.TextButton(
+                        "OK", on_click=lambda _: self.page.close(result_dialog)
+                    ),
+                ],
+            )
+            self.page.open(result_dialog)
+
+        confirm_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("⚠️ Warning"),
+            content=ft.Text(
+                "This will pull the latest code and may overwrite your "
+                "local dpd.db with the latest release.\n\n"
+                "A backup will be created automatically, but are you sure?"
+            ),
             actions=[
-                ft.TextButton("OK", on_click=lambda _: self.page.close(dialog)),
+                ft.TextButton(
+                    "Cancel",
+                    on_click=lambda _: self.page.close(confirm_dialog),
+                ),
+                ft.TextButton(
+                    "Update",
+                    on_click=_run_update,
+                ),
             ],
+            actions_alignment=ft.MainAxisAlignment.END,
         )
-        self.page.open(dialog)
+        self.page.open(confirm_dialog)
 
     def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""

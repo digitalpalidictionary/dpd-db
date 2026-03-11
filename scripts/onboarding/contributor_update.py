@@ -6,7 +6,9 @@ Updates the contributor environment:
 3. Download latest dpd.db if a newer version is available
 """
 
+import shutil
 import subprocess
+from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -71,6 +73,20 @@ def check_db_update_available(
         return False, None
 
 
+def backup_database(project_root: Path) -> tuple[bool, str]:
+    """Create a timestamped backup of dpd.db before overwriting."""
+    db_path = project_root / "dpd.db"
+    if not db_path.exists():
+        return False, "no database to backup"
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    backup_path = project_root / f"dpd.db.{timestamp}.backup"
+    try:
+        shutil.copy2(db_path, backup_path)
+        return True, str(backup_path)
+    except OSError as e:
+        return False, str(e)
+
+
 def update_environment(project_root: Path) -> str:
     """Run the full update process and return a summary."""
     summary_parts: list[str] = []
@@ -103,6 +119,20 @@ def update_environment(project_root: Path) -> str:
     db_available, db_url = check_db_update_available(current_version or "")
     if db_available and db_url:
         pr.yes("new")
+
+        # Backup before overwriting
+        pr.green("backing up current database")
+        backup_ok, backup_msg = backup_database(project_root)
+        if backup_ok:
+            pr.yes("ok")
+            summary_parts.append(f"Backup: {backup_msg}")
+        else:
+            pr.no("failed")
+            summary_parts.append(f"Backup failed: {backup_msg}")
+            summary_parts.append("Database: skipped (backup failed)")
+            pr.green_title("Update complete!")
+            return "\n".join(summary_parts)
+
         pr.green("downloading new database")
         from scripts.onboarding.contributor_setup import download_database
 
