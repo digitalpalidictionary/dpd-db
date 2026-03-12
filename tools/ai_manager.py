@@ -1,8 +1,31 @@
+import json
 import time
+from pathlib import Path
 from typing import Any, NamedTuple, Optional
 
 from tools.configger import config_read
 from tools.printer import printer as pr
+
+AI_MODELS_PATH = Path("tools/ai_models.json")
+
+
+def _load_models_from_json() -> dict[str, list[tuple[str, str, int]]]:
+    """Load model lists from tools/ai_models.json."""
+    try:
+        data = json.loads(AI_MODELS_PATH.read_text())
+        return {
+            "default": [
+                (m["provider"], m["model"], m["delay"])
+                for m in data.get("default_models", [])
+            ],
+            "grounded": [
+                (m["provider"], m["model"], m["delay"])
+                for m in data.get("grounded_models", [])
+            ],
+        }
+    except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
+        pr.error(f"Failed to load {AI_MODELS_PATH}: {e}")
+        return {"default": [], "grounded": []}
 
 
 class AIResponse(NamedTuple):
@@ -20,31 +43,11 @@ class AIResponse(NamedTuple):
 
 
 class AIManager:
-    # Ordered list of (provider, model, delay_seconds) tuples as fallback defaults
-    DEFAULT_MODELS: list[tuple[str, str, int]] = [
-        # gemini
-        ("gemini", "gemini-1.5-flash", 4),
-        ("gemini", "gemini-2.5-pro", 12),
-        ("gemini", "gemini-2.5-flash", 6),
-        ("gemini", "gemini-2.5-flash-lite", 4),
-        ("gemini", "gemini-3-flash-preview", 12),
-        # openrouter
-        ("openrouter", "inception/mercury-2", 5),
-        ("openrouter", "deepseek/deepseek-v3.2", 5),
-        ("openrouter", "stepfun/step-3.5-flash:free", 5),
-        ("openrouter", "arcee-ai/trinity-large-preview:free", 5),
-        ("openrouter", "nvidia/nemotron-3-nano-30b-a3b:free", 5),
-        ("openrouter", "arcee-ai/trinity-mini:free", 5),
-        ("openrouter", "openai/gpt-oss-120b:free", 5),
-        ("openrouter", "tngtech/deepseek-r1t2-chimera:free", 5),
-    ]
-
-    # Grounded models for internet searches
-    GROUNDED_MODELS = [
-        ("gemini", "gemini-2.5-flash", 6),
-    ]
-
     def __init__(self):
+        models = _load_models_from_json()
+        self.DEFAULT_MODELS: list[tuple[str, str, int]] = models["default"]
+        self.GROUNDED_MODELS: list[tuple[str, str, int]] = models["grounded"]
+
         self.providers: dict[str, Any] = {}
 
         from tools.ai_deepseek_manager import DeepseekManager
@@ -69,10 +72,23 @@ class AIManager:
         else:
             pr.warning("Gemini API key not found, manager not initialized.")
 
+        pr.info(
+            f"loaded {len(self.DEFAULT_MODELS)} default models, {len(self.GROUNDED_MODELS)} grounded models"
+        )
+
         self.last_request_time: float = 0
         self.min_delay_seconds: float = 5
         # NEW: Track last request time per model for model-specific rate limiting
         self.model_last_request: dict[str, float] = {}
+
+    def reload_models(self) -> None:
+        """Reload model lists from tools/ai_models.json."""
+        models = _load_models_from_json()
+        self.DEFAULT_MODELS = models["default"]
+        self.GROUNDED_MODELS = models["grounded"]
+        pr.info(
+            f"reloaded {len(self.DEFAULT_MODELS)} default models, {len(self.GROUNDED_MODELS)} grounded models"
+        )
 
     def _get_model_delay(self, provider: str, model: str) -> float:
         """Get delay for specific model, with fallback to global delay."""

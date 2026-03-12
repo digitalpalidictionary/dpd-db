@@ -51,17 +51,11 @@ class Pass1AutoView(ft.Column):
             border_color=ft.Colors.BLUE_200,
             border_radius=20,
         )
-        self.ai_model_options = [
-            ft.dropdown.Option(
-                key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
-            )
-            for provider, model_name, wait_time in toolkit.ai_manager.DEFAULT_MODELS
-        ]
         self.ai_model_dropdown = ft.Dropdown(
             label="AI Model",
             label_style=TEXT_FIELD_LABEL_STYLE,
             autofocus=True,
-            options=self.ai_model_options,
+            options=self._build_model_options(),
             width=300,
             text_size=14,
             border_color=ft.Colors.BLUE_200,
@@ -134,6 +128,11 @@ class Pass1AutoView(ft.Column):
                                         on_click=self.handle_book_click,
                                     ),
                                     self.ai_model_dropdown,
+                                    ft.IconButton(
+                                        icon=ft.Icons.REFRESH,
+                                        tooltip="Reload AI models",
+                                        on_click=self._on_reload_models,
+                                    ),
                                     ft.ElevatedButton(
                                         "AutoProcess Text",
                                         on_click=self.handle_text_button_click,
@@ -173,6 +172,19 @@ class Pass1AutoView(ft.Column):
                 )
             ]
         )
+
+    def _build_model_options(self) -> list[ft.dropdown.Option]:
+        return [
+            ft.dropdown.Option(
+                key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
+            )
+            for provider, model_name, _delay in self.toolkit.ai_manager.DEFAULT_MODELS
+        ]
+
+    def _on_reload_models(self, e) -> None:
+        self.toolkit.ai_manager.reload_models()
+        self.ai_model_dropdown.options = self._build_model_options()
+        self.ai_model_dropdown.update()
 
     def handle_book_click(self, e):
         if self.books_dropdown.value:

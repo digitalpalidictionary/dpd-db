@@ -22,6 +22,7 @@ class Pass2AutoView(ft.Column):
             spacing=5,
         )
         self.page: ft.Page = page
+        self.toolkit: ToolKit = toolkit
         self.controller = Pass2AutoController(
             self,
             toolkit,
@@ -53,16 +54,10 @@ class Pass2AutoView(ft.Column):
             border_radius=20,
             hint_text="Select a book",
         )
-        self.ai_model_options = [
-            ft.dropdown.Option(
-                key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
-            )
-            for provider, model_name, wait_time in toolkit.ai_manager.DEFAULT_MODELS
-        ]
         self.ai_model_dropdown = ft.Dropdown(
             label="AI Model",
             label_style=TEXT_FIELD_LABEL_STYLE,
-            options=self.ai_model_options,
+            options=self._build_model_options(),
             width=300,
             menu_width=500,
             text_size=14,
@@ -103,6 +98,11 @@ class Pass2AutoView(ft.Column):
                         controls=[
                             self.books_dropdown,
                             self.ai_model_dropdown,
+                            ft.IconButton(
+                                icon=ft.Icons.REFRESH,
+                                tooltip="Reload AI models",
+                                on_click=self._on_reload_models,
+                            ),
                             ft.ElevatedButton(
                                 "AutoProcess Book",
                                 on_click=self.handle_book_click,
@@ -153,6 +153,19 @@ class Pass2AutoView(ft.Column):
 
         self.controls.append(self.top_section)
         self.controls.append(self.results_section)
+
+    def _build_model_options(self) -> list[ft.dropdown.Option]:
+        return [
+            ft.dropdown.Option(
+                key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
+            )
+            for provider, model_name, _delay in self.toolkit.ai_manager.DEFAULT_MODELS
+        ]
+
+    def _on_reload_models(self, e) -> None:
+        self.toolkit.ai_manager.reload_models()
+        self.ai_model_dropdown.options = self._build_model_options()
+        self.ai_model_dropdown.update()
 
     def handle_book_click(self, e: ft.ControlEvent):
         if self.books_dropdown.value:
