@@ -338,7 +338,7 @@ NO_CLONE_LIST = [
     "sutta_2",
     "example_2",
     "translation_2",
-    "synonyms",
+    "synonym",
 ]
 
 NO_SPLIT_LIST = [

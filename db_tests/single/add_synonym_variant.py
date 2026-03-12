@@ -167,23 +167,25 @@ def add_identical_meanings(g: GlobalVars):
                 pyperclip.copy(search_string)
 
                 if choice == "s":
+                    original_synonyms = set(synonyms)
                     for i in db:
-                        synonyms = set(clean_headwords) | set(synonyms)
-                        synonyms = synonyms - set([i.lemma_clean])
-                        synonyms = synonyms - set(i.variant_list)
-                        synonyms = pali_list_sorter(synonyms)
-                        i.synonym = ", ".join(synonyms)
+                        new_synonyms = set(clean_headwords) | original_synonyms
+                        new_synonyms = new_synonyms - set([i.lemma_clean])
+                        new_synonyms = new_synonyms - set(i.variant_list)
+                        new_synonyms = pali_list_sorter(new_synonyms)
+                        i.synonym = ", ".join(new_synonyms)
 
                     print(search_string)
                     g.db_session.commit()
 
                 elif choice == "v":
+                    original_variants = set(variants)
                     for i in db:
-                        variants = set(clean_headwords) | set(variants)
-                        variants = variants - set([i.lemma_clean])
-                        variants = variants - set(i.synonym_list)
-                        variants = pali_list_sorter(variants)
-                        i.variant = ", ".join(variants)
+                        new_variants = set(clean_headwords) | original_variants
+                        new_variants = new_variants - set([i.lemma_clean])
+                        new_variants = new_variants - set(i.synonym_list)
+                        new_variants = pali_list_sorter(new_variants)
+                        i.variant = ", ".join(new_variants)
 
                     print(search_string)
                     g.db_session.commit()
