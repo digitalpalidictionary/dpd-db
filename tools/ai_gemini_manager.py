@@ -59,11 +59,12 @@ class GeminiManager:
             if grounding:
                 google_search_tool = Tool(google_search=GoogleSearch())
                 response = self.client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model=api_model_string,
                     contents=contents,
                     config=GenerateContentConfig(
                         tools=[google_search_tool],
                         response_modalities=["TEXT"],
+                        http_options=HttpOptions(timeout=int(timeout * 1000)),
                     ),
                 )
             else:

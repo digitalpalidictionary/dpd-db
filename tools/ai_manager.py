@@ -114,8 +114,8 @@ class AIManager:
         provider_preference and model are not specified.
         Returns an AIResponse object.
         """
-        # NEW: Model-specific rate limiting
         models_to_try = []
+        errors: list[str] = []
 
         # Use a grounded model for internet searches
         if grounding:
@@ -180,16 +180,18 @@ class AIManager:
                         status_message=status_message,
                     )
                 else:
-                    status_message = f"ERROR in {duration:.2f}s."
+                    status_message = f"{provider_name}/{model_name} ERROR in {duration:.2f}s: {ai_response.status_message}"
                     pr.warning(status_message)
-                    pr.error(ai_response.status_message)
+                    errors.append(status_message)
             except Exception as e:
                 duration = time.monotonic() - start_time
-                status_message = f"ERROR in {duration:.2f}s"
+                status_message = (
+                    f"{provider_name}/{model_name} ERROR in {duration:.2f}s: {e}"
+                )
                 pr.error(status_message)
-                pr.error(str(e))
+                errors.append(status_message)
 
-        final_failure_message = "All AI providers failed."
+        final_failure_message = "All AI providers failed. " + " | ".join(errors)
         pr.error(final_failure_message)
         return AIResponse(content=None, status_message=final_failure_message)
 
