@@ -41,6 +41,11 @@ def uposatha_day_configger():
         config_update("goldendict", "copy_unzip", "yes")
     else:
         pr.green_title("today is not an uposatha")
+
+    if UposathaManger.day_after_uposatha():
+        pr.green_title("day after uposatha — enabling newsletter scrape")
+        config_update("exporter", "scrape_newsletters", "yes")
+
     pr.toc()
 
 
@@ -48,6 +53,10 @@ def uposatha_day_reset():
     """Reset exporter config to baseline after an uposatha day build."""
     pr.tic()
     pr.title("uposatha day reset")
+
+    if UposathaManger.day_after_uposatha():
+        pr.green_title("resetting newsletter scrape flag")
+        config_update("exporter", "scrape_newsletters", "no")
 
     if not UposathaManger.uposatha_today():
         pr.green_title("today is not an uposatha")

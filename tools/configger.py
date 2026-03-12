@@ -63,6 +63,7 @@ DEFAULT_CONFIG = {
         "update_simsapa_db": "no",
         "make_audio_db": "yes",
         "upload_audio_db": "no",
+        "scrape_newsletters": "no",
     },
     "apis": {"openai": "", "deepseek": "", "gemini": "", "openrouter": ""},
     "anki": {"update": "no", "db_path": "", "backup_path": ""},

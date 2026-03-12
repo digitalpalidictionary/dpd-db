@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import configparser
-from datetime import date
+from datetime import date, timedelta
 from typing import Optional
 
 from tools.paths import ProjectPaths
@@ -79,6 +79,12 @@ class UposathaManger:
     def uposatha_today(cls) -> bool:
         """Check if today is an uposatha day."""
         return date.today() in cls.UPOSATHA_DATES
+
+    @classmethod
+    def day_after_uposatha(cls) -> bool:
+        """Check if yesterday was an uposatha day."""
+        yesterday = date.today() - timedelta(days=1)
+        return yesterday in cls.UPOSATHA_DATES
 
     @classmethod
     def read_uposatha_count(cls) -> Optional[str]:

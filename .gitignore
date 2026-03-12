@@ -28,6 +28,8 @@ audio/mp3s/
 audio/tests/mp3s/
 CLAUDE.md
 config.ini
+credentials.json
+token.json
 db/bold_definitions/bold_definitions.json
 db/bold_definitions/bold_definitions.tsv
 db/sinhala/dpd sinhala 1.1.xlsx

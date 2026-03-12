@@ -66,6 +66,7 @@ nav:
   - Contact: "contact.md"
   - License: "license.md"  
   - Changelog: "changelog.md"
+  - Newsletters: "newsletters.md"
   - Pāḷi Notes: "pali_notes/index.md"
   - Developer Docs:
     - "technical/index.md"

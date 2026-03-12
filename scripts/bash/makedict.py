@@ -38,6 +38,7 @@ COMMANDS = [
     "tools/docs_update_bibliography.py",
     "tools/docs_update_thanks.py",
     "tools/docs_changelog_and_release_notes.py",
+    "scripts/build/newsletter_scraper.py",
 
     # Reset config to baseline after uposatha build
     "scripts/build/config_uposatha_reset.py",
