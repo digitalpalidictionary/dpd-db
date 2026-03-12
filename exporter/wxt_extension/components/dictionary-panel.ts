@@ -592,7 +592,7 @@ export class DictionaryPanel {
 
     const logoTooltip = document.createElement("span");
     logoTooltip.className = "dpd-tooltip-text";
-    logoTooltip.textContent = "DPD Website";
+    logoTooltip.textContent = "open DPD website";
     logoGroup.appendChild(logoTooltip);
 
     const logo = document.createElement("img");
