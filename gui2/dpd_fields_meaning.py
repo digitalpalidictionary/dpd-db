@@ -109,7 +109,8 @@ class DpdMeaningField(ft.Column):
             message = self.spellchecker.add_to_dictionary(word_to_add)
             self.ui.update_message(message)
             e.control.value = ""
-            self.page.update()
+            if self.page:
+                self.page.update()
             self.meaning_field.focus()
 
     def _handle_on_focus(self, e: ft.ControlEvent):
@@ -139,4 +140,5 @@ class DpdMeaningField(ft.Column):
             field.error_text = error_string
         else:
             field.error_text = None
-        self.page.update()
+        if self.page:
+            self.page.update()

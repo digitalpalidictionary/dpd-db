@@ -294,6 +294,16 @@ class Pass2AddView(ft.Column, PopUpMixin):
             if name in self.dpd_fields.fields:
                 self.dpd_fields.fields[name].value = value
 
+        stashed_id = values.get("id", "")
+        if stashed_id:
+            try:
+                headword = self._db.get_headword_by_id(int(stashed_id))
+                if headword:
+                    self.headword = headword
+                    self.headword_original = copy.deepcopy(headword)
+            except (ValueError, TypeError):
+                pass
+
         self.update_message(f"Unstashed: {values.get('lemma_1', '')}")
         self.page.update()
 
