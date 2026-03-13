@@ -19,7 +19,7 @@ from tools.printer import printer as pr
 
 class GlobalVars:
     def __init__(self) -> None:
-        pr.green("making prog data")
+        pr.green_tmr("making prog data")
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.apicaevaitihi_dict = defaultdict(list[str])
@@ -56,7 +56,7 @@ def make_apicaevaitihi_dict(g: GlobalVars):
         if counter % 100000 == 0:
             pr.counter(counter, g.lookup_db_len, i.lookup_key)
 
-    pr.green("apicaevaitihi_dict size")
+    pr.green_tmr("apicaevaitihi_dict size")
     pr.yes(len(g.apicaevaitihi_dict))
 
 
@@ -84,14 +84,14 @@ def add_apicaevaitihi_to_inflections(g: GlobalVars):
         if counter % 10000 == 0:
             pr.counter(counter, g.headwords_db_len, i.lemma_1)
 
-    pr.green("updating db")
+    pr.green_tmr("updating db")
     g.db_session.commit()
     pr.yes(len(updated_list))
 
 
 def main():
     pr.tic()
-    pr.title("adding api ca eva iti hi to inflections and lookup table")
+    pr.yellow_title("adding api ca eva iti hi to inflections and lookup table")
     g = GlobalVars()
     make_apicaevaitihi_dict(g)
     add_apicaevaitihi_to_inflections(g)

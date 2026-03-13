@@ -152,9 +152,9 @@ def print_config_settings(sections_to_print=None) -> None:
         sections_to_print = config.sections()
     for section in sections_to_print:
         if config.has_section(section):
-            pr.info(f"[{section}]")
+            pr.green(f"[{section}]")
             for key, value in config.items(section):
-                pr.info(f"{key} = {value}")
+                pr.green(f"{key} = {value}")
 
 
 if __name__ == "__main__":

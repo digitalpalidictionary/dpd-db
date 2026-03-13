@@ -11,7 +11,7 @@ from tools.printer import printer as pr
 
 
 def download_tsv_from_sheets(pth: ProjectPaths):
-    pr.green("downloading tsv from google sheets")
+    pr.green_tmr("downloading tsv from google sheets")
     try:
         url = "https://docs.google.com/spreadsheets/d/1sR8NT204STTwOoDrr9GBjhXVYEn0qqZTxgjoLKMmaaE/export?format=tsv"
         response = requests.get(url, timeout=10)
@@ -20,7 +20,7 @@ def download_tsv_from_sheets(pth: ProjectPaths):
         pr.no("failed")
         return
 
-    pr.green("saving to tsv")
+    pr.green_tmr("saving to tsv")
     try:
         with open(pth.sutta_info_tsv_path, "wb") as f:
             f.write(response.content)
@@ -33,14 +33,14 @@ def update_sutta_info_table(pth: ProjectPaths):
     db_session = get_db_session(pth.dpd_db_path)
     engine = db_session.get_bind()
 
-    pr.green("dropping old sutta_info table")
+    pr.green_tmr("dropping old sutta_info table")
     try:
-        SuttaInfo.__table__.drop(engine, checkfirst=True)
+        SuttaInfo.__table__.drop(engine, checkfirst=True)  # type: ignore[attr-defined]
         pr.yes("ok")
     except Exception as e:
         pr.no(f"could not drop table (might be ok): {e}")
 
-    pr.green("creating sutta_info table")
+    pr.green_tmr("creating sutta_info table")
     try:
         create_tables(pth.dpd_db_path)
         pr.yes("ok")
@@ -49,7 +49,7 @@ def update_sutta_info_table(pth: ProjectPaths):
         db_session.close()
         return
 
-    pr.green("preparing data")
+    pr.green_tmr("preparing data")
     suttas_to_add = []
     # TODO: The source TSV has duplicate sutta names. This script currently
     # skips duplicates and only adds the first instance. The duplicates
@@ -111,10 +111,10 @@ def update_sutta_info_table(pth: ProjectPaths):
         for d in sorted(list(set(duplicates))):
             pr.red(d)
 
-    pr.green(f"adding {len(suttas_to_add)} suttas to db")
+    pr.green_tmr(f"adding {len(suttas_to_add)} suttas to db")
     try:
         if suttas_to_add:
-            db_session.bulk_insert_mappings(SuttaInfo, suttas_to_add)
+            db_session.bulk_insert_mappings(SuttaInfo, suttas_to_add)  # type: ignore[arg-type]
 
         db_session.commit()
         pr.yes("ok")
@@ -127,7 +127,7 @@ def update_sutta_info_table(pth: ProjectPaths):
 
 def main():
     pr.tic()
-    pr.title("update sutta_info table")
+    pr.yellow_title("update sutta_info table")
     pth = ProjectPaths()
     download_tsv_from_sheets(pth)
     update_sutta_info_table(pth)

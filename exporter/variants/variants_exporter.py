@@ -49,14 +49,14 @@ def make_synonyms_bjt(synonyms_list: list[str], variant: str) -> list[str]:
 
 def main():
     pr.tic()
-    pr.title("exporting variants to mdict and goldendict")
+    pr.yellow_title("exporting variants to mdict and goldendict")
 
     if config_test("exporter", "make_variants", "no"):
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
 
-    pr.green("setting up data")
+    pr.green_tmr("setting up data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     variants_db: list[Lookup] = (
@@ -75,7 +75,7 @@ def main():
 
     pr.yes("")
 
-    pr.green("writing html")
+    pr.green_tmr("writing html")
 
     for word, data_tuple in variants_dict.items():
         html_list: list[str] = []

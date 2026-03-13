@@ -22,10 +22,10 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("updating anki")
+    pr.yellow_title("updating anki")
 
     # setup dbs
-    pr.green("setup dbs")
+    pr.green_tmr("setup dbs")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -68,10 +68,10 @@ def family_updater(anki_data_list, deck):
 
 
 def get_anki_collection() -> Collection | None:
-    pr.green("get anki collection")
+    pr.green_tmr("get anki collection")
     anki_db_path = config_read("anki", "db_path")
     try:
-        col = Collection(anki_db_path)
+        col = Collection(anki_db_path)  # type: ignore[arg-type]
         pr.yes("ok")
         return col
     except DBError:
@@ -83,7 +83,7 @@ def get_anki_collection() -> Collection | None:
 def backup_anki_db(col) -> None:
     """backup anki db"""
 
-    pr.green("backup anki db")
+    pr.green_tmr("backup anki db")
     anki_backup_path = config_read("anki", "backup_path")
     if anki_backup_path:
         is_backed_up = col.create_backup(
@@ -118,7 +118,7 @@ def make_search_query(decks):
 def get_notes(col: Collection, decks: List[str]) -> List[Note]:
     """get all notes for a list of decks"""
 
-    pr.green("get notes")
+    pr.green_tmr("get notes")
 
     search_query = make_search_query(decks)
     note_ids = col.find_notes(search_query)
@@ -131,7 +131,7 @@ def get_notes(col: Collection, decks: List[str]) -> List[Note]:
 def get_cards(col: Collection, decks: List[str]) -> List[Card]:
     """get all cards for a list of decks"""
 
-    pr.green("get cards")
+    pr.green_tmr("get cards")
 
     search_query = make_search_query(decks)
     card_ids = col.find_cards(search_query)
@@ -142,7 +142,7 @@ def get_cards(col: Collection, decks: List[str]) -> List[Card]:
 
 def get_decks(col: Collection) -> Dict:
     """get all decks"""
-    pr.green("get decks")
+    pr.green_tmr("get decks")
 
     decks = col.decks.all()
     deck_dict = {deck["name"]: deck["id"] for deck in decks}
@@ -159,7 +159,7 @@ def get_decks(col: Collection) -> Dict:
 
 def get_models(col: Collection) -> dict:
     # get models
-    pr.green("get models")
+    pr.green_tmr("get models")
 
     models = col.models.all()
     model_dict = {model["name"]: model["id"] for model in models}
@@ -171,7 +171,7 @@ def get_models(col: Collection) -> dict:
 def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
     """make data dict"""
 
-    pr.green("make data_dict")
+    pr.green_tmr("make data_dict")
     data_dict = {}
 
     for note in notes:
@@ -259,7 +259,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
 
 
 def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> None:
-    pr.green("updating anki collection")
+    pr.green_tmr("updating anki collection")
 
     added_list = []
     updated_list = []

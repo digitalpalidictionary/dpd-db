@@ -46,7 +46,7 @@ class GlobalVars:
 
 def main():
     pr.tic()
-    pr.title("exporting grammar data")
+    pr.yellow_title("exporting grammar data")
 
     g = GlobalVars()
 
@@ -88,17 +88,17 @@ def make_sets_of_words(g: GlobalVars):
     all words in the tipitaka + all the words in deconstructed compounds"""
 
     # tipitaka word set
-    pr.green("all tipitaka words")
+    pr.green_tmr("all tipitaka words")
     tipitaka_word_set = make_all_tipitaka_word_set()
     pr.yes(len(tipitaka_word_set))
 
     # word in deconstructed compounds
-    pr.green("all words in deconstructions")
+    pr.green_tmr("all words in deconstructions")
     words_in_deconstructions_set = make_words_in_deconstructions(g.db_session)
     pr.yes(len(words_in_deconstructions_set))
 
     # all words set
-    pr.green("all words set")
+    pr.green_tmr("all words set")
     g.all_words_set = tipitaka_word_set | words_in_deconstructions_set
     pr.yes(len(g.all_words_set))
 
@@ -215,7 +215,7 @@ def generate_grammar_data(g: GlobalVars):
         if counter % 5000 == 0:
             pr.counter(counter, len(g.db), i.lemma_1)
 
-    pr.green("compiling grammar data")
+    pr.green_tmr("compiling grammar data")
     g.grammar_data = grammar_data
     pr.yes(len(g.grammar_data))
 
@@ -223,7 +223,7 @@ def generate_grammar_data(g: GlobalVars):
 def add_to_lookup_table(g: GlobalVars):
     """Add the grammar data items to the Lookup table."""
 
-    pr.green("saving to Lookup table")
+    pr.green_tmr("saving to Lookup table")
 
     lookup_table = g.db_session.query(Lookup).all()
     results = update_test_add(lookup_table, g.grammar_data)

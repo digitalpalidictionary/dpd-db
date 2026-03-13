@@ -35,7 +35,7 @@ def make_cst_text_set(
     - Optionally add the parts of hyphenated word (add_hyphenated_parts=True)
     - Return a disordered set.
     """
-    pr.green("making cst text set")
+    pr.green_tmr("making cst text set")
     cst_texts_list: List[str] = []
 
     for i in books:
@@ -161,19 +161,19 @@ def extract_sutta_from_file(
 ) -> Optional[str]:
     # Read the file content
 
-    pr.info(f"sutta_name : {sutta_name}")
+    pr.green(f"sutta_name : {sutta_name}")
 
-    pr.info(f"text_string : {len(text_string)}")
-    pr.info(f"book : {books}")
+    pr.green(f"text_string : {len(text_string)}")
+    pr.green(f"book : {books}")
 
     # Search for the beginning of the sutta using the sutta_name
     start_index = text_string.find(sutta_name)
 
     # If sutta_name is not found in the text_string, return None
     if start_index == -1:
-        pr.error(f"'{sutta_name}' not found in the text_string.")
+        pr.red(f"'{sutta_name}' not found in the text_string.")
         return None
-    pr.info(f"Start index of sutta: {start_index}")
+    pr.green(f"Start index of sutta: {start_index}")
 
     # Adjust end pattern based on the file's name
     if books[0].startswith(("dn", "mn")):
@@ -181,7 +181,7 @@ def extract_sutta_from_file(
     elif books[0].startswith(("sn", "an", "kd")):
         end_pattern = "suttaṃ"
     else:
-        pr.error(f"Unknown file name pattern: {text_string}")
+        pr.red(f"Unknown file name pattern: {text_string}")
         return None
 
     # Search for the end of the sutta using the end_pattern
@@ -189,17 +189,17 @@ def extract_sutta_from_file(
 
     # If the end pattern is not found after the start index, return None
     if end_index == -1:
-        pr.error(
+        pr.red(
             f"End pattern '{end_pattern}' not found in the text_string after '{sutta_name}'."
         )
         return None
-    pr.info(f"End index of sutta: {end_index}")
+    pr.green(f"End index of sutta: {end_index}")
 
     # Extract the sutta from the text_string using the start and end indices
     sutta = text_string[start_index : end_index + len(end_pattern)]
 
-    pr.info(f"sutta : {sutta}")
-    pr.info("sutta_end")
+    pr.green(f"sutta : {sutta}")
+    pr.green("sutta_end")
 
     return sutta
 
@@ -382,7 +382,7 @@ def make_sc_text_set(
     Optionally change the niggahita character.
     Return a list or a set."""
 
-    pr.green("making sc text set")
+    pr.green_tmr("making sc text set")
 
     # make a list of file names of included books
     sc_texts_list: List[str] = []
@@ -515,7 +515,7 @@ def make_all_words_set(pth: ProjectPaths) -> Set[str]:
 def make_other_pali_texts_set(pth: ProjectPaths) -> Set[str]:
     """Compile a set of all words in other pali texts, chanting books, etc."""
 
-    pr.green("making set of other pali texts")
+    pr.green_tmr("making set of other pali texts")
     other_pali_texts_set: Set[str] = set()
 
     dir_path = pth.other_pali_texts_dir

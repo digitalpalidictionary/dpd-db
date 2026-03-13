@@ -143,7 +143,7 @@ class ElevenLabsManager:
     def generate_and_save_audio(self, vox_item: VoxItem) -> None:
         """Generates audio for the given text and saves it to output_path."""
 
-        pr.green(vox_item.lemma_clean)
+        pr.green_tmr(vox_item.lemma_clean)
 
         file_path = self.output_dir / f"{vox_item.lemma_clean}.mp3"
 
@@ -182,7 +182,7 @@ class ElevenLabsManager:
 
 def main():
     pr.tic()
-    pr.title("generating audio files")
+    pr.yellow_title("generating audio files")
     vox_manager = VoxManager()
     eleven_labs_manager = ElevenLabsManager()
 

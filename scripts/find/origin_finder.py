@@ -24,9 +24,9 @@ def main() -> None:
     # Get unique origin values, filtering out None if they are not considered a distinct category
     unique_origins: set[str] = {origin for origin in all_origins if origin is not None}
 
-    pr.green("Unique values in DpdHeadword.origin:")
+    pr.green_tmr("Unique values in DpdHeadword.origin:")
     for origin_value in sorted(list(unique_origins)):
-        pr.info(origin_value)
+        pr.green(origin_value)
 
 
 if __name__ == "__main__":

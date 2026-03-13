@@ -26,7 +26,7 @@ pth = ProjectPaths()
 def get_latest_release():
     """Get latest release information from GitHub."""
 
-    pr.green("fetching latest GitHub release")
+    pr.green_tmr("fetching latest GitHub release")
     headers = {"Accept": "application/vnd.github.v3+json"}
     try:
         response = requests.get(
@@ -47,7 +47,7 @@ def get_latest_release():
 
 def find_archive_asset(release_info):
     """Find the database archive in release assets."""
-    pr.green("finding .tar.gz")
+    pr.green_tmr("finding .tar.gz")
     assets = release_info.get("assets", [])
 
     for asset in assets:
@@ -111,7 +111,7 @@ def download_archive(asset):
         pr.red("file too small to be a database")
         return None
 
-    pr.info(f"saved to: {archive_path}")
+    pr.green(f"saved to: {archive_path}")
     return archive_path
 
 
@@ -120,13 +120,13 @@ def extract_database(archive_path):
 
     db_dir = pth.dpd_audio_db_path.parent
     extract_tarball(archive_path, db_dir, preserve_structure=False)
-    pr.info(f"saved to: {pth.dpd_audio_db_path}")
+    pr.green(f"saved to: {pth.dpd_audio_db_path}")
     return True
 
 
 def main():
     pr.tic()
-    pr.title("download db release")
+    pr.yellow_title("download db release")
 
     release_info = get_latest_release()
     if not release_info:

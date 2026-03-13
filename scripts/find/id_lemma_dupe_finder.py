@@ -10,7 +10,7 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("finding dupes in id and lemma1")
+    pr.yellow_title("finding dupes in id and lemma1")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -21,12 +21,12 @@ def main():
         if i.lemma_1 not in lemma_1_set:
             lemma_1_set.add(i.lemma_1)
         else:
-            pr.error(f"!!! DUPE !!! {i.lemma_1}")
+            pr.red(f"!!! DUPE !!! {i.lemma_1}")
 
         if i.id not in id_set:
             id_set.add(i.id)
         else:
-            pr.error(f"!!! DUPE !!! {i.id}")
+            pr.red(f"!!! DUPE !!! {i.id}")
     print(f"lemma_1 {len(lemma_1_set)}")
     print(f"id      {len(id_set)}")
 

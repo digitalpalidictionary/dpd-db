@@ -12,7 +12,7 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("remove word family")
+    pr.yellow_title("remove word family")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

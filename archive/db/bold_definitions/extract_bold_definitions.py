@@ -182,7 +182,7 @@ def extract_bold_definitions(pth):
             print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
             bold_total += bold_count2
 
-    pr.green("bold_total")
+    pr.green_tmr("bold_total")
     pr.yes(len(bold_definitions_list))
     return bold_definitions_list
 
@@ -190,7 +190,7 @@ def extract_bold_definitions(pth):
 def export_json(pth, bold_definitions_list):
     """convert to tsv and json for rebuilding the db and external use."""
 
-    pr.green("saving json")
+    pr.green_tmr("saving json")
 
     file_path = pth.bold_definitions_tsv_path
     write_tsv_dot_dict(file_path, bold_definitions_list)
@@ -205,7 +205,7 @@ def export_json(pth, bold_definitions_list):
 def update_db(pth, bold_definitions):
     """Add bold definitions to dpd.db."""
 
-    pr.green("adding definitions to db")
+    pr.green_tmr("adding definitions to db")
     db_session = get_db_session(pth.dpd_db_path)
     add_to_db = []
 
@@ -233,7 +233,7 @@ def update_db(pth, bold_definitions):
 
 def main():
     pr.tic()
-    pr.title("building database of bolded definitions")
+    pr.yellow_title("building database of bolded definitions")
 
     pth = ProjectPaths()
 

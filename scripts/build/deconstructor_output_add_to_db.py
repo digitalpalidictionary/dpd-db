@@ -23,14 +23,14 @@ from tools.configger import config_test
 
 def main():
     pr.tic()
-    pr.title("adding deconstructor output to lookup db")
+    pr.yellow_title("adding deconstructor output to lookup db")
 
     if not config_test("deconstructor", "use_premade", "yes"):
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
 
-    pr.green("setting up data")
+    pr.green_tmr("setting up data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     lookup_db: list[Lookup] = db_session.query(Lookup).all()
@@ -44,7 +44,7 @@ def main():
 
     update_set, test_set, add_set = update_test_add(lookup_db, top_five_dict)
 
-    pr.green("updating db")
+    pr.green_tmr("updating db")
 
     # update test add
     update_count = 0
@@ -63,7 +63,7 @@ def main():
     pr.yes(update_count)
 
     # add
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
     add_to_db = []
     for constructed, deconstructed in top_five_dict.items():
         if constructed in add_set:

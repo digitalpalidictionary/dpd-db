@@ -44,10 +44,10 @@ class GlobalVars:
 
 def main():
     pr.tic()
-    pr.title("exporting grammar dictionary")
+    pr.yellow_title("exporting grammar dictionary")
 
     if not config_test("exporter", "make_grammar", "yes"):
-        pr.green("disabled in config.ini")
+        pr.green_tmr("disabled in config.ini")
         pr.toc()
         return
 
@@ -65,7 +65,7 @@ def main():
 
 def generate_html_from_lookup(g: GlobalVars):
     """Generate HTML grammar tables from Lookup table data."""
-    pr.green("querying database")
+    pr.green_tmr("querying database")
 
     lookup_results = (
         g.db_session.query(Lookup)
@@ -75,7 +75,7 @@ def generate_html_from_lookup(g: GlobalVars):
 
     pr.yes(f"{len(lookup_results)}")
 
-    pr.green("compiling html")
+    pr.green_tmr("compiling html")
 
     jinja_env = get_jinja2_env("exporter/grammar_dict")
     template = jinja_env.get_template("grammar.jinja")
@@ -103,7 +103,7 @@ def generate_html_from_lookup(g: GlobalVars):
 
 def make_data_lists(g: GlobalVars):
     """Make the data_lists to be consumed by GoldenDict and MDict"""
-    pr.green("making data lists")
+    pr.green_tmr("making data lists")
 
     dict_data: list[DictEntry] = []
     for word, html in g.html_dict.items():

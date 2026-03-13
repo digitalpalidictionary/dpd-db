@@ -50,7 +50,7 @@ def generate_help_html(
     pth: ProjectPaths,
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
-    pr.green("generating help html")
+    pr.green_tmr("generating help html")
 
     size_dict = default_rendered_sizes()
 

@@ -7,7 +7,7 @@ from db.models import DpdHeadword
 from gui2.dpd_fields_functions import clean_example, remove_brackets
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractionManager
+from tools.sandhi_contraction import SandhiContractionManager  # type: ignore[import-untyped]
 
 
 def main():
@@ -20,15 +20,15 @@ def main():
         if i.meaning_1 == "":
             if i.example_1:
                 i.example_1 = remove_brackets(clean_example(i.example_1, sandhi_dict))
-                pr.info("")
-                pr.info(i.lemma_1)
-                pr.info(i.example_1)
+                pr.green("")
+                pr.green(i.lemma_1)
+                pr.green(i.example_1)
 
             if i.example_2:
                 i.example_2 = remove_brackets(clean_example(i.example_2, sandhi_dict))
-                pr.info("")
-                pr.info(i.lemma_1)
-                pr.info(i.example_2)
+                pr.green("")
+                pr.green(i.lemma_1)
+                pr.green(i.example_2)
 
     db_session.commit()
 

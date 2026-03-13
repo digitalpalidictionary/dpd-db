@@ -20,18 +20,18 @@ def create_tarball(
     """
     pr.green_title(f"archiving {tarball_name}")
 
-    pr.white("adding files")
+    pr.white_tmr("adding files")
     with tarfile.open(tarball_name, f"w:{compression}") as tar:  # type: ignore
         for file in source_files:
             tar.add(file, arcname=os.path.basename(file))
     pr.yes("ok")
 
-    pr.white("tarball size in MB")
+    pr.white_tmr("tarball size in MB")
     tar_size = os.path.getsize(tarball_name)
     tar_size_mb = tar_size / 1024 / 1024
     pr.yes(f"{tar_size_mb:.3f}")
 
-    pr.white("moving to destination folder")
+    pr.white_tmr("moving to destination folder")
     os.rename(tarball_name, os.path.join(destination_dir, tarball_name))
     pr.yes("ok")
 
@@ -56,7 +56,7 @@ def extract_tarball(
     # Create destination directory if it doesn't exist
     destination_dir.mkdir(parents=True, exist_ok=True)
 
-    pr.green("extracting files")
+    pr.green_tmr("extracting files")
     with tarfile.open(tarball_path, "r:*") as tar:
         for member in tar.getmembers():
             if preserve_structure:

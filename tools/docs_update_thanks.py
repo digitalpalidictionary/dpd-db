@@ -29,7 +29,7 @@ def update_mkdocs_thanks():
     thanks_md = "".join(thanks_data)
 
     # save markdown for website
-    pr.green("saving thanks to mkdocs")
+    pr.green_tmr("saving thanks to mkdocs")
     if pth.docs_thanks_md_path.exists():
         pth.docs_thanks_md_path.write_text(thanks_md)
         pr.yes("ok")
@@ -40,7 +40,7 @@ def update_mkdocs_thanks():
 
 def main():
     pr.tic()
-    pr.title("updating mkdocs thanks")
+    pr.yellow_title("updating mkdocs thanks")
     update_mkdocs_thanks()
     pr.toc()
 

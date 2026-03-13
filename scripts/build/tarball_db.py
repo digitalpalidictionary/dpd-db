@@ -10,7 +10,7 @@ from tools.tarballer import create_tarball
 
 def main():
     pr.tic()
-    pr.title("tarballing db")
+    pr.yellow_title("tarballing db")
 
     if config_test("exporter", "tarball_db", "no"):
         pr.green_title("disabled in config.ini")

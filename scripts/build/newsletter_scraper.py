@@ -50,7 +50,7 @@ def get_gmail_service(pth: ProjectPaths):
             creds.refresh(Request())
         else:
             if not pth.gmail_credentials_path.exists():
-                pr.warning("credentials.json not found — skipping newsletter scrape")
+                pr.amber("credentials.json not found — skipping newsletter scrape")
                 return None
             flow = InstalledAppFlow.from_client_secrets_file(
                 str(pth.gmail_credentials_path), SCOPES
@@ -142,7 +142,7 @@ def download_image(url: str, pics_dir: Path) -> str | None:
         return filename
 
     except Exception as e:
-        pr.warning(f"failed to download image {url}: {e}")
+        pr.amber(f"failed to download image {url}: {e}")
         return None
 
 
@@ -165,7 +165,7 @@ def fetch_cid_attachment(
         filepath.write_bytes(data)
         return filename
     except Exception as e:
-        pr.warning(f"failed to fetch CID attachment {cid}: {e}")
+        pr.amber(f"failed to fetch CID attachment {cid}: {e}")
         return None
 
 
@@ -239,7 +239,7 @@ def process_email(
 
     html_body = get_html_body(msg.get("payload", {}))
     if not html_body:
-        pr.warning(f"no HTML body found for: {subject}")
+        pr.amber(f"no HTML body found for: {subject}")
         return None
 
     soup = BeautifulSoup(html_body, "html.parser")
@@ -296,7 +296,7 @@ def build_newsletters_md(emails: list[dict], output_path: Path) -> None:
 
 def main() -> None:
     pr.tic()
-    pr.title("newsletter scraper")
+    pr.yellow_title("newsletter scraper")
 
     if not config_test("exporter", "scrape_newsletters", "yes"):
         pr.green_title("disabled in config.ini")
@@ -306,22 +306,22 @@ def main() -> None:
     pth = ProjectPaths()
     pth.docs_newsletters_pics_dir.mkdir(parents=True, exist_ok=True)
 
-    pr.green("authenticating with gmail")
+    pr.green_tmr("authenticating with gmail")
     service = get_gmail_service(pth)
     if service is None:
         pr.toc()
         return
     pr.yes("ok")
 
-    pr.green("finding label")
+    pr.green_tmr("finding label")
     label_id = get_label_id(service, GMAIL_LABEL)
     if label_id is None:
-        pr.warning(f"gmail label '{GMAIL_LABEL}' not found")
+        pr.amber(f"gmail label '{GMAIL_LABEL}' not found")
         pr.toc()
         return
     pr.yes("ok")
 
-    pr.green("fetching message list")
+    pr.green_tmr("fetching message list")
     all_message_ids = get_all_message_ids(service, label_id)
     pr.yes(str(len(all_message_ids)))
 
@@ -332,7 +332,7 @@ def main() -> None:
         )
 
     new_ids = [mid for mid in all_message_ids if mid not in processed]
-    pr.green("new emails to process")
+    pr.green_tmr("new emails to process")
     pr.yes(str(len(new_ids)))
 
     for i, message_id in enumerate(new_ids):
@@ -342,7 +342,7 @@ def main() -> None:
             processed[message_id] = result
 
     all_emails = list(processed.values())
-    pr.green("building newsletters.md")
+    pr.green_tmr("building newsletters.md")
     build_newsletters_md(all_emails, pth.docs_newsletters_md_path)
     pr.yes(str(len(all_emails)))
 

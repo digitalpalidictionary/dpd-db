@@ -60,7 +60,7 @@ class TtsManager:
         # hindi
         self.lang = "hi"
         self.text = f"{self.convert_to_devanagari(word)}."
-        pr.white(self.text)
+        pr.white_tmr(self.text)
         self.file_path = self.output_dir / f"{word}_hi.mp3"
         self.tts_convert_and_save()
         pr.yes("")
@@ -68,7 +68,7 @@ class TtsManager:
         # kannada
         self.lang = "kn"
         self.text = f"{self.convert_to_kannada(word)}."
-        pr.white(self.text)
+        pr.white_tmr(self.text)
         self.file_path = self.output_dir / f"{word}_kn.mp3"
         self.tts_convert_and_save()
         pr.yes("")
@@ -86,7 +86,7 @@ class TtsManager:
 
 def main():
     pr.tic()
-    pr.title("generating tts files")
+    pr.yellow_title("generating tts files")
     tts = TtsManager()
 
     for word in tts.all_words_dict:

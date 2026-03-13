@@ -20,7 +20,7 @@ def write_temp_file(found: list[str]):
 
 
 def find_deconstructions(find_me: str):
-    pr.title("finding deconstructions")
+    pr.yellow_title("finding deconstructions")
 
     p = ProjectPaths()
     file_path = p.go_deconstructor_output_dir.joinpath("matches.tsv")

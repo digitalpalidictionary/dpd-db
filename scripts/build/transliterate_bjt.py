@@ -22,7 +22,7 @@ roman_dir = pth.bjt_roman_json_dir
 
 def transliterate_json():
     pr.tic()
-    pr.title("transliterating tipitaka.lk json files")
+    pr.yellow_title("transliterating tipitaka.lk json files")
 
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
@@ -44,7 +44,7 @@ def transliterate_json():
 
 
 def get_file_names():
-    pr.green("get actual file names")
+    pr.green_tmr("get actual file names")
     file_list = []
     for root, dirs, files in walk(sinhala_dir):
         for counter, file in enumerate(files, 1):
@@ -57,11 +57,11 @@ def get_file_names():
 
 
 def test_file_names():
-    pr.title("test file names")
+    pr.yellow_title("test file names")
 
     file_names = get_file_names()
 
-    pr.green("get dict file names")
+    pr.green_tmr("get dict file names")
 
     counter = 0
     bjt_files = []
@@ -71,10 +71,10 @@ def test_file_names():
             counter += 1
     pr.yes(counter)
 
-    pr.green("difference 1")
+    pr.green_tmr("difference 1")
     x = set(bjt_files).symmetric_difference(set(file_names))
     pr.yes(f"{x}")
-    pr.green("difference 2")
+    pr.green_tmr("difference 2")
     x = set(file_names).symmetric_difference(set(bjt_files))
     pr.yes(f"{x}")
 
@@ -86,7 +86,7 @@ def make_index():
     ```
     """
 
-    pr.title("making index")
+    pr.yellow_title("making index")
     pth = ProjectPaths()
     file_names = get_file_names()
     json_dicts = get_bjt_json(file_names)
@@ -121,7 +121,7 @@ def save_books():
 
     pr.tic()
 
-    pr.title("saving BJT books")
+    pr.yellow_title("saving BJT books")
     file_dir = pth.bjt_books_dir
 
     for counter, book in enumerate(bjt_texts):
@@ -148,7 +148,7 @@ def save_text_files() -> None:
     "Save all BJT json to text files"
 
     pr.tic()
-    pr.title("saving BJT to text files")
+    pr.yellow_title("saving BJT to text files")
 
     counter = 1
     for root, dirs, files in os.walk(pth.bjt_roman_json_dir):

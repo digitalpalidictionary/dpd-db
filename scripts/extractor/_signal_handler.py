@@ -12,6 +12,6 @@ state = {
 def signal_handler(sig, frame):
     """Handle Ctrl+C gracefully."""
     pr.red("\n\nInterrupted!")
-    pr.info(f"Done: {state['processed_count']}")
-    pr.info(f"Left: {len(state['remaining_words'])}")
+    pr.green(f"Done: {state['processed_count']}")
+    pr.green(f"Left: {len(state['remaining_words'])}")
     sys.exit(0)

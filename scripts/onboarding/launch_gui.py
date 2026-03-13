@@ -26,14 +26,14 @@ def sync_dependencies() -> bool:
 
 def launch_gui() -> None:
     """Sync dependencies and launch the GUI."""
-    pr.green("syncing dependencies")
+    pr.green_tmr("syncing dependencies")
     if sync_dependencies():
         pr.yes("ok")
     else:
         pr.no("failed")
-        pr.warning("Dependency sync failed. The GUI may still work.")
+        pr.amber("Dependency sync failed. The GUI may still work.")
 
-    pr.green("launching DPD GUI")
+    pr.green_tmr("launching DPD GUI")
     pr.yes("ok")
 
     subprocess.run(

@@ -17,7 +17,7 @@ from tools.printer import printer as pr
 
 def backup_dpd_headwords_and_roots(pth: ProjectPaths):
     pr.tic()
-    pr.title("backing headword and roots tables to tsv")
+    pr.yellow_title("backing headword and roots tables to tsv")
     db_session = get_db_session(pth.dpd_db_path)
     backup_dpd_headwords(db_session, pth)
     backup_dpd_roots(db_session, pth)
@@ -28,7 +28,7 @@ def backup_dpd_headwords_and_roots(pth: ProjectPaths):
 
 def split_tsv_file(file_path: Path, prefix: str, chunk_size: int = 50000):
     """Split a TSV file into chunks of specified size."""
-    pr.green(f"splitting into chunks of {chunk_size}")
+    pr.green_tmr(f"splitting into chunks of {chunk_size}")
 
     with open(file_path, "r", newline="", encoding="utf-8") as tsvfile:
         # Read all lines
@@ -71,7 +71,7 @@ def split_tsv_file(file_path: Path, prefix: str, chunk_size: int = 50000):
 
 def backup_dpd_headwords(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup DpdHeadword table to TSV."""
-    pr.green("writing DpdHeadword table")
+    pr.green_tmr("writing DpdHeadword table")
     db = db_session.query(DpdHeadword).all()
 
     # Use the custom path if provided, otherwise use the default path
@@ -116,7 +116,7 @@ def backup_dpd_headwords(db_session: Session, pth: ProjectPaths, custom_path: st
 
 def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     """Backup DpdRoot table to TSV."""
-    pr.green("writing DpdRoot table")
+    pr.green_tmr("writing DpdRoot table")
     db = db_session.query(DpdRoot).all()
 
     # Use the custom path if provided, otherwise use the default path
@@ -156,7 +156,7 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
 
 
 def git_commit(pth: ProjectPaths):
-    pr.green("committing changes to GitHub")
+    pr.green_tmr("committing changes to GitHub")
     try:
         repo = Repo("./")
         index = repo.index

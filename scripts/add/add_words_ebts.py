@@ -70,13 +70,13 @@ def make_ebt_word_set(g: GlobalVars):
     sc_text_set = make_sc_text_set(g.pth, g.ebts)
     bjt_text_set: set[str] = cast(set[str], make_bjt_text_list(g.ebts, "set"))
     all_words = cst_text_set | sc_text_set | bjt_text_set
-    pr.green("all words in ebts")
+    pr.green_tmr("all words in ebts")
     pr.yes(len(all_words))
     return all_words
 
 
 def make_dpd_missing_set(g: GlobalVars):
-    pr.green("missing words in dpd")
+    pr.green_tmr("missing words in dpd")
     db = g.db_session.query(DpdHeadword).all()
     missing_words = []
     for i in db:
@@ -88,13 +88,13 @@ def make_dpd_missing_set(g: GlobalVars):
 
 
 def main():
-    pr.title("find missing words in ebts")
+    pr.yellow_title("find missing words in ebts")
 
     g = GlobalVars()
     ebt_word_set = make_ebt_word_set(g)
     dpd_missing_words = make_dpd_missing_set(g)
 
-    pr.green("missing words in ebts")
+    pr.green_tmr("missing words in ebts")
     missing_words_in_ebts = ebt_word_set & dpd_missing_words
     pr.yes(len(missing_words_in_ebts))
 

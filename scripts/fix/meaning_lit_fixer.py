@@ -25,17 +25,17 @@ def main():
             meaning, lit = i.meaning_2.split("; lit.", 1)
         except ValueError:
             error_list.append(i.lemma_1)
-        pr.info(i.lemma_1)
-        pr.info(i.meaning_2)
-        pr.info(f"meaning: {lit}")
-        pr.info("")
+        pr.green(i.lemma_1)
+        pr.green(i.meaning_2)
+        pr.green(f"meaning: {lit}")
+        pr.green("")
 
         i.meaning_2 = meaning
         i.meaning_lit = lit
 
     db_session.commit()
 
-    pr.error(f"{error_list}")
+    pr.red(f"{error_list}")
 
 
 if __name__ == "__main__":

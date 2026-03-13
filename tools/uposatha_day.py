@@ -98,7 +98,7 @@ class UposathaManger:
     def write_uposatha_count(cls, count: int) -> bool:
         """Set uposatha count."""
         try:
-            pr.green("updating uposatha count")
+            pr.green_tmr("updating uposatha count")
             config = cls._get_config()
             config["uposatha"] = {"count": str(count)}
             with open(ProjectPaths().uposatha_day_ini, "w") as f:

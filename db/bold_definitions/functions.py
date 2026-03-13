@@ -320,7 +320,7 @@ def dissolve_empty_siblings(para, bolds):
             if (
                 bold.next_sibling == " "
                 and bold.next_sibling.next_sibling == " "  # type:ignore
-                and bold.next_sibling.next_sibling.next_sibling.attrs
+                and bold.next_sibling.next_sibling.next_sibling.attrs  # type: ignore[union-attr]
                 == {"rend": "bold"}  # type:ignore
             ):
                 appended_text = bold.next_sibling.next_sibling.next_sibling.text  # type:ignore
@@ -338,13 +338,13 @@ def dissolve_empty_siblings(para, bolds):
                 bold.next_sibling == " "
                 and bold.next_sibling.next_sibling == " "  # type:ignore
                 and bold.next_sibling.next_sibling.next_sibling == " "  # type:ignore
-                and bold.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling
+                and bold.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling  # type: ignore[union-attr]
                 == " "  # type:ignore
-                and bold.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.attrs
+                and bold.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.attrs  # type: ignore[union-attr]
                 == {"rend": "bold"}  # type:ignore
             ):
                 appended_text = (
-                    bold.next_sibling.next_sibling.next_sibling.next_sibling.text
+                    bold.next_sibling.next_sibling.next_sibling.next_sibling.text  # type: ignore[union-attr]
                 )  # type:ignore
                 bold.append(f" {appended_text}")
                 bold.next_sibling.next_sibling.next_sibling.next_sibling.decompose()  # type:ignore
@@ -610,11 +610,11 @@ def debugger(para, bold):
 
 
 def debug_p_n(bold_p_original, bold_p, bold_n_original, bold_n, bold_text):
-    pr.green(bold_p_original)
-    pr.cyan(bold_p)
-    pr.white(bold_text)
-    pr.cyan(bold_n)
-    pr.green(bold_n_original)
+    pr.green_tmr(bold_p_original)
+    pr.cyan_tmr(bold_p)
+    pr.white_tmr(bold_text)
+    pr.cyan_tmr(bold_n)
+    pr.green_tmr(bold_n_original)
 
 
 def bold_p_trimmer(text):

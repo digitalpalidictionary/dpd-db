@@ -43,10 +43,10 @@ def cleanup_old_tarballs() -> None:
         files_to_delete = tarballs[3:]
 
         for tarball in files_to_delete:
-            pr.info(f"deleting: {tarball.name}")
+            pr.green(f"deleting: {tarball.name}")
             tarball.unlink()
 
-        pr.info(f"deleted {len(files_to_delete)} old tarball(s)")
+        pr.green(f"deleted {len(files_to_delete)} old tarball(s)")
 
 
 def create_audio_database() -> Path:
@@ -57,7 +57,7 @@ def create_audio_database() -> Path:
 
     # Delete existing database file if it exists to ensure schema updates
     if db_path.exists():
-        pr.green("deleting existing database file")
+        pr.green_tmr("deleting existing database file")
         db_path.unlink()
         pr.yes("ok")
 
@@ -168,7 +168,7 @@ def populate_audio_database() -> None:
                 )
                 session.add(audio_record)
 
-        pr.green("committing to db")
+        pr.green_tmr("committing to db")
         session.commit()
         pr.yes(len(all_headwords))
 
@@ -198,14 +198,14 @@ def create_archive() -> None:
     create_tarball(archive_name, [db_file], db_dir, "gz")
 
     archive_path = db_dir / archive_name
-    pr.info("archive created at:")
-    pr.info(f"{archive_path}")
+    pr.green("archive created at:")
+    pr.green(f"{archive_path}")
 
 
 def main():
     """Main function to populate the audio database."""
     pr.tic()
-    pr.title("populating audio database")
+    pr.yellow_title("populating audio database")
 
     if config_test("exporter", "make_audio_db", "no"):
         pr.green_title("disabled in config.ini")

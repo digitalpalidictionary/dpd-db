@@ -54,18 +54,18 @@ def create_github_release(version: str, archive_path: Path) -> bool:
         repo = g.get_repo("digitalpalidictionary/dpd-audio")
 
         # Check if release already exists
-        pr.green("checking existing release")
+        pr.green_tmr("checking existing release")
         try:
             existing_release = repo.get_release(version)
             pr.no("yes")
-            pr.green("deleting existing release")
+            pr.green_tmr("deleting existing release")
             existing_release.delete_release()
             pr.yes("ok")
         except UnknownObjectException:
             pr.yes("no")
 
         # Create new release
-        pr.green("creating release")
+        pr.green_tmr("creating release")
         release = repo.create_git_release(
             tag=version,
             name=f"DPD Audio Database {version}",
@@ -76,7 +76,7 @@ def create_github_release(version: str, archive_path: Path) -> bool:
         pr.yes("ok")
 
         # Upload asset
-        pr.green("uploading db")
+        pr.green_tmr("uploading db")
         release.upload_asset(str(archive_path))
         pr.yes("ok")
 
@@ -91,7 +91,7 @@ def create_github_release(version: str, archive_path: Path) -> bool:
 def main():
     pr.tic()
     version = make_version()
-    pr.title(f"upload db release {version}")
+    pr.yellow_title(f"upload db release {version}")
 
     if config_test("exporter", "upload_audio_db", "no"):
         pr.green_title("disabled in config.ini")

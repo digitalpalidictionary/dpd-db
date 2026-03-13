@@ -15,7 +15,7 @@ class OpenRouterManager:
         self.api_key = config_read("apis", api_key_name)
         self.api_key_name = api_key_name  # Store for messages
         if not self.api_key:
-            pr.warning(f"OpenRouter API key '{api_key_name}' not found in config.ini")
+            pr.amber(f"OpenRouter API key '{api_key_name}' not found in config.ini")
             self.client = None
             return
 
@@ -25,7 +25,7 @@ class OpenRouterManager:
                 api_key=self.api_key,
             )
         except Exception as e:
-            pr.error(f"Failed to initialize OpenAI client for OpenRouter: {e}")
+            pr.red(f"Failed to initialize OpenAI client for OpenRouter: {e}")
             self.client = None
 
     def request(
@@ -129,7 +129,7 @@ def main():
     manager = OpenRouterManager()
 
     if not manager.client:
-        pr.error(
+        pr.red(
             "OpenRouter client not initialized. Please check your API key configuration."
         )
         return
@@ -154,10 +154,10 @@ def main():
         # "meta-llama/llama-4-maverick:free",
     ]
 
-    pr.info("=== Testing OpenRouter Models ===")
+    pr.green("=== Testing OpenRouter Models ===")
 
     for model in test_models:
-        pr.info(f"\n--- Testing model: {model} ---")
+        pr.green(f"\n--- Testing model: {model} ---")
         start_time = time.monotonic()
 
         response = manager.request(
@@ -166,8 +166,8 @@ def main():
 
         duration = time.monotonic() - start_time
 
-        pr.info(f"Duration: {duration:.2f}s")
-        pr.info(f"Status: {response.status_message}")
+        pr.green(f"Duration: {duration:.2f}s")
+        pr.green(f"Status: {response.status_message}")
 
         if response.content:
             # Show first 200 characters of content
@@ -176,14 +176,14 @@ def main():
                 if len(response.content) > 200
                 else response.content
             )
-            pr.info(f"Content preview: {preview}")
+            pr.green(f"Content preview: {preview}")
         else:
-            pr.warning("No content received")
+            pr.amber("No content received")
 
         # Small delay between requests
         time.sleep(2)
 
-    pr.info("\n=== Testing Complete ===")
+    pr.green("\n=== Testing Complete ===")
 
 
 if __name__ == "__main__":

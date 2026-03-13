@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import csv
 import re
+from typing import Any
 from natsort import natsorted, ns
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -31,7 +32,9 @@ class GlobalVars:
         key=lambda x: x.name,
         alg=ns.PATH,
     )
-    pr.title(f"extracting from {len(json_file_list)} files starting with {json_prefix}")
+    pr.yellow_title(
+        f"extracting from {len(json_file_list)} files starting with {json_prefix}"
+    )
 
     tsv_working_dir = Path("scripts/suttas/bjt")
     tsv_filepath = tsv_working_dir.joinpath(f"{tsv_filename}.tsv")
@@ -55,8 +58,8 @@ class GlobalVars:
 
     # data vars
     processed_sutta_numbers: set[int] = set()
-    data_current_file: list[dict[str, any]] = []
-    data_all: list[dict[str, any]] = []
+    data_current_file: list[dict[str, Any]] = []
+    data_all: list[dict[str, Any]] = []
 
 
 def extract_data(g: GlobalVars):
@@ -129,7 +132,7 @@ def extract_data(g: GlobalVars):
 def save_to_tsv(g: GlobalVars):
     """Save data to TSV file."""
     if not g.data_all:
-        pr.warning("No data to save")
+        pr.amber("No data to save")
         return
 
     fieldnames = [
@@ -152,7 +155,7 @@ def save_to_tsv(g: GlobalVars):
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()
         writer.writerows(g.data_all)
-    pr.info(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
+    pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
 def main():
@@ -163,7 +166,7 @@ def main():
         return
 
     for g.this_json_file in g.json_file_list:
-        pr.green(f"processing {g.this_json_file.name}")
+        pr.green_tmr(f"processing {g.this_json_file.name}")
         extract_data(g)
         pr.yes(f"extracted {len(g.data_current_file)} records")
 

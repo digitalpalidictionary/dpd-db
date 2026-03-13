@@ -12,10 +12,10 @@ from tools.tsv_read_write import read_tsv_dot_dict
 
 def main():
     pr.tic()
-    pr.title("adding bold definitions to db")
+    pr.yellow_title("adding bold definitions to db")
     pth = ProjectPaths()
 
-    pr.green("reading tsv")
+    pr.green_tmr("reading tsv")
     bold_definitions = read_tsv_dot_dict(pth.bold_definitions_tsv_path)
     print("ok")
 
@@ -41,7 +41,7 @@ def main():
         if count % 50000 == 0:
             pr.counter(count, len(bold_definitions), i.bold)
 
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
     db_session.execute(BoldDefinition.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()

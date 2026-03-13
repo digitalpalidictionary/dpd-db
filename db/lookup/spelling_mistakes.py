@@ -27,7 +27,7 @@ class GlobalVars:
 
 def load_spelling_dict(g: GlobalVars):
     """Turn the spelling_mistakes.tsv into a dictionary"""
-    pr.green("loading spelling tsv")
+    pr.green_tmr("loading spelling tsv")
 
     spellings_tsv = read_tsv(g.pth.spelling_mistakes_path)
     spellings_dict = defaultdict(set)
@@ -38,14 +38,14 @@ def load_spelling_dict(g: GlobalVars):
 
 
 def add_spellings(g: GlobalVars):
-    pr.green("update test add")
+    pr.green_tmr("update test add")
     update_set, test_set, add_set = update_test_add(g.lookup_table, g.spellings_dict)
     pr.yes("")
 
     lookup_table_update_test = (
         g.db_session.query(Lookup).filter(Lookup.lookup_key.in_(update_set)).all()
     )
-    pr.green("update")
+    pr.green_tmr("update")
     # update test add
     if update_set:
         for i in lookup_table_update_test:
@@ -61,7 +61,7 @@ def add_spellings(g: GlobalVars):
                     g.db_session.delete(i)
     pr.yes(len(update_set))
 
-    pr.green("add")
+    pr.green_tmr("add")
 
     if add_set:
         add_to_db = []
@@ -78,7 +78,7 @@ def add_spellings(g: GlobalVars):
 
 def main():
     pr.tic()
-    pr.title("add spelling mistakes to lookup table")
+    pr.yellow_title("add spelling mistakes to lookup table")
     g = GlobalVars()
     load_spelling_dict(g)
     add_spellings(g)

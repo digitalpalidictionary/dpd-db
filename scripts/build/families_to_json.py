@@ -26,7 +26,7 @@ class GlobalVars:
 
 def main():
     pr.tic()
-    pr.title("exporting families .json")
+    pr.yellow_title("exporting families .json")
     g = GlobalVars()
     export_family_compound(g)
     export_family_idiom(g)
@@ -46,7 +46,7 @@ def json_dumper(filepath: Path, dict: dict[str, str]):
 
 
 def export_family_compound(g: GlobalVars):
-    pr.green("exporting family_compound.json")
+    pr.green_tmr("exporting family_compound.json")
     fc_dict = {}
     for i in g.fc_db:
         fc_dict[i.compound_family] = {"count": i.count, "data": i.data_unpack}
@@ -55,7 +55,7 @@ def export_family_compound(g: GlobalVars):
 
 
 def export_family_idiom(g: GlobalVars):
-    pr.green("exporting family_idiom.json")
+    pr.green_tmr("exporting family_idiom.json")
     fi_dict = {}
     for i in g.fi_db:
         fi_dict[i.idiom] = {"count": i.count, "data": i.data_unpack}
@@ -64,7 +64,7 @@ def export_family_idiom(g: GlobalVars):
 
 
 def export_family_root(g: GlobalVars):
-    pr.green("exporting family_root.json")
+    pr.green_tmr("exporting family_root.json")
     fr_dict = {}
     for i in g.fr_db:
         fr_dict[i.root_family_key] = {
@@ -80,7 +80,7 @@ def export_family_root(g: GlobalVars):
 
 
 def export_family_set(g: GlobalVars):
-    pr.green("exporting family_set.json")
+    pr.green_tmr("exporting family_set.json")
     fs_dict = {}
     for i in g.fs_db:
         fs_dict[i.set] = {"data": i.data_unpack, "count": i.count}
@@ -89,7 +89,7 @@ def export_family_set(g: GlobalVars):
 
 
 def export_family_word(g: GlobalVars):
-    pr.green("exporting family_word.json")
+    pr.green_tmr("exporting family_word.json")
     fw_dict = {}
     for i in g.fw_db:
         fw_dict[i.word_family] = {"data": i.data_unpack, "count": i.count}

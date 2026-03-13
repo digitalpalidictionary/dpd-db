@@ -39,7 +39,7 @@ class GlobalVars:
 def inflection_to_headwords(g: GlobalVars):
     """Make a dictionary of inflections: [headwords]."""
 
-    pr.green("making inflections2headwords dict")
+    pr.green_tmr("making inflections2headwords dict")
 
     g.i2h_dict = {}
     g.i2h_dict_tpr = {}
@@ -61,7 +61,7 @@ def inflection_to_headwords(g: GlobalVars):
 def save_i2h_for_tpr(g: GlobalVars):
     """Save inflections2headwords for Tipitaka Pali Reader."""
 
-    pr.green("saving to tsv for tpr")
+    pr.green_tmr("saving to tsv for tpr")
 
     with open(g.pth.tpr_i2h_tsv_path, "w") as f:
         writer = csv.writer(f, delimiter="\t")
@@ -81,7 +81,7 @@ def add_i2h_to_db(g: GlobalVars):
     lookup_table = g.db_session.query(Lookup).all()
     update_set, test_set, add_set = update_test_add(lookup_table, g.i2h_dict)
 
-    pr.green("updating db")
+    pr.green_tmr("updating db")
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
@@ -95,7 +95,7 @@ def add_i2h_to_db(g: GlobalVars):
     g.db_session.commit()
     pr.yes(len(update_set) + len(test_set))
 
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
     add_to_db = []
     for inflection, ids in g.i2h_dict.items():
         if inflection in add_set:
@@ -112,23 +112,23 @@ def add_i2h_to_db(g: GlobalVars):
 
 def main():
     pr.tic()
-    pr.title("inflection to headwords")
+    pr.yellow_title("inflection to headwords")
 
     g = GlobalVars()
 
-    pr.green("making all all_tipitaka_word_set")
+    pr.green_tmr("making all all_tipitaka_word_set")
     g.all_tipitaka_word_set = make_all_tipitaka_word_set()
     pr.yes(len(g.all_tipitaka_word_set))
 
-    pr.green("making all deconstructed words set")
+    pr.green_tmr("making all deconstructed words set")
     g.deconstructions_word_set = make_words_in_deconstructions(g.db_session)
     pr.yes(len(g.deconstructions_word_set))
 
-    pr.green("making clean headwords set")
+    pr.green_tmr("making clean headwords set")
     g.clean_headwords_set = make_clean_headwords_set(g.dpd_db)
     pr.yes(len(g.clean_headwords_set))
 
-    pr.green("making all words set")
+    pr.green_tmr("making all words set")
     g.all_words_set = (
         g.all_tipitaka_word_set | g.deconstructions_word_set | g.clean_headwords_set
     )

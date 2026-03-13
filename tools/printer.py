@@ -124,7 +124,7 @@ class Printer:
         print(f"{self.bop():>10}")
 
     # Printer methods
-    def title(self, text: str) -> None:
+    def yellow_title(self, text: str) -> None:
         """Print bright yellow title and start timer."""
         print(f"[bright_yellow]{text}")
         self.bip()
@@ -136,19 +136,19 @@ class Printer:
         self.bip()
         self._log(logging.INFO, "green_title", message, type="title")
 
-    def green(self, message: str) -> None:
+    def green_tmr(self, message: str) -> None:
         """Print left-aligned green message and start timer."""
         print(f"[green]{message:<35}", end="")
         self.bip()
         self._log(logging.INFO, "status", message, type="status")
 
-    def cyan(self, message: str) -> None:
+    def cyan_tmr(self, message: str) -> None:
         """Print left-aligned cyan message and start timer."""
         print(f"[cyan]{message:<35}", end="")
         self.bip()
         self._log(logging.INFO, "status", message, type="status")
 
-    def white(self, message: str) -> None:
+    def white_tmr(self, message: str) -> None:
         """Print indented white message and start timer."""
         print(f"{'':<5}[white]{message:<30}", end="")
         self.bip()
@@ -173,11 +173,6 @@ class Printer:
         self.print_bop()
         self._log(logging.WARNING, "failure", str(message), type="failure")
 
-    def red(self, message: str) -> None:
-        """Print red message."""
-        print(f"[red]{message}")
-        self._log(logging.ERROR, "error", message, type="error")
-
     def counter(self, counter: int, total: int, word: str) -> None:
         """Print progress counter with timing."""
         print(f"{counter:>10,} / {total:<10,} {word[:20]:<20} {self.bop():>10}")
@@ -193,23 +188,35 @@ class Printer:
 
     # basic logging messages
 
-    def info(self, message: str) -> None:
+    def red(self, message: str) -> None:
+        """Print red message."""
+
+        print(f"[red]{message}")
+        self._log(logging.ERROR, "error", message, type="error")
+
+    def green(self, message: str) -> None:
         """Print green message."""
 
         print(f"[green]{message}")
         self._log(logging.INFO, "info", message, type="info")
 
-    def warning(self, message: str) -> None:
+    def amber(self, message: str) -> None:
         """Print amber message."""
 
         print(f"[yellow]{message}")
         self._log(logging.WARNING, "warning", message, type="warning")
 
-    def error(self, message: str) -> None:
-        """Print red message."""
+    def white(self, message: str) -> None:
+        """Print white message."""
 
-        print(f"[red]{message}")
-        self._log(logging.ERROR, "error", message, type="error")
+        print(f"[white]{message}")
+        self._log(logging.INFO, "comment", message, type="comment")
+
+    def cyan(self, message: str) -> None:
+        """Print cyan message."""
+
+        print(f"[cyan]{message}")
+        self._log(logging.INFO, "comment", message, type="comment")
 
 
 # Create singleton instance with optional log file

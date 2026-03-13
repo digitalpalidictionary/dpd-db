@@ -183,7 +183,7 @@ def _lemma_clean(lemma_1: str) -> str:
 
 
 def export_headwords(g: GlobalVars, dest: sqlite3.Connection) -> None:
-    pr.green("exporting dpd_headwords")
+    pr.green_tmr("exporting dpd_headwords")
 
     src_col_list = ", ".join(f'"{c}"' for c in HEADWORD_COLUMNS)
     rows = g.src.execute(f"SELECT {src_col_list} FROM dpd_headwords").fetchall()
@@ -215,7 +215,7 @@ def export_headwords(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
 
 def export_roots(g: GlobalVars, dest: sqlite3.Connection) -> None:
-    pr.green("exporting dpd_roots")
+    pr.green_tmr("exporting dpd_roots")
 
     src_col_list = ", ".join(f'"{c}"' for c in ROOT_COLUMNS)
     rows = g.src.execute(f"SELECT {src_col_list} FROM dpd_roots").fetchall()
@@ -246,7 +246,7 @@ def export_roots(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
 
 def export_lookup(g: GlobalVars, dest: sqlite3.Connection) -> None:
-    pr.green("exporting lookup")
+    pr.green_tmr("exporting lookup")
 
     rows = g.src.execute("SELECT * FROM lookup").fetchall()
     if not rows:
@@ -282,7 +282,7 @@ def copy_passthrough_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
     src.row_factory = sqlite3.Row
 
     for table in PASSTHROUGH_TABLES:
-        pr.green(f"copying {table}")
+        pr.green_tmr(f"copying {table}")
         schema_row = src.execute(
             f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table}'"
         ).fetchone()
@@ -324,14 +324,14 @@ def copy_family_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
         ("family_idiom", FAMILY_IDIOM_COLUMNS),
         ("family_set", FAMILY_SET_COLUMNS),
     ]:
-        pr.green(f"copying {table}")
+        pr.green_tmr(f"copying {table}")
         _copy_selected_columns(src, dest, table, columns)
 
     src.close()
 
 
 def write_schema_version(dest: sqlite3.Connection) -> None:
-    pr.green("writing db_schema_version")
+    pr.green_tmr("writing db_schema_version")
     dest.execute(
         "INSERT OR REPLACE INTO db_info (key, value) VALUES (?, ?)",
         ("db_schema_version", str(DB_SCHEMA_VERSION)),
@@ -341,7 +341,7 @@ def write_schema_version(dest: sqlite3.Connection) -> None:
 
 def zip_mobile_db(pth: ProjectPaths) -> None:
     zip_path = pth.dpd_mobile_db_zip_path
-    pr.green("zipping mobile db")
+    pr.green_tmr("zipping mobile db")
     zip_up_file(input_file=pth.dpd_mobile_db_path, output_file=zip_path)
     pr.yes("ok")
     zip_size = zip_path.stat().st_size / 1_000_000
@@ -350,7 +350,7 @@ def zip_mobile_db(pth: ProjectPaths) -> None:
 
 def main() -> None:
     pr.tic()
-    pr.title("export mobile db")
+    pr.yellow_title("export mobile db")
 
     if not config_test("exporter", "make_mobile", "yes"):
         pr.green_title("disabled in config.ini")

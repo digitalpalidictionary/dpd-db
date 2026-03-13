@@ -30,10 +30,10 @@ def ensure_db_exists():
     pth = ProjectPaths()
 
     if not pth.tipitaka_translation_db_path.exists():
-        pr.info(
+        pr.green(
             f"Tipitaka translation database not found at {pth.tipitaka_translation_db_path}"
         )
-        pr.info("Setting up database from GitHub releases...")
+        pr.green("Setting up database from GitHub releases...")
 
         try:
             # Import and run the unzip script which handles download from GitHub releases
@@ -48,7 +48,7 @@ def ensure_db_exists():
                 pr.red("Error: Database file not found after extraction.")
                 return
 
-            pr.info("Database setup complete.")
+            pr.green("Database setup complete.")
 
         except Exception as e:
             pr.red(f"Error setting up database: {e}")
@@ -306,81 +306,81 @@ def get_all_cst_table_names():
 
 def compare_db_and_cst_tables():
     """Compares tables in the DB with tables derived from cst_texts."""
-    pr.info("Comparing database tables with cst_texts dictionary...")
+    pr.green("Comparing database tables with cst_texts dictionary...")
 
     db_tables = get_all_db_table_names()
     cst_tables = get_all_cst_table_names()
 
-    pr.info(f"Found {len(db_tables)} tables in the database.")
-    pr.info(f"Found {len(cst_tables)} tables derived from cst_texts.")
+    pr.green(f"Found {len(db_tables)} tables in the database.")
+    pr.green(f"Found {len(cst_tables)} tables derived from cst_texts.")
 
     db_only_tables = sorted(list(db_tables - cst_tables))
     cst_only_tables = sorted(list(cst_tables - db_tables))
 
-    pr.info("=" * 40)
+    pr.green("=" * 40)
     if db_only_tables:
-        pr.warning(
+        pr.amber(
             f"Tables in the database but NOT in cst_texts ({len(db_only_tables)}):"
         )
         for table in db_only_tables:
-            pr.info(f"- {table}")
+            pr.green(f"- {table}")
     else:
-        pr.info("All tables in the database are represented in cst_texts.")
+        pr.green("All tables in the database are represented in cst_texts.")
 
-    pr.info("=" * 40)
+    pr.green("=" * 40)
     if cst_only_tables:
-        pr.warning(
+        pr.amber(
             f"Tables in cst_texts but NOT in the database ({len(cst_only_tables)}):"
         )
         for table in cst_only_tables:
-            pr.info(f"- {table}")
+            pr.green(f"- {table}")
     else:
-        pr.info("All tables derived from cst_texts exist in the database.")
-    pr.info("=" * 40)
+        pr.green("All tables derived from cst_texts exist in the database.")
+    pr.green("=" * 40)
 
 
 def tui_interface():
     user_input = ""
     while user_input != "exit":
-        pr.info("what book? (e.g. kn14), 'all', or 'exit' ")
+        pr.green("what book? (e.g. kn14), 'all', or 'exit' ")
         user_input = input()
 
         if user_input == "exit":
             break
 
-        pr.info("what word? ")
+        pr.green("what word? ")
         user_word = input()
 
         if not user_word:
-            pr.warning("Please enter a word to search.")
+            pr.amber("Please enter a word to search.")
             continue
 
         compiled_results = []
         if user_input == "all":
             compiled_results = search_all_cst_texts(user_word)
         elif user_input in cst_texts:
-            pr.info(f"Searching in book '{user_input}'...")
+            pr.green(f"Searching in book '{user_input}'...")
             compiled_results = search_book(user_input, user_word)
         else:
-            pr.error(f"Book '{user_input}' not found.")
+            pr.red(f"Book '{user_input}' not found.")
             continue
 
         if not compiled_results:
-            pr.warning(f"No results found for '{user_word}' in '{user_input}'.")
+            pr.amber(f"No results found for '{user_word}' in '{user_input}'.")
 
-        pr.info(f"Found {len(compiled_results)} results.")
+        pr.green(f"Found {len(compiled_results)} results.")
         for result in compiled_results:
             pali_text, english_translation, table_name, book_name = result
             pali_text_highlighted = pali_text.replace(
                 user_word, f"[white on black]{user_word}[/white on black]"
             )
             print()
-            pr.info(f"book: {book_name}")
-            pr.info(f"table: {table_name}")
-            pr.info(f"{pali_text_highlighted}")
-            pr.info(f"{english_translation}")
+            pr.green(f"book: {book_name}")
+            pr.green(f"table: {table_name}")
+            pr.green(f"{pali_text_highlighted}")
+            pr.green(f"{english_translation}")
             print()
-        pr.info("-" * 50)
+        pr.green("-" * 50)
         print()
 
 

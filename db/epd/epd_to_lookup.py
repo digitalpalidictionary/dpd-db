@@ -17,8 +17,8 @@ from tools.update_test_add import update_test_add
 
 class GlobalVars:
     pr.tic()
-    pr.title("generating epd data for lookup table")
-    pr.green("making global data")
+    pr.yellow_title("generating epd data for lookup table")
+    pr.green_tmr("making global data")
     pth: ProjectPaths = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
 
@@ -57,7 +57,7 @@ def compile_headwords_data(g: GlobalVars):
 
 def compile_roots_data(g: GlobalVars):
     """Compile root meanings in DpdRoot."""
-    pr.green("compiling roots data")
+    pr.green_tmr("compiling roots data")
 
     counter = 0
     for i in g.roots_db:
@@ -112,13 +112,13 @@ def add_to_lookup_table(g: GlobalVars):
 
     pr.green_title("saving to Lookup table")
 
-    pr.white("update test or add")
+    pr.white_tmr("update test or add")
     lookup_table = g.db_session.query(Lookup).all()
     results = update_test_add(lookup_table, g.epd_data_dict)
     update_set, test_set, add_set = results
     pr.yes("")
 
-    pr.white("updating and deleting")
+    pr.white_tmr("updating and deleting")
     # update test add
     for i in lookup_table:
         if i.lookup_key in update_set:
@@ -130,7 +130,7 @@ def add_to_lookup_table(g: GlobalVars):
                 g.db_session.delete(i)
     pr.yes(len(update_set))
 
-    pr.white("adding")
+    pr.white_tmr("adding")
     # add
     add_to_db = []
     for key, data in g.epd_data_dict.items():
@@ -141,7 +141,7 @@ def add_to_lookup_table(g: GlobalVars):
             add_to_db.append(add_me)
     pr.yes(len(add_set))
 
-    pr.white("committing")
+    pr.white_tmr("committing")
     g.db_session.add_all(add_to_db)
     g.db_session.commit()
     pr.yes("ok")

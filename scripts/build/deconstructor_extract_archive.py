@@ -13,7 +13,7 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("extracting deconstructor archive")
+    pr.yellow_title("extracting deconstructor archive")
 
     if not config_test("deconstructor", "use_premade", "yes"):
         pr.green_title("disabled in config.ini")

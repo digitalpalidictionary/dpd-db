@@ -17,8 +17,8 @@ from tools.pali_text_files import ebts
 
 def main():
     pr.tic()
-    pr.title("calculating frequency in ebts")
-    pr.green("setting up")
+    pr.yellow_title("calculating frequency in ebts")
+    pr.green_tmr("setting up")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -31,7 +31,7 @@ def main():
     ebt_files = [ebt_file.replace(".txt", ".xml") for ebt_file in ebts]
     pr.yes("ok")
 
-    pr.green("calculating")
+    pr.green_tmr("calculating")
     for i in db:
         total = 0
         inflections = i.inflections_list_all
@@ -42,7 +42,7 @@ def main():
         i.ebt_count = total
     pr.yes("ok")
 
-    pr.green("saving to db")
+    pr.green_tmr("saving to db")
     db_session.commit()
     pr.yes("ok")
 

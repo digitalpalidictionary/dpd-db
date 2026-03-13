@@ -62,7 +62,7 @@ class InflectionsManager:
 
     def test_missing_stem(self) -> None:
         """Test for missing stem in db."""
-        pr.green("testing for missing stem")
+        pr.green_tmr("testing for missing stem")
         for i in self.dpd_db:
             if not i.stem:
                 pr.red(f"{i.lemma_1} {i.pos} has a missing stem.")
@@ -74,7 +74,7 @@ class InflectionsManager:
 
     def test_missing_pattern(self) -> None:
         """Test for missing pattern in db."""
-        pr.green("testing for missing pattern")
+        pr.green_tmr("testing for missing pattern")
         for i in self.dpd_db:
             if i.stem != "-" and not i.pattern:
                 pr.red(f"{i.lemma_1} {i.pos} has a missing pattern.")
@@ -86,7 +86,7 @@ class InflectionsManager:
 
     def test_wrong_pattern(self) -> None:
         """Test if pattern exists in inflection templates."""
-        pr.green("testing for wrong patterns")
+        pr.green_tmr("testing for wrong patterns")
         for i in self.wrong_pattern_db:
             pr.red(f"{i.lemma_1} {i.pos} has the wrong pattern.")
             new_pattern = ""
@@ -256,7 +256,7 @@ class InflectionsManager:
 
     def process_all_inflections(self) -> None:
         """Process inflections for all headwords in the database."""
-        pr.green("generating html tables and lists")
+        pr.green_tmr("generating html tables and lists")
         initial_counter = self.updated_counter
         for i in self.dpd_db:
             self.process_inflection(i)
@@ -265,7 +265,7 @@ class InflectionsManager:
     def run(self) -> None:
         """Execute the entire inflection generation process."""
         pr.tic()
-        pr.title("generate inflection lists and html tables")
+        pr.yellow_title("generate inflection lists and html tables")
 
         if not self.regenerate_all:
             self.run_tests()
@@ -274,7 +274,7 @@ class InflectionsManager:
 
         self.process_all_inflections()
 
-        pr.green("committing to db")
+        pr.green_tmr("committing to db")
         try:
             self.db_session.commit()
             pr.yes(self.updated_counter)
@@ -284,7 +284,7 @@ class InflectionsManager:
         finally:
             self.db_session.close()
 
-        pr.green("saving changed headwords list")
+        pr.green_tmr("saving changed headwords list")
         try:
             with open(self.pth.changed_headwords_path, "wb") as f:
                 pickle.dump(self.changed_headwords, f)

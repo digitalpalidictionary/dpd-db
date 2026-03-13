@@ -103,7 +103,7 @@ class SuttaCentralExporter:
     no_entries_list: list[str] = []
 
     def __init__(self):
-        pr.title("exporting for sutta central")
+        pr.yellow_title("exporting for sutta central")
 
         self.sc_word_set = make_sc_text_set(
             self.pth,
@@ -124,7 +124,7 @@ class SuttaCentralExporter:
 
     def make_sc_books_list(self):
         """A list of SC books which have associated text files."""
-        pr.green("making sc books list")
+        pr.green_tmr("making sc books list")
         for book, files in sc_texts.items():
             if files:
                 self.sc_books_list.append(book)
@@ -133,7 +133,7 @@ class SuttaCentralExporter:
     def make_lookup_dict(self):
         """Make a dict of the lookup table for quick reference."""
 
-        pr.green("making lookup dict")
+        pr.green_tmr("making lookup dict")
 
         self.lookup_db = self.db_session.query(Lookup).all()
         for i in self.lookup_db:
@@ -144,7 +144,7 @@ class SuttaCentralExporter:
     def make_headwords_dict(self):
         """Make a dict of the headwords table for quick reference."""
 
-        pr.green("making headwords dict")
+        pr.green_tmr("making headwords dict")
 
         headword_db = self.db_session.query(DpdHeadword).all()
         self.headword_db = sorted(headword_db, key=lambda x: pali_sort_key(x.lemma_1))
@@ -155,7 +155,7 @@ class SuttaCentralExporter:
 
     def make_sc_dict(self):
         """Match words in SC texts to dictionary headwords."""
-        pr.green("making sc dict")
+        pr.green_tmr("making sc dict")
 
         for word in self.sc_word_set:
             if word in self.lookup_dict:
@@ -200,7 +200,7 @@ class SuttaCentralExporter:
     def compile_sc_dict(self):
         """Compile the entries into SC format."""
 
-        pr.green("compiling sc dict")
+        pr.green_tmr("compiling sc dict")
 
         sc_word_set_sorted = sorted(self.sc_word_set)
 
@@ -238,7 +238,7 @@ class SuttaCentralExporter:
     def save_sc_dict(self):
         """Save to JSON."""
 
-        pr.green("saving sc dict")
+        pr.green_tmr("saving sc dict")
         with open(self.pth.sc_pli2en_dpd_json, "w") as f:
             dump(self.sc_dict_compiled, f, ensure_ascii=False, indent=2)
         pr.yes("OK")

@@ -34,7 +34,9 @@ class GlobalVars:
         alg=ns.PATH,
     )
 
-    pr.title(f"extracting from {len(json_file_list)} files starting with {json_prefix}")
+    pr.yellow_title(
+        f"extracting from {len(json_file_list)} files starting with {json_prefix}"
+    )
 
     tsv_working_dir = Path("scripts/suttas/bjt")
     tsv_filepath = tsv_working_dir.joinpath(f"{tsv_filename}.tsv")
@@ -219,7 +221,7 @@ def extract_data(g: GlobalVars):
                         g.this_vagga = clean_string(entry_text)
                         # Reset counters as new vagga starts
                         g.this_vagga_num = int(
-                            re.match(r"^(\d+)\.", entry_text).group(1)
+                            re.match(r"^(\d+)\.", entry_text).group(1)  # type: ignore[union-attr]
                         )
                         g.last_web_sutta_num = 0
                         g.current_vagga_for_web = g.this_vagga
@@ -235,7 +237,7 @@ def extract_data(g: GlobalVars):
 def save_to_tsv(g: GlobalVars):
     """Save data to TSV file."""
     if not g.data_all:
-        pr.warning("No data to save")
+        pr.amber("No data to save")
         return
 
     # Define exact field order as required
@@ -259,7 +261,7 @@ def save_to_tsv(g: GlobalVars):
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()
         writer.writerows(g.data_all)
-    pr.info(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
+    pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
 def main():
@@ -267,12 +269,12 @@ def main():
     g = GlobalVars()
 
     if not g.json_file_list:
-        pr.warning("No JSON files found")
+        pr.amber("No JSON files found")
         return
 
     # Process each file
     for g.this_json_file in g.json_file_list:
-        pr.green(f"processing {g.this_json_file.name}")
+        pr.green_tmr(f"processing {g.this_json_file.name}")
         extract_data(g)
         pr.yes(f"extracted {len(g.data_current_file)} records")
 

@@ -13,7 +13,7 @@ from tools.tarballer import create_tarball
 
 def main():
     pr.tic()
-    pr.title("tarballing deconstructor output")
+    pr.yellow_title("tarballing deconstructor output")
 
     if config_test("deconstructor", "use_premade", "yes"):
         pr.green_title("disabled in config.ini")
@@ -28,7 +28,7 @@ def main():
     # Ensure the destination directory exists
     dest_path.parent.mkdir(parents=True, exist_ok=True)
 
-    pr.green("copying from go dir")
+    pr.green_tmr("copying from go dir")
     try:
         dest_path.write_bytes(source_path.read_bytes())
         pr.yes("ok")

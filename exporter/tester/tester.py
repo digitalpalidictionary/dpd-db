@@ -9,7 +9,7 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("exporting tester")
+    pr.yellow_title("exporting tester")
 
     dict_data: list[DictEntry] = []
 

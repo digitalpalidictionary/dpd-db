@@ -41,7 +41,7 @@ class GlobalVars:
 def make_deconstructor_dict_data(g: GlobalVars) -> None:
     """Prepare data set for GoldenDict of deconstructions and synonyms."""
 
-    pr.green("making deconstructor data list")
+    pr.green_tmr("making deconstructor data list")
 
     db_session = get_db_session(g.pth.dpd_db_path)
     deconstructor_db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
@@ -149,11 +149,11 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
 
 def main():
     pr.tic()
-    pr.title("dpd deconstructor")
+    pr.yellow_title("dpd deconstructor")
 
     # should the program run?
     if not config_test("exporter", "make_deconstructor", "yes"):
-        pr.green("disabled in config.ini")
+        pr.green_tmr("disabled in config.ini")
         return
 
     g = GlobalVars()

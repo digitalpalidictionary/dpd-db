@@ -43,5 +43,5 @@ def extract_with_ai(
             return ("NOT_FOUND", "")
 
     pr.no("API error")
-    pr.error(f"{response.status_message}")
+    pr.red(f"{response.status_message}")
     return None

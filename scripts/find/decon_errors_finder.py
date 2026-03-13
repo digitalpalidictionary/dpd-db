@@ -25,11 +25,11 @@ def is_valid_json(json_str: str) -> tuple[bool, list[str] | None]:
 
 
 def main():
-    pr.title("find errors in deconstructions")
+    pr.yellow_title("find errors in deconstructions")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    pr.green("db lookup")
+    pr.green_tmr("db lookup")
     db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
     pr.yes(len(db))
 
@@ -45,13 +45,13 @@ def main():
 
         is_valid, parsed_json = is_valid_json(i.deconstructor)
         if not is_valid:
-            pr.error(f"{i.lookup_key} invalid JSON in deconstructor")
+            pr.red(f"{i.lookup_key} invalid JSON in deconstructor")
         if parsed_json:
             for decon in parsed_json:
                 for letter in decon:
                     if letter not in pali_alphabet_plus:
                         error_letters[i.lookup_key] = letter
-                        pr.error(f"{i.lookup_key} invalid letter: {letter} ")
+                        pr.red(f"{i.lookup_key} invalid letter: {letter} ")
 
     print(error_letters)
 

@@ -8,11 +8,11 @@ from tools.printer import printer as pr
 
 def build_and_zip():
     pr.tic()
-    pr.title("building and zipping WXT extensions")
+    pr.yellow_title("building and zipping WXT extensions")
 
     extension_dir = Path("exporter/wxt_extension")
     if not extension_dir.exists():
-        pr.error(f"error: directory {extension_dir} not found.")
+        pr.red(f"error: directory {extension_dir} not found.")
         return
 
     try:
@@ -23,18 +23,18 @@ def build_and_zip():
         zips = list(output_dir.glob("*.zip"))
 
         if zips:
-            pr.info("created zip files in exporter/wxt_extension/.output/:")
+            pr.green("created zip files in exporter/wxt_extension/.output/:")
             for zip_file in zips:
-                pr.info(f" - {zip_file.name}")
+                pr.green(f" - {zip_file.name}")
         else:
-            pr.error("\nBuild finished, but no zip files were found in .output/")
+            pr.red("\nBuild finished, but no zip files were found in .output/")
 
     except subprocess.CalledProcessError as e:
-        pr.error("error during build/zip process:")
-        pr.error(f"{e}")
+        pr.red("error during build/zip process:")
+        pr.red(f"{e}")
     except Exception as e:
-        pr.error("an unexpected error occurred")
-        pr.error(f"{e}")
+        pr.red("an unexpected error occurred")
+        pr.red(f"{e}")
 
     pr.toc()
 

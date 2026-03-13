@@ -38,7 +38,7 @@ def update_mkdocs_bibliography():
     bibliography_md = "".join(bibliography_data)
 
     # save markdown for mkdocs website
-    pr.green("saving bibliography to mkdocs")
+    pr.green_tmr("saving bibliography to mkdocs")
     if pth.docs_bibliography_md_path.exists():
         pth.docs_bibliography_md_path.write_text(bibliography_md)
         pr.yes("ok")
@@ -49,7 +49,7 @@ def update_mkdocs_bibliography():
 
 def main():
     pr.tic()
-    pr.title("updating mkdocs bibliography")
+    pr.yellow_title("updating mkdocs bibliography")
     update_mkdocs_bibliography()
     pr.toc()
 

@@ -13,7 +13,7 @@ from tools.superscripter import superscripter_uni
 
 def main():
     pr.tic()
-    pr.title("sets generator")
+    pr.yellow_title("sets generator")
 
     if not (
         config_test("exporter", "make_dpd", "yes")
@@ -21,7 +21,7 @@ def main():
         or config_test("exporter", "make_tpr", "yes")
         or config_test("exporter", "make_ebook", "yes")
     ):
-        pr.green("disabled in config.ini")
+        pr.green_tmr("disabled in config.ini")
         pr.toc()
         return
 
@@ -39,7 +39,7 @@ def main():
 
 
 def make_sets_dict(sets_db):
-    pr.green("extracting set names")
+    pr.green_tmr("extracting set names")
 
     # create a dict of all sets
     # set: {headwords: [], html: "", data:, []}
@@ -70,7 +70,7 @@ def make_sets_dict(sets_db):
 
 
 def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
-    pr.green("compiling html")
+    pr.green_tmr("compiling html")
 
     for __counter__, i in enumerate(sets_db):
         for sf in i.family_set_list:
@@ -108,7 +108,7 @@ def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
 
 
 def add_sf_to_db(db_session, sets_dict):
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
 
     add_to_db = []
     errors_list = []

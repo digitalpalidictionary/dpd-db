@@ -13,7 +13,7 @@ from tools.tsv_read_write import read_tsv_dot_dict
 
 
 def make_abbreviations_md(pth: ProjectPaths):
-    pr.green("compiling to markdown table")
+    pr.green_tmr("compiling to markdown table")
 
     abbreviations_tsv = read_tsv_dot_dict(pth.abbreviations_tsv_path)
 
@@ -54,7 +54,7 @@ def make_abbreviations_md(pth: ProjectPaths):
 
 
 def save_to_web(pth: ProjectPaths, abbrev_md: str):
-    pr.green("saving to website source")
+    pr.green_tmr("saving to website source")
     output_path = pth.docs_abbreviations_md_path
 
     if output_path.exists():
@@ -67,7 +67,7 @@ def save_to_web(pth: ProjectPaths, abbrev_md: str):
 
 def main():
     pr.tic()
-    pr.title("saving abbreviations to docs website")
+    pr.yellow_title("saving abbreviations to docs website")
 
     if config_test("exporter", "make_abbrev", "no"):
         pr.green_title("disabled in config.ini")

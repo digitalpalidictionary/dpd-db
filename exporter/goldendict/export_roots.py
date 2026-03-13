@@ -23,7 +23,7 @@ def generate_root_html(
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """compile html components for each pali root"""
 
-    pr.green("generating roots html")
+    pr.green_tmr("generating roots html")
     size_dict = default_rendered_sizes()
     root_data_list: List[DictEntry] = []
 

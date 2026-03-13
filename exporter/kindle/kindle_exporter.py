@@ -58,7 +58,7 @@ def render_dpd_xhtml(
     script_attr: str | None = None,
     lookup_script_attr: str | None = None,
 ):
-    pr.green("querying dpd db")
+    pr.green_tmr("querying dpd db")
     db_session = get_db_session(pth.dpd_db_path)
     db_session.autoflush = False
     dpd_db = db_session.query(DpdHeadword).all()
@@ -108,7 +108,7 @@ def render_dpd_xhtml(
     combined_text_set = cst_text_set | sc_text_set
 
     # words in deconstructor in cst_text_set & sc_text_set
-    pr.green("querying lookup for deconstructor")
+    pr.green_tmr("querying lookup for deconstructor")
     chunk_size = 900
     deconstructor_db = []
     combined_text_list = list(combined_text_set)
@@ -125,11 +125,11 @@ def render_dpd_xhtml(
     pr.yes(len(words_in_deconstructor_set))
 
     # all_words_set = cst_text_set + sc_text_set + words in deconstructor compounds
-    pr.green("making all words set")
+    pr.green_tmr("making all words set")
     all_words_set = combined_text_set | words_in_deconstructor_set
     pr.yes(len(all_words_set))
 
-    pr.green("creating inflections dict")
+    pr.green_tmr("creating inflections dict")
     inflections_dict: dict[int, list[str]] = {}
     inflections_counter = 0
     for i in dpd_db:
@@ -177,7 +177,7 @@ def render_dpd_xhtml(
             pr.counter(counter, len(deconstructor_db), i.lookup_key)
 
     # save to a single file for each letter of the alphabet
-    pr.green("saving entries xhtml")
+    pr.green_tmr("saving entries xhtml")
     total = 0
     for counter, (letter, entries) in enumerate(letter_dict.items()):
         ascii_letter = diacritics_cleaner(letter)
@@ -236,7 +236,7 @@ def render_ebook_letter_templ(
 
 def save_abbreviations_xhtml_page(pth: ProjectPaths, jinja_env, id_counter):
     """Render xhtml of all DPD abbreviations and save as a page."""
-    pr.green("saving abbrev xhtml")
+    pr.green_tmr("saving abbrev xhtml")
     file_path = pth.abbreviations_tsv_path
     abbreviations_list = read_tsv_dict(file_path)
 
@@ -271,7 +271,7 @@ def render_abbreviation_entry(
 
 def save_title_page_xhtml(pth: ProjectPaths, jinja_env):
     """Save date and time in title page xhtml."""
-    pr.green("saving titlepage xhtml")
+    pr.green_tmr("saving titlepage xhtml")
     current_datetime = datetime.now()
     date = current_datetime.strftime("%Y-%m-%d")
     time = current_datetime.strftime("%H:%M")
@@ -289,7 +289,7 @@ def save_content_opf_xhtml(
     current_datetime,
 ):
     """Save date and time in content.opf."""
-    pr.green("saving content.opf")
+    pr.green_tmr("saving content.opf")
     date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
     template = jinja_env.get_template("ebook_content_opf.jinja")
     content = template.render(date_time_zulu=date_time_zulu)
@@ -300,7 +300,7 @@ def save_content_opf_xhtml(
 
 def zip_epub(pth: ProjectPaths, output_path: Path | None = None):
     """Zip up the epub dir and name it dpd-kindle.epub."""
-    pr.green("zipping up epub")
+    pr.green_tmr("zipping up epub")
     epub_dir_path = Path(pth.epub_dir)
     dest = output_path or pth.dpd_epub_path
     with ZipFile(dest, "w", ZIP_DEFLATED) as zipf:
@@ -356,7 +356,7 @@ def html_friendly(text: str):
 
 def render_epd_xhtml(pth: ProjectPaths, jinja_env, id_counter: int) -> int:
     """Render EPD (English to Pāḷi Dictionary) entries and save to XHTML files."""
-    pr.green("querying epd data from lookup table")
+    pr.green_tmr("querying epd data from lookup table")
     db_session = get_db_session(pth.dpd_db_path)
     lookup_db = db_session.query(Lookup).filter(Lookup.epd != "").all()
     pr.yes(len(lookup_db))
@@ -383,7 +383,7 @@ def render_epd_xhtml(pth: ProjectPaths, jinja_env, id_counter: int) -> int:
         epd_letter_dict[first_letter].append(entry)
         id_counter += 1
 
-    pr.green("saving epd entries xhtml")
+    pr.green_tmr("saving epd entries xhtml")
     total = 0
     for counter, letter in enumerate(english_alphabet):
         entries_list = epd_letter_dict[letter]
@@ -433,7 +433,7 @@ def main():
     args = parse_args()
 
     pr.tic()
-    pr.title("rendering dpd for ebook")
+    pr.yellow_title("rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         pth = ProjectPaths()
         jinja_env = get_jinja2_env("exporter/kindle/templates")

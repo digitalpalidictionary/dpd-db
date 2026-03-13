@@ -66,7 +66,7 @@ def make_index_dataframe(g: GlobalVars):
 def make_infl_templ_dataframe(g: GlobalVars):
     """A massive xy spread of inflection templates."""
 
-    g.infl_templ_df: DataFrame = pd.read_excel(
+    g.infl_templ_df: DataFrame = pd.read_excel(  # type: ignore[assignment]
         g.pth.inflection_templates_path,
         sheet_name="declensions",
         dtype=str,
@@ -249,7 +249,7 @@ def make_inflection_template(g: GlobalVars):
     """Make an InflectionTemplates and add to db_session"""
 
     g.infl_templ = InflectionTemplates(pattern=g.inflection_name, like=g.like)
-    g.infl_templ.inflection_template_pack(g.data_list)
+    g.infl_templ.inflection_template_pack(g.data_list)  # type: ignore[arg-type]
 
     g.added_templates.append(g.infl_templ.pattern)
 
@@ -319,7 +319,7 @@ def save_changed_templates(g: GlobalVars):
 
 def main():
     pr.tic()
-    pr.title("create inflection templates")
+    pr.yellow_title("create inflection templates")
     g = GlobalVars()
 
     # make the dataframes
@@ -327,7 +327,7 @@ def main():
     make_infl_templ_dataframe(g)
 
     # process all items in index_df
-    for g.index_row, g.index_data in g.index_df.iterrows():
+    for g.index_row, g.index_data in g.index_df.iterrows():  # type: ignore[assignment]
         extract_template_df(g)
         convert_template_df_to_datalist(g)
         make_inflection_template(g)

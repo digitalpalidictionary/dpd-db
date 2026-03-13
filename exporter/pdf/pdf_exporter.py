@@ -68,19 +68,19 @@ class GlobalVars:
 
 
 def make_layout(g: GlobalVars):
-    pr.green("compiling layout")
+    pr.green_tmr("compiling layout")
     g.typst_data.append(g.layout_templ.render())
     pr.yes("ok")
 
 
 def make_front_matter(g: GlobalVars):
-    pr.green("compiling front matter")
+    pr.green_tmr("compiling front matter")
     g.typst_data.append(g.front_matter_templ.render())
     pr.yes("ok")
 
 
 def make_abbreviations(g: GlobalVars):
-    pr.green("compiling abbreviations")
+    pr.green_tmr("compiling abbreviations")
 
     abbreviations_tsv = read_tsv_dot_dict(g.pth.abbreviations_tsv_path)
     abbreviations_data = []
@@ -98,7 +98,7 @@ def make_abbreviations(g: GlobalVars):
 
 
 def make_pali_to_english(g: GlobalVars):
-    pr.green("compiling pali to english")
+    pr.green_tmr("compiling pali to english")
 
     if debug is True:
         dpd_db = g.db_session.query(DpdHeadword).limit(100).all()
@@ -126,7 +126,7 @@ def make_pali_to_english(g: GlobalVars):
 
 
 def make_english_to_pali(g: GlobalVars):
-    pr.green("compiling english to pali")
+    pr.green_tmr("compiling english to pali")
 
     if debug is True:
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").limit(100).all()
@@ -169,7 +169,7 @@ def make_english_to_pali(g: GlobalVars):
 
 
 def make_root_families(g: GlobalVars):
-    pr.green("compiling root families")
+    pr.green_tmr("compiling root families")
 
     if debug is True:
         root_fam_db = g.db_session.query(FamilyRoot).limit(100).all()
@@ -201,7 +201,7 @@ def make_root_families(g: GlobalVars):
 
 
 def make_word_families(g: GlobalVars):
-    pr.green("compiling word families")
+    pr.green_tmr("compiling word families")
 
     if debug is True:
         word_fam_db: list[FamilyWord] = g.db_session.query(FamilyWord).limit(100).all()
@@ -228,7 +228,7 @@ def make_word_families(g: GlobalVars):
 
 
 def make_compound_families(g: GlobalVars):
-    pr.green("compiling compound families")
+    pr.green_tmr("compiling compound families")
 
     if debug is True:
         compound_fam_db = g.db_session.query(FamilyCompound).limit(100).all()
@@ -256,7 +256,7 @@ def make_compound_families(g: GlobalVars):
 
 
 def make_idiom_families(g: GlobalVars):
-    pr.green("compiling idiom families")
+    pr.green_tmr("compiling idiom families")
 
     if debug is True:
         idioms_fam_db = g.db_session.query(FamilyIdiom).limit(100).all()
@@ -282,7 +282,7 @@ def make_idiom_families(g: GlobalVars):
 
 
 def make_bibliography(g: GlobalVars):
-    pr.green("compiling bibliography")
+    pr.green_tmr("compiling bibliography")
 
     bibliography_data = read_tsv_dot_dict(g.pth.bibliography_tsv_path)
 
@@ -296,7 +296,7 @@ def make_bibliography(g: GlobalVars):
 
 
 def make_thanks(g: GlobalVars):
-    pr.green("compiling thanks")
+    pr.green_tmr("compiling thanks")
 
     thanks_tsv = read_tsv_dot_dict(g.pth.thanks_tsv_path)
     thanks_data = []
@@ -320,7 +320,7 @@ def make_thanks(g: GlobalVars):
 
 
 def clean_up_typst_data(g: GlobalVars):
-    pr.green("cleaning up")
+    pr.green_tmr("cleaning up")
 
     cleaned_data = []
     for i in g.typst_data:
@@ -340,7 +340,7 @@ def clean_up_typst_data(g: GlobalVars):
 
 
 def save_typist_file(g: GlobalVars):
-    pr.green("saving typst data")
+    pr.green_tmr("saving typst data")
 
     with open(g.pth.typst_lite_data_path, "w") as f:
         f.write("".join(g.typst_data))
@@ -348,7 +348,7 @@ def save_typist_file(g: GlobalVars):
 
 
 def export_to_pdf(g: GlobalVars):
-    pr.green("rendering pdf")
+    pr.green_tmr("rendering pdf")
 
     try:
         typst.compile(
@@ -370,7 +370,7 @@ def export_to_pdf(g: GlobalVars):
 
 
 def zip_up_pdf(g: GlobalVars):
-    pr.green("zipping up pdf")
+    pr.green_tmr("zipping up pdf")
 
     zip_up_file(
         g.pth.typst_lite_pdf_path, g.pth.typst_lite_zip_path, compression_level=5
@@ -381,7 +381,7 @@ def zip_up_pdf(g: GlobalVars):
 
 def main():
     pr.tic()
-    pr.title("export to pdf with typst")
+    pr.yellow_title("export to pdf with typst")
 
     if not config_test("exporter", "make_pdf", "yes"):
         pr.green_title("disabled in config.ini")

@@ -30,7 +30,7 @@ class GlobalVars:
 def find_all_lemma_with_gram(g: GlobalVars):
     """Make a set of all lemma_1 (minus the last digit) which contains (gram)."""
 
-    pr.green("finding all lemmas with (gram)")
+    pr.green_tmr("finding all lemmas with (gram)")
 
     contains_grammar = (
         g.db_session.query(DpdHeadword)
@@ -55,7 +55,7 @@ def find_all_lemma_with_gram(g: GlobalVars):
 def test_last_position(g: GlobalVars):
     """Find (gram) not in last position."""
 
-    pr.green("finding (gram) not in last position")
+    pr.green_tmr("finding (gram) not in last position")
     for g.truncated_lemma in g.contains_grammar_set:
         headwords = (
             g.db_session.query(DpdHeadword)
@@ -143,7 +143,7 @@ def reorder_grammar(g: GlobalVars):
 
 
 def main():
-    pr.title("test for (gram) not in last position")
+    pr.yellow_title("test for (gram) not in last position")
     g = GlobalVars()
     find_all_lemma_with_gram(g)
     test_last_position(g)

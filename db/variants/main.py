@@ -17,7 +17,7 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("variants dict")
+    pr.yellow_title("variants dict")
 
     if config_test("exporter", "make_variants", "no"):
         pr.green_title("disabled in config.ini")

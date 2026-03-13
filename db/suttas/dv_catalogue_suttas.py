@@ -14,7 +14,7 @@ def download_dv_catalogue(filepath: Path) -> bool:
     """Download DV Catalogue TSV file from GitHub."""
     url = "https://raw.githubusercontent.com/dhamma-vinaya-connections/early-buddhist-connections/main/Catalogue/Suttas-Catalogue.tsv"
     try:
-        pr.green("downloading dv catalogue")
+        pr.green_tmr("downloading dv catalogue")
         response = requests.get(url, timeout=10)
         response.raise_for_status()
 
@@ -50,7 +50,7 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
 
     # Read TSV file
     try:
-        pr.green("reading dv sutta catalogue")
+        pr.green_tmr("reading dv sutta catalogue")
         df = pd.read_csv(tsv_path, sep="\t")
 
     except Exception as e:
@@ -126,8 +126,8 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
             temp_dir.mkdir(exist_ok=True)
             dupes_file = temp_dir / "sutta_codes_dupes.txt"
             dupes_file.write_text("\n".join(duplicate_codes), encoding="utf-8")
-            pr.info("saved duplicate codes to:")
-            pr.info(str(dupes_file))
+            pr.green("saved duplicate codes to:")
+            pr.green(str(dupes_file))
 
         return catalogue_dict  # type: ignore[return-value]
     else:
@@ -176,7 +176,7 @@ def update_dv_fields_in_db(pth: ProjectPaths):
         db_session.close()
         return
 
-    pr.green("updating dv sutta in db")
+    pr.green_tmr("updating dv sutta in db")
     try:
         dv_mapping = get_dv_column_mapping()
         updated_count = 0

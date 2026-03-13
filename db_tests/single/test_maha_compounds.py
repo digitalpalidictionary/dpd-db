@@ -185,7 +185,7 @@ def commit_to_db(g: GlobalVars):
 
 def main():
     pr.tic()
-    pr.title("test mahā in compounds")
+    pr.yellow_title("test mahā in compounds")
     g = GlobalVars()
 
     count_mahas(g)

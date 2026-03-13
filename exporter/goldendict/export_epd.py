@@ -21,7 +21,7 @@ def generate_epd_html(
 
     size_dict = default_rendered_sizes()
 
-    pr.green("generating epd html from lookup")
+    pr.green_tmr("generating epd html from lookup")
 
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
     template = jinja_env.get_template("epd.jinja")

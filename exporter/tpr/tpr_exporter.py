@@ -49,7 +49,7 @@ class GlobalVars:
 
 
 def generate_tpr_data(g: GlobalVars):
-    pr.green("compiling dpd headword data")
+    pr.green_tmr("compiling dpd headword data")
     dpd_length = len(g.dpd_db)
     tpr_data_list = []
 
@@ -82,7 +82,7 @@ def generate_tpr_data(g: GlobalVars):
     pr.yes(dpd_length)
 
     # add roots
-    pr.green("compiling roots data")
+    pr.green_tmr("compiling roots data")
 
     roots_db = g.db_session.query(DpdRoot).all()
     roots_db = sorted(roots_db, key=lambda x: pali_sort_key(x.root))
@@ -127,7 +127,7 @@ def generate_tpr_data(g: GlobalVars):
 
 def generate_deconstructor_data(g: GlobalVars):
     """Compile deconstructor data."""
-    pr.green("compiling deconstructor data")
+    pr.green_tmr("compiling deconstructor data")
 
     deconstructor_db = (
         g.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
@@ -151,7 +151,7 @@ def generate_deconstructor_data(g: GlobalVars):
 
 def add_variants(g):
     """Add variant readings to deconstructor data"""
-    pr.green("compiling variants")
+    pr.green_tmr("compiling variants")
 
     variants_db = g.db_session.query(Lookup).filter(Lookup.variant != "").all()
     variants_db = sorted(variants_db, key=lambda x: pali_sort_key(x.lookup_key))
@@ -165,7 +165,7 @@ def add_variants(g):
 
 def add_spelling_mistakes(g):
     """Add spelling mistakes to deconstructor data"""
-    pr.green("compiling spelling mistakes")
+    pr.green_tmr("compiling spelling mistakes")
 
     spelling_db = g.db_session.query(Lookup).filter(Lookup.spelling != "").all()
     spelling_db = sorted(spelling_db, key=lambda x: pali_sort_key(x.lookup_key))
@@ -179,7 +179,7 @@ def add_spelling_mistakes(g):
 
 def add_roots_to_i2h(g):
     """Add roots to inflections to headwords"""
-    pr.green("adding roots to lookup")
+    pr.green_tmr("adding roots to lookup")
 
     i2h_data = read_tsv(g.pth.tpr_i2h_tsv_path)
     i2h_dict = {}
@@ -209,7 +209,7 @@ def add_roots_to_i2h(g):
 
 def write_tsvs(g: GlobalVars):
     """Write TSV files of dpd, deconstructor."""
-    pr.green("writing tsv files")
+    pr.green_tmr("writing tsv files")
 
     # write dpd_tsv
     with open(g.pth.tpr_dpd_tsv_path, "w") as f:
@@ -227,7 +227,7 @@ def write_tsvs(g: GlobalVars):
 
 
 def copy_to_sqlite_db(g: GlobalVars):
-    pr.green("copying data_list to tpr db")
+    pr.green_tmr("copying data_list to tpr db")
 
     # data frames
     tpr_df = pd.DataFrame(g.tpr_data_list)
@@ -287,7 +287,7 @@ def copy_to_sqlite_db(g: GlobalVars):
 
 
 def tpr_updater(g: GlobalVars):
-    pr.green("making tpr sql updater")
+    pr.green_tmr("making tpr sql updater")
 
     sql_string = ""
     sql_string += "BEGIN TRANSACTION;\n"
@@ -327,7 +327,7 @@ def tpr_updater(g: GlobalVars):
 
 
 def copy_zip_to_tpr_downloads(g: GlobalVars):
-    pr.green("updating tpr_downloads")
+    pr.green_tmr("updating tpr_downloads")
 
     if not g.pth.tpr_download_list_path.exists():
         pr.red("tpr_downloads repo does not exist, download")
@@ -402,7 +402,7 @@ def copy_zip_to_tpr_downloads(g: GlobalVars):
 def main():
     pr.tic()
 
-    pr.title("generate tpr data")
+    pr.yellow_title("generate tpr data")
 
     if not config_test("exporter", "make_tpr", "yes"):
         pr.green_title("disabled in config.ini")

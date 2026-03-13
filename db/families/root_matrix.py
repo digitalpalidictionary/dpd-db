@@ -7,7 +7,7 @@ from tools.superscripter import superscripter_uni
 
 
 def generate_root_matrix(db_session):
-    pr.green("generating root matrix")
+    pr.green_tmr("generating root matrix")
     root_matrix = {}
     total_counter = 0
     word_counter = 0
@@ -1480,7 +1480,7 @@ def generate_root_matrix(db_session):
 
     # generate html
 
-    pr.green("generating html")
+    pr.green_tmr("generating html")
 
     html_dict = {}
 
@@ -1514,7 +1514,7 @@ def generate_root_matrix(db_session):
     pr.yes(len(html_dict))
 
     # add back into db
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
     roots_db = db_session.query(DpdRoot).all()
 
     ok = True

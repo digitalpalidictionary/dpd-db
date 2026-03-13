@@ -87,7 +87,7 @@ class Bashini:
             return
 
         text_for_api = self._prepare_text(text_roman)
-        pr.info(f"{self.completed} | {remaining} {output_filepath} {text_for_api}")
+        pr.green(f"{self.completed} | {remaining} {output_filepath} {text_for_api}")
 
         self._process_tts(text_for_api, output_filepath)
 
@@ -115,7 +115,7 @@ class Bashini:
         output_filepath = single_dir / file_name
 
         text_for_api = self._prepare_text(text_roman)
-        pr.info(f"Generating: {output_filepath}")
+        pr.green(f"Generating: {output_filepath}")
 
         self._process_tts(text_for_api, output_filepath)
 
@@ -186,9 +186,9 @@ class Bashini:
                 requests.exceptions.Timeout,
             ) as e:
                 if attempt == 2:  # Last attempt failed
-                    pr.error(f"Connection failed after 3 attempts: {str(e)}")
+                    pr.red(f"Connection failed after 3 attempts: {str(e)}")
                     return None
-                pr.warning(f"Connection error, retrying ({attempt + 1}/3)...")
+                pr.amber(f"Connection error, retrying ({attempt + 1}/3)...")
                 time.sleep(1)
         return None
 
@@ -234,9 +234,9 @@ class Bashini:
                 stdin=subprocess.DEVNULL,
             )
         except subprocess.CalledProcessError as e:
-            pr.error(f"Error playing audio: {e}")
+            pr.red(f"Error playing audio: {e}")
         except FileNotFoundError:
-            pr.error("ffplay not found. Please install ffmpeg.")
+            pr.red("ffplay not found. Please install ffmpeg.")
 
     @classmethod
     def ping_api(cls) -> bool:
@@ -251,7 +251,7 @@ class Bashini:
         }
 
         start_time = time.time()
-        pr.green("pinging API")
+        pr.green_tmr("pinging API")
 
         resp = cls._post_to_api(test_payload)
 

@@ -18,13 +18,13 @@ class GeminiManager:
         self.client: genai.Client | None = None
         self.api_key_name = api_key_name
         if not self.api_key:
-            pr.warning(f"Gemini API key '{api_key_name}' not found in config.ini")
+            pr.amber(f"Gemini API key '{api_key_name}' not found in config.ini")
             return
 
         try:
             self.client = genai.Client(api_key=self.api_key)
         except Exception as e:
-            pr.error(f"Failed to configure Gemini API: {e}")
+            pr.red(f"Failed to configure Gemini API: {e}")
             self.client = None
 
     def request(
@@ -93,7 +93,7 @@ class GeminiManager:
             elif response.prompt_feedback and response.prompt_feedback.block_reason:
                 reason = response.prompt_feedback.block_reason
                 error_msg = f"Gemini ({api_model_string}) response blocked in {duration:.2f}s. Reason: {reason}"
-                pr.error(error_msg)
+                pr.red(error_msg)
                 return AIResponse(content=None, status_message=error_msg)
             else:  # More complex case: check candidates and parts
                 if (
@@ -118,7 +118,7 @@ class GeminiManager:
                 )
 
         except google_exceptions.GoogleAPICallError as e:
-            pr.error(str(e))
+            pr.red(str(e))
             return AIResponse(content=None, status_message=str(e))
         except Exception as e:
             return AIResponse(content=None, status_message=str(e))
@@ -132,12 +132,12 @@ class GeminiManager:
             print(models_list)
             return models_list
         except Exception as e:
-            pr.error(f"Error listing models: {e}")
+            pr.red(f"Error listing models: {e}")
             return None
 
 
 if __name__ == "__main__":
-    pr.info("--- Testing GeminiManager ---")
+    pr.green("--- Testing GeminiManager ---")
     gemini_manager = GeminiManager()
 
     # List available models
@@ -160,16 +160,16 @@ if __name__ == "__main__":
     test_prompt = "Explain the concept of recursion in programming in simple terms."
     test_sys_prompt = "You are a helpful teaching assistant."
 
-    pr.info(f"Sending request with prompt: '{test_prompt}'")
+    pr.green(f"Sending request with prompt: '{test_prompt}'")
     ai_response = gemini_manager.request(
         prompt=test_prompt,
         prompt_sys=test_sys_prompt,
         model="models/gemini-2.5-flash",
     )
 
-    pr.info(f"Gemini request status: {ai_response.status_message}")
+    pr.green(f"Gemini request status: {ai_response.status_message}")
     if ai_response.content:
-        pr.info("Response received:")
-        pr.info(ai_response.content)
+        pr.green("Response received:")
+        pr.green(ai_response.content)
     else:
-        pr.warning("Gemini request content was None.")
+        pr.amber("Gemini request content was None.")

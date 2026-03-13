@@ -16,7 +16,7 @@ class GlobalVars:
     all_words_set: set[str] = set()
 
 
-def cleanup_text_and_add_to_set(g: GlobalVars) -> list:
+def cleanup_text_and_add_to_set(g: GlobalVars) -> None:
     """Clean up the text in the column and add to all_words_set"""
     g.text = getattr(g.headword, g.column)
     if g.text:
@@ -44,7 +44,7 @@ def make_all_words_in_dpd_set(db_session: Session) -> set[str]:
     can be recognized by the deconstructor.
     """
 
-    pr.green("making set of all words in dpd")
+    pr.green_tmr("making set of all words in dpd")
     db = db_session.query(DpdHeadword).all()
     g = GlobalVars()
     for counter, g.headword in enumerate(db):

@@ -13,13 +13,13 @@ from tools.printer import printer as pr
 
 
 def main():
-    pr.title("searching bold definitions")
+    pr.yellow_title("searching bold definitions")
     bold_definitions_db = fetch_db()
     request_search_terms(bold_definitions_db)
 
 
 def fetch_db():
-    pr.green("fetching bold definitions")
+    pr.green_tmr("fetching bold definitions")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(BoldDefinition).all()

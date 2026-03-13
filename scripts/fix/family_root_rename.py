@@ -11,7 +11,7 @@ from tools.printer import printer as pr
 
 
 def main():
-    pr.title("rename family root")
+    pr.yellow_title("rename family root")
 
     before = "√rañj 1"
     after = "√rañj"

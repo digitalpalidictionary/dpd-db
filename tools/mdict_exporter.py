@@ -56,27 +56,27 @@ def export_to_mdict(
 
 
 def replace_goldendict(g: GlobalVars) -> None:
-    pr.white("adding 'mdict'")
+    pr.white_tmr("adding 'mdict'")
     for i in g.dict_data:
         i.definition_html = i.definition_html.replace("GoldenDict", "MDict")
     pr.yes("ok")
 
 
 def add_h3_header(g: GlobalVars) -> None:
-    pr.white("adding h3 tag")
+    pr.white_tmr("adding h3 tag")
     for i in g.dict_data:
         i.definition_html = f"<h3>{i.word}</h3>{i.definition_html}"
     pr.yes("ok")
 
 
 def reduce_synonyms(g: GlobalVars) -> None:
-    pr.white("reducing synonyms")
+    pr.white_tmr("reducing synonyms")
     try:
         g.reduced_data = reduce(make_synonyms, g.dict_data, [])
         pr.yes("ok")
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))
 
 
 def make_synonyms(all_items, item: DictEntry):
@@ -88,7 +88,7 @@ def make_synonyms(all_items, item: DictEntry):
 
 
 def write_mdx_file(g: GlobalVars) -> None:
-    pr.white("writing .mdx file")
+    pr.white_tmr("writing .mdx file")
     try:
         writer = MDictWriter(
             g.reduced_data,
@@ -100,14 +100,14 @@ def write_mdx_file(g: GlobalVars) -> None:
         pr.yes("ok")
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))
 
 
 def compile_css_js_assets(g: GlobalVars) -> None:
     """Add CSS and JS and create a list with the format:
     (file_path, file_content_binary)"""
 
-    pr.white("compiling css and js assets")
+    pr.white_tmr("compiling css and js assets")
 
     try:
         g.assets = []
@@ -134,11 +134,11 @@ def compile_css_js_assets(g: GlobalVars) -> None:
 
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))
 
 
 def write_mdd_file(g: GlobalVars) -> None:
-    pr.white("writing .mdd file")
+    pr.white_tmr("writing .mdd file")
     try:
         writer = MDictWriter(
             g.assets,
@@ -152,11 +152,11 @@ def write_mdd_file(g: GlobalVars) -> None:
 
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))
 
 
 def zip_files(g: GlobalVars) -> None:
-    pr.white("zipping mdict files")
+    pr.white_tmr("zipping mdict files")
     try:
         with ZipFile(g.dict_var.md_zip_path, "w", ZIP_DEFLATED) as zipf:
             for file_path in [g.dict_var.mdict_mdd_path, g.dict_var.mdict_mdx_path]:
@@ -165,13 +165,13 @@ def zip_files(g: GlobalVars) -> None:
 
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))
 
 
 def delete_original(g: GlobalVars) -> None:
     """Delete the original output folder"""
 
-    pr.white("deleting original files")
+    pr.white_tmr("deleting original files")
     try:
         g.dict_var.mdict_mdd_path.unlink()
         g.dict_var.mdict_mdx_path.unlink()
@@ -179,4 +179,4 @@ def delete_original(g: GlobalVars) -> None:
 
     except Exception as e:
         pr.no("error")
-        pr.red(e)
+        pr.red(str(e))

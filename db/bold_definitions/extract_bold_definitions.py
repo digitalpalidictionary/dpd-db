@@ -200,14 +200,14 @@ def extract_bold_definitions(pth):
         print(f"{bold_count1}\t{bold_count2}\t{no_meaning_count}")
         bold_total += bold_count2
 
-    pr.green("bold_total")
+    pr.green_tmr("bold_total")
     pr.yes(len(bold_definitions_list))
     return bold_definitions_list
 
 
 def export_json(pth, bold_definitions_list):
     """convert to tsv and json."""
-    pr.green("saving json")
+    pr.green_tmr("saving json")
     output_dir = Path("db/bold_definitions")
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -222,7 +222,7 @@ def export_json(pth, bold_definitions_list):
 
 def main():
     pr.tic()
-    pr.title("building database of bolded definitions")
+    pr.yellow_title("building database of bolded definitions")
     pth = ProjectPaths()
     bold_definitions = extract_bold_definitions(pth)
     export_json(pth, bold_definitions)

@@ -94,7 +94,7 @@ def generate_info_plist(output_dir: Path, version: str = "1.0") -> None:
         output_dir: Directory to write the plist file
         version: Dictionary version string
     """
-    pr.green("generating Info.plist")
+    pr.green_tmr("generating Info.plist")
 
     plist_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -128,7 +128,7 @@ def copy_css_file(output_dir: Path) -> None:
     Args:
         output_dir: Directory to write the CSS file
     """
-    pr.green("copying CSS file")
+    pr.green_tmr("copying CSS file")
 
     css_source = Path("exporter/apple_dictionary/templates/dictionary.css")
     css_dest = output_dir / "Dictionary.css"
@@ -241,13 +241,13 @@ def generate_dictionary_xml(
     # Build mūla word set for filtering inflections
     mula_word_set = make_mula_words_set(pth)
 
-    pr.green("loading speech marks")
+    pr.green_tmr("loading speech marks")
     speech_marks_manager = SpeechMarkManager(pth)
     speech_marks = speech_marks_manager.get_speech_marks()
     pr.yes(f"{len(speech_marks)}")
 
     # Query headwords and sort by lemma_1 using pali_sort_key
-    pr.green("querying database")
+    pr.green_tmr("querying database")
     query = db_session.query(DpdHeadword)
     if limit:
         query = query.limit(limit)
@@ -301,7 +301,7 @@ def generate_dictionary_xml(
 def main() -> None:
     """Main entry point for Apple Dictionary export."""
     pr.tic()
-    pr.title("exporting DPD for Apple Dictionary")
+    pr.yellow_title("exporting DPD for Apple Dictionary")
 
     # Get database session
     pth = ProjectPaths()
@@ -325,9 +325,9 @@ def main() -> None:
     db_session.close()
 
     pr.green_title("files generated:")
-    pr.info(f"  - {output_dir}/Info.plist")
-    pr.info(f"  - {output_dir}/Dictionary.css")
-    pr.info(f"  - {output_dir}/Dictionary.xml")
+    pr.green(f"  - {output_dir}/Info.plist")
+    pr.green(f"  - {output_dir}/Dictionary.css")
+    pr.green(f"  - {output_dir}/Dictionary.xml")
     pr.toc()
 
 

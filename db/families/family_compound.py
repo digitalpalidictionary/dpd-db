@@ -17,7 +17,7 @@ from tools.superscripter import superscripter_uni
 
 def main():
     pr.tic()
-    pr.title("compound families generator")
+    pr.yellow_title("compound families generator")
 
     if not (
         config_test("exporter", "make_dpd", "yes")
@@ -53,7 +53,7 @@ def main():
 
 
 def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
-    pr.green("extracting compound families")
+    pr.green_tmr("extracting compound families")
 
     # create a dict of all compound families
     # family: {headwords: [], html: "", }
@@ -89,7 +89,7 @@ def create_comp_fam_dict(dpd_db: list[DpdHeadword]):
 
 
 def compile_cf_html(dpd_db: list[DpdHeadword], cf_dict):
-    pr.green("compiling html")
+    pr.green_tmr("compiling html")
 
     for __counter__, i in enumerate(dpd_db):
         for cf in i.family_compound_list:
@@ -137,7 +137,7 @@ def compile_cf_html(dpd_db: list[DpdHeadword], cf_dict):
 
 
 def add_cf_to_db(db_session, cf_dict):
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
 
     add_to_db = []
 
@@ -186,7 +186,7 @@ def make_anki_data(cf_dict):
 def update_db_cache(db_session, cf_dict):
     """Update the db_info with cf_set for use in the exporter."""
 
-    pr.green("adding DbInfo cache item")
+    pr.green_tmr("adding DbInfo cache item")
 
     cf_set = set()
     for i in cf_dict:

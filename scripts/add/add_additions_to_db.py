@@ -11,7 +11,7 @@ from tools.tsv_read_write import read_tsv_dot_dict, write_tsv_dot_dict
 
 
 def add_to_db():
-    pr.title("add additions to db")
+    pr.yellow_title("add additions to db")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

@@ -124,7 +124,7 @@ class DictVariables:
 
 def delete_old_directory(dict_var: DictVariables) -> bool:
     """Delete old dictionary directory if it exists."""
-    pr.white("deleting old directory")
+    pr.white_tmr("deleting old directory")
     if dict_var.gd_path.exists():
         try:
             shutil.rmtree(dict_var.gd_path)
@@ -142,7 +142,7 @@ def delete_old_directory(dict_var: DictVariables) -> bool:
 def create_glossary(dict_info: DictInfo) -> Glossary:
     """Create Glossary."""
 
-    pr.white("creating glossary")
+    pr.white_tmr("creating glossary")
     Glossary.init()
     glos = Glossary(
         info={
@@ -163,7 +163,7 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
 def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add CSS file."""
 
-    pr.white("adding css")
+    pr.white_tmr("adding css")
     if dict_var.css_paths:
         for css_path in dict_var.css_paths:
             if css_path and css_path.exists():
@@ -178,7 +178,7 @@ def add_css(glos: Glossary, dict_var: DictVariables) -> Glossary:
 def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add JS file."""
 
-    pr.white("adding js")
+    pr.white_tmr("adding js")
     if dict_var.js_paths:
         for js_path in dict_var.js_paths:
             if js_path and js_path.exists():
@@ -194,7 +194,7 @@ def add_js(glos: Glossary, dict_var: DictVariables) -> Glossary:
 def add_fonts(glos: Glossary, dict_var: DictVariables) -> Glossary:
     """Add the fonts."""
 
-    pr.white("adding fonts")
+    pr.white_tmr("adding fonts")
     if dict_var.font_source_path:
         for font_path in dict_var.font_source_path.iterdir():
             # Check if the file exists and has a valid font extension
@@ -215,7 +215,7 @@ def add_fonts(glos: Glossary, dict_var: DictVariables) -> Glossary:
 def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
     """Add dictionary data to glossary."""
 
-    pr.white("compiling data")
+    pr.white_tmr("compiling data")
     for d in dict_data:
         glos.addEntry(
             glos.newEntry(
@@ -230,7 +230,7 @@ def add_data(glos: Glossary, dict_data: list[DictEntry]) -> Glossary:
 def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
     """Write output files."""
 
-    pr.white("writing goldendict file")
+    pr.white_tmr("writing goldendict file")
     glos.write(
         filename=str(dict_var.gd_path_name),
         format="Stardict",
@@ -245,7 +245,7 @@ def write_to_file(glos: Glossary, dict_var: DictVariables) -> None:
 def zip_dictfile(dict_var: DictVariables) -> None:
     """Compress .dict file into dictzip format using idzip."""
 
-    pr.white("zipping .dict")
+    pr.white_tmr("zipping .dict")
 
     try:
         with (
@@ -269,7 +269,7 @@ def zip_dictfile(dict_var: DictVariables) -> None:
 def zip_synfile(dict_var: DictVariables) -> None:
     """Compress .syn file into dictzip format"""
 
-    pr.white("zipping synonyms")
+    pr.white_tmr("zipping synonyms")
     try:
         with (
             open(dict_var.synfile, "rb") as input_f,
@@ -294,7 +294,7 @@ def zip_synfile(dict_var: DictVariables) -> None:
 def add_icon(v: DictVariables) -> None:
     """Copy the icon if provided."""
 
-    pr.white("copying icon")
+    pr.white_tmr("copying icon")
     if v.icon_source_path is not None:
         if v.icon_source_path.exists():
             try:
@@ -309,7 +309,7 @@ def add_icon(v: DictVariables) -> None:
 def copy_dir(v: DictVariables) -> None:
     """Copy to Goldendict dir, cleaning up the destination first."""
 
-    pr.white("copying to GoldenDict dir")
+    pr.white_tmr("copying to GoldenDict dir")
     goldendict_pth: Path | str = make_goldendict_path()
     if goldendict_pth:
         if goldendict_pth.exists():
@@ -338,7 +338,7 @@ def copy_dir(v: DictVariables) -> None:
 def zip_folder(dict_var: DictVariables):
     """Zip up the gd and md files."""
 
-    pr.white("zipping directory")
+    pr.white_tmr("zipping directory")
     with ZipFile(dict_var.gd_zip_path, "w", ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(dict_var.gd_path):
             for file in files:
@@ -351,7 +351,7 @@ def zip_folder(dict_var: DictVariables):
 def delete_original(dict_var: DictVariables):
     """Delete the original output folder"""
 
-    pr.white("deleting folder")
+    pr.white_tmr("deleting folder")
     try:
         shutil.rmtree(dict_var.gd_path)
         pr.yes("ok")
@@ -363,7 +363,7 @@ def delete_original(dict_var: DictVariables):
 def write_to_slob(glos: Glossary, dict_var: DictVariables) -> None:
     """Write to slob format files."""
 
-    pr.white("writing slob file")
+    pr.white_tmr("writing slob file")
     glos.write(
         filename=str(dict_var.slob_path_name),
         format="Aard2Slob",

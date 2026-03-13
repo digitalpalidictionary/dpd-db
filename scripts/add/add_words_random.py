@@ -20,7 +20,7 @@ def main():
     - without meaning_1
     - without example_1"""
 
-    pr.title("pick a random word to add")
+    pr.yellow_title("pick a random word to add")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -45,7 +45,7 @@ def main():
         random_number = randrange(len(all_missing))
         random_id = all_missing[random_number]
         word = db_session.query(DpdHeadword).filter_by(id=random_id).first()
-        pyperclip.copy(word.lemma_1)
+        pyperclip.copy(word.lemma_1)  # type: ignore[union-attr]
         print(word)
         user_input = input()
 

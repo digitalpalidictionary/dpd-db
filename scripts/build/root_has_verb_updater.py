@@ -11,7 +11,7 @@ from tools.printer import printer as pr
 class RootHasVerbUpdater:
     def __init__(self):
         pr.tic()
-        pr.title("testing which roots have verbs")
+        pr.yellow_title("testing which roots have verbs")
 
         self.verbs: list[str] = [
             "pr",
@@ -35,7 +35,7 @@ class RootHasVerbUpdater:
         pr.toc()
 
     def prepare_database(self):
-        pr.green("preparing data")
+        pr.green_tmr("preparing data")
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.dpd_db: list[DpdHeadword] = (
@@ -58,7 +58,7 @@ class RootHasVerbUpdater:
             return False
 
     def make_root_has_verb_dict(self) -> None:
-        pr.green("testing roots have verbs")
+        pr.green_tmr("testing roots have verbs")
         self.root_has_verb_dict: dict[str, str] = {}
         current_root = ""
         has_verb: bool
@@ -88,7 +88,7 @@ class RootHasVerbUpdater:
                 self.updated += 1
 
     def update_db(self):
-        pr.green("updating db")
+        pr.green_tmr("updating db")
         if self.updated:
             self.db_session.commit()
         pr.yes(self.updated)

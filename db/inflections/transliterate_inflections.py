@@ -149,7 +149,7 @@ def _parse_batch(
         )
         # print(f"[green]{output}")
     except Exception as e:
-        pr.no(e)
+        pr.no(str(e))
 
     # re-import path nirvana transliterations
 
@@ -199,9 +199,9 @@ def main():
         changed_templates: list = pickle.load(f)
 
     pr.tic()
-    pr.title("transliterating inflections")
+    pr.yellow_title("transliterating inflections")
 
-    pr.green("regenerate all")
+    pr.green_tmr("regenerate all")
 
     # check config
     if config_test("regenerate", "transliterations", "yes") or config_test(
@@ -212,9 +212,9 @@ def main():
         regenerate_all: bool = False
     pr.yes(str(regenerate_all))
 
-    pr.green("transliterating")
+    pr.green_tmr("transliterating")
 
-    num_logical_cores = psutil.cpu_count()
+    num_logical_cores = psutil.cpu_count() or 1
     batches: List[List[DpdHeadword]] = list_into_batches(dpd_db, num_logical_cores)
 
     processes: List[Process] = []
@@ -251,7 +251,7 @@ def main():
     pr.yes(len(translit_dict))
 
     # write back into database
-    pr.green("writing to db")
+    pr.green_tmr("writing to db")
 
     translit_counter = 0
     for i in dpd_db:

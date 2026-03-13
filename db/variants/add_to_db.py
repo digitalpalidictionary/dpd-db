@@ -7,7 +7,7 @@ from tools.printer import printer as pr
 
 class AddVariantsToDb:
     def __init__(self, variants_dict):
-        pr.green("initializing db")
+        pr.green_tmr("initializing db")
 
         self.variants_dict = variants_dict
         self.variant_dict_keys = list(self.variants_dict.keys())
@@ -40,7 +40,7 @@ class AddVariantsToDb:
     def delete_variants_in_db(self):
         """Remove old variants from the lookup table."""
 
-        pr.green("removing old variants")
+        pr.green_tmr("removing old variants")
 
         db_results = self.db_session.query(Lookup).filter(Lookup.variant != "").all()
 
@@ -55,7 +55,7 @@ class AddVariantsToDb:
 
     def update_variants_in_db(self):
         """Update existing variants in the lookup table."""
-        pr.green("updating db")
+        pr.green_tmr("updating db")
 
         # Get keys that need updating
         update_keys = [k for k in self.variants_dict.keys() if k in self.lookup_keys]
@@ -93,7 +93,7 @@ class AddVariantsToDb:
 
     def add_variants_to_db(self):
         """Add new variants to the lookup table."""
-        pr.green("adding to db")
+        pr.green_tmr("adding to db")
 
         # Find keys that don't exist in the database
         new_keys = [k for k in self.variants_dict.keys() if k not in self.lookup_keys]

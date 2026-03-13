@@ -74,11 +74,11 @@ def process_batch(
             corrected_list = json.loads(content)
             if isinstance(corrected_list, list):
                 return corrected_list
-            pr.error(f"Error: AI response is not a list: {response.content}")
+            pr.red(f"Error: AI response is not a list: {response.content}")
         except json.JSONDecodeError:
-            pr.error(f"Error decoding JSON from AI response: {response.content}")
+            pr.red(f"Error decoding JSON from AI response: {response.content}")
     else:
-        pr.error(f"Error: No content from AI: {response.status_message}")
+        pr.red(f"Error: No content from AI: {response.status_message}")
 
     return []
 
@@ -95,7 +95,7 @@ def main():
 
     db_session = get_db_session(Path(db_path))
     data = get_db_data(db_session)
-    pr.info(f"Extracted {len(data)} entries from database.")
+    pr.green(f"Extracted {len(data)} entries from database.")
 
     batches = batch_data(data, batch_size)
     ai_manager = AIManager()
@@ -113,7 +113,7 @@ def main():
                 writer.writeheader()
 
             for i, batch in enumerate(batches):
-                pr.info(f"Processing batch {i + 1}/{len(batches)}...")
+                pr.green(f"Processing batch {i + 1}/{len(batches)}...")
                 corrected_batch = process_batch(ai_manager, batch, model)
 
                 batch_results = []
@@ -139,14 +139,14 @@ def main():
                 if batch_results:
                     writer.writerows(batch_results)
                     tsvfile.flush()
-                    pr.info(f"Batch {i + 1} results written to {output_file}")
+                    pr.green(f"Batch {i + 1} results written to {output_file}")
 
     except Exception as e:
-        pr.error(f"Error during processing: {e}")
+        pr.red(f"Error during processing: {e}")
     finally:
         db_session.close()
 
-    pr.info(f"All processing complete. Results saved in {output_file}")
+    pr.green(f"All processing complete. Results saved in {output_file}")
 
 
 class ProofreaderManager:

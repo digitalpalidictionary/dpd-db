@@ -27,7 +27,7 @@ class GlobalVars:
 
 def load_see_dict(g: GlobalVars) -> None:
     """Turn see.tsv into a dictionary of see_word -> set of headwords."""
-    pr.green("loading see tsv")
+    pr.green_tmr("loading see tsv")
     see_tsv = read_tsv(g.pth.see_path)
     see_dict: DefaultDict[str, set[str]] = defaultdict(set)
     for see_word, headword in see_tsv[1:]:
@@ -38,7 +38,7 @@ def load_see_dict(g: GlobalVars) -> None:
 
 def add_see(g: GlobalVars) -> None:
     """Three-tier update/test/add for the see column."""
-    pr.green("update test add")
+    pr.green_tmr("update test add")
     update_set, test_set, add_set = update_test_add(g.lookup_table, g.see_dict)
     pr.yes("")
 
@@ -46,7 +46,7 @@ def add_see(g: GlobalVars) -> None:
         g.db_session.query(Lookup).filter(Lookup.lookup_key.in_(update_set)).all()
     )
 
-    pr.green("update")
+    pr.green_tmr("update")
     if update_set:
         for i in lookup_table_update_test:
             if i.lookup_key in update_set:
@@ -60,7 +60,7 @@ def add_see(g: GlobalVars) -> None:
                     g.db_session.delete(i)
     pr.yes(len(update_set))
 
-    pr.green("add")
+    pr.green_tmr("add")
     if add_set:
         add_to_db = []
         for see_word, headwords in g.see_dict.items():
@@ -75,7 +75,7 @@ def add_see(g: GlobalVars) -> None:
 
 def main() -> None:
     pr.tic()
-    pr.title("add see entries to lookup table")
+    pr.yellow_title("add see entries to lookup table")
     g = GlobalVars()
     load_see_dict(g)
     add_see(g)

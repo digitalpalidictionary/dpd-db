@@ -23,7 +23,7 @@ from tools.update_test_add import update_test_add
 
 def main():
     pr.tic()
-    pr.title("root families")
+    pr.yellow_title("root families")
 
     if not (
         config_test("exporter", "make_dpd", "yes")
@@ -31,7 +31,7 @@ def main():
         or config_test("exporter", "make_tpr", "yes")
         or config_test("exporter", "make_ebook", "yes")
     ):
-        pr.green("disabled in config.ini")
+        pr.green_tmr("disabled in config.ini")
         pr.toc()
         return
 
@@ -68,7 +68,7 @@ def main():
 
 
 def make_roots_family_dict_and_bases_dict(dpd_db):
-    pr.green("extracting root families and bases")
+    pr.green_tmr("extracting root families and bases")
     rf_dict = {}
     bases_dict = {}
     for i in dpd_db:
@@ -105,7 +105,7 @@ def make_roots_family_dict_and_bases_dict(dpd_db):
 
 
 def compile_rf_html(dpd_db: list[DpdHeadword], rf_dict):
-    pr.green("compiling html")
+    pr.green_tmr("compiling html")
 
     for __counter__, i in enumerate(dpd_db):
         family = i.root_family_key
@@ -167,7 +167,7 @@ def make_root_header(rf_dict, rf):
 
 
 def add_rf_to_db(db_session, rf_dict):
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
 
     add_to_db = []
 
@@ -194,7 +194,7 @@ def add_rf_to_db(db_session, rf_dict):
 def update_lookup_table(db_session):
     """Add root keys data to lookup table."""
 
-    pr.green("adding roots to lookup table")
+    pr.green_tmr("adding roots to lookup table")
 
     r2h_dict = defaultdict(set)
     roots_db = db_session.query(DpdRoot).all()
@@ -243,7 +243,7 @@ def update_lookup_table(db_session):
 def make_anki_data(pth: ProjectPaths, rf_dict):
     """Create anki_data_list for updating"""
 
-    pr.green("making anki data")
+    pr.green_tmr("making anki data")
 
     anki_data_list = []
 
@@ -281,7 +281,7 @@ def make_anki_data(pth: ProjectPaths, rf_dict):
 def make_anki_matrix_data(pth: ProjectPaths, html_dict, db_session):
     """Save root matrix data for anki updater"""
 
-    pr.green("making root matrix for anki")
+    pr.green_tmr("making root matrix for anki")
 
     anki_data_list = []
 

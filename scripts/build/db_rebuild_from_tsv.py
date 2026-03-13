@@ -19,7 +19,7 @@ from tools.printer import printer as pr
 
 def main():
     pr.tic()
-    pr.title("rebuilding db from tsvs")
+    pr.yellow_title("rebuilding db from tsvs")
 
     if config_test("regenerate", "db_rebuild", "no"):
         config_update("regenerate", "db_rebuild", "yes")
@@ -44,7 +44,7 @@ def main():
     make_pali_word_table_data(pth, db_session)
     make_pali_root_table_data(pth, db_session)
 
-    pr.green("committing to db")
+    pr.green_tmr("committing to db")
     db_session.commit()
     db_session.close()
     pr.yes("ok")
@@ -118,7 +118,7 @@ def read_tsv_files(file_paths: List[Path]) -> Iterator[Tuple[List[str], List[str
 def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return DpdHeadword table data."""
 
-    pr.green("creating DpdHeadword table data")
+    pr.green_tmr("creating DpdHeadword table data")
     counter = 0
 
     headword_files = get_tsv_files(pth.pali_word_path, "dpd_headwords")
@@ -137,7 +137,7 @@ def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
 def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return DpdRoot table data."""
 
-    pr.green("creating DpdRoot table data")
+    pr.green_tmr("creating DpdRoot table data")
     counter = 0
 
     root_files = get_tsv_files(pth.pali_root_path, "dpd_roots")

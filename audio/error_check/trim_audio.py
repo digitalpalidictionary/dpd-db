@@ -23,7 +23,7 @@ def gather_mp3_files() -> list[Path]:
     Reused from delete_silent_files.py
     """
     files: list[Path] = []
-    pr.info("scanning folders with '_0.85' for mp3s")
+    pr.green("scanning folders with '_0.85' for mp3s")
 
     # Find all folders with "_0.85" in their names
     folders_with_085: list[Path] = [
@@ -36,7 +36,7 @@ def gather_mp3_files() -> list[Path]:
         files.extend(list(folder.glob("*.mp3")))
 
     # No longer filtering out _trimmed.mp3 since we overwrite
-    pr.info(f"found {len(files)} files. processing...")
+    pr.green(f"found {len(files)} files. processing...")
     return files
 
 
@@ -109,7 +109,7 @@ def get_audio_info(filepath: Path) -> tuple[float, float, float] | None:
         return audio_start, audio_end, duration
 
     except Exception as e:
-        pr.error(f"error analyzing {filepath.name}: {e}")
+        pr.red(f"error analyzing {filepath.name}: {e}")
         return None
 
 
@@ -144,7 +144,7 @@ def trim_file(filepath: Path, start: float, end: float) -> bool:
         temp_path.replace(filepath)
         return True
     except Exception as e:
-        pr.error(f"error trimming {filepath.name}: {e}")
+        pr.red(f"error trimming {filepath.name}: {e}")
         # Clean up temp file if it exists
         if "temp_path" in locals() and temp_path.exists():
             temp_path.unlink()
@@ -176,7 +176,7 @@ def process_one_file(filepath: Path) -> tuple[str, Path]:
 def main():
     files = gather_mp3_files()
     if not files:
-        pr.error("no files found.")
+        pr.red("no files found.")
         return
 
     num_processes = multiprocessing.cpu_count()
@@ -205,15 +205,15 @@ def main():
                         skipped_f.flush()
                     progress.update(task, advance=1)
 
-    pr.info("Done. Summary:")
-    pr.info(f"  Trimmed: {results['trimmed']}")
-    pr.info(
+    pr.green("Done. Summary:")
+    pr.green(f"  Trimmed: {results['trimmed']}")
+    pr.green(
         f"  Skipped (threshold < {TRIM_THRESHOLD_MS}ms): {results['skipped_threshold']}"
     )
-    pr.info(f"  Skipped (analysis/silent): {results['skipped_analysis']}")
-    pr.info(f"  Errors: {results['error_trimming']}")
+    pr.green(f"  Skipped (analysis/silent): {results['skipped_analysis']}")
+    pr.green(f"  Errors: {results['error_trimming']}")
 
-    pr.info(f"Results saved to: {trimmed_path} and {skipped_path}")
+    pr.green(f"Results saved to: {trimmed_path} and {skipped_path}")
 
 
 if __name__ == "__main__":

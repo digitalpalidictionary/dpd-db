@@ -132,7 +132,7 @@ def compile_lookup_data(g: GlobalData):
 def main():
     """Export DPD for Kobo Reader"""
     pr.tic()
-    pr.title("exporting dpd for kobo")
+    pr.yellow_title("exporting dpd for kobo")
     g = GlobalData()
     compile_dict_data(g)
     compile_lookup_data(g)

@@ -164,7 +164,7 @@ def finder(db, csv, string):
 
 
 def main():
-    pr.title("find phonetic changes in vowels")
+    pr.yellow_title("find phonetic changes in vowels")
     pth = ProjectPaths()
     csv = read_tsv_dot_dict(pth.phonetic_changes_vowels_path)
     db_session = get_db_session(pth.dpd_db_path)

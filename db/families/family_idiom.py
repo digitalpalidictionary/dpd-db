@@ -16,7 +16,7 @@ from tools.superscripter import superscripter_uni
 
 def main():
     pr.tic()
-    pr.title("idioms generator")
+    pr.yellow_title("idioms generator")
 
     if not (
         config_test("exporter", "make_dpd", "yes")
@@ -53,7 +53,7 @@ def sync_idiom_numbers_with_family_compound(db_session):
     - gram does not contain "comp"
     then copy that value to idioms.
     """
-    pr.green("syncing idioms with family compound")
+    pr.green_tmr("syncing idioms with family compound")
     dpd_db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
 
     count = 0
@@ -75,7 +75,7 @@ def sync_idiom_numbers_with_family_compound(db_session):
 
 
 def create_idioms_dict(dpd_db):
-    pr.green("extracting idioms and headwords")
+    pr.green_tmr("extracting idioms and headwords")
 
     # create a dict of all idioms
     # word: {headwords: [], html: "", data: []}
@@ -99,7 +99,7 @@ def create_idioms_dict(dpd_db):
 
 
 def compile_idioms_html(dpd_db: list[DpdHeadword], idioms_dict):
-    pr.green("compiling html")
+    pr.green_tmr("compiling html")
 
     for i in dpd_db:
         if i.pos in ["idiom", "sandhi"]:
@@ -144,7 +144,7 @@ def compile_idioms_html(dpd_db: list[DpdHeadword], idioms_dict):
 
 
 def add_idioms_to_db(db_session, idioms_dict):
-    pr.green("adding to db")
+    pr.green_tmr("adding to db")
 
     add_to_db = []
 
@@ -168,7 +168,7 @@ def add_idioms_to_db(db_session, idioms_dict):
 def update_db_cache(db_session, idioms_dict):
     """Update the db_info with cf_set for use in the exporter."""
 
-    pr.green("adding DbInfo cache item")
+    pr.green_tmr("adding DbInfo cache item")
 
     idioms_set = set()
     for word in idioms_dict:

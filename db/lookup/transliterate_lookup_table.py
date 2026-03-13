@@ -174,15 +174,15 @@ class WordInflections(TypedDict):
 
 def main():
     pr.tic()
-    pr.title("transliterating lookup table")
-    pr.green("setting up db")
+    pr.yellow_title("transliterating lookup table")
+    pr.green_tmr("setting up db")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     lookup_db = db_session.query(Lookup).all()
 
     pr.yes("")
-    pr.green("regenerate all")
+    pr.green_tmr("regenerate all")
 
     # check config
     if config_test("regenerate", "transliterations", "yes") or config_test(
@@ -194,9 +194,9 @@ def main():
 
     pr.yes(str(regenerate_all))
 
-    pr.green("processing batches")
+    pr.green_tmr("processing batches")
 
-    num_logical_cores = psutil.cpu_count()
+    num_logical_cores = psutil.cpu_count() or 1
     batches: List[List[Lookup]] = list_into_batches(lookup_db, num_logical_cores)
 
     processes: List[Process] = []
@@ -232,7 +232,7 @@ def main():
     pr.yes(len(translit_dict))
 
     # write back into database
-    pr.green("writing to db")
+    pr.green_tmr("writing to db")
 
     translit_counter = 0
     for i in lookup_db:

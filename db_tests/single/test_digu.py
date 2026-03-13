@@ -59,7 +59,7 @@ class GlobalVars:
 def make_sets_of_cardinals_and_ordinals(g: GlobalVars):
     """Make a set of all cardinal and ordinal numbers in the db."""
 
-    pr.green("making sets of pali and english cardinals and ordinals")
+    pr.green_tmr("making sets of pali and english cardinals and ordinals")
 
     for i in g.db:
         if i.pos == "card":
@@ -228,7 +228,7 @@ def printer_pass2(g: GlobalVars):
 
 
 def main():
-    pr.title("find all digu samāsa")
+    pr.yellow_title("find all digu samāsa")
 
     g = GlobalVars()
     make_sets_of_cardinals_and_ordinals(g)

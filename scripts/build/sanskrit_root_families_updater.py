@@ -53,7 +53,7 @@ class RootFamily:
     def __init__(self, i, tsv_dict):
         self.root_key = i.root_key
         if i.rt is None:
-            pr.error("!!! ERROR: `i.rt` is None for lemma_1: `{i.lemma_1}`")
+            pr.red("!!! ERROR: `i.rt` is None for lemma_1: `{i.lemma_1}`")
             self.root_group = ""
             self.root_sign = ""
             self.root_meaning = ""

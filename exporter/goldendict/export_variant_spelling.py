@@ -25,7 +25,7 @@ def generate_variant_spelling_html(
 ) -> Tuple[List[DictEntry], RenderedSizes]:
     """Generate html for see entries, variant readings and spelling corrections."""
 
-    pr.green("generating variants html")
+    pr.green_tmr("generating variants html")
 
     rendered_sizes = []
 

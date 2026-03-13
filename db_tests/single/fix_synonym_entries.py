@@ -5,13 +5,11 @@
 where values have been concatenated without a separator."""
 
 import pyperclip
-from rich import print
-from rich.prompt import Prompt
+from prompt_toolkit import prompt as pt_prompt
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from tools.goldendict_tools import open_in_goldendict
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -19,7 +17,7 @@ from tools.printer import printer as pr
 
 def main() -> None:
     pr.tic()
-    print("[bright_yellow]finding corrupted synonym, antonym and variant entries")
+    pr.yellow_title("finding corrupted synonym, antonym and variant entries")
 
     pth = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
@@ -28,12 +26,12 @@ def main() -> None:
     lemma_clean_set: set[str] = {i.lemma_clean for i in db}
 
     for field_name in ["synonym", "antonym", "variant"]:
-        print(f"\n[bright_yellow]checking {field_name} fields")
+        pr.green_title(f"checking {field_name} fields")
         flagged = find_invalid_entries(db, lemma_clean_set, field_name)
         if flagged:
-            edit_entries(db_session, flagged, field_name)
+            edit_entries(db_session, lemma_clean_set, flagged, field_name)
         else:
-            print(f"[green]no invalid {field_name} entries found")
+            pr.green(f"no invalid {field_name} entries found")
 
     pr.toc()
 
@@ -58,45 +56,63 @@ def find_invalid_entries(
         if invalid:
             flagged.append((i, invalid))
 
-    print(f"[cyan]found {len(flagged)} entries with invalid {field_name} values")
+    pr.summary(f"invalid {field_name} entries", len(flagged))
     return flagged
 
 
 def edit_entries(
     db_session: Session,
+    lemma_clean_set: set[str],
     flagged: list[tuple[DpdHeadword, list[str]]],
     field_name: str,
 ) -> None:
-    """Interactively edit flagged entries."""
+    """Interactively fix flagged entries.
+
+    For each invalid item, pre-fill it in the terminal so the user can
+    arrow-key to the right spot and insert ', ' to split it.
+    The fixed parts replace the bad item, the full list is deduped,
+    sorted, and saved.
+    """
 
     for counter, (headword, invalid_items) in enumerate(flagged):
         field_value: str = getattr(headword, field_name, "")
+        current_items: list[str] = field_value.split(", ")
 
-        print(f"\n[white]{counter + 1} / {len(flagged)}")
-        print(f"[yellow]{headword.lemma_1:<30}[blue]{headword.pos}")
-        print(f"[green]{headword.meaning_1}")
-        print(f"[cyan]{field_name}: [white]{field_value}")
-        print(f"[red]invalid: [white]{', '.join(invalid_items)}")
+        remaining = len(flagged) - counter - 1
+        pr.green(f"{counter + 1} / {len(flagged)} ({remaining} remaining)")
+        pr.white(f"{headword.lemma_1:<30}{headword.pos}")
+        pr.green(f"{headword.meaning_1}")
+        pr.white(f"{field_name}: {field_value}")
+        pr.amber(f"invalid: {', '.join(invalid_items)}")
 
-        open_in_goldendict(headword.lemma_clean)
-        pyperclip.copy(field_value)
+        changed = False
+        for bad_item in invalid_items:
+            pyperclip.copy(bad_item)
+            pr.amber("add ', ' to split the word (enter to skip)")
+            fixed = pt_prompt("  → ", default=bad_item)
 
-        question = "[white](e)dit, (p)ass, (b)reak"
-        choice = Prompt.ask(question)
+            if fixed == bad_item:
+                continue
 
-        if choice == "e":
-            new_value = Prompt.ask(f"[white]new {field_name}")
-            if new_value:
-                new_value = ", ".join(pali_list_sorter(new_value.split(", ")))
+            fixed_parts = [p.strip() for p in fixed.split(", ") if p.strip()]
+
+            still_invalid = [p for p in fixed_parts if p not in lemma_clean_set]
+            if still_invalid:
+                pr.red(f"still invalid: {', '.join(still_invalid)}")
+                pr.amber("skipping this fix")
+                continue
+
+            idx = current_items.index(bad_item)
+            current_items[idx : idx + 1] = fixed_parts
+            changed = True
+
+        if changed:
+            deduped = list(dict.fromkeys(current_items))
+            sorted_items = pali_list_sorter(deduped)
+            new_value = ", ".join(sorted_items)
+            pr.white(f"{field_name}: {new_value}\n")
             setattr(headword, field_name, new_value)
             db_session.commit()
-            print(f"[green]updated {field_name} to: [white]{new_value}")
-
-        elif choice == "p":
-            continue
-
-        elif choice == "b":
-            break
 
 
 if __name__ == "__main__":

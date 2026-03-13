@@ -25,7 +25,7 @@ from exporter.pdf.pdf_exporter import save_typist_file
 
 
 def export_to_pdf(g: GlobalVars):
-    pr.green("rendering abbreviations pdf")
+    pr.green_tmr("rendering abbreviations pdf")
 
     try:
         typst.compile(
@@ -40,7 +40,7 @@ def export_to_pdf(g: GlobalVars):
 
 def main():
     pr.tic()
-    pr.title("export abbreviations to pdf with typst")
+    pr.yellow_title("export abbreviations to pdf with typst")
 
     g = GlobalVars()
     make_layout(g)

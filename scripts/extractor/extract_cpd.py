@@ -70,7 +70,7 @@ CPD_POS_MAPPING = {
 
 
 def load_cpd_dictionary(cpd_path):
-    pr.green("loading cpd dictionary")
+    pr.green_tmr("loading cpd dictionary")
     with open(cpd_path, "r", encoding="utf-8") as f:
         cpd_data = json.load(f)
     pr.yes(f"{len(cpd_data)}")
@@ -127,14 +127,14 @@ def process_word(word, cpd_data, manager, output_path):
 
 def main():
     pr.tic()
-    pr.title("Extracting CPD entries")
+    pr.yellow_title("Extracting CPD entries")
 
     pth = ProjectPaths()
     output_path = Path(__file__).parent / "extract_cpd.tsv"
 
     cpd_data = load_cpd_dictionary(pth.cpd_source_path)
 
-    pr.green("extracting cpd headwords")
+    pr.green_tmr("extracting cpd headwords")
     cpd_headwords = extract_cpd_headwords(cpd_data)
     pr.yes(f"{len(cpd_headwords)}")
 
@@ -142,7 +142,7 @@ def main():
     state["total_words"] = len(words_to_process)
     state["remaining_words"] = words_to_process.copy()
 
-    pr.green("connecting to openrouter")
+    pr.green_tmr("connecting to openrouter")
     manager = OpenRouterManager()
     pr.yes("connected") if manager.client else pr.no("fail")
 
@@ -150,10 +150,10 @@ def main():
         with open(output_path, "w") as f:
             f.write("headword\tdpd_pos\tmeanings\n")
 
-    pr.info(f"processing {state['total_words']} new words")
+    pr.green(f"processing {state['total_words']} new words")
     processed = 0
     for i, word in enumerate(words_to_process, 1):
-        pr.white(f"{i} / {len(words_to_process)} {word}")
+        pr.white_tmr(f"{i} / {len(words_to_process)} {word}")
         res = process_word(word, cpd_data, manager, output_path)
         if res is None:
             break  # API error
@@ -165,7 +165,7 @@ def main():
             time.sleep(0.5)
 
     pr.green_title(f"\ndone: {processed}")
-    pr.info(f"total: {len(existing) + processed}")
+    pr.green(f"total: {len(existing) + processed}")
     pr.toc()
 
 

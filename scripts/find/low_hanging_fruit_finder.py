@@ -12,7 +12,7 @@ from tools.printer import printer as pr
 
 
 def main():
-    pr.title("low hanging fruit finder")
+    pr.yellow_title("low hanging fruit finder")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db_results = (

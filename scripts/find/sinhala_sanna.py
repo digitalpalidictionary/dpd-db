@@ -28,20 +28,20 @@ def extract_data_from_json(file_path):
 
 
 def main():
-    pr.title("extracting sinhala words for sanna ")
+    pr.yellow_title("extracting sinhala words for sanna ")
     pth = ProjectPaths()
     input_directory = Path(pth.bjt_sinhala_dir)
     output_dir = Path(pth.bjt_dir / "sanna/")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    pr.green("extracting data from files")
+    pr.green_tmr("extracting data from files")
     for file_path in input_directory.rglob("*.json"):
         extracted_data = extract_data_from_json(file_path)
         output_file = output_dir / f"{file_path.stem}.tsv"
         with output_file.open("w", encoding="utf-8") as tsv_file:
             tsv_file.write("\n".join(extracted_data))
 
-    pr.green("zipping up")
+    pr.green_tmr("zipping up")
     zip_up_directory(output_dir, delete_original=True)
 
 

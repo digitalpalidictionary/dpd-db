@@ -58,7 +58,7 @@ def check_file(filepath: Path) -> Path | None:
         return filepath
     except Exception as e:
         # Catch unexpected IO errors
-        pr.error(f"error {filepath}: {e}")
+        pr.red(f"error {filepath}: {e}")
         return filepath
 
     return None
@@ -69,7 +69,7 @@ def gather_mp3_files() -> list[Path]:
     Gather all MP3 files from folders with '_0.85' in their names.
     """
     files: list[Path] = []
-    pr.info("scanning folders with '_0.85' for mp3s")
+    pr.green("scanning folders with '_0.85' for mp3s")
 
     # Find all folders with "_0.85" in their names
     folders_with_085: list[Path] = [
@@ -81,7 +81,7 @@ def gather_mp3_files() -> list[Path]:
     for folder in folders_with_085:
         files.extend(list(folder.glob("*.mp3")))
 
-    pr.info(f"found {len(files)} files. processing...")
+    pr.green(f"found {len(files)} files. processing...")
     return files
 
 
@@ -121,7 +121,7 @@ def save_results(silent_files: list[Path]) -> None:
         for path in silent_files:
             f.write(f"{path}\n")
 
-    pr.info(f"results saved to: {output_path}")
+    pr.green(f"results saved to: {output_path}")
 
 
 def play_audio(filepath: Path) -> None:
@@ -138,7 +138,7 @@ def play_audio(filepath: Path) -> None:
             device.start(stream)
             time.sleep(duration + 0.2)  # Add a small buffer for safety
     except Exception as e:
-        pr.error(f"error playing {filepath}: {e}")
+        pr.red(f"error playing {filepath}: {e}")
 
 
 def delete_silent_files(silent_files: list[Path]) -> None:
@@ -149,9 +149,9 @@ def delete_silent_files(silent_files: list[Path]) -> None:
         try:
             filepath.unlink()
         except Exception as e:
-            pr.error(f"failed to delete {filepath}: {e}")
+            pr.red(f"failed to delete {filepath}: {e}")
 
-    pr.info(f"deleted {len(silent_files)} silent/corrupt files.")
+    pr.green(f"deleted {len(silent_files)} silent/corrupt files.")
 
 
 def find_and_delete_silent_files() -> None:
@@ -162,34 +162,34 @@ def find_and_delete_silent_files() -> None:
     files = gather_mp3_files()
 
     if not files:
-        pr.error("no files found.")
+        pr.red("no files found.")
         return
 
     silent_files = process_files(files)
     if silent_files:
-        pr.info(f"found {len(silent_files)} blank/corrupt files. deleting...")
+        pr.green(f"found {len(silent_files)} blank/corrupt files. deleting...")
         save_results(silent_files)
         delete_silent_files(silent_files)
     else:
-        pr.info("no blank or corrupt files found.")
+        pr.green("no blank or corrupt files found.")
 
 
 def interactive_delete() -> None:
     """
     Find and delete silent or corrupt MP3 files interactively.
     """
-    pr.info("identifying silent/corrupt files...")
+    pr.green("identifying silent/corrupt files...")
     files = gather_mp3_files()
     if not files:
-        pr.error("no files found.")
+        pr.red("no files found.")
         return
 
     silent_files = process_files(files)
     if not silent_files:
-        pr.info("no silent or corrupt files found.")
+        pr.green("no silent or corrupt files found.")
         return
 
-    pr.info(f"found {len(silent_files)} blank/corrupt files.")
+    pr.green(f"found {len(silent_files)} blank/corrupt files.")
 
     for i, filepath in enumerate(silent_files):
         while True:
@@ -209,15 +209,15 @@ def interactive_delete() -> None:
             if choice == "d":
                 try:
                     filepath.unlink()
-                    pr.info(f"deleted: {filepath.name}")
+                    pr.green(f"deleted: {filepath.name}")
                     break
                 except Exception as e:
-                    pr.error(f"failed to delete {filepath.name}: {e}")
+                    pr.red(f"failed to delete {filepath.name}: {e}")
                     break
             elif choice == "r":
                 continue
             else:
-                pr.info("passed.")
+                pr.green("passed.")
                 break
 
 

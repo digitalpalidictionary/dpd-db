@@ -20,9 +20,9 @@ def test_word_length(word: str, length: int) -> bool:
 
 
 def main():
-    pr.title("bashini tts")
+    pr.yellow_title("bashini tts")
 
-    pr.green("loading data")
+    pr.green_tmr("loading data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -52,7 +52,7 @@ def main():
                             seen_headwords.add(i.lemma_clean)
 
             except KeyboardInterrupt:
-                pr.green(f"\n{len(db) - db_count} words remaining to process\n")
+                pr.green_tmr(f"\n{len(db) - db_count} words remaining to process\n")
                 sys.exit(0)
 
 

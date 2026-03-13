@@ -169,25 +169,25 @@ def run_setup(project_root: Path | None = None) -> bool:
     if project_root is None:
         project_root = Path.cwd()
 
-    pr.title("DPD Contributor Setup")
+    pr.yellow_title("DPD Contributor Setup")
 
     # Step 1: Check git
-    pr.green("checking git installation")
+    pr.green_tmr("checking git installation")
     git_ok, git_msg = check_git()
     if not git_ok:
         pr.no("missing")
         pr.red(git_msg)
         return False
     pr.yes("ok")
-    pr.info(f"  {git_msg}")
+    pr.green(f"  {git_msg}")
 
     # Step 2: Init submodules
-    pr.green("initializing required submodules")
+    pr.green_tmr("initializing required submodules")
     init_submodules(project_root)
     pr.yes("ok")
 
     # Step 3: Download database
-    pr.green("fetching latest database release")
+    pr.green_tmr("fetching latest database release")
     db_url = get_latest_db_release_url()
     if not db_url:
         pr.no("failed")
@@ -196,7 +196,7 @@ def run_setup(project_root: Path | None = None) -> bool:
     pr.yes("ok")
 
     db_dest = project_root / "dpd.db"
-    pr.green("downloading database")
+    pr.green_tmr("downloading database")
     if not download_database(db_url, db_dest):
         pr.no("failed")
         pr.red("Failed to download the database. Check your internet connection.")
@@ -204,7 +204,7 @@ def run_setup(project_root: Path | None = None) -> bool:
     pr.yes("ok")
 
     # Step 4: Sync dependencies
-    pr.green("installing dependencies")
+    pr.green_tmr("installing dependencies")
     try:
         sync_result = subprocess.run(
             ["uv", "sync"],
@@ -230,10 +230,10 @@ def run_setup(project_root: Path | None = None) -> bool:
         pr.red("Username cannot be empty. Please re-run the setup.")
         return False
     configure_username(username)
-    pr.info(f"  Username set to: {username}")
+    pr.green(f"  Username set to: {username}")
 
     # Step 6: Configure Gemini AI API key
-    pr.info(
+    pr.green(
         "The GUI uses AI to help with dictionary work (Pass1Auto tab).\n"
         "  Get a free Gemini API key at: https://aistudio.google.com/apikey\n"
         "  Sign in with your Google account, then click 'Create API key'."
@@ -243,28 +243,28 @@ def run_setup(project_root: Path | None = None) -> bool:
     ).strip()
     if gemini_key:
         configure_gemini_api_key(gemini_key)
-        pr.info("  Gemini API key saved.")
+        pr.green("  Gemini API key saved.")
     else:
-        pr.warning("  No API key entered. Pass1Auto will not work until one is added.")
-        pr.info("  Add it later in config.ini under [apis] → gemini = <your_key>")
+        pr.amber("  No API key entered. Pass1Auto will not work until one is added.")
+        pr.green("  Add it later in config.ini under [apis] → gemini = <your_key>")
 
     # Step 7: Create desktop shortcut
-    pr.green("creating desktop shortcut")
+    pr.green_tmr("creating desktop shortcut")
     try:
         from scripts.onboarding.desktop_shortcut import create_desktop_shortcut
 
         shortcut_path = create_desktop_shortcut(project_root)
         pr.yes("ok")
-        pr.info(f"  Shortcut created: {shortcut_path}")
+        pr.green(f"  Shortcut created: {shortcut_path}")
     except Exception as e:
         pr.no("failed")
-        pr.warning(f"  Could not create shortcut: {e}")
-        pr.info(
+        pr.amber(f"  Could not create shortcut: {e}")
+        pr.green(
             "  You can still launch the GUI with: uv run scripts/onboarding/launch_gui.py"
         )
 
     pr.green_title("Setup complete!")
-    pr.info(
+    pr.green(
         "You can now launch the GUI by double-clicking the DPD GUI shortcut on your Desktop."
     )
 

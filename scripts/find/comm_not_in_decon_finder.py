@@ -30,7 +30,7 @@ class FinderData:
 
 
 def load_combined_frequency(data: FinderData) -> None:
-    pr.green("loading frequency files")
+    pr.green_tmr("loading frequency files")
 
     freq_files = [
         # data.pth.bjt_freq_json,
@@ -52,7 +52,7 @@ def load_combined_frequency(data: FinderData) -> None:
 
 
 def get_lookup_words(data: FinderData) -> None:
-    pr.green("getting words from lookup table")
+    pr.green_tmr("getting words from lookup table")
     db_session = get_db_session(data.pth.dpd_db_path)
     lookup_db = db_session.query(Lookup.lookup_key).all()
     data.lookup_words = {i.lookup_key for i in lookup_db}
@@ -65,7 +65,7 @@ def get_commentary_words(data: FinderData) -> None:
 
 
 def load_ignore_words(data: FinderData) -> None:
-    pr.green("loading spelling mistakes and variants")
+    pr.green_tmr("loading spelling mistakes and variants")
     for tsv_path, col_index in [
         (data.pth.spelling_mistakes_path, 0),
         (data.pth.variant_readings_path, 0),
@@ -83,13 +83,13 @@ def load_ignore_words(data: FinderData) -> None:
 
 
 def find_missing_words(data: FinderData) -> None:
-    pr.green("finding missing words")
+    pr.green_tmr("finding missing words")
     data.missing_words = data.commentary_words - data.lookup_words - data.ignore_words
     pr.yes(len(data.missing_words))
 
 
 def add_frequencies_to_words(data: FinderData) -> None:
-    pr.green("adding frequencies to words")
+    pr.green_tmr("adding frequencies to words")
     data.words_with_freq = {
         word: data.frequency_dict.get(word, 0) for word in data.missing_words
     }
@@ -97,7 +97,7 @@ def add_frequencies_to_words(data: FinderData) -> None:
 
 
 def sort_by_frequency(data: FinderData) -> None:
-    pr.green("sorting by frequency")
+    pr.green_tmr("sorting by frequency")
     # Sort by frequency descending, then by word ascending for ties
     data.sorted_results = sorted(
         data.words_with_freq.items(), key=lambda x: (-x[1], x[0])
@@ -106,13 +106,13 @@ def sort_by_frequency(data: FinderData) -> None:
 
 
 def save_to_tsv(data: FinderData) -> None:
-    pr.green("saving to tsv")
+    pr.green_tmr("saving to tsv")
     tsv_path = data.pth.temp_dir / "comm_not_in_lookup.tsv"
     header = ["word", "frequency"]
     tsv_data = [[word, str(freq)] for word, freq in data.sorted_results]
     write_tsv_list(str(tsv_path), header, tsv_data)
     pr.yes("ok")
-    pr.info(f"saved to: {tsv_path.relative_to(Path.cwd())}")
+    pr.green(f"saved to: {tsv_path.relative_to(Path.cwd())}")
 
 
 def run_interactive_loop(data: FinderData) -> None:
@@ -172,7 +172,7 @@ def ask_for_books() -> list[str]:
 
 def main():
     pr.tic()
-    pr.title("commentary words not found in the lookup table")
+    pr.yellow_title("commentary words not found in the lookup table")
 
     books = ask_for_books()
     data = FinderData()

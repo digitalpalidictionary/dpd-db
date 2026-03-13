@@ -16,7 +16,7 @@ def main():
     """Run it."""
 
     pr.tic()
-    pr.title("convert cst4 xml to txt")
+    pr.yellow_title("convert cst4 xml to txt")
 
     pth = ProjectPaths()
 

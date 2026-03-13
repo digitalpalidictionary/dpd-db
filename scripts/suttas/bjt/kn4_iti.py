@@ -32,7 +32,9 @@ class GlobalVars:
         key=lambda x: x.name,
         alg=ns.PATH,
     )
-    pr.title(f"extracting from {len(json_file_list)} files starting with {json_prefix}")
+    pr.yellow_title(
+        f"extracting from {len(json_file_list)} files starting with {json_prefix}"
+    )
 
     tsv_working_dir = Path("scripts/suttas/bjt")
     tsv_filepath = tsv_working_dir.joinpath(f"{tsv_filename}.tsv")
@@ -182,7 +184,7 @@ def extract_data(g: GlobalVars):
 def save_to_tsv(g: GlobalVars):
     """Save data to TSV file."""
     if not g.data_all:
-        pr.warning("No data to save")
+        pr.amber("No data to save")
         return
 
     # Define the exact field order as required
@@ -210,18 +212,18 @@ def save_to_tsv(g: GlobalVars):
         )
         writer.writeheader()
         writer.writerows(g.data_all)
-    pr.info(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
+    pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
 def main():
     pr.tic()
     g = GlobalVars()
     if not g.json_file_list:
-        pr.warning("No JSON files found")
+        pr.amber("No JSON files found")
         return
 
     for g.this_json_file in g.json_file_list:
-        pr.green(f"processing {g.this_json_file.name}")
+        pr.green_tmr(f"processing {g.this_json_file.name}")
         extract_data(g)
         pr.yes(len(g.data_current_file))
 

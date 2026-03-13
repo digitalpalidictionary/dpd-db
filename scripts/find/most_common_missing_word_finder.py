@@ -20,7 +20,7 @@ lev_distance = 3
 
 
 def make_list_of_commentary_books() -> list[str]:
-    pr.green("making book list")
+    pr.green_tmr("making book list")
     done_list = [
         "vin1",
         "vin2",
@@ -78,7 +78,7 @@ def make_list_of_commentary_books() -> list[str]:
 
 
 def get_dpd_inflections_set() -> set[str]:
-    pr.green("making dpd inflections set")
+    pr.green_tmr("making dpd inflections set")
 
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -96,7 +96,7 @@ def get_sandhi_checked_list():
 
 
 def get_list_of_cst_words_in_books(commentary_books):
-    pr.green("making cst text list")
+    pr.green_tmr("making cst text list")
     cst_word_list = make_cst_text_list(
         commentary_books,
         dedupe=False,
@@ -111,7 +111,7 @@ def reduce_commentary_words(
     dpd_inflections,
     sandhi_checked_list,
 ):
-    pr.green("reducing word set")
+    pr.green_tmr("reducing word set")
     commentary_words_reduced = []
     dpd_inflections_set = set(dpd_inflections)
     sandhi_checked_set = set(sandhi_checked_list)
@@ -125,7 +125,7 @@ def reduce_commentary_words(
 def make_word_count_dict(cst_word_list_reduced: list[str]) -> dict[str, int]:
     """Return a dict of words and their counts"""
 
-    pr.green("making word count dict")
+    pr.green_tmr("making word count dict")
 
     word_count_dict: dict[str, int] = {}
     for i in cst_word_list_reduced:
@@ -193,7 +193,7 @@ def sort_groups(
 
 
 def save_to_tsv(common_words_unpack):
-    pr.green("saving to tsv")
+    pr.green_tmr("saving to tsv")
 
     file_path = Path("scripts/find/most_common_missing_words.tsv")
     write_tsv_dot_dict(
@@ -201,12 +201,12 @@ def save_to_tsv(common_words_unpack):
         data=common_words_unpack,
     )
     pr.yes(len(common_words_unpack))
-    pr.info(f"saved to: [white]{file_path}[/white]")
+    pr.green(f"saved to: [white]{file_path}[/white]")
 
 
 def main():
     pr.tic()
-    pr.title("find most common missing words")
+    pr.yellow_title("find most common missing words")
     commentary_books = make_list_of_commentary_books()
     sandhi_checked_list = get_sandhi_checked_list()
     cst_word_list = get_list_of_cst_words_in_books(commentary_books)

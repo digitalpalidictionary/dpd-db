@@ -52,7 +52,7 @@ def get_id(g: GlobalVars):
 
 
 def make_sutta_info_dict(g: GlobalVars):
-    pr.green("make sutta info dict")
+    pr.green_tmr("make sutta info dict")
     for su in g.sutta_db:
         g.sutta_name = su.dpd_sutta
         get_id(g)
@@ -68,13 +68,13 @@ def add_to_lookup_table(g: GlobalVars) -> None:
     """Add sutta info to lookup table."""
 
     pr.green_title("saving to Lookup table")
-    pr.white("update test or add")
+    pr.white_tmr("update test or add")
 
     results = update_test_add(g.lookup_db, g.sutta_info_dict)
     update_set, test_set, add_set = results
     pr.yes("")
 
-    pr.white("updating and deleting")
+    pr.white_tmr("updating and deleting")
     # update test add
     for i in g.lookup_db:
         if i.lookup_key in update_set:
@@ -94,7 +94,7 @@ def add_to_lookup_table(g: GlobalVars) -> None:
                 g.db_session.delete(i)
     pr.yes(len(update_set))
 
-    pr.white("adding")
+    pr.white_tmr("adding")
     # add
     add_to_db = []
     for key, data in g.sutta_info_dict.items():
@@ -105,7 +105,7 @@ def add_to_lookup_table(g: GlobalVars) -> None:
             add_to_db.append(add_me)
     pr.yes(len(add_set))
 
-    pr.white("committing")
+    pr.white_tmr("committing")
     g.db_session.add_all(add_to_db)
     g.db_session.commit()
     pr.yes("ok")
@@ -119,7 +119,7 @@ def print_results(g: GlobalVars) -> None:
 
 def main() -> None:
     pr.tic()
-    pr.title("add sutta codes to lookup table")
+    pr.yellow_title("add sutta codes to lookup table")
     g: GlobalVars = GlobalVars()
     make_sutta_info_dict(g)
     add_to_lookup_table(g)

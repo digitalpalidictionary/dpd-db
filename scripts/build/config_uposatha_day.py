@@ -12,7 +12,7 @@ def uposatha_day_configger():
     """Updates config.ini to run all features if it's an uposatha day."""
 
     pr.tic()
-    pr.title("uposatha day config")
+    pr.yellow_title("uposatha day config")
 
     if UposathaManger.uposatha_today():
         pr.green_title("updating config.ini")
@@ -52,7 +52,7 @@ def uposatha_day_configger():
 def uposatha_day_reset():
     """Reset exporter config to baseline after an uposatha day build."""
     pr.tic()
-    pr.title("uposatha day reset")
+    pr.yellow_title("uposatha day reset")
 
     if UposathaManger.day_after_uposatha():
         pr.green_title("resetting newsletter scrape flag")

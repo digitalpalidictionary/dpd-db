@@ -140,28 +140,28 @@ def export_txt(g: GlobalVars):
 
 def zip_txt_file(g: GlobalVars):
     """Zip the DPD txt file after export."""
-    pr.green("zipping txt file")
+    pr.green_tmr("zipping txt file")
     zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
     pr.yes("ok")
-    pr.info(f"saved to {g.pth.dpd_txt_zip_path}")
+    pr.green(f"saved to {g.pth.dpd_txt_zip_path}")
 
 
 def save_txt(g: GlobalVars):
-    pr.green("saving txt")
+    pr.green_tmr("saving txt")
     g.pth.dpd_txt_path.write_text(g.dpd_text, encoding="utf-8")
     pr.yes(len(g.dpd_entry_list))
 
 
 def main():
     pr.tic()
-    pr.title("exporting DPD as txt")
+    pr.yellow_title("exporting DPD as txt")
 
     if not config_test("exporter", "make_txt", "yes"):
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
 
-    pr.green("loading db")
+    pr.green_tmr("loading db")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()

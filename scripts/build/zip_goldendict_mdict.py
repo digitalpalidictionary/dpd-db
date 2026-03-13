@@ -13,7 +13,7 @@ from tools.printer import printer as pr
 
 def zip_goldendict(pth: ProjectPaths):
     """Zip up the three dirs for goldendict"""
-    pr.green("zipping goldendict")
+    pr.green_tmr("zipping goldendict")
 
     if (
         pth.dpd_goldendict_dir.exists()
@@ -52,7 +52,7 @@ def zip_goldendict(pth: ProjectPaths):
 def zip_mdict(pth: ProjectPaths):
     """Zipping up MDict files for sharing."""
 
-    pr.green("zipping mdict")
+    pr.green_tmr("zipping mdict")
 
     mdict_files = [
         pth.dpd_mdx_path,
@@ -84,7 +84,7 @@ def zip_mdict(pth: ProjectPaths):
 
 def main():
     pr.tic()
-    pr.title("rezipping goldendict and mdict")
+    pr.yellow_title("rezipping goldendict and mdict")
     pth = ProjectPaths()
     zip_goldendict(pth)
     zip_mdict(pth)

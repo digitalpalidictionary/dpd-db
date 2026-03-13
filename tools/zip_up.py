@@ -103,7 +103,7 @@ def unzip_file(zip_path: Path, destination_dir: Path):
     """
     Unzip a file to the destination directory.
     """
-    pr.green(f"unzipping {zip_path.name}")
+    pr.green_tmr(f"unzipping {zip_path.name}")
 
     if not zip_path.exists():
         raise FileNotFoundError(f"Zip file not found: {zip_path}")

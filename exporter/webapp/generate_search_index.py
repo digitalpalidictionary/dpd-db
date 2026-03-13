@@ -43,40 +43,40 @@ def build_index(terms: set[str]) -> list[str]:
 
 def main():
     pr.tic()
-    pr.title("generating webapp search_index.json")
+    pr.yellow_title("generating webapp search_index.json")
     pth = ProjectPaths()
     db_sess = get_db_session(pth.dpd_db_path)
 
     terms = set()
 
     # Aggregate Headwords
-    pr.green("fetching headwords")
+    pr.green_tmr("fetching headwords")
     headwords = db_sess.query(DpdHeadword).all()
     for hw in headwords:
         terms.add(hw.lemma_clean)
     pr.yes(len(headwords))
 
     # Aggregate Roots
-    pr.green("fetching roots")
+    pr.green_tmr("fetching roots")
     roots = db_sess.query(DpdRoot).all()
     for rt in roots:
         terms.add(rt.root_clean)
     pr.yes(len(roots))
 
     # Aggregate Root Families
-    pr.green("fetching root families")
+    pr.green_tmr("fetching root families")
     families = db_sess.query(FamilyRoot).all()
     for fam in families:
         terms.add(fam.root_family)
     pr.yes(len(families))
 
     # Build index
-    pr.green("building index")
+    pr.green_tmr("building index")
     search_index = build_index(terms)
     pr.yes(len(search_index))
 
     # Save to JSON
-    pr.green("saving index")
+    pr.green_tmr("saving index")
     output_path = pth.webapp_static_dir / "search_index.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(search_index, f, ensure_ascii=False, indent=None)

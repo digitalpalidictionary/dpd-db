@@ -141,13 +141,13 @@ class SubheadingsFinder:
                     if headword:
                         if headword.source_1 == "":
                             headword.source_1 = "-"
-                            pr.info(f"{headword.lemma_1} updated")
+                            pr.green(f"{headword.lemma_1} updated")
                         else:
-                            pr.error(f"{headword.lemma_1} source not empty")
+                            pr.red(f"{headword.lemma_1} source not empty")
                     else:
-                        pr.error(f"'{result.lookup_key}' has no headword!")
+                        pr.red(f"'{result.lookup_key}' has no headword!")
                 if len(headword_ids) > 1:
-                    pr.error(f"'{result.lookup_key}' has two headwords!")
+                    pr.red(f"'{result.lookup_key}' has two headwords!")
 
         # self.db_session.commit()
 

@@ -16,7 +16,7 @@ from tools.printer import printer as pr
 
 
 def main():
-    pr.title("find sukha dukkha antonyms")
+    pr.yellow_title("find sukha dukkha antonyms")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()

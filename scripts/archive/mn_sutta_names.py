@@ -15,7 +15,7 @@ from tools.printer import printer as pr
 
 def main() -> None:
     pr.tic()
-    pr.title("Standardize MN Sutta Names")
+    pr.yellow_title("Standardize MN Sutta Names")
     pth: ProjectPaths = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
     db: list[DpdHeadword] = (

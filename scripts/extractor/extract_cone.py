@@ -87,12 +87,12 @@ CONE_POS_MAPPING = {
 
 
 def connect_to_openrouter():
-    pr.green("Connecting to OpenRouter")
+    pr.green_tmr("Connecting to OpenRouter")
     manager = OpenRouterManager()
     if manager.client:
         pr.yes("ok")
     else:
-        pr.error("failed")
+        pr.red("failed")
     return manager
 
 
@@ -145,7 +145,7 @@ def process_word(word, cone_dict, manager, output_path):
 
 def main():
     pr.tic()
-    pr.title("Extracting Cone entries")
+    pr.yellow_title("Extracting Cone entries")
 
     pth = ProjectPaths()
     output_path = Path(__file__).parent / "extract_cone.tsv"
@@ -168,7 +168,7 @@ def main():
     pr.green_title(f"Processing {state['total_words']} new words")
     processed = 0
     for i, word in enumerate(words_to_process, 1):
-        pr.white(f"{i} / {len(words_to_process)} {word}")
+        pr.white_tmr(f"{i} / {len(words_to_process)} {word}")
         res = process_word(word, cone_dict, manager, output_path)
         if res is None:
             break  # API error
@@ -180,7 +180,7 @@ def main():
             time.sleep(0.5)
 
     pr.green_title(f"\ndone: {processed}")
-    pr.info(f"total: {len(existing) + processed}")
+    pr.green(f"total: {len(existing) + processed}")
     pr.toc()
 
 

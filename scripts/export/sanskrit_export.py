@@ -19,7 +19,7 @@ from tools.printer import printer as pr
 
 
 def make_db() -> list[DpdHeadword]:
-    pr.green("getting database")
+    pr.green_tmr("getting database")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
@@ -54,14 +54,14 @@ def process_db(db: list[DpdHeadword]) -> tuple[list[str], list[str]]:
 
 def save_txt(txt_entry_list: list[str]) -> None:
     txt_path = Path("temp/DPD Pāḷi Sanskrit.txt")
-    pr.green(f"saving '{txt_path}'")
+    pr.green_tmr(f"saving '{txt_path}'")
     txt_path.write_text("\n".join(txt_entry_list))
     pr.yes("ok")
 
 
 def save_tsv(tsv_entry_list: list[str]) -> None:
     tsv_path = Path("temp/DPD Pāḷi Sanskrit.tsv")
-    pr.green(f"saving '{tsv_path}'")
+    pr.green_tmr(f"saving '{tsv_path}'")
     header = "Pāḷi\tSanskrit\tPOS\tMeaning"
     tsv_content = [header] + tsv_entry_list
     tsv_path.write_text("\n".join(tsv_content), encoding="utf-8")
@@ -70,14 +70,14 @@ def save_tsv(tsv_entry_list: list[str]) -> None:
 
 def main():
     pr.tic()
-    pr.title("making DPD Sanskrit dict")
+    pr.yellow_title("making DPD Sanskrit dict")
 
     db = make_db()
     txt_entry_list, tsv_entry_list = process_db(db)
     save_txt(txt_entry_list)
     save_tsv(tsv_entry_list)
 
-    pr.info(f"Exported {len(txt_entry_list)} entries")
+    pr.green(f"Exported {len(txt_entry_list)} entries")
     pr.toc()
 
 
