@@ -146,6 +146,14 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # Track if this is a new word or an update for logging purposes
         already_in_db = bool(new_word.id)
 
+        # Check for duplicate id or lemma_1 when adding a new word
+        if not already_in_db:
+            id_value = field_data.get("id", "")
+            word_id = int(id_value) if id_value else None
+            lemma_1_value = field_data.get("lemma_1", "")
+            if not self.ui.dpd_fields.validate_no_duplicates(word_id, lemma_1_value):
+                return
+
         # Check if this is an existing word loaded from history (has an ID)
         if already_in_db:
             # Update existing word - keep the same ID

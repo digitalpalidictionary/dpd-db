@@ -663,6 +663,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 else:
                     self.additions_manager.add_additions(word_to_save, comment)
         else:
+            # Check for duplicate id or lemma_1 when adding a new word
+            if not self.dpd_fields.validate_no_duplicates(
+                word_to_save.id, word_to_save.lemma_1
+            ):
+                return
+
             # add to additions json
             if self.toolkit.username_manager.is_not_primary():
                 self.additions_manager.add_additions(word_to_save, comment)
