@@ -616,7 +616,7 @@ class ProjectPaths:
         self.docs_newsletters_md_path = base_dir / "docs/newsletters.md"
         self.docs_newsletters_pics_dir = base_dir / "docs/pics/newsletters"
         self.newsletter_processed_json = (
-            base_dir / "shared_data/newsletter_processed.json"
+            base_dir / "scripts/build/newsletter_processed.json"
         )
         self.gmail_credentials_path = base_dir / "credentials.json"
         self.gmail_token_path = base_dir / "token.json"

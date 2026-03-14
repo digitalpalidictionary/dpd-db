@@ -145,6 +145,15 @@ audio:
 backup:
     uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
 
+# Scrape newsletters from Gmail and build docs/newsletters.md
+newsletter:
+    uv run python scripts/build/newsletter_scraper.py
+
+# Reprocess all newsletters from scratch
+newsletter-fresh:
+    rm -f scripts/build/newsletter_processed.json
+    uv run python scripts/build/newsletter_scraper.py
+
 # Update project documentation
 docs-update:
     uv run python tools/docs_update_abbreviations.py

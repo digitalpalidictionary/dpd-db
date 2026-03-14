@@ -13,7 +13,6 @@ from typing import cast
 
 import requests
 from bs4 import BeautifulSoup, Tag
-from bs4.element import NavigableString
 from google.auth.credentials import Credentials as BaseCredentials
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -28,14 +27,7 @@ from tools.printer import printer as pr
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 GMAIL_LABEL = "DPD Mailers"
 
-FOOTER_MARKERS = [
-    "useful links",
-    "unsubscribe",
-    "manage preferences",
-    "view in browser",
-    "email preferences",
-    "update your preferences",
-]
+FOOTER_MARKER = "bodhirasa"
 
 
 def get_gmail_service(pth: ProjectPaths):
@@ -185,34 +177,13 @@ def build_cid_map(payload: dict) -> dict[str, str]:
     return cid_map
 
 
-def strip_footer(soup: BeautifulSoup) -> None:
-    """Remove footer/unsubscribe sections from the email HTML."""
-    for element in soup.find_all(string=True):
-        if not isinstance(element, NavigableString):
-            continue
-        text_lower = str(element).lower()
-        for marker in FOOTER_MARKERS:
-            if marker in text_lower:
-                parent = element.find_parent(["table", "div", "tr", "td", "p"])
-                if parent:
-                    top_parent = parent.find_parent("table") or parent
-                    top_parent.decompose()
-                    return
-
-
-def strip_unsubscribe_links(soup: BeautifulSoup) -> None:
-    """Remove unsubscribe-related links and surrounding elements."""
-    patterns = re.compile(
-        r"unsubscribe|manage\s+preferences|email\s+preferences|"
-        r"update\s+your\s+preferences|view\s+in\s+browser",
-        re.IGNORECASE,
-    )
-    for a_tag in soup.find_all("a", string=patterns):
-        parent = a_tag.find_parent(["p", "div", "td", "tr"])
-        if parent:
-            parent.decompose()
-        else:
-            a_tag.decompose()
+def strip_footer(markdown: str) -> str:
+    """Truncate everything after the 'Bodhirasa' sign-off."""
+    lines = markdown.split("\n")
+    for i, line in enumerate(lines):
+        if FOOTER_MARKER in line.strip().lower():
+            return "\n".join(lines[: i + 1]).strip()
+    return markdown
 
 
 def process_email(
@@ -264,11 +235,9 @@ def process_email(
             if filename:
                 img["src"] = f"pics/newsletters/{filename}"
 
-    strip_footer(soup)
-    strip_unsubscribe_links(soup)
-
     markdown_content = md(str(soup), heading_style="ATX", strip=["style"])
     markdown_content = re.sub(r"\n{3,}", "\n\n", markdown_content).strip()
+    markdown_content = strip_footer(markdown_content)
 
     return {
         "message_id": message_id,
@@ -286,8 +255,8 @@ def build_newsletters_md(emails: list[dict], output_path: Path) -> None:
     emails_sorted = sorted(emails, key=lambda e: e["date_sort"], reverse=True)
 
     for email in emails_sorted:
-        lines.append(f"## {email['subject']}")
-        lines.append(f"*{email['date']}*\n")
+        lines.append(f"## {email['date']}")
+        lines.append(f"**{email['subject']}**\n")
         lines.append(email["content"])
         lines.append("\n---\n")
 
