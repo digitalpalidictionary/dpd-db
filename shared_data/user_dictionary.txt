@@ -269,6 +269,7 @@ Asclepias syriaca
 ashoka
 Asiatica
 asiaticus
+Asibandhaka
 Asita
 asobhattha
 asobhittha
@@ -388,6 +389,7 @@ bha
 Bhaddāli
 Bhaddasārī
 Bhaddekarattasutta
+Bhadraka
 Bhadraka's
 Bhagalpur
 Bhagga
@@ -494,6 +496,7 @@ Calotropis
 Cambodia
 Cambodian
 Campā
+Caṇḍa
 caṇḍāla
 Caṅkī
 Capparis
@@ -551,6 +554,7 @@ chunam
 cicciṭa
 ciliata
 Cinnyris
+Ciravāsī
 circumambulates
 circumambulation
 cit
@@ -1640,6 +1644,7 @@ Maṇḍikā
 maned
 Mangifera
 Mangifera
+Maṇicūḷaka
 manifoldness
 mano
 Manonivāraṇasutta
@@ -2234,6 +2239,7 @@ Rāmagāma
 Rāmaputta
 ramosa
 rasa
+Rāsiya
 rat-a-tat
 ratana
 rathareṇu
@@ -2534,6 +2540,7 @@ soapberry
 Sobha
 sobhanaka
 socanan'ti
+sodic
 sogandhika-count
 soilless
 sojourning
@@ -2686,6 +2693,8 @@ taddhita
 Tadorna
 tajjāri
 tajjārī
+Tāla
+Tālapuṭa
 tamable
 tanādigaṇa
 tapojigucchāvādā
