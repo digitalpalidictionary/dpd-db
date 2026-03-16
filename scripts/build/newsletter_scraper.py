@@ -6,7 +6,8 @@ import base64
 import hashlib
 import json
 import re
-from datetime import datetime
+import subprocess
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import cast
@@ -20,14 +21,62 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from markdownify import markdownify as md
 
-from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 GMAIL_LABEL = "DPD Mailers"
+GITHUB_REPO = "digitalpalidictionary/dpd-db"
+MIN_DAYS_BETWEEN_SCRAPES = 28
 
 FOOTER_MARKER = "bodhirasa"
+
+
+def should_scrape(pth: ProjectPaths) -> bool:
+    """Check if a new GitHub release exists since the last scrape."""
+
+    if not pth.newsletter_processed_json.exists():
+        return True
+
+    last_scrape_time = datetime.fromtimestamp(
+        pth.newsletter_processed_json.stat().st_mtime,
+        tz=timezone.utc,
+    )
+    days_since = (datetime.now(tz=timezone.utc) - last_scrape_time).days
+    if days_since < MIN_DAYS_BETWEEN_SCRAPES:
+        return False
+
+    try:
+        result = subprocess.run(
+            [
+                "gh",
+                "release",
+                "list",
+                "--repo",
+                GITHUB_REPO,
+                "--limit",
+                "1",
+                "--json",
+                "publishedAt",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=15,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired) as e:
+        pr.amber(f"failed to check github releases: {e}")
+        return False
+
+    if result.returncode != 0:
+        pr.amber(f"failed to check github releases: {result.stderr.strip()}")
+        return False
+
+    releases = json.loads(result.stdout)
+    if not releases:
+        return False
+
+    release_date = datetime.fromisoformat(releases[0]["publishedAt"])
+    return release_date > last_scrape_time
 
 
 def get_gmail_service(pth: ProjectPaths):
@@ -39,7 +88,11 @@ def get_gmail_service(pth: ProjectPaths):
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            try:
+                creds.refresh(Request())
+            except Exception as e:
+                pr.amber(f"failed to refresh gmail token: {e}")
+                return None
         else:
             if not pth.gmail_credentials_path.exists():
                 pr.amber("credentials.json not found — skipping newsletter scrape")
@@ -182,7 +235,7 @@ def strip_footer(markdown: str) -> str:
     lines = markdown.split("\n")
     for i, line in enumerate(lines):
         if FOOTER_MARKER in line.strip().lower():
-            return "\n".join(lines[: i + 1]).strip()
+            return "\n".join(lines[:i]).strip()
     return markdown
 
 
@@ -267,12 +320,12 @@ def main() -> None:
     pr.tic()
     pr.yellow_title("newsletter scraper")
 
-    if not config_test("exporter", "scrape_newsletters", "yes"):
-        pr.green_title("disabled in config.ini")
+    pth = ProjectPaths()
+
+    if not should_scrape(pth):
+        pr.green_title("no new release since last scrape")
         pr.toc()
         return
-
-    pth = ProjectPaths()
     pth.docs_newsletters_pics_dir.mkdir(parents=True, exist_ok=True)
 
     pr.green_tmr("authenticating with gmail")
