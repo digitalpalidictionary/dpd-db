@@ -64,6 +64,8 @@ Please share this information with those who might be interested.
 
 With much *mettā* from India,
 
+Bodhirasa
+
 ---
 
 ## 2026-02-02
@@ -124,6 +126,8 @@ With that, I am very pleased to share today's release with you. Download the lat
 Please share this information with those who might be interested.
 
 Wishing you well from India,
+
+Bodhirasa
 
 ---
 
@@ -218,6 +222,8 @@ Please share this information with those who might be interested.
 
 With *mettā* from Malaysia,
 
+Bodhirasa
+
 ---
 
 ## 2025-12-05
@@ -263,6 +269,8 @@ With that, I am very pleased to share today's release with you. Download the lat
 * [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)
 
 With *mettā* from Malaysia,
+
+Bodhirasa
 
 ---
 
@@ -334,6 +342,8 @@ With that, I am very pleased to share today's release with you. Download the lat
 
 Wishing you well from Malaysia,
 
+Bodhirasa
+
 ---
 
 ## 2025-07-10
@@ -366,6 +376,8 @@ With that, I am very pleased to share today's release with you. Download the lat
 As this is the start of the vassa season, there will be no dictionary updates for the coming few months. I wish all the monastics a most fruitful rains retreat.
 
 All the best,
+
+Bodhirasa.
 
 ---
 
@@ -402,6 +414,8 @@ With that, I am very pleased to share today's release with you. Download the lat
 * [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)
 
 *Mettacittena,*
+
+Bodhirasa.
 
 ---
 
@@ -446,6 +460,8 @@ With that, I am very happy to share today's release with you. Please use these l
 
 Wishing you a blessed Visākha full moon
 
+Bodhirasa.
+
 ---
 
 ## 2025-04-13
@@ -486,6 +502,8 @@ With that, I am very happy to share today's release with you. Please use these l
 
 With mettā,
 
+Bodhirasa.
+
 ---
 
 ## 2025-03-14
@@ -515,6 +533,8 @@ With that, I am very happy to share today's release with you. Please use these l
 * [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)
 
 Wishing you well from Sri Lanka
+
+Bodhirasa.
 
 ---
 
@@ -560,6 +580,8 @@ With that, I am very happy to share today's release with you. Please use these l
 
 With mettā
 
+Bodhirasa.
+
 ---
 
 ## 2025-01-13
@@ -589,6 +611,8 @@ With that, I am very happy to share today's release with you. Please use these l
 [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)  
   
 Wishing you well,
+
+Bodhirasa.
 
 ---
 
@@ -621,6 +645,8 @@ With that, I am very happy to share today's release with you. Please use these l
 [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)  
   
 Peace from Sri Lanka,
+
+Bodhirasa.
 
 ---
 
@@ -656,6 +682,8 @@ With that, I am very happy to share today's release with you. Please use these l
   
 Wishing you well,
 
+Bodhirasa.
+
 ---
 
 ## 2024-10-17
@@ -687,6 +715,8 @@ With that, I am very happy to share today's release with you. Please use these l
 [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/download/v0.2.20241017/dpd.db.tar.bz2)  
   
 Wishing you well from Sri Lanka
+
+Bodhirasa.
 
 ---
 
@@ -723,6 +753,8 @@ With that, I am very happy to share today's release with you. Please use these l
   
 There won't be any DPD updates for the next few months.  I wish all the monastics a peaceful and insightful vassa retreat.
 
+Bodhirasa.
+
 ---
 
 ## 2024-06-21
@@ -746,7 +778,9 @@ With that, I am very happy to share today's release with you. Please use these l
 
 [DPD database](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/v0.1.20240621/dpd.db.tar.bz2)  
   
-Wishing you peace of heart and clarity of understanding,
+Wishing you peace of heart and clarity of understanding,  
+  
+Bodhirasa.
 
 ---
 
@@ -781,7 +815,9 @@ With that, I am very happy to share today's release with you. Please use these l
 
 [DPD database](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/v0.1.20240522/dpd.db.tar.bz2)  
   
-Wishing you a most auspicious Visākhā full moon.
+Wishing you a most auspicious Visākhā full moon.   
+  
+Bodhirasa.
 
 ---
 
@@ -806,7 +842,9 @@ With that, I am very happy to share today's release with you. Please use these l
 
 [DPD database](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/v0.1.20240423/dpd.db.tar.bz2)  
   
-With mettā from Sri Lanka
+With mettā from Sri Lanka  
+  
+Bodhirasa.
 
 ---
 
@@ -832,7 +870,9 @@ With that, I am very happy to share today's release with you. Please use these l
 
 [DPD database](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/v0.1.20240324/dpd.db.tar.bz2)  
   
-Wishing you full success with your theoretical studies and practical application of the Dhamma,
+Wishing you full success with your theoretical studies and practical application of the Dhamma,  
+  
+Bodhirasa.
 
 ---
 
@@ -870,7 +910,9 @@ With that, I am very happy to share today's release with you. Please use these l
 
 [DPD database](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/v0.1.20240224/dpd.db.tar.bz2)  
   
-Wishing you all the best with your studies and practice,
+Wishing you all the best with your studies and practice,  
+  
+Bodhirasa.
 
 ---
 
@@ -902,6 +944,8 @@ With that, I am very happy to share today's release with you. Please use these 
 [**DPD for Kindle - epub**](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/2024-01-26/dpd-kindle.epub)
 
 With radiant mettā,
+
+Bodhirasa.
 
 ---
 
@@ -936,6 +980,8 @@ With that, I am happy to share today's release with you. Please use these **lin
 
 Peace from Sri Lanka
 
+Bodhirasa.
+
 ---
 
 ## 2023-11-27
@@ -960,6 +1006,8 @@ With that, here is today's release. Please use these **links to download** the l
 **[DPD for Kindle](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/2023-11-27/dpd-kindle.mobi)**
 
 With mettā from Sri Lanka
+
+Bodhirasa.
 
 ---
 
@@ -1013,6 +1061,8 @@ Anything else you need to know about DPD can be found on the [website](https://
 May all the monastics have a most fruitful Rains Retreat!
 
 Peace from Sri Lanka
+
+Bodhirasa.
 
 ---
 
@@ -1069,6 +1119,8 @@ Anything else you need to know about DPD can be found on the [website](https://d
   
 *mettacittena,*
 
+Bodhirasa.
+
 ---
 
 ## 2023-05-04
@@ -1101,7 +1153,9 @@ If you use [Tipiṭaka Pāḷi Reader](https://play.google.com/store/apps/deta
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Have a most blessed Vesākha full moon!
+Have a most blessed Vesākha full moon!  
+  
+Bodhirasa.
 
 ---
 
@@ -1141,7 +1195,9 @@ The details of all this month's software developments and changelog are [here](h
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you well with your theoretical studies and practice,
+Wishing you well with your theoretical studies and practice,  
+  
+Bodhirasa.
 
 ---
 
@@ -1171,7 +1227,9 @@ The details of all this month's [software developments and changelog are here](h
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Mettacittena,
+Mettacittena,  
+  
+Bodhirasa.
 
 ---
 
@@ -1211,7 +1269,9 @@ The details of all this month's software developments and [change-log are here](
   
 Anything else you need to know about DPD can be [found on the website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Sending you mettā from Sri Lanka,
+Sending you mettā from Sri Lanka,  
+  
+Bodhirasa.
 
 ---
 
@@ -1251,7 +1311,9 @@ Anything else you need to know about DPD can be found on the [website](https://
   
 If you follow the solar calendar, may you have a peace-filled new year, the natural result of skillful physical, verbal and mental activity.
 
-Wishing you well,
+Wishing you well,  
+  
+Bodhirasa.
 
 ---
 
@@ -1285,7 +1347,9 @@ Here are details of all this month's software developments and [changelog](http
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-May you have a deeper theoretical understanding and practical insight into this marvellous teaching.
+May you have a deeper theoretical understanding and practical insight into this marvellous teaching.   
+  
+Bodhirasa.
 
 ---
 
@@ -1315,7 +1379,9 @@ Here are details of all this month's software developments and [changelog](http
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you success with your Pāḷi studies and practice,
+Wishing you success with your Pāḷi studies and practice,  
+  
+Bodhirasa.
 
 ---
 
@@ -1343,7 +1409,9 @@ Here are details of all this month's software developments and [changelog](https
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you well from Sri Lanka,
+Wishing you well from Sri Lanka,  
+  
+Bodhirasa.
 
 ---
 
@@ -1375,7 +1443,9 @@ Here are details of all this month's software developments and [changelog](https
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you all the best with your Dhamma studies and practice
+Wishing you all the best with your Dhamma studies and practice  
+  
+Bodhirasa.
 
 ---
 
@@ -1412,7 +1482,9 @@ Here are details of all this month's software developments and [changelog](https
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you well from Sri Lanka
+Wishing you well from Sri Lanka  
+  
+Bodhirasa.
 
 ---
 
@@ -1442,7 +1514,9 @@ Details of all this month's software developments and changes [can be seen here]
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/).   
   
-Wishing all the monastics a most fruitful vassa retreat,
+Wishing all the monastics a most fruitful vassa retreat,  
+  
+Bodhirasa.
 
 ---
 
@@ -1469,7 +1543,9 @@ A changelog of all this month's updates and developments can be seen [here](htt
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you all the best with Dhamma study and practice.
+Wishing you all the best with Dhamma study and practice.  
+  
+Bodhirasa.
 
 ---
 
@@ -1492,7 +1568,9 @@ A changelog of all this month's updates and developments can be seen [here](htt
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you a most auspicious Vesākha full moon day.
+Wishing you a most auspicious Vesākha full moon day.   
+  
+Bodhirasa.
 
 ---
 
@@ -1515,7 +1593,9 @@ A changelog of all this month's updates and developments can be seen [here](htt
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).  
   
-Wishing you all the best,
+Wishing you all the best,  
+  
+Bodhirasa.
 
 ---
 
@@ -1538,7 +1618,9 @@ A changelog of all this month's updates and developments can be seen [here](http
   
 Anything else you need to know about DPD can be found on the [website](https://digitalpalidictionary.github.io/titlepage.html).   
   
-Wishing you all the best,
+Wishing you all the best,  
+  
+Bodhirasa.
 
 ---
 
@@ -1558,5 +1640,7 @@ If you need help with the installation and setup, here's a step by step guide fo
 Please let me know if you have any problems, I am happy to help.
 
 Wishing you well,
+
+Bodhirasa
 
 ---

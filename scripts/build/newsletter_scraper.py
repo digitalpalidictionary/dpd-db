@@ -141,6 +141,20 @@ def get_all_message_ids(service, label_id: str) -> list[str]:
     return message_ids
 
 
+def get_new_message_ids(
+    service, label_id: str, processed: dict[str, dict]
+) -> list[str]:
+    """Fetch only unprocessed message IDs from a label."""
+    results = (
+        service.users()
+        .messages()
+        .list(userId="me", labelIds=[label_id], maxResults=5)
+        .execute()
+    )
+    messages = results.get("messages", [])
+    return [msg["id"] for msg in messages if msg["id"] not in processed]
+
+
 def get_html_body(payload: dict) -> str:
     """Extract HTML body from MIME message payload."""
     if payload.get("mimeType") == "text/html":
@@ -235,7 +249,7 @@ def strip_footer(markdown: str) -> str:
     lines = markdown.split("\n")
     for i, line in enumerate(lines):
         if FOOTER_MARKER in line.strip().lower():
-            return "\n".join(lines[:i]).strip()
+            return "\n".join(lines[: i + 1]).strip()
     return markdown
 
 
@@ -343,18 +357,18 @@ def main() -> None:
         return
     pr.yes("ok")
 
-    pr.green_tmr("fetching message list")
-    all_message_ids = get_all_message_ids(service, label_id)
-    pr.yes(str(len(all_message_ids)))
-
     processed: dict[str, dict] = {}
     if pth.newsletter_processed_json.exists():
         processed = json.loads(
             pth.newsletter_processed_json.read_text(encoding="utf-8")
         )
 
-    new_ids = [mid for mid in all_message_ids if mid not in processed]
-    pr.green_tmr("new emails to process")
+    if processed:
+        pr.green_tmr("checking for new emails")
+        new_ids = get_new_message_ids(service, label_id, processed)
+    else:
+        pr.green_tmr("fetching all emails (fresh)")
+        new_ids = get_all_message_ids(service, label_id)
     pr.yes(str(len(new_ids)))
 
     for i, message_id in enumerate(new_ids):
