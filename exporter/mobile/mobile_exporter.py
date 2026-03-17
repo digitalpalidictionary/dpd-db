@@ -137,7 +137,9 @@ def _strip_diacritics_mobile(text: str) -> str:
     normalized = unicodedata.normalize("NFD", text)
     stripped = "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
     result = unicodedata.normalize("NFC", stripped).lower()
-    return re.sub(r"([kgcjtdpb])h", r"\1", result)
+    result = re.sub(r"([kgcjtdpb])h", r"\1", result)
+    result = re.sub(r"([bcdfghjklmnpqrstvwxyz])\1", r"\1", result)
+    return result
 
 
 class GlobalVars:
