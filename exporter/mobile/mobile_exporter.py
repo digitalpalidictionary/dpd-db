@@ -440,6 +440,48 @@ def export_other_dictionaries(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
     pr.yes(len(batch))
 
+    # --- MW (Monier-Williams Sanskrit-English Dictionary) ---
+    pr.green_tmr("exporting MW dictionary")
+
+    with open(g.pth.mw_source_path) as f:
+        mw_data: list[dict[str, str]] = json.load(f)
+
+    batch = []
+    for entry in mw_data:
+        word = entry["word"]
+        html_body = entry["definition_html"]
+
+        html_body = re.sub(
+            r"<!DOCTYPE[^>]*>.*?<body[^>]*>|</body>.*?</html>",
+            "",
+            html_body,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        html_body = re.sub(r"<html>\s*<body>", "", html_body, flags=re.IGNORECASE)
+
+        word_fuzzy = _strip_diacritics_mobile(word)
+        batch.append(("mw", word, word_fuzzy, html_body, ""))
+
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
+
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (
+            "mw",
+            "Monier-Williams Sanskrit-English Dictionary",
+            "Monier Monier-Williams",
+            "",
+            len(batch),
+        ),
+    )
+
+    pr.yes(len(batch))
+
 
 def write_schema_version(dest: sqlite3.Connection) -> None:
     pr.green_tmr("writing db_schema_version")
