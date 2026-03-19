@@ -7,6 +7,7 @@ Keep DB_SCHEMA_VERSION in sync with AppDatabase.requiredDbSchemaVersion in
 lib/database/database.dart. Bump both when the Drift table definitions change.
 """
 
+import json
 import re
 import sqlite3
 import unicodedata
@@ -122,7 +123,7 @@ FAMILY_SET_COLUMNS: list[str] = ["set", "data", "count"]
 
 # Must match AppDatabase.requiredDbSchemaVersion in the Flutter app.
 # Bump when Drift table definitions change (added/removed columns).
-DB_SCHEMA_VERSION: int = 2
+DB_SCHEMA_VERSION: int = 3
 
 # Tables copied verbatim from source db (no html columns in these)
 PASSTHROUGH_TABLES: list[str] = [
@@ -332,6 +333,114 @@ def copy_family_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
     src.close()
 
 
+def _remove_links(html: str) -> str:
+    html = re.sub(r'<a href="([^"]+)">', r'<span class="blue">', html)
+    html = re.sub(r"</a>", r"</span>", html)
+    return html
+
+
+def _strip_cone_key(key: str) -> str:
+    return re.sub(r"^\d+", "", key)
+
+
+_DESKTOP_CSS_PATTERNS: list[re.Pattern[str]] = [
+    re.compile(r"position\s*:\s*(fixed|absolute)\s*;?", re.IGNORECASE),
+    re.compile(r"cursor\s*:\s*[^;]+;?", re.IGNORECASE),
+    re.compile(r"@font-face\s*\{[^}]*\}", re.IGNORECASE | re.DOTALL),
+    re.compile(r"[^{}]*:hover\s*\{[^}]*\}", re.IGNORECASE),
+    re.compile(
+        r"(input|select|textarea|form)\s*[\.\#\[\{:][^}]*\{[^}]*\}",
+        re.IGNORECASE | re.DOTALL,
+    ),
+    re.compile(
+        r"(input|select|textarea|form)\s*\{[^}]*\}",
+        re.IGNORECASE | re.DOTALL,
+    ),
+    re.compile(r"color\s*:\s*black\s*;?", re.IGNORECASE),
+    re.compile(r"background-color\s*:\s*white\s*;?", re.IGNORECASE),
+]
+
+
+def _sanitize_css(css: str) -> str:
+    for pattern in _DESKTOP_CSS_PATTERNS:
+        css = pattern.sub("", css)
+    return css
+
+
+def export_other_dictionaries(g: GlobalVars, dest: sqlite3.Connection) -> None:
+    pr.green_tmr("creating dict tables")
+
+    dest.execute("""
+        CREATE TABLE dict_meta (
+            dict_id TEXT PRIMARY KEY,
+            name TEXT,
+            author TEXT,
+            css TEXT,
+            entry_count INTEGER
+        )
+    """)
+
+    dest.execute("""
+        CREATE TABLE dict_entries (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            dict_id TEXT,
+            word TEXT,
+            word_fuzzy TEXT,
+            definition_html TEXT,
+            definition_plain TEXT
+        )
+    """)
+
+    dest.execute("CREATE INDEX idx_dict_entries_word ON dict_entries (dict_id, word)")
+    dest.execute(
+        "CREATE INDEX idx_dict_entries_fuzzy ON dict_entries (dict_id, word_fuzzy)"
+    )
+
+    pr.yes("ok")
+
+    # --- Cone dictionary ---
+    pr.green_tmr("exporting Cone dictionary")
+
+    with open(g.pth.cone_source_path) as f:
+        cone_dict: dict[str, str] = json.load(f)
+
+    with open(g.pth.cone_css_path) as f:
+        cone_css = _sanitize_css(f.read())
+
+    batch = []
+    for key, html_body in cone_dict.items():
+        html_body = re.sub(r"\s*<p>\s*&nbsp;\s*<br>\s*<br>\s*</p>\s*", "", html_body)
+
+        if "href" in html_body:
+            html_body = _remove_links(html_body)
+
+        html_body = re.sub(
+            r"<!DOCTYPE[^>]*>.*?<body[^>]*>|</body>.*?</html>",
+            "",
+            html_body,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+
+        word = _strip_cone_key(key)
+        word_fuzzy = _strip_diacritics_mobile(word)
+
+        batch.append(("cone", word, word_fuzzy, html_body, ""))
+
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
+
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        ("cone", "A Dictionary of Pāli", "Margaret Cone", cone_css, len(batch)),
+    )
+
+    pr.yes(len(batch))
+
+
 def write_schema_version(dest: sqlite3.Connection) -> None:
     pr.green_tmr("writing db_schema_version")
     dest.execute(
@@ -373,6 +482,7 @@ def main() -> None:
     export_lookup(g, dest)
     copy_passthrough_tables(g, dest)
     copy_family_tables(g, dest)
+    export_other_dictionaries(g, dest)
     write_schema_version(dest)
 
     dest.commit()
