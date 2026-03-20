@@ -22,6 +22,6 @@
 
 ---
 
-## [~] Track: MW2 Monier-Williams Dictionary from Cologne Raw Source
-*Link: [./tracks/mw2_cologne_export_20260320/](./tracks/mw2_cologne_export_20260320/)*
+## [ ] Track: Apte Practical Sanskrit-English Dictionary from Cologne Source
+*Link: [./tracks/apte_cologne_export_20260320/](./tracks/apte_cologne_export_20260320/)*
 
