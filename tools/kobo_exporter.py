@@ -51,6 +51,9 @@ def export_to_kobo_with_pyglossary(
 
     pr.green_title("exporting to kobo with pyglossary")
     glos = create_glossary(dict_info)
-    glos = add_data(glos, dict_data)
-    write_kobo_file(glos, dict_var)
-    archive_folder(dict_var)
+    try:
+        glos = add_data(glos, dict_data)
+        write_kobo_file(glos, dict_var)
+        archive_folder(dict_var)
+    finally:
+        glos.cleanup()

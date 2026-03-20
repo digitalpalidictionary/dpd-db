@@ -395,22 +395,25 @@ def export_to_goldendict_with_pyglossary(
         return
 
     glos = create_glossary(dict_info)
-    glos = add_css(glos, dict_var)
-    glos = add_js(glos, dict_var)
-    glos = add_fonts(glos, dict_var)
-    glos = add_data(glos, dict_data)
+    try:
+        glos = add_css(glos, dict_var)
+        glos = add_js(glos, dict_var)
+        glos = add_fonts(glos, dict_var)
+        glos = add_data(glos, dict_data)
 
-    write_to_file(glos, dict_var)
-    zip_dictfile(dict_var)
-    zip_synfile(dict_var)
-    add_icon(dict_var)
-    copy_dir(dict_var)
+        write_to_file(glos, dict_var)
+        zip_dictfile(dict_var)
+        zip_synfile(dict_var)
+        add_icon(dict_var)
+        copy_dir(dict_var)
 
-    if dict_var.zip_up:
-        zip_folder(dict_var)
+        if dict_var.zip_up:
+            zip_folder(dict_var)
 
-    if dict_var.delete_original:
-        delete_original(dict_var)
+        if dict_var.delete_original:
+            delete_original(dict_var)
 
-    if include_slob:
-        write_to_slob(glos, dict_var)
+        if include_slob:
+            write_to_slob(glos, dict_var)
+    finally:
+        glos.cleanup()
