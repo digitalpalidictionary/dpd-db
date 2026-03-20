@@ -16,7 +16,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | Dictionary of Pāli Proper Names | [dppn-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-gd.zip) |
 | DPR Analysis | [dpr-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-gd.zip) |
 | Margaret Cone Dictionary | [cone-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-gd.zip) |
-| Monier Williams | [mw-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-gd.zip) |
+| Monier Williams (Cologne) | [mw-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-gd.zip) |
 | Pali English Ultimate | [peu-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-gd.zip) |
 | Simsapa Combined Dictionary | [simsapa-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/simsapa-gd.zip) |
 | Sinhala-English-Sinhala | [sin-eng-sin-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/sin-eng-sin-gd.zip) |
@@ -34,7 +34,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | Dictionary of Pāli Proper Names | [dppn-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-mdict.zip) |
 | DPR Analysis | [dpr-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-mdict.zip) |
 | Margaret Cone Dictionary | [cone-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-mdict.zip) |
-| Monier Williams | [mw-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-mdict.zip) |
+| Monier Williams (Cologne) | [mw-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-mdict.zip) |
 | Pali English Ultimate | [peu-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-mdict.zip) |
 | Simsapa Combined Dictionary | [simsapa-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/simsapa-mdict.zip) |
 | Sinhala-English-Sinhala | [sin-eng-sin-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/sin-eng-sin-mdict.zip) |

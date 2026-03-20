@@ -292,6 +292,9 @@ class ProjectPaths:
         self.dpr_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/dpr/dpr.css/"
         )
+        self.mw_css_path = (
+            base_dir / "resources/other-dictionaries/dictionaries/mw/mw.css"
+        )
         self.whitney_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/whitney/whitney.css/"
         )
@@ -322,7 +325,13 @@ class ProjectPaths:
             base_dir
             / "resources/other-dictionaries/dictionaries/sin_eng_sin/source/english-sinhala.tab"
         )
-        self.mw_source_path = (
+        self.mw_source_dir = (
+            base_dir / "resources/other-dictionaries/dictionaries/mw/source/web/sqlite"
+        )
+        self.mw_zip_path = (
+            base_dir / "resources/other-dictionaries/dictionaries/mw/source/mwweb1.zip"
+        )
+        self.mw_source_json_path = (
             base_dir / "resources/other-dictionaries/dictionaries/mw/source/mw.json"
         )
         self.peu_source_path = (
