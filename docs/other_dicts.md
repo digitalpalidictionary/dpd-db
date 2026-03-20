@@ -10,6 +10,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 |------------|----------|
 | **All dictionaries (combined)** | [all-dictionaries-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/all-dictionaries-gd.zip) |
 | Ancient Buddhist Texts Glossary | [abt-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/abt-gd.zip) |
+| Apte Sanskrit-English Dictionary | [apte-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/apte-gd.zip) |
 | Buddhist Hybrid Sanskrit | [bhs-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-gd.zip) |
 | CST Bold Definitions | [bold-def-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-gd.zip) |
 | Critical Pāli Dictionary | [cpd-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-gd.zip) |
@@ -28,6 +29,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 |------------|----------|
 | **All dictionaries (combined)** | [all-dictionaries-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/all-dictionaries-mdict.zip) |
 | Ancient Buddhist Texts Glossary | [abt-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/abt-mdict.zip) |
+| Apte Sanskrit-English Dictionary | [apte-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/apte-mdict.zip) |
 | Buddhist Hybrid Sanskrit | [bhs-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-mdict.zip) |
 | CST Bold Definitions | [bold-def-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-mdict.zip) |
 | Critical Pāli Dictionary | [cpd-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-mdict.zip) |
