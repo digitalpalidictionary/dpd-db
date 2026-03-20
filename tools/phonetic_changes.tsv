@@ -119,6 +119,7 @@ d + bh	bbh	dbh > bbh	d > b	x	x
 d + m	mm	dm > mm	d > m	x	x	
 xd + y	bb	dy > bb	x	abhi	x	exclude tings
 d + y	yy	dy > yy	d > y	yy	x	
+d + r	dd	dr > dd	r > d		x	
 d + l	ll	dl > ll	d > l	ll	x	
 d + v	bb	dv > bb	d > b	x	x	
 d + s	ss	ds > ss	d > s	x	x	
