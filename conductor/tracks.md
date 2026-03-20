@@ -20,3 +20,8 @@
 ## [ ] Track: Flet 1.0 Migration (gui2 -> gui3)
 *Link: [./tracks/flet_1.0_20260208/](./tracks/flet_1.0_20260208/)*
 
+---
+
+## [ ] Track: MW2 Monier-Williams Dictionary from Cologne Raw Source
+*Link: [./tracks/mw2_cologne_export_20260320/](./tracks/mw2_cologne_export_20260320/)*
+
