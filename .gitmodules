@@ -38,4 +38,4 @@
 	url = https://github.com/digitalpalidictionary/dpd-updater-go.git
 [submodule "resources/other-dictionaries"]
 	path = resources/other-dictionaries
-	url = git@github.com:digitalpalidictionary/other-dictionaries.git
+	url = https://github.com/digitalpalidictionary/other-dictionaries.git
