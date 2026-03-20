@@ -20,8 +20,4 @@
 ## [ ] Track: Flet 1.0 Migration (gui2 -> gui3)
 *Link: [./tracks/flet_1.0_20260208/](./tracks/flet_1.0_20260208/)*
 
----
-
-## [ ] Track: Apte Practical Sanskrit-English Dictionary from Cologne Source
-*Link: [./tracks/apte_cologne_export_20260320/](./tracks/apte_cologne_export_20260320/)*
 
