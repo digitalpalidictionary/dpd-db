@@ -292,6 +292,9 @@ class ProjectPaths:
         self.dpr_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/dpr/dpr.css/"
         )
+        self.apte_css_path = (
+            base_dir / "resources/other-dictionaries/dictionaries/apte/apte.css"
+        )
         self.mw_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/mw/mw.css"
         )
@@ -325,6 +328,17 @@ class ProjectPaths:
             base_dir
             / "resources/other-dictionaries/dictionaries/sin_eng_sin/source/english-sinhala.tab"
         )
+        self.apte_source_dir = (
+            base_dir
+            / "resources/other-dictionaries/dictionaries/apte/source/web/sqlite"
+        )
+        self.apte_zip_path = (
+            base_dir
+            / "resources/other-dictionaries/dictionaries/apte/source/ap90web1.zip"
+        )
+        self.apte_source_json_path = (
+            base_dir / "resources/other-dictionaries/dictionaries/apte/source/apte.json"
+        )
         self.mw_source_dir = (
             base_dir / "resources/other-dictionaries/dictionaries/mw/source/web/sqlite"
         )
@@ -350,6 +364,7 @@ class ProjectPaths:
         )
 
         # resources/other-dictionaries/build/goldendict
+        self.apte_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
         self.bhs_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
         self.cone_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
         self.cpd_gd_path = base_dir / "resources/other-dictionaries/build/goldendict/"
@@ -406,6 +421,7 @@ class ProjectPaths:
         )
 
         # resources/other-dictionaries/build/mdict
+        self.apte_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
         self.bhs_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
         self.cone_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
         self.cpd_mdict_path = base_dir / "resources/other-dictionaries/build/mdict/"
