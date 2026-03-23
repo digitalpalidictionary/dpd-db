@@ -45,6 +45,30 @@ html.dpd-active body {
   container-name: dpd-panel;
 }
 
+/* Left-side panel */
+#dict-panel-25445.dpd-panel-left {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 2px solid var(--dpd-border);
+}
+
+html.dpd-active body.dpd-panel-left-active {
+  padding-right: 0 !important;
+  padding-left: var(--dpd-panel-width) !important;
+}
+
+#dict-panel-25445.dpd-panel-left .dpd-resize-handle {
+  left: auto;
+  right: -5px;
+}
+
+/* Left-side minimized */
+#dict-panel-25445.dpd-minimized.dpd-panel-left {
+  border-left: none !important;
+  border-right: 2px solid var(--dpd-border) !important;
+}
+
 /* Header Styling */
 #dict-panel-25445 .dpd-header {
   border-bottom: 1px solid var(--dpd-border);

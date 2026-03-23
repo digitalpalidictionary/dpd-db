@@ -15,6 +15,7 @@ export interface Settings {
     audio: boolean;
     goldenDict: boolean;
     minimized: boolean;
+    panelSide: "left" | "right";
 }
 
 export interface Theme {

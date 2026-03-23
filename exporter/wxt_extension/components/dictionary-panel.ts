@@ -103,6 +103,7 @@ export class DictionaryPanel {
     audio: false,
     goldenDict: false,
     minimized: false,
+    panelSide: "right",
   };
 
   constructor() {
@@ -149,6 +150,8 @@ export class DictionaryPanel {
       "settingsOneButton",
       "settingsAudio",
       "settingsMinimized",
+      "settingsPanelSide",
+      "settingsPanelWidth",
     ]) as { [key: string]: any };
 
     if (result.settingsFontSize !== undefined)
@@ -188,6 +191,10 @@ export class DictionaryPanel {
       this.settings.goldenDict = result.settingsGoldenDict as boolean;
     if (result.settingsMinimized !== undefined)
       this.settings.minimized = result.settingsMinimized as boolean;
+    if (result.settingsPanelSide !== undefined)
+      this.settings.panelSide = result.settingsPanelSide as "left" | "right";
+    if (result.settingsPanelWidth !== undefined)
+      document.documentElement.style.setProperty("--dpd-panel-width", result.settingsPanelWidth as string);
 
     this._applySettings();
   }
@@ -215,6 +222,20 @@ export class DictionaryPanel {
         } else {
             docStyle.removeProperty("--dpd-panel-width");
         }
+    }
+
+    const isLeft = this.settings.panelSide === "left";
+    panelEl.classList.toggle("dpd-panel-left", isLeft);
+    document.body.classList.toggle("dpd-panel-left-active", isLeft);
+
+    if (!this.settings.minimized) {
+      if (isLeft) {
+        panelEl.style.right = "auto";
+        panelEl.style.left = "0";
+      } else {
+        panelEl.style.right = "0";
+        panelEl.style.left = "auto";
+      }
     }
 
     this._updateNiggahita();
@@ -369,7 +390,9 @@ export class DictionaryPanel {
     });
     document.addEventListener("mousemove", (e) => {
       if (!this.isResizing) return;
-      const width = window.innerWidth - e.clientX;
+      const width = this.settings.panelSide === "left"
+        ? e.clientX
+        : window.innerWidth - e.clientX;
       if (width > 200 && width < window.innerWidth * 0.8) {
         document.documentElement.style.setProperty(
           "--dpd-panel-width",
@@ -378,6 +401,12 @@ export class DictionaryPanel {
       }
     });
     document.addEventListener("mouseup", () => {
+      if (this.isResizing) {
+        const currentWidth = document.documentElement.style.getPropertyValue("--dpd-panel-width");
+        if (currentWidth) {
+          browser.storage.local.set({ settingsPanelWidth: currentWidth });
+        }
+      }
       this.isResizing = false;
       document.body.style.userSelect = "";
       document.body.style.cursor = "";
@@ -957,6 +986,10 @@ export class DictionaryPanel {
             <span style="font-size: 0.8rem;">Minimize Panel</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-minimize-toggle" ${this.settings.minimized ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
           </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
+            <span style="font-size: 0.8rem;">Panel Left / Right</span>
+            <label class="dpd-switch"><input type="checkbox" id="settings-panelside-toggle" ${this.settings.panelSide === "right" ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
+          </div>
         </div>
       `;
 
@@ -1028,6 +1061,14 @@ export class DictionaryPanel {
             el.onchange = (e) => this._saveSetting(settingsKey as keyof Settings, (e.target as HTMLInputElement).checked);
         }
     });
+
+    const panelSideEl = document.getElementById("settings-panelside-toggle") as HTMLInputElement;
+    if (panelSideEl) {
+      panelSideEl.onchange = (e) => {
+        const side = (e.target as HTMLInputElement).checked ? "right" : "left";
+        this._saveSetting("panelSide" as keyof Settings, side);
+      };
+    }
   }
 
   async _setTheme(themeKey: string) {
