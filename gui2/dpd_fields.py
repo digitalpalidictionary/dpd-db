@@ -867,6 +867,7 @@ class DpdFields(PopUpMixin):
             self.page.update()
 
     def compound_type_blur(self, e: ft.ControlEvent):
+        self.page.update()
         compound_construction: DpdCompoundConstructionField = self.get_field(
             "compound_construction"
         )
