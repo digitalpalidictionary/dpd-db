@@ -728,7 +728,8 @@ a.dpd-button.play.small:hover svg {
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--primary);
-  color: white;
+  border: 1px solid var(--gray-transparent);
+  color: var(--dark);
   padding: 2px 4px;
   border-radius: 5px;
   font-size: 10px;

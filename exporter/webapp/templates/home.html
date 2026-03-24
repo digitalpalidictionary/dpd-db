@@ -41,16 +41,23 @@
             </button>
         </div>
         <div class="header-controls">
-            <a href="https://forms.gle/gJ7ouhJriYREPm1s8" target="_blank" title="Get email updates"
-                class="email-button">
+            <button class="panel-toggle-button help" id="history-toggle-button">
+                🕘
+                <span class="tooltip">Toggle History</span>
+            </button>
+            <button class="panel-toggle-button help" id="settings-toggle-button">
+                ⚙️
+                <span class="tooltip">Toggle Settings</span>
+            </button>
+            <a href="https://forms.gle/gJ7ouhJriYREPm1s8" target="_blank"
+                class="email-button help">
                 📧
+                <span class="tooltip">Email updates</span>
             </a>
             <div class="language-switcher">
-                <span class="language-icon" title="Language">
+                <span class="language-icon help">
                     🌐
-                    <span class="tooltip">
-                        <b>Select Language</b>
-                    </span>
+                    <span class="tooltip">Select Language</span>
                 </span>
                 <div class="dropdown" style="display: none">
                     <a href="#" class="dropdown-item" onclick="changeLanguage('en')">

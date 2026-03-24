@@ -648,6 +648,29 @@ function initCollapseToggle(toggleButton, paneElement) {
   }
 }
 
+function initPanelToggle(buttonId, paneId, storageKey) {
+  const button = document.getElementById(buttonId);
+  const pane = document.getElementById(paneId) || document.querySelector("." + paneId);
+  if (!button || !pane) return;
+
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (saved === "false") {
+      pane.classList.add("panel-hidden");
+      button.classList.add("inactive");
+    }
+  } catch (e) {}
+
+  button.addEventListener("click", function () {
+    const isVisible = !pane.classList.contains("panel-hidden");
+    pane.classList.toggle("panel-hidden", isVisible);
+    button.classList.toggle("inactive", isVisible);
+    try {
+      localStorage.setItem(storageKey, String(!isVisible));
+    } catch (e) {}
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   initCollapseToggle(historyCollapseToggle, historyPane);
 
@@ -655,4 +678,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (settingsPane) {
     initCollapseToggle(settingsCollapseToggle, settingsPane);
   }
+
+  initPanelToggle("history-toggle-button", "history-pane", "historyPaneVisible");
+  initPanelToggle("settings-toggle-button", "settings-pane", "settingsPaneVisible");
 });

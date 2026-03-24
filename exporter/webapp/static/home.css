@@ -88,6 +88,39 @@ html.dark-mode #header-image {
   gap: 10px;
 }
 
+.panel-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  margin: 0 2px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+}
+
+.panel-toggle-button:hover {
+  border-color: var(--primary);
+}
+
+.panel-toggle-button.inactive {
+  filter: grayscale(100%) opacity(0.35);
+}
+
+.panel-toggle-button.inactive:hover {
+  filter: none;
+}
+
+.history-pane.panel-hidden,
+.settings-pane.panel-hidden {
+  display: none !important;
+}
+
 .header-pane {
   align-items: center;
   border-radius: 0 7px 7px 7px;
@@ -425,7 +458,6 @@ a {
 
 .help {
   position: relative;
-  cursor: help;
 }
 
 .small-button {
@@ -457,12 +489,19 @@ a {
   top: 1.8rem;
   position: absolute;
   background-color: var(--primary);
+  border: 1px solid var(--gray-transparent);
   border-radius: 7px;
   color: var(--dark);
-  padding: 10px;
+  font-size: 0.75rem;
+  padding: 4px 8px;
   text-align: left;
   visibility: hidden;
+  white-space: nowrap;
   z-index: 1;
+}
+
+.dark-mode .tooltip {
+  color: var(--dark);
 }
 
 .help:hover .tooltip {
@@ -949,6 +988,10 @@ label {
 }
 
 @media (max-width: 750px) {
+  .panel-toggle-button {
+    display: none;
+  }
+
   body {
     height: auto;
     overflow: auto;
