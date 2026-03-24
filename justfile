@@ -202,11 +202,23 @@ server-reload:
 cone:
     uv run python scripts/extractor/extract_cone.py
 
-# ===== CPD DICTIONARY IMPORT =====
+# ===== CPD DICTIONARY =====
 
-# Extract CPD entries to TSV (includes comparison)
+# Export CPD dictionary to GoldenDict and MDict
 cpd:
-    uv run python scripts/extractor/extract_cpd.py
+    cd resources/other-dictionaries/ && uv run python dictionaries/cpd/cpd.py && cd ../..
+
+# Scrape CPD website into data/cpd.db
+cpd-scrape:
+    cd resources/other-dictionaries/scrapers/cpd/ && uv run python scraper.py && cd ../../../..
+
+# Clean and normalise cpd.db → cpd_clean.db, then diagnose
+cpd-clean:
+    cd resources/other-dictionaries/scrapers/cpd/ && uv run python clean.py && uv run python diagnose.py && cd ../../../..
+
+# Inject supplementary intro pages into cpd_clean.db
+cpd-extras:
+    cd resources/other-dictionaries/scrapers/cpd/ && uv run python extras.py && cd ../../../..
 
 # ===== CONFIGURATION =====
 
