@@ -141,6 +141,10 @@ audio:
 
 # ===== MAINTENANCE =====
 
+# Propagate CSS across the project
+css:
+    uv run python tools/css_manager.py
+
 # Backup the database to .tsv
 backup:
     uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
