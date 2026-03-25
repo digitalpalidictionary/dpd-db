@@ -20,4 +20,7 @@
 ## [ ] Track: Flet 1.0 Migration (gui2 -> gui3)
 *Link: [./tracks/flet_1.0_20260208/](./tracks/flet_1.0_20260208/)*
 
+---
 
+## [x] Track: Compound Type Manager (CT) Tab in gui2
+*Link: [./conductor/archive/compound_type_tab_20260325/](./conductor/archive/compound_type_tab_20260325/)*
