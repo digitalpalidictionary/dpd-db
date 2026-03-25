@@ -355,3 +355,158 @@ sīla\tadj\tlast\tkammadhāraya\tx
         assert isinstance(rules, list)
         assert len(rules) == 1
         assert rules[0]["word"] == "sīla"
+
+
+class TestCompoundTypeManagerCRUD:
+    """Tests for CRUD operations on TSV."""
+
+    def _make_tsv(self, tmp_path: Path, rows: str = "") -> Path:
+        tsv_file = tmp_path / "test.tsv"
+        tsv_file.write_text(f"word\tpos\tposition\ttype\texceptions\n{rows}")
+        return tsv_file
+
+    def test_add_rule_persists_to_file(self, tmp_path: Path) -> None:
+        """Test adding a new rule writes to TSV."""
+        tsv_file = self._make_tsv(tmp_path)
+        manager = CompoundTypeManager(tsv_file)
+        manager.add_rule("sīla", "adj", "last", "kammadhāraya", "x")
+
+        manager2 = CompoundTypeManager(tsv_file)
+        assert len(manager2.rules) == 1
+        assert manager2.rules[0]["word"] == "sīla"
+        assert manager2.rules[0]["pos"] == "adj"
+        assert manager2.rules[0]["position"] == "last"
+        assert manager2.rules[0]["type"] == "kammadhāraya"
+        assert manager2.rules[0]["exceptions"] == ["x"]
+
+    def test_add_rule_updates_in_memory(self, tmp_path: Path) -> None:
+        """Test that add_rule updates the in-memory rules list."""
+        tsv_file = self._make_tsv(tmp_path)
+        manager = CompoundTypeManager(tsv_file)
+        manager.add_rule("sīla", "adj", "last", "kammadhāraya", "x")
+
+        assert len(manager.rules) == 1
+        assert manager.rules[0]["word"] == "sīla"
+
+    def test_update_rule_persists_to_file(self, tmp_path: Path) -> None:
+        """Test updating a rule writes changes to TSV."""
+        tsv_file = self._make_tsv(tmp_path, "sīla\tadj\tlast\tkammadhāraya\tx\n")
+        manager = CompoundTypeManager(tsv_file)
+        manager.update_rule(
+            "sīla", "adj", "last", "sīla", "adj", "any", "bahubbīhi", "sabba, dhamma"
+        )
+
+        manager2 = CompoundTypeManager(tsv_file)
+        assert len(manager2.rules) == 1
+        assert manager2.rules[0]["word"] == "sīla"
+        assert manager2.rules[0]["position"] == "any"
+        assert manager2.rules[0]["type"] == "bahubbīhi"
+
+    def test_update_rule_updates_in_memory(self, tmp_path: Path) -> None:
+        """Test that update_rule updates the in-memory rules list."""
+        tsv_file = self._make_tsv(tmp_path, "sīla\tadj\tlast\tkammadhāraya\tx\n")
+        manager = CompoundTypeManager(tsv_file)
+        manager.update_rule(
+            "sīla", "adj", "last", "sīla", "adj", "any", "bahubbīhi", ""
+        )
+
+        assert manager.rules[0]["position"] == "any"
+        assert manager.rules[0]["type"] == "bahubbīhi"
+
+    def test_update_rule_targets_composite_key(self, tmp_path: Path) -> None:
+        """Test that update_rule only changes the rule matching (word, pos, position)."""
+        tsv_file = self._make_tsv(
+            tmp_path,
+            "sīla\tadj\tlast\tkammadhāraya\tx\nsīla\tmasc\tlast\tbahubbīhi\tx\n",
+        )
+        manager = CompoundTypeManager(tsv_file)
+        manager.update_rule(
+            "sīla", "adj", "last", "sīla", "adj", "any", "dutiyā tappurisa", ""
+        )
+
+        assert manager.rules[0]["type"] == "dutiyā tappurisa"
+        assert manager.rules[0]["position"] == "any"
+        assert manager.rules[1]["type"] == "bahubbīhi"
+
+    def test_delete_rule_persists_to_file(self, tmp_path: Path) -> None:
+        """Test deleting a rule removes it from TSV."""
+        tsv_file = self._make_tsv(
+            tmp_path,
+            "sīla\tadj\tlast\tkammadhāraya\tx\nsabba\tmasc\tfirst\tkammadhāraya\tx\n",
+        )
+        manager = CompoundTypeManager(tsv_file)
+        manager.delete_rule("sīla", "adj", "last")
+
+        manager2 = CompoundTypeManager(tsv_file)
+        assert len(manager2.rules) == 1
+        assert manager2.rules[0]["word"] == "sabba"
+
+    def test_delete_rule_updates_in_memory(self, tmp_path: Path) -> None:
+        """Test that delete_rule updates in-memory rules."""
+        tsv_file = self._make_tsv(tmp_path, "sīla\tadj\tlast\tkammadhāraya\tx\n")
+        manager = CompoundTypeManager(tsv_file)
+        manager.delete_rule("sīla", "adj", "last")
+
+        assert len(manager.rules) == 0
+
+    def test_delete_rule_targets_composite_key(self, tmp_path: Path) -> None:
+        """Test that delete_rule only removes the rule matching (word, pos, position)."""
+        tsv_file = self._make_tsv(
+            tmp_path,
+            "sīla\tadj\tlast\tkammadhāraya\tx\nsīla\tmasc\tlast\tbahubbīhi\tx\n",
+        )
+        manager = CompoundTypeManager(tsv_file)
+        manager.delete_rule("sīla", "adj", "last")
+
+        assert len(manager.rules) == 1
+        assert manager.rules[0]["pos"] == "masc"
+
+    def test_get_unique_values_pos(self, tmp_path: Path) -> None:
+        """Test getting unique pos values."""
+        tsv_file = self._make_tsv(
+            tmp_path,
+            "sīla\tadj\tlast\tkammadhāraya\tx\nsabba\tmasc\tfirst\tkammadhāraya\tx\ntest\tadj\tany\tbahubbīhi\tx\n",
+        )
+        manager = CompoundTypeManager(tsv_file)
+        values = manager.get_unique_values("pos")
+
+        assert sorted(values) == sorted(["adj", "masc"])
+
+    def test_get_unique_values_position(self, tmp_path: Path) -> None:
+        """Test getting unique position values."""
+        tsv_file = self._make_tsv(
+            tmp_path,
+            "sīla\tadj\tlast\tkammadhāraya\tx\nsabba\tmasc\tfirst\tkammadhāraya\tx\n",
+        )
+        manager = CompoundTypeManager(tsv_file)
+        values = manager.get_unique_values("position")
+
+        assert sorted(values) == sorted(["last", "first"])
+
+    def test_get_unique_values_type(self, tmp_path: Path) -> None:
+        """Test getting unique type values."""
+        tsv_file = self._make_tsv(
+            tmp_path,
+            "sīla\tadj\tlast\tkammadhāraya\tx\nsabba\tmasc\tfirst\tbahubbīhi\tx\n",
+        )
+        manager = CompoundTypeManager(tsv_file)
+        values = manager.get_unique_values("type")
+
+        assert sorted(values) == sorted(["kammadhāraya", "bahubbīhi"])
+
+    def test_get_rule_by_word_found(self, tmp_path: Path) -> None:
+        """Test finding a rule by word."""
+        tsv_file = self._make_tsv(tmp_path, "sīla\tadj\tlast\tkammadhāraya\tx\n")
+        manager = CompoundTypeManager(tsv_file)
+        rule = manager.get_rule_by_word("sīla")
+
+        assert rule is not None
+        assert rule["word"] == "sīla"
+
+    def test_get_rule_by_word_not_found(self, tmp_path: Path) -> None:
+        """Test that get_rule_by_word returns None for missing word."""
+        tsv_file = self._make_tsv(tmp_path, "sīla\tadj\tlast\tkammadhāraya\tx\n")
+        manager = CompoundTypeManager(tsv_file)
+        rule = manager.get_rule_by_word("unknown")
+
+        assert rule is None

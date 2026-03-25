@@ -12,6 +12,10 @@ import sys
 from pathlib import Path
 from typing import List
 
+from tools.pali_sort_key import pali_sort_key
+
+TSV_FIELDNAMES = ["word", "pos", "position", "type", "exceptions", "notes"]
+
 
 class CompoundTypeManager:
     """Manages compound type detection rules and logic.
@@ -60,6 +64,7 @@ class CompoundTypeManager:
                     "position": row["position"],
                     "type": row["type"],
                     "exceptions": exceptions,
+                    "notes": row.get("notes", ""),
                 }
                 self.rules.append(rule)
 
@@ -101,7 +106,14 @@ class CompoundTypeManager:
         # Check POS match
         if rule_pos != "any":
             rule_pos_list = [p.strip() for p in rule_pos.split(",")]
-            if pos not in rule_pos_list:
+            noun_pos = {"masc", "fem", "nt"}
+            expanded = set()
+            for p in rule_pos_list:
+                if p == "noun":
+                    expanded |= noun_pos
+                else:
+                    expanded.add(p)
+            if pos not in expanded:
                 return None
 
         # Build pattern based on position
@@ -221,6 +233,178 @@ class CompoundTypeManager:
                 return result
 
         return None
+
+    def reload(self) -> None:
+        """Reload rules from the TSV file, discarding in-memory state."""
+        self.rules = []
+        self._load_tsv()
+
+    def get_rules_by_word(self, word: str) -> list[dict[str, str | List[str]]]:
+        """Return all rules matching the given word.
+
+        Args:
+            word: The word to search for.
+
+        Returns:
+            List of matching rule dicts (may be empty).
+        """
+        return [r for r in self.rules if str(r["word"]) == word]
+
+    def get_rule_by_word(self, word: str) -> dict[str, str | List[str]] | None:
+        """Return the first rule matching the given word, or None.
+
+        Args:
+            word: The word to search for.
+
+        Returns:
+            The matching rule dict, or None if not found.
+        """
+        matches = self.get_rules_by_word(word)
+        return matches[0] if matches else None
+
+    def get_unique_values(self, field: str) -> list[str]:
+        """Return sorted unique values for a given rule field.
+
+        Args:
+            field: One of "pos", "position", or "type".
+
+        Returns:
+            Sorted list of unique string values for that field.
+        """
+        seen: set[str] = set()
+        for rule in self.rules:
+            val = str(rule.get(field, "")).strip()
+            if val:
+                seen.add(val)
+        return sorted(seen)
+
+    def add_rule(
+        self,
+        word: str,
+        pos: str,
+        position: str,
+        type_: str,
+        exceptions: str,
+        notes: str = "",
+    ) -> None:
+        """Append a new rule to the TSV and update in-memory rules.
+
+        Args:
+            word: The word for the rule.
+            pos: Part of speech.
+            position: Position (first, middle, last, any).
+            type_: Compound type string.
+            exceptions: Comma-separated exceptions string.
+        """
+        exceptions_list = (
+            [e.strip() for e in exceptions.split(",") if e.strip()]
+            if exceptions
+            else []
+        )
+        new_rule: dict[str, str | List[str]] = {
+            "word": word,
+            "pos": pos,
+            "position": position,
+            "type": type_,
+            "exceptions": exceptions_list,
+            "notes": notes,
+        }
+        self.rules.append(new_rule)
+        self._save_tsv()
+
+    def update_rule(
+        self,
+        word: str,
+        old_pos: str,
+        old_position: str,
+        new_word: str,
+        pos: str,
+        position: str,
+        type_: str,
+        exceptions: str,
+        notes: str = "",
+    ) -> None:
+        """Update an existing rule matched by (word, pos, position) composite key.
+
+        Args:
+            word: The current word identifying the rule.
+            old_pos: The current pos identifying the rule.
+            old_position: The current position identifying the rule.
+            new_word: New word value.
+            pos: New part of speech.
+            position: New position.
+            type_: New compound type string.
+            exceptions: New comma-separated exceptions string.
+        """
+        exceptions_list = (
+            [e.strip() for e in exceptions.split(",") if e.strip()]
+            if exceptions
+            else []
+        )
+        for rule in self.rules:
+            if (
+                str(rule["word"]) == word
+                and str(rule["pos"]) == old_pos
+                and str(rule["position"]) == old_position
+            ):
+                rule["word"] = new_word
+                rule["pos"] = pos
+                rule["position"] = position
+                rule["type"] = type_
+                rule["exceptions"] = exceptions_list
+                rule["notes"] = notes
+                break
+        self._save_tsv()
+
+    def delete_rule(self, word: str, pos: str, position: str) -> None:
+        """Delete a rule matched by (word, pos, position) composite key.
+
+        Args:
+            word: The word of the rule to delete.
+            pos: The pos of the rule to delete.
+            position: The position of the rule to delete.
+        """
+        self.rules = [
+            r
+            for r in self.rules
+            if not (
+                str(r["word"]) == word
+                and str(r["pos"]) == pos
+                and str(r["position"]) == position
+            )
+        ]
+        self._save_tsv()
+
+    def _save_tsv(self) -> None:
+        """Write the current in-memory rules back to the TSV file."""
+        self.rules.sort(
+            key=lambda r: (
+                pali_sort_key(str(r["word"])),
+                str(r["pos"]),
+                str(r["position"]),
+            )
+        )
+        with open(self.tsv_path, "w", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(
+                f, fieldnames=TSV_FIELDNAMES, delimiter="\t", lineterminator="\n"
+            )
+            writer.writeheader()
+            for rule in self.rules:
+                exceptions_list = rule.get("exceptions", [])
+                if isinstance(exceptions_list, list):
+                    exceptions_str = ", ".join(exceptions_list)
+                else:
+                    exceptions_str = str(exceptions_list)
+                writer.writerow(
+                    {
+                        "word": rule["word"],
+                        "pos": rule["pos"],
+                        "position": rule["position"],
+                        "type": rule["type"],
+                        "exceptions": exceptions_str,
+                        "notes": rule.get("notes", ""),
+                    }
+                )
 
     def open_tsv_for_editing(self) -> None:
         """Open the TSV file in LibreOffice Calc.
