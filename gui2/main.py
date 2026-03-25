@@ -4,6 +4,7 @@ from pathlib import Path
 
 import flet as ft
 
+from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
@@ -87,6 +88,7 @@ class App:
         self.translations_view = TranslationsView(self.page, self.toolkit)
         self.bold_search_view = BoldSearchView(self.page, self.toolkit)
         self.roots_view = RootsTabView(self.page, self.toolkit)
+        self.compound_type_view = CompoundTypeTabView(self.page, self.toolkit)
 
         self.build_ui()
 
@@ -251,6 +253,10 @@ class App:
                 ft.Tab(
                     text="√",
                     content=self.roots_view,
+                ),
+                ft.Tab(
+                    text="CT",
+                    content=self.compound_type_view,
                 ),
             ],
             expand=True,
