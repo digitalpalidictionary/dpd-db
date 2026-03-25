@@ -61,16 +61,16 @@ class HeadwordData:
     @staticmethod
     def _convert_newlines(obj):
         attrs = [
-            "meaning_1",
-            "sanskrit",
+            "construction",
             "phonetic",
             "compound_construction",
-            "commentary",
             "sutta_1",
             "sutta_2",
             "example_1",
             "example_2",
+            "commentary",
             "notes",
+            "link",
         ]
         for attr_name in attrs:
             attr_value = getattr(obj, attr_name, None)
