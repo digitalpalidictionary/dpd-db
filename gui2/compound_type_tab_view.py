@@ -218,7 +218,7 @@ class CompoundTypeTabView(ft.Column):
         )
 
     def _build_results_section(self) -> ft.Container:
-        placeholder_col = ft.DataColumn(label=ft.Text("#"))
+        placeholder_col = ft.DataColumn(label=ft.Text("#", selectable=True))
         self._results_table = DpdDatatable(columns=[placeholder_col], rows=[])
 
         table_wrap = ft.Container(content=self._results_table, expand=True)
@@ -340,7 +340,9 @@ class CompoundTypeTabView(ft.Column):
         self._set_add_button_mode(editing=False)
 
     def _clear_results(self) -> None:
-        self._results_table.columns = [ft.DataColumn(label=ft.Text("#"))]
+        self._results_table.columns = [
+            ft.DataColumn(label=ft.Text("#", selectable=True))
+        ]
         self._results_table.rows = []
         self._results_table.update()
 
@@ -763,15 +765,15 @@ class CompoundTypeTabView(ft.Column):
         self._modified_cells.clear()
         self._results_table.columns = (
             [
-                ft.DataColumn(label=ft.Text("#", width=40)),
+                ft.DataColumn(label=ft.Text("#", width=40, selectable=True)),
             ]
             + [
-                ft.DataColumn(label=ft.Text(col, width=w))
+                ft.DataColumn(label=ft.Text(col, width=w, selectable=True))
                 for col, w in zip(DISPLAY_COLUMNS, COLUMN_WIDTHS)
             ]
             + [
-                ft.DataColumn(label=ft.Text("bold", width=100)),
-                ft.DataColumn(label=ft.Text("e")),
+                ft.DataColumn(label=ft.Text("bold", width=100, selectable=True)),
+                ft.DataColumn(label=ft.Text("e", selectable=True)),
             ]
         )
 
