@@ -7,6 +7,7 @@ Keep DB_SCHEMA_VERSION in sync with AppDatabase.requiredDbSchemaVersion in
 lib/database/database.dart. Bump both when the Drift table definitions change.
 """
 
+import argparse
 import json
 import re
 import sqlite3
@@ -367,7 +368,9 @@ def _sanitize_css(css: str) -> str:
     return css
 
 
-def export_other_dictionaries(g: GlobalVars, dest: sqlite3.Connection) -> None:
+def export_other_dictionaries(
+    g: GlobalVars, dest: sqlite3.Connection, *, include_cone: bool = False
+) -> None:
     pr.green_tmr("creating dict tables")
 
     dest.execute("""
@@ -399,46 +402,52 @@ def export_other_dictionaries(g: GlobalVars, dest: sqlite3.Connection) -> None:
     pr.yes("ok")
 
     # --- Cone dictionary ---
-    pr.green_tmr("exporting Cone dictionary")
+    if include_cone:
+        pr.green_tmr("exporting Cone dictionary")
 
-    with open(g.pth.cone_source_path) as f:
-        cone_dict: dict[str, str] = json.load(f)
+        with open(g.pth.cone_source_path) as f:
+            cone_dict: dict[str, str] = json.load(f)
 
-    with open(g.pth.cone_css_path) as f:
-        cone_css = _sanitize_css(f.read())
+        with open(g.pth.cone_css_path) as f:
+            cone_css = _sanitize_css(f.read())
 
-    batch = []
-    for key, html_body in cone_dict.items():
-        html_body = re.sub(r"\s*<p>\s*&nbsp;\s*<br>\s*<br>\s*</p>\s*", "", html_body)
+        batch = []
+        for key, html_body in cone_dict.items():
+            html_body = re.sub(
+                r"\s*<p>\s*&nbsp;\s*<br>\s*<br>\s*</p>\s*", "", html_body
+            )
 
-        if "href" in html_body:
-            html_body = _remove_links(html_body)
+            if "href" in html_body:
+                html_body = _remove_links(html_body)
 
-        html_body = re.sub(
-            r"<!DOCTYPE[^>]*>.*?<body[^>]*>|</body>.*?</html>",
-            "",
-            html_body,
-            flags=re.DOTALL | re.IGNORECASE,
+            html_body = re.sub(
+                r"<!DOCTYPE[^>]*>.*?<body[^>]*>|</body>.*?</html>",
+                "",
+                html_body,
+                flags=re.DOTALL | re.IGNORECASE,
+            )
+
+            word = _strip_cone_key(key)
+            word_fuzzy = _strip_diacritics_mobile(word)
+
+            batch.append(("cone", word, word_fuzzy, html_body, ""))
+
+        dest.executemany(
+            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+            " VALUES (?, ?, ?, ?, ?)",
+            batch,
         )
 
-        word = _strip_cone_key(key)
-        word_fuzzy = _strip_diacritics_mobile(word)
+        dest.execute(
+            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+            " VALUES (?, ?, ?, ?, ?)",
+            ("cone", "A Dictionary of Pāli", "Margaret Cone", cone_css, len(batch)),
+        )
 
-        batch.append(("cone", word, word_fuzzy, html_body, ""))
-
-    dest.executemany(
-        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
-        " VALUES (?, ?, ?, ?, ?)",
-        batch,
-    )
-
-    dest.execute(
-        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
-        " VALUES (?, ?, ?, ?, ?)",
-        ("cone", "A Dictionary of Pāli", "Margaret Cone", cone_css, len(batch)),
-    )
-
-    pr.yes(len(batch))
+        pr.yes(len(batch))
+    else:
+        pr.green_tmr("skipping Cone dictionary")
+        pr.yes("off")
 
     # --- MW (Monier-Williams from Cologne source) ---
     pr.green_tmr("exporting MW dictionary (Cologne)")
@@ -500,6 +509,10 @@ def zip_mobile_db(pth: ProjectPaths) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--cone", action="store_true", help="include Cone dictionary")
+    args = parser.parse_args()
+
     pr.tic()
     pr.yellow_title("export mobile db")
 
@@ -522,7 +535,7 @@ def main() -> None:
     export_lookup(g, dest)
     copy_passthrough_tables(g, dest)
     copy_family_tables(g, dest)
-    export_other_dictionaries(g, dest)
+    export_other_dictionaries(g, dest, include_cone=args.cone)
     write_schema_version(dest)
 
     dest.commit()
