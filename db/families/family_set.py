@@ -61,10 +61,12 @@ def _get_sort_strategy(set_name: str) -> str | None:
 
 
 def _extract_bracket_number(meaning_1: str) -> float:
-    """Extract number from brackets in meaning_1. E.g. '(48th)' → 48, '(38)' → 38."""
-    match = re.search(r"\((\d+)", meaning_1)
+    """Extract number from brackets in meaning_1.
+    E.g. '(48th)' → 48, '(38)' → 38, '(800 000)' → 800000.
+    """
+    match = re.search(r"\(([0-9 ]+)", meaning_1)
     if match:
-        return float(match.group(1))
+        return float(match.group(1).replace(" ", ""))
     return float("inf")
 
 
