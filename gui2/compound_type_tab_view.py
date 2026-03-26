@@ -202,6 +202,7 @@ class CompoundTypeTabView(ft.Column):
                     on_click=self._on_delete,
                     on_hover=self._on_delete_hover,
                 ),
+                ft.ElevatedButton("TSV", on_click=self._on_open_tsv),
             ],
             spacing=8,
         )
@@ -297,6 +298,13 @@ class CompoundTypeTabView(ft.Column):
             else:
                 query = query.filter(DpdHeadword.pos == pos)
         return query
+
+    def _on_open_tsv(self, e: ft.ControlEvent) -> None:
+        try:
+            self._ct_manager.open_tsv_for_editing()
+            self._set_message(f"Opening TSV: {TSV_PATH}")
+        except (FileNotFoundError, RuntimeError) as err:
+            self._set_message(f"Error: {err}")
 
     def _build_search_pattern(self, word: str, position: str) -> str:
         escaped = re.escape(word)
