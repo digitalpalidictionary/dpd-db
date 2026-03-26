@@ -229,6 +229,7 @@ def construction_line1_does_not_match_lemma_1(searches: dict) -> tuple:
         "bahulī",
         "abhyati",
         "pasayhā",
+        "natumhāka",
     ]
 
     for i in searches["dpd_headword"]:
@@ -917,6 +918,7 @@ def duplicate_words(searches: dict) -> tuple:
         '"',
         "blah",
         "'",
+        "nābhāsamāna",
     ]
 
     results = []
@@ -1030,6 +1032,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "sattasattāha",
         "gahitagahita",
         "ekattatā",
+        "aññamañña 2",
     ]
 
     results = []
@@ -1101,7 +1104,6 @@ def tags_not_closed(searches: dict) -> tuple:
     """HTML open tags dont match closed tags count."""
 
     results = []
-    exceptions = []
 
     for i in searches["dpd_headword"]:
         for column in ["example_1", "example_2", "notes", "commentary"]:
