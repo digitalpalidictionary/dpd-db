@@ -194,9 +194,10 @@ class CompoundTypeTabView(ft.Column):
                 self._next_button,
                 self._add_button,
                 self._update_button,
-                ft.ElevatedButton("Search", on_click=self._on_search),
+                ft.ElevatedButton("All", on_click=self._on_all),
                 ft.ElevatedButton("Correct", on_click=self._on_correct),
-                ft.ElevatedButton("Exceptions", on_click=self._on_exceptions),
+                ft.ElevatedButton("Wrong", on_click=self._on_wrong),
+                ft.ElevatedButton("Exceptions", on_click=self._on_show_exceptions),
                 ft.ElevatedButton("Clear", on_click=self._on_clear),
                 ft.ElevatedButton(
                     "Delete",
@@ -417,7 +418,7 @@ class CompoundTypeTabView(ft.Column):
             if count > 1
             else f"Loaded rule: {canonical_word}"
         )
-        self._on_exceptions(None)
+        self._on_wrong(None)
 
     def _on_next_rule(self, e: ft.ControlEvent) -> None:
         if not self._current_word_matches:
@@ -455,7 +456,7 @@ class CompoundTypeTabView(ft.Column):
         self._set_add_button_mode(editing=True)
         self._set_message(f"Added: {word}")
         self._refresh_dropdowns()
-        self._on_exceptions(None)
+        self._on_wrong(None)
 
     def _on_update(self, e: ft.ControlEvent) -> None:
         if not self._current_rule_key:
@@ -487,9 +488,9 @@ class CompoundTypeTabView(ft.Column):
         self._next_button.update()
         self._set_message(f"Updated: {word}")
         self._refresh_dropdowns()
-        self._on_exceptions(None)
+        self._on_wrong(None)
 
-    def _on_search(self, e: ft.ControlEvent | None) -> None:
+    def _on_all(self, e: ft.ControlEvent | None) -> None:
         if self._modified_cells:
             show_global_snackbar(self.page, "Save table changes first", "warning")
             return
@@ -560,7 +561,37 @@ class CompoundTypeTabView(ft.Column):
         self._update_results_table(results)
         self._set_message(f"{len(results)} correct match(es) for '{word}'")
 
-    def _on_exceptions(self, e: ft.ControlEvent | None) -> None:
+    def _on_show_exceptions(self, e: ft.ControlEvent | None) -> None:
+        if self._modified_cells:
+            show_global_snackbar(self.page, "Save table changes first", "warning")
+            return
+
+        exceptions_str = (self._exceptions_field.value or "").strip()
+        if not exceptions_str:
+            show_global_snackbar(self.page, "No exceptions listed", "info", 3000)
+            return
+
+        exceptions_list = [ex.strip() for ex in exceptions_str.split(",") if ex.strip()]
+        if not exceptions_list:
+            show_global_snackbar(self.page, "No exceptions listed", "info", 3000)
+            return
+
+        try:
+            self.toolkit.db_manager.new_db_session()
+            results = (
+                self.toolkit.db_manager.db_session.query(DpdHeadword)
+                .filter(DpdHeadword.lemma_1.in_(exceptions_list))
+                .order_by(DpdHeadword.lemma_1)
+                .all()
+            )
+        except Exception as ex:
+            show_global_snackbar(self.page, f"Search error: {ex}", "error")
+            return
+
+        self._update_results_table(results)
+        self._set_message(f"{len(results)} exception(s) listed")
+
+    def _on_wrong(self, e: ft.ControlEvent | None) -> None:
         if self._modified_cells:
             show_global_snackbar(self.page, "Save table changes first", "warning")
             return
@@ -621,7 +652,7 @@ class CompoundTypeTabView(ft.Column):
         ]
 
         self._update_results_table(results)
-        self._set_message(f"{len(results)} exception(s) for '{word}'")
+        self._set_message(f"{len(results)} wrong for '{word}'")
 
     def _on_clear(self, e: ft.ControlEvent) -> None:
         self._clear_fields()
@@ -717,7 +748,7 @@ class CompoundTypeTabView(ft.Column):
                 "info",
                 4000,
             )
-            self._on_exceptions(None)
+            self._on_wrong(None)
         except Exception as ex:
             self.toolkit.db_manager.db_session.rollback()
             show_global_snackbar(self.page, f"Error saving: {ex}", "error", 5000)
@@ -735,7 +766,8 @@ class CompoundTypeTabView(ft.Column):
             ]
             + [
                 ft.DataColumn(label=ft.Text("bold", width=100)),
-                ft.DataColumn(label=ft.Text("e", width=30)),
+                ft.DataColumn(label=ft.Text("→")),
+                ft.DataColumn(label=ft.Text("e")),
             ]
         )
 
@@ -766,6 +798,11 @@ class CompoundTypeTabView(ft.Column):
                 ),
                 ft.DataCell(construction_cell),
                 ft.DataCell(self._make_bold_field(construction_cell, idx)),
+                ft.DataCell(
+                    self._make_copy_lemma_button(
+                        construction_cell, str(hw.lemma_1 or ""), idx
+                    )
+                ),
                 ft.DataCell(self._make_exception_button(str(hw.lemma_1 or ""))),
             ]
             rows.append(ft.DataRow(cells=cells))
@@ -807,12 +844,30 @@ class CompoundTypeTabView(ft.Column):
             on_submit=on_submit,
         )
 
-    def _make_exception_button(self, lemma: str) -> ft.TextButton:
-        return ft.TextButton(
-            "e",
+    def _make_copy_lemma_button(
+        self, construction_cell: CellTextField, lemma: str, row_idx: int
+    ) -> ft.TextButton:
+        def on_click(e: ft.ControlEvent) -> None:
+            if not (construction_cell.value or "").strip():
+                construction_cell.value = lemma
+                construction_cell.update()
+                self._modified_cells[(row_idx, "compound_construction")] = lemma
+
+        return ft.IconButton(
+            icon=ft.Icons.ARROW_FORWARD,
+            icon_size=14,
+            on_click=on_click,
+            style=ft.ButtonStyle(padding=ft.padding.all(0)),
+            width=24,
+            height=24,
+        )
+
+    def _make_exception_button(self, lemma: str) -> ft.IconButton:
+        return ft.IconButton(
+            icon=ft.Icons.BLOCK,
+            icon_size=14,
             on_click=lambda e, lm=lemma: self._on_exception_add(lm),
-            style=ft.ButtonStyle(
-                padding=ft.padding.all(0),
-                text_style=ft.TextStyle(size=11),
-            ),
+            style=ft.ButtonStyle(padding=ft.padding.all(0)),
+            width=24,
+            height=24,
         )
