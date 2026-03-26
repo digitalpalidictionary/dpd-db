@@ -79,7 +79,7 @@ class RootHasVerbUpdater:
     def update_root_has_verb(self) -> None:
         self.updated = 0
         for i in self.roots_db:
-            root_has_verb_nu = self.root_has_verb_dict[i.root]
+            root_has_verb_nu = self.root_has_verb_dict.get(i.root, self.verb_no)
             if root_has_verb_nu == i.root_has_verb:
                 pass
             else:
