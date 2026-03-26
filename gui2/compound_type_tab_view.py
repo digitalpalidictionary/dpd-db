@@ -195,6 +195,7 @@ class CompoundTypeTabView(ft.Column):
                 self._add_button,
                 self._update_button,
                 ft.ElevatedButton("Search", on_click=self._on_search),
+                ft.ElevatedButton("Correct", on_click=self._on_correct),
                 ft.ElevatedButton("Exceptions", on_click=self._on_exceptions),
                 ft.ElevatedButton("Clear", on_click=self._on_clear),
                 ft.ElevatedButton(
@@ -266,7 +267,7 @@ class CompoundTypeTabView(ft.Column):
     def _rebuild_type_chips(self) -> None:
         self._type_chips_row.controls = [
             ft.Chip(
-                label=ft.Text(t, size=12),
+                label=ft.Text(t, size=12, selectable=True),
                 on_delete=lambda e, tv=t: self._on_type_chip_delete(tv),
                 bgcolor=ft.Colors.BLUE_GREY_800,
             )
@@ -520,6 +521,45 @@ class CompoundTypeTabView(ft.Column):
         self._update_results_table(results)
         self._set_message(f"{len(results)} result(s) for '{word}'")
 
+    def _on_correct(self, e: ft.ControlEvent | None) -> None:
+        if self._modified_cells:
+            show_global_snackbar(self.page, "Save table changes first", "warning")
+            return
+        self._ct_manager.reload()
+        word = (self._word_field.value or "").strip()
+        pos = (self._pos_dropdown.value or "").strip()
+        position = (self._position_dropdown.value or "").strip()
+        rule_type = self._get_type_string()
+
+        if not word:
+            show_global_snackbar(self.page, "Enter a word to search", "warning")
+            return
+        if not position:
+            position = "any"
+
+        pattern = self._build_search_pattern(word, position)
+        try:
+            self.toolkit.db_manager.new_db_session()
+            query = self.toolkit.db_manager.db_session.query(DpdHeadword).filter(
+                DpdHeadword.construction.regexp_match(pattern),
+                DpdHeadword.grammar.regexp_match(r"\bcomp\b"),
+            )
+            query = self._apply_pos_filter(query, pos)
+            all_results = query.order_by(DpdHeadword.lemma_1).limit(MAX_RESULTS).all()
+        except Exception as ex:
+            show_global_snackbar(self.page, f"Search error: {ex}", "error")
+            return
+
+        rule_types = {p.strip() for p in rule_type.split("|") if p.strip()}
+        results = [
+            hw
+            for hw in all_results
+            if any(rt in (hw.compound_type or "") for rt in rule_types)
+        ]
+
+        self._update_results_table(results)
+        self._set_message(f"{len(results)} correct match(es) for '{word}'")
+
     def _on_exceptions(self, e: ft.ControlEvent | None) -> None:
         if self._modified_cells:
             show_global_snackbar(self.page, "Save table changes first", "warning")
@@ -572,13 +612,11 @@ class CompoundTypeTabView(ft.Column):
         else:
             exceptions = (self._exceptions_field.value or "").strip()
             exceptions_set = {e.strip() for e in exceptions.split(",") if e.strip()}
-        primary_types = {
-            p.split(">")[0].strip() for p in rule_type.split("|") if p.strip()
-        }
+        rule_types = {p.strip() for p in rule_type.split("|") if p.strip()}
         results = [
             hw
             for hw in all_results
-            if not any(pt in (hw.compound_type or "") for pt in primary_types)
+            if not any(rt in (hw.compound_type or "") for rt in rule_types)
             and hw.lemma_1 not in exceptions_set
         ]
 

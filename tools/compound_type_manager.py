@@ -131,7 +131,7 @@ class CompoundTypeManager:
         # Check if pattern matches in construction
         if re.search(pattern, construction):
             # Extract first type if multiple types specified
-            detected_type = rule_type.split("|")[0].split(">")[0].strip()
+            detected_type = rule_type.split("|")[0].strip()
             return detected_type
 
         return None
