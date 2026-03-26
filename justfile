@@ -36,6 +36,10 @@ initial_build_db_and_export_all:
 test:
     uv run pytest tests
 
+# Run database relationship tests
+db-test:
+    uv run python db_tests/db_tests_relationships.py
+
 # Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
     uv run ruff check . --exclude archive --exclude resources
