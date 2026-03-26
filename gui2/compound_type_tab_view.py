@@ -658,6 +658,7 @@ class CompoundTypeTabView(ft.Column):
         self._set_message(f"{len(results)} wrong for '{word}'")
 
     def _on_clear(self, e: ft.ControlEvent) -> None:
+        self._modified_cells.clear()
         self._clear_fields()
         self._clear_results()
         self._set_message("")
@@ -812,7 +813,10 @@ class CompoundTypeTabView(ft.Column):
             )
             construction_cell.multiline = False
             construction_cell.on_submit = make_autofill(
-                construction_cell, str(hw.lemma_1 or ""), idx, "compound_construction"
+                construction_cell,
+                str(hw.lemma_clean or ""),
+                idx,
+                "compound_construction",
             )
 
             cells = [
