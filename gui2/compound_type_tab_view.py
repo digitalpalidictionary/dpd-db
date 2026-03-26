@@ -37,6 +37,7 @@ class CompoundTypeTabView(ft.Column):
         self._current_word_matches: list[dict] = []
         self._search_results: list[DpdHeadword] = []
         self._modified_cells: dict[tuple[int, str], str] = {}
+        self._selected_types: list[str] = []
         self._build_ui()
 
     # ── UI construction ───────────────────────────────────────────────────────
@@ -58,8 +59,11 @@ class CompoundTypeTabView(ft.Column):
             border_width=1,
             text_size=14,
             expand=2,
+            helper_text=" ",
+            helper_style=ft.TextStyle(color=ft.Colors.BLUE_200, size=10),
             on_submit=self._on_word_submit,
         )
+        helper_style = ft.TextStyle(color=ft.Colors.BLUE_200, size=10)
         self._pos_dropdown = ft.Dropdown(
             hint_text="pos",
             hint_style=ft.TextStyle(color=LABEL_COLOUR),
@@ -69,7 +73,11 @@ class CompoundTypeTabView(ft.Column):
             border_color=ft.Colors.GREY_800,
             border_width=1,
             text_size=14,
-            on_change=lambda e: setattr(e.control, "helper_text", e.control.value or "")
+            helper_text=" ",
+            helper_style=helper_style,
+            on_change=lambda e: setattr(
+                e.control, "helper_text", e.control.value or " "
+            )
             or e.control.update(),
         )
         self._position_dropdown = ft.Dropdown(
@@ -88,10 +96,14 @@ class CompoundTypeTabView(ft.Column):
             border_color=ft.Colors.GREY_800,
             border_width=1,
             text_size=14,
-            on_change=lambda e: setattr(e.control, "helper_text", e.control.value or "")
+            helper_text=" ",
+            helper_style=helper_style,
+            on_change=lambda e: setattr(
+                e.control, "helper_text", e.control.value or " "
+            )
             or e.control.update(),
         )
-        self._type_field = ft.Dropdown(
+        self._type_dropdown = ft.Dropdown(
             hint_text="type",
             hint_style=ft.TextStyle(color=LABEL_COLOUR),
             options=self._get_options("type"),
@@ -103,9 +115,15 @@ class CompoundTypeTabView(ft.Column):
             border_width=1,
             text_size=14,
             menu_width=350,
-            on_change=lambda e: setattr(e.control, "helper_text", e.control.value or "")
-            or e.control.update(),
+            helper_text=" ",
+            helper_style=helper_style,
         )
+        self._type_add_button = ft.IconButton(
+            icon=ft.Icons.ADD_CIRCLE_OUTLINE,
+            on_click=self._on_type_add,
+            tooltip="Add type",
+        )
+        self._type_chips_row = ft.Row(wrap=True, spacing=4, run_spacing=4)
         self._exceptions_field = ft.TextField(
             hint_text="exceptions (comma-separated)",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
@@ -130,19 +148,25 @@ class CompoundTypeTabView(ft.Column):
             max_lines=6,
             expand=True,
         )
+        type_input = ft.Row(
+            [self._type_dropdown, self._type_add_button],
+            spacing=4,
+            expand=2,
+        )
         row1 = ft.Row(
             [
                 self._word_field,
                 self._pos_dropdown,
                 self._position_dropdown,
-                self._type_field,
+                type_input,
             ],
             spacing=8,
         )
+        row1b = ft.Row([self._type_chips_row], spacing=8)
         row2 = ft.Row([self._exceptions_field], spacing=8)
         row3 = ft.Row([self._notes_field], spacing=8)
         return ft.Container(
-            content=ft.Column([row1, row2, row3], spacing=6),
+            content=ft.Column([row1, row1b, row2, row3], spacing=6),
             padding=ft.padding.symmetric(horizontal=10, vertical=8),
             border=ft.Border(bottom=ft.BorderSide(1, ft.Colors.GREY_800)),
         )
@@ -224,11 +248,39 @@ class CompoundTypeTabView(ft.Column):
             values = prefix + values
         return [ft.dropdown.Option(v) for v in values]
 
+    def _on_type_add(self, e: ft.ControlEvent) -> None:
+        type_val = (self._type_dropdown.value or "").strip()
+        if not type_val or type_val in self._selected_types:
+            return
+        self._selected_types.append(type_val)
+        self._type_dropdown.value = None
+        self._rebuild_type_chips()
+        self._type_dropdown.update()
+
+    def _on_type_chip_delete(self, type_val: str) -> None:
+        if type_val in self._selected_types:
+            self._selected_types.remove(type_val)
+            self._rebuild_type_chips()
+
+    def _rebuild_type_chips(self) -> None:
+        self._type_chips_row.controls = [
+            ft.Chip(
+                label=ft.Text(t, size=12),
+                on_delete=lambda e, tv=t: self._on_type_chip_delete(tv),
+                bgcolor=ft.Colors.BLUE_GREY_800,
+            )
+            for t in self._selected_types
+        ]
+        self._type_chips_row.update()
+
+    def _get_type_string(self) -> str:
+        return " | ".join(self._selected_types)
+
     def _refresh_dropdowns(self) -> None:
         self._pos_dropdown.options = self._get_options("pos", include_any=True)
         self._pos_dropdown.update()
-        self._type_field.options = self._get_options("type")
-        self._type_field.update()
+        self._type_dropdown.options = self._get_options("type")
+        self._type_dropdown.update()
 
     def _set_message(self, msg: str) -> None:
         self._message_field.value = msg
@@ -259,11 +311,12 @@ class CompoundTypeTabView(ft.Column):
     def _clear_fields(self) -> None:
         self._word_field.value = ""
         self._pos_dropdown.value = None
-        self._pos_dropdown.helper_text = ""
+        self._pos_dropdown.helper_text = " "
         self._position_dropdown.value = None
-        self._position_dropdown.helper_text = ""
-        self._type_field.value = None
-        self._type_field.helper_text = ""
+        self._position_dropdown.helper_text = " "
+        self._selected_types = []
+        self._rebuild_type_chips()
+        self._type_dropdown.value = None
         self._exceptions_field.value = ""
         self._notes_field.value = ""
         self._current_rule_key = None
@@ -301,16 +354,17 @@ class CompoundTypeTabView(ft.Column):
             self._next_button.update()
             self._set_add_button_mode(editing=False)
             self._pos_dropdown.value = None
-            self._pos_dropdown.helper_text = ""
+            self._pos_dropdown.helper_text = " "
             self._position_dropdown.value = None
-            self._position_dropdown.helper_text = ""
-            self._type_field.value = None
-            self._type_field.helper_text = ""
+            self._position_dropdown.helper_text = " "
+            self._selected_types = []
+            self._rebuild_type_chips()
+            self._type_dropdown.value = None
             self._exceptions_field.value = ""
             self._notes_field.value = ""
             self._pos_dropdown.update()
             self._position_dropdown.update()
-            self._type_field.update()
+            self._type_dropdown.update()
             self._exceptions_field.update()
             self._notes_field.update()
             self._set_message(f"No rule found for '{word}'")
@@ -330,8 +384,10 @@ class CompoundTypeTabView(ft.Column):
         self._pos_dropdown.helper_text = str(rule["pos"])
         self._position_dropdown.value = str(rule["position"])
         self._position_dropdown.helper_text = str(rule["position"])
-        self._type_field.value = str(rule["type"])
-        self._type_field.helper_text = str(rule["type"])
+        type_str = str(rule["type"])
+        self._selected_types = [t.strip() for t in type_str.split("|") if t.strip()]
+        self._rebuild_type_chips()
+        self._type_dropdown.value = None
         exceptions = rule.get("exceptions", [])
         self._exceptions_field.value = (
             ", ".join(exceptions) if isinstance(exceptions, list) else str(exceptions)
@@ -340,7 +396,7 @@ class CompoundTypeTabView(ft.Column):
         self._word_field.update()
         self._pos_dropdown.update()
         self._position_dropdown.update()
-        self._type_field.update()
+        self._type_dropdown.update()
         self._exceptions_field.update()
         self._notes_field.update()
         self._set_add_button_mode(editing=True)
@@ -366,7 +422,7 @@ class CompoundTypeTabView(ft.Column):
         word = (self._word_field.value or "").strip()
         pos = (self._pos_dropdown.value or "").strip()
         position = (self._position_dropdown.value or "").strip()
-        type_ = (self._type_field.value or "").strip()
+        type_ = self._get_type_string()
         exceptions = (self._exceptions_field.value or "").strip()
         notes = (self._notes_field.value or "").strip()
         if not word or not pos or not position or not type_:
@@ -464,7 +520,7 @@ class CompoundTypeTabView(ft.Column):
         word = (self._word_field.value or "").strip()
         pos = (self._pos_dropdown.value or "").strip()
         position = (self._position_dropdown.value or "").strip()
-        rule_type = (self._type_field.value or "").strip()
+        rule_type = self._get_type_string()
 
         if not word:
             show_global_snackbar(self.page, "Enter a word to search", "warning")
@@ -508,10 +564,13 @@ class CompoundTypeTabView(ft.Column):
         else:
             exceptions = (self._exceptions_field.value or "").strip()
             exceptions_set = {e.strip() for e in exceptions.split(",") if e.strip()}
+        primary_types = {
+            p.split(">")[0].strip() for p in rule_type.split("|") if p.strip()
+        }
         results = [
             hw
             for hw in all_results
-            if rule_type not in (hw.compound_type or "")
+            if not any(pt in (hw.compound_type or "") for pt in primary_types)
             and hw.lemma_1 not in exceptions_set
         ]
 

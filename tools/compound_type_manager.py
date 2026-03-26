@@ -131,7 +131,7 @@ class CompoundTypeManager:
         # Check if pattern matches in construction
         if re.search(pattern, construction):
             # Extract first type if multiple types specified
-            detected_type = rule_type.split(">")[0].strip()
+            detected_type = rule_type.split("|")[0].split(">")[0].strip()
             return detected_type
 
         return None
@@ -275,7 +275,13 @@ class CompoundTypeManager:
         for rule in self.rules:
             val = str(rule.get(field, "")).strip()
             if val:
-                seen.add(val)
+                if field == "type":
+                    for part in val.split("|"):
+                        part = part.strip()
+                        if part:
+                            seen.add(part)
+                else:
+                    seen.add(val)
         return sorted(seen)
 
     def add_rule(
