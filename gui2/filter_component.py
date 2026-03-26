@@ -105,12 +105,10 @@ class FilterComponent(ft.Column):
     def _build_ui(self) -> None:
         """Build the main UI structure for the filter component."""
         results_section = self._create_results_section()
-        save_button = ft.ElevatedButton("Save Changes", on_click=self._save_changes)
 
         self.controls.extend(
             [
                 results_section,
-                ft.Row([save_button]),
             ]
         )
 
