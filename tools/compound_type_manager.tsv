@@ -5,6 +5,7 @@ agga	nt	last	chaṭṭhī tappurisa
 aggi	masc	last	pañcamī tappurisa	āhuneyyaggi, kāyaggi, gahapataggi	
 aṅga	adj	last	kammadhāraya > bahubbīhi	navaṅga, pañcaṅga 2, maṇikanakabhūsitaṅga	
 ajjhatta	any	first	kammadhāraya	ajjhattabahiddhārūpa, ajjhattabāhira	
+añña	noun	first	kammadhāraya	aññamokkha, aññavihitatā	
 aññatara	adj	first	kammadhāraya		
 aṭṭa	adj	last	tatiyā tappurisa	avedanāṭṭa	
 aṭṭha	any	last	kammadhāraya	aḍḍhaṭṭha	
@@ -13,6 +14,9 @@ aṭṭhika	adj	last	dutiyā tappurisa	setaṭṭhika
 aṭṭhika	nt	last	chaṭṭhī tappurisa	setaṭṭhika	
 aḍḍha	any	first	chaṭṭhī tappurisa	aḍḍhakumbhūpama, aḍḍhakula, aḍḍhakosakāhāra, aḍḍhaṭṭhama, aḍḍhateyya, aḍḍhatelasa, aḍḍhamāsikaṃ, aḍḍhullikhita, aḍḍhaṭṭha, aḍḍharatanika	
 atiga	adj	last	dutiyā tappurisa		
+atireka	adj	first	pañcamī tappurisa		
+atireka	ind	first	abyayībhāva		
+atireka	noun	first	pañcamī tappurisa	atirekacīvara, atirekacīvarakathā, atirekapatta, atirekapada, atirekapūjā, atirekabhāga, atirekalābha	
 attha	any	last	chaṭṭhī tappurisa		
 attha	ind	middle	chaṭṭhī tappurisa		
 attha	masc	last	chaṭṭhī tappurisa		
@@ -63,6 +67,7 @@ avasesa	any	last	chaṭṭhī tappurisa
 assāda	any	last	sattamī tappurisa	appassāda, evamassāda, bāhirassāda, mahassāda, rittassāda, madhurassāda	
 ācikkhana	any	last	chaṭṭhī tappurisa		
 ādāna	nt	last	chaṭṭhī tappurisa		
+ādesa	noun	last	chaṭṭhī tappurisa		
 ānisaṃsa	adj	last	kammadhāraya		
 ānisaṃsa	masc	last	sattamī tappurisa		
 ābādha	masc	last	chaṭṭhī tappurisa	visabhāgābādha, veriyakkhābādha	
@@ -71,7 +76,7 @@ assāda	any	last	sattamī tappurisa	appassāda, evamassāda, bāhirassāda, maha
 āruḷha	any	last	dutiyā tappurisa	suttāruḷha	
 ārūḷha	any	last	dutiyā tappurisa		
 āloka	any	last	chaṭṭhī tappurisa		
-āsaya	adj	last	sattamī tappurisa		
+āsaya	adj	last	sattamī tappurisa > bahubbīhi		
 āsava	any	last	chaṭṭhī tappurisa	khīṇāsava, pahātabbāsava, sabbāsava, pubbāsava	
 āsā	fem	last	sattamī tappurisa		
 iṭṭha	any	first	kammadhāraya	iṭṭhāniṭṭha	
@@ -90,6 +95,7 @@ uppāda	masc	last	chaṭṭhī tappurisa
 ūna	any	last	tatiyā tappurisa		
 eka	any	first	digu	ekausabhagāmī	
 ekanta	adj	first	kammadhāraya		
+okāsa	noun	last	catutthī tappurisa	aphuṭokāsa, kappakatokāsa, phuṭṭhokāsa, vivittokāsa	
 kaṭa	adj	last	tatiyā tappurisa		
 kaṇṭaka	adj	last	kammadhāraya > bahubbīhi		
 kata	adj	first	dutiyā tappurisa		
@@ -99,12 +105,13 @@ kathā	fem	last	chaṭṭhī tappurisa	anupubbikathā 1, anupubbikathā 2, antar
 kanta	any	first	kammadhāraya		
 kanta	any	last	catutthī tappurisa		
 kappa	adj	last	tatiyā tappurisa	akatakappa	
+kamyatā	fem	last	catutthī tappurisa | tuṃpaccaya tappurisa		
 karaṇa	any	last	dutiyā tappurisa		
 karaṇīya	nt	last	catutthī tappurisa	aggikaraṇīya, uttarikaraṇīya, uttariṃkaraṇīya, kiṅkaraṇīya, kiccakaraṇīya, kiṃkaraṇīya, tirokaraṇīya, dhanakaraṇīya, saṅghakaraṇīya, satuppādakaraṇīya, sattāhakaraṇīya, samaṇakaraṇīya, sārakaraṇīya, saṃghakaraṇīya	
 kalyāṇa	any	first	kammadhāraya		
 kasāva	any	last	chaṭṭhī tappurisa	aniddhantakasāva, aninnītakasāva, niddhantakasāva, ninnītakasāva, nihatakasāva, vantakasāva	
-kāma	adj	last	dutiyā tappurisa, tuṃpaccaya		
-kāma	masc	last	sattamī tappurisa		
+kāma	adj	last	dutiyā tappurisa | tuṃpaccaya tappurisa		
+kāma	masc	last	sattamī tappurisa	attakāma 2, kilesakāma, dibbakāma, vatthukāma 1, sabbakāma	
 kāya	adj	last	kammadhāraya > bahubbīhi		
 kāraka	any	last	dutiyā tappurisa	asannidhikāraka	
 kārī	any	last	dutiyā tappurisa	akiccakārī 2, akhaṇḍakārī, acchiddakārī, attakārī, aparipūrakārī, asakkaccakārī, asappāyakārī, asabalakārī, asaṃvutakārī, asātaccakārī, esukārī 1, nisammakārī, pubbakārī, sakkaccakārī, santatakārī, evaṅkārī, evaṃkārī, kathaṃkārī, tathākārī, satatakārī, samakārī, kathaṅkārī, esukārī 2	
@@ -124,8 +131,7 @@ khīṇa	any	any	kammadhāraya
 khemī	adj	last	pañcamī tappurisa		
 ga	any	last	dutiyā tappurisa	uraga 1, pannaga, vidugga 1, uraga 2	
 gaṇanā	any	last	chaṭṭhī tappurisa		
-gata	adj	last	dutiyā tappurisa	aghagata, aṭṭhānagata, anāpāthagata, antogata 1, antogata 2, apattagata, abahigata, amahaggata, ākāsagata 3, evaṅgata, evaṃgata, ñātimajjhagata, tejogata, nāvāsagata, parahatthagata 1, pūgamajjhagata, bahigata 1	
-gata	adj	last	dutiyā tappurisa		
+gata	adj	last	dutiyā tappurisa	aghagata, aṭṭhānagata, anāpāthagata, antogata 1, antogata 2, apattagata, abahigata, amahaggata, ākāsagata 3, evaṅgata, evaṃgata, ñātimajjhagata, tejogata, nāvāsagata, parahatthagata 1, pūgamajjhagata, bahigata 1, bahigata 2, majjhagata, rahogata, rūpagata 1, lepagata, sammaggata 1, sammaggata 2, sahagata, heṭṭhāgata	
 gadhita	any	last	tatiyā tappurisa		
 gandha	any	last	chaṭṭhī tappurisa	avītagandha, ekagandha, nirāmagandha, sucigandha, vaṇṇagandha, savanagandha	
 gama	adj	last	dutiyā tappurisa	aghasigama, adhogama, dvidugama	going
@@ -153,8 +159,10 @@ chaḷ	noun	first	digu	chajja, chabbisodhanasutta
 chaḷ	ordin	first	dvanda		
 chāpaka	any	last	chaṭṭhī tappurisa		
 chedana	any	last	chaṭṭhī tappurisa		
-ja	adj	last	pañcamī tappurisa	ekaja, dvija 1, pubbaja, sahaja 1, anutuja	
+ja	adj	last	pañcamī tappurisa | sattamī tappurisa	akammaja, anutuja, ekaja, tatthaja, dvija 1, pubbaja, sahaja 1	
+jappana	noun	last	catutthī tappurisa		
 jātika	adj	last	pañcamī tappurisa	adhivāsakajātika, anadhivāsakajātika, apparajakkhajātika, abālajātika, alasajātika, alolajātika, aviheṭhakajātika, ujujātika, kāḷakajātika, tibbadosajātika, tibbamohajātika, tibbarāgajātika, dabbajātika, duppaññajātika, dubbacajātika, dhārakajātika, dhāraṇajātika, bālajātika, bhīrukajātika, maṇḍanakajātika, maṇḍanajātika, mānātimānajātika, lolajātika, sappaññajātika, vīriyajātika, saṃsappajātika, huṃhuṅkajātika, brāhmaṇajātika, mukharajātika, viññujātika, taruṇajātika	
+jāni	fem	last	chaṭṭhī tappurisa	hatajāni	
 jāla	nt	last	chaṭṭhī tappurisa		
 ñāṇa	nt	last	chaṭṭhī tappurisa		
 ñū	any	last	dutiyā tappurisa	akhettaññū 1, akhettaññū 2, apakataññū, apakataññū, amattaññū, asabbaññū, pakataññū, akataññū 1.1, appakataññū, akālaññū	
@@ -197,7 +205,8 @@ nikkhanta	any	last	pañcamī tappurisa	bahunikkhanta
 niggata	any	last	pañcamī tappurisa		
 niccatā	fem	last	chaṭṭhī tappurisa		
 nidassana	any	last	dutiyā tappurisa		
-nidāna	adj	last	kammadhāraya > bahubbīhi	ekanidāna	
+nidāna	adj	last	kammadhāraya > bahubbīhi	ekanidāna, kutonidāna, yatonidāna	
+nidāna	noun	last	chaṭṭhī tappurisa	ekanidāna, kutonidāna, pāṭaliputtanidāna, yatonidāna, rājagahanidāna, sāvatthinidāna	
 ninna	adj	last	dutiyā tappurisa		
 nipuṇa	any	last	tatiyā tappurisa		
 nibbāpana	nt	last	dutiyā tappurisa		
@@ -210,12 +219,16 @@ nuda	any	last	dutiyā tappurisa
 pakata	adj	last	tatiyā tappurisa	puratthāpakata	
 pakata	adj	last	tatiyā tappurisa		
 paguṇa	any	last	kammadhāraya		
+paccanīka	adj	last	tatiyā tappurisa		
+paccāsā	fem	last	sattamī tappurisa		
 pacchāda	adj	last	kammadhāraya > bahubbīhi		
 paññatti	fem	last	kammadhāraya iti		
 pañha	any	last	chaṭṭhī tappurisa		
 paṭicca	any	last	dutiyā tappurisa		
 paṭipanna	adj	last	dutiyā tappurisa	ujupaṭipanna, ujuppaṭipanna, micchāpaṭipanna, yathāpaṭipanna, sammāpaṭipanna, sāmīcipaṭipanna	
+paṭilābha	noun	last	chaṭṭhī tappurisa		
 paṭisaññuta	any	last	tatiyā tappurisa		
+paṭisaṃyutta	adj	last	tatiyā tappurisa		
 paṭisaṃvedī	any	last	dutiyā tappurisa		
 paṭhama	any	first	kammadhāraya	paṭhamajjhānabhūmi, paṭhamajjhānasamāpatti, paṭhamatatiya, paṭhamadutiya, paṭhamasaṃvaṇṇanānurūpaṃ, paṭhamasuttaṭīkā, paṭhamasuttavaṇṇanā	
 paṇīta	any	first	kammadhāraya	paṇītagāmī, paṇītasaṅkhātatara, paṇītādhimuttika	
@@ -224,11 +237,13 @@ paṇṇa	nt	last	chaṭṭhī tappurisa	tiṇapaṇṇa, haritakapaṇṇa
 patita	any	last	pañcamī tappurisa	upalepapatita, chamāpatita	
 patta	adj	last	dutiyā tappurisa	ucchiṭṭhapatta, ūnakasatapatta, cirappatta, dhotapatta, naṭṭhapatta, bhinnapatta, sañchannapatta 1.1, sañchannapatta 2.1, sañchinnapatta, satapatta 3, saṃsīnapatta	reached or attained
 patti	fem	last	chaṭṭhī tappurisa		
+pada	adj	last	> bahubbīhi	sampattasaddhammapada	
 pabbajjā	fem	last	chaṭṭhī tappurisa		
 pabbata	any	last	kammadhāraya	mīḷhapabbata, aṅgārapabbata	
 pabhava	adj	last	pañcamī tappurisa		
 pamocana	nt	last	pañcamī tappurisa		
 parama	any	first	kammadhāraya	paramapattipatta, paramapāsāvinī, paramapāsāvī, paramavisuddhadassī, paramassāsappatta, paramānuttara, paramuggahīta	
+parāyana	adj	last	dutiyā tappurisa > bahubbīhi	daṇḍaparāyana, brahmacariyaparāyana	
 paricariyā	fem	last	sattamī tappurisa		
 paricāga	any	last	chaṭṭhī tappurisa		
 paricāraka	adj	last	dutiyā tappurisa		
@@ -242,6 +257,7 @@ pariyanta	adj	last	tatiyā tappurisa
 pariyādāna	nt	last	chaṭṭhī tappurisa		
 pariyāpanna	any	last	sattamī tappurisa		
 pariyuṭṭhita	adj	last	tatiyā tappurisa		
+pariyesanā	fem	last	catutthī tappurisa	anariyapariyesanā, ariyapariyesanā	
 parivāsa	any	last	chaṭṭhī tappurisa		
 pavāraṇā	fem	last	tatiyā tappurisa	catumāsappaccayapavāraṇā, niccapavāraṇā, punapavāraṇā	
 pavedita	adj	last	tatiyā tappurisa		
@@ -257,7 +273,7 @@ pāpa	any	first	kammadhāraya
 pitar	masc	last	chaṭṭhī tappurisa		
 puñña	any	first	kammadhāraya	puññattha, puññakata, puññakara, puññakiriyā, puññakkhaya, puññakkhetta, puññadhārā, antarāyakara, puññapāpa, puññapāpaphalūpaga, puññapekkha, puññapekkhāna, puññaphala, puññaphalūpajīvī	
 puṭa	masc	last	chaṭṭhī tappurisa	tālapuṭa	
-putta	masc	last	chaṭṭhī tappurisa		
+putta	masc	last	chaṭṭhī tappurisa	akulaputta, anujātaputta, avajātaputta, ekaputta 1, kaniṭṭhaputta, jeṭṭhaputta, taruṇaputta, duṭṭhaputta, piyaputta, baliputta, sakaputta	
 pupphuḷa	any	last	chaṭṭhī tappurisa		
 pubba	adj	first	kammadhāraya		before, previous
 pubba	adj	last	kammadhāraya	māsapubba	
@@ -266,11 +282,14 @@ pubbaṅgama	any	last	kammadhāraya
 pubbuḷa	any	last	chaṭṭhī tappurisa		
 pubbuḷaka	any	last	chaṭṭhī tappurisa		
 purakkhata	any	last	tatiyā tappurisa	apurakkhata	
+puratthima	noun	first	kammadhāraya		
 purima	any	first	kammadhāraya		
 pūti	any	first	kammadhāraya	pūtidehasaya	
 pema	any	last	sattamī tappurisa	avigatapema, vigatapema, adhigatapema, niviṭṭhapema, ittarapema	
 posī	adj	last	dutiyā tappurisa		
+phala	noun	last	chaṭṭhī tappurisa	akālaphala, aggaphala 2, ariyaphala, kaṭukapphala 2, kiṃphala 2, tatiyaphala, tiphala, dutiyaphala, navaphala, nānāphala, puttaphala, maggaphala, madhuraphala, rukkhaphala, rukkhaphala 1, sapphala, sāduphala 1, sukhapphala	
 phala	nt	last	chaṭṭhī tappurisa	akālaphala, aggaphala 2, ariyaphala, kaṭukapphala 2, kiṃphala 2, tatiyaphala, tiphala, dutiyaphala, navaphala, nānāphala, puttaphala, maggaphala, madhuraphala, rukkhaphala, rukkhaphala 1, sapphala, sāduphala 1, sukhapphala	
+baddha	adj	last	tatiyā tappurisa		
 bandhana	adj	last	catutthī tappurisa > bahubbīhi		
 bandhanabaddha	adj	last	chaṭṭhī tappurisa		
 bala	nt	last	chaṭṭhī tappurisa	bojjhaṅgabala, dasabala 1, ekabala, jaṅghabala, jaṅghābala, mahabbala 2, pañcabalāni, vaṇṇabala, āgatabala	
@@ -295,11 +314,12 @@ missa	any	last	tatiyā tappurisa
 mukha	any	last	x		
 muṭṭhi	fem	last	chaṭṭhī tappurisa		
 mutta	any	any	pañcamī tappurisa	gomutta, pūtimutta, pūtimuttabhesajja, muttakarīsa, muttagata, muttacāga, muttappaṭibhāna, muttabhāva, muttavatthi, muttacāgī, muttaharītaka, muttasaddha, sādhumutta	
+mūla	noun	last	chaṭṭhī tappurisa	cīvaramūla, dinnamūla, pupphamūla, mahāmūla, sukkamūla, syāmamūla	
 mūlaka	adj	last	kammadhāraya > bahubbīhi	aṭṭhamūlaka, ekamūlaka, catumūlaka, chamūlaka, timūlaka, dumūlaka, navamūlaka, pañcamūlaka, sattamūlaka	
 mokkha	any	last	pañcamī tappurisa	aññamokkha, saggamokkha	
 yāna	noun	last	chaṭṭhī tappurisa	assayāna, bhaddayāna, yuttayāna, varayāna	
 yutta	adj	last	kammadhāraya	itthiyutta, dhammayutta, purisayutta, maccherayutta, yogayutta, sabbavāriyutta, kāmayogayutta, bhavayogayutta, kāmayutta	
-raṭṭha	nt	last	chaṭṭhī pl		
+raṭṭha	nt	last	chaṭṭhī tappurisa		
 rata	adj	last	sattamī tappurisa		
 rati	any	last	sattamī tappurisa	aratirati, khiḍḍārati, sabbarati	
 ratta	any	last	sattamī tappurisa		
@@ -322,18 +342,24 @@ loha	any	first	chaṭṭhī tappurisa	lohasīsa, lohapattadhara
 vagga	masc	last	kammadhāraya		
 vaṅka	any	first	kammadhāraya		
 vaḍḍhaka	any	any	chaṭṭhī tappurisa	ubhatovaḍḍhaka	
+vaṇṇa	masc	last	chaṭṭhī tappurisa	aparisuddhavaṇṇa, ādivaṇṇa, āyuvaṇṇa 1, ivaṇṇa, kāḷavaṇṇa, kittivaṇṇa, dibbavaṇṇa, durattavaṇṇa, pakativaṇṇa, parisuddhavaṇṇa, pītakavaṇṇa, bahivaṇṇa, yathābhuccavaṇṇa, visabhāgavaṇṇa, surattavaṇṇa, setavaṇṇa 1	
 vaṇṇanā	fem	last	chaṭṭhī tappurisa		
 vatta	any	last	sattamī tappurisa	cakkavattiariyavatta, sīlavatta, gahaṭṭhavatta, vivekavatta, cakkavattivatta, bhikkhācariyavatta	
+vatthu	nt	last	catutthī tappurisa		
 vadha	masc	last	chaṭṭhī tappurisa		
-vana	nt	last	kammadhāraya	antovana, jetavana, naḷavana	
+vana	nt	last	kammadhāraya | chaṭṭhī tappurisa	antovana, giñjakasālavana, jetavana, naḷavana	
 vāda	masc	last	kammadhāraya iti	isivāda, ajitakesakambalavāda, aññātavāda, jātivāda, theravāda 1, paravāda 1, paravāda 2, makkhalivāda	
 vādī	any	last	dutiyā tappurisa	akālavādī, aggavādī, kālavādī, evaṃvādī, ucchedavādī, kiriyavādī 1, kiṃvādī, tathāvādī 1, tathāvādī 2, paravādī, puggalavādī, musāvādī, yathāvādī, sassatavādī, suññatavādī, suyuttavādī, aññavādī	
 vāma	any	first	kammadhāraya		
 vāsa	any	last	sattamī tappurisa	antevāsīvāsa, abrahmacariyavāsa	
+vāsika	adj	last	sattamī tappurisa	agarukulavāsika, anantevāsika, santevāsika, sāntevāsika 1, sāntevāsika 2	
+vijaya	noun	last	sattamī tappurisa		
 vijānana	nt	last	chaṭṭhī tappurisa		
 vijjā	fem	last	chaṭṭhī tappurisa		
 viññāṇa	nt	last	sattamī tappurisa	sesaviññāṇa	
+vitakka	noun	last	chaṭṭhī tappurisa	akusalavitakka, amaravitakka, uppannavitakka, kusalavitakka, manovitakka	
 vinaya	any	last	chaṭṭhī tappurisa		
+vinīta	adj	last	sattamī tappurisa	nookkācitavinīta, nopaṭipucchāvinīta, yāvatāvinīta	
 vipanna	adj	last	tatiyā tappurisa		
 vipariṇāmavirāganirodha	any	last	chaṭṭhī tappurisa		
 viparīta	any	last	pañcamī tappurisa		
@@ -342,9 +368,10 @@ vipāka	masc	last	chaṭṭhī tappurisa	phalavipāka, yaṃvipāka
 vippamutta	any	last	pañcamī tappurisa		
 vippayutta	adj	last	pañcamī tappurisa		
 vippahīna	any	last	dutiyā tappurisa		
+vibbhanta	adj	last	pañcamī tappurisa	aciravibbhanta	
 vimutta	adj	last	tatiyā tappurisa		freed by
 vimutta	adj	last	tatiyā tappurisa	aññāvimutta, anupādāvimutta, asamayavimutta, ubhatobhāgavimutta, evaṃvimutta, cetovimutta, taṇhāsaṅkhayavimutta, tathāvimutta, tadabhiññāvimutta, paññāvimutta, yathāvimutta, rūpasaṅkhayavimutta, viññāṇasaṅkhayavimutta, vedanāsaṅkhayavimutta, saṅkhārasaṅkhayavimutta, saṅkhāvimutta, saññāsaṅkhayavimutta, saññāsaṅkhāyavimutta, saddhāvimutta, samayavimutta, sammadaññāvimutta, sammāvimutta	free from
-vimutta	any	last	pañcamī tappurisa, tatiyā tappurisa	anupādāvimutta, tathāvimutta	
+vimutta	any	last	pañcamī tappurisa | tatiyā tappurisa	anupādāvimutta, tathāvimutta	
 virati	any	last	pañcamī tappurisa		
 visaññoga	masc	last	pañcamī tappurisa		
 visaṃyutta	adj	last	pañcamī tappurisa		
@@ -355,36 +382,44 @@ vuddha	any	last	tatiyā tappurisa
 vega	masc	last	chaṭṭhī tappurisa		
 vedaniya	adj	last	tatiyā tappurisa		
 vedanīya	adj	last	tatiyā tappurisa		
+vepakka	adj	last	sattamī tappurisa		
 vepulla	any	last	chaṭṭhī tappurisa		
 sa	any	first	tatiyā tappurisa		
 saka	adj	first	kammadhāraya > bahubbīhi		
 saka	noun	first	kammadhāraya		
 sakkharā	fem	last	chaṭṭhī tappurisa		
+saṅkappa	noun	last	chaṭṭhī tappurisa	akusalasaṅkappa, kusalasaṅkappa, pāpasaṅkappa 2, manasaṅkappa, micchāsaṅkappa 1, sammāsaṅkappa 1	
 saṅkhepa	masc	last	chaṭṭhī tappurisa		
-saṅgha	any	last	chaṭṭhī tappurisa		
+saṅgha	masc	last	chaṭṭhī tappurisa	aññasaṅgha, aparājitasaṅgha, ubhatosaṅgha, kammakārakasaṅgha, buddhasaṅgha, vassaṃvuṭṭhasaṅgha	
 saṅghāṭa	masc	last	chaṭṭhī tappurisa		
 saññā	any	last	sattamī tappurisa	akusalasaññā 1	
-saññī	adj	last	kammadhāraya iti, as = pañcamī, of = chaṭṭhī		
+saññī	adj	last	kammadhāraya | pañcamī tappurisa | chaṭṭhī tappurisa		
 sata	nt	any	digu		
 satasahassa	adj	last	kammadhāraya		
 satasahassa	nt	last	digu		
 sati	fem	last	chaṭṭhī tappurisa	anussaraṇasati, kāyagatāsati, micchāsati 2, sammāsati 1	
+satta	adj	last	sattamī tappurisa	adīnasatta, adevasatta, amānasatta	attached
 sadisa	any	last	tatiyā tappurisa	visadisa	
 sadda	masc	last	chaṭṭhī tappurisa		
 saddavipariṇāmavirāganirodha	masc	last	chaṭṭhī tappurisa		
 sannibha	adj	last	chaṭṭhī tappurisa		
 sannibha	last	any	kammadhāraya		
+sappāya	adj	last	catutthī tappurisa		
 sappi	nt	last	chaṭṭhī tappurisa		
 sabba	masc	first	kammadhāraya	sabbakammakkhaya, sabbajī, sabbaññū 2, sabbadukkhakkhaya, sabbanavaka, sabbanissagga, sabbasaṅkhārasamatha, sabbasaṃyojanakkhaya, sabbupādānakkhaya, sabbūpadhipaṭinissagga, sabbūpadhiparikkhaya, sabbūpadhippaṭinissagga, sabbaratticāra	
 sabyatā	any	last	tatiyā tappurisa		
+sabhāga	adj	first	kammadhāraya > bahubbīhi		
 sama	adj	last	tatiyā tappurisa	samasama 1	
 samācāra	adj	last	kammadhāraya		
 samācāra	masc	last	chaṭṭhī tappurisa	saritabbasamācāra	
+samādāna	nt	last	chaṭṭhī tappurisa		
 samāna	any	last	tatiyā tappurisa	seyyasamāna	
+samāpanna	adj	last	dutiyā tappurisa	ittarasamāpanna	
 samāyuta	adj	last	tatiyā tappurisa		
 samugghāta	masc	last	chaṭṭhī tappurisa		
 samuṭṭhāna	any	last	pañcamī tappurisa	ekasamuṭṭhāna, catusamuṭṭhāna 1, tisamuṭṭhāna 1, diṭṭhisamuṭṭhāna, dvisamuṭṭhāna	
-samudaya	adj	last	kammadhāraya		
+samudaya	adj	last	kammadhāraya > bahubbīhi		
+samudaya	noun	last	chaṭṭhī tappurisa		
 samudda	masc	last	chaṭṭhī tappurisa	parasamudda, puratthimasamudda, mahāsamudda	
 samuppatti	any	last	chaṭṭhī tappurisa		
 samosaraṇa	adj	last	sattamī tappurisa > bahubbīhi		
@@ -404,14 +439,17 @@ saṃgha	any	last	chaṭṭhī tappurisa
 saṃyata	adj	last	sattamī tappurisa		
 saṃyutta	nt	last	tatiyā tappurisa		
 saṃyojana	any	last	chaṭṭhī tappurisa	ajjhattasaṃyojana, khīṇasaṃyojana, parikkhīṇabhavasaṃyojana, sabbasaṃyojana, ekasaṃyojana	
+saṃvaṇṇetabba	any	first	kammadhāraya		
+saṃvattanika	adj	last	catutthī tappurisa	anibbānasaṃvattanika, anupasamasaṃvattanika, asamādhisaṃvattanika	
 saṃvuta	any	last	tatiyā tappurisa	cirarattasaṃvuta	
 saṃsagga	any	last	tatiyā tappurisa	padasaṃsagga	
 saṃsaṭṭha	any	last	tatiyā tappurisa		
 sāmaññagata	any	last	tatiyā tappurisa	diṭṭhisāmaññagata, samādhisāmaññagata, paññāsāmaññagata, sīlasāmaññagata	
-sārī	any	last	dutiyā tappurisa, kammadhāraya		
+sārī	any	last	dutiyā tappurisa | kammadhāraya	bhakkhasārī	
 sāruppa	adj	last	catutthī tappurisa		
 sālā	fem	last	catutthī tappurisa	ekasālā, kūṭāgārasālā 1, kūṭāgārasālā 2, jarasālā, dvārasālā, paṇṇasālā, migasālā	
 sikkhā	any	last	sattamī tappurisa	anupubbasikkhā	
+sikkhāsamādāna	nt	last	sattamī tappurisa		
 sita	adj	last	dutiyā tappurisa	pathavissita 1, pathavissita 2, paṭhavissita	
 sineha	masc	last	sattamī tappurisa	udakasineha, mettāsineha, sinehadosa 1.1	
 sīta	any	first	kammadhāraya		
@@ -419,6 +457,7 @@ sīla	adj	last	kammadhāraya > bahubbīhi
 sukka	any	first	kammadhāraya		
 sucarita	any	last	tatiyā tappurisa		
 sutta	nt	last	kammadhāraya		
+suddha	noun	first	kammadhāraya	suddhanta	
 suppaguṇa	any	last	kammadhāraya		
 sūka	nt	last	chaṭṭhī tappurisa		
 seṭṭha	masc	last	chaṭṭhī tappurisa	buddhaseṭṭha	

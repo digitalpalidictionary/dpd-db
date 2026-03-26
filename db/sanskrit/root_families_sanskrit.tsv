@@ -137,7 +137,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √i 1	1	a	come, go	√i	1, 2	go	saṃ pari √i	samparī	sampareta (liable to die)
 √i 2	1	a	study, recite	adhi√i	1, 2	learn	adhi √i	adhī	adhayitum, adhiyat, adhītvā, adhyayana, adhyāpana, adhyāyaka, adhyet, adhīyat, adhyeti, adhīyati, asvādhyāya, na + adhyāyaka, na + adhyeti, adhīyati
 √i 2	1	a	study, recite	adhi√i	1, 2	learn	anu saṃ adhi √i	samadhī	anu + svādhyāyati (bsk)
-√i 2	1	a	study, recite	adhi√i	1, 2	learn	upa adhi √i	adhī	upādhyāya
+√i 2	1	a	study, recite	adhi√i	1, 2	learn	upa adhi √i	adhī	upādhyāya, na + upādhyāya
 √i 2	1	a	study, recite	adhi√i	1, 2	learn	saṃ √i	sami	samaya
 √i 2	1	a	study, recite	adhi√i	1, 2	learn	saṃ adhi √i	samadhī	svādhyāya, svādhyāyat (bsk), svādhyāyati (bsk), svādhyāyitam < svādhyāyati, svādhyāya, svādhyāyitvā (bsk)
 √ikkh	1	a	see, mark	√īkṣ	1	see	√ikkh	īkṣ	īkṣaṇa, īkṣaṇika, īkṣaṇikā < īkṣaṇika, durīkṣa, sadṛkṣa, sadṛkṣa +
@@ -495,7 +495,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kup	3	ya	shake, be angry	√kup	4	be angry	vi √kup	vikup	na +, vikopana, vikopayati, vikopayamāna, vikopayitum
 √kup	3	ya	shake, be angry	√kup	4	be angry	saṃ √kup	saṃkup	na + saṅkopya, saṃ + kopa, saṃkupita, saṃkupyati
 √kup	3	ya	shake, be angry	√kup	4	be angry	saṃ pa √kup		sam + prakopa
-√kumār	8	*e	play	kumāra	-	child	√kumār		kaumārika, kumāra, kumāraka, kumārikā, kumārī, sukumāra
 √kur	1	a	sound	√kur	6	utter sound	√kur	kur	kurara, kurara, krūra
 √kul	1	a	be close	√kul	1	accumulate	√kul	kul	akula (na + kula), kaula, kaulīna, kaulīnya, kula, kulāya, kulika, kulīna, kulīnatā, kulya, kṛtavat, sakula
 √kul	1	a	be close	√kul	1	accumulate	anu √kul	kul	anu + kula, anu + kula, anukūla
@@ -822,7 +821,6 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cabb	8	*e	chew, spit out	√chṛd	1	spue, eject	√cabb		carvitvā (non-caus), carvayitvā (caus)
 √cam	1	a	wash, rinse	√cam	1, 5	sip	ā √cam	ācam	ācamana, ācamayati, ācamayya (caus), ācamya, ācamya, ācāma
 √car 1	1	a	move, walk	√car	1	move	√car	car	acarama, acaritvā (na + caritvā), acārīt, cara, caraka, caraṇa, carat, carata, carati, carama, caramāṇa, caraḥ, carita, caritavya, caritum, caritvā, caret, caryā, cāra, cāraka, kārā, cāraṇa, cāraṇa +, cārayat, cārayati, cārayamāna, cārayitum, cārayitvā, cārika, cārikā, cāritra, cārin, cīrṇa, cīrṇa (practised)
-√car 1	1	a	move, walk	√car	1	move	ati √car		
 √car 1	1	a	move, walk	√car	1	move	anu √car	anucar	anucaraṇa, anucarati, sa + anucara, sa + anucārikā
 √car 1	1	a	move, walk	√car	1	move	anu vi √car	anuvicar	anuvicarat, anuvicarati, anuvicaramāṇa, anuvicarayitvā, anuvicarita, anuvicārayat, anuvicārayati
 √car 1	1	a	move, walk	√car	1	move	anu saṃ √car	anusaṃcar	anusaṃcarati, anusaṃcaramāṇa
@@ -848,7 +846,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √car 2	1	a	act, behave	√car	1	move	abhi √car	abhicar	adhicaraṇa
 √car 2	1	a	act, behave	√car	1	move	abhi saṃ ā √car		abhi + samācāra, abhi + samācāra +
 √car 2	1	a	act, behave	√car	1	move	ava √car	avacar	avacaraka (bsk), avacarati, avacarati (bsk), avacīrṇa
-√car 2	1	a	act, behave	√car	1	move	ā √car	ācar	anācāra, anācārin, ācarat, ācarati, ācarita, ācaritum, ācarya, ācāra, ācārīt, ācārya, ācāryaka, ācīrṇa, durācāra, na + ācarati, na + ācāryaka, sa + ācāryaka
+√car 2	1	a	act, behave	√car	1	move	ā √car	ācar	anācāra, anācārin, ācarat, ācarati, ācarita, ācaritum, ācarya, ācāra, ācārīt, ācārya, ācāryaka, ācīrṇa, durācāra, na + ācarati, na + ācārya, na + ācāryaka, sa + ācāryaka
 √car 2	1	a	act, behave	√car	1	move	pa √car	pracar	pracarati, pracartvā
 √car 2	1	a	act, behave	√car	1	move	pa ā √car		prācārya
 √car 2	1	a	act, behave	√car	1	move	vi abhi √car	vyabhicar	vyabhicarati, vyabhicāra
@@ -1488,9 +1486,9 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	vi nī √dhū	vinirdhū	
 √dhū	5	nā	shake, smoke	√dhū	2, 5, 6, 9	shake	saṃ √dhū	saṃdhū	sam + adhauṣīt, saṃ + dhūmayati, saṃdhūnoti
 √dhū	5	āya	shake, smoke	√dhū	2, 5, 6, 9	shake	saṃ pa √dhū	dhū	saṃ + pa + dhūmayati
-√dhūp	1	a	smoke	√dhūp √dhūpaya	10	fumigate	√dhūp	dhūpaya	dhūpa, dhūpayitvā, dhūpāyat, dhūpāyati, dhūpāyita, dhūpita
+√dhūp	1	*e	smoke	√dhūp √dhūpaya	10	fumigate	√dhūp	dhūpaya	dhūpa, dhūpayitvā, dhūpāyat, dhūpāyati, dhūpāyita, dhūpita
 √dhūp	1	āya	smoke	√dhūp √dhūpaya	10	fumigate	pa √dhūp	dhūpaya	padhūpāyati, pradhūpayat (perfuming) (bsk), pradhūpayati (perfumes) (bsk), pradhūpayati (bsk), pradhūpita
-√dhūp	1	a	smoke	√dhūp √dhūpaya	10	fumigate	vi √dhūp	vidhūp	vidhūpa +, vidhūpayat, vidhūpya
+√dhūp	1	*e	smoke	√dhūp √dhūpaya	10	fumigate	vi √dhūp	vidhūp	vidhūpa +, vidhūpayat, vidhūpya
 √dhūp	1	āya	smoke	√dhūp √dhūpaya	10	fumigate	saṃ √dhūp	dhūpaya	saṃ + dhūpayati, saṃ + dhūpāyati
 √dhūp	1	āya	smoke	√dhūp √dhūpaya	10	fumigate	saṃ pa √dhūp	dhūpaya	vidhūpāyati
 √dhe	1	a	drink, suck	√dhe √dhā	1	suck	√dhe	dhe	dadhi, dhīta, dhenu
@@ -2693,7 +2691,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ā √vam	vam	ā + vamati, āvamitum
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	pati ā √vam	vam	prati + ā + vamati
 √vambh	8	*aya	despise	vi√ḍamb	10	mock	√vambh	viḍamb	viḍambaka, viḍambanā, viḍambayat, viḍambayati, viḍambayitum, viḍambita, viḍambin
-√var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var	vṛ	avāvarīt, avīvarat, asavarṇa, durvarṇa, durvarṇa +, durvarṇatā, na + suvarṇa, vaṭa, varaṇa, varatrā, varatrā +, varṇa, varṇa +, varṇaka, varṇatā, varṇavat, varṇavat +, varṇavattā, varṇin, varman, vāṭa, vāra, vāraka, vāraṇa, vāraṇāvata, vārayat, vārayati, vārayamāṇa, vārayitum, vārayitvā, vṛta, vṛti, vṛti +, vṛti, vāri, vārya, savarṇa, suvarṇa, suvarṇa, svarṇa, suvarṇaka, suvarṇatā
+√var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var	vṛ	avāvarīt, avīvarat, asavarṇa, durvarṇa, durvarṇa +, durvarṇatā, na + suvarṇa, vaṭa, varaṇa, varatrā, varatrā +, varṇa, varṇa +, varṇaka, varṇatā, varṇavat, varṇavat +, varṇavattā, varṇin, varman, varmika, vāṭa, vāra, vāraka, vāraṇa, vāraṇāvata, vārayat, vārayati, vārayamāṇa, vārayitum, vārayitvā, vṛta, vṛti, vṛti +, vṛti, vāri, vārya, savarṇa, suvarṇa, suvarṇa, svarṇa, suvarṇaka, suvarṇatā
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	adhi ā √var	āvṛ	adhyāvara
 √var 1	1	*e	cover, dress, restrain	√vṛ	1, 5, 9	cover	anu pari √var	parivṛ	anu +, anu + parivārayati
 √var 1	1	*e	cover, dress, restrain	√vṛ	1, 5, 9	cover	apa √var	apavṛ	apavārita
