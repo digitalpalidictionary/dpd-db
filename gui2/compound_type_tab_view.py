@@ -553,7 +553,7 @@ class CompoundTypeTabView(ft.Column):
         dlg = ft.AlertDialog(
             modal=True,
             title=ft.Text("Confirm Delete"),
-            content=ft.Text(f"Delete rule for '{word}'?"),
+            content=ft.Text(f"Delete rule for {word}-{pos}-{position}?"),
             actions=[
                 ft.TextButton("Delete", on_click=confirm),
                 ft.TextButton("Cancel", on_click=cancel),
