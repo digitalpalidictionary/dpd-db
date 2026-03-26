@@ -38,6 +38,9 @@ class CompoundTypeTabView(ft.Column):
         self._search_results: list[DpdHeadword] = []
         self._modified_cells: dict[tuple[int, str], str] = {}
         self._selected_types: list[str] = []
+        # Row index to focus after table rebuild (e.g. after exception add).
+        # -1 means no focus requested.
+        self._focus_after_rebuild: int = -1
         self._build_ui()
 
     # ── UI construction ───────────────────────────────────────────────────────
@@ -702,7 +705,7 @@ class CompoundTypeTabView(ft.Column):
         e.control.color = "white" if e.data == "true" else None
         e.control.update()
 
-    def _on_exception_add(self, lemma: str) -> None:
+    def _on_exception_add(self, lemma: str, row_idx: int) -> None:
         if self._modified_cells:
             show_global_snackbar(self.page, "Save table changes first", "warning")
             return
@@ -711,6 +714,7 @@ class CompoundTypeTabView(ft.Column):
         exceptions_set.add(lemma)
         self._exceptions_field.value = ", ".join(pali_list_sorter(exceptions_set))
         self._exceptions_field.update()
+        self._focus_after_rebuild = row_idx
         if self._current_rule_key:
             self._on_update(None)
 
@@ -766,11 +770,11 @@ class CompoundTypeTabView(ft.Column):
             ]
             + [
                 ft.DataColumn(label=ft.Text("bold", width=100)),
-                ft.DataColumn(label=ft.Text("→")),
                 ft.DataColumn(label=ft.Text("e")),
             ]
         )
 
+        rule_type = self._get_type_string()
         rows = []
         for idx, hw in enumerate(results):
 
@@ -785,30 +789,56 @@ class CompoundTypeTabView(ft.Column):
                 field.on_change = make_tracker(row_idx, col)
                 return field
 
+            def make_autofill(
+                field: CellTextField, default_val: str, row_idx: int, col: str
+            ):
+                def on_submit(e: ft.ControlEvent) -> None:
+                    if not (field.value or "").strip():
+                        field.value = default_val
+                        field.update()
+                        self._modified_cells[(row_idx, col)] = default_val
+                    field.focus()
+
+                return on_submit
+
+            type_cell = make_cell(str(hw.compound_type or ""), idx, "compound_type")
+            type_cell.multiline = False
+            type_cell.on_submit = make_autofill(
+                type_cell, rule_type, idx, "compound_type"
+            )
+
             construction_cell = make_cell(
                 str(hw.compound_construction or ""), idx, "compound_construction"
             )
+            construction_cell.multiline = False
+            construction_cell.on_submit = make_autofill(
+                construction_cell, str(hw.lemma_1 or ""), idx, "compound_construction"
+            )
+
             cells = [
                 ft.DataCell(ft.Text(str(idx + 1), size=12)),
                 ft.DataCell(make_cell(str(hw.lemma_1 or ""), idx, "lemma_1")),
                 ft.DataCell(make_cell(str(hw.pos or ""), idx, "pos")),
                 ft.DataCell(make_cell(str(hw.meaning_1 or ""), idx, "meaning_1")),
-                ft.DataCell(
-                    make_cell(str(hw.compound_type or ""), idx, "compound_type")
-                ),
+                ft.DataCell(type_cell),
                 ft.DataCell(construction_cell),
                 ft.DataCell(self._make_bold_field(construction_cell, idx)),
-                ft.DataCell(
-                    self._make_copy_lemma_button(
-                        construction_cell, str(hw.lemma_1 or ""), idx
-                    )
-                ),
-                ft.DataCell(self._make_exception_button(str(hw.lemma_1 or ""))),
+                ft.DataCell(self._make_exception_button(str(hw.lemma_1 or ""), idx)),
             ]
             rows.append(ft.DataRow(cells=cells))
 
         self._results_table.rows = rows
         self._results_table.update()
+
+        # After exception add, focus the first editable cell of the same row
+        # (which is now the next word since the excepted word was removed)
+        if self._focus_after_rebuild >= 0 and rows:
+            focus_idx = min(self._focus_after_rebuild, len(rows) - 1)
+            # cells[1] is the lemma_1 CellTextField (cells[0] is the row number)
+            first_cell = rows[focus_idx].cells[1].content
+            if isinstance(first_cell, CellTextField):
+                first_cell.focus()
+            self._focus_after_rebuild = -1
 
     def _make_bold_field(
         self, construction_cell: CellTextField, row_idx: int
@@ -834,6 +864,7 @@ class CompoundTypeTabView(ft.Column):
                 self._modified_cells[(row_idx, "compound_construction")] = new_value
             e.control.value = ""
             e.control.update()
+            e.control.focus()
 
         return ft.TextField(
             hint_text="bold",
@@ -844,29 +875,11 @@ class CompoundTypeTabView(ft.Column):
             on_submit=on_submit,
         )
 
-    def _make_copy_lemma_button(
-        self, construction_cell: CellTextField, lemma: str, row_idx: int
-    ) -> ft.TextButton:
-        def on_click(e: ft.ControlEvent) -> None:
-            if not (construction_cell.value or "").strip():
-                construction_cell.value = lemma
-                construction_cell.update()
-                self._modified_cells[(row_idx, "compound_construction")] = lemma
-
-        return ft.IconButton(
-            icon=ft.Icons.ARROW_FORWARD,
-            icon_size=14,
-            on_click=on_click,
-            style=ft.ButtonStyle(padding=ft.padding.all(0)),
-            width=24,
-            height=24,
-        )
-
-    def _make_exception_button(self, lemma: str) -> ft.IconButton:
+    def _make_exception_button(self, lemma: str, row_idx: int) -> ft.IconButton:
         return ft.IconButton(
             icon=ft.Icons.BLOCK,
             icon_size=14,
-            on_click=lambda e, lm=lemma: self._on_exception_add(lm),
+            on_click=lambda e, lm=lemma, ri=row_idx: self._on_exception_add(lm, ri),
             style=ft.ButtonStyle(padding=ft.padding.all(0)),
             width=24,
             height=24,
