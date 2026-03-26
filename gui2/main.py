@@ -163,6 +163,14 @@ class App:
                 self.toolkit.ai_search_popup.close_dialog()
             elif self.toolkit.wordfinder_popup.is_dialog_open():
                 self.toolkit.wordfinder_popup.close_dialog()
+        elif e.key == "S" and e.ctrl:
+            tab = self.tabs.tabs[self.tabs.selected_index]
+            view = tab.content
+            # Ctrl+S saves table changes in tabs that support it
+            if hasattr(view, "_on_save_changes"):
+                view._on_save_changes(None)
+            elif hasattr(view, "_save_changes_clicked"):
+                view._save_changes_clicked(None)
         elif e.key == "Arrow Left" and e.alt:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
