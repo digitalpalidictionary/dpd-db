@@ -110,3 +110,4 @@ shared_data/headword_stem_pattern_dict
 temp/
 tools/ai_models.json
 typescript
+.claude/scheduled_tasks.lock
