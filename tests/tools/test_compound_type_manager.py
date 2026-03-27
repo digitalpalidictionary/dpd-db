@@ -16,7 +16,7 @@ class TestCompoundTypeManager:
         """Test successful TSV loading and parsing."""
         # Create test TSV
         tsv_content = """word\tpos\tposition\ttype\texceptions
-sīla\tadj\tlast\tkammadhāraya > bahubbīhi\tx
+sīla\tadj\tlast\tkammadhāraya | bahubbīhi\tx
 sabba\tmasc\tfirst\tkammadhāraya\tsabbakammakkhaya
 viparīta\tany\tlast\tpañcamī\tx
 """
@@ -29,7 +29,7 @@ viparīta\tany\tlast\tpañcamī\tx
         assert manager.rules[0]["word"] == "sīla"
         assert manager.rules[0]["pos"] == "adj"
         assert manager.rules[0]["position"] == "last"
-        assert manager.rules[0]["type"] == "kammadhāraya > bahubbīhi"
+        assert manager.rules[0]["type"] == "kammadhāraya | bahubbīhi"
         assert manager.rules[0]["exceptions"] == ["x"]
 
     def test_load_tsv_missing_file(self, tmp_path: Path) -> None:
@@ -222,7 +222,7 @@ sīla\tadj\tlast\tkammadhāraya\tx
     def test_detect_compound_type_multiple_types(self, tmp_path: Path) -> None:
         """Test detection with multiple possible types."""
         tsv_content = """word\tpos\tposition\ttype\texceptions
-sīla\tadj\tlast\tkammadhāraya > bahubbīhi\tx
+sīla\tadj\tlast\tkammadhāraya | bahubbīhi\tx
 """
         tsv_file = tmp_path / "test.tsv"
         tsv_file.write_text(tsv_content)
