@@ -42,6 +42,11 @@ class CompoundTypeTabView(ft.Column):
         # Row index to focus after table rebuild (e.g. after exception add).
         # -1 means no focus requested.
         self._focus_after_rebuild: int = -1
+        self._meaning_filter: str = "off"
+        self._unfiltered_results: list[DpdHeadword] = []
+        self._filter_button = ft.ElevatedButton(
+            "Filter", on_click=self._on_toggle_meaning_filter
+        )
         self._build_ui()
 
     # ── UI construction ───────────────────────────────────────────────────────
@@ -202,6 +207,7 @@ class CompoundTypeTabView(ft.Column):
                 ft.ElevatedButton("Correct", on_click=self._on_correct),
                 ft.ElevatedButton("Wrong", on_click=self._on_wrong),
                 ft.ElevatedButton("Exceptions", on_click=self._on_show_exceptions),
+                self._filter_button,
                 ft.ElevatedButton("Clear", on_click=self._on_clear),
                 ft.ElevatedButton(
                     "Delete",
@@ -571,8 +577,10 @@ class CompoundTypeTabView(ft.Column):
             show_global_snackbar(self.page, f"Search error: {ex}", "error")
             return
 
-        self._update_results_table(results)
-        self._set_message(f"{len(results)} result(s) for '{word}'")
+        self._unfiltered_results = results
+        filtered = self._apply_meaning_filter(results)
+        self._update_results_table(filtered)
+        self._set_message(f"{len(filtered)} result(s) for '{word}'")
 
     def _on_correct(self, e: ft.ControlEvent | None) -> None:
         if self._modified_cells:
@@ -610,8 +618,10 @@ class CompoundTypeTabView(ft.Column):
             if any(rt in (hw.compound_type or "") for rt in rule_types)
         ]
 
-        self._update_results_table(results)
-        self._set_message(f"{len(results)} correct match(es) for '{word}'")
+        self._unfiltered_results = results
+        filtered = self._apply_meaning_filter(results)
+        self._update_results_table(filtered)
+        self._set_message(f"{len(filtered)} correct match(es) for '{word}'")
 
     def _on_show_exceptions(self, e: ft.ControlEvent | None) -> None:
         if self._modified_cells:
@@ -640,8 +650,10 @@ class CompoundTypeTabView(ft.Column):
             show_global_snackbar(self.page, f"Search error: {ex}", "error")
             return
 
-        self._update_results_table(results)
-        self._set_message(f"{len(results)} exception(s) listed")
+        self._unfiltered_results = results
+        filtered = self._apply_meaning_filter(results)
+        self._update_results_table(filtered)
+        self._set_message(f"{len(filtered)} exception(s) listed")
 
     def _on_wrong(self, e: ft.ControlEvent | None) -> None:
         if self._modified_cells:
@@ -703,11 +715,60 @@ class CompoundTypeTabView(ft.Column):
             and hw.lemma_1 not in exceptions_set
         ]
 
-        self._update_results_table(results)
-        self._set_message(f"{len(results)} wrong for '{word}'")
+        self._unfiltered_results = results
+        filtered = self._apply_meaning_filter(results)
+        self._update_results_table(filtered)
+        self._set_message(f"{len(filtered)} wrong for '{word}'")
+
+    def _apply_meaning_filter(self, results: list[DpdHeadword]) -> list[DpdHeadword]:
+        if self._meaning_filter == "with":
+            return [hw for hw in results if (hw.meaning_1 or "").strip()]
+        if self._meaning_filter == "without":
+            return [hw for hw in results if not (hw.meaning_1 or "").strip()]
+        return results
+
+    _FILTER_CYCLE = ["off", "with", "without"]
+    _FILTER_LABELS = {
+        "off": "Filter",
+        "with": "Filter: ✓",
+        "without": "Filter: ✗",
+    }
+    _FILTER_COLORS = {
+        "off": None,
+        "with": ft.Colors.BLUE_700,
+        "without": ft.Colors.RED_700,
+    }
+    _FILTER_MESSAGES = {
+        "with": "with meaning_1",
+        "without": "without meaning_1",
+    }
+
+    def _on_toggle_meaning_filter(self, e: ft.ControlEvent) -> None:
+        if self._modified_cells:
+            show_global_snackbar(self.page, "Save table changes first", "warning")
+            return
+        idx = self._FILTER_CYCLE.index(self._meaning_filter)
+        self._meaning_filter = self._FILTER_CYCLE[(idx + 1) % 3]
+        self._filter_button.text = self._FILTER_LABELS[self._meaning_filter]
+        self._filter_button.bgcolor = self._FILTER_COLORS[self._meaning_filter]
+        self._filter_button.update()
+        if self._unfiltered_results:
+            filtered = self._apply_meaning_filter(self._unfiltered_results)
+            self._update_results_table(filtered)
+            total = len(self._unfiltered_results)
+            if self._meaning_filter == "off":
+                self._set_message(f"{len(filtered)} result(s)")
+            else:
+                msg = self._FILTER_MESSAGES[self._meaning_filter]
+                self._set_message(f"{len(filtered)}/{total} {msg}")
+        self.page.update()
 
     def _on_clear(self, e: ft.ControlEvent) -> None:
         self._modified_cells.clear()
+        self._meaning_filter = "off"
+        self._filter_button.text = "Filter"
+        self._filter_button.bgcolor = None
+        self._unfiltered_results = []
         self._clear_fields()
         self._clear_results()
         self._set_message("")
