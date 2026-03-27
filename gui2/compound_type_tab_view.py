@@ -35,6 +35,7 @@ class CompoundTypeTabView(ft.Column):
         self._current_rule_key: tuple[str, str, str] | None = None
         self._current_rule_index: int = 0
         self._current_word_matches: list[dict] = []
+        self._global_rule_index: int = 0
         self._search_results: list[DpdHeadword] = []
         self._modified_cells: dict[tuple[int, str], str] = {}
         self._selected_types: list[str] = []
@@ -208,6 +209,8 @@ class CompoundTypeTabView(ft.Column):
                     on_hover=self._on_delete_hover,
                 ),
                 ft.ElevatedButton("TSV", on_click=self._on_open_tsv),
+                ft.ElevatedButton("←", on_click=self._on_prev_tsv_rule),
+                ft.ElevatedButton("→ TSV", on_click=self._on_next_tsv_rule),
             ],
             spacing=8,
         )
@@ -394,6 +397,14 @@ class CompoundTypeTabView(ft.Column):
             str(rule["pos"]),
             str(rule["position"]),
         )
+        for i, r in enumerate(self._ct_manager.rules):
+            if (
+                str(r["word"]),
+                str(r["pos"]),
+                str(r["position"]),
+            ) == self._current_rule_key:
+                self._global_rule_index = i
+                break
         self._word_field.value = canonical_word
         self._pos_dropdown.value = str(rule["pos"])
         self._pos_dropdown.helper_text = str(rule["pos"])
@@ -431,6 +442,42 @@ class CompoundTypeTabView(ft.Column):
         self._current_rule_index = (self._current_rule_index + 1) % len(
             self._current_word_matches
         )
+        self._load_rule_at_index(self._current_rule_index)
+
+    def _on_prev_tsv_rule(self, e: ft.ControlEvent) -> None:
+        if self._modified_cells:
+            show_global_snackbar(self.page, "Save table changes first", "warning")
+            return
+        self._ct_manager.reload()
+        if not self._ct_manager.rules:
+            return
+        self._global_rule_index = (self._global_rule_index - 1) % len(
+            self._ct_manager.rules
+        )
+        self._load_global_rule(self._global_rule_index)
+
+    def _on_next_tsv_rule(self, e: ft.ControlEvent) -> None:
+        if self._modified_cells:
+            show_global_snackbar(self.page, "Save table changes first", "warning")
+            return
+        self._ct_manager.reload()
+        if not self._ct_manager.rules:
+            return
+        self._global_rule_index = (self._global_rule_index + 1) % len(
+            self._ct_manager.rules
+        )
+        self._load_global_rule(self._global_rule_index)
+
+    def _load_global_rule(self, idx: int) -> None:
+        rule = self._ct_manager.rules[idx]
+        word = str(rule["word"])
+        pos = str(rule["pos"])
+        position = str(rule["position"])
+        self._current_word_matches = self._ct_manager.get_rules_by_word(word)
+        for i, m in enumerate(self._current_word_matches):
+            if str(m["pos"]) == pos and str(m["position"]) == position:
+                self._current_rule_index = i
+                break
         self._load_rule_at_index(self._current_rule_index)
 
     def _get_fields(self) -> tuple[str, str, str, str, str, str] | None:
