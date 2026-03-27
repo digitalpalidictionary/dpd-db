@@ -4,7 +4,11 @@ These rules are specific to the dpd-db project. Global rules (security, etc.) ar
 
 ## Project Overview
 
-This project converts Mako templates to Jinja2 templates for the Digital Pali Dictionary.
+This project contains everything related to the Digital Pāḷi Dictionary
+- Update and edit the database with `/gui2`
+- Build the database `/db`
+- Test the database `/db_tests`
+- Export into multiple forms `/export`
 
 ## Python Type Hints
 - Please add type hints to all code, especially when it is missing in existing code.
