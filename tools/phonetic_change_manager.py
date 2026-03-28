@@ -198,9 +198,6 @@ class PhoneticChangeManager:
             PhoneticChangeResult if rule matches, None otherwise.
         """
         # Check preconditions
-        if not headword.meaning_1:
-            return None
-
         if not headword.construction:
             return None
 
@@ -231,9 +228,6 @@ class PhoneticChangeManager:
             - current_value: Current phonetic value (for auto_update)
         """
         # Check preconditions
-        if not headword.meaning_1:
-            return None
-
         if not headword.construction:
             return None
 
@@ -262,9 +256,6 @@ class PhoneticChangeManager:
             Tuple of (list of PhoneticChangeResult, concatenated suggestions joined by newline)
         """
         results: list[PhoneticChangeResult] = []
-
-        if not headword.meaning_1:
-            return results, ""
 
         if not headword.construction:
             return results, ""
