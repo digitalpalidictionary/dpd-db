@@ -194,6 +194,7 @@ type Lookup struct {
 	Roots         string `gorm:"column:roots"`
 	Deconstructor string `gorm:"column:deconstructor"`
 	Variant       string `gorm:"column:variant"`
+	See           string `gorm:"column:see"`
 	Spelling      string `gorm:"column:spelling"`
 	Grammar       string `gorm:"column:grammar"`
 	Help          string `gorm:"column:help"`
