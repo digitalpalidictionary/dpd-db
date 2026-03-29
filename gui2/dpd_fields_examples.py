@@ -2,7 +2,7 @@
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.dpd_fields_functions import clean_example, remove_brackets, remove_bold_tags
+from gui2.dpd_fields_functions import clean_example, remove_bold_tags, remove_brackets
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import (
     highlight_word_in_sentence,
@@ -544,7 +544,11 @@ class DpdExampleField(ft.Column):
 
     def clean_text(self, e: ft.ControlEvent):
         self.text_field.value = (
-            e.control.value.replace(" ...", "…")
+            e.control.value.replace(
+                "THA", "itthaṃ sudaṃ āyasmā xxx thero gāthaṃ abhāsitthā'ti."
+            )
+            .replace("THI", "itthaṃ sudaṃ xxx therī gāthaṃ abhāsitthā'ti.")
+            .replace(" ...", "…")
             .replace("...", "…")
             .replace("'nti", "n'ti")
         )
