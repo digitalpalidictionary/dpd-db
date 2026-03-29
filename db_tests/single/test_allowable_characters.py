@@ -825,7 +825,7 @@ def check_root_db():
     debug = False
     error_list = []
 
-    for root_data in a.roots_data:
+    for root_data in a.roots_data:  # type: ignore
         # setup variables
         column, allowed = root_data
         print(f"[green]{column:<40}", end="")
