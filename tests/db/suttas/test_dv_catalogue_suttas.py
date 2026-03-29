@@ -12,7 +12,7 @@ def test_read_dv_catalogue_sorting_and_deduplication():
     # After natural sort:
     # AN1.1, AN1.2, AN1.10, AN1.3, AN1.4 (AN1.4 is consecutive duplicate of AN1.3 -> removed)
     # MN1, MN2, MN10
-    test_data = """suttacode\tdv_summary\tdv_key_excerpt1\tdv_key_excerpt2
+    test_data = """suttacode\tsummary\tkey_excerpt1\tkey_excerpt2
 AN1.10\tSummary A\tExcerpt 1\tExcerpt 2
 AN1.2\tSummary B\tExcerpt 3\tExcerpt 4
 AN1.1\tSummary A\tExcerpt 1\tExcerpt 2

@@ -10,13 +10,14 @@ def test_strip_diacritics():
 
 
 def test_build_index():
-    terms = ["bhū", "bhu", "rūpa", "rupa"]
-    expected = {"bhu": ["bhu", "bhū"], "rupa": ["rupa", "rūpa"]}
+    terms = {"bhū", "bhu", "rūpa", "rupa"}
+    expected = ["bhu|bhu|bhū", "rupa|rupa|rūpa"]
     assert build_index(terms) == expected
 
 
 def test_build_index_sorting():
-    # We might want the terms to be sorted in the list
-    terms = ["bhu", "bhū"]
+    # Test alphabetical order of primary keys
+    terms = {"rūpa", "bhū", "bhu"}
     index = build_index(terms)
-    assert index["bhu"] == ["bhu", "bhū"]
+    assert index[0] == "bhu|bhu|bhū"
+    assert index[1] == "rupa|rūpa"

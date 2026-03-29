@@ -7,7 +7,7 @@ def test_load_tpr_codes_set():
     pth = ProjectPaths()
     if pth.tpr_codes_json_path.exists():
         tpr_codes = load_tpr_codes_set()
-        assert isinstance(tpr_codes, set)
+        assert isinstance(tpr_codes, (set, frozenset))
         assert len(tpr_codes) > 0
         assert "dn1" in tpr_codes
     else:

@@ -33,7 +33,7 @@ def test_process_batch_success():
         content=mock_content, status_message="Success"
     )
 
-    results = process_batch(mock_gemini, batch)
+    results = process_batch(mock_gemini, batch, "test-model")
     assert len(results) == 1
     assert results[0]["id"] == 1
     assert results[0]["meaning_1_corrected"] == "error"
@@ -50,7 +50,7 @@ def test_process_batch_markdown():
         content=mock_content, status_message="Success"
     )
 
-    results = process_batch(mock_gemini, batch)
+    results = process_batch(mock_gemini, batch, "test-model")
     assert len(results) == 1
     assert results[0]["meaning_1_corrected"] == "fixed"
 
@@ -63,5 +63,5 @@ def test_process_batch_error():
         content="not json", status_message="Success"
     )
 
-    results = process_batch(mock_gemini, batch)
+    results = process_batch(mock_gemini, batch, "test-model")
     assert results == []

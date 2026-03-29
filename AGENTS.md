@@ -96,6 +96,20 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 
 ---
 
+## Testing
+
+### Directory Structure
+- Keep the `tests/` folder tidy by mimicking the project's source folder structure.
+- Example: `exporter/webapp/main.py` -> `tests/exporter/webapp/test_main.py`.
+- Ensure all tests are relative to the file they are testing.
+
+### Running Tests
+- Run all tests: `uv run pytest tests/`
+- Run a specific file: `uv run pytest tests/path/to/test_file.py`
+- Run with durations: `uv run pytest tests/ --durations=10`
+
+---
+
 ## Tools/printer.py
 This module provides colored console output with timing and TSV logging.
 

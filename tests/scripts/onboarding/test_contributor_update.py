@@ -145,6 +145,7 @@ class TestUpdateEnvironment:
 
         assert "pull" in result.lower() or "update" in result.lower()
 
+    @patch("scripts.onboarding.contributor_update.backup_database")
     @patch("scripts.onboarding.contributor_setup.download_database")
     @patch("scripts.onboarding.contributor_update.check_db_update_available")
     @patch("scripts.onboarding.contributor_update.subprocess.run")
@@ -153,9 +154,11 @@ class TestUpdateEnvironment:
         mock_run: MagicMock,
         mock_db_check: MagicMock,
         mock_download: MagicMock,
+        mock_backup: MagicMock,
     ) -> None:
         mock_run.return_value = MagicMock(returncode=0, stdout="")
         mock_db_check.return_value = (True, "https://example.com/dpd.db")
+        mock_backup.return_value = (True, "backup_path")
         mock_download.return_value = True
 
         result = update_environment(Path("/fake/project"))

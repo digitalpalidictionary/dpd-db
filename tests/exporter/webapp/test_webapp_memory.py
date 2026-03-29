@@ -1,43 +1,52 @@
 import sys
 from unittest.mock import MagicMock, patch
+import pytest
 
-# Mock local modules
-sys.modules["db.db_helpers"] = MagicMock()
-sys.modules["db.models"] = MagicMock()
-sys.modules["audio.db.db_helpers"] = MagicMock()
-sys.modules["exporter.webapp.preloads"] = MagicMock()
-sys.modules["exporter.webapp.toolkit"] = MagicMock()
-sys.modules["tools.css_manager"] = MagicMock()
-sys.modules["tools.pali_text_files"] = MagicMock()
-sys.modules["tools.tipitaka_db"] = MagicMock()
-sys.modules["tools.translit"] = MagicMock()
-sys.modules["sqlalchemy.orm"] = MagicMock()
 
-# Mock ProjectPaths
-with patch("tools.paths.ProjectPaths") as MockPaths:
-    mock_paths = MockPaths.return_value
-    mock_paths.webapp_static_dir = "static"
-    mock_paths.webapp_templates_dir = "templates"
-    mock_paths.webapp_css_path = "style.css"
-    mock_paths.webapp_js_path = "script.js"
-    mock_paths.webapp_home_simple_css_path = "simple.css"
-    mock_paths.dpd_db_path = "dpd.db"
+@pytest.fixture
+def update_history_mock():
+    # Mock local modules only for the duration of this test
+    mocks = {
+        "db.db_helpers": MagicMock(),
+        "db.models": MagicMock(),
+        "audio.db.db_helpers": MagicMock(),
+        "exporter.webapp.preloads": MagicMock(),
+        "exporter.webapp.toolkit": MagicMock(),
+        "tools.css_manager": MagicMock(),
+        "tools.pali_text_files": MagicMock(),
+        "tools.tipitaka_db": MagicMock(),
+        "tools.translit": MagicMock(),
+        "sqlalchemy.orm": MagicMock(),
+        "fastapi.staticfiles.StaticFiles": MagicMock(),
+    }
 
-    # Mock open
-    with patch("builtins.open", create=True) as mock_open:
-        mock_open.return_value.__enter__.return_value.read.return_value = ""
+    with patch.dict(sys.modules, mocks):
+        # Mock ProjectPaths and builtins.open
+        with (
+            patch("tools.paths.ProjectPaths") as MockPaths,
+            patch("builtins.open", create=True) as mock_open,
+        ):
+            mock_paths = MockPaths.return_value
+            mock_paths.webapp_static_dir = "."  # Use current dir to bypass exists check
+            mock_paths.webapp_templates_dir = "templates"
+            mock_paths.webapp_css_path = "style.css"
+            mock_paths.webapp_js_path = "script.js"
+            mock_paths.webapp_home_simple_css_path = "simple.css"
+            mock_paths.dpd_db_path = "dpd.db"
 
-        # Mock StaticFiles to avoid directory check
-        with patch("fastapi.staticfiles.StaticFiles") as MockStaticFiles:
-            # Import main
+            mock_open.return_value.__enter__.return_value.read.return_value = ""
+
+            # Import inside the context to use the mocks
             from exporter.webapp.main import update_history
 
+            yield update_history
 
-def test_memory_leak():
+
+def test_memory_leak(update_history_mock):
     # Simulate 1000 searches
     current_list = []
     for i in range(1000):
-        current_list = update_history(f"search_{i}", "", "fuzzy")
+        current_list = update_history_mock(f"search_{i}", "", "fuzzy")
 
     print(f"History size after 1000 unique searches: {len(current_list)}")
 

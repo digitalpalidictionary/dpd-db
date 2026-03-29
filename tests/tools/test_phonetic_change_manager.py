@@ -27,8 +27,8 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta
         assert manager.rules[0]["initial"] == "a + u"
         assert manager.rules[0]["final"] == "o"
         assert manager.rules[0]["correct"] == "au > o"
-        assert manager.rules[0]["wrong"] == "u > o"
-        assert manager.rules[0]["without"] == "o"
+        assert manager.rules[0]["wrong"] == ["u > o"]
+        assert manager.rules[0]["without"] == ["o"]
         assert manager.rules[0]["exceptions"] == ["okkhita"]
 
     def test_load_tsv_missing_file(self, tmp_path: Path) -> None:
@@ -209,7 +209,7 @@ a + u	o	au > o	u > o	ū	okkhita
         assert result is None
 
     def test_process_headword_no_meaning(self, tmp_path: Path) -> None:
-        """Test no processing when meaning_1 is empty."""
+        """Test processing continues even when meaning_1 is empty."""
         tsv_content = """initial	final	correct	wrong	without	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
@@ -230,7 +230,8 @@ a + u	o	au > o	u > o	o	okkhita
 
         result = manager.process_headword(headword)
 
-        assert result is None
+        assert result is not None
+        assert result.status == "auto_add"
 
     def test_process_headword_no_construction(self, tmp_path: Path) -> None:
         """Test no processing when construction is empty."""
