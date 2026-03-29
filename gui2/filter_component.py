@@ -109,6 +109,17 @@ class FilterComponent(ft.Column):
         self.controls.extend(
             [
                 results_section,
+                ft.Container(
+                    content=ft.Row(
+                        [
+                            ft.ElevatedButton(
+                                "Save Changes", on_click=self._save_changes
+                            )
+                        ],
+                        spacing=8,
+                    ),
+                    padding=ft.padding.symmetric(horizontal=10, vertical=6),
+                ),
             ]
         )
 

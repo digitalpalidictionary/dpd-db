@@ -194,19 +194,6 @@ class FilterTabView(ft.Column):
         )
         # ft.Row([apply_button, clear_button])
 
-        # Save button fixed at the bottom
-        save_section = ft.Container(
-            content=ft.Row(
-                [
-                    ft.ElevatedButton(
-                        "Save Changes", on_click=self._save_changes_clicked
-                    )
-                ],
-                spacing=8,
-            ),
-            padding=ft.padding.symmetric(horizontal=10, vertical=6),
-        )
-
         # Assemble all sections
         self.controls.extend(
             [
@@ -221,7 +208,6 @@ class FilterTabView(ft.Column):
                 buttons_section,
                 ft.Divider(),
                 self.filter_component_container,
-                save_section,
             ]
         )
 
