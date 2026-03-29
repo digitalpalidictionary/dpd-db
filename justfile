@@ -40,6 +40,10 @@ test:
 db-test:
     uv run python db_tests/db_tests_relationships.py
 
+# Run phonetic changes test
+test-phonetic:
+    uv run python -m db_tests.single.add_phonetic_changes
+
 # Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
     uv run ruff check . --exclude archive --exclude resources

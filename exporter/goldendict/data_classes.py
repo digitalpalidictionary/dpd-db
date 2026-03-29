@@ -36,6 +36,7 @@ class HeadwordData:
         idioms_set: Set[str],
         show_id: bool,
     ):
+        self.construction_summary = i.construction_summary
         self.i = self._convert_newlines(i)
         self.rt = rt
         self.fr = fr
