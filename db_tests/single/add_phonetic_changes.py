@@ -14,78 +14,141 @@ from db.models import DpdHeadword
 from tools.db_search_string import db_search_string
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
-from tools.phonetic_change_manager import PhoneticChangeManager
+from tools.phonetic_change_manager import PhoneticChangeManager, PhoneticChangeResult
 
 
 def add_update_phonetic(
     db_session, db: list[DpdHeadword], manager: PhoneticChangeManager
-):
+) -> bool:
     """Process all headwords and apply phonetic changes based on TSV rules.
 
-    Args:
-        db_session: Database session for committing changes
-        db: List of DpdHeadword objects to process
-        manager: PhoneticChangeManager instance with loaded rules
+    Returns:
+        True if user requested a rerun, False otherwise.
     """
-    for rule_counter, rule in enumerate(manager.get_rules()):
+    for rule in manager.get_rules():
         if rule["initial"] == "-":
             break
 
+        all_matches: list[tuple[DpdHeadword, PhoneticChangeResult]] = []
+
+        for headword in db:
+            result = manager.check_headword_against_rule(headword, rule)
+            if result:
+                all_matches.append((headword, result))
+
+        if not all_matches:
+            continue
+
         print("-" * 40)
+        print(f"[green]{'line':<15}: [white]{rule['line']}")
         for k, v in rule.items():
-            if k == "exceptions":
+            if k == "line":
+                continue
+            if k in ("exceptions", "without", "wrong"):
                 v = ", ".join(v) if v else "x"
             print(f"[green]{str(k):<15}: [white]{str(v)}")
         print()
 
-        auto_updated = []
-        auto_added = []
-        manual_update = []
+        by_status: dict[str, list[str]] = {
+            "auto_update": [],
+            "auto_add": [],
+            "manual_check": [],
+        }
+        for hw, res in all_matches:
+            by_status[res.status].append(hw.lemma_1)
+        for status, lemmas in by_status.items():
+            print(f"[green]{status:<15}: [white]{db_search_string(lemmas)}")
 
-        for headword in db:
-            result = manager.check_headword_against_rule(headword, rule)
+        committable = [
+            (hw, res)
+            for hw, res in all_matches
+            if res.status in ("auto_add", "auto_update")
+        ]
+        manual_checks = [
+            (hw, res) for hw, res in all_matches if res.status == "manual_check"
+        ]
 
-            if result:
-                if result.status == "auto_update":
-                    # Replace wrong with correct
-                    import re
+        # auto_add + auto_update: batch flow with optional exceptions
+        while committable:
+            committable_names = ", ".join(hw.lemma_1 for hw, _ in committable)
+            print(f"\n[green]commit ({len(committable)}): [white]{committable_names}")
 
-                    current_phonetic: str = headword.phonetic or ""
-                    headword.phonetic = re.sub(
-                        f"\\b{rule['wrong']}\\b", str(rule["correct"]), current_phonetic
-                    )
-                    auto_updated += [headword.lemma_1]
+            choice = Prompt.ask(
+                "[yellow](c)ommit all, (e)xceptions, (r)erun, e(x)it, any key to pass"
+            )
 
-                elif result.status == "auto_add":
-                    # Set phonetic to correct
-                    headword.phonetic = str(rule["correct"])
-                    auto_added += [headword.lemma_1]
+            if choice == "x":
+                db_session.close()
+                return False
+            elif choice == "r":
+                db_session.close()
+                return True
+            elif choice == "e":
+                exceptions_input = Prompt.ask(
+                    "[yellow]Enter exceptions (comma separated)"
+                )
+                exception_lemmas = [
+                    e.strip() for e in exceptions_input.split(",") if e.strip()
+                ]
+                for lemma in exception_lemmas:
+                    manager.add_exception(rule, lemma)
+                    print(f"[green]{lemma} added as exception")
+                committable = [
+                    (hw, res)
+                    for hw, res in committable
+                    if hw.lemma_1 not in exception_lemmas
+                ]
+            elif choice == "c":
+                for hw, res in committable:
+                    if res.status == "auto_add":
+                        hw.phonetic = str(rule["correct"])
+                    elif res.status == "auto_update":
+                        lines = hw.phonetic.split("\n")
+                        new_lines = [
+                            str(rule["correct"]) if line in rule["wrong"] else line
+                            for line in lines
+                        ]
+                        hw.phonetic = "\n".join(new_lines)
+                db_session.commit()
+                print(f"[green]{len(committable)} words committed")
+                break
+            else:
+                break
 
-                elif result.status == "manual_check":
-                    # Compile list for manual review
-                    manual_update += [headword.lemma_1]
-
-        print(f"[green]{'auto_updated':<15}: [white]{db_search_string(auto_updated)}")
-        print(f"[green]{'auto_added':<15}: [white]{db_search_string(auto_added)}")
-
-        manual_update_string = db_search_string(manual_update)
-        print(f"[green]{'manual_update':<15}: [white]{manual_update_string}")
-        pyperclip.copy(manual_update_string)
-
-        if (auto_updated or auto_added or manual_update) and rule_counter < len(
-            manager.get_rules()
-        ) - 1:
-            Prompt.ask("[yellow]Press any key to continue")
-
-    # Ask for commitment
-    commitment = Prompt.ask("[yellow]Press 'c' to commit")
-    if commitment == "c":
-        db_session.commit()
-        print("[red]Changes committed to db")
-    else:
-        print("[red]Changes not committed to db")
+        # manual_check: display, add exceptions, pause
+        while manual_checks:
+            manual_names = db_search_string([hw.lemma_1 for hw, _ in manual_checks])
+            print(f"\n[green]manual_check:   [white]{manual_names}")
+            pyperclip.copy(manual_names)
+            choice = Prompt.ask(
+                "[yellow](e)xceptions, (r)erun, e(x)it, any key to continue"
+            )
+            if choice == "x":
+                db_session.close()
+                return False
+            elif choice == "r":
+                db_session.close()
+                return True
+            elif choice == "e":
+                exceptions_input = Prompt.ask(
+                    "[yellow]Enter exceptions (comma separated)"
+                )
+                exception_lemmas = [
+                    e.strip() for e in exceptions_input.split(",") if e.strip()
+                ]
+                for lemma in exception_lemmas:
+                    manager.add_exception(rule, lemma)
+                    print(f"[green]{lemma} added as exception")
+                manual_checks = [
+                    (hw, res)
+                    for hw, res in manual_checks
+                    if hw.lemma_1 not in exception_lemmas
+                ]
+            else:
+                break
 
     db_session.close()
+    return False
 
 
 def finder(db, manager: PhoneticChangeManager, string: str):
@@ -142,13 +205,18 @@ def list_all_phonetic_changes(db, manager: PhoneticChangeManager):
 
 if __name__ == "__main__":
     pth = ProjectPaths()
-    manager = PhoneticChangeManager(pth.phonetic_changes_path)
 
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
+    while True:
+        manager = PhoneticChangeManager(pth.phonetic_changes_path)
+        db_session = get_db_session(pth.dpd_db_path)
+        db_session.expire_on_commit = False
+        db = db_session.query(DpdHeadword).all()
 
-    list_all_phonetic_changes(db, manager)
-    add_update_phonetic(db_session, db, manager)
+        list_all_phonetic_changes(db, manager)
+        rerun = add_update_phonetic(db_session, db, manager)
+        if not rerun:
+            break
+        print("\n[yellow]Rerunning with fresh data...\n")
     # finder(db, manager, "ṃs > s")
 
 # FIXME test for xyz not in pali

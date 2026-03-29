@@ -62,7 +62,7 @@ class PhoneticChangeManager:
 
         with open(self.tsv_path, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f, delimiter="\t")
-            for row in reader:
+            for line_idx, row in enumerate(reader, start=2):
                 # Skip empty rows
                 if not row.get("initial"):
                     continue
@@ -74,12 +74,25 @@ class PhoneticChangeManager:
                 else:
                     exceptions = []
 
+                without_str = row.get("without", "")
+                if without_str and without_str != "x":
+                    without = [w.strip() for w in without_str.split(",")]
+                else:
+                    without = []
+
+                wrong_str = row.get("wrong", "")
+                if wrong_str and wrong_str != "x":
+                    wrong = [w.strip() for w in wrong_str.split(",")]
+                else:
+                    wrong = []
+
                 rule = {
+                    "line": line_idx,
                     "initial": row["initial"],
                     "final": row["final"],
                     "correct": row["correct"],
-                    "wrong": row.get("wrong", ""),
-                    "without": row.get("without", ""),
+                    "wrong": wrong,
+                    "without": without,
                     "exceptions": exceptions,
                 }
                 self.rules.append(rule)
@@ -138,18 +151,20 @@ class PhoneticChangeManager:
         rule_initial = str(rule["initial"])
         rule_final = str(rule["final"])
         rule_correct = str(rule["correct"])
-        rule_wrong = str(rule.get("wrong", ""))
-        rule_without = str(rule.get("without", ""))
+        rule_wrong: list[str] = rule.get("wrong", [])
+        rule_without: list[str] = rule.get("without", [])
 
         initial_match = rule_initial in construction_clean or rule_initial in base_clean
         final_match = rule_final in headword.lemma_clean
-        correct_not_present = rule_correct not in headword.phonetic
+        phonetic_lines = headword.phonetic.split("\n") if headword.phonetic else []
+        correct_not_present = rule_correct not in phonetic_lines
 
         # Check without exclusion
         without_exclusion = False
-        if rule_without and rule_without != "x":
-            if rule_without in construction_clean or rule_without in base_clean:
+        for w in rule_without:
+            if w in construction_clean or w in base_clean:
                 without_exclusion = True
+                break
 
         if (
             initial_match
@@ -158,7 +173,7 @@ class PhoneticChangeManager:
             and not without_exclusion
         ):
             # Determine status
-            if rule_wrong and rule_wrong in headword.phonetic:
+            if rule_wrong and any(w in phonetic_lines for w in rule_wrong):
                 return PhoneticChangeResult(
                     status="auto_update",
                     suggestion=rule_correct,
@@ -271,6 +286,36 @@ class PhoneticChangeManager:
 
         suggestions = "\n".join(r.suggestion for r in results)
         return results, suggestions
+
+    def add_exception(self, rule: dict, lemma: str) -> None:
+        """Add a lemma to a rule's exceptions list and update the TSV file."""
+        if lemma not in rule["exceptions"]:
+            rule["exceptions"].append(lemma)
+        self._update_exception_in_tsv(rule)
+
+    def _update_exception_in_tsv(self, rule: dict) -> None:
+        """Update a single rule's exceptions in the TSV file, preserving structure."""
+        lines = self.tsv_path.read_text(encoding="utf-8").splitlines()
+        new_lines = []
+        for i, line in enumerate(lines):
+            if i == 0 or not line.strip():
+                new_lines.append(line)
+                continue
+            cols = line.split("\t")
+            if (
+                len(cols) > 5
+                and cols[0] == rule["initial"]
+                and cols[1] == rule["final"]
+                and cols[2] == rule["correct"]
+            ):
+                exceptions_str = (
+                    ", ".join(rule["exceptions"]) if rule["exceptions"] else "x"
+                )
+                cols[5] = exceptions_str
+                new_lines.append("\t".join(cols))
+            else:
+                new_lines.append(line)
+        self.tsv_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
 
     def open_tsv_for_editing(self) -> None:
         """Open the TSV file in LibreOffice Calc.
