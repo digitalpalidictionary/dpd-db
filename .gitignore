@@ -111,3 +111,4 @@ temp/
 tools/ai_models.json
 typescript
 .claude/scheduled_tasks.lock
+.zed/tasks.json
