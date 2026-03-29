@@ -10,6 +10,15 @@ This project contains everything related to the Digital Pāḷi Dictionary
 - Test the database `/db_tests`
 - Export into multiple forms `/export`
 
+## Project Specs
+Detailed project documentation lives in `conductor/`:
+- `conductor/product.md` — product vision, features, target audience, release schedule
+- `conductor/tech-stack.md` — full technology stack and key libraries
+
+Read the relevant spec before working in an unfamiliar area.
+
+---
+
 ## Python Type Hints
 - Please add type hints to all code, especially when it is missing in existing code.
 - Use modern type hints not old type hints
@@ -39,6 +48,14 @@ This project contains everything related to the Digital Pāḷi Dictionary
 
 ## Flet
 - When answering questions about Flet refer to the /resources/flet-docs folder.
+
+## Context7
+Use Context7 MCP (`mcp__plugin_context7_context7__resolve-library-id` + `query-docs`) for up-to-date docs on these project libraries:
+- `SQLAlchemy` — ORM, sessions, queries, relationships
+- `Flet` — GUI widgets and layout
+- `FastAPI` — webapp routes and middleware (`exporter/webapp/`)
+- `aksharamukha` — transliteration script names and options
+- `requests` — HTTP client usage
 
 ## Tree
 - On a weekly basis, or anytime the project tree changes, check that the project tree matches the tree specified in @docs/technical/project_folder_structure.md
@@ -110,6 +127,52 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 
 ---
 
+## Tools/db_helpers.py
+Get a database session for querying.
+
+### Import
+```python
+from pathlib import Path
+from db.db_helpers import get_db_session
+
+db_path = Path("dpd.db")
+db = get_db_session(db_path)
+```
+
+### Functions
+- `get_db_session(db_path)` — returns a SQLAlchemy `Session`; exits with error if file not found
+- `create_db_if_not_exists(db_path)` — creates the db file and tables if missing
+- `create_tables(db_path)` — creates all tables (idempotent)
+- `get_column_names(table_class)` — returns `list[str]` of column names for a model class
+
+---
+
+## Tools/configger.py
+Read and write `config.ini` (project root).
+
+### Import
+```python
+from tools.configger import config_read, config_update, config_test
+```
+
+### Functions
+- `config_read(section, option)` — returns `str | None`
+- `config_update(section, option, value)` — writes new value to `config.ini`
+- `config_test(section, option, value)` — returns `bool`
+
+### Known sections
+`version`, `regenerate`, `deconstructor`, `gui`, `goldendict`, `dictionary`, `exporter`, `apis`, `anki`, `simsapa`, `tpr`
+
+### Example
+```python
+api_key = config_read("apis", "openai")
+config_update("regenerate", "inflections", "no")
+if config_test("exporter", "make_dpd", "yes"):
+    ...
+```
+
+---
+
 ## Tools/printer.py
 This module provides colored console output with timing and TSV logging.
 
@@ -129,19 +192,22 @@ from tools.printer import printer as pr
 
 #### Output Methods (need ending)
 These methods do NOT print a newline - follow with `pr.yes()` or `pr.no()`:
-- `pr.green(message)` - Print left-aligned green message and start timer
-- `pr.cyan(message)` - Print left-aligned cyan message and start timer
-- `pr.white(message)` - Print indented white message and start timer
+- `pr.green_tmr(message)` - Print left-aligned green message and start timer
+- `pr.cyan_tmr(message)` - Print left-aligned cyan message and start timer
+- `pr.white_tmr(message)` - Print indented white message and start timer
 
 #### Output Methods (complete line)
-These methods complete a line started by green/cyan/white:
+These methods complete a line started by green_tmr/cyan_tmr/white_tmr:
 - `pr.yes(message)` - Print right-aligned blue message with timing (max 8 chars)
 - `pr.no(message)` - Print right-aligned red message with timing (max 8 chars)
 
 #### Output Methods (standalone - return)
 These methods print and return (no ending needed):
-- `pr.title(text)` - Print bright yellow title and start timer
+- `pr.yellow_title(text)` - Print bright yellow title and start timer
 - `pr.green_title(message)` - Print green title and start timer
+- `pr.green(message)` - Print green message
+- `pr.cyan(message)` - Print cyan message
+- `pr.white(message)` - Print white message
 - `pr.counter(counter, total, word)` - Print progress counter with timing
 - `pr.summary(key, value)` - Print key-value summary in green
 - `pr.red(message)` - Print red message
