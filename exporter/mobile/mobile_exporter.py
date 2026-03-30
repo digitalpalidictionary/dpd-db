@@ -20,7 +20,6 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.zip_up import zip_up_file
 
-
 # Columns copied as-is from dpd_headwords.
 # Dropped: inflections*, freq_html, derivative, non_root_in_comps, created_at, updated_at
 HEADWORD_COLUMNS: list[str] = [
@@ -441,7 +440,7 @@ def export_other_dictionaries(
         dest.execute(
             "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
             " VALUES (?, ?, ?, ?, ?)",
-            ("cone", "A Dictionary of Pāli", "Margaret Cone", cone_css, len(batch)),
+            ("cone", "Cone Dictionary of Pāli", "Margaret Cone", cone_css, len(batch)),
         )
 
         pr.yes(len(batch))
@@ -450,7 +449,7 @@ def export_other_dictionaries(
         pr.yes("off")
 
     # --- MW (Monier-Williams from Cologne source) ---
-    pr.green_tmr("exporting MW dictionary (Cologne)")
+    pr.green_tmr("exporting Moneier Williams")
 
     if g.pth.mw_source_json_path.exists():
         with open(g.pth.mw_source_json_path) as f:
@@ -478,7 +477,7 @@ def export_other_dictionaries(
             " VALUES (?, ?, ?, ?, ?)",
             (
                 "mw",
-                "Monier-Williams (Cologne)",
+                "Monier-Williams Sanskrit-English Dictionary",
                 "Monier Monier-Williams",
                 mw_css,
                 len(batch),
