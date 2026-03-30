@@ -1,0 +1,8 @@
+{
+  "track_id": "deconstructor_perf_20260330",
+  "type": "chore",
+  "status": "new",
+  "created_at": "2026-03-30T08:45:00Z",
+  "updated_at": "2026-03-30T08:45:00Z",
+  "description": "Optimize performance of the Go deconstructor"
+}
