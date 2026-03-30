@@ -7,7 +7,6 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"sync"
 )
@@ -57,23 +56,6 @@ var ic = importComponents{
 }
 
 func MakeUnmatched() {
-	baselineStr := os.Getenv("DPD_DECONSTRUCTOR_BASELINE")
-	if baselineStr != "" {
-		limit, err := strconv.Atoi(baselineStr)
-		if err != nil {
-			limit = 20000
-		}
-
-		makeInflectionExceptions()
-		makeAllInflections()
-		makeAllInflectionsNoFirst()
-		makeAllInflectionsNoLast()
-
-		ic.unmatched1 = getBaselineWords(limit)
-		ic.unmatched2 = maps.Clone(ic.unmatched1)
-		return
-	}
-
 	// Wave 1: all independent loaders run in parallel.
 	var wg1 sync.WaitGroup
 	for _, fn := range []func(){
@@ -328,22 +310,4 @@ func makeInflectionExceptions() {
 	for _, word := range exceptions {
 		ic.inflectionExceptions[word] = ""
 	}
-}
-
-func getBaselineWords(limit int) map[string]string {
-	db := dpdDb.GetDb()
-	var results []dpdDb.Lookup
-	err := db.Select([]string{"lookup_key", "deconstructor"}).
-		Where("deconstructor != ?", "[]").
-		Where("deconstructor != ?", "").
-		Order("lookup_key").
-		Limit(limit).
-		Find(&results)
-	tools.HardCheck(err.Error)
-
-	baselineMap := map[string]string{}
-	for _, res := range results {
-		baselineMap[res.Key] = ""
-	}
-	return baselineMap
 }
