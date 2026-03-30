@@ -80,9 +80,6 @@ func main() {
 		close(jobs)
 	}()
 
-	tools.PGreenTitle("This process will take 10-15 min to complete, depending on the speed of your machine.")
-	tools.PGreenTitle("Go make yourself a nice cup of tea ; )")
-
 	workerpool.Run(numWorkers, jobs, deconstruct)
 	data.M.Summary()
 	data.M.SaveMatchedTsv()
