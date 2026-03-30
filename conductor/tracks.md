@@ -24,3 +24,8 @@
 
 ## [x] Track: Compound Type Manager (CT) Tab in gui2
 *Link: [./conductor/archive/compound_type_tab_20260325/](./conductor/archive/compound_type_tab_20260325/)*
+
+---
+
+## [~] Track: Optimize performance of the Go deconstructor
+*Link: [./conductor/tracks/deconstructor_perf_20260330/](./conductor/tracks/deconstructor_perf_20260330/)*

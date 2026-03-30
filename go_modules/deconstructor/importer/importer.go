@@ -4,6 +4,7 @@ import (
 	"dpd/go_modules/deconstructor/data"
 	"dpd/go_modules/tools"
 	"fmt"
+	"sync"
 )
 
 var pl = fmt.Println
@@ -11,7 +12,7 @@ var pf = fmt.Printf
 
 type DeconImports struct {
 	MatchItemList         []data.MatchItem
-	SandhiRules           []data.SandhiRules
+	SandhiRuleIndex       map[rune]map[rune][]data.SandhiRules
 	AllInflections        map[string]string
 	AllInflectionsNoFirst map[string]string
 	AllInflectionsNoLast  map[string]string
@@ -21,17 +22,24 @@ type DeconImports struct {
 
 func DeconImporter() DeconImports {
 	tools.PGreenTitle("importing data")
-	di := DeconImports{}
 
-	di.MatchItemList = makeMatchItems()
-	di.SandhiRules = makeSandhiRules()
+	var matchItemList []data.MatchItem
+	var sandhiRules []data.SandhiRules
 
-	MakeUnmatched()
+	var wg sync.WaitGroup
+	wg.Add(3)
+	go func() { defer wg.Done(); matchItemList = makeMatchItems() }()
+	go func() { defer wg.Done(); sandhiRules = makeSandhiRules() }()
+	go func() { defer wg.Done(); MakeUnmatched() }()
+	wg.Wait()
 
-	di.AllInflections = ic.allInflections
-	di.AllInflectionsNoFirst = ic.allInflectionsNoFirst
-	di.AllInflectionsNoLast = ic.allInflectionsNoLast
-	di.Unmatched1 = ic.unmatched1
-	di.Unmatched2 = ic.unmatched2
-	return di
+	return DeconImports{
+		MatchItemList:         matchItemList,
+		SandhiRuleIndex:       data.BuildSandhiRuleIndex(sandhiRules),
+		AllInflections:        ic.allInflections,
+		AllInflectionsNoFirst: ic.allInflectionsNoFirst,
+		AllInflectionsNoLast:  ic.allInflectionsNoLast,
+		Unmatched1:            ic.unmatched1,
+		Unmatched2:            ic.unmatched2,
+	}
 }

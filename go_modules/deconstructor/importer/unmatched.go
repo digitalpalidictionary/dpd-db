@@ -7,7 +7,9 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"sync"
 )
 
 type importComponents struct {
@@ -55,22 +57,45 @@ var ic = importComponents{
 }
 
 func MakeUnmatched() {
+	baselineStr := os.Getenv("DPD_DECONSTRUCTOR_BASELINE")
+	if baselineStr != "" {
+		limit, err := strconv.Atoi(baselineStr)
+		if err != nil {
+			limit = 20000
+		}
 
-	makeCstWords()
-	makeBjtWords()
-	makeScWords()
-	makeSyaWords()
-	makeOtherPaliTexts()
-	makeDpdWords()
-	makeSpellingMistakes()
-	makeVariants()
-	makeAbbreviations()
-	makeManualCorrections()
+		makeInflectionExceptions()
+		makeAllInflections()
+		makeAllInflectionsNoFirst()
+		makeAllInflectionsNoLast()
 
-	makeInflectionExceptions()
+		ic.unmatched1 = getBaselineWords(limit)
+		ic.unmatched2 = maps.Clone(ic.unmatched1)
+		return
+	}
+
+	// Wave 1: all independent loaders run in parallel.
+	var wg1 sync.WaitGroup
+	for _, fn := range []func(){
+		makeCstWords, makeBjtWords, makeScWords, makeSyaWords,
+		makeOtherPaliTexts, makeDpdWords, makeSpellingMistakes,
+		makeVariants, makeAbbreviations, makeManualCorrections,
+		makeInflectionExceptions,
+	} {
+		wg1.Add(1)
+		go func(f func()) { defer wg1.Done(); f() }(fn)
+	}
+	wg1.Wait()
+
+	// Wave 2: requires inflectionExceptions to be ready.
 	makeAllInflections()
-	makeAllInflectionsNoFirst()
-	makeAllInflectionsNoLast()
+
+	// Wave 3: both derivations read allInflections independently.
+	var wg3 sync.WaitGroup
+	wg3.Add(2)
+	go func() { defer wg3.Done(); makeAllInflectionsNoFirst() }()
+	go func() { defer wg3.Done(); makeAllInflectionsNoLast() }()
+	wg3.Wait()
 
 	ic.allWords = tools.MapUnion(ic.cstWords, ic.scWords)
 	ic.allWords = tools.MapUnion(ic.allWords, ic.bjtWords)
@@ -303,4 +328,22 @@ func makeInflectionExceptions() {
 	for _, word := range exceptions {
 		ic.inflectionExceptions[word] = ""
 	}
+}
+
+func getBaselineWords(limit int) map[string]string {
+	db := dpdDb.GetDb()
+	var results []dpdDb.Lookup
+	err := db.Select([]string{"lookup_key", "deconstructor"}).
+		Where("deconstructor != ?", "[]").
+		Where("deconstructor != ?", "").
+		Order("lookup_key").
+		Limit(limit).
+		Find(&results)
+	tools.HardCheck(err.Error)
+
+	baselineMap := map[string]string{}
+	for _, res := range results {
+		baselineMap[res.Key] = ""
+	}
+	return baselineMap
 }

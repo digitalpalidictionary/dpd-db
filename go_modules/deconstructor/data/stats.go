@@ -22,16 +22,16 @@ func (m *MatchData) SaveWordStats(w WordData) {
 	s.word = string(w.Word)
 	s.time = float64(time.Since(w.StartTime).Seconds())
 
-	Mu.Lock()
+	muMatched.RLock()
 	_, exists := m.MatchedMap[string(w.Word)]
-	Mu.Unlock()
+	muMatched.RUnlock()
 	s.matched = spf("%v", exists)
 
 	s.processes = tools.Int2Str(m.ProcessCounter(w))
 	s.comment = ""
-	Mu.Lock()
+	muStats.Lock()
 	m.WordStats = append(m.WordStats, s)
-	Mu.Unlock()
+	muStats.Unlock()
 }
 
 func (m MatchData) SaveStatsTsv() {

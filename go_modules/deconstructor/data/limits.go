@@ -19,7 +19,7 @@ type Limits struct {
 func InitLimits() Limits {
 	var l = Limits{}           // defaults
 	l.Recursive = true         // true
-	l.WordLimit = 0            // 0
+	l.WordLimit = 0            // 0 for production, small number for testing
 	l.CountEvery = 25000       // 10000 - 50000
 	l.MaxWordLength = 0        // 0
 	l.MaxProcessesSingle = 20  // 15-20

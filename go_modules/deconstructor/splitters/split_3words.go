@@ -74,52 +74,45 @@ func Split3(w data.WordData) {
 				Split2(w2)
 			}
 
-			wordALastLetter := wordA[len(wordA)-1:]
-			wordBFirstLetter := wordB[:1]
-			wordBLastLetter := wordB[len(wordB)-1:]
-			wordCFirstLetter := wordC[:1]
+			wordALastRune := wordA[len(wordA)-1]
+			wordBFirstRune := wordB[0]
+			wordBLastRune := wordB[len(wordB)-1]
+			wordCFirstRune := wordC[0]
 
-			// sandhi rules A
-			for _, srA := range data.G.SandhiRules {
+			// O(k) index lookup: returns only rules matching this rune pair (~1-5),
+			// replacing a full scan of all ~300 sandhi rules per split position.
+			for _, srA := range data.G.SandhiRuleIndex[wordALastRune][wordBFirstRune] {
 
-				if tools.RunesEqual(wordALastLetter, srA.ChA) &&
-					tools.RunesEqual(wordBFirstLetter, srA.ChB) {
+				word1 := tools.RunesPlus(wordA[:len(wordA)-1], srA.Ch1)
+				word2 := tools.RunesPlus(srA.Ch2, wordB[1:])
 
-					word1 := tools.RunesPlus(wordA[:len(wordA)-1], srA.Ch1)
-					word2 := tools.RunesPlus(srA.Ch2, wordB[1:])
+				// TODO !TEST WHETHER THIS IS TRUE!
+				// there's no point continuing if the words don't actually exist
+				// if data.G.IsInInflectionNoFirst(word1) &&
+				// 	g.IsInInflectionNoFirst(word2) {
 
-					// TODO !TEST WHETHER THIS IS TRUE!
-					// there's no point continuing if the words don't actually exist
-					// if data.G.IsInInflectionNoFirst(word1) &&
-					// 	g.IsInInflectionNoFirst(word2) {
+				for _, srB := range data.G.SandhiRuleIndex[wordBLastRune][wordCFirstRune] {
 
-					for _, srB := range data.G.SandhiRules {
-						if tools.RunesEqual(wordBLastLetter, srB.ChA) &&
-							tools.RunesEqual(wordCFirstLetter, srB.ChB) {
+					var word2x []rune // wordB with first and last letters changes
+					if len(word2) > 0 {
+						word2x = tools.RunesPlus(word2[:len(word2)-1], srB.Ch1)
+					}
 
-							var word2x []rune // wordB with first and last letters changes
-							if len(word2) > 0 {
-								word2x = tools.RunesPlus(word2[:len(word2)-1], srB.Ch1)
-							}
+					word3 := tools.RunesPlus(srB.Ch2, wordC[1:])
 
-							word3 := tools.RunesPlus(srB.Ch2, wordC[1:])
+					if data.G.IsInInflections(word1) &&
+						data.G.IsInInflections(word2x) &&
+						data.G.IsInInflections(word3) {
 
-							if data.G.IsInInflections(word1) &&
-								data.G.IsInInflections(word2x) &&
-								data.G.IsInInflections(word3) {
-
-								w2 := w.MakeCopy()
-								w2.ToFront(word1, word2x)
-								w2.ToBack(word2x, word3)
-								w2.ToRuleFront(srA.Index)
-								w2.ToRuleBack(srB.Index)
-								w2.AddWeight(srA.Weight + srB.Weight)
-								w2.AddPath("3.4")
-								w2.ProcessCount++
-								data.M.MakeMatch("3.4", w2)
-							}
-
-						}
+						w2 := w.MakeCopy()
+						w2.ToFront(word1, word2x)
+						w2.ToBack(word2x, word3)
+						w2.ToRuleFront(srA.Index)
+						w2.ToRuleBack(srB.Index)
+						w2.AddWeight(srA.Weight + srB.Weight)
+						w2.AddPath("3.4")
+						w2.ProcessCount++
+						data.M.MakeMatch("3.4", w2)
 					}
 				}
 			}

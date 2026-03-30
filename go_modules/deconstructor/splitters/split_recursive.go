@@ -82,10 +82,10 @@ func SplitRecursive(w data.WordData) {
 			}
 
 		} else {
-			data.MaxedOut++
+			data.MaxedOut.Add(1)
 		}
 	} else {
-		data.BlockedTries++
+		data.BlockedTries.Add(1)
 	}
 }
 

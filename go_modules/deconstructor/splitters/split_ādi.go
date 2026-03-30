@@ -19,13 +19,14 @@ func SplitAdi(w data.WordData) {
 		wordA = word[:len(word)-3]
 		wordB = word[len(word)-3:]
 
-		wordALasLetter := wordA[len(wordA)-1:]
-		wordBFirstLetter := wordB[:1]
+		wordALastRune := wordA[len(wordA)-1]
+		wordBFirstRune := wordB[0]
 
-		for _, sr := range data.G.SandhiRules {
-			if t.RunesEqual(wordALasLetter, sr.ChA) &&
-				t.RunesEqual(wordBFirstLetter, sr.ChB) &&
-				t.IsConsonant(sr.ChA[0]) {
+		// O(k) index lookup: returns only rules matching this rune pair (~1-5),
+		// replacing a full scan of all ~300 sandhi rules per split position.
+		// IsConsonant guard moved here (equivalent: index key IS wordALastRune).
+		if t.IsConsonant(wordALastRune) {
+			for _, sr := range data.G.SandhiRuleIndex[wordALastRune][wordBFirstRune] {
 
 				// replace first and last letters with sandhi rules' letters
 				word1 := t.RunesPlus(wordA[:(len(wordA)-1)], sr.Ch1)

@@ -231,12 +231,16 @@ cpd-extras:
 # ===== CONFIGURATION =====
 
 # Turn off deconstructor premade mode
-nodecon:
+decon-off:
     uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'yes')"
 
 # Turn on deconstructor premade mode
-decon:
+decon-on:
     uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'no')"
+
+# Run the Go deconstructor
+decon:
+    go run ./go_modules/deconstructor
 
 # Set data limit to 100
 limit100:

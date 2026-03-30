@@ -11,15 +11,20 @@ import (
 	"slices"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
 var M = InitMatchData()
 
-var Mu = sync.Mutex{}
+var muMatched sync.RWMutex // guards MatchedMap, MatchedItems, Unmatched
+var muTried   sync.Mutex   // guards TriedMap
+var muProcess sync.Mutex   // guards ProcessCount
+var muStats   sync.Mutex   // guards WordStats
+
 var TestWord = ""
-var BlockedTries = 0
-var MaxedOut = 0
+var BlockedTries atomic.Int64
+var MaxedOut atomic.Int64
 
 var pf = fmt.Printf
 var pl = fmt.Println
@@ -52,49 +57,44 @@ func InitMatchData() MatchData {
 
 // Lookup the word in m.matchedMap
 // and if it exists, return the opposite.
-func (m MatchData) HasNoMatches(w WordData) bool {
-	Mu.Lock()
+func (m *MatchData) HasNoMatches(w WordData) bool {
+	muMatched.RLock()
 	_, exists := m.MatchedMap[string(w.Word)]
-	Mu.Unlock()
+	muMatched.RUnlock()
 	return !exists
-
 }
 
 // Has this word already been tried? If not, add to the triedMap.
 func (m *MatchData) NotTriedYet(w WordData) bool {
 	splitString := w.MakeSplitString()
-	Mu.Lock()
+	muTried.Lock()
+	defer muTried.Unlock()
 	splitList := m.TriedMap[string(w.Word)]
-	Mu.Unlock()
 	if slices.Contains(splitList, splitString) {
 		return false
-	} else {
-		Mu.Lock()
-		m.TriedMap[string(w.Word)] = append(splitList, splitString)
-		Mu.Unlock()
-		return true
 	}
-
+	m.TriedMap[string(w.Word)] = append(splitList, splitString)
+	return true
 }
 
-func (m MatchData) matchCount(w WordData) int {
-	Mu.Lock()
+func (m *MatchData) matchCount(w WordData) int {
+	muMatched.RLock()
 	list := m.MatchedMap[string(w.Word)]
-	Mu.Unlock()
+	muMatched.RUnlock()
 	return len(list)
 }
 
-func (m MatchData) ProcessCounter(w WordData) int {
-	Mu.Lock()
+func (m *MatchData) ProcessCounter(w WordData) int {
+	muProcess.Lock()
 	processes := m.ProcessCount[string(w.Word)]
-	Mu.Unlock()
+	muProcess.Unlock()
 	return processes
 }
 
 func (m *MatchData) ProcessPlusOne(w WordData) {
-	Mu.Lock()
+	muProcess.Lock()
 	m.ProcessCount[string(w.Word)] = m.ProcessCount[string(w.Word)] + 1
-	Mu.Unlock()
+	muProcess.Unlock()
 }
 
 // single match datum
@@ -117,8 +117,8 @@ func (m *MatchData) MakeMatch(
 
 	splitString, splitCount, splitRatio := compileMatchData(w)
 
-	Mu.Lock()
-	defer Mu.Unlock()
+	muMatched.Lock()
+	defer muMatched.Unlock()
 
 	if slices.Contains(m.MatchedMap[string(w.Word)], splitString) {
 		return
@@ -223,9 +223,9 @@ func (m *MatchData) Summary() {
 
 	tools.PTitle("Summary")
 	tools.PGreen("blocked tries:")
-	tools.POk(fmt.Sprintf("%d", BlockedTries))
+	tools.POk(fmt.Sprintf("%d", BlockedTries.Load()))
 	tools.PGreen("maxed out:")
-	tools.POk(fmt.Sprintf("%d", MaxedOut))
+	tools.POk(fmt.Sprintf("%d", MaxedOut.Load()))
 	tools.POk("")
 	tools.PGreen("initial words:")
 	tools.POk(fmt.Sprintf("%d", initial))
