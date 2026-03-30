@@ -118,29 +118,27 @@ func (m *MatchData) MakeMatch(
 	splitString, splitCount, splitRatio := compileMatchData(w)
 
 	Mu.Lock()
-	shouldAdd := !slices.Contains(
-		m.MatchedMap[string(w.Word)], splitString)
-	Mu.Unlock()
+	defer Mu.Unlock()
 
-	if shouldAdd {
-		mi := MatchItem{}
-		mi.Word = string(w.Word)
-		mi.Split = splitString
-		mi.SplitCount = splitCount
-		mi.SplitRatio = splitRatio
-		mi.FinalProcess = processName
-		mi.Route = w.pathString()
-		mi.Rules = w.ruleString()
-		mi.Weight = float64(w.Weight) / float64(w.ProcessCount)
-		mi.ProcessCount = w.ProcessCount
-		mi.Time = float64(time.Since(w.StartTime).Seconds())
-
-		Mu.Lock()
-		m.MatchedItems = append(m.MatchedItems, mi)
-		m.MatchedMap[string(w.Word)] = append(m.MatchedMap[string(w.Word)], splitString)
-		delete(m.Unmatched, string(w.Word))
-		Mu.Unlock()
+	if slices.Contains(m.MatchedMap[string(w.Word)], splitString) {
+		return
 	}
+
+	mi := MatchItem{}
+	mi.Word = string(w.Word)
+	mi.Split = splitString
+	mi.SplitCount = splitCount
+	mi.SplitRatio = splitRatio
+	mi.FinalProcess = processName
+	mi.Route = w.pathString()
+	mi.Rules = w.ruleString()
+	mi.Weight = float64(w.Weight) / float64(w.ProcessCount)
+	mi.ProcessCount = w.ProcessCount
+	mi.Time = float64(time.Since(w.StartTime).Seconds())
+
+	m.MatchedItems = append(m.MatchedItems, mi)
+	m.MatchedMap[string(w.Word)] = append(m.MatchedMap[string(w.Word)], splitString)
+	delete(m.Unmatched, string(w.Word))
 }
 
 // TODO update
