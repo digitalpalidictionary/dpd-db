@@ -1,0 +1,105 @@
+name: Test Deconstructor
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-deconstructor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          repository: digitalpalidictionary/dpd-db
+          ref: ${{ github.ref }}
+          submodules: recursive
+          fetch-depth: 1
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Remove large dirs
+        run: |
+          rm -rf ${{ github.workspace }}/resources/bjt/dev/*
+          rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
+
+      - name: Install dictzip
+        run: sudo apt-get update && sudo apt-get install -y dictzip
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Install dependencies
+        run: uv sync --all-groups
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22.2"
+
+      - name: Config for GitHub deconstructor test
+        run: uv run python scripts/build/config_github_deconstructor_test.py
+
+      - name: Create dpd.db
+        run: touch dpd.db
+
+      - name: Build the database
+        run: uv run python scripts/build/db_rebuild_from_tsv.py
+
+      - name: Run initial setup script
+        run: uv run python scripts/bash/initial_setup_run_once.py
+
+      - name: Create version
+        run: uv run python tools/version.py
+
+      - name: Create Inflection Templates
+        run: uv run python db/inflections/create_inflection_templates.py
+
+      - name: Create Inflection Tables
+        run: uv run python db/inflections/generate_inflection_tables.py
+
+      - name: Update Root Has Verb values
+        run: uv run python scripts/build/root_has_verb_updater.py
+
+      - name: Update Sanskrit Family Roots
+        run: uv run python scripts/build/sanskrit_root_families_updater.py
+
+      - name: Add Root Families
+        run: uv run python db/families/family_root.py
+
+      - name: Add Word Families
+        run: uv run python db/families/family_word.py
+
+      - name: Add Compound Families
+        run: uv run python db/families/family_compound.py
+
+      - name: Add Sets
+        run: uv run python db/families/family_set.py
+
+      - name: Add Idioms
+        run: uv run python db/families/family_idiom.py
+
+      - name: Families to JSON
+        run: uv run python scripts/build/families_to_json.py
+
+      - name: Extract Variants
+        run: uv run python db/variants/main.py
+
+      - name: Extract Deconstructor Archive
+        run: uv run python scripts/build/deconstructor_extract_archive.py
+
+      - name: Add Premade Deconstructor Output To DB
+        run: uv run python scripts/build/deconstructor_output_add_to_db.py
+
+      - name: Run Go Deconstructor
+        run: |
+          go build -o deconstructor go_modules/deconstructor/main.go
+          ./deconstructor
+
+      - name: Tarball Deconstructor Output
+        run: uv run python scripts/build/tarball_deconstructor_output.py

@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+"""Setup config for GitHub deconstructor test workflow."""
+
+from tools.configger import config_update
+from tools.printer import printer as pr
+
+
+def main() -> None:
+    pr.tic()
+    pr.yellow_title("github deconstructor test config")
+
+    config_update("regenerate", "db_rebuild", "yes")
+    config_update("regenerate", "inflections", "yes")
+    config_update("regenerate", "transliterations", "yes")
+    config_update("regenerate", "freq_maps", "yes")
+
+    config_update("deconstructor", "use_premade", "no")
+
+    config_update("dictionary", "make_mdict", "yes")
+    config_update("dictionary", "show_id", "no")
+    config_update("dictionary", "data_limit", "0")
+
+    config_update("exporter", "make_dpd", "yes")
+    config_update("exporter", "make_grammar", "yes")
+    config_update("exporter", "make_deconstructor", "yes")
+    config_update("exporter", "make_variants", "yes")
+    config_update("exporter", "make_ebook", "yes")
+    config_update("exporter", "make_tbw", "yes")
+    config_update("exporter", "tarball_db", "yes")
+    config_update("exporter", "make_changelog", "yes")
+    config_update("exporter", "make_tpr", "yes")
+    config_update("exporter", "make_txt", "yes")
+
+    config_update("anki", "update", "no")
+    config_update("goldendict", "copy_unzip", "no")
+
+    pr.toc()
+
+
+if __name__ == "__main__":
+    main()
