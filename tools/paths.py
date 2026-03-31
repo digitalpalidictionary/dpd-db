@@ -286,6 +286,9 @@ class ProjectPaths:
         self.cone_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/cone/cone.css"
         )
+        self.cpd_css_path = (
+            base_dir / "resources/other-dictionaries/dictionaries/cpd/cpd.css"
+        )
         self.dppn_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/dppn/dppn.css/"
         )
@@ -316,7 +319,7 @@ class ProjectPaths:
         )
         self.cpd_source_path = (
             base_dir
-            / "resources/other-dictionaries/dictionaries/cpd/source/en-critical.json"
+            / "resources/other-dictionaries/dictionaries/cpd/source/cpd_clean.db"
         )
         self.dppn_source_path = (
             base_dir / "resources/other-dictionaries/dictionaries/dppn/source/DPPN.json"
