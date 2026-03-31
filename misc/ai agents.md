@@ -25,6 +25,8 @@
 - Use Context7 MCP to read the latest docs.
 - If the docs aren't in Context7, ask the AI to Google it.
 - Read the plan! That's your only job in the beginning.
+- Get the plan reviewed by one or two other agents. 
+- Feed reviews back to the original planning agent to further refine the plan.
 
 ## Skills
 - Create a skill for any frequently done task.
