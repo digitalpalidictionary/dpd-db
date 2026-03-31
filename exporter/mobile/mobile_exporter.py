@@ -343,6 +343,10 @@ def _strip_cone_key(key: str) -> str:
     return re.sub(r"^\d+", "", key)
 
 
+def _canonicalize_cpd_headword(headword: str) -> str:
+    return headword.replace("ṁ", "ṃ")
+
+
 _DESKTOP_CSS_PATTERNS: list[re.Pattern[str]] = [
     re.compile(r"position\s*:\s*(fixed|absolute)\s*;?", re.IGNORECASE),
     re.compile(r"cursor\s*:\s*[^;]+;?", re.IGNORECASE),
@@ -447,6 +451,49 @@ def export_other_dictionaries(
     else:
         pr.green_tmr("skipping Cone dictionary")
         pr.yes("off")
+
+    # --- CPD (Critical Pali Dictionary) ---
+    pr.green_tmr("exporting CPD")
+
+    if g.pth.cpd_source_path.exists():
+        cpd_css = ""
+        if g.pth.cpd_css_path.exists():
+            cpd_css = _sanitize_css(g.pth.cpd_css_path.read_text())
+
+        cpd_conn = sqlite3.connect(g.pth.cpd_source_path)
+        cpd_rows = cpd_conn.execute(
+            "SELECT headword, html FROM entries ORDER BY id"
+        ).fetchall()
+        cpd_conn.close()
+
+        batch = []
+        for headword, html_body in cpd_rows:
+            word = _canonicalize_cpd_headword(headword)
+            html_body = re.sub(r"<img[^>]*>", "", html_body)
+            word_fuzzy = _strip_diacritics_mobile(word)
+            batch.append(("cpd", word, word_fuzzy, html_body, ""))
+
+        dest.executemany(
+            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+            " VALUES (?, ?, ?, ?, ?)",
+            batch,
+        )
+
+        dest.execute(
+            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+            " VALUES (?, ?, ?, ?, ?)",
+            (
+                "cpd",
+                "Critical Pali Dictionary",
+                "V. Trenckner et al.",
+                cpd_css,
+                len(batch),
+            ),
+        )
+
+        pr.yes(len(batch))
+    else:
+        pr.red("CPD source not found, skipping")
 
     # --- MW (Monier-Williams from Cologne source) ---
     pr.green_tmr("exporting Moneier Williams")
