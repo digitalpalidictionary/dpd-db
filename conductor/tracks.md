@@ -25,3 +25,8 @@
 ## [x] Track: Compound Type Manager (CT) Tab in gui2
 *Link: [./conductor/archive/compound_type_tab_20260325/](./conductor/archive/compound_type_tab_20260325/)*
 
+
+---
+
+## [ ] Track: Contributor Onboarding: Easy GUI Setup & Data Submission
+*Link: [./conductor/tracks/contributor_onboarding_20260331/](./conductor/tracks/contributor_onboarding_20260331/)*
