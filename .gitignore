@@ -114,3 +114,4 @@ temp/
 token.json
 tools/ai_models.json
 typescript
+dpd.db.tar.bz2
