@@ -1,7 +1,10 @@
 name: Draft Release
 
-on: 
+on:
  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-linux:
@@ -386,6 +389,8 @@ jobs:
   create-release:
     needs: [build-linux, build-macos]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Download Linux Assets
