@@ -57,7 +57,7 @@ jobs:
       run: uv sync --all-groups
 
     - name: Set up Go
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v6
       with:
         go-version: '1.22.2'
 
@@ -263,7 +263,7 @@ jobs:
     # ----------------------------------------
 
     - name: Upload Apple Dictionary Source
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: apple-dictionary-source
         path: exporter/share/apple_dictionary/
@@ -296,7 +296,7 @@ jobs:
     # ----------------------------------------
 
     - name: Upload Linux Assets
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: linux-assets
         path: |
@@ -321,7 +321,7 @@ jobs:
 
     steps:
       - name: Download Apple Dictionary Source
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: apple-dictionary-source
           path: ./apple-dictionary-source/
@@ -376,7 +376,7 @@ jobs:
           zip -r dpd-apple.dictionary.zip Digital-Pali-Dictionary.dictionary
 
       - name: Upload Apple Dictionary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: macos-dictionary
           path: build/dpd-apple.dictionary.zip
@@ -394,13 +394,13 @@ jobs:
 
     steps:
       - name: Download Linux Assets
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: linux-assets
           path: ./linux-assets/
 
       - name: Download Apple Dictionary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: macos-dictionary
           path: ./macos-dictionary/
