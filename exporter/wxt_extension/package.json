@@ -1,6 +1,6 @@
 {
   "name": "dpd-wxt-extension",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "DPD Cross-Browser Extension built with WXT",
   "type": "module",
