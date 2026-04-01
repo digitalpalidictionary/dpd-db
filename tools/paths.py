@@ -511,19 +511,6 @@ class ProjectPaths:
         # identity/fonts
         self.fonts_dir = base_dir / "identity/fonts"
 
-        # gui
-        self.pass2_checked_path = base_dir / "gui/pass2_checked.json"
-
-        # gui/stash
-        self.daily_record_path = base_dir / "gui/stash/daily_record"
-        self.example_stash_path = base_dir / "gui/stash/example"
-        self.save_state_path = base_dir / "gui/stash/gui_state"
-        self.stash_dir = base_dir / "gui/stash/"
-        self.stash_path = base_dir / "gui/stash/stash"
-
-        # gui2
-        self.load_example_dump = base_dir / "gui2/find_words_with_examples_dump.json"
-
         # db/inflections/
         self.inflection_templates_path = (
             base_dir / "db/inflections/inflection_templates.xlsx"
@@ -791,7 +778,6 @@ class ProjectPaths:
             self.epub_text_dir,
             self.go_deconstructor_output_dir,
             self.share_dir,
-            self.stash_dir,
             self.temp_dir,
             self.tpr_output_dir,
         ]:
