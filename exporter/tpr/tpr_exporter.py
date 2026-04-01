@@ -16,6 +16,7 @@ from sqlalchemy.orm import Session
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Lookup
 from exporter.goldendict.helpers import TODAY
+from exporter.jinja2_env import get_jinja2_env
 from tools.configger import config_read, config_test
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.pali_sort_key import pali_sort_key
@@ -23,7 +24,6 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
 from tools.uposatha_day import UposathaManger
-from exporter.jinja2_env import get_jinja2_env
 
 
 class GlobalVars:
@@ -246,7 +246,7 @@ def copy_to_sqlite_db(g: GlobalVars):
                 """CREATE TABLE "dpd" (
                     "id" INTEGER,
                     "word" TEXT,
-                    "definition" TEXT, 
+                    "definition" TEXT,
                     "book_id" INTEGER,
                     "has_inflections" INTEGER DEFAULT 0,
                     "has_root_family" INTEGER DEFAULT 0,
@@ -374,7 +374,7 @@ def copy_zip_to_tpr_downloads(g: GlobalVars):
                 "size": f"{filesize} MB",
             }
 
-            download_list[7] = dpd_info
+            download_list[15] = dpd_info
 
         if version == "beta":
             output_file = g.pth.tpr_beta_path
@@ -391,7 +391,7 @@ def copy_zip_to_tpr_downloads(g: GlobalVars):
                 "size": f"{filesize} MB",
             }
 
-            download_list[28] = dpd_beta_info
+            download_list[33] = dpd_beta_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
