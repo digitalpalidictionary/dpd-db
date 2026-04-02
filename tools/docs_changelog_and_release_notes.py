@@ -221,8 +221,8 @@ class ChangelogGenerator:
 - {self.line_6_cells_of_root_data}
 - Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
 - Pass1 in progress: VIN5
-- Pass2 complete: DN1-3, MN1-3, SN1-3
-- Pass2 in progress: SN4
+- Pass2 complete: DN1-3, MN1-3, SN1-4
+- Pass2 in progress: SN5
 - numerous additions and corrections based on user feedback
 """
 
@@ -230,7 +230,7 @@ class ChangelogGenerator:
         github_section = self._get_github_issues_section()
         data_updates_section = self._get_dictionary_data_updates()
         self.release_notes = f"""
-Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and in a number of dictionary formats—StarDict, GoldenDict, Apple Dictionary, MDict, DictTango, Kindle, Kobo, ePub, SQLite, and plain text. It can be used in any application which supports these formats. 
+Digital Pāḷi Dictionary is a feature-rich Pāḷi dictionary which is available [online](https://www.dpdict.net/) and in a number of dictionary formats—StarDict, GoldenDict, Apple Dictionary, MDict, DictTango, Kindle, Kobo, ePub, SQLite, and plain text. It can be used in any application which supports these formats.
 
 It is also built into many popular [Pāḷi readers and websites](https://digitalpalidictionary.github.io/tpr.html).
 
