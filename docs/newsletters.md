@@ -1,5 +1,77 @@
 # DPD Newsletters
 
+## 2026-04-02
+**Digital Pāḷi Dictionary update (April 2026)**
+
+Dear Venerable monastics, professors, and Pāḷi enthusiasts,
+
+There are a few important updates to the dictionary this month.
+
+**- DPD Android app — looking for beta testers**
+
+A beta version of the **DPD app** is now available for testing on Android. This is a big step forward for anyone who reads Pāḷi on their phone or tablet.
+
+The application includes all the features of the webapp and GoldenDict, plus a few new features. It works offline, can look up words shared from any other app or website, and automatically keeps itself up to date with the latest dictionary releases.
+
+Find out how to [download and install the app here](https://digitalpalidictionary.github.io/install/dpd_app/).
+
+![Screenshot_20260401-182631.png](pics/newsletters/7c113de715e6.jpg)
+
+**- Other dictionaries for download**
+
+You can find all the other Pāḷi and Sanskrit dictionaries available for download [on this webpage](https://digitalpalidictionary.github.io/other_dicts/).
+
+There's a new Sanskrit dictionary available for download, **Apte's Practical Sanskrit-English Dictionary** of 1890 from the Cologne collection.
+
+There are also updates to the existing **Critical Pāḷi Dictionary** and **Monier-Williams Sanskrit-English Dictionary**, both of which have been recompiled from source.
+
+**- Saṃyutta Nikāya progress**
+
+Progress continues with the books of the Saṃyutta Nikāya. I have now completed all words in the *saḷāyatanavaggasaṃyuttapāḷi* — the 4th of 5 sections. While you are reading these books, please keep an eye out for any errors or omissions, and let me know about them in the feedback form.
+
+**- Small quality-of-life improvements**
+
+There are a number of small quality-of-life improvements, made thanks to your feedback.
+
+* The [Chrome](https://chromewebstore.google.com/detail/digital-p%C4%81%E1%B8%B7i-dictionary/hcbcholkdooblegdipdaicdknhmbpbna?authuser=0&hl=en) and [Firefox browser extension](https://addons.mozilla.org/en-US/firefox/addon/digital-p%C4%81%E1%B8%B7i-dictionary/) panel can now be placed on the left or right hand side of the screen.
+* The [Apple Dictionary](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-apple.dictionary.zip) now handles sandhi and compounds marked with ' and - e.g. *dinn'ādāna, ādāna-paṭinissagga*
+* The [webapp](https://www.dpdict.net/) now has icons to hide and show the history and settings panels.
+* Sets are sorted in natural order, not always Pāḷi alphabetical order.
+* The grammar table synonyms bug has been fixed.
+* And numerous other incremental improvements.
+
+  
+
+**- Corrections and Additions**
+
+As always, thank you for the abundant feedback over the past month. As you can see, many corrections have been made and improvements added, enhancing the quality of the dictionary data for everyone. I really do appreciate the time you all take to fill in the feedback form when you spot something.
+
+**- Latest release**
+
+With that, I am very pleased to share today's release with you. Download the latest version of DPD for your device using these links:
+
+* [DPD online](https://www.dpdict.net/)
+* [DPD Android app (beta testing)](https://digitalpalidictionary.github.io/install/dpd_app/)
+* [DPD for GoldenDict](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-goldendict.zip)
+* [DPD for MDict and DictTango](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-mdict.zip)
+* [DPD Apple dictionary](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-apple.dictionary.zip)
+* [DPD for Kindle - mobi](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-kindle.mobi)
+* [DPD for Kindle - epub](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-kindle.epub)
+* [DPD for Kobo eReader](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-kobo.zip)
+* [DPD PDF](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-pdf.zip)
+* [DPD txt](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-txt.zip)
+* [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)
+* [DPD mobile database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-mobile-db.zip)
+* [DPD Android app beta](https://github.com/digitalpalidictionary/dpd-flutter-app/releases/latest)
+
+Please share this information with those who might be interested.
+
+With much *mettā* from India,
+
+Bodhirasa
+
+---
+
 ## 2026-03-03
 **Digital Pāḷi Dictionary update (March 2026)**
 
