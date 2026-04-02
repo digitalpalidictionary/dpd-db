@@ -5,6 +5,41 @@ search:
 
 # Changelog
 
+## 2026-04-02
+
+### GitHub Issues Closed
+- [#135 Other dictionaries: make a better version of CPD](https://github.com/digitalpalidictionary/dpd-db/issues/135)
+- [#153 DPD Flutter app: beta release](https://github.com/digitalpalidictionary/dpd-db/issues/153)
+- [#216 Apple dictionary: improvements](https://github.com/digitalpalidictionary/dpd-db/issues/216)
+- [#218 Chrome & Firefox browser extensions: update with user feedback](https://github.com/digitalpalidictionary/dpd-db/issues/218)
+- [#219 Grammar table: fix bug in synonyms](https://github.com/digitalpalidictionary/dpd-db/issues/219)
+- [#220 Docs: Add monthly newsletters](https://github.com/digitalpalidictionary/dpd-db/issues/220)
+- [#221 Other dictionaries: compile Monier-Williams directly from source](https://github.com/digitalpalidictionary/dpd-db/issues/221)
+- [#222 Other dictionaries: compile Apte directly from source](https://github.com/digitalpalidictionary/dpd-db/issues/222)
+- [#223 Webapp: icons to hide / show history and settings](https://github.com/digitalpalidictionary/dpd-db/issues/223)
+- [#224 Sets: sort sets in natural order](https://github.com/digitalpalidictionary/dpd-db/issues/224)
+- [#225 Exporters: fix which fields get line breaks](https://github.com/digitalpalidictionary/dpd-db/issues/225)
+- [#226 Deconstructor: go routines and mutex optimization](https://github.com/digitalpalidictionary/dpd-db/issues/226)
+
+
+### Dictionary Data Updates
+- 88 787 headwords, 49 902 complete, 10 709 partially complete, 28 176 incomplete entries
+- 752 roots, 3 356 root families, 36 525 words derived from roots
+- 859 920 deconstructed compounds
+- 1 483 261 unique inflected forms recognized
+- 2 219 647 cells of Pāḷi word data
+- 18 289 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1-4
+- Pass2 in progress: SN5
+- numerous additions and corrections based on user feedback
+
+### New Words
+akatabhāva, ajānanabhāva, aticaraṇa, aticaritvā, atthānanda, adiṭṭhasahāyaka, addhāna 4, addhānañca āpādenti, anantaraphalatta, anācariya, anupajjhāya, anupassati 2, anubandhāpeti, anuvijjhati 2, antagata 1, antagata 2, antassa, appaṭinissajjanta, appatara 2, appadukkha, aphalatā, abhūtattha, abhūtavipāka, ambilayāgu, avipāka, ākāsa 3.1, āgamanīyapaṭipadā, ācaraṇaka, ādinna 2.1, ādinna 2.4, ādinna 2.5, ādīyati 2, āpādeti 3, āropetukāma 1, āropetukāma 2, āhaṭabhatta, itthiphassa, issarakula, ujukata, ujukaraṇa, uddesaṃ gacchati, uparipaṇṇāsaaṭṭhakathā, upasenaāsīvisasutta, upassuti 2, uyyojeti 3, ekādasāha, okāsamadāsi 1, okāsamadāsi 2, opammavibhāvana, ohāriyamāna, kañjikatela, katakammapaccayā, katasamaṇadhamma, kasanaṭṭhāna, kājabhatta, kāyikacetasikavīriya, kārāpaka 2, kāḷavaḷiya, kilesagaṇa, kilesasamugghātana, kolāpa 1, goghātakakamma, goraka, cuddasāha, cūḷadukkhakkhandha, chinnabhinna, chedakavāda, jaggiyamāna, jānanakāla, jīvamānaka, jīvasūla, taṇhāmucchanā, tatiyaka 2, tālamūla, terasāha, telamakkhita, dahatta, dāsikucchi, dipada 1, dīghatāla, dukkhapaṭipadā, dukkhāpaṭipadā, devadaha 2, dvādasāha, dhūpita 1, naṭanaccakā, nandamāṇavaka, namanadaṇḍaka, nābhibhavati, nāseti 2, nibbattitaguṇa, nibbattitavipāka, niyyāyana, nirodhana 2, nisinnapurisa, paccayanāma, pacchato 3, pañcāvudhasannaddha, paṭijagganakāla, pattantara, parāyaṇa 4, paharitukāma, pahāsa 3, pākaṭakāla, pādadhovana 2, pāramigata, pāramīgata, pittapakopa, piyapavatti, puṇṇaseṭṭhi, pubbenāparaṃ, purāṇakamma 2, purisavesa, phāsubhāva, baddhacitta, bahalacchanda, bahalapatthana, bahukaṇṭaka 3, bāhiratthasamāsa, bāhirāyatana 1, bāhirāyatana 2, bhaṅgamattā, bhattapāti, bhayanāsana, bhāvakāraṇa, bhūtattha, bhūtavipāka, bhesajjakaraṇa, bhojanakāla, maggacetanā, majjhattatākāra, maraṇasantika, mahānigaṇṭha, micchādiṭṭhivūpasama, yātukāma, yoggiya, rañjita 3, rāgavirāgattha, rāhulovāda, lājapañcama, lumbinivana, vaṅkakuṭilajimha, vacanappamāṇa, vaḍḍhi 7, vammika 2.1, vasāpana, vāla 1.4, vāseti 2.3, vāḷapāsa, vijahitabba 2, viddhakāla, vipallāsaggāha, vipākavedanā, vibhāvetabba 1, vibhāvetabba 2, viruddha 3, vuttakāraṇa, saññī 3, sattadivasabbhantara, sattapada 2.1, sattamasutta 2, sadutiya, saphalatā, sabbadubbala, sabbalahuṃ, samudayadhamma 2, samosaraṇa 2, sampattianubhavana, sammādiṭṭhivūpasama, sallopamā, savipāka, sābādhatā, sārattakāla, silissana, sukhapaṭipadā 1, sukhapaṭipadā 2, sukhāpaṭipadā, subhūma 2, seṭṭhicchatta, seleyyaka 2.1, heṭṭhato 2 [181]
+
+
+
 ## 2026-03-03
 
 ### GitHub Issues Closed
