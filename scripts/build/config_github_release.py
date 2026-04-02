@@ -34,6 +34,7 @@ def main():
     config_update("exporter", "make_tpr", "yes")
     config_update("exporter", "make_txt", "yes")
     config_update("exporter", "make_mobile", "yes")
+    config_update("exporter", "make_pdf", "yes")
 
     config_update("anki", "update", "no")
     config_update("goldendict", "copy_unzip", "no")
