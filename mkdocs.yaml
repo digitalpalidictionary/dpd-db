@@ -16,7 +16,7 @@ nav:
       - Variant Readings: "features/variants.md"
   - Installation Guide:
       - "install/index.md"
-      - DPD app: "dpd_app.md"
+      - DPD app: "install/dpd_app.md"
       - Windows: "install/win.md"
       - Android: "install/android_dicttango.md"
       - Mac: "install/mac.md"
