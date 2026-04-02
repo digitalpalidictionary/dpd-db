@@ -58,8 +58,7 @@ class ChangelogGenerator:
         self.deconstructor_db = (
             self.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
         )
-        uposatha_count = UposathaManger.read_uposatha_count()
-        self.last_id = str(uposatha_count) if uposatha_count is not None else "0"
+        self.last_id = str(UposathaManger.get_baseline_count())
         self.new_words_db = (
             self.db_session.query(DpdHeadword)
             .filter(DpdHeadword.id > int(self.last_id))
@@ -258,17 +257,30 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 """
 
     def _update_website_changelog(self) -> None:
+        import re
+
         pr.green_tmr("updating website changelog")
-        if self.pth.docs_changelog_md_path.exists():
-            changelog_md = self.pth.docs_changelog_md_path.read_text()
-            find_me = "# Changelog"
-            replace_me = f"# Changelog\n{self.changelog}\n"
-            changelog_updated = changelog_md.replace(find_me, replace_me)
-            self.pth.docs_changelog_md_path.write_text(changelog_updated)
-            pr.yes("ok")
-        else:
+        if not self.pth.docs_changelog_md_path.exists():
             pr.no("failed")
             pr.red(f"{self.pth.docs_changelog_md_path} not found")
+            return
+
+        changelog_md = self.pth.docs_changelog_md_path.read_text()
+        date_heading = f"## {self.date}"
+
+        if date_heading in changelog_md:
+            pattern = re.compile(
+                rf"({re.escape(date_heading)}).*?(?=\n## \d{{4}}-\d{{2}}-\d{{2}}|\Z)",
+                re.DOTALL,
+            )
+            changelog_updated = pattern.sub(self.changelog.strip(), changelog_md)
+        else:
+            changelog_updated = changelog_md.replace(
+                "# Changelog", f"# Changelog\n{self.changelog}\n"
+            )
+
+        self.pth.docs_changelog_md_path.write_text(changelog_updated)
+        pr.yes("ok")
 
     def _write_to_file(self) -> None:
         with open(self.pth.release_notes_md_path, "w") as f:
@@ -296,7 +308,7 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
         if UposathaManger.uposatha_today():
             if self.dpd_db:
                 last_id = self.dpd_db[-1].id
-                UposathaManger.write_uposatha_count(last_id)
+                UposathaManger.rotate_count(last_id)
             self._update_website_changelog()
 
         self._write_to_file()

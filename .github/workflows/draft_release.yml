@@ -276,6 +276,18 @@ jobs:
     - name: Make Release Notes
       run: uv run python tools/docs_changelog_and_release_notes.py
 
+    - name: Commit updated uposatha count
+      run: |
+        if git diff --quiet tools/uposatha_day.ini; then
+          echo "No changes to uposatha count"
+        else
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tools/uposatha_day.ini
+          git commit -m "chore: update uposatha count"
+          git push
+        fi
+
     - name: Set Release Date
       id: set_release_date
       run: |

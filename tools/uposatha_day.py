@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import configparser
 from datetime import date, timedelta
-from typing import Optional
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -87,23 +86,50 @@ class UposathaManger:
         return yesterday in cls.UPOSATHA_DATES
 
     @classmethod
-    def read_uposatha_count(cls) -> Optional[str]:
-        """Get current uposatha count."""
+    def get_baseline_count(cls) -> int:
+        """Return the correct baseline count for calculating new words.
+        If already rotated today, return previous_count. Otherwise return count."""
+        config = cls._get_config()
         try:
-            return cls._get_config().get("uposatha", "count")
-        except Exception:
-            return None
+            saved_date = config.get("uposatha", "date")
+            if saved_date == date.today().isoformat():
+                return int(config.get("uposatha", "previous_count"))
+        except (configparser.NoOptionError, ValueError):
+            pass
+        try:
+            return int(config.get("uposatha", "count"))
+        except (configparser.NoOptionError, ValueError):
+            return 0
 
     @classmethod
-    def write_uposatha_count(cls, count: int) -> bool:
-        """Set uposatha count."""
+    def rotate_count(cls, new_count: int) -> bool:
+        """Rotate counts: current becomes previous, new becomes current, stamp today's date.
+        Skips if already rotated today."""
         try:
             pr.green_tmr("updating uposatha count")
             config = cls._get_config()
-            config["uposatha"] = {"count": str(count)}
+
+            try:
+                saved_date = config.get("uposatha", "date")
+                if saved_date == date.today().isoformat():
+                    pr.yes("skip")
+                    return True
+            except configparser.NoOptionError:
+                pass
+
+            try:
+                current = config.get("uposatha", "count")
+            except configparser.NoOptionError:
+                current = "0"
+
+            config["uposatha"] = {
+                "previous_count": current,
+                "count": str(new_count),
+                "date": date.today().isoformat(),
+            }
             with open(ProjectPaths().uposatha_day_ini, "w") as f:
                 config.write(f)
-            pr.yes(count)
+            pr.yes(new_count)
             return True
         except Exception:
             return False

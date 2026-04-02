@@ -166,6 +166,10 @@ newsletter-fresh:
     rm -f scripts/build/newsletter_processed.json
     uv run python scripts/build/newsletter_scraper.py
 
+# Generate changelog and release notes
+changelog:
+    uv run python tools/docs_changelog_and_release_notes.py
+
 # Update project documentation
 docs-update:
     uv run python tools/docs_update_abbreviations.py
