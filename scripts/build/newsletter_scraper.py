@@ -21,13 +21,13 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from markdownify import markdownify as md
 
+from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 GMAIL_LABEL = "DPD Mailers"
 GITHUB_REPO = "digitalpalidictionary/dpd-db"
-MIN_DAYS_BETWEEN_SCRAPES = 28
 
 FOOTER_MARKER = "bodhirasa"
 
@@ -42,9 +42,6 @@ def should_scrape(pth: ProjectPaths) -> bool:
         pth.newsletter_processed_json.stat().st_mtime,
         tz=timezone.utc,
     )
-    days_since = (datetime.now(tz=timezone.utc) - last_scrape_time).days
-    if days_since < MIN_DAYS_BETWEEN_SCRAPES:
-        return False
 
     try:
         result = subprocess.run(
@@ -335,6 +332,11 @@ def main() -> None:
     pr.yellow_title("newsletter scraper")
 
     pth = ProjectPaths()
+
+    if not config_test("exporter", "make_newsletter", "yes"):
+        pr.green_title("make newsletter is no")
+        pr.toc()
+        return
 
     if not should_scrape(pth):
         pr.green_title("no new release since last scrape")

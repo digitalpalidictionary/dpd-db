@@ -157,6 +157,14 @@ css:
 backup:
     uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
 
+# Enable newsletter scraping
+newsletter-on:
+    uv run python -c "from tools.configger import config_update; config_update('exporter', 'make_newsletter', 'yes')"
+
+# Disable newsletter scraping
+newsletter-off:
+    uv run python -c "from tools.configger import config_update; config_update('exporter', 'make_newsletter', 'no')"
+
 # Scrape newsletters from Gmail and build docs/newsletters.md
 newsletter:
     uv run python scripts/build/newsletter_scraper.py

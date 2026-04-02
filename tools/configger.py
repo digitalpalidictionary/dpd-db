@@ -60,6 +60,7 @@ DEFAULT_CONFIG = {
         "make_abbrev": "no",
         "tarball_db": "no",
         "make_changelog": "no",
+        "make_newsletter": "no",
         "update_simsapa_db": "no",
         "make_audio_db": "yes",
         "upload_audio_db": "no",
