@@ -116,3 +116,4 @@ temp/
 token.json
 tools/ai_models.json
 typescript
+/.qwen
