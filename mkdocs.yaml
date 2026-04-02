@@ -6,78 +6,79 @@ site_dir: "docs_site"
 nav:
   - Home: index.md
   - Features:
-    - "features/index.md"
-    - Features: "features/features.md"
-    - Sutta Info: "features/sutta_info.md"
-    - Roots Dict: "features/rootdict.md"
-    - Word Frequency: "features/frequency.md"
-    - Deconstructor: "features/deconstructor.md"
-    - Grammar Dictionary: "features/grammardict.md"
-    - Variant Readings: "features/variants.md"
+      - "features/index.md"
+      - Features: "features/features.md"
+      - Sutta Info: "features/sutta_info.md"
+      - Roots Dict: "features/rootdict.md"
+      - Word Frequency: "features/frequency.md"
+      - Deconstructor: "features/deconstructor.md"
+      - Grammar Dictionary: "features/grammardict.md"
+      - Variant Readings: "features/variants.md"
   - Installation Guide:
-    - "install/index.md"
-    - Windows: "install/win.md"
-    - Android: "install/android_dicttango.md"
-    - Mac: "install/mac.md"
-    - Apple Dictionary: "install/apple_dict.md"
-    - iOS: "install/ios.md"
-    - Linux: "install/linux.md"
-    - Kindle: "install/kindle.md"
-    - Kobo: "install/kobo.md"
-    - ChromeBook: "install/chromebook.md"
-    - Chrome & Firefox Extension: "install/browser_extension.md"
-    - Update: "install/update.md"
+      - "install/index.md"
+      - DPD app: "dpd_app.md"
+      - Windows: "install/win.md"
+      - Android: "install/android_dicttango.md"
+      - Mac: "install/mac.md"
+      - Apple Dictionary: "install/apple_dict.md"
+      - iOS: "install/ios.md"
+      - Linux: "install/linux.md"
+      - Kindle: "install/kindle.md"
+      - Kobo: "install/kobo.md"
+      - ChromeBook: "install/chromebook.md"
+      - Chrome & Firefox Extension: "install/browser_extension.md"
+      - Update: "install/update.md"
   - GoldenDict Features:
-    - "goldendict/index.md"
-    - Setup the Hotkey: "goldendict/hotkey.md"
-    - Setup the Scan Popup: "goldendict/scan_popup.md"
-    - Setup Advanced Features: "goldendict/advanced.md"
+      - "goldendict/index.md"
+      - Setup the Hotkey: "goldendict/hotkey.md"
+      - Setup the Scan Popup: "goldendict/scan_popup.md"
+      - Setup Advanced Features: "goldendict/advanced.md"
   - Webapp:
-    - "webapp/index.md"
-    - Search: "webapp/search.md"
-    - Summary: "webapp/summary.md"
-    - Dictionary display: "webapp/dictionary_display.md"
-    - Settings: "webapp/settings.md"
-    - CST Bold Definitions: "webapp/cst_bold_def.md"
-    - API in GoldenDict: "webapp/api_goldendict.md"
-    - API in DictTango: "webapp/api_dicttango.md"
+      - "webapp/index.md"
+      - Search: "webapp/search.md"
+      - Summary: "webapp/summary.md"
+      - Dictionary display: "webapp/dictionary_display.md"
+      - Settings: "webapp/settings.md"
+      - CST Bold Definitions: "webapp/cst_bold_def.md"
+      - API in GoldenDict: "webapp/api_goldendict.md"
+      - API in DictTango: "webapp/api_dicttango.md"
   - Software Integrations:
-    - integrations/index.md
-    - Dhamma.gift website: "integrations/dhamma_gift.md"
-    - Simsapa Dhamma Reader: "integrations/simsapa.md"
-    - Sutta Central Website: "integrations/sutta_central.md"
-    - The Buddha's Words: "integrations/tbw.md"
-    - Tipitaka Pali Reader: "integrations/tpr.md"
-    - Tipitakapali.org: "integrations/tipitakapali.md"
+      - integrations/index.md
+      - Dhamma.gift website: "integrations/dhamma_gift.md"
+      - Simsapa Dhamma Reader: "integrations/simsapa.md"
+      - Sutta Central Website: "integrations/sutta_central.md"
+      - The Buddha's Words: "integrations/tbw.md"
+      - Tipitaka Pali Reader: "integrations/tpr.md"
+      - Tipitakapali.org: "integrations/tipitakapali.md"
   - Feedback:
-    - "feedback/index.md"
-    - Correct a Mistake: "feedback/correct_mistake.md"
-    - Add a Missing Word: "feedback/add_missing_word.md"
-    - Report a Bug: "feedback/bug_report.md"
+      - "feedback/index.md"
+      - Correct a Mistake: "feedback/correct_mistake.md"
+      - Add a Missing Word: "feedback/add_missing_word.md"
+      - Report a Bug: "feedback/bug_report.md"
   - Contributing:
-    - "contributing/index.md"
-    - Pāḷi: "contributing/pali.md"
-    - Code: "contributing/code.md"
+      - "contributing/index.md"
+      - Pāḷi: "contributing/pali.md"
+      - Code: "contributing/code.md"
   - Other Dictionaries: other_dicts.md
   - What Users Say: users_say.md
   - Abbreviations: "abbreviations.md"
   - Bibliography: "bibliography.md"
   - Thanks: "thanks.md"
   - Contact: "contact.md"
-  - License: "license.md"  
+  - License: "license.md"
   - Changelog: "changelog.md"
   - Newsletters: "newsletters.md"
   - Pāḷi Notes: "pali_notes/index.md"
   - Developer Docs:
-    - "technical/index.md"
-    - Quick Start Guide: "technical/quick_start.md"
-    - Local Server Setup: "technical/local_server_setup.md"
-    - Build the DB from Scratch: "technical/build_db.md"
-    - Use the DB in a Project: "technical/use_db.md"
-    - Project Folder Structure: "technical/project_folder_structure.md" 
-    - DpdHeadwords Table: "technical/dpd_headwords_table.md"
-    - Tipiṭaka Source Files: "technical/tipitaka_source_files.md"
-    - API Endpoints: "technical/api_endpoints.md"
+      - "technical/index.md"
+      - Quick Start Guide: "technical/quick_start.md"
+      - Local Server Setup: "technical/local_server_setup.md"
+      - Build the DB from Scratch: "technical/build_db.md"
+      - Use the DB in a Project: "technical/use_db.md"
+      - Project Folder Structure: "technical/project_folder_structure.md"
+      - DpdHeadwords Table: "technical/dpd_headwords_table.md"
+      - Tipiṭaka Source Files: "technical/tipitaka_source_files.md"
+      - API Endpoints: "technical/api_endpoints.md"
     # - Style Guide for DPD Entries: "technical/style_guide_for_dpd_entries.md"
 
 theme:
@@ -95,12 +96,12 @@ theme:
     # - navigation.tabs_sticky
     # - toc.integrate
 
-  palette: 
+  palette:
     # light mode
     - scheme: default
       primary: custom
       accent: custom
-      toggle: 
+      toggle:
         icon: material/lightbulb
         name: Switch to dark mode
 
@@ -108,11 +109,11 @@ theme:
     - scheme: slate
       primary: custom
       accent: custom
-      toggle: 
+      toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
 
-  font: 
+  font:
     text: Inter
 
 extra_css:
@@ -133,7 +134,7 @@ extra:
 
 markdown_extensions:
   # allows adding {target="_blank"} after links
-  - attr_list 
+  - attr_list
 
   - pymdownx.highlight:
       anchor_linenums: true
@@ -142,7 +143,6 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-
 
 plugins:
   - search
