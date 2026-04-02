@@ -374,7 +374,7 @@ def copy_zip_to_tpr_downloads(g: GlobalVars):
                 "size": f"{filesize} MB",
             }
 
-            download_list[15] = dpd_info
+            download_list[12] = dpd_info
 
         if version == "beta":
             output_file = g.pth.tpr_beta_path
