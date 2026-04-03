@@ -4,7 +4,8 @@
 """Export DPD to PDF using Typst and Jinja templates.
 
 Memory-efficient test version:
-- Streams rendered typst data directly to disk instead of accumulating in a list
+- Splits the document into sections, compiles each to a separate PDF
+- Merges section PDFs with pypdf to produce the final output
 - Frees DB objects between sections with expire_all() + gc.collect()
 - Runs typst compilation as a subprocess to isolate its memory usage
 """
@@ -12,9 +13,10 @@ Memory-efficient test version:
 import gc
 import re
 import subprocess
-from io import TextIOWrapper
+from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
+from pypdf import PdfWriter
 
 from db.db_helpers import get_db_session
 from db.models import (
@@ -34,6 +36,19 @@ from tools.tsv_read_write import read_tsv_dot_dict
 from tools.zip_up import zip_up_file
 
 debug = False
+
+SECTION_NAMES = [
+    "front_matter",
+    "abbreviations",
+    "pali_to_english",
+    "english_to_pali",
+    "root_families",
+    "word_families",
+    "compound_families",
+    "idiom_families",
+    "bibliography",
+    "thanks",
+]
 
 
 class GlobalVars:
@@ -62,26 +77,72 @@ class GlobalVars:
         self.thanks_templ = self.env.get_template("thanks.typ")
         self.date = year_month_day_dash()
 
-        self.typst_file: TextIOWrapper | None = None
+        self.layout_preamble: str = ""
+        self.section_dir = self.pth.typst_lite_data_path.parent / "sections"
+        self.section_dir.mkdir(exist_ok=True)
 
 
-def make_layout(g: GlobalVars) -> None:
-    pr.green_tmr("compiling layout")
-    assert g.typst_file is not None
-    g.typst_file.write(g.layout_templ.render())
-    pr.yes("ok")
+def get_layout_preamble(g: GlobalVars) -> str:
+    """Get the layout template content that must prefix every section."""
+    return g.layout_templ.render()
+
+
+def section_typ_path(g: GlobalVars, name: str) -> Path:
+    return g.section_dir / f"{name}.typ"
+
+
+def section_pdf_path(g: GlobalVars, name: str) -> Path:
+    return g.section_dir / f"{name}.pdf"
+
+
+def clean_typst_content(content: str) -> str:
+    content = re.sub(r"^$\n\n", "\n", content, flags=re.MULTILINE)
+    content = re.sub(r"^//.+$\n", "", content, flags=re.MULTILINE)
+    content = re.sub(r"^ *$\n *\n", "", content, flags=re.MULTILINE)
+    return content
+
+
+def compile_section(g: GlobalVars, name: str, content: str) -> None:
+    """Write a section .typ file and compile it to PDF."""
+
+    full_content = g.layout_preamble + "\n" + content
+    full_content = clean_typst_content(full_content)
+
+    typ_path = section_typ_path(g, name)
+    pdf_path = section_pdf_path(g, name)
+
+    typ_path.write_text(full_content)
+
+    try:
+        result = subprocess.run(
+            ["typst", "compile", str(typ_path), str(pdf_path)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            pr.red(f"\ntypst error in {name}: {result.stderr}")
+        else:
+            pr.yes("ok")
+    except FileNotFoundError:
+        pr.red("\ntypst CLI not found, falling back to python binding")
+        try:
+            import typst
+
+            typst.compile(str(typ_path), output=str(pdf_path))
+            pr.yes("ok")
+        except Exception as e:
+            pr.red(f"\n{e}")
 
 
 def make_front_matter(g: GlobalVars) -> None:
     pr.green_tmr("compiling front matter")
-    assert g.typst_file is not None
-    g.typst_file.write(g.front_matter_templ.render())
-    pr.yes("ok")
+
+    content = g.front_matter_templ.render()
+    compile_section(g, "front_matter", content)
 
 
 def make_abbreviations(g: GlobalVars) -> None:
     pr.green_tmr("compiling abbreviations")
-    assert g.typst_file is not None
 
     abbreviations_tsv = read_tsv_dot_dict(g.pth.abbreviations_tsv_path)
     abbreviations_data = []
@@ -89,17 +150,19 @@ def make_abbreviations(g: GlobalVars) -> None:
         if not re.findall(r"[A-Z][A-z]", i.abbrev):
             abbreviations_data.append(i)
 
-    g.typst_file.write("#heading(level: 1)[Abbreviations]\n")
-    g.typst_file.write(
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Abbreviations]\n")
+    lines.append(
         "#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n"
     )
-    g.typst_file.write(g.abbreviations_templ.render(data=abbreviations_data))
-    pr.yes(len(abbreviations_data))
+    lines.append(g.abbreviations_templ.render(data=abbreviations_data))
+
+    compile_section(g, "abbreviations", "".join(lines))
 
 
 def make_pali_to_english(g: GlobalVars) -> None:
     pr.green_tmr("compiling pali to english")
-    assert g.typst_file is not None
 
     if debug is True:
         dpd_db = g.db_session.query(DpdHeadword).limit(100).all()
@@ -107,10 +170,11 @@ def make_pali_to_english(g: GlobalVars) -> None:
         dpd_db = g.db_session.query(DpdHeadword).all()
     dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#set page(columns: 1)\n")
-    g.typst_file.write("#heading(level: 1)[Pāḷi to English Dictionary]\n")
-    g.typst_file.write(
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#set page(columns: 1)\n")
+    lines.append("#heading(level: 1)[Pāḷi to English Dictionary]\n")
+    lines.append(
         "#set par(first-line-indent: 0pt, hanging-indent: 1em, spacing: 0.65em)\n"
     )
 
@@ -118,20 +182,25 @@ def make_pali_to_english(g: GlobalVars) -> None:
     for i in dpd_db:
         first_letter = i.lemma_1[0]
         if first_letter not in used_letters:
-            g.typst_file.write(g.first_letter_templ.render(first_letter=first_letter))
+            lines.append(g.first_letter_templ.render(first_letter=first_letter))
             used_letters.append(first_letter)
-        g.typst_file.write(g.headword_templ.render(i=i, date=g.date))
+        lines.append(g.headword_templ.render(i=i, date=g.date))
 
-    pr.yes(len(dpd_db))
+    count = len(dpd_db)
 
     g.db_session.expire_all()
     del dpd_db
     gc.collect()
 
+    compile_section(g, "pali_to_english", "".join(lines))
+    del lines
+    gc.collect()
+
+    pr.yes(count)
+
 
 def make_english_to_pali(g: GlobalVars) -> None:
     pr.green_tmr("compiling english to pali")
-    assert g.typst_file is not None
 
     if debug is True:
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").limit(100).all()
@@ -139,9 +208,10 @@ def make_english_to_pali(g: GlobalVars) -> None:
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").all()
     epd_db = sorted(epd_db, key=lambda x: x.lookup_key.casefold())
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[English to Pāḷi Dictionary]\n")
-    g.typst_file.write(
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[English to Pāḷi Dictionary]\n")
+    lines.append(
         "#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n"
     )
 
@@ -160,21 +230,26 @@ def make_english_to_pali(g: GlobalVars) -> None:
             continue
 
         if first_letter not in used_letters:
-            g.typst_file.write(g.first_letter_templ.render(first_letter=first_letter))
+            lines.append(g.first_letter_templ.render(first_letter=first_letter))
             used_letters.append(first_letter)
 
-        g.typst_file.write(g.epd_templ.render(i=i, date=g.date))
+        lines.append(g.epd_templ.render(i=i, date=g.date))
 
-    pr.yes(len(epd_db))
+    count = len(epd_db)
 
     g.db_session.expire_all()
     del epd_db
     gc.collect()
 
+    compile_section(g, "english_to_pali", "".join(lines))
+    del lines
+    gc.collect()
+
+    pr.yes(count)
+
 
 def make_root_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling root families")
-    assert g.typst_file is not None
 
     if debug is True:
         root_fam_db = g.db_session.query(FamilyRoot).limit(100).all()
@@ -185,8 +260,9 @@ def make_root_families(g: GlobalVars) -> None:
         key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.root_family)),
     )
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[Root Families]\n")
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Root Families]\n")
 
     used_letters: list[str] = []
     for i in root_fam_db:
@@ -194,23 +270,26 @@ def make_root_families(g: GlobalVars) -> None:
             first_letter = i.root_key[1]
 
             if first_letter not in used_letters:
-                g.typst_file.write(
-                    g.first_letter_templ.render(first_letter=first_letter)
-                )
+                lines.append(g.first_letter_templ.render(first_letter=first_letter))
                 used_letters.append(first_letter)
 
-        g.typst_file.write(g.root_fam_templ.render(i=i, date=g.date))
+        lines.append(g.root_fam_templ.render(i=i, date=g.date))
 
-    pr.yes(len(root_fam_db))
+    count = len(root_fam_db)
 
     g.db_session.expire_all()
     del root_fam_db
     gc.collect()
 
+    compile_section(g, "root_families", "".join(lines))
+    del lines
+    gc.collect()
+
+    pr.yes(count)
+
 
 def make_word_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling word families")
-    assert g.typst_file is not None
 
     word_fam_db: list[FamilyWord]
     if debug is True:
@@ -220,29 +299,35 @@ def make_word_families(g: GlobalVars) -> None:
 
     word_fam_db = sorted(word_fam_db, key=lambda x: pali_sort_key(x.word_family))  # type: ignore
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[Word Families]\n")
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Word Families]\n")
 
     used_letters: list[str] = []
     for i in word_fam_db:
         first_letter = i.word_family[0]
 
         if first_letter not in used_letters:
-            g.typst_file.write(g.first_letter_templ.render(first_letter=first_letter))
+            lines.append(g.first_letter_templ.render(first_letter=first_letter))
             used_letters.append(first_letter)
 
-        g.typst_file.write(g.word_fam_templ.render(i=i, date=g.date))
+        lines.append(g.word_fam_templ.render(i=i, date=g.date))
 
-    pr.yes(len(word_fam_db))
+    count = len(word_fam_db)
 
     g.db_session.expire_all()
     del word_fam_db
     gc.collect()
 
+    compile_section(g, "word_families", "".join(lines))
+    del lines
+    gc.collect()
+
+    pr.yes(count)
+
 
 def make_compound_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling compound families")
-    assert g.typst_file is not None
 
     if debug is True:
         compound_fam_db = g.db_session.query(FamilyCompound).limit(100).all()
@@ -252,29 +337,35 @@ def make_compound_families(g: GlobalVars) -> None:
         compound_fam_db, key=lambda x: pali_sort_key(x.compound_family)
     )
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[Compound Families]\n")
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Compound Families]\n")
 
     used_letters: list[str] = []
     for i in compound_fam_db:
         first_letter = i.compound_family[0]
 
         if first_letter not in used_letters:
-            g.typst_file.write(g.first_letter_templ.render(first_letter=first_letter))
+            lines.append(g.first_letter_templ.render(first_letter=first_letter))
             used_letters.append(first_letter)
 
-        g.typst_file.write(g.compound_fam_templ.render(i=i, date=g.date))
+        lines.append(g.compound_fam_templ.render(i=i, date=g.date))
 
-    pr.yes(len(compound_fam_db))
+    count = len(compound_fam_db)
 
     g.db_session.expire_all()
     del compound_fam_db
     gc.collect()
 
+    compile_section(g, "compound_families", "".join(lines))
+    del lines
+    gc.collect()
+
+    pr.yes(count)
+
 
 def make_idiom_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling idiom families")
-    assert g.typst_file is not None
 
     if debug is True:
         idioms_fam_db = g.db_session.query(FamilyIdiom).limit(100).all()
@@ -282,43 +373,49 @@ def make_idiom_families(g: GlobalVars) -> None:
         idioms_fam_db = g.db_session.query(FamilyIdiom).all()
     idioms_fam_db = sorted(idioms_fam_db, key=lambda x: pali_sort_key(x.idiom))
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[Idiom Families]\n")
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Idiom Families]\n")
 
     used_letters: list[str] = []
     for i in idioms_fam_db:
         first_letter = i.idiom[0]
 
         if first_letter not in used_letters:
-            g.typst_file.write(g.first_letter_templ.render(first_letter=first_letter))
+            lines.append(g.first_letter_templ.render(first_letter=first_letter))
             used_letters.append(first_letter)
 
-        g.typst_file.write(g.idiom_fam_templ.render(i=i, date=g.date))
+        lines.append(g.idiom_fam_templ.render(i=i, date=g.date))
 
-    pr.yes(len(idioms_fam_db))
+    count = len(idioms_fam_db)
 
     g.db_session.expire_all()
     del idioms_fam_db
     gc.collect()
 
+    compile_section(g, "idiom_families", "".join(lines))
+    del lines
+    gc.collect()
+
+    pr.yes(count)
+
 
 def make_bibliography(g: GlobalVars) -> None:
     pr.green_tmr("compiling bibliography")
-    assert g.typst_file is not None
 
     bibliography_data = read_tsv_dot_dict(g.pth.bibliography_tsv_path)
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[Bibliography]\n")
-    g.typst_file.write("An incomplete list of references works")
-    g.typst_file.write(g.bibliography_templ.render(data=bibliography_data))
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Bibliography]\n")
+    lines.append("An incomplete list of references works")
+    lines.append(g.bibliography_templ.render(data=bibliography_data))
 
-    pr.yes(len(bibliography_data))
+    compile_section(g, "bibliography", "".join(lines))
 
 
 def make_thanks(g: GlobalVars) -> None:
     pr.green_tmr("compiling thanks")
-    assert g.typst_file is not None
 
     thanks_tsv = read_tsv_dot_dict(g.pth.thanks_tsv_path)
     thanks_data = []
@@ -331,59 +428,50 @@ def make_thanks(g: GlobalVars) -> None:
         )
         thanks_data.append(i)
 
-    g.typst_file.write("#pagebreak()\n")
-    g.typst_file.write("#heading(level: 1)[Thanks]\n")
-    g.typst_file.write(g.thanks_templ.render(data=thanks_data))
+    lines: list[str] = []
+    lines.append('#set page(numbering: "1 / 1")\n')
+    lines.append("#heading(level: 1)[Thanks]\n")
+    lines.append(g.thanks_templ.render(data=thanks_data))
 
-    pr.yes(len(thanks_data))
+    compile_section(g, "thanks", "".join(lines))
 
 
-def clean_up_typst_file(g: GlobalVars) -> None:
-    pr.green_tmr("cleaning up")
+def merge_pdfs(g: GlobalVars) -> None:
+    pr.green_tmr("merging section pdfs")
 
-    with open(g.pth.typst_lite_data_path, "r") as f:
-        content = f.read()
+    writer = PdfWriter()
 
-    content = re.sub(r"^$\n\n", "\n", content, flags=re.MULTILINE)
-    content = re.sub(r"^//.+$\n", "", content, flags=re.MULTILINE)
-    content = re.sub(r"^ *$\n *\n", "", content, flags=re.MULTILINE)
+    for name in SECTION_NAMES:
+        pdf_path = section_pdf_path(g, name)
+        if pdf_path.exists():
+            writer.append(str(pdf_path))
+        else:
+            pr.red(f"\nmissing section pdf: {name}")
 
-    with open(g.pth.typst_lite_data_path, "w") as f:
-        f.write(content)
+    writer.write(str(g.pth.typst_lite_pdf_path))
+    writer.close()
 
     pr.yes("ok")
 
 
-def export_to_pdf(g: GlobalVars) -> None:
-    pr.green_tmr("rendering pdf")
+def cleanup_sections(g: GlobalVars) -> None:
+    pr.green_tmr("cleaning up section files")
 
-    try:
-        result = subprocess.run(
-            [
-                "typst",
-                "compile",
-                str(g.pth.typst_lite_data_path),
-                str(g.pth.typst_lite_pdf_path),
-            ],
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            pr.red(f"\n{result.stderr}")
-        else:
-            pr.yes("ok")
-    except FileNotFoundError:
-        pr.red("\ntypst CLI not found, falling back to python binding")
+    for name in SECTION_NAMES:
+        typ_path = section_typ_path(g, name)
+        pdf_path = section_pdf_path(g, name)
+        if typ_path.exists():
+            typ_path.unlink()
+        if pdf_path.exists():
+            pdf_path.unlink()
+
+    if g.section_dir.exists():
         try:
-            import typst
+            g.section_dir.rmdir()
+        except OSError:
+            pass
 
-            typst.compile(
-                str(g.pth.typst_lite_data_path),
-                output=str(g.pth.typst_lite_pdf_path),
-            )
-            pr.yes("ok")
-        except Exception as e:
-            pr.red(f"\n{e}")
+    pr.yes("ok")
 
 
 def zip_up_pdf(g: GlobalVars) -> None:
@@ -406,25 +494,20 @@ def main() -> None:
         return
 
     g = GlobalVars()
+    g.layout_preamble = get_layout_preamble(g)
 
-    with open(g.pth.typst_lite_data_path, "w") as f:
-        g.typst_file = f
-        make_layout(g)
-        make_front_matter(g)
-        make_abbreviations(g)
-        make_pali_to_english(g)
-        make_english_to_pali(g)
-        make_root_families(g)
-        make_word_families(g)
-        make_compound_families(g)
-        make_idiom_families(g)
-        make_bibliography(g)
-        make_thanks(g)
-
-    g.typst_file = None
-
-    clean_up_typst_file(g)
-    export_to_pdf(g)
+    make_front_matter(g)
+    make_abbreviations(g)
+    make_pali_to_english(g)
+    make_english_to_pali(g)
+    make_root_families(g)
+    make_word_families(g)
+    make_compound_families(g)
+    make_idiom_families(g)
+    make_bibliography(g)
+    make_thanks(g)
+    merge_pdfs(g)
+    cleanup_sections(g)
     zip_up_pdf(g)
     pr.toc()
 

@@ -697,6 +697,7 @@ tools = [
     { name = "psutil" },
     { name = "pygithub" },
     { name = "pyglossary" },
+    { name = "pypdf" },
     { name = "pyperclip" },
     { name = "pyspellchecker" },
     { name = "python-idzip" },
@@ -772,6 +773,7 @@ tools = [
     { name = "psutil", specifier = ">=5.9.6" },
     { name = "pygithub", specifier = ">=2.6.1" },
     { name = "pyglossary", specifier = ">=4.6.1" },
+    { name = "pypdf", specifier = ">=5.0.0" },
     { name = "pyperclip", specifier = ">=1.8.2" },
     { name = "pyspellchecker", specifier = ">=0.7.1" },
     { name = "python-idzip", specifier = ">=0.3.9" },
@@ -2792,6 +2794,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/bb/22/f1129e69d94ffff626bdb5c835506b3a5b4f3d070f17ea295e12c2c6f60f/pyparsing-3.2.3.tar.gz", hash = "sha256:b9c13f1ab8b3b542f72e28f634bad4de758ab3ce4546e4301970ad6fa77c38be", size = 1088608 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/05/e7/df2285f3d08fee213f2d041540fa4fc9ca6c2d44cf36d3a035bf2a8d2bcc/pyparsing-3.2.3-py3-none-any.whl", hash = "sha256:a749938e02d6fd0b59b356ca504a24982314bb090c383e3cf201c95ef7e2bfcf", size = 111120 },
+]
+
+[[package]]
+name = "pypdf"
+version = "6.9.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/31/83/691bdb309306232362503083cb15777491045dd54f45393a317dc7d8082f/pypdf-6.9.2.tar.gz", hash = "sha256:7f850faf2b0d4ab936582c05da32c52214c2b089d61a316627b5bfb5b0dab46c", size = 5311837 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/7e/c85f41243086a8fe5d1baeba527cb26a1918158a565932b41e0f7c0b32e9/pypdf-6.9.2-py3-none-any.whl", hash = "sha256:662cf29bcb419a36a1365232449624ab40b7c2d0cfc28e54f42eeecd1fd7e844", size = 333744 },
 ]
 
 [[package]]
