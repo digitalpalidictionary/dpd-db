@@ -1,5 +1,4 @@
-:root {
-  /* DPD Theme Variables */
+#dict-panel-25445 {
   --dpd-bg: hsl(198, 100%, 95%);
   --dpd-text: inherit;
   --dpd-primary: hsl(198, 100%, 50%);
@@ -13,6 +12,7 @@
 
 /* Layout for Host Page */
 html.dpd-active {
+  --dpd-panel-width: 33.33vw;
   overflow-x: hidden !important;
 }
 

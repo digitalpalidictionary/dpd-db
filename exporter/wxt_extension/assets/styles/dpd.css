@@ -66,11 +66,7 @@
   padding: 0;
   display: block;
 }
-#dict-panel-25445 /* tables */
-
-/* sutta-info */
-
-table {
+#dict-panel-25445 table {
   margin: 3px 0px;
 }
 #dict-panel-25445 table.sutta-info {
