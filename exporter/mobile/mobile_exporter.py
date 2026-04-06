@@ -261,7 +261,10 @@ def export_lookup(g: GlobalVars, dest: sqlite3.Connection) -> None:
     col_list = ", ".join(f'"{c}"' for c in dest_cols)
     placeholders = ", ".join(["?"] * len(dest_cols))
 
-    dest.execute(f"CREATE TABLE lookup ({col_list})")
+    # Make lookup_key the primary key — creates an automatic index
+    # and matches the Flutter app's Drift schema definition
+    col_defs = ", ".join(f'"{c}"' for c in dest_cols)
+    dest.execute(f"CREATE TABLE lookup ({col_defs}, PRIMARY KEY (lookup_key))")
     batch = [
         tuple(r[c] for c in orig_cols) + (_strip_diacritics_mobile(r["lookup_key"]),)
         for r in rows
@@ -496,7 +499,7 @@ def export_other_dictionaries(
         pr.red("CPD source not found, skipping")
 
     # --- MW (Monier-Williams from Cologne source) ---
-    pr.green_tmr("exporting Moneier Williams")
+    pr.green_tmr("exporting Monier Williams")
 
     if g.pth.mw_source_json_path.exists():
         with open(g.pth.mw_source_json_path) as f:
