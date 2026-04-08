@@ -230,8 +230,8 @@ class Pass2AutoController:
                 response_dict["source_2"] = headword_in_db.source_1
                 response_dict["sutta_2"] = headword_in_db.sutta_1
                 response_dict["example_2"] = headword_in_db.example_1
-                pr.info("moved late example from example_1 to 2")
-                pr.info(headword_in_db.source_1)
+                pr.white("moved late example from example_1 to 2")
+                pr.white(headword_in_db.source_1)
 
             # Add NO AI marker to comment
             current_comment = response_dict.get("comment", "") or ""
@@ -296,8 +296,8 @@ class Pass2AutoController:
                     response_dict["source_2"] = headword_in_db.source_1
                     response_dict["sutta_2"] = headword_in_db.sutta_1
                     response_dict["example_2"] = headword_in_db.example_1
-                    pr.info("moved late example from example_1 to 2")
-                    pr.info(headword_in_db.source_1)
+                    pr.white("moved late example from example_1 to 2")
+                    pr.white(headword_in_db.source_1)
 
                 # Add AI model details to the 'comment' field for JSON output
                 if self._provider_preference and self._model_name:
@@ -640,7 +640,7 @@ ve: verbal ending
         """
         # This method is called by Pass2AddView, so it doesn't use self._provider_preference
         # It uses the provider_preference and model_name passed as arguments.
-        pr.info(
+        pr.white(
             f"Processing single headword from view: {headword.lemma_1} (ID: {headword.id}) with AI model: {provider_preference}/{model_name}"
         )
 
@@ -652,7 +652,7 @@ ve: verbal ending
         )
 
         if response_dict:
-            pr.info(f"AI processing successful for {headword.lemma_1}")
+            pr.green(f"AI processing successful for {headword.lemma_1}")
             # Add AI model details to the 'comment' field
             if provider_preference and model_name:
                 ai_info = f"[{provider_preference}: {model_name}] "
