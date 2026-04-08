@@ -123,7 +123,7 @@ FAMILY_SET_COLUMNS: list[str] = ["set", "data", "count"]
 
 # Must match AppDatabase.requiredDbSchemaVersion in the Flutter app.
 # Bump when Drift table definitions change (added/removed columns).
-DB_SCHEMA_VERSION: int = 4
+DB_SCHEMA_VERSION: int = 5
 
 # Tables copied verbatim from source db (no html columns in these)
 PASSTHROUGH_TABLES: list[str] = [
