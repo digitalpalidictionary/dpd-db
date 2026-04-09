@@ -51,8 +51,12 @@ class AIManager:
         self.providers: dict[str, Any] = {}
 
         from tools.ai_deepseek_manager import DeepseekManager
+        from tools.ai_gpt_manager import GptManager
         from tools.ai_gemini_manager import GeminiManager
         from tools.ai_open_router import OpenRouterManager
+
+        self.providers["codex"] = GptManager()
+        pr.green("codex initialized")
 
         if config_read("apis", "openrouter"):
             self.providers["openrouter"] = OpenRouterManager()
