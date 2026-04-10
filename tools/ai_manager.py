@@ -50,10 +50,14 @@ class AIManager:
 
         self.providers: dict[str, Any] = {}
 
+        from tools.ai_claude_manager import ClaudeManager
         from tools.ai_deepseek_manager import DeepseekManager
         from tools.ai_gpt_manager import GptManager
         from tools.ai_gemini_manager import GeminiManager
         from tools.ai_open_router import OpenRouterManager
+
+        self.providers["claude"] = ClaudeManager()
+        pr.green("claude initialized")
 
         self.providers["codex"] = GptManager()
         pr.green("codex initialized")

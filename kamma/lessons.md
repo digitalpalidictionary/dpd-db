@@ -1,0 +1,1 @@
+- 2026-04-10 [CONFUSION] When a user names a specific CLI like `claude`, verify that CLI directly instead of assuming an existing provider can cover it.
