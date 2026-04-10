@@ -105,6 +105,11 @@ sn_peyyalas = [
     (46, "1-12. Balādisuttaṃ", 99, 110),
     (46, "1-10. Esanādisuttaṃ", 111, 120),
     (46, "1-8. Oghādisuttaṃ", 121, 128),
+    (46, " Punagaṅgānadīādisuttaṃ", 130, 130),
+    (46, " Tathāgatādisuttaṃ", 131, 131),
+    (46, " Punabalādisuttaṃ", 132, 132),
+    (46, " Punaesanādisuttaṃ", 133, 133),
+    (46, " Punaoghādisuttaṃ", 134, 134),
     (47, "1-12. Gaṅgānadīādisuttadvādasakaṃ", 51, 62),
     (47, "1-10. Tathāgatādisuttadasakaṃ", 63, 72),
     (47, "1-12. Balādisuttadvādasakaṃ", 73, 84),
@@ -740,7 +745,7 @@ def sn_samyutta_nikaya(g: GlobalData):
         g.vagga = vagga
         g.vagga_counter = vagga_no
 
-    elif x["rend"] == "subhead" and re.findall(r"^\d", x.text):
+    elif x["rend"] == "subhead":
         sutta_counter_special = ""
         peyyala_matched = False
 
@@ -751,13 +756,14 @@ def sn_samyutta_nikaya(g: GlobalData):
                 and x.text == p_sutta_name
                 and g.sutta_counter == p_start - 1
             ):
-                sutta_name = re.sub(r"^\d.*\. ", "", x.text)
-                sutta_counter_special = f"{p_start}-{p_end}"
+                sutta_name = re.sub(r"^\d.*\. ", "", x.text).strip()
+                if p_start != p_end:
+                    sutta_counter_special = f"{p_start}-{p_end}"
                 g.sutta_counter = p_end
                 peyyala_matched = True
                 break
 
-        if not peyyala_matched and "-" not in x.text:
+        if not peyyala_matched and re.findall(r"^\d", x.text) and "-" not in x.text:
             sutta_name, sutta_no = get_text_and_number(x.text)
             g.sutta_counter += 1
 

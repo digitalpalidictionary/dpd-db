@@ -93,7 +93,7 @@ build-backend = "hatchling.build"
 [tool.pyright]
 pythonVersion = "3.13"
 typeCheckingMode = "basic"
-exclude = ["gui2", "tools/writemdict", "tests"]
+exclude = ["gui2", "tools/writemdict", "tests", "tools/cst_source_sutta_example.py"]
 
 [tool.ruff]
 target-version = "py313"
