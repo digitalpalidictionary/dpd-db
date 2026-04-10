@@ -1,0 +1,9 @@
+{
+  "repo": "digitalpalidictionary/dpd-db",
+  "project": "digitalpalidictionary/1",
+  "agents": [
+    "claude",
+    "opencode"
+  ],
+  "models": {}
+}

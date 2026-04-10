@@ -1,0 +1,8 @@
+{
+  "number": 57,
+  "title": "Extract PTS archive",
+  "body": "There's an archive of P\u0101li Text Society texts contained in this ISO: [PTS CD-ROM 2.5](https://buddhasasana.net/cloud/Miscellany/PaliText-V2.5-Dhammakaya-Foundation.iso)\n\nIt's some software which runs on a pre-millenium version of Windows. Rumour has it, it's a FoxPro db format\u2014although that may be a red herring.\n\nThe mission is to crack open the ancient digital format and extract the rare gems. \n\nPTS were\u2014until very recently\u2014notoriously anti-technology, so this is the only digital format of those texts which exists. They normally only ever released [printed editions](https://palitextsociety.org/product-category/canonical-texts/) of these texts, some of them going back to the 1800's.\n\n\n\n\n\n\n\n\n\n\n \n",
+  "rationale": "Selected by rule-based",
+  "source": "rule-based",
+  "picked_at": "2026-04-10T16:59:57.179557+00:00"
+}
