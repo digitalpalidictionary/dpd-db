@@ -44,6 +44,10 @@ db-test:
 test-phonetic:
     uv run python -m db_tests.single.add_phonetic_changes
 
+# Find candidate phonetic variants → scripts/variants/phonetic_variant_candidates.tsv (#144)
+variants-phonetic-find:
+    uv run python scripts/variants/find_phonetic_variants.py
+
 # Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
     uv run ruff check . --exclude archive --exclude resources

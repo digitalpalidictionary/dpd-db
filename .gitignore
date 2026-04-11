@@ -106,6 +106,7 @@ scripts/extractor/extract_cone.tsv
 scripts/extractor/extract_cpd.tsv
 scripts/find/most_common_missing_words.tsv
 scripts/find/most_common_missing_words_old.tsv
+scripts/variants/phonetic_variant_candidates.tsv
 scripts/suttas/cst/*.tsv
 scripts/suttas/sc/*.tsv
 shared_data/changed_headwords
