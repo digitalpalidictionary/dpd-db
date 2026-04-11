@@ -1,8 +1,1 @@
-{
-  "number": 144,
-  "title": "Database: Split textual variants & phonetic variants",
-  "body": "- [ ] Code to find phonetic variants: \n     - e > aya\n     - \u1e43 > \u1e45\n     - low Levenshtein distance\n     - etc.\n- [ ] add to all exporters\n- [ ] delete current variants field",
-  "rationale": "Selected by user",
-  "source": "user",
-  "picked_at": "2026-04-11T05:19:38.804725+00:00"
-}
+{}
