@@ -1,1 +1,8 @@
-{}
+{
+  "number": 31,
+  "title": "Export to Aard2 Slob format",
+  "body": "Greetings Venerable,\r\n\r\nI would like to request the addition of Slob format, itkach/slob - https://github.com/itkach/slob . It is useful for mobile use with Aard2 (https://github.com/itkach/aard2-android) , a completely open source dictionary application. It is also supported by pyglossary, https://github.com/ilius/pyglossary/blob/master/doc/p/aard2_slob.md, as well.\r\n\r\nThank you for the consideration,\r\nLeonardo",
+  "rationale": "Selected by user",
+  "source": "user",
+  "picked_at": "2026-04-11T11:54:25.642800+00:00"
+}

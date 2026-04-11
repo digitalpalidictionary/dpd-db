@@ -1,0 +1,47 @@
+name: Slob Smoke Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  slob-smoke-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.13"
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install Slob Linux dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libicu-dev icu-devtools pkg-config
+
+    - name: Install project dependencies
+      run: uv sync --all-groups
+
+    - name: Install PyICU for Slob export
+      run: uv run python -m pip install PyICU
+
+    - name: Verify ICU import
+      run: uv run python -c "import icu; print(icu.ICU_VERSION)"
+
+    - name: Run Slob smoke test exporter
+      run: uv run python exporter/tester/slob_test.py
+
+    - name: List generated Slob artifacts
+      run: ls -lh exporter/share/dpd-slob-test.slob exporter/share/dpd-slob-test*
+
+    - name: Upload Slob artifact
+      uses: actions/upload-artifact@v6
+      with:
+        name: dpd-slob-smoke-test
+        path: exporter/share/dpd-slob-test.slob
+        retention-days: 7

@@ -3,7 +3,12 @@
   "project": "digitalpalidictionary/1",
   "agents": [
     "claude",
-    "opencode"
+    "gemini",
+    "antigravity",
+    "opencode",
+    "codex",
+    "kilo",
+    "qwen"
   ],
   "models": {}
 }
