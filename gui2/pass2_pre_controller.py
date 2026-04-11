@@ -57,6 +57,7 @@ class Pass2PreController:
             self._data_loaded = True
 
     def find_words_with_missing_examples(self, book: str, paths: Gui2Paths):
+        self.db.make_pass2_lists()
         self.file_manager = Pass2PreFileManager(book, paths)
         self.sc_book = sutta_central_books[book].sc_book
         self.cst_books = sutta_central_books[book].cst_books
