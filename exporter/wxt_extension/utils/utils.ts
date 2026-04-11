@@ -1,6 +1,6 @@
 import { MessageRequest } from '../types/extension';
 
-const PUNCTUATION_REGEX = /[-'\u2018\u2019\u201c\u201d\"'.,;:!?()\[\]{}\\\/0-9]/g;
+const PUNCTUATION_REGEX = /[-\u2014'\u2018\u2019\u201c\u201d\"'.,;:!?()\[\]{}\\\/0-9]/g;
 
 export function cleanWord(word: string): string {
   let cleaned = word

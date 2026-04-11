@@ -4,6 +4,10 @@ let cachedBaseUrl: string | null = null;
 let lastCheckTime: number = 0;
 const CACHE_TTL = 60000; // 1 minute
 
+function getErrorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
 export async function getApiBaseUrl(): Promise<string> {
   // If we are in a content script, always ask the background script for the base URL.
   // This ensures background and content scripts are perfectly in sync.
@@ -58,7 +62,7 @@ export async function getApiBaseUrl(): Promise<string> {
         console.log(`[DPD] Server at ${url} responded with status: ${response.status}`);
       }
     } catch (e) {
-      console.log(`[DPD] Failed to connect to ${url}:`, e.message);
+      console.log(`[DPD] Failed to connect to ${url}:`, getErrorMessage(e));
     }
   }
 

@@ -8,6 +8,10 @@ import '@/assets/styles/chrome-extension.css';
 import '@/assets/styles/dpd-variables.css';
 import '@/assets/styles/dpd.css';
 
+type ApiBaseUrlResponse = {
+  baseUrl?: string;
+};
+
 export default defineContentScript({
   matches: ['<all_urls>'],
   runAt: 'document_end',
@@ -26,7 +30,7 @@ export default defineContentScript({
 
       // Get API route for logging
       try {
-        const response = await browser.runtime.sendMessage({ action: "getApiBaseUrl" });
+        const response = await browser.runtime.sendMessage({ action: "getApiBaseUrl" }) as ApiBaseUrlResponse;
         const baseUrl = response?.baseUrl || "https://dpdict.net";
         const isProduction = baseUrl === "https://dpdict.net";
         const routeDescription = isProduction ? "via dpdict.net" : `via local server ${baseUrl}`;
