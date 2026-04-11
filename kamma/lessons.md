@@ -1,1 +1,5 @@
 - 2026-04-10 [CONFUSION] When a user names a specific CLI like `claude`, verify that CLI directly instead of assuming an existing provider can cover it.
+- 2026-04-11 [REPEATED] When the user says not to ask questions and to keep going, do not interrupt with approval or clarification requests unless progress is truly blocked.
+- 2026-04-11 [WORKFLOW] For rough archival tooling work, default to manual verification and avoid drifting into unnecessary test-first process after the user has explicitly deprioritized it.
+- 2026-04-11 [BEHAVIOR] Do not publish a third party's email in docs when the user asks for attribution; credit the person by name unless the user explicitly wants contact details included.
+- 2026-04-11 [REPEATED] Keep helper command layers like `justfile` small and focused on the main workflows instead of adding sample shortcuts the user did not ask for.
