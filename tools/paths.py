@@ -143,6 +143,7 @@ class ProjectPaths:
         self.dpd_epub_path = base_dir / "exporter/share/dpd-kindle.epub"
         self.dpd_goldendict_dir = base_dir / "exporter/share/dpd/"
         self.dpd_goldendict_zip_path = base_dir / "exporter/share/dpd-goldendict.zip"
+        self.dpd_slob_path = base_dir / "exporter/share/dpd.slob"
         self.dpd_grammar_goldendict_dir = base_dir / "exporter/share/dpd-grammar/"
         self.dpd_mdict_zip_path = base_dir / "exporter/share/dpd-mdict.zip"
         self.dpd_mobi_path = base_dir / "exporter/share/dpd-kindle.mobi"

@@ -49,6 +49,8 @@ class GlobalVars:
         if config_test("dictionary", "make_mdict", "yes"):
             self.make_mdict: bool = True
 
+        self.make_slob = config_read("goldendict", "make_slob", "no") == "yes"
+
         self.paths = self.pth
 
 
@@ -162,7 +164,7 @@ def prepare_export_to_goldendict_mdict(g: GlobalVars) -> None:
         dict_info,
         dict_var,
         g.dict_data,
-        # include_slob=True,
+        include_slob=g.make_slob,
     )
 
     if g.make_mdict and g.data_limit == 0:

@@ -19,6 +19,7 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - `docs/technical/` for database and project structure documentation
 - `db/`, `gui2/`, `exporter/`, `tests/`, and `scripts/` as the main implementation areas
 - `resources/flet-docs/` for Flet reference material
+- Slob export in CI relies on `PyICU` and ICU system libraries
 
 ## What The Output Looks Like
 The project outputs updated dictionary data, a generated and tested SQLite database, and export artifacts in multiple formats for downstream apps, websites, offline dictionaries, and related release channels.

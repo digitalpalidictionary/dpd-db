@@ -697,6 +697,7 @@ tools = [
     { name = "psutil" },
     { name = "pygithub" },
     { name = "pyglossary" },
+    { name = "pyicu" },
     { name = "pypdf" },
     { name = "pyperclip" },
     { name = "pyspellchecker" },
@@ -773,6 +774,7 @@ tools = [
     { name = "psutil", specifier = ">=5.9.6" },
     { name = "pygithub", specifier = ">=2.6.1" },
     { name = "pyglossary", specifier = ">=4.6.1" },
+    { name = "pyicu", specifier = ">=2.16.2" },
     { name = "pypdf", specifier = ">=5.0.0" },
     { name = "pyperclip", specifier = ">=1.8.2" },
     { name = "pyspellchecker", specifier = ">=0.7.1" },
@@ -2693,6 +2695,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/7c/2d/c3338d48ea6cc0feb
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8a/0b/9fcc47d19c48b59121088dd6da2488a49d5f72dacf8262e2790a1d2c7d15/pygments-2.19.1-py3-none-any.whl", hash = "sha256:9ea1544ad55cecf4b8242fab6dd35a93bbce657034b0611ee383099054ab6d8c", size = 1225293 },
 ]
+
+[[package]]
+name = "pyicu"
+version = "2.16.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b7/d5/354eb1bf84dcf4ab0bfa46f0620ecf68fe313bb082c26872ceb7a5021f94/pyicu-2.16.2.tar.gz", hash = "sha256:006d51e24b5ec76df6ec2130f3dde269c51db8b8cfebb7d45a427dde0d10aa52", size = 268223 }
 
 [[package]]
 name = "pyjwt"

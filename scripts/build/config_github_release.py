@@ -38,6 +38,7 @@ def main():
 
     config_update("anki", "update", "no")
     config_update("goldendict", "copy_unzip", "no")
+    config_update("goldendict", "make_slob", "yes")
 
     pr.toc()
 

@@ -52,7 +52,10 @@ jobs:
 
     - name: Install uv
       run: curl -LsSf https://astral.sh/uv/install.sh | sh
-    
+
+    - name: Install Slob Linux dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential libicu-dev icu-devtools pkg-config
+     
     - name: Install dependencies
       run: uv sync --all-groups
 
@@ -313,6 +316,7 @@ jobs:
         name: linux-assets
         path: |
           exporter/share/dpd-goldendict.zip
+          exporter/share/dpd.slob
           exporter/share/dpd-mdict.zip
           exporter/share/dpd-kindle.epub
           exporter/share/dpd-kindle.mobi
@@ -427,6 +431,7 @@ jobs:
           prerelease: false
           files: |
             ./linux-assets/dpd-goldendict.zip
+            ./linux-assets/dpd.slob
             ./linux-assets/dpd-mdict.zip
             ./linux-assets/dpd-kindle.epub
             ./linux-assets/dpd-kindle.mobi

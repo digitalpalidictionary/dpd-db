@@ -40,7 +40,7 @@ DEFAULT_CONFIG = {
         "margin_x": "0",
         "margin_y": "0",
     },
-    "goldendict": {"copy_unzip": "no", "path": ""},
+    "goldendict": {"copy_unzip": "no", "path": "", "make_slob": "no"},
     "dictionary": {
         "make_mdict": "yes",
         "show_id": "no",
