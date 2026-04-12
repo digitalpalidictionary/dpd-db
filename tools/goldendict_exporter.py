@@ -364,6 +364,8 @@ def write_to_slob(glos: Glossary, dict_var: DictVariables) -> None:
     """Write to slob format files."""
 
     pr.white_tmr("writing slob file")
+    if dict_var.slob_path_name.exists():
+        dict_var.slob_path_name.unlink()
     glos.write(
         filename=str(dict_var.slob_path_name),
         format="Aard2Slob",
