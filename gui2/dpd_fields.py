@@ -255,11 +255,19 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig(
                 "variant",
-                on_change=self.synonym_variant_check,
+                on_change=self.variant_field_change,
                 on_blur=self.variant_blur,
             ),
-            FieldConfig("var_phonetic", on_blur=self.clean_pali_field),
-            FieldConfig("var_text", on_blur=self.clean_pali_field),
+            FieldConfig(
+                "var_phonetic",
+                on_change=self.clean_pali_field,
+                on_blur=self.clean_pali_field,
+            ),
+            FieldConfig(
+                "var_text",
+                on_change=self.clean_pali_field,
+                on_blur=self.clean_pali_field,
+            ),
             FieldConfig(
                 "commentary", field_type="commentary", on_focus=self.commentary_focus
             ),
@@ -1259,9 +1267,12 @@ class DpdFields(PopUpMixin):
 
     def synonym_field_change(self, e: ft.ControlEvent) -> None:
         """Clean text and check for duplicates in variant field."""
-        # First clean the field
         self.clean_pali_field(e)
-        # Then check for duplicates
+        self.synonym_variant_check(e)
+
+    def variant_field_change(self, e: ft.ControlEvent) -> None:
+        """Clean text and check for duplicates in synonym field."""
+        self.clean_pali_field(e)
         self.synonym_variant_check(e)
 
     def synonym_focus(self, e: ft.ControlEvent) -> None:
