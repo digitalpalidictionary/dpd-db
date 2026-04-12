@@ -1,0 +1,11 @@
+<h3 class="dpd" id="other abbreviations: {{ d.headword }}">other abbreviations: {{d.headword}}</h3>
+<div class="tertiary">
+    <table class="help">
+        {% for row in d.rows %}
+        <tr>
+            <th>{{row.source}}</th>
+            <td>{{row.meaning|safe}}{% if row.notes %} <span class="gray">{{row.notes|safe}}</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>

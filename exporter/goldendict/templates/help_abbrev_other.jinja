@@ -1,0 +1,17 @@
+{{ d.header }}
+<body>
+<div class="tertiary">
+    <table class="help">
+        <tr>
+            <th>Abbreviation</th>
+            <td><b>{{ d.abbreviation }}</b></td>
+        </tr>
+        {% for row in d.rows %}
+        <tr>
+            <th>{{ row.source }}</th>
+            <td>{{ row.meaning }}{% if row.notes %} <span class="gray">{{ row.notes }}</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body></html>

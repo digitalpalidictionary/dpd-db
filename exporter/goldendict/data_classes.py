@@ -207,6 +207,20 @@ class AbbreviationsData:
         return css_manager.update_style(html_header, "secondary")
 
 
+class AbbrevOtherData:
+    def __init__(self, abbreviation: str, rows: list[dict[str, str]], jinja_env):
+        self.abbreviation = abbreviation
+        self.rows = rows
+        self.jinja_env = jinja_env
+        self.header = self._generate_header()
+
+    def _generate_header(self) -> str:
+        template = self.jinja_env.get_template("dpd_header_plain.jinja")
+        html_header = template.render()
+        css_manager = CSSManager()
+        return css_manager.update_style(html_header, "secondary")
+
+
 class HelpData:
     def __init__(self, i, jinja_env):
         self.i = i

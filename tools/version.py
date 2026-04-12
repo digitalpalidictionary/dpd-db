@@ -12,7 +12,9 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 major = 0
-minor = 3
+minor = 4
+
+# 0.3 > 0.4 added abbreviations_other to lookup table
 
 
 def printer(key, value):

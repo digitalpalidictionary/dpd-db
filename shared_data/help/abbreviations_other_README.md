@@ -3,28 +3,28 @@
 Master list of abbreviations from external Pāḷi dictionary sources.
 
 ## Columns
-- `source` — short code: `pts`, `dpd_db`, `general`, `cone`, `cpd`
+- `source` — short code: `PTS`, `CST`, `General`, `Cone`, `CPD`
 - `abbreviation` — exactly as it appears in the source
 - `meaning` — plain-text expansion
 - `category` — `text` | `grammar` | `symbol` | `edition` | `resource` | `other`
 - `notes` — sub-section, ref codes, or context
 
-## Sources (as of 2026-04-11)
-| source  | description |
-|---------|-------------|
-| pts     | Pali Text Society abbreviations (~561 rows) |
-| dpd_db  | DPD database `pos='abbrev'` headwords (~57 rows) |
-| general | Edition/variant-reading codes curated by Bryan Levman (23 rows) |
-| cone    | Dictionary of Pāli (Cone) front-matter abbreviations (~158 rows) |
-| cpd     | Critical Pāli Dictionary bibliography abbreviations (~306 rows) |
+## Sources (as of 2026-04-12)
+| source  | rows | description |
+|---------|------|-------------|
+| PTS     | 558  | Pali Text Society abbreviations |
+| CPD     | 306  | Critical Pāli Dictionary bibliography abbreviations |
+| Cone    | 145  | Dictionary of Pāli (Cone) front-matter abbreviations |
+| CST     | 57   | Chaṭṭha Saṅgāyana Tipiṭaka abbreviations |
+| General | 23   | Edition/variant-reading codes curated by Bryan Levman |
+| **Total** | **1089** | |
 
-## Rebuild
-```bash
-uv run python scripts/extractor/compile_abbreviations_other.py
-```
+## Notes
+- This file is the master list. Edit it directly — no extraction script.
+- Populated into the `lookup` table via `db/lookup/help_abbrev_add_to_lookup.py`.
+- Exported to GoldenDict and webapp via the standard exporter pipeline.
 
 ## Known gaps (tracked in issue #77)
 - BJT abbreviations
 - SYA abbreviations
 - MST abbreviations (SuttaCentral)
-- External PTS/Cone front-matter not yet scraped

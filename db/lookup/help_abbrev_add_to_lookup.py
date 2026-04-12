@@ -3,13 +3,14 @@
 """Add help and abbreviations to the Lookup table."""
 
 from rich import print
+from sqlalchemy import create_engine, inspect as sa_inspect, text
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.tsv_read_write import read_tsv_as_dict
+from tools.tsv_read_write import read_tsv_as_dict, read_tsv_dict
 
 
 class GlobalVars:
@@ -49,6 +50,20 @@ def add_help(g: GlobalVars):
     g.db_session.commit()
 
 
+def ensure_abbrev_other_column(g: GlobalVars) -> None:
+    """Add abbrev_other column to lookup table if it doesn't already exist."""
+    engine = create_engine(f"sqlite+pysqlite:///{g.pth.dpd_db_path}", echo=False)
+    insp = sa_inspect(engine)
+    columns = [col["name"] for col in insp.get_columns("lookup")]
+    if "abbrev_other" not in columns:
+        with engine.connect() as con:
+            con.execute(
+                text("ALTER TABLE lookup ADD COLUMN abbrev_other TEXT DEFAULT ''")
+            )
+            con.commit()
+        print("[green]added abbrev_other column to lookup")
+
+
 def add_abbreviations(g: GlobalVars):
     """Add abbreviations to lookup"""
     print("[green]adding abbreviations")
@@ -82,12 +97,55 @@ def add_abbreviations(g: GlobalVars):
     g.db_session.commit()
 
 
+def add_abbreviations_other(g: GlobalVars) -> None:
+    """Add other-source abbreviations (PTS, CPD, Cone, CST, General) to lookup."""
+    print("[green]adding abbreviations other")
+
+    # first remove old abbrev_other entries from the table
+    results = g.db_session.query(Lookup).filter(Lookup.abbrev_other != "").all()
+    for r in results:
+        if is_another_value(r, "abbrev_other"):
+            r.abbrev_other = ""
+        else:
+            g.db_session.delete(r)
+
+    rows = read_tsv_dict(g.pth.abbreviations_other_tsv_path)
+
+    # group rows by abbreviation key
+    grouped: dict[str, list[dict[str, str]]] = {}
+    for row in rows:
+        key = row["abbreviation"]
+        if not key:
+            continue
+        entry = {
+            "source": row["source"],
+            "meaning": row["meaning"],
+            "notes": row["notes"],
+        }
+        grouped.setdefault(key, []).append(entry)
+
+    # upsert into Lookup
+    for key, entries in grouped.items():
+        result = g.db_session.query(Lookup).filter_by(lookup_key=key).first()
+        if result:
+            result.abbrev_other_pack(entries)
+        else:
+            lu = Lookup()
+            lu.lookup_key = key
+            lu.abbrev_other_pack(entries)
+            g.db_session.add(lu)
+
+    g.db_session.commit()
+
+
 def main():
     pr.tic()
     print("[bright_yellow]adding help and abbreviations to lookup")
     g = GlobalVars()
+    ensure_abbrev_other_column(g)
     add_help(g)
     add_abbreviations(g)
+    add_abbreviations_other(g)
     pr.toc()
 
 

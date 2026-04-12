@@ -222,6 +222,7 @@ class Lookup(Base):
     grammar: Mapped[str] = mapped_column(default="")
     help: Mapped[str] = mapped_column(default="")
     abbrev: Mapped[str] = mapped_column(default="")
+    abbrev_other: Mapped[str] = mapped_column(default="")
     epd: Mapped[str] = mapped_column(default="")
     rpd: Mapped[str] = mapped_column(default="")
     other: Mapped[str] = mapped_column(default="")
@@ -364,6 +365,17 @@ class Lookup(Base):
             return json.loads(self.abbrev)
         else:
             return {}
+
+    # abbreviations_other pack unpack
+
+    def abbrev_other_pack(self, data: list[dict[str, str]]) -> None:
+        self.abbrev_other = json.dumps(data, ensure_ascii=False)
+
+    @property
+    def abbrev_other_unpack(self) -> list[dict[str, str]]:
+        if self.abbrev_other:
+            return json.loads(self.abbrev_other)
+        return []
 
     # epd pack unpack
 
@@ -666,7 +678,8 @@ class SuttaInfo(Base):
 
     @cached_property
     def tbw(self) -> str | None:
-        if self.sc_code:
+        sc_book_code = self.sc_book_code
+        if self.sc_code and sc_book_code:
             if self.book_code in [
                 "DN",
                 "MN",
@@ -680,10 +693,10 @@ class SuttaInfo(Base):
                 "TH",
                 "THI",
             ]:
-                if self.sc_book_code == "iti":
+                if sc_book_code == "iti":
                     return "https://thebuddhaswords.net/it/it.html"
                 else:
-                    return f"https://thebuddhaswords.net/{self.sc_book_code.lower()}/{self.sc_code.lower()}.html"
+                    return f"https://thebuddhaswords.net/{sc_book_code.lower()}/{self.sc_code.lower()}.html"
             else:
                 return None
         else:
@@ -691,7 +704,8 @@ class SuttaInfo(Base):
 
     @cached_property
     def tbw_legacy(self) -> str | None:
-        if self.sc_code:
+        sc_book_code = self.sc_book_code
+        if self.sc_code and sc_book_code:
             if self.book_code in [
                 "DN",
                 "MN",
@@ -705,10 +719,10 @@ class SuttaInfo(Base):
                 "TH",
                 "THI",
             ]:
-                if self.sc_book_code == "iti":
+                if sc_book_code == "iti":
                     return "https://find.dhamma.gift/bw/it/it.html"
                 else:
-                    return f"https://find.dhamma.gift/bw/{self.sc_book_code.lower()}/{self.sc_code.lower()}.html"
+                    return f"https://find.dhamma.gift/bw/{sc_book_code.lower()}/{self.sc_code.lower()}.html"
             else:
                 return None
         else:
@@ -1396,13 +1410,13 @@ class DpdHeadword(Base):
         return bool(self.family_word)
 
     @cached_property
-    def cf_set(self) -> set[str]:
+    def cf_set(self) -> frozenset[str]:
         from tools.cache_load import load_cf_set
 
         return load_cf_set()
 
     @cached_property
-    def idioms_set(self) -> set[str]:
+    def idioms_set(self) -> frozenset[str]:
         from tools.cache_load import load_idioms_set
 
         return load_idioms_set()

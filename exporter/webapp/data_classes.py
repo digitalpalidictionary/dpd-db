@@ -146,6 +146,12 @@ class AbbreviationsData:
         self.explanation = data["explanation"]
 
 
+class AbbreviationsOtherData:
+    def __init__(self, result: Lookup):
+        self.headword = result.lookup_key
+        self.rows = result.abbrev_other_unpack
+
+
 class EpdData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key

@@ -1,8 +1,1 @@
-{
-  "number": 77,
-  "title": "Add all abbreviations from all P\u0101\u1e37i texts to DPD",
-  "body": "It would be useful to have a complete list of _all_ abbreviations in _all_ P\u0101\u1e37i texts inside DPD, for ease of reference. \n\n- [ ] Add PTS abbreviations (some [here](https://dsal.uchicago.edu/dictionaries/pali/frontmatter/abbreviations.html), also check [Cone](https://gandhari.org/dictionary?section=dop))\n- [ ] Add BJT abbreviations\n- [ ] Add CST Abbreviations (Some, but not all, are [here](https://tipitaka.org/help))\n- [ ] Add SYA Abbreviations \n- [ ] Add MST Abbreviations ([here](https://suttacentral.net/abbreviations?lang=en))\n- [ ] Add DPD Abbreviations \n- [ ] Code to process TSVs and include in exporter\n- [ ] How to present abbreviations? Individually? Grouped?\n- [ ] Update on docs website\n- [ ] Delete old abbreviations from database\n\n",
-  "rationale": "Selected by user",
-  "source": "user",
-  "picked_at": "2026-04-11T14:09:51.057890+00:00"
-}
+{}
