@@ -18,6 +18,10 @@ class GlobalVars:
     db_session = get_db_session(pth.dpd_db_path)
 
 
+def normalize_other_abbreviation_key(key: str) -> str:
+    return key[:-1] if key.endswith(".") else key
+
+
 def add_help(g: GlobalVars):
     print("[green]adding help")
 
@@ -110,11 +114,14 @@ def add_abbreviations_other(g: GlobalVars) -> None:
             g.db_session.delete(r)
 
     rows = read_tsv_dict(g.pth.abbreviations_other_tsv_path)
+    rows.sort(key=lambda row: normalize_other_abbreviation_key(row["abbreviation"]))
 
-    # group rows by abbreviation key
+    # Group by abbreviation after dropping a final full stop so dotted and
+    # undotted forms become one lookup entry. Sorting first by abbreviation
+    # preserves a stable, easy-to-review row order inside each group.
     grouped: dict[str, list[dict[str, str]]] = {}
     for row in rows:
-        key = row["abbreviation"]
+        key = normalize_other_abbreviation_key(row["abbreviation"])
         if not key:
             continue
         entry = {
