@@ -324,7 +324,9 @@ class DatabaseManager:
                     headword = (
                         self.db_session.query(DpdHeadword)
                         .filter(DpdHeadword.id == id)
-                        .filter(DpdHeadword.source_1 == "")
+                        .filter(
+                            DpdHeadword.source_1 == ""
+                        )  # remove to include commentary words
                         .first()
                     )
                     if headword:
