@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 
-from sqlalchemy import delete as sa_delete, desc, func, insert as sa_insert, or_
+from sqlalchemy import delete as sa_delete
+from sqlalchemy import desc, func, or_
+from sqlalchemy import insert as sa_insert
 from sqlalchemy.orm import defer
 from sqlalchemy.orm.session import Session
 
@@ -330,7 +332,7 @@ class DatabaseManager:
                         )  # remove to include commentary words
                         .first()
                     )
-                    if headword:
+                    if headword and is_missing_sutta_example(headword):
                         results_list.append(headword)
 
                 return results_list

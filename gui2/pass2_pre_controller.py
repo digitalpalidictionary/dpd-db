@@ -100,38 +100,38 @@ class Pass2PreController:
                 self.missing_examples_dict[word] = segments
 
     def load_next_word(self):
-        if not self.missing_examples_dict:
-            self.ui.clear_all_fields()
-            self.ui.update_message("No more words to process.")
-            return
-
-        self.word_in_text = list(self.missing_examples_dict.keys())[0]
-        self.ui.update_word_in_text(self.word_in_text)
-        self.ui.update_preprocessed_count(
-            f"{len(self.file_manager.matched)} / {len(self.missing_examples_dict)}"
-        )
-        self.headwords = self.db.get_headwords(self.word_in_text)
-
-        # Skip words with no headwords (empty results from DB)
-        while self.headwords and self.headwords[0] is None:
-            self.missing_examples_dict.pop(self.word_in_text, None)
+        while True:
             if not self.missing_examples_dict:
                 self.ui.clear_all_fields()
                 self.ui.update_message("No more words to process.")
                 return
+
             self.word_in_text = list(self.missing_examples_dict.keys())[0]
+            self.ui.update_word_in_text(self.word_in_text)
+            self.ui.update_preprocessed_count(
+                f"{len(self.file_manager.matched)} / {len(self.missing_examples_dict)}"
+            )
             self.headwords = self.db.get_headwords(self.word_in_text)
 
-        if not self.headwords:
-            # Skip to next word if no headwords found
-            self.missing_examples_dict.pop(self.word_in_text)
-            self.load_next_word()
-            return
+            # Skip words with no headwords (empty results from DB)
+            while self.headwords and self.headwords[0] is None:
+                self.missing_examples_dict.pop(self.word_in_text, None)
+                if not self.missing_examples_dict:
+                    self.ui.clear_all_fields()
+                    self.ui.update_message("No more words to process.")
+                    return
+                self.word_in_text = list(self.missing_examples_dict.keys())[0]
+                self.headwords = self.db.get_headwords(self.word_in_text)
 
-        if not self.missing_examples_dict[self.word_in_text]:
-            self.get_cst_examples()
-        self.headword_index = -1
-        self.load_next_headword()
+            if not self.headwords:
+                self.missing_examples_dict.pop(self.word_in_text)
+                continue
+
+            if not self.missing_examples_dict[self.word_in_text]:
+                self.get_cst_examples()
+            self.headword_index = -1
+            self.load_next_headword()
+            return
 
     def get_cst_examples(self):
         if self.word_in_text:
@@ -146,12 +146,7 @@ class Pass2PreController:
     def load_next_headword(self):
         if self.headword_index + 1 >= len(self.headwords):
             self.missing_examples_dict.pop(self.word_in_text)
-            # Only call load_next_word() if there are still words left
-            if self.missing_examples_dict:
-                self.load_next_word()
-            else:
-                self.ui.clear_all_fields()
-                self.ui.update_message("No more words to process.")
+            self.load_next_word()
             return
 
         self.headword_index += 1

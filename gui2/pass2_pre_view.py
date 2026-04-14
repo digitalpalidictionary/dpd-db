@@ -42,6 +42,11 @@ class Pass2PreProcessView(ft.Column):
         self.exceptions_set: set[str] = toolkit.pass2_exceptions_manager.exceptions_set
         self.selected_sentence_index: int = 0
         self.examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample] = []
+        self.filtered_examples: list[
+            tuple[int, SuttaCentralSegment | CstSourceSuttaExample]
+        ] = []
+        self.examples_page_size: int = 50
+        self.examples_shown: int = 50
 
         # Define controls
         self.message_field = ft.Text(
@@ -334,41 +339,42 @@ class Pass2PreProcessView(ft.Column):
         examples_list: list[SuttaCentralSegment] | list[CstSourceSuttaExample],
     ) -> ft.RadioGroup:
         self.examples_list = examples_list
-        example_controls: list[ft.Control] = []
+        self.examples_shown = self.examples_page_size
+        self._filter_examples()
+        return self._build_examples_radio_group()
 
+    def _filter_examples(self) -> None:
         cleaned_word_in_text = self.controller.clean_quotes(
             self.controller.word_in_text
         )
 
-        # Filter exceptions once based on the cleaned word being part of the exception text
         candidate_exceptions = {
             exc for exc in self.exceptions_set if cleaned_word_in_text in exc
         }
 
         compiled_exception_regex = None
         if candidate_exceptions:
-            # Create a single regex pattern from candidate exceptions.
-            # Each exception text is escaped to ensure it's treated literally.
-            # The pattern looks for any of the candidate exceptions as whole words.
             pattern_parts = [re.escape(exc_text) for exc_text in candidate_exceptions]
             combined_pattern = r"\b(?:" + "|".join(pattern_parts) + r")\b"
             compiled_exception_regex = re.compile(combined_pattern)
 
-        for counter, example in enumerate(examples_list):
-            should_skip = False
-            if compiled_exception_regex:  # Only proceed if there's a compiled regex
+        self.filtered_examples = []
+        for counter, example in enumerate(self.examples_list):
+            if compiled_exception_regex:
                 text_to_search = None
                 if isinstance(example, SuttaCentralSegment):
                     text_to_search = example.pali
                 elif isinstance(example, CstSourceSuttaExample):
                     text_to_search = example.example
-
                 if text_to_search and compiled_exception_regex.search(text_to_search):
-                    should_skip = True
+                    continue
+            self.filtered_examples.append((counter, example))
 
-            if should_skip:
-                continue
+    def _build_examples_radio_group(self) -> ft.RadioGroup:
+        example_controls: list[ft.Control] = []
+        visible = self.filtered_examples[: self.examples_shown]
 
+        for counter, example in visible:
             if isinstance(example, SuttaCentralSegment):
                 source = example.segment
                 sutta = ""
@@ -424,6 +430,20 @@ class Pass2PreProcessView(ft.Column):
                 )
             )
 
+        total = len(self.filtered_examples)
+        if total > self.examples_shown or self.examples_shown > self.examples_page_size:
+            buttons: list[ft.Control] = []
+            if self.examples_shown < total:
+                buttons.append(
+                    ft.TextButton(
+                        f"More ({total - self.examples_shown} remaining)",
+                        on_click=self._handle_more_click,
+                    )
+                )
+            if self.examples_shown > self.examples_page_size:
+                buttons.append(ft.TextButton("Less", on_click=self._handle_less_click))
+            example_controls.append(ft.Row(controls=buttons))
+
         radio_group = ft.RadioGroup(
             content=ft.Column(
                 controls=example_controls,
@@ -434,6 +454,16 @@ class Pass2PreProcessView(ft.Column):
             on_change=self.handle_example_selection_change,
         )
         return radio_group
+
+    def _handle_more_click(self, e) -> None:
+        self.examples_shown += self.examples_page_size
+        examples_controls = self._build_examples_radio_group()
+        self.update_examples(examples_controls)
+
+    def _handle_less_click(self, e) -> None:
+        self.examples_shown = self.examples_page_size
+        examples_controls = self._build_examples_radio_group()
+        self.update_examples(examples_controls)
 
     def handle_example_selection_change(self, e: ft.ControlEvent):
         selected_example_index_str: str | None = e.control.value
