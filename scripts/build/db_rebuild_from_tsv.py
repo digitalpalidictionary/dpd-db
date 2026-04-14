@@ -89,27 +89,17 @@ def get_tsv_files(original_path: Path, base_filename: str) -> List[Path]:
 
 
 def read_tsv_files(file_paths: List[Path]) -> Iterator[Tuple[List[str], List[str]]]:
-    """Read TSV files and yield (columns, row) tuples.
-
-    Handles split files where only the first file has headers.
-    """
+    """Read TSV files and yield (columns, row) tuples."""
     if not file_paths:
         return
 
     columns = None
 
-    for file_idx, file_path in enumerate(file_paths):
+    for file_path in file_paths:
         with open(file_path, "r", newline="") as tsv_file:
             csvreader = csv.reader(tsv_file, delimiter="\t", quotechar='"')
+            columns = next(csvreader)
 
-            # Read headers from first file only
-            if file_idx == 0:
-                columns = next(csvreader)
-            else:
-                # Skip headers for subsequent files
-                next(csvreader)
-
-            # Yield all data rows
             for row in csvreader:
                 if columns:
                     yield columns, row

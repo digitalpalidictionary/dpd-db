@@ -26,43 +26,33 @@ def backup_dpd_headwords_and_roots(pth: ProjectPaths):
     pr.toc()
 
 
-def split_tsv_file(file_path: Path, prefix: str, chunk_size: int = 50000):
+def split_tsv_file(file_path: Path, prefix: str, chunk_size: int = 30000):
     """Split a TSV file into chunks of specified size."""
     pr.green_tmr(f"splitting into chunks of {chunk_size}")
 
     with open(file_path, "r", newline="", encoding="utf-8") as tsvfile:
-        # Read all lines
         lines = list(csv.reader(tsvfile, delimiter="\t"))
 
-        # Separate header from data
         header = lines[0]
         data = lines[1:]
 
-        # Calculate number of chunks needed
         num_chunks = (len(data) + chunk_size - 1) // chunk_size
 
-        # Create chunks
         for i in range(num_chunks):
             start_idx = i * chunk_size
             end_idx = min((i + 1) * chunk_size, len(data))
             chunk_data = data[start_idx:end_idx]
 
-            # Create filename with zero-padded part number
             part_num = f"{i + 1:03d}"
             chunk_filename = file_path.parent / f"{prefix}_part_{part_num}.tsv"
 
-            # Write chunk to file
             with open(chunk_filename, "w", newline="", encoding="utf-8") as chunk_file:
                 writer = csv.writer(
                     chunk_file, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
                 )
-
-                # Write header only for the first part
-                if i == 0:
-                    writer.writerow(header)
+                writer.writerow(header)
                 writer.writerows(chunk_data)
 
-        # Remove original file if we created split files
         if num_chunks > 0:
             file_path.unlink()
 
