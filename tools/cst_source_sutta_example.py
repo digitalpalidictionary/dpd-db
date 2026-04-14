@@ -120,18 +120,18 @@ sn_peyyalas = [
     (48, "1-12. Pācīnādisuttadvādasakaṃ", 93, 104),
     (48, "1-10. Oghādisuttadasakaṃ", 105, 114),
     (49, "1-12. Pācīnādisuttadvādasakaṃ", 1, 12),
-    (49, "1-12. Balakaraṇīyādisuttadvādasakaṃ", 14, 25),
-    (49, "1-10. Esanādisuttadasakaṃ", 26, 35),
-    (49, "1-10. Oghādisuttadasakaṃ", 36, 35),
+    (49, "1-12. Balakaraṇīyādisuttadvādasakaṃ", 23, 34),
+    (49, "1-10. Esanādisuttadasakaṃ", 35, 44),
+    (49, "1-10. Oghādisuttadasakaṃ", 45, 54),
     (50, "1-12. Balādisuttadvādasakaṃ", 1, 12),
-    (50, "1-10. Oghādisuttadasakaṃ", 14, 23),
-    (50, "1-12. Pācīnādisuttadvādasakaṃ", 24, 35),
-    (50, "1-12. Esanādisuttadvādasakaṃ", 36, 47),
-    (50, "1-10. Oghādisuttadasakaṃ", 48, 57),
+    (50, "1-10. Oghādisuttadasakaṃ", 45, 54),
+    (50, "1-12. Pācīnādisuttadvādasakaṃ", 55, 66),
+    (50, "1-12. Esanādisuttadvādasakaṃ", 89, 98),
+    (50, "1-10. Oghādisuttadasakaṃ", 99, 108),
     (51, "1-12. Gaṅgānadīādisuttadvādasakaṃ", 33, 44),
     (51, "1-10. Oghādisuttadasakaṃ", 45, 54),
     (53, "1-12. Jhānādisuttadvādasakaṃ", 1, 12),
-    (53, "1-10. Oghādisuttaṃ", 13, 22),
+    (53, "1-10. Oghādisuttaṃ", 45, 54),
     (56, "6-11. Chedanādisuttaṃ", 96, 101),
     (56, "4-5-6. Manussacutidevanirayādisuttaṃ", 105, 107),
     (56, "7-9. Devacutinirayādisuttaṃ", 108, 110),
@@ -143,6 +143,19 @@ sn_peyyalas = [
     (56, "25-27. Pettimanussanirayādisuttaṃ", 126, 128),
     (56, "28-29. Pettidevanirayādisuttaṃ", 129, 130),
 ]
+
+sn_collapsed_vagga_counts: dict[tuple[int, str], int] = {
+    # Collapsed SN vaggas rendered as "centre" with "vitthāretabbo" text.
+    # These need explicit counter advances so later peyyāla ranges align.
+    (49, "appamādavaggo"): 10,
+    (50, "appamādavaggo"): 10,
+    (50, "balakaraṇīyavaggo"): 12,
+    (50, "esanāvaggo"): 10,
+    (50, "appamāda-balakaraṇīyavaggā"): 22,
+    (53, "appamādavaggo"): 10,
+    (53, "balakaraṇīyavaggo"): 12,
+    (53, "esanāvaggo"): 10,
+}
 
 
 def get_cst_filenames(books: list[str] | str) -> list[str]:
@@ -744,6 +757,17 @@ def sn_samyutta_nikaya(g: GlobalData):
         vagga, vagga_no = get_text_and_number(x.text)
         g.vagga = vagga
         g.vagga_counter = vagga_no
+
+    elif x["rend"] == "centre":
+        text_lower = x.text.strip().lower()
+        if "vitthāretabb" in text_lower:
+            for (
+                samyutta_no,
+                vagga_pattern,
+            ), sutta_count in sn_collapsed_vagga_counts.items():
+                if samyutta_no == g.samyutta_counter and vagga_pattern in text_lower:
+                    g.sutta_counter += sutta_count
+                    break
 
     elif x["rend"] == "subhead":
         sutta_counter_special = ""

@@ -5,3 +5,4 @@
 - 2026-04-11 [REPEATED] Keep helper command layers like `justfile` small and focused on the main workflows instead of adding sample shortcuts the user did not ask for.
 - 2026-04-11 [BEHAVIOR] When updating shared project docs, keep minor feature additions proportional instead of giving them headline-level emphasis.
 - 2026-04-12 [POSITIVE] For finalize flows with archive, deletion, or issue-closing steps, pausing for user confirmation before irreversible actions avoided unnecessary executive decisions.
+- 2026-04-14 [POSITIVE] When a repo-native AI review step is required and the tool is still progressing, wait for completion instead of treating a quiet run as failed too early.
