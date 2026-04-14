@@ -61,6 +61,7 @@ class DatabaseManager:
 
         # root bases
         self.root_bases_key: str = ""
+        self.root_bases_sign: str = ""
         self.root_bases: list[str] = []
         self.root_base_index: int = 0
 
@@ -627,11 +628,30 @@ class DatabaseManager:
             .group_by(DpdHeadword.root_base)
             .all()
         )
-        self.root_bases = sorted([v[0] for v in results if v[0] != ""])
+        all_bases = sorted([v[0] for v in results if v[0] != ""])
 
-    def get_next_root_base(self, root_key) -> str:
-        if root_key != self.root_bases_key:
+        if self.root_bases_sign:
+            sign_parts = self.root_bases_sign.split()
+            filtered = []
+            for base in all_bases:
+                if all(self._sign_part_in_base(part, base) for part in sign_parts):
+                    filtered.append(base)
+            self.root_bases = filtered if filtered else all_bases
+        else:
+            self.root_bases = all_bases
+
+    @staticmethod
+    def _sign_part_in_base(sign_part: str, base: str) -> bool:
+        if f"+ {sign_part}" in base:
+            return True
+        if sign_part.startswith("*") and f"+ {sign_part[1:]}" in base:
+            return True
+        return False
+
+    def get_next_root_base(self, root_key: str, root_sign: str = "") -> str:
+        if root_key != self.root_bases_key or root_sign != self.root_bases_sign:
             self.root_bases_key = root_key
+            self.root_bases_sign = root_sign
             self.root_base_index = 0
             self.get_root_bases()
             if self.root_bases:
@@ -640,7 +660,6 @@ class DatabaseManager:
                 return ""
         else:
             if self.root_bases:
-                # increment by 1 and return to 0 at end of list
                 self.root_base_index = (self.root_base_index + 1) % len(self.root_bases)
                 return self.root_bases[self.root_base_index]
             else:
@@ -655,24 +674,40 @@ class DatabaseManager:
         )
         self.family_roots = sorted([v[0] for v in results if v[0] != ""])
 
-    def get_next_family_root(self, root_key) -> str:
+    def get_next_family_root(self, root_key: str, construction: str = "") -> str:
         if root_key != self.family_root_key:
             self.family_root_key = root_key
             self.family_root_index = 0
             self.get_family_roots()
-            if self.family_roots:
-                return self.family_roots[self.family_root_index]
-            else:
-                return ""
-        else:
-            if self.family_roots:
-                # increment by 1 and return to 0 at end of list
-                self.family_root_index = (self.family_root_index + 1) % len(
-                    self.family_roots
-                )
-                return self.family_roots[self.family_root_index]
-            else:
-                return ""
+
+        if construction:
+            derived = self._derive_family_root(root_key, construction)
+            if derived and derived in self.family_roots:
+                return derived
+
+        if self.family_roots:
+            result = self.family_roots[self.family_root_index]
+            self.family_root_index = (self.family_root_index + 1) % len(
+                self.family_roots
+            )
+            return result
+        return ""
+
+    @staticmethod
+    def _derive_family_root(root_key: str, construction: str) -> str | None:
+        first_line = construction.split("\n")[0]
+        parts = [p.strip() for p in first_line.split("+")]
+        root_idx = None
+        for i, part in enumerate(parts):
+            if "√" in part:
+                root_idx = i
+                break
+        if root_idx is None:
+            return None
+        prefixes = [p for p in parts[:root_idx] if ">" not in p]
+        if prefixes:
+            return " ".join(prefixes) + " " + root_key
+        return root_key
 
     def get_synonyms(
         self, pos: str, string_of_meanings: str, lemma_1: str

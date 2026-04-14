@@ -1100,24 +1100,24 @@ class DpdFields(PopUpMixin):
         self.page.update()
 
     def root_base_submit(self, e: ft.ControlEvent) -> None:
-        """Get root_base from db."""
+        """Get root_base from db, filtered by root_sign."""
 
         field, value = self.get_event_field_and_value(e)
 
-        # show all possible bases
         root_key = self.get_field("root_key").value
-        if root_key:
-            field.value = self.db.get_next_root_base(root_key)
+        root_sign = self.get_field("root_sign").value
+        if root_key and root_sign:
+            field.value = self.db.get_next_root_base(root_key, root_sign)
             self.page.update()
             field.focus()
 
     def family_root_submit(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
 
-        # show all possible bases
         root_key = self.get_field("root_key").value
         if root_key:
-            field.value = self.db.get_next_family_root(root_key)
+            construction = self.get_field("construction").value or ""
+            field.value = self.db.get_next_family_root(root_key, construction)
             self.page.update()
             field.focus()
 
