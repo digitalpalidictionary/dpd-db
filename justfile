@@ -258,6 +258,10 @@ decon-on:
 decon:
     go run ./go_modules/deconstructor
 
+# Run the Go frequency tables
+freq:
+    go run ./go_modules/frequency
+
 # Set data limit to 100
 limit100:
     uv run python -c "from tools.configger import config_update; config_update('dictionary', 'data_limit', '100')"

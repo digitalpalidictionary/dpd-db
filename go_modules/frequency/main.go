@@ -2,12 +2,14 @@ package main
 
 import (
 	"bytes"
+	"dpd/go_modules/deconstructor/workerpool"
 	"dpd/go_modules/dpdDb"
 	"dpd/go_modules/frequency/gradient"
 	"dpd/go_modules/tools"
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"slices"
 	"strings"
 	"sync"
@@ -31,7 +33,6 @@ var ScFileFreqMap = map[string]map[string]int{}
 
 var htmlStash = map[int]string{}
 var dataStash = map[int]string{}
-var wg sync.WaitGroup
 var mu sync.Mutex
 
 func init() {
@@ -87,16 +88,22 @@ func main() {
 	tools.PGreenTitle("making html & data")
 	var db, results = dpdDb.GetDpdHeadword()
 
-	for index, i := range results {
-		if index%10000 == 0 {
-			tools.PCounter(index, len(results), i.Lemma1)
+	numWorkers := runtime.NumCPU() * 2
+	jobs := make(chan dpdDb.DpdHeadword, numWorkers*2)
+
+	go func() {
+		for index, i := range results {
+			if index%10000 == 0 {
+				tools.PCounter(index, len(results), i.Lemma1)
+			}
+			if i.POS != "idiom" {
+				jobs <- i
+			}
 		}
-		if i.POS != "idiom" {
-			wg.Add(1)
-			go makeFreqTable(i)
-		}
-	}
-	wg.Wait()
+		close(jobs)
+	}()
+
+	workerpool.Run(numWorkers, jobs, makeFreqTable)
 	updateDb(db, results)
 	tic.Toc()
 }
@@ -207,8 +214,6 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 	htmlStash[i.ID] = html
 	dataStash[i.ID] = jsonData
 	mu.Unlock()
-
-	wg.Done()
 }
 
 func freqFinder(
