@@ -137,8 +137,6 @@ class FilterComponent(ft.Column):
         # Wrap in containers for proper scrolling
         table_container = ft.Container(
             content=self.results_table,
-            expand=True,
-            width=1350,  # Fixed width for horizontal scrolling
         )
 
         # Horizontal scroll for wide tables
@@ -260,8 +258,6 @@ class FilterComponent(ft.Column):
         # Calculate column widths based on content
         column_widths = {}
         if self.filtered_results:
-            # Calculate max length for each column
-            max_lengths = {}
             for col_name in display_columns:
                 max_len = len(col_name)
                 for result in self.filtered_results:
@@ -273,16 +269,8 @@ class FilterComponent(ft.Column):
                     else:
                         value_str = str(value)
                     max_len = max(max_len, len(value_str))
-                max_lengths[col_name] = max_len
-
-            # Calculate proportional widths
-            total_max_len = sum(max_lengths.values())
-            if total_max_len > 0:
-                for col_name in display_columns:
-                    # Proportionate width
-                    width = (max_lengths[col_name] / total_max_len) * 1200
-                    # Apply min/max constraints
-                    column_widths[col_name] = max(50, min(width, 800))
+                width = max(120, min(max_len * 8, 500))
+                column_widths[col_name] = width
 
         # Create columns
         self.results_table.columns.append(ft.DataColumn(label=ColumnText("#", 40)))
