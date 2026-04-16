@@ -252,7 +252,11 @@ class FilterComponent(ft.Column):
         if not display_columns:
             # Add a default column to avoid AssertionError
             self.results_table.columns.append(ft.DataColumn(label=ft.Text("ID")))
-            self.page.update()
+            try:
+                self.update()
+            except Exception:
+                if self.page:
+                    self.page.update()
             return
 
         # Calculate column widths based on content
@@ -327,7 +331,11 @@ class FilterComponent(ft.Column):
                 )
             )
 
-        self.page.update()
+        try:
+            self.update()
+        except Exception:
+            if self.page:
+                self.page.update()
 
     def _save_changes(self, e: ft.ControlEvent) -> None:
         """Save any changes back to the database."""
@@ -417,7 +425,11 @@ class FilterComponent(ft.Column):
     def _spell_check_cell(self, e: ft.ControlEvent) -> None:
         """Spell check cell content and update border."""
         self._check_and_set_spell_border(e.control, e.control.value)
-        self.page.update()
+        try:
+            e.control.update()
+        except Exception:
+            if self.page:
+                self.page.update()
 
     def _on_cell_change(
         self, e: ft.ControlEvent, row_index: int, col_name: str

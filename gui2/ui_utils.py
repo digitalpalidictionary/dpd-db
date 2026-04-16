@@ -28,4 +28,3 @@ def show_global_snackbar(
         duration=duration,
     )
     page.open(snackbar)
-    page.update()
