@@ -347,6 +347,7 @@ bh
 bha
 Bhaddasārī
 Bhaddekarattasutta
+Bhaddiya
 Bhaddāli
 Bhadraka
 Bhadraka's
@@ -629,6 +630,7 @@ Cyperus
 Cyprinus
 cā
 Cāla
+Cāpāla
 Cātumā
 Cūḷaniddesa
 Cūḷanī
@@ -710,6 +712,7 @@ dhamma
 Dhamma
 dhamma-ness
 Dhamma-related
+Dhammadinna
 dhammakaraka
 Dhammapada
 Dhanañjāni
@@ -785,6 +788,7 @@ DN21
 DN21Sakkapañhasuttaṃ
 doesn't
 doggerel
+Dolichandrone
 Dolichos
 donax
 doorjamb
@@ -807,8 +811,11 @@ dukkha
 dukkhudraya
 dus
 dustcloth
+Dutiyabhayaverūpasantasutta
+Dutiyadevacārikasutta
 Dutiyaejāsutta
 Dutiyajhānapañhāsutta
+Dutiyakaṇḍakīsutta
 Dutiyanatumhākasutta
 duvaṅgika
 dvanda
@@ -820,6 +827,7 @@ Dārucīriya
 Dārupattika
 Dīgha
 Dīghanikāya
+Dīghāvu
 ear-les
 earthless
 Echinochloa
@@ -1033,6 +1041,7 @@ goatherd's
 Godatta
 Godavar
 Godavari
+Godhā
 Godhāvarī
 Godāvarī
 goiter
@@ -1149,6 +1158,7 @@ Hāliddikānisutta
 hāsupañño
 hū
 I.B
+Icchānaṅgala
 Iddhipādasaṃyuttaṃ
 ideation
 ideational
@@ -1385,6 +1395,7 @@ khāri
 Khāṇumata
 kilometre
 kilometres
+Kimila
 kinnara
 Kisa
 Kisakas
@@ -1449,6 +1460,7 @@ Kāsians
 Kātiyāna
 Kāyagatāsatisutta
 Kāḷaka
+Kāḷigodha
 Kāḷudāyi
 kī
 Kīṭāgiri
@@ -1796,6 +1808,7 @@ na
 Nadubbhiyasuttaṃ
 nakhā
 Nanda
+Nandaka
 Nandiya
 Natumhākasutta
 Nauclea
@@ -1995,8 +2008,12 @@ paṇḍuka
 paṇḍupuṭaka
 paṇḍupuṭakassa
 paṭapaṭa
+Paṭhamabhayaverūpasantasutta
+Paṭhamabhayaverūpasantasutta
+Paṭhamadevacārikasutta
 Paṭhamaejāsutta
 Paṭhamajhānapañhāsutta
+Paṭhamakaṇḍakīsutta
 paṭibhastāni
 paṭighanimitta
 Paṭisambhidā
@@ -2275,6 +2292,7 @@ Rāhula
 Rāhula's
 Rāhulasaṃyuttaṃ
 Rājagaha
+Rājakārāma
 Rāma
 Rāma's
 Rāmagāma
@@ -2296,6 +2314,7 @@ safflower
 sagacity
 sagehood
 saha
+Sahampati
 sahasakkha
 sakhilabhāve
 Sakka
@@ -2313,6 +2332,7 @@ Sakya
 Sakyan
 Sakyans
 sal
+Salaḷāgāra
 samadhi
 Samantapāsādikā
 samarangense
@@ -2341,6 +2361,7 @@ sapwood
 Sarabhū
 Saraca
 saravanaṃ
+Saraṇāni
 sassata
 sati
 satiates
@@ -2477,6 +2498,7 @@ Soṇa
 Soṇa
 Soṇadaṇḍa
 Soṇadaṇḍa's
+spathacea
 spellicans
 spillikins
 spinosa
@@ -2494,6 +2516,7 @@ ssa
 st
 stabilises
 stableman
+stableness
 statecraft
 steadfastness
 steamrolls
@@ -2630,6 +2653,7 @@ sīma
 Sīva
 Sīvaka
 sū
+Sūkarakhatā
 sūpasampanna
 Sūrasena
 Sūrasenas
@@ -2649,6 +2673,8 @@ tappurisa
 tasselled
 tastable
 Tathāgata
+Tatiyadevacārikasutta
+Tatiyakaṇḍakīsutta
 Tavatimsa
 Taxila
 Tayana
@@ -3010,6 +3036,7 @@ Uyana
 uṃ
 uṇa
 uṇā
+Uṇṇābha
 vac
 Vaccha
 Vacchagotta
@@ -3029,6 +3056,7 @@ Vajjī
 Vajjīs
 Vallisnaria
 Vallisneria
+valour
 valuator
 vanquishable
 Varanasi
@@ -3083,6 +3111,8 @@ Vessāmitta
 Vesālī
 Vetaric
 vetiver
+Veḷudvāra
+Veḷudvāreyyasutta
 Veḷuva
 veṭhamissakena
 Veṭṭhadīpa
@@ -3267,30 +3297,6 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Uṇṇābha
-Sūkarakhatā
-stableness
-Sahampati
-Dolichandrone
-spathacea
-Cāpāla
-valour
-Salaḷāgāra
-Paṭhamakaṇḍakīsutta
-Dutiyakaṇḍakīsutta
-Tatiyakaṇḍakīsutta
-Kimila
-Icchānaṅgala
-Veḷudvāra
-Dīghāvu
-Veḷudvāreyyasutta
-Rājakārāma
-Saraṇāni
-Godhā
-Nandaka
-Paṭhamabhayaverūpasantasutta
-Paṭhamabhayaverūpasantasutta
-Dutiyabhayaverūpasantasutta
-Kāḷigodha
-Bhaddiya
-Dhammadinna
+Koṭigāma
+Koṭi
+Gavampati
