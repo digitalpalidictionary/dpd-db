@@ -142,7 +142,7 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig(
                 "meaning_lit",
-                on_blur=self._handle_generic_spell_check,
+                field_type="meaning",
             ),
             FieldConfig(
                 "meaning_2",

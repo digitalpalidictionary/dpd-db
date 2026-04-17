@@ -44,6 +44,14 @@ class DpdMeaningField(ft.Column):
             on_blur=self._handle_on_blur,
         )
 
+        # Selectable text for spell check suggestions
+        self.spell_suggestions = ft.Text(
+            selectable=True,
+            color=ft.Colors.RED,
+            size=12,
+            visible=False,
+        )
+
         # Field to add words to the dictionary
         self.add_to_dict_field = ft.TextField(
             label="Add spelling ",
@@ -54,8 +62,11 @@ class DpdMeaningField(ft.Column):
             color=ft.Colors.RED,
         )
 
+        self._skip_spell_check = False
+
         self.controls = [
             self.meaning_field,
+            self.spell_suggestions,
             ft.Row(
                 [self.add_to_dict_field],
                 spacing=5,
@@ -107,16 +118,38 @@ class DpdMeaningField(ft.Column):
         word_to_add = e.control.value
         if word_to_add:
             message = self.spellchecker.add_to_dictionary(word_to_add)
-            self.ui.update_message(message)
             e.control.value = ""
-            if self.page:
-                self.page.update()
+
+            # Remove the added word from existing error text
+            # instead of re-running the full spell check
+            self._remove_word_from_spell_errors(word_to_add)
+
+            self.ui.update_message(message)
+            self._skip_spell_check = True
             self.meaning_field.focus()
+
+    def _remove_word_from_spell_errors(self, word: str):
+        """Remove a word from the displayed spell check errors without re-running check."""
+        current = self.spell_suggestions.value
+        if not current:
+            return
+
+        # Error format: "word1: sug1, sug2. word2: sug3, sug4"
+        parts = [p.strip() for p in current.split(". ") if p.strip()]
+        filtered = [p for p in parts if not p.startswith(f"{word}:")]
+        if filtered:
+            self.spell_suggestions.value = ". ".join(filtered)
+        else:
+            self.spell_suggestions.value = None
+            self.spell_suggestions.visible = False
 
     def _handle_on_focus(self, e: ft.ControlEvent):
         """Handle focus on meaning field, including spell check and callback."""
         if self.on_focus_callback:
             self.on_focus_callback(e)
+        if self._skip_spell_check:
+            self._skip_spell_check = False
+            return
         self._handle_spell_check(e)
 
     def _handle_on_blur(self, e: ft.ControlEvent):
@@ -137,8 +170,10 @@ class DpdMeaningField(ft.Column):
                     for word, suggestions in misspelled.items()  # type: ignore
                 ]
             )
-            field.error_text = error_string
+            self.spell_suggestions.value = error_string
+            self.spell_suggestions.visible = True
         else:
-            field.error_text = None
+            self.spell_suggestions.value = None
+            self.spell_suggestions.visible = False
         if self.page:
             self.page.update()
