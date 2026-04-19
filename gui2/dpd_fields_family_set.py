@@ -107,7 +107,6 @@ class DpdFamilySetField(ft.Column):
                     if suggestion_strings
                     else "Unknown set(s)"
                 )
-                textfield_control.focus()
             else:
                 textfield_control.error_text = None
         else:
