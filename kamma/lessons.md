@@ -6,3 +6,7 @@
 - 2026-04-11 [BEHAVIOR] When updating shared project docs, keep minor feature additions proportional instead of giving them headline-level emphasis.
 - 2026-04-12 [POSITIVE] For finalize flows with archive, deletion, or issue-closing steps, pausing for user confirmation before irreversible actions avoided unnecessary executive decisions.
 - 2026-04-14 [POSITIVE] When a repo-native AI review step is required and the tool is still progressing, wait for completion instead of treating a quiet run as failed too early.
+- 2026-04-19 [REPEATED] When renaming a variable mid-edit, scan ALL usages of the old name in the same function before saving — the ok_map → paste_map rename missed the call site and caused a runtime NameError.
+- 2026-04-19 [BEHAVIOR] Running suttas_update.py overwrites the backup TSV from the Google Sheet. Warn before running any script that modifies source data files, even if it is in the plan.
+- 2026-04-19 [REPEATED] When user says "keep going all the way to the end", do not stop and ask permission for individual script runs that are in the plan. Only pause for genuinely destructive or irreversible actions.
+- 2026-04-19 [CONFUSION] Conflated "aliases" with "variants" (user's term for dpd_sutta_var values). Use the user's terminology from the start.

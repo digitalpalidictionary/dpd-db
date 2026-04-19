@@ -2,11 +2,11 @@
 
 import json
 import re
-from functools import cached_property
+from functools import cached_property, lru_cache
 from typing import List, Optional
 
 from aksharamukha import transliterate
-from sqlalchemy import DateTime, ForeignKey, and_, case, null, or_
+from sqlalchemy import DateTime, ForeignKey, and_, case, null
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import (
     DeclarativeBase,
@@ -747,18 +747,18 @@ class SuttaInfo(Base):
 
     @cached_property
     def sutta_info_count(self) -> int:
+        all_names: set[str] = {self.dpd_sutta}
+        if self.dpd_sutta_var:
+            for alias in self.dpd_sutta_var.split(";"):
+                alias = alias.strip()
+                if alias:
+                    all_names.add(alias)
         db_session = object_session(self)
         if db_session is None:
-            raise Exception("No db_session")
-
+            return 0
         return (
-            db_session.query(SuttaInfo)
-            .filter(
-                or_(
-                    DpdHeadword.lemma_1 == self.dpd_sutta,
-                    DpdHeadword.lemma_1 == self.dpd_sutta_var,
-                )
-            )
+            db_session.query(DpdHeadword)
+            .filter(DpdHeadword.lemma_1.in_(all_names))
             .count()
         )
 
@@ -839,6 +839,26 @@ class SuttaInfo(Base):
             return f"https://open.tipitaka.lk/latn/{self.bjt_web_code}"
         else:
             return None
+
+
+@lru_cache(maxsize=1)
+def _load_sutta_alias_map() -> dict[str, str]:
+    """Return a dict mapping every sutta name (canonical + aliases) to its canonical dpd_sutta key."""
+    from db.db_helpers import get_db_session
+    from tools.paths import ProjectPaths
+
+    pth = ProjectPaths()
+    with get_db_session(pth.dpd_db_path) as db:
+        rows = db.query(SuttaInfo.dpd_sutta, SuttaInfo.dpd_sutta_var).all()
+    result: dict[str, str] = {}
+    for dpd_sutta, dpd_sutta_var in rows:
+        result[dpd_sutta] = dpd_sutta
+        if dpd_sutta_var:
+            for alias in dpd_sutta_var.split(";"):
+                alias = alias.strip()
+                if alias:
+                    result[alias] = dpd_sutta
+    return result
 
 
 class DpdHeadword(Base):
@@ -945,7 +965,16 @@ class DpdHeadword(Base):
     it: Mapped[InflectionTemplates] = relationship()
 
     # sutta info
-    su: Mapped[SuttaInfo] = relationship()
+    @cached_property
+    def su(self) -> "SuttaInfo | None":
+        alias_map = _load_sutta_alias_map()
+        canonical = alias_map.get(self.lemma_1)
+        if canonical is None:
+            return None
+        db_session = object_session(self)
+        if db_session is None:
+            return None
+        return db_session.get(SuttaInfo, canonical)
 
     @hybrid_property
     def root_family_key(self):  # type:ignore

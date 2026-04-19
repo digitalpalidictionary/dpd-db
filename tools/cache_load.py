@@ -21,8 +21,13 @@ def load_sutta_info_set() -> frozenset[str]:
             .filter(SuttaInfo.dpd_code != "")
             .all()
         )
-        sutta_info_cache = set([i[0] for i in db])
-        # sutta_info_cache.update([i[1] for i in db if i[1]]) exclude for now
+        sutta_info_cache: set[str] = {i[0] for i in db}
+        for _, dpd_sutta_var in db:
+            if dpd_sutta_var:
+                for alias in dpd_sutta_var.split(";"):
+                    alias = alias.strip()
+                    if alias:
+                        sutta_info_cache.add(alias)
         return frozenset(sutta_info_cache)
 
 
