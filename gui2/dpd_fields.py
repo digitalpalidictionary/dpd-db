@@ -752,7 +752,7 @@ class DpdFields(PopUpMixin):
                     meaning_lit_field.update()
                     self.page.update()
                 elif lemma_clean.endswith("vagga"):
-                    meaning_lit_field.value = "chapter on "
+                    meaning_lit_field.value = "section on "
                     meaning_lit_field.update()
                     self.page.update()
 
