@@ -769,6 +769,15 @@ class SuttaInfo(Base):
         return make_list_of_sutta_codes(self)
 
     @cached_property
+    def is_vagga(self) -> bool:
+        names = [self.dpd_sutta, self.dpd_sutta_var]
+        if any("vagga" in name or "vaggo" in name for name in names if name):
+            return True
+        return "-" in self.dpd_code and bool(
+            self.cst_vagga or self.sc_vagga or self.bjt_vagga
+        )
+
+    @cached_property
     def dv_exists(self) -> bool:
         if (
             self.dv_pts

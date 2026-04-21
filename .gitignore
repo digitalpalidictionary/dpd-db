@@ -12,6 +12,8 @@
 .venv
 .vscode/
 .zed/tasks.json
+/.qwen
+__init__.py
 __pycache__/
 archive/db/bold_definitions/bold_definitions.json
 archive/db/bold_definitions/bold_definitions.tsv
@@ -106,9 +108,9 @@ scripts/extractor/extract_cone.tsv
 scripts/extractor/extract_cpd.tsv
 scripts/find/most_common_missing_words.tsv
 scripts/find/most_common_missing_words_old.tsv
-scripts/variants/phonetic_variant_candidates.tsv
 scripts/suttas/cst/*.tsv
 scripts/suttas/sc/*.tsv
+scripts/variants/phonetic_variant_candidates.tsv
 shared_data/changed_headwords
 shared_data/changed_templates
 shared_data/frequency/*.json
@@ -117,4 +119,3 @@ temp/
 token.json
 tools/ai_models.json
 typescript
-/.qwen
