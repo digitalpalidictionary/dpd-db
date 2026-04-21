@@ -162,7 +162,7 @@ def extract_data(g: GlobalVars):
                         g.this_sutta = f"{g.this_sutta_num}. {clean_string(entry_text)}"
                         if g.this_vagga_special:
                             g.this_web_code = f"{g.tsv_filename}-{g.this_major_section_num}-{g.this_book_num}-9-{g.this_vagga_num}-{g.this_sutta_num}"
-                        elif g.this_vagga_num:
+                        elif g.this_vagga_num and g.this_vagga:
                             g.this_web_code = f"{g.tsv_filename}-{g.this_major_section_num}-{g.this_book_num}-{g.this_vagga_num}-{g.this_sutta_num}"
                         else:
                             g.this_web_code = f"{g.tsv_filename}-{g.this_major_section_num}-{g.this_book_num}-{g.this_sutta_num}"
