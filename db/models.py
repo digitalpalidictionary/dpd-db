@@ -647,6 +647,41 @@ class SuttaInfo(Base):
         return False
 
     @cached_property
+    def sc_vagga_link(self) -> str | None:
+        import unicodedata
+
+        book_code = self.sc_book_code
+        if not book_code:
+            return None
+
+        # DHP vagga pages use the verse range directly (e.g. dhp76-89)
+        if book_code.lower() == "dhp":
+            return f"https://suttacentral.net/{self.dpd_code.lower()}"
+
+        if not self.sc_vagga:
+            return None
+
+        # Strip leading "N. " numbering (e.g. "1. Buddhavagga" → "Buddhavagga")
+        vagga_name = re.sub(r"^\d+\.\s*", "", self.sc_vagga)
+
+        slug = "".join(
+            c
+            for c in unicodedata.normalize("NFD", vagga_name)
+            if unicodedata.category(c) != "Mn"
+        ).lower()
+
+        # SN/AN include the section number (samyutta/nipāta) in the prefix.
+        # Derive from dpd_code (e.g. SN12.1-10 → sn12, AN8.51-60 → an8).
+        # MN/DN/KN have no section level, so just use the book code (e.g. mn).
+        m = re.match(r"^([A-Za-z]+)(\d+)\.(\d+)", self.dpd_code)
+        if m:
+            prefix = f"{m.group(1)}{m.group(2)}".lower()
+        else:
+            prefix = book_code.lower()
+
+        return f"https://suttacentral.net/{prefix}-{slug}"
+
+    @cached_property
     def sc_book_code(self) -> str | None:
         if self.sc_code:
             return re.sub(r"\d+\.*-*\d*", "", self.sc_code)

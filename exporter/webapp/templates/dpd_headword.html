@@ -361,13 +361,18 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_card_link %}
+        {% if d.su.sc_card_link or d.su.sc_vagga_link %}
         <tr>
             <th>
                 Links
             </th>
             <td>
-                {% if d.su.sc_code %}
+                {% if d.su.is_vagga and d.su.sc_vagga_link %}
+                <a href="{{ d.su.sc_vagga_link }}" target="_blank">SC Vagga Card</a>,
+                <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
+                <a href="{{ d.su.sc_eng_link }}" target="_blank">English
+                    Translation</a>
+                {% elif d.su.sc_code %}
                 <a href="{{ d.su.sc_card_link }}" target="_blank">SC
                     Card</a>,
                 <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
