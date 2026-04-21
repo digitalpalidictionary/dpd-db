@@ -10,3 +10,6 @@
 - 2026-04-19 [BEHAVIOR] Running suttas_update.py overwrites the backup TSV from the Google Sheet. Warn before running any script that modifies source data files, even if it is in the plan.
 - 2026-04-19 [REPEATED] When user says "keep going all the way to the end", do not stop and ask permission for individual script runs that are in the plan. Only pause for genuinely destructive or irreversible actions.
 - 2026-04-19 [CONFUSION] Conflated "aliases" with "variants" (user's term for dpd_sutta_var values). Use the user's terminology from the start.
+- 2026-04-21 [CONFUSION] Attempted to strip homonym suffixes from lemma_1 in dpd_sutta/dpd_sutta_var, but these must stay verbatim for DB lookup to work. Check downstream usage before transforming identifiers.
+- 2026-04-21 [REPEATED] When the user says "treat each book as a separate case", don't propose a single generalised fallback — address each book's quirks explicitly.
+- 2026-04-21 [BEHAVIOR] After fixing a header-stripping bug that changes the effective column count, verify the hardcoded assertion is still consistent before declaring the fix done.
