@@ -11,8 +11,6 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from icecream import ic
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from scripts.add.vagga_codes.shared import ANY_CODE_RE, DPD_CODE_RE
@@ -81,23 +79,41 @@ def load_sutta_info() -> tuple[
 
 
 def load_vagga_headwords(db_session) -> list[tuple[int, str, str]]:
-    """Return list of (id, lemma_1, dpd_code) for vagga headwords."""
+    """Return list of (id, lemma_1, dpd_code) for vagga/paṇṇāsaka/saṃyuttapāḷi/saṃyutta headwords."""
     results: list[tuple[int, str, str]] = []
 
     headwords = (
         db_session.query(DpdHeadword)
-        .filter(DpdHeadword.lemma_1.regexp_match(r"vagga\b"))
+        .filter(
+            DpdHeadword.lemma_1.regexp_match(
+                r"vagga(pāḷi)?\b|paṇṇāsaka\b|paṇṇāsapāḷi\b|saṃyuttapāḷi\b"
+            )
+        )
         .all()
     )
-
     for hw in headwords:
         if not hw.meaning_1:
             continue
         m = ANY_CODE_RE.search(hw.meaning_1)
         if not m:
             continue
-        dpd_code = m.group(1)
-        results.append((hw.id, hw.lemma_1, dpd_code))
+        results.append((hw.id, hw.lemma_1, m.group(1)))
+
+    samyutta_hws = (
+        db_session.query(DpdHeadword)
+        .filter(
+            DpdHeadword.lemma_1.regexp_match(r"saṃyutta\b"),
+            DpdHeadword.family_set.contains("saṃyuttas of the Saṃyutta Nikāya"),
+        )
+        .all()
+    )
+    for hw in samyutta_hws:
+        if not hw.meaning_1:
+            continue
+        m = ANY_CODE_RE.search(hw.meaning_1)
+        if not m:
+            continue
+        results.append((hw.id, hw.lemma_1, m.group(1)))
 
     return results
 
@@ -115,7 +131,12 @@ def group_by_code(
 
     result: dict[str, tuple[str, str]] = {}
     for dpd_code, members in grouped.items():
-        members.sort(key=lambda x: x[0])
+        members.sort(
+            key=lambda x: (
+                0 if x[1].endswith(("vaggapāḷi", "paṇṇāsapāḷi", "saṃyuttapāḷi")) else 1,
+                x[0],
+            )
+        )
         primary = members[0][1]
         variants = "; ".join(lm for _, lm in members[1:])
         result[dpd_code] = (primary, variants)
@@ -152,6 +173,14 @@ def resolve_source_row(
     book = m.group(1) if m else ""
 
     if book == "SN":
+        # Book-level SN range (e.g. SN1-11 → first_sutta SN1): try SN1.1
+        if "." not in first_sutta:
+            outer = m.group(2) if m else ""
+            dotted = f"SN{outer}.1"
+            row = start_map.get(dotted)
+            if row is not None:
+                return row, "ok:sn_book_level"
+
         # Prefix match: sutta_info may store the range with a slightly different end
         row = start_map.get(first_sutta)
         if row is not None:
@@ -186,18 +215,14 @@ def main() -> None:
         load_sutta_info()
     )
     assert len(headers) == 44, f"Expected 44 columns, got {len(headers)}"
-    ic(len(exact_map))
     pr.yes(str(len(exact_map)))
 
     pr.green_tmr("Loading vagga headwords from DB")
     vagga_entries = load_vagga_headwords(db_session)
-    ic(len(vagga_entries))
-    ic(vagga_entries[:5])
     pr.yes(str(len(vagga_entries)))
 
     pr.green_tmr("Grouping by dpd_code")
     grouped = group_by_code(vagga_entries)
-    ic(len(grouped))
     pr.yes(str(len(grouped)))
 
     code_position: dict[str, int] = {c: i for i, c in enumerate(ordered_codes)}
@@ -233,11 +258,35 @@ def main() -> None:
             miss_row["status"] = status
             miss_rows.append(miss_row)
 
-    ic(len(ok_rows), len(miss_rows))
     pr.yes(f"{len(ok_rows)}ok/{len(miss_rows)}miss")
 
     pr.green_tmr("Sorting output rows")
-    ok_rows.sort(key=lambda r: code_position.get(r.pop("_anchor"), 999999))
+    sn_first_pos = min(
+        (code_position[c] for c in code_position if c.startswith("SN")),
+        default=999999,
+    )
+
+    def _sort_key(r: dict) -> tuple[int, int, int, int]:
+        sutta = r["dpd_sutta"]
+        code = r["dpd_code"]
+        if code.startswith("SN"):
+            m = DPD_CODE_RE.match(code)
+            outer = int(m.group(2)) if m else 999
+            inner = int(m.group(3)) if m and m.group(3) else 0
+            if sutta.endswith("saṃyuttapāḷi"):
+                tier = 0
+            elif "." not in code and "-" not in code:
+                tier = 1  # individual saṃyutta (SN1, SN22, etc.)
+            else:
+                tier = 2  # vagga
+            return (sn_first_pos, tier, outer, inner)
+        pos = code_position.get(r["_anchor"], 999999)
+        is_pali = 0 if sutta.endswith("pāḷi") else 1
+        return (pos, is_pali, 0, 0)
+
+    ok_rows.sort(key=_sort_key)
+    for r in ok_rows:
+        r.pop("_anchor", None)
     miss_rows.sort(key=lambda r: r["dpd_code"])
 
     all_rows = ok_rows + miss_rows

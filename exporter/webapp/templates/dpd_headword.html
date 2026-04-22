@@ -1,6 +1,7 @@
 <!-- summary -->
 
 {% set is_vagga = d.su.is_vagga if d.su else false %}
+{% set is_samyutta = d.su.is_samyutta if d.su else false %}
 
 <h3 class="dpd" id="{{ d.i.lemma_1_ }}">{{d.i.lemma_1}}</h3>
 <div class="dpd summary">
@@ -24,7 +25,7 @@
 
     {% if d.i.needs_sutta_info_button %}
     <a class="dpd-button" name="sutta-info-button" href="#" data-target="sutta_info_{{d.i.lemma_1_}}">
-        {% if is_vagga %}vagga{% else %}sutta{% endif %}</a>
+        {% if is_samyutta %}saṃyutta{% elif is_vagga %}vagga{% else %}sutta{% endif %}</a>
 
     {% endif %}
 
@@ -133,7 +134,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.cst_vagga %}
+        {% if d.su.cst_vagga and not is_samyutta %}
         <tr>
             <th>
                 Vagga
@@ -144,7 +145,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.cst_sutta and not is_vagga %}
+        {% if d.su.cst_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Sutta
@@ -317,7 +318,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_vagga %}
+        {% if d.su.sc_vagga and not is_samyutta %}
         <tr>
             <th>
                 Vagga
@@ -328,7 +329,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_sutta and not is_vagga %}
+        {% if d.su.sc_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Sutta
@@ -339,7 +340,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_eng_sutta and not is_vagga %}
+        {% if d.su.sc_eng_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Title
@@ -350,7 +351,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_blurb and not is_vagga %}
+        {% if d.su.sc_blurb and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Blurb
@@ -372,6 +373,8 @@
                 <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
                 <a href="{{ d.su.sc_eng_link }}" target="_blank">English
                     Translation</a>
+                {% elif is_samyutta and d.su.sc_vagga_link %}
+                <a href="{{ d.su.sc_vagga_link }}" target="_blank">SC Saṃyutta Card</a>
                 {% elif d.su.sc_code %}
                 <a href="{{ d.su.sc_card_link }}" target="_blank">SC
                     Card</a>,
@@ -546,7 +549,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.bjt_vagga %}
+        {% if d.su.bjt_vagga and not is_samyutta %}
         <tr>
             <th>
                 Vagga
@@ -557,7 +560,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.bjt_sutta and not is_vagga %}
+        {% if d.su.bjt_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Sutta
@@ -701,7 +704,9 @@
 
         <!-- DV catalogue -->
 
-        {% if d.su.dv_exists and not is_vagga %}
+        {% if not is_vagga and not is_samyutta %}
+
+        {% if d.su.dv_exists %}
         <tr>
             <th class="heading" colspan="2">
                 Dhamma Vinaya Tools: Sutta Catalogue
@@ -709,7 +714,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_pts and not is_vagga %}
+        {% if d.su.dv_pts %}
         <tr>
             <th>
                 PTS
@@ -720,7 +725,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_main_theme and not is_vagga %}
+        {% if d.su.dv_main_theme %}
         <tr>
             <th>
                 General Theme
@@ -731,7 +736,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_subtopic and not is_vagga %}
+        {% if d.su.dv_subtopic %}
         <tr>
             <th>
                 Particular Topic
@@ -742,7 +747,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_summary and not is_vagga %}
+        {% if d.su.dv_summary %}
         <tr>
             <th>
                 Summary
@@ -753,7 +758,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_key_excerpt1 and not is_vagga %}
+        {% if d.su.dv_key_excerpt1 %}
         <tr>
             <th>
                 Key Excerpts 1
@@ -764,7 +769,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_key_excerpt2 and not is_vagga %}
+        {% if d.su.dv_key_excerpt2 %}
         <tr>
             <th>
                 Key Excerpts 2
@@ -775,7 +780,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_similes and not is_vagga %}
+        {% if d.su.dv_similes %}
         <tr>
             <th>
                 Similes
@@ -786,7 +791,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_stage and not is_vagga %}
+        {% if d.su.dv_stage %}
         <tr>
             <th>
                 Stage of Training
@@ -797,7 +802,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_training and not is_vagga %}
+        {% if d.su.dv_training %}
         <tr>
             <th>
                 Training In
@@ -808,7 +813,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_aspect and not is_vagga %}
+        {% if d.su.dv_aspect %}
         <tr>
             <th>
                 Type of Teaching
@@ -819,7 +824,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_teacher and not is_vagga %}
+        {% if d.su.dv_teacher %}
         <tr>
             <th>
                 Teacher
@@ -830,7 +835,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_audience and not is_vagga %}
+        {% if d.su.dv_audience %}
         <tr>
             <th>
                 Audience
@@ -841,7 +846,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_method and not is_vagga %}
+        {% if d.su.dv_method %}
         <tr>
             <th>
                 Method of Teaching
@@ -852,7 +857,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_length and not is_vagga %}
+        {% if d.su.dv_length %}
         <tr>
             <th>
                 Sutta Length
@@ -863,7 +868,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_prominence and not is_vagga %}
+        {% if d.su.dv_prominence %}
         <tr>
             <th>
                 Prominence
@@ -874,7 +879,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_suggested_suttas and not is_vagga %}
+        {% if d.su.dv_suggested_suttas %}
         <tr>
             <th>
                 Suggested Reading
@@ -885,7 +890,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_exists and not is_vagga %}
+        {% if d.su.dv_exists %}
         <tr>
             <th>
                 GitHub
@@ -900,7 +905,7 @@
 
         <!-- DV parallel texts -->
 
-        {% if d.su.dv_parallels_exists and not is_vagga %}
+        {% if d.su.dv_parallels_exists %}
         <tr>
             <th class="heading" colspan="2">
                 Parallels
@@ -908,7 +913,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_nikayas_parallels and not is_vagga %}
+        {% if d.su.dv_nikayas_parallels %}
         <tr>
             <th>
                 Nikāyas
@@ -919,7 +924,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_āgamas_parallels and not is_vagga %}
+        {% if d.su.dv_āgamas_parallels %}
         <tr>
             <th>
                 Āgamas
@@ -930,7 +935,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_taisho_parallels and not is_vagga %}
+        {% if d.su.dv_taisho_parallels %}
         <tr>
             <th>
                 Taisho
@@ -941,7 +946,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_sanskrit_parallels and not is_vagga %}
+        {% if d.su.dv_sanskrit_parallels %}
         <tr>
             <th>
                 Sanskrit
@@ -952,7 +957,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_vinaya_parallels and not is_vagga %}
+        {% if d.su.dv_vinaya_parallels %}
         <tr>
             <th>
                 Vinaya
@@ -963,7 +968,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.dv_others_parallels and not is_vagga %}
+        {% if d.su.dv_others_parallels %}
         <tr>
             <th>
                 Others
@@ -972,6 +977,8 @@
                 {{ d.su.dv_others_parallels }}
             </td>
         </tr>
+        {% endif %}
+
         {% endif %}
 
         <!-- {% if d.su.dv_partial_parallels_all %}

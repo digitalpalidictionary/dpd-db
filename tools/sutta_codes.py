@@ -34,9 +34,13 @@ def make_list_of_sutta_codes(su: SuttaInfo) -> list[str]:
     sutta_codes_set.add(su.dpd_code)
     if "-" in su.dpd_code:
         sutta_codes_set.update(generate_range_of_sutta_codes(su.dpd_code))
-    sutta_codes_set.add(su.sc_code)
-    if "-" in su.sc_code:
-        sutta_codes_set.update(generate_range_of_sutta_codes(su.sc_code))
+
+    # vagga/saṃyutta rows inherit sc_code from their anchor sutta, so adding it
+    # would pollute e.g. SN1.1 with the saṃyutta and saṃyuttapāḷi headwords
+    if not su.is_vagga and not su.is_samyutta:
+        sutta_codes_set.add(su.sc_code)
+        if "-" in su.sc_code:
+            sutta_codes_set.update(generate_range_of_sutta_codes(su.sc_code))
 
     return pali_list_sorter(sutta_codes_set)
 

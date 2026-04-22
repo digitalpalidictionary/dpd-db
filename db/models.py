@@ -658,6 +658,57 @@ class SuttaInfo(Base):
         if book_code.lower() == "dhp":
             return f"https://suttacentral.net/{self.dpd_code.lower()}"
 
+        # SN individual saṃyutta: pitaka path with parent-vagga slug + saṃyutta number
+        # (e.g. SN1 → pitaka/sutta/linked/sn/sn-sagathavaggasamyutta/sn1)
+        if book_code.lower() == "sn" and self.is_samyutta:
+            m = re.match(r"^SN(\d+)$", self.dpd_code, re.IGNORECASE)
+            if m:
+                n = int(m.group(1))
+                _sn_vagga_map = [
+                    (range(1, 12), "sagathavaggasamyutta"),
+                    (range(12, 22), "nidanavaggasamyutta"),
+                    (range(22, 35), "khandhavaggasamyutta"),
+                    (range(35, 45), "salayatanavaggasamyutta"),
+                    (range(45, 57), "mahavaggasamyutta"),
+                ]
+                for rng, slug in _sn_vagga_map:
+                    if n in rng:
+                        return f"https://suttacentral.net/pitaka/sutta/linked/sn/sn-{slug}/sn{n}"
+            return None
+
+        # SN vaggasaṃyuttapāḷi: full pitaka path, slug from dpd_sutta minus pāḷi suffix
+        # (e.g. sagāthāvaggasaṃyuttapāḷi → pitaka/sutta/linked/sn/sn-sagathavaggasamyutta)
+        if book_code.lower() == "sn" and self.dpd_sutta.endswith("saṃyuttapāḷi"):
+            samyutta_name = self.dpd_sutta.removesuffix("pāḷi")
+            slug = "".join(
+                c
+                for c in unicodedata.normalize("NFD", samyutta_name)
+                if unicodedata.category(c) != "Mn"
+            ).lower()
+            return f"https://suttacentral.net/pitaka/sutta/linked/sn/sn-{slug}"
+
+        # MN paṇṇāsapāḷi: full pitaka path, slug from dpd_sutta minus pāḷi suffix
+        # (e.g. mūlapaṇṇāsapāḷi → pitaka/sutta/middle/mn/mn-mulapannasa)
+        if book_code.lower() == "mn" and self.dpd_sutta.endswith("paṇṇāsapāḷi"):
+            pannasa_name = self.dpd_sutta.removesuffix("pāḷi")
+            slug = "".join(
+                c
+                for c in unicodedata.normalize("NFD", pannasa_name)
+                if unicodedata.category(c) != "Mn"
+            ).lower()
+            return f"https://suttacentral.net/pitaka/sutta/middle/mn/mn-{slug}"
+
+        # DN vaggapāḷi: sc_vagga is not populated; derive slug from dpd_sutta
+        # (e.g. sīlakkhandhavaggapāḷi → dn-silakkhandhavagga)
+        if book_code.lower() == "dn" and self.dpd_sutta.endswith("vaggapāḷi"):
+            vagga_name = self.dpd_sutta.removesuffix("pāḷi")
+            slug = "".join(
+                c
+                for c in unicodedata.normalize("NFD", vagga_name)
+                if unicodedata.category(c) != "Mn"
+            ).lower()
+            return f"https://suttacentral.net/dn-{slug}"
+
         if not self.sc_vagga:
             return None
 
@@ -802,6 +853,16 @@ class SuttaInfo(Base):
         from tools.sutta_codes import make_list_of_sutta_codes
 
         return make_list_of_sutta_codes(self)
+
+    @cached_property
+    def is_samyutta(self) -> bool:
+        return bool(
+            self.dpd_sutta
+            and self.dpd_code
+            and self.dpd_sutta.endswith("saṃyutta")
+            and "." not in self.dpd_code
+            and "-" not in self.dpd_code
+        )
 
     @cached_property
     def is_vagga(self) -> bool:
