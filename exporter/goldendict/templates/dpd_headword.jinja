@@ -1,4 +1,6 @@
 {{ d.header }}
+{% set is_vagga = d.su.is_vagga if d.su else false %}
+{% set is_samyutta = d.su.is_samyutta if d.su else false %}
 <body>
 <div class="dpd">
     <p>
@@ -21,7 +23,7 @@
     <a class="dpd-button play" onclick="playAudio('{{ d.i.lemma_clean }}', this)" title="Play Audio"><svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0"><path d="M8 5v14l11-7z"></path></svg></a>
     {% endif %}
     {% if d.i.needs_sutta_info_button %}
-    <a class="dpd-button" href="#" data-target="sutta_info_{{ d.i.lemma_1_ }}">sutta</a>
+    <a class="dpd-button" href="#" data-target="sutta_info_{{ d.i.lemma_1_ }}">{% if is_samyutta %}saṃyutta{% elif is_vagga %}vagga{% else %}sutta{% endif %}</a>
     {% endif %}
     {% if d.i.needs_grammar_button %}
     <a class="dpd-button" href="#" data-target="grammar_{{ d.i.lemma_1_ }}">grammar</a>
@@ -122,7 +124,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.cst_vagga %}
+        {% if d.su.cst_vagga and not is_samyutta %}
         <tr>
             <th>
                 Vagga
@@ -133,7 +135,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.cst_sutta %}
+        {% if d.su.cst_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Sutta
@@ -274,7 +276,7 @@
 
         <!-- sutta central -->
 
-        {% if d.su.sc_code %}
+        {% if d.su.sc_code or d.su.sc_book or d.su.sc_vagga %}
         <tr>
             <th class="heading" colspan="2">
                 Sutta Central
@@ -304,7 +306,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_vagga %}
+        {% if d.su.sc_vagga and not is_samyutta %}
         <tr>
             <th>
                 Vagga
@@ -315,7 +317,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_sutta %}
+        {% if d.su.sc_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Sutta
@@ -326,7 +328,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_eng_sutta %}
+        {% if d.su.sc_eng_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Title
@@ -337,7 +339,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_blurb %}
+        {% if d.su.sc_blurb and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Blurb
@@ -348,14 +350,21 @@
         </tr>
         {% endif %}
 
-        {% if d.su.sc_card_link %}
+        {% if d.su.sc_card_link or d.su.sc_vagga_link %}
         <tr>
             <th>
                 Links
             </th>
             <td>
-                {% if d.su.sc_code %}
-                <a href="{{ d.su.sc_card_link }}" target="_blank">Sutta
+                {% if is_vagga and d.su.sc_vagga_link %}
+                <a href="{{ d.su.sc_vagga_link }}" target="_blank">SC Vagga Card</a>,
+                <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
+                <a href="{{ d.su.sc_eng_link }}" target="_blank">English
+                    Translation</a>
+                {% elif is_samyutta and d.su.sc_vagga_link %}
+                <a href="{{ d.su.sc_vagga_link }}" target="_blank">SC Saṃyutta Card</a>
+                {% elif d.su.sc_code %}
+                <a href="{{ d.su.sc_card_link }}" target="_blank">SC
                     Card</a>,
                 <a href="{{ d.su.sc_pali_link }}" target="_blank">Pāḷi Text</a>,
                 <a href="{{ d.su.sc_eng_link }}" target="_blank">English
@@ -454,7 +463,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.bjt_sutta_code %}
+        {% if d.su.bjt_sutta_code or d.su.bjt_piṭaka or d.su.bjt_nikāya or d.su.bjt_major_section or d.su.bjt_book or d.su.bjt_minor_section or d.su.bjt_vagga %}
         <tr>
             <th class="heading" colspan="2">
                 Buddha Jayanti Tipiṭaka (BJT)
@@ -528,7 +537,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.bjt_vagga %}
+        {% if d.su.bjt_vagga and not is_samyutta %}
         <tr>
             <th>
                 Vagga
@@ -539,7 +548,7 @@
         </tr>
         {% endif %}
 
-        {% if d.su.bjt_sutta %}
+        {% if d.su.bjt_sutta and not is_vagga and not is_samyutta %}
         <tr>
             <th>
                 Sutta
@@ -644,6 +653,8 @@
         {% endif %}
 
         <!-- DV catalogue -->
+
+        {% if not is_vagga and not is_samyutta %}
 
         {% if d.su.dv_exists %}
         <tr>
@@ -915,6 +926,8 @@
                 {{ d.su.dv_others_parallels }}
             </td>
         </tr>
+        {% endif %}
+
         {% endif %}
 
     </table>
