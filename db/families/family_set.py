@@ -25,6 +25,7 @@ SORT_STRATEGIES: dict[str, list[str]] = {
     ],
     "natsort_exact": [
         "previous Buddhas",
+        "saṃyuttas of the Saṃyutta Nikāya",
     ],
     "bracket_number": [
         "ordinal numbers",
