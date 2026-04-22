@@ -154,6 +154,9 @@ jobs:
     - name: Run EBT Counter
       run: uv run python scripts/build/ebt_counter.py
 
+    - name: Update Bold Definitions
+      run: uv run python db/bold_definitions/update_bold_definitions_db.py
+
     - name: Add EPD to Lookup Table
       run: uv run python db/epd/epd_to_lookup.py
       
