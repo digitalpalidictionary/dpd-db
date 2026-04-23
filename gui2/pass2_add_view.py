@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import copy
 import json
+from pathlib import Path
 
 import flet as ft
 
@@ -70,6 +71,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.headword_original: DpdHeadword | None = None
         self.current_correction: dict | None = None
         self.current_addition: dict | None = None
+        self._current_addition_origin: Path | None = None
+        self._current_addition_key: str | None = None
+        self._current_correction_origin: Path | None = None
 
         self._message_field = ft.TextField(
             "",
@@ -586,6 +590,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.headword_original = None  # Resetting the original data reference
         self.current_correction = None
         self.current_addition = None
+        self._current_addition_origin = None
+        self._current_addition_key = None
+        self._current_correction_origin = None
 
         self.update_message("")  # Clear message field
         self.page.update()
@@ -721,7 +728,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
             ):
                 word_data = self.dpd_fields.get_current_values()
                 if word_data:
-                    self.additions_manager.save_processed_addition(word_data)
+                    self.additions_manager.save_processed_addition(
+                        word_data,
+                        self._current_addition_origin,
+                        self._current_addition_key,
+                    )
 
             # Save correction if flag is set
             if self.dpd_fields.flags.correction:
@@ -744,7 +755,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                     word_data[key] = str(val) if val is not None else ""
                                 # Otherwise keep current UI value if not in correction (e.g. ID)
 
-                    self.corrections_manager.save_processed_correction(word_data)
+                    self.corrections_manager.save_processed_correction(
+                        word_data, self._current_correction_origin
+                    )
 
             self.page.set_clipboard(word_to_save.lemma_1)
 
@@ -839,7 +852,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_corrections_button(self, e: ft.ControlEvent) -> None:
         """Loads the next correction and populates the _add fields."""
-        correction_data, corrections_remaining = (
+        correction_data, origin, corrections_remaining = (
             self.corrections_manager.get_next_correction()
         )
 
@@ -848,6 +861,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             return
 
         self.current_correction = copy.deepcopy(correction_data)
+        self._current_correction_origin = origin
 
         try:
             # Clear any existing add fields
@@ -893,13 +907,17 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_additions_button(self, e: ft.ControlEvent) -> None:
         """Loads the next addition and populates the _add fields."""
-        addition_data, additions_remaining = self.additions_manager.get_next_addition()
+        addition_data, origin, source_key, additions_remaining = (
+            self.additions_manager.get_next_addition()
+        )
 
         if not addition_data:
             self.update_message("No more additions available")
             return
 
         self.current_addition = copy.deepcopy(addition_data)
+        self._current_addition_origin = origin
+        self._current_addition_key = source_key
 
         try:
             # Clear any existing fields
