@@ -856,13 +856,12 @@ class SuttaInfo(Base):
 
     @cached_property
     def is_samyutta(self) -> bool:
-        return bool(
-            self.dpd_sutta
-            and self.dpd_code
-            and self.dpd_sutta.endswith("saṃyutta")
-            and "." not in self.dpd_code
-            and "-" not in self.dpd_code
-        )
+        if not (self.dpd_sutta and self.dpd_code):
+            return False
+        if "." in self.dpd_code or "-" in self.dpd_code:
+            return False
+        base = re.sub(r" \d+$", "", self.dpd_sutta)
+        return base.endswith("saṃyutta")
 
     @cached_property
     def is_vagga(self) -> bool:
