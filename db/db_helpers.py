@@ -36,7 +36,14 @@ def get_db_session(db_path: Path) -> Session:
         sys.exit(1)
 
     try:
-        db_eng = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
+        db_eng = create_engine(
+            f"sqlite+pysqlite:///{db_path}",
+            echo=False,
+            # Flet runs event handlers in a thread pool; disabling this check
+            # allows cross-thread use. Session is still not thread-safe —
+            # if flaky transaction errors appear, migrate GUI to scoped_session.
+            connect_args={"check_same_thread": False},
+        )
         # db_conn = db_eng.connect()
 
         Session = sessionmaker(db_eng)
