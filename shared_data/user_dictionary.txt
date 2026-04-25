@@ -60,6 +60,7 @@ absol
 absolutive
 abstains
 abyayībhāva
+Abyākatasaṃyuttaṃ
 acc
 accekacīvara
 accessorized
@@ -253,6 +254,7 @@ atipāteti
 atta
 attainments
 atthi
+Atthirāgasutta
 aubertii
 augmenter
 auricle
@@ -288,6 +290,7 @@ Bactrians
 bael
 Bael
 Bahudhātukasutta
+Bahudhītarasutta
 baiter
 balamattena
 Balasaṃyuttaṃ
@@ -367,6 +370,7 @@ Bhesakaḷā's
 Bhikkhu
 Bhikkhunī
 Bhikkhunī
+Bhikkhunīsaṃyutta
 Bhikkhupātimokkha
 Bhikkhus
 Bhiyyosa
@@ -489,6 +493,8 @@ cerasoides
 Ceta
 Ceta
 Cetan
+Cetans
+Cetiyans
 ch
 Chabbisodhanasutta
 Chakkanipāta
@@ -525,6 +531,7 @@ citi-citi
 Citta
 citta-vīthi
 cittalatā
+Cittasaṃyuttaṃ
 clairaudience
 Clarias
 climbable
@@ -817,6 +824,7 @@ Dutiyaejāsutta
 Dutiyajhānapañhāsutta
 Dutiyakaṇḍakīsutta
 Dutiyanatumhākasutta
+Dutiyasūriyasutta
 duvaṅgika
 dvanda
 dvedhikajātā
@@ -994,6 +1002,7 @@ galbra
 gallipot
 gam
 Ganakamoggallāna
+Gandhabbakāyasaṃyuttaṃ
 Gandhara
 Gandharan
 Gandhāra
@@ -1005,6 +1014,7 @@ Garuda
 gatekeeper
 gatepost
 gaub
+Gavampati
 Gavesī
 gavial
 Gavialis
@@ -1076,6 +1086,7 @@ gratissimum
 gray
 Grewia
 grunniens
+Grus
 guarder
 guh
 guiltlessness
@@ -1084,6 +1095,7 @@ gutturo-labial
 gutturo-palatal
 guḷavālakāni
 gāhāpeti
+Gāmaṇisaṃyuttaṃ
 gāvuta
 gāvutas
 hagiography
@@ -1207,6 +1219,7 @@ Inda's
 Inda's
 Inda's
 Inda's
+Indaka
 indeclinable
 indeclinables
 indefatigability
@@ -1269,6 +1282,8 @@ Jain's
 Jains
 Jambolana
 Jambu
+Jambukhādaka
+Jambukhādakasaṃyuttaṃ
 Janavasabha
 Jantu
 jarjarā
@@ -1340,6 +1355,7 @@ kasina
 kasiṇa
 Kassapa
 Kassapa's
+Kassapasaṃyutta
 Katamodakatissasuttaṃ
 kathina
 Kati
@@ -1370,6 +1386,7 @@ Khandasaṃyuttaṃ
 khandha
 Khandhaka
 khandhas
+Khandhasaṃyuttaṃ
 khandhaṭṭhikaṃ
 Khattiya
 Khattiyas
@@ -1393,6 +1410,7 @@ khurakāse
 khādaniya
 khāri
 Khāṇumata
+Kilesasaṃyuttaṃ
 kilometre
 kilometres
 Kimila
@@ -1422,6 +1440,8 @@ Koḷivisa
 Koḷiyan
 Koṇāgamana
 koṇḍañña
+Koṭi
+Koṭigāma
 Koṭṭhika
 Koṭṭhita
 kudācana
@@ -1750,6 +1770,7 @@ Moggallāna
 Moggallāna's
 Moggallānabyākaraṇa
 Moggallānabyākaraṇaṃ
+Moggallānasaṃyuttaṃ
 Mollugo
 Momordica
 monastics
@@ -1819,6 +1840,7 @@ nd
 neem
 Neem
 negundo
+neighbourhood
 neighbouring
 nellie
 Nelumbo
@@ -1899,6 +1921,7 @@ offence
 offences
 officinarum
 oilstone
+Okkantasaṃyuttaṃ
 Okkāka
 Okkāka's
 Okkāka's
@@ -1991,6 +2014,7 @@ pavuṭa
 Pavāraṇa
 pavāraṇā
 Payāgā
+Pañcagatipeyyālavagga
 Pañcakanipāta
 Pañcakaṅga
 Pañcala
@@ -2014,6 +2038,8 @@ Paṭhamadevacārikasutta
 Paṭhamaejāsutta
 Paṭhamajhānapañhāsutta
 Paṭhamakaṇḍakīsutta
+Paṭhamasūriyasutta
+Paṭhamasūriyasutta
 paṭibhastāni
 paṭighanimitta
 Paṭisambhidā
@@ -2313,6 +2339,7 @@ Saddha
 safflower
 sagacity
 sagehood
+Sagāthakasutta
 saha
 Sahampati
 sahasakkha
@@ -2379,6 +2406,7 @@ Sañcaya
 Sañjaya
 Sañjīva
 Saḷāyatana
+Saḷāyatanasaṃyuttaṃ
 Saḷāyatanasaṃyuttaṃ
 Saṃkicca
 Saṃkiti
@@ -2554,6 +2582,7 @@ substanceless
 substantives
 substratum
 suchness
+Sucimukhī
 sudation
 Sudatta
 Suddhakasutta
@@ -2583,6 +2612,7 @@ sunned
 sunshade
 Sunāparanta
 Sunīdha
+Supaṇṇasaṃyuttaṃ
 supercluster
 supernormal
 Suppatita
@@ -2597,6 +2627,7 @@ surpassable
 surpassingly
 surusuru
 surusuru soun
+Susima
 Susumāragira
 Sutanu
 sutta
@@ -2634,12 +2665,15 @@ Sāmagāma
 Sāmagāmasutta
 sāmaṇera
 Sāmaṇḍaka
+Sāmaṇḍaka
+Sāmaṇḍakasaṃyuttaṃ
 Sāmuga
 Sāmāvatī
 Sāratthadīpanīṭīkā
 Sāri
 Sāriputta
 Sāriputta's
+Sāriputtasaṃyuttaṃ
 Sārnath
 sārūpamo
 Sāvatthi
@@ -3013,6 +3047,7 @@ uppala-count
 uppaṭṭetha
 upphālesi
 uppāda
+Uppādasaṃyuttaṃ
 uproots
 upsetness
 upslope
@@ -3040,6 +3075,7 @@ Uṇṇābha
 vac
 Vaccha
 Vacchagotta
+Vacchagottasaṃyuttaṃ
 vacillation
 vad
 vagga
@@ -3058,6 +3094,8 @@ Vallisnaria
 Vallisneria
 valour
 valuator
+Valāhakasaṃyuttaṃ
+Vanasaṃyuttaṃ
 vanquishable
 Varanasi
 variegata
@@ -3076,6 +3114,8 @@ Vaḍḍhīsutta
 vaṃsa
 Vaṃsas
 Vaṅgantaputta
+Vaṅgīsa
+Vaṅgīsasaṃyuttaṃ
 vaṇṇiya
 vaṇṭapaṭibandha
 Vebhāra
@@ -3102,6 +3142,7 @@ Verahaccāni
 Verahaccānisutta
 Verañjā
 Veroca
+Verocana
 Vesali
 Vessabhū
 Vessantara
@@ -3202,6 +3243,7 @@ Xantrochymus
 yaj
 Yajur
 Yakkhas
+Yakkhasaṃyuttaṃ
 Yama
 Yama's
 Yamunā
@@ -3297,44 +3339,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Koṭigāma
-Koṭi
-Gavampati
-Paṭhamasūriyasutta
-Paṭhamasūriyasutta
-Dutiyasūriyasutta
-Sagāthakasutta
-Pañcagatipeyyālavagga
-Bhikkhunīsaṃyutta
-Khandhasaṃyuttaṃ
-Vaṅgīsasaṃyuttaṃ
-Vaṅgīsa
-Vanasaṃyuttaṃ
-Susima
-Kassapasaṃyutta
-Okkantasaṃyuttaṃ
-Uppādasaṃyuttaṃ
-Kilesasaṃyuttaṃ
-Sāriputtasaṃyuttaṃ
-Sucimukhī
-Supaṇṇasaṃyuttaṃ
-Gandhabbakāyasaṃyuttaṃ
-Vacchagottasaṃyuttaṃ
-Jambukhādakasaṃyuttaṃ
-Jambukhādaka
-Sāmaṇḍakasaṃyuttaṃ
-Sāmaṇḍaka
-Yakkhasaṃyuttaṃ
-Indaka
-Atthirāgasutta
-Saḷāyatanasaṃyuttaṃ
-Verocana
-Gāmaṇisaṃyuttaṃ
-Moggallānasaṃyuttaṃ
-Bahudhītarasutta
-Valāhakasaṃyuttaṃ
-Cittasaṃyuttaṃ
-Abyākatasaṃyuttaṃ
-Cetans
-Cetiyans
-neighbourhood
