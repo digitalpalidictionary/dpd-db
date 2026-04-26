@@ -48,6 +48,10 @@ test-phonetic:
 add-synonyms-single:
     uv run python db_tests/single/add_synonym_single.py
 
+# Add multi-meaning synonyms and variants interactively
+add-synonyms-multi:
+    uv run python db_tests/single/add_synonym_variant_multi.py
+
 # Find candidate phonetic variants → scripts/variants/phonetic_variant_candidates.tsv (#144)
 variants-phonetic-find:
     uv run python scripts/variants/find_phonetic_variants.py
