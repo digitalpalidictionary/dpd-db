@@ -13,3 +13,4 @@
 - 2026-04-21 [CONFUSION] Attempted to strip homonym suffixes from lemma_1 in dpd_sutta/dpd_sutta_var, but these must stay verbatim for DB lookup to work. Check downstream usage before transforming identifiers.
 - 2026-04-21 [REPEATED] When the user says "treat each book as a separate case", don't propose a single generalised fallback — address each book's quirks explicitly.
 - 2026-04-21 [BEHAVIOR] After fixing a header-stripping bug that changes the effective column count, verify the hardcoded assertion is still consistent before declaring the fix done.
+- 2026-04-26 [BEHAVIOR] Insisted exceptions were working and groups were "similar not identical" when the actual bug was a key format change breaking saved exceptions — trust user's repeated observations over own assumptions

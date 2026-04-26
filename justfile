@@ -44,6 +44,10 @@ db-test:
 test-phonetic:
     uv run python -m db_tests.single.add_phonetic_changes
 
+# Add single-meaning synonyms interactively
+add-synonyms-single:
+    uv run python db_tests/single/add_synonym_single.py
+
 # Find candidate phonetic variants → scripts/variants/phonetic_variant_candidates.tsv (#144)
 variants-phonetic-find:
     uv run python scripts/variants/find_phonetic_variants.py
