@@ -70,6 +70,10 @@ def _pair_key(pos: str, hw_a: DpdHeadword, hw_b: DpdHeadword, sig: str) -> str:
     return f"{pos}:{lemmas[0]}|{lemmas[1]}:{sig}"
 
 
+def _general_key(pos: str, meanings: list[str]) -> str:
+    return f"[{pos}] {'; '.join(sorted(meanings))}"
+
+
 def find_multi_meaning_pairs(g: GlobalVars) -> None:
     """Find pairs of multi-meaning headwords sharing ≥2 cleaned meanings and same pos/grammar sig."""
     pr.green_tmr("finding multi-meaning pairs")
@@ -129,7 +133,8 @@ def find_multi_meaning_pairs(g: GlobalVars) -> None:
                 if len(shared) < 2:
                     continue
                 key = _pair_key(pos, hw_a, hw_b, sig)
-                if key in g.exceptions:
+                gen_key = _general_key(pos, list(shared))
+                if key in g.exceptions or gen_key in g.exceptions:
                     continue
                 b_clean = hw_b.lemma_clean
                 a_clean = hw_a.lemma_clean
@@ -203,123 +208,6 @@ def _assign(hw: DpdHeadword, other: str, target: str) -> None:
     hw.var_text = ", ".join(pali_list_sorter(var_text))
 
 
-def _is_valid_synonym(hw_a: DpdHeadword, hw_b: DpdHeadword) -> bool:
-    """Return True if the synonym relationship between hw_a and hw_b is valid."""
-    if hw_a.pos != hw_b.pos:
-        return False
-    if grammar_signature(hw_a.grammar) != grammar_signature(hw_b.grammar):
-        return False
-    a_single = "; " not in (hw_a.meaning_1 or "")
-    b_single = "; " not in (hw_b.meaning_1 or "")
-    if a_single and b_single:
-        return clean_meaning(hw_a.meaning_1) == clean_meaning(hw_b.meaning_1)
-    meanings_a = frozenset(
-        m for raw in (hw_a.meaning_1 or "").split("; ") if (m := clean_meaning(raw))
-    )
-    meanings_b = frozenset(
-        m for raw in (hw_b.meaning_1 or "").split("; ") if (m := clean_meaning(raw))
-    )
-    return len(meanings_a & meanings_b) >= 2
-
-
-def find_wrong_synonym_pairs(g: GlobalVars) -> list[tuple[DpdHeadword, DpdHeadword]]:
-    """Find pairs listed as synonyms that do not meet the validity criterion."""
-    pr.green_tmr("finding wrong synonym pairs")
-
-    by_lemma_clean: dict[str, list[DpdHeadword]] = {}
-    for hw in g.dpd_db:
-        by_lemma_clean.setdefault(hw.lemma_clean, []).append(hw)
-
-    wrong: list[tuple[DpdHeadword, DpdHeadword]] = []
-    seen: set[frozenset[int]] = set()
-
-    for hw_a in g.dpd_db:
-        if not hw_a.synonym:
-            continue
-        for syn_clean in _split_field(hw_a.synonym):
-            candidates = by_lemma_clean.get(syn_clean, [])
-            if any(_is_valid_synonym(hw_a, hw_b) for hw_b in candidates):
-                continue
-            for hw_b in candidates:
-                edge = frozenset({hw_a.id, hw_b.id})
-                if edge in seen:
-                    continue
-                seen.add(edge)
-                wrong.append((hw_a, hw_b))
-
-    pr.yes(str(len(wrong)))
-    return wrong
-
-
-def prompt_wrong_pairs(
-    g: GlobalVars, wrong: list[tuple[DpdHeadword, DpdHeadword]]
-) -> bool:
-    """Review wrong synonym pairs. Returns True if restart requested."""
-    if not wrong:
-        return False
-    pr.green("reviewing wrong synonyms")
-
-    total = len(wrong)
-    print(
-        "[dim]synonym: different construction.  phonetic: same construction, different spelling.  textual: manuscript variant."
-    )
-
-    for counter, (hw_a, hw_b) in enumerate(wrong):
-        print(f"\n[red]{counter + 1} / {total}  [white]wrong synonym")
-        print(f"[yellow]{hw_a.lemma_1:<22}")
-        print(f"[blue]{hw_a.pos:<10}")
-        print(f"[green]{hw_a.meaning_1}")
-        print(f"[cyan]{_format_fields(hw_a)}")
-        print()
-        print(f"[yellow]{hw_b.lemma_1:<22}")
-        print(f"[blue]{hw_b.pos:<10}")
-        print(f"[green]{hw_b.meaning_1}")
-        print(f"[cyan]{_format_fields(hw_b)}")
-
-        pos = hw_a.pos
-        sig = grammar_signature(hw_a.grammar)
-        key = _pair_key(pos, hw_a, hw_b, sig)
-        gui_string = db_search_string([hw_a.lemma_1, hw_b.lemma_1], gui=True)
-        pyperclip.copy(gui_string)
-        print(f"\n[white]{gui_string}")
-        choice = Prompt.ask(
-            "[white](d)elete, (p)honetic, (t)extual, (e)xception, (pass), (r)estart, (q)uit"
-        )
-
-        if choice == "d":
-            _assign(hw_a, hw_b.lemma_clean, "delete")
-            _assign(hw_b, hw_a.lemma_clean, "delete")
-            _show_result(hw_a)
-            _show_result(hw_b)
-            g.db_session.commit()
-
-        elif choice == "p":
-            _assign(hw_a, hw_b.lemma_clean, "var_phonetic")
-            _assign(hw_b, hw_a.lemma_clean, "var_phonetic")
-            _show_result(hw_a)
-            _show_result(hw_b)
-            g.db_session.commit()
-
-        elif choice == "t":
-            _assign(hw_a, hw_b.lemma_clean, "var_text")
-            _assign(hw_b, hw_a.lemma_clean, "var_text")
-            _show_result(hw_a)
-            _show_result(hw_b)
-            g.db_session.commit()
-
-        elif choice == "e":
-            g.add_exception(key)
-            print(f"  [red]exception added: {key!r}")
-
-        elif choice == "r":
-            return True
-
-        elif choice == "q":
-            break
-
-    return False
-
-
 def prompt_pairs(g: GlobalVars) -> bool:
     """Walk through pairs and prompt the user. Returns True if restart requested."""
     pr.green("adding synonyms to db")
@@ -331,6 +219,11 @@ def prompt_pairs(g: GlobalVars) -> bool:
     )
 
     for counter, (hw_a, hw_b, shared) in enumerate(g.pairs):
+        pos = hw_a.pos
+        gen_key = _general_key(pos, shared)
+        if gen_key in g.exceptions:
+            continue
+
         shared_label = " | ".join(shared)
         print(
             "\n----------------------------------------------------------------------\n"
@@ -341,7 +234,6 @@ def prompt_pairs(g: GlobalVars) -> bool:
         print(f"[yellow]{hw_b.lemma_1} [blue]{hw_b.pos} [green]{hw_b.meaning_1}")
         print(f"[cyan]{_format_fields(hw_b)}")
 
-        pos = hw_a.pos
         sig = grammar_signature(hw_a.grammar)
         key = _pair_key(pos, hw_a, hw_b, sig)
 
@@ -349,7 +241,7 @@ def prompt_pairs(g: GlobalVars) -> bool:
         pyperclip.copy(gui_string)
         print(f"\n[white]{gui_string}")
         choice = Prompt.ask(
-            "[white](s)ynonym, (p)honetic, (t)extual, (e)xception, (pass), (r)estart, (q)uit"
+            "[white](s)ynonym, (p)honetic, (t)extual, (e)xception, (g)eneral, (pass), (r)estart, (q)uit"
         )
 
         if choice == "s":
@@ -377,6 +269,10 @@ def prompt_pairs(g: GlobalVars) -> bool:
             g.add_exception(key)
             print(f"  [red]exception added: {key!r}")
 
+        elif choice == "g":
+            g.add_exception(gen_key)
+            print(f"  [red]general exception added: {gen_key!r}")
+
         elif choice == "r":
             return True
 
@@ -391,9 +287,6 @@ def main() -> None:
     print("[bright_yellow]synonym multi — finding and adding multi-meaning synonyms")
     while True:
         g = GlobalVars()
-        # wrong = find_wrong_synonym_pairs(g)
-        # if prompt_wrong_pairs(g, wrong):
-        #     continue
         find_multi_meaning_pairs(g)
         if not prompt_pairs(g):
             break

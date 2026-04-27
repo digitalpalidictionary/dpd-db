@@ -46,11 +46,15 @@ test-phonetic:
 
 # Add single-meaning synonyms interactively
 add-synonyms-single:
-    uv run python db_tests/single/add_synonym_single.py
+    uv run python db_tests/single/add_synonym_variant_single.py
 
 # Add multi-meaning synonyms and variants interactively
 add-synonyms-multi:
     uv run python db_tests/single/add_synonym_variant_multi.py
+
+# Find and remove or re-assign wrong synonym relationships
+add-synonyms-del:
+    uv run python db_tests/single/add_synonym_variant_del.py
 
 # Find candidate phonetic variants → scripts/variants/phonetic_variant_candidates.tsv (#144)
 variants-phonetic-find:
