@@ -747,9 +747,6 @@ class ProjectPaths:
         self.sukha_dukkha_finder_path = (
             base_dir / "db_tests/single/test_sukha_dukkha_finder.json"
         )
-        self.syn_var_exceptions_old_path = (
-            base_dir / "db_tests/single/add_synonym_variant_exceptions"
-        )
         self.syn_var_exceptions_path = (
             base_dir / "db_tests/single/add_synonym_variant.json"
         )
