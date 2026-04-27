@@ -214,20 +214,18 @@ def prompt_pairs(g: GlobalVars) -> bool:
 
     total = len(g.pairs)
 
-    print(
-        "[dim]synonym: different construction.  phonetic: same construction, different spelling.  textual: manuscript variant."
-    )
-
     for counter, (hw_a, hw_b, shared) in enumerate(g.pairs):
         pos = hw_a.pos
         gen_key = _general_key(pos, shared)
         if gen_key in g.exceptions:
             continue
 
+        print("\n" + "-" * 100)
+        print("[white][dim]synonym: different construction.")
+        print("[white][dim]phonetic: same construction, different spelling.")
+        print("[white][dim]textual: manuscript variant.")
+        print("-" * 100 + "\n")
         shared_label = " | ".join(shared)
-        print(
-            "\n----------------------------------------------------------------------\n"
-        )
         print(f"[white]{counter + 1} / {total}  [green]{shared_label}")
         print(f"[yellow]{hw_a.lemma_1} [blue]{hw_a.pos} [green]{hw_a.meaning_1}")
         print(f"[cyan]{_format_fields(hw_a)}")

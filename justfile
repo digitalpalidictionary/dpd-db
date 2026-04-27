@@ -56,9 +56,9 @@ add-synonyms-multi:
 add-synonyms-del:
     uv run python db_tests/single/add_synonym_variant_del.py
 
-# Find candidate phonetic variants → scripts/variants/phonetic_variant_candidates.tsv (#144)
-variants-phonetic-find:
-    uv run python scripts/variants/find_phonetic_variants.py
+# Find and add phonetic variant pairs to the database
+add-variants-phonetic:
+    uv run python db_tests/single/add_phonetic_variants.py
 
 # Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
