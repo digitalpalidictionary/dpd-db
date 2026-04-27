@@ -1,94 +1,480 @@
 #!/usr/bin/env python3
+"""Find and add phonetic variant pairs to the DPD database.
 
-"""Find all words with same construction but different lemma_1."""
+Walk candidate pairs detected by four rules:
+1. same construction_clean + pos, different lemma_clean
+2. bidirectional phonetic substitution rules on lemma_clean
+3. same construction_clean, base differs by e/aya (or *e/*aya) at one slot
+4. same construction_clean, base differs by iya/īya at one slot
 
+Prompt: (p)honetic, (e)xception, [enter] pass, (r)estart, (q)uit.
+Exceptions are stored in add_phonetic_variants.json (same directory).
+"""
+
+import json
+from dataclasses import dataclass
+from typing import Sequence
+
+import pyperclip
 from rich import print
+from rich.prompt import Prompt
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.db_search_string import db_search_string
+from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
+
+PHONETIC_RULES: list[tuple[str, str]] = [
+    ("e", "aya"),
+    ("o", "ava"),
+    ("ā", "a"),
+    ("ī", "i"),
+    ("ū", "u"),
+    ("ṃ", "ṅ"),
+    ("t", "ṭ"),
+    ("d", "ḍ"),
+    ("n", "ṇ"),
+    ("l", "ḷ"),
+    ("h", ""),
+    ("nh", "h"),
+    ("y", ""),
+    ("v", ""),
+]
 
 
-class PhoneticVariant:
-    def __init__(self, i: DpdHeadword, dict):
-        self.lemma_1 = i.lemma_1
-        self.lemma_clean = i.lemma_clean
-        self.meaning = i.meaning_1
-        self.pos = i.pos
-        self.construction = i.construction_line1
-        self.construction_clean = i.construction_clean
-        self.key = f"{self.construction_clean}, {self.pos}"
+@dataclass
+class Pair:
+    rule: str
+    source: DpdHeadword
+    target: DpdHeadword
 
 
-class DictEntry:
-    def __init__(self, var: PhoneticVariant) -> None:
-        """Initialize the dict_entry."""
-        self.key = f"{var.construction_clean}, {var.pos}"
-        self.variants: list[PhoneticVariant] = [var]
-        self.headwords: list[str] = [var.lemma_1]
-        self.headwords_count = 1
-        self.headwords_clean: set[str] = set([var.lemma_clean])
-        self.headwords_clean_count = 1
-        self.meanings_set: set[str] = set([var.meaning])
-        self.meanings_count = 1
+def _exception_key(hw_a: DpdHeadword, hw_b: DpdHeadword) -> str:
+    pairs = sorted(
+        [
+            f"{_headword_identity(hw_a)}:{hw_a.pos}",
+            f"{_headword_identity(hw_b)}:{hw_b.pos}",
+        ]
+    )
+    return f"{pairs[0]}|{pairs[1]}"
 
 
-def dict_entry_update(dict, var: PhoneticVariant) -> dict:
-    """Initalize or update the dict_entry."""
-
-    if not dict.get(var.key):
-        dict[var.key] = DictEntry(var)
-        return dict
-    else:
-        dict_entry = dict.get(var.key)
-        dict_entry.variants += [var]
-        dict_entry.headwords += [var.lemma_1]
-        dict_entry.headwords_count = len(dict_entry.headwords)
-        dict_entry.headwords_clean.add(var.lemma_clean)
-        dict_entry.headwords_clean_count = len(dict_entry.headwords_clean)
-        dict_entry.meanings_set.add(var.meaning)
-        dict_entry.meanings_count = len(dict_entry.meanings_set)
-        return dict
+def _split_field(value: str) -> set[str]:
+    return {t.strip() for t in value.split(",") if t.strip()}
 
 
-def dict_entry_printer(counter, i: DictEntry) -> None:
-    """Print out the dict entry"""
-    print(f"{counter} {i.key}")
-    print(f"{'headwords':<40}{i.headwords} {i.headwords_count}")
-    print(f"{'headwords_clean':<40}{i.headwords_clean} {i.headwords_clean_count}")
-    for var in i.variants:
-        print(
-            f"{var.lemma_1:<40}[cyan]{var.pos:<10}[green]{var.meaning[:49]:<50}[white]{var.construction}"
-        )
-    print()
-
-
-def printer(item) -> None:
-    print(
-        f"{item.lemma_1:<40}[cyan]{item.pos:<10}[green]{item.meaning[:49]:<50}[white]{item.construction}"
+def _already_related(a: DpdHeadword, b: DpdHeadword) -> bool:
+    a_clean = a.lemma_clean
+    b_clean = b.lemma_clean
+    a_phon = _split_field(a.var_phonetic)
+    a_syn = _split_field(a.synonym)
+    b_phon = _split_field(b.var_phonetic)
+    b_syn = _split_field(b.synonym)
+    return (
+        b_clean in a_syn or b_clean in a_phon or a_clean in b_syn or a_clean in b_phon
     )
 
 
-def main():
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
-    dict = {}
+def _already_recorded_single(hw: DpdHeadword, other_clean: str) -> bool:
+    return other_clean in _split_field(hw.var_phonetic)
 
-    # if construciton_clean not in dict, update dict
-    # if constrction_clean in dict, and if lemma_clean not in dict, update dict
 
-    for i in db:
-        if i.meaning_1 and i.construction:
-            var = PhoneticVariant(i, dict)
-            if var.construction_clean:
-                dict = dict_entry_update(dict, var)
+def _same_family_if_present(value_a: str, value_b: str) -> bool:
+    if not value_a and not value_b:
+        return True
+    return bool(value_a and value_b and value_a == value_b)
 
-    counter = 1
-    for construction, dict_entry in dict.items():
-        if dict_entry.headwords_clean_count > 1:
-            dict_entry_printer(counter, dict_entry)
-            counter += 1
+
+def _same_families_if_present(a: DpdHeadword, b: DpdHeadword) -> bool:
+    return (
+        _same_family_if_present(a.root_key, b.root_key)
+        and _same_family_if_present(a.family_root, b.family_root)
+        and _same_family_if_present(a.family_word, b.family_word)
+    )
+
+
+def _headword_identity(hw: DpdHeadword) -> str:
+    hw_id = getattr(hw, "id", None)
+    if hw_id is not None:
+        return str(hw_id)
+    return hw.lemma_1
+
+
+class PhoneticVariantDetector:
+    def __init__(self, headwords: Sequence[DpdHeadword]) -> None:
+        self._headwords: list[DpdHeadword] = list(headwords)
+        self._by_lemma_1: dict[str, DpdHeadword] = {}
+        self._by_lemma_clean: dict[str, list[DpdHeadword]] = {}
+        self._by_construction_pos: dict[tuple[str, str], list[DpdHeadword]] = {}
+
+        for hw in self._headwords:
+            self._by_lemma_1[hw.lemma_1] = hw
+            self._by_lemma_clean.setdefault(hw.lemma_clean, []).append(hw)
+            key = (hw.construction_clean, hw.pos)
+            self._by_construction_pos.setdefault(key, []).append(hw)
+
+    def detect_same_construction(self) -> list[tuple[DpdHeadword, str, str]]:
+        """Same construction_clean + pos, different lemma_clean."""
+        results: list[tuple[DpdHeadword, str, str]] = []
+        seen: set[tuple[str, str]] = set()
+        for (construction_clean, _pos), group in self._by_construction_pos.items():
+            if not construction_clean:
+                continue
+            if len({hw.lemma_clean for hw in group}) < 2:
+                continue
+            for a in group:
+                for b in group:
+                    if a is b or a.lemma_clean == b.lemma_clean:
+                        continue
+                    if _already_recorded_single(a, b.lemma_clean):
+                        continue
+                    key = (a.lemma_1, b.lemma_clean)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    results.append((a, b.lemma_clean, "same_construction"))
+        return results
+
+    def detect_by_rules(self) -> list[tuple[DpdHeadword, str, str]]:
+        """Bidirectional phonetic substitution rules on lemma_clean."""
+        results: list[tuple[DpdHeadword, str, str]] = []
+        seen: set[tuple[str, str, str]] = set()
+        for hw in self._headwords:
+            if not hw.lemma_clean:
+                continue
+            for x, y in PHONETIC_RULES:
+                rule_tag = f"rule:{x}<->{y}"
+                for produced in self._apply_rule(hw.lemma_clean, x, y):
+                    if produced == hw.lemma_clean:
+                        continue
+                    if produced not in self._by_lemma_clean:
+                        continue
+                    if _already_recorded_single(hw, produced):
+                        continue
+                    key = (hw.lemma_1, produced, rule_tag)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    results.append((hw, produced, rule_tag))
+        return results
+
+    @staticmethod
+    def _apply_rule(lemma_clean: str, x: str, y: str) -> list[str]:
+        produced: list[str] = []
+        if x and x in lemma_clean:
+            produced.append(lemma_clean.replace(x, y))
+        if y and y in lemma_clean:
+            produced.append(lemma_clean.replace(y, x))
+        return produced
+
+    def detect_base_e_aya(self) -> list[tuple[DpdHeadword, str, str]]:
+        """Same construction_clean; base differs only by e/*e ↔ aya/*aya at one slot."""
+        results: list[tuple[DpdHeadword, str, str]] = []
+        seen: set[tuple[str, str]] = set()
+        for (construction_clean, _pos), group in self._by_construction_pos.items():
+            if not construction_clean or len(group) < 2:
+                continue
+            for a in group:
+                a_base = a.root_base_clean
+                if not a_base:
+                    continue
+                for b in group:
+                    if a is b or a.lemma_clean == b.lemma_clean:
+                        continue
+                    b_base = b.root_base_clean
+                    if not b_base or a_base == b_base:
+                        continue
+                    if not _base_differs_e_aya(a_base, b_base):
+                        continue
+                    if _already_recorded_single(a, b.lemma_clean):
+                        continue
+                    key = (a.lemma_1, b.lemma_clean)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    results.append((a, b.lemma_clean, "base:e<->aya"))
+        return results
+
+    def detect_base_iya_iiya(self) -> list[tuple[DpdHeadword, str, str]]:
+        """Same construction_clean; base differs only by iya ↔ īya at one slot."""
+        results: list[tuple[DpdHeadword, str, str]] = []
+        seen: set[tuple[str, str]] = set()
+        for (construction_clean, _pos), group in self._by_construction_pos.items():
+            if not construction_clean or len(group) < 2:
+                continue
+            for a in group:
+                a_base = a.root_base_clean
+                if not a_base:
+                    continue
+                for b in group:
+                    if a is b or a.lemma_clean == b.lemma_clean:
+                        continue
+                    b_base = b.root_base_clean
+                    if not b_base or a_base == b_base:
+                        continue
+                    if not _base_differs_iya(a_base, b_base):
+                        continue
+                    if _already_recorded_single(a, b.lemma_clean):
+                        continue
+                    key = (a.lemma_1, b.lemma_clean)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    results.append((a, b.lemma_clean, "base:iya<->īya"))
+        return results
+
+    def detect_all_raw(self) -> list[tuple[DpdHeadword, str, str]]:
+        results: list[tuple[DpdHeadword, str, str]] = []
+        results.extend(self.detect_same_construction())
+        results.extend(self.detect_by_rules())
+        results.extend(self.detect_base_e_aya())
+        results.extend(self.detect_base_iya_iiya())
+        return results
+
+    def detect_canonical_pairs(self, exceptions: list[str]) -> list[Pair]:
+        """Collapse symmetric duplicates, filter already-related and excepted pairs."""
+        raw = self.detect_all_raw()
+        seen: set[tuple[str, str, str]] = set()
+        pairs: list[Pair] = []
+
+        for source_hw, candidate_clean, rule in raw:
+            targets = self._by_lemma_clean.get(candidate_clean, [])
+            if not targets:
+                continue
+            for target_hw in targets:
+                if source_hw.pos != target_hw.pos:
+                    continue
+                if not _same_families_if_present(source_hw, target_hw):
+                    continue
+                source_id = _headword_identity(source_hw)
+                target_id = _headword_identity(target_hw)
+                source_pair = f"{source_id}:{source_hw.pos}"
+                target_pair = f"{target_id}:{target_hw.pos}"
+                pair_key = (
+                    rule,
+                    min(source_pair, target_pair),
+                    max(source_pair, target_pair),
+                )
+                if pair_key in seen:
+                    continue
+                exc_key = _exception_key(source_hw, target_hw)
+                if exc_key in exceptions:
+                    continue
+                if _already_related(source_hw, target_hw):
+                    continue
+                seen.add(pair_key)
+                pairs.append(Pair(rule=rule, source=source_hw, target=target_hw))
+
+        pairs.sort(key=_pair_sort_key)
+        return pairs
+
+
+def _base_differs_e_aya(base_a: str, base_b: str) -> bool:
+    """True if swapping *e/*aya at exactly one token position makes bases equal."""
+    parts_a = [part.lstrip("*") for part in base_a.split()]
+    parts_b = [part.lstrip("*") for part in base_b.split()]
+    if len(parts_a) != len(parts_b):
+        return False
+    diffs = [i for i, (pa, pb) in enumerate(zip(parts_a, parts_b)) if pa != pb]
+    if len(diffs) != 1:
+        return False
+    pa = parts_a[diffs[0]]
+    pb = parts_b[diffs[0]]
+    return (pa == "e" and pb == "aya") or (pa == "aya" and pb == "e")
+
+
+def _base_differs_iya(base_a: str, base_b: str) -> bool:
+    """True if replacing iya↔īya at one position makes bases equal."""
+    base_a = base_a.replace("*", "")
+    base_b = base_b.replace("*", "")
+    return (
+        base_a.replace("iya", "īya", 1) == base_b
+        or base_b.replace("iya", "īya", 1) == base_a
+    )
+
+
+class GlobalVars:
+    def __init__(self) -> None:
+        self.pth = ProjectPaths()
+        self.db_session: Session = get_db_session(self.pth.dpd_db_path)
+        self.dpd_db: list[DpdHeadword] = self.db_session.query(DpdHeadword).all()
+        self.exceptions: list[str] = self._load_exceptions()
+        self.pairs: list[Pair] = []
+
+    def _load_exceptions(self) -> list[str]:
+        try:
+            with open(self.pth.add_phonetic_variants_exceptions_path) as f:
+                exceptions: list[str] = json.load(f)
+                return list(dict.fromkeys(exceptions))
+        except FileNotFoundError:
+            return []
+
+    def _save_exceptions(self) -> None:
+        with open(self.pth.add_phonetic_variants_exceptions_path, "w") as f:
+            json.dump(self.exceptions, f, ensure_ascii=False, indent=2)
+
+    def add_exception(self, key: str) -> None:
+        if key not in self.exceptions:
+            self.exceptions.append(key)
+            self._save_exceptions()
+
+
+def find_pairs(g: GlobalVars) -> None:
+    pr.green_tmr("finding phonetic variant pairs")
+    detector = PhoneticVariantDetector(g.dpd_db)
+    g.pairs = detector.detect_canonical_pairs(g.exceptions)
+    pr.yes(str(len(g.pairs)))
+
+
+def _format_fields(hw: DpdHeadword) -> str:
+    syn = hw.synonym.split(", ") if hw.synonym else []
+    var = hw.variant.split(", ") if hw.variant else []
+    var_text = hw.var_text.split(", ") if hw.var_text else []
+    phon = sorted(_split_field(hw.var_phonetic))
+    return f"  syn:{syn}\n  var:{var}\n  var_text:{var_text}\n  var_phon:{phon}"
+
+
+def _show_result(hw: DpdHeadword) -> None:
+    print()
+    print(f"[green]{hw.lemma_1}:")
+    print(f"[green]{_format_fields(hw)}")
+
+
+def _entry_label(hw: DpdHeadword) -> str:
+    family_root = f" [magenta]{hw.family_root}" if hw.family_root else ""
+    root_meaning = (
+        f" [magenta]{hw.rt.root_meaning}" if hw.rt and hw.rt.root_meaning else ""
+    )
+    return (
+        f"[yellow]{hw.lemma_1} [blue]{hw.pos} "
+        f"[green]{hw.meaning_combo} [white]({hw.degree_of_completion})"
+        f"{family_root}"
+        f"{root_meaning}"
+    )
+
+
+def _assign(hw: DpdHeadword, other: str, target: str) -> None:
+    """Match add_synonym_variant_multi.py assignment semantics."""
+    syn = _split_field(hw.synonym)
+    var = _split_field(hw.variant)
+    var_phon = _split_field(hw.var_phonetic)
+    var_text = _split_field(hw.var_text)
+
+    if target == "synonym":
+        syn.add(other)
+        var_phon.discard(other)
+        if other not in var_text and other not in var_phon:
+            var.discard(other)
+
+    elif target == "var_phonetic":
+        var_phon.add(other)
+        var.add(other)
+        syn.discard(other)
+
+    elif target == "var_text":
+        var_text.add(other)
+        var.add(other)
+
+    elif target == "delete":
+        syn.discard(other)
+
+    hw.synonym = ", ".join(pali_list_sorter(syn))
+    hw.variant = ", ".join(pali_list_sorter(var))
+    hw.var_phonetic = ", ".join(pali_list_sorter(var_phon))
+    hw.var_text = ", ".join(pali_list_sorter(var_text))
+
+
+def _pair_has_both_meaning_1(pair: Pair) -> bool:
+    return bool(pair.source.meaning_1 and pair.target.meaning_1)
+
+
+def _pair_sort_key(pair: Pair) -> tuple[int, str, str, str]:
+    return (
+        0 if _pair_has_both_meaning_1(pair) else 1,
+        pair.rule,
+        pair.source.lemma_1,
+        pair.target.lemma_1,
+    )
+
+
+def prompt_pairs(g: GlobalVars) -> bool:
+    """Walk pairs and prompt the user. Returns True if restart requested."""
+    pr.green("reviewing phonetic variant pairs")
+    total_pairs = len(g.pairs)
+    total_meaning_1_pairs = sum(1 for pair in g.pairs if _pair_has_both_meaning_1(pair))
+    print(
+        "[dim]synonym: different construction.  phonetic: same construction, different spelling.  textual: manuscript variant."
+    )
+
+    for counter, pair in enumerate(g.pairs):
+        hw_a = pair.source
+        hw_b = pair.target
+
+        print("\n" + "-" * 70 + "\n")
+        print(
+            f"[white]{counter + 1} / {total_meaning_1_pairs} / {total_pairs}  [cyan]{pair.rule}"
+        )
+        print(_entry_label(hw_a))
+        print(f"[cyan]{_format_fields(hw_a)}")
+        print(_entry_label(hw_b))
+        print(f"[cyan]{_format_fields(hw_b)}")
+
+        gui_string = db_search_string([hw_a.lemma_1, hw_b.lemma_1], gui=True)
+        pyperclip.copy(gui_string)
+        print(f"\n[white]{gui_string}")
+
+        choice = Prompt.ask(
+            "[white](s)ynonym, (p)honetic, (t)extual, (e)xception, (pass), (r)estart, (q)uit",
+            default="",
+        )
+
+        if choice == "s":
+            _assign(hw_a, hw_b.lemma_clean, "synonym")
+            _assign(hw_b, hw_a.lemma_clean, "synonym")
+            _show_result(hw_a)
+            _show_result(hw_b)
+            g.db_session.commit()
+
+        elif choice == "p":
+            _assign(hw_a, hw_b.lemma_clean, "var_phonetic")
+            _assign(hw_b, hw_a.lemma_clean, "var_phonetic")
+            _show_result(hw_a)
+            _show_result(hw_b)
+            g.db_session.commit()
+
+        elif choice == "t":
+            _assign(hw_a, hw_b.lemma_clean, "var_text")
+            _assign(hw_b, hw_a.lemma_clean, "var_text")
+            _show_result(hw_a)
+            _show_result(hw_b)
+            g.db_session.commit()
+
+        elif choice == "e":
+            exc_key = _exception_key(hw_a, hw_b)
+            g.add_exception(exc_key)
+            print(f"  [red]exception added: {exc_key!r}")
+
+        elif choice == "r":
+            return True
+
+        elif choice == "q":
+            break
+
+    return False
+
+
+def main() -> None:
+    pr.tic()
+    print("[bright_yellow]add phonetic variants — find and add phonetic variant pairs")
+    while True:
+        g = GlobalVars()
+        find_pairs(g)
+        if not prompt_pairs(g):
+            break
+    pr.toc()
 
 
 if __name__ == "__main__":
