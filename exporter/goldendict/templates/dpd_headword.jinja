@@ -1062,10 +1062,24 @@
         </tr>
         {% endif %}
 
-        {% if d.i.variant %}
+        {% if d.i.variant and not d.i.var_phonetic and not d.i.var_text %}
         <tr>
             <th>Variant</th>
-            <td>{{ d.i.variant }}</td>
+            <td>{{d.i.variant}}</td>
+        </tr>
+        {% endif %}
+        
+        {% if d.i.var_phonetic %}
+        <tr>
+            <th>Phonetic Variant</th>
+            <td>{{d.i.var_phonetic}}</td>
+        </tr>
+        {% endif %} 
+        
+        {% if d.i.var_text %}
+        <tr>
+            <th>Textual Variant</th>
+            <td>{{d.i.var_text}}</td>
         </tr>
         {% endif %}
 

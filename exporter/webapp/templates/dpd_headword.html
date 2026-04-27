@@ -1116,7 +1116,8 @@
             <th>Synonym</th>
             <td>{{d.i.synonym}}</td>
         </tr>
-        {% endif %} 
+        {% endif %}
+        
         {% if d.i.variant and not d.i.var_phonetic and not d.i.var_text %}
         <tr>
             <th>Variant</th>
@@ -1129,18 +1130,21 @@
             <td>{{d.i.var_phonetic}}</td>
         </tr>
         {% endif %} 
+        
         {% if d.i.var_text %}
         <tr>
             <th>Textual Variant</th>
             <td>{{d.i.var_text}}</td>
         </tr>
         {% endif %}
+        
         {% if d.i.commentary and d.i.commentary !="-" %}
         <tr>
             <th>Commentary</th>
             <td>{{d.i.commentary|safe}}</td>
         </tr>
         {% endif %}
+        
         {% if d.i.notes %}
         <tr>
             <th>Notes</th>
