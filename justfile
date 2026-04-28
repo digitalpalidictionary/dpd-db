@@ -60,6 +60,10 @@ add-synonyms-del:
 add-variants-phonetic:
     uv run python db_tests/single/add_phonetic_variants.py
 
+# Process unclassified variant field entries interactively
+variants-processor:
+    uv run python scripts/find/variants_process.py
+
 # Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
     uv run ruff check . --exclude archive --exclude resources

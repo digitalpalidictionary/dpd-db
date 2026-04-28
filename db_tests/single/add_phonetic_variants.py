@@ -27,21 +27,47 @@ from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-PHONETIC_RULES: list[tuple[str, str]] = [
-    ("e", "aya"),
-    ("o", "ava"),
-    ("ā", "a"),
-    ("ī", "i"),
-    ("ū", "u"),
-    ("ṃ", "ṅ"),
-    ("t", "ṭ"),
-    ("d", "ḍ"),
-    ("n", "ṇ"),
-    ("l", "ḷ"),
-    ("h", ""),
-    ("nh", "h"),
-    ("y", ""),
-    ("v", ""),
+ACTIVE_DETECTORS: dict[str, bool] = {
+    "same_construction": True,
+    "by_rules": False,
+    "base_e_aya": True,
+    "base_ya_iya_iiya": True,
+}
+
+PHONETIC_RULES: list[tuple[str, str, bool]] = [
+    # vowels
+    ("e", "aya", True),
+    ("o", "ava", True),
+    ("ā", "a", True),
+    ("ī", "i", True),
+    ("ū", "u", True),
+    # consonants
+    ("t", "ṭ", True),
+    ("d", "ḍ", True),
+    ("n", "ṇ", True),
+    ("n", "ṅ", True),
+    ("n", "ñ", True),
+    ("l", "ḷ", True),
+    # nasals
+    ("ṃ", "ṅ", True),
+    ("ṃ", "n", True),
+    ("ṃ", "ṇ", True),
+    ("ṃ", "m", True),
+    ("ṃ", "ñ", True),
+    # doubles
+    ("ūl", "ull", True),
+    ("ūḷ", "ull", True),
+    ("nh", "h", True),
+    ("ny", "ññ", True),
+    ("dy", "jj", True),
+    ("ty", "cc", True),
+    ("ṃy", "ññ", True),
+    ("nah", "nh", True),
+    ("nāh", "nh", True),
+    # delete
+    ("h", "", True),
+    ("y", "", True),
+    ("v", "", True),
 ]
 
 
@@ -70,16 +96,27 @@ def _already_related(a: DpdHeadword, b: DpdHeadword) -> bool:
     a_clean = a.lemma_clean
     b_clean = b.lemma_clean
     a_phon = _split_field(a.var_phonetic)
-    a_syn = _split_field(a.synonym)
     b_phon = _split_field(b.var_phonetic)
-    b_syn = _split_field(b.synonym)
-    return (
-        b_clean in a_syn or b_clean in a_phon or a_clean in b_syn or a_clean in b_phon
-    )
+    return b_clean in a_phon or a_clean in b_phon
 
 
 def _already_recorded_single(hw: DpdHeadword, other_clean: str) -> bool:
     return other_clean in _split_field(hw.var_phonetic)
+
+
+_FREQ_KEYS = ("CstFreq", "BjtFreq", "SyaFreq", "ScFreq")
+
+
+def _has_textual_occurrence(hw: DpdHeadword) -> bool:
+    if hw.meaning_1:
+        return True
+    freq = hw.freq_data_unpack
+    return any(
+        v > 0
+        for key in _FREQ_KEYS
+        if isinstance(val := freq.get(key), list)
+        for v in val
+    )
 
 
 def _same_family_if_present(value_a: str, value_b: str) -> bool:
@@ -109,12 +146,16 @@ class PhoneticVariantDetector:
         self._by_lemma_1: dict[str, DpdHeadword] = {}
         self._by_lemma_clean: dict[str, list[DpdHeadword]] = {}
         self._by_construction_pos: dict[tuple[str, str], list[DpdHeadword]] = {}
+        self._by_root_family_pos: dict[tuple[str, str, str], list[DpdHeadword]] = {}
 
         for hw in self._headwords:
             self._by_lemma_1[hw.lemma_1] = hw
             self._by_lemma_clean.setdefault(hw.lemma_clean, []).append(hw)
             key = (hw.construction_clean, hw.pos)
             self._by_construction_pos.setdefault(key, []).append(hw)
+            if hw.root_key and hw.family_root:
+                rkey = (hw.root_key, hw.family_root, hw.pos)
+                self._by_root_family_pos.setdefault(rkey, []).append(hw)
 
     def detect_same_construction(self) -> list[tuple[DpdHeadword, str, str]]:
         """Same construction_clean + pos, different lemma_clean."""
@@ -126,8 +167,12 @@ class PhoneticVariantDetector:
             if len({hw.lemma_clean for hw in group}) < 2:
                 continue
             for a in group:
+                if not a.meaning_1:
+                    continue
                 for b in group:
                     if a is b or a.lemma_clean == b.lemma_clean:
+                        continue
+                    if not b.meaning_1:
                         continue
                     if _already_recorded_single(a, b.lemma_clean):
                         continue
@@ -145,7 +190,9 @@ class PhoneticVariantDetector:
         for hw in self._headwords:
             if not hw.lemma_clean:
                 continue
-            for x, y in PHONETIC_RULES:
+            for x, y, enabled in PHONETIC_RULES:
+                if not enabled:
+                    continue
                 rule_tag = f"rule:{x}<->{y}"
                 for produced in self._apply_rule(hw.lemma_clean, x, y):
                     if produced == hw.lemma_clean:
@@ -171,23 +218,29 @@ class PhoneticVariantDetector:
         return produced
 
     def detect_base_e_aya(self) -> list[tuple[DpdHeadword, str, str]]:
-        """Same construction_clean; base differs only by e/*e ↔ aya/*aya at one slot."""
+        """Same root_key + family_root + pos; root_sign differs *e ↔ *aya; same suffixes."""
         results: list[tuple[DpdHeadword, str, str]] = []
         seen: set[tuple[str, str]] = set()
-        for (construction_clean, _pos), group in self._by_construction_pos.items():
-            if not construction_clean or len(group) < 2:
+        for group in self._by_root_family_pos.values():
+            if len(group) < 2:
                 continue
             for a in group:
-                a_base = a.root_base_clean
-                if not a_base:
+                if a.root_sign not in {"*e", "*aya"}:
+                    continue
+                if not a.meaning_1:
                     continue
                 for b in group:
                     if a is b or a.lemma_clean == b.lemma_clean:
                         continue
-                    b_base = b.root_base_clean
-                    if not b_base or a_base == b_base:
+                    if b.root_sign not in {"*e", "*aya"}:
                         continue
-                    if not _base_differs_e_aya(a_base, b_base):
+                    if a.root_sign == b.root_sign:
+                        continue
+                    if not b.meaning_1:
+                        continue
+                    a_stripped = _construction_without_base(a)
+                    b_stripped = _construction_without_base(b)
+                    if a_stripped is None or a_stripped != b_stripped:
                         continue
                     if _already_recorded_single(a, b.lemma_clean):
                         continue
@@ -198,24 +251,30 @@ class PhoneticVariantDetector:
                     results.append((a, b.lemma_clean, "base:e<->aya"))
         return results
 
-    def detect_base_iya_iiya(self) -> list[tuple[DpdHeadword, str, str]]:
-        """Same construction_clean; base differs only by iya ↔ īya at one slot."""
+    def detect_base_ya_iya_iiya(self) -> list[tuple[DpdHeadword, str, str]]:
+        """Same root_key + family_root + pos; root_sign differs ya ↔ iya ↔ īya; same suffixes."""
         results: list[tuple[DpdHeadword, str, str]] = []
         seen: set[tuple[str, str]] = set()
-        for (construction_clean, _pos), group in self._by_construction_pos.items():
-            if not construction_clean or len(group) < 2:
+        for group in self._by_root_family_pos.values():
+            if len(group) < 2:
                 continue
             for a in group:
-                a_base = a.root_base_clean
-                if not a_base:
+                if a.root_sign not in {"ya", "iya", "īya"}:
+                    continue
+                if not a.meaning_1:
                     continue
                 for b in group:
                     if a is b or a.lemma_clean == b.lemma_clean:
                         continue
-                    b_base = b.root_base_clean
-                    if not b_base or a_base == b_base:
+                    if b.root_sign not in {"ya", "iya", "īya"}:
                         continue
-                    if not _base_differs_iya(a_base, b_base):
+                    if a.root_sign == b.root_sign:
+                        continue
+                    if not b.meaning_1:
+                        continue
+                    a_stripped = _construction_without_base(a)
+                    b_stripped = _construction_without_base(b)
+                    if a_stripped is None or a_stripped != b_stripped:
                         continue
                     if _already_recorded_single(a, b.lemma_clean):
                         continue
@@ -223,15 +282,19 @@ class PhoneticVariantDetector:
                     if key in seen:
                         continue
                     seen.add(key)
-                    results.append((a, b.lemma_clean, "base:iya<->īya"))
+                    results.append((a, b.lemma_clean, "base:ya<->iya<->īya"))
         return results
 
     def detect_all_raw(self) -> list[tuple[DpdHeadword, str, str]]:
         results: list[tuple[DpdHeadword, str, str]] = []
-        results.extend(self.detect_same_construction())
-        results.extend(self.detect_by_rules())
-        results.extend(self.detect_base_e_aya())
-        results.extend(self.detect_base_iya_iiya())
+        if ACTIVE_DETECTORS["same_construction"]:
+            results.extend(self.detect_same_construction())
+        if ACTIVE_DETECTORS["by_rules"]:
+            results.extend(self.detect_by_rules())
+        if ACTIVE_DETECTORS["base_e_aya"]:
+            results.extend(self.detect_base_e_aya())
+        if ACTIVE_DETECTORS["base_ya_iya_iiya"]:
+            results.extend(self.detect_base_ya_iya_iiya())
         return results
 
     def detect_canonical_pairs(self, exceptions: list[str]) -> list[Pair]:
@@ -246,6 +309,14 @@ class PhoneticVariantDetector:
                 continue
             for target_hw in targets:
                 if source_hw.pos != target_hw.pos:
+                    continue
+                if not _has_textual_occurrence(source_hw):
+                    continue
+                if not _has_textual_occurrence(target_hw):
+                    continue
+                if rule == "same_construction" and not (
+                    source_hw.meaning_1 and target_hw.meaning_1
+                ):
                     continue
                 if not _same_families_if_present(source_hw, target_hw):
                     continue
@@ -272,28 +343,29 @@ class PhoneticVariantDetector:
         return pairs
 
 
-def _base_differs_e_aya(base_a: str, base_b: str) -> bool:
-    """True if swapping *e/*aya at exactly one token position makes bases equal."""
-    parts_a = [part.lstrip("*") for part in base_a.split()]
-    parts_b = [part.lstrip("*") for part in base_b.split()]
-    if len(parts_a) != len(parts_b):
-        return False
-    diffs = [i for i, (pa, pb) in enumerate(zip(parts_a, parts_b)) if pa != pb]
-    if len(diffs) != 1:
-        return False
-    pa = parts_a[diffs[0]]
-    pb = parts_b[diffs[0]]
-    return (pa == "e" and pb == "aya") or (pa == "aya" and pb == "e")
+_SUFFIX_NORM: dict[str, str] = {
+    "itvā": "tvā",
+    "itvāna": "tvāna",
+}
 
 
-def _base_differs_iya(base_a: str, base_b: str) -> bool:
-    """True if replacing iya↔īya at one position makes bases equal."""
-    base_a = base_a.replace("*", "")
-    base_b = base_b.replace("*", "")
-    return (
-        base_a.replace("iya", "īya", 1) == base_b
-        or base_b.replace("iya", "īya", 1) == base_a
-    )
+def _construction_without_base(hw: DpdHeadword) -> str | None:
+    """Strip the base form from construction_clean, leaving prefixes + suffixes.
+
+    Returns None if construction_clean or root_base_clean is missing.
+    Normalises equivalent suffix pairs (itvā/tvāna→tvā, si→i).
+    """
+    if not hw.construction_clean or not hw.root_base_clean:
+        return None
+    rbc = hw.root_base_clean
+    if ">" not in rbc:
+        return None
+    base = rbc.split(">")[1].strip().split()[0]
+    parts = hw.construction_clean.split(" + ")
+    if base in parts:
+        parts.remove(base)
+    parts = [_SUFFIX_NORM.get(p, p) for p in parts]
+    return " + ".join(parts)
 
 
 class GlobalVars:
@@ -387,13 +459,20 @@ def _assign(hw: DpdHeadword, other: str, target: str) -> None:
     hw.var_text = ", ".join(pali_list_sorter(var_text))
 
 
-def _pair_has_both_meaning_1(pair: Pair) -> bool:
-    return bool(pair.source.meaning_1 and pair.target.meaning_1)
+def _pair_has_meaning_1(pair: Pair) -> bool:
+    return bool(pair.source.meaning_1 or pair.target.meaning_1)
 
 
-def _pair_sort_key(pair: Pair) -> tuple[int, str, str, str]:
+_RULE_PRIORITY: dict[str, int] = {
+    "base:e<->aya": 0,
+    "base:ya<->iya<->īya": 0,
+}
+
+
+def _pair_sort_key(pair: Pair) -> tuple[int, int, str, str, str]:
     return (
-        0 if _pair_has_both_meaning_1(pair) else 1,
+        _RULE_PRIORITY.get(pair.rule, 1),
+        0 if _pair_has_meaning_1(pair) else 1,
         pair.rule,
         pair.source.lemma_1,
         pair.target.lemma_1,
@@ -404,7 +483,7 @@ def prompt_pairs(g: GlobalVars) -> bool:
     """Walk pairs and prompt the user. Returns True if restart requested."""
     pr.green("reviewing phonetic variant pairs")
     total_pairs = len(g.pairs)
-    total_meaning_1_pairs = sum(1 for pair in g.pairs if _pair_has_both_meaning_1(pair))
+    total_meaning_1_pairs = sum(1 for pair in g.pairs if _pair_has_meaning_1(pair))
     print(
         "[dim]synonym: different construction.  phonetic: same construction, different spelling.  textual: manuscript variant."
     )

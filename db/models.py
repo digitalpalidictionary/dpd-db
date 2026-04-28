@@ -1341,7 +1341,7 @@ class DpdHeadword(Base):
             return []
 
     @cached_property
-    def freq_data_unpack(self) -> dict[str, int]:
+    def freq_data_unpack(self) -> dict[str, str | list[int]]:
         if self.freq_data:
             return json.loads(self.freq_data)
         else:

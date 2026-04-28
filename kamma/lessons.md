@@ -16,3 +16,4 @@
 - 2026-04-26 [BEHAVIOR] Insisted exceptions were working and groups were "similar not identical" when the actual bug was a key format change breaking saved exceptions — trust user's repeated observations over own assumptions
 - 2026-04-27 [BEHAVIOR] When a model uses @cached_property, reading it after mutation returns stale data — always read the raw string attribute directly when the value may have changed in the same session
 - 2026-04-27 [BEHAVIOR] When a field is a "legacy catch-all" accumulating uncategorised entries, never recompute it wholesale — only surgically add/discard the specific value being changed
+- 2026-04-28 [WORKFLOW] When a spec/plan diverges intentionally during implementation (e.g. read-only TSV evolved to interactive DB editor), update plan.md to reflect what was actually built — leaving all tasks [x] pointing to deleted files confuses future review agents
