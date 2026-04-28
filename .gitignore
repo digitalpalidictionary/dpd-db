@@ -110,7 +110,6 @@ scripts/find/most_common_missing_words.tsv
 scripts/find/most_common_missing_words_old.tsv
 scripts/suttas/cst/*.tsv
 scripts/suttas/sc/*.tsv
-scripts/variants/phonetic_variant_candidates.tsv
 shared_data/changed_headwords
 shared_data/changed_templates
 shared_data/frequency/*.json
