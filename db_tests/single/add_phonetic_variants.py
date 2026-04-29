@@ -29,25 +29,31 @@ from tools.printer import printer as pr
 
 ACTIVE_DETECTORS: dict[str, bool] = {
     "same_construction": True,
-    "by_rules": False,
+    "by_rules": True,
     "base_e_aya": True,
     "base_ya_iya_iiya": True,
 }
 
 PHONETIC_RULES: list[tuple[str, str, bool]] = [
     # vowels
+    ("a", "ā", True),
+    ("a", "u", True),
+    ("i", "ī", True),
+    ("i", "u", True),
+    ("ī", "e", True),
+    ("u", "ū", True),
     ("e", "aya", True),
     ("o", "ava", True),
-    ("ā", "a", True),
-    ("ī", "i", True),
-    ("ū", "u", True),
     # consonants
     ("t", "ṭ", True),
     ("d", "ḍ", True),
     ("n", "ṇ", True),
     ("n", "ṅ", True),
     ("n", "ñ", True),
+    ("r", "t", True),
+    ("r", "d", True),
     ("l", "ḷ", True),
+    ("v", "b", True),
     # nasals
     ("ṃ", "ṅ", True),
     ("ṃ", "n", True),
@@ -55,8 +61,25 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("ṃ", "m", True),
     ("ṃ", "ñ", True),
     # doubles
+    ("iya", "eyya", True),
+    ("īya", "eyya", True),
     ("ūl", "ull", True),
     ("ūḷ", "ull", True),
+    ("ika", "aka", True),
+    ("ika", "iya", True),
+    ("ikā", "iyā", True),
+    ("kk", "k", True),
+    ("kk", "g", True),
+    ("gg", "g", True),
+    ("jj", "j", True),
+    ("cc", "c", True),
+    ("ṭṭ", "ṭ", True),
+    ("ṭ", "ḍ", True),
+    ("ṭ", "t", True),
+    ("ḍḍ", "ḍ", True),
+    ("t", "d", True),
+    ("tt", "t", True),
+    ("dd", "d", True),
     ("nh", "h", True),
     ("ny", "ññ", True),
     ("dy", "jj", True),
@@ -64,6 +87,9 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("ṃy", "ññ", True),
     ("nah", "nh", True),
     ("nāh", "nh", True),
+    ("vi", "vy", True),
+    ("ll", "l", True),
+    ("ss", "s", True),
     # delete
     ("h", "", True),
     ("y", "", True),
@@ -97,7 +123,7 @@ def _already_related(a: DpdHeadword, b: DpdHeadword) -> bool:
     b_clean = b.lemma_clean
     a_phon = _split_field(a.var_phonetic)
     b_phon = _split_field(b.var_phonetic)
-    return b_clean in a_phon or a_clean in b_phon
+    return b_clean in a_phon and a_clean in b_phon
 
 
 def _already_recorded_single(hw: DpdHeadword, other_clean: str) -> bool:

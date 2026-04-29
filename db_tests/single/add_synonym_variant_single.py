@@ -9,6 +9,7 @@ from db.models import DpdHeadword
 from db_tests.single.add_synonym_variant_multi import (
     GlobalVars,
     _assign,
+    _entry_label,
     _format_fields,
     _general_key,
     _show_result,
@@ -69,14 +70,17 @@ def find_single_meaning_pairs(g: GlobalVars) -> None:
                     continue
                 a_clean = hw_a.lemma_clean
                 b_clean = hw_b.lemma_clean
-                already_related = (
+                a_has_b = (
                     b_clean in syn_sets[hw_a.id]
                     or b_clean in phon_sets[hw_a.id]
                     or b_clean in text_sets[hw_a.id]
-                    or a_clean in syn_sets[hw_b.id]
+                )
+                b_has_a = (
+                    a_clean in syn_sets[hw_b.id]
                     or a_clean in phon_sets[hw_b.id]
                     or a_clean in text_sets[hw_b.id]
                 )
+                already_related = a_has_b and b_has_a
                 if already_related:
                     continue
                 pairs.append((hw_a, hw_b, meaning))
@@ -106,9 +110,9 @@ def prompt_pairs(g: GlobalVars) -> bool:
             "\n----------------------------------------------------------------------\n"
         )
         print(f"[white]{counter + 1} / {total}  [green]{meaning}")
-        print(f"[yellow]{hw_a.lemma_1} [blue]{hw_a.pos} [green]{hw_a.meaning_1}")
+        print(_entry_label(hw_a))
         print(f"[cyan]{_format_fields(hw_a)}")
-        print(f"[yellow]{hw_b.lemma_1} [blue]{hw_b.pos} [green]{hw_b.meaning_1}")
+        print(_entry_label(hw_b))
         print(f"[cyan]{_format_fields(hw_b)}")
 
         sig = grammar_signature(hw_a.grammar)

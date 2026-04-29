@@ -138,20 +138,33 @@ def find_multi_meaning_pairs(g: GlobalVars) -> None:
                     continue
                 b_clean = hw_b.lemma_clean
                 a_clean = hw_a.lemma_clean
-                already_related = (
+                a_has_b = (
                     b_clean in syn_sets[hw_a.id]
                     or b_clean in phon_sets[hw_a.id]
                     or b_clean in text_sets[hw_a.id]
-                    or a_clean in syn_sets[hw_b.id]
+                )
+                b_has_a = (
+                    a_clean in syn_sets[hw_b.id]
                     or a_clean in phon_sets[hw_b.id]
                     or a_clean in text_sets[hw_b.id]
                 )
+                already_related = a_has_b and b_has_a
                 if already_related:
                     continue
                 pairs.append((hw_a, hw_b, sorted(shared)))
 
     g.pairs = pairs
     pr.yes(str(len(g.pairs)))
+
+
+def _entry_label(hw: DpdHeadword) -> str:
+    family_root = f" [magenta]{hw.family_root}" if hw.family_root else ""
+    family_word = f" [magenta]{hw.family_word}" if hw.family_word else ""
+    return (
+        f"[yellow]{hw.lemma_1} [blue]{hw.pos} "
+        f"[green]{hw.meaning_1} [white]({hw.degree_of_completion})"
+        f"{family_root}{family_word}"
+    )
 
 
 def _format_fields(hw: DpdHeadword) -> str:
@@ -227,9 +240,9 @@ def prompt_pairs(g: GlobalVars) -> bool:
         print("-" * 100 + "\n")
         shared_label = " | ".join(shared)
         print(f"[white]{counter + 1} / {total}  [green]{shared_label}")
-        print(f"[yellow]{hw_a.lemma_1} [blue]{hw_a.pos} [green]{hw_a.meaning_1}")
+        print(_entry_label(hw_a))
         print(f"[cyan]{_format_fields(hw_a)}")
-        print(f"[yellow]{hw_b.lemma_1} [blue]{hw_b.pos} [green]{hw_b.meaning_1}")
+        print(_entry_label(hw_b))
         print(f"[cyan]{_format_fields(hw_b)}")
 
         sig = grammar_signature(hw_a.grammar)
