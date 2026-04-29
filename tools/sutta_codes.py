@@ -42,6 +42,16 @@ def make_list_of_sutta_codes(su: SuttaInfo) -> list[str]:
         if "-" in su.sc_code:
             sutta_codes_set.update(generate_range_of_sutta_codes(su.sc_code))
 
+        # THAG/THIG (SuttaCentral prefix) → TH/THI (DPD prefix) synthetic alias
+        _sc_prefix_map = {"THAG": "TH", "THIG": "THI"}
+        for sc_prefix, dpd_prefix in _sc_prefix_map.items():
+            if su.sc_code.startswith(sc_prefix):
+                synthetic = dpd_prefix + su.sc_code[len(sc_prefix) :]
+                sutta_codes_set.add(synthetic)
+                if "-" in synthetic:
+                    sutta_codes_set.update(generate_range_of_sutta_codes(synthetic))
+                break
+
     return pali_list_sorter(sutta_codes_set)
 
 
