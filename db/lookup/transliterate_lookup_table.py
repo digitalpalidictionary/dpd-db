@@ -8,28 +8,26 @@ Save into database.
 """
 
 import json
-
-from aksharamukha import transliterate
+from multiprocessing import Manager, Process
+from multiprocessing.managers import ListProxy
 from subprocess import check_output
-from typing import Dict, List, TypedDict
+from typing import TypedDict
 
 import psutil
-from multiprocessing.managers import ListProxy
-from multiprocessing import Process, Manager
+from aksharamukha import transliterate
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
-
-from tools.lookup_is_another_value import is_another_value
 from tools.configger import config_test, config_update
+from tools.lookup_is_another_value import is_another_value
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sinhala_tools import translit_ro_to_si
-from tools.paths import ProjectPaths
 from tools.utils import list_into_batches
 
 
 def _parse_batch(
-    batch: List[Lookup],
+    batch: list[Lookup],
     pth: ProjectPaths,
     regenerate_all: bool,
     results_list: ListProxy,
@@ -39,10 +37,10 @@ def _parse_batch(
     # lookup_to_transliterate_string contains the lookup_key,
     # and translit_index_dict contains the line numbers
 
-    translit_dict: Dict[str, WordInflections] = dict()
+    translit_dict: dict[str, WordInflections] = dict()
 
     lookup_to_transliterate_string: str = ""
-    translit_index_dict: Dict[int, str] = dict()
+    translit_index_dict: dict[int, str] = dict()
     lookup_for_json_dict: dict[str, dict[str, list[str]]] = dict()
     counter: int = 0
 
@@ -54,7 +52,8 @@ def _parse_batch(
         ):
             lookup_key: str = i.lookup_key
             translit_index_dict[counter] = lookup_key
-            lookup_for_json_dict[lookup_key] = {"inflections": [lookup_key]}
+            if lookup_key:
+                lookup_for_json_dict[lookup_key] = {"inflections": [lookup_key]}
 
             # lookup_to_transliterate_string += (f"{i.lemma_1}\t")
             # for inflection in lookup_key:
@@ -98,10 +97,10 @@ def _parse_batch(
 
     for counter, line in enumerate(sinhala_lines[:-1]):
         if line:
-            headword: str = translit_index_dict[counter]
+            key: str = translit_index_dict[counter]
             sinhala_translit_set: set = set(line.split(","))
             # sinhala_translit_set.remove("")
-            translit_dict[headword] = WordInflections(
+            translit_dict[key] = WordInflections(
                 sinhala=sinhala_translit_set,
                 devanagari=set(),
                 thai=set(),
@@ -109,17 +108,17 @@ def _parse_batch(
 
     for counter, line in enumerate(devanagari_lines[:-1]):
         if line:
-            headword: str = translit_index_dict[counter]
+            key: str = translit_index_dict[counter]
             devanagari_translit_set: set = set(line.split(","))
             # devanagari_translit_set.remove("")
-            translit_dict[headword]["devanagari"] = devanagari_translit_set
+            translit_dict[key]["devanagari"] = devanagari_translit_set
 
     for counter, line in enumerate(thai_lines[:-1]):
         if line:
-            headword: str = translit_index_dict[counter]
+            key: str = translit_index_dict[counter]
             thai_translit_set: set = set(line.split(","))
             # thai_translit_set.remove("")
-            translit_dict[headword]["thai"] = thai_translit_set
+            translit_dict[key]["thai"] = thai_translit_set
 
     # path nirvana transliteration using node.js
     # pali-script.mjs produces different orthography from aksharamukha
@@ -139,24 +138,20 @@ def _parse_batch(
     # re-import path nirvana transliterations
 
     with open(json_output_from_translit, "r") as f:
-        new_translit: Dict[str, WordInflections] = json.load(f)
+        new_translit: dict[str, WordInflections] = json.load(f)
 
-    for headword, values in new_translit.items():
+    for key, values in new_translit.items():
         try:
             if values["sinhala"]:
-                translit_dict[headword]["sinhala"].update(
-                    set(new_translit[headword]["sinhala"])
+                translit_dict[key]["sinhala"].update(set(new_translit[key]["sinhala"]))
+
+                translit_dict[key]["devanagari"].update(
+                    set(new_translit[key]["devanagari"])
                 )
 
-                translit_dict[headword]["devanagari"].update(
-                    set(new_translit[headword]["devanagari"])
-                )
-
-                translit_dict[headword]["thai"].update(
-                    set(new_translit[headword]["thai"])
-                )
+                translit_dict[key]["thai"].update(set(new_translit[key]["thai"]))
         except KeyError as error:
-            pr.red(f"headword: {headword}")
+            pr.red(f"headword: {key}")
             pr.red(f"values: {values}")
             pr.red(f"error: {error}")
 
@@ -197,9 +192,9 @@ def main():
     pr.green_tmr("processing batches")
 
     num_logical_cores = psutil.cpu_count() or 1
-    batches: List[List[Lookup]] = list_into_batches(lookup_db, num_logical_cores)
+    batches: list[list[Lookup]] = list_into_batches(lookup_db, num_logical_cores)
 
-    processes: List[Process] = []
+    processes: list[Process] = []
     manager = Manager()
     results_list: ListProxy = manager.list()
 
@@ -221,9 +216,9 @@ def main():
     for p in processes:
         p.join()
 
-    results_translit_dict: List[Dict[str, WordInflections]] = list(results_list)
+    results_translit_dict: list[dict[str, WordInflections]] = list(results_list)
 
-    translit_dict: Dict[str, WordInflections] = dict()
+    translit_dict: dict[str, WordInflections] = dict()
 
     for i in results_translit_dict:
         for k, v in i.items():
