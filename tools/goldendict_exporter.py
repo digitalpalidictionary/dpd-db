@@ -84,6 +84,9 @@ class DictVariables:
         self.synfile_zip: Path = self.synfile.with_suffix(".syn.dz")
 
         self.slob_path_name: Path = gd_path.joinpath(dict_name).with_suffix(".slob")
+        self.slob_zip_path: Path = gd_path.joinpath(f"{dict_name}-slob").with_suffix(
+            ".zip"
+        )
 
         self.mdict_mdx_path: Path = md_path.joinpath(f"{dict_name}-mdict").with_suffix(
             ".mdx"
@@ -360,19 +363,39 @@ def delete_original(dict_var: DictVariables):
         pr.red(str(e))
 
 
-def write_to_slob(glos: Glossary, dict_var: DictVariables) -> None:
-    """Write to slob format files."""
+def write_to_slob(
+    dict_info: DictInfo,
+    dict_var: DictVariables,
+    dict_data: list[DictEntry],
+) -> None:
+    """Write to slob format using a fresh glossary instance."""
 
-    pr.white_tmr("writing slob file")
+    pr.green_title("writing slob file")
     if dict_var.slob_path_name.exists():
         dict_var.slob_path_name.unlink()
-    glos.write(
-        filename=str(dict_var.slob_path_name),
-        format="Aard2Slob",
-        compression="",  # "", "bz2", "zlib", "lzma2"
-        content_type="text/html; charset=utf-8",
-        word_title=True,
-    )
+
+    glos = create_glossary(dict_info)
+    try:
+        glos = add_css(glos, dict_var)
+        glos = add_js(glos, dict_var)
+        glos = add_fonts(glos, dict_var)
+        glos = add_data(glos, dict_data)
+        pr.white_tmr("writing slob file")
+        glos.write(
+            filename=str(dict_var.slob_path_name),
+            format="Aard2Slob",
+            compression="",
+            content_type="text/html; charset=utf-8",
+            word_title=True,
+        )
+        pr.yes("ok")
+    finally:
+        glos.cleanup()
+
+    pr.white_tmr("zipping slob")
+    with ZipFile(dict_var.slob_zip_path, "w", ZIP_DEFLATED) as zipf:
+        zipf.write(dict_var.slob_path_name, dict_var.slob_path_name.name)
+    dict_var.slob_path_name.unlink()
     pr.yes("ok")
 
 
@@ -416,6 +439,6 @@ def export_to_goldendict_with_pyglossary(
             delete_original(dict_var)
 
         if include_slob:
-            write_to_slob(glos, dict_var)
+            write_to_slob(dict_info, dict_var, dict_data)
     finally:
         glos.cleanup()

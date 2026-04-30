@@ -319,7 +319,7 @@ jobs:
         name: linux-assets
         path: |
           exporter/share/dpd-goldendict.zip
-          exporter/share/dpd.slob
+          exporter/share/dpd-slob.zip
           exporter/share/dpd-mdict.zip
           exporter/share/dpd-kindle.epub
           exporter/share/dpd-kindle.mobi
@@ -434,7 +434,7 @@ jobs:
           prerelease: false
           files: |
             ./linux-assets/dpd-goldendict.zip
-            ./linux-assets/dpd.slob
+            ./linux-assets/dpd-slob.zip
             ./linux-assets/dpd-mdict.zip
             ./linux-assets/dpd-kindle.epub
             ./linux-assets/dpd-kindle.mobi
