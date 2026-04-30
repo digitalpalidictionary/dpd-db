@@ -1345,10 +1345,6 @@ class DpdFields(PopUpMixin):
 
     def variant_blur(self, e: ft.ControlEvent) -> None:
         self.clean_pali_field(e)
-        field, value = self.get_event_field_and_value(e)
-        var_text_field = self.get_field("var_text")
-        var_text_field.value = value
-        var_text_field.update()
         self.page.update()
 
     def construction_focus(self, e: ft.ControlEvent) -> None:
