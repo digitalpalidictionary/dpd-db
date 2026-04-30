@@ -37,6 +37,7 @@ def add_update_phonetic(
                 all_matches.append((headword, result))
 
         if not all_matches:
+            print(f"[dim]{rule['line']} {rule['initial']}")
             continue
 
         print("-" * 40)
@@ -210,7 +211,7 @@ if __name__ == "__main__":
         manager = PhoneticChangeManager(pth.phonetic_changes_path)
         db_session = get_db_session(pth.dpd_db_path)
         db_session.expire_on_commit = False
-        db = db_session.query(DpdHeadword).all()
+        db = db_session.query(DpdHeadword).filter(DpdHeadword.meaning_1 != "").all()
 
         list_all_phonetic_changes(db, manager)
         rerun = add_update_phonetic(db_session, db, manager)
