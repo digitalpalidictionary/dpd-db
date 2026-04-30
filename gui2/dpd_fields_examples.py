@@ -78,6 +78,7 @@ book_codes: dict[str, str] = {
     "ABH6 yamaka": "abh6",
     "ABH7 paṭṭhāna": "abh7",
     # commentaries
+    "KVA dvemātikāpāḷi + kaṅkhāvitaraṇī": "kva",
     "VINa Commentary": "vina",
     "DNa Dīgha Commentary": "dna",
     "MNa Majjhima Commentary": "mna",

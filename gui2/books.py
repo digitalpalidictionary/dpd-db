@@ -183,6 +183,12 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         None,
         None,
     ),
+    "kva": SuttaCentralSource(
+        "kva",
+        ["kva"],
+        None,
+        None,
+    ),
     "dhpa": SuttaCentralSource(
         "dhpa",
         ["kn2a"],

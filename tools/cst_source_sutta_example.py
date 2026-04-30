@@ -2633,6 +2633,145 @@ def apt_abhidhanapadipikatika(g: GlobalData):
         g.sutta = sutta.lower()
 
 
+def kva_dvemātikā_kaṅkhāvitaraṇī(g: GlobalData) -> None:
+    # Handles dvemātikāpāḷi (bhikkhu + bhikkhunī pātimokkha) and
+    # kaṅkhāvitaraṇī-aṭṭhakathā (commentary on both).
+    #
+    # Pātimokkha structure:
+    #   book "Dvemātikāpāḷi"
+    #     chapter "Bhikkhupātimokkhapāḷi" / "Bhikkhunīpātimokkhapāḷi"
+    #       subhead = uddesa (Pārājikuddeso, Saṅghādisesuddeso, ...)
+    #         centre/bodytext ending "sikkhāpadaṃ" = rule name
+    #
+    # Commentary structure:
+    #   chapter "Kaṅkhāvitaraṇī-aṭṭhakathā"  (transition marker)
+    #     subsubhead "Ganthārambhakathā"
+    #     chapter = kaṇḍa (Pārājikakaṇḍo, ...)
+    #       title = vagga (1. Cīvaravaggo, Sādhāraṇapārājikaṃ, ...)
+    #       subhead = sikkhāpada commentary entry
+    #   chapter "Bhikkhunīpātimokkhavaṇṇanā"  (bhikkhunī flip)
+    #     chapter = kaṇḍa ...
+
+    x = g.x
+    text = x.get_text().strip()
+    rend = x["rend"]
+
+    if not g.is_api:
+        # === PĀTIMOKKHA (mātikā) mode ===
+
+        if rend == "chapter":
+            if "Bhikkhupātimokkhapāḷi" in text:
+                g.is_bhikkhuni = False
+                g.section_counter = 0
+                g.section = "bhikkhupātimokkha"
+                g.vagga_counter = 0
+                g.source = "KVA1.1"
+                g.sutta = "bhikkhupātimokkha"
+
+            elif "Bhikkhunīpātimokkhapāḷi" in text:
+                g.is_bhikkhuni = True
+                g.section_counter = 0
+                g.section = "bhikkhunīpātimokkha"
+                g.vagga_counter = 0
+                g.source = "KVA1.2"
+                g.sutta = "bhikkhunīpātimokkha"
+
+            elif "Kaṅkhāvitaraṇī-aṭṭhakathā" in text:
+                g.is_api = True
+                g.is_bhikkhuni = False
+                g.section_counter = 0
+                g.vagga_counter = 0
+                g.section = ""
+                g.vagga = ""
+                g.source = "KVA2"
+                g.sutta = "kaṅkhāvitaraṇī-aṭṭhakathā"
+
+        elif rend == "subhead":
+            uddesa = text
+            g.section = uddesa.lower()
+            g.section_counter += 1
+            prefix = "KVA1.1" if not g.is_bhikkhuni else "KVA1.2"
+            bhikkhu_label = (
+                "bhikkhupātimokkha" if not g.is_bhikkhuni else "bhikkhunīpātimokkha"
+            )
+            g.source = f"{prefix}.{g.section_counter}"
+            g.sutta = f"{bhikkhu_label}, {uddesa}".lower()
+
+        elif rend in ["centre", "bodytext"]:
+            if (
+                text.endswith("sikkhāpadaṃ") or text.endswith("sikkhāpadāni")
+            ) and not re.match(r"^\d", text):
+                bhikkhu_label = (
+                    "bhikkhupātimokkha" if not g.is_bhikkhuni else "bhikkhunīpātimokkha"
+                )
+                g.sutta = f"{bhikkhu_label}, {g.section}, {text}".lower()
+
+    else:
+        # === COMMENTARY (kaṅkhāvitaraṇī-aṭṭhakathā) mode ===
+
+        if rend == "subsubhead":
+            g.section_counter = 0
+            g.section = text.lower()
+            g.source = "KVA2.1.0"
+            g.sutta = text.lower()
+
+        elif rend == "chapter":
+            if "Bhikkhunīpātimokkhavaṇṇanā" in text:
+                g.is_bhikkhuni = True
+                g.section_counter = 0
+                g.vagga_counter = 0
+                g.vagga = ""
+                g.section = "bhikkhunīpātimokkhavaṇṇanā"
+                g.source = "KVA2.2"
+                g.sutta = "bhikkhunīpātimokkhavaṇṇanā"
+            else:
+                g.section_counter += 1
+                g.vagga_counter = 0
+                g.vagga = ""
+                g.section = text.lower()
+                prefix = "KVA2.1" if not g.is_bhikkhuni else "KVA2.2"
+                bhikkhu_label = (
+                    "bhikkhupātimokkhavaṇṇanā"
+                    if not g.is_bhikkhuni
+                    else "bhikkhunīpātimokkhavaṇṇanā"
+                )
+                g.source = f"{prefix}.{g.section_counter}"
+                g.sutta = f"{bhikkhu_label}, {g.section}".lower()
+
+        elif rend == "title":
+            vagga, vagga_no = get_text_and_number(text)
+            if is_int(vagga_no):
+                g.vagga_counter = int(vagga_no)
+            else:
+                g.vagga_counter += 1
+            g.vagga = vagga.lower()
+            prefix = "KVA2.1" if not g.is_bhikkhuni else "KVA2.2"
+            bhikkhu_label = (
+                "bhikkhupātimokkhavaṇṇanā"
+                if not g.is_bhikkhuni
+                else "bhikkhunīpātimokkhavaṇṇanā"
+            )
+            g.source = f"{prefix}.{g.section_counter}.{g.vagga_counter}"
+            g.sutta = f"{bhikkhu_label}, {g.section}, {g.vagga}".lower()
+
+        elif rend == "subhead":
+            sutta_text, _ = get_text_and_number(text)
+            prefix = "KVA2.1" if not g.is_bhikkhuni else "KVA2.2"
+            bhikkhu_label = (
+                "bhikkhupātimokkhavaṇṇanā"
+                if not g.is_bhikkhuni
+                else "bhikkhunīpātimokkhavaṇṇanā"
+            )
+            if g.vagga_counter:
+                g.source = f"{prefix}.{g.section_counter}.{g.vagga_counter}"
+                g.sutta = (
+                    f"{bhikkhu_label}, {g.section}, {g.vagga}, {sutta_text}".lower()
+                )
+            else:
+                g.source = f"{prefix}.{g.section_counter}"
+                g.sutta = f"{bhikkhu_label}, {g.section}, {sutta_text}".lower()
+
+
 def find_cst_source_sutta_example(
     book: str, text_to_find: str
 ) -> List[CstSourceSuttaExample]:
@@ -2780,6 +2919,9 @@ def find_cst_source_sutta_example(
                     kn17a_patisambhidamagga_commentary(g)
                 case "kn19a":
                     kn19a_netti_commentary(g)
+
+                case "kva":
+                    kva_dvemātikā_kaṅkhāvitaraṇī(g)
 
                 case "vism" | "visma":
                     vism_visuddhimagga_and_commentary(g)

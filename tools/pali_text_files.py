@@ -75,6 +75,7 @@ cst_texts: dict[str, list[str]] = {
         "vin02a3.att.txt",
         "vin02a4.att.txt",
     ],
+    "kva": ["vin04t.nrf.txt"],
     "dna": ["s0101a.att.txt", "s0102a.att.txt", "s0103a.att.txt"],
     "mna": ["s0201a.att.txt", "s0202a.att.txt", "s0203a.att.txt"],
     "sna": [
@@ -122,7 +123,6 @@ cst_texts: dict[str, list[str]] = {
         "vin01t1.tik.txt",
         "vin01t2.tik.txt",
         "vin02t.tik.txt",
-        "vin04t.nrf.txt",
         "vin05t.nrf.txt",
         "vin06t.nrf.txt",
         "vin07t.nrf.txt",
@@ -7652,6 +7652,7 @@ sc_texts: dict[str, list[str]] = {
         "patthana24.21_root-pli-ms.json",
         "patthana24.22_root-pli-ms.json",
     ],
+    "kva": [],
     "vina": [],
     "dna": [],
     "mna": [],
@@ -7924,6 +7925,7 @@ bjt_texts: dict[str, list[str]] = {
         "ap-pat-3.json",
         "ap-pat-4.json",
     ],
+    "kva": [],
     # aṭṭhakathā
     "vina": [
         "atta-vp-prj.json",
@@ -8246,6 +8248,7 @@ all_books = [
     "abh5",
     "abh6",
     "abh7",
+    "kva",
     "vina",
     "dna",
     "mna",
