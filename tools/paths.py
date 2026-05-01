@@ -35,6 +35,7 @@ class ProjectPaths:
 
         # audio
         self.dpd_audio_db_path = base_dir / "audio/db/dpd_audio.db"
+        self.dpd_audio_index_tsv_path = base_dir / "audio/db/dpd_audio_index.tsv"
         self.dpd_audio_mp3_dir = base_dir / "audio/mp3s"
         self.dpd_audio_male1_dir = base_dir / "audio/mp3s/Kannada_kn-m4_Neutral_0.85"
         self.dpd_audio_male2_dir = base_dir / "audio/mp3s/Kannada_kn-m1_Neutral_0.85"

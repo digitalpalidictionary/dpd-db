@@ -167,8 +167,8 @@ jobs:
     # Download Audio Database
     # ----------------------------------------
 
-    - name: Download Audio Database
-      run: uv run python audio/db_release_download.py
+    - name: Download Audio Index
+      run: uv run python audio/index_release_download.py
 
     # ----------------------------------------
     # Exporter
@@ -191,14 +191,6 @@ jobs:
       run: |
         uv run python exporter/goldendict/main.py
         echo "=== After GoldenDict export ==="
-        $HOME/check_disk.sh
-
-    - name: Delete Audio Database to free space
-      run: |
-        echo "=== Before deleting audio DB ==="
-        $HOME/check_disk.sh
-        rm -rf ${{ github.workspace }}/audio/db/dpd_audio.db
-        echo "=== After deleting audio DB ==="
         $HOME/check_disk.sh
 
     - name: Export Deconstructor

@@ -26,6 +26,7 @@ archive/db/deconstructor/output_do_old/
 archive/db/frequency/output/
 audio/db/*.tar.gz
 audio/db/dpd_audio.db
+audio/db/dpd_audio_index*.tsv
 audio/error_check/deleted_silent_files.txt
 audio/error_check/skipped_threshold.txt
 audio/error_check/trimmed_files.txt

@@ -17,3 +17,4 @@
 - 2026-04-27 [BEHAVIOR] When a model uses @cached_property, reading it after mutation returns stale data — always read the raw string attribute directly when the value may have changed in the same session
 - 2026-04-27 [BEHAVIOR] When a field is a "legacy catch-all" accumulating uncategorised entries, never recompute it wholesale — only surgically add/discard the specific value being changed
 - 2026-04-28 [WORKFLOW] When a spec/plan diverges intentionally during implementation (e.g. read-only TSV evolved to interactive DB editor), update plan.md to reflect what was actually built — leaving all tasks [x] pointing to deleted files confuses future review agents
+- 2026-05-01 [POSITIVE] Diagnosing a CI failure by fetching `gh run view --log` and filtering for key strings pinpointed the exact failure line ("finding .tar.gz failed") faster than reading full logs

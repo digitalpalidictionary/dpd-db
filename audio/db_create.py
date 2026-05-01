@@ -4,6 +4,7 @@ Database creation and population for DPD audio files.
 This file handles creating and populating the audio database.
 """
 
+import csv
 from pathlib import Path
 from typing import Optional
 
@@ -25,28 +26,24 @@ pth = ProjectPaths()
 
 def cleanup_old_tarballs() -> None:
     """
-    Delete all but the latest three tarballs to save disk space.
+    Delete all but the latest three tarballs and index TSVs to save disk space.
     """
     db_dir = pth.dpd_audio_db_path.parent
 
-    # Find all tarball files in the db directory
-    tarballs = list(db_dir.glob("dpd_audio_*.tar.gz"))
+    for label, pattern in (
+        ("tarball", "dpd_audio_*.tar.gz"),
+        ("index TSV", "dpd_audio_index_*.tsv"),
+    ):
+        files = list(db_dir.glob(pattern))
+        files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
 
-    # Sort by modification time (newest first)
-    tarballs.sort(key=lambda x: x.stat().st_mtime, reverse=True)
-
-    # Keep only the latest 3, delete the rest
-    if len(tarballs) > 3:
-        pr.green_title("cleaning up old tarballs")
-
-        # Files to delete are all except the first 3
-        files_to_delete = tarballs[3:]
-
-        for tarball in files_to_delete:
-            pr.green(f"deleting: {tarball.name}")
-            tarball.unlink()
-
-        pr.green(f"deleted {len(files_to_delete)} old tarball(s)")
+        if len(files) > 3:
+            pr.green_title(f"cleaning up old {label}s")
+            files_to_delete = files[3:]
+            for f in files_to_delete:
+                pr.green(f"deleting: {f.name}")
+                f.unlink()
+            pr.green(f"deleted {len(files_to_delete)} old {label}(s)")
 
 
 def create_audio_database() -> Path:
@@ -202,6 +199,55 @@ def create_archive() -> None:
     pr.green(f"{archive_path}")
 
 
+def create_index_tsv(version: str) -> Path | None:
+    """Write a tiny TSV (lemma_clean + presence flags) alongside the tarball.
+
+    The build pipeline reads this instead of opening the 1 GB sqlite db just
+    to know which lemmas have audio.
+    """
+
+    pr.green_title("creating audio index tsv")
+    db_file = pth.dpd_audio_db_path
+    if not db_file.exists():
+        pr.red("Database file not found!")
+        return None
+
+    db_dir = db_file.parent
+    versioned_path = db_dir / f"dpd_audio_index_{version}.tsv"
+    static_path = pth.dpd_audio_index_tsv_path
+
+    session = get_audio_session(db_file)
+    try:
+        rows = session.query(
+            DpdAudio.lemma_clean,
+            DpdAudio.male1,
+            DpdAudio.male2,
+            DpdAudio.female1,
+        ).all()
+    finally:
+        session.close()
+
+    with open(versioned_path, "w", newline="") as f:
+        writer = csv.writer(f, delimiter="\t")
+        writer.writerow(["lemma_clean", "has_male1", "has_male2", "has_female1"])
+        for lemma_clean, male1, male2, female1 in rows:
+            writer.writerow(
+                [
+                    lemma_clean,
+                    "1" if male1 is not None else "0",
+                    "1" if male2 is not None else "0",
+                    "1" if female1 is not None else "0",
+                ]
+            )
+
+    # Also write the un-versioned copy so local build pipeline can read it.
+    static_path.write_bytes(versioned_path.read_bytes())
+
+    pr.green(f"wrote {len(rows)} rows to:")
+    pr.green(f"{versioned_path}")
+    return versioned_path
+
+
 def main():
     """Main function to populate the audio database."""
     pr.tic()
@@ -216,6 +262,7 @@ def main():
     create_audio_database()
     populate_audio_database()
     create_archive()
+    create_index_tsv(make_version())
     cleanup_old_tarballs()
     pr.toc()
 

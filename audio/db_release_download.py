@@ -51,13 +51,60 @@ def find_archive_asset(release_info):
     assets = release_info.get("assets", [])
 
     for asset in assets:
-        if asset["name"].endswith(".tar.gz") and asset["name"].startswith("dpd_audio_"):
+        name = asset["name"]
+        if (
+            name.endswith(".tar.gz")
+            and name.startswith("dpd_audio_")
+            and not name.startswith("dpd_audio_index_")
+        ):
             pr.yes("ok")
             return asset
 
     pr.no("failed")
     pr.red("no archive found")
     return None
+
+
+def find_index_asset(release_info):
+    """Find the index TSV in release assets."""
+    pr.green_tmr("finding index tsv")
+    assets = release_info.get("assets", [])
+
+    for asset in assets:
+        name = asset["name"]
+        if name.startswith("dpd_audio_index_") and name.endswith(".tsv"):
+            pr.yes("ok")
+            return asset
+
+    pr.no("failed")
+    pr.red("no index tsv found")
+    return None
+
+
+def download_index(asset):
+    """Download the index TSV asset to the static path."""
+    pr.green_tmr("downloading index tsv")
+    try:
+        response = requests.get(asset["browser_download_url"], stream=True, timeout=30)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        pr.no("failed")
+        pr.red(f"Error downloading index tsv: {e}")
+        return None
+
+    target = pth.dpd_audio_index_tsv_path
+    with open(target, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+
+    if target.stat().st_size == 0:
+        pr.no("failed")
+        pr.red("empty index tsv")
+        return None
+
+    pr.yes("ok")
+    pr.green(f"saved to: {target}")
+    return target
 
 
 def download_archive(asset):
@@ -141,6 +188,13 @@ def main():
         return False
 
     extract_database(archive_path)
+
+    index_asset = find_index_asset(release_info)
+    if not index_asset:
+        return False
+
+    if not download_index(index_asset):
+        return False
 
     pr.toc()
     return True

@@ -36,8 +36,22 @@ def get_archive_path(version: str) -> Path | None:
     return archive_path
 
 
-def create_github_release(version: str, archive_path: Path) -> bool:
-    """Create GitHub release and upload archive."""
+def get_index_path(version: str) -> Path | None:
+    """Get path of existing index TSV."""
+    index_name = f"dpd_audio_index_{version}.tsv"
+    db_dir = pth.dpd_audio_db_path.parent
+    index_path = db_dir / index_name
+
+    if not index_path.exists():
+        pr.red(f"Index TSV not found: {index_path}")
+        pr.red("Please run db_create.py first to generate the index.")
+        return None
+
+    return index_path
+
+
+def create_github_release(version: str, archive_path: Path, index_path: Path) -> bool:
+    """Create GitHub release and upload index TSV (first), then tarball."""
     pr.green_title(f"creating GitHub release {version}")
 
     github_token = config_read("github", "token")
@@ -75,7 +89,13 @@ def create_github_release(version: str, archive_path: Path) -> bool:
         )
         pr.yes("ok")
 
-        # Upload asset
+        # Upload index TSV first — small and fast, so the build pipeline can
+        # read it immediately even while the tarball is still uploading.
+        pr.green_tmr("uploading index tsv")
+        release.upload_asset(str(index_path))
+        pr.yes("ok")
+
+        # Upload tarball (slow, ~1 GB)
         pr.green_tmr("uploading db")
         release.upload_asset(str(archive_path))
         pr.yes("ok")
@@ -102,8 +122,12 @@ def main():
     if not archive_path:
         return
 
+    index_path = get_index_path(version)
+    if not index_path:
+        return
+
     # Create GitHub release
-    success = create_github_release(version, archive_path)
+    success = create_github_release(version, archive_path, index_path)
 
     if not success:
         pr.red("failed to create release")

@@ -2,6 +2,7 @@
 
 """Get cf_set and idioms_set from the DbInfo cache."""
 
+import csv
 import json
 from functools import lru_cache
 
@@ -57,60 +58,50 @@ def load_idioms_set() -> frozenset[str]:
         return frozenset()
 
 
+def _read_audio_index() -> list[tuple[str, bool, bool, bool]]:
+    """Parse the audio index TSV.
+
+    Raises FileNotFoundError if the TSV is missing — run
+    audio/index_release_download.py (CI) or audio/db_release_download.py
+    (local) to fetch it.
+    """
+    tsv_path = pth.dpd_audio_index_tsv_path
+    if not tsv_path.exists():
+        raise FileNotFoundError(
+            f"Audio index TSV not found at {tsv_path}. "
+            "Run audio/index_release_download.py (or audio/db_release_download.py) to fetch it."
+        )
+
+    rows: list[tuple[str, bool, bool, bool]] = []
+    with open(tsv_path, "r", newline="") as f:
+        reader = csv.reader(f, delimiter="\t")
+        next(reader)  # header
+        for lemma_clean, has_male1, has_male2, has_female1 in reader:
+            rows.append(
+                (
+                    lemma_clean,
+                    has_male1 == "1",
+                    has_male2 == "1",
+                    has_female1 == "1",
+                )
+            )
+    return rows
+
+
 @lru_cache(maxsize=1)
 def load_audio_set() -> frozenset[str]:
     """generate a set of all audio headwords"""
-    from sqlalchemy import or_
-
-    from audio.db.db_helpers import get_audio_session
-    from audio.db.models import DpdAudio
-
-    audio_session = get_audio_session()
-    try:
-        results = (
-            audio_session.query(DpdAudio.lemma_clean)
-            .filter(
-                or_(
-                    DpdAudio.male1.isnot(None),
-                    DpdAudio.male2.isnot(None),
-                    DpdAudio.female1.isnot(None),
-                )
-            )
-            .distinct()
-            .all()
-        )
-        audio_set_cache = {r[0] for r in results}
-        return frozenset(audio_set_cache)
-    finally:
-        audio_session.close()
+    return frozenset(
+        lemma_clean for lemma_clean, m1, m2, f1 in _read_audio_index() if m1 or m2 or f1
+    )
 
 
 @lru_cache(maxsize=1)
 def load_audio_dict() -> dict[str, tuple[bool, bool, bool]]:
     """generate a dict of audio headwords with voice availability (male1, male2, female1)"""
-    from audio.db.db_helpers import get_audio_session
-    from audio.db.models import DpdAudio
-
-    audio_session = get_audio_session()
-    try:
-        results = audio_session.query(
-            DpdAudio.lemma_clean,
-            (DpdAudio.male1.isnot(None)),
-            (DpdAudio.male2.isnot(None)),
-            (DpdAudio.female1.isnot(None)),
-        ).all()
-
-        audio_dict_cache = {
-            r[0]: (
-                r[1],
-                r[2],
-                r[3],
-            )
-            for r in results
-        }
-        return audio_dict_cache
-    finally:
-        audio_session.close()
+    return {
+        lemma_clean: (m1, m2, f1) for lemma_clean, m1, m2, f1 in _read_audio_index()
+    }
 
 
 @lru_cache(maxsize=1)
