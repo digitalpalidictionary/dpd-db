@@ -8,8 +8,8 @@ search:
 ## 2026-05-01
 
 ### GitHub Issues Closed
-GitHub issues not available right now...
-
+- [#233 Suttas: Find and add all variant sutta names](https://github.com/digitalpalidictionary/dpd-db/issues/233)
+- [#238 Sutta: add TH THI chapter and verse lookup codes](https://github.com/digitalpalidictionary/dpd-db/issues/238)
 
 ### Dictionary Data Updates
 - 88 864 headwords, 51 242 complete, 10 561 partially complete, 27 061 incomplete entries
@@ -20,8 +20,8 @@ GitHub issues not available right now...
 - 18 310 cells of Pāḷi root data
 - Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
 - Pass1 in progress: VIN5
-- Pass2 complete: DN1-3, MN1-3, SN1-4
-- Pass2 in progress: SN5
+- Pass2 complete: DN1-3, MN1-3, SN1-5
+- Pass2 in progress: AN1
 - numerous additions and corrections based on user feedback
 
 ### New Words
