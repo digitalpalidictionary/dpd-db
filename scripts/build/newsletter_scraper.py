@@ -84,13 +84,17 @@ def get_gmail_service(pth: ProjectPaths):
         creds = Credentials.from_authorized_user_file(str(pth.gmail_token_path), SCOPES)
 
     if not creds or not creds.valid:
+        refreshed = False
         if creds and creds.expired and creds.refresh_token:
             try:
                 creds.refresh(Request())
+                refreshed = True
             except Exception as e:
                 pr.amber(f"failed to refresh gmail token: {e}")
-                return None
-        else:
+                pth.gmail_token_path.unlink(missing_ok=True)
+                creds = None
+
+        if not refreshed:
             if not pth.gmail_credentials_path.exists():
                 pr.amber("credentials.json not found — skipping newsletter scrape")
                 return None

@@ -1,5 +1,70 @@
 # DPD Newsletters
 
+## 2026-05-01
+**Digital Pāḷi Dictionary update (1 May 2026)**
+
+Dear Venerable monastics, professors, and Pāḷi enthusiasts,
+
+There are a few useful updates to the dictionary this month.
+
+**- Saṃyutta Nikāya**
+
+All words in the Saṃyutta Nikāya now have complete information in the dictionary. As Bhikkhu Bodhi so nicely put it, Saṃyutta Nikāya is the "workshop manual" for detailed, nuanced meditation instructions. Please let me know if you come across anything amiss during the course of your reading.
+
+**- Sutta Names and Codes**
+
+You can now search for and find detailed information on any **major subdivision** within the Nikāyas (*paṇṇāsapāḷi, paṇṇāsaka, vaggasaṃyuttapāḷi, saṃyutta*), **minor subdivisions** (*vagga*), or **individual discourses** (*sutta*).
+
+Just open the *sutta / vagga / saṃyutta* tab to find the information you are looking for.
+
+![image.png](pics/newsletters/5a17fdd8f712.jpg)
+
+You can also search by **sutta code** (DN1, MN34, SN32.1) to quickly find detailed information, with links to all relevant websites and apps.
+
+All **variant names** within Myanmar, Sri Lankan, Thai, or Sutta Central texts point to the same dictionary entry (e.g. SN34 == jhānasaṃyutta == samādhisaṃyutta)
+
+I have completed this systematic cross-referencing for Dīgha, Majjhima, and Saṃyutta Nikāyas. The Vinaya and Aṅguttara Nikāya will follow next.
+
+**- Theragāthā and Therīgāthā codes**
+
+Theragāthā verses can now be found by sequential codes (TH201), chapter and number (TH5.4), or PTS-style codes (THAG5.4). All these point to the same dictionary entry.
+
+In the Therīgāthā, you can use the THI prefix (THI56, THI6.7) or the THIG prefix (THIG6.7), as you prefer.
+
+**- DPD Android app — beta testing**
+
+The **DPD app** is still open for beta testing on Android. Thanks to all of you who have given feedback, reported errors, and suggested ideas for new features. It is approaching the point where it is ready for public release. Find out how to [download and install the app here](https://digitalpalidictionary.github.io/install/dpd_app/).
+
+**- Corrections and Additions**
+
+As always, thank you for the abundant dictionary feedback over the past month. There have been many submissions from regular contributors as well as a host of new ones. All your suggestions make the dictionary better for everyone who uses it.
+
+**- Latest release**
+
+With that, I am very pleased to share today's release with you. Download the latest version of DPD for your device using these links:
+
+* [DPD online](https://www.dpdict.net/)
+* [DPD Android app (beta testing)](https://digitalpalidictionary.github.io/install/dpd_app/)
+* [DPD for GoldenDict](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-goldendict.zip)
+* [DPD for MDict and DictTango](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-mdict.zip)
+* [DPD Apple dictionary](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-apple.dictionary.zip)
+* [DPD for Kindle (mobi)](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-kindle.mobi)
+* [DPD for Kindle (epub)](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-kindle.epub)
+* [DPD for Kobo eReader](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-kobo.zip)
+* [DPD PDF](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-pdf.zip)
+* [DPD txt](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-txt.zip)
+* [DPD slob](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-slob.zip)
+* [DPD database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2)
+* [DPD mobile database](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-mobile-db.zip)
+
+Please share this information with those who might be interested.
+
+Wishing you well from Sri Lanka,
+
+Bodhirasa
+
+---
+
 ## 2026-04-02
 **Digital Pāḷi Dictionary update (April 2026)**
 
