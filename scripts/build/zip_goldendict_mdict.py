@@ -82,12 +82,51 @@ def zip_mdict(pth: ProjectPaths):
     pr.yes("ok")
 
 
+def zip_slob(pth: ProjectPaths):
+    """Bundle the individual .slob files into a single distribution zip,
+    deleting each .slob after it is archived."""
+
+    pr.green_tmr("zipping slob")
+
+    slob_files = [
+        pth.share_dir / "dpd.slob",
+        pth.share_dir / "dpd-grammar.slob",
+        pth.share_dir / "dpd-deconstructor.slob",
+        pth.share_dir / "dpd-deconstructor2.slob",
+        pth.share_dir / "dpd-variants.slob",
+    ]
+
+    existing = [f for f in slob_files if f.exists()]
+    if not existing:
+        pr.yes("no")
+        return
+
+    missing = [f for f in slob_files if not f.exists()]
+    if missing:
+        pr.no("error")
+        for f in missing:
+            pr.red(f"slob file not found: {f}")
+        return
+
+    with ZipFile(
+        pth.dpd_slob_zip_path, "w", compression=ZIP_DEFLATED, compresslevel=5
+    ) as slob_zip:
+        for slob_file in slob_files:
+            slob_zip.write(slob_file, slob_file.name)
+
+    for slob_file in slob_files:
+        slob_file.unlink()
+
+    pr.yes("ok")
+
+
 def main():
     pr.tic()
-    pr.yellow_title("rezipping goldendict and mdict")
+    pr.yellow_title("rezipping goldendict, mdict and slob")
     pth = ProjectPaths()
     zip_goldendict(pth)
     zip_mdict(pth)
+    zip_slob(pth)
     pr.toc()
 
 

@@ -84,9 +84,6 @@ class DictVariables:
         self.synfile_zip: Path = self.synfile.with_suffix(".syn.dz")
 
         self.slob_path_name: Path = gd_path.joinpath(dict_name).with_suffix(".slob")
-        self.slob_zip_path: Path = gd_path.joinpath(f"{dict_name}-slob").with_suffix(
-            ".zip"
-        )
 
         self.mdict_mdx_path: Path = md_path.joinpath(f"{dict_name}-mdict").with_suffix(
             ".mdx"
@@ -391,12 +388,6 @@ def write_to_slob(
         pr.yes("ok")
     finally:
         glos.cleanup()
-
-    pr.white_tmr("zipping slob")
-    with ZipFile(dict_var.slob_zip_path, "w", ZIP_DEFLATED) as zipf:
-        zipf.write(dict_var.slob_path_name, dict_var.slob_path_name.name)
-    dict_var.slob_path_name.unlink()
-    pr.yes("ok")
 
 
 def export_to_goldendict_with_pyglossary(

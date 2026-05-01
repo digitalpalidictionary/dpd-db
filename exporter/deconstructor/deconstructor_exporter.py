@@ -4,7 +4,7 @@
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
-from tools.configger import config_test
+from tools.configger import config_read, config_test
 from tools.goldendict_exporter import (
     DictEntry,
     DictInfo,
@@ -30,6 +30,8 @@ class GlobalVars:
             self.make_mdict: bool = True
         elif config_test("dictionary", "make_mdict", "no"):
             self.make_mdict: bool = False
+
+        self.make_slob = config_read("goldendict", "make_slob", "no") == "yes"
 
         # paths
         self.pth = ProjectPaths()
@@ -116,7 +118,9 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
     half = int(len(g.dict_data) / 2)
 
     # export the first half of goldendict
-    export_to_goldendict_with_pyglossary(dict_info1, dict_vars1, g.dict_data[:half])
+    export_to_goldendict_with_pyglossary(
+        dict_info1, dict_vars1, g.dict_data[:half], include_slob=g.make_slob
+    )
 
     # export the other half of goldendict
     dict_info2 = DictInfo(
@@ -140,7 +144,9 @@ def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
         delete_original=False,
     )
 
-    export_to_goldendict_with_pyglossary(dict_info2, dict_vars2, g.dict_data[half:])
+    export_to_goldendict_with_pyglossary(
+        dict_info2, dict_vars2, g.dict_data[half:], include_slob=g.make_slob
+    )
 
     # export to mdict
     if g.make_mdict:

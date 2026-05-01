@@ -7,7 +7,7 @@ import re
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
-from tools.configger import config_test
+from tools.configger import config_read, config_test
 from tools.css_manager import CSSManager
 from tools.goldendict_exporter import (
     DictEntry,
@@ -55,6 +55,8 @@ def main():
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
+
+    make_slob = config_read("goldendict", "make_slob", "no") == "yes"
 
     pr.green_tmr("setting up data")
     pth = ProjectPaths()
@@ -161,6 +163,7 @@ def main():
         dict_info,
         dict_vars,
         dict_data,
+        include_slob=make_slob,
     )
 
     export_to_mdict(dict_info, dict_vars, dict_data)
