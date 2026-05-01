@@ -5,6 +5,30 @@ search:
 
 # Changelog
 
+## 2026-05-01
+
+### GitHub Issues Closed
+GitHub issues not available right now...
+
+
+### Dictionary Data Updates
+- 88 864 headwords, 51 242 complete, 10 561 partially complete, 27 061 incomplete entries
+- 753 roots, 3 354 root families, 36 583 words derived from roots
+- 859 851 deconstructed compounds
+- 1 483 996 unique inflected forms recognized
+- 2 250 171 cells of Pāḷi word data
+- 18 310 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1-4
+- Pass2 in progress: SN5
+- numerous additions and corrections based on user feedback
+
+### New Words
+akkantapada, aggisamūdaka, atipāteti 4, adhippāya 1.5, anāsitaka 2, anāhāra 2, anissārita, anukkhittaka 1, anupanīta 2, anuvisaṭa 2, antimajīvika, appaccaya 1.2, appaṭibāhiyatta, appetvā 1, abyākatavagga 1, avicchinnappavatta, avicchinnappavatti, avisāhāra, asaṅkhāra 2, asokā 1, asokā 2, ārajja, āvunituṃ 2, āharati 1.5, āhārepaṭikūla, idamatthaṃ, idhūpapanna, upagañchi 2, upanīta 8, esanādisutta 2, oghādisutta 2, oghādisutta 3, oghādisutta 4, kakkaṭa 2, kaṇḍakī 2, kappetvā 2.3, kamatthaṃ, karaṇīya 4, kāraṇavasena, kāḷappavāḷā, kusalavīthi, koñca 2, koñcasakuṇa, kopetuṃ 3, khamanīya 2, khāṇuka 3, khipana 2, gaṅgānadīādisutta 2, gativagga, gambhīrapaññā 1, gambhīrapaññā 2, gaharakkhasa, godhā 2, catumaggaṭṭhāna, cārittaṃ āpajjati 2, cāliyā, cittavagga 1, jambudīpika, javati 1, javati 3, javanapaññā, javitvā 2, jhānādisutta 2, tathāgatādisutta 3, tikkhapaññā, tulayitabba 2, duggativinipātabhaya, dutiyakalyāṇamittasutta 2, dutiyakalyāṇamittasutta 3, dutiyanatumhākasutta 2, dutiyanatumhākaṃsutta 3, dutiyayonisomanasikārasampadāsutta 3, dutiyasīlasampadādisuttapañcaka 2, dutiyasīlasampadādisuttapañcaka 3, dutiyādipācīnaninnasutta 1, dutiyādisamuddaninnasutta 1, dutiyādisamuddaninnasutta 3, dussati 2.3, devacārikā 2, nakhasikhāsutta 3, nandaka 4, nibbedhikapaññā, nimittapātubhāva, nissiyati, pakkha 8, paṭighāta 2, paṭhamasutta 1, padīpopamā, padumapatta 2, pabbatūpama, pabbhāra 3, parajana 4, parabhariyā, paritta 1.6, parimajji 2, pariyādiyati 4, pariḷāha 4, palobhayanta, pallaṅkaṃ bhindati, pavajjati, pavattavohāra, pavellamāna, pācīnādisutta 2, pācīnādisutta 3, pāsādakampana, puthupaññā, punaesanādisutta 2, punaoghādisutta 2, puratthimadisā, purimamūlakāni, pūretabba 2, balādisutta 2, balādisutta 3, bahudhīta, bāhira 4, bāhiraṅgatta, bhajāpiyati, bhajāpiyamāna, bhūripaññā, bhesajjakaraṇīya, mantī 4, mukhāruḷha, mukhī 2, yonisomanasikārasampadāsutta 4, lambhana, lahupaññā, vaṇṇa 1.09, vadhituṃ, valāhakavagga 1, vidhura 2, vipākavāra, vippalambhana, vippalambhayati, visarañjita, verahaccāni 1, sagāthaka 3, saṅghuṭṭha 2, sañjātacchanda, sandāpita, sandāpetuṃ, sannayha 2, samīpattha, samugghāṭana, sampakampī, samphassajasutta 1, sara 4.2, sasaṅkhāra 1, saṃyutta 4, saṃyojanappahānasutta 1, saṃyojeti 5, saṃviggahadaya 2, sīghavāhana, sīsaka 1, sīsaka 2, supihita, sumajjha, sūra 5, hatthigavassā [158]
+
+
+
 ## 2026-04-02
 
 ### GitHub Issues Closed
