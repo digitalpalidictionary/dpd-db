@@ -167,6 +167,14 @@ find_comm:
 audio:
     uv run python audio/bhashini/generate_dpd.py
 
+# Upload audio database release
+audio-upload:
+    uv run python audio/db_release_upload.py
+
+# Download latest audio database release
+audio-download:
+    uv run python audio/db_release_download.py
+
 # ===== MAINTENANCE =====
 
 # Propagate CSS across the project
