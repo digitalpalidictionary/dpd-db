@@ -137,7 +137,7 @@ def render_pali_word_dpd_html(
     synonyms += [str(i.id)]
 
     if i.needs_sutta_info_button:
-        synonyms += i.su.sutta_codes_list
+        synonyms += i.su.sutta_codes_list  # type: ignore[union-attr]
 
     size_dict["dpd_synonyms"] += len(str(synonyms))
 
@@ -239,7 +239,7 @@ def generate_dpd_html(
                 "family_compounds": get_family_compounds(pw),
                 "family_idioms": get_family_idioms(pw),
                 "family_set": get_family_set(pw),
-                "sutta_info": pw.su,
+                "sutta_info": pw.su,  # type: ignore[typeddict-item]
             }
 
         dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
@@ -273,6 +273,8 @@ def generate_dpd_html(
 
         for p in processes:
             p.join()
+            if p.exitcode != 0:
+                raise RuntimeError(f"Worker process failed with exit code {p.exitcode}")
 
         if len(batches) > 0 and len(batches[0]) > 0 and offset % limit == 0:
             pr.counter(offset, pali_words_count, batches[0][0]["pali_word"].lemma_1)
