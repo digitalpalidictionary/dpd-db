@@ -72,7 +72,7 @@ class Pass2PreProcessView(ft.Column):
             "",
             label="Counter",
             label_style=TEXT_FIELD_LABEL_STYLE,
-            width=200,
+            width=400,
             color=HIGHLIGHT_COLOUR,
             border_radius=20,
             expand=True,
@@ -260,6 +260,8 @@ class Pass2PreProcessView(ft.Column):
 
         # Update log (this now automatically updates the appbar)
         self.controller.daily_log.increment("pass2_pre")
+        self.controller.session_added += 1
+        self.controller.session_processed += 1
 
         self.selected_sentence_index = 0
 
@@ -273,6 +275,7 @@ class Pass2PreProcessView(ft.Column):
         self.update_message(message)
         # Update log (this now automatically updates the appbar)
         self.controller.daily_log.increment("pass2_pre")
+        self.controller.session_processed += 1
         self.selected_sentence_index = 0
         self.controller.load_next_headword()
 
@@ -303,6 +306,8 @@ class Pass2PreProcessView(ft.Column):
             self.selected_sentence_index = 0
             self.update_message(message)
             self.controller.daily_log.increment("pass2_pre")
+            self.controller.session_added += 1
+            self.controller.session_processed += 1
 
         comment_input = ft.TextField(expand=True, autofocus=True, on_submit=on_ok)
 
