@@ -195,7 +195,7 @@ class GlobalData:
         self.sutta_counter: int = self.init_sutta_counter()
         self.sutta_counter_alt: int = 0
 
-        self.example: str = ""
+        self.example: list[str] = []
 
         self.samyutta: str = ""
         self.samyutta_counter: int = self.init_samyutta_counter()
@@ -344,7 +344,7 @@ def find_gatha_example(g: GlobalData):
             break
 
     if example:
-        g.example = example
+        g.example.append(example)
 
 
 def find_sentence_example(g: GlobalData):
@@ -353,10 +353,7 @@ def find_sentence_example(g: GlobalData):
         if re.findall(g.text_to_find, sentence):
             prev_sentence = sentences[i - 1] if i > 0 else ""
             next_sentence = sentences[i + 1] if i < len(sentences) - 1 else ""
-            example = f"{prev_sentence}{sentence}{next_sentence}"
-
-    if example:
-        g.example = example
+            g.example.append(f"{prev_sentence}{sentence}{next_sentence}")
 
 
 def get_text_and_number(text: str):
@@ -2781,7 +2778,7 @@ def find_cst_source_sutta_example(
         for x in soup_chunks:
             g.soup_tag_list.add(x["rend"])
             g.x = x
-            g.example = ""
+            g.example = []
             g.text = clean_example(x.text)
 
             # find examples
@@ -2937,19 +2934,19 @@ def find_cst_source_sutta_example(
             ):
                 g.source_sutta_list.append((g.source, g.source_alt, g.sutta))
 
-            if (
-                g.source
-                and g.sutta
-                and g.example
-                and (g.source, g.sutta, g.example) not in g.source_sutta_examples
-            ):
-                g.source_sutta_examples.append(
-                    CstSourceSuttaExample(
-                        source=g.source,
-                        sutta=g.sutta,
-                        example=g.example,
+            for example in g.example:
+                if (
+                    g.source
+                    and g.sutta
+                    and (g.source, g.sutta, example) not in g.source_sutta_examples
+                ):
+                    g.source_sutta_examples.append(
+                        CstSourceSuttaExample(
+                            source=g.source,
+                            sutta=g.sutta,
+                            example=example,
+                        )
                     )
-                )
 
     if g.debug:
         for sc in g.source_sutta_list:
