@@ -47,6 +47,11 @@ class DailyLog:
         self._save()
         self.appbar_updater.update(self.get_counts())
 
+    def get_count(self, key: str) -> int:
+        """Gets today's count for a specific key."""
+        today_str = datetime.date.today().isoformat()
+        return self.data.get(today_str, {}).get(key, 0)
+
     def get_counts(self) -> str:
         """Gets today's counts (pass1, pass2)."""
         today_str = datetime.date.today().isoformat()

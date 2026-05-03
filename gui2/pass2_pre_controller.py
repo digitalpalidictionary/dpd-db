@@ -49,8 +49,6 @@ class Pass2PreController:
         self.word_in_text: str = ""
         self.headwords: list[DpdHeadword] = []
         self.headword_index: int = -1
-        self.session_added: int = 0
-        self.session_processed: int = 0
 
     def load_data(self) -> None:
         """Load database data only when needed."""
@@ -60,8 +58,6 @@ class Pass2PreController:
 
     def find_words_with_missing_examples(self, book: str, paths: Gui2Paths):
         self.db.make_pass2_lists()
-        self.session_added = 0
-        self.session_processed = 0
         self.file_manager = Pass2PreFileManager(book, paths)
         self.sc_book = sutta_central_books[book].sc_book
         self.cst_books = sutta_central_books[book].cst_books
@@ -112,8 +108,10 @@ class Pass2PreController:
 
             self.word_in_text = list(self.missing_examples_dict.keys())[0]
             self.ui.update_word_in_text(self.word_in_text)
+            added = len(self.file_manager.matched) + len(self.file_manager.new_word)
+            processed = self.daily_log.get_count("pass2_pre")
             self.ui.update_preprocessed_count(
-                f"Added: {self.session_added}  Processed: {self.session_processed}  Remaining: {len(self.missing_examples_dict)}"
+                f"Added: {added}  Processed: {processed}  Remaining: {len(self.missing_examples_dict)}"
             )
             self.headwords = self.db.get_headwords(self.word_in_text)
 
