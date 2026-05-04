@@ -73,6 +73,9 @@ Use Context7 MCP (`mcp__plugin_context7_context7__resolve-library-id` + `query-d
 - Use this format, all in lowercase. #issue number area: change1, change2 . E.g. `#67 webapp: updated css, fixed overflow`
 - Maximum number of characters in the first line is 72. Do not exceed that. 
 
+### Comments
+- When commenting on GitHub issues, write in the user's natural style: short, direct, lowercase sentence starts, minimal punctuation.
+
 ### Solve
 - "Solve" means read the specified GitHub issue using get_issue and offer solutions. Don't think about it, don't ask questions, just read it.
 - Ask the user to open the necessary files that you need.
