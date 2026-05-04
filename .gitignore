@@ -45,7 +45,6 @@ db/suttas/Untitled Document
 docs_site
 dpd-db.code-workspace
 dpd.db.tar.bz2
-dpd/
 exporter/archive/other_dictionaries_legacy/*
 exporter/archive/other_dictionaries_legacy/bmp_files/
 exporter/archive/other_dictionaries_legacy/code/cone/bulk_dump_html.html
@@ -109,8 +108,7 @@ scripts/extractor/extract_cone.tsv
 scripts/extractor/extract_cpd.tsv
 scripts/find/most_common_missing_words.tsv
 scripts/find/most_common_missing_words_old.tsv
-scripts/suttas/cst/*.tsv
-scripts/suttas/sc/*.tsv
+scripts/suttas/*/*.tsv
 shared_data/changed_headwords
 shared_data/changed_templates
 shared_data/frequency/*.json
@@ -119,5 +117,3 @@ temp/
 token.json
 tools/ai_models.json
 typescript
-/scripts/suttas/bjt/an_vaggas.tsv
-/scripts/suttas/dpr/an_vaggas.tsv
