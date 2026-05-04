@@ -55,6 +55,7 @@ class AIManager:
         from tools.ai_gpt_manager import GptManager
         from tools.ai_gemini_manager import GeminiManager
         from tools.ai_open_router import OpenRouterManager
+        from tools.ai_nvidia import NvidiaManager
 
         self.providers["claude"] = ClaudeManager()
         pr.green("claude initialized")
@@ -79,6 +80,12 @@ class AIManager:
             pr.green("gemini initialized")
         else:
             pr.amber("Gemini API key not found, manager not initialized.")
+
+        if config_read("apis", "nvidia"):
+            self.providers["nvidia"] = NvidiaManager()
+            pr.green("nvidia initialized")
+        else:
+            pr.amber("NVIDIA API key not found, manager not initialized.")
 
         pr.green(
             f"loaded {len(self.DEFAULT_MODELS)} default models, {len(self.GROUNDED_MODELS)} grounded models"

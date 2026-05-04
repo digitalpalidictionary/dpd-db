@@ -18,3 +18,5 @@
 - 2026-04-27 [BEHAVIOR] When a field is a "legacy catch-all" accumulating uncategorised entries, never recompute it wholesale — only surgically add/discard the specific value being changed
 - 2026-04-28 [WORKFLOW] When a spec/plan diverges intentionally during implementation (e.g. read-only TSV evolved to interactive DB editor), update plan.md to reflect what was actually built — leaving all tasks [x] pointing to deleted files confuses future review agents
 - 2026-05-01 [POSITIVE] Diagnosing a CI failure by fetching `gh run view --log` and filtering for key strings pinpointed the exact failure line ("finding .tar.gz failed") faster than reading full logs
+- 2026-05-04 [BEHAVIOR] Added unrequested timeout refactor (tuple schema change) that broke existing callers. Only make changes that were explicitly asked for — stop at the stated scope.
+- 2026-05-04 [CONFUSION] Assumed model failures were a timeout issue and added complexity to fix it; the real cause was simply that the GUI needed a restart to pick up new models.
