@@ -604,9 +604,12 @@ ve: verbal ending
             pr.error(f"Error in _send_prompt: {e}")
             return None
 
-    def _format_response(self, response: str) -> dict[str, str] | None:
+    def _format_response(self, response: str | None) -> dict[str, str] | None:
         """Format the response into a valid python dict
         or save it to the failures file for manual editing."""
+
+        if response is None:
+            return None
 
         result = None
 
