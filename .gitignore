@@ -119,3 +119,5 @@ temp/
 token.json
 tools/ai_models.json
 typescript
+/scripts/suttas/bjt/an_vaggas.tsv
+/scripts/suttas/dpr/an_vaggas.tsv
