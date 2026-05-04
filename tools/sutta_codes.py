@@ -37,7 +37,7 @@ def make_list_of_sutta_codes(su: SuttaInfo) -> list[str]:
 
     # vagga/saṃyutta rows inherit sc_code from their anchor sutta, so adding it
     # would pollute e.g. SN1.1 with the saṃyutta and saṃyuttapāḷi headwords
-    if not su.is_vagga and not su.is_samyutta:
+    if not su.is_vagga and not su.is_samyutta and not su.is_nipata:
         sutta_codes_set.add(su.sc_code)
         if "-" in su.sc_code:
             sutta_codes_set.update(generate_range_of_sutta_codes(su.sc_code))

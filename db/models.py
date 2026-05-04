@@ -709,6 +709,16 @@ class SuttaInfo(Base):
             ).lower()
             return f"https://suttacentral.net/dn-{slug}"
 
+        # AN individual nipāta: pitaka path with nipāta number
+        # (e.g. AN1 → pitaka/sutta/numbered/an/an1)
+        if book_code.lower() == "an" and self.is_nipata:
+            m = re.match(r"^AN(\d+)$", self.dpd_code, re.IGNORECASE)
+            if m:
+                return (
+                    f"https://suttacentral.net/pitaka/sutta/numbered/an/an{m.group(1)}"
+                )
+            return None
+
         if not self.sc_vagga:
             return None
 
@@ -862,6 +872,15 @@ class SuttaInfo(Base):
             return False
         base = re.sub(r" \d+$", "", self.dpd_sutta)
         return base.endswith("saṃyutta")
+
+    @cached_property
+    def is_nipata(self) -> bool:
+        if not (self.dpd_sutta and self.dpd_code):
+            return False
+        if "." in self.dpd_code or "-" in self.dpd_code:
+            return False
+        names = [self.dpd_sutta, self.dpd_sutta_var]
+        return any("nipāta" in name for name in names if name)
 
     @cached_property
     def is_vagga(self) -> bool:
