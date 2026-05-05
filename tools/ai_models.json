@@ -1,0 +1,96 @@
+{
+  "default_models": [
+    {
+      "provider": "gemini",
+      "model": "gemini-1.5-flash",
+      "delay": 4
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "delay": 6
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash-lite",
+      "delay": 5
+    },
+    {
+      "provider": "claude",
+      "model": "opus",
+      "delay": 5
+    },
+    {
+      "provider": "claude",
+      "model": "sonnet",
+      "delay": 5
+    },
+    {
+      "provider": "claude",
+      "model": "haiku",
+      "delay": 5
+    },
+    {
+      "provider": "codex",
+      "model": "gpt-5.4",
+      "delay": 5
+    },
+    {
+      "provider": "codex",
+      "model": "gpt-5.4-mini",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "tencent/hy3-preview:free",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "minimax/minimax-m2.5:free",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v3.2",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "google/gemini-2.5-flash-lite",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "x-ai/grok-4.1-fast",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "xiaomi/mimo-v2-flash",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "google/gemma-4-31b-it ",
+      "delay": 5
+    },
+    {
+      "provider": "nvidia",
+      "model": "moonshotai/kimi-k2.6",
+      "delay": 5
+    }
+  ],
+  "grounded_models": [
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "delay": 6
+    }
+  ]
+}
