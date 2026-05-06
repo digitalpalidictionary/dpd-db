@@ -327,9 +327,9 @@ class DatabaseManager:
                     headword = (
                         self.db_session.query(DpdHeadword)
                         .filter(DpdHeadword.id == id)
-                        .filter(
-                            DpdHeadword.source_1 == ""
-                        )  # remove to include commentary words
+                        # .filter(
+                        #     DpdHeadword.source_1 == ""
+                        # )  # remove to include commentary words
                         .first()
                     )
                     if headword and is_missing_sutta_example(headword):
