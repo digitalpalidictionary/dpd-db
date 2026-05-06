@@ -40,7 +40,6 @@
 91st
 92nd
 9th
-a deit
 aaaah
 ababa-count
 abbhantara
@@ -224,7 +223,7 @@ asammuccā
 Asaṅkhatasaṃyuttaṃ
 ascertains
 asceticism
-Asclepias syriaca
+Asclepias
 ashoka
 Asiatica
 asiaticus
@@ -466,7 +465,7 @@ Campā
 Capparis
 captious
 capucapu
-capucapu soun
+capucapu
 Carandas
 carasīti
 carefulness
@@ -645,6 +644,7 @@ Cūḷapuṇṇamasutta
 Cūḷasuññatasutta
 cūḷavagga
 d
+Dabba
 dacoit
 daddabha
 dadāti
@@ -662,6 +662,7 @@ davatte
 dawnrise
 Daḷhanemi
 de-illusionment
+debars
 decad
 decayless
 Deccan
@@ -678,6 +679,7 @@ defilement
 defilements
 dehorned
 dehusked
+deity
 dejection
 delicateness
 delimited
@@ -945,6 +947,7 @@ felly
 ferruginea
 fetcher
 fettering
+fibre
 fickleness
 fidgetiness
 fineness
@@ -1364,6 +1367,7 @@ Kattik
 Kattika
 Kaḷāramaṭṭaka
 kaṃsa
+Kaṅkhārevata
 kaṇikāra
 Kaṇṇakatthala
 Kaṇṭaka
@@ -1382,6 +1386,7 @@ keḷāyati
 Keṇiya
 kh
 kha
+Khadiravaniya
 Khandasaṃyuttaṃ
 khandha
 Khandhaka
@@ -1466,6 +1471,7 @@ kuḍuba
 Kuṇḍaliya
 kuṇḍañhi
 kuṭi
+Kuṭikaṇṇa
 kuṭis
 kyphotic
 Kāliṅga
@@ -1482,6 +1488,7 @@ Kāyagatāsatisutta
 Kāḷaka
 Kāḷigodha
 Kāḷudāyi
+Kāḷudāyī
 kī
 Kīṭāgiri
 Kūṭadanta
@@ -1491,11 +1498,13 @@ labourers
 Lacucha
 Lagopodioides
 Lakkhaṇasaṃyuttaṃ
+Lakuṇḍaka
 lambaste
 lambastes
 Lanka
 Lankan
-lapis lazuli
+Lankan
+lapis
 latfolia
 latifolia
 layed
@@ -1505,6 +1514,7 @@ laypeople
 layperson
 layperson's
 laywoman
+lazuli
 leatherwork
 leatherworker
 lebbeck
@@ -1617,6 +1627,7 @@ Malabarica
 Malla
 Mallan
 Mallans
+Mallaputta
 Mallas
 malnourishment
 malodorousness
@@ -2307,6 +2318,7 @@ rudh
 rudhādigaṇa
 Ruellia
 rufipogon
+rule
 rulership
 Rumā
 Rusa
@@ -2389,6 +2401,7 @@ Sarabhū
 Saraca
 saravanaṃ
 Saraṇāni
+sarus
 sassata
 sati
 satiates
@@ -2539,7 +2552,6 @@ spontaneum
 spritzed
 squanderer
 Sri
-Sri Lankan
 ssa
 st
 stabilises
@@ -2626,7 +2638,6 @@ surmounting
 surpassable
 surpassingly
 surusuru
-surusuru soun
 Susima
 Susumāragira
 Sutanu
@@ -2648,6 +2659,7 @@ syllogism
 sylvatica
 Symplocos
 syntactician
+syriaca
 Syzygium
 Syām
 sāci
@@ -2782,7 +2794,7 @@ towelled
 townsperson
 tradable
 tragocamelus
-training rule
+training
 tranquillization
 transfixes
 transgresses
@@ -3114,6 +3126,8 @@ Vaḍḍhamātar
 Vaḍḍhīsutta
 vaṃsa
 Vaṃsas
+Vaṅganta
+Vaṅgantaputta
 Vaṅgantaputta
 Vaṅgīsa
 Vaṅgīsasaṃyuttaṃ
@@ -3340,5 +3354,17 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-debars
-sarus
+Bhaddā
+Kuṇḍalakesā
+Kāpilānī
+Macchikāsaṇḍika
+Macchikā
+flavoured
+Vesālika
+Uggo
+Ugga
+Hatthigāmaka
+Uggata
+Komārabhacca
+paediatrician
+Nakula
