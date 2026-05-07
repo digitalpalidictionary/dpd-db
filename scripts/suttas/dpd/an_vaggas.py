@@ -28,11 +28,7 @@ FIELDNAMES = [
     "notes",
 ]
 
-AN_MEANING2_RE = re.compile(
-    r"Chapter\s+(\d+)\s+of\s+(.+?),\s+Aṅguttara\s+Nikāya\s+(\d+)\.(\d+(?:-\d+)*)",
-    re.UNICODE,
-)
-AN_PAREN_CODE_RE = re.compile(r"\((AN\d+(?:\.\d+)?(?:-(?:\d+\.)?\d+)?)\)")
+AN_PAREN_CODE_RE = re.compile(r"\((AN\d+(?:\.\d+(?:-\d+)?)?(?:-\d+)?)\)")
 
 
 def extract() -> list[dict[str, str]]:
@@ -42,25 +38,15 @@ def extract() -> list[dict[str, str]]:
     try:
         headwords = session.query(DpdHeadword).order_by(DpdHeadword.id).all()
         for hw in headwords:
-            meaning_2 = hw.meaning_2 or ""
-            if "Aṅguttara Nikāya" not in meaning_2:
+            meaning_1 = hw.meaning_1 or ""
+            if not meaning_1.startswith("Vagga "):
                 continue
-            if not (
-                (hw.family_set or "").startswith("vaggas of Aṅguttara Nikāya")
-                or meaning_2.startswith("Chapter ")
-                or (hw.meaning_1 or "").startswith("Vagga ")
-            ):
+            paren_match = AN_PAREN_CODE_RE.search(meaning_1)
+            if paren_match is None:
                 continue
-            match = AN_MEANING2_RE.search(meaning_2)
-            if match is None:
-                paren_match = AN_PAREN_CODE_RE.search(hw.meaning_1 or "")
-                if paren_match is None:
-                    paren_match = AN_PAREN_CODE_RE.search(meaning_2)
-                if paren_match is None:
-                    continue
-                dpd_code = paren_match.group(1)
-            else:
-                dpd_code = f"AN{match.group(3)}.{match.group(4)}"
+            dpd_code = paren_match.group(1)
+            if not dpd_code.startswith("AN"):
+                continue
             grouped.setdefault(dpd_code, []).append(hw)
 
         for dpd_code, members in grouped.items():

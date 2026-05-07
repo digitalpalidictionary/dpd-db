@@ -160,6 +160,10 @@ def extract() -> list[dict[str, str]]:
                 if SUBVAGGA_RE.search(subhead_text) and chapter_ctx is not None:
                     # Sub-vagga heading inside a chapter container (AN1 ch14-16)
                     ctx: dict[str, str] = chapter_ctx
+                    # Promote the outer chapter name into cst_section the first time
+                    # we encounter a sub-vagga (only when no higher section exists yet)
+                    if not ctx["cst_section"]:
+                        ctx["cst_section"] = ctx["cst_vagga"]
                     flush_active()
                     active = {
                         **ctx,
