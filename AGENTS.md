@@ -128,6 +128,11 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 - Run a specific file: `uv run pytest tests/path/to/test_file.py`
 - Run with durations: `uv run pytest tests/ --durations=10`
 
+### Pre-commit gate
+- After finishing edits to any file, ALWAYS run `uv run ruff check <file>` and `uv run pytest <related test paths>` before reporting the work as done.
+- The repo's pre-commit hook will reject the commit otherwise — fixing it after the fact wastes a round-trip.
+- If a related test file is broken from before your changes, note it but do not silently ignore — it may mask a regression you've just introduced.
+
 ---
 
 ## Tools/db_helpers.py
