@@ -42,6 +42,16 @@
     },
     {
       "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-pro",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
       "model": "tencent/hy3-preview:free",
       "delay": 5
     },
