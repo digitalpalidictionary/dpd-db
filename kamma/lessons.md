@@ -20,3 +20,4 @@
 - 2026-05-01 [POSITIVE] Diagnosing a CI failure by fetching `gh run view --log` and filtering for key strings pinpointed the exact failure line ("finding .tar.gz failed") faster than reading full logs
 - 2026-05-04 [BEHAVIOR] Added unrequested timeout refactor (tuple schema change) that broke existing callers. Only make changes that were explicitly asked for — stop at the stated scope.
 - 2026-05-04 [CONFUSION] Assumed model failures were a timeout issue and added complexity to fix it; the real cause was simply that the GUI needed a restart to pick up new models.
+- 2026-05-07 [BEHAVIOR] Overshot user's request: asked to move first-focus delay to startup, I also added eager post-write rebuild that blocked saves. Default to background-thread/async for any expensive post-mutation refresh; only block the main path when correctness requires it.

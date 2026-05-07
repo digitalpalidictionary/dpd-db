@@ -8,16 +8,18 @@ from rich.prompt import Prompt
 from db.models import DpdHeadword
 from db_tests.single.add_synonym_variant_multi import (
     GlobalVars,
-    _assign,
     _format_fields,
     _pair_key,
     _show_result,
-    _split_field,
-    clean_meaning,
-    grammar_signature,
 )
 from tools.db_search_string import db_search_string
 from tools.printer import printer as pr
+from tools.synonym_variant import (
+    assign_relationship as _assign,
+    clean_meaning,
+    grammar_signature,
+    split_field as _split_field,
+)
 
 
 def _is_valid_synonym(hw_a: DpdHeadword, hw_b: DpdHeadword) -> bool:

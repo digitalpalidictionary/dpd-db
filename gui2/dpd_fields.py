@@ -251,6 +251,7 @@ class DpdFields(PopUpMixin):
                 "synonym",
                 on_focus=self.synonym_focus,
                 on_change=self.synonym_field_change,
+                on_submit=self.synonym_submit,
                 on_blur=self.clean_pali_field,
             ),
             FieldConfig(
@@ -260,7 +261,9 @@ class DpdFields(PopUpMixin):
             ),
             FieldConfig(
                 "var_phonetic",
+                on_focus=self.var_phonetic_focus,
                 on_change=self.clean_pali_field,
+                on_submit=self.var_phonetic_submit,
                 on_blur=self.clean_pali_field,
             ),
             FieldConfig(
@@ -638,15 +641,36 @@ class DpdFields(PopUpMixin):
         add_field: ft.Control,
         button: ft.IconButton | None,
     ):
-        """Transfers value from add_field to field and updates button state."""
+        """Transfers value from add_field to field and updates button state.
 
-        if add_field.value:
+        For synonym/var_phonetic/var_text, applies the exclusivity rules
+        from `tools.synonym_variant.assign_relationship_dict` so that, e.g.,
+        accepting a lemma into var_phonetic also removes it from synonym.
+        """
+
+        if not add_field.value:
+            return
+
+        target_name = getattr(field, "name", None)
+        if target_name in {"synonym", "var_phonetic", "var_text"}:
+            from tools.synonym_variant import assign_relationship_dict, split_field
+
+            current = {
+                "synonym": self.get_field("synonym").value or "",
+                "variant": self.get_field("variant").value or "",
+                "var_phonetic": self.get_field("var_phonetic").value or "",
+                "var_text": self.get_field("var_text").value or "",
+            }
+            for lemma in split_field(add_field.value):
+                current = assign_relationship_dict(current, lemma, target_name)
+            for name, value in current.items():
+                self.get_field(name).value = value
+        else:
             field.value = add_field.value
-            # Optionally clear the add_field after transfer
-            # add_field.value = ""
-            if button:  # Disable button after transfer if add_field is now empty (or always if desired)
-                button.disabled = not bool(add_field.value)
-            self.page.update()
+
+        if button:
+            button.disabled = not bool(add_field.value)
+        self.page.update()
 
     def get_field(self, name: str) -> Any:
         return self.fields.get(name, "")
@@ -775,14 +799,9 @@ class DpdFields(PopUpMixin):
                         self.page.update()
 
     def meaning_1_blur(self, e: ft.ControlEvent) -> None:
-        """Clear synonyms when meaning_1 loses focus so they regenerate from the new meaning."""
-        syn_field = self.get_field("synonym")
-        if self.flags.synonyms_done or (syn_field and syn_field.value):
-            self.flags.synonyms_done = False
-            syn_field.value = ""
-            syn_field.update()
-            self.ui.update_message("synonyms deleted - redo them")
-            self.page.update()
+        """Recompute synonym suggestions whenever meaning_1 changes."""
+        self.flags.synonyms_done = False
+        self._compute_and_write_synonyms()
 
     def lemma_2_blur(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
@@ -1276,40 +1295,105 @@ class DpdFields(PopUpMixin):
         self.synonym_variant_check(e)
 
     def synonym_focus(self, e: ft.ControlEvent) -> None:
-        """Auto-generate synonyms if the field is empty."""
+        """Compute synonym suggestions on focus if not already done.
 
-        field, value = self.get_event_field_and_value(e)
-
+        Normally meaning_1 blur fires first; this is the fallback when the
+        user tabs straight to synonym before blurring meaning_1.
+        """
         if not self.flags.synonyms_done:
-            pos = self.get_field("pos").value
-            meaning_1 = self.get_field("meaning_1").value
-            lemma_1 = self.get_field("lemma_1").value
+            self._compute_and_write_synonyms()
 
-            if pos and meaning_1 and lemma_1:
-                synonyms_string = self.db.get_synonyms(pos, meaning_1, lemma_1)
-                if synonyms_string:
-                    var_field = self.get_field("variant")
-                    var_value = var_field.value or ""
-                    var_set = set(
-                        word.strip() for word in var_value.split(",") if word.strip()
-                    )
-                    syn_set = set(
-                        word.strip()
-                        for word in synonyms_string.split(",")
-                        if word.strip()
-                    )
-                    syn_set = syn_set - var_set
-                    synonyms_string = ", ".join(pali_list_sorter(list(syn_set)))
-                    field.value = synonyms_string
-                    self.ui.update_message("Synonyms auto-generated")
-                    self.flags.synonyms_done = True
-                else:
-                    self.ui.update_message("No synonyms found")
-            else:
-                self.ui.update_message(
-                    "POS, Meaning 1, and Lemma 1 needed for synonyms"
-                )
-            self.page.update()
+    def synonym_submit(self, e: ft.ControlEvent) -> None:
+        """Force a fresh synonym recompute on Enter."""
+        self.flags.synonyms_done = False
+        self._compute_and_write_synonyms()
+
+    def _compute_and_write_synonyms(self) -> None:
+        """Run the relationship detector against the current headword's
+        field values and write the result to both `synonym` and
+        `synonym_add`. Sets `synonyms_done` on success.
+        """
+        meaning_1 = self.get_field("meaning_1").value
+        pos = self.get_field("pos").value
+        lemma_1 = self.get_field("lemma_1").value
+
+        if not (pos and meaning_1 and lemma_1):
+            self.ui.update_message("POS, Meaning 1, and Lemma 1 needed for synonyms")
+            return
+
+        current_hw = self.get_current_headword()
+        detector = self.db.get_relationship_detector()
+        candidates = detector.find_synonyms(current_hw)
+
+        var_field = self.get_field("variant")
+        var_set = {
+            word.strip() for word in (var_field.value or "").split(",") if word.strip()
+        }
+        candidates = [c for c in candidates if c not in var_set]
+
+        suggestion = ", ".join(candidates) if candidates else ""
+
+        syn_field = self.get_field("synonym")
+        syn_add_field = self.get_field("synonym_add")
+        syn_field.value = suggestion
+        syn_add_field.value = suggestion
+
+        if candidates:
+            self.ui.update_message(f"{len(candidates)} synonyms suggested")
+            self.flags.synonyms_done = True
+        else:
+            self.ui.update_message("No synonyms found")
+            self.flags.synonyms_done = True
+
+        self.check_and_color_add_fields()
+        self.page.update()
+
+    def var_phonetic_focus(self, e: ft.ControlEvent) -> None:
+        """Compute phonetic-variant suggestions on focus if not already done."""
+        if not self.flags.var_phonetic_done:
+            self._compute_and_write_phonetic_variants()
+
+    def var_phonetic_submit(self, e: ft.ControlEvent) -> None:
+        """Force a fresh phonetic-variant recompute on Enter."""
+        self.flags.var_phonetic_done = False
+        self._compute_and_write_phonetic_variants()
+
+    def _compute_and_write_phonetic_variants(self) -> None:
+        """Run the phonetic variant detector against the current headword and
+        write the result to both `var_phonetic` and `var_phonetic_add`. Sets
+        rule labels in `var_phonetic` helper_text. Sets `var_phonetic_done`.
+        """
+        pos = self.get_field("pos").value
+        lemma_1 = self.get_field("lemma_1").value
+        if not (pos and lemma_1):
+            return
+
+        current_hw = self.get_current_headword()
+        detector = self.db.get_relationship_detector()
+        results = detector.find_phonetic_variants(current_hw)
+
+        var_phon_field = self.get_field("var_phonetic")
+        var_phon_add_field = self.get_field("var_phonetic_add")
+
+        if not results:
+            self.ui.update_message("No phonetic variants found")
+            self.flags.var_phonetic_done = True
+            return
+
+        candidates = pali_list_sorter([c for c, _ in results])
+        rule_by_lemma = {c: r for c, r in results}
+        suggestion = ", ".join(candidates)
+
+        var_phon_field.value = suggestion
+        var_phon_add_field.value = suggestion
+        var_phon_field.helper_text = "; ".join(
+            f"{c}: {rule_by_lemma[c]}" for c in candidates
+        )
+
+        self.ui.update_message(f"{len(candidates)} phonetic variants suggested")
+        self.flags.var_phonetic_done = True
+        self.check_and_color_add_fields()
+        self.page.update()
 
     def synonym_variant_check(self, e: ft.ControlEvent) -> None:
         """Ensure that the same word does not exist in both synonym and variant fields."""

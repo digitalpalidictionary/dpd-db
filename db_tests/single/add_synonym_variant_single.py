@@ -8,17 +8,19 @@ from rich.prompt import Prompt
 from db.models import DpdHeadword
 from db_tests.single.add_synonym_variant_multi import (
     GlobalVars,
-    _assign,
     _entry_label,
     _format_fields,
     _general_key,
     _show_result,
-    _split_field,
-    clean_meaning,
-    grammar_signature,
 )
 from tools.db_search_string import db_search_string
 from tools.printer import printer as pr
+from tools.synonym_variant import (
+    assign_relationship,
+    clean_meaning,
+    grammar_signature,
+    split_field,
+)
 
 
 def _pair_key_single(
@@ -40,8 +42,8 @@ def find_single_meaning_pairs(g: GlobalVars) -> None:
 
     for hw in g.dpd_db:
         syn_sets[hw.id] = set(hw.synonym_list)
-        phon_sets[hw.id] = _split_field(hw.var_phonetic)
-        text_sets[hw.id] = _split_field(hw.var_text)
+        phon_sets[hw.id] = split_field(hw.var_phonetic)
+        text_sets[hw.id] = split_field(hw.var_text)
         if not hw.meaning_1 or "; " in hw.meaning_1:
             continue
         cleaned = clean_meaning(hw.meaning_1)
@@ -126,22 +128,22 @@ def prompt_pairs(g: GlobalVars) -> bool:
         )
 
         if choice == "s":
-            _assign(hw_a, hw_b.lemma_clean, "synonym")
-            _assign(hw_b, hw_a.lemma_clean, "synonym")
+            assign_relationship(hw_a, hw_b.lemma_clean, "synonym")
+            assign_relationship(hw_b, hw_a.lemma_clean, "synonym")
             _show_result(hw_a)
             _show_result(hw_b)
             g.db_session.commit()
 
         elif choice == "p":
-            _assign(hw_a, hw_b.lemma_clean, "var_phonetic")
-            _assign(hw_b, hw_a.lemma_clean, "var_phonetic")
+            assign_relationship(hw_a, hw_b.lemma_clean, "var_phonetic")
+            assign_relationship(hw_b, hw_a.lemma_clean, "var_phonetic")
             _show_result(hw_a)
             _show_result(hw_b)
             g.db_session.commit()
 
         elif choice == "t":
-            _assign(hw_a, hw_b.lemma_clean, "var_text")
-            _assign(hw_b, hw_a.lemma_clean, "var_text")
+            assign_relationship(hw_a, hw_b.lemma_clean, "var_text")
+            assign_relationship(hw_b, hw_a.lemma_clean, "var_text")
             _show_result(hw_a)
             _show_result(hw_b)
             g.db_session.commit()

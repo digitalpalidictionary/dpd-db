@@ -2,7 +2,7 @@
 import re
 
 from sqlalchemy import delete as sa_delete
-from sqlalchemy import desc, func, or_
+from sqlalchemy import desc, func
 from sqlalchemy import insert as sa_insert
 from sqlalchemy.orm import defer
 from sqlalchemy.orm.session import Session
@@ -21,6 +21,7 @@ from gui2.dpd_fields_functions import clean_lemma_1
 from gui2.needs_example import is_missing_sutta_example
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from tools.synonym_variant import RelationshipDetector
 
 
 class DatabaseManager:
@@ -75,6 +76,9 @@ class DatabaseManager:
         # lookup
         self.all_decon_no_headwords: set[str] = set()
 
+        # synonym/phonetic detector — built lazily on first use
+        self._relationship_detector: RelationshipDetector | None = None
+
     def new_db_session(self):
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
@@ -109,6 +113,7 @@ class DatabaseManager:
             )
             .all()
         )
+        self._relationship_detector = RelationshipDetector(self.db)
 
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).distinct().all()
@@ -549,12 +554,66 @@ class DatabaseManager:
         elif first_character.isdigit():
             return self.get_headword_by_id(int(user_input.split()[0]))
 
+    # --- RELATIONSHIP DETECTOR ---
+
+    def get_relationship_detector(self) -> RelationshipDetector:
+        """Detector for synonym/phonetic-variant suggestions.
+
+        Built eagerly at the end of `initialize_db`. The lazy-rebuild path
+        below only triggers if the cache was invalidated by a write
+        (add/update/delete) and someone calls before the next initialize.
+        """
+        if self._relationship_detector is None:
+            headwords = (
+                self.db
+                if getattr(self, "db", None) is not None
+                else self.db_session.query(DpdHeadword).all()
+            )
+            self._relationship_detector = RelationshipDetector(headwords)
+        return self._relationship_detector
+
+    def invalidate_relationship_detector(self) -> None:
+        """Rebuild the detector in a background thread so saves return
+        immediately. The current detector keeps serving suggestions until
+        the new one is ready, then atomically swaps in. Worst case: a
+        relationship just saved isn't visible until the rebuild finishes
+        (a few seconds), which is well before the user reaches the next
+        word.
+        """
+        import threading
+
+        from db.db_helpers import get_db_session
+
+        def _rebuild() -> None:
+            try:
+                bg_session = get_db_session(self.pth.dpd_db_path)
+                headwords = (
+                    bg_session.query(DpdHeadword)
+                    .options(
+                        defer(DpdHeadword.inflections_html),
+                        defer(DpdHeadword.freq_html),
+                        defer(DpdHeadword.inflections_sinhala),
+                        defer(DpdHeadword.inflections_devanagari),
+                        defer(DpdHeadword.inflections_thai),
+                        defer(DpdHeadword.freq_data),
+                    )
+                    .all()
+                )
+                detector = RelationshipDetector(headwords)
+                self._relationship_detector = detector
+                bg_session.close()
+            except Exception as exc:
+                print(f"relationship detector rebuild failed: {exc}")
+
+        threading.Thread(target=_rebuild, daemon=True).start()
+
     # --- DB FUNCTIONS ---
 
     def add_word_to_db(self, new_word):
         try:
             self.db_session.add(new_word)
             self.db_session.commit()
+            self.invalidate_relationship_detector()
             return (True, "")
 
         except Exception as e:
@@ -571,6 +630,7 @@ class DatabaseManager:
                     if not key.startswith("_") and key != "id":
                         setattr(existing, key, value)
                 self.db_session.commit()
+                self.invalidate_relationship_detector()
                 return (True, "")
             return (False, "Word not found")
         except Exception as e:
@@ -582,6 +642,7 @@ class DatabaseManager:
             id = headword.id
             self.db_session.query(DpdHeadword).filter_by(id=id).delete()
             self.db_session.commit()
+            self.invalidate_relationship_detector()
             return (True, "")
         except Exception as e:
             print(e)
@@ -710,59 +771,6 @@ class DatabaseManager:
         if prefixes:
             return " ".join(prefixes) + " " + root_key
         return root_key
-
-    def get_synonyms(
-        self, pos: str, string_of_meanings: str, lemma_1: str
-    ) -> str | None:
-        """Find synonyms based on POS and meaning, excluding the word itself."""
-        if not pos or not string_of_meanings:
-            return None
-
-        # remove brackets
-        string_of_meanings = re.sub(r" \(.*?\)|\(.*?\) ", "", string_of_meanings)
-        # split on semicolons
-        list_of_meanings = string_of_meanings.split("; ")
-
-        # remove the number from lemma_1
-        lemma_1_clean = clean_lemma_1(lemma_1)
-
-        # search for similar meanings
-        results = (
-            self.db_session.query(DpdHeadword)
-            .filter(
-                DpdHeadword.pos == pos,
-                or_(
-                    *[
-                        DpdHeadword.meaning_1.like(f"%{meaning}%")
-                        for meaning in list_of_meanings
-                    ]
-                ),
-            )
-            .all()
-        )
-
-        # make a dictionary of all meanings mapped to lemmas
-        meaning_dict = {}
-        for i in results:
-            if i.meaning_1:
-                for meaning in i.meaning_1.split("; "):
-                    meaning_clean = re.sub(r" \(.*?\)|\(.*?\) ", "", meaning)
-                    if meaning_clean in list_of_meanings:
-                        meaning_dict.setdefault(meaning_clean, set()).add(i.lemma_clean)
-
-        # test if two meanings are the same
-        synonyms_set = set()
-        for key_1 in meaning_dict:
-            for key_2 in meaning_dict:
-                if key_1 != key_2:
-                    intersection = meaning_dict[key_1].intersection(meaning_dict[key_2])
-                    synonyms_set.update(intersection)
-
-        # remove the word itself
-        synonyms_set.discard(lemma_1_clean)
-        return (
-            ", ".join(sorted(synonyms_set, key=pali_sort_key)) if synonyms_set else None
-        )
 
     # --- ---
 
