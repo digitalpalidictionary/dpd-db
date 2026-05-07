@@ -350,6 +350,7 @@ bha
 Bhaddasārī
 Bhaddekarattasutta
 Bhaddiya
+Bhaddā
 Bhaddāli
 Bhadraka
 Bhadraka's
@@ -961,6 +962,7 @@ flambeau
 flatterer
 flaviviridis
 flavour
+flavoured
 flavourful
 flavourless
 flavours
@@ -1114,6 +1116,7 @@ harmonizes
 hattha
 Hatthaka
 Hatthi
+Hatthigāmaka
 Hatthisāriputta
 haughtiness
 Haṭaka
@@ -1430,8 +1433,10 @@ Knowledges
 ko
 Kokanada
 Kokālika
+Koliyadhītā
 Koliyan
 Koliyans
+Komārabhacca
 Korakkhattiya
 kosa
 Kosala
@@ -1450,6 +1455,7 @@ Koṭigāma
 Koṭṭhika
 Koṭṭhita
 kudācana
+Kulagharikā
 kumbha
 kumbhathūna
 kumuda-count
@@ -1468,6 +1474,7 @@ Kuvera
 Kuvera
 Kuvera's
 kuḍuba
+Kuṇḍalakesā
 Kuṇḍaliya
 kuṇḍañhi
 kuṭi
@@ -1479,6 +1486,7 @@ Kāliṅgas
 Kālāma
 Kālāmas
 Kāmabhū
+Kāpilānī
 Kāsi
 Kāsi
 Kāsian
@@ -1489,6 +1497,7 @@ Kāḷaka
 Kāḷigodha
 Kāḷudāyi
 Kāḷudāyī
+Kāḷī
 kī
 Kīṭāgiri
 Kūṭadanta
@@ -1559,7 +1568,9 @@ līyati
 Maccha
 Maccha
 Macchas
+Macchikā
 Macchikā's
+Macchikāsaṇḍika
 mad
 Madda
 Madhura
@@ -1839,6 +1850,7 @@ mūlaghaccaṃ
 na
 Nadubbhiyasuttaṃ
 nakhā
+Nakula
 Nanda
 Nandaka
 Nandiya
@@ -1980,6 +1992,7 @@ Padarūpasiddhi
 padkos
 paduma-count
 padūsimhā
+paediatrician
 Pajjota
 Pajjunna
 Pajjunna's
@@ -2456,6 +2469,7 @@ sellable
 semi-vowel
 Senagiri
 seniormost
+Seniyadhītā
 sensorial
 seraglio
 serrata
@@ -2607,6 +2621,7 @@ suffusion
 sugata-span
 suggester
 Sujā's
+Sujātā
 sullenness
 Sumana
 Sumaṅgala's
@@ -2628,6 +2643,7 @@ Supaṇṇasaṃyuttaṃ
 supercluster
 supernormal
 Suppatita
+Suppavāsā
 Suppiya
 supportless
 suppurating
@@ -2841,7 +2857,10 @@ Udumbarikā
 Udāna
 Udāyi
 Udāyī
+Ugga
+Uggata
 ugghāṭeti
+Uggo
 Ujjenī
 Ujuññā
 Ukkacelā
@@ -3164,6 +3183,7 @@ Vessantara
 Vessavaṇa
 Vessavaṇa's
 Vessāmitta
+Vesālika
 Vesālī
 Vetaric
 vetiver
@@ -3354,17 +3374,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Bhaddā
-Kuṇḍalakesā
-Kāpilānī
-Macchikāsaṇḍika
-Macchikā
-flavoured
-Vesālika
-Uggo
-Ugga
-Hatthigāmaka
-Uggata
-Komārabhacca
-paediatrician
-Nakula
