@@ -116,3 +116,4 @@ shared_data/headword_stem_pattern_dict
 temp/
 token.json
 typescript
+docs/rss.xml

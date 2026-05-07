@@ -35,21 +35,20 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
-      - name: Install MkDocs dependencies
-        run: uv pip install --system mkdocs mkdocs-material PyYAML
-      
+      - name: Install dependencies (tools group)
+        run: uv sync --group tools
+
       - name: Populate index folders
-        run: |
-          uv run python3 scripts/build/docs_add_indexes.py
+        run: uv run scripts/build/docs_add_indexes.py
 
       - name: Update CSS Variables
-        run: uv run python3 scripts/build/docs_update_css.py
+        run: uv run scripts/build/docs_update_css.py
 
       - name: Generate RSS feed
-        run: uv run python tools/rss_feed.py
+        run: uv run tools/rss_feed.py
 
       - name: Build MkDocs site
-        run: mkdocs build
+        run: uv run mkdocs build
 
       - name: Configure SSH for Org Repo
         uses: webfactory/ssh-agent@v0.8.0
