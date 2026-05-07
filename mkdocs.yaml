@@ -83,6 +83,7 @@ nav:
 
 theme:
   name: material
+  custom_dir: scripts/build/mkdocs_overrides
   logo: assets/dpd-logo.svg
   features:
     - content.code.copy

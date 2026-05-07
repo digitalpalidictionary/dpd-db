@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/static/switch.css" />
     <link rel="stylesheet" type="text/css" href="/static/tt.css" />
     <link rel="icon" type="image/png" href="/static/dpd-logo-dark.svg" />
+    <link rel="alternate" type="application/rss+xml" title="DPD Updates" href="https://digitalpalidictionary.github.io/rss.xml" />
 
     <script>
         window.DPD_RELEASE_VERSION = "{{ dpd_release_version }}";
@@ -53,6 +54,14 @@
                 class="email-button help">
                 📧
                 <span class="tooltip">Email updates</span>
+            </a>
+            <a href="https://digitalpalidictionary.github.io/rss.xml" target="_blank"
+                class="email-button help" aria-label="RSS feed">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <circle cx="6.18" cy="17.82" r="2.18"/>
+                    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+                </svg>
+                <span class="tooltip">RSS feed</span>
             </a>
             <div class="language-switcher">
                 <span class="language-icon help">

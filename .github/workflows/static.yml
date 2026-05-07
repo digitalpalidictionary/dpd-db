@@ -45,6 +45,9 @@ jobs:
       - name: Update CSS Variables
         run: uv run python3 scripts/build/docs_update_css.py
 
+      - name: Generate RSS feed
+        run: uv run python tools/rss_feed.py
+
       - name: Build MkDocs site
         run: mkdocs build
 
