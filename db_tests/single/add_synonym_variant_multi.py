@@ -250,6 +250,8 @@ def prompt_clusters(
                 a_syn = set(a.synonym_list)
                 a_phon = split_field(a.var_phonetic)
                 for b in members[i + 1 :]:
+                    if a.lemma_clean == b.lemma_clean:
+                        continue
                     b_phon = split_field(b.var_phonetic)
                     if b.lemma_clean in a_phon or a.lemma_clean in b_phon:
                         skipped_phon += 1
