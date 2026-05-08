@@ -44,18 +44,27 @@ def grammar_signature(grammar: str) -> str:
 
 
 NOUN_GENDERS: frozenset[str] = frozenset({"masc", "fem", "nt"})
+TILINGA_POS: frozenset[str] = frozenset({"adj", "pp", "ptp", "prp"})
 
 
 def pos_class(pos: str) -> str:
-    """Group masc/fem/nt as one 'noun' class for synonym matching.
+    """Group pos values that the classical grammars treat as one class.
 
-    Pāḷi derives semantically identical abstract nouns across genders
-    (-tā fem, -tta nt, -bhāva masc), so they should match as synonyms.
-    All other pos values (adj, pp, prp, aor, ind, pron, ...) stay distinct.
+    - {masc, fem, nt} → "noun": Pāḷi derives semantically identical abstract
+      nouns across genders (-tā fem, -tta nt, -bhāva masc).
+    - {adj, pp, ptp, prp} → "tiliṅga": all are declinable in three genders
+      (tiliṅga in classical grammar) and can overlap in meaning across
+      formations (e.g. pp `mata` ↔ adj `kālakata`).
+
+    All other pos values (aor, ind, pron, sandhi, ...) stay distinct.
     Phonetic-variant matching deliberately does NOT use this — variants
-    are spellings of the same word and should preserve gender.
+    are spellings of the same word and should preserve pos.
     """
-    return "noun" if pos in NOUN_GENDERS else pos
+    if pos in NOUN_GENDERS:
+        return "noun"
+    if pos in TILINGA_POS:
+        return "tiliṅga"
+    return pos
 
 
 def split_field(value: str | None) -> set[str]:

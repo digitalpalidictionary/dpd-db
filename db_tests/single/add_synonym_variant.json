@@ -12,7 +12,7 @@
   "[prefix] -",
   "[noun] Saṃyutta Nikāya 46.57",
   "[noun] name of a town",
-  "[adj] epithet of a class of devas",
+  "[tiliṅga] epithet of a class of devas",
   "[noun] name of a man",
   "[noun] name of a Mallan town",
   "[noun] name of a wandering ascetic",
@@ -304,7 +304,7 @@
   "noun:mahākaccāna|uruveḷakassapa:",
   "noun:moggallāna|uruveḷakassapa:",
   "noun:revata|uruveḷakassapa:",
-  "adj:akukkuccakajāta|akukkukajāta:",
+  "tiliṅga:akukkuccakajāta|akukkukajāta:",
   "ind:abāḷhaṃ|bāḷhaṃ:acc",
   "sandhi:asasmi|asasmīti:",
   "sandhi:idampi|sāyaṃ:",
@@ -352,5 +352,7 @@
   "noun:janosabha|suriyavaccasa:name of a demigod:",
   "noun:naḷorāja|pañcasikha:name of a demigod:",
   "noun:naḷorāja|suriyavaccasa:name of a demigod:",
-  "noun:pañcasikha|suriyavaccasa:name of a demigod:"
+  "noun:pañcasikha|suriyavaccasa:name of a demigod:",
+  "noun:assapura|campā:name of a town in Aṅga:",
+  "noun:nagaraka|ukkaṭṭhā:name of town:"
 ]

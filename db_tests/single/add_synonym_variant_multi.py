@@ -14,12 +14,17 @@ from tools.db_search_string import db_search_string
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.synonym_variant import (
+    TILINGA_POS,
     assign_relationship,
     clean_meaning,
     grammar_signature,
     pos_class,
     split_field,
 )
+
+# Temporary review filter: when True, only show cross-pos pairs from the
+# tiliṅga class (adj/pp/ptp/prp). Set to False to see everything.
+ONLY_TILINGA_CROSS_POS = True
 
 
 class GlobalVars:
@@ -97,6 +102,12 @@ def find_multi_meaning_pairs(g: GlobalVars) -> None:
                         candidates[hw_b.id] = hw_b
 
             for hw_b in candidates.values():
+                if ONLY_TILINGA_CROSS_POS and not (
+                    hw_a.pos != hw_b.pos
+                    and hw_a.pos in TILINGA_POS
+                    and hw_b.pos in TILINGA_POS
+                ):
+                    continue
                 edge = frozenset({hw_a.id, hw_b.id})
                 if edge in seen:
                     continue
