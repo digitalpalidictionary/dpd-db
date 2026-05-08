@@ -234,6 +234,7 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("ṭ", "ḍ", True),
     ("ṭ", "t", True),
     ("ḍḍ", "ḍ", True),
+    ("ṇḍ", "ṇṭ", True),
     ("t", "d", True),
     ("tt", "t", True),
     ("dd", "d", True),
