@@ -370,6 +370,7 @@ ACTIVE_DETECTORS: dict[str, bool] = {
     "by_rules": True,
     "base_e_aya": True,
     "base_ya_iya_iiya": True,
+    "transitive": True,
 }
 
 
@@ -518,6 +519,68 @@ class PhoneticVariantDetector:
                     results.append((a, b.lemma_clean, "base:ya<->iya<->īya"))
         return results
 
+    def detect_transitive(self) -> list[tuple[DpdHeadword, str, str]]:
+        """Walk the existing bidirectional var_phon graph and propose
+        transitive completions: when A↔B and B↔C are both bidirectional
+        var_phon but A and C are not yet related, propose A↔C.
+
+        Catches the multi-step substitution case (e.g. pāṇīya↔pāniya needs
+        ṇ→n AND ī→i) that the per-rule detectors can't compose.
+        """
+        declared: dict[str, set[str]] = {}
+        for hw in self._headwords:
+            lc = hw.lemma_clean
+            if not lc:
+                continue
+            phon_set = split_field(hw.var_phonetic)
+            if phon_set:
+                declared.setdefault(lc, set()).update(phon_set)
+
+        bidir: dict[str, set[str]] = {}
+        for lc, neighbors in declared.items():
+            for n in neighbors:
+                if lc in declared.get(n, set()):
+                    bidir.setdefault(lc, set()).add(n)
+
+        visited: set[str] = set()
+        components: list[set[str]] = []
+        for lc in bidir:
+            if lc in visited:
+                continue
+            comp: set[str] = set()
+            stack = [lc]
+            while stack:
+                cur = stack.pop()
+                if cur in visited:
+                    continue
+                visited.add(cur)
+                comp.add(cur)
+                for n in bidir.get(cur, set()):
+                    if n not in visited:
+                        stack.append(n)
+            if len(comp) >= 3:
+                components.append(comp)
+
+        results: list[tuple[DpdHeadword, str, str]] = []
+        seen: set[tuple[str, str]] = set()
+        for comp in components:
+            members = sorted(comp)
+            for i, a_lc in enumerate(members):
+                for b_lc in members[i + 1 :]:
+                    if b_lc in bidir.get(a_lc, set()):
+                        continue
+                    for source_hw in self._by_lemma_clean.get(a_lc, []):
+                        if not source_hw.meaning_1:
+                            continue
+                        if already_related_one_sided(source_hw, b_lc):
+                            continue
+                        key = (source_hw.lemma_1, b_lc)
+                        if key in seen:
+                            continue
+                        seen.add(key)
+                        results.append((source_hw, b_lc, "transitive"))
+        return results
+
     def detect_all_raw(self) -> list[tuple[DpdHeadword, str, str]]:
         results: list[tuple[DpdHeadword, str, str]] = []
         if ACTIVE_DETECTORS["same_construction"]:
@@ -528,6 +591,8 @@ class PhoneticVariantDetector:
             results.extend(self.detect_base_e_aya())
         if ACTIVE_DETECTORS["base_ya_iya_iiya"]:
             results.extend(self.detect_base_ya_iya_iiya())
+        if ACTIVE_DETECTORS["transitive"]:
+            results.extend(self.detect_transitive())
         return results
 
     def detect_canonical_pairs(self, exceptions: list[str]) -> list[Pair]:
@@ -546,9 +611,7 @@ class PhoneticVariantDetector:
                     continue
                 if not has_textual_occurrence(target_hw):
                     continue
-                if rule == "same_construction" and not (
-                    source_hw.meaning_1 and target_hw.meaning_1
-                ):
+                if not (source_hw.meaning_1 and target_hw.meaning_1):
                     continue
                 if not same_families_if_present(source_hw, target_hw):
                     continue
@@ -594,9 +657,7 @@ class PhoneticVariantDetector:
                     continue
                 if not has_textual_occurrence(target):
                     continue
-                if rule == "same_construction" and not (
-                    hw.meaning_1 and target.meaning_1
-                ):
+                if not (hw.meaning_1 and target.meaning_1):
                     continue
                 if not same_families_if_present(hw, target):
                     continue

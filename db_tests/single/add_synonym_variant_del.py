@@ -39,15 +39,17 @@ def _is_valid_synonym(hw_a: DpdHeadword, hw_b: DpdHeadword) -> bool:
         return False
     if grammar_signature(hw_a.grammar) != grammar_signature(hw_b.grammar):
         return False
-    a_single = "; " not in (hw_a.meaning_1 or "")
-    b_single = "; " not in (hw_b.meaning_1 or "")
+    if not hw_a.meaning_1 or not hw_b.meaning_1:
+        return False
+    a_single = "; " not in hw_a.meaning_1
+    b_single = "; " not in hw_b.meaning_1
     if a_single and b_single:
         return clean_meaning(hw_a.meaning_1) == clean_meaning(hw_b.meaning_1)
     meanings_a = frozenset(
-        m for raw in (hw_a.meaning_1 or "").split("; ") if (m := clean_meaning(raw))
+        m for raw in hw_a.meaning_1.split("; ") if (m := clean_meaning(raw))
     )
     meanings_b = frozenset(
-        m for raw in (hw_b.meaning_1 or "").split("; ") if (m := clean_meaning(raw))
+        m for raw in hw_b.meaning_1.split("; ") if (m := clean_meaning(raw))
     )
     return len(meanings_a & meanings_b) >= 2
 
