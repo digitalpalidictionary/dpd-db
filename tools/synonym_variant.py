@@ -43,6 +43,21 @@ def grammar_signature(grammar: str) -> str:
     return ",".join(markers)
 
 
+NOUN_GENDERS: frozenset[str] = frozenset({"masc", "fem", "nt"})
+
+
+def pos_class(pos: str) -> str:
+    """Group masc/fem/nt as one 'noun' class for synonym matching.
+
+    Pāḷi derives semantically identical abstract nouns across genders
+    (-tā fem, -tta nt, -bhāva masc), so they should match as synonyms.
+    All other pos values (adj, pp, prp, aor, ind, pron, ...) stay distinct.
+    Phonetic-variant matching deliberately does NOT use this — variants
+    are spellings of the same word and should preserve gender.
+    """
+    return "noun" if pos in NOUN_GENDERS else pos
+
+
 def split_field(value: str | None) -> set[str]:
     """CSV string → set of stripped non-empty tokens."""
     if not value:
@@ -686,17 +701,18 @@ def build_synonym_context(headwords: Sequence[DpdHeadword]) -> SynonymContext:
         if not hw.meaning_1:
             continue
         sig = grammar_signature(hw.grammar)
+        pcls = pos_class(hw.pos)
         if "; " in hw.meaning_1:
             cleaned = frozenset(
                 m for raw in hw.meaning_1.split("; ") if (m := clean_meaning(raw))
             )
             if cleaned:
-                by_multi.setdefault((hw.pos, sig), []).append((hw, cleaned))
+                by_multi.setdefault((pcls, sig), []).append((hw, cleaned))
                 cleaned_for_id[hw.id] = cleaned
         else:
             cleaned_one = clean_meaning(hw.meaning_1)
             if cleaned_one:
-                by_single.setdefault((hw.pos, sig, cleaned_one), []).append(hw)
+                by_single.setdefault((pcls, sig, cleaned_one), []).append(hw)
                 cleaned_for_id[hw.id] = frozenset({cleaned_one})
 
     return SynonymContext(
@@ -716,6 +732,7 @@ def find_synonyms_for(hw: DpdHeadword, ctx: SynonymContext) -> list[str]:
         return []
 
     sig = grammar_signature(hw.grammar)
+    pcls = pos_class(hw.pos)
     candidates: set[str] = set()
 
     if "; " in hw.meaning_1:
@@ -724,7 +741,7 @@ def find_synonyms_for(hw: DpdHeadword, ctx: SynonymContext) -> list[str]:
         )
         if not meanings_a:
             return []
-        bucket = ctx.by_pos_sig_meanings.get((hw.pos, sig), [])
+        bucket = ctx.by_pos_sig_meanings.get((pcls, sig), [])
         for hw_b, meanings_b in bucket:
             if hw_b.id == hw.id:
                 continue
@@ -738,7 +755,7 @@ def find_synonyms_for(hw: DpdHeadword, ctx: SynonymContext) -> list[str]:
         cleaned = clean_meaning(hw.meaning_1)
         if not cleaned:
             return []
-        bucket = ctx.by_pos_sig_meaning.get((hw.pos, sig, cleaned), [])
+        bucket = ctx.by_pos_sig_meaning.get((pcls, sig, cleaned), [])
         for hw_b in bucket:
             if hw_b.id == hw.id:
                 continue

@@ -17,6 +17,7 @@ from tools.synonym_variant import (
     assign_relationship,
     clean_meaning,
     grammar_signature,
+    pos_class,
     split_field,
 )
 
@@ -76,7 +77,7 @@ def find_multi_meaning_pairs(g: GlobalVars) -> None:
         if not cleaned:
             continue
         sig = grammar_signature(hw.grammar)
-        bucket_key = (hw.pos, sig)
+        bucket_key = (pos_class(hw.pos), sig)
         buckets.setdefault(bucket_key, []).append((hw, cleaned))
 
     pairs: list[tuple[DpdHeadword, DpdHeadword, list[str]]] = []
@@ -164,7 +165,7 @@ def prompt_pairs(g: GlobalVars) -> bool:
     total = len(g.pairs)
 
     for counter, (hw_a, hw_b, shared) in enumerate(g.pairs):
-        pos = hw_a.pos
+        pos = pos_class(hw_a.pos)
         gen_key = _general_key(pos, shared)
         if gen_key in g.exceptions:
             continue

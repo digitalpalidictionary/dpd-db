@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Find and remove or re-assign synonym relationships that no longer meet validity criteria."""
+"""Find and remove synonym relationships that no longer meet validity criteria.
+
+Scoped to synonyms only. Reclassification to phonetic/textual variants is deferred
+to dedicated tools (variant detection needs string-distance / shared-construction
+checks that don't belong here). The phonetic/textual branches below are kept as
+scaffolding for those future scripts.
+"""
 
 import pyperclip
 from rich import print
@@ -18,6 +24,7 @@ from tools.synonym_variant import (
     assign_relationship as _assign,
     clean_meaning,
     grammar_signature,
+    pos_class,
     split_field as _split_field,
 )
 
@@ -28,7 +35,7 @@ def _is_valid_synonym(hw_a: DpdHeadword, hw_b: DpdHeadword) -> bool:
     Single meaning: strict 1:1 — same pos, same grammar sig, exact cleaned meaning match.
     Multi meaning: same pos, same grammar sig, ≥2 shared cleaned meanings.
     """
-    if hw_a.pos != hw_b.pos:
+    if pos_class(hw_a.pos) != pos_class(hw_b.pos):
         return False
     if grammar_signature(hw_a.grammar) != grammar_signature(hw_b.grammar):
         return False
@@ -83,9 +90,7 @@ def prompt_wrong_pairs(
     pr.green("reviewing wrong synonyms")
 
     total = len(wrong)
-    print(
-        "[dim]synonym: different construction.  phonetic: same construction, different spelling.  textual: manuscript variant."
-    )
+    print("[dim]delete: not a true synonym (pos / grammar / meaning mismatch).")
 
     for counter, (hw_a, hw_b) in enumerate(wrong):
         print(f"\n[red]{counter + 1} / {total}  [white]wrong synonym")
@@ -94,15 +99,13 @@ def prompt_wrong_pairs(
         print(f"[yellow]{hw_b.lemma_1} [blue]{hw_b.pos} [green]{hw_b.meaning_1}")
         print(f"[cyan]{_format_fields(hw_b)}")
 
-        pos = hw_a.pos
+        pos = pos_class(hw_a.pos)
         sig = grammar_signature(hw_a.grammar)
         key = _pair_key(pos, hw_a, hw_b, sig)
         gui_string = db_search_string([hw_a.lemma_1, hw_b.lemma_1], gui=True)
         pyperclip.copy(gui_string)
         print(f"\n[white]{gui_string}")
-        choice = Prompt.ask(
-            "[white](d)elete, (p)honetic, (t)extual, (e)xception, (pass), (r)estart, (q)uit"
-        )
+        choice = Prompt.ask("[white](d)elete, (e)xception, (pass), (r)estart, (q)uit")
 
         if choice == "d":
             _assign(hw_a, hw_b.lemma_clean, "delete")
