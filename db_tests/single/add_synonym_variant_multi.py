@@ -204,6 +204,8 @@ def _all_pairs_related(members: list[DpdHeadword]) -> bool:
     }
     for i, a in enumerate(members):
         for b in members[i + 1 :]:
+            if a.lemma_clean == b.lemma_clean:
+                continue
             if b.lemma_clean not in related[a.id]:
                 return False
             if a.lemma_clean not in related[b.id]:
