@@ -26,7 +26,7 @@ from tools.synonym_variant import (
 
 # Temporary review filter: when True, only show cross-pos pairs from the
 # tiliṅga class (adj/pp/ptp/prp). Set to False to see everything.
-ONLY_TILINGA_CROSS_POS = True
+ONLY_TILINGA_CROSS_POS = False
 
 
 def _pair_key_single(

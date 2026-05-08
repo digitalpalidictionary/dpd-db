@@ -1414,5 +1414,21 @@
   "66270:pr|66286:pr",
   "16041:pr|16045:pr",
   "23849:pr|79356:pr",
-  "29912:nt|29968:nt"
+  "29912:nt|29968:nt",
+  "8750:sandhi|9183:sandhi",
+  "8723:sandhi|9143:sandhi",
+  "8726:sandhi|9144:sandhi",
+  "50157:masc|50158:masc",
+  "71000:sandhi|71074:sandhi",
+  "21147:adj|73950:adj",
+  "52363:masc|52448:masc",
+  "52364:masc|52449:masc",
+  "41860:masc|85635:masc",
+  "58791:masc|58794:masc",
+  "53445:letter|55457:letter",
+  "53450:masc|55458:masc",
+  "53450:masc|55459:masc",
+  "53451:masc|55458:masc",
+  "53451:masc|55459:masc",
+  "12184:suffix|12600:suffix"
 ]

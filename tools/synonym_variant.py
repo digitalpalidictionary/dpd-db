@@ -232,6 +232,7 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("r", "t", True),
     ("r", "d", True),
     ("l", "ḷ", True),
+    ("l", "y", True),
     ("v", "b", True),
     # nasals
     ("ṃ", "ṅ", True),

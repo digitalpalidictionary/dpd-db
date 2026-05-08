@@ -2,6 +2,7 @@
 """Find synonyms for words that share 2+ cleaned meanings and same pos/grammar signature."""
 
 import json
+import sys
 
 import pyperclip
 from rich import print
@@ -24,7 +25,7 @@ from tools.synonym_variant import (
 
 # Temporary review filter: when True, only show cross-pos pairs from the
 # tiliṅga class (adj/pp/ptp/prp). Set to False to see everything.
-ONLY_TILINGA_CROSS_POS = True
+ONLY_TILINGA_CROSS_POS = False
 
 
 class GlobalVars:
@@ -145,6 +146,147 @@ def find_multi_meaning_pairs(g: GlobalVars) -> None:
     pr.yes(str(len(g.pairs)))
 
 
+def find_identical_meaning_clusters(
+    g: GlobalVars,
+) -> list[tuple[str, str, frozenset[str], list[DpdHeadword]]]:
+    """Group headwords with identical cleaned meaning-sets into clusters.
+
+    Within a cluster, every member is a true synonym of every other,
+    so one user decision can write all N×(N-1)/2 syn relationships.
+    Returns clusters sorted by size descending.
+    """
+    pr.green_tmr("finding identical-meaning clusters")
+
+    buckets: dict[tuple[str, str, frozenset[str]], list[DpdHeadword]] = {}
+    for hw in g.dpd_db:
+        if not hw.meaning_1 or "; " not in hw.meaning_1:
+            continue
+        cleaned = frozenset(
+            m for raw in hw.meaning_1.split("; ") if (m := clean_meaning(raw))
+        )
+        if len(cleaned) < 2:
+            continue
+        sig = grammar_signature(hw.grammar)
+        buckets.setdefault((pos_class(hw.pos), sig, cleaned), []).append(hw)
+
+    clusters: list[tuple[str, str, frozenset[str], list[DpdHeadword]]] = []
+    exceptions = set(g.exceptions)
+    for (pcls, sig, meanings), members in buckets.items():
+        if len(members) < 2:
+            continue
+        if ONLY_TILINGA_CROSS_POS and not (
+            pcls == "tiliṅga" and len({m.pos for m in members}) >= 2
+        ):
+            continue
+        # skip if cluster has a general exception
+        if _general_key(pcls, sorted(meanings)) in exceptions:
+            continue
+        # skip if every pair is already related (syn/var_phon/var_text)
+        if _all_pairs_related(members):
+            continue
+        clusters.append((pcls, sig, meanings, members))
+
+    clusters.sort(key=lambda c: -len(c[3]))
+    pr.yes(str(len(clusters)))
+    return clusters
+
+
+def _all_pairs_related(members: list[DpdHeadword]) -> bool:
+    """Cluster is fully resolved if every pair is already related — in syn,
+    var_phonetic, or var_text. Curated phonetic/textual variants count as
+    'no work needed' just as much as synonyms do.
+    """
+    related: dict[int, set[str]] = {
+        m.id: set(m.synonym_list)
+        | split_field(m.var_phonetic)
+        | split_field(m.var_text)
+        for m in members
+    }
+    for i, a in enumerate(members):
+        for b in members[i + 1 :]:
+            if b.lemma_clean not in related[a.id]:
+                return False
+            if a.lemma_clean not in related[b.id]:
+                return False
+    return True
+
+
+def prompt_clusters(
+    g: GlobalVars,
+    clusters: list[tuple[str, str, frozenset[str], list[DpdHeadword]]],
+) -> bool:
+    """One prompt per cluster — (a)ccept all pairwise / (pass) / (r)estart / (q)uit.
+
+    Returns True if a restart was requested.
+    """
+    if not clusters:
+        return False
+    pr.green("approving identical-meaning clusters")
+
+    total = len(clusters)
+    for counter, (pcls, sig, meanings, members) in enumerate(clusters):
+        print("\n" + "=" * 100)
+        print(
+            f"[white]cluster {counter + 1} / {total}  "
+            f"[blue][{pcls}]  [green]{'; '.join(sorted(meanings))}  "
+            f"[white]({len(members)} members)"
+        )
+        print("=" * 100)
+        for m in members:
+            print(_entry_label(m))
+            print(f"[cyan]{_format_fields(m)}")
+
+        gui_string = db_search_string([m.lemma_1 for m in members], gui=True)
+        pyperclip.copy(gui_string)
+        print(f"\n[white]{gui_string}")
+        choice = Prompt.ask(
+            "[white](s)ynonym all pairwise, (g)eneral exception, (pass), (r)estart, (q)uit"
+        )
+
+        if choice == "s":
+            written = 0
+            skipped_phon = 0
+            for i, a in enumerate(members):
+                a_syn = set(a.synonym_list)
+                a_phon = split_field(a.var_phonetic)
+                for b in members[i + 1 :]:
+                    b_phon = split_field(b.var_phonetic)
+                    if b.lemma_clean in a_phon or a.lemma_clean in b_phon:
+                        skipped_phon += 1
+                        print(
+                            f"  [yellow]kept as phonetic variant: "
+                            f"{a.lemma_1} ↔ {b.lemma_1}"
+                        )
+                        continue
+                    if b.lemma_clean in a_syn and a.lemma_clean in set(b.synonym_list):
+                        continue
+                    assign_relationship(a, b.lemma_clean, "synonym")
+                    assign_relationship(b, a.lemma_clean, "synonym")
+                    written += 1
+            g.db_session.commit()
+            print(
+                f"  [green]wrote {written} new pairwise syn relationships"
+                f"  [yellow]({skipped_phon} preserved as phonetic variants)"
+            )
+
+        elif choice == "g":
+            gen_key = _general_key(pcls, sorted(meanings))
+            if gen_key not in g.exceptions:
+                g.add_exception(gen_key)
+                print(f"  [red]general exception added: {gen_key!r}")
+            else:
+                print(f"  [yellow]general exception already present: {gen_key!r}")
+
+        elif choice == "r":
+            return True
+
+        elif choice == "q":
+            pr.toc()
+            sys.exit(0)
+
+    return False
+
+
 def _entry_label(hw: DpdHeadword) -> str:
     family_root = f" [magenta]{hw.family_root}" if hw.family_root else ""
     family_word = f" [magenta]{hw.family_word}" if hw.family_word else ""
@@ -246,9 +388,16 @@ def main() -> None:
     print("[bright_yellow]synonym multi — finding and adding multi-meaning synonyms")
     while True:
         g = GlobalVars()
+        # Phase 1: bulk-accept clusters of headwords with identical meaning sets.
+        clusters = find_identical_meaning_clusters(g)
+        if prompt_clusters(g, clusters):
+            continue
+        # Phase 2: existing pairwise pass for partial-overlap residual.
+        # Re-run discovery so newly-syn pairs from Phase 1 are filtered out.
         find_multi_meaning_pairs(g)
-        if not prompt_pairs(g):
-            break
+        if prompt_pairs(g):
+            continue
+        break
     pr.toc()
 
 
