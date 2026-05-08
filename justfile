@@ -185,6 +185,14 @@ css:
 backup:
     uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
 
+# Update Anki cards from the DB
+anki:
+    uv run exporter/anki/anki_updater.py
+
+# Push DPD note type templates (front/back/styling) into Anki
+anki-templates:
+    uv run exporter/anki/template_pusher.py
+
 # Enable newsletter scraping
 newsletter-on:
     uv run python -c "from tools.configger import config_update; config_update('exporter', 'make_newsletter', 'yes')"

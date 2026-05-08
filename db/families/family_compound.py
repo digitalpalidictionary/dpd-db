@@ -7,7 +7,7 @@ import re
 
 from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword, FamilyCompound
-from scripts.build.anki_updater import family_updater
+from exporter.anki.anki_updater import family_updater
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths

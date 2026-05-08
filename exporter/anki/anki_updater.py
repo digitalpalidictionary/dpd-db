@@ -349,6 +349,8 @@ def update_note_values(col, note, i):
     note["example_2"] = str(i.example_2).replace("\n", "<br>")
     note["antonym"] = str(i.antonym)
     note["synonym"] = str(i.synonym)
+    note["var_phonetic"] = str(i.var_phonetic)
+    note["var_text"] = str(i.var_text)
     note["variant"] = str(i.variant)
     note["commentary"] = str(i.commentary).replace("\n", "<br>")
     note["notes"] = str(i.notes).replace("\n", "<br>")
@@ -413,10 +415,6 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
     old_deck = deck_dict[data["did"]]
 
     if old_deck != new_deck:
-        # update note
-        note.mid = model_dict[new_deck]
-        col.update_note(note)
-
         # update card
         card = data["card"]
         card.did = deck_dict[new_deck]
@@ -432,7 +430,7 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
 
 def make_new_note(col, deck, model_dict, deck_dict, i):
     """Make a new note."""
-    model_id = model_dict[deck]
+    model_id = model_dict["DPD"]
     deck_id = deck_dict[deck]
     note = col.new_note(model_id)
     note, is_updated = update_note_values(col, note, i)
@@ -442,7 +440,7 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
 def make_new_family_note(col, deck, model_dict, deck_dict, i):
     """Make a new note for family decks."""
     deck = deck[0]
-    model_id = model_dict[deck]
+    model_id = model_dict["DPD Family"]
     deck_id = deck_dict[deck]
     note = col.new_note(model_id)
     note, is_updated = update_family_note(note, i)

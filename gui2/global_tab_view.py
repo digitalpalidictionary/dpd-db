@@ -7,7 +7,7 @@ from gui2.toolkit import ToolKit
 from db.backup_tsv.backup_dpd_headwords_and_roots import (
     backup_dpd_headwords_and_roots,
 )
-from scripts.build.anki_updater import main as anki_updater_main
+from exporter.anki.anki_updater import main as anki_updater_main
 from tools.paths import ProjectPaths
 
 

@@ -117,3 +117,5 @@ temp/
 token.json
 typescript
 docs/rss.xml
+/exporter/anki/templates/.backups
+/exporter/anki/templates/old

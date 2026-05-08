@@ -11,7 +11,7 @@ from root_matrix import generate_root_matrix
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, FamilyRoot, Lookup
-from scripts.build.anki_updater import family_updater
+from exporter.anki.anki_updater import family_updater
 from tools.configger import config_test
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key

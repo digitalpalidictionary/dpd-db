@@ -29,7 +29,7 @@ COMMANDS = [
     "db/families/family_idiom.py",
     
     "scripts/build/families_to_json.py",
-    "scripts/build/anki_updater.py",
+    "exporter/anki/anki_updater.py",
     
     "db/variants/main.py",
     

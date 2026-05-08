@@ -26,7 +26,7 @@ uv run python db/families/family_set.py
 uv run python db/families/family_idiom.py
 uv run python scripts/build/families_to_json.py
 
-uv run python scripts/build/anki_updater.py
+uv run exporter/anki/anki_updater.py
 
 uv run python db/variants/main.py 
 
