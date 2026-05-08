@@ -29,15 +29,28 @@ class SandhiFindReplaceView(ft.Column):
             "",
             width=400,
             on_blur=self.handle_find_blur,
+            border_radius=20,
+            border=ft.InputBorder.OUTLINE,
         )
-        self.replace_text = ft.TextField("", width=400)
+        self.replace_text = ft.TextField(
+            "",
+            width=400,
+            border_radius=20,
+            border=ft.InputBorder.OUTLINE,
+        )
         self.find_button = ft.ElevatedButton("Find", on_click=self.find_clicked)
         self.clear_button = ft.ElevatedButton("Clear", on_click=self.clear_search)
         self.message = ft.Text("", expand=True)
         self.found_field = ft.Text(width=800, expand=True, selectable=True)
         self.replaced_field_text = ft.Text(width=800, expand=True, selectable=True)
         self.replaced_field_input = ft.TextField(
-            "", width=800, expand=True, multiline=True, disabled=True
+            "",
+            width=800,
+            expand=True,
+            multiline=True,
+            disabled=True,
+            border_radius=20,
+            border=ft.InputBorder.OUTLINE,
         )
         self.replaced_field = self.replaced_field_text  # Reference to current widget
         self.commit_button = ft.ElevatedButton("Commit", on_click=self.commit_clicked)
