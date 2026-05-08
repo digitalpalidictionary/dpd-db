@@ -229,6 +229,12 @@ jobs:
         echo "=== After Mobile DB export ==="
         $HOME/check_disk.sh
 
+    - name: Export Anki Deck
+      run: |
+        uv run exporter/anki/anki_apkg_exporter.py
+        echo "=== After Anki export ==="
+        $HOME/check_disk.sh
+
     # ----------------------------------------
     # Export Apple Dictionary Source
     # ----------------------------------------
@@ -319,6 +325,7 @@ jobs:
           exporter/share/dpd-kobo.zip
           exporter/share/dpd-txt.zip
           exporter/share/dpd-mobile-db.zip
+          exporter/share/dpd-anki.apkg
           exporter/share/release_notes.md
         retention-days: 1
 
@@ -434,6 +441,7 @@ jobs:
             ./linux-assets/dpd-kobo.zip
             ./linux-assets/dpd-txt.zip
             ./linux-assets/dpd-mobile-db.zip
+            ./linux-assets/dpd-anki.apkg
             ./macos-dictionary/dpd-apple.dictionary.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}

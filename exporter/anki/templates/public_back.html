@@ -1,0 +1,119 @@
+<div>{{example_1}}</div>
+<div class="label">{{source_1}} {{sutta_1}}</div>
+<br />
+<div>{{example_2}}</div>
+<div class="label">{{source_2}} {{sutta_2}}</div>
+<div></div>
+<hr id="answer">
+
+<table>
+  <tr><td></td><td>{{fin}}</td></tr>
+
+  <tr>
+    <td class="label">{{#lemma_2}}Pāli:{{/lemma_2}}</td>
+    <td class="hl wrap"><b>{{lemma_1}}</b></td>
+  </tr>
+
+  <tr>
+    <td class="label">Grammar:</td>
+    <td>{{grammar}}{{#verb}}, {{verb}}{{/verb}}{{#neg}}, {{neg}}{{/neg}}{{#trans}}, {{trans}}{{/trans}}{{#plus_case}} ({{plus_case}}){{/plus_case}}</td>
+  </tr>
+
+  {{#derived_from}}
+  <tr><td class="label">From:</td><td>{{derived_from}}</td></tr>
+  {{/derived_from}}
+
+  <tr>
+    <td class="label">English:</td>
+    <td class="hl">{{meaning_1}}</td>
+  </tr>
+
+  {{#meaning_lit}}
+  <tr><td class="label">Literal:</td><td class="soft">lit. {{meaning_lit}}</td></tr>
+  {{/meaning_lit}}
+
+  {{#root_key}}
+  <tr><td class="label">Root Family:</td><td>{{family_root}}</td></tr>
+  {{/root_key}}
+
+  {{#root_key}}
+  <tr>
+    <td class="label">Root:</td>
+    <td>{{root_key}}<sup>{{root_has_verb}}</sup>{{root_group}} {{root_sign}}{{#root_meaning}} ({{root_meaning}}){{/root_meaning}}{{#root_in_comps}} [{{root_in_comps}}]{{/root_in_comps}}</td>
+  </tr>
+  {{/root_key}}
+
+  {{#root_base}}
+  <tr><td class="label">Base:</td><td>{{root_base}}</td></tr>
+  {{/root_base}}
+
+  {{#construction}}
+  <tr><td class="label">Construction:</td><td>{{construction}}</td></tr>
+  {{/construction}}
+
+  {{#phonetic}}
+  <tr><td class="label">Phonetic Change:</td><td class="wrap">{{phonetic}}</td></tr>
+  {{/phonetic}}
+
+  {{#derivative}}
+  <tr><td class="label">Derivative:</td><td>{{derivative}}{{#suffix}} ({{suffix}}){{/suffix}}</td></tr>
+  {{/derivative}}
+
+  {{#compound_type}}
+  <tr><td class="label">Compound:</td><td class="wrap">{{compound_type}}{{#compound_construction}} ({{compound_construction}}){{/compound_construction}}</td></tr>
+  {{/compound_type}}
+  {{^compound_type}}{{#compound_construction}}
+  <tr><td class="label">Compound:</td><td class="wrap">({{compound_construction}})</td></tr>
+  {{/compound_construction}}{{/compound_type}}
+
+  {{#antonym}}
+  <tr><td class="label">Antonym:</td><td>{{antonym}}</td></tr>
+  {{/antonym}}
+
+  {{#synonym}}
+  <tr><td class="label">Synonym:</td><td>{{synonym}}</td></tr>
+  {{/synonym}}
+
+  {{#var_phonetic}}
+  <tr><td class="label">Phonetic Variant:</td><td>{{var_phonetic}}</td></tr>
+  {{/var_phonetic}}
+
+  {{#var_text}}
+  <tr><td class="label">Textual Variant:</td><td>{{var_text}}</td></tr>
+  {{/var_text}}
+
+  {{#variant}}
+  <tr><td class="label">Variant:</td><td>{{variant}}</td></tr>
+  {{/variant}}
+
+  {{#non_ia}}
+  <tr><td class="label">Non IA:</td><td>{{non_ia}}</td></tr>
+  {{/non_ia}}
+
+  {{#sanskrit}}
+  <tr><td class="label">Sanskrit:</td><td><i>{{sanskrit}}</i></td></tr>
+  {{/sanskrit}}
+
+  {{#sanskrit_root}}
+  <tr><td class="label">Sanskrit √:</td><td><i>{{sanskrit_root}} {{sanskrit_root_class}}{{#sanskrit_root_meaning}} ({{sanskrit_root_meaning}}){{/sanskrit_root_meaning}}</i></td></tr>
+  {{/sanskrit_root}}
+
+  {{#cognate}}
+  <tr><td class="label">English Cognate:</td><td>{{cognate}}</td></tr>
+  {{/cognate}}
+
+  {{#commentary}}
+  <tr><td class="label">Comm:</td><td class="wrap">{{commentary}}</td></tr>
+  {{/commentary}}
+
+  {{#notes}}
+  <tr><td class="label">Note:</td><td class="wrap">{{notes}}</td></tr>
+  {{/notes}}
+
+  {{#link}}
+  <tr><td class="label">Link:</td><td class="wrap">{{link}}</td></tr>
+  {{/link}}
+
+</table>
+
+{{pic}}

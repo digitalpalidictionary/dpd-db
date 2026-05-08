@@ -159,6 +159,7 @@ class ProjectPaths:
         self.dpd_txt_zip_path = base_dir / "exporter/share/dpd-txt.zip"
         self.dpd_mobile_db_path = base_dir / "exporter/share/dpd-mobile.db"
         self.dpd_mobile_db_zip_path = base_dir / "exporter/share/dpd-mobile-db.zip"
+        self.dpd_anki_apkg_path = base_dir / "exporter/share/dpd-anki.apkg"
 
         # exporter/share/mdict
         self.dpd_deconstructor_mdd_path = (

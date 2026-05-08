@@ -193,6 +193,10 @@ anki:
 anki-templates:
     uv run exporter/anki/template_pusher.py
 
+# Export Vocab deck to exporter/share/dpd-anki.apkg
+anki-apkg:
+    uv run exporter/anki/anki_apkg_exporter.py
+
 # Enable newsletter scraping
 newsletter-on:
     uv run python -c "from tools.configger import config_update; config_update('exporter', 'make_newsletter', 'yes')"

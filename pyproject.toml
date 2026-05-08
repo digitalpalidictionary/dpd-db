@@ -80,6 +80,7 @@ tools = [
     "google-auth-oauthlib>=1.3.0",
     "markdownify>=1.2.2",
     "pyicu>=2.16.2",
+    "genanki>=0.13.1",
 ]
 
 [tool.hatch.build.targets.sdist]

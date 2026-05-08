@@ -30,7 +30,8 @@ COMMANDS = [
     
     "scripts/build/families_to_json.py",
     "exporter/anki/anki_updater.py",
-    
+    "exporter/anki/anki_apkg_exporter.py",
+
     "db/variants/main.py",
     
     "scripts/build/deconstructor_extract_archive.py",
