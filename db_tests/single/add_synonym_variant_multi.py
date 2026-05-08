@@ -172,7 +172,7 @@ def find_identical_meaning_clusters(
     clusters: list[tuple[str, str, frozenset[str], list[DpdHeadword]]] = []
     exceptions = set(g.exceptions)
     for (pcls, sig, meanings), members in buckets.items():
-        if len(members) < 2:
+        if len(members) < 3:
             continue
         if ONLY_TILINGA_CROSS_POS and not (
             pcls == "tiliṅga" and len({m.pos for m in members}) >= 2
