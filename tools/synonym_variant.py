@@ -98,12 +98,10 @@ def assign_relationship(hw: DpdHeadword, other: str, target: str) -> None:
 
     elif target == "var_phonetic":
         var_phon.add(other)
-        var.add(other)
         syn.discard(other)
 
     elif target == "var_text":
         var_text.add(other)
-        var.add(other)
 
     elif target == "delete":
         syn.discard(other)
@@ -137,12 +135,10 @@ def assign_relationship_dict(
 
     elif target == "var_phonetic":
         var_phon.add(other)
-        var.add(other)
         syn.discard(other)
 
     elif target == "var_text":
         var_text.add(other)
-        var.add(other)
 
     elif target == "delete":
         syn.discard(other)
@@ -255,6 +251,7 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("gg", "g", True),
     ("jj", "j", True),
     ("cc", "c", True),
+    ("cch", "ñch", True),
     ("ṭṭ", "ṭ", True),
     ("ṭ", "ḍ", True),
     ("ṭ", "t", True),
