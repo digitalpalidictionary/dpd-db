@@ -230,6 +230,8 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
     deleted_list = []
     changed_deck_list = []
 
+    notes_to_update = []
+
     for counter, i in enumerate(db):
         id = str(i.id)
         deck = deck_selector(i)
@@ -240,7 +242,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
                 note, is_updated = update_note_values(col, note, i)
                 if is_updated:
                     updated_list += [i.id]
-                    col.update_note(note)
+                    notes_to_update.append(note)
                 if update_deck(col, note, i, data_dict[id], deck_dict, model_dict):
                     changed_deck_list += [i.id]
 
@@ -256,6 +258,11 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
             if i.id in data_dict:
                 print(data_dict[id])
                 deleted_list += [i.id]
+
+    if notes_to_update:
+        pr.green_tmr("flush note updates")
+        col.update_notes(notes_to_update)
+        pr.yes(len(notes_to_update))
 
     pr.summary("added", len(added_list))
     pr.summary("updated", len(updated_list))
@@ -275,6 +282,8 @@ def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> Non
     updated_list = []
     deleted_list = []
 
+    notes_to_update = []
+
     for i in anki_data:
         key, html = i
         if key in data_dict:
@@ -282,12 +291,15 @@ def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> Non
             note, is_updated = update_family_note(note, i)
             if is_updated:
                 updated_list += [key]
-                col.update_note(note)
+                notes_to_update.append(note)
 
             # add note
         else:
             added_list += [key]
             make_new_family_note(col, deck, model_dict, deck_dict, i)
+
+    if notes_to_update:
+        col.update_notes(notes_to_update)
 
     for key, data in data_dict.items():
         if data["note"]["Front"] not in [item[0] for item in anki_data]:
