@@ -242,7 +242,7 @@ def prompt_clusters(
         pyperclip.copy(gui_string)
         print(f"\n[white]{gui_string}")
         choice = Prompt.ask(
-            "[white](s)ynonym all pairwise, (g)eneral exception, (pass), (r)estart, (q)uit"
+            "[white](s)ynonym all pairwise, (p)honetic all pairwise, (g)eneral exception, (pass), (r)estart, (q)uit"
         )
 
         if choice == "s":
@@ -271,6 +271,35 @@ def prompt_clusters(
             print(
                 f"  [green]wrote {written} new pairwise syn relationships"
                 f"  [yellow]({skipped_phon} preserved as phonetic variants)"
+            )
+
+        elif choice == "p":
+            written = 0
+            skipped_text = 0
+            for i, a in enumerate(members):
+                a_phon = split_field(a.var_phonetic)
+                a_text = split_field(a.var_text)
+                for b in members[i + 1 :]:
+                    if a.lemma_clean == b.lemma_clean:
+                        continue
+                    b_text = split_field(b.var_text)
+                    if b.lemma_clean in a_text or a.lemma_clean in b_text:
+                        skipped_text += 1
+                        print(
+                            f"  [yellow]kept as textual variant: "
+                            f"{a.lemma_1} ↔ {b.lemma_1}"
+                        )
+                        continue
+                    b_phon = split_field(b.var_phonetic)
+                    if b.lemma_clean in a_phon and a.lemma_clean in b_phon:
+                        continue
+                    assign_relationship(a, b.lemma_clean, "var_phonetic")
+                    assign_relationship(b, a.lemma_clean, "var_phonetic")
+                    written += 1
+            g.db_session.commit()
+            print(
+                f"  [green]wrote {written} new pairwise var_phonetic relationships"
+                f"  [yellow]({skipped_text} preserved as textual variants)"
             )
 
         elif choice == "g":

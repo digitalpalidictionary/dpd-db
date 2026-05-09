@@ -20,6 +20,94 @@ from db.models import DpdHeadword
 from tools.pali_sort_key import pali_list_sorter
 
 # ---------------------------------------------------------------------------
+# phonetic substitution rules (from add_phonetic_variants.py)
+# ---------------------------------------------------------------------------
+
+PHONETIC_RULES: list[tuple[str, str, bool]] = [
+    # vowels
+    ("a", "ā", True),
+    ("a", "u", True),
+    ("i", "ī", True),
+    ("i", "u", True),
+    ("ī", "e", True),
+    ("u", "ū", True),
+    ("u", "o", True),
+    ("e", "aya", True),
+    ("o", "ava", True),
+    # consonants
+    ("ṭ", "ḍ", True),
+    ("t", "d", True),
+    ("t", "ṭ", True),
+    ("d", "ḍ", True),
+    ("n", "ṇ", True),
+    ("n", "ṅ", True),
+    ("n", "ñ", True),
+    ("p", "b", True),
+    ("r", "t", True),
+    ("r", "d", True),
+    ("l", "ḷ", True),
+    ("l", "y", True),
+    ("v", "b", True),
+    # nasals
+    ("ṃ", "ṅ", True),
+    ("ṃ", "n", True),
+    ("ṃ", "ṇ", True),
+    ("ṃ", "m", True),
+    ("ṃ", "ñ", True),
+    # doubles
+    # iī
+    ("ika", "aka", True),
+    ("ika", "iya", True),
+    ("ikā", "iyā", True),
+    ("iya", "ya", True),
+    ("iya", "eyya", True),
+    ("īya", "ya", True),
+    ("īya", "eyya", True),
+    # uū
+    ("ūl", "ull", True),
+    ("ūḷ", "ull", True),
+    # k kh g gh ṅ
+    ("kk", "k", True),
+    ("kk", "g", True),
+    ("gg", "g", True),
+    # c ch j jh ñ
+    ("cc", "c", True),
+    ("cch", "ñch", True),
+    ("jj", "j", True),
+    # ṭ ṭḥ ḍ ḍh ṇ
+    ("ṭṭ", "ṭ", True),
+    ("ḍḍ", "ḍ", True),
+    ("ṇṭ", "nt", True),
+    ("ṇṭ", "nd", True),
+    # t th d dh n
+    ("tt", "t", True),
+    ("ty", "cc", True),
+    ("dd", "d", True),
+    ("dy", "jj", True),
+    ("nah", "nh", True),
+    ("nāh", "nh", True),
+    ("ny", "ññ", True),
+    ("nh", "h", True),
+    # p ph b bh m
+    ("pp", "p", True),
+    ("bb", "b", True),
+    # y r l s v h ṃ
+    ("ṃy", "ññ", True),
+    ("vi", "vy", True),
+    ("ll", "l", True),
+    ("ss", "s", True),
+    # delete
+    ("h", "", True),
+    ("y", "", True),
+    ("v", "", True),
+]
+
+_SUFFIX_NORM: dict[str, str] = {
+    "itvā": "tvā",
+    "itvāna": "tvāna",
+}
+
+# ---------------------------------------------------------------------------
 # meaning + grammar normalisation
 # ---------------------------------------------------------------------------
 
@@ -227,87 +315,6 @@ def already_related_pair_bidirectional(
         or a_clean in text_sets[b.id]
     )
     return a_has_b and b_has_a
-
-
-# ---------------------------------------------------------------------------
-# phonetic substitution rules (from add_phonetic_variants.py)
-# ---------------------------------------------------------------------------
-
-PHONETIC_RULES: list[tuple[str, str, bool]] = [
-    # vowels
-    ("a", "ā", True),
-    ("a", "u", True),
-    ("i", "ī", True),
-    ("i", "u", True),
-    ("ī", "e", True),
-    ("u", "ū", True),
-    ("u", "o", True),
-    ("e", "aya", True),
-    ("o", "ava", True),
-    # consonants
-    ("t", "ṭ", True),
-    ("d", "ḍ", True),
-    ("n", "ṇ", True),
-    ("n", "ṅ", True),
-    ("n", "ñ", True),
-    ("r", "t", True),
-    ("r", "d", True),
-    ("l", "ḷ", True),
-    ("l", "y", True),
-    ("v", "b", True),
-    # nasals
-    ("ṃ", "ṅ", True),
-    ("ṃ", "n", True),
-    ("ṃ", "ṇ", True),
-    ("ṃ", "m", True),
-    ("ṃ", "ñ", True),
-    # doubles
-    ("iya", "ya", True),
-    ("iya", "eyya", True),
-    ("īya", "ya", True),
-    ("īya", "eyya", True),
-    ("ūl", "ull", True),
-    ("ūḷ", "ull", True),
-    ("ika", "aka", True),
-    ("ika", "iya", True),
-    ("ikā", "iyā", True),
-    ("kk", "k", True),
-    ("kk", "g", True),
-    ("gg", "g", True),
-    ("jj", "j", True),
-    ("cc", "c", True),
-    ("cch", "ñch", True),
-    ("ṭṭ", "ṭ", True),
-    ("ṭ", "ḍ", True),
-    ("ṭ", "t", True),
-    ("ḍḍ", "ḍ", True),
-    ("ṇḍ", "ṇṭ", True),
-    ("t", "d", True),
-    ("tt", "t", True),
-    ("dd", "d", True),
-    ("nh", "h", True),
-    ("ny", "ññ", True),
-    ("dy", "jj", True),
-    ("ty", "cc", True),
-    ("pp", "p", True),
-    ("p", "b", True),
-    ("bb", "b", True),
-    ("ṃy", "ññ", True),
-    ("nah", "nh", True),
-    ("nāh", "nh", True),
-    ("vi", "vy", True),
-    ("ll", "l", True),
-    ("ss", "s", True),
-    # delete
-    ("h", "", True),
-    ("y", "", True),
-    ("v", "", True),
-]
-
-_SUFFIX_NORM: dict[str, str] = {
-    "itvā": "tvā",
-    "itvāna": "tvāna",
-}
 
 
 def construction_without_base(hw: DpdHeadword) -> str | None:
