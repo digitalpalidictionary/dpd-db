@@ -45,6 +45,20 @@ def grammar_signature(grammar: str) -> str:
 
 NOUN_GENDERS: frozenset[str] = frozenset({"masc", "fem", "nt"})
 TILINGA_POS: frozenset[str] = frozenset({"adj", "pp", "ptp", "prp"})
+_PHONETIC_MASC_NT: frozenset[str] = frozenset({"masc", "nt"})
+
+
+def phonetic_pos_class(pos: str) -> str:
+    """Group pos values for phonetic-variant matching.
+
+    masc and nt are treated as equivalent — the same word often appears in
+    both genders with identical meaning and spelling variants.
+    fem stays distinct (different stem endings, genuinely different words).
+    All other pos values stay exact.
+    """
+    if pos in _PHONETIC_MASC_NT:
+        return "noun_mn"
+    return pos
 
 
 def pos_class(pos: str) -> str:
@@ -217,6 +231,7 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("i", "u", True),
     ("ī", "e", True),
     ("u", "ū", True),
+    ("u", "o", True),
     ("e", "aya", True),
     ("o", "ava", True),
     # consonants
@@ -602,7 +617,9 @@ class PhoneticVariantDetector:
             if not targets:
                 continue
             for target_hw in targets:
-                if source_hw.pos != target_hw.pos:
+                if phonetic_pos_class(source_hw.pos) != phonetic_pos_class(
+                    target_hw.pos
+                ):
                     continue
                 if not has_textual_occurrence(source_hw):
                     continue
@@ -650,7 +667,7 @@ class PhoneticVariantDetector:
             if already_related_one_sided(hw, candidate_clean):
                 return
             for target in self._by_lemma_clean.get(candidate_clean, []):
-                if target.pos != hw.pos:
+                if phonetic_pos_class(target.pos) != phonetic_pos_class(hw.pos):
                     continue
                 if not has_textual_occurrence(target):
                     continue

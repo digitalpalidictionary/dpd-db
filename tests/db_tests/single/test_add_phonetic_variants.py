@@ -246,6 +246,33 @@ def test_canonical_pairs_reject_different_pos() -> None:
     assert pairs == []
 
 
+def test_canonical_pairs_allow_masc_nt() -> None:
+    # t↔ṭ rule: kūṭa masc ↔ kūta nt — masc/nt treated as the same class
+    a = make_hw("kūṭa", lemma_clean="kūṭa", pos="masc")
+    b = make_hw("kūta", lemma_clean="kūta", pos="nt")
+    detector = PhoneticVariantDetector([a, b])
+    pairs = detector.detect_canonical_pairs([])
+    assert len(pairs) >= 1
+
+
+def test_canonical_pairs_reject_masc_fem() -> None:
+    # t↔ṭ rule: same phonetic pair but masc/fem — should be rejected
+    a = make_hw("kūṭa", lemma_clean="kūṭa", pos="masc")
+    b = make_hw("kūta", lemma_clean="kūta", pos="fem")
+    detector = PhoneticVariantDetector([a, b])
+    pairs = detector.detect_canonical_pairs([])
+    assert pairs == []
+
+
+def test_canonical_pairs_reject_nt_fem() -> None:
+    # t↔ṭ rule: same phonetic pair but nt/fem — should be rejected
+    a = make_hw("kūṭa", lemma_clean="kūṭa", pos="nt")
+    b = make_hw("kūta", lemma_clean="kūta", pos="fem")
+    detector = PhoneticVariantDetector([a, b])
+    pairs = detector.detect_canonical_pairs([])
+    assert pairs == []
+
+
 def test_canonical_pairs_reject_different_family_root() -> None:
     a = make_hw("dahati", id=1, lemma_clean="dahati", pos="verb", family_root="dah")
     b = make_hw("ḍahati", id=2, lemma_clean="ḍahati", pos="verb", family_root="ḍah")
