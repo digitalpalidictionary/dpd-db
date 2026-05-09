@@ -80,11 +80,6 @@ class DatabaseManager:
         self._relationship_detector: RelationshipDetector | None = None
 
     def new_db_session(self):
-        if hasattr(self, "db_session") and self.db_session is not None:
-            try:
-                self.db_session.close()
-            except Exception:
-                pass
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
     # --- INITIALIZE DB ---
@@ -639,7 +634,10 @@ class DatabaseManager:
                 return (True, "")
             return (False, "Word not found")
         except Exception as e:
-            self.db_session.rollback()
+            try:
+                self.db_session.rollback()
+            except Exception:
+                pass
             print(e)
             return (False, str(e))
 

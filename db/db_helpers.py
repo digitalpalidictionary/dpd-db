@@ -9,7 +9,7 @@ import os
 import sys
 from pathlib import Path
 
-from sqlalchemy import create_engine, inspect
+from sqlalchemy import create_engine, event, inspect
 from sqlalchemy.orm import Session, sessionmaker
 
 from db.models import Base
@@ -44,7 +44,10 @@ def get_db_session(db_path: Path) -> Session:
             # if flaky transaction errors appear, migrate GUI to scoped_session.
             connect_args={"check_same_thread": False},
         )
-        # db_conn = db_eng.connect()
+
+        @event.listens_for(db_eng, "connect")
+        def set_wal_mode(dbapi_conn, _):
+            dbapi_conn.execute("PRAGMA journal_mode=WAL")
 
         Session = sessionmaker(db_eng)
         Session.configure(bind=db_eng)

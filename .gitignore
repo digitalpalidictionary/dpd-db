@@ -13,6 +13,10 @@
 .vscode/
 .zed/tasks.json
 /.qwen
+/dpd.db-shm
+/dpd.db-wal
+/exporter/anki/templates/.backups
+/exporter/anki/templates/old
 __init__.py
 __pycache__/
 archive/db/bold_definitions/bold_definitions.json
@@ -42,6 +46,7 @@ db/sinhala/dpd sinhala 1.2.xlsx
 db/suttas/code/*
 db/suttas/todo.md
 db/suttas/Untitled Document
+docs/rss.xml
 docs_site
 dpd-db.code-workspace
 dpd.db.tar.bz2
@@ -116,6 +121,3 @@ shared_data/headword_stem_pattern_dict
 temp/
 token.json
 typescript
-docs/rss.xml
-/exporter/anki/templates/.backups
-/exporter/anki/templates/old
