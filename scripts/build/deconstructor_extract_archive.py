@@ -40,7 +40,7 @@ def main():
                         f"{member.name} already exists and has the same date"
                     )
                 else:
-                    archive.extract(member, path=output_directory)
+                    archive.extract(member, path=output_directory, filter="data")
                     pr.green_title(f"extracted {member.name}")
     except Exception as e:
         pr.red(f"An error occurred:\n{e}")
