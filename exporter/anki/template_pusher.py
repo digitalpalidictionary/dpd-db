@@ -36,6 +36,15 @@ def main() -> None:
 
     pr.green_tmr("open anki collection")
     anki_db_path = config_read("anki", "db_path")
+    if not anki_db_path:
+        pr.no("no")
+        pr.red("No anki db_path configured in config.ini [anki].")
+        return
+    if not Path(anki_db_path).exists():
+        pr.no("no")
+        pr.red(f"Anki collection not found at: {anki_db_path}")
+        pr.red("Check the profile name in config.ini [anki] db_path/backup_path.")
+        return
     try:
         col = Collection(anki_db_path)  # type: ignore[arg-type]
     except DBError:

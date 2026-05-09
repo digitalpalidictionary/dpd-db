@@ -3,6 +3,7 @@
 """Update Anki with latest data directly from the DB."""
 
 import copy
+from pathlib import Path
 
 from anki.collection import Collection
 from anki.errors import DBError
@@ -70,6 +71,15 @@ def family_updater(anki_data_list, deck):
 def get_anki_collection() -> Collection | None:
     pr.green_tmr("get anki collection")
     anki_db_path = config_read("anki", "db_path")
+    if not anki_db_path:
+        pr.no("no")
+        pr.red("No anki db_path configured in config.ini [anki].")
+        return None
+    if not Path(anki_db_path).exists():
+        pr.no("no")
+        pr.red(f"Anki collection not found at: {anki_db_path}")
+        pr.red("Check the profile name in config.ini [anki] db_path/backup_path.")
+        return None
     try:
         col = Collection(anki_db_path)  # type: ignore[arg-type]
         pr.yes("ok")
