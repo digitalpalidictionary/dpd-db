@@ -57,26 +57,29 @@ def _rules_of(results: list[tuple[Any, str, str]]) -> set[str]:
     return {r[2] for r in results}
 
 
-def test_assign_synonym_removes_phonetic_and_variant_when_no_textual() -> None:
-    hw = make_hw("foo", synonym="", var_phonetic="bar", variant="bar", var_text="")
+def test_assign_synonym_removes_phonetic_textual_and_variant() -> None:
+    hw = make_hw("foo", synonym="", var_phonetic="bar", variant="bar", var_text="bar")
     _assign(hw, "bar", "synonym")
     assert hw.synonym == "bar"
     assert hw.var_phonetic == ""
+    assert hw.var_text == ""
     assert hw.variant == ""
 
 
-def test_assign_phonetic_removes_synonym_and_does_not_touch_variant() -> None:
-    hw = make_hw("foo", synonym="bar", var_phonetic="", variant="", var_text="")
+def test_assign_phonetic_removes_synonym_textual_and_variant() -> None:
+    hw = make_hw("foo", synonym="bar", var_phonetic="", variant="bar", var_text="bar")
     _assign(hw, "bar", "var_phonetic")
     assert hw.synonym == ""
     assert hw.var_phonetic == "bar"
+    assert hw.var_text == ""
     assert hw.variant == ""
 
 
-def test_assign_textual_can_coexist_with_synonym_and_does_not_touch_variant() -> None:
-    hw = make_hw("foo", synonym="bar", var_phonetic="", variant="", var_text="")
+def test_assign_textual_removes_synonym_phonetic_and_variant() -> None:
+    hw = make_hw("foo", synonym="bar", var_phonetic="bar", variant="bar", var_text="")
     _assign(hw, "bar", "var_text")
-    assert hw.synonym == "bar"
+    assert hw.synonym == ""
+    assert hw.var_phonetic == ""
     assert hw.var_text == "bar"
     assert hw.variant == ""
 

@@ -95,9 +95,9 @@ def split_field(value: str | None) -> set[str]:
 
 def assign_relationship(hw: DpdHeadword, other: str, target: str) -> None:
     """Assign `other` to `target` field on `hw`, enforcing exclusivity rules:
-    - synonym ↔ var_phonetic mutually exclusive
-    - synonym + var_text may coexist
-    - variant is a legacy catch-all: surgically modified, never wholesale
+    - synonym, var_phonetic, var_text are mutually exclusive — a word can
+      belong to at most one of the three
+    - assigning to any of the three also drops the word from `variant`
     """
     syn = split_field(hw.synonym)
     var = split_field(hw.variant)
@@ -107,15 +107,20 @@ def assign_relationship(hw: DpdHeadword, other: str, target: str) -> None:
     if target == "synonym":
         syn.add(other)
         var_phon.discard(other)
-        if other not in var_text and other not in var_phon:
-            var.discard(other)
+        var_text.discard(other)
+        var.discard(other)
 
     elif target == "var_phonetic":
         var_phon.add(other)
         syn.discard(other)
+        var_text.discard(other)
+        var.discard(other)
 
     elif target == "var_text":
         var_text.add(other)
+        syn.discard(other)
+        var_phon.discard(other)
+        var.discard(other)
 
     elif target == "delete":
         syn.discard(other)
@@ -144,15 +149,20 @@ def assign_relationship_dict(
     if target == "synonym":
         syn.add(other)
         var_phon.discard(other)
-        if other not in var_text and other not in var_phon:
-            var.discard(other)
+        var_text.discard(other)
+        var.discard(other)
 
     elif target == "var_phonetic":
         var_phon.add(other)
         syn.discard(other)
+        var_text.discard(other)
+        var.discard(other)
 
     elif target == "var_text":
         var_text.add(other)
+        syn.discard(other)
+        var_phon.discard(other)
+        var.discard(other)
 
     elif target == "delete":
         syn.discard(other)
