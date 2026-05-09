@@ -107,11 +107,13 @@ def test_same_construction_ignores_empty() -> None:
     assert PhoneticVariantDetector([a, b]).detect_same_construction() == []
 
 
-def test_same_construction_skips_already_recorded() -> None:
+def test_same_construction_surfaces_inconsistent_recording() -> None:
+    # Inconsistent: a says phon, b says nothing. Raw detector should still
+    # propose both directions so the pair surfaces in the canonical layer.
     a = make_hw("jeti", construction_clean="ji + *a", pos="verb", var_phonetic="jayati")
     b = make_hw("jayati", construction_clean="ji + *a", pos="verb")
     results = PhoneticVariantDetector([a, b]).detect_same_construction()
-    assert not any(r[0].lemma_1 == "jeti" for r in results)
+    assert any(r[0].lemma_1 == "jeti" for r in results)
     assert any(r[0].lemma_1 == "jayati" for r in results)
 
 
@@ -133,11 +135,12 @@ def test_rules_t_retroflex_matches() -> None:
     assert "rule:t<->ṭ" in _rules_of(results)
 
 
-def test_rules_skips_already_recorded() -> None:
+def test_rules_surfaces_inconsistent_recording() -> None:
+    # Inconsistent one-sided var_phonetic: surface so the user can fix it.
     a = make_hw("akaṭa", var_phonetic="akata")
     b = make_hw("akata")
     results = PhoneticVariantDetector([a, b]).detect_by_rules()
-    assert not any(r[0].lemma_1 == "akaṭa" for r in results)
+    assert any(r[0].lemma_1 == "akaṭa" for r in results)
 
 
 # ---- detect_base_e_aya ----

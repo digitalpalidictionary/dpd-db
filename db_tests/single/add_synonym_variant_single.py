@@ -20,6 +20,7 @@ from tools.synonym_variant import (
     assign_relationship,
     clean_meaning,
     grammar_signature,
+    pair_consistently_related_sets,
     pos_class,
     split_field,
 )
@@ -82,20 +83,9 @@ def find_single_meaning_pairs(g: GlobalVars) -> None:
                 gen_key = _general_key(pos, [meaning])
                 if key in g.exceptions or gen_key in g.exceptions:
                     continue
-                a_clean = hw_a.lemma_clean
-                b_clean = hw_b.lemma_clean
-                a_has_b = (
-                    b_clean in syn_sets[hw_a.id]
-                    or b_clean in phon_sets[hw_a.id]
-                    or b_clean in text_sets[hw_a.id]
-                )
-                b_has_a = (
-                    a_clean in syn_sets[hw_b.id]
-                    or a_clean in phon_sets[hw_b.id]
-                    or a_clean in text_sets[hw_b.id]
-                )
-                already_related = a_has_b and b_has_a
-                if already_related:
+                if pair_consistently_related_sets(
+                    hw_a, hw_b, syn_sets, phon_sets, text_sets
+                ):
                     continue
                 pairs.append((hw_a, hw_b, meaning))
 

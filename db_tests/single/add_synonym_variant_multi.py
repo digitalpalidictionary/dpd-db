@@ -19,6 +19,8 @@ from tools.synonym_variant import (
     assign_relationship,
     clean_meaning,
     grammar_signature,
+    pair_consistently_related,
+    pair_consistently_related_sets,
     pos_class,
     split_field,
 )
@@ -125,20 +127,9 @@ def find_multi_meaning_pairs(g: GlobalVars) -> None:
                 gen_key = _general_key(pos, list(shared))
                 if key in g.exceptions or gen_key in g.exceptions:
                     continue
-                b_clean = hw_b.lemma_clean
-                a_clean = hw_a.lemma_clean
-                a_has_b = (
-                    b_clean in syn_sets[hw_a.id]
-                    or b_clean in phon_sets[hw_a.id]
-                    or b_clean in text_sets[hw_a.id]
-                )
-                b_has_a = (
-                    a_clean in syn_sets[hw_b.id]
-                    or a_clean in phon_sets[hw_b.id]
-                    or a_clean in text_sets[hw_b.id]
-                )
-                already_related = a_has_b and b_has_a
-                if already_related:
+                if pair_consistently_related_sets(
+                    hw_a, hw_b, syn_sets, phon_sets, text_sets
+                ):
                     continue
                 pairs.append((hw_a, hw_b, sorted(shared)))
 
@@ -192,23 +183,15 @@ def find_identical_meaning_clusters(
 
 
 def _all_pairs_related(members: list[DpdHeadword]) -> bool:
-    """Cluster is fully resolved if every pair is already related — in syn,
-    var_phonetic, or var_text. Curated phonetic/textual variants count as
-    'no work needed' just as much as synonyms do.
+    """Cluster is fully resolved only if every pair references the other via
+    the SAME field (syn / var_phonetic / var_text). Mixed states surface so
+    the user can resolve them.
     """
-    related: dict[int, set[str]] = {
-        m.id: set(m.synonym_list)
-        | split_field(m.var_phonetic)
-        | split_field(m.var_text)
-        for m in members
-    }
     for i, a in enumerate(members):
         for b in members[i + 1 :]:
             if a.lemma_clean == b.lemma_clean:
                 continue
-            if b.lemma_clean not in related[a.id]:
-                return False
-            if a.lemma_clean not in related[b.id]:
+            if not pair_consistently_related(a, b):
                 return False
     return True
 
@@ -272,6 +255,8 @@ def prompt_clusters(
                 f"  [green]wrote {written} new pairwise syn relationships"
                 f"  [yellow]({skipped_phon} preserved as phonetic variants)"
             )
+            for m in members:
+                _show_result(m)
 
         elif choice == "p":
             written = 0
@@ -301,6 +286,8 @@ def prompt_clusters(
                 f"  [green]wrote {written} new pairwise var_phonetic relationships"
                 f"  [yellow]({skipped_text} preserved as textual variants)"
             )
+            for m in members:
+                _show_result(m)
 
         elif choice == "g":
             gen_key = _general_key(pcls, sorted(meanings))

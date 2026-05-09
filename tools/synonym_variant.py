@@ -76,7 +76,9 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("jj", "j", True),
     # ṭ ṭḥ ḍ ḍh ṇ
     ("ṭṭ", "ṭ", True),
+    ("ṭhā", "ṭhaha", True),
     ("ḍḍ", "ḍ", True),
+    ("ḍḍh", "ddh", True),
     ("ṇṭ", "nt", True),
     ("ṇṭ", "nd", True),
     # t th d dh n
@@ -212,6 +214,9 @@ def assign_relationship(hw: DpdHeadword, other: str, target: str) -> None:
 
     elif target == "delete":
         syn.discard(other)
+        var.discard(other)
+        var_phon.discard(other)
+        var_text.discard(other)
 
     else:
         raise ValueError(f"unknown target: {target!r}")
@@ -254,6 +259,9 @@ def assign_relationship_dict(
 
     elif target == "delete":
         syn.discard(other)
+        var.discard(other)
+        var_phon.discard(other)
+        var_text.discard(other)
 
     else:
         raise ValueError(f"unknown target: {target!r}")
@@ -271,50 +279,42 @@ def assign_relationship_dict(
 # ---------------------------------------------------------------------------
 
 
-def already_related_bidirectional(a: DpdHeadword, b: DpdHeadword) -> bool:
-    """Both rows mention each other in var_phonetic. Used by offline scripts."""
-    a_phon = split_field(a.var_phonetic)
-    b_phon = split_field(b.var_phonetic)
-    return b.lemma_clean in a_phon and a.lemma_clean in b_phon
+def pair_consistently_related(a: DpdHeadword, b: DpdHeadword) -> bool:
+    """A pair counts as 'already done' only when both rows reference each
+    other via the SAME field (synonym, var_phonetic, or var_text). Mixed
+    states — e.g. a says syn, b says phon — are inconsistent and should
+    surface so the user can pick the right field.
+    """
+    a_clean = a.lemma_clean
+    b_clean = b.lemma_clean
+    if b_clean in split_field(a.synonym) and a_clean in split_field(b.synonym):
+        return True
+    if b_clean in split_field(a.var_phonetic) and a_clean in split_field(
+        b.var_phonetic
+    ):
+        return True
+    if b_clean in split_field(a.var_text) and a_clean in split_field(b.var_text):
+        return True
+    return False
 
 
-def already_related_one_sided(hw: DpdHeadword, other_clean: str) -> bool:
-    """`other_clean` is already in any of hw's relationship fields."""
-    return (
-        other_clean in split_field(hw.synonym)
-        or other_clean in split_field(hw.var_phonetic)
-        or other_clean in split_field(hw.var_text)
-    )
-
-
-def already_related_in_relations(
-    syn_set: set[str], phon_set: set[str], text_set: set[str], other_clean: str
-) -> bool:
-    """Any-side check, with pre-split sets — for hot inner loops."""
-    return other_clean in syn_set or other_clean in phon_set or other_clean in text_set
-
-
-def already_related_pair_bidirectional(
+def pair_consistently_related_sets(
     a: DpdHeadword,
     b: DpdHeadword,
     syn_sets: dict[int, set[str]],
     phon_sets: dict[int, set[str]],
     text_sets: dict[int, set[str]],
 ) -> bool:
-    """Bidirectional check across syn/phon/text — used in the syn scripts."""
+    """Same as `pair_consistently_related`, using pre-split sets keyed by id."""
     a_clean = a.lemma_clean
     b_clean = b.lemma_clean
-    a_has_b = (
-        b_clean in syn_sets[a.id]
-        or b_clean in phon_sets[a.id]
-        or b_clean in text_sets[a.id]
-    )
-    b_has_a = (
-        a_clean in syn_sets[b.id]
-        or a_clean in phon_sets[b.id]
-        or a_clean in text_sets[b.id]
-    )
-    return a_has_b and b_has_a
+    if b_clean in syn_sets[a.id] and a_clean in syn_sets[b.id]:
+        return True
+    if b_clean in phon_sets[a.id] and a_clean in phon_sets[b.id]:
+        return True
+    if b_clean in text_sets[a.id] and a_clean in text_sets[b.id]:
+        return True
+    return False
 
 
 def construction_without_base(hw: DpdHeadword) -> str | None:
@@ -440,8 +440,6 @@ class PhoneticVariantDetector:
                         continue
                     if not b.meaning_1:
                         continue
-                    if already_related_one_sided(a, b.lemma_clean):
-                        continue
                     key = (a.lemma_1, b.lemma_clean)
                     if key in seen:
                         continue
@@ -463,8 +461,6 @@ class PhoneticVariantDetector:
                     if produced == hw.lemma_clean:
                         continue
                     if produced not in self._by_lemma_clean:
-                        continue
-                    if already_related_one_sided(hw, produced):
                         continue
                     key = (hw.lemma_1, produced, rule_tag)
                     if key in seen:
@@ -506,8 +502,6 @@ class PhoneticVariantDetector:
                     b_stripped = construction_without_base(b)
                     if a_stripped is None or a_stripped != b_stripped:
                         continue
-                    if already_related_one_sided(a, b.lemma_clean):
-                        continue
                     key = (a.lemma_1, b.lemma_clean)
                     if key in seen:
                         continue
@@ -538,8 +532,6 @@ class PhoneticVariantDetector:
                     a_stripped = construction_without_base(a)
                     b_stripped = construction_without_base(b)
                     if a_stripped is None or a_stripped != b_stripped:
-                        continue
-                    if already_related_one_sided(a, b.lemma_clean):
                         continue
                     key = (a.lemma_1, b.lemma_clean)
                     if key in seen:
@@ -601,8 +593,6 @@ class PhoneticVariantDetector:
                     for source_hw in self._by_lemma_clean.get(a_lc, []):
                         if not source_hw.meaning_1:
                             continue
-                        if already_related_one_sided(source_hw, b_lc):
-                            continue
                         key = (source_hw.lemma_1, b_lc)
                         if key in seen:
                             continue
@@ -660,7 +650,7 @@ class PhoneticVariantDetector:
                 exc_key = exception_key(source_hw, target_hw)
                 if exc_key in exceptions:
                     continue
-                if already_related_bidirectional(source_hw, target_hw):
+                if pair_consistently_related(source_hw, target_hw):
                     continue
                 seen.add(pair_key)
                 pairs.append(Pair(rule=rule, source=source_hw, target=target_hw))
@@ -672,16 +662,15 @@ class PhoneticVariantDetector:
 
     def find_phonetic_variants_for(self, hw: DpdHeadword) -> list[tuple[str, str]]:
         """Return [(lemma_clean, rule_label), ...] phonetic candidates for `hw`,
-        suppressing already-recorded ones. One-sided check (current hw only).
-        Same-family check applied when families are present on both sides.
+        suppressing pairs that are already consistently related (same field
+        both sides). Same-family check applied when families are present on
+        both sides.
         """
         out: list[tuple[str, str]] = []
         seen_clean: set[str] = set()
 
         def _consider(candidate_clean: str, rule: str) -> None:
             if candidate_clean == hw.lemma_clean:
-                return
-            if already_related_one_sided(hw, candidate_clean):
                 return
             for target in self._by_lemma_clean.get(candidate_clean, []):
                 if phonetic_pos_class(target.pos) != phonetic_pos_class(hw.pos):
@@ -691,6 +680,8 @@ class PhoneticVariantDetector:
                 if not (hw.meaning_1 and target.meaning_1):
                     continue
                 if not same_families_if_present(hw, target):
+                    continue
+                if pair_consistently_related(hw, target):
                     continue
                 if candidate_clean in seen_clean:
                     return

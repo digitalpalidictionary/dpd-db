@@ -7,7 +7,7 @@ Walk candidate pairs detected by four rules:
 3. same construction_clean, base differs by e/aya (or *e/*aya) at one slot
 4. same construction_clean, base differs by iya/īya at one slot
 
-Prompt: (p)honetic, (e)xception, [enter] pass, (r)estart, (q)uit.
+Prompt: (s)ynonym, (p)honetic, (t)extual, (d)elete, (e)xception, [enter] pass, (r)estart, (q)uit.
 Exceptions are stored in add_phonetic_variants.json (same directory).
 """
 
@@ -123,7 +123,7 @@ def prompt_pairs(g: GlobalVars) -> bool:
         print(f"\n[white]{gui_string}")
 
         choice = Prompt.ask(
-            "[white](s)ynonym, (p)honetic, (t)extual, (e)xception, (pass), (r)estart, (q)uit",
+            "[white](s)ynonym, (p)honetic, (t)extual, (d)elete, (e)xception, (pass), (r)estart, (q)uit",
             default="",
         )
 
@@ -144,6 +144,13 @@ def prompt_pairs(g: GlobalVars) -> bool:
         elif choice == "t":
             assign_relationship(hw_a, hw_b.lemma_clean, "var_text")
             assign_relationship(hw_b, hw_a.lemma_clean, "var_text")
+            _show_result(hw_a)
+            _show_result(hw_b)
+            g.db_session.commit()
+
+        elif choice == "d":
+            assign_relationship(hw_a, hw_b.lemma_clean, "delete")
+            assign_relationship(hw_b, hw_a.lemma_clean, "delete")
             _show_result(hw_a)
             _show_result(hw_b)
             g.db_session.commit()
