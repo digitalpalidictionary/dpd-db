@@ -892,6 +892,13 @@ class SuttaInfo(Base):
         )
 
     @cached_property
+    def is_pannasaka(self) -> bool:
+        names = [self.dpd_sutta, self.dpd_sutta_var]
+        return any(
+            name and ("paṇṇāsapāḷi" in name or "paṇṇāsaka" in name) for name in names
+        )
+
+    @cached_property
     def dv_exists(self) -> bool:
         if (
             self.dv_pts

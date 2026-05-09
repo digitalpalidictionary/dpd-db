@@ -3,6 +3,7 @@
 {% set is_vagga = d.su.is_vagga if d.su else false %}
 {% set is_samyutta = d.su.is_samyutta if d.su else false %}
 {% set is_nipata = d.su.is_nipata if d.su else false %}
+{% set is_pannasaka = d.su.is_pannasaka if d.su else false %}
 
 <h3 class="dpd" id="{{ d.i.lemma_1_ }}">{{d.i.lemma_1}}</h3>
 <div class="dpd summary">
@@ -26,7 +27,7 @@
 
     {% if d.i.needs_sutta_info_button %}
     <a class="dpd-button" name="sutta-info-button" href="#" data-target="sutta_info_{{d.i.lemma_1_}}">
-        {% if is_samyutta %}saṃyutta{% elif is_vagga %}vagga{% elif is_nipata %}nipāta{% else %}sutta{% endif %}</a>
+        {% if is_samyutta %}saṃyutta{% elif is_pannasaka %}paṇṇāsaka{% elif is_vagga %}vagga{% elif is_nipata %}nipāta{% else %}sutta{% endif %}</a>
 
     {% endif %}
 

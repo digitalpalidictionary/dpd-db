@@ -2,6 +2,7 @@
 {% set is_vagga = d.su.is_vagga if d.su else false %}
 {% set is_samyutta = d.su.is_samyutta if d.su else false %}
 {% set is_nipata = d.su.is_nipata if d.su else false %}
+{% set is_pannasaka = d.su.is_pannasaka if d.su else false %}
 <body>
 <div class="dpd">
     <p>
@@ -24,7 +25,7 @@
     <a class="dpd-button play" onclick="playAudio('{{ d.i.lemma_clean }}', this)" title="Play Audio"><svg viewBox="0 0 24 24" width="16px" height="16px" fill="currentColor" stroke="currentColor" stroke-width="0"><path d="M8 5v14l11-7z"></path></svg></a>
     {% endif %}
     {% if d.i.needs_sutta_info_button %}
-    <a class="dpd-button" href="#" data-target="sutta_info_{{ d.i.lemma_1_ }}">{% if is_samyutta %}saṃyutta{% elif is_vagga %}vagga{% elif is_nipata %}nipāta{% else %}sutta{% endif %}</a>
+    <a class="dpd-button" href="#" data-target="sutta_info_{{ d.i.lemma_1_ }}">{% if is_samyutta %}saṃyutta{% elif is_pannasaka %}paṇṇāsaka{% elif is_vagga %}vagga{% elif is_nipata %}nipāta{% else %}sutta{% endif %}</a>
     {% endif %}
     {% if d.i.needs_grammar_button %}
     <a class="dpd-button" href="#" data-target="grammar_{{ d.i.lemma_1_ }}">grammar</a>
