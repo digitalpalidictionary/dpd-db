@@ -261,22 +261,22 @@ def test_canonical_pairs_allow_masc_nt() -> None:
     assert len(pairs) >= 1
 
 
-def test_canonical_pairs_reject_masc_fem() -> None:
-    # t↔ṭ rule: same phonetic pair but masc/fem — should be rejected
+def test_canonical_pairs_allow_masc_fem() -> None:
+    # t↔ṭ rule: kūṭa masc ↔ kūta fem — all three noun genders share a class
     a = make_hw("kūṭa", lemma_clean="kūṭa", pos="masc")
     b = make_hw("kūta", lemma_clean="kūta", pos="fem")
     detector = PhoneticVariantDetector([a, b])
     pairs = detector.detect_canonical_pairs([])
-    assert pairs == []
+    assert len(pairs) >= 1
 
 
-def test_canonical_pairs_reject_nt_fem() -> None:
-    # t↔ṭ rule: same phonetic pair but nt/fem — should be rejected
+def test_canonical_pairs_allow_nt_fem() -> None:
+    # t↔ṭ rule: kūṭa nt ↔ kūta fem — all three noun genders share a class
     a = make_hw("kūṭa", lemma_clean="kūṭa", pos="nt")
     b = make_hw("kūta", lemma_clean="kūta", pos="fem")
     detector = PhoneticVariantDetector([a, b])
     pairs = detector.detect_canonical_pairs([])
-    assert pairs == []
+    assert len(pairs) >= 1
 
 
 def test_canonical_pairs_reject_different_family_root() -> None:

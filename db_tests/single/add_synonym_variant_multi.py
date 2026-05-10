@@ -65,7 +65,7 @@ def _general_key(pos: str, meanings: list[str]) -> str:
 
 def find_multi_meaning_pairs(g: GlobalVars) -> None:
     """Find pairs of multi-meaning headwords sharing ≥2 cleaned meanings and same pos/grammar sig."""
-    pr.green_tmr("finding multi-meaning pairs")
+    pr.green_tmr("\nfinding multi-meaning pairs\n")
 
     buckets: dict[tuple[str, str], list[tuple[DpdHeadword, frozenset[str]]]] = {}
 
@@ -163,7 +163,7 @@ def find_identical_meaning_clusters(
     clusters: list[tuple[str, str, frozenset[str], list[DpdHeadword]]] = []
     exceptions = set(g.exceptions)
     for (pcls, sig, meanings), members in buckets.items():
-        if len(members) < 3:
+        if len(members) < 2:
             continue
         if ONLY_TILINGA_CROSS_POS and not (
             pcls == "tiliṅga" and len({m.pos for m in members}) >= 2

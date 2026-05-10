@@ -136,19 +136,18 @@ def grammar_signature(grammar: str) -> str:
 
 NOUN_GENDERS: frozenset[str] = frozenset({"masc", "fem", "nt"})
 TILINGA_POS: frozenset[str] = frozenset({"adj", "pp", "ptp", "prp"})
-_PHONETIC_MASC_NT: frozenset[str] = frozenset({"masc", "nt"})
 
 
 def phonetic_pos_class(pos: str) -> str:
     """Group pos values for phonetic-variant matching.
 
-    masc and nt are treated as equivalent — the same word often appears in
-    both genders with identical meaning and spelling variants.
-    fem stays distinct (different stem endings, genuinely different words).
+    All three noun genders {masc, fem, nt} are treated as equivalent — the
+    same word often appears across genders with the same construction and
+    only a spelling/ending difference (e.g. bhāvana nt ↔ bhāvanā fem).
     All other pos values stay exact.
     """
-    if pos in _PHONETIC_MASC_NT:
-        return "noun_mn"
+    if pos in NOUN_GENDERS:
+        return "noun"
     return pos
 
 
