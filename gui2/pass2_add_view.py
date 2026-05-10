@@ -124,6 +124,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
             hint_text="Enter ID or Lemma",
             on_submit=self._click_edit_headword,
+            on_blur=self._disable_id_field_autofocus,
             text_size=14,
             width=400,
         )
@@ -259,6 +260,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self._middle_section,
             self._bottom_section,
         ]
+
+    def _disable_id_field_autofocus(self, e: ft.ControlEvent) -> None:
+        if self._enter_id_or_lemma_field.autofocus:
+            self._enter_id_or_lemma_field.autofocus = False
 
     def _on_delete_hover(self, e: ft.ControlEvent) -> None:
         e.control.bgcolor = ft.Colors.RED if e.data == "true" else None
