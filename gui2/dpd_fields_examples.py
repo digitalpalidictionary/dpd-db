@@ -102,6 +102,11 @@ book_codes: dict[str, str] = {
     "17a. PMa Patisambhidhāmagga Commentary": "kn17a",
     "18a. NPa Nettipakarana Commentary": "kn19a",
     "VISM Visuddhimagga": "vism",
+    # ṭīkās
+    "DNt Dīgha Ṭīkā": "dnt",
+    "MNt Majjhima Ṭīkā": "mnt",
+    "SNt Saṃyutta Ṭīkā": "snt",
+    "ANt Aṅguttara Ṭīkā": "ant",
     "VISMa Visuddhimagga Ṭīkā": "visma",
     # aññā
     "abhidhānappadīpikā": "ap",
