@@ -22,6 +22,7 @@ from gui2.mixins import PopUpMixin
 from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
+from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
 from tools.fast_api_utils import request_dpd_server
 from tools.speech_marks import SpeechMarkManager
@@ -61,6 +62,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.corrections_manager = self.toolkit.corrections_manager
         self.additions_manager = self.toolkit.additions_manager
+        self._x_manager = Pass2XManager(self._db)
 
         self.dpd_fields: DpdFields
         self._pass2_auto_file_manager = Pass2AutoFileManager(self.toolkit)
@@ -104,6 +106,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
         self._additions_button = ft.ElevatedButton(
             "Add", on_click=self._click_additions_button, tooltip="additions"
+        )
+        self._x_button = ft.ElevatedButton(
+            "X", on_click=self._click_x_button, tooltip="filter queue"
         )
         self._pread_button = ft.ElevatedButton(
             "PRead", on_click=self._click_pread_button, tooltip="proofreader"
@@ -181,6 +186,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._new_word_button,
                             self._corrections_button,
                             self._additions_button,
+                            self._x_button,
                             self._pread_button,
                             self._clear_all_button,
                             self.update_speech_marks_button,
@@ -947,6 +953,37 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         except Exception as ex:
             self.update_message(f"Error loading addition: {str(ex)}")
+
+        self.page.update()
+
+    def _click_x_button(self, e: ft.ControlEvent) -> None:
+        """Loads the next headword from the X filter queue."""
+        headword_id, remaining = self._x_manager.get_next()
+
+        if headword_id is None:
+            self.update_message("No more X words")
+            self.page.update()
+            return
+
+        try:
+            headword = self._db.get_headword_by_id(headword_id)
+            if not headword:
+                self.update_message(f"Headword ID {headword_id} not found in DB")
+                self.page.update()
+                return
+
+            self.clear_all_fields()
+            self.headword = headword
+            self._enter_id_or_lemma_field.value = headword.lemma_1
+            self.headword_original = copy.deepcopy(headword)
+            self.dpd_fields.update_db_fields(headword)
+            self.add_headword_to_examples_and_commentary()
+
+            self.update_message(
+                f"Loaded {headword.lemma_clean}. {remaining} X remaining."
+            )
+        except Exception as ex:
+            self.update_message(f"Error loading X word: {str(ex)}")
 
         self.page.update()
 
