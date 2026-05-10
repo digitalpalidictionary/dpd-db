@@ -16,6 +16,7 @@ from gui2.dpd_fields_lists import (
     NO_SPLIT_LIST,
     PASS1_FIELDS,
     ROOT_FIELDS,
+    SUTTA_FIELDS,
     WORD_FIELDS,
 )
 from gui2.mixins import PopUpMixin
@@ -160,6 +161,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     ft.Radio(value="all", label="All"),
                     ft.Radio(value="root", label="Root"),
                     ft.Radio(value="compound", label="Compound"),
+                    ft.Radio(value="sutta", label="Sutta"),
                     ft.Radio(value="word", label="Word"),
                     ft.Radio(value="pass1", label="Pass1"),
                 ]
@@ -343,6 +345,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 example_2_field.word_to_find_field.value = lemma_clean[:-1]
                 example_2_field.word_to_find_field.value = lemma_clean[:-1]
 
+        self._apply_sutta_prefill()
+
     def _click_edit_headword(self, e: ft.ControlEvent) -> None:
         id_or_lemma = ""
         if self._enter_id_or_lemma_field.value:
@@ -506,6 +510,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
         self.update_message("speech marks updated")
 
+    def _apply_sutta_prefill(self) -> None:
+        """If sutta filter is active, prefill empty source_1 and commentary with '-'."""
+        if self._filter_radios.value != "sutta":
+            return
+        for prefill_name in ("source_1", "commentary"):
+            prefill_field = self.dpd_fields.get_field(prefill_name)
+            if prefill_field is not None and not prefill_field.value:
+                prefill_field.value = "-"
+
     def _handle_filter_change(self, e: ft.ControlEvent) -> None:
         """Handles changes in the field filter RadioGroup."""
         filter_type = e.control.value
@@ -515,6 +528,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
             visible_fields = ROOT_FIELDS
         elif filter_type == "compound":
             visible_fields = COMPOUND_FIELDS
+        elif filter_type == "sutta":
+            visible_fields = SUTTA_FIELDS
+            self._apply_sutta_prefill()
         elif filter_type == "word":
             visible_fields = WORD_FIELDS
         elif filter_type == "pass1":
@@ -592,7 +608,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._enter_id_or_lemma_field.value = ""
         self._enter_id_or_lemma_field.error_text = None
         self.headword = None  # Resetting the data model reference
-        self._filter_radios.value = "all"  # Reset filter to 'all'
+        if self._filter_radios.value == "sutta":
+            self._apply_sutta_prefill()
+            self.dpd_fields.filter_fields(SUTTA_FIELDS)
+        else:
+            self._filter_radios.value = "all"  # Reset filter to 'all'
         self.headword_original = None  # Resetting the original data reference
         self.current_correction = None
         self.current_addition = None

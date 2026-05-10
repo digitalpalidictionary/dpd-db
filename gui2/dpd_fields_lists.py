@@ -240,6 +240,29 @@ COMPOUND_FIELDS = [
     "comment",
 ]
 
+SUTTA_FIELDS = [
+    "id",
+    "lemma_1",
+    "lemma_2",
+    "pos",
+    "grammar",
+    "meaning_1",
+    "meaning_lit",
+    "meaning_2",
+    "sanskrit",
+    "family_set",
+    "construction",
+    "phonetic",
+    "compound_type",
+    "compound_construction",
+    "source_1",
+    "commentary",
+    "notes",
+    "origin",
+    "stem",
+    "pattern",
+]
+
 WORD_FIELDS = [
     "id",
     "lemma_1",
