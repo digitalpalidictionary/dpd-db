@@ -309,3 +309,8 @@ limit0:
 # Open config.ini in fresh
 config:
     fresh config.ini
+
+# Open transcription hotwords in fresh
+hotwords:
+    fresh /home/bodhirasa/.config/transcribe/hotwords.txt
+    transcribe -r
