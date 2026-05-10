@@ -2148,6 +2148,7 @@ post-mortem
 Posāla's
 Potaliya
 potsherd
+Poṭṭhapāda
 ppa
 prajuhoti
 prakṛti
@@ -2597,6 +2598,7 @@ su
 suavity
 sub-commentary
 subbaṭṭitaṃ
+Subha
 Subha
 Subhadda
 Subhaddā
@@ -3375,4 +3377,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Poṭṭhapāda
