@@ -2012,6 +2012,50 @@ def ant_anguttara_nikaya_tika(g: GlobalData) -> None:
             g.sutta = sutta.lower()
 
 
+def abha_abhidhamma_commentary(g: GlobalData) -> None:
+    # book      <p rend="book">Dhammasaṅgaṇī-aṭṭhakathā</p>  (volume marker, 3 vols)
+    # intro     <p rend="subsubhead">Ganthārambhakathā</p>
+    # chapter   <p rend="chapter">1. Cittuppādakaṇḍo</p>  (sometimes unnumbered)
+    # title     <p rend="title">Sumedhakathā</p>           (sub-section context only)
+    # sutta     <p rend="subhead">Kāyakammadvārakathā</p>
+
+    book = "ADha"
+    x = g.x
+
+    if x["rend"] == "book":
+        if "aṭṭhakathā" not in x.text:
+            return
+        g.vagga_counter += 1
+        g.sutta_counter = 0
+        g.vagga = x.text.lower()
+
+    elif x["rend"] == "subsubhead":
+        g.source = f"{book}0"
+        g.sutta = x.text.lower()
+
+    elif x["rend"] == "chapter":
+        vagga, vagga_no = get_text_and_number(x.text.strip())
+        if is_int(vagga_no):
+            g.section_counter = int(vagga_no)
+        else:
+            g.section_counter += 1
+        g.vagga = vagga.lower()
+        g.sutta_counter = 0
+        g.source = f"{book}{g.vagga_counter}.{g.section_counter}"
+        g.sutta = g.vagga
+
+    elif x["rend"] == "title":
+        subtitle, _ = get_text_and_number(x.text.strip())
+        g.source = f"{book}{g.vagga_counter}.{g.section_counter}"
+        g.sutta = f"{g.vagga}, {subtitle}".lower()
+
+    elif x["rend"] == "subhead":
+        sutta, _ = get_text_and_number(x.text.strip())
+        g.sutta_counter += 1
+        g.source = f"{book}{g.vagga_counter}.{g.section_counter}.{g.sutta_counter}"
+        g.sutta = f"{g.vagga}, {sutta}".lower()
+
+
 def kn1a_khuddakapāṭha_commentary(g: GlobalData):
     # <p rend="chapter">Ganthārambhakathā</p>
     pass
@@ -3044,6 +3088,8 @@ def find_cst_source_sutta_example(
                     ana_anguttara_nikaya_commentary(g)
                 case "ant":
                     ant_anguttara_nikaya_tika(g)
+                case "abha":
+                    abha_abhidhamma_commentary(g)
                 case "kn1a":
                     kn1a_khuddakapāṭha_commentary(g)
                 case "kn2a":

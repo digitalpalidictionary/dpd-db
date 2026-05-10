@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import flet as ft
-
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.dpd_fields_functions import clean_example, remove_bold_tags, remove_brackets
 from gui2.example_stash_manager import ExampleStashManager
@@ -101,6 +100,7 @@ book_codes: dict[str, str] = {
     "16a. NIDD2a Cūlaniddesa Commentary": "kn16a",
     "17a. PMa Patisambhidhāmagga Commentary": "kn17a",
     "18a. NPa Nettipakarana Commentary": "kn19a",
+    "ADha Abhidhamma Commentary": "abha",
     "VISM Visuddhimagga": "vism",
     # ṭīkās
     "DNt Dīgha Ṭīkā": "dnt",
