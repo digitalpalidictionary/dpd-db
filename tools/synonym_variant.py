@@ -29,6 +29,7 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("a", "u", True),
     ("i", "ī", True),
     ("i", "u", True),
+    ("i", "e", True),
     ("ī", "e", True),
     ("u", "ū", True),
     ("u", "o", True),
