@@ -752,6 +752,9 @@ class ProjectPaths:
         self.syn_var_exceptions_path = (
             base_dir / "db_tests/single/add_synonym_variant.json"
         )
+        self.syn_var_del_exceptions_path = (
+            base_dir / "db_tests/single/add_synonym_variant_del.json"
+        )
         self.add_phonetic_variants_exceptions_path = (
             base_dir / "db_tests/single/add_phonetic_variants.json"
         )

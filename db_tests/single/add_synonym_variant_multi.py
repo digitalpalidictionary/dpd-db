@@ -312,7 +312,7 @@ def _entry_label(hw: DpdHeadword) -> str:
     family_word = f" [magenta]{hw.family_word}" if hw.family_word else ""
     return (
         f"[yellow]{hw.lemma_1} [blue]{hw.pos} "
-        f"[green]{hw.meaning_1} [white]({hw.degree_of_completion})"
+        f"[green]{hw.meaning_combo} [white]({hw.degree_of_completion})"
         f"{family_root}{family_word}"
     )
 
