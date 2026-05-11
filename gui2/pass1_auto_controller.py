@@ -415,7 +415,7 @@ ve: verbal ending
                     return ai_response  # Success, no need for more retries
 
                 # Log failure for this attempt
-                pr.warning(
+                pr.amber(
                     f"AI request failed for {self.word_in_text} on attempt {attempt + 1}: {ai_response.status_message}"
                 )
 
@@ -423,7 +423,7 @@ ve: verbal ending
                     time.sleep(retry_delay)
 
             except Exception as e:
-                pr.error(
+                pr.red(
                     f"Exception during AI request for {self.word_in_text} on attempt {attempt + 1}: {e}"
                 )
                 if attempt < max_retries - 1:
@@ -455,7 +455,7 @@ ve: verbal ending
                     comment = parsed_json["comment"]
                     parsed_json["comment"] = f"[{provider}: {model}] {comment}"
                 except KeyError:
-                    pr.error("ERROR adding ai model to comment")
+                    pr.red("ERROR adding ai model to comment")
 
             # save json to temp file
             tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")

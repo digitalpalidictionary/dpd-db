@@ -35,15 +35,15 @@ class HistoryManager:
                     ):
                         self.history = loaded_data[: self.max_size]  # Truncate on load
                     else:
-                        pr.warning(
+                        pr.amber(
                             f"History file format error in {self._history_path}. Starting fresh."
                         )
                         self.history = []
             except json.JSONDecodeError as e:
-                pr.error(f"Error decoding history file {self._history_path}: {e}")
+                pr.red(f"Error decoding history file {self._history_path}: {e}")
                 self.history = []
             except Exception as e:
-                pr.error(f"Unexpected error loading history: {e}")
+                pr.red(f"Unexpected error loading history: {e}")
                 self.history = []
         else:
             self.history = []
@@ -55,9 +55,9 @@ class HistoryManager:
             with open(self._history_path, "w", encoding="utf-8") as f:
                 json.dump(self.history, f, indent=4, ensure_ascii=False)
         except IOError as e:
-            pr.error(f"Error saving history file {self._history_path}: {e}")
+            pr.red(f"Error saving history file {self._history_path}: {e}")
         except Exception as e:
-            pr.error(f"Unexpected error saving history: {e}")
+            pr.red(f"Unexpected error saving history: {e}")
 
     def add_item(self, headword_id: int, lemma_1: str) -> bool:
         """Adds a new item to the beginning of the history, removes duplicates, truncates, and saves.

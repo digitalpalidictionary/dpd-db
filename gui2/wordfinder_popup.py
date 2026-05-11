@@ -181,7 +181,7 @@ class WordFinderPopup:
             else:
                 self._show_error("No results found.")
         except Exception as ex:
-            pr.error(f"Wordfinder search error in popup: {ex}")
+            pr.red(f"Wordfinder search error in popup: {ex}")
             self._show_error(f"Search error: {str(ex)}")
 
     def _handle_clear(self, e: ft.ControlEvent | None) -> None:

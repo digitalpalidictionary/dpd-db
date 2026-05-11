@@ -132,7 +132,7 @@ class AiSearchPopup:
             else:
                 self.response_field.value = f"AI request failed or returned no response. Status: {ai_response.status_message}"
         except Exception as ex:
-            pr.error(f"AI request error in popup: {ex}")
+            pr.red(f"AI request error in popup: {ex}")
             self.response_field.value = f"An error occurred: {ex}"
         finally:
             self.page.update()

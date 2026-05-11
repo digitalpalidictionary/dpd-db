@@ -601,7 +601,7 @@ ve: verbal ending
                 return ai_resp.content  # fallback if no dict found in content
             return None
         except Exception as e:
-            pr.error(f"Error in _send_prompt: {e}")
+            pr.red(f"Error in _send_prompt: {e}")
             return None
 
     def _format_response(self, response: str | None) -> dict[str, str] | None:

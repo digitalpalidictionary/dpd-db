@@ -29,7 +29,7 @@ class ExampleStashManager:
                 if loaded := json.load(f):
                     self.stash_data = loaded if isinstance(loaded, dict) else {}
         except (json.JSONDecodeError, Exception) as e:
-            pr.error(f"Error loading stash {self._stash_path}: {e}")
+            pr.red(f"Error loading stash {self._stash_path}: {e}")
             self.stash_data = {}
 
     def _save(self) -> None:
@@ -39,7 +39,7 @@ class ExampleStashManager:
             with open(self._stash_path, "w", encoding="utf-8") as f:
                 json.dump(self.stash_data, f, indent=4, ensure_ascii=False)
         except Exception as e:
-            pr.error(f"Error saving stash {self._stash_path}: {e}")
+            pr.red(f"Error saving stash {self._stash_path}: {e}")
 
     def stash(self, key: str, source: str, sutta: str, example: str) -> None:
         """Stash data into specified slot."""
