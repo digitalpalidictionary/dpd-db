@@ -12,12 +12,12 @@ def filter_query(db: DatabaseManager) -> list[int]:
     """
     rows = (
         db.db_session.query(DpdHeadword.id)
+        # ordinals: comp + ima
         .filter(
-            DpdHeadword.meaning_1 != "",
-            DpdHeadword.commentary == "",
-            DpdHeadword.source_1 == "-",
+            DpdHeadword.pos == "ordin",
+            DpdHeadword.grammar.contains("comp"),
+            DpdHeadword.construction.regexp_match("( ma| ima)"),
         )
-        .order_by(DpdHeadword.id)
         .all()
     )
     return [row.id for row in rows]

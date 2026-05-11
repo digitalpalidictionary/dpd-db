@@ -983,6 +983,23 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_x_button(self, e: ft.ControlEvent) -> None:
         """Loads the next headword from the X filter queue."""
+        if self._x_manager._loaded and not self._x_manager._queue:
+            # Re-read pass2_x_manager.py from disk so edits to filter_query
+            # take effect without restarting the app. Bypasses sys.modules
+            # and __pycache__ — importlib.reload was not reliably picking
+            # up changes.
+            import importlib.util
+            from pathlib import Path
+
+            path = Path(__file__).parent / "pass2_x_manager.py"
+            spec = importlib.util.spec_from_file_location(
+                f"pass2_x_manager_live_{id(self)}", path
+            )
+            assert spec is not None and spec.loader is not None
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            self._x_manager = mod.Pass2XManager(self._db)
+
         headword_id, remaining = self._x_manager.get_next()
 
         if headword_id is None:
