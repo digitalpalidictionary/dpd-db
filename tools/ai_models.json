@@ -42,6 +42,11 @@
     },
     {
       "provider": "openrouter",
+      "model": "openrouter/owl-alpha",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
       "model": "deepseek/deepseek-v4-pro",
       "delay": 5
     },
