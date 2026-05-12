@@ -109,7 +109,6 @@ class DatabaseManager:
                 defer(DpdHeadword.inflections_sinhala),
                 defer(DpdHeadword.inflections_devanagari),
                 defer(DpdHeadword.inflections_thai),
-                defer(DpdHeadword.freq_data),
             )
             .all()
         )
@@ -595,7 +594,6 @@ class DatabaseManager:
                         defer(DpdHeadword.inflections_sinhala),
                         defer(DpdHeadword.inflections_devanagari),
                         defer(DpdHeadword.inflections_thai),
-                        defer(DpdHeadword.freq_data),
                     )
                     .all()
                 )
