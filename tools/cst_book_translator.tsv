@@ -1,0 +1,218 @@
+cst_filename	cst_book_name	gui_book_code	dpd_book_code
+abh01a.att	Abhidhammapiṭaka, Dhammasaṅgaṇī-aṭṭhakathā	abha	ADHa
+abh01m.mul	Abhidhammapiṭaka, Dhammasaṅgaṇīpāḷi	abh1	DHS
+abh01t.tik	Abhidhammapiṭaka, Dhammasaṅgaṇī-mūlaṭīkā	abht	DHSt
+abh02a.att	Abhidhammapiṭaka, Vibhaṅga-aṭṭhakathā	abha	ADHa
+abh02m.mul	Abhidhammapiṭaka, Vibhaṅgapāḷi	abh2	VIBH
+abh02t.tik	Abhidhammapiṭaka, Vibhaṅga-mūlaṭīkā	abht	VIBHt
+abh03a.att	Abhidhammapiṭaka, Pañcapakaraṇa-aṭṭhakathā	abha	ADHa
+abh03m1.mul	Abhidhammapiṭaka, Dhātukathāpāḷi	abh3	DHK
+abh03m10.mul	Abhidhammapiṭaka, Paṭṭhānapāḷi	abh7	PTH
+abh03m11.mul	Abhidhammapiṭaka, Paṭṭhānapāḷi	abh7	PTH
+abh03m2.mul	Abhidhammapiṭaka, Puggalapaññattipāḷi	abh4	PP
+abh03m3.mul	Abhidhammapiṭaka, Kathāvatthupāḷi	abh5	KV
+abh03m4.mul	Abhidhammapiṭaka, Yamakapāḷi (paṭhamo bhāgo)	abh6	YAM
+abh03m5.mul	Abhidhammapiṭaka, Yamakapāḷi (dutiyo bhāgo)	abh6	YAM
+abh03m6.mul	Abhidhammapiṭaka, Yamakapāḷi (tatiyo bhāgo)	abh6	YAM
+abh03m7.mul	Abhidhammapiṭaka, Paṭṭhānapāḷi	abh7	PTH
+abh03m8.mul	Abhidhammapiṭaka, Paṭṭhānapāḷi	abh7	PTH
+abh03m9.mul	Abhidhammapiṭaka, Paṭṭhānapāḷi	abh7	PTH
+abh03t.tik	Abhidhammapiṭaka, Pañcapakaraṇa-mūlaṭīkā	abht	ADHt
+abh04t.nrf	Abhidhammapiṭaka, Dhammasaṅgaṇī-anuṭīkā	abht	DHSt
+abh05t.nrf	Abhidhammapiṭaka	abht	ADHt
+abh06t.nrf	Abhidhammāvatāra	abht	ADHt
+abh07t.nrf	Abhidhammatthasaṅgaha	abht	ADHt
+abh08t.nrf	Abhidhammāvatāra-purāṇaṭīkā	abht	ADHt
+abh09t.nrf	Abhidhammamātikāpāḷi	abht	ADHt
+e0101n.mul	Visuddhimagga	vism	VISM
+e0102n.mul	Visuddhimagga	vism	VISM
+e0103n.att	Visuddhimagga-mahāṭīkā	visma	VISMa
+e0104n.att	Visuddhimagga-mahāṭīkā	visma	VISMa
+e0105n.nrf	Visuddhimagga nidānakathā	anna	
+e0201n.nrf	Niruttidīpanīpāṭha	anna	
+e0301n.nrf	Paramatthadīpanī	anna	
+e0401n.nrf	Anudīpanīpāṭha	anna	
+e0501n.nrf	Paṭṭhānuddesa dīpanīpāṭha	anna	
+e0601n.nrf	Namakkārapāḷi	anna	
+e0602n.nrf	Mahāpaṇāmapāṭha	anna	
+e0603n.nrf	Lakkhaṇāta	anna	
+e0604n.nrf	Suttavandanā	anna	
+e0605n.nrf	Jinālaṅkāra	anna	
+e0606n.nrf	Kamalāñjali	anna	
+e0607n.nrf	Pajjamadhu	anna	
+e0608n.nrf	Buddhaguṇagāthāvalī	anna	
+e0701n.nrf	Cūḷaganthavaṃsapāḷi	anna	
+e0702n.nrf	Sāsanavaṃsappadīpikā	anna	
+e0703n.nrf	Mahāvaṃsapāḷi	anna	
+e0801n.nrf	Moggallānasuttapāṭha	anna	
+e0802n.nrf	Kaccāyanabyākaraṇaṃ	anna	Kacc
+e0803n.nrf	Saddanītippakaraṇaṃ (padamālā)	anna	SPM
+e0804n.nrf	Saddanītippakaraṇaṃ	anna	SDM
+e0805n.nrf	Padarūpasiddhi	anna	PRS
+e0806n.nrf	Moggallāna pañcikā ṭīkā	anna	
+e0807n.nrf	Payogasiddhipāḷi	anna	
+e0808n.nrf	Vuttodayaṃ	anna	
+e0809n.nrf	Abhidhānappadīpikā	ap	AP
+e0810n.nrf	Abhidhānappadīpikāṭīkā	apt	APt
+e0811n.nrf	Subodhālaṅkāra	anna	
+e0812n.nrf	Subodhālaṅkāraṭīkā	anna	
+e0813n.nrf	Bālāvatāra	anna	
+e0901n.nrf	Saṃgāyanassa pucchā vissajjanā, Suttantapiṭaka, Dīghanikāya	anna	SPV
+e0902n.nrf	Saṃgāyanassa pucchā vissajjanā, Suttantapiṭaka, Majjhimanikāya	anna	SPV
+e0903n.nrf	Saṃgāyanassa pucchā vissajjanā, Suttantapiṭaka, Saṃyuttanikāya	anna	SPV
+e0904n.nrf	Saṃgāyanassa pucchā vissajjanā, Suttantapiṭaka, Aṅguttaranikāya	anna	SPV
+e0905n.nrf	Saṃgāyanassa pucchā vissajjanā, Vinayapiṭaka	anna	SPV
+e0906n.nrf	Saṃgāyanassa pucchā vissajjanā, Abhidhammapiṭaka	anna	SPV
+e0907n.nrf	Saṃgāyanassa pucchā vissajjanā, Aṭṭhakathā	anna	SPV
+e1001n.nrf	Kavidappaṇanīti	anna	
+e1002n.nrf	Nītimañjarī	anna	
+e1003n.nrf	Dhammanīti	anna	
+e1004n.nrf	Mahārahanīti	anna	
+e1005n.nrf	Lokanīti	anna	
+e1006n.nrf	Suttantanīti	anna	
+e1007n.nrf	Sūrassatīnīti	anna	
+e1008n.nrf	Cāṇakyanītipāḷi	anna	
+e1009n.nrf	Naradakkhadīpanī	anna	
+e1010n.nrf	Caturārakkhadīpanī	anna	
+e1101n.nrf	Rasavāhinī	anna	
+e1102n.nrf	Sīmavisodhanī	anna	
+e1103n.nrf	Vessantarāgīti	anna	
+e1201n.nrf	Moggallānavuttivivaraṇapañcikā	anna	
+e1202n.nrf	Thupavaṃsa	anna	
+e1203n.nrf	Dāṭhāvaṃsa	anna	
+e1204n.nrf	Dhātupāṭhavilāsiniyā	anna	
+e1205n.nrf	Dhātuvaṃsa	anna	
+e1206n.nrf	Hatthavanagallavihāravaṃsa	anna	
+e1207n.nrf	Jinacaritaya	anna	
+e1208n.nrf	Jinavaṃsadīpaṃ	anna	
+e1209n.nrf	Telakaṭāhagāthā	anna	
+e1210n.nrf	Milidaṭīkā	anna	
+e1211n.nrf	Padamañjarī	anna	
+e1212n.nrf	Padasādhanaṃ	anna	
+e1213n.nrf	Saddabindupakaraṇaṃ	anna	
+e1214n.nrf	Kaccāyanadhātu mañjūsā	anna	
+e1215n.nrf	Samantakūṭavaṇṇanā	anna	
+s0101a.att	Dīghanikāya, Sīlakkhandhavaggaṭṭhakathā	dna	DNa
+s0101m.mul	Dīghanikāya, Sīlakkhandhavaggapāḷi	dn1	DN
+s0101t.tik	Dīghanikāya, Sīlakkhandhavaggaṭīkā	dnt	DNt
+s0102a.att	Dīghanikāya, Mahāvaggaṭṭhakathā	dna	DNa
+s0102m.mul	Dīghanikāya, Mahāvaggapāḷi	dn2	DN
+s0102t.tik	Dīghanikāya, Mahāvaggaṭīkā	dnt	DNt
+s0103a.att	Dīghanikāya, Pāthikavaggaṭṭhakathā	dna	DNa
+s0103m.mul	Dīghanikāya, Pāthikavaggapāḷi	dn3	DN
+s0103t.tik	Dīghanikāya, Pāthikavaggaṭīkā	dnt	DNt
+s0104t.nrf	Dīghanikāya, Sīlakkhandhavaggaabhinavaṭīkā	dnt	DNt
+s0105t.nrf	Dīghanikāya, Sīlakkhandhavaggaabhinavaṭīkā	dnt	DNt
+s0201a.att	Majjhimanikāya, Mūlapaṇṇāsa-aṭṭhakathā	mna	MNa
+s0201m.mul	Majjhimanikāya, Mūlapaṇṇāsapāḷi	mn1	MN
+s0201t.tik	Majjhimanikāya, Mūlapaṇṇāsa-ṭīkā	mnt	MNt
+s0202a.att	Majjhimanikāya, Majjhimapaṇṇāsa-aṭṭhakathā	mna	MNa
+s0202m.mul	Majjhimanikāya, Majjhimapaṇṇāsapāḷi	mn2	MN
+s0202t.tik	Majjhimanikāya, Majjhimapaṇṇāsaṭīkā	mnt	MNt
+s0203a.att	Majjhimanikāya, Uparipaṇṇāsa-aṭṭhakathā	mna	MNa
+s0203m.mul	Majjhimanikāya, Uparipaṇṇāsapāḷi	mn3	MN
+s0203t.tik	Majjhimanikāya, Uparipaṇṇāsa-ṭīkā	mnt	MNt
+s0301a.att	Saṃyuttanikāya, Sagāthāvagga-aṭṭhakathā	sna	SNa
+s0301m.mul	Saṃyuttanikāya, Sagāthāvagga	sn1	SN
+s0301t.tik	Saṃyuttanikāya, Sagāthāvaggaṭīkā	snt	SNt
+s0302a.att	Saṃyuttanikāya, Nidānavagga-aṭṭhakathā	sna	SNa
+s0302m.mul	Saṃyuttanikāya, Nidānavagga	sn2	SN
+s0302t.tik	Saṃyuttanikāya, Nidānavaggaṭīkā	snt	SNt
+s0303a.att	Saṃyuttanikāya, Khandhavagga-aṭṭhakathā	sna	SNa
+s0303m.mul	Saṃyuttanikāya, Khandhavagga	sn3	SN
+s0303t.tik	Saṃyuttanikāya, Khandhavaggaṭīkā	snt	SNt
+s0304a.att	Saṃyuttanikāya, Saḷāyatanavagga-aṭṭhakathā	sna	SNa
+s0304m.mul	Saṃyuttanikāya, Saḷāyatanavagga	sn4	SN
+s0304t.tik	Saṃyuttanikāya, Saḷāyatanavaggaṭīkā	snt	SNt
+s0305a.att	Saṃyuttanikāya, Mahāvagga-aṭṭhakathā	sna	SNa
+s0305m.mul	Saṃyuttanikāya, Mahāvagga	sn5	SN
+s0305t.tik	Saṃyuttanikāya, Mahāvaggaṭīkā	snt	SNt
+s0401a.att	Aṅguttaranikāya, Ekakanipāta-aṭṭhakathā	ana	ANa
+s0401m.mul	Aṅguttaranikāya, Ekakanipātapāḷi	an1	AN
+s0401t.tik	Aṅguttaranikāya, Ekakanipāta-ṭīkā	ant	ANt
+s0402a.att	Aṅguttaranikāya, Dukanipāta-aṭṭhakathā	ana	ANa
+s0402m1.mul	Aṅguttaranikāya, Dukanipātapāḷi	an2	AN
+s0402m2.mul	Aṅguttaranikāya, Tikanipātapāḷi	an3	AN
+s0402m3.mul	Aṅguttaranikāya, Catukkanipātapāḷi	an4	AN
+s0402t.tik	Aṅguttaranikāya, Dukanipāta-ṭīkā	ant	ANt
+s0403a.att	Aṅguttaranikāya, Pañcakanipāta-aṭṭhakathā	ana	ANa
+s0403m1.mul	Aṅguttaranikāya, Pañcakanipātapāḷi	an5	AN
+s0403m2.mul	Aṅguttaranikāya, Chakkanipātapāḷi	an6	AN
+s0403m3.mul	Aṅguttaranikāya, Sattakanipātapāḷi	an7	AN
+s0403t.tik	Aṅguttaranikāya, Pañcakanipāta-ṭīkā	ant	ANt
+s0404a.att	Aṅguttaranikāya, Aṭṭhakanipāta-aṭṭhakathā	ana	ANa
+s0404m1.mul	Aṅguttaranikāya, Aṭṭhakanipātapāḷi	an8	AN
+s0404m2.mul	Aṅguttaranikāya, Navakanipātapāḷi	an9	AN
+s0404m3.mul	Aṅguttaranikāya, Dasakanipātapāḷi	an10	AN
+s0404m4.mul	Aṅguttaranikāya, Ekādasakanipātapāḷi	an11	AN
+s0404t.tik	Aṅguttaranikāya, Aṭṭhakanipāta-ṭīkā	ant	ANt
+s0501a.att	Khuddakanikāya, Khuddakapāṭha-aṭṭhakathā	kn1a	KPa
+s0501m.mul	Khuddakanikāya, Khuddakapāṭhapāḷi	kn1	KP
+s0501t.nrf	Khuddakanikāya, Nettivibhāvinī	knt	NPt
+s0502a.att	Khuddakanikāya, Dhammapada-aṭṭhakathā	kn2a	DHPa
+s0502m.mul	Khuddakanikāya, Dhammapadapāḷi	kn2	DHP
+s0503a.att	Khuddakanikāya, Udāna-aṭṭhakathā	kn3a	UDa
+s0503m.mul	Khuddakanikāya, Udānapāḷi	kn3	UD
+s0504a.att	Khuddakanikāya, Itivuttaka-aṭṭhakathā	kn4a	ITIa
+s0504m.mul	Khuddakanikāya, Itivuttakapāḷi	kn4	ITI
+s0505a.att	Khuddakanikāya, Suttanipāta-aṭṭhakathā	kn5a	SNPa
+s0505m.mul	Khuddakanikāya, Suttanipātapāḷi	kn5	SNP
+s0506a.att	Khuddakanikāya, Vimānavatthu-aṭṭhakathā	kn6a	VVa
+s0506m.mul	Khuddakanikāya, Vimānavatthupāḷi	kn6	VV
+s0507a.att	Khuddakanikāya, Petavatthu-aṭṭhakathā	kn7a	PVa
+s0507m.mul	Khuddakanikāya, Petavatthupāḷi	kn7	PV
+s0508a1.att	Khuddakanikāya, Theragāthā-aṭṭhakathā	kn8a	THa
+s0508a2.att	Khuddakanikāya, Theragāthā-aṭṭhakathā	kn8a	THa
+s0508m.mul	Khuddakanikāya, Theragāthāpāḷi	kn8	TH
+s0509a.att	Khuddakanikāya, Therīgāthā-aṭṭhakathā	kn9a	THIa
+s0509m.mul	Khuddakanikāya, Therīgāthāpāḷi	kn9	THI
+s0510a.att	Khuddakanikāya, Apadāna-aṭṭhakathā	kn10a	APAa
+s0510m1.mul	Khuddakanikāya, Therāpadānapāḷi	kn10	APA
+s0510m2.mul	Khuddakanikāya, Therāpadānapāḷi	kn11	API
+s0511a.att	Khuddakanikāya, Buddhavaṃsa-aṭṭhakathā	kn12a	BVa
+s0511m.mul	Khuddakanikāya, Buddhavaṃsapāḷi	kn12	BV
+s0512a.att	Khuddakanikāya, Cariyāpiṭaka-aṭṭhakathā	kn13a	CPa
+s0512m.mul	Khuddakanikāya, Cariyāpiṭakapāḷi	kn13	CP
+s0513a1.att	Khuddakanikāya, Jātaka-aṭṭhakathā	kn14a	JAa
+s0513a2.att	Jātaka-aṭṭhakathā	kn14a	JAa
+s0513a3.att	Khuddakanikāya, Jātaka-aṭṭhakathā	kn14a	JAa
+s0513a4.att	Khuddakanikāya, Jātaka-aṭṭhakathā	kn14a	JAa
+s0513m.mul	Khuddakanikāya, Jātakapāḷi	kn14	JA
+s0514a1.att	17. Cattālīsanipāta	kn14a	JAa
+s0514a2.att	Khuddakanikāya, Jātaka-aṭṭhakathā	kn14a	JAa
+s0514a3.att	Khuddakanikāya, Jātaka-aṭṭhakathā	kn14a	JAa
+s0514m.mul	Khuddakanikāya, Jātakapāḷi	kn14	JA
+s0515a.att	Khuddakanikāya, Mahāniddesa-aṭṭhakathā	kn15a	NIDD1a
+s0515m.mul	Khuddakanikāya, Mahāniddesapāḷi	kn15	NIDD1
+s0516a.att	Khuddakanikāya, Cūḷaniddesa-aṭṭhakathā	kn16a	NIDD2a
+s0516m.mul	Khuddakanikāya, Cūḷaniddesapāḷi	kn16	NIDD2
+s0517a.att	Khuddakanikāya, Paṭisambhidāmagga-aṭṭhakathā	kn17a	PMa
+s0517m.mul	Khuddakanikāya, Paṭisambhidāmaggapāḷi	kn17	PM
+s0518m.nrf	Khuddakanikāya	kn18	MIL
+s0519a.att	Khuddakanikāya, Nettippakaraṇa-aṭṭhakathā	kn19a	NPa
+s0519m.mul	Khuddakanikāya, Nettippakaraṇapāḷi	kn19	NP
+s0519t.tik	Khuddakanikāya, Nettippakaraṇa-ṭīkā	knt	NPt
+s0520m.nrf	Khuddakanikāya, Peṭakopadesapāḷi	kn20	PTP
+vin01a.att	Vinayapiṭaka, Pārājikakaṇḍa-aṭṭhakathā (paṭhamo bhāgo)	vina	VINa
+vin01m.mul	Vinayapiṭaka, Pārājikapāḷi	vin1	VIN
+vin01t1.tik	Vinayapiṭaka, Sāratthadīpanī-ṭīkā (paṭhamo bhāgo)	vint	VINt
+vin01t2.tik	Vinayapiṭaka, Sāratthadīpanī-ṭīkā (dutiyo bhāgo)	vint	VINt
+vin02a1.att	Vinayapiṭaka, Pācittiya-aṭṭhakathā	vina	VINa
+vin02a2.att	Vinayapiṭaka, Mahāvagga-aṭṭhakathā	vina	VINa
+vin02a3.att	Vinayapiṭaka, Cūḷavagga-aṭṭhakathā	vina	VINa
+vin02a4.att	Vinayapiṭaka, Parivāra-aṭṭhakathā	vina	VINa
+vin02m1.mul	Vinayapiṭaka, Pācittiyapāḷi	vin2	VIN
+vin02m2.mul	Vinayapiṭaka, Mahāvaggapāḷi	vin3	VIN
+vin02m3.mul	Vinayapiṭaka, Cūḷavaggapāḷi	vin4	VIN
+vin02m4.mul	Vinayapiṭaka, Parivārapāḷi	vin5	VIN
+vin02t.tik	Vinayapiṭaka, Sāratthadīpanī-ṭīkā (tatiyo bhāgo)	vint	VINt
+vin04t.nrf	Dvemātikāpāḷi	kva	KVa
+vin05t.nrf	Vinayapiṭaka, Vinayasaṅgaha-aṭṭhakathā	vint	VSa
+vin06t.nrf	Vinayapiṭaka, Vajirabuddhi-ṭīkā	vint	VBt
+vin07t.nrf	Vinayapiṭaka, Vimativinodanī-ṭīkā (paṭhamo bhāgo)	vint	VMVt
+vin08t.nrf	Vinayapiṭaka, Vinayālaṅkāra-ṭīkā (paṭhamo bhāgo)	vint	VAt
+vin09t.nrf	Kaṅkhāvitaraṇīpurāṇa-ṭīkā	vint	KVt
+vin10t.nrf	Vinayavinicchaya	vint	VVUt
+vin11t.nrf	Vinayapiṭaka, Vinayavinicchayaṭīkā	vint	VVt
+vin12t.nrf	Vinayapiṭaka, Pācityādiyojanā	vint	PYt
+vin13t.nrf	Khuddasikkhā-mūlasikkhā	vint	VINt
