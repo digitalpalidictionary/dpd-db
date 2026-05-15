@@ -304,6 +304,7 @@ class FilterComponent(ft.Column):
                     value_str = str(value)
 
                 text_field = CellTextField(text=value_str)
+                text_field.data = value_str
 
                 if col_name in ["meaning_1", "meaning_lit", "meaning_2"]:
                     self._check_and_set_spell_border(text_field, value_str)
@@ -438,13 +439,7 @@ class FilterComponent(ft.Column):
         new_value = e.control.value
         key = (row_index, col_name)
 
-        original_value = getattr(self.filtered_results[row_index], col_name, "")
-        if original_value is None:
-            original_value = ""
-        elif isinstance(original_value, list):
-            original_value = ", ".join(str(v) for v in original_value)
-        else:
-            original_value = str(original_value)
+        original_value = e.control.data if e.control.data is not None else ""
 
         if new_value != original_value:
             self.modified_cells[key] = new_value
