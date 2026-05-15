@@ -275,8 +275,6 @@ class Pass2PreProcessView(ft.Column):
         )
         self.update_message(message)
 
-        # Update log (this now automatically updates the appbar)
-        self.controller.daily_log.increment("pass2_pre")
         self.selected_sentence_index = 0
         self.controller.load_next_headword()
 
@@ -286,8 +284,6 @@ class Pass2PreProcessView(ft.Column):
             self.controller.headwords[self.controller.headword_index].id,
         )
         self.update_message(message)
-        # Update log (this now automatically updates the appbar)
-        self.controller.daily_log.increment("pass2_pre")
         self.selected_sentence_index = 0
         self.controller.load_next_headword()
 
@@ -317,7 +313,6 @@ class Pass2PreProcessView(ft.Column):
             )
             self.selected_sentence_index = 0
             self.update_message(message)
-            self.controller.daily_log.increment("pass2_pre")
 
         comment_input = ft.TextField(expand=True, autofocus=True, on_submit=on_ok)
 

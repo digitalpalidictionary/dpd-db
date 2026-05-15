@@ -148,6 +148,7 @@ class Pass2PreController:
     def load_next_headword(self):
         if self.headword_index + 1 >= len(self.headwords):
             self.missing_examples_dict.pop(self.word_in_text)
+            self.daily_log.increment("pass2_pre")
             self.load_next_word()
             return
 
