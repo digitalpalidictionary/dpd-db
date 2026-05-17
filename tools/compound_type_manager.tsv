@@ -133,6 +133,7 @@ uyyuta	adj	last	dutiyā tappurisa	niccuyyuta
 eka	adj	first	digu	ekausabhagāmī, ekacittakkhaṇikamagga	
 eka	noun	first	digu	ekausabhagāmī, ekacittakkhaṇikamagga	
 ekanta	adj	first	kammadhāraya		
+esanā	fem	last	catutthī tappurisa		
 okāsa	noun	last	catutthī tappurisa	aphuṭokāsa, kappakatokāsa, phuṭṭhokāsa, vivittokāsa	
 ogadha	adj	last	sattamī tappurisa		
 ovādaka	any	last	dutiyā tappurisa		
@@ -201,6 +202,7 @@ catu	any	first	digu
 catuttha	any	first	kammadhāraya		
 carima	any	last	kammadhāraya		
 carimaka	any	last	kammadhāraya		
+cāga	masc	last	chaṭṭhī tappurisa		
 citta	adj	last	kammadhāraya > bahubbīhi		
 citta	any	first	kammadhāraya	cittakata 1.1, cittakāra, cittakāraka, cittakilamatha, cittakelisa, cittakkhepa, cittagelañña, cittanibbāpana, cittanissita, cittanvaya, cittapaṭisaṃvedī, cittaparikkhāratthaṃ, cittapassaddhi, cittapārisuddhi, cittapārisuddhipadhāniyaṅga, cittappakopana, cittappaṭibaddha, cittappaṭisaṃvedī, cittappamaddī, cittappasāda, cittappassaddhi, cittabhāvanā, cittabhāvanānuyogamanuyutta, cittamohanī, cittasaṅkilesa, cittasaṅkhārapaṭisaṃvedī, cittasamādhi, cittasamādhipadhānasaṅkhārasamannāgata, cittasamādhippadhānasaṅkhārasamannāgata, cittasamuṭṭhānikādivasena, cittasaṃkilesa, cittasukha, cittavāra, cittavipatti, cittavisuddhattha, cittavisuddhi, cittavuḍḍhikara, cittavūpakāsa, cittavūpasama, cittavodāna, cittahetu, cittāgāra, cittānupassanā, cittānupassī, cittānurakkhī, cittālaṅkāra, cittālaṅkāracittaparikkhāratthaṃ, cittupapādapariyāya, cittuppāda, cittekaggatā, cittaṭṭhānasata, cittaja, cittanimitta, cittahetū, cittadomanassa	
 cuta	any	last	pañcamī tappurisa		
@@ -339,7 +341,7 @@ paricāga	any	last	chaṭṭhī tappurisa
 paricāraka	adj	last	dutiyā tappurisa		
 paricāraka	masc	last	chaṭṭhī tappurisa		
 paricita	any	any	tatiyā tappurisa	yathāpabbajjāparicita	
-pariccāga	masc	last	catutthī tappurisa		
+pariccāga	masc	last	chaṭṭhī tappurisa		
 pariññā	fem	last	chaṭṭhī tappurisa	tīraṇapariññā	
 pariññeyya	adj	last	tatiyā tappurisa		
 paripūra	adj	last	tatiyā tappurisa		
@@ -488,7 +490,7 @@ vijānana	nt	last	chaṭṭhī tappurisa
 vijjā	fem	last	chaṭṭhī tappurisa		
 viññāṇa	nt	last	sattamī tappurisa	sesaviññāṇa	
 vitakka	noun	last	chaṭṭhī tappurisa	akusalavitakka, amaravitakka, uppannavitakka, kusalavitakka, manovitakka	
-vinaya	any	last	chaṭṭhī tappurisa		
+vinaya	any	last	chaṭṭhī tappurisa	abhivinaya, amūḷhavinaya, ubbinaya, guḷhavinaya, dhammavinaya, sativinaya, sammukhāvinaya	
 vinibandha	masc	last	chaṭṭhī tappurisa	saṃyojanavinibandha	
 vinīta	adj	last	sattamī tappurisa	nookkācitavinīta, nopaṭipucchāvinīta, yāvatāvinīta	
 vipatti	fem	last	chaṭṭhī tappurisa	catuvipatti	
