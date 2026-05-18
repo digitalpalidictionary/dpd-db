@@ -14,10 +14,12 @@ import sqlite3
 import unicodedata
 
 from aksharamukha import transliterate
+from bs4 import BeautifulSoup, Tag
 
 from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.sanskrit_translit import slp1_translit
 from tools.zip_up import zip_up_file
 
 # Columns copied as-is from dpd_headwords.
@@ -537,6 +539,55 @@ def export_other_dictionaries(
         pr.yes(len(batch))
     else:
         pr.red("MW source not found, skipping")
+
+    # --- BHS (Edgerton's Buddhist Hybrid Sanskrit Dictionary) ---
+    pr.green_tmr("exporting BHS")
+
+    if g.pth.bhs_source_path.exists():
+        with open(g.pth.bhs_source_path) as f:
+            soup = BeautifulSoup(f, "xml")
+
+        batch = []
+        for h1 in soup.find_all("H1"):
+            if not isinstance(h1, Tag):
+                continue
+            key1 = h1.find("key1")
+            if not isinstance(key1, Tag):
+                continue
+            word = slp1_translit(key1.text)
+
+            for lb in h1.find_all("div"):
+                if isinstance(lb, Tag):
+                    lb.unwrap()
+
+            body = h1.find("body")
+            html_body = body.decode_contents() if isinstance(body, Tag) else ""
+            html_body = html_body.replace("¦", "")
+
+            word_fuzzy = _strip_diacritics_mobile(word)
+            batch.append(("bhs", word, word_fuzzy, html_body, ""))
+
+        dest.executemany(
+            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+            " VALUES (?, ?, ?, ?, ?)",
+            batch,
+        )
+
+        dest.execute(
+            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+            " VALUES (?, ?, ?, ?, ?)",
+            (
+                "bhs",
+                "Edgerton's Buddhist Hybrid Sanskrit Dictionary 1953",
+                "Franklin Edgerton",
+                "",
+                len(batch),
+            ),
+        )
+
+        pr.yes(len(batch))
+    else:
+        pr.red("BHS source not found, skipping")
 
 
 def write_schema_version(dest: sqlite3.Connection) -> None:
