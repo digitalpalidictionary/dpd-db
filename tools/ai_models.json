@@ -47,6 +47,11 @@
     },
     {
       "provider": "openrouter",
+      "model": "qwen/qwen3.5-flash-02-23",
+      "delay": 5
+    },
+    {
+      "provider": "openrouter",
       "model": "deepseek/deepseek-v4-pro",
       "delay": 5
     },
