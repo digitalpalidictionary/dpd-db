@@ -182,6 +182,7 @@ aor
 aorist
 apa
 Apadāna
+Apaṇṇakasutta
 api
 api
 appanā
@@ -488,6 +489,7 @@ censurable
 censures
 centered
 centeredness
+centre
 ceramicist
 cerasoides
 Ceta
@@ -1173,6 +1175,7 @@ humour
 husband's
 hā
 Hāliddikānisutta
+hāra
 hāsupañño
 hū
 I.B
@@ -1202,6 +1205,7 @@ impingements
 importunate
 imprudently
 in-front-ness
+inappreciativeness
 inarticulate
 inarticulately
 inattentively
@@ -2124,6 +2128,7 @@ pistils
 Pisum
 pitbull
 piyajātikasuttaṃ
+piyal
 piṭ
 Piṭaka
 Piṭakas
@@ -2362,6 +2367,7 @@ Sabhiya
 Saccaka
 Saccasaṃyuttaṃ
 Saccharum
+Sacetana
 Saddha
 safflower
 sagacity
@@ -2394,6 +2400,7 @@ samaṇa
 Sambac
 Sambari
 Sambhava
+Samiddha
 Samiddhi
 Samiddhi's
 Sammappadhānasaṃyuttaṃ
@@ -2424,6 +2431,7 @@ satiety
 satipaṭṭhāna
 Satipaṭṭhānasaṃyuttaṃ
 Satipaṭṭḥānasaṃyuttaṃ
+satisfier
 sativa
 sativum
 Sattakanipāta
@@ -2789,6 +2797,7 @@ Tikanipāta
 timbaru
 tinctoria
 tinctorius
+tinduka
 tinkler
 Tinospora
 Tipiṭaka
@@ -2890,6 +2899,7 @@ unarisen
 unaroused
 unarranged
 unassimilated
+unattackable
 unattained
 unattractiveness
 unattractiveness
@@ -3070,6 +3080,7 @@ unwished
 unwrought
 unyoked
 unyoking
+Upacālā
 Upamañña
 upasampadā
 upasantapadisso
@@ -3298,6 +3309,7 @@ yojanas
 yoking
 you're
 youthfulness
+yy
 Yāma
 zizanioides
 Ziziphus
@@ -3337,6 +3349,7 @@ Ziziphus
 āḷakamanda
 Āḷakamandā
 Āḷavi
+Āḷavikā
 Āḷavī
 āḷhaka
 Āḷāra
@@ -3377,13 +3390,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Upacālā
-Āḷavikā
-unattackable
-inappreciativeness
-hāra
-piyal
-yy
-satisfier
-Sacetana
-centre
