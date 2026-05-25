@@ -1,5 +1,3 @@
-import sys
-
 from audio.bhashini.bhashini_class import Bashini
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -20,29 +18,35 @@ def test_word_length(word: str, length: int) -> bool:
 
 
 def main():
-    pr.yellow_title("bashini tts")
+    pr.tic()
+    try:
+        pr.yellow_title("bashini tts")
 
-    pr.green_tmr("loading data")
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
-    pr.yes(len(db))
+        pr.green_tmr("loading data")
+        pth = ProjectPaths()
+        db_session = get_db_session(pth.dpd_db_path)
+        db = db_session.query(DpdHeadword).all()
+        pr.yes(len(db))
 
-    for voice_name in ["kn-m4", "kn-m1", "kn-f4"]:
-        pr.green_title(voice_name)
+        if not Bashini.ping_api():
+            pr.red("API unreachable — aborting")
+            return
 
-        bashini = Bashini(
-            language="Kannada",
-            voice_name=voice_name,
-            voice_style="Neutral",
-            speech_rate=0.85,
-            play_audio=False,
-            overwrite=False,
-            problem=True,
-        )
+        for voice_name in ["kn-m4", "kn-m1", "kn-f4"]:
+            pr.green_title(voice_name)
 
-        if bashini.ping_api():
+            bashini = Bashini(
+                language="Kannada",
+                voice_name=voice_name,
+                voice_style="Neutral",
+                speech_rate=0.85,
+                play_audio=False,
+                overwrite=False,
+                problem=True,
+            )
+
             seen_headwords: set[str] = set()
+            db_count = 0
             try:
                 for db_count, i in enumerate(db):
                     remaining = len(db) - db_count
@@ -53,7 +57,9 @@ def main():
 
             except KeyboardInterrupt:
                 pr.green_tmr(f"\n{len(db) - db_count} words remaining to process\n")
-                sys.exit(0)
+                return
+    finally:
+        pr.toc()
 
 
 if __name__ == "__main__":

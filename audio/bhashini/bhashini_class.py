@@ -192,6 +192,23 @@ class Bashini:
                 time.sleep(1)
         return None
 
+    @classmethod
+    def _ping_request(cls, payload: dict) -> requests.Response | None:
+        """Single-shot request for ping: short timeout, no retry."""
+        try:
+            return requests.post(
+                cls.tts_api_url,
+                headers=cls.headers,
+                data=json.dumps(payload),
+                timeout=10,
+            )
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ) as e:
+            pr.red(str(e))
+            return None
+
     def translit_with_aksharamukha(self, text_roman: str) -> str:
         result = transliterate.process(
             "IASTPali",
@@ -253,7 +270,7 @@ class Bashini:
         start_time = time.time()
         pr.green_tmr("pinging API")
 
-        resp = cls._post_to_api(test_payload)
+        resp = cls._ping_request(test_payload)
 
         if resp:
             try:
