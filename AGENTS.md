@@ -224,3 +224,31 @@ These methods print and return (no ending needed):
 #### Logging
 - If initialized with a log file path, all operations are logged to TSV format
 - Log includes: timestamp, level, operation, type, message, elapsed time, count, session
+
+## graphify
+
+A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges).
+
+### Querying
+```bash
+graphify query "how does X work"       # BFS subgraph — use this first
+graphify path "DpdHeadword" "Lookup"   # shortest path between two concepts
+graphify explain "ProjectPaths"        # plain-language node summary
+```
+Prefer these over grepping raw files — they return a scoped subgraph at ~13× fewer tokens.
+
+Read `graphify-out/GRAPH_REPORT.md` only for broad architecture review.
+
+### Key god nodes (highest connectivity)
+`ProjectPaths` · `DpdHeadword` · `get_db_session()` · `Lookup` · `ToolKit`
+
+### Keeping it current
+After editing code, run (AST-only, no API cost):
+```bash
+graphify update .
+```
+
+To fully rebuild from scratch (requires Claude Code session tokens):
+```bash
+/graphify
+```
