@@ -99,6 +99,41 @@ def zip_up_directory(
             print(f"Unable to delete {input_dir} due to permission error.")
 
 
+def recompress_apkg(apkg_path: Path, compression_level: int = 9) -> None:
+    """
+    Recompress an .apkg in place using DEFLATE.
+
+    genanki writes the .apkg (itself a zip) with its entries STORED, i.e.
+    uncompressed. Rewriting them with DEFLATE shrinks the file to ~31% of its
+    original size while keeping it a directly-importable .apkg. Anki only
+    supports STORED and DEFLATE — not LZMA or BZIP2.
+
+    Parameters:
+    apkg_path (pathlib.Path): Path to the .apkg file
+    compression_level (int, optional): 0 (none) to 9 (best). Defaults to 9.
+
+    Raises:
+    FileNotFoundError: If the .apkg file does not exist
+    """
+    if not apkg_path.exists():
+        raise FileNotFoundError(f"File {apkg_path} does not exist.")
+
+    tmp_path = apkg_path.with_suffix(apkg_path.suffix + ".tmp")
+    with (
+        zipfile.ZipFile(apkg_path, "r") as zin,
+        zipfile.ZipFile(
+            tmp_path,
+            "w",
+            compression=zipfile.ZIP_DEFLATED,
+            compresslevel=compression_level,
+        ) as zout,
+    ):
+        for item in zin.infolist():
+            zout.writestr(item.filename, zin.read(item.filename))
+
+    tmp_path.replace(apkg_path)
+
+
 def unzip_file(zip_path: Path, destination_dir: Path):
     """
     Unzip a file to the destination directory.

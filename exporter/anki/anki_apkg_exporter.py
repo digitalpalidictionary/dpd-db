@@ -11,6 +11,7 @@ from db.models import DpdHeadword
 from tools.date_and_time import year_month_day_dash
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.zip_up import recompress_apkg
 
 TEMPLATES_DIR = Path("exporter/anki/templates")
 
@@ -200,6 +201,10 @@ def main() -> None:
 
     pr.green_tmr("writing .apkg")
     genanki.Package(deck).write_to_file(str(pth.dpd_anki_apkg_path))
+    pr.yes("ok")
+
+    pr.green_tmr("compressing .apkg")
+    recompress_apkg(pth.dpd_anki_apkg_path)
     pr.yes("ok")
 
     pr.toc()
