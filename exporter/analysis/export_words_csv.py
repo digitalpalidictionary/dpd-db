@@ -70,7 +70,9 @@ def _close_report_choices(source: str, reports_dir: Path, limit: int = 5) -> lis
 
     passage_part_pattern = re.compile(rf"^{re.escape(source_key)}[vp]\d")
     passage_part_matches = [
-        choice for choice in choices if passage_part_pattern.match(_report_choice_key(choice))
+        choice
+        for choice in choices
+        if passage_part_pattern.match(_report_choice_key(choice))
     ]
     if passage_part_matches:
         return passage_part_matches[:limit]
@@ -202,6 +204,57 @@ def _parse_report(content: str) -> tuple[str, list[tuple[int, str, str, bool]]]:
     return passage, rows
 
 
+def _looks_like_gatha(lines: list[str]) -> bool:
+    """Return true when line breaks represent verse lines rather than prose paragraphs."""
+    if len(lines) < 2:
+        return False
+    if len(lines) > 2:
+        return True
+    return max(len(line) for line in lines) <= 120 and not any(
+        ". " in line or "? " in line or "! " in line for line in lines
+    )
+
+
+def _clip_gatha_lines(lines: list[str]) -> str:
+    """Return up to four verse lines containing the first bolded line."""
+    if len(lines) <= 4:
+        return "\n".join(lines)
+
+    bold_index = next(
+        (index for index, line in enumerate(lines) if "<b>" in line),
+        0,
+    )
+    start = min(max(bold_index - 1, 0), len(lines) - 4)
+    return "\n".join(lines[start : start + 4])
+
+
+def _split_prose_sentences(text: str) -> list[str]:
+    """Return prose sentence chunks from text collapsed to single spaces."""
+    normalized = re.sub(r"\s+", " ", text).strip()
+    if not normalized:
+        return []
+    return [
+        match.group(0).strip()
+        for match in re.finditer(r"[^.!?]+(?:[.!?]+(?:[\"'”’])?|$)", normalized)
+        if match.group(0).strip()
+    ]
+
+
+def _clip_example_to_bold_context(example: str) -> str:
+    """Limit a bolded example to one prose sentence or four gāthā lines."""
+    if "<b>" not in example:
+        return example
+
+    lines = [line.strip() for line in example.splitlines() if line.strip()]
+    if _looks_like_gatha(lines):
+        return _clip_gatha_lines(lines)
+
+    for sentence in _split_prose_sentences(example):
+        if "<b>" in sentence:
+            return sentence
+    return example
+
+
 def _build_example(
     passage: str,
     surface: str,
@@ -214,7 +267,7 @@ def _build_example(
     is_top_level = parent_token == surface
     token = surface if is_top_level else parent_token
     apos = find_token_in_apos_verse(token, passage)
-    return bold_word_in_verse(
+    bolded_example = bold_word_in_verse(
         passage,
         apos,
         surface,
@@ -223,6 +276,7 @@ def _build_example(
         is_first_component=is_first_component,
         is_top_level=is_top_level,
     )
+    return _clip_example_to_bold_context(bolded_example)
 
 
 def _get_vagga(source: str) -> str:
