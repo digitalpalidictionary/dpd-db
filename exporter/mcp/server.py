@@ -1,8 +1,12 @@
+"""Run the MCP server that exposes DPD grammatical analysis tools."""
+
 import json
+
 from mcp.server.fastmcp import FastMCP
+
 from db.db_helpers import get_db_session
+from exporter.analysis.analyzer import analyze_sentence
 from exporter.mcp.config import mcp_config
-from exporter.mcp.analyzer import analyze_sentence
 
 
 # Create FastMCP server
