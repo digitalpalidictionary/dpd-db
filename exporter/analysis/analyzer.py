@@ -1,8 +1,13 @@
+"""Analyze Pali sentences against DPD lookup and headword data."""
+
+import re
 from typing import Any
+
 from sqlalchemy.orm import Session
+
 from db.models import DpdHeadword, Lookup
-from tools.pali_alphabet import pali_alphabet
 from tools.clean_machine import clean_machine
+from tools.pali_alphabet import pali_alphabet
 
 suffixes = {
     "tta",
@@ -64,6 +69,10 @@ exceptions_comp = {
 
 sandhi_particles = {" + api", " + ca", " + eva", " + iti", " + iva", " + hi"}
 
+KAMMADHARAYA_FILTER_WORDS: frozenset[str] = frozenset(
+    {"eva", "iva", "iti", "etassa", "viya"}
+)
+
 case_keywords = {
     "nom",
     "acc",
@@ -100,6 +109,44 @@ def tokenize_sentence(sentence: str) -> list[str]:
 
     tokens = [token for token in clean_sentence.split() if token]
     return tokens
+
+
+def _has_particle_deconstructor(lookup_entry: Lookup) -> bool:
+    """Return true when a lookup row has a deconstructor ending in a common particle."""
+    if not lookup_entry.deconstructor:
+        return False
+
+    for deconstruction in lookup_entry.deconstructor_unpack:
+        clean_deconstruction = re.sub(r" \[.+", "", deconstruction)
+        if any(clean_deconstruction.endswith(particle) for particle in sandhi_particles):
+            return True
+    return False
+
+
+def _is_real_sandhi_option(option: dict[str, Any]) -> bool:
+    """Return true for whole-token sandhi headword options."""
+    return option.get("pos") == "sandhi" or "sandhi" in option.get("grammar", "")
+
+
+def _is_direct_grammar_option(option: dict[str, Any]) -> bool:
+    """Return true for options produced from lookup grammar, not fallback headwords."""
+    key = str(option.get("key", ""))
+    return "_" in key and not key.endswith("_default") and not key.endswith("_inflection")
+
+
+def _filter_particle_lookup_headwords(
+    headword_details: list[dict[str, Any]],
+    lookup_entry: Lookup,
+) -> list[dict[str, Any]]:
+    """Remove synthetic particle-expanded headwords while preserving real candidates."""
+    if not _has_particle_deconstructor(lookup_entry):
+        return headword_details
+
+    return [
+        option
+        for option in headword_details
+        if _is_real_sandhi_option(option) or _is_direct_grammar_option(option)
+    ]
 
 
 def is_pos_compatible(hw_pos: str, grammar_pos: str, grammar_string: str = "") -> bool:
@@ -146,6 +193,81 @@ def is_pos_compatible(hw_pos: str, grammar_pos: str, grammar_string: str = "") -
     return False
 
 
+def get_in_comp_forms(inflections_html: str) -> set[str]:
+    """Extract all forms from the 'in comps' row of inflections_html."""
+    match = re.search(r"in comps</th>(.*?)</tr>", inflections_html, re.DOTALL)
+    if not match:
+        return set()
+    cell_html = re.sub(r"<br\s*/?>", " ", match.group(1))
+    clean = re.sub(r"<[^>]+>", "", cell_html)
+    return {f.strip() for f in clean.split() if f.strip()}
+
+
+def get_grammar_from_inflections_html(form: str, headword: DpdHeadword) -> str | None:
+    """
+    Extract grammar description from headword's inflections_html for a given form.
+
+    Parses the HTML table to find the form (which may be split by HTML tags)
+    and extracts the title attribute from its containing <td> element.
+    Example: yogasmā in yoga's inflections_html → "masc abl sg of yoga"
+    """
+    if not headword.inflections_html:
+        return None
+
+    html = headword.inflections_html
+    # Build pattern to match form with HTML tags possibly interspersed
+    form_with_tags = "".join(f"{char}(?:<[^>]*>)*" for char in form)
+    match_form = re.search(form_with_tags, html)
+
+    if not match_form:
+        return None
+
+    # Found the form; now work backwards to find its containing <td title='...'>
+    pos = match_form.start()
+    text_before = html[:pos]
+    last_td = text_before.rfind("<td")
+
+    if last_td < 0:
+        return None
+
+    # Extract the <td> tag opening
+    td_end = html.find(">", last_td)
+    td_tag = html[last_td : td_end + 1]
+
+    # Extract title attribute
+    title_match = re.search(r"title='([^']*)'", td_tag)
+    if title_match:
+        grammar_part = title_match.group(1)
+        return f"{grammar_part} of {headword.lemma_clean}"
+
+    return None
+
+
+def search_inflections_for_form(form: str, db_session: Session) -> DpdHeadword | None:
+    """
+    Find which headword has this form in its inflections.
+
+    ⚠️ ONLY FOR COMPOUND PARTS: Called from get_components_from_construction()
+    when a compound part has no Lookup entry but is marked as inflected.
+    Never used in normal word analysis flow.
+
+    Example: yogasmā → yoga 1 (ID 54211)
+
+    Simply searches all headwords' existing inflections_list (no guessing).
+    """
+    headwords = (
+        db_session.query(DpdHeadword)
+        .filter(DpdHeadword.inflections_html.is_not(None))
+        .all()
+    )
+
+    for hw in headwords:
+        if form in hw.inflections_list:
+            return hw
+
+    return None
+
+
 def is_stem_compatible(grammar_string: str) -> bool:
     """Check if a grammar string represents a stem or uninflected form."""
     g = grammar_string.lower()
@@ -161,6 +283,44 @@ def is_stem_compatible(grammar_string: str) -> bool:
     return True
 
 
+def _strip_bold(text: str | None) -> str:
+    if not text:
+        return ""
+    return re.sub(r"</?b>", "", text)
+
+
+def _is_neg_kammadhāraya_components(
+    compound_type: str, components: list[list[dict[str, Any]]]
+) -> bool:
+    """True if components are na + X where X is not itself a compound."""
+    if compound_type.lower() != "kammadhāraya":
+        return False
+    if len(components) < 2 or not components[0]:
+        return False
+    first_pali = components[0][0].get("pali", "").replace("- ", "").strip()
+    if first_pali != "na":
+        return False
+    second_opts = components[1] if len(components) > 1 else []
+    # Exception: if ANY reading of X is itself a compound → do not suppress
+    return not any(bool(o.get("compound_type", "")) for o in second_opts)
+
+
+def _normalize_kammadharaya_construction(comp_construction: str) -> str:
+    """Convert descriptive kammadhāraya comp_construction (no '+') to '+'-joined parts.
+
+    Filters copula/filler words (eva, iva, iti, etassa, viya) from position 1+.
+    E.g. "paññā eva āvudha" → "paññā + āvudha"
+    No-op when '+' is already present.
+    """
+    if "+" in comp_construction:
+        return comp_construction
+    words = comp_construction.split()
+    if not words:
+        return comp_construction
+    filtered = [words[0]] + [w for w in words[1:] if w not in KAMMADHARAYA_FILTER_WORDS]
+    return " + ".join(filtered)
+
+
 def get_word_details(
     token: str,
     db_session: Session,
@@ -170,9 +330,6 @@ def get_word_details(
     is_inflected_part: bool = True,
 ) -> list[dict[str, Any]]:
     """Helper to get word details for a given token, generating specific options based on lookup grammar."""
-    if token == "sati":
-        print(f"DEBUG: get_word_details('sati', is_inflected_part={is_inflected_part})")
-
     lookup_entry = db_session.query(Lookup).filter(Lookup.lookup_key == token).first()
     if not lookup_entry or not lookup_entry.headwords:
         return []
@@ -206,17 +363,28 @@ def get_word_details(
         if is_compound_part and not is_inflected_part:
             # Stem Filter: Check if this headword is a valid stem for the token
             is_valid_stem = False
-            if grammar_list:
-                for i, (g_lemma, g_pos, g_gram) in enumerate(grammar_list):
-                    if g_lemma == hw.lemma_clean and is_stem_compatible(g_gram):
+
+            # If found in Lookup table, accept as valid stem (Lookup is authoritative)
+            if lookup_entry:
+                is_valid_stem = True
+            else:
+                # Fallback: check inflections_html only if NOT found in Lookup
+                if grammar_list:
+                    for i, (g_lemma, g_pos, g_gram) in enumerate(grammar_list):
+                        if g_lemma == hw.lemma_clean and is_stem_compatible(g_gram):
+                            is_valid_stem = True
+                            break
+
+                if not is_valid_stem and hw.lemma_clean == token:
+                    is_valid_stem = True
+
+                if not is_valid_stem and not grammar_list:
+                    is_valid_stem = True
+
+                # Check if token is an "in comps" form in the headword's inflection table
+                if not is_valid_stem and hw.inflections_html:
+                    if token in get_in_comp_forms(hw.inflections_html):
                         is_valid_stem = True
-                        break
-
-            if not is_valid_stem and hw.lemma_clean == token:
-                is_valid_stem = True
-
-            if not is_valid_stem and not grammar_list:
-                is_valid_stem = True
 
             if not is_valid_stem:
                 continue
@@ -231,11 +399,16 @@ def get_word_details(
                 "pali": token,
                 "pos": hw.pos,
                 "grammar": "",  # No grammar for compound parts
+                "meaning_1": hw.meaning_1,
                 "meaning_combo": hw.meaning_combo,
                 "compound_type": hw.compound_type,
                 "compound_construction": hw.compound_construction,
                 "root_key": root_combo(hw),
                 "construction": hw.construction_summary,
+                "example_1": _strip_bold(hw.example_1),
+                "source_1": hw.source_1 or "",
+                "example_2": _strip_bold(hw.example_2),
+                "source_2": hw.source_2 or "",
                 "components": [],
             }
             # Recursive component check
@@ -263,7 +436,12 @@ def get_word_details(
                     for x in ["abyayībhāva", "tappurisa", "digu", "kammadhāraya"]
                 ):
                     if hw.compound_construction:
-                        breakdown_source = hw.compound_construction
+                        if "kammadhāraya" in ct:
+                            breakdown_source = _normalize_kammadharaya_construction(
+                                hw.compound_construction
+                            )
+                        else:
+                            breakdown_source = hw.compound_construction
                 else:
                     # Fallback/Default behavior
                     if hw.compound_construction:
@@ -285,6 +463,10 @@ def get_word_details(
                     is_compound_part=is_sub_comp,
                     force_inflected=force_inflected,
                 )
+                if _is_neg_kammadhāraya_components(
+                    hw.compound_type, entry["components"]
+                ):
+                    entry["components"] = []
             word_details.append(entry)
             continue
 
@@ -317,7 +499,12 @@ def get_word_details(
                 x in ct for x in ["abyayībhāva", "tappurisa", "digu", "kammadhāraya"]
             ):
                 if hw.compound_construction:
-                    breakdown_source = hw.compound_construction
+                    if "kammadhāraya" in ct:
+                        breakdown_source = _normalize_kammadharaya_construction(
+                            hw.compound_construction
+                        )
+                    else:
+                        breakdown_source = hw.compound_construction
             else:
                 # Fallback/Default behavior
                 if hw.compound_construction:
@@ -331,11 +518,6 @@ def get_word_details(
             if "sandhi" in hw.grammar or is_comp_vb:
                 force_inflected = True
 
-            if "ānāpānassati" in hw.lemma_1:
-                print(f"DEBUG: Analyzing components for {hw.lemma_1}")
-                print(f"  grammar: '{hw.grammar}'")
-                print(f"  force_inflected: {force_inflected}")
-
             hw_components = get_components_from_construction(
                 breakdown_source,
                 db_session,
@@ -343,6 +525,8 @@ def get_word_details(
                 is_compound_part=is_sub_comp,
                 force_inflected=force_inflected,
             )
+            if _is_neg_kammadhāraya_components(hw.compound_type, hw_components):
+                hw_components = []
 
         # We need to match the Headword to the Grammar entry.
         # Usually matching by lemma_clean is safest.
@@ -364,11 +548,16 @@ def get_word_details(
                             "pali": token,
                             "pos": g_pos,
                             "grammar": f"{g_gram} of {g_lemma}",
+                            "meaning_1": hw.meaning_1,
                             "meaning_combo": hw.meaning_combo,
                             "compound_type": hw.compound_type,
                             "compound_construction": hw.compound_construction,
                             "root_key": root_combo(hw),
                             "construction": hw.construction_summary,
+                            "example_1": _strip_bold(hw.example_1),
+                            "source_1": hw.source_1 or "",
+                            "example_2": _strip_bold(hw.example_2),
+                            "source_2": hw.source_2 or "",
                             "components": hw_components,
                         }
                         word_details.append(entry)
@@ -384,11 +573,16 @@ def get_word_details(
                     "pali": token,
                     "pos": hw.pos,
                     "grammar": hw.grammar,
+                    "meaning_1": hw.meaning_1,
                     "meaning_combo": hw.meaning_combo,
                     "compound_type": hw.compound_type,
                     "compound_construction": hw.compound_construction,
                     "root_key": root_combo(hw),
                     "construction": hw.construction_summary,
+                    "example_1": _strip_bold(hw.example_1),
+                    "source_1": hw.source_1 or "",
+                    "example_2": _strip_bold(hw.example_2),
+                    "source_2": hw.source_2 or "",
                     "components": hw_components,
                 }
                 word_details.append(entry)
@@ -401,19 +595,11 @@ def get_word_details(
             if grammar_list:
                 for i, (g_lemma, g_pos, g_gram) in enumerate(grammar_list):
                     if g_lemma == hw.lemma_clean and is_stem_compatible(g_gram):
-                        if token == "sati":
-                            print(
-                                f"DEBUG: Accepted stem {hw.lemma_clean} for {token} via grammar: {g_gram}"
-                            )
                         is_valid_stem = True
                         break
 
             # Additional check: if lemma matches token, it's highly likely a valid stem usage
             if not is_valid_stem and hw.lemma_clean == token:
-                if token == "sati":
-                    print(
-                        f"DEBUG: Accepted stem {hw.lemma_clean} for {token} via strict lemma match"
-                    )
                 is_valid_stem = True
 
             # Fallback: if no grammar list at all exists in lookup for this token, assume valid
@@ -430,11 +616,16 @@ def get_word_details(
                     "pali": token,
                     "pos": hw.pos,
                     "grammar": "",  # Stems don't show grammar
+                    "meaning_1": hw.meaning_1,
                     "meaning_combo": hw.meaning_combo,
                     "compound_type": hw.compound_type,
                     "compound_construction": hw.compound_construction,
                     "root_key": root_combo(hw),
                     "construction": hw.construction_summary,
+                    "example_1": _strip_bold(hw.example_1),
+                    "source_1": hw.source_1 or "",
+                    "example_2": _strip_bold(hw.example_2),
+                    "source_2": hw.source_2 or "",
                     "components": hw_components,
                 }
                 word_details.append(entry)
@@ -467,7 +658,7 @@ def get_components_from_construction(
     grammatical: bool = False,
     is_compound_part: bool = False,
     force_inflected: bool = False,
-) -> list[dict[str, Any]]:
+) -> list[list[dict[str, Any]]]:
     """Helper to break down a construction string into component details."""
     components = []
     parts = construction.split(" + ")
@@ -497,20 +688,60 @@ def get_components_from_construction(
                 # We need to save all possible option so AI can pick which is better
                 components.append(part_details_list)
             else:
-                # If no details found, just add the word itself as a placeholder (wrapped in a list)
-                components.append(
-                    [
-                        {
-                            "key": f"missing_{clean_part}",
-                            "id": "",
-                            "pali": clean_part,
-                            "pos": "",
-                            "grammar": "in comp",
-                            "meaning_combo": "",
-                            "construction": "",
-                        }
-                    ]
-                )
+                # Fallback: if inflected part has no lookup, search inflections
+                fallback_hw = None
+                if is_inflected:
+                    fallback_hw = search_inflections_for_form(clean_part, db_session)
+
+                if fallback_hw:
+                    # Found in inflections: create entry from the base headword
+                    score, completeness = get_completeness(fallback_hw)
+                    # Extract grammar from headword's inflections_html
+                    grammar_str = get_grammar_from_inflections_html(
+                        clean_part, fallback_hw
+                    )
+                    if not grammar_str:
+                        grammar_str = f"inflected form of {fallback_hw.lemma_clean}"
+                    components.append(
+                        [
+                            {
+                                "key": f"{fallback_hw.id}_inflection",
+                                "id": fallback_hw.id,
+                                "lemma": fallback_hw.lemma_1,
+                                "degree_of_completion": completeness,
+                                "score": score,
+                                "pali": clean_part,
+                                "pos": fallback_hw.pos,
+                                "grammar": grammar_str,
+                                "meaning_1": fallback_hw.meaning_1,
+                                "meaning_combo": fallback_hw.meaning_combo,
+                                "compound_type": fallback_hw.compound_type,
+                                "compound_construction": fallback_hw.compound_construction,
+                                "root_key": root_combo(fallback_hw),
+                                "construction": fallback_hw.construction_summary,
+                                "example_1": _strip_bold(fallback_hw.example_1),
+                                "source_1": fallback_hw.source_1 or "",
+                                "example_2": _strip_bold(fallback_hw.example_2),
+                                "source_2": fallback_hw.source_2 or "",
+                                "components": [],
+                            }
+                        ]
+                    )
+                else:
+                    # If no details found and no inflection match, add placeholder
+                    components.append(
+                        [
+                            {
+                                "key": f"missing_{clean_part}",
+                                "id": "",
+                                "pali": clean_part,
+                                "pos": "",
+                                "grammar": "in comp",
+                                "meaning_combo": "",
+                                "construction": "",
+                            }
+                        ]
+                    )
     return components
 
 
@@ -552,27 +783,16 @@ def analyze_sentence(
                 headword_details = get_word_details(
                     effective_key, db_session, grammatical=grammatical
                 )
+                filtered_headword_details = _filter_particle_lookup_headwords(
+                    headword_details,
+                    lookup_entry,
+                )
 
-                # Special Check: If deconstructor has particle sandhi (e.g. "word + api")
-                # and NO headword is "sandhi", then these headwords are likely just the base word
-                # added by scripts/build/api_ca_eva_iti_iva_hi.py and should be skipped.
-                skip_headwords = False
-                if lookup_entry.deconstructor:
-                    has_sandhi_headword = any(
-                        item["pos"] == "sandhi" for item in headword_details
-                    )
-                    if not has_sandhi_headword:
-                        decons = lookup_entry.deconstructor_unpack
-                        for d in decons:
-                            if any(d.endswith(p) for p in sandhi_particles):
-                                skip_headwords = True
-                                break
-
-                if not skip_headwords:
-                    word_data.extend(headword_details)
+                if filtered_headword_details:
+                    word_data.extend(filtered_headword_details)
 
                     # Collect constructions from sandhi headwords
-                    for item in headword_details:
+                    for item in filtered_headword_details:
                         if item["pos"] == "sandhi" and item["construction"]:
                             existing_constructions.add(item["construction"])
 

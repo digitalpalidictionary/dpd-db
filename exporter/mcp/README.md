@@ -1,10 +1,6 @@
-# Pāḷi MCP Server
+# DPD MCP Server
 
 This directory contains a Model Context Protocol (MCP) server that provides AI agents with structured access to the Digital Pāḷi Dictionary (DPD).
-
-## Features
-
-- **`get_grammatical_details` tool**: Analyzes a Pāḷi sentence, tokenizes it, and retrieves high-precision grammatical and semantic data from the DPD SQLite database.
 
 ## Installation
 
@@ -51,17 +47,7 @@ To use this server with Claude Desktop, add the following to your `claude_deskto
 
 Replace `/path/to/dpd-db` with the absolute path to this repository.
 
-## Tools and Scripts
+## Server Files
 
 - `server.py`: The main MCP server entry point using the `mcp` Python SDK.
-- `ai_pali_translate.py`: A high-precision translation script that combines DPD context with LLMs via OpenRouter.
-- `analyzer.py`: Contains the logic for tokenization and database lookup.
 - `config.py`: Handles project-wide path integration and database connection.
-
-## Usage: AI Translation Script
-
-To run the translation script:
-
-```bash
-uv run python exporter/mcp/ai_pali_translate.py
-```

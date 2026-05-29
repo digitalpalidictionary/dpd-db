@@ -1,4 +1,7 @@
+"""Configuration object for the DPD MCP server."""
+
 from pathlib import Path
+
 from tools.paths import ProjectPaths
 
 

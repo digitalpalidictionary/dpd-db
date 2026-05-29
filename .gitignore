@@ -70,6 +70,9 @@ exporter/kindle/epub/OEBPS/content.opf
 exporter/kindle/epub/OEBPS/Text/[0-9]*_*.xhtml
 exporter/kindle/epub/OEBPS/Text/abbreviations.xhtml
 exporter/kindle/epub/OEBPS/Text/epd_*.xhtml
+exporter/analysis/input/
+exporter/analysis/output/
+exporter/analysis/reports/
 exporter/mcp/output/*
 exporter/pdf/typst_data_lite.typ
 exporter/share/
