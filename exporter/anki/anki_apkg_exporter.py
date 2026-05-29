@@ -8,6 +8,7 @@ import genanki
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.date_and_time import year_month_day_dash
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -81,6 +82,7 @@ FIELDS = [
 def make_model() -> genanki.Model:
     front = (TEMPLATES_DIR / "front.html").read_text(encoding="utf-8")
     back = (TEMPLATES_DIR / "public_back.html").read_text(encoding="utf-8")
+    back = back.replace("__RELEASE_DATE__", year_month_day_dash())
     styling = (TEMPLATES_DIR / "public_styling.html").read_text(encoding="utf-8")
 
     return genanki.Model(
