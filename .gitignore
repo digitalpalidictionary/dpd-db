@@ -125,3 +125,5 @@ temp/
 token.json
 typescript
 /.antigravitycli/03a4adb4-4f46-4e34-b9a9-79448368f7d9.json
+/graphify-out
+/.claude/settings.json
