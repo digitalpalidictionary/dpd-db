@@ -25,6 +25,7 @@ nav:
       - Linux: "install/linux.md"
       - Kindle: "install/kindle.md"
       - Kobo: "install/kobo.md"
+      - Anki: "install/anki.md"
       - ChromeBook: "install/chromebook.md"
       - Chrome & Firefox Extension: "install/browser_extension.md"
       - Update: "install/update.md"
