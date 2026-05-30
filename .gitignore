@@ -2,7 +2,7 @@
 *.log
 *~lock.*
 .agent/
-.claude/scheduled_tasks.lock
+.claude/
 .codex
 .DS_Store
 .kilocode/
@@ -11,7 +11,7 @@
 .roo/
 .venv
 .vscode/
-.zed/tasks.json
+.zed/
 /.qwen
 /dpd.db-shm
 /dpd.db-wal
@@ -124,6 +124,7 @@ shared_data/headword_stem_pattern_dict
 temp/
 token.json
 typescript
-/.antigravitycli/03a4adb4-4f46-4e34-b9a9-79448368f7d9.json
 /graphify-out
-/.claude/settings.json
+.antigravitycli/
+.pytest_cache/
+.ruff_cache/
