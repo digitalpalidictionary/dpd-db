@@ -1,6 +1,11 @@
-*.go linguist-language=Go
-*.py linguist-language=Python
+# Normalise line endings: store as LF, check out native
+* text=auto
+
+# Shell scripts must stay LF even on Windows checkouts
+*.sh text eol=lf
+
+# Exclude vendored/generated content from GitHub language stats
+resources/** linguist-vendored
+
+# Treat markdown as documentation, not code
 *.md linguist-documentation
-# Ignore
-resources/* linguist-vendored
-temp/* linguist-vendored
