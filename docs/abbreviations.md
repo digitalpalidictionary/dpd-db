@@ -151,6 +151,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |DhSṭ|Dhammasaṅgaṇī mūlaṭīkā||
 |DN|Dīgha Nikāya|Book 1 of the Sutta Piṭaka; Collection of Long Discourses; lit. long collection|
 |DNa|Dīgha Nikāya Aṭṭhakathā, Sumaṅgalavilāsinī|Commentary on the Dīgha Nikāya compiled by Ven. Buddhaghosa; lit. very auspicious and charming|
+|DNnt|Dīgha Nikāya Nava-ṭīkā, Sādhuvilāsinī|Newer sub-commentary on the Sīlakkhandhavagga of the Dīgha Nikāya; lit. charming and beautiful|
 |DNt|Dīgha Nikāya Ṭīkā, Sādhuvilāsinī||
 |EV|Elder's Verses by K.R.Norman||
 |ITI|Itivuttaka|Book 4 of the Khuddaka Nikāya; Quotations; lit. thus said|
