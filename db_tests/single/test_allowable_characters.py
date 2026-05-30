@@ -383,6 +383,7 @@ class AllowableCharacters:
         "ti",
         "a2",
         "i2",
+        "vī",
         "ā",
         "i",
         "ṃ",
