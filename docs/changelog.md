@@ -5,6 +5,30 @@ search:
 
 # Changelog
 
+## 2026-05-31
+
+### GitHub Issues Closed
+GitHub issues not available right now...
+
+
+### Dictionary Data Updates
+- 89 050 headwords, 52 257 complete, 10 011 partially complete, 26 782 incomplete entries
+- 753 roots, 3 355 root families, 36 703 words derived from roots
+- 861 691 deconstructed compounds
+- 1 485 724 unique inflected forms recognized
+- 2 256 520 cells of Pāḷi word data
+- 18 310 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1-5, AN1-2
+- Pass2 in progress: AN3
+- numerous additions and corrections based on user feedback
+
+### New Words
+akiriyavādī 2, akhāditapubba, aggicuṇṇa 2, aḍḍha 1.3, adhammaṃ, adhika 4, adhikaraṇika 1, anapparūpa, anabhibhavanīyatta, anekadhātu 2, antojana 2, apanāmeti 4, apalokita 1.1, appaṭivāna 2, apparūpa, abhilasati, abhilāsa, abhisaṅkhāra 3, abhejja 2, amata 1.5, araṇidhanuka, avakujja 2, avisada 1, asabbhi, asammussanīya, ahampajja, āmasituṃ, ālambituṃ, ālulita, āvuta 2.2, ukkiritvā, ugga 2.3, uggata 4, uḍḍeti 2.1, ud 2, upaṭṭhāka 4, upadaṃseti 2, upanāmeti 2, upaneti 3, upasaṅkama 2, uyyojikā, ulliṅga, ulliṅgana, ulliṅgita, ulliṅgeti, ulliṅgetvā, ekattha 2.1, ekatra 1, ekatra 2, ekasamodhāna, etadagge, etena 2, etehi 3, ettaka 2, okkantitvā, otaraṇa 2, opammasampaṭipādana, kanta 1.2, kappa 1.8, kammika 3, kammika 4, kallāṇa, kārenta 2, kāḷī 5, gaṇanaṃ gacchati, gaṇhana, gaṇhanasamattha, gaṇhanta 2, gandhārā, garuka 4, gahita 5, ghaṭayati, ghaṃsituṃ, cakkalakkhaṇa, cakkaṃ vatteti, catukkoṭika 1, cattālīsatima, cinana, cetovinibaddha, jaṭāvijaṭana, java 4, javanavega, javita 2, jātābhilāsa, jotīyati, ṭhānametaṃ, tajjāta, tabbipāka, tammūlakatta, tinduka 2, daṃsati 2, diṭṭhānugatiṃ āpajjati, duggahīta 2, duccaja 2, duccaja 3, dunnīhara, dehī 1, dhammakathika 2, nagarī, nādika 2, nānukampati, nikkhitta 4, nijjhattiṃ upagacchati, nipatati 3, nivāraṇatthaṃ, nissāraṇīya 3, nevavipākanavipākadhammadhamma, pakāsīyati, paccāgacchanta 2, pajjana, pañcama 3, pañhābyākaraṇa 2, paṭikkhepana, paṭighāta 3, paṭivijjhīyati, paṭisantharaṇa, paṭihāriya, paṭhamavagga 12, paṭhamavagga 13, paṭhamavagga 14, paṇhi 2, pamutta 3, paribbhamitvā 1, parimasana, parivitakkana, pavattesi 5, pāpuṇāti 3, pābhata 4, pāra 2, piyāla 1, piyāla 2, purika, phalūpacāra, badara 2, bā, byākarituṃ, byāpajjanā, byāpatti 2, bhaddakaccānā 1, bhaddiya 5, bhikkhunovādaka 2, makacivāla, magga gata, mamatthāya, mahābhiññā, mahāvajja, mahāsāvajja 2, mijjati, muṭṭhasacca, mussati 3, yaṃtaṃsadda, yya, revata 2, laṅghayitvāna, lūkhacīvaradhara 2, lokīyati, vakkhamāna, vaṅgā, vāsi 1.3, vikkīḷita, vikkhāyati, vikkhāyita, vikkhāyitaka, vitthārayi, vidhura 3, vinayadhara 2, vinipatati, vipariṇāmetvā, vilekhana 2, visamaṃ 2, vihiṃsituṃ, saṅgharituṃ 2, sacittaka 2, sañjāta 3, saddha 5, santharaṇa 2, sabbapacchima, sabbopaddava, sampanna 7, samparivattamāna 1, samparivattamāna 2, sambhūya, sambheda 3, sambhedaṃ gacchati, sarīradhārī, sasahāya, saṃvaṇṇetuṃ, saṃvasati 2, saṃsaramāna 1, saṃsaramāna 2, siyati, sutāvī, supana, suppiyā 2, senāsanapaññāpaka 2, soṇa 5, soṇi, hāyati 2, hetu 3 [199]
+
+
+
 ## 2026-05-01
 
 ### GitHub Issues Closed
