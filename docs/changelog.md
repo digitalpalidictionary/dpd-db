@@ -8,7 +8,13 @@ search:
 ## 2026-05-31
 
 ### GitHub Issues Closed
-GitHub issues not available right now...
+- [#31 Export to Aard2 Slob format](https://github.com/digitalpalidictionary/dpd-db/issues/31)
+- [#159 Anki: make DPD Anki deck publicly available](https://github.com/digitalpalidictionary/dpd-db/issues/159)
+- [#192 Sutta table: Add DN, MN, SN subsections, saṃyuttas, vaggas, etc.](https://github.com/digitalpalidictionary/dpd-db/issues/192)
+- [#232 CST Source Sutta Example: Missing sentence examples when in the same paragraph](https://github.com/digitalpalidictionary/dpd-db/issues/232)
+- [#239 Exporter: raise an error when worker process fails](https://github.com/digitalpalidictionary/dpd-db/issues/239)
+- [#240 RSS feed: add to webapp and docs](https://github.com/digitalpalidictionary/dpd-db/issues/240)
+
 
 
 ### Dictionary Data Updates
