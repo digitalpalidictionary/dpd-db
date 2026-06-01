@@ -71,7 +71,6 @@ class HeadwordData:
             "example_2",
             "commentary",
             "notes",
-            "link",
         ]
         for attr_name in attrs:
             attr_value = getattr(obj, attr_name, None)

@@ -33,7 +33,6 @@ class HeadwordData:
             "example_2",
             "commentary",
             "notes",
-            "link",
         ]
         # We'll return a proxy object or just the modified SQLAlchemy object
         # but with only specific fields changed.
