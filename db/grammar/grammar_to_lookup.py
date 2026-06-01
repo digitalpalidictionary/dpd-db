@@ -7,6 +7,7 @@ from json import loads
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, InflectionTemplates, Lookup
 from tools.all_tipitaka_words import make_all_tipitaka_word_set
+from tools.configger import config_read
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_sort_key
@@ -47,6 +48,10 @@ class GlobalVars:
 def main():
     pr.tic()
     pr.yellow_title("exporting grammar data")
+    if config_read("generate", "grammar", "yes") == "no":
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
 
     g = GlobalVars()
 

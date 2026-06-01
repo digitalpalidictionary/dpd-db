@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup, SuttaInfo
+from tools.configger import config_read
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -120,6 +121,10 @@ def print_results(g: GlobalVars) -> None:
 def main() -> None:
     pr.tic()
     pr.yellow_title("add sutta codes to lookup table")
+    if config_read("generate", "suttas", "yes") == "no":
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
     g: GlobalVars = GlobalVars()
     make_sutta_info_dict(g)
     add_to_lookup_table(g)

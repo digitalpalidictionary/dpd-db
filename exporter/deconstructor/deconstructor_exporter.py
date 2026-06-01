@@ -159,7 +159,8 @@ def main():
 
     # should the program run?
     if not config_test("exporter", "make_deconstructor", "yes"):
-        pr.green_tmr("disabled in config.ini")
+        pr.green_title("disabled in config.ini")
+        pr.toc()
         return
 
     g = GlobalVars()

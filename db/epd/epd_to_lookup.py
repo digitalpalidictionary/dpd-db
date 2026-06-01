@@ -8,11 +8,19 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Lookup
+from tools.configger import config_read
 from tools.lookup_is_another_value import is_another_value
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
+
+if config_read("generate", "epd", "yes") == "no":
+    pr.tic()
+    pr.yellow_title("generating epd data for lookup table")
+    pr.green_title("disabled in config.ini")
+    pr.toc()
+    raise SystemExit(0)
 
 
 class GlobalVars:

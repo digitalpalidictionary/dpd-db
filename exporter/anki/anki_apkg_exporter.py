@@ -8,6 +8,7 @@ import genanki
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.configger import config_test
 from tools.date_and_time import year_month_day_dash
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -168,6 +169,10 @@ def make_note_fields(i: DpdHeadword) -> list[str]:
 def main() -> None:
     pr.tic()
     pr.yellow_title("building dpd-anki.apkg")
+    if not config_test("anki", "update", "yes"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
 
     pth = ProjectPaths()
 

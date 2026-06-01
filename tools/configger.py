@@ -25,6 +25,14 @@ DEFAULT_CONFIG = {
     "deconstructor": {
         "use_premade": "no",
     },
+    "generate": {
+        "suttas": "yes",
+        "grammar": "yes",
+        "inflections_to_headwords": "yes",
+        "epd": "yes",
+        "search_index": "yes",
+        "deconstructor": "yes",
+    },
     "gui": {
         "theme": "DarkGrey10",
         "screen_fraction_width": "0.60",

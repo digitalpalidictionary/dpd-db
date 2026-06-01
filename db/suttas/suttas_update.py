@@ -6,6 +6,7 @@ from sqlalchemy import inspect
 from db.db_helpers import create_tables, get_db_session
 from db.models import SuttaInfo
 from db.suttas.dv_catalogue_suttas import update_dv_fields_in_db
+from tools.configger import config_read
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -128,6 +129,10 @@ def update_sutta_info_table(pth: ProjectPaths):
 def main():
     pr.tic()
     pr.yellow_title("update sutta_info table")
+    if config_read("generate", "suttas", "yes") == "no":
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
     pth = ProjectPaths()
     download_tsv_from_sheets(pth)
     update_sutta_info_table(pth)

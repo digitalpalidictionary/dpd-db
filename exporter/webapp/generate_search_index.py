@@ -6,6 +6,7 @@ import unicodedata
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, FamilyRoot
+from tools.configger import config_read
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -44,6 +45,10 @@ def build_index(terms: set[str]) -> list[str]:
 def main():
     pr.tic()
     pr.yellow_title("generating webapp search_index.json")
+    if config_read("generate", "search_index", "yes") == "no":
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
     pth = ProjectPaths()
     db_sess = get_db_session(pth.dpd_db_path)
 

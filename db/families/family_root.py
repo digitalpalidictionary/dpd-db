@@ -31,7 +31,7 @@ def main():
         or config_test("exporter", "make_tpr", "yes")
         or config_test("exporter", "make_ebook", "yes")
     ):
-        pr.green_tmr("disabled in config.ini")
+        pr.green_title("disabled in config.ini")
         pr.toc()
         return
 

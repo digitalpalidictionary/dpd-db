@@ -26,6 +26,15 @@ makedict:
     timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
     script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
 
+# Fast DPD-only build: turns off everything off-able, then re-enables generate components
+makedict-quick:
+    #!/usr/bin/env bash
+    mkdir -p logs
+    uv run python scripts/build/config_quick_profile.py
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+    uv run python scripts/build/config_quick_profile.py reset
+
 # Complete rebuild and export everything
 initial_build_db_and_export_all:
     uv run python scripts/bash/initial_build_db_and_export_all.py

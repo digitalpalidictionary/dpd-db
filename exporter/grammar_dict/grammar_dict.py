@@ -49,7 +49,7 @@ def main():
     pr.yellow_title("exporting grammar dictionary")
 
     if not config_test("exporter", "make_grammar", "yes"):
-        pr.green_tmr("disabled in config.ini")
+        pr.green_title("disabled in config.ini")
         pr.toc()
         return
 

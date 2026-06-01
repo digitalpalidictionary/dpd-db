@@ -15,6 +15,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 
 from tools.all_tipitaka_words import make_all_tipitaka_word_set
+from tools.configger import config_read
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.lookup_is_another_value import is_another_value
@@ -113,6 +114,10 @@ def add_i2h_to_db(g: GlobalVars):
 def main():
     pr.tic()
     pr.yellow_title("inflection to headwords")
+    if config_read("generate", "inflections_to_headwords", "yes") == "no":
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
 
     g = GlobalVars()
 

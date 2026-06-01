@@ -1,6 +1,7 @@
 from audio.bhashini.bhashini_class import Bashini
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -21,6 +22,9 @@ def main():
     pr.tic()
     try:
         pr.yellow_title("bashini tts")
+        if not config_test("exporter", "make_audio_db", "yes"):
+            pr.green_title("disabled in config.ini")
+            return
 
         pr.green_tmr("loading data")
         pth = ProjectPaths()

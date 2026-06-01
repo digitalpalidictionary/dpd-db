@@ -30,6 +30,13 @@ def uposatha_day_configger():
 
         config_update("deconstructor", "use_premade", "no")
 
+        config_update("generate", "suttas", "yes")
+        config_update("generate", "grammar", "yes")
+        config_update("generate", "inflections_to_headwords", "yes")
+        config_update("generate", "epd", "yes")
+        config_update("generate", "search_index", "yes")
+        config_update("generate", "deconstructor", "yes")
+
         config_update("exporter", "make_grammar", "yes")
         config_update("exporter", "make_deconstructor", "yes")
         config_update("exporter", "make_ebook", "yes")

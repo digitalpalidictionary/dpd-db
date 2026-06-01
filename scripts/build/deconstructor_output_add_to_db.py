@@ -18,14 +18,16 @@ from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.update_test_add import update_test_add
-from tools.configger import config_test
+from tools.configger import config_read, config_test
 
 
 def main():
     pr.tic()
     pr.yellow_title("adding deconstructor output to lookup db")
 
-    if not config_test("deconstructor", "use_premade", "yes"):
+    if config_read("generate", "deconstructor", "yes") == "no" or not config_test(
+        "deconstructor", "use_premade", "yes"
+    ):
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
