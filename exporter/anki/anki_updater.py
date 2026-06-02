@@ -25,6 +25,11 @@ def main():
     pr.tic()
     pr.yellow_title("updating anki")
 
+    if not config_test("anki", "update", "yes"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
+
     # setup dbs
     pr.green_tmr("setup dbs")
     pth = ProjectPaths()
@@ -470,7 +475,4 @@ def make_new_family_note(col, deck, model_dict, deck_dict, i):
 
 
 if __name__ == "__main__":
-    if config_test("anki", "update", "yes"):
-        main()
-    else:
-        print("[green]disabled in the config")
+    main()
