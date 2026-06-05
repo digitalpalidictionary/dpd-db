@@ -8,7 +8,7 @@ from tools.printer import printer as pr
 from tools.uposatha_day import UposathaManger
 
 
-def uposatha_day_configger():
+def uposatha_day_configger() -> None:
     """Updates config.ini to run all features if it's an uposatha day."""
 
     pr.tic()
@@ -58,7 +58,7 @@ def uposatha_day_configger():
     pr.toc()
 
 
-def uposatha_day_reset():
+def uposatha_day_reset() -> None:
     """Reset exporter config to baseline after an uposatha day build."""
     pr.tic()
     pr.yellow_title("uposatha day reset")
