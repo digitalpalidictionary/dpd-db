@@ -1,0 +1,319 @@
+{
+  "sample_lemmas": [
+    "akaṅkha 1.1",
+    "akaṅkha 2.1",
+    "akaṅkhī",
+    "akaccha",
+    "akathanā",
+    "akathita 1",
+    "akathita 2",
+    "akathitatta",
+    "akathetuṃ",
+    "akathetvā",
+    "akathenta 1",
+    "akathenta 2",
+    "akaṃkha"
+  ],
+  "sample_families": [
+    "√kath √kath",
+    "√kaṅkh 1 √kaṅkh",
+    "√kaṅkh 2 √kaṅkh"
+  ],
+  "make_roots_family_dict_and_bases_dict": {
+    "rf_dict": {
+      "√kaṅkh 2 √kaṅkh": {
+        "root_key": "√kaṅkh 2",
+        "root_family": "√kaṅkh",
+        "root_meaning": "doubt",
+        "headwords": [
+          "akaṅkha 1.1",
+          "akaṅkhī"
+        ],
+        "html": "",
+        "count": 2,
+        "data": [],
+        "anki": []
+      },
+      "√kaṅkh 1 √kaṅkh": {
+        "root_key": "√kaṅkh 1",
+        "root_family": "√kaṅkh",
+        "root_meaning": "wish for",
+        "headwords": [
+          "akaṅkha 2.1",
+          "akaṃkha"
+        ],
+        "html": "",
+        "count": 2,
+        "data": [],
+        "anki": []
+      },
+      "√kath √kath": {
+        "root_key": "√kath",
+        "root_family": "√kath",
+        "root_meaning": "speak, narrate",
+        "headwords": [
+          "akaccha",
+          "akathanā",
+          "akathita 1",
+          "akathita 2",
+          "akathitatta",
+          "akathetuṃ",
+          "akathetvā",
+          "akathenta 1",
+          "akathenta 2"
+        ],
+        "html": "",
+        "count": 9,
+        "data": [],
+        "anki": []
+      }
+    },
+    "bases_dict": {
+      "√kath": [
+        "kathe"
+      ]
+    }
+  },
+  "compile_rf_html": {
+    "√kaṅkh 2 √kaṅkh": {
+      "root_key": "√kaṅkh 2",
+      "root_family": "√kaṅkh",
+      "root_meaning": "doubt",
+      "headwords": [
+        "akaṅkha 1.1",
+        "akaṅkhī"
+      ],
+      "html": "<p class='heading underlined'><b>2</b> words belong to the root family <b>√kaṅkh</b> (doubt)</p><table class='family'><tr><th>akaṅkha ¹·¹</th><td><b>adj</b></td><td>free from doubt; rid of uncertainty</td><td><span class=\"gray\">✔</span></td></tr><tr><th>akaṅkhī</th><td><b>adj</b></td><td>having no doubt; not uncertain</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "count": 2,
+      "data": [
+        [
+          "akaṅkha 1.1",
+          "adj",
+          "free from doubt; rid of uncertainty",
+          "✔"
+        ],
+        [
+          "akaṅkhī",
+          "adj",
+          "having no doubt; not uncertain",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "<b>√kaṅkh</b> 1 (doubt)",
+          "akaṅkha 1.1",
+          "adj",
+          "free from doubt; rid of uncertainty",
+          "na + √kaṅkh + a"
+        ],
+        [
+          "<b>√kaṅkh</b> 1 (doubt)",
+          "akaṅkhī",
+          "adj",
+          "having no doubt; not uncertain",
+          "na + √kaṅkh + ā + ī"
+        ]
+      ]
+    },
+    "√kaṅkh 1 √kaṅkh": {
+      "root_key": "√kaṅkh 1",
+      "root_family": "√kaṅkh",
+      "root_meaning": "wish for",
+      "headwords": [
+        "akaṅkha 2.1",
+        "akaṃkha"
+      ],
+      "html": "<p class='heading underlined'><b>2</b> words belong to the root family <b>√kaṅkh</b> (wish for)</p><table class='family'><tr><th>akaṅkha ²·¹</th><td><b>adj</b></td><td>free from desire</td><td><span class=\"gray\">✔</span></td></tr><tr><th>akaṃkha</th><td><b>adj</b></td><td>free from desire</td><td><span class=\"gray\">✘</span></td></tr></table>",
+      "count": 2,
+      "data": [
+        [
+          "akaṅkha 2.1",
+          "adj",
+          "free from desire",
+          "✔"
+        ],
+        [
+          "akaṃkha",
+          "adj",
+          "free from desire",
+          "✘"
+        ]
+      ],
+      "anki": [
+        [
+          "<b>√kaṅkh</b> 1 (wish for)",
+          "akaṅkha 2.1",
+          "adj",
+          "free from desire",
+          "na + √kaṅkh + a"
+        ],
+        [
+          "<b>√kaṅkh</b> 1 (wish for)",
+          "akaṃkha",
+          "adj",
+          "free from desire",
+          "-na + kaṃkha"
+        ]
+      ]
+    },
+    "√kath √kath": {
+      "root_key": "√kath",
+      "root_family": "√kath",
+      "root_meaning": "speak, narrate",
+      "headwords": [
+        "akaccha",
+        "akathanā",
+        "akathita 1",
+        "akathita 2",
+        "akathitatta",
+        "akathetuṃ",
+        "akathetvā",
+        "akathenta 1",
+        "akathenta 2"
+      ],
+      "html": "<p class='heading underlined'><b>9</b> words belong to the root family <b>√kath</b> (speak, narrate)</p><table class='family'><tr><th>akaccha</th><td><b>ptp</b></td><td>unfit to be talked to; should not be spoken to; lit. not to be talked to</td><td><span class=\"gray\">✔</span></td></tr><tr><th>akathanā</th><td><b>fem</b></td><td>not preaching</td><td><span class=\"gray\">✘</span></td></tr><tr><th>akathita ¹</th><td><b>pp</b></td><td>not said; not spoken; not mentioned</td><td><span class=\"gray\">◑</span></td></tr><tr><th>akathita ²</th><td><b>nt</b></td><td>what is undeclared</td><td><span class=\"gray\">✘</span></td></tr><tr><th>akathitatta</th><td><b>nt</b></td><td>fact of not being said; fact of not being mentioned; lit. not said state</td><td><span class=\"gray\">◑</span></td></tr><tr><th>akathetuṃ</th><td><b>inf</b></td><td>to not speak; to not tell; to not talk</td><td><span class=\"gray\">✘</span></td></tr><tr><th>akathetvā</th><td><b>abs</b></td><td>having not said; having not spoken</td><td><span class=\"gray\">✘</span></td></tr><tr><th>akathenta ¹</th><td><b>prp</b></td><td>not speaking; not telling; not talking</td><td><span class=\"gray\">✘</span></td></tr><tr><th>akathenta ²</th><td><b>prp</b></td><td>(of a question) not answering</td><td><span class=\"gray\">✘</span></td></tr></table>",
+      "count": 9,
+      "data": [
+        [
+          "akaccha",
+          "ptp",
+          "unfit to be talked to; should not be spoken to; lit. not to be talked to",
+          "✔"
+        ],
+        [
+          "akathanā",
+          "fem",
+          "not preaching",
+          "✘"
+        ],
+        [
+          "akathita 1",
+          "pp",
+          "not said; not spoken; not mentioned",
+          "◑"
+        ],
+        [
+          "akathita 2",
+          "nt",
+          "what is undeclared",
+          "✘"
+        ],
+        [
+          "akathitatta",
+          "nt",
+          "fact of not being said; fact of not being mentioned; lit. not said state",
+          "◑"
+        ],
+        [
+          "akathetuṃ",
+          "inf",
+          "to not speak; to not tell; to not talk",
+          "✘"
+        ],
+        [
+          "akathetvā",
+          "abs",
+          "having not said; having not spoken",
+          "✘"
+        ],
+        [
+          "akathenta 1",
+          "prp",
+          "not speaking; not telling; not talking",
+          "✘"
+        ],
+        [
+          "akathenta 2",
+          "prp",
+          "(of a question) not answering",
+          "✘"
+        ]
+      ],
+      "anki": [
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akaccha",
+          "ptp",
+          "unfit to be talked to; should not be spoken to; lit. not to be talked to",
+          "na + √kath + ya"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathanā",
+          "fem",
+          "not preaching",
+          "-na + kathanā"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathita 1",
+          "pp",
+          "not said; not spoken; not mentioned",
+          "na + √kath + ita"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathita 2",
+          "nt",
+          "what is undeclared",
+          "-na + kathita"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathitatta",
+          "nt",
+          "fact of not being said; fact of not being mentioned; lit. not said state",
+          "na + √kath + ita + tta"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathetuṃ",
+          "inf",
+          "to not speak; to not tell; to not talk",
+          "-na + kathe + tuṃ"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathetvā",
+          "abs",
+          "having not said; having not spoken",
+          "-na + kathe + tvā"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathenta 1",
+          "prp",
+          "not speaking; not telling; not talking",
+          "-na + kathe + nta"
+        ],
+        [
+          "<b>√kath</b> 8 (speak, narrate)",
+          "akathenta 2",
+          "prp",
+          "(of a question) not answering",
+          "-na + kathe + nta"
+        ]
+      ]
+    }
+  },
+  "make_root_header": {
+    "√kaṅkh 2 √kaṅkh": "<p class='heading underlined'><b>2</b> words belong to the root family <b>√kaṅkh</b> (doubt)</p>",
+    "√kaṅkh 1 √kaṅkh": "<p class='heading underlined'><b>2</b> words belong to the root family <b>√kaṅkh</b> (wish for)</p>",
+    "√kath √kath": "<p class='heading underlined'><b>9</b> words belong to the root family <b>√kath</b> (speak, narrate)</p>"
+  },
+  "make_anki_data": [
+    [
+      "<b>√kaṅkh</b> 1 (doubt)",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akaṅkha 1.1</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>free from doubt; rid of uncertainty</td><td><div style='color: #FF6600'>na + √kaṅkh + a</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akaṅkhī</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>having no doubt; not uncertain</td><td><div style='color: #FF6600'>na + √kaṅkh + ā + ī</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>√kaṅkh</b> 1 (wish for)",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akaṅkha 2.1</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>free from desire</td><td><div style='color: #FF6600'>na + √kaṅkh + a</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akaṃkha</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>free from desire</td><td><div style='color: #421B01'>na + kaṃkha</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>√kath</b> 8 (speak, narrate)",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akaccha</td><td><div style='color: #FF6600'>ptp</div></td><td><div style='color: #FFB380'>unfit to be talked to; should not be spoken to; lit. not to be talked to</td><td><div style='color: #FF6600'>na + √kath + ya</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathanā</td><td><div style='color: #FF6600'>fem</div></td><td><div style='color: #FFB380'>not preaching</td><td><div style='color: #421B01'>na + kathanā</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathita 1</td><td><div style='color: #FF6600'>pp</div></td><td><div style='color: #FFB380'>not said; not spoken; not mentioned</td><td><div style='color: #FF6600'>na + √kath + ita</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathita 2</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>what is undeclared</td><td><div style='color: #421B01'>na + kathita</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathitatta</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>fact of not being said; fact of not being mentioned; lit. not said state</td><td><div style='color: #FF6600'>na + √kath + ita + tta</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathetuṃ</td><td><div style='color: #FF6600'>inf</div></td><td><div style='color: #FFB380'>to not speak; to not tell; to not talk</td><td><div style='color: #421B01'>na + kathe + tuṃ</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathetvā</td><td><div style='color: #FF6600'>abs</div></td><td><div style='color: #FFB380'>having not said; having not spoken</td><td><div style='color: #421B01'>na + kathe + tvā</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathenta 1</td><td><div style='color: #FF6600'>prp</div></td><td><div style='color: #FFB380'>not speaking; not telling; not talking</td><td><div style='color: #421B01'>na + kathe + nta</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>akathenta 2</td><td><div style='color: #FF6600'>prp</div></td><td><div style='color: #FFB380'>(of a question) not answering</td><td><div style='color: #421B01'>na + kathe + nta</div></td></tr></tbody></table>"
+    ]
+  ]
+}
