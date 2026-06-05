@@ -8,8 +8,6 @@
 import csv
 import re
 
-from rich import print
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -17,12 +15,11 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 # the root == the word
-exceptions = [
+exceptions = {
     "abhibhū",
     "abhijñāadhiprajñā",
     "ājñā",
     "anupādā",
-    "hrī",
     "hrī",
     "kṣudh",
     "medhā",
@@ -34,7 +31,6 @@ exceptions = [
     "pratimā",
     "pratipad",
     "puṣpa",
-    "puṣpa",
     "samavasthā",
     "saṃjñā",
     "saṃsthā",
@@ -42,18 +38,17 @@ exceptions = [
     "upamā",
     "vidhā",
     "vidyut",
-    "upamā",
     "nidrā",
-]
+}
 
 
 class RootFamily:
     """Create a Root Family from db data."""
 
-    def __init__(self, i, tsv_dict):
+    def __init__(self, i: DpdHeadword, tsv_dict: dict[str, str]) -> None:
         self.root_key = i.root_key
         if i.rt is None:
-            pr.red("!!! ERROR: `i.rt` is None for lemma_1: `{i.lemma_1}`")
+            pr.red(f"!!! ERROR: `i.rt` is None for lemma_1: `{i.lemma_1}`")
             self.root_group = ""
             self.root_sign = ""
             self.root_meaning = ""
@@ -69,25 +64,25 @@ class RootFamily:
             self.sanskrit_root_meaning = i.rt.sanskrit_root_meaning
         self.pali_root_family = i.family_root
         self.sanskrit_root_family = tsv_dict.get(i.root_family_key, "")
-        self.sanskrit_dump = set([i.sanskrit_clean])
+        self.sanskrit_dump = {i.sanskrit_clean}
 
 
-def import_tsv_to_dict(pth):
+def import_tsv_to_dict(pth: ProjectPaths) -> dict[str, str]:
     """Read tvs to dict."""
     tsv_dict = {}
-    with open(pth.root_families_sanskrit_path, newline="") as csvfile:
+    with pth.root_families_sanskrit_path.open(newline="") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             try:
                 key = f"{row['root_key']} {row['pali_root_family']}"
                 tsv_dict[key] = row["sanskrit_root_family"]
             except KeyError:
-                print(f"[red]!!! ERROR: {row}")
+                pr.red(f"!!! ERROR: {row}")
     return tsv_dict
 
 
-def write_to_tsv(pth, root_dict) -> None:
-    with open(pth.root_families_sanskrit_path, "w", newline="") as csvfile:
+def write_to_tsv(pth: ProjectPaths, root_dict: dict[str, "RootFamily"]) -> None:
+    with pth.root_families_sanskrit_path.open("w", newline="") as csvfile:
         fieldnames = [
             "root_key",
             "root_group",
@@ -122,19 +117,26 @@ def write_to_tsv(pth, root_dict) -> None:
             )
 
 
-def printer(counter, i, printer_on):
+def printer(counter: int, i: DpdHeadword, printer_on: bool) -> None:
     if printer_on:
-        sanksrit_print = i.sanskrit.replace("[", r"\[")
-        print(f"{counter:<10}{i.lemma_1:<20}{i.family_root:<20}{sanksrit_print}")
+        sanskrit_print = i.sanskrit.replace("[", r"\[")
+        pr.white(f"{counter:<10}{i.lemma_1:<20}{i.family_root:<20}{sanskrit_print}")
 
 
-def main():
+def remove_sanskrit_root_family(sanskrit: str, sanskrit_root_family: str) -> str:
+    """Strip an existing sanskrit root family token from the sanskrit string."""
+    escaped = sanskrit_root_family.replace("+", "\\+")
+    search_pattern = rf"(^|, |\b){escaped}($|, )"
+    return re.sub(search_pattern, "", sanskrit)
+
+
+def main() -> None:
     pr.tic()
-    print("[bright_yellow]update sanskrit root families")
+    pr.yellow_title("update sanskrit root families")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
-    db = sorted(db, key=lambda x: (pali_sort_key(x.root_family_key)))
+    db = sorted(db, key=lambda x: pali_sort_key(x.root_family_key))
 
     tsv_dict = import_tsv_to_dict(pth)
     root_dict = {}
@@ -149,7 +151,7 @@ def main():
 
                 # print out new root families
                 if i.root_family_key not in tsv_dict:
-                    print(i.root_family_key)
+                    pr.green(i.root_family_key)
 
             else:
                 if i.sanskrit_clean:
@@ -168,13 +170,9 @@ def main():
 
                     # remove existing sanskrit root family
                     if sanskrit_root_family and sanskrit_root_family not in exceptions:
-                        escaped_sanskrit_root_family = sanskrit_root_family.replace(
-                            "+", "\\+"
+                        i.sanskrit = remove_sanskrit_root_family(
+                            i.sanskrit, sanskrit_root_family
                         )
-                        search_pattern = (
-                            rf"(^|, ||\b){escaped_sanskrit_root_family}($|, )"
-                        )
-                        i.sanskrit = re.sub(search_pattern, "", i.sanskrit)
                         printer(counter, i, printer_on)
 
                     # add new value
