@@ -1,0 +1,31 @@
+{
+  "test_root_has_verb": {
+    "verb_headword": {
+      "lemma_1": "akaccha",
+      "pos": "ptp",
+      "grammar": "ptp of na katheti",
+      "verb": "",
+      "expected": true
+    },
+    "non_verb_headword": {
+      "lemma_1": "akaṅkha 1.1",
+      "pos": "adj",
+      "grammar": "adj, from na kaṅkhati",
+      "verb": "",
+      "expected": false
+    },
+    "deno_grammar_headword": {
+      "lemma_1": "kaṇḍuvati",
+      "pos": "pr",
+      "grammar": "pr, deno of kaṇḍu",
+      "verb": "",
+      "expected": false
+    }
+  },
+  "make_root_has_verb_dict": {
+    "√akkh": "×",
+    "√aggh": "･",
+    "√acc 1": "･"
+  },
+  "full_dict_size": 753
+}

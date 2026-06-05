@@ -9,7 +9,7 @@ from tools.printer import printer as pr
 
 
 class RootHasVerbUpdater:
-    def __init__(self):
+    def __init__(self) -> None:
         pr.tic()
         pr.yellow_title("testing which roots have verbs")
 
@@ -34,7 +34,7 @@ class RootHasVerbUpdater:
 
         pr.toc()
 
-    def prepare_database(self):
+    def prepare_database(self) -> None:
         pr.green_tmr("preparing data")
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
@@ -47,54 +47,46 @@ class RootHasVerbUpdater:
         self.roots_db: list[DpdRoot] = self.db_session.query(DpdRoot).all()
         pr.yes(len(self.dpd_db))
 
-    def test_root_has_verb(self) -> bool:
-        if (
-            self.i.pos in self.verbs
-            and "deno" not in self.i.grammar
-            and "deno" not in self.i.verb
-        ):
-            return True
-        else:
-            return False
+    def test_root_has_verb(self, hw: DpdHeadword) -> bool:
+        return (
+            hw.pos in self.verbs and "deno" not in hw.grammar and "deno" not in hw.verb
+        )
 
     def make_root_has_verb_dict(self) -> None:
         pr.green_tmr("testing roots have verbs")
         self.root_has_verb_dict: dict[str, str] = {}
         current_root = ""
-        has_verb: bool
-        for self.i in self.dpd_db:
-            if self.i.root_key != current_root:
-                current_root = self.i.root_key
+        has_verb: bool = False
+        for i in self.dpd_db:
+            if i.root_key != current_root:
+                current_root = i.root_key
                 has_verb = False
-                self.root_has_verb_dict[self.i.root_key] = self.verb_no
+                self.root_has_verb_dict[i.root_key] = self.verb_no
 
             if has_verb is False:
-                test_result = self.test_root_has_verb()
-                if test_result:
+                if self.test_root_has_verb(i):
                     has_verb = True
-                    self.root_has_verb_dict[self.i.root_key] = self.verb_yes
+                    self.root_has_verb_dict[i.root_key] = self.verb_yes
 
         pr.yes(len(self.root_has_verb_dict))
 
     def update_root_has_verb(self) -> None:
-        self.updated = 0
+        self.updated: int = 0
         for i in self.roots_db:
             root_has_verb_nu = self.root_has_verb_dict.get(i.root, self.verb_no)
-            if root_has_verb_nu == i.root_has_verb:
-                pass
-            else:
+            if root_has_verb_nu != i.root_has_verb:
                 pr.red(f"{i.root} {root_has_verb_nu}")
                 i.root_has_verb = root_has_verb_nu
                 self.updated += 1
 
-    def update_db(self):
+    def update_db(self) -> None:
         pr.green_tmr("updating db")
         if self.updated:
             self.db_session.commit()
         pr.yes(self.updated)
 
 
-def main():
+def main() -> None:
     RootHasVerbUpdater()
 
 
