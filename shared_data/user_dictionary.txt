@@ -251,7 +251,9 @@ Atharva-veda
 ati
 ATI
 atipāteti
+Atittisutta
 atta
+attaches
 attainments
 atthi
 Atthirāgasutta
@@ -260,6 +262,7 @@ augmenter
 auricle
 austerities
 autonomously
+Avakujjasutta
 Avanti
 Avantins
 aversively
@@ -362,6 +365,7 @@ Bhaggava
 Bhaggu
 Bharata
 Bharatas
+Bharaṇḍu
 Bhañña
 bhaṅga
 bheke
@@ -815,6 +819,7 @@ doṇi
 DPD
 DPR
 Dravidian
+dreadlock
 dreadlocked
 dronas
 druh
@@ -829,6 +834,7 @@ Dutiyaejāsutta
 Dutiyajhānapañhāsutta
 Dutiyakaṇḍakīsutta
 Dutiyanatumhākasutta
+Dutiyasikkhāsutta
 Dutiyasūriyasutta
 duvaṅgika
 dvanda
@@ -951,6 +957,7 @@ ferruginea
 fetcher
 fettering
 fibre
+fibres
 fickleness
 fidgetiness
 fineness
@@ -1013,6 +1020,7 @@ Gandhabbakāyasaṃyuttaṃ
 Gandhara
 Gandharan
 Gandhāra
+Gandhārians
 Gandāra
 gangeticus
 gapless
@@ -1058,6 +1066,7 @@ goatherd's
 Godatta
 Godavar
 Godavari
+Godhika
 Godhā
 Godhāvarī
 Godāvarī
@@ -1078,6 +1087,7 @@ Gotama's
 Gotama's
 Gotama's
 Gotama's
+Gotamaka
 Gotamaka's
 Gotamī
 govela
@@ -1322,6 +1332,7 @@ Jātaka
 Jātakas
 Jātiyā's
 Jāṇussoṇi
+Jāṇussoṇisutta
 Jīva
 Jīvaka
 Jīvaka's
@@ -1339,6 +1350,7 @@ Kajaṅgalā
 Kakusandha
 Kalanda's
 Kaliṅgas
+Kaliṇga
 Kamboja
 Kambojans
 kamma
@@ -1360,6 +1372,7 @@ kar
 kareṇu
 karira
 karuṇā
+karṣa
 karṣa-weight
 kasina
 kasiṇa
@@ -1383,9 +1396,11 @@ Kaṭhina
 kaṭṭ
 Kaṭṭhahārasuttaṃ
 Kd
+Kekaka
 Kelāsa
 Kesakambala
 Kesamutta
+Kesamutti
 kesā
 kettledrum
 Ketumatī
@@ -1472,6 +1487,7 @@ kusa-grass
 Kusa-grass
 kusala
 Kusinara
+kusināra
 Kusinārā
 Kusāvatī
 Kuvera
@@ -1706,6 +1722,8 @@ Millettia
 Mimusops
 mindfully
 mis-meditates
+miscomprehension
+miscomprehension
 miserliness
 Mithil
 Mithila
@@ -1873,6 +1891,7 @@ neighbouring
 nellie
 Nelumbo
 Nerañjara
+Nerium
 Neru
 nescience
 nestless
@@ -2052,6 +2071,7 @@ Pañcasikha's
 Pañcasālā
 Pañcattayasutta
 Pañcaverasutta
+Pañcāla
 Pañcālas
 Pañcālī's
 Pañcālī's
@@ -2067,6 +2087,7 @@ Paṭhamadevacārikasutta
 Paṭhamaejāsutta
 Paṭhamajhānapañhāsutta
 Paṭhamakaṇḍakīsutta
+Paṭhamasikkhāsutta
 Paṭhamasūriyasutta
 Paṭhamasūriyasutta
 paṭibhastāni
@@ -2190,6 +2211,7 @@ Prutitus
 Pterospermum
 PTS
 ptsd
+Pubbavideha
 pucchā
 Puggalapaññatti
 Pukkusa
@@ -2270,6 +2292,7 @@ reciter
 reckonable
 reckoner
 recollects
+recompensate
 recompensated
 recompensation
 redescription
@@ -2416,9 +2439,12 @@ sandhi
 Sandhi
 sannayhi
 Sanseveria
+Sansevieria
 Sappan
+Sappinikā
 Sappurisasuttaṃ
 sapwood
+Sarabha
 Sarabhū
 Saraca
 saravanaṃ
@@ -2454,6 +2480,7 @@ Saṃyutta
 saṅgha
 saṅghādisesa
 Saṅgārava
+Saṅkavā
 Saṅkha
 scandens
 scatteredness
@@ -2717,6 +2744,7 @@ Sārnath
 sārūpamo
 Sāvatthi
 Sāvatthī
+Sāḷha
 Sāṃkhya
 sīghasotāya
 Sīha
@@ -2748,6 +2776,8 @@ tastable
 Tathāgata
 Tatiyadevacārikasutta
 Tatiyakaṇḍakīsutta
+Tatiyasikkhāsutta
+Tatiyasikkhāsutta
 Tavatimsa
 Taxila
 Tayana
@@ -2787,6 +2817,7 @@ Thuna
 Thundercloud
 thunderclouds
 thurifera
+thwarter
 Thūlakoṭṭhika
 Thūṇa
 Thūṇa
@@ -2794,6 +2825,7 @@ ti
 tigerinus
 tight-fistedness
 Tikanipāta
+Tikaṇṇa
 timbaru
 tinctoria
 tinctorius
@@ -2861,6 +2893,7 @@ Ubbhataka
 uccāvaca
 UD
 Udaka
+Udaya
 Udaya's
 Uddaka
 Uddhumātakasutta
@@ -3041,6 +3074,7 @@ unsatisfactoriness
 unsatisfiable
 unscattered
 unscorched
+unseparated
 unsews
 unshakability
 unshaking
@@ -3111,6 +3145,7 @@ uttamappamukhatāya
 Uttara
 Uttara
 Uttarakuru
+Uttarāpa
 Uttiya
 Uvaria
 Uyana
@@ -3134,6 +3169,7 @@ Vajjans
 Vajji
 Vajjian
 Vajjians
+Vajjiputtasutta
 Vajjī
 Vajjīs
 Vallisnaria
@@ -3184,6 +3220,8 @@ venerables
 venerable’s
 venerates
 venerating
+Venāgapura
+Venāgapurasutta
 Vepacitti
 Vepulla
 Verahaccāni
@@ -3222,6 +3260,7 @@ Vinatā
 vinaya
 vinayadhara
 vinyapiṭaka
+vipassanā
 Vipassī
 Vipassī
 virens
@@ -3390,41 +3429,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Avakujjasutta
-Udaya
-thwarter
-Tikaṇṇa
-Jāṇussoṇisutta
-Venāgapura
-Sarabha
-Sappinikā
-Kesamutti
-Sāḷha
-Venāgapurasutta
-Gandhārians
-Pubbavideha
-Pañcāla
-Kaliṇga
-Kekaka
-Uttarāpa
-vipassanā
-recompensate
-dreadlock
-Sansevieria
-fibres
-attaches
-miscomprehension
-miscomprehension
-unseparated
-karṣa
-Godhika
-Nerium
-Saṅkavā
-Paṭhamasikkhāsutta
-Dutiyasikkhāsutta
-Tatiyasikkhāsutta
-Tatiyasikkhāsutta
-Vajjiputtasutta
-kusināra
-Gotamaka
-Bharaṇḍu
