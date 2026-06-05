@@ -129,7 +129,8 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 - Run with durations: `uv run pytest tests/ --durations=10`
 
 ### Pre-commit gate
-- After finishing edits to any file, ALWAYS run `uv run ruff check <file>` and `uv run pytest <related test paths>` before reporting the work as done.
+- After finishing edits to any file, ALWAYS run the same three tools the `.pre-commit-config.yaml` hook runs, in this order, plus pytest, before reporting the work as done: `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`, `uv run pytest <related test paths>`.
+- Do NOT skip `ruff format` — a file can pass `ruff check` and still be rewritten by the formatter, which bounces the commit.
 - The repo's pre-commit hook will reject the commit otherwise — fixing it after the fact wastes a round-trip.
 - If a related test file is broken from before your changes, note it but do not silently ignore — it may mask a regression you've just introduced.
 
