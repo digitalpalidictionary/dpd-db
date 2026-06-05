@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import tomlkit
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -31,18 +30,6 @@ def make_version():
     printer("version light", version_light)
 
     return version, version_light
-
-
-def update_project_version(pth, version_light_light):
-    with open(pth.pyproject_path) as file:
-        doc = file.read()
-        t = tomlkit.parse(doc)
-        t["project"]["version"] = version_light_light  # type: ignore
-
-    with open(pth.pyproject_path, "w") as file:
-        file.write(t.as_string())
-
-    printer("pyproject.toml", "ok")
 
 
 def update_db_version(pth, version):
@@ -100,7 +87,6 @@ def main():
     config_update("version", "version", version, silent=True)
     printer("config.ini", "ok")
 
-    # update_project_version(pth, version_light)
     update_db_version(pth, version)
 
     pr.toc()
