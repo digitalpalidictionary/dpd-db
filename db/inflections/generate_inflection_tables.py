@@ -6,7 +6,6 @@
 import json
 import pickle
 import re
-from typing import Optional
 
 from sqlalchemy.orm.session import Session
 
@@ -40,12 +39,12 @@ class InflectionsManager:
             .filter(DpdHeadword.pattern != "")
             .all()
         )
-        self.changed_templates_db: Optional[DbInfo] = (
+        self.changed_templates_db: DbInfo | None = (
             self.db_session.query(DbInfo)
             .filter_by(key="changed_templates_list")
             .first()
         )
-        self.changed_templates: list = []
+        self.changed_templates: list[str] = []
         if self.changed_templates_db:
             self.changed_templates = self.changed_templates_db.value_unpack
 
@@ -105,14 +104,14 @@ class InflectionsManager:
                 "stem": i.stem,
                 "pattern": i.pattern,
             }
-        with open(self.pth.headword_stem_pattern_dict_path, "wb") as f:
+        with self.pth.headword_stem_pattern_dict_path.open("wb") as f:
             pickle.dump(headword_stem_pattern_dict, f)
 
     def test_changes_in_stem_pattern(self) -> None:
         """Test for changes in stem and pattern since last run."""
         pr.green_title("testing for changes in stem and pattern")
         try:
-            with open(self.pth.headword_stem_pattern_dict_path, "rb") as f:
+            with self.pth.headword_stem_pattern_dict_path.open("rb") as f:
                 old_dict: dict = pickle.load(f)
         except FileNotFoundError:
             old_dict = {}
@@ -173,13 +172,9 @@ class InflectionsManager:
         html += "<table class='inflection'>"
         stem = re.sub(r"\!|\*", "", i.stem)
 
-        for row in enumerate(table_data):
-            row_number: int = row[0]
-            row_data: list[list] = row[1]
+        for row_number, row_data in enumerate(table_data):
             html += "<tr>"
-            for column in enumerate(row_data):
-                column_number: int = column[0]
-                cell_data: list = column[1]
+            for column_number, cell_data in enumerate(row_data):
                 if row_number == 0:
                     if column_number == 0:
                         html += "<th></th>"
@@ -189,7 +184,7 @@ class InflectionsManager:
                     if column_number == 0:
                         html += f"<th>{cell_data[0]}</th>"
                     elif column_number % 2 == 1 and column_number > 0:
-                        title: str = [row_data[column_number + 1]][0][0]
+                        title: str = row_data[column_number + 1][0]
 
                         for inflection in cell_data:
                             if not inflection:
@@ -286,7 +281,7 @@ class InflectionsManager:
 
         pr.green_tmr("saving changed headwords list")
         try:
-            with open(self.pth.changed_headwords_path, "wb") as f:
+            with self.pth.changed_headwords_path.open("wb") as f:
                 pickle.dump(self.changed_headwords, f)
             pr.yes(len(self.changed_headwords))
         except Exception as e:
@@ -298,7 +293,7 @@ class InflectionsManager:
         pr.toc()
 
 
-def main():
+def main() -> None:
     """Initialize and run the inflection generation process."""
     manager = InflectionsManager()
     manager.run()
