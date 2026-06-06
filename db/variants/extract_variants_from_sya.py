@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 """Extract variants readings from Syāmaraṭṭḥa (Thai) texts."""
 
 import re
+from dataclasses import dataclass
 from pathlib import Path
 
 from icecream import ic
@@ -13,28 +13,57 @@ from tools.printer import printer as pr
 
 debug = False
 
-global errors
-errors: int = 0
-global successes
-successes: int = 0
+_PAGE_SPLIT_RE = re.compile(r"(?=\[page \d+\])")
+_PAGE_NUM_RE = re.compile(r"\[page (\d+)\]")
+_PAGE_VAR_RE = re.compile(
+    r"""
+    (
+        (?:[^ ]+\s+)?   # optional first word followed by space
+        [^ ]+           # one or more characters without space (capture group 1)
+    )
+    \s                  # a space
+    \[*                 # 0+ opening square brackets
+    (\d+)               # 1+ digits (capture group 2)
+    \]*                 # 0+ closing square brackets
+    -                   # dash
+    """,
+    re.VERBOSE,
+)
+_FOOTNOTE_SECTION_RE = re.compile(r"Footnote:(.*?)(?=\n-{2,}|$)", re.DOTALL)
+_FOOTNOTE_SPLIT_RE = re.compile(r"(?<=\.)* +(?=\d)")
+_TRIPLE_RANGE_RE = re.compile(r"\d+-\d+-\d+")
+_TRIPLE_RANGE_CAPTURE_RE = re.compile(r"(\d+)-\d+-(\d+)")
+_DOUBLE_RANGE_RE = re.compile(r"\d+-\d+")
+_DOUBLE_RANGE_CAPTURE_RE = re.compile(r"(\d+)-(\d+)")
+_NORMAL_FOOTNOTE_RE = re.compile(r"^(\d+)\s(.+)")
+_DASHES_RE = re.compile(r"-{3,}")
+
+
+@dataclass
+class _SyaStats:
+    successes: int = 0
+    errors: int = 0
 
 
 def process_sya(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
     pr.green_title("extracting variants from SYA texts")
 
     file_list: list[Path] = get_sya_file_list(pth)
+    stats = _SyaStats()
 
     for counter, file_name in enumerate(file_list):
         if counter % 20 == 0:
             pr.counter(counter, len(file_list), file_name.name)
 
-        book = sya_files_to_books[file_name.name]
+        book = sya_files_to_books.get(file_name.name)
+        if book is None:
+            continue
         text = get_sya_text(file_name)
-        variants_dict = extract_sya_variants(book, text, variants_dict)
+        variants_dict = extract_sya_variants(book, text, variants_dict, stats)
 
-    error_rate = (errors / successes) * 100
-    pr.red(f"extracted:  {successes - errors} / {successes}")
-    pr.red(f"error rate: {error_rate:.2}%")
+    error_rate = (stats.errors / stats.successes * 100) if stats.successes else 0.0
+    pr.red(f"extracted:  {stats.successes - stats.errors} / {stats.successes}")
+    pr.red(f"error rate: {error_rate:.2f}%")
 
     return variants_dict
 
@@ -53,7 +82,7 @@ def get_sya_file_list(pth: ProjectPaths) -> list[Path]:
 
 
 def get_sya_text(file_name: Path) -> str:
-    with open(file_name, "r", encoding="UTF-8") as f:
+    with file_name.open("r", encoding="utf-8") as f:
         text = f.read()
 
         # remove new lines
@@ -70,73 +99,60 @@ def get_sya_text(file_name: Path) -> str:
         return text
 
 
-def get_page_number(i: int, page: str) -> int:
+def get_page_number(page: str) -> int:
     """Find the page number."""
 
-    match = re.search(r"\[page (\d+)\]", page)
-    if match:
-        return int(match.group(1))
+    page_match = _PAGE_NUM_RE.search(page)
+    if page_match:
+        return int(page_match.group(1))
     else:
         return 0
 
 
 def extract_sya_variants(
-    book: str, text: str, variants_dict: VariantsDict
+    book: str, text: str, variants_dict: VariantsDict, stats: _SyaStats
 ) -> VariantsDict:
-    """ "Extract variants from a SYA text file."""
+    """Extract variants from a SYA text file."""
 
-    # split on [page xyz]
-    pages = re.split(r"(?=\[page \d+\])", text)
+    pages = _PAGE_SPLIT_RE.split(text)
 
     for i, page in enumerate(pages):
-        page_num: int = get_page_number(i, page)
+        page_num: int = get_page_number(page)
         page_vars = get_variants_in_page(page)
         footnote_vars = get_variants_in_footnotes(page)
 
         if len(footnote_vars) != len(page_vars):
-            global errors
-            errors += 1
+            stats.errors += 1
             if debug:
                 ic(book)
                 ic(page_num)
                 ic(page_vars)
                 ic(footnote_vars)
                 ic(len(footnote_vars) == len(page_vars))
-                print()
+                pr.white("")
 
         for var_num, context in page_vars.items():
             word = context.split(" ")[-1]
             word_clean = key_cleaner(word)
+            if not word_clean:
+                continue
             context_clean = context_cleaner(context)
 
-            try:
-                variant = footnote_vars[var_num].strip()
-            except KeyError:
+            variant_raw = footnote_vars.get(var_num)
+            if variant_raw is None:
                 if debug:
                     ic("missing footnote")
                     ic(book)
                     ic(word_clean)
                     ic(var_num)
-                    print()
+                    pr.white("")
                 continue
+            variant = variant_raw.strip()
 
-            # ensure outer dictionary entry exists
-            if word_clean not in variants_dict:
-                variants_dict[word_clean] = {}
-
-            # ensure SYA entry exists
-            if "SYA" not in variants_dict[word_clean]:
-                variants_dict[word_clean]["SYA"] = {}
-
-            # ensure inner dictionary entry exists
-            if book not in variants_dict[word_clean]["SYA"]:
-                variants_dict[word_clean]["SYA"][book] = []
-
-            variants_dict[word_clean]["SYA"][book].append(
-                (context_clean, variant.lower())
-            )
-            global successes
-            successes += 1
+            variants_dict.setdefault(word_clean, {}).setdefault("SYA", {}).setdefault(
+                book, []
+            ).append((context_clean, variant.lower()))
+            stats.successes += 1
 
     return variants_dict
 
@@ -144,22 +160,8 @@ def extract_sya_variants(
 def get_variants_in_page(text: str) -> dict[str, str]:
     """Find variants in the page"""
 
-    # up to two words followed by space digit dash
-    # buddhā 1- bhagavanto ahesuṁ sāvake 2- cetasā
-
     page_vars: dict[str, str] = {}
-    pattern = r"""
-        (
-            (?:[^ ]+\s+)?   # optional first word followed by space
-            [^ ]+           # one or more characters without space (capture group 1)
-        )                   
-        \s                  # a space
-        \[*                 # 0+ opening square brackets 
-        (\d+)               # 1+ digits (capture group 2)
-        \]*            # 0+ closing square brackets 
-        -              # dash
-        """
-    matches = re.findall(pattern, text, re.VERBOSE)
+    matches = _PAGE_VAR_RE.findall(text)
     for context, number in matches:
         page_vars[number] = context
     return page_vars
@@ -167,7 +169,7 @@ def get_variants_in_page(text: str) -> dict[str, str]:
 
 def clean_variant(text: str) -> str:
     """remove -------"""
-    return re.sub("-{3,}", "", text).strip()
+    return _DASHES_RE.sub("", text).strip()
 
 
 def get_variants_in_footnotes(page: str) -> dict[str, str]:
@@ -178,52 +180,47 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
     footnote_vars: dict[str, str] = {}
 
     # isolate the footnote section
-    pattern = r"Footnote:(.*?)(?=\n-{2,}|$)"
-    match = re.search(pattern, page, flags=re.DOTALL)
-    if match:
-        footnote_str = match.group(1).strip()
+    section_match = _FOOTNOTE_SECTION_RE.search(page)
+    if section_match:
+        footnote_str = section_match.group(1).strip()
 
         # split on 0+ dot behind / 1 or more spaces / number ahead
-        footnotes = re.split(r"(?<=\.)* +(?=\d)", footnote_str)
+        footnotes = _FOOTNOTE_SPLIT_RE.split(footnote_str)
         for footnote in footnotes:
             # footnote contains a triple range e.g.
             # 3-4-5 yamidha sañjotibhūtā sañjotibhūto sañjotibhūtanti likhiyati
-            if re.findall(r"\d+-\d+-\d+", footnote):
-                pattern = r"(\d+)-\d+-(\d+)"
-                match = re.findall(pattern, footnote)
-                if match:
-                    start, end = match[0]
+            if _TRIPLE_RANGE_RE.search(footnote):
+                triple_match = _TRIPLE_RANGE_CAPTURE_RE.search(footnote)
+                if triple_match:
+                    start, end = triple_match.group(1), triple_match.group(2)
                     if start and end:
-                        variant = re.sub(r"(\d+)-(\d+)", "", footnote)
+                        variant = _TRIPLE_RANGE_CAPTURE_RE.sub("", footnote)
                         variant = clean_variant(variant)
                         for i in range(int(start), int(end) + 1):
                             footnote_vars[str(i)] = variant
                             if debug:
                                 ic(str(i), variant)
-                                print()
+                                pr.white("")
 
             # footnote contains a number range e.g.
             # 1-3 Yu. Ma. arahattaṁ.
-            if re.findall(r"\d+-\d+", footnote):
-                pattern = r"(\d+)-(\d+)"
-                match = re.findall(pattern, footnote)
-                if match:
-                    start, end = match[0]
+            elif _DOUBLE_RANGE_RE.search(footnote):
+                double_match = _DOUBLE_RANGE_CAPTURE_RE.search(footnote)
+                if double_match:
+                    start, end = double_match.group(1), double_match.group(2)
                     if start and end:
-                        variant = re.sub(r"(\d+)-(\d+)", "", footnote)
+                        variant = _DOUBLE_RANGE_CAPTURE_RE.sub("", footnote)
                         variant = clean_variant(variant)
                         for i in range(int(start), int(end) + 1):
                             footnote_vars[str(i)] = variant
                             if debug:
                                 ic(str(i), variant)
-                                print()
+                                pr.white("")
 
             # normal situation
             else:
-                pattern = r"^(\d+)\s(.+)"
-                matches = re.findall(pattern, footnote)
-                for match in matches:
-                    number, variant = match
+                matches = _NORMAL_FOOTNOTE_RE.findall(footnote)
+                for number, variant in matches:
                     variant = clean_variant(variant)
                     footnote_vars[number] = variant
 
