@@ -9,13 +9,12 @@ from db.variants.extract_variants_from_sc import process_sc
 from db.variants.extract_variants_from_sya import process_sya
 from db.variants.variants_modules import VariantsDict, save_json
 
-# from tools.configger import config_test
 from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("variants dict")
 
@@ -31,7 +30,7 @@ def main():
     variants_dict = process_bjt(variants_dict, pth)
     variants_dict = process_sya(variants_dict, pth)
     variants_dict = process_sc(variants_dict, pth)
-    variants_dict.pop("")
+    variants_dict.pop("", None)
 
     save_json(variants_dict)
 
