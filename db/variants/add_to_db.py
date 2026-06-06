@@ -1,34 +1,35 @@
 from db.db_helpers import get_db_session
 from db.models import Lookup
+from db.variants.variants_modules import VariantsDict
 from tools.lookup_is_another_value import is_another_value
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
 class AddVariantsToDb:
-    def __init__(self, variants_dict):
+    def __init__(self, variants_dict: VariantsDict) -> None:
         pr.green_tmr("initializing db")
 
         self.variants_dict = variants_dict
-        self.variant_dict_keys = list(self.variants_dict.keys())
 
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
 
         # Query in chunks to avoid SQLite variable limit
         chunk_size = 900
-        self.lookup_table = []
+        variant_dict_keys = list(self.variants_dict.keys())
+        lookup_table: list[Lookup] = []
 
-        for i in range(0, len(self.variant_dict_keys), chunk_size):
-            chunk_keys = self.variant_dict_keys[i : i + chunk_size]
+        for i in range(0, len(variant_dict_keys), chunk_size):
+            chunk_keys = variant_dict_keys[i : i + chunk_size]
             chunk_results = (
                 self.db_session.query(Lookup)
                 .filter(Lookup.lookup_key.in_(chunk_keys))
                 .all()
             )
-            self.lookup_table.extend(chunk_results)
+            lookup_table.extend(chunk_results)
 
-        self.lookup_keys: list[str] = [i.lookup_key for i in self.lookup_table]
+        self.lookup_keys: list[str] = [i.lookup_key for i in lookup_table]
 
         pr.yes("")
 
@@ -37,23 +38,23 @@ class AddVariantsToDb:
         self.add_variants_to_db()
         self.db_session.close()
 
-    def delete_variants_in_db(self):
+    def delete_variants_in_db(self) -> None:
         """Remove old variants from the lookup table."""
 
         pr.green_tmr("removing old variants")
 
         db_results = self.db_session.query(Lookup).filter(Lookup.variant != "").all()
 
-        for i in db_results:
-            if is_another_value(i, "variant"):
-                i.variant = ""
+        for row in db_results:
+            if is_another_value(row, "variant"):
+                row.variant = ""
             else:
-                self.db_session.delete(i)
+                self.db_session.delete(row)
         self.db_session.commit()
 
         pr.yes("")
 
-    def update_variants_in_db(self):
+    def update_variants_in_db(self) -> None:
         """Update existing variants in the lookup table."""
         pr.green_tmr("updating db")
 
@@ -61,7 +62,7 @@ class AddVariantsToDb:
         update_keys = [k for k in self.variants_dict.keys() if k in self.lookup_keys]
 
         # Process in chunks
-        chunk_size = 1000
+        chunk_size = 900
         update_count = 0
 
         for i in range(0, len(update_keys), chunk_size):
@@ -91,7 +92,7 @@ class AddVariantsToDb:
 
         pr.yes(update_count)
 
-    def add_variants_to_db(self):
+    def add_variants_to_db(self) -> None:
         """Add new variants to the lookup table."""
         pr.green_tmr("adding to db")
 

@@ -1,0 +1,16 @@
+{
+  "existing_variant_keys": [
+    "a",
+    "akakkasassa",
+    "akiñcanaṃ",
+    "akaṭānudhammena",
+    "akaṇikanti"
+  ],
+  "sample_row": {
+    "lookup_key": "a",
+    "headwords": "[1, 2, 3, 4, 5]",
+    "variant": "{\"CST\": {\"Aññā\": [[\"a\", \"ka. 642; rū. 589; nī. 1269; caṃ. 5.2.106; pā. 6.3.89\"], [\"pubbassa a\", \"ka. 450; rū. 463; nī. 946; caṃ. 6.2.126; pā. 7.4.73\"]]}}",
+    "roots": "",
+    "deconstructor": ""
+  }
+}
