@@ -256,7 +256,7 @@ class TestVaggaRow:
         assert "Sīlakkhandhavagga" in html
         assert "Brahmajālasutta" not in html
 
-    def test_sc_sutta_and_title_hidden(self):
+    def test_sc_sutta_and_blurb_hidden_eng_title_shown(self):
         su = _minimal_su(
             is_vagga=True,
             is_samyutta=False,
@@ -267,7 +267,7 @@ class TestVaggaRow:
         )
         html = _render(_minimal_d(su))
         assert "brahmajala" not in html
-        assert "All-Embracing" not in html
+        assert "All-Embracing" in html
         assert "A famous sutta" not in html
 
     def test_bjt_sutta_hidden(self):

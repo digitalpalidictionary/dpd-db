@@ -41,6 +41,7 @@ def _make_paths(tmp_path: Path) -> SimpleNamespace:
         mw_css_path=tmp_path / "mw.css",
         cpd_source_path=tmp_path / "cpd_clean.db",
         cpd_css_path=tmp_path / "cpd.css",
+        bhs_source_path=tmp_path / "bhs.xml",
     )
 
 
