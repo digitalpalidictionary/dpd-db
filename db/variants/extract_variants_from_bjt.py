@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Extract variants readings from BJT texts."""
 
 import json
@@ -12,14 +11,38 @@ from tools.printer import printer as pr
 
 debug = False
 
+_VARIANT_MARKER_RE = re.compile(
+    r"""
+    (?:^|\n| )  # starts with para, newline or space
+    ([^\n ]*    # 0 or more characters without space or \n
+    \s*         # optional space
+    [^\n ]*     # 0 or more characters without space or \n
+    \s*)        # optional space
+    \{          # open curly brackets
+    ([0-9*]+?)  # 1 or more digits or *
+    \}          # close curly braces
+    """,
+    re.VERBOSE,
+)
+
+_FOOTNOTE_RE = re.compile(
+    r"""
+    ([0-9*]+)   # 1 or more digits or * in cgroup1
+    \.\s        # literal full-stop space
+    (.+)        # everything til the end in cgroup2
+    """,
+    re.VERBOSE | re.DOTALL,
+)
+
 
 def get_bjt_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of BJT json files."""
 
     bjt_json_dir: Path = pth.bjt_roman_json_dir
+    order = {name: i for i, name in enumerate(bjt_files_to_books)}
     files: list[Path] = sorted(
         [f for f in bjt_json_dir.iterdir() if f.is_file()],
-        key=lambda x: list(bjt_files_to_books.keys()).index(x.name),
+        key=lambda x: order.get(x.name, float("inf")),
     )
     return files
 
@@ -29,12 +52,12 @@ def get_bjt_json_data(
 ) -> dict:  # the dict has an overcomplicated structure, impossible to type
     """Get the JSON data from the file_path"""
 
-    with open(file_path, "r", encoding="UTF-8") as f:
+    with file_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def extract_bjt_variants(
-    file_name: Path, variants_dict: VariantsDict, errors_list: list
+    file_name: Path, variants_dict: VariantsDict, errors_list: list[tuple]
 ) -> tuple[VariantsDict, list[tuple]]:
     """Extract variants from a BJT json file."""
 
@@ -42,7 +65,6 @@ def extract_bjt_variants(
     book = bjt_files_to_books[file_name.name]
     pages = json_data["pages"]
 
-    # compile vars for each page
     for page in pages:
         page_num = page["pageNum"]
         pali = page["pali"]
@@ -52,64 +74,33 @@ def extract_bjt_variants(
         page_variants_dict = {}
         page_footnotes_dict = {}
 
-        # find all the {1} or {*} in text
-        # and compile into a local dict
         for entry in entries:
             text = entry["text"]
-            var_capture = re.findall(
-                r"""        
-                (^|\n| )    # starts with para, newline or space
-                ([^\n ]*    # 0 or more characters without space or \n = capture group1 
-                \s*        # optional space
-                [^\n ]*    # 0 or more characters without space or \n = 
-                \s*)        # optional space
-                \{          # open curly brackets
-                ([0-9*]+?)  # 1 or more digits or * = capture group3 
-                \}          # close curly braces
-                """,
-                text,  # find in text
-                re.VERBOSE,  # otherwise it doesn't work
-            )
-            for var_c in var_capture:
-                start, context, number = var_c
+            for context, number in _VARIANT_MARKER_RE.findall(text):
                 page_variants_dict[number] = context
 
-        # find all the {1} or {*} in footnotes
-        # and compile into a local dict
         for footnote in footnotes:
             text = footnote["text"]
-            fn_capture = re.findall(
-                r"""        
-                ([0-9*]+)   # 1 or more digits or * in cgroup1
-                \.\s        # literal full-stop space
-                (.+)        # everything til the end in cgroup2
-                """,
-                text,  # find in text
-                re.VERBOSE  # otherwise it doesn't work
-                | re.DOTALL,
-            )
-            for fnc in fn_capture:
-                number, definition = fnc
+            for number, definition in _FOOTNOTE_RE.findall(text):
                 page_footnotes_dict[number] = definition
 
-        # compile page variants into variants_dict
         for key, context in page_variants_dict.items():
             word = context.split(" ")[-1]
             word_clean = key_cleaner(word)
             context_clean = context_cleaner(context)
 
+            if not word_clean:
+                continue
+
             try:
                 definition = page_footnotes_dict[key]
 
-                # ensure outer dictionary entry exists
                 if word_clean not in variants_dict:
                     variants_dict[word_clean] = {}
 
-                # ensure cst entry exists
                 if "BJT" not in variants_dict[word_clean]:
                     variants_dict[word_clean]["BJT"] = {}
 
-                # ensure inner dictionary entry exists
                 if book not in variants_dict[word_clean]["BJT"]:
                     variants_dict[word_clean]["BJT"][book] = []
 
@@ -119,27 +110,23 @@ def extract_bjt_variants(
                     )
 
             except KeyError:
-                pass
                 errors_list.append((file_name.stem, page_num, key))
 
-        # also find the opposite kind of error
-        for key, word_clean in page_footnotes_dict.items():
-            try:
-                definition = page_variants_dict[key]
-            except KeyError:
-                if "__" not in word_clean:
+        for key, definition in page_footnotes_dict.items():
+            if key not in page_variants_dict:
+                if "__" not in definition:
                     errors_list.append((file_name.stem, page_num, key))
 
     return variants_dict, errors_list
 
 
-def bjṭ_footnote_errors(errors_list):
+def bjṭ_footnote_errors(errors_list: list[tuple]) -> None:
     pr.green_title("bjt footnote errors")
-    print("|File Name|Page|Footnote|")
-    print("|:---|:---|:---|")
+    pr.white("|File Name|Page|Footnote|")
+    pr.white("|:---|:---|:---|")
     for e in errors_list:
         file_name, page_num, key = e
-        print(f"|{file_name}|{page_num}|{key}|")
+        pr.white(f"|{file_name}|{page_num}|{key}|")
 
 
 def process_bjt(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:

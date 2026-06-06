@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "pageNum": 1,
+      "pali": {
+        "entries": [
+          {"text": "1. saraṇagamanaṃ{1}"},
+          {"text": "2. vatthu{2}"},
+          {"text": "3. {5}"}
+        ],
+        "footnotes": [
+          {"text": "1. vā saraṇattayaṃ"},
+          {"text": "3. vā dhammo"},
+          {"text": "4. __suppressed__"},
+          {"text": "5. vā empty"}
+        ]
+      }
+    }
+  ]
+}
