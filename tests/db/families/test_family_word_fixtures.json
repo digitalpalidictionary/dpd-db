@@ -1,0 +1,177 @@
+{
+  "inputs": [
+    {
+      "lemma_1": "akaṇa",
+      "family_word": "kaṇa",
+      "pos": "adj",
+      "meaning_combo": "without bran; with the husk removed",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "na + kaṇa",
+      "meaning_1": "without bran; with the husk removed"
+    },
+    {
+      "lemma_1": "akammāsa",
+      "family_word": "kammāsa",
+      "pos": "adj",
+      "meaning_combo": "unblemished; spotless; pure; lit. not spotted",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "na + kammāsa",
+      "meaning_1": "unblemished; spotless; pure"
+    },
+    {
+      "lemma_1": "akukku",
+      "family_word": "kukku",
+      "pos": "adj",
+      "meaning_combo": "not a cubit in length",
+      "degree_of_completion_html": "<span class=\"gray\">✘</span>",
+      "degree_of_completion": "✘",
+      "construction_clean": "na + kukku",
+      "meaning_1": ""
+    },
+    {
+      "lemma_1": "kaṇa",
+      "family_word": "kaṇa",
+      "pos": "masc",
+      "meaning_combo": "rice husk powder",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "",
+      "meaning_1": "rice husk powder"
+    },
+    {
+      "lemma_1": "kammāsa 1",
+      "family_word": "kammāsa",
+      "pos": "adj",
+      "meaning_combo": "spotted; speckled; blemished",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "",
+      "meaning_1": "spotted; speckled; blemished"
+    },
+    {
+      "lemma_1": "kammāsa 2",
+      "family_word": "kammāsa",
+      "pos": "adj",
+      "meaning_combo": "inconsistent",
+      "degree_of_completion_html": "<span class=\"gray\">✘</span>",
+      "degree_of_completion": "✘",
+      "construction_clean": "",
+      "meaning_1": ""
+    },
+    {
+      "lemma_1": "kukku",
+      "family_word": "kukku",
+      "pos": "masc",
+      "meaning_combo": "cubit; lit. length of the forearm",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "",
+      "meaning_1": "cubit"
+    },
+    {
+      "lemma_1": "kukkuka 1",
+      "family_word": "kukku",
+      "pos": "adj",
+      "meaning_combo": "x cubits in measure",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "kukku + ka",
+      "meaning_1": "x cubits in measure"
+    }
+  ],
+  "expected_dict": {
+    "kaṇa": {
+      "headwords": [
+        "akaṇa",
+        "kaṇa"
+      ],
+      "html": "<table class='family'><tr><th>akaṇa</th><td><b>adj</b></td><td>without bran; with the husk removed</td><td><span class=\"gray\">✔</span></td></tr><tr><th>kaṇa</th><td><b>masc</b></td><td>rice husk powder</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akaṇa",
+          "adj",
+          "without bran; with the husk removed",
+          "✔"
+        ],
+        [
+          "kaṇa",
+          "masc",
+          "rice husk powder",
+          "✔"
+        ]
+      ]
+    },
+    "kammāsa": {
+      "headwords": [
+        "akammāsa",
+        "kammāsa 1",
+        "kammāsa 2"
+      ],
+      "html": "<table class='family'><tr><th>akammāsa</th><td><b>adj</b></td><td>unblemished; spotless; pure; lit. not spotted</td><td><span class=\"gray\">✔</span></td></tr><tr><th>kammāsa ¹</th><td><b>adj</b></td><td>spotted; speckled; blemished</td><td><span class=\"gray\">✔</span></td></tr><tr><th>kammāsa ²</th><td><b>adj</b></td><td>inconsistent</td><td><span class=\"gray\">✘</span></td></tr></table>",
+      "data": [
+        [
+          "akammāsa",
+          "adj",
+          "unblemished; spotless; pure; lit. not spotted",
+          "✔"
+        ],
+        [
+          "kammāsa 1",
+          "adj",
+          "spotted; speckled; blemished",
+          "✔"
+        ],
+        [
+          "kammāsa 2",
+          "adj",
+          "inconsistent",
+          "✘"
+        ]
+      ]
+    },
+    "kukku": {
+      "headwords": [
+        "akukku",
+        "kukku",
+        "kukkuka 1"
+      ],
+      "html": "<table class='family'><tr><th>akukku</th><td><b>adj</b></td><td>not a cubit in length</td><td><span class=\"gray\">✘</span></td></tr><tr><th>kukku</th><td><b>masc</b></td><td>cubit; lit. length of the forearm</td><td><span class=\"gray\">✔</span></td></tr><tr><th>kukkuka ¹</th><td><b>adj</b></td><td>x cubits in measure</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akukku",
+          "adj",
+          "not a cubit in length",
+          "✘"
+        ],
+        [
+          "kukku",
+          "masc",
+          "cubit; lit. length of the forearm",
+          "✔"
+        ],
+        [
+          "kukkuka 1",
+          "adj",
+          "x cubits in measure",
+          "✔"
+        ]
+      ]
+    }
+  },
+  "expected_anki": [
+    [
+      "kaṇa",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akaṇa</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>without bran; with the husk removed</td><td><div style='color: #FF6600'>✔</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>kaṇa</td><td><div style='color: #FF6600'>masc</div></td><td><div style='color: #FFB380'>rice husk powder</td><td><div style='color: #FF6600'>✔</div></td></tr></tbody></table>"
+    ],
+    [
+      "kammāsa",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akammāsa</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>unblemished; spotless; pure; lit. not spotted</td><td><div style='color: #FF6600'>✔</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>kammāsa 1</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>spotted; speckled; blemished</td><td><div style='color: #FF6600'>✔</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>kammāsa 2</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>inconsistent</td><td><div style='color: #FF6600'>✘</div></td></tr></tbody></table>"
+    ],
+    [
+      "kukku",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akukku</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>not a cubit in length</td><td><div style='color: #FF6600'>✘</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>kukku</td><td><div style='color: #FF6600'>masc</div></td><td><div style='color: #FFB380'>cubit; lit. length of the forearm</td><td><div style='color: #FF6600'>✔</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>kukkuka 1</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>x cubits in measure</td><td><div style='color: #FF6600'>✔</div></td></tr></tbody></table>"
+    ]
+  ]
+}
