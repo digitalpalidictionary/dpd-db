@@ -1,0 +1,85 @@
+{
+  "valid_variant": {
+    "saraṇattayaṃ": {
+      "CST": {
+        "VIN1": [
+          [
+            "saraṇagamanaṃ saraṇattayaṃ",
+            "vā saraṇattayaṃ (vip)"
+          ]
+        ]
+      }
+    }
+  },
+  "empty_key_present_before_fix": true,
+  "multi_variant": {
+    "aṭṭha": {
+      "CST": {
+        "DN1": [
+          [
+            "some aṭṭha",
+            "aṭṭha (alt1)"
+          ],
+          [
+            "some aṭṭha",
+            "sāmi (alt2)"
+          ]
+        ]
+      }
+    }
+  },
+  "single_word_context": {
+    "saraṇaṃ": {
+      "CST": {
+        "MN1": [
+          [
+            "saraṇaṃ",
+            "varianttext"
+          ]
+        ]
+      }
+    }
+  },
+  "empty_variant_skip": {},
+  "accumulates_existing": true,
+  "accumulates_new": true,
+  "accumulate_result": {
+    "existing": {
+      "CST": {
+        "VIN1": [
+          [
+            "ctx",
+            "defn"
+          ]
+        ]
+      }
+    },
+    "gacchati": {
+      "CST": {
+        "VIN1": [
+          [
+            "gacchati",
+            "gacchāmi"
+          ]
+        ]
+      }
+    }
+  },
+  "sort_order": {
+    "file_count": 217,
+    "first_5": [
+      "vin01m.mul.xml",
+      "vin02m1.mul.xml",
+      "vin02m2.mul.xml",
+      "vin02m3.mul.xml",
+      "vin02m4.mul.xml"
+    ],
+    "last_5": [
+      "e1211n.nrf.xml",
+      "e1212n.nrf.xml",
+      "e1213n.nrf.xml",
+      "e1214n.nrf.xml",
+      "e1215n.nrf.xml"
+    ]
+  }
+}

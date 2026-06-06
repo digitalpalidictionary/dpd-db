@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 """Extract variants readings from CST texts."""
 
 import re
 from pathlib import Path
 from icecream import ic
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 from db.variants.files_to_books import cst_files_to_books
 from db.variants.variants_modules import VariantsDict, context_cleaner, key_cleaner
@@ -14,14 +13,29 @@ from tools.printer import printer as pr
 
 debug = False
 
+_VARIANT_SPLIT_RE = re.compile(
+    r"""
+    (?<=\))      # Lookbehind for closing bracket
+    ,*           # Optional comma
+    \s+          # One or more whitespace characters
+    (?=          # Lookahead for...
+        \S+      # One or more non-whitespace characters
+        \s*      # Optional whitespace
+        \(       # Opening bracket
+    )
+    """,
+    re.VERBOSE,
+)
+
 
 def get_cst_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of CST files."""
 
     cst_xml_dir: Path = pth.cst_xml_dir
+    order: dict[str, int] = {name: i for i, name in enumerate(cst_files_to_books)}
     files: list[Path] = sorted(
         [f for f in cst_xml_dir.iterdir() if f.is_file()],
-        key=lambda x: list(cst_files_to_books.keys()).index(x.name),
+        key=lambda x: order[x.name],
     )
 
     return files
@@ -30,7 +44,7 @@ def get_cst_file_list(pth: ProjectPaths) -> list[Path]:
 def make_soup(file: Path) -> BeautifulSoup:
     """Make a soup from a CST file."""
 
-    with open(file, "r", encoding="UTF-16") as f:
+    with file.open("r", encoding="UTF-16") as f:
         file_contents: str = f.read()
         soup: BeautifulSoup = BeautifulSoup(file_contents, "xml")
 
@@ -42,7 +56,8 @@ def make_soup(file: Path) -> BeautifulSoup:
         # remove all the hi paranum dot tags
         his = soup.find_all("hi", rend=["paranum", "dot"])
         for hi in his:
-            hi.unwrap()
+            if isinstance(hi, Tag):
+                hi.unwrap()
 
         return soup
 
@@ -70,13 +85,16 @@ def extract_variants(
                     word = words[-1]
                     word_clean: str = key_cleaner(word)
 
+                    if not word_clean:
+                        continue
+
                     # get context for the word
                     if len(words) > 1:
                         # use the last two words for context
                         context: str = " ".join(words[-2:]).lower()
                     else:
                         # just use the last word for context
-                        context: str = word.lower()
+                        context = word.lower()
                     context_clean = context_cleaner(context)
 
                     variants: str = note.get_text(strip=True)
@@ -85,31 +103,14 @@ def extract_variants(
                         ic(context, word_clean, variants)
                         input()
 
-                    # separate on closing parenthesis followed by whitespace
-                    # e.g. a (a) b (b) c (c)
-                    # but not if there are no brackets at the end
-                    # e.g. a (a) b
-                    variants_split = re.split(
-                        r"""
-                        (?<=\))      # Lookbehind for closing bracket
-                        ,*           # Optional comma
-                        \s+          # One or more whitespace characters
-                        (?=          # Lookahead for...
-                            \S+      # One or more non-whitespace characters
-                            \s*      # Optional whitespace
-                            \(       # Opening bracket
-                        )
-                        """,
-                        variants,
-                        flags=re.VERBOSE,
-                    )
+                    variants_split = _VARIANT_SPLIT_RE.split(variants)
 
                     if debug:
                         if len(variants_split) > 1:
                             ic(word_clean)
                             ic(variants)
                             ic(variants_split)
-                            print()
+                            pr.white("")
 
                     for variant in variants_split:
                         variant = variant.strip()
