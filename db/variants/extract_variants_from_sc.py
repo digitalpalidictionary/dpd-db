@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Extract variants readings from Sutta Central texts."""
 
 import json
@@ -11,7 +10,9 @@ from tools.printer import printer as pr
 from tools.sort_naturally import natural_sort
 
 
-def get_files_by_book_order(files: list[Path], books_dict: dict) -> list[tuple]:
+def get_files_by_book_order(
+    files: list[Path], books_dict: dict
+) -> list[tuple[int, str, Path]]:
     """Group files by their book prefixes and assign order numbers."""
 
     sorted_files = []
@@ -52,22 +53,21 @@ def get_sc_file_list(pth: ProjectPaths) -> list[Path]:
 def get_json_data(file_path: Path) -> dict[str, str]:
     """Get the JSON data from the file_path"""
 
-    with open(file_path, "r", encoding="UTF-8") as f:
+    with file_path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def extract_sc_variants(
     json_data: dict[str, str], variants_dict: VariantsDict, book: str
 ) -> VariantsDict:
-    """ "Extract variants from a SC json file."""
+    """Extract variants from a SC json file."""
 
     for reference_code, data in json_data.items():
         # data is a list of items separated by '|'
         data_list = data.split("|")
 
         for d in data_list:
-            d = d.strip()
-            d = d.replace("ṁ", "ṃ")
+            d = d.strip().replace("ṁ", "ṃ")
 
             # root_word / variants pairs are separated by '→'
             variants_list = [part.strip() for part in d.split("→", maxsplit=1)]
@@ -76,25 +76,18 @@ def extract_sc_variants(
             if len(variants_list) == 2:
                 word, variants = variants_list
                 word_clean = key_cleaner(word)
+                if not word_clean:
+                    continue
 
             # fallback case where there is no '→'
             else:
-                variants = variants_list[0]
+                continue
 
             # sometimes there are multiple variants separated by ';'
             for variant in variants.split(";"):
-                # ensure outer dictionary entry exists
-                if word_clean not in variants_dict:
-                    variants_dict[word_clean] = {}
-
-                # ensure MST entry exists
-                if "MST" not in variants_dict[word_clean]:
-                    variants_dict[word_clean]["MST"] = {}
-
-                # ensure inner dictionary entry exists
-                if book not in variants_dict[word_clean]["MST"]:
-                    variants_dict[word_clean]["MST"][book] = []
-
+                variants_dict.setdefault(word_clean, {}).setdefault(
+                    "MST", {}
+                ).setdefault(book, [])
                 variants_dict[word_clean]["MST"][book].append(
                     (word.lower(), variant.strip())
                 )
@@ -102,7 +95,7 @@ def extract_sc_variants(
     return variants_dict
 
 
-def get_book_name(file_name: Path):
+def get_book_name(file_name: Path) -> str | None:
     for code, book in mst_files_to_books.items():
         if file_name.name.startswith(code):
             return book
@@ -120,6 +113,8 @@ def process_sc(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
 
         json_data = get_json_data(file_name)
         book = get_book_name(file_name)
+        if book is None:
+            continue
         variants_dict = extract_sc_variants(json_data, variants_dict, book)
 
     return variants_dict
