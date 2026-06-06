@@ -5,6 +5,7 @@
 import re
 
 from natsort import natsorted
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilySet
@@ -76,7 +77,7 @@ def _day_sort_key(meaning_1: str) -> int:
     return DAY_ORDER.get(meaning_1.strip().lower(), 99)
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("sets generator")
 
@@ -99,19 +100,17 @@ def main():
     sets_dict = make_sets_dict(sets_db)
     sets_dict = compile_sf_html(sets_db, sets_dict)
     errors_list = add_sf_to_db(db_session, sets_dict)
+    db_session.close()
     print_errors_list(errors_list)
     pr.toc()
 
 
-def make_sets_dict(sets_db):
+def make_sets_dict(sets_db: list[DpdHeadword]) -> dict[str, dict]:
     pr.green_tmr("extracting set names")
 
-    # create a dict of all sets
-    # set: {headwords: [], html: "", data:, []}
+    sets_dict: dict[str, dict] = {}
 
-    sets_dict: dict = {}
-
-    for __counter__, i in enumerate(sets_db):
+    for i in sets_db:
         for fs in i.family_set_list:
             if fs == " ":
                 pr.red("ERROR: spaces found please remove!")
@@ -134,7 +133,9 @@ def make_sets_dict(sets_db):
     return sets_dict
 
 
-def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
+def compile_sf_html(
+    sets_db: list[DpdHeadword], sets_dict: dict[str, dict]
+) -> dict[str, dict]:
     pr.green_tmr("compiling html")
 
     for i in sets_db:
@@ -178,13 +179,13 @@ def compile_sf_html(sets_db: list[DpdHeadword], sets_dict):
     return sets_dict
 
 
-def add_sf_to_db(db_session, sets_dict):
+def add_sf_to_db(db_session: Session, sets_dict: dict[str, dict]) -> list[str]:
     pr.green_tmr("adding to db")
 
     add_to_db = []
     errors_list = []
 
-    for __counter__, sf in enumerate(sets_dict):
+    for sf in sets_dict:
         count = len(sets_dict[sf]["headwords"])
 
         sf_data = FamilySet(
@@ -197,19 +198,18 @@ def add_sf_to_db(db_session, sets_dict):
         add_to_db.append(sf_data)
 
         if count < 3:
-            errors_list += [sf]
+            errors_list.append(sf)
 
-    db_session.execute(FamilySet.__table__.delete())  # type: ignore
+    db_session.query(FamilySet).delete()
     db_session.add_all(add_to_db)
     db_session.commit()
-    db_session.close()
     pr.yes("ok")
 
     return errors_list
 
 
-def print_errors_list(errors_list):
-    if errors_list != []:
+def print_errors_list(errors_list: list[str]) -> None:
+    if errors_list:
         pr.red("ERROR: less than 3 names in set: ")
         for error in sorted(errors_list):
             pr.red(f"{error}")

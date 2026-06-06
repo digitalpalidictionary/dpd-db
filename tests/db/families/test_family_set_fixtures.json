@@ -1,0 +1,292 @@
+{
+  "inputs": [
+    {
+      "lemma_1": "aggaññaka",
+      "family_set_list": [
+        "suttas of the Dīgha Nikāya"
+      ],
+      "meaning_1": "in reference to DN27 Aggaññasutta",
+      "pos": "nt",
+      "meaning_combo": "in reference to DN27 Aggaññasutta",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "aggaññasutta",
+      "family_set_list": [
+        "suttas of the Dīgha Nikāya"
+      ],
+      "meaning_1": "Dīgha Nikāya 27 (DN27)",
+      "pos": "nt",
+      "meaning_combo": "Dīgha Nikāya 27 (DN27); lit. discourse on the origin of the world",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "ambaṭṭhasutta",
+      "family_set_list": [
+        "suttas of the Dīgha Nikāya"
+      ],
+      "meaning_1": "Dīgha Nikāya 3 (DN3)",
+      "pos": "nt",
+      "meaning_combo": "Dīgha Nikāya 3 (DN3); lit. discourse with Ambaṭṭha",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "aṭṭhacattālīsama",
+      "family_set_list": [
+        "ordinal numbers"
+      ],
+      "meaning_1": "forty-eighth (48th)",
+      "pos": "ordin",
+      "meaning_combo": "forty-eighth (48th)",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "aṭṭhatiṃsatima",
+      "family_set_list": [
+        "ordinal numbers"
+      ],
+      "meaning_1": "thirty-eighth (38th)",
+      "pos": "ordin",
+      "meaning_combo": "thirty-eighth (38th)",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "aṭṭhattiṃsa",
+      "family_set_list": [
+        "ordinal numbers"
+      ],
+      "meaning_1": "thirty-eighth (38th)",
+      "pos": "ordin",
+      "meaning_combo": "thirty-eighth (38th)",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "atthadassī 2",
+      "family_set_list": [
+        "previous Buddhas"
+      ],
+      "meaning_1": "name of the 11th previous Buddha",
+      "pos": "masc",
+      "meaning_combo": "name of the 11th previous Buddha; lit. who sees the goal",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "anomadassī 2",
+      "family_set_list": [
+        "previous Buddhas"
+      ],
+      "meaning_1": "name of the 18th previous Buddha",
+      "pos": "masc",
+      "meaning_combo": "name of the 18th previous Buddha; lit. superior vision",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "kakusandha",
+      "family_set_list": [
+        "previous Buddhas"
+      ],
+      "meaning_1": "name of the 3rd previous Buddha",
+      "pos": "masc",
+      "meaning_combo": "name of the 3rd previous Buddha",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "guruvāra",
+      "family_set_list": [
+        "days of the week",
+        "astronomical terms"
+      ],
+      "meaning_1": "Thursday",
+      "pos": "masc",
+      "meaning_combo": "Thursday; lit. day of Jupiter",
+      "degree_of_completion": "◑",
+      "degree_of_completion_html": "<span class=\"gray\">◑</span>"
+    },
+    {
+      "lemma_1": "candavāra",
+      "family_set_list": [
+        "days of the week",
+        "astronomical terms"
+      ],
+      "meaning_1": "Monday",
+      "pos": "masc",
+      "meaning_combo": "Monday; lit. day of the Moon",
+      "degree_of_completion": "◑",
+      "degree_of_completion_html": "<span class=\"gray\">◑</span>"
+    },
+    {
+      "lemma_1": "budhavāra",
+      "family_set_list": [
+        "days of the week",
+        "astronomical terms"
+      ],
+      "meaning_1": "Wednesday",
+      "pos": "masc",
+      "meaning_combo": "Wednesday; lit. day of Mercury",
+      "degree_of_completion": "◑",
+      "degree_of_completion_html": "<span class=\"gray\">◑</span>"
+    },
+    {
+      "lemma_1": "kassapasammāsambuddha",
+      "family_set_list": [
+        "previous Buddhas"
+      ],
+      "meaning_1": "",
+      "pos": "masc",
+      "meaning_combo": "Kassapa the perfectly awakened Buddha",
+      "degree_of_completion": "✘",
+      "degree_of_completion_html": "<span class=\"gray\">✘</span>"
+    }
+  ],
+  "expected_dict": {
+    "suttas of the Dīgha Nikāya": {
+      "headwords": [
+        "aggaññaka",
+        "aggaññasutta",
+        "ambaṭṭhasutta"
+      ],
+      "html": "<table class='family'><tr><th>ambaṭṭhasutta</th><td><b>nt</b></td><td>Dīgha Nikāya 3 (DN3); lit. discourse with Ambaṭṭha</td><td><span class=\"gray\">✔</span></td></tr><tr><th>aggaññasutta</th><td><b>nt</b></td><td>Dīgha Nikāya 27 (DN27); lit. discourse on the origin of the world</td><td><span class=\"gray\">✔</span></td></tr><tr><th>aggaññaka</th><td><b>nt</b></td><td>in reference to DN27 Aggaññasutta</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "ambaṭṭhasutta",
+          "nt",
+          "Dīgha Nikāya 3 (DN3); lit. discourse with Ambaṭṭha",
+          "✔"
+        ],
+        [
+          "aggaññasutta",
+          "nt",
+          "Dīgha Nikāya 27 (DN27); lit. discourse on the origin of the world",
+          "✔"
+        ],
+        [
+          "aggaññaka",
+          "nt",
+          "in reference to DN27 Aggaññasutta",
+          "✔"
+        ]
+      ]
+    },
+    "ordinal numbers": {
+      "headwords": [
+        "aṭṭhacattālīsama",
+        "aṭṭhatiṃsatima",
+        "aṭṭhattiṃsa"
+      ],
+      "html": "<table class='family'><tr><th>aṭṭhatiṃsatima</th><td><b>ordin</b></td><td>thirty-eighth (38th)</td><td><span class=\"gray\">✔</span></td></tr><tr><th>aṭṭhattiṃsa</th><td><b>ordin</b></td><td>thirty-eighth (38th)</td><td><span class=\"gray\">✔</span></td></tr><tr><th>aṭṭhacattālīsama</th><td><b>ordin</b></td><td>forty-eighth (48th)</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "aṭṭhatiṃsatima",
+          "ordin",
+          "thirty-eighth (38th)",
+          "✔"
+        ],
+        [
+          "aṭṭhattiṃsa",
+          "ordin",
+          "thirty-eighth (38th)",
+          "✔"
+        ],
+        [
+          "aṭṭhacattālīsama",
+          "ordin",
+          "forty-eighth (48th)",
+          "✔"
+        ]
+      ]
+    },
+    "previous Buddhas": {
+      "headwords": [
+        "atthadassī 2",
+        "anomadassī 2",
+        "kakusandha"
+      ],
+      "html": "<table class='family'><tr><th>kakusandha</th><td><b>masc</b></td><td>name of the 3rd previous Buddha</td><td><span class=\"gray\">✔</span></td></tr><tr><th>atthadassī ²</th><td><b>masc</b></td><td>name of the 11th previous Buddha; lit. who sees the goal</td><td><span class=\"gray\">✔</span></td></tr><tr><th>anomadassī ²</th><td><b>masc</b></td><td>name of the 18th previous Buddha; lit. superior vision</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "kakusandha",
+          "masc",
+          "name of the 3rd previous Buddha",
+          "✔"
+        ],
+        [
+          "atthadassī 2",
+          "masc",
+          "name of the 11th previous Buddha; lit. who sees the goal",
+          "✔"
+        ],
+        [
+          "anomadassī 2",
+          "masc",
+          "name of the 18th previous Buddha; lit. superior vision",
+          "✔"
+        ]
+      ]
+    },
+    "days of the week": {
+      "headwords": [
+        "guruvāra",
+        "candavāra",
+        "budhavāra"
+      ],
+      "html": "<table class='family'><tr><th>candavāra</th><td><b>masc</b></td><td>Monday; lit. day of the Moon</td><td><span class=\"gray\">◑</span></td></tr><tr><th>budhavāra</th><td><b>masc</b></td><td>Wednesday; lit. day of Mercury</td><td><span class=\"gray\">◑</span></td></tr><tr><th>guruvāra</th><td><b>masc</b></td><td>Thursday; lit. day of Jupiter</td><td><span class=\"gray\">◑</span></td></tr></table>",
+      "data": [
+        [
+          "candavāra",
+          "masc",
+          "Monday; lit. day of the Moon",
+          "◑"
+        ],
+        [
+          "budhavāra",
+          "masc",
+          "Wednesday; lit. day of Mercury",
+          "◑"
+        ],
+        [
+          "guruvāra",
+          "masc",
+          "Thursday; lit. day of Jupiter",
+          "◑"
+        ]
+      ]
+    },
+    "astronomical terms": {
+      "headwords": [
+        "guruvāra",
+        "candavāra",
+        "budhavāra"
+      ],
+      "html": "<table class='family'><tr><th>guruvāra</th><td><b>masc</b></td><td>Thursday; lit. day of Jupiter</td><td><span class=\"gray\">◑</span></td></tr><tr><th>candavāra</th><td><b>masc</b></td><td>Monday; lit. day of the Moon</td><td><span class=\"gray\">◑</span></td></tr><tr><th>budhavāra</th><td><b>masc</b></td><td>Wednesday; lit. day of Mercury</td><td><span class=\"gray\">◑</span></td></tr></table>",
+      "data": [
+        [
+          "guruvāra",
+          "masc",
+          "Thursday; lit. day of Jupiter",
+          "◑"
+        ],
+        [
+          "candavāra",
+          "masc",
+          "Monday; lit. day of the Moon",
+          "◑"
+        ],
+        [
+          "budhavāra",
+          "masc",
+          "Wednesday; lit. day of Mercury",
+          "◑"
+        ]
+      ]
+    }
+  }
+}
