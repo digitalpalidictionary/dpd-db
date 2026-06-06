@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Add to the deconstructor output from
@@ -21,7 +20,7 @@ from tools.update_test_add import update_test_add
 from tools.configger import config_read, config_test
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("adding deconstructor output to lookup db")
 
@@ -39,7 +38,7 @@ def main():
 
     # top_five_dict contains the top five most likely splits
     # from the deconstruction process
-    with open(pth.deconstructor_output_json) as f:
+    with pth.deconstructor_output_json.open(encoding="utf-8") as f:
         top_five_dict = json.load(f)
 
     pr.yes("ok")
@@ -48,23 +47,21 @@ def main():
 
     pr.green_tmr("updating db")
 
-    # update test add
     update_count = 0
-    for i in lookup_db:
-        if i.lookup_key in update_set:
-            i.deconstructor_pack(top_five_dict[i.lookup_key])
+    for row in lookup_db:
+        if row.lookup_key in update_set:
+            row.deconstructor_pack(top_five_dict[row.lookup_key])
             update_count += 1
-        elif i.lookup_key in test_set:
-            if is_another_value(i, "deconstructor"):
-                i.deconstructor = ""
+        elif row.lookup_key in test_set:
+            if is_another_value(row, "deconstructor"):
+                row.deconstructor = ""
                 update_count += 1
             else:
-                db_session.delete(i)
+                db_session.delete(row)
                 update_count += 1
     db_session.commit()
     pr.yes(update_count)
 
-    # add
     pr.green_tmr("adding to db")
     add_to_db = []
     for constructed, deconstructed in top_five_dict.items():

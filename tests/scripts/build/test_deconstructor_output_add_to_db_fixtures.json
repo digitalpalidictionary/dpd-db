@@ -1,0 +1,63 @@
+{
+  "update_test_add": {
+    "lookup_keys": [
+      "a",
+      "akakkasa",
+      "akakkaso",
+      "akakkasā",
+      "akakkasaṃ",
+      "akakkase",
+      "akakkasassa",
+      "akakkasanti",
+      "akakkasāti",
+      "akakkasoti",
+      "akaṅkha",
+      "akaṅkho",
+      "akaṅkhato",
+      "akaṅkhoti",
+      "akaṅkhī",
+      "akaṅkhiṃ",
+      "akaci",
+      "akiñci",
+      "akiñcanaṃ",
+      "akiñcananti"
+    ],
+    "dict_keys": [
+      "aagginā",
+      "aakāsimhā",
+      "aanomavaṇṇo",
+      "aantā",
+      "aaraṇo",
+      "aarūpāvacaro",
+      "aasinecchati",
+      "aaṭṭahi",
+      "abababhūmi",
+      "ababañceva",
+      "ababhañjanadāyakattherāpadānaṃ",
+      "ababhokāsikaṅgaṃ",
+      "ababādīsu",
+      "abaddhagāmasīmāya",
+      "abaddhahatthiṃ",
+      "abaddhakusumavasena",
+      "abaddhamiti",
+      "abaddhapaccayā",
+      "abaddhapittasadisova",
+      "abaddhapittasaṅkhātañcāti"
+    ],
+    "update_set_example": "akathitepi",
+    "test_set_example": "akusalūpasaṃhitaṃ",
+    "add_set_example": "araññajoti"
+  },
+  "is_another_value_row": {
+    "lookup_key": "akusalūpasaṃhitaṃ",
+    "headwords": "[274]",
+    "deconstructor": "",
+    "is_another_value_result": true
+  },
+  "deconstructor_pack": {
+    "input": [
+      "akathite + api"
+    ],
+    "expected_json": "[\"akathite + api\"]"
+  }
+}
