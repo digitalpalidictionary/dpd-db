@@ -226,6 +226,10 @@ These methods print and return (no ending needed):
 - If initialized with a log file path, all operations are logged to TSV format
 - Log includes: timestamp, level, operation, type, message, elapsed time, count, session
 
+## Pipeline Improvement
+
+- `db_session.close()` is NOT a valid finding for short-lived build scripts. SQLAlchemy 2.0 has no `__del__`; for a script that exits after `main()`, the OS releases all connections on process exit. No resource leak. Do not flag it.
+
 ## graphify
 
 A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges).
