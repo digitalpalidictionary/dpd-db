@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 import json
 import re
+from pathlib import Path
 from typing import TypeAlias
 
 from tools.pali_alphabet import pali_alphabet
 
 VariantsDict: TypeAlias = dict[str, dict[str, dict[str, list[tuple[str, str]]]]]
 
+_CHAR_SET: frozenset[str] = frozenset([" ", *pali_alphabet])
+
 
 def key_cleaner(key: str) -> str:
     """Remove non-Pāḷi characters from the key"""
 
-    char_set: list[str] = [" "]
-    char_set.extend(pali_alphabet)
-
-    key_clean: str = "".join(c for c in key.lower() if c in char_set)
-    key_clean = key_clean.lower()
+    key_clean: str = "".join(c for c in key.lower() if c in _CHAR_SET)
     return key_clean
 
 
@@ -40,5 +39,5 @@ def context_cleaner(context: str) -> str:
 def save_json(variants_dict: VariantsDict) -> None:
     """Save variants to json"""
 
-    with open("temp/variants.json", "w") as f:
+    with Path("temp/variants.json").open("w", encoding="utf-8") as f:
         json.dump(variants_dict, f, ensure_ascii=False, indent=2)

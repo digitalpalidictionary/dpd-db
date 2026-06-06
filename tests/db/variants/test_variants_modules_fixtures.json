@@ -1,0 +1,86 @@
+{
+  "key_cleaner": {
+    "pure_pali": {
+      "input": "anicca",
+      "output": "anicca"
+    },
+    "uppercase": {
+      "input": "Anicca",
+      "output": "anicca"
+    },
+    "spaces": {
+      "input": "sabbe dhamma",
+      "output": "sabbe dhamma"
+    },
+    "non_pali_chars": {
+      "input": "abc123!",
+      "output": "abc"
+    },
+    "pali_diacritics": {
+      "input": "anApAnasati",
+      "output": "anapanasati"
+    },
+    "diacritics_lower": {
+      "input": "ānāpānasati",
+      "output": "ānāpānasati"
+    },
+    "mixed": {
+      "input": "Dukkha 123 !",
+      "output": "dukkha  "
+    },
+    "empty": {
+      "input": "",
+      "output": ""
+    }
+  },
+  "context_cleaner": {
+    "single_quote": {
+      "input": "it's here",
+      "output": "it's here"
+    },
+    "double_quote_curly": {
+      "input": "“word”",
+      "output": "word”"
+    },
+    "double_quote_straight": {
+      "input": "\"word\"",
+      "output": "word"
+    },
+    "parentheses": {
+      "input": "(word)",
+      "output": "word"
+    },
+    "asterisk": {
+      "input": "word*",
+      "output": "word"
+    },
+    "digits": {
+      "input": "word123",
+      "output": "word"
+    },
+    "leading_dot": {
+      "input": ".word",
+      "output": "word"
+    },
+    "trailing_dot": {
+      "input": "word.",
+      "output": "word"
+    },
+    "uppercase": {
+      "input": "Word",
+      "output": "word"
+    },
+    "clean": {
+      "input": "pure pali",
+      "output": "pure pali"
+    },
+    "empty": {
+      "input": "",
+      "output": ""
+    },
+    "combined": {
+      "input": "\"(test*123).",
+      "output": "test"
+    }
+  }
+}
