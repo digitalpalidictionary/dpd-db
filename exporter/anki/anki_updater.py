@@ -10,9 +10,6 @@ from anki.errors import DBError
 from anki.notes import Note
 from anki.cards import Card
 
-from rich import print
-from typing import List, Dict
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 
@@ -21,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("updating anki")
 
@@ -42,6 +39,8 @@ def main():
 
     if carry_on:
         update_from_db(db, col, data_dict, deck_dict, model_dict)
+    if col:
+        col.close()
 
     pr.toc()
 
@@ -60,8 +59,8 @@ def setup_anki_updater(decks):
         return col, {}, {}, {}, False
 
 
-def family_updater(anki_data_list, deck):
-    print(f"[white]updating {deck[0].lower()}")
+def family_updater(anki_data_list: list[tuple[str, str]], deck: list[str]) -> None:
+    pr.white(f"updating {deck[0].lower()}")
     (col, data_dict, deck_dict, model_dict, carry_on) = setup_anki_updater(deck)
 
     if carry_on:
@@ -114,23 +113,11 @@ def backup_anki_db(col) -> None:
         pr.red("No backup path in the config")
 
 
-def get_field_names(col: Collection, deck_name: str) -> List[str]:
-    """get field names for a specif deck"""
-    note_ids = col.find_notes(f"deck:{deck_name}")
-    if note_ids:
-        note_id = note_ids[0]
-        note = col.get_note(note_id)
-        field_names = note.keys()
-        return field_names
-    else:
-        return []
-
-
-def make_search_query(decks):
+def make_search_query(decks: list[str]) -> str:
     return " or ".join(f'deck:"{deck}"' for deck in decks)
 
 
-def get_notes(col: Collection, decks: List[str]) -> List[Note]:
+def get_notes(col: Collection, decks: list[str]) -> list[Note]:
     """get all notes for a list of decks"""
 
     pr.green_tmr("get notes")
@@ -143,7 +130,7 @@ def get_notes(col: Collection, decks: List[str]) -> List[Note]:
     return notes
 
 
-def get_cards(col: Collection, decks: List[str]) -> List[Card]:
+def get_cards(col: Collection, decks: list[str]) -> list[Card]:
     """get all cards for a list of decks"""
 
     pr.green_tmr("get cards")
@@ -155,7 +142,7 @@ def get_cards(col: Collection, decks: List[str]) -> List[Card]:
     return cards
 
 
-def get_decks(col: Collection) -> Dict:
+def get_decks(col: Collection) -> dict:
     """get all decks"""
     pr.green_tmr("get decks")
 
@@ -183,7 +170,7 @@ def get_models(col: Collection) -> dict:
     return model_dict
 
 
-def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
+def make_data_dict(notes: list[Note], cards: list[Card]) -> dict:
     """make data dict"""
 
     pr.green_tmr("make data_dict")
@@ -215,12 +202,9 @@ def make_data_dict(notes: List[Note], cards: List[Card]) -> dict:
     ) in data_dict.items():
         dpd_id = data["dpd_id"]
         if dpd_id in data_dict:
-            print(f"[red]key {dpd_id} already exists")
+            pr.red(f"key {dpd_id} already exists")
         else:
             data2[dpd_id] = data
-    for key in data2:
-        if key in data_dict:
-            print("Key", key, "will be overwritten")
     data_dict.update(data2)
     pr.yes(len(data_dict))
     return data_dict
@@ -248,7 +232,7 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
                 if is_updated:
                     updated_list += [i.id]
                     notes_to_update.append(note)
-                if update_deck(col, note, i, data_dict[id], deck_dict, model_dict):
+                if update_deck(col, note, i, data_dict[id], deck_dict):
                     changed_deck_list += [i.id]
 
             # add note
@@ -260,8 +244,8 @@ def update_from_db(db, col, data_dict, deck_dict, model_dict) -> None:
 
         else:
             # delete
-            if i.id in data_dict:
-                print(data_dict[id])
+            if id in data_dict:
+                col.remove_notes([data_dict[id]["note"].id])
                 deleted_list += [i.id]
 
     if notes_to_update:
@@ -314,9 +298,9 @@ def update_family(col, deck, data_dict, deck_dict, model_dict, anki_data) -> Non
 
     pr.yes(len(data_dict))
 
-    print(f"[green]{'added':<20}{len(added_list):>10}")
-    print(f"[green]{'updated':<20}{len(updated_list):>10}")
-    print(f"[green]{'deleted':<20}{len(deleted_list):>10}")
+    pr.summary("added", len(added_list))
+    pr.summary("updated", len(updated_list))
+    pr.summary("deleted", len(deleted_list))
     # print(f"{added_list=}")
     # print(f"{updated_list=}")
     # print(f"{deleted_list=}")
@@ -388,22 +372,7 @@ def update_note_values(col, note, i):
     note["pattern"] = str(i.pattern)
     note["meaning_2"] = str(i.meaning_2)
     note["origin"] = str(i.origin)
-    is_updated = None
-    if note.fields == old_fields:
-        is_updated = False
-    elif note.fields != old_fields:
-        is_updated = True
-
-        def unicode_combo_characters():
-            for index, (old_value, new_value) in enumerate(
-                zip(old_fields, note.fields)
-            ):
-                if old_value != new_value:
-                    print(f"Field at index {index} has changed:")
-                    print(f"  Old value: {old_value}")
-                    print(f"  New value: {new_value}")
-
-        # unicode_combo_characters()
+    is_updated = note.fields != old_fields
     return note, is_updated
 
 
@@ -414,15 +383,11 @@ def update_family_note(note, i):
     note["Front"] = key
     note["Back"] = html
 
-    is_updated = None
-    if note.fields == old_fields:
-        is_updated = False
-    elif note.fields != old_fields:
-        is_updated = True
+    is_updated = note.fields != old_fields
     return note, is_updated
 
 
-def deck_selector(i):
+def deck_selector(i: DpdHeadword) -> str | None:
     """Choose the deck based on meaning and source."""
     if i.meaning_1 and i.source_1 and i.source_1 != "-":
         return "Vocab"
@@ -436,7 +401,7 @@ def deck_selector(i):
         return None
 
 
-def update_deck(col, note, i, data, deck_dict, model_dict):
+def update_deck(col, note, i, data: dict, deck_dict: dict) -> bool:
     """When deck changes, update."""
     new_deck = deck_selector(i)
     old_deck = deck_dict[data["did"]]
@@ -455,7 +420,9 @@ def update_deck(col, note, i, data, deck_dict, model_dict):
         return False
 
 
-def make_new_note(col, deck, model_dict, deck_dict, i):
+def make_new_note(
+    col, deck: str, model_dict: dict, deck_dict: dict, i: DpdHeadword
+) -> None:
     """Make a new note."""
     model_id = model_dict["DPD"]
     deck_id = deck_dict[deck]
@@ -464,11 +431,13 @@ def make_new_note(col, deck, model_dict, deck_dict, i):
     col.add_note(note, deck_id)
 
 
-def make_new_family_note(col, deck, model_dict, deck_dict, i):
+def make_new_family_note(
+    col, deck: list[str], model_dict: dict, deck_dict: dict, i: tuple[str, str]
+) -> None:
     """Make a new note for family decks."""
-    deck = deck[0]
+    deck_name = deck[0]
     model_id = model_dict["DPD Family"]
-    deck_id = deck_dict[deck]
+    deck_id = deck_dict[deck_name]
     note = col.new_note(model_id)
     note, is_updated = update_family_note(note, i)
     col.add_note(note, deck_id)

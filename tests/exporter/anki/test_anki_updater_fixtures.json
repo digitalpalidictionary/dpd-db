@@ -1,0 +1,37 @@
+{
+  "vocab": {
+    "id": 1,
+    "meaning_1": "(gram) letter a; 1st letter of the alphabet; guttural vowel",
+    "source_1": "bālāvatāra",
+    "origin": "",
+    "expected_deck": "Vocab"
+  },
+  "commentary": {
+    "id": 43,
+    "meaning_1": "ungratefulness and thanklessness; ingratitude and inappreciativeness",
+    "source_1": "",
+    "origin": "pass1",
+    "expected_deck": "Commentary"
+  },
+  "suttas": {
+    "id": 20,
+    "meaning_1": "appearance of uncultivated ready to eat fine rice",
+    "source_1": "-",
+    "origin": "pass1",
+    "expected_deck": "Suttas"
+  },
+  "pass1": {
+    "id": 1521,
+    "meaning_1": "",
+    "source_1": "-",
+    "origin": "pass1",
+    "expected_deck": "Pass1"
+  },
+  "no_deck": {
+    "id": 15,
+    "meaning_1": "",
+    "source_1": "",
+    "origin": "",
+    "expected_deck": null
+  }
+}
