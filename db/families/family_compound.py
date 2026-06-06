@@ -196,7 +196,7 @@ def update_db_cache(db_session: Session, cf_dict: dict[str, dict]) -> None:
         cf_set_cache = DbInfo()
 
     cf_set_cache.key = "cf_set"
-    cf_set_cache.value = json.dumps(list(cf_set), ensure_ascii=False, indent=1)
+    cf_set_cache.value = json.dumps(sorted(cf_set), ensure_ascii=False, indent=1)
     db_session.add(cf_set_cache)
     db_session.commit()
     pr.yes("ok")
