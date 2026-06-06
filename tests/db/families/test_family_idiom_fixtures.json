@@ -1,0 +1,348 @@
+{
+  "inputs": [
+    {
+      "lemma_1": "akālodāni",
+      "pos": "sandhi",
+      "meaning_1": "now is not the time",
+      "family_idioms_list": [
+        "kāla",
+        "idāni"
+      ],
+      "meaning_combo": "now is not the time",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "akkhaṃ abbhañjati",
+      "pos": "idiom",
+      "meaning_1": "greases the axle",
+      "family_idioms_list": [
+        "akkha2",
+        "abbhañjati"
+      ],
+      "meaning_combo": "greases the axle",
+      "degree_of_completion": "◑",
+      "degree_of_completion_html": "<span class=\"gray\">◑</span>"
+    },
+    {
+      "lemma_1": "agaruṃ karitvā",
+      "pos": "idiom",
+      "meaning_1": "without making a problem; without making it difficult; without making a fuss",
+      "family_idioms_list": [
+        "garu",
+        "karitvā"
+      ],
+      "meaning_combo": "without making a problem; without making it difficult; without making a fuss; lit. having not made heavy",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "agārasmā anagāriyaṃ pabbajati",
+      "pos": "idiom",
+      "meaning_1": "goes forth from home to homelessness; leaves home to become a monk",
+      "family_idioms_list": [
+        "agāra",
+        "pabbajati"
+      ],
+      "meaning_combo": "goes forth from home to homelessness; leaves home to become a monk",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "agāraṃ ajjhāvasati",
+      "pos": "idiom",
+      "meaning_1": "lives at home; lives one's life",
+      "family_idioms_list": [
+        "agāra",
+        "ajjhāvasati"
+      ],
+      "meaning_combo": "lives at home; lives one's life",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "aggiṃ datvā",
+      "pos": "idiom",
+      "meaning_1": "having set fire to; having set alight",
+      "family_idioms_list": [
+        "aggi",
+        "datvā"
+      ],
+      "meaning_combo": "having set fire to; having set alight; lit. having given fire",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "a 1.1",
+      "pos": "letter",
+      "meaning_1": "(gram) letter a; 1st letter of the alphabet; guttural vowel",
+      "family_idioms_list": [
+        "a"
+      ],
+      "meaning_combo": "(gram) letter a; 1st letter of the alphabet; guttural vowel",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "akakkasa",
+      "pos": "adj",
+      "meaning_1": "smooth; tender; not harsh; not rough",
+      "family_idioms_list": [
+        "kakkasa"
+      ],
+      "meaning_combo": "smooth; tender; not harsh; not rough",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "akaṅkha 1.1",
+      "pos": "adj",
+      "meaning_1": "free from doubt; rid of uncertainty",
+      "family_idioms_list": [
+        "kaṅkhā1"
+      ],
+      "meaning_combo": "free from doubt; rid of uncertainty",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "akaṅkha 2.1",
+      "pos": "adj",
+      "meaning_1": "free from desire",
+      "family_idioms_list": [
+        "kaṅkhā2"
+      ],
+      "meaning_combo": "free from desire",
+      "degree_of_completion": "✔",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>"
+    },
+    {
+      "lemma_1": "akaṭa 3",
+      "pos": "pp",
+      "meaning_1": "",
+      "family_idioms_list": [
+        "kata"
+      ],
+      "meaning_combo": "not artificial; not prepared",
+      "degree_of_completion": "✘",
+      "degree_of_completion_html": "<span class=\"gray\">✘</span>"
+    },
+    {
+      "lemma_1": "akaronta 2",
+      "pos": "prp",
+      "meaning_1": "",
+      "family_idioms_list": [
+        "karonta"
+      ],
+      "meaning_combo": "not making",
+      "degree_of_completion": "✘",
+      "degree_of_completion_html": "<span class=\"gray\">✘</span>"
+    }
+  ],
+  "expected_dict": {
+    "kāla": {
+      "headwords": [
+        "akālodāni"
+      ],
+      "html": "<table class='family'><tr><th>akālodāni</th><td><b>sandhi</b></td><td>now is not the time</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akālodāni",
+          "sandhi",
+          "now is not the time",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "idāni": {
+      "headwords": [
+        "akālodāni"
+      ],
+      "html": "<table class='family'><tr><th>akālodāni</th><td><b>sandhi</b></td><td>now is not the time</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akālodāni",
+          "sandhi",
+          "now is not the time",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "akkha2": {
+      "headwords": [
+        "akkhaṃ abbhañjati"
+      ],
+      "html": "<table class='family'><tr><th>akkhaṃ abbhañjati</th><td><b>idiom</b></td><td>greases the axle</td><td><span class=\"gray\">◑</span></td></tr></table>",
+      "data": [
+        [
+          "akkhaṃ abbhañjati",
+          "idiom",
+          "greases the axle",
+          "◑"
+        ]
+      ],
+      "count": 1
+    },
+    "abbhañjati": {
+      "headwords": [
+        "akkhaṃ abbhañjati"
+      ],
+      "html": "<table class='family'><tr><th>akkhaṃ abbhañjati</th><td><b>idiom</b></td><td>greases the axle</td><td><span class=\"gray\">◑</span></td></tr></table>",
+      "data": [
+        [
+          "akkhaṃ abbhañjati",
+          "idiom",
+          "greases the axle",
+          "◑"
+        ]
+      ],
+      "count": 1
+    },
+    "garu": {
+      "headwords": [
+        "agaruṃ karitvā"
+      ],
+      "html": "<table class='family'><tr><th>agaruṃ karitvā</th><td><b>idiom</b></td><td>without making a problem; without making it difficult; without making a fuss; lit. having not made heavy</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "agaruṃ karitvā",
+          "idiom",
+          "without making a problem; without making it difficult; without making a fuss; lit. having not made heavy",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "karitvā": {
+      "headwords": [
+        "agaruṃ karitvā"
+      ],
+      "html": "<table class='family'><tr><th>agaruṃ karitvā</th><td><b>idiom</b></td><td>without making a problem; without making it difficult; without making a fuss; lit. having not made heavy</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "agaruṃ karitvā",
+          "idiom",
+          "without making a problem; without making it difficult; without making a fuss; lit. having not made heavy",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "agāra": {
+      "headwords": [
+        "agārasmā anagāriyaṃ pabbajati",
+        "agāraṃ ajjhāvasati"
+      ],
+      "html": "<table class='family'><tr><th>agārasmā anagāriyaṃ pabbajati</th><td><b>idiom</b></td><td>goes forth from home to homelessness; leaves home to become a monk</td><td><span class=\"gray\">✔</span></td></tr><tr><th>agāraṃ ajjhāvasati</th><td><b>idiom</b></td><td>lives at home; lives one's life</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "agārasmā anagāriyaṃ pabbajati",
+          "idiom",
+          "goes forth from home to homelessness; leaves home to become a monk",
+          "✔"
+        ],
+        [
+          "agāraṃ ajjhāvasati",
+          "idiom",
+          "lives at home; lives one's life",
+          "✔"
+        ]
+      ],
+      "count": 2
+    },
+    "pabbajati": {
+      "headwords": [
+        "agārasmā anagāriyaṃ pabbajati"
+      ],
+      "html": "<table class='family'><tr><th>agārasmā anagāriyaṃ pabbajati</th><td><b>idiom</b></td><td>goes forth from home to homelessness; leaves home to become a monk</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "agārasmā anagāriyaṃ pabbajati",
+          "idiom",
+          "goes forth from home to homelessness; leaves home to become a monk",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "ajjhāvasati": {
+      "headwords": [
+        "agāraṃ ajjhāvasati"
+      ],
+      "html": "<table class='family'><tr><th>agāraṃ ajjhāvasati</th><td><b>idiom</b></td><td>lives at home; lives one's life</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "agāraṃ ajjhāvasati",
+          "idiom",
+          "lives at home; lives one's life",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "aggi": {
+      "headwords": [
+        "aggiṃ datvā"
+      ],
+      "html": "<table class='family'><tr><th>aggiṃ datvā</th><td><b>idiom</b></td><td>having set fire to; having set alight; lit. having given fire</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "aggiṃ datvā",
+          "idiom",
+          "having set fire to; having set alight; lit. having given fire",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "datvā": {
+      "headwords": [
+        "aggiṃ datvā"
+      ],
+      "html": "<table class='family'><tr><th>aggiṃ datvā</th><td><b>idiom</b></td><td>having set fire to; having set alight; lit. having given fire</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "aggiṃ datvā",
+          "idiom",
+          "having set fire to; having set alight; lit. having given fire",
+          "✔"
+        ]
+      ],
+      "count": 1
+    },
+    "a": {
+      "headwords": [
+        "a 1.1"
+      ],
+      "html": "</table>",
+      "data": [],
+      "count": 0
+    },
+    "kakkasa": {
+      "headwords": [
+        "akakkasa"
+      ],
+      "html": "</table>",
+      "data": [],
+      "count": 0
+    },
+    "kaṅkhā1": {
+      "headwords": [
+        "akaṅkha 1.1"
+      ],
+      "html": "</table>",
+      "data": [],
+      "count": 0
+    },
+    "kaṅkhā2": {
+      "headwords": [
+        "akaṅkha 2.1"
+      ],
+      "html": "</table>",
+      "data": [],
+      "count": 0
+    }
+  }
+}

@@ -5,6 +5,8 @@
 import json
 import re
 
+from sqlalchemy.orm import Session
+
 from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword, FamilyIdiom
 from tools.configger import config_test
@@ -14,7 +16,7 @@ from tools.printer import printer as pr
 from tools.superscripter import superscripter_uni
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("idioms generator")
 
@@ -39,11 +41,12 @@ def main():
     idioms_dict = compile_idioms_html(dpd_db, idioms_dict)
     add_idioms_to_db(db_session, idioms_dict)
     update_db_cache(db_session, idioms_dict)
+    db_session.close()
 
     pr.toc()
 
 
-def sync_idiom_numbers_with_family_compound(db_session):
+def sync_idiom_numbers_with_family_compound(db_session: Session) -> None:
     """
     Sync idioms with family compound.
     If a family compound has
@@ -60,11 +63,11 @@ def sync_idiom_numbers_with_family_compound(db_session):
     for i in dpd_db:
         if (
             i.family_compound
-            and re.findall("\\d", i.family_compound)
+            and re.search(r"\d", i.family_compound)
             and " " not in i.family_compound
-            and "idioms" not in i.pos
+            and "idiom" not in i.pos
             and "sandhi" not in i.pos
-            and not re.findall("\\bcomp\\b", i.grammar)
+            and not re.search(r"\bcomp\b", i.grammar)
             and not i.family_idioms
         ):
             i.family_idioms = i.family_compound
@@ -74,13 +77,10 @@ def sync_idiom_numbers_with_family_compound(db_session):
     pr.yes(count)
 
 
-def create_idioms_dict(dpd_db):
+def create_idioms_dict(dpd_db: list[DpdHeadword]) -> dict[str, dict]:
     pr.green_tmr("extracting idioms and headwords")
 
-    # create a dict of all idioms
-    # word: {headwords: [], html: "", data: []}
-
-    idioms_dict: dict = {}
+    idioms_dict: dict[str, dict] = {}
     for i in dpd_db:
         for word in i.family_idioms_list:
             if i.meaning_1:
@@ -98,7 +98,9 @@ def create_idioms_dict(dpd_db):
     return idioms_dict
 
 
-def compile_idioms_html(dpd_db: list[DpdHeadword], idioms_dict):
+def compile_idioms_html(
+    dpd_db: list[DpdHeadword], idioms_dict: dict[str, dict]
+) -> dict[str, dict]:
     pr.green_tmr("compiling html")
 
     for i in dpd_db:
@@ -143,36 +145,35 @@ def compile_idioms_html(dpd_db: list[DpdHeadword], idioms_dict):
     return idioms_dict
 
 
-def add_idioms_to_db(db_session, idioms_dict):
+def add_idioms_to_db(db_session: Session, idioms_dict: dict[str, dict]) -> None:
     pr.green_tmr("adding to db")
 
     add_to_db = []
 
     for idiom, data in idioms_dict.items():
-        if idioms_dict[idiom]["data"]:
+        if data["data"]:
             idiom_data = FamilyIdiom(
                 idiom=idiom,
-                html=idioms_dict[idiom]["html"],
-                count=idioms_dict[idiom]["count"],
+                html=data["html"],
+                count=data["count"],
             )
-            idiom_data.data_pack(idioms_dict[idiom]["data"])
+            idiom_data.data_pack(data["data"])
             add_to_db.append(idiom_data)
 
-    db_session.execute(FamilyIdiom.__table__.delete())  # type: ignore
+    db_session.query(FamilyIdiom).delete()
     db_session.add_all(add_to_db)
     db_session.commit()
-    db_session.close()
     pr.yes("ok")
 
 
-def update_db_cache(db_session, idioms_dict):
+def update_db_cache(db_session: Session, idioms_dict: dict[str, dict]) -> None:
     """Update the db_info with cf_set for use in the exporter."""
 
     pr.green_tmr("adding DbInfo cache item")
 
     idioms_set = set()
-    for word in idioms_dict:
-        if idioms_dict[word]["count"] > 0:
+    for word, wdata in idioms_dict.items():
+        if wdata["count"] > 0:
             idioms_set.add(word)
 
     idioms_set_cache = db_session.query(DbInfo).filter_by(key="idioms_set").first()
@@ -181,7 +182,9 @@ def update_db_cache(db_session, idioms_dict):
         idioms_set_cache = DbInfo()
 
     idioms_set_cache.key = "idioms_set"
-    idioms_set_cache.value = json.dumps(list(idioms_set), ensure_ascii=False, indent=1)
+    idioms_set_cache.value = json.dumps(
+        sorted(idioms_set), ensure_ascii=False, indent=1
+    )
     db_session.add(idioms_set_cache)
     db_session.commit()
     pr.yes("ok")
