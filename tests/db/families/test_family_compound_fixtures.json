@@ -1,0 +1,606 @@
+{
+  "inputs": [
+    {
+      "lemma_1": "akaṭṭha",
+      "family_compound_list": [
+        "kaṭṭha2"
+      ],
+      "grammar": "pp of na kasati",
+      "lemma_clean": "akaṭṭha",
+      "meaning_1": "uncultivated; naturally occurring",
+      "pos": "pp",
+      "meaning_combo": "uncultivated; naturally occurring; lit. not dragged",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "na + √kas + ta"
+    },
+    {
+      "lemma_1": "akaṭṭhapāka",
+      "family_compound_list": [
+        "kaṭṭha2",
+        "pāka"
+      ],
+      "grammar": "adj, comp",
+      "lemma_clean": "akaṭṭhapāka",
+      "meaning_1": "ripening in uncultivated ground; growing wild",
+      "pos": "adj",
+      "meaning_combo": "ripening in uncultivated ground; growing wild",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "na + kaṭṭha + pāka"
+    },
+    {
+      "lemma_1": "akatūpāsana",
+      "family_compound_list": [
+        "kata",
+        "upāsana"
+      ],
+      "grammar": "adj, comp",
+      "lemma_clean": "akatūpāsana",
+      "meaning_1": "not done target practice; not completed military training",
+      "pos": "adj",
+      "meaning_combo": "not done target practice; not completed military training",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "akata + upāsana"
+    },
+    {
+      "lemma_1": "akampana",
+      "family_compound_list": [
+        "kampana"
+      ],
+      "grammar": "nt, act, from na kampati",
+      "lemma_clean": "akampana",
+      "meaning_1": "not shaking; not wavering",
+      "pos": "nt",
+      "meaning_combo": "not shaking; not wavering",
+      "degree_of_completion_html": "<span class=\"gray\">◑</span>",
+      "degree_of_completion": "◑",
+      "construction_clean": "na + √kamp + ana"
+    },
+    {
+      "lemma_1": "akampanañāṇa",
+      "family_compound_list": [
+        "kampana",
+        "ñāṇa"
+      ],
+      "grammar": "nt, comp",
+      "lemma_clean": "akampanañāṇa",
+      "meaning_1": "unshakeable knowledge (of)",
+      "pos": "nt",
+      "meaning_combo": "unshakeable knowledge (of)",
+      "degree_of_completion_html": "<span class=\"gray\">◑</span>",
+      "degree_of_completion": "◑",
+      "construction_clean": "akampana + ñāṇa"
+    },
+    {
+      "lemma_1": "upāsana 1.1",
+      "family_compound_list": [
+        "upāsana"
+      ],
+      "grammar": "nt, act, from upāseti",
+      "lemma_clean": "upāsana",
+      "meaning_1": "target practice; military training",
+      "pos": "nt",
+      "meaning_combo": "target practice; military training; lit. causing to throw near",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "upa + āse + ana"
+    },
+    {
+      "lemma_1": "upāsana 1.2",
+      "family_compound_list": [
+        "upāsana"
+      ],
+      "grammar": "adj, in comps, from upāseti",
+      "lemma_clean": "upāsana",
+      "meaning_1": "who has trained; with military training",
+      "pos": "adj",
+      "meaning_combo": "who has trained; with military training; lit. causing to throw near",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "upa + āse + ana"
+    },
+    {
+      "lemma_1": "upāsana 1.3",
+      "family_compound_list": [
+        "upāsana"
+      ],
+      "grammar": "nt, act, from upāseti",
+      "lemma_clean": "upāsana",
+      "meaning_1": "archery; shooting",
+      "pos": "nt",
+      "meaning_combo": "archery; shooting; lit. causing to throw near",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "upa + āse + ana"
+    },
+    {
+      "lemma_1": "kaṭṭha 2.1",
+      "family_compound_list": [
+        "kaṭṭha2"
+      ],
+      "grammar": "pp of kasati",
+      "lemma_clean": "kaṭṭha",
+      "meaning_1": "ploughed; tilled; farmed; cultivated",
+      "pos": "pp",
+      "meaning_combo": "ploughed; tilled; farmed; cultivated; lit. dragged",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "√kas + ta"
+    },
+    {
+      "lemma_1": "kaṭṭhakhetta",
+      "family_compound_list": [
+        "kaṭṭha2",
+        "khetta"
+      ],
+      "grammar": "nt, comp",
+      "lemma_clean": "kaṭṭhakhetta",
+      "meaning_1": "ploughed field",
+      "pos": "nt",
+      "meaning_combo": "ploughed field",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "kaṭṭha + khetta"
+    },
+    {
+      "lemma_1": "katūpāsana",
+      "family_compound_list": [
+        "kata",
+        "upāsana"
+      ],
+      "grammar": "adj, comp",
+      "lemma_clean": "katūpāsana",
+      "meaning_1": "done target practice; completed military training",
+      "pos": "adj",
+      "meaning_combo": "done target practice; completed military training",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "kata + upāsana"
+    },
+    {
+      "lemma_1": "naṅgalakaṭṭhakaraṇa",
+      "family_compound_list": [
+        "naṅgala",
+        "kaṭṭha2",
+        "karaṇa"
+      ],
+      "grammar": "adj, comp",
+      "lemma_clean": "naṅgalakaṭṭhakaraṇa",
+      "meaning_1": "which has been ploughed",
+      "pos": "adj",
+      "meaning_combo": "which has been ploughed; lit. plough ploughed doing",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "naṅgala + kaṭṭha + karaṇa"
+    },
+    {
+      "lemma_1": "pathavikampana",
+      "family_compound_list": [
+        "pathavī",
+        "kampana"
+      ],
+      "grammar": "nt, comp",
+      "lemma_clean": "pathavikampana",
+      "meaning_1": "",
+      "pos": "nt",
+      "meaning_combo": "earthquake; earth tremor",
+      "degree_of_completion_html": "<span class=\"gray\">✘</span>",
+      "degree_of_completion": "✘",
+      "construction_clean": "pathavī + kampana"
+    },
+    {
+      "lemma_1": "pāsādakampana",
+      "family_compound_list": [
+        "pāsāda",
+        "kampana"
+      ],
+      "grammar": "nt, act, comp",
+      "lemma_clean": "pāsādakampana",
+      "meaning_1": "shaking the palace; making the mansion tremble",
+      "pos": "nt",
+      "meaning_combo": "shaking the palace; making the mansion tremble",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "pāsāda + kampana"
+    },
+    {
+      "lemma_1": "samaṇūpāsana",
+      "family_compound_list": [
+        "samaṇa",
+        "upāsana"
+      ],
+      "grammar": "nt, comp",
+      "lemma_clean": "samaṇūpāsana",
+      "meaning_1": "contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training",
+      "pos": "nt",
+      "meaning_combo": "contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "samaṇa + upāsana"
+    },
+    {
+      "lemma_1": "sukaṭṭha",
+      "family_compound_list": [
+        "kaṭṭha2"
+      ],
+      "grammar": "adj, from kaṭṭha",
+      "lemma_clean": "sukaṭṭha",
+      "meaning_1": "well ploughed; well tilled",
+      "pos": "adj",
+      "meaning_combo": "well ploughed; well tilled; lit. well dragged",
+      "degree_of_completion_html": "<span class=\"gray\">✔</span>",
+      "degree_of_completion": "✔",
+      "construction_clean": "su + √kas + ta"
+    }
+  ],
+  "expected_dict": {
+    "kaṭṭha2": {
+      "headwords": [
+        "akaṭṭhapāka",
+        "kaṭṭhakhetta",
+        "naṅgalakaṭṭhakaraṇa"
+      ],
+      "html": "<table class='family'><tr><th>akaṭṭhapāka</th><td><b>adj</b></td><td>ripening in uncultivated ground; growing wild</td><td><span class=\"gray\">✔</span></td></tr><tr><th>kaṭṭhakhetta</th><td><b>nt</b></td><td>ploughed field</td><td><span class=\"gray\">✔</span></td></tr><tr><th>naṅgalakaṭṭhakaraṇa</th><td><b>adj</b></td><td>which has been ploughed; lit. plough ploughed doing</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akaṭṭhapāka",
+          "adj",
+          "ripening in uncultivated ground; growing wild",
+          "✔"
+        ],
+        [
+          "kaṭṭhakhetta",
+          "nt",
+          "ploughed field",
+          "✔"
+        ],
+        [
+          "naṅgalakaṭṭhakaraṇa",
+          "adj",
+          "which has been ploughed; lit. plough ploughed doing",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "akaṭṭhapāka",
+          "adj",
+          "ripening in uncultivated ground; growing wild",
+          "na + kaṭṭha + pāka"
+        ],
+        [
+          "kaṭṭhakhetta",
+          "nt",
+          "ploughed field",
+          "kaṭṭha + khetta"
+        ],
+        [
+          "naṅgalakaṭṭhakaraṇa",
+          "adj",
+          "which has been ploughed; lit. plough ploughed doing",
+          "naṅgala + kaṭṭha + karaṇa"
+        ]
+      ]
+    },
+    "pāka": {
+      "headwords": [
+        "akaṭṭhapāka"
+      ],
+      "html": "<table class='family'><tr><th>akaṭṭhapāka</th><td><b>adj</b></td><td>ripening in uncultivated ground; growing wild</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akaṭṭhapāka",
+          "adj",
+          "ripening in uncultivated ground; growing wild",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "akaṭṭhapāka",
+          "adj",
+          "ripening in uncultivated ground; growing wild",
+          "na + kaṭṭha + pāka"
+        ]
+      ]
+    },
+    "kata": {
+      "headwords": [
+        "akatūpāsana",
+        "katūpāsana"
+      ],
+      "html": "<table class='family'><tr><th>akatūpāsana</th><td><b>adj</b></td><td>not done target practice; not completed military training</td><td><span class=\"gray\">✔</span></td></tr><tr><th>katūpāsana</th><td><b>adj</b></td><td>done target practice; completed military training</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akatūpāsana",
+          "adj",
+          "not done target practice; not completed military training",
+          "✔"
+        ],
+        [
+          "katūpāsana",
+          "adj",
+          "done target practice; completed military training",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "akatūpāsana",
+          "adj",
+          "not done target practice; not completed military training",
+          "akata + upāsana"
+        ],
+        [
+          "katūpāsana",
+          "adj",
+          "done target practice; completed military training",
+          "kata + upāsana"
+        ]
+      ]
+    },
+    "upāsana": {
+      "headwords": [
+        "akatūpāsana",
+        "katūpāsana",
+        "samaṇūpāsana"
+      ],
+      "html": "<table class='family'><tr><th>akatūpāsana</th><td><b>adj</b></td><td>not done target practice; not completed military training</td><td><span class=\"gray\">✔</span></td></tr><tr><th>katūpāsana</th><td><b>adj</b></td><td>done target practice; completed military training</td><td><span class=\"gray\">✔</span></td></tr><tr><th>samaṇūpāsana</th><td><b>nt</b></td><td>contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akatūpāsana",
+          "adj",
+          "not done target practice; not completed military training",
+          "✔"
+        ],
+        [
+          "katūpāsana",
+          "adj",
+          "done target practice; completed military training",
+          "✔"
+        ],
+        [
+          "samaṇūpāsana",
+          "nt",
+          "contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "akatūpāsana",
+          "adj",
+          "not done target practice; not completed military training",
+          "akata + upāsana"
+        ],
+        [
+          "katūpāsana",
+          "adj",
+          "done target practice; completed military training",
+          "kata + upāsana"
+        ],
+        [
+          "samaṇūpāsana",
+          "nt",
+          "contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training",
+          "samaṇa + upāsana"
+        ]
+      ]
+    },
+    "kampana": {
+      "headwords": [
+        "akampanañāṇa",
+        "pāsādakampana"
+      ],
+      "html": "<table class='family'><tr><th>akampanañāṇa</th><td><b>nt</b></td><td>unshakeable knowledge (of)</td><td><span class=\"gray\">◑</span></td></tr><tr><th>pāsādakampana</th><td><b>nt</b></td><td>shaking the palace; making the mansion tremble</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "akampanañāṇa",
+          "nt",
+          "unshakeable knowledge (of)",
+          "◑"
+        ],
+        [
+          "pāsādakampana",
+          "nt",
+          "shaking the palace; making the mansion tremble",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "akampanañāṇa",
+          "nt",
+          "unshakeable knowledge (of)",
+          "akampana + ñāṇa"
+        ],
+        [
+          "pāsādakampana",
+          "nt",
+          "shaking the palace; making the mansion tremble",
+          "pāsāda + kampana"
+        ]
+      ]
+    },
+    "ñāṇa": {
+      "headwords": [
+        "akampanañāṇa"
+      ],
+      "html": "<table class='family'><tr><th>akampanañāṇa</th><td><b>nt</b></td><td>unshakeable knowledge (of)</td><td><span class=\"gray\">◑</span></td></tr></table>",
+      "data": [
+        [
+          "akampanañāṇa",
+          "nt",
+          "unshakeable knowledge (of)",
+          "◑"
+        ]
+      ],
+      "anki": [
+        [
+          "akampanañāṇa",
+          "nt",
+          "unshakeable knowledge (of)",
+          "akampana + ñāṇa"
+        ]
+      ]
+    },
+    "khetta": {
+      "headwords": [
+        "kaṭṭhakhetta"
+      ],
+      "html": "<table class='family'><tr><th>kaṭṭhakhetta</th><td><b>nt</b></td><td>ploughed field</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "kaṭṭhakhetta",
+          "nt",
+          "ploughed field",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "kaṭṭhakhetta",
+          "nt",
+          "ploughed field",
+          "kaṭṭha + khetta"
+        ]
+      ]
+    },
+    "naṅgala": {
+      "headwords": [
+        "naṅgalakaṭṭhakaraṇa"
+      ],
+      "html": "<table class='family'><tr><th>naṅgalakaṭṭhakaraṇa</th><td><b>adj</b></td><td>which has been ploughed; lit. plough ploughed doing</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "naṅgalakaṭṭhakaraṇa",
+          "adj",
+          "which has been ploughed; lit. plough ploughed doing",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "naṅgalakaṭṭhakaraṇa",
+          "adj",
+          "which has been ploughed; lit. plough ploughed doing",
+          "naṅgala + kaṭṭha + karaṇa"
+        ]
+      ]
+    },
+    "karaṇa": {
+      "headwords": [
+        "naṅgalakaṭṭhakaraṇa"
+      ],
+      "html": "<table class='family'><tr><th>naṅgalakaṭṭhakaraṇa</th><td><b>adj</b></td><td>which has been ploughed; lit. plough ploughed doing</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "naṅgalakaṭṭhakaraṇa",
+          "adj",
+          "which has been ploughed; lit. plough ploughed doing",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "naṅgalakaṭṭhakaraṇa",
+          "adj",
+          "which has been ploughed; lit. plough ploughed doing",
+          "naṅgala + kaṭṭha + karaṇa"
+        ]
+      ]
+    },
+    "pāsāda": {
+      "headwords": [
+        "pāsādakampana"
+      ],
+      "html": "<table class='family'><tr><th>pāsādakampana</th><td><b>nt</b></td><td>shaking the palace; making the mansion tremble</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "pāsādakampana",
+          "nt",
+          "shaking the palace; making the mansion tremble",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "pāsādakampana",
+          "nt",
+          "shaking the palace; making the mansion tremble",
+          "pāsāda + kampana"
+        ]
+      ]
+    },
+    "samaṇa": {
+      "headwords": [
+        "samaṇūpāsana"
+      ],
+      "html": "<table class='family'><tr><th>samaṇūpāsana</th><td><b>nt</b></td><td>contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training</td><td><span class=\"gray\">✔</span></td></tr></table>",
+      "data": [
+        [
+          "samaṇūpāsana",
+          "nt",
+          "contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training",
+          "✔"
+        ]
+      ],
+      "anki": [
+        [
+          "samaṇūpāsana",
+          "nt",
+          "contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training",
+          "samaṇa + upāsana"
+        ]
+      ]
+    }
+  },
+  "expected_anki": [
+    [
+      "<b>kaṭṭha2</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akaṭṭhapāka</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>ripening in uncultivated ground; growing wild</td><td><div style='color: #FF6600'>na + kaṭṭha + pāka</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>kaṭṭhakhetta</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>ploughed field</td><td><div style='color: #FF6600'>kaṭṭha + khetta</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>naṅgalakaṭṭhakaraṇa</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>which has been ploughed; lit. plough ploughed doing</td><td><div style='color: #FF6600'>naṅgala + kaṭṭha + karaṇa</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>pāka</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akaṭṭhapāka</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>ripening in uncultivated ground; growing wild</td><td><div style='color: #FF6600'>na + kaṭṭha + pāka</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>kata</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akatūpāsana</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>not done target practice; not completed military training</td><td><div style='color: #FF6600'>akata + upāsana</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>katūpāsana</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>done target practice; completed military training</td><td><div style='color: #FF6600'>kata + upāsana</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>upāsana</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akatūpāsana</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>not done target practice; not completed military training</td><td><div style='color: #FF6600'>akata + upāsana</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>katūpāsana</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>done target practice; completed military training</td><td><div style='color: #FF6600'>kata + upāsana</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>samaṇūpāsana</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training</td><td><div style='color: #FF6600'>samaṇa + upāsana</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>kampana</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akampanañāṇa</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>unshakeable knowledge (of)</td><td><div style='color: #FF6600'>akampana + ñāṇa</div></td></tr><tr valign='top'><div style='color: #FFB380'><td>pāsādakampana</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>shaking the palace; making the mansion tremble</td><td><div style='color: #FF6600'>pāsāda + kampana</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>ñāṇa</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>akampanañāṇa</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>unshakeable knowledge (of)</td><td><div style='color: #FF6600'>akampana + ñāṇa</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>khetta</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>kaṭṭhakhetta</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>ploughed field</td><td><div style='color: #FF6600'>kaṭṭha + khetta</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>naṅgala</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>naṅgalakaṭṭhakaraṇa</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>which has been ploughed; lit. plough ploughed doing</td><td><div style='color: #FF6600'>naṅgala + kaṭṭha + karaṇa</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>karaṇa</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>naṅgalakaṭṭhakaraṇa</td><td><div style='color: #FF6600'>adj</div></td><td><div style='color: #FFB380'>which has been ploughed; lit. plough ploughed doing</td><td><div style='color: #FF6600'>naṅgala + kaṭṭha + karaṇa</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>pāsāda</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>pāsādakampana</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>shaking the palace; making the mansion tremble</td><td><div style='color: #FF6600'>pāsāda + kampana</div></td></tr></tbody></table>"
+    ],
+    [
+      "<b>samaṇa</b>",
+      "<table><tbody><tr valign='top'><div style='color: #FFB380'><td>samaṇūpāsana</td><td><div style='color: #FF6600'>nt</div></td><td><div style='color: #FFB380'>contemplative practice; monk training; training in the skills of renunciation; (comm) meditation training</td><td><div style='color: #FF6600'>samaṇa + upāsana</div></td></tr></tbody></table>"
+    ]
+  ]
+}
