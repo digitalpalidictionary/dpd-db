@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass, field
 
+from sqlalchemy.orm import Session
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup, SuttaInfo
 from tools.configger import config_read
@@ -16,51 +18,30 @@ SuttaInfoDict = dict[str, set[int]]
 
 @dataclass
 class GlobalVars:
-    pth: ProjectPaths = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    sutta_db = db_session.query(SuttaInfo).all()
-    lookup_db = db_session.query(Lookup).all()
+    pth: ProjectPaths
+    db_session: Session
+    sutta_db: list[SuttaInfo]
+    lookup_db: list[Lookup]
     sutta_info_dict: SuttaInfoDict = field(default_factory=dict)
-    sutta_code: str = field(default_factory=str)
-    sutta_name: str = field(default_factory=str)
-    sutta_id: int = field(default_factory=int)
 
 
-def add_code_to_dict(
-    g: GlobalVars,
-) -> None:
-    if g.sutta_code not in g.sutta_info_dict:
-        g.sutta_info_dict[g.sutta_code] = set([g.sutta_id])
-    else:
-        g.sutta_info_dict[g.sutta_code].add(g.sutta_id)
-
-
-def get_id(g: GlobalVars):
-    """Needs sutta_name"""
-
-    if g.sutta_name:
-        id = (
-            g.db_session.query(DpdHeadword.id)
-            .filter(DpdHeadword.lemma_1 == g.sutta_name)
-            .first()
-        )
-        if id:
-            g.sutta_id = id[0]
-        else:
-            pr.red(f"error: '{g.sutta_name}'")
-    else:
-        pr.red(f"error: '{g.sutta_name}'")
-
-
-def make_sutta_info_dict(g: GlobalVars):
+def make_sutta_info_dict(g: GlobalVars) -> None:
     pr.green_tmr("make sutta info dict")
+
+    name_to_id: dict[str, int] = {
+        lemma: hw_id
+        for lemma, hw_id in g.db_session.query(DpdHeadword.lemma_1, DpdHeadword.id)
+        .filter(DpdHeadword.lemma_1.in_([su.dpd_sutta for su in g.sutta_db]))
+        .all()
+    }
+
     for su in g.sutta_db:
-        g.sutta_name = su.dpd_sutta
-        get_id(g)
-        sutta_codes = make_list_of_sutta_codes(su)
-        for code in sutta_codes:
-            g.sutta_code = code
-            add_code_to_dict(g)
+        sutta_id = name_to_id.get(su.dpd_sutta)
+        if sutta_id is None:
+            pr.red(f"error: '{su.dpd_sutta}'")
+            continue
+        for code in make_list_of_sutta_codes(su):
+            g.sutta_info_dict.setdefault(code, set()).add(sutta_id)
 
     pr.yes(len(g.sutta_info_dict))
 
@@ -71,32 +52,19 @@ def add_to_lookup_table(g: GlobalVars) -> None:
     pr.green_title("saving to Lookup table")
     pr.white_tmr("update test or add")
 
-    results = update_test_add(g.lookup_db, g.sutta_info_dict)
-    update_set, test_set, add_set = results
+    update_set, test_set, add_set = update_test_add(g.lookup_db, g.sutta_info_dict)
     pr.yes("")
 
     pr.white_tmr("updating and deleting")
-    # update test add
     for i in g.lookup_db:
         if i.lookup_key in update_set:
-            if i.headwords:
-                headwords = g.sutta_info_dict[i.lookup_key]
-                headwords.update(g.sutta_info_dict[i.lookup_key])
-                i.headwords_pack(list(headwords))
-            else:
-                i.headwords_pack(list(g.sutta_info_dict[i.lookup_key]))
+            i.headwords_pack(list(g.sutta_info_dict[i.lookup_key]))
         elif i.lookup_key in test_set:
-            if is_another_value(i, "headwords"):
-                # i.headwords_pack([])
-                pass
-            elif i.headwords:
-                pass
-            else:
+            if not is_another_value(i, "headwords") and not i.headwords:
                 g.db_session.delete(i)
     pr.yes(len(update_set))
 
     pr.white_tmr("adding")
-    # add
     add_to_db = []
     for key, data in g.sutta_info_dict.items():
         if key in add_set:
@@ -112,12 +80,6 @@ def add_to_lookup_table(g: GlobalVars) -> None:
     pr.yes("ok")
 
 
-def print_results(g: GlobalVars) -> None:
-    for key, value in g.sutta_info_dict.items():
-        if len(value) > 1:
-            print(key, value)
-
-
 def main() -> None:
     pr.tic()
     pr.yellow_title("add sutta codes to lookup table")
@@ -125,7 +87,15 @@ def main() -> None:
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
-    g: GlobalVars = GlobalVars()
+
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    g = GlobalVars(
+        pth,
+        db_session,
+        db_session.query(SuttaInfo).all(),
+        db_session.query(Lookup).all(),
+    )
     make_sutta_info_dict(g)
     add_to_lookup_table(g)
     pr.toc()
