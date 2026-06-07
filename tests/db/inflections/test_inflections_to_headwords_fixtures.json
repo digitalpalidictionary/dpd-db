@@ -1,0 +1,108 @@
+{
+  "all_words_set": [
+    "abhidhammo",
+    "abhidhammā",
+    "abhidhammāni",
+    "api",
+    "ca",
+    "dupword",
+    "eva"
+  ],
+  "headwords": [
+    {
+      "id": 1,
+      "lemma_1": "abhidhamma 1",
+      "inflections_list_all": [
+        "abhidhammo",
+        "abhidhammā",
+        "api",
+        ""
+      ]
+    },
+    {
+      "id": 2,
+      "lemma_1": "abhidhamma 2",
+      "inflections_list_all": [
+        "abhidhammo",
+        "abhidhammāni",
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "lemma_1": "ca 1",
+      "inflections_list_all": [
+        "ca",
+        "eva",
+        "iti"
+      ]
+    },
+    {
+      "id": 4,
+      "lemma_1": "dup 1",
+      "inflections_list_all": [
+        "dupword",
+        "dupword",
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "lemma_1": "filtered 1",
+      "inflections_list_all": [
+        "filteredout",
+        ""
+      ]
+    }
+  ],
+  "expected": {
+    "i2h_dict": {
+      "abhidhammo": [
+        1,
+        2
+      ],
+      "abhidhammā": [
+        1
+      ],
+      "api": [
+        1
+      ],
+      "abhidhammāni": [
+        2
+      ],
+      "ca": [
+        3
+      ],
+      "eva": [
+        3
+      ],
+      "dupword": [
+        4
+      ]
+    },
+    "i2h_dict_tpr": {
+      "abhidhammo": [
+        "abhidhamma 1",
+        "abhidhamma 2"
+      ],
+      "abhidhammā": [
+        "abhidhamma 1"
+      ],
+      "api": [
+        "abhidhamma 1"
+      ],
+      "abhidhammāni": [
+        "abhidhamma 2"
+      ],
+      "ca": [
+        "ca 1"
+      ],
+      "eva": [
+        "ca 1"
+      ],
+      "dupword": [
+        "dup 1"
+      ]
+    }
+  }
+}
