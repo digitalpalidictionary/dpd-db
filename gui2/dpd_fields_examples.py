@@ -14,6 +14,8 @@ from tools.cst_source_sutta_example import (
 )
 from tools.speech_marks import SpeechMarkManager
 
+MAX_SEARCH_RESULTS = 100
+
 book_codes: dict[str, str] = {
     # vinaya
     "VIN1 Pārājika": "vin1",
@@ -359,8 +361,18 @@ class DpdExampleField(ft.Column):
             return
 
         # Limit the number of examples to prevent UI issues
-        examples_to_show = self.cst_examples[:50]
+        examples_to_show = self.cst_examples[:MAX_SEARCH_RESULTS]
         example_list = []
+
+        if len(self.cst_examples) > MAX_SEARCH_RESULTS:
+            example_list.append(
+                ft.Text(
+                    f"Showing first {MAX_SEARCH_RESULTS} results — "
+                    "refine your search to narrow it down.",
+                    size=12,
+                    color=ft.Colors.AMBER,
+                )
+            )
 
         for counter, i in enumerate(examples_to_show):
             source, sutta, example = i

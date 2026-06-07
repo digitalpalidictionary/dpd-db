@@ -10,6 +10,8 @@ from tools.bold_definitions_search import BoldDefinitionsSearchManager
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.speech_marks import SpeechMarkManager
 
+MAX_SEARCH_RESULTS = 100
+
 
 class DpdCommentaryField(ft.Column):
     def __init__(
@@ -192,8 +194,12 @@ class DpdCommentaryField(ft.Column):
             and self.search_field_2.value is not None
         ):
             self.commentary_list = commentary_searcher.search(
-                self.search_field_1.value, self.search_field_2.value
+                self.search_field_1.value,
+                self.search_field_2.value,
+                limit=MAX_SEARCH_RESULTS + 1,
             )
+            self.commentary_truncated = len(self.commentary_list) > MAX_SEARCH_RESULTS
+            self.commentary_list = self.commentary_list[:MAX_SEARCH_RESULTS]
 
             if self.commentary_list:
                 self.choose_commentary()
@@ -212,6 +218,16 @@ class DpdCommentaryField(ft.Column):
 
         self.checked_items = []
         example_list = []
+
+        if getattr(self, "commentary_truncated", False):
+            example_list.append(
+                ft.Text(
+                    f"Showing first {MAX_SEARCH_RESULTS} results — "
+                    "refine your search to narrow it down.",
+                    size=12,
+                    color=ft.Colors.AMBER,
+                )
+            )
 
         for counter, i in enumerate(self.commentary_list):
             example_list.append(

@@ -17,45 +17,45 @@ class BoldDefinitionsSearchManager:
         self.session = get_db_session(self.pth.dpd_db_path)
 
     def search(
-        self, search1: str, search2: str, option: str = "regex"
+        self,
+        search1: str,
+        search2: str,
+        option: str = "regex",
+        limit: int | None = None,
     ) -> List[BoldDefinition]:
-        """Main search method with options matching db_search_bd"""
+        """Main search method with options matching db_search_bd.
+
+        Pass ``limit`` to cap the number of rows returned (e.g. for a GUI that
+        cannot render an unbounded result set). Default ``None`` returns all rows.
+        """
         if not search1 and not search2:
             return []
 
+        query = self.session.query(BoldDefinition)
+
         if option == "starts_with":
-            search1 = f"^{search1}"
-            return (
-                self.session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.regexp_match(search1))
-                .filter(BoldDefinition.commentary.regexp_match(search2))
-                .all()
-            )
+            query = query.filter(
+                BoldDefinition.bold.regexp_match(f"^{search1}")
+            ).filter(BoldDefinition.commentary.regexp_match(search2))
         elif option == "regex":
-            return (
-                self.session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.regexp_match(search1))
-                .filter(BoldDefinition.commentary.regexp_match(search2))
-                .all()
+            query = query.filter(BoldDefinition.bold.regexp_match(search1)).filter(
+                BoldDefinition.commentary.regexp_match(search2)
             )
         elif option == "fuzzy":
             from exporter.webapp.toolkit import fuzzy_replace
 
-            search1 = fuzzy_replace(search1)
-            search2 = fuzzy_replace(search2)
-            return (
-                self.session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.regexp_match(search1))
-                .filter(BoldDefinition.commentary.regexp_match(search2))
-                .all()
-            )
+            query = query.filter(
+                BoldDefinition.bold.regexp_match(fuzzy_replace(search1))
+            ).filter(BoldDefinition.commentary.regexp_match(fuzzy_replace(search2)))
         else:  # plain search
-            return (
-                self.session.query(BoldDefinition)
-                .filter(BoldDefinition.bold.ilike(f"%{search1}%"))
-                .filter(BoldDefinition.commentary.ilike(f"%{search2}%"))
-                .all()
+            query = query.filter(BoldDefinition.bold.ilike(f"%{search1}%")).filter(
+                BoldDefinition.commentary.ilike(f"%{search2}%")
             )
+
+        if limit is not None:
+            query = query.limit(limit)
+
+        return query.all()
 
 
 if __name__ == "__main__":
