@@ -1,0 +1,504 @@
+{
+  "make": {
+    "inputs": [
+      {
+        "lookup_key": "akakkasanti",
+        "deconstructor": "[\"akakkasaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akakkasāti",
+        "deconstructor": "[\"akakkasa + iti\", \"akakkasā + iti\"]"
+      },
+      {
+        "lookup_key": "akakkasoti",
+        "deconstructor": "[\"akakkaso + iti\"]"
+      },
+      {
+        "lookup_key": "akaṅkhoti",
+        "deconstructor": "[\"akaṅkho + iti\"]"
+      },
+      {
+        "lookup_key": "akiñcananti",
+        "deconstructor": "[\"akiñcanaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akiñcanameva",
+        "deconstructor": "[\"akiñcanaṃ + eva\", \"akiñcana + eva\"]"
+      },
+      {
+        "lookup_key": "akacchoti",
+        "deconstructor": "[\"akaccho + iti\"]"
+      },
+      {
+        "lookup_key": "akaṭāti",
+        "deconstructor": "[\"akaṭa + iti\", \"akaṭā + iti\"]"
+      },
+      {
+        "lookup_key": "akaṭayūsanti",
+        "deconstructor": "[\"akaṭayūsaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akaṭayūsenāti",
+        "deconstructor": "[\"akaṭayūsena + iti\"]"
+      },
+      {
+        "lookup_key": "akaṭavidhāti",
+        "deconstructor": "[\"akaṭavidhā + iti\", \"akaṭavidha + iti\"]"
+      },
+      {
+        "lookup_key": "akaṭānudhammenāti",
+        "deconstructor": "[\"akaṭānudhammena + iti\"]"
+      },
+      {
+        "lookup_key": "akaṭṭhapākoti",
+        "deconstructor": "[\"akaṭṭhapāko + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇoti",
+        "deconstructor": "[\"akaṇo + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇikanti",
+        "deconstructor": "[\"akaṇikaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇikaṅganti",
+        "deconstructor": "[\"akaṇikaṅgaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇṭakañca",
+        "deconstructor": "[\"akaṇṭakaṃ + ca\"]"
+      },
+      {
+        "lookup_key": "akaṇṭakanti",
+        "deconstructor": "[\"akaṇṭakaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇṭakāti",
+        "deconstructor": "[\"akaṇṭaka + iti\", \"akaṇṭakā + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇhaasukkanti",
+        "deconstructor": "[\"akaṇhaasukkaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akaṇhaasukkavipākanti",
+        "deconstructor": "[\"akaṇhaasukkavipākaṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akatañca",
+        "deconstructor": "[\"akataṃ + ca\"]"
+      },
+      {
+        "lookup_key": "akatatoti",
+        "deconstructor": "[\"akatato + iti\"]"
+      },
+      {
+        "lookup_key": "akatanti",
+        "deconstructor": "[\"akataṃ + iti\"]"
+      },
+      {
+        "lookup_key": "akatameva",
+        "deconstructor": "[\"akataṃ + eva\", \"akata + eva\"]"
+      },
+      {
+        "lookup_key": "akatampi",
+        "deconstructor": "[\"akataṃ + api\", \"akata + api\"]"
+      },
+      {
+        "lookup_key": "akataṃpi",
+        "deconstructor": "[\"akataṃ + api\"]"
+      },
+      {
+        "lookup_key": "akatāti",
+        "deconstructor": "[\"akatā + iti\", \"akata + iti\"]"
+      },
+      {
+        "lookup_key": "akatānica",
+        "deconstructor": "[\"akatāni + ca\"]"
+      },
+      {
+        "lookup_key": "akatāpi",
+        "deconstructor": "[\"akata + api\", \"akato + api\", \"akatā + api\", \"akataṃ + api\"]"
+      },
+      {
+        "lookup_key": "akatāyapi",
+        "deconstructor": "[\"akatāyo + api\", \"akatāyaṃ + api\", \"akatā + api\", \"akatāya + api\"]"
+      },
+      {
+        "lookup_key": "akatāyāti",
+        "deconstructor": "[\"akatāya + iti\"]"
+      },
+      {
+        "lookup_key": "akatāva",
+        "deconstructor": "[\"akatā + iva\", \"akata + iva\", \"akatā + eva\"]"
+      },
+      {
+        "lookup_key": "akateti",
+        "deconstructor": "[\"akate + iti\"]"
+      },
+      {
+        "lookup_key": "akatenāti",
+        "deconstructor": "[\"akatena + iti\"]"
+      },
+      {
+        "lookup_key": "akateneva",
+        "deconstructor": "[\"akatena + iva\", \"akatena + eva\"]"
+      },
+      {
+        "lookup_key": "akatepi",
+        "deconstructor": "[\"akate + api\"]"
+      },
+      {
+        "lookup_key": "akateyeva",
+        "deconstructor": "[\"akate + eva\"]"
+      },
+      {
+        "lookup_key": "akatesupi",
+        "deconstructor": "[\"akatesu + api\"]"
+      },
+      {
+        "lookup_key": "akatoti",
+        "deconstructor": "[\"akato + iti\"]"
+      },
+      {
+        "lookup_key": "twoplus",
+        "deconstructor": "[\"a + b + ca\"]"
+      },
+      {
+        "lookup_key": "notparticle",
+        "deconstructor": "[\"xyz + foo\"]"
+      },
+      {
+        "lookup_key": "withrule",
+        "deconstructor": "[\"abca + ca [comp]\"]"
+      },
+      {
+        "lookup_key": "multi",
+        "deconstructor": "[\"aaa + iti\", \"bbb + eva\"]"
+      }
+    ],
+    "output": {
+      "akakkasaṃ": [
+        "akakkasanti"
+      ],
+      "akakkasa": [
+        "akakkasāti"
+      ],
+      "akakkasā": [
+        "akakkasāti"
+      ],
+      "akakkaso": [
+        "akakkasoti"
+      ],
+      "akaṅkho": [
+        "akaṅkhoti"
+      ],
+      "akiñcanaṃ": [
+        "akiñcanameva",
+        "akiñcananti"
+      ],
+      "akiñcana": [
+        "akiñcanameva"
+      ],
+      "akaccho": [
+        "akacchoti"
+      ],
+      "akaṭa": [
+        "akaṭāti"
+      ],
+      "akaṭā": [
+        "akaṭāti"
+      ],
+      "akaṭayūsaṃ": [
+        "akaṭayūsanti"
+      ],
+      "akaṭayūsena": [
+        "akaṭayūsenāti"
+      ],
+      "akaṭavidhā": [
+        "akaṭavidhāti"
+      ],
+      "akaṭavidha": [
+        "akaṭavidhāti"
+      ],
+      "akaṭānudhammena": [
+        "akaṭānudhammenāti"
+      ],
+      "akaṭṭhapāko": [
+        "akaṭṭhapākoti"
+      ],
+      "akaṇo": [
+        "akaṇoti"
+      ],
+      "akaṇikaṃ": [
+        "akaṇikanti"
+      ],
+      "akaṇikaṅgaṃ": [
+        "akaṇikaṅganti"
+      ],
+      "akaṇṭakaṃ": [
+        "akaṇṭakanti",
+        "akaṇṭakañca"
+      ],
+      "akaṇṭaka": [
+        "akaṇṭakāti"
+      ],
+      "akaṇṭakā": [
+        "akaṇṭakāti"
+      ],
+      "akaṇhaasukkaṃ": [
+        "akaṇhaasukkanti"
+      ],
+      "akaṇhaasukkavipākaṃ": [
+        "akaṇhaasukkavipākanti"
+      ],
+      "akataṃ": [
+        "akatameva",
+        "akatampi",
+        "akatanti",
+        "akatañca",
+        "akataṃpi",
+        "akatāpi"
+      ],
+      "akatato": [
+        "akatatoti"
+      ],
+      "akata": [
+        "akatameva",
+        "akatampi",
+        "akatāpi",
+        "akatāti",
+        "akatāva"
+      ],
+      "akatā": [
+        "akatāpi",
+        "akatāti",
+        "akatāva",
+        "akatāva",
+        "akatāyapi"
+      ],
+      "akatāni": [
+        "akatānica"
+      ],
+      "akato": [
+        "akatoti",
+        "akatāpi"
+      ],
+      "akatāyo": [
+        "akatāyapi"
+      ],
+      "akatāyaṃ": [
+        "akatāyapi"
+      ],
+      "akatāya": [
+        "akatāyapi",
+        "akatāyāti"
+      ],
+      "akate": [
+        "akatepi",
+        "akateti",
+        "akateyeva"
+      ],
+      "akatena": [
+        "akateneva",
+        "akateneva",
+        "akatenāti"
+      ],
+      "akatesu": [
+        "akatesupi"
+      ],
+      "abca": [
+        "withrule"
+      ],
+      "aaa": [
+        "multi"
+      ],
+      "bbb": [
+        "multi"
+      ]
+    }
+  },
+  "add": {
+    "dict": {
+      "akakkasaṃ": [
+        "akakkasanti"
+      ],
+      "akakkasa": [
+        "akakkasāti"
+      ],
+      "akakkasā": [
+        "akakkasāti"
+      ],
+      "akakkaso": [
+        "akakkasoti"
+      ],
+      "akaṅkho": [
+        "akaṅkhoti"
+      ],
+      "akiñcanaṃ": [
+        "akiñcanameva",
+        "akiñcananti"
+      ],
+      "akiñcana": [
+        "akiñcanameva"
+      ],
+      "akaccho": [
+        "akacchoti"
+      ],
+      "akaṭa": [
+        "akaṭāti"
+      ],
+      "akaṭā": [
+        "akaṭāti"
+      ],
+      "akaṭayūsaṃ": [
+        "akaṭayūsanti"
+      ],
+      "akaṭayūsena": [
+        "akaṭayūsenāti"
+      ],
+      "akaṭavidhā": [
+        "akaṭavidhāti"
+      ],
+      "akaṭavidha": [
+        "akaṭavidhāti"
+      ],
+      "akaṭānudhammena": [
+        "akaṭānudhammenāti"
+      ],
+      "akaṭṭhapāko": [
+        "akaṭṭhapākoti"
+      ],
+      "akaṇo": [
+        "akaṇoti"
+      ],
+      "akaṇikaṃ": [
+        "akaṇikanti"
+      ],
+      "akaṇikaṅgaṃ": [
+        "akaṇikaṅganti"
+      ],
+      "akaṇṭakaṃ": [
+        "akaṇṭakanti",
+        "akaṇṭakañca"
+      ],
+      "akaṇṭaka": [
+        "akaṇṭakāti"
+      ],
+      "akaṇṭakā": [
+        "akaṇṭakāti"
+      ],
+      "akaṇhaasukkaṃ": [
+        "akaṇhaasukkanti"
+      ],
+      "akaṇhaasukkavipākaṃ": [
+        "akaṇhaasukkavipākanti"
+      ],
+      "akataṃ": [
+        "akatameva",
+        "akatampi",
+        "akatanti",
+        "akatañca",
+        "akataṃpi",
+        "akatāpi"
+      ],
+      "akatato": [
+        "akatatoti"
+      ],
+      "akata": [
+        "akatameva",
+        "akatampi",
+        "akatāpi",
+        "akatāti",
+        "akatāva"
+      ],
+      "akatā": [
+        "akatāpi",
+        "akatāti",
+        "akatāva",
+        "akatāva",
+        "akatāyapi"
+      ],
+      "akatāni": [
+        "akatānica"
+      ],
+      "akato": [
+        "akatoti",
+        "akatāpi"
+      ],
+      "akatāyo": [
+        "akatāyapi"
+      ],
+      "akatāyaṃ": [
+        "akatāyapi"
+      ],
+      "akatāya": [
+        "akatāyapi",
+        "akatāyāti"
+      ],
+      "akate": [
+        "akatepi",
+        "akateti",
+        "akateyeva"
+      ],
+      "akatena": [
+        "akateneva",
+        "akateneva",
+        "akatenāti"
+      ],
+      "akatesu": [
+        "akatesupi"
+      ],
+      "abca": [
+        "withrule"
+      ],
+      "aaa": [
+        "multi"
+      ],
+      "bbb": [
+        "multi"
+      ]
+    },
+    "headwords": [
+      {
+        "lemma_1": "akakkasa",
+        "inflections": "akakkasa,akakkaso,akakkasā,akakkasāse,akakkasāyo,akakkasaṃ,akakkasāni,akakkase,akakkasena,akakkasebhi,akakkasehi,akakkasāya,akakkasābhi,akakkasāhi,akakkasassa,akakkasāna,akakkasānaṃ,akakkasato,akakkasamhā,akakkasasmā,akakkasamhi,akakkasasmiṃ,akakkasesu,akakkasāyaṃ,akakkasāsu",
+        "inflections_api_ca_eva_iti": "akakkasanti,akakkasāti,akakkasoti"
+      },
+      {
+        "lemma_1": "akaṅkha 1.1",
+        "inflections": "akaṅkha,akaṅkho,akaṅkhā,akaṅkhāse,akaṅkhāyo,akaṅkhaṃ,akaṅkhāni,akaṅkhe,akaṅkhena,akaṅkhebhi,akaṅkhehi,akaṅkhāya,akaṅkhābhi,akaṅkhāhi,akaṅkhassa,akaṅkhāna,akaṅkhānaṃ,akaṅkhato,akaṅkhamhā,akaṅkhasmā,akaṅkhamhi,akaṅkhasmiṃ,akaṅkhesu,akaṅkhāyaṃ,akaṅkhāsu",
+        "inflections_api_ca_eva_iti": "akaṅkhoti"
+      },
+      {
+        "lemma_1": "akaci 1",
+        "inflections": "akaci,akoci,akecana,akeci,akāci,akiñci,akānici,akañci,akañcinaṃ,akiñcanaṃ,akenaci,akehici,akāyaci,akāhici,akassaci,akesañci,akassāci,akāsañci,akatici,akasmiñci,akimhici,akismici,akismiñci,akesuci,akāsuci",
+        "inflections_api_ca_eva_iti": "akiñcananti,akiñcanameva"
+      },
+      {
+        "lemma_1": "no_match_hw",
+        "inflections": "zzzz,qqqq",
+        "inflections_api_ca_eva_iti": ""
+      },
+      {
+        "lemma_1": "empty_infl_hw",
+        "inflections": "",
+        "inflections_api_ca_eva_iti": ""
+      },
+      {
+        "lemma_1": "preexisting_hw",
+        "inflections": "akakkasaṃ",
+        "inflections_api_ca_eva_iti": "zzzpreexisting"
+      }
+    ],
+    "output": {
+      "akakkasa": "akakkasanti,akakkasāti,akakkasoti",
+      "akaṅkha 1.1": "akaṅkhoti",
+      "akaci 1": "akiñcananti,akiñcanameva",
+      "no_match_hw": "",
+      "empty_infl_hw": "",
+      "preexisting_hw": "akakkasanti,zzzpreexisting"
+    }
+  }
+}
