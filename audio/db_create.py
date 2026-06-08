@@ -6,7 +6,6 @@ This file handles creating and populating the audio database.
 
 import csv
 from pathlib import Path
-from typing import Optional
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -21,10 +20,8 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tarballer import create_tarball
 
-pth = ProjectPaths()
 
-
-def cleanup_old_tarballs() -> None:
+def cleanup_old_tarballs(pth: ProjectPaths) -> None:
     """
     Delete all but the latest three tarballs and index TSVs to save disk space.
     """
@@ -46,7 +43,7 @@ def cleanup_old_tarballs() -> None:
             pr.green(f"deleted {len(files_to_delete)} old {label}(s)")
 
 
-def create_audio_database() -> Path:
+def create_audio_database(pth: ProjectPaths) -> Path:
     """
     Create the audio database if it doesn't exist.
     """
@@ -67,26 +64,14 @@ def create_audio_database() -> Path:
     return db_path
 
 
-def get_audio_session(db_path: Optional[Path] = None) -> Session:
-    """
-    Get a database session for audio operations.
-
-    Args:
-        db_path: Path to the database file. If None, uses default location.
-
-    Returns:
-        SQLAlchemy session object.
-    """
-    if db_path is None:
-        db_path = pth.dpd_audio_db_path
-
+def get_audio_session(db_path: Path) -> Session:
+    """Get a database session for the audio database."""
     engine = create_engine(f"sqlite+pysqlite:///{db_path}", echo=False)
-    SessionLocal = sessionmaker(bind=engine)
+    session_local = sessionmaker(bind=engine)
+    return session_local()
 
-    return SessionLocal()
 
-
-def populate_audio_database() -> None:
+def populate_audio_database(pth: ProjectPaths) -> None:
     """
     Populate the audio database with files from the specified folders.
     """
@@ -134,15 +119,15 @@ def populate_audio_database() -> None:
             female_blob: bytes | None = None
 
             if headword in male_files:
-                with open(male_files[headword], "rb") as f:
+                with male_files[headword].open("rb") as f:
                     male_blob = f.read()
 
             if headword in male2_files:
-                with open(male2_files[headword], "rb") as f:
+                with male2_files[headword].open("rb") as f:
                     male2_blob = f.read()
 
             if headword in female_files:
-                with open(female_files[headword], "rb") as f:
+                with female_files[headword].open("rb") as f:
                     female_blob = f.read()
 
             # Check if record already exists
@@ -178,7 +163,7 @@ def populate_audio_database() -> None:
         session.close()
 
 
-def create_archive() -> None:
+def create_archive(pth: ProjectPaths) -> None:
     """Create tarball of database only."""
 
     version = make_version()
@@ -199,7 +184,7 @@ def create_archive() -> None:
     pr.green(f"{archive_path}")
 
 
-def create_index_tsv(version: str) -> Path | None:
+def create_index_tsv(pth: ProjectPaths, version: str) -> Path | None:
     """Write a tiny TSV (lemma_clean + presence flags) alongside the tarball.
 
     The build pipeline reads this instead of opening the 1 GB sqlite db just
@@ -227,7 +212,7 @@ def create_index_tsv(version: str) -> Path | None:
     finally:
         session.close()
 
-    with open(versioned_path, "w", newline="") as f:
+    with versioned_path.open("w", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["lemma_clean", "has_male1", "has_male2", "has_female1"])
         for lemma_clean, male1, male2, female1 in rows:
@@ -248,7 +233,7 @@ def create_index_tsv(version: str) -> Path | None:
     return versioned_path
 
 
-def main():
+def main() -> None:
     """Main function to populate the audio database."""
     pr.tic()
     pr.yellow_title("populating audio database")
@@ -258,12 +243,13 @@ def main():
         pr.toc()
         return
 
+    pth = ProjectPaths()
     find_and_delete_silent_files()
-    create_audio_database()
-    populate_audio_database()
-    create_archive()
-    create_index_tsv(make_version())
-    cleanup_old_tarballs()
+    create_audio_database(pth)
+    populate_audio_database(pth)
+    create_archive(pth)
+    create_index_tsv(pth, make_version())
+    cleanup_old_tarballs(pth)
     pr.toc()
 
 
