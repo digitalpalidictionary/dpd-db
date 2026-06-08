@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# coding: utf-8
 
 """Transliterate all Lookup table keys into Sinhala, Devanagari and Thai.
 Either regenerate from scratch OR update missing entries.
@@ -26,6 +24,12 @@ from tools.sinhala_tools import translit_ro_to_si
 from tools.utils import list_into_batches
 
 
+class WordInflections(TypedDict):
+    sinhala: set[str]
+    devanagari: set[str]
+    thai: set[str]
+
+
 def _should_transliterate(lookup: Lookup, regenerate_all: bool) -> bool:
     return (not lookup.sinhala or regenerate_all) and is_another_value(lookup, "epd")
 
@@ -36,7 +40,7 @@ def _parse_batch(
     regenerate_all: bool,
     results_list: ListProxy,
     batch_idx: int,
-):
+) -> None:
     # aksharamukha works much faster with large text files than smaller lists
     # lookup_to_transliterate_string contains the lookup_key,
     # and translit_index_dict contains the line numbers
@@ -46,7 +50,6 @@ def _parse_batch(
     lookup_to_transliterate_string: str = ""
     translit_index_dict: dict[int, str] = dict()
     lookup_for_json_dict: dict[str, dict[str, list[str]]] = dict()
-    counter: int = 0
 
     for counter, i in enumerate(batch):
         if _should_transliterate(i, regenerate_all):
@@ -70,8 +73,8 @@ def _parse_batch(
         f".batch_{batch_idx}_output.json"
     )
 
-    with open(json_input_for_translit, "w") as f:
-        f.write(json.dumps(lookup_for_json_dict, ensure_ascii=False, indent=4))
+    with json_input_for_translit.open("w", encoding="utf-8") as f:
+        json.dump(lookup_for_json_dict, f, ensure_ascii=False, indent=4)
 
     # transliterating with aksharamukha
 
@@ -89,14 +92,14 @@ def _parse_batch(
         lookup_to_transliterate_string,
     )  # type:ignore
 
-    sinhala_lines: list = sinhala.split("\n")
-    devanagari_lines: list = devanagari.split("\n")
-    thai_lines: list = thai.split("\n")
+    sinhala_lines: list[str] = sinhala.split("\n")
+    devanagari_lines: list[str] = devanagari.split("\n")
+    thai_lines: list[str] = thai.split("\n")
 
     for counter, line in enumerate(sinhala_lines[:-1]):
         if line:
             key: str = translit_index_dict[counter]
-            sinhala_translit_set: set = set(line.split(","))
+            sinhala_translit_set: set[str] = set(line.split(","))
             translit_dict[key] = WordInflections(
                 sinhala=sinhala_translit_set,
                 devanagari=set(),
@@ -106,13 +109,13 @@ def _parse_batch(
     for counter, line in enumerate(devanagari_lines[:-1]):
         if line:
             key: str = translit_index_dict[counter]
-            devanagari_translit_set: set = set(line.split(","))
+            devanagari_translit_set: set[str] = set(line.split(","))
             translit_dict[key]["devanagari"] = devanagari_translit_set
 
     for counter, line in enumerate(thai_lines[:-1]):
         if line:
             key: str = translit_index_dict[counter]
-            thai_translit_set: set = set(line.split(","))
+            thai_translit_set: set[str] = set(line.split(","))
             translit_dict[key]["thai"] = thai_translit_set
 
     # path nirvana transliteration using node.js
@@ -132,19 +135,15 @@ def _parse_batch(
 
     # re-import path nirvana transliterations
 
-    with open(json_output_from_translit, "r") as f:
+    with json_output_from_translit.open("r", encoding="utf-8") as f:
         new_translit: dict[str, WordInflections] = json.load(f)
 
     for key, values in new_translit.items():
         try:
             if values["sinhala"]:
-                translit_dict[key]["sinhala"].update(set(new_translit[key]["sinhala"]))
-
-                translit_dict[key]["devanagari"].update(
-                    set(new_translit[key]["devanagari"])
-                )
-
-                translit_dict[key]["thai"].update(set(new_translit[key]["thai"]))
+                translit_dict[key]["sinhala"].update(values["sinhala"])
+                translit_dict[key]["devanagari"].update(values["devanagari"])
+                translit_dict[key]["thai"].update(values["thai"])
         except KeyError as error:
             pr.red(f"headword: {key}")
             pr.red(f"values: {values}")
@@ -156,13 +155,7 @@ def _parse_batch(
     json_output_from_translit.unlink()
 
 
-class WordInflections(TypedDict):
-    sinhala: set
-    devanagari: set
-    thai: set
-
-
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("transliterating lookup table")
     pr.green_tmr("setting up db")
