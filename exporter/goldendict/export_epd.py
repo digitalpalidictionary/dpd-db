@@ -2,7 +2,6 @@
 
 from minify_html import minify
 from sqlalchemy.orm import Session
-from typing import List, Tuple
 
 from db.models import Lookup
 from tools.goldendict_exporter import DictEntry
@@ -16,7 +15,7 @@ from exporter.goldendict.data_classes import EpdData
 def generate_epd_html(
     db_session: Session,
     pth: ProjectPaths,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+) -> tuple[list[DictEntry], RenderedSizes]:
     """generate html for english to pali dictionary using lookup table data"""
 
     size_dict = default_rendered_sizes()
@@ -28,7 +27,7 @@ def generate_epd_html(
 
     lookup_db = db_session.query(Lookup).filter(Lookup.epd != "").all()
 
-    epd_data_list: List[DictEntry] = []
+    epd_data_list: list[DictEntry] = []
 
     for lookup_entry in lookup_db:
         # Use ViewModel

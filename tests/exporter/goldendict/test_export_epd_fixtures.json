@@ -1,0 +1,76 @@
+{
+ "rows": [
+  {
+   "lookup_key": "a",
+   "epd": "[\n [\n  \"aññatara\",\n  \"pron\",\n  \"a certain; a\"\n ],\n [\n  \"eka\",\n  \"adj\",\n  \"a; a certain; a single\"\n ]\n]"
+  },
+  {
+   "lookup_key": "arahant",
+   "epd": "[\n [\n  \"adhicetas\",\n  \"masc\",\n  \"who has heightened mental faculties; (comm) arahant\"\n ],\n [\n  \"ariya\",\n  \"masc\",\n  \"awakened being; enlightened one; arahant\"\n ],\n [\n  \"asekha\",\n  \"masc\",\n  \"adept; arahant\"\n ],\n [\n  \"thāvara\",\n  \"adj\",\n  \"stationary; stable; immobile; arahant; (comm) without craving\"\n ],\n [\n  \"brāhmaṇa\",\n  \"masc\",\n  \"arahant; awakened being; saint; paragon\"\n ],\n [\n  \"saṅkhātadhamma\",\n  \"masc\",\n  \"arahant; awakened being\"\n ],\n [\n  \"sappurisa\",\n  \"masc\",\n  \"arahant; awakened being\"\n ]\n]"
+  },
+  {
+   "lookup_key": "' '",
+   "epd": "[\n [\n  \"ti\",\n  \"ind\",\n  \"(end of direct speech) ' '\"\n ]\n]"
+  },
+  {
+   "lookup_key": "'I am this'",
+   "epd": "[\n [\n  \"ayamahamasmīti\",\n  \"sandhi\",\n  \"'I am this'\"\n ]\n]"
+  },
+  {
+   "lookup_key": "'I am'",
+   "epd": "[\n [\n  \"asmīti\",\n  \"sandhi\",\n  \"'I am'\"\n ]\n]"
+  }
+ ],
+ "expected": [
+  {
+   "word": "a",
+   "definition_html": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\"><title>Digital Pāḷi Dictionary</title><style>:root {--primary: hsl(198, 100%, 50%);--primary-alt: hsl(205, 100%, 40%);--primary-text: hsl(205, 79%, 48%);}</style></head><body><div class=dpd><p><b class=epd>aññatara</b> pron. a certain; a<br><b class=epd>eka</b> adj. a; a certain; a single</div>"
+  },
+  {
+   "word": "arahant",
+   "definition_html": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\"><title>Digital Pāḷi Dictionary</title><style>:root {--primary: hsl(198, 100%, 50%);--primary-alt: hsl(205, 100%, 40%);--primary-text: hsl(205, 79%, 48%);}</style></head><body><div class=dpd><p><b class=epd>adhicetas</b> masc. who has heightened mental faculties; (comm) arahant<br><b class=epd>ariya</b> masc. awakened being; enlightened one; arahant<br><b class=epd>asekha</b> masc. adept; arahant<br><b class=epd>thāvara</b> adj. stationary; stable; immobile; arahant; (comm) without craving<br><b class=epd>brāhmaṇa</b> masc. arahant; awakened being; saint; paragon<br><b class=epd>saṅkhātadhamma</b> masc. arahant; awakened being<br><b class=epd>sappurisa</b> masc. arahant; awakened being</div>"
+  },
+  {
+   "word": "' '",
+   "definition_html": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\"><title>Digital Pāḷi Dictionary</title><style>:root {--primary: hsl(198, 100%, 50%);--primary-alt: hsl(205, 100%, 40%);--primary-text: hsl(205, 79%, 48%);}</style></head><body><div class=dpd><p><b class=epd>ti</b> ind. (end of direct speech) ' '</div>"
+  },
+  {
+   "word": "'I am this'",
+   "definition_html": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\"><title>Digital Pāḷi Dictionary</title><style>:root {--primary: hsl(198, 100%, 50%);--primary-alt: hsl(205, 100%, 40%);--primary-text: hsl(205, 79%, 48%);}</style></head><body><div class=dpd><p><b class=epd>ayamahamasmīti</b> sandhi. 'I am this'</div>"
+  },
+  {
+   "word": "'I am'",
+   "definition_html": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\"><title>Digital Pāḷi Dictionary</title><style>:root {--primary: hsl(198, 100%, 50%);--primary-alt: hsl(205, 100%, 40%);--primary-text: hsl(205, 79%, 48%);}</style></head><body><div class=dpd><p><b class=epd>asmīti</b> sandhi. 'I am'</div>"
+  }
+ ],
+ "size_dict": {
+  "dpd_header": 0,
+  "dpd_summary": 0,
+  "dpd_button_box": 0,
+  "dpd_grammar": 0,
+  "dpd_example": 0,
+  "dpd_inflection_table": 0,
+  "dpd_family_root": 0,
+  "dpd_family_word": 0,
+  "dpd_family_compound": 0,
+  "dpd_family_idiom": 0,
+  "dpd_family_sets": 0,
+  "dpd_frequency": 0,
+  "dpd_feedback": 0,
+  "dpd_synonyms": 0,
+  "root_definition": 0,
+  "root_buttons": 0,
+  "root_info": 0,
+  "root_matrix": 0,
+  "root_families": 0,
+  "root_synonyms": 0,
+  "see_entries": 0,
+  "variant_readings": 0,
+  "variant_synonyms": 0,
+  "spelling_mistakes": 0,
+  "spelling_synonyms": 0,
+  "epd_header": 1400,
+  "epd": 2286,
+  "help": 0
+ }
+}
