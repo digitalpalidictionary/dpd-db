@@ -1,0 +1,23 @@
+{
+  "convert_newlines_headword": {
+    "construction": "a<br>b",
+    "phonetic": "p",
+    "notes": "x<br>y<br>z",
+    "commentary": "",
+    "example_1": 123
+  },
+  "convert_newlines_roots": {
+    "panini_root": "r1<br>r2",
+    "panini_sanskrit": "",
+    "panini_english": "e<br>f"
+  },
+  "epd_html_string": "<b class='epd'>gacchati</b> vb. goes (acc)<br><b class='epd'>dhamma</b> nt. nature",
+  "epd_html_string_empty": "",
+  "header_EpdData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --primary: hsl(198, 100%, 50%);\n  --primary-alt: hsl(205, 100%, 40%);\n  --primary-text: hsl(205, 79%, 48%);\n}\n\n        </style>\n    </head>",
+  "header_VariantData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --primary: hsl(198, 100%, 50%);\n  --primary-alt: hsl(205, 100%, 40%);\n  --primary-text: hsl(205, 79%, 48%);\n}\n\n        </style>\n    </head>",
+  "header_SeeData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --primary: hsl(198, 100%, 50%);\n  --primary-alt: hsl(205, 100%, 40%);\n  --primary-text: hsl(205, 79%, 48%);\n}\n\n        </style>\n    </head>",
+  "header_SpellingData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --primary: hsl(198, 100%, 50%);\n  --primary-alt: hsl(205, 100%, 40%);\n  --primary-text: hsl(205, 79%, 48%);\n}\n\n        </style>\n    </head>",
+  "header_AbbreviationsData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --secondary: hsl(158, 100%, 35%);\n}\n\n        </style>\n    </head>",
+  "header_AbbrevOtherData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --secondary: hsl(158, 100%, 35%);\n}\n\n        </style>\n    </head>",
+  "header_HelpData": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n        <title>Digital Pāḷi Dictionary</title>\n        \n<style>\n:root {\n  --secondary: hsl(158, 100%, 35%);\n}\n\n        </style>\n    </head>"
+}

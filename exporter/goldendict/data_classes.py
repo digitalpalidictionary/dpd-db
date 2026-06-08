@@ -1,4 +1,5 @@
-from typing import Set
+from jinja2 import Environment
+
 from db.models import (
     DpdHeadword,
     DpdRoot,
@@ -19,6 +20,13 @@ from tools.css_manager import CSSManager
 from tools.pali_sort_key import pali_sort_key
 
 
+def _render_plain_header(jinja_env: Environment, style: str) -> str:
+    template = jinja_env.get_template("dpd_header_plain.jinja")
+    html_header = template.render()
+    css_manager = CSSManager()
+    return css_manager.update_style(html_header, style)
+
+
 class HeadwordData:
     def __init__(
         self,
@@ -31,11 +39,11 @@ class HeadwordData:
         fs: list[FamilySet],
         su: SuttaInfo,
         pth: ProjectPaths,
-        jinja_env,
-        cf_set: Set[str],
-        idioms_set: Set[str],
+        jinja_env: Environment,
+        cf_set: set[str],
+        idioms_set: set[str],
         show_id: bool,
-    ):
+    ) -> None:
         self.construction_summary = i.construction_summary
         self.i = self._convert_newlines(i)
         self.rt = rt
@@ -60,7 +68,7 @@ class HeadwordData:
         self.header = self._generate_header()
 
     @staticmethod
-    def _convert_newlines(obj):
+    def _convert_newlines(obj: DpdHeadword) -> DpdHeadword:
         attrs = [
             "construction",
             "phonetic",
@@ -94,9 +102,9 @@ class RootsData:
         r: DpdRoot,
         roots_count_dict: dict[str, int],
         pth: ProjectPaths,
-        jinja_env,
+        jinja_env: Environment,
         frs: list[FamilyRoot],
-    ):
+    ) -> None:
         self.r = self._convert_newlines(r)
         self.pth = pth
         self.jinja_env = jinja_env
@@ -110,7 +118,7 @@ class RootsData:
         self.header = self._generate_header()
 
     @staticmethod
-    def _convert_newlines(obj):
+    def _convert_newlines(obj: DpdRoot) -> DpdRoot:
         attrs = ["panini_root", "panini_sanskrit", "panini_english"]
         for attr_name in attrs:
             attr_value = getattr(obj, attr_name, None)
@@ -129,7 +137,9 @@ class RootsData:
 
 
 class EpdData:
-    def __init__(self, lookup_entry: Lookup, pth: ProjectPaths, jinja_env):
+    def __init__(
+        self, lookup_entry: Lookup, pth: ProjectPaths, jinja_env: Environment
+    ) -> None:
         self.lookup_key = lookup_entry.lookup_key
         self.epd_entries = lookup_entry.epd_unpack
         self.pth = pth
@@ -145,89 +155,70 @@ class EpdData:
         return "<br>".join(html_entries)
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "primary")
+        return _render_plain_header(self.jinja_env, "primary")
 
 
 class VariantData:
-    def __init__(self, variant: str, main: str, jinja_env):
+    def __init__(self, variant: str, main: str, jinja_env: Environment) -> None:
         self.variant = variant
         self.main = main
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "primary")
+        return _render_plain_header(self.jinja_env, "primary")
 
 
 class SeeData:
-    def __init__(self, see: str, headword: str, jinja_env):
+    def __init__(self, see: str, headword: str, jinja_env: Environment) -> None:
         self.see = see
         self.headword = headword
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "primary")
+        return _render_plain_header(self.jinja_env, "primary")
 
 
 class SpellingData:
-    def __init__(self, mistake: str, correction: str, jinja_env):
+    def __init__(self, mistake: str, correction: str, jinja_env: Environment) -> None:
         self.mistake = mistake
         self.correction = correction
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "primary")
+        return _render_plain_header(self.jinja_env, "primary")
 
 
 class AbbreviationsData:
-    def __init__(self, i, jinja_env):
+    def __init__(self, i, jinja_env: Environment) -> None:
         self.i = i
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "secondary")
+        return _render_plain_header(self.jinja_env, "secondary")
 
 
 class AbbrevOtherData:
-    def __init__(self, abbreviation: str, rows: list[dict[str, str]], jinja_env):
+    def __init__(
+        self, abbreviation: str, rows: list[dict[str, str]], jinja_env: Environment
+    ) -> None:
         self.abbreviation = abbreviation
         self.rows = rows
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "secondary")
+        return _render_plain_header(self.jinja_env, "secondary")
 
 
 class HelpData:
-    def __init__(self, i, jinja_env):
+    def __init__(self, i, jinja_env: Environment) -> None:
         self.i = i
         self.jinja_env = jinja_env
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header_plain.jinja")
-        html_header = template.render()
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "secondary")
+        return _render_plain_header(self.jinja_env, "secondary")
