@@ -207,8 +207,8 @@ def export_headwords(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
     dest.execute(f"CREATE TABLE dpd_headwords ({col_list})")
     batch = [
-        tuple(r[c] for c in HEADWORD_COLUMNS) + (ipa_map.get(lemmas_clean[i], ""),)
-        for i, r in enumerate(rows)
+        tuple(r[c] for c in HEADWORD_COLUMNS) + (ipa_map.get(lc, ""),)
+        for r, lc in zip(rows, lemmas_clean)
     ]
     dest.executemany(
         f"INSERT INTO dpd_headwords ({col_list}) VALUES ({placeholders})", batch
@@ -265,8 +265,7 @@ def export_lookup(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
     # Make lookup_key the primary key — creates an automatic index
     # and matches the Flutter app's Drift schema definition
-    col_defs = ", ".join(f'"{c}"' for c in dest_cols)
-    dest.execute(f"CREATE TABLE lookup ({col_defs}, PRIMARY KEY (lookup_key))")
+    dest.execute(f"CREATE TABLE lookup ({col_list}, PRIMARY KEY (lookup_key))")
     batch = [
         tuple(r[c] for c in orig_cols) + (_strip_diacritics_mobile(r["lookup_key"]),)
         for r in rows
@@ -286,12 +285,9 @@ def export_lookup(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
 
 def copy_passthrough_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
-    src = sqlite3.connect(g.pth.dpd_db_path)
-    src.row_factory = sqlite3.Row
-
     for table in PASSTHROUGH_TABLES:
         pr.green_tmr(f"copying {table}")
-        schema_row = src.execute(
+        schema_row = g.src.execute(
             f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table}'"
         ).fetchone()
         if not schema_row:
@@ -299,7 +295,7 @@ def copy_passthrough_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
             continue
 
         dest.execute(schema_row[0])
-        rows = src.execute(f'SELECT * FROM "{table}"').fetchall()
+        rows = g.src.execute(f'SELECT * FROM "{table}"').fetchall()
         if rows:
             cols = list(rows[0].keys())
             placeholders = ", ".join(["?"] * len(cols))
@@ -309,7 +305,7 @@ def copy_passthrough_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
                 [tuple(r) for r in rows],
             )
 
-        for idx in src.execute(
+        for idx in g.src.execute(
             f"SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name='{table}' AND sql IS NOT NULL"
         ).fetchall():
             try:
@@ -319,12 +315,8 @@ def copy_passthrough_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
 
         pr.yes(len(rows))
 
-    src.close()
-
 
 def copy_family_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
-    src = sqlite3.connect(g.pth.dpd_db_path)
-
     for table, columns in [
         ("family_root", FAMILY_ROOT_COLUMNS),
         ("family_word", FAMILY_WORD_COLUMNS),
@@ -333,9 +325,7 @@ def copy_family_tables(g: GlobalVars, dest: sqlite3.Connection) -> None:
         ("family_set", FAMILY_SET_COLUMNS),
     ]:
         pr.green_tmr(f"copying {table}")
-        _copy_selected_columns(src, dest, table, columns)
-
-    src.close()
+        _copy_selected_columns(g.src, dest, table, columns)
 
 
 def _remove_links(html: str) -> str:
@@ -413,11 +403,10 @@ def export_other_dictionaries(
     if include_cone:
         pr.green_tmr("exporting Cone dictionary")
 
-        with open(g.pth.cone_source_path) as f:
+        with g.pth.cone_source_path.open(encoding="utf-8") as f:
             cone_dict: dict[str, str] = json.load(f)
 
-        with open(g.pth.cone_css_path) as f:
-            cone_css = _sanitize_css(f.read())
+        cone_css = _sanitize_css(g.pth.cone_css_path.read_text(encoding="utf-8"))
 
         batch = []
         for key, html_body in cone_dict.items():
@@ -463,7 +452,7 @@ def export_other_dictionaries(
     if g.pth.cpd_source_path.exists():
         cpd_css = ""
         if g.pth.cpd_css_path.exists():
-            cpd_css = _sanitize_css(g.pth.cpd_css_path.read_text())
+            cpd_css = _sanitize_css(g.pth.cpd_css_path.read_text(encoding="utf-8"))
 
         cpd_conn = sqlite3.connect(g.pth.cpd_source_path)
         cpd_rows = cpd_conn.execute(
@@ -504,12 +493,12 @@ def export_other_dictionaries(
     pr.green_tmr("exporting Monier Williams")
 
     if g.pth.mw_source_json_path.exists():
-        with open(g.pth.mw_source_json_path) as f:
+        with g.pth.mw_source_json_path.open(encoding="utf-8") as f:
             mw_data: list[dict[str, str]] = json.load(f)
 
         mw_css = ""
         if g.pth.mw_css_path.exists():
-            mw_css = _sanitize_css(g.pth.mw_css_path.read_text())
+            mw_css = _sanitize_css(g.pth.mw_css_path.read_text(encoding="utf-8"))
 
         batch = []
         for entry in mw_data:
@@ -544,7 +533,7 @@ def export_other_dictionaries(
     pr.green_tmr("exporting BHS")
 
     if g.pth.bhs_source_path.exists():
-        with open(g.pth.bhs_source_path) as f:
+        with g.pth.bhs_source_path.open(encoding="utf-8") as f:
             soup = BeautifulSoup(f, "xml")
 
         batch = []
