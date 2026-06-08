@@ -87,7 +87,7 @@ def main():
         epd_data_list, sizes = generate_epd_html(g.db_session, g.pth)
         g.rendered_sizes.append(sizes)
 
-        help_data_list, sizes = generate_help_html(g.db_session, g.pth)
+        help_data_list, sizes = generate_help_html(g.pth)
         g.rendered_sizes.append(sizes)
 
         g.db_session.close()

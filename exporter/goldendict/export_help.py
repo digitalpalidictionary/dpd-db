@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 """Compile HTML data for Help, Abbreviations, Thanks & Bibliography."""
 
-from typing import Dict, List, Tuple
+from dataclasses import dataclass
 
+from jinja2 import Environment
 from minify_html import minify
-from sqlalchemy.orm import Session
 
 from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths
@@ -19,40 +18,28 @@ from exporter.goldendict.data_classes import (
 )
 
 
+@dataclass
 class Abbreviation:
     """defining the abbreviations.tsv columns"""
 
-    def __init__(
-        self,
-        abbrev,
-        meaning,
-        pali,
-        example,
-        information,
-    ):
-        self.abbrev = abbrev
-        self.meaning = meaning
-        self.pali = pali
-        self.example = example
-        self.information = information
+    abbrev: str
+    meaning: str
+    pali: str
+    example: str
+    information: str
 
 
+@dataclass
 class Help:
     """defining the help.tsv columns"""
 
-    def __init__(
-        self,
-        help,
-        meaning,
-    ):
-        self.help = help
-        self.meaning = meaning
+    help: str
+    meaning: str
 
 
 def generate_help_html(
-    __db_session__: Session,
     pth: ProjectPaths,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+) -> tuple[list[DictEntry], RenderedSizes]:
     """generating html of all help files used in the dictionary"""
     pr.green_tmr("generating help html")
 
@@ -60,7 +47,7 @@ def generate_help_html(
 
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
 
-    help_data_list: List[DictEntry] = []
+    help_data_list: list[DictEntry] = []
 
     abbrev = add_abbrev_html(pth, jinja_env)
     help_data_list.extend(abbrev)
@@ -92,14 +79,14 @@ def generate_help_html(
 
 def add_abbrev_html(
     pth: ProjectPaths,
-    jinja_env,
-) -> List[DictEntry]:
-    help_data_list = []
+    jinja_env: Environment,
+) -> list[DictEntry]:
+    help_data_list: list[DictEntry] = []
 
     file_path = pth.abbreviations_tsv_path
     rows = read_tsv_dict(file_path)
 
-    def _csv_row_to_abbreviations(x: Dict[str, str]) -> Abbreviation:
+    def _csv_row_to_abbreviations(x: dict[str, str]) -> Abbreviation:
         return Abbreviation(
             abbrev=x["abbrev"],
             meaning=x["meaning"],
@@ -136,14 +123,14 @@ def add_abbrev_html(
 
 def add_abbrev_other_html(
     pth: ProjectPaths,
-    jinja_env,
-) -> List[DictEntry]:
-    help_data_list = []
+    jinja_env: Environment,
+) -> list[DictEntry]:
+    help_data_list: list[DictEntry] = []
 
     rows = read_tsv_dict(pth.abbreviations_other_tsv_path)
 
     # group by abbreviation
-    grouped: Dict[str, List[Dict[str, str]]] = {}
+    grouped: dict[str, list[dict[str, str]]] = {}
     for row in rows:
         key = row["abbreviation"]
         if not key:
@@ -182,14 +169,14 @@ def add_abbrev_other_html(
 
 def add_help_html(
     pth: ProjectPaths,
-    jinja_env,
-) -> List[DictEntry]:
-    help_data_list = []
+    jinja_env: Environment,
+) -> list[DictEntry]:
+    help_data_list: list[DictEntry] = []
 
     file_path = pth.help_tsv_path
     rows = read_tsv_dict(file_path)
 
-    def _csv_row_to_help(x: Dict[str, str]) -> Help:
+    def _csv_row_to_help(x: dict[str, str]) -> Help:
         return Help(
             help=x["help"],
             meaning=x["meaning"],
@@ -221,8 +208,8 @@ def add_help_html(
     return help_data_list
 
 
-def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
-    help_data_list = []
+def add_bibliography(pth: ProjectPaths, header: str) -> list[DictEntry]:
+    help_data_list: list[DictEntry] = []
 
     file_path = pth.bibliography_tsv_path
     bibliography_dict = read_tsv_dot_dict(file_path)
@@ -232,13 +219,7 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
     html += "<div class='tertiary'>"
     html += "<h2>Bibliography</h2>"
 
-    for x in range(len(bibliography_dict)):
-        i = bibliography_dict[x]
-        if x + 1 > len(bibliography_dict) - 1:
-            break
-        else:
-            n = bibliography_dict[x + 1]
-
+    for i, n in zip(bibliography_dict, bibliography_dict[1:]):
         if i.category:
             html += f"<h3 class='dpd'>{i.category}</h3>"
             html += "<ul>"
@@ -279,8 +260,8 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
     return help_data_list
 
 
-def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
-    help_data_list = []
+def add_thanks(pth: ProjectPaths, header: str) -> list[DictEntry]:
+    help_data_list: list[DictEntry] = []
 
     file_path = pth.thanks_tsv_path
     thanks = read_tsv_dot_dict(file_path)
@@ -289,13 +270,7 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
     html += "<body>"
     html += "<div class='tertiary'>"
 
-    for x in range(len(thanks)):
-        i = thanks[x]
-        if x + 1 > len(thanks) - 1:
-            break
-        else:
-            n = thanks[x + 1]
-
+    for i, n in zip(thanks, thanks[1:]):
         if i.category:
             html += f"<h2>{i.category}</h2>"
             html += f"<p>{i.what}</p>"
