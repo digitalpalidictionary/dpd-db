@@ -26,6 +26,10 @@ from tools.sinhala_tools import translit_ro_to_si
 from tools.utils import list_into_batches
 
 
+def _should_transliterate(lookup: Lookup, regenerate_all: bool) -> bool:
+    return (not lookup.sinhala or regenerate_all) and is_another_value(lookup, "epd")
+
+
 def _parse_batch(
     batch: list[Lookup],
     pth: ProjectPaths,
@@ -45,18 +49,12 @@ def _parse_batch(
     counter: int = 0
 
     for counter, i in enumerate(batch):
-        if (
-            not i.sinhala
-            or regenerate_all
-            and not is_another_value(i, "epd")  # dont transliterate pure english words
-        ):
+        if _should_transliterate(i, regenerate_all):
             lookup_key: str = i.lookup_key
             translit_index_dict[counter] = lookup_key
             if lookup_key:
                 lookup_for_json_dict[lookup_key] = {"inflections": [lookup_key]}
 
-            # lookup_to_transliterate_string += (f"{i.lemma_1}\t")
-            # for inflection in lookup_key:
             lookup_to_transliterate_string += f"{lookup_key}\n"
 
         else:
@@ -99,7 +97,6 @@ def _parse_batch(
         if line:
             key: str = translit_index_dict[counter]
             sinhala_translit_set: set = set(line.split(","))
-            # sinhala_translit_set.remove("")
             translit_dict[key] = WordInflections(
                 sinhala=sinhala_translit_set,
                 devanagari=set(),
@@ -110,14 +107,12 @@ def _parse_batch(
         if line:
             key: str = translit_index_dict[counter]
             devanagari_translit_set: set = set(line.split(","))
-            # devanagari_translit_set.remove("")
             translit_dict[key]["devanagari"] = devanagari_translit_set
 
     for counter, line in enumerate(thai_lines[:-1]):
         if line:
             key: str = translit_index_dict[counter]
             thai_translit_set: set = set(line.split(","))
-            # thai_translit_set.remove("")
             translit_dict[key]["thai"] = thai_translit_set
 
     # path nirvana transliteration using node.js
