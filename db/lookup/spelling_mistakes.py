@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-"""Save a TSV of every inflection found in texts or deconstructed compounds
-and matching corresponding headwords."""
+"""Add spelling mistakes to the lookup table."""
 
 from collections import defaultdict
-from typing import DefaultDict
+from dataclasses import dataclass, field
 
 from sqlalchemy.orm import Session
 
@@ -16,13 +15,16 @@ from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
 
 
+@dataclass
 class GlobalVars:
-    pth: ProjectPaths = ProjectPaths()
-    spellings_dict: DefaultDict[str, set[str]]
-    db_session: Session = get_db_session(pth.dpd_db_path)
+    pth: ProjectPaths
+    db_session: Session
+    spellings_dict: defaultdict[str, set[str]] = field(
+        default_factory=lambda: defaultdict(set)
+    )
 
 
-def load_spelling_dict(g: GlobalVars):
+def load_spelling_dict(g: GlobalVars) -> None:
     """Turn the spelling_mistakes.tsv into a dictionary"""
     pr.green_tmr("loading spelling tsv")
 
@@ -34,7 +36,7 @@ def load_spelling_dict(g: GlobalVars):
     pr.yes(len(spellings_dict))
 
 
-def add_spellings(g: GlobalVars):
+def add_spellings(g: GlobalVars) -> None:
     """Add/update the spelling column and clear stale entries."""
     pr.green_tmr("syncing spelling column")
     data = {
@@ -45,10 +47,12 @@ def add_spellings(g: GlobalVars):
     pr.yes(result.updated + result.inserted)
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("add spelling mistakes to lookup table")
-    g = GlobalVars()
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    g = GlobalVars(pth=pth, db_session=db_session)
     load_spelling_dict(g)
     add_spellings(g)
     g.db_session.commit()
