@@ -5,15 +5,14 @@
 from json import loads
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, InflectionTemplates, Lookup
+from db.models import DpdHeadword, InflectionTemplates
 from tools.all_tipitaka_words import make_all_tipitaka_word_set
 from tools.configger import config_read
 from tools.deconstructed_words import make_words_in_deconstructions
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_sync import sync_lookup_column
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.update_test_add import update_test_add
 
 
 class GlobalVars:
@@ -177,35 +176,7 @@ def add_to_lookup_table(g: GlobalVars) -> None:
     """Add the grammar data items to the Lookup table."""
 
     pr.green_tmr("saving to Lookup table")
-
-    lookup_table = g.db_session.query(Lookup).all()
-    results = update_test_add(lookup_table, g.grammar_data)
-    update_set, test_set, add_set = results
-
-    # update test add
-    for i in lookup_table:
-        if i.lookup_key in update_set:
-            i.grammar_pack(g.grammar_data[i.lookup_key])
-        elif i.lookup_key in test_set:
-            if is_another_value(i, "grammar"):
-                i.grammar = ""
-            else:
-                g.db_session.delete(i)
-
-    g.commit_db()
-
-    # add
-    add_to_db = []
-    for inflection, grammar_data in g.grammar_data.items():
-        if inflection in add_set:
-            add_me = Lookup()
-            add_me.lookup_key = inflection
-            add_me.grammar_pack(grammar_data)
-            add_to_db.append(add_me)
-
-    g.db_session.add_all(add_to_db)
-    g.commit_db()
-
+    sync_lookup_column(g.db_session, "grammar", g.grammar_data)
     pr.yes("ok")
 
 
