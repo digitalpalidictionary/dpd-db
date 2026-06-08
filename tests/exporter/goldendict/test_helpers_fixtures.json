@@ -1,0 +1,34 @@
+{
+  "rows": [
+    {
+      "id": 1,
+      "lemma_1": "a",
+      "root_key": "√kar 1"
+    },
+    {
+      "id": 2,
+      "lemma_1": "b",
+      "root_key": "√kar 1"
+    },
+    {
+      "id": 3,
+      "lemma_1": "c",
+      "root_key": "√gam 1"
+    },
+    {
+      "id": 4,
+      "lemma_1": "d",
+      "root_key": ""
+    },
+    {
+      "id": 5,
+      "lemma_1": "e",
+      "root_key": ""
+    }
+  ],
+  "expected": {
+    "√kar 1": 2,
+    "√gam 1": 1,
+    "": 2
+  }
+}

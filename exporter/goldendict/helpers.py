@@ -1,26 +1,19 @@
 """A few helpful lists and functions for the exporter."""
 
-from typing import Dict
-from datetime import date
-
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from db.models import DpdHeadword
+from tools.date_and_time import now
 
-TODAY = date.today()
-
-EXCLUDE_FROM_SETS: set = {"dps", "ncped", "pass1", "sandhi"}
+TODAY = now.date()
 
 
-def make_roots_count_dict(db_session: Session) -> Dict[str, int]:
-    roots_db = db_session.query(DpdHeadword).all()
-    roots_count_dict: Dict[str, int] = dict()
-    for i in roots_db:
-        if i.root_key is None:
-            continue
-        if i.root_key in roots_count_dict:
-            roots_count_dict[i.root_key] += 1
-        else:
-            roots_count_dict[i.root_key] = 1
-
-    return roots_count_dict
+def make_roots_count_dict(db_session: Session) -> dict[str, int]:
+    rows = (
+        db_session.query(DpdHeadword.root_key, func.count())
+        .filter(DpdHeadword.root_key.is_not(None))
+        .group_by(DpdHeadword.root_key)
+        .all()
+    )
+    return {root_key: count for root_key, count in rows}
