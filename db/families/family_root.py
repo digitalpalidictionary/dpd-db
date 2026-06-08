@@ -11,15 +11,14 @@ from sqlalchemy.orm import Session
 from db.db_helpers import get_db_session
 from db.families.root_info import generate_root_info_html
 from db.families.root_matrix import generate_root_matrix
-from db.models import DpdHeadword, DpdRoot, FamilyRoot, Lookup
+from db.models import DpdHeadword, DpdRoot, FamilyRoot
 from exporter.anki.anki_updater import family_updater
 from tools.configger import config_test
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_sync import sync_lookup_column
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.superscripter import superscripter_uni
-from tools.update_test_add import update_test_add
 
 
 def main() -> None:
@@ -205,31 +204,8 @@ def update_lookup_table(db_session: Session) -> None:
         r2h_dict[r.root_family_clean].add(r.root_key)
         r2h_dict[r.root_family_clean_no_space].add(r.root_key)
 
-    lookup_table = db_session.query(Lookup).all()
-    results = update_test_add(lookup_table, r2h_dict)
-    update_set, test_set, add_set = results
-
-    for i in lookup_table:
-        if i.lookup_key in update_set:
-            i.roots_pack(pali_list_sorter(r2h_dict[i.lookup_key]))
-        elif i.lookup_key in test_set:
-            if is_another_value(i, "roots"):
-                i.roots = ""
-            else:
-                db_session.delete(i)
-
-    db_session.commit()
-
-    add_to_db = []
-    for inflection, root_keys in r2h_dict.items():
-        if inflection in add_set:
-            add_me = Lookup()
-            add_me.lookup_key = inflection
-            add_me.roots_pack(pali_list_sorter(root_keys))
-            add_to_db.append(add_me)
-
-    db_session.add_all(add_to_db)
-    db_session.commit()
+    data = {key: pali_list_sorter(root_keys) for key, root_keys in r2h_dict.items()}
+    sync_lookup_column(db_session, "roots", data)
 
     pr.yes(len(r2h_dict))
 

@@ -7,13 +7,12 @@ import re
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, DpdRoot, Lookup
+from db.models import DpdHeadword, DpdRoot
 from tools.configger import config_read
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_sync import sync_lookup_column
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.update_test_add import update_test_add
 
 if config_read("generate", "epd", "yes") == "no":
     pr.tic()
@@ -119,40 +118,9 @@ def add_to_lookup_table(g: GlobalVars):
     """Add EPD data to lookup table."""
 
     pr.green_title("saving to Lookup table")
-
-    pr.white_tmr("update test or add")
-    lookup_table = g.db_session.query(Lookup).all()
-    results = update_test_add(lookup_table, g.epd_data_dict)
-    update_set, test_set, add_set = results
-    pr.yes("")
-
-    pr.white_tmr("updating and deleting")
-    # update test add
-    for i in lookup_table:
-        if i.lookup_key in update_set:
-            i.epd_pack(g.epd_data_dict[i.lookup_key])
-        elif i.lookup_key in test_set:
-            if is_another_value(i, "epd"):
-                i.epd = ""
-            else:
-                g.db_session.delete(i)
-    pr.yes(len(update_set))
-
-    pr.white_tmr("adding")
-    # add
-    add_to_db = []
-    for key, data in g.epd_data_dict.items():
-        if key in add_set:
-            add_me = Lookup()
-            add_me.lookup_key = key
-            add_me.epd_pack(data)
-            add_to_db.append(add_me)
-    pr.yes(len(add_set))
-
-    pr.white_tmr("committing")
-    g.db_session.add_all(add_to_db)
-    g.db_session.commit()
-    pr.yes("ok")
+    pr.white_tmr("syncing epd column")
+    result = sync_lookup_column(g.db_session, "epd", g.epd_data_dict)
+    pr.yes(result.updated + result.inserted)
 
 
 def main():

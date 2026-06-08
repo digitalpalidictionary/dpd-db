@@ -13,17 +13,16 @@ from dataclasses import dataclass, field
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, Lookup
+from db.models import DpdHeadword
 
 from tools.all_tipitaka_words import make_all_tipitaka_word_set
 from tools.configger import config_read
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.headwords_clean_set import make_clean_headwords_set
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_sync import sync_lookup_column
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.update_test_add import update_test_add
 
 
 @dataclass
@@ -76,34 +75,11 @@ def save_i2h_for_tpr(g: GlobalVars) -> None:
 def add_i2h_to_db(g: GlobalVars) -> None:
     """Add inflections2headwords to the lookup table."""
 
-    lookup_table = g.db_session.query(Lookup).all()
-    update_set, test_set, add_set = update_test_add(lookup_table, g.i2h_dict)
-
-    pr.green_tmr("updating db")
-    for i in lookup_table:
-        if i.lookup_key in update_set:
-            i.headwords_pack(sorted(g.i2h_dict[i.lookup_key]))
-        elif i.lookup_key in test_set:
-            if is_another_value(i, "headwords"):
-                i.headwords = ""
-            else:
-                g.db_session.delete(i)
-
-    g.db_session.commit()
-    pr.yes(len(update_set) + len(test_set))
-
-    pr.green_tmr("adding to db")
-    add_to_db = []
-    for inflection in add_set:
-        add_me = Lookup()
-        add_me.lookup_key = inflection
-        add_me.headwords_pack(sorted(set(g.i2h_dict[inflection])))
-        add_to_db.append(add_me)
-
-    g.db_session.add_all(add_to_db)
-    g.db_session.commit()
+    pr.green_tmr("syncing headwords column")
+    data = {inflection: sorted(set(ids)) for inflection, ids in g.i2h_dict.items()}
+    result = sync_lookup_column(g.db_session, "headwords", data)
     g.db_session.close()
-    pr.yes(len(add_set))
+    pr.yes(result.updated + result.inserted)
 
 
 def main() -> None:
