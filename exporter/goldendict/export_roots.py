@@ -1,7 +1,6 @@
 """Compile HTML data for Roots dictionary."""
 
-import re
-from typing import Dict, List, Tuple
+from collections import defaultdict
 
 from minify_html import minify
 from sqlalchemy.orm import Session
@@ -19,21 +18,25 @@ from exporter.goldendict.data_classes import RootsData
 def generate_root_html(
     db_session: Session,
     pth: ProjectPaths,
-    roots_count_dict: Dict[str, int],
-) -> Tuple[List[DictEntry], RenderedSizes]:
+    roots_count_dict: dict[str, int],
+) -> tuple[list[DictEntry], RenderedSizes]:
     """compile html components for each pali root"""
 
     pr.green_tmr("generating roots html")
     size_dict = default_rendered_sizes()
-    root_data_list: List[DictEntry] = []
+    root_data_list: list[DictEntry] = []
 
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
     template = jinja_env.get_template("dpd_root.jinja")
 
     roots_db = db_session.query(DpdRoot).all()
 
+    frs_by_root: dict[str, list[FamilyRoot]] = defaultdict(list)
+    for fr in db_session.query(FamilyRoot).all():
+        frs_by_root[fr.root_key].append(fr)
+
     for r in roots_db:
-        frs = db_session.query(FamilyRoot).filter(FamilyRoot.root_key == r.root).all()
+        frs = frs_by_root.get(r.root, [])
 
         # Use ViewModel
         data = RootsData(r, roots_count_dict, pth, jinja_env, frs)
@@ -49,14 +52,14 @@ def generate_root_html(
 
         size_dict["root_definition"] += len(data.r.root_clean)
 
-        synonyms: set = set()
+        synonyms: set[str] = set()
         synonyms.add(r.root_clean)
-        synonyms.add(re.sub("√", "", r.root))
-        synonyms.add(re.sub("√", "", r.root_clean))
+        synonyms.add(r.root.replace("√", ""))
+        synonyms.add(r.root_clean.replace("√", ""))
 
         for fr in frs:
             synonyms.add(fr.root_family)
-            synonyms.add(re.sub("√", "", fr.root_family))
+            synonyms.add(fr.root_family.replace("√", ""))
 
         synonyms = set(add_niggahitas(list(synonyms)))
         size_dict["root_synonyms"] += len(str(synonyms))
