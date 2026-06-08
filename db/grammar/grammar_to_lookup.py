@@ -29,23 +29,23 @@ class GlobalVars:
             "nt",
         ]
         self.verbs = ["aor", "cond", "fut", "imp", "imperf", "opt", "perf", "pr"]
-        self.all_words_set: set
+        self.all_words_set: set[str]
 
         # the grammar data
         self.grammar_data: dict[str, list[tuple[str, str, str]]]
 
-    def load_db(self):
+    def load_db(self) -> list[DpdHeadword]:
         db = self.db_session.query(DpdHeadword).all()
         return sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
 
-    def close_db(self):
+    def close_db(self) -> None:
         self.db_session.close()
 
-    def commit_db(self):
+    def commit_db(self) -> None:
         self.db_session.commit()
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("exporting grammar data")
     if config_read("generate", "grammar", "yes") == "no":
@@ -59,18 +59,16 @@ def main():
     make_sets_of_words(g)
     generate_grammar_data(g)
 
-    # dont commit the changes into the db
+    # discard the in-memory pos changes; don't commit them to the db
     g.close_db()
-    g.load_db()
 
     add_to_lookup_table(g)
     pr.toc()
 
 
-def modify_pos(g: GlobalVars):
+def modify_pos(g: GlobalVars) -> None:
     """Modify parts of speech into general categories."""
 
-    # modify parts of speech
     for i in g.db:
         if i.pos in g.nouns:
             i.pos = "noun"
@@ -88,7 +86,7 @@ def modify_pos(g: GlobalVars):
             i.pos = "interr"
 
 
-def make_sets_of_words(g: GlobalVars):
+def make_sets_of_words(g: GlobalVars) -> None:
     """Make the set of all words to be used,
     all words in the tipitaka + all the words in deconstructed compounds"""
 
@@ -108,19 +106,21 @@ def make_sets_of_words(g: GlobalVars):
     pr.yes(len(g.all_words_set))
 
 
-def generate_grammar_data(g: GlobalVars):
+def generate_grammar_data(g: GlobalVars) -> None:
     pr.green_title("generating grammar data")
 
     # grammar_data is pure data {inflection: [(headword, pos, grammar)]}
 
-    grammar_data = {}
+    grammar_data: dict[str, list[tuple[str, str, str]]] = {}
+
+    templates = {t.pattern: t for t in g.db_session.query(InflectionTemplates).all()}
 
     # process the inflections of each word in DpdHeadword
     for counter, i in enumerate(g.db):
         # words with ! in the stem are inflected forms
-        # and wil get dealt with under the main headwords
+        # and will get dealt with under the main headwords
         if "!" in i.stem:
-            pass
+            continue
 
         # words with '*' in stem are irregular inflections, remove the * for clean processing.
         if i.stem == "*":
@@ -132,90 +132,38 @@ def generate_grammar_data(g: GlobalVars):
 
         # all other words need an inflection table generated
         # to find out their grammatical category, i.e. masc nom sg
-        else:
-            # get template
-            template = (
-                g.db_session.query(InflectionTemplates)
-                .filter(InflectionTemplates.pattern == i.pattern)
-                .first()
-            )
+        template = templates.get(i.pattern)
+        if template is not None:
+            template_data = loads(template.data)
 
-            if template is not None:
-                template_data = loads(template.data)
+            # data is a nest of lists
+            # list[] table
+            # list[[]] row
+            # list[[[]]] cell
+            # row 0 is the top header
+            # column 0 is the grammar header
+            # odd rows > 0 are inflections
+            # even rows > 0 are grammar info
 
-                # data is a nest of lists
-                # list[] table
-                # list[[]] row
-                # list[[[]]] cell
-                # row 0 is the top header
-                # column 0 is the grammar header
-                # odd rows > 0 are inflections
-                # even rows > 0 are grammar info
+            for row_number, row_data in enumerate(template_data):
+                for column_number, cell_data in enumerate(row_data):
+                    if (
+                        row_number > 0  #   skip the top header
+                        and column_number > 0  #   skip the side header
+                        and column_number % 2 == 1  #   skip even = grammar info
+                        and row_data[0][0] != "in comps"  #   skip this row
+                    ):
+                        grammar = row_data[column_number + 1][0]
 
-                for row_number, row_data in enumerate(template_data):
-                    for column_number, cell_data in enumerate(row_data):
-                        if (
-                            row_number > 0  #   skip the top header
-                            and column_number > 0  #   skip the side header
-                            and column_number % 2
-                            == 1  #   skip even numbers = grammar info
-                            and row_data[0][0] != "in comps"  #   skip this row
-                        ):
-                            grammar: str = [row_data[column_number + 1]][0][0]
-
-                            for inflection in cell_data:
-                                if inflection:
-                                    inflected_word = f"{i.stem}{inflection}"
-                                    if inflected_word in g.all_words_set:
-                                        data_line = (i.lemma_clean, i.pos, grammar)
-                                        html_line = "<tr>"
-                                        html_line += f"<td><b>{i.pos}</b></td>"
-                                        # get grammatical_categories from grammar
-                                        grammatical_categories = []
-                                        if grammar.startswith("reflx"):
-                                            grammatical_categories.append(
-                                                grammar.split()[0]
-                                                + " "
-                                                + grammar.split()[1]
-                                            )
-                                            grammatical_categories += grammar.split()[
-                                                2:
-                                            ]
-                                            for (
-                                                grammatical_category
-                                            ) in grammatical_categories:
-                                                html_line += (
-                                                    f"<td>{grammatical_category}</td>"
-                                                )
-                                        elif grammar.startswith("in comps"):
-                                            html_line += (
-                                                f"<td colspan='3'>{grammar}</td>"
-                                            )
-                                        else:
-                                            grammatical_categories = grammar.split()
-                                            # adding empty values if there are less than 3
-                                            while len(grammatical_categories) < 3:
-                                                grammatical_categories.append("")
-                                            for (
-                                                grammatical_category
-                                            ) in grammatical_categories:
-                                                html_line += (
-                                                    f"<td>{grammatical_category}</td>"
-                                                )
-                                        html_line += "<td>of</td>"
-                                        html_line += f"<td>{i.lemma_clean}</td>"
-                                        html_line += "</tr>"
-
-                                        if inflected_word not in grammar_data:
-                                            grammar_data[inflected_word] = [data_line]
-                                        else:
-                                            if (
-                                                data_line
-                                                not in grammar_data[inflected_word]
-                                            ):
-                                                grammar_data[inflected_word].append(
-                                                    data_line
-                                                )
+                        for inflection in cell_data:
+                            if inflection:
+                                inflected_word = f"{i.stem}{inflection}"
+                                if inflected_word in g.all_words_set:
+                                    data_line = (i.lemma_clean, i.pos, grammar)
+                                    if inflected_word not in grammar_data:
+                                        grammar_data[inflected_word] = [data_line]
+                                    elif data_line not in grammar_data[inflected_word]:
+                                        grammar_data[inflected_word].append(data_line)
 
         if counter % 5000 == 0:
             pr.counter(counter, len(g.db), i.lemma_1)
@@ -225,7 +173,7 @@ def generate_grammar_data(g: GlobalVars):
     pr.yes(len(g.grammar_data))
 
 
-def add_to_lookup_table(g: GlobalVars):
+def add_to_lookup_table(g: GlobalVars) -> None:
     """Add the grammar data items to the Lookup table."""
 
     pr.green_tmr("saving to Lookup table")
