@@ -86,8 +86,11 @@ def test_add_root_to_db_inserts_new_root(
     assert fetched.root_meaning == "to go"
 
 
-def test_add_root_to_db_fails_on_duplicate_key(db_manager: DatabaseManager):
+def test_add_root_to_db_fails_on_duplicate_key(
+    db_manager: DatabaseManager, db_session: Session
+):
     duplicate = DpdRoot(root="√kar", root_meaning="duplicate")
+    db_session.expunge(db_session.get(DpdRoot, "√kar"))
     success, msg = db_manager.add_root_to_db(duplicate)
     assert success is False
     assert msg != ""

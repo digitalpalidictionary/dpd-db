@@ -1,6 +1,6 @@
 """Tests for exit-code propagation in export_dpd multiprocessing."""
 
-from multiprocessing import Process
+from multiprocessing import get_context
 
 
 def _crashing_worker():
@@ -8,7 +8,8 @@ def _crashing_worker():
 
 
 def test_crashing_worker_has_nonzero_exit_code():
-    p = Process(target=_crashing_worker)
+    ctx = get_context("spawn")
+    p = ctx.Process(target=_crashing_worker)
     p.start()
     p.join()
     assert p.exitcode != 0

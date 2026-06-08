@@ -90,9 +90,9 @@ def home_page(request: Request, response_class=HTMLResponse):
     """Home page."""
 
     return templates.TemplateResponse(
+        request,
         "home.html",
         {
-            "request": request,
             "dpd_results": "",
             "bd_count": bd_count,
             "book_options": list(cst_texts.keys()),
@@ -106,9 +106,9 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
     """Bold definitions landing page"""
 
     return templates.TemplateResponse(
+        request,
         "home.html",
         {
-            "request": request,
             "dpd_results": "",
             "bd_count": bd_count,
             "book_options": list(cst_texts.keys()),
@@ -132,9 +132,9 @@ def db_search_html(request: Request, q: str):
         ascii_to_unicode_dict,
     )
     return templates.TemplateResponse(
+        request,
         "home.html",
         {
-            "request": request,
             "q": q,
             "dpd_results": dpd_html,
             "book_options": list(cst_texts.keys()),
@@ -178,9 +178,9 @@ def db_search_gd(request: Request, search: str):
     global dpd_css, dpd_js, home_simple_css
 
     return templates.TemplateResponse(
+        request,
         "home_simple.html",
         {
-            "request": request,
             "search": search,
             "dpd_results": dpd_html,
             "summary": summary_html,
@@ -228,9 +228,9 @@ def db_search_bd(
         too_many_results = True
 
     return templates.TemplateResponse(
+        request,
         "bold_definitions.html",
         {
-            "request": request,
             "results": results,
             "search_1": q1,
             "search_2": q2,
@@ -494,9 +494,9 @@ def status_page(request: Request):
     }
 
     return templates.TemplateResponse(
+        request,
         "status.html",
         {
-            "request": request,
             "stats": stats,
         },
     )
