@@ -9,20 +9,17 @@ from typing import DefaultDict
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import Lookup
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_sync import sync_lookup_column
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv
-from tools.update_test_add import update_test_add
 
 
 class GlobalVars:
     pth: ProjectPaths = ProjectPaths()
     spellings_dict: DefaultDict[str, set[str]]
     db_session: Session = get_db_session(pth.dpd_db_path)
-    lookup_table: list[Lookup] = db_session.query(Lookup).all()
 
 
 def load_spelling_dict(g: GlobalVars):
@@ -38,42 +35,14 @@ def load_spelling_dict(g: GlobalVars):
 
 
 def add_spellings(g: GlobalVars):
-    pr.green_tmr("update test add")
-    update_set, test_set, add_set = update_test_add(g.lookup_table, g.spellings_dict)
-    pr.yes("")
-
-    lookup_table_update_test = (
-        g.db_session.query(Lookup).filter(Lookup.lookup_key.in_(update_set)).all()
-    )
-    pr.green_tmr("update")
-    # update test add
-    if update_set:
-        for i in lookup_table_update_test:
-            if i.lookup_key in update_set:
-                sorted_spelling = pali_list_sorter(g.spellings_dict[i.lookup_key])
-                i.spelling_pack(sorted_spelling)
-
-            # test_set
-            elif i.lookup_key in test_set:
-                if is_another_value(i, "spelling"):
-                    i.spelling = ""
-                else:
-                    g.db_session.delete(i)
-    pr.yes(len(update_set))
-
-    pr.green_tmr("add")
-
-    if add_set:
-        add_to_db = []
-        for mistake, correction in g.spellings_dict.items():
-            if mistake in add_set:
-                add_me = Lookup()
-                add_me.lookup_key = mistake
-                add_me.spelling_pack(pali_list_sorter(correction))
-                add_to_db.append(add_me)
-
-        g.db_session.add_all(add_to_db)
-    pr.yes(len(add_set))
+    """Add/update the spelling column and clear stale entries."""
+    pr.green_tmr("syncing spelling column")
+    data = {
+        mistake: pali_list_sorter(corrections)
+        for mistake, corrections in g.spellings_dict.items()
+    }
+    result = sync_lookup_column(g.db_session, "spelling", data)
+    pr.yes(result.updated + result.inserted)
 
 
 def main():

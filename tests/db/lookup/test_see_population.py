@@ -1,119 +1,109 @@
 # -*- coding: utf-8 -*-
-"""Tests for the see population functions in db/lookup/see.py."""
+"""Tests for db/lookup/see.py.
 
-import json
-import sqlite3
+Drives the real ``load_see_dict`` and ``add_see`` functions against an in-memory
+SQLite db (real Lookup model, no mocks). Replaces the previous version, which
+reimplemented the logic in raw sqlite3 and never called see.py at all.
+"""
+
 from collections import defaultdict
-from pathlib import Path
+from collections.abc import Iterator
+from types import SimpleNamespace
+
+import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
+
+from db.lookup.see import GlobalVars, add_see, load_see_dict
+from db.models import Base, Lookup
 
 
-def _make_full_lookup_db(path: Path) -> None:
-    """Create a lookup table with all required columns including see."""
-    conn = sqlite3.connect(path)
-    conn.execute(
-        """CREATE TABLE lookup (
-            lookup_key TEXT PRIMARY KEY,
-            headwords TEXT DEFAULT '',
-            roots TEXT DEFAULT '',
-            deconstructor TEXT DEFAULT '',
-            variant TEXT DEFAULT '',
-            see TEXT DEFAULT '',
-            spelling TEXT DEFAULT '',
-            grammar TEXT DEFAULT '',
-            help TEXT DEFAULT '',
-            abbrev TEXT DEFAULT '',
-            epd TEXT DEFAULT '',
-            rpd TEXT DEFAULT '',
-            other TEXT DEFAULT '',
-            sinhala TEXT DEFAULT '',
-            devanagari TEXT DEFAULT '',
-            thai TEXT DEFAULT ''
-        )"""
+@pytest.fixture
+def db_session() -> Iterator[Session]:
+    engine = create_engine("sqlite:///:memory:", echo=False)
+    Base.metadata.create_all(engine)
+    session_local = sessionmaker(bind=engine)
+    session = session_local()
+    yield session
+    session.close()
+
+
+def _make_g(session: Session, see_dict: dict[str, set[str]]) -> GlobalVars:
+    g = object.__new__(GlobalVars)
+    g.db_session = session
+    g.see_dict = defaultdict(set, see_dict)
+    return g
+
+
+def _get(session: Session, key: str) -> Lookup | None:
+    return session.query(Lookup).filter(Lookup.lookup_key == key).first()
+
+
+def test_load_see_dict_reads_tsv(tmp_path) -> None:
+    tsv = tmp_path / "see.tsv"
+    tsv.write_text(
+        "see\theadword\nkarohi\tkaroti\nkarohi\tkaroti 2\n", encoding="utf-8"
     )
-    conn.commit()
-    conn.close()
+    g = object.__new__(GlobalVars)
+    g.pth = SimpleNamespace(see_path=tsv)  # type: ignore[assignment]
+
+    load_see_dict(g)
+
+    assert g.see_dict["karohi"] == {"karoti", "karoti 2"}
 
 
-def test_see_population_add_new_entry(tmp_path):
-    """Test that a new see entry is added to the lookup table."""
-    db_path = tmp_path / "test.db"
-    _make_full_lookup_db(db_path)
-    tsv_path = tmp_path / "see.tsv"
-    tsv_path.write_text("see\theadword\nkarohi\tkaroti\n", encoding="utf-8")
+def test_add_see_inserts_new_entry(db_session: Session) -> None:
+    g = _make_g(db_session, {"karohi": {"karoti"}})
 
-    # Run population logic directly using sqlite3
-    see_dict: dict[str, set[str]] = defaultdict(set)
-    for line in tsv_path.read_text().splitlines()[1:]:
-        if "\t" in line:
-            see_word, headword = line.split("\t")
-            see_dict[see_word].add(headword)
+    add_see(g)
 
-    conn = sqlite3.connect(db_path)
-    for see_word, headwords in see_dict.items():
-        conn.execute(
-            "INSERT OR REPLACE INTO lookup (lookup_key, see) VALUES (?, ?)",
-            (see_word, json.dumps(sorted(headwords))),
-        )
-    conn.commit()
-
-    cursor = conn.execute("SELECT see FROM lookup WHERE lookup_key = 'karohi'")
-    row = cursor.fetchone()
-    conn.close()
-
+    row = _get(db_session, "karohi")
     assert row is not None
-    assert "karoti" in json.loads(row[0])
+    assert row.see_unpack == ["karoti"]
 
 
-def test_see_population_update_existing_entry(tmp_path):
-    """Test that an existing see entry is updated."""
-    db_path = tmp_path / "test.db"
-    _make_full_lookup_db(db_path)
+def test_add_see_updates_existing_entry(db_session: Session) -> None:
+    existing = Lookup()
+    existing.lookup_key = "karohi"
+    existing.see_pack(["old_headword"])
+    db_session.add(existing)
+    db_session.commit()
 
-    conn = sqlite3.connect(db_path)
-    conn.execute(
-        "INSERT INTO lookup (lookup_key, see) VALUES ('karohi', ?)",
-        (json.dumps(["old_headword"]),),
-    )
-    conn.commit()
-    conn.close()
+    g = _make_g(db_session, {"karohi": {"karoti"}})
+    add_see(g)
 
-    # Update with new headword
-    conn = sqlite3.connect(db_path)
-    conn.execute(
-        "UPDATE lookup SET see = ? WHERE lookup_key = 'karohi'",
-        (json.dumps(["karoti"]),),
-    )
-    conn.commit()
-
-    cursor = conn.execute("SELECT see FROM lookup WHERE lookup_key = 'karohi'")
-    row = cursor.fetchone()
-    conn.close()
-
-    assert "karoti" in json.loads(row[0])
-    assert "old_headword" not in json.loads(row[0])
+    row = _get(db_session, "karohi")
+    assert row is not None
+    assert row.see_unpack == ["karoti"]
 
 
-def test_see_population_clean_stale_entry(tmp_path):
-    """Test that a stale see entry (no longer in TSV) is cleaned."""
-    db_path = tmp_path / "test.db"
-    _make_full_lookup_db(db_path)
+def test_add_see_clears_stale_entry_with_other_value(db_session: Session) -> None:
+    """The fix: a see entry no longer in the TSV is now cleared (was dead code)."""
+    stale = Lookup()
+    stale.lookup_key = "staleword"
+    stale.see_pack(["someheadword"])
+    stale.grammar_pack([["x", "verb", "g"]])
+    db_session.add(stale)
+    db_session.commit()
 
-    # Add a stale entry with no other values
-    conn = sqlite3.connect(db_path)
-    conn.execute(
-        "INSERT INTO lookup (lookup_key, see) VALUES ('staleword', ?)",
-        (json.dumps(["someheadword"]),),
-    )
-    conn.commit()
-    conn.close()
+    g = _make_g(db_session, {"karohi": {"karoti"}})
+    add_see(g)
 
-    # Clear the see column (simulating what the code does when stale)
-    conn = sqlite3.connect(db_path)
-    conn.execute("UPDATE lookup SET see = '' WHERE lookup_key = 'staleword'")
-    conn.commit()
+    refreshed = _get(db_session, "staleword")
+    assert refreshed is not None
+    assert refreshed.see == ""
+    assert refreshed.grammar_unpack == [["x", "verb", "g"]]
 
-    cursor = conn.execute("SELECT see FROM lookup WHERE lookup_key = 'staleword'")
-    row = cursor.fetchone()
-    conn.close()
 
-    assert row[0] == ""
+def test_add_see_deletes_stale_entry_with_no_other_value(db_session: Session) -> None:
+    stale = Lookup()
+    stale.lookup_key = "staleword"
+    stale.see_pack(["someheadword"])
+    db_session.add(stale)
+    db_session.commit()
+
+    g = _make_g(db_session, {"karohi": {"karoti"}})
+    add_see(g)
+
+    assert _get(db_session, "staleword") is None
+    assert _get(db_session, "karohi") is not None
