@@ -3,7 +3,6 @@
 """Populate the `see` column of the lookup table from see.tsv."""
 
 from collections import defaultdict
-from typing import DefaultDict
 
 from sqlalchemy.orm import Session
 
@@ -18,7 +17,7 @@ from tools.tsv_read_write import read_tsv
 class GlobalVars:
     def __init__(self) -> None:
         self.pth: ProjectPaths = ProjectPaths()
-        self.see_dict: DefaultDict[str, set[str]] = defaultdict(set)
+        self.see_dict: defaultdict[str, set[str]] = defaultdict(set)
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
 
@@ -26,7 +25,7 @@ def load_see_dict(g: GlobalVars) -> None:
     """Turn see.tsv into a dictionary of see_word -> set of headwords."""
     pr.green_tmr("loading see tsv")
     see_tsv = read_tsv(g.pth.see_path)
-    see_dict: DefaultDict[str, set[str]] = defaultdict(set)
+    see_dict: defaultdict[str, set[str]] = defaultdict(set)
     for see_word, headword in see_tsv[1:]:
         see_dict[see_word].add(headword)
     g.see_dict = see_dict
