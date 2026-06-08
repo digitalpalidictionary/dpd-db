@@ -2,6 +2,9 @@
 
 These rules are specific to the dpd-db project. Global rules (security, etc.) are in `~/.claude/CLAUDE.md`.
 
+## Kamma Finalize
+- When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — do not stop after archiving; also complete the GitHub comment and reflect/lessons steps.
+
 ## Project Overview
 
 This project contains everything related to the Digital Pāḷi Dictionary
