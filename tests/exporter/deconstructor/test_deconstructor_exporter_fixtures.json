@@ -1,0 +1,117 @@
+{
+  "sinhala_akakkasanti": {
+    "lookup_key": "akakkasanti",
+    "sinhala_unpack": [
+      "අකක්කසන්ති",
+      "අකක‍්කසන‍්ති"
+    ],
+    "devanagari_unpack": [
+      "अकक्कसन्ति"
+    ],
+    "thai_unpack": [
+      "อกกฺกสนฺติ"
+    ],
+    "speech_marks_entry": [],
+    "expected_synonyms": [
+      "akakkasanti",
+      "අකක්කසන්ති",
+      "අකක‍්කසන‍්ති",
+      "अकक्कसन्ति",
+      "อกกฺกสนฺติ"
+    ]
+  },
+  "deva_akakkasāti": {
+    "lookup_key": "akakkasāti",
+    "sinhala_unpack": [
+      "අකක‍්කසාති",
+      "අකක්කසාති"
+    ],
+    "devanagari_unpack": [
+      "अकक्कसाति"
+    ],
+    "thai_unpack": [
+      "อกกฺกสาติ"
+    ],
+    "speech_marks_entry": [],
+    "expected_synonyms": [
+      "akakkasāti",
+      "අකක‍්කසාති",
+      "අකක්කසාති",
+      "अकक्कसाति",
+      "อกกฺกสาติ"
+    ]
+  },
+  "plain_akakkasoti": {
+    "lookup_key": "akakkasoti",
+    "sinhala_unpack": [
+      "අකක්කසොති",
+      "අකක‍්කසොති"
+    ],
+    "devanagari_unpack": [
+      "अकक्कसोति"
+    ],
+    "thai_unpack": [
+      "อกกฺกโสติ",
+      "อกกฺกสโติ"
+    ],
+    "speech_marks_entry": [],
+    "expected_synonyms": [
+      "akakkasoti",
+      "අකක්කසොති",
+      "අකක‍්කසොති",
+      "अकक्कसोति",
+      "อกกฺกโสติ",
+      "อกกฺกสโติ"
+    ]
+  },
+  "sm_akiñcananti": {
+    "lookup_key": "akiñcananti",
+    "sinhala_unpack": [
+      "අකිඤ්චනන්ති",
+      "අකිඤ්‍චනන‍්ති"
+    ],
+    "devanagari_unpack": [
+      "अकिञ्चनन्ति"
+    ],
+    "thai_unpack": [
+      "อกิญฺจนนฺติ"
+    ],
+    "speech_marks_entry": [
+      "akiñcanan'ti"
+    ],
+    "expected_synonyms": [
+      "akiñcananti",
+      "අකිඤ්චනන්ති",
+      "අකිඤ්‍චනන‍්ති",
+      "अकिञ्चनन्ति",
+      "อกิญฺจนนฺติ",
+      "akiñcanan'ti"
+    ]
+  },
+  "sm_akacchoti": {
+    "lookup_key": "akacchoti",
+    "sinhala_unpack": [
+      "අකච්ඡොති",
+      "අකච‍්ඡොති"
+    ],
+    "devanagari_unpack": [
+      "अकच्छोति"
+    ],
+    "thai_unpack": [
+      "อกจฺโฉติ",
+      "อกจฺฉโติ"
+    ],
+    "speech_marks_entry": [
+      "akaccho'ti"
+    ],
+    "expected_synonyms": [
+      "akacchoti",
+      "අකච්ඡොති",
+      "අකච‍්ඡොති",
+      "अकच्छोति",
+      "อกจฺโฉติ",
+      "อกจฺฉโติ",
+      "akaccho'ti"
+    ]
+  }
+}
