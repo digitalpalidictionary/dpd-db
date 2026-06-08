@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Export Variants Dict to GoldenDict and MDict."""
 
@@ -47,7 +46,7 @@ def make_synonyms_bjt(synonyms_list: list[str], variant: str) -> list[str]:
     return synonyms_list
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("exporting variants to mdict and goldendict")
 
@@ -68,7 +67,7 @@ def main():
 
     dict_data: list[DictEntry] = []
 
-    with open(pth.variants_header_path) as f:
+    with pth.variants_header_path.open(encoding="utf-8") as f:
         header = f.read()
 
     # Add variables and fonts to header
@@ -79,7 +78,7 @@ def main():
 
     pr.green_tmr("writing html")
 
-    for word, data_tuple in variants_dict.items():
+    for word, variant_data in variants_dict.items():
         html_list: list[str] = []
         html_list.append(header)
         html_list.append("<body>")
@@ -97,20 +96,16 @@ def main():
             synonyms_list = add_niggahitas([word])
         old_corpus = ""
 
-        for corpus, data2 in data_tuple.items():
+        for corpus, book_dict in variant_data.items():
             if old_corpus and old_corpus != corpus:
                 html_list.append("<td colspan='100%'><hr class='dpd'></td>")
 
-            for book, data3 in data2.items():
-                for data_tuple in data3:
-                    context, variant = data_tuple
+            for book, entries in book_dict.items():
+                for context, variant in entries:
                     if corpus == "MST" or corpus == "CST":
                         synonyms_list = make_synonyms(synonyms_list, variant)
                     if corpus == "BJT":
                         synonyms_list = make_synonyms_bjt(synonyms_list, variant)
-
-                    # add various niggahitas to synonyms
-                    synonyms_list = add_niggahitas(synonyms_list)
 
                     html_list.append(
                         f"<tr><td>{corpus}</td><td>{book}</td><td>{context}</td><td>{variant}</td></tr>"
@@ -130,6 +125,9 @@ def main():
         html_list.append("</html>")
         html: str = "\n".join(html_list)
 
+        # add niggahita variants to all collected synonyms
+        synonyms_list = add_niggahitas(synonyms_list)
+
         dict_entry = DictEntry(
             word=word,
             definition_html=html,
@@ -144,7 +142,7 @@ def main():
         bookname="DPD Variants",
         author="Bodhirasa",
         description="Variant readings found in Myanmar, Sri Lankan, Thai and Sutta Central texts.",
-        website="wwww.dpdict.net",
+        website="www.dpdict.net",
         source_lang="pi",
         target_lang="pi",
     )

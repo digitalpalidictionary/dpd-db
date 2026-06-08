@@ -1,0 +1,122 @@
+{
+  "akiñcanaṃ": {
+    "word": "akiñcanaṃ",
+    "variant_data": {
+      "BJT": {
+        "NIDD2": [
+          [
+            "- akiñcanaṃ",
+            "āciñcanaṃ – __u__, sī.vaṭ, sī.vipi"
+          ]
+        ]
+      },
+      "SYA": {
+        "NIDD2": [
+          [
+            "punabbhavo. akiñcanaṃ",
+            "ma. puggalaṃ."
+          ]
+        ]
+      }
+    },
+    "old_synonyms_sorted": [
+      "akiñcanaŋ",
+      "akiñcanaṁ",
+      "akiñcanaṃ",
+      "āciñcanaŋ",
+      "āciñcanaṁ",
+      "āciñcanaṃ"
+    ],
+    "corpora": [
+      "BJT",
+      "SYA"
+    ]
+  },
+  "akakkasassa": {
+    "word": "akakkasassa",
+    "variant_data": {
+      "SYA": {
+        "APA": [
+          [
+            "tādino akakkasassa",
+            "ma. yu. ākāsasamacittassa."
+          ]
+        ]
+      }
+    },
+    "old_synonyms_sorted": [],
+    "corpora": [
+      "SYA"
+    ]
+  },
+  "akaṭānudhammena": {
+    "word": "akaṭānudhammena",
+    "variant_data": {
+      "MST": {
+        "VIN5": [
+          [
+            "akaṭānudhammena",
+            "akatānudhammena (bj)"
+          ]
+        ]
+      }
+    },
+    "old_synonyms_sorted": [
+      "akatānudhammena"
+    ],
+    "corpora": [
+      "MST"
+    ]
+  },
+  "akaṇikanti": {
+    "word": "akaṇikanti",
+    "variant_data": {
+      "CST": {
+        "MN2": [
+          [
+            "vā akaṇika’nti",
+            "akaṇikaṅgaṃ vā akaṇikaṅganti (sī.)"
+          ]
+        ]
+      },
+      "BJT": {
+        "MN2": [
+          [
+            "vā akaṇikanti",
+            "akaṇikaṅgaṃ – sīmu8"
+          ]
+        ]
+      }
+    },
+    "old_synonyms_sorted": [
+      "akaṇikaṅgaŋ",
+      "akaṇikaṅgaṁ",
+      "akaṇikaṅgaṃ"
+    ],
+    "corpora": [
+      "BJT",
+      "CST"
+    ]
+  },
+  "a": {
+    "word": "a",
+    "variant_data": {
+      "CST": {
+        "Aññā": [
+          [
+            "a",
+            "ka. 642; rū. 589; nī. 1269; caṃ. 5.2.106; pā. 6.3.89"
+          ],
+          [
+            "pubbassa a",
+            "ka. 450; rū. 463; nī. 946; caṃ. 6.2.126; pā. 7.4.73"
+          ]
+        ]
+      }
+    },
+    "old_synonyms_sorted": [],
+    "corpora": [
+      "CST"
+    ]
+  }
+}
