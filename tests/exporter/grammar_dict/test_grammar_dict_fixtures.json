@@ -1,0 +1,46 @@
+{
+  "input_html_dict": {
+    "saṃ": "<body><div class=\"dpd\"><table>SAM</table></div></body>",
+    "buddhaṃ": "<body><div class=\"dpd\"><table>BUDDHAM</table></div></body>",
+    "gacchati": "<body><div class=\"dpd\"><table>GACCHATI</table></div></body>",
+    "dhamma": "<body><div class=\"dpd\"><table>DHAMMA</table></div></body>"
+  },
+  "output": [
+    {
+      "word": "saṃ",
+      "definition_html": "<body><div class=\"dpd\"><table>SAM</table></div></body>",
+      "definition_plain": "",
+      "synonyms_sorted": [
+        "saŋ",
+        "saṁ",
+        "saṃ"
+      ]
+    },
+    {
+      "word": "buddhaṃ",
+      "definition_html": "<body><div class=\"dpd\"><table>BUDDHAM</table></div></body>",
+      "definition_plain": "",
+      "synonyms_sorted": [
+        "buddhaŋ",
+        "buddhaṁ",
+        "buddhaṃ"
+      ]
+    },
+    {
+      "word": "gacchati",
+      "definition_html": "<body><div class=\"dpd\"><table>GACCHATI</table></div></body>",
+      "definition_plain": "",
+      "synonyms_sorted": [
+        "gacchati"
+      ]
+    },
+    {
+      "word": "dhamma",
+      "definition_html": "<body><div class=\"dpd\"><table>DHAMMA</table></div></body>",
+      "definition_plain": "",
+      "synonyms_sorted": [
+        "dhamma"
+      ]
+    }
+  ]
+}
