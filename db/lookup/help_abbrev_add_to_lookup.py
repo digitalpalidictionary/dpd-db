@@ -2,8 +2,10 @@
 
 """Add help and abbreviations to the Lookup table."""
 
-from rich import print
-from sqlalchemy import create_engine, inspect as sa_inspect, text
+from dataclasses import dataclass
+
+from sqlalchemy import inspect as sa_inspect, text
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from tools.lookup_sync import sync_lookup_column
@@ -12,9 +14,10 @@ from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_as_dict, read_tsv_dict
 
 
+@dataclass
 class GlobalVars:
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
+    pth: ProjectPaths
+    db_session: Session
 
 
 def normalize_other_abbreviation_key(key: str) -> str:
@@ -22,7 +25,7 @@ def normalize_other_abbreviation_key(key: str) -> str:
 
 
 def add_help(g: GlobalVars) -> None:
-    print("[green]adding help")
+    pr.green("adding help")
     help_data = read_tsv_as_dict(g.pth.help_tsv_path)
     data = {key: v["meaning"] for key, v in help_data.items()}
     sync_lookup_column(g.db_session, "help", data)
@@ -30,28 +33,26 @@ def add_help(g: GlobalVars) -> None:
 
 def ensure_abbrev_other_column(g: GlobalVars) -> None:
     """Add abbrev_other column to lookup table if it doesn't already exist."""
-    engine = create_engine(f"sqlite+pysqlite:///{g.pth.dpd_db_path}", echo=False)
-    insp = sa_inspect(engine)
+    insp = sa_inspect(g.db_session.get_bind())
     columns = [col["name"] for col in insp.get_columns("lookup")]
     if "abbrev_other" not in columns:
-        with engine.connect() as con:
-            con.execute(
-                text("ALTER TABLE lookup ADD COLUMN abbrev_other TEXT DEFAULT ''")
-            )
-            con.commit()
-        print("[green]added abbrev_other column to lookup")
+        g.db_session.execute(
+            text("ALTER TABLE lookup ADD COLUMN abbrev_other TEXT DEFAULT ''")
+        )
+        g.db_session.commit()
+        pr.green("added abbrev_other column to lookup")
 
 
 def add_abbreviations(g: GlobalVars) -> None:
     """Add abbreviations to lookup"""
-    print("[green]adding abbreviations")
+    pr.green("adding abbreviations")
     abbrevs = read_tsv_as_dict(g.pth.abbreviations_tsv_path)
     sync_lookup_column(g.db_session, "abbrev", abbrevs)
 
 
 def add_abbreviations_other(g: GlobalVars) -> None:
     """Add other-source abbreviations (PTS, CPD, Cone, CST, General) to lookup."""
-    print("[green]adding abbreviations other")
+    pr.green("adding abbreviations other")
 
     rows = read_tsv_dict(g.pth.abbreviations_other_tsv_path)
     rows.sort(key=lambda row: normalize_other_abbreviation_key(row["abbreviation"]))
@@ -73,8 +74,9 @@ def add_abbreviations_other(g: GlobalVars) -> None:
 
 def main() -> None:
     pr.tic()
-    print("[bright_yellow]adding help and abbreviations to lookup")
-    g = GlobalVars()
+    pr.yellow_title("adding help and abbreviations to lookup")
+    pth = ProjectPaths()
+    g = GlobalVars(pth=pth, db_session=get_db_session(pth.dpd_db_path))
     ensure_abbrev_other_column(g)
     add_help(g)
     add_abbreviations(g)
