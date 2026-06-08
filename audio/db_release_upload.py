@@ -1,15 +1,8 @@
 #!/usr/bin/env python3
-"""
-Release and upload script for DPD Audio Database.
-Creates a tarball of the database and uploads it to a new GitHub release.
-"""
+"""Upload DPD Audio Database release to GitHub."""
 
 from datetime import datetime
 from pathlib import Path
-import sys
-
-# Add the project root to the Python path
-sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from github import Github, Auth
 from github.GithubException import UnknownObjectException
@@ -19,10 +12,8 @@ from tools.printer import printer as pr
 from tools.paths import ProjectPaths
 from audio.db.db_helpers import make_version
 
-pth = ProjectPaths()
 
-
-def get_archive_path(version: str) -> Path | None:
+def get_archive_path(pth: ProjectPaths, version: str) -> Path | None:
     """Get path of existing tarball."""
     archive_name = f"dpd_audio_{version}.tar.gz"
     db_dir = pth.dpd_audio_db_path.parent
@@ -36,7 +27,7 @@ def get_archive_path(version: str) -> Path | None:
     return archive_path
 
 
-def get_index_path(version: str) -> Path | None:
+def get_index_path(pth: ProjectPaths, version: str) -> Path | None:
     """Get path of existing index TSV."""
     index_name = f"dpd_audio_index_{version}.tsv"
     db_dir = pth.dpd_audio_db_path.parent
@@ -108,7 +99,7 @@ def create_github_release(version: str, archive_path: Path, index_path: Path) ->
         return False
 
 
-def main():
+def main() -> None:
     pr.tic()
     version = make_version()
     pr.yellow_title(f"upload db release {version}")
@@ -118,11 +109,12 @@ def main():
         pr.toc()
         return
 
-    archive_path = get_archive_path(version)
+    pth = ProjectPaths()
+    archive_path = get_archive_path(pth, version)
     if not archive_path:
         return
 
-    index_path = get_index_path(version)
+    index_path = get_index_path(pth, version)
     if not index_path:
         return
 
