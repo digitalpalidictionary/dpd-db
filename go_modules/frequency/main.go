@@ -162,9 +162,7 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 	td := templateData{}
 	html := ""
 
-	if tools.IsAllZero(CstFreqList) &&
-		tools.IsAllZero(BjtFreqList) &&
-		tools.IsAllZero(ScFreqList) {
+	if tools.IsAllZero(AllFreqList) {
 
 		heading := fmt.Sprintf("There are no exact matches of <b>%v</b>", i.Lemma1)
 
@@ -249,20 +247,6 @@ func htmlTemplater(td templateData) string {
 	html = tools.CleanWhiteSpace(html)
 
 	return html
-}
-
-func saveHtmlFile(html string) {
-	tools.PGreenTitle("saving html test")
-
-	// dpdCss
-	dpdCss, err := os.ReadFile(filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.DpdCss))
-	tools.HardCheck(err)
-
-	finalHtml := fmt.Sprintf("<style>\n%v\n</style>\n<body>\n%v</body>\n", string(dpdCss), string(html))
-
-	saveFile, err := os.Create("htmlTest.html")
-	tools.HardCheck(err)
-	saveFile.Write([]byte(finalHtml))
 }
 
 func updateDb(db *gorm.DB, results []dpdDb.DpdHeadword) {
