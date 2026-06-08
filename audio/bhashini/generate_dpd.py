@@ -18,7 +18,7 @@ def test_word_length(word: str, length: int) -> bool:
         return False
 
 
-def main():
+def main() -> None:
     pr.tic()
     try:
         pr.yellow_title("bashini tts")
