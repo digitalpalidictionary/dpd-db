@@ -37,12 +37,6 @@ class GlobalVars:
         db = self.db_session.query(DpdHeadword).all()
         return sorted(db, key=lambda x: pali_sort_key(x.lemma_1))
 
-    def close_db(self) -> None:
-        self.db_session.close()
-
-    def commit_db(self) -> None:
-        self.db_session.commit()
-
 
 def main() -> None:
     pr.tic()
@@ -54,35 +48,42 @@ def main() -> None:
 
     g = GlobalVars()
 
-    modify_pos(g)
+    pos_override = modify_pos(g.db, g.nouns, g.verbs)
     make_sets_of_words(g)
-    generate_grammar_data(g)
-
-    # discard the in-memory pos changes; don't commit them to the db
-    g.close_db()
-
+    generate_grammar_data(g, pos_override)
     add_to_lookup_table(g)
     pr.toc()
 
 
-def modify_pos(g: GlobalVars) -> None:
-    """Modify parts of speech into general categories."""
+def modify_pos(
+    db: list[DpdHeadword],
+    nouns: list[str],
+    verbs: list[str],
+) -> dict[int, str]:
+    """Return a mapping of headword id → overridden pos for grammar categorisation.
 
-    for i in g.db:
-        if i.pos in g.nouns:
-            i.pos = "noun"
-        if i.pos in g.verbs:
-            i.pos = "verb"
+    Never mutates the ORM objects so the session stays clean.
+    """
+    pos_override: dict[int, str] = {}
+    for i in db:
+        pos = i.pos
+        if pos in nouns:
+            pos = "noun"
+        if pos in verbs:
+            pos = "verb"
         if "adv" in i.grammar and i.pos != "sandhi":
-            i.pos = "adv"
+            pos = "adv"
         if "excl" in i.grammar:
-            i.pos = "excl"
+            pos = "excl"
         if "prep" in i.grammar:
-            i.pos = "prep"
+            pos = "prep"
         if "emph" in i.grammar:
-            i.pos = "emph"
+            pos = "emph"
         if "interr" in i.grammar:
-            i.pos = "interr"
+            pos = "interr"
+        if pos != i.pos:
+            pos_override[i.id] = pos
+    return pos_override
 
 
 def make_sets_of_words(g: GlobalVars) -> None:
@@ -105,7 +106,7 @@ def make_sets_of_words(g: GlobalVars) -> None:
     pr.yes(len(g.all_words_set))
 
 
-def generate_grammar_data(g: GlobalVars) -> None:
+def generate_grammar_data(g: GlobalVars, pos_override: dict[int, str]) -> None:
     pr.green_title("generating grammar data")
 
     # grammar_data is pure data {inflection: [(headword, pos, grammar)]}
@@ -121,12 +122,11 @@ def generate_grammar_data(g: GlobalVars) -> None:
         if "!" in i.stem:
             continue
 
-        # words with '*' in stem are irregular inflections, remove the * for clean processing.
-        if i.stem == "*":
-            i.stem = ""
+        # words with '*' in stem are irregular inflections, use "" for clean processing.
+        stem = "" if i.stem == "*" else i.stem
 
         # process indeclinables
-        if i.stem == "-":
+        if stem == "-":
             continue
 
         # all other words need an inflection table generated
@@ -156,9 +156,13 @@ def generate_grammar_data(g: GlobalVars) -> None:
 
                         for inflection in cell_data:
                             if inflection:
-                                inflected_word = f"{i.stem}{inflection}"
+                                inflected_word = f"{stem}{inflection}"
                                 if inflected_word in g.all_words_set:
-                                    data_line = (i.lemma_clean, i.pos, grammar)
+                                    data_line = (
+                                        i.lemma_clean,
+                                        pos_override.get(i.id, i.pos),
+                                        grammar,
+                                    )
                                     if inflected_word not in grammar_data:
                                         grammar_data[inflected_word] = [data_line]
                                     elif data_line not in grammar_data[inflected_word]:

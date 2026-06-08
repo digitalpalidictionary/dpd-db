@@ -42,16 +42,28 @@ def _build_globalvars() -> GlobalVars:
     return g
 
 
+def test_modify_pos_does_not_mutate_headwords() -> None:
+    """Neither modify_pos nor generate_grammar_data must write back to ORM objects."""
+    g = _build_globalvars()
+    original_pos = [hw.pos for hw in g.db]
+    original_stem = [hw.stem for hw in g.db]
+    pos_override = modify_pos(g.db, g.nouns, g.verbs)
+    generate_grammar_data(g, pos_override)
+    assert [hw.pos for hw in g.db] == original_pos
+    assert [hw.stem for hw in g.db] == original_stem
+
+
 def test_modify_pos_matches_fixture() -> None:
     g = _build_globalvars()
-    modify_pos(g)
-    assert [hw.pos for hw in g.db] == FIXTURE["expected_pos"]
+    pos_override = modify_pos(g.db, g.nouns, g.verbs)
+    effective_pos = [pos_override.get(hw.id, hw.pos) for hw in g.db]
+    assert effective_pos == FIXTURE["expected_pos"]
 
 
 def test_generate_grammar_data_matches_fixture() -> None:
     g = _build_globalvars()
-    modify_pos(g)
-    generate_grammar_data(g)
+    pos_override = modify_pos(g.db, g.nouns, g.verbs)
+    generate_grammar_data(g, pos_override)
     produced = json.loads(json.dumps(g.grammar_data, ensure_ascii=False))
     assert produced == FIXTURE["expected_grammar_data"]
 
@@ -59,8 +71,8 @@ def test_generate_grammar_data_matches_fixture() -> None:
 def test_bang_and_indeclinable_stems_produce_no_entries() -> None:
     """! stems and '-' stems must never contribute a source lemma."""
     g = _build_globalvars()
-    modify_pos(g)
-    generate_grammar_data(g)
+    pos_override = modify_pos(g.db, g.nouns, g.verbs)
+    generate_grammar_data(g, pos_override)
     sources = {entry[0] for entries in g.grammar_data.values() for entry in entries}
     bang_or_dash = {
         d["lemma_clean"]
@@ -89,5 +101,5 @@ def test_pattern_without_template_yields_no_entries() -> None:
         }
     )
     g.db = [hw]
-    generate_grammar_data(g)
+    generate_grammar_data(g, {})
     assert g.grammar_data == {}

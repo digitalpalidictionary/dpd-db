@@ -47,8 +47,8 @@ def main() -> None:
     rf_dict, bases_dict = make_roots_family_dict_and_bases_dict(dpd_db)
     rf_dict = compile_rf_html(dpd_db, rf_dict)
     add_rf_to_db(db_session, rf_dict)
-    update_lookup_table(db_session)
     generate_root_info_html(db_session, roots_db, bases_dict)
+    update_lookup_table(db_session)
     html_dict = generate_root_matrix(db_session)
     db_session.close()
 
