@@ -95,6 +95,5 @@ def sync_lookup_column(
         result.inserted += len(new_rows)
 
         db_session.commit()
-        db_session.expunge_all()
 
     return result
