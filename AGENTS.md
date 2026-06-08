@@ -30,6 +30,10 @@ Read the relevant spec before working in an unfamiliar area.
 ## Use Path from Pathlib
 - Use Path for anything related to filepaths, not os.
 
+## SQLAlchemy ORM Objects
+- Never mutate ORM objects unless the explicit purpose is to update, change, or delete them in the database.
+- Temporary or derived values must be computed separately (e.g. a `dict` or local variable) — never written back to a tracked ORM attribute as a side-effect.
+
 ## Debugging
 - Use `icecream` for debugging, not `print()`.
 - Import: `from icecream import ic`
