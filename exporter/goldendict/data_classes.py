@@ -27,6 +27,35 @@ def _render_plain_header(jinja_env: Environment, style: str) -> str:
     return css_manager.update_style(html_header, style)
 
 
+class _NewlineView:
+    """Read-only view over a DpdHeadword that renders newlines as ``<br>`` on
+    display fields, without mutating the tracked ORM object. Every other
+    attribute is delegated unchanged."""
+
+    _NL_ATTRS = frozenset(
+        {
+            "construction",
+            "phonetic",
+            "compound_construction",
+            "sutta_1",
+            "sutta_2",
+            "example_1",
+            "example_2",
+            "commentary",
+            "notes",
+        }
+    )
+
+    def __init__(self, obj: DpdHeadword) -> None:
+        object.__setattr__(self, "_obj", obj)
+
+    def __getattr__(self, name: str):
+        value = getattr(self._obj, name)
+        if name in self._NL_ATTRS and isinstance(value, str) and value:
+            return value.replace("\n", "<br>")
+        return value
+
+
 class HeadwordData:
     def __init__(
         self,
@@ -45,7 +74,7 @@ class HeadwordData:
         show_id: bool,
     ) -> None:
         self.construction_summary = i.construction_summary
-        self.i = self._convert_newlines(i)
+        self.i = _NewlineView(i)
         self.rt = rt
         self.fr = fr
         self.fw = fw
@@ -67,28 +96,6 @@ class HeadwordData:
         self.app_name = "GoldenDict"
         self.header = self._generate_header()
 
-    @staticmethod
-    def _convert_newlines(obj: DpdHeadword) -> DpdHeadword:
-        attrs = [
-            "construction",
-            "phonetic",
-            "compound_construction",
-            "sutta_1",
-            "sutta_2",
-            "example_1",
-            "example_2",
-            "commentary",
-            "notes",
-        ]
-        for attr_name in attrs:
-            attr_value = getattr(obj, attr_name, None)
-            if isinstance(attr_value, str) and attr_value:
-                try:
-                    setattr(obj, attr_name, attr_value.replace("\n", "<br>"))
-                except AttributeError:
-                    continue
-        return obj
-
     def _generate_header(self) -> str:
         template = self.jinja_env.get_template("dpd_header.jinja")
         html_header = template.render(d=self)
@@ -105,7 +112,7 @@ class RootsData:
         jinja_env: Environment,
         frs: list[FamilyRoot],
     ) -> None:
-        self.r = self._convert_newlines(r)
+        self.r = r
         self.pth = pth
         self.jinja_env = jinja_env
         self.today = TODAY
@@ -116,18 +123,6 @@ class RootsData:
             self.count = 0
         self.frs = sorted(frs, key=lambda x: pali_sort_key(x.root_family))
         self.header = self._generate_header()
-
-    @staticmethod
-    def _convert_newlines(obj: DpdRoot) -> DpdRoot:
-        attrs = ["panini_root", "panini_sanskrit", "panini_english"]
-        for attr_name in attrs:
-            attr_value = getattr(obj, attr_name, None)
-            if isinstance(attr_value, str) and attr_value:
-                try:
-                    setattr(obj, attr_name, attr_value.replace("\n", "<br>"))
-                except AttributeError:
-                    continue
-        return obj
 
     def _generate_header(self) -> str:
         template = self.jinja_env.get_template("root_header.jinja")
