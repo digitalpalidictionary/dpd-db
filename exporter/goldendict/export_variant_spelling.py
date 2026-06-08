@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 """Compile HTML data for variants and spelling mistakes."""
 
 import csv
-from typing import List, Tuple
 
+from jinja2 import Environment
 from minify_html import minify
 
 from tools.goldendict_exporter import DictEntry
@@ -22,12 +21,12 @@ from exporter.goldendict.data_classes import SeeData, SpellingData, VariantData
 
 def generate_variant_spelling_html(
     pth: ProjectPaths,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+) -> tuple[list[DictEntry], RenderedSizes]:
     """Generate html for see entries, variant readings and spelling corrections."""
 
     pr.green_tmr("generating variants html")
 
-    rendered_sizes = []
+    rendered_sizes: list[RenderedSizes] = []
 
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
 
@@ -35,21 +34,13 @@ def generate_variant_spelling_html(
     variant_dict = test_and_make_variant_dict(pth)
     spelling_dict = test_and_make_spelling_dict(pth)
 
-    see_data_list, sizes = generate_see_data_list(pth, see_dict, jinja_env)
+    see_data_list, sizes = generate_see_data_list(see_dict, jinja_env)
     rendered_sizes.append(sizes)
 
-    variant_data_list, sizes = generate_variant_data_list(
-        pth,
-        variant_dict,
-        jinja_env,
-    )
+    variant_data_list, sizes = generate_variant_data_list(variant_dict, jinja_env)
     rendered_sizes.append(sizes)
 
-    spelling_data_list, sizes = generate_spelling_data_list(
-        pth,
-        spelling_dict,
-        jinja_env,
-    )
+    spelling_data_list, sizes = generate_spelling_data_list(spelling_dict, jinja_env)
     rendered_sizes.append(sizes)
 
     variant_spelling_data_list = see_data_list + variant_data_list + spelling_data_list
@@ -58,10 +49,10 @@ def generate_variant_spelling_html(
     return variant_spelling_data_list, sum_rendered_sizes(rendered_sizes)
 
 
-def test_and_make_see_dict(pth: ProjectPaths) -> dict:
-    see_dict: dict = {}
+def test_and_make_see_dict(pth: ProjectPaths) -> dict[str, str]:
+    see_dict: dict[str, str] = {}
 
-    with open(pth.see_path, "r", newline="", encoding="utf-8") as f:
+    with pth.see_path.open("r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
 
         for row in reader:
@@ -84,15 +75,14 @@ def test_and_make_see_dict(pth: ProjectPaths) -> dict:
 
 
 def generate_see_data_list(
-    pth: ProjectPaths,
-    see_dict: dict,
-    jinja_env,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+    see_dict: dict[str, str],
+    jinja_env: Environment,
+) -> tuple[list[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
     template = jinja_env.get_template("dpd_see.jinja")
 
-    see_data_list: List[DictEntry] = []
+    see_data_list: list[DictEntry] = []
 
     for see, headword in see_dict.items():
         data = SeeData(see, headword, jinja_env)
@@ -120,10 +110,10 @@ def generate_see_data_list(
     return see_data_list, size_dict
 
 
-def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
-    variant_dict: dict = {}
+def test_and_make_variant_dict(pth: ProjectPaths) -> dict[str, str]:
+    variant_dict: dict[str, str] = {}
 
-    with open(pth.variant_readings_path, "r", newline="", encoding="utf-8") as f:
+    with pth.variant_readings_path.open("r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
 
         for row in reader:
@@ -146,15 +136,14 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict:
 
 
 def generate_variant_data_list(
-    pth: ProjectPaths,
-    variant_dict: dict,
-    jinja_env,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+    variant_dict: dict[str, str],
+    jinja_env: Environment,
+) -> tuple[list[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
     template = jinja_env.get_template("dpd_variant_reading.jinja")
 
-    variant_data_list: List[DictEntry] = []
+    variant_data_list: list[DictEntry] = []
 
     for variant, main in variant_dict.items():
         # Use ViewModel
@@ -186,10 +175,10 @@ def generate_variant_data_list(
     return variant_data_list, size_dict
 
 
-def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
-    spelling_dict: dict = {}
+def test_and_make_spelling_dict(pth: ProjectPaths) -> dict[str, str]:
+    spelling_dict: dict[str, str] = {}
 
-    with open(pth.spelling_mistakes_path, "r", newline="", encoding="utf-8") as f:
+    with pth.spelling_mistakes_path.open("r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
 
         for row in reader:
@@ -212,15 +201,14 @@ def test_and_make_spelling_dict(pth: ProjectPaths) -> dict:
 
 
 def generate_spelling_data_list(
-    pth: ProjectPaths,
-    spelling_dict: dict,
-    jinja_env,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+    spelling_dict: dict[str, str],
+    jinja_env: Environment,
+) -> tuple[list[DictEntry], RenderedSizes]:
     size_dict = default_rendered_sizes()
 
     template = jinja_env.get_template("dpd_spelling_mistake.jinja")
 
-    spelling_data_list: List[DictEntry] = []
+    spelling_data_list: list[DictEntry] = []
 
     for mistake, correction in spelling_dict.items():
         # Use ViewModel
