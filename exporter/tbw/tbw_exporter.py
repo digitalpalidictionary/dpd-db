@@ -183,7 +183,7 @@ def deconstructor_dict_add_variants(g: GlobalVars):
     var_counter = 0
     for i in g.variants_db:
         if i.lookup_key in g.word_set:
-            variant_string = f"variant reading of <i>{i.variants_unpack[0]}</i>"
+            variant_string = f"variant reading of <i>{i.variant_unpack[0]}</i>"
             if i.lookup_key in g.deconstructor_dict:
                 g.deconstructor_dict[i.lookup_key] += f"<br>{variant_string}"
                 var_counter += 1

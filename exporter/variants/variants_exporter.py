@@ -64,7 +64,7 @@ def main():
     variants_db: list[Lookup] = (
         db_session.query(Lookup).filter(Lookup.variant != "").all()
     )
-    variants_dict = {i.lookup_key: i.variants_unpack for i in variants_db}
+    variants_dict = {i.lookup_key: i.variant_unpack for i in variants_db}
 
     dict_data: list[DictEntry] = []
 

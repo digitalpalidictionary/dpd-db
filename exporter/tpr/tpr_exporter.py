@@ -157,7 +157,7 @@ def add_variants(g):
     variants_db = sorted(variants_db, key=lambda x: pali_sort_key(x.lookup_key))
 
     for i in variants_db:
-        variant = f"variant reading of <i>{i.variants_unpack[0]}</i>"
+        variant = f"variant reading of <i>{i.variant_unpack[0]}</i>"
         g.deconstructor_data_list += [{"word": i.lookup_key, "breakup": variant}]
 
     pr.yes(len(variants_db))

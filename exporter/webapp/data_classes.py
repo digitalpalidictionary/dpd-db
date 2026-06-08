@@ -68,7 +68,7 @@ class DeconstructorData:
 class VariantData:
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
-        self.variants = result.variants_unpack
+        self.variants = result.variant_unpack
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
 

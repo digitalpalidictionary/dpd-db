@@ -38,14 +38,14 @@ def test_inserts_new_variant(db_session: Session) -> None:
 
     row = _get(db_session, "newkey")
     assert row is not None
-    assert row.variants_unpack == _VARIANT
+    assert row.variant_unpack == _VARIANT
 
 
 def test_updates_existing_variant_not_lost(db_session: Session) -> None:
     """A key present in the data must be updated, never deleted (the bug fix)."""
     existing = Lookup()
     existing.lookup_key = "samekey"
-    existing.variants_pack(_VARIANT)
+    existing.variant_pack(_VARIANT)
     db_session.add(existing)
     db_session.commit()
 
@@ -53,13 +53,13 @@ def test_updates_existing_variant_not_lost(db_session: Session) -> None:
 
     row = _get(db_session, "samekey")
     assert row is not None
-    assert row.variants_unpack == _VARIANT_2
+    assert row.variant_unpack == _VARIANT_2
 
 
 def test_stale_variant_only_row_is_deleted(db_session: Session) -> None:
     stale = Lookup()
     stale.lookup_key = "stale"
-    stale.variants_pack(_VARIANT)
+    stale.variant_pack(_VARIANT)
     db_session.add(stale)
     db_session.commit()
 
@@ -72,7 +72,7 @@ def test_stale_variant_only_row_is_deleted(db_session: Session) -> None:
 def test_stale_row_with_other_value_is_cleared(db_session: Session) -> None:
     stale = Lookup()
     stale.lookup_key = "shared"
-    stale.variants_pack(_VARIANT)
+    stale.variant_pack(_VARIANT)
     stale.grammar_pack([["x", "verb", "g"]])
     db_session.add(stale)
     db_session.commit()

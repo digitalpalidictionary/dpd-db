@@ -275,16 +275,16 @@ class Lookup(Base):
         else:
             return []
 
-    # variants pack unpack
+    # variant pack unpack
 
-    def variants_pack(self, dict) -> None:
-        if dict:
-            self.variant = json.dumps(dict, ensure_ascii=False)
+    def variant_pack(self, data) -> None:
+        if data:
+            self.variant = json.dumps(data, ensure_ascii=False)
         else:
             raise ValueError("A dict must be provided to pack.")
 
     @property
-    def variants_unpack(self) -> dict:
+    def variant_unpack(self) -> dict:
         if self.variant:
             return json.loads(self.variant)
         else:

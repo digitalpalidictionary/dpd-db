@@ -33,3 +33,4 @@
 - 2026-06-06 [REPEATED] First /kamma plan was overengineered (gate script, durations, timeout plugin, rename debate); user wanted the simplest 4-line solution. Lead with the minimal change and let the user ask for more.
 - 2026-06-06 [BEHAVIOR] User had to tell me mid-task to keep them in the loop and not make executive decisions ("i know the repo, can help"). For repo-specific judgment calls, surface options with facts rather than deciding autonomously — even inside an otherwise-autonomous /kamma run.
 - 2026-06-06 [WORKFLOW] `ruff format` (pre-commit) silently collapsed intentional blank-line grouping in a list literal; bare `#` separator lines survive the formatter and preserve grouping without inventing WHAT-comments.
+- 2026-06-08 [POSITIVE] spec.md that documents the exact ordering dependency, the clear_stale=False rationale, and the dropped behaviour made implementation fast and unambiguous — no decisions needed mid-task.

@@ -47,8 +47,8 @@ def sync_lookup_column(
       but are no longer in ``data``. A stale row is cleared (column set to "") when
       another column still holds a value, otherwise the whole row is deleted.
     - keys in ``data`` are updated if the row exists, inserted otherwise.
-    - ``pack_attr`` defaults to ``f"{column}_pack"``; pass it explicitly for the one
-      irregular column (``variant`` -> ``variants_pack``). The ``*_pack`` methods
+    - ``pack_attr`` defaults to ``f"{column}_pack"``; pass it explicitly when the
+      column's pack method uses a non-standard name.
       raise on empty input, so clearing always assigns "" directly.
 
     Commits internally: once after the stale pass and once per chunk of the

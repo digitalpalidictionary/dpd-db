@@ -116,11 +116,11 @@ def test_pack_attr_override_for_variant(db_session: Session) -> None:
         db_session,
         "variant",
         {"v1": {"reading": "v2"}},
-        pack_attr="variants_pack",
+        pack_attr="variant_pack",
     )
     row = _get(db_session, "v1")
     assert row is not None
-    assert row.variants_unpack == {"reading": "v2"}
+    assert row.variant_unpack == {"reading": "v2"}
     assert result.inserted == 1
 
 

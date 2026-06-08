@@ -22,7 +22,6 @@ class AddVariantsToDb:
             self.db_session,
             "variant",
             self.variants_dict,
-            pack_attr="variants_pack",
         )
         if created_session:
             self.db_session.close()
