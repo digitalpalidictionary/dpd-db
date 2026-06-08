@@ -3,17 +3,17 @@
 """Fix all the dealbreakers which break exporter code."""
 
 import sys
-from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pos import POS
+from sqlalchemy.orm import Session
 
 
-def main():
+def main() -> None:
     pr.tic()
-    print("[bright_yellow]fixing dealbreakers")
+    pr.yellow_title("fixing dealbreakers")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
@@ -25,77 +25,50 @@ def main():
     pr.toc()
 
 
-def pos_not_in_pos(db_session):
+def pos_not_in_pos(db_session: Session) -> bool:
     """Check that pos in db match pos in theory."""
-    print(f"[green]{'finding wrong pos':<30} ")
-
-    ok = True
-    result = db_session.query(DpdHeadword).all()
-    for r in result:
-        if r.pos not in POS:
-            print(
-                f"[red]{'wrong pos found':<20}{r.pos:<10}[bright_red][white]{r.lemma_1}"
-            )
-            ok = False
-    if not ok:
+    pr.green_tmr("finding wrong pos")
+    invalid = db_session.query(DpdHeadword).filter(~DpdHeadword.pos.in_(POS)).all()
+    for r in invalid:
+        pr.red(f"wrong pos found: {r.pos:<10}{r.lemma_1}")
+    if invalid:
+        pr.no("errors")
         return False
-    else:
-        return True
+    pr.yes("ok")
+    return True
 
 
-def apostrophe_in_key_fields(db_session):
+def apostrophe_in_key_fields(db_session: Session) -> None:
     """Find apostrophes in key fields:
     - lemma_1
     - lemma_2
     - stem
     """
-    print(f"[green]{'fixing apostrophe in key fields':<30} ", end="")
+    pr.green_tmr("fixing apostrophe in key fields")
     found = 0
 
-    # lemma_1
     results = (
         db_session.query(DpdHeadword)
         .filter(
-            DpdHeadword.lemma_1.contains(
-                "'",
-            )
+            DpdHeadword.lemma_1.contains("'")
+            | DpdHeadword.lemma_2.contains("'")
+            | DpdHeadword.stem.contains("'")
         )
         .all()
     )
     for r in results:
-        r.lemma_1 = r.lemma_1.replace("'", "")
-        found += 1
-
-    # lemma_2
-    results = (
-        db_session.query(DpdHeadword)
-        .filter(
-            DpdHeadword.lemma_2.contains(
-                "'",
-            )
-        )
-        .all()
-    )
-    for r in results:
-        r.lemma_2 = r.lemma_2.replace("'", "")
-        found += 1
-
-    # stem
-    results = (
-        db_session.query(DpdHeadword)
-        .filter(
-            DpdHeadword.stem.contains(
-                "'",
-            )
-        )
-        .all()
-    )
-    for r in results:
-        r.stem = r.stem.replace("'", "")
-        found += 1
+        if "'" in r.lemma_1:
+            r.lemma_1 = r.lemma_1.replace("'", "")
+            found += 1
+        if "'" in r.lemma_2:
+            r.lemma_2 = r.lemma_2.replace("'", "")
+            found += 1
+        if "'" in r.stem:
+            r.stem = r.stem.replace("'", "")
+            found += 1
 
     db_session.commit()
-    print(found)
+    pr.yes(str(found))
 
 
 if __name__ == "__main__":
