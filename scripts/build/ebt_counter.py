@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Calculate the number of occurrences of a word's inflections
@@ -57,13 +56,13 @@ def main() -> None:
     db_session = get_db_session(pth.dpd_db_path)
 
     # Load all four corpus frequency dicts
-    with open(pth.cst_file_freq) as f:
+    with pth.cst_file_freq.open(encoding="utf-8") as f:
         cst_freq: dict[str, dict[str, int]] = json.load(f)
-    with open(pth.bjt_file_freq) as f:
+    with pth.bjt_file_freq.open(encoding="utf-8") as f:
         bjt_freq: dict[str, dict[str, int]] = json.load(f)
-    with open(pth.sc_file_freq) as f:
+    with pth.sc_file_freq.open(encoding="utf-8") as f:
         sc_freq: dict[str, dict[str, int]] = json.load(f)
-    with open(pth.sya_file_freq) as f:
+    with pth.sya_file_freq.open(encoding="utf-8") as f:
         sya_freq: dict[str, dict[str, int]] = json.load(f)
 
     db = db_session.query(DpdHeadword).all()
