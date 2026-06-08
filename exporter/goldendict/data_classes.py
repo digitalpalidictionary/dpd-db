@@ -20,11 +20,20 @@ from tools.css_manager import CSSManager
 from tools.pali_sort_key import pali_sort_key
 
 
-def _render_plain_header(jinja_env: Environment, style: str) -> str:
-    template = jinja_env.get_template("dpd_header_plain.jinja")
-    html_header = template.render()
+def _render_header(
+    jinja_env: Environment,
+    template_name: str,
+    style: str,
+    context: dict[str, object] | None = None,
+) -> str:
+    template = jinja_env.get_template(template_name)
+    html_header = template.render(**(context or {}))
     css_manager = CSSManager()
     return css_manager.update_style(html_header, style)
+
+
+def _render_plain_header(jinja_env: Environment, style: str) -> str:
+    return _render_header(jinja_env, "dpd_header_plain.jinja", style)
 
 
 class _NewlineView:
@@ -97,10 +106,7 @@ class HeadwordData:
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("dpd_header.jinja")
-        html_header = template.render(d=self)
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "dpd")
+        return _render_header(self.jinja_env, "dpd_header.jinja", "dpd", {"d": self})
 
 
 class RootsData:
@@ -116,7 +122,7 @@ class RootsData:
         self.pth = pth
         self.jinja_env = jinja_env
         self.today = TODAY
-        self.date = str(TODAY)
+        self.date = year_month_day_dash()
         try:
             self.count = roots_count_dict[r.root]
         except KeyError:
@@ -125,10 +131,7 @@ class RootsData:
         self.header = self._generate_header()
 
     def _generate_header(self) -> str:
-        template = self.jinja_env.get_template("root_header.jinja")
-        html_header = template.render(d=self)
-        css_manager = CSSManager()
-        return css_manager.update_style(html_header, "root")
+        return _render_header(self.jinja_env, "root_header.jinja", "root", {"d": self})
 
 
 class EpdData:
@@ -143,11 +146,10 @@ class EpdData:
         self.header = self._generate_header()
 
     def _generate_html_string(self) -> str:
-        html_entries = []
-        for lemma_clean, pos, meaning_plus_case in self.epd_entries:
-            entry_html = f"<b class='epd'>{lemma_clean}</b> {pos}. {meaning_plus_case}"
-            html_entries.append(entry_html)
-        return "<br>".join(html_entries)
+        return "<br>".join(
+            f"<b class='epd'>{lemma_clean}</b> {pos}. {meaning_plus_case}"
+            for lemma_clean, pos, meaning_plus_case in self.epd_entries
+        )
 
     def _generate_header(self) -> str:
         return _render_plain_header(self.jinja_env, "primary")
