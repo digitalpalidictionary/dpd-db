@@ -1,0 +1,81 @@
+{
+  "strip_diacritics": {
+    "dhamma": "dhamma",
+    "Dhammā": "Dhamma",
+    "ñāṇa": "nana",
+    "saṃyutta": "samyutta",
+    "√gam": "gam",
+    "√kar": "kar",
+    "anto bhāga": "antobhaga",
+    "kammaṭṭhāna": "kammatthana",
+    "ṭīkā": "tika",
+    "Ǖ": "U",
+    "": "",
+    "   ": "",
+    "√ anto ": "anto",
+    "ABCdef": "ABCdef",
+    "pāḷi": "pali"
+  },
+  "build_index": {
+    "basic": {
+      "input": [
+        "Dhammā",
+        "dhamma",
+        "dhammā"
+      ],
+      "output": [
+        "dhamma|Dhammā|dhamma|dhammā"
+      ]
+    },
+    "with_empty": {
+      "input": [
+        "",
+        "gacchati",
+        "gacchatī"
+      ],
+      "output": [
+        "gacchati|gacchati|gacchatī"
+      ]
+    },
+    "roots": {
+      "input": [
+        "gam",
+        "√gam",
+        "√gam "
+      ],
+      "output": [
+        "gam|gam|√gam|√gam "
+      ]
+    },
+    "single": {
+      "input": [
+        "saṃyutta"
+      ],
+      "output": [
+        "samyutta|saṃyutta"
+      ]
+    },
+    "sorting": {
+      "input": [
+        "apple",
+        "mango",
+        "zebra",
+        "Āpple"
+      ],
+      "output": [
+        "apple|apple|Āpple",
+        "mango|mango",
+        "zebra|zebra"
+      ]
+    },
+    "all_empty": {
+      "input": [
+        "",
+        "   "
+      ],
+      "output": [
+        "|   "
+      ]
+    }
+  }
+}

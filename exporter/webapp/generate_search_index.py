@@ -24,25 +24,23 @@ def strip_diacritics(text: str) -> str:
 
 def build_index(terms: set[str]) -> list[str]:
     """Builds a sorted array of 'ascii|unicode1|unicode2' strings for fast binary search."""
-    index_dict = {}
+    index_dict: dict[str, set[str]] = {}
     for term in terms:
         if not term:
             continue
         normalized = strip_diacritics(term).lower()
-        if normalized not in index_dict:
-            index_dict[normalized] = set()
-        index_dict[normalized].add(term)
+        index_dict.setdefault(normalized, set()).add(term)
 
     # Create sorted list of "key|val1|val2..."
     sorted_index = []
     for key in sorted(index_dict.keys()):
-        values = sorted(list(index_dict[key]))
+        values = sorted(index_dict[key])
         sorted_index.append(f"{key}|{'|'.join(values)}")
 
     return sorted_index
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("generating webapp search_index.json")
     if config_read("generate", "search_index", "yes") == "no":
@@ -83,7 +81,7 @@ def main():
     # Save to JSON
     pr.green_tmr("saving index")
     output_path = pth.webapp_static_dir / "search_index.json"
-    with open(output_path, "w", encoding="utf-8") as f:
+    with output_path.open("w", encoding="utf-8") as f:
         json.dump(search_index, f, ensure_ascii=False, indent=None)
     pr.yes("ok")
 
