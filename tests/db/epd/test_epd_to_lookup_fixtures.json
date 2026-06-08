@@ -1,0 +1,178 @@
+{
+  "make_clean_meaning_list": {
+    "to go; to move": [
+      "to go",
+      "to move"
+    ],
+    "elephant (animal)": [
+      "elephant"
+    ],
+    "(prefix) gone": [
+      "gone"
+    ],
+    " spaced ": [
+      "spaced"
+    ],
+    "double  space": [
+      "double space"
+    ],
+    "one ; two; three": [
+      "one",
+      " two",
+      "three"
+    ],
+    "i.e. that is": [
+      "that is"
+    ],
+    "wow! amazing": [
+      "wow amazing"
+    ],
+    "is there else?": [
+      "is there else?"
+    ],
+    "doubt?? maybe": [
+      "doubt maybe"
+    ],
+    "give up; relinquish; abandon": [
+      "give up",
+      "relinquish",
+      "abandon"
+    ],
+    "go; go": [
+      "go",
+      "go"
+    ]
+  },
+  "make_meaning_plus_case": {
+    "no_case": "to go",
+    "with_case": "to go (instr)"
+  },
+  "compile_headwords_data": {
+    "inputs": [
+      {
+        "lemma_clean": "gacchati",
+        "pos": "verb",
+        "meaning_1": "to go; to move",
+        "plus_case": "acc",
+        "lemma_1": "gacchati 1"
+      },
+      {
+        "lemma_clean": "nāga",
+        "pos": "noun",
+        "meaning_1": "elephant (animal)",
+        "plus_case": "",
+        "lemma_1": "nāga 1"
+      },
+      {
+        "lemma_clean": "xyz",
+        "pos": "letter",
+        "meaning_1": "should be excluded",
+        "plus_case": "",
+        "lemma_1": "xyz"
+      },
+      {
+        "lemma_clean": "empty",
+        "pos": "noun",
+        "meaning_1": "",
+        "plus_case": "",
+        "lemma_1": "empty"
+      },
+      {
+        "lemma_clean": "dup",
+        "pos": "noun",
+        "meaning_1": "go; go",
+        "plus_case": "",
+        "lemma_1": "dup"
+      },
+      {
+        "lemma_clean": "q",
+        "pos": "noun",
+        "meaning_1": "is there else?",
+        "plus_case": "",
+        "lemma_1": "q"
+      }
+    ],
+    "output": {
+      "to go": [
+        [
+          "gacchati",
+          "verb",
+          "to go; to move (acc)"
+        ]
+      ],
+      "to move": [
+        [
+          "gacchati",
+          "verb",
+          "to go; to move (acc)"
+        ]
+      ],
+      "elephant": [
+        [
+          "nāga",
+          "noun",
+          "elephant (animal)"
+        ]
+      ],
+      "go": [
+        [
+          "dup",
+          "noun",
+          "go; go"
+        ],
+        [
+          "dup",
+          "noun",
+          "go; go"
+        ]
+      ],
+      "is there else?": [
+        [
+          "q",
+          "noun",
+          "is there else?"
+        ]
+      ]
+    }
+  },
+  "compile_roots_data": {
+    "inputs": [
+      {
+        "root": "√gam",
+        "root_meaning": "to go, to move"
+      },
+      {
+        "root": "√kar",
+        "root_meaning": "to do"
+      }
+    ],
+    "output": {
+      "to go": [
+        [
+          "√gam",
+          "root",
+          "to go, to move"
+        ]
+      ],
+      "to move": [
+        [
+          "√gam",
+          "root",
+          "to go, to move"
+        ]
+      ],
+      "to do": [
+        [
+          "√kar",
+          "root",
+          "to do"
+        ]
+      ]
+    }
+  },
+  "_unedited_empty_token_behaviour": {
+    "keys": [
+      ""
+    ]
+  }
+}
