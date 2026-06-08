@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Export DPD for GoldenDict and MDict."""
 
 import csv
 import pickle
-from typing import List
 
 from sqlalchemy.orm import Session
 
@@ -37,24 +35,20 @@ class GlobalVars:
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
         self.speech_marks_manager = SpeechMarkManager()
         self.speech_marks = self.speech_marks_manager.get_speech_marks()
-        self.cf_set: set = load_cf_set()  # type: ignore[assignment]
-        self.idioms_set: set = load_idioms_set()  # type: ignore[assignment]
+        self.cf_set: set[str] = load_cf_set()  # type: ignore[assignment]
+        self.idioms_set: set[str] = load_idioms_set()  # type: ignore[assignment]
         self.roots_count_dict = make_roots_count_dict(self.db_session)
-        self.rendered_sizes: List[RenderedSizes] = []
+        self.rendered_sizes: list[RenderedSizes] = []
         self.data_limit = int(config_read("dictionary", "data_limit") or "0")
         self.dict_data: list[DictEntry]
 
         # config tests
-        self.make_mdict: bool = False
-        if config_test("dictionary", "make_mdict", "yes"):
-            self.make_mdict: bool = True
+        self.make_mdict: bool = config_test("dictionary", "make_mdict", "yes")
 
         self.make_slob = config_read("goldendict", "make_slob", "no") == "yes"
 
-        self.paths = self.pth
 
-
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("exporting dpd to goldendict and mdict")
 
@@ -135,27 +129,27 @@ def prepare_export_to_goldendict_mdict(g: GlobalVars) -> None:
     dict_name = "dpd"
 
     dict_var = DictVariables(
-        css_paths=[g.paths.dpd_css_and_fonts_path],
+        css_paths=[g.pth.dpd_css_and_fonts_path],
         js_paths=[
-            g.paths.family_compound_json,
-            g.paths.family_compound_template_js,
-            g.paths.family_idiom_json,
-            g.paths.family_idiom_template_js,
-            g.paths.family_root_json,
-            g.paths.family_root_template_js,
-            g.paths.family_set_json,
-            g.paths.family_set_template_js,
-            g.paths.family_word_json,
-            g.paths.family_word_template_js,
-            g.paths.feedback_template_js,
-            g.paths.frequency_template_js,
-            g.paths.main_js_path,
+            g.pth.family_compound_json,
+            g.pth.family_compound_template_js,
+            g.pth.family_idiom_json,
+            g.pth.family_idiom_template_js,
+            g.pth.family_root_json,
+            g.pth.family_root_template_js,
+            g.pth.family_set_json,
+            g.pth.family_set_template_js,
+            g.pth.family_word_json,
+            g.pth.family_word_template_js,
+            g.pth.feedback_template_js,
+            g.pth.frequency_template_js,
+            g.pth.main_js_path,
         ],
-        gd_path=g.paths.share_dir,
-        md_path=g.paths.share_dir,
+        gd_path=g.pth.share_dir,
+        md_path=g.pth.share_dir,
         dict_name=dict_name,
-        icon_path=g.paths.dpd_logo_svg,
-        font_path=g.paths.fonts_dir,
+        icon_path=g.pth.dpd_logo_svg,
+        font_path=g.pth.fonts_dir,
         zip_up=False,
         delete_original=False,
     )
@@ -171,11 +165,11 @@ def prepare_export_to_goldendict_mdict(g: GlobalVars) -> None:
         export_to_mdict(dict_info, dict_var, g.dict_data)
 
 
-def write_size_dict(pth: ProjectPaths, size_dict):
+def write_size_dict(pth: ProjectPaths, size_dict: RenderedSizes) -> None:
     pr.green_tmr("writing size_dict")
     filename = pth.temp_dir.joinpath("size_dict.tsv")
 
-    with open(filename, "w", newline="") as csvfile:
+    with filename.open("w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile, delimiter="\t")
         for key, value in size_dict.items():
             writer.writerow([key, value])
@@ -183,12 +177,12 @@ def write_size_dict(pth: ProjectPaths, size_dict):
     pr.yes("ok")
 
 
-def write_limited_datalist(g: GlobalVars):
+def write_limited_datalist(g: GlobalVars) -> None:
     """A limited dataset for troubleshooting purposes"""
 
     limited_data = [item for item in g.dict_data if item.word.startswith("ab")]
 
-    with open("temp/limited_data_list", "wb") as file:
+    with (g.pth.temp_dir / "limited_data_list").open("wb") as file:
         pickle.dump(limited_data, file)
 
 
