@@ -1,0 +1,65 @@
+{
+  "akaṅkhī": {
+    "word": "akaṅkhī",
+    "definition_html_len": 12594,
+    "definition_html_hash": "af671e5c716fb53ef0ab1019e319bc35",
+    "synonyms_count": 188,
+    "synonyms_sample": [
+      "",
+      "",
+      "",
+      "",
+      "10",
+      "akaṅkhi",
+      "akaṅkhibhi",
+      "akaṅkhihi",
+      "akaṅkhimhi",
+      "akaṅkhimhā"
+    ],
+    "size_dpd_header": 4468,
+    "size_dpd_summary": 37,
+    "size_dpd_synonyms": 2606
+  },
+  "namo": {
+    "word": "namo",
+    "definition_html_len": 6964,
+    "definition_html_hash": "cbfd6bf661545fc2509fe6db9dd22fcd",
+    "synonyms_count": 16,
+    "synonyms_sample": [
+      "35805",
+      "namo",
+      "namoti",
+      "namoyeva",
+      "नमो",
+      "नमोति",
+      "नमोयेव",
+      "නමො",
+      "නමොති",
+      "නමොයෙව"
+    ],
+    "size_dpd_header": 4469,
+    "size_dpd_summary": 52,
+    "size_dpd_synonyms": 143
+  },
+  "mettasutta 1": {
+    "word": "mettasutta 1",
+    "definition_html_len": 11916,
+    "definition_html_hash": "15e74a8d4c247ec49cb1ec9a4fc746ed",
+    "synonyms_count": 121,
+    "synonyms_sample": [
+      "",
+      "",
+      "",
+      "",
+      "53207",
+      "AN7.62",
+      "mettasutta",
+      "mettasuttamhi",
+      "mettasuttamhā",
+      "mettasuttasmiŋ"
+    ],
+    "size_dpd_header": 4458,
+    "size_dpd_summary": 30,
+    "size_dpd_synonyms": 2195
+  }
+}

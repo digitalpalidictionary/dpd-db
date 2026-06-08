@@ -2,7 +2,7 @@
 
 from multiprocessing import Manager, Process
 from multiprocessing.managers import ListProxy
-from typing import List, Set, Tuple, TypedDict
+from typing import TypedDict
 
 import jinja2
 import psutil
@@ -43,7 +43,7 @@ from exporter.jinja2_env import get_jinja2_env
 from exporter.goldendict.data_classes import HeadwordData
 
 
-DpdHeadwordDbRowItems = Tuple[DpdHeadword, FamilyRoot, FamilyWord]
+DpdHeadwordDbRowItems = tuple[DpdHeadword, FamilyRoot, FamilyWord]
 
 
 class DpdHeadwordDbParts(TypedDict):
@@ -51,16 +51,16 @@ class DpdHeadwordDbParts(TypedDict):
     pali_root: DpdRoot
     family_root: FamilyRoot
     family_word: FamilyWord
-    family_compounds: List[FamilyCompound]
-    family_idioms: List[FamilyIdiom]
-    family_set: List[FamilySet]
+    family_compounds: list[FamilyCompound]
+    family_idioms: list[FamilyIdiom]
+    family_set: list[FamilySet]
     sutta_info: SuttaInfo
 
 
 class DpdHeadwordRenderDataBase(TypedDict):
     speech_marks: SpeechMarksDict
-    cf_set: Set[str]
-    idioms_set: Set[str]
+    cf_set: set[str]
+    idioms_set: set[str]
     show_id: bool
 
 
@@ -72,7 +72,7 @@ class DpdHeadwordRenderData(DpdHeadwordRenderDataBase):
 def render_pali_word_dpd_html(
     db_parts: DpdHeadwordDbParts,
     render_data: DpdHeadwordRenderData,
-) -> Tuple[DictEntry, RenderedSizes]:
+) -> tuple[DictEntry, RenderedSizes]:
     rd = render_data
     size_dict = default_rendered_sizes()
 
@@ -80,9 +80,9 @@ def render_pali_word_dpd_html(
     rt: DpdRoot = db_parts["pali_root"]
     fr: FamilyRoot = db_parts["family_root"]
     fw: FamilyWord = db_parts["family_word"]
-    fc: List[FamilyCompound] = db_parts["family_compounds"]
-    fi: List[FamilyIdiom] = db_parts["family_idioms"]
-    fs: List[FamilySet] = db_parts["family_set"]
+    fc: list[FamilyCompound] = db_parts["family_compounds"]
+    fi: list[FamilyIdiom] = db_parts["family_idioms"]
+    fs: list[FamilySet] = db_parts["family_set"]
     su: SuttaInfo = db_parts["sutta_info"]
 
     pth = rd["pth"]
@@ -120,7 +120,7 @@ def render_pali_word_dpd_html(
     size_dict["dpd_summary"] += len(data.meaning_combo_html)
 
     # synonyms
-    synonyms: List[str] = i.inflections_list_all
+    synonyms: list[str] = i.inflections_list_all
     synonyms = add_niggahitas(synonyms)
 
     for synonym in synonyms:
@@ -152,12 +152,12 @@ def render_pali_word_dpd_html(
 
 
 def _parse_batch_top_level(
-    batch: List[DpdHeadwordDbParts],
+    batch: list[DpdHeadwordDbParts],
     path: ProjectPaths,
     render_data: DpdHeadwordRenderData,
     dpd_data_results_list: ListProxy,
     rendered_sizes_results_list: ListProxy,
-):
+) -> None:
     """Helper function for multiprocessing."""
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
 
@@ -167,7 +167,7 @@ def _parse_batch_top_level(
         "jinja_env": jinja_env,
     }
 
-    res: List[Tuple[DictEntry, RenderedSizes]] = [
+    res: list[tuple[DictEntry, RenderedSizes]] = [
         render_pali_word_dpd_html(
             i,
             full_render_data,
@@ -184,16 +184,13 @@ def generate_dpd_html(
     db_session: Session,
     pth: ProjectPaths,
     speech_marks: SpeechMarksDict,
-    cf_set: Set[str],
+    cf_set: set[str],
     idioms_set: set[str],
     data_limit: int = 0,
-) -> Tuple[List[DictEntry], RenderedSizes]:
+) -> tuple[list[DictEntry], RenderedSizes]:
     pr.green_title("generating dpd html")
 
-    if config_test("dictionary", "show_id", "yes"):
-        show_id: bool = True
-    else:
-        show_id: bool = False
+    show_id: bool = config_test("dictionary", "show_id", "yes")
 
     pali_words_count = db_session.query(func.count(DpdHeadword.id)).scalar()
 
@@ -244,11 +241,11 @@ def generate_dpd_html(
 
         dpd_db_data = [_add_parts(i.tuple()) for i in dpd_db]
 
-        batches: List[List[DpdHeadwordDbParts]] = list_into_batches(
+        batches: list[list[DpdHeadwordDbParts]] = list_into_batches(
             dpd_db_data, num_logical_cores
         )
 
-        processes: List[Process] = []
+        processes: list[Process] = []
 
         render_data: DpdHeadwordRenderDataBase = {
             "speech_marks": speech_marks,
