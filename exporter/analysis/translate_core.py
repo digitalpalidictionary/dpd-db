@@ -17,7 +17,7 @@ def extract_variant_options(text: str) -> tuple[str, dict[str, list[str]]]:
     parts = re.split(r"(\s+)", text)
     options: dict[str, list[str]] = {}
     resolved_parts: list[str] = []
-    trailing_punctuation = ".,;:!?)]}”’\""
+    trailing_punctuation = '.,;:!?)]}”’"'
 
     for part in parts:
         if "//" not in part:
@@ -52,7 +52,7 @@ def apply_variant_choices(
 
     parts = re.split(r"(\s+)", text)
     resolved_parts: list[str] = []
-    trailing_punctuation = ".,;:!?)]}”’\""
+    trailing_punctuation = '.,;:!?)]}”’"'
 
     for part in parts:
         if "//" not in part:
@@ -241,7 +241,11 @@ def _apply_deterministic_scores_to_map(
         for option in _iter_options(token_data.get("data", [])):
             key = option.get("key")
             score = option.get("ai_score")
-            if key and option.get("db_example_match") and isinstance(score, int | float):
+            if (
+                key
+                and option.get("db_example_match")
+                and isinstance(score, int | float)
+            ):
                 scores_map[key] = {
                     "score": score,
                     "selection_source": option.get("selection_source", "deterministic"),
@@ -418,9 +422,7 @@ def translate_sentence(
                     "parsed_response": retry_data,
                     "parse_error": retry_parse_error,
                     "missing_keys": [
-                        key
-                        for group in missing_groups
-                        for key in group["missing_keys"]
+                        key for group in missing_groups for key in group["missing_keys"]
                     ],
                 }
             )
@@ -508,9 +510,7 @@ zero-based option index for each key in the `variant_choices` field. Do not retu
 full passage text.
 {options_lines}
 """
-        verse_text_field = (
-            '\n  "variant_choices": {"variant option key": 0},'
-        )
+        verse_text_field = '\n  "variant_choices": {"variant option key": 0},'
 
     prompt = f"""You are an expert Pāḷi translator and grammarian with deep knowledge of the Tipitaka.
 Your task is to analyze a Pāḷi sentence and perform word-sense disambiguation using the provided dictionary analysis.
@@ -765,16 +765,22 @@ def merge_ai_selections(
             key = item.get("key")
             if key in scores_map:
                 update = scores_map[key]
-                item["ai_score"] = update.get("score", 0)
-                if "selection_source" in update:
-                    item["selection_source"] = update["selection_source"]
+                if not isinstance(update, dict):
+                    # AI returned a bare scalar instead of a score object
+                    item["ai_score"] = (
+                        int(update) if isinstance(update, (int, float)) else 0
+                    )
+                else:
+                    item["ai_score"] = update.get("score", 0)
+                    if "selection_source" in update:
+                        item["selection_source"] = update["selection_source"]
 
-                # Apply contextual info if score is positive (implying relevance)
-                if update.get("score", 0) > 0:
-                    if "contextual_meaning" in update:
-                        item["meaning_combo"] = update["contextual_meaning"]
-                    if "selected_pos" in update:
-                        item["selected_pos"] = update["selected_pos"]
+                    # Apply contextual info if score is positive (implying relevance)
+                    if update.get("score", 0) > 0:
+                        if "contextual_meaning" in update:
+                            item["meaning_combo"] = update["contextual_meaning"]
+                        if "selected_pos" in update:
+                            item["selected_pos"] = update["selected_pos"]
             else:
                 item["ai_score"] = item.get("ai_score")
 
