@@ -8,7 +8,7 @@ from tools.printer import printer as pr
 from tools.tarballer import create_tarball
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("tarballing db")
 
