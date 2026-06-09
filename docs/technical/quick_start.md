@@ -8,10 +8,10 @@ Welcome to the Digital Pāḷi Dictionary (DPD) developer guide. This page will 
 
 1. **Repository**: Clone the DPD database repository from GitHub (using `--depth 1` for a faster download):
     ```bash
-    git clone --depth 1 https://github.com/digitalpalidictionary/dpd-db.git
+    git clone --depth 1 --recurse-submodules https://github.com/digitalpalidictionary/dpd-db.git
     cd dpd-db
     ```
-2. **Database**: Download the latest `dpd.db.tar.bz2` from the [dpd-db releases page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"} and place it in the root folder.
+2. **Database**: Download the latest `dpd.db.tar.bz2` from the [dpd-db releases page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"} and place it in the root folder. Then extract it with `tar -xf dpd.db.tar.bz2`
 
 3. **uv**: This project uses [astral uv](https://github.com/astral-sh/uv) for dependency management and Python version control. Install it if you haven't already:
     ```bash
