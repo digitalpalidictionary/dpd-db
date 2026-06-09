@@ -1,7 +1,6 @@
 """Export DPD as a plain .txt file."""
 
 from dataclasses import dataclass
-from typing import Any
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.configger import config_test
@@ -14,7 +13,6 @@ from tools.zip_up import zip_up_file
 @dataclass
 class GlobalVars:
     pth: ProjectPaths
-    db_session: Any
     db_sorted: list[DpdHeadword]
     db_length: int
     dpd_entry_list: list[str]
@@ -22,7 +20,7 @@ class GlobalVars:
     debug: bool = False  # limit to 10 000 entries
 
 
-def make_word_entry(i: DpdHeadword, g: GlobalVars) -> str:
+def make_word_entry(i: DpdHeadword) -> str:
     data: list[str] = []
 
     # summary line
@@ -92,7 +90,7 @@ def make_word_entry(i: DpdHeadword, g: GlobalVars) -> str:
         data.append(f"\n  ID: {i.id}")
 
     # no meaning_1 but pass1 or pass2, show root and construction
-    elif not i.meaning_1 and i.origin in ["pass1", "pass2"]:
+    elif i.origin in ["pass1", "pass2"]:
         # root line
         if i.root_key and i.rt:
             data.append(
@@ -125,20 +123,20 @@ def make_word_entry(i: DpdHeadword, g: GlobalVars) -> str:
     return "".join(data)
 
 
-def export_txt(g: GlobalVars):
+def export_txt(g: GlobalVars) -> None:
     pr.green_title("compiling txt")
     for counter, i in enumerate(g.db_sorted):
         if counter % 10000 == 0:
             pr.counter(counter, g.db_length, i.lemma_1)
         if counter == 10000 and g.debug:
             break
-        word_entry = make_word_entry(i, g)
+        word_entry = make_word_entry(i)
         g.dpd_entry_list.append(word_entry)
 
     g.dpd_text = "\n".join(g.dpd_entry_list)
 
 
-def zip_txt_file(g: GlobalVars):
+def zip_txt_file(g: GlobalVars) -> None:
     """Zip the DPD txt file after export."""
     pr.green_tmr("zipping txt file")
     zip_up_file(g.pth.dpd_txt_path, g.pth.dpd_txt_zip_path)
@@ -146,13 +144,13 @@ def zip_txt_file(g: GlobalVars):
     pr.green(f"saved to {g.pth.dpd_txt_zip_path}")
 
 
-def save_txt(g: GlobalVars):
+def save_txt(g: GlobalVars) -> None:
     pr.green_tmr("saving txt")
     g.pth.dpd_txt_path.write_text(g.dpd_text, encoding="utf-8")
     pr.yes(len(g.dpd_entry_list))
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("exporting DPD as txt")
 
@@ -171,7 +169,6 @@ def main():
 
     g = GlobalVars(
         pth=pth,
-        db_session=db_session,
         db_sorted=db_sorted,
         db_length=db_length,
         dpd_entry_list=[],
