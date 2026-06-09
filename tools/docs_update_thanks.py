@@ -1,18 +1,16 @@
 """Update mkdocs thanks."""
 
 from tools.paths import ProjectPaths
-from tools.tsv_read_write import read_tsv_dot_dict
 from tools.printer import printer as pr
+from tools.tsv_read_write import read_tsv_dot_dict
 
 
-def update_mkdocs_thanks():
-    pth = ProjectPaths()
+def make_thanks_md(pth: ProjectPaths) -> str:
     thanks_data = ["# Thanks\n"]
-
     thanks = read_tsv_dot_dict(pth.thanks_tsv_path)
 
     for i in thanks:
-        line = []
+        line = ""
         if i.category:
             line += f"## {i.category}\n"
             line += f"{i.what}\n"
@@ -23,25 +21,27 @@ def update_mkdocs_thanks():
         if i.what and not i.category:
             line += f" {i.what}"
         line += "\n"
-        line_md = "".join(line)
-        thanks_data.append(line_md)
+        thanks_data.append(line)
 
-    thanks_md = "".join(thanks_data)
+    return "".join(thanks_data)
 
-    # save markdown for website
+
+def save_to_web(pth: ProjectPaths, thanks_md: str) -> None:
     pr.green_tmr("saving thanks to mkdocs")
     if pth.docs_thanks_md_path.exists():
-        pth.docs_thanks_md_path.write_text(thanks_md)
+        pth.docs_thanks_md_path.write_text(thanks_md, encoding="utf-8")
         pr.yes("ok")
     else:
         pr.no("failed")
         pr.red(f"error saving {pth.docs_thanks_md_path}")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("updating mkdocs thanks")
-    update_mkdocs_thanks()
+    pth = ProjectPaths()
+    thanks_md = make_thanks_md(pth)
+    save_to_web(pth, thanks_md)
     pr.toc()
 
 
