@@ -1,0 +1,900 @@
+{
+  "abbreviations": [
+    {
+      "abbrev": "3",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "･",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "()",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "[]",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "*",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "×",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": ">",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "√",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "◑",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "✔",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "✘",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "1st",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "2nd",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "3rd",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "abbrev",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ABH",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "abhi",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "abl",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "abs",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "abstr",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "acc",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "act",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ADha",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "AdhM",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "ADht",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "adj",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "adv",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "agent",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "AN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "ANa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "ANt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "aor",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "AP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "APA",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "APAa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "API",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "APIa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "app",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "APt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "base",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "BD",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "BDN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "BHI",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "BJT",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "BMC",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "bsk",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "BSK",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "BV",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "BVa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "card",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "caus",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "CDB",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "CMA",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "comm",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "comp",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "comp vb",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "compar",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "comps",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "cond",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "Cone",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "conj",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "CP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "CPa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "CPD",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "cs",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "CST",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "dat",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "deno",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "derog",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "desid",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "DHK",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DHP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DHPa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DHS",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DhS",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DhSa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DHSt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DhSṭ",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "dial",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "dimin",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ditrans",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "DN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DNa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DNnt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "DNt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "emph",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "EV",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "excl",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "fem",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "fut",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "gen",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "gen abs",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ger",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "gram",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "idiom",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "imp",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "imperf",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "impers",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "in comps",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ind",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "inf",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "instr",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "intens",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "interr",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "intrans",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "irreg",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ITI",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "ITIa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "JA",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "JAa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "Kacc",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "KHP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "KHPa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "KMt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "KV",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "KVa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "KVt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "LDA",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "LDB",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "lit",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "loc",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "loc abs",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "masc",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "matr",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "MD",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MIL",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MLDB",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MNa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MNt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MOGG",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MST",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "MW",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NDB",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NDP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "neg",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "neut",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "NIDD1",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NIDD1a",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NIDD2",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NIDD2a",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NMS",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "nom",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "noun",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "NP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NPa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "NPt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "nt",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "onom",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "opt",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "ordin",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "pass",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "patr",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "PDB",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PED",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "perf",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "Perniola",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "pl",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "PM",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PMa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "pos",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "pp",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "PP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PPa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "pr",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "prefix",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "prep",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "prk",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "pron",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "prp",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "PRS",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PTH",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PTP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "ptp",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "PV",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PVa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "PYt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "reflx",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "SaDM",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "sandhi",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "SaPM",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SBS-PER",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SCPN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SDt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "sg",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "sk",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "SN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SNa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SNP",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SNPa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SNt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "SPV",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "suffix",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "superl",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "SYA",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "TH",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "THa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "THI",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "THIa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "trans",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "UD",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "UDa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VAt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "vb",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "VBt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "ve",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "VIBH",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VIBHa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VIBHt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VIN",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VINa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VINt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VISM",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VISMa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VMVt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "voc",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "VSa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VV",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VVa",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VVt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "VVUt",
+      "filtered_out_by_old": true
+    },
+    {
+      "abbrev": "wrt",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "x",
+      "filtered_out_by_old": false
+    },
+    {
+      "abbrev": "YAM",
+      "filtered_out_by_old": true
+    }
+  ]
+}

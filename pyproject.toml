@@ -18,6 +18,7 @@ dependencies = [
     "psutil>=7.0.0",
     "natsort>=8.4.0",
     "requests>=2.32.3",
+    "typst>=0.14.9",
 ]
 
 [dependency-groups]

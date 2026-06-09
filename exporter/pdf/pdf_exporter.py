@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Export DPD to PDF using Typst and Jinja templates."""
 
 import re
@@ -8,6 +6,7 @@ import re
 # import subprocess
 import typst
 from jinja2 import Environment, FileSystemLoader
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import (
@@ -30,63 +29,59 @@ debug = False
 
 
 class GlobalVars:
-    # database
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
+    def __init__(self) -> None:
+        # database
+        self.pth: ProjectPaths = ProjectPaths()
+        self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
-    # typst
-    typst_data: list[str] = []
-    used_letters_single: list[str] = []
+        # typst
+        self.typst_data: list[str] = []
+        self.used_letters_single: list[str] = []
 
-    # jinja env
-    env = Environment(
-        loader=FileSystemLoader("exporter/pdf/templates"),
-        autoescape=True,
-        block_start_string="////",
-        block_end_string="\\\\\\\\",
-    )
+        # jinja env
+        self.env: Environment = Environment(
+            loader=FileSystemLoader("exporter/pdf/templates"),
+            autoescape=True,
+            block_start_string="////",
+            block_end_string="\\\\\\\\",
+        )
 
-    # templates
-    layout_templ = env.get_template("layout.typ")
-    front_matter_templ = env.get_template("front_matter.typ")
-    first_letter_templ = env.get_template("first_letter.typ")
-    abbreviations_templ = env.get_template("abbreviations.typ")
-    headword_templ = env.get_template("lite_headword.typ")
-    epd_templ = env.get_template("lite_epd.typ")
-    root_fam_templ = env.get_template("lite_family_root.typ")
-    word_fam_templ = env.get_template("lite_family_word.typ")
-    compound_fam_templ = env.get_template("lite_family_compound.typ")
-    idiom_fam_templ = env.get_template("lite_family_idiom.typ")
-    bibliography_templ = env.get_template("bibliography.typ")
-    thanks_templ = env.get_template("thanks.typ")
-    date = year_month_day_dash()
-
-    # colours
-    colour1: str = "#1a8bdb"  # --primary-text
-    gray: str = "#404040"  # --gray-dark
-    gray_small: str = "#808080"  # --gray
+        # templates
+        self.layout_templ = self.env.get_template("layout.typ")
+        self.front_matter_templ = self.env.get_template("front_matter.typ")
+        self.first_letter_templ = self.env.get_template("first_letter.typ")
+        self.abbreviations_templ = self.env.get_template("abbreviations.typ")
+        self.headword_templ = self.env.get_template("lite_headword.typ")
+        self.epd_templ = self.env.get_template("lite_epd.typ")
+        self.root_fam_templ = self.env.get_template("lite_family_root.typ")
+        self.word_fam_templ = self.env.get_template("lite_family_word.typ")
+        self.compound_fam_templ = self.env.get_template("lite_family_compound.typ")
+        self.idiom_fam_templ = self.env.get_template("lite_family_idiom.typ")
+        self.bibliography_templ = self.env.get_template("bibliography.typ")
+        self.thanks_templ = self.env.get_template("thanks.typ")
+        self.date: str = year_month_day_dash()
 
 
-def make_layout(g: GlobalVars):
+def make_layout(g: GlobalVars) -> None:
     pr.green_tmr("compiling layout")
     g.typst_data.append(g.layout_templ.render())
     pr.yes("ok")
 
 
-def make_front_matter(g: GlobalVars):
+def make_front_matter(g: GlobalVars) -> None:
     pr.green_tmr("compiling front matter")
     g.typst_data.append(g.front_matter_templ.render())
     pr.yes("ok")
 
 
-def make_abbreviations(g: GlobalVars):
+def make_abbreviations(g: GlobalVars) -> None:
     pr.green_tmr("compiling abbreviations")
 
     abbreviations_tsv = read_tsv_dot_dict(g.pth.abbreviations_tsv_path)
     abbreviations_data = []
     for i in abbreviations_tsv:
         # leave out book names which have a double capital JA
-        if not re.findall(r"[A-Z][A-z]", i.abbrev):
+        if not re.findall(r"[A-Z][A-Za-z]", i.abbrev):
             abbreviations_data.append(i)
 
     g.typst_data.append("#heading(level: 1)[Abbreviations]\n")
@@ -97,10 +92,10 @@ def make_abbreviations(g: GlobalVars):
     pr.yes(len(abbreviations_data))
 
 
-def make_pali_to_english(g: GlobalVars):
+def make_pali_to_english(g: GlobalVars) -> None:
     pr.green_tmr("compiling pali to english")
 
-    if debug is True:
+    if debug:
         dpd_db = g.db_session.query(DpdHeadword).limit(100).all()
     else:
         dpd_db = g.db_session.query(DpdHeadword).all()
@@ -113,7 +108,7 @@ def make_pali_to_english(g: GlobalVars):
         "#set par(first-line-indent: 0pt, hanging-indent: 1em, spacing: 0.65em)\n"
     )
 
-    for counter, i in enumerate(dpd_db):
+    for i in dpd_db:
         first_letter = i.lemma_1[0]
         if first_letter not in g.used_letters_single:
             first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
@@ -125,10 +120,10 @@ def make_pali_to_english(g: GlobalVars):
     pr.yes(len(dpd_db))
 
 
-def make_english_to_pali(g: GlobalVars):
+def make_english_to_pali(g: GlobalVars) -> None:
     pr.green_tmr("compiling english to pali")
 
-    if debug is True:
+    if debug:
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").limit(100).all()
     else:
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").all()
@@ -143,7 +138,7 @@ def make_english_to_pali(g: GlobalVars):
 
     problem_characters = [" ", "'", "(", "*", "-", ".", "?", "√"]
 
-    for counter, i in enumerate(epd_db):
+    for i in epd_db:
         try:
             first_letter = i.lookup_key[
                 0
@@ -168,10 +163,10 @@ def make_english_to_pali(g: GlobalVars):
     pr.yes(len(epd_db))
 
 
-def make_root_families(g: GlobalVars):
+def make_root_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling root families")
 
-    if debug is True:
+    if debug:
         root_fam_db = g.db_session.query(FamilyRoot).limit(100).all()
     else:
         root_fam_db = g.db_session.query(FamilyRoot).all()
@@ -184,7 +179,7 @@ def make_root_families(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Root Families]\n")
 
-    for counter, i in enumerate(root_fam_db):
+    for i in root_fam_db:
         if i.root_key.startswith("√"):
             first_letter = i.root_key[1]
 
@@ -200,10 +195,10 @@ def make_root_families(g: GlobalVars):
     pr.yes(len(root_fam_db))
 
 
-def make_word_families(g: GlobalVars):
+def make_word_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling word families")
 
-    if debug is True:
+    if debug:
         word_fam_db: list[FamilyWord] = g.db_session.query(FamilyWord).limit(100).all()
     else:
         word_fam_db: list[FamilyWord] = g.db_session.query(FamilyWord).all()
@@ -214,7 +209,7 @@ def make_word_families(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Word Families]\n")
 
-    for counter, i in enumerate(word_fam_db):
+    for i in word_fam_db:
         first_letter = i.word_family[0]
 
         if first_letter not in g.used_letters_single:
@@ -227,10 +222,10 @@ def make_word_families(g: GlobalVars):
     pr.yes(len(word_fam_db))
 
 
-def make_compound_families(g: GlobalVars):
+def make_compound_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling compound families")
 
-    if debug is True:
+    if debug:
         compound_fam_db = g.db_session.query(FamilyCompound).limit(100).all()
     else:
         compound_fam_db = g.db_session.query(FamilyCompound).all()
@@ -242,7 +237,7 @@ def make_compound_families(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Compound Families]\n")
 
-    for counter, i in enumerate(compound_fam_db):
+    for i in compound_fam_db:
         first_letter = i.compound_family[0]
 
         if first_letter not in g.used_letters_single:
@@ -255,10 +250,10 @@ def make_compound_families(g: GlobalVars):
     pr.yes(len(compound_fam_db))
 
 
-def make_idiom_families(g: GlobalVars):
+def make_idiom_families(g: GlobalVars) -> None:
     pr.green_tmr("compiling idiom families")
 
-    if debug is True:
+    if debug:
         idioms_fam_db = g.db_session.query(FamilyIdiom).limit(100).all()
     else:
         idioms_fam_db = g.db_session.query(FamilyIdiom).all()
@@ -268,7 +263,7 @@ def make_idiom_families(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Idiom Families]\n")
 
-    for counter, i in enumerate(idioms_fam_db):
+    for i in idioms_fam_db:
         first_letter = i.idiom[0]
 
         if first_letter not in g.used_letters_single:
@@ -281,7 +276,7 @@ def make_idiom_families(g: GlobalVars):
     pr.yes(len(idioms_fam_db))
 
 
-def make_bibliography(g: GlobalVars):
+def make_bibliography(g: GlobalVars) -> None:
     pr.green_tmr("compiling bibliography")
 
     bibliography_data = read_tsv_dot_dict(g.pth.bibliography_tsv_path)
@@ -295,7 +290,7 @@ def make_bibliography(g: GlobalVars):
     pr.yes(len(bibliography_data))
 
 
-def make_thanks(g: GlobalVars):
+def make_thanks(g: GlobalVars) -> None:
     pr.green_tmr("compiling thanks")
 
     thanks_tsv = read_tsv_dot_dict(g.pth.thanks_tsv_path)
@@ -319,7 +314,7 @@ def make_thanks(g: GlobalVars):
     pr.yes(len(thanks_data))
 
 
-def clean_up_typst_data(g: GlobalVars):
+def clean_up_typst_data(g: GlobalVars) -> None:
     pr.green_tmr("cleaning up")
 
     cleaned_data = []
@@ -339,15 +334,15 @@ def clean_up_typst_data(g: GlobalVars):
     pr.yes("ok")
 
 
-def save_typist_file(g: GlobalVars):
+def save_typist_file(g: GlobalVars) -> None:
     pr.green_tmr("saving typst data")
 
-    with open(g.pth.typst_lite_data_path, "w") as f:
+    with g.pth.typst_lite_data_path.open("w", encoding="utf-8") as f:
         f.write("".join(g.typst_data))
     pr.yes("ok")
 
 
-def export_to_pdf(g: GlobalVars):
+def export_to_pdf(g: GlobalVars) -> None:
     pr.green_tmr("rendering pdf")
 
     try:
@@ -369,7 +364,7 @@ def export_to_pdf(g: GlobalVars):
         pr.red(f"\n{e}")
 
 
-def zip_up_pdf(g: GlobalVars):
+def zip_up_pdf(g: GlobalVars) -> None:
     pr.green_tmr("zipping up pdf")
 
     zip_up_file(
@@ -379,7 +374,7 @@ def zip_up_pdf(g: GlobalVars):
     pr.yes("ok")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("export to pdf with typst")
 
