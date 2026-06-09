@@ -9,8 +9,8 @@ Create all the data necessary for release notes and website changelog
 4. New Words
 """
 
+import re
 from datetime import datetime
-from typing import Dict, List, Optional
 
 from github import Github
 
@@ -30,14 +30,14 @@ class ChangelogGenerator:
         pr.green_tmr("initializing")
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        self.dpd_db: List[DpdHeadword] = []
-        self.roots_db: List[DpdRoot] = []
-        self.deconstructor_db: List[Lookup] = []
-        self.new_words_db: List[DpdHeadword] = []
-        self.last_id: str = "0"
+        self.dpd_db: list[DpdHeadword] = []
+        self.roots_db: list[DpdRoot] = []
+        self.deconstructor_db: list[Lookup] = []
+        self.new_words_db: list[DpdHeadword] = []
+        self.last_id: int = 0
         self.github_issues: str = ""
         self.date: str = datetime.today().strftime("%Y-%m-%d")
-        self.root_families: Dict[str, int] = {}
+        self.root_families: dict[str, int] = {}
         self.line_1_headwords: str = ""
         self.line_2_roots: str = ""
         self.line_3_deconstructor: str = ""
@@ -58,10 +58,10 @@ class ChangelogGenerator:
         self.deconstructor_db = (
             self.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
         )
-        self.last_id = str(UposathaManger.get_baseline_count())
+        self.last_id = UposathaManger.get_baseline_count()
         self.new_words_db = (
             self.db_session.query(DpdHeadword)
-            .filter(DpdHeadword.id > int(self.last_id))
+            .filter(DpdHeadword.id > self.last_id)
             .all()
         )
         pr.yes(len(self.dpd_db))
@@ -78,7 +78,7 @@ class ChangelogGenerator:
         total_complete = 0
         total_partially_complete = 0
         total_incomplete = 0
-        root_families: Dict[str, int] = {}
+        root_families: dict[str, int] = {}
         total_data = 0
 
         columns = DpdHeadword.__table__.columns
@@ -116,7 +116,7 @@ class ChangelogGenerator:
 
     def _get_root_size(self) -> None:
         """Summary of root families."""
-        pr.green_tmr("get root data")
+        pr.green_tmr("get root families")
         total_roots = len(self.roots_db)
         total_root_families = len(self.root_families)
         total_derived_from_roots = sum(self.root_families.values())
@@ -257,8 +257,6 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 """
 
     def _update_website_changelog(self) -> None:
-        import re
-
         pr.green_tmr("updating website changelog")
         if not self.pth.docs_changelog_md_path.exists():
             pr.no("failed")
@@ -283,16 +281,10 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
         pr.yes("ok")
 
     def _write_to_file(self) -> None:
-        with open(self.pth.release_notes_md_path, "w") as f:
-            f.write(self.release_notes)
-        with open(self.pth.change_log_md_path, "w") as f:
-            f.write(self.changelog)
+        self.pth.release_notes_md_path.write_text(self.release_notes)
+        self.pth.change_log_md_path.write_text(self.changelog)
 
-    def generate(self) -> Optional[str]:
-        if not config_test("exporter", "make_changelog", "yes"):
-            pr.green_title("disabled in config.ini")
-            return None
-
+    def generate(self) -> str:
         self._load_data_from_db()
         self._get_dpd_size()
         self._get_root_size()
@@ -307,15 +299,13 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 
         if UposathaManger.uposatha_today():
             if self.dpd_db:
-                last_id = self.dpd_db[-1].id
+                last_id = max(h.id for h in self.dpd_db)
                 UposathaManger.rotate_count(last_id)
             self._update_website_changelog()
 
         self._write_to_file()
 
-        import builtins
-
-        builtins.print(self.changelog)
+        print(self.changelog)
 
         return self.release_notes
 
@@ -323,6 +313,10 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
 def main() -> None:
     pr.tic()
     pr.yellow_title("making release notes and changelog")
+    if not config_test("exporter", "make_changelog", "yes"):
+        pr.green_title("disabled in config.ini")
+        pr.toc()
+        return
     generator = ChangelogGenerator()
     generator.generate()
     pr.toc()
