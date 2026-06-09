@@ -1,0 +1,87 @@
+{
+  "make_sc_headword_entry": {
+    "2": {
+      "lemma_1": "a 2.1",
+      "pos": "prefix",
+      "has_construction_summary": true,
+      "output": "prefix. <b>ā prefix shortened before double consonant</b> [ā]"
+    },
+    "4": {
+      "lemma_1": "a 2.3",
+      "pos": "prefix",
+      "has_construction_summary": true,
+      "output": "prefix. <b>not; un-; im-; negative prefix</b> [na]"
+    },
+    "7": {
+      "lemma_1": "akakkasa",
+      "pos": "adj",
+      "has_construction_summary": true,
+      "output": "adj. <b>smooth; tender; not harsh; not rough</b> [na + kakkasa]"
+    },
+    "8": {
+      "lemma_1": "akaṅkha 1.1",
+      "pos": "adj",
+      "has_construction_summary": true,
+      "output": "adj. <b>free from doubt; rid of uncertainty</b> [na + √kaṅkh + a]"
+    },
+    "9": {
+      "lemma_1": "akaṅkha 2.1",
+      "pos": "adj",
+      "has_construction_summary": true,
+      "output": "adj. <b>free from desire</b> [na + √kaṅkh + a]"
+    },
+    "1": {
+      "lemma_1": "a 1.1",
+      "pos": "letter",
+      "has_construction_summary": false,
+      "output": "letter. <b>(gram) letter a; 1st letter of the alphabet; guttural vowel</b>"
+    },
+    "3": {
+      "lemma_1": "a 2.2",
+      "pos": "prefix",
+      "has_construction_summary": false,
+      "output": "prefix. <b>augment added to some aorist, imperfect and conditional verbs</b>"
+    },
+    "5": {
+      "lemma_1": "a 3.1",
+      "pos": "cs",
+      "has_construction_summary": false,
+      "output": "cs. <b>(gram) conjugational sign of group 1 bhū group verbs</b>"
+    },
+    "143": {
+      "lemma_1": "akāca",
+      "pos": "adj",
+      "has_construction_summary": false,
+      "output": "adj. <b>smooth; flawless</b>"
+    }
+  },
+  "flip": {
+    "akaṅkhaṃ": "akaṅkhaṁ",
+    "akakkasa": "akakkasa",
+    "ṃ at start": "ṁ at start",
+    "no niggahita": "no niggahita"
+  },
+  "deconstructor_first_only": {
+    "accharāsaṅghātamatte": {
+      "all_items": [
+        "accharāsaṅghāta + matte"
+      ],
+      "first_item": "accharāsaṅghāta + matte"
+    },
+    "ambakamaddarīti": {
+      "all_items": [
+        "amba + kama + dari + iti",
+        "amba + kama + darī + iti"
+      ],
+      "first_item": "amba + kama + dari + iti"
+    },
+    "ukkaṭṭhitoti": {
+      "all_items": [
+        "ukka + ṭhito + iti",
+        "ukkā + aṭṭhito + iti",
+        "ukka + aṭṭhito + iti"
+      ],
+      "first_item": "ukka + ṭhito + iti"
+    }
+  }
+}
