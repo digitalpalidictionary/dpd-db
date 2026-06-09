@@ -4,14 +4,14 @@
 1. dpd.zip, 2. dpd-grammar.zip, 3. dpd-deconstructor.zip
 1. dpd.mdx .mdd, 2. dpd-grammar.mdx .mdd, 3. dpd-deconstructor.mdx .mdd"""
 
-import os
+from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def zip_goldendict(pth: ProjectPaths):
+def zip_goldendict(pth: ProjectPaths) -> None:
     """Zip up the three dirs for goldendict"""
     pr.green_tmr("zipping goldendict")
 
@@ -34,13 +34,11 @@ def zip_goldendict(pth: ProjectPaths):
             output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5
         ) as output_zip:
             for input_dir, dir_name in input_dirs:
-                for root, dirs, files in os.walk(input_dir):
-                    for file in files:
-                        file_path = os.path.join(root, file)
-                        # Calculate the relative path from the root of the input directory
-                        relative_path = os.path.relpath(file_path, input_dir)
-                        # Prepend the directory name to the relative path
-                        archive_name = os.path.join(dir_name, relative_path)
+                if not input_dir.exists():
+                    continue
+                for file_path in input_dir.rglob("*"):
+                    if file_path.is_file():
+                        archive_name = Path(dir_name) / file_path.relative_to(input_dir)
                         output_zip.write(file_path, archive_name)
 
         pr.yes("ok")
@@ -49,7 +47,7 @@ def zip_goldendict(pth: ProjectPaths):
         pr.red("no dpd dir file found")
 
 
-def zip_mdict(pth: ProjectPaths):
+def zip_mdict(pth: ProjectPaths) -> None:
     """Zipping up MDict files for sharing."""
 
     pr.green_tmr("zipping mdict")
@@ -65,10 +63,12 @@ def zip_mdict(pth: ProjectPaths):
         pth.dpd_variants_mdx_path,
     ]
 
-    for file in mdict_files:
-        if not file.exists():
-            pr.no("error")
-            pr.red(f"mdict file not found: {file}")
+    missing = [f for f in mdict_files if not f.exists()]
+    if missing:
+        pr.no("error")
+        for f in missing:
+            pr.red(f"mdict file not found: {f}")
+        return
 
     output_mdict_zip = pth.dpd_mdict_zip_path
 
@@ -82,7 +82,7 @@ def zip_mdict(pth: ProjectPaths):
     pr.yes("ok")
 
 
-def zip_slob(pth: ProjectPaths):
+def zip_slob(pth: ProjectPaths) -> None:
     """Bundle the individual .slob files into a single distribution zip,
     deleting each .slob after it is archived."""
 
@@ -120,7 +120,7 @@ def zip_slob(pth: ProjectPaths):
     pr.yes("ok")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("rezipping goldendict, mdict and slob")
     pth = ProjectPaths()
