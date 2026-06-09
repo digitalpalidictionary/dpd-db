@@ -4,15 +4,13 @@
 Compiles DPD Abbreviations to markdown table and updates docs website.
 """
 
-import re
-
 from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dot_dict
 
 
-def make_abbreviations_md(pth: ProjectPaths):
+def make_abbreviations_md(pth: ProjectPaths) -> str:
     pr.green_tmr("compiling to markdown table")
 
     abbreviations_tsv = read_tsv_dot_dict(pth.abbreviations_tsv_path)
@@ -37,13 +35,12 @@ def make_abbreviations_md(pth: ProjectPaths):
 
     for i in abbreviations_tsv:
         if i.abbrev:
-            # test for upper case letters, which are book titles
-            if not re.findall(r"^[A-Z]", i.abbrev):
+            if not i.abbrev[0].isupper():
                 data.append(f"|{i.abbrev}|{i.meaning}|{i.explanation}|")
             else:
                 data_upper.append(f"|{i.abbrev}|{i.meaning}|{i.explanation}|")
         else:
-            print("huh", i)
+            pr.red(f"huh {i}")
 
     data.extend(data_upper)
     pr.yes(len(data))
@@ -53,19 +50,19 @@ def make_abbreviations_md(pth: ProjectPaths):
     return data_md
 
 
-def save_to_web(pth: ProjectPaths, abbrev_md: str):
+def save_to_web(pth: ProjectPaths, abbrev_md: str) -> None:
     pr.green_tmr("saving to website source")
     output_path = pth.docs_abbreviations_md_path
 
     if output_path.exists():
-        output_path.write_text(abbrev_md)
+        output_path.write_text(abbrev_md, encoding="utf-8")
         pr.yes("ok")
     else:
         pr.no("failed")
         pr.red(f"{output_path} not found")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("saving abbreviations to docs website")
 
