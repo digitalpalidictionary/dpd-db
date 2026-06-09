@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """A simple system of for Pāḷi word lookup consisting of:
 1. inflection to headwords
@@ -25,7 +24,7 @@ class GlobalVars:
         pr.green_tmr("setting up data")
         self.pth: ProjectPaths = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
-        dpd_db = self.db_session.query(DpdHeadword)
+        dpd_db = self.db_session.query(DpdHeadword).all()
         self.dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
         self.deconstructor_db = (
             self.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
@@ -47,7 +46,7 @@ class GlobalVars:
         pr.yes("ok")
 
 
-def generate_sc_word_set(g: GlobalVars):
+def generate_sc_word_set(g: GlobalVars) -> None:
     sc_text_list = [
         "vin1",
         "vin2",
@@ -89,7 +88,7 @@ def generate_sc_word_set(g: GlobalVars):
     g.word_set = sc_word_set
 
 
-def generate_deconstructed_word_set(g: GlobalVars):
+def generate_deconstructed_word_set(g: GlobalVars) -> None:
     """make a set of all words in deconstructed compounds"""
 
     pr.green_tmr("making deconstructor splits set")
@@ -102,25 +101,22 @@ def generate_deconstructed_word_set(g: GlobalVars):
     pr.yes(len(g.deconstructed_splits_set))
 
 
-def generate_i2h_dict(g: GlobalVars):
+def generate_i2h_dict(g: GlobalVars) -> None:
     """make an inflections to headwords dictionary"""
 
     pr.green_tmr("making inflection2headwords dict")
-    for __counter__, i in enumerate(g.dpd_db):
+    for i in g.dpd_db:
         inflections = i.inflections_list_all  # include api ca eva iti
         for inflection in inflections:
             test1 = inflection in g.word_set or inflection in g.deconstructed_splits_set
             test2 = "(gram)" not in i.meaning_1
-            if test1 & test2:
+            if test1 and test2:
                 g.matched_set.add(inflection)
-                if inflection not in g.i2h_dict:
-                    g.i2h_dict[inflection] = [i.lemma_1]
-                else:
-                    g.i2h_dict[inflection] += [i.lemma_1]
+                g.i2h_dict.setdefault(inflection, []).append(i.lemma_1)
     pr.yes(len(g.i2h_dict))
 
 
-def sort_i2h_dict(g: GlobalVars):
+def sort_i2h_dict(g: GlobalVars) -> None:
     """sort i2h dict by values"""
 
     pr.green_tmr("sorting i2h_dict")
@@ -129,7 +125,7 @@ def sort_i2h_dict(g: GlobalVars):
     pr.yes(len(g.i2h_dict))
 
 
-def generate_unmatched_word_set(g: GlobalVars):
+def generate_unmatched_word_set(g: GlobalVars) -> None:
     """make a set of unmatched words"""
 
     pr.green_tmr("making set of unmatched words")
@@ -137,22 +133,21 @@ def generate_unmatched_word_set(g: GlobalVars):
     pr.yes(len(g.unmatched_set))
 
 
-def generate_ebt_headwords_set(g: GlobalVars):
+def generate_ebt_headwords_set(g: GlobalVars) -> None:
     """make a set of headwords in ebts"""
 
     pr.green_tmr("making headwords set")
-    for __key__, values in g.i2h_dict.items():
+    for values in g.i2h_dict.values():
         g.headwords_set.update(values)
     pr.yes(len(g.headwords_set))
 
 
-def generate_dpd_ebt_dict(g: GlobalVars):
+def generate_dpd_ebt_dict(g: GlobalVars) -> None:
     """make a dict of dpd data - only words in ebts"""
 
     pr.green_tmr("making dpd ebts dict")
     for i in g.dpd_db:
         if i.lemma_1 in g.headwords_set:
-            string = ""
             string = f"{i.pos}. "
             string += i.meaning_combo_html
             if i.construction:
@@ -163,7 +158,7 @@ def generate_dpd_ebt_dict(g: GlobalVars):
     pr.yes(len(g.dpd_dict))
 
 
-def generate_deconstructor_dict(g: GlobalVars):
+def generate_deconstructor_dict(g: GlobalVars) -> None:
     """make a dict of all deconstructed compounds"""
 
     pr.green_tmr("making deconstructor dict")
@@ -176,7 +171,7 @@ def generate_deconstructor_dict(g: GlobalVars):
     pr.yes(len(g.deconstructor_dict))
 
 
-def deconstructor_dict_add_variants(g: GlobalVars):
+def deconstructor_dict_add_variants(g: GlobalVars) -> None:
     """add variant readings to deconstructor data"""
 
     pr.green_tmr("adding variants")
@@ -193,7 +188,7 @@ def deconstructor_dict_add_variants(g: GlobalVars):
     pr.yes(var_counter)
 
 
-def deconstructor_dict_add_spelling_mistakes(g: GlobalVars):
+def deconstructor_dict_add_spelling_mistakes(g: GlobalVars) -> None:
     """add spelling mistakes to deconstructor data"""
 
     pr.green_tmr("adding spelling mistakes")
@@ -210,7 +205,7 @@ def deconstructor_dict_add_spelling_mistakes(g: GlobalVars):
     pr.yes(spell_counter)
 
 
-def sort_deconstructor_dict(g: GlobalVars):
+def sort_deconstructor_dict(g: GlobalVars) -> None:
     """sort deconstructor dict"""
 
     pr.green_tmr("sorting deconstructor dict")
@@ -220,41 +215,41 @@ def sort_deconstructor_dict(g: GlobalVars):
     pr.yes(len(g.deconstructor_dict))
 
 
-def save_js_files_for_tbw(g: GlobalVars):
+def save_js_files_for_tbw(g: GlobalVars) -> None:
     """saving .js files for tbw"""
 
     pr.green_tmr("saving .js files for tbw")
 
     i2h_json_dump = json.dumps(g.i2h_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.tbw_i2h_js_path, "w") as f:
+    with g.pth.tbw_i2h_js_path.open("w", encoding="utf-8") as f:
         f.write(f"dpd_i2h = {i2h_json_dump}")
 
     dpd_json_dump = json.dumps(g.dpd_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.tbw_dpd_ebts_js_path, "w") as f:
+    with g.pth.tbw_dpd_ebts_js_path.open("w", encoding="utf-8") as f:
         f.write(f"let dpd_ebts = {dpd_json_dump}")
 
     json_dump = json.dumps(g.deconstructor_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.tbw_deconstructor_js_path, "w") as f:
+    with g.pth.tbw_deconstructor_js_path.open("w", encoding="utf-8") as f:
         f.write(f"let dpd_deconstructor = {json_dump}")
 
     pr.yes("ok")
 
 
-def save_js_files_for_fdg(g: GlobalVars):
+def save_js_files_for_fdg(g: GlobalVars) -> None:
     """saving .js files for fdg"""
 
     pr.green_tmr("saving .js files for fdg")
 
     i2h_json_dump = json.dumps(g.i2h_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.fdg_i2h_js_path, "w") as f:
+    with g.pth.fdg_i2h_js_path.open("w", encoding="utf-8") as f:
         f.write(f"dpd_i2h = {i2h_json_dump}")
 
     dpd_json_dump = json.dumps(g.dpd_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.fdg_dpd_ebts_js_path, "w") as f:
+    with g.pth.fdg_dpd_ebts_js_path.open("w", encoding="utf-8") as f:
         f.write(f"let dpd_ebts = {dpd_json_dump}")
 
     json_dump = json.dumps(g.deconstructor_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.fdg_deconstructor_js_path, "w") as f:
+    with g.pth.fdg_deconstructor_js_path.open("w", encoding="utf-8") as f:
         f.write(f"let dpd_deconstructor = {json_dump}")
 
     pr.yes("ok")
@@ -278,7 +273,7 @@ def save_js_files_for_fdg(g: GlobalVars):
 #     pr.yes("ok")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("export dpd data for TBW and FDG")
 

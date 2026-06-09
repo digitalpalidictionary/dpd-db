@@ -1,0 +1,92 @@
+{
+  "inputs": {
+    "headword_ids": [
+      1,
+      2,
+      3,
+      4,
+      7
+    ],
+    "dec_keys": [
+      "akakkasanti",
+      "akakkasāti",
+      "akakkasoti",
+      "akaṅkhoti"
+    ],
+    "spell_keys": [
+      "aniruddho",
+      "asaṃvadamānā",
+      "āvedhita"
+    ],
+    "word_set": [
+      "a",
+      "akakkasanti",
+      "akakkasāti",
+      "aniruddho",
+      "asaṃvadamānā"
+    ]
+  },
+  "chain": {
+    "deconstructed_splits_set": [
+      "akakkasa",
+      "akakkasaṃ",
+      "akakkasā",
+      "iti"
+    ],
+    "matched_set": [
+      "a",
+      "akakkasa",
+      "akakkasanti",
+      "akakkasaṃ",
+      "akakkasā",
+      "akakkasāti"
+    ],
+    "i2h_dict": {
+      "a": [
+        "a 2.1",
+        "a 2.2",
+        "a 2.3"
+      ],
+      "akakkasa": [
+        "akakkasa"
+      ],
+      "akakkasā": [
+        "akakkasa"
+      ],
+      "akakkasaṃ": [
+        "akakkasa"
+      ],
+      "akakkasanti": [
+        "akakkasa"
+      ],
+      "akakkasāti": [
+        "akakkasa"
+      ]
+    },
+    "unmatched_set": [
+      "aniruddho",
+      "asaṃvadamānā"
+    ],
+    "headwords_set": [
+      "a 2.1",
+      "a 2.2",
+      "a 2.3",
+      "akakkasa"
+    ],
+    "dpd_dict": {
+      "a 2.1": "prefix. <b>ā prefix shortened before double consonant</b> [ā]",
+      "a 2.2": "prefix. <b>augment added to some aorist, imperfect and conditional verbs</b>",
+      "a 2.3": "prefix. <b>not; un-; im-; negative prefix</b> [na]",
+      "akakkasa": "adj. <b>smooth; tender; not harsh; not rough</b> [na + kakkasa]"
+    },
+    "deconstructor_dict": {
+      "akakkasanti": "akakkasaṃ + iti",
+      "akakkasāti": "akakkasa + iti<br>akakkasā + iti",
+      "aniruddho": "incorrect spelling of <i>anuruddho</i>",
+      "asaṃvadamānā": "incorrect spelling of <i>saṃvadamānā</i>"
+    }
+  },
+  "spelling_append": {
+    "aniruddho": "SEED<br>incorrect spelling of <i>anuruddho</i>"
+  }
+}
