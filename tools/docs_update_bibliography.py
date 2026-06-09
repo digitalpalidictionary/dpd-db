@@ -1,19 +1,16 @@
 """Update the mkdocs bibliography."""
 
 from tools.paths import ProjectPaths
-from tools.tsv_read_write import read_tsv_dot_dict
 from tools.printer import printer as pr
+from tools.tsv_read_write import read_tsv_dot_dict
 
 
-def update_mkdocs_bibliography():
-    pth = ProjectPaths()
+def make_bibliography_md(pth: ProjectPaths) -> str:
     bibliography_data = ["# (An Incomplete) Bibliography\n"]
-
-    file_path = pth.bibliography_tsv_path
-    bibliography_dict = read_tsv_dot_dict(file_path)
+    bibliography_dict = read_tsv_dot_dict(pth.bibliography_tsv_path)
 
     for i in bibliography_dict:
-        line = []
+        line = ""
 
         if i.category:
             line += f"## {i.category}\n\n"
@@ -27,30 +24,32 @@ def update_mkdocs_bibliography():
             line += f". *{i.title}*"
         if i.city and i.publisher:
             line += f", {i.city}: {i.publisher}"
-        if not i.city and i.publisher:
+        elif i.publisher:
             line += f", {i.publisher}"
         if i.site:
             line += f", accessed through [{i.site}]({i.site})"
         line += "\n"
-        line_md = "".join(line)
-        bibliography_data.append(line_md)
+        bibliography_data.append(line)
 
-    bibliography_md = "".join(bibliography_data)
+    return "".join(bibliography_data)
 
-    # save markdown for mkdocs website
+
+def save_to_web(pth: ProjectPaths, bibliography_md: str) -> None:
     pr.green_tmr("saving bibliography to mkdocs")
     if pth.docs_bibliography_md_path.exists():
-        pth.docs_bibliography_md_path.write_text(bibliography_md)
+        pth.docs_bibliography_md_path.write_text(bibliography_md, encoding="utf-8")
         pr.yes("ok")
     else:
         pr.no("failed")
-        pr.red(f"bibliography path {pth.docs_thanks_md_path} doesn't exist ")
+        pr.red(f"bibliography path {pth.docs_bibliography_md_path} doesn't exist")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("updating mkdocs bibliography")
-    update_mkdocs_bibliography()
+    pth = ProjectPaths()
+    bibliography_md = make_bibliography_md(pth)
+    save_to_web(pth, bibliography_md)
     pr.toc()
 
 
