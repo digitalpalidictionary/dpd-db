@@ -1,113 +1,18 @@
 {
   "default_models": [
     {
-      "provider": "gemini",
-      "model": "gemini-1.5-flash",
-      "delay": 4
-    },
-    {
-      "provider": "gemini",
-      "model": "gemini-2.5-flash",
-      "delay": 6
-    },
-    {
-      "provider": "gemini",
-      "model": "gemini-2.5-flash-lite",
-      "delay": 5
-    },
-    {
-      "provider": "claude",
-      "model": "opus",
-      "delay": 5
-    },
-    {
-      "provider": "claude",
-      "model": "sonnet",
-      "delay": 5
-    },
-    {
-      "provider": "claude",
-      "model": "haiku",
-      "delay": 5
-    },
-    {
-      "provider": "codex",
-      "model": "gpt-5.4",
-      "delay": 5
-    },
-    {
-      "provider": "codex",
-      "model": "gpt-5.4-mini",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "openrouter/owl-alpha",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "qwen/qwen3.5-flash-02-23",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "deepseek/deepseek-v4-pro",
-      "delay": 5
-    },
-    {
       "provider": "openrouter",
       "model": "deepseek/deepseek-v4-flash",
       "delay": 5
     },
     {
       "provider": "openrouter",
-      "model": "tencent/hy3-preview:free",
+      "model": "meta-llama/llama-4-scout",
       "delay": 5
     },
     {
       "provider": "openrouter",
-      "model": "minimax/minimax-m2.5:free",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "nvidia/nemotron-3-nano-30b-a3b:free",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "nvidia/nemotron-3-super-120b-a12b:free",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "deepseek/deepseek-v3.2",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "google/gemini-2.5-flash-lite",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "x-ai/grok-4.1-fast",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "xiaomi/mimo-v2-flash",
-      "delay": 5
-    },
-    {
-      "provider": "openrouter",
-      "model": "google/gemma-4-31b-it ",
-      "delay": 5
-    },
-    {
-      "provider": "nvidia",
-      "model": "moonshotai/kimi-k2.6",
+      "model": "openai/gpt-4.1-nano",
       "delay": 5
     }
   ],
