@@ -946,6 +946,8 @@ class DpdFields(PopUpMixin):
         """Get Sanskrit and clean field."""
 
         sanskrit_field = self.get_field("sanskrit")
+        if not sanskrit_field or sanskrit_field.page is None:
+            return
 
         # Auto-replace common Sanskrit text errors
         if sanskrit_field.value:
@@ -962,6 +964,8 @@ class DpdFields(PopUpMixin):
     def sanskrit_focus(self, e: ft.ControlEvent) -> None:
         """Search for Sanskrit when field gets focus."""
         sanskrit_field = self.get_field("sanskrit")
+        if not sanskrit_field or sanskrit_field.page is None:
+            return
         if not self.flags.sanskrit_done and not sanskrit_field.value:
             self._search_and_fill_sanskrit()
 
@@ -992,7 +996,7 @@ class DpdFields(PopUpMixin):
     def _search_and_fill_sanskrit(self) -> None:
         """Search database for Sanskrit and fill the field."""
         sanskrit_field = self.get_field("sanskrit")
-        if not sanskrit_field:
+        if not sanskrit_field or sanskrit_field.page is None:
             return
 
         construction = self.get_field("construction").value
@@ -1041,9 +1045,11 @@ class DpdFields(PopUpMixin):
         # Apply specific standardization logic
         sanskrit = self._clean_sanskrit_simple(sanskrit)
 
+        self.flags.sanskrit_done = True
+        if sanskrit_field.page is None:
+            return
         sanskrit_field.value = sanskrit
         sanskrit_field.update()
-        self.flags.sanskrit_done = True
         self.page.update()
 
     def non_ia_blur(self, e: ft.ControlEvent) -> None:
