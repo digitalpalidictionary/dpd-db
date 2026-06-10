@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DbInfo
@@ -16,23 +13,19 @@ minor = 4
 # 0.3 > 0.4 added abbreviations_other to lookup table
 
 
-def printer(key, value):
-    print(f"[green]{key:<20}[white]{value}")
-
-
-def make_version():
+def make_version() -> tuple[str, str]:
     patch = year_month_day()
 
     version = f"v{major}.{minor}.{patch}"
     version_light = f"v{major}.{minor}"
 
-    printer("version", version)
-    printer("version light", version_light)
+    pr.summary("version", version)
+    pr.summary("version light", version_light)
 
     return version, version_light
 
 
-def update_db_version(pth, version):
+def update_db_version(pth: ProjectPaths, version: str) -> None:
     db_session = get_db_session(pth.dpd_db_path)
     db_info = db_session.query(DbInfo).filter_by(key="dpd_release_version").first()
 
@@ -75,17 +68,17 @@ def update_db_version(pth, version):
         db_session.add(___)
 
     db_session.commit()
-    printer("dpd.db", "ok")
+    pr.summary("dpd.db", "ok")
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("updating dpd release version")
     pth = ProjectPaths()
     version, version_light = make_version()
 
     config_update("version", "version", version, silent=True)
-    printer("config.ini", "ok")
+    pr.summary("config.ini", "ok")
 
     update_db_version(pth, version)
 
