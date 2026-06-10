@@ -63,6 +63,7 @@ DEFAULT_CONFIG = {
         "make_mobile": "no",
         "make_ebook": "no",
         "make_tbw": "no",
+        "make_sutta_central": "no",
         "make_pdf": "no",
         "make_txt": "no",
         "make_abbrev": "no",
@@ -77,6 +78,136 @@ DEFAULT_CONFIG = {
     "anki": {"update": "no", "db_path": "", "backup_path": ""},
     "simsapa": {"app_path": "", "db_path": ""},
     "tpr": {"db_path": ""},
+}
+
+PROFILES: dict[str, dict[str, dict[str, str]]] = {
+    "uposatha": {
+        "regenerate": {"db_rebuild": "yes"},
+        "dictionary": {"make_mdict": "yes", "show_id": "no", "data_limit": "0"},
+        "deconstructor": {"use_premade": "no"},
+        "generate": {
+            "suttas": "yes",
+            "grammar": "yes",
+            "inflections_to_headwords": "yes",
+            "epd": "yes",
+            "search_index": "yes",
+            "deconstructor": "yes",
+        },
+        "exporter": {
+            "make_grammar": "yes",
+            "make_deconstructor": "yes",
+            "make_ebook": "yes",
+            "make_tpr": "yes",
+            "make_mobile": "yes",
+            "make_tbw": "yes",
+            "make_sutta_central": "yes",
+            "make_pdf": "yes",
+            "make_txt": "yes",
+            "make_abbrev": "yes",
+            "tarball_db": "yes",
+            "make_changelog": "yes",
+            "make_audio_db": "yes",
+            "upload_audio_db": "yes",
+        },
+        "goldendict": {"copy_unzip": "yes"},
+    },
+    "uposatha_reset": {
+        "exporter": {
+            "make_grammar": "yes",
+            "make_deconstructor": "yes",
+            "make_variants": "no",
+            "make_ebook": "no",
+            "make_tpr": "yes",
+            "make_mobile": "no",
+            "make_tbw": "no",
+            "make_sutta_central": "no",
+            "make_pdf": "no",
+            "make_txt": "no",
+            "tarball_db": "no",
+            "make_abbrev": "no",
+            "make_changelog": "no",
+            "update_simsapa_db": "no",
+            "make_audio_db": "yes",
+            "upload_audio_db": "no",
+        },
+    },
+    "github_release": {
+        "regenerate": {
+            "db_rebuild": "yes",
+            "inflections": "yes",
+            "transliterations": "yes",
+            "freq_maps": "yes",
+        },
+        "deconstructor": {"use_premade": "yes"},
+        "dictionary": {"make_mdict": "yes", "show_id": "no", "data_limit": "0"},
+        "exporter": {
+            "make_dpd": "yes",
+            "make_grammar": "yes",
+            "make_deconstructor": "yes",
+            "make_variants": "yes",
+            "make_ebook": "yes",
+            "make_tbw": "yes",
+            "make_sutta_central": "yes",
+            "tarball_db": "yes",
+            "make_changelog": "yes",
+            "make_tpr": "yes",
+            "make_txt": "yes",
+            "make_mobile": "yes",
+            "make_pdf": "yes",
+        },
+        "anki": {"update": "no"},
+        "goldendict": {"copy_unzip": "no", "make_slob": "yes"},
+    },
+    "quick": {
+        "regenerate": {
+            "db_rebuild": "no",
+            "inflections": "no",
+            "transliterations": "no",
+            "freq_maps": "no",
+        },
+        "deconstructor": {"use_premade": "yes"},
+        "generate": {
+            "suttas": "no",
+            "grammar": "no",
+            "inflections_to_headwords": "no",
+            "epd": "no",
+            "search_index": "no",
+            "deconstructor": "no",
+        },
+        "dictionary": {"make_mdict": "no"},
+        "exporter": {
+            "make_dpd": "yes",
+            "make_grammar": "no",
+            "make_deconstructor": "no",
+            "make_variants": "no",
+            "make_tpr": "no",
+            "make_mobile": "no",
+            "make_ebook": "no",
+            "make_tbw": "no",
+            "make_sutta_central": "no",
+            "make_pdf": "no",
+            "make_txt": "no",
+            "make_abbrev": "no",
+            "tarball_db": "no",
+            "make_changelog": "no",
+            "make_newsletter": "no",
+            "update_simsapa_db": "no",
+            "make_audio_db": "no",
+            "upload_audio_db": "no",
+        },
+        "anki": {"update": "no"},
+    },
+    "generate_reset": {
+        "generate": {
+            "suttas": "yes",
+            "grammar": "yes",
+            "inflections_to_headwords": "yes",
+            "epd": "yes",
+            "search_index": "yes",
+            "deconstructor": "yes",
+        },
+        "dictionary": {"make_mdict": "yes"},
+    },
 }
 
 
@@ -117,6 +248,13 @@ def config_update(section: str, option: str, value, silent=False) -> None:
     config_write()
     if not silent:
         pr.green_title(f"config updated: {section}: {option} --> {value}")
+
+
+def config_apply_profile(profile: str) -> None:
+    """Apply a named build profile from PROFILES to config.ini."""
+    for section, options in PROFILES[profile].items():
+        for option, value in options.items():
+            config_update(section, option, value)
 
 
 def config_test(section: str, option: str, value) -> bool:

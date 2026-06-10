@@ -217,7 +217,7 @@ class SuttaCentralExporter:
 def main() -> None:
     pr.tic()
 
-    if not config_test("exporter", "make_tbw", "yes"):
+    if not config_test("exporter", "make_sutta_central", "yes"):
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
