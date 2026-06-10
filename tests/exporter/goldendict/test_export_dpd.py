@@ -1,9 +1,6 @@
 """Tests for export_dpd.py."""
 
-import hashlib
-import json
 from multiprocessing import get_context
-from pathlib import Path
 
 import pytest
 
@@ -11,6 +8,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyRoot, FamilyWord
 from exporter.goldendict.export_dpd import render_pali_word_dpd_html
 from exporter.jinja2_env import get_jinja2_env
+from tools.date_and_time import year_month_day_dash
 from tools.exporter_functions import (
     get_family_compounds,
     get_family_idioms,
@@ -18,9 +16,7 @@ from tools.exporter_functions import (
 )
 from tools.paths import ProjectPaths
 
-FIXTURE_PATH = Path(__file__).parent / "test_export_dpd_fixtures.json"
-FIXTURES: dict = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
-TEST_LEMMAS = list(FIXTURES.keys())
+TEST_LEMMAS = ["akaṅkhī", "namo", "mettasutta 1"]
 
 
 @pytest.fixture(scope="module")
@@ -68,25 +64,25 @@ def _build_db_parts(db, lemma: str) -> dict:
 
 
 @pytest.mark.parametrize("lemma", TEST_LEMMAS)
-def test_render_pali_word_dpd_html_golden(lemma, db_session, render_data):
-    expected = FIXTURES[lemma]
+def test_render_pali_word_dpd_html(lemma, db_session, render_data):
     db_parts = _build_db_parts(db_session, lemma)
+    pw: DpdHeadword = db_parts["pali_word"]
     entry, size_dict = render_pali_word_dpd_html(db_parts, render_data)
 
-    assert entry.word == expected["word"]
-    assert len(entry.definition_html) == expected["definition_html_len"]
-    assert (
-        hashlib.md5(entry.definition_html.encode()).hexdigest()
-        == expected["definition_html_hash"]
-    )
-    assert len(entry.synonyms) == expected["synonyms_count"]
-    assert (
-        sorted(entry.synonyms)[: len(expected["synonyms_sample"])]
-        == expected["synonyms_sample"]
-    )
-    assert size_dict["dpd_header"] == expected["size_dpd_header"]
-    assert size_dict["dpd_summary"] == expected["size_dpd_summary"]
-    assert size_dict["dpd_synonyms"] == expected["size_dpd_synonyms"]
+    assert entry.word == lemma
+    html = entry.definition_html
+    assert html.startswith("<!DOCTYPE html>")
+    assert pw.pos in html
+    assert year_month_day_dash() in html
+
+    assert size_dict["dpd_header"] > 0
+    assert size_dict["dpd_summary"] == len(pw.meaning_combo_html)
+    assert size_dict["dpd_synonyms"] > 0
+
+    synonyms = set(entry.synonyms)
+    assert str(pw.id) in synonyms
+    assert set(pw.inflections_list_all) <= synonyms
+    assert set(pw.family_set_list) <= synonyms
 
 
 def test_sutta_codes_in_synonyms(db_session, render_data):

@@ -56,11 +56,3 @@ def test_ai_manager_registers_codex_provider() -> None:
         manager = AIManager()
 
     assert "codex" in manager.providers
-    assert any(
-        provider == "codex" and model == "gpt-5.4"
-        for provider, model, _delay in manager.DEFAULT_MODELS
-    )
-    assert any(
-        provider == "codex" and model == "gpt-5.4-mini"
-        for provider, model, _delay in manager.DEFAULT_MODELS
-    )

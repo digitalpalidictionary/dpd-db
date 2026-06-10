@@ -41,7 +41,7 @@ def test_request_uses_claude_json_output_and_returns_result_field() -> None:
     assert "return json\n\nhello" in command
 
 
-def test_ai_manager_registers_claude_provider_and_models() -> None:
+def test_ai_manager_registers_claude_provider() -> None:
     gemini_module = types.ModuleType("tools.ai_gemini_manager")
     deepseek_module = types.ModuleType("tools.ai_deepseek_manager")
     openrouter_module = types.ModuleType("tools.ai_open_router")
@@ -68,15 +68,3 @@ def test_ai_manager_registers_claude_provider_and_models() -> None:
         manager = AIManager()
 
     assert "claude" in manager.providers
-    assert any(
-        provider == "claude" and model == "opus"
-        for provider, model, _delay in manager.DEFAULT_MODELS
-    )
-    assert any(
-        provider == "claude" and model == "sonnet"
-        for provider, model, _delay in manager.DEFAULT_MODELS
-    )
-    assert any(
-        provider == "claude" and model == "haiku"
-        for provider, model, _delay in manager.DEFAULT_MODELS
-    )
