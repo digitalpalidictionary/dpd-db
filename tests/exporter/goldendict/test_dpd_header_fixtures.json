@@ -1,0 +1,66 @@
+{
+ "fixed_date": "2026-06-10",
+ "golden_root_compound_set": {
+  "columns": {
+   "id": 103,
+   "lemma_1": "akammaka 2",
+   "pos": "adj",
+   "meaning_1": "(gram) intransitive; not taking an object",
+   "root_key": "√kar",
+   "family_root": "√kar",
+   "family_word": "",
+   "family_compound": "kamma",
+   "family_idioms": "kamma",
+   "family_set": "grammatical terms",
+   "compound_type": "kammadhāraya",
+   "freq_data": "{\"FreqHeading\":\"Frequency of <b>akammaka 2</b> and its declensions\",\"CstFreq\":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,2,2,0,0,0,0,2,0,0,50,0,0,0,3],\"CstGrad\":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,1,0,0,10,0,0,0,1],\"BjtFreq\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"BjtGrad\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"SyaFreq\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"SyaGrad\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"ScFreq\":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],\"ScGrad\":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0]}\n"
+  },
+  "cf_set_members": [
+   "kamma"
+  ],
+  "idioms_set_members": [
+   "kamma"
+  ],
+  "header_html": "<!DOCTYPE html>\n<html lang=\"en\">\n\n    <head>\n        <meta charset=\"utf-8\">\n        <meta data_key=\"data_akammaka_2\">\n\n        <title>Digital Pāḷi Dictionary</title>\n\n        <style>\n        </style>\n\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n\n        <link href=\"family_compound_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_compound_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_idiom_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_idiom_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_root_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_root_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_set_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_set_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_word_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_word_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"feedback_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"frequency_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"main.js\" class=\"load_js\" rel=\"preload\" as=\"script\">\n\n        <script>\n        var data_akammaka_2 = {\n            \"id\": 103,\n            \"lemma\": \"akammaka 2\",\n            \"date\": \"2026-06-10\",\n            \"family_root\": \"√kar √kar\",\n            \n            \"family_compounds\": ['kamma'],\n\n            \"family_idioms\": ['kamma'],\n\n\n            \"family_sets\": ['grammatical terms'],\n\n            \"FreqHeading\": \"Frequency of <b>akammaka 2</b> and its declensions\",\n            \"CstFreq\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 50, 0, 0, 0, 3],\n            \"CstGrad\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 10, 0, 0, 0, 1],\n            \"BjtFreq\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n            \"BjtGrad\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n            \"SyaFreq\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n            \"SyaGrad\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n            \"ScFreq\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],\n            \"ScGrad\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]\n        };\n    </script>\n\n        <script>\n        if (typeof progName == \"undefined\") {\n            var progName = \"GoldenDict\"\n        }\n    </script>\n\n        <script>\n        var els2load = document.getElementsByClassName(\"load_js\");\n        if (typeof js_already_loaded === \"undefined\") {\n            var js_already_loaded = true;\n            var elsArray = Array.from(els2load);\n            elsArray.forEach(el => {\n                var s = document.createElement(\"script\");\n                var elName = el.getAttribute(\"href\");\n                s.src = elName;\n                document.head.appendChild(s);\n            });\n        };\n    </script>\n\n    </head>"
+ },
+ "golden_word_family": {
+  "columns": {
+   "id": 79,
+   "lemma_1": "akaniṭṭha 1",
+   "pos": "masc",
+   "meaning_1": "class of devas; ultimate; greatest",
+   "root_key": "",
+   "family_root": "",
+   "family_word": "kaniṭṭha",
+   "family_compound": "kaniṭṭha",
+   "family_idioms": "kaniṭṭha",
+   "family_set": "pureland deities",
+   "compound_type": "kammadhāraya",
+   "freq_data": "{\"FreqHeading\":\"Frequency of <b>akaniṭṭha 1</b> and its declensions\",\"CstFreq\":[0,0,0,0,0,3,4,0,0,0,1,1,1,3,0,2,3,0,0,0,0,0,0,0,7,0,3,6,13,3,14,8,1,1,2,0,2,9,2,18,3,10,0,0,0,1,0,1,0],\"CstGrad\":[0,0,0,0,0,3,4,0,0,0,1,1,1,3,0,2,3,0,0,0,0,0,0,0,7,0,3,6,9,3,9,8,1,1,2,0,2,9,2,10,3,9,0,0,0,1,0,1,0],\"BjtFreq\":[0,0,0,0,0,4,2,0,0,0,1,1,0,2,0,2,0,0,0,0,0,0,0,0,7,0,3,6,13,3,14,0,2,0,6,0,0,0,1],\"BjtGrad\":[0,0,0,0,0,4,2,0,0,0,1,1,0,2,0,2,0,0,0,0,0,0,0,0,7,0,3,6,9,3,9,0,2,0,6,0,0,0,1],\"SyaFreq\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"SyaGrad\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],\"ScFreq\":[0,0,0,0,0,3,4,0,0,0,1,1,1,3,0,2,3,0,0],\"ScGrad\":[0,0,0,0,0,3,4,0,0,0,1,1,1,3,0,2,3,0,0]}\n"
+  },
+  "cf_set_members": [
+   "kaniṭṭha"
+  ],
+  "idioms_set_members": [],
+  "header_html": "<!DOCTYPE html>\n<html lang=\"en\">\n\n    <head>\n        <meta charset=\"utf-8\">\n        <meta data_key=\"data_akaniṭṭha_1\">\n\n        <title>Digital Pāḷi Dictionary</title>\n\n        <style>\n        </style>\n\n        <link href=\"dpd-css-and-fonts.css\" rel=\"stylesheet\">\n\n        <link href=\"family_compound_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_compound_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_idiom_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_idiom_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_root_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_root_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_set_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_set_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_word_json.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"family_word_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"feedback_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"frequency_template.js\" class=\"load_js\" rel=\"preload\"\n            as=\"script\">\n        <link href=\"main.js\" class=\"load_js\" rel=\"preload\" as=\"script\">\n\n        <script>\n        var data_akaniṭṭha_1 = {\n            \"id\": 79,\n            \"lemma\": \"akaniṭṭha 1\",\n            \"date\": \"2026-06-10\",\n            \"family_root\": \"\",\n            \n            \"family_compounds\": ['kaniṭṭha'],\n\n            \"family_idioms\": [],\n\n            \"family_word\": \"kaniṭṭha\",\n\n            \"family_sets\": ['pureland deities'],\n\n            \"FreqHeading\": \"Frequency of <b>akaniṭṭha 1</b> and its declensions\",\n            \"CstFreq\": [0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 1, 1, 1, 3, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 7, 0, 3, 6, 13, 3, 14, 8, 1, 1, 2, 0, 2, 9, 2, 18, 3, 10, 0, 0, 0, 1, 0, 1, 0],\n            \"CstGrad\": [0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 1, 1, 1, 3, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 7, 0, 3, 6, 9, 3, 9, 8, 1, 1, 2, 0, 2, 9, 2, 10, 3, 9, 0, 0, 0, 1, 0, 1, 0],\n            \"BjtFreq\": [0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 1, 1, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 3, 6, 13, 3, 14, 0, 2, 0, 6, 0, 0, 0, 1],\n            \"BjtGrad\": [0, 0, 0, 0, 0, 4, 2, 0, 0, 0, 1, 1, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 3, 6, 9, 3, 9, 0, 2, 0, 6, 0, 0, 0, 1],\n            \"SyaFreq\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n            \"SyaGrad\": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n            \"ScFreq\": [0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 1, 1, 1, 3, 0, 2, 3, 0, 0],\n            \"ScGrad\": [0, 0, 0, 0, 0, 3, 4, 0, 0, 0, 1, 1, 1, 3, 0, 2, 3, 0, 0]\n        };\n    </script>\n\n        <script>\n        if (typeof progName == \"undefined\") {\n            var progName = \"GoldenDict\"\n        }\n    </script>\n\n        <script>\n        var els2load = document.getElementsByClassName(\"load_js\");\n        if (typeof js_already_loaded === \"undefined\") {\n            var js_already_loaded = true;\n            var elsArray = Array.from(els2load);\n            elsArray.forEach(el => {\n                var s = document.createElement(\"script\");\n                var elName = el.getAttribute(\"href\");\n                s.src = elName;\n                document.head.appendChild(s);\n            });\n        };\n    </script>\n\n    </head>"
+ },
+ "empty_freq_data": {
+  "columns": {
+   "id": 89641,
+   "lemma_1": "koṭṭāpeti 2",
+   "pos": "pr",
+   "meaning_1": "causes to crush; makes pound",
+   "root_key": "√kuṭṭ",
+   "family_root": "√kuṭṭ",
+   "family_word": "",
+   "family_compound": "koṭṭāpeti",
+   "family_idioms": "koṭṭāpeti",
+   "family_set": "",
+   "compound_type": "",
+   "freq_data": ""
+  },
+  "cf_set_members": [],
+  "idioms_set_members": [],
+  "render_error": "TypeError: Object of type Undefined is not JSON serializable"
+ }
+}

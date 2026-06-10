@@ -79,7 +79,7 @@
             "family_sets": [],
             {% endif %}
 
-            {% if d.i.needs_frequency_button %}
+            {% if d.i.needs_frequency_button and d.i.freq_data %}
             "FreqHeading": "{{ d.i.freq_data_unpack["FreqHeading"] }}",
             "CstFreq": {{ d.i.freq_data_unpack["CstFreq"]|tojson }},
             "CstGrad": {{ d.i.freq_data_unpack["CstGrad"]|tojson }},
