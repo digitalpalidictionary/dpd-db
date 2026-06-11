@@ -42,7 +42,9 @@ def main() -> None:
         if not column.name.startswith(("inflection", "freq"))
     ]
 
-    with open("temp/1000_most_common_words.tsv", "w", newline="") as f:
+    with open(
+        "temp/1000_most_common_words.tsv", "w", newline="", encoding="utf-8"
+    ) as f:
         csvwriter = csv.writer(f, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
         csvwriter.writerow(column_names)
         for i in most_common:

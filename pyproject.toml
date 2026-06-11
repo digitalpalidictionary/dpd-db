@@ -106,6 +106,9 @@ exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*"]
 
 [tool.ruff.lint]
 ignore = ["E501"]
+extend-select = ["PLW1514"]
+preview = true
+explicit-preview-rules = true
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"

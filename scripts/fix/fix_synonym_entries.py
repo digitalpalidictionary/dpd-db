@@ -23,14 +23,14 @@ FIXES_PATH = Path(__file__).parent / "fix_synonym_entries.json"
 def load_known_fixes() -> dict[str, str]:
     """Load previously saved fixes from JSON."""
     if FIXES_PATH.exists():
-        with open(FIXES_PATH) as f:
+        with open(FIXES_PATH, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 
 def save_known_fixes(known_fixes: dict[str, str]) -> None:
     """Save fixes to JSON."""
-    with open(FIXES_PATH, "w") as f:
+    with open(FIXES_PATH, "w", encoding="utf-8") as f:
         json.dump(known_fixes, f, ensure_ascii=False, indent=2)
 
 

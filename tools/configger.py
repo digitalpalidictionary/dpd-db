@@ -234,7 +234,7 @@ def config_read(
 
 def config_write() -> None:
     """Write config.ini."""
-    with open("config.ini", "w") as file:
+    with open("config.ini", "w", encoding="utf-8") as file:
         config.write(file)
 
 

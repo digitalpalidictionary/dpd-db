@@ -51,7 +51,7 @@ def json_dumper(filepath: Path, data: dict[str, object]) -> None:
     js_content = (
         f"""var {filepath.stem} = {json.dumps(data, ensure_ascii=False, indent=1)}"""
     )
-    filepath.open("w").write(js_content)
+    filepath.write_text(js_content, encoding="utf-8")
 
 
 def export_family_compound(g: GlobalVars) -> None:

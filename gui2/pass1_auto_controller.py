@@ -387,7 +387,7 @@ ve: verbal ending
 
 """
         temp_file = Path(f"temp/prompts/pass1/{self.word_in_text}_prompt")
-        with open(temp_file, "w") as f:
+        with open(temp_file, "w", encoding="utf-8") as f:
             f.write(self.prompt)
 
     def send_prompt(
@@ -459,7 +459,7 @@ ve: verbal ending
 
             # save json to temp file
             tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")
-            with open(tempfile, "w") as f:
+            with open(tempfile, "w", encoding="utf-8") as f:
                 dump(parsed_json, f, ensure_ascii=False, indent=4)
 
             # add examples and translations

@@ -96,7 +96,7 @@ def read_tsv_files(file_paths: List[Path]) -> Iterator[Tuple[List[str], List[str
     columns = None
 
     for file_path in file_paths:
-        with open(file_path, "r", newline="") as tsv_file:
+        with open(file_path, "r", newline="", encoding="utf-8") as tsv_file:
             csvreader = csv.reader(tsv_file, delimiter="\t", quotechar='"')
             columns = next(csvreader)
 

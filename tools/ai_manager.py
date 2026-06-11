@@ -12,7 +12,7 @@ AI_MODELS_PATH = Path("tools/ai_models.json")
 def _load_models_from_json() -> dict[str, list[tuple[str, str, int]]]:
     """Load model lists from tools/ai_models.json."""
     try:
-        data = json.loads(AI_MODELS_PATH.read_text())
+        data = json.loads(AI_MODELS_PATH.read_text(encoding="utf-8"))
         return {
             "default": [
                 (m["provider"], m["model"], m["delay"])

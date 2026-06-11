@@ -333,7 +333,7 @@ class Pass2AutoController:
                     temp_file = Path(
                         f"temp/prompts/pass2/{self._word_in_text}_response"
                     )
-                    with open(temp_file, "w") as f:
+                    with open(temp_file, "w", encoding="utf-8") as f:
                         f.write(str(response_dict))
             # else: Error handled within _process_headword_with_ai or _format_response
 
@@ -575,7 +575,7 @@ ve: verbal ending
 """
         if debug:
             temp_file = Path(f"temp/prompts/pass2/{headword.lemma_1}_prompt")
-            with open(temp_file, "w") as f:
+            with open(temp_file, "w", encoding="utf-8") as f:
                 f.write(prompt)
         return prompt
 

@@ -17,16 +17,16 @@ class SandhiOK:
 
         `breakup` is seperated by plus signs: `anicco + amhi`
         """
-        with open(self.pth.decon_manual_corrections, "a") as f:
+        with open(self.pth.decon_manual_corrections, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\t{breakup}\n")
-        with open(self.pth.decon_checked, "a") as f:
+        with open(self.pth.decon_checked, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\n")
 
     def update_sandhi_checked(self, sandhi: str):
         """
         Updates `shared_data/deconstructor/checked.csv`
         """
-        with open(self.pth.decon_checked, "a") as f:
+        with open(self.pth.decon_checked, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\n")
 
 

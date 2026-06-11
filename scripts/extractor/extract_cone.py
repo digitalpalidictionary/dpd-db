@@ -162,7 +162,7 @@ def main():
     manager = connect_to_openrouter()
 
     if not output_path.exists():
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write("headword\tdpd_pos\tmeanings\n")
 
     pr.green_title(f"Processing {state['total_words']} new words")

@@ -9,7 +9,7 @@ def main():
     pth = ProjectPaths()
     docs_dir = pth.docs_dir
 
-    with open(pth.mk_docs_yaml, "r") as f:
+    with open(pth.mk_docs_yaml, "r", encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
     nav = config.get("nav", [])
@@ -45,7 +45,7 @@ def main():
                     target_dir = docs_dir / submenu_dir
                     index_path = target_dir / "index.md"
 
-                    with open(index_path, "a") as f:
+                    with open(index_path, "a", encoding="utf-8") as f:
                         f.write("\n")
                         for page in pages:
                             f.write(f"1. [{page['title']}]({page['filename']})\n")

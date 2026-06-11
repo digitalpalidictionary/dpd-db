@@ -25,7 +25,7 @@ class SandhiFileManager:
     def _read_checked_csv(self) -> set[str]:
         """Read the checked.csv file and return a set of words."""
         try:
-            with open(self._pth.decon_checked, "r", newline="") as f:
+            with open(self._pth.decon_checked, "r", newline="", encoding="utf-8") as f:
                 reader = csv.reader(f)
                 return {row[0] for row in reader if row}
         except FileNotFoundError:
@@ -34,7 +34,9 @@ class SandhiFileManager:
     def _read_corrections_csv(self) -> set[str]:
         """Read the manual_corrections.tsv file and return a set of sandhi words."""
         try:
-            with open(self._pth.decon_manual_corrections, "r", newline="") as f:
+            with open(
+                self._pth.decon_manual_corrections, "r", newline="", encoding="utf-8"
+            ) as f:
                 reader = csv.reader(f, delimiter="\t")
                 return {row[0] for row in reader if row}
         except FileNotFoundError:
@@ -48,7 +50,7 @@ class SandhiFileManager:
         if word in self._checked_words:
             return
 
-        with open(self._pth.decon_checked, "a", newline="") as f:
+        with open(self._pth.decon_checked, "a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([word])
         self._checked_words.add(word)
@@ -61,7 +63,9 @@ class SandhiFileManager:
         if sandhi_word in self._corrections:
             return
 
-        with open(self._pth.decon_manual_corrections, "a", newline="") as f:
+        with open(
+            self._pth.decon_manual_corrections, "a", newline="", encoding="utf-8"
+        ) as f:
             writer = csv.writer(f, delimiter="\t")
             writer.writerow([sandhi_word, correction])
         self._corrections.add(sandhi_word)

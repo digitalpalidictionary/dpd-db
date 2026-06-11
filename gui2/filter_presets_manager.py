@@ -13,13 +13,13 @@ class FilterPresetsManager:
 
     def load_presets(self) -> dict[str, PresetData]:
         try:
-            with open(self.presets_path) as f:
+            with open(self.presets_path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return {}
 
     def save_presets(self) -> None:
-        with open(self.presets_path, "w") as f:
+        with open(self.presets_path, "w", encoding="utf-8") as f:
             json.dump(self.presets, f, ensure_ascii=False, indent=4)
 
     def save_preset(

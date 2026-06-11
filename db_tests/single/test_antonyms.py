@@ -27,13 +27,13 @@ class GlobalVars:
         self.w1_orig_antonym: str
 
         # word being checked
-        self.w2: DpdHeadword
+        self.w2: DpdHeadword | None = None
 
         self.yes_no: str = "[white]y[green]es [white]n[green]o "
 
     def load_antonym_dict(self) -> dict:
         if self.pth.antonym_dict_path.exists():
-            with open(self.pth.antonym_dict_path) as file:
+            with open(self.pth.antonym_dict_path, encoding="utf-8") as file:
                 return json.load(file)
         else:
             print("[red]error opening antonym dict")
@@ -42,10 +42,11 @@ class GlobalVars:
     def save_antonym_dict(self):
         self.last_word = self.w1.id
         self.antonym_dict["last_word"] = self.w1.id
-        with open(self.pth.antonym_dict_path, "w") as file:
+        with open(self.pth.antonym_dict_path, "w", encoding="utf-8") as file:
             json.dump(self.antonym_dict, file, ensure_ascii=False, indent=2)
 
     def update_exceptions(self):
+        assert self.w2 is not None
         if not self.antonym_dict["exceptions"].get(self.w1.id, None):
             self.antonym_dict["exceptions"].update({self.w1.id: []})
         self.antonym_dict["exceptions"][self.w1.id].append(self.w2.id)

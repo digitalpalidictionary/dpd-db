@@ -263,7 +263,7 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
             pr.red(f"{self.pth.docs_changelog_md_path} not found")
             return
 
-        changelog_md = self.pth.docs_changelog_md_path.read_text()
+        changelog_md = self.pth.docs_changelog_md_path.read_text(encoding="utf-8")
         date_heading = f"## {self.date}"
 
         if date_heading in changelog_md:
@@ -277,12 +277,12 @@ This work is licensed under a <a rel="license" href="https://creativecommons.org
                 "# Changelog", f"# Changelog\n{self.changelog}\n"
             )
 
-        self.pth.docs_changelog_md_path.write_text(changelog_updated)
+        self.pth.docs_changelog_md_path.write_text(changelog_updated, encoding="utf-8")
         pr.yes("ok")
 
     def _write_to_file(self) -> None:
-        self.pth.release_notes_md_path.write_text(self.release_notes)
-        self.pth.change_log_md_path.write_text(self.changelog)
+        self.pth.release_notes_md_path.write_text(self.release_notes, encoding="utf-8")
+        self.pth.change_log_md_path.write_text(self.changelog, encoding="utf-8")
 
     def generate(self) -> str:
         self._load_data_from_db()

@@ -137,7 +137,7 @@ class ElevenLabsManager:
             "use_speaker_boost": self.use_speaker_boost,
             "speed": self.speed,
         }
-        with open(self.output_dir / "settings.json", "w") as f:
+        with open(self.output_dir / "settings.json", "w", encoding="utf-8") as f:
             dump(settings_to_save, f, indent=4)
 
     def generate_and_save_audio(self, vox_item: VoxItem) -> None:

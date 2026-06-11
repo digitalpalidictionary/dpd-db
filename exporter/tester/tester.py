@@ -14,7 +14,7 @@ def main():
     dict_data: list[DictEntry] = []
 
     html_path = Path("exporter/tester/tester.html")
-    html = html_path.read_text()
+    html = html_path.read_text(encoding="utf-8")
     css_path = Path("exporter/tester/tester.css")
     icon_path = Path("identity/dpd-logo-dark.svg")
     font_path = Path("exporter/tester/fonts")

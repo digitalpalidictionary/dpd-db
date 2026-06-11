@@ -27,7 +27,7 @@ class GlobalVars:
 
 def load_exceptions_dict(g: GlobalVars):
     if g.pth.idioms_exceptions_dict.exists():
-        with open(g.pth.idioms_exceptions_dict) as f:
+        with open(g.pth.idioms_exceptions_dict, encoding="utf-8") as f:
             g.exceptions_dict = json.load(f)
     else:
         g.exceptions_dict = {}
@@ -42,7 +42,7 @@ def add_exception(g: GlobalVars, idiom: str, id: int):
 
 
 def save_exceptions_dict(g: GlobalVars):
-    with open(g.pth.idioms_exceptions_dict, "w") as f:
+    with open(g.pth.idioms_exceptions_dict, "w", encoding="utf-8") as f:
         json.dump(g.exceptions_dict, f, ensure_ascii=False, indent=2)
 
 

@@ -71,13 +71,13 @@ class UiManager:
 
     def make_all_words_set(self):
         all_words_set = set()
-        with open(self.pth.cst_wordlist) as f:
+        with open(self.pth.cst_wordlist, encoding="utf-8") as f:
             all_words_set.update(set(load(f)))
-        with open(self.pth.bjt_wordlist) as f:
+        with open(self.pth.bjt_wordlist, encoding="utf-8") as f:
             all_words_set.update(set(load(f)))
-        with open(self.pth.sc_wordlist) as f:
+        with open(self.pth.sc_wordlist, encoding="utf-8") as f:
             all_words_set.update(set(load(f)))
-        with open(self.pth.sya_wordlist) as f:
+        with open(self.pth.sya_wordlist, encoding="utf-8") as f:
             all_words_set.update(set(load(f)))
         return all_words_set
 

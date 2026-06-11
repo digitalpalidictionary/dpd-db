@@ -28,7 +28,7 @@ class GlobalData:
         )
         self.dpd_template = self.env.get_template("/dpd_headword.html")
         self.lookup_template = self.env.get_template("/lookup.html")
-        with open("exporter/kobo/templates/kobo.css") as f:
+        with open("exporter/kobo/templates/kobo.css", encoding="utf-8") as f:
             self.css = f.read()
         self.word_set = self.make_word_set()
 

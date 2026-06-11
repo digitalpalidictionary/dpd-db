@@ -42,7 +42,9 @@ def main():
                     text = "".join(text_extract).lower()
 
                     with open(
-                        pth.cst_txt_dir.joinpath(filename).with_suffix(".txt"), "w"
+                        pth.cst_txt_dir.joinpath(filename).with_suffix(".txt"),
+                        "w",
+                        encoding="utf-8",
                     ) as f:
                         f.write(text)
 

@@ -111,7 +111,7 @@ def compile_section(g: GlobalVars, name: str, content: str) -> None:
     typ_path = section_typ_path(g, name)
     pdf_path = section_pdf_path(g, name)
 
-    typ_path.write_text(full_content)
+    typ_path.write_text(full_content, encoding="utf-8")
 
     try:
         result = subprocess.run(

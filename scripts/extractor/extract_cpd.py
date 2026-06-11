@@ -147,7 +147,7 @@ def main():
     pr.yes("connected") if manager.client else pr.no("fail")
 
     if not output_path.exists():
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write("headword\tdpd_pos\tmeanings\n")
 
     pr.green(f"processing {state['total_words']} new words")

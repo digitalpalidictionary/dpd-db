@@ -14,7 +14,7 @@ find_me = "kaṭṭhattharaṇapaṇṇattharaṇaāsanādīni"
 def write_temp_file(found: list[str]):
     print("written to ", end="")
     temp_file = "temp/deconstruction_finder.csv"
-    with open(temp_file, "w") as f:
+    with open(temp_file, "w", encoding="utf-8") as f:
         f.write("".join(found))
     print(f"[blue]{temp_file}")
 
@@ -28,7 +28,7 @@ def find_deconstructions(find_me: str):
     found: list[str] = []
 
     pr.green_title("parsing matches.tsv")
-    with open(file_path, "r") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         for line_number, line in enumerate(f):
             if line_number == 0:
                 found.append(line)

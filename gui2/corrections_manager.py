@@ -30,7 +30,7 @@ class CorrectionsManager:
                 if "corrections_added" in contrib_file.name:
                     continue
                 try:
-                    with open(contrib_file) as f:
+                    with open(contrib_file, encoding="utf-8") as f:
                         contrib_data = json.load(f)
                 except (FileNotFoundError, json.JSONDecodeError):
                     continue
@@ -44,7 +44,7 @@ class CorrectionsManager:
                     self._origin[key] = contrib_file
         else:
             try:
-                with open(self.corrections_path) as f:
+                with open(self.corrections_path, encoding="utf-8") as f:
                     merged = json.load(f)
             except (FileNotFoundError, json.JSONDecodeError):
                 pass
@@ -52,7 +52,7 @@ class CorrectionsManager:
         return merged
 
     def _save_dict(self, data: CorrectionsDict) -> None:
-        with open(self.corrections_path, "w") as f:
+        with open(self.corrections_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
     def save_corrections(self) -> None:
@@ -93,7 +93,7 @@ class CorrectionsManager:
 
         existing_data: list[dict] = []
         try:
-            with open(self.paths.corrections_added_path) as f:
+            with open(self.paths.corrections_added_path, encoding="utf-8") as f:
                 existing_data = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             pass
@@ -101,7 +101,7 @@ class CorrectionsManager:
         tagged = {**word_data, "_contributor": contributor}
         existing_data.append(tagged)
 
-        with open(self.paths.corrections_added_path, "w") as f:
+        with open(self.paths.corrections_added_path, "w", encoding="utf-8") as f:
             json.dump(existing_data, f, ensure_ascii=False, indent=4)
 
         if origin_path is not None and "id" in word_data:
@@ -119,13 +119,13 @@ def _contributor_from_origin(origin_path: Path | None, prefix: str) -> str:
 
 def _remove_key_from_file(path: Path, key: str) -> None:
     try:
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return
     if key in data:
         del data[key]
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         if data:
             json.dump(data, f, ensure_ascii=False, indent=4)
         else:

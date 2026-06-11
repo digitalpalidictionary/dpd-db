@@ -67,7 +67,7 @@ def backup_dpd_headwords(db_session: Session, pth: ProjectPaths, custom_path: st
     # Use the custom path if provided, otherwise use the default path
     pali_word_path = custom_path if custom_path else pth.pali_word_path
 
-    with open(pali_word_path, "w", newline="") as tsvfile:
+    with open(pali_word_path, "w", newline="", encoding="utf-8") as tsvfile:
         exclude_columns = [
             "created_at",
             "updated_at",
@@ -112,7 +112,7 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
     # Use the custom path if provided, otherwise use the default path
     pali_root_path = custom_path if custom_path else pth.pali_root_path
 
-    with open(pali_root_path, "w", newline="") as tsvfile:
+    with open(pali_root_path, "w", newline="", encoding="utf-8") as tsvfile:
         exclude_columns = [
             "created_at",
             "updated_at",

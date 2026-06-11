@@ -92,7 +92,7 @@ class SubheadingsFinder:
         self.add_to_db()
 
     def make_single_occurrence_set(self):
-        with open(self.pth.cst_freq_json, "r") as f:
+        with open(self.pth.cst_freq_json, "r", encoding="utf-8") as f:
             self.cst_freq_dict = load(f)
 
         for word, count in self.cst_freq_dict.items():

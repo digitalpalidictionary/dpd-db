@@ -41,7 +41,7 @@ def load_combined_frequency(data: FinderData) -> None:
 
     for file_path in freq_files:
         if file_path.exists():
-            with open(file_path, "r") as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 file_data = json.load(f)
                 for word, count in file_data.items():
                     data.frequency_dict[word] = data.frequency_dict.get(word, 0) + count
@@ -71,7 +71,7 @@ def load_ignore_words(data: FinderData) -> None:
         (data.pth.variant_readings_path, 0),
     ]:
         if tsv_path.exists():
-            with open(tsv_path, "r") as f:
+            with open(tsv_path, "r", encoding="utf-8") as f:
                 next(f)  # skip header
                 for line in f:
                     parts = line.rstrip("\n").split("\t")

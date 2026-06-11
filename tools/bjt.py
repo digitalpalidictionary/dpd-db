@@ -64,7 +64,7 @@ def get_bjt_json(bjt_file_names: list[str]) -> list[dict]:
 
     for file_name in bjt_file_names:
         file_path = roman_dir.joinpath(file_name)
-        with open(file_path) as f:
+        with open(file_path, encoding="utf-8") as f:
             json_dict: dict = json.load(f)
         json_dicts.append(json_dict)
 
@@ -219,7 +219,7 @@ def save_bjṭ_text(books: list[str]) -> None:
             show_metadata=True,
         )
 
-    with open(f"temp/{books}.text", "w") as f:
+    with open(f"temp/{books}.text", "w", encoding="utf-8") as f:
         f.write(bjt_text)
 
 

@@ -12,7 +12,7 @@ def dn_extractor():
     file_path = Path("scripts/suttas/dpd/dn.tsv")
     file_path.open("w")
 
-    with open(file_path, "a") as f:
+    with open(file_path, "a", encoding="utf-8") as f:
         for sutta_no in range(35):
             search_string = rf"\(DN{sutta_no}\b\)"
             db = (

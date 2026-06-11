@@ -194,7 +194,7 @@ class Data:
 
     def load_exceptions(self) -> dict[str, int]:
         try:
-            return json.loads(self.exceptions_path.read_text())
+            return json.loads(self.exceptions_path.read_text(encoding="utf-8"))
         except FileNotFoundError:
             return {}
 
@@ -205,7 +205,8 @@ class Data:
                 self.exceptions_dict,
                 ensure_ascii=False,
                 indent=4,
-            )
+            ),
+            encoding="utf-8",
         )
 
     def make_i2h_dict(self):

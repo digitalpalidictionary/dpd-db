@@ -126,10 +126,10 @@ class DbTestManager:
         self.integrity_ok, self.integrity_failures = self.integrity_check()
 
     def load_tests(self):
-        with open(self.tests_path, newline="") as csvfile:
+        with open(self.tests_path, newline="", encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile, delimiter="\t")
             if reader.fieldnames:
-                self.fieldnames = reader.fieldnames
+                self.fieldnames = list(reader.fieldnames)
             internal_tests_list = [InternalTestRow(**row) for row in reader]
         return internal_tests_list
 

@@ -98,7 +98,7 @@ def test_dukkh(i, tried):
 
 def read_tried(pth: ProjectPaths):
     try:
-        with open(pth.sukha_dukkha_finder_path, "r") as f:
+        with open(pth.sukha_dukkha_finder_path, "r", encoding="utf-8") as f:
             tried = json.load(f)
     except Exception:
         tried = []
@@ -106,7 +106,7 @@ def read_tried(pth: ProjectPaths):
 
 
 def write_tried(pth: ProjectPaths, tried: list[str]):
-    with open(pth.sukha_dukkha_finder_path, "w") as f:
+    with open(pth.sukha_dukkha_finder_path, "w", encoding="utf-8") as f:
         json.dump(tried, f, ensure_ascii=False, indent=4)
 
 

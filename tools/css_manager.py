@@ -16,9 +16,11 @@ from tools.paths import ProjectPaths
 class CSSManager:
     def __init__(self):
         self.pth: ProjectPaths = ProjectPaths()
-        self.dpd_css: str = self.pth.dpd_css_path.read_text()
-        self.dpd_variables: str = self.pth.dpd_variables_css_path.read_text()
-        self.dpd_fonts: str = self.pth.dpd_fonts_css_path.read_text()
+        self.dpd_css: str = self.pth.dpd_css_path.read_text(encoding="utf-8")
+        self.dpd_variables: str = self.pth.dpd_variables_css_path.read_text(
+            encoding="utf-8"
+        )
+        self.dpd_fonts: str = self.pth.dpd_fonts_css_path.read_text(encoding="utf-8")
         self.variables_reduced = self.dpd_variables
 
     def update_webapp_css(self) -> None:
@@ -30,12 +32,14 @@ class CSSManager:
         css_list.append(self.dpd_css)
 
         css_file = "\n".join(css_list)
-        self.pth.webapp_css_path.write_text(css_file)
+        self.pth.webapp_css_path.write_text(css_file, encoding="utf-8")
 
     def update_docs_css(self):
         """Save the CSS Variables to the docs folder."""
 
-        self.pth.docs_css_variables_path.write_text(self.dpd_variables)
+        self.pth.docs_css_variables_path.write_text(
+            self.dpd_variables, encoding="utf-8"
+        )
 
     def compile_css_and_fonts(self):
         """Compile CSS and fonts into one for GoldenDict exporters."""
@@ -45,7 +49,7 @@ class CSSManager:
         css_and_fonts_list.append("")
         css_and_fonts_list.append(self.dpd_css)
         css_and_fonts_str = "\n".join(css_and_fonts_list)
-        self.pth.dpd_css_and_fonts_path.write_text(css_and_fonts_str)
+        self.pth.dpd_css_and_fonts_path.write_text(css_and_fonts_str, encoding="utf-8")
 
     def update_style(self, header: str, used_for: str):
         """

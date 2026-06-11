@@ -40,13 +40,13 @@ class GlobalVars:
 
     def _load_exceptions(self) -> list[str]:
         try:
-            with open(self.pth.syn_var_exceptions_path) as f:
+            with open(self.pth.syn_var_exceptions_path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return []
 
     def _save_exceptions(self) -> None:
-        with open(self.pth.syn_var_exceptions_path, "w") as f:
+        with open(self.pth.syn_var_exceptions_path, "w", encoding="utf-8") as f:
             json.dump(self.exceptions, f, ensure_ascii=False, indent=2)
 
     def add_exception(self, key: str) -> None:

@@ -70,7 +70,7 @@ class RootFamily:
 def import_tsv_to_dict(pth: ProjectPaths) -> dict[str, str]:
     """Read tvs to dict."""
     tsv_dict = {}
-    with pth.root_families_sanskrit_path.open(newline="") as csvfile:
+    with pth.root_families_sanskrit_path.open(newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             try:
@@ -82,7 +82,9 @@ def import_tsv_to_dict(pth: ProjectPaths) -> dict[str, str]:
 
 
 def write_to_tsv(pth: ProjectPaths, root_dict: dict[str, "RootFamily"]) -> None:
-    with pth.root_families_sanskrit_path.open("w", newline="") as csvfile:
+    with pth.root_families_sanskrit_path.open(
+        "w", newline="", encoding="utf-8"
+    ) as csvfile:
         fieldnames = [
             "root_key",
             "root_group",

@@ -55,7 +55,7 @@ def process_db(db: list[DpdHeadword]) -> tuple[list[str], list[str]]:
 def save_txt(txt_entry_list: list[str]) -> None:
     txt_path = Path("temp/DPD Pāḷi Sanskrit.txt")
     pr.green_tmr(f"saving '{txt_path}'")
-    txt_path.write_text("\n".join(txt_entry_list))
+    txt_path.write_text("\n".join(txt_entry_list), encoding="utf-8")
     pr.yes("ok")
 
 

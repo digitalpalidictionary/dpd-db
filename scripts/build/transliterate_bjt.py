@@ -32,12 +32,12 @@ def transliterate_json():
             in_path = sinhala_dir.joinpath(file)
             out_path = roman_dir.joinpath(file)
 
-            with open(in_path) as f:
+            with open(in_path, encoding="utf-8") as f:
                 sinhala = f.read()
 
             roman = translit_si_to_ro(sinhala)
 
-            with open(out_path, "w") as f:
+            with open(out_path, "w", encoding="utf-8") as f:
                 f.write(roman)
 
     pr.toc()
@@ -112,7 +112,7 @@ def make_index():
     list_of_tuples = sorted(list_of_tuples, key=lambda x: x[0], reverse=True)
 
     save_path = pth.bjt_dir.joinpath("index.json")
-    with open(save_path, "w") as f:
+    with open(save_path, "w", encoding="utf-8") as f:
         json.dump(list_of_tuples, f, ensure_ascii=False, indent=1)
 
 
@@ -139,7 +139,7 @@ def save_books():
             )
 
         file_path = file_dir.joinpath(book).with_suffix(".txt")
-        with open(file_path, "w") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(bjt_text)
     pr.toc()
 
@@ -160,7 +160,7 @@ def save_text_files() -> None:
             for bjt_dict in bjt_dicts:
                 bjt_text += process_single_bjt_file(bjt_dict)
             file_path = pth.bjt_roman_txt_dir.joinpath(f"{file}.txt")
-            with open(file_path, "w") as f:
+            with open(file_path, "w", encoding="utf-8") as f:
                 f.write(bjt_text)
             pr.counter(counter, 285, file)
             counter += 1

@@ -12,7 +12,7 @@ def mn_extractor():
     file_path = Path("scripts/suttas/dpd/mn.tsv")
     file_path.open("w")
 
-    with open(file_path, "a") as f:
+    with open(file_path, "a", encoding="utf-8") as f:
         for sutta_no in range(153):
             search_string = rf"\(MN{sutta_no}\b\)"
             db = (

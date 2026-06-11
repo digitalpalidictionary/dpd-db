@@ -127,7 +127,7 @@ class UposathaManger:
                 "count": str(new_count),
                 "date": date.today().isoformat(),
             }
-            with open(ProjectPaths().uposatha_day_ini, "w") as f:
+            with open(ProjectPaths().uposatha_day_ini, "w", encoding="utf-8") as f:
                 config.write(f)
             pr.yes(new_count)
             return True

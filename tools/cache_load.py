@@ -73,7 +73,7 @@ def _read_audio_index() -> list[tuple[str, bool, bool, bool]]:
         )
 
     rows: list[tuple[str, bool, bool, bool]] = []
-    with open(tsv_path, "r", newline="") as f:
+    with open(tsv_path, "r", newline="", encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         next(reader)  # header
         for lemma_clean, has_male1, has_male2, has_female1 in reader:

@@ -71,13 +71,13 @@ css_manager = CSSManager()
 css_manager.update_webapp_css()
 
 # Global CSS and JS
-with open(pth.webapp_css_path) as f:
+with open(pth.webapp_css_path, encoding="utf-8") as f:
     dpd_css = f.read()
 
-with open(pth.webapp_js_path) as f:
+with open(pth.webapp_js_path, encoding="utf-8") as f:
     dpd_js = f.read()
 
-with open(pth.webapp_home_simple_css_path) as f:
+with open(pth.webapp_home_simple_css_path, encoding="utf-8") as f:
     home_simple_css = f.read()
 
 

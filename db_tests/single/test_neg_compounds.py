@@ -23,7 +23,7 @@ class GlobalVars:
 
 def load_exceptions_list(g: GlobalVars):
     if g.pth.neg_compound_exceptions.exists():
-        with open(g.pth.neg_compound_exceptions) as f:
+        with open(g.pth.neg_compound_exceptions, encoding="utf-8") as f:
             g.exceptions_list = json.load(f)
     else:
         g.exceptions_list = []
@@ -35,7 +35,7 @@ def add_exception(g: GlobalVars, id: int):
 
 
 def save_exceptions_list(g: GlobalVars):
-    with open(g.pth.neg_compound_exceptions, "w") as f:
+    with open(g.pth.neg_compound_exceptions, "w", encoding="utf-8") as f:
         json.dump(g.exceptions_list, f, indent=2)
 
 
@@ -134,6 +134,8 @@ def auto_replace_na(i: DpdHeadword) -> str:
             return f"na + {i.lemma_clean[1:]}"
         elif "na > an " in i.construction:
             return f"na + {i.lemma_clean[2:]}"
+        else:
+            return ""
     elif i.lemma_clean.startswith("a"):
         # check if there's a double consonant
         if i.lemma_clean[1] == i.lemma_clean[2]:

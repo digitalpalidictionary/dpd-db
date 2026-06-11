@@ -18,14 +18,14 @@ class DailyLog:
     def _load(self) -> dict[str, dict[str, int]]:
         """Loads data, assumes file exists and is valid."""
         try:
-            with open(self.file_path, "r") as f:
+            with open(self.file_path, "r", encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return {}
 
     def _save(self) -> None:
         """Saves data, assumes success."""
-        with open(self.file_path, "w") as f:
+        with open(self.file_path, "w", encoding="utf-8") as f:
             json.dump(self.data, f, indent=4, sort_keys=True)
 
     def increment(self, key: str, count: int = 1) -> None:

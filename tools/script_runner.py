@@ -19,7 +19,7 @@ def check_db_exists() -> None:
 def touch_file(filename: str) -> None:
     """Create empty file if it doesn't exist."""
     if not os.path.exists(filename):
-        with open(filename, "w") as _:
+        with open(filename, "w", encoding="utf-8") as _:
             pass
 
 

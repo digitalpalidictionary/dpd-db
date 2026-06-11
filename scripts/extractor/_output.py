@@ -12,12 +12,12 @@ def write_to_tsv(output_path, headword, pos, meaning):
 
     headword_out = headword_out.replace("ṁ", "ṃ")
 
-    with open(output_path, "a") as f:
+    with open(output_path, "a", encoding="utf-8") as f:
         f.write(f"{headword_out}\t{pos}\t{meaning}\n")
 
     return headword_out
 
 
 def write_no_source(output_path, word):
-    with open(output_path, "a") as f:
+    with open(output_path, "a", encoding="utf-8") as f:
         f.write(f"{word}\t\t\n")

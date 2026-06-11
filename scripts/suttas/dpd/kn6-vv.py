@@ -33,7 +33,7 @@ def extractor():
     file_path = Path("scripts/suttas/dpd/kn6-vv.tsv")
     file_path.open("w")
 
-    with open(file_path, "a") as f:
+    with open(file_path, "a", encoding="utf-8") as f:
         for i in file_order:
             f.write(f"{i}\t{', '.join(extract_dict[i])}\n")
             print(f"{i}\t{extract_dict[i]}")

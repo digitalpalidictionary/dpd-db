@@ -34,7 +34,7 @@ def parse_single_line(line):
 
 def parse_lines(log_file: Path) -> list[dict]:
     parsed_lines = []
-    with open(log_file) as f:
+    with open(log_file, encoding="utf-8") as f:
         for line in f:
             line = line.rstrip("\n")
             single_line = parse_single_line(line)

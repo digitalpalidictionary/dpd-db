@@ -197,7 +197,9 @@ def process_long_words(g: GlobalVars):
             elif choice == "m":
                 dirty_words_str = "\n".join(dirty_words)
 
-                with open(g.pth.hyphenations_scratchpad_path, "w") as file:
+                with open(
+                    g.pth.hyphenations_scratchpad_path, "w", encoding="utf-8"
+                ) as file:
                     file.write(f"{clean_word}\n{dirty_words_str}")
                 pyperclip.copy(f"{clean_word}\n{dirty_words_str}")
 
@@ -240,6 +242,8 @@ def process_long_words(g: GlobalVars):
 def replace_word_in_db(g: GlobalVars):
     """Replace all variations with the preferred hyphenation."""
 
+    assert g.spelling_other is not None
+    assert g.spelling_chosen is not None
     replacement_count = 0
     db_list = []
     for replace_me in g.spelling_other:
@@ -296,6 +300,7 @@ def replace_word_in_db(g: GlobalVars):
         print("[green]committed to db and updated [light_green]test_hyphenations.json")
 
     else:
+        assert g.ids is not None
         ids_str = db_search_string(g.ids)
         pyperclip.copy(ids_str)
         print("[green]try replacing manually, the db id's are copied to the clipboard")
@@ -309,7 +314,7 @@ def main():
 
     g = GlobalVars()
 
-    subprocess.Popen(["code", g.pth.hyphenations_dict_path])
+    subprocess.Popen(["code", g.pth.speech_marks_path])
     subprocess.Popen(["code", g.pth.hyphenations_scratchpad_path])
 
     extract_clean_words(g)

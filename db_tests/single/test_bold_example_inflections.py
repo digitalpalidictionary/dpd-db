@@ -62,14 +62,14 @@ class GlobalVars:
 
     def load_json(self) -> dict[str, list[str]]:
         try:
-            with open(self.pth.bold_example_path) as f:
+            with open(self.pth.bold_example_path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError as e:
             print(e)
             return {}
 
     def save_json(self):
-        with open(self.pth.bold_example_path, "w") as f:
+        with open(self.pth.bold_example_path, "w", encoding="utf-8") as f:
             json.dump(self.json, f, ensure_ascii=False, indent=2)
 
     def update_json(self, id: int, inflection: str):

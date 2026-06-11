@@ -49,7 +49,7 @@ class WordFinderManager:
                 self.sc_files[file] = book
 
     def load_cst_file_freq(self):
-        with open(self.pth.cst_file_freq) as f:
+        with open(self.pth.cst_file_freq, encoding="utf-8") as f:
             return json.load(f)
 
     def _matches(

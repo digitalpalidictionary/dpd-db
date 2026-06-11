@@ -197,7 +197,7 @@ class UiManager:
 
 def load_antonym_exceptions_dict(pth: ProjectPaths) -> dict:
     if pth.add_antonyms_sync_dict.exists():
-        with open(pth.add_antonyms_sync_dict) as file:
+        with open(pth.add_antonyms_sync_dict, encoding="utf-8") as file:
             return load(file)
     else:
         print("[red]error opening antonym dict")
@@ -205,7 +205,7 @@ def load_antonym_exceptions_dict(pth: ProjectPaths) -> dict:
 
 
 def save_antonym_exceptions_dict(pth: ProjectPaths, antonym_exceptions_dict: dict):
-    with open(pth.add_antonyms_sync_dict, "w") as file:
+    with open(pth.add_antonyms_sync_dict, "w", encoding="utf-8") as file:
         dump(antonym_exceptions_dict, file, ensure_ascii=False, indent=2)
 
 

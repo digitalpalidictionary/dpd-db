@@ -47,7 +47,7 @@ class GlobalVars:
 
     def load_bahubbhihi_dict(self):
         if self.pth.bahubbihi_dict_path.exists():
-            with open(self.pth.bahubbihi_dict_path, "r") as f:
+            with open(self.pth.bahubbihi_dict_path, "r", encoding="utf-8") as f:
                 bahubbihi_dict = json.load(f)
                 print("[green]loaded bahubbihi_dict json")
         else:
@@ -56,7 +56,7 @@ class GlobalVars:
         return bahubbihi_dict
 
     def save_bahubbhihi_dict(self):
-        with open(self.pth.bahubbihi_dict_path, "w") as f:
+        with open(self.pth.bahubbihi_dict_path, "w", encoding="utf-8") as f:
             json.dump(g.bahubbihi_dict, f, indent=4)
 
     def update_yes(self, id):

@@ -45,7 +45,7 @@ def make_cst_text_set(
     words_list: List[str] = []
 
     for book in cst_texts_list:
-        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+        with open(pth.cst_txt_dir.joinpath(book), "r", encoding="utf-8") as f:
             text_string = f.read()
             if add_hyphenated_parts:
                 # dont remove the hyphen, deal with it later
@@ -111,7 +111,7 @@ def make_cst_text_list(
     words_list: List[str] = []
 
     for book in cst_texts_list:
-        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+        with open(pth.cst_txt_dir.joinpath(book), "r", encoding="utf-8") as f:
             text_string = f.read()
             # remove all brackets
             text_string = re.sub(r"\(.+?\)", "", text_string)
@@ -220,7 +220,7 @@ def make_cst_text_set_sutta(
     words_list: list = []
 
     for book in cst_texts_list:
-        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+        with open(pth.cst_txt_dir.joinpath(book), "r", encoding="utf-8") as f:
             text_string = f.read()
             sutta_string = extract_sutta_from_file(sutta_name, text_string, books)
             if sutta_string is not None:
@@ -253,7 +253,7 @@ def make_cst_text_list_sutta(
     words_list: list = []
 
     for book in cst_texts_list:
-        with open(pth.cst_txt_dir.joinpath(book), "r") as f:
+        with open(pth.cst_txt_dir.joinpath(book), "r", encoding="utf-8") as f:
             text_string = f.read()
             sutta_string = extract_sutta_from_file(sutta_name, text_string, books)
             if sutta_string is not None:
@@ -304,7 +304,7 @@ def make_cst_text_set_from_file(dpspth, niggahita="ṃ") -> Set[str]:
 
     if dpspth.text_to_add_path:
         try:
-            with open(dpspth.text_to_add_path, "r") as f:
+            with open(dpspth.text_to_add_path, "r", encoding="utf-8") as f:
                 text_string = f.read()
                 text_string = clean_machine(text_string, niggahita=niggahita)
                 words_list.extend(text_string.split())
@@ -331,7 +331,7 @@ def make_cst_text_list_from_file(
 
     if dpspth.text_to_add_path:
         try:
-            with open(dpspth.text_to_add_path, "r") as f:
+            with open(dpspth.text_to_add_path, "r", encoding="utf-8") as f:
                 text_string = f.read()
                 # remove all brackets
                 text_string = re.sub(r"\(.+?\)", "", text_string)
@@ -399,7 +399,7 @@ def make_sc_text_set(
     for root, __dirs__, files in sorted(os.walk(pth.sc_data_dir)):
         for file in files:
             if file in sc_texts_list:
-                with open(os.path.join(root, file)) as f:
+                with open(os.path.join(root, file), encoding="utf-8") as f:
                     # Sutta Cental texts are json dictionaries
                     sc_text_dict: dict = json.load(f)
                     for __title__, text_string in sc_text_dict.items():
@@ -447,7 +447,7 @@ def make_sc_text_list(
     for root, __dirs__, files in sorted(os.walk(pth.sc_data_dir)):
         for file in files:
             if file in sc_texts_list:
-                with open(os.path.join(root, file)) as f:
+                with open(os.path.join(root, file), encoding="utf-8") as f:
                     # Sutta Cental texts are json dictionaries
                     sc_text_dict: dict = json.load(f)
                     for __title__, text in sc_text_dict.items():
@@ -522,7 +522,7 @@ def make_other_pali_texts_set(pth: ProjectPaths) -> Set[str]:
     if dir_path.exists():
         file_list = [file for file in dir_path.iterdir() if file.is_file()]
         for file_path in file_list:
-            with open(file_path, "r") as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 text_string = f.read()
                 text_string = clean_machine(text_string)
                 other_pali_texts_set.update(text_string.split())

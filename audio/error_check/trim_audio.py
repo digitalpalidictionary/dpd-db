@@ -190,7 +190,10 @@ def main():
     trimmed_path = Path(__file__).parent / "trimmed_files.txt"
     skipped_path = Path(__file__).parent / "skipped_threshold.txt"
 
-    with open(trimmed_path, "w") as trimmed_f, open(skipped_path, "w") as skipped_f:
+    with (
+        open(trimmed_path, "w", encoding="utf-8") as trimmed_f,
+        open(skipped_path, "w", encoding="utf-8") as skipped_f,
+    ):
         with Progress() as progress:
             task = progress.add_task("[cyan]Trimming Audio...", total=len(files))
 

@@ -212,7 +212,7 @@ def create_index_tsv(pth: ProjectPaths, version: str) -> Path | None:
     finally:
         session.close()
 
-    with versioned_path.open("w", newline="") as f:
+    with versioned_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["lemma_clean", "has_male1", "has_male2", "has_female1"])
         for lemma_clean, male1, male2, female1 in rows:

@@ -103,7 +103,9 @@ def get_gmail_service(pth: ProjectPaths):
             )
             creds = flow.run_local_server(port=0)
 
-        pth.gmail_token_path.write_text(cast(Credentials, creds).to_json())
+        pth.gmail_token_path.write_text(
+            cast(Credentials, creds).to_json(), encoding="utf-8"
+        )
 
     return build("gmail", "v1", credentials=creds)
 

@@ -71,7 +71,7 @@ class GptManager:
                 )
 
             try:
-                content = output_path.read_text().strip()
+                content = output_path.read_text(encoding="utf-8").strip()
             except Exception as e:
                 return AIResponse(
                     content=None,

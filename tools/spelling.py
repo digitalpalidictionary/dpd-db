@@ -30,7 +30,7 @@ class CustomSpellChecker:
             self.user_dict = self.pth.user_dict_path
 
             # Load custom dictionary
-            with open(self.user_dict, "r") as f:
+            with open(self.user_dict, "r", encoding="utf-8") as f:
                 custom_words = [line.strip() for line in f if line.strip()]
                 self.spell.word_frequency.load_words(custom_words)
 
@@ -62,7 +62,7 @@ class CustomSpellChecker:
         with CustomSpellChecker._lock:
             self.spell.word_frequency.load_words([word])
             if self.user_dict:
-                with open(self.user_dict, "a") as f:
+                with open(self.user_dict, "a", encoding="utf-8") as f:
                     f.write(f"{word}\n")
 
         return f"Added '{word}' to dictionary"

@@ -36,7 +36,7 @@ class DatabaseManager:
         self.all_inflections_missing_meaning: set[str] = set()
 
         self.sandhi_ok_list: set[str] = set(
-            self.pth.decon_checked.read_text().splitlines()
+            self.pth.decon_checked.read_text(encoding="utf-8").splitlines()
         )  # FIXME make a file manager for this
 
         # for pass2 preprocessor

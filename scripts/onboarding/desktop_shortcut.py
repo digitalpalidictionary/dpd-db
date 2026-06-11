@@ -27,7 +27,7 @@ def create_linux_shortcut(project_root: Path, desktop_dir: Path | None = None) -
         "Icon=utilities-terminal\n"
         "Categories=Education;\n"
     )
-    desktop_file.write_text(content)
+    desktop_file.write_text(content, encoding="utf-8")
 
     desktop_file.chmod(
         desktop_file.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH
@@ -54,7 +54,7 @@ def create_macos_shortcut(project_root: Path, desktop_dir: Path | None = None) -
     content = (
         f'#!/bin/zsh\ncd "{project_root}"\nuv run scripts/onboarding/launch_gui.py\n'
     )
-    command_file.write_text(content)
+    command_file.write_text(content, encoding="utf-8")
 
     command_file.chmod(
         command_file.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH
@@ -77,7 +77,7 @@ def create_windows_shortcut(
         "uv run scripts/onboarding/launch_gui.py\n"
         "pause\n"
     )
-    bat_file.write_text(content)
+    bat_file.write_text(content, encoding="utf-8")
 
     return bat_file
 

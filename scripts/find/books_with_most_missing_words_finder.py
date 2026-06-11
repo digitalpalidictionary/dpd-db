@@ -32,7 +32,7 @@ def main():
 
     example_false = example_false - example_true
 
-    with open(pth.cst_file_freq) as f:
+    with open(pth.cst_file_freq, encoding="utf-8") as f:
         cst_file_freq = json.load(f)
 
     books_counter_freq = Counter()
