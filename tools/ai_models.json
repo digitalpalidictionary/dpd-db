@@ -3,7 +3,12 @@
     {
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
-      "delay": 5
+      "delay": 0
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-v4-pro",
+      "delay": 0
     },
     {
       "provider": "openrouter",

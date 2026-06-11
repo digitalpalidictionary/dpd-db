@@ -144,30 +144,26 @@ class AIManager:
         else:
             models_to_try.extend(self.DEFAULT_MODELS)
 
-        # NEW: Check rate limits for each model before trying them
-        for model_tuple in models_to_try:
-            provider_name, model_name = model_tuple[0], model_tuple[1]
-            model_key = f"{provider_name}:{model_name}"
-            model_delay = self._get_model_delay(provider_name, model_name)
-
-            current_time = time.monotonic()
-            last_request = self.model_last_request.get(model_key, 0)
-            elapsed_since_last = current_time - last_request
-            wait_time = model_delay - elapsed_since_last
-
-            if wait_time > 0:
-                pr.green(f"RATE LIMITING for {model_key} - {wait_time:.2f}s")
-                time.sleep(wait_time)
-
-            # Update last request time for this model
-            self.model_last_request[model_key] = time.monotonic()
-
         for model_tuple in models_to_try:
             provider_name, model_name = model_tuple[0], model_tuple[1]
             if provider_name not in self.providers:
                 continue
 
             provider = self.providers[provider_name]
+
+            # Rate limit only the model actually being requested
+            model_key = f"{provider_name}:{model_name}"
+            model_delay = self._get_model_delay(provider_name, model_name)
+            elapsed_since_last = time.monotonic() - self.model_last_request.get(
+                model_key, 0
+            )
+            wait_time = model_delay - elapsed_since_last
+
+            if wait_time > 0:
+                pr.green(f"RATE LIMITING for {model_key} - {wait_time:.2f}s")
+                time.sleep(wait_time)
+
+            self.model_last_request[model_key] = time.monotonic()
 
             start_time = time.monotonic()
             self.last_request_time = start_time
