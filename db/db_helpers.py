@@ -9,10 +9,10 @@ import os
 import sys
 from pathlib import Path
 
-from sqlalchemy import create_engine, event, inspect
+from sqlalchemy import create_engine, event, func, inspect
 from sqlalchemy.orm import Session, sessionmaker
 
-from db.models import Base
+from db.models import Base, DpdHeadword
 from tools.printer import printer as pr
 
 
@@ -73,3 +73,14 @@ def get_column_names(tables_name):
     inspector = inspect(tables_name)
     column_names = [column.name for column in inspector.columns]
     return column_names
+
+
+def make_roots_count_dict(db_session: Session) -> dict[str, int]:
+    """Count headwords per root_key with a single SQL aggregation."""
+    rows = (
+        db_session.query(DpdHeadword.root_key, func.count())
+        .filter(DpdHeadword.root_key.is_not(None))
+        .group_by(DpdHeadword.root_key)
+        .all()
+    )
+    return {root_key: count for root_key, count in rows}
