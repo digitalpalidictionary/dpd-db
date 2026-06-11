@@ -24,9 +24,6 @@ from tools.printer import printer as pr
 class GlobalVars:
     """Variables used globally."""
 
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-
     # main dataframes
     index_df: DataFrame
     infl_templ_df: DataFrame
@@ -44,8 +41,12 @@ class GlobalVars:
 
     # add to the db
     infl_templ: InflectionTemplates
-    added_templates: list[str] = []
-    changed_templates: list[str] = []
+
+    def __init__(self) -> None:
+        self.pth = ProjectPaths()
+        self.db_session = get_db_session(self.pth.dpd_db_path)
+        self.added_templates: list[str] = []
+        self.changed_templates: list[str] = []
 
 
 def make_index_dataframe(g: GlobalVars) -> None:

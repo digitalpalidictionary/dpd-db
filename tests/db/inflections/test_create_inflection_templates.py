@@ -6,6 +6,11 @@ Tests cover the data transformation chain:
 DB writes and file I/O are not tested — SQLAlchemy and stdlib are trusted.
 """
 
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
 import pytest
 from db.inflections.create_inflection_templates import (
     GlobalVars,
@@ -15,14 +20,14 @@ from db.inflections.create_inflection_templates import (
     make_infl_templ_dataframe,
     make_inflection_template,
 )
+from tools.paths import ProjectPaths
 
 
 @pytest.fixture(scope="module")
 def g() -> GlobalVars:
-    """Load real Excel data once for all tests."""
+    """Load real Excel data once for all tests — no DB session needed."""
     gv = GlobalVars.__new__(GlobalVars)
-    gv.pth = GlobalVars.pth
-    gv.db_session = GlobalVars.db_session
+    gv.pth = ProjectPaths()
     gv.added_templates = []
     gv.changed_templates = []
     make_index_dataframe(gv)
@@ -85,3 +90,25 @@ def test_make_inflection_template_a_adj(g: GlobalVars) -> None:
     assert g.infl_templ.pattern == "a adj"
     assert g.infl_templ.like == "samannāgata"
     assert g.infl_templ.data is not None
+
+
+def test_import_has_no_db_side_effects() -> None:
+    """Importing the module must not open the DB or create directories.
+
+    Run from an empty cwd with no dpd.db — the old class-level GlobalVars
+    exited with 'Database file doesn't exist' here.
+    """
+    repo_root = Path(__file__).resolve().parents[3]
+    with tempfile.TemporaryDirectory() as td:
+        result = subprocess.run(
+            [sys.executable, "-c", "import db.inflections.create_inflection_templates"],
+            cwd=td,
+            env={"PYTHONPATH": str(repo_root)},
+            capture_output=True,
+            text=True,
+        )
+        leftover_dirs = [p for p in Path(td).iterdir() if p.is_dir()]
+    assert result.returncode == 0, result.stderr
+    # tools/printer.py still writes its log file at import (intentional
+    # singleton); only the ProjectPaths directory tree must be gone.
+    assert leftover_dirs == []
