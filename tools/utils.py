@@ -105,3 +105,13 @@ def squash_whitespaces(string: str) -> str:
     for i in string.split("\n"):
         result.append(i.strip())
     return "".join(result)
+
+
+def extract_body(html: str) -> str:
+    """
+    Return the html from the <body> tag onwards, failing loud if it is missing.
+    """
+    body_start = html.find("<body>")
+    if body_start == -1:
+        raise ValueError("rendered html has no <body> tag")
+    return html[body_start:]

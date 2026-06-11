@@ -3,6 +3,7 @@
 {% set is_samyutta = d.su.is_samyutta if d.su else false %}
 {% set is_nipata = d.su.is_nipata if d.su else false %}
 {% set is_pannasaka = d.su.is_pannasaka if d.su else false %}
+{# do not change <body> — the export code splits header/body on this exact string (tools/utils.py extract_body) #}
 <body>
 <div class="dpd">
     <p>

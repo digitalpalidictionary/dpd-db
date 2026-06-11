@@ -10,7 +10,12 @@ from tools.goldendict_exporter import DictEntry
 from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.utils import RenderedSizes, default_rendered_sizes, squash_whitespaces
+from tools.utils import (
+    RenderedSizes,
+    default_rendered_sizes,
+    extract_body,
+    squash_whitespaces,
+)
 from exporter.jinja2_env import get_jinja2_env
 from exporter.goldendict.data_classes import RootsData
 
@@ -45,8 +50,7 @@ def generate_root_html(
 
         # Re-calculate parts for parity
         header = data.header
-        body_start = html.find("<body>")
-        body = html[body_start:]
+        body = extract_body(html)
 
         final_html = squash_whitespaces(header) + minify(body)
 

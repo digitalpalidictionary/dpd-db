@@ -1,4 +1,5 @@
 {{ d.header }}
+{# do not change <body> — the export code splits header/body on this exact string (tools/utils.py extract_body) #}
 <body>
 <div class='dpd'>
     <p>root. <b>{{ d.r.root_clean }}</b><sup>{{ d.r.root_has_verb }}</sup>{{ d.r.root_group }} {{ d.r.root_sign }} ({{ d.r.root_meaning }}) {{ d.count }}</p> 

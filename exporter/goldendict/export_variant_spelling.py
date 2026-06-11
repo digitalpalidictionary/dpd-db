@@ -12,6 +12,7 @@ from tools.printer import printer as pr
 from tools.utils import (
     RenderedSizes,
     default_rendered_sizes,
+    extract_body,
     squash_whitespaces,
     sum_rendered_sizes,
 )
@@ -90,8 +91,7 @@ def generate_see_data_list(
         html_rendered = template.render(d=data)
 
         header = data.header
-        body_start = html_rendered.find("<body>")
-        body = html_rendered[body_start:]
+        body = extract_body(html_rendered)
 
         final_html = squash_whitespaces(header) + minify(body)
 
@@ -153,8 +153,7 @@ def generate_variant_data_list(
 
         # Re-calculate parts for parity
         header = data.header
-        body_start = html_rendered.find("<body>")
-        body = html_rendered[body_start:]
+        body = extract_body(html_rendered)
 
         final_html = squash_whitespaces(header) + minify(body)
 
@@ -218,8 +217,7 @@ def generate_spelling_data_list(
 
         # Re-calculate parts for parity
         header = data.header
-        body_start = html_rendered.find("<body>")
-        body = html_rendered[body_start:]
+        body = extract_body(html_rendered)
 
         final_html = squash_whitespaces(header) + minify(body)
 
