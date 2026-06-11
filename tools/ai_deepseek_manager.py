@@ -90,7 +90,8 @@ class DeepseekManager:
 
         payload = {
             "model": current_model,  # Use the potentially defaulted model
-            "max_tokens": 2048,
+            "max_tokens": 4096,
+            "thinking": {"type": "disabled"},
             "presence_penalty": 0,
             "stream": False,
             "temperature": 1,
