@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from db.variants.files_to_books import mst_files_to_books
-from db.variants.variants_modules import VariantsDict, key_cleaner
+from db.variants.variants_modules import VariantsDict, key_cleaner, normalize_pali_text
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sort_naturally import natural_sort
@@ -67,7 +67,7 @@ def extract_sc_variants(
         data_list = data.split("|")
 
         for d in data_list:
-            d = d.strip().replace("ṁ", "ṃ")
+            d = normalize_pali_text(d.strip())
 
             # root_word / variants pairs are separated by '→'
             variants_list = [part.strip() for part in d.split("→", maxsplit=1)]

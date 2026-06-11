@@ -7,6 +7,7 @@ from db.variants.variants_modules import (
     VariantsDict,
     context_cleaner,
     key_cleaner,
+    normalize_pali_text,
     save_json,
 )
 
@@ -56,6 +57,25 @@ def test_key_cleaner(fixtures: dict, case: str) -> None:
 def test_context_cleaner(fixtures: dict, case: str) -> None:
     data = fixtures["context_cleaner"][case]
     assert context_cleaner(data["input"]) == data["output"]
+
+
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("saraṇagamanaṁ", "saraṇagamanaṃ"),
+        ("ayaṁ pāṭho saṁyutta", "ayaṃ pāṭho saṃyutta"),
+        ("dhammaṃ", "dhammaṃ"),
+        ("", ""),
+    ],
+)
+def test_normalize_pali_text(text: str, expected: str) -> None:
+    assert normalize_pali_text(text) == expected
+
+
+def test_normalize_pali_text_output_survives_key_cleaner() -> None:
+    """key_cleaner's character set lacks ṁ — normalization must restore ṃ first."""
+    assert key_cleaner(normalize_pali_text("saraṇagamanaṁ")) == "saraṇagamanaṃ"
+    assert key_cleaner("saraṇagamanaṁ") == "saraṇagamana"
 
 
 def test_save_json_writes_correct_content(

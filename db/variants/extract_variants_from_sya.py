@@ -7,7 +7,12 @@ from pathlib import Path
 from icecream import ic
 
 from db.variants.files_to_books import sya_files_to_books
-from db.variants.variants_modules import VariantsDict, context_cleaner, key_cleaner
+from db.variants.variants_modules import (
+    VariantsDict,
+    context_cleaner,
+    key_cleaner,
+    normalize_pali_text,
+)
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -94,7 +99,7 @@ def get_sya_text(file_name: Path) -> str:
         # remove multiple space
         text = re.sub(" +", " ", text)
 
-        text = text.replace("ṁ", "ṃ")
+        text = normalize_pali_text(text)
 
         return text
 

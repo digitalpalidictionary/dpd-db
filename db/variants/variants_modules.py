@@ -11,6 +11,15 @@ VariantsDict: TypeAlias = dict[str, dict[str, dict[str, list[tuple[str, str]]]]]
 _CHAR_SET: frozenset[str] = frozenset([" ", *pali_alphabet])
 
 
+def normalize_pali_text(text: str) -> str:
+    """Normalize Pāḷi text to DPD conventions: ṁ → ṃ.
+
+    Must run before key_cleaner, whose character set contains ṃ but not ṁ.
+    """
+
+    return text.replace("ṁ", "ṃ")
+
+
 def key_cleaner(key: str) -> str:
     """Remove non-Pāḷi characters from the key"""
 
