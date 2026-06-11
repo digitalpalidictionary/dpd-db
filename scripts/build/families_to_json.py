@@ -3,7 +3,10 @@
 """Export family data to JSON."""
 
 import json
+from dataclasses import dataclass
 from pathlib import Path
+
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import FamilyCompound, FamilyIdiom, FamilyRoot, FamilySet, FamilyWord
@@ -11,20 +14,31 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
+@dataclass
 class GlobalVars:
-    paths = ProjectPaths()
-    db_session = get_db_session(paths.dpd_db_path)
-    fc_db = db_session.query(FamilyCompound).all()
-    fi_db = db_session.query(FamilyIdiom).all()
-    fr_db = db_session.query(FamilyRoot).all()
-    fs_db = db_session.query(FamilySet).all()
-    fw_db = db_session.query(FamilyWord).all()
+    paths: ProjectPaths
+    db_session: Session
+    fc_db: list[FamilyCompound]
+    fi_db: list[FamilyIdiom]
+    fr_db: list[FamilyRoot]
+    fs_db: list[FamilySet]
+    fw_db: list[FamilyWord]
 
 
 def main() -> None:
     pr.tic()
     pr.yellow_title("exporting families .json")
-    g = GlobalVars()
+    paths = ProjectPaths()
+    db_session = get_db_session(paths.dpd_db_path)
+    g = GlobalVars(
+        paths=paths,
+        db_session=db_session,
+        fc_db=db_session.query(FamilyCompound).all(),
+        fi_db=db_session.query(FamilyIdiom).all(),
+        fr_db=db_session.query(FamilyRoot).all(),
+        fs_db=db_session.query(FamilySet).all(),
+        fw_db=db_session.query(FamilyWord).all(),
+    )
     export_family_compound(g)
     export_family_idiom(g)
     export_family_root(g)

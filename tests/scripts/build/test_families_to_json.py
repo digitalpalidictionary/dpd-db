@@ -5,6 +5,8 @@ open, type hints, alias removal). Inputs frozen in fixture file; no live DB.
 """
 
 import json
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from types import SimpleNamespace
@@ -132,3 +134,25 @@ def test_export_family_word() -> None:
     assert content.startswith("var family_word_json = ")
     result = json.loads(content[len("var family_word_json = ") :])
     assert result == fixtures["fw_dict"]
+
+
+def test_import_has_no_db_side_effects() -> None:
+    """Importing the module must not open the DB or create directories.
+
+    Run from an empty cwd with no dpd.db — the old class-level GlobalVars
+    exited with 'Database file doesn't exist' here.
+    """
+    repo_root = Path(__file__).resolve().parents[3]
+    with tempfile.TemporaryDirectory() as td:
+        result = subprocess.run(
+            [sys.executable, "-c", "import scripts.build.families_to_json"],
+            cwd=td,
+            env={"PYTHONPATH": str(repo_root)},
+            capture_output=True,
+            text=True,
+        )
+        leftover_dirs = [p for p in Path(td).iterdir() if p.is_dir()]
+    assert result.returncode == 0, result.stderr
+    # tools/printer.py still writes its log file at import (intentional
+    # singleton); only the ProjectPaths directory tree must be gone.
+    assert leftover_dirs == []
