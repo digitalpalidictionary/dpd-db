@@ -5,10 +5,11 @@ spelling entries) against an in-memory db seeded with real rows copied from
 dpd.db. Proves the behaviour-preserving refactor (type hints, pathlib, .append,
 re.sub->str.replace, except IndexError) reproduces byte-identical output.
 
-Covers: headword `•` branch (no meaning_1), meaning+root branch, a constructed
-digit-in-compound_type case (Compound row suppressed), root homonym grouping
-(<br>-joined) plus the final-root `except IndexError` peek, and the
-deconstructor skip-if-headword branch.
+Covers: headword `•` branch (no meaning_1), meaning+root branch, the Compound
+row rendered for any non-empty compound_type (digits cannot occur in the
+column — enforced by db_tests/single/test_allowable_characters.py), root
+homonym grouping (<br>-joined) plus the final-root `except IndexError` peek,
+and the deconstructor skip-if-headword branch.
 """
 
 import json
@@ -96,10 +97,10 @@ def test_root_homonym_grouping_uses_br() -> None:
         assert entry["definition"].endswith("</p></div>")
 
 
-def test_digit_compound_type_suppresses_compound_row() -> None:
+def test_compound_type_renders_compound_row() -> None:
     g = _make_g(_build_session())
     tpr.generate_tpr_data(g)
-    digit_entry = next(
+    compound_entry = next(
         e for e in g.tpr_data_list if e["word"] == "test_digit_compound 1"
     )
-    assert "Compound" not in digit_entry["definition"]
+    assert ">Compound</th>" in compound_entry["definition"]
