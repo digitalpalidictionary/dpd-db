@@ -30,7 +30,7 @@
         {%- if i.phonetic -%}
             <tr><th valign="top">Phonetic</th><td>{{ i.phonetic|replace("\n", "<br>") }}</td></tr>
         {%- endif -%}
-        {%- if i.compound_type and not i.compound_type_has_digit -%}
+        {%- if i.compound_type and not compound_type_has_digit -%}
             <tr><th valign="top">Compound</th><td>{{ i.compound_type }} ({{ i.compound_construction|replace("\n", "<br>") }})</td></tr>
         {%- endif -%}
         {%- if i.antonym -%}

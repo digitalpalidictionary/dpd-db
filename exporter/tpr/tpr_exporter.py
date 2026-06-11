@@ -56,10 +56,13 @@ def generate_tpr_data(g: GlobalVars) -> None:
     template = jinja_env.get_template("tpr_headword.jinja")
 
     for counter, i in enumerate(g.dpd_db):
-        # Add helper for template
-        i.compound_type_has_digit = bool(re.findall(r"\d", i.compound_type or ""))  # type: ignore
+        compound_type_has_digit = bool(re.findall(r"\d", i.compound_type or ""))
 
-        html_string = template.render(i=i, today=TODAY)
+        html_string = template.render(
+            i=i,
+            compound_type_has_digit=compound_type_has_digit,
+            today=TODAY,
+        )
 
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = html_string.replace("'", "’")
