@@ -37,23 +37,25 @@ wheels = [
 
 [[package]]
 name = "anki"
-version = "25.7.2"
+version = "25.2.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "beautifulsoup4" },
     { name = "decorator" },
     { name = "distro", marker = "sys_platform != 'darwin' and sys_platform != 'win32'" },
     { name = "markdown" },
     { name = "orjson" },
     { name = "protobuf" },
+    { name = "psutil", marker = "sys_platform == 'win32'" },
     { name = "requests", extra = ["socks"] },
     { name = "typing-extensions" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a8/25/bbc4276dbcec9cf8057a19264174d7e411e6478f561dd189cef2450b5382/anki-25.7.2-cp39-abi3-macosx_12_0_arm64.whl", hash = "sha256:63f0a449704e06fb5788cd3bc22afee0335b6efee86fe799cc8a248dacdff4a0", size = 9662147 },
-    { url = "https://files.pythonhosted.org/packages/ec/66/b60a40a780c04487c7d525dcfddb98e7f91d2106a4e8d1f9fe3faac87ec7/anki-25.7.2-cp39-abi3-macosx_12_0_x86_64.whl", hash = "sha256:d163349299d2725031a9b2d53cbbdb6cd805c182c80af9451f2957ab99349d47", size = 10126290 },
-    { url = "https://files.pythonhosted.org/packages/ed/0a/6f07edb9b60c0aa5e5ea2546ffb2f9cf079dd6b7b5b90f0d31852978c3b9/anki-25.7.2-cp39-abi3-manylinux_2_36_aarch64.whl", hash = "sha256:b631d1f9cebbb7f3aae90d954bbef3e1d162a9f2475b58eebdfe359f93c442fb", size = 10885265 },
-    { url = "https://files.pythonhosted.org/packages/bf/05/3f3e0e890408cd8bf590bb00029de1623d85a09f2bc40545f87f4fa5e0f8/anki-25.7.2-cp39-abi3-manylinux_2_36_x86_64.whl", hash = "sha256:72e4ffc762b0d44940f1749e9f435347d7f39591e8e443ed547480baf8f16cf0", size = 11375761 },
-    { url = "https://files.pythonhosted.org/packages/fd/b9/8561bbb48c2527c50917ecaf83bd9c8048cd8f9e2607f3e12b73a2cc9e09/anki-25.7.2-cp39-abi3-win_amd64.whl", hash = "sha256:2773aa1b83f19c72ff0fc95d06e07676d72db60963c98c780be06cf7c98f02a9", size = 9942344 },
+    { url = "https://files.pythonhosted.org/packages/c1/9d/fab8ab4a48b32e842f83e2d4962512558610f6939f58289b9f3a437388c7/anki-25.02.7-cp39-abi3-macosx_12_0_arm64.whl", hash = "sha256:aca0ce84c73998abd4920434a7e53c037b5b3fcec9727af2ceb01687cac7a87f", size = 9032257 },
+    { url = "https://files.pythonhosted.org/packages/89/85/e54b97cfb587df07f6705726d819e074a44c7d2ac792438d819b321330d1/anki-25.02.7-cp39-abi3-macosx_12_0_x86_64.whl", hash = "sha256:8410257b7e81d452436049753dbea2f5f4cf07ab134e14c89a91e6a9658bf075", size = 9499648 },
+    { url = "https://files.pythonhosted.org/packages/71/40/19545c12e7d14cf00a5d669317bc39e8b0e14b538da9a1bf753a0b59269f/anki-25.02.7-cp39-abi3-manylinux_2_35_aarch64.whl", hash = "sha256:8cd97678bfe46509629e23d9906211c4a605f1d5ab30a3b08aa28bacb8fc09e3", size = 10280458 },
+    { url = "https://files.pythonhosted.org/packages/f4/be/4b66f654302eb99e02f691ba1fdd1a5cd1f439d439b3b16f58aa4786836f/anki-25.02.7-cp39-abi3-manylinux_2_35_x86_64.whl", hash = "sha256:ae979f157527d2a2a9c77ffa38fd015e43f067c04e43e111c99fa2cf35612e5d", size = 10655455 },
+    { url = "https://files.pythonhosted.org/packages/35/61/ec83880eddad014bd8dc2c16975e4c2662abfed8830fd1612a7ff2d396d0/anki-25.02.7-cp39-abi3-win_amd64.whl", hash = "sha256:ba257206176829a0b889473e68dec72835c023964cc11c4cea162ecf2ae7e6fd", size = 9293239 },
 ]
 
 [[package]]
@@ -616,7 +618,7 @@ dev = [
     { name = "pytest", specifier = ">=7.4.3" },
 ]
 tools = [
-    { name = "anki", specifier = ">=23.10.1" },
+    { name = "anki", specifier = ">=23.10.1,<25.3" },
     { name = "dbf", specifier = ">=0.99.9" },
     { name = "elevenlabs", specifier = ">=1.57.0" },
     { name = "flask", specifier = ">=3.0.0" },

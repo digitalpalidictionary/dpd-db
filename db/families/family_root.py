@@ -12,7 +12,6 @@ from db.db_helpers import get_db_session
 from db.families.root_info import generate_root_info_html
 from db.families.root_matrix import generate_root_matrix
 from db.models import DpdHeadword, DpdRoot, FamilyRoot
-from exporter.anki.anki_updater import family_updater
 from tools.configger import config_test
 from tools.lookup_sync import sync_lookup_column
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
@@ -53,6 +52,8 @@ def main() -> None:
     db_session.close()
 
     if config_test("anki", "update", "yes"):
+        from exporter.anki.anki_updater import family_updater
+
         # root families
         anki_data_list = make_anki_data(rf_dict)
         deck = ["Family Root"]

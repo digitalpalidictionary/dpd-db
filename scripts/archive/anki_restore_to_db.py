@@ -11,10 +11,10 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-from exporter.anki.anki_updater import setup_anki_updater
-
 
 def main():
+    from exporter.anki.anki_updater import setup_anki_updater
+
     pr.tic()
     print("[bright_yellow]updating anki")
 
