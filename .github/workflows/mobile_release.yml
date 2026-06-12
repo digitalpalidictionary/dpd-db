@@ -3,9 +3,20 @@ name: Mobile Release
 # Builds only the mobile DB and creates a draft release containing
 # dpd-mobile-db.zip. The app only sees published releases via the GitHub
 # API, so the draft stays invisible until manually published.
+#
+# Two modes:
+# - default: full fresh database build (~50 min)
+# - use_last_release_db: reuse dpd.db.tar.bz2 from the latest published
+#   release and skip the build (~10 min). Ships the previous release's
+#   dictionary data — only use when the goal is repackaging, not new data.
 
 on:
  workflow_dispatch:
+   inputs:
+     use_last_release_db:
+       description: "Reuse dpd.db from the latest published release instead of a fresh build"
+       type: boolean
+       default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -38,6 +49,7 @@ jobs:
         rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
 
     - name: Unzip deconstructor_output
+      if: ${{ !inputs.use_last_release_db }}
       run: |
         cd ${{ github.workspace }}/resources/deconstructor_output
         tar -xzvf deconstructor_output.json.tar.gz
@@ -58,107 +70,158 @@ jobs:
       run: uv sync --all-groups
 
     - name: Set up Go
+      if: ${{ !inputs.use_last_release_db }}
       uses: actions/setup-go@v6
       with:
         go-version: '1.22.2'
 
-    # ----------------------------------------
-    # Build Database (mirrors draft_release.yml)
-    # ----------------------------------------
-
     - name: Config for GitHub release
       run: uv run python scripts/build/config_github_release.py
 
+    # ----------------------------------------
+    # Variant A: reuse dpd.db from latest release
+    # ----------------------------------------
+
+    - name: Download dpd.db from latest release
+      if: ${{ inputs.use_last_release_db }}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release download --repo digitalpalidictionary/dpd-db \
+          --pattern dpd.db.tar.bz2 --output dpd.db.tar.bz2
+        tar -xjf dpd.db.tar.bz2
+        rm dpd.db.tar.bz2
+        ls -lh dpd.db
+
+    - name: Stamp version on reused DB
+      if: ${{ inputs.use_last_release_db }}
+      run: uv run python tools/version.py
+
+    # ----------------------------------------
+    # Variant B (default): full fresh build
+    # (mirrors draft_release.yml Build Database section)
+    # ----------------------------------------
+
     - name: Create dpd.db
+      if: ${{ !inputs.use_last_release_db }}
       run: touch dpd.db
 
     - name: Build the database
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/db_rebuild_from_tsv.py
 
     - name: Run initial setup script
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/bash/initial_setup_run_once.py
 
     - name: Create version
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python tools/version.py
 
     - name: Create Inflection Templates
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/inflections/create_inflection_templates.py
 
     - name: Create Inflection Tables
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/inflections/generate_inflection_tables.py
 
     - name: Update Root Has Verb values
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/root_has_verb_updater.py
 
     - name: Update Sanskrit Family Roots
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/sanskrit_root_families_updater.py
 
     - name: Add Root Families
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/families/family_root.py
 
     - name: Add Word Families
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/families/family_word.py
 
     - name: Add Compound Families
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/families/family_compound.py
 
     - name: Add Sets
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/families/family_set.py
 
     - name: Add Idioms
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/families/family_idiom.py
 
     - name: Families to JSON
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/families_to_json.py
 
     - name: Extract Variants
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/variants/main.py
 
     - name: Run Deconstructor
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/deconstructor_output_add_to_db.py
 
     - name: Add api ca eva iti to inflections
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/api_ca_eva_iti_iva_hi.py
 
     - name: Transliterate Inflections
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/inflections/transliterate_inflections.py
 
     - name: Inflections to Headwords
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/inflections/inflections_to_headwords.py
 
     - name: Populate Sutta table
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/suttas/suttas_update.py
 
     - name: Add Suttas to Lookup table
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/suttas/suttas_to_lookup.py
 
     - name: Generate Grammar data
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/grammar/grammar_to_lookup.py
 
     - name: Lookup Variants and Spelling Mistakes
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/lookup/spelling_mistakes.py
 
     - name: Lookup Transliterate
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/lookup/transliterate_lookup_table.py
 
     - name: Lookup Help and Abbreviations
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/lookup/help_abbrev_add_to_lookup.py
 
     - name: Add Frequency
+      if: ${{ !inputs.use_last_release_db }}
       run: |
         go build -o frequency go_modules/frequency/main.go
         ./frequency
 
     - name: Run EBT Counter
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/ebt_counter.py
 
     - name: Update Bold Definitions
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/bold_definitions/update_bold_definitions_db.py
 
     - name: Add EPD to Lookup Table
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python db/epd/epd_to_lookup.py
 
     - name: Test Dealbreakers
+      if: ${{ !inputs.use_last_release_db }}
       run: uv run python scripts/build/dealbreakers.py
 
     # ----------------------------------------
