@@ -1,5 +1,5 @@
 import json
-from typing import Any
+from typing import Any, cast
 
 import requests
 
@@ -13,6 +13,38 @@ DEFAULT_API_KEY_NAME = "deepseek"
 DS_BALANCE = "https://api.deepseek.com/user/balance"
 DS_CHAT = "https://api.deepseek.com/chat/completions"
 DS_CHAT_MODELS = "https://api.deepseek.com/models"
+DISABLED_THINKING_MODE = {"type": "disabled"}
+DEFAULT_MAX_TOKENS = 8192
+MAX_ERROR_DETAIL_CHARS = 300
+
+
+def _truncate_error_detail(value: Any) -> str:
+    text = str(value)
+    if len(text) <= MAX_ERROR_DETAIL_CHARS:
+        return text
+    return f"{text[:MAX_ERROR_DETAIL_CHARS]}..."
+
+
+def _format_empty_content_status(response_json: dict[str, Any]) -> str:
+    choices = response_json.get("choices")
+    choice: dict[str, Any] = {}
+    if isinstance(choices, list) and choices and isinstance(choices[0], dict):
+        choice = cast(dict[str, Any], choices[0])
+
+    message: dict[str, Any] = {}
+    message_raw = choice.get("message")
+    if isinstance(message_raw, dict):
+        message = cast(dict[str, Any], message_raw)
+
+    finish_reason = choice.get("finish_reason")
+    usage = _truncate_error_detail(response_json.get("usage"))
+    status = f"empty content (finish_reason={finish_reason}, usage={usage})"
+
+    detail_value = message.get("content") or message.get("reasoning_content")
+    if detail_value:
+        detail = _truncate_error_detail(detail_value)
+        return f"{status}; detail={detail}"
+    return status
 
 
 class DeepseekManager:
@@ -90,8 +122,8 @@ class DeepseekManager:
 
         payload = {
             "model": current_model,  # Use the potentially defaulted model
-            "max_tokens": 4096,
-            "thinking": {"type": "disabled"},
+            "max_tokens": DEFAULT_MAX_TOKENS,
+            "thinking": DISABLED_THINKING_MODE,
             "presence_penalty": 0,
             "stream": False,
             "temperature": 1,
@@ -111,18 +143,23 @@ class DeepseekManager:
 
         try:
             response_json = response.json()
-            content = (
-                response_json.get("choices", [{}])[0].get("message", {}).get("content")
-            )
+            choice = response_json.get("choices", [{}])[0]
+            content = choice.get("message", {}).get("content")
+            finish_reason = choice.get("finish_reason")
             if content:
+                status_message = str(response.status_code)
+                if finish_reason and finish_reason != "stop":
+                    status_message = (
+                        f"{response.status_code} (finish_reason={finish_reason})"
+                    )
                 return AIResponse(
                     content=content,
-                    status_message=str(response.status_code),
+                    status_message=status_message,
                 )
             else:
                 return AIResponse(
                     content=None,
-                    status_message=f"{response_json}",
+                    status_message=_format_empty_content_status(response_json),
                 )
         except json.JSONDecodeError as e:
             error_msg = f"DeepSeek JSON decode error with {current_model}.\n{e}.\nResponse text: {response.text}"
