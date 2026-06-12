@@ -57,10 +57,17 @@ def _make_paths(tmp_path: Path) -> SimpleNamespace:
     )
 
 
-def _export(tmp_path: Path, *, include_cone: bool = True) -> sqlite3.Connection:
+def _export(
+    tmp_path: Path, *, include_cone: bool = True, default_bhs: bool = True
+) -> sqlite3.Connection:
+    paths = _make_paths(tmp_path)
+    # Missing sources now raise; give tests a minimal valid BHS source
+    # unless they exercise the missing-BHS failure path themselves.
+    if default_bhs and not paths.bhs_source_path.exists():
+        paths.bhs_source_path.write_text("<bhs></bhs>", encoding="utf-8")
     dest = sqlite3.connect(":memory:")
     _export_other_dictionaries(
-        SimpleNamespace(pth=_make_paths(tmp_path)),
+        SimpleNamespace(pth=paths),
         dest,
         include_cone=include_cone,
     )
@@ -125,9 +132,7 @@ def test_exports_cpd_metadata_with_sanitized_css(tmp_path: Path) -> None:
     assert row[4] == 1
 
 
-def test_skips_missing_cpd_source_and_keeps_existing_dictionary_exports(
-    tmp_path: Path,
-) -> None:
+def test_missing_cpd_source_raises_with_remediation_hint(tmp_path: Path) -> None:
     paths = _make_paths(tmp_path)
     _write_json(paths.cone_source_path, {"1kamma": "<p>Cone entry</p>"})
     paths.cone_css_path.write_text(".cone { color: blue; }", encoding="utf-8")
@@ -137,22 +142,26 @@ def test_skips_missing_cpd_source_and_keeps_existing_dictionary_exports(
     )
     paths.mw_css_path.write_text(".mw { color: green; }", encoding="utf-8")
 
-    dest = _export(tmp_path)
+    with pytest.raises(FileNotFoundError, match="prepare_sources.py"):
+        _export(tmp_path)
 
-    dict_ids = {
-        row[0]
-        for row in dest.execute(
-            "SELECT dict_id FROM dict_meta ORDER BY dict_id"
-        ).fetchall()
-    }
 
-    assert dict_ids == {"cone", "mw"}
-    assert (
-        dest.execute(
-            "SELECT COUNT(*) FROM dict_entries WHERE dict_id = 'cpd'"
-        ).fetchone()[0]
-        == 0
-    )
+def test_missing_mw_source_raises(tmp_path: Path) -> None:
+    paths = _make_paths(tmp_path)
+    _write_cpd_db(paths.cpd_source_path, [("aṁga", "<p>entry</p>")])
+
+    with pytest.raises(FileNotFoundError, match="MW source not found"):
+        _export(tmp_path, include_cone=False)
+
+
+def test_missing_bhs_source_raises(tmp_path: Path) -> None:
+    paths = _make_paths(tmp_path)
+    _write_cpd_db(paths.cpd_source_path, [("aṁga", "<p>entry</p>")])
+    _write_json(paths.mw_source_json_path, [])
+    paths.mw_css_path.write_text(".mw { color: green; }", encoding="utf-8")
+
+    with pytest.raises(FileNotFoundError, match="BHS source not found"):
+        _export(tmp_path, include_cone=False, default_bhs=False)
 
 
 def test_preserves_duplicate_cpd_source_rows_without_alias_rows(tmp_path: Path) -> None:

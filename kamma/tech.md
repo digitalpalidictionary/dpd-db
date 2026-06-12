@@ -14,6 +14,10 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - This is an existing Git-managed project, so setup should work with the current repository structure and conventions rather than replacing them.
 
 ## Resources
+- Mobile DB export requires dictionary sources to be materialized first:
+  `cd resources/other-dictionaries && uv run python scripts/prepare_sources.py`
+  (decompresses tracked archives, builds MW fresh from Cologne with tracked
+  `mwweb1.zip` fallback). `mobile_exporter.py` hard-fails if sources are missing.
 - `README.md` and `CONTRIBUTING.md`
 - `conductor/product.md` and `conductor/tech-stack.md`
 - `docs/technical/` for database and project structure documentation

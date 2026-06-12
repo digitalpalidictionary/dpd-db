@@ -5,6 +5,9 @@ These rules are specific to the dpd-db project. Global rules (security, etc.) ar
 ## Kamma Finalize
 - When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — do not stop after archiving; also complete the GitHub comment and reflect/lessons steps.
 
+## Kamma Checkpoints
+- Never pause a kamma thread to ask for commit permission at phase checkpoints. The user commits everything in one go at the end — checkpoint steps are report-only.
+
 ## Project Overview
 
 This project contains everything related to the Digital Pāḷi Dictionary

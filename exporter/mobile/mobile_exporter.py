@@ -12,6 +12,7 @@ import json
 import re
 import sqlite3
 import unicodedata
+from pathlib import Path
 
 from aksharamukha import transliterate
 from bs4 import BeautifulSoup, Tag
@@ -366,6 +367,14 @@ def _sanitize_css(css: str) -> str:
     return css
 
 
+def _missing_source_error(name: str, path: Path) -> FileNotFoundError:
+    return FileNotFoundError(
+        f"{name} source not found: {path}\n"
+        "Run: cd resources/other-dictionaries && "
+        "uv run python scripts/prepare_sources.py"
+    )
+
+
 def export_other_dictionaries(
     g: GlobalVars, dest: sqlite3.Connection, *, include_cone: bool = False
 ) -> None:
@@ -487,7 +496,7 @@ def export_other_dictionaries(
 
         pr.yes(len(batch))
     else:
-        pr.red("CPD source not found, skipping")
+        raise _missing_source_error("CPD", g.pth.cpd_source_path)
 
     # --- MW (Monier-Williams from Cologne source) ---
     pr.green_tmr("exporting Monier Williams")
@@ -527,7 +536,7 @@ def export_other_dictionaries(
 
         pr.yes(len(batch))
     else:
-        pr.red("MW source not found, skipping")
+        raise _missing_source_error("MW", g.pth.mw_source_json_path)
 
     # --- BHS (Edgerton's Buddhist Hybrid Sanskrit Dictionary) ---
     pr.green_tmr("exporting BHS")
@@ -576,7 +585,7 @@ def export_other_dictionaries(
 
         pr.yes(len(batch))
     else:
-        pr.red("BHS source not found, skipping")
+        raise _missing_source_error("BHS", g.pth.bhs_source_path)
 
 
 def write_schema_version(dest: sqlite3.Connection) -> None:

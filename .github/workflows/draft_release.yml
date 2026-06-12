@@ -223,6 +223,10 @@ jobs:
         echo "=== After TXT export ==="
         $HOME/check_disk.sh
 
+    - name: Prepare dictionary sources
+      working-directory: resources/other-dictionaries
+      run: uv run python scripts/prepare_sources.py
+
     - name: Export Mobile DB
       run: |
         uv run python exporter/mobile/mobile_exporter.py
