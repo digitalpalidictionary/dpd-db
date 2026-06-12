@@ -129,11 +129,12 @@ Repo: `resources/other-dictionaries/` (own git repo, own uv project).
 ## Phase 3 — release verification (needs internet; user-driven, after the
 ## user commits and pushes both repos)
 
-- [ ] Task 3.1: Push both repos (other-dictionaries first: ~46 MB), then dispatch
+- [x] Task 3.1: Push both repos (other-dictionaries first: ~46 MB), then dispatch
   `mobile_release.yml` from the Actions tab
-  - → verify: run log shows `exporting CPD 29,734`, `exporting Monier Williams
-    ~194,084`, `exporting BHS 17,836` (NOT "not found, skipping"); draft release
-    created with `dpd-mobile-db.zip` ≈ 200 MB
+  - → verified 2026-06-12, run 27391990372 (use_last_release_db mode): log shows
+    `exporting CPD 29,734`, `exporting Monier Williams 194,084`, `exporting BHS
+    17,836` — no "not found, skipping"; draft v0.4.20260612 created with
+    `dpd-mobile-db.zip` 175.1 MB
 
 - [ ] Task 3.2: Spot-check the draft asset, then user publishes
   - Download the draft `dpd-mobile-db.zip` (or inspect via `gh`), open with sqlite:

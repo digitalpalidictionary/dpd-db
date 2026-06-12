@@ -9,7 +9,6 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DbInfo, DpdHeadword, FamilyCompound
-from exporter.anki.anki_updater import family_updater
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -48,6 +47,8 @@ def main() -> None:
 
     # update anki
     if config_test("anki", "update", "yes"):
+        from exporter.anki.anki_updater import family_updater
+
         anki_data_list = make_anki_data(cf_dict)
         deck = ["Family Compound"]
         family_updater(anki_data_list, deck)

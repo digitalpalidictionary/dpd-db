@@ -46,7 +46,9 @@ tools = [
     "openai>=1.54.4",
     "timeout-decorator>=0.5.0",
     "psutil>=5.9.6",
-    "anki>=23.10.1",
+    # anki 25.7+ ships protobuf-6 gencode, incompatible with the protobuf<6
+    # runtime required by the google-generativeai chain
+    "anki>=23.10.1,<25.3",
     "flask>=3.0.0",
     "flask-sqlalchemy>=3.1.1",
     "tomlkit>=0.12.3",

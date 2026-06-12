@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyWord
-from exporter.anki.anki_updater import family_updater
 from tools.configger import config_test
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
@@ -41,6 +40,8 @@ def main() -> None:
     db_session.close()
 
     if config_test("anki", "update", "yes"):
+        from exporter.anki.anki_updater import family_updater
+
         # word families
         anki_data_list = make_anki_data(wf_dict)
         deck = ["Family Word"]
