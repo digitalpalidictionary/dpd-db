@@ -1,7 +1,8 @@
 import json
+import shutil
 import time
 from pathlib import Path
-from typing import Any, NamedTuple, Optional
+from typing import Any, NamedTuple
 
 from tools.configger import config_read
 from tools.printer import printer as pr
@@ -9,19 +10,21 @@ from tools.printer import printer as pr
 AI_MODELS_PATH = Path("tools/ai_models.json")
 
 
-def _load_models_from_json() -> dict[str, list[tuple[str, str, int]]]:
+def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
     """Load model lists from tools/ai_models.json."""
+
+    def _entry(m: dict) -> tuple[str, str, int, float]:
+        return (m["provider"], m["model"], m["delay"], float(m.get("timeout", 150.0)))
+
     try:
         data = json.loads(AI_MODELS_PATH.read_text(encoding="utf-8"))
+        antigravity_cli_work = [
+            _entry(m) for m in data.get("antigravity_cli_work_models", [])
+        ]
         return {
-            "default": [
-                (m["provider"], m["model"], m["delay"])
-                for m in data.get("default_models", [])
-            ],
-            "grounded": [
-                (m["provider"], m["model"], m["delay"])
-                for m in data.get("grounded_models", [])
-            ],
+            "default": antigravity_cli_work
+            + [_entry(m) for m in data.get("default_models", [])],
+            "grounded": [_entry(m) for m in data.get("grounded_models", [])],
         }
     except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
         pr.red(f"Failed to load {AI_MODELS_PATH}: {e}")
@@ -38,15 +41,15 @@ class AIResponse(NamedTuple):
                         including provider, model, duration, and any errors.
     """
 
-    content: Optional[str]
+    content: str | None
     status_message: str
 
 
 class AIManager:
     def __init__(self):
         models = _load_models_from_json()
-        self.DEFAULT_MODELS: list[tuple[str, str, int]] = models["default"]
-        self.GROUNDED_MODELS: list[tuple[str, str, int]] = models["grounded"]
+        self.DEFAULT_MODELS: list[tuple[str, str, int, float]] = models["default"]
+        self.GROUNDED_MODELS: list[tuple[str, str, int, float]] = models["grounded"]
 
         self.providers: dict[str, Any] = {}
 
@@ -87,6 +90,16 @@ class AIManager:
         else:
             pr.amber("NVIDIA API key not found, manager not initialized.")
 
+        if shutil.which("agy"):
+            from tools.ai_antigravity_cli import AntigravityCliManager
+
+            self.providers["antigravity_cli"] = AntigravityCliManager()
+            pr.green("antigravity_cli initialized")
+        else:
+            pr.amber(
+                "agy executable not found on PATH, antigravity_cli not initialized."
+            )
+
         pr.green(
             f"loaded {len(self.DEFAULT_MODELS)} default models, {len(self.GROUNDED_MODELS)} grounded models"
         )
@@ -107,13 +120,17 @@ class AIManager:
 
     def _get_model_delay(self, provider: str, model: str) -> float:
         """Get delay for specific model, with fallback to global delay."""
-        # Look through all model lists for this provider/model combination
         for model_tuple in self.DEFAULT_MODELS + self.GROUNDED_MODELS:
             if model_tuple[0] == provider and model_tuple[1] == model:
                 return model_tuple[2]
-
-        # Fallback to global delay if model not found
         return self.min_delay_seconds
+
+    def _get_model_timeout(self, provider: str, model: str) -> float:
+        """Get per-model timeout, falling back to 150s if not configured."""
+        for model_tuple in self.DEFAULT_MODELS + self.GROUNDED_MODELS:
+            if model_tuple[0] == provider and model_tuple[1] == model:
+                return model_tuple[3]
+        return 150.0
 
     def request(
         self,
@@ -149,14 +166,11 @@ class AIManager:
             if provider_name not in self.providers:
                 continue
 
-            provider = self.providers[provider_name]
-
-            # Rate limit only the model actually being requested
             model_key = f"{provider_name}:{model_name}"
             model_delay = self._get_model_delay(provider_name, model_name)
-            elapsed_since_last = time.monotonic() - self.model_last_request.get(
-                model_key, 0
-            )
+            current_time = time.monotonic()
+            last_request = self.model_last_request.get(model_key, 0)
+            elapsed_since_last = current_time - last_request
             wait_time = model_delay - elapsed_since_last
 
             if wait_time > 0:
@@ -164,6 +178,7 @@ class AIManager:
                 time.sleep(wait_time)
 
             self.model_last_request[model_key] = time.monotonic()
+            provider = self.providers[provider_name]
 
             start_time = time.monotonic()
             self.last_request_time = start_time
@@ -174,7 +189,7 @@ class AIManager:
                     prompt=prompt,
                     prompt_sys=prompt_sys,
                     model=model_name,
-                    timeout=60.0,
+                    timeout=self._get_model_timeout(provider_name, model_name),
                     grounding=grounding,
                     **kwargs,
                 )
@@ -183,8 +198,20 @@ class AIManager:
 
                 if ai_response.content is not None:
                     status_message = (
-                        f"SUCCESS in {duration:.2f}s. {ai_response.status_message}"
+                        f"SUCCESS in {duration:.2f}s. {provider_name}/{model_name}"
                     )
+                    provider_detail = ai_response.status_message
+                    if (
+                        provider_detail
+                        and provider_detail not in status_message
+                        and not provider_detail.startswith("Success")
+                    ):
+                        status_message = f"{status_message} ({provider_detail})"
+                    if errors:
+                        status_message = (
+                            f"{status_message} (after {len(errors)} failed attempt(s): "
+                            f"{' | '.join(errors)})"
+                        )
                     pr.green(status_message)
                     return AIResponse(
                         content=ai_response.content,
