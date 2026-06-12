@@ -6,7 +6,7 @@ from typing import Any, cast
 from sqlalchemy.orm import Session
 
 from db.models import DpdHeadword, Lookup
-from exporter.analysis.types import AnalysisOption, AnalysisResult
+from exporter.analysis.analysis_types import AnalysisOption, AnalysisResult
 from tools.clean_machine import clean_machine
 from tools.pali_alphabet import pali_alphabet
 
@@ -188,16 +188,14 @@ def is_pos_compatible(hw_pos: str, grammar_pos: str, grammar_string: str = "") -
             return False
         if "fem " in grammar_string and hw_pos != "fem":
             return False
-        if "nt " in grammar_string and hw_pos != "nt":
-            return False
-        return True
+        return not ("nt " in grammar_string and hw_pos != "nt")
 
     # Adjective compatibility
     if grammar_pos == "adj" and hw_pos in ["adj"]:
         return True
 
     # Verb compatibility (simplified)
-    if grammar_pos == "verb" and hw_pos in [
+    return grammar_pos == "verb" and hw_pos in [
         "pr",
         "aor",
         "fut",
@@ -209,10 +207,7 @@ def is_pos_compatible(hw_pos: str, grammar_pos: str, grammar_string: str = "") -
         "abs",
         "inf",
         "ger",
-    ]:
-        return True
-
-    return False
+    ]
 
 
 def get_in_comp_forms(inflections_html: str) -> set[str]:
@@ -404,9 +399,12 @@ def get_word_details(
                     is_valid_stem = True
 
                 # Check if token is an "in comps" form in the headword's inflection table
-                if not is_valid_stem and hw.inflections_html:
-                    if token in get_in_comp_forms(hw.inflections_html):
-                        is_valid_stem = True
+                if (
+                    not is_valid_stem
+                    and hw.inflections_html
+                    and token in get_in_comp_forms(hw.inflections_html)
+                ):
+                    is_valid_stem = True
 
             if not is_valid_stem:
                 continue

@@ -4,6 +4,7 @@ import json
 import re
 from typing import Any
 
+from ._base import _is_deconstruction_key, _retry_prompt_groups
 
 MAX_FIRST_CONTEXT_CHARS = 250_000
 
@@ -37,35 +38,6 @@ COMMON_PALI_RULES = """### Common Pāḷi Disambiguation Rules:
 - Counted time-spans such as `paṇṇavīsativassāni` / `vassāni` ("for twenty-five years") are accusative of duration, not nominative.
 - When dative and genitive variants of the same surface form are offered, prefer the genitive for possession or relation ("of X"); select dative only when the context expresses a recipient, purpose, or benefit ("for/to X").
 """
-
-_GRAMMAR_ANNOTATION_KEYWORDS = (
-    "nominative",
-    "accusative",
-    "genitive",
-    "dative",
-    "instrumental",
-    "locative",
-    "ablative",
-    "vocative",
-    "singular",
-    "plural",
-    "masculine",
-    "feminine",
-    "neuter",
-    "enclitic",
-    "particle",
-    "indeclinable",
-    "optative",
-    "aorist",
-    "participle",
-    "component of",
-    "grammatical",
-    "interrogative",
-)
-
-_GRAMMAR_ABBREVIATION_RE = re.compile(
-    r"\b(?:masc|fem|nt|nom|acc|gen|dat|abl|instr|loc|voc|sg|pl)\."
-)
 
 _TRAILING_PUNCTUATION = '.,;:!?)]}”’"'
 
@@ -233,9 +205,6 @@ def _build_missing_scores_prompt(
     sentence: str,
     missing_groups: list[dict[str, Any]],
 ) -> str:
-    from .ai_response import _is_deconstruction_key
-    from .retry import _retry_prompt_groups
-
     context = json.dumps(
         _retry_prompt_groups(missing_groups),
         ensure_ascii=False,

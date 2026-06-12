@@ -4,8 +4,32 @@ import copy
 import json
 from typing import Any
 
-
 from tools.ai_manager import AIManager
+
+from .ai_response import (
+    _coerce_flat_score_map,
+    _iter_options,
+    _normalize_ai_response,
+    _parse_ai_json,
+    _strip_occurrence_key_prefix,
+)
+from .prompts import (
+    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
+    _RETRY_EQUIVALENT_KEY_GROUPS,
+    _RETRY_OPTION_FIELDS,
+    MAX_RETRY_BATCHES,
+    MAX_RETRY_CONTEXT_CHARS,
+    NO_TOOLS_INSTRUCTION,
+    _build_missing_scores_prompt,
+)
+from .scoring import (
+    _copy_score_context_fields,
+    _db_example_group_key,
+    _deterministic_score_value,
+    _deterministic_selection_source,
+    _is_db_example_tied_score,
+    _positive_ai_score_value,
+)
 
 
 def _find_missing_score_groups(
@@ -185,10 +209,6 @@ def _batch_missing_groups(
     return batches
 
 
-def _has_non_empty_string(value: Any) -> bool:
-    return isinstance(value, str) and bool(value.strip())
-
-
 def _strip_reformat_context_fields(scores: dict[str, Any]) -> None:
     for value in scores.values():
         if isinstance(value, dict):
@@ -218,20 +238,6 @@ def _trim_groups_for_retry(
             )
         trimmed.append(trimmed_group)
     return trimmed
-
-
-def _retry_prompt_groups(
-    missing_groups: list[dict[str, Any]],
-) -> list[dict[str, Any]]:
-    return [
-        {
-            "word": group.get("word", ""),
-            "context": group.get("context", ""),
-            "missing_keys": group.get("missing_keys", []),
-            "options": group.get("options", []),
-        }
-        for group in missing_groups
-    ]
 
 
 def _fan_out_retry_scores(
@@ -335,29 +341,3 @@ def _request_missing_score_retry_pass(
             debug["retry_requests"].append(retry_debug)
 
     return skipped_groups
-
-
-from .prompts import (  # noqa: E402
-    MAX_RETRY_CONTEXT_CHARS,
-    MAX_RETRY_BATCHES,
-    NO_TOOLS_INSTRUCTION,
-    _RETRY_OPTION_FIELDS,
-    _RETRY_EQUIVALENT_KEY_GROUPS,
-    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
-    _build_missing_scores_prompt,
-)
-from .ai_response import (  # noqa: E402
-    _parse_ai_json,
-    _normalize_ai_response,
-    _coerce_flat_score_map,
-    _strip_occurrence_key_prefix,
-    _iter_options,
-)
-from .scoring import (  # noqa: E402
-    _db_example_group_key,
-    _positive_ai_score_value,
-    _deterministic_score_value,
-    _copy_score_context_fields,
-    _is_db_example_tied_score,
-    _deterministic_selection_source,
-)

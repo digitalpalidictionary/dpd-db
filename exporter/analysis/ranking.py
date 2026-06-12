@@ -2,10 +2,17 @@
 
 from typing import Any
 
+from ._base import (
+    _clean_meaning,
+    _is_deconstruction_key,
+    _is_numeric_score,
+    _strip_grammar_annotations,
+)
+from .ai_response import _is_deconstructed_placeholder, _is_missing_key
+from .prompts import _PARENT_MEANING_STOPWORDS, _PARENT_MEANING_TOKEN_RE
+
 
 def _component_contextual_meaning(component: dict[str, Any]) -> str:
-    from .rendering import _strip_grammar_annotations
-
     for field in ("meaning_combo", "meaning_1"):
         meaning = component.get(field)
         if isinstance(meaning, str) and meaning.strip():
@@ -117,8 +124,6 @@ def _select_best_option(
 
 
 def _first_meaning_sense(option: dict[str, Any]) -> str:
-    from .rendering import _clean_meaning, _strip_grammar_annotations
-
     for field in ("meaning_combo", "meaning_1"):
         meaning = option.get(field)
         if not isinstance(meaning, str):
@@ -160,15 +165,3 @@ def _deconstruction_fallback_meaning(option: dict[str, Any]) -> str:
     if meaning:
         return meaning
     return "*(AI analysis of deconstruction)*"
-
-
-from .prompts import (  # noqa: E402
-    _PARENT_MEANING_TOKEN_RE,
-    _PARENT_MEANING_STOPWORDS,
-)
-from .ai_response import (  # noqa: E402
-    _is_deconstructed_placeholder,
-    _is_deconstruction_key,
-    _is_missing_key,
-)
-from .scoring import _is_numeric_score  # noqa: E402

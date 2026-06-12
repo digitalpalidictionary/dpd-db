@@ -1,56 +1,24 @@
 """Shared prompt-building and analysis utilities for Pāḷi AI translation."""
 
 import copy
-
 import json
-
 import re
-
 from collections.abc import Callable
-
 from typing import Any, cast
 
 from sqlalchemy.orm import Session
 
 from exporter.analysis.analyzer import analyze_sentence, tokenize_sentence
-
 from tools.ai_manager import AIManager
-
 from tools.printer import printer as pr
 
-from .prompts import (  # noqa: F401
-    CHUNK_FIRST_PASS_ATTEMPTS,
-    COMMON_PALI_RULES,
-    MAX_FIRST_CONTEXT_CHARS,
-    MAX_RETRY_BATCHES,
-    MAX_RETRY_CONTEXT_CHARS,
-    NO_GRAMMAR_NOTES_INSTRUCTION,
-    NO_TOOLS_INSTRUCTION,
-    PREVIOUS_TRANSLATION_CONTEXT_CHARS,
-    REFORMAT_KEYS_MAX_CHARS,
-    REFORMAT_MAX_CHARS,
-    _DB_EXAMPLE_ALL_VARIANTS_TIED_SOURCE,
-    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
-    _DECONSTRUCTED_PLACEHOLDER,
-    _FINITE_VERB_GRAMMAR_RE,
-    _GRAMMAR_ABBREVIATION_RE,
-    _GRAMMAR_ANNOTATION_KEYWORDS,
-    _OCCURRENCE_KEY_PREFIX_RE,
-    _PARENT_MEANING_STOPWORDS,
-    _PARENT_MEANING_TOKEN_RE,
-    _QUOTATIVE_TI_SELECTION_SOURCE,
-    _RETRY_EQUIVALENT_KEY_GROUPS,
-    _RETRY_OPTION_FIELDS,
-    _SELECTION_KEY_FIELDS,
-    _SELECTION_LIST_KEYS,
-    _SENTENCE_SPLIT_RE,
-    _TRAILING_PUNCTUATION,
-    _build_missing_scores_prompt,
-    _build_reformat_prompt,
-    _build_translation_prompt,
-    _previous_translation_block,
-    _word_keys_overview,
-    build_system_prompt,
+from ._base import (  # noqa: F401
+    _clean_meaning,
+    _has_non_empty_string,
+    _is_deconstruction_key,
+    _is_numeric_score,
+    _retry_prompt_groups,
+    _strip_grammar_annotations,
 )
 from .ai_response import (  # noqa: F401
     _append_unique_text_part,
@@ -61,7 +29,6 @@ from .ai_response import (  # noqa: F401
     _extract_structured_selection_map,
     _extract_word_key_map,
     _is_deconstructed_placeholder,
-    _is_deconstruction_key,
     _is_missing_key,
     _iter_options,
     _matching_key_by_id,
@@ -77,35 +44,37 @@ from .ai_response import (  # noqa: F401
     _top_level_options_for_word,
     _wrong_schema_has_meaning_evidence,
 )
-from .scoring import (  # noqa: F401
-    _apply_deterministic_scores_to_map,
-    _apply_quotative_ti_deconstruction_score,
-    _construction_parts,
-    _copy_score_context_fields,
-    _db_example_group_key,
-    _deterministic_score_value,
-    _deterministic_selection_source,
-    _finite_verb_first_component,
-    _is_db_example_tied_score,
-    _is_iti_final_deconstruction,
-    _is_numeric_score,
-    _is_quotative_ti_token,
-    _numeric_score_value,
-    _positive_ai_score_value,
-    _score_selection_source,
-    merge_ai_selections,
-    pre_match_db_examples,
-)
-from .retry import (  # noqa: F401
-    _batch_missing_groups,
-    _fan_out_retry_scores,
-    _find_missing_score_groups,
-    _has_non_empty_string,
-    _narrow_db_example_tied_groups,
-    _request_missing_score_retry_pass,
-    _retry_prompt_groups,
-    _strip_reformat_context_fields,
-    _trim_groups_for_retry,
+from .prompts import (  # noqa: F401
+    _DB_EXAMPLE_ALL_VARIANTS_TIED_SOURCE,
+    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
+    _DECONSTRUCTED_PLACEHOLDER,
+    _FINITE_VERB_GRAMMAR_RE,
+    _OCCURRENCE_KEY_PREFIX_RE,
+    _PARENT_MEANING_STOPWORDS,
+    _PARENT_MEANING_TOKEN_RE,
+    _QUOTATIVE_TI_SELECTION_SOURCE,
+    _RETRY_EQUIVALENT_KEY_GROUPS,
+    _RETRY_OPTION_FIELDS,
+    _SELECTION_KEY_FIELDS,
+    _SELECTION_LIST_KEYS,
+    _SENTENCE_SPLIT_RE,
+    _TRAILING_PUNCTUATION,
+    CHUNK_FIRST_PASS_ATTEMPTS,
+    COMMON_PALI_RULES,
+    MAX_FIRST_CONTEXT_CHARS,
+    MAX_RETRY_BATCHES,
+    MAX_RETRY_CONTEXT_CHARS,
+    NO_GRAMMAR_NOTES_INSTRUCTION,
+    NO_TOOLS_INSTRUCTION,
+    PREVIOUS_TRANSLATION_CONTEXT_CHARS,
+    REFORMAT_KEYS_MAX_CHARS,
+    REFORMAT_MAX_CHARS,
+    _build_missing_scores_prompt,
+    _build_reformat_prompt,
+    _build_translation_prompt,
+    _previous_translation_block,
+    _word_keys_overview,
+    build_system_prompt,
 )
 from .ranking import (  # noqa: F401
     _component_contextual_meaning,
@@ -121,10 +90,35 @@ from .ranking import (  # noqa: F401
     _select_best_option,
 )
 from .rendering import (  # noqa: F401
-    _clean_meaning,
-    _strip_grammar_annotations,
     format_markdown_table,
     generate_markdown_report,
+)
+from .retry import (  # noqa: F401
+    _batch_missing_groups,
+    _fan_out_retry_scores,
+    _find_missing_score_groups,
+    _narrow_db_example_tied_groups,
+    _request_missing_score_retry_pass,
+    _strip_reformat_context_fields,
+    _trim_groups_for_retry,
+)
+from .scoring import (  # noqa: F401
+    _apply_deterministic_scores_to_map,
+    _apply_quotative_ti_deconstruction_score,
+    _construction_parts,
+    _copy_score_context_fields,
+    _db_example_group_key,
+    _deterministic_score_value,
+    _deterministic_selection_source,
+    _finite_verb_first_component,
+    _is_db_example_tied_score,
+    _is_iti_final_deconstruction,
+    _is_quotative_ti_token,
+    _numeric_score_value,
+    _positive_ai_score_value,
+    _score_selection_source,
+    merge_ai_selections,
+    pre_match_db_examples,
 )
 
 

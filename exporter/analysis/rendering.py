@@ -1,34 +1,10 @@
 """Markdown rendering helpers for Pāḷi study reports."""
 
-import re
 from typing import Any
 
-
-def _clean_meaning(meaning: str) -> str:
-    """Strip trailing grammar parentheticals that duplicate the Grammar column.
-
-    Removes patterns like '(masculine nominative plural of 'X')' and
-    '(component of compound 'X')' that the AI inherits from DPD meaning_combo.
-    """
-    return re.sub(r"\s*\([^)]*'[^']+'\)\s*$", "", meaning).strip()
-
-
-def _strip_grammar_annotations(text: str) -> str:
-    """Remove AI-added grammar parentheticals while preserving meaning notes."""
-
-    def replace_annotation(match: re.Match[str]) -> str:
-        content = match.group(1).lower()
-        if any(
-            keyword in content for keyword in _GRAMMAR_ANNOTATION_KEYWORDS
-        ) or _GRAMMAR_ABBREVIATION_RE.search(content):
-            return ""
-        return match.group(0)
-
-    cleaned = re.sub(r"\s*\(([^()]*)\)", replace_annotation, text)
-    cleaned = re.sub(r"\s{2,}", " ", cleaned)
-    cleaned = re.sub(r"\s+([,.;:!?])", r"\1", cleaned)
-    cleaned = re.sub(r"\s*[-,;:]\s*$", "", cleaned)
-    return cleaned.strip()
+from ._base import _clean_meaning, _is_deconstruction_key
+from .ai_response import _is_deconstructed_placeholder
+from .ranking import _deconstruction_fallback_meaning, _select_best_option
 
 
 def generate_markdown_report(
@@ -125,9 +101,8 @@ def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
                 # Prefer grammar (for sandhi/comp vb), fallback to POS (for pure compound parts)
                 comp_grammar = best_part.get("grammar") or best_part.get("pos", "")
 
-                if "selected_pos" in best_part and best_part["selected_pos"]:
-                    if comp_grammar == "sandhi/compound":
-                        comp_grammar = best_part["selected_pos"]
+                if best_part.get("selected_pos") and comp_grammar == "sandhi/compound":
+                    comp_grammar = best_part["selected_pos"]
 
                 # Construction Column: prefer compound_construction if available, else construction
                 comp_construction = best_part.get("compound_construction", "")
@@ -180,9 +155,8 @@ def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
         grammar = best_option.get("grammar", "")
 
         # Handle POS override
-        if "selected_pos" in best_option and best_option["selected_pos"]:
-            if grammar == "sandhi/compound":
-                grammar = best_option["selected_pos"]
+        if best_option.get("selected_pos") and grammar == "sandhi/compound":
+            grammar = best_option["selected_pos"]
 
         # Prepend adj POS when grammar exists but doesn't already label the word class
         if (
@@ -206,17 +180,3 @@ def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
         add_rows_recursive(best_option, 1, best_option.get("pos", ""))
 
     return "\n".join(table_rows)
-
-
-from .prompts import (  # noqa: E402
-    _GRAMMAR_ANNOTATION_KEYWORDS,
-    _GRAMMAR_ABBREVIATION_RE,
-)
-from .ai_response import (  # noqa: E402
-    _is_deconstructed_placeholder,
-    _is_deconstruction_key,
-)
-from .ranking import (  # noqa: E402
-    _select_best_option,
-    _deconstruction_fallback_meaning,
-)

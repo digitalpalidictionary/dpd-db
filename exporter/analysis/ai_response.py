@@ -5,6 +5,14 @@ import re
 from collections.abc import Iterator
 from typing import Any
 
+from ._base import _has_non_empty_string, _strip_grammar_annotations
+from .prompts import (
+    _DECONSTRUCTED_PLACEHOLDER,
+    _OCCURRENCE_KEY_PREFIX_RE,
+    _SELECTION_KEY_FIELDS,
+    _SELECTION_LIST_KEYS,
+)
+
 
 def _normalize_ai_response(ai_data: dict[str, Any]) -> dict[str, Any]:
     """Fix malformed AI responses with nested 'scores' keys.
@@ -12,15 +20,13 @@ def _normalize_ai_response(ai_data: dict[str, Any]) -> dict[str, Any]:
     Some AI models return scores in a nested structure like {"scores": {"scores": {...}}}.
     This function flattens that to the expected {"scores": {...}} format.
     """
-    from .rendering import _strip_grammar_annotations
-
     scores = ai_data.get("scores", {})
     if (
         isinstance(scores, dict)
         and "scores" in scores
         and not any(
             k.startswith(("decon_", "digits")) or "_" in k
-            for k in scores.keys()
+            for k in scores
             if isinstance(k, str)
         )
     ):
@@ -84,12 +90,6 @@ def _strip_occurrence_key_prefix(key: str) -> str:
     if not match:
         return key
     return match.group(1)
-
-
-def _is_deconstruction_key(key: Any) -> bool:
-    if not isinstance(key, str):
-        return False
-    return key.startswith("decon_") or "_decon_" in key
 
 
 def _is_missing_key(key: Any) -> bool:
@@ -331,8 +331,6 @@ def _extract_structured_selection_map(
     analysis: list[dict[str, Any]],
 ) -> tuple[dict[str, str], dict[str, str]] | None:
     """Recover wrong-schema structured selections into a word-key map."""
-    from .rendering import _strip_grammar_annotations
-
     if not isinstance(ai_data, dict) or not ai_data:
         return None
     if "scores" in ai_data or "translation" in ai_data:
@@ -412,8 +410,6 @@ def _extract_structured_selection_map(
 
 
 def _wrong_schema_has_meaning_evidence(ai_data: dict[str, Any]) -> bool:
-    from .retry import _has_non_empty_string
-
     scores = ai_data.get("scores")
     if isinstance(scores, dict):
         for value in scores.values():
@@ -432,11 +428,3 @@ def _wrong_schema_has_meaning_evidence(ai_data: dict[str, Any]) -> bool:
         elif isinstance(value, dict) and _has_non_empty_string(value.get("meaning")):
             return True
     return False
-
-
-from .prompts import (  # noqa: E402
-    _SELECTION_LIST_KEYS,
-    _SELECTION_KEY_FIELDS,
-    _OCCURRENCE_KEY_PREFIX_RE,
-    _DECONSTRUCTED_PLACEHOLDER,
-)

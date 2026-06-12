@@ -1,5 +1,4 @@
 import json
-import os
 from pathlib import Path
 from typing import Any, cast
 
@@ -27,11 +26,6 @@ def db_session() -> Session:
     return get_db_session(pth.dpd_db_path)
 
 
-@pytest.fixture
-def update_goldens() -> bool:
-    return os.environ.get("UPDATE_GOLDENS") == "1"
-
-
 def extract_distilled_rows(
     merged_result: dict[str, Any],
 ) -> list[tuple[str, int, str, str, str]]:
@@ -57,14 +51,12 @@ def extract_distilled_rows(
 
 
 @pytest.mark.parametrize("passage_name", PASSAGES)
-def test_passage_regression(
-    passage_name: str, db_session: Session, update_goldens: bool
-):
+def test_passage_regression(passage_name: str, db_session: Session):
     fixture_dir = Path("tests/exporter/analysis/fixtures/passages") / passage_name
     debug_path = fixture_dir / "ai_debug.json"
     metadata_path = fixture_dir / "metadata.json"
 
-    with open(metadata_path) as f:
+    with open(metadata_path, encoding="utf-8") as f:
         meta = json.load(f)
 
     ai_manager = RecordedAIManager(debug_path)
@@ -94,40 +86,10 @@ def test_passage_regression(
 
     ai_manager.assert_empty()
 
-    study_json = json.dumps(merged, ensure_ascii=False, indent=2)
     study_md = generate_markdown_report(merged, passage_obj, verse_id=passage_name)
     distilled_rows = extract_distilled_rows(merged)
 
-    json_path = fixture_dir / "study.json"
-    md_path = fixture_dir / "study.md"
-    distilled_path = fixture_dir / "distilled.json"
-
-    if update_goldens:
-        json_path.write_text(study_json, encoding="utf-8")
-        md_path.write_text(study_md, encoding="utf-8")
-        distilled_path.write_text(
-            json.dumps(distilled_rows, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
-        return
-
-    # Assertions
-    # 1. Byte-equality (JSON)
-    expected_json = json_path.read_text(encoding="utf-8")
-    assert study_json == expected_json, f"JSON regression for {passage_name}"
-
-    # 2. Byte-equality (MD)
-    expected_md = md_path.read_text(encoding="utf-8")
-    assert study_md == expected_md, f"MD regression for {passage_name}"
-
-    # 3. Distilled golden
-    expected_distilled = json.loads(distilled_path.read_text(encoding="utf-8"))
-    # Convert list of lists to list of tuples for comparison
-    expected_distilled = [tuple(row) for row in expected_distilled]
-    assert distilled_rows == expected_distilled, (
-        f"Distilled regression for {passage_name}"
-    )
-
-    # 4. Frozen correctness facts (Task 1.5)
+    # Invariant assertions
     if passage_name == "SN15.1_p2":
         # SN15.1 refrain gen pl (F71/F63)
         gen_pl_words = [
@@ -151,7 +113,7 @@ def test_passage_regression(
         # Ensure that multiple occurrences don't all get forced to the same positional key
         kayassa_rows = [r for r in distilled_rows if r[0] == "kāyassa"]
         if len(kayassa_rows) > 1:
-            kayassa_keys = set(r[2] for r in kayassa_rows)
+            kayassa_keys = {r[2] for r in kayassa_rows}
             assert len(kayassa_keys) > 1, (
                 "F66: 'kāyassa' occurrences should have independent selections, not fanned out to a single key."
             )

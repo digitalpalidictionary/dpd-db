@@ -3,6 +3,17 @@
 import copy
 from typing import Any
 
+from ._base import _is_deconstruction_key
+from .ai_response import _iter_options, _texts_overlap
+from .prompts import (
+    _DB_EXAMPLE_ALL_VARIANTS_TIED_SOURCE,
+    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
+    _FINITE_VERB_GRAMMAR_RE,
+    _QUOTATIVE_TI_SELECTION_SOURCE,
+    _TRAILING_PUNCTUATION,
+)
+from .ranking import _component_contextual_meaning
+
 
 def _score_selection_source(score_data: Any) -> str:
     if not isinstance(score_data, dict):
@@ -290,10 +301,6 @@ def _apply_deterministic_scores_to_map(
                 }
 
 
-def _is_numeric_score(score: Any) -> bool:
-    return isinstance(score, int | float) and not isinstance(score, bool)
-
-
 def merge_ai_selections(
     analysis_data: list[dict[str, Any]], ai_response: dict[str, Any]
 ) -> dict[str, Any]:
@@ -349,18 +356,3 @@ def merge_ai_selections(
         "literal_translation": ai_response.get("literal_translation", ""),
         "analysis": enriched_analysis,
     }
-
-
-from .prompts import (  # noqa: E402
-    _TRAILING_PUNCTUATION,
-    _FINITE_VERB_GRAMMAR_RE,
-    _QUOTATIVE_TI_SELECTION_SOURCE,
-    _DB_EXAMPLE_ALL_VARIANTS_TIED_SOURCE,
-    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
-)
-from .ai_response import (  # noqa: E402
-    _texts_overlap,
-    _is_deconstruction_key,
-    _iter_options,
-)
-from .ranking import _component_contextual_meaning  # noqa: E402

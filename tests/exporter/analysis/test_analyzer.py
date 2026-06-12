@@ -7,8 +7,8 @@ import pytest
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
+from exporter.analysis.analysis_types import AnalysisOption
 from exporter.analysis.analyzer import analyze_sentence
-from exporter.analysis.types import AnalysisOption
 
 
 @pytest.fixture
