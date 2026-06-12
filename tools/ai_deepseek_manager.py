@@ -3,10 +3,9 @@ from typing import Any, cast
 
 import requests
 
+from tools.ai_manager import AIResponse
 from tools.configger import config_read
 from tools.printer import printer as pr
-from tools.ai_manager import AIResponse
-
 
 DEFAULT_API_KEY_NAME = "deepseek"
 
@@ -106,13 +105,6 @@ class DeepseekManager:
             pr.amber(msg)
             return AIResponse(content=None, status_message=msg)
 
-        balance_info = self.balance()
-        _balance_before = (
-            float(balance_info.get("balance_infos", [{}])[0].get("total_balance", 0))
-            if "error" not in balance_info
-            else 0
-        )
-
         current_model = model if model is not None else "deepseek-chat"
 
         messages = []
@@ -123,7 +115,7 @@ class DeepseekManager:
         payload = {
             "model": current_model,  # Use the potentially defaulted model
             "max_tokens": DEFAULT_MAX_TOKENS,
-            "thinking": DISABLED_THINKING_MODE,
+            "thinking": dict(DISABLED_THINKING_MODE),
             "presence_penalty": 0,
             "stream": False,
             "temperature": 1,
@@ -147,14 +139,14 @@ class DeepseekManager:
             content = choice.get("message", {}).get("content")
             finish_reason = choice.get("finish_reason")
             if content:
-                status_message = str(response.status_code)
-                if finish_reason and finish_reason != "stop":
-                    status_message = (
-                        f"{response.status_code} (finish_reason={finish_reason})"
+                if finish_reason == "length":
+                    return AIResponse(
+                        content=None,
+                        status_message=f"truncated (finish_reason=length, model={current_model})",
                     )
                 return AIResponse(
                     content=content,
-                    status_message=status_message,
+                    status_message=str(response.status_code),
                 )
             else:
                 return AIResponse(
@@ -167,10 +159,6 @@ class DeepseekManager:
             return AIResponse(content=None, status_message=error_msg)
         except IndexError:
             error_msg = f"'choices' list empty/malformed. Response: {response.json() if response else 'N/A'}"
-            pr.red(error_msg)
-            return AIResponse(content=None, status_message=error_msg)
-        except Exception as e:
-            error_msg = f"{e}"
             pr.red(error_msg)
             return AIResponse(content=None, status_message=error_msg)
 

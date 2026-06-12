@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 import tools.ai_antigravity_cli as antigravity_cli
-from tools.antigravity_cli_models import RunResult
+from tools.ai_antigravity_cli_models import RunResult
 
 
 def _patch_agy(monkeypatch: pytest.MonkeyPatch, stdout: str) -> None:

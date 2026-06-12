@@ -9,7 +9,6 @@ import tempfile
 from pathlib import Path
 from typing import NamedTuple
 
-
 ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*[A-Za-z]|\x1b\][^\x07]*\x07")
 
 

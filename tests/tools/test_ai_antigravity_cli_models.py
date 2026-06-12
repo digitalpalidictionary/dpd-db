@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 
-import tools.antigravity_cli_models as antigravity_cli_models
+import tools.ai_antigravity_cli_models as antigravity_cli_models
 
 
 def test_run_antigravity_print_uses_isolated_cwd(
