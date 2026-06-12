@@ -1,0 +1,422 @@
+[
+  [
+    "atha",
+    1,
+    "w0_2794_default",
+    "ind",
+    "then; also; and so; after that"
+  ],
+  [
+    "kho",
+    1,
+    "w1_23966_default",
+    "ind, emph",
+    "indeed; surely; certainly; truly"
+  ],
+  [
+    "āyasmā",
+    1,
+    "w2_12242_5",
+    "masc nom sg of āyasmant",
+    "venerable; respectable; lit. having long life quality"
+  ],
+  [
+    "sāriputto",
+    1,
+    "w3_62518_0",
+    "masc nom sg of sāriputta",
+    "name of an arahant monk; chief disciple; great disciple of the Buddha; foremost monk in great wisdom; lit. son of Sāri"
+  ],
+  [
+    "yena",
+    1,
+    "w4_54169_default",
+    "ind, adv, instr sg of ya",
+    "where; wherever; in which direction; to; towards"
+  ],
+  [
+    "bhagavā",
+    1,
+    "w5_49139_0",
+    "masc nom sg of bhagavant",
+    "Sublime One; Blessed One; Fortunate One; Auspicious One; epithet of the Buddha; lit. having good fortune quality"
+  ],
+  [
+    "ten'upasaṅkami",
+    1,
+    "w6_31236_0",
+    "aor 3rd sg of tenupasaṅkami",
+    "approached there; went to that place"
+  ],
+  [
+    "upasaṅkamitvā",
+    1,
+    "w7_16096_default",
+    "abs of upasaṅkamati",
+    "having approached; having gone; having drawn near (to)"
+  ],
+  [
+    "bhagavantaṃ",
+    1,
+    "w8_49139_0",
+    "masc acc sg of bhagavant",
+    "Sublime One; Blessed One; Fortunate One; Auspicious One; epithet of the Buddha; lit. having good fortune quality"
+  ],
+  [
+    "abhivādetvā",
+    1,
+    "w9_8335_default",
+    "abs of abhivādeti",
+    "having paid homage"
+  ],
+  [
+    "ekam'antaṃ",
+    1,
+    "w10_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisīdi",
+    1,
+    "w11_38218_0",
+    "aor 3rd sg of nisīdi",
+    "sat down"
+  ],
+  [
+    "ekam'antaṃ",
+    2,
+    "w12_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisinnaṃ",
+    1,
+    "w13_38193_1",
+    "masc acc sg of nisinna",
+    "seated"
+  ],
+  [
+    "kho",
+    2,
+    "w14_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "āyasmantaṃ",
+    1,
+    "w15_12242_2",
+    "masc acc sg of āyasmant",
+    "venerable"
+  ],
+  [
+    "sāriputtaṃ",
+    1,
+    "w16_62518_0",
+    "masc acc sg of sāriputta",
+    "Sariputta"
+  ],
+  [
+    "bhagavā",
+    2,
+    "w17_49139_0",
+    "masc nom sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "etadavoca",
+    1,
+    "w18_17868_0",
+    "reflx aor 3rd sg of etadavoca",
+    "said this"
+  ],
+  [
+    "saṃkhittena'pi",
+    1,
+    "w19_decon_saṃkhittenapi_0",
+    "sandhi/compound",
+    "in brief also"
+  ],
+  [
+    "kho",
+    3,
+    "w20_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "ahaṃ",
+    1,
+    "w21_10868_4",
+    "1st nom sg of ahaṃ",
+    "I"
+  ],
+  [
+    "sāriputta",
+    1,
+    "w22_62518_0",
+    "masc voc sg of sāriputta",
+    "Sariputta"
+  ],
+  [
+    "dhammaṃ",
+    1,
+    "w23_34628_0",
+    "masc acc sg of dhamma",
+    "teaching"
+  ],
+  [
+    "deseyyaṃ",
+    1,
+    "w24_34001_0",
+    "reflx opt 1st sg of deseti",
+    "would teach"
+  ],
+  [
+    "vitthārena'pi",
+    1,
+    "w25_decon_vitthārenapi_0",
+    "sandhi/compound",
+    "in detail also"
+  ],
+  [
+    "kho",
+    4,
+    "w26_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "ahaṃ",
+    2,
+    "w27_10868_4",
+    "1st nom sg of ahaṃ",
+    "I"
+  ],
+  [
+    "sāriputta",
+    2,
+    "w28_62518_0",
+    "masc voc sg of sāriputta",
+    "Sariputta"
+  ],
+  [
+    "dhammaṃ",
+    2,
+    "w29_34628_0",
+    "masc acc sg of dhamma",
+    "teaching"
+  ],
+  [
+    "deseyyaṃ",
+    2,
+    "w30_34001_0",
+    "reflx opt 1st sg of deseti",
+    "would teach"
+  ],
+  [
+    "saṃkhittavitthārena'pi",
+    1,
+    "w31_decon_saṃkhittavitthārenapi_0",
+    "sandhi/compound",
+    "briefly and in detail also"
+  ],
+  [
+    "kho",
+    5,
+    "w32_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "ahaṃ",
+    3,
+    "w33_10868_4",
+    "1st nom sg of ahaṃ",
+    "I"
+  ],
+  [
+    "sāriputta",
+    3,
+    "w34_62518_0",
+    "masc voc sg of sāriputta",
+    "Sariputta"
+  ],
+  [
+    "dhammaṃ",
+    3,
+    "w35_34628_0",
+    "masc acc sg of dhamma",
+    "teaching"
+  ],
+  [
+    "deseyyaṃ",
+    3,
+    "w36_34001_0",
+    "reflx opt 1st sg of deseti",
+    "would teach"
+  ],
+  [
+    "aññātāro",
+    1,
+    "w37_1626_0",
+    "masc nom pl of aññātar",
+    "those who understand"
+  ],
+  [
+    "ca",
+    1,
+    "w38_25662_default",
+    "ind, conj",
+    "and"
+  ],
+  [
+    "dullabhā'ti",
+    1,
+    "w39_decon_dullabhāti_0",
+    "sandhi/compound",
+    "are hard to find"
+  ],
+  [
+    "etassa",
+    1,
+    "w40_17847_2",
+    "masc gen sg of eta",
+    "of this"
+  ],
+  [
+    "bhagavā",
+    3,
+    "w41_49139_0",
+    "masc nom sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "kālo",
+    1,
+    "w42_21393_0",
+    "masc nom sg of kāla",
+    "the right time"
+  ],
+  [
+    "etassa",
+    2,
+    "w43_17847_2",
+    "masc gen sg of eta",
+    "for this"
+  ],
+  [
+    "sugata",
+    1,
+    "w44_63609_2",
+    "masc voc sg of sugata",
+    "Sublime One"
+  ],
+  [
+    "kālo",
+    2,
+    "w45_21393_0",
+    "masc nom sg of kāla",
+    "proper time"
+  ],
+  [
+    "yaṃ",
+    1,
+    "w46_53874_default",
+    "ind, adv, acc sg of ya",
+    "that"
+  ],
+  [
+    "bhagavā",
+    4,
+    "w47_49139_0",
+    "masc nom sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "saṃkhittena'pi",
+    2,
+    "w48_decon_saṃkhittenapi_0",
+    "sandhi/compound",
+    "even in brief"
+  ],
+  [
+    "dhammaṃ",
+    4,
+    "w49_34628_0",
+    "masc acc sg of dhamma",
+    "Dhamma"
+  ],
+  [
+    "deseyya",
+    1,
+    "w50_34001_0",
+    "opt 3rd sg of deseti",
+    "would teach"
+  ],
+  [
+    "vitthārena'pi",
+    2,
+    "w51_decon_vitthārenapi_0",
+    "sandhi/compound",
+    "in detail also"
+  ],
+  [
+    "dhammaṃ",
+    5,
+    "w52_34628_0",
+    "masc acc sg of dhamma",
+    "teaching"
+  ],
+  [
+    "deseyya",
+    2,
+    "w53_34001_0",
+    "opt 3rd sg of deseti",
+    "would teach"
+  ],
+  [
+    "saṃkhittavitthārena'pi",
+    2,
+    "w54_decon_saṃkhittavitthārenapi_0",
+    "sandhi/compound",
+    "briefly and in detail also"
+  ],
+  [
+    "dhammaṃ",
+    6,
+    "w55_34628_0",
+    "masc acc sg of dhamma",
+    "teaching"
+  ],
+  [
+    "deseyya",
+    3,
+    "w56_34001_0",
+    "opt 3rd sg of deseti",
+    "would teach"
+  ],
+  [
+    "bhavissan'ti",
+    1,
+    "w57_49534_0",
+    "fut 3rd pl of bhavati",
+    "will be"
+  ],
+  [
+    "dhammassa",
+    1,
+    "w58_34628_1",
+    "masc gen sg of dhamma",
+    "of the teaching"
+  ],
+  [
+    "aññātāro'ti",
+    1,
+    "w59_decon_aññātāroti_0",
+    "sandhi/compound",
+    "those who understand"
+  ]
+]

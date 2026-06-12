@@ -1,0 +1,604 @@
+[
+  [
+    "atha",
+    1,
+    "w0_2794_default",
+    "ind",
+    "then"
+  ],
+  [
+    "kho",
+    1,
+    "w1_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "sāleyyakā",
+    1,
+    "w2_62598_0",
+    "masc nom pl of sāleyyaka",
+    "from the town of Sālā"
+  ],
+  [
+    "brāhmaṇagahapatikā",
+    1,
+    "w3_49044_0",
+    "masc nom pl of brāhmaṇagahapatikā",
+    "Brahmans and householders"
+  ],
+  [
+    "yena",
+    1,
+    "w4_54169_default",
+    "ind, adv, instr sg of ya",
+    "where"
+  ],
+  [
+    "bhagavā",
+    1,
+    "w5_49139_0",
+    "masc nom sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "ten'upasaṅkamiṃsu",
+    1,
+    "w6_31236_0",
+    "aor 3rd pl of tenupasaṅkami",
+    "approached there"
+  ],
+  [
+    "upasaṅkamitvā",
+    1,
+    "w7_16096_default",
+    "abs of upasaṅkamati",
+    "having approached"
+  ],
+  [
+    "app'ekacce",
+    1,
+    "w8_7117_0",
+    "masc nom pl of appekacca",
+    "some"
+  ],
+  [
+    "bhagavantaṃ",
+    1,
+    "w9_49139_0",
+    "masc acc sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "abhivādetvā",
+    1,
+    "w10_8335_default",
+    "abs of abhivādeti",
+    "having bowed down"
+  ],
+  [
+    "ekam'antaṃ",
+    1,
+    "w11_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisīdiṃsu",
+    1,
+    "w12_38218_0",
+    "aor 3rd pl of nisīdi",
+    "sat down"
+  ],
+  [
+    "app'ekacce",
+    2,
+    "w13_7117_0",
+    "masc nom pl of appekacca",
+    "some"
+  ],
+  [
+    "bhagavatā",
+    1,
+    "w14_49139_0",
+    "masc instr sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "saddhiṃ",
+    1,
+    "w15_58108_default",
+    "ind, prep",
+    "with"
+  ],
+  [
+    "sammodiṃsu",
+    1,
+    "w16_60931_0",
+    "aor 3rd pl of sammodi",
+    "exchanged pleasantries"
+  ],
+  [
+    "sammodanīyaṃ",
+    1,
+    "w17_60927_3",
+    "nt acc sg of sammodanīya",
+    "friendly"
+  ],
+  [
+    "kathaṃ",
+    1,
+    "w18_19850_4",
+    "fem acc sg of kathā",
+    "talk"
+  ],
+  [
+    "sāraṇīyaṃ",
+    1,
+    "w19_62456_3",
+    "nt acc sg of sāraṇīya",
+    "polite"
+  ],
+  [
+    "vītisāretvā",
+    1,
+    "w20_69855_default",
+    "abs of vītisāreti",
+    "having conducted"
+  ],
+  [
+    "ekam'antaṃ",
+    2,
+    "w21_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisīdiṃsu",
+    2,
+    "w22_38218_0",
+    "aor 3rd pl of nisīdi",
+    "sat down"
+  ],
+  [
+    "app'ekacce",
+    3,
+    "w23_7117_0",
+    "masc nom pl of appekacca",
+    "some"
+  ],
+  [
+    "yena",
+    2,
+    "w24_54169_default",
+    "ind, adv, instr sg of ya",
+    "where"
+  ],
+  [
+    "bhagavā",
+    2,
+    "w25_49139_0",
+    "masc nom sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "ten'añjaliṃ",
+    1,
+    "w26_31220_default",
+    "sandhi, adv + fem",
+    "raising their hands in reverential salutation"
+  ],
+  [
+    "paṇāmetvā",
+    1,
+    "w27_41538_default",
+    "abs of paṇāmeti",
+    "having extended"
+  ],
+  [
+    "ekam'antaṃ",
+    3,
+    "w28_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisīdiṃsu",
+    3,
+    "w29_38218_0",
+    "aor 3rd pl of nisīdi",
+    "sat down"
+  ],
+  [
+    "app'ekacce",
+    4,
+    "w30_7117_0",
+    "masc nom pl of appekacca",
+    "some"
+  ],
+  [
+    "bhagavato",
+    1,
+    "w31_49139_2",
+    "masc gen sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "santike",
+    1,
+    "w32_58271_default",
+    "ind, prep, loc sg of santika",
+    "presence"
+  ],
+  [
+    "nāmagottaṃ",
+    1,
+    "w33_36440_1",
+    "nt acc sg of nāmagotta",
+    "name and clan"
+  ],
+  [
+    "sāvetvā",
+    1,
+    "w34_62675_default",
+    "abs of sāveti",
+    "having announced; having stated; lit. having caused to hear"
+  ],
+  [
+    "ekam'antaṃ",
+    4,
+    "w35_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisīdiṃsu",
+    4,
+    "w36_38218_0",
+    "aor 3rd pl of nisīdi",
+    "sat down"
+  ],
+  [
+    "app'ekacce",
+    5,
+    "w37_7117_0",
+    "masc nom pl of appekacca",
+    "some"
+  ],
+  [
+    "tuṇhībhūtā",
+    1,
+    "w38_30992_0",
+    "masc nom pl of tuṇhībhūta",
+    "silent"
+  ],
+  [
+    "ekam'antaṃ",
+    5,
+    "w39_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisīdiṃsu",
+    5,
+    "w40_38218_0",
+    "aor 3rd pl of nisīdi",
+    "sat down"
+  ],
+  [
+    "ekam'antaṃ",
+    6,
+    "w41_17613_default",
+    "ind, adv, comp, acc sg of ekamanta",
+    "to one side"
+  ],
+  [
+    "nisinnā",
+    1,
+    "w42_38193_0",
+    "masc nom pl of nisinna",
+    "seated"
+  ],
+  [
+    "kho",
+    2,
+    "w43_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "sāleyyakā",
+    2,
+    "w44_62598_0",
+    "masc nom pl of sāleyyaka",
+    "from the town of Sālā"
+  ],
+  [
+    "brāhmaṇagahapatikā",
+    2,
+    "w45_49044_0",
+    "masc nom pl of brāhmaṇagahapatikā",
+    "Brahmans and householders"
+  ],
+  [
+    "bhagavantaṃ",
+    2,
+    "w46_49139_0",
+    "masc acc sg of bhagavant",
+    "Blessed One"
+  ],
+  [
+    "etadavocuṃ",
+    1,
+    "w47_17868_0",
+    "aor 3rd pl of etadavoca",
+    "said this"
+  ],
+  [
+    "ko",
+    1,
+    "w48_19158_1",
+    "masc nom sg of ka",
+    "what"
+  ],
+  [
+    "nu",
+    1,
+    "w49_38664_default",
+    "ind, interr",
+    "indeed"
+  ],
+  [
+    "kho",
+    3,
+    "w50_23966_default",
+    "ind, emph",
+    "indeed"
+  ],
+  [
+    "bho",
+    1,
+    "w51_49552_1",
+    "masc voc sg of bhavant",
+    "sir"
+  ],
+  [
+    "gotama",
+    1,
+    "w52_25265_0",
+    "masc voc sg of gotama",
+    "Gotama"
+  ],
+  [
+    "hetu",
+    1,
+    "w53_71433_6",
+    "masc nom sg of hetu",
+    "cause"
+  ],
+  [
+    "ko",
+    2,
+    "w54_19158_1",
+    "masc nom sg of ka",
+    "what"
+  ],
+  [
+    "paccayo",
+    1,
+    "w55_39376_0",
+    "masc nom sg of paccaya",
+    "reason"
+  ],
+  [
+    "yena",
+    3,
+    "w56_54169_default",
+    "ind, adv, instr sg of ya",
+    "where"
+  ],
+  [
+    "m'idh'ekacce",
+    1,
+    "w57_decon_midhekacce_0",
+    "sandhi/compound",
+    "here some"
+  ],
+  [
+    "sattā",
+    1,
+    "w58_57676_0",
+    "masc nom pl of satta",
+    "beings"
+  ],
+  [
+    "kāyassa",
+    1,
+    "w59_21131_1",
+    "masc gen sg of kāya",
+    "of the body"
+  ],
+  [
+    "bhedā",
+    1,
+    "w60_78718_2",
+    "masc abl sg of bheda",
+    "with the breakup"
+  ],
+  [
+    "paraṃ",
+    1,
+    "w61_43071_default",
+    "ind, prep, acc sg of para",
+    "after"
+  ],
+  [
+    "maraṇā",
+    1,
+    "w62_51445_2",
+    "nt abl sg of maraṇa",
+    "death"
+  ],
+  [
+    "apāyaṃ",
+    1,
+    "w63_6613_0",
+    "masc acc sg of apāya",
+    "state of loss"
+  ],
+  [
+    "duggatiṃ",
+    1,
+    "w64_33035_0",
+    "fem acc sg of duggati",
+    "bad destination"
+  ],
+  [
+    "vinipātaṃ",
+    1,
+    "w65_68182_0",
+    "masc acc sg of vinipāta",
+    "lower realm"
+  ],
+  [
+    "nirayaṃ",
+    1,
+    "w66_37999_0",
+    "masc acc sg of niraya",
+    "hell"
+  ],
+  [
+    "upapajjanti",
+    1,
+    "w67_15855_0",
+    "pr 3rd pl of upapajjati",
+    "are reborn"
+  ],
+  [
+    "ko",
+    3,
+    "w68_19158_1",
+    "masc nom sg of ka",
+    "what"
+  ],
+  [
+    "pana",
+    1,
+    "w69_42281_default",
+    "ind",
+    "indeed"
+  ],
+  [
+    "bho",
+    2,
+    "w70_49552_1",
+    "masc voc sg of bhavant",
+    "dear"
+  ],
+  [
+    "gotama",
+    2,
+    "w71_25265_0",
+    "masc voc sg of gotama",
+    "Gotama"
+  ],
+  [
+    "hetu",
+    2,
+    "w72_71433_6",
+    "masc nom sg of hetu",
+    "cause"
+  ],
+  [
+    "ko",
+    4,
+    "w73_19158_1",
+    "masc nom sg of ka",
+    "what"
+  ],
+  [
+    "paccayo",
+    2,
+    "w74_39376_0",
+    "masc nom sg of paccaya",
+    "reason"
+  ],
+  [
+    "yena",
+    4,
+    "w75_54168_default",
+    "ind, adv, instr sg of ya",
+    "by which"
+  ],
+  [
+    "m'idh'ekacce",
+    2,
+    "w76_decon_midhekacce_1",
+    "sandhi/compound",
+    "here some"
+  ],
+  [
+    "sattā",
+    2,
+    "w77_57676_0",
+    "masc nom pl of satta",
+    "beings"
+  ],
+  [
+    "kāyassa",
+    2,
+    "w78_21131_1",
+    "masc gen sg of kāya",
+    "of the body"
+  ],
+  [
+    "bhedā",
+    2,
+    "w79_78718_2",
+    "masc abl sg of bheda",
+    "with the breakup"
+  ],
+  [
+    "paraṃ",
+    2,
+    "w80_43071_default",
+    "ind, prep, acc sg of para",
+    "after"
+  ],
+  [
+    "maraṇā",
+    2,
+    "w81_51445_2",
+    "nt abl sg of maraṇa",
+    "death"
+  ],
+  [
+    "sugatiṃ",
+    1,
+    "w82_63624_0",
+    "fem acc sg of sugati",
+    "good destination"
+  ],
+  [
+    "saggaṃ",
+    1,
+    "w83_56555_4",
+    "masc acc sg of sagga",
+    "heaven"
+  ],
+  [
+    "lokaṃ",
+    1,
+    "w84_55973_0",
+    "masc acc sg of loka",
+    "world"
+  ],
+  [
+    "upapajjantī'ti",
+    1,
+    "w85_decon_upapajjantīti_1",
+    "sandhi/compound",
+    "is reborn; re-arises (in); lit. goes towards"
+  ]
+]

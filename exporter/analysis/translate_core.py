@@ -1,15 +1,131 @@
 """Shared prompt-building and analysis utilities for Pāḷi AI translation."""
 
 import copy
+
 import json
+
 import re
+
 from collections.abc import Callable
-from typing import Any
+
+from typing import Any, cast
 
 from sqlalchemy.orm import Session
 
 from exporter.analysis.analyzer import analyze_sentence, tokenize_sentence
+
 from tools.ai_manager import AIManager
+
+from tools.printer import printer as pr
+
+from .prompts import (  # noqa: F401
+    CHUNK_FIRST_PASS_ATTEMPTS,
+    COMMON_PALI_RULES,
+    MAX_FIRST_CONTEXT_CHARS,
+    MAX_RETRY_BATCHES,
+    MAX_RETRY_CONTEXT_CHARS,
+    NO_GRAMMAR_NOTES_INSTRUCTION,
+    NO_TOOLS_INSTRUCTION,
+    PREVIOUS_TRANSLATION_CONTEXT_CHARS,
+    REFORMAT_KEYS_MAX_CHARS,
+    REFORMAT_MAX_CHARS,
+    _DB_EXAMPLE_ALL_VARIANTS_TIED_SOURCE,
+    _DB_EXAMPLE_VARIANT_NOT_SELECTED_SOURCE,
+    _DECONSTRUCTED_PLACEHOLDER,
+    _FINITE_VERB_GRAMMAR_RE,
+    _GRAMMAR_ABBREVIATION_RE,
+    _GRAMMAR_ANNOTATION_KEYWORDS,
+    _OCCURRENCE_KEY_PREFIX_RE,
+    _PARENT_MEANING_STOPWORDS,
+    _PARENT_MEANING_TOKEN_RE,
+    _QUOTATIVE_TI_SELECTION_SOURCE,
+    _RETRY_EQUIVALENT_KEY_GROUPS,
+    _RETRY_OPTION_FIELDS,
+    _SELECTION_KEY_FIELDS,
+    _SELECTION_LIST_KEYS,
+    _SENTENCE_SPLIT_RE,
+    _TRAILING_PUNCTUATION,
+    _build_missing_scores_prompt,
+    _build_reformat_prompt,
+    _build_translation_prompt,
+    _previous_translation_block,
+    _word_keys_overview,
+    build_system_prompt,
+)
+from .ai_response import (  # noqa: F401
+    _append_unique_text_part,
+    _coerce_flat_score_map,
+    _collect_option_keys,
+    _extract_partial_response,
+    _extract_selected_keys_map,
+    _extract_structured_selection_map,
+    _extract_word_key_map,
+    _is_deconstructed_placeholder,
+    _is_deconstruction_key,
+    _is_missing_key,
+    _iter_options,
+    _matching_key_by_id,
+    _matching_key_by_lemma,
+    _normalize_ai_response,
+    _normalize_containment_text,
+    _normalize_example_text,
+    _parse_ai_json,
+    _strip_occurrence_key_prefix,
+    _structured_selection_result,
+    _texts_overlap,
+    _top_level_key_words,
+    _top_level_options_for_word,
+    _wrong_schema_has_meaning_evidence,
+)
+from .scoring import (  # noqa: F401
+    _apply_deterministic_scores_to_map,
+    _apply_quotative_ti_deconstruction_score,
+    _construction_parts,
+    _copy_score_context_fields,
+    _db_example_group_key,
+    _deterministic_score_value,
+    _deterministic_selection_source,
+    _finite_verb_first_component,
+    _is_db_example_tied_score,
+    _is_iti_final_deconstruction,
+    _is_numeric_score,
+    _is_quotative_ti_token,
+    _numeric_score_value,
+    _positive_ai_score_value,
+    _score_selection_source,
+    merge_ai_selections,
+    pre_match_db_examples,
+)
+from .retry import (  # noqa: F401
+    _batch_missing_groups,
+    _fan_out_retry_scores,
+    _find_missing_score_groups,
+    _has_non_empty_string,
+    _narrow_db_example_tied_groups,
+    _request_missing_score_retry_pass,
+    _retry_prompt_groups,
+    _strip_reformat_context_fields,
+    _trim_groups_for_retry,
+)
+from .ranking import (  # noqa: F401
+    _component_contextual_meaning,
+    _component_join_fallback_meaning,
+    _db_example_rank,
+    _deconstruction_fallback_meaning,
+    _dictionary_quality_rank,
+    _direct_key_rank,
+    _first_meaning_sense,
+    _meaning_tokens,
+    _option_rank,
+    _parent_meaning_overlap_rank,
+    _select_best_option,
+)
+from .rendering import (  # noqa: F401
+    _clean_meaning,
+    _strip_grammar_annotations,
+    format_markdown_table,
+    generate_markdown_report,
+)
 
 
 def extract_variant_options(text: str) -> tuple[str, dict[str, list[str]]]:
@@ -17,7 +133,6 @@ def extract_variant_options(text: str) -> tuple[str, dict[str, list[str]]]:
     parts = re.split(r"(\s+)", text)
     options: dict[str, list[str]] = {}
     resolved_parts: list[str] = []
-    trailing_punctuation = '.,;:!?)]}”’"'
 
     for part in parts:
         if "//" not in part:
@@ -26,7 +141,7 @@ def extract_variant_options(text: str) -> tuple[str, dict[str, list[str]]]:
 
         suffix = ""
         core = part
-        while core and core[-1] in trailing_punctuation:
+        while core and core[-1] in _TRAILING_PUNCTUATION:
             suffix = core[-1] + suffix
             core = core[:-1]
 
@@ -52,7 +167,6 @@ def apply_variant_choices(
 
     parts = re.split(r"(\s+)", text)
     resolved_parts: list[str] = []
-    trailing_punctuation = '.,;:!?)]}”’"'
 
     for part in parts:
         if "//" not in part:
@@ -61,7 +175,7 @@ def apply_variant_choices(
 
         suffix = ""
         core = part
-        while core and core[-1] in trailing_punctuation:
+        while core and core[-1] in _TRAILING_PUNCTUATION:
             suffix = core[-1] + suffix
             core = core[:-1]
 
@@ -99,237 +213,342 @@ def sync_analysis_words_to_sentence(
     return synced_analysis
 
 
-def _normalize_ai_response(ai_data: dict[str, Any]) -> dict[str, Any]:
-    """Fix malformed AI responses with nested 'scores' keys.
-
-    Some AI models return scores in a nested structure like {"scores": {"scores": {...}}}.
-    This function flattens that to the expected {"scores": {...}} format.
-    """
-    scores = ai_data.get("scores", {})
-    if (
-        isinstance(scores, dict)
-        and "scores" in scores
-        and not any(
-            k.startswith(("decon_", "digits")) or "_" in k
-            for k in scores.keys()
-            if isinstance(k, str)
-        )
-    ):
-        # The outer "scores" key only contains another "scores" key → nested structure
-        ai_data["scores"] = scores["scores"]
-    return ai_data
+def _analysis_context_len(analysis: list[dict[str, Any]]) -> int:
+    return len(json.dumps(analysis, ensure_ascii=False, separators=(",", ":")))
 
 
-def _clean_meaning(meaning: str) -> str:
-    """Strip trailing grammar parentheticals that duplicate the Grammar column.
-
-    Removes patterns like '(masculine nominative plural of 'X')' and
-    '(component of compound 'X')' that the AI inherits from DPD meaning_combo.
-    """
-    return re.sub(r"\s*\([^)]*'[^']+'\)\s*$", "", meaning).strip()
-
-
-def _normalize_example_text(text: str) -> str:
-    text = text.lower().replace("’", "'")
-    text = text.replace("'", "")
-    text = re.sub(r"[^\w]+", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
-
-
-def _texts_overlap(first_text: str, second_text: str) -> bool:
-    first = _normalize_example_text(first_text)
-    second = _normalize_example_text(second_text)
-    return bool(first and second and (first in second or second in first))
-
-
-def _iter_options(options: list[dict[str, Any]]):
-    for option in options:
-        yield option
-        for component_group in option.get("components", []):
-            if isinstance(component_group, list):
-                yield from _iter_options(component_group)
-
-
-def pre_match_db_examples(
+def _split_into_sentence_chunks(
+    resolved_sentence: str,
     analysis: list[dict[str, Any]],
-    verse_source: str,
-    verse_text: str,
-) -> None:
-    """Mark options whose curated example text overlaps the analyzed passage."""
-    for token_data in analysis:
-        for option in _iter_options(token_data.get("data", [])):
-            best_match_type = ""
-            for index in (1, 2):
-                example = option.get(f"example_{index}", "")
-                source = option.get(f"source_{index}", "")
-                if not _texts_overlap(example, verse_text):
-                    continue
-                match_type = (
-                    "source_text_overlap"
-                    if source and source == verse_source
-                    else "text_overlap"
-                )
-                if match_type == "source_text_overlap":
-                    best_match_type = match_type
-                    break
-                if not best_match_type:
-                    best_match_type = match_type
+    max_context_chars: int,
+) -> list[tuple[str, list[dict[str, Any]]]]:
+    whole = json.dumps(analysis, ensure_ascii=False, separators=(",", ":"))
+    if len(whole) <= max_context_chars:
+        return [(resolved_sentence, analysis)]
 
-            if best_match_type:
-                option["ai_score"] = 10
-                option["db_example_match"] = True
-                option["db_example_match_type"] = best_match_type
-                option["selection_source"] = f"db_example_{best_match_type}"
+    sentences = [
+        sentence
+        for sentence in _SENTENCE_SPLIT_RE.split(resolved_sentence)
+        if sentence.strip()
+    ]
+    if len(sentences) < 2:
+        return [(resolved_sentence, analysis)]
+
+    counts = [len(tokenize_sentence(sentence)) for sentence in sentences]
+    if sum(counts) != len(analysis):
+        return [(resolved_sentence, analysis)]
+
+    sentence_slices: list[tuple[str, list[dict[str, Any]]]] = []
+    start = 0
+    for sentence, count in zip(sentences, counts, strict=True):
+        end = start + count
+        sentence_slices.append((sentence, analysis[start:end]))
+        start = end
+
+    chunks: list[tuple[str, list[dict[str, Any]]]] = []
+    current_sentences: list[str] = []
+    current_analysis: list[dict[str, Any]] = []
+    for sentence, sentence_analysis in sentence_slices:
+        candidate_analysis = [*current_analysis, *sentence_analysis]
+        if (
+            current_analysis
+            and _analysis_context_len(candidate_analysis) > max_context_chars
+        ):
+            chunks.append((" ".join(current_sentences), current_analysis))
+            current_sentences = [sentence]
+            current_analysis = list(sentence_analysis)
+        else:
+            current_sentences.append(sentence)
+            current_analysis = candidate_analysis
+
+    if current_sentences:
+        chunks.append((" ".join(current_sentences), current_analysis))
+    return chunks or [(resolved_sentence, analysis)]
 
 
-def _extract_partial_response(response_text: str) -> dict[str, Any]:
-    """Extract translation/literal_translation from a malformed JSON response.
-
-    When the AI returns incomplete JSON (e.g., with template placeholders),
-    extract what we can and construct a fallback response.
-    """
-    fallback: dict[str, Any] = {
+def _merge_chunk_ai_data(chunk_datas: list[dict[str, Any]]) -> dict[str, Any]:
+    merged: dict[str, Any] = {
         "translation": "",
         "literal_translation": "",
         "scores": {},
+        "variant_choices": {},
     }
+    translations: list[str] = []
+    literals: list[str] = []
+    for data in chunk_datas:
+        translation = data.get("translation")
+        _append_unique_text_part(translations, translation)
+        literal = data.get("literal_translation")
+        _append_unique_text_part(literals, literal)
+        scores = data.get("scores")
+        if isinstance(scores, dict):
+            for key, value in scores.items():
+                merged["scores"].setdefault(key, value)
+        variant_choices = data.get("variant_choices")
+        if isinstance(variant_choices, dict):
+            for key, value in variant_choices.items():
+                merged["variant_choices"].setdefault(key, value)
+    merged["translation"] = " ".join(translations)
+    merged["literal_translation"] = " ".join(literals)
+    return merged
 
-    # Try to extract translation using regex
-    trans_match = re.search(
-        r'"translation"\s*:\s*"([^"]*(?:\\"[^"]*)*)"', response_text
+
+def _handle_compact_map_response(
+    *,
+    chunk_sentence: str,
+    word_key_map: dict[str, str],
+    word_meanings: dict[str, str] | None = None,
+    previous_translation: str = "",
+    ai_manager: AIManager,
+    model: str | None,
+    provider: str | None,
+    progress: Callable[[str], None] | None,
+    verbose: bool,
+    debug: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if verbose:
+        pr.amber(
+            "  Word→key disambiguation map detected — using it for scores, "
+            "fetching translation only"
+        )
+    word_key_scores: dict[str, Any] = {
+        key: {"score": 10} for key in word_key_map.values()
+    }
+    if word_meanings:
+        for surface_word, key in word_key_map.items():
+            contextual_meaning = word_meanings.get(surface_word)
+            if isinstance(contextual_meaning, str) and contextual_meaning.strip():
+                word_key_scores[key]["contextual_meaning"] = contextual_meaning.strip()
+    ai_data: dict[str, Any] = {
+        "translation": "",
+        "literal_translation": "",
+        "scores": word_key_scores,
+    }
+    if progress:
+        progress("ai_translation_start")
+    translation_response = ai_manager.request(
+        prompt=_build_translation_prompt(
+            chunk_sentence,
+            list(word_key_map),
+            previous_translation=previous_translation,
+        ),
+        model=model,
+        provider_preference=provider,
+        prompt_sys=(
+            "Return only a JSON object with translation, literal_translation, "
+            f"and meanings. No prose. No markdown. {NO_TOOLS_INSTRUCTION}"
+        ),
     )
-    if trans_match:
-        fallback["translation"] = trans_match.group(1).replace('\\"', '"')
-
-    # Try to extract literal_translation
-    lit_match = re.search(
-        r'"literal_translation"\s*:\s*"([^"]*(?:\\"[^"]*)*)"', response_text
-    )
-    if lit_match:
-        fallback["literal_translation"] = lit_match.group(1).replace('\\"', '"')
-
-    # Try to extract valid score entries (those with numeric scores)
-    score_matches = re.finditer(
-        r'"([^"]+?)"\s*:\s*\{\s*"score"\s*:\s*(\d+)', response_text
-    )
-    for match in score_matches:
-        key = match.group(1)
-        score = int(match.group(2))
-        fallback["scores"][key] = {"score": score}
-
-    return fallback
-
-
-def _parse_ai_json(response_text: str) -> tuple[dict[str, Any], str]:
-    json_str = response_text.strip()
-    if json_str.startswith("```json"):
-        json_str = json_str[7:-3].strip()
-    elif json_str.startswith("```"):
-        json_str = json_str[3:-3].strip()
-
-    try:
-        return json.loads(json_str), ""
-    except json.JSONDecodeError as exc:
-        return _extract_partial_response(response_text), str(exc)
-
-
-def _apply_deterministic_scores_to_map(
-    analysis: list[dict[str, Any]],
-    scores_map: dict[str, Any],
-) -> None:
-    for token_data in analysis:
-        for option in _iter_options(token_data.get("data", [])):
-            key = option.get("key")
-            score = option.get("ai_score")
-            if (
-                key
-                and option.get("db_example_match")
-                and isinstance(score, int | float)
-            ):
-                scores_map[key] = {
-                    "score": score,
-                    "selection_source": option.get("selection_source", "deterministic"),
-                }
-            elif key and key not in scores_map and isinstance(score, int | float):
-                scores_map[key] = {
-                    "score": score,
-                    "selection_source": option.get("selection_source", "deterministic"),
-                }
-
-
-def _find_missing_score_groups(
-    analysis: list[dict[str, Any]],
-    scores_map: dict[str, Any],
-) -> list[dict[str, Any]]:
-    missing_groups: list[dict[str, Any]] = []
-
-    def inspect_group(
-        word: str,
-        options: list[dict[str, Any]],
-        context: str,
-    ) -> None:
-        if not options:
-            return
-        option_keys = [
-            option.get("key")
-            for option in options
-            if isinstance(option.get("key"), str)
-        ]
-        if option_keys and not any(key in scores_map for key in option_keys):
-            missing_groups.append(
-                {
-                    "word": word,
-                    "context": context,
-                    "missing_keys": option_keys,
-                    "options": [
-                        {
-                            key: option.get(key, "")
-                            for key in (
-                                "key",
-                                "id",
-                                "pali",
-                                "pos",
-                                "grammar",
-                                "meaning_1",
-                                "meaning_combo",
-                                "example_1",
-                                "source_1",
-                                "example_2",
-                                "source_2",
-                            )
-                        }
-                        for option in options
-                    ],
-                }
+    if progress:
+        progress("ai_translation_done")
+    if verbose:
+        pr.green(f"  Translation response: {translation_response.status_message}")
+    translation_data: dict[str, Any] = {}
+    translation_error = ""
+    if translation_response.content:
+        translation_data, translation_error = _parse_ai_json(
+            translation_response.content
+        )
+        if isinstance(translation_data, dict):
+            ai_data["translation"] = translation_data.get("translation", "") or ""
+            ai_data["literal_translation"] = (
+                translation_data.get("literal_translation", "") or ""
             )
+            meanings = translation_data.get("meanings", {})
+            if isinstance(meanings, dict):
+                for surface_word, key in word_key_map.items():
+                    contextual_meaning = meanings.get(surface_word)
+                    if (
+                        isinstance(contextual_meaning, str)
+                        and contextual_meaning.strip()
+                    ):
+                        word_key_scores[key]["contextual_meaning"] = (
+                            contextual_meaning.strip()
+                        )
+    if debug is not None:
+        debug["translation_raw_response"] = translation_response.content
+        debug["translation_status_message"] = translation_response.status_message
+        debug["translation_parsed_response"] = copy.deepcopy(translation_data)
+        debug["translation_parse_error"] = translation_error
+    return ai_data
 
-        for option in options:
-            option_context = str(option.get("pali") or option.get("key") or context)
-            for component_group in option.get("components", []):
-                if isinstance(component_group, list):
-                    inspect_group(word, component_group, option_context)
 
-    for token_data in analysis:
-        word = str(token_data.get("word", ""))
-        inspect_group(word, token_data.get("data", []), word)
+def _handle_reformat_response(
+    *,
+    chunk_sentence: str,
+    raw_response: str,
+    analysis: list[dict[str, Any]],
+    ai_data: dict[str, Any],
+    parse_error: str,
+    ai_manager: AIManager,
+    model: str | None,
+    provider: str | None,
+    progress: Callable[[str], None] | None,
+    verbose: bool,
+    debug: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if verbose:
+        if parse_error:
+            pr.amber(f"  Non-JSON response — parse error: {parse_error}")
+        else:
+            pr.amber(
+                "  Valid JSON but wrong schema — "
+                f"scores key is {type(ai_data.get('scores')).__name__}, expected dict"
+            )
+        pr.amber("  Full raw response:")
+        pr.amber(raw_response)
+        pr.amber("  Reformatting...")
+    if progress:
+        progress("ai_reformat_start")
+    reformat_response = ai_manager.request(
+        prompt=_build_reformat_prompt(
+            chunk_sentence,
+            raw_response,
+            _word_keys_overview(analysis),
+        ),
+        model=model,
+        provider_preference=provider,
+        prompt_sys=(
+            "Return only a valid JSON object. No prose. No markdown. "
+            f"{NO_TOOLS_INSTRUCTION}"
+        ),
+    )
+    if progress:
+        progress("ai_reformat_done")
+    if verbose:
+        pr.green(f"  Reformat response: {reformat_response.status_message}")
+    if reformat_response.content:
+        reformat_data, reformat_error = _parse_ai_json(reformat_response.content)
+        reformat_scores = reformat_data.get("scores")
+        reformat_ok = not reformat_error and isinstance(reformat_scores, dict)
+        if reformat_ok:
+            reformat_scores = cast(dict[str, Any], reformat_scores)
+            if not parse_error and not _wrong_schema_has_meaning_evidence(ai_data):
+                _strip_reformat_context_fields(reformat_scores)
+            salvaged_scores = ai_data.get("scores")
+            if isinstance(salvaged_scores, dict) and salvaged_scores:
+                reformat_data["scores"] = {
+                    **reformat_scores,
+                    **salvaged_scores,
+                }
+            ai_data = reformat_data
+            if verbose:
+                pr.yes("  Reformat succeeded — scores dict present")
+        else:
+            if verbose:
+                pr.no(
+                    f"  Reformat failed — parse_error={reformat_error!r}, "
+                    f"scores type={type(reformat_data.get('scores')).__name__}"
+                )
+        if debug is not None:
+            debug["reformat_raw_response"] = reformat_response.content
+            debug["reformat_status_message"] = reformat_response.status_message
+            debug["reformat_parsed_response"] = copy.deepcopy(reformat_data)
+            debug["reformat_parse_error"] = reformat_error
 
-    return missing_groups
+    return ai_data
 
 
-def _build_missing_scores_prompt(
-    sentence: str,
-    missing_groups: list[dict[str, Any]],
-) -> str:
-    context = json.dumps(missing_groups, ensure_ascii=False, indent=2)
-    return f"""Please supply missing dictionary option scores for this Pāḷi sentence:
-{sentence}
+def _request_first_pass(
+    chunk_sentence: str,
+    full_sentence: str,
+    analysis: list[dict[str, Any]],
+    ai_manager: AIManager,
+    model: str | None,
+    provider: str | None,
+    speech_mark_options: dict[str, list[str]] | None,
+    progress: Callable[[str], None] | None,
+    verbose: bool,
+    debug: dict[str, Any] | None,
+    previous_translation: str = "",
+) -> dict[str, Any]:
+    sys_prompt = build_system_prompt(analysis, speech_mark_options)
+    continuation_block = _previous_translation_block(previous_translation)
+    if chunk_sentence == full_sentence:
+        user_prompt = f"Return JSON for: {chunk_sentence}"
+    else:
+        user_prompt = (
+            f"Return JSON for: {chunk_sentence}\n"
+            "Full passage for context (score ONLY the words in your part): "
+            f"{full_sentence}"
+        )
+    if continuation_block:
+        user_prompt = f"{user_prompt}{continuation_block}"
+    if debug is not None:
+        debug["chunk_sentence"] = chunk_sentence
+        debug["system_prompt"] = sys_prompt
+        debug["user_prompt"] = user_prompt
 
-Only score the option keys in this focused context. Return JSON with a flat `scores`
-object. Do not translate again and do not explain.
+    if progress:
+        progress("ai_start")
+    response = ai_manager.request(
+        prompt=user_prompt,
+        model=model,
+        provider_preference=provider,
+        prompt_sys=sys_prompt,
+    )
+    if progress:
+        progress("ai_done")
 
-Missing dictionary option scores:
-{context}
-"""
+    if not response.content:
+        raise ValueError(f"AI Request Failed: {response.status_message}")
+
+    if verbose:
+        pr.green(f"  AI response: {response.status_message}")
+
+    ai_data, parse_error = _parse_ai_json(response.content)
+    if debug is not None:
+        debug["raw_response"] = response.content
+        debug["status_message"] = response.status_message
+        debug["parsed_response"] = copy.deepcopy(ai_data)
+        debug["parse_error"] = parse_error
+
+    word_key_map = _extract_word_key_map(ai_data, analysis) if not parse_error else None
+    word_meanings: dict[str, str] = {}
+    if word_key_map is None and not parse_error:
+        structured = _extract_structured_selection_map(ai_data, analysis)
+        if structured is not None:
+            word_key_map, word_meanings = structured
+    if word_key_map is None and not parse_error:
+        selected_keys = _extract_selected_keys_map(ai_data, analysis)
+        if selected_keys is not None:
+            word_key_map, word_meanings = selected_keys
+
+    if word_key_map is not None:
+        ai_data = _handle_compact_map_response(
+            chunk_sentence=chunk_sentence,
+            word_key_map=word_key_map,
+            word_meanings=word_meanings,
+            previous_translation=previous_translation,
+            ai_manager=ai_manager,
+            model=model,
+            provider=provider,
+            progress=progress,
+            verbose=verbose,
+            debug=debug,
+        )
+        needs_reformat = False
+    else:
+        needs_reformat = bool(
+            parse_error or not isinstance(ai_data.get("scores"), dict)
+        )
+
+    if needs_reformat and response.content:
+        ai_data = _handle_reformat_response(
+            chunk_sentence=chunk_sentence,
+            raw_response=response.content,
+            analysis=analysis,
+            ai_data=ai_data,
+            parse_error=parse_error,
+            ai_manager=ai_manager,
+            model=model,
+            provider=provider,
+            progress=progress,
+            verbose=verbose,
+            debug=debug,
+        )
+
+    return ai_data
 
 
 def translate_sentence(
@@ -337,9 +556,11 @@ def translate_sentence(
     db_session: Session,
     ai_manager: AIManager | None = None,
     model: str | None = None,
+    provider: str | None = None,
     verse_source: str | None = None,
     speech_mark_options: dict[str, list[str]] | None = None,
     progress: Callable[[str], None] | None = None,
+    verbose: bool = False,
     debug: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Full pipeline: Analyze → AI Translate → Merge. Returns the enriched analysis object."""
@@ -354,39 +575,101 @@ def translate_sentence(
 
     if progress:
         progress("json_start")
-    analysis = analyze_sentence(resolved_sentence, db_session)
+    analysis = cast(
+        list[dict[str, Any]], analyze_sentence(resolved_sentence, db_session)
+    )
 
     if verse_source:
         pre_match_db_examples(analysis, verse_source, resolved_sentence)
 
-    sys_prompt = build_system_prompt(analysis, speech_mark_options)
-    user_prompt = f"Please translate and analyze: {resolved_sentence}"
-    if debug is not None:
-        debug["system_prompt"] = sys_prompt
-        debug["user_prompt"] = user_prompt
-        debug["retry_requests"] = []
     if progress:
         progress("json_done")
 
-    if progress:
-        progress("ai_start")
-    response = ai_manager.request(
-        prompt=user_prompt,
-        model=model,
-        prompt_sys=sys_prompt,
+    chunks = _split_into_sentence_chunks(
+        resolved_sentence,
+        analysis,
+        MAX_FIRST_CONTEXT_CHARS,
     )
-    if progress:
-        progress("ai_done")
+    if len(chunks) == 1:
+        ai_data = _request_first_pass(
+            resolved_sentence,
+            resolved_sentence,
+            analysis,
+            ai_manager,
+            model,
+            provider,
+            speech_mark_options,
+            progress,
+            verbose,
+            debug,
+        )
+    else:
+        chunk_debugs: list[dict[str, Any]] = []
+        chunk_datas: list[dict[str, Any]] = []
+        previous_translation_parts: list[str] = []
+        last_chunk_error: ValueError | None = None
+        for chunk_index, (chunk_text, chunk_analysis) in enumerate(chunks, start=1):
+            chunk_data: dict[str, Any] | None = None
+            chunk_debug: dict[str, Any] | None = None
+            first_error: ValueError | None = None
+            previous_translation = " ".join(previous_translation_parts)
+            for attempt in range(1, CHUNK_FIRST_PASS_ATTEMPTS + 1):
+                attempt_debug: dict[str, Any] | None = {} if debug is not None else None
+                try:
+                    chunk_data = _request_first_pass(
+                        chunk_text,
+                        resolved_sentence,
+                        chunk_analysis,
+                        ai_manager,
+                        model,
+                        provider,
+                        speech_mark_options,
+                        progress,
+                        verbose,
+                        attempt_debug,
+                        previous_translation=previous_translation,
+                    )
+                except ValueError as error:
+                    if attempt == 1:
+                        first_error = error
+                    last_chunk_error = error
+                    if attempt < CHUNK_FIRST_PASS_ATTEMPTS:
+                        continue
+                    if debug is not None:
+                        error_debug = attempt_debug if attempt_debug is not None else {}
+                        error_debug.setdefault("chunk_sentence", chunk_text)
+                        if first_error is not None:
+                            error_debug["chunk_error_attempt_1"] = str(first_error)
+                        error_debug["chunk_error"] = str(error)
+                        chunk_debugs.append(error_debug)
+                    if verbose:
+                        pr.amber(
+                            f"  Skipping chunk {chunk_index}/{len(chunks)} after AI failure: {error}"
+                        )
+                    break
+                else:
+                    chunk_debug = attempt_debug
+                    if chunk_debug is not None and first_error is not None:
+                        chunk_debug["chunk_error_attempt_1"] = str(first_error)
+                    break
+            if chunk_data is None:
+                continue
+            normalized_chunk_data = _normalize_ai_response(chunk_data)
+            chunk_datas.append(normalized_chunk_data)
+            _append_unique_text_part(
+                previous_translation_parts,
+                normalized_chunk_data.get("translation"),
+            )
+            if chunk_debug is not None:
+                chunk_debugs.append(chunk_debug)
+        if not chunk_datas and last_chunk_error is not None:
+            raise last_chunk_error
+        ai_data = _merge_chunk_ai_data(chunk_datas)
+        if debug is not None:
+            debug["chunk_requests"] = chunk_debugs
 
-    if not response.content:
-        raise ValueError(f"AI Request Failed: {response.status_message}")
-
-    ai_data, parse_error = _parse_ai_json(response.content)
     if debug is not None:
-        debug["raw_response"] = response.content
-        debug["status_message"] = response.status_message
-        debug["parsed_response"] = ai_data
-        debug["parse_error"] = parse_error
+        debug["retry_requests"] = []
 
     ai_data = _normalize_ai_response(ai_data)
     scores_map = ai_data.setdefault("scores", {})
@@ -398,37 +681,40 @@ def translate_sentence(
     missing_groups = _find_missing_score_groups(analysis, scores_map)
     if debug is not None:
         debug["missing_score_groups_after_first_response"] = missing_groups
+    retry_skipped_groups: list[dict[str, Any]] = []
     if missing_groups:
-        retry_prompt = _build_missing_scores_prompt(resolved_sentence, missing_groups)
-        retry_response = ai_manager.request(
-            prompt=retry_prompt,
+        retry_skipped_groups = _request_missing_score_retry_pass(
+            resolved_sentence=resolved_sentence,
+            missing_groups=missing_groups,
+            scores_map=scores_map,
+            ai_manager=ai_manager,
             model=model,
-            prompt_sys="Return only JSON with a flat `scores` object.",
+            provider=provider,
+            debug=debug,
+            pass_number=1,
         )
-        retry_data: dict[str, Any] = {}
-        retry_parse_error = ""
-        if retry_response.content:
-            retry_data, retry_parse_error = _parse_ai_json(retry_response.content)
-            retry_data = _normalize_ai_response(retry_data)
-            retry_scores = retry_data.get("scores", {})
-            if isinstance(retry_scores, dict):
-                scores_map.update(retry_scores)
-        if debug is not None:
-            debug["retry_requests"].append(
-                {
-                    "prompt": retry_prompt,
-                    "raw_response": retry_response.content,
-                    "status_message": retry_response.status_message,
-                    "parsed_response": retry_data,
-                    "parse_error": retry_parse_error,
-                    "missing_keys": [
-                        key for group in missing_groups for key in group["missing_keys"]
-                    ],
-                }
+        missing_groups_after_retry = _find_missing_score_groups(analysis, scores_map)
+        if missing_groups_after_retry:
+            retry_skipped_groups = _request_missing_score_retry_pass(
+                resolved_sentence=resolved_sentence,
+                missing_groups=missing_groups_after_retry,
+                scores_map=scores_map,
+                ai_manager=ai_manager,
+                model=model,
+                provider=provider,
+                debug=debug,
+                pass_number=2,
             )
 
+    _narrow_db_example_tied_groups(analysis, scores_map)
+
     if debug is not None:
-        debug["final_scores"] = scores_map
+        if retry_skipped_groups:
+            debug["retry_skipped_groups"] = retry_skipped_groups
+        debug["missing_score_groups_after_retry"] = _find_missing_score_groups(
+            analysis, scores_map
+        )
+        debug["final_scores"] = copy.deepcopy(scores_map)
     merged = merge_ai_selections(analysis, ai_data)
     merged["speech_mark_options"] = speech_mark_options or {}
     merged["variant_choices"] = ai_data.get("variant_choices", {})
@@ -443,358 +729,3 @@ def translate_sentence(
             merged["verse_text"],
         )
     return merged
-
-
-def generate_markdown_report(
-    merged_result: dict[str, Any],
-    sentence: str,
-    verse_id: str = "",
-    speech_mark_options: dict[str, list[str]] | None = None,
-) -> str:
-    """Render a merged analysis result as a markdown document."""
-    if speech_mark_options is None:
-        speech_mark_options = merged_result.get("speech_mark_options") or None
-    if speech_mark_options:
-        display_sentence = apply_variant_choices(
-            sentence,
-            speech_mark_options,
-            merged_result.get("variant_choices"),
-        )
-    else:
-        display_sentence = sentence
-    display_analysis = sync_analysis_words_to_sentence(
-        merged_result["analysis"],
-        display_sentence,
-    )
-
-    if verse_id:
-        parts: list[str] = [f"# Analysis of: {verse_id}", display_sentence]
-    else:
-        parts = [f"# Analysis of: {display_sentence}"]
-    parts += [
-        "### English Translation",
-        f"**Translation:** {merged_result.get('translation', '')}",
-        f"**Literal Translation:** {merged_result.get('literal_translation', '')}",
-    ]
-    if speech_mark_options:
-        variant_lines = [
-            "//".join(variants) for variants in speech_mark_options.values()
-        ]
-        parts += ["### Variants", "\n\n".join(variant_lines)]
-    parts += [
-        "### Word-by-Word Analysis",
-        format_markdown_table(display_analysis),
-    ]
-    return "\n\n".join(parts)
-
-
-def build_system_prompt(
-    analysis: list[dict[str, Any]],
-    speech_mark_options: dict[str, list[str]] | None = None,
-) -> str:
-    """Build a comprehensive system prompt with the Pāḷi dictionary context."""
-
-    context_str = json.dumps(analysis, ensure_ascii=False, indent=2)
-
-    disambiguation_block = ""
-    verse_text_field = ""
-    if speech_mark_options:
-        options_lines = "\n".join(
-            f"- '{word}': {variants}" for word, variants in speech_mark_options.items()
-        )
-        disambiguation_block = f"""
-### Passage Text Disambiguation
-The following words in this passage have multiple possible apostrophe/hyphen/sandhi forms.
-Based on your grammatical analysis, choose the correct form for each. Return only the
-zero-based option index for each key in the `variant_choices` field. Do not return the
-full passage text.
-{options_lines}
-"""
-        verse_text_field = '\n  "variant_choices": {"variant option key": 0},'
-
-    prompt = f"""You are an expert Pāḷi translator and grammarian with deep knowledge of the Tipitaka.
-Your task is to analyze a Pāḷi sentence and perform word-sense disambiguation using the provided dictionary analysis.
-
-### Dictionary Context (Word-by-Word Analysis Options)
-{context_str}
-
-### Instructions:
-1. **Analyze the Sentence:** Use the context to understand grammatical relationships.
-2. **Disambiguate:** For each word in the sentence, identify the correct dictionary option (`key`).
-3. **Score Options:**
-   - Assign a score of **10** to the correct `key` for the context.
-   - Assign lower scores (0-9) to alternative options if there is ambiguity.
-   - Assign **10** to the correct `key` for *components* of compounds as well.
-4. **Contextualize:**
-   - **`contextual_meaning`**: Adjust the dictionary `meaning_combo` to fit the grammar (e.g., "dwells" -> "I would dwell").
-     - **CRITICAL:** Do this for the main word AND for any components that are **sandhi** (pos: "sandhi").
-     - You do NOT need to adjust meanings for standard compound components unless necessary for clarity.
-     - **CRITICAL:** Provide ONLY the core meaning. Do NOT append grammatical case notes in parentheses — never add phrases like "(masculine nominative plural of 'X')" or "(component of compound 'X')". The Grammar column already shows this information.
-   - **`selected_pos`**: If `pos` is "sandhi/compound", specify "sandhi" or "compound".
-5. **Handle Deconstructions (MANDATORY):** If an option key starts with `decon_` or has `meaning_combo: "[Deconstructed]"`, you **MUST** provide a full English translation of that sandhi/compound in the `contextual_meaning` field.
-   - **NEVER** leave a `decon_` key with a score of 10 without providing its `contextual_meaning`.
-   - **Example:** If `okassa` is deconstructed as `oka + assa`, `contextual_meaning` should be something like "to the house" or "of the dwelling".
-6. **Use Existing Examples for Disambiguation:**
-   - Each option includes `example_1`/`source_1` and `example_2`/`source_2` — real curated examples from the dictionary that illustrate the exact meaning of that entry.
-   - Options marked `db_example_match: true` already have this exact verse as their curated example. **Strongly prefer them** — they represent the editor-validated meaning for this context. Their `ai_score` is pre-set to 10; confirm by scoring them 10 in your output as well.
-   - For options without `db_example_match`, use the examples to understand which meaning best fits the verse context before assigning scores.
-{disambiguation_block}
-### Output Format:
-Return a JSON object with translations and a flat map of **scores** keyed by the option `key`.
-
-```json
-{{
-  "translation": "Fluent English translation",
-  "literal_translation": "Literal English translation",{verse_text_field}
-  "scores": {{
-    "decon_word_0": {{
-      "score": 10,
-      "contextual_meaning": "Full meaning of the deconstruction",
-      "selected_pos": "sandhi"
-    }},
-    "12345_0": {{
-      "score": 10,
-      "contextual_meaning": "I would dwell",
-      "selected_pos": "verb"
-    }}
-  }}
-}}
-```
-**CRITICAL:**
-- **Keys in `scores` MUST match the `key` values in the Dictionary Context.**
-- Only output the JSON object. Do not explain.
-"""
-    return prompt
-
-
-def _is_numeric_score(score: Any) -> bool:
-    return isinstance(score, int | float) and not isinstance(score, bool)
-
-
-def _direct_key_rank(option: dict[str, Any]) -> int:
-    key = str(option.get("key", ""))
-    if not key or key.startswith(("decon_", "missing_")):
-        return 0
-    if key.endswith(("_default", "_inflection")):
-        return 0
-    return 1 if "_" in key else 0
-
-
-def _db_example_rank(option: dict[str, Any]) -> int:
-    match_type = option.get("db_example_match_type", "")
-    if match_type == "source_text_overlap":
-        return 2
-    if match_type == "text_overlap":
-        return 1
-    return 0
-
-
-def _dictionary_quality_rank(option: dict[str, Any]) -> int:
-    if not option.get("meaning_1"):
-        return 0
-    if option.get("example_1") or option.get("example_2"):
-        return 2
-    return 1
-
-
-def _option_rank(option: dict[str, Any], is_component: bool = False) -> tuple:
-    ai_score = option.get("ai_score")
-    numeric_score_rank = 1 if _is_numeric_score(ai_score) else 0
-    score = ai_score if _is_numeric_score(ai_score) else -1
-    component_pos_rank = 1 if is_component and option.get("pos") == "ind" else 0
-    option_id = option.get("id")
-    stable_id_rank = -option_id if isinstance(option_id, int) else 0
-    return (
-        numeric_score_rank,
-        score,
-        _db_example_rank(option),
-        _direct_key_rank(option),
-        component_pos_rank,
-        _dictionary_quality_rank(option),
-        option.get("score", 0),
-        stable_id_rank,
-    )
-
-
-def _select_best_option(
-    options: list[dict[str, Any]],
-    is_component: bool = False,
-) -> dict[str, Any] | None:
-    return max(
-        options,
-        key=lambda option: _option_rank(option, is_component=is_component),
-        default=None,
-    )
-
-
-def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
-    """
-    Reconstruct the Markdown table using the enriched Python structure.
-    We iterate through the Python data (which contains all components)
-    and simply pick the highest-scored option to display.
-    """
-
-    table_rows = [
-        "| ID | Word in Sentence | Grammar | Meaning | Construction | Root |",
-        "| :--- | :--- | :--- | :--- | :--- | :--- |",
-    ]
-
-    def add_rows_recursive(option: dict[str, Any], depth: int, parent_pos: str = ""):
-        if "components" in option:
-            for part_options in option["components"]:
-                if not part_options:
-                    continue
-
-                # Each part has multiple lookups (homonyms). Pick the best scored one.
-                # If all options have the same ai_score (e.g., 0 for sub-components),
-                # prefer noun forms when parent is a noun compound.
-                best_part = _select_best_option(part_options, is_component=True)
-                if not best_part:
-                    continue
-
-                # Format component row
-                clean_comp_word = best_part.get("pali", "").replace("- ", "").strip()
-                indent_prefix = "- " * depth
-
-                comp_meaning = best_part.get("meaning_combo", "")
-
-                # Cleanup if AI failed to provide a meaning for a deconstruction
-                if not comp_meaning and best_part.get("key", "").startswith("decon_"):
-                    comp_meaning = "*(AI analysis of deconstruction)*"
-
-                comp_meaning = _clean_meaning(comp_meaning)
-
-                # Prefer grammar (for sandhi/comp vb), fallback to POS (for pure compound parts)
-                comp_grammar = best_part.get("grammar") or best_part.get("pos", "")
-
-                if "selected_pos" in best_part and best_part["selected_pos"]:
-                    if comp_grammar == "sandhi/compound":
-                        comp_grammar = best_part["selected_pos"]
-
-                # Construction Column: prefer compound_construction if available, else construction
-                comp_construction = best_part.get("compound_construction", "")
-                if not comp_construction:
-                    comp_construction = best_part.get("construction", "")
-                # Clean up formatting if needed (though analyzer usually sends clean strings for construction)
-                comp_construction = comp_construction.replace("<b>", "").replace(
-                    "</b>", ""
-                )
-
-                table_rows.append(
-                    f"| {best_part.get('id', '')} | {indent_prefix}{clean_comp_word} | {comp_grammar} | {comp_meaning} | {comp_construction} | {best_part.get('root_key', '')} |"
-                )
-
-                # Only recurse into components of real compounds/sandhi, not etymological breakdowns
-                if (
-                    best_part.get("compound_type", "")
-                    or best_part.get("pos", "") in {"sandhi", "sandhi/compound"}
-                    or best_part.get("key", "").startswith("decon_")
-                ):
-                    add_rows_recursive(best_part, depth + 1, best_part.get("pos", ""))
-
-    for token_data in enriched_analysis:
-        word = token_data["word"]
-        options = token_data["data"]
-
-        if not options:
-            table_rows.append(f"| | {word} | | | | |")
-            continue
-
-        # Sort options by AI score (desc), then by completeness/original score
-        # We assume 'ai_score' has been merged into the options. Default to 0.
-        best_option = _select_best_option(options)
-        if not best_option:
-            table_rows.append(f"| | {word} | | | | |")
-            continue
-
-        # Determine values to display
-        hw_id = best_option.get("id", "")
-        meaning = best_option.get("meaning_combo", "")
-
-        # Cleanup if AI failed to provide a meaning for a deconstruction
-        if not meaning and best_option.get("key", "").startswith("decon_"):
-            meaning = "*(AI analysis of deconstruction)*"
-
-        meaning = _clean_meaning(meaning)
-
-        grammar = best_option.get("grammar", "")
-
-        # Handle POS override
-        if "selected_pos" in best_option and best_option["selected_pos"]:
-            if grammar == "sandhi/compound":
-                grammar = best_option["selected_pos"]
-
-        # Prepend adj POS when grammar exists but doesn't already label the word class
-        if (
-            best_option.get("pos", "") == "adj"
-            and grammar
-            and not grammar.startswith("adj")
-        ):
-            grammar = f"adj, {grammar}"
-
-        # Construction Column: prefer compound_construction if available
-        construction = best_option.get("compound_construction", "")
-        if not construction:
-            construction = best_option.get("construction", "")
-        construction = construction.replace("<b>", "").replace("</b>", "")
-
-        table_rows.append(
-            f"| {hw_id} | {word} | {grammar} | {meaning} | {construction} | {best_option.get('root_key', '')} |"
-        )
-
-        # Start Recursion
-        add_rows_recursive(best_option, 1, best_option.get("pos", ""))
-
-    return "\n".join(table_rows)
-
-
-def merge_ai_selections(
-    analysis_data: list[dict[str, Any]], ai_response: dict[str, Any]
-) -> dict[str, Any]:
-    """
-    Merge AI scores and meanings into the analysis data structure.
-    Returns a new object containing translation and the enriched analysis.
-    """
-    # Create a deep copy to avoid mutating the original input
-    enriched_analysis = copy.deepcopy(analysis_data)
-    scores_map = ai_response.get("scores", {})
-
-    # Helper to traverse and update
-    def update_entries(data_list):
-        for item in data_list:
-            key = item.get("key")
-            if key in scores_map:
-                update = scores_map[key]
-                if not isinstance(update, dict):
-                    # AI returned a bare scalar instead of a score object
-                    item["ai_score"] = (
-                        int(update) if isinstance(update, (int, float)) else 0
-                    )
-                else:
-                    item["ai_score"] = update.get("score", 0)
-                    if "selection_source" in update:
-                        item["selection_source"] = update["selection_source"]
-
-                    # Apply contextual info if score is positive (implying relevance)
-                    if update.get("score", 0) > 0:
-                        if "contextual_meaning" in update:
-                            item["meaning_combo"] = update["contextual_meaning"]
-                        if "selected_pos" in update:
-                            item["selected_pos"] = update["selected_pos"]
-            else:
-                item["ai_score"] = item.get("ai_score")
-
-            # Recursively update components
-            if "components" in item:
-                for comp_list in item["components"]:
-                    if isinstance(comp_list, list):
-                        update_entries(comp_list)
-
-    for word_obj in enriched_analysis:
-        update_entries(word_obj["data"])
-
-    return {
-        "translation": ai_response.get("translation", ""),
-        "literal_translation": ai_response.get("literal_translation", ""),
-        "analysis": enriched_analysis,
-    }

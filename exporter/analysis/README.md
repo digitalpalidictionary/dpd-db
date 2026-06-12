@@ -8,6 +8,144 @@ for Anki or another flashcard workflow. The MCP server still lives in
 `exporter/mcp/`, but the passage-analysis and AI-translation logic has moved
 out of MCP so it can run as ordinary command-line exporter tools.
 
+---
+
+## Quick Start (new machine)
+
+**Prerequisites:** `uv` installed, repo cloned, `dpd.db` present at the path
+`tools/paths.py` returns (typically `dpd.db` in the project root).
+
+**Step 1 — pick an AI provider** (only one is required):
+
+| Option | What to do |
+|--------|-----------|
+| **Antigravity CLI** (preferred, no API key) | Install `agy` from <https://antigravity.dev> and verify with `agy --version` |
+| **OpenRouter** (API key) | Add `openrouter = sk-or-v1-…` to `config.ini` under `[apis]` |
+| **DeepSeek** (API key) | Add `deepseek = sk-…` to `config.ini` under `[apis]` |
+
+**Step 2 — run the analyzer:**
+
+```bash
+uv run python exporter/analysis/study_passage.py
+```
+
+Enter a passage code such as `DHP1`, `MN4`, `SN12.3`, or `AN3.12`.
+The report lands in `reports/<source>_study.md`.
+
+**Step 3 — export vocabulary:**
+
+Edit the report (delete unwanted rows, fix IDs), then:
+
+```bash
+uv run python exporter/analysis/export_words_csv.py
+```
+
+Output goes to `output/<source>_words.csv`.
+
+---
+
+## AI Provider Setup
+
+The passage analysis pipeline sends scoring prompts to an AI provider. It tries
+models from `tools/ai_models.json` in this priority order:
+
+The pipeline tries providers in this order:
+
+1. `antigravity_cli` — work models (tried first)
+2. `deepseek` — direct API fallback
+3. `openrouter` — multiple model fallbacks
+
+Only initialized providers are used. Antigravity requires the local `agy`
+executable; DeepSeek and OpenRouter require API keys in `config.ini`.
+
+Additional providers (`claude`, `gemini`, `nvidia`, `codex`) are supported if
+their API keys are present in `config.ini`, but they are not in the default
+model list used by `study_passage.py`. Use `--provider`/`--model` flags to
+reach them explicitly.
+
+### Antigravity CLI (primary)
+
+Antigravity CLI is a local command-line tool that runs supported work models
+without a project API key.
+
+Install it from <https://antigravity.dev> and make sure the `agy` executable is
+on your PATH. Verify it works:
+
+```bash
+agy --version
+```
+
+When `agy` is found on PATH it is used automatically. No config file change is
+needed. The provider runs `agy --sandbox --print` from a temporary scratch
+directory, not from the repository root. Prompts over 700,000 UTF-8 bytes are
+rejected before calling `agy`, because the current transport passes the full
+prompt through argv.
+
+### API-key fallbacks
+
+DeepSeek and OpenRouter are used after the Antigravity work models fail or are
+unavailable.
+
+1. Create an account at <https://openrouter.ai> and generate an API key.
+2. If using DeepSeek directly, create a DeepSeek API key.
+3. Open `config.ini` at the project root and paste keys into the `[apis]`
+   section as needed:
+
+```ini
+[apis]
+deepseek    = sk-...your-key-here...
+openrouter  = sk-or-v1-...your-key-here...
+gemini      = AIza...your-key-here...
+nvidia      = nvapi-...your-key-here...
+```
+
+For Anthropic Claude (`claude` provider) the key is read from the
+`ANTHROPIC_API_KEY` environment variable, not from `config.ini`.
+
+Configured providers are initialized automatically at runtime.
+
+### Changing the AI model
+
+Model choices are stored in `tools/ai_models.json`. The file has three lists:
+`antigravity_cli_work_models`, `default_models`, and `grounded_models`.
+`study_passage.py` uses the first two (in order); `grounded_models` is a
+separate list for web-search-backed queries and is not used by the passage
+analysis flow.
+
+For the current model names and fallback order, see the upstream source:
+<https://github.com/digitalpalidictionary/dpd-db/blob/main/tools/ai_models.json>
+
+Edit the file to change the fallback order. No restart is needed; the file is
+read fresh each run.
+
+For a one-off run with a specific model, pass both `--provider` and `--model`.
+When these flags are used together, only that provider/model is tried; the
+normal fallback list is bypassed.
+
+```bash
+printf 'DHP23\n' | uv run python exporter/analysis/study_passage.py --debug \
+  --provider antigravity_cli \
+  --model "Gemini 3.5 Flash (Low)"
+```
+
+For multi-paragraph passages, pipe the passage code and paragraph selection:
+
+```bash
+printf 'MN4\n2\n' | uv run python exporter/analysis/study_passage.py --debug \
+  --provider antigravity_cli \
+  --model "Gemini 3.5 Flash (Low)"
+```
+
+To check what models are currently available, run `agy models` or see
+the Antigravity documentation at <https://antigravity.dev>. Model names change
+as new versions are released; the names above were current at the time of
+writing.
+
+The `delay` field (seconds between requests) can also be raised if you hit rate
+limits.
+
+---
+
 ## What Changed
 
 The old MCP analysis scripts were split into two responsibilities:
@@ -35,28 +173,34 @@ source code.
 
 ## File Map
 
-- `README.md` - this overview.
-- `paths.py` - creates and returns `input/`, `reports/`, and `output/`.
-- `passage_by_code.py` - resolves passage codes like `DHP1`, `UD12`,
-  `ITI37`, `SN12.3`, and `AN3.12` into CST passage text.
-- `passage_extraction.py` - previews extracted passages without DB lookup or
-  AI calls.
-- `book_to_verses.py` - extracts a whole CST book into structured JSON for
-  batch verse analysis.
-- `analyzer.py` - tokenizes Pali, looks up DPD headwords, expands compounds
-  and sandhi, and returns candidate dictionary options.
-- `translate_core.py` - shared AI workflow: builds prompts, merges AI scores,
-  retries missing score groups, handles variant choices, and renders markdown.
-- `study_passage.py` - Stage 1 interactive tool for creating a study report.
-- `export_words_csv.py` - Stage 2 interactive tool for exporting edited report
-  rows to TSV/CSV.
-- `example_bolding.py` - bolds the selected word or component inside the
-  source passage example.
-- `column_options.py` - defines export column presets and custom columns.
-- `ai_batch_translate.py` - batch-analyzes extracted verse JSON.
-- `ai_pali_translate.py` - direct interactive sentence translator or renderer
-  for one batch-analyzed verse.
-- `examples.md` - examples moved from the old MCP analysis location.
+**Entry points:**
+- `study_passage.py` — Stage 1 interactive tool for creating a study report.
+- `export_words_csv.py` — Stage 2 interactive tool for exporting edited report rows to TSV/CSV.
+- `passage_extraction.py` — previews extracted passages without DB lookup or AI calls.
+- `ai_batch_translate.py` — batch-analyzes extracted verse JSON.
+- `ai_pali_translate.py` — direct interactive sentence translator or renderer for one batch-analyzed verse.
+
+**Pipeline modules (called by entry points):**
+- `translate_core.py` — orchestrates the full AI workflow: prompts → AI call → score merge → retry → render.
+- `analyzer.py` — tokenizes Pali, looks up DPD headwords, expands compounds and sandhi, returns candidate options.
+- `prompts.py` — builds AI prompts and manages formatting constants.
+- `ai_response.py` — parses and normalizes AI JSON output into score maps.
+- `scoring.py` — applies deterministic scoring rules and tie-breaks.
+- `retry.py` — manages batching and fan-out for targeted retry queries.
+- `ranking.py` — evaluates options based on heuristics to select the winner.
+- `rendering.py` — cleans text and formats the final Markdown report.
+- `types.py` — shared type definitions used across pipeline modules.
+
+**Support:**
+- `paths.py` — creates and returns `input/`, `reports/`, and `output/`.
+- `passage_by_code.py` — resolves passage codes like `DHP1`, `UD12`, `ITI37`, `SN12.3`, `AN3.12` into CST passage text.
+- `book_to_verses.py` — extracts a whole CST book into structured JSON for batch verse analysis.
+- `example_bolding.py` — bolds the selected word or component inside the source passage example.
+- `column_options.py` — defines export column presets and custom columns.
+
+**Docs:**
+- `README.md` — this overview.
+- `examples.md` — worked examples.
 
 ## Main Passage Workflow
 
@@ -74,10 +218,18 @@ uv run python exporter/analysis/study_passage.py
 
 Enter a passage code such as `DHP1`, `SNP1`, `SN12.3`, or `AN3.12`. For multi-unit passages, select paragraphs or verses with inputs such as `1`, `1-3`, or `1-2 4`.
 
+Use `--debug` when diagnosing model behavior:
+
+```bash
+uv run python exporter/analysis/study_passage.py --debug
+```
+
 Stage 1 writes:
 
 - `reports/<source>_study.md`
 - `output/<source>_study.json`
+- `output/<source>_ai_debug.json`
+- `reports/<source>_ai_raw.txt` when `--debug` is enabled
 
 3. Edit the markdown report:
 
@@ -113,10 +265,29 @@ For passage selections, Stage 2 keeps the selected report lookup (`SN12.3_p1`) b
    - `reports/<source>_study.md`
    - `output/<source>_study.json`
    - `output/<source>_ai_debug.json`
+   - `reports/<source>_ai_raw.txt` when `--debug` is enabled
 
 The debug JSON keeps the prompt, raw AI response, parsed response, retry
 requests, missing score groups, and final scores. It is meant for diagnosing
 bad or missing AI choices.
+
+The AI recovery path is intentionally tolerant:
+
+- Accepts normal `scores` JSON.
+- Accepts compact word-to-option-key maps and fetches translation separately.
+- Reformats valid-but-wrong-schema or non-standard responses.
+- Retries missing score groups, with a supplemental retry pass when needed.
+- Splits oversized first-pass work into sentence-level chunks.
+- Records provider/model status for first responses, reformats, translations,
+  and retry requests in the debug JSON and raw debug log.
+
+## Known Limitations
+
+- AI scores are keyed by dictionary option key, not by token occurrence. If the
+  same surface word appears more than once in one sentence or chunk with
+  different grammatical functions, every occurrence receives the same shared
+  selection and contextual meaning. For example, AN3.33 paragraph 1 contains
+  `bhagavā` as both nominative narrative text and vocative address.
 
 ## Stage 2 Details
 
@@ -189,3 +360,27 @@ The server now imports the analyzer from `exporter.analysis.analyzer`.
 The old MCP-local AI translation script was removed from `exporter/mcp/`.
 Use the command-line tools in `exporter/analysis/` for AI passage analysis,
 markdown reports, and vocabulary export.
+
+
+## Developer Notes: Pipeline Architecture
+
+The core pipeline (`translate_core.py`) orchestrates several internal modules:
+- `prompts.py` — Builds the prompts and manages formatting constants.
+- `ai_response.py` — Parses and normalizes AI JSON output into maps.
+- `scoring.py` — Applies deterministic scoring rules and tie-breaks.
+- `retry.py` — Manages batching and fan-out for targeted retry queries.
+- `ranking.py` — Evaluates options based on heuristics to select the winner.
+- `rendering.py` — Cleans text and formats the final Markdown report.
+
+### Regression Harness
+
+The analysis engine is protected by a zero-network regression harness in
+`tests/exporter/analysis/test_passage_regression.py`. It tests five canonical
+passages (`TH215`, `MN41_p2`, `SN15.1_p2`, `DHP211`, `AN3.33_p1`)
+against byte-accurate goldens stored in `tests/exporter/analysis/fixtures/passages/`.
+
+To update the goldens after an intentional behavior change:
+1. Ensure your local `dpd.db` is current.
+2. Run: `UPDATE_GOLDENS=1 uv run pytest tests/exporter/analysis/test_passage_regression.py -s`
+3. Review the `distilled.json` git diffs to ensure only the intended logical changes occurred.
+4. Commit the updated goldens.

@@ -1,0 +1,674 @@
+[
+  [
+    "anamataggo'yaṃ",
+    1,
+    "w0_3803_default",
+    "sandhi, adj + pron",
+    "this which is of inconceivable or unknown beginning"
+  ],
+  [
+    "anamataggāyaṃ",
+    1,
+    "w1_3799_0",
+    "fem loc sg of anamatagga",
+    "with inconceivable beginning"
+  ],
+  [
+    "bhikkhave",
+    1,
+    "w2_49885_0",
+    "masc voc pl of bhikkhu",
+    "O monks"
+  ],
+  [
+    "saṃsāro",
+    1,
+    "w3_61784_0",
+    "masc nom sg of saṃsāra",
+    "the round of rebirth"
+  ],
+  [
+    "pubbā",
+    1,
+    "w4_46819_14",
+    "fem nom sg of pubba",
+    "prior"
+  ],
+  [
+    "koṭi",
+    1,
+    "w5_22964_1",
+    "fem nom sg of koṭi",
+    "limit"
+  ],
+  [
+    "na",
+    1,
+    "w6_35345_default",
+    "ind",
+    "not"
+  ],
+  [
+    "paññāyati",
+    1,
+    "w7_40072_0",
+    "pr 3rd sg of paññāyati",
+    "is known"
+  ],
+  [
+    "avijjānīvaraṇānaṃ",
+    1,
+    "w8_10531_3",
+    "masc gen pl of avijjānīvaraṇa",
+    "impeded by ignorance; obstructed by not understanding"
+  ],
+  [
+    "sattānaṃ",
+    1,
+    "w9_57676_1",
+    "masc gen pl of satta",
+    "of beings"
+  ],
+  [
+    "taṇhāsaṃyojanānaṃ",
+    1,
+    "w10_29404_3",
+    "masc gen pl of taṇhāsaṃyojana",
+    "with craving as fetter; having desire as a bond"
+  ],
+  [
+    "sandhāvataṃ",
+    1,
+    "w11_58457_3",
+    "masc gen pl of sandhāvanta",
+    "wandering; drifting; transmigrating; lit. running along"
+  ],
+  [
+    "saṃsarataṃ",
+    1,
+    "w12_61773_3",
+    "masc gen pl of saṃsaranta",
+    "wandering on; moving on continuously; transmigrating; lit. flowing together"
+  ],
+  [
+    "seyyathā'pi",
+    1,
+    "w13_64953_default",
+    "sandhi, pron + adv + ind",
+    "just as if"
+  ],
+  [
+    "bhikkhave",
+    2,
+    "w14_49885_0",
+    "masc voc pl of bhikkhu",
+    "monks"
+  ],
+  [
+    "puriso",
+    1,
+    "w15_47031_0",
+    "masc nom sg of purisa",
+    "man"
+  ],
+  [
+    "yaṃ",
+    1,
+    "w16_53444_4",
+    "nt acc sg of ya",
+    "whatever"
+  ],
+  [
+    "imasmiṃ",
+    1,
+    "w17_13779_0",
+    "masc loc sg of ima",
+    "this"
+  ],
+  [
+    "jambudīpe",
+    1,
+    "w18_27978_1",
+    "masc loc sg of jambudīpa",
+    "continent of India"
+  ],
+  [
+    "tiṇakaṭṭhasākhāpalāsaṃ",
+    1,
+    "w19_30514_1",
+    "nt acc sg of tiṇakaṭṭhasākhāpalāsa",
+    "grass, wood, branches and leaves"
+  ],
+  [
+    "taṃ",
+    1,
+    "w20_29188_3",
+    "nt acc sg of ta",
+    "it"
+  ],
+  [
+    "chetvā",
+    1,
+    "w21_27734_default",
+    "abs of chindati",
+    "having cut up"
+  ],
+  [
+    "tacchetvā",
+    1,
+    "w22_29272_default",
+    "abs of taccheti",
+    "having chopped"
+  ],
+  [
+    "bahūsu",
+    1,
+    "w23_48220_3",
+    "masc loc pl of bahū",
+    "in many"
+  ],
+  [
+    "ekajjhaṃ",
+    1,
+    "w24_17447_default",
+    "ind, adv, acc sg of ekadhā",
+    "together"
+  ],
+  [
+    "saṃharitvā",
+    1,
+    "w25_62014_default",
+    "abs of saṃharati",
+    "having gathered"
+  ],
+  [
+    "caturaṅgulaṃ",
+    1,
+    "w26_26032_3",
+    "nt acc sg of caturaṅgula",
+    "four inches long"
+  ],
+  [
+    "caturaṅgulaṃ",
+    2,
+    "w27_26032_3",
+    "nt acc sg of caturaṅgula",
+    "four inches long"
+  ],
+  [
+    "ghaṭikaṃ",
+    1,
+    "w28_25447_0",
+    "fem acc sg of ghaṭikā",
+    "peg"
+  ],
+  [
+    "katvā",
+    1,
+    "w29_19789_default",
+    "abs of karoti",
+    "having made"
+  ],
+  [
+    "nikkhipeyya",
+    1,
+    "w30_36804_0",
+    "opt 3rd sg of nikkhipati",
+    "should lay down"
+  ],
+  [
+    "ayaṃ",
+    1,
+    "w31_13779_9",
+    "masc nom sg of ima",
+    "this"
+  ],
+  [
+    "me",
+    1,
+    "w32_10868_3",
+    "1st gen sg of ahaṃ",
+    "my"
+  ],
+  [
+    "mātā",
+    1,
+    "w33_52175_0",
+    "fem nom sg of mātar",
+    "mother"
+  ],
+  [
+    "tassā",
+    1,
+    "w34_29188_1",
+    "fem gen sg of ta",
+    "of her"
+  ],
+  [
+    "me",
+    2,
+    "w35_10868_3",
+    "1st gen sg of ahaṃ",
+    "my"
+  ],
+  [
+    "mātu",
+    1,
+    "w36_52175_1",
+    "fem gen sg of mātar",
+    "mother"
+  ],
+  [
+    "ayaṃ",
+    2,
+    "w37_8709_0",
+    "masc acc sg of aya",
+    "good luck; good fortune"
+  ],
+  [
+    "mātā'ti",
+    1,
+    "w38_decon_mātāti_0",
+    "sandhi/compound",
+    "this is my mother"
+  ],
+  [
+    "apariyādinnā'va",
+    1,
+    "w39_decon_apariyādinnāva_0",
+    "sandhi/compound",
+    "not exhausted indeed"
+  ],
+  [
+    "apariyādiṇṇā'va",
+    1,
+    "w40_decon_apariyādiṇṇāva_0",
+    "sandhi/compound",
+    "not exhausted indeed"
+  ],
+  [
+    "bhikkhave",
+    3,
+    "w41_49885_0",
+    "masc voc pl of bhikkhu",
+    "monks"
+  ],
+  [
+    "tassa",
+    1,
+    "w42_29188_2",
+    "masc gen sg of ta",
+    "of that"
+  ],
+  [
+    "purisassa",
+    1,
+    "w43_47031_1",
+    "masc gen sg of purisa",
+    "of the person"
+  ],
+  [
+    "mātumātaro",
+    1,
+    "w44_52240_0",
+    "fem nom pl of mātumātar",
+    "mothers and mothers' mothers"
+  ],
+  [
+    "assu",
+    1,
+    "w45_9915_0",
+    "opt 3rd pl of assa",
+    "would be"
+  ],
+  [
+    "atha",
+    1,
+    "w46_2794_default",
+    "ind",
+    "yet"
+  ],
+  [
+    "imasmiṃ",
+    2,
+    "w47_13779_0",
+    "masc loc sg of ima",
+    "this"
+  ],
+  [
+    "jambudīpe",
+    2,
+    "w48_27978_1",
+    "masc loc sg of jambudīpa",
+    "continent of India"
+  ],
+  [
+    "tiṇakaṭṭhasākhāpalāsaṃ",
+    2,
+    "w49_30514_1",
+    "nt acc sg of tiṇakaṭṭhasākhāpalāsa",
+    "grass, wood, branches and leaves"
+  ],
+  [
+    "parikkhayaṃ",
+    1,
+    "w50_43231_0",
+    "masc acc sg of parikkhaya",
+    "depletion"
+  ],
+  [
+    "pariyādānaṃ",
+    1,
+    "w51_43942_1",
+    "nt acc sg of pariyādāna",
+    "extinction"
+  ],
+  [
+    "gaccheyya",
+    1,
+    "w52_24044_0",
+    "opt 3rd sg of gacchati",
+    "would go to"
+  ],
+  [
+    "taṃ",
+    2,
+    "w53_29188_0",
+    "nt nom sg of ta",
+    "that"
+  ],
+  [
+    "kissa",
+    1,
+    "w54_19158_7",
+    "nt gen sg of ka",
+    "of what"
+  ],
+  [
+    "hetu",
+    1,
+    "w55_89413_default",
+    "ind, adv",
+    "cause"
+  ],
+  [
+    "anamataggo'yaṃ",
+    2,
+    "w56_3803_default",
+    "sandhi, adj + pron",
+    "this without discoverable beginning"
+  ],
+  [
+    "bhikkhave",
+    4,
+    "w57_49885_0",
+    "masc voc pl of bhikkhu",
+    "monks"
+  ],
+  [
+    "saṃsāro",
+    2,
+    "w58_61784_0",
+    "masc nom sg of saṃsāra",
+    "cycle of rebirths"
+  ],
+  [
+    "pubbā",
+    2,
+    "w59_46819_14",
+    "fem nom sg of pubba",
+    "prior"
+  ],
+  [
+    "koṭi",
+    2,
+    "w60_22964_1",
+    "fem nom sg of koṭi",
+    "limit"
+  ],
+  [
+    "na",
+    2,
+    "w61_35345_default",
+    "ind",
+    "not"
+  ],
+  [
+    "paññāyati",
+    2,
+    "w62_40072_0",
+    "pr 3rd sg of paññāyati",
+    "is known"
+  ],
+  [
+    "avijjānīvaraṇānaṃ",
+    2,
+    "w63_10531_3",
+    "masc gen pl of avijjānīvaraṇa",
+    "impeded by ignorance; obstructed by not understanding"
+  ],
+  [
+    "sattānaṃ",
+    2,
+    "w64_57676_1",
+    "masc gen pl of satta",
+    "of beings"
+  ],
+  [
+    "taṇhāsaṃyojanānaṃ",
+    2,
+    "w65_29404_3",
+    "masc gen pl of taṇhāsaṃyojana",
+    "with craving as fetter; having desire as a bond"
+  ],
+  [
+    "sandhāvataṃ",
+    2,
+    "w66_58457_3",
+    "masc gen pl of sandhāvanta",
+    "wandering; drifting; transmigrating; lit. running along"
+  ],
+  [
+    "saṃsarataṃ",
+    2,
+    "w67_61773_3",
+    "masc gen pl of saṃsaranta",
+    "wandering on; moving on continuously; transmigrating; lit. flowing together"
+  ],
+  [
+    "evaṃ",
+    1,
+    "w68_18134_default",
+    "ind, adv",
+    "thus; this; like this; similarly; in the same manner; just as; such"
+  ],
+  [
+    "dīgharattaṃ",
+    1,
+    "w69_32757_default",
+    "ind, adv, comp, acc sg of digharatta",
+    "for a long time"
+  ],
+  [
+    "vo",
+    1,
+    "w70_31017_2",
+    "2nd dat pl of tumha",
+    "to you / for you"
+  ],
+  [
+    "bhikkhave",
+    5,
+    "w71_49885_0",
+    "masc voc pl of bhikkhu",
+    "monks; monastics; mendicants; fully ordained monks"
+  ],
+  [
+    "dukkhaṃ",
+    1,
+    "w72_32877_4",
+    "nt nom sg of dukkha",
+    "discomfort; suffering; unease; unpleasantness; something unsatisfactory; stress"
+  ],
+  [
+    "paccanubhūtaṃ",
+    1,
+    "w73_39348_0",
+    "nt nom sg of paccanubhūta",
+    "personally experienced"
+  ],
+  [
+    "tibbaṃ",
+    1,
+    "w74_30682_3",
+    "nt acc sg of tibba",
+    "severe"
+  ],
+  [
+    "paccanubhūtaṃ",
+    2,
+    "w75_39348_0",
+    "nt nom sg of paccanubhūta",
+    "personally experienced"
+  ],
+  [
+    "byasanaṃ",
+    1,
+    "w76_48765_1",
+    "nt acc sg of byasana",
+    "ruin"
+  ],
+  [
+    "paccanubhūtaṃ",
+    3,
+    "w77_39348_0",
+    "nt nom sg of paccanubhūta",
+    "personally experienced"
+  ],
+  [
+    "kaṭasī",
+    1,
+    "w78_19333_0",
+    "fem nom sg of kaṭasī",
+    "cemetery"
+  ],
+  [
+    "kaṭasi",
+    1,
+    "w79_19333_0",
+    "fem voc sg of kaṭasī",
+    "cemetery"
+  ],
+  [
+    "kaṭā",
+    1,
+    "w80_73800_6",
+    "fem nom sg of kaṭa",
+    "heap of corpses"
+  ],
+  [
+    "chavā",
+    1,
+    "w81_27537_15",
+    "masc voc pl of chava",
+    "corpse"
+  ],
+  [
+    "sayan'ti",
+    1,
+    "w82_60945_0",
+    "pr 3rd pl of sayati",
+    "they sleep"
+  ],
+  [
+    "etthā'ti",
+    1,
+    "w83_decon_etthāti_0",
+    "sandhi/compound",
+    "here"
+  ],
+  [
+    "kaṭasī",
+    2,
+    "w84_19333_0",
+    "fem nom sg of kaṭasī",
+    "cemetery"
+  ],
+  [
+    "vaḍḍhitā",
+    1,
+    "w85_65849_1",
+    "fem nom sg of vaḍḍhita",
+    "swollen"
+  ],
+  [
+    "yāvañ'c'idaṃ",
+    1,
+    "w86_54022_default",
+    "sandhi, ind + ind + pron",
+    "and in this case; and in this regard; and as far as this; to such an extent"
+  ],
+  [
+    "bhikkhave",
+    6,
+    "w87_49885_0",
+    "masc voc pl of bhikkhu",
+    "monks"
+  ],
+  [
+    "alam'eva",
+    1,
+    "w88_9183_default",
+    "sandhi, ind + ind",
+    "it is enough; it is quite enough; that's quite sufficient (to)"
+  ],
+  [
+    "sabbasaṅkhāresu",
+    1,
+    "w89_58953_0",
+    "masc loc pl of sabbasaṅkhāra",
+    "in all fabrications"
+  ],
+  [
+    "nibbindituṃ",
+    1,
+    "w90_37686_default",
+    "inf of nibbindati",
+    "to become dis-enchanted (with); to become disinterested (in); to be disillusioned (with); to lose interest (in)"
+  ],
+  [
+    "alaṃ",
+    1,
+    "w91_9199_default",
+    "ind, adv, emph, acc sg of ala",
+    "enough"
+  ],
+  [
+    "virajjituṃ",
+    1,
+    "w92_68826_default",
+    "inf of virajjati",
+    "to lose desire (for); to become detached (from); to lose interest (in); to become dispassionate (about); to get bored (of)"
+  ],
+  [
+    "alaṃ",
+    2,
+    "w93_9199_default",
+    "ind, adv, emph, acc sg of ala",
+    "enough"
+  ],
+  [
+    "vimuccitun'ti",
+    1,
+    "w94_decon_vimuccitunti_0",
+    "sandhi/compound",
+    "to be released"
+  ],
+  [
+    "paṭhamaṃ",
+    1,
+    "w95_41468_default",
+    "ind, adv, acc sg of paṭhama",
+    "first"
+  ]
+]

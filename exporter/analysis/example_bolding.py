@@ -69,6 +69,10 @@ def strip_bold_tags(text: str) -> str:
     return re.sub(r"</?b>", "", text)
 
 
+def _is_deconstruction_key(key: Any) -> bool:
+    return isinstance(key, str) and (key.startswith("decon_") or "_decon_" in key)
+
+
 def find_token_in_apos_verse(token: str, verse: str) -> str:
     """Find the apostrophe-containing form of a token as it appears in the verse.
 
@@ -94,6 +98,49 @@ def find_token_in_apos_verse(token: str, verse: str) -> str:
     return token
 
 
+def _bold_substring_in_apos_token(
+    apos_token: str,
+    substring: str,
+    is_first_component: bool = False,
+    component_pali: str = "",
+) -> str | None:
+    """Helper to bold a substring within a token, with apostrophe awareness."""
+    if substring not in apos_token:
+        return None
+
+    if "'" in apos_token:
+        left, _, right = apos_token.partition("'")
+        if substring in left:
+            idx = left.index(substring)
+            end = idx + len(substring)
+            if (
+                is_first_component
+                and component_pali
+                and idx == 0
+                and end < len(left)
+                and _matches_full_left_side(component_pali, left)
+            ):
+                return "<b>" + left + "</b>'" + right
+            return (
+                left[:idx] + "<b>" + left[idx:end] + "</b>" + left[end:] + "'" + right
+            )
+        elif substring in right:
+            idx = right.index(substring)
+            end = idx + len(substring)
+            return (
+                left + "'" + right[:idx] + "<b>" + right[idx:end] + "</b>" + right[end:]
+            )
+
+    # No apostrophe or substring crosses/misses partition
+    idx = apos_token.index(substring)
+    end = idx + len(substring)
+    has_suffix = end < len(apos_token)
+    if is_first_component or has_suffix:
+        return apos_token[:idx] + "<b>" + substring + "</b>" + apos_token[end:]
+    else:
+        return apos_token[:idx] + "<b>" + apos_token[idx:] + "</b>"
+
+
 def bold_component_in_token(
     apos_token: str,
     component_pali: str,
@@ -107,143 +154,41 @@ def bold_component_in_token(
     For non-first components: if found form has a suffix in the token (more text follows),
     bold only the found form; otherwise bold to end of token.
 
-    This position check handles nested compounds correctly: a component that is 'last'
-    within its sub-compound may still have a suffix in the full verse token.
-
     Strategy (in order):
     0. Try database inflections from DpdHeadword(headword_id), longest first.
     1. Try component_pali directly found in apos_token.
-    2. For sandhi (apostrophe in token): bold left or right side.
-    3. Direct substring match.
-    4. Fallback: bold the whole token.
+    2. Strip final ṃ and try.
+    3. Stem match: strip trailing short vowel, bold from stem position.
+    4. Apostrophe-split fallback for sandhi.
+    5. Fallback: bold the whole token.
     """
 
     # 0. Prefer database inflections, longest first.
     inflections = _get_db_inflections(headword_id, db_session)
     for inflection in inflections:
-        if inflection in apos_token:
-            if "'" in apos_token:
-                left, _, right = apos_token.partition("'")
-                if inflection in left:
-                    idx = left.index(inflection)
-                    end = idx + len(inflection)
-                    if (
-                        is_first_component
-                        and idx == 0
-                        and end < len(left)
-                        and _matches_full_left_side(component_pali, left)
-                    ):
-                        return "<b>" + left + "</b>'" + right
-                    return (
-                        left[:idx]
-                        + "<b>"
-                        + left[idx:end]
-                        + "</b>"
-                        + left[end:]
-                        + "'"
-                        + right
-                    )
-                else:
-                    idx = right.index(inflection)
-                    end = idx + len(inflection)
-                    return (
-                        left
-                        + "'"
-                        + right[:idx]
-                        + "<b>"
-                        + right[idx:end]
-                        + "</b>"
-                        + right[end:]
-                    )
-            else:
-                idx = apos_token.index(inflection)
-                end = idx + len(inflection)
-                has_suffix = end < len(apos_token)
-                if is_first_component or has_suffix:
-                    return (
-                        apos_token[:idx]
-                        + "<b>"
-                        + inflection
-                        + "</b>"
-                        + apos_token[end:]
-                    )
-                else:
-                    return apos_token[:idx] + "<b>" + apos_token[idx:] + "</b>"
+        bolded = _bold_substring_in_apos_token(
+            apos_token, inflection, is_first_component, component_pali
+        )
+        if bolded:
+            return bolded
 
     # 1. Exact match fallback.
-    if component_pali in apos_token:
-        if "'" in apos_token:
-            left, _, right = apos_token.partition("'")
-            if component_pali in left:
-                idx = left.index(component_pali)
-                end = idx + len(component_pali)
-                return (
-                    left[:idx]
-                    + "<b>"
-                    + left[idx:end]
-                    + "</b>"
-                    + left[end:]
-                    + "'"
-                    + right
-                )
-            else:
-                idx = right.index(component_pali)
-                end = idx + len(component_pali)
-                return (
-                    left
-                    + "'"
-                    + right[:idx]
-                    + "<b>"
-                    + right[idx:end]
-                    + "</b>"
-                    + right[end:]
-                )
-        else:
-            idx = apos_token.index(component_pali)
-            end = idx + len(component_pali)
-            has_suffix = end < len(apos_token)
-            if is_first_component or has_suffix:
-                return (
-                    apos_token[:idx]
-                    + "<b>"
-                    + component_pali
-                    + "</b>"
-                    + apos_token[end:]
-                )
-            else:
-                return apos_token[:idx] + "<b>" + apos_token[idx:] + "</b>"
+    bolded = _bold_substring_in_apos_token(
+        apos_token, component_pali, is_first_component
+    )
+    if bolded:
+        return bolded
 
-    # 2. Apostrophe-split fallback for sandhi where no database inflection matches
-    if "'" in apos_token:
-        left, _, right = apos_token.partition("'")
-        pali_no_m = component_pali.rstrip("ṃ")
-        pali_norm = pali_no_m.rstrip("aāiīuūeo")
-        if pali_norm and (left.startswith(pali_norm) or pali_norm.startswith(left)):
-            return f"<b>{left}</b>'{right}"
-        return f"{left}'<b>{right}</b>"
-
-    # 3. Direct match (fallback if inflections not found)
-    if component_pali in apos_token:
-        idx = apos_token.index(component_pali)
-        end = idx + len(component_pali)
-        has_suffix = end < len(apos_token)
-        if is_first_component or has_suffix:
-            return apos_token.replace(component_pali, f"<b>{component_pali}</b>", 1)
-        else:
-            return apos_token[:idx] + "<b>" + apos_token[idx:] + "</b>"
-
-    # 4. Strip final ṃ and try
+    # 2. Strip final ṃ and try
     pali_no_m = component_pali.rstrip("ṃ")
-    if len(pali_no_m) > 1 and pali_no_m in apos_token:
-        idx = apos_token.index(pali_no_m)
-        end = idx + len(pali_no_m)
-        has_suffix = end < len(apos_token)
-        if is_first_component or has_suffix:
-            return apos_token.replace(pali_no_m, f"<b>{pali_no_m}</b>", 1)
-        else:
-            return apos_token[:idx] + "<b>" + apos_token[idx:] + "</b>"
+    if len(pali_no_m) > 1:
+        bolded = _bold_substring_in_apos_token(
+            apos_token, pali_no_m, is_first_component
+        )
+        if bolded:
+            return bolded
 
-    # 5. Stem match: strip trailing short vowel, bold from stem position
+    # 3. Stem match: strip trailing short vowel, bold from stem position
     stem = component_pali.rstrip("aāiīuūeo")
     if len(stem) > 1 and stem in apos_token:
         idx = apos_token.index(stem)
@@ -260,7 +205,16 @@ def bold_component_in_token(
         else:
             return apos_token[:idx] + "<b>" + apos_token[idx:] + "</b>"
 
-    # 6. Fallback: bold whole token
+    # 4. Apostrophe-split fallback for sandhi where no database inflection matches
+    if "'" in apos_token:
+        left, _, right = apos_token.partition("'")
+        pali_no_m = component_pali.rstrip("ṃ")
+        pali_norm = pali_no_m.rstrip("aāiīuūeo")
+        if pali_norm and (left.startswith(pali_norm) or pali_norm.startswith(left)):
+            return f"<b>{left}</b>'{right}"
+        return f"{left}'<b>{right}</b>"
+
+    # 5. Fallback: bold whole token
     return f"<b>{apos_token}</b>"
 
 
@@ -314,13 +268,13 @@ def collect_all_ids(
     # Only set is_first=True for first component of child compounds, not top-level
     is_first = component_index == 0 and depth > 0
     is_top_level = depth == 0
-    if hw_id and not key.startswith("decon_"):
+    if hw_id and not _is_deconstruction_key(key):
         results.append((int(hw_id), pali, word_in_verse, is_first, is_top_level))
 
     should_recurse = (
         option.get("compound_type", "")
         or option.get("pos", "") in {"sandhi", "sandhi/compound"}
-        or key.startswith("decon_")
+        or _is_deconstruction_key(key)
     )
     if should_recurse:
         components_list = option.get("components", [])
