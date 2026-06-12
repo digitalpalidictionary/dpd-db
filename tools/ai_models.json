@@ -3,7 +3,7 @@
     {
       "provider": "antigravity_cli",
       "model": "Gemini 3.5 Flash (Low)",
-      "delay": 5,
+      "delay": 0,
       "timeout": 150
     }
   ],
@@ -11,29 +11,29 @@
     {
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
-      "delay": 5
+      "delay": 0
     },
     {
       "provider": "openrouter",
       "model": "deepseek/deepseek-v4-flash",
-      "delay": 5
+      "delay": 0
     },
     {
       "provider": "openrouter",
       "model": "meta-llama/llama-4-scout",
-      "delay": 5
+      "delay": 0
     },
     {
       "provider": "openrouter",
       "model": "openai/gpt-4.1-nano",
-      "delay": 5
+      "delay": 0
     }
   ],
   "grounded_models": [
     {
       "provider": "gemini",
       "model": "gemini-2.5-flash",
-      "delay": 6
+      "delay": 0
     }
   ]
 }

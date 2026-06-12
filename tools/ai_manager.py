@@ -13,7 +13,7 @@ AI_MODELS_PATH = Path("tools/ai_models.json")
 def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
     """Load model lists from tools/ai_models.json."""
 
-    def _entry(m: dict) -> tuple[str, str, int, float]:
+    def _entry(m: dict[str, Any]) -> tuple[str, str, int, float]:
         return (m["provider"], m["model"], m["delay"], float(m.get("timeout", 150.0)))
 
     try:
@@ -55,10 +55,10 @@ class AIManager:
 
         from tools.ai_claude_manager import ClaudeManager
         from tools.ai_deepseek_manager import DeepseekManager
-        from tools.ai_gpt_manager import GptManager
         from tools.ai_gemini_manager import GeminiManager
-        from tools.ai_open_router import OpenRouterManager
+        from tools.ai_gpt_manager import GptManager
         from tools.ai_nvidia import NvidiaManager
+        from tools.ai_open_router import OpenRouterManager
 
         self.providers["claude"] = ClaudeManager()
         pr.green("claude initialized")
@@ -91,10 +91,13 @@ class AIManager:
             pr.amber("NVIDIA API key not found, manager not initialized.")
 
         if shutil.which("agy"):
-            from tools.ai_antigravity_cli import AntigravityCliManager
+            from tools.ai_antigravity_cli import AntigravityCliManager, get_working_key
 
-            self.providers["antigravity_cli"] = AntigravityCliManager()
-            pr.green("antigravity_cli initialized")
+            if get_working_key():
+                self.providers["antigravity_cli"] = AntigravityCliManager()
+                pr.green("antigravity_cli initialized")
+            else:
+                pr.amber("agy found but not working, antigravity_cli not initialized.")
         else:
             pr.amber(
                 "agy executable not found on PATH, antigravity_cli not initialized."
@@ -105,8 +108,7 @@ class AIManager:
         )
 
         self.last_request_time: float = 0
-        self.min_delay_seconds: float = 5
-        # NEW: Track last request time per model for model-specific rate limiting
+        self.min_delay_seconds: float = 0
         self.model_last_request: dict[str, float] = {}
 
     def reload_models(self) -> None:
@@ -221,7 +223,7 @@ class AIManager:
                     status_message = f"{provider_name}/{model_name} ERROR in {duration:.2f}s: {ai_response.status_message}"
                     pr.amber(status_message)
                     errors.append(status_message)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 duration = time.monotonic() - start_time
                 status_message = (
                     f"{provider_name}/{model_name} ERROR in {duration:.2f}s: {e}"

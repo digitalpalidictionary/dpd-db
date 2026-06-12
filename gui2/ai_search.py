@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import flet as ft
 
 from tools.printer import printer as pr
@@ -82,13 +81,13 @@ class AiSearchPopup:
                 key=f"{GROUNDED_KEY_PREFIX}{provider}|{model_name}",
                 text=f"{provider}: {model_name} [web search]",
             )
-            for provider, model_name, _delay in self.ai_manager.GROUNDED_MODELS
+            for provider, model_name, _delay, _timeout in self.ai_manager.GROUNDED_MODELS
         ]
         standard = [
             ft.dropdown.Option(
                 key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
             )
-            for provider, model_name, _delay in self.ai_manager.DEFAULT_MODELS
+            for provider, model_name, _delay, _timeout in self.ai_manager.DEFAULT_MODELS
         ]
         return grounded + standard
 
@@ -131,7 +130,7 @@ class AiSearchPopup:
                 self.response_field.value = ai_response.content
             else:
                 self.response_field.value = f"AI request failed or returned no response. Status: {ai_response.status_message}"
-        except Exception as ex:
+        except Exception as ex:  # noqa: BLE001
             pr.red(f"AI request error in popup: {ex}")
             self.response_field.value = f"An error occurred: {ex}"
         finally:

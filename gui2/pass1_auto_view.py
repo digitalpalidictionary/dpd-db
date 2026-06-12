@@ -178,7 +178,7 @@ class Pass1AutoView(ft.Column):
             ft.dropdown.Option(
                 key=f"{provider}|{model_name}", text=f"{provider}: {model_name}"
             )
-            for provider, model_name, _delay in self.toolkit.ai_manager.DEFAULT_MODELS
+            for provider, model_name, _delay, _timeout in self.toolkit.ai_manager.DEFAULT_MODELS
         ]
 
     def _on_reload_models(self, e) -> None:
