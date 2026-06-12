@@ -169,6 +169,33 @@ def test_split_trailing_error_cases() -> None:
     assert antigravity_cli._split_trailing_error(long_error) == (long_error, None)
 
 
+def test_request_falls_back_to_default_model_when_unsupported(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: dict[str, object] = {}
+
+    def fake_run_antigravity_print(
+        agy_path: Path, model: str | None, prompt: str, timeout: int
+    ) -> RunResult:
+        captured["model"] = model
+        return RunResult(returncode=0, stdout='{"ok": true}', stderr="")
+
+    monkeypatch.setattr(
+        antigravity_cli, "_locate_antigravity", lambda: Path("/usr/bin/true")
+    )
+    monkeypatch.setattr(antigravity_cli, "agy_supports_model", lambda agy_path: False)
+    monkeypatch.setattr(
+        antigravity_cli, "run_antigravity_print", fake_run_antigravity_print
+    )
+
+    response = antigravity_cli.AntigravityCliManager().request(
+        prompt="p", prompt_sys="s", model="Gemini 3.5 Flash (Low)"
+    )
+
+    assert response.content == '{"ok": true}'
+    assert captured["model"] is None
+
+
 def test_request_keeps_normal_json_response(monkeypatch: pytest.MonkeyPatch) -> None:
     _patch_agy(monkeypatch, '{"translation": "x", "scores": {}}')
 

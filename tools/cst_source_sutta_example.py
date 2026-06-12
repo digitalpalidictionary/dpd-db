@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 import re
 import time
 from collections import namedtuple
-from typing import List
 
 from bs4 import BeautifulSoup, element
 from rich import print
@@ -169,9 +167,8 @@ def get_cst_filenames(books: list[str] | str) -> list[str]:
             if book in cst_texts:
                 filenames.extend(cst_texts[book])
 
-    elif type(books) is str:
-        if books in cst_texts:
-            filenames.extend(cst_texts[books])
+    elif type(books) is str and books in cst_texts:
+        filenames.extend(cst_texts[books])
 
     return filenames
 
@@ -297,21 +294,22 @@ def find_gatha_example(g: GlobalData):
     example = ""
 
     start_time = time.time()
-    while True:
-        if x:
-            if x.text == "\n":
-                x = x.previous_sibling
-            elif x["rend"] == "gatha1":
-                break
-            elif x["rend"] == "gatha2":
-                x = x.previous_sibling
-            elif x["rend"] == "gatha3":
-                x = x.previous_sibling
-            elif x["rend"] == "gathalast":
-                x = x.previous_sibling
-            if time.time() - start_time > 1:
-                print(f"[bright_red]{g.text_to_find} [red]is stuck in a loop")
-                break
+    while x is not None:
+        if x.text == "\n":
+            x = x.previous_sibling
+            continue
+        if x["rend"] == "gatha1":
+            break
+        if x["rend"] in ("gatha2", "gatha3", "gathalast"):
+            x = x.previous_sibling
+            continue
+        if time.time() - start_time > 1:
+            print(f"[bright_red]{g.text_to_find} [red]is stuck in a loop")
+            x = None
+            break
+
+    if x is None:
+        return
 
     text = clean_gatha(x.text)
     example += text
@@ -322,11 +320,7 @@ def find_gatha_example(g: GlobalData):
                 x = x.next_sibling
                 if x.text == "\n":
                     pass
-                elif x["rend"] == "gatha2":
-                    text = clean_gatha(x.text)
-                    text = text.replace(".", ",")
-                    example += text
-                elif x["rend"] == "gatha3":
+                elif x["rend"] == "gatha2" or x["rend"] == "gatha3":
                     text = clean_gatha(x.text)
                     text = text.replace(".", ",")
                     example += text
@@ -573,15 +567,7 @@ def vin2_pacittiya(g: GlobalData):
             g.source = f"{book}.{g.section_counter}.{vagga_no}"
             g.sutta = f"{g.section}, {vagga}".lower()
 
-        elif x["rend"] == "title" and "vaggo" not in x.text:
-            sutta, sutta_no = get_text_and_number(x.text.strip())
-            if g.vagga:
-                g.source = f"{book}.{g.section_counter}.{g.vagga_counter}.{sutta_no}"
-            else:
-                g.source = f"{book}.{g.section_counter}.{sutta_no}"
-            g.sutta = sutta.lower()
-
-        elif x["rend"] == "subhead":
+        elif x["rend"] == "title" and "vaggo" not in x.text or x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text.strip())
             if g.vagga:
                 g.source = f"{book}.{g.section_counter}.{g.vagga_counter}.{sutta_no}"
@@ -1563,14 +1549,13 @@ def abh5_kathavatthu(g: GlobalData):
         if x.text == "2. Dutiyavaggo":
             g.section_counter = 10
 
-    if x["rend"] == "subhead":
-        if g.section_counter >= 9:
-            section, section_no = get_text_and_number_with_brackets3(x.text)
-            g.section = section
-            g.section_counter_alt = section_no
+    if x["rend"] == "subhead" and g.section_counter >= 9:
+        section, section_no = get_text_and_number_with_brackets3(x.text)
+        g.section = section
+        g.section_counter_alt = section_no
 
-            g.source = f"{book}{g.section_counter_alt}"
-            g.sutta = f"{g.section}".lower()
+        g.source = f"{book}{g.section_counter_alt}"
+        g.sutta = f"{g.section}".lower()
 
 
 def abh6_yamaka(g: GlobalData):
@@ -2058,7 +2043,6 @@ def abha_abhidhamma_commentary(g: GlobalData) -> None:
 
 def kn1a_khuddakapāṭha_commentary(g: GlobalData):
     # <p rend="chapter">Ganthārambhakathā</p>
-    pass
 
     book = "KPa"
     x = g.x
@@ -2172,11 +2156,7 @@ def kn4a_itivuttaka_commentary(g: GlobalData):
         g.sutta = f"{g.section}, {g.vagga}".lower()
 
     if x["rend"] == "subhead":
-        if x.text == "Ganthārambhakathā":
-            g.source = f"{book}0"
-            g.source_alt = f"{book}"
-            g.sutta = x.text.lower()
-        elif x.text == "Nidānavaṇṇanā":
+        if x.text == "Ganthārambhakathā" or x.text == "Nidānavaṇṇanā":
             g.source = f"{book}0"
             g.source_alt = f"{book}"
             g.sutta = x.text.lower()
@@ -2202,7 +2182,6 @@ def kn4a_itivuttaka_commentary(g: GlobalData):
 
 
 def kn5a_suttanipata_commentary(g: GlobalData):
-    pass
     # ignore    <p rend="title">(Paṭhamo bhāgo)</p>
     # sutta     <p rend="subhead">Ganthārambhakathā</p>
     # vagga     <p rend="chapter">1. Uragavaggo</p>
@@ -2220,11 +2199,7 @@ def kn5a_suttanipata_commentary(g: GlobalData):
         g.sutta = f"{g.vagga}".lower()
 
     if x["rend"] == "subhead":
-        if x.text == "Ganthārambhakathā":
-            g.source = f"{book}0"
-            g.source_alt = f"{book}"
-            g.sutta = x.text.lower()
-        elif x.text == "Nidānavaṇṇanā":
+        if x.text == "Ganthārambhakathā" or x.text == "Nidānavaṇṇanā":
             g.source = f"{book}0"
             g.source_alt = f"{book}"
             g.sutta = x.text.lower()
@@ -2368,15 +2343,11 @@ def kn8a_9a_thera_therigatha_commentary(g: GlobalData):
         g.sutta = f"{g.section}, {g.vagga}".lower()
 
     if x["rend"] in ["subhead", "subsubhead"]:
-        if x.text == "Ganthārambhakathā":
-            g.source = f"{book}"
-            g.source_alt = f"{book}"
-            g.sutta = x.text.lower()
-        elif x.text == "Nigamanagāthā":
-            g.source = f"{book}"
-            g.source_alt = f"{book}"
-            g.sutta = x.text.lower()
-        elif x.text == "Nidānagāthāvaṇṇanā":
+        if (
+            x.text == "Ganthārambhakathā"
+            or x.text == "Nigamanagāthā"
+            or x.text == "Nidānagāthāvaṇṇanā"
+        ):
             g.source = f"{book}"
             g.source_alt = f"{book}"
             g.sutta = x.text.lower()
@@ -2891,14 +2862,15 @@ def kva_dvemātikā_kaṅkhāvitaraṇī(g: GlobalData) -> None:
             g.source = f"{prefix}.{g.section_counter}"
             g.sutta = f"{bhikkhu_label}, {uddesa}".lower()
 
-        elif rend in ["centre", "bodytext"]:
-            if (
-                text.endswith("sikkhāpadaṃ") or text.endswith("sikkhāpadāni")
-            ) and not re.match(r"^\d", text):
-                bhikkhu_label = (
-                    "bhikkhupātimokkha" if not g.is_bhikkhuni else "bhikkhunīpātimokkha"
-                )
-                g.sutta = f"{bhikkhu_label}, {g.section}, {text}".lower()
+        elif (
+            rend in ["centre", "bodytext"]
+            and (text.endswith("sikkhāpadaṃ") or text.endswith("sikkhāpadāni"))
+            and not re.match(r"^\d", text)
+        ):
+            bhikkhu_label = (
+                "bhikkhupātimokkha" if not g.is_bhikkhuni else "bhikkhunīpātimokkha"
+            )
+            g.sutta = f"{bhikkhu_label}, {g.section}, {text}".lower()
 
     else:
         # === COMMENTARY (kaṅkhāvitaraṇī-aṭṭhakathā) mode ===
@@ -2968,7 +2940,7 @@ def kva_dvemātikā_kaṅkhāvitaraṇī(g: GlobalData) -> None:
 
 def find_cst_source_sutta_example(
     book: str, text_to_find: str
-) -> List[CstSourceSuttaExample]:
+) -> list[CstSourceSuttaExample]:
     g: GlobalData = GlobalData(book, text_to_find)
     for soup in g.soups:
         soup_chunks = soup.find_all(["head", "p"])

@@ -63,6 +63,61 @@ def test_run_antigravity_print_passes_sandbox_flag(
     assert "--sandbox" in captured["command"]
 
 
+def test_run_antigravity_print_omits_model_flag_when_model_is_none(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured: dict[str, Any] = {}
+
+    def fake_run(command: list[str], **kwargs: Any) -> Any:
+        captured["command"] = command
+        return antigravity_cli_models.subprocess.CompletedProcess(
+            args=command,
+            returncode=0,
+            stdout="ok",
+            stderr="",
+        )
+
+    monkeypatch.setattr(antigravity_cli_models.subprocess, "run", fake_run)
+
+    antigravity_cli_models.run_antigravity_print(Path("/usr/bin/false"), None, "p")
+
+    assert "--model" not in captured["command"]
+
+
+def test_agy_supports_model_detects_flag_in_help(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_run(command: list[str], **kwargs: Any) -> Any:
+        return antigravity_cli_models.subprocess.CompletedProcess(
+            args=command,
+            returncode=0,
+            stdout="Usage of agy:\n  --model   Select a model\n",
+            stderr="",
+        )
+
+    monkeypatch.setattr(antigravity_cli_models.subprocess, "run", fake_run)
+    antigravity_cli_models.agy_supports_model.cache_clear()
+
+    assert antigravity_cli_models.agy_supports_model(Path("/usr/bin/agy")) is True
+
+
+def test_agy_supports_model_false_when_flag_missing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fake_run(command: list[str], **kwargs: Any) -> Any:
+        return antigravity_cli_models.subprocess.CompletedProcess(
+            args=command,
+            returncode=0,
+            stdout="Usage of agy:\n  --sandbox   Run in a sandbox\n",
+            stderr="",
+        )
+
+    monkeypatch.setattr(antigravity_cli_models.subprocess, "run", fake_run)
+    antigravity_cli_models.agy_supports_model.cache_clear()
+
+    assert antigravity_cli_models.agy_supports_model(Path("/usr/bin/agy")) is False
+
+
 def test_run_antigravity_print_keeps_command_and_timeout_contract(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

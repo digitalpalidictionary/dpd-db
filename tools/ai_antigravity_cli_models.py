@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import shutil
 import subprocess
@@ -29,23 +30,37 @@ def locate_executable(name: str) -> Path:
     return Path(executable)
 
 
+@functools.cache
+def agy_supports_model(agy_path: Path) -> bool:
+    """Check whether this agy build accepts --model (older builds reject it)."""
+    try:
+        result = subprocess.run(
+            [str(agy_path), "--help"],
+            capture_output=True,
+            check=False,
+            text=True,
+            timeout=10,
+        )
+    except (subprocess.TimeoutExpired, OSError):
+        return False
+    return "--model" in result.stdout + result.stderr
+
+
 def run_antigravity_print(
     agy_path: Path,
-    model: str,
+    model: str | None,
     prompt: str,
     timeout: int = 120,
 ) -> RunResult:
-    """Run agy in print (non-interactive) mode and return stdout/stderr/returncode."""
-    command = [
-        str(agy_path),
-        "--sandbox",
-        "--model",
-        model,
-        "--print",
-        prompt,
-        "--print-timeout",
-        f"{timeout}s",
-    ]
+    """Run agy in print (non-interactive) mode and return stdout/stderr/returncode.
+
+    If `model` is None, the model flag is omitted and agy falls back to its
+    own default model (for agy builds that predate --model support).
+    """
+    command = [str(agy_path), "--sandbox"]
+    if model is not None:
+        command += ["--model", model]
+    command += ["--print", prompt, "--print-timeout", f"{timeout}s"]
     with tempfile.TemporaryDirectory(prefix="agy_print_") as scratch_dir:
         result = subprocess.run(
             command,
