@@ -1,8 +1,8 @@
 """Interactive Stage 2: read an edited study report markdown and write a vocabulary CSV for Anki."""
 
 import csv
-from difflib import get_close_matches
 import re
+from difflib import get_close_matches
 from pathlib import Path
 
 from sqlalchemy.orm import Session
@@ -14,8 +14,8 @@ from exporter.analysis.example_bolding import (
     bold_word_in_verse,
     find_token_in_apos_verse,
 )
-from exporter.analysis.paths import ensure_analysis_dirs
 from exporter.analysis.passage_by_code import get_passage_by_code
+from exporter.analysis.paths import ensure_analysis_dirs
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 

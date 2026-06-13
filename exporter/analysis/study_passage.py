@@ -7,16 +7,15 @@ from pathlib import Path
 from typing import Any
 
 from db.db_helpers import get_db_session
+from exporter.analysis.passage_by_code import PassageResult, get_passage_by_code
 from exporter.analysis.paths import ensure_analysis_dirs
 from exporter.analysis.translate_core import (
     generate_markdown_report,
     translate_sentence,
 )
 from tools.ai_manager import AIManager
-from exporter.analysis.passage_by_code import PassageResult, get_passage_by_code
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-
 
 _SELECTION_PREVIEW_WORD_LIMIT = 12
 
