@@ -357,3 +357,61 @@ def test_request_uses_per_model_timeout() -> None:
 
     assert response.content == "ok"
     assert provider.received_timeout == 90.0
+
+
+def _make_probe_manager() -> tuple[AIManager, list[bool]]:
+    """Build a manager with a spy on _ensure_antigravity_ready."""
+    manager = object.__new__(AIManager)
+    manager.providers = {}
+    manager.DEFAULT_MODELS = []
+    manager.GROUNDED_MODELS = []
+    manager.last_request_time = 0.0
+    manager.min_delay_seconds = 0.0
+    manager.model_last_request = {}
+    calls: list[bool] = []
+    manager._ensure_antigravity_ready = lambda: calls.append(True)  # type: ignore[method-assign]
+    return manager, calls
+
+
+def test_forced_antigravity_waits_for_probe() -> None:
+    """A forced antigravity_cli request must wait for the background probe."""
+    manager, calls = _make_probe_manager()
+
+    manager.request(
+        prompt="hi",
+        provider_preference="antigravity_cli",
+        model="Gemini 3.5 Flash (Low)",
+    )
+
+    assert calls == [True]
+
+
+def test_forced_antigravity_skips_wait_when_already_registered() -> None:
+    """No redundant wait once antigravity_cli is already in providers."""
+    manager, calls = _make_probe_manager()
+    provider = _RecordingProvider()
+    manager.providers = {"antigravity_cli": provider}
+
+    manager.request(
+        prompt="hi",
+        provider_preference="antigravity_cli",
+        model="Gemini 3.5 Flash (Low)",
+    )
+
+    assert calls == []
+
+
+def test_default_chain_does_not_wait_for_antigravity_probe() -> None:
+    """The default fallback chain must skip antigravity, never block on the probe."""
+    manager, calls = _make_probe_manager()
+    provider = _RecordingProvider()
+    manager.providers = {"deepseek": provider}
+    manager.DEFAULT_MODELS = [
+        ("antigravity_cli", "Gemini 3.5 Flash (Low)", 0, 150.0),
+        ("deepseek", "deepseek-v4-flash", 0, 150.0),
+    ]
+
+    response = manager.request(prompt="hi")
+
+    assert calls == []
+    assert response.content == "ok"
