@@ -377,11 +377,37 @@ The core pipeline (`translate_core.py`) orchestrates several internal modules:
 
 The analysis engine is protected by a zero-network regression harness in
 `tests/exporter/analysis/test_passage_regression.py`. It tests five canonical
-passages (`TH215`, `MN41_p2`, `SN15.1_p2`, `DHP211`, `AN3.33_p1`)
-against byte-accurate goldens stored in `tests/exporter/analysis/fixtures/passages/`.
+passages (`TH215`, `MN41_p2`, `SN15.1_p2`, `DHP211`, `AN3.33_p1`).
 
-To update the goldens after an intentional behavior change:
-1. Ensure your local `dpd.db` is current.
-2. Run: `UPDATE_GOLDENS=1 uv run pytest tests/exporter/analysis/test_passage_regression.py -s`
-3. Review the `distilled.json` git diffs to ensure only the intended logical changes occurred.
-4. Commit the updated goldens.
+Each fixture in `tests/exporter/analysis/fixtures/passages/<name>/` contains:
+- `ai_debug.json` — recorded AI responses from a prior live run.
+- `metadata.json` — the `provider`, `model`, and `stdin` that produced the recording.
+
+The test replays `ai_debug.json` through `RecordedAIManager` (responses are
+served strictly in recorded order, with no network calls) and then asserts
+passage-specific invariants on the output (e.g. correct grammatical tags,
+no empty meanings, no `[Deconstructed]` placeholders). The test does not
+compare bytes or golden output files.
+
+**When to re-record:** If `MAX_FIRST_CONTEXT_CHARS` or another constant that
+controls chunking changes, existing fixtures may desync (the pipeline makes a
+different number of AI calls than the fixture recorded). Re-record by re-running
+`study_passage.py` with the provider and stdin from `metadata.json`:
+
+```bash
+printf '<stdin from metadata.json>' | uv run python exporter/analysis/study_passage.py \
+  --provider <provider> \
+  --model "<model>"
+```
+
+Then copy the fresh artifacts over the fixture:
+- `output/<stem>_ai_debug.json` → `fixtures/passages/<name>/ai_debug.json`
+- `output/<stem>_study.json`    → `fixtures/passages/<name>/study.json`
+- `reports/<stem>_study.md`     → `fixtures/passages/<name>/study.md`
+
+Update `metadata.json` only if the model string returned by the provider
+differs from the one already recorded.
+
+**Invariant failures after re-recording** are a behaviour signal — the model
+chose different senses that now violate a real constraint. Do not re-roll the
+recording or weaken the assertion; surface it for review instead.
