@@ -1,5 +1,6 @@
 import json
 import shutil
+import threading
 import time
 from pathlib import Path
 from typing import Any, NamedTuple
@@ -8,6 +9,7 @@ from tools.configger import config_read
 from tools.printer import printer as pr
 
 AI_MODELS_PATH = Path("tools/ai_models.json")
+ANTIGRAVITY_PROVIDER = "antigravity_cli"
 
 
 def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
@@ -46,6 +48,8 @@ class AIResponse(NamedTuple):
 
 
 class AIManager:
+    _antigravity_probe_thread: threading.Thread | None = None
+
     def __init__(self):
         models = _load_models_from_json()
         self.DEFAULT_MODELS: list[tuple[str, str, int, float]] = models["default"]
@@ -91,13 +95,13 @@ class AIManager:
             pr.amber("NVIDIA API key not found, manager not initialized.")
 
         if shutil.which("agy"):
-            from tools.ai_antigravity_cli import AntigravityCliManager, get_working_key
-
-            if get_working_key():
-                self.providers["antigravity_cli"] = AntigravityCliManager()
-                pr.green("antigravity_cli initialized")
-            else:
-                pr.amber("agy found but not working, antigravity_cli not initialized.")
+            self._antigravity_probe_thread = threading.Thread(
+                target=self._probe_antigravity_cli,
+                name="antigravity-cli-probe",
+                daemon=True,
+            )
+            self._antigravity_probe_thread.start()
+            pr.green("antigravity_cli probing in background...")
         else:
             pr.amber(
                 "agy executable not found on PATH, antigravity_cli not initialized."
@@ -110,6 +114,33 @@ class AIManager:
         self.last_request_time: float = 0
         self.min_delay_seconds: float = 0
         self.model_last_request: dict[str, float] = {}
+
+    def _probe_antigravity_cli(self) -> None:
+        """Probe agy off-thread so its slow auth check never blocks startup.
+
+        antigravity_cli is the first model in the default fallback list, so it
+        must stay gated: until the probe confirms agy works, the provider is
+        absent from self.providers and request() simply skips to the next model.
+        """
+        from tools.ai_antigravity_cli import AntigravityCliManager, get_working_key
+
+        if get_working_key():
+            self.providers[ANTIGRAVITY_PROVIDER] = AntigravityCliManager()
+            pr.green("antigravity_cli initialized")
+        else:
+            pr.amber("agy found but not working, antigravity_cli not initialized.")
+
+    def _ensure_antigravity_ready(self) -> None:
+        """Block until the background agy probe finishes.
+
+        Called only when a request explicitly forces antigravity_cli, so that
+        forced requests behave as before (waiting for the probe) while the
+        default fallback chain still skips antigravity until it is ready.
+        """
+        thread = self._antigravity_probe_thread
+        if thread is not None and thread.is_alive():
+            pr.green("waiting for antigravity_cli probe to finish...")
+            thread.join()
 
     def reload_models(self) -> None:
         """Reload model lists from tools/ai_models.json."""
@@ -150,6 +181,15 @@ class AIManager:
         """
         models_to_try = []
         errors: list[str] = []
+
+        # A forced antigravity_cli request must wait for the background probe,
+        # otherwise it would fail before the provider has been registered.
+        if (
+            not grounding
+            and provider_preference == ANTIGRAVITY_PROVIDER
+            and ANTIGRAVITY_PROVIDER not in self.providers
+        ):
+            self._ensure_antigravity_ready()
 
         # Use a grounded model for internet searches
         if grounding:

@@ -72,7 +72,7 @@ tools = [
     "indic-transliteration>=2.3.75",
     "miniaudio>=1.61",
     "pathspec>=0.12.1",
-    "flet[all]>=0.28.3",
+    "flet[all]==0.28.3",
     "modelcontextprotocol>=0.1.0",
     "mcp>=1.6.0",
     "elevenlabs>=1.57.0",
