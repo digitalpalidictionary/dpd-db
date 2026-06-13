@@ -368,6 +368,7 @@ Bharatas
 Bharaṇḍu
 Bhañña
 bhaṅga
+Bhaṇḍagāma
 bheke
 bheraṇḍakaṃyeva
 Bhesakalā's
@@ -685,6 +686,7 @@ defence
 defilement
 defilements
 dehorned
+dehusk
 dehusked
 deity
 dejection
@@ -833,6 +835,7 @@ Dutiyadevacārikasutta
 Dutiyaejāsutta
 Dutiyajhānapañhāsutta
 Dutiyakaṇḍakīsutta
+Dutiyamoranivāpasutta
 Dutiyanatumhākasutta
 Dutiyasikkhāsutta
 Dutiyasūriyasutta
@@ -1514,6 +1517,7 @@ Kāsians
 Kātiyāna
 Kāyagatāsatisutta
 Kāḷaka
+Kāḷakārāma
 Kāḷigodha
 Kāḷudāyi
 Kāḷudāyī
@@ -2087,6 +2091,7 @@ Paṭhamadevacārikasutta
 Paṭhamaejāsutta
 Paṭhamajhānapañhāsutta
 Paṭhamakaṇḍakīsutta
+Paṭhamamoranivāpasutta
 Paṭhamasikkhāsutta
 Paṭhamasūriyasutta
 Paṭhamasūriyasutta
@@ -2776,6 +2781,7 @@ tastable
 Tathāgata
 Tatiyadevacārikasutta
 Tatiyakaṇḍakīsutta
+Tatiyamoranivāpasutta
 Tatiyasikkhāsutta
 Tatiyasikkhāsutta
 Tavatimsa
@@ -3429,8 +3435,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Paṭhamamoranivāpasutta
-Dutiyamoranivāpasutta
-Tatiyamoranivāpasutta
-dehusk
-Bhaṇḍagāma
