@@ -139,14 +139,16 @@ class DeepseekManager:
             content = choice.get("message", {}).get("content")
             finish_reason = choice.get("finish_reason")
             if content:
-                if finish_reason == "length":
-                    return AIResponse(
-                        content=None,
-                        status_message=f"truncated (finish_reason=length, model={current_model})",
+                if finish_reason and finish_reason != "stop":
+                    status_message = (
+                        f"{response.status_code} "
+                        f"(finish_reason={finish_reason}, model={current_model})"
                     )
+                else:
+                    status_message = str(response.status_code)
                 return AIResponse(
                     content=content,
-                    status_message=str(response.status_code),
+                    status_message=status_message,
                 )
             else:
                 return AIResponse(
