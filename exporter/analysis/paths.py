@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-ANALYSIS_DIR = Path("exporter/analysis")
+ANALYSIS_DIR = Path(__file__).resolve().parent
 
 
 @dataclass(frozen=True)

@@ -19,7 +19,7 @@ from tools.printer import printer as pr
 
 PROBE_CONTENTS = "Return OK only."
 PROBE_SYSTEM_INSTRUCTION = "Return exactly OK and nothing else."
-MAX_ARGV_PROMPT_BYTES = 700_000
+MAX_PROMPT_BYTES = 4_000_000
 AUTH_PROMPT_MARKERS = ("Authentication required", "accounts.google.com")
 MAX_ERROR_LINE_LENGTH = 200
 IMMEDIATE_EMPTY_SECONDS = 10.0
@@ -98,10 +98,9 @@ def generate_content(
 
     prompt = _build_prompt(contents, system_instruction, max_output_tokens, temperature)
     prompt_bytes = len(prompt.encode("utf-8"))
-    if prompt_bytes > MAX_ARGV_PROMPT_BYTES:
+    if prompt_bytes > MAX_PROMPT_BYTES:
         raise AntigravityCliProviderError(
-            "prompt too large for argv transport "
-            f"({prompt_bytes} bytes > {MAX_ARGV_PROMPT_BYTES})"
+            f"prompt too large ({prompt_bytes} bytes > {MAX_PROMPT_BYTES})"
         )
 
     agy_path = _locate_antigravity()

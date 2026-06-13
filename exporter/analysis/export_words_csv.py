@@ -20,11 +20,6 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-_ANALYSIS_DIRS = ensure_analysis_dirs()
-_REPORTS_DIR = _ANALYSIS_DIRS.reports_dir
-_OUTPUT_DIR = _ANALYSIS_DIRS.output_dir
-
-
 def _normalize_export_source(source: str) -> str:
     """Return the canonical source code without report or passage-selection suffixes."""
     base = source.removesuffix("_study")
@@ -179,11 +174,12 @@ def _parse_report(content: str) -> tuple[str, list[tuple[int, str, str, bool]]]:
         for line in table_part.splitlines():
             if not line.startswith("| "):
                 continue
-            cells = line.split("|")
+            line_safe = line.replace("\\|", "\x00")
+            cells = [c.strip().replace("\x00", "|") for c in line_safe.split("|")]
             if len(cells) < 3:
                 continue
-            raw_id = cells[1].strip()
-            raw_word = cells[2].strip()
+            raw_id = cells[1]
+            raw_word = cells[2]
             if not raw_word or raw_word in {"Word in Sentence", ":---"}:
                 continue
             depth, surface = _component_depth(raw_word)
@@ -311,24 +307,26 @@ def main() -> None:
         pr.red(f"Database not found: {paths.dpd_db_path}")
         raise SystemExit(1)
 
+    dirs = ensure_analysis_dirs()
+
     pr.green("=" * 50)
     pr.green("Pāḷi Word Exporter — Stage 2")
     pr.green("=" * 50)
 
-    _print_available_report_choices(_REPORTS_DIR)
+    _print_available_report_choices(dirs.reports_dir)
     source = input(
         "\nEnter source (code or filename stem, e.g. DHP1, SN12.3_p2, my_text): "
     ).strip()
     if not source:
         pr.red("No source entered.")
         raise SystemExit(1)
-    source = _prompt_report_source(source, _REPORTS_DIR)
+    source = _prompt_report_source(source, dirs.reports_dir)
     if source is None:
         pr.amber("Quit.")
         raise SystemExit(0)
     export_source = _normalize_export_source(source)
 
-    report_path = _resolve_report_path(source, _REPORTS_DIR)
+    report_path = _resolve_report_path(source, dirs.reports_dir)
     if not report_path.exists():
         pr.red(f"Report not found: {report_path}")
         raise SystemExit(1)
@@ -351,7 +349,7 @@ def main() -> None:
 
     db_session = get_db_session(paths.dpd_db_path)
 
-    output_path = _OUTPUT_DIR / f"{export_source}_words.csv"
+    output_path = dirs.output_dir / f"{export_source}_words.csv"
     seen_ids: set[int] = set()
     skipped = 0
     written = 0

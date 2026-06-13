@@ -60,14 +60,14 @@ def run_antigravity_print(
     command = [str(agy_path), "--sandbox"]
     if model is not None:
         command += ["--model", model]
-    command += ["--print", prompt, "--print-timeout", f"{timeout}s"]
+    command += ["--print", "-", "--print-timeout", f"{timeout}s"]
     with tempfile.TemporaryDirectory(prefix="agy_print_") as scratch_dir:
         result = subprocess.run(
             command,
             capture_output=True,
             check=False,
             cwd=scratch_dir,
-            stdin=subprocess.DEVNULL,
+            input=prompt,
             text=True,
             timeout=timeout + 10,
         )

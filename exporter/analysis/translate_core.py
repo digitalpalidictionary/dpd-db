@@ -69,6 +69,7 @@ from .prompts import (  # noqa: F401
     PREVIOUS_TRANSLATION_CONTEXT_CHARS,
     REFORMAT_KEYS_MAX_CHARS,
     REFORMAT_MAX_CHARS,
+    _build_grounded_translation_prompt,
     _build_missing_scores_prompt,
     _build_reformat_prompt,
     _build_translation_prompt,
@@ -215,10 +216,16 @@ def _split_into_sentence_chunks(
     resolved_sentence: str,
     analysis: list[dict[str, Any]],
     max_context_chars: int,
-) -> list[tuple[str, list[dict[str, Any]]]]:
+) -> tuple[list[tuple[str, list[dict[str, Any]]]], bool]:
+    """Return (chunks, use_grounded_fallback).
+
+    use_grounded_fallback is True when a lone sentence whose JSON exceeds the
+    threshold is split word-by-word for scoring; the caller must issue a
+    grounded whole-sentence translation after scores are merged.
+    """
     whole = json.dumps(analysis, ensure_ascii=False, separators=(",", ":"))
     if len(whole) <= max_context_chars:
-        return [(resolved_sentence, analysis)]
+        return [(resolved_sentence, analysis)], False
 
     sentences = [
         sentence
@@ -226,11 +233,15 @@ def _split_into_sentence_chunks(
         if sentence.strip()
     ]
     if len(sentences) < 2:
-        return [(resolved_sentence, analysis)]
+        # Lone oversize sentence: split by word for scoring only.
+        if len(analysis) >= 2:
+            word_chunks = [(entry["word"], [entry]) for entry in analysis]
+            return word_chunks, True
+        return [(resolved_sentence, analysis)], False
 
     counts = [len(tokenize_sentence(sentence)) for sentence in sentences]
     if sum(counts) != len(analysis):
-        return [(resolved_sentence, analysis)]
+        return [(resolved_sentence, analysis)], False
 
     sentence_slices: list[tuple[str, list[dict[str, Any]]]] = []
     start = 0
@@ -257,7 +268,7 @@ def _split_into_sentence_chunks(
 
     if current_sentences:
         chunks.append((" ".join(current_sentences), current_analysis))
-    return chunks or [(resolved_sentence, analysis)]
+    return chunks or [(resolved_sentence, analysis)], False
 
 
 def _merge_chunk_ai_data(chunk_datas: list[dict[str, Any]]) -> dict[str, Any]:
@@ -579,7 +590,7 @@ def translate_sentence(
     if progress:
         progress("json_done")
 
-    chunks = _split_into_sentence_chunks(
+    chunks, use_grounded_fallback = _split_into_sentence_chunks(
         resolved_sentence,
         analysis,
         MAX_FIRST_CONTEXT_CHARS,
@@ -710,6 +721,31 @@ def translate_sentence(
         )
         debug["final_scores"] = copy.deepcopy(scores_map)
     merged = merge_ai_selections(analysis, ai_data)
+
+    if use_grounded_fallback:
+        word_table = format_markdown_table(merged["analysis"])
+        grounded_prompt = _build_grounded_translation_prompt(
+            resolved_sentence, word_table
+        )
+        grounded_response = ai_manager.request(
+            prompt=grounded_prompt,
+            prompt_sys="",
+            model=model,
+            provider_preference=provider,
+        )
+        if grounded_response.content:
+            try:
+                grounded_data = json.loads(grounded_response.content)
+                if isinstance(grounded_data, dict):
+                    if isinstance(grounded_data.get("translation"), str):
+                        merged["translation"] = grounded_data["translation"]
+                    if isinstance(grounded_data.get("literal_translation"), str):
+                        merged["literal_translation"] = grounded_data[
+                            "literal_translation"
+                        ]
+            except (json.JSONDecodeError, AttributeError):
+                pass  # keep concatenated word-level translations on failure
+
     merged["speech_mark_options"] = speech_mark_options or {}
     merged["variant_choices"] = ai_data.get("variant_choices", {})
     if speech_mark_options:

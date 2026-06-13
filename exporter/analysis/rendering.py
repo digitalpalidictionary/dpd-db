@@ -7,6 +7,10 @@ from .ai_response import _is_deconstructed_placeholder
 from .ranking import _deconstruction_fallback_meaning, _select_best_option
 
 
+def _escape_cell(v: str) -> str:
+    return v.replace("|", "\\|")
+
+
 def generate_markdown_report(
     merged_result: dict[str, Any],
     sentence: str,
@@ -114,7 +118,7 @@ def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
                 )
 
                 table_rows.append(
-                    f"| {best_part.get('id', '')} | {indent_prefix}{clean_comp_word} | {comp_grammar} | {comp_meaning} | {comp_construction} | {best_part.get('root_key', '')} |"
+                    f"| {best_part.get('id', '')} | {indent_prefix}{_escape_cell(clean_comp_word)} | {_escape_cell(comp_grammar)} | {_escape_cell(comp_meaning)} | {_escape_cell(comp_construction)} | {_escape_cell(best_part.get('root_key', ''))} |"
                 )
 
                 # Only recurse into components of real compounds/sandhi, not etymological breakdowns
@@ -130,14 +134,14 @@ def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
         options = token_data["data"]
 
         if not options:
-            table_rows.append(f"| | {word} | | | | |")
+            table_rows.append(f"| | {_escape_cell(word)} | | | | |")
             continue
 
         # Sort options by AI score (desc), then by completeness/original score
         # We assume 'ai_score' has been merged into the options. Default to 0.
         best_option = _select_best_option(options)
         if not best_option:
-            table_rows.append(f"| | {word} | | | | |")
+            table_rows.append(f"| | {_escape_cell(word)} | | | | |")
             continue
 
         # Determine values to display
@@ -173,7 +177,7 @@ def format_markdown_table(enriched_analysis: list[dict[str, Any]]) -> str:
         construction = construction.replace("<b>", "").replace("</b>", "")
 
         table_rows.append(
-            f"| {hw_id} | {word} | {grammar} | {meaning} | {construction} | {best_option.get('root_key', '')} |"
+            f"| {hw_id} | {_escape_cell(word)} | {_escape_cell(grammar)} | {_escape_cell(meaning)} | {_escape_cell(construction)} | {_escape_cell(best_option.get('root_key', ''))} |"
         )
 
         # Start Recursion

@@ -6,7 +6,9 @@ from typing import Any
 
 from ._base import _is_deconstruction_key, _retry_prompt_groups
 
-MAX_FIRST_CONTEXT_CHARS = 250_000
+# ~300–360k tokens: deep headroom inside a 1M-token window; sized to model capacity,
+# not the old argv transport ceiling.
+MAX_FIRST_CONTEXT_CHARS = 900_000
 
 REFORMAT_MAX_CHARS = 3000
 
@@ -319,3 +321,25 @@ Return a JSON object with translations and a flat map of **scores** keyed by the
 Your response MUST be exactly one JSON object with translation, literal_translation, and scores.
 """
     return prompt
+
+
+def _build_grounded_translation_prompt(
+    sentence: str,
+    word_table_md: str,
+) -> str:
+    """Build a prompt asking only for translation + literal_translation grounded in the chosen senses.
+
+    Used as a fallback when a single sentence's JSON alone exceeds MAX_FIRST_CONTEXT_CHARS.
+    The word table comes from format_markdown_table(merged["analysis"]) — the already-scored
+    word senses — so the translation is grounded rather than free-formed.
+    """
+    return (
+        f"{NO_TOOLS_INSTRUCTION}\n\n"
+        "You are a Pāḷi translator. Using ONLY the word senses provided in the table "
+        "below, translate the Pāḷi sentence into natural English. "
+        "Do not introduce senses not listed.\n\n"
+        f"Sentence:\n{sentence}\n\n"
+        f"Chosen word senses:\n{word_table_md}\n\n"
+        "Return a JSON object with exactly two keys:\n"
+        '{"translation": "<natural English>", "literal_translation": "<word-by-word>"}'
+    )

@@ -8,6 +8,7 @@ import pytest
 import exporter.analysis.study_passage as study_passage
 from exporter.analysis.passage_extraction import format_extraction_report
 from exporter.analysis.passage_by_code import PassageResult
+from exporter.analysis.paths import AnalysisDirs
 from exporter.analysis.study_passage import (
     _build_raw_responses_log,
     _format_selection_preview,
@@ -129,19 +130,18 @@ def test_build_raw_responses_log_includes_chunk_requests() -> None:
 
 def test_write_ai_debug_artifacts_writes_json_and_raw(
     tmp_path: Path,
-    monkeypatch,
 ) -> None:
     output_dir = tmp_path / "output"
     reports_dir = tmp_path / "reports"
     output_dir.mkdir()
     reports_dir.mkdir()
-    monkeypatch.setattr(study_passage, "_OUTPUT_DIR", output_dir)
-    monkeypatch.setattr(study_passage, "_REPORTS_DIR", reports_dir)
 
     study_passage._write_ai_debug_artifacts(
         "TH1",
         {"raw_response": "partial", "status_message": "failed status"},
         include_raw=True,
+        output_dir=output_dir,
+        reports_dir=reports_dir,
     )
 
     assert (output_dir / "TH1_ai_debug.json").read_text(encoding="utf-8") == (
@@ -206,8 +206,16 @@ def test_main_writes_debug_artifacts_when_translate_sentence_fails(
         "translate_sentence",
         fail_translate_sentence,
     )
-    monkeypatch.setattr(study_passage, "_OUTPUT_DIR", output_dir)
-    monkeypatch.setattr(study_passage, "_REPORTS_DIR", reports_dir)
+    monkeypatch.setattr(
+        study_passage,
+        "ensure_analysis_dirs",
+        lambda: AnalysisDirs(
+            root=tmp_path,
+            input_dir=tmp_path / "input",
+            reports_dir=reports_dir,
+            output_dir=output_dir,
+        ),
+    )
 
     with pytest.raises(ValueError, match="boom"):
         study_passage.main()

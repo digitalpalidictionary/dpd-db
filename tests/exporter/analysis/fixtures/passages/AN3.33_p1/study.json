@@ -1,6 +1,6 @@
 {
-  "translation": "Then the Venerable Sāriputta approached the Blessed One. Having approached and paid homage to the Blessed One, he sat down to one side. As the Venerable Sāriputta was sitting to one side, the Blessed One said to him: \"Sāriputta, I could teach the Dhamma in brief, Sāriputta, I could teach the Dhamma in detail, or, Sāriputta, I could teach the Dhamma both in brief and in detail, but those who understand are hard to find.\" Now is the time for this, Blessed One, now is the time for this, Sublime One, that the Blessed One should teach the Dhamma in brief, teach the Dhamma in detail, and teach the Dhamma both in brief and in detail. There will be those who understand the Dhamma.",
-  "literal_translation": "Then indeed the venerable Sāriputta where the Blessed One there approached, having approached the Blessed One having paid homage to one side sat down. To one side seated indeed to the venerable Sāriputta the Blessed One this said, in brief also indeed I, Sāriputta, Dhamma would teach, in detail also indeed I, Sāriputta, Dhamma would teach, in brief and detail also indeed I, Sāriputta, Dhamma would teach, understanders and are rare. Of this, Blessed One, [is] the time, of this, Sublime One, [is] the time, which the Blessed One in brief even the Dhamma should teach, in detail even the Dhamma should teach, in brief and detail even the Dhamma should teach. There will be of the Dhamma understanders.",
+  "translation": "Then the Venerable Sāriputta approached the Blessed One, and having approached, he bowed to the Blessed One and sat down to one side. The Blessed One said this to the Venerable Sāriputta who was sitting to one side: 'I could teach the Dhamma in brief, Sāriputta, I could teach the Dhamma in detail, I could teach the Dhamma both in brief and in detail, but those who understand are hard to find.' 'Now is the time for this, Blessed One! Now is the time for this, Sublime One! Let the Blessed One teach the Dhamma in brief, let him teach the Dhamma in detail, let him teach the Dhamma both in brief and in detail. There will be those who understand the Dhamma!'",
+  "literal_translation": "Then indeed Venerable Sāriputta where the Blessed One was there approached, having approached the Blessed One having bowed to one side sat down. To the sitting to one side indeed Venerable Sāriputta the Blessed One this said: 'in brief also indeed I, Sāriputta, Dhamma could teach, in detail also indeed I, Sāriputta, Dhamma could teach, in brief and detail also indeed I, Sāriputta, Dhamma could teach, understanders and are hard to find.' 'Of this, Blessed One, time, of this, Sublime One, time, that the Blessed One in brief also Dhamma should teach, in detail also Dhamma should teach, in brief and detail also Dhamma should teach. There will be of the Dhamma understanders.'",
   "analysis": [
     {
       "word": "atha",
@@ -16,7 +16,7 @@
           "pos": "ind",
           "grammar": "ind",
           "meaning_1": "then; also; and so; after that",
-          "meaning_combo": "then; also; and so; after that",
+          "meaning_combo": "then",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -66,7 +66,7 @@
           "pos": "ind",
           "grammar": "ind, emph",
           "meaning_1": "indeed; surely; certainly; truly",
-          "meaning_combo": "indeed; surely; certainly; truly",
+          "meaning_combo": "indeed",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -248,7 +248,7 @@
           "pos": "adj",
           "grammar": "masc nom sg of āyasmant",
           "meaning_1": "venerable; respectable",
-          "meaning_combo": "venerable; respectable; lit. having long life quality",
+          "meaning_combo": "venerable",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√i 1 a (come, go)",
@@ -342,7 +342,7 @@
           "pos": "noun",
           "grammar": "masc nom sg of sāriputta",
           "meaning_1": "name of an arahant monk; chief disciple; great disciple of the Buddha; foremost monk in great wisdom",
-          "meaning_combo": "name of an arahant monk; chief disciple; great disciple of the Buddha; foremost monk in great wisdom; lit. son of Sāri",
+          "meaning_combo": "Sariputta",
           "compound_type": "chaṭṭhī tappurisa",
           "compound_construction": "sār<b>iyā</b> + putta",
           "root_key": "",
@@ -573,7 +573,7 @@
                 "example_2": "atha kho rohitasso devaputto abhikkantāya rattiyā abhikkantavaṇṇo kevalakappaṃ jetavanaṃ obhāsetvā yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi.",
                 "source_2": "AN4.45",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 3
               },
               {
                 "key": "w3_74118_0",
@@ -683,7 +683,7 @@
           "pos": "ind",
           "grammar": "ind, adv, instr sg of ya",
           "meaning_1": "where; wherever; in which direction; to; towards",
-          "meaning_combo": "where; wherever; in which direction; to; towards",
+          "meaning_combo": "where",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -711,7 +711,7 @@
           "pos": "noun",
           "grammar": "masc nom sg of bhagavant",
           "meaning_1": "Sublime One; Blessed One; Fortunate One; Auspicious One; epithet of the Buddha",
-          "meaning_combo": "Sublime One; Blessed One; Fortunate One; Auspicious One; epithet of the Buddha; lit. having good fortune quality",
+          "meaning_combo": "the Blessed One",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√bhaj 1 a (divide, distribute)",
@@ -849,7 +849,7 @@
           "pos": "verb",
           "grammar": "aor 3rd sg of tenupasaṅkami",
           "meaning_1": "approached there; went to that place",
-          "meaning_combo": "approached there; went to that place",
+          "meaning_combo": "approached there",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -1173,7 +1173,7 @@
           "pos": "abs",
           "grammar": "abs of upasaṅkamati",
           "meaning_1": "having approached; having gone; having drawn near (to)",
-          "meaning_combo": "having approached; having gone; having drawn near (to)",
+          "meaning_combo": "having approached",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√kam 1 a (go)",
@@ -1201,7 +1201,7 @@
           "pos": "noun",
           "grammar": "masc acc sg of bhagavant",
           "meaning_1": "Sublime One; Blessed One; Fortunate One; Auspicious One; epithet of the Buddha",
-          "meaning_combo": "Sublime One; Blessed One; Fortunate One; Auspicious One; epithet of the Buddha; lit. having good fortune quality",
+          "meaning_combo": "the Blessed One",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√bhaj 1 a (divide, distribute)",
@@ -1295,7 +1295,7 @@
           "pos": "abs",
           "grammar": "abs of abhivādeti",
           "meaning_1": "having bowed down; having paid high respect (to)",
-          "meaning_combo": "having paid homage",
+          "meaning_combo": "having bowed to",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√vad 1 *e (say, speak)",
@@ -1366,7 +1366,7 @@
                 "pos": "adj",
                 "grammar": "",
                 "meaning_1": "a; a certain; a single",
-                "meaning_combo": "a certain",
+                "meaning_combo": "one",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -1679,7 +1679,7 @@
                 "pos": "adj",
                 "grammar": "",
                 "meaning_1": "a; a certain; a single",
-                "meaning_combo": "a certain",
+                "meaning_combo": "one",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -1937,7 +1937,7 @@
               }
             ]
           ],
-          "ai_score": 0
+          "ai_score": null
         }
       ]
     },
@@ -2092,7 +2092,7 @@
                 "pos": "adj",
                 "grammar": "",
                 "meaning_1": "a; a certain; a single",
-                "meaning_combo": "a certain",
+                "meaning_combo": "one",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -2405,7 +2405,7 @@
                 "pos": "adj",
                 "grammar": "",
                 "meaning_1": "a; a certain; a single",
-                "meaning_combo": "a certain",
+                "meaning_combo": "one",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -2869,7 +2869,7 @@
           "pos": "noun",
           "grammar": "masc acc sg of āyasmant",
           "meaning_1": "sir; venerable; reverend",
-          "meaning_combo": "sir; venerable; reverend; lit. having age quality",
+          "meaning_combo": "venerable",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√i 1 a (come, go)",
@@ -2879,7 +2879,7 @@
           "example_2": "ty'āhaṃ upasaṅkamitvā evaṃ vadāmi, saccaṃ kira tumhe āyasmanto evaṃvādino evaṃdiṭṭhino, ek'antasukhī attā hoti arogo paraṃ maraṇā'ti?",
           "source_2": "DN9.6",
           "components": [],
-          "ai_score": 0
+          "ai_score": 10
         },
         {
           "key": "w15_12242_1",
@@ -2913,7 +2913,7 @@
           "pos": "adj",
           "grammar": "masc acc sg of āyasmant",
           "meaning_1": "venerable; respectable",
-          "meaning_combo": "venerable",
+          "meaning_combo": "venerable; respectable; lit. having long life quality",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√i 1 a (come, go)",
@@ -2923,7 +2923,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 10
+          "ai_score": 5
         },
         {
           "key": "w15_12242_3",
@@ -3162,7 +3162,7 @@
                 "pos": "masc",
                 "grammar": "",
                 "meaning_1": "son; child",
-                "meaning_combo": "son; child",
+                "meaning_combo": "son",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -3172,7 +3172,7 @@
                 "example_2": "na tassa puttā pasavo,\nkhettaṃ vatthuñ'ca vijjati,\nattā vā'pi nirattā vā,\nna tasmiṃ upalabbhati.",
                 "source_2": "SNP48",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 10
               },
               {
                 "key": "w16_46625_0",
@@ -3194,7 +3194,7 @@
                 "example_2": "atha kho rohitasso devaputto abhikkantāya rattiyā abhikkantavaṇṇo kevalakappaṃ jetavanaṃ obhāsetvā yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi.",
                 "source_2": "AN4.45",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 3
               },
               {
                 "key": "w16_74118_0",
@@ -3314,7 +3314,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 0
+          "ai_score": 3
         },
         {
           "key": "w17_49140_4",
@@ -3576,7 +3576,7 @@
                 "pos": "ind",
                 "grammar": "ind, adv, instr sg of saṃkhitta",
                 "meaning_1": "in brief; concisely",
-                "meaning_combo": "briefly",
+                "meaning_combo": "in brief",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "√khip 1 a (throw)",
@@ -4107,7 +4107,7 @@
                 "pos": "masc",
                 "grammar": "",
                 "meaning_1": "son; child",
-                "meaning_combo": "son; child",
+                "meaning_combo": "son",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -4117,7 +4117,7 @@
                 "example_2": "na tassa puttā pasavo,\nkhettaṃ vatthuñ'ca vijjati,\nattā vā'pi nirattā vā,\nna tasmiṃ upalabbhati.",
                 "source_2": "SNP48",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 10
               },
               {
                 "key": "w22_46625_0",
@@ -4139,7 +4139,7 @@
                 "example_2": "atha kho rohitasso devaputto abhikkantāya rattiyā abhikkantavaṇṇo kevalakappaṃ jetavanaṃ obhāsetvā yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi.",
                 "source_2": "AN4.45",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 3
               },
               {
                 "key": "w22_74118_0",
@@ -5487,7 +5487,7 @@
                 "pos": "masc",
                 "grammar": "",
                 "meaning_1": "son; child",
-                "meaning_combo": "son; child",
+                "meaning_combo": "son",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -5497,7 +5497,7 @@
                 "example_2": "na tassa puttā pasavo,\nkhettaṃ vatthuñ'ca vijjati,\nattā vā'pi nirattā vā,\nna tasmiṃ upalabbhati.",
                 "source_2": "SNP48",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 10
               },
               {
                 "key": "w28_46625_0",
@@ -5519,7 +5519,7 @@
                 "example_2": "atha kho rohitasso devaputto abhikkantāya rattiyā abhikkantavaṇṇo kevalakappaṃ jetavanaṃ obhāsetvā yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi.",
                 "source_2": "AN4.45",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 3
               },
               {
                 "key": "w28_74118_0",
@@ -6187,7 +6187,7 @@
           "pali": "saṃkhittavitthārenapi",
           "pos": "sandhi",
           "grammar": "sandhi/compound",
-          "meaning_combo": "briefly and in detail also",
+          "meaning_combo": "in brief and in detail also",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -6853,7 +6853,7 @@
                 "pos": "masc",
                 "grammar": "",
                 "meaning_1": "son; child",
-                "meaning_combo": "son; child",
+                "meaning_combo": "son",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -6863,7 +6863,7 @@
                 "example_2": "na tassa puttā pasavo,\nkhettaṃ vatthuñ'ca vijjati,\nattā vā'pi nirattā vā,\nna tasmiṃ upalabbhati.",
                 "source_2": "SNP48",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 10
               },
               {
                 "key": "w34_46625_0",
@@ -6885,7 +6885,7 @@
                 "example_2": "atha kho rohitasso devaputto abhikkantāya rattiyā abhikkantavaṇṇo kevalakappaṃ jetavanaṃ obhāsetvā yena bhagavā ten'upasaṅkami, upasaṅkamitvā bhagavantaṃ abhivādetvā ekam'antaṃ aṭṭhāsi.",
                 "source_2": "AN4.45",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 3
               },
               {
                 "key": "w34_74118_0",
@@ -8160,7 +8160,7 @@
                 "pos": "ind",
                 "grammar": "ind, adv",
                 "meaning_1": "thus; like this; this is; and so",
-                "meaning_combo": "quote terminator",
+                "meaning_combo": "thus",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -8273,7 +8273,7 @@
                 "pos": "ind",
                 "grammar": "ind, adv",
                 "meaning_1": "thus; like this; this is; and so",
-                "meaning_combo": "quote terminator",
+                "meaning_combo": "thus",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",
@@ -8475,7 +8475,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 0
+          "ai_score": 3
         },
         {
           "key": "w41_49140_4",
@@ -8663,7 +8663,7 @@
           "example_2": "accenti kālā tarayanti rattiyo,\nvayoguṇā anupubbaṃ jahanti,\netaṃ bhayaṃ maraṇe pekkhamāno,\npuññāni kayirātha sukh'āvahānī'ti.",
           "source_2": "SN1.4",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w43_17847_1",
@@ -8685,7 +8685,7 @@
           "example_2": "accenti kālā tarayanti rattiyo,\nvayoguṇā anupubbaṃ jahanti,\netaṃ bhayaṃ maraṇe pekkhamāno,\npuññāni kayirātha sukh'āvahānī'ti.",
           "source_2": "SN1.4",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w43_17847_2",
@@ -8697,7 +8697,7 @@
           "pos": "pron",
           "grammar": "masc gen sg of eta",
           "meaning_1": "this",
-          "meaning_combo": "for this",
+          "meaning_combo": "of this",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -8729,7 +8729,7 @@
           "example_2": "accenti kālā tarayanti rattiyo,\nvayoguṇā anupubbaṃ jahanti,\netaṃ bhayaṃ maraṇe pekkhamāno,\npuññāni kayirātha sukh'āvahānī'ti.",
           "source_2": "SN1.4",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         }
       ]
     },
@@ -8757,7 +8757,7 @@
           "example_2": "so sace ākaṅkhati, dibbena cakkhunā visuddhena atikkantamānusakena satte passeyyaṃ cavamāne upapajjamāne hīne paṇīte suvaṇṇe dubbaṇṇe, sugate duggate yathākamm'ūpage satte pajāneyyaṃ",
           "source_2": "AN5.23",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w44_63608_1",
@@ -8779,7 +8779,7 @@
           "example_2": "so sace ākaṅkhati, dibbena cakkhunā visuddhena atikkantamānusakena satte passeyyaṃ cavamāne upapajjamāne hīne paṇīte suvaṇṇe dubbaṇṇe, sugate duggate yathākamm'ūpage satte pajāneyyaṃ",
           "source_2": "AN5.23",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w44_63609_2",
@@ -8791,7 +8791,7 @@
           "pos": "noun",
           "grammar": "masc voc sg of sugata",
           "meaning_1": "Accomplished One; Fortunate One; epithet of the Buddha",
-          "meaning_combo": "Sublime One",
+          "meaning_combo": "Fortunate One",
           "compound_type": "kammadhāraya",
           "compound_construction": "su + gata",
           "root_key": "√gam 1 a (go)",
@@ -8823,7 +8823,7 @@
           "example_2": "navaṃ pana bhikkhunā mañcaṃ vā pīṭhaṃ vā kārayamānena aṭṭh'aṅgulapādakaṃ kāretabbaṃ sugat'aṅgulena aññatra heṭṭhimāya aṭaniyā. taṃ atikkāmayato chedanakaṃ pācittiyaṃ.",
           "source_2": "VIN PAT PC 87",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w44_63610_1",
@@ -8845,7 +8845,7 @@
           "example_2": "navaṃ pana bhikkhunā mañcaṃ vā pīṭhaṃ vā kārayamānena aṭṭh'aṅgulapādakaṃ kāretabbaṃ sugat'aṅgulena aññatra heṭṭhimāya aṭaniyā. taṃ atikkāmayato chedanakaṃ pācittiyaṃ.",
           "source_2": "VIN PAT PC 87",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         }
       ]
     },
@@ -8873,7 +8873,7 @@
           "example_2": "sādhu, devo, vāhanāgāresu ca dvāresu ca āṇāpetu, yena vāhanena jīvako icchati tena vāhanena gacchatu, yena dvārena icchati tena dvārena gacchatu, yaṃ kālaṃ icchati taṃ kālaṃ gacchatu, yaṃ kālaṃ icchati taṃ kālaṃ pavisatū'ti.",
           "source_2": "VIN4.8.207",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w45_21393_0",
@@ -8885,7 +8885,7 @@
           "pos": "noun",
           "grammar": "masc nom sg of kāla",
           "meaning_1": "suitable time; appropriate occasion; right time",
-          "meaning_combo": "proper time",
+          "meaning_combo": "the right time",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√kal 8 *e (spend time)",
@@ -8917,7 +8917,7 @@
           "example_2": "sato, bhikkhave, bhikkhu sampajāno kālaṃ āgameyya. ayaṃ vo amhākaṃ anusāsanī.",
           "source_2": "SN36.7",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w45_21397_0",
@@ -8939,7 +8939,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w45_21398_0",
@@ -8961,7 +8961,7 @@
           "example_2": "seyyathā'pi, bho gotama, ye keci mūlagandhā, kāl'ānusāri tesaṃ aggam'akkhāyati… evam'eva bhoto gotamassa ovādo param'ajjadhammesu.",
           "source_2": "MN107",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         }
       ]
     },
@@ -8989,7 +8989,7 @@
           "example_2": "so bajjhataṃ pāsasatehi chabbhi,\nrammā vanā niyyatu rājadhāniṃ,\ntuttehi so haññatu pācanehi,\nbhisāni te brāhmaṇa yo ahāsi.",
           "source_2": "JA488",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w46_53444_2",
@@ -9011,7 +9011,7 @@
           "example_2": "so bajjhataṃ pāsasatehi chabbhi,\nrammā vanā niyyatu rājadhāniṃ,\ntuttehi so haññatu pācanehi,\nbhisāni te brāhmaṇa yo ahāsi.",
           "source_2": "JA488",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w46_53444_3",
@@ -9033,7 +9033,7 @@
           "example_2": "so bajjhataṃ pāsasatehi chabbhi,\nrammā vanā niyyatu rājadhāniṃ,\ntuttehi so haññatu pācanehi,\nbhisāni te brāhmaṇa yo ahāsi.",
           "source_2": "JA488",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w46_53444_4",
@@ -9055,7 +9055,7 @@
           "example_2": "so bajjhataṃ pāsasatehi chabbhi,\nrammā vanā niyyatu rājadhāniṃ,\ntuttehi so haññatu pācanehi,\nbhisāni te brāhmaṇa yo ahāsi.",
           "source_2": "JA488",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w46_53874_default",
@@ -9127,7 +9127,7 @@
           "example_2": "bhagavaṃmūlakā no, bhante, dhammā bhagavaṃnettikā bhagavaṃpaṭisaraṇā. sādhu vata, bhante, bhagavantaṃ'y'eva paṭibhātu etassa bhāsitassa attho. bhagavato sutvā bhikkhū dhāressantī'ti.",
           "source_2": "AN10.58",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w47_49139_2",
@@ -9149,7 +9149,7 @@
           "example_2": "bhagavaṃmūlakā no, bhante, dhammā bhagavaṃnettikā bhagavaṃpaṭisaraṇā. sādhu vata, bhante, bhagavantaṃ'y'eva paṭibhātu etassa bhāsitassa attho. bhagavato sutvā bhikkhū dhāressantī'ti.",
           "source_2": "AN10.58",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w47_49140_3",
@@ -9171,7 +9171,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 3
         },
         {
           "key": "w47_49140_4",
@@ -9193,7 +9193,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w47_49140_5",
@@ -9215,7 +9215,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         }
       ]
     },
@@ -9229,7 +9229,7 @@
           "pali": "saṃkhittenapi",
           "pos": "sandhi",
           "grammar": "sandhi/compound",
-          "meaning_combo": "even in brief",
+          "meaning_combo": "in brief also",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -9334,7 +9334,7 @@
                 "pos": "ind",
                 "grammar": "ind, adv, instr sg of saṃkhitta",
                 "meaning_1": "in brief; concisely",
-                "meaning_combo": "briefly",
+                "meaning_combo": "in brief",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "√khip 1 a (throw)",
@@ -9532,7 +9532,7 @@
           "example_2": "gāth'ābhigītaṃ me abhojaneyyaṃ,\nsampassataṃ brāhmaṇa n'esa dhammo,\ngāth'ābhigītaṃ panudanti buddhā,\ndhamme satī brāhmaṇa vutti'r'esā.",
           "source_2": "SNP4",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34627_0",
@@ -9554,7 +9554,7 @@
           "example_2": "pañcahi, bhikkhave, dhammehi samannāgato thero bhikkhu sabrahmacārīnaṃ appiyo ca hoti amanāpo ca agaru ca abhāvanīyo ca",
           "source_2": "AN5.81",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34628_0",
@@ -9566,7 +9566,7 @@
           "pos": "noun",
           "grammar": "masc acc sg of dhamma",
           "meaning_1": "teaching; discourse; doctrine",
-          "meaning_combo": "Dhamma",
+          "meaning_combo": "teaching",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "√dhar 1 a (hold, carry, endure)",
@@ -9598,7 +9598,7 @@
           "example_2": "manasā dhammaṃ viññāya piyarūpe dhamme adhimuccati, appiyarūpe dhamme byāpajjati, anupaṭṭhitakāyassati ca viharati parittacetaso.",
           "source_2": "SN35.247",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34630_0",
@@ -9620,7 +9620,7 @@
           "example_2": "tañ'ca cetovimuttiṃ paññāvimuttiṃ yathābhūtaṃ nappajānāti, yatth'assa te uppannā pāpakā akusalā dhammā aparisesā nirujjhanti.",
           "source_2": "SN35.247",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34631_0",
@@ -9642,7 +9642,7 @@
           "example_2": "atthaṅ'gato so uda vā so n'atthi,\nudāhu ve sassatiyā arogo,\ntaṃ me munī sādhu viyākarohi,\ntathā hi te vidito esa dhammo.",
           "source_2": "SNP61",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34632_0",
@@ -9664,7 +9664,7 @@
           "example_2": "na hi verena verāni,\nsammant'īdha kudācanaṃ,\naverena ca sammanti,\nesa dhammo sanantano.",
           "source_2": "DHP5",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34633_0",
@@ -9686,7 +9686,7 @@
           "example_2": "āratī viratī pāpā,\nmajjapānā ca saṃyamo,\nappamādo ca dhammesu,\netaṃ maṅgalam'uttamaṃ.",
           "source_2": "KHP5",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34634_0",
@@ -9708,7 +9708,7 @@
           "example_2": "yo pana bhikkhu anvaddhamāsaṃ pātimokkhe uddissamāne evaṃ vadeyya, idān'eva kho ahaṃ jānāmi, ayam'pi kira dhammo sutt'āgato suttapariyāpanno anvaddhamāsaṃ uddesaṃ āgacchatī'ti.",
           "source_2": "VIN PAT PC 73",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34635_1",
@@ -9730,7 +9730,7 @@
           "example_2": "kiñ'ca, bhikkhave, atthavasaṃ paṭicca, byādhidhammo'mhi, byādhiṃ anatīto'ti abhiṇhaṃ paccavekkhitabbaṃ itthiyā vā purisena vā gahaṭṭhena vā pabbajitena vā?",
           "source_2": "AN5.57",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34635_2",
@@ -9752,7 +9752,7 @@
           "example_2": "kiñ'ca, bhikkhave, atthavasaṃ paṭicca, byādhidhammo'mhi, byādhiṃ anatīto'ti abhiṇhaṃ paccavekkhitabbaṃ itthiyā vā purisena vā gahaṭṭhena vā pabbajitena vā?",
           "source_2": "AN5.57",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34635_3",
@@ -9774,7 +9774,7 @@
           "example_2": "kiñ'ca, bhikkhave, atthavasaṃ paṭicca, byādhidhammo'mhi, byādhiṃ anatīto'ti abhiṇhaṃ paccavekkhitabbaṃ itthiyā vā purisena vā gahaṭṭhena vā pabbajitena vā?",
           "source_2": "AN5.57",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34635_4",
@@ -9796,7 +9796,7 @@
           "example_2": "kiñ'ca, bhikkhave, atthavasaṃ paṭicca, byādhidhammo'mhi, byādhiṃ anatīto'ti abhiṇhaṃ paccavekkhitabbaṃ itthiyā vā purisena vā gahaṭṭhena vā pabbajitena vā?",
           "source_2": "AN5.57",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34636_0",
@@ -9818,7 +9818,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34637_5",
@@ -9840,7 +9840,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34637_6",
@@ -9862,7 +9862,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34637_7",
@@ -9884,7 +9884,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34638_0",
@@ -9906,7 +9906,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34639_0",
@@ -9928,7 +9928,7 @@
           "example_2": "abrahmacariyaṃ pahāya brahmacārī hoti ārācārī virato methunā gāmadhammā.",
           "source_2": "MN51",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34640_0",
@@ -9950,7 +9950,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34641_1",
@@ -9972,7 +9972,7 @@
           "example_2": "seyyathā'pi, bhikkhave, cattāro daḷhadhammā dhanuggahā susikkhitā katahatthā kat'ūpāsanā catuddisā ṭhitā assu.",
           "source_2": "SN20.6",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34641_2",
@@ -9994,7 +9994,7 @@
           "example_2": "seyyathā'pi, bhikkhave, cattāro daḷhadhammā dhanuggahā susikkhitā katahatthā kat'ūpāsanā catuddisā ṭhitā assu.",
           "source_2": "SN20.6",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34641_3",
@@ -10016,7 +10016,7 @@
           "example_2": "seyyathā'pi, bhikkhave, cattāro daḷhadhammā dhanuggahā susikkhitā katahatthā kat'ūpāsanā catuddisā ṭhitā assu.",
           "source_2": "SN20.6",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_34641_4",
@@ -10038,7 +10038,7 @@
           "example_2": "seyyathā'pi, bhikkhave, cattāro daḷhadhammā dhanuggahā susikkhitā katahatthā kat'ūpāsanā catuddisā ṭhitā assu.",
           "source_2": "SN20.6",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         },
         {
           "key": "w49_77248_8",
@@ -10060,7 +10060,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": null
+          "ai_score": 0
         }
       ]
     },
@@ -11107,7 +11107,7 @@
           "pali": "saṃkhittavitthārenapi",
           "pos": "sandhi",
           "grammar": "sandhi/compound",
-          "meaning_combo": "briefly and in detail also",
+          "meaning_combo": "in brief and in detail also",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -12090,7 +12090,7 @@
           "example_2": "hoti so, bhikkhave, samayo yaṃ mahāsamuddo ussussati visussati na bhavati, na tv'ev'āhaṃ, bhikkhave, avijjānīvaraṇānaṃ sattānaṃ taṇhāsaṃyojanānaṃ sandhāvataṃ saṃsarataṃ dukkhassa antakiriyaṃ vadāmi.",
           "source_2": "SN22.99",
           "components": [],
-          "ai_score": 0
+          "ai_score": 2
         },
         {
           "key": "w57_49625_default",
@@ -12155,7 +12155,7 @@
                 "example_2": "hoti so, bhikkhave, samayo yaṃ mahāsamuddo ussussati visussati na bhavati, na tv'ev'āhaṃ, bhikkhave, avijjānīvaraṇānaṃ sattānaṃ taṇhāsaṃyojanānaṃ sandhāvataṃ saṃsarataṃ dukkhassa antakiriyaṃ vadāmi.",
                 "source_2": "SN22.99",
                 "components": [],
-                "ai_score": 0
+                "ai_score": 2
               },
               {
                 "key": "w57_49621_1",
@@ -12177,7 +12177,7 @@
                 "example_2": "",
                 "source_2": "",
                 "components": [],
-                "ai_score": null
+                "ai_score": 0
               },
               {
                 "key": "w57_49622_2",
@@ -12199,7 +12199,7 @@
                 "example_2": "tasmā't'iha te, gahapati, evaṃ sikkhitabbaṃ, āturakāyassa me sato cittaṃ anāturaṃ bhavissatī'ti. evañ'hi te, gahapati, sikkhitabban'ti.",
                 "source_2": "SN22.1",
                 "components": [],
-                "ai_score": null
+                "ai_score": 0
               },
               {
                 "key": "w57_49623_2",
@@ -12221,7 +12221,7 @@
                 "example_2": "",
                 "source_2": "",
                 "components": [],
-                "ai_score": null
+                "ai_score": 0
               },
               {
                 "key": "w57_49624_2",
@@ -12243,7 +12243,7 @@
                 "example_2": "",
                 "source_2": "",
                 "components": [],
-                "ai_score": null
+                "ai_score": 0
               }
             ],
             [
@@ -12293,7 +12293,7 @@
           "example_2": "tasmā't'iha te, gahapati, evaṃ sikkhitabbaṃ, āturakāyassa me sato cittaṃ anāturaṃ bhavissatī'ti. evañ'hi te, gahapati, sikkhitabban'ti.",
           "source_2": "SN22.1",
           "components": [],
-          "ai_score": 0
+          "ai_score": 1
         },
         {
           "key": "w57_49623_1",
@@ -12315,7 +12315,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 0
+          "ai_score": 1
         },
         {
           "key": "w57_49624_1",
@@ -12337,7 +12337,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 0
+          "ai_score": 1
         }
       ]
     },
@@ -12365,7 +12365,7 @@
           "example_2": "gāth'ābhigītaṃ me abhojaneyyaṃ,\nsampassataṃ brāhmaṇa n'esa dhammo,\ngāth'ābhigītaṃ panudanti buddhā,\ndhamme satī brāhmaṇa vutti'r'esā.",
           "source_2": "SNP4",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34626_1",
@@ -12387,7 +12387,7 @@
           "example_2": "gāth'ābhigītaṃ me abhojaneyyaṃ,\nsampassataṃ brāhmaṇa n'esa dhammo,\ngāth'ābhigītaṃ panudanti buddhā,\ndhamme satī brāhmaṇa vutti'r'esā.",
           "source_2": "SNP4",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34627_0",
@@ -12409,7 +12409,7 @@
           "example_2": "pañcahi, bhikkhave, dhammehi samannāgato thero bhikkhu sabrahmacārīnaṃ appiyo ca hoti amanāpo ca agaru ca abhāvanīyo ca",
           "source_2": "AN5.81",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34627_1",
@@ -12431,7 +12431,7 @@
           "example_2": "pañcahi, bhikkhave, dhammehi samannāgato thero bhikkhu sabrahmacārīnaṃ appiyo ca hoti amanāpo ca agaru ca abhāvanīyo ca",
           "source_2": "AN5.81",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34628_0",
@@ -12453,7 +12453,7 @@
           "example_2": "idh'eva suddhi iti vādayanti,\nn'āññesu dhammesu visuddhim'āhu,\nyaṃ nissitā tattha subhaṃ vadānā,\npaccekasaccesu puthū niviṭṭhā.",
           "source_2": "SNP46",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34628_1",
@@ -12497,7 +12497,7 @@
           "example_2": "manasā dhammaṃ viññāya piyarūpe dhamme adhimuccati, appiyarūpe dhamme byāpajjati, anupaṭṭhitakāyassati ca viharati parittacetaso.",
           "source_2": "SN35.247",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34629_1",
@@ -12519,7 +12519,7 @@
           "example_2": "manasā dhammaṃ viññāya piyarūpe dhamme adhimuccati, appiyarūpe dhamme byāpajjati, anupaṭṭhitakāyassati ca viharati parittacetaso.",
           "source_2": "SN35.247",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34630_0",
@@ -12541,7 +12541,7 @@
           "example_2": "tañ'ca cetovimuttiṃ paññāvimuttiṃ yathābhūtaṃ nappajānāti, yatth'assa te uppannā pāpakā akusalā dhammā aparisesā nirujjhanti.",
           "source_2": "SN35.247",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34630_1",
@@ -12563,7 +12563,7 @@
           "example_2": "tañ'ca cetovimuttiṃ paññāvimuttiṃ yathābhūtaṃ nappajānāti, yatth'assa te uppannā pāpakā akusalā dhammā aparisesā nirujjhanti.",
           "source_2": "SN35.247",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34631_0",
@@ -12585,7 +12585,7 @@
           "example_2": "atthaṅ'gato so uda vā so n'atthi,\nudāhu ve sassatiyā arogo,\ntaṃ me munī sādhu viyākarohi,\ntathā hi te vidito esa dhammo.",
           "source_2": "SNP61",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34631_1",
@@ -12607,7 +12607,7 @@
           "example_2": "atthaṅ'gato so uda vā so n'atthi,\nudāhu ve sassatiyā arogo,\ntaṃ me munī sādhu viyākarohi,\ntathā hi te vidito esa dhammo.",
           "source_2": "SNP61",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34632_0",
@@ -12629,7 +12629,7 @@
           "example_2": "na hi verena verāni,\nsammant'īdha kudācanaṃ,\naverena ca sammanti,\nesa dhammo sanantano.",
           "source_2": "DHP5",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34632_1",
@@ -12651,7 +12651,7 @@
           "example_2": "na hi verena verāni,\nsammant'īdha kudācanaṃ,\naverena ca sammanti,\nesa dhammo sanantano.",
           "source_2": "DHP5",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34633_0",
@@ -12673,7 +12673,7 @@
           "example_2": "āratī viratī pāpā,\nmajjapānā ca saṃyamo,\nappamādo ca dhammesu,\netaṃ maṅgalam'uttamaṃ.",
           "source_2": "KHP5",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34633_1",
@@ -12695,7 +12695,7 @@
           "example_2": "āratī viratī pāpā,\nmajjapānā ca saṃyamo,\nappamādo ca dhammesu,\netaṃ maṅgalam'uttamaṃ.",
           "source_2": "KHP5",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34634_0",
@@ -12717,7 +12717,7 @@
           "example_2": "yo pana bhikkhu anvaddhamāsaṃ pātimokkhe uddissamāne evaṃ vadeyya, idān'eva kho ahaṃ jānāmi, ayam'pi kira dhammo sutt'āgato suttapariyāpanno anvaddhamāsaṃ uddesaṃ āgacchatī'ti.",
           "source_2": "VIN PAT PC 73",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34634_1",
@@ -12739,7 +12739,7 @@
           "example_2": "yo pana bhikkhu anvaddhamāsaṃ pātimokkhe uddissamāne evaṃ vadeyya, idān'eva kho ahaṃ jānāmi, ayam'pi kira dhammo sutt'āgato suttapariyāpanno anvaddhamāsaṃ uddesaṃ āgacchatī'ti.",
           "source_2": "VIN PAT PC 73",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34635_2",
@@ -12893,7 +12893,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34637_7",
@@ -12915,7 +12915,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34638_0",
@@ -12937,7 +12937,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34638_1",
@@ -12959,7 +12959,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34639_0",
@@ -12981,7 +12981,7 @@
           "example_2": "abrahmacariyaṃ pahāya brahmacārī hoti ārācārī virato methunā gāmadhammā.",
           "source_2": "MN51",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34639_1",
@@ -13003,7 +13003,7 @@
           "example_2": "abrahmacariyaṃ pahāya brahmacārī hoti ārācārī virato methunā gāmadhammā.",
           "source_2": "MN51",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34640_0",
@@ -13025,7 +13025,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34640_1",
@@ -13047,7 +13047,7 @@
           "example_2": "",
           "source_2": "",
           "components": [],
-          "ai_score": 1
+          "ai_score": 0
         },
         {
           "key": "w58_34641_2",
@@ -13149,7 +13149,7 @@
           "pali": "aññātāroti",
           "pos": "sandhi",
           "grammar": "sandhi/compound",
-          "meaning_combo": "those who understand",
+          "meaning_combo": "those who understand + quote marker",
           "compound_type": "",
           "compound_construction": "",
           "root_key": "",
@@ -13201,7 +13201,7 @@
                 "example_2": "uṭṭhehi vīra vijitasaṅgāma,\nsatthavāha aṇaṇa vicara loke,\ndesassu bhagavā dhammaṃ,\naññātāro bhavissantī'ti.",
                 "source_2": "MN26",
                 "components": [],
-                "ai_score": 1,
+                "ai_score": 0,
                 "db_example_match": true,
                 "db_example_match_type": "text_overlap",
                 "selection_source": "db_example_text_overlap"
@@ -13226,7 +13226,7 @@
                 "example_2": "uṭṭhehi vīra vijitasaṅgāma,\nsatthavāha aṇaṇa vicara loke,\ndesassu bhagavā dhammaṃ,\naññātāro bhavissantī'ti.",
                 "source_2": "MN26",
                 "components": [],
-                "ai_score": 1,
+                "ai_score": 0,
                 "db_example_match": true,
                 "db_example_match_type": "text_overlap",
                 "selection_source": "db_example_text_overlap"
@@ -13243,7 +13243,7 @@
                 "pos": "ind",
                 "grammar": "ind, adv",
                 "meaning_1": "thus; like this; this is; and so",
-                "meaning_combo": "thus",
+                "meaning_combo": "quote marker",
                 "compound_type": "",
                 "compound_construction": "",
                 "root_key": "",

@@ -18,10 +18,6 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-_ANALYSIS_DIRS = ensure_analysis_dirs()
-_INPUT_DIR = _ANALYSIS_DIRS.input_dir
-_REPORTS_DIR = _ANALYSIS_DIRS.reports_dir
-_OUTPUT_DIR = _ANALYSIS_DIRS.output_dir
 _SELECTION_PREVIEW_WORD_LIMIT = 12
 
 
@@ -107,11 +103,11 @@ def _select_passage(result: PassageResult) -> tuple[str, str]:
     return sep.join(result.paragraphs), ""
 
 
-def _file_mode() -> tuple[str, str]:
+def _file_mode(input_dir: Path) -> tuple[str, str]:
     """Pick a .txt file from the input directory; returns (text, source_stem)."""
-    txt_files = sorted(_INPUT_DIR.glob("*.txt"))
+    txt_files = sorted(input_dir.glob("*.txt"))
     if not txt_files:
-        pr.red(f"No .txt files found in {_INPUT_DIR}/")
+        pr.red(f"No .txt files found in {input_dir}/")
         raise SystemExit(1)
     pr.green("Available text files:")
     for i, f in enumerate(txt_files, 1):
@@ -126,9 +122,9 @@ def _file_mode() -> tuple[str, str]:
             pr.red(f"Invalid number: {k}")
             raise SystemExit(1)
     else:
-        candidate = _INPUT_DIR / name
+        candidate = input_dir / name
         if not candidate.exists():
-            candidate = _INPUT_DIR / (name + ".txt")
+            candidate = input_dir / (name + ".txt")
         if candidate.exists():
             chosen = candidate
     if chosen is None:
@@ -233,15 +229,17 @@ def _write_ai_debug_artifacts(
     source: str,
     ai_debug: dict[str, Any],
     include_raw: bool,
+    output_dir: Path,
+    reports_dir: Path,
 ) -> None:
     """Write AI debug JSON and optionally the readable raw-response log."""
-    debug_path = _OUTPUT_DIR / f"{source}_ai_debug.json"
+    debug_path = output_dir / f"{source}_ai_debug.json"
     debug_path.write_text(
         json.dumps(ai_debug, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     if include_raw:
-        raw_path = _REPORTS_DIR / f"{source}_ai_raw.txt"
+        raw_path = reports_dir / f"{source}_ai_raw.txt"
         raw_path.write_text(
             _build_raw_responses_log(source, ai_debug),
             encoding="utf-8",
@@ -278,6 +276,8 @@ def main() -> None:
         pr.red(f"Database not found: {paths.dpd_db_path}")
         raise SystemExit(1)
 
+    dirs = ensure_analysis_dirs()
+
     pr.green("=" * 50)
     pr.green("Pāḷi Passage Analyzer — Stage 1")
     pr.green("=" * 50)
@@ -307,7 +307,7 @@ def main() -> None:
             passage = paragraphs[0]
 
     else:
-        passage, source = _file_mode()
+        passage, source = _file_mode(dirs.input_dir)
 
     db_session = get_db_session(paths.dpd_db_path)
     ai_manager = AIManager()
@@ -328,20 +328,24 @@ def main() -> None:
         )
     except Exception:
         if args.debug or ai_debug:
-            _write_ai_debug_artifacts(source, ai_debug, args.debug)
+            _write_ai_debug_artifacts(
+                source, ai_debug, args.debug, dirs.output_dir, dirs.reports_dir
+            )
         raise
     finally:
         db_session.close()
 
     report = generate_markdown_report(merged, passage, verse_id=source)
-    report_path = _REPORTS_DIR / f"{source}_study.md"
+    report_path = dirs.reports_dir / f"{source}_study.md"
     report_path.write_text(report, encoding="utf-8")
 
-    json_path = _OUTPUT_DIR / f"{source}_study.json"
+    json_path = dirs.output_dir / f"{source}_study.json"
     json_path.write_text(
         json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    _write_ai_debug_artifacts(source, ai_debug, args.debug)
+    _write_ai_debug_artifacts(
+        source, ai_debug, args.debug, dirs.output_dir, dirs.reports_dir
+    )
 
     pr.green("")
     pr.green(f"Report: {report_path}")

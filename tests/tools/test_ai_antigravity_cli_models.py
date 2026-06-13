@@ -126,6 +126,7 @@ def test_run_antigravity_print_keeps_command_and_timeout_contract(
     def fake_run(command: list[str], **kwargs: Any) -> Any:
         captured["command"] = command
         captured["timeout"] = kwargs["timeout"]
+        captured["input"] = kwargs.get("input")
         return antigravity_cli_models.subprocess.CompletedProcess(
             args=command,
             returncode=0,
@@ -147,7 +148,9 @@ def test_run_antigravity_print_keeps_command_and_timeout_contract(
     assert "--model" in command
     assert "model-x" in command
     assert "--print" in command
-    assert "prompt-x" in command
+    assert "-" in command
+    assert "prompt-x" not in command
     assert "--print-timeout" in command
     assert "11s" in command
     assert captured["timeout"] == 21
+    assert captured["input"] == "prompt-x"
