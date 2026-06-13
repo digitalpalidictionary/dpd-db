@@ -4,7 +4,6 @@ import json
 import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from pathlib import Path
 
 from bs4.element import Tag
 
@@ -45,7 +44,6 @@ PREFIX_TO_BOOKS: dict[str, list[str]] = {
 }
 
 VERSE_PREFIXES: frozenset[str] = frozenset({"DHP", "ITI", "SNP", "TH", "THI", "UD"})
-_VERSE_INDEX_DIR: Path = ensure_analysis_dirs().input_dir
 
 
 def _get_an_books(number: str) -> list[str]:
@@ -102,7 +100,7 @@ def _clean_prose_paragraph(text: str) -> str:
 
 def _get_indexed_verse(book: str, source_code: str) -> PassageResult | None:
     """Return an indexed verse passage if a prebuilt book JSON contains the source."""
-    index_path = _VERSE_INDEX_DIR / f"{book}.json"
+    index_path = ensure_analysis_dirs().input_dir / f"{book}.json"
     if not index_path.exists():
         return None
 

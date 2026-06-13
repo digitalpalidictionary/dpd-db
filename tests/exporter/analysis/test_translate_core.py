@@ -1072,9 +1072,7 @@ def test_translate_sentence_retry_batch_cap(
     monkeypatch.setattr(
         "exporter.analysis.retry.MAX_RETRY_CONTEXT_CHARS", 1, raising=False
     )
-    monkeypatch.setattr(
-        "exporter.analysis.retry.MAX_RETRY_BATCHES", 1, raising=False
-    )
+    monkeypatch.setattr("exporter.analysis.retry.MAX_RETRY_BATCHES", 1, raising=False)
     calls: list[dict[str, Any]] = []
     retry_key_batches: list[list[str]] = []
 
@@ -1205,13 +1203,14 @@ def test_split_into_sentence_chunks_single_chunk_under_budget() -> None:
     ]
     sentence = "buddho dhammo."
 
-    chunks = translate_core._split_into_sentence_chunks(
+    chunk_list, use_grounded = translate_core._split_into_sentence_chunks(
         sentence,
         analysis,
         max_context_chars=10_000,
     )
 
-    assert chunks == [(sentence, analysis)]
+    assert chunk_list == [(sentence, analysis)]
+    assert not use_grounded
 
 
 def test_split_into_sentence_chunks_packs_sentences() -> None:
@@ -1221,18 +1220,23 @@ def test_split_into_sentence_chunks_packs_sentences() -> None:
         {"word": "bhagavā", "status": "found", "data": [{"key": "2_0"}]},
         {"word": "dhammo", "status": "found", "data": [{"key": "3_0"}]},
     ]
+    # 118 chars fits entries 1+2; 176 chars (all 3) exceeds; each entry alone fits (59-60)
+    threshold = 120
 
-    chunks = translate_core._split_into_sentence_chunks(
+    chunk_list, use_grounded = translate_core._split_into_sentence_chunks(
         sentence,
         analysis,
-        max_context_chars=10,
+        max_context_chars=threshold,
     )
 
-    assert chunks == [
+    assert chunk_list == [
         ("buddho bhagavā.", analysis[:2]),
         ("dhammo.", analysis[2:]),
     ]
-    assert [entry for _, chunk in chunks for entry in chunk] == analysis
+    assert [entry for _, chunk in chunk_list for entry in chunk] == analysis
+    for _, chunk in chunk_list:
+        assert translate_core._analysis_context_len(chunk) <= threshold
+    assert not use_grounded
 
 
 def test_split_into_sentence_chunks_falls_back_on_token_mismatch() -> None:
@@ -1242,13 +1246,128 @@ def test_split_into_sentence_chunks_falls_back_on_token_mismatch() -> None:
         {"word": "dhammo", "status": "found", "data": []},
     ]
 
-    chunks = translate_core._split_into_sentence_chunks(
+    chunk_list, use_grounded = translate_core._split_into_sentence_chunks(
         sentence,
         analysis,
         max_context_chars=10,
     )
 
-    assert chunks == [(sentence, analysis)]
+    assert chunk_list == [(sentence, analysis)]
+    assert not use_grounded
+
+
+def test_split_into_sentence_chunks_lone_oversize_returns_word_chunks() -> None:
+    analysis = [
+        {"word": "buddho", "status": "found", "data": [{"key": "1_0"}]},
+        {"word": "bhagavā", "status": "found", "data": [{"key": "2_0"}]},
+    ]
+    sentence = "buddho bhagavā."
+
+    chunk_list, use_grounded = translate_core._split_into_sentence_chunks(
+        sentence,
+        analysis,
+        max_context_chars=10,
+    )
+
+    assert use_grounded
+    assert chunk_list == [("buddho", [analysis[0]]), ("bhagavā", [analysis[1]])]
+
+
+def test_translate_sentence_grounded_fallback_fires_and_replaces_translation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    analysis = [
+        {
+            "word": "buddho",
+            "status": "found",
+            "data": [{"key": "1_0", "meaning_combo": "awakened"}],
+        },
+        {
+            "word": "bhagavā",
+            "status": "found",
+            "data": [{"key": "2_0", "meaning_combo": "blessed one"}],
+        },
+    ]
+    monkeypatch.setattr(
+        "exporter.analysis.translate_core.analyze_sentence",
+        lambda _s, _db: analysis,
+    )
+    monkeypatch.setattr(translate_core, "MAX_FIRST_CONTEXT_CHARS", 10, raising=False)
+
+    calls: list[dict[str, Any]] = []
+
+    class FakeAIManager:
+        def request(self, **kwargs: Any) -> object:
+            calls.append(kwargs)
+            prompt = kwargs.get("prompt", "")
+            if (
+                "translation" in prompt
+                and "literal_translation" in prompt
+                and "word senses" in prompt
+            ):
+                # grounded translation call
+                content = (
+                    '{"translation": "Grounded T", "literal_translation": "Grounded L"}'
+                )
+            else:
+                # scoring calls for individual words
+                word = "buddho" if "buddho" in prompt else "bhagavā"
+                content = json.dumps(
+                    {
+                        "translation": word,
+                        "literal_translation": word,
+                        "scores": {
+                            ("1_0" if word == "buddho" else "2_0"): {"score": 10}
+                        },
+                    }
+                )
+            return type("R", (), {"content": content, "status_message": "ok"})()
+
+    result = translate_sentence(
+        "buddho bhagavā.",
+        cast(Session, object()),
+        ai_manager=cast(AIManager, FakeAIManager()),
+    )
+
+    grounded_call = next(
+        (c for c in calls if "word senses" in c.get("prompt", "")), None
+    )
+    assert grounded_call is not None
+    assert result["translation"] == "Grounded T"
+    assert result["literal_translation"] == "Grounded L"
+
+
+def test_translate_sentence_grounded_fallback_not_triggered_for_normal_passage(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "exporter.analysis.translate_core.analyze_sentence",
+        lambda _s, _db: [
+            {"word": "buddho", "status": "found", "data": [{"key": "1_0"}]},
+        ],
+    )
+
+    calls: list[dict[str, Any]] = []
+
+    class FakeAIManager:
+        def request(self, **kwargs: Any) -> object:
+            calls.append(kwargs)
+            return type(
+                "R",
+                (),
+                {
+                    "content": '{"translation": "T", "literal_translation": "L", "scores": {"1_0": {"score": 10}}}',
+                    "status_message": "ok",
+                },
+            )()
+
+    translate_sentence(
+        "buddho.",
+        cast(Session, object()),
+        ai_manager=cast(AIManager, FakeAIManager()),
+    )
+
+    assert not any("word senses" in c.get("prompt", "") for c in calls)
 
 
 def _patch_basic_chunked_analysis(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -3864,3 +3983,17 @@ def test_translate_sentence_retry_contextual_meaning_applied_to_decon_option(
     option = result["analysis"][0]["data"][0]
     assert option["ai_score"] == 10
     assert option["meaning_combo"] == "to the dwelling"
+
+
+def test_build_grounded_translation_prompt_contains_sentence_and_word_table() -> None:
+    from exporter.analysis.prompts import _build_grounded_translation_prompt
+
+    sentence = "buddho bhagavā."
+    word_table = "| buddho | awakened one |\n| bhagavā | blessed one |"
+
+    prompt = _build_grounded_translation_prompt(sentence, word_table)
+
+    assert sentence in prompt
+    assert word_table in prompt
+    assert "translation" in prompt
+    assert "literal_translation" in prompt

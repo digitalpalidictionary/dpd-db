@@ -20,7 +20,7 @@ def _patch_agy(monkeypatch: pytest.MonkeyPatch, stdout: str) -> None:
 
 
 def test_prompt_size_budget_is_safe_margin() -> None:
-    assert antigravity_cli.MAX_ARGV_PROMPT_BYTES == 700_000
+    assert antigravity_cli.MAX_PROMPT_BYTES == 4_000_000
 
 
 def test_request_rejects_oversized_prompt_before_locating_agy(
@@ -32,12 +32,13 @@ def test_request_rejects_oversized_prompt_before_locating_agy(
     monkeypatch.setattr(antigravity_cli, "_locate_antigravity", fail_locate)
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="x" * 800_000,
+        prompt="x" * 5_000_000,
         prompt_sys="s",
     )
 
     assert response.content is None
-    assert "too large for argv transport" in response.status_message
+    assert "prompt too large" in response.status_message
+    assert "argv transport" not in response.status_message
 
 
 def test_small_prompt_fits_prompt_budget() -> None:
@@ -48,7 +49,7 @@ def test_small_prompt_fits_prompt_budget() -> None:
         temperature=0.1,
     )
 
-    assert len(prompt.encode("utf-8")) < antigravity_cli.MAX_ARGV_PROMPT_BYTES
+    assert len(prompt.encode("utf-8")) < antigravity_cli.MAX_PROMPT_BYTES
 
 
 def test_request_classifies_timeout_text_as_provider_error(
@@ -217,3 +218,47 @@ def test_request_keeps_multiline_content_mentioning_error(
     )
 
     assert response.content == stdout
+
+
+def test_provider_boundary_stdin_transport(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Integration test: AntigravityCliManager drives run_antigravity_print via stdin.
+
+    Proves: (a) prompt is in input= not argv, (b) a >700 KB prompt is not rejected,
+    (c) a normal prompt round-trips through request() to _Response.content.
+    """
+    from tools.ai_antigravity_cli_models import RunResult
+
+    captured: dict[str, object] = {}
+    canned_output = '{"translation": "ok"}'
+
+    def fake_run_antigravity_print(
+        agy_path: Path, model: str | None, prompt: str, timeout: int
+    ) -> RunResult:
+        captured["prompt_arg"] = prompt
+        return RunResult(returncode=0, stdout=canned_output, stderr="")
+
+    monkeypatch.setattr(
+        antigravity_cli, "_locate_antigravity", lambda: Path("/usr/bin/true")
+    )
+    monkeypatch.setattr(
+        antigravity_cli, "run_antigravity_print", fake_run_antigravity_print
+    )
+
+    # (a) + (c): normal prompt round-trips through request()
+    response = antigravity_cli.AntigravityCliManager().request(
+        prompt="hello", prompt_sys="sys"
+    )
+    assert response.content == canned_output
+    # The prompt was delivered as the Python `prompt` arg to run_antigravity_print,
+    # which internally uses input= (stdin), not argv — proven by the unit test for
+    # run_antigravity_print; here we just confirm the call was made.
+    assert "hello" in str(captured.get("prompt_arg", ""))
+
+    # (b): >700 KB prompt is not rejected pre-send (regression: it used to fail with "argv transport")
+    large_prompt = "x" * 800_000
+    captured.clear()
+    response_large = antigravity_cli.AntigravityCliManager().request(
+        prompt=large_prompt, prompt_sys="sys"
+    )
+    assert response_large.content is not None
+    assert "argv transport" not in (response_large.status_message or "")
