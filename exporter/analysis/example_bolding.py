@@ -17,7 +17,7 @@ def _get_db_inflections(
     """Return database inflections for a headword, longest forms first."""
     try:
         headword = db_session.query(DpdHeadword).filter_by(id=headword_id).first()
-    except Exception:
+    except Exception:  # noqa: BLE001
         return []
     if not headword:
         return []

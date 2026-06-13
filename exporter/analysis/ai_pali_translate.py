@@ -19,7 +19,7 @@ from tools.paths import ProjectPaths
 
 
 def _save_markdown(report: str, sentence: str, output_dir: Path) -> Path:
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")  # noqa: DTZ005
     clean = re.sub(r"[^a-zA-Z]", "_", sentence[:10].lower()).strip("_")
     file_path = output_dir / f"{timestamp}_{clean}.md"
     file_path.write_text(report, encoding="utf-8")
@@ -84,7 +84,7 @@ def _mode_interactive(output_dir: Path) -> None:
             file_path = _save_markdown(report, sentence, output_dir)
             print(f"Output saved to: {file_path}")
 
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             print(f"An unexpected error occurred: {e}")
             traceback.print_exc()
         finally:

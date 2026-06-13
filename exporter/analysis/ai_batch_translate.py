@@ -112,7 +112,7 @@ def main():
                 with open(output_path, "w", encoding="utf-8") as f:
                     json.dump(results, f, ensure_ascii=False, indent=2)
 
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 pr.no(f"Error processing {verse['num']}: {e}")
                 # Continue with next verse instead of failing completely
                 continue

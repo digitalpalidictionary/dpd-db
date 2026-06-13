@@ -47,7 +47,7 @@ def main():
     best_verses = {}
     for src in all_examples:
         text = src.example.strip()
-        is_summary = text.startswith("(") or text.startswith("[")
+        is_summary = text.startswith(("(", "["))
         has_newline = "\n" in text
 
         if src.source not in best_verses:
@@ -55,9 +55,7 @@ def main():
         else:
             current_best = best_verses[src.source]
             current_text = current_best.example.strip()
-            current_is_summary = current_text.startswith(
-                "("
-            ) or current_text.startswith("[")
+            current_is_summary = current_text.startswith(("(", "["))
             current_has_newline = "\n" in current_text
 
             # Prefer non-summary
@@ -66,11 +64,12 @@ def main():
             elif not current_is_summary and is_summary:
                 pass
             # Then prefer gatha (newline)
-            elif not current_has_newline and has_newline:
-                best_verses[src.source] = src
-            # Finally prefer shorter if both are gathas (to avoid over-capturing gatha chunks)
-            # but longer if current is just a number
-            elif len(text) > len(current_text) and len(current_text) < 10:
+            elif (
+                not current_has_newline
+                and has_newline
+                or len(text) > len(current_text)
+                and len(current_text) < 10
+            ):
                 best_verses[src.source] = src
             elif has_newline and current_has_newline and len(text) < len(current_text):
                 # For gathas, sometimes the first one is the full gatha and the next one is extra

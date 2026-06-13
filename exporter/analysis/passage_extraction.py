@@ -2,8 +2,8 @@
 
 import argparse
 
-from exporter.analysis.paths import ensure_analysis_dirs
 from exporter.analysis.passage_by_code import PassageResult, get_passage_by_code
+from exporter.analysis.paths import ensure_analysis_dirs
 from tools.printer import printer as pr
 
 
