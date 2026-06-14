@@ -36,3 +36,13 @@ class TestRemoveBrackets:
         assert remove_brackets("evaṃ  ,  taṃ  .  gacchati  ,bar.") == (
             "evaṃ, taṃ. gacchati, bar."
         )
+
+    def test_newlines_preserved(self):
+        text = "first line.\nsecond line [note] here.\nthird line"
+        assert remove_brackets(text) == ("first line.\nsecond line here.\nthird line")
+
+    def test_trailing_space_before_newline_trimmed(self):
+        assert remove_brackets("word [x]\nnext") == "word\nnext"
+
+    def test_leading_space_after_newline_trimmed(self):
+        assert remove_brackets("word\n [x] next") == "word\nnext"

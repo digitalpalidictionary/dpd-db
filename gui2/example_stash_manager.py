@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 import json
 import re
 from pathlib import Path
-from typing import Optional
 
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
@@ -28,7 +26,7 @@ class ExampleStashManager:
             with open(self._stash_path, "r", encoding="utf-8") as f:
                 if loaded := json.load(f):
                     self.stash_data = loaded if isinstance(loaded, dict) else {}
-        except (json.JSONDecodeError, Exception) as e:
+        except (json.JSONDecodeError, OSError) as e:
             pr.red(f"Error loading stash {self._stash_path}: {e}")
             self.stash_data = {}
 
@@ -38,7 +36,7 @@ class ExampleStashManager:
             self._stash_path.parent.mkdir(parents=True, exist_ok=True)
             with open(self._stash_path, "w", encoding="utf-8") as f:
                 json.dump(self.stash_data, f, indent=4, ensure_ascii=False)
-        except Exception as e:
+        except OSError as e:
             pr.red(f"Error saving stash {self._stash_path}: {e}")
 
     def stash(self, key: str, source: str, sutta: str, example: str) -> None:
@@ -50,7 +48,7 @@ class ExampleStashManager:
         }
         self._save()
 
-    def reload(self, key: str) -> Optional[tuple[str, str, str]]:
+    def reload(self, key: str) -> tuple[str, str, str] | None:
         """Reload stashed data from specified slot."""
         if data := self.stash_data.get(key):
             return (
@@ -61,7 +59,7 @@ class ExampleStashManager:
         return None
 
     @property
-    def last_example(self) -> Optional[tuple[str, str, str]]:
+    def last_example(self) -> tuple[str, str, str] | None:
         """Get the last stashed example."""
         return self.reload("last")
 
@@ -71,10 +69,23 @@ class ExampleStashManager:
         source, sutta, example = value
         self.stash("last", source, sutta, example)
 
+    @property
+    def last_commentary(self) -> str | None:
+        """Get the last stashed commentary value (bold tags preserved)."""
+        if data := self.stash_data.get("last_commentary"):
+            return data.get("commentary", "")
+        return None
+
+    @last_commentary.setter
+    def last_commentary(self, value: str) -> None:
+        """Set the last commentary value, keeping any <b> tags intact."""
+        self.stash_data["last_commentary"] = {"commentary": value}
+        self._save()
+
     def stash_shared_example(self, source: str, sutta: str, example: str) -> None:
         """Stashes the shared example data (backward compatibility)."""
         self.stash("stash", source, sutta, example)
 
-    def reload_shared_example(self) -> Optional[tuple[str, str, str]]:
+    def reload_shared_example(self) -> tuple[str, str, str] | None:
         """Reloads the shared example data (backward compatibility)."""
         return self.reload("stash")

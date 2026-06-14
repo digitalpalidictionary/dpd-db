@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 import flet as ft
 
 from db.models import BoldDefinition
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.dpd_fields_functions import clean_commentary, clean_lemma_1
+from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import process_bold_tags
 from gui2.toolkit import ToolKit
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
@@ -41,14 +41,16 @@ class DpdCommentaryField(ft.Column):
         self.toolkit: ToolKit = toolkit
         self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
+        self.stash_manager = ExampleStashManager(self.toolkit)
 
+        self._external_on_blur = on_blur
         self.commentary_field = DpdTextField(
             name=field_name,
             multiline=True,
             on_focus=on_focus,
             on_change=self.clean_text,
             on_submit=on_submit,
-            on_blur=on_blur,
+            on_blur=self._handle_field_blur,
         )
 
         # --- Controls for Toggle Visibility ---
@@ -84,6 +86,10 @@ class DpdCommentaryField(ft.Column):
                 ft.ElevatedButton(
                     "Clear",
                     on_click=self.click_commentary_clear,
+                ),
+                ft.ElevatedButton(
+                    "Last",
+                    on_click=self._click_last_commentary,
                     on_blur=self._handle_last_control_blur,
                 ),
             ],
@@ -166,14 +172,16 @@ class DpdCommentaryField(ft.Column):
 
     def _search_field_1_focus(self, e: ft.ControlEvent) -> None:
         """Auto-fill search_field_1 with cleaned lemma_1[:-1] on first focus."""
-        if not self.dpd_fields.flags.commentary_search_done:
-            if not self.search_field_1.value:
-                lemma_1 = self.dpd_fields.get_field("lemma_1").value
-                if lemma_1:
-                    lemma_clean = clean_lemma_1(lemma_1)[:-1]
-                    self.search_field_1.value = lemma_clean
-                    self.dpd_fields.flags.commentary_search_done = True
-                    self.page.update()
+        if (
+            not self.dpd_fields.flags.commentary_search_done
+            and not self.search_field_1.value
+        ):
+            lemma_1 = self.dpd_fields.get_field("lemma_1").value
+            if lemma_1:
+                lemma_clean = clean_lemma_1(lemma_1)[:-1]
+                self.search_field_1.value = lemma_clean
+                self.dpd_fields.flags.commentary_search_done = True
+                self.page.update()
 
     def click_commentary_search(self, e: ft.ControlEvent):
         if (
@@ -241,7 +249,7 @@ class DpdCommentaryField(ft.Column):
                                     data=counter,
                                     on_change=self.update_checked_items,
                                 ),
-                                ft.Text(f"{str(counter + 1)}"),
+                                ft.Text(f"{counter + 1!s}"),
                             ],
                         ),
                         ft.Row(
@@ -326,6 +334,19 @@ class DpdCommentaryField(ft.Column):
     def click_commentary_clear(self, e: ft.ControlEvent):
         self.commentary_field.value = ""
         self.page.update()
+
+    def _handle_field_blur(self, e: ft.ControlEvent):
+        """Save the current commentary value on blur, then run any external on_blur."""
+        if self.commentary_field.value:
+            self.stash_manager.last_commentary = self.commentary_field.value
+        if self._external_on_blur:
+            self._external_on_blur(e)
+
+    def _click_last_commentary(self, e: ft.ControlEvent):
+        """Restore the last saved commentary value."""
+        if last_commentary := self.stash_manager.last_commentary:
+            self.commentary_field.value = last_commentary
+            self.page.update()
 
     def clean_text(self, e: ft.ControlEvent):
         self.commentary_field.value = (
