@@ -144,6 +144,7 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 - Do NOT skip `ruff format` — a file can pass `ruff check` and still be rewritten by the formatter, which bounces the commit.
 - The repo's pre-commit hook will reject the commit otherwise — fixing it after the fact wastes a round-trip.
 - If a related test file is broken from before your changes, note it but do not silently ignore — it may mask a regression you've just introduced.
+- The hook runs ruff + pyright on EVERY staged Python file (top-level `exclude:` in `.pre-commit-config.yaml` only covers `archive/`, `scripts/archive/`, `scripts/bash/`, `tools/writemdict/`). So editing any other file — even a one-line import swap — stages it and subjects its PRE-EXISTING lint errors to the gate, which blocks the commit. Before finishing, run `uv run ruff check <file>` + `uv run pyright <file>` on every touched file and fix ALL reported errors with real, behaviour-preserving fixes (narrow blind `except Exception`, direct boolean returns, `next(iter(d))`, etc.) — not `# noqa`. `gui2/` is pyright-excluded but NOT ruff-excluded, so it commonly carries pre-existing ruff violations that only surface when you touch the file.
 
 ---
 
