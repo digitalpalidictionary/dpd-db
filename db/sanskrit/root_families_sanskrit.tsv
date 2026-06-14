@@ -2227,7 +2227,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yā	1	a	go	√yā	2	go	ā √yā	āyā	āyata, āyatam, āyāt, āyāti, āyāma
 √yā	1	a	go	√yā	2	go	ud √yā	udyā	udyāti, udyāna, udyāpayati
 √yā	1	a	go	√yā	2	go	upa √yā	upayā	upayāt, upayāti, upayāna, upayāpayitavya, upayāpayitum, upayāyati
-√yā	1	a	go	√yā	2	go	upa saṃ √yā	upasaṃyā	
+√yā	1	a	go	√yā	2	go	upa saṃ √yā	upasaṃyā	upasaṃyāti
 √yā	1	a	go	√yā	2	go	nī √yā	niryā	na + nairyānika (bsk), na + nairyānika (bsk) +, na + niryāṇa, nairyāṇikatā (nairyāṇika + tā), nairyānika (bsk), niryāṇa, niryāt, niryāta, niryāti, niryātuṃ, niryātṛ (weeder), nīyati
 √yā	1	*āpe	go	√yā	2	go	pa √yā	prayā	padāśva, prayāta, prayāti, prayāpayati, prayetum
 √yā	1	a	go	√yā	2	go	pati ā √yā	pratiyā	
@@ -2940,7 +2940,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	abhi ni √sad	abhiniṣad	abhinisīdyamāna, abhiniṣattvā, abhiniṣīdati, abhiniṣīditum
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	abhi pa √sad	abhiprasad	abhiprasanna, abhiprasīdati, abhirprasāda?
 √sad	1	*aya	sink, sit, settle	√sad	1, 6	sit	ava √sad	avasad	avasanna, avasādayati, avasādayitum, avasīdat, avasīdati, avasīdana, na + avasādana, na + avasādayati
-√sad	1	a	sink, sit, settle	√sad	1, 6	sit	ā √sad	āsad	āsattvā, āsada (approaching), āsanna, āsanna +, āsannatara, āsādana, āsādayati, āsādayitavya, āsādya, āsādya (putting down), durāsada, na +, su + āsada
+√sad	1	a	sink, sit, settle	√sad	1, 6	sit	ā √sad	āsad	āsattvā, āsada (approaching), āsanna, āsanna +, āsannatara, āsādana, āsādayati, āsādayitavya, āsādya, āsādya (putting down), durāsada, na +, na + āsanna, su + āsada
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	ā ni √sad	niṣad	āniṣada (bsk)
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	ud √sad	utsad	utsada (bsk), utsadayitavya, utsanna, utsanna +, utsāda (ruin), utsādana, utsādayat, utsādayati, utsāha, utsāhayitṛ, utsīdati, na + utsada (excellent), na + utsadayitvā
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	upa ā √sad	āsad	upāsādya
@@ -3347,7 +3347,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √his	2	ṃa	hurt, harm	√hiṃs √hiṅs	1, 7	injure	vi √his	vihiṃs	avihiṃsaka, avihiṃsā, na + vihiṃsā, na + vihiṃsā +, vihiṃsaka, vihiṃsat, vihiṃsati, vihiṃsayati, vihiṃsā, vihiṃsā +, vihiṃsitum, vihiṃsya, vihiṃsyate, vihiṃsyamāna
 √hīḷ	8	*e	scorn	√hīḷ √hīḍ √heḍ	1	be hostile	√hīḷ	hīḍ	na + hīḷat, na + hīḷita (angry), hīḷati, hīḍati (be angry), hīḷita (angry)
 √hīḷ	8	*e	scorn	√hīḷ √hīḍ √heḍ	1	be hostile	ava √hīḷ	-	
-√hu	1	a	pour, offer as oblation	√hu	2, 3	sacrifice	√hu	hu	juhana (bsk), juhoti, juhvat, na + havita, suhuta, havita, havya, hāvayati, huta, hutvā, hotra, homa
+√hu	1	a	pour, offer as oblation	√hu	2, 3	sacrifice	√hu	hu	juhana (bsk), juhoti, juhvat, na + havita, suhuta, havita, havya, havya, homa, hāvayati, huta, hutvā, hotra, homa
 √hu	1	a	pour, offer as oblation	√hu	2, 3	sacrifice	ā √hu	āhu	āhavanīya, āhuti, āhvāna, sa + āhavanīya, sa + āhavanīyaka
 √hu	1	a	pour, offer as oblation	√hu	2, 3	sacrifice	pa √hu	prahu	prajuhoti, havita
 √hu	1	a	pour, offer as oblation	√hu	2, 3	sacrifice	pa ā √hu	-	prāghuṇa, prāhuṇa, prāghuṇa, prāhuṇa +, prāghuṇaka, prāhuṇaka

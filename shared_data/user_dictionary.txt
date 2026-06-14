@@ -141,6 +141,7 @@ amra
 amūḷhapaññassa
 ana
 anacchādikata
+analysed
 analysing
 Anamataggasaṃyuttaṃ
 Ananda
@@ -380,6 +381,7 @@ Bhikkhunīsaṃyutta
 Bhikkhupātimokkha
 Bhikkhus
 Bhiyyosa
+Bhiñña
 bho
 Bhoja
 Bhurja
@@ -2357,6 +2359,7 @@ rivulet
 robusta
 Rohaṇa
 rohitaka
+Rohitassa
 Rohiṇī
 rotundus
 roxburghiana
@@ -2912,6 +2915,7 @@ Ugga
 Uggata
 ugghāṭeti
 Uggo
+Ujjaya
 Ujjenī
 Ujuññā
 Ukkacelā
@@ -3275,6 +3279,7 @@ vissajjanā
 Visuddhimagga
 visukammante
 visāci
+Visākha
 Visākha's
 Visākhā
 Visākhā
@@ -3435,4 +3440,3 @@ Ziziphus
 ṭhāna
 ṭīkā
 …
-Bhiñña
