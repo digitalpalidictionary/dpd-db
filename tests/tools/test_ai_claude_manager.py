@@ -62,6 +62,7 @@ def test_ai_manager_registers_claude_provider() -> None:
         patch("tools.ai_manager.config_read", return_value=None),
         patch("tools.ai_gpt_manager.shutil.which", return_value="/usr/bin/codex"),
         patch("tools.ai_claude_manager.shutil.which", return_value="/usr/bin/claude"),
+        patch("tools.ai_manager.shutil.which", return_value=None),
     ):
         from tools.ai_manager import AIManager
 

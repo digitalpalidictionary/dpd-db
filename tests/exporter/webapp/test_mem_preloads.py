@@ -12,16 +12,13 @@ from exporter.webapp.preloads import (
 from tools.cache_load import load_audio_dict
 from tools.paths import ProjectPaths
 
-pth = ProjectPaths()
-session = get_db_session(pth.dpd_db_path)
-
 
 def get_mem():
     process = psutil.Process(os.getpid())
     return process.memory_info().rss / 1024 / 1024
 
 
-def measure(func, name):
+def measure(func, name, session):
     mem_before = get_mem()
     start = time.time()
     res = func(session)
@@ -33,11 +30,15 @@ def measure(func, name):
     return res
 
 
-print(f"Initial Memory: {get_mem():.2f} MB")
-roots_count_dict = measure(make_roots_count_dict, "make_roots_count_dict")
-headwords_clean_set = measure(make_headwords_clean_set, "make_headwords_clean_set")
-ascii_to_unicode_dict = measure(
-    make_ascii_to_unicode_dict, "make_ascii_to_unicode_dict"
-)
+def main():
+    pth = ProjectPaths()
+    session = get_db_session(pth.dpd_db_path)
+    print(f"Initial Memory: {get_mem():.2f} MB")
+    measure(make_roots_count_dict, "make_roots_count_dict", session)
+    measure(make_headwords_clean_set, "make_headwords_clean_set", session)
+    measure(make_ascii_to_unicode_dict, "make_ascii_to_unicode_dict", session)
+    measure(lambda s: load_audio_dict(), "load_audio_dict", session)
 
-measure(lambda s: load_audio_dict(), "load_audio_dict")
+
+if __name__ == "__main__":
+    main()

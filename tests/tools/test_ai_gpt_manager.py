@@ -2,8 +2,8 @@ import sys
 import types
 from unittest.mock import Mock, patch
 
-from tools.ai_manager import AIResponse
 from tools.ai_gpt_manager import GptManager
+from tools.ai_manager import AIResponse
 
 
 def test_request_uses_codex_exec_and_returns_output() -> None:
@@ -50,6 +50,7 @@ def test_ai_manager_registers_codex_provider() -> None:
         ),
         patch("tools.ai_manager.config_read", return_value=None),
         patch("tools.ai_gpt_manager.shutil.which", return_value="/usr/bin/codex"),
+        patch("tools.ai_manager.shutil.which", return_value=None),
     ):
         from tools.ai_manager import AIManager
 

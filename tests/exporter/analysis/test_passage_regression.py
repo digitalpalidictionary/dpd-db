@@ -17,6 +17,8 @@ from tests.exporter.analysis.recorded_ai_manager import RecordedAIManager
 from tools.ai_manager import AIManager
 from tools.paths import ProjectPaths
 
+pytestmark = pytest.mark.slow
+
 PASSAGES = ["TH215", "MN41_p2", "SN15.1_p2", "DHP211", "AN3.33_p1"]
 
 
