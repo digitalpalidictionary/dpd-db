@@ -480,9 +480,6 @@ class Kn17Parser(BookParser):
             elif self.vagga and not self.section and sutta_name:
                 self.source = f"{book}{self.vagga_counter}.{self.section_counter}"
                 self.sutta = f"{self.vagga}, {sutta_name}".lower()
-            elif self.vagga and self.section and not sutta_name:
-                self.source = f"{book}{self.vagga_counter}.{self.section_counter}"
-                self.sutta = f"{vagga}, {section}".lower()
 
 
 class Kn18Parser(BookParser):

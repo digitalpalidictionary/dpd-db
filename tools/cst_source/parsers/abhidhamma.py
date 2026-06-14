@@ -109,7 +109,7 @@ class Abh2Parser(BookParser):
 
                 self.source = f"{book}{self.section_counter}.{self.vagga_counter}.{self.sutta_counter}"
                 if not self.vagga:
-                    self.sutta = f"xxxxxxx, {sutta}".lower()
+                    self.sutta = f"{self.section}, {sutta}".lower()
                 else:
                     self.sutta = f"{self.section}, {self.vagga}, {sutta}".lower()
 

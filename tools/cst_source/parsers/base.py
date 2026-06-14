@@ -24,7 +24,7 @@ class BookParser(ABC):
         self.source_alt: str = ""
 
         self.sutta: str = ""
-        self.sutta_counter = 0
+        self.sutta_counter: str | int = 0
         self.sutta_counter_alt = 0
 
         self.samyutta: str = ""
@@ -33,11 +33,11 @@ class BookParser(ABC):
         self.vin_book: str = ""
 
         self.section = ""
-        self.section_counter = 0
+        self.section_counter: str | int = 0
         self.section_counter_alt = 0
 
         self.vagga: str = ""
-        self.vagga_counter = 0
+        self.vagga_counter: str | int = 0
         self.vagga_alt_counter = 0
 
         self.subtitle_counter = 0

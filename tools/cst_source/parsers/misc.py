@@ -199,7 +199,7 @@ class ApParser(BookParser):
     books = ("ap",)
 
     def update(self, x: element.Tag) -> None:
-        book = "APP"
+        book = "AP"
 
         if x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
@@ -234,8 +234,6 @@ class AptParser(BookParser):
 
     def update(self, x: element.Tag) -> None:
         book = "APt"
-
-        book = "AP"
 
         if x["rend"] == "subsubhead":
             sutta, sutta_no = get_text_and_number(x.text)

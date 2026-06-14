@@ -45,6 +45,9 @@ Read the relevant spec before working in an unfamiliar area.
 - Import: `from icecream import ic`
 - Usage: `ic(variable_name)`
 
+## Data Verification
+- For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly (`sqlite3 dpd.db` or `get_db_session`). The `db/backup_tsv/` files are regenerated backups overwritten on each db backup — not the live source of truth. Don't infer data shape from TSVs or downstream exporter code.
+
 ## Imports
 - NEVER use `sys.path` hacks or manual directory traversal (e.g., `Path(__file__).resolve().parents[n]`) to handle absolute imports.
 - Assume the script will be run from the project root or within a correctly configured environment where absolute imports work naturally.
