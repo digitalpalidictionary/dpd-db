@@ -428,9 +428,11 @@ def clean_commentary(
 
 def remove_brackets(text: str) -> str:
     """Remove all content within square brackets [like this]."""
-    text = re.sub(r"\s*\[[^]]*\]\s*", " ", text)
-    text = re.sub(r"\s+([,.;:!?])", r"\1", text)
-    text = re.sub(r"([,.;:!?])\s*(?=[^\s\d])", r"\1 ", text)
+    text = re.sub(r"[^\S\n]*\[[^]]*\][^\S\n]*", " ", text)
+    text = re.sub(r"[^\S\n]+([,.;:!?])", r"\1", text)
+    text = re.sub(r"([,.;:!?])[^\S\n]*(?=[^\s\d])", r"\1 ", text)
+    text = re.sub(r"[^\S\n]+\n", "\n", text)
+    text = re.sub(r"\n[^\S\n]+", "\n", text)
     return text.strip()
 
 
