@@ -3,27 +3,26 @@ from rich import print
 
 def split_sentences(text: str) -> list[str]:
     """Split a sentence on all final punctuation marks,
-    but never when there is an open bracket."""
+    but never when inside round or square brackets."""
 
     sentences = []
     split_list = [". ", "! ", "? ", "; "]
-    bracket_is_closed: bool = True
+    bracket_depth: int = 0
 
     i = 0
     while len(text) > 0:
         if i == len(text):
             sentences.append(text[: i + 1])
             break
-        if text[i] == "(":
-            bracket_is_closed = False
-        if text[i] == ")":
-            bracket_is_closed = True
-        if text[i : i + 2] in split_list:
-            if bracket_is_closed:
-                sentences.append(text[: i + 2])
-                text = text[i + 2 :]
-                i = 0
-                continue
+        if text[i] in "([":
+            bracket_depth += 1
+        elif text[i] in ")]" and bracket_depth > 0:
+            bracket_depth -= 1
+        if text[i : i + 2] in split_list and bracket_depth == 0:
+            sentences.append(text[: i + 2])
+            text = text[i + 2 :]
+            i = 0
+            continue
         i += 1
     return sentences
 
@@ -41,7 +40,6 @@ dirty_clean_dict: dict[str, str] = {
     "-": "",
     ".": "",
     "/": "",
-    ";": "",
     "=": "",
     "?": "",
     "…": "",
