@@ -10,7 +10,7 @@ from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
-from tools.cst_source_sutta_example import (
+from tools.cst_source import (
     CstSourceSuttaExample,
     find_cst_source_sutta_example,
 )
@@ -73,8 +73,8 @@ class Pass2PreController:
             add_hyphenated_parts=True,
         )
 
-    def is_missing_example(self, word: str):
-        if (
+    def is_missing_example(self, word: str) -> bool:
+        return (
             (
                 word in self.db.all_inflections_missing_example
                 or word in self.db.all_decon_no_headwords
@@ -82,12 +82,9 @@ class Pass2PreController:
             # and word not in self.db.sandhi_ok_list
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
-            and word not in self.file_manager.unmatched.keys()
+            and word not in self.file_manager.unmatched
             and word not in self.file_manager.matched
-        ):
-            return True
-        else:
-            return False
+        )
 
     def make_all_words_dict(self):
         for word in self.all_cst_words:
@@ -106,7 +103,7 @@ class Pass2PreController:
                 self.ui.update_message("No more words to process.")
                 return
 
-            self.word_in_text = list(self.missing_examples_dict.keys())[0]
+            self.word_in_text = next(iter(self.missing_examples_dict))
             self.ui.update_word_in_text(self.word_in_text)
             added = len(self.file_manager.matched) + len(self.file_manager.new_word)
             processed = self.daily_log.get_count("pass2_pre")
@@ -122,7 +119,7 @@ class Pass2PreController:
                     self.ui.clear_all_fields()
                     self.ui.update_message("No more words to process.")
                     return
-                self.word_in_text = list(self.missing_examples_dict.keys())[0]
+                self.word_in_text = next(iter(self.missing_examples_dict))
                 self.headwords = self.db.get_headwords(self.word_in_text)
 
             if not self.headwords:

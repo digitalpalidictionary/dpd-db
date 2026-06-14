@@ -8,7 +8,7 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.cst_source_sutta_example import make_cst_soup
+from tools.cst_source import make_cst_soup
 from tools.tsv_read_write import dotdict
 
 

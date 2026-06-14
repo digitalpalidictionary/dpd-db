@@ -14,7 +14,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from gui.functions import load_gui_config
 from tools.cst_sc_text_sets import make_cst_text_list, make_sc_text_list
-from tools.cst_source_sutta_example import find_cst_source_sutta_example
+from tools.cst_source import find_cst_source_sutta_example
 from tools.goldendict_tools import open_in_goldendict
 from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths

@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 import json
 
 from gui2.books import SuttaCentralSegment
 from gui2.paths import Gui2Paths
-from tools.cst_source_sutta_example import CstSourceSuttaExample
+from tools.cst_source import CstSourceSuttaExample
 from tools.printer import printer as pr
 
 
@@ -35,7 +34,7 @@ class Pass2PreFileManager:
                 self.matched = {}
                 self.new_word = {}
                 return False
-            except Exception as e:
+            except (OSError, UnicodeDecodeError) as e:
                 pr.red(f"Unexpected error loading data: {e}")
                 self.unmatched = {}
                 self.matched = {}
@@ -61,9 +60,9 @@ class Pass2PreFileManager:
                     indent=4,
                     ensure_ascii=False,
                 )
-        except IOError as e:
+        except OSError as e:
             pr.red(f"Error saving pass2_pre data: {e}")
-        except Exception as e:
+        except (TypeError, ValueError) as e:
             pr.red(f"Unexpected error saving data: {e}")
 
     def update_unmatched(

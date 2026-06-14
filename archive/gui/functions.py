@@ -30,7 +30,7 @@ from tools.configger import config_test_option
 from tools.configger import config_update
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_sc_text_sets import make_sc_text_list
-from tools.cst_source_sutta_example import find_cst_source_sutta_example
+from tools.cst_source import find_cst_source_sutta_example
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
 from tools.pos import INDECLINABLES

@@ -2,22 +2,18 @@
 
 import json
 import re
-from collections.abc import Callable
 from dataclasses import dataclass, field
 
 from bs4.element import Tag
 
 from exporter.analysis.paths import ensure_analysis_dirs
 from gui2.dpd_fields_functions import clean_example as clean_gui_example
-from tools.cst_source_sutta_example import (
-    GlobalData,
-    an_anguttara_nikaya,
-    clean_example,
-    dn_digha_nikaya,
+from tools.cst_source import (
     find_cst_source_sutta_example,
-    mn_majjhima_nikaya,
-    sn_samyutta_nikaya,
+    make_book_parser,
+    make_cst_soup,
 )
+from tools.cst_source.text_utils import clean_example
 from tools.paths import ProjectPaths
 from tools.speech_marks import SpeechMarkManager
 
@@ -75,12 +71,7 @@ def _parse_code(code: str) -> tuple[str, str, list[str]]:
     return prefix, number, books
 
 
-PROSE_FORMATTERS: dict[str, Callable[[GlobalData], None]] = {
-    "DN": dn_digha_nikaya,
-    "MN": mn_majjhima_nikaya,
-    "SN": sn_samyutta_nikaya,
-    "AN": an_anguttara_nikaya,
-}
+PROSE_PREFIXES: frozenset[str] = frozenset({"DN", "MN", "SN", "AN"})
 
 PROSE_CONTENT_RENDS: frozenset[str] = frozenset({"bodytext", "centre"})
 
@@ -129,20 +120,21 @@ def _find_prose_paragraphs(book: str, source_code: str) -> tuple[str, list[str]]
     if not prefix_match:
         return "", []
 
-    formatter = PROSE_FORMATTERS.get(prefix_match.group(0))
-    if formatter is None:
+    if prefix_match.group(0) not in PROSE_PREFIXES:
         return "", []
 
-    g = GlobalData(book, "")
+    parser = make_book_parser(book)
+    if parser is None:
+        return "", []
+
     paragraphs: list[str] = []
     vagga = ""
-    for soup in g.soups:
+    for soup in make_cst_soup(ProjectPaths(), book):
         for x in soup.find_all(["head", "p"]):
             if not isinstance(x, Tag):
                 continue
-            g.x = x
-            formatter(g)
-            if g.source != source_code or not g.sutta:
+            parser.update(x)
+            if parser.source != source_code or not parser.sutta:
                 continue
             if not _is_prose_content_rend(x.get("rend")):
                 continue
@@ -150,7 +142,7 @@ def _find_prose_paragraphs(book: str, source_code: str) -> tuple[str, list[str]]
             if not paragraph or paragraph in paragraphs:
                 continue
             if not vagga:
-                vagga = g.sutta
+                vagga = parser.sutta
             paragraphs.append(paragraph)
 
     return vagga, paragraphs

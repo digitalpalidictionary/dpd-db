@@ -98,11 +98,11 @@ build-backend = "hatchling.build"
 [tool.pyright]
 pythonVersion = "3.13"
 typeCheckingMode = "basic"
-exclude = ["gui2", "tools/writemdict", "tests", "tools/cst_source_sutta_example.py", "exporter/anki"]
+exclude = ["gui2", "tools/writemdict", "tests", "archive/tools/cst_source_sutta_example.py", "tools/cst_source", "exporter/anki"]
 
 [tool.ruff]
 target-version = "py313"
-exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*", "tools/cst_source_sutta_example.py"]
+exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*", "archive/tools/cst_source_sutta_example.py", "tools/cst_source"]
 force-exclude = true
 
 [tool.ruff.lint]
@@ -112,5 +112,8 @@ preview = true
 explicit-preview-rules = true
 
 [tool.pytest.ini_options]
-addopts = "--import-mode=importlib"
+addopts = "--import-mode=importlib -m 'not slow'"
 testpaths = ["tests"]
+markers = [
+    "slow: test parses large CST XML; deselected by default. Run with `-m slow`.",
+]

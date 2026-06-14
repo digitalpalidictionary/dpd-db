@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 import flet as ft
+
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.dpd_fields_functions import clean_example, remove_bold_tags, remove_brackets
 from gui2.example_stash_manager import ExampleStashManager
@@ -8,7 +8,7 @@ from gui2.flet_functions import (
 )
 from gui2.toolkit import ToolKit
 from tools.clean_sentence import split_pali_sentence_into_words
-from tools.cst_source_sutta_example import (
+from tools.cst_source import (
     CstSourceSuttaExample,
     find_cst_source_sutta_example,
 )
@@ -179,7 +179,7 @@ class DpdExampleField(ft.Column):
             )
 
             self.book_options = [
-                ft.dropdown.Option(key=item, text=item) for item in book_codes.keys()
+                ft.dropdown.Option(key=item, text=item) for item in book_codes
             ]
 
             self.book_dropdown = ft.Dropdown(

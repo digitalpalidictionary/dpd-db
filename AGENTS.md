@@ -137,6 +137,7 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 - Run all tests: `uv run pytest tests/`
 - Run a specific file: `uv run pytest tests/path/to/test_file.py`
 - Run with durations: `uv run pytest tests/ --durations=10`
+- Slow tests (those that parse large CST XML) are marked `@pytest.mark.slow` and are deselected by default (`addopts = -m 'not slow'`). Run them on demand with `uv run pytest -m slow`. New tests that parse big source files should be marked `slow`.
 
 ### Pre-commit gate
 - After finishing edits to any file, ALWAYS run the same three tools the `.pre-commit-config.yaml` hook runs, in this order, plus pytest, before reporting the work as done: `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`, `uv run pytest <related test paths>`.

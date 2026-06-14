@@ -7,7 +7,7 @@ from gui2.flet_functions import highlight_word_in_sentence
 from gui2.pass2_exceptions import Pass2ExceptionsFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
-from tools.cst_source_sutta_example import CstSourceSuttaExample
+from tools.cst_source import CstSourceSuttaExample
 
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
@@ -261,11 +261,12 @@ class Pass2PreProcessView(ft.Column):
         headword_id = self.controller.headwords[self.controller.headword_index].id
         sentence: SuttaCentralSegment | CstSourceSuttaExample | None = None
 
-        if sentences := self.controller.missing_examples_dict.get(
-            self.controller.word_in_text, []
-        ):
-            if self.selected_sentence_index < len(sentences):
-                sentence = sentences[self.selected_sentence_index]
+        if (
+            sentences := self.controller.missing_examples_dict.get(
+                self.controller.word_in_text, []
+            )
+        ) and self.selected_sentence_index < len(sentences):
+            sentence = sentences[self.selected_sentence_index]
 
         if sentence is None:
             return
@@ -293,11 +294,12 @@ class Pass2PreProcessView(ft.Column):
 
     def handle_new_click(self, e):
         sentence: SuttaCentralSegment | CstSourceSuttaExample | None = None
-        if sentences := self.controller.missing_examples_dict.get(
-            self.controller.word_in_text, []
-        ):
-            if self.selected_sentence_index < len(sentences):
-                sentence = sentences[self.selected_sentence_index]
+        if (
+            sentences := self.controller.missing_examples_dict.get(
+                self.controller.word_in_text, []
+            )
+        ) and self.selected_sentence_index < len(sentences):
+            sentence = sentences[self.selected_sentence_index]
 
         if sentence is None:
             return
@@ -519,9 +521,10 @@ class Pass2PreProcessView(ft.Column):
                     for row_control in control.controls:
                         if isinstance(row_control, ft.Text):
                             self._simple_highlight(row_control, self.search_query)
-                elif isinstance(control, ft.Container):
-                    if isinstance(control.content, ft.Text):
-                        self._simple_highlight(control.content, self.search_query)
+                elif isinstance(control, ft.Container) and isinstance(
+                    control.content, ft.Text
+                ):
+                    self._simple_highlight(control.content, self.search_query)
 
     def _simple_highlight(self, text_control: ft.Text, query: str) -> None:
         text = str(text_control.value or "").lower()

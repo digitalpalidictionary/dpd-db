@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 import json
 from pathlib import Path
 from typing import Any
 
 from gui2.books import SuttaCentralSegment
 from gui2.toolkit import ToolKit
-from tools.cst_source_sutta_example import CstSourceSuttaExample
+from tools.cst_source import CstSourceSuttaExample
 from tools.printer import printer as pr
 
 
@@ -28,7 +27,7 @@ class Pass2NewWordManager:
                 pr.red(f"Error loading pass2 new_words (invalid JSON): {e}")
                 self.new_words_dict = {}
                 return False
-            except Exception as e:
+            except (OSError, UnicodeDecodeError) as e:
                 pr.red(f"Unexpected error loading data: {e}")
                 self.new_words_dict = {}
                 return False
@@ -54,9 +53,9 @@ class Pass2NewWordManager:
             with open(tmp_path, "w", encoding="utf-8") as f:
                 json.dump(self.new_words_dict, f, indent=4, ensure_ascii=False)
             tmp_path.replace(self.new_words_file_path)
-        except IOError as e:
+        except OSError as e:
             pr.red(f"Error saving pass2_new_words: {e}")
-        except Exception as e:
+        except (TypeError, ValueError) as e:
             pr.red(f"Unexpected error saving pass2_new_words: {e}")
 
     def update_new_word(

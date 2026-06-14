@@ -2,7 +2,7 @@
 
 from bs4 import BeautifulSoup
 
-import exporter.analysis.passage_by_code as passage_by_code
+from exporter.analysis import passage_by_code
 
 
 def test_get_passage_by_code_matches_lowercase_prose_code(monkeypatch) -> None:
@@ -101,26 +101,9 @@ def test_find_prose_paragraphs_excludes_next_sutta_title(monkeypatch) -> None:
         "xml",
     )
 
-    class FakeGlobalData:
-        def __init__(self, book: str, text_to_find: str) -> None:
-            self.book = book
-            self.text_to_find = text_to_find
-            self.soups = [soup]
-            self.x = None
-            self.source = ""
-            self.sutta = ""
-            self.vagga = ""
-            self.samyutta = ""
-            self.vagga_counter = 0
-            self.sutta_counter = 0
-            self.samyutta_counter = 0
+    monkeypatch.setattr(passage_by_code, "make_cst_soup", lambda pth, book: [soup])
 
-        @property
-        def sutta_clean(self) -> str:
-            return self.sutta.split(",", 1)[0]
-
-    monkeypatch.setattr(passage_by_code, "GlobalData", FakeGlobalData)
-
+    # the real AnguttaraParser drives the "an3" book over the fake soup
     vagga, paragraphs = passage_by_code._find_prose_paragraphs("an3", "AN3.12")
 
     assert vagga == "rathakāravaggo, sāraṇīyasuttaṃ"
@@ -144,34 +127,26 @@ def test_find_prose_paragraphs_keeps_mixed_blocks_in_source_order(monkeypatch) -
         "xml",
     )
 
-    class FakeGlobalData:
-        def __init__(self, book: str, text_to_find: str) -> None:
-            self.book = book
-            self.text_to_find = text_to_find
-            self.soups = [soup]
-            self.x = None
+    class FakeParser:
+        def __init__(self) -> None:
             self.source = ""
             self.sutta = ""
 
-    def fake_sn_formatter(g) -> None:
-        text = g.x.text.strip()
-        if text in {
-            "evaṃ me sutaṃ.",
-            "‘appeva nāma satthā dhammaṃ deseyyā’ti.",
-            "itiha bhagavato paṭisañcikkhato appossukkatāya cittaṃ namati.",
-        }:
-            g.source = "SN6.1"
-            g.sutta = "brahmasaṃyuttaṃ, brahmāyācanasuttaṃ"
-        else:
-            g.source = ""
-            g.sutta = ""
+        def update(self, x) -> None:
+            text = x.text.strip()
+            if text in {
+                "evaṃ me sutaṃ.",
+                "‘appeva nāma satthā dhammaṃ deseyyā’ti.",
+                "itiha bhagavato paṭisañcikkhato appossukkatāya cittaṃ namati.",
+            }:
+                self.source = "SN6.1"
+                self.sutta = "brahmasaṃyuttaṃ, brahmāyācanasuttaṃ"
+            else:
+                self.source = ""
+                self.sutta = ""
 
-    monkeypatch.setattr(passage_by_code, "GlobalData", FakeGlobalData)
-    monkeypatch.setitem(
-        passage_by_code.PROSE_FORMATTERS,
-        "SN",
-        fake_sn_formatter,
-    )
+    monkeypatch.setattr(passage_by_code, "make_cst_soup", lambda pth, book: [soup])
+    monkeypatch.setattr(passage_by_code, "make_book_parser", lambda book: FakeParser())
 
     vagga, paragraphs = passage_by_code._find_prose_paragraphs("sn1", "SN6.1")
 
