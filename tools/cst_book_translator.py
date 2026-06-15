@@ -6,7 +6,7 @@ Four identifier types, any of which can be translated into the others:
 2. ``cst_book_name`` e.g. ``Dīghanikāya, Sīlakkhandhavagga``
 3. ``gui_book_code`` e.g. ``dn1`` (as used in ``gui2.dpd_fields_examples``)
 4. ``dpd_book_code`` e.g. ``DN`` / ``DNa`` (as used in
-   ``shared_data/help/abbreviations.tsv`` and bold_definitions ``file_list``)
+   ``shared_data/reference/abbreviations.tsv`` and bold_definitions ``file_list``)
 
 Data lives next to this module in ``cst_book_translator.tsv``.
 

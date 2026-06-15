@@ -21,11 +21,11 @@ from bs4 import BeautifulSoup
 
 from db.bold_definitions.functions import file_list
 from gui2.dpd_fields_examples import book_codes
-from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
+from tools.paths import ProjectPaths
 
 # Map DPD book code -> nikāya / piṭaka prefix used in cst_book_name.
-# Derived by grouping DPD codes from shared_data/help/abbreviations.tsv.
+# Derived by grouping DPD codes from shared_data/reference/abbreviations.tsv.
 # Hand-curated; polish in the resulting TSV.
 NIKAYA_PREFIX: dict[str, str] = {
     # vinaya
@@ -313,13 +313,13 @@ def build_rows() -> list[dict[str, str]]:
     txt_to_gui: dict[str, str] = {}
     for gui_code, txt_files in cst_texts.items():
         for txt_name in txt_files:
-            stem = txt_name[:-4] if txt_name.endswith(".txt") else txt_name
+            stem = txt_name.removesuffix(".txt")
             txt_to_gui[stem] = gui_code
 
     # file_list keys are xml filenames; strip ".xml" to get the stem.
     xml_to_dpd: dict[str, str] = {}
     for xml_name, dpd_code in file_list.items():
-        stem = xml_name[:-4] if xml_name.endswith(".xml") else xml_name
+        stem = xml_name.removesuffix(".xml")
         xml_to_dpd[stem] = dpd_code
 
     all_stems = sorted(set(txt_to_gui) | set(xml_to_dpd))

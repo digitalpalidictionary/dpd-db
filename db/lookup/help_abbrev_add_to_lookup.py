@@ -4,7 +4,6 @@
 
 from dataclasses import dataclass
 
-from sqlalchemy import inspect as sa_inspect, text
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
@@ -21,7 +20,7 @@ class GlobalVars:
 
 
 def normalize_other_abbreviation_key(key: str) -> str:
-    return key[:-1] if key.endswith(".") else key
+    return key.removesuffix(".")
 
 
 def add_help(g: GlobalVars) -> None:
@@ -29,18 +28,6 @@ def add_help(g: GlobalVars) -> None:
     help_data = read_tsv_as_dict(g.pth.help_tsv_path)
     data = {key: v["meaning"] for key, v in help_data.items()}
     sync_lookup_column(g.db_session, "help", data)
-
-
-def ensure_abbrev_other_column(g: GlobalVars) -> None:
-    """Add abbrev_other column to lookup table if it doesn't already exist."""
-    insp = sa_inspect(g.db_session.get_bind())
-    columns = [col["name"] for col in insp.get_columns("lookup")]
-    if "abbrev_other" not in columns:
-        g.db_session.execute(
-            text("ALTER TABLE lookup ADD COLUMN abbrev_other TEXT DEFAULT ''")
-        )
-        g.db_session.commit()
-        pr.green("added abbrev_other column to lookup")
 
 
 def add_abbreviations(g: GlobalVars) -> None:
@@ -77,7 +64,6 @@ def main() -> None:
     pr.yellow_title("adding help and abbreviations to lookup")
     pth = ProjectPaths()
     g = GlobalVars(pth=pth, db_session=get_db_session(pth.dpd_db_path))
-    ensure_abbrev_other_column(g)
     add_help(g)
     add_abbreviations(g)
     add_abbreviations_other(g)
