@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Fill in the missing details of auto-added monks' names in Theragāthā"""
 
 import pickle
-import pyperclip
 
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -36,7 +35,7 @@ def main():
 
     for counter, i in enumerate(db):
         if first <= i.id <= last and i.id not in done_list:
-            pyperclip.copy(i.id)
+            pyperclip.copy(str(i.id))
             open_in_goldendict(i.lemma_clean)
 
             processed = len(done_list)
@@ -55,12 +54,14 @@ def main():
 
 
 def load_pickle():
-    with open("tests/tests/theragatha_filler", "rb") as f:
+    pth = ProjectPaths()
+    with open(pth.theragatha_filler_path, "rb") as f:
         return pickle.load(f)
 
 
 def dump_pickle(done_list):
-    with open("tests/test_theragatha_filler", "wb") as f:
+    pth = ProjectPaths()
+    with open(pth.theragatha_filler_path, "wb") as f:
         pickle.dump(done_list, f)
 
 

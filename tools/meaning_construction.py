@@ -4,11 +4,11 @@
 3. Cleaning construction of all brackets and phonetic changes,
 4. Creating an HTML styled symbol of a word data's degree of completion."""
 
-from pathlib import Path
 import re
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.paths import ProjectPaths
 
 
 def make_meaning_combo(i: DpdHeadword) -> str:
@@ -136,7 +136,8 @@ def clean_construction(construction):
 
 
 if __name__ == "__main__":
-    session = get_db_session(Path("dpd.db"))
+    pth = ProjectPaths()
+    session = get_db_session(pth.dpd_db_path)
     results = (
         session.query(DpdHeadword)
         .filter(DpdHeadword.root_sign.contains(" "))

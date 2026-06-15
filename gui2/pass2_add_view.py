@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import copy
 import json
 from pathlib import Path
@@ -407,13 +406,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
             if (
                 hasattr(headword_to_clone, field_name)
                 and field_name not in NO_CLONE_LIST
+                and not ui_field.value
             ):
-                # Check if the UI field is empty (or None)
-                if not ui_field.value:
-                    db_value = getattr(headword_to_clone, field_name)
-                    if db_value is not None:  # Only clone non-None values
-                        ui_field.value = db_value
-                        cloned_count += 1
+                db_value = getattr(headword_to_clone, field_name)
+                if db_value is not None:  # Only clone non-None values
+                    ui_field.value = db_value
+                    cloned_count += 1
 
         self.update_message(
             f"Cloned {cloned_count} fields from {headword_to_clone.lemma_1}."
@@ -774,7 +772,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     # _add fields = the final modified GUI values (the user's result)
                     if hasattr(self, "current_correction") and self.current_correction:
                         current_gui_values = copy.deepcopy(word_data)
-                        for key in word_data.keys():
+                        for key in word_data:
                             if key.endswith("_add"):
                                 # Set logged _add field to the current UI BASE field value
                                 base_key = key[:-4]
@@ -931,8 +929,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 f"Loaded correction for {lemma}. {corrections_remaining} corrections remaining."
             )
 
-        except Exception as ex:
-            self.update_message(f"Error loading correction: {str(ex)}")
+        except Exception as ex:  # noqa: BLE001
+            self.update_message(f"Error loading correction: {ex!s}")
 
         self.page.update()
 
@@ -976,8 +974,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 f"Loaded addition for {lemma}. {additions_remaining} additions remaining."
             )
 
-        except Exception as ex:
-            self.update_message(f"Error loading addition: {str(ex)}")
+        except Exception as ex:  # noqa: BLE001
+            self.update_message(f"Error loading addition: {ex!s}")
 
         self.page.update()
 
@@ -989,9 +987,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
             # and __pycache__ — importlib.reload was not reliably picking
             # up changes.
             import importlib.util
-            from pathlib import Path
 
-            path = Path(__file__).parent / "pass2_x_manager.py"
+            path = self.toolkit.paths.pass2_x_manager_py_path
             spec = importlib.util.spec_from_file_location(
                 f"pass2_x_manager_live_{id(self)}", path
             )
@@ -1024,8 +1021,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.update_message(
                 f"Loaded {headword.lemma_clean}. {remaining} X remaining."
             )
-        except Exception as ex:
-            self.update_message(f"Error loading X word: {str(ex)}")
+        except Exception as ex:  # noqa: BLE001
+            self.update_message(f"Error loading X word: {ex!s}")
 
         self.page.update()
 
@@ -1060,7 +1057,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 f"Loaded proofreading for {headword.lemma_clean}. {remaining} proofreadings remaining."
             )
 
-        except Exception as ex:
-            self.update_message(f"Error loading proofreading: {str(ex)}")
+        except Exception as ex:  # noqa: BLE001
+            self.update_message(f"Error loading proofreading: {ex!s}")
 
         self.page.update()

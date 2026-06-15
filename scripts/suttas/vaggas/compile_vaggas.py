@@ -9,7 +9,6 @@ failure reason and empty sutta-metadata columns so nothing gets silently lost.
 import csv
 import sys
 from collections import defaultdict
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -17,8 +16,9 @@ from scripts.add.vagga_codes.shared import ANY_CODE_RE, DPD_CODE_RE
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-SUTTA_INFO_TSV = Path("db/backup_tsv/sutta_info.tsv")
-OUTPUT_TSV = Path(__file__).parent / "compile_vaggas.tsv"
+pth = ProjectPaths()
+SUTTA_INFO_TSV = pth.sutta_info_tsv_path
+OUTPUT_TSV = pth.compile_vaggas_tsv_path
 
 
 def first_sutta_from_range(dpd_code: str) -> str | None:
@@ -207,7 +207,6 @@ def main() -> None:
     pr.tic()
     pr.yellow_title("Vagga sutta_info row generator")
 
-    pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
     pr.green_tmr("Loading sutta_info.tsv")

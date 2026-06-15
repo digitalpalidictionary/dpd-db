@@ -2,21 +2,19 @@
 
 import signal
 import time
-from pathlib import Path
 
+from scripts.extractor._ai_extraction import extract_with_ai
+from scripts.extractor._load_cone import get_cone_headwords, load_cone_dictionary
+from scripts.extractor._output import write_no_source, write_to_tsv
+from scripts.extractor._pos_mapping import map_pos_to_dpd
+from scripts.extractor._prompts import CONE_PROMPT
+from scripts.extractor._read_cone import get_cone_html_entries
+from scripts.extractor._signal_handler import signal_handler, state
+from scripts.extractor._word_list import prepare_word_list
 from tools.ai_open_router import OpenRouterManager
+from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.goldendict_tools import open_in_goldendict
-
-from scripts.extractor._signal_handler import state, signal_handler
-from scripts.extractor._ai_extraction import extract_with_ai
-from scripts.extractor._pos_mapping import map_pos_to_dpd
-from scripts.extractor._read_cone import get_cone_html_entries
-from scripts.extractor._load_cone import load_cone_dictionary, get_cone_headwords
-from scripts.extractor._word_list import prepare_word_list
-from scripts.extractor._output import write_to_tsv, write_no_source
-from scripts.extractor._prompts import CONE_PROMPT
 
 # Register signal handler
 signal.signal(signal.SIGINT, signal_handler)
@@ -148,7 +146,7 @@ def main():
     pr.yellow_title("Extracting Cone entries")
 
     pth = ProjectPaths()
-    output_path = Path(__file__).parent / "extract_cone.tsv"
+    output_path = pth.extract_cone_tsv_path
 
     cone_dict = load_cone_dictionary(pth.cone_source_path)
     cone_headwords = get_cone_headwords(cone_dict)

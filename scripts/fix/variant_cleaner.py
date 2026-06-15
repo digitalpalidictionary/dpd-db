@@ -4,6 +4,7 @@ from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
@@ -94,7 +95,8 @@ def is_inflection(db_path: Path) -> None:
 
 
 if __name__ == "__main__":
-    db_path = Path("dpd.db")
+    pth = ProjectPaths()
+    db_path = pth.dpd_db_path
     has_lookup_no_lemma_clean(db_path)
     no_lemma_clean(db_path)
     is_inflection(db_path)

@@ -1,5 +1,4 @@
 import re
-from pathlib import Path
 
 from sqlalchemy import and_, not_
 
@@ -13,7 +12,7 @@ db_session = get_db_session(pth.dpd_db_path)
 
 # search_string = r"\((ITI\d+\.\d+-*\d*)\)" # with dots n dashes
 search_string = r"\((THI\d+)\)"  # no dots or dashes
-file_path = Path("scripts/suttas/dpd/kn8-thi.tsv")
+file_path = pth.suttas_dpd_dir / "kn9-thi.tsv"
 
 
 def extractor():

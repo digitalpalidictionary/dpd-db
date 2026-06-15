@@ -24,7 +24,8 @@ from pathlib import Path
 
 from tools.paths import ProjectPaths
 
-_TSV_PATH = Path(__file__).with_suffix(".tsv")
+pth = ProjectPaths()
+_TSV_PATH = pth.cst_book_translator_tsv_path
 
 
 @dataclass(frozen=True)
@@ -36,7 +37,7 @@ class BookInfo:
 
     @property
     def cst_xml_path(self) -> Path:
-        return ProjectPaths().cst_xml_dir / f"{self.cst_filename}.xml"
+        return pth.cst_xml_dir / f"{self.cst_filename}.xml"
 
 
 def _load() -> tuple[

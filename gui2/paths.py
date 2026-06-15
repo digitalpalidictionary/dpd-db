@@ -23,6 +23,7 @@ class Gui2Paths:
     filter_presets_path: Path = gui2_data_path / "filter_presets.json"
 
     # Other paths
+    pass2_x_manager_py_path: Path = gui2_dir / "pass2_x_manager.py"
     find_words_dump_path: Path = gui2_dir / "data/find_words_with_examples_dump.json"
     find_words_exceptions_path: Path = (
         gui2_dir / "data/find_words_with_examples_no.json"

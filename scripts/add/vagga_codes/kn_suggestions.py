@@ -17,10 +17,12 @@ from __future__ import annotations
 import csv
 import re
 from collections import OrderedDict
-from pathlib import Path
 
-SUTTA_INFO_TSV = Path("db/backup_tsv/sutta_info.tsv")
-OUT_TSV = Path("temp/vagga_codes_suggestions.tsv")
+from tools.paths import ProjectPaths
+
+pth = ProjectPaths()
+SUTTA_INFO_TSV = pth.sutta_info_tsv_path
+OUT_TSV = pth.temp_dir / "vagga_codes_suggestions.tsv"
 
 DPD_CODE_RE = re.compile(r"^([A-Za-z]+)(\d+)")
 LEADING_NUM_RE = re.compile(r"^\d+\.\s*")
@@ -54,7 +56,7 @@ def main() -> None:
 
     for book, sec_col, vg_col, display, family_set, use_section in BOOKS:
         # Group suttas by (section, vagga) preserving order
-        groups: "OrderedDict[tuple[str, str], list[str]]" = OrderedDict()
+        groups: OrderedDict[tuple[str, str], list[str]] = OrderedDict()
         for r in all_rows:
             if (r.get("book_code") or "").strip() != book:
                 continue
@@ -95,9 +97,7 @@ def main() -> None:
                 nipata_name = _strip_num(vagga)
                 meaning_1 = f"Vagga 1 of {nipata_name} ({code})"
                 fs = family_set
-            lemma = (
-                _lemma_from_vagga(vagga) if use_section else _lemma_from_vagga(vagga)
-            )
+            lemma = _lemma_from_vagga(vagga)
             out_rows.append(
                 {
                     "book": book,

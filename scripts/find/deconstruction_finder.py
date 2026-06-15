@@ -1,19 +1,20 @@
-# -*- coding: utf-8 -*-
 """
 Find specific deconstructions in the 1GB matches.tsv file,
 and save to a temp file.
 """
 
+from rich import print
+
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from rich import print
 
 find_me = "kaṭṭhattharaṇapaṇṇattharaṇaāsanādīni"
 
 
 def write_temp_file(found: list[str]):
     print("written to ", end="")
-    temp_file = "temp/deconstruction_finder.csv"
+    pth = ProjectPaths()
+    temp_file = pth.temp_dir / "deconstruction_finder.csv"
     with open(temp_file, "w", encoding="utf-8") as f:
         f.write("".join(found))
     print(f"[blue]{temp_file}")

@@ -9,19 +9,19 @@ from __future__ import annotations
 
 import csv
 import re
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.paths import ProjectPaths
 
 FAMILY_SET_RE = re.compile(r"Saṃyutta\s+Nikāya\s+(\d+)", re.UNICODE)
 SN_CODE_RE = re.compile(r"\bSN\s*(\d+)(?:\.\d[\d\-]*)?", re.UNICODE)
 
-OUT = Path("temp/sn_samyutta_mismatch.tsv")
-
 
 def main() -> None:
-    session = get_db_session(Path("dpd.db"))
+    pth = ProjectPaths()
+    session = get_db_session(pth.dpd_db_path)
+    out = pth.temp_dir / "sn_samyutta_mismatch.tsv"
     headwords = (
         session.query(DpdHeadword)
         .filter(DpdHeadword.family_set.like("%Saṃyutta Nikāya%"))
@@ -60,8 +60,8 @@ def main() -> None:
             }
         )
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUT.open("w", encoding="utf-8", newline="") as f:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with out.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(
             f,
             delimiter="\t",
@@ -80,7 +80,7 @@ def main() -> None:
         writer.writerows(rows)
 
     print(f"scanned {len(headwords)} SN headwords")
-    print(f"mismatches: {len(rows)} -> {OUT}")
+    print(f"mismatches: {len(rows)} -> {out}")
 
 
 if __name__ == "__main__":

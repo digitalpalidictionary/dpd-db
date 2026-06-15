@@ -3,7 +3,10 @@
 """A template for filtering the DPD database and exporting to .xlsx."""
 
 import sqlite3
+
 import pandas as pd
+
+from tools.paths import ProjectPaths
 
 
 def connect_to_db(db_path):
@@ -37,7 +40,8 @@ def main():
     print("~" * 50)
 
     # where is the db located on your computer?
-    db_path = "dpd.db"
+    pth = ProjectPaths()
+    db_path = pth.dpd_db_path
 
     # what table would you like to access?
     table_name = "dpd_headwords"
@@ -52,11 +56,11 @@ def main():
 
         filtered_df = df
 
-        filtered_df = filtered_df[filtered_df["trans"] == "ditrans"]
+        filtered_df = filtered_df.loc[filtered_df["trans"] == "ditrans"]
 
-        filtered_df = filtered_df[filtered_df["plus_case"].str.contains("\\+acc")]
+        filtered_df = filtered_df.loc[filtered_df["plus_case"].str.contains("\\+acc")]
 
-        filtered_df = filtered_df[filtered_df["pos"] == "pr"]
+        filtered_df = filtered_df.loc[filtered_df["pos"] == "pr"]
 
         # which columns do you want in the excel file?
         columns_to_show = ["lemma_1", "grammar", "trans", "meaning_1", "root_key"]
@@ -66,7 +70,7 @@ def main():
         sorted_df = filtered_df.sort_values(by=columns_to_sort, ascending=True)
 
         # where would you like to save the output file?
-        output_file_path = "temp/dpd_db_filter.xlsx"
+        output_file_path = pth.temp_dir / "dpd_db_filter.xlsx"
 
         # export to excel file
         export_to_xlsx(sorted_df, output_file_path, columns_to_show)
@@ -74,7 +78,7 @@ def main():
         print(f"DPD data exported to {output_file_path}")
         print("~" * 50)
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print("there was an error exporting the file")
         print(e)
 

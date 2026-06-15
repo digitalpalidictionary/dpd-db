@@ -4,14 +4,17 @@
 Cross-platform script runner tool.
 """
 
+import os
 import subprocess
 import sys
-import os
+
+from tools.paths import ProjectPaths
 
 
 def check_db_exists() -> None:
     """Check if dpd.db exists, exit if not found."""
-    if not os.path.exists("dpd.db"):
+    pth = ProjectPaths()
+    if not pth.dpd_db_path.exists():
         print("Error: dpd.db file not found.")
         sys.exit(1)
 
@@ -29,11 +32,11 @@ def run_script(title: str, commands: list[str]) -> None:
     Auto-detects use_uv based on file extension.
     Includes timing and minimal printing.
     """
-    import time
     import datetime
+    import time
 
     print(
-        f"Starting: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"Starting: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"  # noqa: DTZ005
     )
     start_time = time.time()
 
@@ -45,15 +48,15 @@ def run_script(title: str, commands: list[str]) -> None:
         except subprocess.CalledProcessError as e:
             print(f"Error: Command failed with exit code {e.returncode}")
             sys.exit(e.returncode)
-        except Exception as e:
-            print(f"Error: {str(e)}")
+        except Exception as e:  # noqa: BLE001
+            print(f"Error: {e!s}")
             sys.exit(1)
 
     # Print elapsed time
     end_time = time.time()
     elapsed = end_time - start_time
     print(
-        f"Finished: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        f"Finished: {title} at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"  # noqa: DTZ005
     )
     print(f"Completed in {int(elapsed // 60)} minutes\n")
 

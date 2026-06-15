@@ -27,11 +27,11 @@ class GlobalData:
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.dict_data: list[DictEntry] = []
         self.env = Environment(
-            loader=FileSystemLoader("exporter/kobo/templates"), autoescape=True
+            loader=FileSystemLoader(self.pth.kobo_templates_dir), autoescape=True
         )
         self.dpd_template = self.env.get_template("/dpd_headword.html")
         self.lookup_template = self.env.get_template("/lookup.html")
-        with open("exporter/kobo/templates/kobo.css", encoding="utf-8") as f:
+        with open(self.pth.kobo_css_path, encoding="utf-8") as f:
             self.css = f.read()
         self.word_set = self.make_word_set()
 

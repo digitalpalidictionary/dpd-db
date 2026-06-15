@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 import json
-from pathlib import Path
+
+from tools.paths import ProjectPaths
 
 
 def main():
-    variants_path = Path("temp/variants.json")
-    var_dict = json.loads(variants_path.read_text(encoding="utf-8"))
+    pth = ProjectPaths()
+    var_dict = json.loads(pth.variants_json_path.read_text(encoding="utf-8"))
 
     for key, value in var_dict.items():
         if "CST" in value and "MST" in value and "BJT" in value and "SYA" in value:

@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 """Class for internal tests."""
 
 import csv
 import json
 import re
 from json import dumps
-from pathlib import Path
 from typing import NamedTuple
 
 from rich import print
@@ -348,9 +346,9 @@ class DbTestManager:
                             row_dict[field] = value
 
                     writer.writerow(row_dict)
-        except IOError as e:
+        except OSError as e:
             pr.red(f"Error saving tests to {self.tests_path}: {e}")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             pr.red(f"An unexpected error occurred during saving tests: {e}")
 
     def add_exception(self, test_name: str, exception_id: int) -> bool:
@@ -402,7 +400,8 @@ class DbTestManager:
 
 
 def main() -> None:
-    session = get_db_session(Path("dpd.db"))
+    pth = ProjectPaths()
+    session = get_db_session(pth.dpd_db_path)
 
     test_manager = DbTestManager()
     entry = session.query(DpdHeadword).filter_by(id=112).first()

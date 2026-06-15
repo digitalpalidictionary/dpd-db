@@ -15,7 +15,6 @@ Run once; thereafter the TSV is hand-edited.
 
 import csv
 import re
-from pathlib import Path
 
 from bs4 import BeautifulSoup
 
@@ -344,7 +343,8 @@ def build_rows() -> list[dict[str, str]]:
 
 
 def main() -> None:
-    out_path = Path("tools/cst_book_translator.tsv")
+    pth = ProjectPaths()
+    out_path = pth.cst_book_translator_tsv_path
     rows = build_rows()
     with out_path.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(

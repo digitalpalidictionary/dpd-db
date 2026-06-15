@@ -11,13 +11,14 @@ from __future__ import annotations
 
 import csv
 import re
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from scripts.add.vagga_codes.shared import PREVIEW_DIR, write_preview_tsv
+from tools.paths import ProjectPaths
 
-TSV = Path("db/backup_tsv/sutta_info.tsv")
+pth = ProjectPaths()
+TSV = pth.sutta_info_tsv_path
 VAGGA_M1_RE = re.compile(r"Vagga\s+(\d+)", re.IGNORECASE)
 CHAPTER_M2_RE = re.compile(r"Chapter\s+(\d+)", re.IGNORECASE)
 SC_CODE_RE = re.compile(r"^dhp(\d+)-(\d+)$")
@@ -51,7 +52,7 @@ def load_dhp_codes() -> dict[int, str]:
 def main() -> None:
     codes = load_dhp_codes()
     print(f"loaded {len(codes)} DHP chapter codes")
-    session = get_db_session(Path("dpd.db"))
+    session = get_db_session(pth.dpd_db_path)
     headwords = (
         session.query(DpdHeadword)
         .filter(

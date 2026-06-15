@@ -60,13 +60,15 @@ def main_pandas():
         ]
     ]
 
-    df.to_csv("temp/suffixes_sorted.tsv", index=False, sep="\t")
+    df.to_csv(pth.temp_dir / "suffixes_sorted.tsv", index=False, sep="\t")
 
     # csv of counts
-    suffix_counts = df.value_counts(
-        subset=["derivative", "suffix"], ascending=False
-    ).rename("count")
-    suffix_counts.to_csv("temp/suffix_counts.tsv", sep="\t")
+    suffix_counts = (
+        df.loc[:, ["derivative", "suffix"]]
+        .value_counts(ascending=False)
+        .rename("count")
+    )
+    suffix_counts.to_csv(pth.temp_dir / "suffix_counts.tsv", sep="\t")
 
     print(df)
     print("[green]csv saved")

@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Find and fix corrupted synonym, antonym, and variant entries
 where values have been concatenated without a separator."""
 
 import json
-from pathlib import Path
 
 import pyperclip
 from prompt_toolkit import prompt as pt_prompt
@@ -17,7 +15,8 @@ from tools.pali_sort_key import pali_list_sorter
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-FIXES_PATH = Path(__file__).parent / "fix_synonym_entries.json"
+pth = ProjectPaths()
+FIXES_PATH = pth.fix_synonym_entries_json_path
 
 
 def load_known_fixes() -> dict[str, str]:
@@ -38,7 +37,6 @@ def main() -> None:
     pr.tic()
     pr.yellow_title("finding corrupted synonym, antonym and variant entries")
 
-    pth = ProjectPaths()
     db_session: Session = get_db_session(pth.dpd_db_path)
     db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
 

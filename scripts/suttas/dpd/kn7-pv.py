@@ -1,5 +1,4 @@
 import re
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -11,7 +10,7 @@ db_session = get_db_session(pth.dpd_db_path)
 
 # search_string = r"\((ITI\d+\.\d+-*\d*)\)" # with dots n dashes
 search_string = r"\((PV\d+)\)"  # no dots or dashes
-file_path = Path("scripts/suttas/dpd/kn7-pv.tsv")
+file_path = pth.suttas_dpd_dir / "kn7-pv.tsv"
 
 
 def extractor():

@@ -19,6 +19,7 @@ dependencies = [
     "natsort>=8.4.0",
     "requests>=2.32.3",
     "typst>=0.14.9",
+    "prompt-toolkit>=3.0.52",
 ]
 
 [dependency-groups]

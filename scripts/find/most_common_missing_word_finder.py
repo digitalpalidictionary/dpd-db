@@ -1,7 +1,5 @@
 """Find most common words in a list, grouping by Levenshtein distance."""
 
-from pathlib import Path
-
 import Levenshtein
 from rich.progress import track
 
@@ -150,10 +148,7 @@ def test_similar(word: str, representative: str):
     word_trunc = word[:-similarity]
     repr_trunc = representative[: -similarity + diff_len]
 
-    if word_trunc == repr_trunc:
-        return True
-    else:
-        return False
+    return word_trunc == repr_trunc
 
 
 def group_similar_words(
@@ -174,7 +169,7 @@ def group_similar_words(
                 and Levenshtein.distance(word, representative) <= lev_distance
             ):
                 groups[representative]["count"] += count
-                groups[representative]["members"].add(word)
+                data["members"].add(word)
                 found_group = True
                 break
         if not found_group:
@@ -185,17 +180,14 @@ def group_similar_words(
 def sort_groups(
     groups: dict[dict[str, int], dict[str, set[str]]],
 ) -> list:
-    group_list = []
-    for key, values in groups.items():
-        group_list.append(values)
-
+    group_list = list(groups.values())
     return sorted(group_list, key=lambda x: x["count"], reverse=True)
 
 
 def save_to_tsv(common_words_unpack):
     pr.green_tmr("saving to tsv")
 
-    file_path = Path("scripts/find/most_common_missing_words.tsv")
+    file_path = pth.most_common_missing_words_tsv_path
     write_tsv_dot_dict(
         file_path,
         data=common_words_unpack,

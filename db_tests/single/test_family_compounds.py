@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Find missing compound families."""
 
-import pickle
 import re
 
 import pyperclip
@@ -62,12 +60,7 @@ def make_dict_of_sets(db):
 
 
 def load_exceptions():
-    try:
-        with open("family_compound_exceptions", "rb") as f:
-            exceptions = pickle.load(f)
-    except FileNotFoundError:
-        exceptions = set()
-    return exceptions
+    return set()
 
 
 def test_family_compound(d):

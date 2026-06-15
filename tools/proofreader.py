@@ -2,12 +2,15 @@
 
 import csv
 import json
-from typing import Any
 from pathlib import Path
+from typing import Any
+
 from sqlalchemy.orm import Session
-from db.models import DpdHeadword
+
 from db.db_helpers import get_db_session
+from db.models import DpdHeadword
 from tools.ai_manager import AIManager
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
@@ -85,15 +88,16 @@ def process_batch(
 
 def main():
     batch_size = 100
-    output_file = "tools/proofreader.tsv"
-    db_path = "dpd.db"
+    pth = ProjectPaths()
+    output_file = pth.proofreader_tsv_path
+    db_path = pth.dpd_db_path
     model = "nvidia/nemotron-3-nano-30b-a3b:free"
     # model = "xiaomi/mimo-v2-flash:free"
     # model = "google/gemini-2.0-flash-exp:free"
     # model = "mistralai/devstral-2512:free"
     # model = "z-ai/glm-4.5-air:free"
 
-    db_session = get_db_session(Path(db_path))
+    db_session = get_db_session(db_path)
     data = get_db_data(db_session)
     pr.green(f"Extracted {len(data)} entries from database.")
 
@@ -141,7 +145,7 @@ def main():
                     tsvfile.flush()
                     pr.green(f"Batch {i + 1} results written to {output_file}")
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         pr.red(f"Error during processing: {e}")
     finally:
         db_session.close()
@@ -162,7 +166,7 @@ class ProofreaderManager:
                 reader = csv.DictReader(f, delimiter="\t")
                 # Filter out header rows and empty rows
                 return [row for row in reader if row.get("id") and row["id"] != "id"]
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             print(f"Error loading {self.tsv_path}: {e}")
             return []
 
@@ -188,7 +192,7 @@ class ProofreaderManager:
                 writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
                 writer.writeheader()
                 writer.writerows(self.corrections)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             print(f"Error saving {self.tsv_path}: {e}")
 
     @property

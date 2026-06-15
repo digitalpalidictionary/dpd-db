@@ -1,5 +1,4 @@
 import re
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -30,7 +29,7 @@ def snp_extractor():
     list_of_keys = [k for k in snp_dict]
     file_order = natural_sort(list_of_keys)
 
-    file_path = Path("scripts/suttas/dpd/kn5-snp.tsv")
+    file_path = pth.suttas_dpd_dir / "kn5-snp.tsv"
     file_path.open("w")
 
     with open(file_path, "a", encoding="utf-8") as f:

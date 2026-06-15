@@ -1,15 +1,16 @@
-import multiprocessing
 import math
+import multiprocessing
 import time
 from pathlib import Path
 
 # High-performance audio decoding
 import miniaudio
 import numpy as np
-from rich.progress import Progress
 from rich.console import Console
-from tools.printer import printer as pr
+from rich.progress import Progress
+
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 # CONFIGURATION
 pth = ProjectPaths()
@@ -56,7 +57,7 @@ def check_file(filepath: Path) -> Path | None:
     except miniaudio.DecodeError:
         # File is corrupt or not an mp3
         return filepath
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         # Catch unexpected IO errors
         pr.red(f"error {filepath}: {e}")
         return filepath
@@ -116,10 +117,9 @@ def save_results(silent_files: list[Path]) -> None:
     Save the list of silent files to a file.
     """
     # Save list to a file in the same directory as the script
-    output_path = Path(__file__).parent / "deleted_silent_files.txt"
+    output_path = pth.audio_deleted_silent_files_path
     with open(output_path, "w", encoding="utf-8") as f:
-        for path in silent_files:
-            f.write(f"{path}\n")
+        f.writelines(f"{path}\n" for path in silent_files)
 
     pr.green(f"results saved to: {output_path}")
 
@@ -137,7 +137,7 @@ def play_audio(filepath: Path) -> None:
         with miniaudio.PlaybackDevice() as device:
             device.start(stream)
             time.sleep(duration + 0.2)  # Add a small buffer for safety
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         pr.red(f"error playing {filepath}: {e}")
 
 
@@ -148,7 +148,7 @@ def delete_silent_files(silent_files: list[Path]) -> None:
     for filepath in silent_files:
         try:
             filepath.unlink()
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             pr.red(f"failed to delete {filepath}: {e}")
 
     pr.green(f"deleted {len(silent_files)} silent/corrupt files.")
@@ -211,7 +211,7 @@ def interactive_delete() -> None:
                     filepath.unlink()
                     pr.green(f"deleted: {filepath.name}")
                     break
-                except Exception as e:
+                except Exception as e:  # noqa: BLE001
                     pr.red(f"failed to delete {filepath.name}: {e}")
                     break
             elif choice == "r":

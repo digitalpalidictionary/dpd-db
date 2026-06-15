@@ -1,10 +1,10 @@
-from pathlib import Path
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
+from tools.paths import ProjectPaths
 
 # Connect to the database
-db_session = get_db_session(Path("dpd.db"))
+pth = ProjectPaths()
+db_session = get_db_session(pth.dpd_db_path)
 
 # Query headwords
 headwords = db_session.query(DpdHeadword).filter(DpdHeadword.pos == "nt").all()

@@ -10,8 +10,11 @@ import re
 from collections import OrderedDict
 from pathlib import Path
 
-SUTTA_INFO_TSV = Path("db/backup_tsv/sutta_info.tsv")
-PREVIEW_DIR = Path("temp")
+from tools.paths import ProjectPaths
+
+pth = ProjectPaths()
+SUTTA_INFO_TSV = pth.sutta_info_tsv_path
+PREVIEW_DIR = pth.temp_dir
 
 VaggaKey = tuple[str, str | None]
 # (first_dpd_code, last_dpd_code, cst_vagga_name, cst_chapter_num_or_None)
@@ -37,7 +40,7 @@ def load_vagga_runs(
     indexed (1-based) to match DPD `meaning_1`'s `"Chapter N"`.
     """
     # state per (book, inner): [current_vagga_name, runs_list_of_lists_of_codes]
-    state: "OrderedDict[VaggaKey, tuple[str | None, list[list[str]], list[str]]]" = (
+    state: OrderedDict[VaggaKey, tuple[str | None, list[list[str]], list[str]]] = (
         OrderedDict()
     )
 
@@ -88,7 +91,7 @@ def load_section_spans(
     fallback for samyuttas/sections whose TSV rows have empty `cst_vagga`
     (single-vagga samyuttas where the whole section is one vagga).
     """
-    state: "OrderedDict[VaggaKey, list[str]]" = OrderedDict()
+    state: OrderedDict[VaggaKey, list[str]] = OrderedDict()
     with tsv_path.open(encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:

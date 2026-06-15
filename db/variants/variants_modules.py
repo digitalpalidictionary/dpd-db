@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
 import json
 import re
-from pathlib import Path
-from typing import TypeAlias
 
 from tools.pali_alphabet import pali_alphabet
+from tools.paths import ProjectPaths
 
-VariantsDict: TypeAlias = dict[str, dict[str, dict[str, list[tuple[str, str]]]]]
+type VariantsDict = dict[str, dict[str, dict[str, list[tuple[str, str]]]]]
 
 _CHAR_SET: frozenset[str] = frozenset([" ", *pali_alphabet])
 
@@ -48,5 +46,6 @@ def context_cleaner(context: str) -> str:
 def save_json(variants_dict: VariantsDict) -> None:
     """Save variants to json"""
 
-    with Path("temp/variants.json").open("w", encoding="utf-8") as f:
+    pth = ProjectPaths()
+    with pth.variants_json_path.open("w", encoding="utf-8") as f:
         json.dump(variants_dict, f, ensure_ascii=False, indent=2)

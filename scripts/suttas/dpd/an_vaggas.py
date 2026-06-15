@@ -3,7 +3,6 @@
 import csv
 import re
 from collections import OrderedDict
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -11,7 +10,8 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sort_naturally import alpha_num_key
 
-OUT_PATH = Path("scripts/suttas/dpd/an_vaggas.tsv")
+pth = ProjectPaths()
+OUT_PATH = pth.suttas_dpd_dir / "an_vaggas.tsv"
 
 FIELDNAMES = [
     "book",
@@ -32,7 +32,7 @@ AN_PAREN_CODE_RE = re.compile(r"\((AN\d+(?:\.\d+(?:-\d+)?)?(?:-\d+)?)\)")
 
 
 def extract() -> list[dict[str, str]]:
-    session = get_db_session(ProjectPaths().dpd_db_path)
+    session = get_db_session(pth.dpd_db_path)
     rows: list[dict[str, str]] = []
     grouped: OrderedDict[str, list[DpdHeadword]] = OrderedDict()
     try:

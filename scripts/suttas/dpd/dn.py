@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
@@ -9,7 +7,7 @@ db_session = get_db_session(pth.dpd_db_path)
 
 
 def dn_extractor():
-    file_path = Path("scripts/suttas/dpd/dn.tsv")
+    file_path = pth.suttas_dpd_dir / "dn.tsv"
     file_path.open("w")
 
     with open(file_path, "a", encoding="utf-8") as f:

@@ -12,11 +12,9 @@ from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-
-DB_PATH = Path("dpd.db")
-OUTPUT_DIR = Path("temp/verb_finder")
 DERIVED_POS = (
     "pp",
     "prp",
@@ -70,7 +68,7 @@ class GrammarRef:
 def write_tsv(rows: list[dict], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
-        path.write_text("")
+        path.write_text("", encoding="utf-8")
         return
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
@@ -414,7 +412,9 @@ def main() -> None:
     pr.tic()
     _selftest_parse_grammar()
 
-    db = get_db_session(DB_PATH)
+    pth = ProjectPaths()
+    db = get_db_session(pth.dpd_db_path)
+    output_dir = pth.temp_dir / "verb_finder"
 
     pr.green_title("verb_finder (exploratory)")
 
@@ -433,12 +433,12 @@ def main() -> None:
             }
             for (fr, rk), lemmas in sorted(pr_index.items())
         ],
-        OUTPUT_DIR / "pr_verb_index.tsv",
+        output_dir / "pr_verb_index.tsv",
     )
 
     pr.white("finding roots without pr")
     roots_without_pr = find_roots_without_pr(db, pr_index)
-    write_tsv(roots_without_pr, OUTPUT_DIR / "roots_without_pr.tsv")
+    write_tsv(roots_without_pr, output_dir / "roots_without_pr.tsv")
     pr.summary("(family_root, root_key) with no pr", str(len(roots_without_pr)))
 
     pr.white("scanning derived forms")
@@ -454,7 +454,7 @@ def main() -> None:
         "ok_verb_present": "ok_verb_present.tsv",
     }
     for name, fname in bucket_files.items():
-        write_tsv(buckets[name], OUTPUT_DIR / fname)
+        write_tsv(buckets[name], output_dir / fname)
         pr.summary(name, str(len(buckets[name])))
 
     total = sum(len(v) for v in buckets.values())

@@ -2,24 +2,24 @@ import json
 import shutil
 import threading
 import time
-from pathlib import Path
 from typing import Any, NamedTuple
 
 from tools.configger import config_read
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-AI_MODELS_PATH = Path("tools/ai_models.json")
 ANTIGRAVITY_PROVIDER = "antigravity_cli"
 
 
 def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
     """Load model lists from tools/ai_models.json."""
+    pth = ProjectPaths()
 
     def _entry(m: dict[str, Any]) -> tuple[str, str, int, float]:
         return (m["provider"], m["model"], m["delay"], float(m.get("timeout", 150.0)))
 
     try:
-        data = json.loads(AI_MODELS_PATH.read_text(encoding="utf-8"))
+        data = json.loads(pth.ai_models_json_path.read_text(encoding="utf-8"))
         antigravity_cli_work = [
             _entry(m) for m in data.get("antigravity_cli_work_models", [])
         ]
@@ -29,7 +29,7 @@ def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
             "grounded": [_entry(m) for m in data.get("grounded_models", [])],
         }
     except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
-        pr.red(f"Failed to load {AI_MODELS_PATH}: {e}")
+        pr.red(f"Failed to load {pth.ai_models_json_path}: {e}")
         return {"default": [], "grounded": []}
 
 

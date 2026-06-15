@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Process Buddha Jayanti Tripitaka files from tipitaka.lk.
 
@@ -30,6 +29,7 @@ with a basic structure of
 
 import json
 import re
+
 from rich import print
 
 from tools.clean_machine import clean_machine
@@ -128,13 +128,12 @@ def process_single_bjt_file(
 
             main_text.append(f"{text.strip()}\n")
 
-        if not footnotes_inline:
-            if footnotes:
-                main_text.append("-" * 25)
-                for footnote in footnotes:
-                    text = footnote["text"]
-                    main_text.append(text)
-                main_text.append("")
+        if not footnotes_inline and footnotes:
+            main_text.append("-" * 25)
+            for footnote in footnotes:
+                text = footnote["text"]
+                main_text.append(text)
+            main_text.append("")
 
     if show_metadata:
         main_text.append(f"filename: {dict['filename']}")
@@ -219,7 +218,7 @@ def save_bjṭ_text(books: list[str]) -> None:
             show_metadata=True,
         )
 
-    with open(f"temp/{books}.text", "w", encoding="utf-8") as f:
+    with open(pth.temp_dir / f"{books}.text", "w", encoding="utf-8") as f:
         f.write(bjt_text)
 
 

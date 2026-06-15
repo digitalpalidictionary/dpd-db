@@ -1,11 +1,13 @@
 import multiprocessing
-import subprocess
 import re
+import subprocess
 from pathlib import Path
-from rich.progress import Progress
+
 from rich.console import Console
-from tools.printer import printer as pr
+from rich.progress import Progress
+
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 # CONFIGURATION
 pth = ProjectPaths()
@@ -75,7 +77,9 @@ def get_audio_info(filepath: Path) -> tuple[float, float, float] | None:
             "-",
         ]
         # ffmpeg outputs silencedetect info to stderr
-        output = subprocess.run(cmd_silence, capture_output=True, text=True).stderr
+        output = subprocess.run(
+            cmd_silence, capture_output=True, text=True, check=False
+        ).stderr
 
         # Parse silence_start and silence_end
         starts = [float(x) for x in re.findall(r"silence_start: ([\d\.]+)", output)]
@@ -94,9 +98,12 @@ def get_audio_info(filepath: Path) -> tuple[float, float, float] | None:
         # Check for silence at the end
         if starts:
             last_start = starts[-1]
-            if len(starts) > len(ends) or (ends and ends[-1] < last_start):
-                audio_end = last_start
-            elif ends and ends[-1] >= duration - 0.1:
+            if (
+                len(starts) > len(ends)
+                or (ends and ends[-1] < last_start)
+                or ends
+                and ends[-1] >= duration - 0.1
+            ):
                 audio_end = last_start
 
         # Adjust for padding
@@ -108,7 +115,7 @@ def get_audio_info(filepath: Path) -> tuple[float, float, float] | None:
 
         return audio_start, audio_end, duration
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         pr.red(f"error analyzing {filepath.name}: {e}")
         return None
 
@@ -143,7 +150,7 @@ def trim_file(filepath: Path, start: float, end: float) -> bool:
         # Move temp file to original file (overwrite)
         temp_path.replace(filepath)
         return True
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         pr.red(f"error trimming {filepath.name}: {e}")
         # Clean up temp file if it exists
         if "temp_path" in locals() and temp_path.exists():
@@ -187,26 +194,26 @@ def main():
         "error_trimming": 0,
     }
 
-    trimmed_path = Path(__file__).parent / "trimmed_files.txt"
-    skipped_path = Path(__file__).parent / "skipped_threshold.txt"
+    trimmed_path = pth.audio_trimmed_files_path
+    skipped_path = pth.audio_skipped_threshold_path
 
     with (
         open(trimmed_path, "w", encoding="utf-8") as trimmed_f,
         open(skipped_path, "w", encoding="utf-8") as skipped_f,
+        Progress() as progress,
     ):
-        with Progress() as progress:
-            task = progress.add_task("[cyan]Trimming Audio...", total=len(files))
+        task = progress.add_task("[cyan]Trimming Audio...", total=len(files))
 
-            with multiprocessing.Pool(processes=num_processes) as pool:
-                for result, filepath in pool.imap_unordered(process_one_file, files):
-                    results[result] += 1
-                    if result == "trimmed":
-                        trimmed_f.write(f"{filepath}\n")
-                        trimmed_f.flush()
-                    elif result == "skipped_threshold":
-                        skipped_f.write(f"{filepath}\n")
-                        skipped_f.flush()
-                    progress.update(task, advance=1)
+        with multiprocessing.Pool(processes=num_processes) as pool:
+            for result, filepath in pool.imap_unordered(process_one_file, files):
+                results[result] += 1
+                if result == "trimmed":
+                    trimmed_f.write(f"{filepath}\n")
+                    trimmed_f.flush()
+                elif result == "skipped_threshold":
+                    skipped_f.write(f"{filepath}\n")
+                    skipped_f.flush()
+                progress.update(task, advance=1)
 
     pr.green("Done. Summary:")
     pr.green(f"  Trimmed: {results['trimmed']}")

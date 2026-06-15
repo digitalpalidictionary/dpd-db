@@ -21,7 +21,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
 
 import pyperclip
 from rich import print
@@ -31,8 +30,8 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.db_search_string import db_search_string
 from tools.goldendict_tools import open_in_goldendict
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-
 
 # ── phonetic rules (same list as add_phonetic_variants.py) ──────────────────
 
@@ -310,8 +309,8 @@ def main() -> None:
         "[bright_yellow]variants processor — reclassify unclassified variant field entries"
     )
 
-    db_path = Path("dpd.db")
-    db = get_db_session(db_path)
+    pth = ProjectPaths()
+    db = get_db_session(pth.dpd_db_path)
 
     entries = build_entries(db)
     total = len(entries)

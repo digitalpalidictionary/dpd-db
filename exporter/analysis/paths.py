@@ -3,7 +3,10 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-ANALYSIS_DIR = Path(__file__).resolve().parent
+from tools.paths import ProjectPaths
+
+pth = ProjectPaths()
+ANALYSIS_DIR = pth.analysis_dir
 
 
 @dataclass(frozen=True)

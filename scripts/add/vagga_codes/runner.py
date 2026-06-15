@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from scripts.add.vagga_codes import an, kn, mn, sn
@@ -13,6 +12,7 @@ from scripts.add.vagga_codes.shared import (
     load_vagga_runs,
     write_preview_tsv,
 )
+from tools.paths import ProjectPaths
 
 BOOKS = {
     "MN": mn,
@@ -48,7 +48,8 @@ def main() -> None:
     if not args.book and not args.all:
         parser.error("specify --book <CODE> or --all")
 
-    session = get_db_session(Path("dpd.db"))
+    pth = ProjectPaths()
+    session = get_db_session(pth.dpd_db_path)
     runs = load_vagga_runs()
 
     selected = sorted(BOOKS) if args.all else [args.book]

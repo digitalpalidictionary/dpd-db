@@ -12,12 +12,13 @@ from __future__ import annotations
 
 import argparse
 import csv
-from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.paths import ProjectPaths
 
-PREVIEW_DIR = Path("temp")
+pth = ProjectPaths()
+PREVIEW_DIR = pth.temp_dir
 APPLY_STATUSES = {
     "replaced",
     "appended",
@@ -42,7 +43,7 @@ def main() -> None:
     if not tsv.exists():
         raise SystemExit(f"Preview TSV not found: {tsv}")
 
-    session = get_db_session(Path("dpd.db"))
+    session = get_db_session(pth.dpd_db_path)
     updates = 0
     skipped = 0
     with tsv.open(encoding="utf-8") as f:

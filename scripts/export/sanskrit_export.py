@@ -9,8 +9,6 @@ Export
 to .txt and .tsv
 """
 
-from pathlib import Path
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.pali_sort_key import pali_sort_key
@@ -53,14 +51,16 @@ def process_db(db: list[DpdHeadword]) -> tuple[list[str], list[str]]:
 
 
 def save_txt(txt_entry_list: list[str]) -> None:
-    txt_path = Path("temp/DPD Pāḷi Sanskrit.txt")
+    pth = ProjectPaths()
+    txt_path = pth.temp_dir / "DPD Pāḷi Sanskrit.txt"
     pr.green_tmr(f"saving '{txt_path}'")
     txt_path.write_text("\n".join(txt_entry_list), encoding="utf-8")
     pr.yes("ok")
 
 
 def save_tsv(tsv_entry_list: list[str]) -> None:
-    tsv_path = Path("temp/DPD Pāḷi Sanskrit.tsv")
+    pth = ProjectPaths()
+    tsv_path = pth.temp_dir / "DPD Pāḷi Sanskrit.tsv"
     pr.green_tmr(f"saving '{tsv_path}'")
     header = "Pāḷi\tSanskrit\tPOS\tMeaning"
     tsv_content = [header] + tsv_entry_list
