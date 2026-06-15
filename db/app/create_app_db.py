@@ -1,5 +1,6 @@
-import sqlite3
 import os
+import sqlite3
+
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
@@ -77,10 +78,12 @@ def create_mobile_db():
 
     # 4. Copy Data for lookup
     print("Copying lookup data...")
-    lookup_results = session.query(Lookup).all()
-    lookup_data = [
-        (lu.lookup_key, lu.headwords) for lu in lookup_results if lu.headwords
-    ]
+    lookup_results = (
+        session.query(Lookup.lookup_key, Lookup.headwords)
+        .filter(Lookup.headwords != "")
+        .all()
+    )
+    lookup_data = [(lu.lookup_key, lu.headwords) for lu in lookup_results]
     target_cursor.executemany("INSERT INTO lookup VALUES (?,?)", lookup_data)
 
     # 5. Create Indexes

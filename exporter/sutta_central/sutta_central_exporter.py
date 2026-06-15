@@ -18,6 +18,7 @@ A list of dictionaries containing basic definitions
 """
 
 from json import dump
+from typing import ClassVar
 
 from sqlalchemy.orm import Session
 
@@ -33,7 +34,7 @@ DEBUG = False
 
 
 class SuttaCentralExporter:
-    sc_books_list: list[str] = [
+    sc_books_list: ClassVar[list[str]] = [
         "vin1",
         "vin2",
         "vin3",
@@ -113,13 +114,18 @@ class SuttaCentralExporter:
             self.print_no_entries()
 
     def make_lookup_dict(self) -> None:
-        """Make a dict of the lookup table for quick reference."""
+        """Make a dict of the lookup entries for the SC text words."""
 
         pr.green_tmr("making lookup dict")
 
-        lookup_db = self.db_session.query(Lookup).all()
-        for i in lookup_db:
-            self.lookup_dict[i.lookup_key] = i
+        chunk_size = 900
+        word_list = list(self.sc_word_set)
+        for start in range(0, len(word_list), chunk_size):
+            chunk = word_list[start : start + chunk_size]
+            for i in (
+                self.db_session.query(Lookup).filter(Lookup.lookup_key.in_(chunk)).all()
+            ):
+                self.lookup_dict[i.lookup_key] = i
 
         pr.yes(len(self.lookup_dict))
 

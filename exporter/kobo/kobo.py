@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """Export simplified DPD data for Kobo Reader"""
+
+from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
+from tools.goldendict_exporter import (
+    DictEntry,
+    DictInfo,
+    DictVariables,
+    export_to_goldendict_with_pyglossary,
+)
+from tools.kobo_exporter import DictVariablesKobo, export_to_kobo_with_pyglossary
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-
-from pathlib import Path
-from tools.goldendict_exporter import DictEntry, DictInfo, DictVariables
-from tools.goldendict_exporter import export_to_goldendict_with_pyglossary
-from tools.kobo_exporter import export_to_kobo_with_pyglossary, DictVariablesKobo
 
 
 class GlobalData:
@@ -98,19 +101,17 @@ def compile_dict_data(g: GlobalData):
 def compile_lookup_data(g: GlobalData):
     pr.green_title("compiling lookup data")
 
-    # Query all lookup entries with relevant data in one query
-    all_lookups = (
-        g.db_session.query(Lookup)
-        .filter(
-            (Lookup.deconstructor.isnot(None))
-            | (Lookup.spelling.isnot(None))
-            | (Lookup.variant.isnot(None))
+    # Query only the lookup rows whose key appears in the text word set,
+    # chunked to stay within SQLite's bound-parameter limit.
+    chunk_size = 900
+    word_list = list(g.word_set)
+    lookup_results: list[Lookup] = []
+    for start in range(0, len(word_list), chunk_size):
+        chunk = word_list[start : start + chunk_size]
+        lookup_results.extend(
+            g.db_session.query(Lookup).filter(Lookup.lookup_key.in_(chunk)).all()
         )
-        .all()
-    )
 
-    # Filter in Python using set lookup (O(1) per check)
-    lookup_results = [lu for lu in all_lookups if lu.lookup_key in g.word_set]
     lookup_results = sorted(lookup_results, key=lambda x: pali_sort_key(x.lookup_key))
     db_len = len(lookup_results)
 

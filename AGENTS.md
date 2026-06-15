@@ -143,6 +143,7 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 - Slow tests (those that parse large CST XML) are marked `@pytest.mark.slow` and are deselected by default (`addopts = -m 'not slow'`). Run them on demand with `uv run pytest -m slow`. New tests that parse big source files should be marked `slow`.
 
 ### Pre-commit gate
+- **TOUCH A FILE = OWN ITS LINT.** The moment you edit any file, you are responsible for making it pass `ruff check` AND `pyright` cleanly — including PRE-EXISTING errors you did not introduce. The hook stages the whole file and rejects the commit on any error in it, so "it was already broken" is not an out. Fix every reported error with a real, behaviour-preserving fix (never `# noqa`). This is a repeated issue — do not skip it.
 - After finishing edits to any file, ALWAYS run the same three tools the `.pre-commit-config.yaml` hook runs, in this order, plus pytest, before reporting the work as done: `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`, `uv run pytest <related test paths>`.
 - Do NOT skip `ruff format` — a file can pass `ruff check` and still be rewritten by the formatter, which bounces the commit.
 - The repo's pre-commit hook will reject the commit otherwise — fixing it after the fact wastes a round-trip.
