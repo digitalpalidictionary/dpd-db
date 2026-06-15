@@ -62,6 +62,15 @@ Read the relevant spec before working in an unfamiliar area.
 - Install with "uv add" not "pip install" or "uv pip install" etc.
 - DO NOT run any scripts with uv UNLESS specifically asked to do so.
 
+### Optional/transitive deps belong to their parent — don't list them as bare standalones
+- If a package is only needed because another package loads it (an engine, backend, or feature plugin), prefer declaring it through the parent's extra rather than as its own top-level entry — the dep then self-documents and auto-removes if the parent is ever dropped.
+- Why it matters: these are dynamic, string-keyed imports (`pd.read_excel` → `import_optional_dependency("openpyxl")`). No static tool (deptry, grep, pipdeptree) can see them, so a bare entry looks unused and gets wrongly pruned — only a test/build run reveals the break.
+- EXCEPTION — keep it bare WITH an inline comment naming the owner when the extra is unusable:
+  - the extra is too broad (e.g. `pandas[excel]` pulls 5 engines we never use, so we keep bare `openpyxl` for `pd.read_excel`), or
+  - no extra provides it (e.g. `httpx2` is starlette's TestClient backend, but no fastapi/starlette extra ships it — their extras pull the old `httpx`).
+  - In both cases the comment is mandatory so the dep never again looks orphaned.
+- Before removing any dep that looks unused, confirm it is not a parent's optional engine/backend, then re-run the full test suite AND a build cycle — `uv sync` succeeding proves nothing about dynamic imports.
+
 ## Flet
 - When answering questions about Flet refer to the /resources/flet-docs folder.
 

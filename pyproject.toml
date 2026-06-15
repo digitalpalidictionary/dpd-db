@@ -19,44 +19,32 @@ dependencies = [
     "natsort>=8.4.0",
     "requests>=2.32.3",
     "typst>=0.14.9",
-    "prompt-toolkit>=3.0.52",
 ]
 
 [dependency-groups]
 dev = [
-    "black>=23.1.0",
-    "flake8>=6.0.0",
-    "bandit>=1.7.5",
-    "pylint>=2.17.0",
     "icecream>=2.1.3",
     "pytest>=7.4.3",
     "deptry>=0.23.0",
     "pyright>=1.1.408",
     "pre-commit>=4.5.1",
+    # starlette TestClient backend; no fastapi/starlette extra provides httpx2 (their extras pull old httpx)
     "httpx2>=2.3.0",
 ]
 tools = [
     "pandas>=2.2.3",
+    # pandas Excel engine for pd.read_excel/to_excel; bare not pandas[excel] (that pulls 5 unused engines)
     "openpyxl>=3.1.0",
     "python-idzip>=0.3.9",
     "minify-html>=0.16.4",
-    "pip>=23.0.1",
     "pyspellchecker>=0.7.1",
     "pyperclip>=1.8.2",
     "openai>=1.54.4",
-    "timeout-decorator>=0.5.0",
-    "psutil>=5.9.6",
     # anki 25.7+ ships protobuf-6 gencode; pin until anki resolves upstream
     "anki>=23.10.1,<25.3",
-    "flask>=3.0.0",
-    "flask-sqlalchemy>=3.1.1",
-    "tomlkit>=0.12.3",
     "pyglossary>=4.6.1",
-    "pandoc>=2.3",
     "gitpython>=3.1.43",
     "numpy>=2.2.3",
-    "dbf>=0.99.9",
-    "typst>=0.13.2",
     "pypdf>=5.0.0",
     "ruff>=0.9.7",
     "pygithub>=2.6.1",
@@ -64,26 +52,20 @@ tools = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.6.9",
     "pyyaml>=6.0.2",
-    "marimo>=0.12.4",
     "google-genai>=1.0.0",
-    "snakeviz>=2.2.2",
     "fuzzywuzzy>=0.18.0",
     "python-levenshtein>=0.27.1",
-    "natsort>=8.4.0",
-    "indic-transliteration>=2.3.75",
     "miniaudio>=1.61",
     "pathspec>=0.12.1",
     "flet[all]==0.28.3",
-    "modelcontextprotocol>=0.1.0",
     "mcp>=1.6.0",
-    "elevenlabs>=1.57.0",
-    "gtts>=2.5.4",
     "google-api-python-client>=2.167.0",
     "google-auth-httplib2>=0.2.0",
     "google-auth-oauthlib>=1.3.0",
     "markdownify>=1.2.2",
     "pyicu>=2.16.2",
     "genanki>=0.13.1",
+    "prompt-toolkit>=3.0.52",
 ]
 
 [tool.hatch.build.targets.sdist]
@@ -99,14 +81,15 @@ build-backend = "hatchling.build"
 [tool.pyright]
 pythonVersion = "3.13"
 typeCheckingMode = "basic"
-exclude = ["gui2", "tools/writemdict", "tests", "archive/tools/cst_source_sutta_example.py", "tools/cst_source", "exporter/anki"]
+exclude = ["gui2", "tools/writemdict", "tests", "archive", "tools/cst_source", "exporter/anki"]
 
 [tool.ruff]
 target-version = "py313"
-exclude = ["gui/PySimpleGUI.py", "tools/writemdict/*", "archive/tools/cst_source_sutta_example.py", "tools/cst_source"]
+exclude = ["archive", "tools/writemdict/*", "tools/cst_source"]
 force-exclude = true
 
 [tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
 ignore = ["E501"]
 extend-select = ["PLW1514"]
 preview = true

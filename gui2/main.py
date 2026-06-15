@@ -295,7 +295,6 @@ def main(page: ft.Page) -> None:
     if enable_profiling:
         profiler.disable()
         profiler.dump_stats(str(profile_file))
-        print(f"snakeviz {profile_file}")
 
 
 if __name__ == "__main__":
