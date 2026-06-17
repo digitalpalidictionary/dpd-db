@@ -30,7 +30,7 @@ class DailyLog:
 
     def increment(self, key: str, count: int = 1) -> None:
         """Increments 'pass1', 'pass2' or 'pass2_pre' for today, saves and updates appbar."""
-        valid_keys = ["pass1", "pass2_pre", "pass2_add", "pass2_update"]
+        valid_keys = ["pass1", "pass2_pre", "pass2x", "pass2_add", "pass2_update"]
         if key not in valid_keys:
             raise ValueError(f"Key must be one of {valid_keys}")
         today_str = datetime.date.today().isoformat()
@@ -39,6 +39,7 @@ class DailyLog:
             {
                 "pass1": 0,
                 "pass2_pre": 0,
+                "pass2x": 0,
                 "pass2_add": 0,
                 "pass2_update": 0,
             },
@@ -60,12 +61,14 @@ class DailyLog:
             {
                 "pass1": 0,
                 "pass2_pre": 0,
+                "pass2x": 0,
                 "pass2_add": 0,
                 "pass2_update": 0,
             },
         )
         return (
             f"pass1: {today_entry.get('pass1', 0)} pass2_pre: {today_entry.get('pass2_pre', 0)} "
+            f"pass2x: {today_entry.get('pass2x', 0)} "
             f"pass2_add: {today_entry.get('pass2_add', 0)} pass2_update: {today_entry.get('pass2_update', 0)}  "
         )
 

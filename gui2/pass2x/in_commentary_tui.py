@@ -31,6 +31,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from gui2.pass2x.in_commentary_exceptions import InCommentaryExceptions
 from tools.clean_machine import clean_machine
+from tools.cst_book_translator import from_cst_filename
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -57,6 +58,8 @@ class Example:
     pali_raw: str
     english: str
     word: str
+    book_name: str = ""
+    is_commentary: bool = False
 
 
 @dataclass
@@ -137,15 +140,11 @@ def harvest_commentary_words(
 
 
 def needs_commentary_example(headword: DpdHeadword) -> bool:
-    """Incomplete for Pass2x purposes: missing a meaning or any example source.
-
-    Unlike Pass2pre (which wants *sutta* examples and so treats a
-    commentary-only example as still missing), here we are looking FOR
-    commentary examples — so an existing example of any kind, including a
-    commentary one, means the headword is already done. A headword with both
-    ``meaning_1`` and ``source_1`` is complete and excluded.
+    """Incomplete for Pass2x purposes: the headword has **neither** a
+    ``meaning_1`` **nor** a ``source_1`` — both must be empty to count. A
+    headword with either one is treated as already done and excluded.
     """
-    return not (headword.meaning_1 and headword.source_1)
+    return not headword.meaning_1 and not headword.source_1
 
 
 def build_inflection_map(db_session: Session) -> dict[str, list[DpdHeadword]]:
@@ -184,7 +183,7 @@ def _strip_html(pali_text: str) -> str:
 
 def _mark_word(pali_raw: str, word: str, open_tag: str, close_tag: str) -> str:
     """Wrap whole-word occurrences of ``word`` (niggahita-flexible) in tags."""
-    flexible = re.escape(word).replace("ṃ", "[ṃṁ]").replace("ṁ", "[ṃṁ]")
+    flexible = re.sub("[ṃṁ]", "[ṃṁ]", re.escape(word))
     pattern = re.compile(
         rf"(?<![{PALI_LETTERS}])({flexible})(?![{PALI_LETTERS}])",
         re.IGNORECASE,
@@ -238,6 +237,105 @@ def find_examples_for_candidates(
     return result
 
 
+# --- translations-table → human book name + canonical (tipiṭaka) order ---
+
+# piṭaka rank by cst filename prefix: vinaya → sutta → abhidhamma → aññā (extra)
+_PITAKA_PREFIXES: tuple[tuple[str, int], ...] = (
+    ("vin", 0),
+    ("abh", 2),
+    ("s", 1),
+    ("e", 3),
+)
+# text-layer rank by cst filename extension
+_LAYER_RANK: dict[str, int] = {"mul": 0, "att": 1, "tik": 2, "nrf": 3}
+
+
+def _table_to_cst_filename(table: str) -> str:
+    """``e0104n_att`` -> ``e0104n.att``: the translations db uses ``_`` where the
+    CST identifier uses ``.``."""
+    head, _sep, ext = table.rpartition("_")
+    return f"{head}.{ext}" if head else table
+
+
+def book_label(table: str) -> tuple[str, str]:
+    """Return ``(dpd_book_code, human_book_name)`` for a translations-db table,
+    falling back to the raw table name when it is unknown."""
+    book = from_cst_filename(_table_to_cst_filename(table))
+    if book is None:
+        return table, table
+    code = book.dpd_book_code or book.gui_book_code or book.cst_filename
+    return code, book.cst_book_name
+
+
+def _canonical_sort_key(table: str) -> tuple[int, int, str]:
+    """Canonical order: text layer first (mūla→aṭṭhakathā→ṭīkā→aññā), then piṭaka
+    within each layer (vinaya→sutta→abhidhamma→aññā)."""
+    filename = _table_to_cst_filename(table)
+    pitaka = next(
+        (rank for prefix, rank in _PITAKA_PREFIXES if filename.startswith(prefix)),
+        4,
+    )
+    layer = _LAYER_RANK.get(filename.rsplit(".", 1)[-1], 4)
+    return layer, pitaka, filename
+
+
+def find_examples_for_word(translation_db_path: Path, word: str) -> list[Example]:
+    """Find every translation paragraph containing a word that **starts with**
+    ``word`` (prefix / "starts with" match, so a stem like ``disākāka`` matches
+    ``disākākaṃ``, ``disākāke`` …).
+
+    Per-word and just-in-time (used by the GUI, which only processes a handful of
+    words per session, so the bulk pre-scan above is wasteful there). A SQL
+    ``LIKE`` pre-filter — niggahita-flexible via the single-char ``_`` wildcard —
+    narrows each table to a few candidate rows, which are then verified in Python
+    with a word-start, niggahita-flexible regex (leading boundary only, any
+    ending). No cap: all matches are returned, sorted into canonical tipiṭaka
+    order. ``Example.source`` carries the DPD book code (e.g. ``VISMa``) and
+    ``Example.book_name`` its human name.
+    """
+    like_pattern = "%" + word.replace("ṃ", "_").replace("ṁ", "_") + "%"
+    flexible = re.sub("[ṃṁ]", "[ṃṁ]", re.escape(word))
+    verify_re = re.compile(
+        rf"(?<![{PALI_LETTERS}])(?:{flexible})",
+        re.IGNORECASE,
+    )
+    collected: list[tuple[tuple[int, int, str], str, Example]] = []
+    conn = sqlite3.connect(str(translation_db_path))
+    try:
+        tables = [
+            row[0]
+            for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        ]
+        for table in tables:
+            code, name = book_label(table)
+            sort_key = _canonical_sort_key(table)
+            query = (
+                "SELECT paranum, pali_text, english_translation "
+                f'FROM "{table}" WHERE pali_text LIKE ?'
+            )
+            for paranum, pali_text, english in conn.execute(query, (like_pattern,)):
+                stripped = _strip_html(pali_text)
+                if verify_re.search(stripped):
+                    collected.append(
+                        (
+                            sort_key,
+                            paranum or "",
+                            Example(
+                                source=code,
+                                paranum=paranum or "",
+                                pali_raw=stripped,
+                                english=(english or "").strip(),
+                                word=word,
+                                book_name=name,
+                            ),
+                        )
+                    )
+    finally:
+        conn.close()
+    collected.sort(key=lambda item: (item[0], item[1]))
+    return [example for _key, _paranum, example in collected]
+
+
 def _commentary_example(source: CommentarySource, word: str) -> Example:
     """Build example #1 — the commentary the word was pulled from."""
     return Example(
@@ -246,6 +344,7 @@ def _commentary_example(source: CommentarySource, word: str) -> Example:
         pali_raw=_strip_html(source.commentary),
         english="",
         word=word,
+        is_commentary=True,
     )
 
 

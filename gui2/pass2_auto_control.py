@@ -43,7 +43,9 @@ class Pass2AutoController:
         self._failures_path: Path = self._gui2pth.pass2_auto_failures_path
 
         self._sc_books: dict[str, SuttaCentralSource] = sutta_central_books
-        self.sc_books_list = [k for k in self._sc_books]
+        # "in_commentary" is the Pass2x pseudo-book: its matched items live in
+        # pass2_pre_in_commentary.json and are processed by the same machinery.
+        self.sc_books_list = [k for k in self._sc_books] + ["in_commentary"]
 
         self._book: str
         self._cst_books: list[str]
@@ -116,7 +118,9 @@ class Pass2AutoController:
         self._provider_preference = provider_preference
         self._model_name = model_name
 
-        self._cst_books = self._sc_books[self._book].cst_books
+        self._cst_books = (
+            self._sc_books[self._book].cst_books if self._book in self._sc_books else []
+        )
         self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
         self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
 
@@ -161,7 +165,9 @@ class Pass2AutoController:
         """Process all items marked 'yes' in Pass 2 Pre without AI."""
 
         self._book = book
-        self._cst_books = self._sc_books[self._book].cst_books
+        self._cst_books = (
+            self._sc_books[self._book].cst_books if self._book in self._sc_books else []
+        )
         self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
         self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
 
