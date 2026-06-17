@@ -3,7 +3,7 @@ import re
 import flet as ft
 
 from gui2.books import SuttaCentralSegment
-from gui2.flet_functions import highlight_word_in_sentence
+from gui2.flet_functions import highlight_terms
 from gui2.pass2_exceptions import Pass2ExceptionsFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
@@ -356,9 +356,7 @@ class Pass2PreProcessView(ft.Column):
         self.search_bar.value = ""
         self._filter_examples()
         self.update_examples_count(len(self.filtered_examples))
-        radio_group = self._build_examples_radio_group()
-        self._apply_search_highlight(radio_group)
-        return radio_group
+        return self._build_examples_radio_group()
 
     def _filter_examples(self) -> None:
         cleaned_word_in_text = self.controller.clean_quotes(
@@ -435,9 +433,15 @@ class Pass2PreProcessView(ft.Column):
                         ),
                         ft.Container(
                             content=ft.Text(
-                                spans=highlight_word_in_sentence(
-                                    self.controller.word_in_text,
+                                spans=highlight_terms(
                                     pali.lower().replace("ṁ", "ṃ"),
+                                    [
+                                        (
+                                            self.controller.word_in_text,
+                                            HIGHLIGHT_COLOUR,
+                                        ),
+                                        (self.search_query, ft.Colors.AMBER),
+                                    ],
                                 ),
                                 expand=True,
                                 selectable=True,
@@ -446,7 +450,9 @@ class Pass2PreProcessView(ft.Column):
                         ),
                         ft.Container(
                             content=ft.Text(
-                                english,
+                                spans=highlight_terms(
+                                    english, [(self.search_query, ft.Colors.AMBER)]
+                                ),
                                 expand=True,
                                 color=ft.Colors.GREY_500,
                                 selectable=True,
@@ -506,29 +512,7 @@ class Pass2PreProcessView(ft.Column):
             return
         self._filter_examples()
         self.update_examples_count(len(self.filtered_examples))
-        radio_group = self._build_examples_radio_group()
-        self._apply_search_highlight(radio_group)
-        self.update_examples(radio_group)
-
-    def _apply_search_highlight(self, radio_group: ft.RadioGroup) -> None:
-        if not self.search_query:
-            return
-        for example_column in radio_group.content.controls:  # type: ignore
-            if not isinstance(example_column, ft.Column):
-                continue
-            for control in example_column.controls:
-                if isinstance(control, ft.Row):
-                    for row_control in control.controls:
-                        if isinstance(row_control, ft.Text):
-                            self._simple_highlight(row_control, self.search_query)
-                elif isinstance(control, ft.Container) and isinstance(
-                    control.content, ft.Text
-                ):
-                    self._simple_highlight(control.content, self.search_query)
-
-    def _simple_highlight(self, text_control: ft.Text, query: str) -> None:
-        text = str(text_control.value or "").lower()
-        text_control.color = ft.Colors.AMBER if query in text else None
+        self.update_examples(self._build_examples_radio_group())
 
     def add_exception(self, e: ft.ControlEvent) -> None:
         """Add an exception to the pass2 exceptions file,
