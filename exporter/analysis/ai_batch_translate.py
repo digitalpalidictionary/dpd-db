@@ -3,10 +3,15 @@
 import argparse
 import json
 import sys
+from typing import Any
 
 from db.db_helpers import get_db_session
 from exporter.analysis.paths import ensure_analysis_dirs
 from exporter.analysis.translate_core import translate_sentence
+from exporter.analysis.ui_utils import (
+    _print_translation_progress,
+    _write_ai_debug_artifacts,
+)
 from tools.ai_manager import AIManager
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -26,7 +31,23 @@ def main():
         action="store_true",
         help="Don't call AI, just show what would be done",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Write raw AI responses and debug logs",
+    )
+    parser.add_argument(
+        "--provider",
+        help="Force one AI provider (requires --model), e.g. gemini_cli",
+    )
+    parser.add_argument(
+        "--model",
+        help='Force one model (requires --provider), e.g. "gemini-3-flash-preview"',
+    )
     args = parser.parse_args()
+
+    if bool(args.provider) != bool(args.model):
+        parser.error("--provider and --model must be used together")
 
     book = args.book
     analysis_dirs = ensure_analysis_dirs()
@@ -85,13 +106,21 @@ def main():
                 pr.yes(f"Dry-run: would process {verse['num']}")
                 continue
 
+            ai_debug: dict[str, Any] = {}
             try:
                 result = translate_sentence(
                     verse["text"],
                     db_session,
                     ai_manager,
+                    model=args.model,
+                    provider=args.provider,
                     verse_source=verse["num"],
                     speech_mark_options=verse.get("speech_mark_options"),
+                    progress=lambda event: _print_translation_progress(
+                        verse["num"], event
+                    ),
+                    debug=ai_debug,
+                    verbose=args.debug,
                 )
 
                 verse_text: str = result.get("verse_text") or verse["text"]
@@ -112,8 +141,25 @@ def main():
                 with open(output_path, "w", encoding="utf-8") as f:
                     json.dump(results, f, ensure_ascii=False, indent=2)
 
+                _write_ai_debug_artifacts(
+                    verse["num"],
+                    ai_debug,
+                    args.debug,
+                    analysis_dirs.output_dir,
+                    analysis_dirs.reports_dir,
+                )
+
             except Exception as e:  # noqa: BLE001
                 pr.no(f"Error processing {verse['num']}: {e}")
+                if args.debug or ai_debug:
+                    ai_debug["fatal_error"] = str(e)
+                    _write_ai_debug_artifacts(
+                        verse["num"],
+                        ai_debug,
+                        args.debug,
+                        analysis_dirs.output_dir,
+                        analysis_dirs.reports_dir,
+                    )
                 # Continue with next verse instead of failing completely
                 continue
 
