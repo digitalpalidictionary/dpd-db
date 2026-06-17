@@ -1,4 +1,5 @@
 import cProfile
+import re
 import time
 from pathlib import Path
 
@@ -185,7 +186,7 @@ class App:
                 self.page.update()
 
     def _get_current_lemma(self) -> str:
-        """Return lemma_1 from the active add-view, or empty string."""
+        """Return lemma_clean from the active add-view, or empty string."""
         tab_to_view = {
             3: self.pass1_add_view,
             7: self.pass2_add_view,
@@ -195,7 +196,8 @@ class App:
             return ""
         try:
             field = view.dpd_fields.get_field("lemma_1")
-            return (field.value or "").strip() if field else ""
+            lemma_1 = (field.value or "").strip() if field else ""
+            return re.sub(r" \d.*$", "", lemma_1)
         except Exception:
             return ""
 
