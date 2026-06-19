@@ -195,7 +195,7 @@ def _extract_word_key_map(
 ) -> dict[str, str] | None:
     """Detect a flat or ``{"disambiguation": {...}}`` word-key map.
 
-    Antigravity/Gemini routinely returns this compact shape instead of the required
+    Antigravity routinely returns this compact shape instead of the required
     ``{translation, literal_translation, scores}`` schema. When the values are real
     option keys from the analysis, the map IS the disambiguation we want. Returns
     ``None`` when the response is not such a map (proper schema, dict-valued, unknown

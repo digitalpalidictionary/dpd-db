@@ -38,11 +38,11 @@ def main():
     )
     parser.add_argument(
         "--provider",
-        help="Force one AI provider (requires --model), e.g. gemini_cli",
+        help="Force one AI provider (requires --model), e.g. antigravity_cli",
     )
     parser.add_argument(
         "--model",
-        help='Force one model (requires --provider), e.g. "gemini-3-flash-preview"',
+        help='Force one model (requires --provider), e.g. "Gemini 3.5 Flash (Low)"',
     )
     args = parser.parse_args()
 
