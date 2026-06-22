@@ -41,7 +41,9 @@ class DpdCommentaryField(ft.Column):
         self.toolkit: ToolKit = toolkit
         self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
-        self.stash_manager = ExampleStashManager(self.toolkit)
+        self.stash_manager = ExampleStashManager(
+            self.toolkit, self.toolkit.paths.commentary_stash_json_path
+        )
 
         self._external_on_blur = on_blur
         self.commentary_field = DpdTextField(

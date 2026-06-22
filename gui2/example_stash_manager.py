@@ -10,9 +10,9 @@ from tools.printer import printer as pr
 class ExampleStashManager:
     """Manages stashing and reloading example data (source, sutta, example)."""
 
-    def __init__(self, toolkit: ToolKit):
+    def __init__(self, toolkit: ToolKit, stash_path: Path | None = None):
         self._gui2pth: Gui2Paths = toolkit.paths
-        self._stash_path: Path = self._gui2pth.example_stash_json_path
+        self._stash_path: Path = stash_path or self._gui2pth.example_stash_json_path
         self.stash_data: dict[str, dict[str, str]] = {}
         self._load()
 
