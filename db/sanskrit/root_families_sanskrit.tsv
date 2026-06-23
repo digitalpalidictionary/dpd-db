@@ -969,7 +969,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √jan	3	ya	be born, produce	√jan	4	give birth, be born	abhi √jan	abhijan	abhijāta, abhijāti, abhijāti +, abhijātvā, abhijāyate
 √jan	3	ya	be born, produce	√jan	4	give birth, be born	ava √jan	jan	
 √jan	3	ya	be born, produce	√jan	4	give birth, be born	ā √jan	ājan	ājāneya + vat, ājāneyya, ājāneya, ājāyate, na + ājāneyya, na + ājāneya
-√jan	3	ya	be born, produce	√jan	4	give birth, be born	upa √jan	upajan	
+√jan	3	ya	be born, produce	√jan	4	give birth, be born	upa √jan	upajan	upajāyate
 √jan	3	ya	be born, produce	√jan	4	give birth, be born	upa vi √jan	vijan	upa + vijanyā
 √jan	3	ya	be born, produce	√jan	4	give birth, be born	ni √jan	jan	nija
 √jan	3	ya	be born, produce	√jan	4	give birth, be born	pa √jan	prajan	prajā
@@ -1568,7 +1568,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nī	1	a	lead, carry	√nī	1, 2	lead	ud √nī		unnīta +
 √nī	1	a	lead, carry	√nī	1, 2	lead	upa √nī	upanī	upanaya, upanayana, upanayati, upanayana, upanayitum, upanāyika, upaniyat, upanīta, upanītvā, upanīya, upanīyate, upanīyamāna, upanetavya, upaneya +, na + upanayati, na + upaniyat, na + upanīta, na + upanīyate
 √nī	1	a	lead, carry	√nī	1, 2	lead	nī √nī	nirṇī	na + nirṇīta (settled), nirṇīta (settled), netṛ
-√nī	1	a	lead, carry	√nī	1, 2	lead	pa √nī	praṇī	praṇayati, praṇīta, praṇīta + tara
+√nī	1	a	lead, carry	√nī	1, 2	lead	pa √nī	praṇī	praṇayati, praṇīta, praṇīta + tara, su + praṇīta
 √nī	1	a	lead, carry	√nī	1, 2	lead	pa vi √nī	vinī	vinīya
 √nī	1	a	lead, carry	√nī	1, 2	lead	pati √nī	pratinī	pratinayati
 √nī	1	a	lead, carry	√nī	1, 2	lead	pati vi √nī	vinī	na + prativinīta (bsk), prati + vinaya, prati + vinayati, prati + vinīta, prativinītvā, su + prati + vinīta, su + prati + vinīta +
@@ -1881,7 +1881,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhakkh	1	a	eat	√bhakṣ	1	partake of, eat	√bhakkh	bhakṣ	ababhakṣat, abhakṣya, bhakṣa, bhakṣaka, bhakṣati, bhakṣayat, bhakṣayati, bhakṣayitvā, bhakṣita, bhakṣitum, bhakṣitvā, bhakṣya
 √bhakkh	1	*aya	eat	√bhakṣ	1	partake of, eat	abhi √bhakkh	-	bhakṣitvā, bhuktvā
 √bhakkh	1	*e	eat	√bhakṣ	1	partake of, eat	saṃ √bhakkh	sambhakṣ	sambhakṣayati
-√bhaj 1	1	*e	divide, distribute	√bhaj	1	divide, share	√bhaj	bhaj	daurbhāgya, durbhaga, durbhāgya, na + bhājita, na + sabhāga, bhakta, bhaktakāra, bhaktika, bhaga, bhagavat, bhagavataḥ, bhagavatā, bhagavati < bhagavat, bhagavate, bhaginī, bhajati, bhajanīya, bhajayati, bhajayitum, bhajayitvā, bhāga, bhāgavat, bhāgika, bhāgin, bhāgineya, bhāgineyī, bhāgīya, bhāgya, bhāgyavat, bhājaka, bhājana, bhājayati, bhājayamāna, bhājayitvā, bhājita, bhājyate, bhājyamāna, visabhāga, sa + bhakta, saubhāgya, sabhāga, sabhāgayati, subhaga
+√bhaj 1	1	*e	divide, distribute	√bhaj	1	divide, share	√bhaj	bhaj	daurbhāgya, durbhaga, durbhāgya, na + bhājita, na + sabhāga, bhakta, bhaktakāra, bhaktika, bhaga, bhagavat, bhagavataḥ, bhagavatā, bhagavati < bhagavat, bhagavate, bhaginī, bhajati, bhajanīya, bhajayati, bhajayitum, bhajayitvā, bhāga, bhāgavat, bhāgika, bhāgin, bhāginī, bhāgineya, bhāgineyī, bhāgīya, bhāgya, bhāgyavat, bhājaka, bhājana, bhājayati, bhājayamāna, bhājayitvā, bhājita, bhājyate, bhājyamāna, visabhāga, sa + bhakta, saubhāgya, sabhāga, sabhāgayati, subhaga
 √bhaj 1	1	a	divide, distribute	√bhaj	1	divide, share	ud √bhaj		ud + bhaktvā, ud + bhajati, ud + bhajitavya, bhaktavya
 √bhaj 1	1	a	divide, distribute	√bhaj	1	divide, share	pa vi √bhaj	pravibhaj	pravibhajat, pravibhajya
 √bhaj 1	1	a	divide, distribute	√bhaj	1	divide, share	pati √bhaj	pratibhaj	na + pratibhāga, pratibhāga, sa + pratibhāga (division)
