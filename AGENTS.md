@@ -107,11 +107,6 @@ Use Context7 MCP (`mcp__plugin_context7_context7__resolve-library-id` + `query-d
 - Is this a straightforward solution, or does it need to be solved at a higher level?
 - Show code snippets of suggested changes.
 
-## Update Gemini CLI
-```bash
-npm install -g @google/gemini-cli@latest
-```
-
 ## DPD Database Model (`db/models.py`)
 
 Key SQLAlchemy classes and their roles:
