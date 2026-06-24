@@ -194,6 +194,7 @@ source code.
 
 **Support:**
 - `paths.py` — creates and returns `input/`, `reports/`, and `output/`.
+- `ui_utils.py` — shared helpers for printing progress, building raw response logs, and writing debug artifacts.
 - `passage_by_code.py` — resolves passage codes like `DHP1`, `UD12`, `ITI37`, `SN12.3`, `AN3.12` into CST passage text.
 - `book_to_verses.py` — extracts a whole CST book into structured JSON for batch verse analysis.
 - `example_bolding.py` — bolds the selected word or component inside the source passage example.
@@ -333,6 +334,12 @@ Analyze the extracted verses:
 
 ```bash
 uv run python exporter/analysis/ai_batch_translate.py --book kn2
+```
+
+You can optionally specify a custom provider and model, and enable verbose debug logging:
+
+```bash
+uv run python exporter/analysis/ai_batch_translate.py --book kn2 --provider gemini_cli --model gemini-3-flash-preview --debug
 ```
 
 Use `--limit N` for a small batch and `--dry-run` to inspect work without AI calls.

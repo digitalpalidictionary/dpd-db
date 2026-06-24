@@ -6,11 +6,11 @@ from types import SimpleNamespace
 import pytest
 
 import exporter.analysis.study_passage as study_passage
+import exporter.analysis.ui_utils as ui_utils
 from exporter.analysis.passage_extraction import format_extraction_report
 from exporter.analysis.passage_by_code import PassageResult
 from exporter.analysis.paths import AnalysisDirs
 from exporter.analysis.study_passage import (
-    _build_raw_responses_log,
     _format_selection_preview,
     _parse_args,
     _parse_selection_indices,
@@ -98,7 +98,7 @@ def test_parse_args_requires_provider_and_model_together() -> None:
 
 
 def test_build_raw_responses_log_includes_chunk_requests() -> None:
-    log = _build_raw_responses_log(
+    log = ui_utils._build_raw_responses_log(
         "SN15.1_p2",
         {
             "chunk_requests": [
@@ -136,7 +136,7 @@ def test_write_ai_debug_artifacts_writes_json_and_raw(
     output_dir.mkdir()
     reports_dir.mkdir()
 
-    study_passage._write_ai_debug_artifacts(
+    ui_utils._write_ai_debug_artifacts(
         "TH1",
         {"raw_response": "partial", "status_message": "failed status"},
         include_raw=True,
