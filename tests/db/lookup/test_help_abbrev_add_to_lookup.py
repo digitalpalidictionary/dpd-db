@@ -1,7 +1,5 @@
-import json
 from collections.abc import Iterator
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
 
 import pytest
@@ -15,9 +13,6 @@ from db.lookup.help_abbrev_add_to_lookup import (
     normalize_other_abbreviation_key,
 )
 from db.models import Base, Lookup
-
-FIXTURE_PATH = Path(__file__).parent / "test_help_abbrev_add_to_lookup_fixtures.json"
-NORMALIZE_FIXTURE: dict[str, str] = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
 
 
 @pytest.fixture
@@ -173,11 +168,6 @@ def test_add_abbreviations_other_groups_dotted_and_undotted(
     assert sources == {"PTS", "CPD"}
 
 
-@pytest.mark.parametrize("key, expected", NORMALIZE_FIXTURE.items())
-def test_normalize_matches_golden(key: str, expected: str) -> None:
-    assert normalize_other_abbreviation_key(key) == expected
-
-
 @pytest.mark.parametrize(
     "key, expected",
     [
@@ -187,7 +177,10 @@ def test_normalize_matches_golden(key: str, expected: str) -> None:
         ("AAWG", "AAWG"),
         ("a.b.", "a.b"),
         ("abc..", "abc."),
+        ("Abh.", "Abh"),
+        ("Artha-s.", "Artha-s"),
+        ("-Up", "-Up"),
     ],
 )
-def test_normalize_edge_cases(key: str, expected: str) -> None:
+def test_normalize_strips_single_trailing_dot(key: str, expected: str) -> None:
     assert normalize_other_abbreviation_key(key) == expected
