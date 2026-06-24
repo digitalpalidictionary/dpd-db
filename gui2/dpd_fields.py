@@ -480,11 +480,8 @@ class DpdFields(PopUpMixin):
                     icon_size=20,
                     tooltip="Copy to db field",
                     # Use a lambda that captures the correct field names
-                    on_click=lambda e,
-                    mf=main_field,
-                    af=add_field,
-                    btn=None: self.transfer_add_value(
-                        e, mf, af, None
+                    on_click=lambda e, mf=main_field, af=add_field, btn=None: (
+                        self.transfer_add_value(e, mf, af, None)
                     ),  # Placeholder for btn
                     disabled=True,  # Start disabled
                     data=f"{field_name}_transfer_btn",  # Add data to identify the button later
@@ -549,10 +546,10 @@ class DpdFields(PopUpMixin):
                                 value
                             )  # Enable if value exists, disable otherwise
                             # Update the lambda to pass the button itself
-                            control.on_click = lambda e, mf=self.fields[
-                                name
-                            ], af=add_field, btn=control: self.transfer_add_value(
-                                e, mf, af, btn
+                            control.on_click = (
+                                lambda e, mf=self.fields[name], af=add_field, btn=control: (
+                                    self.transfer_add_value(e, mf, af, btn)
+                                )
                             )
                             break
 
@@ -625,10 +622,9 @@ class DpdFields(PopUpMixin):
                         ):
                             control.disabled = not bool(add_value)
                             control.on_click = (
-                                lambda e,
-                                mf=main_field_control,
-                                af=add_field_control,
-                                btn=control: self.transfer_add_value(e, mf, af, btn)
+                                lambda e, mf=main_field_control, af=add_field_control, btn=control: (
+                                    self.transfer_add_value(e, mf, af, btn)
+                                )
                             )
                             break
 
@@ -778,6 +774,13 @@ class DpdFields(PopUpMixin):
                 elif lemma_clean.endswith("vagga"):
                     meaning_lit_field.value = "section on "
                     meaning_lit_field.update()
+                    self.page.update()
+
+            compound_type_field = self.get_field("compound_type")
+            if compound_type_field and not (compound_type_field.value or "").strip():
+                if lemma_clean.endswith(("sutta", "vagga")):
+                    compound_type_field.value = "kammadhāraya"
+                    compound_type_field.update()
                     self.page.update()
 
         self.page.update()
