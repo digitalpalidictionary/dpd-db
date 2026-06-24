@@ -1014,7 +1014,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	√jīr	jṝ	ajārīt, ajarat, ajīrṇa, ajīrṇa (na + jīrṇa), jarayat, jīrṇa, jīrṇa +, jīrṇaka, jīrṇatā, jīryati, jīryamāṇa, jṛṇāti, na + jāraṇa, na + jṛṇāti
 √jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	nī √jīr	nirjṝ	nirjarati, nirjarayitavya, nirjīrṇa
 √jīr	1	a	grow old, decay	√jṝ √jṛ	1, 4, 6, 9	waste away	pari √jīr	parijṝ	parijīrṇa, parijīryati, parijūnya (bsk)
-√jīv	1	a	live	√jīv	1	live	√jīv	jīv	jīva, jīvaka, jīvat, jīvati, jīvamāna, jīvā, jīvikā, jīvita, jīvitavya, jīvitum, jīvin, durjīva, durjīva +, durjīvita, nir + jīva, sajīva, saṃjīvana, sujīva, sujīvita
+√jīv	1	a	live	√jīv	1	live	√jīv	jīv	jīva, jīvaka, jīvat, jīvati, jīvamāna, jīvā, jīvikā, jīvita, jīvitavā, jīvitavya, jīvitum, jīvin, durjīva, durjīva +, durjīvita, nir + jīva, sajīva, saṃjīvana, sujīva, sujīvita
 √jīv	1	a	live	√jīv	1	live	adhi ā √jīv		adhi + ājīva
 √jīv	1	a	live	√jīv	1	live	anu √jīv	anujīv	anujīvin
 √jīv	1	a	live	√jīv	1	live	ā √jīv	ājīv	ājīva, ājīvaka, ājīvaka +, ājīvati, ājīvita, ājīvin, sajjīva (bsk)
@@ -1691,7 +1691,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √pā 1	1	a	drink	√pā	1	drink	pa √pā	prapā	pra, prapīti
 √pā 2	1	a	protect, guard	√pā	2	protect	√pā	pā	pa, pāti, pāli
 √pāy	1	a	increase	√pyai √pyāy √pyā	1, 4	fill up	ā √pāy		āpyāyati, āpyāyitum
-√pāl	8	*e	protect	√pāl	10	watch	√pāl	pāl	pāla, pālaka, pālayat, pālayati, pālikā
+√pāl	8	*e	protect	√pāl	10	watch	√pāl	pāl	pāla, pālaka, pālayat, pālayati, pālayitvā, pālikā
 √pāl	8	*e	protect	√pāl	10	watch	anu √pāl	anupāl	
 √pāl	8	*e	protect	√pāl	10	watch	abhi √pāl	pāl	abhi + pālayati, pālayati
 √pāl	8	*e	protect	√pāl	10	watch	pari √pāl	pāl	paripālana
@@ -2193,7 +2193,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yat 1	8	*e	arrange, hand over	√yat	1, 10	stretch	pati nī √yat	pratiniryat	
 √yat 1	8	*e	arrange, hand over	√yat	1, 10	stretch	saṃ nī √yat	niryat	
 √yat 2	1	a	stretch, strive	√yat	1, 10	stretch	√yat	yat	yatate, yati, yatta
-√yat 2	1	a	stretch, strive	√yat	1, 10	stretch	ā √yat	āyat	āyata, āyatana, āyatanāt, āyatanika, āyati, āyati +, āyatika, āyatta
+√yat 2	1	a	stretch, strive	√yat	1, 10	stretch	ā √yat	āyat	āyata, āyatana, āyatanāt, āyatanika, āyati, āyati +, āyatika, āyatta, na + āyatanāt
 √yat 2	1	a	stretch, strive	√yat	1, 10	stretch	pa √yat	prayat	
 √yant	8	a	bind	√yantr	10	restrain, curb, bind	√yant	yantr	yantra, yantraka, yantrita
 √yam 1	1	a	control, strive, end	√yam	1	reach	√yam	yam	yata, yama, yamāḥ < yama, yāma, yāmā, suyāma
