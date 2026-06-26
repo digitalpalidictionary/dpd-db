@@ -22,9 +22,6 @@ DEFAULT_CONFIG = {
         "freq_maps": "yes",
         "db_rebuild": "no",
     },
-    "deconstructor": {
-        "use_premade": "no",
-    },
     "generate": {
         "suttas": "yes",
         "grammar": "yes",
@@ -84,7 +81,6 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
     "uposatha": {
         "regenerate": {"db_rebuild": "yes"},
         "dictionary": {"make_mdict": "yes", "show_id": "no", "data_limit": "0"},
-        "deconstructor": {"use_premade": "no"},
         "generate": {
             "suttas": "yes",
             "grammar": "yes",
@@ -138,7 +134,6 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
             "transliterations": "yes",
             "freq_maps": "yes",
         },
-        "deconstructor": {"use_premade": "yes"},
         "dictionary": {"make_mdict": "yes", "show_id": "no", "data_limit": "0"},
         "exporter": {
             "make_dpd": "yes",
@@ -165,7 +160,6 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
             "transliterations": "no",
             "freq_maps": "no",
         },
-        "deconstructor": {"use_premade": "yes"},
         "generate": {
             "suttas": "no",
             "grammar": "no",

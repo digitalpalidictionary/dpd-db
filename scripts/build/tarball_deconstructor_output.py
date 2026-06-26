@@ -15,7 +15,7 @@ def main() -> None:
     pr.tic()
     pr.yellow_title("tarballing deconstructor output")
 
-    if config_test("deconstructor", "use_premade", "yes"):
+    if not config_test("generate", "deconstructor", "yes"):
         pr.green_title("disabled in config.ini")
         pr.toc()
         return

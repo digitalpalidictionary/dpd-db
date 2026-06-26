@@ -21,11 +21,6 @@
       "0"
     ],
     [
-      "deconstructor",
-      "use_premade",
-      "no"
-    ],
-    [
       "generate",
       "suttas",
       "yes"
@@ -235,11 +230,6 @@
       "yes"
     ],
     [
-      "deconstructor",
-      "use_premade",
-      "yes"
-    ],
-    [
       "dictionary",
       "make_mdict",
       "yes"
@@ -355,11 +345,6 @@
       "regenerate",
       "freq_maps",
       "no"
-    ],
-    [
-      "deconstructor",
-      "use_premade",
-      "yes"
     ],
     [
       "generate",

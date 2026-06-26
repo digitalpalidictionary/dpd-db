@@ -291,13 +291,13 @@ cpd-extras:
 
 # ===== CONFIGURATION =====
 
-# Turn off deconstructor premade mode
-decon-off:
-    uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'yes')"
-
-# Turn on deconstructor premade mode
+# Turn on deconstructor regeneration
 decon-on:
-    uv run python -c "from tools.configger import config_update; config_update('deconstructor', 'use_premade', 'no')"
+    uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'yes')"
+
+# Turn off deconstructor regeneration
+decon-off:
+    uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'no')"
 
 # Run the Go deconstructor
 decon:
