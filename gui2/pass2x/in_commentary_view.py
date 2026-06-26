@@ -8,6 +8,8 @@ list of example sentences. A "yes" is persisted in the ``matched`` shape that
 Pass2Auto consumes.
 """
 
+import re
+
 import flet as ft
 
 from gui2.flet_functions import highlight_terms
@@ -204,16 +206,34 @@ class Pass2xInCommentaryView(ft.Column):
 
         Commentary examples are excluded here — they are always shown, copyable
         but not selectable, regardless of the filter.
+
+        Exception phrases that contain the current word filter out any example
+        whose Pāḷi text contains the phrase (mirrors Pass2Pre).
         """
+        exception_regex = self._exception_regex()
+
         self.filtered_translations = []
         for index, example in enumerate(self.examples_list):
             if example.is_commentary:
+                continue
+            if exception_regex and exception_regex.search(example.pali_raw):
                 continue
             if self.search_query:
                 text = f"{example.pali_raw} {example.english}".lower()
                 if self.search_query not in text:
                     continue
             self.filtered_translations.append((index, example))
+
+    def _exception_regex(self) -> re.Pattern[str] | None:
+        """Word-boundary regex of exception phrases containing the current word."""
+        word = self.controller.word_in_text
+        candidate_exceptions = {
+            exc for exc in self.controller.exceptions.exceptions if word and word in exc
+        }
+        if not candidate_exceptions:
+            return None
+        pattern_parts = [re.escape(exc) for exc in candidate_exceptions]
+        return re.compile(r"\b(?:" + "|".join(pattern_parts) + r")\b")
 
     def _reset_selection(self) -> None:
         self.selected_sentence_index = (
@@ -435,15 +455,18 @@ class Pass2xInCommentaryView(ft.Column):
         self.controller.load_next_headword()
 
     def handle_add_exception(self, e: ft.ControlEvent) -> None:
-        word = (
+        exception = (
             self.exceptions_field.value or ""
         ).strip() or self.controller.word_in_text
-        if not word:
+        if not exception:
             return
-        self.controller.exceptions.add(word)
+        self.controller.exceptions.add(exception)
         self.exceptions_field.value = ""
-        self.update_message(f"{word} added to exceptions.")
-        self.controller.skip_word(word)
+        self.update_message(f"{exception} added to exceptions.")
+        if exception == self.controller.word_in_text:
+            self.controller.skip_word(exception)
+        else:
+            self.update_examples(self.make_examples_list(self.examples_list))
 
     def clear_all_fields(self) -> None:
         self.message_field.value = ""

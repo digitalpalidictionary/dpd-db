@@ -44,7 +44,9 @@ class Pass2xInCommentaryController:
         self.daily_log = toolkit.daily_log
         self.project_paths = toolkit.project_paths
 
-        self.exceptions: InCommentaryExceptions = InCommentaryExceptions()
+        self.exceptions: InCommentaryExceptions = InCommentaryExceptions(
+            toolkit.paths.in_commentary_exceptions_path
+        )
         self.file_manager: Pass2PreFileManager = Pass2PreFileManager(
             "in_commentary", toolkit.paths
         )

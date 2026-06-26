@@ -8,11 +8,9 @@ and save it back. Import the manager wherever the filter is needed.
 
 from pathlib import Path
 
-DEFAULT_PATH: Path = Path("gui2/pass2x/in_commentary_exceptions.txt")
-
 
 class InCommentaryExceptions:
-    def __init__(self, path: Path = DEFAULT_PATH) -> None:
+    def __init__(self, path: Path) -> None:
         self.path: Path = path
         self.exceptions: set[str] = set()
         self.load()

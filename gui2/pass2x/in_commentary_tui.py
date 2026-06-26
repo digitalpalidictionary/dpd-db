@@ -29,6 +29,7 @@ from sqlalchemy.orm import Session, defer
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from gui2.paths import Gui2Paths
 from gui2.pass2x.in_commentary_exceptions import InCommentaryExceptions
 from tools.clean_machine import clean_machine
 from tools.cst_book_translator import from_cst_filename
@@ -383,11 +384,12 @@ def display_candidate(
 def main() -> None:
     pr.tic()
     paths = ProjectPaths()
+    gui2_paths = Gui2Paths()
     db_session = get_db_session(paths.dpd_db_path)
 
     pr.green_title("Pass2x · in commentary — data proof (read-only, simple)")
 
-    exceptions = InCommentaryExceptions()
+    exceptions = InCommentaryExceptions(gui2_paths.in_commentary_exceptions_path)
 
     # step 1
     pr.green_title("Step 1 · collect words from the commentary column")

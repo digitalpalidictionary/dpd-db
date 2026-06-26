@@ -22,6 +22,9 @@ class Gui2Paths:
     additions_path: Path = gui2_data_path / "additions.json"
     additions_added_path: Path = gui2_data_path / "additions_added.json"
     filter_presets_path: Path = gui2_data_path / "filter_presets.json"
+    in_commentary_exceptions_path: Path = (
+        gui2_data_path / "in_commentary_exceptions.txt"
+    )
 
     # Other paths
     pass2_x_manager_py_path: Path = gui2_dir / "pass2_x_manager.py"
