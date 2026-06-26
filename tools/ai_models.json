@@ -15,6 +15,11 @@
     },
     {
       "provider": "openrouter",
+      "model": "openrouter/owl-alpha",
+      "delay": 0
+    },
+    {
+      "provider": "openrouter",
       "model": "deepseek/deepseek-v4-flash",
       "delay": 0
     },
