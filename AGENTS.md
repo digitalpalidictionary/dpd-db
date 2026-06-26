@@ -280,3 +280,6 @@ To fully rebuild from scratch (requires Claude Code session tokens):
 ```bash
 /graphify
 ```
+
+## other-dictionaries submodule
+- To update ONE dictionary's source, recompress only that dictionary (scoped `tar` + `zstd -19` of its `source/` dir). NEVER run `scripts/compress_sources.py` for a single-dict update — it recompresses every dictionary, and because tar embeds mtimes, even unchanged sources produce new `.tar.zst` bytes (spurious apte/cone/etc. diffs).

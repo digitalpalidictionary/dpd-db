@@ -54,11 +54,16 @@ def _make_paths(tmp_path: Path) -> SimpleNamespace:
         cpd_source_path=tmp_path / "cpd_clean.db",
         cpd_css_path=tmp_path / "cpd.css",
         bhs_source_path=tmp_path / "bhs.xml",
+        peu_source_path=tmp_path / "peu_dump.js",
     )
 
 
 def _export(
-    tmp_path: Path, *, include_cone: bool = True, default_bhs: bool = True
+    tmp_path: Path,
+    *,
+    include_cone: bool = True,
+    include_peu: bool = False,
+    default_bhs: bool = True,
 ) -> sqlite3.Connection:
     paths = _make_paths(tmp_path)
     # Missing sources now raise; give tests a minimal valid BHS source
@@ -70,6 +75,7 @@ def _export(
         SimpleNamespace(pth=paths),
         dest,
         include_cone=include_cone,
+        include_peu=include_peu,
     )
     return dest
 
@@ -240,6 +246,68 @@ def test_full_export_keeps_cone_and_mw_outputs_alongside_cpd(tmp_path: Path) -> 
         ("cpd", "aṃga", "amga", "<p>CPD entry</p>"),
         ("mw", "dharma", "darma", "<p>MW entry</p>"),
     ]
+
+
+def _write_peu_dump(path: Path, entries: dict[str, str]) -> None:
+    body = ",\n".join(f"'{word}':'{html}'" for word, html in entries.items())
+    path.write_text(f"var pm12e = {{\n{body}\n}};", encoding="utf-8")
+
+
+def test_peu_skipped_by_default(tmp_path: Path) -> None:
+    paths = _make_paths(tmp_path)
+    _write_json(paths.mw_source_json_path, [])
+    paths.mw_css_path.write_text(".mw { color: green; }", encoding="utf-8")
+    _write_cpd_db(paths.cpd_source_path, [("aṁga", "<p>entry</p>")])
+    _write_peu_dump(paths.peu_source_path, {"saṁkhāra": "<p>PEU</p>"})
+
+    dest = _export(tmp_path, include_cone=False)
+
+    assert (
+        dest.execute(
+            "SELECT COUNT(*) FROM dict_entries WHERE dict_id = 'peu'"
+        ).fetchone()[0]
+        == 0
+    )
+    assert (
+        dest.execute("SELECT COUNT(*) FROM dict_meta WHERE dict_id = 'peu'").fetchone()[
+            0
+        ]
+        == 0
+    )
+
+
+def test_peu_exported_when_enabled(tmp_path: Path) -> None:
+    paths = _make_paths(tmp_path)
+    _write_json(paths.mw_source_json_path, [])
+    paths.mw_css_path.write_text(".mw { color: green; }", encoding="utf-8")
+    _write_cpd_db(paths.cpd_source_path, [("aṁga", "<p>entry</p>")])
+    _write_peu_dump(
+        paths.peu_source_path,
+        {"saṁkhāra": '<p>PEU "quoted" entry</p>'},
+    )
+
+    dest = _export(tmp_path, include_cone=False, include_peu=True)
+
+    row = dest.execute(
+        "SELECT word, word_fuzzy, definition_html, definition_plain"
+        " FROM dict_entries WHERE dict_id = 'peu'"
+    ).fetchone()
+    assert row == ("saṃkhāra", "samkara", "<p>PEU 'quoted' entry</p>", "")
+
+    meta = dest.execute(
+        "SELECT name, author, css, entry_count FROM dict_meta WHERE dict_id = 'peu'"
+    ).fetchone()
+    assert meta == ("Pali English Ultimate", "Pali Myanmar Abhidhan", "", 1)
+
+
+def test_missing_peu_source_raises(tmp_path: Path) -> None:
+    paths = _make_paths(tmp_path)
+    _write_json(paths.mw_source_json_path, [])
+    paths.mw_css_path.write_text(".mw { color: green; }", encoding="utf-8")
+    _write_cpd_db(paths.cpd_source_path, [("aṁga", "<p>entry</p>")])
+
+    with pytest.raises(FileNotFoundError, match="PEU source not found"):
+        _export(tmp_path, include_cone=False, include_peu=True)
 
 
 def test_paths_point_to_cpd_sqlite_source_and_stylesheet() -> None:

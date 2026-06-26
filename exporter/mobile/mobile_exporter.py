@@ -343,6 +343,27 @@ def _canonicalize_cpd_headword(headword: str) -> str:
     return headword.replace("ṁ", "ṃ")
 
 
+def _load_peu_dump(path: Path) -> dict[str, str]:
+    """Parse the PEU JS data dump (``var pm12e = {...};``) into a dict.
+
+    Mirrors dictionaries/peu/peu.py::extract_peu_from_data_dump in the
+    other-dictionaries submodule.
+    """
+    raw_data = path.read_text(encoding="utf-8")
+
+    match = re.search(r"var\s+\w+\s*=\s*(\{.*\})\s*;?\s*$", raw_data, re.DOTALL)
+    if match:
+        raw_data = match.group(1)
+
+    raw_data = re.sub(r"[\x00-\x1f\x7f-\x9f]", "", raw_data)
+
+    raw_data = raw_data.replace('"', "^^^")
+    raw_data = raw_data.replace("'", '"')
+    raw_data = raw_data.replace("^^^", "'")
+
+    return json.loads(raw_data)
+
+
 _DESKTOP_CSS_PATTERNS: list[re.Pattern[str]] = [
     re.compile(r"position\s*:\s*(fixed|absolute)\s*;?", re.IGNORECASE),
     re.compile(r"cursor\s*:\s*[^;]+;?", re.IGNORECASE),
@@ -376,7 +397,11 @@ def _missing_source_error(name: str, path: Path) -> FileNotFoundError:
 
 
 def export_other_dictionaries(
-    g: GlobalVars, dest: sqlite3.Connection, *, include_cone: bool = False
+    g: GlobalVars,
+    dest: sqlite3.Connection,
+    *,
+    include_cone: bool = False,
+    include_peu: bool = False,
 ) -> None:
     pr.green_tmr("creating dict tables")
 
@@ -453,6 +478,45 @@ def export_other_dictionaries(
         pr.yes(len(batch))
     else:
         pr.green_tmr("skipping Cone dictionary")
+        pr.yes("off")
+
+    # --- PEU (Pali English Ultimate / Pali Myanmar Abhidhan) ---
+    if include_peu:
+        pr.green_tmr("exporting PEU dictionary")
+
+        if not g.pth.peu_source_path.exists():
+            raise _missing_source_error("PEU", g.pth.peu_source_path)
+
+        peu_dict = _load_peu_dump(g.pth.peu_source_path)
+
+        batch = []
+        for headword, html_body in peu_dict.items():
+            word = headword.replace("ṁ", "ṃ")
+            html_body = html_body.replace("ṁ", "ṃ")
+            word_fuzzy = _strip_diacritics_mobile(word)
+            batch.append(("peu", word, word_fuzzy, html_body, ""))
+
+        dest.executemany(
+            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+            " VALUES (?, ?, ?, ?, ?)",
+            batch,
+        )
+
+        dest.execute(
+            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+            " VALUES (?, ?, ?, ?, ?)",
+            (
+                "peu",
+                "Pali English Ultimate",
+                "Pali Myanmar Abhidhan",
+                "",
+                len(batch),
+            ),
+        )
+
+        pr.yes(len(batch))
+    else:
+        pr.green_tmr("skipping PEU dictionary")
         pr.yes("off")
 
     # --- CPD (Critical Pali Dictionary) ---
@@ -609,6 +673,7 @@ def zip_mobile_db(pth: ProjectPaths) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cone", action="store_true", help="include Cone dictionary")
+    parser.add_argument("--peu", action="store_true", help="include PEU dictionary")
     args = parser.parse_args()
 
     pr.tic()
@@ -633,7 +698,7 @@ def main() -> None:
     export_lookup(g, dest)
     copy_passthrough_tables(g, dest)
     copy_family_tables(g, dest)
-    export_other_dictionaries(g, dest, include_cone=args.cone)
+    export_other_dictionaries(g, dest, include_cone=args.cone, include_peu=args.peu)
     write_schema_version(dest)
 
     dest.commit()
