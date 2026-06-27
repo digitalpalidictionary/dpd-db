@@ -990,6 +990,9 @@ class DpdFields(PopUpMixin):
         ]:
             value = value.replace(mess, "sūkta, sūtra (bsk)")
 
+        # vagga: drop the "vyagra + " prefix, keep "varga"
+        value = value.replace("vyagra + varga", "varga")
+
         # If ends with "sūkta, sūtra", add " (bsk)"
         if value.endswith("sūkta, sūtra"):
             value = value + " (bsk)"
