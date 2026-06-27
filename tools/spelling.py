@@ -58,12 +58,17 @@ class CustomSpellChecker:
             return results
 
     def add_to_dictionary(self, word: str) -> str:
-        """Add a word to both the session dictionary and the custom dictionary file."""
+        """Add a word to the session dictionary and rewrite the custom dictionary file sorted and deduplicated."""
         with CustomSpellChecker._lock:
             self.spell.word_frequency.load_words([word])
             if self.user_dict:
-                with open(self.user_dict, "a", encoding="utf-8") as f:
-                    f.write(f"{word}\n")
+                with open(self.user_dict, "r", encoding="utf-8") as f:
+                    words = {line.strip() for line in f if line.strip()}
+                words.add(word.strip())
+                with open(self.user_dict, "w", encoding="utf-8") as f:
+                    f.write(
+                        "\n".join(sorted(words, key=lambda w: (w.lower(), w))) + "\n"
+                    )
 
         return f"Added '{word}' to dictionary"
 
