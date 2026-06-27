@@ -132,3 +132,4 @@ typescript
 
 # pass2x diagnostic step TSVs (regeneratable, can be large)
 gui2/pass2x/data/
+/scripts/fix/pass2exceptions.json
