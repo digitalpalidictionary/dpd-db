@@ -129,6 +129,11 @@ class Pass2PreProcessView(ft.Column):
             label="check meaning_1 before adding exceptions!",
             label_style=TEXT_FIELD_LABEL_STYLE,
         )
+        self.exceptions_switch = ft.Switch(
+            label="exceptions",
+            value=True,
+            on_change=self.handle_exceptions_toggle,
+        )
         self.examples_count_field = ft.TextField(
             "",
             width=60,
@@ -189,6 +194,7 @@ class Pass2PreProcessView(ft.Column):
                         on_click=self.handle_pass_click,
                     ),
                     self.exceptions_field,
+                    self.exceptions_switch,
                 ],
             ),
             ft.Row(
@@ -368,7 +374,7 @@ class Pass2PreProcessView(ft.Column):
         }
 
         compiled_exception_regex = None
-        if candidate_exceptions:
+        if self.exceptions_switch.value and candidate_exceptions:
             pattern_parts = [re.escape(exc_text) for exc_text in candidate_exceptions]
             combined_pattern = r"\b(?:" + "|".join(pattern_parts) + r")\b"
             compiled_exception_regex = re.compile(combined_pattern)
@@ -508,6 +514,15 @@ class Pass2PreProcessView(ft.Column):
 
     def handle_search(self, e: ft.ControlEvent) -> None:
         self.search_query = str(e.data or "").lower()
+        if not self.examples_list:
+            return
+        self._filter_examples()
+        self.update_examples_count(len(self.filtered_examples))
+        self.update_examples(self._build_examples_radio_group())
+
+    def handle_exceptions_toggle(self, e: ft.ControlEvent) -> None:
+        """Toggle exception filtering on/off and refresh the examples list."""
+
         if not self.examples_list:
             return
         self._filter_examples()
