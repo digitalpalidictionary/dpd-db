@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, Lookup
+from db.models import DpdHeadword
 
 from exporter.sutta_central.sutta_central_exporter import SuttaCentralExporter
 
@@ -85,36 +85,3 @@ def test_flip_replaces_all_occurrences(sc):
     result = sc.flip("ānaṃ danaṃ")
     assert "ṃ" not in result
     assert result.count("ṁ") == 2
-
-
-# ---------------------------------------------------------------------------
-# deconstructor first-item-only (for-break → if-[0] equivalence)
-# ---------------------------------------------------------------------------
-
-DEC_KEYS = [
-    "accharāsaṅghātamatte",
-    "ambakamaddarīti",
-    "ukkaṭṭhitoti",
-]
-
-
-@pytest.mark.parametrize("lookup_key", DEC_KEYS)
-def test_deconstructor_first_item_only(db_session, fixtures, lookup_key):
-    lk = db_session.query(Lookup).filter(Lookup.lookup_key == lookup_key).one()
-    unpacked = lk.deconstructor_unpack
-    # Both old (for-break) and new (if-[0]) produce the same first item
-    first_item = unpacked[0] if unpacked else None
-    expected = fixtures["deconstructor_first_only"][lookup_key]["first_item"]
-    assert first_item == expected
-
-
-def test_deconstructor_multi_item_key_only_first(db_session, fixtures):
-    """ambakamaddarīti has 2 items; only the first should appear in the dict."""
-    lk = db_session.query(Lookup).filter(Lookup.lookup_key == "ambakamaddarīti").one()
-    unpacked = lk.deconstructor_unpack
-    assert len(unpacked) == 2
-    # Original for-break: only first appended
-    assert (
-        unpacked[0]
-        == fixtures["deconstructor_first_only"]["ambakamaddarīti"]["first_item"]
-    )

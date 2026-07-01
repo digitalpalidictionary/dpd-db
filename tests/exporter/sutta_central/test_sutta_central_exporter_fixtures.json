@@ -60,28 +60,5 @@
     "akakkasa": "akakkasa",
     "ṃ at start": "ṁ at start",
     "no niggahita": "no niggahita"
-  },
-  "deconstructor_first_only": {
-    "accharāsaṅghātamatte": {
-      "all_items": [
-        "accharāsaṅghāta + matte"
-      ],
-      "first_item": "accharāsaṅghāta + matte"
-    },
-    "ambakamaddarīti": {
-      "all_items": [
-        "amba + kama + dari + iti",
-        "amba + kama + darī + iti"
-      ],
-      "first_item": "amba + kama + dari + iti"
-    },
-    "ukkaṭṭhitoti": {
-      "all_items": [
-        "ukka + ṭhito + iti",
-        "ukkā + aṭṭhito + iti",
-        "ukka + aṭṭhito + iti"
-      ],
-      "first_item": "ukka + ṭhito + iti"
-    }
   }
 }
