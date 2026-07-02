@@ -94,24 +94,38 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._pass2_auto_button = ft.ElevatedButton(
             "P2A",
             on_click=self._click_load_pass2_auto,
+            on_hover=self._update_count_tooltip,
             tooltip="Next Pass2Auto",
         )
         self._new_word_button = ft.ElevatedButton(
             "New",
             on_click=self._click_load_new_word,
+            on_hover=self._update_count_tooltip,
             tooltip="Next new word",
         )
         self._corrections_button = ft.ElevatedButton(
-            "Cor", on_click=self._click_corrections_button, tooltip="corrections"
+            "Cor",
+            on_click=self._click_corrections_button,
+            on_hover=self._update_count_tooltip,
+            tooltip="corrections",
         )
         self._additions_button = ft.ElevatedButton(
-            "Add", on_click=self._click_additions_button, tooltip="additions"
+            "Add",
+            on_click=self._click_additions_button,
+            on_hover=self._update_count_tooltip,
+            tooltip="additions",
         )
         self._x_button = ft.ElevatedButton(
-            "X", on_click=self._click_x_button, tooltip="filter queue"
+            "X",
+            on_click=self._click_x_button,
+            on_hover=self._update_count_tooltip,
+            tooltip="filter queue",
         )
         self._pread_button = ft.ElevatedButton(
-            "PRead", on_click=self._click_pread_button, tooltip="proofreader"
+            "PRead",
+            on_click=self._click_pread_button,
+            on_hover=self._update_count_tooltip,
+            tooltip="proofreader",
         )
         self._enter_id_or_lemma_field = ft.TextField(
             "",
@@ -267,6 +281,42 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _on_delete_hover(self, e: ft.ControlEvent) -> None:
         e.control.bgcolor = ft.Colors.RED if e.data == "true" else None
         e.control.color = "white" if e.data == "true" else None
+        e.control.update()
+
+    def _update_count_tooltip(self, e: ft.ControlEvent) -> None:
+        if e.data != "true":
+            return
+        counts = {
+            id(self._pass2_auto_button): (
+                "Next Pass2Auto",
+                lambda: len(self._pass2_auto_file_manager.pass2_auto_data),
+            ),
+            id(self._new_word_button): (
+                "Next new word",
+                lambda: len(self.pass2_new_word_manager.new_words_dict),
+            ),
+            id(self._corrections_button): (
+                "corrections",
+                lambda: len(self.corrections_manager.corrections_dict),
+            ),
+            id(self._additions_button): (
+                "additions",
+                lambda: len(self.additions_manager.additions_dict),
+            ),
+            id(self._x_button): (
+                "filter queue",
+                lambda: self._x_manager.remaining_count(),
+            ),
+            id(self._pread_button): (
+                "proofreader",
+                lambda: self.toolkit.proofreader_manager.count,
+            ),
+        }
+        entry = counts.get(id(e.control))
+        if entry is None:
+            return
+        base, count_fn = entry
+        e.control.tooltip = f"{base} — {count_fn()} remaining"
         e.control.update()
 
     def _click_stash(self, e: ft.ControlEvent) -> None:

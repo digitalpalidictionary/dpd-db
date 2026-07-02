@@ -40,3 +40,8 @@ class Pass2XManager:
             return None, 0
         next_id = self._queue.popleft()
         return next_id, len(self._queue)
+
+    def remaining_count(self) -> int:
+        if not self._loaded or not self._queue:
+            self._refill()
+        return len(self._queue)
