@@ -2048,7 +2048,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	pa √madd	pramṛd	na + pramardana, pramardana, pramardin, pramṛdnat
 √madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	pari √madd	parimṛd	parimardat, parimardati, parimardana, parimardayati, parimṛdita, su + parimṛdita
 √madd	1	iya	crush, grind	√mṛd √mrad	1, 9	rub, crush	vi √madd	vimṛd	vimarda, vimṛdyamāna
-√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	saṃ √madd	sammṛd	sammardat, sammriditvā, sammṛdnāti, sammardati
+√madd	1	a	crush, grind	√mṛd √mrad	1, 9	rub, crush	saṃ √madd	sammṛd	sammardat, sammriditvā, sammṛtta, sammṛdnāti, sammardati
 √man	3	ya	think	√man	3, 4, 8	think	√man	man	a + mānana, amata, amaniṣyam, amanuta, amāna (na + māna), amīmāṃsiṣṭhās, daurmanasya, durmati, durmanas, na +, na + manyamāna, na + manyita (bsk), na + mānita, nirmāna, mata, mati, matimat, matvā, manitvā, mana, manas, manasa, manasaḥ, manasā, manasi, manastva, manitvā, mano, manas, mantṛ, manya, manya, manyanā (bsk), manyat, manyate, manyamāna, manyita (bsk), manye, manyeta, māna, mānatva, mānana, mānanā, mānayat, mānayati, mānayitavya, mānayitvā, mānasa, mānasatva, mānasika, mānika, mānita, mānin, mānyate, mānyamāna, mīmāṃsaka, mīmāṃsat, mīmāṃsate, mīmāṃsamāna, mīmāṃsā, mīmāṃsita, mīmāṃsitavya, mīmāṃsitvā, mīmāṃsya, mīmāṃsyamāna, samanas +, sumanas, sumanasya, sumanasya +, sumanā, sumānasa
 √man	3	ya	think	√man	3, 4, 8	think	ati √man	atiman	atimanyate, atimanyanā (bsk), atimanyamāna, atimāna, atimāna +, atimānin, anatimānin, na + atimanitavya, na + atimanyate, na + atimanyamāna, na + atimāna
 √man	3	ya	think	√man	3, 4, 8	think	adhi √man	adhiman	adhi + mānasa, adhimāna (bsk), adhimānika (bsk), abhimanas
@@ -2146,7 +2146,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √mujj	1	a	dive, sink, submerge	√majj	1, 6	sink	ud √mujj	unmajj	unmajjat, unmajjati, unmajjana, unmajjamāna, unmajjya
 √mujj	1	a	dive, sink, submerge	√majj	1, 6	sink	ni √mujj	nimajj	nimagna, nimajjati, nimajjana, nimajjayati, nimajjitum
 √muṇḍ	1	a	be bald, shave	√muṇḍ	1	cut	√muṇḍ	muṇḍ	muṇḍa, muṇḍaka, muṇḍayati
-√mud	1	a	be soft, be happy	√mud	1	be merry	√mud	mud	amodīt, na + mārdava < mṛdu, mārdava, mārdava (softness), mudā, mudita, muditā, mṛdutā, mudga, mudrā, mudrā +, modaka, modate, modamāna, moditum, mṛdu, mṛdu +, mṛduka, mṛduka +, mṛdutā, mṛdvīkā
+√mud	1	a	be soft, be happy	√mud	1	be merry	√mud	mud	amodīt, na + mārdava < mṛdu, mārdava, mārdava (softness), mudā, mudita, muditā, mṛdutā, mudga, mudrā, mudrā +, modaka, modate, modamāna, moditum, mṛdu, mṛdu +, mṛduka, mṛduka +, mṛdutā, mṛdutva, mṛdvīkā
 √mud	1	*a	be soft, be happy	√mud	1	be merry	ati √mud		
 √mud	1	*a	be soft, be happy	√mud	1	be merry	anu √mud	anumud	anumodat, anumodate, anumodana, anumodamāna, anumoditavya, anumoditṛ
 √mud	1	*a	be soft, be happy	√mud	1	be merry	abhi anu √mud	abhyanumud	abhi + anumoditṛ, abhyanumodana, na +, na + abhi + anumoditṛ
@@ -3034,7 +3034,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sas 1	1	a	breath	√śvas	1, 2	blow	ā √sas	āśvas	anāśvāsika (bdk), aśvattha, āśvasat, āśvasati, āśvasayat, āśvasayitavya, āśvasta, āśvastvā, āśvāsa, āśvāsanīya, āśvāsayati, āśvāsayitum, āśvāsayitvā, āśvāsika, āśvāsin, na + āśvasat, na + āśvāsaka, nis + āśvāsa, praśvasiti
 √sas 1	1	a	breath	√śvas	1, 2	blow	nī √sas	niśvas	
 √sas 1	1	a	breath	√śvas	1, 2	blow	pa √sas	praśvas	praśvasat (inhale), praśvasiti (inhale), niḥśvasiti (exhale), praśvasiṣyati (inhale), niḥśvasiṣyati (exhale), praśvāsa (inhaling)
-√sas 1	1	a	breath	√śvas	1, 2	blow	vi √sas	viśvas	na + viśvasat, na + viśvāsya, viśvasat, viśvasati, viśvasta, viśvasta +, viśvāsa, viśvāsika, viśvāsin, viśvāsya
+√sas 1	1	a	breath	√śvas	1, 2	blow	vi √sas	viśvas	na + viśvasat, na + viśvāsya, viśvasat, viśvasati, viśvasta, viśvasta +, viśvāsa, viśvāsa  +, viśvāsika, viśvāsin, viśvāsya
 √sas 1	1	*e	breath	√śvas	1, 2	blow	saṃ ā √sas	samāśvas	samāśvasta, samāśvāsa, samāśvāsayat, samāśvāsayati
 √sas 1	1	a	breath	√śvas	1, 2	blow	saṃ vi √sas	viśvas	suviśvasta
 √sas 2	1	a	slaughter	√śas	1, 2	cut	√sas	śas	aśastra, aśastreṇa, saśastra, śasati, śastra, śastraka
