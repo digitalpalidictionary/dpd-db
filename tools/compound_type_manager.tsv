@@ -19,6 +19,7 @@ atireka	adj	first	pañcamī tappurisa
 atireka	ind	first	abyayībhāva		
 atireka	noun	first	pañcamī tappurisa	atirekacīvara, atirekacīvarakathā, atirekapatta, atirekapada, atirekapūjā, atirekabhāga, atirekalābha	
 ativatta	adj	last	dutiyā tappurisa		
+atta	adj	last	kammadhāraya > bahubbīhi		
 attha	any	last	chaṭṭhī tappurisa		
 attha	ind	middle	chaṭṭhī tappurisa		
 attha	masc	last	chaṭṭhī tappurisa	aññadattha, atītattha 2, anāgatattha 2.1, abhūtattha, balattha 2, bahuttha	
@@ -401,7 +402,7 @@ pariyāpanna	any	last	sattamī tappurisa
 pariyuṭṭhita	adj	last	tatiyā tappurisa		
 pariyeṭṭhi	fem	last	catutthī tappurisa		
 pariyesanā	fem	last	catutthī tappurisa	anariyapariyesanā, ariyapariyesanā	
-pariyosāna	adj	last	kammadhāraya > bahubbīhi	accantapariyosāna, rāgavinayapariyosāna	eva pariyosāna
+pariyosāna	adj	last	kammadhāraya > bahubbīhi	rāgavinayapariyosāna	eva pariyosāna
 parivāra	adj	last	chaṭṭhī tappurisa > bahubbīhi	appaparivāra, dasasataparivāra, mahāparivāra 1, sataparivāra, sahassasahassaparivāra, suciparivāra, setaparivāra	t6 pl
 parivāra	masc	last	chaṭṭhī tappurisa	ādhipaccaparivāra, khandhakaparivāra, mahāparivāra 2	t6 pl
 parivāsa	any	last	chaṭṭhī tappurisa		
