@@ -1333,7 +1333,9 @@ class DpdFields(PopUpMixin):
             self.ui.update_message("POS, Meaning 1, and Lemma 1 needed for synonyms")
             return
 
-        current_hw = self.get_current_headword()
+        values = self.get_current_values()
+        values["synonym"] = ""
+        current_hw = make_dpd_headword_from_dict(values)
         detector = self.db.get_relationship_detector()
         candidates = detector.find_synonyms(current_hw)
 
