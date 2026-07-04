@@ -116,7 +116,7 @@ def generate_content(
             _warned_model_unsupported = True
         model_to_use = None
 
-    pr.green(f"  -> antigravity-cli {model} (timeout={timeout}s)...")
+    # pr.green(f"antigravity-cli {model} (timeout={timeout}s)...")
     try:
         started_at = time.monotonic()
         result = run_antigravity_print(
