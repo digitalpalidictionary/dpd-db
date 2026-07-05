@@ -421,6 +421,7 @@ Brahmanical
 Brahmans
 Brahmas
 Brahmasaṃyuttaṃ
+brahmavihāra
 Brahminy
 Brahmā
 Brahmāyu
@@ -1458,6 +1459,7 @@ kumbha
 kumbhathūna
 kumuda-count
 Kumāputta
+Kuraraghara
 Kuru
 Kurus
 kus
@@ -1558,6 +1560,7 @@ longfolia
 longifolia
 longum
 loots
+Loṇakāra
 Luffa
 Lumbini
 Lābhasakkārasaṃyuttaṃ
@@ -1633,6 +1636,7 @@ Mallan
 Mallans
 Mallaputta
 Mallas
+Mallikā
 malnourishment
 malodorousness
 Mamordica
@@ -3117,6 +3121,7 @@ valuator
 Valāhakasaṃyuttaṃ
 Vanasaṃyuttaṃ
 vanquishable
+Vappa
 Varanasi
 variegata
 Varuṇa
