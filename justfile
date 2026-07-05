@@ -175,6 +175,10 @@ families:
 find_comm:
     uv run python scripts/find/comm_not_in_decon_finder.py
 
+# Count words pass2pre will surface in each Aṅguttara Nikāya book
+an-remaining:
+    uv run python scripts/find/pass2pre_an_counts.py
+
 # ===== AUDIO =====
 
 # Generate missing audio files
