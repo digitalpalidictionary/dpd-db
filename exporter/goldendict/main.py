@@ -4,6 +4,7 @@
 
 import csv
 import pickle
+from dataclasses import dataclass, field
 
 from sqlalchemy.orm import Session
 
@@ -25,27 +26,39 @@ from tools.goldendict_exporter import (
 from tools.mdict_exporter import export_to_mdict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.speech_marks import SpeechMarkManager
+from tools.speech_marks import SpeechMarkManager, SpeechMarksDict
 from tools.utils import RenderedSizes, sum_rendered_sizes
 
 
+@dataclass
 class GlobalVars:
-    def __init__(self) -> None:
-        self.pth = ProjectPaths()
-        self.db_session: Session = get_db_session(self.pth.dpd_db_path)
-        self.speech_marks_manager = SpeechMarkManager()
-        self.speech_marks = self.speech_marks_manager.get_speech_marks()
-        self.cf_set: set[str] = load_cf_set()  # type: ignore[assignment]
-        self.idioms_set: set[str] = load_idioms_set()  # type: ignore[assignment]
-        self.roots_count_dict = make_roots_count_dict(self.db_session)
-        self.rendered_sizes: list[RenderedSizes] = []
-        self.data_limit = int(config_read("dictionary", "data_limit") or "0")
-        self.dict_data: list[DictEntry]
+    pth: ProjectPaths
+    db_session: Session
+    speech_marks: SpeechMarksDict
+    cf_set: set[str]
+    idioms_set: set[str]
+    roots_count_dict: dict[str, int]
+    data_limit: int
+    make_mdict: bool
+    make_slob: bool
+    rendered_sizes: list[RenderedSizes] = field(default_factory=list)
+    dict_data: list[DictEntry] = field(default_factory=list)
 
-        # config tests
-        self.make_mdict: bool = config_test("dictionary", "make_mdict", "yes")
 
-        self.make_slob = config_read("goldendict", "make_slob", "no") == "yes"
+def build_global_vars() -> GlobalVars:
+    pth = ProjectPaths()
+    db_session = get_db_session(pth.dpd_db_path)
+    return GlobalVars(
+        pth=pth,
+        db_session=db_session,
+        speech_marks=SpeechMarkManager().get_speech_marks(),
+        cf_set=load_cf_set(),  # type: ignore[arg-type]
+        idioms_set=load_idioms_set(),  # type: ignore[arg-type]
+        roots_count_dict=make_roots_count_dict(db_session),
+        data_limit=int(config_read("dictionary", "data_limit") or "0"),
+        make_mdict=config_test("dictionary", "make_mdict", "yes"),
+        make_slob=config_read("goldendict", "make_slob", "no") == "yes",
+    )
 
 
 def main() -> None:
@@ -57,7 +70,7 @@ def main() -> None:
         pr.toc()
         return
 
-    g = GlobalVars()
+    g = build_global_vars()
 
     dpd_data_list, sizes = generate_dpd_html(
         g.db_session,

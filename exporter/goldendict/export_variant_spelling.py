@@ -63,14 +63,15 @@ def test_and_make_see_dict(pth: ProjectPaths) -> dict[str, str]:
             # test if see equals headword
             if see == headword:
                 pr.red(f"ERROR: see==headword! {see}: {headword}")
+                continue
 
             # test if see occurs twice
             if see in see_dict:
                 pr.red(f"ERROR: dupes! {see}")
+                continue
 
             # all ok then add
-            else:
-                see_dict[see] = headword
+            see_dict[see] = headword
 
     return see_dict
 
@@ -85,15 +86,17 @@ def generate_see_data_list(
 
     see_data_list: list[DictEntry] = []
 
+    # The plain header has no per-entry variables — render it once.
+    header_squashed = squash_whitespaces(SeeData("", "", jinja_env).header)
+
     for see, headword in see_dict.items():
-        data = SeeData(see, headword, jinja_env)
+        html_rendered = template.render(
+            d={"header": "", "see": see, "headword": headword}
+        )
 
-        html_rendered = template.render(d=data)
-
-        header = data.header
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         size_dict["see_entries"] += len(final_html)
         synonyms = add_niggahitas([see])
@@ -123,14 +126,15 @@ def test_and_make_variant_dict(pth: ProjectPaths) -> dict[str, str]:
             # test if variant equals main reading
             if variant == main:
                 pr.red(f"ERROR: variant==main! {variant}: {main}")
+                continue
 
             # test if variant occurs twice
             if variant in variant_dict:
                 pr.red(f"ERROR: dupes! {variant}")
+                continue
 
             # all ok then add
-            else:
-                variant_dict[variant] = main
+            variant_dict[variant] = main
 
     return variant_dict
 
@@ -145,17 +149,17 @@ def generate_variant_data_list(
 
     variant_data_list: list[DictEntry] = []
 
+    # The plain header has no per-entry variables — render it once.
+    header_squashed = squash_whitespaces(VariantData("", "", jinja_env).header)
+
     for variant, main in variant_dict.items():
-        # Use ViewModel
-        data = VariantData(variant, main, jinja_env)
+        html_rendered = template.render(
+            d={"header": "", "variant": variant, "main": main}
+        )
 
-        html_rendered = template.render(d=data)
-
-        # Re-calculate parts for parity
-        header = data.header
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         size_dict["variant_readings"] += len(final_html)
         synonyms = add_niggahitas([variant])
@@ -187,14 +191,15 @@ def test_and_make_spelling_dict(pth: ProjectPaths) -> dict[str, str]:
             # test if mistake equals correction
             if mistake == correction:
                 pr.red(f"ERROR: mistake==correction! {mistake}: {correction}")
+                continue
 
             # test if variant occurs twice
             if mistake in spelling_dict:
                 pr.red(f"ERROR: dupes! {mistake}")
+                continue
 
             # all ok then add
-            else:
-                spelling_dict[mistake] = correction
+            spelling_dict[mistake] = correction
 
     return spelling_dict
 
@@ -209,17 +214,17 @@ def generate_spelling_data_list(
 
     spelling_data_list: list[DictEntry] = []
 
+    # The plain header has no per-entry variables — render it once.
+    header_squashed = squash_whitespaces(SpellingData("", "", jinja_env).header)
+
     for mistake, correction in spelling_dict.items():
-        # Use ViewModel
-        data = SpellingData(mistake, correction, jinja_env)
+        html_rendered = template.render(
+            d={"header": "", "mistake": mistake, "correction": correction}
+        )
 
-        html_rendered = template.render(d=data)
-
-        # Re-calculate parts for parity
-        header = data.header
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         size_dict["spelling_mistakes"] += len(final_html)
         synonyms = add_niggahitas([mistake])

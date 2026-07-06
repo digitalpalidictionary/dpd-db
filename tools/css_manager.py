@@ -9,19 +9,28 @@
 """
 
 import re
+from pathlib import Path
 
 from tools.paths import ProjectPaths
 
 
 class CSSManager:
+    _css_cache: dict[str, str] = {}
+
     def __init__(self):
         self.pth: ProjectPaths = ProjectPaths()
-        self.dpd_css: str = self.pth.dpd_css_path.read_text(encoding="utf-8")
-        self.dpd_variables: str = self.pth.dpd_variables_css_path.read_text(
-            encoding="utf-8"
-        )
-        self.dpd_fonts: str = self.pth.dpd_fonts_css_path.read_text(encoding="utf-8")
+        self.dpd_css: str = self._read_cached(self.pth.dpd_css_path)
+        self.dpd_variables: str = self._read_cached(self.pth.dpd_variables_css_path)
+        self.dpd_fonts: str = self._read_cached(self.pth.dpd_fonts_css_path)
         self.variables_reduced = self.dpd_variables
+
+    @classmethod
+    def _read_cached(cls, path: Path) -> str:
+        """Read a CSS file once per process; subsequent instances reuse the text."""
+        key = str(path)
+        if key not in cls._css_cache:
+            cls._css_cache[key] = path.read_text(encoding="utf-8")
+        return cls._css_cache[key]
 
     def update_webapp_css(self) -> None:
         """The WebApp needs variables and dpd.css. No fonts in the CSS."""

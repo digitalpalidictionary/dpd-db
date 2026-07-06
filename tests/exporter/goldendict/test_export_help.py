@@ -114,20 +114,52 @@ def test_help_sample(pth: ProjectPaths, jinja_env, fixtures: dict, idx: int) -> 
     assert entries[idx].definition_html == expected["definition_html"]
 
 
-# --- bibliography / thanks: word, synonyms and full HTML frozen (covers zip loop) ---
+# --- bibliography / thanks: behaviour of the row loop (renders every row) ---
 
 
-def test_bibliography(pth: ProjectPaths, header: str, fixtures: dict) -> None:
-    entries = add_bibliography(pth, header)
-    f = fixtures["bibliography"]
-    assert entries[0].word == f["word"]
-    assert entries[0].synonyms == f["synonyms"]
-    assert entries[0].definition_html == f["definition_html"]
+def test_bibliography_word_and_synonyms(pth: ProjectPaths, header: str) -> None:
+    entry = add_bibliography(pth, header)[0]
+    assert entry.word == "bibliography"
+    assert entry.synonyms == ["dpd bibliography", "bibliography", "bib"]
 
 
-def test_thanks(pth: ProjectPaths, header: str, fixtures: dict) -> None:
-    entries = add_thanks(pth, header)
-    f = fixtures["thanks"]
-    assert entries[0].word == f["word"]
-    assert entries[0].synonyms == f["synonyms"]
-    assert entries[0].definition_html == f["definition_html"]
+def test_bibliography_renders_final_source(pth: ProjectPaths, header: str) -> None:
+    """The last TSV row must appear (the old zip(rows, rows[1:]) dropped it)."""
+    html = add_bibliography(pth, header)[0].definition_html
+    assert "Wisdom Library" in html
+    assert html.count("<ul>") == html.count("</ul>")
+
+
+def test_thanks_word_and_synonyms(pth: ProjectPaths, header: str) -> None:
+    entry = add_thanks(pth, header)[0]
+    assert entry.word == "thanks"
+    assert entry.synonyms == ["dpd thanks", "thankyou", "thanks", "anumodana"]
+
+
+def test_thanks_renders_final_entry(pth: ProjectPaths, header: str) -> None:
+    """The last TSV row must appear (the old zip(rows, rows[1:]) dropped it)."""
+    html = add_thanks(pth, header)[0].definition_html
+    assert "Sāsanarakkha Buddhist Sanctuary" in html
+    assert html.count("<ul>") == html.count("</ul>")
+
+
+def test_bibliography_last_row_with_synthetic_fixture(
+    pth: ProjectPaths, header: str, monkeypatch
+) -> None:
+    """Category header followed by entries: every entry renders and the list
+    is balanced, including the final row."""
+    import exporter.goldendict.export_help as eh
+    from tools.tsv_read_write import dotdict
+
+    rows = [
+        dotdict({"category": "Test Category", "surname": "AuthorFirst"}),
+        dotdict({"surname": "AuthorMiddle"}),
+        dotdict({"surname": "AuthorLast"}),
+    ]
+    monkeypatch.setattr(eh, "read_tsv_dot_dict", lambda _path: rows)
+
+    html = add_bibliography(pth, header)[0].definition_html
+    assert "AuthorFirst" in html
+    assert "AuthorMiddle" in html
+    assert "AuthorLast" in html
+    assert html.count("<ul>") == html.count("</ul>") == 1

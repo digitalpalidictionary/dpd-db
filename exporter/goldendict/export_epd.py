@@ -34,20 +34,33 @@ def generate_epd_html(
 
     epd_data_list: list[DictEntry] = []
 
-    for lookup_entry in lookup_db:
-        # Use ViewModel
-        data = EpdData(lookup_entry, pth, jinja_env)
+    if not lookup_db:
+        pr.yes(0)
+        return epd_data_list, size_dict
 
-        html_rendered = template.render(d=data)
+    # The plain header has no per-entry variables, so it is identical for every
+    # entry — generate it once instead of per row.
+    header = EpdData(lookup_db[0], pth, jinja_env).header
+    header_squashed = squash_whitespaces(header)
+
+    for lookup_entry in lookup_db:
+        # Same html-string logic as EpdData._generate_html_string.
+        html_string = "<br>".join(
+            f"<b class='epd'>{lemma_clean}</b> {pos}. {meaning_plus_case}"
+            for lemma_clean, pos, meaning_plus_case in lookup_entry.epd_unpack
+        )
+
+        html_rendered = template.render(
+            d={"header": header, "html_string": html_string}
+        )
 
         # Re-calculate parts for parity
-        header = data.header
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         size_dict["epd"] += len(final_html)
-        size_dict["epd_header"] += len(squash_whitespaces(header))
+        size_dict["epd_header"] += len(header_squashed)
 
         res = DictEntry(
             word=lookup_entry.lookup_key,

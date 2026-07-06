@@ -103,15 +103,15 @@ def add_abbrev_html(
     items = list(map(_csv_row_to_abbreviations, rows))
     template = jinja_env.get_template("help_abbrev.jinja")
 
-    for i in items:
-        data = AbbreviationsData(i, jinja_env)
-        html_rendered = template.render(d=data)
+    # The secondary header has no per-entry variables — render it once.
+    header_squashed = squash_whitespaces(AbbreviationsData(None, jinja_env).header)
 
-        # Re-calculate parts for parity
-        header = data.header
+    for i in items:
+        html_rendered = template.render(d={"header": "", "i": i})
+
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         help_data_list.append(
             DictEntry(
@@ -149,14 +149,17 @@ def add_abbrev_other_html(
 
     template = jinja_env.get_template("help_abbrev_other.jinja")
 
-    for abbreviation, entries in grouped.items():
-        data = AbbrevOtherData(abbreviation, entries, jinja_env)
-        html_rendered = template.render(d=data)
+    # The secondary header has no per-entry variables — render it once.
+    header_squashed = squash_whitespaces(AbbrevOtherData("", [], jinja_env).header)
 
-        header = data.header
+    for abbreviation, entries in grouped.items():
+        html_rendered = template.render(
+            d={"header": "", "abbreviation": abbreviation, "rows": entries}
+        )
+
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         help_data_list.append(
             DictEntry(
@@ -188,15 +191,15 @@ def add_help_html(
     items = list(map(_csv_row_to_help, rows))
     template = jinja_env.get_template("help_help.jinja")
 
-    for i in items:
-        data = HelpData(i, jinja_env)
-        html_rendered = template.render(d=data)
+    # The secondary header has no per-entry variables — render it once.
+    header_squashed = squash_whitespaces(HelpData(None, jinja_env).header)
 
-        # Re-calculate parts for parity
-        header = data.header
+    for i in items:
+        html_rendered = template.render(d={"header": "", "i": i})
+
         body = extract_body(html_rendered)
 
-        final_html = squash_whitespaces(header) + minify(body)
+        final_html = header_squashed + minify(body)
 
         help_data_list.append(
             DictEntry(
@@ -221,10 +224,14 @@ def add_bibliography(pth: ProjectPaths, header: str) -> list[DictEntry]:
     html += "<div class='tertiary'>"
     html += "<h2>Bibliography</h2>"
 
-    for i, n in zip(bibliography_dict, bibliography_dict[1:]):
+    list_open = False
+    for i in bibliography_dict:
         if i.category:
+            if list_open:
+                html += "</ul>"
             html += f"<h3 class='dpd'>{i.category}</h3>"
             html += "<ul>"
+            list_open = True
         if i.surname:
             html += f"<li><b>{i.surname}</b>"
         if i.firstname:
@@ -244,9 +251,8 @@ def add_bibliography(pth: ProjectPaths, header: str) -> list[DictEntry]:
         if i.surname:
             html += "</li>"
 
-        if n.category:
-            html += "</ul>"
-
+    if list_open:
+        html += "</ul>"
     html += "</div></body></html>"
     html = squash_whitespaces(header) + minify(html)
 
@@ -272,11 +278,15 @@ def add_thanks(pth: ProjectPaths, header: str) -> list[DictEntry]:
     html += "<body>"
     html += "<div class='tertiary'>"
 
-    for i, n in zip(thanks, thanks[1:]):
+    list_open = False
+    for i in thanks:
         if i.category:
+            if list_open:
+                html += "</ul>"
             html += f"<h2>{i.category}</h2>"
             html += f"<p>{i.what}</p>"
             html += "<ul>"
+            list_open = True
         if i.who:
             html += f"<li><b>{i.who}</b>"
         if i.where:
@@ -286,9 +296,8 @@ def add_thanks(pth: ProjectPaths, header: str) -> list[DictEntry]:
         if i.who:
             html += "</li>"
 
-        if n.category:
-            html += "</ul>"
-
+    if list_open:
+        html += "</ul>"
     html += "</div></body></html>"
     html = squash_whitespaces(header) + minify(html)
 

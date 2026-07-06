@@ -48,7 +48,7 @@ class TestTestAndMakeSeeDict:
         pth.see_path = tsv
         assert _make_see_dict(pth) == {"kamma": "kamma 1"}
 
-    def test_self_reference_is_added(self, tmp_path: Path) -> None:
+    def test_self_reference_is_skipped(self, tmp_path: Path) -> None:
         tsv = tmp_path / "see.tsv"
         _write_tsv(
             tsv,
@@ -59,7 +59,7 @@ class TestTestAndMakeSeeDict:
         )
         pth = MagicMock()
         pth.see_path = tsv
-        assert _make_see_dict(pth) == {"kamma": "kamma"}
+        assert _make_see_dict(pth) == {}
 
     def test_empty_file(self, tmp_path: Path) -> None:
         tsv = tmp_path / "see.tsv"
@@ -101,7 +101,7 @@ class TestTestAndMakeVariantDict:
         pth.variant_readings_path = tsv
         assert _make_variant_dict(pth) == {"nibbāna": "nibbāna 1"}
 
-    def test_self_reference_is_added(self, tmp_path: Path) -> None:
+    def test_self_reference_is_skipped(self, tmp_path: Path) -> None:
         tsv = tmp_path / "variants.tsv"
         _write_tsv(
             tsv,
@@ -112,7 +112,7 @@ class TestTestAndMakeVariantDict:
         )
         pth = MagicMock()
         pth.variant_readings_path = tsv
-        assert _make_variant_dict(pth) == {"nibbāna": "nibbāna"}
+        assert _make_variant_dict(pth) == {}
 
 
 class TestTestAndMakeSpellingDict:
@@ -147,7 +147,7 @@ class TestTestAndMakeSpellingDict:
         pth.spelling_mistakes_path = tsv
         assert _make_spelling_dict(pth) == {"nibbana": "nibbāna 1"}
 
-    def test_self_reference_is_added(self, tmp_path: Path) -> None:
+    def test_self_reference_is_skipped(self, tmp_path: Path) -> None:
         tsv = tmp_path / "spelling.tsv"
         _write_tsv(
             tsv,
@@ -158,4 +158,4 @@ class TestTestAndMakeSpellingDict:
         )
         pth = MagicMock()
         pth.spelling_mistakes_path = tsv
-        assert _make_spelling_dict(pth) == {"nibbana": "nibbana"}
+        assert _make_spelling_dict(pth) == {}
