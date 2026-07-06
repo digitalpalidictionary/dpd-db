@@ -77,7 +77,7 @@ def add_i2h_to_db(g: GlobalVars) -> None:
 
     pr.green_tmr("syncing headwords column")
     data = {inflection: sorted(set(ids)) for inflection, ids in g.i2h_dict.items()}
-    result = sync_lookup_column(g.db_session, "headwords", data)
+    result = sync_lookup_column(g.db_session, "headwords", data, use_raw_sql=True)
     g.db_session.close()
     pr.yes(result.updated + result.inserted)
 

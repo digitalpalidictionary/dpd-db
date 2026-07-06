@@ -25,26 +25,35 @@ def db_session() -> Iterator[Session]:
     session.close()
 
 
+@pytest.fixture(params=[False, True], ids=["orm", "raw_sql"])
+def use_raw_sql(request: pytest.FixtureRequest) -> bool:
+    return request.param
+
+
 def _get(session: Session, key: str) -> Lookup | None:
     return session.query(Lookup).filter(Lookup.lookup_key == key).first()
 
 
-def test_insert_new_key(db_session: Session) -> None:
-    result = sync_lookup_column(db_session, "see", {"karohi": ["karoti"]})
+def test_insert_new_key(db_session: Session, use_raw_sql: bool) -> None:
+    result = sync_lookup_column(
+        db_session, "see", {"karohi": ["karoti"]}, use_raw_sql=use_raw_sql
+    )
     row = _get(db_session, "karohi")
     assert row is not None
     assert row.see_unpack == ["karoti"]
     assert (result.inserted, result.updated) == (1, 0)
 
 
-def test_update_existing_key(db_session: Session) -> None:
+def test_update_existing_key(db_session: Session, use_raw_sql: bool) -> None:
     existing = Lookup()
     existing.lookup_key = "karohi"
     existing.see_pack(["old"])
     db_session.add(existing)
     db_session.commit()
 
-    result = sync_lookup_column(db_session, "see", {"karohi": ["karoti"]})
+    result = sync_lookup_column(
+        db_session, "see", {"karohi": ["karoti"]}, use_raw_sql=use_raw_sql
+    )
     row = _get(db_session, "karohi")
     assert row is not None
     assert row.see_unpack == ["karoti"]
@@ -52,7 +61,7 @@ def test_update_existing_key(db_session: Session) -> None:
 
 
 def test_update_sets_value_on_row_that_only_had_other_column(
-    db_session: Session,
+    db_session: Session, use_raw_sql: bool
 ) -> None:
     """A key that exists with an empty target column is an update, not an insert."""
     existing = Lookup()
@@ -61,7 +70,9 @@ def test_update_sets_value_on_row_that_only_had_other_column(
     db_session.add(existing)
     db_session.commit()
 
-    result = sync_lookup_column(db_session, "see", {"gaccha": ["gacchati"]})
+    result = sync_lookup_column(
+        db_session, "see", {"gaccha": ["gacchati"]}, use_raw_sql=use_raw_sql
+    )
     row = _get(db_session, "gaccha")
     assert row is not None
     assert row.see_unpack == ["gacchati"]
@@ -69,7 +80,9 @@ def test_update_sets_value_on_row_that_only_had_other_column(
     assert (result.inserted, result.updated) == (0, 1)
 
 
-def test_stale_key_with_other_value_is_cleared_not_deleted(db_session: Session) -> None:
+def test_stale_key_with_other_value_is_cleared_not_deleted(
+    db_session: Session, use_raw_sql: bool
+) -> None:
     row = Lookup()
     row.lookup_key = "shared"
     row.see_pack(["x"])
@@ -77,7 +90,7 @@ def test_stale_key_with_other_value_is_cleared_not_deleted(db_session: Session) 
     db_session.add(row)
     db_session.commit()
 
-    result = sync_lookup_column(db_session, "see", {})
+    result = sync_lookup_column(db_session, "see", {}, use_raw_sql=use_raw_sql)
     refreshed = _get(db_session, "shared")
     assert refreshed is not None
     assert refreshed.see == ""
@@ -85,38 +98,45 @@ def test_stale_key_with_other_value_is_cleared_not_deleted(db_session: Session) 
     assert (result.cleared, result.deleted) == (1, 0)
 
 
-def test_stale_key_with_no_other_value_is_deleted(db_session: Session) -> None:
+def test_stale_key_with_no_other_value_is_deleted(
+    db_session: Session, use_raw_sql: bool
+) -> None:
     row = Lookup()
     row.lookup_key = "orphan"
     row.see_pack(["gone"])
     db_session.add(row)
     db_session.commit()
 
-    result = sync_lookup_column(db_session, "see", {})
+    result = sync_lookup_column(db_session, "see", {}, use_raw_sql=use_raw_sql)
     assert _get(db_session, "orphan") is None
     assert (result.cleared, result.deleted) == (0, 1)
 
 
-def test_clear_stale_false_leaves_stale_rows_untouched(db_session: Session) -> None:
+def test_clear_stale_false_leaves_stale_rows_untouched(
+    db_session: Session, use_raw_sql: bool
+) -> None:
     row = Lookup()
     row.lookup_key = "keep"
     row.see_pack(["z"])
     db_session.add(row)
     db_session.commit()
 
-    result = sync_lookup_column(db_session, "see", {}, clear_stale=False)
+    result = sync_lookup_column(
+        db_session, "see", {}, clear_stale=False, use_raw_sql=use_raw_sql
+    )
     refreshed = _get(db_session, "keep")
     assert refreshed is not None
     assert refreshed.see_unpack == ["z"]
     assert (result.cleared, result.deleted) == (0, 0)
 
 
-def test_pack_attr_override_for_variant(db_session: Session) -> None:
+def test_pack_attr_override_for_variant(db_session: Session, use_raw_sql: bool) -> None:
     result = sync_lookup_column(
         db_session,
         "variant",
         {"v1": {"reading": "v2"}},
         pack_attr="variant_pack",
+        use_raw_sql=use_raw_sql,
     )
     row = _get(db_session, "v1")
     assert row is not None
@@ -124,7 +144,9 @@ def test_pack_attr_override_for_variant(db_session: Session) -> None:
     assert result.inserted == 1
 
 
-def test_mixed_update_insert_clear_delete_in_one_call(db_session: Session) -> None:
+def test_mixed_update_insert_clear_delete_in_one_call(
+    db_session: Session, use_raw_sql: bool
+) -> None:
     to_update = Lookup()
     to_update.lookup_key = "upd"
     to_update.see_pack(["before"])
@@ -142,7 +164,7 @@ def test_mixed_update_insert_clear_delete_in_one_call(db_session: Session) -> No
     db_session.commit()
 
     data = {"upd": ["after"], "new": ["fresh"]}
-    result = sync_lookup_column(db_session, "see", data)
+    result = sync_lookup_column(db_session, "see", data, use_raw_sql=use_raw_sql)
 
     assert _get(db_session, "upd").see_unpack == ["after"]  # type: ignore[union-attr]
     assert _get(db_session, "new").see_unpack == ["fresh"]  # type: ignore[union-attr]
@@ -156,9 +178,13 @@ def test_mixed_update_insert_clear_delete_in_one_call(db_session: Session) -> No
     )
 
 
-def test_chunking_handles_more_keys_than_chunk_size(db_session: Session) -> None:
+def test_chunking_handles_more_keys_than_chunk_size(
+    db_session: Session, use_raw_sql: bool
+) -> None:
     data = {f"key{i}": [f"hw{i}"] for i in range(25)}
-    result = sync_lookup_column(db_session, "see", data, chunk_size=10)
+    result = sync_lookup_column(
+        db_session, "see", data, chunk_size=10, use_raw_sql=use_raw_sql
+    )
     assert result.inserted == 25
     assert db_session.query(Lookup).count() == 25
     assert _get(db_session, "key24").see_unpack == ["hw24"]  # type: ignore[union-attr]
