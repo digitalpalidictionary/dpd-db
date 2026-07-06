@@ -885,6 +885,7 @@ ennead
 ensnares
 Entada
 enterer
+enterers
 entwinings
 enumerates
 enumeration
