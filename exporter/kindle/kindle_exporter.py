@@ -35,7 +35,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict
 from exporter.jinja2_env import get_jinja2_env
-from exporter.kindle.data_classes import KindleData
+from exporter.kindle.data_classes import KindleData, html_friendly
 
 SCRIPT_CONFIG: dict[str, tuple[str, str, str]] = {
     "deva": (
@@ -153,7 +153,7 @@ def render_dpd_xhtml(
         first_letter = find_first_letter(i.lemma_1)
         script_inflections = getattr(i, script_attr) if script_attr else None
         entry = render_ebook_entry(
-            pth, jinja_env, id_counter, i, inflection_list, script_inflections
+            jinja_env, id_counter, i, inflection_list, script_inflections
         )
         letter_dict[first_letter].append(entry)
         id_counter += 1
@@ -193,7 +193,6 @@ def render_dpd_xhtml(
 
 
 def render_ebook_entry(
-    pth: ProjectPaths,
     jinja_env: Environment,
     counter: int,
     i: DpdHeadword,
@@ -201,7 +200,7 @@ def render_ebook_entry(
     script_inflections: list[str] | None = None,
 ) -> str:
     """Render single word entry."""
-    data = KindleData(i, pth, jinja_env, counter, inflections, script_inflections)
+    data = KindleData(i, jinja_env, counter, inflections, script_inflections)
     template = jinja_env.get_template("ebook_entry.jinja")
     return template.render(data=data)
 
@@ -241,6 +240,8 @@ def save_abbreviations_xhtml_page(
     abbreviation_entries = []
     for i in abbreviations_list:
         for key, value in i.items():
+            if not isinstance(value, str):
+                continue
             if value == ">":
                 value = "&gt;"
             i[key] = html_friendly(value)
@@ -337,16 +338,6 @@ def make_mobi(pth: ProjectPaths) -> None:
                 pr.white(escape(line.rstrip()))
         process.wait()
         pr.yes("Converted with kindlegen")
-
-
-def html_friendly(text: str) -> str:
-    try:
-        text = text.replace("\n", "<br/>")
-        text = text.replace(" > ", " &gt; ")
-        text = text.replace(" < ", " &lt; ")
-        return text
-    except Exception:
-        return text
 
 
 def render_epd_xhtml(pth: ProjectPaths, jinja_env: Environment, id_counter: int) -> int:

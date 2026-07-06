@@ -1,13 +1,13 @@
-{% if i.example_1 and i.example_2 %}
+{% if friendly.example_1 and friendly.example_2 %}
     <p class="example_heading">Examples</p>
-{% elif i.example_1 and not i.example_2 %}
+{% elif friendly.example_1 and not friendly.example_2 %}
     <p class="example_heading">Example</p>
 {% endif %}
-{% if i.example_1 %}
-    <p class="example">{{ i.example_1 }}</p>
-    <p class="sutta">{{ i.source_1 }} {{ i.sutta_1 }}</p>
+{% if friendly.example_1 %}
+    <p class="example">{{ friendly.example_1 }}</p>
+    <p class="sutta">{{ i.source_1 }} {{ friendly.sutta_1 }}</p>
 {% endif %}
-{% if i.example_2 %}
-    <p class="example">{{ i.example_2 }}</p>
-    <p class="sutta">{{ i.source_2 }} {{ i.sutta_2 }}</p>
+{% if friendly.example_2 %}
+    <p class="example">{{ friendly.example_2 }}</p>
+    <p class="sutta">{{ i.source_2 }} {{ friendly.sutta_2 }}</p>
 {% endif %}
