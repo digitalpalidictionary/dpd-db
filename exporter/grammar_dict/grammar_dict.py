@@ -16,7 +16,7 @@ from tools.niggahitas import add_niggahitas
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from exporter.jinja2_env import get_jinja2_env
-from exporter.grammar_dict.data_classes import GrammarData
+from exporter.grammar_dict.data_classes import GrammarData, generate_grammar_header
 
 
 class GlobalVars:
@@ -74,6 +74,7 @@ def generate_html_from_lookup(g: GlobalVars) -> None:
 
     jinja_env = get_jinja2_env("exporter/grammar_dict")
     template = jinja_env.get_template("grammar.jinja")
+    header = generate_grammar_header(jinja_env)
 
     html_dict: dict[str, str] = {}
     grammar_cache: dict[str, str] = {}
@@ -86,7 +87,7 @@ def generate_html_from_lookup(g: GlobalVars) -> None:
             entry_html = grammar_cache[grammar_data]
         else:
             # Use ViewModel
-            data = GrammarData(lookup_entry, g.pth, jinja_env)
+            data = GrammarData(lookup_entry, header)
             entry_html = template.render(data=data)
             grammar_cache[grammar_data] = entry_html
 

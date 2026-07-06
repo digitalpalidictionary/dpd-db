@@ -18,7 +18,10 @@ from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager, SpeechMarksDict
 from minify_html import minify
 from exporter.jinja2_env import get_jinja2_env
-from exporter.deconstructor.data_classes import DeconstructorData
+from exporter.deconstructor.data_classes import (
+    DeconstructorData,
+    generate_deconstructor_header,
+)
 
 DECONSTRUCTOR_DESCRIPTION = "<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/features/deconstructor/'>Deconstructor page</a> on the <a href='https://digitalpalidictionary.github.io'>DPD website</a>.</p>"
 
@@ -89,12 +92,13 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
 
     jinja_env = get_jinja2_env("exporter/deconstructor")
     template = jinja_env.get_template("deconstructor.jinja")
+    header = generate_deconstructor_header(jinja_env)
 
     pr.yes(deconstructor_db_length)
 
     for counter, i in enumerate(deconstructor_db):
-        data = DeconstructorData(i, g.pth, jinja_env)
-        html_string = data.header + minify(template.render(data=data))
+        data = DeconstructorData(i)
+        html_string = header + minify(template.render(data=data))
 
         dict_data.append(
             DictEntry(

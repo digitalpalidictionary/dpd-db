@@ -1,22 +1,15 @@
+from jinja2 import Environment
+
 from db.models import Lookup
-from tools.paths import ProjectPaths
 from tools.css_manager import CSSManager
 
 
 class GrammarData:
-    def __init__(self, lookup_entry: Lookup, pth: ProjectPaths, jinja_env):
+    def __init__(self, lookup_entry: Lookup, header: str) -> None:
         self.headword = lookup_entry.lookup_key
         self.grammar_data_list = lookup_entry.grammar_unpack
         self.rows = self._process_grammar(self.grammar_data_list)
-        self.header = self._generate_header(pth, jinja_env)
-
-    def _generate_header(self, pth: ProjectPaths, jinja_env) -> str:
-        header_templ = jinja_env.get_template("grammar_dict_header.jinja")
-        css_manager = CSSManager()
-        # The original code called render(css="", js="")
-        html_header = header_templ.render(css="", js="")
-        html_header = css_manager.update_style(html_header, "primary")
-        return html_header
+        self.header = header
 
     def _process_grammar(self, grammar_data_list):
         processed_rows = []
@@ -41,3 +34,17 @@ class GrammarData:
                 {"pos": pos, "components": components, "headword": headword}
             )
         return processed_rows
+
+
+def generate_grammar_header(jinja_env: Environment) -> str:
+    """Render the constant grammar-dict header once.
+
+    The header has no per-entry variables, so it is identical for every entry.
+    Rendering it once per run instead of inside every ``GrammarData`` removes the
+    dominant cost of the compile loop (the grammar cache is ~98% misses, so the
+    per-instance header rebuild fired for nearly every row).
+    """
+    header_templ = jinja_env.get_template("grammar_dict_header.jinja")
+    css_manager = CSSManager()
+    html_header = header_templ.render(css="", js="")
+    return css_manager.update_style(html_header, "primary")
