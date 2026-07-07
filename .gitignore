@@ -75,6 +75,7 @@ exporter/analysis/output/
 exporter/analysis/reports/
 exporter/mcp/output/*
 exporter/pdf/typst_data_lite.typ
+exporter/pdf/typst_chunk_*
 exporter/share/
 exporter/tester/fonts/
 exporter/tester/tester/

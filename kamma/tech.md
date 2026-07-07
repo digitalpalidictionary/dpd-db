@@ -14,6 +14,13 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - This is an existing Git-managed project, so setup should work with the current repository structure and conventions rather than replacing them.
 
 ## Resources
+- PDF export requires the `typst` CLI on PATH (>= 0.14 for
+  `--no-pdf-tags`); CI installs the musl binary in the workflow. The
+  exporter compiles in ~31 memory-bounded chunks (~2 GB per typst
+  subprocess, ~3.5 GB total peak) and merges with pypdf — a single
+  compile would need ~29 GB (typst holds ~2 MB per laid-out page).
+  Body-level `#set par/page` rules in rendered typst data must stay
+  on one line so chunk state replay captures them.
 - Mobile DB export requires dictionary sources to be materialized first:
   `cd resources/other-dictionaries && uv run python scripts/prepare_sources.py`
   (decompresses tracked archives, builds MW fresh from Cologne with tracked

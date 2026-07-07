@@ -223,6 +223,18 @@ jobs:
         echo "=== After TXT export ==="
         $HOME/check_disk.sh
 
+    - name: Install Typst CLI
+      run: |
+        curl -sSL https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz | tar xJ
+        sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+        typst --version
+
+    - name: Export PDF
+      run: |
+        uv run python exporter/pdf/pdf_exporter.py
+        echo "=== After PDF export ==="
+        $HOME/check_disk.sh
+
     - name: Prepare dictionary sources
       working-directory: resources/other-dictionaries
       run: uv run python scripts/prepare_sources.py
@@ -330,6 +342,7 @@ jobs:
           exporter/share/dpd-txt.zip
           exporter/share/dpd-mobile-db.zip
           exporter/share/dpd-anki.apkg
+          exporter/share/dpd-pdf.zip
           exporter/share/release_notes.md
         retention-days: 1
 
@@ -446,6 +459,7 @@ jobs:
             ./linux-assets/dpd-txt.zip
             ./linux-assets/dpd-mobile-db.zip
             ./linux-assets/dpd-anki.apkg
+            ./linux-assets/dpd-pdf.zip
             ./macos-dictionary/dpd-apple.dictionary.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
