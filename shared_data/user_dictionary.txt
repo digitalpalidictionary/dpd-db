@@ -185,6 +185,7 @@ appointer
 apportioning
 apportions
 appositional
+appreciativeness
 apprehendable
 arahant
 arahants
@@ -654,6 +655,7 @@ dandha
 Dantabhūmisutta
 dantā
 dar
+Dasakammasutta
 Dasakanipāta
 dative
 davatte
@@ -2417,6 +2419,7 @@ Satipaṭṭḥānasaṃyuttaṃ
 satisfier
 sativa
 sativum
+Sattakammasutta
 Sattakanipāta
 sattva
 saturates
@@ -2542,6 +2545,7 @@ Sovīra
 Soṇa
 Soṇadaṇḍa
 Soṇadaṇḍa's
+Soṇakāyana
 spathacea
 spellicans
 spillikins
