@@ -13,6 +13,7 @@ Automates the full environment setup for non-technical contributors:
 import platform
 import shutil
 import subprocess
+import tarfile
 from pathlib import Path
 
 import requests
@@ -147,6 +148,19 @@ def download_database(url: str, dest: Path) -> bool:
         return False
 
 
+def extract_database(archive_path: Path, project_root: Path) -> bool:
+    """Extract dpd.db from the downloaded tarball and remove the archive."""
+    try:
+        with tarfile.open(archive_path, "r:xz") as tar:
+            tar.extract("dpd.db", path=project_root, filter="data")
+        return True
+    except (tarfile.TarError, KeyError, OSError):
+        return False
+    finally:
+        if archive_path.exists():
+            archive_path.unlink()
+
+
 def configure_username(username: str) -> None:
     """Store the contributor username in the project config."""
     username = username.strip()
@@ -195,11 +209,18 @@ def run_setup(project_root: Path | None = None) -> bool:
         return False
     pr.yes("ok")
 
-    db_dest = project_root / "dpd.db"
+    db_archive = project_root / "dpd.db.tar.xz"
     pr.green_tmr("downloading database")
-    if not download_database(db_url, db_dest):
+    if not download_database(db_url, db_archive):
         pr.no("failed")
         pr.red("Failed to download the database. Check your internet connection.")
+        return False
+    pr.yes("ok")
+
+    pr.green_tmr("extracting database")
+    if not extract_database(db_archive, project_root):
+        pr.no("failed")
+        pr.red("Failed to extract dpd.db from the downloaded archive.")
         return False
     pr.yes("ok")
 

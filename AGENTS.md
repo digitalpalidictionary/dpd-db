@@ -54,6 +54,7 @@ Read the relevant spec before working in an unfamiliar area.
 
 ## Codebase Sweeps / Audits
 - When auditing for a pattern (e.g. "hardcoded paths", "load-all-then-filter"), do NOT anchor on a single syntactic form. The same intent hides behind many call shapes — for paths: `open(...)`, `get_db_session(Path("dpd.db"))`, `.read_text()`, `configparser.read()`, and bare module-level constants. Grep by the underlying literal (e.g. `"dpd.db"`) as well as the consuming calls, and enumerate every carrier before declaring the sweep complete. This has been missed repeatedly — look harder.
+- Always sweep with `rg --hidden` — `.github/workflows/` and `.gitignore` are carriers too and a default `rg` skips them (this missed 4 files in one sweep).
 
 ## Dependencies
 

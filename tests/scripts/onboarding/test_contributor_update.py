@@ -78,8 +78,8 @@ class TestCheckDbUpdateAvailable:
             "tag_name": "v2.0",
             "assets": [
                 {
-                    "name": "dpd.db.tar.gz",
-                    "browser_download_url": "https://example.com/dpd.db.tar.gz",
+                    "name": "dpd.db.tar.xz",
+                    "browser_download_url": "https://example.com/dpd.db.tar.xz",
                 }
             ],
         }
@@ -146,6 +146,7 @@ class TestUpdateEnvironment:
         assert "pull" in result.lower() or "update" in result.lower()
 
     @patch("scripts.onboarding.contributor_update.backup_database")
+    @patch("scripts.onboarding.contributor_setup.extract_database")
     @patch("scripts.onboarding.contributor_setup.download_database")
     @patch("scripts.onboarding.contributor_update.check_db_update_available")
     @patch("scripts.onboarding.contributor_update.subprocess.run")
@@ -154,14 +155,17 @@ class TestUpdateEnvironment:
         mock_run: MagicMock,
         mock_db_check: MagicMock,
         mock_download: MagicMock,
+        mock_extract: MagicMock,
         mock_backup: MagicMock,
     ) -> None:
         mock_run.return_value = MagicMock(returncode=0, stdout="")
-        mock_db_check.return_value = (True, "https://example.com/dpd.db")
+        mock_db_check.return_value = (True, "https://example.com/dpd.db.tar.xz")
         mock_backup.return_value = (True, "backup_path")
         mock_download.return_value = True
+        mock_extract.return_value = True
 
         result = update_environment(Path("/fake/project"))
 
         mock_download.assert_called_once()
+        mock_extract.assert_called_once()
         assert "updated" in result.lower()

@@ -5,6 +5,7 @@ database download from GitHub Releases, contributor username
 configuration, and idempotent re-runs.
 """
 
+import tarfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -18,6 +19,7 @@ from scripts.onboarding.contributor_setup import (
     configure_gemini_api_key,
     configure_username,
     download_database,
+    extract_database,
     get_git_install_instructions,
     get_latest_db_release_url,
     get_submodules_to_init,
@@ -181,8 +183,8 @@ class TestGetLatestDbReleaseUrl:
         mock_response.json.return_value = {
             "assets": [
                 {
-                    "name": "dpd.db.tar.gz",
-                    "browser_download_url": "https://github.com/digitalpalidictionary/dpd-db/releases/download/v1.0/dpd.db.tar.gz",
+                    "name": "dpd.db.tar.xz",
+                    "browser_download_url": "https://github.com/digitalpalidictionary/dpd-db/releases/download/v1.0/dpd.db.tar.xz",
                 },
                 {
                     "name": "dpd-goldendict.zip",
@@ -261,6 +263,46 @@ class TestDownloadDatabase:
 
         assert result is False
         assert not dest.exists()
+
+
+class TestExtractDatabase:
+    """Test extraction of dpd.db from the downloaded tarball."""
+
+    def _make_archive(self, tmp_path: Path, member: str = "dpd.db") -> Path:
+        content = tmp_path / member
+        content.write_bytes(b"sqlite_bytes")
+        archive = tmp_path / "dpd.db.tar.xz"
+        with tarfile.open(archive, "w:xz") as tar:
+            tar.add(content, arcname=member)
+        content.unlink()
+        return archive
+
+    def test_extracts_dpd_db_and_removes_archive(self, tmp_path: Path) -> None:
+        archive = self._make_archive(tmp_path)
+
+        result = extract_database(archive, tmp_path)
+
+        assert result is True
+        assert (tmp_path / "dpd.db").read_bytes() == b"sqlite_bytes"
+        assert not archive.exists()
+
+    def test_returns_false_when_dpd_db_not_in_archive(self, tmp_path: Path) -> None:
+        archive = self._make_archive(tmp_path, member="other.file")
+
+        result = extract_database(archive, tmp_path)
+
+        assert result is False
+        assert not (tmp_path / "dpd.db").exists()
+        assert not archive.exists()
+
+    def test_returns_false_on_corrupt_archive(self, tmp_path: Path) -> None:
+        archive = tmp_path / "dpd.db.tar.xz"
+        archive.write_bytes(b"not a tarball")
+
+        result = extract_database(archive, tmp_path)
+
+        assert result is False
+        assert not archive.exists()
 
 
 # ---------------------------------------------------------------------------
@@ -391,6 +433,7 @@ class TestRunSetup:
     @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
     @patch("scripts.onboarding.contributor_setup.configure_username")
     @patch("builtins.input", side_effect=["testuser", "AIzaSy_fake_key"])
+    @patch("scripts.onboarding.contributor_setup.extract_database", return_value=True)
     @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
     @patch(
         "scripts.onboarding.contributor_setup.get_latest_db_release_url",
@@ -409,6 +452,7 @@ class TestRunSetup:
         mock_submodules: MagicMock,
         mock_release_url: MagicMock,
         mock_download: MagicMock,
+        mock_extract: MagicMock,
         mock_input: MagicMock,
         mock_configure: MagicMock,
         mock_shortcut: MagicMock,
@@ -429,6 +473,7 @@ class TestRunSetup:
     @patch("scripts.onboarding.desktop_shortcut.create_desktop_shortcut")
     @patch("scripts.onboarding.contributor_setup.configure_username")
     @patch("builtins.input", side_effect=["testuser", "AIzaSy_fake_key"])
+    @patch("scripts.onboarding.contributor_setup.extract_database", return_value=True)
     @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
     @patch(
         "scripts.onboarding.contributor_setup.get_latest_db_release_url",
@@ -447,6 +492,7 @@ class TestRunSetup:
         mock_submodules: MagicMock,
         mock_release_url: MagicMock,
         mock_download: MagicMock,
+        mock_extract: MagicMock,
         mock_input: MagicMock,
         mock_configure: MagicMock,
         mock_shortcut: MagicMock,
@@ -465,6 +511,7 @@ class TestRunSetup:
     @patch("scripts.onboarding.contributor_setup.configure_gemini_api_key")
     @patch("scripts.onboarding.contributor_setup.configure_username")
     @patch("builtins.input", side_effect=["testuser", "AIzaSy_fake_key"])
+    @patch("scripts.onboarding.contributor_setup.extract_database", return_value=True)
     @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
     @patch(
         "scripts.onboarding.contributor_setup.get_latest_db_release_url",
@@ -483,6 +530,7 @@ class TestRunSetup:
         mock_submodules: MagicMock,
         mock_release_url: MagicMock,
         mock_download: MagicMock,
+        mock_extract: MagicMock,
         mock_input: MagicMock,
         mock_configure_username: MagicMock,
         mock_configure_gemini: MagicMock,
@@ -502,6 +550,7 @@ class TestRunSetup:
     @patch("scripts.onboarding.contributor_setup.configure_gemini_api_key")
     @patch("scripts.onboarding.contributor_setup.configure_username")
     @patch("builtins.input", side_effect=["testuser", ""])
+    @patch("scripts.onboarding.contributor_setup.extract_database", return_value=True)
     @patch("scripts.onboarding.contributor_setup.download_database", return_value=True)
     @patch(
         "scripts.onboarding.contributor_setup.get_latest_db_release_url",
@@ -520,6 +569,7 @@ class TestRunSetup:
         mock_submodules: MagicMock,
         mock_release_url: MagicMock,
         mock_download: MagicMock,
+        mock_extract: MagicMock,
         mock_input: MagicMock,
         mock_configure_username: MagicMock,
         mock_configure_gemini: MagicMock,

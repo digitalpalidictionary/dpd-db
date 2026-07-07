@@ -325,7 +325,7 @@ jobs:
           exporter/share/dpd-mdict.zip
           exporter/share/dpd-kindle.epub
           exporter/share/dpd-kindle.mobi
-          exporter/share/dpd.db.tar.bz2
+          exporter/share/dpd.db.tar.xz
           exporter/share/dpd-kobo.zip
           exporter/share/dpd-txt.zip
           exporter/share/dpd-mobile-db.zip
@@ -441,7 +441,7 @@ jobs:
             ./linux-assets/dpd-mdict.zip
             ./linux-assets/dpd-kindle.epub
             ./linux-assets/dpd-kindle.mobi
-            ./linux-assets/dpd.db.tar.bz2
+            ./linux-assets/dpd.db.tar.xz
             ./linux-assets/dpd-kobo.zip
             ./linux-assets/dpd-txt.zip
             ./linux-assets/dpd-mobile-db.zip

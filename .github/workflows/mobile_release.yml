@@ -6,7 +6,7 @@ name: Mobile Release
 #
 # Two modes:
 # - default: full fresh database build (~50 min)
-# - use_last_release_db: reuse dpd.db.tar.bz2 from the latest published
+# - use_last_release_db: reuse dpd.db.tar.xz from the latest published
 #   release and skip the build (~10 min). Ships the previous release's
 #   dictionary data — only use when the goal is repackaging, not new data.
 
@@ -88,9 +88,9 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         gh release download --repo digitalpalidictionary/dpd-db \
-          --pattern dpd.db.tar.bz2 --output dpd.db.tar.bz2
-        tar -xjf dpd.db.tar.bz2
-        rm dpd.db.tar.bz2
+          --pattern dpd.db.tar.xz --output dpd.db.tar.xz
+        tar -xJf dpd.db.tar.xz
+        rm dpd.db.tar.xz
         ls -lh dpd.db
 
     - name: Stamp version on reused DB

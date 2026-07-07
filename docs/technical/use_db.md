@@ -9,7 +9,7 @@ git clone --depth 1 https://github.com/digitalpalidictionary/dpd-db.git
 cd dpd-db
 ```
 
-Download **dpd.db.tar.bz2** from [the dpd-db release page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}, 
+Download **dpd.db.tar.xz** from [the dpd-db release page](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}, 
 
 Unzip and place the db in the root of the project folder.
 

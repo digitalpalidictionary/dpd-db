@@ -37,7 +37,7 @@ You need to download three main database files: the primary DPD database, the au
 Download and extract the latest primary database:
 
 ```bash
-wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2 | tar -xj
+wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
 ```
 
 #### 3.2. Audio Database

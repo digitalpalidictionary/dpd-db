@@ -275,7 +275,7 @@ server-update:
     git pull
     uv sync
     uv run python audio/db_release_download.py
-    wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2 | tar -xj
+    wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
     uv run exporter/webapp/generate_search_index.py
     pkill -f "uvicorn exporter.webapp.main:app" || true
     sleep 2

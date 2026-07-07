@@ -20,7 +20,7 @@ uv run python audio/db_release_download.py
 # uv run python resources/tipitaka_translation_db/download_and_unzip_db.
 
 echo "=== 5. Downloading Latest dpd.db ==="
-wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2 | tar -xj
+wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
 if [ ! -f dpd.db ]; then
     echo "Error: dpd.db not found after extraction"
     exit 1

@@ -134,15 +134,20 @@ def update_environment(project_root: Path) -> str:
             return "\n".join(summary_parts)
 
         pr.green_tmr("downloading new database")
-        from scripts.onboarding.contributor_setup import download_database
+        from scripts.onboarding.contributor_setup import (
+            download_database,
+            extract_database,
+        )
 
-        db_dest = project_root / "dpd.db"
-        if download_database(db_url, db_dest):
+        db_archive = project_root / "dpd.db.tar.xz"
+        if download_database(db_url, db_archive) and extract_database(
+            db_archive, project_root
+        ):
             pr.yes("ok")
             summary_parts.append("Database: updated to latest version")
         else:
             pr.no("failed")
-            summary_parts.append("Database: download failed")
+            summary_parts.append("Database: download or extraction failed")
     else:
         pr.yes("ok")
         summary_parts.append("Database: up to date")

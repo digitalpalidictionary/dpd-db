@@ -176,11 +176,11 @@ The main database (`dpd.db`, ~2.2 GB) is not stored in the repository. You need 
 
 **To get the database:**
 
-Download the latest `dpd.db.tar.bz2` from the [releases page](https://github.com/digitalpalidictionary/dpd-db/releases), extract it, and place `dpd.db` in the project root.
+Download the latest `dpd.db.tar.xz` from the [releases page](https://github.com/digitalpalidictionary/dpd-db/releases), extract it, and place `dpd.db` in the project root.
 
 ```bash
 # Or download and extract in one step
-wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.bz2 | tar -xj
+wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
 ```
 
 For work that doesn't involve the database (e.g., documentation, browser extension, frontend styling), you can skip this step.
