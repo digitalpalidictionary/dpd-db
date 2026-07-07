@@ -283,3 +283,7 @@ To fully rebuild from scratch (requires Claude Code session tokens):
 
 ## other-dictionaries submodule
 - To update ONE dictionary's source, recompress only that dictionary (scoped `tar` + `zstd -19` of its `source/` dir). NEVER run `scripts/compress_sources.py` for a single-dict update — it recompresses every dictionary, and because tar embeds mtimes, even unchanged sources produce new `.tar.zst` bytes (spurious apte/cone/etc. diffs).
+
+## Performance Work
+- Before implementing any optimization spec: re-derive its numbers from the actual profiling log (`logs/makedict_*.html`) and benchmark the claimed mechanism on a throwaway copy of `dpd.db` (`cp dpd.db /tmp/...`). Two of five premises in one thread were wrong, one destructively so.
+- The recurring makedict bottleneck is ORM loops over large tables (load-all + per-row mutate + commit). Replace with a single `executemany` on the session's own connection — pattern: `tools/lookup_sync.py:_raw_sql_sync`. Never `INSERT OR REPLACE` on `lookup` (blanks the other 16 columns); use `ON CONFLICT ... DO UPDATE SET <col> = excluded.<col>`.

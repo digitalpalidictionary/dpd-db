@@ -45,27 +45,16 @@
     because the stale pass scans a fully populated headwords column and the timed
     section includes building the 444K-entry data dict
 
-## Phase 2 — zstd tarballing (#2) — DEFERRED
+## Phase 2 — zstd tarballing (#2) — DROPPED (2026-07-08)
 
-Moved to its own thread: requires zstd CLI/`zstandard` (no `tarfile` zstd until
-Python 3.14), release-asset rename coordination across `draft_release.yml`, `justfile`,
-`scripts/server/update-dpd.sh`, docs, onboarding tests, and external consumers.
-Measured potential: 379.3s → 4.1s.
+User decision: release-asset rename coordination (external consumers, docs, CI,
+onboarding) outweighs the ~375s gain for now. Measured potential recorded in spec.md
+if revisited: `tar | zstd -9 -T0` = 4.1s vs 379.3s Python `tarfile w:bz2`.
 
-## Phase 3 — Cache deconstructor words (#3)
+## Phase 3 — Cache deconstructor words (#3) — DROPPED (2026-07-08)
 
-- [ ] Add `_cache_path` and `_is_cache_stale()` to `tools/deconstructed_words.py`
-  - Cache path: `pth.temp_dir / "deconstructor_words_cache.pkl"`
-  - Stale check: compare `pth.go_deconstructor_output_json.stat().st_mtime` against cached mtime
-  → verify: unit test with temp dir; fresh → stale flag True; same mtime → False
-
-- [ ] Update `make_words_in_deconstructions(db_session)` to check cache first
-  - On cache hit: unpickle and return immediately
-  - On cache miss: compute, pickle, store mtime alongside data
-  → verify: first call slow (~3.8s), second call <0.5s; output set identical between runs
-
-- [ ] Verify existing callers still work: `db/inflections/inflections_to_headwords.py`
-  → verify: `uv run pytest tests/db/inflections/test_inflections_to_headwords.py`
+User decision: real cost measured at 5.7s per run; pickle-cache complexity and
+invalidation risk not worth ~5s.
 
 ## Phase 4 — Transliteration raw SQL write-back (#4, redesigned 2026-07-07)
 
@@ -100,8 +89,12 @@ Merging engines risks orthography changes for no meaningful gain. No work planne
 
 ## Phase 6 — Full pipeline verification
 
-- [ ] Run full test suite: `uv run pytest tests/ -m 'not slow'`
-  → verify: all pass, no regressions
+- [x] Run full test suite: `uv run pytest tests/ -m 'not slow'`
+  → verified: 1229 passed, 0 failed (2026-07-08)
 
-- [ ] Dry-run makedict build and measure each section
-  → verify: total time reduced accordingly; each section within spec targets
+- [x] Measure the optimized sections on real runs
+  → verified: Phase 1 user-tested — syncing headwords column 403.8s → 33.7s;
+    Phase 4 user-tested — transliterate_inflections total 37.2s (writing to db 14.1s
+    vs 48.2s); lookup write-back verified on live-db copy 14.9s vs 59.5s.
+    Combined ~450s saved per makedict run. Full-pipeline timing comparison will
+    happen naturally on the next release build
