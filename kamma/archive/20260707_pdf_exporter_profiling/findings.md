@@ -57,7 +57,9 @@ peak per *section*, but sections are wildly unequal: English→Pāḷi is
 Chunked compile + merge, with **fixed-size chunks, not sections**:
 
 1. Split the body at entry boundaries into chunks of ~500–1,000 pages
-   (~2.5–5 MB of markup each; page count per MB is stable at ~43/MB).
+   (~3–7 MB of markup each; measured density is ~70–80 pages/MB in the
+   headword/EPD sections and up to ~170 pages/MB in the dense family
+   sections, so size chunks by line count, not bytes).
 2. Compile each chunk as a subprocess (fresh process, ~1–2 GB peak,
    2–8 s each); serial total ≈ the current ~90 s compile.
 3. Merge with pypdf (already used in the prototype).
