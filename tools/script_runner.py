@@ -42,6 +42,7 @@ def run_script(title: str, commands: list[str]) -> None:
 
     for cmd in commands:
         full_command = _build_command(cmd)
+        cmd_start = time.time()
 
         try:
             subprocess.run(full_command, shell=True, check=True, text=True)
@@ -51,6 +52,8 @@ def run_script(title: str, commands: list[str]) -> None:
         except Exception as e:  # noqa: BLE001
             print(f"Error: {e!s}")
             sys.exit(1)
+        finally:
+            print(f"\n─── {cmd}: {time.time() - cmd_start:.1f}s wall\n")
 
     # Print elapsed time
     end_time = time.time()
