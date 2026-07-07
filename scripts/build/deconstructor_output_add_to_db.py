@@ -39,7 +39,9 @@ def main() -> None:
     pr.yes("ok")
 
     pr.green_tmr("syncing deconstructor column")
-    result = sync_lookup_column(db_session, "deconstructor", top_five_dict)
+    result = sync_lookup_column(
+        db_session, "deconstructor", top_five_dict, use_raw_sql=True
+    )
     db_session.close()
     pr.yes(result.updated + result.inserted)
 

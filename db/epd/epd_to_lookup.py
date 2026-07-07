@@ -93,7 +93,7 @@ def add_to_lookup_table(g: GlobalVars) -> None:
 
     pr.green_title("saving to Lookup table")
     pr.white_tmr("syncing epd column")
-    result = sync_lookup_column(g.db_session, "epd", g.epd_data_dict)
+    result = sync_lookup_column(g.db_session, "epd", g.epd_data_dict, use_raw_sql=True)
     pr.yes(result.updated + result.inserted)
 
 
