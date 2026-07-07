@@ -180,7 +180,7 @@ def add_to_lookup_table(g: GlobalVars) -> None:
     """Add the grammar data items to the Lookup table."""
 
     pr.green_tmr("saving to Lookup table")
-    sync_lookup_column(g.db_session, "grammar", g.grammar_data)
+    sync_lookup_column(g.db_session, "grammar", g.grammar_data, use_raw_sql=True)
     pr.yes("ok")
 
 
