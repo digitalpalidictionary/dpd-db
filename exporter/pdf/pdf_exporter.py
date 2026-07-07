@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
-"""Export DPD to PDF using Typst and Jinja templates."""
+"""Export DPD to PDF using Typst and Jinja templates.
+
+Typst holds every laid-out page in memory (~2 MB/page) and the full
+dictionary is ~15,000 pages, so a single compile needs ~29 GB and OOMs
+CI. The document is split into chunks at entry boundaries, each chunk
+is compiled in its own `typst` CLI subprocess (~2 GB peak), page
+numbering is chained across chunks, and the chunk PDFs are merged with
+pypdf (bookmark tree and Contents page rebuilt, since neither survives
+a merge). Evidence for every design choice:
+kamma/threads/20260707_pdf_chunked_compile/evidence.md
+"""
 
 import re
+import shutil
+import subprocess
+from dataclasses import dataclass, field
+from pathlib import Path
 
-# import subprocess
-import typst
 from jinja2 import Environment, FileSystemLoader
+from pypdf import PdfReader, PdfWriter
+from pypdf.generic import Destination, NameObject, TextStringObject
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
@@ -26,6 +40,20 @@ from tools.tsv_read_write import read_tsv_dot_dict
 from tools.zip_up import zip_up_file
 
 debug = False
+
+# ~500-1000 output pages per chunk: bounds each typst subprocess at
+# roughly 2 GB peak RSS even in the dense family sections
+CHUNK_LINE_BUDGET = 100_000
+
+ENTRY_PREFIXES = ("#par[", "#heading3[")
+OUTLINE_PLACEHOLDER = "#outline(depth: 1)"
+
+# a single-line `#set par(...)`/`#set page(...)` whose effect must be
+# replayed at the start of every later chunk; multi-line #set rules are
+# NOT captured — body-level #set must stay on one line
+STATE_LINE_RE = re.compile(r"^#set (par|page)\(([\w-]+):.*\)$", re.MULTILINE)
+
+SECTION_HEADING_RE = re.compile(r"#heading\(level: 1\)\[(.+?)\]")
 
 
 class GlobalVars:
@@ -342,26 +370,261 @@ def save_typist_file(g: GlobalVars) -> None:
     pr.yes("ok")
 
 
-def export_to_pdf(g: GlobalVars) -> None:
-    pr.green_tmr("rendering pdf")
+# ----------------------------------------------------------------------
+# chunked compile
+# ----------------------------------------------------------------------
 
-    try:
-        typst.compile(
-            str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path)
+
+@dataclass
+class ChunkSpec:
+    """One chunk of the document: body snippets plus the `#set` state
+    lines that must be replayed before them (empty for chunk 0)."""
+
+    body: list[str]
+    state_lines: list[str] = field(default_factory=list)
+
+
+def is_entry_snippet(snippet: str) -> bool:
+    return snippet.lstrip("\n").startswith(ENTRY_PREFIXES)
+
+
+def update_set_state(snippet: str, state: dict[str, str]) -> None:
+    """Track the last-seen single-line #set par/page rules, keyed by
+    (rule, first property), so later chunks can replay them."""
+    for m in STATE_LINE_RE.finditer(snippet):
+        state[f"{m.group(1)}:{m.group(2)}"] = m.group(0)
+
+
+def split_body_into_chunks(
+    body: list[str], line_budget: int = CHUNK_LINE_BUDGET
+) -> list[ChunkSpec]:
+    """Split rendered snippets into chunks of ~line_budget lines,
+    cutting only where an entry snippet begins, never directly after
+    section headers or first-letter pagebreaks."""
+    chunks: list[ChunkSpec] = []
+    state: dict[str, str] = {}
+    current: list[str] = []
+    current_lines = 0
+
+    for snippet in body:
+        if current_lines >= line_budget and is_entry_snippet(snippet):
+            # back off trailing non-entry snippets (section headers,
+            # first-letter pagebreaks) so they open the next chunk
+            carry: list[str] = []
+            while len(current) > 1 and not is_entry_snippet(current[-1]):
+                carry.insert(0, current.pop())
+            chunks.append(ChunkSpec(body=current, state_lines=list(state.values())))
+            for s in current:
+                update_set_state(s, state)
+            current = carry
+            current_lines = sum(s.count("\n") for s in carry)
+        current.append(snippet)
+        current_lines += snippet.count("\n")
+
+    if current:
+        chunks.append(ChunkSpec(body=current, state_lines=list(state.values())))
+    return chunks
+
+
+def chunk_source(preamble: str, spec: ChunkSpec, start_page: int) -> str:
+    """Full typst source for one chunk. Chunk 0 (start_page 1, no state)
+    is byte-identical to the corresponding monolith prefix."""
+    if start_page == 1 and not spec.state_lines:
+        return preamble + "".join(spec.body)
+    body = list(spec.body)
+    # a carried section header or first-letter snippet starts with a
+    # pagebreak; the chunk boundary already breaks the page, so keeping
+    # it would insert a blank first page
+    if body and body[0].startswith("#pagebreak()\n"):
+        body[0] = body[0].removeprefix("#pagebreak()\n")
+    header = "\n".join(spec.state_lines)
+    counter = f"#counter(page).update({start_page})\n"
+    return f"{preamble}\n{header}\n{counter}\n" + "".join(body)
+
+
+def extract_section_titles(snippets: list[str]) -> list[str]:
+    titles: list[str] = []
+    for snippet in snippets:
+        titles.extend(SECTION_HEADING_RE.findall(snippet))
+    return titles
+
+
+def contents_block(sections: list[tuple[str, int]]) -> str:
+    """Typst markup for the Contents page: every level-1 section with
+    its final absolute page number and dot leaders."""
+    lines = ["#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 1.2em)\n"]
+    for title, page in sections:
+        lines.append(f"{title} #box(width: 1fr, repeat[.]) {page} \\\n")
+    return "".join(lines)
+
+
+def check_typst_cli() -> None:
+    if shutil.which("typst") is None:
+        pr.red(
+            "\ntypst CLI not found on PATH — install from "
+            "https://github.com/typst/typst/releases"
         )
+        raise SystemExit(1)
 
-        # subprocess.run(
-        #     [
-        #         "typst",
-        #         "compile",
-        #         str(g.pth.typst_lite_data_path),
-        #         str(g.pth.typst_lite_pdf_path)
-        #     ]
-        # )
 
-        pr.yes("ok")
-    except Exception as e:
-        pr.red(f"\n{e}")
+def compile_chunk(typ_path: Path, pdf_path: Path) -> int:
+    """Compile one chunk in a typst subprocess, return its page count.
+
+    Tags are disabled because pypdf's merge cannot carry them over
+    anyway, and untagged chunks are ~4.5x smaller."""
+    result = subprocess.run(
+        ["typst", "compile", "--no-pdf-tags", str(typ_path), str(pdf_path)],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        pr.red(f"\ntypst failed on {typ_path.name}:\n{result.stderr}")
+        raise SystemExit(1)
+    return len(PdfReader(pdf_path).pages)
+
+
+def chunk_paths(g: GlobalVars, index: int) -> tuple[Path, Path]:
+    base = g.pth.typst_lite_data_path.parent / f"typst_chunk_{index:02d}"
+    return base.with_suffix(".typ"), base.with_suffix(".pdf")
+
+
+def compile_all_chunks(g: GlobalVars, chunks: list[ChunkSpec]) -> list[int]:
+    """Serially compile every chunk with chained page numbering.
+    Returns per-chunk page counts."""
+    pr.green_title("compiling chunks with typst")
+
+    preamble = g.typst_data[0]
+    page_counts: list[int] = []
+    start_page = 1
+    for index, spec in enumerate(chunks):
+        pr.white_tmr(f"chunk {index + 1}/{len(chunks)}")
+        typ_path, pdf_path = chunk_paths(g, index)
+        typ_path.write_text(chunk_source(preamble, spec, start_page), encoding="utf-8")
+        pages = compile_chunk(typ_path, pdf_path)
+        page_counts.append(pages)
+        start_page += pages
+        pr.yes(pages)
+    return page_counts
+
+
+def _walk_outline(
+    reader: PdfReader,
+    items: list[Destination | list],
+    offset: int,
+    section_set: set[str],
+    entries: list[tuple[str, int, bool]],
+) -> None:
+    for item in items:
+        if isinstance(item, list):
+            _walk_outline(reader, item, offset, section_set, entries)
+        else:
+            page_in_chunk = reader.get_destination_page_number(item)
+            if page_in_chunk is None:
+                continue
+            title = str(item["/Title"])
+            entries.append((title, offset + page_in_chunk, title in section_set))
+
+
+def collect_outline_entries(
+    g: GlobalVars, chunk_count: int, section_titles: list[str]
+) -> list[tuple[str, int, bool]]:
+    """All outlined headings across chunk PDFs in document order as
+    (title, absolute 0-based page, is_section)."""
+    section_set = set(section_titles)
+    entries: list[tuple[str, int, bool]] = []
+    offset = 0
+    for index in range(chunk_count):
+        _, pdf_path = chunk_paths(g, index)
+        reader = PdfReader(pdf_path)
+        _walk_outline(reader, reader.outline, offset, section_set, entries)
+        offset += len(reader.pages)
+    return entries
+
+
+def rebuild_contents_page(
+    g: GlobalVars,
+    chunks: list[ChunkSpec],
+    page_counts: list[int],
+    entries: list[tuple[str, int, bool]],
+) -> None:
+    """Replace the chunk-local #outline() in chunk 0 with a Contents
+    page listing every section, and recompile chunk 0. Pagination must
+    not change, or all later page numbers would be wrong."""
+    pr.green_tmr("rebuilding contents page")
+
+    sections = [(title, page + 1) for title, page, is_sec in entries if is_sec]
+    source = chunk_source(g.typst_data[0], chunks[0], 1)
+    if OUTLINE_PLACEHOLDER not in source:
+        pr.red("\n#outline placeholder not found in chunk 0")
+        raise SystemExit(1)
+    source = source.replace(OUTLINE_PLACEHOLDER, contents_block(sections))
+
+    typ_path, pdf_path = chunk_paths(g, 0)
+    typ_path.write_text(source, encoding="utf-8")
+    pages = compile_chunk(typ_path, pdf_path)
+    if pages != page_counts[0]:
+        pr.red(
+            f"\ncontents page changed chunk 0 pagination ({page_counts[0]} -> {pages})"
+        )
+        raise SystemExit(1)
+    pr.yes(len(sections))
+
+
+def merge_chunks(
+    g: GlobalVars, chunk_count: int, entries: list[tuple[str, int, bool]]
+) -> None:
+    """Merge chunk PDFs into the final PDF, rebuilding the bookmark
+    tree (letters nested under sections) and document metadata, which
+    pypdf does not carry across a merge."""
+    pr.green_tmr("merging chunks")
+
+    writer = PdfWriter()
+    for index in range(chunk_count):
+        _, pdf_path = chunk_paths(g, index)
+        writer.append(str(pdf_path), import_outline=False)
+
+    writer.add_metadata(
+        {"/Title": "Digital Pāḷi Dictionary", "/Author": "Bodhirasa Bhikkhu"}
+    )
+    writer.root_object[NameObject("/Lang")] = TextStringObject("en")
+
+    parent = None
+    for title, page, is_section in entries:
+        if is_section:
+            parent = writer.add_outline_item(title, page)
+        else:
+            writer.add_outline_item(title, page, parent=parent)
+
+    writer.write(str(g.pth.typst_lite_pdf_path))
+    writer.close()
+    pr.yes("ok")
+
+
+def clean_up_chunk_files(g: GlobalVars, chunk_count: int) -> None:
+    pr.green_tmr("removing chunk files")
+
+    for index in range(chunk_count):
+        typ_path, pdf_path = chunk_paths(g, index)
+        typ_path.unlink(missing_ok=True)
+        pdf_path.unlink(missing_ok=True)
+    pr.yes("ok")
+
+
+def export_to_pdf(g: GlobalVars) -> None:
+    """Chunked compile: split, compile serially, rebuild contents,
+    merge, clean up."""
+    check_typst_cli()
+
+    chunks = split_body_into_chunks(g.typst_data[1:], CHUNK_LINE_BUDGET)
+    section_titles = extract_section_titles(g.typst_data)
+
+    page_counts = compile_all_chunks(g, chunks)
+    entries = collect_outline_entries(g, len(chunks), section_titles)
+    rebuild_contents_page(g, chunks, page_counts, entries)
+    merge_chunks(g, len(chunks), entries)
+    clean_up_chunk_files(g, len(chunks))
+
+    pr.summary("total pages", sum(page_counts))
 
 
 def zip_up_pdf(g: GlobalVars) -> None:
@@ -396,7 +659,6 @@ def main() -> None:
     make_bibliography(g)
     make_thanks(g)
     clean_up_typst_data(g)
-    save_typist_file(g)
     export_to_pdf(g)
     zip_up_pdf(g)
     pr.toc()

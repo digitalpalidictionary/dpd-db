@@ -111,5 +111,5 @@
 #outline(depth: 1)
 #pagebreak()
 
-#set page(numbering: "1 / 1")
+#set page(numbering: "1")
 

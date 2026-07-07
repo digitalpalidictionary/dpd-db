@@ -3,11 +3,23 @@
 import importlib
 import json
 import re
+import shutil
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
+
+from exporter.pdf.pdf_exporter import (
+    ChunkSpec,
+    chunk_source,
+    contents_block,
+    export_to_pdf,
+    extract_section_titles,
+    is_entry_snippet,
+    split_body_into_chunks,
+    update_set_state,
+)
 
 FIXTURE_PATH = Path(__file__).parent / "test_pdf_exporter_fixtures.json"
 
@@ -94,3 +106,195 @@ def test_save_typist_file_encoding() -> None:
         assert written == pali_content
     finally:
         tmp_path.unlink(missing_ok=True)
+
+
+# ---------------------------------------------------------------------------
+# 4. Chunk splitting
+# ---------------------------------------------------------------------------
+
+
+HEADWORD = "#par[\n  #blue-bold[word]\n]\n"
+FAMILY = "\n#heading3[fam]\n#table()\n"
+SECTION_HEADER = "#heading(level: 1)[Word Families]\n"
+PAGEBREAK = "#pagebreak()\n"
+FIRST_LETTER = "#pagebreak()\n#heading(level: 2, outlined: true)[a]\n"
+
+
+def test_is_entry_snippet() -> None:
+    assert is_entry_snippet(HEADWORD)
+    assert is_entry_snippet(FAMILY)
+    assert not is_entry_snippet(SECTION_HEADER)
+    assert not is_entry_snippet(PAGEBREAK)
+    assert not is_entry_snippet(FIRST_LETTER)
+
+
+def test_update_set_state_last_wins() -> None:
+    state: dict[str, str] = {}
+    update_set_state("#set par(hanging-indent: 1em, spacing: 0.65em)\n", state)
+    update_set_state("#set page(columns: 1)\n", state)
+    update_set_state("#set par(hanging-indent: 0em, spacing: 0.65em)\n", state)
+    assert list(state.values()) == [
+        "#set par(hanging-indent: 0em, spacing: 0.65em)",
+        "#set page(columns: 1)",
+    ]
+
+
+def test_split_preserves_content_byte_exact() -> None:
+    body = [SECTION_HEADER] + [HEADWORD] * 50
+    chunks = split_body_into_chunks(body, line_budget=30)
+    assert len(chunks) > 1
+    rebuilt = "".join("".join(c.body) for c in chunks)
+    assert rebuilt == "".join(body)
+
+
+def test_split_cuts_only_before_entries() -> None:
+    body = [SECTION_HEADER] + [HEADWORD] * 50
+    chunks = split_body_into_chunks(body, line_budget=30)
+    for chunk in chunks[1:]:
+        assert is_entry_snippet(chunk.body[0]) or chunk.body[0].startswith(
+            ("#pagebreak()", "#heading(level: 1)", "#set ")
+        )
+
+
+def test_split_carries_headers_to_next_chunk() -> None:
+    """A section header landing on a cut must open the next chunk, not
+    dangle at the end of the previous one."""
+    body = (
+        [HEADWORD] * 10
+        + [PAGEBREAK, SECTION_HEADER, "#set par(hanging-indent: 0em)\n"]
+        + [FAMILY] * 10
+    )
+    line_budget = sum(s.count("\n") for s in body[:12])
+    chunks = split_body_into_chunks(body, line_budget=line_budget)
+    assert len(chunks) == 2
+    assert chunks[0].body == [HEADWORD] * 10
+    assert chunks[1].body[0] == PAGEBREAK
+    assert chunks[1].body[1] == SECTION_HEADER
+
+
+def test_split_replays_set_state() -> None:
+    body = (
+        ["#set page(columns: 1)\n", "#set par(hanging-indent: 1em)\n"]
+        + [HEADWORD] * 20
+        + ["#set par(hanging-indent: 0em)\n"]
+        + [FAMILY] * 20
+    )
+    chunks = split_body_into_chunks(body, line_budget=30)
+    assert len(chunks) >= 2
+    assert chunks[0].state_lines == []
+    assert "#set page(columns: 1)" in chunks[1].state_lines
+    final_par_states = [
+        line for line in chunks[-1].state_lines if line.startswith("#set par")
+    ]
+    assert final_par_states == ["#set par(hanging-indent: 0em)"]
+
+
+def test_split_single_chunk_when_small() -> None:
+    body = [SECTION_HEADER, HEADWORD, HEADWORD]
+    chunks = split_body_into_chunks(body, line_budget=100_000)
+    assert len(chunks) == 1
+    assert chunks[0].body == body
+    assert chunks[0].state_lines == []
+
+
+# ---------------------------------------------------------------------------
+# 5. Chunk source assembly
+# ---------------------------------------------------------------------------
+
+
+def test_chunk_source_first_chunk_byte_exact() -> None:
+    spec = ChunkSpec(body=[SECTION_HEADER, HEADWORD])
+    assert (
+        chunk_source("PREAMBLE\n", spec, 1) == "PREAMBLE\n" + SECTION_HEADER + HEADWORD
+    )
+
+
+def test_chunk_source_later_chunk_has_state_and_counter() -> None:
+    spec = ChunkSpec(body=[HEADWORD], state_lines=["#set page(columns: 1)"])
+    source = chunk_source("PREAMBLE\n", spec, 998)
+    assert "#set page(columns: 1)" in source
+    assert "#counter(page).update(998)" in source
+    assert source.index("#counter(page).update(998)") < source.index(HEADWORD)
+
+
+def test_chunk_source_strips_leading_pagebreak() -> None:
+    """A carried header's pagebreak is redundant at chunk start and
+    would insert a blank page."""
+    spec = ChunkSpec(body=[FIRST_LETTER, HEADWORD], state_lines=[])
+    source = chunk_source("PREAMBLE\n", spec, 500)
+    assert "#pagebreak()" not in source
+    assert "#heading(level: 2, outlined: true)[a]" in source
+
+
+# ---------------------------------------------------------------------------
+# 6. Section titles and contents page
+# ---------------------------------------------------------------------------
+
+
+def test_extract_section_titles() -> None:
+    snippets = [
+        "#hide[\n  #heading(level: 1)[Title Page]\n]\n",
+        SECTION_HEADER,
+        FIRST_LETTER,  # level 2: excluded
+        HEADWORD,
+    ]
+    assert extract_section_titles(snippets) == ["Title Page", "Word Families"]
+
+
+def test_contents_block() -> None:
+    block = contents_block([("Abbreviations", 5), ("Pāḷi to English Dictionary", 8)])
+    assert "Abbreviations #box(width: 1fr, repeat[.]) 5 \\\n" in block
+    assert "Pāḷi to English Dictionary #box(width: 1fr, repeat[.]) 8 \\\n" in block
+
+
+# ---------------------------------------------------------------------------
+# 7. End-to-end: split, compile, contents, merge (requires typst CLI)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.skipif(shutil.which("typst") is None, reason="typst CLI not on PATH")
+def test_export_to_pdf_end_to_end(tmp_path: Path) -> None:
+    """Real chunked pipeline on a tiny synthetic document: continuous
+    page numbers, rebuilt contents page, nested bookmarks, cleanup."""
+    from pypdf import PdfReader
+
+    preamble = '#set page(paper: "a5", numbering: "1")\n'
+    front = "#hide[\n  #heading(level: 1)[Front]\n]\n#outline(depth: 1)\n"
+    body = [
+        front,
+        PAGEBREAK,
+        "#heading(level: 1)[Words]\n",
+        "#par[entry one]\n",
+        "#par[entry two]\n",
+        "#par[entry three]\n",
+    ]
+
+    g = MagicMock()
+    g.typst_data = [preamble, *body]
+    g.pth.typst_lite_data_path = tmp_path / "typst_data_lite.typ"
+    g.pth.typst_lite_pdf_path = tmp_path / "dpd.pdf"
+
+    with patch("exporter.pdf.pdf_exporter.CHUNK_LINE_BUDGET", 1):
+        export_to_pdf(g)
+
+    merged = PdfReader(g.pth.typst_lite_pdf_path)
+    n_pages = len(merged.pages)
+    assert n_pages >= 2
+
+    # printed page numbers are continuous and match physical position
+    for index in range(n_pages):
+        text = merged.pages[index].extract_text() or ""
+        assert str(index + 1) in text
+
+    # contents page lists the body section with its real page number
+    front_text = merged.pages[0].extract_text() or ""
+    assert "Words" in front_text
+
+    # bookmarks: both sections present at top level
+    top_titles = [
+        item["/Title"] for item in merged.outline if not isinstance(item, list)
+    ]
+    assert top_titles == ["Front", "Words"]
+
+    # chunk working files are cleaned up
+    assert not list(tmp_path.glob("typst_chunk_*"))
