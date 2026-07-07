@@ -67,38 +67,36 @@ Measured potential: 379.3s → 4.1s.
 - [ ] Verify existing callers still work: `db/inflections/inflections_to_headwords.py`
   → verify: `uv run pytest tests/db/inflections/test_inflections_to_headwords.py`
 
-## Phase 4 — Transliteration stdin/stdout (#4)
+## Phase 4 — Transliteration raw SQL write-back (#4, redesigned 2026-07-07)
 
-- [ ] Modify `db/inflections/transliterate inflections.mjs` to support stdin/stdout
-  - Add `--stdin` flag; when present, read JSON from process.stdin, write to process.stdout
-  - Keep file-based mode for backward compat
-  → verify: `echo '{"test":{"inflections":["buddho"]}}' | node db/inflections/transliterate\ inflections.mjs --stdin`
+Original stdin/stdout design dropped: measured JSON file I/O is ~0.06s total across
+22 parallel batches, not ~106s. The .mjs scripts and `_parse_batch` stay untouched.
+The real cost is the ORM write-back (48.2s + 59.5s); fix with the Phase 1 pattern.
 
-- [ ] Modify `db/lookup/transliterate_lookup.mjs` to support stdin/stdout (same pattern)
-  → verify: pipe test JSON through, confirm stdout has expected structure
+- [x] Replace the ORM write-back loop in `transliterate_inflections.py:main()`
+  - New `_write_translit_to_db(db_session, dpd_db, translit_dict) -> int`, single
+    executemany `UPDATE dpd_headwords ... WHERE id=?`, no ORM mutation
+  → verified: end-to-end on live-db copy: 89,143 rows in **8.6s** (vs 48.2s, ~5.6×)
 
-- [ ] Update `transliterate_inflections.py:_parse_batch()` to use stdin/stdout
-  - Replace `check_output(["node", script, input_path, output_path])` with `Popen` + stdin.write + stdout.read
-  - Remove JSON file write/read/unlink
-  → verify: output byte-identical to current; no `.batch_*_input.json` / `.batch_*_output.json` files left behind
+- [x] Replace the ORM write-back loop in `transliterate_lookup_table.py:main()`
+  - New `_write_translit_to_db(db_session, translit_dict) -> int`, iterates
+    `translit_dict` directly (skips the 1.29M-row scan), values via
+    `json.dumps(list(...), ensure_ascii=False)` matching `*_pack`
+  → verified: end-to-end on live-db copy: 1,290,989 rows in **14.9s** (vs 59.5s, ~4×);
+    grammar column intact; packed format byte-identical to `sinhala_pack`
 
-- [ ] Update `transliterate_lookup_table.py:_parse_batch()` to use stdin/stdout (same pattern)
-  → verify: output byte-identical to current; no temp JSON files
+- [x] Tests covering both write-backs against in-memory db with real models
+  - `tests/db/inflections/test_transliterate_inflections.py` (4 tests)
+  - `tests/db/lookup/test_transliterate_lookup_table.py` (3 tests, incl. byte-equality
+    vs real `*_pack` methods)
+  → verified: full suite `uv run pytest tests/` — **1229 passed, 0 failed** (the 9
+    analyzer failures noted in Phase 1 disappeared once the live db's headwords
+    column was rebuilt, confirming they were db-state, not regressions)
 
-## Phase 5 — Merge transliteration engines (#5)
+## Phase 5 — Merge transliteration engines (#5) — SKIPPED (rescoped 2026-07-07)
 
-- [ ] Compare aksharamukha vs path-nirvana output for a representative sample
-  - Dump both outputs for 100 headwords; diff the Sinhala, Devanagari, Thai sets
-  → verify: report percentage of identical entries per script; flag any systematic differences
-
-- [ ] If outputs are identical or near-identical: remove the node.js call from each `_parse_batch()`
-  - The node.js `_parse_batch()` path merges by `set.update()`, so identical entries are wasted work
-  - Keep aksharamukha as the sole engine; remove node.js invocation + JSON I/O entirely
-  → verify: output byte-identical to before; `uv run pytest tests/db/inflections/test_generate_inflection_tables.py` passes
-
-- [ ] If outputs differ: keep both engines but eliminate the JSON file round-trip
-  - Already handled by Phase 4. Skip the merge.
-  → verify: transliteration section still runs; output unchanged
+Node.js engine costs ~1.1s per batch across 22 parallel batches — negligible.
+Merging engines risks orthography changes for no meaningful gain. No work planned.
 
 ## Phase 6 — Full pipeline verification
 

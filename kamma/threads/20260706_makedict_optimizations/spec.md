@@ -68,18 +68,36 @@ calls `json.loads()` and string-splits each one. Cache the resulting word set in
 pickle file keyed by a hash of the deconstructor output. Only recompute when the
 deconstructor output changes.
 
-### 4. Transliteration: eliminate per-batch JSON disk I/O (~186s → ~80s)
+### 4. Transliteration: raw SQL write-back (~108s → ~17s) — REDESIGNED
 
-Both `db/inflections/transliterate_inflections.py` and
-`db/lookup/transliterate_lookup_table.py` write JSON files to disk, shell out to
-node.js, and read JSON back — for every multiprocessing batch. Replace file I/O
-with stdin/stdout piping to the node.js process.
+**Original premise disproven (2026-07-07).** The spec blamed per-batch JSON disk I/O
+for ~106s. Measured with real data: one batch's JSON write is 0.019s, read 0.044s,
+and there are only 22 batches (= logical cores) running in parallel — stdin/stdout
+piping would save ~0.06s wall-clock. The whole node call is ~1.1s per batch.
+The .mjs scripts and the batch pipeline stay untouched.
 
-### 5. Merge transliteration engines (~80s → ~40s)
+The real cost, from the profiling log:
+- `transliterate_inflections.py` "writing to db": **48.2s** (ORM loop over 89K headwords)
+- `transliterate_lookup_table.py` "writing to db": **59.5s** (ORM loop over up to 1.29M rows)
 
-Both transliteration scripts call aksharamukha *and* a separate node.js "path nirvana"
-transliterator, merging results. If the orthographic differences are acceptable,
-consolidate to one engine. At minimum, eliminate redundant work when outputs agree.
+Fix (same pattern as #1): replace both ORM write-back loops with a single
+`executemany` on the session's connection:
+- `UPDATE dpd_headwords SET inflections_sinhala=?, inflections_devanagari=?, inflections_thai=? WHERE id=?`
+- `UPDATE lookup SET sinhala=?, devanagari=?, thai=? WHERE lookup_key=?`
+
+Values built exactly as today (`",".join(set)` for headwords; `json.dumps(list(set),
+ensure_ascii=False)` matching `*_pack` for lookup). Benchmarked on a copy of the live
+db: 89,143 headword rows in 7.5s (vs 48.2s), 1,290,989 lookup rows in 9.8s (vs 59.5s).
+
+Out of scope (possible follow-up): `transliterate_lookup_table.py` "setting up db"
+loads all 1.29M rows as ORM objects (15.1s) and pickles them to 22 child processes.
+
+### 5. Merge transliteration engines — RESCOPED, likely skip
+
+Measured (2026-07-07): the node.js path-nirvana call costs ~1.1s per batch, running
+in 22 parallel batches — its wall-clock contribution is a few seconds, not ~40s.
+The ~30s "transliterating" step is dominated by aksharamukha (pure Python).
+Merging engines risks orthography changes for negligible gain. Recommend: skip.
 
 ## Assumptions & uncertainties
 

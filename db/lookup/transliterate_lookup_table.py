@@ -13,6 +13,7 @@ from typing import TypedDict
 
 import psutil
 from aksharamukha import transliterate
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import Lookup
@@ -155,6 +156,34 @@ def _parse_batch(
     json_output_from_translit.unlink()
 
 
+def _write_translit_to_db(
+    db_session: Session,
+    translit_dict: dict[str, WordInflections],
+) -> int:
+    """Raw SQL executemany write-back, replacing the per-row ORM mutation loop.
+
+    Iterates ``translit_dict`` directly instead of the 1.29M-row ``lookup_db``
+    list — every key in ``translit_dict`` originated from ``lookup_db``, so this
+    is equivalent and skips the full-table scan.
+    """
+    rows: list[tuple[str, str, str, str]] = [
+        (
+            json.dumps(list(values["sinhala"]), ensure_ascii=False),
+            json.dumps(list(values["devanagari"]), ensure_ascii=False),
+            json.dumps(list(values["thai"]), ensure_ascii=False),
+            key,
+        )
+        for key, values in translit_dict.items()
+    ]
+    if rows:
+        db_session.connection().exec_driver_sql(
+            "UPDATE lookup SET sinhala = ?, devanagari = ?, thai = ? WHERE lookup_key = ?",
+            rows,
+        )
+    db_session.commit()
+    return len(rows)
+
+
 def main() -> None:
     pr.tic()
     pr.yellow_title("transliterating lookup table")
@@ -217,15 +246,7 @@ def main() -> None:
     # write back into database
     pr.green_tmr("writing to db")
 
-    translit_counter = 0
-    for i in lookup_db:
-        if i.lookup_key in translit_dict:
-            i.sinhala_pack(list(translit_dict[i.lookup_key]["sinhala"]))
-            i.devanagari_pack(list(translit_dict[i.lookup_key]["devanagari"]))
-            i.thai_pack(list(translit_dict[i.lookup_key]["thai"]))
-            translit_counter += 1
-
-    db_session.commit()
+    translit_counter = _write_translit_to_db(db_session, translit_dict)
     db_session.close()
 
     pr.yes(translit_counter)

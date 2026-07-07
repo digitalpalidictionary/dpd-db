@@ -15,6 +15,7 @@ from typing import TypedDict
 
 import psutil
 from aksharamukha import transliterate
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -165,8 +166,39 @@ def _parse_batch(
     json_output_from_translit.unlink()
 
 
+def _write_translit_to_db(
+    db_session: Session,
+    dpd_db: list[DpdHeadword],
+    translit_dict: dict[str, WordInflections],
+) -> int:
+    """Raw SQL executemany write-back, replacing the per-row ORM mutation loop."""
+    rows: list[tuple[str, str, str, int]] = [
+        (
+            ",".join(translit_dict[i.lemma_1]["sinhala"]),
+            ",".join(translit_dict[i.lemma_1]["devanagari"]),
+            ",".join(translit_dict[i.lemma_1]["thai"]),
+            i.id,
+        )
+        for i in dpd_db
+        if i.lemma_1 in translit_dict
+    ]
+    if rows:
+        db_session.connection().exec_driver_sql(
+            "UPDATE dpd_headwords "
+            "SET inflections_sinhala = ?, inflections_devanagari = ?, inflections_thai = ? "
+            "WHERE id = ?",
+            rows,
+        )
+    db_session.commit()
+    return len(rows)
+
+
 def main() -> None:
     """It's the main function."""
+
+    pr.tic()
+    pr.yellow_title("transliterating inflections")
+    pr.green_tmr("setting up db")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -178,8 +210,7 @@ def main() -> None:
     with pth.template_changed_path.open("rb") as f:
         changed_templates: list[str] = pickle.load(f)
 
-    pr.tic()
-    pr.yellow_title("transliterating inflections")
+    pr.yes(len(dpd_db))
 
     pr.green_tmr("regenerate all")
 
@@ -233,15 +264,7 @@ def main() -> None:
     # write back into database
     pr.green_tmr("writing to db")
 
-    translit_counter = 0
-    for i in dpd_db:
-        if i.lemma_1 in translit_dict:
-            i.inflections_sinhala = ",".join(translit_dict[i.lemma_1]["sinhala"])
-            i.inflections_devanagari = ",".join(translit_dict[i.lemma_1]["devanagari"])
-            i.inflections_thai = ",".join(translit_dict[i.lemma_1]["thai"])
-            translit_counter += 1
-
-    db_session.commit()
+    translit_counter = _write_translit_to_db(db_session, dpd_db, translit_dict)
     db_session.close()
     pr.yes(translit_counter)
 
