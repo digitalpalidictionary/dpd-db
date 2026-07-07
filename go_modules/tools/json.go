@@ -17,10 +17,9 @@ func ReadJsonSliceString(
 		panic(err)
 	}
 
-	if json.Valid(data) {
-		json.Unmarshal(data, &object)
-	} else {
-		panic("invalid JSON!")
+	err = json.Unmarshal(data, &object)
+	if err != nil {
+		panic(err)
 	}
 	return object
 }
@@ -35,10 +34,9 @@ func ReadJsonMapStringString(
 		panic(err)
 	}
 
-	if json.Valid(data) {
-		json.Unmarshal(data, &object)
-	} else {
-		panic("invalid JSON!")
+	err = json.Unmarshal(data, &object)
+	if err != nil {
+		panic(err)
 	}
 	return object
 }
@@ -53,10 +51,9 @@ func ReadJsonMapStringInt(
 		panic(err)
 	}
 
-	if json.Valid(data) {
-		json.Unmarshal(data, &object)
-	} else {
-		panic("invalid JSON!")
+	err = json.Unmarshal(data, &object)
+	if err != nil {
+		panic(err)
 	}
 	return object
 }
@@ -71,10 +68,9 @@ func ReadJsonMapStringMapStringInt(
 		panic(err)
 	}
 
-	if json.Valid(data) {
-		json.Unmarshal(data, &object)
-	} else {
-		panic("invalid JSON!")
+	err = json.Unmarshal(data, &object)
+	if err != nil {
+		panic(err)
 	}
 	return object
 }
@@ -88,12 +84,9 @@ func ReadJsonBjt(
 	data, err := os.ReadFile(filePath)
 	HardCheck(err)
 
-	if !json.Valid(data) {
-		panic("invalid JSON!")
-	} else {
-		json.Unmarshal(data, &object)
-		return object
-	}
+	err = json.Unmarshal(data, &object)
+	HardCheck(err)
+	return object
 }
 
 func ReadJsonSliceMapStringSliceString(
@@ -107,10 +100,9 @@ func ReadJsonSliceMapStringSliceString(
 		panic(err)
 	}
 
-	if json.Valid(data) {
-		json.Unmarshal(data, &object)
-	} else {
-		panic("invalid JSON!")
+	err = json.Unmarshal(data, &object)
+	if err != nil {
+		panic(err)
 	}
 	return object
 }
@@ -132,7 +124,7 @@ func SaveJson(outputPath string, data any) bool {
 }
 
 // Indent 2 spaces & allow non-ascii characters
-func JsonMarshall(data interface{}) string {
+func JsonMarshall(data any) string {
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
 	enc.SetEscapeHTML(false) // Allow non-ASCII characters

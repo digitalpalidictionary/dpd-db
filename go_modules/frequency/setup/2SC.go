@@ -3,9 +3,7 @@ package main
 import (
 	"dpd/go_modules/tools"
 	"io/fs"
-	"os"
 	"path/filepath"
-	"slices"
 	"strings"
 )
 
@@ -20,7 +18,6 @@ func makeScFreq() {
 	)
 
 	fileList := makeFileList(baseDir)
-	// writeFileList(fileList) // such a mad filesystem!
 
 	for i, fileName := range fileList {
 		filePath := filepath.Join(baseDir, fileName)
@@ -87,15 +84,4 @@ func makeFileList(baseDir string) []string {
 		})
 	tools.HardCheck(err)
 	return fileList
-}
-
-func writeFileList(fileList []string) {
-	fileString := ""
-	slices.Sort(fileList)
-	for _, file := range fileList {
-		fileString = fileString + file + "\n"
-	}
-	file, err := os.Create("temp.txt")
-	tools.HardCheck(err)
-	file.Write([]byte(fileString))
 }

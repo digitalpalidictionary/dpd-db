@@ -52,6 +52,9 @@ Read the relevant spec before working in an unfamiliar area.
 - NEVER use `sys.path` hacks or manual directory traversal (e.g., `Path(__file__).resolve().parents[n]`) to handle absolute imports.
 - Assume the script will be run from the project root or within a correctly configured environment where absolute imports work naturally.
 
+## Go
+- `go_modules/` has many `package main` directories (`frequency/`, `frequency/setup/`, `deconstructor/`, etc.). Never run `go build ./go_modules/<single-package-path>/` for a compile check — with no `-o` and exactly one main-package target, Go writes a binary to the current directory named after the package, littering the repo root with untracked multi-MB binaries. Use `go build ./go_modules/...` (compiles everything, writes no binaries because multiple main packages are targeted) or `go vet` for compile checks, or always pass `-o <scratchpad-path>` when a single package must be built.
+
 ## Codebase Sweeps / Audits
 - When auditing for a pattern (e.g. "hardcoded paths", "load-all-then-filter"), do NOT anchor on a single syntactic form. The same intent hides behind many call shapes — for paths: `open(...)`, `get_db_session(Path("dpd.db"))`, `.read_text()`, `configparser.read()`, and bare module-level constants. Grep by the underlying literal (e.g. `"dpd.db"`) as well as the consuming calls, and enumerate every carrier before declaring the sweep complete. This has been missed repeatedly — look harder.
 - Always sweep with `rg --hidden` — `.github/workflows/` and `.gitignore` are carriers too and a default `rg` skips them (this missed 4 files in one sweep).

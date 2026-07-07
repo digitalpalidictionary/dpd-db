@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"slices"
 	"strings"
@@ -20,73 +21,69 @@ import (
 
 var tic = tools.Tic()
 
-var templ = makeTemplate()
+// corpus holds one edition's file map (section → files, in table
+// order) aggregated into one word-frequency map per section.
+type corpus struct {
+	name        string
+	fileMapPath string
+	freqMapPath string
+	sections    []map[string]int
+}
 
-var CstFileMap = []map[string][]string{}
-var CstFileFreqMap = map[string]map[string]int{}
-var BjtFileMap = []map[string][]string{}
-var BjtFileFreqMap = map[string]map[string]int{}
-var SyaFileMap = []map[string][]string{}
-var SyaFileFreqMap = map[string]map[string]int{}
-var ScFileMap = []map[string][]string{}
-var ScFileFreqMap = map[string]map[string]int{}
+// loadCorpus reads the file map and the per-file freq map, then merges
+// each section's file maps into a single map, so freqFinder later does
+// one lookup per word per section instead of one per word per file.
+func loadCorpus(name string, fileMapPath string, freqMapPath string) *corpus {
+	fileMap := []map[string][]string{}
+	fileMap = tools.ReadJsonSliceMapStringSliceString(
+		filepath.Join(tools.Pth.DpdBaseDir, fileMapPath), fileMap)
+
+	fileFreqMap := map[string]map[string]int{}
+	fileFreqMap = tools.ReadJsonMapStringMapStringInt(
+		filepath.Join(tools.Pth.DpdBaseDir, freqMapPath), fileFreqMap)
+
+	sections := make([]map[string]int, 0, len(fileMap))
+	for _, section := range fileMap {
+		sectionMap := map[string]int{}
+		for _, fileList := range section {
+			for _, fileName := range fileList {
+				for word, count := range fileFreqMap[fileName] {
+					sectionMap[word] += count
+				}
+			}
+		}
+		sections = append(sections, sectionMap)
+	}
+
+	return &corpus{
+		name:        name,
+		fileMapPath: fileMapPath,
+		freqMapPath: freqMapPath,
+		sections:    sections,
+	}
+}
+
+func loadCorpora() []*corpus {
+	return []*corpus{
+		loadCorpus("cst", tools.Pth.CstFileMap, tools.Pth.CstFileFreqMap),
+		loadCorpus("bjt", tools.Pth.BjtFileMap, tools.Pth.BjtFileFreqMap),
+		loadCorpus("sya", tools.Pth.SyaFileMap, tools.Pth.SyaFileFreqMap),
+		loadCorpus("sc", tools.Pth.ScFileMap, tools.Pth.ScFileFreqMap),
+	}
+}
 
 var htmlStash = map[int]string{}
 var dataStash = map[int]string{}
 var mu sync.Mutex
 
-func init() {
+func main() {
 	tools.PTitle("frequency tables")
 
-	// cst fileMap
-	filePath := tools.Pth.CstFileMap
-	CstFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, CstFileMap)
+	corpora := loadCorpora()
+	templ := makeTemplate()
 
-	// cst fileFreqMap
-	filePath = filepath.Join(
-		tools.Pth.DpdBaseDir,
-		tools.Pth.CstFileFreqMap,
-	)
-	CstFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, CstFileFreqMap)
-
-	// bjt fileMap
-	filePath = tools.Pth.BjtFileMap
-	BjtFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, BjtFileMap)
-
-	// bjt fileFreqMap
-	filePath = filepath.Join(
-		tools.Pth.DpdBaseDir,
-		tools.Pth.BjtFileFreqMap,
-	)
-	BjtFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, BjtFileFreqMap)
-
-	// sya fileMap
-	filePath = tools.Pth.SyaFileMap
-	SyaFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, SyaFileMap)
-
-	// sya fileFreqMap
-	filePath = filepath.Join(
-		tools.Pth.DpdBaseDir,
-		tools.Pth.SyaFileFreqMap,
-	)
-	SyaFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, SyaFileFreqMap)
-
-	// sc fileMap
-	filePath = tools.Pth.ScFileMap
-	ScFileMap = tools.ReadJsonSliceMapStringSliceString(filePath, ScFileMap)
-
-	// sc fileFreqMap
-	filePath = filepath.Join(
-		tools.Pth.DpdBaseDir,
-		tools.Pth.ScFileFreqMap,
-	)
-	ScFileFreqMap = tools.ReadJsonMapStringMapStringInt(filePath, ScFileFreqMap)
-
-}
-
-func main() {
 	tools.PGreenTitle("making html & data")
-	var db, results = dpdDb.GetDpdHeadword()
+	db, results := getHeadwords()
 
 	numWorkers := runtime.NumCPU() * 2
 	jobs := make(chan dpdDb.DpdHeadword, numWorkers*2)
@@ -103,27 +100,47 @@ func main() {
 		close(jobs)
 	}()
 
-	workerpool.Run(numWorkers, jobs, makeFreqTable)
+	workerpool.Run(numWorkers, jobs, func(i dpdDb.DpdHeadword) {
+		makeFreqTable(i, corpora, templ)
+	})
+
 	updateDb(db, results)
 	tic.Toc()
 }
 
+// getHeadwords loads only the columns makeFreqTable and updateDb need,
+// not the full ~60-column rows.
+func getHeadwords() (*gorm.DB, []dpdDb.DpdHeadword) {
+	db := dpdDb.GetDb()
+	var results []dpdDb.DpdHeadword
+	err := db.
+		Select("id", "lemma_1", "pos", "stem", "inflections",
+			"inflections_api_ca_eva_iti").
+		Find(&results)
+	tools.HardCheck(err.Error)
+	return db, results
+}
+
+var whiteSpace = regexp.MustCompile(` {2,}`)
+
+// makeTemplate parses the frequency table template, minified once here
+// so rendered rows need no per-row whitespace cleaning. The returned
+// template is shared by all workers: text/template execution is safe
+// for parallel use.
 func makeTemplate() *template.Template {
-	filePath := tools.Pth.FreqTemplateHtml
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir,
+		tools.Pth.FreqTemplateHtml,
+	)
 
 	templateRead, err := os.ReadFile(filePath)
 	tools.HardCheck(err)
 
-	templ, err := template.New("frequency").Parse(string(templateRead))
+	minified := whiteSpace.ReplaceAllString(string(templateRead), "")
+	templ, err := template.New("frequency").Parse(minified)
 	tools.HardCheck(err)
 
 	return templ
-}
-
-func cloneTemplate() *template.Template {
-	templClone, err := templ.Clone()
-	tools.HardCheck(err)
-	return templClone
 }
 
 type templateData struct {
@@ -138,25 +155,24 @@ type templateData struct {
 	ScGrad      []int
 }
 
-func makeFreqTable(i dpdDb.DpdHeadword) {
+func makeFreqTable(
+	i dpdDb.DpdHeadword,
+	corpora []*corpus,
+	templ *template.Template,
+) {
 
 	wordList := i.InflectionsListALl()
 
-	CstFreqList := freqFinder(wordList, CstFileMap, CstFileFreqMap)
-	BjtFreqList := freqFinder(wordList, BjtFileMap, BjtFileFreqMap)
-	SyaFreqList := freqFinder(wordList, SyaFileMap, SyaFileFreqMap)
-	ScFreqList := freqFinder(wordList, ScFileMap, ScFileFreqMap)
+	CstFreqList := freqFinder(wordList, corpora[0])
+	BjtFreqList := freqFinder(wordList, corpora[1])
+	SyaFreqList := freqFinder(wordList, corpora[2])
+	ScFreqList := freqFinder(wordList, corpora[3])
 
 	// colour the gradient of the entire list
 	AllFreqList := slices.Concat(
 		CstFreqList, BjtFreqList, SyaFreqList, ScFreqList)
 
 	min, max := gradient.MinMax(AllFreqList)
-
-	CstGradientList := gradient.MakeGradients(CstFreqList, min, max)
-	BjtGradientList := gradient.MakeGradients(BjtFreqList, min, max)
-	SyaGradientList := gradient.MakeGradients(SyaFreqList, min, max)
-	ScGradientList := gradient.MakeGradients(ScFreqList, min, max)
 
 	// template data struct
 	td := templateData{}
@@ -176,8 +192,6 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 		td.ScFreq = []int{}
 		td.ScGrad = []int{}
 
-		html = ""
-
 	} else {
 
 		var heading string
@@ -195,15 +209,15 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 
 		td.FreqHeading = heading
 		td.CstFreq = CstFreqList
-		td.CstGrad = CstGradientList
+		td.CstGrad = gradient.MakeGradients(CstFreqList, min, max)
 		td.BjtFreq = BjtFreqList
-		td.BjtGrad = BjtGradientList
+		td.BjtGrad = gradient.MakeGradients(BjtFreqList, min, max)
 		td.SyaFreq = SyaFreqList
-		td.SyaGrad = SyaGradientList
+		td.SyaGrad = gradient.MakeGradients(SyaFreqList, min, max)
 		td.ScFreq = ScFreqList
-		td.ScGrad = ScGradientList
+		td.ScGrad = gradient.MakeGradients(ScFreqList, min, max)
 
-		html = htmlTemplater(td)
+		html = htmlTemplater(td, templ)
 	}
 
 	jsonData := tools.JsonMarshall(td)
@@ -214,59 +228,44 @@ func makeFreqTable(i dpdDb.DpdHeadword) {
 	mu.Unlock()
 }
 
-func freqFinder(
-	wordList []string,
-	fileMap []map[string][]string,
-	fileFreqMap map[string]map[string]int,
-) []int {
-
-	freqList := []int{}
-	for _, section := range fileMap {
-		sectionCount := 0
-		for _, fileList := range section {
-			for _, fileName := range fileList {
-				for _, word := range wordList {
-					wordCount := fileFreqMap[fileName][word]
-					sectionCount = sectionCount + wordCount
-				}
-			}
+func freqFinder(wordList []string, c *corpus) []int {
+	freqList := make([]int, len(c.sections))
+	for i, sectionMap := range c.sections {
+		for _, word := range wordList {
+			freqList[i] += sectionMap[word]
 		}
-		freqList = append(freqList, sectionCount)
 	}
 	return freqList
 }
 
-func htmlTemplater(td templateData) string {
-	t := cloneTemplate()
-
+func htmlTemplater(td templateData, templ *template.Template) string {
 	htmlBuffer := bytes.Buffer{}
-	err := t.Execute(&htmlBuffer, td)
+	err := templ.Execute(&htmlBuffer, td)
 	tools.HardCheck(err)
-
-	html := htmlBuffer.String()
-	html = tools.CleanWhiteSpace(html)
-
-	return html
+	return htmlBuffer.String()
 }
 
+// updateDb writes the two freq columns with a prepared UPDATE in one
+// transaction, instead of deleting and re-inserting the whole table.
 func updateDb(db *gorm.DB, results []dpdDb.DpdHeadword) {
 	tools.PGreenTitle("updating db")
 
-	updatedResults := []dpdDb.DpdHeadword{}
+	sqlDB, err := db.DB()
+	tools.HardCheck(err)
+
+	tx, err := sqlDB.Begin()
+	tools.HardCheck(err)
+	defer tx.Rollback()
+
+	stmt, err := tx.Prepare(
+		"UPDATE dpd_headwords SET freq_html = ?, freq_data = ? WHERE id = ?")
+	tools.HardCheck(err)
 
 	for _, i := range results {
-		i.FreqHtml = htmlStash[i.ID]
-		i.FreqData = dataStash[i.ID]
-		updatedResults = append(updatedResults, i)
+		_, err = stmt.Exec(htmlStash[i.ID], dataStash[i.ID], i.ID)
+		tools.HardCheck(err)
 	}
 
-	tx := db.Begin()
-	defer dpdDb.Rollback(tx)
-
-	// wipe the table clean
-	tx.Exec("DELETE FROM dpd_headwords")
-
-	// add the updated rows
-	tx.CreateInBatches(&updatedResults, 500)
-	tx.Commit()
+	err = tx.Commit()
+	tools.HardCheck(err)
 }
