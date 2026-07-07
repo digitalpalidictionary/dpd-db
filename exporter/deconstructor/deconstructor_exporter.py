@@ -2,14 +2,6 @@
 
 """Export Deconstructor To GoldenDict and MDict formats."""
 
-import os
-import shutil
-import sys
-import tempfile
-from concurrent.futures import ProcessPoolExecutor, as_completed
-
-from pyglossary import glossary_v2
-
 from db.db_helpers import get_db_session
 from db.models import Lookup
 from tools.configger import config_read, config_test
@@ -124,138 +116,29 @@ def make_deconstructor_dict_data(g: GlobalVars) -> None:
     db_session.close()
 
 
-def _export_worker(
-    kind: str,
-    dict_info: DictInfo,
-    dict_var: DictVariables,
-    dict_data: list[DictEntry],
-    include_slob: bool,
-    force_color: bool,
-) -> str:
-    """Run one export in a pool worker; return its captured console output.
-
-    Isolation needed for concurrent exports:
-    - pyglossary stages data entries in a single shared
-      ~/.cache/pyglossary/tmp and rmtree's it on cleanup, so concurrent
-      exports race on it; rebinding glossary_v2.cacheDir (the only consumer
-      on the non-slob write path, pyglossary 5.4.1) to a private dir removes
-      the race.
-    - stdout/stderr are captured at fd level so printer lines from
-      concurrent workers don't interleave mid-line; the parent prints each
-      worker's block whole when it completes. FORCE_COLOR keeps rich colors
-      when the parent is on a terminal (fd redirection makes isatty false).
-    """
-
-    if force_color:
-        os.environ["FORCE_COLOR"] = "1"
-    capture = tempfile.TemporaryFile()
-    saved_stdout = os.dup(1)
-    saved_stderr = os.dup(2)
-    sys.stdout.flush()
-    sys.stderr.flush()
-    os.dup2(capture.fileno(), 1)
-    os.dup2(capture.fileno(), 2)
-
-    private_cache = tempfile.mkdtemp(prefix="dpd-pyglossary-")
-    original_cache = glossary_v2.cacheDir
-    glossary_v2.cacheDir = private_cache
-
-    ok = False
-    try:
-        if kind == "goldendict":
-            export_to_goldendict_with_pyglossary(
-                dict_info, dict_var, dict_data, include_slob=include_slob
-            )
-        else:
-            export_to_mdict(dict_info, dict_var, dict_data)
-        ok = True
-    finally:
-        glossary_v2.cacheDir = original_cache
-        shutil.rmtree(private_cache, ignore_errors=True)
-        sys.stdout.flush()
-        sys.stderr.flush()
-        os.dup2(saved_stdout, 1)
-        os.dup2(saved_stderr, 2)
-        os.close(saved_stdout)
-        os.close(saved_stderr)
-        capture.seek(0)
-        output = capture.read().decode("utf-8", errors="replace")
-        capture.close()
-        if not ok:
-            sys.stderr.write(output)
-            sys.stderr.flush()
-
-    return output
-
-
 def prepare_and_export_to_gd_mdict(g: GlobalVars) -> None:
-    """Prepare data to export to GoldenDict using pyglossary.
-
-    The exports write independent files and run concurrently in worker
-    processes. Each worker gets its own copy of dict_data (so
-    mdict_exporter's in-place mutation of DictEntry.definition_html can't
-    leak across exports), an isolated pyglossary cache dir, and captured
-    console output printed as one block per export.
-    """
+    """Prepare data to export to GoldenDict using pyglossary."""
 
     dict_info1 = _make_dict_info("DPD Deconstructor")
     dict_vars1 = _make_dict_vars("dpd-deconstructor", g.pth)
-
-    dict_info2 = _make_dict_info("DPD Deconstructor2")
-    dict_vars2 = _make_dict_vars("dpd-deconstructor2", g.pth)
 
     # the deconstructor is too large for goldendict, so needs to be split in two.
     # find the halfway mark to use as a split point
     half = int(len(g.dict_data) / 2)
 
-    pr.green_title("exporting deconstructor dictionaries in parallel")
-    force_color = sys.stdout.isatty()
-    sys.stdout.flush()
-    sys.stderr.flush()
+    export_to_goldendict_with_pyglossary(
+        dict_info1, dict_vars1, g.dict_data[:half], include_slob=g.make_slob
+    )
 
-    with ProcessPoolExecutor(max_workers=3) as pool:
-        futures = [
-            pool.submit(
-                _export_worker,
-                "goldendict",
-                dict_info1,
-                dict_vars1,
-                g.dict_data[:half],
-                g.make_slob,
-                force_color,
-            ),
-            pool.submit(
-                _export_worker,
-                "goldendict",
-                dict_info2,
-                dict_vars2,
-                g.dict_data[half:],
-                g.make_slob,
-                force_color,
-            ),
-        ]
-        if g.make_mdict:
-            futures.append(
-                pool.submit(
-                    _export_worker,
-                    "mdict",
-                    dict_info1,
-                    dict_vars1,
-                    g.dict_data,
-                    False,
-                    force_color,
-                )
-            )
+    dict_info2 = _make_dict_info("DPD Deconstructor2")
+    dict_vars2 = _make_dict_vars("dpd-deconstructor2", g.pth)
 
-        errors: list[BaseException] = []
-        for future in as_completed(futures):
-            try:
-                print(future.result(), end="", flush=True)
-            except Exception as e:
-                errors.append(e)
+    export_to_goldendict_with_pyglossary(
+        dict_info2, dict_vars2, g.dict_data[half:], include_slob=g.make_slob
+    )
 
-    if errors:
-        raise errors[0]
+    if g.make_mdict:
+        export_to_mdict(dict_info1, dict_vars1, g.dict_data)
 
 
 def main() -> None:
