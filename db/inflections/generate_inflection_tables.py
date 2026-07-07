@@ -259,9 +259,6 @@ class InflectionsManager:
 
     def run(self) -> None:
         """Execute the entire inflection generation process."""
-        pr.tic()
-        pr.yellow_title("generate inflection lists and html tables")
-
         if not self.regenerate_all:
             self.run_tests()
         else:
@@ -295,7 +292,11 @@ class InflectionsManager:
 
 def main() -> None:
     """Initialize and run the inflection generation process."""
+    pr.tic()
+    pr.yellow_title("generate inflection lists and html tables")
+    pr.green_tmr("setting up db")
     manager = InflectionsManager()
+    pr.yes(len(manager.dpd_db))
     manager.run()
 
 
