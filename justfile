@@ -35,6 +35,23 @@ makedict-quick:
     script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
     uv run python scripts/build/config_quick_profile.py reset
 
+# Full release export: everything on (uposatha settings), resets config to baseline after
+makedict-all:
+    #!/usr/bin/env bash
+    mkdir -p logs
+    uv run python scripts/build/config_uposatha_day.py force
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+    uv run python scripts/build/config_uposatha_reset.py force
+
+# Minimum baseline export: resets config to baseline (post-uposatha settings) and runs
+makedict-min:
+    #!/usr/bin/env bash
+    mkdir -p logs
+    uv run python scripts/build/config_uposatha_reset.py force
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+
 # Complete rebuild and export everything
 initial_build_db_and_export_all:
     uv run python scripts/bash/initial_build_db_and_export_all.py
