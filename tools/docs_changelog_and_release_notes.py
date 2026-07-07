@@ -104,9 +104,9 @@ class ChangelogGenerator:
 
         self.line_1_headwords = (
             f"{self._format_number(total_headwords)} headwords, "
-            f"{self._format_number(total_complete)} complete, "
-            f"{self._format_number(total_partially_complete)} partially complete, "
-            f"{self._format_number(total_incomplete)} incomplete entries"
+            f"{self._format_number(total_complete)} ({total_complete / total_headwords * 100:.1f}%) complete, "
+            f"{self._format_number(total_partially_complete)} ({total_partially_complete / total_headwords * 100:.1f}%) partially complete, "
+            f"{self._format_number(total_incomplete)} ({total_incomplete / total_headwords * 100:.1f}%) incomplete entries"
         )
         self.line_5_cell_of_pali_data = (
             f"{self._format_number(total_data)} cells of Pāḷi word data"
@@ -220,8 +220,8 @@ class ChangelogGenerator:
 - {self.line_6_cells_of_root_data}
 - Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
 - Pass1 in progress: VIN5
-- Pass2 complete: DN1-3, MN1-3, SN1-5, AN1-2
-- Pass2 in progress: AN3
+- Pass2 complete: DN1-3, MN1-3, SN1-5, AN1-3
+- Pass2 in progress: AN4
 - numerous additions and corrections based on user feedback
 """
 
