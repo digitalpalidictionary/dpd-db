@@ -10,17 +10,11 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
-	"sync"
 	"sync/atomic"
 	"time"
 )
 
 var M = InitMatchData()
-
-var muMatched sync.RWMutex // guards MatchedMap, MatchedItems, Unmatched
-var muTried   sync.Mutex   // guards TriedMap
-var muProcess sync.Mutex   // guards ProcessCount
-var muStats   sync.Mutex   // guards WordStats
 
 var TestWord = ""
 var BlockedTries atomic.Int64
@@ -55,20 +49,53 @@ func InitMatchData() MatchData {
 	return m
 }
 
+// NewMatchData returns a fresh per-worker accumulator. Each worker owns one and
+// touches it single-threaded, so no locking is needed on the hot path.
+func NewMatchData() *MatchData {
+	m := InitMatchData()
+	return &m
+}
+
+// Merge folds per-worker accumulators into m. Words are usually processed by a
+// single worker, but a pre-existing in-place slice mutation in some splitters
+// (e.g. SplitIka appends into an aliased backing array) can rewrite one job's
+// word into another's, so the same (word, split) can be produced on two
+// workers. The original global MatchData deduped these through one shared
+// MatchedMap; this merge reproduces that by rejecting any (word, split) already
+// seen — keeping MatchItems the same set as the single-map baseline. Unmatched
+// is recomputed as the initial set minus every matched word.
+func (m *MatchData) Merge(parts []*MatchData) {
+	for _, p := range parts {
+		if p == nil {
+			continue
+		}
+		for _, mi := range p.MatchedItems {
+			if slices.Contains(m.MatchedMap[mi.Word], mi.Split) {
+				continue
+			}
+			m.MatchedItems = append(m.MatchedItems, mi)
+			m.MatchedMap[mi.Word] = append(m.MatchedMap[mi.Word], mi.Split)
+		}
+		for k, v := range p.ProcessCount {
+			m.ProcessCount[k] += v
+		}
+		m.WordStats = append(m.WordStats, p.WordStats...)
+	}
+	for word := range m.MatchedMap {
+		delete(m.Unmatched, word)
+	}
+}
+
 // Lookup the word in m.matchedMap
 // and if it exists, return the opposite.
 func (m *MatchData) HasNoMatches(w WordData) bool {
-	muMatched.RLock()
 	_, exists := m.MatchedMap[string(w.Word)]
-	muMatched.RUnlock()
 	return !exists
 }
 
 // Has this word already been tried? If not, add to the triedMap.
 func (m *MatchData) NotTriedYet(w WordData) bool {
 	splitString := w.MakeSplitString()
-	muTried.Lock()
-	defer muTried.Unlock()
 	splitList := m.TriedMap[string(w.Word)]
 	if slices.Contains(splitList, splitString) {
 		return false
@@ -78,23 +105,15 @@ func (m *MatchData) NotTriedYet(w WordData) bool {
 }
 
 func (m *MatchData) matchCount(w WordData) int {
-	muMatched.RLock()
-	list := m.MatchedMap[string(w.Word)]
-	muMatched.RUnlock()
-	return len(list)
+	return len(m.MatchedMap[string(w.Word)])
 }
 
 func (m *MatchData) ProcessCounter(w WordData) int {
-	muProcess.Lock()
-	processes := m.ProcessCount[string(w.Word)]
-	muProcess.Unlock()
-	return processes
+	return m.ProcessCount[string(w.Word)]
 }
 
 func (m *MatchData) ProcessPlusOne(w WordData) {
-	muProcess.Lock()
 	m.ProcessCount[string(w.Word)] = m.ProcessCount[string(w.Word)] + 1
-	muProcess.Unlock()
 }
 
 // single match datum
@@ -117,9 +136,6 @@ func (m *MatchData) MakeMatch(
 
 	splitString, splitCount, splitRatio := compileMatchData(w)
 
-	muMatched.Lock()
-	defer muMatched.Unlock()
-
 	if slices.Contains(m.MatchedMap[string(w.Word)], splitString) {
 		return
 	}
@@ -138,7 +154,6 @@ func (m *MatchData) MakeMatch(
 
 	m.MatchedItems = append(m.MatchedItems, mi)
 	m.MatchedMap[string(w.Word)] = append(m.MatchedMap[string(w.Word)], splitString)
-	delete(m.Unmatched, string(w.Word))
 }
 
 // TODO update

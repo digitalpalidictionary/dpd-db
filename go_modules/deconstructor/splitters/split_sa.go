@@ -9,7 +9,7 @@ func SplitSa(w data.WordData) {
 	if len(w.Middle) > 2 {
 
 		w.InitNewSplitter()
-		data.M.ProcessPlusOne(w)
+		w.Acc.ProcessPlusOne(w)
 		word := w.Middle
 		w.Front = append(w.Front, "sa")
 		w.RecurseFlag = true
@@ -30,7 +30,7 @@ func SplitSa(w data.WordData) {
 		if data.G.IsInInflections(w.Middle) {
 			w.ToRuleFront(0)
 			w.AddWeight(2)
-			data.M.MakeMatch(processName, w)
+			w.Acc.MakeMatch(processName, w)
 		} else {
 			w.ToRuleFront(0)
 			w.AddWeight(2)

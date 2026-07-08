@@ -2,7 +2,6 @@ package splitters
 
 import (
 	"dpd/go_modules/deconstructor/data"
-	t "dpd/go_modules/tools"
 )
 
 /*
@@ -18,49 +17,57 @@ func Split2(w data.WordData) {
 	}
 
 	w.InitNewSplitter()
-	data.M.ProcessPlusOne(w)
+	w.Acc.ProcessPlusOne(w)
 	word := w.Middle
 
+	// Build the middle once as a string plus a rune->byte offset table so the
+	// split loop can take zero-allocation substrings instead of converting a
+	// []rune candidate to string on every position.
+	s := string(word)
+	off := runeOffsets(s)
+	n := len(word)
+
 	// split the words into two parts
-	for x := range len(word) - 1 {
-		wordA := word[:x+1]
-		wordB := word[x+1:]
+	for x := range n - 1 {
+		aEnd := off[x+1]
+		sA := s[:aEnd]
+		sB := s[aEnd:]
 
 		// check if wordA & wordB are matches
-		if data.G.IsInInflections(wordA) &&
-			data.G.IsInInflections(wordB) {
+		if data.G.IsInInflectionsStr(sA) &&
+			data.G.IsInInflectionsStr(sB) {
 
 			// add to matches
 			w2 := w.MakeCopy()
-			w2.ToFront(wordA, wordB)
+			w2.ToFront([]rune(sA), []rune(sB))
 			w2.ToRuleFront(0)
 			w2.AddWeight(2)
 			w2.AddPath("2.1")
-			data.M.MakeMatch("2.1", w2)
+			w.Acc.MakeMatch("2.1", w2)
 		}
 
-		wordALastRune := wordA[len(wordA)-1]
-		wordBFirstRune := wordB[0]
+		wordALastRune := word[x]
+		wordBFirstRune := word[x+1]
 
 		// O(k) index lookup: returns only rules matching this rune pair (~1-5),
 		// replacing a full scan of all ~300 sandhi rules per split position.
 		for _, sr := range data.G.SandhiRuleIndex[wordALastRune][wordBFirstRune] {
 
 			// replace first and last letters with sandhi rules' letters
-			word1 := t.RunesPlus(wordA[:(len(wordA)-1)], sr.Ch1)
-			word2 := t.RunesPlus(sr.Ch2, wordB[1:])
+			word1 := s[:off[x]] + sr.Ch1S
+			word2 := sr.Ch2S + s[off[x+2]:]
 
 			// check if Word1 and Word2 are matches
-			if data.G.IsInInflections(word1) &&
-				data.G.IsInInflections(word2) {
+			if data.G.IsInInflectionsStr(word1) &&
+				data.G.IsInInflectionsStr(word2) {
 
 				// add to matches
 				w2 := w.MakeCopy()
-				w2.ToFront(word1, word2)
+				w2.ToFront([]rune(word1), []rune(word2))
 				w2.ToRuleFront(sr.Index)
 				w2.AddWeight(sr.Weight)
 				w2.AddPath("2.2")
-				data.M.MakeMatch("2.2", w2)
+				w.Acc.MakeMatch("2.2", w2)
 			}
 		}
 	}

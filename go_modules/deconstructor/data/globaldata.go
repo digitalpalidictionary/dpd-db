@@ -29,6 +29,13 @@ func (g GlobalData) IsInInflections(word []rune) bool {
 	return exists
 }
 
+// IsInInflectionsStr is the string-keyed form of IsInInflections, avoiding the
+// []rune -> string allocation on the hot Split2/Split3 lookup paths.
+func (g GlobalData) IsInInflectionsStr(word string) bool {
+	_, exists := g.AllInflections[word]
+	return exists
+}
+
 // IsInInflectionNoFirst reports whether word appears in the no-first-letter inflections set.
 func (g GlobalData) IsInInflectionNoFirst(word []rune) bool {
 	_, exists := g.AllInflectionsNoFirst[string(word)]

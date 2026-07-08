@@ -7,16 +7,16 @@ import (
 
 func SplitRecursive(w data.WordData) {
 
-	if data.M.NotTriedYet(w) {
+	if w.Acc.NotTriedYet(w) {
 		if (data.L.MaxProcessesSingle == 0 ||
 			w.ProcessCount <= data.L.MaxProcessesSingle) &&
 			(data.L.MaxProcessesTotal == 0 ||
-				data.M.ProcessCounter(w) <= data.L.MaxProcessesTotal) {
+				w.Acc.ProcessCounter(w) <= data.L.MaxProcessesTotal) {
 
-			if data.M.HasNoMatches(w) || w.LwffLwfbFlag {
+			if w.Acc.HasNoMatches(w) || w.LwffLwfbFlag {
 				SplitLwff(w)
 			}
-			if data.M.HasNoMatches(w) || w.LwffLwfbFlag {
+			if w.Acc.HasNoMatches(w) || w.LwffLwfbFlag {
 				SplitLwfb(w)
 			}
 

@@ -76,7 +76,8 @@ func main() {
 		close(jobs)
 	}()
 
-	workerpool.Run(numWorkers, jobs, deconstruct)
+	accs := workerpool.RunCollect(numWorkers, data.NewMatchData, jobs, deconstruct)
+	data.M.Merge(accs)
 	data.M.Summary()
 	data.M.SaveMatchedTsv()
 	data.M.SaveUnmatchedTsv()
@@ -90,9 +91,10 @@ func main() {
 	tic.Toc()
 }
 
-func deconstruct(w data.WordData) {
+func deconstruct(acc *data.MatchData, w data.WordData) {
+	w.Acc = acc
 	splitters.Split2(w)
 	splitters.Split3(w)
 	splitters.SplitRecursive(w)
-	data.M.SaveWordStats(w)
+	acc.SaveWordStats(w)
 }

@@ -10,7 +10,7 @@ func SplitPiti(w data.WordData) {
 	if len(w.Middle) > 5 {
 
 		w.InitNewSplitter()
-		data.M.ProcessPlusOne(w)
+		w.Acc.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
 		processName := "pīti"
@@ -39,7 +39,7 @@ func SplitPiti(w data.WordData) {
 				w2.ToRuleBack(sr.Index)
 				w2.AddWeight(sr.Weight)
 				w2.AddPath("pīti")
-				data.M.MakeMatch(processName, w2)
+				w.Acc.MakeMatch(processName, w2)
 
 			} else if string(word2) == "apīti" {
 

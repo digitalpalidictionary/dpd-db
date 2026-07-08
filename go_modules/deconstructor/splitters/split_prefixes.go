@@ -13,7 +13,7 @@ func SplitPrefixes(w data.WordData) {
 			prefixLen := len([]rune(prefix))
 			if len(w.Middle) >= prefixLen+2 {
 				w.InitNewSplitter()
-				data.M.ProcessPlusOne(w)
+				w.Acc.ProcessPlusOne(w)
 
 				w.Front = append(w.Front, prefix)
 				w.ToRuleFront(0)
@@ -23,7 +23,7 @@ func SplitPrefixes(w data.WordData) {
 				w.RecurseFlag = true
 
 				if data.G.IsInInflections(w.Middle) {
-					data.M.MakeMatch(prefix, w)
+					w.Acc.MakeMatch(prefix, w)
 				} else {
 					SplitRecursive(w)
 				}

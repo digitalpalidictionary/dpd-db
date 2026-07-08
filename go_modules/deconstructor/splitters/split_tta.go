@@ -11,7 +11,7 @@ func SplitTta(w data.WordData) {
 	if len(w.Middle) > 3 {
 
 		w.InitNewSplitter()
-		data.M.ProcessPlusOne(w)
+		w.Acc.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
 		processName := "tta"
@@ -55,7 +55,7 @@ func SplitTta(w data.WordData) {
 		if data.G.IsInInflections(w.Middle) {
 			w.ToRuleBack(0)
 			w.AddWeight(2)
-			data.M.MakeMatch(processName, w)
+			w.Acc.MakeMatch(processName, w)
 		} else {
 			w.ToRuleBack(0)
 			w.AddWeight(2)
