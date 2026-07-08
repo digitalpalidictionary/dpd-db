@@ -15,12 +15,22 @@
     },
     {
       "provider": "openrouter",
-      "model": "openrouter/owl-alpha",
+      "model": "tencent/hy3:free",
       "delay": 0
     },
     {
       "provider": "openrouter",
-      "model": "deepseek/deepseek-v4-flash",
+      "model": "minimax/minimax-m3",
+      "delay": 0
+    },
+    {
+      "provider": "openrouter",
+      "model": "z-ai/glm-5.2",
+      "delay": 0
+    },
+    {
+      "provider": "openrouter",
+      "model": "xiaomi/mimo-v2.5",
       "delay": 0
     },
     {
