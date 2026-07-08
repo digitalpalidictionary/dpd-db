@@ -11,6 +11,7 @@ var Pth = struct {
 	DeconManualCorrections string
 	DeconExceptions        string
 	SandhiRules            string
+	AbbreviationsOther     string
 
 	AllInflectionsJson string
 	MatchesDict        string
@@ -69,6 +70,7 @@ var Pth = struct {
 	DeconManualCorrections: "shared_data/deconstructor/manual_corrections.tsv",
 	DeconExceptions:        "shared_data/deconstructor/exceptions.tsv",
 	SandhiRules:            "shared_data/deconstructor/sandhi_rules.tsv",
+	AbbreviationsOther:     "shared_data/reference/abbreviations_other.tsv",
 
 	// frequency maps
 	CstFileFreqMap: "shared_data/frequency/cst_file_freq.json",

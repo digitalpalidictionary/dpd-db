@@ -228,19 +228,35 @@ func makeSpellingMistakes() {
 	}
 }
 
+// CST edition sigla and text abbreviations (sī, syā, pī, ṭī, ni, dha, pāci …)
+// are tokens in the corpus wordlists, not real compounds. They live in
+// abbreviations_other.tsv under source "CST"; excluding them from the input
+// keeps them out of deconstruction while leaving the inflection set (and thus
+// their use as components) untouched.
 func makeAbbreviations() {
-
-	db := dpdDb.GetDb()
-	columns := []string{"id", "lemma_1", "pos"}
-	var results []dpdDb.DpdHeadword
-	err := db.Select(columns).
-		Where("pos = ?", "abbrev").
-		Find(&results)
-	tools.HardCheck(err.Error)
-
-	for _, i := range results {
-		ic.abbreviations[i.LemmaClean()] = ""
+	filePath := filepath.Join(
+		tools.Pth.DpdBaseDir, tools.Pth.AbbreviationsOther,
+	)
+	rows := tools.ReadTsv(filePath)
+	for abbrev := range cstAbbreviationsFromRows(rows) {
+		ic.abbreviations[abbrev] = ""
 	}
+}
+
+// cstAbbreviationsFromRows returns the set of abbreviations whose source is
+// "CST", trimmed of surrounding whitespace (the file uses CRLF line endings).
+func cstAbbreviationsFromRows(rows []map[string]string) map[string]string {
+	abbreviations := map[string]string{}
+	for _, row := range rows {
+		if strings.TrimSpace(row["source"]) != "CST" {
+			continue
+		}
+		abbrev := strings.TrimSpace(row["abbreviation"])
+		if abbrev != "" {
+			abbreviations[abbrev] = ""
+		}
+	}
+	return abbreviations
 }
 
 func makeManualCorrections() {
