@@ -24,7 +24,13 @@ func SplitIka(w data.WordData) {
 		if strings.HasSuffix(string(word), suffix) && len(w.Middle) > len(suffix)+2 {
 
 			suffixLen := len(t.Str2Rune(suffix))
-			middle := append(word[:len(word)-suffixLen], 'a') // add the letter 'a' back
+			// build the stem in fresh memory then add the 'a' back — appending
+			// into word[:...] would overwrite the shared backing array in place
+			// and corrupt the original word (e.g. gāmikā -> gāmakā).
+			stem := word[:len(word)-suffixLen]
+			middle := make([]rune, len(stem)+1)
+			copy(middle, stem)
+			middle[len(stem)] = 'a'
 			back := t.Str2Rune(suffix)
 			w.ToBack(middle, back)
 			processName = suffix

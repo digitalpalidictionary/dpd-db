@@ -71,7 +71,7 @@ func (w WordData) MakeCopy() WordData {
 	w2.Back = slices.Clone(w.Back)
 
 	w2.RuleFront = slices.Clone(w.RuleFront)
-	w2.RuleFront = slices.Clone(w.RuleFront)
+	w2.RuleBack = slices.Clone(w.RuleBack)
 
 	w2.Weight = w.Weight + 0
 	w2.Path = slices.Clone(w.Path)
