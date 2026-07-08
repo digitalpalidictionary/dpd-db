@@ -11,7 +11,7 @@ func SplitApiCaEvaItiHi(w data.WordData) {
 	if len(w.Middle) > 3 {
 
 		w.InitNewSplitter()
-		data.M.ProcessPlusOne(w)
+		w.Acc.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
 		processName := "apicaevaitihi"
@@ -49,7 +49,7 @@ func SplitApiCaEvaItiHi(w data.WordData) {
 					w2.ToRuleBack(sr.Index)
 					w2.AddWeight(sr.Weight)
 					w2.AddPath("apicaevaitihi")
-					data.M.MakeMatch(processName, w2)
+					w.Acc.MakeMatch(processName, w2)
 
 				} else if slices.Contains([]string{"api", "ca", "ce", "eva", "iti", "hi"}, string(word2)) {
 					// check if word2 is apicaevaitihi and recurse

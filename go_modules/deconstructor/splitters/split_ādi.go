@@ -10,7 +10,7 @@ func SplitAdi(w data.WordData) {
 	if len(w.Middle) > 3 {
 
 		w.InitNewSplitter()
-		data.M.ProcessPlusOne(w)
+		w.Acc.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
 		processName := "ādi"
@@ -41,7 +41,7 @@ func SplitAdi(w data.WordData) {
 					w2.ToRuleBack(sr.Index)
 					w2.AddWeight(sr.Weight)
 					w2.AddPath("ādi")
-					data.M.MakeMatch(processName, w2)
+					w.Acc.MakeMatch(processName, w2)
 
 				} else if string(word2) == "ādi" {
 					// check if word2 is ādi and recurse

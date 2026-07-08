@@ -26,6 +26,8 @@ func makeSandhiRules() []data.SandhiRules {
 			ChB:    tools.Str2Rune(value["chB"]),
 			Ch1:    tools.Str2Rune(value["ch1"]),
 			Ch2:    tools.Str2Rune(value["ch2"]),
+			Ch1S:   value["ch1"],
+			Ch2S:   value["ch2"],
 			Eg:     tools.Str2Rune(value["eg"]),
 			Weight: weight,
 		}

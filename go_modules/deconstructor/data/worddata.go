@@ -40,6 +40,7 @@ type WordData struct {
 	Path         []string
 	StartTime    time.Time
 	TimeDuration time.Duration
+	Acc          *MatchData
 }
 
 // Initialize a word with some default settings
@@ -77,6 +78,8 @@ func (w WordData) MakeCopy() WordData {
 
 	w2.StartTime = w.StartTime
 	w2.TimeDuration = w.TimeDuration
+
+	w2.Acc = w.Acc
 
 	return w2
 }

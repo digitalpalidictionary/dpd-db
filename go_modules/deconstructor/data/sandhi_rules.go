@@ -6,6 +6,8 @@ type SandhiRules struct {
 	ChB    []rune
 	Ch1    []rune
 	Ch2    []rune
+	Ch1S   string // string form of Ch1, cached to avoid per-lookup conversion
+	Ch2S   string // string form of Ch2, cached to avoid per-lookup conversion
 	Eg     []rune
 	Weight int
 }

@@ -12,7 +12,7 @@ func SplitLwfb(w data.WordData) {
 	}
 
 	w.InitNewSplitter()
-	data.M.ProcessPlusOne(w)
+	w.Acc.ProcessPlusOne(w)
 	word := w.Middle
 	w.RecurseFlag = true
 	w.LwffLwfbFlag = true
@@ -60,7 +60,7 @@ func SplitLwfb(w data.WordData) {
 				w2.ToRuleFront(0)
 				w2.AddWeight(2)
 				w2.AddPath("lwfb1")
-				data.M.MakeMatch("lwfb1", w2)
+				w.Acc.MakeMatch("lwfb1", w2)
 			} else {
 				w2.ToBack(middle, lwfbClean)
 				w2.ToRuleFront(0)
@@ -98,7 +98,7 @@ func SplitLwfb(w data.WordData) {
 						w2.ToRuleBack(sr.Index)
 						w2.AddWeight(sr.Weight)
 						w2.AddPath("lwfb2")
-						data.M.MakeMatch("lwfb2", w2)
+						w.Acc.MakeMatch("lwfb2", w2)
 
 					} else {
 						// recurse

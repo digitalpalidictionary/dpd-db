@@ -46,6 +46,34 @@ func TestRun_WorkersTerminateOnChannelClose(t *testing.T) {
 	}
 }
 
+// RunCollect must process every item exactly once across all per-worker states,
+// return one state per worker, and give each worker its own state instance.
+func TestRunCollect_ProcessesAllItemsAndCollectsState(t *testing.T) {
+	numWorkers := runtime.NumCPU()
+	const itemCount = 500
+
+	newState := func() *int64 { return new(int64) }
+	states := workerpool.RunCollect(numWorkers, newState, makeJobs(itemCount),
+		func(s *int64, _ int) { *s++ })
+
+	if len(states) != numWorkers {
+		t.Fatalf("expected %d states, got %d", numWorkers, len(states))
+	}
+
+	seen := map[*int64]bool{}
+	var total int64
+	for _, s := range states {
+		if seen[s] {
+			t.Error("two workers shared the same state instance")
+		}
+		seen[s] = true
+		total += *s
+	}
+	if total != itemCount {
+		t.Errorf("expected %d items processed, got %d", itemCount, total)
+	}
+}
+
 // Concurrent workers must not exceed numWorkers at any point.
 func TestRun_BoundedConcurrency(t *testing.T) {
 	numWorkers := runtime.NumCPU()

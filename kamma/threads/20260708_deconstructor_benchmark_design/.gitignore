@@ -1,0 +1,3 @@
+# Benchmarking artifacts — regeneratable, large (golden TSVs, pprof profiles, throwaway harness)
+scratchpad/
+scratchpad2/

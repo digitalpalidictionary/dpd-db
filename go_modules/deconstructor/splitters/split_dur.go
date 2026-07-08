@@ -9,7 +9,7 @@ func SplitDur(w data.WordData) {
 	if len(w.Middle) > 3 {
 
 		w.InitNewSplitter()
-		data.M.ProcessPlusOne(w)
+		w.Acc.ProcessPlusOne(w)
 		word := w.Middle
 		w.RecurseFlag = true
 		processName := "dur"
@@ -33,7 +33,7 @@ func SplitDur(w data.WordData) {
 		// TODO How to handle "du-rakkhiya"?
 
 		if data.G.IsInInflections(w.Middle) {
-			data.M.MakeMatch(processName, w)
+			w.Acc.MakeMatch(processName, w)
 		} else {
 			SplitRecursive(w)
 		}

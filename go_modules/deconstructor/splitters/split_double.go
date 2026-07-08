@@ -7,7 +7,7 @@ import (
 func SplitDoubleLetter(w data.WordData) {
 
 	w.InitNewSplitter()
-	data.M.ProcessPlusOne(w)
+	w.Acc.ProcessPlusOne(w)
 	w.RecurseFlag = true
 	processName := "-double"
 
@@ -17,7 +17,7 @@ func SplitDoubleLetter(w data.WordData) {
 		w.ToRuleFront(0)
 		w.AddWeight(1)
 		w.AddPath(processName)
-		data.M.MakeMatch(processName, w)
+		w.Acc.MakeMatch(processName, w)
 	} else {
 		w.ToRuleFront(0)
 		w.AddWeight(2)
