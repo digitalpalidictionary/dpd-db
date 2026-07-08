@@ -831,6 +831,7 @@ Dutiyamoranivāpasutta
 Dutiyanatumhākasutta
 Dutiyasikkhāsutta
 Dutiyasūriyasutta
+Dutiyavohārapathasutta
 duvaṅgika
 dvanda
 dvedhikajātā
@@ -2055,6 +2056,7 @@ Paṭhamakaṇḍakīsutta
 Paṭhamamoranivāpasutta
 Paṭhamasikkhāsutta
 Paṭhamasūriyasutta
+Paṭhamavohārapathasutta
 paṭibhastāni
 paṭighanimitta
 Paṭisambhidā
@@ -2170,6 +2172,7 @@ properness
 propitiate
 propitiated
 prosody
+protege
 Prunus
 Prutitus
 Pterospermum

@@ -18,12 +18,13 @@ from tools.printer import printer as pr
 exceptions = {
     "abhibhū",
     "abhijñāadhiprajñā",
-    "ājñā",
     "anupādā",
     "hrī",
     "kṣudh",
     "medhā",
+    "nidrā",
     "niṣṭhā",
+    "parijñā",
     "pariṣad",
     "prabhā",
     "prajñā",
@@ -34,11 +35,11 @@ exceptions = {
     "samavasthā",
     "saṃjñā",
     "saṃsthā",
-    "śraddhā",
     "upamā",
     "vidhā",
     "vidyut",
-    "nidrā",
+    "ājñā",
+    "śraddhā",
 }
 
 
