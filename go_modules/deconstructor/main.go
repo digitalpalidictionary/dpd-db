@@ -95,9 +95,10 @@ func main() {
 	data.CleanupWorkers(accs)
 	os.Remove(tempDir)
 
-	if data.L.WordLimit == 0 && len(testSet) == 0 {
-		data.M.SaveToDb()
-	}
+	// The lookup.deconstructor column is written by the Python step
+	// scripts/build/deconstructor_output_add_to_db.py, which reads the
+	// deconstructor_output.json produced above and syncs it via the targeted
+	// upsert in tools/lookup_sync.py (not a DELETE-and-rebuild).
 
 	tic.Toc()
 }

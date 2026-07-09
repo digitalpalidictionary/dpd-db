@@ -60,11 +60,19 @@ holds only **one word's candidates** in RAM at a time.
 6. **Test CI workflow** that downloads a recent `dpd.db` release asset, runs the
    Go deconstructor against it, and stops — reporting wall time and peak RSS
    (`/usr/bin/time -v`). No release steps, no upload. Purpose: prove it fits.
-7. **Final integration (gated on the proof passing).** Replace the release
-   workflows' "unzip premade + `deconstructor_output_add_to_db.py`" steps with a
-   direct `go run go_modules/deconstructor/main.go` (which writes to the db
-   itself), leaving the existing `deconstructor_exporter.py` step unchanged.
-   Retire the manual premade-artifact upload.
+7. **Final integration (gated on the proof passing).** In the release workflows,
+   REMOVE the "unzip premade" step and INSERT a `go run
+   go_modules/deconstructor/main.go` step (generates `deconstructor_output.json`
+   fresh) immediately before the existing `deconstructor_output_add_to_db.py`
+   step, which is KEPT — it syncs that JSON into `lookup.deconstructor` via the
+   proven targeted upsert in `tools/lookup_sync.py` (`sync_lookup_column`).
+   `deconstructor_exporter.py` unchanged. Retire the manual premade-artifact
+   upload (Go now generates the JSON).
+   - **The Go program does NOT write the db.** Its `SaveToDb` was removed: it
+     used the flagged error-prone `DELETE FROM lookup` + full ORM rebuild, which
+     both violated a NOT NULL column (`abbrev_other`, absent from the Go `Lookup`
+     struct) and would wipe any column the struct lacks. Reusing the Python sync
+     avoids reimplementing that logic in Go.
 
 ## Assumptions & uncertainties
 - **Top-5 determinism (highest risk).** Current selection sorts all items by
@@ -81,7 +89,7 @@ holds only **one word's candidates** in RAM at a time.
   follow-up compacts the inflection maps (`map[string]string` →
   `map[string]struct{}`). Gated on measurement.
 - The correctness target is `deconstructor_output.json` (→ `lookup.deconstructor`
-  column), **not** `matches.tsv` (debug). Confirmed from `SaveToDb`.
+  column via the Python `sync_lookup_column`), **not** `matches.tsv` (debug).
 - The test workflow assumes a downloadable `dpd.db` release asset exists (used by
   `mobile_release.yml` via `gh release download`). If not, it builds the db far
   enough to populate inflections first.

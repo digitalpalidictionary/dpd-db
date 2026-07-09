@@ -2,10 +2,8 @@ package data
 
 import (
 	"cmp"
-	"dpd/go_modules/dpdDb"
 	"dpd/go_modules/tools"
 	"encoding/csv"
-	"encoding/json"
 	"fmt"
 	"io"
 	"os"
@@ -546,119 +544,9 @@ func (m MatchData) SaveTopEntriesJson() {
 	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(m.TopFive), float64(fileInfo.Size())/1000/1000))
 }
 
-// get the lookup db
-// for each entry add update or delete
-
-func (m MatchData) SaveToDb() {
-	tools.PTitle("Saving to DB")
-	db, results := dpdDb.GetLookup()
-
-	// iterate through results
-	// if in lookup key & in top five: update
-	// if in lookup key & not in top five & has other values: mute
-	// if in lookup key & not in top five & has no other values: delete
-	// if not in lookup key and in top five, add
-
-	addedCount := 0
-	updatedCount := 0
-	deletedCount := 0
-	mutedCount := 0
-
-	saveTime := time.Now()
-	lookupKeys := map[string]string{} // collect the keys
-	updatedResults := []dpdDb.Lookup{}
-
-	// updated, delete, mute
-	for _, l := range results {
-		// if i%10000 == 0 {
-		// 	pf("%v / %v %v\n", i, len(results), l.Key)
-		// }
-		lookupKeys[l.Key] = ""
-		_, exists := m.TopFive[l.Key]
-		if exists {
-			jsonData, err := json.Marshal(m.TopFive[l.Key])
-			tools.HardCheck(err)
-			l.Deconstructor = string(jsonData)
-			updatedResults = append(updatedResults, l)
-			updatedCount++
-		} else {
-			if shouldDelete(l) {
-				// don't add it to the updatedResults, that's all
-				deletedCount++
-			} else {
-				l.Deconstructor = ""
-				updatedResults = append(updatedResults, l)
-				mutedCount++
-			}
-		}
-	}
-
-	// what needs to be added?
-	for key, value := range m.TopFive {
-		_, exists := lookupKeys[key]
-		if !exists {
-			l := dpdDb.Lookup{}
-			l.Key = key
-			jsonData, err := json.Marshal(value)
-			tools.HardCheck(err)
-			l.Deconstructor = string(jsonData)
-			updatedResults = append(updatedResults, l)
-			addedCount++
-		}
-	}
-
-	tx := db.Begin()
-	// defer dpdDb.Rollback(tx)
-
-	// wipe the table clean
-	tx.Exec("DELETE FROM lookup")
-
-	// add the updated rows
-	tx.CreateInBatches(updatedResults, 2000)
-	tx.Commit()
-
-	tools.PGreen("added:")
-	tools.POk(fmt.Sprintf("%v", addedCount))
-	tools.PGreen("updated:")
-	tools.POk(fmt.Sprintf("%v", updatedCount))
-	tools.PGreen("deleted:")
-	tools.POk(fmt.Sprintf("%v", deletedCount))
-	tools.PGreen("muted:")
-	tools.POk(fmt.Sprintf("%v", mutedCount))
-	tools.PGreen("db time:")
-	tools.POk(fmt.Sprintf("%v", time.Since(saveTime).Seconds()))
-	tools.PGreen("total time:")
-	tools.POk(fmt.Sprintf("%v", time.Since(m.StartTime).Seconds()))
-}
-
-func shouldDelete(l dpdDb.Lookup) bool {
-	// TODO surely this can be automated
-	if l.Headwords != "" {
-		return false
-	}
-	if l.Roots != "" {
-		return false
-	}
-	if l.Variant != "" {
-		return false
-	}
-	if l.Spelling != "" {
-		return false
-	}
-	if l.Grammar != "" {
-		return false
-	}
-	if l.Help != "" {
-		return false
-	}
-	if l.Abbrev != "" {
-		return false
-	}
-	if l.Epd != "" {
-		return false
-	}
-	if l.Rpd != "" {
-		return false
-	}
-	return true
-}
+// The db write is intentionally NOT done here. The Go program only generates
+// deconstructor_output.json; the lookup.deconstructor column is synced from that
+// JSON by scripts/build/deconstructor_output_add_to_db.py, which uses the proven
+// targeted upsert in tools/lookup_sync.py (ON CONFLICT ... DO UPDATE SET
+// deconstructor = excluded.deconstructor) — never a DELETE-and-rebuild of the
+// whole lookup table.

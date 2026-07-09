@@ -154,12 +154,17 @@ through inflections so all inputs exist, then runs the Go deconstructor.
 Config enabler: added `generate: {deconstructor: "yes"}` to the `github_release`
 profile in `tools/configger.py` (the profile had no `generate` section, so the Go
 binary's one gate `[generate] deconstructor` was never set on the runner).
-- [x] 5.1 `draft_release.yml` + `mobile_release.yml`: removed "Unzip
-      deconstructor_output" step; replaced `deconstructor_output_add_to_db.py`
-      with `go run go_modules/deconstructor/main.go` at the same build position
-      (inflections + word lists already present there). `deconstructor_exporter.py`
-      unchanged. mobile's `use_last_release_db` variant untouched (skips decon).
-      → verify: all 3 workflow YAMLs valid ✓; ruff/pyright clean on configger.py ✓.
+- [ ] 5.1 (REVERTED — was wrong shape; redo per decision B.) User reverted the
+      earlier draft/mobile edits (which replaced add_to_db.py with go run). Correct
+      wiring for B: in `draft_release.yml` + `mobile_release.yml`, REMOVE the "Unzip
+      deconstructor_output" step and INSERT a `go run go_modules/deconstructor/
+      main.go` step immediately BEFORE the existing "Run Deconstructor"
+      (`deconstructor_output_add_to_db.py`) step — Go generates the JSON fresh,
+      Python syncs it to the db. Keep add_to_db.py and `deconstructor_exporter.py`.
+      Needs `[generate] deconstructor = yes` (added to github_release profile in
+      configger.py) so main.go runs. mobile's `use_last_release_db` variant
+      untouched (skips decon). Do this only after the code (4b) is committed to main.
+      → verify: YAML valid; go-run step precedes add_to_db; JSON path lines up.
 - [~] 5.2 Premade path removed from the two named release workflows. NOT touched
       (out of scope, per user): `pdf_test.yml` (no Go setup; its unzip is
       vestigial — never runs add_to_db) and `submodules_update.yml`. The
@@ -169,9 +174,37 @@ binary's one gate `[generate] deconstructor` was never set on the runner).
 - [ ] 5.3 End-to-end: a release-workflow run regenerates the deconstructor in CI
       and downstream export proceeds; deconstructor column matches a baseline.
       → verify: workflow green through export. (awaiting live run — user tests)
-      NOTE: Go `SaveToDb` does `DELETE FROM lookup` + full rewrite (vs the Python
-      `sync_lookup_column`); it is the canonical original writer, but this is the
-      main thing to watch in the live e2e.
+
+## Phase 4b — CI PROOF RESULT + SaveToDb rewrite (BLOCKS Phase 5)
+CI RESULT (run 29016342450, branch build): deconstructor ran the FULL corpus on
+the 16 GB runner — **peak RSS ~5.3 GB (flat)**, 934,196 words → 847,307 matched,
+14,494,461 match items (matches local), finish-word dupes 0, compute ~12.3 min.
+Memory fit is PROVEN. (Prior CI runs OOM'd only because the workflow checked out
+`main` = old code; fixed via `ref: ${{ github.ref_name }}`.)
+
+BUG surfaced by the run: `SaveToDb` failed `NOT NULL constraint failed:
+lookup.abbrev_other`, then the process still exited 0 (error swallowed) — so the
+deconstructor column was never written and the run went green anyway.
+
+ROOT CAUSE (not the refactor): `SaveToDb` uses the flagged error-prone pattern —
+`DELETE FROM lookup` + full ORM rebuild from `dpdDb.Lookup` structs. That struct
+lags the schema (missing `abbrev_other`), so the rebuild both violates NOT NULL
+and would WIPE any column absent from the struct. Project rule (CLAUDE.md
+Performance Work) forbids this: use targeted `ON CONFLICT ... DO UPDATE SET
+<col> = excluded.<col>`, per `tools/lookup_sync.py:_raw_sql_sync`.
+- [x] 4b.1 DECISION: **B** (per user — don't reinvent the wheel; the Python sync
+      already exists and is proven). Deleted Go `SaveToDb` + `shouldDelete`
+      entirely (and their `dpdDb`/`encoding/json` imports). The Go program now
+      only generates `deconstructor_output.json`; the db write is done by
+      `scripts/build/deconstructor_output_add_to_db.py` → `sync_lookup_column`
+      (targeted `ON CONFLICT DO UPDATE`, no `DELETE FROM lookup`, `abbrev_other`
+      and all other columns preserved).
+      → verify: 20k golden MD5 still `82a9e465`; `go vet`/`-race` clean; builds;
+      no `SaveToDb`/`DELETE FROM lookup`/`GetLookup` left in deconstructor. ✓
+- [x] 4b.2 Error-swallowing resolved by removal — Go no longer writes the db, so
+      there is no ignored `CreateInBatches`/`Commit` error. The Python
+      `sync_lookup_column` path already handles/raises on failure.
+      → verify: no Go db-write remains. ✓
 
 ## Phase 6 — finalize
 - [ ] 6.1 Remove the scratchpad bench harness; `git status` shows only intended
