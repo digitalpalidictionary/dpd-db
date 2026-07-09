@@ -212,11 +212,12 @@ Performance Work) forbids this: use targeted `ON CONFLICT ... DO UPDATE SET
       `sync_lookup_column` path already handles/raises on failure.
       → verify: no Go db-write remains. ✓
 
-## Phase 6 — finalize
-- [ ] 6.1 Remove the scratchpad bench harness; `git status` shows only intended
-      files.
-- [ ] 6.2 Write results (before/after peak RSS, CI run link, golden-equivalence
-      statement) into this thread; update `spec.md`/`plan.md` if reality drifted.
+## Phase 6 — finalize  [DONE]
+- [x] 6.1 Bench harness (`go_modules/deconstructor/cmd/`) removed; tree clean.
+- [x] 6.2 Results recorded in `review.md`: local peak RSS 3.41 GB (was 23.9 GB,
+      ~7×), CI peak ~5.3 GB on the 16 GB runner (run 29016342450), output
+      byte-identical (`82a9e465` / `77f9b2ae`). Post-review temp-dir cleanup fix
+      applied to `main.go`. Reviewed (Opus + CodeRabbit) → PASSED.
 
 ## Notes
 - No task changes the real dictionary output; the golden gate is the proof.

@@ -57,6 +57,9 @@ func main() {
 	outputDir := filepath.Dir(tools.Pth.DeconstructorOutput)
 	tempDir, err := os.MkdirTemp(outputDir, "worker_tmp_")
 	tools.HardCheck(err)
+	// Always remove the temp dir — including on a mid-run panic (e.g. disk-full),
+	// so a failed local run never orphans multi-GB worker files.
+	defer os.RemoveAll(tempDir)
 
 	// Bounded worker pool: NumCPU*2 workers pull from a buffered channel.
 	// Replaces the previous unbounded goroutine-per-word pattern that caused
@@ -92,8 +95,6 @@ func main() {
 	data.M.SaveUnmatchedTsv()
 	data.M.SaveTopEntriesJson()
 	data.M.SaveStatsTsv()
-	data.CleanupWorkers(accs)
-	os.Remove(tempDir)
 
 	// The lookup.deconstructor column is written by the Python step
 	// scripts/build/deconstructor_output_add_to_db.py, which reads the
