@@ -154,17 +154,23 @@ through inflections so all inputs exist, then runs the Go deconstructor.
 Config enabler: added `generate: {deconstructor: "yes"}` to the `github_release`
 profile in `tools/configger.py` (the profile had no `generate` section, so the Go
 binary's one gate `[generate] deconstructor` was never set on the runner).
-- [ ] 5.1 (REVERTED — was wrong shape; redo per decision B.) User reverted the
-      earlier draft/mobile edits (which replaced add_to_db.py with go run). Correct
-      wiring for B: in `draft_release.yml` + `mobile_release.yml`, REMOVE the "Unzip
-      deconstructor_output" step and INSERT a `go run go_modules/deconstructor/
-      main.go` step immediately BEFORE the existing "Run Deconstructor"
-      (`deconstructor_output_add_to_db.py`) step — Go generates the JSON fresh,
-      Python syncs it to the db. Keep add_to_db.py and `deconstructor_exporter.py`.
-      Needs `[generate] deconstructor = yes` (added to github_release profile in
-      configger.py) so main.go runs. mobile's `use_last_release_db` variant
-      untouched (skips decon). Do this only after the code (4b) is committed to main.
-      → verify: YAML valid; go-run step precedes add_to_db; JSON path lines up.
+- [x] 5.1 (Redone per decision B.) `draft_release.yml` + `mobile_release.yml`:
+      removed "Unzip deconstructor_output"; added a "Generate Deconstructor"
+      (`go run go_modules/deconstructor/main.go`) step before the kept step,
+      renamed "Run Deconstructor" → "Add Deconstructor to db"
+      (`deconstructor_output_add_to_db.py`). Go generates the JSON fresh; Python
+      syncs it. `[generate] deconstructor = yes` via the github_release profile.
+      mobile's `use_last_release_db` guards preserved.
+      LOCAL PARITY (build order must match CI): `scripts/bash/generate_components.py`
+      and `just decon` now run `deconstructor_output_add_to_db.py` right after the
+      `go run` — the removed Go `SaveToDb` had populated the local db, so without
+      this the local build would generate the JSON but never fill
+      `lookup.deconstructor`. `add_to_db.py` gate made positive (`== "yes"`).
+      Local order (after `db/variants/main.py`): go run → add_to_db → tarball →
+      api_ca_eva_iti — same slot as the workflow's Generate → Add-to-db.
+      pdf_test/submodules_update left alone (test-only, out of scope per user).
+      → verify: both release YAMLs valid ✓; Generate precedes Add-to-db ✓;
+      ruff/pyright clean on add_to_db.py + generate_components.py ✓.
 - [~] 5.2 Premade path removed from the two named release workflows. NOT touched
       (out of scope, per user): `pdf_test.yml` (no Go setup; its unzip is
       vestigial — never runs add_to_db) and `submodules_update.yml`. The

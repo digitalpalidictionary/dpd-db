@@ -37,6 +37,7 @@ COMMANDS = [
     "db/variants/main.py",
     #
     "go run go_modules/deconstructor/main.go",
+    "scripts/build/deconstructor_output_add_to_db.py",
     "scripts/build/tarball_deconstructor_output.py",
     #
     "scripts/build/api_ca_eva_iti_iva_hi.py",

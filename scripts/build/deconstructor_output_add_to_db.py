@@ -22,7 +22,7 @@ def main() -> None:
     pr.tic()
     pr.yellow_title("adding deconstructor output to lookup db")
 
-    if config_read("generate", "deconstructor", "yes") == "no":
+    if config_read("generate", "deconstructor", "yes") != "yes":
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
