@@ -14,7 +14,7 @@
 
 ## Phase 1: Implement the fix
 
-- [ ] Add `glos.tmpDataDir` access to `create_glossary()`
+- [x] Add `glos.tmpDataDir` access to `create_glossary()`
   - File: `tools/goldendict_exporter.py`, function `create_glossary` (line ~140)
   - After the `Glossary(...)` constructor and before `pr.yes("ok")`, add:
     ```python
@@ -25,13 +25,13 @@
     ```
   - → verify: `uv run pyright tools/goldendict_exporter.py` passes, `uv run ruff check tools/goldendict_exporter.py` passes
 
-- [ ] Confirm no type or lint errors
+- [x] Confirm no type or lint errors
   - `_ = glos.tmpDataDir` is a property access for its side effect (triggers `_setTmpDataDir`). The `_` discard is F841-exempt in ruff (intentionally-unused-variable). No `# noqa` needed.
   - → verify: `uv run ruff check --fix tools/goldendict_exporter.py` and `uv run ruff format tools/goldendict_exporter.py` pass, `uv run pyright tools/goldendict_exporter.py` passes
 
 ## Phase 2: Regression test
 
-- [ ] Create test file `tests/tools/test_goldendict_exporter.py`
+- [x] Create test file `tests/tools/test_goldendict_exporter.py`
   - Test that `create_glossary()` returns a Glossary with a non-empty `tmpDataDir` (confirms the fix is active).
   - Test that two separately-created glossaries have *different* `tmpDataDir` values (confirms no shared path).
   - If feasible without full export machinery: test that `write_to_slob` + outer `cleanup()` produces no `no such file or directory` on stderr. If full export is too heavy for a unit test, the `tmpDataDir` uniqueness test is sufficient as a regression guard.
@@ -39,15 +39,15 @@
 
 ## Phase 3: Verify end-to-end
 
-- [ ] Run the smoke gate
+- [x] Run the smoke gate
   - `uv run pytest tests/` — full test suite passes (or no new failures vs baseline)
   - → verify: no new failures
 
-- [ ] Manual verification (user)
+- [x] Manual verification (user)
   - Run an export with `include_slob=True` and confirm no `no such file or directory` line on stderr.
   - → verify: stderr is clean of the error
 
 ## Phase 4: Finalize
 
-- [ ] Review and finalize via kamma flow
+- [x] Review and finalize via kamma flow
   - → verify: `review.md` written, thread archived

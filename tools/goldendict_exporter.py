@@ -160,6 +160,11 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
         }
     )
 
+    # Force a per-glossary tmp dir now, before any newDataEntry call.
+    # Without this, newDataEntry falls back to the shared cacheDir/tmp,
+    # and two glossaries race on cleanup (rmtree → "no such file" error).
+    _ = glos.tmpDataDir
+
     pr.yes("ok")
     return glos
 
