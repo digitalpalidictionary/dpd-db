@@ -78,9 +78,27 @@ jobs:
 
     - name: Run Deconstructor (timed)
       run: |
+        echo "================ disk/mem BEFORE ================"
+        df -h /
+        free -h
+        # Background monitor: logs free disk + memory every 10s so a runner-kill
+        # ("operation canceled") shows whether disk or RAM was exhausted.
+        ( while true; do
+            echo "MON $(date -u +%H:%M:%S) | disk_free=$(df -m / | awk 'NR==2{print $4"MB ("$5" used)"}') | mem_used=$(free -m | awk '/Mem:/{print $3"/"$2"MB"}')"
+            sleep 10
+          done ) &
+        MON_PID=$!
         go build -o deconstructor_bin go_modules/deconstructor/main.go
-        /usr/bin/time -v ./deconstructor_bin 2> time_report.txt || { cat time_report.txt; exit 1; }
+        set +e
+        /usr/bin/time -v ./deconstructor_bin 2> time_report.txt
+        RC=$?
+        set -e
+        kill "$MON_PID" 2>/dev/null || true
+        echo "================ disk/mem AFTER ================"
+        df -h /
+        free -h
         echo "================ resource report ================"
-        grep -E "Maximum resident set size|Elapsed \(wall clock\) time" time_report.txt
-        MAXK=$(grep "Maximum resident set size" time_report.txt | grep -oE "[0-9]+")
+        grep -E "Maximum resident set size|Elapsed \(wall clock\) time" time_report.txt || cat time_report.txt
+        MAXK=$(grep "Maximum resident set size" time_report.txt | grep -oE "[0-9]+" || echo 0)
         echo "Peak RSS: ${MAXK} KB (~$((MAXK / 1024 / 1024)) GB) against a 16 GB runner"
+        exit "$RC"
