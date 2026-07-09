@@ -22,7 +22,10 @@ jobs:
       uses: actions/checkout@v5
       with:
         repository: 'digitalpalidictionary/dpd-db'
-        ref: 'main'
+        # Test the branch this workflow was dispatched on (the streaming refactor
+        # lives on a feature branch, not main). draft_release pins 'main'; this
+        # test must build the code under review.
+        ref: ${{ github.ref_name }}
         submodules: 'recursive'
         fetch-depth: 1
         token: ${{ secrets.GH_PAT }}
