@@ -93,7 +93,7 @@ jobs:
         MON_PID=$!
         go build -o deconstructor_bin go_modules/deconstructor/main.go
         set +e
-        /usr/bin/time -v ./deconstructor_bin 2> time_report.txt
+        /usr/bin/time -v ./deconstructor_bin > deconstructor.log 2> time_report.txt
         RC=$?
         set -e
         kill "$MON_PID" 2>/dev/null || true
@@ -104,4 +104,10 @@ jobs:
         grep -E "Maximum resident set size|Elapsed \(wall clock\) time" time_report.txt || cat time_report.txt
         MAXK=$(grep "Maximum resident set size" time_report.txt | grep -oE "[0-9]+" || echo 0)
         echo "Peak RSS: ${MAXK} KB (~$((MAXK / 1024 / 1024)) GB) against a 16 GB runner"
+        DUPES=$(sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' deconstructor.log | awk '/finish-word dupes:/{getline; print $1; exit}')
+        echo "finish-word dupes: ${DUPES:-unknown}"
+        if [ "$RC" -eq 0 ] && [ "$DUPES" != "0" ]; then
+          echo "FAIL: finish-word dupes = ${DUPES} (expected 0 — streaming contiguity broken)"
+          exit 1
+        fi
         exit "$RC"

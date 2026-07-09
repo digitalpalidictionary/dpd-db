@@ -28,13 +28,6 @@ jobs:
         rm -rf ${{ github.workspace }}/resources/bjt/dev/*
         rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
 
-    - name: Unzip deconstructor_output
-      run: |
-        cd ${{ github.workspace }}/resources/deconstructor_output
-        tar -xzvf deconstructor_output.json.tar.gz
-        ls -la
-        cd ${{ github.workspace }}/
-
     - name: Set up Python
       uses: actions/setup-python@v6
       with:

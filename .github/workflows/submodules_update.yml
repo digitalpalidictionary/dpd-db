@@ -29,13 +29,6 @@ jobs:
         rm -rf ${{ github.workspace }}/resources/bjt/dev/*
         rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
 
-    - name: Unzip deconstructor_output
-      run: |
-        cd ${{ github.workspace }}/resources/deconstructor_output
-        tar -xzvf deconstructor_output.json.tar.gz
-        ls -la
-        cd ${{ github.workspace }}/
-
     - name: Install dictzip
       run: sudo apt-get update && sudo apt-get install -y dictzip
 
@@ -122,7 +115,10 @@ jobs:
     - name: Extract Variants
       run: uv run python db/variants/main.py
 
-    - name: Run Deconstructor
+    - name: Generate Deconstructor
+      run: go run go_modules/deconstructor/main.go
+
+    - name: Add Deconstructor to db
       run: uv run python scripts/build/deconstructor_output_add_to_db.py
 
     - name: Add api ca eva iti to inflections

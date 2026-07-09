@@ -122,3 +122,22 @@ holds only **one word's candidates** in RAM at a time.
 - Deconstructor *quality* work (false positives, unmatched mining) — separate.
 - Compacting inflection maps unless the RSS measurement requires it (conditional).
 - Changing the Python exporter (already serial-fitted for CI).
+
+## Follow-up: retire premade-artifact system (Phase 7 — separate thread)
+
+CI and local full builds now run Go → `deconstructor_output.json` →
+`deconstructor_output_add_to_db.py`. The old path (local tarball →
+`resources/deconstructor_output` submodule → CI unzip) is superseded but not
+fully removed from the repo. A follow-up thread should delete the legacy
+surface area:
+
+- `scripts/build/tarball_deconstructor_output.py` (and any callers beyond
+  `generate_components.py`, already dropped)
+- `resources/deconstructor_output` git submodule and committed
+  `deconstructor_output.json.tar.gz`
+- `ProjectPaths` / `tools/tarballer.py` deconstructor tarball helpers
+- `scripts/onboarding/contributor_setup.py` submodule checkout for deconstructor
+- Any remaining docs, health checks, or path references to the premade artifact
+
+Done when: no code path reads or writes the submodule tarball; Go output dir is
+the single source of truth for `deconstructor_output.json`.

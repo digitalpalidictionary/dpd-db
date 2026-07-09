@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 """
-Add to the deconstructor output from
-https://github.com/digitalpalidictionary/deconstructor_output.git
-to the lookup database.
+Sync deconstructor_output.json into lookup.deconstructor.
 
-Used for the GitHub action which cannot currently handle the deconstructor program,
-or for local use.
+Reads go_modules/deconstructor/output/deconstructor_output.json (produced by
+go_modules/deconstructor/main.go) and upserts via tools/lookup_sync.py.
+Used in CI release workflows and local generate_components.py.
 """
 
 import json

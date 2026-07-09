@@ -219,6 +219,29 @@ Performance Work) forbids this: use targeted `ON CONFLICT ... DO UPDATE SET
       byte-identical (`82a9e465` / `77f9b2ae`). Post-review temp-dir cleanup fix
       applied to `main.go`. Reviewed (Opus + CodeRabbit) → PASSED.
 
+## Phase 7 — retire premade-artifact system  [DEFERRED — separate thread]
+
+CI and local `generate_components.py` no longer depend on the committed tarball.
+This phase removes the leftover submodule / script surface. Hit in a follow-up
+thread after this branch merges.
+
+- [ ] 7.1 Drop `tarball_deconstructor_output.py` from `generate_components.py`
+      → verify: local full build still runs Go → add_to_db without tarball step ✓
+      (done on branch pre-merge)
+- [ ] 7.2 Delete `scripts/build/tarball_deconstructor_output.py`
+      → verify: `rg tarball_deconstructor` over source returns nothing except
+      archive/kamma
+- [ ] 7.3 Remove `resources/deconstructor_output` submodule (and
+      `deconstructor_output.json.tar.gz` from the submodule repo if separate)
+      → verify: `git submodule` list has no deconstructor_output entry
+- [ ] 7.4 Sweep `ProjectPaths`, `tools/tarballer.py`, `contributor_setup.py`,
+      `project_health_check.py`, docs for premade paths
+      → verify: `rg --hidden deconstructor_output` shows only Go output dir +
+      archive
+- [ ] 7.5 Update onboarding / contributor docs: Go generation is required when
+      `generate.deconstructor=yes`; no premade unzip step
+      → verify: docs match release + local pipeline
+
 ## Notes
 - No task changes the real dictionary output; the golden gate is the proof.
 - Phases 4 and 5 require actually dispatching GitHub workflows — expect to

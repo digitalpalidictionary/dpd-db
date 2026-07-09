@@ -147,16 +147,6 @@ func CloseWorkers(workers []*MatchData) {
 	}
 }
 
-// CleanupWorkers removes every worker's temp file.
-func CleanupWorkers(workers []*MatchData) {
-	for _, w := range workers {
-		if w == nil || w.FilePath == "" {
-			continue
-		}
-		os.Remove(w.FilePath)
-	}
-}
-
 // Merge folds the per-worker accumulators into the global M: it unions the
 // worker top-5 dicts, overlays the manual corrections, marks matched words, and
 // aggregates the summary counters and per-word stats. Words are produced by
@@ -281,13 +271,9 @@ func (m *MatchData) MakeMatch(
 	}
 }
 
-// writeRow streams a single candidate to the worker's file, in the same column
-// order as matches.tsv.
-func (m *MatchData) writeRow(mi MatchItem) {
-	if m.csvw == nil {
-		return
-	}
-	err := m.csvw.Write([]string{
+// matchItemFields returns one matches.tsv row for mi, same column order as the header.
+func matchItemFields(mi MatchItem) []string {
+	return []string{
 		mi.Word,
 		mi.Split,
 		tools.Int2Str(mi.SplitCount),
@@ -298,8 +284,16 @@ func (m *MatchData) writeRow(mi MatchItem) {
 		mi.Route,
 		mi.FinalProcess,
 		tools.Float2Str(mi.Time),
-	})
-	tools.HardCheck(err)
+	}
+}
+
+// writeRow streams a single candidate to the worker's file, in the same column
+// order as matches.tsv.
+func (m *MatchData) writeRow(mi MatchItem) {
+	if m.csvw == nil {
+		return
+	}
+	tools.HardCheck(m.csvw.Write(matchItemFields(mi)))
 }
 
 // compareMatchItems is the total-order ranking used for the top-5 selection.
@@ -331,7 +325,6 @@ func compareMatchItems(a, b MatchItem) int {
 func selectTopEntries(items []MatchItem, limit int) []string {
 	out := []string{}
 	var processCounter int
-	extraCounter := 0
 
 	for i, mi := range items {
 		if i == 0 {
@@ -342,15 +335,8 @@ func selectTopEntries(items []MatchItem, limit int) []string {
 		if slices.Contains(out, mi.Split) {
 			continue
 		}
-		if len(out) < limit {
-			if mi.ProcessCount <= processCounter {
-				if extraCounter < 2 {
-					out = append(out, mi.Split)
-				}
-				if mi.ProcessCount > processCounter {
-					extraCounter++
-				}
-			}
+		if len(out) < limit && mi.ProcessCount <= processCounter {
+			out = append(out, mi.Split)
 		}
 	}
 	return out
@@ -435,10 +421,11 @@ func (m *MatchData) Summary() {
 
 }
 
-// SaveMatchedTsv writes matches.tsv as the header followed by the concatenation
-// of every worker's streamed file (all candidates preserved). Row order is
-// production order, not globally sorted — matches.tsv is a debug artifact, not
-// the correctness target.
+// SaveMatchedTsv writes matches.tsv as the header, manual corrections first (as
+// before the streaming refactor), then every worker's streamed file (all
+// algorithm candidates preserved). Row order after the manual block is production
+// order, not globally sorted — matches.tsv is a debug artifact, not the
+// correctness target.
 func (m MatchData) SaveMatchedTsv(workers []*MatchData) {
 	tools.PGreen("saving matches:")
 
@@ -461,6 +448,9 @@ func (m MatchData) SaveMatchedTsv(workers []*MatchData) {
 		"time",
 	}
 	tools.HardCheck(w.Write(header))
+	for _, mi := range m.ManualCorrections {
+		tools.HardCheck(w.Write(matchItemFields(mi)))
+	}
 	w.Flush()
 	tools.HardCheck(w.Error())
 
