@@ -230,6 +230,11 @@
       "yes"
     ],
     [
+      "generate",
+      "deconstructor",
+      "yes"
+    ],
+    [
       "dictionary",
       "make_mdict",
       "yes"

@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 """
-Add to the deconstructor output from
-https://github.com/digitalpalidictionary/deconstructor_output.git
-to the lookup database.
+Sync deconstructor_output.json into lookup.deconstructor.
 
-Used for the GitHub action which cannot currently handle the deconstructor program,
-or for local use.
+Reads go_modules/deconstructor/output/deconstructor_output.json (produced by
+go_modules/deconstructor/main.go) and upserts via tools/lookup_sync.py.
+Used in CI release workflows and local generate_components.py.
 """
 
 import json
@@ -22,7 +21,7 @@ def main() -> None:
     pr.tic()
     pr.yellow_title("adding deconstructor output to lookup db")
 
-    if config_read("generate", "deconstructor", "yes") == "no":
+    if config_read("generate", "deconstructor", "yes") != "yes":
         pr.green_title("disabled in config.ini")
         pr.toc()
         return
@@ -33,7 +32,7 @@ def main() -> None:
 
     # top_five_dict contains the top five most likely splits
     # from the deconstruction process
-    with pth.deconstructor_output_json.open(encoding="utf-8") as f:
+    with pth.go_deconstructor_output_json.open(encoding="utf-8") as f:
         top_five_dict = json.load(f)
 
     pr.yes("ok")

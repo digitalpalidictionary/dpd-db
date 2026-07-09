@@ -325,9 +325,10 @@ decon-on:
 decon-off:
     uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'no')"
 
-# Run the Go deconstructor
+# Run the Go deconstructor and sync its output into the lookup db
 decon:
     go run ./go_modules/deconstructor
+    uv run python scripts/build/deconstructor_output_add_to_db.py
 
 # Run the Go frequency tables
 freq:
