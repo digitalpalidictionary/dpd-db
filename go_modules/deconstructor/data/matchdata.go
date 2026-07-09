@@ -220,8 +220,14 @@ func (m *MatchData) Summary() {
 			return n
 		} else if n := cmp.Compare(a.Weight, b.Weight); n != 0 {
 			return n
+		} else if n := cmp.Compare(a.SplitRatio, b.SplitRatio); n != 0 {
+			return n
 		} else {
-			return cmp.Compare(a.SplitRatio, b.SplitRatio)
+			// Final tiebreak on the split text makes the ordering a total
+			// order. Without it, candidates equal on all ranking keys are left
+			// in non-stable-sort order, which varies run-to-run with worker
+			// completion order and makes the top-5 output non-deterministic.
+			return cmp.Compare(a.Split, b.Split)
 		}
 	})
 
