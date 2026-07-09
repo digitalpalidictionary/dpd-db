@@ -4,8 +4,10 @@ import (
 	"cmp"
 	"dpd/go_modules/dpdDb"
 	"dpd/go_modules/tools"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"slices"
@@ -20,74 +22,194 @@ var TestWord = ""
 var BlockedTries atomic.Int64
 var MaxedOut atomic.Int64
 
-var pf = fmt.Printf
-var pl = fmt.Println
+// FinishWordDupes counts words flushed more than once per worker. With
+// per-worker word contiguity (each word is produced by exactly one worker in a
+// single deconstruct call) this stays 0; a non-zero value means the streaming
+// selection saw a word out of contiguity and the output may diverge from the
+// golden.
+var FinishWordDupes atomic.Int64
+
 var spf = fmt.Sprintf
 
-// TODO update
-// The MatchData is used globally and stores:
-//  1. a list of match items
-//  2. a list of matches strings for quick lookup
+// MatchData is a per-worker accumulator. Each worker owns one and touches it
+// single-threaded, so no locking is needed on the hot path.
+//
+// Match rows are no longer kept in one big in-RAM slice. Instead each candidate
+// is streamed to the worker's own file (for matches.tsv) and the per-word top-5
+// selection is done inline as each word finishes, keeping only one word's
+// candidates in RAM at a time. The per-word maps are cleared between words so no
+// large map accumulates across a worker's ~20k words.
 type MatchData struct {
-	MatchedItems []MatchItem         // list of matchItems
-	MatchedMap   map[string][]string // word : list of matches
-	TriedMap     map[string][]string // has the word.front + middle + back been tried already?
-	Unmatched    map[string]string   // unmatched words remaining
-	StartTime    time.Time           // global start time
-	ProcessCount map[string]int      // how many processes has the word gone through in total
-	WordStats    []statistics        //	word stats
-	TopFive      map[string][]string //	top five entries for export
+	file     *os.File    // this worker's streamed match rows
+	csvw     *csv.Writer // tab-separated writer over file
+	FilePath string      // path of file, for concatenation into matches.tsv
+
+	wordBuf []MatchItem         // candidates for the word currently being processed
+	topDict map[string][]string // per-worker top-5 selections, keyed by word
+
+	MatchedMap   map[string][]string // word : list of matches (current word only)
+	TriedMap     map[string][]string // tried split strings (current word only)
+	ProcessCount map[string]int      // total processes per word (current word only)
+
+	itemCount   int     // total candidate rows produced by this worker
+	timeLongest float64 // slowest single match time
+	timeTotal   float64 // sum of match times
+	slowestWord string  // word of the slowest match
+
+	WordStats []statistics // per-word stats
+
+	// Fields below are only used on the global M after merging.
+	Unmatched         map[string]string   // unmatched words remaining
+	ManualCorrections []MatchItem         // manual corrections, seeded before compute
+	StartTime         time.Time           // global start time
+	TopFive           map[string][]string // top five entries for export
 }
 
 func InitMatchData() MatchData {
 	var m = MatchData{}
+	m.topDict = map[string][]string{}
 	m.MatchedMap = map[string][]string{}
 	m.TriedMap = map[string][]string{}
-	m.StartTime = time.Now()
 	m.ProcessCount = map[string]int{}
+	m.StartTime = time.Now()
 	m.WordStats = []statistics{}
 	return m
 }
 
-// NewMatchData returns a fresh per-worker accumulator. Each worker owns one and
-// touches it single-threaded, so no locking is needed on the hot path.
+// NewMatchData returns a fresh in-memory per-worker accumulator with no backing
+// file. Used by tests; production/bench use NewWorkerFactory.
 func NewMatchData() *MatchData {
 	m := InitMatchData()
 	return &m
 }
 
-// Merge folds per-worker accumulators into m. Words are usually processed by a
-// single worker, but a pre-existing in-place slice mutation in some splitters
-// (e.g. SplitIka appends into an aliased backing array) can rewrite one job's
-// word into another's, so the same (word, split) can be produced on two
-// workers. The original global MatchData deduped these through one shared
-// MatchedMap; this merge reproduces that by rejecting any (word, split) already
-// seen — keeping MatchItems the same set as the single-map baseline. Unmatched
-// is recomputed as the initial set minus every matched word.
+// NewWorkerFactory returns a function that builds one per-worker MatchData
+// backed by its own file in dir. RunCollect calls it once per worker in the main
+// goroutine (sequentially), so the plain counter needs no locking.
+func NewWorkerFactory(dir string) func() *MatchData {
+	var counter int
+	return func() *MatchData {
+		m := InitMatchData()
+		path := filepath.Join(dir, spf("matches_%d.tsv", counter))
+		counter++
+		f, err := os.Create(path)
+		tools.HardCheck(err)
+		m.file = f
+		m.FilePath = path
+		m.csvw = csv.NewWriter(f)
+		m.csvw.Comma = '\t'
+		return &m
+	}
+}
+
+// ResetWord clears the per-word maps at the start of each word's processing.
+// Every access to these maps is keyed by the word currently in deconstruct, so
+// clearing between words is behaviour-preserving and keeps memory flat.
+func (m *MatchData) ResetWord() {
+	clear(m.MatchedMap)
+	clear(m.TriedMap)
+	clear(m.ProcessCount)
+}
+
+// FinishWord selects the top-5 for the word(s) in wordBuf and clears it. Called
+// once per deconstruct, after all of a word's candidates have been produced.
+func (m *MatchData) FinishWord() {
+	if len(m.wordBuf) == 0 {
+		return
+	}
+
+	// Sort the buffer so each word's candidates form a contiguous, correctly
+	// ordered block (normally the buffer holds a single word).
+	slices.SortFunc(m.wordBuf, compareMatchItems)
+
+	start := 0
+	for i := 1; i <= len(m.wordBuf); i++ {
+		if i == len(m.wordBuf) || m.wordBuf[i].Word != m.wordBuf[start].Word {
+			word := m.wordBuf[start].Word
+			if _, exists := m.topDict[word]; exists {
+				FinishWordDupes.Add(1)
+			}
+			m.topDict[word] = selectTopEntries(m.wordBuf[start:i], L.TopDictLimit)
+			start = i
+		}
+	}
+
+	m.wordBuf = m.wordBuf[:0]
+}
+
+// CloseWorkers flushes and closes every worker's streamed file.
+func CloseWorkers(workers []*MatchData) {
+	for _, w := range workers {
+		if w == nil || w.csvw == nil {
+			continue
+		}
+		w.csvw.Flush()
+		tools.HardCheck(w.csvw.Error())
+		tools.HardCheck(w.file.Close())
+	}
+}
+
+// CleanupWorkers removes every worker's temp file.
+func CleanupWorkers(workers []*MatchData) {
+	for _, w := range workers {
+		if w == nil || w.FilePath == "" {
+			continue
+		}
+		os.Remove(w.FilePath)
+	}
+}
+
+// Merge folds the per-worker accumulators into the global M: it unions the
+// worker top-5 dicts, overlays the manual corrections, marks matched words, and
+// aggregates the summary counters and per-word stats. Words are produced by
+// exactly one worker (verified: 0 cross-worker words on a full corpus), so the
+// top-dict union is a disjoint merge.
 func (m *MatchData) Merge(parts []*MatchData) {
+	topDict := map[string][]string{}
+
+	// Manual corrections first: their words are excluded from the deconstructor
+	// input, so they never collide with a worker's words. Group by word and run
+	// the same selection rule so each word's list is built identically.
+	manualByWord := map[string][]MatchItem{}
+	order := []string{}
+	for _, mi := range m.ManualCorrections {
+		if _, seen := manualByWord[mi.Word]; !seen {
+			order = append(order, mi.Word)
+		}
+		manualByWord[mi.Word] = append(manualByWord[mi.Word], mi)
+	}
+	for _, word := range order {
+		items := manualByWord[word]
+		slices.SortFunc(items, compareMatchItems)
+		topDict[word] = selectTopEntries(items, L.TopDictLimit)
+		delete(m.Unmatched, word)
+	}
+
 	for _, p := range parts {
 		if p == nil {
 			continue
 		}
-		for _, mi := range p.MatchedItems {
-			if slices.Contains(m.MatchedMap[mi.Word], mi.Split) {
-				continue
+		for word, entries := range p.topDict {
+			if _, exists := topDict[word]; exists {
+				FinishWordDupes.Add(1)
 			}
-			m.MatchedItems = append(m.MatchedItems, mi)
-			m.MatchedMap[mi.Word] = append(m.MatchedMap[mi.Word], mi.Split)
-		}
-		for k, v := range p.ProcessCount {
-			m.ProcessCount[k] += v
+			topDict[word] = entries
+			delete(m.Unmatched, word)
 		}
 		m.WordStats = append(m.WordStats, p.WordStats...)
+		m.itemCount += p.itemCount
+		m.timeTotal += p.timeTotal
+		if p.timeLongest > m.timeLongest {
+			m.timeLongest = p.timeLongest
+			m.slowestWord = p.slowestWord
+		}
 	}
-	for word := range m.MatchedMap {
-		delete(m.Unmatched, word)
-	}
+
+	m.itemCount += len(m.ManualCorrections)
+	m.TopFive = topDict
 }
 
-// Lookup the word in m.matchedMap
-// and if it exists, return the opposite.
+// Lookup the word in m.MatchedMap and if it exists, return the opposite.
 func (m *MatchData) HasNoMatches(w WordData) bool {
 	_, exists := m.MatchedMap[string(w.Word)]
 	return !exists
@@ -102,10 +224,6 @@ func (m *MatchData) NotTriedYet(w WordData) bool {
 	}
 	m.TriedMap[string(w.Word)] = append(splitList, splitString)
 	return true
-}
-
-func (m *MatchData) matchCount(w WordData) int {
-	return len(m.MatchedMap[string(w.Word)])
 }
 
 func (m *MatchData) ProcessCounter(w WordData) int {
@@ -152,8 +270,92 @@ func (m *MatchData) MakeMatch(
 	mi.ProcessCount = w.ProcessCount
 	mi.Time = float64(time.Since(w.StartTime).Seconds())
 
-	m.MatchedItems = append(m.MatchedItems, mi)
+	m.wordBuf = append(m.wordBuf, mi)
 	m.MatchedMap[string(w.Word)] = append(m.MatchedMap[string(w.Word)], splitString)
+
+	m.writeRow(mi)
+
+	m.itemCount++
+	m.timeTotal += mi.Time
+	if mi.Time > m.timeLongest {
+		m.timeLongest = mi.Time
+		m.slowestWord = mi.Word
+	}
+}
+
+// writeRow streams a single candidate to the worker's file, in the same column
+// order as matches.tsv.
+func (m *MatchData) writeRow(mi MatchItem) {
+	if m.csvw == nil {
+		return
+	}
+	err := m.csvw.Write([]string{
+		mi.Word,
+		mi.Split,
+		tools.Int2Str(mi.SplitCount),
+		tools.Float2Str(mi.SplitRatio),
+		tools.Float2Str(mi.Weight),
+		tools.Int2Str(mi.ProcessCount),
+		mi.Rules,
+		mi.Route,
+		mi.FinalProcess,
+		tools.Float2Str(mi.Time),
+	})
+	tools.HardCheck(err)
+}
+
+// compareMatchItems is the total-order ranking used for the top-5 selection.
+// Sort by
+//  1. alphabetical order
+//  2. ProcessCount
+//  3. weight
+//  4. split ratio
+//  5. split text (final tiebreak → total order → deterministic output)
+func compareMatchItems(a, b MatchItem) int {
+	if n := cmp.Compare(a.Word, b.Word); n != 0 {
+		return n
+	} else if n := cmp.Compare(a.ProcessCount, b.ProcessCount); n != 0 {
+		return n
+	} else if n := cmp.Compare(a.Weight, b.Weight); n != 0 {
+		return n
+	} else if n := cmp.Compare(a.SplitRatio, b.SplitRatio); n != 0 {
+		return n
+	} else {
+		return cmp.Compare(a.Split, b.Split)
+	}
+}
+
+// selectTopEntries applies the top-N selection rule to one word's candidates,
+// which must already be sorted by compareMatchItems. It reproduces the original
+// global SaveTopEntriesJson logic per word: the first (lowest-ProcessCount)
+// candidate is always kept, and further candidates are kept only while the list
+// is under the limit and their ProcessCount does not exceed the first's.
+func selectTopEntries(items []MatchItem, limit int) []string {
+	out := []string{}
+	var processCounter int
+	extraCounter := 0
+
+	for i, mi := range items {
+		if i == 0 {
+			out = append(out, mi.Split)
+			processCounter = mi.ProcessCount
+			continue
+		}
+		if slices.Contains(out, mi.Split) {
+			continue
+		}
+		if len(out) < limit {
+			if mi.ProcessCount <= processCounter {
+				if extraCounter < 2 {
+					out = append(out, mi.Split)
+				}
+				if mi.ProcessCount > processCounter {
+					extraCounter++
+				}
+			}
+		}
+	}
+	return out
 }
 
 // TODO update
@@ -180,65 +382,21 @@ func compileMatchData(w WordData) (string, int, float64) {
 	return splitString, splitCount, splitRatio
 }
 
-func processMatched() (float64, float64, MatchItem) {
-
-	var timeLongest float64
-	var timeTotal float64
-	var slowestWord MatchItem
-
-	for _, mi := range M.MatchedItems {
-		// if mi.Word == TestWord {
-		// 	pf("%v, %v, %q, %v, %v, %f\n",
-		// 		i, mi.Word, mi.Split, mi.FinalProcess, mi.Route, mi.Time)
-		// }
-		// if testWord == "" {
-		// 	pf("%v, %v, %q, %v, %v, %f\n",
-		// 		i, mi.word, mi.split, mi.finalProcess, mi.route, mi.time)
-		// }
-		timeTotal = timeTotal + mi.Time
-		if mi.Time > timeLongest {
-			timeLongest = mi.Time
-			slowestWord = mi
-		}
-	}
-	return timeLongest, timeTotal, slowestWord
-}
-
 func (m *MatchData) Summary() {
-
-	MTimeLongest, MTimeTotal, MSlowestWord := processMatched()
 
 	// Sort by
 	//  1. alphabetical order
 	//  2. ProcessCount
 	//  3. weight
 
-	slices.SortFunc(m.MatchedItems, func(a, b MatchItem) int {
-		if n := cmp.Compare(a.Word, b.Word); n != 0 {
-			return n
-		} else if n := cmp.Compare(a.ProcessCount, b.ProcessCount); n != 0 {
-			return n
-		} else if n := cmp.Compare(a.Weight, b.Weight); n != 0 {
-			return n
-		} else if n := cmp.Compare(a.SplitRatio, b.SplitRatio); n != 0 {
-			return n
-		} else {
-			// Final tiebreak on the split text makes the ordering a total
-			// order. Without it, candidates equal on all ranking keys are left
-			// in non-stable-sort order, which varies run-to-run with worker
-			// completion order and makes the top-5 output non-deterministic.
-			return cmp.Compare(a.Split, b.Split)
-		}
-	})
-
-	matchItemsLen := len(m.MatchedItems)
+	matchItemsLen := m.itemCount
 	initial := len(G.Unmatched)
 	matched := len(G.Unmatched) - len(m.Unmatched)
 	unmatched := len(m.Unmatched)
 	averMatches := float64(matchItemsLen) / float64(matched)
 	matchedPrc := (float64(matched) / float64(initial)) * 100
 	unmatchedPrc := (float64(unmatched) / float64(initial)) * 100
-	MTimeAverage := MTimeTotal / float64(matchItemsLen)
+	MTimeAverage := m.timeTotal / float64(matchItemsLen)
 	timeInSec := time.Since(m.StartTime).Seconds()
 	timeInMin := time.Since(m.StartTime).Minutes()
 
@@ -247,6 +405,8 @@ func (m *MatchData) Summary() {
 	tools.POk(fmt.Sprintf("%d", BlockedTries.Load()))
 	tools.PGreen("maxed out:")
 	tools.POk(fmt.Sprintf("%d", MaxedOut.Load()))
+	tools.PGreen("finish-word dupes:")
+	tools.POk(fmt.Sprintf("%d", FinishWordDupes.Load()))
 	tools.POk("")
 	tools.PGreen("initial words:")
 	tools.POk(fmt.Sprintf("%d", initial))
@@ -264,11 +424,11 @@ func (m *MatchData) Summary() {
 	tools.POk(fmt.Sprintf("%.6f %%", unmatchedPrc))
 	tools.POk("")
 	tools.PGreen("match longest time:")
-	tools.POk(fmt.Sprintf("%.3f sec", MTimeLongest))
+	tools.POk(fmt.Sprintf("%.3f sec", m.timeLongest))
 	tools.PGreen("match average time:")
 	tools.POk(fmt.Sprintf("%.3f sec", MTimeAverage))
 	tools.PGreen("match slowest word:")
-	tools.POk(MSlowestWord.Word)
+	tools.POk(m.slowestWord)
 	tools.PGreen("total seconds:")
 	tools.POk(fmt.Sprintf("%.3f sec", timeInSec))
 	tools.PGreen("total minutes:")
@@ -277,11 +437,19 @@ func (m *MatchData) Summary() {
 
 }
 
-func (m MatchData) SaveMatchedTsv() {
+// SaveMatchedTsv writes matches.tsv as the header followed by the concatenation
+// of every worker's streamed file (all candidates preserved). Row order is
+// production order, not globally sorted — matches.tsv is a debug artifact, not
+// the correctness target.
+func (m MatchData) SaveMatchedTsv(workers []*MatchData) {
 	tools.PGreen("saving matches:")
 
 	filePath := filepath.Join(tools.Pth.DpdBaseDir, tools.Pth.MatchesTsv)
-	separator := "\t"
+	out, err := os.Create(filePath)
+	tools.HardCheck(err)
+
+	w := csv.NewWriter(out)
+	w.Comma = '\t'
 	header := []string{
 		"word",
 		"split",
@@ -294,26 +462,24 @@ func (m MatchData) SaveMatchedTsv() {
 		"final_process",
 		"time",
 	}
-	data := [][]string{}
-	for _, mi := range m.MatchedItems {
-		row := []string{
-			mi.Word,
-			mi.Split,
-			tools.Int2Str(mi.SplitCount),
-			tools.Float2Str(mi.SplitRatio),
-			tools.Float2Str(mi.Weight),
-			tools.Int2Str(mi.ProcessCount),
-			mi.Rules,
-			mi.Route,
-			mi.FinalProcess,
-			tools.Float2Str(mi.Time),
-		}
-		data = append(data, row)
-	}
-	tools.SaveTsv(filePath, separator, header, data)
-	fileInfo, _ := os.Stat(filePath)
-	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(data), float64(fileInfo.Size())/1000/1000))
+	tools.HardCheck(w.Write(header))
+	w.Flush()
+	tools.HardCheck(w.Error())
 
+	for _, wkr := range workers {
+		if wkr == nil || wkr.FilePath == "" {
+			continue
+		}
+		in, err := os.Open(wkr.FilePath)
+		tools.HardCheck(err)
+		_, err = io.Copy(out, in)
+		tools.HardCheck(err)
+		tools.HardCheck(in.Close())
+	}
+	tools.HardCheck(out.Close())
+
+	fileInfo, _ := os.Stat(filePath)
+	tools.POk(fmt.Sprintf("%v rows, %.1fMB", m.itemCount, float64(fileInfo.Size())/1000/1000))
 }
 
 type unMatchedItem struct {
@@ -374,45 +540,10 @@ func (m MatchData) SaveUnmatchedTsv() {
 func (m MatchData) SaveTopEntriesJson() {
 	tools.PGreen(fmt.Sprintf("making top %v json:", L.TopDictLimit))
 
-	topDict := map[string][]string{}   // top five entries
-	processCounter := map[string]int{} // process counter
-	extraCounter := map[string]int{}   // extra word counter
-
-	for _, mi := range m.MatchedItems {
-		// TODO add to learn_go
-		entryList, exists := topDict[mi.Word]
-		entry := spf("%v", mi.Split)
-
-		if !exists {
-			topDict[mi.Word] = append(entryList, entry)
-			processCounter[mi.Word] = mi.ProcessCount // PC = Process Count
-
-		} else {
-			if slices.Contains(entryList, entry) {
-				pf("! error ! %v already in list", entry)
-
-			} else {
-				// limit the Dictionary entries
-				if len(entryList) < L.TopDictLimit {
-					if mi.ProcessCount <= processCounter[mi.Word]+0 { // only allow words with 1 or 2 more ProcessCount
-						if extraCounter[mi.Word] < 2 { // only allow two more
-							topDict[mi.Word] = append(entryList, entry)
-						}
-						if mi.ProcessCount > processCounter[mi.Word] {
-							extraCounter[mi.Word] = extraCounter[mi.Word] + 1
-						}
-					}
-				}
-			}
-		}
-	}
-
-	M.TopFive = topDict
-
 	filePath := tools.Pth.DeconstructorOutput
-	tools.SaveJson(filePath, topDict)
+	tools.SaveJson(filePath, m.TopFive)
 	fileInfo, _ := os.Stat(filePath)
-	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(topDict), float64(fileInfo.Size())/1000/1000))
+	tools.POk(fmt.Sprintf("%v rows, %.1fMB", len(m.TopFive), float64(fileInfo.Size())/1000/1000))
 }
 
 // get the lookup db

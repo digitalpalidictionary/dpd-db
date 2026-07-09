@@ -1,5 +1,40 @@
 # Plan: Deconstructor CI Memory Fit
 
+## RESUME HERE (handoff 2026-07-09)
+- **Branch:** `deconstructor-ci-memory`.
+- **DONE + committed** (`18a3b3de`): determinism fix — split-text final tiebreak
+  in `data/matchdata.go` `Summary()` comparator. Output now deterministic.
+- **GOLDEN GATE:** 20k-sample `deconstructor_output.json` MD5 = `82a9e465aa18b5c94fa74e01957a2ea3`.
+  Regenerate baseline by building the bench harness (below) and running
+  `-words 20000`; the committed code reproduces this MD5. All Phase 2 work must
+  keep this MD5 identical.
+- **Bench harness** (untracked, on disk, throwaway — remove before finalize):
+  `go_modules/deconstructor/cmd/bench/main.go`. Runs import + deconstruct on a
+  deterministic sorted N-word sample + `SaveTopEntriesJson`. Build to scratchpad
+  with `-o`, run `-words 20000` for the gate, `-words 0` for full corpus.
+- **Baseline peak RSS ≈ 23 GB** (before); target: comfortably under 16 GB.
+- **MANUAL CORRECTIONS (confirmed semantics):** `importer.makeMatchItems()` loads
+  `manual_corrections.tsv` (~4,064 hand-verified splits) as `MatchItemList`,
+  seeded into `M.MatchedItems` before compute. They have `ProcessCount = 0` so
+  they sort FIRST and are **always first in the top-5 for their words** (they
+  override deconstructor guesses). These words are excluded from the input
+  (`MapDifference(allWords, manualCorrections)` in `MakeUnmatched`), so workers
+  never process them. In the streaming refactor they must be **overlaid into
+  `TopFive` at the merge/finalize step**, always leading each word's list.
+- **NEXT — Phase 2 (streaming refactor):** rewrite accumulation core so RAM stays
+  low. Key moves: (a) reset per-word state each `deconstruct(w)` — especially
+  `TriedMap` (a top memory hog, holds ~10M tried strings across a worker's words);
+  (b) stream all candidate rows to a per-worker file (keeps full `matches.tsv`
+  for quality work; disk is not a constraint — 2.4 GB on a 14 GB runner);
+  (c) inline per-word top-5 into a per-worker `topDict` (drops 14.5M items to
+  ~851k); (d) merge worker topDicts + overlay manual corrections → `TopFive`;
+  (e) `matches.tsv` = concat of per-worker files. Because the sort is now a total
+  order, inline per-word top-5 == the old global selection — verify against
+  `82a9e465`. Files: `data/matchdata.go`, `data/stats.go`, `main.go`, harness.
+- **Then Phases 3–5** as written below (full-run RSS, test CI workflow, real
+  integration). Phases 4–5 delegated to Sonnet subagents per user.
+
+
 Read `spec.md` first. Binding gates: after Phase 1, `deconstructor_output.json`
 MD5 must stay identical to the **deterministic** baseline established in Phase 1
 (NOT the old non-deterministic main — see below); full-run peak RSS must be
@@ -57,53 +92,46 @@ baseline the memory work is gated against.
       full-run `deconstructor_output.json` MD5 (and 20k sample MD5 82a9e465).
       → verify: two full runs identical.
 
-## Phase 2 — stream match rows to per-worker files
-- [ ] 1.1 Give each worker a buffered writer to its own file (in output/temp
-      dir). Thread it through the per-worker accumulator (`MatchData` gets a
-      writer; `RunCollect`'s `newState` opens the file).
-      → verify: builds; a 5k-word run produces N worker files.
-- [ ] 1.2 `MakeMatch` writes a tab-separated row (same columns as `matches.tsv`)
-      to the worker's writer instead of appending to `MatchedItems`. Keep a
-      small per-word dedup set that resets on new word; drop the global
-      `MatchedItems`/`MatchedMap` accumulation.
-      → verify: total streamed rows across worker files == baseline match-item
-      count for the same sample (no rows lost or duplicated).
-- [ ] 1.3 Remove the now-dead `Merge` concatenation of `MatchedItems` (the
-      merge-doubling source). Workers own their files; nothing to concat in RAM.
-      → verify: `go vet` clean; no references to removed fields; `-race` on a
-      small run is clean.
-
-## Phase 2 — read-back top-5 selection + outputs (GOLDEN GATE)
-- [ ] 2.1 Read-back pass: for each worker file, stream rows, group contiguous by
-      word, sort each word's block by (processCount, weight, splitRatio), apply
-      the existing top-5 selection rule → build `TopFive`. Hold only one word's
-      rows at a time. Compute Summary stats incrementally here.
-      → verify: `TopFive` for the 20k sample yields `deconstructor_output.json`
-      MD5 == `golden_output_20k`. STOP and diagnose if it differs (check tie
-      ordering; use stable per-word sort if needed).
-- [ ] 2.2 `matches.tsv` = header + concatenation of worker files (all
-      candidates). `stats.tsv` from streamed per-word stats. Wire `SaveToDb`
-      to read the `TopFive` built in 2.1 (unchanged interface).
-      → verify: `matches.tsv` row count == baseline; `SaveToDb` path unchanged
-      (dry check, no live-db write in sample mode).
-- [ ] 2.3 Clean up worker temp files after the read-back pass.
-      → verify: after a run, only the intended outputs remain in output/.
+## Phase 2 — streaming refactor (inline per-word top-5)  [DONE]
+NOTE (drift): implemented the RESUME-HERE **inline per-word selection** (Variant
+A), NOT the separate read-back pass the older sub-tasks described. Selection runs
+on in-memory float64 candidates per word (never round-tripping sort keys through
+the lossy tsv), so it is simpler and float-precision-safe. Decisive pre-work:
+a throwaway full-corpus probe found **0 words produced by >1 worker** (847,307
+distinct), confirming per-worker contiguity, so per-word flush == old global
+selection. `FinishWordDupes` counter guards the assumption at runtime (stayed 0).
+- [x] 2.1 Per-worker file writer via `NewWorkerFactory(dir)` (csv/tab), opened in
+      `RunCollect`'s newState; temp dir `output/worker_tmp_*`.
+      → verify: builds; run produces N worker files, cleaned up after. ✓
+- [x] 2.2 `MakeMatch` streams each candidate row to the worker file AND buffers
+      it in `wordBuf`; per-word maps (`MatchedMap`/`TriedMap`/`ProcessCount`)
+      cleared each word via `ResetWord`; global `MatchedItems` slice dropped.
+      → verify: 20k golden MD5 == `82a9e465` (all rows accounted). ✓
+- [x] 2.3 `FinishWord` sorts `wordBuf`, groups by word, runs the verbatim top-5
+      selection → per-worker `topDict`. `Merge` unions worker topDicts + overlays
+      manual corrections → `TopFive`; Summary from running counters.
+      → verify: 20k golden MD5 identical 2× (deterministic); dupes=0. ✓
+- [x] 2.4 `matches.tsv` = header + concat of worker files; temp files removed;
+      `SaveToDb`/`SaveTopEntriesJson` read `TopFive` (unchanged interface).
+      → verify: `go vet ./go_modules/...` clean; no leftover temp dirs. ✓
 
 ## Phase 3 — full-run memory + determinism
-- [ ] 3.1 Full-corpus run (against a scratchpad copy of `dpd.db`) under
-      `/usr/bin/time -v`. Record peak RSS.
-      → verify: Max RSS comfortably under 16 GB (target single-digit GB); if
-      over ~12 GB, do the conditional inflection-map compaction sub-task below.
-- [ ] 3.2 Full-run golden: `deconstructor_output.json` MD5 identical to a
-      baseline full run; identical across two repeated full runs.
-      → verify: MD5s match.
-- [ ] 3.3 (Conditional) If 3.1 over ~12 GB: switch inflection maps to
-      `map[string]struct{}`; re-measure.
-      → verify: RSS drops; golden still identical.
-- [ ] 3.4 `go test -race ./go_modules/deconstructor/...` and `go vet
-      ./go_modules/...` clean; add/adjust unit tests for the read-back selection
-      (per-word top-5 on a synthetic block) and the streaming writer.
-      → verify: tests pass under `-race`.
+- [x] 3.1 Full-corpus run under `/usr/bin/time -v`. **Peak RSS = 3.41 GB**
+      (3,579,268 KB), down from **18.7 GB** baseline probe (~5.5×); compute
+      4m52s; 14,494,453 match items; finish-word dupes = 0.
+      → verify: Max RSS 3.41 GB, comfortably under 16 GB (single-digit target
+      met). ✓
+- [x] 3.2 Full-run golden: new full MD5 = `77f9b2ae01c16d6b7be2cd19ea76b631` ==
+      old-code (18a3b3de) full MD5 `77f9b2ae01c16d6b7be2cd19ea76b631` — BYTE
+      IDENTICAL. Old baseline peak RSS = **23.9 GB** (25,061,560 KB) vs new
+      **3.41 GB** (~7×). Both 14,494,453 match items.
+      → verify: MD5s match. ✓
+- [x] 3.3 (Conditional) N/A — 3.1 RSS (3.41 GB) far under the ~12 GB threshold,
+      no inflection-map compaction needed.
+- [x] 3.4 `go test -race ./go_modules/deconstructor/...` and `go vet
+      ./go_modules/...` clean; added `data/matchdata_test.go` (selectTopEntries
+      min-PC/limit/dedup, compareMatchItems total order, FinishWord grouping).
+      → verify: all tests pass under `-race`. ✓
 
 ## Phase 4 — test CI workflow (PROVE IT)
 - [ ] 4.1 New workflow `.github/workflows/deconstructor_ci_test.yml`

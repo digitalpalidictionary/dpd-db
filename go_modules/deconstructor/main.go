@@ -7,6 +7,8 @@ import (
 	"dpd/go_modules/deconstructor/workerpool"
 	"dpd/go_modules/tools"
 	"maps"
+	"os"
+	"path/filepath"
 	"runtime"
 )
 
@@ -23,7 +25,7 @@ func init() {
 
 	// init globals
 	var di = importer.DeconImporter()
-	data.M.MatchedItems = di.MatchItemList
+	data.M.ManualCorrections = di.MatchItemList
 	data.M.Unmatched = di.Unmatched1
 
 	data.G.Unmatched = di.Unmatched2
@@ -49,6 +51,12 @@ func main() {
 		data.G.Unmatched = maps.Clone(testSet)
 		data.M.Unmatched = maps.Clone(testSet)
 	}
+
+	// Per-worker match rows are streamed to files in this temp dir, then
+	// concatenated into matches.tsv and removed.
+	outputDir := filepath.Dir(tools.Pth.DeconstructorOutput)
+	tempDir, err := os.MkdirTemp(outputDir, "worker_tmp_")
+	tools.HardCheck(err)
 
 	// Bounded worker pool: NumCPU*2 workers pull from a buffered channel.
 	// Replaces the previous unbounded goroutine-per-word pattern that caused
@@ -76,13 +84,16 @@ func main() {
 		close(jobs)
 	}()
 
-	accs := workerpool.RunCollect(numWorkers, data.NewMatchData, jobs, deconstruct)
+	accs := workerpool.RunCollect(numWorkers, data.NewWorkerFactory(tempDir), jobs, deconstruct)
+	data.CloseWorkers(accs)
 	data.M.Merge(accs)
 	data.M.Summary()
-	data.M.SaveMatchedTsv()
+	data.M.SaveMatchedTsv(accs)
 	data.M.SaveUnmatchedTsv()
 	data.M.SaveTopEntriesJson()
 	data.M.SaveStatsTsv()
+	data.CleanupWorkers(accs)
+	os.Remove(tempDir)
 
 	if data.L.WordLimit == 0 && len(testSet) == 0 {
 		data.M.SaveToDb()
@@ -92,9 +103,11 @@ func main() {
 }
 
 func deconstruct(acc *data.MatchData, w data.WordData) {
+	acc.ResetWord()
 	w.Acc = acc
 	splitters.Split2(w)
 	splitters.Split3(w)
 	splitters.SplitRecursive(w)
 	acc.SaveWordStats(w)
+	acc.FinishWord()
 }
