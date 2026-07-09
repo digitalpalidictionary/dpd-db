@@ -53,7 +53,7 @@ def run_script(title: str, commands: list[str]) -> None:
             print(f"Error: {e!s}")
             sys.exit(1)
         finally:
-            print(f"\n─── {cmd}: {time.time() - cmd_start:.1f}s wall\n")
+            print(f"\n─── {cmd} ({time.time() - cmd_start:.1f}s wall)\n")
 
     # Print elapsed time
     end_time = time.time()

@@ -86,6 +86,7 @@ GEMINI.md
 go_modules/deconstructor/deconstructor
 go_modules/deconstructor/output/*.json
 go_modules/deconstructor/output/*.tsv
+go_modules/deconstructor/output/worker_tmp_*/
 gui/icons/
 gui/stash/
 gui/window_layout.py

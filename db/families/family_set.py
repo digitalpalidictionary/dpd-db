@@ -179,6 +179,11 @@ def compile_sf_html(
     return sets_dict
 
 
+# Sets that are legitimately complete with fewer than 3 members,
+# matched by prefix. Short saṃyuttas contain only one or two vaggas.
+SMALL_SET_EXCEPTIONS: tuple[str, ...] = ("vaggas of Saṃyutta Nikāya",)
+
+
 def add_sf_to_db(db_session: Session, sets_dict: dict[str, dict]) -> list[str]:
     pr.green_tmr("adding to db")
 
@@ -197,7 +202,7 @@ def add_sf_to_db(db_session: Session, sets_dict: dict[str, dict]) -> list[str]:
 
         add_to_db.append(sf_data)
 
-        if count < 3:
+        if count < 3 and not sf.startswith(SMALL_SET_EXCEPTIONS):
             errors_list.append(sf)
 
     db_session.query(FamilySet).delete()

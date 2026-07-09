@@ -191,7 +191,11 @@ class ChangelogGenerator:
             md = [
                 rf"- [#{i.number} {i.title}]({i.html_url})"
                 for i in issues
-                if i.milestone is not None
+                # html_url check excludes PRs without triggering PyGithub's
+                # lazy per-issue API fetch (rate-limited when unauthenticated)
+                if "/pull/" not in i.html_url
+                and i.closed_at is not None
+                and i.closed_at >= since_date
             ]
             self.github_issues = "\n".join(
                 sorted(md, key=lambda x: int(x.split("#")[1].split()[0]))
@@ -204,6 +208,8 @@ class ChangelogGenerator:
             self.github_issues = "GitHub issues not available right now..."
 
     def _get_github_issues_section(self) -> str:
+        if not self.github_issues:
+            return ""
         return f"""
 ### GitHub Issues Closed
 {self.github_issues}

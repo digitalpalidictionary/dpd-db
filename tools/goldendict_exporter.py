@@ -11,7 +11,7 @@ from typing import Optional
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import idzip
-from pyglossary import Glossary
+from pyglossary.glossary_v2 import Glossary
 
 from tools.date_and_time import make_timestamp
 from tools.goldendict_path import make_goldendict_path
@@ -148,17 +148,17 @@ def create_glossary(dict_info: DictInfo) -> Glossary:
 
     pr.white_tmr("creating glossary")
     Glossary.init()
-    glos = Glossary(
-        info={
-            "bookname": dict_info.bookname,
-            "author": dict_info.author,
-            "description": dict_info.description,
-            "website": dict_info.website,
-            "sourceLang": dict_info.source_lang,
-            "targetLang": dict_info.target_lang,
-            "date": dict_info.date,
-        }
-    )
+    glos = Glossary()
+    for key, value in {
+        "bookname": dict_info.bookname,
+        "author": dict_info.author,
+        "description": dict_info.description,
+        "website": dict_info.website,
+        "sourceLang": dict_info.source_lang,
+        "targetLang": dict_info.target_lang,
+        "date": dict_info.date,
+    }.items():
+        glos.setInfo(key, value)
 
     # Force a per-glossary tmp dir now, before any newDataEntry call.
     # Without this, newDataEntry falls back to the shared cacheDir/tmp,

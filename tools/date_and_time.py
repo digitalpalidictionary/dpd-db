@@ -1,6 +1,6 @@
 """Get basic day, date, time info."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 now = datetime.now()
 
@@ -27,5 +27,5 @@ def day():
 
 def make_timestamp() -> str:
     """Make current time iso-formatted UTC datetime string"""
-    now = datetime.utcnow().replace(microsecond=0)
+    now = datetime.now(UTC).replace(microsecond=0, tzinfo=None)
     return now.isoformat()

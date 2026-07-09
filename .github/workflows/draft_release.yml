@@ -38,11 +38,6 @@ jobs:
     - name: Install dictzip
       run: sudo apt-get update && sudo apt-get install -y dictzip
 
-    - name: Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: "3.12"
-
     - name: Install uv
       run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
@@ -279,7 +274,7 @@ jobs:
     # ----------------------------------------
 
     - name: Upload Apple Dictionary Source
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: apple-dictionary-source
         path: exporter/share/apple_dictionary/
@@ -323,8 +318,18 @@ jobs:
     # Upload Linux Artifacts
     # ----------------------------------------
 
+    - name: Check all release assets exist
+      run: |
+        for f in dpd-goldendict.zip dpd-slob.zip dpd-mdict.zip dpd-kindle.epub \
+                 dpd-kindle.mobi dpd.db.tar.xz dpd-kobo.zip dpd-txt.zip \
+                 dpd-mobile-db.zip dpd-anki.apkg dpd-pdf.zip release_notes.md; do
+          if [ ! -f "exporter/share/$f" ]; then
+            echo "::warning::missing release asset: $f"
+          fi
+        done
+
     - name: Upload Linux Assets
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: linux-assets
         path: |
@@ -352,7 +357,7 @@ jobs:
 
     steps:
       - name: Download Apple Dictionary Source
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: apple-dictionary-source
           path: ./apple-dictionary-source/
@@ -407,7 +412,7 @@ jobs:
           zip -r dpd-apple.dictionary.zip Digital-Pali-Dictionary.dictionary
 
       - name: Upload Apple Dictionary
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: macos-dictionary
           path: build/dpd-apple.dictionary.zip
@@ -425,19 +430,19 @@ jobs:
 
     steps:
       - name: Download Linux Assets
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: linux-assets
           path: ./linux-assets/
 
       - name: Download Apple Dictionary
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: macos-dictionary
           path: ./macos-dictionary/
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ needs.build-linux.outputs.RELEASE_TAG }}
           name: ${{ needs.build-linux.outputs.RELEASE_DATE }}

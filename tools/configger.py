@@ -153,7 +153,7 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
             "make_mobile": "yes",
             "make_pdf": "yes",
         },
-        "anki": {"update": "no"},
+        "anki": {"update": "yes"},
         "goldendict": {"copy_unzip": "no", "make_slob": "yes"},
     },
     "quick": {
