@@ -1,4 +1,4 @@
-name: Test: Deconstructor CI Test
+name: "Test: Deconstructor CI Test"
 
 # Proves the Go deconstructor now fits the 16 GB ubuntu-latest runner. Builds the
 # db far enough that the deconstructor's inputs exist (db + inflections + the
