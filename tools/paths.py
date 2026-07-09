@@ -303,7 +303,6 @@ class ProjectPaths:
         self.dpd_logo_svg = base_dir / "identity/logo/dpd-logo.svg"
 
         # resources
-        self.deconstructor_output_dir = base_dir / "resources/deconstructor_output"
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
         self.sya_dir = base_dir / "resources/syāmaraṭṭha_1927"
         self.tipitaka_translation_db_dir = (
@@ -316,14 +315,6 @@ class ProjectPaths:
         )
         self.tbw_dpd_ebts_js_path = base_dir / "resources/bw2/js/dpd_ebts.js"
         self.tbw_i2h_js_path = base_dir / "resources/bw2/js/dpd_i2h.js"
-
-        # resources/deconstructor_output
-        self.deconstructor_output_json = (
-            base_dir / "resources/deconstructor_output/deconstructor_output.json"
-        )
-        self.deconstructor_output_tar_path = (
-            base_dir / "resources/deconstructor_output/deconstructor_output.json.tar.gz"
-        )
 
         # resources/dpd_submodules/bjt/public
         self.bjt_dir = base_dir / "resources/dpd_submodules/bjt/public/static"

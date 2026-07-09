@@ -20,7 +20,6 @@ from typing import Any
 ACTIVE_REPOS = [
     "dpd-db",
     "dpd-flutter-app",
-    "deconstructor_output",
     "dpd-pali-courses",
     "digitalpalidictionary.github.io",
     "dpd-audio",

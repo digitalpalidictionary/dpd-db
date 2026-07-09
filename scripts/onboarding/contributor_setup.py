@@ -28,7 +28,6 @@ GITHUB_RELEASES_URL = (
 REQUIRED_SUBMODULES: list[str] = [
     "resources/sc-data",
     "resources/dpd_submodules",
-    "resources/deconstructor_output",
 ]
 
 SKIPPED_SUBMODULES: list[str] = [

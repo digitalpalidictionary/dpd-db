@@ -8,7 +8,6 @@ import tarfile
 from pathlib import Path
 from typing import Dict
 
-from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
@@ -101,14 +100,3 @@ def extract_tarball_to_paths(
                 temp_path = target_path.parent / member.name
                 temp_path.rename(target_path)
                 pr.yes(f"Extracted: {member.name} -> {extraction_map[member.name]}")
-
-
-if __name__ == "__main__":
-    pth = ProjectPaths()
-
-    create_tarball(
-        tarball_name="deconstructor_output.json.tar.gz",
-        source_files=[pth.deconstructor_output_json],
-        destination_dir=pth.deconstructor_output_dir,
-        compression="gz",
-    )
