@@ -1,3 +1,4 @@
+- 2026-07-09 [WORKFLOW] Never run `ruff format` on `.json` fixture files — it adds trailing commas that break JSON. Regenerate fixtures programmatically instead.
 - 2026-04-10 [CONFUSION] When a user names a specific CLI like `claude`, verify that CLI directly instead of assuming an existing provider can cover it.
 - 2026-04-11 [REPEATED] When the user says not to ask questions and to keep going, do not interrupt with approval or clarification requests unless progress is truly blocked.
 - 2026-04-11 [WORKFLOW] For rough archival tooling work, default to manual verification and avoid drifting into unnecessary test-first process after the user has explicitly deprioritized it.
