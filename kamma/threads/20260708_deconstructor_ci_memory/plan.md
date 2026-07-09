@@ -134,33 +134,44 @@ selection. `FinishWordDupes` counter guards the assumption at runtime (stayed 0)
       → verify: all tests pass under `-race`. ✓
 
 ## Phase 4 — test CI workflow (PROVE IT)
-- [ ] 4.1 New workflow `.github/workflows/deconstructor_ci_test.yml`
-      (`workflow_dispatch`): checkout, setup Go + uv + deps, `gh release
-      download` a recent `dpd.db`, set config to regenerate, run
-      `/usr/bin/time -v go run go_modules/deconstructor/main.go`, print wall time
-      + Max RSS, then stop. No export, no upload.
-      → verify: workflow runs on the runner, deconstructor completes, logged Max
-      RSS is under 16 GB. (Run via `gh workflow run` / `workflow_dispatch`.)
+KEY FINDING: the deconstructor's input word lists (`shared_data/frequency/
+*_wordlist.json`) are generated (gitignored), made by `initial_setup_run_once.py`
+→ `go run go_modules/frequency/setup/*.go`, which runs early in the release
+build. So a downloaded `dpd.db` alone is NOT enough — the workflow mirrors
+draft_release's build prefix (per user: "just get the steps from draft release")
+through inflections so all inputs exist, then runs the Go deconstructor.
+- [x] 4.1 New workflow `.github/workflows/deconstructor_ci_test.yml`
+      (`workflow_dispatch`): draft_release setup+build prefix (checkout submodules,
+      python+uv+deps, Go, config, build db, initial setup [word lists], version,
+      inflection templates+tables), then `go build -o` + `/usr/bin/time -v` the
+      deconstructor, print Max RSS + wall time, stop. No export/upload.
+      → verify: YAML valid ✓. Live dispatch pending (user runs it).
 - [ ] 4.2 Confirm the run's reported peak RSS and wall time against local
-      numbers; note any runner-vs-local gap.
-      → verify: CI Max RSS < 16 GB with headroom; wall time within estimate.
+      numbers (local full run: 3.41 GB, ~5 min compute).
+      → verify: CI Max RSS < 16 GB with headroom. (awaiting live run)
 
-## Phase 5 — integrate into real release (GATED on Phase 4 passing)
-- [ ] 5.1 In `draft_release.yml` (and `mobile_release.yml`): replace the "Unzip
-      deconstructor_output" + `deconstructor_output_add_to_db.py` steps with a
-      `go run go_modules/deconstructor/main.go` step at the same point in the
-      build order (after inflections exist in the db). Keep the existing
-      `deconstructor_exporter.py` step.
-      → verify: workflow YAML valid; step ordering preserves db-state
-      prerequisites (inflections populated before the run).
-- [ ] 5.2 Retire the manual premade-artifact path (the tarball unzip and its
-      generation/upload docs/scripts) once regeneration is in place.
-      → verify: no remaining reference to `deconstructor_output.json.tar.gz` in
-      the active release path.
+## Phase 5 — integrate into real release
+Config enabler: added `generate: {deconstructor: "yes"}` to the `github_release`
+profile in `tools/configger.py` (the profile had no `generate` section, so the Go
+binary's one gate `[generate] deconstructor` was never set on the runner).
+- [x] 5.1 `draft_release.yml` + `mobile_release.yml`: removed "Unzip
+      deconstructor_output" step; replaced `deconstructor_output_add_to_db.py`
+      with `go run go_modules/deconstructor/main.go` at the same build position
+      (inflections + word lists already present there). `deconstructor_exporter.py`
+      unchanged. mobile's `use_last_release_db` variant untouched (skips decon).
+      → verify: all 3 workflow YAMLs valid ✓; ruff/pyright clean on configger.py ✓.
+- [~] 5.2 Premade path removed from the two named release workflows. NOT touched
+      (out of scope, per user): `pdf_test.yml` (no Go setup; its unzip is
+      vestigial — never runs add_to_db) and `submodules_update.yml`. The
+      `resources/deconstructor_output` submodule + `deconstructor_output_add_to_db.py`
+      script are left in place (retiring them is a separate call).
+      → verify: no premade ref in draft_release/mobile_release ✓.
 - [ ] 5.3 End-to-end: a release-workflow run regenerates the deconstructor in CI
-      and the downstream export proceeds; output matches the premade baseline.
-      → verify: workflow green through the export stage; deconstructor column in
-      the produced db matches a baseline build.
+      and downstream export proceeds; deconstructor column matches a baseline.
+      → verify: workflow green through export. (awaiting live run — user tests)
+      NOTE: Go `SaveToDb` does `DELETE FROM lookup` + full rewrite (vs the Python
+      `sync_lookup_column`); it is the canonical original writer, but this is the
+      main thing to watch in the live e2e.
 
 ## Phase 6 — finalize
 - [ ] 6.1 Remove the scratchpad bench harness; `git status` shows only intended

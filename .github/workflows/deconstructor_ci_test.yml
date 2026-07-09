@@ -1,0 +1,86 @@
+name: Deconstructor CI Test
+
+# Proves the Go deconstructor now fits the 16 GB ubuntu-latest runner. Builds the
+# db far enough that the deconstructor's inputs exist (db + inflections + the
+# frequency word lists made by initial_setup), then runs it under /usr/bin/time
+# -v and reports peak RSS + wall time. No export, no upload, no release.
+# Steps mirror draft_release.yml's build prefix.
+
+on:
+ workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deconstructor-rss:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v5
+      with:
+        repository: 'digitalpalidictionary/dpd-db'
+        ref: 'main'
+        submodules: 'recursive'
+        fetch-depth: 1
+        token: ${{ secrets.GH_PAT }}
+
+    - name: Remove large dirs
+      run: |
+        rm -rf ${{ github.workspace }}/resources/bjt/dev/*
+        rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
+
+    - name: Install GNU time
+      run: sudo apt-get update && sudo apt-get install -y time
+
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.12"
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install dependencies
+      run: uv sync --all-groups
+
+    - name: Set up Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: '1.22.2'
+
+    - name: Config for GitHub release
+      run: uv run python scripts/build/config_github_release.py
+
+    - name: Create dpd.db
+      run: touch dpd.db
+
+    - name: Build the database
+      run: uv run python scripts/build/db_rebuild_from_tsv.py
+
+    - name: Run initial setup script
+      run: uv run python scripts/bash/initial_setup_run_once.py
+
+    - name: Create version
+      run: uv run python tools/version.py
+
+    - name: Create Inflection Templates
+      run: uv run python db/inflections/create_inflection_templates.py
+
+    - name: Create Inflection Tables
+      run: uv run python db/inflections/generate_inflection_tables.py
+
+    # ----------------------------------------
+    # The actual test: run the Go deconstructor under /usr/bin/time -v.
+    # ----------------------------------------
+
+    - name: Run Deconstructor (timed)
+      run: |
+        go build -o deconstructor_bin go_modules/deconstructor/main.go
+        /usr/bin/time -v ./deconstructor_bin 2> time_report.txt || { cat time_report.txt; exit 1; }
+        echo "================ resource report ================"
+        grep -E "Maximum resident set size|Elapsed \(wall clock\) time" time_report.txt
+        MAXK=$(grep "Maximum resident set size" time_report.txt | grep -oE "[0-9]+")
+        echo "Peak RSS: ${MAXK} KB (~$((MAXK / 1024 / 1024)) GB) against a 16 GB runner"

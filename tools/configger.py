@@ -134,6 +134,9 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
             "transliterations": "yes",
             "freq_maps": "yes",
         },
+        "generate": {
+            "deconstructor": "yes",
+        },
         "dictionary": {"make_mdict": "yes", "show_id": "no", "data_limit": "0"},
         "exporter": {
             "make_dpd": "yes",
