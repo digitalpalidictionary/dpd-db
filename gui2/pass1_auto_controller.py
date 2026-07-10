@@ -73,18 +73,18 @@ class Pass1AutoController:
                 del data[word]
             return data
 
-        self.file_manager.update(book, update_func)
+        updated = self.file_manager.update(book, update_func)
         if hasattr(self, "book") and self.book == book:
-            self.auto_processed_dict = self.file_manager.read(book)
+            self.auto_processed_dict = updated
 
     def add_word(self, book: str, word: str, data: dict):
         def update_func(current_data):
             current_data[word] = data
             return current_data
 
-        self.file_manager.update(book, update_func)
+        updated = self.file_manager.update(book, update_func)
         if self.book == book:
-            self.auto_processed_dict = self.file_manager.read(book)
+            self.auto_processed_dict = updated
 
     def load_auto_processed(self):
         self.ui.update_message(f"Loading auto processed data for {self.book}")

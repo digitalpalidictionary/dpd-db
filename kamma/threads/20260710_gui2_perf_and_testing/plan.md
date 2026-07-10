@@ -457,11 +457,55 @@ commit anything. At each phase's CHECKPOINT:
 
 **MODEL: Sonnet — remind the user to switch before starting this phase.**
 
-- [ ] 8.1 Drop redundant `load()` calls in `pass2_auto_file_manager` getters
-- [ ] 8.2 Batch/deferred writes for high-churn managers if numbers justify
-- [ ] 8.3 Re-run 3.7; record before/after
-- [ ] CHECKPOINT: full suite green. No manual test needed. → run `/cm` to
-      draft the message for this final phase; user commits.
+- [x] 8.1 Investigated, decided NOT to remove: `Pass2AutoControl` (batch AI
+      processing over a whole book) and `Pass2AddView` (human review, one
+      suggestion at a time) each hold their own separate
+      `Pass2AutoFileManager` instance, both backed by the same
+      `pass2_auto.json`. The file is the only channel between them — no
+      in-process sharing of the dict — and this is a deliberately tested
+      contract (`test_data_survives_reload_from_disk`). Flet dispatches each
+      `on_click` handler on its own thread, so both tabs can be live at once:
+      a long "process book" batch running on one thread while a person
+      deletes/accepts suggestions on another. Every `load()` in
+      `pass2_auto_file_manager.py` exists so each instance picks up what the
+      other just wrote/deleted. Removing them (as 8.1 originally proposed)
+      would let a stale in-memory save silently resurrect an item the other
+      screen just deleted — a data-loss bug, not just a slowdown. 3.7 already
+      measured the real cost as tiny (13 ms/edit at 5000 entries/0.7 MB), so
+      per spec's own "may be a no-op" framing, left as-is. No code changed.
+- [x] 8.2 Found and fixed one genuine redundant read outside 8.1's named
+      file: `Pass1AutoController.add_word()`/`remove_word()`
+      (`gui2/pass1_auto_controller.py`) — called once per word inside the
+      `auto_process_book` batch loop. Each call did
+      `self.file_manager.update(book, update_func)` (full read+modify+write,
+      already returns the updated dict), then discarded that return value
+      and called `self.file_manager.read(book)` again — a second, fully
+      redundant full-file read of what it had just written. Unlike
+      pass2_auto_file_manager (8.1), only one `Pass1FileManager`/
+      `Pass1AutoController` is ever constructed per book — no second
+      instance reads this file behind its back — so there's no cross-
+      instance freshness reason for the extra read; it was just a dropped
+      return value. Fixed both methods to assign `update()`'s return value
+      directly instead of re-reading. No batching/deferral implemented —
+      not justified: single-owner, already-in-memory data, no queue to
+      coalesce.
+      → verify: `uv run ruff check/format`, `uv run pyright` clean;
+      `uv run pytest tests/gui2/` (242 passed, no regressions — no dedicated
+      Pass1AutoController test file exists, but Pass1FileManager tests
+      cover the manager itself).
+- [x] 8.3 New benchmark `bench_pass1_controller_write.py` (controller-level,
+      since 3.7 measured `Pass1FileManager.update()` in isolation, not the
+      controller's extra read): on the real 7.63 MB `pass1_auto_dhpa.json`,
+      before (update()+redundant read) 194.94 ms → after (fixed add_word())
+      158.34 ms — **~19% cut** per processed word in the batch loop, matches
+      the "drop one of three file ops" prediction. pass2_auto_file_manager
+      left unmeasured again — 8.1 decided not to touch it (see 8.1 above),
+      so no after-number to record; 3.7's 13 ms/edit stands unchanged.
+- [x] CHECKPOINT: full suite green (`uv run pytest tests/` → 1471 passed,
+      16 deselected — same count as Phase 7, no regressions). No manual test
+      needed (no UI/behavior change, pure I/O reduction on a background
+      batch loop). → run `/cm` to draft the message for this final phase;
+      user commits.
 
 ## Dead code
 
