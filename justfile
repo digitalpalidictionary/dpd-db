@@ -70,6 +70,13 @@ db-test:
 test-phonetic:
     uv run python -m db_tests.single.add_phonetic_changes
 
+# ===== SUTTA ANALYSIS =====
+
+# Stage 1 (study passage) + Stage 2 (export CSV) in sequence, interactive prompts
+analyze:
+    uv run python exporter/analysis/study_passage.py
+    uv run python exporter/analysis/export_words_csv.py
+
 # Add single-meaning synonyms interactively
 add-synonyms-single:
     uv run python db_tests/single/add_synonym_variant_single.py
