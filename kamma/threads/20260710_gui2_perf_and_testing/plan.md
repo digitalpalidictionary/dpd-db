@@ -124,28 +124,60 @@ commit anything. At each phase's CHECKPOINT:
 
 **MODEL: Sonnet — remind the user to switch before starting this phase.**
 
-- [ ] 3.1 Benchmark harness (scratch scripts under `scripts/` or thread dir;
-      throwaway copy of dpd.db; fresh process per measurement, per global
-      benchmarking rules)
-- [ ] 3.2 Baseline: startup breakdown — ToolKit construction (per manager),
-      each of the 15 view constructors, `pre_initialize_gui_data` queries,
-      wordfinder 74 MB JSON load, AI SDK init, spellchecker init
-- [ ] 3.3 Baseline: memory RSS at launch / after first tab click / after
-      simulated word navigations (engine-leak probe: N ×
-      `new_db_session()` with and without close)
-- [ ] 3.4 Baseline: engine creation vs cached-engine session cost (isolated
-      micro-benchmark of `get_db_session`)
-- [ ] 3.5 Baseline: DB tab — query + table-build wall-clock at limit
-      0/100/1000/10000 with the default preset; identify whether query, ORM
-      materialization, or Flet control tree dominates
-- [ ] 3.6 Baseline: corpus load (`initialize_db`, `make_inflections_lists`,
-      `make_pass2_lists`) and `RelationshipDetector` build time
-- [ ] 3.7 Baseline: JSON write amplification — pass1 8 MB rewrite,
-      pass2_auto per-item read+write
-- [ ] CHECKPOINT: present numbers; agree which phases 4-8 proceed and in what
-      form. No manual test needed. → once agreed, run `/cm` to draft the
-      message for the harness + baseline recordings; user commits before
-      Phase 4 starts.
+- [x] 3.1 Benchmark harness under
+      `kamma/threads/20260710_gui2_perf_and_testing/benchmarks/`
+      (`bench_common.py` + 6 scripts, `results/*.json`). Built via a fork
+      (large, iterative, trial-and-error work). Real `flet.Page` can't be
+      constructed standalone (needs a live Connection+event loop), so the
+      "15 view constructors" sub-measurement was dropped in favor of timing
+      each ToolKit *manager* construction individually — that's what
+      actually drives startup cost. `force_throwaway_db_globally()` in
+      `bench_common.py` monkeypatches every `get_db_session` binding so
+      nothing can touch the real 2.2GB `dpd.db`; verified via mtime that it
+      never changed across all runs. Post-fork cleanup: reordered imports in
+      4 scripts to drop `# noqa: E402` (E402 is genuinely selected via the
+      "E4" ruff prefix, not inert — the initial removal attempt was wrong
+      until reordering fixed it properly); reran affected scripts to confirm
+      identical behavior. All 7 files clean on `ruff check`, `ruff format`,
+      `pyright`.
+- [x] 3.2 Startup breakdown — total ~3.1–4.6s across runs (see note on
+      variance below). Three items dominate (~95%+): wordfinder 74MB JSON
+      load (~1.7–1.8s), AI manager 6-provider SDK init (~1.0–1.1s),
+      `pre_initialize_gui_data` 5 queries (0.3–1.6s, most variance of the
+      three). All other ~22 managers combined: under 100ms.
+- [x] 3.3 Memory RSS + engine-leak probe — corpus load: 68.8 → 873.2 MB
+      (+804 MB, ~83k rows). 50× `new_db_session()`: fd growth +100 without
+      closing the previous session, **+79 even when closing it first** —
+      confirms closing the session alone does not fix the leak; the Engine
+      itself must be reused/disposed.
+- [x] 3.4 Engine cost (N=200) — current (new Engine per call): 0.693 ms/call,
+      +37 fds. Cached-engine prototype: 0.048 ms/call, +0 fds.
+      **14.4× speedup, zero fd growth.**
+- [x] 3.5 DB tab — limit 100: 171ms total. limit 1000: 565ms. limit 10000:
+      4415ms. **limit 0 (the actual default): 37.4s** (query 9.1s + Flet
+      control-tree build 28.3s) in this run; the original fork run measured
+      56.7s (query 29.4s + build 27.3s) — page-cache/system-load variance
+      changes the absolute split, but query and build are consistently
+      comparable in cost, so fixing only one would not fix the freeze.
+- [x] 3.6 Corpus load — `initialize_db()` 5.3s, `make_inflections_lists()`
+      2.6s, `make_pass2_lists()` 3.4s (three separate full `.all()` loads of
+      the same ~89k rows), `RelationshipDetector` build 0.5s. ~11.3s total
+      redundant load cost that could be ~1 load.
+- [x] 3.7 JSON write amplification — `Pass1FileManager.update()` on the
+      7.6MB file: 139ms/edit. `Pass2AutoFileManager` on a synthetic 5000-entry
+      (0.7MB) queue: 13ms/edit. Real but minor next to 3.2–3.6 — confirms the
+      spec's "may be a no-op" framing for Phase 8.
+- [x] CHECKPOINT: numbers confirm the DB tab (Phase 5) and engine/session
+      hygiene (Phase 4) findings are unambiguous — measured, not judgment
+      calls. Note on variance: absolute ms differ somewhat between the
+      fork's original run and my re-verification run (page-cache warmth,
+      system load ~1.6/22 cores at time of testing) — relative comparisons
+      (14.4× engine speedup, query≈build cost split in the DB tab, 3×
+      redundant corpus loads) are stable across both runs and are what the
+      phase decisions below rely on. No manual test needed for this
+      checkpoint. → presented numbers to user, decided which of phases 4-8
+      to run next; once agreed, run `/cm` to draft the message for the
+      harness + baseline recordings — the user commits before Phase 4 starts.
 
 ## Phase 4 — Engine/session hygiene (Theme A) — if justified by 3.3/3.4
 

@@ -106,6 +106,7 @@ gui2/data/pass2_new_words.json
 gui2/data/pass2_pre_*.json
 gui2/data/word_to_add.txt
 gui2_profile.prof
+kamma/threads/*/benchmarks/results/
 logs/
 memory-bank/
 misc/sutta_subdivisions.md
