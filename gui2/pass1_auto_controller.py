@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import threading
 from json import JSONDecodeError, dump, dumps, loads
-from pathlib import Path
 
 from gui2.books import (
     SuttaCentralSegment,
@@ -386,7 +385,9 @@ ve: verbal ending
 ---
 
 """
-        temp_file = Path(f"temp/prompts/pass1/{self.word_in_text}_prompt")
+        temp_dir = self.db.pth.temp_dir / "prompts" / "pass1"
+        temp_dir.mkdir(parents=True, exist_ok=True)
+        temp_file = temp_dir / f"{self.word_in_text}_prompt"
         with open(temp_file, "w", encoding="utf-8") as f:
             f.write(self.prompt)
 
@@ -458,7 +459,9 @@ ve: verbal ending
                     pr.red("ERROR adding ai model to comment")
 
             # save json to temp file
-            tempfile = Path(f"temp/prompts/pass1/{self.word_in_text}_response")
+            temp_dir = self.db.pth.temp_dir / "prompts" / "pass1"
+            temp_dir.mkdir(parents=True, exist_ok=True)
+            tempfile = temp_dir / f"{self.word_in_text}_response"
             with open(tempfile, "w", encoding="utf-8") as f:
                 dump(parsed_json, f, ensure_ascii=False, indent=4)
 

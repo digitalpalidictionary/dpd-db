@@ -336,9 +336,9 @@ class Pass2AutoController:
                     open_in_goldendict(self._word_in_text)
 
                 if debug:
-                    temp_file = Path(
-                        f"temp/prompts/pass2/{self._word_in_text}_response"
-                    )
+                    temp_dir = self.db.pth.temp_dir / "prompts" / "pass2"
+                    temp_dir.mkdir(parents=True, exist_ok=True)
+                    temp_file = temp_dir / f"{self._word_in_text}_response"
                     with open(temp_file, "w", encoding="utf-8") as f:
                         f.write(str(response_dict))
             # else: Error handled within _process_headword_with_ai or _format_response
@@ -580,7 +580,9 @@ ve: verbal ending
 
 """
         if debug:
-            temp_file = Path(f"temp/prompts/pass2/{headword.lemma_1}_prompt")
+            temp_dir = self.db.pth.temp_dir / "prompts" / "pass2"
+            temp_dir.mkdir(parents=True, exist_ok=True)
+            temp_file = temp_dir / f"{headword.lemma_1}_prompt"
             with open(temp_file, "w", encoding="utf-8") as f:
                 f.write(prompt)
         return prompt
