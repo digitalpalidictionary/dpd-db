@@ -183,14 +183,52 @@ commit anything. At each phase's CHECKPOINT:
 
 **MODEL: Fable — remind the user to switch before starting this phase.**
 
-- [ ] 4.1 Cache one Engine per db path in `db/db_helpers.py`; audit non-GUI
-      callers for compatibility
-- [ ] 4.2 `DatabaseManager.new_db_session()` closes the previous session;
-      verify stale-read semantics preserved (external commits still visible)
-- [ ] 4.3 Re-run 3.3/3.4 probes; record before/after
-- [ ] CHECKPOINT: full suite green + user smoke test. → after the user
-      confirms the smoke test passed, run `/cm` to draft the message; user
-      commits before Phase 5 starts.
+- [x] 4.1 Cache one Engine per db path in `db/db_helpers.py`
+      → `_get_cached_engine()`: per-resolved-path cache, `threading.Lock`
+      around it (Flet handlers run in a thread pool), and a PID guard — a
+      forked child clears the cache instead of reusing the parent's pooled
+      SQLite fds (cross-process fd sharing corrupts the db). Caller audit
+      (210 files): both transliterate scripts and the goldendict exporter
+      open sessions only in the parent, children are pure computation;
+      `db_rebuild_from_tsv.py` unlinks dpd.db before its first
+      `get_db_session` in that process so no stale cached engine is
+      possible; `audio/db_create.py` uses its own `get_audio_session`
+      (untouched); webapp benefits (was harvesting `.bind` off a throwaway
+      session). Semantics probe (scratchpad script): engine reuse, external
+      sqlite3 commits visible to fresh sessions on a warm pool, fork guard
+      rebuilds in child, WAL listener active — all verified.
+- [x] 4.2 REVERSED after user smoke test: `new_db_session()` does NOT close
+      the previous session. Two independent reasons, found live:
+      (a) close-race — Flet handlers run in a thread pool; the DB tab's
+      long filter query runs on the very session another tab's
+      `new_db_session()` would close, killing it mid-fetch;
+      (b) the user's smoke test crashed with `QueuePool limit of size 5
+      overflow 10 reached, connection timed out, timeout 30.00` — the
+      shared cached engine's bounded pool (15) exhausts because gui2 keeps
+      many never-committed sessions alive, each pinning a connection for
+      life. Before 4.1 each session had a private engine, so no shared
+      limit existed. Fix: cached engine now uses **NullPool** — no bound to
+      exhaust, each session opens its own cheap SQLite connection, released
+      on close/GC. Regression probe: 20 transaction-holding sessions + a
+      21st query = 0.4 ms (was 30s block → TimeoutError). A comment in
+      `new_db_session()` records why close() must not be added back.
+- [x] 4.3 Before/after (bench_memory / bench_engine, final NullPool shape):
+      | probe | before (per-call engines) | after (cached engine + NullPool) |
+      |---|---|---|
+      | session+first-query cost | 0.693 ms | 0.491 ms |
+      | 50× new_db_session fd growth | +100 (engines never freed) | +45 transient, 0 after GC |
+      | 50× new_db_session RSS growth | +3.9 MB | +0.3 MB |
+      | pool-exhaustion crash | impossible (private pools) | impossible (NullPool) |
+      fd note: 3 fds per live SQLite/WAL connection (db + -wal + -shm);
+      `close()` releases all 3 immediately (probe-verified). Abandoned
+      sessions sit in reference cycles so they free on the CYCLIC collector,
+      not refcount — transient sawtooth, fully reclaimed at gc.collect()
+      (probe-verified, −1 fds). Correction to 4.2's original rationale:
+      "deterministic on refcount" was wrong. Full suite green (1427 passed,
+      3 runs across the phase).
+- [x] CHECKPOINT: full suite green ✓; user re-ran the failing repro (DB tab
+      search → commentary search in Pass2Add → Trans tab search) — works
+      without error. `/cm` drafted; user commits before Phase 5 starts.
 
 ## Phase 5 — DB tab fix (Theme D — user priority) — shaped by 3.5
 

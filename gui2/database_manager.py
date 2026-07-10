@@ -80,6 +80,13 @@ class DatabaseManager:
         self._relationship_detector: RelationshipDetector | None = None
 
     def new_db_session(self):
+        # Deliberately NO close() of the old session here: Flet handlers run
+        # in a thread pool, so a long query may still be running on the old
+        # session in another thread (e.g. the DB tab's filter query) when a
+        # different tab swaps sessions — closing it kills that query mid-
+        # fetch. An abandoned session's connection returns to the shared
+        # engine's pool when the last reference (e.g. the in-flight Query)
+        # is garbage-collected.
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
 
     # --- INITIALIZE DB ---

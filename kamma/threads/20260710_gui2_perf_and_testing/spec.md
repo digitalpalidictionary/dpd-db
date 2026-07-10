@@ -69,10 +69,15 @@ throwaway copy of dpd.db:
 Baselines recorded in the thread; every later phase re-runs the relevant probe.
 
 ### Phase 4 — Engine/session hygiene (Theme A)
-If Phase 3 confirms: cache one Engine per db path in `db/db_helpers.py`;
-`new_db_session()` closes the previous session. Verify no behavior change
-(stale-read semantics that `new_db_session` callers rely on must be preserved —
-likely via `expire_all`).
+As built: cache one Engine per db path in `db/db_helpers.py`, with a
+**NullPool** (a bounded shared pool exhausts and 30s-blocks because gui2
+keeps many never-committed sessions alive, each pinning a connection — found
+by user smoke test as a live `QueuePool limit ... reached` crash), a thread
+lock, and a fork-PID guard. `new_db_session()` deliberately does NOT close
+the previous session — Flet handlers run in a thread pool and the old session
+may still be running another tab's query (close() kills it mid-fetch).
+External-commit visibility preserved (probe-verified with a live sqlite3
+side-writer); abandoned sessions free their connections via the cyclic GC.
 
 ### Phase 5 — DB tab fix (Theme D, user priority)
 Decide from Phase 3 numbers among: default row limit + paging; read-only cells
