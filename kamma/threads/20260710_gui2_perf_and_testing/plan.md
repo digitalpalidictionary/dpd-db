@@ -300,16 +300,83 @@ commit anything. At each phase's CHECKPOINT:
 
 **MODEL: Fable — remind the user to switch before starting this phase.**
 
-- [ ] 6.1 Single cached corpus: `make_inflections_lists`/`make_pass2_lists`/
+- [x] 6.1 Single cached corpus: `make_inflections_lists`/`make_pass2_lists`/
       tests-tab derive from one load instead of three-plus
-- [ ] 6.2 Move first corpus load off the UI thread (progress indicator on
+      → verify: `uv run pytest tests/gui2/` (240 passed, 10 new in
+      test_database_manager_corpus.py). New `load_corpus()` (cached,
+      lock-guarded, generation counter) + `mark_corpus_stale()` on
+      `DatabaseManager`; `initialize_db`/`make_inflections_lists`/
+      `make_pass2_lists`/detector lazy path/tests-tab `load_db` + rerun all
+      derive from it. Derived sets skip rebuilding when the corpus
+      generation is unchanged. Unified defer list KEEPS `freq_data` loaded
+      (RelationshipDetector's `has_textual_occurrence` reads it on rows
+      that may outlive their session; deferring it risked per-row lazy
+      loads/DetachedInstanceError — the old make_* loads deferred it, the
+      old initialize_db didn't; verified no db test targets any deferred
+      column). Staleness marked at every headword write path:
+      add/update/delete_word_in_db, root rename/delete cascade,
+      filter_component batch save, sandhi find-replace commits,
+      global tab inflections update, and pass1_add "refresh db" button.
+      Freshness semantics change (agreed direction): external-process
+      writes are now picked up via the refresh button or restart, not by
+      the previously-implicit reload-on-every-call.
+- [x] 6.2 Move first corpus load off the UI thread (progress indicator on
       first tab click)
-- [ ] 6.3 Serialize + debounce `invalidate_relationship_detector` (single
+      → verify: ruff/pyright clean, 240 gui2 tests pass; manual smoke at
+      phase checkpoint. `main.py tab_clicked` now kicks
+      `initialize_db()` off via `page.run_thread` with a start-guard flag
+      and "Loading database in the background..." / "Database loaded."
+      snackbars (failure resets the guard so a retry is possible). The
+      async window means the `initialize_db` sets can still be None while
+      the user types, so the six direct set-membership validations in
+      `dpd_fields.py` (lemma_1 dup ×2, pos, root family, word family,
+      compound family) now skip gracefully instead of raising TypeError;
+      `load_corpus()`'s lock means any pass1/pass2/tests action started
+      during the window simply waits for (or shares) the one load.
+      Known transient: `all_decon_no_headwords` (a lookup-table query, not
+      corpus) may still be empty if pass2pre is started within seconds of
+      the first tab click — self-heals, noted rather than engineered
+      around.
+- [x] 6.3 Serialize + debounce `invalidate_relationship_detector` (single
       worker; coalesce rapid saves)
-- [ ] 6.4 Re-run 3.6; record before/after
-- [ ] CHECKPOINT: full suite green + user smoke test of pass1/pass2 flows.
-      → after confirmation, run `/cm` to draft the message; user commits
-      before Phase 7 starts.
+      → verify: `uv run pytest tests/gui2/test_database_manager_corpus.py`
+      (12 passed, 2 new worker tests); full suite 1471 passed. Rewritten as
+      a single coalescing worker: pending/running flags under a lock; a
+      1s debounce (`DETECTOR_REBUILD_DEBOUNCE_SECS`) lets a burst of saves
+      become ONE rebuild; a save landing mid-rebuild queues exactly one
+      more pass. N saves now cost at most one running rebuild + one queued
+      (was N concurrent 83k-row loads with a 2-3× memory spike each). The
+      worker keeps its private bg session/load — deliberately NOT
+      load_corpus(), which would swap `self.db` under UI-thread users.
+      Test infra note: in-memory SQLite needs StaticPool +
+      check_same_thread=False for the worker thread to see the fixture db.
+- [x] 6.4 Re-run 3.6; record before/after (bench_corpus.py gained cached +
+      stale-reload sections; results in `results/6.4_corpus_after.json`;
+      warm-cache run, system load ~3.9/22 cores — relative comparisons are
+      the point, per the Phase 3 variance note):
+      | call | before (each = full 89k load) | after (one cached load) |
+      |---|---|---|
+      | initialize_db (load + detector) | 5.3 s | 6.3 s (same work; load-noise) |
+      | make_inflections_lists | 2.6 s | **0.67 s** (derive only) |
+      | make_pass2_lists | 3.4 s | **1.3 s** (derive only) |
+      | tests-tab db load | full undeferred `.all()` (heavier than 5.3 s, every run AND rerun) | **0.01 ms** (cached) |
+      | repeat call, nothing changed | full reload each time | **~0 ms** |
+      | stale reload + derive (after a write) | n/a | 2.7 s |
+      The three-loads-that-could-be-one (11.3 s total) are now one load +
+      two derives (8.2 s once, ~0 thereafter), and the first load runs off
+      the UI thread (6.2). Set-derivation itself (~0.7–1.3 s) is the
+      irreducible remainder, dominated by `inflections_list_all` string
+      splitting — computed once per corpus generation and shared between
+      pass1/pass2 via the row-level cached_property now that rows are
+      reused.
+- [~] CHECKPOINT: full suite green (`uv run pytest tests/` → 1471 passed,
+      16 deselected; 12 new tests in
+      `tests/gui2/test_database_manager_corpus.py`); ruff/pyright clean on
+      all 10 touched files. AWAITING user smoke test of pass1/pass2 flows
+      (see suggested steps in session) → after confirmation, run `/cm` to
+      draft the message; user commits before Phase 7 starts. Note:
+      `db_tests/db_tests_columns.tsv` is still the unrelated pre-existing
+      dirty file to exclude from the commit.
 
 ## Phase 7 — Lazy startup (Theme C) — items accepted per 3.2 numbers
 

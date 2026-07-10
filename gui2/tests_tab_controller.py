@@ -264,9 +264,7 @@ class TestsTabController:
 
     def load_db(self) -> list[DpdHeadword] | None:
         try:
-            db_session = self.toolkit.db_manager.db_session
-            db_entries = db_session.query(DpdHeadword).all()
-            return db_entries
+            return self.toolkit.db_manager.load_corpus()
         except Exception as e:
             print(f"Error loading DB: {e}")
             return None
@@ -827,9 +825,7 @@ class TestsTabController:
 
         # Refresh DB entries for fresh data
         try:
-            self._db_entries = self.toolkit.db_manager.db_session.query(
-                DpdHeadword
-            ).all()
+            self._db_entries = self.toolkit.db_manager.load_corpus()
         except Exception as ex:
             self.view.update_test_name(f"Error reloading DB: {ex}")
             self.page.update()

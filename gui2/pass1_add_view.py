@@ -243,6 +243,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
     def handle_refresh_db_click(self, e: ft.ControlEvent) -> None:
         self.db.new_db_session()
+        self.db.mark_corpus_stale()
         self.update_message("Database refreshed")
 
     def handle_add_to_db_click(self, e: ft.ControlEvent) -> None:

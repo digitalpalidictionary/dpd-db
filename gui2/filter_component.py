@@ -438,6 +438,7 @@ class FilterComponent(ft.Column):
                     setattr(record, col_name, value)
 
             db_session.commit()
+            self.toolkit.db_manager.mark_corpus_stale()
             self.toolkit.db_manager.invalidate_relationship_detector()
             self.modified_cells.clear()
             self._start_apply()

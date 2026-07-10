@@ -273,6 +273,7 @@ class SandhiFindReplaceView(ft.Column):
             new_value = re.sub(self.find_me, self.replace_me, self.data.this_field_text)
             setattr(self.data.this_headword, self.data.this_field_name, new_value)
             self.data.commit()
+            self.toolkit.db_manager.mark_corpus_stale()
             self._increment()
         else:
             # Phase 2 logic (manual edit)
@@ -280,6 +281,7 @@ class SandhiFindReplaceView(ft.Column):
             new_value = self.replaced_field.value
             setattr(self.data.this_headword, self.data.this_field_name, new_value)
             self.data.commit()
+            self.toolkit.db_manager.mark_corpus_stale()
             self._increment()
 
     def ignore_clicked(self, e):

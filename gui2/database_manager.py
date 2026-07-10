@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
+import threading
+import time
 
 from sqlalchemy import delete as sa_delete
 from sqlalchemy import desc, func
@@ -23,6 +25,9 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.synonym_variant import RelationshipDetector
 
+# Lets a burst of rapid saves coalesce into a single detector rebuild.
+DETECTOR_REBUILD_DEBOUNCE_SECS = 1.0
+
 
 class DatabaseManager:
     def __init__(self) -> None:
@@ -32,6 +37,14 @@ class DatabaseManager:
         self.new_db_session()
 
         self.db: list[DpdHeadword]
+        # Single cached corpus (see load_corpus). The generation counter
+        # lets derived sets skip rebuilding when the corpus hasn't changed.
+        self._corpus_stale: bool = True
+        self._corpus_gen: int = 0
+        self._corpus_lock = threading.Lock()
+        self._inflections_gen: int = -1
+        self._pass2_gen: int = -1
+
         self.all_inflections: set[str] = set()
         self.all_inflections_missing_meaning: set[str] = set()
 
@@ -78,6 +91,9 @@ class DatabaseManager:
 
         # synonym/phonetic detector — built lazily on first use
         self._relationship_detector: RelationshipDetector | None = None
+        self._detector_rebuild_lock = threading.Lock()
+        self._detector_rebuild_pending: bool = False
+        self._detector_rebuild_running: bool = False
 
     def new_db_session(self):
         # Deliberately NO close() of the old session here: Flet handlers run
@@ -108,18 +124,39 @@ class DatabaseManager:
         self.get_all_word_families()
         self.get_all_patterns()
         self.get_all_decon_no_headwords()
-        self.db = (
-            self.db_session.query(DpdHeadword)
-            .options(
-                defer(DpdHeadword.inflections_html),
-                defer(DpdHeadword.freq_html),
-                defer(DpdHeadword.inflections_sinhala),
-                defer(DpdHeadword.inflections_devanagari),
-                defer(DpdHeadword.inflections_thai),
-            )
-            .all()
-        )
-        self._relationship_detector = RelationshipDetector(self.db)
+        self._relationship_detector = RelationshipDetector(self.load_corpus())
+
+    # --- CORPUS CACHE ---
+
+    def load_corpus(self) -> list[DpdHeadword]:
+        """The single authoritative full-table load, cached in `self.db`.
+
+        Reloads only after mark_corpus_stale() (any GUI write to
+        dpd_headwords). The big HTML columns stay deferred; freq_data
+        stays loaded because the relationship detector reads it on rows
+        that may outlive their session.
+        """
+        with self._corpus_lock:
+            if self._corpus_stale or getattr(self, "db", None) is None:
+                self.db = (
+                    self.db_session.query(DpdHeadword)
+                    .options(
+                        defer(DpdHeadword.inflections_html),
+                        defer(DpdHeadword.freq_html),
+                        defer(DpdHeadword.inflections_sinhala),
+                        defer(DpdHeadword.inflections_devanagari),
+                        defer(DpdHeadword.inflections_thai),
+                    )
+                    .all()
+                )
+                self._corpus_stale = False
+                self._corpus_gen += 1
+            return self.db
+
+    def mark_corpus_stale(self) -> None:
+        """Call after any write to dpd_headwords so the next load_corpus()
+        (and the sets derived from it) sees fresh data."""
+        self._corpus_stale = True
 
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).distinct().all()
@@ -230,30 +267,24 @@ class DatabaseManager:
     # --- PASS1 AUTO ---
 
     def make_inflections_lists(self) -> None:
-        """Load data from the database."""
+        """Derive the pass1 inflection sets from the cached corpus.
 
-        self.db: list[DpdHeadword] = (
-            self.db_session.query(DpdHeadword)
-            .options(
-                defer(DpdHeadword.inflections_html),
-                defer(DpdHeadword.freq_html),
-                defer(DpdHeadword.inflections_sinhala),
-                defer(DpdHeadword.inflections_devanagari),
-                defer(DpdHeadword.inflections_thai),
-                defer(DpdHeadword.freq_data),
-            )
-            .all()
-        )
+        Rebuilds only when the corpus was reloaded since the last derive."""
 
-        self.all_inflections: set[str] = set()  # reset
-        [self.all_inflections.update(i.inflections_list_all) for i in self.db]
+        corpus = self.load_corpus()
+        if self._inflections_gen == self._corpus_gen:
+            return
 
-        self.all_inflections_missing_meaning: set[str] = set()  # reset
-        [
-            self.all_inflections_missing_meaning.update(i.inflections_list_all)
-            for i in self.db
-            if not i.meaning_1
-        ]
+        all_inflections: set[str] = set()
+        all_inflections_missing_meaning: set[str] = set()
+        for i in corpus:
+            all_inflections.update(i.inflections_list_all)
+            if not i.meaning_1:
+                all_inflections_missing_meaning.update(i.inflections_list_all)
+
+        self.all_inflections = all_inflections
+        self.all_inflections_missing_meaning = all_inflections_missing_meaning
+        self._inflections_gen = self._corpus_gen
 
     def get_related_dict_entries(self, word_in_text) -> list[str]:
         """Get all the possible lemma, pos meaning for a word."""
@@ -293,30 +324,25 @@ class DatabaseManager:
     # --- PASS2 PREPROCESSOR ---
 
     def make_pass2_lists(self) -> None:
-        """Data that pass2 preprocessor needs."""
+        """Derive the pass2 preprocessor sets from the cached corpus.
 
-        self.db: list[DpdHeadword] = (
-            self.db_session.query(DpdHeadword)
-            .options(
-                defer(DpdHeadword.inflections_html),
-                defer(DpdHeadword.freq_html),
-                defer(DpdHeadword.inflections_sinhala),
-                defer(DpdHeadword.inflections_devanagari),
-                defer(DpdHeadword.inflections_thai),
-                defer(DpdHeadword.freq_data),
-            )
-            .all()
-        )
+        Rebuilds only when the corpus was reloaded since the last derive."""
 
-        self.all_inflections_missing_example: set[str] = set()  # reset
-        [
-            self.all_inflections_missing_example.update(i.inflections_list_all)
-            for i in self.db
-            if is_missing_sutta_example(i)
-        ]
+        corpus = self.load_corpus()
+        if self._pass2_gen == self._corpus_gen:
+            return
 
-        self.all_suffixes: set[str] = set()  # reset
-        [self.all_suffixes.add(i.suffix) for i in self.db if i.suffix != ""]
+        all_inflections_missing_example: set[str] = set()
+        all_suffixes: set[str] = set()
+        for i in corpus:
+            if is_missing_sutta_example(i):
+                all_inflections_missing_example.update(i.inflections_list_all)
+            if i.suffix != "":
+                all_suffixes.add(i.suffix)
+
+        self.all_inflections_missing_example = all_inflections_missing_example
+        self.all_suffixes = all_suffixes
+        self._pass2_gen = self._corpus_gen
 
     def get_headwords(self, word_in_text: str) -> list[DpdHeadword]:
         """Find headwords which match the inflection."""
@@ -514,6 +540,9 @@ class DatabaseManager:
                         setattr(existing, col.name, getattr(root, col.name))
 
             self.db_session.commit()
+            if new_key != original_key:
+                # the rename cascaded root_key onto dpd_headwords rows
+                self.mark_corpus_stale()
             return (True, "")
         except Exception as e:
             self.db_session.rollback()
@@ -526,6 +555,8 @@ class DatabaseManager:
                 return (False, f"Root '{root_key}' not found")
             self.db_session.delete(existing)
             self.db_session.commit()
+            # the ORM cascade may have cleared root_key on dpd_headwords rows
+            self.mark_corpus_stale()
             return (True, "")
         except Exception as e:
             self.db_session.rollback()
@@ -570,28 +601,35 @@ class DatabaseManager:
         (add/update/delete) and someone calls before the next initialize.
         """
         if self._relationship_detector is None:
-            headwords = (
-                self.db
-                if getattr(self, "db", None) is not None
-                else self.db_session.query(DpdHeadword).all()
-            )
-            self._relationship_detector = RelationshipDetector(headwords)
+            self._relationship_detector = RelationshipDetector(self.load_corpus())
         return self._relationship_detector
 
     def invalidate_relationship_detector(self) -> None:
-        """Rebuild the detector in a background thread so saves return
-        immediately. The current detector keeps serving suggestions until
-        the new one is ready, then atomically swaps in. Worst case: a
-        relationship just saved isn't visible until the rebuild finishes
-        (a few seconds), which is well before the user reaches the next
-        word.
+        """Rebuild the detector in a single background worker so saves
+        return immediately. Rapid saves coalesce: while a rebuild is
+        running (or the debounce window is open), further invalidations
+        only set a pending flag and the worker runs once more when it
+        finishes — N saves cost at most one running rebuild plus one
+        queued, never N concurrent full-table loads. The current detector
+        keeps serving suggestions until the new one atomically swaps in.
         """
-        import threading
+        with self._detector_rebuild_lock:
+            self._detector_rebuild_pending = True
+            if self._detector_rebuild_running:
+                return
+            self._detector_rebuild_running = True
 
-        from db.db_helpers import get_db_session
+        threading.Thread(target=self._detector_rebuild_worker, daemon=True).start()
 
-        def _rebuild() -> None:
+    def _detector_rebuild_worker(self) -> None:
+        while True:
+            time.sleep(DETECTOR_REBUILD_DEBOUNCE_SECS)
+            with self._detector_rebuild_lock:
+                self._detector_rebuild_pending = False
             try:
+                # A private session and load, not load_corpus(): the corpus
+                # cache belongs to the UI-facing flows and must not be
+                # swapped out from under them by this worker.
                 bg_session = get_db_session(self.pth.dpd_db_path)
                 headwords = (
                     bg_session.query(DpdHeadword)
@@ -604,13 +642,14 @@ class DatabaseManager:
                     )
                     .all()
                 )
-                detector = RelationshipDetector(headwords)
-                self._relationship_detector = detector
+                self._relationship_detector = RelationshipDetector(headwords)
                 bg_session.close()
             except Exception as exc:
                 print(f"relationship detector rebuild failed: {exc}")
-
-        threading.Thread(target=_rebuild, daemon=True).start()
+            with self._detector_rebuild_lock:
+                if not self._detector_rebuild_pending:
+                    self._detector_rebuild_running = False
+                    return
 
     # --- DB FUNCTIONS ---
 
@@ -618,6 +657,7 @@ class DatabaseManager:
         try:
             self.db_session.add(new_word)
             self.db_session.commit()
+            self.mark_corpus_stale()
             self.invalidate_relationship_detector()
             return (True, "")
 
@@ -635,6 +675,7 @@ class DatabaseManager:
                     if not key.startswith("_") and key != "id":
                         setattr(existing, key, value)
                 self.db_session.commit()
+                self.mark_corpus_stale()
                 self.invalidate_relationship_detector()
                 return (True, "")
             return (False, "Word not found")
@@ -651,6 +692,7 @@ class DatabaseManager:
             id = headword.id
             self.db_session.query(DpdHeadword).filter_by(id=id).delete()
             self.db_session.commit()
+            self.mark_corpus_stale()
             self.invalidate_relationship_detector()
             return (True, "")
         except Exception as e:

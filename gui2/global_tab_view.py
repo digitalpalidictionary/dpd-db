@@ -108,6 +108,7 @@ class GlobalTabView(ft.Column):
         try:
             inflections_manager = InflectionsManager()
             inflections_manager.run()
+            self.toolkit.db_manager.mark_corpus_stale()
             self.toolkit.db_manager.make_inflections_lists()
             self._update_message("Inflections updated successfully.")
         except Exception as ex:

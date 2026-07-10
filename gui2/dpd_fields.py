@@ -724,7 +724,7 @@ class DpdFields(PopUpMixin):
                 self.ui.update_message(f"id {word_id} already in db")
                 return False
 
-        if lemma_1 and lemma_1 in self.db.all_lemma_1:
+        if lemma_1 and lemma_1 in (self.db.all_lemma_1 or set()):
             lemma_1_field = self.get_field("lemma_1")
             lemma_1_field.error_text = f"{lemma_1} already in db"
             self.page.update()
@@ -748,7 +748,7 @@ class DpdFields(PopUpMixin):
         field, value = self.get_event_field_and_value(e)
 
         if not self.flags.loaded_from_db:
-            if value in self.db.all_lemma_1:
+            if value in (self.db.all_lemma_1 or set()):
                 field.error_text = f"{value} already in db"
 
         elif not value:
@@ -831,8 +831,8 @@ class DpdFields(PopUpMixin):
         grammar_field = self.get_field("grammar")
         grammar = grammar_field.value
 
-        # test for wrong values
-        if pos not in self.db.all_pos:
+        # test for wrong values (skipped while the corpus is still loading)
+        if self.db.all_pos is not None and pos not in self.db.all_pos:
             suggestions = find_closest_matches(
                 pos, list(self.db.all_pos or []), limit=3
             )
@@ -1162,8 +1162,11 @@ class DpdFields(PopUpMixin):
                 field.error_text = "root_key and family_root dont's match"
                 field.focus()
 
-            # test root_family exists
-            elif value not in self.db.all_root_families:
+            # test root_family exists (skipped while the corpus is still loading)
+            elif (
+                self.db.all_root_families is not None
+                and value not in self.db.all_root_families
+            ):
                 field.error_text = f"{value} unknown root family"
             else:
                 field.error_text = None
@@ -1210,8 +1213,11 @@ class DpdFields(PopUpMixin):
                 field.error_text = "family_word contains space"
                 field.focus()
 
-            # Test if known value
-            elif value not in self.db.all_word_families:
+            # Test if known value (skipped while the corpus is still loading)
+            elif (
+                self.db.all_word_families is not None
+                and value not in self.db.all_word_families
+            ):
                 suggestions = find_closest_matches(
                     value, list(self.db.all_word_families or []), limit=3
                 )
@@ -1250,8 +1256,8 @@ class DpdFields(PopUpMixin):
     def family_compound_change(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
 
-        # test family compounds exist
-        if value:
+        # test family compounds exist (skipped while the corpus is still loading)
+        if value and self.db.all_compound_families is not None:
             error_list = [
                 c for c in value.split() if c not in self.db.all_compound_families
             ]

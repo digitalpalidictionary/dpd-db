@@ -10,6 +10,7 @@ from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import show_global_snackbar
 from tools.fast_api_utils import start_dpd_server
 
 
@@ -28,6 +29,7 @@ class App:
         from gui2.translations_view import TranslationsView
 
         self.page = page
+        self._db_init_started: bool = False
 
         page.theme = ft.Theme()
         page.theme.font_family = "Inter"
@@ -204,9 +206,22 @@ class App:
     def tab_clicked(self, e: ft.ControlEvent) -> None:
         """Handles tab clicks."""
 
-        # load pass_1 database
-        if self.toolkit.db_manager.all_lemma_1 is None:
+        # load the corpus off the UI thread on the first tab click
+        if self._db_init_started or self.toolkit.db_manager.all_lemma_1 is not None:
+            return
+        self._db_init_started = True
+        show_global_snackbar(self.page, "Loading database in the background...")
+        self.page.run_thread(self._initialize_db_in_background)
+
+    def _initialize_db_in_background(self) -> None:
+        try:
             self.toolkit.db_manager.initialize_db()
+            show_global_snackbar(self.page, "Database loaded.", "info", 2000)
+        except Exception as ex:
+            self._db_init_started = False
+            show_global_snackbar(
+                self.page, f"Database load failed: {ex}", "error", 5000
+            )
 
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
