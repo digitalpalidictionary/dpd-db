@@ -369,28 +369,89 @@ commit anything. At each phase's CHECKPOINT:
       splitting — computed once per corpus generation and shared between
       pass1/pass2 via the row-level cached_property now that rows are
       reused.
-- [~] CHECKPOINT: full suite green (`uv run pytest tests/` → 1471 passed,
+- [x] CHECKPOINT: full suite green (`uv run pytest tests/` → 1471 passed,
       16 deselected; 12 new tests in
       `tests/gui2/test_database_manager_corpus.py`); ruff/pyright clean on
-      all 10 touched files. AWAITING user smoke test of pass1/pass2 flows
-      (see suggested steps in session) → after confirmation, run `/cm` to
-      draft the message; user commits before Phase 7 starts. Note:
-      `db_tests/db_tests_columns.tsv` is still the unrelated pre-existing
-      dirty file to exclude from the commit.
+      all 10 touched files. User smoke-tested pass1/pass2 flows — works.
+      User observation for Phase 7: the biggest remaining startup wait is
+      the AI manager init and the eager GUI build, not the db — exactly
+      items 7.1/7.2. `/cm` drafted; user committed.
 
 ## Phase 7 — Lazy startup (Theme C) — items accepted per 3.2 numbers
 
 **MODEL: Opus — remind the user to switch before starting this phase.**
 
-- [ ] 7.1 Lazy ToolKit managers via `cached_property` (biggest measured first:
+- [x] 7.1 Lazy ToolKit managers via `cached_property` (biggest measured first:
       wordfinder, AI manager, bold-definitions session, additions/corrections)
-- [ ] 7.2 Lazy tab content on first selection in `main.py`
-- [ ] 7.3 Drop `--reload` from `start_dpd_server()`; start after first paint
-- [ ] 7.4 `DISTINCT` in pre-init queries; fix `get_all_family_sets` full scan
-- [ ] 7.5 Re-run 3.2/3.3; record before/after
-- [ ] CHECKPOINT: user smoke test — all tabs still function. → after
-      confirmation, run `/cm` to draft the message; user commits before
-      Phase 8 starts.
+      → `gui2/toolkit.py`: converted 7 members to `@cached_property` —
+      `ai_manager`, `wordfinder_manager`, `bold_definitions_search_manager`,
+      `additions_manager`, `corrections_manager`, plus the two popups
+      (`ai_search_popup`, `wordfinder_popup`) that force those managers at
+      construction (`AiSearchPopup.__init__` calls `_build_model_options()`
+      → `ai_manager`; `WordFinderPopup.__init__` grabs `wordfinder_manager`).
+      Removed their eager construction from `__init__`; added
+      `from __future__ import annotations` + a `TYPE_CHECKING` block so the
+      return hints resolve without runtime import cost. Everything else stays
+      eager (all <100 ms combined, and `daily_log`/`username_manager` are
+      needed for the appbar at startup). NOTE: 7.1 alone yields no startup
+      win because the eagerly-built tab views still force these managers in
+      their controllers — the actual deferral is delivered by 7.2.
+- [x] 7.2 Lazy tab content on first selection in `main.py`
+      → all 15 tab views now build on first activation via a
+      `_view_builders` thunk registry keyed by tab index + `_view()`
+      memoization; tabs start with a `ft.Container()` placeholder, index 0
+      (Global) is built eagerly. `_ensure_tab_built()` swaps the real view in
+      once (tracked by `_mounted_tabs`, kept separate from the `_views`
+      object cache so building Pass1Add's dependency — Pass1Auto's controller
+      via `_view(2)` — doesn't wrongly mark tab 2 as mounted). Unified
+      `_on_tab_activated` handler wired to BOTH `on_click` and `on_change`
+      (idempotent guards make the double-fire harmless) and called explicitly
+      from the Alt+Left/Right handlers (a programmatic `selected_index` change
+      may not fire `on_change`). Preserved the Phase 6 first-click db-init
+      hook as `_maybe_start_db_init()`. `_get_current_lemma` now reads from
+      `self._views.get(index)` (only tabs 3/7) instead of dropped attributes.
+- [x] 7.3 Drop `--reload` from `start_dpd_server()`; start after first paint
+      → `tools/fast_api_utils.py`: removed `--reload`/`--reload-dir` (spawned
+      a reloader supervisor + file watcher, pointless for the packaged GUI)
+      and added the `-> None` hint. `main.py main()` reordered so
+      `start_dpd_server()` runs AFTER `App(page)` has painted (`Popen` is
+      non-blocking, so the server no longer sits ahead of the window on the
+      startup path).
+- [x] 7.4 `DISTINCT` in pre-init queries; fix `get_all_family_sets` full scan
+      → the other 4 pre-init queries (`compound_types`, `plus_cases`,
+      `verbs`, `roots`) already had `.distinct()`; only `get_all_family_sets`
+      did a full column scan of every non-empty headword row (heavy
+      duplication) before splitting in Python. Added `.distinct()` so the DB
+      returns only unique `family_set` strings — identical component set,
+      far fewer rows. Warm pre_init 290 ms vs 347 ms baseline.
+- [x] 7.5 Re-run 3.2/3.3; record before/after (throwaway db, warm-cache;
+      `bench_startup_after.py` → `results/7.5_startup_after.json`. Old
+      `bench_startup.py` replicates the pre-7.1 all-eager body, so the new
+      script builds the REAL now-lazy `ToolKit(None)` and forces each
+      deferred manager. cold_init reported for transparency but is
+      cold-cache disk noise on the 2.2 GB db — the deferral + warm pre_init
+      are the stable numbers):
+      | metric | before (all eager, 3.2/3.3) | after (Phase 7 lazy) |
+      |---|---|---|
+      | eager startup manager/query work | ~3081 ms | ~380 ms (warm pre_init 290 ms + cheap managers <100 ms) |
+      | wordfinder 74 MB JSON load | in startup (1690 ms) | **deferred** (1553 ms on first wordfinder use) |
+      | AI 6-provider SDK init | in startup (972 ms) | **deferred** (904 ms on first AI use) |
+      | total deferred out of startup | — | **2461 ms** |
+      | startup RSS | ~543 MB (all loaded) | **301 MB** |
+      | RSS deferred until first use | — | **242 MB** (172 MB wordfinder + 70 MB AI SDKs) |
+      | pre_init (warm) | 347 ms | 290 ms (7.4 DISTINCT) |
+- [x] CHECKPOINT: full suite green (`uv run pytest tests/` → 1471 passed,
+      16 deselected — same count as Phase 6, no regressions; 242 gui2 tests
+      pass); ruff clean on all touched files (`gui2/toolkit.py`,
+      `gui2/main.py`, `gui2/database_manager.py`, `tools/fast_api_utils.py`,
+      `bench_startup_after.py`); pyright clean on the non-excluded
+      `tools/fast_api_utils.py`. User smoke-tested — all tabs function (lazy
+      build on click and Alt+arrow), Ctrl+A / Ctrl+F popups open, DB tab
+      works. User observation: total time-to-work is unchanged because
+      load + deferred = the old preloaded cost when a feature IS used; the
+      win is faster first paint + skipped cost when unused. Chose to live
+      with lazy for now; possible follow-up recorded below (background
+      pre-warm). `/cm` drafted; user commits before Phase 8 starts.
 
 ## Phase 8 — JSON write amplification (Theme E) — only where 3.7 shows real cost
 
@@ -412,6 +473,9 @@ same list with more detail.
   "mātar fem" branches (Phase 1.1)
 - `dpd_fields_functions.make_compound_construction_from_headword` — dead
   `dvanda` branch when grammar contains "comp" (Phase 1.1)
+- `gui2/wordfinder_widget.py` `WordFinderWidget` — never instantiated
+  anywhere (`WordFinderPopup` is the live wordfinder UI); whole class is
+  dead. Found while auditing wordfinder_manager consumers (Phase 7.1).
 
 ## Deferred / out of scope (revisit after this thread)
 
@@ -422,3 +486,16 @@ same list with more detail.
   `_search_and_fill_sanskrit` LIKE fix (small, can ride along with Phase 6 if
   convenient)
 - Wordfinder inverted index (beyond lazy loading)
+- **Background pre-warm of the deferred managers (possible Phase 7.6).**
+  Phase 7 made `wordfinder_manager` + `ai_manager` lazy, which speeds first
+  paint but relocates their ~2.5 s cost to a synchronous stall on first
+  Ctrl+F / first AI-popup use — for a workflow that uses both every session
+  the time-to-work is unchanged. Alternative: after first paint, warm them
+  on a background thread (piggyback on the existing
+  `_initialize_db_in_background` / `page.run_thread` path from Phase 6) so
+  the load runs concurrently with the user's first seconds of work — fast
+  paint AND no first-use stall, without eager-blocking startup. Watch the
+  Python 3.13 `cached_property` no-lock race (a warmer thread and a user
+  handler could both first-touch the same manager); guard with a lock or
+  warm before the trigger is reachable. User is living with plain lazy for a
+  few days first; revisit if the first-use stall is annoying.

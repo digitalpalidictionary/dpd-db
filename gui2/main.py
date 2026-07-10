@@ -1,6 +1,7 @@
 import cProfile
 import re
 import time
+from collections.abc import Callable
 from pathlib import Path
 
 import flet as ft
@@ -72,30 +73,29 @@ class App:
             actions=appbar_actions,
         )
 
-        # Now create views
-        self.global_view: GlobalTabView = GlobalTabView(self.page, self.toolkit)
-        self.pass1_auto_view: Pass1AutoView = Pass1AutoView(self.page, self.toolkit)
-        self.pass1_add_view: Pass1AddView = Pass1AddView(
-            self.page,
-            self.toolkit,
-            self.pass1_auto_view.controller,
-        )
-        self.pass2_pre_view: Pass2PreProcessView = Pass2PreProcessView(
-            self.page, self.toolkit
-        )
-        self.pass2x_view: Pass2xInCommentaryView = Pass2xInCommentaryView(
-            self.page, self.toolkit
-        )
-        self.pass2_auto_view: Pass2AutoView = Pass2AutoView(self.page, self.toolkit)
-        self.pass2_add_view: Pass2AddView = Pass2AddView(self.page, self.toolkit)
-        self.tests_tab_view: TestsTabView = TestsTabView(self.page, self.toolkit)
-        self.sandhi_view = SandhiFindReplaceView(self.page, self.toolkit)
-        self.sandhi_view2 = SandhiView(self.page, self.toolkit)
-        self.filter_tab_view = FilterTabView(self.page, self.toolkit)
-        self.translations_view = TranslationsView(self.page, self.toolkit)
-        self.bold_search_view = BoldSearchView(self.page, self.toolkit)
-        self.roots_view = RootsTabView(self.page, self.toolkit)
-        self.compound_type_view = CompoundTypeTabView(self.page, self.toolkit)
+        # Views are built lazily on first tab selection (see _view /
+        # _on_tab_activated). Each builder is a thunk keyed by tab index; the
+        # Pass1Add view reuses the Pass1Auto view's controller, so building it
+        # transparently builds Pass1Auto first via _view(2).
+        self._views: dict[int, ft.Control] = {}
+        self._mounted_tabs: set[int] = set()
+        self._view_builders: dict[int, Callable[[], ft.Control]] = {
+            0: lambda: GlobalTabView(self.page, self.toolkit),
+            1: lambda: TranslationsView(self.page, self.toolkit),
+            2: lambda: Pass1AutoView(self.page, self.toolkit),
+            3: lambda: Pass1AddView(self.page, self.toolkit, self._view(2).controller),
+            4: lambda: Pass2PreProcessView(self.page, self.toolkit),
+            5: lambda: Pass2xInCommentaryView(self.page, self.toolkit),
+            6: lambda: Pass2AutoView(self.page, self.toolkit),
+            7: lambda: Pass2AddView(self.page, self.toolkit),
+            8: lambda: SandhiFindReplaceView(self.page, self.toolkit),
+            9: lambda: SandhiView(self.page, self.toolkit),
+            10: lambda: FilterTabView(self.page, self.toolkit),
+            11: lambda: TestsTabView(self.page, self.toolkit),
+            12: lambda: BoldSearchView(self.page, self.toolkit),
+            13: lambda: RootsTabView(self.page, self.toolkit),
+            14: lambda: CompoundTypeTabView(self.page, self.toolkit),
+        }
 
         self.build_ui()
 
@@ -181,19 +181,18 @@ class App:
         elif e.key == "Arrow Left" and e.alt:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
-                self.page.update()
+                self._on_tab_activated()
         elif e.key == "Arrow Right" and e.alt:
             if self.tabs.selected_index < len(self.tabs.tabs) - 1:
                 self.tabs.selected_index += 1
-                self.page.update()
+                self._on_tab_activated()
 
     def _get_current_lemma(self) -> str:
         """Return lemma_clean from the active add-view, or empty string."""
-        tab_to_view = {
-            3: self.pass1_add_view,
-            7: self.pass2_add_view,
-        }
-        view = tab_to_view.get(self.tabs.selected_index)
+        index = self.tabs.selected_index
+        if index not in (3, 7):
+            return ""
+        view = self._views.get(index)
         if view is None:
             return ""
         try:
@@ -203,15 +202,32 @@ class App:
         except Exception:
             return ""
 
-    def tab_clicked(self, e: ft.ControlEvent) -> None:
-        """Handles tab clicks."""
+    def _view(self, index: int) -> ft.Control:
+        """Build (once) and return the view for a tab index."""
+        if index not in self._views:
+            self._views[index] = self._view_builders[index]()
+        return self._views[index]
 
-        # load the corpus off the UI thread on the first tab click
+    def _ensure_tab_built(self, index: int) -> None:
+        """Swap the real view into a tab the first time it is shown."""
+        if index in self._mounted_tabs:
+            return
+        self._mounted_tabs.add(index)
+        self.tabs.tabs[index].content = self._view(index)
+        self.page.update()
+
+    def _maybe_start_db_init(self) -> None:
+        # load the corpus off the UI thread on the first tab activation
         if self._db_init_started or self.toolkit.db_manager.all_lemma_1 is not None:
             return
         self._db_init_started = True
         show_global_snackbar(self.page, "Loading database in the background...")
         self.page.run_thread(self._initialize_db_in_background)
+
+    def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
+        """Build the newly-active tab's content on demand and kick db init."""
+        self._ensure_tab_built(self.tabs.selected_index)
+        self._maybe_start_db_init()
 
     def _initialize_db_in_background(self) -> None:
         try:
@@ -226,74 +242,42 @@ class App:
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
 
+        # Tab order must match the _view_builders index keys. Each tab starts
+        # with a lightweight placeholder; the real view is built and mounted on
+        # first selection by _on_tab_activated.
+        tab_labels = [
+            "Global",
+            "Transl",
+            "Pass1Auto",
+            "Pass1Add",
+            "Pass2Pre",
+            "Pass2x",
+            "Pass2Auto",
+            "Pass2Add",
+            "'",
+            "Sandhi",
+            "DB",
+            "Tests",
+            "Bold Search",
+            "√",
+            "CT",
+        ]
         self.tabs: ft.Tabs = ft.Tabs(
             selected_index=0,
             animation_duration=300,
-            on_click=self.tab_clicked,
+            on_click=self._on_tab_activated,
+            on_change=self._on_tab_activated,
             tabs=[
-                ft.Tab(
-                    text="Global",
-                    content=self.global_view,
-                ),
-                ft.Tab(
-                    text="Transl",
-                    content=self.translations_view,
-                ),
-                ft.Tab(
-                    text="Pass1Auto",
-                    content=self.pass1_auto_view,
-                ),
-                ft.Tab(
-                    text="Pass1Add",
-                    content=self.pass1_add_view,
-                ),
-                ft.Tab(
-                    text="Pass2Pre",
-                    content=self.pass2_pre_view,
-                ),
-                ft.Tab(
-                    text="Pass2x",
-                    content=self.pass2x_view,
-                ),
-                ft.Tab(
-                    text="Pass2Auto",
-                    content=self.pass2_auto_view,
-                ),
-                ft.Tab(
-                    text="Pass2Add",
-                    content=self.pass2_add_view,
-                ),
-                ft.Tab(
-                    text="'",
-                    content=self.sandhi_view,
-                ),
-                ft.Tab(
-                    text="Sandhi",
-                    content=self.sandhi_view2,
-                ),
-                ft.Tab(
-                    text="DB",
-                    content=self.filter_tab_view,
-                ),
-                ft.Tab(
-                    text="Tests",
-                    content=self.tests_tab_view,
-                ),
-                ft.Tab(
-                    text="Bold Search",
-                    content=self.bold_search_view,
-                ),
-                ft.Tab(
-                    text="√",
-                    content=self.roots_view,
-                ),
-                ft.Tab(
-                    text="CT",
-                    content=self.compound_type_view,
-                ),
+                ft.Tab(text=label, content=ft.Container(expand=True))
+                for label in tab_labels
             ],
             expand=True,
         )
+
+        # The first tab is visible at startup, so build it eagerly.
+        self._mounted_tabs.add(0)
+        self.tabs.tabs[0].content = self._view(0)
+
         self.page.add(self.tabs)
         self.page.update()
 
@@ -307,15 +291,16 @@ def main(page: ft.Page) -> None:
         profiler = cProfile.Profile()
         profiler.enable()
 
-    # Time FastAPI server startup
-    start_time = time.time()
-    start_dpd_server()
-    print(f"FastAPI server started in {time.time() - start_time:.2f}s")
-
     # Time App initialization
     start_time = time.time()
     App(page)
     print(f"App initialized in {time.time() - start_time:.2f}s")
+
+    # Start the FastAPI server after the UI has painted so it never delays the
+    # window appearing.
+    start_time = time.time()
+    start_dpd_server()
+    print(f"FastAPI server started in {time.time() - start_time:.2f}s")
 
     if enable_profiling:
         profiler.disable()

@@ -1,17 +1,27 @@
+from __future__ import annotations
+
+from functools import cached_property
+from typing import TYPE_CHECKING
+
 import flet as ft
 
-from gui2.wordfinder_popup import WordFinderPopup
 from tools.configger import config_read
 from tools.paths import ProjectPaths
+
+if TYPE_CHECKING:
+    from gui2.additions_manager import AdditionsManager
+    from gui2.ai_search import AiSearchPopup
+    from gui2.corrections_manager import CorrectionsManager
+    from gui2.wordfinder_popup import WordFinderPopup
+    from tools.ai_manager import AIManager
+    from tools.bold_definitions_search import BoldDefinitionsSearchManager
+    from tools.wordfinder_manager import WordFinderManager
 
 
 class ToolKit:
     def __init__(self, page: ft.Page):
         from db_tests.db_tests_manager import DbTestManager
-        from gui2.additions_manager import AdditionsManager
-        from gui2.ai_search import AiSearchPopup
         from gui2.appbar_updater import AppBarUpdater
-        from gui2.corrections_manager import CorrectionsManager
         from gui2.daily_log import DailyLog
         from gui2.database_manager import DatabaseManager
         from gui2.filter_presets_manager import FilterPresetsManager
@@ -25,11 +35,8 @@ class ToolKit:
         from gui2.test_manager import GuiTestManager
         from gui2.user import UsernameManager
         from gui2.variants import VariantReadingFileManager
-        from tools.ai_manager import AIManager
-        from tools.bold_definitions_search import BoldDefinitionsSearchManager
         from tools.proofreader import ProofreaderManager
         from tools.speech_marks import SpeechMarkManager
-        from tools.wordfinder_manager import WordFinderManager
 
         self.page: ft.Page = page
 
@@ -42,27 +49,18 @@ class ToolKit:
         self.speech_marks_manager: SpeechMarkManager = SpeechMarkManager()
 
         self.history_manager: HistoryManager = HistoryManager(self)
-        self.ai_manager: AIManager = AIManager()
         self.db_manager: DatabaseManager = DatabaseManager()
         self.pass2_exceptions_manager: Pass2ExceptionsFileManager = (
             Pass2ExceptionsFileManager(self)
         )
         self.pass2_new_word_manager: Pass2NewWordManager = Pass2NewWordManager(self)
         self.username_manager: UsernameManager = UsernameManager(self.page)
-        self.corrections_manager: CorrectionsManager = CorrectionsManager(self)
         self.filter_presets_manager: FilterPresetsManager = FilterPresetsManager(self)
-        self.additions_manager: AdditionsManager = AdditionsManager(self)
         self.proofreader_manager: ProofreaderManager = ProofreaderManager(
             self.project_paths.proofreader_tsv_path
         )
         self.appbar_updater: AppBarUpdater = AppBarUpdater(self.page)
         self.daily_log: DailyLog = DailyLog(self)
-        self.ai_search_popup: AiSearchPopup = AiSearchPopup(self)
-        self.wordfinder_manager: WordFinderManager = WordFinderManager()
-        self.wordfinder_popup: WordFinderPopup = WordFinderPopup(self)
-        self.bold_definitions_search_manager: BoldDefinitionsSearchManager = (
-            BoldDefinitionsSearchManager()
-        )
         self.see_manager: SeeFileManager = SeeFileManager()
         self.variants: VariantReadingFileManager = VariantReadingFileManager()
         self.spelling_mistakes: SpellingMistakesFileManager = (
@@ -73,3 +71,49 @@ class ToolKit:
 
         # Initialize DB parts needed early
         self.db_manager.pre_initialize_gui_data()
+
+    # Lazily constructed managers: each carries a real startup cost (74 MB
+    # wordfinder JSON, six AI provider SDKs, a held DB session, contributor
+    # file globs) that most sessions never trigger, so build on first access.
+
+    @cached_property
+    def ai_manager(self) -> AIManager:
+        from tools.ai_manager import AIManager
+
+        return AIManager()
+
+    @cached_property
+    def wordfinder_manager(self) -> WordFinderManager:
+        from tools.wordfinder_manager import WordFinderManager
+
+        return WordFinderManager()
+
+    @cached_property
+    def bold_definitions_search_manager(self) -> BoldDefinitionsSearchManager:
+        from tools.bold_definitions_search import BoldDefinitionsSearchManager
+
+        return BoldDefinitionsSearchManager()
+
+    @cached_property
+    def additions_manager(self) -> AdditionsManager:
+        from gui2.additions_manager import AdditionsManager
+
+        return AdditionsManager(self)
+
+    @cached_property
+    def corrections_manager(self) -> CorrectionsManager:
+        from gui2.corrections_manager import CorrectionsManager
+
+        return CorrectionsManager(self)
+
+    @cached_property
+    def ai_search_popup(self) -> AiSearchPopup:
+        from gui2.ai_search import AiSearchPopup
+
+        return AiSearchPopup(self)
+
+    @cached_property
+    def wordfinder_popup(self) -> WordFinderPopup:
+        from gui2.wordfinder_popup import WordFinderPopup
+
+        return WordFinderPopup(self)

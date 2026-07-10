@@ -4,8 +4,8 @@ import urllib.parse
 import webbrowser
 
 
-def start_dpd_server():
-    "uvicorn exporter.webapp.main:app --host 127.1.1.1 --port 8080 --reload --reload-dir exporter/webapp"
+def start_dpd_server() -> None:
+    "uvicorn exporter.webapp.main:app --host 127.1.1.1 --port 8080"
     command = [
         "uvicorn",
         "exporter.webapp.main:app",
@@ -13,9 +13,6 @@ def start_dpd_server():
         "127.1.1.1",
         "--port",
         "8080",
-        "--reload",
-        "--reload-dir",
-        "exporter/webapp",
     ]
     subprocess.Popen(command)
 

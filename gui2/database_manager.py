@@ -217,6 +217,7 @@ class DatabaseManager:
         all_sets_raw = (
             self.db_session.query(DpdHeadword.family_set)
             .filter(DpdHeadword.family_set != "")
+            .distinct()
             .all()
         )
 
