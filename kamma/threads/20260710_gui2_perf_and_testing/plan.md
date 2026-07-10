@@ -234,19 +234,67 @@ commit anything. At each phase's CHECKPOINT:
 
 **MODEL: Fable — remind the user to switch before starting this phase.**
 
-- [ ] 5.1 Extract pure logic from `filter_component.py` (`parse_id_filter`,
-      query building, column widths, cell diff) + tests (findings F6)
-- [ ] 5.2 Sensible default limit + paging controls (decide default from 3.5)
-- [ ] 5.3 Cell rendering: read-only Text cells with edit-on-demand (or
-      alternative chosen from 3.5 evidence)
-- [ ] 5.4 Single commit per save batch; ONE detector invalidation per batch
-      (not per row); stable row keys (headword id, not list index)
-- [ ] 5.5 Remove double `new_db_session()` per apply; move query+build
-      off the UI thread
-- [ ] 5.6 Re-run 3.5; record before/after
-- [ ] CHECKPOINT: user verifies lockups and weird states are gone. → after
-      confirmation, run `/cm` to draft the message; user commits before
-      Phase 6 starts.
+- [x] 5.1 Extract pure logic from `filter_component.py` into new
+      `gui2/filter_logic.py`: `parse_id_filter`, `build_filter_conditions`
+      (query building), `compute_column_widths`, `track_cell_change` (cell
+      diff), plus `cell_value_str`, `validate_regex_patterns`,
+      `group_changes_by_id` and pagination helpers (`effective_total`,
+      `clamp_page_index`, `page_label`)
+      → verify: `uv run pytest tests/gui2/test_filter_logic.py` (32 passed,
+      incl. in-memory-SQLite execution of the built conditions). Discovery:
+      `regexp_match` works on SQLite only because SQLAlchemy's pysqlite
+      dialect registers a Python-level REGEXP function per connection (raw
+      sqlite3 has none) — so regexp filters run a Python callback per row,
+      and an empty pattern matches every row including NULL columns
+      (documented in a test; count() over 89k rows ≈ 130 ms, cheap enough
+      for pagination totals)
+- [x] 5.2 Paging: `PAGE_SIZE = 100` in `filter_component.py` — every apply
+      renders at most 100 rows regardless of the user's limit; prev/next
+      buttons + "N–M of T" label; `query.count()` (capped by limit) drives
+      the label; secondary `order_by(id)` keeps page boundaries stable on
+      sort-column ties. `DEFAULT_LIMIT` stays 0 ("all results") because
+      paging now bounds per-apply work — 3.5 showed 100 rows ≈ 171 ms —
+      and presets store their own limit anyway, so changing the default
+      constant would not have protected anything
+- [x] 5.3 Read-only `CellText` (ft.Text) cells; tapping a cell swaps in the
+      old editable `CellTextField` on demand (id and row-number cells not
+      tappable). Spell-check on meaning columns preserved: red text on
+      misspelled read-only cells, red border while editing
+- [x] 5.4 Batch save rewritten: changes keyed `(headword_id, column)` (not
+      row index), grouped via `group_changes_by_id`, applied to records
+      fetched by id, ONE `commit()` + ONE `invalidate_relationship_detector()`
+      per batch (was per-row `update_word_in_db` which commits+invalidates
+      each row, plus a second commit at the end). Whole batch rolls back on
+      any failure. Dropped as dead: write-only `_just_saved` flag and
+      `_validate_data`/`validation_rules` (only rule was for the id column,
+      which was already read-only and is now untappable)
+- [x] 5.5 Duplicate `new_db_session()` removed from
+      `filter_tab_view._apply_filters_clicked` and
+      `tests_tab_controller._handle_test_failures` — the ONE call lives in
+      `FilterComponent._apply_filters`. Query+build now run via
+      `page.run_thread` kicked off in `did_mount()`, with a progress ring
+      and a generation counter that discards stale runs when a newer apply
+      supersedes them
+- [x] 5.6 Re-run 3.5; before/after (same run, warm cache, throwaway db;
+      bench_db_tab.py gained a "paged pipeline" section mirroring the new
+      code path, results in `results/5.6_db_tab_after.json`):
+      | scenario | before (old pipeline) | after (paged pipeline) |
+      |---|---|---|
+      | default apply (limit 0) | 31.9 s (query 5.6 s + build 26.4 s, 89k rows) | **357 ms** (count+fetch 346 ms + build 12 ms, 100 rows) |
+      | limit 100 | 165 ms | 355 ms (count() adds ~200 ms for the pager label) |
+      | deep page (offset 40k) | n/a | 3.0 s (SQLite OFFSET scan; runs off-thread behind the progress ring) |
+      Extra find during 5.6: `CustomSpellChecker.check_sentence` generates
+      edit-distance *suggestions* (`spell.candidates()`) per unknown word —
+      the display cells only need a boolean, and meanings are full of Pāḷi
+      terms the dictionary doesn't know, so build cost was 1.2 s/100 rows
+      (≈ minutes over 89k rows in the old tab — a hidden chunk of the
+      freeze). Added `CustomSpellChecker.has_misspellings()` (unknown()
+      only, no suggestions) in `tools/spelling.py`, used for cell color and
+      edit-border; the save gate keeps `check_sentence` (it reports the
+      misspelled words). Build dropped 1.2 s → 12 ms per page.
+- [x] CHECKPOINT: full suite green (1459 passed, 32 new); user smoke-tested
+      the DB tab (paging, edit-on-demand, batch save, tab-switch mid-query)
+      — "works nicely". `/cm` drafted; user commits before Phase 6 starts.
 
 ## Phase 6 — Corpus load discipline (Theme B) — shaped by 3.6
 

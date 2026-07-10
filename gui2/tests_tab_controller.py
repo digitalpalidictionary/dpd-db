@@ -225,9 +225,7 @@ class TestsTabController:
         ]
         display_filters = ["id"] + dynamic_displays
 
-        # Refresh the database session to ensure we have the latest connection
-        self.toolkit.db_manager.new_db_session()
-
+        # FilterComponent refreshes the db session itself on every apply.
         # Instantiate FilterComponent
         filter_component = FilterComponent(
             page=self.view.page,

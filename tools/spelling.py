@@ -57,6 +57,17 @@ class CustomSpellChecker:
 
             return results
 
+    def has_misspellings(self, sentence: str) -> bool:
+        """Fast boolean spell check: no suggestion generation, which is what
+        makes check_sentence expensive (candidates() explores all edit-
+        distance variants per unknown word). Use this when only a yes/no
+        answer is needed, e.g. to color a cell."""
+        with CustomSpellChecker._lock:
+            words = "".join(
+                c if c.isalpha() or c.isspace() else " " for c in sentence
+            ).split()
+            return bool(self.spell.unknown(words))
+
     def add_to_dictionary(self, word: str) -> str:
         """Add a word to the session dictionary and rewrite the custom dictionary file sorted and deduplicated."""
         with CustomSpellChecker._lock:

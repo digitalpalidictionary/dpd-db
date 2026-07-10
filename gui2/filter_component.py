@@ -1,15 +1,25 @@
 import re
-from typing import TYPE_CHECKING
 
 import flet as ft
 
 from db.models import DpdHeadword
+from gui2.filter_logic import (
+    build_filter_conditions,
+    cell_value_str,
+    clamp_page_index,
+    compute_column_widths,
+    effective_total,
+    group_changes_by_id,
+    page_label,
+    track_cell_change,
+    validate_regex_patterns,
+)
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import show_global_snackbar
 from tools.spelling import CustomSpellChecker
 
-if TYPE_CHECKING:
-    from db.models import DpdHeadword
+PAGE_SIZE = 100
+SPELL_CHECK_COLUMNS = ("meaning_1", "meaning_lit", "meaning_2")
 
 
 class DpdDatatable(ft.DataTable):
@@ -41,6 +51,18 @@ class ColumnText(ft.Text):
             expand=True,
             width=width,
             show_selection_cursor=True,
+        )
+
+
+class CellText(ft.Text):
+    """Read-only cell content. Tapping the cell swaps in a CellTextField."""
+
+    def __init__(self, text: str, width: int, misspelled: bool = False):
+        super().__init__(
+            value=text,
+            width=width,
+            size=12,
+            color=ft.Colors.RED if misspelled else ft.Colors.GREY_300,
         )
 
 
@@ -79,28 +101,46 @@ class FilterComponent(ft.Column):
         self.spellchecker = CustomSpellChecker()
 
         # State management
-        self.filtered_results: list["DpdHeadword"] = []
+        self.filtered_results: list[DpdHeadword] = []
         self.dpd_headword_columns = [c.name for c in DpdHeadword.__table__.columns]
         self.display_filters = display_filters
         self.data_filters = data_filters
         self.limit = limit
         self.sort_column = sort_column or "lemma_1"
-        self._just_saved: bool = False
+
+        # Pagination state
+        self.page_index: int = 0
+        self.page_offset: int = 0
+        self._apply_generation: int = 0
+
+        # Change tracking: {(headword_id, column_name): new_value} — keyed by
+        # id, not row index, so a re-queried/reordered table can't misdirect
+        # a pending edit.
+        self.modified_cells: dict[tuple[int, str], str] = {}
 
         # UI Controls
         self.results_table: ft.DataTable | None = None
-        # Change tracking
-        self.modified_cells: dict[
-            tuple[int, str], str
-        ] = {}  # {(row_index, column_name): new_value}
-
-        # Validation rules
-        self.validation_rules = {
-            "id": lambda x: x.isdigit() if x else True,
-        }
+        self.progress_ring = ft.ProgressRing(width=24, height=24, visible=True)
+        self.prev_page_button = ft.IconButton(
+            icon=ft.Icons.CHEVRON_LEFT,
+            on_click=self._prev_page_clicked,
+            disabled=True,
+            tooltip="Previous page",
+        )
+        self.next_page_button = ft.IconButton(
+            icon=ft.Icons.CHEVRON_RIGHT,
+            on_click=self._next_page_clicked,
+            disabled=True,
+            tooltip="Next page",
+        )
+        self.page_label_text = ft.Text("", size=12)
 
         self._build_ui()
-        self._apply_filters()
+
+    def did_mount(self) -> None:
+        """Run the first query once the component is on the page, off the
+        UI thread, so the tab paints (with a progress ring) immediately."""
+        self._start_apply()
 
     def _build_ui(self) -> None:
         """Build the main UI structure for the filter component."""
@@ -114,7 +154,11 @@ class FilterComponent(ft.Column):
                         [
                             ft.ElevatedButton(
                                 "Save Changes", on_click=self._save_changes
-                            )
+                            ),
+                            self.prev_page_button,
+                            self.page_label_text,
+                            self.next_page_button,
+                            self.progress_ring,
                         ],
                         spacing=8,
                     ),
@@ -159,23 +203,44 @@ class FilterComponent(ft.Column):
             expand=True,
         )
 
-    def _apply_filters(self) -> None:
-        """Apply all active filters and display results."""
+    def _safe_update(self) -> None:
         try:
-            active_filters = []
-            if self.data_filters:
-                for column, pattern in self.data_filters:
-                    active_filters.append({"column": column, "pattern": pattern})
-            else:
-                print("DEBUG: No data_filters provided")
+            self.update()
+        except Exception:
+            if self.page:
+                self.page.update()
 
-            for i, filter_info in enumerate(active_filters):
-                try:
-                    re.compile(filter_info["pattern"])
-                except re.error as ex:
-                    error_msg = f"Invalid regex pattern in filter {i + 1}: {str(ex)}"
-                    show_global_snackbar(self.page, error_msg, "error", 5000)
-                    return
+    # --- APPLY FILTERS (off the UI thread) ---
+
+    def _start_apply(self) -> None:
+        """Kick off a query+build run in a worker thread. A generation
+        counter discards stale runs when a newer apply supersedes them."""
+        self._apply_generation += 1
+        generation = self._apply_generation
+        self.progress_ring.visible = True
+        self.prev_page_button.disabled = True
+        self.next_page_button.disabled = True
+        self._safe_update()
+        self.page.run_thread(self._apply_filters, generation)
+
+    def _prev_page_clicked(self, e: ft.ControlEvent) -> None:
+        self.page_index -= 1
+        self._start_apply()
+
+    def _next_page_clicked(self, e: ft.ControlEvent) -> None:
+        self.page_index += 1
+        self._start_apply()
+
+    def _apply_filters(self, generation: int) -> None:
+        """Query one page of results and rebuild the table."""
+        try:
+            data_filters = self.data_filters or []
+
+            error_msg = validate_regex_patterns(data_filters)
+            if error_msg:
+                show_global_snackbar(self.page, error_msg, "error", 5000)
+                self._finish_progress()
+                return
 
             display_columns = (
                 self.display_filters
@@ -185,58 +250,57 @@ class FilterComponent(ft.Column):
 
             result_limit = self.limit if self.limit is not None else 0
 
-            # Refresh the database session to ensure we have the latest connection
+            conditions, error_msg = build_filter_conditions(data_filters)
+            if error_msg:
+                show_global_snackbar(self.page, error_msg, "error", 5000)
+                self._finish_progress()
+                return
+
+            # One fresh session per apply, so edits committed by other
+            # processes are visible.
             self.toolkit.db_manager.new_db_session()
             sort_column_attr = getattr(DpdHeadword, self.sort_column, DpdHeadword.id)
-            query = self.toolkit.db_manager.db_session.query(DpdHeadword).order_by(
-                sort_column_attr
+            query = (
+                self.toolkit.db_manager.db_session.query(DpdHeadword)
+                .filter(*conditions)
+                # Secondary sort on id keeps paging stable when the sort
+                # column has ties.
+                .order_by(sort_column_attr, DpdHeadword.id)
             )
-            for filter_info in active_filters:
-                column_name = filter_info["column"]
-                pattern = filter_info["pattern"]
 
-                column_attr = getattr(DpdHeadword, column_name, None)
-                if column_attr is None:
-                    error_msg = f"Column '{column_name}' not found in DpdHeadword"
-                    show_global_snackbar(self.page, error_msg, "error", 5000)
-                    return
+            total = effective_total(query.count(), result_limit)
+            self.page_index = clamp_page_index(self.page_index, total, PAGE_SIZE)
+            self.page_offset = self.page_index * PAGE_SIZE
+            page_limit = min(PAGE_SIZE, total - self.page_offset)
 
-                # Special handling for ID filtering - convert regex pattern to list of IDs
-                if column_name == "id":
-                    # Extract IDs from the regex pattern like ^(1571|3106|4365|...)$
-                    # Match pattern like ^(1571|3106|4365|...)$
-                    # Fix the regex pattern - we need to match ^(1571|3106|4365|...)$
-                    # The pattern has literal parentheses, not escaped ones
-                    match = re.match(r"^\^\(([^)]+)\)\$$", pattern)
-                    if match:
-                        id_strings = match.group(1).split("|")
-                        id_list = []
-                        for id_str in id_strings:
-                            try:
-                                id_list.append(int(id_str))
-                            except ValueError:
-                                pass  # Skip invalid IDs
-                        if id_list:
-                            query = query.filter(column_attr.in_(id_list))
-                        else:
-                            # Fallback to regexp_match if no valid IDs found
-                            query = query.filter(column_attr.regexp_match(pattern))
-                    else:
-                        # Fallback to regexp_match if pattern is not in expected format
-                        query = query.filter(column_attr.regexp_match(pattern))
-                else:
-                    query = query.filter(column_attr.regexp_match(pattern))
+            if page_limit > 0:
+                self.filtered_results = (
+                    query.offset(self.page_offset).limit(page_limit).all()
+                )
+            else:
+                self.filtered_results = []
 
-            if result_limit > 0:
-                query = query.limit(result_limit)
-
-            self.filtered_results = query.all()
+            if generation != self._apply_generation:
+                return
 
             self._update_results_table(display_columns)
+
+            self.page_label_text.value = page_label(self.page_index, PAGE_SIZE, total)
+            self.prev_page_button.disabled = self.page_index <= 0
+            self.next_page_button.disabled = (self.page_offset + PAGE_SIZE) >= total
+            self.progress_ring.visible = False
+            self._safe_update()
 
         except Exception as ex:
             error_msg = f"Error applying filters: {str(ex)}"
             show_global_snackbar(self.page, error_msg, "error", 5000)
+            self._finish_progress()
+
+    def _finish_progress(self) -> None:
+        self.progress_ring.visible = False
+        self._safe_update()
+
+    # --- TABLE BUILD ---
 
     def _update_results_table(self, display_columns: list[str]) -> None:
         """Update the results table with filtered data."""
@@ -250,31 +314,11 @@ class FilterComponent(ft.Column):
 
         # Handle case where no display columns are specified
         if not display_columns:
-            # Add a default column to avoid AssertionError
+            # Add a default column to avoid the AssertionError
             self.results_table.columns.append(ft.DataColumn(label=ft.Text("ID")))
-            try:
-                self.update()
-            except Exception:
-                if self.page:
-                    self.page.update()
             return
 
-        # Calculate column widths based on content
-        column_widths = {}
-        if self.filtered_results:
-            for col_name in display_columns:
-                max_len = len(col_name)
-                for result in self.filtered_results:
-                    value = getattr(result, col_name, "")
-                    if value is None:
-                        value_str = ""
-                    elif isinstance(value, list):
-                        value_str = ", ".join(str(v) for v in value)
-                    else:
-                        value_str = str(value)
-                    max_len = max(max_len, len(value_str))
-                width = max(120, min(max_len * 8, 500))
-                column_widths[col_name] = width
+        column_widths = compute_column_widths(self.filtered_results, display_columns)
 
         # Create columns
         self.results_table.columns.append(ft.DataColumn(label=ColumnText("#", 40)))
@@ -284,47 +328,32 @@ class FilterComponent(ft.Column):
                 ft.DataColumn(label=ColumnText(col_name, width))
             )
 
-        # Create rows with editable cells
+        # Create rows: read-only Text cells; tapping a cell swaps in an
+        # editable TextField (a TextField per cell is what froze the tab).
         for row_index, result in enumerate(self.filtered_results):
-            cells = []
-
-            # Add row number cell
-            row_num_field = CellTextField(text=str(row_index + 1))
-            row_num_field.read_only = True
-            row_num_field.multiline = False
-            cells.append(ft.DataCell(row_num_field))
+            cells = [
+                ft.DataCell(CellText(str(self.page_offset + row_index + 1), width=40))
+            ]
 
             for col_name in display_columns:
-                value = getattr(result, col_name, "")
-                if value is None:
-                    value_str = ""
-                elif isinstance(value, list):
-                    value_str = ", ".join(str(v) for v in value)
-                else:
-                    value_str = str(value)
+                value_str = cell_value_str(getattr(result, col_name, ""))
+                width = column_widths.get(col_name, 150)
 
-                text_field = CellTextField(text=value_str)
-                text_field.data = value_str
+                misspelled = bool(
+                    col_name in SPELL_CHECK_COLUMNS
+                    and value_str
+                    and self.spellchecker.has_misspellings(
+                        re.sub(r"<[^>]+>", "", value_str)
+                    )
+                )
+                cell = ft.DataCell(CellText(value_str, width, misspelled))
 
-                if col_name in ["meaning_1", "meaning_lit", "meaning_2"]:
-                    self._check_and_set_spell_border(text_field, value_str)
+                if col_name != "id":
+                    cell.on_tap = self._make_cell_tap_handler(
+                        cell, result.id, col_name, value_str
+                    )
 
-                if col_name == "id":
-                    text_field.read_only = True
-                    text_field.multiline = False
-                else:
-
-                    def make_on_change_handler(r, c):
-                        def on_change_wrapper(e):
-                            self._on_cell_change(e, r, c)
-                            if c in ["meaning_1", "meaning_lit", "meaning_2"]:
-                                self._spell_check_cell(e)
-
-                        return on_change_wrapper
-
-                    text_field.on_change = make_on_change_handler(row_index, col_name)
-
-                cells.append(ft.DataCell(text_field))
+                cells.append(cell)
 
             self.results_table.rows.append(
                 ft.DataRow(
@@ -332,21 +361,48 @@ class FilterComponent(ft.Column):
                 )
             )
 
-        try:
-            self.update()
-        except Exception:
-            if self.page:
-                self.page.update()
+    def _make_cell_tap_handler(
+        self, cell: ft.DataCell, headword_id: int, col_name: str, original_value: str
+    ):
+        def on_tap(e: ft.ControlEvent) -> None:
+            self._begin_cell_edit(cell, headword_id, col_name, original_value)
 
-    def _save_changes(self, e: ft.ControlEvent) -> None:
-        """Save any changes back to the database."""
+        return on_tap
+
+    def _begin_cell_edit(
+        self, cell: ft.DataCell, headword_id: int, col_name: str, original_value: str
+    ) -> None:
+        """Swap the read-only cell for an editable TextField."""
+        text_field = CellTextField(original_value)
+        text_field.data = original_value
+
+        def on_change(e: ft.ControlEvent) -> None:
+            track_cell_change(
+                self.modified_cells,
+                (headword_id, col_name),
+                e.control.value or "",
+                original_value,
+            )
+            if col_name in SPELL_CHECK_COLUMNS:
+                self._spell_check_cell(e)
+
+        text_field.on_change = on_change
+
+        if col_name in SPELL_CHECK_COLUMNS:
+            self._check_and_set_spell_border(text_field, original_value)
+
+        cell.content = text_field
+        cell.on_tap = None
+        self._safe_update()
+        text_field.focus()
+
+    # --- SAVE ---
+
+    def _save_changes(self, e: ft.ControlEvent | None) -> None:
+        """Save any changes back to the database: one commit for the whole
+        batch, one relationship-detector invalidation."""
         if not self.modified_cells:
             show_global_snackbar(self.page, "No changes to save", "info", 3000)
-            return
-
-        is_valid, error_message = self._validate_data()
-        if not is_valid:
-            show_global_snackbar(self.page, error_message, "error", 5000)
             return
 
         for (_, col_name), value in self.modified_cells.items():
@@ -362,47 +418,38 @@ class FilterComponent(ft.Column):
                     )
                     return
 
+        db_session = self.toolkit.db_manager.db_session
         try:
-            changes_by_row: dict[int, dict[str, str]] = {}
-            for (row_index, col_name), value in self.modified_cells.items():
-                if row_index not in changes_by_row:
-                    changes_by_row[row_index] = {}
-                changes_by_row[row_index][col_name] = value
+            changes_by_id = group_changes_by_id(self.modified_cells)
 
-            for row_index, changes in changes_by_row.items():
-                record = self.filtered_results[row_index]
-
-                for col_name, value in changes.items():
-                    if col_name == "id":
-                        setattr(record, col_name, int(value))
-                    else:
-                        setattr(record, col_name, value)
-
-                success, error = self.toolkit.db_manager.update_word_in_db(record)
-                if not success:
+            for headword_id, changes in changes_by_id.items():
+                record = db_session.query(DpdHeadword).filter_by(id=headword_id).first()
+                if record is None:
                     show_global_snackbar(
                         self.page,
-                        f"Failed to save changes for row {row_index + 1}: {error}",
+                        f"Failed to save changes: id {headword_id} not found",
                         "error",
                         5000,
                     )
-                    self.toolkit.db_manager.db_session.rollback()
+                    db_session.rollback()
                     return
 
-            self.toolkit.db_manager.db_session.commit()
+                for col_name, value in changes.items():
+                    setattr(record, col_name, value)
+
+            db_session.commit()
+            self.toolkit.db_manager.invalidate_relationship_detector()
             self.modified_cells.clear()
-            self._just_saved = True
-            self._refresh_results_table()
-            self._just_saved = False
+            self._start_apply()
             show_global_snackbar(
                 self.page,
-                f"Successfully saved {len(changes_by_row)} records",
+                f"Successfully saved {len(changes_by_id)} records",
                 "info",
                 4000,
             )
 
         except Exception as ex:
-            self.toolkit.db_manager.db_session.rollback()
+            db_session.rollback()
             show_global_snackbar(
                 self.page, f"Error saving changes: {str(ex)}", "error", 5000
             )
@@ -410,15 +457,16 @@ class FilterComponent(ft.Column):
 
             print(f"Full traceback: {traceback.format_exc()}")
 
+    # --- SPELL CHECK ---
+
     def _check_and_set_spell_border(self, field: ft.TextField, value: str):
         if not value:
             field.border_color = ft.Colors.TRANSPARENT
             return
 
         clean_value = re.sub(r"<[^>]+>", "", value)
-        misspelled = self.spellchecker.check_sentence(clean_value)
 
-        if misspelled:
+        if self.spellchecker.has_misspellings(clean_value):
             field.border_color = ft.Colors.RED
         else:
             field.border_color = ft.Colors.TRANSPARENT
@@ -431,38 +479,3 @@ class FilterComponent(ft.Column):
         except Exception:
             if self.page:
                 self.page.update()
-
-    def _on_cell_change(
-        self, e: ft.ControlEvent, row_index: int, col_name: str
-    ) -> None:
-        """Handle cell value changes and track modifications."""
-        new_value = e.control.value
-        key = (row_index, col_name)
-
-        original_value = e.control.data if e.control.data is not None else ""
-
-        if new_value != original_value:
-            self.modified_cells[key] = new_value
-        elif key in self.modified_cells:
-            del self.modified_cells[key]
-
-    def _refresh_results_table(self) -> None:
-        """Refresh the results table with current display columns."""
-        self._apply_filters()
-
-    def _validate_data(self) -> tuple[bool, str]:
-        """Validate the modified data before saving."""
-        for (row_index, col_name), value in self.modified_cells.items():
-            if col_name in self.validation_rules:
-                validator = self.validation_rules[col_name]
-                if not validator(value):
-                    return (
-                        False,
-                        f"Invalid value '{value}' for column '{col_name}' in row {row_index + 1}",
-                    )
-
-            if col_name == "id":
-                if not value.isdigit():
-                    return False, f"ID must be a valid integer in row {row_index + 1}"
-
-        return True, ""

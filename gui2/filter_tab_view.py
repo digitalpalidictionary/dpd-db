@@ -433,9 +433,8 @@ class FilterTabView(ft.Column):
 
     def _apply_filters_clicked(self, e: ft.ControlEvent | None) -> None:
         """Handle the Apply Filters button click."""
-        # Refresh the database session to get the latest data
-        self.toolkit.db_manager.new_db_session()
-
+        # FilterComponent refreshes the db session itself on every apply —
+        # no second new_db_session() here.
         data_filters = []
         for i, (column_dropdown, regex_input) in enumerate(
             zip(self.column_dropdowns, self.regex_inputs)
