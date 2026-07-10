@@ -1,0 +1,16 @@
+{
+  "n": 200,
+  "current_new_engine_every_call": {
+    "total_ms": 98.22,
+    "per_call_ms": 0.491,
+    "fds_delta": 0,
+    "rss_delta_mb": 1.4
+  },
+  "cached_engine_prototype": {
+    "total_ms": 9.51,
+    "per_call_ms": 0.048,
+    "fds_delta": 0,
+    "rss_delta_mb": 0.0
+  },
+  "per_call_speedup_x": 10.2
+}

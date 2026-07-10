@@ -1,0 +1,31 @@
+{
+  "total_ms": 3081.26,
+  "steps_ms_desc": {
+    "wordfinder_manager (WordFinderManager, 74MB JSON load)": 1689.62,
+    "ai_manager (AIManager, 6 provider SDKs)": 971.68,
+    "pre_initialize_gui_data (5 aggregate queries)": 347.19,
+    "speech_marks_manager (SpeechMarkManager)": 30.34,
+    "db_manager (DatabaseManager)": 9.68,
+    "sandhi_files_manager (SandhiFileManager)": 8.57,
+    "db_test_manager (DbTestManager)": 6.66,
+    "pass2_exceptions_manager": 3.74,
+    "proofreader_manager (ProofreaderManager)": 3.0,
+    "variants (VariantReadingFileManager)": 2.23,
+    "pass2_new_word_manager": 1.58,
+    "see_manager (SeeFileManager)": 1.08,
+    "bold_definitions_search_manager (BoldDefinitionsSearchManager, own DB session)": 0.85,
+    "spelling_mistakes (SpellingMistakesFileManager)": 0.78,
+    "ai_search_popup (AiSearchPopup)": 0.77,
+    "wordfinder_popup (WordFinderPopup)": 0.72,
+    "corrections_manager (CorrectionsManager)": 0.54,
+    "filter_presets_manager (FilterPresetsManager)": 0.5,
+    "daily_log (DailyLog)": 0.43,
+    "additions_manager (AdditionsManager)": 0.32,
+    "test_manager (GuiTestManager)": 0.29,
+    "username_manager (UsernameManager)": 0.27,
+    "project_paths (ProjectPaths)": 0.26,
+    "history_manager (HistoryManager)": 0.13,
+    "paths (Gui2Paths.for_user)": 0.03,
+    "appbar_updater (AppBarUpdater)": 0.0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "row_count": 89166,
+  "initialize_db_ms": 6292.7,
+  "make_inflections_lists_ms": 670.92,
+  "make_pass2_lists_ms": 1283.49,
+  "relationship_detector_build_ms": 1148.09,
+  "cached_load_corpus_ms": 0.01,
+  "stale_reload_make_inflections_ms": 2725.58,
+  "total_first_three_calls_ms": 8247.11
+}

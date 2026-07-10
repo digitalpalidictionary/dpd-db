@@ -1,0 +1,8 @@
+{
+  "row_count": 89166,
+  "initialize_db_ms": 5256.43,
+  "make_inflections_lists_ms": 2621.5,
+  "make_pass2_lists_ms": 3375.02,
+  "relationship_detector_build_ms": 528.32,
+  "total_redundant_full_table_loads_ms": 11252.95
+}

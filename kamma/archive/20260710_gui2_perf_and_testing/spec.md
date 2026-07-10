@@ -2,7 +2,7 @@
 
 **Thread:** 20260710_gui2_perf_and_testing
 **GitHub issue:** #157
-**Status:** planned
+**Status:** implemented
 
 ## Problem
 

@@ -1,0 +1,37 @@
+{
+  "limit=100 page=0": {
+    "rows_rendered": 100,
+    "total_matched": 100,
+    "query_ms": 342.84,
+    "build_ms": 12.32,
+    "total_ms": 355.16
+  },
+  "limit=1000 page=0": {
+    "rows_rendered": 100,
+    "total_matched": 1000,
+    "query_ms": 339.59,
+    "build_ms": 12.21,
+    "total_ms": 351.79
+  },
+  "limit=10000 page=0": {
+    "rows_rendered": 100,
+    "total_matched": 10000,
+    "query_ms": 338.69,
+    "build_ms": 11.06,
+    "total_ms": 349.75
+  },
+  "limit=0 (all) page=0": {
+    "rows_rendered": 100,
+    "total_matched": 89166,
+    "query_ms": 345.75,
+    "build_ms": 11.72,
+    "total_ms": 357.47
+  },
+  "limit=0 (all) page=400": {
+    "rows_rendered": 100,
+    "total_matched": 89166,
+    "query_ms": 2940.97,
+    "build_ms": 11.21,
+    "total_ms": 2952.19
+  }
+}

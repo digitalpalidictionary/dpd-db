@@ -1,0 +1,26 @@
+{
+  "100": {
+    "row_count": 100,
+    "query_ms": 146.25,
+    "build_ms": 19.23,
+    "total_ms": 165.47
+  },
+  "1000": {
+    "row_count": 1000,
+    "query_ms": 245.14,
+    "build_ms": 261.69,
+    "total_ms": 506.83
+  },
+  "10000": {
+    "row_count": 10000,
+    "query_ms": 1074.38,
+    "build_ms": 2747.99,
+    "total_ms": 3822.37
+  },
+  "0 (all)": {
+    "row_count": 89166,
+    "query_ms": 5570.04,
+    "build_ms": 26352.8,
+    "total_ms": 31922.83
+  }
+}

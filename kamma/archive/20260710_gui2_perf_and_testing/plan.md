@@ -397,7 +397,7 @@ commit anything. At each phase's CHECKPOINT:
       win because the eagerly-built tab views still force these managers in
       their controllers — the actual deferral is delivered by 7.2.
 - [x] 7.2 Lazy tab content on first selection in `main.py`
-      → all 15 tab views now build on first activation via a
+      → the 14 non-Global tab views now build on first activation via a
       `_view_builders` thunk registry keyed by tab index + `_view()`
       memoization; tabs start with a `ft.Container()` placeholder, index 0
       (Global) is built eagerly. `_ensure_tab_built()` swaps the real view in

@@ -1,0 +1,33 @@
+{
+  "cold_init_ms": 3062.47,
+  "warm_preinit_ms": 290.47,
+  "baseline_preinit_ms": 347.19,
+  "total_deferred_ms": 2461.23,
+  "deferred_ms_desc": {
+    "wordfinder_manager": 1552.67,
+    "ai_manager": 904.06,
+    "ai_search_popup": 1.63,
+    "additions_manager": 0.95,
+    "corrections_manager": 0.78,
+    "wordfinder_popup": 0.72,
+    "bold_definitions_search_manager": 0.42
+  },
+  "rss_before_mb": 86.4,
+  "rss_after_eager_init_mb": 301.1,
+  "eager_rss_delta_mb": 214.7,
+  "rss_after_forcing_all_mb": 543.2,
+  "deferred_rss_delta_mb": 242.1,
+  "fds_before": 6,
+  "fds_after_eager_init": 9,
+  "fds_after_forcing_all": 11,
+  "rss_progression_mb": {
+    "after_eager_init": 301.1,
+    "after_ai_manager": 370.9,
+    "after_wordfinder_manager": 543.0,
+    "after_bold_definitions_search_manager": 543.1,
+    "after_additions_manager": 543.1,
+    "after_corrections_manager": 543.1,
+    "after_ai_search_popup": 543.1,
+    "after_wordfinder_popup": 543.2
+  }
+}

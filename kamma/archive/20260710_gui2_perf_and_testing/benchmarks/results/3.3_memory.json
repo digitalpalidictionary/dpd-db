@@ -1,0 +1,25 @@
+{
+  "baseline_rss_mb": 63.0,
+  "baseline_fds": 6,
+  "after_construct_rss_mb": 69.1,
+  "after_construct_fds": 6,
+  "after_corpus_load_rss_mb": 873.4,
+  "after_corpus_load_fds": 9,
+  "corpus_load_rss_delta_mb": 804.3,
+  "new_db_session_x50_no_close": {
+    "rss_before_mb": 873.4,
+    "rss_after_mb": 873.7,
+    "rss_delta_mb": 0.3,
+    "fds_before": 9,
+    "fds_after": 57,
+    "fds_delta": 48
+  },
+  "new_db_session_x50_with_close": {
+    "rss_before_mb": 877.3,
+    "rss_after_mb": 877.3,
+    "rss_delta_mb": 0.0,
+    "fds_before": 9,
+    "fds_after": 58,
+    "fds_delta": 49
+  }
+}

@@ -12,6 +12,7 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - Project conventions require modern type hints, `pathlib.Path` for file paths, and avoiding `sys.path` import hacks.
 - The repository already contains multiple output targets, so changes should preserve compatibility with downstream exporters and integrations.
 - This is an existing Git-managed project, so setup should work with the current repository structure and conventions rather than replacing them.
+- `db/db_helpers.get_db_session()` reuses one cached Engine per db path (NullPool, fork-PID guard); gui2 derives all full-table headword data from `DatabaseManager.load_corpus()` and marks it stale via `mark_corpus_stale()` after any headword write — don't reintroduce per-call engines or direct `.all()` loads of `DpdHeadword` in gui2.
 
 ## Resources
 - PDF export requires the `typst` CLI on PATH (>= 0.14 for

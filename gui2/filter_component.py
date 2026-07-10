@@ -1,4 +1,5 @@
 import re
+import threading
 
 import flet as ft
 
@@ -112,6 +113,7 @@ class FilterComponent(ft.Column):
         self.page_index: int = 0
         self.page_offset: int = 0
         self._apply_generation: int = 0
+        self._apply_lock = threading.Lock()
 
         # Change tracking: {(headword_id, column_name): new_value} — keyed by
         # id, not row index, so a re-queried/reordered table can't misdirect
@@ -215,8 +217,9 @@ class FilterComponent(ft.Column):
     def _start_apply(self) -> None:
         """Kick off a query+build run in a worker thread. A generation
         counter discards stale runs when a newer apply supersedes them."""
-        self._apply_generation += 1
-        generation = self._apply_generation
+        with self._apply_lock:
+            self._apply_generation += 1
+            generation = self._apply_generation
         self.progress_ring.visible = True
         self.prev_page_button.disabled = True
         self.next_page_button.disabled = True
@@ -269,27 +272,33 @@ class FilterComponent(ft.Column):
             )
 
             total = effective_total(query.count(), result_limit)
-            self.page_index = clamp_page_index(self.page_index, total, PAGE_SIZE)
-            self.page_offset = self.page_index * PAGE_SIZE
-            page_limit = min(PAGE_SIZE, total - self.page_offset)
+            page_index = clamp_page_index(self.page_index, total, PAGE_SIZE)
+            page_offset = page_index * PAGE_SIZE
+            page_limit = min(PAGE_SIZE, total - page_offset)
 
             if page_limit > 0:
-                self.filtered_results = (
-                    query.offset(self.page_offset).limit(page_limit).all()
-                )
+                results = query.offset(page_offset).limit(page_limit).all()
             else:
-                self.filtered_results = []
+                results = []
 
-            if generation != self._apply_generation:
-                return
+            # Shared state and the table are only written by the current
+            # generation, under the lock, so a superseded run can't clobber
+            # a newer one's results mid-render.
+            with self._apply_lock:
+                if generation != self._apply_generation:
+                    return
 
-            self._update_results_table(display_columns)
+                self.page_index = page_index
+                self.page_offset = page_offset
+                self.filtered_results = results
 
-            self.page_label_text.value = page_label(self.page_index, PAGE_SIZE, total)
-            self.prev_page_button.disabled = self.page_index <= 0
-            self.next_page_button.disabled = (self.page_offset + PAGE_SIZE) >= total
-            self.progress_ring.visible = False
-            self._safe_update()
+                self._update_results_table(display_columns)
+
+                self.page_label_text.value = page_label(page_index, PAGE_SIZE, total)
+                self.prev_page_button.disabled = page_index <= 0
+                self.next_page_button.disabled = (page_offset + PAGE_SIZE) >= total
+                self.progress_ring.visible = False
+                self._safe_update()
 
         except Exception as ex:
             error_msg = f"Error applying filters: {str(ex)}"
