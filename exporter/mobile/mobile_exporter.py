@@ -402,6 +402,7 @@ def export_other_dictionaries(
     *,
     include_cone: bool = False,
     include_peu: bool = False,
+    include_wordnet: bool = False,
 ) -> None:
     pr.green_tmr("creating dict tables")
 
@@ -478,6 +479,44 @@ def export_other_dictionaries(
         pr.yes(len(batch))
     else:
         pr.green_tmr("skipping Cone dictionary")
+        pr.yes("off")
+
+    # --- WordNet (Open English WordNet, English-English) ---
+    if include_wordnet:
+        pr.green_tmr("exporting WordNet dictionary")
+
+        if not g.pth.wordnet_source_path.exists():
+            raise _missing_source_error("WordNet", g.pth.wordnet_source_path)
+
+        with g.pth.wordnet_source_path.open(encoding="utf-8") as f:
+            wordnet_dict: dict[str, str] = json.load(f)
+
+        batch = []
+        for word, html_body in wordnet_dict.items():
+            word_fuzzy = _strip_diacritics_mobile(word)
+            batch.append(("wordnet", word, word_fuzzy, html_body, ""))
+
+        dest.executemany(
+            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+            " VALUES (?, ?, ?, ?, ?)",
+            batch,
+        )
+
+        dest.execute(
+            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+            " VALUES (?, ?, ?, ?, ?)",
+            (
+                "wordnet",
+                "Open English WordNet",
+                "Open English WordNet (CC BY 4.0)",
+                "",
+                len(batch),
+            ),
+        )
+
+        pr.yes(len(batch))
+    else:
+        pr.green_tmr("skipping WordNet dictionary")
         pr.yes("off")
 
     # --- PEU (Pali English Ultimate / Pali Myanmar Abhidhan) ---
@@ -674,6 +713,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cone", action="store_true", help="include Cone dictionary")
     parser.add_argument("--peu", action="store_true", help="include PEU dictionary")
+    parser.add_argument(
+        "--wordnet", action="store_true", help="include WordNet (English) dictionary"
+    )
     args = parser.parse_args()
 
     pr.tic()
@@ -698,7 +740,13 @@ def main() -> None:
     export_lookup(g, dest)
     copy_passthrough_tables(g, dest)
     copy_family_tables(g, dest)
-    export_other_dictionaries(g, dest, include_cone=args.cone, include_peu=args.peu)
+    export_other_dictionaries(
+        g,
+        dest,
+        include_cone=args.cone,
+        include_peu=args.peu,
+        include_wordnet=args.wordnet,
+    )
     write_schema_version(dest)
 
     dest.commit()

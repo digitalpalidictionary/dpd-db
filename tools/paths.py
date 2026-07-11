@@ -463,6 +463,12 @@ class ProjectPaths:
             / "resources/other-dictionaries/dictionaries/cone/source/cone_dict.json"
         )
 
+        # resources/other-dictionaries/dictionaries/wordnet/source
+        self.wordnet_source_path = (
+            base_dir
+            / "resources/other-dictionaries/dictionaries/wordnet/source/wordnet_dict.json"
+        )
+
         # resources/other-dictionaries/dictionaries/cpd
         self.cpd_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/cpd/cpd.css"

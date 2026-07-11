@@ -17,6 +17,10 @@ on:
        description: "Reuse dpd.db from the latest published release instead of a fresh build"
        type: boolean
        default: false
+     include_wordnet:
+       description: "Include the WordNet (English) dictionary in the mobile DB"
+       type: boolean
+       default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -230,7 +234,7 @@ jobs:
       run: uv run python scripts/prepare_sources.py
 
     - name: Export Mobile DB
-      run: uv run python exporter/mobile/mobile_exporter.py
+      run: uv run python exporter/mobile/mobile_exporter.py ${{ inputs.include_wordnet && '--wordnet' || '' }}
 
     # ----------------------------------------
     # Create Draft Release
