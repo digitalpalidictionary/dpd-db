@@ -211,7 +211,7 @@ if config_test("exporter", "make_dpd", "yes"):
 ---
 
 ## Tools/printer.py
-This module provides colored console output with timing and TSV logging.
+This module provides colored console output with timing.
 
 ### Import
 ```python
@@ -249,10 +249,6 @@ These methods print and return (no ending needed):
 - `pr.summary(key, value)` - Print key-value summary in green
 - `pr.red(message)` - Print red message
 - `pr.amber(message)` - Print amber message
-
-#### Logging
-- If initialized with a log file path, all operations are logged to TSV format
-- Log includes: timestamp, level, operation, type, message, elapsed time, count, session
 
 ## Pipeline Improvement
 

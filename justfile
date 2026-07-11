@@ -19,38 +19,32 @@ initial_build_db:
 generate_components:
     uv run python scripts/bash/generate_components.py
 
-# Export all dictionary formats
-makedict:
+# Run makedict in a pty (keeps ANSI colours) and save an HTML log; no transcript artifact
+_logged-makedict:
     #!/usr/bin/env bash
     mkdir -p logs
-    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+    script -q -c "uv run python scripts/bash/makedict.py" /dev/null | tee >(ansi2html > "logs/makedict_$(date +"%Y-%m-%d_%H-%M-%S").html")
+
+# Export all dictionary formats
+makedict:
+    just _logged-makedict
 
 # Fast DPD-only build: turns off everything off-able, then re-enables generate components
 makedict-quick:
-    #!/usr/bin/env bash
-    mkdir -p logs
     uv run python scripts/build/config_quick_profile.py
-    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+    just _logged-makedict
     uv run python scripts/build/config_quick_profile.py reset
 
 # Full release export: everything on (uposatha settings), resets config to baseline after
 makedict-all:
-    #!/usr/bin/env bash
-    mkdir -p logs
     uv run python scripts/build/config_uposatha_day.py force
-    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+    just _logged-makedict
     uv run python scripts/build/config_uposatha_reset.py force
 
 # Minimum baseline export: resets config to baseline (post-uposatha settings) and runs
 makedict-min:
-    #!/usr/bin/env bash
-    mkdir -p logs
     uv run python scripts/build/config_uposatha_reset.py force
-    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
-    script -q -c "uv run python scripts/bash/makedict.py" | tee >(ansi2html > "logs/makedict_$timestamp.html")
+    just _logged-makedict
 
 # Complete rebuild and export everything
 initial_build_db_and_export_all:

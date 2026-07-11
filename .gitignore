@@ -127,7 +127,6 @@ shared_data/frequency/*.json
 shared_data/headword_stem_pattern_dict
 temp/
 token.json
-typescript
 /graphify-out
 .antigravitycli/
 .pytest_cache/

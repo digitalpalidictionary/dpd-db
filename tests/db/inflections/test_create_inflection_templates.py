@@ -107,8 +107,8 @@ def test_import_has_no_db_side_effects() -> None:
             capture_output=True,
             text=True,
         )
-        leftover_dirs = [p for p in Path(td).iterdir() if p.is_dir()]
+        leftover = list(Path(td).iterdir())
     assert result.returncode == 0, result.stderr
-    # tools/printer.py still writes its log file at import (intentional
-    # singleton); only the ProjectPaths directory tree must be gone.
-    assert leftover_dirs == []
+    # importing must leave the cwd completely untouched — no directory
+    # tree from ProjectPaths and no log artifacts from tools/printer.py
+    assert leftover == []
