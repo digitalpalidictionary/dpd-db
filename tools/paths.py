@@ -79,6 +79,12 @@ class ProjectPaths:
         self.bahubbihi_dict_path = base_dir / "db_tests/single/test_bahubbihis.json"
         self.bold_example_path = base_dir / "db_tests/single/test_bold.json"
         self.digu_json_path = base_dir / "db_tests/single/test_digu.json"
+        self.example_dupes_config_path = (
+            base_dir / "db_tests/single/test_example_dupes.json"
+        )
+        self.family_compounds_meaning_exceptions_path = (
+            base_dir / "db_tests/single/test_family_compounds_have_meaning_1.json"
+        )
         self.hyphenations_scratchpad_path = (
             base_dir / "db_tests/single/test_hyphenations.txt"
         )
@@ -89,8 +95,17 @@ class ProjectPaths:
         self.neg_compound_exceptions = (
             base_dir / "db_tests/single/test_neg_compound_exceptions.json"
         )
+        self.numbering_anomalies_exceptions_path = (
+            base_dir / "db_tests/single/test_numbering_anomalies.json"
+        )
+        self.pali_difference_exceptions_path = (
+            base_dir / "db_tests/single/test_pali_1_2_difference.json"
+        )
         self.phonetic_changes_vowels_path = (
             base_dir / "db_tests/single/add_phonetic_changes_vowels.tsv"
+        )
+        self.su_kammadharaya_exceptions_path = (
+            base_dir / "db_tests/single/test_su_kammadharaya.json"
         )
         self.sukha_dukkha_finder_path = (
             base_dir / "db_tests/single/test_sukha_dukkha_finder.json"
