@@ -74,11 +74,17 @@ class PhoneticChangeManager:
                 else:
                     exceptions = []
 
-                without_str = row.get("without", "")
-                if without_str and without_str != "x":
-                    without = [w.strip() for w in without_str.split(",")]
+                not_in_constr_str = row.get("not_in_constr", "")
+                if not_in_constr_str and not_in_constr_str != "x":
+                    not_in_constr = [w.strip() for w in not_in_constr_str.split(",")]
                 else:
-                    without = []
+                    not_in_constr = []
+
+                not_in_lemma_str = row.get("not_in_lemma", "")
+                if not_in_lemma_str and not_in_lemma_str != "x":
+                    not_in_lemma = [w.strip() for w in not_in_lemma_str.split(",")]
+                else:
+                    not_in_lemma = []
 
                 wrong_str = row.get("wrong", "")
                 if wrong_str and wrong_str != "x":
@@ -92,7 +98,8 @@ class PhoneticChangeManager:
                     "final": row["final"],
                     "correct": row["correct"],
                     "wrong": wrong,
-                    "without": without,
+                    "not_in_constr": not_in_constr,
+                    "not_in_lemma": not_in_lemma,
                     "exceptions": exceptions,
                 }
                 self.rules.append(rule)
@@ -152,25 +159,34 @@ class PhoneticChangeManager:
         rule_final = str(rule["final"])
         rule_correct = str(rule["correct"])
         rule_wrong: list[str] = rule.get("wrong", [])
-        rule_without: list[str] = rule.get("without", [])
+        rule_not_in_constr: list[str] = rule.get("not_in_constr", [])
+        rule_not_in_lemma: list[str] = rule.get("not_in_lemma", [])
 
         initial_match = rule_initial in construction_clean or rule_initial in base_clean
         final_match = rule_final in headword.lemma_clean
         phonetic_lines = headword.phonetic.split("\n") if headword.phonetic else []
         correct_not_present = rule_correct not in phonetic_lines
 
-        # Check without exclusion
-        without_exclusion = False
-        for w in rule_without:
+        # Check not_in_constr exclusion
+        not_in_constr_exclusion = False
+        for w in rule_not_in_constr:
             if w in construction_clean or w in base_clean:
-                without_exclusion = True
+                not_in_constr_exclusion = True
+                break
+
+        # Check not_in_lemma exclusion
+        not_in_lemma_exclusion = False
+        for w in rule_not_in_lemma:
+            if w in headword.lemma_clean:
+                not_in_lemma_exclusion = True
                 break
 
         if (
             initial_match
             and final_match
             and correct_not_present
-            and not without_exclusion
+            and not not_in_constr_exclusion
+            and not not_in_lemma_exclusion
         ):
             # Determine status
             if rule_wrong and any(w in phonetic_lines for w in rule_wrong):
@@ -220,6 +236,22 @@ class PhoneticChangeManager:
         construction_clean, base_clean = self._clean_headword_data(headword)
 
         # Check the specific rule
+        return self._check_rule_logic(headword, rule, construction_clean, base_clean)
+
+    def check_headword_against_rule_fast(
+        self,
+        headword,
+        rule,
+        construction_clean: str,
+        base_clean: str,
+    ) -> PhoneticChangeResult | None:
+        """Check a rule against a headword with precomputed cleaned strings.
+
+        Use this in batch loops to avoid recomputing _clean_headword_data
+        for every (headword, rule) pair.
+        """
+        if not headword.construction:
+            return None
         return self._check_rule_logic(headword, rule, construction_clean, base_clean)
 
     def process_headword(self, headword) -> PhoneticChangeResult | None:
@@ -311,7 +343,7 @@ class PhoneticChangeManager:
                 exceptions_str = (
                     ", ".join(rule["exceptions"]) if rule["exceptions"] else "x"
                 )
-                cols[5] = exceptions_str
+                cols[6] = exceptions_str
                 new_lines.append("\t".join(cols))
             else:
                 new_lines.append(line)

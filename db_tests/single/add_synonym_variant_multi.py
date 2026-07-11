@@ -175,6 +175,9 @@ def find_identical_meaning_clusters(
         # skip if every pair is already related (syn/var_phon/var_text)
         if _all_pairs_related(members):
             continue
+        # skip if every pair has a textual variant link
+        if _all_pairs_textual(members):
+            continue
         clusters.append((pcls, sig, meanings, members))
 
     clusters.sort(key=lambda c: -len(c[3]))
@@ -192,6 +195,19 @@ def _all_pairs_related(members: list[DpdHeadword]) -> bool:
             if a.lemma_clean == b.lemma_clean:
                 continue
             if not pair_consistently_related(a, b):
+                return False
+    return True
+
+
+def _all_pairs_textual(members: list[DpdHeadword]) -> bool:
+    """True if every pair has a textual variant link in at least one direction."""
+    for i, a in enumerate(members):
+        a_text = split_field(a.var_text)
+        for b in members[i + 1 :]:
+            if a.lemma_clean == b.lemma_clean:
+                continue
+            b_text = split_field(b.var_text)
+            if b.lemma_clean not in a_text and a.lemma_clean not in b_text:
                 return False
     return True
 
@@ -225,10 +241,49 @@ def prompt_clusters(
         pyperclip.copy(gui_string)
         print(f"\n[white]{gui_string}")
         choice = Prompt.ask(
-            "[white](s)ynonym all pairwise, (p)honetic all pairwise, (g)eneral exception, (pass), (r)estart, (q)uit"
+            "[white](s)ynonym all pairwise, (p)honetic all pairwise, (t)extual all pairwise, (g)eneral exception, (pass), (r)estart, (q)uit"
         )
 
-        if choice == "s":
+        if choice == "t":
+            written = 0
+            moved_phon = 0
+            skipped_syn = 0
+            for i, a in enumerate(members):
+                a_text = set(split_field(a.var_text))
+                a_syn = set(a.synonym_list)
+                a_phon = split_field(a.var_phonetic)
+                for b in members[i + 1 :]:
+                    if a.lemma_clean == b.lemma_clean:
+                        continue
+                    b_syn = set(b.synonym_list)
+                    b_phon = split_field(b.var_phonetic)
+                    b_text = set(split_field(b.var_text))
+                    if b.lemma_clean in a_syn or a.lemma_clean in b_syn:
+                        skipped_syn += 1
+                        print(f"  [yellow]kept as synonym: {a.lemma_1} ↔ {b.lemma_1}")
+                        continue
+                    if b.lemma_clean in a_phon or a.lemma_clean in b_phon:
+                        assign_relationship(a, b.lemma_clean, "var_text")
+                        assign_relationship(b, a.lemma_clean, "var_text")
+                        moved_phon += 1
+                        print(
+                            f"  [cyan]moved phonetic → textual: {a.lemma_1} ↔ {b.lemma_1}"
+                        )
+                        continue
+                    if b.lemma_clean in a_text and a.lemma_clean in b_text:
+                        continue
+                    assign_relationship(a, b.lemma_clean, "var_text")
+                    assign_relationship(b, a.lemma_clean, "var_text")
+                    written += 1
+            g.db_session.commit()
+            print(
+                f"  [green]wrote {written} new var_text, moved {moved_phon} from phonetic"
+                f"  [yellow]({skipped_syn} preserved as synonyms)"
+            )
+            for m in members:
+                _show_result(m)
+
+        elif choice == "s":
             written = 0
             skipped_phon = 0
             for i, a in enumerate(members):

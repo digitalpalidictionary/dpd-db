@@ -78,22 +78,22 @@ Referenced by nothing (no justfile, no live import, no paths.py data) — but se
 
 In active use (ran Mar–May 2026). Verdicts likely `freshen`/`improve`. Watch: most write the DB.
 
-- [ ] `db_tests/single/add_phonetic_changes.py` — find missing/wrong phonetic changes per TSV criteria
-  - **writes DB (1)** · refs: `just test-phonetic` (`python -m`) · last run: 2026-03-29 · git: 2026-06-11 · flags: **5 FIXME (lines ~223–227)**
-  - verdict: ____
-  - → verify: verdict implemented; ruff+pyright clean; justfile recipe still works
-- [ ] `db_tests/single/add_phonetic_changes_vowels.py` — missing/wrong vowel sandhi per TSV
+- [x] `db_tests/single/add_phonetic_changes.py` — find missing/wrong phonetic changes per TSV criteria
+  - **writes DB (1)** · refs: `just test-phonetic` (`python -m`) · last run: 2026-03-29 · git: 2026-06-11 · flags: ~~5 FIXME → 2~~
+  - verdict: **keep** + improve: (q)uit TUI, title + DB loading status via printer, `without`→`not_in_constr` + `not_in_lemma` in TSV/manager, precompute+index speedup (75s→2s), type hints, docstrings. Freshened: ruff+pyright clean.
+  - → verify: ruff+pyright clean ✓; `just test-phonetic` still works ✓
+- [x] `db_tests/single/add_phonetic_changes_vowels.py` — missing/wrong vowel sandhi per TSV
   - **writes DB (1)** · refs: data TSV in paths.py; no justfile entry · last run: no pyc · git: 2026-03-13 · flags: consider justfile entry if kept
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/add_phonetic_variants.py` — find & add phonetic variant pairs
+  - verdict: **move to `fixme/`** — not working
+  - → verify: file moved ✓
+- [x] `db_tests/single/add_phonetic_variants.py` — find & add phonetic variant pairs
   - **writes DB (4)** · refs: `just add-variants-phonetic`; exceptions json in paths.py; **has pytest** (`tests/db_tests/single/test_add_phonetic_variants.py`, 436 lines) · last run: 2026-05-09 · git: 2026-06-11 · flags: clean
-  - verdict: ____
-  - → verify: as above + `uv run pytest tests/db_tests/` passes
-- [ ] `db_tests/single/add_synonym_variant_single.py` — synonyms sharing one meaning + same signature
+  - verdict: **keep** — already clean, works well
+  - → verify: no changes needed ✓
+- [x] `db_tests/single/add_synonym_variant_single.py` — synonyms sharing one meaning + same signature
   - **writes DB (3)** · refs: `just add-synonyms-single`; imports from `add_synonym_variant_multi` · last run: 2026-05-07 · git: 2026-05-09
-  - verdict: ____
-  - → verify: as above
+  - verdict: **keep** — already clean, works well
+  - → verify: no changes needed ✓
 - [ ] `db_tests/single/add_synonym_variant_multi.py` — synonyms sharing 2+ meanings + same pos/grammar
   - **writes DB (5)** · refs: `just add-synonyms-multi`; imported by `_single` and `_del` · last run: 2026-05-11 · git: 2026-06-11 · flags: shared helper module — API used by siblings
   - verdict: ____
