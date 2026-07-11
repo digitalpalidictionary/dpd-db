@@ -10,7 +10,6 @@ from tools.paths import ProjectPaths
 
 if TYPE_CHECKING:
     from gui2.additions_manager import AdditionsManager
-    from gui2.ai_search import AiSearchPopup
     from gui2.corrections_manager import CorrectionsManager
     from gui2.wordfinder_popup import WordFinderPopup
     from tools.ai_manager import AIManager
@@ -105,12 +104,6 @@ class ToolKit:
         from gui2.corrections_manager import CorrectionsManager
 
         return CorrectionsManager(self)
-
-    @cached_property
-    def ai_search_popup(self) -> AiSearchPopup:
-        from gui2.ai_search import AiSearchPopup
-
-        return AiSearchPopup(self)
 
     @cached_property
     def wordfinder_popup(self) -> WordFinderPopup:

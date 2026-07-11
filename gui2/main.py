@@ -6,6 +6,7 @@ from pathlib import Path
 
 import flet as ft
 
+from gui2.ai_search_window import launch_ai_search_window
 from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
@@ -161,14 +162,12 @@ class App:
         if e.key == "Q" and e.ctrl:
             self.page.window.close()
         elif e.key == "A" and e.ctrl and e.shift:
-            self.toolkit.ai_search_popup.open_popup()
+            launch_ai_search_window()
         elif e.key == "F" and e.ctrl:
             self.toolkit.wordfinder_popup.open_popup(self._get_current_lemma())
         elif e.key == "W" and e.ctrl:
             # Universal close key - close any open dialog
-            if self.toolkit.ai_search_popup.is_dialog_open():
-                self.toolkit.ai_search_popup.close_dialog()
-            elif self.toolkit.wordfinder_popup.is_dialog_open():
+            if self.toolkit.wordfinder_popup.is_dialog_open():
                 self.toolkit.wordfinder_popup.close_dialog()
         elif e.key == "S" and e.ctrl:
             tab = self.tabs.tabs[self.tabs.selected_index]

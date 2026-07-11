@@ -1,20 +1,37 @@
+import subprocess
+import sys
+from pathlib import Path
+
 import flet as ft
 
+from tools.ai_manager import AIManager
 from tools.printer import printer as pr
 
 GROUNDED_KEY_PREFIX = "grounded|"
 DEFAULT_MODEL_KEY = "grounded|gemini|gemini-2.5-flash"
 
+_process: subprocess.Popen | None = None
 
-class AiSearchPopup:
-    def __init__(self, toolkit):
-        from gui2.toolkit import ToolKit
 
-        self.toolkit: ToolKit = toolkit
-        self.page: ft.Page = toolkit.page
-        self.ai_manager = toolkit.ai_manager
+def launch_ai_search_window() -> None:
+    # Ask AI runs in its own OS window (its own Flet process) so it never
+    # blocks the main window and can be alt-tabbed. Guard against spawning
+    # duplicates: if one is already alive, leave it and let the user switch
+    # to it rather than opening a second copy.
+    global _process
+    if _process is not None and _process.poll() is None:
+        return
+    _process = subprocess.Popen(
+        [sys.executable, str(Path(__file__).resolve())],
+        cwd=str(Path(__file__).resolve().parents[1]),
+    )
 
-        # Initialize UI components
+
+class AiSearchWindow:
+    def __init__(self, page: ft.Page) -> None:
+        self.page = page
+        self.ai_manager = AIManager()
+
         self.prompt_field = ft.TextField(
             expand=True,
             autofocus=True,
@@ -45,34 +62,26 @@ class AiSearchPopup:
             extension_set=ft.MarkdownExtensionSet.GITHUB_WEB,
         )
 
-        self.dialog = ft.AlertDialog(
-            modal=True,
-            content=ft.Column(
-                [
-                    ft.Row([ft.Text("Ask AI", size=14, color=ft.Colors.GREY_500)]),
-                    ft.Row([self.prompt_field]),
-                    ft.Row([self.model_dropdown, self.reload_button]),
-                    ft.Container(
-                        ft.Column(
-                            [self.response_field],
-                            expand=True,
-                            scroll=ft.ScrollMode.AUTO,
-                            alignment=ft.MainAxisAlignment.START,
-                            horizontal_alignment=ft.CrossAxisAlignment.START,
-                        ),
-                        border_radius=20,
+    def build(self) -> ft.Control:
+        return ft.Column(
+            [
+                ft.Row([ft.Text("Ask AI", size=14, color=ft.Colors.GREY_500)]),
+                ft.Row([self.prompt_field]),
+                ft.Row([self.model_dropdown, self.reload_button]),
+                ft.Container(
+                    ft.Column(
+                        [self.response_field],
                         expand=True,
-                        padding=20,
-                        width=1000,
+                        scroll=ft.ScrollMode.AUTO,
+                        alignment=ft.MainAxisAlignment.START,
+                        horizontal_alignment=ft.CrossAxisAlignment.START,
                     ),
-                ],
-                width=1000,
-                height=1000,
-            ),
-            actions=[
-                ft.TextButton("Close", on_click=self._handle_close),
+                    border_radius=20,
+                    expand=True,
+                    padding=20,
+                ),
             ],
-            actions_alignment=ft.MainAxisAlignment.END,
+            expand=True,
         )
 
     def _build_model_options(self) -> list[ft.dropdown.Option]:
@@ -110,7 +119,7 @@ class AiSearchPopup:
             return
 
         self.response_field.value = "Getting response..."
-        self.dialog.update()
+        self.page.update()
 
         try:
             selected = self.model_dropdown.value or DEFAULT_MODEL_KEY
@@ -131,24 +140,29 @@ class AiSearchPopup:
             else:
                 self.response_field.value = f"AI request failed or returned no response. Status: {ai_response.status_message}"
         except Exception as ex:  # noqa: BLE001
-            pr.red(f"AI request error in popup: {ex}")
+            pr.red(f"AI request error in window: {ex}")
             self.response_field.value = f"An error occurred: {ex}"
         finally:
             self.page.update()
 
-    def _handle_close(self, e: ft.ControlEvent | None):
-        self.dialog.open = False
-        self.page.update()
 
-    def open_popup(self):
-        self.prompt_field.value = ""
-        self.response_field.value = ""
-        self.page.open(self.dialog)
-        self.page.update()
+def main(page: ft.Page) -> None:
+    page.title = "Ask AI"
+    page.theme = ft.Theme()
+    page.theme.font_family = "Inter"
+    page.window.width = 900
+    page.window.height = 1000
 
-    def is_dialog_open(self) -> bool:
-        return self.dialog.open
+    window = AiSearchWindow(page)
 
-    def close_dialog(self) -> None:
-        if self.is_dialog_open():
-            self._handle_close(None)
+    def on_keyboard(e: ft.KeyboardEvent) -> None:
+        if (e.key == "W" and e.ctrl) or e.key == "Escape":
+            page.window.close()
+
+    page.on_keyboard_event = on_keyboard
+    page.add(window.build())
+    page.update()
+
+
+if __name__ == "__main__":
+    ft.app(target=main)
