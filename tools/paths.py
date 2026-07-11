@@ -101,6 +101,9 @@ class ProjectPaths:
         self.pali_difference_exceptions_path = (
             base_dir / "db_tests/single/test_pali_1_2_difference.json"
         )
+        self.root_family_prefix_exceptions_path = (
+            base_dir / "db_tests/single/test_root_family_vs_construction_prefixes.json"
+        )
         self.phonetic_changes_vowels_path = (
             base_dir / "db_tests/single/add_phonetic_changes_vowels.tsv"
         )

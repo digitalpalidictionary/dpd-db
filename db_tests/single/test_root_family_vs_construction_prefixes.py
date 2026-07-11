@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-"""Test if root family prefix == construction prefixes"""
+"""Test if root family prefix == construction prefixes."""
 
+import json
 import re
-from typing import Optional
 
 from rich import print
 
@@ -17,11 +17,34 @@ class GlobalVars:
     db_session = get_db_session(pth.dpd_db_path)
     db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
     i: DpdHeadword
-    constr_no_root_or_base: Optional[str]
-    root_fam_prefix: Optional[str]
-    construction_prefix: Optional[str]
+    constr_no_root_or_base: str | None
+    root_fam_prefix: str | None
+    construction_prefix: str | None
+    exceptions: list[int]
+    exit: bool = False
 
-    def update_prog_data(self, i):
+    def __init__(self) -> None:
+        self.exceptions = self.load_exceptions()
+
+    def load_exceptions(self) -> list[int]:
+        if self.pth.root_family_prefix_exceptions_path.exists():
+            with open(
+                self.pth.root_family_prefix_exceptions_path, encoding="utf-8"
+            ) as f:
+                return json.load(f)
+        return []
+
+    def save_exceptions(self) -> None:
+        with open(
+            self.pth.root_family_prefix_exceptions_path, "w", encoding="utf-8"
+        ) as f:
+            json.dump(self.exceptions, f, indent=2)
+
+    def add_exception(self, id_: int) -> None:
+        self.exceptions.append(id_)
+        self.save_exceptions()
+
+    def update_prog_data(self, i: DpdHeadword) -> None:
         self.i = i
         self.constr_no_root_or_base = None
         self.root_fam_prefix = None
@@ -29,8 +52,13 @@ class GlobalVars:
 
 
 def main():
+    print("[bright_yellow]test root family prefix vs construction prefix")
     g = GlobalVars()
     for i in g.db:
+        if g.exit:
+            break
+        if i.id in g.exceptions:
+            continue
         g.update_prog_data(i)
         test_logic(g)
 
@@ -73,10 +101,20 @@ def test_logic(g: GlobalVars):
 def fix_root_or_construction(g: GlobalVars):
     printer(g)
     print(
-        "[cyan]change the [white]r[cyan]oot family or [white]c[cyan]onstruction? ",
+        "[cyan]change the [white]r[cyan]oot family "
+        "[white]c[cyan]onstruction "
+        "[white]e[cyan]xception "
+        "or [white]q[cyan]uit? ",
         end="",
     )
     route = input()
+
+    if route == "q":
+        g.exit = True
+        return
+    if route == "e":
+        g.add_exception(g.i.id)
+        return
 
     if route == "r":
         print(f"[green]{'enter the new root family':<40}", end="")
@@ -140,7 +178,7 @@ def make_construction_without_base(g: GlobalVars):
 
 
 def make_construction_prefix(g: GlobalVars):
-    c = g.constr_no_root_or_base
+    c = g.constr_no_root_or_base or ""
 
     # remove other prefix and plus space
     c = re.sub("\\?\\?", "", c)
@@ -182,6 +220,7 @@ def printer(g: GlobalVars):
     print(f"[green]{'i.lemma_1':<40}[white]{g.i.lemma_1}")
     print(f"[green]{'i.pos':<40}[white]{g.i.pos}")
     print(f"[green]{'i.family_root':<40}[white]{g.i.family_root}")
+    print(f"[green]{'i.root_base':<40}[white]{g.i.root_base}")
     print(f"[green]{'i.construction':<40}[white]{g.i.construction}")
     print(f"[green]{'root_fam_prefix':<40}[white]'{g.root_fam_prefix}'")
     print(f"[green]{'construc_prefix':<40}[white]'{g.construction_prefix}'")

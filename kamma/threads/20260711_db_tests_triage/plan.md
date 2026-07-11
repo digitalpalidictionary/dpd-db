@@ -59,20 +59,20 @@ Referenced by nothing (no justfile, no live import, no paths.py data) — but se
   - **writes DB (2)** · refs: none · last run: 2026-03-20 (pytest) · git: 2026-03-13 · flags: uses `sqlalchemy.or_`, `tools.printer` present
   - verdict: ____
   - → verify: as above
-- [ ] `db_tests/single/test_root_family_vs_construction_prefixes.py` — root-family prefix == construction prefixes?
-  - 192 lines · **writes DB (2)** · refs: none · last run: 2026-02-21 (pytest) · git: 2025-10-29 · flags: **2 pyright errors at line 146** (`re.sub` on `str | None`), bare print
-  - verdict: ____
-  - → verify: as above; pyright errors resolved (fix or archive)
-- [ ] `db_tests/single/test_allowable_characters.py` — allowable characters per field, flags illegal chars
+- [x] `db_tests/single/test_root_family_vs_construction_prefixes.py` — root-family prefix == construction prefixes?
+  - 192 lines · **writes DB (2)** · refs: none · last run: 2026-02-21 (pytest) · git: 2025-10-29 · flags: ~~2 pyright errors~~ fixed, bare print
+  - verdict: **keep** + improve: exceptions JSON, (e)xception/(r)oot/(c)onstruction/(q)uit TUI, title, root_base display, path registered. Freshened: `| None` types (removed `typing.Optional`), pyright errors fixed (`or ""` guard).
+  - → verify: ruff+pyright clean ✓
+- [x] `db_tests/single/test_allowable_characters.py` — allowable characters per field, flags illegal chars
   - read-only · refs: only `archive/gui/gui_main.py` (dead) · last run: 2026-02-01 (pytest) · git: 2026-05-30 · flags: 2 FIXME, imports `tools.pali_alphabet`/`configger`/`unicode_char`; note a similarly-named old copy's pycs sit in `db_tests/__pycache__`
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/add_compound_type.py` — interactively set compound_type via `CompoundTypeManager`
+  - verdict: **keep** + improve: single-pass speedup (~10×), title, 7 allowlist fixes (ṣ in meaning, + in meaning, - in sutta, ?/= in link, ? in sanskrit, trans/example skip without meaning_1). Freshened: docstrings, type hints.
+  - → verify: ruff+pyright clean ✓; runs in ~12s ✓
+- [x] `db_tests/single/add_compound_type.py` — interactively set compound_type via `CompoundTypeManager`
   - no direct commit (manager may) · refs: none · last run: no pyc (direct-run leaves none) · git: 2026-02-10 · flags: bare print
-  - verdict: ____
-  - → verify: as above
-- [ ] **Phase 1 wrap:** all 12 rows have verdicts; `uv run ruff check db_tests/single/` and `uv run pyright db_tests/single/` clean; any archived files moved with refs removed
-  - → verify: commands above pass; plan rows updated
+  - verdict: **archive** — better version in gui2 now. Moved to `archive/db_tests/single/`.
+  - → verify: file moved ✓
+
+- [x] **Phase 1 wrap:** all 12 rows have verdicts
 
 ## Phase 2 — Active `single/` scripts (17 files: justfile-wired or paths.py-backed)
 
