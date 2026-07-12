@@ -24,7 +24,7 @@ from tools.sanskrit_translit import slp1_translit
 from tools.zip_up import zip_up_file
 
 # Columns copied as-is from dpd_headwords.
-# Dropped: inflections*, freq_html, derivative, non_root_in_comps, created_at, updated_at
+# Dropped: inflections*, freq_html, non_root_in_comps, created_at, updated_at
 HEADWORD_COLUMNS: list[str] = [
     "id",
     "lemma_1",
@@ -50,6 +50,7 @@ HEADWORD_COLUMNS: list[str] = [
     "family_idioms",
     "family_set",
     "construction",
+    "derivative",
     "suffix",
     "phonetic",
     "compound_type",
@@ -126,7 +127,7 @@ FAMILY_SET_COLUMNS: list[str] = ["set", "data", "count"]
 
 # Must match AppDatabase.requiredDbSchemaVersion in the Flutter app.
 # Bump when Drift table definitions change (added/removed columns).
-DB_SCHEMA_VERSION: int = 6
+DB_SCHEMA_VERSION: int = 7
 
 # Tables copied verbatim from source db (no html columns in these)
 PASSTHROUGH_TABLES: list[str] = [
