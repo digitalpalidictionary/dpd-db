@@ -182,44 +182,49 @@ In active use (ran Mar–May 2026). Verdicts likely `freshen`/`improve`. Watch: 
 - [x] **Phase 2 wrap:** all rows verdicted; `uv run ruff check db_tests/single/` + `uv run pyright db_tests/single/` clean; `uv run pytest tests/db_tests/` passes; justfile recipes for surviving scripts intact
   - → verify: `uv run ruff check db_tests/single/` — all checks passed ✓; `uv run pyright db_tests/single/` — 0 errors ✓; `uv run pytest tests/db_tests/` — 39 passed ✓; all 4 justfile recipes (`add_synonym_variant_single/multi/del.py`, `add_phonetic_variants.py`) point at intact files ✓
 
-## Phase 3 — `db_tests_gui/` (8 files — problem children begin)
+## Phase 3 — `db_tests/gui/` (formerly `db_tests_gui/`, 8 files — problem children begin)
 
 Flet mini-app last run 2026-03-29 (>3 months). Central question at each row: retire, fold into gui2, or keep standalone.
 
-- [ ] `db_tests_gui/internal_tests.py` — Flet form for editing column-rule tests
+**Directory move (2026-07-12):** user asked to relocate the whole folder from top-level `db_tests_gui/` to `db_tests/gui/`, nesting it under `db_tests/` alongside `single/` — this also brings the real tree in line with `docs/technical/project_folder_structure.md`, which never listed `db_tests_gui/` as a top-level folder at all. Moved all files (`main.py`, the 6 `add_*.py` editors, `add_antonyms_sync_dict.json`, `add_hyphenations.json`, `README.md`); updated `main.py`'s sibling imports (`db_tests_gui.xxx` → `db_tests.gui.xxx`); updated `tools/paths.py` (`add_antonyms_sync_dict` path + section comment); updated docstring mentions in `tools/goldendict_tools.py` + `tools/negative_to_positive.py`; moved `archive/db_tests_gui/` → `archive/db_tests/gui/`; added the previously-missing `gui/` + `single/` entries to `docs/technical/project_folder_structure.md`'s tree and folder-details. All references below now use the new path.
+
+- [x] `db_tests/gui/internal_tests.py` — Flet form for editing column-rule tests
   - GUI · refs: none · last run: no pyc; git: 2025-03-24 · flags: **buttons never wired — non-functional prototype**; duplicates gui2's Tests tab (`gui2/tests_tab_view.py` + controller, backed by `DbTestManager`); `print("Next")` stub
-  - verdict: ____ (probably doesn't even need a run — user confirms)
-  - → verify: verdict implemented
-- [ ] `db_tests_gui/main.py` — Flet sidebar dispatching the 6 add_* editors
+  - verdict: **archive** — user confirmed gui2's Tests tab works nicely and this is unused elsewhere. Confirmed none of the 6 action buttons (Run/Stop/Edit/Update/Add/Delete) are wired to any handler; confirmed no code imports this module. Moved to `archive/db_tests/gui/`.
+  - → verify: file moved to `archive/db_tests/gui/` ✓; no importers ✓
+- [x] `db_tests/gui/main.py` — Flet sidebar dispatching the 6 add_* editors
   - GUI · `ft.app` at import · last run: no pyc; git: 2025-10-29 · flags: **3 pyright errors (lines 110, 118)**; dispatch key `"add_antonyms sync"` contains a space (fragile); commented-out dead lines
-  - verdict: ____
-  - → verify: verdict implemented; pyright errors resolved
-- [ ] `db_tests_gui/add_antonyms.py` — add missing antonyms interactively
+  - verdict: **keep** — fixed the 3 pyright errors: kept direct references to the `appbar`/`appbar_title`/`menu_button` objects constructed in `main()` instead of re-reading them back through the optionally-typed `page.appbar`/`page.appbar.leading`, so no behavior change, just proper typing. Sibling imports updated for the directory move (see note above).
+  - NOTICED — NOT TOUCHING: the `"add_antonyms sync"` dispatch key (embedded space, inconsistent with sibling `add_fc_*` keys) and the commented-out title-bar lines — cosmetic, out of scope for "get it working."
+  - → verify: ruff+pyright clean ✓ (0 errors, was 3)
+- [ ] `db_tests/gui/add_antonyms.py` — add missing antonyms interactively
   - **writes DB (1)** · last run: 2026-03-29 · git: 2026-06-11 · flags: **imports from `archive/db_tests/old_tests_DELETE.py`** — live dependency on an archived "DELETE" module; resolve here (inline the needed code or properly relocate it)
   - verdict: ____
   - → verify: no imports from `archive/` remain; ruff+pyright clean
-- [ ] `db_tests_gui/add_antonyms_sync.py` — antonyms from existing words; caches to `add_antonyms_sync_dict.json`
-  - **writes DB (1)** · data json in paths.py · last run: 2025-12-02 · git: 2026-06-11 · flags: bare print
+- [ ] `db_tests/gui/add_antonyms_sync.py` — antonyms from existing words; caches to `add_antonyms_sync_dict.json`
+  - **writes DB (1)** · data json in paths.py · last run: 2025-12-02 · git: 2026-06-11 · flags: bare print · user: "actually the only script that really does any work here" (leaning keep)
   - verdict: ____
   - → verify: as above
-- [ ] `db_tests_gui/add_family_compound_neg.py` — family compounds/idioms from negative words
+- [x] `db_tests/gui/add_family_compound_neg.py` — family compounds/idioms from negative words
   - **writes DB (1)** · uses `tools.negative_to_positive` · last run: 2026-03-29 · git: 2026-03-04 · flags: no entry point (only via main.py)
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests_gui/add_family_compound_su_dur.py` — family compounds/idioms for su/dur/sa
+  - verdict: **needs real feature work** (JSON exceptions list, currently a hardcoded `neg_exceptions = [...]` list at module level) — **spun off into a new dedicated thread** rather than done as a triage-scope freshen (see note below). This row and its two siblings are "parked pending new thread", not fully verdicted here.
+  - → verify: n/a — tracked in new thread
+- [x] `db_tests/gui/add_family_compound_su_dur.py` — family compounds/idioms for su/dur/sa
   - **writes DB (1)** · last run: 2026-03-29 · git: 2026-03-04
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests_gui/add_family_compound_taddhita.py` — family compounds/idioms from taddhita
+  - verdict: **needs real feature work** (same exceptions-list treatment as `_neg`; also its exceptions lookup misses the separate `family_compound empty sa` row in `db_tests_columns.tsv` even though it processes `sa`-prefixed compounds too) — spun off, see note below.
+  - → verify: n/a — tracked in new thread
+- [x] `db_tests/gui/add_family_compound_taddhita.py` — family compounds/idioms from taddhita
   - **writes DB (1)** · uses `tools.tsv_read_write` · last run: 2026-03-29 · git: 2026-03-04
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests_gui/add_hyphenations.py` — add hyphenations; manages `speech_marks.json`
+  - verdict: **needs real feature work** (same treatment) — spun off, see note below.
+  - → verify: n/a — tracked in new thread
+- [x] `db_tests/gui/add_hyphenations.py` — add hyphenations; manages `speech_marks.json`
   - **writes DB (1)** · last run: 2026-03-29 · git: 2026-06-11 · flags: no module docstring; orphaned sibling `add_hyphenations.json` (22 B, no consumer) to resolve here
-  - verdict: ____
-  - → verify: as above; orphan json resolved
+  - verdict: **keep** + fix crash. Root cause found live: `load_hyphenations_dict()`/`save_hyphenations_dict()` were wired to `pth.speech_marks_path` (`tools/speech_marks.json`, a different tool's data, shape `{word: [variants]}`) instead of this script's own sibling `add_hyphenations.json` (shape `{"max_length": N, "exceptions": {...}}`) — hence `KeyError: 'max_length'` on the very first run, since `speech_marks.json` has neither key. Registered a new `tools/paths.py` entry (`add_hyphenations_config_path`) pointing at `db_tests/gui/add_hyphenations.json`, rewired both methods to it, and seeded the file with the missing `"exceptions": {}` key (it only had `"max_length": 20`, so it would have crashed again one property later even with the path fixed).
+  - → verify: ruff+pyright clean ✓; orphan json now has a real consumer + paths.py entry ✓ — user to confirm it runs without the KeyError
 - [ ] **Phase 3 wrap:** folder's fate coherent (README matches reality; if the whole app is retired, folder archived and `tools/paths.py` entries removed)
-  - → verify: `uv run ruff check db_tests_gui/` + `uv run pyright db_tests_gui/` clean (or folder gone); gui2 unaffected
+  - → verify: `uv run ruff check db_tests/gui/` + `uv run pyright db_tests/gui/` clean (or folder gone); gui2 unaffected
+
+**New thread spun off (2026-07-12):** the 3 `add_family_compound_*.py` scripts need a real feature — replacing ad hoc/read-only exceptions handling (a hardcoded list in `_neg`; a read-only `db_tests_columns.tsv` lookup with no write-back in `_taddhita`/`_su_dur`) with a proper writable JSON-exceptions system + UI button, consistent across all three. This is design/build work, not a freshen, so it doesn't fit this triage thread's scope — tracked in a new dedicated thread (name TBD by `/kamma:1-plan`) seeded with this session's research: the exact current mechanism in each file, the live seed data already sitting in `db_tests_columns.tsv` (`family_compound empty neg` = 17 ids vs. the hardcoded list's 9; `family_compound empty taddhita` = 32 ids; `family_compound empty su dur nir` = 3 ids **plus** a separate never-consulted `family_compound empty sa` = 3 ids that `_su_dur` should also be checking since it handles `sa`-prefixed compounds).
 
 ## Phase 4 — Top-level `db_tests/` (2 files, known-live problem children)
 
@@ -238,13 +243,13 @@ Flet mini-app last run 2026-03-29 (>3 months). Central question at each row: ret
 
 ## Phase 5 — Cross-cutting cleanup & wrap-up
 
-- [ ] Clear stale `__pycache__` entries for deleted/moved modules (evidence no longer needed once triage is complete): `db_tests/__pycache__` (add_family_compound_and_idiom/2, add_family_compound_neg, add_family_compound_taddhita, helpers, internal_tests, old_tests_DELETE, test_allowable_characters), `single/__pycache__` (add_synonym_multi, add_synonym_variant), `db_tests_gui/__pycache__` (db_tests_gui)
+- [ ] Clear stale `__pycache__` entries for deleted/moved modules (evidence no longer needed once triage is complete): `db_tests/__pycache__` (add_family_compound_and_idiom/2, add_family_compound_neg, add_family_compound_taddhita, helpers, internal_tests, old_tests_DELETE, test_allowable_characters), `single/__pycache__` (add_synonym_multi, add_synonym_variant), `gui/__pycache__` (regenerated post-move, check for stale entries)
   - → verify: no `.pyc` without a matching live `.py`
 - [ ] Add pytest coverage decided during triage (rows marked "pytest: yes") under `tests/db_tests/`, mirroring source paths
   - → verify: `uv run pytest tests/db_tests/` passes; new tests fail meaningfully if logic breaks
-- [ ] Update `db_tests/README.md`, `db_tests/single/README.md`, `db_tests_gui/README.md` to post-triage reality; check `docs/technical/project_folder_structure.md`
+- [ ] Update `db_tests/README.md`, `db_tests/single/README.md`, `db_tests/gui/README.md` (already updated for the directory move, re-check for post-triage reality) to post-triage reality; check `docs/technical/project_folder_structure.md` (already updated for the directory move)
   - → verify: READMEs list only existing files/entry points
-- [ ] Final sweep: `uv run ruff check db_tests db_tests_gui && uv run pyright db_tests db_tests_gui && uv run pytest tests/`
+- [ ] Final sweep: `uv run ruff check db_tests && uv run pyright db_tests && uv run pytest tests/`
   - → verify: all pass; report summary table of verdicts to user (report-only — user commits)
 
 ## Review fixes (2026-07-12)

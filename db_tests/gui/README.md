@@ -1,7 +1,7 @@
-# db_tests_gui/
+# db_tests/gui/
 
 ## Purpose & Rationale
-`db_tests_gui/` is the interactive counterpart to the project's data integrity suite. Its rationale is to provide a user-friendly, visual environment for running database tests and, more importantly, for managing the corrections they trigger. It solves the problem of tedious command-line auditing by allowing editors to review and approve bulk data updates (like adding antonyms or hyphenations) in a centralized Flet-based application.
+`db_tests/gui/` is the interactive counterpart to the project's data integrity suite. Its rationale is to provide a user-friendly, visual environment for running database tests and, more importantly, for managing the corrections they trigger. It solves the problem of tedious command-line auditing by allowing editors to review and approve bulk data updates (like adding antonyms or hyphenations) in a centralized Flet-based application.
 
 ## Architectural Logic
 This subsystem follows an "Interactive Test and Propose" pattern:
@@ -16,4 +16,4 @@ This subsystem follows an "Interactive Test and Propose" pattern:
 - **Evolution:** Represents the project's transition toward more modern, responsive internal tooling (using Flet).
 
 ## Interface
-- **Start Test Runner:** `uv run flet run db_tests_gui/main.py`
+- **Start Test Runner:** `uv run flet run db_tests/gui/main.py`

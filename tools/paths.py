@@ -129,9 +129,12 @@ class ProjectPaths:
             base_dir / "db_tests/single/fixme/add_word_family_finder.pickle"
         )
 
-        # db_tests_gui
+        # db_tests/gui
         self.add_antonyms_sync_dict = (
-            base_dir / "db_tests_gui/add_antonyms_sync_dict.json"
+            base_dir / "db_tests/gui/add_antonyms_sync_dict.json"
+        )
+        self.add_hyphenations_config_path = (
+            base_dir / "db_tests/gui/add_hyphenations.json"
         )
 
         # docs

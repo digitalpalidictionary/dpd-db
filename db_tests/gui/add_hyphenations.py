@@ -67,15 +67,15 @@ class Data:
         )
 
     def load_hyphenations_dict(self):
-        if self.pth.speech_marks_path.exists():
-            with open(self.pth.speech_marks_path, encoding="utf-8") as file:
+        if self.pth.add_hyphenations_config_path.exists():
+            with open(self.pth.add_hyphenations_config_path, encoding="utf-8") as file:
                 return json.load(file)
         else:
             pr.red("no hyphenations dict found")
             return {}
 
     def save_hyphenations_dict(self):
-        with open(self.pth.speech_marks_path, "w", encoding="utf-8") as file:
+        with open(self.pth.add_hyphenations_config_path, "w", encoding="utf-8") as file:
             json.dump(self.hyphenations_dict, file, ensure_ascii=False, indent=2)
 
     def update_hyphenations_dict(self, choice):

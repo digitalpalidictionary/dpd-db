@@ -1,5 +1,5 @@
 """Open a word in the GoldenDict desktop application.
-Used by gui2, db_tests_gui and various maintenance scripts."""
+Used by gui2, db_tests/gui and various maintenance scripts."""
 
 import subprocess
 import shutil

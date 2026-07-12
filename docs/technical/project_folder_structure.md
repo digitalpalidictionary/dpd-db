@@ -15,6 +15,8 @@ Where are all the parts of the project located?
 │   ├── suttas
 │   └── variants
 ├── db_tests
+│   ├── gui
+│   └── single
 ├── docs
 ├── exporter
 │   ├── apple_dictionary
@@ -100,6 +102,10 @@ There are four main parts to the code:
 	- **variants/** Variant readings data and processing.
 
 - **db_tests/** Tests to ensure the completeness and accuracy of the Pāḷi database.
+
+	- **gui/** Interactive Flet-based counterpart for running tests and reviewing/approving bulk data corrections (antonyms, family compounds, hyphenations).
+
+	- **single/** Individual, focused audit scripts — one script per linguistic or structural rule.
 
 - **docs/** Helpful project documentation.
 

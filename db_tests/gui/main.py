@@ -1,11 +1,11 @@
 import flet as ft
 
-from db_tests_gui.add_antonyms import add_antonyms
-from db_tests_gui.add_antonyms_sync import add_antonyms_sync
-from db_tests_gui.add_family_compound_neg import add_fc_neg
-from db_tests_gui.add_family_compound_su_dur import add_fc_su_dur
-from db_tests_gui.add_family_compound_taddhita import add_fc_taddhita
-from db_tests_gui.add_hyphenations import add_hyphenations
+from db_tests.gui.add_antonyms import add_antonyms
+from db_tests.gui.add_antonyms_sync import add_antonyms_sync
+from db_tests.gui.add_family_compound_neg import add_fc_neg
+from db_tests.gui.add_family_compound_su_dur import add_fc_su_dur
+from db_tests.gui.add_family_compound_taddhita import add_fc_taddhita
+from db_tests.gui.add_hyphenations import add_hyphenations
 
 
 class TestRunner:
@@ -33,15 +33,16 @@ def main(page: ft.Page):
     # page.window.title_bar_buttons_hidden = True  # Hide minimize/maximize/close
 
     # AppBar with menu button (CREATE THIS FIRST)
-    page.appbar = ft.AppBar(
-        title=ft.Text("Database Test Runner"),
+    appbar_title = ft.Text("Database Test Runner")
+    menu_button = ft.IconButton(ft.Icons.MENU)
+    appbar = ft.AppBar(
+        title=appbar_title,
         center_title=True,
         bgcolor=ft.Colors.TRANSPARENT,
         elevation=0,
-        leading=ft.IconButton(
-            ft.Icons.MENU,
-        ),
+        leading=menu_button,
     )
+    page.appbar = appbar
 
     # Set window size
     page.window.width = 2048 * 0.67
@@ -107,7 +108,7 @@ def main(page: ft.Page):
         page.update()
 
     # add the toggle function to the appbar
-    page.appbar.leading.on_click = toggle_sidemenu
+    menu_button.on_click = toggle_sidemenu
 
     # Function to run a test
     def run_test(e: ft.ControlEvent, test_name: str):
@@ -115,7 +116,7 @@ def main(page: ft.Page):
             return
         runner.running_test = True
         toggle_sidemenu(e)
-        page.appbar.title = ft.Text(e.control.title.value)
+        appbar_title.value = e.control.title.value
         if test_name == "add_fc_neg":
             add_fc_neg(e, page, right_panel)
         elif test_name == "add_fc_taddhita":
