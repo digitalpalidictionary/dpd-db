@@ -1,120 +1,113 @@
 #!/usr/bin/env python3
 
 """External tests examine the relationship between a word's data and other
-words in the db."""
+words in the db.
+
+Each test takes the searches dict and returns a (name, regexes, count,
+solution) tuple. Results are displayed one by one as each test completes:
+a db browser regex (also copied to the clipboard) and a gui2 db tab regex.
+"""
 
 import re
-from typing import Dict, Optional
+from collections.abc import Callable
 
 import pyperclip
 from rich import print
+from sqlalchemy.orm import Session, load_only
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, DpdRoot, FamilyCompound
+from db.models import DpdHeadword
 from tools.pali_alphabet import consonants
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager
 
-# generic tests that return tuples of results
-# that can be printed or displayed in gui
-
-# run through the db once generting all the necessary sets and lists
-# use those lists in individual fucntions
-# modularize everything
-# describe each test in detail
+Searches = dict[str, list[DpdHeadword]]
+TestResult = tuple[str, "tuple[str, str] | None", int, str]
 
 
-def run_external_tests():
+def run_external_tests() -> None:
+    """Load the db and run every test, displaying each result as it completes."""
+
     print("[bright_yellow]run external db tests")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
     print("[green]make searches")
-    searches: dict = make_searches(db_session)
+    searches = make_searches(db_session)
 
     for item in searches:
         print(item, len(searches[item]))
     print()
 
-    # tests
-    results_list = []
-    results_list.append(family_compound_no_number(searches))
-    results_list.append(suffix_does_not_match_lemma_1(searches))
-    results_list.append(construction_line1_does_not_match_lemma_1(searches))
-    results_list.append(construction_line2_does_not_match_lemma_1(searches))
-    results_list.append(lemma_1_missing_a_number(searches))
-    results_list.append(lemma_1_contains_extra_number(searches))
-    results_list.append(derived_from_not_in_headwords(searches))
-    results_list.append(pali_words_in_english_meaning(searches))
-    results_list.append(derived_from_not_in_family_compound(searches))
-    results_list.append(pos_does_not_equal_grammar(searches))
-    results_list.append(pos_does_not_equal_pattern(searches))
-    results_list.append(base_contains_extra_star(searches))
-    results_list.append(base_is_missing_star(searches))
-    results_list.append(root_x_root_family_mismatch(searches))
-    results_list.append(root_x_construction_mismatch(searches))
-    results_list.append(family_root_x_construction_mismatch(searches))
-    results_list.append(root_key_x_base_mismatch(searches))
-    results_list.append(root_sign_x_base_mismatch(searches))
-    results_list.append(root_sign_x_base_mismatch(searches))
-    results_list.append(root_base_x_construction_mismatch(searches))
-    results_list.append(wrong_prefix_in_family_root(searches))
-    results_list.append(variant_equals_lemma_1(searches))
-    results_list.append(antonym_equals_lemma_1(searches))
-    results_list.append(synonym_equals_lemma_1(searches))
-    # results_list.append(sandhi_contraction_errors(db_session))
-    results_list.append(duplicate_phrases(searches))
-    results_list.append(duplicate_words(searches))
-    results_list.append(duplicate_words_meaning_2(searches))
-    results_list.append(duplicate_words_meaning_lit(searches))
-    results_list.append(dupes_in_meaning_1_meaning_lit(searches))
-    results_list.append(synonym_equals_variant(searches))
-    results_list.append(pos_idiom_no_space_is_sandhi(searches))
-    results_list.append(tags_not_closed(searches))
-
-    for name, result, count, solution in results_list:
+    for test in TESTS:
+        name, result, count, solution = test(searches)
         print(f"[green]{name.replace('_', ' ')} [{count}]")
-        if count > 0:
+        if count > 0 and result is not None:
             print(f"solution: {solution}")
-            print(result, end=" ")
-            pyperclip.copy(result)
+            db_browser_regex, gui2_regex = result
+            print(db_browser_regex)
+            print()
+            print(gui2_regex)
+            pyperclip.copy(db_browser_regex)
             input()
         print()
 
 
-def make_searches(db_session) -> Dict[str, list]:
-    """Make a dict of all searches to be used by functions."""
+def make_searches(db_session: Session) -> Searches:
+    """Load the headwords used by the tests into a searches dict.
 
-    searches = {}
+    Only the columns the tests read are loaded; a column missing from
+    this list still works but lazy-loads per row, so add any column a
+    new test needs."""
 
-    dpd_headword = db_session.query(DpdHeadword).all()
-    searches["dpd_headword"] = dpd_headword
+    needed_columns = [
+        DpdHeadword.id,
+        DpdHeadword.lemma_1,
+        DpdHeadword.pos,
+        DpdHeadword.grammar,
+        DpdHeadword.derived_from,
+        DpdHeadword.meaning_1,
+        DpdHeadword.meaning_2,
+        DpdHeadword.meaning_lit,
+        DpdHeadword.construction,
+        DpdHeadword.suffix,
+        DpdHeadword.pattern,
+        DpdHeadword.root_key,
+        DpdHeadword.root_sign,
+        DpdHeadword.root_base,
+        DpdHeadword.family_root,
+        DpdHeadword.family_word,
+        DpdHeadword.family_compound,
+        DpdHeadword.variant,
+        DpdHeadword.antonym,
+        DpdHeadword.synonym,
+        DpdHeadword.example_1,
+        DpdHeadword.example_2,
+        DpdHeadword.notes,
+        DpdHeadword.commentary,
+    ]
 
-    dpd_roots = db_session.query(DpdRoot).all()
-    searches["dpd_roots"] = dpd_roots
+    headwords = db_session.query(DpdHeadword).options(load_only(*needed_columns)).all()
 
-    compound_families = db_session.query(FamilyCompound).all()
-    searches["compound_families"] = compound_families
-
-    return searches
+    return {"dpd_headword": headwords}
 
 
-def regex_results(results: list) -> Optional[str]:
-    """Take a list of results and return a regex search string or None"""
+def regex_results(results: list) -> tuple[str, str] | None:
+    """Take a list of results and return a tuple of
+    (db browser regex, gui2 db tab regex) or None."""
 
     if results != []:
         results = results[:100]
-        regex_string = r"/\b("
-        regex_string += "|".join(results)
-        regex_string += r")\b/"
+        joined = "|".join(results)
+        db_browser_regex = rf"/\b({joined})\b/"
+        gui2_regex = rf"^({joined})\b"
+        return db_browser_regex, gui2_regex
     else:
-        regex_string = None
-
-    return regex_string
+        return None
 
 
-def family_compound_no_number(searches: dict) -> tuple:
+def family_compound_no_number(searches: Searches) -> TestResult:
     """Find words in compound_family which should have a number
     because there is more than one meaning."""
 
@@ -142,7 +135,7 @@ def family_compound_no_number(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def suffix_does_not_match_lemma_1(searches: dict) -> tuple:
+def suffix_does_not_match_lemma_1(searches: Searches) -> TestResult:
     """Suffix last letter does not match the last letter of lemma_1."""
 
     results = []
@@ -178,7 +171,7 @@ def suffix_does_not_match_lemma_1(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def construction_line1_does_not_match_lemma_1(searches: dict) -> tuple:
+def construction_line1_does_not_match_lemma_1(searches: Searches) -> TestResult:
     """The end of construction line 1 does not match the end of lemma_1."""
 
     results = []
@@ -247,8 +240,8 @@ def construction_line1_does_not_match_lemma_1(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def construction_line2_does_not_match_lemma_1(searches: dict) -> tuple:
-    """The end of construction line 1 does not match the end of lemma_1."""
+def construction_line2_does_not_match_lemma_1(searches: Searches) -> TestResult:
+    """The end of construction line 2 does not match the end of lemma_1."""
 
     results = []
 
@@ -266,7 +259,7 @@ def construction_line2_does_not_match_lemma_1(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def lemma_1_missing_a_number(searches: dict) -> tuple:
+def lemma_1_missing_a_number(searches: Searches) -> TestResult:
     """lemma_1 does not contain a number, but should"""
 
     results = []
@@ -291,7 +284,7 @@ def lemma_1_missing_a_number(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def lemma_1_contains_extra_number(searches: dict) -> tuple:
+def lemma_1_contains_extra_number(searches: Searches) -> TestResult:
     """lemma_1 contains a number, but shouldn't"""
 
     results = []
@@ -315,7 +308,7 @@ def lemma_1_contains_extra_number(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def derived_from_not_in_headwords(searches: dict) -> tuple:
+def derived_from_not_in_headwords(searches: Searches) -> TestResult:
     """Test if derived from is not found in lemma_1."""
 
     results = []
@@ -347,7 +340,7 @@ def derived_from_not_in_headwords(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def pali_words_in_english_meaning(searches: dict) -> tuple:
+def pali_words_in_english_meaning(searches: Searches) -> TestResult:
     """Test if there are Pāḷi words in the meaning"""
     results = []
     pali_words = set()
@@ -399,7 +392,7 @@ def pali_words_in_english_meaning(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def derived_from_not_in_family_compound(searches: dict) -> tuple:
+def derived_from_not_in_family_compound(searches: Searches) -> TestResult:
     """Test if derived from is in family compound"""
     results = []
     exceptions = [
@@ -451,8 +444,8 @@ def derived_from_not_in_family_compound(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def pos_does_not_equal_grammar(searches):
-    """Test of pos equals pos in grammar."""
+def pos_does_not_equal_grammar(searches: Searches) -> TestResult:
+    """Test if pos equals pos in grammar."""
 
     results = []
     exceptions: list = ["dve 2", "sāraṇī"]
@@ -471,7 +464,7 @@ def pos_does_not_equal_grammar(searches):
     return name, results, length, solution
 
 
-def pos_does_not_equal_pattern(searches: dict) -> tuple:
+def pos_does_not_equal_pattern(searches: Searches) -> TestResult:
     """Test pos does not equal pos in pattern."""
 
     results = []
@@ -517,7 +510,9 @@ def pos_does_not_equal_pattern(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def vuddhi(root):
+def vuddhi(root: str) -> str:
+    """Return a regex group of possible vuddhi forms of a root."""
+
     root_vuddhi = []
 
     if root[-1] in consonants:
@@ -544,7 +539,7 @@ def vuddhi(root):
     return root_regex
 
 
-def base_contains_extra_star(searches: dict) -> tuple:
+def base_contains_extra_star(searches: Searches) -> TestResult:
     """Test if base contains a star but no vuddhi"""
 
     results = []
@@ -564,7 +559,7 @@ def base_contains_extra_star(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def base_is_missing_star(searches: dict) -> tuple:
+def base_is_missing_star(searches: Searches) -> TestResult:
     """Test if base is missing a star and contains vuddi"""
 
     results = []
@@ -590,7 +585,7 @@ def base_is_missing_star(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def root_x_root_family_mismatch(searches: dict) -> tuple:
+def root_x_root_family_mismatch(searches: Searches) -> TestResult:
     """Test if root matches root family without prefixes."""
 
     results = []
@@ -610,7 +605,7 @@ def root_x_root_family_mismatch(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def root_x_construction_mismatch(searches: dict) -> tuple:
+def root_x_construction_mismatch(searches: Searches) -> TestResult:
     """Test if root matches root in construction."""
 
     results = []
@@ -631,7 +626,7 @@ def root_x_construction_mismatch(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def family_root_x_construction_mismatch(searches: dict) -> tuple:
+def family_root_x_construction_mismatch(searches: Searches) -> TestResult:
     """Test if family_root matches root in construction."""
 
     results = []
@@ -652,7 +647,7 @@ def family_root_x_construction_mismatch(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def root_key_x_base_mismatch(searches: dict) -> tuple:
+def root_key_x_base_mismatch(searches: Searches) -> TestResult:
     """Test if root_key matches root in base."""
 
     results = []
@@ -671,7 +666,7 @@ def root_key_x_base_mismatch(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def root_sign_x_base_mismatch(searches: dict) -> tuple:
+def root_sign_x_base_mismatch(searches: Searches) -> TestResult:
     """Test if root_sign matches root in base."""
 
     results = []
@@ -693,7 +688,7 @@ def root_sign_x_base_mismatch(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def root_base_x_construction_mismatch(searches: dict) -> tuple:
+def root_base_x_construction_mismatch(searches: Searches) -> TestResult:
     """Test if root_base matches base in construction."""
 
     results = []
@@ -714,7 +709,7 @@ def root_base_x_construction_mismatch(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def wrong_prefix_in_family_root(searches: dict) -> tuple:
+def wrong_prefix_in_family_root(searches: Searches) -> TestResult:
     """Test prefixes in family_root."""
 
     results = []
@@ -757,7 +752,7 @@ def wrong_prefix_in_family_root(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def variant_equals_lemma_1(searches: dict) -> tuple:
+def variant_equals_lemma_1(searches: Searches) -> TestResult:
     """Test if variant equals lemma_1"""
 
     results = []
@@ -775,7 +770,7 @@ def variant_equals_lemma_1(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def antonym_equals_lemma_1(searches: dict) -> tuple:
+def antonym_equals_lemma_1(searches: Searches) -> TestResult:
     """Test if antonym equals lemma_1"""
 
     results = []
@@ -793,7 +788,7 @@ def antonym_equals_lemma_1(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def synonym_equals_lemma_1(searches: dict) -> tuple:
+def synonym_equals_lemma_1(searches: Searches) -> TestResult:
     """Test if synonym equals lemma_1"""
 
     results = []
@@ -811,7 +806,7 @@ def synonym_equals_lemma_1(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def synonym_equals_variant(searches: dict) -> tuple:
+def synonym_equals_variant(searches: Searches) -> TestResult:
     """Test if synonym equals variant"""
 
     results = []
@@ -830,8 +825,8 @@ def synonym_equals_variant(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def pos_idiom_no_space_is_sandhi(searches: dict) -> tuple:
-    """Test if idiom contains a space"""
+def pos_idiom_no_space_is_sandhi(searches: Searches) -> TestResult:
+    """Test if a sandhi word contains a space and should be pos idiom."""
 
     results = []
     for i in searches["dpd_headword"]:
@@ -840,14 +835,14 @@ def pos_idiom_no_space_is_sandhi(searches: dict) -> tuple:
 
     length = len(results)
     results = regex_results(results)
-    name = "idiom contains a space is sandhi"
-    solution = "change pos to sandhi"
+    name = "pos sandhi contains a space"
+    solution = "change pos to idiom"
 
     return name, results, length, solution
 
 
-def sandhi_contraction_errors(db_session) -> tuple:
-    """Test if there are errors in in sandhi apostropes.
+def sandhi_contraction_errors(db_session: Session) -> tuple[str, str, int, str]:
+    """Test if there are errors in sandhi apostrophes.
     e.g. aham'pi / ahamp'i, n'eva / ne'va"""
 
     speech_marks_manager = SpeechMarkManager()
@@ -882,8 +877,8 @@ def sandhi_contraction_errors(db_session) -> tuple:
     return name, results, length, solution
 
 
-def duplicate_phrases(searches: dict) -> tuple:
-    """Test for duplcate phrases in meaning_1."""
+def duplicate_phrases(searches: Searches) -> TestResult:
+    """Test for duplicate phrases in meaning_1."""
 
     exceptions = [
         "jāta 1",
@@ -910,8 +905,8 @@ def duplicate_phrases(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def duplicate_words(searches: dict) -> tuple:
-    """Test for consecutive duplcate words in meaning_1."""
+def duplicate_words(searches: Searches) -> TestResult:
+    """Test for consecutive duplicate words in meaning_1."""
 
     exceptions = [
         "000",
@@ -930,10 +925,6 @@ def duplicate_words(searches: dict) -> tuple:
                     if words[x] == words[x + 1]:
                         if words[x] not in exceptions:
                             results += [i.lemma_1]
-                if words and words[-1] == words[-2]:
-                    # FIXME x is possibly unbound
-                    if words[x] not in exceptions:
-                        results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -943,8 +934,8 @@ def duplicate_words(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def duplicate_words_meaning_2(searches: dict) -> tuple:
-    """Test for consecutive duplcate words in meaning_2."""
+def duplicate_words_meaning_2(searches: Searches) -> TestResult:
+    """Test for consecutive duplicate words in meaning_2."""
 
     exceptions = [
         "cicciṭāyati",
@@ -967,10 +958,6 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
                     if words[x] == words[x + 1]:
                         if words[x] not in exceptions:
                             results += [i.lemma_1]
-                if words and words[-1] == words[-2]:
-                    # FIXME x is possibly unbound
-                    if words[x] not in exceptions:
-                        results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -980,8 +967,8 @@ def duplicate_words_meaning_2(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def duplicate_words_meaning_lit(searches: dict) -> tuple:
-    """Test for consecutive duplcate words in meaning_lit."""
+def duplicate_words_meaning_lit(searches: Searches) -> TestResult:
+    """Test for consecutive duplicate words in meaning_lit."""
 
     exceptions = [
         "dvayaṃdvaya",
@@ -1033,6 +1020,9 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
         "gahitagahita",
         "ekattatā",
         "aññamañña 2",
+        "ekekalomatā",
+        "susukkasukka",
+        "samāsama",
     ]
 
     results = []
@@ -1044,10 +1034,6 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
                     if words[x] == words[x + 1]:
                         if words[x] not in exceptions:
                             results += [i.lemma_1]
-                if words and words[-1] == words[-2]:
-                    # FIXME x is possibly unbound
-                    if words[x] not in exceptions:
-                        results += [i.lemma_1]
 
     length = len(results)
     results = regex_results(results)
@@ -1057,7 +1043,7 @@ def duplicate_words_meaning_lit(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def dupes_in_meaning_1_meaning_lit(searches: dict) -> tuple:
+def dupes_in_meaning_1_meaning_lit(searches: Searches) -> TestResult:
     """Test for same meaning in meaning_1 and meaning_lit."""
 
     results = []
@@ -1087,20 +1073,17 @@ def dupes_in_meaning_1_meaning_lit(searches: dict) -> tuple:
     return name, results, length, solution
 
 
-def tags_count_equal(html_str: str):
+def tags_count_equal(html_str: str) -> bool:
     """Count opening and closing HTML tags in a string.
     Ignores self-closing tags like <img/>."""
 
     open_tags = re.findall(r"<([a-zA-Z]+)(?![^>]*\/>)[^>]*>", html_str)
     close_tags = re.findall(r"<\/\s*([a-zA-Z]+)\s*>", html_str)
 
-    if len(open_tags) == len(close_tags):
-        return True
-    else:
-        return False
+    return len(open_tags) == len(close_tags)
 
 
-def tags_not_closed(searches: dict) -> tuple:
+def tags_not_closed(searches: Searches) -> TestResult:
     """HTML open tags dont match closed tags count."""
 
     results = []
@@ -1144,7 +1127,46 @@ def tags_not_closed(searches: dict) -> tuple:
 # find_word_family_loners
 
 
-def main():
+TESTS: list[Callable[[Searches], TestResult]] = [
+    family_compound_no_number,
+    suffix_does_not_match_lemma_1,
+    construction_line1_does_not_match_lemma_1,
+    construction_line2_does_not_match_lemma_1,
+    lemma_1_missing_a_number,
+    lemma_1_contains_extra_number,
+    derived_from_not_in_headwords,
+    pali_words_in_english_meaning,
+    derived_from_not_in_family_compound,
+    pos_does_not_equal_grammar,
+    pos_does_not_equal_pattern,
+    base_contains_extra_star,
+    base_is_missing_star,
+    root_x_root_family_mismatch,
+    root_x_construction_mismatch,
+    family_root_x_construction_mismatch,
+    root_key_x_base_mismatch,
+    root_sign_x_base_mismatch,
+    root_base_x_construction_mismatch,
+    wrong_prefix_in_family_root,
+    variant_equals_lemma_1,
+    antonym_equals_lemma_1,
+    synonym_equals_lemma_1,
+    # sandhi_contraction_errors is parked: takes db_session and returns a
+    # plain string instead of regexes
+    duplicate_phrases,
+    duplicate_words,
+    duplicate_words_meaning_2,
+    duplicate_words_meaning_lit,
+    dupes_in_meaning_1_meaning_lit,
+    synonym_equals_variant,
+    pos_idiom_no_space_is_sandhi,
+    tags_not_closed,
+]
+
+
+def main() -> None:
+    """Run the external db tests with timing."""
+
     pr.tic()
     run_external_tests()
     pr.toc()

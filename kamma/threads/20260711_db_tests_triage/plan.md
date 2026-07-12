@@ -230,10 +230,17 @@ Flet mini-app last run 2026-03-29 (>3 months). Central question at each row: ret
 
 > ⚠️ **MODEL NOTE:** Phases 1–3 run fine on Sonnet 5 (mechanical, well-scoped edits). For this phase — latent "possibly unbound" bugs in ~1,150 dense lines and API-preserving changes to `DbTestManager` — switch to a stronger model (Opus 4.8) if the current model's analysis feels shallow or it misjudges the unbound-variable fixes.
 
-- [ ] `db_tests/db_tests_relationships.py` — large battery of cross-word relationship checks
+- [x] `db_tests/db_tests_relationships.py` — large battery of cross-word relationship checks
   - ~1,153 lines · read-only (pyperclip) · refs: `just db-test` · last run: no pyc (direct-run) · git: 2026-03-27 · flags: **3 FIXME "possibly unbound" latent bugs (lines ~934, 971, 1048)**; old `typing.Dict`/`Optional`; messy design-notes header with typos ("generting", "fucntions")
-  - verdict: ____ (likely improve: fix unbound bugs, modernize hints, tidy header)
-  - → verify: `just db-test` runs to completion; ruff+pyright clean; FIXMEs resolved
+  - verdict: **keep + improve** (implemented 2026-07-12):
+    - gui2 db tab regex (user request mid-triage): `regex_results()` returns a tuple (db browser regex `/\b(...)\b/`, gui2 regex `^(...)\b`); both printed, clipboard still copies the db browser one
+    - startup speedup, benchmarked on a throwaway db copy (warm cache, load avg 0.5): full load 89,177 headwords all-columns = 3.8s + 0.3s for two queries (`dpd_roots`, `compound_families`) **no test ever consumed** + 2.0s running all tests before first output = ~6.6s to first prompt. Fixes: `make_searches` now `load_only`s the 24 columns the tests read (3.8s→1.4s) and drops the two dead queries; results now **stream** (each test prints/prompts as it completes) instead of batching all 31 first → first prompt ~2s instead of ~6.6s. Per-test counts verified byte-identical pre/post on the bench copy (31/31)
+    - 3 FIXME "possibly unbound" blocks in `duplicate_words`/`_meaning_2`/`_meaning_lit` deleted — they were redundant dead code (the loop already compares the final pair; the trailing block double-added via the stale loop index)
+    - `root_sign_x_base_mismatch` double call deduped via new module-level `TESTS` registry (single source of truth for the run order)
+    - modernized typing: `Dict`/`Optional` gone; `Searches`/`TestResult` aliases; hints on all bare signatures (`vuddhi`, `pos_does_not_equal_grammar`, `tags_count_equal -> bool` direct return, `main`, `run_external_tests`)
+    - header design-notes block (typos "generting"/"fucntions") folded into a proper module docstring; docstring typo fixes (duplcate→duplicate, apostropes, line2 copy-paste); `pos_idiom_no_space_is_sandhi` self-contradictory strings fixed (name → "pos sandhi contains a space", solution → "change pos to idiom" — flag for user confirmation)
+    - `sandhi_contraction_errors` left parked (commented in TESTS with reason: takes db_session, returns plain string) — user didn't pick re-enable/delete
+  - → verify: ruff+pyright clean ✓; counts identical 31/31 on bench copy ✓; user ran `just db-test` and confirmed it works fine ✓
 - [ ] `db_tests/db_tests_manager.py` — `DbTestManager`: loads/checks/runs/saves the column-rule TSV
   - shared library · writes the TSV (not the DB) · refs: gui2 ×4 + `tests/db_tests/test_db_tests_manager.py` (158 lines) · last run: 2026-06-16 (live via gui2) · git: 2026-06-15 · flags: mixes bare rich `print("[red]...")` with `pr.red(...)`; `main()` is a hardcoded id=112 smoke demo
   - verdict: ____ (constraint: gui2-facing API must not break)
