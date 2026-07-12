@@ -9,6 +9,7 @@ from json import dump, load
 
 import flet as ft
 from rich import print
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -195,7 +196,8 @@ class UiManager:
             return self.dest_antonym_field.value
 
 
-def load_antonym_exceptions_dict(pth: ProjectPaths) -> dict:
+def load_antonym_exceptions_dict(pth: ProjectPaths) -> dict[str, list[int]]:
+    """Load the source_id -> [excepted dest_id] map."""
     if pth.add_antonyms_sync_dict.exists():
         with open(pth.add_antonyms_sync_dict, encoding="utf-8") as file:
             return load(file)
@@ -204,14 +206,21 @@ def load_antonym_exceptions_dict(pth: ProjectPaths) -> dict:
         return {}
 
 
-def save_antonym_exceptions_dict(pth: ProjectPaths, antonym_exceptions_dict: dict):
+def save_antonym_exceptions_dict(
+    pth: ProjectPaths, antonym_exceptions_dict: dict[str, list[int]]
+) -> None:
+    """Save the source_id -> [excepted dest_id] map."""
     with open(pth.add_antonyms_sync_dict, "w", encoding="utf-8") as file:
         dump(antonym_exceptions_dict, file, ensure_ascii=False, indent=2)
 
 
 def update_exceptions(
-    pth: ProjectPaths, antonym_exceptions_dict: dict, source_id: int, dest_id: int
-):
+    pth: ProjectPaths,
+    antonym_exceptions_dict: dict[str, list[int]],
+    source_id: int,
+    dest_id: int,
+) -> None:
+    """Except dest_id from being re-flagged as a sync candidate for source_id."""
     # json keys are strings
     source_id_key: str = str(source_id)
 
@@ -225,24 +234,29 @@ def update_exceptions(
     print(antonym_exceptions_dict[source_id_key])
 
 
-def commit_to_db(dest: DpdHeadword, dest_antonyms: str, db_session):
+def commit_to_db(dest: DpdHeadword, dest_antonyms: str, db_session: Session) -> None:
+    """Write the confirmed antonym string to the destination headword."""
     dest.antonym = dest_antonyms
     db_session.commit()
 
 
-def update_history(history, dest):
+def update_history(history: list[str], dest: DpdHeadword) -> list[str]:
+    """Prepend dest's lemma_1 to the review history, capped at 10 entries."""
     history.insert(0, dest.lemma_1)
     return history[:10]
 
 
-def make_dest_antonyms(source: DpdHeadword, dest: DpdHeadword):
+def make_dest_antonyms(source: DpdHeadword, dest: DpdHeadword) -> list[str]:
+    """Build the destination's proposed antonym list, adding the source."""
     dest_antonyms = set(dest.antonym_list)
     dest_antonyms.add(source.lemma_clean)
-    dest_antonyms = pali_list_sorter(dest_antonyms)
-    return dest_antonyms
+    return pali_list_sorter(dest_antonyms)
 
 
-def add_antonyms_sync(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
+def add_antonyms_sync(
+    e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container
+) -> None:
+    """Sync antonyms: propagate an existing antonym onto its unlinked counterpart."""
     ui = UiManager(e, page, right_panel)
     pth = ProjectPaths()
 
@@ -311,7 +325,6 @@ def add_antonyms_sync(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Contain
                             if action:
                                 action_type, antonyms = action
                                 if action_type == "commit":
-                                    dest_antonyms = ui.get_antonym()
                                     commit_to_db(dest, antonyms, db_session)
                                     break
                                 elif action_type == "exception":
