@@ -82,7 +82,18 @@
       missing_meanings cumulative-level bug + type hints). One item flagged
       out of scope: tools/sanskrit_translit.py HK/SLP1 mapping looks swapped —
       not fixed, needs its own deliberate PR.
-- [x] Full suite 1722 passed, 16 deselected. Ready to commit (this thread's
-      files only — parallel db_tests_triage thread's uncommitted files
-      excluded: tools/phonetic_change_manager.py, tools/phonetic_changes.tsv,
-      db_tests/, shared_data/, .gitmodules, resources/tpr_downloads, archive/).
+- [x] Full suite 1722 passed, 16 deselected. Committed as 5875fdc0 (this
+      thread's files only — parallel db_tests_triage thread's uncommitted
+      files excluded).
+
+## Follow-up: sanskrit_translit HK/SLP1 fix (user sign-off 2026-07-12)
+- [x] Fixed tools/sanskrit_translit.py hk_translit swapped S/z mapping
+      (z: ś, S: ṣ — matches standard HK convention and the T/D/N retroflex
+      capitalization pattern). Confirmed hk_translit has zero production
+      callers (test-only); slp1_translit (the one exporter/mobile actually
+      uses) was already correct and untouched — zero live output change.
+- [x] Updated tests/tools/test_sanskrit_translit.py's two locked-buggy-behaviour
+      cases to correct expected values (kRSNa -> kṛṣṇa; zaTkoNa case replaced
+      with zrI -> śrī to properly exercise the z->ś mapping)
+- [x] Lint/pyright clean; full suite 1722 passed, 16 deselected
+- [ ] Commit as its own follow-up commit

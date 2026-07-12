@@ -20,8 +20,8 @@ def hk_translit(text: str):
         "T": "ṭ",
         "D": "ḍ",
         "N": "ṇ",
-        "z": "ṣ",
-        "S": "ś",
+        "z": "ś",
+        "S": "ṣ",
     }
 
     translit: str = str()

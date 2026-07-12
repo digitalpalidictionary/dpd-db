@@ -12,8 +12,8 @@ from tools.sanskrit_translit import hk_translit, slp1_translit
         ("buddhaH", "buddhaḥ"),
         ("saMskRta", "saṃskṛta"),
         ("jJAna", "jñāna"),
-        ("zaTkoNa", "ṣaṭkoṇa"),
-        ("kRSNa", "kṛśṇa"),
+        ("zrI", "śrī"),  # z is the palatal sibilant ś in Harvard-Kyoto
+        ("kRSNa", "kṛṣṇa"),  # S is the retroflex sibilant ṣ in Harvard-Kyoto
         ("dharma", "dharma"),  # plain lowercase passes through
     ],
 )

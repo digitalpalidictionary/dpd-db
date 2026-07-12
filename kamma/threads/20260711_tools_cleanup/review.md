@@ -45,11 +45,15 @@ files; full suite 1722 passed, 16 deselected (unchanged).
    of `>=`, so level 3 didn't also apply level 2's check as the docstring promised.
 4. **WONTFIX** (user decision): `uposatha_day.py` uncaught `NoSectionError` —
    accepted risk, locked by test.
-5. **Flagged, not fixed** (out of scope, needs its own deliberate PR):
-   `tools/sanskrit_translit.py` HK/SLP1 `S`/`z` mapping appears swapped vs.
-   standard convention. Predates this thread, feeds live mobile exporter output
-   and the `resources/other-dictionaries` submodule (same swap there). Not
-   touched — production output change requiring explicit sign-off.
+5. **Fixed** (follow-up, user sign-off given): `tools/sanskrit_translit.py`
+   `hk_translit`'s `S`/`z` mapping was swapped vs. standard Harvard-Kyoto
+   convention (z should be ś, S should be ṣ — matches T/D/N capitalization
+   pattern for retroflex consonants). Confirmed zero production callers of
+   `hk_translit` (test-only) — `slp1_translit`, the one actually used by
+   `exporter/mobile/mobile_exporter.py`, already had the correct S/z mapping
+   and was not touched, so this fix changes zero live export output.
+   `resources/other-dictionaries` vendored submodule copy has the same bug but
+   is out of scope (separate repo) — not touched.
 
 ## Final status
 Full suite: 1722 passed, 16 deselected. Lint/pyright clean on every file this
