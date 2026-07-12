@@ -75,9 +75,13 @@ class ProjectPaths:
         self.add_phonetic_variants_exceptions_path = (
             base_dir / "db_tests/single/add_phonetic_variants.json"
         )
-        self.antonym_dict_path = base_dir / "db_tests/single/test_antonyms.json"
-        self.bahubbihi_dict_path = base_dir / "db_tests/single/test_bahubbihis.json"
-        self.bold_example_path = base_dir / "db_tests/single/test_bold.json"
+        self.antonym_dict_path = base_dir / "db_tests/single/fixme/test_antonyms.json"
+        self.bahubbihi_dict_path = (
+            base_dir / "db_tests/single/fixme/test_bahubbihis.json"
+        )
+        self.bold_example_path = (
+            base_dir / "db_tests/single/test_bold_example_inflections.json"
+        )
         self.digu_json_path = base_dir / "db_tests/single/test_digu.json"
         self.example_dupes_config_path = (
             base_dir / "db_tests/single/test_example_dupes.json"
@@ -86,11 +90,10 @@ class ProjectPaths:
             base_dir / "db_tests/single/test_family_compounds_have_meaning_1.json"
         )
         self.hyphenations_scratchpad_path = (
-            base_dir / "db_tests/single/test_hyphenations.txt"
+            base_dir / "db_tests/single/fixme/test_hyphenations.txt"
         )
-        self.idioms_exceptions_dict = base_dir / "db_tests/single/test_idioms.json"
-        self.maha_exceptions_list = (
-            base_dir / "db_tests/single/test_maha_exceptions.json"
+        self.idioms_exceptions_dict = (
+            base_dir / "db_tests/single/fixme/test_idioms.json"
         )
         self.neg_compound_exceptions = (
             base_dir / "db_tests/single/test_neg_compound_exceptions.json"
@@ -120,10 +123,10 @@ class ProjectPaths:
             base_dir / "db_tests/single/add_synonym_variant.json"
         )
         self.theragatha_filler_path = (
-            base_dir / "db_tests/single/test_theragatha_filler.pickle"
+            base_dir / "db_tests/single/test_theragatha_filler.json"
         )
         self.wf_exceptions_list = (
-            base_dir / "db_tests/single/add_word_family_finder.pickle"
+            base_dir / "db_tests/single/fixme/add_word_family_finder.pickle"
         )
 
         # db_tests_gui

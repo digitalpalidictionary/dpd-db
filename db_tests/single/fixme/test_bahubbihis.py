@@ -12,6 +12,19 @@ Bahubbīhi compounds are characterised by:
 - adj which has taddhita "ka|ika|aka"
 """
 
+# FIXME (2026-07-12, moved to fixme/): user confirmed this (already the
+# newer, cleaner rewrite consolidated from scripts/find/bahubbīhi_finder.py)
+# still needs help — only 2 of the 5 heuristics documented in the module
+# docstring above are actually implemented:
+# - working: adj-comp ending in a noun + relative pronoun in the meaning;
+#   adj-comp with prefix "sa" (with...).
+# - missing/dropped: adj-ending, pp-ending relative-pronoun checks; the
+#   taddhita "ka|ika|aka" suffix check. Decide deliberately whether these
+#   are worth reviving rather than letting them silently disappear again.
+# - Standardize on the lettered-menu + JSON-exceptions pattern used
+#   elsewhere in db_tests/single/ once one is settled on for this thread's
+#   rewrites.
+
 import json
 import re
 

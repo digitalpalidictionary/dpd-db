@@ -3,6 +3,20 @@
 
 """Find missing word families."""
 
+# FIXME (2026-07-12, moved to fixme/): workflow is unintuitive, needs redesign.
+# - Three unrelated detectors bolted into one main(): find_in_family_compound
+#   (interactive, writes DB), find_in_construction and find_in_lemma_1
+#   (both read-only clipboard-regex-then-input() loops) share no UI pattern.
+# - Replace the clipboard-regex-then-bare-input() steps with the JSON-exceptions
+#   + lettered-menu TUI pattern used elsewhere in db_tests/single/ (e.g.
+#   test_family_compounds_have_meaning_1.py) — show the candidate headword's
+#   pos/meaning_combo inline instead of pasting a regex into another tool.
+# - Replace the pickle exceptions cache (add_word_family_finder.pickle, kept
+#   alongside this file) with JSON keyed by lemma_1, registered in
+#   tools/paths.py, matching every other exceptions file in this folder.
+# - Check whether gui2's family_root/family_word editing views already cover
+#   part of this before rebuilding the interactive shell from scratch.
+
 import pickle
 import re
 

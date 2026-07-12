@@ -111,52 +111,76 @@ In active use (ran Mar–May 2026). Verdicts likely `freshen`/`improve`. Watch: 
     - `tools/synonym_variant.py`: added `IND_SANDHI_POS = {"ind", "sandhi"}` to the shared `pos_class()` grouping (used by `_multi`/`_single`/`_del`) so `ind`/`sandhi` pos are treated as one class, fixing cross-pos false flags there too
   - → verify: ruff+pyright clean on `add_synonym_variant_del.py` and `tools/synonym_variant.py` ✓; user confirmed each fix live against real flagged rows during interactive triage
   - NOTICED — NOT TOUCHING: `uv run pytest tests/` smoke run at row wrap shows 3 pre-existing failures unrelated to this row's scope — `tests/db/families/test_family_root.py::test_compile_rf_html`, `::test_make_anki_data`, `tests/exporter/txt/test_export_txt.py::TestMakeWordEntry::test_branch1_with_root_and_extras_id10`. `dpd.db` is gitignored/mutable and these assert against specific live-data snapshots (e.g. headword id 10 `meaning_1` wording); neither `add_synonym_variant_del.py` nor `tools/synonym_variant.py` touches `meaning_1`/family_root/export html, so this is DB-content drift, not a regression from this row. Matches the known brittle-golden-master pattern already logged in memory.
-- [ ] `db_tests/single/add_word_family_finder.py` — find missing word families
+- [x] `db_tests/single/add_word_family_finder.py` — find missing word families
   - **writes DB (1)** · refs: pickle in paths.py · last run: no pyc · git: 2025-09-21 · flags: bare print only
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_antonyms.py` — missing/wrong/extra antonyms
+  - verdict: **move to `fixme/`** — the workflow (bare `rich.print` prompts + raw-`input()` clipboard-regex loop, 3 unrelated detection strategies bolted into one file) is not intuitive to use and needs a redesign, not a freshen. Moved script + its `add_word_family_finder.pickle` exceptions cache to `db_tests/single/fixme/`; removed the dead `tools/paths.py` `wf_exceptions_list` entry (only that file referenced it).
+  - **Redesign notes for future rewrite** (not implemented — logged for whoever picks this up):
+    - Split the single file's three independent detectors into separate entry points or an explicit menu — `find_in_family_compound` (interactive, writes DB), `find_in_construction` (read-only, clipboard-regex), `find_in_lemma_1` (read-only, clipboard-regex) currently share no UI pattern and are only chained by `main()`.
+    - Replace the clipboard-regex-then-bare-`input()` steps (`find_in_construction`/`find_in_lemma_1`) with the same JSON-exceptions + lettered-menu TUI pattern already standardized this thread (e.g. `test_family_compounds_have_meaning_1.py`, `test_root_family_vs_construction_prefixes.py`) — show the candidate headword's `pos`/`meaning_combo` inline instead of requiring the user to paste a regex into another tool and eyeball the DB.
+    - Replace the pickle exceptions cache with JSON (project convention elsewhere) registered in `tools/paths.py`, keyed by `lemma_1` — the old `.pickle` is preserved in `fixme/` in case its accumulated exceptions are worth porting forward.
+    - Consider whether `gui2`'s family-tools views (`family_root`/`family_word` editing) already cover part of this — if so, the rewrite may only need the detection logic (`build_word_family_dict`, `find_in_construction`, `find_in_lemma_1`), not a new standalone interactive shell.
+  - → verify: file + pickle moved to `fixme/` ✓; `tools/paths.py` dead entry removed ✓; ruff+pyright clean on `tools/paths.py` ✓
+- [x] `db_tests/single/test_antonyms.py` — missing/wrong/extra antonyms
   - **writes DB (9!)** · refs: `test_antonyms.json` in paths.py · last run: 2026-02-01 (pytest) · git: 2026-06-11 · flags: 2 FIXME (lines ~102, 161)
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_bahubbihis.py` — bahubbīhi compound characteristics
+  - verdict: **move to `fixme/`** — user found it too complicated to even understand, let alone use safely: a `GlobalVars` class driving a nested nine-branch `check_w1`/`update_w2` state machine, nine possible DB writes per mismatch, unfixed FIXMEs (antonym match never actually verified before branching; multi-antonym case just prints a warning and does nothing), plus ~70 lines of dead commented-out alternate handlers. Moved script + `test_antonyms.json` to `db_tests/single/fixme/`; removed the dead `tools/paths.py` `antonym_dict_path` entry (only that file referenced it).
+  - **Redesign notes for future rewrite** (not implemented — logged for whoever picks this up):
+    - Same complaint pattern as `add_word_family_finder.py` above: one giant function branching on multiple simultaneous conditions (match/mismatch × pos-match/mismatch × has/hasn't-antonym) is hard to reason about interactively. Split into one check per condition, presented one at a time, rather than a single dense cascade.
+    - Fix the FIXMEs as part of the rewrite, not as a patch to the old structure: actually verify the antonym match before branching (line ~102), and decide + implement real handling for words with multiple antonyms (line ~161) instead of a print-and-skip.
+    - Standardize on the same lettered-menu + JSON-exceptions pattern used elsewhere this thread (e.g. `test_root_family_vs_construction_prefixes.py`) rather than the bespoke `u/d1/a/r/m/d2/e/p` menu, so the tool matches the muscle memory built up across the other freshened `single/` scripts.
+    - Delete the dead commented-out code (`antonym_doesnt_exist`, `add_antonym_back`, `delete_antonym`, `update_w2_or_add_exceptions`) rather than carrying it into the rewrite — none of it is wired up, and it doesn't represent a design the user wants either.
+  - → verify: file + json moved to `fixme/` ✓; `tools/paths.py` dead entry removed ✓; ruff+pyright clean on `tools/paths.py` ✓
+- [x] `db_tests/single/test_bahubbihis.py` — bahubbīhi compound characteristics
   - **writes DB (1)** · refs: json in paths.py · last run: 2026-02-01 (pytest) · git: 2026-06-11 · flags: **5 FIXME (lines ~122–126)**, uses `tools.terminal_highlights`
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_bold_example_inflections.py` — bold word in examples must be a real inflection
+  - verdict: **consolidate + move to `fixme/`**. Discovery mid-triage: `scripts/find/bahubbīhi_finder.py` (created 2026-02-26) was already a cleaner, partial rewrite of this same tool — same `GlobalVars`/`bahubbihi_dict` shape, sharing the same `test_bahubbihis.json` data file via `bahubbihi_dict_path`, but with 2 of 5 detection strategies uncommented/cleaned (noun-ending + relative-pronoun, `sa +` prefix), added skip-already-reviewed guards, and a `(q)uit` option — the other 3 strategies (adj-ending, pp-ending, taddhita `ka|ika|aka`) were dropped, not just commented out. User tested the newer script and confirmed it should replace this row's file rather than being freshened separately. Replaced `db_tests/single/test_bahubbihis.py` content with `scripts/find/bahubbīhi_finder.py`, deleted the now-duplicate `scripts/find/bahubbīhi_finder.py` (unreferenced by justfile/README/other code), then moved the consolidated file + `test_bahubbihis.json` to `db_tests/single/fixme/`. Removed the dead `tools/paths.py` `bahubbihi_dict_path` entry (only the fixme file references it now).
+  - **Redesign notes for future rewrite** (not implemented — logged for whoever picks this up):
+    - Even the newer/cleaner version still needs help per the user — same class of complaint as the other rows above: only 2 of the 5 documented bahubbīhi heuristics are implemented, the other 3 were quietly dropped rather than fixed.
+    - When rebuilding, decide deliberately whether the dropped heuristics (adj-ending, pp-ending relative-pronoun checks; taddhita `ka/ika/aka` suffix check) are worth reviving, rather than letting them silently disappear again in a future pass.
+    - Same standardization note as the other `fixme/`-bound rows: adopt the shared lettered-menu/JSON-exceptions pattern once one is settled on for this thread's rewrites, so all these tools feel consistent.
+  - → verify: `scripts/find/bahubbīhi_finder.py` no longer exists ✓; consolidated file + json moved to `fixme/` ✓; `tools/paths.py` dead entry removed ✓; ruff+pyright clean on `tools/paths.py` ✓
+- [x] `db_tests/single/test_bold_example_inflections.py` — bold word in examples must be a real inflection
   - **writes DB (1)** · refs: `test_bold.json` (`bold_example_path`) in paths.py · last run: 2026-03-20 (pytest) · git: 2026-06-11
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_digu.py` — numerals in compounds → compound_type digu
+  - verdict: **keep** + improve: `printer()` (the shared failure-review prompt for tests 1/2/4/5/6/8) rebuilt to the thread's standard `(e)xception`/`(q)uit`/Enter-for-next menu — previously mislabeled `(p)ass` (which actually wrote a permanent exception) and `e(x)it`; now shows the full example sentence (`example_1`/`example_2`, whichever is being tested) with the bold word rendered via `terminal_bold` so the user can see it in context instead of just the isolated clean bold word. Removed dead unused `check_username()` (and its now-unused `config_test` import) — defined, never called anywhere. Renamed the exceptions data file `test_bold.json` → `test_bold_example_inflections.json` (project convention: exceptions filename matches its script's filename) and updated `tools/paths.py`'s `bold_example_path` accordingly. Freshened: docstrings on all previously-bare functions/methods, modern type hints (`-> None`, `"GlobalVars"` forward refs), fixed a stray doubled-quote docstring typo in `test4`, renamed `get_headword`'s `id` param to `headword_id` (no builtin shadowing).
+  - **Bug found live during user triage, fixed:** `counter`/`counter_total` both started at 1 instead of 0, and `printer()` displayed the count before incrementing `counter` — inflated the total by 1 and showed the last item's numerator one short (e.g. `"2 / 3"` for what should have been `"2 / 2"`). `test7`'s own separate `counter_total` increment had the same class of bug (fired unconditionally on both passes instead of only during the pass-1 tally, and never pre-incremented `counter` for its own display). Fixed both call sites to increment before display and only tally during pass 1.
+  - NOTICED — NOT TOUCHING: `test7` still falls through to `test8` even after flagging a double-letter problem (both during pass-1 tallying and pass-2 when the user answers "n") — a word can get flagged under two different tests. Separate pre-existing design quirk from the numbering bug, left alone.
+  - User then asked why headword id 89749 (`mukhapīḷakā`) flagged under `test8` — confirmed as a genuine data gap, not a script bug: `hw.inflections_list` is `[]` for this headword (inflections not yet generated), so any bold word for it necessarily fails every inflection-matching test and falls through to `test8`. Script logic is correct; this headword just isn't ready for this test yet.
+  - → verify: ruff+pyright clean ✓; user confirmed the numbering fix and the test8 flag explanation live
+- [x] `db_tests/single/test_digu.py` — numerals in compounds → compound_type digu
   - read-only · refs: json in paths.py · last run: 2026-03-20 (pytest) · git: 2026-06-11
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_hyphenations.py` — find super-long words and hyphenate
+  - verdict: **keep** + improve: `printer_pass2` menu converted from mislabeled `(p)ass`/`e(x)it` to the thread's standard `(e)xception`/`(q)uit`/Enter-for-next pattern (`update_json` already behaved as an exception write, just mislabeled). Exceptions file (`test_digu.json` → `digu_json_path`) was already correctly registered in `tools/paths.py` and already matched the script's filename — no change needed there. Fixed a latent type/runtime mismatch: `GlobalVars.json` was typed `dict[int, str]` and written with an int key (`self.json[self.i.id] = ...`) but always read back with a string key (`str(g.i.id) not in g.json`) — since JSON round-trips all keys as strings, this was silently inconsistent; retyped to `dict[str, str]` and made `update_json` write `str(self.i.id)` consistently. Corrected the module docstring, which claimed the script "change[s] the compound type to digu" — it's actually read-only; nothing writes `compound_type`. Freshened: docstrings + `-> None`/`-> bool` type hints on every previously-bare function/method.
+  - → verify: ruff+pyright clean ✓; user confirmed ✓
+- [x] `db_tests/single/test_hyphenations.py` — find super-long words and hyphenate
   - **writes DB (1)** · refs: `test_hyphenations.txt` scratchpad in paths.py · last run: 2026-02-21 (pytest) · git: 2026-06-11 · flags: 1 FIXME; **print strings claim to update `test_hyphenations.json` but the script uses the `.txt`** — orphaned 158 KB json + lying log messages to resolve here
-  - verdict: ____
-  - → verify: as above; json orphan resolved (deleted/archived/rewired) and print messages truthful
-- [ ] `db_tests/single/test_idioms.py` — component words contain correct family idiom
+  - verdict: **move to `fixme/`** — user confirmed out of date. Moved script + its `test_hyphenations.txt` scratchpad to `db_tests/single/fixme/`; removed the dead `tools/paths.py` `hyphenations_scratchpad_path` entry (only this file referenced it). Archived the genuinely orphaned `test_hyphenations.json` (158 KB, last touched 2025-05-21) to `archive/db_tests/single/` — it's a dead legacy data file from before the switch to `tools/speech_marks.json`/`SpeechMarkManager` (old flat `clean_word: single_variant` shape vs. the live `clean_word: [variants]` shape), unreferenced by any code, distinct from the still-live scratchpad `.txt`.
+  - **Issues found, logged for whoever rebuilds this** (not fixed — file is going to `fixme/`, not being improved in place):
+    - The 3 print messages claiming to update `"test_hyphenations.json"` (lines ~230, 239, 300 pre-move) are simply wrong — the script actually writes through `SpeechMarkManager` to `tools/speech_marks.json`. Needs correcting if/when revived.
+    - Existing FIXME (module-level comment near `find_variations`): unhandled case where a word's saved hyphenation in `speech_marks.json` differs from the version found live in the DB.
+    - `main()` shells out to `subprocess.Popen(["code", ...])` to open two files in VS Code on every run — an editor-specific side effect baked into a data script; worth reconsidering in a rewrite (e.g. just print the paths).
+    - `process_long_words`'s menu (`number`/`m`anual/`o`k/`p`ass/e`x`it) predates this thread's standardized `(e)xception`/`(q)uit` convention — another candidate for realignment if rebuilt, though its extra actions (multi-choice, manual clipboard/editor paste-back) are more complex than a simple exception list and may not map 1:1.
+  - → verify: script + scratchpad moved to `fixme/` ✓; orphaned json archived ✓; `tools/paths.py` dead entry removed ✓; ruff+pyright clean on `tools/paths.py` ✓
+- [x] `db_tests/single/test_idioms.py` — component words contain correct family idiom
   - **writes DB (1)** · refs: `test_idioms.json` in paths.py · last run: 2026-02-01 (pytest) · git: 2026-06-11
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_maha_compounds.py` — mahā compound_type + construction
+  - verdict: **move to `fixme/`** — user found it too hard to understand how it works. Moved script + `test_idioms.json` to `db_tests/single/fixme/`; retargeted (not removed) `tools/paths.py`'s `idioms_exceptions_dict` to the new `fixme/` location so the file stays self-consistent and pyright-clean while parked. Issues logged inline as a `# FIXME` block at the top of the file (per updated process, see note below), not just in this plan.
+  - **Process change (2026-07-12):** user asked that fixme issues be logged **inside the files themselves** going forward, not only in `plan.md` — they may not be working from this plan when they eventually revisit these scripts. Retrofitted inline `# FIXME` blocks onto the other 4 files moved to `fixme/` earlier in this session (`add_word_family_finder.py`, `test_antonyms.py`, `test_bahubbihis.py`, `test_hyphenations.py`) with the same issues already recorded in their rows above. Editing those files to add the notes meant they now "own their lint" per project rules — this exposed that fully deleting their `tools/paths.py` entries (as done in those earlier rows) left dangling `pth.xxx` references with real pyright errors. Fixed by **retargeting** those entries to their new `fixme/` paths instead of deleting them (`wf_exceptions_list`, `antonym_dict_path`, `bahubbihi_dict_path`, `hyphenations_scratchpad_path`) — same pattern now used for `idioms_exceptions_dict`. All 5 `fixme/`-parked files + `tools/paths.py` are ruff+pyright clean.
+  - → verify: script + json moved to `fixme/` ✓; inline FIXME note added ✓; `tools/paths.py` retargeted (not dangling) ✓; ruff+pyright clean on all 5 fixme files + `tools/paths.py` ✓
+- [x] `db_tests/single/test_maha_compounds.py` — mahā compound_type + construction
   - **writes DB (1)** · refs: `test_maha_exceptions.json` in paths.py · last run: 2026-03-20 (pytest) · git: 2026-06-11
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_neg_compounds.py` — find negative kammadhārayas
+  - verdict: **archive** — user confirmed fully superseded by gui2's inline family compound autofill. Moved script + `test_maha_exceptions.json` to `archive/db_tests/single/`; removed the now-dead `tools/paths.py` `maha_exceptions_list` entry (unlike `fixme/` rows, an archived/retired file isn't expected to run again, so no retargeting needed).
+  - → verify: script + json moved to `archive/db_tests/single/` ✓; `tools/paths.py` dead entry removed ✓; ruff+pyright clean on `tools/paths.py` ✓
+- [x] `db_tests/single/test_neg_compounds.py` — find negative kammadhārayas
   - **writes DB (1)** · refs: exceptions json in paths.py · last run: 2026-02-21 (pytest) · git: 2026-06-11
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_sukha_dukkha_finder.py` — sukha/dukkha compounds lacking antonyms
+  - verdict: **keep** — user confirmed it works nicely. Freshened only (no behavior change): docstrings + `-> None` type hints on all previously-bare functions, `add_exception`'s `id` param renamed to `headword_id` (no builtin shadowing).
+  - NOTICED — NOT TOUCHING: the `(m)anual (a)utomatic (e)xception` menu has no quit option, and the confirm step (`press x to reject or any other key to continue`) commits on literally any key besides `x`. User said it works nicely as-is; didn't touch since verdict was a plain freshen, not improve.
+  - → verify: ruff+pyright clean ✓
+- [x] `db_tests/single/test_sukha_dukkha_finder.py` — sukha/dukkha compounds lacking antonyms
   - 114 lines · read-only · refs: json in paths.py · last run: 2026-03-20 (pytest) · git: 2026-06-11 · flags: uses `tools.goldendict_tools`
-  - verdict: ____
-  - → verify: as above
-- [ ] `db_tests/single/test_theragatha_filler.py` — fill missing auto-added monk names in Theragāthā
+  - verdict: **keep** — user confirmed it works fine. Freshened only (no behavior change): docstrings + type hints (`DpdHeadword`, `list[str]`, `-> bool`, `-> None`) on all previously-bare functions.
+  - → verify: ruff+pyright clean ✓
+- [x] `db_tests/single/test_theragatha_filler.py` — fill missing auto-added monk names in Theragāthā
   - 73 lines · read-only · refs: pickle in paths.py · last run: 2026-02-21 (pytest) · git: 2026-06-15 · flags: bare print; prior pickle read≠write bug already fixed (kamma archive)
-  - verdict: ____
-  - → verify: as above
-- [ ] **Phase 2 wrap:** all rows verdicted; `uv run ruff check db_tests/single/` + `uv run pyright db_tests/single/` clean; `uv run pytest tests/db_tests/` passes; justfile recipes for surviving scripts intact
-  - → verify: commands pass
+  - verdict: **keep** + improve: converted the `done_list` store from pickle to JSON (human readable/editable) — converted the existing pickle's 17 recorded ids into `test_theragatha_filler.json`, updated `tools/paths.py`'s `theragatha_filler_path` to the new `.json` path, deleted the old pickle. Menu reformatted to this thread's standard: word shown first, then `(q)uit or Enter to continue` on its own line (was `x` to exit shown before the word, any key = continue). Freshened: docstrings + type hints on all previously-bare functions, renamed `load_pickle`/`dump_pickle` to `load_done_list`/`save_done_list`.
+  - → verify: ruff+pyright clean ✓
+- [x] **Phase 2 wrap:** all rows verdicted; `uv run ruff check db_tests/single/` + `uv run pyright db_tests/single/` clean; `uv run pytest tests/db_tests/` passes; justfile recipes for surviving scripts intact
+  - → verify: `uv run ruff check db_tests/single/` — all checks passed ✓; `uv run pyright db_tests/single/` — 0 errors ✓; `uv run pytest tests/db_tests/` — 39 passed ✓; all 4 justfile recipes (`add_synonym_variant_single/multi/del.py`, `add_phonetic_variants.py`) point at intact files ✓
 
 ## Phase 3 — `db_tests_gui/` (8 files — problem children begin)
 

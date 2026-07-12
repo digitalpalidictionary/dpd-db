@@ -58,3 +58,7 @@ This thread is a **one-by-one triage**: the user runs each file, observes whethe
 - No redesign of the column-rule TSV test system.
 - No new GUI development; at most, retiring/archiving existing Flet code.
 - No automation of the interactive scripts' human-in-the-loop workflows.
+
+## Scope exception (2026-07-12)
+
+The `test_bahubbihis.py` row surfaced a near-duplicate outside the plan's three directories: `scripts/find/bahubbīhi_finder.py`, a 2026-02-26 partial rewrite of the same tool sharing the same `test_bahubbihis.json` data file. Per explicit user instruction, that file was folded into this row (consolidated into the db_tests copy, duplicate deleted, result moved to `fixme/`) even though `scripts/find/` is outside this thread's normal scope. This is a one-off, not a standing invitation to sweep `scripts/find/` — future rows stay inside `db_tests/`, `db_tests/single/`, `db_tests_gui/` unless a row surfaces another explicit duplicate the user asks to fold in.

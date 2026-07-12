@@ -3,6 +3,20 @@
 
 """Test idioms to see that their component words contain the correct family idiom."""
 
+# FIXME (2026-07-12, moved to fixme/): user found this too hard to understand
+# and unclear how it works — needs a redesign, not a freshen.
+# - The lookup chain (idiom -> component words -> headword ids via Lookup,
+#   then transitively into any compound among those via construction parts)
+#   is dense and undocumented; add real comments/docstrings explaining each
+#   step's intent so a reader can follow why a given headword shows up as a
+#   candidate at all.
+# - add_family_idioms()'s prompt only offers "idiom or (e)xception" — no way
+#   to quit early (would need Ctrl-C). Add a (q)uit option matching the
+#   standard convention used elsewhere in db_tests/single/.
+# - Consider whether the candidate display needs more context up front
+#   (e.g. why this word matched — which idiom, which component) so the
+#   reviewer isn't left guessing what triggered the flag.
+
 import json
 import re
 from collections import defaultdict

@@ -21,7 +21,8 @@ class GlobalVars:
     exceptions_list: list[int]
 
 
-def load_exceptions_list(g: GlobalVars):
+def load_exceptions_list(g: GlobalVars) -> None:
+    """Load the list of headword ids already reviewed and excepted."""
     if g.pth.neg_compound_exceptions.exists():
         with open(g.pth.neg_compound_exceptions, encoding="utf-8") as f:
             g.exceptions_list = json.load(f)
@@ -29,17 +30,20 @@ def load_exceptions_list(g: GlobalVars):
         g.exceptions_list = []
 
 
-def add_exception(g: GlobalVars, id: int):
-    g.exceptions_list.append(id)
+def add_exception(g: GlobalVars, headword_id: int) -> None:
+    """Mark a headword id as excepted and save."""
+    g.exceptions_list.append(headword_id)
     save_exceptions_list(g)
 
 
-def save_exceptions_list(g: GlobalVars):
+def save_exceptions_list(g: GlobalVars) -> None:
+    """Save the list of excepted headword ids to disk."""
     with open(g.pth.neg_compound_exceptions, "w", encoding="utf-8") as f:
         json.dump(g.exceptions_list, f, indent=2)
 
 
-def main():
+def main() -> None:
+    """Find and interactively confirm negative kammadhāraya compounds."""
     pr.tic()
     print("[bright_yellow]find negative kammadhārayas")
     g = GlobalVars()

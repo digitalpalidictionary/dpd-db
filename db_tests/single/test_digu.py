@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Find numerals in compounds, and change the compound type to digu."""
+"""Find compounds whose construction contains a numeral, as digu candidates."""
 
 import json
 import re
@@ -37,9 +37,10 @@ class GlobalVars:
     exit: bool = False
 
     def __init__(self) -> None:
-        self.json: dict[int, str] = self.load_json()
+        self.json: dict[str, str] = self.load_json()
 
-    def load_json(self) -> dict[int, str]:
+    def load_json(self) -> dict[str, str]:
+        """Load the id -> lemma_1 map of already-reviewed headwords."""
         try:
             with open(self.pth.digu_json_path, encoding="utf-8") as f:
                 return json.load(f)
@@ -47,16 +48,18 @@ class GlobalVars:
             print(e)
             return {}
 
-    def save_json(self):
+    def save_json(self) -> None:
+        """Save the id -> lemma_1 map of already-reviewed headwords."""
         with open(self.pth.digu_json_path, "w", encoding="utf-8") as f:
             json.dump(self.json, f, ensure_ascii=False, indent=2)
 
-    def update_json(self):
-        self.json[self.i.id] = self.i.lemma_1
+    def update_json(self) -> None:
+        """Mark the current headword as reviewed and save."""
+        self.json[str(self.i.id)] = self.i.lemma_1
         self.save_json()
 
 
-def make_sets_of_cardinals_and_ordinals(g: GlobalVars):
+def make_sets_of_cardinals_and_ordinals(g: GlobalVars) -> None:
     """Make a set of all cardinal and ordinal numbers in the db."""
 
     pr.green_tmr("making sets of pali and english cardinals and ordinals")
@@ -74,7 +77,8 @@ def make_sets_of_cardinals_and_ordinals(g: GlobalVars):
     pr.yes(f"{len(g.cardinal_pali_set)}, {len(g.ordinal_pali_set)}")
 
 
-def fix_kammadhāraya(g: GlobalVars):
+def fix_kammadhāraya(g: GlobalVars) -> None:
+    """Find kammadhāraya compounds with a numeral that should be digu."""
     pr.green_title("fix kammadhāraya")
 
     for g.pass_no in ["pass1", "pass2"]:
@@ -102,7 +106,8 @@ def fix_kammadhāraya(g: GlobalVars):
                         printer_pass2(g)
 
 
-def fix_no_compound(g: GlobalVars):
+def fix_no_compound(g: GlobalVars) -> None:
+    """Find uncategorised compounds with a numeral that should be digu."""
     pr.green_title("fix those with no compound")
 
     for g.pass_no in ["pass1", "pass2"]:
@@ -130,7 +135,8 @@ def fix_no_compound(g: GlobalVars):
                         printer_pass2(g)
 
 
-def fix_other_compounds(g: GlobalVars):
+def fix_other_compounds(g: GlobalVars) -> None:
+    """Find other-typed compounds with a numeral that should be digu."""
     pr.green_title("fix other compound types")
 
     for g.pass_no in ["pass1", "pass2"]:
@@ -159,12 +165,13 @@ def fix_other_compounds(g: GlobalVars):
                         printer_pass2(g)
 
 
-def make_meaning_parts(g: GlobalVars):
+def make_meaning_parts(g: GlobalVars) -> None:
+    """Split the cleaned meaning_1 into words."""
     clean_meaning = re.sub(r"[;.-?()'!,√…]", "", g.i.meaning_1)
     g.meaning_parts = clean_meaning.split(" ")
 
 
-def construction_contains_pali_cardinal(g: GlobalVars):
+def construction_contains_pali_cardinal(g: GlobalVars) -> bool:
     """Test if the construction parts contain a pali cardinal"""
 
     construction_parts = g.i.construction_clean.split(" + ")
@@ -175,7 +182,7 @@ def construction_contains_pali_cardinal(g: GlobalVars):
     return False
 
 
-def meaning_contains_english_cardinal(g: GlobalVars):
+def meaning_contains_english_cardinal(g: GlobalVars) -> bool:
     """Test if the meaning contain an english cardinal"""
 
     for m in g.meaning_parts:
@@ -184,7 +191,7 @@ def meaning_contains_english_cardinal(g: GlobalVars):
     return False
 
 
-def meaning_contains_no_english_ordinal(g: GlobalVars):
+def meaning_contains_no_english_ordinal(g: GlobalVars) -> bool:
     """Test if the meaning contains no english ordinal"""
 
     for m in g.meaning_parts:
@@ -193,7 +200,8 @@ def meaning_contains_no_english_ordinal(g: GlobalVars):
     return True
 
 
-def printer_pass1(g: GlobalVars):
+def printer_pass1(g: GlobalVars) -> None:
+    """Print a one-line summary row during the silent tally pass."""
     print(f"{g.total_counter:<5}", end="")
     print(f"{g.i.id:<6}", end="")
     print(f"{g.i.lemma_1[:28]:<30}", end="")
@@ -203,7 +211,8 @@ def printer_pass1(g: GlobalVars):
     print(f"{g.i.compound_construction[:35]}")
 
 
-def printer_pass2(g: GlobalVars):
+def printer_pass2(g: GlobalVars) -> None:
+    """Show the candidate and prompt for an exception or quit."""
     print()
     print("-" * 50)
     print()
@@ -216,18 +225,17 @@ def printer_pass2(g: GlobalVars):
     pr.summary("cp construction", g.i.compound_construction)
 
     print()
-    print("[yellow]p[/yellow]ass ", end="")
-    print("e[yellow]x[/yellow]it ", end="")
-    print("or any key to continue: ", end="")
     pyperclip.copy(g.i.lemma_1)
+    print("[yellow]e[white]xception [yellow]q[white]uit or Enter for next: ", end="")
     choice = input()
-    if choice == "x":
-        g.exit = True
-    if choice == "p":
+    if choice == "e":
         g.update_json()
+    elif choice == "q":
+        g.exit = True
 
 
-def main():
+def main() -> None:
+    """Run the digu-candidate finder over all headwords."""
     pr.yellow_title("find all digu samāsa")
 
     g = GlobalVars()

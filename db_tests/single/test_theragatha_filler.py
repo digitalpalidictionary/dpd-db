@@ -2,7 +2,7 @@
 
 """Fill in the missing details of auto-added monks' names in Theragāthā"""
 
-import pickle
+import json
 
 import pyperclip
 from rich import print
@@ -13,7 +13,8 @@ from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 
 
-def main():
+def main() -> None:
+    """Walk the Theragāthā monk-name id range and track review progress."""
     print("[bright_yellow]fill details of theragāthā monks")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -21,17 +22,15 @@ def main():
 
     # load previous set or start a new one
     try:
-        done_list = load_pickle()
+        done_list = load_done_list(pth)
     except FileNotFoundError:
         done_list = []
 
     first = 76179
     last = 76417
-    processed = len(done_list)
     total = last - first + 1
 
     print_done(done_list)
-    print("Press any key to contine or X to exit")
 
     for counter, i in enumerate(db):
         if first <= i.id <= last and i.id not in done_list:
@@ -39,33 +38,33 @@ def main():
             open_in_goldendict(i.lemma_clean)
 
             processed = len(done_list)
-            print(
-                f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.lemma_1}", end=" "
-            )
-            inp = input()
+            print(f"{processed + 1:>3}/{total:<3} [green]{counter:<6}{i.lemma_1}")
+            print("[yellow]q[white]uit or Enter to continue: ", end="")
+            choice = input()
 
-            if inp == "x":
+            if choice == "q":
                 break
             else:
                 done_list += [i.id]
 
     print_done(done_list)
-    dump_pickle(done_list)
+    save_done_list(pth, done_list)
 
 
-def load_pickle():
-    pth = ProjectPaths()
-    with open(pth.theragatha_filler_path, "rb") as f:
-        return pickle.load(f)
+def load_done_list(pth: ProjectPaths) -> list[int]:
+    """Load the list of already-reviewed headword ids."""
+    with open(pth.theragatha_filler_path, encoding="utf-8") as f:
+        return json.load(f)
 
 
-def dump_pickle(done_list):
-    pth = ProjectPaths()
-    with open(pth.theragatha_filler_path, "wb") as f:
-        pickle.dump(done_list, f)
+def save_done_list(pth: ProjectPaths, done_list: list[int]) -> None:
+    """Save the list of already-reviewed headword ids."""
+    with open(pth.theragatha_filler_path, "w", encoding="utf-8") as f:
+        json.dump(done_list, f, indent=2)
 
 
-def print_done(done_list):
+def print_done(done_list: list[int]) -> None:
+    """Print how many ids have been reviewed so far."""
     print(f"completed: {len(done_list)}")
 
 

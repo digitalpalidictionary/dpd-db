@@ -15,7 +15,8 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def main():
+def main() -> None:
+    """Find sukha/dukkha headwords missing their antonym and review them."""
     pr.yellow_title("find sukha dukkha antonyms")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -66,7 +67,8 @@ def main():
                 write_tried(pth, tried)
 
 
-def test_sukh(i, tried):
+def test_sukh(i: DpdHeadword, tried: list[str]) -> bool:
+    """Test if a headword is a sukha compound missing its antonym."""
     if (
         re.findall("sukh", i.lemma_1)
         and not re.findall("sutta($| )", i.lemma_1)
@@ -81,7 +83,8 @@ def test_sukh(i, tried):
         return False
 
 
-def test_dukkh(i, tried):
+def test_dukkh(i: DpdHeadword, tried: list[str]) -> bool:
+    """Test if a headword is a dukkha compound missing its antonym."""
     if (
         re.findall("dukkh", i.lemma_1)
         and not re.findall("sutta($| )", i.lemma_1)
@@ -96,7 +99,8 @@ def test_dukkh(i, tried):
         return False
 
 
-def read_tried(pth: ProjectPaths):
+def read_tried(pth: ProjectPaths) -> list[str]:
+    """Load the list of lemma_1 already reviewed."""
     try:
         with open(pth.sukha_dukkha_finder_path, "r", encoding="utf-8") as f:
             tried = json.load(f)
@@ -105,7 +109,8 @@ def read_tried(pth: ProjectPaths):
     return tried
 
 
-def write_tried(pth: ProjectPaths, tried: list[str]):
+def write_tried(pth: ProjectPaths, tried: list[str]) -> None:
+    """Save the list of lemma_1 already reviewed."""
     with open(pth.sukha_dukkha_finder_path, "w", encoding="utf-8") as f:
         json.dump(tried, f, ensure_ascii=False, indent=4)
 

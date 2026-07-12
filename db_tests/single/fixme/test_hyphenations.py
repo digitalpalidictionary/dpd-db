@@ -3,6 +3,23 @@
 
 """Find super long words and hyphenate them."""
 
+# FIXME (2026-07-12, moved to fixme/): user confirmed this is out of date.
+# - The 3 print messages claiming to update "test_hyphenations.json" (in
+#   process_long_words()/replace_word_in_db()) are wrong — this script
+#   actually writes through SpeechMarkManager to tools/speech_marks.json.
+#   Fix the messages if this is ever revived.
+# - Existing FIXME below (near find_variations): unhandled case where a
+#   word's saved hyphenation in speech_marks.json differs from the version
+#   found live in the DB.
+# - main() shells out to `subprocess.Popen(["code", ...])` to open two
+#   files in VS Code on every run — an editor-specific side effect baked
+#   into a data script; reconsider in a rewrite (e.g. just print the paths).
+# - process_long_words()'s menu (number / (m)anual / (o)k / (p)ass /
+#   e(x)it) predates this thread's standardized (e)xception/(q)uit
+#   convention. Its extra actions (multi-choice, manual clipboard/editor
+#   paste-back) are more complex than a plain exception list and may not
+#   map 1:1 — worth a deliberate redesign, not a search-and-replace.
+
 import re
 import subprocess
 import pyperclip
