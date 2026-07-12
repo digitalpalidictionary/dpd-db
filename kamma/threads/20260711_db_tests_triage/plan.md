@@ -94,14 +94,23 @@ In active use (ran Mar–May 2026). Verdicts likely `freshen`/`improve`. Watch: 
   - **writes DB (3)** · refs: `just add-synonyms-single`; imports from `add_synonym_variant_multi` · last run: 2026-05-07 · git: 2026-05-09
   - verdict: **keep** — already clean, works well
   - → verify: no changes needed ✓
-- [ ] `db_tests/single/add_synonym_variant_multi.py` — synonyms sharing 2+ meanings + same pos/grammar
+- [x] `db_tests/single/add_synonym_variant_multi.py` — synonyms sharing 2+ meanings + same pos/grammar
   - **writes DB (5)** · refs: `just add-synonyms-multi`; imported by `_single` and `_del` · last run: 2026-05-11 · git: 2026-06-11 · flags: shared helper module — API used by siblings
-  - verdict: ____
-  - → verify: as above; `_single`/`_del` imports still work
-- [ ] `db_tests/single/add_synonym_variant_del.py` — review likely-wrong synonym pairs, delete/reassign
+  - verdict: **keep** — user confirmed working well, including the `(t)extual all pairwise` option added in `1f352192`. Final polish: one-line docstrings added to `_pair_key`, `_general_key`, `_entry_label`, `_format_fields`, `_show_result`, `main`.
+  - → verify: ruff+pyright clean ✓
+- [x] `db_tests/single/add_synonym_variant_del.py` — review likely-wrong synonym pairs, delete/reassign
   - **writes DB (3)** · refs: `just add-synonyms-del`; json in paths.py · last run: 2026-05-11 · git: 2026-06-11 · flags: unused `_is_valid_synonym` kept intentionally as documented revert path — leave
-  - verdict: ____
-  - → verify: as above
+  - verdict: **keep** + improve, extensive session fixing false-positive "wrong synonym" flags found live during user triage:
+    - `_plausibly_valid_synonym`: added shared non-empty `family_word` as an alternate validity signal alongside meaning overlap (catches declension siblings like `imasmā`/`asmā`, same family_word `ima`, whose wording differs)
+    - added `_has_reciprocal_synonym`: a candidate already listing hw_a's lemma_clean back is treated as valid even without meaning/family_word overlap (`assācariya`/`sārathi 2`)
+    - `find_wrong_synonym_pairs` now skips hw_a entries with no `meaning_1` and candidates with no `meaning_1` (incomplete entries shouldn't drive flags)
+    - for `pos == "pron"` only: added a `family_inflections` union (per `family_word`, unioning `inflections_list` across every member) — only a family's "primary" headword (e.g. `ima 1.1`) carries the full generated declension paradigm; individual declined-form headwords (`imehi`, `imasmā`) have trivial self-only inflection lists, so contracted spellings that never got their own headword (`ehi`, `amhā`) are validated against the family union instead of a same-lemma_clean homonym search. Restricted to pronouns since every other pos always resolves to a real headword.
+    - added `_meaning_overlap` helper; when a syn_clean has exactly one total candidate (no ambiguity to resolve), an overlapping meaning is valid regardless of pos_class — the pos_class restriction exists only to disambiguate between multiple candidates (`cicciṭa` masc ↔ `ciṭiciṭi` ind, `todaka` masc ↔ `tudanta` prp, identical/overlapping meanings, unrelated pos)
+    - `find_wrong_synonym_pairs`/`prompt_wrong_pairs` restructured to emit **one row per (hw_a, syn_clean)** instead of one row per candidate homonym — an ambiguous lemma_clean with several non-plausible homonyms (e.g. `amhā` → both a `pr` and a `fem` headword) is one underlying decision, not several; added `_choose_target` for the rare case a multi-candidate group needs (s)/(t) to pick a specific target
+    - added missing `(p)honetic` action (assign `var_phonetic`) — the menu previously only had `(s)ynonym`/`(t)extual`/`(d)elete`, with no way to reclassify a flagged pair as a phonetic variant (`uttarikaraṇīya`/`uttariṃkaraṇīya`, nasalized sandhi variant)
+    - `tools/synonym_variant.py`: added `IND_SANDHI_POS = {"ind", "sandhi"}` to the shared `pos_class()` grouping (used by `_multi`/`_single`/`_del`) so `ind`/`sandhi` pos are treated as one class, fixing cross-pos false flags there too
+  - → verify: ruff+pyright clean on `add_synonym_variant_del.py` and `tools/synonym_variant.py` ✓; user confirmed each fix live against real flagged rows during interactive triage
+  - NOTICED — NOT TOUCHING: `uv run pytest tests/` smoke run at row wrap shows 3 pre-existing failures unrelated to this row's scope — `tests/db/families/test_family_root.py::test_compile_rf_html`, `::test_make_anki_data`, `tests/exporter/txt/test_export_txt.py::TestMakeWordEntry::test_branch1_with_root_and_extras_id10`. `dpd.db` is gitignored/mutable and these assert against specific live-data snapshots (e.g. headword id 10 `meaning_1` wording); neither `add_synonym_variant_del.py` nor `tools/synonym_variant.py` touches `meaning_1`/family_root/export html, so this is DB-content drift, not a regression from this row. Matches the known brittle-golden-master pattern already logged in memory.
 - [ ] `db_tests/single/add_word_family_finder.py` — find missing word families
   - **writes DB (1)** · refs: pickle in paths.py · last run: no pyc · git: 2025-09-21 · flags: bare print only
   - verdict: ____
@@ -222,4 +231,4 @@ Post-commit review of `c0a2d772`/`3946bb9c`/`1f352192` found and fixed:
 - [x] `tools/phonetic_change_manager.py` `_update_exception_in_tsv`: guard was still `len(cols) > 5` while writing `cols[6]` → IndexError on short rows — now `len(cols) > 6`
 - [x] `test_pali_1_2_difference.py` + `test_numbering_anomalies.py`: `prompt()` returns 0 on (e)xception so the summary doesn't count excepted items; pali_1_2 prompt now shows the `q`uit option it already accepted
 - [x] `test_root_family_vs_construction_prefixes.py`: `GlobalVars` DB load moved from class level (fired at import) into `__init__`
-- Note: `add_synonym_variant_multi` row above is still unticked although `1f352192` added its (t)extual option — verdict pending user run
+- `add_synonym_variant_multi` row: verdict recorded 2026-07-12 (**keep**) after user confirmed the `1f352192` (t)extual option works; docstring polish added

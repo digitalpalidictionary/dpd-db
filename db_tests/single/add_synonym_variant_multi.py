@@ -55,11 +55,13 @@ class GlobalVars:
 
 
 def _pair_key(pos: str, hw_a: DpdHeadword, hw_b: DpdHeadword, sig: str) -> str:
+    """Build the per-pair exception key used to skip already-decided pairs."""
     lemmas = sorted([hw_a.lemma_clean, hw_b.lemma_clean])
     return f"{pos}:{lemmas[0]}|{lemmas[1]}:{sig}"
 
 
 def _general_key(pos: str, meanings: list[str]) -> str:
+    """Build the exception key that blanket-skips every pair sharing this meaning set."""
     return f"[{pos}] {'; '.join(sorted(meanings))}"
 
 
@@ -363,6 +365,7 @@ def prompt_clusters(
 
 
 def _entry_label(hw: DpdHeadword) -> str:
+    """Format a headword's one-line summary for the interactive prompt."""
     family_root = f" [magenta]{hw.family_root}" if hw.family_root else ""
     family_word = f" [magenta]{hw.family_word}" if hw.family_word else ""
     return (
@@ -373,6 +376,7 @@ def _entry_label(hw: DpdHeadword) -> str:
 
 
 def _format_fields(hw: DpdHeadword) -> str:
+    """Format a headword's syn/variant/var_text/var_phonetic fields for display."""
     syn = hw.synonym.split(", ") if hw.synonym else []
     var = hw.variant.split(", ") if hw.variant else []
     var_text = hw.var_text.split(", ") if hw.var_text else []
@@ -381,6 +385,7 @@ def _format_fields(hw: DpdHeadword) -> str:
 
 
 def _show_result(hw: DpdHeadword) -> None:
+    """Print a headword's updated fields after a relationship write."""
     print()
     print(f"[green]{hw.lemma_1}:")
     print(f"[green]{_format_fields(hw)}")
@@ -459,6 +464,7 @@ def prompt_pairs(g: GlobalVars) -> bool:
 
 
 def main() -> None:
+    """Loop cluster-approval then pairwise-approval passes until no restart is requested."""
     pr.tic()
     print("[bright_yellow]synonym multi — finding and adding multi-meaning synonyms")
     while True:

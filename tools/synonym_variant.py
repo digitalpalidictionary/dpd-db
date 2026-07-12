@@ -136,6 +136,7 @@ def grammar_signature(grammar: str) -> str:
 
 NOUN_GENDERS: frozenset[str] = frozenset({"masc", "fem", "nt"})
 TILINGA_POS: frozenset[str] = frozenset({"adj", "pp", "ptp", "prp"})
+IND_SANDHI_POS: frozenset[str] = frozenset({"ind", "sandhi"})
 
 
 def phonetic_pos_class(pos: str) -> str:
@@ -159,8 +160,11 @@ def pos_class(pos: str) -> str:
     - {adj, pp, ptp, prp} → "tiliṅga": all are declinable in three genders
       (tiliṅga in classical grammar) and can overlap in meaning across
       formations (e.g. pp `mata` ↔ adj `kālakata`).
+    - {ind, sandhi} → "ind_sandhi": sandhi forms are indeclinable junction
+      spellings of an underlying word and can be true synonyms of an `ind`
+      (e.g. `pubbassudaṃ` sandhi ↔ `atītamaddhānaṃ` ind).
 
-    All other pos values (aor, ind, pron, sandhi, ...) stay distinct.
+    All other pos values (aor, pron, ...) stay distinct.
     Phonetic-variant matching deliberately does NOT use this — variants
     are spellings of the same word and should preserve pos.
     """
@@ -168,6 +172,8 @@ def pos_class(pos: str) -> str:
         return "noun"
     if pos in TILINGA_POS:
         return "tiliṅga"
+    if pos in IND_SANDHI_POS:
+        return "ind_sandhi"
     return pos
 
 
