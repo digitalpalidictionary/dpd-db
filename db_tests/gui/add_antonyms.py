@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Add missing family compounds and idioms
+Add missing antonyms interactively.
 """
 
 import queue
@@ -12,11 +12,7 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from archive.db_tests.old_tests_DELETE import (
-    InternalTestRow,
-    make_internal_tests_list,
-    write_internal_tests_list,
-)
+from db_tests.db_tests_manager import DbTestManager
 from tools.goldendict_tools import open_in_goldendict
 from tools.negative_to_positive import make_positive
 from tools.pali_sort_key import pali_sort_key
@@ -175,23 +171,21 @@ class DataAndLogic:
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db: list[DpdHeadword] = self.db_session.query(DpdHeadword).all()
         self.db = sorted(self.db, key=lambda x: pali_sort_key(x.lemma_1))
-        self.internal_tests: list[InternalTestRow]
+        self.manager = DbTestManager()
         self.exceptions: list[int] = self.get_exceptions()
 
         self.items_to_process: list[DpdHeadword] = [
             i for i in self.db if self.should_process(i)
         ]
         print([f"{i} {item}" for i, item in enumerate(self.items_to_process)])
-        self.fc_set = self.make_antonym_set()
 
         self.current_item: DpdHeadword
 
         self.total_count = len(self.items_to_process)
         self.current_count = 0
 
-    def get_exceptions(self):
-        self.internal_tests: list[InternalTestRow] = make_internal_tests_list()
-        for line in self.internal_tests:
+    def get_exceptions(self) -> list[int]:
+        for line in self.manager.internal_tests_list:
             if line.test_name == "antonym: empty":
                 return line.exceptions
         return []
@@ -200,10 +194,6 @@ class DataAndLogic:
         return bool(
             i.meaning_1 and i.neg and not i.antonym and int(i.id) not in self.exceptions
         )
-
-    def make_antonym_set(self):
-        fc_set = set()
-        return fc_set
 
     def update_current_item(self, i: DpdHeadword):
         self.current_item = i
@@ -223,18 +213,8 @@ class DataAndLogic:
             self.current_item.antonym = antonym
             self.db_session.commit()
 
-    def add_exception(self, id: int):
-        test_name = "antonym: empty"
-        test_row = next(
-            (t for t in self.internal_tests if t.test_name == test_name), None
-        )
-
-        if test_row:
-            if id not in test_row.exceptions:
-                test_row.exceptions.append(id)
-                test_row.exceptions = sorted(test_row.exceptions)
-
-        write_internal_tests_list(self.internal_tests)
+    def add_exception(self, headword_id: int) -> None:
+        self.manager.add_exception("antonym: empty", headword_id)
 
 
 def add_antonyms(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):

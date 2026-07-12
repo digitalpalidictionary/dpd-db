@@ -1,4 +1,15 @@
 {
   "max_length": 20,
-  "exceptions": {}
+  "exceptions": {
+    "akatakalyāṇotiādīsu": "akatakalyāṇo'ti-ādīsu",
+    "tiṇapuñjamattikāpuñjādīsu": "tiṇapuñja-mattikāpuñj'ādīsu",
+    "muṭṭhibandhādivasena": "muṭṭhibandh'ādi-vasena",
+    "pānīyaparibhojanīyaupaṭṭhapanañca": "pānīya-paribhojanīya-upaṭṭhapanañ'ca",
+    "rājarājamahāmattānaṃ": "rāja-rājamah'āmattānaṃ",
+    "rājarājamahāmattādike": "rāja-rājamah'āmatt'ādike",
+    "nevasaññānāsaññāyatanasamāpattiyā": "n'evasaññān'āsaññ'āyatana-samāpattiyā",
+    "sīlasampannotiādinā": "sīlasampanno'ti-ādinā",
+    "kumbhīlamaṃsabiḷāramaṃsādimhi": "kumbhīlamaṃsa-biḷāramaṃs'ādimhi",
+    "vattamānattanopadapaṭhamapurisekavacanaṃ": "vattamān'attanopada-paṭhamapuris'ekavacanaṃ"
+  }
 }
