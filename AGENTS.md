@@ -8,6 +8,9 @@ These rules are specific to the dpd-db project. Global rules (security, etc.) ar
 ## Kamma Checkpoints
 - Never pause a kamma thread to ask for commit permission at phase checkpoints. The user commits everything in one go at the end — checkpoint steps are report-only.
 
+## Kamma Concurrent Threads
+- Multiple kamma threads regularly run against this repo in the same working tree at once. Before staging a commit, snapshot `git status --porcelain` and cross-reference every entry against "did this thread touch this file" — stage by explicit file list, never `git add <dir>` or `git add -A`, which can silently sweep in another thread's uncommitted, unrelated changes.
+
 ## Project Overview
 
 This project contains everything related to the Digital Pāḷi Dictionary

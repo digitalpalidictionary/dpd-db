@@ -96,4 +96,4 @@
       cases to correct expected values (kRSNa -> kṛṣṇa; zaTkoNa case replaced
       with zrI -> śrī to properly exercise the z->ś mapping)
 - [x] Lint/pyright clean; full suite 1722 passed, 16 deselected
-- [ ] Commit as its own follow-up commit
+- [x] Committed as 4db3dae9
