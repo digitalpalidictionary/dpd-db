@@ -6,6 +6,7 @@ import json
 import re
 
 from rich import print
+from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -13,18 +14,22 @@ from tools.paths import ProjectPaths
 
 
 class GlobalVars:
-    pth = ProjectPaths()
-    db_session = get_db_session(pth.dpd_db_path)
-    db: list[DpdHeadword] = db_session.query(DpdHeadword).all()
+    pth: ProjectPaths
+    db_session: Session
+    db: list[DpdHeadword]
     i: DpdHeadword
     constr_no_root_or_base: str | None
     root_fam_prefix: str | None
     construction_prefix: str | None
     exceptions: list[int]
-    exit: bool = False
+    exit: bool
 
     def __init__(self) -> None:
+        self.pth = ProjectPaths()
+        self.db_session = get_db_session(self.pth.dpd_db_path)
+        self.db = self.db_session.query(DpdHeadword).all()
         self.exceptions = self.load_exceptions()
+        self.exit = False
 
     def load_exceptions(self) -> list[int]:
         if self.pth.root_family_prefix_exceptions_path.exists():

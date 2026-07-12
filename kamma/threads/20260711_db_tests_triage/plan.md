@@ -213,3 +213,13 @@ Flet mini-app last run 2026-03-29 (>3 months). Central question at each row: ret
   - → verify: READMEs list only existing files/entry points
 - [ ] Final sweep: `uv run ruff check db_tests db_tests_gui && uv run pyright db_tests db_tests_gui && uv run pytest tests/`
   - → verify: all pass; report summary table of verdicts to user (report-only — user commits)
+
+## Review fixes (2026-07-12)
+
+Post-commit review of `c0a2d772`/`3946bb9c`/`1f352192` found and fixed:
+
+- [x] `tools/phonetic_changes.tsv:86` (`ñj + t` rule) lost its `exceptions` column in the `not_in_lemma` migration (6 fields vs 7) — padded to 7 columns with `x` placeholders
+- [x] `tools/phonetic_change_manager.py` `_update_exception_in_tsv`: guard was still `len(cols) > 5` while writing `cols[6]` → IndexError on short rows — now `len(cols) > 6`
+- [x] `test_pali_1_2_difference.py` + `test_numbering_anomalies.py`: `prompt()` returns 0 on (e)xception so the summary doesn't count excepted items; pali_1_2 prompt now shows the `q`uit option it already accepted
+- [x] `test_root_family_vs_construction_prefixes.py`: `GlobalVars` DB load moved from class level (fired at import) into `__init__`
+- Note: `add_synonym_variant_multi` row above is still unticked although `1f352192` added its (t)extual option — verdict pending user run

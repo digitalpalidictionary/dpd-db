@@ -335,7 +335,7 @@ class PhoneticChangeManager:
                 continue
             cols = line.split("\t")
             if (
-                len(cols) > 5
+                len(cols) > 6
                 and cols[0] == rule["initial"]
                 and cols[1] == rule["final"]
                 and cols[2] == rule["correct"]

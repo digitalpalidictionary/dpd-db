@@ -67,7 +67,7 @@ def main() -> None:
 
 
 def prompt(g: GlobalVars, key: str) -> int:
-    """Show prompt and handle choice. Returns 1 if counted."""
+    """Show prompt and handle choice. Returns 1 if counted, 0 if excepted."""
     print(
         "[yellow]e[white]xception [yellow]q[white]uit or Enter for next: ",
         end="",
@@ -75,6 +75,7 @@ def prompt(g: GlobalVars, key: str) -> int:
     choice = input()
     if choice == "e":
         g.add_exception(key)
+        return 0
     elif choice == "q":
         g.exit = True
     return 1
