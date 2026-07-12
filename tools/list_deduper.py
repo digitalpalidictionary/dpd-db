@@ -1,3 +1,7 @@
+"""Remove duplicates from a list while preserving order.
+Used by tools/bjt.py."""
+
+
 def dedupe_list(list) -> list:
     """Return a list with all duplicates removed,
     while maintaining the correct order."""

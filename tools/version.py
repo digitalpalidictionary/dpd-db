@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""Generate the DPD release version string (v{major}.{minor}.{yymmdd}) and
+write it to config.ini and the db_info table. Run directly by the justfile
+and the GitHub release workflows."""
+
 from db.db_helpers import get_db_session
 from db.models import DbInfo
 from tools.configger import config_update

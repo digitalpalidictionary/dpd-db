@@ -1,3 +1,5 @@
+"""Make AI requests through a single interface with automatic fallback across providers (Antigravity CLI, Claude, Codex, OpenRouter, DeepSeek, Gemini, NVIDIA), using the model lists in tools/ai_models.json. Used by gui2, exporter/analysis and tools/proofreader.py."""
+
 import json
 import shutil
 import threading

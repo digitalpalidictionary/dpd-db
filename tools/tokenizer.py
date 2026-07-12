@@ -1,3 +1,6 @@
+"""Split text into sentences and words, removing punctuation and other
+unwanted characters. Used by tools/cst_source/examples.py."""
+
 from rich import print
 
 
@@ -53,22 +56,8 @@ def remove_dirty_characters(text):
     return text
 
 
-def remove_dirty_characters_keep_dash(text):
-    dirty_clean_dict_keep_dash = dirty_clean_dict.copy()
-    del dirty_clean_dict_keep_dash["-"]  # remove current dash replacement
-    dirty_clean_dict_keep_dash["-"] = " "  # replace dash with space
-    for dirty, clean in dirty_clean_dict_keep_dash.items():
-        text = text.replace(dirty, clean)
-    return text
-
-
 def split_words(text: str) -> list[str]:
     text = remove_dirty_characters(text)
-    return text.split()
-
-
-def split_words_keep_dash(text: str) -> list[str]:
-    text = remove_dirty_characters_keep_dash(text)
     return text.split()
 
 

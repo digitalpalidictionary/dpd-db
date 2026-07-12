@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""Standalone generator that extracts the unique sutta shortcut codes from a
+local Tipitaka Pali Reader database and writes them to tools/tpr_codes.json."""
+
 import sqlite3
 import json
 import re

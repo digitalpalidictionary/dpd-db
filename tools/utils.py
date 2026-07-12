@@ -1,3 +1,7 @@
+"""Small shared utilities: RenderedSizes accounting for exporter output,
+list batching, and whitespace/HTML helpers. Used mainly by the GoldenDict
+and deconstructor exporters and the transliteration scripts."""
+
 from typing import List, TypedDict
 
 

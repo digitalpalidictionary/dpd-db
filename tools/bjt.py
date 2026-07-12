@@ -206,24 +206,7 @@ def make_bjt_text_list(
         return bjt_text_list
 
 
-def save_bjṭ_text(books: list[str]) -> None:
-    """Save a .txt file of the book."""
-    bjt_file_names = get_bjt_file_names(books)
-    bjt_dicts = get_bjt_json(bjt_file_names)
-    bjt_text = ""
-    for bjt_dict in bjt_dicts:
-        bjt_text += process_single_bjt_file(
-            bjt_dict,
-            show_page_numbers=True,
-            show_metadata=True,
-        )
-
-    with open(pth.temp_dir / f"{books}.text", "w", encoding="utf-8") as f:
-        f.write(bjt_text)
-
-
 if __name__ == "__main__":
     bjt_list = make_bjt_text_list(["vin1"], "list_deduped")
     # print(bjt_list)
     # print(len(bjt_list))
-    # save_bjṭ_text("sn2")

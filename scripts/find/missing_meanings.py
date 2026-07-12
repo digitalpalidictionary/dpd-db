@@ -27,45 +27,50 @@ class GlobalVars:
         self.lookup: Lookup | None
         self.level: int = level
 
-    def append_to_text_list(self, word):
+    def append_to_text_list(self, word: str) -> None:
         if word not in self.text_list:
             self.text_list.append(word)
 
 
-def make_clean_word_list(g: GlobalVars):
+def make_clean_word_list(g: GlobalVars) -> None:
     """Clean up the text and make a list of words."""
 
-    g.text = re.sub("\(.*?\)", "", g.text)  # remove word in brackets
+    g.text = re.sub(r"\(.*?\)", "", g.text)  # remove word in brackets
     g.text = g.text.replace("<b>", "")  # remove bold tags
     g.text = g.text.replace("</b>", "")
     g.text = clean_machine(g.text)
     g.text_list = sorted(set(g.text.split()))
 
 
-def check_in_lookup(g: GlobalVars):
+def check_in_lookup(g: GlobalVars) -> None:
     g.lookup = g.db_session.query(Lookup).filter_by(lookup_key=g.word).first()
 
 
-def check_in_dpd_headwords(g: GlobalVars):
+def check_in_dpd_headwords(g: GlobalVars) -> None:
+    if g.lookup is None:
+        return
     for dpd_id in g.lookup.headwords_unpack:
         headword = g.db_session.query(DpdHeadword).filter_by(id=dpd_id).first()
-        if g.level == 2:
+        if headword is None:
+            continue
+        if g.level >= 2:
             if not headword.meaning_1:
                 g.missing_meanings.append(headword.lemma_1)
-        if g.level == 3:
+        if g.level >= 3:
             if not headword.example_1:
                 g.missing_meanings.append(headword.lemma_1)
 
 
-def check_in_deconstructor(g: GlobalVars):
-    """"""
+def check_in_deconstructor(g: GlobalVars) -> None:
+    if g.lookup is None:
+        return
     for deconstruction in g.lookup.deconstructor_unpack:
         deconstruction = re.sub(r" \[.+", "", deconstruction)
         for word in deconstruction.split(" + "):
             g.append_to_text_list(word)
 
 
-def find_missing_meanings(db_session: Session, text: str, level: int = 1):
+def find_missing_meanings(db_session: Session, text: str, level: int = 1) -> list[str]:
     """Take a sentence
     1. clean it up, remove all punctuation
     2. split into words
@@ -75,7 +80,7 @@ def find_missing_meanings(db_session: Session, text: str, level: int = 1):
     level 2: find all words with missing meaning_1 (and level 1)
     level 3: find all words with missing example_2 (and level 1 and 2)
     """
-    g = GlobalVars(db_session, text, level=1)
+    g = GlobalVars(db_session, text, level=level)
     make_clean_word_list(g)
 
     for g.word in g.text_list:

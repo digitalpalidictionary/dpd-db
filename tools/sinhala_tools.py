@@ -1,3 +1,7 @@
+"""Sinhala translation and transliteration helpers: Pāḷi roman ↔ Sinhala
+script via aksharamukha, plus Sinhala renderings of POS terms.
+Used by db inflections/lookup transliteration and BJT processing."""
+
 from aksharamukha import transliterate
 
 pos_dict = {
@@ -53,7 +57,7 @@ def translit_ro_to_si(text: str) -> str:
 
 
 def translit_si_to_ro(text: str) -> str:
-    text_translit = transliterate.process(
+    text_translit: str = transliterate.process(
         "Sinhala",
         "IASTPali",
         text,
@@ -68,86 +72,3 @@ def translit_si_to_ro(text: str) -> str:
     )
 
     return text_translit
-
-
-gram_dict = {
-    "nom": "පඨමා",
-    "acc": "දුතියා",
-    "instr": "තතියා",
-    "dat": "චතුත්ථී",
-    "abl": "පඤ්චමී",
-    "gen": "ඡට්ඨි",
-    "loc": "සත්තමී",
-    "voc": "ආලපන",
-    "In comps": "සන්ධිවල",
-    "fem sg": "ඉ ඒක",
-    "fem pl": "ඉ බහු",
-    "masc sg": "පු ඒක",
-    "masc pl": "පු බහු",
-    "neut sg": "න ඒක",
-    "neut pl": "න බහු",
-    "declension, conjugation": "වරනැගීම",
-    "sg": "ඒක",
-    "pl ": "බහු",
-    "reflexive sg": "අත්තනො ඒක",
-    "reflexive pl": "අත්තනො බහු",
-    "pr  3rd": "වත් පඨ",
-    "pr 2nd": "වත් මජ්",
-    "pr 1st": "වත් උත්",
-    "imp 3rd": "පඤ් පඨ",
-    "imp 2nd": "පඤ් මජ්",
-    "imp 1st": "පඤ් උත්",
-    "opt 3rd": "සත් පඨ",
-    "opt 2nd": "සත් මජ්",
-    "opt 1st": "සත් උත්",
-    "fut 3rd": "භවි පඨ",
-    "fut 2nd": "භවි මජ්",
-    "fut 1st": "භවි උත්",
-    "aor 3rd": "අජ් පඨ",
-    "aor 2nd": "අජ් මජ්",
-    "aor 1st": "අජ් උත්",
-    "pref 3rd": "පරො පඨ",
-    "pref 2nd": "පරො මජ්",
-    "pref 1st": "පරො උත්",
-    "cond 3rd": "කාලාති පඨ",
-    "cond 2nd": "කාලාති මජ්",
-    "cond 1st": "කාලාති උත්",
-    "Imperf 3rd": "හීය පඨ",
-    "Imperf 2nd": "හීය මජ්",
-    "Imperf 1st": "හීය උත්",
-    "1st sg": "උත් ඒක ",
-    "1st pl": "උත් බහු",
-    "pron": "සර්",
-    "subject": "කර්තෘ",
-    "object": "කර්මය",
-    "2nd sg": "මජ් ඒක",
-    "2nd pl": "මජ් බහු",
-    "3rd sg": "පඨ ඒක ",
-    "3rd pl": "පඨ බහු",
-    "Inflections not found in the Chaṭṭha Saṅgāyana corpus, or within processed sandhi compounds are grayed out. They might still occur elsewhere, within compounds or in other versions of the Pāḷi texts.": " ඡට්ඨ සංගායනා ත්‍රිපිටකයෙහි පද හෝ සන්ධි පද තුළ දක්නට නොලැබෙන  පද අළු පැහැයෙන් යුක්ත වේ. ඒවා  වෙනත්  පොත්වල හෝ සන්ධි තුළ හෝ වෙනත් ත්‍රිපිටක අනුවාදවල තිබිය හැක.",
-    "Did you spot a mistake in the declension table? Something missing? Report it here.": "වරනැගීම් වගුවේ වැරැද්දක් ඔබ දුටුවාද? යමක් අඩු වී තිබේද? එය මෙතනින් වාර්තා කරන්න.",
-    "Abbreviation": "කෙටි යෙදුම",
-    "Meaning": "තේරුම",
-    "Pāḷi": "පාලි",
-    "Example": "උදාහරණ",
-    "Information": "තොරතුරු",
-    "Nominative case": "පඨමා විභත්ති",
-    "Paṭhamā, paccattavacana": "පඨමා, පච්චත්තවචන",
-    "The category of nouns serving as the grammatical subject of a verb": "ක්‍රියා පදයට විෂය වන පදය හෙවත් උක්ත පද කාණ්ඩය",
-    "Present tense": "වර්තමාන කාලය",
-    "past tense": "අතීත කාලය",
-    "future tense": "අනාගත කාලය",
-    "A verb tense that expresses actions or states at the time of speaking (e.g. lives; appears; sees)": "මේ මොහොතේදී සිදුවන ක්‍රියාවක් හෝ සිදුවීමක් ප්‍රකාශ කරන ක්‍රියා පදය (උදා: ජීවත්වෙයි; දිස්වේ; දකී)",
-    "Aorist verb": "අතීත කාල ක්‍රියාව",
-    "A form of a verb that, in the indicative mood, expresses past action. (e.g. was; sat down; arose)": "ක්‍රියා පදයක ආකාරයක්, අතීත ක්‍රියාව ප්‍රකාශ කරයි. (උදා. විය, වාඩිවිය, පැන නැගුණි)",
-    "Accusative case": "දුතියා විභත්ති",
-    "The object of the sentence (e.g. me)": "වාක්‍යයේ කර්මය (උදා: මම)",
-    "Dutiyā, upayogavacana, kammavacana": "දුතියා, උපයොගවචන, කම්මවචන",
-}
-
-
-def si_grammar(text) -> str:
-    if text in gram_dict:
-        return gram_dict[text]
-    else:
-        return text

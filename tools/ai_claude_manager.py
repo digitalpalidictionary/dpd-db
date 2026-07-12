@@ -1,3 +1,5 @@
+"""Send AI requests to Anthropic Claude models via the `claude` CLI. Used by tools/ai_manager.py as the 'claude' provider."""
+
 import json
 import shutil
 import subprocess

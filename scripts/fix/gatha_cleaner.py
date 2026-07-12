@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-"""Clean up gatha by adding fixing punctation and addings line breaks."""
+"""Clean up gatha by fixing punctuation and adding line breaks."""
 
 import re
 from tools.paths import ProjectPaths
 
 
-def main():
+def main() -> None:
     from rich import print
     from db.db_helpers import get_db_session
     from db.models import DpdHeadword
@@ -33,7 +33,7 @@ def main():
     db_session.close()
 
 
-def clean_gatha(text):
+def clean_gatha(text: str) -> str:
     # replace fullstop newline with comma newline
     if ".\n" in text:
         text = re.sub(r"\.\n", ",\n", text)

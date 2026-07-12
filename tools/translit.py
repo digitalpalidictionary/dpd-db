@@ -1,3 +1,6 @@
+"""Auto-detect the script of a text and transliterate it to Roman IAST Pāḷi
+using Aksharamukha. Used by db/models.py and the webapp."""
+
 from aksharamukha import transliterate
 
 from tools.pali_alphabet import english_alphabet, pali_alphabet

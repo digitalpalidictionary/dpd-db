@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""Normalize SuttaCentral and BJT sutta names for comparison by stripping
+numbering, brackets and a final niggahīta. Used by scripts/suttas/find_sutta_alias_candidates.py."""
+
 import re
 
 

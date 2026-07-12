@@ -1,3 +1,5 @@
+"""Send AI requests to models hosted on the NVIDIA API, using the OpenAI client. Used by tools/ai_manager.py as the 'nvidia' provider."""
+
 import time
 from typing import Optional
 

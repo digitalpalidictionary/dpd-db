@@ -1,3 +1,5 @@
+"""Send AI requests to OpenAI GPT models via the `codex` CLI. Used by tools/ai_manager.py as the 'codex' provider."""
+
 import subprocess
 import tempfile
 from pathlib import Path

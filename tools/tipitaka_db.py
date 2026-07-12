@@ -1,3 +1,8 @@
+"""Regex search of the Tipitaka translation database (downloaded from GitHub
+releases if missing) across CST book tables. Used by the webapp translation
+search and gui2's translations view; run directly for a TUI search or a
+table comparison."""
+
 import re
 from typing import Any, cast
 

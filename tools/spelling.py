@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""Thread-safe singleton English spell checker with a user-defined custom
+dictionary. Used by gui2 to check spelling in meaning fields."""
+
 import threading
 from spellchecker import SpellChecker
 from tools.paths import ProjectPaths

@@ -4,7 +4,7 @@
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from gui2.dpd_fields_functions import clean_example, remove_brackets
+from tools.example_cleaning import clean_example, remove_brackets
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sandhi_contraction import SandhiContractionManager  # type: ignore[import-untyped]

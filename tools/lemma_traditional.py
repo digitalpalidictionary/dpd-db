@@ -5,7 +5,6 @@
 import re
 
 from db.models import DpdHeadword
-from tools.sinhala_tools import translit_ro_to_si
 
 lemma_trad_dict: dict[str, str] = {
     "ant adj": "antu",  # like sīlavant
@@ -58,9 +57,3 @@ def make_lemma_trad(i: DpdHeadword) -> str:
         return lemma_trad
     else:
         return i.lemma_1
-
-
-def make_lemma_trad_si(i: DpdHeadword) -> str:
-    """Transcribe traditional lemma into Sinhala."""
-    lemma = make_lemma_trad(i)
-    return translit_ro_to_si(lemma)

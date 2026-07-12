@@ -1,3 +1,6 @@
+"""Replace sandhi-split and hyphenated words in a text with their variants
+and tidy up punctuation around bold tags. Used by exporter/analysis/example_bolding.py."""
+
 # replace sandhi in the text
 
 import re

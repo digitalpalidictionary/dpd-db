@@ -14,7 +14,7 @@ class TestPhoneticChangeManager:
     def test_load_tsv_success(self, tmp_path: Path) -> None:
         """Test successful TSV loading and parsing."""
         # Create test TSV
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta
 """
@@ -28,7 +28,8 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta
         assert manager.rules[0]["final"] == "o"
         assert manager.rules[0]["correct"] == "au > o"
         assert manager.rules[0]["wrong"] == ["u > o"]
-        assert manager.rules[0]["without"] == ["o"]
+        assert manager.rules[0]["not_in_constr"] == ["o"]
+        assert manager.rules[0]["not_in_lemma"] == []
         assert manager.rules[0]["exceptions"] == ["okkhita"]
 
     def test_load_tsv_missing_file(self, tmp_path: Path) -> None:
@@ -41,14 +42,16 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta
     def test_load_tsv_empty_file(self, tmp_path: Path) -> None:
         """Test handling of empty TSV file."""
         tsv_file = tmp_path / "empty.tsv"
-        tsv_file.write_text("initial\tfinal\tcorrect\twrong\twithout\texceptions\n")
+        tsv_file.write_text(
+            "initial\tfinal\tcorrect\twrong\tnot_in_constr\texceptions\n"
+        )
 
         manager = PhoneticChangeManager(str(tsv_file))
         assert len(manager.rules) == 0
 
     def test_load_tsv_with_multiple_exceptions(self, tmp_path: Path) -> None:
         """Test parsing of multiple exceptions."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 ar + t	āt	ar > ā	har > hā	x	sāttha, sātthaka 1, sātthaka 2
 """
         tsv_file = tmp_path / "test.tsv"
@@ -59,7 +62,7 @@ ar + t	āt	ar > ā	har > hā	x	sāttha, sātthaka 1, sātthaka 2
 
     def test_process_headword_auto_add(self, tmp_path: Path) -> None:
         """Test auto_add status when phonetic is empty."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -86,7 +89,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_auto_update(self, tmp_path: Path) -> None:
         """Test auto_update status when wrong value exists."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -112,7 +115,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_manual_check(self, tmp_path: Path) -> None:
         """Test manual_check status when phonetic has other content."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -138,7 +141,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_no_match(self, tmp_path: Path) -> None:
         """Test no match when criteria not met."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -162,7 +165,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_exception(self, tmp_path: Path) -> None:
         """Test that exceptions are respected."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -184,9 +187,9 @@ a + u	o	au > o	u > o	o	okkhita
 
         assert result is None
 
-    def test_process_headword_without_exclusion(self, tmp_path: Path) -> None:
-        """Test that 'without' field excludes matches."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+    def test_process_headword_not_in_constr_exclusion(self, tmp_path: Path) -> None:
+        """Test that 'not_in_constr' field excludes matches."""
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	ū	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -194,7 +197,7 @@ a + u	o	au > o	u > o	ū	okkhita
 
         manager = PhoneticChangeManager(str(tsv_file))
 
-        # Create mock headword that has the "without" pattern
+        # Create mock headword that has the "not_in_constr" pattern
         headword = MagicMock()
         headword.meaning_1 = "test meaning"
         headword.construction = "pāpa + ūdaya"  # Contains ū
@@ -210,7 +213,7 @@ a + u	o	au > o	u > o	ū	okkhita
 
     def test_process_headword_no_meaning(self, tmp_path: Path) -> None:
         """Test processing continues even when meaning_1 is empty."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -235,7 +238,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_no_construction(self, tmp_path: Path) -> None:
         """Test no processing when construction is empty."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -259,7 +262,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_correct_already_present(self, tmp_path: Path) -> None:
         """Test no match when correct value already in phonetic."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"
@@ -283,7 +286,7 @@ a + u	o	au > o	u > o	o	okkhita
 
     def test_process_headword_base_match(self, tmp_path: Path) -> None:
         """Test matching against root_base_clean."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 ati	acc	ti > ty > cc	x	xyz	pacchājāta
 """
         tsv_file = tmp_path / "test.tsv"
@@ -308,7 +311,7 @@ ati	acc	ti > ty > cc	x	xyz	pacchājāta
 
     def test_check_headword_against_rule(self, tmp_path: Path) -> None:
         """Test the optimized single-rule check method."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 ati +	acc	ti > ty > cc	x	gacch	pacchājāta
 """
@@ -344,7 +347,9 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta
     ) -> None:
         """Test opening TSV with LibreOffice Calc."""
         tsv_file = tmp_path / "test.tsv"
-        tsv_file.write_text("initial\tfinal\tcorrect\twrong\twithout\texceptions\n")
+        tsv_file.write_text(
+            "initial\tfinal\tcorrect\twrong\tnot_in_constr\texceptions\n"
+        )
 
         manager = PhoneticChangeManager(str(tsv_file))
         manager.open_tsv_for_editing()
@@ -361,7 +366,9 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta
         import sys
 
         tsv_file = tmp_path / "test.tsv"
-        tsv_file.write_text("initial\tfinal\tcorrect\twrong\twithout\texceptions\n")
+        tsv_file.write_text(
+            "initial\tfinal\tcorrect\twrong\tnot_in_constr\texceptions\n"
+        )
 
         manager = PhoneticChangeManager(str(tsv_file))
 
@@ -385,7 +392,7 @@ ati +	acc	ti > ty > cc	x	gacch	pacchājāta
 
     def test_get_rules_returns_list(self, tmp_path: Path) -> None:
         """Test that get_rules returns the rules list."""
-        tsv_content = """initial	final	correct	wrong	without	exceptions
+        tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
 a + u	o	au > o	u > o	o	okkhita
 """
         tsv_file = tmp_path / "test.tsv"

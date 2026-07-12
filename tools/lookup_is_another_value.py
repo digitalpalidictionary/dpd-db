@@ -1,3 +1,6 @@
+"""Test whether a Lookup table row has values in other columns.
+Used by db/lookup/ and tools/lookup_sync.py to decide if a row can be safely deleted."""
+
 from db.models import Lookup
 
 

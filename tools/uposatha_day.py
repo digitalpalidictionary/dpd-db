@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""Check for uposatha days and rotate the new-words count stored in
+uposatha_day.ini. Used by the release workflow, the TPR exporter and
+changelog generation."""
+
 import configparser
 from datetime import date, timedelta
 

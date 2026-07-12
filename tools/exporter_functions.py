@@ -1,3 +1,6 @@
+"""Query a headword's compound, idiom and set families in their correct order.
+Used by the webapp toolkit in exporter/webapp/."""
+
 from sqlalchemy.orm import object_session
 
 from typing import List

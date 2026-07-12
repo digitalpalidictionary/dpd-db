@@ -1,3 +1,6 @@
+"""Split a Pāḷi sentence into a list of individual words.
+Used by the commentary and examples fields in gui2."""
+
 import re
 from tools.pali_alphabet import pali_alphabet
 
@@ -18,17 +21,13 @@ def split_pali_sentence_into_words(
     if not text:
         return []
 
+    letters = list(pali_alphabet)
     if include_apostrophe:
-        pali_alphabet.append("'")
-    else:
-        text.replace("'", "")
-
+        letters.append("'")
     if include_hyphen:
-        pali_alphabet.append("-")
-    else:
-        text.replace("-", "")
+        letters.append("-")
 
-    pali_alphabet_string = "".join(pali_alphabet)
+    pali_alphabet_string = "".join(letters)
     word_finder_pattern = f"[{pali_alphabet_string}]+"
     words = re.findall(word_finder_pattern, text)
 

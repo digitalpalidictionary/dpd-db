@@ -6,7 +6,6 @@
 import os
 import tarfile
 from pathlib import Path
-from typing import Dict
 
 from tools.printer import printer as pr
 
@@ -72,31 +71,3 @@ def extract_tarball(
             tar.extract(member, destination_dir)
 
     pr.yes("ok")
-
-
-def extract_tarball_to_paths(
-    tarball_path: Path, base_dir: Path, extraction_map: Dict[str, str]
-) -> None:
-    """
-    Extract specific files/directories from a tarball to specified locations.
-
-    Args:
-        tarball_path: Path to the tarball file
-        base_dir: Base directory for extraction
-        extraction_map: Dict mapping tarball paths to local paths
-                       e.g., {"db/dpd_audio.db": "audio/db/dpd_audio.db"}
-    """
-    pr.green_title(f"Extracting [white]{tarball_path.name} with mapping")
-
-    if not tarball_path.exists():
-        raise FileNotFoundError(f"Tarball not found: {tarball_path}")
-
-    with tarfile.open(tarball_path, "r:*") as tar:
-        for member in tar.getmembers():
-            if member.name in extraction_map:
-                target_path = base_dir / extraction_map[member.name]
-                target_path.parent.mkdir(parents=True, exist_ok=True)
-                tar.extract(member, target_path.parent)
-                temp_path = target_path.parent / member.name
-                temp_path.rename(target_path)
-                pr.yes(f"Extracted: {member.name} -> {extraction_map[member.name]}")

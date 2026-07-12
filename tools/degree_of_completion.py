@@ -1,3 +1,6 @@
+"""Symbol showing how complete a word's data is: ✔ complete, ◑ half, ✘ incomplete.
+Used by the DpdHeadword model in db/models.py."""
+
 from db.models import DpdHeadword
 
 

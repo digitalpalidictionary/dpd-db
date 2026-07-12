@@ -319,7 +319,7 @@ def copy_dir(v: DictVariables) -> None:
     """Copy to Goldendict dir, cleaning up the destination first."""
 
     pr.white_tmr("copying to GoldenDict dir")
-    goldendict_pth: Path | str = make_goldendict_path()
+    goldendict_pth: Path | None = make_goldendict_path()
     if goldendict_pth:
         if goldendict_pth.exists():
             target_dir = goldendict_pth.joinpath(v.gd_path.name)

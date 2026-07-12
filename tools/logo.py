@@ -1,3 +1,6 @@
+"""Print the DPD ASCII art logo to the terminal.
+Run directly by the build scripts in scripts/bash/, not imported."""
+
 from rich import print
 
 print("""[blue]

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+"""Make a combined set of every word in the CST, BJT, SYA and SC corpuses.
+Used by the grammar and inflections build scripts in db/."""
+
 import json
 
 from tools.paths import ProjectPaths

@@ -1,3 +1,5 @@
+"""Send AI requests to models hosted on the OpenRouter API, using the OpenAI client. Used by tools/ai_manager.py as the 'openrouter' provider and by the scripts/extractor dictionary extraction scripts."""
+
 import time
 from typing import Optional  # Tuple removed
 

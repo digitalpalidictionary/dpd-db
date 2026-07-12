@@ -2,7 +2,8 @@ import flet as ft
 
 from db.models import BoldDefinition
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.dpd_fields_functions import clean_commentary, clean_lemma_1
+from gui2.dpd_fields_functions import clean_lemma_1
+from tools.example_cleaning import clean_commentary
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import process_bold_tags
 from gui2.toolkit import ToolKit

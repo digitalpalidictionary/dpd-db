@@ -70,21 +70,6 @@ def write_tsv_list(file_path: str, header: list[str], data: list[list[str]]) -> 
                 writer.writerow(row)
 
 
-def append_tsv_list(file_path: str, header: list[str], data: list[list[str]]) -> None:
-    # Check if the file exists and if it's empty
-    file_exists = Path(file_path).exists()
-    file_empty = False if file_exists else True
-
-    with open(file_path, "a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file, delimiter="\t")
-        # Write the header only if the file is empty
-        if file_empty and header:
-            writer.writerow(header)
-        for row in data:
-            if row[0]:
-                writer.writerow(row)
-
-
 def read_tsv_as_dict(file_path: Path) -> dict:
     dict = {}
     with open(file_path, encoding="utf-8") as tsv_file:
@@ -96,21 +81,6 @@ def read_tsv_as_dict(file_path: Path) -> dict:
                 sub_dict = {headers[i]: value for i, value in enumerate(row) if i != 0}
                 dict[key] = sub_dict
     return dict
-
-
-def read_tsv_as_dict_with_different_key(file_path: Path, key_index: int) -> dict:
-    dict_result = {}
-    with open(file_path, encoding="utf-8") as tsv_file:
-        tsv_reader = csv.reader(tsv_file, delimiter="\t")
-        headers = next(tsv_reader)  # Skip the header row
-        for row in tsv_reader:
-            key = row[key_index]
-            if key:  # Check if the key is not empty
-                sub_dict = {
-                    headers[i]: value for i, value in enumerate(row) if i != key_index
-                }
-                dict_result[key] = sub_dict
-    return dict_result
 
 
 class TsvTwoColumnReadResult(NamedTuple):

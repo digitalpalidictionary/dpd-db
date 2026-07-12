@@ -1,3 +1,6 @@
+"""Find the closest fuzzy matches for a term within a list of allowed strings.
+Used by gui2 to suggest corrections for field values."""
+
 from typing import List
 
 from fuzzywuzzy import process as fuzzy_process

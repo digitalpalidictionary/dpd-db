@@ -1,3 +1,5 @@
+"""Send AI requests to the Google Gemini API, with optional Google Search grounding. Used by tools/ai_manager.py as the 'gemini' provider."""
+
 import time
 from typing import Optional
 

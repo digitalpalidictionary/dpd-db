@@ -1,3 +1,6 @@
+"""Zip and unzip helpers: compress files and directories, recompress .apkg
+files, and extract archives. Used by the mobile, PDF, Anki and txt exporters."""
+
 import os
 import zipfile
 from pathlib import Path

@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from bs4.element import Tag
 
 from exporter.analysis.paths import ensure_analysis_dirs
-from gui2.dpd_fields_functions import clean_example as clean_gui_example
+from tools.example_cleaning import clean_example as clean_gui_example
 from tools.cst_source import (
     find_cst_source_sutta_example,
     make_book_parser,

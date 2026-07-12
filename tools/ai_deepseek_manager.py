@@ -1,3 +1,5 @@
+"""Send AI requests to the DeepSeek API, check the account balance and list available models. Used by tools/ai_manager.py as the 'deepseek' provider."""
+
 import json
 from typing import Any, cast
 

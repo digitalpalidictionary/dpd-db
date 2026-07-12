@@ -1,7 +1,7 @@
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.dpd_fields_functions import clean_example, remove_bold_tags, remove_brackets
+from tools.example_cleaning import clean_example, remove_bold_tags, remove_brackets
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import (
     highlight_word_in_sentence,

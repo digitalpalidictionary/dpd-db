@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+"""Transliterate Harvard-Kyoto and SLP1 encoded Sanskrit into IAST.
+Used by the mobile exporter in exporter/mobile/."""
+
 
 def hk_translit(text: str):
     hk_translit_dict: dict[str, str] = {

@@ -273,31 +273,12 @@ def config_update_default_value(section: str, option: str) -> None:
         pr.red(f"missing default value for {section}: {option}")
 
 
-def config_test_section(section):
-    """Test config.ini to see if a section exists."""
-    if config.has_section(section):
-        return True
-    else:
-        return False
-
-
 def config_test_option(section, option):
     """Test config.ini to see if a section, option exists."""
     if config.has_section(section):
         return config.has_option(section, option)
     else:
         return False
-
-
-def print_config_settings(sections_to_print=None) -> None:
-    """Print specified sections from config.ini or all if not specified."""
-    if sections_to_print is None:
-        sections_to_print = config.sections()
-    for section in sections_to_print:
-        if config.has_section(section):
-            pr.green(f"[{section}]")
-            for key, value in config.items(section):
-                pr.green(f"{key} = {value}")
 
 
 if __name__ == "__main__":
