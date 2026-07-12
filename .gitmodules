@@ -5,7 +5,7 @@
 [submodule "resources/bw2"]
 	path = resources/bw2
 	url = https://github.com/thebuddhaswords/BW2.git
-	
+
 [submodule "resources/sc-data"]
 	path = resources/sc-data
 	url = https://github.com/digitalpalidictionary/sc-data.git
@@ -17,11 +17,11 @@
 [submodule "resources/fdg_dpd"]
 	path = resources/fdg_dpd
 	url = https://github.com/dhammagift/dictPlugin.git
-	
+
 [submodule "resources/dpd_audio"]
 	path = resources/dpd_audio
 	url = https://github.com/digitalpalidictionary/dpd-audio.git
-	
+
 [submodule "resources/tipitaka_translation_db"]
 	path = resources/tipitaka_translation_db
 	url = https://github.com/digitalpalidictionary/tipitaka-translation-db
@@ -29,9 +29,11 @@
 [submodule "resources/dpd-updater"]
 	path = resources/dpd-updater
 	url = https://github.com/digitalpalidictionary/dpd-updater.git
+
 [submodule "resources/dpd-updater-go"]
 	path = resources/dpd-updater-go
 	url = https://github.com/digitalpalidictionary/dpd-updater-go.git
+
 [submodule "resources/other-dictionaries"]
 	path = resources/other-dictionaries
 	url = https://github.com/digitalpalidictionary/other-dictionaries.git
