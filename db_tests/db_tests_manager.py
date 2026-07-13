@@ -1,4 +1,10 @@
-"""Class for internal tests."""
+"""Load, integrity-check, run and save the column-rule tests in
+`db_tests_columns.tsv`.
+
+`DbTestManager` is a shared library: gui2's Tests tab, toolkit and test
+manager (plus `db_tests/gui/add_antonyms.py`) all import it, so its
+public API must stay stable.
+"""
 
 import csv
 import json
@@ -15,6 +21,9 @@ from tools.printer import printer as pr
 
 
 class InternalTestRow:
+    """One row of `db_tests_columns.tsv`: up to six ANDed search criteria,
+    plus the error column, exceptions list and display settings."""
+
     def __init__(
         self,
         test_name: str,
@@ -116,14 +125,18 @@ class TestFailure(NamedTuple):
 
 
 class DbTestManager:
-    def __init__(self):
+    """Loads the column-rule tests TSV, checks its integrity, runs tests
+    against headwords and saves changes back to the TSV."""
+
+    def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.tests_path = self.pth.internal_tests_path
         self.fieldnames: list[str] = []
         self.internal_tests_list = self.load_tests()
         self.integrity_ok, self.integrity_failures = self.integrity_check()
 
-    def load_tests(self):
+    def load_tests(self) -> list[InternalTestRow]:
+        """Load all test rows from the TSV, refreshing `self.fieldnames`."""
         with open(self.tests_path, newline="", encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile, delimiter="\t")
             if reader.fieldnames:
@@ -137,7 +150,7 @@ class DbTestManager:
 
         Returns `True` and an empty list if all tests are valid.
 
-        Returns `False` and a list of TestTsvFailure named tuples for any invalid tests found.
+        Returns `False` and a list of IntegrityFailure named tuples for any invalid tests found.
         """
 
         failures: list[IntegrityFailure] = []
@@ -169,7 +182,7 @@ class DbTestManager:
                 col_value = getattr(t, col_attr_name, None)
                 if col_value not in column_names:
                     message = f"{test_counter}. {t.test_name} '{col_attr_name}' ('{col_value}') is invalid"
-                    print(f"[red]{message}")
+                    pr.red(message)
                     failure = IntegrityFailure(
                         test_row=test_counter,
                         test_name=t.test_name,
@@ -183,7 +196,7 @@ class DbTestManager:
                 sign_value = getattr(t, sign_attr_name, None)
                 if sign_value not in logical_operators:
                     message = f"{test_counter}. {t.test_name} '{sign_attr_name}' ('{sign_value}') is invalid"
-                    print(f"[red]{message}")
+                    pr.red(message)
                     failure = IntegrityFailure(
                         test_row=test_counter,
                         test_name=t.test_name,
@@ -197,7 +210,8 @@ class DbTestManager:
             return True, failures
 
     @staticmethod
-    def get_search_criteria(t: InternalTestRow) -> list[tuple]:
+    def get_search_criteria(t: InternalTestRow) -> list[tuple[str, str, str]]:
+        """Return the six (column, sign, string) criteria of a test row."""
         return [
             (t.search_column_1, t.search_sign_1, t.search_string_1),
             (t.search_column_2, t.search_sign_2, t.search_string_2),
@@ -217,54 +231,49 @@ class DbTestManager:
         Returns `True` if there's an error.
 
         Returns `False` if there's no error.
-        """
 
-        search_criteria = self.get_search_criteria(test)
-        test_results = {}
+        Criteria are ANDed, so evaluation short-circuits on the first
+        criterion that doesn't match — this is the hot path when a test
+        runs over every headword in the db.
+        """
 
         if headword.id in test.exceptions:
             return False
 
-        for count, criterion in enumerate(search_criteria, start=1):
+        for count, criterion in enumerate(self.get_search_criteria(test), start=1):
             test_column, test_logic, test_string = criterion
 
             if not test_logic:
-                test_results[f"test{count}"] = True
+                continue
 
-            elif test_logic == "equals":
-                test_results[f"test{count}"] = (
-                    getattr(headword, test_column) == test_string
-                )
+            if test_logic == "equals":
+                result = getattr(headword, test_column) == test_string
             elif test_logic == "does not equal":
-                test_results[f"test{count}"] = (
-                    getattr(headword, test_column) != test_string
-                )
+                result = getattr(headword, test_column) != test_string
             elif test_logic == "contains":
-                test_results[f"test{count}"] = (
-                    re.findall(test_string, getattr(headword, test_column)) != []
-                )
+                result = bool(re.search(test_string, getattr(headword, test_column)))
             elif test_logic == "does not contain":
-                test_results[f"test{count}"] = (
-                    re.findall(test_string, getattr(headword, test_column)) == []
-                )
+                result = not re.search(test_string, getattr(headword, test_column))
             elif test_logic == "contains word":
-                test_results[f"test{count}"] = (
-                    re.findall(rf"\b{test_string}\b", getattr(headword, test_column))
-                    != []
+                result = bool(
+                    re.search(rf"\b{test_string}\b", getattr(headword, test_column))
                 )
             elif test_logic == "does not contain word":
-                test_results[f"test{count}"] = (
-                    re.findall(rf"\b{test_string}\b", getattr(headword, test_column))
-                    == []
+                result = not re.search(
+                    rf"\b{test_string}\b", getattr(headword, test_column)
                 )
             elif test_logic == "is empty":
-                test_results[f"test{count}"] = getattr(headword, test_column) == ""
+                result = getattr(headword, test_column) == ""
             elif test_logic == "is not empty":
-                test_results[f"test{count}"] = getattr(headword, test_column) != ""
+                result = getattr(headword, test_column) != ""
             else:
-                print(f"[red]search_{count} error")
+                pr.red(f"search_{count} error")
+                continue
 
-        return all(test_results.values())
+            if not result:
+                return False
+
+        return True
 
     def run_all_tests_on_headword(
         self, headword: DpdHeadword
@@ -298,7 +307,7 @@ class DbTestManager:
                     )
                 )
 
-        return not bool(error_list), error_list  # Simplified return
+        return not bool(error_list), error_list
 
     def run_test_on_all_db_entries(
         self, test_definition: InternalTestRow, db: list[DpdHeadword]
@@ -362,11 +371,8 @@ class DbTestManager:
             True if the exception was added and saved successfully, False otherwise.
         """
 
-        test_found = False
         for test in self.internal_tests_list:
             if test.test_name == test_name:
-                test_found = True
-
                 if exception_id not in test.exceptions:
                     test.exceptions.append(exception_id)
                     test.exceptions.sort()
@@ -374,16 +380,10 @@ class DbTestManager:
                         f"Added exception {exception_id} to test '{test_name}'."
                     )
                     self.save_tests()
-                    return True
-                else:
-                    # Even if it exists, consider it a success
-                    return True
+                # an already-present exception also counts as success
+                return True
 
-        if not test_found:
-            pr.red(f"Test '{test_name}' not found.")
-            return False
-
-        # Fallback, should ideally not be reached
+        pr.red(f"Test '{test_name}' not found.")
         return False
 
     def sort_tests_by_name(self) -> None:
@@ -400,6 +400,7 @@ class DbTestManager:
 
 
 def main() -> None:
+    """Smoke demo: run all tests on a single headword (id 112)."""
     pth = ProjectPaths()
     session = get_db_session(pth.dpd_db_path)
 

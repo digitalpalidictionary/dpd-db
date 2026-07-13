@@ -20,7 +20,6 @@ from db.models import DpdHeadword
 from tools.pali_alphabet import consonants
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.speech_marks import SpeechMarkManager
 
 Searches = dict[str, list[DpdHeadword]]
 TestResult = tuple[str, "tuple[str, str] | None", int, str]
@@ -841,42 +840,6 @@ def pos_idiom_no_space_is_sandhi(searches: Searches) -> TestResult:
     return name, results, length, solution
 
 
-def sandhi_contraction_errors(db_session: Session) -> tuple[str, str, int, str]:
-    """Test if there are errors in sandhi apostrophes.
-    e.g. aham'pi / ahamp'i, n'eva / ne'va"""
-
-    speech_marks_manager = SpeechMarkManager()
-    speech_marks = speech_marks_manager.get_speech_marks()
-    results = ""
-    exceptions = [
-        "maññeti",
-        "āyataggaṃ",
-    ]
-
-    counter = 0
-
-    for key, values in speech_marks.items():
-        # filter for only sandhi variants for this test
-        contractions = [v for v in values if "'" in v]
-
-        if len(contractions) > 1 and key not in exceptions:
-            results += f"{counter}. {key}: \n"
-
-            for contraction in contractions:
-                results += f"{contraction}\n"
-
-            # ids are not currently stored in speech_marks.json
-            # results += f"/^({'|'.join(ids)})$/\n"
-            results += "\n"
-            counter += 1
-
-    length = counter
-    name = "sandhi_contraction_errors"
-    solution = "edit 's in db"
-
-    return name, results, length, solution
-
-
 def duplicate_phrases(searches: Searches) -> TestResult:
     """Test for duplicate phrases in meaning_1."""
 
@@ -1151,8 +1114,6 @@ TESTS: list[Callable[[Searches], TestResult]] = [
     variant_equals_lemma_1,
     antonym_equals_lemma_1,
     synonym_equals_lemma_1,
-    # sandhi_contraction_errors is parked: takes db_session and returns a
-    # plain string instead of regexes
     duplicate_phrases,
     duplicate_words,
     duplicate_words_meaning_2,

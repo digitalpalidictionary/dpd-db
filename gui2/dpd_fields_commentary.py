@@ -171,7 +171,8 @@ class DpdCommentaryField(ft.Column):
         for word in text_list:
             if "-" in word or "'" in word:
                 clean_word = word.replace("-", "").replace("'", "")
-                self.speech_marks_manager.update_variants(clean_word, word)
+                if clean_word:
+                    self.speech_marks_manager.update_variants(clean_word, word)
 
     def _search_field_1_focus(self, e: ft.ControlEvent) -> None:
         """Auto-fill search_field_1 with cleaned lemma_1[:-1] on first focus."""

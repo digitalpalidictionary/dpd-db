@@ -64,6 +64,10 @@ db-test:
 test-phonetic:
     uv run python -m db_tests.single.add_phonetic_changes
 
+# Find inconsistent sandhi apostrophe contractions
+test-sandhi:
+    uv run python db_tests/single/test_sandhi_errors.py
+
 # ===== SUTTA ANALYSIS =====
 
 # Stage 1 (study passage) + Stage 2 (export CSV) in sequence, interactive prompts

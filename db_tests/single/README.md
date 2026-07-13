@@ -5,7 +5,7 @@
 
 ## Architectural Logic
 This directory follows a "Modular Audit" pattern:
-1.  **Specialization:** Each script is designed to validate a single linguistic or data rule (e.g., `test_allowable_characters.py`, `test_family_compounds.py`).
+1.  **Specialization:** Each script is designed to validate a single linguistic or data rule (e.g., `test_allowable_characters.py`, `test_family_compounds_have_meaning_1.py`).
 2.  **Exception Handling:** Many tests are accompanied by `.json` or `.tsv` files that store legitimate exceptions, allowing the tests to be strictly accurate without reporting false positives.
 3.  **Corrective Logic:** Some scripts (`add_...`) not only test but also provide logic for identifying and proposing corrections for missing data (like phonetic changes).
 4.  **Decoupling:** These tests are intended to be run independently by the dictionary editor focusing on a specific data category.
@@ -17,6 +17,11 @@ This directory follows a "Modular Audit" pattern:
 
 ## Interface
 Individual tests can be run as standalone scripts:
-- `uv run python db_tests/single/test_allowable_characters.py`
-- `uv run python db_tests/single/test_family_compounds.py`
+- `uv run db_tests/single/test_allowable_characters.py`
+- `uv run db_tests/single/test_neg_compounds.py`
+
+Some scripts also have justfile recipes (`just add-synonyms-single`, `just add-synonyms-multi`, `just add-synonyms-del`, `just add-variants-phonetic`, `just test-phonetic`, `just test-sandhi`).
 (Refer to each script's docstring for specific details).
+
+## fixme/
+Scripts parked pending a redesign live in `fixme/`, each with an inline `# FIXME` block at the top recording what needs rethinking before it is revived.

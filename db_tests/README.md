@@ -11,6 +11,7 @@ This directory follows a "Continuous Validation" pattern. It contains a suite of
 - **Correction:** Identifies issues that are subsequently fixed manually in the **GUI** or automatically via scripts in **scripts/fix/**.
 
 ## Interface
-Tests are run within **GUI** and as individual python scripts from this folder. 
-The primary entry point is the test manager:
-`uv run python db_tests/db_tests_manager.py`
+- **Relationship tests:** `just db-test` runs `db_tests_relationships.py`, a battery of cross-word relationship checks.
+- **Column-rule tests:** `db_tests_manager.py` is a shared library (`DbTestManager`) running the rules in `db_tests_columns.tsv`; it is used live via gui2's Tests tab. Running it directly (`uv run db_tests/db_tests_manager.py`) is only a single-headword smoke demo.
+- **Granular audits:** standalone interactive scripts in `single/`.
+- **Interactive editors:** a Flet mini-app for bulk corrections in `gui/`.

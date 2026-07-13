@@ -55,10 +55,10 @@ Referenced by nothing (no justfile, no live import, no paths.py data) — but se
   - **writes DB (2)** · refs: none · last run: 2026-02-01 (pytest) · git: 2025-10-29 · flags: bare print
   - verdict: **keep** + improve: JSON config (`threshold` + `exceptions`), (e)xception/(d)elete/(s)wap/(q)uit TUI, path registered. Freshened: docstrings, type hints, printer. Original display formatting preserved.
   - → verify: ruff+pyright clean ✓
-- [ ] `db_tests/single/test_gram_in_last_position.py` — grammatical terms must be in last position
+- [x] `db_tests/single/test_gram_in_last_position.py` — grammatical terms must be in last position
   - **writes DB (2)** · refs: none · last run: 2026-03-20 (pytest) · git: 2026-03-13 · flags: uses `sqlalchemy.or_`, `tools.printer` present
-  - verdict: ____
-  - → verify: as above
+  - verdict: **keep** (user: works just fine) + freshen (2026-07-13): GlobalVars class-level DB load moved into `__init__` (no import-time side effects); loop-over-attribute (`for g.truncated_lemma in ...`) converted to plain locals; `fix_me_count` via `enumerate`; docstrings + `-> None` type hints; prompt aligned to the thread-standard `(q)uit or Enter to continue` (was "press any key"). Reorder/commit logic unchanged.
+  - → verify: ruff+pyright clean ✓
 - [x] `db_tests/single/test_root_family_vs_construction_prefixes.py` — root-family prefix == construction prefixes?
   - 192 lines · **writes DB (2)** · refs: none · last run: 2026-02-21 (pytest) · git: 2025-10-29 · flags: ~~2 pyright errors~~ fixed, bare print
   - verdict: **keep** + improve: exceptions JSON, (e)xception/(r)oot/(c)onstruction/(q)uit TUI, title, root_base display, path registered. Freshened: `| None` types (removed `typing.Optional`), pyright errors fixed (`or ""` guard).
@@ -197,7 +197,7 @@ Flet mini-app last run 2026-03-29 (>3 months). Central question at each row: ret
   - verdict: **keep** — fixed the 3 pyright errors: kept direct references to the `appbar`/`appbar_title`/`menu_button` objects constructed in `main()` instead of re-reading them back through the optionally-typed `page.appbar`/`page.appbar.leading`, so no behavior change, just proper typing. Sibling imports updated for the directory move (see note above).
   - NOTICED — NOT TOUCHING: the `"add_antonyms sync"` dispatch key (embedded space, inconsistent with sibling `add_fc_*` keys) and the commented-out title-bar lines — cosmetic, out of scope for "get it working."
   - → verify: ruff+pyright clean ✓ (0 errors, was 3)
-- [~] `db_tests/gui/add_antonyms.py` — add missing antonyms interactively
+- [x] `db_tests/gui/add_antonyms.py` — add missing antonyms interactively
   - **writes DB (1)** · last run: 2026-03-29 · git: 2026-06-11 · flags: **imports from `archive/db_tests/old_tests_DELETE.py`** — live dependency on an archived "DELETE" module; resolve here (inline the needed code or properly relocate it)
   - verdict: **keep** + fix. This was the one script in Phase 3 with a genuinely live (read AND write) dependency on `archive/db_tests/old_tests_DELETE.py` — its "Exception" button actually persisted to `db_tests_columns.tsv` via that archived module's `InternalTestRow`/`make_internal_tests_list`/`write_internal_tests_list`, a real landmine (file literally named "DELETE", sitting in `archive/`, silently load-bearing). Replaced with the modern, already-tested `db_tests/db_tests_manager.py::DbTestManager` (used by gui2 ×4 elsewhere) — its own `add_exception(test_name, id)` does the same job properly. Confirmed no other live code imports the old archived module (only another archived file, `archive/gui/functions_tests.py`, references it — archive-to-archive, harmless). Removed the now-dead `make_antonym_set()`/`self.fc_set` (assigned, never read — copy-paste leftover from the family_compound siblings). Fixed the module docstring, which wrongly said "Add missing family compounds and idioms" (copy-paste artifact — this script adds antonyms).
   - → verify: no imports from `archive/` remain ✓; ruff+pyright clean ✓; sibling-module import check passes ✓ — user to launch `main.py` and confirm the "Add antonyms" flow (including the Exception button) still works end-to-end
@@ -239,25 +239,64 @@ Flet mini-app last run 2026-03-29 (>3 months). Central question at each row: ret
     - `root_sign_x_base_mismatch` double call deduped via new module-level `TESTS` registry (single source of truth for the run order)
     - modernized typing: `Dict`/`Optional` gone; `Searches`/`TestResult` aliases; hints on all bare signatures (`vuddhi`, `pos_does_not_equal_grammar`, `tags_count_equal -> bool` direct return, `main`, `run_external_tests`)
     - header design-notes block (typos "generting"/"fucntions") folded into a proper module docstring; docstring typo fixes (duplcate→duplicate, apostropes, line2 copy-paste); `pos_idiom_no_space_is_sandhi` self-contradictory strings fixed (name → "pos sandhi contains a space", solution → "change pos to idiom" — flag for user confirmation)
-    - `sandhi_contraction_errors` left parked (commented in TESTS with reason: takes db_session, returns plain string) — user didn't pick re-enable/delete
+    - `sandhi_contraction_errors` left parked (commented in TESTS with reason: takes db_session, returns plain string) — resolved 2026-07-13: user tested it standalone and verdicted **extract to `db_tests/single/test_sandhi_errors.py`**; function + parked comment + `SpeechMarkManager` import removed from this file (see Phase 5 addendum row)
   - → verify: ruff+pyright clean ✓; counts identical 31/31 on bench copy ✓; user ran `just db-test` and confirmed it works fine ✓
-- [ ] `db_tests/db_tests_manager.py` — `DbTestManager`: loads/checks/runs/saves the column-rule TSV
+- [x] `db_tests/db_tests_manager.py` — `DbTestManager`: loads/checks/runs/saves the column-rule TSV
   - shared library · writes the TSV (not the DB) · refs: gui2 ×4 + `tests/db_tests/test_db_tests_manager.py` (158 lines) · last run: 2026-06-16 (live via gui2) · git: 2026-06-15 · flags: mixes bare rich `print("[red]...")` with `pr.red(...)`; `main()` is a hardcoded id=112 smoke demo
-  - verdict: ____ (constraint: gui2-facing API must not break)
-  - → verify: `uv run pytest tests/db_tests/` passes; gui2 Tests tab still imports cleanly (`uv run python -c "from gui2.toolkit import ..."` or equivalent import check)
-- [ ] **Phase 4 wrap:** `uv run ruff check db_tests/` + `uv run pyright db_tests/` clean; `uv run pytest tests/` passes
-  - → verify: commands pass
+  - verdict: **freshen + speed** (2026-07-13), API unchanged (all public names/signatures identical):
+    - speed, benchmarked on live db read-only (fresh process per run, failing-id sets byte-identical across 40 tests / 19,555 ids): `error_test_each_single_row` rewritten to short-circuit on the first failed criterion (criteria are ANDed) and skip blank criteria — was building a per-row dict with f-string keys for all 6 criteria on every one of 89k rows; `re.findall(...) != []` → `re.search` (stops at first match). `run_test_on_all_db_entries` (gui2 Tests tab step): 205→96 ms/test (~2.1×), ~113 s→~53 s over all 548 tests; `run_all_tests_on_headword` (gui2 word-save): 8.5→7.1 ms. Deeper rewrite (precompiled per-test predicate closures) considered and skipped — sub-100 ms per step already, not worth a duplicated evaluation path.
+    - freshen: bare rich `print("[red]...")` unified to `pr.red` (×3); stale `TestTsvFailure` docstring → `IntegrityFailure`; docstrings on module (notes the gui2 API-stability constraint), `InternalTestRow`, `DbTestManager`, `load_tests`, `get_search_criteria`, `main`; `load_tests -> list[InternalTestRow]`, `get_search_criteria -> list[tuple[str, str, str]]`, `__init__ -> None`; `add_exception` dead `test_found` flag + unreachable fallback removed; noise comment dropped. `main()`'s id=112 smoke demo kept as-is.
+  - → verify: `uv run pytest tests/db_tests/` — 39 passed ✓; gui2 modules import cleanly ✓; ruff+pyright clean ✓; failing ids identical pre/post ✓
+- [x] **Phase 4 wrap:** `uv run ruff check db_tests/` + `uv run pyright db_tests/` clean; `uv run pytest tests/` passes
+  - → verify: ruff all checks passed ✓; pyright 0 errors ✓; pytest 1719 passed, 3 failed — the same 3 pre-existing DB-content-drift failures already logged at the Phase 2 `add_synonym_variant_del.py` row (test_family_root ×2, test_export_txt ×1), unchanged ✓
 
 ## Phase 5 — Cross-cutting cleanup & wrap-up
 
-- [ ] Clear stale `__pycache__` entries for deleted/moved modules (evidence no longer needed once triage is complete): `db_tests/__pycache__` (add_family_compound_and_idiom/2, add_family_compound_neg, add_family_compound_taddhita, helpers, internal_tests, old_tests_DELETE, test_allowable_characters), `single/__pycache__` (add_synonym_multi, add_synonym_variant), `gui/__pycache__` (regenerated post-move, check for stale entries)
-  - → verify: no `.pyc` without a matching live `.py`
-- [ ] Add pytest coverage decided during triage (rows marked "pytest: yes") under `tests/db_tests/`, mirroring source paths
-  - → verify: `uv run pytest tests/db_tests/` passes; new tests fail meaningfully if logic breaks
-- [ ] Update `db_tests/README.md`, `db_tests/single/README.md`, `db_tests/gui/README.md` (already updated for the directory move, re-check for post-triage reality) to post-triage reality; check `docs/technical/project_folder_structure.md` (already updated for the directory move)
-  - → verify: READMEs list only existing files/entry points
-- [ ] Final sweep: `uv run ruff check db_tests && uv run pyright db_tests && uv run pytest tests/`
-  - → verify: all pass; report summary table of verdicts to user (report-only — user commits)
+- [x] Clear stale `__pycache__` entries for deleted/moved modules (evidence no longer needed once triage is complete): `db_tests/__pycache__` (add_family_compound_and_idiom/2, add_family_compound_neg, add_family_compound_taddhita, helpers, internal_tests, old_tests_DELETE, test_allowable_characters), `single/__pycache__` (add_synonym_multi, add_synonym_variant), `gui/__pycache__` (regenerated post-move, check for stale entries)
+  - 30 stale `.pyc` deleted (2026-07-13) — the two lists above plus the pytest-pycs of every module since moved to `fixme/`/archive or renamed (test_antonyms, test_bahubbihis, test_family_compounds, test_hyphenations, test_idioms, test_maha_compounds, test_pali_1_2_difefrence, test_phonetic_change_sk_ri); `gui/__pycache__` had no stale entries
+  - → verify: no `.pyc` without a matching live `.py` ✓ (checked all 3 pycache dirs)
+- [x] Add pytest coverage decided during triage (rows marked "pytest: yes") under `tests/db_tests/`, mirroring source paths
+  - n/a — no triage row recorded a pytest decision; the two files with importable pure logic worth covering already have suites (`tests/db_tests/test_db_tests_manager.py`, `tests/db_tests/single/test_add_phonetic_variants.py`), everything else is interactive DB-loop tooling
+  - → verify: `uv run pytest tests/db_tests/` — 39 passed ✓
+- [x] Update `db_tests/README.md`, `db_tests/single/README.md`, `db_tests/gui/README.md` (already updated for the directory move, re-check for post-triage reality) to post-triage reality; check `docs/technical/project_folder_structure.md` (already updated for the directory move)
+  - fixes (2026-07-13): top-level README's "primary entry point" corrected (was pointing at `db_tests_manager.py`'s smoke demo) to the real interfaces — `just db-test`, `DbTestManager` via gui2, `single/`, `gui/`; `single/` README's `test_family_compounds.py` examples (now in `fixme/`) replaced with live files, justfile recipes listed, `fixme/` convention documented; `gui/` README's nonexistent `storage/` bullet removed and entry point corrected (`uv run db_tests/gui/main.py` — no `flet run` needed, `ft.app` is at module level); `uv run python` → `uv run` throughout; `project_folder_structure.md` already accurate from the directory-move update
+  - → verify: READMEs list only existing files/entry points ✓ (all cited files + justfile recipes checked against disk)
+- [x] Final sweep: `uv run ruff check db_tests && uv run pyright db_tests && uv run pytest tests/`
+  - → verify: ruff all checks passed ✓; pyright 0 errors ✓; pytest 1719 passed + the same 3 known pre-existing DB-content-drift failures (unchanged since Phase 2) ✓; verdict summary reported to user 2026-07-13 (report-only — user commits)
+
+## Phase 5 addendum (2026-07-13) — sandhi_contraction_errors resolved
+
+- [x] Extract parked `sandhi_contraction_errors` from `db_tests_relationships.py` into standalone `db_tests/single/test_sandhi_errors.py`
+  - User tested the parked function via a throwaway `temp/` runner (since deleted) and verdicted: standalone script. It never actually used its `db_session` parameter — it reads `tools/speech_marks.json` via `SpeechMarkManager` and flags clean words with >1 apostrophe-containing contraction variant (inconsistent apostrophe placement, e.g. `aham'pi`/`ahamp'i`).
+  - New script follows the thread-standard pattern: exceptions JSON (`test_sandhi_errors.json`, seeded with the function's 2 hardcoded exceptions maññeti/āyataggaṃ) registered in `tools/paths.py` (`sandhi_errors_exceptions_path`); `(e)xception`/`(q)uit`/Enter menu; clean word copied to clipboard; docstrings + modern type hints throughout. Note: `SpeechMarkManager`'s own `_exceptions` list only guards collection (and only matches apostrophe'd forms, so it never filters clean keys) — key-level exceptions live in the new JSON.
+  - `db_tests_relationships.py`: function, parked `TESTS` comment and now-unused `SpeechMarkManager` import removed.
+  - → verify: ruff+pyright clean on `test_sandhi_errors.py`, `db_tests_relationships.py`, `tools/paths.py` ✓; `uv run pytest tests/db_tests/` — 39 passed ✓; no dangling `sandhi_contraction_errors` references outside thread docs/archive ✓ — user ran it and confirmed the script works, but spotted spurious flags → next row
+
+- [x] Fix `speech_marks.json` ghost accumulation (root cause of the spurious flags above)
+  - User's script run flagged variants not present in the db (`akhīṇakammantotipi` — 1 of its 2 variants was a ghost; also note the live one sits in `commentary`, which the test scans alongside example_1/2). Investigation (read-only simulations on the live db, nothing saved): `SpeechMarkManager.regenerate_from_db()` was **additive** — loaded the existing JSON and only ever appended, so every db text edit left ghost variants forever (51,944 accumulated keys; 207 of the test's 364 flags were ghosts). It also used a divergent legacy tokenizer (`_replace_split`): split on `-` (couldn't collect hyphen variants at all), collected only `'` words, keyed by stripping only `'` — while gui2's live capture (`dpd_fields_examples/commentary.handle_hyphens_and_apostrophes`) collects `'` or `-` words keyed by stripping both. Its `meaning_1 != ""` filter also missed text gui2 captures. The manager's `_exceptions` list was dead weight (compared marked words against unmarked strings — never matched).
+  - **Design (user's call): the db is the single source of truth; `speech_marks.json` is a pure rebuildable cache.** User decisions are preserved by being actual db text edits (which gui2 already commits); no second user-file needed.
+  - Implemented in `tools/speech_marks.py`: `regenerate_from_db()` rebuilds from `{}`, scans all headwords (filter dropped, `load_only` on the 3 text columns), tokenizes with the same `tools/clean_sentence.py::split_pali_sentence_into_words` gui2 uses, collects `'`/`-` words keyed by stripping both marks. Removed `_replace_split` and `_exceptions`. gui2's live `update_variants` calls stay as cache-freshening between rebuilds (same convention, no drift). `_should_regenerate` left as-is (still uncalled outside tests — pre-existing, out of scope).
+  - Verified against a fresh in-memory rebuild (no save): 51,944 → 52,061 keys; hyphen-variant keys 2,532 → 4,103 (1,615 gained that the old tokenizer could never collect; 44 "lost" spot-checked = genuinely stale entries or absorbed into longer hyphen-chain tokens, matching gui2's boundaries); test flags 364 → 339 raw.
+  - `test_sandhi_errors.py` refined off the verification data: 167 of those 339 were hyphen-only differences with identical apostrophe placement (e.g. `ati-uṇhan'ti`/`atiuṇhan'ti`) — not sandhi errors; `find_sandhi_errors` now compares contractions modulo hyphens → **172 real flags** after regeneration.
+  - `test_sandhi_errors.py` now **regenerates the cache itself** on every run (user request): `main()` calls `regenerate_from_db()` before flagging, so the test can never see ghosts and the tracked `tools/speech_marks.json` freshens as a side effect (same write gui2's update-speech-marks button performs). `find_sandhi_errors` takes the dict as a parameter.
+  - justfile recipe added (user request): `just test-sandhi`; listed in `db_tests/single/README.md`'s recipe line.
+  - `SpeechMarkManager.save()` now writes keys and each key's variants in Pāḷi sort order (`tools/pali_sort_key.py`) so regeneration diffs are stable (user request — the first regenerated JSON was insertion-ordered, making every rebuild a ~200k-line reorder). Existing `speech_marks.json` re-sorted in place; this is the last full-file churn.
+
+## Review fixes (2026-07-13)
+
+Independent review (Sonnet subagent, zero context) + CodeRabbit on the uncommitted diff:
+
+- [x] Reviewer nit: isolated `-` tokens produced an empty-string ghost key (`"" → ["-"]`) — pre-existing defect in gui2's live capture, inert (both consumers skip empty words) but noise. Added `if clean_word:` guards at all 3 collection sites (`tools/speech_marks.py::regenerate_from_db`, `gui2/dpd_fields_examples.py`, `gui2/dpd_fields_commentary.py::handle_hyphens_and_apostrophes`); purged the existing `""` key from the tracked JSON (52,062 keys now).
+- [x] CodeRabbit: handoff.md uncommitted-file inventory incomplete + contradictory "awaiting confirmation" wording after user had confirmed — both corrected.
+- CodeRabbit finding rejected with reason: claimed `test_gram_in_last_position.py`'s rewrite changed detection semantics — verified false (boolean assignment ≡ old if/else; the duplicate-append pattern it flags exists identically in the original).
+- → verify: ruff+pyright clean on all touched files ✓; `uv run pytest tests/tools/speech_marks/ tests/db_tests/` — 46 passed ✓; gui2 imports ✓
+  - → verify: ruff+pyright clean on `tools/speech_marks.py` + `test_sandhi_errors.py` ✓; `uv run pytest tests/tools/speech_marks/ tests/db_tests/` — 46 passed ✓; user re-ran the script and confirmed it works well ✓ (first real run also rewrites `speech_marks.json`)
+
+- [x] gui2 `'` tab (`gui2/sandhi_find_replace_view.py`): strip toggle on the Find field (user request, acknowledged off-thread — companion workflow to `test_sandhi_errors.py`)
+  - Pasted find text with stray leading/trailing spaces poisoned the regex search/highlight/replacement. Added `ft.Switch("strip")` after the Find field, **default on**: `handle_find_blur` strips the find value before the existing copy-to-replace-if-empty; `find_clicked` strips both find and replace before searching. Toggle off preserves deliberate space searches. User confirmed it works ✓.
+  - Follow-up (user): Clear button left the highlighted example text visible (`clear_search` cleared `.value` but never `.spans`, which is what `_highlight_found`/`_highlight_replaced` render into) and didn't reset `find_me`/`replace_me`. Now resets both variables and delegates to `clear_fields()` (which clears values + spans + disables the input).
+  - Follow-up (user): after a strip on blur, focus moves to the Replace field (`replace_text.focus()`, gated on the strip toggle); cursor lands at the end because the value was just set programmatically, which resets Flutter's selection.
+  - → verify: ruff clean ✓ (gui2 is pyright-excluded); module imports ✓ — user to confirm Clear in gui2
 
 ## Review fixes (2026-07-12)
 

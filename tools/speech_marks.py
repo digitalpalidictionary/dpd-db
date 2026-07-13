@@ -2,10 +2,14 @@
 
 import json
 from datetime import datetime, timedelta
+
+from sqlalchemy.orm import load_only
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.clean_sentence import split_pali_sentence_into_words
+from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
 SpeechMarksDict = dict[str, list[str]]
@@ -19,16 +23,6 @@ class SpeechMarkManager:
             self.pth = paths
 
         self.speech_marks_dict: SpeechMarksDict = {}
-        self._exceptions: list[str] = [
-            "maññeti",
-            "āyataggaṃ",
-            "nayanti",
-            "āṇāti",
-            "gacchanti",
-            "jīvanti",
-            "sayissanti",
-            "gāmeti",
-        ]
         self._load_data()
 
     def _load_data(self):
@@ -53,8 +47,13 @@ class SpeechMarkManager:
             self.speech_marks_dict[clean_word].append(variant)
 
     def save(self):
+        """Save in Pāḷi sort order (keys and variants) for stable git diffs."""
+        sorted_dict = {
+            key: sorted(self.speech_marks_dict[key], key=pali_sort_key)
+            for key in sorted(self.speech_marks_dict, key=pali_sort_key)
+        }
         with open(self.pth.speech_marks_path, "w", encoding="utf-8") as f:
-            json.dump(self.speech_marks_dict, f, ensure_ascii=False, indent=2)
+            json.dump(sorted_dict, f, ensure_ascii=False, indent=2)
 
     def _should_regenerate(self) -> bool:
         """Check if cache is older than 1 day"""
@@ -66,50 +65,36 @@ class SpeechMarkManager:
         )
 
     def regenerate_from_db(self):
-        """Regenerate speech marks from database (migrated from SandhiContractionManager)."""
+        """Rebuild the speech marks dict from scratch from db text.
+
+        The db is the single source of truth: every word containing an
+        apostrophe or hyphen in example_1, example_2 or commentary is
+        collected, keyed by its clean form (both marks stripped) — the
+        same convention as gui2's live capture. Entries no longer backed
+        by db text disappear on rebuild.
+        """
         db_session: Session = get_db_session(self.pth.dpd_db_path)
+        db = (
+            db_session.query(DpdHeadword)
+            .options(
+                load_only(
+                    DpdHeadword.example_1,
+                    DpdHeadword.example_2,
+                    DpdHeadword.commentary,
+                )
+            )
+            .all()
+        )
 
-        # only include words with meaning_1
-        db = db_session.query(DpdHeadword).filter(DpdHeadword.meaning_1 != "").all()
-
+        self.speech_marks_dict = {}
         for i in db:
-            fields_to_check = [i.example_1, i.example_2, i.commentary]
-            for field in fields_to_check:
-                if field and "'" in field:
-                    for word in self._replace_split(field):
-                        if "'" in word:
-                            word_clean = word.replace("'", "")
-                            if word not in self._exceptions:
-                                self.update_variants(word_clean, word)
+            for field in (i.example_1, i.example_2, i.commentary):
+                if field and ("'" in field or "-" in field):
+                    for word in split_pali_sentence_into_words(field):
+                        if "'" in word or "-" in word:
+                            clean_word = word.replace("-", "").replace("'", "")
+                            if clean_word:
+                                self.update_variants(clean_word, word)
 
         db_session.close()
         self.save()
-
-    def _replace_split(self, string: str) -> list[str]:
-        """Clean and split a string into words (migrated from SandhiContractionManager)."""
-        replacements = [
-            ("<b>", ""),
-            ("</b>", ""),
-            ("<i>", ""),
-            ("</i>", ""),
-            (".", " "),
-            (",", " "),
-            (";", " "),
-            ("!", " "),
-            ("?", " "),
-            ("/", " "),
-            ("-", " "),
-            ("{", " "),
-            ("}", " "),
-            ("(", " "),
-            (")", " "),
-            ("[", " "),
-            ("]", " "),
-            (":", " "),
-            ("\n", " "),
-            ("\r", " "),
-            ("…", " "),
-        ]
-        for old, new in replacements:
-            string = string.replace(old, new)
-        return string.split(" ")

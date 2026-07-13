@@ -340,7 +340,8 @@ class DpdExampleField(ft.Column):
         for word in text_list:
             if "-" in word or "'" in word:
                 clean_word = word.replace("-", "").replace("'", "")
-                self.speech_marks_manager.update_variants(clean_word, word)
+                if clean_word:
+                    self.speech_marks_manager.update_variants(clean_word, word)
 
     def click_book_and_word(self, e: ft.ControlEvent):
         self.word_to_find_field.error_text = None

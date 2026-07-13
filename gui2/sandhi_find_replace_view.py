@@ -38,6 +38,7 @@ class SandhiFindReplaceView(ft.Column):
             border_radius=20,
             border=ft.InputBorder.OUTLINE,
         )
+        self.strip_switch = ft.Switch(label="strip", value=True)
         self.find_button = ft.ElevatedButton("Find", on_click=self.find_clicked)
         self.clear_button = ft.ElevatedButton("Clear", on_click=self.clear_search)
         self.message = ft.Text("", expand=True)
@@ -64,6 +65,7 @@ class SandhiFindReplaceView(ft.Column):
                         [
                             ft.Text("Find:", width=100),
                             self.find_text,
+                            self.strip_switch,
                         ]
                     ),
                     ft.Row(
@@ -162,21 +164,23 @@ class SandhiFindReplaceView(ft.Column):
         self.update()
 
     def clear_search(self, e):
+        """Clear all fields, highlights, search variables and state."""
         self.find_text.value = ""
         self.replace_text.value = ""
         self.message.value = ""
-        self.found_field.value = ""
-        self.replaced_field.value = ""
-        # Reset replaced_field to disabled state
+        self.find_me = ""
+        self.replace_me = ""
         if self.replaced_field != self.replaced_field_text:
             self._set_replaced_field_mode(editable=False)
-        self.replaced_field_text.value = ""
-        self.replaced_field_input.value = ""
-        # Reset to clean state
+        self.clear_fields()
         self._reset_state()
         self.update()
 
     def find_clicked(self, e):
+        if self.strip_switch.value:
+            self.find_text.value = (self.find_text.value or "").strip()
+            self.replace_text.value = (self.replace_text.value or "").strip()
+            self.update()
         if self.find_text.value and self.replace_text.value:
             self.update_message("")
             self.find_me = self.find_text.value
@@ -293,10 +297,15 @@ class SandhiFindReplaceView(ft.Column):
         self._load_next_result()
 
     def handle_find_blur(self, e: ft.ControlEvent):
-        """Copy find text to replace text when user exits find field."""
+        """Strip the find text, copy it to replace, and focus the replace field
+        with the cursor at the end."""
+        if self.strip_switch.value and self.find_text.value:
+            self.find_text.value = self.find_text.value.strip()
         if self.find_text.value and not self.replace_text.value:
             self.replace_text.value = self.find_text.value
-            self.update()
+        self.update()
+        if self.strip_switch.value and self.find_text.value:
+            self.replace_text.focus()
 
     def _highlight_found(self, text):
         spans = []

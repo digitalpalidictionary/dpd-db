@@ -8,7 +8,6 @@ This subsystem follows an "Interactive Test and Propose" pattern:
 1.  **Orchestration:** `main.py` provides a Flet-based multi-panel interface for selecting and running different audit routines.
 2.  **Specialized Adders:** Scripts (e.g., `add_antonyms.py`, `add_hyphenations.py`) act as the "engine" for specific tests, identifying missing data and preparing proposed corrections.
 3.  **Visual Approval:** The GUI allows the user to see the current state vs. the proposed change, ensuring high-quality human oversight for automated updates.
-4.  **Local Storage:** Uses the `storage/` directory to manage temporary data or persistent test configurations.
 
 ## Relationships & Data Flow
 - **Input:** Directly interacts with `dpd.db` and the version-controlled TSVs.
@@ -16,4 +15,4 @@ This subsystem follows an "Interactive Test and Propose" pattern:
 - **Evolution:** Represents the project's transition toward more modern, responsive internal tooling (using Flet).
 
 ## Interface
-- **Start Test Runner:** `uv run flet run db_tests/gui/main.py`
+- **Start Test Runner:** `uv run db_tests/gui/main.py`

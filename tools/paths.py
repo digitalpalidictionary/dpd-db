@@ -110,6 +110,9 @@ class ProjectPaths:
         self.phonetic_changes_vowels_path = (
             base_dir / "db_tests/single/add_phonetic_changes_vowels.tsv"
         )
+        self.sandhi_errors_exceptions_path = (
+            base_dir / "db_tests/single/test_sandhi_errors.json"
+        )
         self.su_kammadharaya_exceptions_path = (
             base_dir / "db_tests/single/test_su_kammadharaya.json"
         )
