@@ -1010,7 +1010,9 @@ class DpdHeadword(Base):
     __tablename__ = "dpd_headwords"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    lemma_1: Mapped[str] = mapped_column(ForeignKey("sutta_info.dpd_sutta"), default="")
+    lemma_1: Mapped[str] = mapped_column(
+        ForeignKey("sutta_info.dpd_sutta"), unique=True, default=""
+    )
     lemma_2: Mapped[str] = mapped_column(default="")
     pos: Mapped[str] = mapped_column(default="")
     grammar: Mapped[str] = mapped_column(default="")
