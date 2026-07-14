@@ -18,6 +18,7 @@ class Gui2Paths:
         )
         self.pass2_exceptions_path: Path = self.gui2_data_path / "pass2_exceptions.json"
         self.pass2_new_words_path: Path = self.gui2_data_path / "pass2_new_words.json"
+        self.pass2_eg_words_path: Path = self.gui2_data_path / "pass2_eg_words.json"
         self.history_json_path: Path = self.gui2_data_path / "history.json"
         self.example_stash_json_path: Path = self.gui2_data_path / "example_stash.json"
         self.commentary_stash_json_path: Path = (

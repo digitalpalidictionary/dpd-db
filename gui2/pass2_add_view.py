@@ -21,9 +21,12 @@ from gui2.dpd_fields_lists import (
 from gui2.mixins import PopUpMixin
 from gui2.pass2_auto_control import Pass2AutoController
 from gui2.pass2_auto_file_manager import Pass2AutoFileManager
+from gui2.pass2_eg_manager import Pass2EgManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
+from scripts.find.missing_meanings import find_missing_meanings
+from tools.configger import config_read
 from tools.fast_api_utils import request_dpd_server
 from tools.speech_marks import SpeechMarkManager
 
@@ -69,6 +72,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.pass2_new_word_manager: Pass2NewWordManager = (
             self.toolkit.pass2_new_word_manager
         )
+        self.pass2_eg_manager: Pass2EgManager = Pass2EgManager(self.toolkit)
+        self._eg_alert: ft.AlertDialog | None = None
+        self._eg_checkboxes: dict[str, ft.Checkbox] = {}
+        self._eg_prefills: dict[str, dict[str, str]] = {}
+        self._eg_comment: str = ""
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
         self.current_correction: dict | None = None
@@ -120,6 +128,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
             on_click=self._click_x_button,
             on_hover=self._update_count_tooltip,
             tooltip="filter queue",
+        )
+        self._eg_button = ft.ElevatedButton(
+            "Eg",
+            on_click=self._click_eg_button,
+            on_hover=self._update_count_tooltip,
+            tooltip="eg queue",
         )
         self._pread_button = ft.ElevatedButton(
             "PRead",
@@ -200,6 +214,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._split_headword_button,
                             self._pass2_auto_button,
                             self._new_word_button,
+                            self._eg_button,
                             self._corrections_button,
                             self._additions_button,
                             self._x_button,
@@ -306,6 +321,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
             id(self._x_button): (
                 "filter queue",
                 lambda: self._x_manager.remaining_count(),
+            ),
+            id(self._eg_button): (
+                "eg queue",
+                lambda: self.pass2_eg_manager.count(),
             ),
             id(self._pread_button): (
                 "proofreader",
@@ -843,6 +862,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self._update_history_dropdown()
             self.page.update()
             self.clear_all_fields()
+            self._show_missing_words_dialog(word_to_save)
         else:
             self.update_message(f"Commit failed: {message}")
 
@@ -1075,6 +1095,192 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.update_message(f"Error loading X word: {ex!s}")
 
         self.page.update()
+
+    @staticmethod
+    def _order_by_appearance(words: list[str], text: str) -> list[str]:
+        """Sort words by their position in the text. Existing headwords are
+        lemma_1 values whose inflected form appears in the text, so match on a
+        progressively shortened stem; unmatched words go to the end."""
+
+        def position(word: str) -> int:
+            stem = clean_lemma_1(word)
+            while len(stem) >= 4:
+                index = text.find(stem)
+                if index != -1:
+                    return index
+                stem = stem[:-1]
+            return len(text)
+
+        return sorted(words, key=position)
+
+    def _find_missing_eg_words(
+        self, word_to_save: DpdHeadword
+    ) -> list[tuple[str, dict[str, dict[str, str]]]]:
+        """Scan examples and commentary for words missing meaning or example.
+        Returns one (field text, {word: prefill}) section per scanned field,
+        words ordered by appearance in that text."""
+
+        def unbold(text: str) -> str:
+            return text.replace("<b>", "").replace("</b>", "")
+
+        field_prefills: list[tuple[str, dict[str, str]]] = [
+            (
+                word_to_save.example_1,
+                {
+                    "source_1": word_to_save.source_1,
+                    "sutta_1": word_to_save.sutta_1,
+                    "example_1": unbold(word_to_save.example_1),
+                },
+            ),
+            (
+                word_to_save.example_2,
+                {
+                    "source_1": word_to_save.source_2,
+                    "sutta_1": word_to_save.sutta_2,
+                    "example_1": unbold(word_to_save.example_2),
+                },
+            ),
+            (
+                word_to_save.commentary,
+                {"example_1": unbold(word_to_save.commentary)},
+            ),
+        ]
+
+        sections: list[tuple[str, dict[str, dict[str, str]]]] = []
+        seen: set[str] = set()
+        for text, prefill in field_prefills:
+            if not text or text == "-":
+                continue
+            found = [
+                word
+                for word in find_missing_meanings(self._db.db_session, text, level=3)
+                if word not in seen
+                and word != word_to_save.lemma_1
+                and not self.pass2_eg_manager.is_queued(word)
+            ]
+            if not found:
+                continue
+            seen.update(found)
+            section_words = {
+                word: prefill for word in self._order_by_appearance(found, text)
+            }
+            sections.append((text, section_words))
+        return sections
+
+    def _show_missing_words_dialog(self, word_to_save: DpdHeadword) -> None:
+        """After a successful save, list missing words found in the saved word's
+        examples and commentary. Ticked words go to the eg queue; unticked words
+        are simply not added this time."""
+
+        if config_read("gui2", "missing_words_dialog") != "yes":
+            return
+
+        sections = self._find_missing_eg_words(word_to_save)
+        if not sections:
+            return
+
+        self._eg_prefills = {}
+        self._eg_comment = f"eg: found in {word_to_save.lemma_1}"
+        self._eg_checkboxes = {}
+
+        rows: list[ft.Control] = []
+        for text, section_words in sections:
+            rows.append(
+                ft.Text(
+                    text,
+                    color=LABEL_COLOUR,
+                    size=12,
+                    selectable=True,
+                )
+            )
+            for word, prefill in section_words.items():
+                self._eg_prefills[word] = prefill
+                checkbox = ft.Checkbox(value=False)
+                self._eg_checkboxes[word] = checkbox
+                rows.append(
+                    ft.Row(
+                        controls=[
+                            checkbox,
+                            ft.Text(word, selectable=True),
+                        ]
+                    )
+                )
+
+        self._eg_alert = ft.AlertDialog(
+            modal=True,
+            content=ft.Column(
+                controls=[
+                    ft.Text("Missing words", color=ft.Colors.BLUE_200, size=20),
+                    ft.Text(f"found in {word_to_save.lemma_1}", color=LABEL_COLOUR),
+                    ft.Column(
+                        controls=rows,
+                        scroll=ft.ScrollMode.AUTO,
+                        expand=True,
+                    ),
+                ],
+                height=500,
+                width=500,
+            ),
+            alignment=ft.alignment.center,
+            actions=[
+                ft.TextButton("Add ticked", on_click=self._click_eg_add),
+                ft.TextButton("Close", on_click=self._click_eg_close),
+            ],
+        )
+        self.page.open(self._eg_alert)
+        self.page.update()
+
+    def _click_eg_add(self, e: ft.ControlEvent) -> None:
+        added = 0
+        for word, checkbox in self._eg_checkboxes.items():
+            if checkbox.value:
+                self.pass2_eg_manager.add_word(
+                    word, self._eg_prefills[word], self._eg_comment
+                )
+                added += 1
+        self._close_eg_alert()
+        self.update_message(f"eg: {added} added")
+
+    def _click_eg_close(self, e: ft.ControlEvent) -> None:
+        self._close_eg_alert()
+
+    def _close_eg_alert(self) -> None:
+        if self._eg_alert:
+            self._eg_alert.open = False
+        self.page.update()
+
+    def _click_eg_button(self, e: ft.ControlEvent) -> None:
+        """Load the next eg queue word: edit mode if it exists in the db,
+        otherwise a prefilled new word."""
+
+        word, prefill = self.pass2_eg_manager.get_next()
+        if word is None or prefill is None:
+            self.update_message("No more eg words")
+            self.page.update()
+            return
+
+        remaining = self.pass2_eg_manager.count()
+        comment = prefill.get("comment", "")
+        headword = self._db.get_headword_by_lemma(word)
+
+        self.clear_all_fields()
+        if headword:
+            self.headword = headword
+            self._enter_id_or_lemma_field.value = headword.lemma_1
+            self.headword_original = copy.deepcopy(headword)
+            self.dpd_fields.update_db_fields(headword)
+            self.add_headword_to_examples_and_commentary()
+            self.dpd_fields.update_add_fields(prefill)
+        else:
+            lemma_1_field = self.dpd_fields.get_field("lemma_1")
+            if lemma_1_field:
+                lemma_1_field.value = word
+            self.dpd_fields.update_add_fields(prefill)
+
+        self.update_message(
+            f"[{remaining}] {word}: {comment}" if comment else f"[{remaining}] {word}"
+        )
+        self.update()
 
     def _click_pread_button(self, e: ft.ControlEvent) -> None:
         """Loads the next proofreader correction and populates the gui."""
