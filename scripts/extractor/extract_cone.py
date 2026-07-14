@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""Extract Cone dictionary entries via AI and write to TSV.
+
+Iterates through Cone headwords that haven't been processed yet, sends each
+entry's HTML to an OpenRouter AI model for extraction, maps the Cone POS to
+DPD POS values, and appends the results to `extract_cone.tsv`.
+
+Interrupt-safe: Ctrl-C saves remaining words so the run can be resumed.
+
+Usage:
+    uv run scripts/extractor/extract_cone.py
+"""
+
+from pathlib import Path
 
 import signal
 import time
@@ -84,7 +97,7 @@ CONE_POS_MAPPING = {
 }
 
 
-def connect_to_openrouter():
+def connect_to_openrouter() -> OpenRouterManager:
     pr.green_tmr("Connecting to OpenRouter")
     manager = OpenRouterManager()
     if manager.client:
@@ -94,7 +107,12 @@ def connect_to_openrouter():
     return manager
 
 
-def process_word(word, cone_dict, manager, output_path):
+def process_word(
+    word: str,
+    cone_dict: dict[str, str],
+    manager: OpenRouterManager,
+    output_path: Path,
+) -> bool | None:
     entries = get_cone_html_entries(cone_dict, word)
     if not entries:
         pr.no("no source")
@@ -141,7 +159,7 @@ def process_word(word, cone_dict, manager, output_path):
     return False
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("Extracting Cone entries")
 

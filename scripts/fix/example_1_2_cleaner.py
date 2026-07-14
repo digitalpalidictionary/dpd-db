@@ -1,31 +1,40 @@
 #!/usr/bin/env python3
 
-"""Quick starter template for getting a database session and iterating thru."""
+"""Bulk-clean example_1 / example_2 for headwords that still lack meaning_1.
+
+Applies speech-mark expansion, text normalization, and bracket removal via the
+same tools.example_cleaning helpers that gui2 exposes as per-word buttons — but
+sweeps every incomplete word in one pass instead of one at a time.
+"""
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.example_cleaning import clean_example, remove_brackets
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.sandhi_contraction import SandhiContractionManager  # type: ignore[import-untyped]
+from tools.speech_marks import SpeechMarkManager
 
 
-def main():
+def main() -> None:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
-    sandhi_dict = SandhiContractionManager().get_sandhi_contractions_simple()
+    speech_marks_manager = SpeechMarkManager()
 
     for counter, i in enumerate(db):
         if i.meaning_1 == "":
             if i.example_1:
-                i.example_1 = remove_brackets(clean_example(i.example_1, sandhi_dict))
+                i.example_1 = remove_brackets(
+                    clean_example(i.example_1, speech_marks_manager)
+                )
                 pr.green("")
                 pr.green(i.lemma_1)
                 pr.green(i.example_1)
 
             if i.example_2:
-                i.example_2 = remove_brackets(clean_example(i.example_2, sandhi_dict))
+                i.example_2 = remove_brackets(
+                    clean_example(i.example_2, speech_marks_manager)
+                )
                 pr.green("")
                 pr.green(i.lemma_1)
                 pr.green(i.example_2)

@@ -1,5 +1,9 @@
 # Plan: verb_finder (exploratory)
 
+> **Note (2026-07-13):** This file was triaged in the `20260713_scripts_triage` thread — all 3
+> phases are fully implemented in `scripts/fix/verb_finder.py`, verdict: keep + freshen. This
+> sibling thread can be closed by the user.
+
 ## Architecture Decisions
 - **Single file**: `scripts/fix/verb_finder.py` with clearly named functions and a small `main()`. No sub-package yet — extract to module if/when reuse demands it.
 - **Pure functions over methods**: each piece (index building, grammar parsing, bucketing, tsv writing) is a standalone function with explicit inputs/outputs, importable by future fix scripts.

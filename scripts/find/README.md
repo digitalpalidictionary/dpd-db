@@ -5,7 +5,7 @@
 
 ## Architectural Logic
 Scripts in this folder follow a "Gap Analysis and Discovery" pattern:
-1.  **Corpus Scanning:** They frequently compare the dictionary database against large Pāḷi corpora to find "unrecognized" words (e.g., `most_common_missing_word_finder.py`).
+1.  **Corpus Scanning:** They frequently compare the dictionary database against large Pāḷi corpora to find "unrecognized" words (e.g., `most_common_missing_word_1_finder.py`, paired with `most_common_missing_word_2_analysis.py` to report coverage stats on the result).
 2.  **Pattern Matching:** They search for specific linguistic or structural features (prepositions, root verbs, deconstruction errors).
 3.  **Heuristic Prioritization:** `low_hanging_fruit_finder.py` uses metrics like word frequency or data completeness to identify tasks that provide maximum benefit for minimal effort.
 4.  **Reporting:** Results are typically output as TSV files (e.g., `most_common_missing_words.tsv`) or terminal reports that inform the project's next developmental steps.
@@ -17,5 +17,5 @@ Scripts in this folder follow a "Gap Analysis and Discovery" pattern:
 
 ## Interface
 Each script is a standalone discovery tool:
-- **Find missing words:** `uv run python scripts/find/most_common_missing_word_finder.py`
-- **Analyze examples:** `uv run python scripts/find/word_without_examples_analyser.py`
+- **Find missing words:** `uv run python scripts/find/most_common_missing_word_1_finder.py`
+- **Analyze coverage of the finder's output:** `uv run python scripts/find/most_common_missing_word_2_analysis.py`

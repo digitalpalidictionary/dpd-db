@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 
-"""Find all verbs related to a root"""
+"""Look up every verb in a given root family, grouped by part of speech."""
 
 from collections import defaultdict
+
+from rich import print
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from rich import print
 
 
-def main():
+def main() -> None:
+    """Prompt for a root family and print its verbs grouped by part of speech."""
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 

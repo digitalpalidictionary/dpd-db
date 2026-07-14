@@ -18,6 +18,5 @@ Scripts in this folder follow a "Batch Update" pattern:
 
 ## Interface
 Each script is a standalone tool designed for a specific fix:
-- `uv run python scripts/fix/null_remover.py`
 - `uv run python scripts/fix/example_1_2_cleaner.py`
 (Run only when specific data cleaning is required).

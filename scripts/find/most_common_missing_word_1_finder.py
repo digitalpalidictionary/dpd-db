@@ -1,4 +1,12 @@
-"""Find most common words in a list, grouping by Levenshtein distance."""
+"""Find the most common words missing from DPD, grouped by Levenshtein distance.
+
+Scans CST commentary books not yet fully processed, strips out words already
+covered by DPD inflections or the sandhi-checked list, groups near-duplicate
+spellings together, and writes the sorted result to a TSV. Companion script:
+`most_common_missing_word_2_analysis.py` reports coverage stats on the output.
+"""
+
+from typing import TypedDict
 
 import Levenshtein
 from rich.progress import track
@@ -17,7 +25,16 @@ similarity = 3
 lev_distance = 3
 
 
+class WordGroup(TypedDict):
+    """A representative word plus every near-duplicate spelling grouped under it."""
+
+    representative: str
+    count: int
+    members: set[str]
+
+
 def make_list_of_commentary_books() -> list[str]:
+    """Return CST book codes not yet fully covered by an earlier processing pass."""
     pr.green_tmr("making book list")
     done_list = [
         "vin1",
@@ -60,7 +77,6 @@ def make_list_of_commentary_books() -> list[str]:
         if (
             book not in done_list
             and not book.startswith("abh")
-            # and not book.endswith("a")
             and not book.endswith("t")
             and book not in anna_list
             and not book.startswith("kn")
@@ -72,10 +88,10 @@ def make_list_of_commentary_books() -> list[str]:
     print(keep_list)
 
     return keep_list
-    # return ["kn15", "kn16"]
 
 
 def get_dpd_inflections_set() -> set[str]:
+    """Return every inflection form of every headword in the dictionary."""
     pr.green_tmr("making dpd inflections set")
 
     db_session = get_db_session(pth.dpd_db_path)
@@ -89,11 +105,13 @@ def get_dpd_inflections_set() -> set[str]:
     return inflections_set
 
 
-def get_sandhi_checked_list():
+def get_sandhi_checked_list() -> list[str]:
+    """Return the list of words already confirmed via sandhi checking."""
     return read_tsv_single_column(pth.decon_checked)
 
 
-def get_list_of_cst_words_in_books(commentary_books):
+def get_list_of_cst_words_in_books(commentary_books: list[str]) -> list[str]:
+    """Return every word (with duplicates) found across the given CST books."""
     pr.green_tmr("making cst text list")
     cst_word_list = make_cst_text_list(
         commentary_books,
@@ -105,10 +123,11 @@ def get_list_of_cst_words_in_books(commentary_books):
 
 
 def reduce_commentary_words(
-    commentary_words,
-    dpd_inflections,
-    sandhi_checked_list,
-):
+    commentary_words: list[str],
+    dpd_inflections: set[str],
+    sandhi_checked_list: list[str],
+) -> list[str]:
+    """Drop words already covered by DPD inflections or the sandhi-checked list."""
     pr.green_tmr("reducing word set")
     commentary_words_reduced = []
     dpd_inflections_set = set(dpd_inflections)
@@ -121,7 +140,7 @@ def reduce_commentary_words(
 
 
 def make_word_count_dict(cst_word_list_reduced: list[str]) -> dict[str, int]:
-    """Return a dict of words and their counts"""
+    """Return a dict of words and their occurrence counts."""
 
     pr.green_tmr("making word count dict")
 
@@ -137,7 +156,8 @@ def make_word_count_dict(cst_word_list_reduced: list[str]) -> dict[str, int]:
     return word_count_dict
 
 
-def test_similar(word: str, representative: str):
+def test_similar(word: str, representative: str) -> bool:
+    """Check whether word and representative share the same truncated tail."""
     if word == representative:
         return True
 
@@ -151,14 +171,13 @@ def test_similar(word: str, representative: str):
     return word_trunc == repr_trunc
 
 
-def group_similar_words(
-    words: dict[str, int],
-) -> dict[dict[str, int], dict[str, set[str]]]:
+def group_similar_words(words: dict[str, int]) -> dict[str, WordGroup]:
+    """Group words with similar spellings (by prefix + Levenshtein distance)."""
     if not words:
         return {}
 
     # {taṅhā: {"count":212, "members":{"taṅhā", "taṅhāti", taṅhāyāpi"}}}
-    groups = {}
+    groups: dict[str, WordGroup] = {}
 
     for word, count in track(words.items(), description="[green]grouping"):
         found_group = False
@@ -177,14 +196,14 @@ def group_similar_words(
     return groups
 
 
-def sort_groups(
-    groups: dict[dict[str, int], dict[str, set[str]]],
-) -> list:
+def sort_groups(groups: dict[str, WordGroup]) -> list[WordGroup]:
+    """Sort word groups by total occurrence count, descending."""
     group_list = list(groups.values())
     return sorted(group_list, key=lambda x: x["count"], reverse=True)
 
 
-def save_to_tsv(common_words_unpack):
+def save_to_tsv(common_words_unpack: list[WordGroup]) -> None:
+    """Write the sorted word groups to the most-common-missing-words TSV."""
     pr.green_tmr("saving to tsv")
 
     file_path = pth.most_common_missing_words_tsv_path
@@ -196,7 +215,8 @@ def save_to_tsv(common_words_unpack):
     pr.green(f"saved to: [white]{file_path}[/white]")
 
 
-def main():
+def main() -> None:
+    """Run the missing-word finder end to end and write the result TSV."""
     pr.tic()
     pr.yellow_title("find most common missing words")
     commentary_books = make_list_of_commentary_books()

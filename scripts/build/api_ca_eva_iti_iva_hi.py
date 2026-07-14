@@ -5,6 +5,8 @@ Find all api ca eva iti iva hi in deconstructor and add to inflections and looku
 
 'api' 'ca' 'eva' 'iti' 'iva' 'hi' are the most common words appearing in sandhi compounds,
 so in those cases, just show the actual inflected word itself first, then the deconstruction.
+
+Writes the result to the `inflections_api_ca_eva_iti` column of `dpd_headwords` and commits.
 """
 
 import re
@@ -42,7 +44,7 @@ def make_apicaevaitihi_dict(g: GlobalVars) -> None:
     {"kataṃ": ["katañca", "katampi"]}
 
     """
-    pr.green_title("making apicaeveiti_dict")
+    pr.green_title("making apicaevaitihi_dict")
 
     for counter, i in enumerate(g.lookup_db):
         for deconstruction in i.deconstructor_unpack:

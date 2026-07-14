@@ -1,14 +1,17 @@
-# -*- coding: utf-8 -*-
-from pathlib import Path
+"""Extract Pāḷi word lists from the BJT Sinhala sanna JSON files
+into one TSV per source file, then zip up the output directory."""
+
 import json
 import re
+from pathlib import Path
 
+from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.zip_up import zip_up_directory
-from tools.paths import ProjectPaths
 
 
-def extract_data_from_json(file_path):
+def extract_data_from_json(file_path: Path) -> list[str]:
+    """Pull the filename, page numbers and Pāḷi entry words from one JSON file."""
     with file_path.open("r", encoding="utf-8") as file:
         extracted_data = []
         data = json.load(file)
@@ -27,11 +30,11 @@ def extract_data_from_json(file_path):
         return extracted_data
 
 
-def main():
-    pr.yellow_title("extracting sinhala words for sanna ")
+def main() -> None:
+    pr.yellow_title("extracting sinhala words for sanna")
     pth = ProjectPaths()
-    input_directory = Path(pth.bjt_sinhala_dir)
-    output_dir = Path(pth.bjt_dir / "sanna/")
+    input_directory = pth.bjt_sinhala_dir
+    output_dir = pth.bjt_dir / "sanna"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     pr.green_tmr("extracting data from files")

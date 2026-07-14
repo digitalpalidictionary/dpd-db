@@ -617,16 +617,10 @@ class ProjectPaths:
 
         # scripts/extractor
         self.extract_cone_tsv_path = base_dir / "scripts/extractor/extract_cone.tsv"
-        self.extract_cpd_tsv_path = base_dir / "scripts/extractor/extract_cpd.tsv"
 
         # scripts/find
         self.most_common_missing_words_tsv_path = (
             base_dir / "scripts/find/most_common_missing_words.tsv"
-        )
-
-        # scripts/fix
-        self.fix_synonym_entries_json_path = (
-            base_dir / "scripts/fix/fix_synonym_entries.json"
         )
 
         # scripts/suttas
@@ -638,7 +632,6 @@ class ProjectPaths:
         )
 
         # shared_data
-        self.additions_tsv_path = base_dir / "shared_data/additions.tsv"
         self.changed_headwords_path = base_dir / "shared_data/changed_headwords"
         self.corrections_tsv_path = base_dir / "shared_data/corrections.tsv"
         self.headword_stem_pattern_dict_path = (

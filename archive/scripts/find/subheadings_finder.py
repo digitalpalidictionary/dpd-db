@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Find headings and subheadings which
-1. Only occur once.
-2. Have no examples
-3. Do note have source_1 = "1"
-"""
+"""Find CST chapter/subheading text that occurs exactly once in the whole corpus
+frequency table and maps to exactly one headword via the lookup table, then flag
+that headword's source_1 as "-" (heading-only entry, no real usage example).
+
+NOTE: self.db_session.commit() is deliberately left commented out below — as
+written this script computes and prints but never persists the source_1 change."""
 
 from json import load
 import re
@@ -18,7 +18,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.pali_text_files import cst_texts
 
-mula_books = [
+mula_books: list[str] = [
     "vin1",
     "vin2",
     "vin3",
@@ -70,7 +70,7 @@ mula_books = [
 
 
 class SubheadingsFinder:
-    def __init__(self):
+    def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
 
@@ -91,7 +91,7 @@ class SubheadingsFinder:
 
         self.add_to_db()
 
-    def make_single_occurrence_set(self):
+    def make_single_occurrence_set(self) -> None:
         with open(self.pth.cst_freq_json, "r", encoding="utf-8") as f:
             self.cst_freq_dict = load(f)
 
@@ -99,14 +99,14 @@ class SubheadingsFinder:
             if count == 1:
                 self.single_occurrence_set.add(word)
 
-    def make_soup(self, file):
+    def make_soup(self, file: str) -> BeautifulSoup:
         filename = file.replace(".txt", ".xml")
 
         with open(self.pth.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16") as f:
             xml = f.read()
         return BeautifulSoup(xml, "xml")
 
-    def make_subheadings(self, soup):
+    def make_subheadings(self, soup: BeautifulSoup) -> None:
         for chapter_tag in soup.find_all("head", attrs={"rend": "chapter"}):
             text = chapter_tag.get_text(strip=True).lower()
             text = re.sub("^.+ ", "", text)
@@ -117,14 +117,14 @@ class SubheadingsFinder:
             text = re.sub("^.+ ", "", text)
             self.headings_set.add(text)
 
-    def make_headings_set(self):
+    def make_headings_set(self) -> None:
         for book, files in cst_texts.items():
             if book in mula_books:
                 for file in files:
                     soup = self.make_soup(file)
                     self.make_subheadings(soup)
 
-    def add_to_db(self):
+    def add_to_db(self) -> None:
         for i in self.single_occurrence_headings_set:
             result: Lookup | None = (
                 self.db_session.query(Lookup).filter(Lookup.lookup_key == i).first()

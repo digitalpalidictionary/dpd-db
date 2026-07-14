@@ -1,4 +1,8 @@
-"""Find missing heading in DN and MN"""
+"""Find DN/MN subheadings missing a `meaning_1`, for pass2 heading work (#175).
+
+Interactive: walks through each missing subheading, copying it to the
+clipboard and opening it in GoldenDict.
+"""
 
 from pathlib import Path
 
@@ -22,11 +26,12 @@ files_to_process = [
 ]
 
 
-def make_all_inflections_without_meaning_1():
+def make_all_inflections_without_meaning_1() -> set[str]:
+    """Return every inflection of a headword that has no `meaning_1`."""
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db_query = db_session.query(DpdHeadword).filter(DpdHeadword.meaning_1 == "").all()
-    all_inflections_without_meaning_1 = set()
+    all_inflections_without_meaning_1: set[str] = set()
 
     for i in db_query:
         for inflection in i.inflections_list_all:
@@ -34,7 +39,8 @@ def make_all_inflections_without_meaning_1():
     return all_inflections_without_meaning_1
 
 
-def make_all_subheadings_set():
+def make_all_subheadings_set() -> set[str]:
+    """Extract every subheading found in the DN/MN CST XML files."""
     all_subheadings_set: set[str] = set()
 
     for file_path in files_to_process:
@@ -52,7 +58,8 @@ def make_all_subheadings_set():
     return all_subheadings_set
 
 
-def print_missing_subheadings(missing_subheadings_set):
+def print_missing_subheadings(missing_subheadings_set: set[str]) -> None:
+    """Interactively step through missing subheadings, copying each to clipboard."""
     counter = len(missing_subheadings_set)
     print()
     print("press enter to continue, q to quit")

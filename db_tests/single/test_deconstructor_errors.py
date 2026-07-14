@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-"""Find errors in deconstructions."""
+"""Test the deconstructor column in the lookup table:
+every value must be valid JSON and contain only Pāḷi alphabet
+characters, spaces and +. Run after regenerating the deconstructor."""
 
 import json
 
@@ -13,18 +15,15 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def is_valid_json(json_str: str) -> tuple[bool, list[str] | None]:
-    """Validate if a string is valid JSON.
-    Return bool and json or Non
-    """
+def parse_deconstructions(json_str: str) -> list[str] | None:
+    """Parse a deconstructor JSON string, or return None if invalid."""
     try:
-        parsed = json.loads(json_str)
-        return True, parsed
+        return json.loads(json_str)
     except json.JSONDecodeError:
-        return False, None
+        return None
 
 
-def main():
+def main() -> None:
     pr.yellow_title("find errors in deconstructions")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -33,7 +32,7 @@ def main():
     db = db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
     pr.yes(len(db))
 
-    error_letters = {}
+    error_letters: dict[str, str] = {}
 
     pali_alphabet_plus = pali_alphabet + [" ", "+"]
 
@@ -43,15 +42,15 @@ def main():
         if counter % 100000 == 0 and counter != 0:
             pr.counter(counter, len(db), i.lookup_key)
 
-        is_valid, parsed_json = is_valid_json(i.deconstructor)
-        if not is_valid:
+        deconstructions = parse_deconstructions(i.deconstructor)
+        if deconstructions is None:
             pr.red(f"{i.lookup_key} invalid JSON in deconstructor")
-        if parsed_json:
-            for decon in parsed_json:
-                for letter in decon:
-                    if letter not in pali_alphabet_plus:
-                        error_letters[i.lookup_key] = letter
-                        pr.red(f"{i.lookup_key} invalid letter: {letter} ")
+            continue
+        for decon in deconstructions:
+            for letter in decon:
+                if letter not in pali_alphabet_plus:
+                    error_letters[i.lookup_key] = letter
+                    pr.red(f"{i.lookup_key} invalid letter: {letter} ")
 
     print(error_letters)
 

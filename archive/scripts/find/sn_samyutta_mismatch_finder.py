@@ -13,12 +13,15 @@ import re
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 FAMILY_SET_RE = re.compile(r"Saṃyutta\s+Nikāya\s+(\d+)", re.UNICODE)
 SN_CODE_RE = re.compile(r"\bSN\s*(\d+)(?:\.\d[\d\-]*)?", re.UNICODE)
 
 
 def main() -> None:
+    """Find and write out SN headwords whose family_set/meaning SN numbers disagree."""
+    pr.yellow_title("finding sn samyutta mismatches")
     pth = ProjectPaths()
     session = get_db_session(pth.dpd_db_path)
     out = pth.temp_dir / "sn_samyutta_mismatch.tsv"
@@ -29,7 +32,7 @@ def main() -> None:
         .all()
     )
 
-    rows: list[dict] = []
+    rows: list[dict[str, str | int]] = []
     for hw in headwords:
         fs = hw.family_set or ""
         m1 = hw.meaning_1 or ""
@@ -79,8 +82,8 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"scanned {len(headwords)} SN headwords")
-    print(f"mismatches: {len(rows)} -> {out}")
+    pr.summary("scanned", f"{len(headwords)} SN headwords")
+    pr.summary("mismatches", f"{len(rows)} -> {out}")
 
 
 if __name__ == "__main__":

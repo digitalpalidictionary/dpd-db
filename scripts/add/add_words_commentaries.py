@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
-"""Find most common words in commentary without meaning"""
+"""Find most common words in commentary without meaning.
+
+Output colors:
+- blue: word is an inflection of an existing DPD entry that has no meaning_1 yet
+- red: word is not in the dictionary at all
+"""
 
 from collections import Counter
 from rich import print
@@ -8,6 +13,7 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.pali_text_files import atthakatha_books
 
@@ -42,6 +48,10 @@ def make_list_of_all_words_in_book(pth, books):
 
 
 def main():
+    pr.tic()
+    pr.yellow_title("add words from commentaries")
+    pr.green_title("find most common words in commentary without meaning")
+
     pth = ProjectPaths()
     atthakatha_books.remove("abha")
     # books = atthakatha_books
@@ -102,11 +112,17 @@ def main():
             found_count += 1
             found_list.append(f"[red]{found_count}. {word}, {count}")
 
-        if len(found_list) == 100:
+        if len(found_list) == 50:
             for f in found_list:
                 print(f)
             found_list.clear()
-            input()
+            pr.green("press enter to continue, q to quit")
+            response = input()
+            if response.strip().lower() == "q":
+                pr.toc()
+                return
+
+    pr.toc()
 
 
 if __name__ == "__main__":

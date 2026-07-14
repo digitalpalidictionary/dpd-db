@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-"""Rename a root in the dpd_roots table and dpd_headwords tables"""
+"""Rename a root key in both dpd_roots and dpd_headwords tables.
 
-from rich import print
+Edit `before` and `after` in main(), then run:
+    uv run scripts/fix/family_root_rename.py
+"""
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot
@@ -10,7 +12,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def main():
+def main() -> None:
     pr.yellow_title("rename family root")
 
     before = "√rañj 1"
@@ -24,7 +26,7 @@ def main():
     roots_query = db_session.query(DpdRoot).filter_by(root=before).first()
     if roots_query:
         roots_query.root = after
-        print(roots_query.root)
+        pr.green(f"  dpd_roots: {roots_query.root}")
 
     # ----- rename dpd_headwords table -----
 
@@ -32,9 +34,10 @@ def main():
     for i in db:
         if i.root_key == before:
             i.root_key = after
-            print(i, i.family_root)
+            pr.green(f"  {i} — {i.family_root}")
 
     db_session.commit()
+    db_session.close()
 
 
 if __name__ == "__main__":

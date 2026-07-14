@@ -9,13 +9,14 @@ during review are recorded in pass2exceptions.json and never shown again.
 """
 
 import json
+from collections.abc import Iterator
 from dataclasses import dataclass, field
 
 import pyperclip
 from pathlib import Path
 
 from rich.console import Console
-from sqlalchemy.orm import defer
+from sqlalchemy.orm import Session, defer
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
@@ -86,12 +87,12 @@ def build_word_to_phrases(exceptions: set[str]) -> dict[str, set[str]]:
     return word_to_phrases
 
 
-def chunk(items: list[str], size: int):
+def chunk(items: list[str], size: int) -> Iterator[list[str]]:
     for start in range(0, len(items), size):
         yield items[start : start + size]
 
 
-def get_word_to_ids(db_session, words: list[str]) -> dict[str, list[int]]:
+def get_word_to_ids(db_session: Session, words: list[str]) -> dict[str, list[int]]:
     word_to_ids: dict[str, list[int]] = {}
     for batch in chunk(words, BATCH_SIZE):
         rows = db_session.query(Lookup).filter(Lookup.lookup_key.in_(batch)).all()
@@ -102,7 +103,7 @@ def get_word_to_ids(db_session, words: list[str]) -> dict[str, list[int]]:
     return word_to_ids
 
 
-def get_headword_infos(db_session, ids: list[int]) -> dict[int, HeadwordInfo]:
+def get_headword_infos(db_session: Session, ids: list[int]) -> dict[int, HeadwordInfo]:
     infos: dict[int, HeadwordInfo] = {}
     for batch in chunk([str(i) for i in ids], BATCH_SIZE):
         int_batch = [int(i) for i in batch]
@@ -158,7 +159,9 @@ def build_items(
     return items
 
 
-def analyse(db_session, exceptions: set[str], kept: set[str]) -> list[WordItem]:
+def analyse(
+    db_session: Session, exceptions: set[str], kept: set[str]
+) -> list[WordItem]:
     word_to_phrases = build_word_to_phrases(exceptions)
     word_to_ids = get_word_to_ids(db_session, list(word_to_phrases))
     all_ids = sorted({i for ids in word_to_ids.values() for i in ids})
@@ -192,7 +195,10 @@ def display_item(
 
 
 def run_tui(
-    path: Path, exceptions: set[str], items: list[WordItem], kept: set[str]
+    path: Path,
+    exceptions: set[str],
+    items: list[WordItem],
+    kept: set[str],
 ) -> None:
     total = len(items)
     deleted: set[str] = set()

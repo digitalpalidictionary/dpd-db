@@ -11,10 +11,9 @@ Scripts in this folder follow a "Staging and Ingestion" pattern:
 4.  **Transaction:** Writing the new records into the SQLite database in a safe, atomic operation.
 
 ## Relationships & Data Flow
-- **Source:** Pulls from **shared_data/additions.tsv** and external Pāḷi text resources in **resources/**.
+- **Source:** Pulls from external Pāḷi text resources in **resources/**.
 - **Destination:** Populates the `DpdHeadword` table in **db/**.
 - **Validation:** Newly added words are immediately subject to the integrity checks in **db_tests/**.
 
 ## Interface
-- **Process Additions:** `uv run python scripts/add/add_additions_to_db.py`
 - **Targeted Additions:** Use scripts like `add_words_ebts.py` when focusing on specific literary layers.

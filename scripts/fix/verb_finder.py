@@ -409,14 +409,13 @@ def _selftest_parse_grammar() -> None:
 
 
 def main() -> None:
+    pr.yellow_title("verb finder")
     pr.tic()
     _selftest_parse_grammar()
 
     pth = ProjectPaths()
     db = get_db_session(pth.dpd_db_path)
     output_dir = pth.temp_dir / "verb_finder"
-
-    pr.green_title("verb_finder (exploratory)")
 
     pr.white("building pr verb index")
     pr_index, pr_lemma_map = build_pr_verb_index(db)

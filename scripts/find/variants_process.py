@@ -30,6 +30,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.db_search_string import db_search_string
 from tools.goldendict_tools import open_in_goldendict
+from tools.synonym_variant import assign_relationship
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -130,34 +131,6 @@ def _show_result(hw: DpdHeadword) -> None:
     print(f"[green]{_format_fields(hw)}")
 
 
-def _assign(hw: DpdHeadword, other: str, target: str) -> None:
-    """Assign other to target field on hw, maintaining field consistency rules."""
-    syn = _split_field(hw.synonym)
-    var = _split_field(hw.variant)
-    var_phon = _split_field(hw.var_phonetic)
-    var_text = _split_field(hw.var_text)
-
-    if target == "synonym":
-        syn.add(other)
-        var_phon.discard(other)
-        if other not in var_text and other not in var_phon:
-            var.discard(other)
-
-    elif target == "var_phonetic":
-        var_phon.add(other)
-        var.add(other)
-        syn.discard(other)
-
-    elif target == "var_text":
-        var_text.add(other)
-        var.add(other)
-
-    hw.synonym = ", ".join(sorted(syn))
-    hw.variant = ", ".join(sorted(var))
-    hw.var_phonetic = ", ".join(sorted(var_phon))
-    hw.var_text = ", ".join(sorted(var_text))
-
-
 def _assign_pair(
     hw: DpdHeadword,
     variant: str,
@@ -165,16 +138,9 @@ def _assign_pair(
     field_name: str,
 ) -> None:
     """Assign bidirectionally: source gets variant, target gets hw.lemma_clean."""
-    _assign(hw, variant, field_name)
+    assign_relationship(hw, variant, field_name)
     if target is not None:
-        _assign(target, hw.lemma_clean, field_name)
-
-
-def _remove_from_variant(hw: DpdHeadword, variant: str) -> None:
-    parts = [
-        v.strip() for v in hw.variant.split(",") if v.strip() and v.strip() != variant
-    ]
-    hw.variant = ", ".join(parts)
+        assign_relationship(target, hw.lemma_clean, field_name)
 
 
 # ── entry dataclass ───────────────────────────────────────────────────────────
@@ -394,7 +360,7 @@ def main() -> None:
             db.commit()
 
         elif choice == "d":
-            _remove_from_variant(hw, variant)
+            assign_relationship(hw, variant, "delete")
             _show_result(hw)
             if target:
                 _show_result(target)

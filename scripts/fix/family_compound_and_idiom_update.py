@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Update the family_compound and family_idioms column in DpdHeadword with a new value."""
+"""Rename a family_compound/family_idioms entry across all headwords.
+Edit find/replace below, then run for each rename job."""
 
 import re
 
@@ -15,9 +16,9 @@ find: str = "dissati"
 replace: str = "dissati1"
 
 
-def main():
+def main() -> None:
     pr.tic()
-    print("[bright_yellow]update compound family and family idiom")
+    pr.yellow_title("update compound family and family idiom")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()

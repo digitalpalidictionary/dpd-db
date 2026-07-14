@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-"""Quick starter template for getting a database session and iterating thru."""
+"""
+Template for quickly getting a database session and iterating over headwords.
+"""
 
 from rich import print
 
@@ -9,11 +11,12 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
-def main():
+def main() -> None:
+    """Print the lemma of every headword that has sutta info attached."""
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).all()
-    for counter, i in enumerate(db):
+    headwords = db_session.query(DpdHeadword).all()
+    for i in headwords:
         if i.su is not None:
             print(i.lemma_1)
 

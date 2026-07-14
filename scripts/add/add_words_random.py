@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
-"""Find a random word
-- without meaning_1
-- without example_1
+"""Pick a random word missing source_1 or example_1, for manual editing in gui2.
+
+Copies each pick's lemma_1 to the clipboard. Press enter for another random
+pick, or `x` to quit.
 """
 
 from random import randrange
+
 import pyperclip
 from rich import print
 
@@ -15,29 +17,26 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def main():
-    """Compile a list of words that are
-    - without meaning_1
-    - without example_1"""
-
+def main() -> None:
+    """Loop picking a random word missing source_1 or example_1."""
     pr.yellow_title("pick a random word to add")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).all()
 
-    no_meaning: list = []
-    no_example: list = []
-    all_missing: list = []
+    no_source: list[int] = []
+    no_example: list[int] = []
+    all_missing: list[int] = []
 
     for i in db:
-        if not i.meaning_1:
-            no_meaning.append(i.id)
+        if not i.source_1:
+            no_source.append(i.id)
         if not i.example_1:
             no_example.append(i.id)
 
     all_missing.extend(no_example)
-    all_missing.extend(no_meaning)
+    all_missing.extend(no_source)
     print(len(set(all_missing)))
 
     user_input = ""
@@ -45,7 +44,9 @@ def main():
         random_number = randrange(len(all_missing))
         random_id = all_missing[random_number]
         word = db_session.query(DpdHeadword).filter_by(id=random_id).first()
-        pyperclip.copy(word.lemma_1)  # type: ignore[union-attr]
+        if word is None:
+            continue
+        pyperclip.copy(word.lemma_1)
         print(word)
         user_input = input()
 

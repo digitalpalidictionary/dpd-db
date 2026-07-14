@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 
-"""Find a word in early texts which needs to be added."""
+"""Find words in early Buddhist texts (EBTs) that are missing from DPD.
+
+Builds a word set from CST + SC + BJT sources, cross-references against
+inflections of entries lacking meaning_1 or example_1, then opens each
+missing word in Goldendict and copies it to clipboard for manual entry.
+
+Run:
+    uv run scripts/add/add_words_ebts.py
+"""
 
 from typing import cast
 
@@ -65,7 +73,7 @@ class GlobalVars:
     ]
 
 
-def make_ebt_word_set(g: GlobalVars):
+def make_ebt_word_set(g: GlobalVars) -> set[str]:
     cst_text_set = make_cst_text_set(g.pth, g.ebts)
     sc_text_set = make_sc_text_set(g.pth, g.ebts)
     bjt_text_set: set[str] = cast(set[str], make_bjt_text_list(g.ebts, "set"))
@@ -75,20 +83,24 @@ def make_ebt_word_set(g: GlobalVars):
     return all_words
 
 
-def make_dpd_missing_set(g: GlobalVars):
+def make_dpd_missing_set(g: GlobalVars) -> set[str]:
     pr.green_tmr("missing words in dpd")
     db = g.db_session.query(DpdHeadword).all()
-    missing_words = []
+    missing_words: list[str] = []
     for i in db:
         if not i.meaning_1 or not i.example_1:
             missing_words.extend(i.inflections_list)
-    missing_words = set(missing_words)
-    pr.yes(len(missing_words))
-    return missing_words
+    missing_words_set = set(missing_words)
+    pr.yes(len(missing_words_set))
+    return missing_words_set
 
 
-def main():
+def main() -> None:
     pr.yellow_title("find missing words in ebts")
+    pr.white(
+        "iterate through missing words in EBTs; "
+        "press q to quit, any other key to continue"
+    )
 
     g = GlobalVars()
     ebt_word_set = make_ebt_word_set(g)
@@ -106,19 +118,20 @@ def main():
         .all()
     )
 
+    counter = 0
     for i in ebt_db:
         for inflection in i.inflections_list_all:
             if inflection in missing_words_in_ebts:
+                counter += 1
+                if counter % 5 == 0:
+                    pr.white("press q to quit")
                 open_in_goldendict(inflection)
                 pyperclip.copy(inflection)
                 print(inflection)
                 user_input = input()
-                if user_input == "x":
+                if user_input == "q":
                     return
 
 
 if __name__ == "__main__":
     main()
-
-
-# TODO add all words in compounds once this list is done.

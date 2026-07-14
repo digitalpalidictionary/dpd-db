@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 
-"""Find words in commentaries that are not in the lookup table, sorted by frequency."""
+"""Find words in commentaries that are not in the lookup table, sorted by frequency.
+
+Run via `just find_comm`. Prompts for which CST commentary books to scan, then
+walks through the missing words interactively, copying each to the clipboard.
+"""
 
 import json
-import pyperclip
-from pathlib import Path
 from dataclasses import dataclass, field
+from pathlib import Path
+
+import pyperclip
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -18,7 +23,7 @@ from tools.tsv_read_write import write_tsv_list
 
 @dataclass
 class FinderData:
-    commentray_books: list[str] = field(default_factory=list)
+    commentary_books: list[str] = field(default_factory=list)
     pth: ProjectPaths = field(default_factory=ProjectPaths)
     frequency_dict: dict[str, int] = field(default_factory=dict)
     lookup_words: set[str] = field(default_factory=set)
@@ -30,6 +35,7 @@ class FinderData:
 
 
 def load_combined_frequency(data: FinderData) -> None:
+    """Load and combine word-frequency counts from the CST frequency JSON."""
     pr.green_tmr("loading frequency files")
 
     freq_files = [
@@ -52,6 +58,7 @@ def load_combined_frequency(data: FinderData) -> None:
 
 
 def get_lookup_words(data: FinderData) -> None:
+    """Fetch every lookup key already present in the `lookup` table."""
     pr.green_tmr("getting words from lookup table")
     db_session = get_db_session(data.pth.dpd_db_path)
     lookup_db = db_session.query(Lookup.lookup_key).all()
@@ -60,11 +67,13 @@ def get_lookup_words(data: FinderData) -> None:
 
 
 def get_commentary_words(data: FinderData) -> None:
+    """Build the set of words appearing in the selected CST commentary books."""
     # make_cst_text_set already has its own pr.green/pr.yes
-    data.commentary_words = make_cst_text_set(data.pth, data.commentray_books)
+    data.commentary_words = make_cst_text_set(data.pth, data.commentary_books)
 
 
 def load_ignore_words(data: FinderData) -> None:
+    """Load known spelling mistakes and variant readings to exclude from results."""
     pr.green_tmr("loading spelling mistakes and variants")
     for tsv_path, col_index in [
         (data.pth.spelling_mistakes_path, 0),
@@ -83,12 +92,14 @@ def load_ignore_words(data: FinderData) -> None:
 
 
 def find_missing_words(data: FinderData) -> None:
+    """Compute commentary words absent from both the lookup table and ignore lists."""
     pr.green_tmr("finding missing words")
     data.missing_words = data.commentary_words - data.lookup_words - data.ignore_words
     pr.yes(len(data.missing_words))
 
 
 def add_frequencies_to_words(data: FinderData) -> None:
+    """Attach a corpus frequency count to each missing word."""
     pr.green_tmr("adding frequencies to words")
     data.words_with_freq = {
         word: data.frequency_dict.get(word, 0) for word in data.missing_words
@@ -97,6 +108,7 @@ def add_frequencies_to_words(data: FinderData) -> None:
 
 
 def sort_by_frequency(data: FinderData) -> None:
+    """Sort missing words by frequency descending, then alphabetically for ties."""
     pr.green_tmr("sorting by frequency")
     # Sort by frequency descending, then by word ascending for ties
     data.sorted_results = sorted(
@@ -106,6 +118,7 @@ def sort_by_frequency(data: FinderData) -> None:
 
 
 def save_to_tsv(data: FinderData) -> None:
+    """Write the sorted missing-word/frequency list to a TSV in the temp dir."""
     pr.green_tmr("saving to tsv")
     tsv_path = data.pth.temp_dir / "comm_not_in_lookup.tsv"
     header = ["word", "frequency"]
@@ -116,6 +129,7 @@ def save_to_tsv(data: FinderData) -> None:
 
 
 def run_interactive_loop(data: FinderData) -> None:
+    """Step through the missing words, copying each to the clipboard on enter."""
     total = len(data.sorted_results)
     print(f"found {total} missing words")
     print("press [blue]enter[/blue] to copy next word, or [blue]q[/blue] to quit")
@@ -133,6 +147,7 @@ def run_interactive_loop(data: FinderData) -> None:
 
 
 def ask_for_books() -> list[str]:
+    """Prompt for comma-separated CST book codes, falling back to the default set."""
     default_books = [
         "kn7",
         "kn8",
@@ -170,13 +185,14 @@ def ask_for_books() -> list[str]:
     return [b.strip() for b in response.split(",") if b.strip()]
 
 
-def main():
+def main() -> None:
+    """Run the interactive commentary-words-not-in-lookup finder."""
     pr.tic()
     pr.yellow_title("commentary words not found in the lookup table")
 
     books = ask_for_books()
     data = FinderData()
-    data.commentray_books = books
+    data.commentary_books = books
 
     load_combined_frequency(data)
     get_lookup_words(data)

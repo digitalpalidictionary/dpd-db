@@ -95,11 +95,6 @@ add-variants-phonetic:
 variants-processor:
     uv run python scripts/find/variants_process.py
 
-# Review pass2 exceptions that block examples for meaningless headwords
-alias pass2 := pass2-exceptions
-pass2-exceptions:
-    uv run python scripts/fix/pass2exceptions.py
-
 # Run ruff linter and formatter (excludes archive/ and resources/)
 lint:
     uv run ruff check . --exclude archive --exclude resources

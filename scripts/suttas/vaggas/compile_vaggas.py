@@ -7,18 +7,21 @@ failure reason and empty sutta-metadata columns so nothing gets silently lost.
 """
 
 import csv
+import re
 import sys
 from collections import defaultdict
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
-from scripts.add.vagga_codes.shared import ANY_CODE_RE, DPD_CODE_RE
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 pth = ProjectPaths()
 SUTTA_INFO_TSV = pth.sutta_info_tsv_path
 OUTPUT_TSV = pth.compile_vaggas_tsv_path
+
+DPD_CODE_RE = re.compile(r"^([A-Za-z]+)(\d+)(?:\.(\d+))?")
+ANY_CODE_RE = re.compile(r"\(([A-Za-z]+\d+(?:\.\d+)?(?:-(?:\d+\.)?\d+)?)\)")
 
 
 def first_sutta_from_range(dpd_code: str) -> str | None:

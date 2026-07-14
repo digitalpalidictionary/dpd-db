@@ -1,4 +1,28 @@
-"""Find and fix issues in the variant column of DpdHeadword."""
+"""Audit the `variant` column of DpdHeadword for data-quality issues.
+
+Each DpdHeadword has a `variant` field listing spelling variants — words
+that are alternate spellings of the same lemma but are NOT inflections.
+Variants should point to real headwords (by lemma_clean) and should not
+duplicate forms that are already generated inflections.
+
+This script runs three read-only checks and prints the results:
+
+1. has_lookup_no_lemma_clean — variant words that exist in the lookup table
+   (so a user can find them) but have no matching lemma_clean headword.
+   These are "dirty" variants: the lookup entry resolves to nothing.
+
+2. no_lemma_clean — variant words that don't match any lemma_clean at all,
+   whether or not they're in lookup. Broader catch than check 1.
+
+3. is_inflection — variant words that are actually inflected forms of their
+   own headword. These are redundant: inflections are already generated
+   automatically and shouldn't be listed as variants.
+
+Usage:
+    uv run scripts/fix/variant_cleaner.py
+
+No data is modified — review the output and fix entries manually in gui2.
+"""
 
 from pathlib import Path
 
@@ -94,9 +118,13 @@ def is_inflection(db_path: Path) -> None:
     db.close()
 
 
-if __name__ == "__main__":
+def main() -> None:
     pth = ProjectPaths()
     db_path = pth.dpd_db_path
     has_lookup_no_lemma_clean(db_path)
     no_lemma_clean(db_path)
     is_inflection(db_path)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,17 +1,30 @@
+"""Report coverage stats on the missing-word TSV produced by the `_1_finder` script.
+
+Shows how many words are needed to cover successive occurrence-count
+milestones, and what percentage of total occurrences is covered every 5000
+words.
+"""
+
+from typing import Any
+
 from rich import print
 
+from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_dict
 
 
-def open_file():
+def open_file() -> list[dict[str, Any]]:
+    """Load the current missing-words TSV, falling back to the old one."""
+    pth = ProjectPaths()
     try:
-        return read_tsv_dict("scripts/find/most_common_missing_words.tsv")
+        return read_tsv_dict(str(pth.most_common_missing_words_tsv_path))
     except FileNotFoundError:
         return read_tsv_dict("scripts/find/most_common_missing_words_old.tsv")
 
 
-def get_stats(data):
-    total_dict = {}
+def get_stats(data: list[dict[str, Any]]) -> dict[Any, Any]:
+    """Return the word-index at which running occurrence totals cross fixed milestones."""
+    total_dict: dict[Any, Any] = {}
     total_dict["word#"] = "total"
     running_total = 0
     k25000 = True
@@ -37,8 +50,9 @@ def get_stats(data):
     return total_dict
 
 
-def get_stats2(data):
-    total_dict = {}
+def get_stats2(data: list[dict[str, Any]]) -> dict[int, float]:
+    """Return the running percentage of total occurrences covered every 5000 words."""
+    total_dict: dict[int, float] = {}
     running_total = 0
     for num, i in enumerate(data):
         running_total += int(i["count"])
@@ -55,7 +69,8 @@ def get_stats2(data):
     return total_dict
 
 
-def main():
+def main() -> None:
+    """Print coverage-milestone and percentage-coverage stats for the missing-words TSV."""
     data = open_file()
 
     totals_dict = get_stats(data)

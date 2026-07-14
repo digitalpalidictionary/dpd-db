@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-"""Quick starter template for getting a database session and iterating thru."""
+"""Report headwords with no example_1, bucketed into compound / root / family_word /
+unclassified counts."""
 
 import re
 
@@ -10,7 +11,7 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 
 
-def main():
+def main() -> None:
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     db = db_session.query(DpdHeadword).filter(DpdHeadword.example_1 == "").all()
@@ -18,7 +19,7 @@ def main():
     words = 0
     roots = 0
     huh = 0
-    for counter, i in enumerate(db):
+    for i in db:
         if re.findall(r"\bcomp\b", i.grammar):
             compounds += 1
         elif i.root_key:

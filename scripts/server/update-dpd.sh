@@ -17,7 +17,7 @@ uv sync
 
 echo "=== 4. Updating Data (Audio & Translations) ==="
 uv run python audio/db_release_download.py
-# uv run python resources/tipitaka_translation_db/download_and_unzip_db.
+# uv run python resources/tipitaka_translation_db/download_and_unzip_db.py
 
 echo "=== 5. Downloading Latest dpd.db ==="
 wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
