@@ -77,6 +77,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._eg_checkboxes: dict[str, ft.Checkbox] = {}
         self._eg_prefills: dict[str, dict[str, str]] = {}
         self._eg_comment: str = ""
+        self._eg_paste_field: ft.TextField | None = None
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
         self.current_correction: dict | None = None
@@ -1156,7 +1157,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 for word in find_missing_meanings(self._db.db_session, text, level=3)
                 if word not in seen
                 and word != word_to_save.lemma_1
-                and not self.pass2_eg_manager.is_queued(word)
+                and not self._is_eg_queued(word)
             ]
             if not found:
                 continue
@@ -1166,6 +1167,30 @@ class Pass2AddView(ft.Column, PopUpMixin):
             }
             sections.append((text, section_words))
         return sections
+
+    def _is_eg_queued(self, word: str) -> bool:
+        """Match on clean form so a queued 'uppāṭita' also covers 'uppāṭita 1'
+        and vice versa — the queue is one entry per word, homonyms get sorted
+        out when the word is actually worked on."""
+
+        clean = clean_lemma_1(word)
+        return any(
+            clean == clean_lemma_1(queued)
+            for queued in self.pass2_eg_manager.eg_words_dict
+        )
+
+    @staticmethod
+    def _parse_pasted_words(text: str) -> list[str]:
+        """Split pasted text on spaces, commas and newlines, keeping trailing
+        homonym numbers ('uppāṭita 1', 'kata 1.1') with their word."""
+
+        words: list[str] = []
+        for token in text.replace(",", " ").split():
+            if words and token.replace(".", "").isdigit():
+                words[-1] = f"{words[-1]} {token}"
+            else:
+                words.append(token)
+        return words
 
     def _show_missing_words_dialog(self, word_to_save: DpdHeadword) -> None:
         """After a successful save, list missing words found in the saved word's
@@ -1206,6 +1231,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     )
                 )
 
+        self._eg_paste_field = ft.TextField(
+            label="paste words to add",
+            dense=True,
+            text_size=12,
+        )
+
         self._eg_alert = ft.AlertDialog(
             modal=True,
             content=ft.Column(
@@ -1217,6 +1248,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         scroll=ft.ScrollMode.AUTO,
                         expand=True,
                     ),
+                    self._eg_paste_field,
                 ],
                 height=500,
                 width=500,
@@ -1238,6 +1270,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     word, self._eg_prefills[word], self._eg_comment
                 )
                 added += 1
+        if self._eg_paste_field and self._eg_paste_field.value:
+            for word in self._parse_pasted_words(self._eg_paste_field.value):
+                if not self._is_eg_queued(word):
+                    self.pass2_eg_manager.add_word(word, {}, self._eg_comment)
+                    added += 1
         self._close_eg_alert()
         self.update_message(f"eg: {added} added")
 
