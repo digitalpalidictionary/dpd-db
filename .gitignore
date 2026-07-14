@@ -135,3 +135,4 @@ token.json
 # pass2x diagnostic step TSVs (regeneratable, can be large)
 gui2/pass2x/data/
 /scripts/fix/pass2exceptions.json
+/gui2/data/pass2_eg_words.json
