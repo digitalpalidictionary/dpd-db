@@ -466,7 +466,8 @@ def main() -> None:
         for row in rows:
             if row["lemma_1"] in targets:
                 pr.white(
-                    f"  [{name}] {row['lemma_1']} | grammar='{row['grammar_current']}' "
+                    # \\[ renders a literal '[' in rich markup so the bucket name isn't swallowed
+                    f"  \\[{name}] {row['lemma_1']} | grammar='{row['grammar_current']}' "
                     f"| proposed='{row.get('grammar_proposed', '')}'"
                 )
 
