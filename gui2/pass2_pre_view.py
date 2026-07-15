@@ -134,6 +134,10 @@ class Pass2PreProcessView(ft.Column):
             value=True,
             on_change=self.handle_exceptions_toggle,
         )
+        self.in_comps_switch = ft.Switch(
+            label="in comps",
+            value=False,
+        )
         self.examples_count_field = ft.TextField(
             "",
             width=60,
@@ -151,6 +155,7 @@ class Pass2PreProcessView(ft.Column):
                         "PreProcess Book",
                         on_click=self.handle_book_click,
                     ),
+                    self.in_comps_switch,
                     self.preprocessed_count_field,
                     self.search_bar,
                 ],
@@ -260,11 +265,15 @@ class Pass2PreProcessView(ft.Column):
             self.controller.find_words_with_missing_examples(
                 self.books_dropdown.value,
                 self.toolkit.paths,
+                in_comps=bool(self.in_comps_switch.value),
             )
             self.controller.load_next_word()
 
     def handle_yes_click(self, e):
-        headword_id = self.controller.headwords[self.controller.headword_index].id
+        headword = self.controller.current_headword()
+        if headword is None:
+            return
+        headword_id = headword.id
         sentence: SuttaCentralSegment | CstSourceSuttaExample | None = None
 
         if (
@@ -278,7 +287,7 @@ class Pass2PreProcessView(ft.Column):
             return
 
         message = self.controller.file_manager.update_matched(
-            self.controller.word_in_text, headword_id, sentence
+            self.controller.current_source_word(), headword_id, sentence
         )
         self.update_message(message)
 
@@ -286,9 +295,12 @@ class Pass2PreProcessView(ft.Column):
         self.controller.load_next_headword()
 
     def handle_no_click(self, e):
+        headword = self.controller.current_headword()
+        if headword is None:
+            return
         message = self.controller.file_manager.update_unmatched(
-            self.controller.word_in_text,
-            self.controller.headwords[self.controller.headword_index].id,
+            self.controller.current_unmatched_key(),
+            headword.id,
         )
         self.update_message(message)
         self.selected_sentence_index = 0
@@ -420,6 +432,7 @@ class Pass2PreProcessView(ft.Column):
                 pali = example.example
                 english = ""
 
+            pali_normalized = pali.lower().replace("ṁ", "ṃ")
             example_controls.append(
                 ft.Column(
                     controls=[
@@ -440,10 +453,12 @@ class Pass2PreProcessView(ft.Column):
                         ft.Container(
                             content=ft.Text(
                                 spans=highlight_terms(
-                                    pali.lower().replace("ṁ", "ṃ"),
+                                    pali_normalized,
                                     [
                                         (
-                                            self.controller.word_in_text,
+                                            self.controller.highlight_term_for(
+                                                pali_normalized
+                                            ),
                                             HIGHLIGHT_COLOUR,
                                         ),
                                         (self.search_query, ft.Colors.AMBER),

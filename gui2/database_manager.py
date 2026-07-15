@@ -56,6 +56,10 @@ class DatabaseManager:
         self.all_inflections_missing_example: set[str] = set()
         self.all_suffixes: set[str] = set()
 
+        # for pass2 preprocessor "in comps" mode
+        self.compound_components_map: dict[str, list[str]] = {}
+        self._components_gen: int = -1
+
         # only need these later
         self.all_lemma_1: set[str] | None = None
         self.all_lemma_clean: set[str] | None = None
@@ -344,6 +348,38 @@ class DatabaseManager:
         self.all_inflections_missing_example = all_inflections_missing_example
         self.all_suffixes = all_suffixes
         self._pass2_gen = self._corpus_gen
+
+    def make_compound_components_map(self) -> None:
+        """Map every inflection of a compound headword to its construction
+        components, for the pass2 preprocessor's "in comps" mode.
+
+        Rebuilds only when the corpus was reloaded since the last derive."""
+
+        self.make_pass2_lists()
+        corpus = self.load_corpus()
+        if self._components_gen == self._corpus_gen:
+            return
+
+        compound_components_map: dict[str, list[str]] = {}
+        for i in corpus:
+            if not re.findall(r"\bcomp\b", i.grammar):
+                continue
+            parts = i.construction_line1_clean_list
+            if len(parts) < 2:
+                continue
+            components = [
+                word for word in parts if word and word not in self.all_suffixes
+            ]
+            if not components:
+                continue
+            for inflection in i.inflections_list_all:
+                # inflections_list_all contains "" when either inflections
+                # column is empty — never map the empty string
+                if inflection:
+                    compound_components_map[inflection] = components
+
+        self.compound_components_map = compound_components_map
+        self._components_gen = self._corpus_gen
 
     def get_headwords(self, word_in_text: str) -> list[DpdHeadword]:
         """Find headwords which match the inflection."""
