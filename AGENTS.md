@@ -288,6 +288,10 @@ To fully rebuild from scratch (requires Claude Code session tokens):
 /graphify
 ```
 
+## Mobile DB export flags
+- The local justfile recipes `export-mobile` (dpd-db) and `build-db` (dpd-flutter-app) MUST pass the same `mobile_exporter.py` flags (`--cone --peu --wordnet`) so a local build equals the packaged DB. Keep both in sync when changing flags.
+- The CI release workflows (`mobile_release.yml`, `draft_release.yml`) intentionally pass fewer flags to ship a leaner public DB — do not align them to the full local set unless deliberately changing what the public release ships.
+
 ## other-dictionaries submodule
 - To update ONE dictionary's source, recompress only that dictionary (scoped `tar` + `zstd -19` of its `source/` dir). NEVER run `scripts/compress_sources.py` for a single-dict update — it recompresses every dictionary, and because tar embeds mtimes, even unchanged sources produce new `.tar.zst` bytes (spurious apte/cone/etc. diffs).
 

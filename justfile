@@ -141,7 +141,7 @@ export-variants:
 
 # Export mobile SQLite database for DPD Flutter app
 export-mobile:
-    uv run python exporter/mobile/mobile_exporter.py
+    uv run python exporter/mobile/mobile_exporter.py --cone --peu --wordnet
 
 # Export TPR data for Tipitaka Pali Reader
 export-tpr:
