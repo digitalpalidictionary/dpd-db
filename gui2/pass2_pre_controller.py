@@ -12,8 +12,8 @@ from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
 from tools.cst_source import (
     CstSourceSuttaExample,
-    find_cst_source_sutta_example,
 )
+from tools.cst_source.corpus_index import CstSourceIndex
 from tools.goldendict_tools import open_in_goldendict
 
 
@@ -41,6 +41,7 @@ class Pass2PreController:
 
         # Initialize empty containers for data that will be loaded later
         self.cst_books: list[str] = []
+        self._cst_index: CstSourceIndex | None = None
         self.sc_book: str = ""
         self.all_cst_words: list[str] = []
         self.missing_examples_dict: dict[
@@ -73,6 +74,7 @@ class Pass2PreController:
         self.file_manager = Pass2PreFileManager(book, paths)
         self.sc_book = sutta_central_books[book].sc_book
         self.cst_books = sutta_central_books[book].cst_books
+        self._cst_index = None
         self.get_all_cst_words()
         self.make_all_words_dict()
         self.add_sc_words()
@@ -232,11 +234,14 @@ class Pass2PreController:
 
     def get_cst_examples(self):
         if self.word_in_text:
-            examples: list[CstSourceSuttaExample] = []
+            index = self._cst_index
+            if index is None:
+                index = CstSourceIndex(self.cst_books)
+                self._cst_index = index
             regex_word_in_text = rf"\b{self.word_in_text}\b"
-            for book in self.cst_books:
-                examples.extend(find_cst_source_sutta_example(book, regex_word_in_text))
-            self.missing_examples_dict[self.word_in_text] = examples
+            self.missing_examples_dict[self.word_in_text] = index.find_examples(
+                regex_word_in_text
+            )
         else:
             self.ui.update_message("word_in_text is empty!")
 

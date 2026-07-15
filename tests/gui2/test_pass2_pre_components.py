@@ -333,15 +333,16 @@ def test_highlight_term_for_regular_word_never_shortened(
 
 
 def test_examples_search_for_the_compound_itself(
-    controller: Pass2PreController, monkeypatch: pytest.MonkeyPatch
+    controller: Pass2PreController,
 ):
     captured: list[str] = []
 
-    def fake_finder(book: str, regex: str) -> list:
-        captured.append(regex)
-        return []
+    class FakeIndex:
+        def find_examples(self, regex: str) -> list:
+            captured.append(regex)
+            return []
 
-    monkeypatch.setattr(controller_module, "find_cst_source_sutta_example", fake_finder)
+    controller._cst_index = FakeIndex()  # type: ignore[assignment]
     controller.cst_books = ["mn1"]
     controller.comps_components = {"sīlakkhandha": ["sīla"]}
     controller.word_in_text = "sīlakkhandha"

@@ -57,6 +57,7 @@ Read the relevant spec before working in an unfamiliar area.
 ## Imports
 - NEVER use `sys.path` hacks or manual directory traversal (e.g., `Path(__file__).resolve().parents[n]`) to handle absolute imports.
 - Assume the script will be run from the project root or within a correctly configured environment where absolute imports work naturally.
+- `.gitignore` ignores ALL `__init__.py` files repo-wide, so a package `__init__.py` re-export can never be committed. In tracked code, import new symbols from their concrete module (`from tools.cst_source.corpus_index import CstSourceIndex`), never from a package `__init__.py` you just edited.
 
 ## Go
 - `go_modules/` has many `package main` directories (`frequency/`, `frequency/setup/`, `deconstructor/`, etc.). Never run `go build ./go_modules/<single-package-path>/` for a compile check — with no `-o` and exactly one main-package target, Go writes a binary to the current directory named after the package, littering the repo root with untracked multi-MB binaries. Use `go build ./go_modules/...` (compiles everything, writes no binaries because multiple main packages are targeted) or `go vet` for compile checks, or always pass `-o <scratchpad-path>` when a single package must be built.

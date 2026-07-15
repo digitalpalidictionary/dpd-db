@@ -53,6 +53,31 @@ benchmark is B's build cost and per-word search time, plus a complexity
 assessment of the gatha path). The decision and its rationale get recorded
 HERE in this spec before implementation starts.
 
+### DECISION (2026-07-15): Method B — per-session corpus index
+
+Benchmark (scratchpad `bench_cst_index.py`, all 11 AN books, 20 sample words
+mixing high/low frequency and gatha-heavy):
+
+- **Index build: 1.41s one-off** (10,456 rows, ~3.0M chars ≈ single-digit MB —
+  memory is a non-issue). 1.0s of that is ONE malformed gatha element in an6
+  hitting `find_gatha_example`'s existing 1s stuck-loop guard; all other books
+  build in 0.01–0.07s.
+- **Per-word search: avg 34ms, max 124ms** (the max is `evaṃ`, 1865 results —
+  real missing-example words are rare and sit at ~25ms). Baseline synchronous
+  path: avg 0.48s per word. ~14× faster and under the <100ms goal.
+- **Output: 20/20 words byte-identical** to `find_cst_source_sutta_example`,
+  including 4 gatha words. The gatha "complexity" dissolved: a gatha example
+  depends only on the element (the word argument is used only in an error
+  message), so it can be precomputed at build time, cached per gatha1 element,
+  with the stuck-loop guard reproduced exactly.
+
+Rationale: B eliminates the wait for every word after the first (the first
+word pays the ~1.4s index build, comparable to today's single fetch) rather
+than hiding it, and — unexpectedly — is *simpler* than A: no background thread, no lock,
+no user-outpaces-prefetch race. A is rejected as the more complex option with
+a worse result. `find_cst_source_sutta_example` stays untouched for other
+callers; the index is a new module beside it.
+
 ## What it should do (whichever method wins)
 
 1. Clicking Yes/No/Pass on the last headword of a word shows the next word
