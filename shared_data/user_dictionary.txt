@@ -132,6 +132,7 @@ Ambaṭṭha
 amberalla
 amenable
 amla
+ampeloprasum
 amra
 amūḷhapaññassa
 ana
@@ -490,6 +491,7 @@ censures
 centered
 centeredness
 centre
+cepa
 ceramicist
 cerasoides
 Ceta
@@ -965,6 +967,7 @@ firma
 firstness
 fisherman's
 fissured
+fistulosum
 flambeau
 flatterer
 flaviviridis
@@ -2448,6 +2451,7 @@ Saṅkha
 scandens
 scatteredness
 schismatic
+schoenoprasum
 Scholaris
 scourer
 SCPN
@@ -2578,6 +2582,7 @@ stillbirth
 stiller
 stinginess
 stinkiness
+stipitatum
 straightforwardness
 straightness
 strategized
@@ -2822,6 +2827,7 @@ trisulphide
 Triticum
 tta
 tuber
+tuberosum
 tulsi
 tumours
 turbanned
