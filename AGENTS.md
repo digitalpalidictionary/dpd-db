@@ -142,6 +142,8 @@ Key SQLAlchemy classes and their roles:
 
 **Key `DpdHeadword` columns:** `id`, `lemma_1` (unique headword), `pos`, `meaning_1`, `root_key`, `family_root`, `family_compound`, `stem`, `pattern`, `inflections`, `inflections_html`, `construction`
 
+**Empty-string gotcha:** `DpdHeadword.inflections_list_all` (and the underlying comma-splits) yields `""` entries when either inflections column is empty — always filter empty strings before using inflections as dict keys or set members in derived structures.
+
 Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/models.py`
 
 ---
