@@ -12,9 +12,9 @@ from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
+from tools.pali_text_files import bjt_texts, cst_texts, ebts, sc_texts
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.pali_text_files import bjt_texts, cst_texts, ebts, sc_texts
 
 
 def _sya_is_ebt(key: str) -> bool:

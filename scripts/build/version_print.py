@@ -5,7 +5,7 @@
 from tools.configger import config_read
 
 
-def main():
+def main() -> None:
     print(config_read("version", "version"))
 
 

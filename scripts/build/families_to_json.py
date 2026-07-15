@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 
-"""Export family data to JSON."""
+"""Export all family tables from dpd.db to JSON files for the webapp.
+
+Reads the five family tables (compound, idiom, root, set, word) and writes
+a JSON file for each, formatted as a JS variable assignment for direct
+inclusion in the webapp.
+
+Usage:
+    uv run scripts/build/families_to_json.py
+"""
 
 import json
 from dataclasses import dataclass
@@ -48,6 +56,7 @@ def main() -> None:
 
 
 def json_dumper(filepath: Path, data: dict[str, object]) -> None:
+    """Write data as a `var <stem> = {...}` JS variable to filepath."""
     js_content = (
         f"""var {filepath.stem} = {json.dumps(data, ensure_ascii=False, indent=1)}"""
     )
@@ -55,6 +64,7 @@ def json_dumper(filepath: Path, data: dict[str, object]) -> None:
 
 
 def export_family_compound(g: GlobalVars) -> None:
+    """Export family_compound table to family_compound.json."""
     pr.green_tmr("exporting family_compound.json")
     fc_dict = {}
     for i in g.fc_db:
@@ -64,6 +74,7 @@ def export_family_compound(g: GlobalVars) -> None:
 
 
 def export_family_idiom(g: GlobalVars) -> None:
+    """Export family_idiom table to family_idiom.json."""
     pr.green_tmr("exporting family_idiom.json")
     fi_dict = {}
     for i in g.fi_db:
@@ -73,6 +84,7 @@ def export_family_idiom(g: GlobalVars) -> None:
 
 
 def export_family_root(g: GlobalVars) -> None:
+    """Export family_root table to family_root.json."""
     pr.green_tmr("exporting family_root.json")
     fr_dict = {}
     for i in g.fr_db:
@@ -89,6 +101,7 @@ def export_family_root(g: GlobalVars) -> None:
 
 
 def export_family_set(g: GlobalVars) -> None:
+    """Export family_set table to family_set.json."""
     pr.green_tmr("exporting family_set.json")
     fs_dict = {}
     for i in g.fs_db:
@@ -98,6 +111,7 @@ def export_family_set(g: GlobalVars) -> None:
 
 
 def export_family_word(g: GlobalVars) -> None:
+    """Export family_word table to family_word.json."""
     pr.green_tmr("exporting family_word.json")
     fw_dict = {}
     for i in g.fw_db:

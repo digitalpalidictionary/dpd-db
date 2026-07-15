@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """Rebuild the database from scratch from files in backup_tsv folder."""
 
 import csv
 import sys
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator, List, Tuple
 
 from sqlalchemy.orm.session import Session
 
@@ -17,7 +15,7 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def main():
+def main() -> None:
     pr.tic()
     pr.yellow_title("rebuilding db from tsvs")
 
@@ -28,10 +26,6 @@ def main():
 
     if pth.dpd_db_path.exists():
         pr.red("this will destroy your current database!")
-        # response = input("are you sure you would like to rebuild the db? [y/n] ")
-        # if response != "y":
-        #     return
-        # else:
         pth.dpd_db_path.unlink()
 
     create_db_if_not_exists(pth.dpd_db_path)
@@ -68,7 +62,7 @@ def check_tsv_files(pth: ProjectPaths) -> None:
         sys.exit(1)
 
 
-def get_tsv_files(original_path: Path, base_filename: str) -> List[Path]:
+def get_tsv_files(original_path: Path, base_filename: str) -> list[Path]:
     """Get list of TSV files to process, handling both split and single file formats."""
 
     backup_dir = original_path.parent
@@ -88,7 +82,7 @@ def get_tsv_files(original_path: Path, base_filename: str) -> List[Path]:
     return []
 
 
-def read_tsv_files(file_paths: List[Path]) -> Iterator[Tuple[List[str], List[str]]]:
+def read_tsv_files(file_paths: list[Path]) -> Iterator[tuple[list[str], list[str]]]:
     """Read TSV files and yield (columns, row) tuples."""
     if not file_paths:
         return
@@ -105,7 +99,7 @@ def read_tsv_files(file_paths: List[Path]) -> Iterator[Tuple[List[str], List[str
                     yield columns, row
 
 
-def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
+def make_pali_word_table_data(pth: ProjectPaths, db_session: Session) -> None:
     """Read TSV and return DpdHeadword table data."""
 
     pr.green_tmr("creating DpdHeadword table data")
@@ -124,7 +118,7 @@ def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
     pr.yes(counter)
 
 
-def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
+def make_pali_root_table_data(pth: ProjectPaths, db_session: Session) -> None:
     """Read TSV and return DpdRoot table data."""
 
     pr.green_tmr("creating DpdRoot table data")

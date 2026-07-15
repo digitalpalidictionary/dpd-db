@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 
-"""Rezip the three files DPD into one:
-1. dpd.zip, 2. dpd-grammar.zip, 3. dpd-deconstructor.zip
-1. dpd.mdx .mdd, 2. dpd-grammar.mdx .mdd, 3. dpd-deconstructor.mdx .mdd"""
+"""Bundle the exported GoldenDict, MDict, and Slob files into distribution zips.
+
+Three outputs:
+1. dpd-goldendict.zip — all GoldenDict directories (dpd, grammar, deconstructor, variants)
+2. dpd-mdict.zip — all .mdx/.mdd files
+3. dpd-slob.zip — all .slob files (individual .slobs deleted after archiving)
+
+Usage:
+    uv run scripts/build/zip_goldendict_mdict.py
+"""
 
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile

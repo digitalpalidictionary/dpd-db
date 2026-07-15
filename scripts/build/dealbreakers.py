@@ -3,12 +3,14 @@
 """Fix all the dealbreakers which break exporter code."""
 
 import sys
+
+from sqlalchemy.orm import Session
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
-from tools.printer import printer as pr
 from tools.pos import POS
-from sqlalchemy.orm import Session
+from tools.printer import printer as pr
 
 
 def main() -> None:

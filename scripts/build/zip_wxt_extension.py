@@ -6,7 +6,7 @@ from pathlib import Path
 from tools.printer import printer as pr
 
 
-def build_and_zip():
+def main() -> None:
     pr.tic()
     pr.yellow_title("building and zipping WXT extensions")
 
@@ -40,4 +40,4 @@ def build_and_zip():
 
 
 if __name__ == "__main__":
-    build_and_zip()
+    main()

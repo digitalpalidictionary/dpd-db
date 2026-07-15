@@ -1,173 +1,134 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""
-Transliterate tipitaka.lk texts from Sinhala to Roman script.
-Save as json and text as well as complete books.
-"""
+"""Transliterate tipitaka.lk BJT texts from Sinhala to Roman script and
+save as JSON, text, and complete books. Prerequisite prep step for the
+scripts/suttas/bjt/ pipeline, which reads bjt_roman_json_dir directly.
+Run manually when the BJT submodule updates."""
 
 import json
-from os import walk
-import os
+
 from tools.bjt import get_bjt_file_names, get_bjt_json, process_single_bjt_file
 from tools.pali_text_files import bjt_texts
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sinhala_tools import translit_si_to_ro
 
-pth = ProjectPaths()
-sinhala_dir = pth.bjt_sinhala_dir
-roman_dir = pth.bjt_roman_json_dir
 
-
-def transliterate_json():
+def transliterate_json(pth: ProjectPaths) -> None:
+    """Transliterate every Sinhala BJT JSON file to Roman script."""
     pr.tic()
     pr.yellow_title("transliterating tipitaka.lk json files")
 
-    for root, dirs, files in walk(sinhala_dir):
-        for counter, file in enumerate(files, 1):
-            if file == ".DS_Store":
-                continue
-            pr.counter(counter, 285, file)
-            in_path = sinhala_dir.joinpath(file)
-            out_path = roman_dir.joinpath(file)
+    files = [f.name for f in pth.bjt_sinhala_dir.iterdir() if f.name != ".DS_Store"]
+    for counter, file in enumerate(files, 1):
+        pr.counter(counter, len(files), file)
+        in_path = pth.bjt_sinhala_dir / file
+        out_path = pth.bjt_roman_json_dir / file
 
-            with open(in_path, encoding="utf-8") as f:
-                sinhala = f.read()
-
-            roman = translit_si_to_ro(sinhala)
-
-            with open(out_path, "w", encoding="utf-8") as f:
-                f.write(roman)
+        sinhala = in_path.read_text(encoding="utf-8")
+        roman = translit_si_to_ro(sinhala)
+        out_path.write_text(roman, encoding="utf-8")
 
     pr.toc()
 
 
-def get_file_names():
+def get_file_names(pth: ProjectPaths) -> list[str]:
     pr.green_tmr("get actual file names")
-    file_list = []
-    for root, dirs, files in walk(sinhala_dir):
-        for counter, file in enumerate(files, 1):
-            if file == ".DS_Store":
-                continue
-            file_list.append(file)
-    file_list = sorted(file_list)
-    pr.yes(len(file_list))
-    return file_list
+    file_names = sorted(
+        f.name for f in pth.bjt_sinhala_dir.iterdir() if f.name != ".DS_Store"
+    )
+    pr.yes(len(file_names))
+    return file_names
 
 
-def test_file_names():
+def test_file_names(pth: ProjectPaths) -> None:
+    """Diagnostic: compare filenames on disk against bjt_texts' expected list."""
     pr.yellow_title("test file names")
 
-    file_names = get_file_names()
+    file_names = get_file_names(pth)
 
     pr.green_tmr("get dict file names")
-
-    counter = 0
-    bjt_files = []
-    for book in bjt_texts:
-        for file_name in bjt_texts[book]:
-            bjt_files.append(file_name)
-            counter += 1
-    pr.yes(counter)
+    bjt_files = [file_name for book in bjt_texts for file_name in bjt_texts[book]]
+    pr.yes(len(bjt_files))
 
     pr.green_tmr("difference 1")
-    x = set(bjt_files).symmetric_difference(set(file_names))
-    pr.yes(f"{x}")
+    pr.yes(str(set(bjt_files).symmetric_difference(set(file_names))))
     pr.green_tmr("difference 2")
-    x = set(file_names).symmetric_difference(set(bjt_files))
-    pr.yes(f"{x}")
+    pr.yes(str(set(file_names).symmetric_difference(set(bjt_files))))
 
 
-def make_index():
-    """Make an index of
-    ```
-    {collection: {"book_id": 12, "filenames": [ ... ]}}
-    ```
-    """
-
+def make_index(pth: ProjectPaths) -> None:
+    """Make an index of {collection: {"book_id": 12, "filenames": [...]}}."""
     pr.yellow_title("making index")
-    pth = ProjectPaths()
-    file_names = get_file_names()
+    file_names = get_file_names(pth)
     json_dicts = get_bjt_json(file_names)
-    index_dict = {"mula": {}, "atta": {}}
+    index_dict: dict[str, dict] = {"mula": {}, "atta": {}}
 
     for jd in json_dicts:
         file_name = jd["filename"]
         book_id = jd["bookId"]
         collection = jd.get("collection", "mula")
+        index_dict[collection].setdefault(book_id, []).append(file_name)
 
-        if not index_dict[collection].get(book_id):
-            index_dict[collection][book_id] = []
+    list_of_tuples = [
+        (collection, book_id, filenames)
+        for collection, data in index_dict.items()
+        for book_id, filenames in data.items()
+    ]
+    list_of_tuples.sort(key=lambda x: x[2])
+    list_of_tuples.sort(key=lambda x: x[1])
+    list_of_tuples.sort(key=lambda x: x[0], reverse=True)
 
-        index_dict[collection][book_id].append(file_name)
-
-    list_of_tuples = []
-    for collection, data in index_dict.items():
-        for id, filenames in data.items():
-            list_of_tuples.append((collection, id, filenames))
-
-    list_of_tuples = sorted(list_of_tuples, key=lambda x: x[2])
-    list_of_tuples = sorted(list_of_tuples, key=lambda x: x[1])
-    list_of_tuples = sorted(list_of_tuples, key=lambda x: x[0], reverse=True)
-
-    save_path = pth.bjt_dir.joinpath("index.json")
-    with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(list_of_tuples, f, ensure_ascii=False, indent=1)
+    save_path = pth.bjt_dir / "index.json"
+    save_path.write_text(
+        json.dumps(list_of_tuples, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
 
 
-def save_books():
+def save_books(pth: ProjectPaths) -> None:
     """Save each book in BJT to a text file."""
-
     pr.tic()
-
     pr.yellow_title("saving BJT books")
-    file_dir = pth.bjt_books_dir
 
     for counter, book in enumerate(bjt_texts):
         pr.counter(counter, len(bjt_texts), book)
         bjt_file_names = get_bjt_file_names([book])
         json_dicts = get_bjt_json(bjt_file_names)
-        bjt_text = ""
-        for json_dict in json_dicts:
-            bjt_text += process_single_bjt_file(
+        bjt_text = "".join(
+            process_single_bjt_file(
                 json_dict,
                 convert_bold_tags=False,
                 footnotes_inline=False,
                 show_page_numbers=True,
                 show_metadata=True,
             )
+            for json_dict in json_dicts
+        )
 
-        file_path = file_dir.joinpath(book).with_suffix(".txt")
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(bjt_text)
+        file_path = (pth.bjt_books_dir / book).with_suffix(".txt")
+        file_path.write_text(bjt_text, encoding="utf-8")
     pr.toc()
 
 
-def save_text_files() -> None:
-    "Save all BJT json to text files"
-
+def save_text_files(pth: ProjectPaths) -> None:
+    """Save all BJT json to text files."""
     pr.tic()
     pr.yellow_title("saving BJT to text files")
 
-    counter = 1
-    for root, dirs, files in os.walk(pth.bjt_roman_json_dir):
-        for file in files:
-            if file == ".DS_Store":
-                continue
-            bjt_dicts = get_bjt_json([file])
-            bjt_text = ""
-            for bjt_dict in bjt_dicts:
-                bjt_text += process_single_bjt_file(bjt_dict)
-            file_path = pth.bjt_roman_txt_dir.joinpath(f"{file}.txt")
-            with open(file_path, "w", encoding="utf-8") as f:
-                f.write(bjt_text)
-            pr.counter(counter, 285, file)
-            counter += 1
+    files = [f.name for f in pth.bjt_roman_json_dir.iterdir() if f.name != ".DS_Store"]
+    for counter, file in enumerate(files, 1):
+        pr.counter(counter, len(files), file)
+        bjt_dicts = get_bjt_json([file])
+        bjt_text = "".join(process_single_bjt_file(bjt_dict) for bjt_dict in bjt_dicts)
+        file_path = pth.bjt_roman_txt_dir / f"{file}.txt"
+        file_path.write_text(bjt_text, encoding="utf-8")
     pr.toc()
 
 
+def main() -> None:
+    pth = ProjectPaths()
+    transliterate_json(pth)
+    save_books(pth)
+    save_text_files(pth)
+
+
 if __name__ == "__main__":
-    transliterate_json()
-    save_books()
-    save_text_files()
+    main()

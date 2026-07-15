@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""Reset config.ini to baseline after an uposatha day build. Pass "force" to
+apply regardless of the day."""
+
 import sys
 
 from scripts.build.config_uposatha_day import uposatha_day_reset

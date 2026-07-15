@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
+"""Update Sanskrit root families in dpd.db from a curated TSV.
+
+For each Pāḷi root family, looks up its Sanskrit root family from
+`root_families_sanskrit.tsv` and injects it into the `sanskrit` column of
+matching headwords as a bracketed annotation. Also regenerates the TSV from
+db data so the file stays in sync.
+
+Usage:
+    uv run scripts/build/sanskrit_root_families_updater.py
 """
-1. Update and replace Sanskrit root families from tsv data.
-2. Update tsv from db data and write to tsv."""
 
 import csv
 import re
@@ -69,7 +75,7 @@ class RootFamily:
 
 
 def import_tsv_to_dict(pth: ProjectPaths) -> dict[str, str]:
-    """Read tvs to dict."""
+    """Read tsv to dict."""
     tsv_dict = {}
     with pth.root_families_sanskrit_path.open(newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")

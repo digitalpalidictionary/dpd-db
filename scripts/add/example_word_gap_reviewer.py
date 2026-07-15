@@ -1,7 +1,6 @@
 """Interactively review words in example_1 and example_2 that are
 missing from the lookup table, missing meaning_1, or missing an example.
-Each hit is printed with context and copied to the clipboard; press
-Enter to move to the next one.
+Each hit is printed with context and copied to the clipboard.
 
 Set ROUTE below to choose what to look for:
   1 — word doesn't exist in the lookup table at all
@@ -24,6 +23,12 @@ from tools.printer import printer as pr
 
 ROUTE: int = 3
 
+_ROUTE_DESCRIPTIONS = {
+    1: "words in example_1/example_2 that don't exist in the lookup table at all",
+    2: "words whose headword(s) are missing meaning_1",
+    3: "words whose headword(s) are missing meaning_1 and example_1",
+}
+
 
 @dataclass
 class ReviewState:
@@ -31,6 +36,7 @@ class ReviewState:
     route: int = ROUTE
     lookup: Lookup | None = field(default=None, init=False)
     text: str = field(default="", init=False)
+    hit_count: int = field(default=0, init=False)
 
 
 def make_clean_word_list(
@@ -53,18 +59,26 @@ def check_in_lookup(state: ReviewState, word: str) -> None:
 def print_result(
     state: ReviewState, headword: DpdHeadword, column: str, word: str
 ) -> None:
-    print(f"[cyan]{headword.id}")
-    print(f"[cyan]{headword.lemma_1}")
-    print(f"[cyan]{column}")
+    """Show one flagged word: which headword's example it came from,
+    the source citation, the sentence with the word highlighted, and
+    copy the word to the clipboard ready to paste into gui2."""
+    state.hit_count += 1
     if column == "example_1":
-        print(headword.source_1, headword.sutta_1)
-    elif column == "example_2":
-        print(headword.source_2, headword.sutta_2)
-    text_highlight = state.text.replace(word, f"[cyan]{word}[/cyan]")
-    print(f"[green]{text_highlight}")
-    print(f"[cyan]{word}")
+        source, sutta = headword.source_1, headword.sutta_1
+    else:
+        source, sutta = headword.source_2, headword.sutta_2
+
+    print()
+    print(f"[bold white]#{state.hit_count}  found in {headword.lemma_1!r}'s {column}")
+    print(f"[dim]{source} {sutta}")
+    text_highlight = state.text.replace(
+        word, f"[bold cyan on black]{word}[/bold cyan on black]"
+    )
+    print(f"  {text_highlight}")
+    print(f"[bold cyan]-> {word}[/bold cyan]  [dim](copied to clipboard)")
     pyperclip.copy(word)
-    input()
+    if input("(q)uit or Enter for next ").strip().lower() == "q":
+        raise SystemExit
 
 
 def find_missing_meaning_1(
@@ -116,20 +130,12 @@ def check_word(
         find_missing_example(state, headword, column, word)
 
 
-_ROUTE_DESCRIPTIONS = {
-    1: "words in example_1/example_2 that don't exist in the lookup table at all",
-    2: "words whose headword(s) are missing meaning_1",
-    3: "words whose headword(s) are missing meaning_1 and example_1",
-}
-
-
 def main() -> None:
     pr.yellow_title("example word gap reviewer")
     pr.white(
         f"route {ROUTE}: scanning example_1/example_2 for "
         f"{_ROUTE_DESCRIPTIONS[ROUTE]}\n"
-        "each hit shows its context and copies the word to the clipboard — "
-        "press Enter to see the next one, Ctrl-C to stop"
+        "each hit shows its context and copies the word to the clipboard"
     )
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

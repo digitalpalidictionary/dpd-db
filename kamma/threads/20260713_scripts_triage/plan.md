@@ -732,7 +732,9 @@ condition can't recur.
   - no pyc · refs: none · git: 2026-01-31 created ("add nir to family compounds" — one-shot, done)
   - verdict: **archived** — completed one-shot (only 2 rows remain, lexicographic judgment
     better handled per-word in gui2); commit was commented out, no main(), unused inspect import
-  - → verify: moved to `scripts/fix/archive/` ✓
+  - → verify: moved to `archive/scripts/fix/` ✓ (relocated 2026-07-15 from the non-canonical
+    local `scripts/fix/archive/` subfolder to the canonical top-level `archive/scripts/fix/`
+    per user decision; empty `scripts/fix/archive/` removed)
 
 - [x] `scripts/fix/null_remover.py`
   - no pyc · refs: `scripts/fix/README.md:21` · git: none (sweeps only since 2024)
@@ -808,8 +810,14 @@ condition can't recur.
     `pr.yellow_title("verb finder")` at top of `main()` per the standard-freshen convention
   - → verify: ruff check ✓ + format ✓ + pyright ✓ on `scripts/fix/verb_finder.py`
 
-- [ ] **Phase 2 wrap:** ruff+format+pyright clean on all kept find/+fix/ files; justfile recipes
+- [x] **Phase 2 wrap:** ruff+format+pyright clean on all kept find/+fix/ files; justfile recipes
   intact; archived files in `archive/scripts/find/` and `archive/scripts/fix/` with data files
+  - verified 2026-07-15: `ruff check` + `ruff format --check` + `pyright` on `scripts/find/` +
+    `scripts/fix/` all clean; 3 kept justfile recipe targets (`variants_process.py`,
+    `comm_not_in_decon_finder.py`, `pass2pre_an_counts.py`) exist on disk; pass2exceptions +
+    fix_synonym_entries archived with their JSON data under `archive/scripts/fix/`; no orphan
+    data files. Also relocated `nir_add_to_family_compound.py` from the non-canonical local
+    `scripts/fix/archive/` subfolder to `archive/scripts/fix/` (user decision 2026-07-15).
   - → verify: `uv run ruff check scripts/find/ scripts/fix/` clean; every justfile recipe path
     exists on disk; no orphan data files left behind
 
@@ -888,9 +896,10 @@ condition can't recur.
   - → verify: `uv run ruff check scripts/add/add_words_random.py` clean; `uv run pyright
     scripts/add/add_words_random.py` → 0 errors, 0 warnings
 
-- [ ] ~~`scripts/add/synonym_single.py`~~ — **GHOST: not on disk.** Only
+- [x] ~~`scripts/add/synonym_single.py`~~ — **GHOST: not on disk.** Only
   `scripts/add/__pycache__/synonym_single.cpython-313.pyc` remains (mtime 2026-04-26). No action
   here; pyc removed in Phase 7.
+  - → verify: nothing to triage; confirmed absent from disk 2026-07-15
 
 - [x] `scripts/add/vagga_codes/` — 10 files (`__init__.py`, an.py 110, apply.py, dhp_m2.py,
   kn.py 143, kn_suggestions.py 140, mn.py, runner.py, shared.py 217, sn.py) — sutta vagga code
@@ -923,9 +932,10 @@ condition can't recur.
 
 - [x] `scripts/extractor/extract_cone.py` (186 lines) — extract Cone dictionary via AI
   - justfile `cone` · pyc 2026-02-19 · writes `extract_cone.tsv` (gitignored, paths.py entry)
-  - verdict: **keep + freshened** — added module docstring, type hints to `connect_to_openrouter`,
-    `process_word`, `main`; added `Path` import
-  - → verify: ruff + pyright clean ✓
+  - verdict: **keep + freshened** — added module docstring, type hints; added startup
+    description; added batch-of-25 with (c)ontinue/(q)uit prompt; TSV already next to script;
+    resume logic (skip already-in-TSV words) confirmed working
+  - → verify: ruff + pyright clean; batch prompt + quit confirmed ✓
 
 - [x] `scripts/extractor/extract_cpd.py` (171 lines) — extract CPD dictionary via AI
   - no justfile · no pyc · writes `extract_cpd.tsv` (gitignored, paths.py entry) · same-age
@@ -955,7 +965,7 @@ condition can't recur.
   - → verify: `archive/scripts/extractor/` contains all 4 files; `rg -n "extract_cpd"
     tools/paths.py justfile` → 0 matches; `uv run ruff check tools/paths.py` clean
 
-- [ ] `scripts/extractor/` helper modules — triage as a set, driven by the two entry points'
+- [x] `scripts/extractor/` helper modules — triage as a set, driven by the two entry points'
   verdicts and the import graph in Reference maps: `__init__.py`, `_ai_extraction.py` (47),
   `_dpd_headwords.py`, `_load_cone.py`, `_load_cpd.py`, `_normalize.py`, `_output.py`,
   `_pos_mapping.py` (52), `_prompts.py` (35), `_read_cone.py` (39), `_read_cpd.py` (42),
@@ -969,19 +979,27 @@ condition can't recur.
     `_output.py`, `_pos_mapping.py`, `_prompts.py`, `_read_cone.py`, `_signal_handler.py`,
     `_tsv_helpers.py`, `_word_list.py` — all currently used only by `extract_cone.py`, which is
     justfile-active and not yet triaged in this plan)
-  - verdict: TBD (cone-side helpers, pending `extract_cone.py`'s row)
-  - → verify: every surviving helper is imported by a surviving file; no orphan helpers
+  - verdict: keep, all 12 cone-side files (2026-07-15) — `extract_cone.py`'s own row is
+    already resolved ("keep + freshened"), clearing this. Verified import chain: `extract_cone`
+    → `_ai_extraction`, `_load_cone`, `_output`, `_pos_mapping`, `_prompts`, `_signal_handler`,
+    `_word_list`; `_load_cone` → `_read_cone` → `_normalize`; `_word_list` → `_dpd_headwords`,
+    `_tsv_helpers`. No orphans, no dangling imports.
+  - → verify: `rg -ln "<module>" scripts/extractor/*.py` for each of the 12 modules confirms a
+    live importer ✓ (2026-07-15)
 
-- [ ] ~~`scripts/extractor/compile_abbreviations_other.py`~~ — **GHOST: deleted by archived
+- [x] ~~`scripts/extractor/compile_abbreviations_other.py`~~ — **GHOST: deleted by archived
   thread `kamma/archive/20260411_abbreviations_exporter`.** Only a stale pyc remains (mtime
   2026-04-11). No action here; pyc removed in Phase 7.
+  - → verify: nothing to triage; confirmed absent from disk 2026-07-15
 
-- [ ] **Phase 3 wrap:** ruff+format+pyright clean on kept add/+extractor/ files; justfile `cone`
+- [x] **Phase 3 wrap:** ruff+format+pyright clean on kept add/+extractor/ files; justfile `cone`
   recipe intact; import graph consistent
-  - → verify: `uv run ruff check scripts/add/ scripts/extractor/` clean;
-    `uv run python -c "import scripts.suttas.vaggas.compile_vaggas"` NOT run (no script
-    execution) — instead `rg -n "vagga_codes" scripts/suttas/` confirms import still resolves to
-    an existing file
+  - all clean: `uv run ruff check scripts/add/ scripts/extractor/` → 0 errors; `uv run ruff format
+    --check` → 16 files already formatted; `uv run pyright` → 0 errors, 0 warnings; `cone` recipe
+    in justfile points to `scripts/extractor/extract_cone.py` (exists); `rg -n "vagga_codes"
+    scripts/suttas/` → 0 matches, correctly reflecting the earlier decision to archive
+    `vagga_codes/` and inline its 2 needed constants directly into `compile_vaggas.py`
+  - → verify: done above, 2026-07-15
 
 ---
 
@@ -999,121 +1017,206 @@ is `freshen`/`improve`; archiving anything CI-referenced is forbidden.
     (`apicaeveiti_dict` → `apicaevaitihi_dict`); no behavior change
   - → verify: ruff check ✓ + format ✓ + pyright ✓; `uv run pytest tests/scripts/build/test_api_ca_eva_iti_iva_hi.py` → 3 passed ✓
 
-- [~] `scripts/build/config_github_release.py`
+- [x] `scripts/build/config_github_release.py`
   - **CI (5 workflows — first step of every release build)** · no pyc (CI-only) ·
     git: 2026-06-10 (#157 config consolidation)
-  - verdict: TBD (keep — CI-critical)
-  - → verify: TBD
+  - verdict: keep, no changes needed (user decision, 2026-07-15) — already clean (type hints,
+    `pr.tic()`/`pr.toc()`, no dead code), runs correctly in production daily
+  - → verify: `uv run ruff check scripts/build/config_github_release.py` clean; `uv run ruff
+    format --check` → already formatted; `uv run pyright` → 0 errors, 0 warnings
 
-- [~] `scripts/build/config_quick_profile.py`
+- [x] `scripts/build/config_quick_profile.py`
   - justfile `makedict-quick` (run + `reset` arg) · no pyc · git: 2026-06-10
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: keep, already fresh (user decision, 2026-07-13) — thorough module docstring, function
+    docstrings, modern type hints, `pr.yellow_title()`, `pr.tic()`/`pr.toc()`; nothing to freshen
+  - → verify: ruff check ✓ + format ✓ + pyright ✓
 
-- [ ] `scripts/build/config_uposatha_day.py`
+- [x] `scripts/build/config_uposatha_day.py`
   - justfile `makedict-all` (`force` arg) · pyc 2026-07-07 · git: 2026-07-07 · imported by
     config_uposatha_reset
-  - verdict: TBD (keep — hot)
-  - → verify: TBD
+  - verdict: keep, no changes needed (user decision, 2026-07-15) — already clean; confirmed
+    `uposatha_day_reset()` is live (imported by `config_uposatha_reset.py`, not dead code)
+  - → verify: `uv run ruff check scripts/build/config_uposatha_day.py` clean; `uv run ruff format
+    --check` → already formatted; `uv run pyright` → 0 errors, 0 warnings
 
-- [ ] `scripts/build/config_uposatha_reset.py`
+- [x] `scripts/build/config_uposatha_reset.py`
   - justfile `makedict-all`/`makedict-min` (`force` arg) · no pyc · git: 2026-07-07
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: keep + freshen (user decision, 2026-07-15) — trivial 7-line entry point, already
+    ruff/pyright clean
+  - freshen applied: added the one missing module docstring
+  - → verify: `uv run ruff check scripts/build/config_uposatha_reset.py` clean; `uv run pyright` →
+    0 errors, 0 warnings
 
-- [ ] `scripts/build/cst4_xml_to_txt.py`
+- [x] `scripts/build/cst4_xml_to_txt.py`
   - no justfile/CI · no pyc · git: none substantive since ≤2025-12
-  - verdict: TBD
-  - → verify: TBD
+  - verdict: keep + freshen (user decision, 2026-07-15) — regeneration tool for
+    `cst_txt_dir`, which `tools/cst_sc_text_sets.py` reads (live dependency feeding
+    `scripts/find/pass2pre_an_counts.py`, the active `an-remaining` recipe, among others); rerun
+    only when the upstream CST XML submodule updates, hence no justfile wiring of its own
+  - freshen applied: `os.listdir` → `Path.iterdir()` (project rule: Path not os); replaced
+    hardcoded magic number `217` in the progress counter with the actual computed file count;
+    module docstring expanded to note the dependency chain and when to rerun. `except Exception`
+    kept broad, but now prints the actual exception message instead of a generic "failed" —
+    **correction (pre-commit review, 2026-07-15):** an earlier pass narrowed this to
+    `except (OSError, UnicodeDecodeError)`, but this loop parses ~217 CST XML files and
+    BeautifulSoup/lxml can raise parser errors that aren't `OSError`/`UnicodeDecodeError`; a
+    narrower catch would abort the whole batch on one malformed file instead of skipping it and
+    continuing, which is the intended per-file resilience. Reverted to broad `except Exception`.
+  - → verify: `uv run ruff check scripts/build/cst4_xml_to_txt.py` clean; `uv run pyright` → 0
+    errors, 0 warnings
 
-- [ ] `scripts/build/db_rebuild_from_tsv.py` (154 lines)
+- [x] `scripts/build/db_rebuild_from_tsv.py` (154 lines)
   - **CI (5 workflows — rebuilds db from backup_tsv in every release build)** · no pyc ·
     git: 2026-04-14 "split headwords tsv into 3 parts, fix header bug"
-  - verdict: TBD (keep — CI-critical)
-  - → verify: TBD
+  - verdict: keep + freshen (user decision, 2026-07-13) — CI-critical
+  - freshen: removed 4 lines of dead commented-out confirmation prompt; added `-> None` to
+    `main()` and both `make_*_table_data` functions
+  - → verify: ruff check ✓ + format ✓ + pyright ✓
 
-- [ ] `scripts/build/dealbreakers.py`
+- [x] `scripts/build/dealbreakers.py`
   - **CI (3 workflows — release gate)** · no pyc · git: 2026-06-08 (#157 refactor)
-  - spec wrongly implied dead (no justfile) — it is a CI release gate
-  - verdict: TBD (keep — CI-critical)
-  - → verify: TBD
+  - **COLLISION NOTE:** a parallel agent recorded "no changes needed" for this row on 2026-07-13.
+    This session's user then explicitly asked for a freshen pass on 2026-07-15, and one real
+    change was made — correcting this row to match actual file content, not overwriting the
+    earlier "keep" verdict (which still stands).
+  - verdict: keep, light freshen (user decision, 2026-07-15) — CI release gate; already
+    ruff+format+pyright clean, type hints, docstrings, `pr.tic()`/`pr.toc()`,
+    `pr.yellow_title()`. Removes apostrophes from key fields + validates `pos` against theory
+    (correctly auto-commits without a confirmation gate, since it runs non-interactively in CI).
+  - freshen applied: reordered imports to the project's stdlib → third-party → local convention
+    (`sqlalchemy.orm.Session` was sandwiched between local `db`/`tools` imports)
+  - → verify: `uv run ruff check scripts/build/dealbreakers.py` clean; `uv run ruff format --check`
+    → already formatted; `uv run pyright` → 0 errors, 0 warnings
 
-- [ ] `scripts/build/deconstructor_output_add_to_db.py`
+- [x] `scripts/build/deconstructor_output_add_to_db.py`
   - justfile `decon` + **CI (3 workflows)** · no pyc · git: 2026-07-09 (post-deconstructor-refactor
     cleanup — paths were just verified in that thread) · test exists
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: keep, no changes (user decision 2026-07-13) — already fully fresh (ruff+format+pyright
+    clean, modern type hints, module docstring, pr.tic/toc, uses tools.lookup_sync raw-SQL pattern)
+  - → verify: ruff check ✓ + format ✓ + pyright ✓
 
-- [ ] `scripts/build/docs_add_indexes.py`
+- [x] `scripts/build/docs_add_indexes.py`
   - **CI (static.yml docs deploy)** · no pyc · git: none substantive since ≤2025-06
-  - verdict: TBD (keep — CI)
-  - → verify: TBD
+  - verdict: keep + freshen (user decision, 2026-07-15) — CI-critical, structural freshen only
+  - freshen: module docstring, dropped stray `# -*- coding: utf-8 -*-`, `Path.open()` instead
+    of bare `open()`, `main() -> None`, type hints on `nav`/`pages`/`submenu_dir`, bare `print`
+    → `pr.yellow_title`/`pr.green`
+  - → verify: ruff check + format + pyright clean ✓
 
-- [ ] `scripts/build/docs_update_css.py`
+- [x] `scripts/build/docs_update_css.py`
   - **CI (static.yml docs deploy)** · no pyc · git: 2025-04-10 (css single-source-of-truth) ·
     related: `scripts/build/mkdocs_overrides/` html files
-  - verdict: TBD (keep — CI)
-  - → verify: TBD
+  - verdict: keep + freshen (user decision, 2026-07-15) — CI-critical, structural freshen only
+  - freshen: module docstring explaining purpose, wrapped bare module-level calls in
+    `main()` + `if __name__ == "__main__":` guard for consistency (nothing imports this module,
+    so behavior is unchanged)
+  - → verify: ruff check + format + pyright clean ✓
 
-- [ ] `scripts/build/ebt_counter.py` (128 lines)
+- [x] `scripts/build/ebt_counter.py` (128 lines)
   - **CI (3 workflows)** · pyc 2026-06-08 · git: 2026-06-08 (#157 refactor) · test exists
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: keep + light freshen (user decision, 2026-07-15) — already ruff/format/pyright clean,
+    docstrings, type hints; computes each headword's `ebt_count` (max inflection frequency across
+    CST/BJT/SC/SYA corpora)
+  - freshen applied: reordered `tools.pali_text_files` import into alphabetical position within
+    the local-imports group (was sandwiched after `tools.printer` instead of before `tools.paths`)
+  - → verify: `uv run ruff check scripts/build/ebt_counter.py` clean; `uv run pyright` → 0 errors,
+    0 warnings; `uv run pytest tests/scripts/build/test_ebt_counter.py` → 23 passed
 
-- [ ] `scripts/build/families_to_json.py`
+- [x] `scripts/build/families_to_json.py`
   - **CI (3 workflows)** · pyc 2026-07-11 (hottest in scripts/) · git: 2026-06-11 (#157 lazy
     GlobalVars refactor) · test exists
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: **keep + freshened** (user decision 2026-07-13) — already in great shape
+    (CI-hot, tested, type hints, GlobalVars); expanded terse module docstring (by another agent);
+    added docstrings to `json_dumper` and all 5 `export_*` functions
+  - → verify: ruff check ✓ + format ✓ + pyright ✓; `uv run pytest tests/scripts/build/test_families_to_json.py` → 7 passed ✓
 
-- [ ] `scripts/build/generate_books_tsv.py` (366 lines)
+- [x] `scripts/build/generate_books_tsv.py` (366 lines)
   - no justfile/CI · no pyc · git: 2026-06-15 (help→reference rename)
-  - verdict: TBD
-  - → verify: TBD
+  - verdict: archive (user decision, 2026-07-15) — script's own docstring says "Run once;
+    thereafter the TSV is hand-edited." Confirmed its output `tools/cst_book_translator.tsv`
+    (last touched May 12, presumably by hand since) is live data consumed by
+    `tools/cst_book_translator.py` → `gui2/pass2x/in_commentary_tui.py`, with its own test
+    (`tests/tools/test_cst_book_translator.py`). Rerunning this generator now would overwrite
+    accumulated hand-edits — keeping it around invites exactly that mistake.
+  - archived to `archive/scripts/build/generate_books_tsv.py`; no justfile/paths.py/README refs;
+    no pyc to clean (none existed); `tools/cst_book_translator.tsv` and `tools/cst_book_translator.py`
+    left untouched (they're the live artifact/consumer, not part of this row)
+  - → verify: file in `archive/scripts/build/`; `rg -n "generate_books_tsv" justfile tools/paths.py
+    scripts/build/README.md` → 0 matches ✓
 
-- [ ] `scripts/build/newsletter_scraper.py` (401 lines)
+- [x] `scripts/build/newsletter_scraper.py` (401 lines)
   - justfile `newsletter`/`newsletter-fresh` · pyc 2026-03-12 · git: 2026-05-01 · data:
     `newsletter_processed.json` (tracked, paths.py entry)
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: keep, already fresh (user decision, 2026-07-13) — one of the best-written scripts
+    in the repo (full docstrings, modern type hints, Gmail OAuth, CID handling, pagination,
+    image dedup); ruff+format+pyright already clean
+  - → verify: ruff check ✓ + format ✓ + pyright ✓
 
-- [ ] `scripts/build/root_has_verb_updater.py`
-  - **CI (4 workflows)** · pyc 2026-06-06 · git: 2026-06-06 (#157 refactor + tests) · test exists
-  - verdict: TBD (keep)
-  - → verify: TBD
+- [x] `scripts/build/root_has_verb_updater.py`
+  - **CI (4 workflows)** · pyc 2026-06-06 · git: 2026-06-06 (#157 refactor + tests)
+  - CORRECTION: "test exists" is stale — `tests/scripts/build/test_root_has_verb_updater.py`
+    was deliberately deleted in `e0d73ff1 "tests: delete golden-master tests that break on data
+    updates"`; only a stale `.pyc` remains (matches the standing project decision — golden-master
+    tests get deleted, not re-frozen; not a regression)
+  - verdict: keep as-is (user decision, 2026-07-15) — already fully fresh: type hints, docstring,
+    `printer` used correctly, sound class structure; zero edits needed
+  - → verify: ruff check + format --check + pyright all clean ✓
 
-- [ ] `scripts/build/sanskrit_root_families_updater.py` (196 lines)
+- [x] `scripts/build/sanskrit_root_families_updater.py` (196 lines)
   - **CI (4 workflows)** · pyc 2026-06-06 · git: 2026-06-06 (#157 refactor + tests) · test exists
   - NOTE: spec claimed a `sanskrit-root-families` justfile recipe — none exists; it's CI-run
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: keep, freshened (user decision 2026-07-13) — removed outdated `# -*- coding: utf-8 -*-`.
+    Already lint-clean, type hints, docstrings, tests.
+  - additional freshen (2026-07-15, separate session): module docstring expanded to explain the
+    TSV↔db sync behavior + usage line; fixed `"Read tvs to dict."` → `"Read tsv to dict."` typo.
+    Noted: `tests/scripts/build/test_sanskrit_root_families_updater.py` has only a stale `.pyc`,
+    no `.py` — traced via `git log` to the deliberate golden-master test deletion commit, not a
+    regression.
+  - → verify: ruff check ✓ + format ✓ + pyright ✓ (re-confirmed 2026-07-15)
 
-- [ ] `scripts/build/tarball_db.py`
+- [x] `scripts/build/tarball_db.py`
   - **CI (draft_release — packages the db artifact)** · no pyc · git: 2026-07-07 (#157 bz2→xz)
-  - verdict: TBD (keep — CI-critical)
-  - → verify: TBD
+  - verdict: keep (user decision, 2026-07-15) — CI-critical, already clean
+  - freshen: re-ran ruff/pyright gate as requested; nothing to actually change (imports already
+    correctly grouped/sorted, no dead code, type hints and docstring already present)
+  - → verify: `uv run ruff check scripts/build/tarball_db.py` clean; `uv run ruff format --check`
+    → already formatted; `uv run pyright` → 0 errors, 0 warnings
 
-- [ ] `scripts/build/transliterate_bjt.py` (173 lines)
+- [x] `scripts/build/transliterate_bjt.py` (173 lines)
   - no justfile/CI · no pyc · git: none substantive since ≤2025-12
-  - verdict: TBD
-  - → verify: TBD
+  - CORRECTION: not a stray/dead file — `transliterate_json()` generates `bjt_roman_json_dir`,
+    which is read directly by 13 other live files: `db/variants/extract_variants_from_bjt.py`,
+    `tools/bjt.py`, and every `scripts/suttas/bjt/*.py` processor. It's the prerequisite prep
+    step for the whole suttas/bjt/ pipeline — run manually when the BJT submodule updates
+    (same "infrequent-but-live" category as the other suttas source processors), not CI/justfile
+    wired because it isn't part of the automated release build.
+  - verdict: keep + freshen (user decision, 2026-07-15)
+  - freshen: module docstring explaining its role as the bjt/ pipeline prerequisite; dropped
+    stray `# -*- coding: utf-8 -*-`; replaced `os.walk`/bare `open()` with `Path.iterdir()` /
+    `.read_text()` / `.write_text()` throughout; dropped module-level `pth = ProjectPaths()`
+    side effect (now passed as a parameter, built lazily in `main()`); full type hints;
+    simplified `save_books`/`save_text_files` string-building with generator joins
+  - → verify: ruff check + format + pyright all clean ✓
 
-- [ ] `scripts/build/version_print.py`
+- [x] `scripts/build/version_print.py`
   - **CI (draft_release + mobile_release — sets RELEASE_TAG; release-critical)** · no pyc ·
     git: none substantive since 2024 — but DO NOT archive; looks dead by every other signal
-  - verdict: TBD (keep — CI-critical)
-  - → verify: TBD
+  - verdict: keep, freshened (user decision 2026-07-13) — added `-> None` return type hint.
+    Already lint-clean. CI-critical.
+  - → verify: ruff check ✓ + format ✓ + pyright ✓
 
-- [ ] `scripts/build/zip_goldendict_mdict.py` (134 lines)
+- [x] `scripts/build/zip_goldendict_mdict.py` (134 lines)
   - **CI (draft_release)** · pyc 2026-05-01 · git: 2026-06-09 (#157 guard fix, pathlib, hints)
-  - verdict: TBD (keep)
-  - → verify: TBD
+  - verdict: **keep + freshened** — already clean (type hints, pathlib, guards); rewrote module
+    docstring to accurately list all three zip outputs and usage
+  - → verify: ruff + pyright clean ✓
 
-- [ ] `scripts/build/zip_wxt_extension.py`
+- [x] `scripts/build/zip_wxt_extension.py`
   - no justfile/CI · no pyc · git: 2026-01-25 (#122 wxt version)
-  - check whether the wxt exporter (exporter/wxt_extension/) superseded this
-  - verdict: TBD
-  - → verify: TBD
+  - verdict: keep + freshen (user decision, 2026-07-13) — convenience wrapper around `npm run
+    package` in `exporter/wxt_extension/`, still useful
+  - freshen: renamed `build_and_zip()` → `main()`, added `-> None`
+  - → verify: ruff check ✓ + format ✓ + pyright ✓
 
 ### 4.2 — bash/ directory (5 files, all justfile; hook-excluded but lint anyway)
 
