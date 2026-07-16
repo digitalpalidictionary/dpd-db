@@ -165,11 +165,19 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._clear_all_button = ft.ElevatedButton(
             "Clear All", on_click=self._click_clear_all
         )
-        self.update_speech_marks_button = ft.ElevatedButton(
-            "Update Speech Marks", on_click=self._click_update_sandhi
-        )
-        self._update_with_ai_button = ft.ElevatedButton(
-            "AiAutofill", on_click=self._click_update_with_ai
+        self._action_menu_button = ft.PopupMenuButton(
+            icon=ft.Icons.ARROW_DROP_DOWN,
+            tooltip="Actions",
+            items=[
+                ft.PopupMenuItem(
+                    text="Update Speech Marks",
+                    on_click=self._click_update_sandhi,
+                ),
+                ft.PopupMenuItem(
+                    text="AiAutofill",
+                    on_click=self._click_update_with_ai,
+                ),
+            ],
         )
 
         self._history_dropdown = ft.Dropdown(
@@ -221,9 +229,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             self._x_button,
                             self._pread_button,
                             self._clear_all_button,
-                            self.update_speech_marks_button,
-                            self._update_with_ai_button,
                             self._history_dropdown,
+                            self._action_menu_button,
                         ],
                         spacing=10,
                         alignment=ft.MainAxisAlignment.START,
