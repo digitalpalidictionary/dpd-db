@@ -26,7 +26,6 @@ from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
 from scripts.find.missing_meanings import find_missing_meanings
-from tools.configger import config_read
 from tools.fast_api_utils import request_dpd_server
 from tools.speech_marks import SpeechMarkManager
 
@@ -165,6 +164,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._clear_all_button = ft.ElevatedButton(
             "Clear All", on_click=self._click_clear_all
         )
+        self._missing_words_switch = ft.Switch(
+            label="Missing Words",
+            value=True,
+        )
         self._action_menu_button = ft.PopupMenuButton(
             icon=ft.Icons.ARROW_DROP_DOWN,
             tooltip="Actions",
@@ -177,6 +180,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     text="AiAutofill",
                     on_click=self._click_update_with_ai,
                 ),
+                ft.PopupMenuItem(),  # divider
+                ft.PopupMenuItem(content=self._missing_words_switch),
             ],
         )
 
@@ -1204,7 +1209,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         examples and commentary. Ticked words go to the eg queue; unticked words
         are simply not added this time."""
 
-        if config_read("gui2", "missing_words_dialog") != "yes":
+        if not self._missing_words_switch.value:
             return
 
         sections = self._find_missing_eg_words(word_to_save)
