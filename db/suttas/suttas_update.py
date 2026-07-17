@@ -74,7 +74,8 @@ def _sutta_info_is_populated(pth: ProjectPaths) -> bool:
         db_session.close()
 
 
-def update_sutta_info_table(pth: ProjectPaths) -> None:
+def update_sutta_info_table(pth: ProjectPaths) -> bool:
+    """Rebuild the sutta_info table; return True only if the rebuild committed."""
     db_session = get_db_session(pth.dpd_db_path)
     engine = db_session.get_bind()
 
@@ -94,7 +95,7 @@ def update_sutta_info_table(pth: ProjectPaths) -> None:
         pr.no("failed")
         pr.red(f"failed to create tables: {e}")
         db_session.close()
-        return
+        return False
 
     pr.green_tmr("preparing data")
     suttas_to_add: list[dict[str, str]] = []
@@ -125,7 +126,7 @@ def update_sutta_info_table(pth: ProjectPaths) -> None:
         pr.no("failed")
         pr.red(f"failed reading tsv: {e}")
         db_session.close()
-        return
+        return False
 
     if duplicates:
         pr.red("Duplicate dpd_sutta names found:")
@@ -138,10 +139,12 @@ def update_sutta_info_table(pth: ProjectPaths) -> None:
             db_session.bulk_insert_mappings(SuttaInfo, suttas_to_add)  # type: ignore[arg-type]
         db_session.commit()
         pr.yes("ok")
+        return True
     except Exception as e:
         pr.no("failed")
         pr.red(f"failed adding to db: {e}")
         db_session.rollback()
+        return False
     finally:
         db_session.close()
 
@@ -155,11 +158,17 @@ def main() -> None:
         return
     pth = ProjectPaths()
     data_changed = download_tsv_from_sheets(pth)
-    if data_changed or not _sutta_info_is_populated(pth):
-        update_sutta_info_table(pth)
+    rebuild_needed = data_changed or not _sutta_info_is_populated(pth)
+    table_rebuilt = False
+    if rebuild_needed:
+        table_rebuilt = update_sutta_info_table(pth)
+        if not table_rebuilt:
+            pr.red("sutta_info rebuild failed — skipping dv field update")
+            pr.toc()
+            return
     else:
         pr.green("sutta data unchanged — skipping table rebuild")
-    update_dv_fields_in_db(pth)
+    update_dv_fields_in_db(pth, table_rebuilt)
     pr.toc()
 
 

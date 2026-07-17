@@ -1,6 +1,3 @@
-from pathlib import Path
-
-
 from db.suttas.dv_catalogue_suttas import read_dv_catalogue
 from tools.paths import ProjectPaths
 
@@ -32,16 +29,6 @@ MN2\tSummary F\tExcerpt 11\tExcerpt 12"""
         # Temporarily replace the TSV path for testing
         original_path = pth.dv_catalogue_suttas_tsv_path
         pth.dv_catalogue_suttas_tsv_path = temp_path
-
-        # Mock the download function to use our test file
-        from db.suttas import dv_catalogue_suttas
-
-        original_download = dv_catalogue_suttas.download_dv_catalogue
-
-        def mock_download(filepath: Path) -> bool:
-            return False  # Force use of local file
-
-        dv_catalogue_suttas.download_dv_catalogue = mock_download
 
         # Read the catalogue
         result = read_dv_catalogue(pth)
@@ -77,8 +64,6 @@ MN2\tSummary F\tExcerpt 11\tExcerpt 12"""
         assert len(actual_codes) == 7, f"Expected 7 entries, got {len(actual_codes)}"
 
     finally:
-        # Restore original functions
-        dv_catalogue_suttas.download_dv_catalogue = original_download
         pth.dv_catalogue_suttas_tsv_path = original_path
 
         # Clean up temporary file

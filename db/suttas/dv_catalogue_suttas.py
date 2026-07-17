@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 import pandas as pd
 import requests
@@ -10,39 +11,39 @@ from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 
-def download_dv_catalogue(filepath: Path) -> bool:
-    """Download DV Catalogue TSV file from GitHub."""
+def download_dv_catalogue(filepath: Path) -> Literal["changed", "unchanged", "failed"]:
+    """Download DV Catalogue TSV file from GitHub.
+
+    Returns "changed" if the local file was updated, "unchanged" if the
+    downloaded content is identical to the local file, "failed" on error."""
     url = "https://raw.githubusercontent.com/dhamma-vinaya-connections/early-buddhist-connections/main/Catalogue/Suttas-Catalogue.tsv"
     try:
         pr.green_tmr("downloading dv catalogue")
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=(10, 30))
         response.raise_for_status()
 
         content = response.content.replace(b"\r\n", b"\n")
-        with open(filepath, "wb") as f:
-            f.write(content)
+        if filepath.exists() and filepath.read_bytes() == content:
+            pr.yes("skip")
+            return "unchanged"
+        tmp_path = filepath.with_suffix(filepath.suffix + ".tmp")
+        tmp_path.write_bytes(content)
+        tmp_path.replace(filepath)
         pr.yes("ok")
-        return True
+        return "changed"
     except Exception as e:
         pr.no("failed")
         pr.red(str(e))
-        return False
+        return "failed"
 
 
 def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
-    """Read DV Catalogue TSV file and convert to dict with SUTTACODE as key.
-
-    Always attempts to download fresh file first.
-    Falls back to local file if download fails.
+    """Read the local DV Catalogue TSV file and convert to dict with SUTTACODE as key.
 
     Sorts sutta codes naturally and removes consecutive duplicates with identical
     summary, key_excerpt1, and key_excerpt2 fields.
     """
     tsv_path = pth.dv_catalogue_suttas_tsv_path
-
-    # Always try to download fresh
-    if not download_dv_catalogue(tsv_path):
-        pr.red("using local file if available")
 
     if not tsv_path.exists():
         pr.red("no local file available")
@@ -165,8 +166,21 @@ def get_dv_column_mapping() -> dict[str, str]:
     }
 
 
-def update_dv_fields_in_db(pth: ProjectPaths):
-    """Update DV catalogue fields in existing SuttaInfo records."""
+def update_dv_fields_in_db(pth: ProjectPaths, table_rebuilt: bool = True) -> None:
+    """Update DV catalogue fields in existing SuttaInfo records.
+
+    Skips the update entirely when the sutta_info table was not rebuilt and
+    the downloaded DV catalogue is identical to the local file."""
+    status = download_dv_catalogue(pth.dv_catalogue_suttas_tsv_path)
+    if not table_rebuilt and status != "changed":
+        if status == "failed":
+            pr.green("dv catalogue download failed — skipping dv field update")
+        else:
+            pr.green("dv catalogue unchanged — skipping dv field update")
+        return
+    if status == "failed":
+        pr.red("using local file if available")
+
     db_session = get_db_session(pth.dpd_db_path)
 
     try:
