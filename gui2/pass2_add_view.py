@@ -1,5 +1,6 @@
 import copy
 import json
+from collections.abc import Callable
 from pathlib import Path
 
 import flet as ft
@@ -76,7 +77,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._eg_checkboxes: dict[str, ft.Checkbox] = {}
         self._eg_prefills: dict[str, dict[str, str]] = {}
         self._eg_comment: str = ""
-        self._eg_paste_field: ft.TextField | None = None
+        self._eg_section_textboxes: list[tuple[ft.TextField, dict[str, str]]] = []
+        self._eg_saved_kb: Callable[[ft.KeyboardEvent], None] | None = None
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
         self.current_correction: dict | None = None
@@ -1193,16 +1195,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     @staticmethod
     def _parse_pasted_words(text: str) -> list[str]:
-        """Split pasted text on spaces, commas and newlines, keeping trailing
-        homonym numbers ('uppāṭita 1', 'kata 1.1') with their word."""
+        """Split on commas only, so phrases containing spaces stay intact.
+        Homonym numbers ('kata 1', 'kata 1.1') survive because they keep their
+        internal space. Empty tokens are dropped."""
 
-        words: list[str] = []
-        for token in text.replace(",", " ").split():
-            if words and token.replace(".", "").isdigit():
-                words[-1] = f"{words[-1]} {token}"
-            else:
-                words.append(token)
-        return words
+        return [w.strip() for w in text.split(",") if w.strip()]
 
     def _show_missing_words_dialog(self, word_to_save: DpdHeadword) -> None:
         """After a successful save, list missing words found in the saved word's
@@ -1219,6 +1216,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._eg_prefills = {}
         self._eg_comment = f"eg: found in {word_to_save.lemma_1}"
         self._eg_checkboxes = {}
+        self._eg_section_textboxes = []
 
         rows: list[ft.Control] = []
         for text, section_words in sections:
@@ -1242,12 +1240,16 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         ]
                     )
                 )
-
-        self._eg_paste_field = ft.TextField(
-            label="paste words to add",
-            dense=True,
-            text_size=12,
-        )
+            add_field = ft.TextField(
+                label="words to add (comma-separated)",
+                dense=True,
+                text_size=12,
+                expand=True,
+                on_submit=self._click_eg_add,
+            )
+            section_prefill = next(iter(section_words.values()))
+            self._eg_section_textboxes.append((add_field, section_prefill))
+            rows.append(ft.Row(controls=[add_field]))
 
         self._eg_alert = ft.AlertDialog(
             modal=True,
@@ -1260,7 +1262,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         scroll=ft.ScrollMode.AUTO,
                         expand=True,
                     ),
-                    self._eg_paste_field,
                 ],
                 height=500,
                 width=500,
@@ -1270,11 +1271,24 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 ft.TextButton("Add ticked", on_click=self._click_eg_add),
                 ft.TextButton("Close", on_click=self._click_eg_close),
             ],
+            on_dismiss=self._restore_eg_kb,
         )
+
+        def _eg_kb_handler(e: ft.KeyboardEvent) -> None:
+            if e.key == "Enter":
+                self._click_eg_add(e)
+                return
+            if self._eg_saved_kb is not None:
+                self._eg_saved_kb(e)
+
+        self._eg_saved_kb = self.page.on_keyboard_event
+        self.page.on_keyboard_event = _eg_kb_handler
         self.page.open(self._eg_alert)
         self.page.update()
 
     def _click_eg_add(self, e: ft.ControlEvent) -> None:
+        if not self._eg_alert or not self._eg_alert.open:
+            return
         added = 0
         for word, checkbox in self._eg_checkboxes.items():
             if checkbox.value:
@@ -1282,10 +1296,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     word, self._eg_prefills[word], self._eg_comment
                 )
                 added += 1
-        if self._eg_paste_field and self._eg_paste_field.value:
-            for word in self._parse_pasted_words(self._eg_paste_field.value):
+        for add_field, prefill in self._eg_section_textboxes:
+            if not add_field.value:
+                continue
+            for word in self._parse_pasted_words(add_field.value):
                 if not self._is_eg_queued(word):
-                    self.pass2_eg_manager.add_word(word, {}, self._eg_comment)
+                    self.pass2_eg_manager.add_word(word, prefill, self._eg_comment)
                     added += 1
         self._close_eg_alert()
         self.update_message(f"eg: {added} added")
@@ -1293,9 +1309,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _click_eg_close(self, e: ft.ControlEvent) -> None:
         self._close_eg_alert()
 
+    def _restore_eg_kb(self, e: ft.ControlEvent | None = None) -> None:
+        if self._eg_saved_kb is not None:
+            self.page.on_keyboard_event = self._eg_saved_kb
+            self._eg_saved_kb = None
+
     def _close_eg_alert(self) -> None:
         if self._eg_alert:
             self._eg_alert.open = False
+        self._restore_eg_kb()
         self.page.update()
 
     def _click_eg_button(self, e: ft.ControlEvent) -> None:

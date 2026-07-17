@@ -13,6 +13,7 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - The repository already contains multiple output targets, so changes should preserve compatibility with downstream exporters and integrations.
 - This is an existing Git-managed project, so setup should work with the current repository structure and conventions rather than replacing them.
 - `db/db_helpers.get_db_session()` reuses one cached Engine per db path (NullPool, fork-PID guard); gui2 derives all full-table headword data from `DatabaseManager.load_corpus()` and marks it stale via `mark_corpus_stale()` after any headword write — don't reintroduce per-call engines or direct `.all()` loads of `DpdHeadword` in gui2.
+- Flet 0.28.3 (pinned, `flet[all]==0.28.3`) exposes no cursor-position/selection API on `ft.TextField` — putting the caret at the end of a pre-filled field relies on calling `.focus()` after the value is set, not a real cursor setter. There are also no per-dialog keyboard events: dialog-scoped keys (e.g. Enter = submit) must hook `page.on_keyboard_event` with a save/restore wrapper (see the EG popup in `gui2/pass2_add_view.py`).
 
 ## Resources
 - PDF export requires the `typst` CLI on PATH (>= 0.14 for

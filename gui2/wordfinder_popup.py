@@ -219,6 +219,7 @@ class WordFinderPopup:
         )
         self.page.open(self.dialog)
         self.page.update()
+        self.search_field.focus()
 
     def is_dialog_open(self) -> bool:
         return self.dialog.open
