@@ -1,5 +1,6 @@
 import cProfile
 import re
+import threading
 import time
 from collections.abc import Callable
 from pathlib import Path
@@ -32,6 +33,9 @@ class App:
 
         self.page = page
         self._db_init_started: bool = False
+        # Guards _views/_mounted_tabs: the warm-up worker builds tabs in the
+        # background while the user may click one on the UI thread.
+        self._build_lock = threading.RLock()
 
         page.theme = ft.Theme()
         page.theme.font_family = "Inter"
@@ -74,10 +78,13 @@ class App:
             actions=appbar_actions,
         )
 
-        # Views are built lazily on first tab selection (see _view /
-        # _on_tab_activated). Each builder is a thunk keyed by tab index; the
-        # Pass1Add view reuses the Pass1Auto view's controller, so building it
-        # transparently builds Pass1Auto first via _view(2).
+        # Views are built off the UI thread by the warm-up worker (in
+        # priority order) so the window paints instantly and every tab is
+        # ready by the time it is clicked; clicking a not-yet-warmed tab
+        # builds it on demand (see _view / _on_tab_activated). Each builder
+        # is a thunk keyed by tab index; the Pass1Add view reuses the
+        # Pass1Auto view's controller, so building it transparently builds
+        # Pass1Auto first via _view(2).
         self._views: dict[int, ft.Control] = {}
         self._mounted_tabs: set[int] = set()
         self._view_builders: dict[int, Callable[[], ft.Control]] = {
@@ -97,6 +104,24 @@ class App:
             13: lambda: RootsTabView(self.page, self.toolkit),
             14: lambda: CompoundTypeTabView(self.page, self.toolkit),
         }
+
+        # Most-used tabs first so they are ready soonest.
+        self._warmup_tab_order: list[int] = [
+            7,
+            4,
+            5,
+            6,
+            2,
+            3,
+            1,
+            12,
+            10,
+            8,
+            9,
+            11,
+            13,
+            14,
+        ]
 
         self.build_ui()
 
@@ -203,24 +228,25 @@ class App:
 
     def _view(self, index: int) -> ft.Control:
         """Build (once) and return the view for a tab index."""
-        if index not in self._views:
-            self._views[index] = self._view_builders[index]()
-        return self._views[index]
+        with self._build_lock:
+            if index not in self._views:
+                self._views[index] = self._view_builders[index]()
+            return self._views[index]
 
     def _ensure_tab_built(self, index: int) -> None:
         """Swap the real view into a tab the first time it is shown."""
-        if index in self._mounted_tabs:
-            return
-        self._mounted_tabs.add(index)
-        self.tabs.tabs[index].content = self._view(index)
+        with self._build_lock:
+            if index in self._mounted_tabs:
+                return
+            self.tabs.tabs[index].content = self._view(index)
+            self._mounted_tabs.add(index)
         self.page.update()
 
     def _maybe_start_db_init(self) -> None:
-        # load the corpus off the UI thread on the first tab activation
+        # started at launch; this remains as a retry path if that load failed
         if self._db_init_started or self.toolkit.db_manager.all_lemma_1 is not None:
             return
         self._db_init_started = True
-        show_global_snackbar(self.page, "Loading database in the background...")
         self.page.run_thread(self._initialize_db_in_background)
 
     def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
@@ -237,6 +263,31 @@ class App:
             show_global_snackbar(
                 self.page, f"Database load failed: {ex}", "error", 5000
             )
+
+    def _warmup_in_background(self) -> None:
+        """Build every tab (most-used first), then the heavy managers, so
+        nothing waits on a first click. Runs alongside the db load."""
+        # A failing builder leaves its tab unmounted (retried on click) and
+        # must not abort the warm-up of the remaining tabs and managers.
+        failed: list[str] = []
+        for index in self._warmup_tab_order:
+            try:
+                self._ensure_tab_built(index)
+            except Exception:
+                failed.append(self.tabs.tabs[index].text or str(index))
+        try:
+            self.toolkit.wordfinder_manager
+            self.toolkit.wordfinder_popup
+            self.toolkit.ai_manager
+            self.toolkit.bold_definitions_search_manager
+        except Exception as ex:
+            failed.append(str(ex))
+        if failed:
+            show_global_snackbar(
+                self.page, f"Warm-up failed for: {', '.join(failed)}", "error", 5000
+            )
+        else:
+            show_global_snackbar(self.page, "All tabs and tools ready.", "info", 2000)
 
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
@@ -279,6 +330,12 @@ class App:
 
         self.page.add(self.tabs)
         self.page.update()
+
+        # Window has painted — load everything else in the background:
+        # the db (longest task) and the tab/manager warm-up in parallel.
+        self._db_init_started = True
+        self.page.run_thread(self._initialize_db_in_background)
+        self.page.run_thread(self._warmup_in_background)
 
 
 def main(page: ft.Page) -> None:

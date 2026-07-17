@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from functools import cached_property
-from typing import TYPE_CHECKING
+import threading
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any
 
 import flet as ft
 
@@ -39,6 +40,13 @@ class ToolKit:
 
         self.page: ft.Page = page
 
+        # Guards the lazy managers below: functools.cached_property has no
+        # lock since Python 3.12, so the warm-up thread and a UI event
+        # handler could each build their own instance. RLock because
+        # wordfinder_popup's factory reads wordfinder_manager.
+        self._lazy_lock = threading.RLock()
+        self._lazy_cache: dict[str, Any] = {}
+
         # Managers with no ToolKit internal dependencies (or only page)
         self.project_paths = ProjectPaths()
         username = config_read("gui2", "username") or "1"
@@ -73,40 +81,49 @@ class ToolKit:
 
     # Lazily constructed managers: each carries a real startup cost (74 MB
     # wordfinder JSON, six AI provider SDKs, a held DB session, contributor
-    # file globs) that most sessions never trigger, so build on first access.
+    # file globs), so build on first access — the startup warm-up worker
+    # touches them in the background so they are ready before first use.
 
-    @cached_property
+    def _lazy[T](self, name: str, factory: Callable[[], T]) -> T:
+        with self._lazy_lock:
+            if name not in self._lazy_cache:
+                self._lazy_cache[name] = factory()
+            return self._lazy_cache[name]
+
+    @property
     def ai_manager(self) -> AIManager:
         from tools.ai_manager import AIManager
 
-        return AIManager()
+        return self._lazy("ai_manager", AIManager)
 
-    @cached_property
+    @property
     def wordfinder_manager(self) -> WordFinderManager:
         from tools.wordfinder_manager import WordFinderManager
 
-        return WordFinderManager()
+        return self._lazy("wordfinder_manager", WordFinderManager)
 
-    @cached_property
+    @property
     def bold_definitions_search_manager(self) -> BoldDefinitionsSearchManager:
         from tools.bold_definitions_search import BoldDefinitionsSearchManager
 
-        return BoldDefinitionsSearchManager()
+        return self._lazy(
+            "bold_definitions_search_manager", BoldDefinitionsSearchManager
+        )
 
-    @cached_property
+    @property
     def additions_manager(self) -> AdditionsManager:
         from gui2.additions_manager import AdditionsManager
 
-        return AdditionsManager(self)
+        return self._lazy("additions_manager", lambda: AdditionsManager(self))
 
-    @cached_property
+    @property
     def corrections_manager(self) -> CorrectionsManager:
         from gui2.corrections_manager import CorrectionsManager
 
-        return CorrectionsManager(self)
+        return self._lazy("corrections_manager", lambda: CorrectionsManager(self))
 
-    @cached_property
+    @property
     def wordfinder_popup(self) -> WordFinderPopup:
         from gui2.wordfinder_popup import WordFinderPopup
 
-        return WordFinderPopup(self)
+        return self._lazy("wordfinder_popup", lambda: WordFinderPopup(self))
