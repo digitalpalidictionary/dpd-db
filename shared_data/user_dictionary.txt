@@ -1496,6 +1496,7 @@ Kālāma
 Kālāmas
 Kāmabhū
 Kāpilānī
+Kāradīpa
 Kāsi
 Kāsian
 Kāsians
@@ -1701,6 +1702,7 @@ Migajāla
 Migāra
 Migāra's
 Mihintale
+Milinda
 Milinda's
 Millettia
 Mimusops
@@ -1918,6 +1920,7 @@ nā
 nāga
 nāgas
 Nāgasa
+Nāgasena
 Nālaka
 Nālanda
 Nālandā
@@ -1975,6 +1978,7 @@ outspeaking
 overestimation
 overgarment
 overindulging
+overperforming
 overrating
 overspread
 overvaluation
@@ -2939,6 +2943,7 @@ undependability
 underbodice
 underbrush
 underlain
+underperforming
 undersheet
 undiminishable
 undiscoverable
