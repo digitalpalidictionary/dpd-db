@@ -110,6 +110,7 @@ Use Context7 MCP (`mcp__plugin_context7_context7__resolve-library-id` + `query-d
 - Maximum number of characters in the first line is 72. Do not exceed that. 
 
 ### Comments
+- NEVER comment on GitHub issues unless specifically asked to do so.
 - When commenting on GitHub issues, write in the user's natural style: short, direct, lowercase sentence starts, minimal punctuation.
 
 ### Solve
