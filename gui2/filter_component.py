@@ -55,23 +55,35 @@ class ColumnText(ft.Text):
         )
 
 
-class CellText(ft.Text):
+CELL_PADDING = 4
+
+
+class CellText(ft.Container):
     """Read-only cell content. Tapping the cell swaps in a CellTextField."""
 
     def __init__(self, text: str, width: int, misspelled: bool = False):
         super().__init__(
-            value=text,
+            content=ft.Text(
+                value=text,
+                size=12,
+                color=ft.Colors.RED if misspelled else ft.Colors.GREY_300,
+            ),
             width=width,
-            size=12,
-            color=ft.Colors.RED if misspelled else ft.Colors.GREY_300,
+            padding=ft.padding.all(CELL_PADDING),
         )
 
 
 class CellTextField(ft.TextField):
-    def __init__(self, text):
+    """Editable cell content, sized to match the CellText it replaces so the
+    row keeps the same spacing while editing."""
+
+    def __init__(self, text: str, width: float | None = None):
         super().__init__(
             value=text,
+            width=width,
             multiline=True,
+            dense=True,
+            content_padding=ft.padding.all(CELL_PADDING),
             border_radius=0,
             border=ft.InputBorder.OUTLINE,
             border_width=3,
@@ -382,7 +394,8 @@ class FilterComponent(ft.Column):
         self, cell: ft.DataCell, headword_id: int, col_name: str, original_value: str
     ) -> None:
         """Swap the read-only cell for an editable TextField."""
-        text_field = CellTextField(original_value)
+        cell_width = cell.content.width if isinstance(cell.content, CellText) else None
+        text_field = CellTextField(original_value, cell_width)
         text_field.data = original_value
 
         def on_change(e: ft.ControlEvent) -> None:
