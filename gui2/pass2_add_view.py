@@ -1132,14 +1132,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self, word_to_save: DpdHeadword
     ) -> list[tuple[str, dict[str, dict[str, str]]]]:
         """Scan examples and commentary for words missing meaning or example.
-        Returns one (field text, {word: prefill}) section per scanned field,
-        words ordered by appearance in that text."""
+        Returns one (labelled field text, {word: prefill}) section per scanned field
+        containing missing words, words ordered by appearance in that text."""
 
         def unbold(text: str) -> str:
             return text.replace("<b>", "").replace("</b>", "")
 
-        field_prefills: list[tuple[str, dict[str, str]]] = [
+        field_prefills: list[tuple[str, str, dict[str, str]]] = [
             (
+                "EG1:",
                 word_to_save.example_1,
                 {
                     "source_1": word_to_save.source_1,
@@ -1148,6 +1149,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 },
             ),
             (
+                "EG2:",
                 word_to_save.example_2,
                 {
                     "source_1": word_to_save.source_2,
@@ -1156,6 +1158,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 },
             ),
             (
+                "COMM:",
                 word_to_save.commentary,
                 {"example_1": unbold(word_to_save.commentary)},
             ),
@@ -1163,7 +1166,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         sections: list[tuple[str, dict[str, dict[str, str]]]] = []
         seen: set[str] = set()
-        for text, prefill in field_prefills:
+        for label, text, prefill in field_prefills:
             if not text or text == "-":
                 continue
             found = [
@@ -1179,7 +1182,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             section_words = {
                 word: prefill for word in self._order_by_appearance(found, text)
             }
-            sections.append((text, section_words))
+            sections.append((f"{label} {text}", section_words))
         return sections
 
     def _is_eg_queued(self, word: str) -> bool:
