@@ -22,6 +22,7 @@ var Pth = struct {
 	CstTxtTextDir     string
 	CStXmlDir         string
 	ScJsonTextDir     string
+	ScVariantTextDir  string
 	BjtRomanJsonDir   string
 	BjtRomanTxtDir    string
 	SyaTextDir        string
@@ -100,6 +101,7 @@ var Pth = struct {
 	CstTxtTextDir:     "resources/dpd_submodules/cst/romn_txt",
 	CStXmlDir:         "resources/dpd_submodules/cst/romn",
 	ScJsonTextDir:     "resources/sc-data/sc_bilara_data/root/pli/ms",
+	ScVariantTextDir:  "resources/sc-data/sc_bilara_data/variant/pli/ms",
 	BjtRomanJsonDir:   "resources/dpd_submodules/bjt/public/static/roman_json/",
 	BjtRomanTxtDir:    "resources/dpd_submodules/bjt/public/static/roman_txt/",
 	SyaTextDir:        "resources/syāmaraṭṭha_1927",
