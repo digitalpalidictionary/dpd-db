@@ -213,6 +213,8 @@ gata	adj	last	dutiyā tappurisa	aghagata, aṭṭhānagata, anāpāthagata, anto
 gatika	adj	last	kammadhāraya > bahubbīhi	ekagatika	
 gadhita	any	last	tatiyā tappurisa		
 gandha	any	last	chaṭṭhī tappurisa	anirāmagandha, avītagandha, ekagandha, kasāvagandha, dibbagandha, nirāmagandha, pūtigandha, mālāgandha, vaṇṇagandha, sabbagandha, savanagandha, sucigandha, surabhigandha	
+gandhika	adj	last	kammadhāraya > bahubbīhi	candanamaṇḍitasāragandhika	
+gabbha	adj	last	kammadhāraya > bahubbīhi	jāragabbha, majjhegabbha	
 gama	adj	last	dutiyā tappurisa	aghasigama, adhogama, dvidugama	going
 gamika	adj	last	dutiyā tappurisa > bahubbīhi	āgantukagamika	
 gamika	masc	last	dutiyā tappurisa	āgantukagamika, gilānagilānupaṭṭhākaāgantukagamika	
@@ -353,7 +355,7 @@ paññatti	fem	last	kammadhāraya iti
 pañha	any	last	chaṭṭhī tappurisa		
 paṭicca	any	last	dutiyā tappurisa		
 paṭinissagga	masc	last	chaṭṭhī tappurisa		
-paṭipanna	adj	last	dutiyā tappurisa	ujupaṭipanna, ujuppaṭipanna, micchāpaṭipanna, yathāpaṭipanna, sammāpaṭipanna, sāmīcipaṭipanna	
+paṭipanna	adj	last	dutiyā tappurisa | kammadhāraya		
 paṭippanna	any	last	dutiyā tappurisa		
 paṭilābha	noun	last	chaṭṭhī tappurisa		
 paṭilābhī	adj	last	dutiyā tappurisa		
@@ -402,6 +404,7 @@ pariññeyya	adj	last	tatiyā tappurisa
 paripūra	adj	last	tatiyā tappurisa		
 paribhāvita	any	last	tatiyā tappurisa		
 pariyanta	adj	last	tatiyā tappurisa		
+pariyāgāra	adj	last	kammadhāraya > bahubbīhi		
 pariyādāna	nt	last	chaṭṭhī tappurisa		
 pariyāpanna	any	last	sattamī tappurisa		
 pariyuṭṭhita	adj	last	tatiyā tappurisa		

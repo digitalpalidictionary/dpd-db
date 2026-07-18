@@ -13,9 +13,9 @@ from db.models import DpdHeadword
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-find_char = " "
-replace_char = " "
-column = "meaning_1"
+find_char = "see SCPN"
+replace_char = "See SCPN"
+column = "notes"
 
 
 def main() -> None:
@@ -31,14 +31,15 @@ def main() -> None:
         old_field = getattr(i, column)
 
         if find_char in old_field:
+            counter += 1
             new_field = old_field.replace(find_char, replace_char)
 
-            print(f"[white]{i.id}  {i.lemma_1:<40}")
+            print(f"[green]{counter}.")
+            print(f"[white]{i.id} {i.lemma_1:<40}")
             print(f"[green]{old_field}")
             print(f"[light_green]{new_field}")
             print()
             setattr(i, column, new_field)
-            counter += 1
 
     if counter > 0:
         print("\n[green]would you like to commit changes to db? y/n ", end="")
