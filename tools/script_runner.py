@@ -78,4 +78,4 @@ def _should_use_uv(command: str) -> bool:
     """
     Determine if a command should use uv run based on its extension.
     """
-    return command.strip().endswith(".py")
+    return command.split()[0].endswith(".py")
