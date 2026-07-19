@@ -9,6 +9,16 @@
   ],
   "default_models": [
     {
+      "provider": "zai",
+      "model": "glm-5.2",
+      "delay": 0
+    },
+    {
+      "provider": "zai",
+      "model": "glm-5-turbo",
+      "delay": 0
+    },
+    {
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
       "delay": 0

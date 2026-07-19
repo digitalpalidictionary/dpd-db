@@ -65,6 +65,7 @@ class AIManager:
         from tools.ai_gpt_manager import GptManager
         from tools.ai_nvidia import NvidiaManager
         from tools.ai_open_router import OpenRouterManager
+        from tools.ai_zai_manager import ZaiManager
 
         self.providers["claude"] = ClaudeManager()
         pr.green("claude initialized")
@@ -77,6 +78,12 @@ class AIManager:
             pr.green("openrouter initialized")
         else:
             pr.amber("OpenRouter API key not found, manager not initialized.")
+
+        if config_read("apis", "zai"):
+            self.providers["zai"] = ZaiManager()
+            pr.green("zai initialized")
+        else:
+            pr.amber("Z.ai API key not found, manager not initialized.")
 
         if config_read("apis", "deepseek"):
             self.providers["deepseek"] = DeepseekManager()
