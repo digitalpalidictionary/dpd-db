@@ -3,6 +3,7 @@ import re
 from tools.printer import printer as pr
 
 from db.models import DpdHeadword, DpdRoot
+from tools.pali_sort_key import pali_sort_key
 from tools.superscripter import superscripter_uni
 
 
@@ -12,7 +13,10 @@ def generate_root_matrix(db_session):
     total_counter = 0
     word_counter = 0
 
-    dpd_db = db_session.query(DpdHeadword).all()
+    dpd_db = sorted(
+        db_session.query(DpdHeadword).all(),
+        key=lambda x: pali_sort_key(x.lemma_1),
+    )
 
     for counter, i in enumerate(dpd_db):
         headword = i.lemma_1
