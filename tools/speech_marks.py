@@ -70,8 +70,10 @@ class SpeechMarkManager:
         The db is the single source of truth: every word containing an
         apostrophe or hyphen in example_1, example_2 or commentary is
         collected, keyed by its clean form (both marks stripped) — the
-        same convention as gui2's live capture. Entries no longer backed
-        by db text disappear on rebuild.
+        same convention as gui2's live capture. A second pass adds the
+        plain unmarked word as a variant wherever it also occurs in the
+        corpus, so genuinely ambiguous words keep both possibilities.
+        Entries no longer backed by db text disappear on rebuild.
         """
         db_session: Session = get_db_session(self.pth.dpd_db_path)
         db = (
@@ -95,6 +97,13 @@ class SpeechMarkManager:
                             clean_word = word.replace("-", "").replace("'", "")
                             if clean_word:
                                 self.update_variants(clean_word, word)
+
+        for i in db:
+            for field in (i.example_1, i.example_2, i.commentary):
+                if field:
+                    for word in split_pali_sentence_into_words(field):
+                        if word in self.speech_marks_dict:
+                            self.update_variants(word, word)
 
         db_session.close()
         self.save()
