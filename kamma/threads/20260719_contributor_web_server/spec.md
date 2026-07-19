@@ -112,10 +112,19 @@ uv run flet run --web -p 8550 gui2/main.py
    push JSONs, rebuild db from main **only when safe** (invariant below),
    reconcile JSONs, restart. Rebuild = `git pull` →
    `scripts/build/db_rebuild_from_tsv.py` →
-   `scripts/bash/generate_components.py`, config-gated (audio, anki,
-   deconstructor regeneration OFF; deconstructor uses premade output per the
-   existing environment-determined `[generate] deconstructor` mechanism).
-   Server needs Go installed (deconstructor add + frequency steps).
+   `scripts/server/generate_components_server.py` (a LEAN, gui2-only subset of
+   `scripts/bash/generate_components.py`).
+   **UPDATED (Phase 2, 2026-07-19):** the server runs the lean subset, not the
+   full generate_components. It keeps only steps that populate tables/columns
+   gui2 reads during data entry (inflection templates/tables, families,
+   deconstructor go+add, api_ca_eva, inflections_to_headwords, see, spelling);
+   it DROPS the transliterate, grammar/epd/sutta/help lookup, and frequency
+   steps (maintainer-confirmed unused by gui2), plus all exporter/anki/audio/
+   variants/search_index/dealbreakers steps. The premade-deconstructor download
+   is DEPRECATED — the deconstructor `go run` regenerates locally on the server
+   (Go required). No pytest on the server (the lean db omits data the suite
+   asserts on; the maintenance-window health check is the gate). Kept/dropped
+   rationale in `scripts/server/config_server.md`.
 8. **THE INVARIANT: never wipe what has not been absorbed upstream.** Rebuild
    is allowed only if every `additions_*.json` / `corrections_*.json` **in
    origin/main** is empty — i.e. the maintainer has processed everything

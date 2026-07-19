@@ -1,0 +1,79 @@
+# DPD contributor web server — config.ini template
+#
+# Copy this to ./config.ini on the server and fill in the two <FILL IN> API
+# keys. NEVER commit the resulting config.ini — it holds secrets.
+#
+# Server tuning (rationale per generate_components command in config_server.md):
+#   - full rebuild from TSV ON     [regenerate] db_rebuild = yes
+#   - audio generation + upload OFF [exporter] make_audio_db / upload_audio_db = no
+#   - anki OFF                      [anki] update = no
+#   - all dictionary/export output OFF [exporter] make_* = no
+#       the server only rebuilds the db for gui2; it exports no dictionary.
+#   - deconstructor ON             [generate] deconstructor = yes (needs Go)
+#   - webapp search index OFF      [generate] search_index = no (no webapp here)
+#
+# username / role / ports are overridden per instance by env vars in each
+# systemd unit (DPD_GUI2_USERNAME, DPD_GUI2_ROLE, DPD_API_PORT); the values
+# below are the primary/desktop-equivalent fallbacks.
+
+[version]
+version = v0.0.0
+
+[regenerate]
+db_rebuild = yes
+inflections = no
+transliterations = no
+freq_maps = yes
+
+# suttas/grammar/epd = no: those build steps are dropped from the lean server
+# rebuild (gui2 never reads their lookup columns / the sutta_info table). The
+# lean script hardcodes its own step list, so these flags only matter if the
+# full generate_components.py is ever run on the server — keep them off to match.
+[generate]
+suttas = no
+grammar = no
+inflections_to_headwords = yes
+epd = no
+search_index = no
+deconstructor = yes
+
+[user]
+username = 1
+
+[dictionary]
+make_mdict = no
+make_link = no
+link_url = https://thebuddhaswords.net/
+show_id = no
+data_limit = 0
+
+[exporter]
+language = en
+make_dpd = no
+make_grammar = no
+make_deconstructor = no
+make_variants = no
+make_ebook = no
+make_tpr = no
+make_mobile = no
+make_tbw = no
+make_sutta_central = no
+make_pdf = no
+make_txt = no
+tarball_db = no
+make_abbrev = no
+make_changelog = no
+make_newsletter = no
+update_simsapa_db = no
+make_audio_db = no
+upload_audio_db = no
+
+[anki]
+update = no
+
+[apis]
+deepseek = <FILL IN — maintainer DeepSeek key, never commit>
+openrouter = <FILL IN — maintainer OpenRouter key, never commit>
+
+[gui2]
+username = 1

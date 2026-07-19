@@ -357,7 +357,7 @@ all decisions, and all known unknowns.
 All scripts in `scripts/server/`: pure-function cores + thin CLI mains,
 unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
 
-- [ ] 2.1 `scripts/server/contrib_reconcile.py`: snapshot-based key-level
+- [x] 2.1 `scripts/server/contrib_reconcile.py`: snapshot-based key-level
       merge. Reads `last_pushed/<file>.json` snapshots, computes
       `final = local − (last_pushed − main_version)`, writes result + refreshes
       the snapshot. Pure core:
@@ -373,18 +373,49 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       in main, PRESENT+CHANGED in local → decide keep-local-edit vs drop. Likely
       rule: drop only if local == last_pushed (unchanged since push); keep if
       the local content differs (a fresh edit). Cover this in the tests here.
-- [ ] 2.2 `scripts/server/contrib_push.py`: commit `gui2/data/*_{user}.json`
+      DONE (2026-07-19): `scripts/server/contrib_reconcile.py` — pure
+      `reconcile(local, pushed, upstream)` drops a key iff pushed AND removed
+      upstream AND `local[key] == pushed[key]` (keep-if-changed rule applied);
+      helpers `load_json_dict`/`write_json_dict` (empty → `{}`, matching the
+      gui2 managers), `upstream_from_git` (`git show ref:path` → {} if
+      absent/invalid), `contributor_files` (globs `additions_*`/`corrections_*`,
+      excludes `_added`), `reconcile_all` (writes result + refreshes snapshot),
+      thin argparse `main`. Tests `tests/scripts/server/test_contrib_reconcile.py`
+      (15): all plan cases (processed all/some/none, local-added, both, empty),
+      keep-if-changed + drop-only-when-unchanged, json helpers, glob exclusion,
+      and two scratch-git end-to-end (`reconcile_all` incl. upstream-absent).
+      ruff+format+pyright clean.
+- [x] 2.2 `scripts/server/contrib_push.py`: commit `gui2/data/*_{user}.json`
       on the `contributions` branch, push, write snapshots. Stage by explicit
       file list (NEVER `git add -A` — project rule). Idempotent when nothing
       changed.
       → verify: unit test against a scratch git repo (tmp dir + local bare
       remote): push twice → second is a no-op; snapshots updated.
-- [ ] 2.3 `scripts/server/absorption_check.py`: `git fetch origin main`;
+      DONE (2026-07-19): `push_contributions()` — `_ensure_branch` (switch/create
+      `contributions`), explicit `git add` per `contributor_files()` (reused from
+      2.1; `_added` excluded), `_nothing_staged` → no-op `PushResult(pushed=False)`,
+      else commit (`contrib: submit data <date>`) + `git push origin contributions`
+      + `write_snapshots` (snapshot = current file content). Tests
+      `tests/scripts/server/test_contrib_push.py` (4): scratch repo + bare remote —
+      push lands on `contributions`, snapshot mirrors file, second call no-op;
+      `_added` excluded; no files → nothing to push. ruff+format+pyright clean.
+- [x] 2.3 `scripts/server/absorption_check.py`: `git fetch origin main`;
       rebuild-allowed iff every `gui2/data/additions_*.json` /
       `corrections_*.json` blob in origin/main is empty (`{}`) or absent.
       → verify: unit test with scratch repo: non-empty file → skip;
       all empty/absent → allowed.
-- [ ] 2.4 `scripts/server/maintenance_window.py` orchestrator:
+      DONE (2026-07-19): `absorption_allowed(project_root, ref)` → (allowed,
+      blocking_files). `contributor_blobs` = `git ls-tree` + `git show` for each
+      `additions_*`/`corrections_*` blob at ref (`_added` EXCLUDED — those are
+      lists, never `{}`, so including them would permanently block rebuild);
+      `is_empty_blob` treats `{}`/`[]`/blank as empty; pure `all_absorbed` +
+      `blocking_files`; CLI exits 1 when skipped. `_added` files intentionally
+      ignored by the invariant. Tests
+      `tests/scripts/server/test_absorption_check.py` (9): work-file filter,
+      empty-blob variants, pure core, and scratch-repo non-empty→skip /
+      all-empty→allowed (with a non-empty `_added` proving it's ignored) /
+      no-files→allowed. ruff+format+pyright clean.
+- [x] 2.4 `scripts/server/maintenance_window.py` orchestrator:
       stop instances (systemctl) → contrib_push → absorption_check →
       [if allowed: `cp dpd.db dpd.db.prev` → `git pull --ff-only` + submodule
       update → `scripts/build/db_rebuild_from_tsv.py` →
@@ -404,7 +435,25 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       the snapshots, and reconcile outputs — and on ANY failure restore all of
       them before restarting instances (not just the db). Keep logging +
       health-check flow.
-- [ ] 2.5 Server config template `scripts/server/config_server.template`:
+      DONE (2026-07-19): `run_maintenance(config, steps)` → `Outcome`
+      (SKIPPED/REBUILT/FAILED). Order: stop instances → contrib_push → `_pin_commit`
+      (fetch once + `git rev-parse origin/main`) → `absorption_allowed(ref=pinned,
+      fetch=False)` → SKIP or [capture rollback → pull(pinned)+submodules → rebuild
+      → generate → health_check → reconcile_all(pinned) → WAL] → start instances
+      (finally). ROBUSTNESS (a): the SAME pinned commit drives both the absorption
+      check and reconcile/pull. (b) `_capture_rollback` snapshots db (→dpd.db.prev),
+      pre-pull `git HEAD`, AND all contributor files + `last_pushed/`; `_restore_
+      rollback` restores db + `git reset --hard <pre>` + submodule update + the
+      json files/snapshots on ANY failure. Heavy steps (pull/rebuild/generate/
+      health_check) injectable via `WindowSteps` (defaults call the real git /
+      `db_rebuild_from_tsv.py` / `generate_components.py` / db row-count check,
+      floors `MIN_HEADWORDS`/`MIN_LOOKUP`). Instance ctl behind `--no-systemd`
+      (log-only). Each run logs to `logs/maintenance_YYYYMMDD.log`. Tests
+      `tests/scripts/server/test_maintenance_window.py` (4): all three paths on a
+      scratch repo+bare remote+fake sqlite — happy→REBUILT, skip→SKIPPED,
+      forced-failure→FAILED with db (marker) AND contributor file restored;
+      `--no-systemd` log assertions. ruff+format+pyright clean.
+- [x] 2.5 Server config template `scripts/server/config_server.template`:
       regenerate/exporter flags OFF for audio, anki, deconstructor
       regeneration (premade path per `[generate] deconstructor` mechanism).
       Document per COMMANDS entry of `scripts/bash/generate_components.py`
@@ -414,8 +463,153 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       → verify: local run of `generate_components.py` under the template
       config on a scratch db copy (`cp dpd.db /tmp/...` per project perf rule)
       completes; record wall-clock as the local baseline number IN THIS FILE.
-- [ ] 2.6 Phase gate: lint/type/test all touched files + full pytest.
+      DONE (2026-07-19): `scripts/server/config_server.template` written
+      (secrets → `<FILL IN>` placeholders; audio + anki + all exporter make_*
+      OFF; db_rebuild + generate.deconstructor ON; search_index OFF; validated
+      it parses via configparser). Per-command doc `scripts/server/config_server.md`
+      — full COMMANDS table (runs / no-op-via-config / must-skip) from a source
+      audit: only #18/#31 (Go) are hard prereqs; #15/16 anki, #34/35/36 audio,
+      #17/33 exporter all no-op via the template flags.
+      BASELINE (2026-07-19, isolated git worktree + copied dpd.db + template
+      config, `UV_NO_SYNC=1`, this dev machine): full generate_components rebuild
+      (steps 2–37, pytest excluded) = **665s (~11 min)**, rc=0, all 36 steps
+      clean. Dominant step by far: `go run go_modules/deconstructor/main.go` =
+      **301s (45%)**; then transliterate_lookup_table 62s, transliterate_
+      inflections 56s, suttas_update 38s, api_ca_eva 32s, inflections_to_
+      headwords 26s, deconstructor_add 20s, grammar_to_lookup 20s. Disabled
+      subsystems confirmed no-op: anki 0.4s×2, all 3 audio 0.4s each, variants
+      0.3s, search_index 0.4s — template flags work. Server estimate = local ×
+      2–3 (spec) ⇒ ~20–33 min rebuild; well under the 3h window fallback
+      threshold (plan 3.3 decision), so an on-server rebuild stays viable. The
+      REAL server number is still measured in 3.3.
+      SETUP NOTES for reproducing the isolated run: a git worktree has only
+      TRACKED files, so the pipeline needs these gitignored assets copied in
+      before it runs — all 159 `__init__.py` (repo-wide .gitignore hides them;
+      `tools.cst_source` etc. fail to import without them), `audio/db/dpd_audio.db`
+      (pytest `tests/audio/test_audio_query.py` `sys.exit(1)`s at import if
+      absent), and `shared_data/` (e.g. `frequency/cst_wordlist.json`).
+      PYTEST-ON-SERVER FINDING (the #1 entry decision, now evidence-backed):
+      the full `uv run pytest tests/` gate would ABORT the nightly rebuild on a
+      headless server, because `tests/audio/test_audio_query.py` (and the two
+      `tests/exporter/webapp/test_webapp_*` files) `sys.exit(1)` at import when a
+      generated asset is missing — and the 1.2 GB audio db is absent on the
+      audio-disabled server. Options documented in config_server.md: A) server
+      pytest `--ignore=tests/audio --ignore=tests/exporter/webapp` (recommended);
+      B) drop pytest, rely on the 2.4 health check; C) ship the assets (wasteful).
+      DECISION PENDING maintainer confirmation at review; the fix touches the
+      shared `generate_components.py`, so not coded unsolicited. (Also NOTICED —
+      NOT TOUCHING: 4 golden-master render tests in
+      `tests/exporter/goldendict/test_export_dpd.py` fail on any db/env delta;
+      matches the project note to delete brittle snapshot tests rather than
+      re-freeze — out of scope here.)
+      LEAN REBUILD ADDED (2026-07-19, maintainer-directed scope addition): the
+      server does NOT run the full `generate_components.py`. New
+      `scripts/server/generate_components_server.py` runs only the steps that
+      populate tables/columns gui2 reads (verified against gui2 source): logo,
+      version, create/generate inflection tables, root_has_verb, sanskrit,
+      family_root/word/compound/set/idiom, deconstructor go+add, api_ca_eva,
+      inflections_to_headwords, lookup/see, lookup/spelling_mistakes. DROPPED as
+      maintainer-confirmed unused by gui2 data entry (grep-verified no reads of
+      lookup.grammar/.epd/.help, sutta_info, freq_html/ebt_count):
+      transliterate ×2, grammar_to_lookup, epd_to_lookup, suttas_update,
+      suttas_to_lookup, help_abbrev, ebt_counter, frequency go; plus
+      exporter/release/config-mutation steps (anki, audio, variants,
+      search_index, families_to_json, dealbreakers, config_uposatha_day). NO
+      pytest on the server (lean db omits data the suite asserts on + the
+      full-suite `sys.exit` audio break); the 2.4 health check is the gate.
+      `maintenance_window._default_generate` now calls the lean script. Tests
+      `tests/scripts/server/test_generate_components_server.py` (5): dropped
+      steps absent, essential present, no pytest, go-before-loader +
+      tables-before-headwords ordering. `spelling_mistakes` KEPT (pass2pre
+      filtering — gui2 reads it indirectly, not via a lookup.spelling attr).
+      VALIDATION NOTE: lean list is a strict in-order subset of the proven full
+      run, but a real server run in 3.3 must confirm no kept step depended on a
+      dropped one (the spelling case showed hidden pass2pre deps).
+      OPERATOR DOCS (2026-07-19): `scripts/server/README.md` added — ties all the
+      Phase 2 scripts together: the nightly-window flow diagram, how to run the
+      orchestrator (prod + local `--no-systemd --no-push` dry-run), a per-script
+      table (push/absorption/reconcile/lean-rebuild/config template) with
+      standalone invocations, the `last_pushed/` snapshot explanation, and a note
+      that the pre-existing `update-dpd.sh` belongs to the separate dpdict.net
+      webapp server, NOT this system. (Phase 3.1 `SERVER_SETUP.md` provisioning
+      runbook and Phase 4.3 contributor-facing docs are still separate.)
+### Phase 2 review (2026-07-19) — parallel sonnet passes: correctness + spec-conformance (CodeRabbit stalled on free tier, re-run pending)
+
+- **R1 (SEVERE — branch left on `contributions`, root cause NOT yet fixed):**
+  `contrib_push._ensure_branch` switches the working tree to `contributions`
+  and never switches back; the maintenance window then runs `git merge --ff-only
+  origin/main` on `contributions`, which has diverged → ff-only fails → every
+  real push run ends FAILED and never rebuilds. Tests missed it (all `push=False`).
+  DEFENSIVE FIX APPLIED: outer `except` in `run_maintenance` now catches the
+  pre-rebuild failure and logs "maintenance aborted before rebuild" + FAILED
+  (was mislabelled "skipped"). ROOT-CAUSE FIX DEFERRED to a maintainer decision:
+  the durable fix is a dedicated git WORKTREE for the `contributions` branch so
+  the main tree never switches (a naive switch-back breaks on night 2 —
+  "local changes would be overwritten" because live JSONs differ from the
+  committed contributions version). Redesign of the push mechanism → needs
+  sign-off before Phase 3. Tracked as the top open item.
+- **R2 (MEDIUM, fixed):** `_restore_rollback` iterated the CURRENT data dir, so a
+  contributor file deleted by a failed rebuild was never restored. Now iterates
+  `rollback.data_backup` (ground truth). +regression test
+  `test_deleted_contributor_file_is_restored`.
+- **R3 (MEDIUM, fixed):** failures in push/pin/absorption escaped past `finally`
+  and logged a misleading "skipped". Added outer `except` → logs + FAILED.
+  +test `TestPrePushFailure`.
+- **R4 (LOW, fixed):** `_pin_commit` swallowed `git fetch` failures silently →
+  could pin a stale commit. Now logs a warning on fetch failure.
+- **R5 (LOW, fixed):** `generate_components_server.py` called `check_db_exists()`
+  at import (a test imports it) → `sys.exit(1)` off a built db. Moved into
+  `__main__`.
+- **R6 (conformance, fixed):** config template set `[generate] suttas/grammar/
+  epd = yes`, contradicting the "dropped/unused" docs (inert today — lean script
+  hardcodes its list — but drift). Set to `no` with an explanatory comment.
+- **R7 (conformance, fixed):** rollback docstring overclaimed "every mutated
+  component"; the gitignored build intermediates (`shared_data/changed_*`,
+  `exporter/tpr/output/i2h.tsv`) are NOT captured. Docstring now states exactly
+  what is/isn't captured and why leaving them stale is safe (full `db_rebuild`
+  regen, gui2 never reads them).
+- Audit CLEAN on: reconcile keep-if-changed logic, absorption semantics
+  (`*_added` excluded), pinned-commit reuse, lean COMMANDS list vs plan, explicit
+  -file staging (no `git add -A`), idempotency, type hints/pathlib.
+
+- **CodeRabbit (run directly 2026-07-19, 11 findings; validated each vs code):**
+  - CR-absorption-fail-open (**CRITICAL, fixed**) — `contributor_blobs`/
+    `absorption_allowed` returned `{}` on any git error → `all_absorbed({})=True`
+    → would authorize a rebuild/wipe on a git failure. Now RAISES on ls-tree/
+    show/fetch errors (fails closed). +test `test_git_error_fails_closed`.
+  - CR-rollback-fail-silent (**CRITICAL, fixed**) — `_restore_rollback` ignored
+    `git reset`/submodule return codes and logged "restored" unconditionally.
+    Now checks both and logs ERROR on failure.
+  - CR-reconcile-fail-open (**major, fixed**) — `load_json_dict` returned `{}` on
+    invalid JSON (could wipe a corrupt file); `upstream_from_git` returned `{}`
+    on any git error (could drop all local keys). Both now RAISE (missing file
+    still → `{}`; absent-at-ref still → `{}`). Test updated to assert raise.
+  - CR-atomic-write (**major, fixed**) — `write_json_dict` now writes a temp file
+    + `os.replace` (no half-written contributor files on crash).
+  - CR-timeouts (**major, fixed**) — added `timeout=` to every subprocess in
+    maintenance_window (`_run`/`_git_head`/`_pin_commit`/systemctl/rollback);
+    STEP_TIMEOUT=3600, GIT_TIMEOUT=300. A hung git can no longer strand the
+    window with instances stopped.
+  - CR-systemctl-check (**major, fixed**) — `_systemctl` now inspects the return
+    code and logs ERROR on failure instead of always logging success.
+  - CR-prepopulated-index (**major, fixed**) — `contrib_push` now `git reset`s
+    the index before staging, so a stray pre-staged file can't enter the commit.
+  - CR-push-unpushed-commit / CR-push-reconcile-order / CR-ensure-branch-track
+    (**3× major, DEFERRED**) — all part of the R1 push-branch redesign
+    (worktree for `contributions`); folded into that pending decision, not
+    half-fixed.
+  - CR-absorption-ref-optional (**major, skipped**) — `--ref` defaults to
+    `origin/main` already and the window passes an explicit pinned SHA; the
+    ergonomic tweak adds no safety. Not worth the churn.
+
+- [x] 2.6 Phase gate: lint/type/test all touched files + full pytest.
       → verify: clean.
+      DONE (2026-07-19): ruff check + `ruff format --check` clean on all 8 Phase-2
+      python files (4 scripts/server + 4 tests/scripts/server); pyright 0 errors/
+      0 warnings on all 8. Full suite `uv run pytest tests/` = **1652 passed, 17
+      deselected in 40.9s** on the live repo (the 4 goldendict golden-master fails
+      seen in the isolated worktree were a copied-db/env artifact — they pass
+      against the live db, so no regression).
 
 ## Phase 3 — Server provisioning & deployment
 
