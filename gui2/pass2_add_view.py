@@ -86,6 +86,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._current_addition_origin: Path | None = None
         self._current_addition_key: str | None = None
         self._current_correction_origin: Path | None = None
+        self._current_correction_key: str | None = None
 
         self._message_field = ft.TextField(
             "",
@@ -706,6 +707,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._current_addition_origin = None
         self._current_addition_key = None
         self._current_correction_origin = None
+        self._current_correction_key = None
 
         self.update_message("")  # Clear message field
         self.page.update()
@@ -746,6 +748,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_add_to_db(self, e: ft.ControlEvent) -> None:
         """Add the word to db, or update in db."""
+
+        if not self._db.is_db_loaded():
+            self.update_message("Database still loading — please wait before saving.")
+            return
 
         word_to_save = self.dpd_fields.get_current_headword()
         comment = self.dpd_fields.get_field("comment").value
@@ -869,7 +875,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                 # Otherwise keep current UI value if not in correction (e.g. ID)
 
                     self.corrections_manager.save_processed_correction(
-                        word_data, self._current_correction_origin
+                        word_data,
+                        self._current_correction_origin,
+                        self._current_correction_key,
                     )
 
             self.page.set_clipboard(word_to_save.lemma_1)
@@ -950,6 +958,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.delete_alert.open = False
         self.page.update()
 
+        if not self._db.is_db_loaded():
+            self.update_message("Database still loading — please wait before deleting.")
+            return
+
         if self.headword:
             deleted, message = self._db.delete_word_in_db(self.headword)
             if deleted:
@@ -966,7 +978,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_corrections_button(self, e: ft.ControlEvent) -> None:
         """Loads the next correction and populates the _add fields."""
-        correction_data, origin, corrections_remaining = (
+        correction_data, origin, source_key, corrections_remaining = (
             self.corrections_manager.get_next_correction()
         )
 
@@ -976,6 +988,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         self.current_correction = copy.deepcopy(correction_data)
         self._current_correction_origin = origin
+        self._current_correction_key = source_key
 
         try:
             # Clear any existing add fields

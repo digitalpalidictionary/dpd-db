@@ -121,6 +121,12 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.ui.page.update()
 
     def make_dpd_headword_and_add_to_db(self):
+        if not self.db.is_db_loaded():
+            self.ui.update_message(
+                "Database still loading — please wait before saving."
+            )
+            return
+
         # Collect data from UI fields into a dictionary
         field_data: dict[str, str] = {
             field_name: field.value or ""

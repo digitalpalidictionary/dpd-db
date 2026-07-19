@@ -57,4 +57,18 @@ class Gui2Paths:
             paths.additions_added_path = data / f"additions_added_{username}.json"
             paths.corrections_path = data / f"corrections_{username}.json"
             paths.corrections_added_path = data / f"corrections_added_{username}.json"
+            # Per-user session-state files: concurrent gui2 web instances each
+            # write these, and non-atomic JSON writes to a shared file corrupt
+            # it. Route them per-user (desktop / primary user "1" is unaffected).
+            paths.daily_log_path = data / f"daily_log_{username}.json"
+            paths.history_json_path = data / f"history_{username}.json"
+            paths.filter_presets_path = data / f"filter_presets_{username}.json"
+            # Pass2 stash slots are single-word scratch, written by _click_stash
+            # / the commentary + example stash managers. Shared across instances
+            # they'd clobber each other, so route per-user too.
+            paths.headword_stash_json_path = data / f"headword_stash_{username}.json"
+            paths.example_stash_json_path = data / f"example_stash_{username}.json"
+            paths.commentary_stash_json_path = (
+                data / f"commentary_stash_{username}.json"
+            )
         return paths

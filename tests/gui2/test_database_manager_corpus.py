@@ -77,6 +77,7 @@ def db_manager(engine_and_session: tuple[Engine, Session]) -> DatabaseManager:
     manager._corpus_lock = threading.Lock()
     manager._inflections_gen = -1
     manager._pass2_gen = -1
+    manager.db_loaded = False
     return manager
 
 
@@ -130,6 +131,44 @@ def test_mark_corpus_stale_forces_reload(
     reloaded = db_manager.load_corpus()
     assert reloaded is not first
     assert len(reloaded) == 4
+
+
+# ── db-loaded readiness gate ─────────────────────────────────────────────────
+
+
+def test_is_db_loaded_false_before_init(db_manager: DatabaseManager):
+    assert db_manager.is_db_loaded() is False
+
+
+def test_is_db_loaded_true_after_flag_set(db_manager: DatabaseManager):
+    db_manager.db_loaded = True
+    assert db_manager.is_db_loaded() is True
+
+
+def test_initialize_db_sets_db_loaded(
+    db_manager: DatabaseManager, monkeypatch: pytest.MonkeyPatch
+):
+    """initialize_db() must flip db_loaded True after the corpus load so save
+    paths stop being gated. Stub the file-backed get_all_* helpers; the corpus
+    load runs against the in-memory fixture."""
+    for name in (
+        "get_all_lemma_1_and_lemma_clean",
+        "get_all_pos",
+        "get_all_roots",
+        "get_all_root_families",
+        "get_all_compound_families",
+        "get_all_word_families",
+        "get_all_patterns",
+        "get_all_decon_no_headwords",
+    ):
+        monkeypatch.setattr(db_manager, name, lambda: None)
+    monkeypatch.setattr(
+        database_manager_module, "RelationshipDetector", lambda corpus: object()
+    )
+
+    assert db_manager.is_db_loaded() is False
+    db_manager.initialize_db()
+    assert db_manager.is_db_loaded() is True
 
 
 # ── derived sets ─────────────────────────────────────────────────────────────

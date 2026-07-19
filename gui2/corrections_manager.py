@@ -61,33 +61,59 @@ class CorrectionsManager:
     def update_corrections(self, word: DpdHeadword, comment: str) -> None:
         word_dict = {k: v for k, v in vars(word).items() if not k.startswith("_")}
         word_dict["comment"] = comment
-        self.corrections_dict[str(word.id)] = word_dict
+        # Key = "{username}_{id}": unique across contributors (username) and
+        # stable per word (id + dedup), so re-correcting the same word overwrites
+        # its one live entry (latest wins) instead of piling up duplicates the
+        # reviewer would process repeatedly. Reuse an existing entry's key even
+        # if it predates this scheme (e.g. an old uuid key).
+        key = self._key_for_id(word.id) or f"{self._username()}_{word.id}"
+        self.corrections_dict[key] = word_dict
         self.save_corrections()
+
+    def _username(self) -> str:
+        """The contributor this file belongs to, from its name
+        (corrections_{username}.json). Primary user's corrections.json → '1'."""
+        stem = self.corrections_path.stem
+        prefix = "corrections_"
+        return stem[len(prefix) :] if stem.startswith(prefix) else "1"
+
+    def _key_for_id(self, id_no: int) -> str | None:
+        """Return the existing key for an entry with this db id, or None."""
+        for key, entry in self.corrections_dict.items():
+            if entry.get("id") == id_no:
+                return key
+        return None
 
     def get_next_correction(
         self,
-    ) -> tuple[dict[str, str | int] | None, Path | None, int]:
+    ) -> tuple[dict[str, str | int] | None, Path | None, str | None, int]:
         """Retrieves and removes the next correction from the in-memory queue.
 
-        Returns (correction, origin_path, corrections_remaining). For the
-        primary user flow, origin_path is the contributor file the item came
-        from. Correction and origin_path are None if no corrections available.
+        Returns (correction, origin_path, source_key, corrections_remaining).
+        source_key is the key as it appears in the contributor file — needed
+        because the DB may assign a different id when the correction is
+        committed. For the primary user flow, origin_path is the contributor
+        file the item came from. The first three are None if no corrections
+        are available.
         """
         if not self.corrections_dict:
-            return None, None, 0
+            return None, None, None, 0
 
         first_key = next(iter(self.corrections_dict))
         correction = self.corrections_dict.pop(first_key)
         origin = self._origin.pop(first_key, None)
-        return correction, origin, len(self.corrections_dict)
+        return correction, origin, first_key, len(self.corrections_dict)
 
     def save_processed_correction(
         self,
         word_data: dict[str, str],
         origin_path: Path | None = None,
+        source_key: str | None = None,
     ) -> None:
         """Append processed correction to corrections_added.json, tagging the
         contributor, and remove that key from the origin contributor file.
+        source_key is the key as stored in the contributor file (may differ
+        from word_data["id"] which gets a new DB-assigned value on commit).
         """
         contributor = _contributor_from_origin(origin_path, prefix="corrections_")
 
@@ -104,8 +130,8 @@ class CorrectionsManager:
         with open(self.paths.corrections_added_path, "w", encoding="utf-8") as f:
             json.dump(existing_data, f, ensure_ascii=False, indent=4)
 
-        if origin_path is not None and "id" in word_data:
-            _remove_key_from_file(origin_path, str(word_data["id"]))
+        if origin_path is not None and source_key is not None:
+            _remove_key_from_file(origin_path, source_key)
 
 
 def _contributor_from_origin(origin_path: Path | None, prefix: str) -> str:

@@ -6,8 +6,15 @@ import shutil
 import sys
 from pathlib import Path
 
+from tools.server_mode import is_headless_server
+
 
 def open_in_goldendict(word: str) -> None:
+    # No GoldenDict (and no display) in a headless server session; skip the
+    # shell-out entirely rather than relying on the which()/candidate fallback.
+    if is_headless_server():
+        return
+
     exe = shutil.which("goldendict")
 
     if exe is None:

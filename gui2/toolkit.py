@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any
 
 import flet as ft
 
-from tools.configger import config_read
 from tools.paths import ProjectPaths
 
 if TYPE_CHECKING:
@@ -33,7 +32,7 @@ class ToolKit:
         from gui2.see import SeeFileManager
         from gui2.spelling import SpellingMistakesFileManager
         from gui2.test_manager import GuiTestManager
-        from gui2.user import UsernameManager
+        from gui2.user import UsernameManager, resolve_username
         from gui2.variants import VariantReadingFileManager
         from tools.proofreader import ProofreaderManager
         from tools.speech_marks import SpeechMarkManager
@@ -49,7 +48,7 @@ class ToolKit:
 
         # Managers with no ToolKit internal dependencies (or only page)
         self.project_paths = ProjectPaths()
-        username = config_read("gui2", "username") or "1"
+        username = resolve_username() or "1"
         self.paths: Gui2Paths = Gui2Paths.for_user(username)
         self.db_test_manager: DbTestManager = DbTestManager()
         self.test_manager: GuiTestManager = GuiTestManager(self)

@@ -6,6 +6,7 @@ import flet as ft
 
 from tools.ai_manager import AIManager
 from tools.printer import printer as pr
+from tools.server_mode import is_headless_server
 
 GROUNDED_KEY_PREFIX = "grounded|"
 DEFAULT_MODEL_KEY = "grounded|gemini|gemini-2.5-flash"
@@ -15,9 +16,14 @@ _process: subprocess.Popen | None = None
 
 def launch_ai_search_window() -> None:
     # Ask AI runs in its own OS window (its own Flet process) so it never
-    # blocks the main window and can be alt-tabbed. Guard against spawning
-    # duplicates: if one is already alive, leave it and let the user switch
-    # to it rather than opening a second copy.
+    # blocks the main window and can be alt-tabbed. This is desktop-only: a
+    # headless server session has no display to open the native window, so skip
+    # it (a web-native in-page Ask AI is future work). Contributors reach this
+    # via a keyboard shortcut only, which browsers intercept anyway.
+    if is_headless_server():
+        return
+    # Guard against spawning duplicates: if one is already alive, leave it and
+    # let the user switch to it rather than opening a second copy.
     global _process
     if _process is not None and _process.poll() is None:
         return

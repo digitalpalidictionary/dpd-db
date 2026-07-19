@@ -64,11 +64,31 @@ class AdditionsManager:
     def add_additions(self, word: DpdHeadword, comment: str) -> None:
         word_dict = {k: v for k, v in vars(word).items() if not k.startswith("_")}
         word_dict["comment"] = comment
-        self.additions_dict[str(word.id)] = word_dict
+        # Key = "{username}_{id}": unique across contributors (username) and
+        # stable per word (id + dedup), so re-saving the same word overwrites
+        # its one live entry (latest wins) instead of piling up duplicates the
+        # reviewer would process repeatedly. Reuse an existing entry's key even
+        # if it predates this scheme (e.g. an old uuid key).
+        key = self._key_for_id(word.id) or f"{self._username()}_{word.id}"
+        self.additions_dict[key] = word_dict
         self.save_additions()
 
+    def _username(self) -> str:
+        """The contributor this file belongs to, from its name
+        (additions_{username}.json). Primary user's additions.json → '1'."""
+        stem = self.additions_path.stem
+        prefix = "additions_"
+        return stem[len(prefix) :] if stem.startswith(prefix) else "1"
+
+    def _key_for_id(self, id_no: int) -> str | None:
+        """Return the existing key for an entry with this db id, or None."""
+        for key, entry in self.additions_dict.items():
+            if entry.get("id") == id_no:
+                return key
+        return None
+
     def is_not_in_additions(self, id_no: int) -> bool:
-        return str(id_no) not in self.additions_dict.keys()
+        return self._key_for_id(id_no) is None
 
     def get_next_addition(
         self,

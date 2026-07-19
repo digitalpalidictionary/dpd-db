@@ -52,7 +52,12 @@ class App:
         appbar_actions: list[ft.Control] = [
             ft.Text(self.toolkit.daily_log.get_counts())
         ]
-        if self.toolkit.username_manager.is_not_primary():
+        # Desktop (legacy) contributors get the git-based Submit/Update buttons.
+        # Server contributors do not: sync is automated (role contributor-server).
+        if (
+            self.toolkit.username_manager.is_not_primary()
+            and not self.toolkit.username_manager.is_server_contributor()
+        ):
             appbar_actions.extend(
                 [
                     ft.VerticalDivider(),

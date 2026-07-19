@@ -57,6 +57,36 @@ class TestForUser:
         assert paths.corrections_path == data / "corrections_alice.json"
         assert paths.corrections_added_path == data / "corrections_added_alice.json"
 
+    def test_contributor_session_state_files_are_per_user(self, tmp_path: Path):
+        paths = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        data = tmp_path / "gui2" / "data"
+        assert paths.daily_log_path == data / "daily_log_alice.json"
+        assert paths.history_json_path == data / "history_alice.json"
+        assert paths.filter_presets_path == data / "filter_presets_alice.json"
+
+    def test_contributor_stash_files_are_per_user(self, tmp_path: Path):
+        paths = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        data = tmp_path / "gui2" / "data"
+        assert paths.headword_stash_json_path == data / "headword_stash_alice.json"
+        assert paths.example_stash_json_path == data / "example_stash_alice.json"
+        assert paths.commentary_stash_json_path == data / "commentary_stash_alice.json"
+
+    def test_primary_session_state_files_unchanged(self, tmp_path: Path):
+        paths = Gui2Paths.for_user("1", base_dir=tmp_path)
+        data = tmp_path / "gui2" / "data"
+        assert paths.daily_log_path == data / "daily_log.json"
+        assert paths.history_json_path == data / "history.json"
+        assert paths.filter_presets_path == data / "filter_presets.json"
+        assert paths.headword_stash_json_path == data / "headword_stash.json"
+        assert paths.example_stash_json_path == data / "example_stash.json"
+        assert paths.commentary_stash_json_path == data / "commentary_stash.json"
+
+    def test_two_contributors_do_not_share_session_state(self, tmp_path: Path):
+        a = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        b = Gui2Paths.for_user("bob", base_dir=tmp_path)
+        assert a.daily_log_path != b.daily_log_path
+        assert a.history_json_path != b.history_json_path
+
     def test_empty_username_keeps_default_paths(self, tmp_path: Path):
         paths = Gui2Paths.for_user("", base_dir=tmp_path)
         assert paths.additions_path == tmp_path / "gui2" / "data" / "additions.json"

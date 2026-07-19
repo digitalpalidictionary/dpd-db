@@ -41,6 +41,11 @@ class DatabaseManager:
         # lets derived sets skip rebuilding when the corpus hasn't changed.
         self._corpus_stale: bool = True
         self._corpus_gen: int = 0
+        # False until initialize_db() finishes. Saving before then commits on
+        # the shared session, which (NullPool) closes the connection out from
+        # under the background load's in-flight query → "Cannot operate on a
+        # closed database". Save paths gate on is_db_loaded().
+        self.db_loaded: bool = False
         self._corpus_lock = threading.Lock()
         self._inflections_gen: int = -1
         self._pass2_gen: int = -1
@@ -129,6 +134,13 @@ class DatabaseManager:
         self.get_all_patterns()
         self.get_all_decon_no_headwords()
         self._relationship_detector = RelationshipDetector(self.load_corpus())
+        self.db_loaded = True
+
+    def is_db_loaded(self) -> bool:
+        """True once initialize_db() has finished the full corpus load. Save
+        paths check this so a save can't close the shared connection while the
+        background load is still reading it."""
+        return self.db_loaded
 
     # --- CORPUS CACHE ---
 

@@ -8,6 +8,12 @@ from gui2.paths import Gui2Paths
 
 
 class Pass1FileManager:
+    # NOTE (contributor web server, #215): pass1_auto_{book}.json is a shared,
+    # read-modify-written work queue. self._lock is intra-process only, so if two
+    # server contributor instances process the SAME book at once their writes can
+    # corrupt this file. Current mitigation is operational — assign a different
+    # book per contributor. FIX (per-book file lock or atomic os.replace) only if
+    # concurrent same-book editing ever actually happens.
     def __init__(self, paths: Gui2Paths):
         self.gui2_data_path = paths.gui2_data_path
         self._lock = threading.Lock()
