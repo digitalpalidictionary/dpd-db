@@ -309,7 +309,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kam 2	8	*e	desire	√kam	3, 5	love	√kam	kam	akānta (na + kānta), akāma, akāmāt, kamanīya, kānta, kānti, kāma, kāma +, kāmam, kāmayate, kāmayamāna, kāmin, kāmuka, kāmena, kāmya, kāmyatva, kāmyāt, na + kānta, na + kānta, kānti, na + sakāma
 √kam 2	8	*aya	desire	√kam	3, 5	love	ni √kam	nikam	kāmayat, na + kāmayat, na + nikāma, nikānti, nikāma, nikāmana, nikāmayati, nikāmayate, nikāmayamāna, sa + nikānti +
 √kamp	1	a	shake, tremble	√kamp	1	tremble	√kamp	kamp	akampana (na + kampana), akampita (na + kampita), akampin (na + kampin), akampiṣṭa, akampya (na + kampya), kampa, kampat, kampate, kampana, kampamāna, kampayat, kampayati, kampayitum, kampita, kampya, na + kampanīya
-√kamp	1	a	shake, tremble	√kamp	1	tremble	anu √kamp	anukamp	anukampaka, anukampakā, anukampat, anukampati, anukampana, anukampamāna, anukampā, anukampita, anukampituṃ, anukampin, na + anukampati, na + anukampā
+√kamp	1	a	shake, tremble	√kamp	1	tremble	anu √kamp	anukamp	anukampaka, anukampakā, anukampat, anukampati, anukampana, anukampamāna, anukampā, anukampita, anukampitavya, anukampituṃ, anukampin, na + anukampati, na + anukampā
 √kamp	1	a	shake, tremble	√kamp	1	tremble	anu pa √kamp	anuprakamp	anuprakampati
 √kamp	1	*e	shake, tremble	√kamp	1	tremble	ava √kamp		ava + kamp
 √kamp	1	a	shake, tremble	√kamp	1	tremble	ā √kamp	ākamp	
@@ -901,7 +901,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cint	8	*aya	think	√cint	10	think	√cint	cint	acintya, cintaka, cintana, cintayat, cintayati, cintayitavya , cintitavya, cintayitum , cintitum, cintayitvā, cintayitvā , cintitvā, cintayeyam, cintā, cintita, cintin, cintya, cintyamāna, duścintita, na + cintaka, na + cintanīya, na + cintanīyatva, na + cintita, na + cintya, sucintita
 √cint	8	*e	think	√cint	10	think	anu √cint	anucint	anucintayati
 √cint	8	*aya	think	√cint	10	think	anu vi √cint	anuvicint	anuvicintayat, anuvicintayati, anuvicintayitvā
-√cint	8	*e	think	√cint	10	think	vi √cint	vicint	vicintayat, vicintayati, vicintya
+√cint	8	*e	think	√cint	10	think	vi √cint	vicint	vicintayat, vicintayati, vicintayitvā, vicintya
 √cint	8	*e	think	√cint	10	think	saṃ √cint	saṃcint	saṃcintayati
 √cil	1	a	clothe	√cil	6	put on clothes	√cil	cil	acelaka (bsk), cillati, cela, celaka, na + cela, nis + cela
 √cu	1	a	shift, fall away, die	√cyu	1	move, stir	√cu	cyu	acyuta, acyutāḥ < acyuta, cyavate, cyavana, cyavana +, cyavitum, cyāvana, cyāvayat, cyāvayati, cyāvayatuṃ, cyāvayamāna, cyāvayitvā, cyuta, cyuti, cyutya, cyutvā, chyavamāna, na + cyavana, na + cyuti
@@ -1270,7 +1270,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dam	3	ya	be tame	√dam	4	control	√dam	dam	adānta, dama, damaka, damatha, damayat, damayati, damayitum, damita, dametṛ, damya, dānta, dānta +, dānta + vat, dāntika, dāmyati, durdama, na + dānta, sudānta
 √dam	3	*e	be tame	√dam	4	control	abhi √dam	dam	damana
 √dam	3	ya	be tame	√dam	4	control	pari √dam	dam	su + pari + dānta
-√day	1	a	be kind, have pity	√day	1	share	√day	day	dayā, dayāluka
+√day	1	a	be kind, have pity	√day	1	share	√day	day	dayā, dayāluka, dayita
 √day	1	a	be kind, have pity	√day	1	share	anu √day	day	anu + dayā, na + anu + dayā
 √dar 1	1	a	break, split apart	√dṝ √dṛ	2, 9	pierce, split	√dar	dṝ	darvī, darvī, darvya??, dārita, dārī , darī, dāru, dāruka, dāruṇa, dāruṇatā, dṛṇāti, su + dāruṇa
 √dar 1	1	*e iya	break, split apart	√dṝ √dṛ	2, 9	pierce, split	ava √dar	avadṝ	
@@ -2481,7 +2481,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √laḷ	1	a	play, move about	√laḍ √lal	1	sport	pa √laḷ		pra + laḍita
 √lā	1	a	take	√lā	1	grasp	√lā		lāti
 √likh	1	a	scratch, write	√likh	6	scratch	√likh	likh	likhat, likhati, likhana, likhita, likhitum, likhitvā, lekha, lekhaka, lekhanī, lekhā, lekhikā
-√likh	1	a	scratch, write	√likh	6	scratch	ati saṃ √likh	saṃlikh	
+√likh	1	*a	scratch, write	√likh	6	scratch	ati saṃ √likh	saṃlikh	ati + saṃlikhati
 √likh	1	a	scratch, write	√likh	6	scratch	adhi saṃ √likh	saṃlikh	adhi + saṃlikhati
 √likh	1	a	scratch, write	√likh	6	scratch	apa √likh	avalikh	
 √likh	1	a	scratch, write	√likh	6	scratch	abhi saṃ √likh	saṃlikh	abhi + saṃlekha +
