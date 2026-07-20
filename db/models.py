@@ -535,6 +535,33 @@ thai:          {self.thai}
 #         DateTime(timezone=True), onupdate=func.now())
 
 
+# KN books s.4nt.org serves as one page per book, nested under "kn/".
+_S4NT_KN_BOOKS = frozenset(
+    {
+        "kp",
+        "dhp",
+        "ud",
+        "iti",
+        "snp",
+        "vv",
+        "pv",
+        "thag",
+        "thig",
+        "ja",
+        "mnd",
+        "cnd",
+        "ps",
+        "ne",
+        "pe",
+        "cp",
+        "bv",
+        "mil",
+        "tha-ap",
+        "thi-ap",
+    }
+)
+
+
 class SuttaInfo(Base):
     __tablename__ = "sutta_info"
     # dpd
@@ -831,6 +858,33 @@ class SuttaInfo(Base):
             return f"https://www.sc-voice.net/#/sutta/{self.sc_code.lower()}/en/sujato"
         else:
             return None
+
+    @cached_property
+    def s_4nt_link(self) -> str | None:
+        sc_book_code = self.sc_book_code
+        if not (self.sc_code and sc_book_code):
+            return None
+
+        # sc_book_code leaves a trailing hyphen on range codes (SN39.1-15 → "SN-")
+        book = sc_book_code.rstrip("-").lower()
+        code = self.sc_code.lower()
+
+        if book in ("dn", "mn"):
+            # one page per sutta
+            path = f"{book}/{code}"
+        elif book in ("sn", "an"):
+            # one page per saṃyutta/nipāta - derive its number from the code
+            m = re.match(rf"^{book}(\d+)", code)
+            if not m:
+                return None
+            path = f"{book}/{book}{m.group(1)}"
+        elif book in _S4NT_KN_BOOKS:
+            # one page per book, nested under "kn/"
+            path = f"kn/{book}"
+        else:
+            return None
+
+        return f"https://s.4nt.org/{path}/index.html"
 
     @cached_property
     def tpp_org(self) -> str | None:

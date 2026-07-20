@@ -468,6 +468,18 @@
         </tr>
         {% endif %}
 
+        {% if d.su.s_4nt_link %}
+        <tr>
+            <th>
+                s.4nt.org
+            </th>
+            <td>
+                <a href="{{ d.su.s_4nt_link }}" target="_blank">{{
+                    d.su.s_4nt_link }}</a>
+            </td>
+        </tr>
+        {% endif %}
+
         {% if d.su.bjt_sutta_code or d.su.bjt_piṭaka or d.su.bjt_nikāya or d.su.bjt_major_section or d.su.bjt_book or d.su.bjt_minor_section or d.su.bjt_vagga %}
         <tr>
             <th class="heading" colspan="2">
