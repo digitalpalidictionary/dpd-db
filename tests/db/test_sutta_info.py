@@ -44,6 +44,7 @@ def test_sutta_info_s_4nt_link_dn_mn_are_per_sutta_pages() -> None:
 
 def test_sutta_info_s_4nt_link_sn_links_to_exact_sutta_anchor() -> None:
     su = SuttaInfo()
+    su.dpd_code = "SN1.1"
     su.sc_code = "SN1.1"
 
     assert su.s_4nt_link == "https://s.4nt.org/sn/sn1/index.html#sn1.1"
@@ -51,6 +52,7 @@ def test_sutta_info_s_4nt_link_sn_links_to_exact_sutta_anchor() -> None:
 
 def test_sutta_info_s_4nt_link_an_links_to_exact_sutta_anchor() -> None:
     su = SuttaInfo()
+    su.dpd_code = "AN3.65"
     su.sc_code = "AN3.65"
 
     assert su.s_4nt_link == "https://s.4nt.org/an/an3/index.html#an3.65"
@@ -65,6 +67,7 @@ def test_sutta_info_s_4nt_link_an_bare_nipata_code_links_to_own_container() -> N
 
 def test_sutta_info_s_4nt_link_range_code_that_is_itself_a_real_anchor() -> None:
     su = SuttaInfo()
+    su.dpd_code = "SN39.1-15"
     su.sc_code = "SN39.1-15"
 
     assert su.s_4nt_link == "https://s.4nt.org/sn/sn39/index.html#sn39.1-15"
@@ -72,6 +75,7 @@ def test_sutta_info_s_4nt_link_range_code_that_is_itself_a_real_anchor() -> None
 
 def test_sutta_info_s_4nt_link_sn_peyyala_range_override() -> None:
     su = SuttaInfo()
+    su.dpd_code = "SN23.23"
     su.sc_code = "SN23.23"
 
     assert su.s_4nt_link == "https://s.4nt.org/sn/sn23/index.html#sn23.23-33"
@@ -79,9 +83,21 @@ def test_sutta_info_s_4nt_link_sn_peyyala_range_override() -> None:
 
 def test_sutta_info_s_4nt_link_an_peyyala_range_override() -> None:
     su = SuttaInfo()
+    su.dpd_code = "AN3.156"
     su.sc_code = "AN3.156"
 
     assert su.s_4nt_link == "https://s.4nt.org/an/an3/index.html#an3.156-162"
+
+
+def test_sutta_info_s_4nt_link_vagga_row_links_to_first_sutta_of_range() -> None:
+    su = SuttaInfo()
+    su.dpd_code = "SN12-21"
+    su.dpd_sutta = "buddhavaggasaṃyutta"
+    su.sc_code = "SN12.1"
+    su.sc_vagga = "1. Buddhavagga"
+
+    assert su.is_vagga is True
+    assert su.s_4nt_link == "https://s.4nt.org/sn/sn12/index.html#sn12.1"
 
 
 def test_sutta_info_s_4nt_link_dhp_vagga_range_override_anchors_first_verse() -> None:

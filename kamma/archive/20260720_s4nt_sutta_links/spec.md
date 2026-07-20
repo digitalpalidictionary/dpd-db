@@ -92,33 +92,28 @@ Bare nipāta-only codes (`AN1`..`AN11`, no sutta number - a handful of DPD
 rows describing the nipāta itself) get no fragment - the container page's
 own top *is* the correct target for those.
 
-## Ground truth
-The site (https://s.4nt.org, source: https://github.com/frankksutta/s.4nt,
-a GitHub Pages static export) was cloned to
-`~/MyFiles/2_Resources/Code/s.4nt/` for future reference. The committed
-file tree is the **complete, authoritative list of every valid URL** - no
-client-side routing, no hidden paths.
-
-Cross-checked the final link-generation logic against **every one of the
-5,114 real `sc_code` rows** in `dpd.db`'s `sutta_info` table: every
-generated path exists in the real repo tree (0 mismatches). Also spot-
-checked 15 random + several targeted examples live via HTTP - all 200 OK.
-
-### Real page structure (confirmed from the repo tree, not guessed)
-| Piṭaka | Page = one per... | Path pattern |
-|---|---|---|
-| DN | sutta | `/dn/<sc_code>/index.html` |
-| MN | sutta | `/mn/<sc_code>/index.html` |
-| SN | saṃyutta | `/sn/sn<N>/index.html` |
-| AN | nipāta | `/an/an<N>/index.html` |
-| KN (any book) | book | `/kn/<book>/index.html` |
-
 KN book slugs confirmed from the repo tree: `bv cnd cp dhp iti ja kp mil
 mnd ne pe ps pv snp tha-ap thag thi-ap thig ud vv`. DPD's `sc_book_code`
 (lowercased) matches these 1:1 for every book already populated in
 `sutta_info` (`tha-ap`/`thi-ap` have no DPD rows yet but are included for
 correctness/future-proofing - this was CodeRabbit's one valid finding,
 initially wrongly dismissed as a hallucination before the repo was found).
+
+### Vagga headings (round 6, reverted in round 7)
+SN/AN vagga rows (`is_vagga` True) share `sc_code` with their first
+individual sutta. Round 6 built a 411-entry allow-list of real
+vagga-header anchor ids (`_S4NT_VAGGA_IDS`, extracted from every SN/AN
+container page) plus a Pāḷi-name slugify, to anchor a vagga row to its own
+heading instead of its first sutta (496/529 matched directly; the other 33
+- mostly AN1's later peyyala sections - don't correspond to any real site
+vagga division at all).
+
+**Round 7 reverted this.** Landing on the vagga's first sutta - which is
+exactly what the plain sc_code-based fragment already does with zero
+extra code, since a vagga row's `sc_code` *is* its first sutta's code - is
+functionally equivalent for the reader (that sutta sits right at the top
+of the vagga) and doesn't depend on a 411-entry table that only 3.4% of
+DPD's vagga names actually needed. Simpler, same verified correctness.
 
 ## Scope (minimal)
 1. `s_4nt_link` `@cached_property` on `SuttaInfo` (`db/models.py`):

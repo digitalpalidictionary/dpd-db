@@ -941,6 +941,9 @@ class SuttaInfo(Base):
             if code == f"{book}{m.group(1)}":
                 # bare nipāta-only code (e.g. "AN5") - no sutta to anchor to
                 return f"https://s.4nt.org/{path}/index.html"
+            # vagga rows share sc_code with their first sutta, so this also
+            # lands a vagga link on the first sutta of that vagga - correct
+            # and simple, since that's right at the top of the vagga anyway
             fragment = _S4NT_ANCHOR_OVERRIDES.get(sc_code, code)
             return f"https://s.4nt.org/{path}/index.html#{fragment}"
 
