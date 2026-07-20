@@ -42,18 +42,18 @@ def test_sutta_info_s_4nt_link_dn_mn_are_per_sutta_pages() -> None:
     assert su.s_4nt_link == "https://s.4nt.org/dn/dn24/index.html"
 
 
-def test_sutta_info_s_4nt_link_sn_links_to_samyutta_container() -> None:
+def test_sutta_info_s_4nt_link_sn_links_to_exact_sutta_anchor() -> None:
     su = SuttaInfo()
     su.sc_code = "SN1.1"
 
-    assert su.s_4nt_link == "https://s.4nt.org/sn/sn1/index.html"
+    assert su.s_4nt_link == "https://s.4nt.org/sn/sn1/index.html#sn1.1"
 
 
-def test_sutta_info_s_4nt_link_an_links_to_nipata_container() -> None:
+def test_sutta_info_s_4nt_link_an_links_to_exact_sutta_anchor() -> None:
     su = SuttaInfo()
     su.sc_code = "AN3.65"
 
-    assert su.s_4nt_link == "https://s.4nt.org/an/an3/index.html"
+    assert su.s_4nt_link == "https://s.4nt.org/an/an3/index.html#an3.65"
 
 
 def test_sutta_info_s_4nt_link_an_bare_nipata_code_links_to_own_container() -> None:
@@ -63,17 +63,37 @@ def test_sutta_info_s_4nt_link_an_bare_nipata_code_links_to_own_container() -> N
     assert su.s_4nt_link == "https://s.4nt.org/an/an5/index.html"
 
 
-def test_sutta_info_s_4nt_link_range_code_has_clean_book_segment() -> None:
+def test_sutta_info_s_4nt_link_range_code_that_is_itself_a_real_anchor() -> None:
     su = SuttaInfo()
     su.sc_code = "SN39.1-15"
 
-    assert su.s_4nt_link == "https://s.4nt.org/sn/sn39/index.html"
+    assert su.s_4nt_link == "https://s.4nt.org/sn/sn39/index.html#sn39.1-15"
 
 
-def test_sutta_info_s_4nt_link_kn_books_link_to_book_container() -> None:
+def test_sutta_info_s_4nt_link_sn_peyyala_range_override() -> None:
+    su = SuttaInfo()
+    su.sc_code = "SN23.23"
+
+    assert su.s_4nt_link == "https://s.4nt.org/sn/sn23/index.html#sn23.23-33"
+
+
+def test_sutta_info_s_4nt_link_an_peyyala_range_override() -> None:
+    su = SuttaInfo()
+    su.sc_code = "AN3.156"
+
+    assert su.s_4nt_link == "https://s.4nt.org/an/an3/index.html#an3.156-162"
+
+
+def test_sutta_info_s_4nt_link_dhp_vagga_range_override_anchors_first_verse() -> None:
+    su = SuttaInfo()
+    su.sc_code = "DHP90-00"
+
+    assert su.s_4nt_link == "https://s.4nt.org/kn/dhp/index.html#dhp90"
+
+
+def test_sutta_info_s_4nt_link_kn_books_link_to_exact_sutta_anchor() -> None:
     for sc_code, expected_book in [
         ("KP1", "kp"),
-        ("DHP33-43", "dhp"),
         ("UD1.1", "ud"),
         ("ITI1", "iti"),
         ("SNP1.1", "snp"),
@@ -83,7 +103,10 @@ def test_sutta_info_s_4nt_link_kn_books_link_to_book_container() -> None:
     ]:
         su = SuttaInfo()
         su.sc_code = sc_code
-        assert su.s_4nt_link == f"https://s.4nt.org/kn/{expected_book}/index.html"
+        assert (
+            su.s_4nt_link
+            == f"https://s.4nt.org/kn/{expected_book}/index.html#{sc_code.lower()}"
+        )
 
 
 def test_sutta_info_s_4nt_link_none_for_unknown_book() -> None:
