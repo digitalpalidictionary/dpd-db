@@ -15,7 +15,7 @@ COMMANDS = [
     "scripts/build/transliterate_bjt.py",
     
     # make frequency maps of all the Pāḷi texts
-    "go run go_modules/frequency/setup/*.go",
+    "go run ./go_modules/frequency/setup",
     
     # setup bold definitions database
     "db/bold_definitions/extract_bold_definitions.py",
