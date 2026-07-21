@@ -52,7 +52,7 @@ def fill_empty_idioms(db: list[DpdHeadword], db_session: Session) -> int:
 
 def main() -> None:
     pr.tic()
-    print("[bright_yellow]finding difference between family_compound and family_idioms")
+    pr.yellow_title("finding difference between family_compound and family_idioms")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

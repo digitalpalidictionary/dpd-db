@@ -22,7 +22,8 @@ ava	o	ava > o	x	o	x	ponobbhavika, ponobhavika, anavabodha, bhavamūlopagāmī, n
 xā + t	att	āt > att	x	tta, ā + th	x	atthacariyatā, nakkhattavijjātiracchānavijjā, vatthuvijjātiracchānavijjā, hatthaoṭṭhajivhātālu, atta 2.1, atta 2.2
 ā + th	atth	āth > atth	x	x	x	x
 ā + b	abb	āb > abb	x	v	x	abbheti, abbhetabba, anabbhita, sabbābhiññābalappatta, dhammānupassanābojjhaṅgapabba, sabbaññutabhūmi
-ā + v	abb	āv > avv > abb	āv > abb	x	x	x
+ā + v	abb	āv > avv > abb	āv > abb	x	abbh, āv	x
+ā + vh	abbh	āvh > avvh > abbh	āv > abb	x	x	x
 ā + s	ass	ās > ass	x	ass	x	pariyāpuṇassu
 ānaṃ	annaṃ	ān > ann	x	x	x	x
 						
@@ -148,7 +149,7 @@ p + th	tth	pth > tth	p > t	x	x	x
 p + s	cch	ps > cch	x	x	x	x
 pa + i	pe	ai > e	i > e	x	x	x
 pā + pā	pi	pā > pi (Kacc 469, 494)	x	x	x	x
-pe + t	tt	pet > tt	pt > tt	x	x	vavatthāpetuṃ, attharāpetvā, nivattāpeti
+pe + t	tt	pet > tt	pt > tt	x	x	vavatthāpetuṃ, attharāpetvā, nivattāpeti 1
 p + y	pp	py > pp	y > p	x	x	x
 plu	pil	pl > pil (epenthesis)	x	x	x	x
 p + ṃ	mp	pṃ > mp (metathesis)	x	x	x	x
@@ -178,7 +179,7 @@ r + g	gg	rg > gg	r > g	r + gh	x	x
 r + gh	ggh	rgh > ggh	rg > gg	x	x	x
 r + j	jj	rj > jj	x	x	x	x
 r + ṇ	ṇṇ	rṇ > ṇṇ	r > ṇ	x	x	x
-r + t	tt	rt > tt	r > t	r + th	x	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1, adhikatatta, kaṭatta, supaccatthata, patthaṭatā, pakatatta 2
+r + t	tt	rt > tt	r > t	r + th	x	paritthata, akattha, akatatta 1.1, akatatta 1.2, atthata 1, atthata 2, anatthata, otthaṭa 1, otthaṭa 2, otthata, katatta, katattā, nissaṭatta, pakatatta 1, patthaṭa 1.1, saṅkhatatta, vitthata, kiccatta, saṃvutatta 1, adhikatatta, kaṭatta, supaccatthata, patthaṭatā, pakatatta 2, ajjhotthaṭa 1, ajjhotthaṭa 2
 xr + t	ṭ	rt > ṭ (sk ṛt) 	rt > ṭ	x	x	x
 r + th	tth	rth > tth	r > t	x	x	x
 r + d	dd	rd > dd	r > d	r + dh	x	x
@@ -210,6 +211,7 @@ s + t	tt	st > tt	x	x	tth,ṭṭh	attamanatā, anattamanatā, tejatta, vāyatta, 
 s + m	ss	sm > ss	s > m	ss	x	x
 s + y	ss	sy > ss	y > s	x	x	x
 s + s	cch	ss > cch	x	x	x	x
+s + ṃ	ṃs	sṃ > ṃs (metathesis)	x	x	x	x
 sa + y	ss	sy > ss	y > s	ss	x	x
 saṃ + 	sā	saṃ > sā	x	sā, saṃ + l, saṃ + r	x	vatassāhaṃ, asāmanta, asāmāyika, tesāhaṃ, sampasāda 1, sampasādana 1, saṃsāda, saṃsāra 1, saṃsāra 2, saṃsāra 3, sāmagga, sāmaggiya, sāmaggī 1, sāmaggī 2, sāmanta 1, sāmantā 1, sāmantā 2, sāmāyika, sāmukkaṃsika, sāmuddika, sampasāda 2, sāmayika 2
 snih +	sini	snih > sinih (epenthesis)	x	x	x	x
