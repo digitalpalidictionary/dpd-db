@@ -104,7 +104,7 @@ var Pth = struct {
 	ScVariantTextDir:  "resources/sc-data/sc_bilara_data/variant/pli/ms",
 	BjtRomanJsonDir:   "resources/dpd_submodules/bjt/public/static/roman_json/",
 	BjtRomanTxtDir:    "resources/dpd_submodules/bjt/public/static/roman_txt/",
-	SyaTextDir:        "resources/syāmaraṭṭha_1927",
+	SyaTextDir:        "resources/tipitaka.rte",
 	OtherPaliTextsDir: "resources/other_pali_texts",
 
 	// file maps

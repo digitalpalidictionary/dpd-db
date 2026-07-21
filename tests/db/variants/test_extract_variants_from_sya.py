@@ -18,21 +18,28 @@ from db.variants.extract_variants_from_sya import (
     get_variants_in_page,
 )
 
-# Sample text (newlines already removed, matching post-get_sya_text state)
+# Sample text in the corrected jorgecaa/tipitaka.rte format, newlines already
+# removed and pts refs stripped (matching post-get_sya_text state)
 _PAGE_NORMAL = (
-    "[page 002] jiṇṇe vuḍḍhe 1- mahallake āsanena 2- nimantetīti"
-    "   *  *  *  *  *  *   Footnote:1 Ma. vuddhe. 2 gatātipi pāṭho."
+    "page number: 002 jiṇṇe vuḍḍhe 1- mahallake āsanena 2- nimantetīti"
+    "   footnote: 1 ma. vuddhe. 2 gatātipi pāṭho."
     " -------------------------------------------------"
 )
 _PAGE_DOUBLE_RANGE = (
-    "[page 003] foo 1- bar 2- baz 3-"
-    "   Footnote:1-3 Yu. Ma. arahattaṁ. -------------------------------------------------"
+    "page number: 003 foo 1- bar 2- baz 3-"
+    "   footnote: 1-3 yu. ma. arahattaṁ. -------------------------------------------------"
 )
 _PAGE_TRIPLE_RANGE = (
-    "[page 004] foo 3- bar 4- baz 5-"
-    "   Footnote:3-4-5 yamidha sañjotibhūtā. -------------------------------------------------"
+    "page number: 004 foo 3- bar 4- baz 5-"
+    "   footnote: 3-4-5 yamidha sañjotibhūtā. -------------------------------------------------"
 )
-_PAGE_NO_FOOTNOTE = "[page 005] some text without footnote section"
+_PAGE_NO_FOOTNOTE = "page number: 005 some text without footnote section"
+# a page carrying two footnote blocks — the marker word must not leak into a reading
+_PAGE_TWO_FOOTNOTE_BLOCKS = (
+    "page number: 006 āvuso abbhūtaṃ 1-"
+    "   footnote: 1 yu. abbhutaṃ."
+    "   footnote: 2 unrelated pāṭho."
+)
 
 
 # ---------------------------------------------------------------------------
@@ -96,8 +103,15 @@ def test_clean_variant_two_dashes_preserved() -> None:
 
 def test_get_variants_in_footnotes_normal() -> None:
     result = get_variants_in_footnotes(_PAGE_NORMAL)
-    assert result.get("1") == "Ma. vuddhe."
+    assert result.get("1") == "ma. vuddhe."
     assert result.get("2") == "gatātipi pāṭho."
+
+
+def test_get_variants_in_footnotes_label_not_leaked() -> None:
+    """A page with two footnote blocks must not leak the 'footnote:' marker word."""
+    result = get_variants_in_footnotes(_PAGE_TWO_FOOTNOTE_BLOCKS)
+    assert result.get("1") == "yu. abbhutaṃ."
+    assert all("footnote" not in v for v in result.values())
 
 
 def test_get_variants_in_footnotes_double_range() -> None:
@@ -132,7 +146,7 @@ def test_get_variants_in_footnotes_triple_range_all_keys_present() -> None:
 
 
 def test_get_page_number_found() -> None:
-    assert get_page_number("[page 042] text here") == 42
+    assert get_page_number("page number: 042 text here") == 42
 
 
 def test_get_page_number_not_found() -> None:
@@ -140,7 +154,7 @@ def test_get_page_number_not_found() -> None:
 
 
 def test_get_page_number_leading_zeros() -> None:
-    assert get_page_number("[page 001] text") == 1
+    assert get_page_number("page number: 001 text") == 1
 
 
 # ---------------------------------------------------------------------------
@@ -148,17 +162,17 @@ def test_get_page_number_leading_zeros() -> None:
 # ---------------------------------------------------------------------------
 
 _TEXT_NORMAL = (
-    "[page 002] jiṇṇe vuḍḍhe 1- mahallake āsanena 2- nimantetīti"
-    "   *  *  *  *  *  *   Footnote:1 Ma. vuddhe. 2 gatātipi pāṭho."
+    "page number: 002 jiṇṇe vuḍḍhe 1- mahallake āsanena 2- nimantetīti"
+    "   footnote: 1 ma. vuddhe. 2 gatātipi pāṭho."
     " -------------------------------------------------"
 )
 _TEXT_EMPTY_WORD = (
-    "[page 010] 12345 1- mahallake"
-    "   Footnote:1 vā empty. -------------------------------------------------"
+    "page number: 010 12345 1- mahallake"
+    "   footnote: 1 vā empty. -------------------------------------------------"
 )
 _TEXT_NO_MATCHING_FOOTNOTE = (
-    "[page 011] vuḍḍhe 1- mahallake"
-    "   Footnote:99 unrelated. -------------------------------------------------"
+    "page number: 011 vuḍḍhe 1- mahallake"
+    "   footnote: 99 unrelated. -------------------------------------------------"
 )
 
 

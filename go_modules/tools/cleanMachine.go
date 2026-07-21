@@ -127,6 +127,13 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 		r := regexp.MustCompile(`<.+?>`)
 		text = r.ReplaceAllString(text, " ")
 
+		// remove structural markers of the corrected BUDSIR corpus so their
+		// literal words do not pollute the frequency map (digits already stripped)
+		r = regexp.MustCompile(`\(pts[^)]*\)`)
+		text = r.ReplaceAllString(text, " ")
+		text = strings.Replace(text, "page number", " ", -1)
+		text = strings.Replace(text, "footnote", " ", -1)
+
 		// remove words with crazy characters
 
 		fstring := fmt.Sprintf(`\S*(%v|%v|%v|%v|%v)\S*`,

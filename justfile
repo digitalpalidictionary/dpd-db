@@ -330,6 +330,10 @@ decon:
     go run ./go_modules/deconstructor
     uv run python scripts/build/deconstructor_output_add_to_db.py
 
+# Generate frequency source JSON from all text corpora
+freq-setup:
+    go run ./go_modules/frequency/setup
+
 # Run the Go frequency tables
 freq:
     go run ./go_modules/frequency

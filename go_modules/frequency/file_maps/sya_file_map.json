@@ -1,237 +1,237 @@
 [
     {
         "vin1&2": [
-            "canon/01_Vinaya_Mahaavi_1.txt",
-            "canon/02_Vinaya_Mahaavi_2.txt",
-            "canon/03_Vinaya_Bhikkhunii.txt",
-            "commentary/70_Bhikkhupaatimokkhapaali.txt"
+            "Canonical/01-Mahavibhanga-1.txt",
+            "Canonical/02-Mahavibhanga-2.txt",
+            "Canonical/03-Bhikkunivibhanga.txt",
+            "Non-Canonical/70-Patimokkhapali.txt"
         ]
     },
     {
         "vin3": [
-            "canon/04_Vinaya_Mahaa_1.txt",
-            "canon/05_Vinaya_Mahaa_2.txt"
+            "Canonical/04-Mahavagga-1.txt",
+            "Canonical/05-Mahavagga-2.txt"
         ]
     },
     {
         "vin4": [
-            "canon/06_Vinaya_Culla_1.txt",
-            "canon/07_Vinaya_Culla_2.txt"
+            "Canonical/06-Cullavagga-1.txt",
+            "Canonical/07-Cullavagga-2.txt"
         ]
     },
     {
         "vin5": [
-            "canon/08_Vinaya_Parivaara.txt"
+            "Canonical/08-Parivara.txt"
         ]
     },
     {
         "dn": [
-            "canon/09_Sutta_DN_Siilakhanda.txt",
-            "canon/10_Sutta_DN_Mahaa.txt",
-            "canon/11_Sutta_DN_Paatika.txt"
+            "Canonical/09-Digha-1.txt",
+            "Canonical/10-Digha-2.txt",
+            "Canonical/11-Digha-3.txt"
         ]
     },
     {
         "mn": [
-            "canon/12_Sutta_MN_Muu.txt",
-            "canon/13_Sutta_MN_Ma.txt",
-            "canon/14_Sutta_MN_U.txt"
+            "Canonical/12-Majjhima-1.txt",
+            "Canonical/13-Majjhima-2.txt",
+            "Canonical/14-Majjhima-3.txt"
         ]
     },
     {
         "sn": [
-            "canon/15_Sutta_SN_Sa.txt",
-            "canon/16_Sutta_SN_Ni.txt",
-            "canon/17_Sutta_SN_Kha.txt",
-            "canon/18_Sutta_SN_Sala.txt",
-            "canon/19_Sutta_SN_Ma.txt"
+            "Canonical/15-Samyutta-1.txt",
+            "Canonical/16-Samyutta-2.txt",
+            "Canonical/17-Samyutta-3.txt",
+            "Canonical/18-Samyutta-4.txt",
+            "Canonical/19-Samyutta-5.txt"
         ]
     },
     {
         "an": [
-            "canon/20_Sutta_AN_1.txt",
-            "canon/21_Sutta_AN_2.txt",
-            "canon/22_Sutta_AN_3.txt",
-            "canon/23_Sutta_AN_4.txt",
-            "canon/24_Sutta_AN_5.txt"
+            "Canonical/20-Anguttara-1.txt",
+            "Canonical/21-Anguttara-2.txt",
+            "Canonical/22-Anguttara-3.txt",
+            "Canonical/23-Anguttara-4.txt",
+            "Canonical/24-Anguttara-5.txt"
         ]
     },
     {
         "kn1": [
-            "canon/25_Sutta_Khu_Khu.txt"
+            "Canonical/25-Khp-Dhp-Ud-Iti-Sn.txt"
         ]
     },
     {
         "kn2": [
-            "canon/26_Sutta_Khu_Vimana.txt",
-            "canon/27_Sutta_Khu_Jaa_1.txt",
-            "canon/28_Sutta_Khu_Jaa_2.txt",
-            "canon/32_Sutta_Khu_Apa_1.txt",
-            "canon/33_Sutta_Khu_Apa_2.txt"
+            "Canonical/26-Vv-Pv-Th-Thi.txt",
+            "Canonical/27-Jataka-1.txt",
+            "Canonical/28-Jataka-2.txt",
+            "Canonical/32-Apadana-1.txt",
+            "Canonical/33-Apadana-2.txt"
         ]
     },
     {
         "kn3": [
-            "canon/29_Sutta_Khu_Ma.txt",
-            "canon/30_Sutta_Khu_Cuu.txt",
-            "canon/31_Sutta_Khu_Pati.txt",
-            "commentary/56_Milindapanha.txt"
+            "Canonical/29-Mahaniddesa.txt",
+            "Canonical/30-Culaniddesa.txt",
+            "Canonical/31-Patisambhidamagga.txt",
+            "Non-Canonical/56-Milindapanha.txt"
         ]
     },
     {
         "abh1": [
-            "canon/34_Abhi_Dhs.txt"
+            "Canonical/34-Dhammasangani.txt"
         ]
     },
     {
         "abh2": [
-            "canon/35_Abhi_Vi.txt"
+            "Canonical/35-Vibhanga.txt"
         ]
     },
     {
         "abh3&4": [
-            "canon/36_Abhi_Dhaa.txt"
+            "Canonical/36-Dhatukatha.txt"
         ]
     },
     {
         "abh5": [
-            "canon/37_Abhi_Ka.txt"
+            "Canonical/37-Puggalakatha.txt"
         ]
     },
     {
         "abh6": [
-            "canon/38_Abhi_Ya_1.txt",
-            "canon/39_Abhi_Ya_2.txt"
+            "Canonical/38-Yamaka-1.txt",
+            "Canonical/39-Yamaka-2.txt"
         ]
     },
     {
         "abh7": [
-            "canon/40_Abhi_Pa_1.txt",
-            "canon/41_Abhi_Pa_2.txt",
-            "canon/42_Abhi_Pa_3.txt",
-            "canon/43_Abhi_Pa_4.txt",
-            "canon/44_Abhi_Pa_5.txt",
-            "canon/45_Abhi_Pa_6.txt"
+            "Canonical/40-Patthana-1.txt",
+            "Canonical/41-Patthana-2.txt",
+            "Canonical/42-Patthana-3.txt",
+            "Canonical/43-Patthana-4.txt",
+            "Canonical/44-Patthana-5.txt",
+            "Canonical/45-Patthana-6.txt"
         ]
     },
     {
         "vina": [
-            "commentary/01_Vinaya_A1.txt",
-            "commentary/02_Vinaya_A2.txt",
-            "commentary/03_Vinaya_A3.txt"
+            "Non-Canonical/01-Samanatapasadika-1.txt",
+            "Non-Canonical/02-Samanatapasadika-2.txt",
+            "Non-Canonical/03-Samanatapasadika-3.txt"
         ]
     },
     {
         "dna": [
-            "commentary/04_DN_A1.txt",
-            "commentary/05_DN_A2.txt",
-            "commentary/06_DN_A3.txt"
+            "Non-Canonical/04-Sumangalavilasini-1.txt",
+            "Non-Canonical/05-Sumangalavilasini-2.txt",
+            "Non-Canonical/06-Sumangalavilasini-3.txt"
         ]
     },
     {
         "mna": [
-            "commentary/07_MN_A1.txt",
-            "commentary/08_MN_A2.txt",
-            "commentary/09_MN_A3.txt",
-            "commentary/10_MN_A4.txt"
+            "Non-Canonical/07-Papancasudani-1.txt",
+            "Non-Canonical/08-Papancasudani-2.txt",
+            "Non-Canonical/09-Papancasudani-3.txt",
+            "Non-Canonical/10-Papancasudani-4.txt"
         ]
     },
     {
         "sna": [
-            "commentary/11_SN_A1.txt",
-            "commentary/12_SN_A2.txt",
-            "commentary/13_SN_A3.txt"
+            "Non-Canonical/11-Saratthappakasini-1.txt",
+            "Non-Canonical/12-Saratthappakasini-2.txt",
+            "Non-Canonical/13-Saratthappakasini-3.txt"
         ]
     },
     {
         "ana": [
-            "commentary/14_AN_A1.txt",
-            "commentary/15_AN_A2.txt",
-            "commentary/16_AN_A3.txt"
+            "Non-Canonical/14-Manorathapurani-1.txt",
+            "Non-Canonical/15-Manorathapurani-2.txt",
+            "Non-Canonical/16-Manorathapurani-3.txt"
         ]
     },
     {
         "kn1a": [
-            "commentary/17_Khuddaka_A.txt",
-            "commentary/18_Dha_A1.txt",
-            "commentary/19_Dha_A2.txt",
-            "commentary/20_Dha_A3.txt",
-            "commentary/21_Dha_A4.txt",
-            "commentary/22_Dha_A5.txt",
-            "commentary/23_Dha_A6.txt",
-            "commentary/24_Dha_A7.txt",
-            "commentary/25_Dha_A8.txt",
-            "commentary/26_U_A.txt",
-            "commentary/27_Iti_A.txt",
-            "commentary/28_Sutta_A1.txt",
-            "commentary/29_Sutta_A2.txt",
-            "commentary/32_Thera_A1.txt",
-            "commentary/33_Thera_A2.txt",
-            "commentary/34_Theri_A.txt",
-            "commentary/68_Mangalatthadiipanii_1.txt",
-            "commentary/69_Mangalatthadiipanii_2.txt"
+            "Non-Canonical/17-Paramatthajotika-1.txt",
+            "Non-Canonical/18-Dhammapadatthakatha-1.txt",
+            "Non-Canonical/19-Dhammapadatthakatha-2.txt",
+            "Non-Canonical/20-Dhammapadatthakatha-3.txt",
+            "Non-Canonical/21-Dhammapadatthakatha-4.txt",
+            "Non-Canonical/22-Dhammapadatthakatha-5.txt",
+            "Non-Canonical/23-Dhammapadatthakatha-6.txt",
+            "Non-Canonical/24-Dhammapadatthakatha-7.txt",
+            "Non-Canonical/25-Dhammapadatthakatha-8.txt",
+            "Non-Canonical/26-Paramatthadipani-1.txt",
+            "Non-Canonical/27-Paramatthadipani-2.txt",
+            "Non-Canonical/28-Paramatthajotika-2.txt",
+            "Non-Canonical/29-Paramatthajotika-3.txt",
+            "Non-Canonical/32-Paramatthadipani-5.txt",
+            "Non-Canonical/33-Paramatthadipani-6.txt",
+            "Non-Canonical/34-Paramatthadipani-7.txt",
+            "Non-Canonical/68-Mangalatthadipani-1.txt",
+            "Non-Canonical/69-Mangalatthadipani-2.txt"
         ]
     },
     {
         "kn2a": [
-            "commentary/30_Vimaana_A.txt",
-            "commentary/31_Peta_A.txt",
-            "commentary/49_Apa_A1.txt",
-            "commentary/50_Apa_A2.txt",
-            "commentary/51_Buddhavamsa_A.txt",
-            "commentary/52_Cariya_A.txt",
-            "commentary/35_Jaa_A1.txt",
-            "commentary/36_Jaa_A2.txt",
-            "commentary/37_Jaa_A3.txt",
-            "commentary/38_Jaa_A4.txt",
-            "commentary/39_Jaa_A5.txt",
-            "commentary/40_Jaa_A6.txt",
-            "commentary/41_Jaa_A7.txt",
-            "commentary/42_Jaa_A8.txt",
-            "commentary/43_Jaa_A9.txt",
-            "commentary/44_Jaa_A10.txt"
+            "Non-Canonical/30-Paramatthadipani-3.txt",
+            "Non-Canonical/31-Paramatthadipani-4.txt",
+            "Non-Canonical/49-Appadanatthakatha-1.txt",
+            "Non-Canonical/50-Appadanatthakatha-2.txt",
+            "Non-Canonical/51-Madhuratthavilasini.txt",
+            "Non-Canonical/52-Cariyapitakatthakatha.txt",
+            "Non-Canonical/35-Jatakatthakatha-1.txt",
+            "Non-Canonical/36-Jatakatthakatha-2.txt",
+            "Non-Canonical/37-Jatakatthakatha-3.txt",
+            "Non-Canonical/38-Jatakatthakatha-4.txt",
+            "Non-Canonical/39-Jatakatthakatha-5.txt",
+            "Non-Canonical/40-Jatakatthakatha-6.txt",
+            "Non-Canonical/41-Jatakatthakatha-7.txt",
+            "Non-Canonical/42-Jatakatthakatha-8.txt",
+            "Non-Canonical/43-Jatakatthakatha-9.txt",
+            "Non-Canonical/44-Jatakatthakatha-10.txt"
         ]
     },
     {
         "kn3a": [
-            "commentary/45_Nid_A1.txt",
-            "commentary/46_Nid_A2.txt",
-            "commentary/47_Patisam_A1.txt",
-            "commentary/48_Patisam_A2.txt"
+            "Non-Canonical/45-Mahaniddesatthakatha.txt",
+            "Non-Canonical/46-Culaniddesatthakatha.txt",
+            "Non-Canonical/47-Saddhammappakasini-1.txt",
+            "Non-Canonical/48-Saddhammappakasini-2.txt"
         ]
     },
     {
         "abha": [
-            "commentary/53_Dhs_A.txt",
-            "commentary/54_Vibh_A.txt",
-            "commentary/55_Panca_A.txt"
+            "Non-Canonical/53-Atthasalini.txt",
+            "Non-Canonical/54-Sammohavinodani.txt",
+            "Non-Canonical/55-Pancappakarana.txt"
         ]
     },
     {
         "vism": [
-            "commentary/57_Visuddhimagga_1.txt",
-            "commentary/58_Visuddhimagga_2.txt",
-            "commentary/59_Visuddhimagga_3.txt"
+            "Non-Canonical/57-Visuddhimagga-1.txt",
+            "Non-Canonical/58-Visuddhimagga-2.txt",
+            "Non-Canonical/59-Visuddhimagga-3.txt"
         ]
     },
     {
         "vint": [
-            "commentary/64_Vinaya_tika_1.txt",
-            "commentary/65_Vinaya_tika_2.txt",
-            "commentary/66_Vinaya_tika_3.txt",
-            "commentary/67_Vinaya_tika_4.txt"
+            "Non-Canonical/64-Saratthadipani-1.txt",
+            "Non-Canonical/65-Saratthadipani-2.txt",
+            "Non-Canonical/66-Saratthadipani-3.txt",
+            "Non-Canonical/67-Saratthadipani-4.txt"
         ]
     },
     {
         "abht": [
-            "commentary/60_Abhidh_s_vi.txt"
+            "Non-Canonical/60-Abhidhammatthasangaha.txt"
         ]
     },
     {
         "vismt": [
-            "commentary/61_Visuddhi_tika_1.txt",
-            "commentary/62_Visuddhi_tika_2.txt",
-            "commentary/63_Visuddhi_tika_3.txt"
+            "Non-Canonical/61-Paramatthamanjusa-1.txt",
+            "Non-Canonical/62-Paramatthamanjusa-2.txt",
+            "Non-Canonical/63-Paramatthamanjusa-3.txt"
         ]
     }
 ]

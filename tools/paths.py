@@ -331,7 +331,7 @@ class ProjectPaths:
 
         # resources
         self.other_pali_texts_dir = base_dir / "resources/other_pali_texts"
-        self.sya_dir = base_dir / "resources/syāmaraṭṭha_1927"
+        self.sya_dir = base_dir / "resources/tipitaka.rte"
         self.tipitaka_translation_db_dir = (
             base_dir / "resources/tipitaka_translation_db"
         )

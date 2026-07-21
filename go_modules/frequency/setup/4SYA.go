@@ -17,7 +17,7 @@ func makeSyaFreq() {
 		tools.Pth.SyaTextDir,
 	)
 
-	folders := []string{"canon", "commentary"}
+	folders := []string{"Canonical", "Non-Canonical"}
 
 	counter := 1
 	for _, folder := range folders {
@@ -40,7 +40,7 @@ func makeSyaFreq() {
 			dataRead, err := os.ReadFile(filePath)
 			tools.HardCheck(err)
 
-			text := string(dataRead)
+			text := strings.TrimPrefix(string(dataRead), "\uFEFF")
 			textClean := tools.CleanMachine(text, "ṃ", false, "sya")
 			textList := strings.Fields(textClean)
 			freqMap := tools.ListCounter(textList)

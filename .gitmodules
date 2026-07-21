@@ -37,3 +37,6 @@
 [submodule "resources/other-dictionaries"]
 	path = resources/other-dictionaries
 	url = https://github.com/digitalpalidictionary/other-dictionaries.git
+[submodule "resources/tipitaka.rte"]
+	path = resources/tipitaka.rte
+	url = https://github.com/jorgecaa/tipitaka.rte

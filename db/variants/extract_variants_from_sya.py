@@ -18,8 +18,8 @@ from tools.printer import printer as pr
 
 debug = False
 
-_PAGE_SPLIT_RE = re.compile(r"(?=\[page \d+\])")
-_PAGE_NUM_RE = re.compile(r"\[page (\d+)\]")
+_PAGE_SPLIT_RE = re.compile(r"(?=page number: \d+)")
+_PAGE_NUM_RE = re.compile(r"page number: (\d+)")
 _PAGE_VAR_RE = re.compile(
     r"""
     (
@@ -34,7 +34,7 @@ _PAGE_VAR_RE = re.compile(
     """,
     re.VERBOSE,
 )
-_FOOTNOTE_SECTION_RE = re.compile(r"Footnote:(.*?)(?=\n-{2,}|$)", re.DOTALL)
+_FOOTNOTE_SECTION_RE = re.compile(r"footnote:(.*?)(?=\n-{2,}|$)", re.DOTALL)
 _FOOTNOTE_SPLIT_RE = re.compile(r"(?<=\.)* +(?=\d)")
 _TRIPLE_RANGE_RE = re.compile(r"\d+-\d+-\d+")
 _TRIPLE_RANGE_CAPTURE_RE = re.compile(r"(\d+)-\d+-(\d+)")
@@ -76,9 +76,16 @@ def process_sya(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
 def get_sya_file_list(pth: ProjectPaths) -> list[Path]:
     """Get a list of all SYA variants files."""
 
-    root_dir = pth.sya_dir
+    # only the corrected corpus — the raw, decoder-corrupted rip under txt/ carries
+    # identical filenames and must never be picked up
+    corpus_dirs = [pth.sya_dir / "Canonical", pth.sya_dir / "Non-Canonical"]
     sya_sort_order = {filename: idx for idx, filename in enumerate(sya_files_to_books)}
-    all_files = [file for file in root_dir.rglob("*") if file.is_file()]
+    all_files = [
+        file
+        for corpus_dir in corpus_dirs
+        for file in corpus_dir.glob("*.txt")
+        if file.is_file()
+    ]
     file_list = sorted(
         all_files,
         key=lambda x: sya_sort_order.get(x.name, float("inf")),
@@ -87,14 +94,14 @@ def get_sya_file_list(pth: ProjectPaths) -> list[Path]:
 
 
 def get_sya_text(file_name: Path) -> str:
-    with file_name.open("r", encoding="utf-8") as f:
+    with file_name.open("r", encoding="utf-8-sig") as f:
         text = f.read()
 
         # remove new lines
         text = text.replace("\n", " ")
 
-        # remove page numbers < PTS. Vin III , 87 >
-        text = re.sub(r"<.+?>", "", text)
+        # remove PTS cross-references e.g. (pts. d i, 2)
+        text = re.sub(r"\(pts[^)]*\)", "", text)
 
         # remove multiple space
         text = re.sub(" +", " ", text)
@@ -121,7 +128,7 @@ def extract_sya_variants(
 
     pages = _PAGE_SPLIT_RE.split(text)
 
-    for i, page in enumerate(pages):
+    for page in pages:
         page_num: int = get_page_number(page)
         page_vars = get_variants_in_page(page)
         footnote_vars = get_variants_in_footnotes(page)
@@ -188,6 +195,10 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
     section_match = _FOOTNOTE_SECTION_RE.search(page)
     if section_match:
         footnote_str = section_match.group(1).strip()
+
+        # a page may carry more than one footnote block; drop residual labels
+        # so the marker word cannot leak into a variant reading
+        footnote_str = footnote_str.replace("footnote:", " ")
 
         # split on 0+ dot behind / 1 or more spaces / number ahead
         footnotes = _FOOTNOTE_SPLIT_RE.split(footnote_str)
