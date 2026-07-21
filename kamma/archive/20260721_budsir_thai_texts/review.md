@@ -60,4 +60,7 @@ text source, two file maps, format parsing, and one provenance URL changed.
 
 ## Verdict
 
-Ready for manual review + GitHub build. Not committed. Phase 5 pending post-build sign-off.
+**PASSED** (2026-07-21). User confirmed the new Thai data renders correctly in the webapp
+(SYA frequency columns + Thai variants populated). CI glob blocker fixed (commit `2b9fca54`).
+Phase 5 done — old `syāmaraṭṭha_1927/` dropped (commit `709d34b0`). Committed across
+`92c1446d`, `2b9fca54`, `709d34b0`.
