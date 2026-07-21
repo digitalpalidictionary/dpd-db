@@ -68,7 +68,7 @@ This section contains all information relevant to the Sutta Central website.
 | | |
 | --- | --- |
 | **The Buddha's Words** | Link to the Buddha's Words website |
-| **TBW Legacy** | Link to the TBW Legacy website |
+| **TBW Legacy** | Link to the TBW Legacy website. Hidden by default; opt in locally with `[dictionary] show_tbw = yes` in `config.ini` |
 | **Dhamma.gift** | Link to the Dhamma.gift website |
 | **SC Express** | Link to the SC Express website |
 | **SC Voice** | Link to the SC Voice website | 

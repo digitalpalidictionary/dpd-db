@@ -47,10 +47,11 @@ def _make_template_data(su: SuttaInfo) -> SimpleNamespace:
     )
 
 
-def _render_template(su: SuttaInfo) -> str:
+def _render_template(su: SuttaInfo, show_tbw: bool = False) -> str:
     env = Environment(
         loader=FileSystemLoader("exporter/webapp/templates"), autoescape=False
     )
+    env.globals["show_tbw"] = show_tbw
     d = _make_template_data(su)
     return env.get_template("dpd_headword.html").render(d=d)
 
@@ -105,3 +106,28 @@ def test_dpd_headword_treats_vagga_samyuttapali_as_vagga() -> None:
         'href="https://suttacentral.net/pitaka/sutta/linked/sn/sn-sagathavaggasamyutta"'
         in html
     )
+
+
+def test_dpd_headword_hides_tbw_legacy_by_default() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "devatāsaṃyutta"
+    su.dpd_code = "SN1"
+    su.book_code = "SN"
+    su.sc_code = "SN1.1"
+
+    html = _render_template(su)
+
+    assert "TBW Legacy" not in html
+
+
+def test_dpd_headword_shows_tbw_legacy_when_enabled() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "devatāsaṃyutta"
+    su.dpd_code = "SN1"
+    su.book_code = "SN"
+    su.sc_code = "SN1.1"
+
+    html = _render_template(su, show_tbw=True)
+
+    assert "TBW Legacy" in html
+    assert "https://find.dhamma.gift/bw/sn/sn1.1.html" in html

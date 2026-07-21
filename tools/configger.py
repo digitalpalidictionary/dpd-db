@@ -49,6 +49,7 @@ DEFAULT_CONFIG = {
     "dictionary": {
         "make_mdict": "yes",
         "show_id": "no",
+        "show_tbw": "no",
         "data_limit": "0",
     },
     "exporter": {

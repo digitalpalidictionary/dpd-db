@@ -182,8 +182,9 @@ def _minimal_su(**kwargs) -> SimpleNamespace:
     return SimpleNamespace(**defaults)
 
 
-def _render(d: SimpleNamespace) -> str:
+def _render(d: SimpleNamespace, show_tbw: bool = False) -> str:
     env = _make_env()
+    env.globals["show_tbw"] = show_tbw
     template = env.get_template("dpd_headword.jinja")
     return template.render(d=d)
 
@@ -387,3 +388,29 @@ class TestSamyuttaRow:
         html = _render(_minimal_d(su))
         assert "Linked Discourses on Causality" not in html
         assert "Contains discourses" not in html
+
+
+class TestTbwLegacyToggle:
+    def test_hidden_by_default(self):
+        su = _minimal_su(
+            is_vagga=False,
+            is_samyutta=False,
+            tbw_legacy="https://find.dhamma.gift/bw/mn/mn1.html",
+        )
+        html = _render(_minimal_d(su))
+        assert "TBW Legacy" not in html
+
+    def test_shown_when_enabled(self):
+        su = _minimal_su(
+            is_vagga=False,
+            is_samyutta=False,
+            tbw_legacy="https://find.dhamma.gift/bw/mn/mn1.html",
+        )
+        html = _render(_minimal_d(su), show_tbw=True)
+        assert "TBW Legacy" in html
+        assert "https://find.dhamma.gift/bw/mn/mn1.html" in html
+
+    def test_absent_when_no_legacy_link(self):
+        su = _minimal_su(is_vagga=False, is_samyutta=False, tbw_legacy=None)
+        html = _render(_minimal_d(su), show_tbw=True)
+        assert "TBW Legacy" not in html

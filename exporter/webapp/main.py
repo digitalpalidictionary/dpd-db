@@ -24,6 +24,7 @@ from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
 from tools.tipitaka_db import search_all_cst_texts, search_books
+from tools.configger import config_test
 from tools.translit import auto_translit_to_roman
 from prometheus_fastapi_instrumentator import Instrumentator
 
@@ -65,6 +66,7 @@ with get_db() as db_session:
 
 # Set up templates
 templates = Jinja2Templates(directory=str(pth.webapp_templates_dir))
+templates.env.globals["show_tbw"] = config_test("dictionary", "show_tbw", "yes")
 
 # Update CSS
 css_manager = CSSManager()
