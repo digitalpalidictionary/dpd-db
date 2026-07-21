@@ -3,7 +3,6 @@
   --dpd-text: inherit;
   --dpd-primary: hsl(198, 100%, 50%);
   --dpd-border: hsla(0, 0%, 50%, 0.25);
-  --dpd-panel-width: 33.33vw;
   --dpd-logo-hue-rotate: 0deg;
   --dpd-logo-saturate: 1;
   --dpd-logo-brightness: 1;
@@ -20,6 +19,21 @@ html.dpd-active body {
   padding-right: var(--dpd-panel-width) !important;
   width: 100vw !important;
   box-sizing: border-box !important;
+}
+
+/* Reclaim the panel's reserved space while the dictionary is popped out. */
+html.dpd-active.dpd-popped-out body {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Keep the panel readable when resized. Scoped to wide viewports so on narrow
+   screens (where the 33.33vw default is already below 340px) it never overflows
+   the reserved padding into page content. */
+@media (min-width: 1020px) {
+  #dict-panel-25445:not(.dpd-minimized) {
+    min-width: 340px;
+  }
 }
 
 /* Panel Styling */
@@ -447,7 +461,7 @@ html.dpd-active body.dpd-panel-left-active {
   border-color: transparent transparent var(--dpd-primary) transparent;
 }
 
-.dpd-tooltip:hover .dpd-tooltip-text {
+#dict-panel-25445 .dpd-tooltip:hover .dpd-tooltip-text {
   visibility: visible;
   opacity: 1;
 }

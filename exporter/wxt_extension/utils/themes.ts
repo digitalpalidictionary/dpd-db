@@ -195,6 +195,28 @@ export const THEMES: Themes = {
     font: "Liberation Serif, serif",
     fontSize: "17px",
     niggahita: false
+  },
+  s4nt_light: {
+    name: "s.4nt.org",
+    bg: "#faf8f4",
+    text: "#1a1612",
+    primary: "#c8a060",
+    border: "#ddd6c8",
+    headerBg: "#efe8db",
+    headerText: "#1a1612",
+    font: "Georgia, serif",
+    niggahita: true
+  },
+  s4nt_dark: {
+    name: "s.4nt.org Dark",
+    bg: "#1a1612",
+    text: "#e8dfc8",
+    primary: "#c8a060",
+    border: "#3a3028",
+    headerBg: "#241c10",
+    headerText: "#e8d8b8",
+    font: "Georgia, serif",
+    niggahita: true
   }
 };
 
@@ -348,6 +370,9 @@ export function detectTheme(): string {
   if (url.includes("tipitaka.paauksociety.org")) {
     return "paauksociety";
   }
+  if (url.includes("s.4nt.org")) {
+    return isDark() ? "s4nt_dark" : "s4nt_light";
+  }
   return "auto";
 }
 
@@ -430,7 +455,7 @@ export function applyTheme(themeKey: string): void {
     panelEl.classList.remove("dpd-theme-vri");
 
     // Toggle dark-mode class based on theme or detection
-    const isDarkTheme = themeKey === "dpd_dark" || themeKey === "suttacentral_dark" || themeKey === "tbw_dark" ||
+    const isDarkTheme = themeKey === "dpd_dark" || themeKey === "suttacentral_dark" || themeKey === "tbw_dark" || themeKey === "s4nt_dark" ||
                         (themeKey === "auto" && isDark());
     panelEl.classList.toggle("dark-mode", isDarkTheme);
 
@@ -443,7 +468,12 @@ export function applyTheme(themeKey: string): void {
       }
     }
 
-    const isSC = themeKey === "suttacentral" || themeKey === "suttacentral_dark" || 
+    // Clear any header-bar override from a previously applied theme (vri / s4nt); the
+    // branches below re-set it only for the themes that need it, so switching back to a
+    // plain theme falls through to the CSS default (var(--dpd-header-bg, var(--dpd-bg))).
+    panelEl.style.removeProperty("--dpd-header-bg");
+
+    const isSC = themeKey === "suttacentral" || themeKey === "suttacentral_dark" ||
                  (themeKey === "auto" && (detectTheme() === "suttacentral" || detectTheme() === "suttacentral_dark"));
 
     if (isSC) {
@@ -460,6 +490,10 @@ export function applyTheme(themeKey: string): void {
       panelEl.classList.add("dpd-theme-vri");
       panelEl.style.setProperty("--dpd-header-bg", theme.bg);
       panelEl.style.setProperty("--dpd-header-text", theme.primary);
+    } else if (themeKey === "s4nt_light" || themeKey === "s4nt_dark" ||
+               (themeKey === "auto" && (detectTheme() === "s4nt_light" || detectTheme() === "s4nt_dark"))) {
+      panelEl.style.setProperty("--dpd-header-bg", theme.headerBg || theme.bg);
+      panelEl.style.setProperty("--dpd-header-text", theme.headerText || theme.text);
     } else {
       panelEl.style.setProperty("--dpd-header-text", theme.text);
     }

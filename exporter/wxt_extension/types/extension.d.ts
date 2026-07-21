@@ -30,6 +30,8 @@ export interface Theme {
     fontSize?: string;
     bgImage?: string;
     niggahita?: boolean;
+    headerBg?: string;
+    headerText?: string;
 }
 
 export interface Themes {

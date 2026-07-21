@@ -87,6 +87,9 @@ export class DictionaryPanel {
   forwardBtn!: HTMLButtonElement;
   isResizing: boolean = false;
   savedWidth: string = "";
+  // Aborts the document/window-level resize listeners when the panel is destroyed, so
+  // repeated destroy→init cycles don't accumulate orphaned listeners (memory leak).
+  private resizeAbort: AbortController = new AbortController();
 
   history: { html: string; query: string }[] = [];
   historyIndex: number = -1;
@@ -193,8 +196,12 @@ export class DictionaryPanel {
       this.settings.minimized = result.settingsMinimized as boolean;
     if (result.settingsPanelSide !== undefined)
       this.settings.panelSide = result.settingsPanelSide as "left" | "right";
-    if (result.settingsPanelWidth !== undefined)
+    if (result.settingsPanelWidth !== undefined) {
       document.documentElement.style.setProperty("--dpd-panel-width", result.settingsPanelWidth as string);
+      // Prime savedWidth so _applySettings re-applies the stored width instead of
+      // removing it (otherwise the width resets to the default on every reload).
+      this.savedWidth = result.settingsPanelWidth as string;
+    }
 
     this._applySettings();
   }
@@ -383,34 +390,64 @@ export class DictionaryPanel {
   }
 
   _setupResize(handle: HTMLDivElement) {
+    const OVERLAY_ID = "dpd-resize-overlay";
+
+    const stopResize = () => {
+      if (!this.isResizing) return;
+      this.isResizing = false;
+      document.body.style.userSelect = "";
+      document.body.style.cursor = "";
+      document.getElementById(OVERLAY_ID)?.remove();
+      const currentWidth = document.documentElement.style.getPropertyValue("--dpd-panel-width");
+      if (currentWidth) {
+        // Keep the in-memory field in sync so a later _applySettings (e.g. minimize
+        // toggle) re-applies this width rather than removing it.
+        this.savedWidth = currentWidth;
+        browser.storage.local.set({ settingsPanelWidth: currentWidth });
+      }
+    };
+
     handle.addEventListener("mousedown", (e) => {
+      e.preventDefault();
       this.isResizing = true;
       document.body.style.userSelect = "none";
       document.body.style.cursor = "col-resize";
+      // A transparent full-viewport overlay keeps mousemove firing even over
+      // iframes, and lets us catch a release that lands outside the document.
+      if (!document.getElementById(OVERLAY_ID)) {
+        const overlay = document.createElement("div");
+        overlay.id = OVERLAY_ID;
+        overlay.style.cssText =
+          "position:fixed;inset:0;z-index:2147483647;cursor:col-resize;";
+        document.body.appendChild(overlay);
+      }
     });
+
+    const signal = this.resizeAbort.signal;
     document.addEventListener("mousemove", (e) => {
       if (!this.isResizing) return;
+      // Self-heal: if the button was released while we weren't looking (over an
+      // iframe, outside the window, during alt-tab), stop instead of resizing forever.
+      if (e.buttons === 0) {
+        stopResize();
+        return;
+      }
       const width = this.settings.panelSide === "left"
         ? e.clientX
         : window.innerWidth - e.clientX;
-      if (width > 200 && width < window.innerWidth * 0.8) {
+      if (width > 340 && width < window.innerWidth * 0.8) {
         document.documentElement.style.setProperty(
           "--dpd-panel-width",
           width + "px",
         );
       }
-    });
-    document.addEventListener("mouseup", () => {
-      if (this.isResizing) {
-        const currentWidth = document.documentElement.style.getPropertyValue("--dpd-panel-width");
-        if (currentWidth) {
-          browser.storage.local.set({ settingsPanelWidth: currentWidth });
-        }
-      }
-      this.isResizing = false;
-      document.body.style.userSelect = "";
-      document.body.style.cursor = "";
-    });
+    }, { signal });
+
+    document.addEventListener("mouseup", stopResize, { signal });
+    window.addEventListener("blur", stopResize, { signal });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") stopResize();
+    }, { signal });
   }
 
   _setupEvents() {
@@ -888,6 +925,8 @@ export class DictionaryPanel {
       { key: "tbw_dark", name: "The Buddha's Words Dark" },
       { key: "vri", name: "VRI (tipitaka.org)" },
       { key: "tipitakalk", name: "Tipitaka.lk" },
+      { key: "s4nt_light", name: "s.4nt.org" },
+      { key: "s4nt_dark", name: "s.4nt.org Dark" },
     ];
 
     options.forEach((opt) => {
@@ -1080,6 +1119,7 @@ export class DictionaryPanel {
   }
 
   destroy() {
+    this.resizeAbort.abort();
     document.getElementById("dict-panel-25445")?.remove();
   }
 };

@@ -109,7 +109,9 @@ export default defineBackground(() => {
 
     if (request.action === "started" && sender.tab?.id) {
       await updateIcon(sender.tab.id, "ON");
-      return;
+      // Hand the content script its own tab id so it can stamp forwarded popout
+      // selections, letting each popout ignore selections from other tabs.
+      return { tabId: sender.tab.id };
     }
     
     if (request.action === "fetchData" && request.endpoint) {
@@ -125,6 +127,69 @@ export default defineBackground(() => {
       } catch (e: any) {
         return { success: false, error: e.message };
       }
+    }
+
+    // Detach the dictionary into its own popup window and hide the in-page panel.
+    if (request.action === "openPopout") {
+      const sourceTabId = sender.tab?.id;
+      if (sourceTabId == null) return;
+      const url =
+        (browser.runtime as any).getURL("popout.html") +
+        "?q=" + encodeURIComponent(request.q || "") +
+        "&theme=" + encodeURIComponent(request.theme || "auto") +
+        "&tab=" + sourceTabId;
+      const win = await browser.windows.create({ url, type: "popup", width: 480, height: 820 });
+      if (win?.id != null) {
+        // Remember which tab this popout belongs to, so closing it acts on that panel.
+        await browser.storage.session.set({ [`popout_win_${win.id}`]: sourceTabId });
+        browser.tabs.sendMessage(sourceTabId, { action: "dpdHidePanel" }).catch(() => {});
+      }
+      return;
+    }
+
+    // Pop-in: flag the window so onRemoved restores (not dismisses), then close it.
+    // Prefer the sender's own window id so a pop-in that fires before the popout page
+    // has learned its window id still restores instead of falling through to dismiss.
+    if (request.action === "popIn") {
+      const winId = request.win ?? sender.tab?.windowId;
+      if (winId == null) return;
+      await browser.storage.session.set({ [`popout_pin_${winId}`]: true });
+      browser.windows.remove(winId).catch(() => {});
+      return;
+    }
+  });
+
+  const dismissOnTab = async (tabId: number) => {
+    // Faithfully "turn DPD off" on this page: clear popped-out state, remove the
+    // in-page panel, persist the OFF state, and gray the toolbar icon.
+    browser.tabs.sendMessage(tabId, { action: "dpdReset" }).catch(() => {});
+    browser.tabs.sendMessage(tabId, "destroy").catch(() => {});
+    try {
+      const tab = await browser.tabs.get(tabId);
+      if (tab.url) {
+        const host = new URL(tab.url).hostname;
+        await browser.storage.local.set({ [`state_${host}`]: "OFF" });
+      }
+    } catch (e) {
+      console.warn("[DPD] dismissOnTab failed to set OFF state:", e);
+    }
+    await updateIcon(tabId, "OFF");
+  };
+
+  // A popout closed via its window X (no pin flag) dismisses DPD on the source page;
+  // closing via the pop-in button (which sets the pin flag first) restores the panel.
+  browser.windows.onRemoved.addListener(async (winId) => {
+    const winKey = `popout_win_${winId}`;
+    const pinKey = `popout_pin_${winId}`;
+    const rec = await browser.storage.session.get([winKey, pinKey]) as LocalStorage;
+    const tabId = rec[winKey];
+    if (tabId == null) return;
+    const wasPopIn = !!rec[pinKey];
+    await browser.storage.session.remove([winKey, pinKey]);
+    if (wasPopIn) {
+      browser.tabs.sendMessage(tabId, { action: "dpdShowPanel" }).catch(() => {});
+    } else {
+      await dismissOnTab(tabId);
     }
   });
 });
