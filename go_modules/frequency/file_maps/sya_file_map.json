@@ -58,12 +58,13 @@
     },
     {
         "kn1": [
-            "Canonical/25-Khp-Dhp-Ud-Iti-Sn.txt"
+            "Canonical/25-Khp-Dhp-Ud-Iti-Sn.txt",
+            "Canonical/26-Vv-Pv-Th-Thi.txt::th-thi"
         ]
     },
     {
         "kn2": [
-            "Canonical/26-Vv-Pv-Th-Thi.txt",
+            "Canonical/26-Vv-Pv-Th-Thi.txt::vv-pv",
             "Canonical/27-Jataka-1.txt",
             "Canonical/28-Jataka-2.txt",
             "Canonical/32-Apadana-1.txt",

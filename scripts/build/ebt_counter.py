@@ -18,21 +18,29 @@ from tools.printer import printer as pr
 
 
 def _sya_is_ebt(key: str) -> bool:
-    """Check if SYA file key is EBT.
+    """Check if a SYA `sya_file_freq.json` key is an early Buddhist text.
+
+    Keys are `Canonical/NN-Name.txt` (number before the first `-`), except the
+    combined volume 26, split by the frequency setup into `::vv-pv` (Vimānavatthu
+    + Petavatthu, not EBT) and `::th-thi` (Theragāthā + Therīgāthā, EBT — matches
+    CST `s0508`/`s0509`).
 
     Include: 01-02 (Monks' Vibhaṅga = VIN1+VIN2 equivalent)
-             09-25 (DN, MN, SN, AN, and KN small texts = kn1-5+kn8-9 combined in Khu_Khu)
+             09-25 (DN, MN, SN, AN, and KN small texts kn1-5 in file 25)
+             the `::th-thi` slice of file 26
     Exclude: 03-08 (Bhikkhunī Vibhaṅga, Mahāvagga, Cullavagga, Parivāra)
-             26-33 (Vimānavatthu, Jātaka, Niddesa, Paṭisambhidāmagga, Apadāna)
-             34-45 (Abhidhamma)
+             26 Vv/Pv, 27-33 (Jātaka, Niddesa, Paṭisambhidāmagga, Apadāna)
+             34-45 (Abhidhamma), all Non-Canonical commentaries
     """
-    if not key.startswith("canon/"):
+    if key == "Canonical/26-Vv-Pv-Th-Thi.txt::th-thi":
+        return True
+    if not key.startswith("Canonical/"):
         return False
     try:
-        num = int(key.split("/")[1].split("_")[0])
-        return num <= 2 or (9 <= num <= 25)
+        num = int(key.split("/")[1].split("-")[0])
     except (IndexError, ValueError):
         return False
+    return num <= 2 or (9 <= num <= 25)
 
 
 def _merge_ebt_freq(
