@@ -59,6 +59,23 @@ export default defineBackground(() => {
 
     try {
       const domain = new URL(tab.url).hostname;
+
+      // If this site is already popped out, its in-page panel is intentionally hidden,
+      // so a plain toggle would look like it did nothing. Bring the popout to the front
+      // instead — that's the visible DPD for this site. (Stale flag → fall through.)
+      const hostKey = `popout_host_${domain}`;
+      const winId = (await browser.storage.local.get(hostKey) as LocalStorage)[hostKey];
+      if (winId != null) {
+        try {
+          await browser.windows.get(winId);
+          await browser.windows.update(winId, { focused: true });
+          return;
+        } catch (e) {
+          await browser.storage.local.remove(hostKey);
+          await browser.storage.session.remove(`popout_win_${winId}`);
+        }
+      }
+
       const currentState = await getDomainState(tab.url);
       const nextState = currentState === "ON" ? "OFF" : "ON";
       
@@ -108,10 +125,28 @@ export default defineBackground(() => {
     }
 
     if (request.action === "started" && sender.tab?.id) {
-      await updateIcon(sender.tab.id, "ON");
-      // Hand the content script its own tab id so it can stamp forwarded popout
-      // selections, letting each popout ignore selections from other tabs.
-      return { tabId: sender.tab.id };
+      const tabId = sender.tab.id;
+      await updateIcon(tabId, "ON");
+      // Is this SITE already popped out (from any tab)? If so, tell this freshly-loaded
+      // content script to keep its in-page panel hidden rather than show a duplicate.
+      // Validate the window is still open so a stale flag (window closed while the
+      // service worker slept) can't wrongly hide us — and clear it if dead.
+      let poppedOut = false;
+      try {
+        const host = sender.url ? new URL(sender.url).hostname : "";
+        if (host) {
+          const hostKey = `popout_host_${host}`;
+          const winId = (await browser.storage.local.get(hostKey) as LocalStorage)[hostKey];
+          if (winId != null) {
+            try { await browser.windows.get(winId); poppedOut = true; }
+            catch {
+              await browser.storage.local.remove(hostKey);
+              await browser.storage.session.remove(`popout_win_${winId}`);
+            }
+          }
+        }
+      } catch (e) { /* leave poppedOut false */ }
+      return { tabId, poppedOut };
     }
     
     if (request.action === "fetchData" && request.endpoint) {
@@ -132,17 +167,39 @@ export default defineBackground(() => {
     // Detach the dictionary into its own popup window and hide the in-page panel.
     if (request.action === "openPopout") {
       const sourceTabId = sender.tab?.id;
-      if (sourceTabId == null) return;
+      if (sourceTabId == null || !sender.url) return;
+      let host: string;
+      try { host = new URL(sender.url).hostname; } catch (e) { return; }
+
+      // One popout per SITE. Tab ids are ephemeral (close+reopen a tab and the old id is
+      // gone), which let popouts breed; keying on hostname and validating the window is
+      // still open means a site has at most one popout, reused across tabs and reloads.
+      const hostKey = `popout_host_${host}`;
+      const existingWin = (await browser.storage.local.get(hostKey) as LocalStorage)[hostKey];
+      if (existingWin != null) {
+        try {
+          await browser.windows.get(existingWin);                       // throws if closed
+          browser.windows.update(existingWin, { focused: true }).catch(() => {});
+          return;                                                       // flag already hides all tabs
+        } catch (e) {
+          await browser.storage.local.remove(hostKey);                  // stale → fall through
+          await browser.storage.session.remove(`popout_win_${existingWin}`);
+        }
+      }
+
       const url =
         (browser.runtime as any).getURL("popout.html") +
         "?q=" + encodeURIComponent(request.q || "") +
         "&theme=" + encodeURIComponent(request.theme || "auto") +
-        "&tab=" + sourceTabId;
+        "&host=" + encodeURIComponent(host);
       const win = await browser.windows.create({ url, type: "popup", width: 480, height: 820 });
       if (win?.id != null) {
-        // Remember which tab this popout belongs to, so closing it acts on that panel.
-        await browser.storage.session.set({ [`popout_win_${win.id}`]: sourceTabId });
-        browser.tabs.sendMessage(sourceTabId, { action: "dpdHidePanel" }).catch(() => {});
+        // popout_host_<host> lives in LOCAL storage so EVERY open tab of this site sees
+        // the change (content scripts get storage.local events; session ones they don't)
+        // and hides its in-page panel — not just the source tab. window id -> {host, tab}
+        // stays background-only in session (cleanup + which panel to restore/dismiss).
+        await browser.storage.local.set({ [hostKey]: win.id });
+        await browser.storage.session.set({ [`popout_win_${win.id}`]: { host, tab: sourceTabId } });
       }
       return;
     }
@@ -159,17 +216,19 @@ export default defineBackground(() => {
     }
   });
 
-  const dismissOnTab = async (tabId: number) => {
+  const dismissOnTab = async (tabId: number, host?: string) => {
     // Faithfully "turn DPD off" on this page: clear popped-out state, remove the
-    // in-page panel, persist the OFF state, and gray the toolbar icon.
+    // in-page panel, persist the OFF state, and gray the toolbar icon. `host` is passed
+    // when known (from the popout record) so we don't depend on reading the tab's url.
     browser.tabs.sendMessage(tabId, { action: "dpdReset" }).catch(() => {});
     browser.tabs.sendMessage(tabId, "destroy").catch(() => {});
     try {
-      const tab = await browser.tabs.get(tabId);
-      if (tab.url) {
-        const host = new URL(tab.url).hostname;
-        await browser.storage.local.set({ [`state_${host}`]: "OFF" });
+      let h = host;
+      if (!h) {
+        const tab = await browser.tabs.get(tabId);
+        if (tab.url) h = new URL(tab.url).hostname;
       }
+      if (h) await browser.storage.local.set({ [`state_${h}`]: "OFF" });
     } catch (e) {
       console.warn("[DPD] dismissOnTab failed to set OFF state:", e);
     }
@@ -182,14 +241,20 @@ export default defineBackground(() => {
     const winKey = `popout_win_${winId}`;
     const pinKey = `popout_pin_${winId}`;
     const rec = await browser.storage.session.get([winKey, pinKey]) as LocalStorage;
-    const tabId = rec[winKey];
-    if (tabId == null) return;
+    const info = rec[winKey] as { host: string; tab: number } | undefined;
+    if (info == null) return;
+    const { host, tab: tabId } = info;
     const wasPopIn = !!rec[pinKey];
     await browser.storage.session.remove([winKey, pinKey]);
     if (wasPopIn) {
+      // Restore the in-page panel on EVERY tab of this site (they watch popout_host_*).
+      await browser.storage.local.remove(`popout_host_${host}`);
       browser.tabs.sendMessage(tabId, { action: "dpdShowPanel" }).catch(() => {});
     } else {
-      await dismissOnTab(tabId);
+      // Turn DPD off across the whole site: set OFF first (all tabs tear down via the
+      // state_* watcher), THEN clear the popout flag so nothing briefly un-hides.
+      await dismissOnTab(tabId, host);
+      await browser.storage.local.remove(`popout_host_${host}`);
     }
   });
 });

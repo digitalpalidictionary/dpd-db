@@ -20,14 +20,14 @@ export default defineContentScript({
     let poppedOut = false; // true while the dictionary lives in its own popout window
     let themeObserver: MutationObserver | null = null;
     let themeDebounce: ReturnType<typeof setTimeout> | null = null;
-    let myTabId: number | null = null; // this tab's id, learned from the "started" reply
 
     // Define handleSelectedWord globally so utils and panel can call it
     (window as any).handleSelectedWord = async (word: string) => {
-      // While popped out, route selections to the popout window instead of the
-      // (now hidden) in-page panel.
+      // While popped out, route selections to this site's popout window instead of the
+      // (now hidden) in-page panel. Tagged with the hostname so the popout accepts
+      // selections from any tab of its own site and ignores other sites' popouts.
       if (poppedOut) {
-        browser.runtime.sendMessage({ action: "popoutSearch", q: word, tab: myTabId }).catch(() => {});
+        browser.runtime.sendMessage({ action: "popoutSearch", q: word, host: window.location.hostname }).catch(() => {});
         return;
       }
 
@@ -184,7 +184,10 @@ export default defineContentScript({
       browser.runtime
         .sendMessage({ action: "started" })
         .then((r: any) => {
-          if (r?.tabId != null) myTabId = r.tabId;
+          // This site already has an open popout (we navigated/opened a tab into it
+          // while popped out): hide the freshly-created in-page panel so the two don't
+          // coexist. Background validated the popout window is still live.
+          if (r?.poppedOut) setPoppedOut(true);
         })
         .catch(() => {});
 
@@ -231,23 +234,25 @@ export default defineContentScript({
       });
     }
 
+    function teardown() {
+      document.documentElement.classList.remove("dpd-active");
+      document.documentElement.classList.remove("dpd-popped-out");
+      document.body.classList.remove("dpd-active");
+      themeObserver?.disconnect();
+      themeObserver = null;
+      if (themeDebounce) {
+        clearTimeout(themeDebounce);
+        themeDebounce = null;
+      }
+      panel?.destroy();
+      panel = null;
+      poppedOut = false;
+      removeListenersFromTextElements();
+    }
+
     browser.runtime.onMessage.addListener((request: any) => {
       if (request === "init") init();
-      if (request === "destroy") {
-        document.documentElement.classList.remove("dpd-active");
-        document.documentElement.classList.remove("dpd-popped-out");
-        document.body.classList.remove("dpd-active");
-        themeObserver?.disconnect();
-        themeObserver = null;
-        if (themeDebounce) {
-          clearTimeout(themeDebounce);
-          themeDebounce = null;
-        }
-        panel?.destroy();
-        panel = null;
-        poppedOut = false;
-        removeListenersFromTextElements();
-      }
+      if (request === "destroy") teardown();
       // Popout coordination messages (objects; the core sends plain strings above).
       if (request && typeof request === "object") {
         if (request.action === "dpdHidePanel") setPoppedOut(true);
@@ -261,6 +266,20 @@ export default defineContentScript({
     });
 
     const hostname = window.location.hostname;
+
+    // Stay consistent with the background and with DPD in OTHER tabs of this same site.
+    // storage.local change events reach content scripts (session-storage ones do not), so
+    // this is what keeps EVERY open tab of a site in sync, not just the active/source one:
+    //   • popout_host_<host> set/cleared → hide/show this tab's in-page panel, so a
+    //     sibling tab can't sit there showing its panel while the site is popped out;
+    //   • state_<host> → OFF tears the panel down everywhere the site is open.
+    browser.storage.onChanged.addListener((changes: any, area: string) => {
+      if (area !== "local") return;
+      const stateChange = changes[`state_${hostname}`];
+      if (stateChange && stateChange.newValue === "OFF") { teardown(); return; }
+      const popoutChange = changes[`popout_host_${hostname}`];
+      if (popoutChange && panel) setPoppedOut(popoutChange.newValue != null);
+    });
 
     browser.storage.local.get(`state_${hostname}`).then((data) => {
       const savedState = data[`state_${hostname}`];

@@ -10,9 +10,22 @@ import { DictionaryPanel } from '@/components/dictionary-panel';
 import { applyTheme } from '@/utils/themes';
 import { addListenersToTextElements, cleanWord } from '@/utils/utils';
 
+// Dropping a draggable (a link/button dragged from the source page, say) onto this
+// window would otherwise trigger the browser's default "navigate to the dropped URL"
+// behaviour — turning the popout into an ordinary https page, where the content script
+// then runs and spawns its OWN in-page panel, leaving two DPDs and desynced state.
+// Swallow drops that don't land on a text input (where inserting text is expected UX).
+function isTextTarget(t: EventTarget | null): boolean {
+  const el = t as HTMLElement | null;
+  return !!el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || !!el.closest?.('.dpd-search-box'));
+}
+for (const type of ['dragover', 'drop'] as const) {
+  window.addEventListener(type, (e) => { if (!isTextTarget(e.target)) e.preventDefault(); });
+}
+
 const params = new URLSearchParams(location.search);
 const initialQuery = params.get('q') || '';
-const sourceTab = params.get('tab') || ''; // the tab this popout was detached from
+const sourceHost = params.get('host') || ''; // the site this popout serves
 // The source page resolves its live theme to a concrete key (e.g. "s4nt_dark") and
 // passes it here, so the popout reproduces it with applyTheme(key) — no DOM guessing.
 // A bare "auto" (unrecognised source site) falls back to detecting the popout's own bg.
@@ -114,12 +127,12 @@ addListenersToTextElements();
 
 if (initialQuery) (window as any).handleSelectedWord(initialQuery);
 
-// Words selected on the originating page (while popped out) are forwarded here.
-// popoutSearch is a broadcast, so ignore selections from any tab other than our own
-// (prevents crosstalk when two tabs are popped out at once).
+// Words selected on any tab of this site (while popped out) are forwarded here.
+// popoutSearch is a broadcast, so ignore selections tagged with a different host
+// (prevents crosstalk when two different sites are popped out at once).
 browser.runtime.onMessage.addListener((msg: any) => {
   if (msg && typeof msg === 'object' && msg.action === 'popoutSearch') {
-    if (sourceTab && msg.tab != null && String(msg.tab) !== sourceTab) return;
+    if (sourceHost && msg.host && msg.host !== sourceHost) return;
     (window as any).handleSelectedWord(msg.q);
   }
 });
