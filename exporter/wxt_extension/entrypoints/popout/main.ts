@@ -8,7 +8,8 @@ import '@/assets/styles/dpd.css';
 import { browser } from 'wxt/browser';
 import { DictionaryPanel } from '@/components/dictionary-panel';
 import { applyTheme } from '@/utils/themes';
-import { addListenersToTextElements, cleanWord } from '@/utils/utils';
+import { addListenersToTextElements } from '@/utils/utils';
+import { searchWord } from '@/utils/search';
 
 // Dropping a draggable (a link/button dragged from the source page, say) onto this
 // window would otherwise trigger the browser's default "navigate to the dropped URL"
@@ -71,26 +72,11 @@ if (panelEl) {
 
 applyTheme(themeKey);
 
-// Route the panel's search box and the initial query through the background fetch.
+// Route the panel's search box and the initial query through the shared search
+// helper, so the popout gets the same offline / GoldenDict / error handling as the
+// in-page panel instead of a bare "Error" / "No results".
 (window as any).handleSelectedWord = async (raw: string) => {
-  const q = cleanWord(raw);
-  if (!q) return;
-  panel.setSearchValue(q);
-  panel.setText('Loading...');
-  try {
-    const r: any = await browser.runtime.sendMessage({
-      action: 'fetchData',
-      endpoint: '/search_json?q=' + encodeURIComponent(q),
-    });
-    if (r?.success && r.data && (r.data.summary_html || r.data.dpd_html)) {
-      panel.setText('Result for ' + q);
-      panel.setContent((r.data.summary_html || '') + '<hr class="dpd">' + (r.data.dpd_html || ''));
-    } else {
-      panel.setText('No results for ' + q);
-    }
-  } catch (e: any) {
-    panel.setText('Error: ' + (e?.message ?? String(e)));
-  }
+  await searchWord(raw, panel);
 };
 
 // Replace the "pop out" affordance with a "pop in" button in this window.
@@ -131,8 +117,15 @@ if (initialQuery) (window as any).handleSelectedWord(initialQuery);
 // popoutSearch is a broadcast, so ignore selections tagged with a different host
 // (prevents crosstalk when two different sites are popped out at once).
 browser.runtime.onMessage.addListener((msg: any) => {
-  if (msg && typeof msg === 'object' && msg.action === 'popoutSearch') {
-    if (sourceHost && msg.host && msg.host !== sourceHost) return;
+  if (!msg || typeof msg !== 'object') return;
+  // Both messages are host-scoped broadcasts. When this popout knows its site,
+  // require a matching host — reject unscoped or other-site messages (a missing
+  // host no longer slips through).
+  if (sourceHost && msg.host !== sourceHost) return;
+  if (msg.action === 'popoutSearch' && typeof msg.q === 'string') {
     (window as any).handleSelectedWord(msg.q);
+  } else if (msg.action === 'popoutTheme' && typeof msg.theme === 'string') {
+    // The source page's auto-theme resolved to a new key (host toggled dark/light).
+    applyTheme(msg.theme);
   }
 });

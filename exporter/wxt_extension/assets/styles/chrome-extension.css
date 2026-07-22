@@ -387,31 +387,16 @@ html.dpd-active body.dpd-panel-left-active {
 }
 
 /* Button styling */
-#dict-panel-25445 .button {
-  padding: 2px 6px;
-  background: var(--dpd-border);
-  border: none;
-  cursor: pointer;
-  color: var(--dpd-button-text, #fff);
-  font-size: 0.85em;
-  border-radius: 3px;
-}
-
-#dict-panel-25445 .button.active {
-  background: var(--dpd-primary);
-  color: var(--dpd-button-text, #fff) !important;
-}
-
 #dict-panel-25445 a.dpd-button,
 #dict-panel-25445 a.dpd-button.active,
 #dict-panel-25445 a.dpd-button:hover {
   color: var(--dpd-button-text) !important;
-  /* Same host line-height guard as .button above (anchor-variant buttons). */
+  /* Pin line-height so a host site's body line-height (e.g. s.4nt.org's
+     body{line-height:1.55}) can't leak in and inflate the button height. */
   line-height: normal;
 }
 
 /* Ensure SVG icons inside buttons also get the proper contrast color */
-#dict-panel-25445 .button svg,
 #dict-panel-25445 .dpd-button svg {
   fill: currentColor !important;
   stroke: currentColor !important;

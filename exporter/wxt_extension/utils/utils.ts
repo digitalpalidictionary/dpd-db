@@ -1,10 +1,14 @@
 import { MessageRequest } from '../types/extension';
 
-const PUNCTUATION_REGEX = /[-\u2014'\u2018\u2019\u201c\u201d\"'.,;:!?()\[\]{}\\\/\u00b7\u2027\u2219\u22c5\u30fb0-9]/g;
+const PUNCTUATION_REGEX = /[-'\u2018\u2019\u201c\u201d\"'.,;:!?()\[\]{}\\\/\u00b7\u2027\u2219\u22c5\u30fb0-9]/g;
 
 export function cleanWord(word: string): string {
   let cleaned = word
+    // Em-dash is a word boundary, not a joinable char \u2014 split on it (e.g.
+    // "upakkileso\u2019ti\u2014iti") instead of gluing into "upakkilesotiiti".
+    .replace(/\u2014/g, " ")
     .replace(PUNCTUATION_REGEX, "")
+    .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
 
@@ -35,7 +39,7 @@ export function expandSelectionToWord(): void {
 
   // Characters to stop on - SPACE is critical and must never be crossed
   // Note: Closing quotes (’ ”) are removed from stopChars so expansion includes suffixes like ”ti.
-  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦0-9]/;
+  const stopChars = /[ \t\n\r\.\,\;\:\!\?\(\)\[\]\{\}\\\/\*\&\%\$\#\@\+\=\<\>\♦—0-9]/;
   const isStop = (char: string) => !char || stopChars.test(char);
 
   // Explicit space check - spaces should NEVER be crossed under any circumstances

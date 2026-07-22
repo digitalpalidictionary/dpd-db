@@ -1,16 +1,13 @@
 import { defineContentScript } from 'wxt/sandbox';
 import { browser } from 'wxt/browser';
 import { DictionaryPanel } from '../components/dictionary-panel';
-import { addListenersToTextElements, removeListenersFromTextElements, cleanWord } from '../utils/utils';
+import { addListenersToTextElements, removeListenersFromTextElements } from '../utils/utils';
 import { applyTheme, detectTheme } from '../utils/themes';
 import { isAutoDomain, isExcludedDomain } from '../utils/domains';
+import { searchWord } from '../utils/search';
 import '@/assets/styles/chrome-extension.css';
 import '@/assets/styles/dpd-variables.css';
 import '@/assets/styles/dpd.css';
-
-type ApiBaseUrlResponse = {
-  baseUrl?: string;
-};
 
 export default defineContentScript({
   matches: ['<all_urls>'],
@@ -30,61 +27,7 @@ export default defineContentScript({
         browser.runtime.sendMessage({ action: "popoutSearch", q: word, host: window.location.hostname }).catch(() => {});
         return;
       }
-
-      const cleanedWord = cleanWord(word);
-      
-      // Check "Use GoldenDict" setting - if ON, always use GoldenDict
-      if (panel?.settings?.goldenDict) {
-        panel.openInGoldenDict(cleanedWord);
-        return;
-      }
-
-      // Get API route for logging
-      try {
-        const response = await browser.runtime.sendMessage({ action: "getApiBaseUrl" }) as ApiBaseUrlResponse;
-        const baseUrl = response?.baseUrl || "https://dpdict.net";
-        const isProduction = baseUrl === "https://dpdict.net";
-        const routeDescription = isProduction ? "via dpdict.net" : `via local server ${baseUrl}`;
-        console.log(`[DPD] Searching for: ${word} ${routeDescription}`);
-      } catch (e) {
-        console.log("[DPD] Searching for:", word, "(route detection failed)");
-      }
-
-      if (panel) {
-        panel.setSearchValue(cleanedWord);
-        panel.setText("Loading...");
-      }
-
-      // Check if offline - use GoldenDict fallback
-      if (!navigator.onLine) {
-        panel?.openInGoldenDict(cleanedWord);
-        return;
-      }
-
-      browser.runtime.sendMessage(
-        {
-          action: "fetchData",
-          endpoint: "/search_json?q=" + encodeURIComponent(cleanedWord),
-        }
-      ).then((response: any) => {
-          if (response?.success) {
-            const data = response.data;
-            if (!data || (!data.summary_html && !data.dpd_html)) {
-              panel?.setText("No results for " + cleanedWord);
-            } else {
-              panel?.setText("Result for " + cleanedWord);
-              panel?.setContent(
-                (data.summary_html || "") + '<hr class="dpd">' + (data.dpd_html || ""),
-              );
-            }
-          } else {
-            // API error - use GoldenDict fallback
-            panel?.openInGoldenDict(cleanedWord);
-          }
-      }).catch(err => {
-          // API failure - use GoldenDict fallback
-          panel?.openInGoldenDict(cleanedWord);
-      });
+      await searchWord(word, panel);
     };
 
     function currentQuery(): string {
@@ -179,8 +122,8 @@ export default defineContentScript({
       const savedTheme = (storage[storageKey] as string) || "auto";
       applyTheme(savedTheme);
 
-      // Notify background that we've started to sync icon state; it replies with this
-      // tab's id, which we stamp on forwarded popout selections (see handleSelectedWord).
+      // Notify background that we've started to sync icon state; it replies whether
+      // this site is already popped out so we can hide the freshly-created panel.
       browser.runtime
         .sendMessage({ action: "started" })
         .then((r: any) => {
@@ -219,6 +162,14 @@ export default defineContentScript({
               if (next === lastAutoTheme) return;
               lastAutoTheme = next;
               applyTheme("auto");
+              // If this site is popped out, the popout's theme was baked in once at
+              // creation — forward the freshly resolved key so it follows the host's
+              // dark/light toggle. Host-scoped like popoutSearch (broadcast).
+              if (poppedOut) {
+                browser.runtime
+                  .sendMessage({ action: "popoutTheme", host: window.location.hostname, theme: next })
+                  .catch(() => {});
+              }
             })
             .catch(() => themeObserver?.disconnect());
         }, 200);

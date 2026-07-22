@@ -158,6 +158,7 @@ export class DictionaryPanel {
       "settingsSandhi",
       "settingsOneButton",
       "settingsAudio",
+      "settingsGoldenDict",
       "settingsMinimized",
       "settingsPanelSide",
       "settingsPanelWidth",
@@ -181,6 +182,8 @@ export class DictionaryPanel {
         this.settings.niggahita = false; // Default OFF for VRI (ṃ)
       } else if (domain.includes("open.tipitaka.lk")) {
         this.settings.niggahita = false; // Default OFF for Tipitaka.lk (ṃ)
+      } else if (domain.includes("s.4nt.org")) {
+        this.settings.niggahita = true; // Default ON for s.4nt.org (ṁ), matches theme
       }
     }
 
@@ -899,6 +902,13 @@ export class DictionaryPanel {
           • <b>Highlight / Drag</b> any word or phrase on the webpage to search.
         </p>
 
+        <p style="margin-bottom: 12px !important;">
+          <b>Pop-out Window:</b><br>
+          ${isFirefox
+            ? "Detaching the dictionary into its own window is currently available in Chrome / Edge only."
+            : "Click the pop-out icon in the header to detach the dictionary into its own window."}
+        </p>
+
         </div>
     `;
     this.setContent(html);
@@ -934,6 +944,7 @@ export class DictionaryPanel {
       { key: "tbw_dark", name: "The Buddha's Words Dark" },
       { key: "vri", name: "VRI (tipitaka.org)" },
       { key: "tipitakalk", name: "Tipitaka.lk" },
+      { key: "paauksociety", name: "PAUK Society" },
       { key: "s4nt_light", name: "s.4nt.org" },
       { key: "s4nt_dark", name: "s.4nt.org Dark" },
     ];
@@ -1026,18 +1037,21 @@ export class DictionaryPanel {
             <span style="font-size: 0.8rem;">Audio Male / Female</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-audio-toggle" ${this.settings.audio ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
           </div>
+          ${this.neverMinimize ? "" : `
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
             <span style="font-size: 0.8rem;">Use GoldenDict</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-goldendict-toggle" ${this.settings.goldenDict ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
-          </div>
+          </div>`}
+          ${this.neverMinimize ? "" : `
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
             <span style="font-size: 0.8rem;">Minimize Panel</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-minimize-toggle" ${this.settings.minimized ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
-          </div>
+          </div>`}
+          ${this.neverMinimize ? "" : `
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
             <span style="font-size: 0.8rem;">Panel Left / Right</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-panelside-toggle" ${this.settings.panelSide === "right" ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
-          </div>
+          </div>`}
         </div>
       `;
 

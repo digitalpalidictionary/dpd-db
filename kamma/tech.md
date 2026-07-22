@@ -1,7 +1,7 @@
 # Tech Notes
 
 ## Tools & Platforms
-This project is primarily a Python 3.13 codebase managed with `uv`. It uses SQLite as the main database and SQLAlchemy for database access and modeling. It also includes Go modules for performance-sensitive tasks, Flet for the contributor GUI, FastAPI and Uvicorn for web-facing services, and multiple exporter pipelines for web, mobile, desktop dictionary, and document outputs. Some gui2 AI workflows now also use locally authenticated CLI wrappers such as `codex` and `claude` through the shared AI manager.
+This project is primarily a Python 3.13 codebase managed with `uv`. It uses SQLite as the main database and SQLAlchemy for database access and modeling. It also includes Go modules for performance-sensitive tasks, Flet for the contributor GUI, FastAPI and Uvicorn for web-facing services, and multiple exporter pipelines for web, mobile, desktop dictionary, and document outputs. Some gui2 AI workflows now also use locally authenticated CLI wrappers such as `codex` and `claude` through the shared AI manager. The `exporter/wxt_extension/` cross-browser extension (TypeScript, WXT) has its own Vitest + happy-dom unit suite (`npm test`), separate from the Python `pytest` suite.
 
 ## Who This Is For
 These notes are for internal contributors and editors maintaining dictionary data, the database build process, tests, and release exports.

@@ -117,10 +117,8 @@ export default defineBackground(() => {
 
   // Message Handling
   browser.runtime.onMessage.addListener(async (request: any, sender: any) => {
-    console.log("[DPD] Background received message:", request);
     if (request.action === "getApiBaseUrl") {
       const baseUrl = await getApiBaseUrl();
-      console.log("[DPD] Background sending baseUrl:", baseUrl);
       return { baseUrl };
     }
 
@@ -157,6 +155,9 @@ export default defineBackground(() => {
         const routeDescription = isProduction ? "via dpdict.net" : `via local server ${baseUrl}`;
         console.log(`[DPD] Searching via ${routeDescription}`);
         const response = await fetch(url);
+        if (!response.ok) {
+          return { success: false, error: `HTTP ${response.status}` };
+        }
         const data = await response.json();
         return { success: true, data };
       } catch (e: any) {
@@ -192,7 +193,18 @@ export default defineBackground(() => {
         "?q=" + encodeURIComponent(request.q || "") +
         "&theme=" + encodeURIComponent(request.theme || "auto") +
         "&host=" + encodeURIComponent(host);
-      const win = await browser.windows.create({ url, type: "popup", width: 480, height: 820 });
+      // Reopen at the user's last popout size/position (saved by onBoundsChanged),
+      // falling back to the default 480x820 for a first-ever popout.
+      const geo = (await browser.storage.local.get("popout_geometry") as LocalStorage).popout_geometry as
+        | { width?: number; height?: number; left?: number; top?: number }
+        | undefined;
+      const win = await browser.windows.create({
+        url,
+        type: "popup",
+        width: geo?.width ?? 480,
+        height: geo?.height ?? 820,
+        ...(geo?.left != null && geo?.top != null ? { left: geo.left, top: geo.top } : {}),
+      });
       if (win?.id != null) {
         // popout_host_<host> lives in LOCAL storage so EVERY open tab of this site sees
         // the change (content scripts get storage.local events; session ones they don't)
@@ -256,5 +268,20 @@ export default defineBackground(() => {
       await dismissOnTab(tabId, host);
       await browser.storage.local.remove(`popout_host_${host}`);
     }
+  });
+
+  // Remember a popout's size/position so the next one opens where the user left it.
+  // onBoundsChanged commits once per resize/move gesture (not during the drag), and we
+  // only save for windows we know are popouts (they have a popout_win_<id> record).
+  // (Cast: onBoundsChanged is a Chromium API the polyfill's types omit; popout is
+  // Chromium-only, so the event is always present at runtime here.)
+  (browser.windows as any).onBoundsChanged?.addListener(async (win: any) => {
+    if (win?.id == null) return;
+    const winKey = `popout_win_${win.id}`;
+    const rec = await browser.storage.session.get(winKey) as LocalStorage;
+    if (rec[winKey] == null) return;
+    await browser.storage.local.set({
+      popout_geometry: { width: win.width, height: win.height, left: win.left, top: win.top },
+    });
   });
 });
