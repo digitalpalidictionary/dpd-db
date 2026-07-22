@@ -170,6 +170,10 @@ table.inflection {
   color: var(--primary);
   text-decoration: none;
   font-weight: bold;
+  /* Force inline so a host site's own .jump class (e.g. s.4nt.org's
+     .jump{display:flex}) can't leak in and stack the jump-to / back-to-top
+     links onto separate lines. Our id-scoped selector out-specifies theirs. */
+  display: inline;
 }
 #dict-panel-25445 /* family tables */
 

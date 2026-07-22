@@ -174,8 +174,10 @@ export function handleMouseUp(e: MouseEvent): void {
   // Ignore drag-selection search only when within the DPD search bar
   if (target.closest('.dpd-search-box')) return;
 
-  // Allow drag-selecting text in the extension panel without triggering search
-  if (target.closest('#dict-panel-25445')) return;
+  // In-page, drag-selecting inside the panel is for copying, not searching — the
+  // searchable text is the host page outside the panel. In the popout the whole
+  // result IS the panel, so drag-select must search there (window.dpdIsPopout).
+  if (!(window as any).dpdIsPopout && target.closest('#dict-panel-25445')) return;
 
   const dx = Math.abs(e.clientX - dragStartX);
   const dy = Math.abs(e.clientY - dragStartY);

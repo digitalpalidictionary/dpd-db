@@ -87,6 +87,10 @@ export class DictionaryPanel {
   forwardBtn!: HTMLButtonElement;
   isResizing: boolean = false;
   savedWidth: string = "";
+  // When true, this panel never enters the minimized "sliver" state regardless of
+  // the saved setting. The detached popout window sets this: it is a real OS window
+  // sized by its frame, so minimizing would hide its content and search box.
+  private neverMinimize: boolean;
   // Aborts the document/window-level resize listeners when the panel is destroyed, so
   // repeated destroy→init cycles don't accumulate orphaned listeners (memory leak).
   private resizeAbort: AbortController = new AbortController();
@@ -109,7 +113,9 @@ export class DictionaryPanel {
     panelSide: "right",
   };
 
-  constructor() {
+  constructor(opts: { neverMinimize?: boolean } = {}) {
+    this.neverMinimize = opts.neverMinimize ?? false;
+
     const panelEl = document.createElement("div");
     panelEl.id = "dict-panel-25445";
 
@@ -212,14 +218,17 @@ export class DictionaryPanel {
 
     panelEl.style.fontSize = this.settings.fontSize + "px";
 
+    // The popout is a real OS window, so it never minimizes regardless of the setting.
+    const minimized = this.neverMinimize ? false : this.settings.minimized;
+
     // DETERMINISTIC CSS TOGGLES via Class
     panelEl.classList.toggle("dpd-hide-summary", !this.settings.summary);
     panelEl.classList.toggle("dpd-hide-sandhi", !this.settings.sandhi);
-    panelEl.classList.toggle("dpd-minimized", this.settings.minimized);
+    panelEl.classList.toggle("dpd-minimized", minimized);
 
     // Handle width for minimized state
     const docStyle = document.documentElement.style;
-    if (this.settings.minimized) {
+    if (minimized) {
         const current = docStyle.getPropertyValue("--dpd-panel-width");
         if (current && current !== "30px") this.savedWidth = current;
         docStyle.setProperty("--dpd-panel-width", "30px");
@@ -235,7 +244,7 @@ export class DictionaryPanel {
     panelEl.classList.toggle("dpd-panel-left", isLeft);
     document.body.classList.toggle("dpd-panel-left-active", isLeft);
 
-    if (!this.settings.minimized) {
+    if (!minimized) {
       if (isLeft) {
         panelEl.style.right = "auto";
         panelEl.style.left = "0";

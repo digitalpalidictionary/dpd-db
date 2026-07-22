@@ -395,6 +395,9 @@ html.dpd-active body.dpd-panel-left-active {
   color: var(--dpd-button-text, #fff);
   font-size: 0.85em;
   border-radius: 3px;
+  /* Pin line-height so a host site's body line-height (e.g. s.4nt.org's
+     body{line-height:1.55}) can't leak in and inflate the button height. */
+  line-height: normal;
 }
 
 #dict-panel-25445 .button.active {
@@ -406,6 +409,8 @@ html.dpd-active body.dpd-panel-left-active {
 #dict-panel-25445 a.dpd-button.active,
 #dict-panel-25445 a.dpd-button:hover {
   color: var(--dpd-button-text) !important;
+  /* Same host line-height guard as .button above (anchor-variant buttons). */
+  line-height: normal;
 }
 
 /* Ensure SVG icons inside buttons also get the proper contrast color */

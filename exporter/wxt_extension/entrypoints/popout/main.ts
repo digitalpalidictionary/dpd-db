@@ -8,7 +8,7 @@ import '@/assets/styles/dpd.css';
 import { browser } from 'wxt/browser';
 import { DictionaryPanel } from '@/components/dictionary-panel';
 import { applyTheme } from '@/utils/themes';
-import { cleanWord } from '@/utils/utils';
+import { addListenersToTextElements, cleanWord } from '@/utils/utils';
 
 const params = new URLSearchParams(location.search);
 const initialQuery = params.get('q') || '';
@@ -26,7 +26,7 @@ browser.windows
   })
   .catch(() => {});
 
-const panel = new DictionaryPanel();
+const panel = new DictionaryPanel({ neverMinimize: true });
 (window as any).panel = panel;
 const panelEl = document.getElementById('dict-panel-25445');
 
@@ -102,6 +102,15 @@ function addPopInButton() {
   group.insertBefore(btn, group.firstChild);
 }
 addPopInButton();
+
+// Make words in the popout's own results clickable: double-click / drag-select-to-
+// search, routed through this window's handleSelectedWord (same wiring the in-page
+// content script installs via init()). Without this the popout can only be driven
+// from the search box or the source page, not by clicking words in its own entry.
+// The flag tells handleMouseUp to allow drag-select search inside the panel here,
+// where the whole result is the panel (in-page that guard is kept for copy).
+(window as any).dpdIsPopout = true;
+addListenersToTextElements();
 
 if (initialQuery) (window as any).handleSelectedWord(initialQuery);
 
