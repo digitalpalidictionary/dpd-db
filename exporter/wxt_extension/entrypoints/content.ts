@@ -13,6 +13,19 @@ export default defineContentScript({
   matches: ['<all_urls>'],
   runAt: 'document_end',
   main() {
+    // Announce our presence to the host page, UNCONDITIONALLY — before the per-domain
+    // ON/OFF gate below — so any site can detect that DPD is installed even when it is
+    // not enabled for that domain. This is how a site (e.g. s.4nt.org) can decide whether
+    // to show a "get DPD" badge without hardcoding the extension id or probing a resource,
+    // and it works on Firefox too. We set a persistent attribute (so a page that checks
+    // after our document_end run still sees it) AND fire a one-shot event (for listeners
+    // attached early). The marker reflects *installed*, not *active*, so it is never removed.
+    try {
+      const version = browser.runtime.getManifest().version;
+      document.documentElement.dataset.dpd = version;
+      window.dispatchEvent(new CustomEvent("dpd:present", { detail: { version } }));
+    } catch (e) { /* getManifest can throw if the context is torn down; ignore */ }
+
     let panel: DictionaryPanel | null = null;
     let poppedOut = false; // true while the dictionary lives in its own popout window
     let themeObserver: MutationObserver | null = null;
