@@ -212,6 +212,10 @@ audio-download:
 
 # ===== MAINTENANCE =====
 
+# Run the AI proofreader over meaning_1, incrementally updating tools/proofreader.tsv
+proofread:
+    uv run python tools/proofreader.py
+
 # Propagate CSS across the project
 css:
     uv run python tools/css_manager.py

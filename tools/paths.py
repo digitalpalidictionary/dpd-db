@@ -703,6 +703,7 @@ class ProjectPaths:
         self.cst_book_translator_tsv_path = base_dir / "tools/cst_book_translator.tsv"
         self.phonetic_changes_path = base_dir / "tools/phonetic_changes.tsv"
         self.proofreader_tsv_path = base_dir / "tools/proofreader.tsv"
+        self.proofreader_checked_json_path = base_dir / "tools/proofreader_checked.json"
         self.speech_marks_path = base_dir / "tools/speech_marks.json"
         self.tpr_codes_json_path = base_dir / "tools/tpr_codes.json"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"

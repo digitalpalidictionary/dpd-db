@@ -110,6 +110,7 @@ Use Context7 MCP (`mcp__plugin_context7_context7__resolve-library-id` + `query-d
 - "Commit" means commit the changed files using execute_command.
 - Use this format, all in lowercase. #issue number area: change1, change2 . E.g. `#67 webapp: updated css, fixed overflow`
 - Maximum number of characters in the first line is 72. Do not exceed that. 
+- This repo has an automated "data update" commit habit that runs independently of any session and can re-track a file you `git rm --cached`'d in an earlier session (it happened to `tools/proofreader.tsv` between two working sessions on the same thread). Before finalizing a thread that untracked a file, re-verify with `git ls-files <path>` that it actually stayed untracked — don't trust an earlier session's action to have persisted.
 
 ### Comments
 - NEVER write to GitHub issues unless specifically asked to do so. This covers ALL writes, not just comments: creating issues, commenting, editing an issue body/title, adding checklist items, closing/reopening, labelling. Tracking a follow-up you noticed is not a licence to touch the issue tracker — report it to the user and let them decide. Only act on the tracker when explicitly told to.
