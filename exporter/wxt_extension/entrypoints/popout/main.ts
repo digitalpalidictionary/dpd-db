@@ -40,13 +40,20 @@ if (logoTip) {
 }
 
 // The popout should never show the minimized sliver, regardless of the saved setting.
-const unminimize = () => panelEl?.classList.remove('dpd-minimized');
+// NOTE: the observer must (a) only act when the class is actually present and
+// (b) disconnect while removing it. An unconditional classList.remove() rewrites the
+// class attribute even when the token is absent, which queues another 'attributes'
+// mutation and re-invokes this callback — an infinite microtask loop that froze the
+// popout (it was tripped by applyTheme() toggling the "dark-mode" class).
 if (panelEl) {
-  new MutationObserver(unminimize).observe(panelEl, {
-    attributes: true,
-    attributeFilter: ['class'],
+  const mo = new MutationObserver(() => {
+    if (!panelEl.classList.contains('dpd-minimized')) return;
+    mo.disconnect();
+    panelEl.classList.remove('dpd-minimized');
+    mo.observe(panelEl, { attributes: true, attributeFilter: ['class'] });
   });
-  unminimize();
+  mo.observe(panelEl, { attributes: true, attributeFilter: ['class'] });
+  panelEl.classList.remove('dpd-minimized');
 }
 
 applyTheme(themeKey);
