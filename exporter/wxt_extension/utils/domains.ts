@@ -8,6 +8,7 @@ export const AUTO_DOMAINS = [
   "tipitaka.lk",
   "open.tipitaka.lk",
   "tipitaka.paauksociety.org",
+  "s.4nt.org",
 ];
 
 export const EXCLUDE_DOMAINS = [
