@@ -1371,9 +1371,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
     def _click_pread_button(self, e: ft.ControlEvent) -> None:
         """Loads the next proofreader correction and populates the gui."""
-        correction, remaining = self.toolkit.proofreader_manager.get_next_correction()
+        correction, remaining, field = (
+            self.toolkit.proofreader_manager.get_next_correction()
+        )
 
-        if not correction:
+        if not correction or not field:
             self.update_message("No more proofreadings available")
             return
 
@@ -1392,12 +1394,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.dpd_fields.update_db_fields(headword)
             self.add_headword_to_examples_and_commentary()
 
-            # Load correction into meaning_1_add
-            meaning_1_corrected = correction.get("meaning_1_corrected", "")
-            self.dpd_fields.update_add_fields({"meaning_1": meaning_1_corrected})
+            # Load correction into the add-field matching the proofread field
+            corrected = correction.get(f"{field}_corrected", "")
+            self.dpd_fields.update_add_fields({field: corrected})
 
             self.update_message(
-                f"Loaded proofreading for {headword.lemma_clean}. {remaining} proofreadings remaining."
+                f"Loaded {field} proofreading for {headword.lemma_clean}. {remaining} proofreadings remaining."
             )
 
         except Exception as ex:  # noqa: BLE001

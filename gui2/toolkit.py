@@ -63,7 +63,11 @@ class ToolKit:
         self.username_manager: UsernameManager = UsernameManager(self.page)
         self.filter_presets_manager: FilterPresetsManager = FilterPresetsManager(self)
         self.proofreader_manager: ProofreaderManager = ProofreaderManager(
-            self.project_paths.proofreader_tsv_path
+            [
+                ("meaning_1", self.project_paths.proofreader_tsv_path),
+                ("meaning_lit", self.project_paths.proofreader_meaning_lit_tsv_path),
+                ("meaning_2", self.project_paths.proofreader_meaning_2_tsv_path),
+            ]
         )
         self.appbar_updater: AppBarUpdater = AppBarUpdater(self.page)
         self.daily_log: DailyLog = DailyLog(self)

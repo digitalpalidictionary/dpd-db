@@ -2,7 +2,15 @@
 
 import json
 from unittest.mock import MagicMock
-from tools.proofreader import process_batch, batch_data, construct_prompt
+from tools.proofreader import (
+    FALLBACK_MODEL,
+    FALLBACK_PROVIDER,
+    PRIMARY_MODEL,
+    PRIMARY_PROVIDER,
+    batch_data,
+    construct_prompt,
+    process_batch,
+)
 from tools.ai_manager import AIResponse
 
 
@@ -24,6 +32,24 @@ def test_construct_prompt() -> None:
     assert "Do NOT rewrite for style" in prompt
     assert '"id": 1' in prompt
     assert '"meaning_1": "test"' in prompt
+
+
+def test_construct_prompt_meaning_lit() -> None:
+    """meaning_lit prompt must carry meaning_1 context and forbid idiomatic rewrites."""
+    batch = [{"id": 1, "meaning_lit": "going-to", "meaning_1": "destination"}]
+    prompt = construct_prompt(batch, field="meaning_lit", context_field="meaning_1")
+    assert "meaning_lit_corrected" in prompt
+    assert "LITERAL" in prompt
+    assert "do NOT make it more idiomatic" in prompt.replace("Do NOT", "do NOT")
+    assert '"meaning_1": "destination"' in prompt
+
+
+def test_construct_prompt_meaning_2() -> None:
+    """meaning_2 uses the standard dictionary bar and its own corrected key."""
+    batch = [{"id": 1, "meaning_2": "test"}]
+    prompt = construct_prompt(batch, field="meaning_2")
+    assert "meaning_2_corrected" in prompt
+    assert "British" in prompt
 
 
 def test_process_batch_success() -> None:
@@ -106,7 +132,7 @@ def test_process_batch_falls_back_to_secondary_model() -> None:
 
     first_call_kwargs = mock_ai_manager.request.call_args_list[0].kwargs
     second_call_kwargs = mock_ai_manager.request.call_args_list[1].kwargs
-    assert first_call_kwargs["provider_preference"] == "zai"
-    assert first_call_kwargs["model"] == "glm-5.2"
-    assert second_call_kwargs["provider_preference"] == "deepseek"
-    assert second_call_kwargs["model"] == "deepseek-v4-flash"
+    assert first_call_kwargs["provider_preference"] == PRIMARY_PROVIDER
+    assert first_call_kwargs["model"] == PRIMARY_MODEL
+    assert second_call_kwargs["provider_preference"] == FALLBACK_PROVIDER
+    assert second_call_kwargs["model"] == FALLBACK_MODEL

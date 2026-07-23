@@ -704,6 +704,18 @@ class ProjectPaths:
         self.phonetic_changes_path = base_dir / "tools/phonetic_changes.tsv"
         self.proofreader_tsv_path = base_dir / "tools/proofreader.tsv"
         self.proofreader_checked_json_path = base_dir / "tools/proofreader_checked.json"
+        self.proofreader_meaning_lit_tsv_path = (
+            base_dir / "tools/proofreader_meaning_lit.tsv"
+        )
+        self.proofreader_meaning_lit_checked_json_path = (
+            base_dir / "tools/proofreader_meaning_lit_checked.json"
+        )
+        self.proofreader_meaning_2_tsv_path = (
+            base_dir / "tools/proofreader_meaning_2.tsv"
+        )
+        self.proofreader_meaning_2_checked_json_path = (
+            base_dir / "tools/proofreader_meaning_2_checked.json"
+        )
         self.speech_marks_path = base_dir / "tools/speech_marks.json"
         self.tpr_codes_json_path = base_dir / "tools/tpr_codes.json"
         self.uposatha_day_ini = base_dir / "tools/uposatha_day.ini"

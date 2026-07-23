@@ -248,11 +248,13 @@ def test_proofreader_manager_get_next_correction_locked_against_external_writer(
     holder.start()
     assert lock_held.wait(timeout=5)
 
-    manager = ProofreaderManager(tsv_path)
+    manager = ProofreaderManager([("meaning_1", tsv_path)])
     result = {}
 
     def try_get_next():
-        result["correction"], result["remaining"] = manager.get_next_correction()
+        correction, remaining, _field = manager.get_next_correction()
+        result["correction"] = correction
+        result["remaining"] = remaining
 
     getter = threading.Thread(target=try_get_next)
     getter.start()

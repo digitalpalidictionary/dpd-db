@@ -111,6 +111,16 @@ tools/proofreader.tsv.lock
 tools/proofreader.tsv.tmp
 tools/proofreader_checked.json
 tools/proofreader_checked.json.tmp
+tools/proofreader_meaning_lit.tsv
+tools/proofreader_meaning_lit.tsv.lock
+tools/proofreader_meaning_lit.tsv.tmp
+tools/proofreader_meaning_lit_checked.json
+tools/proofreader_meaning_lit_checked.json.tmp
+tools/proofreader_meaning_2.tsv
+tools/proofreader_meaning_2.tsv.lock
+tools/proofreader_meaning_2.tsv.tmp
+tools/proofreader_meaning_2_checked.json
+tools/proofreader_meaning_2_checked.json.tmp
 kamma/threads/*/benchmarks/results/
 logs/
 memory-bank/

@@ -212,7 +212,8 @@ audio-download:
 
 # ===== MAINTENANCE =====
 
-# Run the AI proofreader over meaning_1, incrementally updating tools/proofreader.tsv
+# Run the AI proofreader over meaning_1, meaning_lit and meaning_2, incrementally
+# updating each field's tools/proofreader*.tsv (use --field to run one)
 proofread:
     uv run python tools/proofreader.py
 
