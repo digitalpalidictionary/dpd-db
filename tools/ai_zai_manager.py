@@ -17,6 +17,38 @@ DISABLED_THINKING_MODE = {"type": "disabled"}
 DEFAULT_MAX_TOKENS = 8192
 
 
+def _error_detail(exc: requests.exceptions.RequestException) -> str:
+    """Build a human-useful message from a failed Z.ai request.
+
+    On an HTTP error the useful part (e.g. code 1305 "service temporarily
+    overloaded") lives in the JSON body, which the bare exception string drops.
+    Pull the status code plus error.code/error.message out of the response
+    when present, falling back to the raw body, then to the exception text.
+    """
+    response = exc.response
+    if response is None:
+        return str(exc)
+
+    error: dict[str, Any] = {}
+    try:
+        parsed = response.json()
+        if isinstance(parsed, dict) and isinstance(parsed.get("error"), dict):
+            error = parsed["error"]
+    except ValueError:
+        pass
+
+    message = error.get("message")
+    if message:
+        code = error.get("code")
+        prefix = f"[{code}] " if code else ""
+        return f"HTTP {response.status_code}: {prefix}{message}"
+
+    body = response.text.strip()
+    if body:
+        return f"HTTP {response.status_code}: {body[:300]}"
+    return f"HTTP {response.status_code} {response.reason}"
+
+
 class ZaiManager:
     def __init__(self, api_key_name: str = DEFAULT_API_KEY_NAME) -> None:
         api_key = config_read("apis", api_key_name)
@@ -35,10 +67,12 @@ class ZaiManager:
 
     def _post_request(
         self, api_url: str, payload: dict[str, Any], timeout: float = 60.0
-    ) -> requests.Response | None:
+    ) -> tuple[requests.Response | None, str | None]:
+        """Returns (response, error_detail). On failure response is None and
+        error_detail carries the useful message from the response body."""
         if not self.api_key:
             pr.amber("ZaiManager not configured (no API key).")
-            return None
+            return None, "not configured (no API key)"
         try:
             response = requests.post(
                 api_url,
@@ -47,10 +81,11 @@ class ZaiManager:
                 timeout=timeout,
             )
             response.raise_for_status()
-            return response
+            return response, None
         except requests.exceptions.RequestException as e:
-            pr.red(f"Z.ai API request failed: {e}")
-            return None
+            detail = _error_detail(e)
+            pr.red(f"Z.ai API request failed: {detail}")
+            return None, detail
 
     def request(
         self,
@@ -80,12 +115,12 @@ class ZaiManager:
         }
         payload.update(kwargs)
 
-        response = self._post_request(ZAI_CHAT, payload, timeout=timeout)
+        response, error = self._post_request(ZAI_CHAT, payload, timeout=timeout)
 
         if response is None:
             return AIResponse(
                 content=None,
-                status_message="post_request returned None",
+                status_message=error or "request failed",
             )
 
         try:
@@ -127,7 +162,7 @@ class ZaiManager:
             models: list[str] = [i.get("id") for i in r.get("data", []) if i.get("id")]
             return models
         except requests.exceptions.RequestException as e:
-            pr.red(f"Z.ai Get Models Error: {e}")
+            pr.red(f"Z.ai Get Models Error: {_error_detail(e)}")
             return []
         except json.JSONDecodeError as e:
             pr.red(f"Z.ai Get Models JSON decode error: {e}")
