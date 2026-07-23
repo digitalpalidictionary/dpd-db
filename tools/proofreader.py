@@ -317,6 +317,7 @@ def run_field(
 ) -> None:
     """Run one proofreading pass for a single field."""
     field = field_cfg.name
+    print()
     pr.green_title(f"Proofreading {field}")
 
     data = get_db_data(
@@ -335,6 +336,10 @@ def run_field(
     )
 
     batches = batch_data(unchecked_data, BATCH_SIZE)
+
+    total = len(data)
+    already_done = total - len(unchecked_data)
+    checked_this_run = 0
 
     for i, batch in enumerate(batches):
         pr.green(f"Processing {field} batch {i + 1}/{len(batches)}...")
@@ -365,8 +370,8 @@ def run_field(
             save_tsv_queue(field_cfg.tsv_path, tsv_queue, field)
 
         save_checked_cache(field_cfg.cache_path, checked_cache)
-        done = len(checked_cache)
-        total = len(data)
+        checked_this_run += len(batch)
+        done = already_done + checked_this_run
         pr.green(
             f"{field} batch: {i + 1}  Done: {done:,}  "
             f"Remaining: {total - done:,}  Total: {total:,}"
