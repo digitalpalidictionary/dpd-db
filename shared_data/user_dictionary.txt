@@ -433,6 +433,7 @@ Brassica
 brayonia
 brazenness
 breadths
+breakability
 brigandage
 brinjal
 broadcasted
@@ -687,6 +688,7 @@ dehusked
 deity
 dejection
 delicateness
+delightfulness
 delimited
 deludedly
 demeritorious
@@ -2087,6 +2089,7 @@ Pentaptera
 perceiver
 percipient
 pericarp
+perishableness
 perpetration
 perplexity
 pers
@@ -3291,6 +3294,7 @@ wooled
 worldliness
 woundless
 Wrightia
+wrinkliness
 wrinkly-nes
 wrinklyness
 wrt
