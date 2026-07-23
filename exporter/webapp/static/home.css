@@ -467,9 +467,12 @@ a {
   border-width: 0;
   box-shadow: var(--shadow-default);
   color: var(--light);
+  display: inline-flex;
   font-size: 1em;
   height: 1.3em;
   justify-content: center;
+  line-height: 1;
+  padding: 0;
   transition: 0.3s;
   width: 1.3em;
 }
