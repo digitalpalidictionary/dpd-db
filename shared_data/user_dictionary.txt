@@ -289,6 +289,7 @@ Bael
 bael
 Bahudhātukasutta
 Bahudhītarasutta
+Bahuvedanīyasutta
 baiter
 balamattena
 Balasaṃyuttaṃ
@@ -2475,6 +2476,7 @@ scrutinizingly
 seasonable
 secluding
 Sedaka
+seduceable
 seizers
 Sekhasutta
 Sekhasuttaṃ
@@ -3291,6 +3293,7 @@ wifehood
 winnows
 witnesser
 wooled
+woollen
 worldliness
 woundless
 Wrightia
