@@ -215,7 +215,22 @@ audio-download:
 # Run the AI proofreader over meaning_1, meaning_lit and meaning_2, incrementally
 # updating each field's tools/proofreader*.tsv (use --field to run one)
 proofread:
-    uv run python tools/proofreader.py
+    uv run tools/proofreader.py
+
+# Restart the meaning_1 pass from scratch: wipe its cache + queue, then run
+proofread-fresh-1:
+    rm -f tools/proofreader.tsv tools/proofreader.tsv.tmp tools/proofreader_checked.json tools/proofreader_checked.json.tmp
+    uv run tools/proofreader.py --field meaning_1
+
+# Restart the meaning_lit pass from scratch: wipe its cache + queue, then run
+proofread-fresh-lit:
+    rm -f tools/proofreader_meaning_lit.tsv tools/proofreader_meaning_lit.tsv.tmp tools/proofreader_meaning_lit_checked.json tools/proofreader_meaning_lit_checked.json.tmp
+    uv run tools/proofreader.py --field meaning_lit
+
+# Restart the meaning_2 pass from scratch: wipe its cache + queue, then run
+proofread-fresh-2:
+    rm -f tools/proofreader_meaning_2.tsv tools/proofreader_meaning_2.tsv.tmp tools/proofreader_meaning_2_checked.json tools/proofreader_meaning_2_checked.json.tmp
+    uv run tools/proofreader.py --field meaning_2
 
 # Propagate CSS across the project
 css:

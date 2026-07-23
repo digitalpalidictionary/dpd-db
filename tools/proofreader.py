@@ -40,6 +40,7 @@ class ProofreadField:
     cache_path: Path
     context_field: str | None = None
     only_empty_meaning_1: bool = False
+    require_meaning_1: bool = False
 
 
 def get_db_data(
@@ -47,17 +48,22 @@ def get_db_data(
     field: str = "meaning_1",
     context_field: str | None = None,
     only_empty_meaning_1: bool = False,
+    require_meaning_1: bool = False,
 ) -> list[dict[str, Any]]:
     """Query DpdHeadword for entries with a non-empty ``field``.
 
     ``context_field`` (e.g. meaning_1 for a meaning_lit pass) is included in each
     row so the prompt can show it as read-only context. ``only_empty_meaning_1``
-    restricts the pass to entries whose meaning_1 is empty.
+    restricts the pass to entries whose meaning_1 is empty; ``require_meaning_1``
+    restricts it to entries whose meaning_1 is non-empty (the meaning_lit pass
+    only proofreads glosses that have a dictionary meaning to judge against).
     """
     column = getattr(DpdHeadword, field)
     query = db_session.query(DpdHeadword).filter(column != "")
     if only_empty_meaning_1:
         query = query.filter(DpdHeadword.meaning_1 == "")
+    if require_meaning_1:
+        query = query.filter(DpdHeadword.meaning_1 != "")
 
     rows: list[dict[str, Any]] = []
     for r in query.all():
@@ -79,6 +85,52 @@ def batch_data(
     return [data[i : i + batch_size] for i in range(0, len(data), batch_size)]
 
 
+_OXFORD_SPELLING = (
+    "Use British English spelling with Oxford -ize verb endings, NOT -ise "
+    "(e.g. 'criticize', 'organize', 'realize', 'recognize' — never "
+    "'criticise', 'organise'). "
+)
+
+
+def _dictionary_prompt(field: str) -> str:
+    """Instructions for the dictionary-meaning fields (meaning_1, meaning_2)."""
+    return (
+        f"You are proofreading dictionary '{field}' entries for clear, obvious "
+        "spelling mistakes and clear grammatical errors ONLY. "
+        f"{_OXFORD_SPELLING}"
+        "If you are unsure whether something is actually wrong, omit that entry "
+        "entirely — do not guess. "
+        "Do NOT change the meaning, word choice, punctuation style, semicolon "
+        "conventions, or abbreviations like (comm). "
+        "Do NOT add extra meanings — only correct what is already there. "
+        "Do NOT add a full stop at the end. "
+        "Do NOT rewrite for style. Do NOT rephrase correct sentences. "
+        "Only fix genuine typos and genuine grammatical errors. "
+    )
+
+
+def _literal_prompt(field: str, context_field: str) -> str:
+    """Instructions for meaning_lit — a literal, word-for-word English gloss."""
+    return (
+        f"You are proofreading '{field}', a deliberately LITERAL, word-for-word "
+        f"English rendering of a Pāḷi word (its '{context_field}' dictionary "
+        "definition is shown alongside for context). It is meant to be a literal "
+        "English version of the Pāḷi, NOT grammatical English — second-language "
+        "translators use it to render into their own language, so it may read as "
+        "ungrammatical English and that is correct and expected. "
+        f"{_OXFORD_SPELLING}"
+        "Do NOT correct grammar: the wording is grammatical in Pāḷi even when it "
+        "is ungrammatical in English. "
+        f"Focus ONLY on genuine spelling mistakes, judged in relation to "
+        f"'{context_field}'. "
+        "Do NOT add unnecessary punctuation — a comma only where genuinely "
+        "necessary, little else, and no full stop at the end. "
+        f"Do NOT change '{context_field}' — it is shown as context only. "
+        "If you are unsure whether something is actually wrong, omit that entry "
+        "entirely — do not guess. "
+    )
+
+
 def construct_prompt(
     batch: list[dict[str, Any]],
     field: str = "meaning_1",
@@ -88,28 +140,13 @@ def construct_prompt(
     batch_json = json.dumps(batch, ensure_ascii=False, indent=2)
     corrected_field = f"{field}_corrected"
 
-    lit_note = ""
     if context_field:
-        lit_note = (
-            f"IMPORTANT: '{field}' is a deliberately LITERAL gloss of "
-            f"'{context_field}' (also shown for context). It is expected to be "
-            "non-idiomatic English. Do NOT make it more idiomatic, do NOT rewrite "
-            f"it to match '{context_field}', and do NOT change '{context_field}' — "
-            "it is context only. Only fix genuine spelling and grammatical typos "
-            f"in '{field}'. "
-        )
+        body = _literal_prompt(field, context_field)
+    else:
+        body = _dictionary_prompt(field)
 
     return (
-        f"You are proofreading dictionary '{field}' entries for clear, obvious "
-        "spelling mistakes and clear grammatical errors ONLY. Use standard "
-        "British English spelling. "
-        "If you are unsure whether something is actually wrong, omit that entry "
-        "entirely — do not guess. "
-        "Do NOT change the meaning, word choice, punctuation style, semicolon "
-        "conventions, or abbreviations like (comm). "
-        "Do NOT rewrite for style. Do NOT rephrase correct sentences. "
-        "Only fix genuine typos and genuine grammatical errors. "
-        f"{lit_note}"
+        f"{body}"
         f"Return the result as a JSON list of objects with 'id' and "
         f"'{corrected_field}' fields. "
         "IMPORTANT: Only include entries in the JSON list that actually required "
@@ -325,6 +362,7 @@ def run_field(
         field=field,
         context_field=field_cfg.context_field,
         only_empty_meaning_1=field_cfg.only_empty_meaning_1,
+        require_meaning_1=field_cfg.require_meaning_1,
     )
     pr.green(f"Extracted {len(data)} {field} entries from database.")
 
@@ -393,6 +431,7 @@ def build_field_configs(pth: ProjectPaths) -> list[ProofreadField]:
             tsv_path=pth.proofreader_meaning_lit_tsv_path,
             cache_path=pth.proofreader_meaning_lit_checked_json_path,
             context_field="meaning_1",
+            require_meaning_1=True,
         ),
         ProofreadField(
             name="meaning_2",
@@ -445,6 +484,15 @@ class ProofreaderManager:
     @property
     def count(self) -> int:
         return sum(len(load_tsv_queue(path)) for _, path in self.queues)
+
+    def next_queue_status(self) -> tuple[str | None, int]:
+        """Field name and pending count of the queue PRead will drain next
+        (the first non-empty queue in priority order)."""
+        for field, path in self.queues:
+            n = len(load_tsv_queue(path))
+            if n:
+                return field, n
+        return None, 0
 
     def get_next_correction(
         self,

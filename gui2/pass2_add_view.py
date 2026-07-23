@@ -317,6 +317,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _update_count_tooltip(self, e: ft.ControlEvent) -> None:
         if e.data != "true":
             return
+        if e.control is self._pread_button:
+            field, count = self.toolkit.proofreader_manager.next_queue_status()
+            label = field or "proofreader"
+            e.control.tooltip = f"{label} — {count} remaining"
+            e.control.update()
+            return
         counts = {
             id(self._pass2_auto_button): (
                 "Next Pass2Auto",
@@ -341,10 +347,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
             id(self._eg_button): (
                 "eg queue",
                 lambda: self.pass2_eg_manager.count(),
-            ),
-            id(self._pread_button): (
-                "proofreader",
-                lambda: self.toolkit.proofreader_manager.count,
             ),
         }
         entry = counts.get(id(e.control))

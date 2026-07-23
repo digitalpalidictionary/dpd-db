@@ -124,3 +124,30 @@ def test_cycles_queues_in_priority_order(tmp_path):
     correction, remaining, field = manager.get_next_correction()
     assert correction is None
     assert field is None
+
+
+def test_next_queue_status_reports_first_non_empty(tmp_path):
+    """The PRead tooltip shows the next batch's field + count, not the sum."""
+    m1 = tmp_path / "proofreader.tsv"
+    lit = tmp_path / "proofreader_meaning_lit.tsv"
+
+    _write_tsv(m1, "meaning_1", [])  # empty — skipped
+    _write_tsv(
+        lit,
+        "meaning_lit",
+        [
+            {
+                "id": str(i),
+                "lemma_1": f"l{i}",
+                "meaning_lit": "o",
+                "meaning_lit_corrected": "c",
+            }
+            for i in range(3)
+        ],
+    )
+
+    manager = ProofreaderManager([("meaning_1", m1), ("meaning_lit", lit)])
+    assert manager.next_queue_status() == ("meaning_lit", 3)
+
+    _write_tsv(lit, "meaning_lit", [])  # now all empty
+    assert manager.next_queue_status() == (None, 0)

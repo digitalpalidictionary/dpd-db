@@ -39,17 +39,24 @@ def test_get_db_data(db_session: Session):
 
 
 def test_get_db_data_meaning_lit_includes_context(db_session: Session):
-    """meaning_lit pass carries meaning_1 as read-only context."""
+    """meaning_lit pass carries meaning_1 context and only covers entries with meaning_1."""
     entry = DpdHeadword(
         id=1, lemma_1="test1", meaning_1="the idiomatic one", meaning_lit="literal one"
     )
-    empty = DpdHeadword(id=2, lemma_1="test2", meaning_1="only m1", meaning_lit="")
-    db_session.add_all([entry, empty])
+    no_lit = DpdHeadword(id=2, lemma_1="test2", meaning_1="only m1", meaning_lit="")
+    no_m1 = DpdHeadword(id=3, lemma_1="test3", meaning_1="", meaning_lit="orphan lit")
+    db_session.add_all([entry, no_lit, no_m1])
     db_session.commit()
 
-    data = get_db_data(db_session, field="meaning_lit", context_field="meaning_1")
+    data = get_db_data(
+        db_session,
+        field="meaning_lit",
+        context_field="meaning_1",
+        require_meaning_1=True,
+    )
 
     assert len(data) == 1
+    assert data[0]["id"] == 1
     assert data[0]["meaning_lit"] == "literal one"
     assert data[0]["meaning_1"] == "the idiomatic one"
 

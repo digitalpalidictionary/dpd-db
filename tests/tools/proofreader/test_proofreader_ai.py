@@ -24,23 +24,29 @@ def test_batch_data() -> None:
 
 
 def test_construct_prompt() -> None:
-    """Test prompt construction."""
+    """meaning_1 (dictionary) prompt rules."""
     batch = [{"id": 1, "meaning_1": "test"}]
     prompt = construct_prompt(batch)
     assert "British" in prompt
+    assert "Oxford -ize" in prompt
+    assert "criticize" in prompt
     assert "omit that entry" in prompt
     assert "Do NOT rewrite for style" in prompt
+    assert "Do NOT add extra meanings" in prompt
+    assert "Do NOT add a full stop at the end" in prompt
     assert '"id": 1' in prompt
     assert '"meaning_1": "test"' in prompt
 
 
 def test_construct_prompt_meaning_lit() -> None:
-    """meaning_lit prompt must carry meaning_1 context and forbid idiomatic rewrites."""
+    """meaning_lit prompt: literal, no grammar fixes, spelling-only, meaning_1 context."""
     batch = [{"id": 1, "meaning_lit": "going-to", "meaning_1": "destination"}]
     prompt = construct_prompt(batch, field="meaning_lit", context_field="meaning_1")
     assert "meaning_lit_corrected" in prompt
     assert "LITERAL" in prompt
-    assert "do NOT make it more idiomatic" in prompt.replace("Do NOT", "do NOT")
+    assert "Do NOT correct grammar" in prompt
+    assert "Focus ONLY on genuine spelling mistakes" in prompt
+    assert "no full stop at the end" in prompt
     assert '"meaning_1": "destination"' in prompt
 
 
