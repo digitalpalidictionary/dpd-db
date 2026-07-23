@@ -26,8 +26,8 @@ def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
             _entry(m) for m in data.get("antigravity_cli_work_models", [])
         ]
         return {
-            "default": antigravity_cli_work
-            + [_entry(m) for m in data.get("default_models", [])],
+            "default": [_entry(m) for m in data.get("default_models", [])]
+            + antigravity_cli_work,
             "grounded": [_entry(m) for m in data.get("grounded_models", [])],
         }
     except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
@@ -127,9 +127,9 @@ class AIManager:
     def _probe_antigravity_cli(self) -> None:
         """Probe agy off-thread so its slow auth check never blocks startup.
 
-        antigravity_cli is the first model in the default fallback list, so it
-        must stay gated: until the probe confirms agy works, the provider is
-        absent from self.providers and request() simply skips to the next model.
+        antigravity_cli is the last-resort model in the default fallback list,
+        so it must stay gated: until the probe confirms agy works, the provider
+        is absent from self.providers and request() simply skips over it.
         """
         from tools.ai_antigravity_cli import AntigravityCliManager, get_working_key
 
