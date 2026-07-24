@@ -1168,6 +1168,7 @@ honour
 honoured
 honouring
 honours
+hoofprint
 Hoplobatrachus
 Hordeum
 Horner
@@ -1714,6 +1715,7 @@ Millettia
 Mimusops
 mindfully
 mis-meditates
+misbehaviour
 miscomprehension
 miserliness
 Mithil
@@ -2655,6 +2657,7 @@ Sunidha
 Sunn
 sunned
 sunshade
+sunup
 Sunāparanta
 Sunīdha
 Supaṇṇasaṃyuttaṃ
@@ -3228,6 +3231,7 @@ Videha
 Videhan
 Videhans
 Vigna
+vigour
 vikāra-rūpa
 vimānas
 Vimānavatthu
@@ -3273,6 +3277,7 @@ vārita
 Vāseṭṭha
 vāyo
 vījeti
+vīṇā
 wainwright
 wainwright's
 wainwrights
