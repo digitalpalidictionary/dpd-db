@@ -12,6 +12,7 @@ from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
+from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import show_global_snackbar
 from tools.fast_api_utils import start_dpd_server
@@ -102,12 +103,13 @@ class App:
             6: lambda: Pass2AutoView(self.page, self.toolkit),
             7: lambda: Pass2AddView(self.page, self.toolkit),
             8: lambda: SandhiFindReplaceView(self.page, self.toolkit),
-            9: lambda: SandhiView(self.page, self.toolkit),
-            10: lambda: FilterTabView(self.page, self.toolkit),
-            11: lambda: TestsTabView(self.page, self.toolkit),
-            12: lambda: BoldSearchView(self.page, self.toolkit),
-            13: lambda: RootsTabView(self.page, self.toolkit),
-            14: lambda: CompoundTypeTabView(self.page, self.toolkit),
+            9: lambda: SpellingFindReplaceView(self.page, self.toolkit),
+            10: lambda: SandhiView(self.page, self.toolkit),
+            11: lambda: FilterTabView(self.page, self.toolkit),
+            12: lambda: TestsTabView(self.page, self.toolkit),
+            13: lambda: BoldSearchView(self.page, self.toolkit),
+            14: lambda: RootsTabView(self.page, self.toolkit),
+            15: lambda: CompoundTypeTabView(self.page, self.toolkit),
         }
 
         # Most-used tabs first so they are ready soonest.
@@ -119,13 +121,14 @@ class App:
             2,
             3,
             1,
-            12,
-            10,
+            13,
+            11,
             8,
             9,
-            11,
-            13,
+            10,
+            12,
             14,
+            15,
         ]
 
         self.build_ui()
@@ -310,6 +313,7 @@ class App:
             "Pass2Auto",
             "Pass2Add",
             "'",
+            "Sp",
             "Sandhi",
             "DB",
             "Tests",
