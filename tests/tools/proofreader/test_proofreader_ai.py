@@ -36,6 +36,10 @@ def test_construct_prompt() -> None:
     assert "Do NOT add a full stop at the end" in prompt
     assert "part of speech" in prompt
     assert "one who" in prompt
+    assert "Oxford (serial) comma" in prompt
+    assert "past, present, and future" in prompt
+    assert "three or more items" in prompt
+    assert "black and white" in prompt
     assert '"id": 1' in prompt
     assert '"meaning_1": "test"' in prompt
 
@@ -49,6 +53,7 @@ def test_construct_prompt_meaning_lit() -> None:
     assert "Do NOT correct grammar" in prompt
     assert "Focus ONLY on genuine spelling mistakes" in prompt
     assert "no full stop at the end" in prompt
+    assert "Oxford (serial) comma" not in prompt
     assert '"meaning_1": "destination"' in prompt
 
 

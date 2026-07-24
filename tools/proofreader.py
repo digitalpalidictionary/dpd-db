@@ -104,10 +104,16 @@ def _dictionary_prompt(field: str) -> str:
         f"You are proofreading dictionary '{field}' entries for clear, obvious "
         "spelling mistakes and clear grammatical errors ONLY. "
         f"{_OXFORD_SPELLING}"
+        "Use the Oxford (serial) comma in lists of three or more items: put a "
+        "comma before the final 'and'/'or' (e.g. 'past, present, and future', "
+        "never 'past, present and future'). Do NOT add a comma to two-item "
+        "phrases like 'black and white' or 'here and there'. Adding a missing "
+        "Oxford comma IS a correction you should make. "
         "If you are unsure whether something is actually wrong, omit that entry "
         "entirely — do not guess. "
         "Do NOT change the meaning, word choice, punctuation style, semicolon "
-        "conventions, or abbreviations like (comm). "
+        "conventions, or abbreviations like (comm), other than adding a missing "
+        "Oxford comma. "
         "Do NOT add extra meanings — only correct what is already there. "
         "Do NOT add a full stop at the end. "
         "The 'pos' (part of speech) is given as context — use it to judge whether "
@@ -116,7 +122,8 @@ def _dictionary_prompt(field: str) -> str:
         "(e.g. 'who does such and such') is correct and idiomatic here — do NOT "
         "change it to 'one who ...'. "
         "Do NOT rewrite for style. Do NOT rephrase correct sentences. "
-        "Only fix genuine typos and genuine grammatical errors. "
+        "Only fix genuine typos, genuine grammatical errors, and missing "
+        "Oxford commas. "
     )
 
 
