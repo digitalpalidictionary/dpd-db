@@ -330,7 +330,7 @@ def test_rate_limit_sleep_applies_to_tried_model(
 
 
 def test_antigravity_has_per_model_timeout() -> None:
-    """antigravity_cli work models must carry 150s timeouts before DeepSeek."""
+    """antigravity_cli work models must carry an explicit 150s timeout."""
     models = _load_models_from_json()
     agy_entries = [m for m in models["default"] if m[0] == "antigravity_cli"]
     assert [m[1] for m in agy_entries] == ["Gemini 3.5 Flash (Low)"]
@@ -338,14 +338,6 @@ def test_antigravity_has_per_model_timeout() -> None:
         "model tuple must be (provider, model, delay, timeout)"
     )
     assert all(m[3] == 150.0 for m in agy_entries)
-
-    first_deepseek_index = next(
-        i for i, m in enumerate(models["default"]) if m[0] == "deepseek"
-    )
-    last_agy_index = max(
-        i for i, m in enumerate(models["default"]) if m[0] == "antigravity_cli"
-    )
-    assert last_agy_index < first_deepseek_index
 
 
 def test_request_uses_per_model_timeout() -> None:

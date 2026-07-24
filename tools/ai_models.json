@@ -1,12 +1,4 @@
 {
-  "antigravity_cli_work_models": [
-    {
-      "provider": "antigravity_cli",
-      "model": "Gemini 3.5 Flash (Low)",
-      "delay": 0,
-      "timeout": 150
-    }
-  ],
   "default_models": [
     {
       "provider": "zai",
@@ -57,6 +49,12 @@
       "provider": "openrouter",
       "model": "openai/gpt-4.1-nano",
       "delay": 0
+    },
+    {
+      "provider": "antigravity_cli",
+      "model": "Gemini 3.5 Flash (Low)",
+      "delay": 0,
+      "timeout": 150
     }
   ],
   "grounded_models": [
