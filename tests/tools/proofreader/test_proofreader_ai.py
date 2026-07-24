@@ -34,6 +34,8 @@ def test_construct_prompt() -> None:
     assert "Do NOT rewrite for style" in prompt
     assert "Do NOT add extra meanings" in prompt
     assert "Do NOT add a full stop at the end" in prompt
+    assert "part of speech" in prompt
+    assert "one who" in prompt
     assert '"id": 1' in prompt
     assert '"meaning_1": "test"' in prompt
 

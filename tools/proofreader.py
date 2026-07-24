@@ -41,6 +41,7 @@ class ProofreadField:
     context_field: str | None = None
     only_empty_meaning_1: bool = False
     require_meaning_1: bool = False
+    include_pos: bool = False
 
 
 def get_db_data(
@@ -49,6 +50,7 @@ def get_db_data(
     context_field: str | None = None,
     only_empty_meaning_1: bool = False,
     require_meaning_1: bool = False,
+    include_pos: bool = False,
 ) -> list[dict[str, Any]]:
     """Query DpdHeadword for entries with a non-empty ``field``.
 
@@ -57,6 +59,8 @@ def get_db_data(
     restricts the pass to entries whose meaning_1 is empty; ``require_meaning_1``
     restricts it to entries whose meaning_1 is non-empty (the meaning_lit pass
     only proofreads glosses that have a dictionary meaning to judge against).
+    ``include_pos`` adds the part of speech so the model can judge the meaning
+    against it.
     """
     column = getattr(DpdHeadword, field)
     query = db_session.query(DpdHeadword).filter(column != "")
@@ -72,6 +76,8 @@ def get_db_data(
             "lemma_1": r.lemma_1,
             field: getattr(r, field),
         }
+        if include_pos:
+            row["pos"] = r.pos
         if context_field:
             row[context_field] = getattr(r, context_field)
         rows.append(row)
@@ -104,6 +110,11 @@ def _dictionary_prompt(field: str) -> str:
         "conventions, or abbreviations like (comm). "
         "Do NOT add extra meanings — only correct what is already there. "
         "Do NOT add a full stop at the end. "
+        "The 'pos' (part of speech) is given as context — use it to judge whether "
+        "the wording fits the part of speech. "
+        "For an agent noun, a meaning that starts with 'who ...' "
+        "(e.g. 'who does such and such') is correct and idiomatic here — do NOT "
+        "change it to 'one who ...'. "
         "Do NOT rewrite for style. Do NOT rephrase correct sentences. "
         "Only fix genuine typos and genuine grammatical errors. "
     )
@@ -157,10 +168,10 @@ def construct_prompt(
     )
 
 
-PRIMARY_PROVIDER = "deepseek"
-PRIMARY_MODEL = "deepseek-v4-pro"
-FALLBACK_PROVIDER = "zai"
-FALLBACK_MODEL = "glm-5.2"
+PRIMARY_PROVIDER = "zai"
+PRIMARY_MODEL = "glm-5.2"
+FALLBACK_PROVIDER = "deepseek"
+FALLBACK_MODEL = "deepseek-v4-pro"
 
 
 def _parse_corrected_list(response: AIResponse) -> list[dict[str, Any]] | None:
@@ -363,6 +374,7 @@ def run_field(
         context_field=field_cfg.context_field,
         only_empty_meaning_1=field_cfg.only_empty_meaning_1,
         require_meaning_1=field_cfg.require_meaning_1,
+        include_pos=field_cfg.include_pos,
     )
     pr.green(f"Extracted {len(data)} {field} entries from database.")
 
@@ -425,6 +437,7 @@ def build_field_configs(pth: ProjectPaths) -> list[ProofreadField]:
             name="meaning_1",
             tsv_path=pth.proofreader_tsv_path,
             cache_path=pth.proofreader_checked_json_path,
+            include_pos=True,
         ),
         ProofreadField(
             name="meaning_lit",
@@ -438,6 +451,7 @@ def build_field_configs(pth: ProjectPaths) -> list[ProofreadField]:
             tsv_path=pth.proofreader_meaning_2_tsv_path,
             cache_path=pth.proofreader_meaning_2_checked_json_path,
             only_empty_meaning_1=True,
+            include_pos=True,
         ),
     ]
 

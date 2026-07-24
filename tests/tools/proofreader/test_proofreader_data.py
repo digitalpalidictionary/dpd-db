@@ -61,6 +61,19 @@ def test_get_db_data_meaning_lit_includes_context(db_session: Session):
     assert data[0]["meaning_1"] == "the idiomatic one"
 
 
+def test_get_db_data_include_pos(db_session: Session):
+    """meaning_1/meaning_2 passes carry the part of speech for the model."""
+    entry = DpdHeadword(id=1, lemma_1="test1", meaning_1="a doer", pos="agent noun")
+    db_session.add(entry)
+    db_session.commit()
+
+    data = get_db_data(db_session, field="meaning_1", include_pos=True)
+    assert data[0]["pos"] == "agent noun"
+
+    without = get_db_data(db_session, field="meaning_1")
+    assert "pos" not in without[0]
+
+
 def test_get_db_data_meaning_2_only_empty_meaning_1(db_session: Session):
     """meaning_2 pass only surfaces entries whose meaning_1 is empty."""
     primary = DpdHeadword(id=1, lemma_1="has_m1", meaning_1="m1", meaning_2="m2 here")
