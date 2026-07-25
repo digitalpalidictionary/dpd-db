@@ -756,6 +756,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
             return
 
         word_to_save = self.dpd_fields.get_current_headword()
+        if not word_to_save.origin:
+            word_to_save.origin = "pass2"
         comment = self.dpd_fields.get_field("comment").value
 
         for field_name in ("meaning_1", "meaning_lit"):
