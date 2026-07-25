@@ -190,6 +190,19 @@ class App:
         )
         self.page.open(confirm_dialog)
 
+    # Alt+<key> jumps straight to a tab, by its index in tab_labels.
+    _TAB_JUMP_KEYS: dict[str, int] = {
+        "G": 0,  # Global
+        "T": 1,  # Transl
+        "E": 7,  # Pass2Add
+        "'": 8,  # '
+        "S": 9,  # Sp
+        "D": 11,  # DB
+        "B": 13,  # Bold Search
+        "R": 14,  # √ (Roots)
+        "C": 15,  # CT (Compound Type)
+    }
+
     def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
@@ -214,10 +227,16 @@ class App:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
                 self._on_tab_activated()
+                self.page.update()
         elif e.key == "Arrow Right" and e.alt:
             if self.tabs.selected_index < len(self.tabs.tabs) - 1:
                 self.tabs.selected_index += 1
                 self._on_tab_activated()
+                self.page.update()
+        elif e.alt and e.key in self._TAB_JUMP_KEYS:
+            self.tabs.selected_index = self._TAB_JUMP_KEYS[e.key]
+            self._on_tab_activated()
+            self.page.update()
 
     def _get_current_lemma(self) -> str:
         """Return lemma_clean from the active add-view, or empty string."""
