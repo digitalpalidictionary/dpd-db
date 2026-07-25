@@ -2,9 +2,14 @@
 """Thread-safe singleton English spell checker with a user-defined custom
 dictionary. Used by gui2 to check spelling in meaning fields."""
 
+import re
 import threading
 from spellchecker import SpellChecker
 from tools.paths import ProjectPaths
+
+# Letters with an internal apostrophe (e.g. "didn't", "isn't") stay one word;
+# any other punctuation is treated as a word boundary.
+_WORD_RE = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)*")
 
 
 class CustomSpellChecker:
@@ -44,10 +49,7 @@ class CustomSpellChecker:
 
         # Use lock to prevent concurrent access to the shared SpellChecker instance
         with CustomSpellChecker._lock:
-            # Split the sentence into words and remove punctuation
-            words = "".join(
-                c if c.isalpha() or c.isspace() else " " for c in sentence
-            ).split()
+            words = _WORD_RE.findall(sentence)
 
             # Find misspelled words
             misspelled = self.spell.unknown(words)
@@ -66,9 +68,7 @@ class CustomSpellChecker:
         distance variants per unknown word). Use this when only a yes/no
         answer is needed, e.g. to color a cell."""
         with CustomSpellChecker._lock:
-            words = "".join(
-                c if c.isalpha() or c.isspace() else " " for c in sentence
-            ).split()
+            words = _WORD_RE.findall(sentence)
             return bool(self.spell.unknown(words))
 
     def add_to_dictionary(self, word: str) -> str:
