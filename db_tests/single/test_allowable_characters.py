@@ -729,7 +729,6 @@ class AllowableCharacters:
         ("example_2", example_allowed),
         ("antonym", ant_syn_var_allowed),
         ("synonym", ant_syn_var_allowed),
-        ("variant", ant_syn_var_allowed),
         ("var_phonetic", ant_syn_var_allowed),
         ("var_text", ant_syn_var_allowed),
         ("commentary", commentary_allowed),

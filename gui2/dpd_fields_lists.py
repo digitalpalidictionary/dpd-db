@@ -39,27 +39,26 @@
 35. example_2
 36. antonym
 37. synonym
-38. variant
-39. var_phonetic
-40. var_text
-41. commentary
-42. notes
-43. cognate
-44. link
-45. origin
-46. stem
-47. pattern
-48. created_at
-49. updated_at
-50. inflections
-51. inflections_api_ca_eva_iti
-52. inflections_sinhala
-53. inflections_devanagari
-54. inflections_thai
-55. inflections_html
-56. freq_data
-57. freq_html
-58. ebt_count
+38. var_phonetic
+39. var_text
+40. commentary
+41. notes
+42. cognate
+43. link
+44. origin
+45. stem
+46. pattern
+47. created_at
+48. updated_at
+49. inflections
+50. inflections_api_ca_eva_iti
+51. inflections_sinhala
+52. inflections_devanagari
+53. inflections_thai
+54. inflections_html
+55. freq_data
+56. freq_html
+57. ebt_count
 """
 
 ALL = [
@@ -101,7 +100,6 @@ ALL = [
     "example_2",
     "antonym",
     "synonym",
-    "variant",
     "var_phonetic",
     "var_text",
     "commentary",
@@ -164,7 +162,6 @@ ROOT_FIELDS = [
     "example_2",
     "antonym",
     "synonym",
-    "variant",
     "var_phonetic",
     "var_text",
     "commentary",
@@ -227,7 +224,6 @@ COMPOUND_FIELDS = [
     "example_2",
     "antonym",
     "synonym",
-    "variant",
     "var_phonetic",
     "var_text",
     "commentary",
@@ -302,7 +298,6 @@ WORD_FIELDS = [
     "example_2",
     "antonym",
     "synonym",
-    "variant",
     "var_phonetic",
     "var_text",
     "commentary",
@@ -380,7 +375,6 @@ NO_SPLIT_LIST = [
     "notes",
     "antonym",
     "synonym",
-    "variant",
     "var_phonetic",
     "var_text",
     "comment",

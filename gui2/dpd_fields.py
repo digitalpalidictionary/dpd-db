@@ -250,14 +250,9 @@ class DpdFields(PopUpMixin):
             FieldConfig(
                 "synonym",
                 on_focus=self.synonym_focus,
-                on_change=self.synonym_field_change,
+                on_change=self.clean_pali_field,
                 on_submit=self.synonym_submit,
                 on_blur=self.clean_pali_field,
-            ),
-            FieldConfig(
-                "variant",
-                on_change=self.variant_field_change,
-                on_blur=self.variant_blur,
             ),
             FieldConfig(
                 "var_phonetic",
@@ -653,14 +648,13 @@ class DpdFields(PopUpMixin):
 
             current = {
                 "synonym": self.get_field("synonym").value or "",
-                "variant": self.get_field("variant").value or "",
                 "var_phonetic": self.get_field("var_phonetic").value or "",
                 "var_text": self.get_field("var_text").value or "",
             }
             for lemma in split_field(add_field.value):
                 current = assign_relationship_dict(current, lemma, target_name)
-            for name, value in current.items():
-                self.get_field(name).value = value
+            for name in ("synonym", "var_phonetic", "var_text"):
+                self.get_field(name).value = current[name]
         else:
             field.value = add_field.value
 
@@ -1302,16 +1296,6 @@ class DpdFields(PopUpMixin):
             field.value = cleaned
             field.update()
 
-    def synonym_field_change(self, e: ft.ControlEvent) -> None:
-        """Clean text and check for duplicates in variant field."""
-        self.clean_pali_field(e)
-        self.synonym_variant_check(e)
-
-    def variant_field_change(self, e: ft.ControlEvent) -> None:
-        """Clean text and check for duplicates in synonym field."""
-        self.clean_pali_field(e)
-        self.synonym_variant_check(e)
-
     def synonym_focus(self, e: ft.ControlEvent) -> None:
         """Compute synonym suggestions on focus if not already done.
 
@@ -1353,12 +1337,6 @@ class DpdFields(PopUpMixin):
         current_hw = make_dpd_headword_from_dict(values)
         detector = self.db.get_relationship_detector()
         candidates = detector.find_synonyms(current_hw)
-
-        var_field = self.get_field("variant")
-        var_set = {
-            word.strip() for word in (var_field.value or "").split(",") if word.strip()
-        }
-        candidates = [c for c in candidates if c not in var_set]
 
         suggestion = ", ".join(candidates) if candidates else ""
 
@@ -1422,42 +1400,6 @@ class DpdFields(PopUpMixin):
         self.ui.update_message(f"{len(candidates)} phonetic variants suggested")
         self.flags.var_phonetic_done = True
         self.check_and_color_add_fields()
-        self.page.update()
-
-    def synonym_variant_check(self, e: ft.ControlEvent) -> None:
-        """Ensure that the same word does not exist in both synonym and variant fields."""
-
-        # Determine which field triggered the event
-        triggering_field_name = e.control.name
-
-        syn_field = self.get_field("synonym")
-        var_field = self.get_field("variant")
-
-        syn_value = syn_field.value or ""
-        var_value = var_field.value or ""
-
-        # Split into sets of cleaned words
-        syn_set = set(word.strip() for word in syn_value.split(",") if word.strip())
-        var_set = set(word.strip() for word in var_value.split(",") if word.strip())
-
-        intersection = syn_set.intersection(var_set)
-
-        if intersection:
-            if triggering_field_name == "synonym":
-                for word in intersection:
-                    var_set.discard(word)
-                var_field.value = ", ".join(pali_list_sorter(list(var_set)))
-                var_field.update()
-            elif triggering_field_name == "variant":
-                for word in intersection:
-                    syn_set.discard(word)
-                syn_field.value = ", ".join(pali_list_sorter(list(syn_set)))
-                syn_field.update()
-
-            self.page.update()
-
-    def variant_blur(self, e: ft.ControlEvent) -> None:
-        self.clean_pali_field(e)
         self.page.update()
 
     def construction_focus(self, e: ft.ControlEvent) -> None:

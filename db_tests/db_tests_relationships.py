@@ -78,7 +78,6 @@ def make_searches(db_session: Session) -> Searches:
         DpdHeadword.family_root,
         DpdHeadword.family_word,
         DpdHeadword.family_compound,
-        DpdHeadword.variant,
         DpdHeadword.antonym,
         DpdHeadword.synonym,
         DpdHeadword.example_1,
@@ -751,24 +750,6 @@ def wrong_prefix_in_family_root(searches: Searches) -> TestResult:
     return name, results, length, solution
 
 
-def variant_equals_lemma_1(searches: Searches) -> TestResult:
-    """Test if variant equals lemma_1"""
-
-    results = []
-    for i in searches["dpd_headword"]:
-        variants = i.variant.split(", ")
-        for variant in variants:
-            if variant == i.lemma_clean:
-                results += [i.lemma_1]
-
-    length = len(results)
-    results = regex_results(results)
-    name = "variant_equals_lemma_1"
-    solution = "add correct variant"
-
-    return name, results, length, solution
-
-
 def antonym_equals_lemma_1(searches: Searches) -> TestResult:
     """Test if antonym equals lemma_1"""
 
@@ -801,25 +782,6 @@ def synonym_equals_lemma_1(searches: Searches) -> TestResult:
     results = regex_results(results)
     name = "synonym_equals_lemma_1"
     solution = "add correct synonym"
-
-    return name, results, length, solution
-
-
-def synonym_equals_variant(searches: Searches) -> TestResult:
-    """Test if synonym equals variant"""
-
-    results = []
-    for i in searches["dpd_headword"]:
-        if i.synonym and i.variant:
-            synonyms = i.synonym.split(", ")
-            for synonym in synonyms:
-                if synonym in i.variant_list:
-                    results += [i.lemma_1]
-
-    length = len(results)
-    results = regex_results(results)
-    name = "synonym_equals_variants"
-    solution = "delete from synonym or variant"
 
     return name, results, length, solution
 
@@ -1111,7 +1073,6 @@ TESTS: list[Callable[[Searches], TestResult]] = [
     root_sign_x_base_mismatch,
     root_base_x_construction_mismatch,
     wrong_prefix_in_family_root,
-    variant_equals_lemma_1,
     antonym_equals_lemma_1,
     synonym_equals_lemma_1,
     duplicate_phrases,
@@ -1119,7 +1080,6 @@ TESTS: list[Callable[[Searches], TestResult]] = [
     duplicate_words_meaning_2,
     duplicate_words_meaning_lit,
     dupes_in_meaning_1_meaning_lit,
-    synonym_equals_variant,
     pos_idiom_no_space_is_sandhi,
     tags_not_closed,
 ]

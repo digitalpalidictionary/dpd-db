@@ -1181,6 +1181,10 @@ class DpdHeadword(Base):
 
     antonym: Mapped[str] = mapped_column(default="")
     synonym: Mapped[str] = mapped_column(default="")
+    # TODO DELETE ON NEXT DB MODEL CHANGE — data migrated to var_text on
+    # 2026-07-25 (scripts/fix/variant_to_var_text.py); the column is now always
+    # empty. Drop it along with variant_list, the gui2 remnants, and the
+    # `variant` branches in the exporters and templates.
     variant: Mapped[str] = mapped_column(default="")
     var_phonetic: Mapped[str] = mapped_column(default="")
     var_text: Mapped[str] = mapped_column(default="")

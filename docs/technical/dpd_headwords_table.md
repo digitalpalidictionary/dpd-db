@@ -150,13 +150,13 @@ Here is a quick overview:
 
 - *`synonym_list`* `[list]` list of all the synonyms
 
-- **`variant`** `[str]` what are the variant readings of the headword found in other Pāḷi texts, comma space separated?
+- **`variant`** `[str]` **DEPRECATED — always empty.** Superseded by `var_text`; the data was migrated on 2026-07-25 and the column is dropped at the next db model change.
 
-- *`variant_list`* `[list]` list of all the variants
+- *`variant_list`* `[list]` **DEPRECATED — always empty.** List of all the variants.
 
-- **`var_phonetic`** `[str]` (currently unused) what are other phonetic variants of the headword found in Pāḷi texts, comma space separated?
+- **`var_phonetic`** `[str]` what are other phonetic variants of the headword found in Pāḷi texts, comma space separated?
 
-- **`var_text`** `[str]` (currently unused) what are the variant readings of the headword found in other Pāḷi texts, comma space separated?
+- **`var_text`** `[str]` what are the variant readings of the headword found in other Pāḷi texts, comma space separated?
 
 - **`commentary`** `[str]` how does the commentary define the headword, new line separated?
 
