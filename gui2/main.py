@@ -203,6 +203,15 @@ class App:
         "C": 15,  # CT (Compound Type)
     }
 
+    # Page scroll keys -> scroll delta in px. Numpad 9/3 are the keypad
+    # PageUp/PageDown keys reported when Num Lock is off.
+    _SCROLL_KEYS: dict[str, int] = {
+        "Page Up": -500,
+        "Page Down": 500,
+        "Numpad 9": -500,
+        "Numpad 3": 500,
+    }
+
     def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
@@ -237,6 +246,16 @@ class App:
             self.tabs.selected_index = self._TAB_JUMP_KEYS[e.key]
             self._on_tab_activated()
             self.page.update()
+        elif e.key in self._SCROLL_KEYS:
+            # Flet's global key handler intercepts these before any focused
+            # scrollable, so page scrolling has to be driven manually. Only
+            # views exposing a `_middle_section` scrollable respond (Pass2Add
+            # today); others simply ignore it. "Numpad 9"/"Numpad 3" are the
+            # keypad PageUp/PageDown keys reported when Num Lock is off.
+            view = self._views.get(self.tabs.selected_index)
+            target = getattr(view, "_middle_section", None)
+            if target is not None:
+                target.scroll_to(delta=self._SCROLL_KEYS[e.key], duration=100)
 
     def _get_current_lemma(self) -> str:
         """Return lemma_clean from the active add-view, or empty string."""
