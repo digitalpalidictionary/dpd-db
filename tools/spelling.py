@@ -7,9 +7,15 @@ import threading
 from spellchecker import SpellChecker
 from tools.paths import ProjectPaths
 
-# Letters with an internal apostrophe (e.g. "didn't", "isn't") stay one word;
-# any other punctuation is treated as a word boundary.
-_WORD_RE = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)*")
+# Letters (including Pali diacritics) with an internal apostrophe (e.g.
+# "didn't", "isn't") stay one word; any other punctuation is a word boundary.
+_WORD_RE = re.compile(r"[^\W\d_]+(?:'[^\W\d_]+)*", re.UNICODE)
+
+
+def _english_words(sentence: str) -> list[str]:
+    """Tokenize keeping Pali/diacritic words whole, then drop any word that
+    isn't pure ASCII -- Pali proper nouns aren't English words to spellcheck."""
+    return [w for w in _WORD_RE.findall(sentence) if w.isascii()]
 
 
 class CustomSpellChecker:
@@ -49,7 +55,7 @@ class CustomSpellChecker:
 
         # Use lock to prevent concurrent access to the shared SpellChecker instance
         with CustomSpellChecker._lock:
-            words = _WORD_RE.findall(sentence)
+            words = _english_words(sentence)
 
             # Find misspelled words
             misspelled = self.spell.unknown(words)
@@ -68,7 +74,7 @@ class CustomSpellChecker:
         distance variants per unknown word). Use this when only a yes/no
         answer is needed, e.g. to color a cell."""
         with CustomSpellChecker._lock:
-            words = _WORD_RE.findall(sentence)
+            words = _english_words(sentence)
             return bool(self.spell.unknown(words))
 
     def add_to_dictionary(self, word: str) -> str:
