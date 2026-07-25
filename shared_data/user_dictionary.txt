@@ -307,6 +307,7 @@ Barleria
 Barringtonia
 barters
 basket
+basketmaking
 Bassia
 bather
 batrachus
@@ -448,6 +449,7 @@ Buddhaghosa's
 Buddhappiya
 Buddhas
 Budhanania
+bulubulu
 bumpiness
 burmanniana
 Butea
@@ -547,6 +549,7 @@ clyster
 co-nascence
 coaxer
 Coccolus
+Cocculus
 cochineal
 coessential
 cognised
@@ -654,6 +657,7 @@ Dabba
 dacoit
 daddabha
 dadāti
+daemoness
 dahl
 dakkhati
 dal
@@ -726,6 +730,7 @@ devas
 Devatāsaṃyuttaṃ
 Devānampiyatissa
 dh
+dhal
 Dhamma
 dhamma
 dhamma-ness
@@ -750,6 +755,8 @@ dhū
 diarrhea
 dibba
 dicocum
+didn't
+didnt
 diguṇa
 dilemmatic
 diligence
@@ -1184,6 +1191,7 @@ hubbed
 human-sacrificer
 humour
 husband's
+hypervigilant
 hā
 Hāliddikānisutta
 hāra
@@ -1283,6 +1291,8 @@ is-not-ness
 Isidatta
 Isigili
 Isigilisuttaṃ
+isn't
+isnt
 Isvara
 ITI
 Itivuttaka
@@ -1824,6 +1834,7 @@ muddleheadedness
 muditā
 Muggala
 mung
+munja
 Muricantum
 Muricatus
 muricatus
@@ -1990,6 +2001,7 @@ overgarment
 overindulging
 overperforming
 overrating
+overreactive
 overspread
 overvaluation
 oviparous
@@ -2136,6 +2148,7 @@ Pisum
 pitbull
 piyajātikasuttaṃ
 piyal
+Piyaṅkara's
 piṭ
 Piṭaka
 Piṭakas
@@ -3298,6 +3311,7 @@ wifehood
 winnows
 witnesser
 wooled
+woolled
 woollen
 worldliness
 woundless
