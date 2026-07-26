@@ -91,67 +91,53 @@ def batch_data(
     return [data[i : i + batch_size] for i in range(0, len(data), batch_size)]
 
 
-_OXFORD_SPELLING = (
-    "Use British English spelling with Oxford -ize verb endings, NOT -ise "
-    "(e.g. 'criticize', 'organize', 'realize', 'recognize' — never "
-    "'criticise', 'organise'). "
-)
+_OXFORD_SPELLING = """\
+Use British English spelling with Oxford -ize verb endings, NOT -ise (e.g. 'criticize', 'organize', 'realize', 'recognize' — never 'criticise', 'organise').
+"""
 
 
 def _dictionary_prompt(field: str) -> str:
     """Instructions for the dictionary-meaning fields (meaning_1, meaning_2)."""
-    return (
-        f"You are proofreading dictionary '{field}' entries for clear, obvious "
-        "spelling mistakes and clear grammatical errors ONLY. "
-        f"{_OXFORD_SPELLING}"
-        "Use the Oxford (serial) comma in lists of three or more items: put a "
-        "comma before the final 'and'/'or' (e.g. 'past, present, and future', "
-        "never 'past, present and future'). Do NOT add a comma to two-item "
-        "phrases like 'black and white' or 'here and there'. Adding a missing "
-        "Oxford comma IS a correction you should make. "
-        "If you are unsure whether something is actually wrong, omit that entry "
-        "entirely — do not guess. "
-        "Do NOT change the meaning, word choice, punctuation style, semicolon "
-        "conventions, or abbreviations like (comm), other than adding a missing "
-        "Oxford comma. "
-        "Do NOT add extra meanings — only correct what is already there. "
-        "Do NOT add a full stop at the end. "
-        "The 'pos' (part of speech) is given as context — use it to judge whether "
-        "the wording fits the part of speech. "
-        "For an agent noun, a meaning that starts with 'who ...' "
-        "(e.g. 'who does such and such') is correct and idiomatic here — do NOT "
-        "change it to 'one who ...'. "
-        "House style, which you SHOULD apply as a correction: "
-        "write large numbers with spaces, not commas, between thousands "
-        "(e.g. '100 000 000', never '100,000,000'); "
-        "use 'daemon', not 'demon'; "
-        "use 'Brahman', not 'Brahmin'. "
-        "Do NOT rewrite for style. Do NOT rephrase correct sentences. "
-        "Only fix genuine typos, genuine grammatical errors, and missing "
-        "Oxford commas. "
-    )
+    return f"""\
+You are proofreading dictionary '{field}' entries for clear, obvious spelling mistakes and clear grammatical errors ONLY.
+
+{_OXFORD_SPELLING}
+Semicolons separate alternative synonyms and are the normal structure of these entries. NEVER change a semicolon to a comma, and NEVER add 'and' or 'or' to a semicolon-separated list — 'mastering; controlling; governing' is CORRECT as it stands and must be left exactly alone.
+
+The Oxford (serial) comma rule applies ONLY inside a run of three or more items already separated by commas and ending in 'and'/'or': put a comma before that final 'and'/'or' (e.g. 'past, present, and future', never 'past, present and future'). Do NOT add a comma to two-item phrases like 'black and white' or 'here and there'. If the entry has no comma-separated list ending in 'and'/'or', the Oxford comma rule does not apply at all. Adding a genuinely missing Oxford comma IS a correction you should make.
+
+If you are unsure whether something is actually wrong, omit that entry entirely — do not guess.
+
+Do NOT change the meaning, word choice, punctuation style, semicolon conventions, or abbreviations like (comm), other than adding a missing Oxford comma.
+
+Do NOT add extra meanings — only correct what is already there.
+
+Do NOT add a full stop at the end.
+
+The 'pos' (part of speech) is given as context — use it to judge whether the wording fits the part of speech. For an agent noun, a meaning that starts with 'who ...' (e.g. 'who does such and such') is correct and idiomatic here — do NOT change it to 'one who ...'.
+
+House style, which you SHOULD apply as a correction: write large numbers with spaces, not commas, between thousands (e.g. '100 000 000', never '100,000,000'); use 'daemon', not 'demon'; use 'Brahman', not 'Brahmin'.
+
+Do NOT rewrite for style. Do NOT rephrase correct sentences. Only fix genuine typos, genuine grammatical errors, and missing Oxford commas.
+"""
 
 
 def _literal_prompt(field: str, context_field: str) -> str:
     """Instructions for meaning_lit — a literal, word-for-word English gloss."""
-    return (
-        f"You are proofreading '{field}', a deliberately LITERAL, word-for-word "
-        f"English rendering of a Pāḷi word (its '{context_field}' dictionary "
-        "definition is shown alongside for context). It is meant to be a literal "
-        "English version of the Pāḷi, NOT grammatical English — second-language "
-        "translators use it to render into their own language, so it may read as "
-        "ungrammatical English and that is correct and expected. "
-        f"{_OXFORD_SPELLING}"
-        "Do NOT correct grammar: the wording is grammatical in Pāḷi even when it "
-        "is ungrammatical in English. "
-        f"Focus ONLY on genuine spelling mistakes, judged in relation to "
-        f"'{context_field}'. "
-        "Do NOT add unnecessary punctuation — a comma only where genuinely "
-        "necessary, little else, and no full stop at the end. "
-        f"Do NOT change '{context_field}' — it is shown as context only. "
-        "If you are unsure whether something is actually wrong, omit that entry "
-        "entirely — do not guess. "
-    )
+    return f"""\
+You are proofreading '{field}', a deliberately LITERAL, word-for-word English rendering of a Pāḷi word (its '{context_field}' dictionary definition is shown alongside for context). It is meant to be a literal English version of the Pāḷi, NOT grammatical English — second-language translators use it to render into their own language, so it may read as ungrammatical English and that is correct and expected.
+
+{_OXFORD_SPELLING}
+Do NOT correct grammar: the wording is grammatical in Pāḷi even when it is ungrammatical in English.
+
+Focus ONLY on genuine spelling mistakes, judged in relation to '{context_field}'.
+
+Do NOT add unnecessary punctuation — a comma only where genuinely necessary, little else, and no full stop at the end.
+
+Do NOT change '{context_field}' — it is shown as context only.
+
+If you are unsure whether something is actually wrong, omit that entry entirely — do not guess.
+"""
 
 
 def construct_prompt(
@@ -169,13 +155,13 @@ def construct_prompt(
         body = _dictionary_prompt(field)
 
     return (
-        f"{body}"
-        f"Return the result as a JSON list of objects with 'id' and "
-        f"'{corrected_field}' fields. "
-        "IMPORTANT: Only include entries in the JSON list that actually required "
-        "a correction. "
-        "DO NOT write any additional notes. "
-        "If an entry is already correct, do not include it in the output.\n\n"
+        f"""\
+{body}
+Return the result as a JSON list of objects with 'id' and '{corrected_field}' fields.
+
+IMPORTANT: Only include entries in the JSON list that actually required a correction. DO NOT write any additional notes. If an entry is already correct, do not include it in the output.
+
+"""
         f"{batch_json}"
     )
 
