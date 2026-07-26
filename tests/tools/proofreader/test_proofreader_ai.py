@@ -28,8 +28,15 @@ def test_construct_prompt() -> None:
     batch = [{"id": 1, "meaning_1": "test"}]
     prompt = construct_prompt(batch)
     assert "British" in prompt
-    assert "Oxford -ize" in prompt
+    assert "Oxford British English" in prompt
     assert "criticize" in prompt
+    assert "analyse" in prompt
+    assert "Brahman" in prompt
+    assert "daemon" in prompt
+    assert "having not" in prompt
+    assert "100 000 000" in prompt
+    assert "diacritic" in prompt
+    assert "semicolon" in prompt
     assert "omit that entry" in prompt
     assert "Do NOT rewrite for style" in prompt
     assert "Do NOT add extra meanings" in prompt
@@ -53,6 +60,8 @@ def test_construct_prompt_meaning_lit() -> None:
     assert "Do NOT correct grammar" in prompt
     assert "Focus ONLY on genuine spelling mistakes" in prompt
     assert "no full stop at the end" in prompt
+    assert "Brahman" in prompt
+    assert "daemon" in prompt
     assert "Oxford (serial) comma" not in prompt
     assert '"meaning_1": "destination"' in prompt
 
