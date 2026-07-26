@@ -402,8 +402,6 @@ def export_other_dictionaries(
     dest: sqlite3.Connection,
     *,
     include_cone: bool = False,
-    include_peu: bool = False,
-    include_wordnet: bool = False,
 ) -> None:
     pr.green_tmr("creating dict tables")
 
@@ -483,81 +481,73 @@ def export_other_dictionaries(
         pr.yes("off")
 
     # --- WordNet (Open English WordNet, English-English) ---
-    if include_wordnet:
-        pr.green_tmr("exporting WordNet dictionary")
+    pr.green_tmr("exporting WordNet dictionary")
 
-        if not g.pth.wordnet_source_path.exists():
-            raise _missing_source_error("WordNet", g.pth.wordnet_source_path)
+    if not g.pth.wordnet_source_path.exists():
+        raise _missing_source_error("WordNet", g.pth.wordnet_source_path)
 
-        with g.pth.wordnet_source_path.open(encoding="utf-8") as f:
-            wordnet_dict: dict[str, str] = json.load(f)
+    with g.pth.wordnet_source_path.open(encoding="utf-8") as f:
+        wordnet_dict: dict[str, str] = json.load(f)
 
-        batch = []
-        for word, html_body in wordnet_dict.items():
-            word_fuzzy = _strip_diacritics_mobile(word)
-            batch.append(("wordnet", word, word_fuzzy, html_body, ""))
+    batch = []
+    for word, html_body in wordnet_dict.items():
+        word_fuzzy = _strip_diacritics_mobile(word)
+        batch.append(("wordnet", word, word_fuzzy, html_body, ""))
 
-        dest.executemany(
-            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
-            " VALUES (?, ?, ?, ?, ?)",
-            batch,
-        )
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
 
-        dest.execute(
-            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
-            " VALUES (?, ?, ?, ?, ?)",
-            (
-                "wordnet",
-                "Open English WordNet",
-                "Open English WordNet (CC BY 4.0)",
-                "",
-                len(batch),
-            ),
-        )
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (
+            "wordnet",
+            "Open English WordNet",
+            "Open English WordNet (CC BY 4.0)",
+            "",
+            len(batch),
+        ),
+    )
 
-        pr.yes(len(batch))
-    else:
-        pr.green_tmr("skipping WordNet dictionary")
-        pr.yes("off")
+    pr.yes(len(batch))
 
     # --- PEU (Pali English Ultimate / Pali Myanmar Abhidhan) ---
-    if include_peu:
-        pr.green_tmr("exporting PEU dictionary")
+    pr.green_tmr("exporting PEU dictionary")
 
-        if not g.pth.peu_source_path.exists():
-            raise _missing_source_error("PEU", g.pth.peu_source_path)
+    if not g.pth.peu_source_path.exists():
+        raise _missing_source_error("PEU", g.pth.peu_source_path)
 
-        peu_dict = _load_peu_dump(g.pth.peu_source_path)
+    peu_dict = _load_peu_dump(g.pth.peu_source_path)
 
-        batch = []
-        for headword, html_body in peu_dict.items():
-            word = headword.replace("ṁ", "ṃ")
-            html_body = html_body.replace("ṁ", "ṃ")
-            word_fuzzy = _strip_diacritics_mobile(word)
-            batch.append(("peu", word, word_fuzzy, html_body, ""))
+    batch = []
+    for headword, html_body in peu_dict.items():
+        word = headword.replace("ṁ", "ṃ")
+        html_body = html_body.replace("ṁ", "ṃ")
+        word_fuzzy = _strip_diacritics_mobile(word)
+        batch.append(("peu", word, word_fuzzy, html_body, ""))
 
-        dest.executemany(
-            "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
-            " VALUES (?, ?, ?, ?, ?)",
-            batch,
-        )
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
 
-        dest.execute(
-            "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
-            " VALUES (?, ?, ?, ?, ?)",
-            (
-                "peu",
-                "Pali English Ultimate",
-                "Pali Myanmar Abhidhan",
-                "",
-                len(batch),
-            ),
-        )
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (
+            "peu",
+            "Pali English Ultimate",
+            "Pali Myanmar Abhidhan",
+            "",
+            len(batch),
+        ),
+    )
 
-        pr.yes(len(batch))
-    else:
-        pr.green_tmr("skipping PEU dictionary")
-        pr.yes("off")
+    pr.yes(len(batch))
 
     # --- CPD (Critical Pali Dictionary) ---
     pr.green_tmr("exporting CPD")
@@ -713,10 +703,6 @@ def zip_mobile_db(pth: ProjectPaths) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cone", action="store_true", help="include Cone dictionary")
-    parser.add_argument("--peu", action="store_true", help="include PEU dictionary")
-    parser.add_argument(
-        "--wordnet", action="store_true", help="include WordNet (English) dictionary"
-    )
     args = parser.parse_args()
 
     pr.tic()
@@ -745,8 +731,6 @@ def main() -> None:
         g,
         dest,
         include_cone=args.cone,
-        include_peu=args.peu,
-        include_wordnet=args.wordnet,
     )
     write_schema_version(dest)
 
