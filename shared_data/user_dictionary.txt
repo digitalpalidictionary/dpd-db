@@ -137,6 +137,7 @@ amra
 amūḷhapaññassa
 ana
 anacchādikata
+analyse
 analysed
 analysing
 Anamataggasaṃyuttaṃ
@@ -205,6 +206,7 @@ arjuna
 armoured
 armspans
 arriver
+arrowmaker
 Artha
 Arthavan
 articulately
@@ -504,6 +506,7 @@ Ceta
 Cetan
 Cetans
 Cetiyans
+Cetokhilasutta
 ch
 Chabbisodhanasutta
 Chakkanipāta
@@ -522,6 +525,7 @@ charnel
 charoli
 chebula
 chicklet
+chirurgus
 chitter-chatter
 chowry
 Chrysopogon
@@ -709,6 +713,7 @@ deprecated
 deprecation
 derides
 descendancy
+descendency
 desiderative
 desireless
 desirelessness
@@ -850,6 +855,7 @@ Dutiyavohārapathasutta
 duvaṅgika
 dvanda
 dvedhikajātā
+Dvedhāvitakkasutta
 dwelled
 dā
 Dāmali
@@ -1053,6 +1059,7 @@ Gayā's
 gaḷagaḷa
 Gaṇakamoggallānasutta
 gelder
+genetrix
 genitive
 genitor
 genitrix
@@ -1171,6 +1178,7 @@ Hiptage
 hispida
 hitman
 Holarrhena
+honeyball
 honour
 honoured
 honouring
@@ -1191,6 +1199,7 @@ hubbed
 human-sacrificer
 humour
 husband's
+Hydrophasianus
 hypervigilant
 hā
 Hāliddikānisutta
@@ -1300,6 +1309,7 @@ iva
 iṃ
 iṃsu
 JA
+jacana
 jacanas
 jackstraws
 Jain
@@ -1599,6 +1609,7 @@ Macchikā's
 Macchikāsaṇḍika
 mad
 Madda
+Madhupiṇḍikasutta
 Madhura
 madhurasuttaṃ
 Madhurā
@@ -1705,6 +1716,7 @@ menses
 meritless
 Meru
 metathesized
+metre
 metrical
 Mettagū's
 Mettaya
@@ -1996,6 +2008,7 @@ outlaid
 outshined
 outspeaking
 outspeaks
+overanalyzing
 overestimation
 overgarment
 overindulging
@@ -2546,6 +2559,7 @@ sirissa
 Sirivaḍḍha
 sirā
 sirīsa
+sixteenfold
 siyanti
 siṃsapāvane
 Siṅgāla
@@ -2586,6 +2600,7 @@ Soṇadaṇḍa
 Soṇadaṇḍa's
 Soṇakāyana
 spathacea
+spectre
 spellicans
 spillikins
 spinosa
@@ -3169,6 +3184,7 @@ Vallisneria
 valour
 valuator
 Valāhakasaṃyuttaṃ
+Vanapatthasutta
 Vanasaṃyuttaṃ
 vanquishable
 Vappa
@@ -3297,6 +3313,7 @@ wainwrights
 warbled
 washroom
 watchfulness
+watchwoman
 waveless
 waylayer
 weeped
