@@ -95,6 +95,18 @@ _OXFORD_SPELLING = """\
 Use British English spelling with Oxford -ize verb endings, NOT -ise (e.g. 'criticize', 'organize', 'realize', 'recognize' — never 'criticise', 'organise').
 """
 
+_HOUSE_STYLE = """\
+HOUSE STYLE. These spellings are already CORRECT. They are NOT mistakes. Never "fix" them, and never replace them with the more common English form:
+
+'Brahman' is the correct spelling. 'Brahmin' is WRONG. If the text says 'Brahman', LEAVE IT — do not change it to 'Brahmin'. If the text says 'Brahmin', change it to 'Brahman'.
+
+'daemon' is the correct spelling. 'demon' is WRONG. If the text says 'daemon', LEAVE IT — do not change it to 'demon'. If the text says 'demon', change it to 'daemon'.
+
+Large numbers use spaces between thousands, not commas. '100 000 000' is correct and must be LEFT ALONE. '100,000,000' is wrong — change it to '100 000 000'.
+
+Pāḷi words and proper names keep their diacritics exactly as written (Aṅga, Jāṇussoṇi, Pāḷi). Never strip or alter a diacritic.
+"""
+
 
 def _dictionary_prompt(field: str) -> str:
     """Instructions for the dictionary-meaning fields (meaning_1, meaning_2)."""
@@ -116,7 +128,7 @@ Do NOT add a full stop at the end.
 
 The 'pos' (part of speech) is given as context — use it to judge whether the wording fits the part of speech. For an agent noun, a meaning that starts with 'who ...' (e.g. 'who does such and such') is correct and idiomatic here — do NOT change it to 'one who ...'.
 
-House style, which you SHOULD apply as a correction: write large numbers with spaces, not commas, between thousands (e.g. '100 000 000', never '100,000,000'); use 'daemon', not 'demon'; use 'Brahman', not 'Brahmin'.
+{_HOUSE_STYLE}
 
 Do NOT rewrite for style. Do NOT rephrase correct sentences. Only fix genuine typos, genuine grammatical errors, and missing Oxford commas.
 """
@@ -128,6 +140,7 @@ def _literal_prompt(field: str, context_field: str) -> str:
 You are proofreading '{field}', a deliberately LITERAL, word-for-word English rendering of a Pāḷi word (its '{context_field}' dictionary definition is shown alongside for context). It is meant to be a literal English version of the Pāḷi, NOT grammatical English — second-language translators use it to render into their own language, so it may read as ungrammatical English and that is correct and expected.
 
 {_OXFORD_SPELLING}
+{_HOUSE_STYLE}
 Do NOT correct grammar: the wording is grammatical in Pāḷi even when it is ungrammatical in English.
 
 Focus ONLY on genuine spelling mistakes, judged in relation to '{context_field}'.
