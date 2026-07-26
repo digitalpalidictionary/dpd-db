@@ -92,7 +92,16 @@ def batch_data(
 
 
 _OXFORD_SPELLING = """\
-Use British English spelling with Oxford -ize verb endings, NOT -ise (e.g. 'criticize', 'organize', 'realize', 'recognize' — never 'criticise', 'organise').
+SPELLING — READ THIS TWICE. This dictionary uses Oxford British English, which spells these verbs and their derivatives with a Z, not an S. The Z spelling is CORRECT. It is NOT an Americanism and NOT a mistake. Never change a Z to an S.
+
+CORRECT (leave alone, never "fix"): realize, realized, realizing, realization, recognize, recognized, organize, organized, organization, criticize, criticized, apologize, characterize, civilize, emphasize, equalize, familiarize, harmonize, idolize, memorize, minimize, mobilize, moralize, normalize, stabilize, sympathize, utilize.
+
+WRONG (change these to the Z form): realise, realised, realising, realisation, recognise, recognised, organise, organised, organisation, criticise, criticised, apologise, characterise, civilise, emphasise, equalise, familiarise, harmonise, idolise, memorise, minimise, mobilise, moralise, normalise, stabilise, sympathise, utilise.
+
+Two sets of genuine exceptions that take an S and must KEEP it. Never change these to a Z:
+
+- verbs where -ise is part of the stem, not a suffix: advertise, advise, arise, chastise, comprise, compromise, despise, devise, disguise, exercise, improvise, revise, supervise, surmise, surprise, televise.
+- -lyse/-yse verbs, which are NOT -ize words even in Oxford spelling: analyse, paralyse, catalyse (and analysed, analysing, paralysed).
 """
 
 _HOUSE_STYLE = """\
@@ -105,6 +114,8 @@ HOUSE STYLE. These spellings are already CORRECT. They are NOT mistakes. Never "
 Large numbers use spaces between thousands, not commas. '100 000 000' is correct and must be LEFT ALONE. '100,000,000' is wrong — change it to '100 000 000'.
 
 Pāḷi words and proper names keep their diacritics exactly as written (Aṅga, Jāṇussoṇi, Pāḷi). Never strip or alter a diacritic.
+
+'having not' is the correct word order here and renders the Pāḷi accurately (e.g. 'having not gone', 'having not eaten'). LEAVE IT AS IT IS. Do not reorder it to 'not having'. Only change it in the rare case where the sentence is genuinely unreadable as written — if in any doubt at all, leave it alone.
 """
 
 
