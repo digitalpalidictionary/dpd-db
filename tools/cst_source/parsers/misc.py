@@ -2,7 +2,7 @@ import re
 
 from bs4 import element
 
-from tools.cst_source.parsers.base import BookParser
+from tools.cst_source.parsers.base import BookParser, bump, is_counted
 from tools.cst_source.text_utils import (
     get_text_and_number,
     is_int,
@@ -40,25 +40,25 @@ class KvaParser(BookParser):
             if rend == "chapter":
                 if "Bhikkhupātimokkhapāḷi" in text:
                     self.is_bhikkhuni = False
-                    self.section_counter = 0
+                    self.section_counter = "0"
                     self.section = "bhikkhupātimokkha"
-                    self.vagga_counter = 0
+                    self.vagga_counter = "0"
                     self.source = "KVA1.1"
                     self.sutta = "bhikkhupātimokkha"
 
                 elif "Bhikkhunīpātimokkhapāḷi" in text:
                     self.is_bhikkhuni = True
-                    self.section_counter = 0
+                    self.section_counter = "0"
                     self.section = "bhikkhunīpātimokkha"
-                    self.vagga_counter = 0
+                    self.vagga_counter = "0"
                     self.source = "KVA1.2"
                     self.sutta = "bhikkhunīpātimokkha"
 
                 elif "Kaṅkhāvitaraṇī-aṭṭhakathā" in text:
                     self.is_api = True
                     self.is_bhikkhuni = False
-                    self.section_counter = 0
-                    self.vagga_counter = 0
+                    self.section_counter = "0"
+                    self.vagga_counter = "0"
                     self.section = ""
                     self.vagga = ""
                     self.source = "KVA2"
@@ -67,7 +67,7 @@ class KvaParser(BookParser):
             elif rend == "subhead":
                 uddesa = text
                 self.section = uddesa.lower()
-                self.section_counter += 1
+                self.section_counter = bump(self.section_counter)
                 prefix = "KVA1.1" if not self.is_bhikkhuni else "KVA1.2"
                 bhikkhu_label = (
                     "bhikkhupātimokkha"
@@ -93,7 +93,7 @@ class KvaParser(BookParser):
             # === COMMENTARY (kaṅkhāvitaraṇī-aṭṭhakathā) mode ===
 
             if rend == "subsubhead":
-                self.section_counter = 0
+                self.section_counter = "0"
                 self.section = text.lower()
                 self.source = "KVA2.1.0"
                 self.sutta = text.lower()
@@ -101,15 +101,15 @@ class KvaParser(BookParser):
             elif rend == "chapter":
                 if "Bhikkhunīpātimokkhavaṇṇanā" in text:
                     self.is_bhikkhuni = True
-                    self.section_counter = 0
-                    self.vagga_counter = 0
+                    self.section_counter = "0"
+                    self.vagga_counter = "0"
                     self.vagga = ""
                     self.section = "bhikkhunīpātimokkhavaṇṇanā"
                     self.source = "KVA2.2"
                     self.sutta = "bhikkhunīpātimokkhavaṇṇanā"
                 else:
-                    self.section_counter += 1
-                    self.vagga_counter = 0
+                    self.section_counter = bump(self.section_counter)
+                    self.vagga_counter = "0"
                     self.vagga = ""
                     self.section = text.lower()
                     prefix = "KVA2.1" if not self.is_bhikkhuni else "KVA2.2"
@@ -124,9 +124,9 @@ class KvaParser(BookParser):
             elif rend == "title":
                 vagga, vagga_no = get_text_and_number(text)
                 if is_int(vagga_no):
-                    self.vagga_counter = int(vagga_no)
+                    self.vagga_counter = str(int(vagga_no))
                 else:
-                    self.vagga_counter += 1
+                    self.vagga_counter = bump(self.vagga_counter)
                 self.vagga = vagga.lower()
                 prefix = "KVA2.1" if not self.is_bhikkhuni else "KVA2.2"
                 bhikkhu_label = (
@@ -145,14 +145,16 @@ class KvaParser(BookParser):
                     if not self.is_bhikkhuni
                     else "bhikkhunīpātimokkhavaṇṇanā"
                 )
-                if self.vagga_counter:
-                    self.source = f"{prefix}.{self.section_counter}.{self.vagga_counter}"
-                    self.sutta = (
-                        f"{bhikkhu_label}, {self.section}, {self.vagga}, {sutta_text}".lower()
+                if is_counted(self.vagga_counter):
+                    self.source = (
+                        f"{prefix}.{self.section_counter}.{self.vagga_counter}"
                     )
+                    self.sutta = f"{bhikkhu_label}, {self.section}, {self.vagga}, {sutta_text}".lower()
                 else:
                     self.source = f"{prefix}.{self.section_counter}"
-                    self.sutta = f"{bhikkhu_label}, {self.section}, {sutta_text}".lower()
+                    self.sutta = (
+                        f"{bhikkhu_label}, {self.section}, {sutta_text}".lower()
+                    )
 
 
 class VismParser(BookParser):
@@ -182,12 +184,12 @@ class VismParser(BookParser):
             self.source = f"{book}{self.section_counter}"
             self.sutta = section.lower()
 
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
 
         elif x["rend"] in ["subhead"]:
             sutta, sutta_no = get_text_and_number(x.text.strip())
-            self.sutta_counter += 1
-            self.source = self.source = f"{book}{self.section_counter}.{self.sutta_counter}"
+            self.sutta_counter = bump(self.sutta_counter)
+            self.source = f"{book}{self.section_counter}.{self.sutta_counter}"
             self.sutta = f"{self.section}, {sutta}".lower()
 
 
@@ -205,7 +207,7 @@ class ApParser(BookParser):
             sutta, sutta_no = get_text_and_number(x.text)
             self.section = ""
             self.section_counter = "0"
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}{self.section_counter}.{self.sutta_counter}"
             self.sutta = sutta.lower()
 
@@ -239,7 +241,7 @@ class AptParser(BookParser):
             sutta, sutta_no = get_text_and_number(x.text)
             self.section = ""
             self.section_counter = "0"
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
             self.source = f"{book}"
             self.sutta = sutta.lower()
 

@@ -2,7 +2,7 @@ import re
 
 from bs4 import element
 
-from tools.cst_source.parsers.base import BookParser
+from tools.cst_source.parsers.base import BookParser, bump
 from tools.cst_source.peyyala_data import sn_collapsed_vagga_counts, sn_peyyalas
 from tools.cst_source.text_utils import (
     clean_subtitle,
@@ -21,16 +21,16 @@ class DighaParser(BookParser):
         super().__init__(book)
         match book:
             case "dn2":
-                self.sutta_counter = 13
+                self.sutta_counter = "13"
             case "dn3":
-                self.sutta_counter = 23
+                self.sutta_counter = "23"
 
     def update(self, x: element.Tag) -> None:
         book = "DN"
 
         if x["rend"] == "chapter":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}{self.sutta_counter}"
             self.sutta = sutta.lower()
 
@@ -49,9 +49,9 @@ class MajjhimaParser(BookParser):
         super().__init__(book)
         match book:
             case "mn2":
-                self.sutta_counter = 50
+                self.sutta_counter = "50"
             case "mn3":
-                self.sutta_counter = 100
+                self.sutta_counter = "100"
 
     def update(self, x: element.Tag) -> None:
         book = "MN"
@@ -64,7 +64,7 @@ class MajjhimaParser(BookParser):
         elif x["rend"] == "subhead":
             if re.findall(r"^\d", x.text):
                 sutta, sutta_no = get_text_and_number(x.text)
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
                 self.source = f"{book}{self.sutta_counter}"
                 self.source_alt = f"{self.book.upper()}.{self.vagga_counter}.{sutta_no}"
                 self.sutta = sutta.lower()
@@ -101,9 +101,9 @@ class SamyuttaParser(BookParser):
             self.samyutta, _ = get_text_and_number(x.text)
             self.samyutta_counter += 1
             self.sutta = ""
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
@@ -121,7 +121,7 @@ class SamyuttaParser(BookParser):
                         samyutta_no == self.samyutta_counter
                         and vagga_pattern in text_lower
                     ):
-                        self.sutta_counter += sutta_count
+                        self.sutta_counter = bump(self.sutta_counter, sutta_count)
                         break
 
         elif x["rend"] == "subhead":
@@ -133,18 +133,18 @@ class SamyuttaParser(BookParser):
                 if (
                     p_samyutta_counter == self.samyutta_counter
                     and x.text == p_sutta_name
-                    and self.sutta_counter == p_start - 1
+                    and int(self.sutta_counter) == p_start - 1
                 ):
                     sutta_name = re.sub(r"^\d.*\. ", "", x.text).strip()
                     if p_start != p_end:
                         sutta_counter_special = f"{p_start}-{p_end}"
-                    self.sutta_counter = p_end
+                    self.sutta_counter = str(p_end)
                     peyyala_matched = True
                     break
 
             if not peyyala_matched and re.findall(r"^\d", x.text) and "-" not in x.text:
                 sutta_name, sutta_no = get_text_and_number(x.text)
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
 
         if sutta_name:
             if sutta_counter_special:
@@ -158,7 +158,19 @@ class AnguttaraParser(BookParser):
     # vagga     <head rend="chapter">1. Rūpādivaggo</head>
     # subtitle  <p rend="subhead">1. Paṭhamavaggo</p>
 
-    books = ("an1", "an2", "an3", "an4", "an5", "an6", "an7", "an8", "an9", "an10", "an11")
+    books = (
+        "an1",
+        "an2",
+        "an3",
+        "an4",
+        "an5",
+        "an6",
+        "an7",
+        "an8",
+        "an9",
+        "an10",
+        "an11",
+    )
 
     def update(self, x: element.Tag) -> None:
         book_name = self.book.upper()
@@ -175,6 +187,6 @@ class AnguttaraParser(BookParser):
             self.sutta_counter = sutta_no
 
         elif x["rend"] == "bodytext" and x.has_attr("n"):
-            self.sutta_counter = x["n"]
+            self.sutta_counter = str(x["n"])
             self.source = f"{book_name}.{self.sutta_counter}"
             # self.source_alt = f"{book_name}.{self.vagga_counter}.{self.sutta_counter}"

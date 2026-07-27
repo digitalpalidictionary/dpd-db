@@ -121,7 +121,9 @@ class CstSourceIndex:
                         gatha_examples = gatha_cache[key]
                 parser.update(x)
                 rows.append(
-                    IndexRow(parser.source, parser.sutta, text, is_gatha, gatha_examples)
+                    IndexRow(
+                        parser.source, parser.sutta, text, is_gatha, gatha_examples
+                    )
                 )
         return rows
 

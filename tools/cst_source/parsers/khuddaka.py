@@ -2,7 +2,7 @@ import re
 
 from bs4 import element
 
-from tools.cst_source.parsers.base import BookParser
+from tools.cst_source.parsers.base import BookParser, bump, is_counted
 from tools.cst_source.text_utils import (
     assert_type_int,
     get_text_and_number,
@@ -18,7 +18,7 @@ class Kn1Parser(BookParser):
     def update(self, x: element.Tag) -> None:
         if x["rend"] == "chapter":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"KP{sutta_no}"
             self.sutta = sutta.lower()
 
@@ -36,11 +36,11 @@ class Kn2Parser(BookParser):
             vagga, vagga_no = get_text_and_number(x.text)
             self.sutta = f"{vagga}".lower()
             self.vagga_counter = vagga_no
-            self.section_counter = 0
+            self.section_counter = "0"
 
         elif x["rend"] == "hangnum":
-            self.sutta_counter += 1
-            self.section_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
+            self.section_counter = bump(self.section_counter)
             self.source = f"{book}{self.sutta_counter}"
             self.source_alt = f"{book}{self.vagga_counter}.{self.section_counter}"
 
@@ -61,7 +61,7 @@ class Kn3Parser(BookParser):
 
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}{self.sutta_counter}"
             self.source_alt = f"{book}{self.vagga_counter}.{sutta_no}"
             self.sutta = sutta.lower()
@@ -80,9 +80,8 @@ class Kn4Parser(BookParser):
         if x["rend"] == "chapter":
             section, self.section_counter = get_text_and_number(x.text)
             self.section = section
-            self.section_counter = self.section_counter
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
@@ -91,9 +90,9 @@ class Kn4Parser(BookParser):
 
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}{self.sutta_counter}"
-            if self.vagga_counter:
+            if is_counted(self.vagga_counter):
                 self.source_alt = (
                     f"{book}{self.section_counter}.{self.vagga_counter}.{sutta_no}"
                 )
@@ -125,13 +124,13 @@ class Kn5Parser(BookParser):
                 elif x.text == "Pārāyanānugītigāthā":
                     sutta_no = 18
                 sutta, _ = get_text_and_number(x.text)
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
                 self.source = f"{book}{self.sutta_counter}"
                 self.source_alt = f"{book}{self.vagga_counter}.{sutta_no}"
                 self.sutta = f"{self.vagga}, {sutta}".lower()
             else:
                 sutta, sutta_no = get_text_and_number(x.text)
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
                 self.source = f"{book}{self.sutta_counter}"
                 self.source_alt = f"{book}{self.vagga_counter}.{sutta_no}"
                 self.sutta = f"{self.vagga}, {sutta}".lower()
@@ -150,7 +149,6 @@ class Kn6Parser(BookParser):
         if x["rend"] == "chapter":
             section, self.section_counter = get_text_and_number(x.text)
             self.section = section
-            self.section_counter = self.section_counter
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
@@ -159,7 +157,7 @@ class Kn6Parser(BookParser):
 
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source_alt = (
                 f"{book}{self.section_counter}.{self.vagga_counter}.{sutta_no}"
             )
@@ -183,7 +181,7 @@ class Kn7Parser(BookParser):
 
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source_alt = f"{book}{self.vagga_counter}.{sutta_no}"
             self.source = f"{book}{self.sutta_counter}"
             self.sutta = f"{self.vagga}, {sutta}".lower()
@@ -212,9 +210,8 @@ class Kn8Kn9Parser(BookParser):
         elif x["rend"] == "chapter":
             section, self.section_counter = get_text_and_number(x.text)
             self.section = section
-            self.section_counter = self.section_counter
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
@@ -224,8 +221,8 @@ class Kn8Kn9Parser(BookParser):
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
             sutta_no = sutta_no.replace("-", ".")
-            self.sutta_counter += 1
-            if self.vagga_counter == 0:
+            self.sutta_counter = bump(self.sutta_counter)
+            if self.vagga_counter == "0":
                 self.source_alt = f"{book}{self.section_counter}.{sutta_no}"
             else:
                 self.source_alt = (
@@ -246,12 +243,12 @@ class Kn10Kn11Parser(BookParser):
     def __init__(self, book: str) -> None:
         super().__init__(book)
         if book == "kn11":
-            self.sutta_counter = 422
+            self.sutta_counter = "422"
 
     def update(self, x: element.Tag) -> None:
         if x["rend"] == "book" and x.text == "Therīapadānapāḷi":
             self.is_api = True
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
 
         if self.is_api:
             book = "API"
@@ -266,9 +263,8 @@ class Kn10Kn11Parser(BookParser):
         elif x["rend"] == "chapter":
             section, self.section_counter = get_text_and_number(x.text)
             self.section = section
-            self.section_counter = self.section_counter
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
@@ -278,8 +274,8 @@ class Kn10Kn11Parser(BookParser):
         if x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
             sutta_no = sutta_no.replace("-", ".")
-            self.sutta_counter += 1
-            if self.vagga_counter == 0:
+            self.sutta_counter = bump(self.sutta_counter)
+            if self.vagga_counter == "0":
                 self.source_alt = f"{book}{self.section_counter}.{sutta_no}"
             else:
                 self.source_alt = (
@@ -299,7 +295,7 @@ class Kn12Parser(BookParser):
 
         if x["rend"] == "chapter":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}{sutta_no}"
             self.sutta = sutta.lower()
 
@@ -320,7 +316,7 @@ class Kn13Parser(BookParser):
 
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}{self.sutta_counter}"
             self.source_alt = f"{book}{self.vagga_counter}.{sutta_no}"
             self.sutta = sutta.lower()
@@ -339,7 +335,6 @@ class Kn14Parser(BookParser):
         if x["rend"] == "chapter":
             section, self.section_counter = get_text_and_number(x.text)
             self.section = section
-            self.section_counter = self.section_counter
 
         elif x["rend"] == "title":
             if x.text == "(Dutiyo bhāgo)":
@@ -352,7 +347,7 @@ class Kn14Parser(BookParser):
         elif x["rend"] == "subhead":
             if re.findall(r"^\d", x.text.strip()):
                 sutta, sutta_no = get_text_and_number_with_brackets_end(x.text.strip())
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
                 # self.source_alt = f"{book}{self.section_counter}.{self.vagga_counter}.{sutta_no}"
                 self.source = f"{book}{self.sutta_counter}"
                 self.sutta = f"{sutta}".lower()
@@ -377,7 +372,7 @@ class Kn15Parser(BookParser):
 
         if x["rend"] == "chapter":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
             self.source = f"{book}.{self.sutta_counter}"
             self.sutta = f"{sutta}".lower()
 
@@ -401,8 +396,8 @@ class Kn16Parser(BookParser):
             else:
                 vagga, vagga_no = get_text_and_number(x.text)
                 self.vagga = vagga
-                self.vagga_counter += 1
-                self.sutta_counter = 0
+                self.vagga_counter = bump(self.vagga_counter)
+                self.sutta_counter = "0"
 
         elif x["rend"] == "subhead":
             if x.text == "Vatthugāthā":
@@ -411,7 +406,7 @@ class Kn16Parser(BookParser):
                 self.sutta = sutta.lower()
             else:
                 sutta, sutta_no = get_text_and_number(x.text)
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
                 self.source = f"{book}.{self.vagga_counter}.{self.sutta_counter}"
                 self.sutta = f"{self.vagga}, {sutta}".lower()
 
@@ -433,9 +428,9 @@ class Kn17Parser(BookParser):
             self.vagga_counter = assert_type_int(vagga_no)
 
             self.section = ""
-            self.section_counter = 0
+            self.section_counter = "0"
             self.sutta = ""
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
 
         elif x["rend"] == "title":
             section, section_no = get_text_and_number(x.text)
@@ -444,7 +439,7 @@ class Kn17Parser(BookParser):
 
             self.source = f"{book}{self.vagga_counter}.{self.section_counter}"
             self.sutta = f"{self.vagga}, {self.section}".lower()
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
 
         elif x["rend"] == "subhead" and x.text not in [
             "Paṭhamacchakkaṃ",
@@ -498,50 +493,48 @@ class Kn18Parser(BookParser):
             if x.text == "Milindapañhapāḷi":
                 self.section = "Milindapañhapāḷi"
                 self.vagga = "Ārambhakathā"
-                self.section_counter += 1
-                self.vagga_counter += 1
+                self.section_counter = bump(self.section_counter)
+                self.vagga_counter = bump(self.vagga_counter)
             else:
                 section, _ = get_text_and_number(x.text)
                 self.section = section
-                self.section_counter += 1
+                self.section_counter = bump(self.section_counter)
                 self.vagga = ""
-                self.vagga_counter = 0
+                self.vagga_counter = "0"
                 self.sutta = ""
-                self.sutta_counter = 0
+                self.sutta_counter = "0"
             self.source = f"{book}{self.section_counter}"
             self.sutta = self.section.lower()
 
         elif x["rend"] == "subsubhead":
             vagga, _ = get_text_and_number(x.text)
-            self.vagga_counter += 1
-            self.sutta_counter = 0
+            self.vagga_counter = bump(self.vagga_counter)
+            self.sutta_counter = "0"
             self.source = f"{book}{self.section_counter}.{self.vagga_counter}"
             self.sutta = f"{self.section}, {vagga}".lower()
 
         elif x["rend"] == "title":
             if x.text == "Meṇḍakapañhārambhakathā":
                 self.section = x.text
-                self.section_counter += 1
+                self.section_counter = bump(self.section_counter)
                 self.vagga = ""
-                self.vagga_counter = 0
-                self.sutta_counter = 0
+                self.vagga_counter = "0"
+                self.sutta_counter = "0"
                 self.source = f"{book}{self.section_counter}.{self.vagga_counter}"
                 self.sutta = self.section.lower()
             else:
                 vagga, _ = get_text_and_number(x.text)
                 self.vagga = vagga
-                self.vagga_counter += 1
-                self.sutta_counter = 0
+                self.vagga_counter = bump(self.vagga_counter)
+                self.sutta_counter = "0"
                 self.source = f"{book}{self.section_counter}.{self.vagga_counter}"
                 self.sutta = f"{self.section}, {vagga}".lower()
 
         elif x["rend"] == "subhead":
             sutta_name, _ = get_text_and_number(x.text)
-            self.sutta_counter += 1
-            if self.vagga_counter:
-                self.source = (
-                    f"{book}{self.section_counter}.{self.vagga_counter}.{self.sutta_counter}"
-                )
+            self.sutta_counter = bump(self.sutta_counter)
+            if is_counted(self.vagga_counter):
+                self.source = f"{book}{self.section_counter}.{self.vagga_counter}.{self.sutta_counter}"
             else:
                 self.source = f"{book}{self.section_counter}.{self.sutta_counter}"
             self.sutta = sutta_name.lower()
@@ -553,7 +546,7 @@ class Kn18Parser(BookParser):
                 self.sutta = f"{self.section}, {vagga}".lower()
 
             elif x.text == "Nigamanaṃ":
-                self.section_counter += 1
+                self.section_counter = bump(self.section_counter)
                 self.source = f"{book}{self.section_counter}"
                 self.sutta = x.text.lower()
 
@@ -570,23 +563,21 @@ class Kn19Parser(BookParser):
         if x["rend"] == "chapter":
             vagga, _ = get_text_and_number(x.text)
             self.vagga = vagga
-            self.vagga_counter += 1
-            self.sutta_counter = 0
+            self.vagga_counter = bump(self.vagga_counter)
+            self.sutta_counter = "0"
             self.source = f"{book}{self.vagga_counter}"
             self.sutta = vagga.lower()
 
         elif x["rend"] == "subhead":
             if x.text == "1. Desanāhāravibhaṅgo":
-                self.section_counter += 1
+                self.section_counter = bump(self.section_counter)
             elif x.text == "1. Desanāhārasampāto":
-                self.section_counter += 1
-                self.sutta_counter = 0
+                self.section_counter = bump(self.section_counter)
+                self.sutta_counter = "0"
             sutta_name, _ = get_text_and_number(x.text)
-            self.sutta_counter += 1
-            if self.section_counter > 0:
-                self.source = (
-                    f"{book}{self.vagga_counter}.{self.section_counter}.{self.sutta_counter}"
-                )
+            self.sutta_counter = bump(self.sutta_counter)
+            if int(self.section_counter) > 0:
+                self.source = f"{book}{self.vagga_counter}.{self.section_counter}.{self.sutta_counter}"
             else:
                 self.source = f"{book}{self.vagga_counter}.{self.sutta_counter}"
             self.sutta = sutta_name.lower()
@@ -605,7 +596,7 @@ class Kn20Parser(BookParser):
             section, section_no = get_text_and_number(x.text)
             self.section = section
             self.section_counter = section_no
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
             self.source = f"{book}{self.section_counter}"
             self.sutta = section.lower()
 

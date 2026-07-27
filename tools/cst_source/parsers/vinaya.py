@@ -2,7 +2,7 @@ import re
 
 from bs4 import element
 
-from tools.cst_source.parsers.base import BookParser
+from tools.cst_source.parsers.base import BookParser, bump
 from tools.cst_source.text_utils import (
     get_text_and_number,
     is_int,
@@ -32,7 +32,7 @@ class Vin1Parser(BookParser):
             self.sutta = section.lower()
 
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title" and "vaggo" in x.text:
             vagga, vagga_no = get_text_and_number(x.text)
@@ -44,11 +44,11 @@ class Vin1Parser(BookParser):
         elif x["rend"] == "title" and "vaggo" not in x.text:
             sutta, sutta_no = get_text_and_number(x.text)
             if self.vagga:
-                self.source = self.source = (
+                self.source = (
                     f"{book}.{self.section_counter}.{self.vagga_counter}.{sutta_no}"
                 )
             else:
-                self.source = self.source = f"{book}.{self.section_counter}.{sutta_no}"
+                self.source = f"{book}.{self.section_counter}.{sutta_no}"
             self.sutta = sutta.lower()
             self.sutta_counter = sutta_no
 
@@ -82,7 +82,7 @@ class Vin2Parser(BookParser):
                 self.source = f"{book}.{section_no}"
                 self.sutta = section.lower()
                 self.vagga = ""
-                self.vagga_counter = 0
+                self.vagga_counter = "0"
 
             elif x["rend"] == "title" and "vaggo" in x.text:
                 vagga, vagga_no = get_text_and_number(x.text.strip())
@@ -92,9 +92,7 @@ class Vin2Parser(BookParser):
                 self.sutta = f"{self.section}, {vagga}".lower()
 
             elif (
-                x["rend"] == "title"
-                and "vaggo" not in x.text
-                or x["rend"] == "subhead"
+                x["rend"] == "title" and "vaggo" not in x.text or x["rend"] == "subhead"
             ):
                 sutta, sutta_no = get_text_and_number(x.text.strip())
                 if self.vagga:
@@ -121,7 +119,7 @@ class Vin2Parser(BookParser):
                 self.sutta = section.lower()
 
                 self.vagga = ""
-                self.vagga_counter = 0
+                self.vagga_counter = "0"
 
             elif x["rend"] == "title" and "vaggo" in x.text:
                 vagga, vagga_no = get_text_and_number(x.text.strip())
@@ -196,14 +194,14 @@ class Vin5Parser(BookParser):
 
         # Extract text and number once for the current element
         current_text, current_number = get_text_and_number(x.text.strip())
-        self.section_counter = 0
+        self.section_counter = "0"
 
         if x["rend"] == "chapter":  # Handles <head rend="chapter">Soḷasamahāvāro</head>
             self.vagga = current_text
             if is_int(current_number):
-                self.vagga_counter = int(current_number)
+                self.vagga_counter = str(int(current_number))
             else:
-                self.vagga_counter += 1
+                self.vagga_counter = bump(self.vagga_counter)
             # Reset lower-level counters when a new chapter starts
             self.source = f"{book_code}.{self.vagga_counter}"
             self.sutta = current_text.lower()

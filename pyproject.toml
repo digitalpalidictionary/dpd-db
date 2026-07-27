@@ -91,26 +91,56 @@ exclude = ["gui2", "tools/writemdict", "tests", "archive", "tools/cst_source", "
 # sees because it is only ever invoked on staged files.
 python-version = "3.13"
 project-includes = ["**/*.py"]
+# Error counts below were measured 2026-07-27; each exclusion states what it costs
+# so the list stays a decision rather than a habit.
 project-excludes = [
     "**/.venv/**",
     "**/node_modules/**",
     "**/__pycache__/**",
     "**/archive/**",
-    "scripts/bash/**",
+    "resources/**",
+    # 396 errors / 73 files, of which 326 are `NoneType has no attribute ...` from
+    # flet typing every control's `.page` and `.parent` as optional. `self.page.update()`
+    # is the idiomatic call and cannot be None in practice, so the fix would be 326
+    # asserts for no behaviour change.
     "gui2/**",
-    "tools/writemdict/**",
+    # 36 errors / 16 files, all pyrefly-only — pyright reports the tree clean. They are
+    # bs4 navigation return types (`find_previous` -> NavigableString | PageElement |
+    # Tag | None) and `match` statements pyrefly cannot prove exhaustive. The 88 real
+    # findings here, `+= 1` on `str | int` counters, were fixed by making the counters
+    # str-only; see parsers/base.py `bump`/`is_counted`.
     "tools/cst_source/**",
+    # 131 errors / 68 files. One-off corpus extraction, run by hand and not by any
+    # build recipe; nothing outside this tree imports it.
+    "scripts/suttas/**",
+    # 28 errors / 6 files. Vendored third party, not ours to retype.
+    "tools/writemdict/**",
+    # 4 errors / 3 files, all heterogeneous dict-value unions that want a TypedDict.
     "exporter/anki/**",
-    "tests/**",
+    # 18 errors / 30 files. Scratch space, deliberately throwaway.
+    "temp/**",
+    # 16 and 7 errors. Tooling scaffolding, not shipped with the dictionary.
     "kamma/**",
     "conductor/**",
-    "resources/**",
-    "temp/**",
-    # One-off corpus extraction, run by hand and not by any build recipe. Nothing
-    # outside this tree imports it. Its 117 findings are three copy-pasted patterns
-    # in code the pipeline never executes, so gating on them buys nothing.
-    "scripts/suttas/**",
 ]
+
+# tests/** IS checked, but only for imports and name resolution — that is the class of
+# bug the pre-commit hook structurally cannot see (it only ever looks at staged files),
+# and it is what broke CI on 2026-07-27. The type-shape codes below are off because test
+# doubles (SimpleNamespace, FakeDb, _MinimalEnv) legitimately violate declared types;
+# all 104 findings here were that pattern, none were bugs.
+[[tool.pyrefly.sub-config]]
+matches = "tests/**"
+
+[tool.pyrefly.sub-config.errors]
+bad-argument-type = false
+bad-assignment = false
+bad-override = false
+bad-return = false
+missing-attribute = false
+no-matching-overload = false
+not-iterable = false
+unsupported-operation = false
 
 [tool.ruff]
 target-version = "py313"

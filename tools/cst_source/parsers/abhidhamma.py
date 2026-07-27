@@ -2,7 +2,7 @@ import re
 
 from bs4 import element
 
-from tools.cst_source.parsers.base import BookParser
+from tools.cst_source.parsers.base import BookParser, bump
 from tools.cst_source.text_utils import (
     get_text_and_number,
     get_text_and_number_with_brackets3,
@@ -30,32 +30,30 @@ class Abh1Parser(BookParser):
             if is_int(section_no):
                 self.section_counter = section_no
             else:
-                self.section_counter = 0
+                self.section_counter = "0"
 
             self.source = f"{book}{self.section_counter}"
             self.sutta = section.lower()
 
             # reset vagga
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
             self.vagga = vagga
-            self.vagga_counter += 1
+            self.vagga_counter = bump(self.vagga_counter)
 
             self.source = f"{book}{self.section_counter}.{self.vagga_counter}"
             self.sutta = f"{self.section}, {self.vagga}".lower()
 
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
 
         elif x["rend"] == "subhead":
             sutta, sutta_no = get_text_and_number(x.text)
-            self.sutta_counter += 1
+            self.sutta_counter = bump(self.sutta_counter)
 
-            self.source = (
-                f"{book}{self.section_counter}.{self.vagga_counter}.{self.sutta_counter}"
-            )
+            self.source = f"{book}{self.section_counter}.{self.vagga_counter}.{self.sutta_counter}"
             if not self.vagga:
                 self.sutta = f"{self.section}, {sutta}".lower()
             else:
@@ -82,17 +80,17 @@ class Abh2Parser(BookParser):
 
             # reset vagga
             self.vagga = ""
-            self.vagga_counter = 0
+            self.vagga_counter = "0"
 
         elif x["rend"] == "title":
             vagga, vagga_no = get_text_and_number(x.text)
             self.vagga = vagga
-            self.vagga_counter += 1
+            self.vagga_counter = bump(self.vagga_counter)
 
             self.source = f"{book}{self.section_counter}.{self.vagga_counter}"
             self.sutta = f"{self.section}, {self.vagga}".lower()
 
-            self.sutta_counter = 0
+            self.sutta_counter = "0"
 
         elif x["rend"] == "subhead":
             if "(" in x.text:
@@ -105,7 +103,7 @@ class Abh2Parser(BookParser):
                     self.sutta = f"{self.section}, {self.vagga}, {sutta}".lower()
             else:
                 sutta, sutta_no = get_text_and_number(x.text)
-                self.sutta_counter += 1
+                self.sutta_counter = bump(self.sutta_counter)
 
                 self.source = f"{book}{self.section_counter}.{self.vagga_counter}.{self.sutta_counter}"
                 if not self.vagga:
@@ -133,7 +131,7 @@ class Abh3Parser(BookParser):
             if is_int(section_no):
                 self.section_counter = section_no
             else:
-                self.section_counter = 0
+                self.section_counter = "0"
 
             self.source = f"{book}{self.section_counter}"
             self.sutta = f"{self.section}".lower()
@@ -151,7 +149,7 @@ class Abh3Parser(BookParser):
             self.sutta_counter = sutta_no
 
             self.source = f"{book}{self.vagga_counter}.{self.sutta_counter}"
-            if self.section_counter == 0:
+            if self.section_counter == "0":
                 self.sutta = f"{self.section}, {sutta}".lower()
             else:
                 self.sutta = f"{self.vagga}, {sutta}".lower()
@@ -170,7 +168,7 @@ class Abh4Parser(BookParser):
             section, section_no = get_text_and_number(x.text)
 
             self.section = section
-            self.section_counter += 1
+            self.section_counter = bump(self.section_counter)
 
             self.source = f"{book}{self.section_counter}"
             self.sutta = f"{self.section}".lower()
@@ -197,16 +195,16 @@ class Abh5Parser(BookParser):
             section, section_no = get_text_and_number(x.text)
             self.section = section
 
-            if self.section_counter < 9:
-                self.section_counter = int(section_no)
+            if int(self.section_counter) < 9:
+                self.section_counter = str(int(section_no))
                 self.source = f"{book}{self.section_counter}"
                 self.sutta = f"{self.section}".lower()
 
         elif x["rend"] == "title":
             if x.text == "2. Dutiyavaggo":
-                self.section_counter = 10
+                self.section_counter = "10"
 
-        if x["rend"] == "subhead" and self.section_counter >= 9:
+        if x["rend"] == "subhead" and int(self.section_counter) >= 9:
             section, section_no = get_text_and_number_with_brackets3(x.text)
             self.section = section
             self.section_counter_alt = section_no

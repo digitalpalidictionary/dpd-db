@@ -11,13 +11,14 @@ import subprocess
 import sys
 import tomllib
 from pathlib import Path
+from typing import Any
 
 PROJECT_ROOT = Path(__file__).parent.parent
 PYPROJECT = PROJECT_ROOT / "pyproject.toml"
 JUSTFILE = PROJECT_ROOT / "justfile"
 
 
-def _tool_config(tool: str) -> dict:
+def _tool_config(tool: str) -> dict[str, Any]:
     with open(PYPROJECT, "rb") as f:
         return tomllib.load(f)["tool"][tool]
 
@@ -61,15 +62,53 @@ def test_pyrefly_python_version_matches_pyright() -> None:
     )
 
 
+def _sub_config_for(tree: str) -> dict[str, Any] | None:
+    for sub in _tool_config("pyrefly").get("sub-config", []):
+        if _normalise_exclude(sub["matches"]) == tree:
+            return sub
+    return None
+
+
+def _effective_errors(tree: str) -> dict[str, bool]:
+    """The error toggles that actually apply to ``tree``.
+
+    A sub-config overlays the root ``[errors]`` table rather than replacing it, so
+    reading the sub-config alone would miss a root-level toggle. Checking only the
+    sub-config would let someone disable an import code repo-wide while the test
+    guarding that code still passed.
+    """
+    merged: dict[str, bool] = dict(_tool_config("pyrefly").get("errors", {}))
+    sub = _sub_config_for(tree)
+    if sub is not None:
+        merged.update(sub.get("errors", {}))
+    return merged
+
+
 def test_pyrefly_excludes_cover_every_pyright_exclude() -> None:
-    """A tree pyright is told to skip must not be type-checked by pyrefly either."""
+    """A tree pyright skips must be skipped by pyrefly too — or checked under a
+    sub-config that turns the type-shape codes off, as tests/** is."""
     pyrefly_excludes = {
         _normalise_exclude(p) for p in _tool_config("pyrefly")["project-excludes"]
     }
     pyright_excludes = {
         _normalise_exclude(p) for p in _tool_config("pyright")["exclude"]
     }
-    assert pyright_excludes <= pyrefly_excludes
+    for tree in pyright_excludes - pyrefly_excludes:
+        assert _sub_config_for(tree) is not None, (
+            f"{tree} is checked by pyrefly with no sub-config"
+        )
+        silenced = [code for code, on in _effective_errors(tree).items() if on is False]
+        assert silenced, f"{tree} is checked by pyrefly but silences nothing"
+
+
+def test_tests_tree_is_still_checked_for_imports() -> None:
+    """tests/** trades type-shape checking for import checking — losing the import
+    half would re-open the hole that broke CI on 2026-07-27.
+    """
+    assert _sub_config_for("tests") is not None
+    effective = _effective_errors("tests")
+    for code in ("missing-module-attribute", "missing-import", "unbound-name"):
+        assert effective.get(code, True) is True, f"{code} must stay on in tests/"
 
 
 def test_typecheck_recipe_invokes_pyrefly() -> None:
