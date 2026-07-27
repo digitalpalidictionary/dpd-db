@@ -109,7 +109,7 @@ def make_abbreviations(g: GlobalVars) -> None:
     abbreviations_data = []
     for i in abbreviations_tsv:
         # leave out book names which have a double capital JA
-        if not re.findall(r"[A-Z][A-Za-z]", i.abbrev):
+        if not re.findall(r"[A-Z][A-Za-z]", i.abbrev or ""):
             abbreviations_data.append(i)
 
     g.typst_data.append("#heading(level: 1)[Abbreviations]\n")
@@ -325,10 +325,10 @@ def make_thanks(g: GlobalVars) -> None:
     thanks_data = []
     for i in thanks_tsv:
         # underlines <i> > __
-        i.what = i.what.replace("<i>", "_").replace("</i>", "_")
+        what: str = (i.what or "").replace("<i>", "_").replace("</i>", "_")
         # links
         i.what = (
-            i.what.replace("<a href=”", '#link("')
+            what.replace("<a href=”", '#link("')
             .replace("”>", '")[')
             .replace("</a>", "]")
         )

@@ -48,7 +48,7 @@ class PhoneticChangeManager:
             FileNotFoundError: If the TSV file does not exist.
         """
         self.tsv_path = Path(tsv_path)
-        self.rules: List[dict[str, str | List[str]]] = []
+        self.rules: List[dict[str, str | int | List[str]]] = []
         self._load_tsv()
 
     def _load_tsv(self) -> None:
@@ -104,7 +104,7 @@ class PhoneticChangeManager:
                 }
                 self.rules.append(rule)
 
-    def get_rules(self) -> List[dict[str, str | List[str]]]:
+    def get_rules(self) -> List[dict[str, str | int | List[str]]]:
         """Return the loaded rules.
 
         Returns:

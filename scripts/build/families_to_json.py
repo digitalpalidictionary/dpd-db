@@ -11,6 +11,7 @@ Usage:
 """
 
 import json
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -55,11 +56,12 @@ def main() -> None:
     pr.toc()
 
 
-def json_dumper(filepath: Path, data: dict[str, object]) -> None:
+def json_dumper(filepath: Path, data: Mapping[str, object]) -> None:
     """Write data as a `var <stem> = {...}` JS variable to filepath."""
-    js_content = (
-        f"""var {filepath.stem} = {json.dumps(data, ensure_ascii=False, indent=1)}"""
-    )
+    # dict() because json.dumps only serializes real dicts, while the Mapping
+    # annotation (needed for covariance in the value type) also admits UserDict
+    # and mappingproxy.
+    js_content = f"""var {filepath.stem} = {json.dumps(dict(data), ensure_ascii=False, indent=1)}"""
     filepath.write_text(js_content, encoding="utf-8")
 
 

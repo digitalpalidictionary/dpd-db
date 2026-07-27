@@ -32,7 +32,7 @@ class GlobalVars:
 
         self.all_headwords_clean: set[str]
 
-        self.tpr_data_list: list[dict[str, str]]
+        self.tpr_data_list: list[dict[str, str | int]]
         self.deconstructor_data_list: list[dict[str, str]]
         self.i2h_data_list: list[dict[str, str]]
 
@@ -319,9 +319,11 @@ def copy_zip_to_tpr_downloads(g: GlobalVars) -> None:
     pr.green_tmr("updating tpr_downloads")
 
     if not g.pth.tpr_download_list_path.exists():
+        pr.no("no repo")
         pr.red("tpr_downloads repo does not exist, download")
         pr.red("https://github.com/bksubhuti/tpr_downloads")
         pr.red("to /resources/ folder")
+        return
     else:
         with g.pth.tpr_download_list_path.open(encoding="utf-8") as f:
             download_list = json.load(f)

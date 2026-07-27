@@ -139,7 +139,7 @@ class DataAndLogic:
         tests = read_tsv_dot_dict(self.pth.internal_tests_path)
         for line in tests:
             if line.test_name == "family_compound empty taddhita":
-                return json.loads(line.exceptions)
+                return json.loads(line.exceptions or "[]")
         return []
 
     def should_process(self, i: DpdHeadword):

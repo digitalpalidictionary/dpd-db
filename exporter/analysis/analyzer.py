@@ -653,6 +653,9 @@ def get_word_details(
     # Sort results by completeness (desc) and lemma (asc)
     word_details.sort(key=lambda x: (-x["score"], x["lemma"]))
 
+    # pyrefly: ignore  # entries are built branch by branch and match the
+    # total=False AnalysisOption; annotating the accumulator instead makes
+    # pyright reject every append and the not-required key reads below.
     return word_details
 
 
@@ -770,7 +773,7 @@ def analyze_sentence(
 ) -> list[AnalysisResult]:
     """Analyze a Pāḷi sentence and return grammatical details for each word, including components."""
     tokens = tokenize_sentence(sentence)
-    results = []
+    results: list[AnalysisResult] = []
 
     for occurrence_index, token in enumerate(tokens):
         lookup_entry = (

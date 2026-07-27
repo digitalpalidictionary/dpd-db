@@ -2,6 +2,8 @@
 script via aksharamukha, plus Sinhala renderings of POS terms.
 Used by db inflections/lookup transliteration and BJT processing."""
 
+from typing import cast
+
 from aksharamukha import transliterate
 
 pos_dict = {
@@ -48,21 +50,29 @@ def pos_si_full(pos: str):
 
 
 def translit_ro_to_si(text: str) -> str:
-    return transliterate.process(
-        "IASTPali",
-        "Sinhala",
-        text,
-        post_options=["SinhalaPali", "SinhalaConjuncts"],
-    )  # type:ignore
+    # aksharamukha's process() is unannotated and falls through to None on an
+    # unknown script name; the script names here are constants, so it is a str.
+    return cast(
+        str,
+        transliterate.process(
+            "IASTPali",
+            "Sinhala",
+            text,
+            post_options=["SinhalaPali", "SinhalaConjuncts"],
+        ),
+    )
 
 
 def translit_si_to_ro(text: str) -> str:
-    text_translit: str = transliterate.process(
-        "Sinhala",
-        "IASTPali",
-        text,
-        post_options=["SinhalaPali", "SinhalaConjuncts"],
-    )  # type:ignore
+    text_translit: str = cast(
+        str,
+        transliterate.process(
+            "Sinhala",
+            "IASTPali",
+            text,
+            post_options=["SinhalaPali", "SinhalaConjuncts"],
+        ),
+    )
 
     text_translit = (
         text_translit.replace("ï", "i")

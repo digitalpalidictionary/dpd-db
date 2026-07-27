@@ -85,7 +85,14 @@ def get_gmail_service(pth: ProjectPaths):
 
     if not creds or not creds.valid:
         refreshed = False
-        if creds and creds.expired and creds.refresh_token:
+        # `creds and` keeps pyright's None-narrowing; the isinstance is what tells
+        # pyrefly that refresh_token exists on the concrete Credentials subclass.
+        if (
+            creds
+            and isinstance(creds, Credentials)
+            and creds.expired
+            and creds.refresh_token
+        ):
             try:
                 creds.refresh(Request())
                 refreshed = True

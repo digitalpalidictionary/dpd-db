@@ -73,7 +73,7 @@ def add_update_phonetic(
             if k == "line":
                 continue
             if k in ("exceptions", "not_in_constr", "not_in_lemma", "wrong"):
-                v = ", ".join(v) if v else "x"
+                v = ", ".join(v) if isinstance(v, list) and v else "x"
             print(f"[green]{str(k):<15}: [white]{str(v)}")
         print()
 
@@ -132,8 +132,10 @@ def add_update_phonetic(
                         hw.phonetic = str(rule["correct"])
                     elif res.status == "auto_update":
                         lines = hw.phonetic.split("\n")
+                        wrong = rule["wrong"]
+                        wrong_lines = wrong if isinstance(wrong, list) else []
                         new_lines = [
-                            str(rule["correct"]) if line in rule["wrong"] else line
+                            str(rule["correct"]) if line in wrong_lines else line
                             for line in lines
                         ]
                         hw.phonetic = "\n".join(new_lines)

@@ -5,29 +5,47 @@ from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dot_dict
 
 
+def _clean(value: str | None) -> str:
+    """Collapse stray whitespace in a TSV cell.
+
+    A newline inside a cell used to split the markdown mid-entry, stranding the
+    closing italic marker on its own line and breaking the published page.
+    """
+    return " ".join(value.split()) if value else ""
+
+
 def make_bibliography_md(pth: ProjectPaths) -> str:
     bibliography_data = ["# (An Incomplete) Bibliography\n"]
     bibliography_dict = read_tsv_dot_dict(pth.bibliography_tsv_path)
 
     for i in bibliography_dict:
+        category = _clean(i.category)
+        surname = _clean(i.surname)
+        firstname = _clean(i.firstname)
+        year = _clean(i.year)
+        title = _clean(i.title)
+        city = _clean(i.city)
+        publisher = _clean(i.publisher)
+        site = _clean(i.site)
+
         line = ""
 
-        if i.category:
-            line += f"## {i.category}\n\n"
-        if i.surname:
-            line += f"- **{i.surname}**"
-        if i.firstname:
-            line += f", {i.firstname}"
-        if i.year:
-            line += f", {i.year}"
-        if i.title:
-            line += f". *{i.title}*"
-        if i.city and i.publisher:
-            line += f", {i.city}: {i.publisher}"
-        elif i.publisher:
-            line += f", {i.publisher}"
-        if i.site:
-            line += f", accessed through [{i.site}]({i.site})"
+        if category:
+            line += f"## {category}\n\n"
+        if surname:
+            line += f"- **{surname}**"
+        if firstname:
+            line += f", {firstname}"
+        if year:
+            line += f", {year}"
+        if title:
+            line += f". *{title}*"
+        if city and publisher:
+            line += f", {city}: {publisher}"
+        elif publisher:
+            line += f", {publisher}"
+        if site:
+            line += f", accessed through [{site}]({site})"
         line += "\n"
         bibliography_data.append(line)
 

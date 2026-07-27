@@ -2,7 +2,7 @@ import re
 from tools.printer import printer as pr
 
 
-def generate_root_info_html(db_session, roots_db, bases_dict):
+def generate_root_info_html(db_session, roots_db, bases_dict: dict[str, set[str]]):
     """Create an html table of all info specific to a pali root."""
     pr.green_title("compiling root info")
 

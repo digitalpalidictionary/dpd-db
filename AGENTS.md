@@ -10,6 +10,10 @@ These rules are specific to the dpd-db project. Global rules (security, etc.) ar
 
 ## Kamma Concurrent Threads
 - Multiple kamma threads regularly run against this repo in the same working tree at once. Before staging a commit, snapshot `git status --porcelain` and cross-reference every entry against "did this thread touch this file" — stage by explicit file list, never `git add <dir>` or `git add -A`, which can silently sweep in another thread's uncommitted, unrelated changes.
+- **NEVER run `git stash`, `git checkout -- <path>`, `git restore`, or `git reset --hard` in this working tree.** These commands operate on the whole tree, not just your thread's files, and silently destroy other sessions' uncommitted work. This has actually happened: during the pyrefly thread (2026-07-27) another session's sweep wiped a completed phase three times — the third time it removed a `[tool.pyrefly]` config block, a `justfile` recipe, a dependency, twelve verified code fixes, and resurrected three files that had been deliberately deleted. Recovery cost more than the original work.
+- The damage is worst when a sweep lands **mid-thread**, because it reverts unevenly: some files come back, others don't. The result looks like a working tree, not a broken one. If your tool reports a file "was modified, either by the user or by a linter" and the content is your pre-edit version, treat it as a rollback and **audit every file you have touched** before continuing — do not assume the rest survived.
+- To test against a clean tree, use `git worktree add <path>` instead. It gives you an isolated checkout and cannot disturb anyone else.
+- If you genuinely need to discard your own changes, revert the specific files you edited by name, never a whole-tree command.
 
 ## Project Overview
 
@@ -174,6 +178,14 @@ Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/mode
 - The repo's pre-commit hook will reject the commit otherwise — fixing it after the fact wastes a round-trip.
 - If a related test file is broken from before your changes, note it but do not silently ignore — it may mask a regression you've just introduced.
 - The hook runs ruff + pyright on EVERY staged Python file (top-level `exclude:` in `.pre-commit-config.yaml` only covers `archive/`, `scripts/archive/`, `scripts/bash/`, `tools/writemdict/`). So editing any other file — even a one-line import swap — stages it and subjects its PRE-EXISTING lint errors to the gate, which blocks the commit. Before finishing, run `uv run ruff check <file>` + `uv run pyright <file>` on every touched file and fix ALL reported errors with real, behaviour-preserving fixes (narrow blind `except Exception`, direct boolean returns, `next(iter(d))`, etc.) — not `# noqa`. `gui2/` is pyright-excluded but NOT ruff-excluded, so it commonly carries pre-existing ruff violations that only surface when you touch the file.
+
+### Repo-wide type check: `just typecheck`
+- `just typecheck` runs **pyrefly** across the whole repo (config in `[tool.pyrefly]` in `pyproject.toml`). Run it before finishing any thread. CI enforces it on every push to `main` and every PR via `.github/workflows/typecheck.yml`.
+- **This is a different job from pyright, not a replacement.** pyright is the per-file commit gate; pyrefly is the whole-repo sweep. The pre-commit hook only ever sees the files you staged, so a change that breaks a caller in some other file passes the hook cleanly. pyrefly checks all ~390 production files in about 15 seconds, which is what makes a repo-wide gate affordable at all. pyrefly is deliberately NOT in `.pre-commit-config.yaml`.
+- **When the two disagree, pyright wins.** It scores higher on typing-spec conformance (97.8% vs 87.8%), so treat a pyrefly-only complaint as a checker limitation to suppress narrowly, not a bug to contort code around.
+- **A pyrefly fix is not done until `uv run pyright <file>` is also clean.** Satisfying one checker regularly breaks the other, and only pyright blocks the commit. This bit twice in one thread: annotating an accumulator as `list[AnalysisOption]` silenced pyrefly and produced 6 new pyright errors; swapping a `creds and ...` guard for `isinstance(...)` silenced pyrefly and cost pyright its None-narrowing. Run both, every time.
+- Suppress with `# pyrefly: ignore` **plus a reason on the same comment**, and only for genuine checker limitations — an unannotated upstream API (jinja2's `Environment.globals`), a `locals()` guard no checker models, `lru_cache` collapsing an overload set. Never to duck a real bug.
+- Excluded trees are listed in `[tool.pyrefly].project-excludes` and go beyond pyright's: `scripts/suttas/**` is excluded because it is one-off corpus extraction that no build recipe runs and nothing else imports.
 
 ---
 

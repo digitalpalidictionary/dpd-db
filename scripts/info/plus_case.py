@@ -54,7 +54,11 @@ def main():
         "count",
         "plus_case",
     ]
-    write_tsv_list(str(file_path), header, plus_case_count_list)
+    write_tsv_list(
+        str(file_path),
+        header,
+        [[str(count), case] for count, case in plus_case_count_list],
+    )
 
 
 if __name__ == "__main__":

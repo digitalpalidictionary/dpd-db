@@ -162,12 +162,15 @@ def _worker_init(
     worker, reused across every batch that worker handles."""
     global _WORKER_RENDER_DATA
     jinja_env = get_jinja2_env("exporter/goldendict/templates")
+    # pyrefly: ignore  # jinja2 leaves Environment.globals unannotated, so its
+    # value type infers as the union of jinja's own defaults; extending it is
+    # the documented usage.
     jinja_env.globals["show_tbw"] = render_data["show_tbw"]
-    _WORKER_RENDER_DATA = {
+    _WORKER_RENDER_DATA = DpdHeadwordRenderData(
         **render_data,
-        "pth": path,
-        "jinja_env": jinja_env,
-    }
+        pth=path,
+        jinja_env=jinja_env,
+    )
 
 
 def _render_batch(

@@ -47,6 +47,11 @@ def find_bjt_source_sutta_example(
     book_code = re.sub(r"\d", "", book).upper()
     sutta_counter: int = start_sutta_counter(book)
 
+    # Set here, not per file, so the existing carry-over between files is kept:
+    # a match before the first heading used to raise UnboundLocalError.
+    sutta_name: str = ""
+    sutta_subname: str = ""
+
     for bjt_dict in bjt_dicts:
         file_name = bjt_dict["filename"]
         pages = bjt_dict["pages"]

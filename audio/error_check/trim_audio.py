@@ -153,6 +153,8 @@ def trim_file(filepath: Path, start: float, end: float) -> bool:
     except Exception as e:  # noqa: BLE001
         pr.red(f"error trimming {filepath.name}: {e}")
         # Clean up temp file if it exists
+        # pyrefly: ignore  # the `in locals()` guard is exactly what makes this
+        # safe, but no type checker models it.
         if "temp_path" in locals() and temp_path.exists():
             temp_path.unlink()
         return False

@@ -7,6 +7,7 @@ so the workflow fails fast instead of silently producing a corrupt build.
 """
 
 import sys
+from typing import NoReturn
 
 import requests
 
@@ -20,7 +21,7 @@ RELEASES_URL = (
 )
 
 
-def fail(msg: str) -> "None":
+def fail(msg: str) -> NoReturn:
     pr.red(msg)
     sys.exit(1)
 

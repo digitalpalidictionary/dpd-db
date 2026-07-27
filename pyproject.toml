@@ -31,6 +31,7 @@ dev = [
     "pre-commit>=4.5.1",
     # starlette TestClient backend; no fastapi/starlette extra provides httpx2 (their extras pull old httpx)
     "httpx2>=2.3.0",
+    "pyrefly>=1.1.1",
 ]
 tools = [
     "pandas>=2.2.3",
@@ -83,6 +84,33 @@ build-backend = "hatchling.build"
 pythonVersion = "3.13"
 typeCheckingMode = "basic"
 exclude = ["gui2", "tools/writemdict", "tests", "archive", "tools/cst_source", "exporter/anki"]
+
+[tool.pyrefly]
+# Repo-wide type check (`just typecheck`), complementing the per-file pyright
+# pre-commit hook. Excludes mirror [tool.pyright] plus the trees pyright never
+# sees because it is only ever invoked on staged files.
+python-version = "3.13"
+project-includes = ["**/*.py"]
+project-excludes = [
+    "**/.venv/**",
+    "**/node_modules/**",
+    "**/__pycache__/**",
+    "**/archive/**",
+    "scripts/bash/**",
+    "gui2/**",
+    "tools/writemdict/**",
+    "tools/cst_source/**",
+    "exporter/anki/**",
+    "tests/**",
+    "kamma/**",
+    "conductor/**",
+    "resources/**",
+    "temp/**",
+    # One-off corpus extraction, run by hand and not by any build recipe. Nothing
+    # outside this tree imports it. Its 117 findings are three copy-pasted patterns
+    # in code the pipeline never executes, so gating on them buys nothing.
+    "scripts/suttas/**",
+]
 
 [tool.ruff]
 target-version = "py313"

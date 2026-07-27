@@ -63,7 +63,9 @@ class RootFamily:
             self.sanskrit_root_class = ""
             self.sanskrit_root_meaning = ""
         else:
-            self.root_group = i.rt.root_group
+            # str() to match the "" set on the error branch above; csv.DictWriter
+            # stringifies either way, so the written TSV is unchanged.
+            self.root_group = str(i.rt.root_group)
             self.root_sign = i.root_sign
             self.root_meaning = i.rt.root_meaning
             self.sanskrit_root = i.rt.sanskrit_root

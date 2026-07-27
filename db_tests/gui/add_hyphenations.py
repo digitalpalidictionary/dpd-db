@@ -188,9 +188,17 @@ class Data:
         ):
             return "nothing to replace"
 
+        # Both are Optional on the class; without a choice the queries below would
+        # search for None and the replace would raise.
+        spelling_choice = self.spelling_choice
+        if not spelling_choice:
+            return "no spelling choice selected"
+
         replacement_count = 0
         db_list = []
         for replace_me in self.spelling_other:
+            if not replace_me:
+                continue
             db = (
                 self.db_session.query(DpdHeadword)
                 .filter(DpdHeadword.example_1.contains(replace_me))
@@ -218,8 +226,8 @@ class Data:
                     (i.example_2, "example_2"),
                     (i.commentary, "commentary"),
                 ]:
-                    if replace_me in field:
-                        field_new = field.replace(replace_me, self.spelling_choice)
+                    if field and replace_me in field:
+                        field_new = field.replace(replace_me, spelling_choice)
 
                         setattr(i, field_name, field_new)
                         replacement_count += 1

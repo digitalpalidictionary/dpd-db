@@ -1120,6 +1120,7 @@ def _load_sutta_alias_map() -> dict[str, str]:
 # audio/bhashini_class.py), regardless of whether pre/post options are
 # passed. Neither module defines functions dynamically, so the scan result
 # is constant for the process lifetime; caching it benefits every caller.
+# pyrefly: ignore  # lru_cache collapses getmembers' overloads; correct at runtime
 transliterate.getmembers = lru_cache(maxsize=None)(inspect.getmembers)
 
 
@@ -1286,9 +1287,6 @@ class DpdHeadword(Base):
 
     @cached_property
     def lemma_ipa(self) -> str:
-        # from tools.ipa import convert_uni_to_ipa
-        # return convert_uni_to_ipa(self.lemma_clean, "ipa")
-
         return _lemma_ipa_transliterate(self.lemma_clean)
 
     # meaning construction

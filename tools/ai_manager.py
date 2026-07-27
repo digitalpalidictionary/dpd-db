@@ -184,7 +184,10 @@ class AIManager:
         provider_preference and model are not specified.
         Returns an AIResponse object.
         """
-        models_to_try = []
+        # 4-tuples come from the configured model lists; an explicit
+        # provider/model preference contributes a bare pair. Only [0] and [1] are
+        # read here — delay and timeout are looked up from the canonical lists.
+        models_to_try: list[tuple[str, str] | tuple[str, str, int, float]] = []
         errors: list[str] = []
 
         # A forced antigravity_cli request must wait for the background probe,

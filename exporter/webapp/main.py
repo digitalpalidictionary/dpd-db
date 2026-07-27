@@ -66,6 +66,9 @@ with get_db() as db_session:
 
 # Set up templates
 templates = Jinja2Templates(directory=str(pth.webapp_templates_dir))
+# pyrefly: ignore  # jinja2 leaves Environment.globals unannotated, so its value
+# type infers as the union of jinja's own defaults; extending it is the
+# documented usage.
 templates.env.globals["show_tbw"] = config_test("dictionary", "show_tbw", "yes")
 
 # Update CSS

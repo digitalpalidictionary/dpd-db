@@ -100,6 +100,10 @@ lint:
     uv run ruff check . --exclude archive --exclude resources
     uv run ruff format . --exclude archive --exclude resources
 
+# Run pyrefly type checker across the whole repo (config in pyproject.toml)
+typecheck:
+    uv run pyrefly check
+
 # Show project version
 version:
     uv run python tools/version.py

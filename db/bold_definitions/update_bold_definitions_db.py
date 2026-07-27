@@ -39,7 +39,7 @@ def main():
         add_to_db.append(bd)
 
         if count % 50000 == 0:
-            pr.counter(count, len(bold_definitions), i.bold)
+            pr.counter(count, len(bold_definitions), i.bold or "")
 
     pr.green_tmr("adding to db")
     db_session.execute(BoldDefinition.__table__.delete())  # type: ignore

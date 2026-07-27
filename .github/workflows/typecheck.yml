@@ -1,0 +1,43 @@
+name: "Test: Type Check"
+
+# Repo-wide pyrefly type check. The pre-commit hook only runs pyright on the
+# files being staged, so nothing else checks the codebase as a whole — a change
+# that breaks a caller in another file passes the hook and lands on main.
+# pyrefly checks the whole repo in seconds, which is what makes this affordable.
+# Config (includes, excludes, python version) lives in [tool.pyrefly] in
+# pyproject.toml, so `just typecheck` here is identical to running it locally.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      # No submodules: resources/ is excluded from type checking, and cloning it
+      # would dominate the runtime of an otherwise ~1 minute job.
+      uses: actions/checkout@v5
+      with:
+        submodules: false
+        fetch-depth: 1
+
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: "3.13"
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install dependencies
+      run: uv sync --all-groups
+
+    - name: Install just
+      uses: extractions/setup-just@v3
+
+    - name: Type check
+      run: just typecheck

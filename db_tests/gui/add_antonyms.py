@@ -56,7 +56,9 @@ class UiManager:
 
     def show_all_matching_words(self):
         words = {
-            word for word in self.all_words if word.startswith(self.antonym_field.value)
+            word
+            for word in self.all_words
+            if word.startswith(self.antonym_field.value or "")
         }
         if words:
             words = sorted(words, key=len)[:20]
@@ -65,8 +67,8 @@ class UiManager:
             self.results_field.value = "-"
         self.page.update()
 
-    def make_all_words_set(self):
-        all_words_set = set()
+    def make_all_words_set(self) -> set[str]:
+        all_words_set: set[str] = set()
         with open(self.pth.cst_wordlist, encoding="utf-8") as f:
             all_words_set.update(set(load(f)))
         with open(self.pth.bjt_wordlist, encoding="utf-8") as f:
