@@ -6,6 +6,7 @@
 - **Cone**, Margaret, 2001. *A Dictionary of Pāli Part I a-kh*, Oxford: Pāli Text Society
 - **Cone**, Margaret, 2010. *A Dictionary of Pāli Part II g-n*, Oxford: Pāli Text Society
 - **Cone**, Margaret, 2020. *A Dictionary of Pāli Part III p-bh*, Oxford: Pāli Text Society
+- **Malalasekera**, G. P., 1937-1938. *Dictionary of Pāli Proper Names*, London: John Murray, accessed through [https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm)
 - **Rhys Davids**, T. W. & Stede,William (editors), 1921-1925. *Pali-English Dictionary*, Chipstead: Pāli Text Society
 - **Trenckner**, V, et al., 1925 -2010. *A Critical Pāli Dictionary*, Copenhagen: The Royal Danish Academy, accessed through [https://cpd.uni-koeln.de/](https://cpd.uni-koeln.de/)
 
@@ -35,10 +36,11 @@
 - **Buddhadatta**, Ven. A.P., 2020. *The New Pali Course Parts 3*, Dehiwala: Buddhist Cultural Centre
 - **Duroiselle**, Charles, 2007. *A Practical Grammar of the Pali Language (Fourth Edition)*, accessed through [https://palistudies.blogspot.com/p/a-practical-grammar-of-pali-language.html](https://palistudies.blogspot.com/p/a-practical-grammar-of-pali-language.html)
 - **Geiger**, Wilhelm, 2005. *A Pāli Grammar*, Oxford: Pāli Text Society
-- **Oberlies**, Thomas , 2001. *Pali:A Grammar of the Language of the Theravada Tipitaka, With a Concordance to Pischel's Grammatik der Prakrit-Sprachen*, Berlin: Walter de Gruyter
+- **Oberlies**, Thomas, 2001. *Pali:A Grammar of the Language of the Theravada Tipitaka, With a Concordance to Pischel's Grammatik der Prakrit-Sprachen*, Berlin: Walter de Gruyter
+- **Oberlies**, Thomas, 2019. *Pāli Grammar: The Language of the Canonical Texts of Theravāda Buddhism. Vol. I: Phonology and Morphology*, Bristol: Pāli Text Society
+- **Oberlies**, Thomas, 2019. *Pāli Grammar: The Language of the Canonical Texts of Theravāda Buddhism. Vol. II: Conspectus of Verbs and Verb Forms, Indexes and Bibliography*, Bristol: Pāli Text Society
 - **Perniola**, V., 1997. *Pali Grammar*, Oxford: Pāli Text Society
-- **Silananda**, Sayadaw U & Nandisena, U (Editor), 2002. *Pali Roots in Saddanīti Dhātu-Mālā compared with Pāṇinīya-Dhātupāṭha
-*
+- **Silananda**, Sayadaw U & Nandisena, U (Editor), 2002. *Pali Roots in Saddanīti Dhātu-Mālā compared with Pāṇinīya-Dhātupāṭha*
 
 ## English Translations (incomplete)
 
@@ -58,18 +60,19 @@
 - **Thanissaro**, Bhikkhu, 2017. *Handful of Leaves: An Anthology from the Sutta Piṭaka (Revised Edition)*, Metta Forest Monastery, accessed through [https://www.dhammatalks.org/suttas/index.html](https://www.dhammatalks.org/suttas/index.html)
 - **Walshe**, Maurice, 1986. *The Long Discourses of the Buddha: A Translation of the Dīgha Nikāya*, Boston: Wisdom Publications
 
-## Academic Papers (incomplete)
+## Academic Books & Papers (incomplete)
 
 - **Deokar**, Mahesh A., 2008. *Technical Terms And Technique Of The Pali And The Sanskrit Grammars*, Sarnath, Varanasi: Central Institute of Higher Tibetan Studies
 
 - **Deokar**, Mahesh A., 2012. *Some Probable Sanskrit Sources of the Pali Grammarians With Special Reference to Aggavamsa*, New Delhi: DK Printworld
 - **Jones**, Dhivan, 2021. *Translating Paṭicca-samuppāda in Early Buddhism*, Albany: State University of New York Press
-- **Karpik**, Stefan, 2023. *Light on Epigraphic Pali:  More on the Buddha Teaching in Pali*, Oxford: Oxford Centre for Buddhist Studies
-- **Pandita**, Ven., 2015. *Pali Adjectives: When Progress Hurts
-*, Unpublished
+- **Levman**, Bryan, 2020. *Pāli, the Language: The Medium and Message*, Newcastle upon Tyne: Cambridge Scholars Publishing
+- **Levman**, Bryan, 2021. *Pāli and Buddhism: Language and Lineage*, Newcastle upon Tyne: Cambridge Scholars Publishing
+- **Karpik**, Stefan, 2023. *Light on Epigraphic Pali: More on the Buddha Teaching in Pali*, Oxford: Oxford Centre for Buddhist Studies
+- **Pandita**, Ven., 2015. *Pali Adjectives: When Progress Hurts*, Unpublished
 - **Pind**, Ole Holten, 1995. *Pāli and the Pāli Garmmarians: The Method of the Pāli Grammarians*, Stockholm: Association of Oriental Studies
 
-- **Wijesekera**, O.H. De A. , 1993. *Syntax of the Cases in the Pali Nikayas*, Kelaniya: The Postgraduate Institute of Pali and Buddhist Studies, University of Kelaniya, accessed through [https://www.ancient-buddhist-texts.net/Textual-Studies/Syntax-of-the-Cases/index.htm](https://www.ancient-buddhist-texts.net/Textual-Studies/Syntax-of-the-Cases/index.htm)
+- **Wijesekera**, O.H. De A., 1993. *Syntax of the Cases in the Pali Nikayas*, Kelaniya: The Postgraduate Institute of Pali and Buddhist Studies, University of Kelaniya, accessed through [https://www.ancient-buddhist-texts.net/Textual-Studies/Syntax-of-the-Cases/index.htm](https://www.ancient-buddhist-texts.net/Textual-Studies/Syntax-of-the-Cases/index.htm)
 
 
 ## Open Source Software
