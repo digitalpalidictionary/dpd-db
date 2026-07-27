@@ -527,6 +527,18 @@ class ProjectPaths:
             base_dir / "resources/other-dictionaries/dictionaries/dpr/source/dpr.json"
         )
 
+        # resources/other-dictionaries/dictionaries/nyanatiloka
+        self.nyanatiloka_css_path = (
+            base_dir
+            / "resources/other-dictionaries/dictionaries/nyanatiloka/nyanatiloka.css"
+        )
+
+        # resources/other-dictionaries/dictionaries/nyanatiloka/source
+        self.nyanatiloka_source_path = (
+            base_dir
+            / "resources/other-dictionaries/dictionaries/nyanatiloka/source/nyanatiloka.json"
+        )
+
         # resources/other-dictionaries/dictionaries/mw
         self.mw_css_path = (
             base_dir / "resources/other-dictionaries/dictionaries/mw/mw.css"

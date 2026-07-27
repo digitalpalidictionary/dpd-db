@@ -18,6 +18,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | DPR Analysis | [dpr-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-gd.zip) |
 | Margaret Cone Dictionary | [cone-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-gd.zip) |
 | Monier Williams (Cologne) | [mw-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-gd.zip) |
+| Nyanatiloka's Buddhist Dictionary | [nyanatiloka-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/nyanatiloka-gd.zip) |
 | Pali English Ultimate | [peu-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-gd.zip) |
 | Simsapa Combined Dictionary | [simsapa-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/simsapa-gd.zip) |
 | Sinhala-English-Sinhala | [sin-eng-sin-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/sin-eng-sin-gd.zip) |
@@ -37,6 +38,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | DPR Analysis | [dpr-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-mdict.zip) |
 | Margaret Cone Dictionary | [cone-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-mdict.zip) |
 | Monier Williams (Cologne) | [mw-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-mdict.zip) |
+| Nyanatiloka's Buddhist Dictionary | [nyanatiloka-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/nyanatiloka-mdict.zip) |
 | Pali English Ultimate | [peu-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-mdict.zip) |
 | Simsapa Combined Dictionary | [simsapa-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/simsapa-mdict.zip) |
 | Sinhala-English-Sinhala | [sin-eng-sin-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/sin-eng-sin-mdict.zip) |
@@ -62,6 +64,9 @@ PEU is a project in progress to translate the Abhidhan's definitions into Englis
 
 ## Dictionary of Pāli Proper Names (DPPN)
 The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti in June 2025. It is available online from his website, [Ancient Buddhist Texts](https://ancient-buddhist-texts.net/Textual-Studies/DPPN/index.htm){target="_blank"} or via the links above for offline use.
+
+## Nyanatiloka's Buddhist Dictionary
+*Buddhist Dictionary: Manual of Buddhist Terms and Doctrines* by Nyanatiloka Mahathera, 4th revised edition, edited by Nyanaponika Mahathera, Buddhist Publication Society, 1980. The full text is hosted at [dhammatalks.net](https://www.dhammatalks.net/Buddhist.Dictionary/){target="_blank"}; the links above package it for offline use. It is also one of the four dictionaries combined (without individual attribution) inside the Simsapa Combined Dictionary above.
 
 ## CST Bold Definitions
 These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd&q1=&q2=&option=regex){target="_blank"}.

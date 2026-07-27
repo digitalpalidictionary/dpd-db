@@ -344,6 +344,10 @@ def _canonicalize_cpd_headword(headword: str) -> str:
     return headword.replace("ṁ", "ṃ")
 
 
+_DPPN_BOLD_RE = re.compile(r"<b>(.*?)</b>", re.DOTALL)
+_DPPN_EMPTY_HEAD_RE = re.compile(r'<span class="Head">\s*\.?\s*</span>')
+
+
 def _load_peu_dump(path: Path) -> dict[str, str]:
     """Parse the PEU JS data dump (``var pm12e = {...};``) into a dict.
 
@@ -680,6 +684,142 @@ def export_other_dictionaries(
         pr.yes(len(batch))
     else:
         raise _missing_source_error("BHS", g.pth.bhs_source_path)
+
+    # --- DPPN (Dictionary of Pāli Proper Names) ---
+    pr.green_tmr("exporting DPPN")
+
+    if not g.pth.dppn_source_path.exists():
+        raise _missing_source_error("DPPN", g.pth.dppn_source_path)
+
+    with g.pth.dppn_source_path.open(encoding="utf-8") as f:
+        dppn_json: list[dict[str, str]] = json.load(f)
+
+    dppn_css = ""
+    if g.pth.dppn_css_path.exists():
+        dppn_css = _sanitize_css(g.pth.dppn_css_path.read_text(encoding="utf-8"))
+
+    batch = []
+    for item in dppn_json:
+        name = item["name"]
+
+        # Heading3 entries are alphabet dividers from the printed layout.
+        if 'class="Heading3"' in name:
+            continue
+
+        bold = _DPPN_BOLD_RE.search(name)
+        if bold is None:
+            continue
+
+        word = bold.group(1).strip().replace("ṁ", "ṃ")
+
+        # The headword is already shown above the entry in the app, so drop it
+        # from the head line but keep the references and numbering beside it.
+        html_body = (name + item["entry"]).replace(bold.group(0), "", 1)
+        html_body = _DPPN_EMPTY_HEAD_RE.sub("", html_body, count=1)
+        html_body = html_body.replace("ṁ", "ṃ")
+
+        word_fuzzy = _strip_diacritics_mobile(word)
+        batch.append(("dppn", word, word_fuzzy, html_body, ""))
+
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
+
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (
+            "dppn",
+            "Dictionary of Pāli Proper Names",
+            "G. P. Malalasekera, revised by Ānandajoti Bhikkhu",
+            dppn_css,
+            len(batch),
+        ),
+    )
+
+    pr.yes(len(batch))
+
+    # --- Apte (Practical Sanskrit-English Dictionary, Cologne source) ---
+    pr.green_tmr("exporting Apte")
+
+    if not g.pth.apte_source_json_path.exists():
+        raise _missing_source_error("Apte", g.pth.apte_source_json_path)
+
+    with g.pth.apte_source_json_path.open(encoding="utf-8") as f:
+        apte_data: list[dict[str, str]] = json.load(f)
+
+    apte_css = ""
+    if g.pth.apte_css_path.exists():
+        apte_css = _sanitize_css(g.pth.apte_css_path.read_text(encoding="utf-8"))
+
+    batch = []
+    for entry in apte_data:
+        word = entry["word"]
+        word_fuzzy = _strip_diacritics_mobile(word)
+        batch.append(("apte", word, word_fuzzy, entry["definition_html"], ""))
+
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
+
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (
+            "apte",
+            "Apte Practical Sanskrit-English Dictionary, 1890",
+            "Vaman Shivram Apte",
+            apte_css,
+            len(batch),
+        ),
+    )
+
+    pr.yes(len(batch))
+
+    # --- Nyanatiloka's Buddhist Dictionary ---
+    pr.green_tmr("exporting Nyanatiloka's Buddhist Dictionary")
+
+    if not g.pth.nyanatiloka_source_path.exists():
+        raise _missing_source_error("Nyanatiloka", g.pth.nyanatiloka_source_path)
+
+    with g.pth.nyanatiloka_source_path.open(encoding="utf-8") as f:
+        nyanatiloka_data: list[dict[str, str]] = json.load(f)
+
+    nyanatiloka_css = ""
+    if g.pth.nyanatiloka_css_path.exists():
+        nyanatiloka_css = _sanitize_css(
+            g.pth.nyanatiloka_css_path.read_text(encoding="utf-8")
+        )
+
+    batch = []
+    for entry in nyanatiloka_data:
+        word = entry["word"]
+        word_fuzzy = _strip_diacritics_mobile(word)
+        batch.append(("nyanatiloka", word, word_fuzzy, entry["definition_html"], ""))
+
+    dest.executemany(
+        "INSERT INTO dict_entries (dict_id, word, word_fuzzy, definition_html, definition_plain)"
+        " VALUES (?, ?, ?, ?, ?)",
+        batch,
+    )
+
+    dest.execute(
+        "INSERT INTO dict_meta (dict_id, name, author, css, entry_count)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (
+            "nyanatiloka",
+            "Buddhist Dictionary: Manual of Buddhist Terms and Doctrines",
+            "Nyanatiloka Mahathera, ed. Nyanaponika Mahathera",
+            nyanatiloka_css,
+            len(batch),
+        ),
+    )
+
+    pr.yes(len(batch))
 
 
 def write_schema_version(dest: sqlite3.Connection) -> None:
