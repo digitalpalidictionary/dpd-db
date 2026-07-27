@@ -6,7 +6,7 @@ import re
 
 from exporter.analysis.paths import ensure_analysis_dirs
 from tools.example_cleaning import clean_example
-from tools.cst_source import find_cst_source_sutta_example
+from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager

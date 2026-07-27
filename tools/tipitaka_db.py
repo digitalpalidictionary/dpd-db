@@ -4,6 +4,7 @@ search and gui2's translations view; run directly for a TUI search or a
 table comparison."""
 
 import re
+from importlib import import_module
 from typing import Any, cast
 
 from bs4 import BeautifulSoup
@@ -41,10 +42,12 @@ def ensure_db_exists():
         pr.green("Setting up database from GitHub releases...")
 
         try:
-            # Import and run the unzip script which handles download from GitHub releases
-            from resources.tipitaka_translation_db.download_and_unzip_db import (
-                main as unzip_main,
-            )
+            # Import and run the unzip script which handles download from GitHub
+            # releases. Dynamic because resources/ is a submodule that may not be
+            # checked out.
+            unzip_main = import_module(
+                "resources.tipitaka_translation_db.download_and_unzip_db"
+            ).main
 
             unzip_main()
 

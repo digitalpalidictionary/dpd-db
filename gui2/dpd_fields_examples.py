@@ -8,10 +8,8 @@ from gui2.flet_functions import (
 )
 from gui2.toolkit import ToolKit
 from tools.clean_sentence import split_pali_sentence_into_words
-from tools.cst_source import (
-    CstSourceSuttaExample,
-    find_cst_source_sutta_example,
-)
+from tools.cst_source.extractor import find_cst_source_sutta_example
+from tools.cst_source.models import CstSourceSuttaExample
 from tools.speech_marks import SpeechMarkManager
 
 MAX_SEARCH_RESULTS = 100

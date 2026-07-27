@@ -2,7 +2,7 @@ import json
 
 from gui2.books import SuttaCentralSegment
 from gui2.paths import Gui2Paths
-from tools.cst_source import CstSourceSuttaExample
+from tools.cst_source.models import CstSourceSuttaExample
 from tools.printer import printer as pr
 
 

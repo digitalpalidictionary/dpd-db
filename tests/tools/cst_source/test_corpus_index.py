@@ -10,12 +10,12 @@ real book (including gatha examples).
 
 import pytest
 
-from tools.cst_source import find_cst_source_sutta_example
 from tools.cst_source.corpus_index import (
     CstSourceIndex,
     IndexRow,
     _search_book_rows,
 )
+from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.cst_source.models import CstSourceSuttaExample
 
 

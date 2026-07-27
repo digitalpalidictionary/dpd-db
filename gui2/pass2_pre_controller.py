@@ -10,10 +10,8 @@ from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.variants import VariantReadingFileManager
 from tools.cst_sc_text_sets import make_cst_text_list
-from tools.cst_source import (
-    CstSourceSuttaExample,
-)
 from tools.cst_source.corpus_index import CstSourceIndex
+from tools.cst_source.models import CstSourceSuttaExample
 from tools.goldendict_tools import open_in_goldendict
 
 

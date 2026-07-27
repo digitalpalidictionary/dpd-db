@@ -11,7 +11,7 @@ standalone (book/file coverage, determinism, and a few captured output counts).
 
 import pytest
 
-from tools.cst_source import find_cst_source_sutta_example
+from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
 

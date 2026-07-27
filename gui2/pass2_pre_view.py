@@ -7,7 +7,7 @@ from gui2.flet_functions import highlight_terms
 from gui2.pass2_exceptions import Pass2ExceptionsFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
-from tools.cst_source import CstSourceSuttaExample
+from tools.cst_source.models import CstSourceSuttaExample
 
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
