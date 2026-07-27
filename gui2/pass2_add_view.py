@@ -27,7 +27,9 @@ from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
 from scripts.find.missing_meanings import find_missing_meanings
+from tools.dharmamitra_client import get_contextual_gloss
 from tools.fast_api_utils import request_dpd_server
+from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager
 
 LABEL_WIDTH = 250
@@ -171,6 +173,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
             label="Missing Words",
             value=True,
         )
+        self._dharmamitra_gloss_switch = ft.Switch(
+            label="Dharmamitra Gloss",
+            value=False,
+        )
         self._action_menu_button = ft.PopupMenuButton(
             icon=ft.Icons.ARROW_DROP_DOWN,
             tooltip="Actions",
@@ -185,6 +191,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 ),
                 ft.PopupMenuItem(),  # divider
                 ft.PopupMenuItem(content=self._missing_words_switch),
+                ft.PopupMenuItem(content=self._dharmamitra_gloss_switch),
             ],
         )
 
@@ -469,10 +476,34 @@ class Pass2AddView(ft.Column, PopUpMixin):
                             str(self.headword.id)
                         )
                         self.dpd_fields.update_add_fields(to_add)
+
+                    self._apply_dharmamitra_gloss(self.headword)
             else:
                 self.update_message("headword not found")
         else:
             self.update_message("you're shooting blanks")
+
+    def _apply_dharmamitra_gloss(self, headword: DpdHeadword) -> None:
+        """Fetch a contextual word gloss from Dharmamitra into meaning_1_add, if enabled."""
+        if not self._dharmamitra_gloss_switch.value:
+            return
+
+        example_sentence = headword.example_1 or headword.example_2
+        if not example_sentence:
+            pr.amber(
+                f"dharmamitra gloss: no example for {headword.lemma_clean}, skipping"
+            )
+            return
+
+        pr.cyan_tmr(f"dharmamitra gloss: querying API for {headword.lemma_clean}")
+        gloss = get_contextual_gloss(example_sentence, headword.lemma_clean)
+        if gloss is None:
+            pr.no("failed")
+            self.update_message("dharmamitra gloss failed")
+            return
+
+        pr.yes("done")
+        self.dpd_fields.update_add_fields({"meaning_1": gloss})
 
     def _click_clone_headword(self, e: ft.ControlEvent) -> None:
         """Fetches a headword and adds its data to empty fields in the current view."""
