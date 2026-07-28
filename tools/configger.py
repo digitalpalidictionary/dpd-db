@@ -93,6 +93,7 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
         "exporter": {
             "make_grammar": "yes",
             "make_deconstructor": "yes",
+            "make_variants": "yes",
             "make_ebook": "yes",
             "make_tpr": "yes",
             "make_mobile": "yes",
