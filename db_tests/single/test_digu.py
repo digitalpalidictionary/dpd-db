@@ -236,6 +236,7 @@ def printer_pass2(g: GlobalVars) -> None:
 
 def main() -> None:
     """Run the digu-candidate finder over all headwords."""
+    pr.tic()
     pr.yellow_title("find all digu samāsa")
 
     g = GlobalVars()
@@ -243,6 +244,7 @@ def main() -> None:
     # fix_kammadhāraya(g)
     # fix_no_compound(g)
     fix_other_compounds(g)
+    pr.toc()
 
 
 if __name__ == "__main__":

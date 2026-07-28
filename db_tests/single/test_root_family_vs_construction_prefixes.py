@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 
 class GlobalVars:
@@ -57,6 +58,7 @@ class GlobalVars:
 
 
 def main():
+    pr.tic()
     print("[bright_yellow]test root family prefix vs construction prefix")
     g = GlobalVars()
     for i in g.db:
@@ -66,6 +68,8 @@ def main():
             continue
         g.update_prog_data(i)
         test_logic(g)
+
+    pr.toc()
 
 
 def test_logic(g: GlobalVars):

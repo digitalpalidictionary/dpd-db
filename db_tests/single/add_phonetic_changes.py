@@ -231,6 +231,7 @@ def list_all_phonetic_changes(
 
 
 if __name__ == "__main__":
+    pr.tic()
     pr.yellow_title("add phonetic changes")
     pth = ProjectPaths()
 
@@ -248,6 +249,8 @@ if __name__ == "__main__":
             break
         print("\n[yellow]Rerunning with fresh data...\n")
     # finder(db, manager, "ṃs > s")
+
+    pr.toc()
 
 # FIXME test for xyz not in base
 # FIXME test for xyz not in construction

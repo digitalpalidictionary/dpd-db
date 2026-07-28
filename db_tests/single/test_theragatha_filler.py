@@ -11,10 +11,12 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 
 def main() -> None:
     """Walk the Theragāthā monk-name id range and track review progress."""
+    pr.tic()
     print("[bright_yellow]fill details of theragāthā monks")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -49,6 +51,7 @@ def main() -> None:
 
     print_done(done_list)
     save_done_list(pth, done_list)
+    pr.toc()
 
 
 def load_done_list(pth: ProjectPaths) -> list[int]:

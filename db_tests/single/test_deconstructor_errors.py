@@ -24,6 +24,7 @@ def parse_deconstructions(json_str: str) -> list[str] | None:
 
 
 def main() -> None:
+    pr.tic()
     pr.yellow_title("find errors in deconstructions")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -53,6 +54,7 @@ def main() -> None:
                     pr.red(f"{i.lookup_key} invalid letter: {letter} ")
 
     print(error_letters)
+    pr.toc()
 
 
 if __name__ == "__main__":

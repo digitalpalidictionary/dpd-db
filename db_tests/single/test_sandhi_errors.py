@@ -75,6 +75,7 @@ def prompt_errors(
 
 def main() -> None:
     """Find and review inconsistent sandhi contractions in speech_marks.json."""
+    pr.tic()
     pr.yellow_title("test sandhi contraction errors")
     pth = ProjectPaths()
     exceptions = load_exceptions(pth)
@@ -88,6 +89,7 @@ def main() -> None:
     flagged = find_sandhi_errors(speech_marks, exceptions)
     pr.green_title(f"found {len(flagged)} words with inconsistent contractions")
     prompt_errors(pth, exceptions, flagged)
+    pr.toc()
 
 
 if __name__ == "__main__":

@@ -17,6 +17,7 @@ from tools.printer import printer as pr
 
 def main() -> None:
     """Find sukha/dukkha headwords missing their antonym and review them."""
+    pr.tic()
     pr.yellow_title("find sukha dukkha antonyms")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -65,6 +66,8 @@ def main() -> None:
             if choice == "e":
                 tried.append(i.lemma_1)
                 write_tried(pth, tried)
+
+    pr.toc()
 
 
 def test_sukh(i: DpdHeadword, tried: list[str]) -> bool:

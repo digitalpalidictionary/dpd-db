@@ -150,12 +150,15 @@ def reorder_grammar(g: GlobalVars) -> None:
 
 def main() -> None:
     """Find and fix (gram) meanings not in last position among numbered homonyms."""
+    pr.tic()
     pr.yellow_title("test for (gram) not in last position")
     g = GlobalVars()
     find_all_lemma_with_gram(g)
     test_last_position(g)
     if g.fix_me_total > 0:
         reorder_grammar(g)
+
+    pr.toc()
 
 
 if __name__ == "__main__":

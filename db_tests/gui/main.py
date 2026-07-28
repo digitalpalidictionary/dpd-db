@@ -6,6 +6,7 @@ from db_tests.gui.add_family_compound_neg import add_fc_neg
 from db_tests.gui.add_family_compound_su_dur import add_fc_su_dur
 from db_tests.gui.add_family_compound_taddhita import add_fc_taddhita
 from db_tests.gui.add_hyphenations import add_hyphenations
+from tools.printer import printer as pr
 
 
 class TestRunner:
@@ -161,4 +162,6 @@ def main(page: ft.Page):
     page.overlay.append(side_panel)
 
 
+pr.tic()
 ft.app(target=main)
+pr.toc()

@@ -14,6 +14,7 @@ from tools.pali_alphabet import (
     sanskrit_alphabet,
 )
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 from tools.unicode_char import unicode_char
 
 
@@ -742,6 +743,7 @@ class AllowableCharacters:
 
 
 def main() -> None:
+    pr.tic()
     print("[bright_yellow]testing allowable characters in all fields")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -791,6 +793,8 @@ def main() -> None:
             if error_list:
                 pyperclip.copy(db_search_string(error_list))
                 print("[green]db search string copied to clipboard")
+
+    pr.toc()
 
 
 def test_allowable_characters_gui(values: dict[str, str]) -> dict[str, str]:

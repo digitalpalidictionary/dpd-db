@@ -264,6 +264,7 @@ def printer(g: GlobalVars, message: str) -> None:
 
 def main() -> None:
     """Run pass 1 (silent tally) then pass 2 (interactive review) over all headwords."""
+    pr.tic()
     pr.yellow_title("test bold in examples are real inflections")
 
     g = GlobalVars()
@@ -300,6 +301,8 @@ def main() -> None:
                             test1(g)
                             if g.exit:
                                 break
+
+    pr.toc()
 
 
 if __name__ == "__main__":

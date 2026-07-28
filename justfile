@@ -60,6 +60,10 @@ test:
 db-test:
     uv run python db_tests/db_tests_relationships.py
 
+# Run every db test in sequence, pausing between each
+db-tests:
+    uv run python db_tests/run_all_tests.py
+
 # Run phonetic changes test
 test-phonetic:
     uv run python -m db_tests.single.add_phonetic_changes
