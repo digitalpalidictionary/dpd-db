@@ -51,5 +51,4 @@ echo "App started in background."
 echo "Check logs with: tail -f $LOG_FILE"
 ps -ef | grep uvicorn | grep -v grep
 
-# Run this locally, not on the server
-# scp scripts/server/update-dpd.sh django@85.215.66.115:~/update-dpd.sh
+# To deploy this file, run `just dpdict-push` locally, not on the server

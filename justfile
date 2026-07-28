@@ -298,41 +298,31 @@ showlog:
     latest_file=$(ls -t logs/* | head -1)
     xdg-open "$latest_file"
 
-# ===== SERVER =====
+# ===== DPDICT SERVER =====
 
-# SSH into the dpdict.net server (login string from config.ini [server])
-ssh:
+# Print user@host for the dpdict.net server from config.ini [dpdict_server]
+_dpdict-login:
     #!/usr/bin/env bash
     set -e
-    login=$(uv run python -c "from tools.configger import config_read; print(config_read('server', 'login') or '')")
-    if [ -z "$login" ]; then
-        echo "No 'login' in the [server] section of config.ini" >&2
-        exit 1
-    fi
-    exec $login
+    login=$(uv run python -c "from tools.configger import config_read; print(f\"{config_read('dpdict_server', 'user')}@{config_read('dpdict_server', 'host')}\")")
+    case "$login" in
+        None@*|*@None|*None*) echo "Set user and host in the [dpdict_server] section of config.ini" >&2; exit 1 ;;
+    esac
+    echo "$login"
 
-# Complete server update: code, data, db, search index, restart
-server-update:
+# SSH into the dpdict.net server
+dpdict-ssh:
     #!/usr/bin/env bash
     set -e
-    git pull
-    uv sync
-    uv run python audio/db_release_download.py
-    wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
-    uv run exporter/webapp/generate_search_index.py
-    pkill -f "uvicorn exporter.webapp.main:app" || true
-    sleep 2
-    mkdir -p logs
-    nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log" 2>&1 &
+    exec ssh "$(just _dpdict-login)"
 
-# Quick reload: pull code and restart server
-server-reload:
+# Copy the latest update-dpd.sh to the dpdict.net server
+dpdict-push:
     #!/usr/bin/env bash
-    git pull
-    pkill -f "uvicorn exporter.webapp.main:app" || true
-    sleep 2
-    mkdir -p logs
-    nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log" 2>&1 &
+    set -e
+    login=$(just _dpdict-login)
+    scp scripts/server/update-dpd.sh "$login:~/update-dpd.sh"
+    ssh "$login" "chmod +x ~/update-dpd.sh"
 
 # ===== CONE DICTIONARY IMPORT =====
 
