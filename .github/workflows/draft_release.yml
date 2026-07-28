@@ -160,6 +160,8 @@ jobs:
 
     - name: Download Audio Index
       run: uv run python audio/index_release_download.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # ----------------------------------------
     # Exporter
