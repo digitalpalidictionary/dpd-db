@@ -60,7 +60,8 @@ class UposathaManger:
         date(2026, 5, 1),
         date(2026, 5, 31),
         date(2026, 6, 29),
-        date(2026, 7, 29),
+        date(2026, 7, 28),
+        # date(2026, 7, 29), # moved one day earlier
         date(2026, 8, 28),
         date(2026, 9, 26),
         date(2026, 10, 26),
