@@ -300,6 +300,17 @@ showlog:
 
 # ===== SERVER =====
 
+# SSH into the dpdict.net server (login string from config.ini [server])
+ssh:
+    #!/usr/bin/env bash
+    set -e
+    login=$(uv run python -c "from tools.configger import config_read; print(config_read('server', 'login') or '')")
+    if [ -z "$login" ]; then
+        echo "No 'login' in the [server] section of config.ini" >&2
+        exit 1
+    fi
+    exec $login
+
 # Complete server update: code, data, db, search index, restart
 server-update:
     #!/usr/bin/env bash

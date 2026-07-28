@@ -5,21 +5,26 @@
 
 set -e  # Exit immediately if a command exits with a non-zero status
 
-echo "=== 1. Entering DPD Repository ==="
+echo "=== 1. Updating Docs Website ==="
+cd digitalpalidictionary.github.io
+git pull
+cd ..
+
+echo "=== 2. Entering DPD Repository ==="
 cd dpd-db
 echo "Current directory: $(pwd)"
 
-echo "=== 2. Updating Code from GitHub ==="
+echo "=== 3. Updating Code from GitHub ==="
 git pull --no-recurse-submodules
 
-echo "=== 3. Updating Dependencies with uv ==="
+echo "=== 4. Updating Dependencies with uv ==="
 uv sync
 
-echo "=== 4. Updating Data (Audio & Translations) ==="
+echo "=== 5. Updating Data (Audio & Translations) ==="
 uv run python audio/db_release_download.py
 # uv run python resources/tipitaka_translation_db/download_and_unzip_db.py
 
-echo "=== 5. Downloading Latest dpd.db ==="
+echo "=== 6. Downloading Latest dpd.db ==="
 wget -qO- https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz | tar -xJ
 if [ ! -f dpd.db ]; then
     echo "Error: dpd.db not found after extraction"
@@ -27,7 +32,7 @@ if [ ! -f dpd.db ]; then
 fi
 uv run exporter/webapp/generate_search_index.py
 
-echo "=== 6. Killing Uvicorn Webapp ==="
+echo "=== 7. Killing Uvicorn Webapp ==="
 pkill -f "uvicorn exporter.webapp.main:app" || echo "No existing uvicorn process found."
 
 # Wait a moment for ports to clear
@@ -38,7 +43,7 @@ sleep 2
 mkdir -p logs
 LOG_FILE="logs/$(date '+%Y-%m-%d_%H-%M-%S').uvicorn.log"
 
-echo "=== 7. Starting Uvicorn Webapp ==="
+echo "=== 8. Starting Uvicorn Webapp ==="
 nohup uv run uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8080 > "$LOG_FILE" 2>&1 &
 
 echo "=== DONE ==="
