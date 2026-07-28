@@ -179,6 +179,10 @@ export-apple-dictionary:
 wxt:
     @cd exporter/wxt_extension && npm run package
 
+# Bump the WXT extension version (patch|minor|major)
+wxt-bump level="patch":
+    @cd exporter/wxt_extension && npm version {{level}} --no-git-tag-version
+
 # ===== DATABASE COMPONENTS =====
 
 # Regenerate inflection tables
