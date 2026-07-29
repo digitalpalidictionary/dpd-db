@@ -276,6 +276,20 @@ newsletter-off:
 newsletter:
     uv run python scripts/build/newsletter_scraper.py
 
+# Wind back the scrape timestamp so `just newsletter` runs again
+newsletter-touch:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    stamp=scripts/build/newsletter_processed.json
+    if [ ! -f "$stamp" ]; then
+        echo "$stamp not found — just run 'just newsletter'"
+        exit 0
+    fi
+    released=$(gh release list --repo digitalpalidictionary/dpd-db \
+        --limit 1 --json publishedAt --jq '.[0].publishedAt')
+    touch -d "$(date -d "$released - 1 hour" '+%Y-%m-%d %H:%M:%S')" "$stamp"
+    echo "wound back to 1 hour before the $released release"
+
 # Reprocess all newsletters from scratch
 newsletter-fresh:
     rm -f scripts/build/newsletter_processed.json
