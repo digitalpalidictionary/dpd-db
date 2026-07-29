@@ -60,16 +60,6 @@ def test_uposatha_today_false_on_non_listed_date(
     assert UposathaManger.uposatha_today() is False
 
 
-def test_day_after_uposatha_true(monkeypatch: pytest.MonkeyPatch) -> None:
-    _freeze_today(monkeypatch, date(2026, 5, 2))
-    assert UposathaManger.day_after_uposatha() is True
-
-
-def test_day_after_uposatha_false(monkeypatch: pytest.MonkeyPatch) -> None:
-    _freeze_today(monkeypatch, date(2026, 5, 1))
-    assert UposathaManger.day_after_uposatha() is False
-
-
 def test_get_baseline_count_returns_count_when_not_rotated_today(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:

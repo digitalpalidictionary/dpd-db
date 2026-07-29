@@ -16,11 +16,6 @@ def uposatha_day_configger(force: bool = False) -> None:
     pr.tic()
     pr.yellow_title("uposatha day config")
 
-    if UposathaManger.day_after_uposatha():
-        config_update("exporter", "make_newsletter", "yes")
-    else:
-        config_update("exporter", "make_newsletter", "no")
-
     if force or UposathaManger.uposatha_today():
         pr.green_title("updating config.ini")
         config_apply_profile("uposatha")

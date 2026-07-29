@@ -463,11 +463,6 @@
     ],
     [
       "exporter",
-      "make_newsletter",
-      "no"
-    ],
-    [
-      "exporter",
       "update_simsapa_db",
       "no"
     ],

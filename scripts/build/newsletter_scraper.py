@@ -6,8 +6,7 @@ import base64
 import hashlib
 import json
 import re
-import subprocess
-from datetime import datetime, timezone
+from datetime import datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import cast
@@ -21,59 +20,13 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from markdownify import markdownify as md
 
-from tools.configger import config_test
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 GMAIL_LABEL = "DPD Mailers"
-GITHUB_REPO = "digitalpalidictionary/dpd-db"
 
 FOOTER_MARKER = "bodhirasa"
-
-
-def should_scrape(pth: ProjectPaths) -> bool:
-    """Check if a new GitHub release exists since the last scrape."""
-
-    if not pth.newsletter_processed_json.exists():
-        return True
-
-    last_scrape_time = datetime.fromtimestamp(
-        pth.newsletter_processed_json.stat().st_mtime,
-        tz=timezone.utc,
-    )
-
-    try:
-        result = subprocess.run(
-            [
-                "gh",
-                "release",
-                "list",
-                "--repo",
-                GITHUB_REPO,
-                "--limit",
-                "1",
-                "--json",
-                "publishedAt",
-            ],
-            capture_output=True,
-            text=True,
-            timeout=15,
-        )
-    except (FileNotFoundError, subprocess.TimeoutExpired) as e:
-        pr.amber(f"failed to check github releases: {e}")
-        return False
-
-    if result.returncode != 0:
-        pr.amber(f"failed to check github releases: {result.stderr.strip()}")
-        return False
-
-    releases = json.loads(result.stdout)
-    if not releases:
-        return False
-
-    release_date = datetime.fromisoformat(releases[0]["publishedAt"])
-    return release_date > last_scrape_time
 
 
 def get_gmail_service(pth: ProjectPaths):
@@ -346,15 +299,6 @@ def main() -> None:
 
     pth = ProjectPaths()
 
-    if not config_test("exporter", "make_newsletter", "yes"):
-        pr.green_title("make newsletter is no")
-        pr.toc()
-        return
-
-    if not should_scrape(pth):
-        pr.green_title("no new release since last scrape")
-        pr.toc()
-        return
     pth.docs_newsletters_pics_dir.mkdir(parents=True, exist_ok=True)
 
     pr.green_tmr("authenticating with gmail")

@@ -264,31 +264,9 @@ anki-templates:
 anki-apkg:
     uv run exporter/anki/anki_apkg_exporter.py
 
-# Enable newsletter scraping
-newsletter-on:
-    uv run python -c "from tools.configger import config_update; config_update('exporter', 'make_newsletter', 'yes')"
-
-# Disable newsletter scraping
-newsletter-off:
-    uv run python -c "from tools.configger import config_update; config_update('exporter', 'make_newsletter', 'no')"
-
-# Scrape newsletters from Gmail and build docs/newsletters.md
+# Build docs/newsletters.md from Gmail (run after labelling the sent mail "DPD Mailers")
 newsletter:
     uv run python scripts/build/newsletter_scraper.py
-
-# Wind back the scrape timestamp so `just newsletter` runs again
-newsletter-touch:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    stamp=scripts/build/newsletter_processed.json
-    if [ ! -f "$stamp" ]; then
-        echo "$stamp not found — just run 'just newsletter'"
-        exit 0
-    fi
-    released=$(gh release list --repo digitalpalidictionary/dpd-db \
-        --limit 1 --json publishedAt --jq '.[0].publishedAt')
-    touch -d "$(date -d "$released - 1 hour" '+%Y-%m-%d %H:%M:%S')" "$stamp"
-    echo "wound back to 1 hour before the $released release"
 
 # Reprocess all newsletters from scratch
 newsletter-fresh:
