@@ -90,6 +90,44 @@ def test_dpd_headword_renders_vagga_button_and_sc_vagga_links() -> None:
     assert 'href="https://suttacentral.net/AN8.1/en/sujato"' in html
 
 
+def test_dpd_headword_pts_has_own_heading_without_dv_data() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "brahmajālasutta"
+    su.dpd_code = "DN1"
+    su.dv_pts = "D i 1,7"
+
+    html = _render_template(su)
+
+    assert "Pali Text Society" in html
+    assert "D i 1,7" in html
+    assert "Dhamma Vinaya Tools" not in html
+
+
+def test_dpd_headword_pts_precedes_dv_catalogue_heading() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "brahmajālasutta"
+    su.dpd_code = "DN1"
+    su.dv_pts = "D i 1,7"
+    su.dv_main_theme = "ethics"
+
+    html = _render_template(su)
+
+    assert html.index("Pali Text Society") < html.index("Dhamma Vinaya Tools")
+    assert "ethics" in html
+
+
+def test_dpd_headword_vagga_row_hides_pts_and_its_heading() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "sīlakkhandhavaggapāḷi"
+    su.dpd_code = "DN1-13"
+    su.dv_pts = "D i 1,7"
+
+    html = _render_template(su)
+
+    assert "Pali Text Society" not in html
+    assert "D i 1,7" not in html
+
+
 def test_dpd_headword_treats_vagga_samyuttapali_as_vagga() -> None:
     su = SuttaInfo()
     su.dpd_sutta = "sagāthāvaggasaṃyuttapāḷi"

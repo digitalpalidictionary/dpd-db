@@ -211,6 +211,25 @@ class TestNormalSuttaRow:
         assert "Sammādiṭṭhisutta" in html
         assert "sammādiṭṭhi" in html
 
+    def test_pts_shown_under_own_heading_without_dv_data(self):
+        su = _minimal_su(is_vagga=False, is_samyutta=False, dv_pts="D i 1,7")
+        html = _render(_minimal_d(su))
+        assert "Pali Text Society" in html
+        assert "D i 1,7" in html
+        assert "Dhamma Vinaya Tools" not in html
+
+    def test_pts_and_dv_headings_both_shown(self):
+        su = _minimal_su(
+            is_vagga=False,
+            is_samyutta=False,
+            dv_pts="D i 1,7",
+            dv_exists=True,
+            dv_main_theme="ethics",
+        )
+        html = _render(_minimal_d(su))
+        assert html.index("Pali Text Society") < html.index("Dhamma Vinaya Tools")
+        assert "ethics" in html
+
     def test_dv_catalogue_shown(self):
         su = _minimal_su(
             is_vagga=False,
@@ -293,6 +312,12 @@ class TestVaggaRow:
         assert "Dhamma Vinaya Tools" not in html
         assert "ethics" not in html
 
+    def test_pts_hidden(self):
+        su = _minimal_su(is_vagga=True, is_samyutta=False, dv_pts="D i 1,7")
+        html = _render(_minimal_d(su))
+        assert "Pali Text Society" not in html
+        assert "D i 1,7" not in html
+
     def test_sc_vagga_card_link(self):
         su = _minimal_su(
             is_vagga=True,
@@ -319,6 +344,12 @@ class TestVaggaRow:
 
 
 class TestSamyuttaRow:
+    def test_pts_hidden(self):
+        su = _minimal_su(is_vagga=False, is_samyutta=True, dv_pts="S v 244,4")
+        html = _render(_minimal_d(su))
+        assert "Pali Text Society" not in html
+        assert "S v 244,4" not in html
+
     def test_button_label_is_samyutta(self):
         su = _minimal_su(is_vagga=False, is_samyutta=True)
         html = _render(_minimal_d(su))

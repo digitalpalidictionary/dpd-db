@@ -669,19 +669,16 @@
         </tr>
         {% endif %}
 
-        <!-- DV catalogue -->
+        <!-- PTS concordance -->
 
         {% if not is_vagga and not is_samyutta %}
 
-        {% if d.su.dv_exists %}
+        {% if d.su.dv_pts %}
         <tr>
             <th class="heading" colspan="2">
-                Dhamma Vinaya Tools: Sutta Catalogue
+                Pali Text Society
             </th>
         </tr>
-        {% endif %}
-
-        {% if d.su.dv_pts %}
         <tr>
             <th>
                 PTS
@@ -689,6 +686,16 @@
             <td>
                 {{ d.su.dv_pts }}
             </td>
+        </tr>
+        {% endif %}
+
+        <!-- DV catalogue -->
+
+        {% if d.su.dv_exists %}
+        <tr>
+            <th class="heading" colspan="2">
+                Dhamma Vinaya Tools: Sutta Catalogue
+            </th>
         </tr>
         {% endif %}
 

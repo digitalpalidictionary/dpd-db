@@ -139,7 +139,6 @@ def read_dv_catalogue(pth: ProjectPaths) -> dict[str, dict[str, str]]:
 def get_dv_column_mapping() -> dict[str, str]:
     """Map Excel column names to database dv_ field names."""
     return {
-        "pts": "dv_pts",
         "main_theme": "dv_main_theme",
         "subtopic": "dv_subtopic",
         "summary": "dv_summary",

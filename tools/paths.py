@@ -67,6 +67,7 @@ class ProjectPaths:
         self.dv_catalogue_suttas_tsv_path = (
             base_dir / "db/suttas/dv_catalogue_suttas.tsv"
         )
+        self.pts_concordance_tsv_path = base_dir / "db/suttas/pts_concordance.tsv"
 
         # db_tests
         self.internal_tests_path = base_dir / "db_tests/db_tests_columns.tsv"

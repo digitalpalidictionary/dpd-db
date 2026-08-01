@@ -6,6 +6,7 @@ from sqlalchemy import inspect
 from db.db_helpers import create_tables, get_db_session
 from db.models import SuttaInfo
 from db.suttas.dv_catalogue_suttas import update_dv_fields_in_db
+from db.suttas.pts_concordance import update_pts_concordance_in_db
 from tools.configger import config_read
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -169,6 +170,7 @@ def main() -> None:
     else:
         pr.green("sutta data unchanged — skipping table rebuild")
     update_dv_fields_in_db(pth, table_rebuilt)
+    update_pts_concordance_in_db(pth)
     pr.toc()
 
 

@@ -38,6 +38,17 @@ These notes are for internal contributors and editors maintaining dictionary dat
   the two **must** stay byte-identical — the app matches its computed key against
   the stored column, so any divergence silently breaks lookups. Verify parity
   across the whole built database, not with sample words.
+- PTS page references in `sutta_info.dv_pts` come from the PTS↔CST concordance
+  (https://github.com/jorgecaa/pts-vri-concordance, CC0), vendored as
+  `db/suttas/pts_concordance.tsv` and regenerated on demand by
+  `db/suttas/convert_pts_concordance.py` (reads the source XLSX; the build reads
+  only the TSV). The DV catalogue no longer supplies PTS and `dv_pts` is no longer
+  part of `SuttaInfo.dv_exists`, so the column name is a legacy misnomer — a rename
+  to `pts_ref` is an open follow-up. The population step
+  (`db/suttas/pts_concordance.py`) is deliberately unguarded: gating it on
+  `table_rebuilt` makes it a no-op on every incremental run. The concordance's
+  712 chapter-relative KN entries (`file:cN…`) are skipped and need the CST XML
+  chapter structure to resolve. Added 2026-07-31.
 - `README.md` and `CONTRIBUTING.md`
 - `conductor/product.md` and `conductor/tech-stack.md`
 - `docs/technical/` for database and project structure documentation

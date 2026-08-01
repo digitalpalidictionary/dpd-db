@@ -1024,8 +1024,7 @@ class SuttaInfo(Base):
     @cached_property
     def dv_exists(self) -> bool:
         if (
-            self.dv_pts
-            or self.dv_main_theme
+            self.dv_main_theme
             or self.dv_subtopic
             or self.dv_stage
             or self.dv_training
