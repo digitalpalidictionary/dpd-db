@@ -426,7 +426,7 @@ class TestTbwLegacyToggle:
         su = _minimal_su(
             is_vagga=False,
             is_samyutta=False,
-            tbw_legacy="https://find.dhamma.gift/bw/mn/mn1.html",
+            tbw_legacy="https://f.dhamma.gift/bw/mn/mn1.html",
         )
         html = _render(_minimal_d(su))
         assert "TBW Legacy" not in html
@@ -435,11 +435,11 @@ class TestTbwLegacyToggle:
         su = _minimal_su(
             is_vagga=False,
             is_samyutta=False,
-            tbw_legacy="https://find.dhamma.gift/bw/mn/mn1.html",
+            tbw_legacy="https://f.dhamma.gift/bw/mn/mn1.html",
         )
         html = _render(_minimal_d(su), show_tbw=True)
         assert "TBW Legacy" in html
-        assert "https://find.dhamma.gift/bw/mn/mn1.html" in html
+        assert "https://f.dhamma.gift/bw/mn/mn1.html" in html
 
     def test_absent_when_no_legacy_link(self):
         su = _minimal_su(is_vagga=False, is_samyutta=False, tbw_legacy=None)

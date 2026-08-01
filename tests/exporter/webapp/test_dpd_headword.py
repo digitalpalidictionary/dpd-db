@@ -168,4 +168,5 @@ def test_dpd_headword_shows_tbw_legacy_when_enabled() -> None:
     html = _render_template(su, show_tbw=True)
 
     assert "TBW Legacy" in html
-    assert "https://find.dhamma.gift/bw/sn/sn1.1.html" in html
+    assert "https://f.dhamma.gift/bw/sn/sn1.1.html" in html
+    assert "https://f.dhamma.gift/read/?q=SN1.1" in html

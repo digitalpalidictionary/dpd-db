@@ -854,7 +854,7 @@ class SuttaInfo(Base):
     @cached_property
     def dhamma_gift(self) -> str | None:
         if self.sc_code:
-            return f"https://find.dhamma.gift/read/?q={self.sc_code}"
+            return f"https://f.dhamma.gift/read/?q={self.sc_code}"
         else:
             return None
 
@@ -902,9 +902,9 @@ class SuttaInfo(Base):
                 "THI",
             ]:
                 if sc_book_code == "iti":
-                    return "https://find.dhamma.gift/bw/it/it.html"
+                    return "https://f.dhamma.gift/bw/it/it.html"
                 else:
-                    return f"https://find.dhamma.gift/bw/{sc_book_code.lower()}/{self.sc_code.lower()}.html"
+                    return f"https://f.dhamma.gift/bw/{sc_book_code.lower()}/{self.sc_code.lower()}.html"
             else:
                 return None
         else:
