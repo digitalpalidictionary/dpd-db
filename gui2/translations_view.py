@@ -115,6 +115,10 @@ class TranslationsView(ft.Column):
 
         self.controls.append(root_container)
 
+    def on_tab_focus(self) -> None:
+        if self.search_term_field.page is not None:
+            self.search_term_field.focus()
+
     def search_clicked(self, e):
         search_term = self.search_term_field.value
         language = self.language_dropdown.value

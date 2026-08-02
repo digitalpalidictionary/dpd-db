@@ -93,6 +93,7 @@ class App:
         # Pass1Auto first via _view(2).
         self._views: dict[int, ft.Control] = {}
         self._mounted_tabs: set[int] = set()
+        self._focused_tab_index: int = 0
         self._view_builders: dict[int, Callable[[], ft.Control]] = {
             0: lambda: GlobalTabView(self.page, self.toolkit),
             1: lambda: TranslationsView(self.page, self.toolkit),
@@ -297,8 +298,21 @@ class App:
 
     def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
         """Build the newly-active tab's content on demand and kick db init."""
-        self._ensure_tab_built(self.tabs.selected_index)
+        index = self.tabs.selected_index
+        self._ensure_tab_built(index)
         self._maybe_start_db_init()
+
+        # on_click and on_change both land here, so only the first call for a
+        # given tab dispatches focus. The page.update() flushes the new
+        # selected_index to the client before the view asks for focus —
+        # otherwise the target field is not built yet and the request is lost.
+        if index == self._focused_tab_index:
+            return
+        self._focused_tab_index = index
+        self.page.update()
+        on_tab_focus = getattr(self._views.get(index), "on_tab_focus", None)
+        if on_tab_focus is not None:
+            on_tab_focus()
 
     def _initialize_db_in_background(self) -> None:
         try:
