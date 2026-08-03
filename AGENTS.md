@@ -55,6 +55,9 @@ Read the relevant spec before working in an unfamiliar area.
 ## Data Verification
 - For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly (`sqlite3 dpd.db` or `get_db_session`). The `db/backup_tsv/` files are regenerated backups overwritten on each db backup — not the live source of truth. Don't infer data shape from TSVs or downstream exporter code.
 
+## Bulk-Imported Draft Data
+- `db_tests` failures on freshly imported draft entries are the editor's per-word checklist, not import defects — a bulk batch will never pass them clean. Pre-fix only what zero-exception evidence in the live db demands (closed vocabularies like `verb`, absolute conventions like "`source_1` never without `example_1`", `lemma_2` = nominative singular, `(gram)` rows always carry `family_set grammatical terms`). Leave anything needing per-word lexicographic judgement (`compound_type`, `construction`, `derived_from`, `neg`) to the human.
+
 ## Generated Data Files
 - Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion-ordered output turns every regeneration into a full-file reorder diff.
 

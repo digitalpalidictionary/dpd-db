@@ -67,7 +67,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.history_manager.register_refresh_callback(self._update_history_dropdown)
         self.corrections_manager = self.toolkit.corrections_manager
         self.additions_manager = self.toolkit.additions_manager
-        self._x_manager = Pass2XManager(self._db)
+        self._x_manager = Pass2XManager(self.toolkit)
 
         self.dpd_fields: DpdFields
         self._pass2_auto_file_manager = Pass2AutoFileManager(self.toolkit)
@@ -132,7 +132,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             "X",
             on_click=self._click_x_button,
             on_hover=self._update_count_tooltip,
-            tooltip="filter queue",
+            tooltip="import queue",
         )
         self._eg_button = ft.ElevatedButton(
             "Eg",
@@ -348,7 +348,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 lambda: len(self.additions_manager.additions_dict),
             ),
             id(self._x_button): (
-                "filter queue",
+                "import queue",
                 lambda: self._x_manager.remaining_count(),
             ),
             id(self._eg_button): (
@@ -1113,49 +1113,62 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.page.update()
 
     def _click_x_button(self, e: ft.ControlEvent) -> None:
-        """Loads the next headword from the X filter queue."""
-        if self._x_manager._loaded and not self._x_manager._queue:
-            # Re-read pass2_x_manager.py from disk so edits to filter_query
-            # take effect without restarting the app. Bypasses sys.modules
-            # and __pycache__ — importlib.reload was not reliably picking
-            # up changes.
-            import importlib.util
+        """Load the next entry from the X import queue: an entry with an id
+        updates that headword, with the queued values as _add proposals;
+        an entry without one is a new word filled straight into the fields."""
 
-            path = self.toolkit.paths.pass2_x_manager_py_path
-            spec = importlib.util.spec_from_file_location(
-                f"pass2_x_manager_live_{id(self)}", path
-            )
-            assert spec is not None and spec.loader is not None
-            mod = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(mod)
-            self._x_manager = mod.Pass2XManager(self._db)
-
-        headword_id, remaining = self._x_manager.get_next()
-
-        if headword_id is None:
+        word, data = self._x_manager.get_next()
+        if word is None or data is None:
             self.update_message("No more X words")
             self.page.update()
             return
 
+        values = {k: v for k, v in data.items() if k != "comment"}
+        comment = data.get("comment", "")
+
         try:
-            headword = self._db.get_headword_by_id(headword_id)
-            if not headword:
-                self.update_message(f"Headword ID {headword_id} not found in DB")
-                self.page.update()
-                return
+            headword = None
+            queued_id = str(values.pop("id", "")).strip()
+            if queued_id:
+                if not queued_id.isdigit():
+                    self._x_manager.requeue(word, data)
+                    self.update_message(f"{word}: bad id {queued_id!r} — requeued")
+                    self.page.update()
+                    return
+                headword = self._db.get_headword_by_id(int(queued_id))
+                if not headword:
+                    self._x_manager.requeue(word, data)
+                    self.update_message(
+                        f"Headword ID {queued_id} not found in DB — requeued"
+                    )
+                    self.page.update()
+                    return
 
             self.clear_all_fields()
-            self.headword = headword
-            self._enter_id_or_lemma_field.value = headword.lemma_1
-            self.headword_original = copy.deepcopy(headword)
-            self.dpd_fields.update_db_fields(headword)
-            self.add_headword_to_examples_and_commentary()
 
+            if headword:
+                self.headword = headword
+                self._enter_id_or_lemma_field.value = headword.lemma_1
+                self.headword_original = copy.deepcopy(headword)
+                self.dpd_fields.update_db_fields(headword)
+                self.add_headword_to_examples_and_commentary()
+                self.dpd_fields.update_add_fields(values)
+            else:
+                for name, value in values.items():
+                    field = self.dpd_fields.fields.get(name)
+                    if field is not None:
+                        field.value = value
+                self.add_headword_to_examples_and_commentary()
+
+            remaining = self._x_manager.remaining_count()
             self.update_message(
-                f"Loaded {headword.lemma_clean}. {remaining} X remaining."
+                f"[{remaining}] {word}: {comment}"
+                if comment
+                else f"[{remaining}] {word}"
             )
         except Exception as ex:  # noqa: BLE001
-            self.update_message(f"Error loading X word: {ex!s}")
+            self._x_manager.requeue(word, data)
+            self.update_message(f"Error loading X word ({word} requeued): {ex!s}")
 
         self.page.update()
 
