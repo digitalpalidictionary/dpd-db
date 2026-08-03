@@ -2541,6 +2541,7 @@ sieving
 sifter
 signless
 Sikhī
+siloka
 Silāyūpasuttaṃ
 Simsapa
 Sinapis
