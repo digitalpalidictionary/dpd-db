@@ -1323,7 +1323,8 @@ class DpdFields(PopUpMixin):
             self.ui.update_message("POS, Meaning 1, and Lemma 1 needed for synonyms")
             return
 
-        if meaning_1.strip().lower().startswith("name of"):
+        lowered = meaning_1.strip().lower()
+        if lowered.startswith("name of") or "name of a metre" in lowered:
             self.get_field("synonym").value = ""
             self.get_field("synonym_add").value = ""
             self.ui.update_message("'name of' meaning — no synonyms suggested")
