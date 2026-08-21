@@ -315,6 +315,40 @@ def tpr_updater(g: GlobalVars) -> None:
     pr.yes("OK")
 
 
+def _tpr_download_url(filename: str) -> str:
+    # jsdelivr mirrors github raw content and is not blocked in Myanmar, unlike
+    # raw.githubusercontent.com / github.com/.../raw/...
+    return f"https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/{filename}"
+
+
+def _update_download_list(
+    list_path: Path, entry_info: dict[str, str], url_suffix: str
+) -> None:
+    if not list_path.exists():
+        pr.red(f"{list_path.name} does not exist, skipping")
+        return
+
+    with list_path.open(encoding="utf-8") as f:
+        download_list = json.load(f)
+
+    index = next(
+        (
+            i
+            for i, entry in enumerate(download_list)
+            if entry.get("url", "").endswith(url_suffix)
+        ),
+        None,
+    )
+    if index is None:
+        pr.red(f"no entry ending in {url_suffix} found in {list_path.name}, skipping")
+        return
+
+    download_list[index] = entry_info
+
+    with list_path.open("w", encoding="utf-8") as f:
+        f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
+
+
 def copy_zip_to_tpr_downloads(g: GlobalVars) -> None:
     pr.green_tmr("updating tpr_downloads")
 
@@ -324,67 +358,65 @@ def copy_zip_to_tpr_downloads(g: GlobalVars) -> None:
         pr.red("https://github.com/bksubhuti/tpr_downloads")
         pr.red("to /resources/ folder")
         return
+
+    day = TODAY.day
+    month = TODAY.month
+    month_str = TODAY.strftime("%B")
+    year = TODAY.year
+
+    if UposathaManger.uposatha_today():
+        version = "release"
     else:
-        with g.pth.tpr_download_list_path.open(encoding="utf-8") as f:
-            download_list = json.load(f)
+        version = "beta"
 
-        day = TODAY.day
-        month = TODAY.month
-        month_str = TODAY.strftime("%B")
-        year = TODAY.year
+    file_path = g.pth.tpr_sql_file_path
+    file_name = "dpd.sql"
 
-        if UposathaManger.uposatha_today():
-            version = "release"
-        else:
-            version = "beta"
+    def _zip_it_up(file_path: Path, file_name: str, output_file: Path) -> None:
+        with ZipFile(output_file, "w", ZIP_DEFLATED) as zipfile:
+            zipfile.write(file_path, file_name)
 
-        file_path = g.pth.tpr_sql_file_path
-        file_name = "dpd.sql"
+    def _file_size(output_file: Path) -> str:
+        filesize = f"{output_file.stat().st_size / 1000 / 1000:.1f}"
+        return filesize
 
-        def _zip_it_up(file_path: Path, file_name: str, output_file: Path) -> None:
-            with ZipFile(output_file, "w", ZIP_DEFLATED) as zipfile:
-                zipfile.write(file_path, file_name)
+    download_lists = [g.pth.tpr_download_list_path, g.pth.tpr_download_list_2_path]
 
-        def _file_size(output_file: Path) -> str:
-            filesize = f"{output_file.stat().st_size / 1000 / 1000:.1f}"
-            return filesize
+    if version == "release":
+        output_file = g.pth.tpr_release_path
+        _zip_it_up(file_path, file_name, output_file)
+        filesize = _file_size(output_file)
 
-        if version == "release":
-            output_file = g.pth.tpr_release_path
-            _zip_it_up(file_path, file_name, output_file)
-            filesize = _file_size(output_file)
+        dpd_info = {
+            "name": f"DPD {month_str} {year} release",
+            "release_date": f"{day}.{month}.{year}",
+            "type": "dictionary",
+            "category": "Dictionaries",
+            "url": _tpr_download_url("dpd.zip"),
+            "filename": "dpd.zip",
+            "size": f"{filesize} MB",
+        }
 
-            dpd_info = {
-                "name": f"DPD {month_str} {year} release",
-                "release_date": f"{day}.{month}.{year}",
-                "type": "dictionary",
-                "category": "Dictionaries",
-                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd.zip",
-                "filename": "dpd.zip",
-                "size": f"{filesize} MB",
-            }
+        for list_path in download_lists:
+            _update_download_list(list_path, dpd_info, "release_zips/dpd.zip")
 
-            download_list[12] = dpd_info
+    if version == "beta":
+        output_file = g.pth.tpr_beta_path
+        _zip_it_up(file_path, file_name, output_file)
+        filesize = _file_size(output_file)
 
-        if version == "beta":
-            output_file = g.pth.tpr_beta_path
-            _zip_it_up(file_path, file_name, output_file)
-            filesize = _file_size(output_file)
+        dpd_beta_info = {
+            "name": "DPD Beta",
+            "release_date": f"{day}.{month}.{year}",
+            "type": "dictionary",
+            "category": "Other Beta",
+            "url": _tpr_download_url("dpd_beta.zip"),
+            "filename": "dpd.zip",
+            "size": f"{filesize} MB",
+        }
 
-            dpd_beta_info = {
-                "name": "DPD Beta",
-                "release_date": f"{day}.{month}.{year}",
-                "type": "dictionary",
-                "category": "Other Beta",
-                "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_beta.zip",
-                "filename": "dpd.zip",
-                "size": f"{filesize} MB",
-            }
-
-            download_list[33] = dpd_beta_info
-
-        with g.pth.tpr_download_list_path.open("w", encoding="utf-8") as f:
-            f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
+        for list_path in download_lists:
+            _update_download_list(list_path, dpd_beta_info, "release_zips/dpd_beta.zip")
 
     pr.yes(version)
 

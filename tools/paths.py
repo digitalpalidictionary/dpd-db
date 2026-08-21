@@ -614,6 +614,10 @@ class ProjectPaths:
             base_dir
             / "resources/tpr_downloads/download_source_files/download_list.json"
         )
+        self.tpr_download_list_2_path = (
+            base_dir
+            / "resources/tpr_downloads/download_source_files/download_list_2.json"
+        )
 
         # resources/tpr_downloads/release_zips
         self.tpr_beta_path = (

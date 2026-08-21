@@ -89,12 +89,17 @@ def test_root_homonym_grouping_uses_br() -> None:
     g = _make_g(_build_session())
     tpr.generate_tpr_data(g)
     root_entries = [e for e in g.tpr_data_list if e["id"] == 0]
-    # the homonym pair (same root_clean) collapses into one <br>-joined block
-    assert any("<br>" in e["definition"] for e in root_entries)
-    # every root block is wrapped and closed exactly once (final-element peek)
+    definitions: list[str] = []
     for entry in root_entries:
-        assert entry["definition"].startswith("<div><p>")
-        assert entry["definition"].endswith("</p></div>")
+        definition = entry["definition"]
+        assert isinstance(definition, str)
+        definitions.append(definition)
+    # the homonym pair (same root_clean) collapses into one <br>-joined block
+    assert any("<br>" in definition for definition in definitions)
+    # every root block is wrapped and closed exactly once (final-element peek)
+    for definition in definitions:
+        assert definition.startswith("<div><p>")
+        assert definition.endswith("</p></div>")
 
 
 def test_compound_type_renders_compound_row() -> None:
@@ -103,4 +108,53 @@ def test_compound_type_renders_compound_row() -> None:
     compound_entry = next(
         e for e in g.tpr_data_list if e["word"] == "test_digit_compound 1"
     )
-    assert ">Compound</th>" in compound_entry["definition"]
+    definition = compound_entry["definition"]
+    assert isinstance(definition, str)
+    assert ">Compound</th>" in definition
+
+
+def test_update_download_list_replaces_entry_found_by_url_suffix(
+    tmp_path: Path,
+) -> None:
+    list_path = tmp_path / "download_list.json"
+    list_path.write_text(
+        json.dumps(
+            [
+                {"name": "Other Book", "url": "https://example.com/other.zip"},
+                {
+                    "name": "DPD old release",
+                    "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd.zip",
+                },
+            ]
+        ),
+        encoding="utf-8",
+    )
+    new_entry = {"name": "DPD new release", "url": "https://cdn.jsdelivr.net/x"}
+
+    tpr._update_download_list(list_path, new_entry, "release_zips/dpd.zip")
+
+    updated_list = json.loads(list_path.read_text(encoding="utf-8"))
+    assert updated_list == [
+        {"name": "Other Book", "url": "https://example.com/other.zip"},
+        new_entry,
+    ]
+
+
+def test_update_download_list_skips_missing_file(tmp_path: Path) -> None:
+    list_path = tmp_path / "does_not_exist.json"
+    new_entry = {"name": "DPD new release", "url": "https://cdn.jsdelivr.net/x"}
+
+    tpr._update_download_list(list_path, new_entry, "release_zips/dpd.zip")
+
+    assert not list_path.exists()
+
+
+def test_update_download_list_skips_when_no_entry_matches(tmp_path: Path) -> None:
+    list_path = tmp_path / "download_list.json"
+    original_list = [{"name": "Other Book", "url": "https://example.com/other.zip"}]
+    list_path.write_text(json.dumps(original_list), encoding="utf-8")
+    new_entry = {"name": "DPD new release", "url": "https://cdn.jsdelivr.net/x"}
+
+    tpr._update_download_list(list_path, new_entry, "release_zips/dpd.zip")
+
+    assert json.loads(list_path.read_text(encoding="utf-8")) == original_list
