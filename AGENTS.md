@@ -1,322 +1,144 @@
 # Project Rules
 
-These rules are specific to the dpd-db project. Global rules (security, etc.) are in `~/.claude/CLAUDE.md`.
-
-## Kamma Finalize
-- When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — do not stop after archiving; also complete the GitHub comment and reflect/lessons steps.
-
-## Kamma Checkpoints
-- Never pause a kamma thread to ask for commit permission at phase checkpoints. The user commits everything in one go at the end — checkpoint steps are report-only.
-
-## Kamma Concurrent Threads
-- Multiple kamma threads regularly run against this repo in the same working tree at once. Before staging a commit, snapshot `git status --porcelain` and cross-reference every entry against "did this thread touch this file" — stage by explicit file list, never `git add <dir>` or `git add -A`, which can silently sweep in another thread's uncommitted, unrelated changes.
-- **NEVER run `git stash`, `git checkout -- <path>`, `git restore`, or `git reset --hard` in this working tree.** These commands operate on the whole tree, not just your thread's files, and silently destroy other sessions' uncommitted work. This has actually happened: during the pyrefly thread (2026-07-27) another session's sweep wiped a completed phase three times — the third time it removed a `[tool.pyrefly]` config block, a `justfile` recipe, a dependency, twelve verified code fixes, and resurrected three files that had been deliberately deleted. Recovery cost more than the original work.
-- The damage is worst when a sweep lands **mid-thread**, because it reverts unevenly: some files come back, others don't. The result looks like a working tree, not a broken one. If your tool reports a file "was modified, either by the user or by a linter" and the content is your pre-edit version, treat it as a rollback and **audit every file you have touched** before continuing — do not assume the rest survived.
-- To test against a clean tree, use `git worktree add <path>` instead. It gives you an isolated checkout and cannot disturb anyone else.
-- If you genuinely need to discard your own changes, revert the specific files you edited by name, never a whole-tree command.
+Specific to dpd-db. Global rules are in `~/.claude/CLAUDE.md`.
 
 ## Project Overview
 
-This project contains everything related to the Digital Pāḷi Dictionary
-- Update and edit the database with `/gui2`
-- Build the database `/db`
-- Test the database `/db_tests`
-- Export into multiple forms `/export`
+Everything related to the Digital Pāḷi Dictionary. Edit the db with `/gui2`, build with `/db`, test with `/db_tests`, export with `/export`.
 
-## Project Specs
-Detailed project documentation lives in `conductor/`:
-- `conductor/product.md` — product vision, features, target audience, release schedule
-- `conductor/tech-stack.md` — full technology stack and key libraries
+Detailed specs live in `conductor/` — `product.md` (vision, features, audience, release schedule) and `tech-stack.md` (stack and key libraries). Read the relevant one before working in an unfamiliar area.
 
-Read the relevant spec before working in an unfamiliar area.
+Four main parts: **db** (build and populate tables), **db_tests** (data integrity), **gui2** (add/edit words), **exporter** (compile and export formats). Folder layout: `docs/technical/project_folder_structure.md`.
 
----
+## Kamma
+- When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — don't stop after archiving; also do the GitHub comment and reflect/lessons steps.
+- Never pause a thread to ask for commit permission at phase checkpoints. The user commits everything at the end; checkpoint steps are report-only.
 
-## Python Type Hints
-- Please add type hints to all code, especially when it is missing in existing code.
-- Use modern type hints not old type hints
-  - Use `dict[str, str]` not `Dict[str, str]`
-  - Use `tuple[str, str]` not `Tuple[str, str]`
-  - Use `list[str]` not `List[str]`
-  - Use `| None` not Optional[None]
+## Concurrent Threads (working tree safety)
+Multiple kamma threads regularly run against this repo in the same working tree at once.
+- Before staging, snapshot `git status --porcelain` and cross-reference every entry against "did this thread touch this file". Stage by explicit file list — never `git add <dir>` or `git add -A`.
+- **NEVER run `git stash`, `git checkout -- <path>`, `git restore`, or `git reset --hard` here.** They operate on the whole tree and silently destroy other sessions' uncommitted work. This has happened: during the pyrefly thread (2026-07-27) another session's sweep wiped a completed phase three times — the third removed a `[tool.pyrefly]` config block, a justfile recipe, a dependency, twelve verified fixes, and resurrected three deliberately deleted files.
+- Damage is worst mid-thread, because it reverts unevenly — some files come back, others don't, and the result looks like a working tree, not a broken one. If a tool reports a file "was modified, either by the user or by a linter" and the content is your pre-edit version, treat it as a rollback and **audit every file you have touched** before continuing.
+- To test against a clean tree, use `git worktree add <path>`.
+- To discard your own changes, revert the specific files by name, never a whole-tree command.
 
-## Use Path from Pathlib
-- Use Path for anything related to filepaths, not os.
+## Python Conventions
+- Add type hints everywhere, especially where missing. Modern forms only: `dict[str, str]`, `tuple[str, str]`, `list[str]`, `X | None` — not `Dict`/`Tuple`/`List`/`Optional`.
+- Use `Path` from pathlib for filepaths, not `os`.
+- Debug with `icecream` (`from icecream import ic`; `ic(variable_name)`), not `print()`.
+- NEVER use `sys.path` hacks or `Path(__file__).resolve().parents[n]`. Assume the script runs from the project root.
+- `.gitignore` ignores ALL `__init__.py` files repo-wide, so a package `__init__.py` re-export can never be committed. Import new symbols from their concrete module (`from tools.cst_source.corpus_index import CstSourceIndex`).
 
 ## SQLAlchemy ORM Objects
 - Never mutate ORM objects unless the explicit purpose is to update, change, or delete them in the database.
-- Temporary or derived values must be computed separately (e.g. a `dict` or local variable) — never written back to a tracked ORM attribute as a side-effect.
+- Compute temporary or derived values separately (a dict or local) — never write them back to a tracked ORM attribute as a side-effect.
 
-## Debugging
-- Use `icecream` for debugging, not `print()`.
-- Import: `from icecream import ic`
-- Usage: `ic(variable_name)`
+## Data
+- For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly. `db/backup_tsv/` files are regenerated backups, not the source of truth. Don't infer data shape from TSVs or downstream exporter code.
+- `db_tests` failures on freshly imported draft entries are the editor's per-word checklist, not import defects. Pre-fix only what zero-exception evidence in the live db demands (closed vocabularies like `verb`, absolutes like "`source_1` never without `example_1`", `lemma_2` = nominative singular, `(gram)` rows always carry `family_set grammatical terms`). Leave per-word lexicographic judgement (`compound_type`, `construction`, `derived_from`, `neg`) to the human.
+- Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion order turns every regeneration into a full-file reorder diff.
 
-## Data Verification
-- For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly (`sqlite3 dpd.db` or `get_db_session`). The `db/backup_tsv/` files are regenerated backups overwritten on each db backup — not the live source of truth. Don't infer data shape from TSVs or downstream exporter code.
-
-## Bulk-Imported Draft Data
-- `db_tests` failures on freshly imported draft entries are the editor's per-word checklist, not import defects — a bulk batch will never pass them clean. Pre-fix only what zero-exception evidence in the live db demands (closed vocabularies like `verb`, absolute conventions like "`source_1` never without `example_1`", `lemma_2` = nominative singular, `(gram)` rows always carry `family_set grammatical terms`). Leave anything needing per-word lexicographic judgement (`compound_type`, `construction`, `derived_from`, `neg`) to the human.
-
-## Generated Data Files
-- Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion-ordered output turns every regeneration into a full-file reorder diff.
-
-## Imports
-- NEVER use `sys.path` hacks or manual directory traversal (e.g., `Path(__file__).resolve().parents[n]`) to handle absolute imports.
-- Assume the script will be run from the project root or within a correctly configured environment where absolute imports work naturally.
-- `.gitignore` ignores ALL `__init__.py` files repo-wide, so a package `__init__.py` re-export can never be committed. In tracked code, import new symbols from their concrete module (`from tools.cst_source.corpus_index import CstSourceIndex`), never from a package `__init__.py` you just edited.
-
-## Go
-- `go_modules/` has many `package main` directories (`frequency/`, `frequency/setup/`, `deconstructor/`, etc.). Never run `go build ./go_modules/<single-package-path>/` for a compile check — with no `-o` and exactly one main-package target, Go writes a binary to the current directory named after the package, littering the repo root with untracked multi-MB binaries. Use `go build ./go_modules/...` (compiles everything, writes no binaries because multiple main packages are targeted) or `go vet` for compile checks, or always pass `-o <scratchpad-path>` when a single package must be built.
-- Invoke a Go package with `go run ./go_modules/<pkg>` (package form), never `go run go_modules/<pkg>/*.go` (glob form). The glob sucks in any `*_test.go` in that dir and `go run` hard-fails with `cannot run *_test.go files`, so the glob form silently becomes a time bomb the moment someone adds a test there (this broke CI in #231 after a `2SC_test.go` landed in `frequency/setup/`). The package form excludes test files.
-- The frequency-table system is **purely positional**. `loadCorpus` in `go_modules/frequency/main.go` discards the `*_file_map.json` section keys (`kn1`, `kn2`, …) and keeps only their order; `frequency/templates/frequency_template.html` hardcodes per-corpus slot indices (e.g. SYA slots 8/9/10 = Khuddaka 1/2/3). So adding/removing/reordering a section shifts every later `{{index .XxxFreq N}}` and changes the freq-array length, breaking the template and every snapshot fixture. To re-bucket a text packed inside a combined source volume (the SYA `resources/tipitaka.rte` edition packs several texts per file), do NOT change the section list — split the file at a stable heading in `frequency/setup/4SYA.go` into synthetic `<path>::slice` freq keys and point each slice at its correct existing section in `sya_file_map.json`. Section count stays constant, template/fixtures untouched. Verify a data-map change by replaying `loadCorpus`/`freqFinder` in Python against the regenerated `shared_data/frequency/*_file_freq.json` (gitignored artifacts) rather than rebuilding `dpd.db`.
-
-## Codebase Sweeps / Audits
-- When auditing for a pattern (e.g. "hardcoded paths", "load-all-then-filter"), do NOT anchor on a single syntactic form. The same intent hides behind many call shapes — for paths: `open(...)`, `get_db_session(Path("dpd.db"))`, `.read_text()`, `configparser.read()`, and bare module-level constants. Grep by the underlying literal (e.g. `"dpd.db"`) as well as the consuming calls, and enumerate every carrier before declaring the sweep complete. This has been missed repeatedly — look harder.
-- Always sweep with `rg --hidden` — `.github/workflows/` and `.gitignore` are carriers too and a default `rg` skips them (this missed 4 files in one sweep).
-
-## Dependencies
-
-### uv
-- Use astral uv to manage dependencies.
-- Install with "uv add" not "pip install" or "uv pip install" etc.
-- DO NOT run any scripts with uv UNLESS specifically asked to do so.
-
-### Optional/transitive deps belong to their parent — don't list them as bare standalones
-- If a package is only needed because another package loads it (an engine, backend, or feature plugin), prefer declaring it through the parent's extra rather than as its own top-level entry — the dep then self-documents and auto-removes if the parent is ever dropped.
-- Why it matters: these are dynamic, string-keyed imports (`pd.read_excel` → `import_optional_dependency("openpyxl")`). No static tool (deptry, grep, pipdeptree) can see them, so a bare entry looks unused and gets wrongly pruned — only a test/build run reveals the break.
-- EXCEPTION — keep it bare WITH an inline comment naming the owner when the extra is unusable:
-  - the extra is too broad (e.g. `pandas[excel]` pulls 5 engines we never use, so we keep bare `openpyxl` for `pd.read_excel`), or
-  - no extra provides it (e.g. `httpx2` is starlette's TestClient backend, but no fastapi/starlette extra ships it — their extras pull the old `httpx`).
-  - In both cases the comment is mandatory so the dep never again looks orphaned.
-- Before removing any dep that looks unused, confirm it is not a parent's optional engine/backend, then re-run the full test suite AND a build cycle — `uv sync` succeeding proves nothing about dynamic imports.
-
-## Flet
-- When answering questions about Flet refer to the /resources/flet-docs folder.
-
-## Context7
-Use Context7 MCP (`mcp__plugin_context7_context7__resolve-library-id` + `query-docs`) for up-to-date docs on these project libraries:
-- `SQLAlchemy` — ORM, sessions, queries, relationships
-- `Flet` — GUI widgets and layout
-- `FastAPI` — webapp routes and middleware (`exporter/webapp/`)
-- `aksharamukha` — transliteration script names and options
-- `requests` — HTTP client usage
-
-## Tree
-- On a weekly basis, or anytime the project tree changes, check that the project tree matches the tree specified in @docs/technical/project_folder_structure.md
-
-## Database model
-- On a weekly basis, or anytime the database model changes, check that the database model in `db/models.py` matches the docs in `docs/technical/dpd_headwords_table.md`
-
-## GitHub
-- Unless otherwise specified the repository in question is https://github.com/digitalpalidictionary/dpd-db.
-- DO NOT add or commit to GitHub, unless specifically instructed to do so.
-
-### Commit
-- Only ever commit when asked. NEVER unasked.
-- "Commit" means commit the changed files using execute_command.
-- Use this format, all in lowercase. #issue number area: change1, change2 . E.g. `#67 webapp: updated css, fixed overflow`
-- Maximum number of characters in the first line is 72. Do not exceed that. 
-- This repo has an automated "data update" commit habit that runs independently of any session and can re-track a file you `git rm --cached`'d in an earlier session (it happened to `tools/proofreader.tsv` between two working sessions on the same thread). Before finalizing a thread that untracked a file, re-verify with `git ls-files <path>` that it actually stayed untracked — don't trust an earlier session's action to have persisted.
-
-### Comments
-- NEVER write to GitHub issues unless specifically asked to do so. This covers ALL writes, not just comments: creating issues, commenting, editing an issue body/title, adding checklist items, closing/reopening, labelling. Tracking a follow-up you noticed is not a licence to touch the issue tracker — report it to the user and let them decide. Only act on the tracker when explicitly told to.
-- When commenting on GitHub issues, write in the user's natural style: short, direct, lowercase sentence starts, minimal punctuation.
-
-### Solve
-- "Solve" means read the specified GitHub issue using get_issue and offer solutions. Don't think about it, don't ask questions, just read it.
-- Ask the user to open the necessary files that you need.
-- Is this a straightforward solution, or does it need to be solved at a higher level?
-- Show code snippets of suggested changes.
-
-## DPD Database Model (`db/models.py`)
-
-Key SQLAlchemy classes and their roles:
+## Database Model (`db/models.py`)
 
 | Class | Table | Purpose |
 |---|---|---|
-| `DpdHeadword` | `dpd_headwords` | Main dictionary entries — ~60 columns + many `@cached_property` helpers |
+| `DpdHeadword` | `dpd_headwords` | Main entries — ~60 columns + many `@cached_property` helpers |
 | `DpdRoot` | `dpd_roots` | Pāḷi verbal roots |
-| `Lookup` | `lookup` | Fast lookup index — every inflected form → headword IDs |
+| `Lookup` | `lookup` | Fast index — every inflected form → headword IDs |
 | `SuttaInfo` | `sutta_info` | Sutta metadata (SC, CST, BJT links) |
-| `InflectionTemplates` | `inflection_templates` | Stem/ending grids used to generate inflection tables |
+| `InflectionTemplates` | `inflection_templates` | Stem/ending grids for inflection tables |
 | `FamilyRoot` | `family_root` | Root family groupings with HTML |
 | `FamilyWord` | `family_word` | Word family groupings |
 | `FamilyCompound` | `family_compound` | Compound family groupings |
 | `FamilyIdiom` | `family_idiom` | Idiom groupings |
 | `FamilySet` | `family_set` | Thematic set groupings |
-| `BoldDefinition` | `bold_definitions` | Bold-text definitions extracted from commentaries |
+| `BoldDefinition` | `bold_definitions` | Bold-text definitions from commentaries |
 | `DbInfo` | `db_info` | Key-value store for metadata and cached sets |
 
-**`DpdHeadword` relationships:** `.rt` → `DpdRoot`, `.fr` → `FamilyRoot`, `.fw` → `FamilyWord`, `.it` → `InflectionTemplates`, `.su` → `SuttaInfo`
+- `DpdHeadword` relationships: `.rt` → `DpdRoot`, `.fr` → `FamilyRoot`, `.fw` → `FamilyWord`, `.it` → `InflectionTemplates`, `.su` → `SuttaInfo`
+- Key columns: `id`, `lemma_1` (unique), `pos`, `meaning_1`, `root_key`, `family_root`, `family_compound`, `stem`, `pattern`, `inflections`, `inflections_html`, `construction`
+- JSON pack/unpack: many string columns store JSON — access via `foo_pack(list)` / `foo_unpack` (e.g. `headwords_pack` on `Lookup`).
+- **Empty-string gotcha:** `DpdHeadword.inflections_list_all` yields `""` entries when either inflections column is empty — filter empty strings before using inflections as dict keys or set members.
+- Full column docs: `docs/technical/dpd_headwords_table.md`.
+- Weekly, or whenever the model changes, check `db/models.py` matches `docs/technical/dpd_headwords_table.md`. Same cadence for the tree vs `docs/technical/project_folder_structure.md`.
 
-**JSON pack/unpack pattern:** Many string columns store JSON. Access via `foo_pack(list)` / `foo_unpack` property (e.g. `headwords_pack`, `headwords_unpack` on `Lookup`).
+## Shared Tools
 
-**Key `DpdHeadword` columns:** `id`, `lemma_1` (unique headword), `pos`, `meaning_1`, `root_key`, `family_root`, `family_compound`, `stem`, `pattern`, `inflections`, `inflections_html`, `construction`
+**`tools/db_helpers.py`** — `get_db_session(db_path)` returns a Session (exits with error if missing); `create_db_if_not_exists(db_path)`; `create_tables(db_path)`; `get_column_names(table_class)` → `list[str]`.
+```python
+from db.db_helpers import get_db_session
+db = get_db_session(Path("dpd.db"))
+```
 
-**Empty-string gotcha:** `DpdHeadword.inflections_list_all` (and the underlying comma-splits) yields `""` entries when either inflections column is empty — always filter empty strings before using inflections as dict keys or set members in derived structures.
+**`tools/configger.py`** — reads/writes `config.ini`. `config_read(section, option)` → `str | None`; `config_update(section, option, value)`; `config_test(section, option, value)` → `bool`. Sections: `version`, `regenerate`, `deconstructor`, `gui`, `goldendict`, `dictionary`, `exporter`, `apis`, `anki`, `simsapa`, `tpr`.
 
-Full column docs: `docs/technical/dpd_headwords_table.md` | Full model: `db/models.py`
+**`tools/printer.py`** — coloured console output with timing (`from tools.printer import printer as pr`).
+- Timers: `pr.tic()` / `pr.toc()` (main clock), `pr.bip()` / `pr.bop()` (mini clock, returns elapsed string), `pr.print_bop()`.
+- Need an ending — follow with `pr.yes(msg)` or `pr.no(msg)` (right-aligned, max 8 chars): `pr.green_tmr()`, `pr.cyan_tmr()`, `pr.white_tmr()`.
+- Standalone: `pr.yellow_title()`, `pr.green_title()`, `pr.green()`, `pr.cyan()`, `pr.white()`, `pr.red()`, `pr.amber()`, `pr.counter(counter, total, word)`, `pr.summary(key, value)`.
 
----
+## Go
+- `go_modules/` has many `package main` directories. Never `go build ./go_modules/<single-package-path>/` — with no `-o` and one main target, Go writes a multi-MB binary into the repo root. Use `go build ./go_modules/...` or `go vet`, or pass `-o <scratchpad-path>`.
+- Invoke with `go run ./go_modules/<pkg>` (package form), never the glob form `go run go_modules/<pkg>/*.go` — the glob sucks in `*_test.go` and hard-fails with `cannot run *_test.go files` (this broke CI in #231).
+- The frequency-table system is **purely positional**. `loadCorpus` in `go_modules/frequency/main.go` discards the `*_file_map.json` section keys and keeps only their order; `frequency/templates/frequency_template.html` hardcodes per-corpus slot indices (SYA slots 8/9/10 = Khuddaka 1/2/3). Adding, removing, or reordering a section shifts every later `{{index .XxxFreq N}}` and breaks the template plus every snapshot fixture. To re-bucket a text packed inside a combined source volume, do NOT change the section list — split the file at a stable heading in `frequency/setup/4SYA.go` into synthetic `<path>::slice` freq keys and point each slice at its correct existing section in `sya_file_map.json`. Verify by replaying `loadCorpus`/`freqFinder` in Python against the regenerated `shared_data/frequency/*_file_freq.json` rather than rebuilding `dpd.db`.
+
+## Dependencies
+- Manage with astral uv. Install with `uv add`, never `pip install` or `uv pip install`. Don't run scripts with uv unless asked.
+- **Optional/transitive deps belong to their parent.** If a package is only needed because another loads it (an engine, backend, or feature plugin), declare it through the parent's extra — it self-documents and auto-removes if the parent is dropped. These are dynamic, string-keyed imports (`pd.read_excel` → `import_optional_dependency("openpyxl")`), so no static tool can see them and a bare entry looks unused and gets wrongly pruned.
+- EXCEPTION — keep it bare WITH an inline comment naming the owner when the extra is unusable: too broad (bare `openpyxl` for `pd.read_excel`, since `pandas[excel]` pulls five engines), or no extra provides it (`httpx2` is starlette's TestClient backend; no fastapi/starlette extra ships it). The comment is mandatory so it never again looks orphaned.
+- Before removing an apparently unused dep, confirm it isn't a parent's optional engine, then re-run the full test suite AND a build cycle. `uv sync` succeeding proves nothing about dynamic imports.
+
+## Docs Lookups
+- Flet: see `resources/flet-docs`.
+- Context7 MCP for up-to-date docs on `SQLAlchemy`, `Flet`, `FastAPI`, `aksharamukha`, `requests`.
 
 ## Testing
 
-### Directory Structure
-- Keep the `tests/` folder tidy by mimicking the project's source folder structure.
-- Example: `exporter/webapp/main.py` -> `tests/exporter/webapp/test_main.py`.
-- Ensure all tests are relative to the file they are testing.
-
-### Running Tests
-- Run all tests: `uv run pytest tests/`
-- Run a specific file: `uv run pytest tests/path/to/test_file.py`
-- Run with durations: `uv run pytest tests/ --durations=10`
-- Slow tests (those that parse large CST XML) are marked `@pytest.mark.slow` and are deselected by default (`addopts = -m 'not slow'`). Run them on demand with `uv run pytest -m slow`. New tests that parse big source files should be marked `slow`.
+- Mirror the source structure: `exporter/webapp/main.py` → `tests/exporter/webapp/test_main.py`.
+- Run: `uv run pytest tests/` · a file: `uv run pytest tests/path/to/test_file.py` · timings: `--durations=10`.
+- Slow tests (large CST XML parsing) are marked `@pytest.mark.slow` and deselected by default. Run with `uv run pytest -m slow`. Mark new big-source tests `slow`.
 
 ### Pre-commit gate
-- **TOUCH A FILE = OWN ITS LINT.** The moment you edit any file, you are responsible for making it pass `ruff check` AND `pyright` cleanly — including PRE-EXISTING errors you did not introduce. The hook stages the whole file and rejects the commit on any error in it, so "it was already broken" is not an out. Fix every reported error with a real, behaviour-preserving fix (never `# noqa`). This is a repeated issue — do not skip it.
-- After finishing edits to any file, ALWAYS run the same three tools the `.pre-commit-config.yaml` hook runs, in this order, plus pytest, before reporting the work as done: `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`, `uv run pytest <related test paths>`.
-- Do NOT skip `ruff format` — a file can pass `ruff check` and still be rewritten by the formatter, which bounces the commit.
-- Exception: skip `ruff format` on `.json` fixture files — it adds trailing commas that break JSON parsing. Regenerate fixtures programmatically instead.
-- The repo's pre-commit hook will reject the commit otherwise — fixing it after the fact wastes a round-trip.
-- If a related test file is broken from before your changes, note it but do not silently ignore — it may mask a regression you've just introduced.
-- The hook runs ruff + pyright on EVERY staged Python file (top-level `exclude:` in `.pre-commit-config.yaml` only covers `archive/`, `scripts/archive/`, `scripts/bash/`, `tools/writemdict/`). So editing any other file — even a one-line import swap — stages it and subjects its PRE-EXISTING lint errors to the gate, which blocks the commit. Before finishing, run `uv run ruff check <file>` + `uv run pyright <file>` on every touched file and fix ALL reported errors with real, behaviour-preserving fixes (narrow blind `except Exception`, direct boolean returns, `next(iter(d))`, etc.) — not `# noqa`. `gui2/` is pyright-excluded but NOT ruff-excluded, so it commonly carries pre-existing ruff violations that only surface when you touch the file.
+- **TOUCH A FILE = OWN ITS LINT.** Editing any file makes you responsible for `ruff check` AND `pyright` passing on it — including PRE-EXISTING errors you didn't introduce. The hook stages the whole file and rejects the commit on any error in it, so "it was already broken" is not an out. Fix every error with a real, behaviour-preserving fix (never `# noqa`). This is a repeated issue.
+- After editing any file, run, in order: `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`, `uv run pytest <related test paths>`. Do NOT skip `ruff format` — a file can pass `ruff check` and still be rewritten by the formatter, bouncing the commit.
+- Exception: skip `ruff format` on `.json` fixtures — it adds trailing commas that break parsing. Regenerate fixtures programmatically.
+- The top-level `exclude:` in `.pre-commit-config.yaml` only covers `archive/`, `scripts/archive/`, `scripts/bash/`, `tools/writemdict/`. `gui2/` is pyright-excluded but NOT ruff-excluded, so it commonly carries pre-existing ruff violations that surface when you touch a file.
+- If a related test file was broken before your changes, note it — don't silently ignore, it may mask a regression.
 
 ### Repo-wide type check: `just typecheck`
-- `just typecheck` runs **pyrefly** across the whole repo (config in `[tool.pyrefly]` in `pyproject.toml`). Run it before finishing any thread. CI enforces it on every push to `main` and every PR via `.github/workflows/typecheck.yml`.
-- **This is a different job from pyright, not a replacement.** pyright is the per-file commit gate; pyrefly is the whole-repo sweep. The pre-commit hook only ever sees the files you staged, so a change that breaks a caller in some other file passes the hook cleanly. pyrefly checks all ~390 production files in about 15 seconds, which is what makes a repo-wide gate affordable at all. pyrefly is deliberately NOT in `.pre-commit-config.yaml`.
-- **When the two disagree, pyright wins.** It scores higher on typing-spec conformance (97.8% vs 87.8%), so treat a pyrefly-only complaint as a checker limitation to suppress narrowly, not a bug to contort code around.
-- **A pyrefly fix is not done until `uv run pyright <file>` is also clean.** Satisfying one checker regularly breaks the other, and only pyright blocks the commit. This bit twice in one thread: annotating an accumulator as `list[AnalysisOption]` silenced pyrefly and produced 6 new pyright errors; swapping a `creds and ...` guard for `isinstance(...)` silenced pyrefly and cost pyright its None-narrowing. Run both, every time.
-- Suppress with `# pyrefly: ignore` **plus a reason on the same comment**, and only for genuine checker limitations — an unannotated upstream API (jinja2's `Environment.globals`), a `locals()` guard no checker models, `lru_cache` collapsing an overload set. Never to duck a real bug.
-- Excluded trees are listed in `[tool.pyrefly].project-excludes` and go beyond pyright's: `scripts/suttas/**` is excluded because it is one-off corpus extraction that no build recipe runs and nothing else imports.
+- Runs **pyrefly** across the whole repo (config in `[tool.pyrefly]` in `pyproject.toml`). Run before finishing any thread. CI enforces it on every push to `main` and every PR via `.github/workflows/typecheck.yml`.
+- **A different job from pyright, not a replacement.** pyright is the per-file commit gate; pyrefly is the whole-repo sweep, catching a change that breaks a caller in a file you didn't stage. It checks ~390 files in ~15 seconds. Deliberately NOT in `.pre-commit-config.yaml`.
+- **When they disagree, pyright wins** (97.8% vs 87.8% spec conformance) — treat a pyrefly-only complaint as a checker limitation to suppress narrowly.
+- **A pyrefly fix isn't done until `uv run pyright <file>` is also clean.** Satisfying one regularly breaks the other, and only pyright blocks the commit. This bit twice in one thread. Run both, every time.
+- Suppress with `# pyrefly: ignore` **plus a reason on the same comment**, only for genuine limitations (unannotated upstream APIs, a `locals()` guard, `lru_cache` collapsing overloads). Never to duck a real bug.
+- `[tool.pyrefly].project-excludes` goes beyond pyright's: `scripts/suttas/**` is one-off corpus extraction nothing imports.
 
----
+## GitHub
+Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 
-## Tools/db_helpers.py
-Get a database session for querying.
-
-### Import
-```python
-from pathlib import Path
-from db.db_helpers import get_db_session
-
-db_path = Path("dpd.db")
-db = get_db_session(db_path)
-```
-
-### Functions
-- `get_db_session(db_path)` — returns a SQLAlchemy `Session`; exits with error if file not found
-- `create_db_if_not_exists(db_path)` — creates the db file and tables if missing
-- `create_tables(db_path)` — creates all tables (idempotent)
-- `get_column_names(table_class)` — returns `list[str]` of column names for a model class
-
----
-
-## Tools/configger.py
-Read and write `config.ini` (project root).
-
-### Import
-```python
-from tools.configger import config_read, config_update, config_test
-```
-
-### Functions
-- `config_read(section, option)` — returns `str | None`
-- `config_update(section, option, value)` — writes new value to `config.ini`
-- `config_test(section, option, value)` — returns `bool`
-
-### Known sections
-`version`, `regenerate`, `deconstructor`, `gui`, `goldendict`, `dictionary`, `exporter`, `apis`, `anki`, `simsapa`, `tpr`
-
-### Example
-```python
-api_key = config_read("apis", "openai")
-config_update("regenerate", "inflections", "no")
-if config_test("exporter", "make_dpd", "yes"):
-    ...
-```
-
----
-
-## Tools/printer.py
-This module provides colored console output with timing.
-
-### Import
-```python
-from tools.printer import printer as pr
-```
-
-### Usage
-
-#### Timer Methods
-- `pr.tic()` - Start the main clock (class method)
-- `pr.toc()` - Stop the main clock and print elapsed time (class method)
-- `pr.bip()` - Start a mini clock for the current operation
-- `pr.bop()` - End mini clock and return elapsed time as string
-- `pr.print_bop()` - Print the elapsed time right-aligned
-
-#### Output Methods (need ending)
-These methods do NOT print a newline - follow with `pr.yes()` or `pr.no()`:
-- `pr.green_tmr(message)` - Print left-aligned green message and start timer
-- `pr.cyan_tmr(message)` - Print left-aligned cyan message and start timer
-- `pr.white_tmr(message)` - Print indented white message and start timer
-
-#### Output Methods (complete line)
-These methods complete a line started by green_tmr/cyan_tmr/white_tmr:
-- `pr.yes(message)` - Print right-aligned blue message with timing (max 8 chars)
-- `pr.no(message)` - Print right-aligned red message with timing (max 8 chars)
-
-#### Output Methods (standalone - return)
-These methods print and return (no ending needed):
-- `pr.yellow_title(text)` - Print bright yellow title and start timer
-- `pr.green_title(message)` - Print green title and start timer
-- `pr.green(message)` - Print green message
-- `pr.cyan(message)` - Print cyan message
-- `pr.white(message)` - Print white message
-- `pr.counter(counter, total, word)` - Print progress counter with timing
-- `pr.summary(key, value)` - Print key-value summary in green
-- `pr.red(message)` - Print red message
-- `pr.amber(message)` - Print amber message
-
-## Pipeline Improvement
-
-- `db_session.close()` is NOT a valid finding for short-lived build scripts. SQLAlchemy 2.0 has no `__del__`; for a script that exits after `main()`, the OS releases all connections on process exit. No resource leak. Do not flag it.
-
-## graphify
-
-A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges).
-
-### Querying
-```bash
-graphify query "how does X work"       # BFS subgraph — use this first
-graphify path "DpdHeadword" "Lookup"   # shortest path between two concepts
-graphify explain "ProjectPaths"        # plain-language node summary
-```
-Prefer these over grepping raw files — they return a scoped subgraph at ~13× fewer tokens.
-
-Read `graphify-out/GRAPH_REPORT.md` only for broad architecture review.
-
-### Key god nodes (highest connectivity)
-`ProjectPaths` · `DpdHeadword` · `get_db_session()` · `Lookup` · `ToolKit`
-
-### Keeping it current
-After editing code, run (AST-only, no API cost):
-```bash
-graphify update .
-```
-
-To fully rebuild from scratch (requires Claude Code session tokens):
-```bash
-/graphify
-```
-
-## Mobile DB export flags
-- The local justfile recipes `export-mobile` (dpd-db) and `build-db` (dpd-flutter-app) MUST pass the same `mobile_exporter.py` flags (`--cone --peu --wordnet`) so a local build equals the packaged DB. Keep both in sync when changing flags.
-- The CI release workflows (`mobile_release.yml`, `draft_release.yml`) intentionally pass fewer flags to ship a leaner public DB — do not align them to the full local set unless deliberately changing what the public release ships.
-
-## other-dictionaries submodule
-- To update ONE dictionary's source, recompress only that dictionary (scoped `tar` + `zstd -19` of its `source/` dir). NEVER run `scripts/compress_sources.py` for a single-dict update — it recompresses every dictionary, and because tar embeds mtimes, even unchanged sources produce new `.tar.zst` bytes (spurious apte/cone/etc. diffs).
+- **Commit only when asked, NEVER unasked.** Format, all lowercase: `#issue area: change1, change2` (e.g. `#67 webapp: updated css, fixed overflow`). Max 72 chars on the first line.
+- This repo has an automated "data update" commit habit running independently of any session, which can re-track a file you `git rm --cached`'d earlier (it happened to `tools/proofreader.tsv`). Before finalizing a thread that untracked a file, verify with `git ls-files <path>`.
+- **NEVER write to GitHub issues unless specifically asked.** This covers ALL writes: creating, commenting, editing body/title, checklist items, closing/reopening, labelling. Noticing a follow-up is not a licence to touch the tracker — report it to the user.
+- Write issue comments in the user's style: short, direct, lowercase sentence starts, minimal punctuation.
+- "Solve" means read the specified issue with get_issue and offer solutions — don't overthink, just read it. Ask the user to open the files you need. Judge whether it's a straightforward fix or needs solving at a higher level. Show code snippets of suggested changes.
 
 ## Performance Work
-- Before implementing any optimization spec: re-derive its numbers from the actual profiling log (`logs/makedict_*.html`) and benchmark the claimed mechanism on a throwaway copy of `dpd.db` (`cp dpd.db /tmp/...`). Two of five premises in one thread were wrong, one destructively so.
+- Before implementing any optimization spec, re-derive its numbers from the actual profiling log (`logs/makedict_*.html`) and benchmark the claimed mechanism on a throwaway copy (`cp dpd.db /tmp/...`). Two of five premises in one thread were wrong, one destructively so.
 - The recurring makedict bottleneck is ORM loops over large tables (load-all + per-row mutate + commit). Replace with a single `executemany` on the session's own connection — pattern: `tools/lookup_sync.py:_raw_sql_sync`. Never `INSERT OR REPLACE` on `lookup` (blanks the other 16 columns); use `ON CONFLICT ... DO UPDATE SET <col> = excluded.<col>`.
+- `db_session.close()` is NOT a valid finding for short-lived build scripts. SQLAlchemy 2.0 has no `__del__`; the OS releases connections on process exit. Do not flag it.
+
+## Export Flags
+- The local justfile recipes `export-mobile` (dpd-db) and `build-db` (dpd-flutter-app) MUST pass the same `mobile_exporter.py` flags (`--cone --peu --wordnet`) so a local build equals the packaged DB. Keep both in sync.
+- The CI release workflows (`mobile_release.yml`, `draft_release.yml`) intentionally pass fewer flags to ship a leaner public DB — don't align them unless deliberately changing what ships.
+
+## other-dictionaries submodule
+- To update ONE dictionary's source, recompress only that dictionary (scoped `tar` + `zstd -19` of its `source/` dir). NEVER run `scripts/compress_sources.py` for a single-dict update — it recompresses everything, and because tar embeds mtimes even unchanged sources produce new bytes (spurious diffs).
+
+## graphify
+A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges). Prefer these over grepping raw files — a scoped subgraph at ~13× fewer tokens:
+```bash
+graphify query "how does X work"       # BFS subgraph — use first
+graphify path "DpdHeadword" "Lookup"   # shortest path between concepts
+graphify explain "ProjectPaths"        # plain-language node summary
+```
+Read `graphify-out/GRAPH_REPORT.md` only for broad architecture review. God nodes: `ProjectPaths`, `DpdHeadword`, `get_db_session()`, `Lookup`, `ToolKit`. After editing code run `graphify update .` (AST-only, no API cost); full rebuild is `/graphify` (costs session tokens).
