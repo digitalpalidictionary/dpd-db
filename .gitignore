@@ -60,7 +60,6 @@ exporter/archive/other_dictionaries_legacy/code/peu/source/peu_dump_2024_02_16.j
 exporter/archive/other_dictionaries_legacy/goldendict/
 exporter/archive/other_dictionaries_legacy/json/
 exporter/archive/other_dictionaries_legacy/mdict/
-exporter/chrome_extension/node_modules/
 exporter/goldendict/javascript/family_compound_json.js
 exporter/goldendict/javascript/family_idiom_json.js
 exporter/goldendict/javascript/family_root_json.js

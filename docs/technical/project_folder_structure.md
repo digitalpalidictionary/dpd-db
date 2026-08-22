@@ -20,7 +20,6 @@ Where are all the parts of the project located?
 ├── docs
 ├── exporter
 │   ├── apple_dictionary
-│   ├── chrome_extension
 │   ├── deconstructor
 │   ├── goldendict
 │   ├── grammar_dict
@@ -116,8 +115,6 @@ There are four main parts to the code:
 - **exporter/** Export the DPD database into various formats.
 
 	- **apple_dictionary/** Export DPD for Apple Dictionary.
-
-	- **chrome_extension/** Export DPD as a Chrome browser extension.
 
 	- **deconstructor/** Export DPD Deconstructor to GoldenDict and MDict
 
