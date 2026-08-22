@@ -3,7 +3,7 @@ import { browser } from 'wxt/browser';
 import { DictionaryPanel } from '../components/dictionary-panel';
 import { addListenersToTextElements, removeListenersFromTextElements } from '../utils/utils';
 import { applyTheme, detectTheme } from '../utils/themes';
-import { isAutoDomain, isExcludedDomain } from '../utils/domains';
+import { isDefaultOnDomain } from '../utils/domains';
 import { searchWord } from '../utils/search';
 import '@/assets/styles/chrome-extension.css';
 import '@/assets/styles/dpd-variables.css';
@@ -236,23 +236,36 @@ export default defineContentScript({
     // this is what keeps EVERY open tab of a site in sync, not just the active/source one:
     //   • popout_host_<host> set/cleared → hide/show this tab's in-page panel, so a
     //     sibling tab can't sit there showing its panel while the site is popped out;
-    //   • state_<host> → OFF tears the panel down everywhere the site is open.
+    //   • state_<host> → OFF, or removed, tears the panel down everywhere the site is open.
+    const defaultsOn = isDefaultOnDomain(hostname);
+
     browser.storage.onChanged.addListener((changes: any, area: string) => {
       if (area !== "local") return;
       const stateChange = changes[`state_${hostname}`];
-      if (stateChange && stateChange.newValue === "OFF") { teardown(); return; }
+      if (stateChange) {
+        // A removed key (newValue undefined) means the site was deleted from the
+        // enabled-sites list, which reverts it to default behaviour — so it only
+        // stays up if this host is an auto-domain.
+        const stillOn =
+          stateChange.newValue === undefined ? defaultsOn : stateChange.newValue !== "OFF";
+        if (!stillOn) { teardown(); return; }
+        // A site switched ON from somewhere else — the toolbar in another tab, or
+        // the settings Add box on a different site — must come up here too, not
+        // wait for a reload. init() returns early if a panel already exists.
+        init();
+      }
       const popoutChange = changes[`popout_host_${hostname}`];
       if (popoutChange && panel) setPoppedOut(popoutChange.newValue != null);
     });
 
     browser.storage.local.get(`state_${hostname}`).then((data) => {
       const savedState = data[`state_${hostname}`];
-      
+
       if (savedState === "ON") {
         init();
       } else if (savedState === "OFF") {
         // User explicitly turned it off - do nothing
-      } else if (!isExcludedDomain(hostname) && isAutoDomain(hostname)) {
+      } else if (defaultsOn) {
         // No saved state, use default behavior for auto-domains
         init();
       }

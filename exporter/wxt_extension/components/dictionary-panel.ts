@@ -2,6 +2,7 @@ import { Settings } from '../types/extension';
 import { browser } from 'wxt/browser';
 import { getAudioUrl } from '../utils/api';
 import { replaceFeedbackSource } from '../utils/utils';
+import { normalizeHostname, isDefaultOnDomain } from '../utils/domains';
 
 // Define helper functions first
 export function wrapApostrophesInHTML(html: string): string {
@@ -1052,11 +1053,23 @@ export class DictionaryPanel {
             <span style="font-size: 0.8rem;">Panel Left / Right</span>
             <label class="dpd-switch"><input type="checkbox" id="settings-panelside-toggle" ${this.settings.panelSide === "right" ? "checked" : ""}><span class="dpd-slider dpd-round"></span></label>
           </div>`}
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--dpd-border);">
+            <div style="font-size: 0.8rem; margin-bottom: 6px;">Enabled Sites</div>
+            <div id="settings-sites-list"></div>
+            <div style="display: flex; gap: 4px; margin-top: 6px;">
+              <input type="text" id="settings-sites-input" placeholder="e.g. localhost"
+                style="flex: 1; min-width: 0; font-size: 0.75rem; padding: 3px 5px; background: var(--dpd-bg); color: inherit; border: 1px solid var(--dpd-border); border-radius: 3px;">
+              <button id="settings-sites-add" style="padding: 3px 8px; font-size: 0.75rem; background: var(--dpd-border); border: none; border-radius: 3px; cursor: pointer; color: inherit;">Add</button>
+            </div>
+            <div id="settings-sites-msg" style="font-size: 0.7rem; margin-top: 4px; color: var(--dpd-primary); display: none;"></div>
+          </div>
         </div>
+        <div id="settings-scroll-hint" style="position: sticky; bottom: 0; text-align: center; font-size: 0.7rem; line-height: 1; padding: 3px 0 5px; pointer-events: none; opacity: 0.75; background: linear-gradient(to top, var(--dpd-bg) 55%, transparent);">▾</div>
       `;
 
     document.getElementById("dict-panel-25445")?.appendChild(dropdown);
     this._setupSettingsEventListeners();
+    this._setupSettingsScrollHint(dropdown);
     var closeDropdown = (e: MouseEvent) => {
       if (dropdown && !dropdown.contains(e.target as Node)) {
         dropdown.remove();
@@ -1131,6 +1144,130 @@ export class DictionaryPanel {
         this._saveSetting("panelSide" as keyof Settings, side);
       };
     }
+
+    const sitesAdd = document.getElementById("settings-sites-add");
+    if (sitesAdd) sitesAdd.onclick = () => this._addEnabledSite();
+
+    const sitesInput = document.getElementById("settings-sites-input") as HTMLInputElement | null;
+    if (sitesInput) {
+      sitesInput.onkeydown = (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          this._addEnabledSite();
+        }
+      };
+    }
+
+    this._renderEnabledSites();
+  }
+
+  // The settings list is taller than the dropdown's 400px cap, so the lower rows
+  // are reachable only by scrolling inside it — with no visible cue that they
+  // exist. This shows a chevron until the user reaches the bottom.
+  _setupSettingsScrollHint(dropdown: HTMLElement) {
+    const hint = dropdown.querySelector("#settings-scroll-hint") as HTMLElement | null;
+    if (!hint) return;
+
+    const update = () => {
+      const atBottom =
+        dropdown.scrollTop + dropdown.clientHeight >= dropdown.scrollHeight - 2;
+      const scrollable = dropdown.scrollHeight > dropdown.clientHeight + 2;
+      hint.style.display = scrollable && !atBottom ? "block" : "none";
+    };
+
+    dropdown.addEventListener("scroll", update);
+    // The sites list is painted asynchronously, so the scrollable height is not
+    // final on this tick.
+    update();
+    setTimeout(update, 50);
+  }
+
+  // Read from storage on every render rather than caching: the toolbar icon can
+  // flip a site's state from outside the panel, so a cached copy would go stale.
+  async _renderEnabledSites() {
+    const list = document.getElementById("settings-sites-list");
+    if (!list) return;
+
+    const all = await browser.storage.local.get(null) as Record<string, unknown>;
+    // Built-in sites never appear here whatever their stored state — they are the
+    // toolbar icon's business, and an × on one would look like it did something
+    // while leaving the site running on its default.
+    const hosts = Object.keys(all)
+      .filter((k) => k.startsWith("state_") && all[k] === "ON")
+      .map((k) => k.slice("state_".length))
+      .filter((host) => !isDefaultOnDomain(host))
+      .sort();
+
+    list.textContent = "";
+
+    if (!hosts.length) {
+      const empty = document.createElement("div");
+      empty.textContent = "No sites added yet.";
+      empty.style.fontSize = "0.75rem";
+      empty.style.opacity = "0.7";
+      list.appendChild(empty);
+      return;
+    }
+
+    hosts.forEach((host) => {
+      const row = document.createElement("div");
+      row.style.cssText =
+        "display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 2px 0;";
+
+      const name = document.createElement("span");
+      name.textContent = host;
+      name.title = host;
+      name.style.cssText =
+        "font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;";
+
+      const remove = document.createElement("button");
+      remove.textContent = "×";
+      remove.title = `Remove ${host}`;
+      remove.style.cssText =
+        "flex: none; padding: 0 5px; font-size: 0.9rem; line-height: 1.2; background: none; border: none; cursor: pointer; color: inherit; opacity: 0.7;";
+      remove.onmouseover = () => (remove.style.opacity = "1");
+      remove.onmouseout = () => (remove.style.opacity = "0.7");
+      // Removing the current site tears the panel down via the storage.onChanged
+      // listener in the content script — deliberately not duplicated here.
+      remove.onclick = async () => {
+        await browser.storage.local.remove(`state_${host}`);
+        this._renderEnabledSites();
+      };
+
+      row.append(name, remove);
+      list.appendChild(row);
+    });
+  }
+
+  async _addEnabledSite() {
+    const input = document.getElementById("settings-sites-input") as HTMLInputElement | null;
+    const msg = document.getElementById("settings-sites-msg");
+    if (!input) return;
+
+    const showMsg = (text: string) => {
+      if (!msg) return;
+      msg.textContent = text;
+      msg.style.display = text ? "block" : "none";
+    };
+
+    const host = normalizeHostname(input.value);
+    if (!host) {
+      showMsg("Enter a valid site name.");
+      return;
+    }
+
+    const key = `state_${host}`;
+    const existing = await browser.storage.local.get(key);
+    if (existing[key] === "ON") {
+      showMsg(`${host} is already enabled.`);
+      input.value = "";
+      return;
+    }
+
+    await browser.storage.local.set({ [key]: "ON" });
+    input.value = "";
+    showMsg("");
+    this._renderEnabledSites();
   }
 
   async _setTheme(themeKey: string) {
