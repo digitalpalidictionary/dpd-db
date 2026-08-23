@@ -1021,6 +1021,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √jīv	1	a	live	√jīv	1	live	√jīv	jīv	jīva, jīvaka, jīvat, jīvati, jīvamāna, jīvā, jīvikā, jīvita, jīvitavā, jīvitavya, jīvitum, jīvin, durjīva, durjīva +, durjīvita, nir + jīva, sajīva, saṃjīvana, sujīva, sujīvita
 √jīv	1	a	live	√jīv	1	live	adhi ā √jīv		adhi + ājīva
 √jīv	1	a	live	√jīv	1	live	anu √jīv	anujīv	anujīvin
+√jīv	1	a	live	√jīv	1	live	abhi √jīv		abhi + jīvanaka
 √jīv	1	a	live	√jīv	1	live	ā √jīv	ājīv	ājīva, ājīvaka, ājīvaka +, ājīvati, ājīvita, ājīvin, sajjīva (bsk)
 √jīv	1	a	live	√jīv	1	live	upa √jīv	upajīv	upajīvana, upajīvamāna, upajīvitum, upajīvin
 √jīv	1	a	live	√jīv	1	live	pa √jīv		prajīvat
@@ -2696,7 +2697,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	ā √vam	vam	ā + vamati, āvamitum
 √vam	1	a	eject, vomit	√vam	1, 2	vomit	pati ā √vam	vam	prati + ā + vamati
 √vambh	8	*aya	despise	vi√ḍamb	10	mock	√vambh	viḍamb	viḍambaka, viḍambanā, viḍambayat, viḍambayati, viḍambayitum, viḍambita, viḍambin
-√var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var	vṛ	avāvarīt, avīvarat, asavarṇa, durvarṇa, durvarṇa +, durvarṇatā, na + suvarṇa, vaṭa, varaṇa, varatrā, varatrā +, varṇa, varṇa +, varṇaka, varṇatā, varṇavat, varṇavat +, varṇavattā, varṇin, varṇu, varaṇā, vāraṇāvata, varman, varmika, vāṭa, vāra, vāraka, vāraṇa, vāraṇāvata, vārayat, vārayati, vārayamāṇa, vārayitum, vārayitvā, vṛta, vṛti, vṛti +, vṛti, vāri, vārya, savarṇa, suvarṇa, suvarṇa, svarṇa, suvarṇaka, suvarṇatā
+√var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	√var	vṛ	avāvarīt, avīvarat, asavarṇa, durvarṇa, durvarṇa +, durvarṇatā, na + suvarṇa, vaṭa, varaṇa, varatrā, varatrā +, varṇa, varṇa +, varṇaka, varṇatā, varṇavat, varṇavat +, varṇavattā, varṇin, varṇu, varaṇā, vāraṇāvata, varman, varmika, vāṭa, vāra, vāraka, vāraṇa, vāraṇāvata, vārayat, vārayati, vārayamāṇa, vārayitum, vārayitvā, vārya, vṛta, vṛti, vṛti +, vṛti, vāri, vārya, savarṇa, suvarṇa, suvarṇa, svarṇa, suvarṇaka, suvarṇatā
 √var 1	1	a	cover, dress, restrain	√vṛ	1, 5, 9	cover	adhi ā √var	āvṛ	adhyāvara
 √var 1	1	*e	cover, dress, restrain	√vṛ	1, 5, 9	cover	anu pari √var	parivṛ	anu +, anu + parivārayati
 √var 1	1	*e	cover, dress, restrain	√vṛ	1, 5, 9	cover	apa √var	apavṛ	apavārita
