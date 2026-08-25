@@ -344,11 +344,11 @@ cpd-extras:
 
 # Turn on deconstructor regeneration
 decon-on:
-    uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'yes')"
+    uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'yes'); config_update('exporter', 'make_deconstructor', 'yes')"
 
 # Turn off deconstructor regeneration
 decon-off:
-    uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'no')"
+    uv run python -c "from tools.configger import config_update; config_update('generate', 'deconstructor', 'no'); config_update('exporter', 'make_deconstructor', 'no')"
 
 # Run the Go deconstructor and sync its output into the lookup db
 decon:
