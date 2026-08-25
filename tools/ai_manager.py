@@ -12,6 +12,13 @@ from tools.printer import printer as pr
 
 ANTIGRAVITY_PROVIDER = "antigravity_cli"
 
+OPENAI_COMPAT_PROVIDERS: dict[str, str] = {
+    "openrouter": "OpenRouter",
+    "zai": "Z.ai",
+    "deepseek": "DeepSeek",
+    "nvidia": "NVIDIA",
+}
+
 
 def _load_models_from_json() -> dict[str, list[tuple[str, str, int, float]]]:
     """Load model lists from tools/ai_models.json."""
@@ -56,12 +63,9 @@ class AIManager:
         self.providers: dict[str, Any] = {}
 
         from tools.ai_claude_manager import ClaudeManager
-        from tools.ai_deepseek_manager import DeepseekManager
         from tools.ai_gemini_manager import GeminiManager
         from tools.ai_gpt_manager import GptManager
-        from tools.ai_nvidia import NvidiaManager
-        from tools.ai_open_router import OpenRouterManager
-        from tools.ai_zai_manager import ZaiManager
+        from tools.ai_openai_compat import OpenAiCompatManager
 
         self.providers["claude"] = ClaudeManager()
         pr.green("claude initialized")
@@ -69,35 +73,18 @@ class AIManager:
         self.providers["codex"] = GptManager()
         pr.green("codex initialized")
 
-        if config_read("apis", "openrouter"):
-            self.providers["openrouter"] = OpenRouterManager()
-            pr.green("openrouter initialized")
-        else:
-            pr.amber("OpenRouter API key not found, manager not initialized.")
-
-        if config_read("apis", "zai"):
-            self.providers["zai"] = ZaiManager()
-            pr.green("zai initialized")
-        else:
-            pr.amber("Z.ai API key not found, manager not initialized.")
-
-        if config_read("apis", "deepseek"):
-            self.providers["deepseek"] = DeepseekManager()
-            pr.green("deepseek initialized")
-        else:
-            pr.amber("DeepSeek API key not found, manager not initialized.")
+        for compat_provider, label in OPENAI_COMPAT_PROVIDERS.items():
+            if config_read("apis", compat_provider):
+                self.providers[compat_provider] = OpenAiCompatManager(compat_provider)
+                pr.green(f"{compat_provider} initialized")
+            else:
+                pr.amber(f"{label} API key not found, manager not initialized.")
 
         if config_read("apis", "gemini"):
             self.providers["gemini"] = GeminiManager()
             pr.green("gemini initialized")
         else:
             pr.amber("Gemini API key not found, manager not initialized.")
-
-        if config_read("apis", "nvidia"):
-            self.providers["nvidia"] = NvidiaManager()
-            pr.green("nvidia initialized")
-        else:
-            pr.amber("NVIDIA API key not found, manager not initialized.")
 
         if shutil.which("agy"):
             self._antigravity_probe_thread = threading.Thread(

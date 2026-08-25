@@ -22,17 +22,12 @@
     },
     {
       "provider": "openrouter",
-      "model": "tencent/hy3:free",
-      "delay": 0
-    },
-    {
-      "provider": "openrouter",
       "model": "minimax/minimax-m3",
       "delay": 0
     },
     {
       "provider": "openrouter",
-      "model": "z-ai/glm-5.2",
+      "model": "stealth/ox-alpha",
       "delay": 0
     },
     {

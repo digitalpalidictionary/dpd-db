@@ -43,20 +43,13 @@ def test_request_uses_claude_json_output_and_returns_result_field() -> None:
 
 def test_ai_manager_registers_claude_provider() -> None:
     gemini_module = types.ModuleType("tools.ai_gemini_manager")
-    deepseek_module = types.ModuleType("tools.ai_deepseek_manager")
-    openrouter_module = types.ModuleType("tools.ai_open_router")
-
     gemini_module.GeminiManager = Mock(return_value=Mock())
-    deepseek_module.DeepseekManager = Mock(return_value=Mock())
-    openrouter_module.OpenRouterManager = Mock(return_value=Mock())
 
     with (
         patch.dict(
             sys.modules,
             {
                 "tools.ai_gemini_manager": gemini_module,
-                "tools.ai_deepseek_manager": deepseek_module,
-                "tools.ai_open_router": openrouter_module,
             },
         ),
         patch("tools.ai_manager.config_read", return_value=None),

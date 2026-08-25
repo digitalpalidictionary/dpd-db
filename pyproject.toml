@@ -41,7 +41,6 @@ tools = [
     "minify-html>=0.16.4",
     "pyspellchecker>=0.7.1",
     "pyperclip>=1.8.2",
-    "openai>=1.54.4",
     # anki 25.7+ ships protobuf-6 gencode; pin until anki resolves upstream
     "anki>=23.10.1,<25.3",
     "pyglossary>=4.6.1",

@@ -24,7 +24,7 @@ from scripts.extractor._prompts import CONE_PROMPT
 from scripts.extractor._read_cone import get_cone_html_entries
 from scripts.extractor._signal_handler import signal_handler, state
 from scripts.extractor._word_list import prepare_word_list
-from tools.ai_open_router import OpenRouterManager
+from tools.ai_openai_compat import OpenAiCompatManager
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -97,10 +97,12 @@ CONE_POS_MAPPING = {
 }
 
 
-def connect_to_openrouter() -> OpenRouterManager:
+def connect_to_openrouter() -> OpenAiCompatManager:
     pr.green_tmr("Connecting to OpenRouter")
-    manager = OpenRouterManager()
-    if manager.client:
+    # No fallback chain here, unlike AIManager: one transient 429/5xx would
+    # otherwise end the whole batch run, so keep the retries the OpenAI SDK gave us.
+    manager = OpenAiCompatManager("openrouter", max_retries=2)
+    if manager.api_key:
         pr.yes("ok")
     else:
         pr.red("failed")
@@ -110,7 +112,7 @@ def connect_to_openrouter() -> OpenRouterManager:
 def process_word(
     word: str,
     cone_dict: dict[str, str],
-    manager: OpenRouterManager,
+    manager: OpenAiCompatManager,
     output_path: Path,
 ) -> bool | None:
     entries = get_cone_html_entries(cone_dict, word)
