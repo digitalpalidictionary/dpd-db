@@ -130,11 +130,14 @@ resources/tipitaka.lk.tar.gz
 resources/tipitaka_translation_data_old/*
 sandhi.zip
 scratchpad.py
+
 scripts/extractor/extract_cone.tsv
 scripts/extractor/extract_cpd.tsv
 scripts/find/most_common_missing_words.tsv
 scripts/find/most_common_missing_words_old.tsv
+scripts/fix/ati_prefix_to_compound.tsv
 scripts/suttas/*/*.tsv
+
 shared_data/changed_headwords
 shared_data/changed_templates
 shared_data/frequency/*.json
