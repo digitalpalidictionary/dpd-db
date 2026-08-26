@@ -6,7 +6,9 @@ Read-only. Produces TSV reports under temp/verb_finder/ and a terminal summary.
 from __future__ import annotations
 
 import csv
+import json
 import re
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -40,6 +42,23 @@ PrLemmaMap = dict[str, list[str]]
 
 
 _HOMONYM_RE = re.compile(r"\s+\d+(?:\.\d+)*$")
+
+
+def verb_type(verb_col: str, grammar: str) -> str:
+    """The special-verb type of a headword: "caus", "pass", "" for a plain verb.
+
+    The `verb` column carries it on only 187 of 5818 pr verbs; for the rest it
+    lives in the grammar head, e.g. apayāpeti is "pr, caus of apayāti". A derived
+    form must point at a verb of its own type — a plain participle may not be
+    redirected to a causative.
+    """
+    if verb_col and verb_col.strip():
+        return verb_col.strip()
+    head = (grammar or "").split(" of ")[0]
+    found = [
+        m for m in SPECIAL_VERB_MARKERS if m in [p.strip() for p in head.split(",")]
+    ]
+    return ", ".join(found)
 
 
 def lemma_clean(lemma: str) -> str:
@@ -78,6 +97,24 @@ def write_tsv(rows: list[dict], path: Path) -> None:
         writer.writerows(rows)
 
 
+# ---------- CST corpus ----------
+
+
+def load_cst_word_freq(pth: ProjectPaths) -> Counter[str]:
+    """Total occurrences of every word form across the whole CST corpus.
+
+    A verb named in a grammar string but missing from the dictionary is only
+    safe to replace with a root if the corpus does not attest it. When CST does
+    attest it, the entry is better fixed by adding the verb as a headword.
+    """
+    with pth.cst_file_freq.open(encoding="utf-8") as f:
+        per_file: dict[str, dict[str, int]] = json.load(f)
+    total: Counter[str] = Counter()
+    for words in per_file.values():
+        total.update(words)
+    return total
+
+
 # ---------- Index ----------
 
 
@@ -90,14 +127,24 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
             DpdHeadword.lemma_1,
             DpdHeadword.family_root,
             DpdHeadword.root_key,
+            DpdHeadword.verb,
+            DpdHeadword.grammar,
         )
         .filter(DpdHeadword.pos == "pr")
         .all()
     )
-    for lemma_1, family_root, root_key in rows:
+    for lemma_1, family_root, root_key, verb_col, grammar in rows:
+        # lemma_map answers "does this verb exist as pr?" and must hold every pr
+        # verb: a derived form rarely declares its own type, so a plain-looking
+        # ptp pointing at a causative (mocetabba -> moceti) is usually correct.
+        lemma_map.setdefault(lemma_clean(lemma_1), []).append(lemma_1)
+        # index is the candidate picker used when the script must choose a verb
+        # itself. There a special verb is the wrong answer (apayanta must not be
+        # sent to the causative apayāpeti), so only plain verbs are offered.
+        if verb_type(verb_col or "", grammar or ""):
+            continue
         key = (family_root or "", root_key or "")
         index.setdefault(key, []).append(lemma_1)
-        lemma_map.setdefault(lemma_clean(lemma_1), []).append(lemma_1)
     return index, lemma_map
 
 
@@ -179,8 +226,10 @@ def parse_grammar(grammar: str, pos: str) -> GrammarRef | None:
             special_verb=special,
         )
 
-    # Verb reference; target is the first whitespace-delimited token.
-    target = body.split()[0] if body else ""
+    # Verb reference. Keep the whole body: multi-word targets are real
+    # ("añjaliṃ karoti"), and truncating to the first token invented false
+    # targets and false derived_from mismatches.
+    target = body
     return GrammarRef(
         original=grammar,
         head=m.group("head"),
@@ -190,6 +239,36 @@ def parse_grammar(grammar: str, pos: str) -> GrammarRef | None:
         suffix=suffix,
         special_verb=special,
     )
+
+
+# ---------- Data errors ----------
+
+
+_DANGLING_OF_RE = re.compile(r"\bof\s*$")
+_DOUBLED_HEAD_RE = re.compile(r"^\s*(\w+)\s*,\s*\1\b")
+
+
+def find_data_error(grammar: str, pos: str) -> str:
+    """Return a description of a malformed `grammar` string, or "" if it looks sane."""
+    text = (grammar or "").strip()
+    if not text:
+        return ""
+    if _DANGLING_OF_RE.search(text):
+        return "grammar ends with 'of' — no target"
+    if " of of " in f" {text} ":
+        return "doubled 'of'"
+    if " na na " in f" {text} ":
+        return "doubled 'na'"
+    if _DOUBLED_HEAD_RE.match(text):
+        return "duplicated pos token"
+    ref = parse_grammar(text, pos)
+    if ref is not None and not ref.is_root:
+        if " or " in ref.target:
+            return "alternative targets joined by 'or'"
+        # "pp of na" — the negation particle survived but the verb after it did not.
+        if ref.target in ("na", "no"):
+            return "negation particle with no verb after it"
+    return ""
 
 
 # ---------- Scan derived forms ----------
@@ -209,6 +288,7 @@ def scan_derived_forms(
     db,
     pr_index: PrIndex,
     pr_lemma_map: PrLemmaMap,
+    cst_freq: Counter[str] | None = None,
 ) -> dict[str, list[dict]]:
     """Bucket every derived form by what change (if any) it needs."""
     buckets: dict[str, list[dict]] = {
@@ -218,6 +298,9 @@ def scan_derived_forms(
         "ambiguous": [],
         "special_verbs": [],
         "unparsed": [],
+        "rootless": [],
+        "verb_in_cst": [],
+        "data_errors": [],
         "grammar_derived_from_mismatch": [],
     }
 
@@ -233,6 +316,9 @@ def scan_derived_forms(
             DpdHeadword.verb,
         )
         .filter(DpdHeadword.pos.in_(DERIVED_POS))
+        # Entries with no meaning_1 are unfinished drafts — correcting their
+        # grammar automatically would be guessing at half-written work.
+        .filter(DpdHeadword.meaning_1 != "")
         .all()
     )
 
@@ -258,7 +344,20 @@ def scan_derived_forms(
             "derived_from": derived_from or "",
         }
 
-        # Special verbs first (verb column OR grammar marker) — detect-only bucket.
+        # Malformed grammar first — these need a human, not a proposed rewrite.
+        data_error = find_data_error(grammar or "", pos)
+        if data_error:
+            buckets["data_errors"].append(
+                {
+                    **base,
+                    "grammar_proposed": "",
+                    "reason": data_error,
+                    "candidates": "",
+                }
+            )
+            continue
+
+        # Special verbs next (verb column OR grammar marker) — detect-only bucket.
         if (verb_col and verb_col.strip()) or (ref and ref.special_verb):
             buckets["special_verbs"].append(
                 {
@@ -295,6 +394,16 @@ def scan_derived_forms(
             # Grammar already references a root form. Check if a pr verb exists for
             # this row's (family_root, root_key) pair — if so, it should reference the verb.
             key = (family_root or "", root_key or "")
+            if key == ("", ""):
+                buckets["rootless"].append(
+                    {
+                        **base,
+                        "grammar_proposed": "",
+                        "reason": "no family_root or root_key on this entry",
+                        "candidates": "",
+                    }
+                )
+                continue
             pair_candidates = pr_index.get(key, [])
             if len(pair_candidates) == 0:
                 buckets["ok_verb_present"].append(
@@ -340,9 +449,33 @@ def scan_derived_forms(
                     }
                 )
             else:
+                # The named verb is missing from the dictionary but attested in
+                # CST — add it as a headword rather than rewriting this entry.
+                cst_count = (cst_freq or {}).get(lemma_clean(ref.target), 0)
+                if cst_count:
+                    buckets["verb_in_cst"].append(
+                        {
+                            **base,
+                            "grammar_proposed": "",
+                            "reason": f"verb absent from dict but occurs {cst_count}x in CST",
+                            "candidates": ref.target,
+                        }
+                    )
+                    continue
+
                 # Referenced verb not in dict as pr. Look for a pr verb at this row's
                 # (family_root, root_key) before falling back to a root proposal.
                 key = (family_root or "", root_key or "")
+                if key == ("", ""):
+                    buckets["rootless"].append(
+                        {
+                            **base,
+                            "grammar_proposed": "",
+                            "reason": "no family_root or root_key on this entry",
+                            "candidates": "",
+                        }
+                    )
+                    continue
                 pair_candidates = pr_index.get(key, [])
                 clean_pair = sorted({lemma_clean(lem) for lem in pair_candidates})
                 if len(clean_pair) == 1:
@@ -394,6 +527,14 @@ def _selftest_parse_grammar() -> None:
         ("ptp of √dis", "ptp", False, True, "√dis", ""),
         ("abs of √dis, irreg", "abs", False, True, "√dis", ", irreg"),
         ("ger of ati ā √dhā", "ger", False, True, "ati ā √dhā", ""),
+        (
+            "abs of aṭṭhiṃ karoti, comp vb",
+            "abs",
+            False,
+            False,
+            "aṭṭhiṃ karoti",
+            ", comp vb",
+        ),
     ]
     for text, head, na, is_root, target, suffix in cases:
         ref = parse_grammar(text, head)
@@ -440,8 +581,12 @@ def main() -> None:
     write_tsv(roots_without_pr, output_dir / "roots_without_pr.tsv")
     pr.summary("(family_root, root_key) with no pr", str(len(roots_without_pr)))
 
+    pr.white("loading cst word frequencies")
+    cst_freq = load_cst_word_freq(pth)
+    pr.summary("distinct cst word forms", str(len(cst_freq)))
+
     pr.white("scanning derived forms")
-    buckets = scan_derived_forms(db, pr_index, pr_lemma_map)
+    buckets = scan_derived_forms(db, pr_index, pr_lemma_map, cst_freq)
 
     bucket_files = {
         "would_change_to_root": "would_change_to_root.tsv",
@@ -449,6 +594,9 @@ def main() -> None:
         "ambiguous": "ambiguous.tsv",
         "special_verbs": "special_verbs.tsv",
         "unparsed": "unparsed.tsv",
+        "rootless": "rootless.tsv",
+        "verb_in_cst": "verb_in_cst.tsv",
+        "data_errors": "data_errors.tsv",
         "grammar_derived_from_mismatch": "grammar_derived_from_mismatch.tsv",
         "ok_verb_present": "ok_verb_present.tsv",
     }
@@ -456,7 +604,11 @@ def main() -> None:
         write_tsv(buckets[name], output_dir / fname)
         pr.summary(name, str(len(buckets[name])))
 
-    total = sum(len(v) for v in buckets.values())
+    # grammar_derived_from_mismatch is a cross-cutting flag, not an exclusive
+    # bucket — counting it in the total inflated the figure.
+    total = sum(
+        len(v) for k, v in buckets.items() if k != "grammar_derived_from_mismatch"
+    )
     pr.summary("total derived forms scanned", str(total))
 
     # Spotcheck the user's cited examples.
