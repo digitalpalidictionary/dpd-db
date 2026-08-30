@@ -1160,11 +1160,14 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         field.value = value
                 self.add_headword_to_examples_and_commentary()
 
+            lemma_1 = headword.lemma_1 if headword else values.get("lemma_1", word)
+            self.page.set_clipboard(lemma_1)
+
             remaining = self._x_manager.remaining_count()
             self.update_message(
-                f"[{remaining}] {word}: {comment}"
+                f"[{remaining}] {word}: {comment} (lemma_1 copied)"
                 if comment
-                else f"[{remaining}] {word}"
+                else f"[{remaining}] {word} (lemma_1 copied)"
             )
         except Exception as ex:  # noqa: BLE001
             self._x_manager.requeue(word, data)
