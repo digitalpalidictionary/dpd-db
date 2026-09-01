@@ -113,14 +113,35 @@ class AIManager:
         antigravity_cli is the last-resort model in the default fallback list,
         so it must stay gated: until the probe confirms agy works, the provider
         is absent from self.providers and request() simply skips over it.
+
+        Probe targets come from the antigravity_cli entries in
+        tools/ai_models.json — no model name is hardcoded here, so a CLI model
+        rotation is a one-line JSON edit. The provider registers if any
+        configured agy model works.
         """
         from tools.ai_antigravity_cli import AntigravityCliManager, get_working_key
 
-        if get_working_key():
-            self.providers[ANTIGRAVITY_PROVIDER] = AntigravityCliManager()
-            pr.green("antigravity_cli initialized")
-        else:
-            pr.amber("agy found but not working, antigravity_cli not initialized.")
+        agy_models = [
+            model
+            for provider, model, *_ in self.DEFAULT_MODELS
+            if provider == ANTIGRAVITY_PROVIDER
+        ]
+        if not agy_models:
+            pr.amber(
+                f"no {ANTIGRAVITY_PROVIDER} models in ai_models.json, "
+                "antigravity_cli not initialized."
+            )
+            return
+
+        for model in agy_models:
+            if get_working_key(model):
+                self.providers[ANTIGRAVITY_PROVIDER] = AntigravityCliManager()
+                pr.green(f"antigravity_cli initialized with {model}")
+                return
+            pr.amber(f"antigravity_cli model {model} not working")
+        pr.amber(
+            "agy found but no configured model works, antigravity_cli not initialized."
+        )
 
     def _ensure_antigravity_ready(self) -> None:
         """Block until the background agy probe finishes.

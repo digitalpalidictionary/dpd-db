@@ -149,7 +149,7 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--model",
-        help='Force one model for every request (requires --provider), e.g. "GPT-OSS 120B (Medium)"',
+        help="Force one model for every request (requires --provider); see tools/ai_models.json for configured models",
     )
     args = parser.parse_args(argv)
     if bool(args.provider) != bool(args.model):

@@ -20,6 +20,7 @@ def _patch_agy(monkeypatch: pytest.MonkeyPatch, stdout: str) -> None:
 
 
 def test_prompt_size_budget_is_safe_margin() -> None:
+    # stream-json stdin carries large prompts; cap is a sanity guard only
     assert antigravity_cli.MAX_PROMPT_BYTES == 4_000_000
 
 
@@ -34,6 +35,7 @@ def test_request_rejects_oversized_prompt_before_locating_agy(
     response = antigravity_cli.AntigravityCliManager().request(
         prompt="x" * 5_000_000,
         prompt_sys="s",
+        model="test-model",
     )
 
     assert response.content is None
@@ -58,7 +60,7 @@ def test_request_classifies_timeout_text_as_provider_error(
     _patch_agy(monkeypatch, "Error: timed out waiting for response")
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content is None
@@ -75,7 +77,7 @@ def test_request_classifies_auth_prompt_as_provider_error(
     )
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content is None
@@ -90,7 +92,7 @@ def test_immediate_empty_response_flags_possible_quota_exhaustion(
     monkeypatch.setattr(antigravity_cli.time, "monotonic", lambda: next(times))
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s", model="Gemini 3.5 Flash (High)"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content is None
@@ -106,13 +108,11 @@ def test_slow_empty_response_keeps_plain_message(
     monkeypatch.setattr(antigravity_cli.time, "monotonic", lambda: next(times))
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s", model="Gemini 3.5 Flash (High)"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content is None
-    assert (
-        response.status_message == "Gemini 3.5 Flash (High) returned an empty response"
-    )
+    assert response.status_message == "test-model returned an empty response"
     assert "possible quota exhaustion" not in response.status_message
 
 
@@ -123,7 +123,7 @@ def test_request_strips_trailing_timeout_line_and_marks_partial(
     _patch_agy(monkeypatch, stdout)
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content == '{"translation": "x",\n "scores": {'
@@ -140,7 +140,7 @@ def test_request_marks_tool_call_text_in_status(
     _patch_agy(monkeypatch, stdout)
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert (
@@ -190,7 +190,7 @@ def test_request_falls_back_to_default_model_when_unsupported(
     )
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s", model="Gemini 3.5 Flash (Low)"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content == '{"ok": true}'
@@ -201,7 +201,7 @@ def test_request_keeps_normal_json_response(monkeypatch: pytest.MonkeyPatch) -> 
     _patch_agy(monkeypatch, '{"translation": "x", "scores": {}}')
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content == '{"translation": "x", "scores": {}}'
@@ -214,7 +214,7 @@ def test_request_keeps_multiline_content_mentioning_error(
     _patch_agy(monkeypatch, stdout)
 
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="p", prompt_sys="s"
+        prompt="p", prompt_sys="s", model="test-model"
     )
 
     assert response.content == stdout
@@ -246,19 +246,52 @@ def test_provider_boundary_stdin_transport(monkeypatch: pytest.MonkeyPatch) -> N
 
     # (a) + (c): normal prompt round-trips through request()
     response = antigravity_cli.AntigravityCliManager().request(
-        prompt="hello", prompt_sys="sys"
+        prompt="hello", prompt_sys="sys", model="test-model"
     )
     assert response.content == canned_output
     # The prompt was delivered as the Python `prompt` arg to run_antigravity_print,
-    # which internally uses input= (stdin), not argv — proven by the unit test for
-    # run_antigravity_print; here we just confirm the call was made.
+    # which attaches it to --print (agy >= 1.1.23 no longer reads stdin) — proven
+    # by the unit test for run_antigravity_print; here we just confirm the call.
     assert "hello" in str(captured.get("prompt_arg", ""))
 
-    # (b): >700 KB prompt is not rejected pre-send (regression: it used to fail with "argv transport")
+    # (b): large prompts (analysis sends ~170KB) are not rejected pre-send
     large_prompt = "x" * 800_000
     captured.clear()
     response_large = antigravity_cli.AntigravityCliManager().request(
-        prompt=large_prompt, prompt_sys="sys"
+        prompt=large_prompt, prompt_sys="sys", model="test-model"
     )
     assert response_large.content is not None
-    assert "argv transport" not in (response_large.status_message or "")
+    assert "prompt too large" not in (response_large.status_message or "")
+
+
+def test_extract_stream_response_success() -> None:
+    init = '{"event":"init","init":{"model":"m"}}'
+    result = (
+        '{"event":"result","result":{"status":"SUCCESS","response":"4\\n","error":""}}'
+    )
+    stdout = init + "\n" + result + "\n"
+    assert antigravity_cli._extract_stream_response(stdout) == "4\n"
+
+
+def test_extract_stream_response_error_status_raises() -> None:
+    result = '{"event":"result","result":{"status":"ERROR","response":"","error":"quota blown"}}'
+    with pytest.raises(
+        antigravity_cli.AntigravityCliProviderError, match="quota blown"
+    ):
+        antigravity_cli._extract_stream_response(result)
+
+
+def test_extract_stream_response_returns_none_without_result_event() -> None:
+    # no result event -> caller falls back to legacy plain-text parsing
+    assert antigravity_cli._extract_stream_response("plain model output") is None
+
+
+def test_extract_stream_response_uses_last_result_event() -> None:
+    error_line = (
+        '{"event":"result","result":{"status":"ERROR","response":"","error":"old"}}'
+    )
+    ok_line = (
+        '{"event":"result","result":{"status":"SUCCESS","response":"ok","error":""}}'
+    )
+    stdout = error_line + "\n" + ok_line
+    assert antigravity_cli._extract_stream_response(stdout) == "ok"

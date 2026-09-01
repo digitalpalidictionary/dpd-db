@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import functools
+import json
 import re
 import shutil
 import subprocess
@@ -56,18 +57,34 @@ def run_antigravity_print(
 
     If `model` is None, the model flag is omitted and agy falls back to its
     own default model (for agy builds that predate --model support).
+
+    The prompt goes to stdin as one stream-json NDJSON message — agy >= 1.1.23
+    no longer reads text prompts from stdin or argv, and stream-json carries
+    prompts of any size (analysis prompts exceed the kernel's ~128KB argv cap).
+    Deliberately NO --print flag: it takes the prompt as its value, which
+    conflicts with stdin transport (verified: agy errors with "--print took
+    ... as its prompt"). stream-json input implies print mode by itself —
+    agy --help documents --input-format as "Input format for print mode".
     """
     command = [str(agy_path), "--sandbox"]
     if model is not None:
         command += ["--model", model]
-    command += ["--print", "-", "--print-timeout", f"{timeout}s"]
+    command += [
+        "--input-format",
+        "stream-json",
+        "--output-format",
+        "stream-json",
+        "--print-timeout",
+        f"{timeout}s",
+    ]
+    message = json.dumps({"event": "user", "message": {"content": prompt}})
     with tempfile.TemporaryDirectory(prefix="agy_print_") as scratch_dir:
         result = subprocess.run(
             command,
             capture_output=True,
             check=False,
             cwd=scratch_dir,
-            input=prompt,
+            input=message,
             text=True,
             timeout=timeout + 10,
         )

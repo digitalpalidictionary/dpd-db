@@ -1,5 +1,6 @@
 """Tests for Antigravity CLI model subprocess isolation."""
 
+import json
 from pathlib import Path
 from typing import Any
 
@@ -147,10 +148,11 @@ def test_run_antigravity_print_keeps_command_and_timeout_contract(
     assert command[:2] == ["/usr/bin/false", "--sandbox"]
     assert "--model" in command
     assert "model-x" in command
-    assert "--print" in command
-    assert "-" in command
-    assert "prompt-x" not in command
+    # agy >= 1.1.23: prompt goes to stdin as one stream-json NDJSON message
+    assert "--input-format" in command
+    assert "stream-json" in command
     assert "--print-timeout" in command
     assert "11s" in command
     assert captured["timeout"] == 21
-    assert captured["input"] == "prompt-x"
+    message = json.loads(captured["input"])
+    assert message == {"event": "user", "message": {"content": "prompt-x"}}

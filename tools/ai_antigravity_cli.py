@@ -19,6 +19,8 @@ from tools.printer import printer as pr
 
 PROBE_CONTENTS = "Return OK only."
 PROBE_SYSTEM_INSTRUCTION = "Return exactly OK and nothing else."
+# stream-json stdin carries prompts of any practical size (analysis prompts
+# reach ~170KB); the cap stays as a sanity guard on runaway prompt builders.
 MAX_PROMPT_BYTES = 4_000_000
 AUTH_PROMPT_MARKERS = ("Authentication required", "accounts.google.com")
 MAX_ERROR_LINE_LENGTH = 200
@@ -38,7 +40,8 @@ class AntigravityCliManager:
         self,
         prompt: str,
         prompt_sys: str | None = None,
-        model: str = "Gemini 3.5 Flash (Low)",
+        *,
+        model: str,
         timeout: float = 150.0,
         **_kwargs: Any,
     ) -> _Response:
@@ -67,7 +70,7 @@ class AntigravityCliProviderError(RuntimeError):
     """Raised when the Antigravity CLI provider cannot complete a request."""
 
 
-def get_working_key(model: str = "Gemini 3.5 Flash (Low)") -> bool:
+def get_working_key(model: str) -> bool:
     """Check whether Antigravity CLI can call the selected model."""
 
     try:
@@ -138,7 +141,9 @@ def generate_content(
             f"{model} failed: {_brief_command_error(result.stdout, result.stderr, result.returncode)}"
         )
 
-    response = _extract_response(result.stdout)
+    response = _extract_stream_response(result.stdout)
+    if response is None:
+        response = _extract_response(result.stdout)
     if response is None or not response.strip():
         if elapsed < IMMEDIATE_EMPTY_SECONDS:
             raise AntigravityCliProviderError(
@@ -174,6 +179,40 @@ def _build_prompt(
         "\nUSER CONTENT:\n"
         f"{contents}\n"
     )
+
+
+def _extract_stream_response(stdout: str) -> str | None:
+    """Return the model response from agy stream-json output, or None if absent.
+
+    agy stream-json prints one NDJSON event per line; the final {"event":
+    "result"} line carries status/response/error. A non-success status raises
+    so AIManager falls back. Lines that are not result events (init, warnings)
+    are ignored; if stdout has no result event at all, return None so the
+    caller can fall back to legacy plain-text parsing.
+    """
+    result_event: dict[str, Any] | None = None
+    for line in stdout.splitlines():
+        line = line.strip()
+        if not line.startswith("{"):
+            continue
+        try:
+            parsed = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(parsed, dict) and parsed.get("event") == "result":
+            result_event = parsed
+    if result_event is None:
+        return None
+
+    result = result_event.get("result")
+    if not isinstance(result, dict):
+        return None
+    status = str(result.get("status", "")).lower()
+    if status and status != "success":
+        error = result.get("error") or f"status {status!r}"
+        raise AntigravityCliProviderError(f"agy stream error: {error}")
+    response = result.get("response")
+    return response if isinstance(response, str) else None
 
 
 def _extract_response(stdout: str) -> str | None:

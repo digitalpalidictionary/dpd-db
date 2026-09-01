@@ -42,7 +42,7 @@ def main():
     )
     parser.add_argument(
         "--model",
-        help='Force one model (requires --provider), e.g. "Gemini 3.5 Flash (Low)"',
+        help="Force one model (requires --provider); see tools/ai_models.json for configured models",
     )
     args = parser.parse_args()
 

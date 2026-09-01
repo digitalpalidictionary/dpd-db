@@ -106,11 +106,10 @@ Configured providers are initialized automatically at runtime.
 
 ### Changing the AI model
 
-Model choices are stored in `tools/ai_models.json`. The file has three lists:
-`antigravity_cli_work_models`, `default_models`, and `grounded_models`.
-`study_passage.py` uses the first two (in order); `grounded_models` is a
-separate list for web-search-backed queries and is not used by the passage
-analysis flow.
+Model choices are stored in `tools/ai_models.json`. The file has two lists:
+`default_models` and `grounded_models`. The passage analysis flow reads
+`default_models` (in order); `grounded_models` is a separate list for
+web-search-backed queries and is not used by the passage analysis flow.
 
 For the current model names and fallback order, see the upstream source:
 <https://github.com/digitalpalidictionary/dpd-db/blob/main/tools/ai_models.json>
@@ -125,7 +124,7 @@ normal fallback list is bypassed.
 ```bash
 printf 'DHP23\n' | uv run python exporter/analysis/study_passage.py --debug \
   --provider antigravity_cli \
-  --model "Gemini 3.5 Flash (Low)"
+  --model "Gemini 3.7 Flash (Low)"
 ```
 
 For multi-paragraph passages, pipe the passage code and paragraph selection:
@@ -133,7 +132,7 @@ For multi-paragraph passages, pipe the passage code and paragraph selection:
 ```bash
 printf 'MN4\n2\n' | uv run python exporter/analysis/study_passage.py --debug \
   --provider antigravity_cli \
-  --model "Gemini 3.5 Flash (Low)"
+  --model "Gemini 3.7 Flash (Low)"
 ```
 
 To check what models are currently available, run `agy models` or see
@@ -339,7 +338,7 @@ uv run python exporter/analysis/ai_batch_translate.py --book kn2
 You can optionally specify a custom provider and model, and enable verbose debug logging:
 
 ```bash
-uv run python exporter/analysis/ai_batch_translate.py --book kn2 --provider antigravity_cli --model "Gemini 3.5 Flash (Low)" --debug
+uv run python exporter/analysis/ai_batch_translate.py --book kn2 --provider antigravity_cli --model "Gemini 3.7 Flash (Low)" --debug
 ```
 
 Use `--limit N` for a small batch and `--dry-run` to inspect work without AI calls.
