@@ -56,6 +56,8 @@ PHONETIC_RULES: list[tuple[str, str, bool]] = [
     ("ṃ", "m", True),
     ("ṃ", "ñ", True),
     # doubles
+    # aā
+    ("āpe", "ape", True),
     # iī
     ("ika", "aka", True),
     ("ika", "iya", True),
