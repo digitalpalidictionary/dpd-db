@@ -1,4 +1,5 @@
 import re
+from collections.abc import Iterable
 from typing import Any, Union
 
 import flet as ft
@@ -259,7 +260,7 @@ class DpdFields(PopUpMixin):
                 on_focus=self.var_phonetic_focus,
                 on_change=self.clean_pali_field,
                 on_submit=self.var_phonetic_submit,
-                on_blur=self.clean_pali_field,
+                on_blur=self.var_phonetic_blur,
             ),
             FieldConfig(
                 "var_text",
@@ -1398,9 +1399,44 @@ class DpdFields(PopUpMixin):
             f"{c}: {rule_by_lemma[c]}" for c in candidates
         )
 
+        self._strip_var_phonetic_dupes(candidates)
+
         self.ui.update_message(f"{len(candidates)} phonetic variants suggested")
         self.flags.var_phonetic_done = True
         self.check_and_color_add_fields()
+        self.page.update()
+
+    def _strip_var_phonetic_dupes(self, lemmas: Iterable[str]) -> None:
+        """Remove `lemmas` from `synonym`/`synonym_add`/`var_text` since they
+        already belong to `var_phonetic` — enforces the same exclusivity rule
+        as `assign_relationship_dict` for words entering var_phonetic outside
+        the transfer-button flow (autofill, manual edit + blur).
+        """
+        from tools.synonym_variant import assign_relationship_dict
+
+        current = {
+            "synonym": self.get_field("synonym").value or "",
+            "var_phonetic": "",
+            "var_text": self.get_field("var_text").value or "",
+        }
+        for lemma in lemmas:
+            current = assign_relationship_dict(current, lemma, "var_phonetic")
+        self.get_field("synonym").value = current["synonym"]
+        self.get_field("synonym_add").value = current["synonym"]
+        self.get_field("var_text").value = current["var_text"]
+
+    def var_phonetic_blur(self, e: ft.ControlEvent) -> None:
+        """On losing focus, clean the field then strip any words it now
+        shares with synonym/var_text (covers manual edits, not just
+        autofill suggestions).
+        """
+        self.clean_pali_field(e)
+
+        from tools.synonym_variant import split_field
+
+        lemmas = split_field(self.get_field("var_phonetic").value)
+        if lemmas:
+            self._strip_var_phonetic_dupes(lemmas)
         self.page.update()
 
     def construction_focus(self, e: ft.ControlEvent) -> None:
