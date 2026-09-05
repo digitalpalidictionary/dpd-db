@@ -708,6 +708,25 @@ p.message {
   color: var(--primary-alt);
 }
 
+.license-line {
+  font-size: 0.8em;
+  margin-top: 20px;
+  opacity: 0.6;
+  text-align: center;
+}
+
+.license-line a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.license-icons {
+  display: inline-flex;
+  gap: 2px;
+  margin-right: 5px;
+  vertical-align: -0.15em;
+}
+
 .email-button {
   display: flex;
   align-items: center;

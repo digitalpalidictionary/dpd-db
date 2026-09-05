@@ -301,6 +301,7 @@ class ProjectPaths:
         self.webapp_home_simple_css_path = (
             base_dir / "exporter/webapp/static/home_simple.css"
         )
+        self.webapp_cc_icons_path = base_dir / "exporter/webapp/static/cc_icons.svg"
         self.webapp_js_path = base_dir / "exporter/webapp/static/dpd.js"
         self.webapp_logo_dark_svg_path = (
             base_dir / "exporter/webapp/static/dpd-logo-dark.svg"

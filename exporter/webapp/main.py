@@ -19,7 +19,12 @@ from exporter.webapp.preloads import (
     make_headwords_clean_set,
     make_roots_count_dict,
 )
-from exporter.webapp.toolkit import make_dpd_html
+from exporter.webapp.toolkit import (
+    LICENSE_ATTRIBUTION,
+    LICENSE_NAME,
+    LICENSE_URL,
+    make_dpd_html,
+)
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
@@ -31,7 +36,14 @@ from prometheus_fastapi_instrumentator import Instrumentator
 pth: ProjectPaths = ProjectPaths()
 app = FastAPI()
 
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"])
+# Link is not a CORS-safelisted response header, so without expose_headers the
+# licence notice is unreadable to cross-origin browser clients.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET"],
+    expose_headers=["Link"],
+)
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.mount("/static", StaticFiles(directory=str(pth.webapp_static_dir)), name="static")
 
@@ -90,6 +102,21 @@ with open(pth.webapp_home_simple_css_path, encoding="utf-8") as f:
 history_list: list[tuple[str, str, str]] = []
 
 
+# Attached only to routes returning DPD dictionary data, so that the licence and
+# attribution travel with the data itself. Tipitaka translations and audio are
+# licensed separately and must not carry these.
+LICENSE_LINK_HEADER: dict[str, str] = {
+    "Link": f'<{LICENSE_URL}>; rel="license"; title="{LICENSE_NAME}"'
+}
+
+LICENSE_NOTICE: dict[str, str] = {
+    "name": LICENSE_NAME,
+    "url": LICENSE_URL,
+    "attribution": LICENSE_ATTRIBUTION,
+    "note": "Non-commercial use only. Derivatives must be shared alike.",
+}
+
+
 @app.get("/")
 def home_page(request: Request, response_class=HTMLResponse):
     """Home page."""
@@ -144,6 +171,7 @@ def db_search_html(request: Request, q: str):
             "dpd_results": dpd_html,
             "book_options": list(cst_texts.keys()),
         },
+        headers=LICENSE_LINK_HEADER,
     )
 
 
@@ -161,8 +189,12 @@ def db_search_json(request: Request, q: str):
         headwords_clean_set,
         ascii_to_unicode_dict,
     )
-    response_data = {"summary_html": summary_html, "dpd_html": dpd_html}
-    headers = {"Accept-Encoding": "gzip"}
+    response_data = {
+        "summary_html": summary_html,
+        "dpd_html": dpd_html,
+        "license": LICENSE_NOTICE,
+    }
+    headers = {"Accept-Encoding": "gzip", **LICENSE_LINK_HEADER}
     return JSONResponse(content=response_data, headers=headers)
 
 
@@ -193,6 +225,7 @@ def db_search_gd(request: Request, search: str):
             "dpd_js": dpd_js,
             "home_simple_css": home_simple_css,
         },
+        headers=LICENSE_LINK_HEADER,
     )
 
 

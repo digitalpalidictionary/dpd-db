@@ -24,3 +24,4 @@ This subsystem follows a "Dynamic SSR (Server-Side Rendering)" pattern:
 - **Generate Search Index:** `uv run python exporter/webapp/generate_search_index.py` (Run this after adding new words to the database)
 - **Primary Endpoint:** Accessible via `/search` or `/word/{lemma}`.
 - **API:** Provides JSON endpoints for external tools to query the database programmatically.
+- **Licensing:** Responses carrying DPD dictionary data (`/search_json`, `/search_html`, `/gd`) send a `Link: <...>; rel="license"` header naming CC BY-NC-SA 4.0, and the rendered entries end with a small visible notice carrying the four inlined Creative Commons marks. `/search_json` also ends its body with a `license` object. The notice is appended to the results HTML rather than a page footer so it travels with the data into GoldenDict and third-party embeds; a "no results" page carries none. Tipiṭaka translations and audio are licensed separately and carry nothing.

@@ -44,3 +44,22 @@ h3 {
     overflow-y: auto;
     margin: 5px;
 }
+
+.license-line {
+    color: var(--gray);
+    font-size: 0.8em;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.license-line a {
+    color: var(--gray);
+    text-decoration: none;
+}
+
+.license-icons {
+    display: inline-flex;
+    gap: 2px;
+    margin-right: 5px;
+    vertical-align: -0.15em;
+}

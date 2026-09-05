@@ -41,6 +41,29 @@ def get_variant_manager() -> VariantManager:
     return _variant_manager
 
 
+LICENSE_URL: str = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+LICENSE_NAME: str = "CC BY-NC-SA 4.0"
+LICENSE_HOLDER: str = "Bodhirasa Bhikkhu"
+LICENSE_ATTRIBUTION: str = f"Digital Pāḷi Dictionary by {LICENSE_HOLDER} {LICENSE_NAME}"
+
+# Official Creative Commons press-kit marks, recoloured to inherit the surrounding
+# text colour so they read in both light and dark mode. Inlined rather than linked
+# so the notice survives offline in GoldenDict.
+_CC_ICONS: str = ProjectPaths().webapp_cc_icons_path.read_text(encoding="utf-8").strip()
+
+# Appended to the rendered entries rather than to a page footer, so the notice
+# travels with the data into GoldenDict, the JSON body and third-party embeds.
+LICENSE_HTML: str = (
+    '<div class="license-line">'
+    f'<a href="{LICENSE_URL}" target="_blank" rel="license" '
+    f'title="{LICENSE_ATTRIBUTION}">'
+    f'<span class="license-icons">{_CC_ICONS}</span>'
+    f"Digital Pāḷi Dictionary by {LICENSE_HOLDER} {LICENSE_NAME}"
+    "</a>"
+    "</div>"
+)
+
+
 def make_dpd_html(
     q: str,
     pth: ProjectPaths,
@@ -58,6 +81,9 @@ def make_dpd_html(
                 with db_session.no_autoflush:
                     dpd_html = ""
                     summary_html = ""
+                    # Set when the query fell through to suggestions, so the licence
+                    # is not stamped on a "no results" page.
+                    only_suggestions = False
                     q = q.replace("'", "").replace("ṁ", "ṃ").strip()
 
                     lookup_results = (
@@ -244,6 +270,7 @@ def make_dpd_html(
                             dpd_html = find_closest_matches(
                                 q, headwords_clean_set, ascii_to_unicode_dict
                             )
+                            only_suggestions = True
 
                     elif re.search(r"\s\d", q):  # eg "kata 5"
                         headword_result = (
@@ -265,12 +292,17 @@ def make_dpd_html(
                             dpd_html = find_closest_matches(
                                 q, headwords_clean_set, ascii_to_unicode_dict
                             )
+                            only_suggestions = True
 
                     # or finally return closest matches
                     else:
                         dpd_html = find_closest_matches(
                             q, headwords_clean_set, ascii_to_unicode_dict
                         )
+                        only_suggestions = True
+
+                    if dpd_html and not only_suggestions:
+                        dpd_html += LICENSE_HTML
 
                     return dpd_html, summary_html
 
