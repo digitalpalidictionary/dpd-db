@@ -334,7 +334,7 @@ class App:
             try:
                 self._ensure_tab_built(index)
             except Exception:
-                failed.append(self.tabs.tabs[index].text or str(index))
+                failed.append(self._tab_label(index))
         try:
             self.toolkit.wordfinder_manager
             self.toolkit.wordfinder_popup
@@ -348,6 +348,12 @@ class App:
             )
         else:
             show_global_snackbar(self.page, "All tabs and tools ready.", "info", 2000)
+
+    def _tab_label(self, index: int) -> str:
+        """Return a tab's visible label, for messages about that tab."""
+        tab_content = self.tabs.tabs[index].tab_content
+        text = getattr(tab_content, "value", None)
+        return text or str(index)
 
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
@@ -373,14 +379,25 @@ class App:
             "√",
             "CT",
         ]
+        # Derived from _TAB_JUMP_KEYS so the tooltips can never drift from the
+        # keys the handler actually acts on.
+        shortcuts = {index: key for key, index in self._TAB_JUMP_KEYS.items()}
         self.tabs: ft.Tabs = ft.Tabs(
             selected_index=0,
             animation_duration=300,
             on_click=self._on_tab_activated,
             on_change=self._on_tab_activated,
             tabs=[
-                ft.Tab(text=label, content=ft.Container(expand=True))
-                for label in tab_labels
+                ft.Tab(
+                    tab_content=ft.Text(
+                        label,
+                        tooltip=f"Alt+{shortcuts[index]}"
+                        if index in shortcuts
+                        else None,
+                    ),
+                    content=ft.Container(expand=True),
+                )
+                for index, label in enumerate(tab_labels)
             ],
             expand=True,
         )
