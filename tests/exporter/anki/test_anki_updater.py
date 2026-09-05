@@ -206,6 +206,51 @@ def test_update_note_values_returns_bool_not_none() -> None:
     assert isinstance(is_updated, bool)
 
 
+ROOT_FIELDS = [
+    "sanskrit_root",
+    "sanskrit_root_meaning",
+    "sanskrit_root_class",
+    "root_meaning",
+    "root_in_comps",
+    "root_has_verb",
+    "root_group",
+]
+
+
+def test_update_note_values_clears_root_fields_when_root_removed() -> None:
+    """A headword that lost its root_key must not keep stale root data."""
+    col = _fake_col_for_note_update()
+    hw = _stub_headword(root_key=None)
+    note = _FakeNote(["1", "test", "n", "", "SN1.1"])
+    for field in ROOT_FIELDS:
+        note[field] = "stale root data"
+
+    _note, _is_updated = update_note_values(col, note, hw)
+
+    for field in ROOT_FIELDS:
+        assert note[field] == "", f"{field} not cleared"
+
+
+def test_update_note_values_keeps_root_fields_when_root_present() -> None:
+    col = _fake_col_for_note_update()
+    rt = SimpleNamespace(
+        sanskrit_root="√gam",
+        sanskrit_root_meaning="to go",
+        sanskrit_root_class="1",
+        root_meaning="to go",
+        root_in_comps="going",
+        root_has_verb="gam",
+        root_group="1",
+    )
+    hw = _stub_headword(root_key="√gam 1", rt=rt)
+    note = _FakeNote(["1", "test", "n", "", "SN1.1"])
+
+    update_note_values(col, note, hw)
+
+    assert note["root_meaning"] == "to go"
+    assert note["sanskrit_root"] == "√gam"
+
+
 # ---------------------------------------------------------------------------
 # update_family_note — is_updated logic
 # ---------------------------------------------------------------------------

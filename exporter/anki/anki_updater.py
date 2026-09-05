@@ -341,6 +341,14 @@ def update_note_values(col, note, i):
         note["root_in_comps"] = str(i.rt.root_in_comps)
         note["root_has_verb"] = str(i.rt.root_has_verb)
         note["root_group"] = str(i.rt.root_group)
+    else:
+        note["sanskrit_root"] = ""
+        note["sanskrit_root_meaning"] = ""
+        note["sanskrit_root_class"] = ""
+        note["root_meaning"] = ""
+        note["root_in_comps"] = ""
+        note["root_has_verb"] = ""
+        note["root_group"] = ""
     note["family_root"] = str(i.family_root)
     note["family_word"] = str(i.family_word)
     note["family_compound"] = str(i.family_compound)
