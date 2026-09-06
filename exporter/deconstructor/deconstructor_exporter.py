@@ -23,7 +23,7 @@ from exporter.deconstructor.data_classes import (
     generate_deconstructor_header,
 )
 
-DECONSTRUCTOR_DESCRIPTION = "<h3>DPD Deconstructor by Bodhirasa</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/features/deconstructor/'>Deconstructor page</a> on the <a href='https://digitalpalidictionary.github.io'>DPD website</a>.</p>"
+DECONSTRUCTOR_DESCRIPTION = "<h3>DPD Deconstructor by Bodhirasa Bhikkhu</h3><p>Automated compound deconstruction and sandhi-splitting of all words in <b>Chaṭṭha Saṅgāyana Tipitaka</b> and <b>Sutta Central</b> texts.</p><p>For more information please visit the <a href='https://digitalpalidictionary.github.io/features/deconstructor/'>Deconstructor page</a> on the <a href='https://digitalpalidictionary.github.io'>DPD website</a>.</p>"
 
 
 class GlobalVars:
@@ -54,7 +54,7 @@ def _make_synonyms(i: Lookup, speech_marks: SpeechMarksDict) -> list[str]:
 def _make_dict_info(bookname: str) -> DictInfo:
     return DictInfo(
         bookname=bookname,
-        author="Bodhirasa",
+        author="Bodhirasa Bhikkhu",
         description=DECONSTRUCTOR_DESCRIPTION,
         website="https://digitalpalidictionary.github.io/features/deconstructor/",
         source_lang="pi",

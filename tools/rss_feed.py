@@ -76,7 +76,7 @@ def render_rss(items: list[dict]) -> str:
         channel, "description"
     ).text = "Monthly updates from the Digital Pāḷi Dictionary."
     ET.SubElement(channel, "language").text = "en"
-    ET.SubElement(channel, "managingEditor").text = "dpd@4nt.org (Bodhirasa)"
+    ET.SubElement(channel, "managingEditor").text = "dpd@4nt.org (Bodhirasa Bhikkhu)"
     ET.SubElement(channel, "lastBuildDate").text = format_datetime(
         datetime.now(tz=timezone.utc), usegmt=True
     )

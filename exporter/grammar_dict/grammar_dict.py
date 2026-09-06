@@ -120,7 +120,7 @@ def prepare_gd_mdict_and_export(g: GlobalVars) -> None:
 
     dict_info = DictInfo(
         bookname="DPD Grammar",
-        author="Bodhirasa",
+        author="Bodhirasa Bhikkhu",
         description="<h3>DPD Grammar</h3><p>A table of all the grammatical possibilities that a particular inflected word may have. For more information please visit the <a href='https://digitalpalidictionary.github.io/features/grammardict/' target='_blank'>DPD website</a></p>",
         website="https://digitalpalidictionary.github.io/features/grammardict/",
         source_lang="pi",

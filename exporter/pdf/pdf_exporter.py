@@ -31,11 +31,12 @@ from db.models import (
     FamilyWord,
     Lookup,
 )
-from tools.configger import config_test
+from tools.configger import config_read, config_test
 from tools.date_and_time import year_month_day_dash
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.version import get_doi, make_citation
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.zip_up import zip_up_file
 
@@ -88,6 +89,8 @@ class GlobalVars:
         self.bibliography_templ = self.env.get_template("bibliography.typ")
         self.thanks_templ = self.env.get_template("thanks.typ")
         self.date: str = year_month_day_dash()
+        self.version: str = config_read("version", "version") or "unknown"
+        self.citation: str = make_citation(self.version, get_doi())
 
 
 def make_layout(g: GlobalVars) -> None:
@@ -98,7 +101,7 @@ def make_layout(g: GlobalVars) -> None:
 
 def make_front_matter(g: GlobalVars) -> None:
     pr.green_tmr("compiling front matter")
-    g.typst_data.append(g.front_matter_templ.render())
+    g.typst_data.append(g.front_matter_templ.render(citation=g.citation))
     pr.yes("ok")
 
 

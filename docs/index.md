@@ -22,9 +22,11 @@ If you spot a mistake in DPD, or notice something missing, here's where to [repo
 
 If you have any bright ideas to make this dictionary even better, or would like to get involved with the project, please [get in touch](contact.md).
 
-Digital Pāḷi Dictionary is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/){target="_blank"}.
+If you are quoting DPD in academic work, please see [How to Cite DPD](how_to_cite.md) — DPD is revised every month, so citing the version you used matters.
 
-<a rel="license noopener noreferrer" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">
-  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+Digital Pāḷi Dictionary is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/){target="_blank"}.
+
+<a rel="license noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
 </a><br />
 

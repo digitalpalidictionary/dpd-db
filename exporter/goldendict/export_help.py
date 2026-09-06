@@ -5,8 +5,17 @@ from dataclasses import dataclass
 from jinja2 import Environment
 from minify_html import minify
 
+from tools.configger import config_read
 from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths
+from tools.version import (
+    AUTHOR,
+    EXAMPLE_ID,
+    EXAMPLE_LEMMA,
+    WEBSITE,
+    get_doi,
+    make_citation,
+)
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict, read_tsv_dot_dict
 from tools.utils import (
@@ -73,6 +82,10 @@ def generate_help_html(
     thanks = add_thanks(pth, header)
     help_data_list.extend(thanks)
     size_dict["help"] += len(str(thanks))
+
+    citation = add_citation(header)
+    help_data_list.extend(citation)
+    size_dict["help"] += len(str(citation))
 
     abbrev_other = add_abbrev_other_html(pth, jinja_env)
     help_data_list.extend(abbrev_other)
@@ -311,3 +324,45 @@ def add_thanks(pth: ProjectPaths, header: str) -> list[DictEntry]:
     )
 
     return help_data_list
+
+
+def add_citation(header: str) -> list[DictEntry]:
+    """A 'cite' entry carrying the citation for this build.
+
+    Built here rather than stored in a TSV so that the version it names is the
+    version the reader actually has, offline, without a lookup elsewhere."""
+
+    version = config_read("version", "version") or "unknown"
+    citation = make_citation(version, get_doi())
+
+    html = ""
+    html += "<body>"
+    html += "<div class='tertiary'>"
+    html += "<h2>How to Cite DPD</h2>"
+    html += "<p>DPD is revised every month. Always cite the version you used.</p>"
+    html += "<h3 class='dpd'>The dictionary</h3>"
+    html += f"<p>{citation}</p>"
+    html += "<h3 class='dpd'>A single entry</h3>"
+    html += (
+        f"<p>{AUTHOR}. &ldquo;{EXAMPLE_LEMMA}.&rdquo; Digital Pāḷi Dictionary, "
+        f"version {version}. {WEBSITE}?tab=dpd&amp;q={EXAMPLE_ID}</p>"
+    )
+    html += (
+        "<p>The id is on the first line after the <b>feedback</b> button under "
+        "each entry. Ids are permanent and never reused.</p>"
+    )
+    html += (
+        "<p><a href='https://digitalpalidictionary.github.io/how_to_cite/'>"
+        "Chicago, MLA and APA forms</a></p>"
+    )
+    html += "</div></body></html>"
+    html = squash_whitespaces(header) + minify(html)
+
+    return [
+        DictEntry(
+            word="cite",
+            definition_html=html,
+            definition_plain="",
+            synonyms=["dpd cite", "cite", "citation", "how to cite", "version"],
+        )
+    ]

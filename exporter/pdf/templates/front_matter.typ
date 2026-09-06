@@ -32,7 +32,7 @@
 
 #align(center + top)[
   #text(15pt)[
-    Created by Bodhirasa
+    Created by Bodhirasa Bhikkhu
   ]
 ]
 
@@ -50,7 +50,17 @@
   Last updated on *#datetime.today().display()*
 ]
 
-#align(center + horizon)[ 
+#align(center + horizon)[
+  How to cite this dictionary
+
+  #text(size: 0.9em)[
+    {{ citation }}
+  ]
+
+  #link("https://digitalpalidictionary.github.io/how_to_cite/")[#blue("Full citation guidance")]
+
+  #v(1em)
+
   DPD Online
   #link("https://www.dpdict.net")[#blue("https://www.dpdict.net")]
 

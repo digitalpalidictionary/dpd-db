@@ -9,6 +9,8 @@ Digital Pāḷi Dictionary is made available under a __CC BY-NC-SA 4.0__ license
 
 View the full license details on the [Creative Commons website](http://creativecommons.org/licenses/by-nc-sa/4.0/){target="_blank}. 
 
+Attributing DPD in academic work? See [How to Cite DPD](how_to_cite.md).
+
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
 
 

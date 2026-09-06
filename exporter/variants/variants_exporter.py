@@ -140,7 +140,7 @@ def main() -> None:
 
     dict_info = DictInfo(
         bookname="DPD Variants",
-        author="Bodhirasa",
+        author="Bodhirasa Bhikkhu",
         description="Variant readings found in Myanmar, Sri Lankan, Thai and Sutta Central texts.",
         website="www.dpdict.net",
         source_lang="pi",

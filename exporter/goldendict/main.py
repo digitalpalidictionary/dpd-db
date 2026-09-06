@@ -124,7 +124,7 @@ def prepare_export_to_goldendict_mdict(g: GlobalVars) -> None:
     """Prepare info and variables for export."""
 
     description = """
-    <p>Digital Pāḷi Dictionary by Bodhirasa</p>
+    <p>Digital Pāḷi Dictionary by Bodhirasa Bhikkhu</p>
     <p>For more information, please visit
     <a href=\"https://digitalpalidictionary.github.io\">
     the Digital Pāḷi Dictionary website</a></p>
@@ -132,7 +132,7 @@ def prepare_export_to_goldendict_mdict(g: GlobalVars) -> None:
 
     dict_info = DictInfo(
         bookname="Digital Pāḷi Dictionary",
-        author="Bodhirasa",
+        author="Bodhirasa Bhikkhu",
         description=description,
         website="https://digitalpalidictionary.github.io/",
         source_lang="pi",

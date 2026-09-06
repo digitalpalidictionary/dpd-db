@@ -282,6 +282,7 @@ docs-update:
     uv run python tools/docs_update_abbreviations.py
     uv run python tools/docs_update_bibliography.py
     uv run python tools/docs_update_thanks.py
+    uv run python tools/docs_update_how_to_cite.py
     uv run python tools/docs_changelog_and_release_notes.py
 
 # Open most recent log file in browser

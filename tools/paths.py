@@ -141,10 +141,13 @@ class ProjectPaths:
             base_dir / "db_tests/gui/add_hyphenations.json"
         )
 
+        self.citation_cff_path = base_dir / "CITATION.cff"
+
         # docs
         self.docs_abbreviations_md_path = base_dir / "docs/abbreviations.md"
         self.docs_bibliography_md_path = base_dir / "docs/bibliography.md"
         self.docs_changelog_md_path = base_dir / "docs/changelog.md"
+        self.docs_how_to_cite_md_path = base_dir / "docs/how_to_cite.md"
         self.docs_newsletters_md_path = base_dir / "docs/newsletters.md"
         self.docs_thanks_md_path = base_dir / "docs/thanks.md"
 

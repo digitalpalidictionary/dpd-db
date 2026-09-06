@@ -53,6 +53,13 @@ These notes are for internal contributors and editors maintaining dictionary dat
   `table_rebuilt` makes it a no-op on every incremental run. The concordance's
   712 chapter-relative KN entries (`file:cN…`) are skipped and need the CST XML
   chapter structure to resolve. Added 2026-07-31.
+- `CITATION.cff` and `docs/how_to_cite.md` are GENERATED — `tools/version.py` writes the
+  first, `tools/docs_update_how_to_cite.py` the second, both from the release version so
+  the citation can never name a stale version. Never hand-edit either. The Zenodo concept
+  DOI lives in `config.ini` under `[version] doi`, is looked up once by `ensure_doi()`
+  (skipped when `CI` is set, since `config.ini` is gitignored), and flows from there into
+  the citation string, `db_info`, the CFF, the docs page, the GoldenDict `cite` entry,
+  the PDF front matter and the Flutter app's How to Cite card. Added 2026-09-06.
 - `README.md` and `CONTRIBUTING.md`
 - `conductor/product.md` and `conductor/tech-stack.md`
 - `docs/technical/` for database and project structure documentation

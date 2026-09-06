@@ -62,3 +62,11 @@ __SA__: and share under the same conditions.
 View the full license details on the [Creative Commons website](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />
+
+## How to Cite
+
+DPD is revised every month, so please cite the version you used.
+
+> Bodhirasa Bhikkhu. _Digital Pāḷi Dictionary_. Version _&lt;the version you used&gt;_. https://www.dpdict.net/
+
+[How to cite DPD](https://digitalpalidictionary.github.io/how_to_cite/)
