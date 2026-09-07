@@ -134,6 +134,10 @@ class BoldSearchView(ft.Column):
             ]
         )
 
+    def on_tab_focus(self) -> None:
+        if self.search_bold_field.page is not None:
+            self.search_bold_field.focus()
+
     def update_results(self, results: list, search_within: str):
         self.results_pane.controls.clear()
         if not results:
