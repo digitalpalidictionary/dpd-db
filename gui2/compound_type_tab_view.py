@@ -59,6 +59,10 @@ class CompoundTypeTabView(ft.Column):
             self._build_save_section(),
         ]
 
+    def on_tab_focus(self) -> None:
+        if self._word_field.page is not None:
+            self._word_field.focus()
+
     def _build_fields_section(self) -> ft.Container:
         self._word_field = ft.TextField(
             hint_text="word",
@@ -84,10 +88,10 @@ class CompoundTypeTabView(ft.Column):
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
-            on_change=lambda e: setattr(
-                e.control, "helper_text", e.control.value or " "
-            )
-            or e.control.update(),
+            on_change=lambda e: (
+                setattr(e.control, "helper_text", e.control.value or " ")
+                or e.control.update()
+            ),
         )
         self._position_dropdown = ft.Dropdown(
             hint_text="position",
@@ -107,10 +111,10 @@ class CompoundTypeTabView(ft.Column):
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
-            on_change=lambda e: setattr(
-                e.control, "helper_text", e.control.value or " "
-            )
-            or e.control.update(),
+            on_change=lambda e: (
+                setattr(e.control, "helper_text", e.control.value or " ")
+                or e.control.update()
+            ),
         )
         self._type_dropdown = ft.Dropdown(
             hint_text="type",
