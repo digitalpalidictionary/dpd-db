@@ -195,6 +195,7 @@ class App:
     _TAB_JUMP_KEYS: dict[str, int] = {
         "G": 0,  # Global
         "T": 1,  # Transl
+        "P": 4,  # Pass2Pre
         "E": 7,  # Pass2Add
         "'": 8,  # '
         "S": 9,  # Sp
