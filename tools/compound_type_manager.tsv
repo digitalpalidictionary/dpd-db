@@ -27,6 +27,7 @@ attha + aṃ	ind	last	chaṭṭhī tappurisa > abyayībhāva	abbhatthaṃ, yāva
 atthaṃ	ind	last	chaṭṭhī tappurisa > abyayībhāva		
 atthika	adj	last	tatiyā tappurisa	sabbatthika, mahatthika	
 atthiya	adj	last	chaṭṭhī tappurisa	mahatthiya	
+atthī	adj	last	tatiyā tappurisa		
 adhigata	adj	last	tatiyā tappurisa	amatamadhigata, ekodibhāvādhigata	
 adhipateyya	adj	last	kammadhāraya > bahubbīhi		
 adhippāya	adj	last	chaṭṭhī tappurisa > bahubbīhi	evaṃadhippāya, kalyāṇādhippāya, nabhedādhippāya, namaraṇādhippāya, nahasādhippāya, yathādhippāya	
@@ -185,9 +186,10 @@ karaṇīya	nt	last	catutthī tappurisa	aggikaraṇīya, uttarikaraṇīya, utta
 kalyāṇa	any	first	kammadhāraya		
 kasāva	adj	last	kammadhāraya > bahubbīhi		
 kasāva	noun	last	chaṭṭhī tappurisa		
-kāma	adj	last	dutiyā tappurisa | tuṃpaccaya tappurisa		
+kāma	adj	last	dutiyā tappurisa | tuṃpaccaya tappurisa	akattukāma, akammakāma, adassanakāma, adātukāma, anatthakāma, anupagantukāma, abhuñjitukāma, amaritukāma, ahitakāma, evaṅkāma, evaṃkāma, nacchādetukāma, nachādetukāma	
 kāma	masc	last	sattamī tappurisa	attakāma 2, kilesakāma, dibbakāma, vatthukāma 1, sabbakāma	
 kāya	adj	last	kammadhāraya > bahubbīhi		
+kāyika	adj	last	chaṭṭhī tappurisa > bahubbīhi | kammadhāraya > bahubbīhi		
 kāraka	adj	last	catutthī tappurisa > bahubbīhi	abrāhmaṇakāraka, asannidhikāraka	
 kāraka	noun	last	chaṭṭhī tappurisa	asannidhikāraka	
 kārī	any	last	dutiyā tappurisa	akiccakārī 2, akhaṇḍakārī, acchiddakārī, attakārī, aparipūrakārī, asakkaccakārī, asappāyakārī, asabalakārī, asaṃvutakārī, asātaccakārī, esukārī 1, nisammakārī, pubbakārī, sakkaccakārī, santatakārī, evaṅkārī, evaṃkārī, kathaṃkārī, tathākārī, satatakārī, samakārī, kathaṅkārī, esukārī 2	
@@ -470,7 +472,7 @@ peyyāla	noun	last	kammadhāraya
 poṇa	adj	last	dutiyā tappurisa	anupubbapoṇa, īsakapoṇa, īsakampoṇa, īsakaṃpoṇa	
 posī	adj	last	dutiyā tappurisa		
 phala	adj	last	kammadhāraya > bahubbīhi		
-phala	nt	last	chaṭṭhī tappurisa	akālaphala, aggaphala 2, ariyaphala, kaṭukapphala 2, kiṃphala 2, tatiyaphala, tiphala, dutiyaphala, navaphala, nānāphala, puttaphala, maggaphala, madhuraphala, rukkhaphala, rukkhaphala 1, sapphala, sāduphala 1, sukhapphala	
+phala	nt	last	chaṭṭhī tappurisa	akālaphala, aggaphala 2, ariyaphala, kaṭukapphala 2, kiṃphala 2, tatiyaphala, tiphala, dutiyaphala, navaphala, nānāphala, patitaphala, puttaphala, phalāphala, maggaphala, madhuraphala, rukkhaphala, rukkhaphala 1, sapphala, sāduphala 1, sukhapphala	
 phoṭṭhabba	masc	last	chaṭṭhī tappurisa	ekaphoṭṭhabba	
 baddha	adj	last	tatiyā tappurisa		
 bandhana	adj	last	catutthī tappurisa > bahubbīhi		

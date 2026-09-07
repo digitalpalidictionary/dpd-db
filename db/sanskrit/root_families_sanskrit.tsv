@@ -102,7 +102,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √i 1	1	a	come, go	√i	1, 2	go	anu √i	anve	anvaiti, anvaya, anvaya +, anvayat, anvayin, duranvaya, na + anvayat
 √i 1	1	a	come, go	√i	1, 2	go	anu pa √i	anupre	anupraiti
 √i 1	1	a	come, go	√i	1, 2	go	anu pari √i	anuparye	anuparyaiti
-√i 1	1	a	come, go	√i	1, 2	go	apa √i	ape	anapāya, anapāyin, apaiti, apāyati, apayatu, apāya, apāyin, apeta, apetya, āpāyika, na + apaiti, apāyati
+√i 1	1	a	come, go	√i	1, 2	go	apa √i	ape	anapāya, anapāyin, apaiti, apāyati, apayatu, apāya, apāyin, apeta, apetya, āpāyika, na + apaiti, apāyati, na + apeta
 √i 1	1	a	come, go	√i	1, 2	go	abhi ati √i	abhyatī	abhyatīta
 √i 1	1	a	come, go	√i	1, 2	go	abhi ud √i	abhyude	abhyudayati, abhyudeti
 √i 1	1	a	come, go	√i	1, 2	go	abhi saṃ √i	abhisami	abhisamaya, abhisamayat, abhisamita, abhisamitāvin (bsk), abhisamītvā, abhisameta (assembled), abhisameti, abhisametya, na + abhisamaya, na + abhisameta (not assembled), na + abhisametya
@@ -579,7 +579,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khip 1	1	a	throw	√kṣip	6	throw	abhi saṃ √khip	saṃkṣip	+ saṃkṣipta
 √khip 1	1	a	throw	√kṣip	6	throw	ava √khip	avakṣip	avakṣipati, avakṣipta, avakṣiptvā
 √khip 1	1		throw	√kṣip	6	throw	ā √khip	ākṣip	ākṣipta
-√khip 1	1	a	throw	√kṣip	6	throw	ud √khip	utkṣip	utkṣipat, utkṣipati, utkṣipayitvā, utkṣipta, utkṣipta +, utkṣipya, utkṣipyamāṇa, utkṣepa, utkṣepaka, utkṣepaṇa, utkṣepaṇīya, utkṣepitavya, utkṣepitum, na + utkṣipta, na + utkṣipta +
+√khip 1	1	a	throw	√kṣip	6	throw	ud √khip	utkṣip	utkṣipat, utkṣipati, utkṣipayitvā, utkṣipta, utkṣipta +, utkṣipya, utkṣipyate, utkṣipyamāṇa, utkṣepa, utkṣepaka, utkṣepaṇa, utkṣepaṇīya, utkṣepayati, utkṣepitavya, utkṣepitum, na + utkṣipta, na + utkṣipta +
 √khip 1	1	a	throw	√kṣip	6	throw	upa ni √khip	upanikṣip	upanikṣipaṇa, upanikṣipati, upanikṣipta, upanikṣiptvā, upanikṣepa, upanikṣepitavya
 √khip 1	1	a	throw	√kṣip	6	throw	ni √khip	nikṣip	dur + nikṣipta, nikṣipat, nikṣipati, nikṣipamāṇa, nikṣipita, nikṣipta, nikṣiptvā, nikṣipya, nikṣepa, nikṣepaṇa, nikṣepitavya, nikṣepitum, sunikṣipta
 √khip 1	1	a	throw	√kṣip	6	throw	pa √khip	prakṣip	prakṣipat, prakṣipati, prakṣipta, prakṣiptvā, prakṣepa
@@ -1316,7 +1316,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ava √dis	avadiś	uddiśya, uddeśaka, na + uddiśya, uddeśa
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ā √dis	ādiś	adiśat, adiśati, ādiśya, ādiṣṭvā, ādeśa, ādeśana, ādeśana, ādeśanā (bsk)
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	ud √dis	uddiś	uddishat, uddiśat, uddiśati, uddiśamāna, uddiśet, uddiśya, uddiśyate, uddiṣṭa, uddeśa, uddeśaka, uddeśayat, uddeśayati, uddeśayitavya, uddeśayitum, uddeśitavya, uddeśitum, uddeṣṭṛ, deṣṭum, na + uddiṣṭa, samuddeśa, su + uddiṣṭa
-√dis 2	1	a	point out, explain	√diś	3, 4, 6	point	upa √dis	upadiś	upadiśati, upadiśyamāna, upadeśa, upadeśitavya
+√dis 2	1	a	point out, explain	√diś	3, 4, 6	point	upa √dis	upadiś	upadiśati, upadiśyate, upadiśyamāna, upadeśa, upadeśitavya
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	nī √dis	nirdiś	na +, niradikṣat, nirdiśati, nirdeśa, nirdeṣṭum, nis, niṣ, nir, niḥ, nī + ana
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	pa √dis	pradiś	niṣpradeśa, pradeśa, pradeśam, sa + pradeśa
 √dis 2	1	a	point out, explain	√diś	3, 4, 6	point	pati √dis	pratidiś	pratidiśam, pratideśanīya, pratideśayati
@@ -1942,7 +1942,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √bhid	2	ṃa	break, split	√bhid	1, 7	split	saṃ pari √bhid		sam + paribhinna
 √bhis	2	ṃa	fear	√bheṣ √bhyas	1	fear	√bhis	bheṣ	bhīṣaṇa, bhīṣaṇaka, bhīṣaṇatva, bhīṣā, bhīṣma, bheṣati, bheṣayitum, bhyasayamāna, bhyāsayati
 √bhis	2	ṃa	fear	√bheṣ √bhyas	1	fear	vi √bhis	bheṣ	vibhīṣaṇa
-√bhī	1	a	fear	√bhī	1, 3, 10	fear	√bhī	bhī	abhaya, abhayā, abhāyi, abhaiṣīt, abhīta, abhītvā (na + bhītvā), abhīru, abhīruka (na + bhīruka), na + bibhyat, nirbhaya, bibheti, bhairava, bhaya, bhayate, bhayānaka, bhayānaka + tara, bhāyayitvā, bhīta, bhīta +, bhīti, bhītvā, bhīma, bhīru, bhīruka, bhīrutā, bhetavya, sa + bhīru, sabhaya, subhayānaka
+√bhī	1	a	fear	√bhī	1, 3, 10	fear	√bhī	bhī	abhaya, abhayā, abhāyi, abhaiṣīt, abhīta, abhītvā (na + bhītvā), abhīru, abhīruka (na + bhīruka), na + bibhyat, nirbhaya, bibheti, bhairava, bhaya, bhayate, bhayānaka, bhayānaka + tara, bhāyayitvā, bhīta, bhīta +, bhīti, bhītvā, bhīma, bhīru, bhīruka, bhīrutā, bhīṣayate, bhetavya, sa + bhīru, sabhaya, subhayānaka
 √bhī	1		fear	√bhī	1, 3, 10	fear	pa √bhī	prabhī	prabhītaḷ
 √bhī	1	a	fear	√bhī	1, 3, 10	fear	pati √bhī	pratibhī	apratibhaya, pratibhaya, sapratibhaya
 √bhī	1	a	fear	√bhī	1, 3, 10	fear	saṃ √bhī	bhī	na + sambhīta
@@ -2226,7 +2226,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √yu	1	a	unite, fasten	√yu	2, 6, 9	unite	pati saṃ √yu	saṃyu	prati + saṃyuta
 √yu	1	a	unite, fasten	√yu	2, 6, 9	unite	saṃ √yu	saṃyu	saṃyuta
 √yu	1	a	unite, fasten	√yu	2, 6, 9	unite	saṃ ā √yu	samāyu	samāyuta
-√yuj	2	ṃa	yoke, join	√yuj	2, 7	join	√yuj	yuj	a + yukta, a + yogya, ayukta, ayoga, na + yogin, na + yojayat, yukta, yukta +, yuktatara, yukti, yuktiśaḥ, yuktvā, yuga, yugala, yugma, yujyate, yuñjat, yuñjāna, yunakti, yuṅkte, yuñjati, yoga, yogin, yogya, yogyatā, yogyā, yojaka, yojana, yojanā, yojanika, yojayat, yojayati, yojayitavya, yojayitum, yojayitvā, yojyate, suyukta
+√yuj	2	ṃa	yoke, join	√yuj	2, 7	join	√yuj	yuj	a + yukta, a + yogya, ayukta, ayoga, na + yogin, na + yojayat, yukta, yukta +, yuktatara, yuktatva, yukti, yuktiśaḥ, yuktvā, yuga, yugala, yugma, yujyate, yuñjat, yuñjāna, yunakti, yuṅkte, yuñjati, yoga, yogin, yogya, yogyatā, yogyā, yojaka, yojana, yojanā, yojanika, yojayat, yojayati, yojayitavya, yojayitum, yojayitvā, yojyate, suyukta
 √yuj	2	*e	yoke, join	√yuj	2, 7	join	adhi pa √yuj	prayuj	adhi + prayoga
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	anu √yuj	anuyuj	an + anuyukta (bsk), ananuyoga, anu + yuñjāna, anuyukta (bsk), anuyuktvā, anuyujyamāna, anuyuñjat, anuyuñjati, anuyoga, anuyogin, anuyojitavya, na + anu + yukta, na + anuyuktvā, na + anuyuñjati
 √yuj	2	ṃa	yoke, join	√yuj	2, 7	join	anu pa √yuj	anuprayuj	anuprayoga
