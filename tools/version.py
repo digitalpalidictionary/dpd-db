@@ -18,6 +18,7 @@ from tools.configger import config_read, config_update
 from tools.date_and_time import year_month_day
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.uposatha_day import UposathaManger
 
 major = 0
 minor = 4
@@ -225,6 +226,16 @@ def make_citation_cff(version: str, doi: str | None = None) -> str:
 
 
 def update_citation_cff(cff_path: Path, version: str, doi: str | None = None) -> None:
+    """Rewritten on uposatha days only.
+
+    It is a tracked file that advertises the released version, so regenerating
+    it on an ordinary dev build would churn the diff with a version that was
+    never released."""
+
+    if not UposathaManger.uposatha_today():
+        pr.summary("CITATION.cff", "not uposatha")
+        return
+
     cff_path.write_text(make_citation_cff(version, doi), encoding="utf-8")
     pr.summary("CITATION.cff", "ok")
 

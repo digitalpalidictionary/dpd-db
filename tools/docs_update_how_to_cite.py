@@ -6,6 +6,7 @@ way abbreviations, bibliography and thanks are kept fresh."""
 from tools.configger import config_read
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.uposatha_day import UposathaManger
 from tools.version import (
     AUTHOR,
     EXAMPLE_ID,
@@ -103,6 +104,14 @@ generates APA or BibTeX.
 def main() -> None:
     pr.tic()
     pr.yellow_title("updating mkdocs how to cite")
+
+    # Tracked file naming the released version — same reason CITATION.cff is
+    # gated: a dev build must not churn it with a version nobody released.
+    if not UposathaManger.uposatha_today():
+        pr.summary("how_to_cite.md", "not uposatha")
+        pr.toc()
+        return
+
     pth = ProjectPaths()
     version = config_read("version", "version") or "unknown"
     pth.docs_how_to_cite_md_path.write_text(

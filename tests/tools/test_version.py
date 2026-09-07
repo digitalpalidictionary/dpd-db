@@ -115,13 +115,48 @@ def test_citation_cff_names_the_version_and_omits_an_unknown_doi() -> None:
     assert "doi: 10.5281/zenodo.1234567" in with_doi
 
 
-def test_cff_is_rewritten_in_place(tmp_path: Path) -> None:
+def _set_uposatha(monkeypatch: pytest.MonkeyPatch, today: bool) -> None:
+    monkeypatch.setattr(
+        version.UposathaManger, "uposatha_today", classmethod(lambda cls: today)
+    )
+
+
+def test_cff_is_rewritten_on_an_uposatha(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    _set_uposatha(monkeypatch, True)
     cff_path = tmp_path / "CITATION.cff"
     cff_path.write_text("stale", encoding="utf-8")
 
     update_citation_cff(cff_path, VERSION)
 
     assert cff_path.read_text(encoding="utf-8") == make_citation_cff(VERSION)
+
+
+def test_cff_is_left_alone_on_an_ordinary_day(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """It is a tracked file naming the released version — a dev build must not
+    churn it with a version that was never released."""
+
+    _set_uposatha(monkeypatch, False)
+    cff_path = tmp_path / "CITATION.cff"
+    cff_path.write_text("committed contents", encoding="utf-8")
+
+    update_citation_cff(cff_path, VERSION)
+
+    assert cff_path.read_text(encoding="utf-8") == "committed contents"
+
+
+def test_cff_is_not_created_on_an_ordinary_day(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    _set_uposatha(monkeypatch, False)
+    cff_path = tmp_path / "CITATION.cff"
+
+    update_citation_cff(cff_path, VERSION)
+
+    assert not cff_path.exists()
 
 
 class FakeResponse:
