@@ -142,10 +142,14 @@ class BoldSearchView(ft.Column):
         self.results_pane.controls.clear()
         if not results:
             self.results_pane.controls.append(ft.Text("No results found."))
-            self.results_display_container.visible = (
-                False  # Hide container if no results
-            )
+            # No border/radius for this case - a rounded box around a single
+            # line inside the scrollable ListView renders with a broken corner.
+            self.results_display_container.border = None
+            self.results_display_container.border_radius = None
+            self.results_display_container.visible = True
         else:
+            self.results_display_container.border = ft.border.all(1, ft.Colors.GREY_400)
+            self.results_display_container.border_radius = 10
             self.results_display_container.visible = True  # Show container if results
             for i, r in enumerate(results):
                 # --- Left Cell ---
