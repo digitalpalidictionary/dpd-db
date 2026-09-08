@@ -693,3 +693,30 @@ a.dpd-button.play.small:hover svg {
   box-shadow: var(--shadow-default);
   pointer-events: none;
 }
+
+/* Attribution that travels with the data. Deliberately watermark-faint: the
+   low opacity moves it toward whichever background it sits on, so it darkens
+   in dark mode and lightens in light mode without a per-mode colour. */
+.license-line {
+  font-size: 0.75em;
+  margin-top: 20px;
+  opacity: 0.16;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.license-line a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.license-line:hover {
+  opacity: 0.5;
+}
+
+.license-icons {
+  display: inline-flex;
+  gap: 2px;
+  margin-right: 5px;
+  vertical-align: -0.15em;
+}
