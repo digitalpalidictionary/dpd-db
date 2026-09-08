@@ -128,7 +128,7 @@
         <div class="main-pane" id="main-pane">
             <div class="history-pane" id="history-pane">
                 <div class="pane-header">
-                    <h3 class="dpd">History<button class="clear-history-button" id="clear-history-button" title="Clear history">x</button></h3>
+                    <h3 class="dpd">History<button class="clear-history-button" id="clear-history-button" data-title="Clear history">x</button></h3>
                     <button class="collapse-toggle" id="history-collapse-toggle" aria-label="Toggle history">
                         <span class="collapse-icon">▼</span>
                     </button>
@@ -220,19 +220,20 @@
         </div>
         <div class="footer-pane">
             For more information, please
-            <a href="https://digitalpalidictionary.github.io/webapp/" target="_blank">
+            <a href="https://digitalpalidictionary.github.io/webapp/" target="_blank"
+                data-title="How to use the webapp, search syntax and features">
                 read the docs
             </a>
             &nbsp;|&nbsp;
             <a href="https://digitalpalidictionary.github.io/how_to_cite/" target="_blank"
-                title="DPD is revised every month — cite the version you used">
+                data-title="DPD is revised every month — cite the version you used">
                 how to cite
             </a>
             &nbsp;|&nbsp;
-            <span title="the release you are using">{{ dpd_release_version }}</span>
+            <span data-title="the release you are using">{{ dpd_release_version }}</span>
             &nbsp;|&nbsp;
             <a href="https://github.com/digitalpalidictionary/dpd-db" target="_blank"
-                title="Report issues or suggest features on GitHub" class="footer-link github-link">
+                data-title="Report issues or suggest features on GitHub" class="footer-link github-link">
                 <svg class="footer-icon github-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" style="height: 1em; vertical-align: middle">
                     <title>GitHub Issues</title>
