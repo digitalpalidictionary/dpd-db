@@ -449,7 +449,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kujj	1	a	turn	√ubj	6	force	ud √kujj	udubj	udubja, udubjati, udubjya
 √kujj	1	a	turn	√ubj	6	force	ni √kujj	nyubj	nyunjya, nyubjita
 √kujj	1	a	turn	√ubj	6	force	nī √kujj	nirubj	na + nyubjat, na + nyubjayat, nikubja, nyubja, nirubjayati, nyubjati, nyubjita, nyubjitvā
-√kujj	1	a	turn	√ubj	6	force	pati √kujj		prati + ubjitvā, pratikubjita (bsk)
+√kujj	1	a	turn	√ubj	6	force	pati √kujj		prati + ubjitvā, pratikubjita (bsk), pratyubjati
 √kujj	1	a	turn	√ubj	6	force	pari √kujj		pariyubjitvā
 √kuñc	1	a	be crooked, be bent	√kuñc	1, 6	shrink, curl	√kuñc	kuñc	kuñcikā, krauñca, na + kuñcita
 √kuṭ 1	1	a	be crooked, be bent	√kuṭ	6	be crooked	√kuṭ	kuṭ	akuṭila (na + kuṭila), akūṭa, kuṭi, kuṭika, kuṭikā, kuṭila, kuṭī, kūṭa, kūṭaka, kūṭya, kauṭilya, koṭayate, koṭi, koṭika, na + kuṭilatā
@@ -2111,6 +2111,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √muc	2	ṃa	release, free	√muc	6	release	vi pa √muc	vipramuc	na + vipramukta, vipramukta, vipramuñcati, vipramokṣa
 √mucch	1	a	thicken, fixate	√mūrch √murch	1	thicken	√mucch	mūrch	amūrchita, amūrchīt, mūrchati, mūrchana, mūrchā, mūrchita, mūrtvā
 √mucch	1	a	thicken, fixate	√mūrch √murch	1	thicken	adhi √mucch	mūrch	abhimūrchita, na + abhimūrchita
+√mucch	1	a	thicken, fixate	√mūrch √murch	1	thicken	adhi ava √mucch		abhimūrchita
 √mucch	1	a	thicken, fixate	√mūrch √murch	1	thicken	pa √mucch	pramūrch	pramūrchita
 √mucch	1	a	thicken, fixate	√mūrch √murch	1	thicken	vi √mucch	mūrch	vi + mūrchita
 √mucch	1	a	thicken, fixate	√mūrch √murch	1	thicken	saṃ √mucch	sammūrch	sammūrchita, su + sammūrchita
@@ -2827,7 +2828,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √veṭh	8	*e	wind, twist	√veṣṭ	1	wrap	vi ni √veṭh	nirveṣṭ	vi + nirveṣṭitvā, veṣṭayat
 √veṭh	8	*e	wind, twist	√veṣṭ	1	wrap	saṃ √veṭh	saṃveṣṭ	
 √veṭh	8	*e	wind, twist	√veṣṭ	1	wrap	saṃ pari √veṭh	pariveṣṭ	sam + pariveṣṭayati, saṃpariveṭhita
-√vedh	1	a	shake, fear	√vyath √vedh	1	waver	√vedh	vyath	avyathin, na + vyathamāna, vyathamāna
+√vedh	1	a	shake, fear	√vyath √vedh	1	waver	√vedh	vyath	avyathin, na + vyathamāna, vyathate, vyathamāna
 √vedh	1	a	shake, fear	√vyath √vedh	1	waver	ā √vedh	āvyath	
 √vedh	1	a	shake, fear	√vyath √vedh	1	waver	pa √vedh	pravyath	na +, pra + vyathaka, pravedhayat, pravyathate, pravyathamāna, pravyathayati, pravyathā (bsk), pravyathita
 √vedh	1	a	shake, fear	√vyath √vedh	1	waver	saṃ pa √vedh	pravyath	na + sampravyathita, sam, sampravyathate
