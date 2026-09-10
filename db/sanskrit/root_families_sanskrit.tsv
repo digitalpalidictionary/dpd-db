@@ -756,7 +756,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ud √ghaṭ	uddhan	udghaṭayati, udghaṭita, udghāṭita, udghāṭin, udghātin
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	upa √ghaṭ	upahan	upaghāṭayati, upaghāta, upaghātaka, upaghātin, na + upaghāta, sa + upaghāta, sa + upaghātaka
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	ni √ghaṭ	nihan	nighāta, nighātin
-√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	nī √ghaṭ	nirhan	nirghāta, nirghātana, nirghātayati
+√ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	nī √ghaṭ	nirhan	nirghāta, nirghātana, nirghātayati, nirghātita
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	pati √ghaṭ	pratihan	apratigha, apratigha + vat, pratigha, pratigha + vat, pratighāta, sa + pratigraha, satpratigraha
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	pari √ghaṭ	parihan	parigha
 √ghaṭ 1	8	*e	strike, kill	√han √ghaṭ	1, 2, 8	smite	vi √ghaṭ	vihan	avighāta, avighāta +, avighāta + vat, vighāta, vighāta + vat, vighātaka, vighātya, sa + vighāta
@@ -2887,7 +2887,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sajj 1	1	*e	relinquish, let loose	√sṛj	6	send forth	ava √sajj	avasṛj	avasarjati, avasarjana, utsarjana, avasṛṣṭa
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	ud √sajj	utsṛj	utsarga, utsṛjati, utsṛṣṭvā
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	upa √sajj	upasṛj	upasarga, upasṛkta, sopasarga
-√sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	nī √sajj	niḥsṛj	abhiniḥsṛjita, na + nisarga, na + nisṛṣṭa, na + niḥsṛkta, na + niḥsṛktvā, nisarga, nisṛṣṭa, nisṛṣṭa +, niḥsargika (bsk), naiḥsargika (bsk), niḥsarjayati, niḥsarjayitavya, niḥsṛkta, niḥsṛktvā, niḥsṛjati, niḥsṛjayitvā
+√sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	nī √sajj	niḥsṛj	abhiniḥsṛjita, na + nisarga, na + nisṛṣṭa, na + niḥsṛkta, na + niḥsṛktvā, na + niḥsṛjayitvā, nisarga, nisṛṣṭa, nisṛṣṭa +, niḥsargika (bsk), naiḥsargika (bsk), niḥsarjayati, niḥsarjayitavya, niḥsṛkta, niḥsṛktvā, niḥsṛjati, niḥsṛjayitvā
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	pati nī √sajj	pratiniḥsṛj	apratiniḥsṛktvā, dus +, na + pratiniḥsṛjat, na + pratiniḥsṛjati, na + pratiniḥsṛjya, na + pratiniḥsṛṣṭa, pratiniḥsarjayati, pratiniḥsarjayitum, pratiniḥsarjitum, pratiniḥsṛktvā, pratiniḥsṛjat, pratiniḥsṛjati, pratiniḥsṛjya, pratiniḥsṛjya, pratiniḥsarjitavya, pratiniḥsṛṣṭa, su +, su + pratiniḥsṛj +
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	vi √sajj	visṛj	avisṛṣṭa, na + visarjita, na + visṛjya, visarga, visarjana, visarjayat, visarjayati, visarjayitavya, visarjayitum, visarjayitṛ, visarjita, visṛktvā, visṛjati, visṛjya, visṛjyate, visṛṣṭa, visṛṣṭa +, visṛṣṭi
 √sajj 1	1	a	relinquish, let loose	√sṛj	6	send forth	vi ava √sajj	vyavasṛj	avasṛjati, vyavasarga, vyavasṛjya, vyavasṛṣṭvā
@@ -2906,7 +2906,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	abhi ni √sad	abhiniṣad	abhinisīdyamāna, abhiniṣattvā, abhiniṣīdati, abhiniṣīditum
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	abhi pa √sad	abhiprasad	abhiprasanna, abhiprasīdati, abhirprasāda?
 √sad	1	*aya	sink, sit, settle	√sad	1, 6	sit	ava √sad	avasad	avasanna, avasādayati, avasādayitum, avasīdat, avasīdati, avasīdana, na + avasādana, na + avasādayati
-√sad	1	a	sink, sit, settle	√sad	1, 6	sit	ā √sad	āsad	āsattvā, āsada (approaching), āsanna, āsanna +, āsannatara, āsādana, āsādayati, āsādayitavya, āsādya, āsādya (putting down), durāsada, na +, na + āsanna, su + āsada
+√sad	1	a	sink, sit, settle	√sad	1, 6	sit	ā √sad	āsad	āsattvā, āsada (approaching), āsanna, āsanna +, āsannatara, āsādana, āsādayati, āsādayitavya, āsādya, āsādya (putting down), āsīdati, durāsada, na +, na + āsanna, su + āsada
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	ā ni √sad	niṣad	āniṣada (bsk)
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	ud √sad	utsad	utsada (bsk), utsadayitavya, utsanna, utsanna +, utsāda (ruin), utsādana, utsādayat, utsādayati, utsāha, utsāhayitṛ, utsīdati, na + utsada (excellent), na + utsadayitvā
 √sad	1	a	sink, sit, settle	√sad	1, 6	sit	upa ā √sad	āsad	upāsādya
