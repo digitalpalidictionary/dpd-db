@@ -18,7 +18,7 @@ Link: <https://creativecommons.org/licenses/by-nc-sa/4.0/>; rel="license"; title
 
 `/search_json` additionally ends its response body with a `license` object.
 
-The rendered entries themselves end with a small visible notice — the four Creative Commons marks (inlined SVG, so they survive offline in GoldenDict) followed by the attribution, linking to the deed. It is appended to the results HTML rather than to a page footer, so it travels with the data into GoldenDict, the JSON `dpd_html` field and any third-party embed of the fragment. A "no results" page carries no notice.
+The rendered entries themselves end with a small visible notice — the four Creative Commons marks (inlined SVG, so they survive offline in GoldenDict) followed by `Digital Pāḷi Dictionary CC BY-NC-SA 4.0`, linking to the deed. It is appended to the results HTML rather than to a page footer, so it travels with the data into GoldenDict, the JSON `dpd_html` field and any third-party embed of the fragment. A "no results" page carries no notice.
 
 Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audio (`/audio/{headword}`) are licensed separately and carry none of the above.
 
@@ -62,7 +62,7 @@ Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audi
         "license": {
             "name": "CC BY-NC-SA 4.0",
             "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-            "attribution": "Digital Pāḷi Dictionary by Bodhirasa Bhikkhu — dpdict.net",
+            "attribution": "Digital Pāḷi Dictionary by Bodhirasa Bhikkhu CC BY-NC-SA 4.0",
             "note": "Non-commercial use only. Derivatives must be shared alike."
         }
     }

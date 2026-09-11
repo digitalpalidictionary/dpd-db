@@ -56,6 +56,11 @@ def test_license_is_last_key_of_json_body() -> None:
     assert data["license"]["url"] == (
         "https://creativecommons.org/licenses/by-nc-sa/4.0/"
     )
+    # The machine-readable attribution still names the author; only the visible
+    # notice under the entries dropped it.
+    assert data["license"]["attribution"] == (
+        "Digital Pāḷi Dictionary by Bodhirasa Bhikkhu CC BY-NC-SA 4.0"
+    )
 
 
 def test_visible_license_line_under_the_entries() -> None:
@@ -66,9 +71,11 @@ def test_visible_license_line_under_the_entries() -> None:
     for route in ["/search_html?q=dhamma", "/gd?search=dhamma"]:
         text = client.get(route).text
         assert text.count('<div class="license-line">') == 1, route
-        assert "Digital Pāḷi Dictionary by Bodhirasa Bhikkhu" in text, route
-        assert "CC BY-NC-SA 4.0" in text, route
-        assert "creativecommons.org/licenses/by-nc-sa/4.0/" in text, route
+        start = text.index('<div class="license-line">')
+        block = text[start : text.index("</div>", text.index("</a>", start)) + 6]
+        assert "Digital Pāḷi Dictionary CC BY-NC-SA 4.0" in block, route
+        assert "Bodhirasa" not in block, route
+        assert "creativecommons.org/licenses/by-nc-sa/4.0/" in block, route
 
 
 def test_license_line_carries_the_four_cc_marks_inline() -> None:

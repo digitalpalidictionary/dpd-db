@@ -57,7 +57,7 @@ LICENSE_HTML: str = (
     '<div class="license-line">'
     f'<a href="{LICENSE_URL}" target="_blank" rel="license">'
     f'<span class="license-icons">{_CC_ICONS}</span>'
-    f"Digital Pāḷi Dictionary by {LICENSE_HOLDER} {LICENSE_NAME}"
+    f"Digital Pāḷi Dictionary {LICENSE_NAME}"
     "</a>"
     "</div>"
 )
