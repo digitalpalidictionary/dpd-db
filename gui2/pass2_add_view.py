@@ -779,6 +779,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self._add_to_db_button.color = None
         self.page.update()
 
+    def _fills_empty_field(self, word_to_save: DpdHeadword, field_name: str) -> bool:
+        """True when this save puts content into a field that was empty before."""
+
+        original = self.headword_original
+        original_value = getattr(original, field_name, "") if original else ""
+        return bool(getattr(word_to_save, field_name, "")) and not original_value
+
     def _click_add_to_db(self, e: ft.ControlEvent) -> None:
         """Add the word to db, or update in db."""
 
@@ -803,17 +810,18 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     )
                     return
 
-        if (
+        is_existing_word = bool(
             hasattr(self, "headword")
             and self.headword
             and hasattr(self, "headword_original")
             and self.headword_original
             and word_to_save.id
             == self.headword_original.id  # Compare ID from UI state with original
-        ):
+        )
+
+        if is_existing_word:
             # it's an update if this block runs
             committed, message = self._db.update_word_in_db(word_to_save)
-            log_key = "pass2_update"
 
             if self.toolkit.username_manager.is_not_primary():
                 # if not in additions then add to corrections
@@ -837,8 +845,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
             # add to db
             committed, message = self._db.add_word_to_db(word_to_save)
 
-            log_key = "pass2_add"
             item_to_history = word_to_save
+
+        log_key = (
+            "pass2_update"
+            if is_existing_word
+            and not self._fills_empty_field(word_to_save, "meaning_1")
+            and not self._fills_empty_field(word_to_save, "example_1")
+            else "pass2_add"
+        )
 
         if committed:
             request_dpd_server(str(word_to_save.id))
@@ -853,19 +868,20 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 else item_to_history.lemma_1
             )
 
-            if log_key == "pass2_add":
-                item_id = item_to_history.id
-                item_lemma = item_to_history.lemma_1
-            else:
+            if is_existing_word:
                 item_id = self.headword.id if self.headword else None
                 item_lemma = self.headword.lemma_1 if self.headword else ""
+            else:
+                item_id = item_to_history.id
+                item_lemma = item_to_history.lemma_1
 
             if item_id is not None:
                 was_new_to_history = self.history_manager.add_item(item_id, item_lemma)
             else:
                 was_new_to_history = False
 
-            if was_new_to_history:
+            # an add counts even when the word was already saved earlier today
+            if was_new_to_history or log_key == "pass2_add":
                 self._daily_log.increment(log_key)
 
             if item_id is not None:
