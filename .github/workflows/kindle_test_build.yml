@@ -1,0 +1,94 @@
+name: Kindle Test Build
+
+# Builds ONLY the Kindle dictionary, for testers, without building the database:
+# it downloads the published dpd.db.tar.xz from the latest release instead.
+#
+# The `push` trigger exists so this can be proven before the branch is merged --
+# a workflow_dispatch workflow is not offered in the Actions UI until it lives on
+# the default branch. REMOVE the push trigger when merging.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [kindling-trial]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  KINDLING_VERSION: "0.45.1"
+  KINDLING_SHA256: "e11a67f243fe2c822a0edc431e7a7f2a142bd946a72b7788731ea78f22eb4bc9"
+  TEST_TAG: kindle-test
+
+permissions:
+  contents: write
+
+jobs:
+  build-kindle:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v5
+      with:
+        submodules: 'recursive'
+        fetch-depth: 1
+
+    # the exporter only needs the CST/SC text sets from resources
+    - name: Remove large dirs
+      run: |
+        rm -rf ${{ github.workspace }}/resources/bjt/dev/*
+        rm -rf ${{ github.workspace }}/resources/sc-data/html_text/*
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install dependencies
+      run: uv sync --all-groups
+
+    - name: Download the latest published database
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release download --repo "${GITHUB_REPOSITORY}" \
+          --pattern 'dpd.db.tar.xz' --output dpd.db.tar.xz
+        tar -xJf dpd.db.tar.xz
+        rm dpd.db.tar.xz
+        ls -la dpd.db
+
+    - name: Config for GitHub release
+      run: uv run python scripts/build/config_github_release.py
+
+    - name: Install kindling
+      run: |
+        curl -sSfL -o exporter/kindle/kindling-cli \
+          "https://github.com/ciscoriordan/kindling/releases/download/v${KINDLING_VERSION}/kindling-cli-linux"
+        echo "${KINDLING_SHA256}  exporter/kindle/kindling-cli" | sha256sum -c -
+        chmod +x exporter/kindle/kindling-cli
+        exporter/kindle/kindling-cli --version
+
+    - name: Export Kindle & ePub
+      run: uv run python exporter/kindle/kindle_exporter.py
+
+    - name: Check the artefacts
+      run: |
+        ls -la exporter/share/dpd-kindle.mobi exporter/share/dpd-kindle.epub
+        test "$(stat -c%s exporter/share/dpd-kindle.mobi)" -gt 20000000
+
+    - name: Publish the test prerelease
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ env.TEST_TAG }}
+        name: "Kindle test build"
+        body: |
+          Unofficial test build of the Kindle dictionary for feedback.
+
+          Copy `dpd-kindle.mobi` to `/documents/dictionaries` on the Kindle and
+          restart the device. Long-press any Pāḷi word and choose
+          Digital Pāḷi Dictionary.
+
+          Devanāgarī, Sinhala and Thai spellings are recognised as well as Roman.
+
+          Built from commit ${{ github.sha }}.
+        prerelease: true
+        files: |
+          exporter/share/dpd-kindle.mobi
+          exporter/share/dpd-kindle.epub
