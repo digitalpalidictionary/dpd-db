@@ -3,14 +3,11 @@ name: Kindle Test Build
 # Builds ONLY the Kindle dictionary, for testers, without building the database:
 # it downloads the published dpd.db.tar.xz from the latest release instead.
 #
-# The `push` trigger exists so this can be proven before the branch is merged --
-# a workflow_dispatch workflow is not offered in the Actions UI until it lives on
-# the default branch. REMOVE the push trigger when merging.
+# Run it manually from the Actions tab. Note that a workflow_dispatch workflow is
+# only offered in the UI once it exists on the default branch.
 
 on:
   workflow_dispatch:
-  push:
-    branches: [kindling-trial]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
