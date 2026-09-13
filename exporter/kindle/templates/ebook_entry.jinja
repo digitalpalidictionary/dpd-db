@@ -10,7 +10,7 @@
             </idx:infl>
             {%- endif %}
         </idx:orth>
-        <p class="body-space">{{ data.summary }}</p>
+        <blockquote><p class="body-space" width="-1em" height="0">{{ data.summary }}</p></blockquote>
         {%- if data.grammar_table %}{{ data.grammar_table }}{%- endif %}
         {%- if data.examples %}{{ data.examples }}{%- endif %}
         {%- if deconstruction %}<p class="body-space">{{ deconstruction }}</p>{%- endif %}

@@ -12,11 +12,11 @@
             {%- endif %}
         </idx:orth>
         {%- for sense in senses %}
-        <p class="body-space"><a href="{{ sense.href }}"><b>{{ sense.lemma_1 }}</b></a> {{ sense.summary }}</p>
+        <blockquote><p class="body-space" width="-1em" height="0"><a href="{{ sense.href }}"><b>{{ sense.lemma_1 }}</b></a> {{ sense.summary }}</p></blockquote>
         {%- endfor %}
         {%- if merged %}
         <h5 id="hw{{ merged.i.id }}">{{ merged.i.lemma_1 }}</h5>
-        <p class="body-space">{{ merged.summary }}</p>
+        <blockquote><p class="body-space" width="-1em" height="0">{{ merged.summary }}</p></blockquote>
         {%- if merged.grammar_table %}{{ merged.grammar_table }}{%- endif %}
         {%- if merged.examples %}{{ merged.examples }}{%- endif %}
         {%- endif %}
