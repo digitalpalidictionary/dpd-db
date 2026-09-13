@@ -53,3 +53,12 @@ def test_row_with_epd_plus_data_skip_when_has_sinhala():
     """Row has epd + grammar + sinhala, not regenerating → skip."""
     row = make_lookup(sinhala="බුද්ධො", epd="Buddho", grammar="verb")
     assert _should_transliterate(row, regenerate_all=False) is False
+
+
+def test_epd_only_skip_when_it_already_has_transliterations():
+    """A row's own transliterations must not qualify it as having real data.
+
+    Otherwise an EPD-only row transliterated once keeps re-qualifying forever.
+    """
+    row = make_lookup(sinhala="උන්-", devanagari="उन्-", thai="อุนฺ-", epd="un-")
+    assert _should_transliterate(row, regenerate_all=True) is False

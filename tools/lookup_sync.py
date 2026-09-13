@@ -25,7 +25,7 @@ from typing import Any, cast
 from sqlalchemy.orm import Session
 
 from db.models import Lookup
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_is_another_value import TRANSLITERATION_COLUMNS, is_another_value
 
 LOOKUP_COLUMNS = [c.name for c in Lookup.__table__.columns]
 
@@ -53,6 +53,8 @@ def sync_lookup_column(
     - ``clear_stale``: clear/delete rows that currently hold a value in ``column``
       but are no longer in ``data``. A stale row is cleared (column set to "") when
       another column still holds a value, otherwise the whole row is deleted.
+      Transliteration columns do not count as a value — see
+      ``TRANSLITERATION_COLUMNS``.
     - keys in ``data`` are updated if the row exists, inserted otherwise.
     - ``pack_attr`` defaults to ``f"{column}_pack"``; pass it explicitly when the
       column's pack method uses a non-standard name.
@@ -148,7 +150,7 @@ def _raw_sql_sync(
             others_empty = " AND ".join(
                 f"IFNULL({c}, '') = ''"
                 for c in LOOKUP_COLUMNS
-                if c not in ("lookup_key", column)
+                if c not in ("lookup_key", column, *TRANSLITERATION_COLUMNS)
             )
             deleted = conn.exec_driver_sql(
                 f"DELETE FROM lookup WHERE {column} != '' "

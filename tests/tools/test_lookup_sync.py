@@ -188,3 +188,26 @@ def test_chunking_handles_more_keys_than_chunk_size(
     assert result.inserted == 25
     assert db_session.query(Lookup).count() == 25
     assert _get(db_session, "key24").see_unpack == ["hw24"]  # type: ignore[union-attr]
+
+
+def test_stale_key_with_only_transliterations_is_deleted(
+    db_session: Session, use_raw_sql: bool
+) -> None:
+    """Transliterations are derived from the lookup key, so they are not content.
+
+    A stale row holding nothing but sinhala/devanagari/thai must be deleted, not
+    left behind as a blank lookup key.
+    """
+    stale = Lookup()
+    stale.lookup_key = "karohi"
+    stale.see_pack(["karoti"])
+    stale.sinhala = '["කරොහි"]'
+    stale.devanagari = '["करोहि"]'
+    stale.thai = '["กโรหิ"]'
+    db_session.add(stale)
+    db_session.commit()
+
+    result = sync_lookup_column(db_session, "see", {}, use_raw_sql=use_raw_sql)
+
+    assert _get(db_session, "karohi") is None
+    assert (result.cleared, result.deleted) == (0, 1)
