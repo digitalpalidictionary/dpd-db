@@ -49,14 +49,14 @@ the popup reveals the other senses.** Compare the two builds carefully here:
 
 `okārassa` · `okkamati` (a headword spelled the same as another headword)
 
+Fourth group — the English-to-Pāḷi side, which also lives in this file:
+
+`suffering` · `compassion`
+
 Fifth group — the new build splits the text into **3 sections** where the old
 one used 1, which is exactly the kind of structural change old firmware can
 mishandle. `suffering` sits in the third section, so if it opens, all three
 sections are reachable.
-
-Fourth group — the English-to-Pāḷi side, which also lives in this file:
-
-`suffering` · `compassion`
 
 ## What to report back
 

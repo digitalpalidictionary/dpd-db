@@ -54,6 +54,11 @@ jobs:
         rm dpd.db.tar.xz
         ls -la dpd.db
 
+    # the exporter limits the word set to the canon, and reads the CST texts as
+    # roman txt -- a generated artefact that is not in the submodule
+    - name: Convert CST xml to roman txt
+      run: uv run python scripts/build/cst4_xml_to_txt.py
+
     - name: Config for GitHub release
       run: uv run python scripts/build/config_github_release.py
 

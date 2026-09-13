@@ -1,5 +1,5 @@
 {#- one full entry per headword: lemma_1 is unique, so the label always resolves -#}
-<idx:entry name="Pali" scriptable="yes" spell="yes" id="hw{{ data.i.id }}">
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="e{{ data.i.id }}">
     <idx:short>
         <idx:orth value="{{ data.i.lemma_1 }}"><h4 id="hw{{ data.i.id }}">{{ data.i.lemma_1 }}</h4>
             {%- if aliases %}
@@ -13,7 +13,7 @@
         <p class="body-space">{{ data.summary }}</p>
         {%- if data.grammar_table %}{{ data.grammar_table }}{%- endif %}
         {%- if data.examples %}{{ data.examples }}{%- endif %}
-        {%- if data.deconstruction %}<p class="body-space">{{ data.deconstruction }}</p>{%- endif %}
+        {%- if deconstruction %}<p class="body-space">{{ deconstruction }}</p>{%- endif %}
     </idx:short>
 </idx:entry>
 <hr class="dpd" />

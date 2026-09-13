@@ -13,7 +13,6 @@ headwords gets an entry of its own listing them all."""
 import os
 import subprocess
 from datetime import datetime
-from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from jinja2 import Environment
@@ -71,6 +70,12 @@ EBT_BOOKS = [
     "kn8",
     "kn9",
 ]
+
+
+def _niggahita_variants(forms: set[str]) -> set[str]:
+    """SuttaCentral spells the niggahita ṁ while the lookup table keys it ṃ, so
+    a reader tapping a ṁ form finds nothing unless both spellings are indexed."""
+    return {f.replace("ṃ", "ṁ") for f in forms if "ṃ" in f}
 
 
 def _letter_files() -> dict[str, str]:
@@ -179,11 +184,15 @@ def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
     for form in pali_list_sorter(list(ambiguous)):
         merged_id = lemma_labels.get(form) if form in contested else None
         aliases = set(scripts.get(form, []))
+        own_forms = {form}
         if merged_id is not None:
             for owned in sole_owner.get(merged_id, []):
                 if owned != form:
                     aliases.add(owned)
                 aliases.update(scripts.get(owned, []))
+                own_forms.add(owned)
+        aliases |= _niggahita_variants(own_forms)
+        aliases.discard(form)
         entry = render_form_entry(
             jinja_env,
             id_counter,
@@ -221,6 +230,7 @@ def _headword_aliases(
     aliases = {f for f in owned if f != headword.lemma_1}
     for form in [*owned, headword.lemma_1]:
         aliases.update(scripts.get(form, []))
+    aliases |= _niggahita_variants(set(owned) | {headword.lemma_1})
     aliases.discard(headword.lemma_1)
     return pali_list_sorter(list(aliases))
 
@@ -248,6 +258,9 @@ def render_form_entry(
 ) -> str:
     """Render one ambiguous form, listing every sense it has with a link."""
     template = jinja_env.get_template("ebook_form_entry.jinja")
+    # a merged headword is rendered in full at the foot of the entry, so it must
+    # not also appear above as a one-line sense linking to itself
+    merged_id = merged.i.id if merged is not None else None
     linked = [
         {
             "lemma_1": html_friendly(data.i.lemma_1),
@@ -255,6 +268,7 @@ def render_form_entry(
             "href": f"{letter_files[find_first_letter(data.i.lemma_1)]}#hw{data.i.id}",
         }
         for data in senses
+        if data.i.id != merged_id
     ]
     return template.render(
         counter=counter,
@@ -337,11 +351,11 @@ def save_content_opf_xhtml(
     pr.yes("OK")
 
 
-def zip_epub(pth: ProjectPaths, output_path: Path | None = None) -> None:
+def zip_epub(pth: ProjectPaths) -> None:
     """Zip up the epub dir and name it dpd-kindle.epub."""
     pr.green_tmr("zipping up epub")
     epub_dir_path = pth.epub_dir
-    dest = output_path or pth.dpd_epub_path
+    dest = pth.dpd_epub_path
     with ZipFile(dest, "w", ZIP_DEFLATED) as zipf:
         for file_path in epub_dir_path.rglob("*"):
             if file_path.is_file():

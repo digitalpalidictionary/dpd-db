@@ -182,8 +182,7 @@ before being accepted — two were accepted only after I reproduced them myself.
 
 ## Verdict
 
-Pass, with one blocker outside this thread's scope. Everything the reviewers
-found inside the trial's remit is fixed and re-verified. The thread's purpose —
-two comparable artefacts and the code that made one of them — is met. It must
-not merge until the binary-acquisition question is answered (finding 9), and it
-should not merge at all until the device test answers open question 1.
+Pass. Everything the reviewers found inside the trial's remit is fixed and
+re-verified. Finding 9 (binary acquisition) was the one blocker and is now
+resolved: CI downloads and checksums the pinned release. The remaining merge
+condition is the device test (open question 1), which the user has since run.

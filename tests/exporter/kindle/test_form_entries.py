@@ -2,6 +2,7 @@
 several headwords must get its own entry listing them all. These tests pin that
 routing: sole-owner forms become aliases, ambiguous forms become linked entries."""
 
+import re
 from types import SimpleNamespace
 from typing import cast
 
@@ -109,3 +110,53 @@ def test_a_headword_entry_is_labelled_with_lemma_1_not_lemma_clean() -> None:
     assert '<idx:orth value="uttara 1.1">' in html
     assert 'id="hw14657"' in html
     assert '<idx:iform value="uttaro" exact="yes">' in html
+
+
+def test_niggahita_variants_are_indexed() -> None:
+    """SuttaCentral spells the niggahita ṁ; the lookup table keys it ṃ. Only 2
+    of 1.28M lookup keys use ṁ, so without this a reader tapping a ṁ form in an
+    SC text finds nothing."""
+    variants = kindle_exporter._niggahita_variants({"dhammaṃ", "buddha"})
+    assert variants == {"dhammaṁ"}
+
+
+def test_headword_aliases_include_the_niggahita_spelling() -> None:
+    headword = _headword(3, "dhamma 1")
+    aliases = kindle_exporter._headword_aliases(headword, {3: ["dhammaṃ"]}, {})
+    assert "dhammaṃ" in aliases
+    assert "dhammaṁ" in aliases
+
+
+def test_a_headword_entry_uses_each_id_once() -> None:
+    """The entry and its anchor must not share an id: duplicate ids are invalid
+    XML and this template renders ~167,000 entries."""
+    html = kindle_exporter.render_ebook_entry(_env(), _data(928, "acca"), [], "")
+    ids = re.findall(r'\bid="([^"]+)"', html)
+    assert len(ids) == len(set(ids)), ids
+    assert "hw928" in ids
+
+
+def test_a_merged_headword_is_not_also_listed_as_a_link_to_itself() -> None:
+    merged = _data(928, "acca")
+    html = kindle_exporter.render_form_entry(
+        _env(),
+        1,
+        "acca",
+        [merged, _data(35345, "accati 1")],
+        [],
+        merged,
+        "",
+        {"a": "0_a.xhtml"},
+    )
+    assert 'href="0_a.xhtml#hw928"' not in html
+    assert 'href="0_a.xhtml#hw35345"' in html
+    assert html.count('id="hw928"') == 1
+
+
+def test_a_headword_entry_renders_a_deconstruction_when_given_one() -> None:
+    """The template used to read data.deconstruction, which KindleData never
+    sets, so the argument was silently discarded."""
+    html = kindle_exporter.render_ebook_entry(
+        _env(), _data(5, "abhibhosmi"), [], "abhibhū + asmi"
+    )
+    assert "abhibhū + asmi" in html

@@ -11,7 +11,7 @@ This subsystem follows an "EPUB-to-MOBI" transformation pattern:
 
     Known firmware limitation: the sense links are not tappable inside the lookup popup, but are when the dictionary is opened as a book.
 2.  **Structuring:** It organizes these files into a standard EPUB structure (`epub/`), including cover art and internal stylesheets.
-3.  **Compilation:** It utilizes the `kindling-cli` tool to compile the OPF into the final `.mobi` format recognized by Kindle devices. The binary is not committed; see `make_mobi()` for the pinned release it expects.
+3.  **Compilation:** It utilizes the `kindling-cli` tool to compile the OPF into the final `.mobi` format recognized by Kindle devices. The binary is not committed. CI downloads and checksums the pinned release; see the *Install kindling* step in `.github/workflows/draft_release.yml` for the version and SHA-256. Locally, put an executable `kindling-cli` at `exporter/kindle/kindling-cli`.
 4.  **Optimization:** The content is heavily stripped down compared to the GoldenDict version to ensure it remains performant on Kindle's limited hardware.
 
 ## Relationships & Data Flow
