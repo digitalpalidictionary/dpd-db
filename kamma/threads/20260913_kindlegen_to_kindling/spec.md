@@ -129,8 +129,9 @@ All read from the repo or measured by running the tools, not from memory.
 
    **Measured and decided (run 34754250894): option B.** Download = 0.607 s,
    `cargo install` = 200.8 s, checkout of the whole repo = 18.5 s. B is wired
-   into `draft_release.yml`; the binary stays gitignored. `exporter/kindle/kindlegen` is **not** deleted in this thread:
-   the old artefact must stay buildable for as long as the comparison is live.
+   into `draft_release.yml`; the binary stays gitignored. `exporter/kindle/kindlegen` was kept
+   while the two artefacts were being compared on the device. That comparison is
+   finished, so Part 2 point 4 retires it; this records why it survived Part 1.
 4. **Retire `exporter/kindle/kindlegen`.** Delete the 28,673,912 B tracked
    i386 binary and its now-unused `ProjectPaths.kindlegen_path`. Safe on three
    independent counts, each verified rather than assumed:
