@@ -3,6 +3,7 @@ function makeFeedback(data) {
 
   const html = `
     ID <b>${data.id}</b>
+    <p>permalink <a class="dpd-link" href="https://dpdict.net/${data.id}" target="_blank">https://dpdict.net/${data.id}</a></p>
     <p>Digital Pāḷi Dictionary is a work in progress, made available for testing and feedback purposes.</p>
     <p>
         <a class="dpd-link"

@@ -108,7 +108,9 @@ def make_dpd_html(
                         ).render(d=d)
 
                     # first try the lookup table, if no results, then try other options
-                    if lookup_results:
+                    # a bare number is always a permalink to a headword id, so it
+                    # skips the lookup table, where "3" is an abbreviation
+                    if lookup_results and not q.isdecimal():
                         for lookup_result in lookup_results:
                             # headwords
                             if lookup_result.headwords:
@@ -248,7 +250,8 @@ def make_dpd_html(
                                 ).render(d=d)
 
                     # the two cases below search directly in the DpdHeadwords table
-                    elif q.isnumeric():  # eg 78654
+                    # isdecimal, not isnumeric: "½" and "²" are numeric but int() rejects them
+                    elif q.isdecimal():  # eg 78654
                         search_term = int(q)
                         headword_result = (
                             db_session.query(DpdHeadword)

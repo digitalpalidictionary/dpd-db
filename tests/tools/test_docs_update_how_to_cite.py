@@ -10,6 +10,7 @@ from tools.docs_update_how_to_cite import (
     EXAMPLE_ID,
     EXAMPLE_LEMMA,
     make_how_to_cite_md,
+    make_permalink,
 )
 
 VERSION = "v0.4.20260905"
@@ -23,8 +24,17 @@ def test_page_names_the_current_version_everywhere() -> None:
 
 def test_page_uses_the_real_permalink() -> None:
     md = make_how_to_cite_md(VERSION)
-    assert f"q={EXAMPLE_ID}" in md
+    assert make_permalink(EXAMPLE_ID) in md
     assert EXAMPLE_LEMMA in md
+
+
+def test_page_shows_the_feedback_tab_rather_than_explaining_the_link() -> None:
+    """A picture of the feedback tab replaced the build-it-yourself instructions."""
+
+    md = make_how_to_cite_md(VERSION)
+    assert "dpdict_feedback_permalink_light.png#only-light" in md
+    assert "dpdict_feedback_permalink_dark.png#only-dark" in md
+    assert "tab=dpd" not in md
 
 
 def test_doi_line_appears_only_when_known() -> None:

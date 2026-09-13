@@ -38,6 +38,14 @@ Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audi
 - **Parameters:** None
 - **Response:** HTML (`home.html`)
 
+### Citation Permalink
+- **URL:** `/{headword_id}`
+- **Method:** `GET`
+- **Description:** The permanent link to one entry, eg `/24043`, used in citations. Redirects to the entry's search page. The path only matches digits, so no named route can fall into it.
+- **Parameters:**
+    - `headword_id` (path parameter): The headword id. Ids are never reused.
+- **Response:** `308 Permanent Redirect` to `/?q={headword_id}`
+
 ## Search Endpoints
 
 ### HTML Search

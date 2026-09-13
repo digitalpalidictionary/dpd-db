@@ -1,5 +1,6 @@
 from db.models import DpdHeadword, DpdRoot, Lookup
 from tools.date_and_time import year_month_day_dash
+from tools.version import make_permalink
 from tools.meaning_construction import (
     make_grammar_line,
 )
@@ -18,6 +19,7 @@ class HeadwordData:
         self.su = i.su
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
+        self.permalink = make_permalink(i.id)
 
     @staticmethod
     def convert_newlines(obj):

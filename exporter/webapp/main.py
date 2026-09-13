@@ -5,7 +5,12 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import HTMLResponse, Response, JSONResponse
+from fastapi.responses import (
+    HTMLResponse,
+    JSONResponse,
+    RedirectResponse,
+    Response,
+)
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import sessionmaker
@@ -538,6 +543,17 @@ def status_page(request: Request):
             "stats": stats,
         },
     )
+
+
+@app.get("/{headword_id:int}")
+def permalink_page(headword_id: int):
+    """Citation permalink, eg /24043 — redirects to the entry itself.
+
+    The int converter only matches digits, so no named route — including ones
+    registered after this one, like /metrics — can fall into it."""
+
+    # 308, not the default 307: a citation link is permanent by definition
+    return RedirectResponse(url=f"/?q={headword_id}", status_code=308)
 
 
 # Proactively monitor memory and performance

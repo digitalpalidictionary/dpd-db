@@ -32,6 +32,9 @@ DOCS = "https://digitalpalidictionary.github.io/"
 GITHUB = "https://github.com/digitalpalidictionary/dpd-db"
 LATEST_RELEASE = "https://github.com/digitalpalidictionary/dpd-db/releases"
 LICENSE = "CC BY-NC-SA 4.0"
+# Short form of the website, used for permalinks so that a cited link stays
+# short enough to print in a footnote.
+SHORT_WEBSITE = "https://dpdict.net"
 
 # The worked example used in every citation surface. gacchati 1 is a stable,
 # common entry; ids are never reused, so this link cannot rot onto another word.
@@ -115,6 +118,14 @@ def ensure_doi() -> str | None:
     else:
         pr.summary("zenodo doi", "not published yet")
     return doi
+
+
+def make_permalink(headword_id: int) -> str:
+    """The permanent link to one dictionary entry.
+
+    Ids are never reused, so the link can never rot onto another word."""
+
+    return f"{SHORT_WEBSITE}/{headword_id}"
 
 
 def make_citation(version: str, doi: str | None = None) -> str:

@@ -14,12 +14,13 @@ from tools.version import (
     WEBSITE,
     get_doi,
     make_citation,
+    make_permalink,
     release_date,
 )
 
 
 def make_how_to_cite_md(version: str, doi: str | None = None) -> str:
-    permalink = f"{WEBSITE}?tab=dpd&q={EXAMPLE_ID}"
+    permalink = make_permalink(EXAMPLE_ID)
     citation = make_citation(version, doi)
     entry = (
         f'{AUTHOR}. "{EXAMPLE_LEMMA}." *Digital Pāḷi Dictionary*, '
@@ -78,16 +79,16 @@ holding the finished citation.
 
 ## Finding the permalink
 
-```
-{WEBSITE}?tab=dpd&q=<id>
-```
+Look the word up, click the **feedback** button in the row of buttons under the entry,
+and copy the permalink.
 
-Look the word up on [dpdict.net]({WEBSITE}), click the **feedback** button in the row of
-buttons under the entry, and the id is the first line — `ID {EXAMPLE_ID}`. Ids are
-permanent and are never reused, so the link will always reach that same entry.
+![the permalink in the feedback tab](pics/dpdict.net/dpdict_feedback_permalink_light.png#only-light)
+![the permalink in the feedback tab](pics/dpdict.net/dpdict_feedback_permalink_dark.png#only-dark)
+
+Ids are permanent and are never reused, so the link will always reach that same entry.
 
 To cite a word rather than one particular entry of it, use the word itself:
-`{WEBSITE}?tab=dpd&q=gacchati`
+`{WEBSITE}?q=gacchati`
 
 ## From the repository
 

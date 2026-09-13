@@ -4,26 +4,26 @@ DPD is revised every month. Always cite the version you used.
 
 ## The dictionary
 
-> Bodhirasa Bhikkhu. Digital Pāḷi Dictionary. Version v0.4.20260906. https://www.dpdict.net/
+> Bodhirasa Bhikkhu. Digital Pāḷi Dictionary. Version v0.4.20260912. https://www.dpdict.net/
 
 ## A single entry
 
-> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20260906. <https://www.dpdict.net/?tab=dpd&q=24043>
+> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20260912. <https://dpdict.net/24043>
 
 **Chicago (note)**
 
-> Bodhirasa Bhikkhu, "gacchati 1," *Digital Pāḷi Dictionary*, version v0.4.20260906,
-> https://www.dpdict.net/?tab=dpd&q=24043.
+> Bodhirasa Bhikkhu, "gacchati 1," *Digital Pāḷi Dictionary*, version v0.4.20260912,
+> https://dpdict.net/24043.
 
 **MLA**
 
-> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20260906,
-> www.dpdict.net/?tab=dpd&q=24043.
+> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20260912,
+> dpdict.net/24043.
 
 **APA**
 
 > Bodhirasa Bhikkhu. (2026). gacchati 1. In *Digital Pāḷi Dictionary*
-> (version v0.4.20260906). https://www.dpdict.net/?tab=dpd&q=24043
+> (version v0.4.20260912). https://dpdict.net/24043
 
 ## Finding the version
 
@@ -42,16 +42,16 @@ holding the finished citation.
 
 ## Finding the permalink
 
-```
-https://www.dpdict.net/?tab=dpd&q=<id>
-```
+Look the word up, click the **feedback** button in the row of buttons under the entry,
+and copy the permalink.
 
-Look the word up on [dpdict.net](https://www.dpdict.net/), click the **feedback** button in the row of
-buttons under the entry, and the id is the first line — `ID 24043`. Ids are
-permanent and are never reused, so the link will always reach that same entry.
+![the permalink in the feedback tab](pics/dpdict.net/dpdict_feedback_permalink_light.png#only-light)
+![the permalink in the feedback tab](pics/dpdict.net/dpdict_feedback_permalink_dark.png#only-dark)
+
+Ids are permanent and are never reused, so the link will always reach that same entry.
 
 To cite a word rather than one particular entry of it, use the word itself:
-`https://www.dpdict.net/?tab=dpd&q=gacchati`
+`https://www.dpdict.net/?q=gacchati`
 
 ## From the repository
 

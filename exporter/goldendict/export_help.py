@@ -12,9 +12,9 @@ from tools.version import (
     AUTHOR,
     EXAMPLE_ID,
     EXAMPLE_LEMMA,
-    WEBSITE,
     get_doi,
     make_citation,
+    make_permalink,
 )
 from tools.printer import printer as pr
 from tools.tsv_read_write import read_tsv_dict, read_tsv_dot_dict
@@ -345,11 +345,11 @@ def add_citation(header: str) -> list[DictEntry]:
     html += "<h3 class='dpd'>A single entry</h3>"
     html += (
         f"<p>{AUTHOR}. &ldquo;{EXAMPLE_LEMMA}.&rdquo; Digital Pāḷi Dictionary, "
-        f"version {version}. {WEBSITE}?tab=dpd&amp;q={EXAMPLE_ID}</p>"
+        f"version {version}. {make_permalink(EXAMPLE_ID)}</p>"
     )
     html += (
-        "<p>The id is on the first line after the <b>feedback</b> button under "
-        "each entry. Ids are permanent and never reused.</p>"
+        "<p>The permalink is on the second line after the <b>feedback</b> button "
+        "under each entry. Ids are permanent and never reused.</p>"
     )
     html += (
         "<p><a href='https://digitalpalidictionary.github.io/how_to_cite/'>"
