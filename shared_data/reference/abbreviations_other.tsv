@@ -239,8 +239,8 @@ CPD	Dāṭh	Dāṭhāvamsa,; E; e; : section; (I—V + VI); and verse.	text	a. T
 CPD	Dīp	Dĩpavamsa,; E; e; : section; (I—XXII); and verse.	text	a. Texts.; ref=4.1.1
 CPD	Ekakkh	Ekakkharakosa,; C; e; (1; st; and; 2; nd; ed.): verse; (1—123).	text	a. Texts.; ref=5.6.2
 CPD	Gaṇdav	Gaṇdavyūha,; N; e; : page; (1—551); and line.	text	a. Texts.; ref=7.4.6
-CPD	Gv	Gandha-[ɔ: Gantha-]vaṁsa,; E; e; : page; (55—80); and line.	text	a. Texts.; ref=4.3.3
-CPD	Hariv	Harivaṁçapurāṇa,; E; e; : page; (200—328); and line.	text	a. Texts.; ref=8.9.1.1
+CPD	Gv	Gandha-[ɔ: Gantha-]vaṃsa,; E; e; : page; (55—80); and line.	text	a. Texts.; ref=4.3.3
+CPD	Hariv	Harivaṃçapurāṇa,; E; e; : page; (200—328); and line.	text	a. Texts.; ref=8.9.1.1
 CPD	Hc	Siddha-HcmacandraVIII,; J; E; e; :secṝiori(I—IV)ancṝsūtra.	text	a. Texts.; ref=6.5.42
 CPD	Hc-abhidh	Hemacandra, Abhidhānacintāmaṇi,; N; e; : section; (I—VI); and verse.	text	a. Texts.; ref=6.5.6.41
 CPD	Hc-anek	Hemacandra, Anekārthasaṅgraha, N; e; :; section; (I—VII); and verse.	text	a. Texts.; ref=6.5.6.42
@@ -249,7 +249,7 @@ CPD	Hc-Deç	Hemacandra, Deçīnāmamālā,; N; e; : section; (I—VIII); and ver
 CPD	Hc-uṇ	Hemacandra, Uṇādigaṇavivṛti,; N; e; : sūtr; a-numbers; (1—1006).	text	a. Texts.; ref=6.5.41,1
 CPD	Heraṇas	Heraṇasikha,; C; e; : page; (1—2); and line.	text	a. Texts.; ref=1.4.(1)
 CPD	Heraṇas-vn	Heraṇasikha-vinisa,; C; e; : page; (3—36); and line.	text	a. Texts.; ref=1.4.(1,1)
-CPD	Hv	Harivaṁça;; verse; (1—16274).	text	a. Texts.; ref=6.2.2.2
+CPD	Hv	Harivaṃça;; verse; (1—16274).	text	a. Texts.; ref=6.2.2.2
 CPD	Hīnaṭ	Hīnaṭiku[HHL M with breve]iburē Sumaṅgala, Milindapraçnaya,; C; e; (1; or; 2).	text	a. Texts.; ref=2.6,0(1)
 CPD	It	Itivuttaka,; E; e; : page; (1—124); and line.	text	a. Texts.; ref=2.5.4
 CPD	It-a	Itivuttaka-aṭṭhakathā (Pd II),; E; e; : vol.; (I—II),; page and line.	text	a. Texts.; ref=2.5.4,1
@@ -539,7 +539,7 @@ PTS	abs.	absolutive	grammar
 PTS	acc.	accusative case	grammar
 PTS	adj.	adjective	grammar
 PTS	adv.	adverb	grammar
-PTS	Ags.	Aggi Vaṁsa, author of Saddanīti	text
+PTS	Ags.	Aggi Vaṃsa, author of Saddanīti	text
 PTS	Akv.	Abhidhammattha-kalyāṇa-vaṇṇanā-ṭīkā (= Vibh-ṭ.)	text
 PTS	Alloph.	Allophone	text
 PTS	aor.	aorist	grammar
@@ -552,7 +552,7 @@ PTS	AvŚ	Avadāna-śataka	text
 PTS	B.	Buddhist (& Buddhism)	text
 PTS	Bal.	Bālāvatāra	text
 PTS	Bdhgh	Buddhaghosa	other
-PTS	Bdhv.	Buddhavaṁsa	text
+PTS	Bdhv.	Buddhavaṃsa	text
 PTS	Beal	Buddhist Records of the Western World	other
 PTS	beg.	beginning	other
 PTS	BHS(G)	Buddhist Hybrid Sanskrit (Grammar)	text
@@ -560,7 +560,7 @@ PTS	BHS(V)	Buddhist Hybrid Sanskrit (Vocabulary)	text
 PTS	Bhv	Bhāvanā	other
 PTS	Bhvr.	Bhāvanārambha	text
 PTS	Bode	Pali Literature of Burma	other
-PTS	Bodhi-V.	Bodhi-Vaṁsa (ed. S. A. Strong)	text
+PTS	Bodhi-V.	Bodhi-Vaṃsa (ed. S. A. Strong)	text
 PTS	BSk.	Buddhist Sanskrit	text
 PTS	Buddh.	Buddhist (& Buddhism)	text
 PTS	Burm.	Burmese	text
@@ -595,11 +595,11 @@ PTS	Cpdd.	Compendium of Philosophy	text
 PTS	CV.	Cūḷa Vagga of Vinaya	text
 PTS	Cāṇ.	Cāṇakya-nīti	text
 PTS	Cūḷa-Nidd.	Cūḷa-Niddesa (= Niddesa II.)	text
-PTS	Cūḷavs.	Cūḷavaṁsa	text
+PTS	Cūḷavs.	Cūḷavaṃsa	text
 PTS	D.	Dīgha Nikāya	text
 PTS	DA.	Dīgha Nikāya Aṭṭhakathā (= Sumaṅgala-vilāsinī)	text
 PTS	dat.	dative case	grammar
-PTS	Davs.	Dāṭhavaṁsa	text
+PTS	Davs.	Dāṭhavaṃsa	text
 PTS	Def.	Definition	text
 PTS	den.	denominative	grammar
 PTS	der.	derived from, derivation	other
@@ -614,22 +614,22 @@ PTS	Dhan.	Dhanapāla	text
 PTS	Dhs.	Dhammasaṅgani	text
 PTS	DhsA.	Dhammasaṅgani Aṭṭhakathā (= Aṭṭhasālinī)	text
 PTS	DhSk.	Dhātu-kathā	text
-PTS	Dhv.	Dhātvaṁsa	text
+PTS	Dhv.	Dhātvaṃsa	text
 PTS	Dhātup.	Dhātupāṭha	text
 PTS	Dial.	Dialogues of the Buddha	text
 PTS	dict.	dictionary	other
 PTS	diff.	different	other
 PTS	Divy.	Divyâvadāna	text
 PTS	Dpl.	Dhammapāla	text
-PTS	Dpv.	Dīpavaṁsa	text
-PTS	Dpv. G.	Dīpavaṁsa ed. Geiger	text
-PTS	Dpv. O.	Dīpavaṁsa ed. Oldenberg	text
+PTS	Dpv.	Dīpavaṃsa	text
+PTS	Dpv. G.	Dīpavaṃsa ed. Geiger	text
+PTS	Dpv. O.	Dīpavaṃsa ed. Oldenberg	text
 PTS	Dr.	Doctor	text
 PTS	DS.	Dhammasaṅgaṇi (= Dhs.)	text
 PTS	Du.	Dutch	text
 PTS	Dutoit	Jātaka translation (German)	other
-PTS	Dāṭh.	Dāṭhavaṁsa	text
-PTS	Dīp.	Dīpavaṁsa	text
+PTS	Dāṭh.	Dāṭhavaṃsa	text
+PTS	Dīp.	Dīpavaṃsa	text
 PTS	E.	English	text
 PTS	e.g.	exempli gratia, for instance	other
 PTS	ed.	edition, edited by	other
@@ -665,7 +665,7 @@ PTS	ft.	footnote	other
 PTS	fut.	future tense	grammar
 PTS	G.	German	text
 PTS	Gaud.	Gaudama Sāgara	text
-PTS	Gavaṁ	Gavaṁpati-thera-uttejanaṁ	other
+PTS	Gavaṃ	Gavaṃpati-thera-uttejanaṃ	other
 PTS	gd.	gerund	grammar
 PTS	Geiger	Pali Literatur u. Sprache, etc.	other
 PTS	gen.	genitive case	grammar
@@ -682,7 +682,7 @@ PTS	Grundr.	Grundriss der Indo-Arischen Philologie	text
 PTS	Grünwedel	Buddhist Art	other
 PTS	Gs.	Guttila-kāvya-saṇṇaya	text
 PTS	Hardy	Manual of Buddhism, etc.	other
-PTS	Hatth.	Hatthavanagallavihāra-vaṁsa	text
+PTS	Hatth.	Hatthavanagallavihāra-vaṃsa	text
 PTS	Heṭṭh.	Heṭṭhā	text
 PTS	Hin.	Hinayana	text
 PTS	Hist.	History	text
@@ -692,8 +692,8 @@ PTS	Horn	Hornblower, Notes on the Pali Vinaya	other
 PTS	Horner	Book of Discipline	other
 PTS	Hpr.	Hypothetical Primary Root	text
 PTS	Hrsg.	Herausgegeben (edited)	text
-PTS	Ht. Sav.	Hatthavanagalla-vihāra-saṁvaṇṇanā	text
-PTS	Hts.	Hatthavanagallavihāra-vaṁsa	text
+PTS	Ht. Sav.	Hatthavanagalla-vihāra-saṃvaṇṇanā	text
+PTS	Hts.	Hatthavanagallavihāra-vaṃsa	text
 PTS	Hung.	Hungarian	text
 PTS	i. e.	id est, that is	other
 PTS	ibid.	ibidem, in the same place	other
@@ -728,7 +728,7 @@ PTS	Jaug.	Jaugaḍa Inscription	text
 PTS	Jav.	Javanese	text
 PTS	Jaśp.	Jaśpāṭaliputra	text
 PTS	JGerS	Journal of the German Oriental Society	text
-PTS	Jina-C.	Jina-caritaṁ (ed. W. H. D. Rouse)	text
+PTS	Jina-C.	Jina-caritaṃ (ed. W. H. D. Rouse)	text
 PTS	Jinâl.	Jinâlankāra	text
 PTS	Jinâlaṅk.	Jinālaṅkāra-vaṇṇanā	text
 PTS	JM.	Jātakamālā (ed. Kern)	text
@@ -783,11 +783,11 @@ PTS	M Vastu.	Mahāvastu	text
 PTS	M.	Majjhima Nikāya	text
 PTS	m.	masculine gender	grammar
 PTS	M. Korn.	Mulaṭṭhakathā (Commentary on Korn.)	text
-PTS	M. T.	Mahāvaṁsa Ṭīkā (= Vaṁsatthappakāsinī)	text
+PTS	M. T.	Mahāvaṃsa Ṭīkā (= Vaṃsatthappakāsinī)	text
 PTS	M.S.	Middle School	grammar
 PTS	MA.	Majjhima Nikāya Aṭṭhakathā (= Papañcasūdanī)	text
-PTS	Mah. Bodhiv.	Mahā Bodhivaṁsa (ed. S. A. Strong)	text
-PTS	Mahvs.	Mahāvaṁsa	text
+PTS	Mah. Bodhiv.	Mahā Bodhivaṃsa (ed. S. A. Strong)	text
+PTS	Mahvs.	Mahāvaṃsa	text
 PTS	Mahvy.	Mahāvyutpatti	text
 PTS	Mahy.	Mahāyāna	text
 PTS	mahā	mahā-vagga	other
@@ -802,10 +802,10 @@ PTS	Mason	Kachchayano's Grammar	other
 PTS	Matk.	Mātika	text
 PTS	med.	medial	other
 PTS	metri causa	for the sake of the metre	other
-PTS	Metteyya-V.	Metteyya-Vaṁsa	text
-PTS	Mhbv.	Mahābodhivaṁsa	text
-PTS	Mhv.	Mahāvaṁsa	text
-PTS	Mhvs.	Mahāvaṁsa	text
+PTS	Metteyya-V.	Metteyya-Vaṃsa	text
+PTS	Mhbv.	Mahābodhivaṃsa	text
+PTS	Mhv.	Mahāvaṃsa	text
+PTS	Mhvs.	Mahāvaṃsa	text
 PTS	Mhvyut.	Mahāvyutpatti	text
 PTS	Mil.	Milindapañha	text
 PTS	Miln.	Milindapañha	text
@@ -865,7 +865,7 @@ PTS	part.	participle	grammar
 PTS	pass.	passive voice	grammar
 PTS	Pat.	Paṭisambhidāmagga	text
 PTS	Pañc.	Pañca-tantra	text
-PTS	Pañcav. Br.	Pañcaviṁśa Brāhmaṇa	text
+PTS	Pañcav. Br.	Pañcaviṃśa Brāhmaṇa	text
 PTS	Paññāsa	Paññāsa Jātaka	other
 PTS	paṭicca-s.	paṭicca-samuppāda	other
 PTS	Pbr.	Pāramī Vibhāga	text
@@ -946,10 +946,10 @@ PTS	Russ.	Russian	text
 PTS	Rv.	Ṛg Veda	text
 PTS	Rām.	Rāmāyaṇa	text
 PTS	Rūp.	Rūpârūpavibhāga	text
-PTS	S.	Saṁyutta Nikāya	text
+PTS	S.	Saṃyutta Nikāya	text
 PTS	S. H. B.	Sacred Books of the Buddhists	text
 PTS	s.v.	sub voce, under the word	other
-PTS	SA.	Saṁyutta Nikāya Aṭṭhakathā (= Sārattha-ppakāsinī)	text
+PTS	SA.	Saṃyutta Nikāya Aṭṭhakathā (= Sārattha-ppakāsinī)	text
 PTS	Sace.	Saccavibhāga	text
 PTS	Sadd.	Saddanīti	text
 PTS	Saddh.	Saddhammôpāyana	text
@@ -959,9 +959,9 @@ PTS	samādh.	samādhi	other
 PTS	sandhi	sandhi	other
 PTS	Sangah.	Sangahavatthu	text
 PTS	Sar.	Sāriputta-thera-apadāna	text
-PTS	Sas.	Sāsana-vaṁsa	text
+PTS	Sas.	Sāsana-vaṃsa	text
 PTS	Sat. Br.	Satapatha Brāhmaṇa	text
-PTS	Saṁy.	Saṁyutta	text
+PTS	Saṃy.	Saṃyutta	text
 PTS	SBE.	Sacred Books of the East	text
 PTS	Scand.	Scandinavian	text
 PTS	Sch.	School	text
@@ -1029,7 +1029,7 @@ PTS	Tris.	Trisāhasrikā-prajñāpāramitā	text
 PTS	trsl.	translation	other
 PTS	Ts.	Trenckner, notes on Majjhima N.	text
 PTS	ts.	tat-sama (= Sk. word in P.)	other
-PTS	Turnour	Mahāvaṁsa (ed. & trsl.)	other
+PTS	Turnour	Mahāvaṃsa (ed. & trsl.)	other
 PTS	Tāran.	Tāranātha's Geschichte des Buddhismus	text
 PTS	Tīkā	Ṭīkā (Commentary)	other
 PTS	U.	Upaniṣad	text
@@ -1044,7 +1044,7 @@ PTS	Uttarādhy.	Uttarādhyayana Sūtra	text
 PTS	Uṇ.	Uṇādi Sūtra	text
 PTS	V.	Vinaya Piṭaka	text
 PTS	Varah.	Varāhamihira	text
-PTS	Vaṁs. Br.	Vaṁsa Brāhmaṇa	text
+PTS	Vaṃs. Br.	Vaṃsa Brāhmaṇa	text
 PTS	vb.	verb	grammar
 PTS	Vbh.	Vibhaṅga	text
 PTS	VbhA.	Vibhaṅga Aṭṭhakathā (= Sammoha-vinodanī)	text
@@ -1085,6 +1085,6 @@ PTS	Ātm. Vid.	Ātma-vidyā (= Self-knowledge)	text
 PTS	Śrāv.	Śrāvastī Inscription	text
 PTS	Śāky.	Śākyamuni	text
 PTS	इति	(= iti) marks end of quotation	other
-PTS	Ḍaṭh.	(= Dāṭh.) Dāṭhavaṁsa	text
+PTS	Ḍaṭh.	(= Dāṭh.) Dāṭhavaṃsa	text
 PTS	Ṛg V.	Ṛg Veda	text
 PTS	†	Denotes that the word belongs to grammarians' lists, otherwise not found in literature.	symbol
