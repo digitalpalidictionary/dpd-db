@@ -35,13 +35,15 @@ def _should_transliterate(lookup: Lookup, regenerate_all: bool) -> bool:
     return (not lookup.sinhala or regenerate_all) and is_another_value(lookup, "epd")
 
 
-def _clear_ineligible_transliterations(db_session: Session) -> int:
-    """Blank the transliterations of rows ``_should_transliterate`` now rejects.
+def _clear_ineligible_transliterations(db_session: Session) -> tuple[int, int]:
+    """Strip the transliterations of rows ``_should_transliterate`` now rejects.
 
     The write-back below only ever updates rows it selected, so a row that stops
     qualifying keeps whatever it was given last time. EPD-only rows are English,
     and transliterating them produced junk like ``un-`` -> ``උන්-`` that stayed
     searchable forever.
+
+    Returns (cleared, deleted).
     """
 
     content_columns = [
@@ -55,11 +57,20 @@ def _clear_ineligible_transliterations(db_session: Session) -> int:
     )
     blanks = ", ".join(f"{c} = ''" for c in TRANSLITERATION_COLUMNS)
 
-    cleared = db_session.connection().exec_driver_sql(
+    conn = db_session.connection()
+
+    # A row with nothing left but transliterations is unreachable by every stale
+    # pass, which only ever inspects rows holding a value in its own column.
+    # Blanking it would strand it forever as a blank lookup key.
+    deleted = conn.exec_driver_sql(
+        f"DELETE FROM lookup "
+        f"WHERE ({no_content}) AND IFNULL(epd, '') = '' AND ({has_translit})"
+    )
+    cleared = conn.exec_driver_sql(
         f"UPDATE lookup SET {blanks} WHERE ({no_content}) AND ({has_translit})"
     )
     db_session.commit()
-    return cleared.rowcount
+    return cleared.rowcount, deleted.rowcount
 
 
 def _parse_batch(
@@ -230,9 +241,13 @@ def main() -> None:
     pr.yes("")
     pr.green_tmr("clearing ineligible")
 
-    pr.yes(_clear_ineligible_transliterations(db_session))
+    cleared, deleted = _clear_ineligible_transliterations(db_session)
+    pr.yes(cleared)
+    pr.summary("rows deleted", deleted)
 
+    pr.green_tmr("loading lookup table")
     lookup_db = db_session.query(Lookup).all()
+    pr.yes(len(lookup_db))
 
     pr.green_tmr("regenerate all")
 

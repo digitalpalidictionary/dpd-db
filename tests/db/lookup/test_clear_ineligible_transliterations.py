@@ -49,7 +49,7 @@ def test_epd_only_row_has_its_transliterations_cleared(db_session: Session) -> N
         thai='["อุนฺ-"]',
     )
 
-    assert _clear_ineligible_transliterations(db_session) == 1
+    assert _clear_ineligible_transliterations(db_session) == (1, 0)
 
     row = _get(db_session, "un-")
     assert (row.sinhala, row.devanagari, row.thai) == ("", "", "")
@@ -67,7 +67,7 @@ def test_row_with_real_content_keeps_its_transliterations(db_session: Session) -
         thai='["พุทฺโธ"]',
     )
 
-    assert _clear_ineligible_transliterations(db_session) == 0
+    assert _clear_ineligible_transliterations(db_session) == (0, 0)
 
     row = _get(db_session, "buddho")
     assert row.sinhala == '["බුද්ධො"]'
@@ -78,4 +78,22 @@ def test_epd_only_row_without_transliterations_is_not_touched(
 ) -> None:
     _add(db_session, "not", epd='[["na", "ind", "no; not"]]')
 
-    assert _clear_ineligible_transliterations(db_session) == 0
+    assert _clear_ineligible_transliterations(db_session) == (0, 0)
+
+
+def test_row_with_only_transliterations_is_deleted_not_blanked(
+    db_session: Session,
+) -> None:
+    """Blanking it would strand a row no stale pass can ever reach again."""
+    _add(
+        db_session,
+        "karohi",
+        sinhala='["කරොහි"]',
+        devanagari='["करोहि"]',
+        thai='["กโรหิ"]',
+    )
+
+    assert _clear_ineligible_transliterations(db_session) == (0, 1)
+    assert (
+        db_session.query(Lookup).filter(Lookup.lookup_key == "karohi").first() is None
+    )

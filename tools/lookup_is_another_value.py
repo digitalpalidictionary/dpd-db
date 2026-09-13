@@ -13,6 +13,10 @@ def is_another_value(row: Lookup, column_name: str) -> bool:
     """
     Test whether any other columns in the Lookup table have a value.
     It is used to determine whether a row in the Lookup table can be safely deleted or not.
+
+    ``TRANSLITERATION_COLUMNS`` never count as a value. Emptiness is plain Python
+    truthiness, which matches the SQL mirrors of this rule only while every Lookup
+    column stays a string — a future int or bool column would need both updating.
     """
 
     for column in Lookup.__table__.columns:

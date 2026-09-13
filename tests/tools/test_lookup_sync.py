@@ -211,3 +211,27 @@ def test_stale_key_with_only_transliterations_is_deleted(
 
     assert _get(db_session, "karohi") is None
     assert (result.cleared, result.deleted) == (0, 1)
+
+
+def test_stale_key_with_real_content_keeps_its_transliterations(
+    db_session: Session, use_raw_sql: bool
+) -> None:
+    """The other side of the rule: transliterations are not content, but they are
+    not garbage either — a row that survives must keep them."""
+    stale = Lookup()
+    stale.lookup_key = "karohi"
+    stale.see_pack(["karoti"])
+    stale.grammar_pack([["g", "verb", "g"]])
+    stale.sinhala = '["කරොහි"]'
+    stale.devanagari = '["करोहि"]'
+    stale.thai = '["กโรหิ"]'
+    db_session.add(stale)
+    db_session.commit()
+
+    result = sync_lookup_column(db_session, "see", {}, use_raw_sql=use_raw_sql)
+
+    row = _get(db_session, "karohi")
+    assert row is not None
+    assert row.see == ""
+    assert row.sinhala == '["කරොහි"]'
+    assert (result.cleared, result.deleted) == (1, 0)
