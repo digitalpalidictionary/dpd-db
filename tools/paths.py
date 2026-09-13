@@ -212,7 +212,7 @@ class ProjectPaths:
 
         # exporter/kindle
         self.epub_dir = base_dir / "exporter/kindle/epub"
-        self.kindlegen_path = base_dir / "exporter/kindle/kindlegen"
+        self.kindling_path = base_dir / "exporter/kindle/kindling-cli"
 
         # exporter/kindle/epub/OEBPS
         self.epub_content_opf_path = base_dir / "exporter/kindle/epub/OEBPS/content.opf"

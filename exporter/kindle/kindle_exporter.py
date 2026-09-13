@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 """Create an EPUB and MOBI version of DPD.
+
 The word set is limited to
 - CST EBTS
 - Sutta Central EBTS
 - words in deconstructed compounds.
 
-Use --script to export with additional script inflections:
-- --script deva    → dpd-kindle-deva.epub (Devanagari)
-- --script sinhala → dpd-kindle-sinhala.epub (Sinhala)
-- --script thai    → dpd-kindle-thai.epub (Thai)"""
+Entries are keyed so that every form reaches every sense it has: a single
+index term resolves to a single entry on Kindle, so a form shared by several
+headwords gets an entry of its own listing them all."""
 
-import argparse
+import os
 import subprocess
-import platform
-import shutil
 from datetime import datetime
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 from jinja2 import Environment
+from sqlalchemy.orm import Session
 from rich.markup import escape
 
 from db.db_helpers import get_db_session
@@ -28,7 +27,6 @@ from tools.cst_sc_text_sets import make_cst_text_set, make_sc_text_set
 from tools.deconstructed_words import make_words_in_deconstructions
 from tools.diacritics_cleaner import diacritics_cleaner
 from tools.first_letter import find_first_letter
-from tools.niggahitas import add_niggahitas
 from tools.pali_alphabet import pali_alphabet
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
@@ -37,153 +35,174 @@ from tools.tsv_read_write import read_tsv_dict
 from exporter.jinja2_env import get_jinja2_env
 from exporter.kindle.data_classes import KindleData, html_friendly
 
-SCRIPT_CONFIG: dict[str, tuple[str, str, str]] = {
-    "deva": (
-        "inflections_devanagari_list",
-        "devanagari_unpack",
-        "dpd-kindle-deva.epub",
-    ),
-    "sinhala": (
-        "inflections_sinhala_list",
-        "sinhala_unpack",
-        "dpd-kindle-sinhala.epub",
-    ),
-    "thai": ("inflections_thai_list", "thai_unpack", "dpd-kindle-thai.epub"),
-}
+# the dictionary is limited to the early texts
+EBT_BOOKS = [
+    "vin1",
+    "vin2",
+    "vin3",
+    "vin4",
+    "dn1",
+    "dn2",
+    "dn3",
+    "mn1",
+    "mn2",
+    "mn3",
+    "sn1",
+    "sn2",
+    "sn3",
+    "sn4",
+    "sn5",
+    "an1",
+    "an2",
+    "an3",
+    "an4",
+    "an5",
+    "an6",
+    "an7",
+    "an8",
+    "an9",
+    "an10",
+    "an11",
+    "kn1",
+    "kn2",
+    "kn3",
+    "kn4",
+    "kn5",
+    "kn8",
+    "kn9",
+]
 
 
-def render_dpd_xhtml(
-    pth: ProjectPaths,
-    jinja_env: Environment,
-    script_attr: str | None = None,
-    lookup_script_attr: str | None = None,
-) -> int:
+def _letter_files() -> dict[str, str]:
+    """Letter -> output filename, matching the static manifest in content.opf."""
+    return {
+        letter: f"{i}_{diacritics_cleaner(letter)}.xhtml"
+        for i, letter in enumerate(pali_alphabet)
+    }
+
+
+def _load_lookup(
+    db_session: Session, words: set[str]
+) -> tuple[dict[str, list[int]], dict[str, list[str]], dict[str, str]]:
+    """One pass over Lookup for the text-set forms: which headwords each form
+    belongs to, its spellings in the other scripts, and any deconstruction."""
+    form_headwords: dict[str, list[int]] = {}
+    scripts: dict[str, list[str]] = {}
+    deconstructions: dict[str, str] = {}
+    word_list = list(words)
+    chunk_size = 900
+    for start in range(0, len(word_list), chunk_size):
+        chunk = word_list[start : start + chunk_size]
+        for row in db_session.query(Lookup).filter(Lookup.lookup_key.in_(chunk)).all():
+            if row.headwords:
+                form_headwords[row.lookup_key] = row.headwords_unpack
+            spellings = {
+                s
+                for s in row.devanagari_unpack + row.sinhala_unpack + row.thai_unpack
+                if s and s.strip()
+            }
+            if spellings:
+                scripts[row.lookup_key] = sorted(spellings, key=pali_sort_key)
+            if row.deconstructor:
+                unpacked = row.deconstructor_unpack
+                if unpacked:
+                    deconstructions[row.lookup_key] = "<br/>".join(unpacked)
+    return form_headwords, scripts, deconstructions
+
+
+def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
+    """Render the dictionary, keyed so that every form reaches every sense it
+    has. A single index term resolves to a single entry, so a form shared by
+    several headwords needs an entry of its own that lists them all."""
     pr.green_tmr("querying dpd db")
     db_session = get_db_session(pth.dpd_db_path)
     db_session.autoflush = False
-    dpd_db = db_session.query(DpdHeadword).all()
-    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
-    pr.yes(len(dpd_db))
+    headwords = sorted(
+        db_session.query(DpdHeadword).all(), key=lambda h: pali_sort_key(h.lemma_1)
+    )
+    pr.yes(len(headwords))
 
-    # limit the extent of the dictionary to an ebt text set
-    ebt_books = [
-        "vin1",
-        "vin2",
-        "vin3",
-        "vin4",
-        "dn1",
-        "dn2",
-        "dn3",
-        "mn1",
-        "mn2",
-        "mn3",
-        "sn1",
-        "sn2",
-        "sn3",
-        "sn4",
-        "sn5",
-        "an1",
-        "an2",
-        "an3",
-        "an4",
-        "an5",
-        "an6",
-        "an7",
-        "an8",
-        "an9",
-        "an10",
-        "an11",
-        "kn1",
-        "kn2",
-        "kn3",
-        "kn4",
-        "kn5",
-        "kn8",
-        "kn9",
-    ]
-
-    # all words in cst and sc texts
-    cst_text_set = make_cst_text_set(pth, ebt_books)
-    sc_text_set = make_sc_text_set(pth, ebt_books)
-    combined_text_set = cst_text_set | sc_text_set
-
-    # words in deconstructor in cst_text_set & sc_text_set
-    pr.green_tmr("querying lookup for deconstructor")
-    chunk_size = 900
-    deconstructor_db = []
-    combined_text_list = list(combined_text_set)
-    for i in range(0, len(combined_text_list), chunk_size):
-        chunk = combined_text_list[i : i + chunk_size]
-        chunk_result = (
-            db_session.query(Lookup)
-            .filter(Lookup.deconstructor != "", Lookup.lookup_key.in_(chunk))
-            .all()
-        )
-        deconstructor_db.extend(chunk_result)
-
-    words_in_deconstructor_set = make_words_in_deconstructions(db_session)
-    pr.yes(len(words_in_deconstructor_set))
-
-    # all_words_set = cst_text_set + sc_text_set + words in deconstructor compounds
     pr.green_tmr("making all words set")
-    all_words_set = combined_text_set | words_in_deconstructor_set
-    pr.yes(len(all_words_set))
+    words = make_cst_text_set(pth, EBT_BOOKS) | make_sc_text_set(pth, EBT_BOOKS)
+    words |= make_words_in_deconstructions(db_session)
+    words = {w for w in words if w and w.strip()}
+    pr.yes(len(words))
 
-    pr.green_tmr("creating inflections dict")
-    inflections_dict: dict[int, list[str]] = {}
-    inflections_counter = 0
-    for i in dpd_db:
-        inflections_set: set[str] = set(i.inflections_list_all) & all_words_set
-        inflections_set = set(add_niggahitas(list(inflections_set), all=False))
-        inflections_sorted: list[str] = pali_list_sorter(list(inflections_set))
-        inflections_filtered: list[str] = [
-            inf for inf in inflections_sorted if inf and inf.strip()
-        ]
-        inflections_dict[i.id] = inflections_filtered
-        inflections_counter += len(inflections_filtered)
-    pr.yes(inflections_counter)
+    pr.green_tmr("querying lookup")
+    form_headwords, scripts, deconstructions = _load_lookup(db_session, words)
+    pr.yes(len(form_headwords))
+
+    pr.green_tmr("rendering headword bodies")
+    bodies: dict[int, KindleData] = {}
+    for counter, headword in enumerate(headwords):
+        bodies[headword.id] = KindleData(headword, jinja_env, headword.id, [])
+        if counter % 20000 == 0:
+            pr.counter(counter, len(headwords), headword.lemma_1)
+    pr.yes(len(bodies))
+
+    pr.green_tmr("routing forms")
+    lemma_labels = {h.lemma_1: h.id for h in headwords}
+    sole_owner: dict[int, list[str]] = {}
+    ambiguous: set[str] = set()
+    for form, ids in form_headwords.items():
+        if len(ids) == 1 and form not in deconstructions:
+            sole_owner.setdefault(ids[0], []).append(form)
+        else:
+            ambiguous.add(form)
+    ambiguous.update(f for f in deconstructions if f not in form_headwords)
+    # a label reaches one entry, so where a form entry and a headword entry want
+    # the same string the headword is folded into the form entry
+    contested = ambiguous & set(lemma_labels)
+    pr.yes(f"{len(ambiguous)} ambiguous, {len(contested)} contested")
 
     pr.green_title("creating letter dict entries")
     letter_dict: dict[str, list[str]] = {letter: [] for letter in pali_alphabet}
-
-    # add all words
+    letter_files = _letter_files()
     id_counter = 1
-    for counter, i in enumerate(dpd_db):
-        inflection_list: list[str] = inflections_dict[i.id]
-        first_letter = find_first_letter(i.lemma_1)
-        script_inflections = getattr(i, script_attr) if script_attr else None
+
+    for counter, headword in enumerate(headwords):
+        if headword.lemma_1 in contested:
+            continue
+        aliases = _headword_aliases(headword, sole_owner, scripts)
         entry = render_ebook_entry(
-            jinja_env, id_counter, i, inflection_list, script_inflections
+            jinja_env,
+            bodies[headword.id],
+            aliases,
+            deconstructions.get(headword.lemma_1, ""),
         )
-        letter_dict[first_letter].append(entry)
+        letter_dict[find_first_letter(headword.lemma_1)].append(entry)
         id_counter += 1
-        if counter % 5000 == 0:
-            pr.counter(counter, len(dpd_db), i.lemma_1)
+        if counter % 20000 == 0:
+            pr.counter(counter, len(headwords), headword.lemma_1)
 
-    # add deconstructor words: deconstructor_db is already limited to the EBT
-    # word set by the lookup_key.in_(chunk) pre-filter above, so every row is a
-    # sutta-corpus compound (commentaries/ṭīkā excluded by the ebt_books list).
-    pr.green_title("add deconstructor words")
-    for counter, i in enumerate(deconstructor_db):
-        first_letter = find_first_letter(i.lookup_key)
-        script_inflections = (
-            getattr(i, lookup_script_attr) if lookup_script_attr else None
+    pr.green_title("add form entries")
+    for form in pali_list_sorter(list(ambiguous)):
+        merged_id = lemma_labels.get(form) if form in contested else None
+        aliases = set(scripts.get(form, []))
+        if merged_id is not None:
+            for owned in sole_owner.get(merged_id, []):
+                if owned != form:
+                    aliases.add(owned)
+                aliases.update(scripts.get(owned, []))
+        entry = render_form_entry(
+            jinja_env,
+            id_counter,
+            form,
+            [bodies[i] for i in form_headwords.get(form, []) if i in bodies],
+            pali_list_sorter(list(aliases)),
+            bodies.get(merged_id) if merged_id is not None else None,
+            deconstructions.get(form, ""),
+            letter_files,
         )
-        entry = render_deconstructor_entry(jinja_env, id_counter, i, script_inflections)
-        letter_dict[first_letter].append(entry)
+        letter_dict[find_first_letter(form)].append(entry)
         id_counter += 1
-        if counter % 5000 == 0:
-            pr.counter(counter, len(deconstructor_db), i.lookup_key)
 
-    # save to a single file for each letter of the alphabet
     pr.green_tmr("saving entries xhtml")
     total = 0
-    for counter, (letter, entries) in enumerate(letter_dict.items()):
-        ascii_letter = diacritics_cleaner(letter)
+    for letter, entries in letter_dict.items():
         total += len(entries)
-        entries_str = "".join(entries)
-        xhtml = render_ebook_letter_templ(jinja_env, letter, entries_str)
-        output_path = pth.epub_text_dir.joinpath(f"{counter}_{ascii_letter}.xhtml")
+        xhtml = render_ebook_letter_templ(jinja_env, letter, "".join(entries))
+        output_path = pth.epub_text_dir.joinpath(letter_files[letter])
         with output_path.open("w", encoding="utf-8") as f:
             f.write(xhtml)
     pr.yes(total)
@@ -192,34 +211,58 @@ def render_dpd_xhtml(
     return id_counter + 1
 
 
+def _headword_aliases(
+    headword: DpdHeadword,
+    sole_owner: dict[int, list[str]],
+    scripts: dict[str, list[str]],
+) -> list[str]:
+    """Forms only this headword owns, plus their other-script spellings."""
+    owned = sole_owner.get(headword.id, [])
+    aliases = {f for f in owned if f != headword.lemma_1}
+    for form in [*owned, headword.lemma_1]:
+        aliases.update(scripts.get(form, []))
+    aliases.discard(headword.lemma_1)
+    return pali_list_sorter(list(aliases))
+
+
 def render_ebook_entry(
     jinja_env: Environment,
-    counter: int,
-    i: DpdHeadword,
-    inflections: list[str],
-    script_inflections: list[str] | None = None,
+    data: KindleData,
+    aliases: list[str],
+    deconstruction: str,
 ) -> str:
-    """Render single word entry."""
-    data = KindleData(i, jinja_env, counter, inflections, script_inflections)
+    """Render one headword's full entry."""
     template = jinja_env.get_template("ebook_entry.jinja")
-    return template.render(data=data)
+    return template.render(data=data, aliases=aliases, deconstruction=deconstruction)
 
 
-def render_deconstructor_entry(
+def render_form_entry(
     jinja_env: Environment,
     counter: int,
-    i: Lookup,
-    script_inflections: list[str] | None = None,
+    form: str,
+    senses: list[KindleData],
+    aliases: list[str],
+    merged: KindleData | None,
+    deconstruction: str,
+    letter_files: dict[str, str],
 ) -> str:
-    """Render deconstructor word entry."""
-    construction = i.lookup_key
-    deconstruction = "<br/>".join(i.deconstructor_unpack)
-    template = jinja_env.get_template("ebook_deconstructor_entry.jinja")
+    """Render one ambiguous form, listing every sense it has with a link."""
+    template = jinja_env.get_template("ebook_form_entry.jinja")
+    linked = [
+        {
+            "lemma_1": html_friendly(data.i.lemma_1),
+            "summary": data.summary,
+            "href": f"{letter_files[find_first_letter(data.i.lemma_1)]}#hw{data.i.id}",
+        }
+        for data in senses
+    ]
     return template.render(
         counter=counter,
-        construction=construction,
+        form=form,
+        senses=linked,
+        aliases=aliases,
+        merged=merged,
         deconstruction=deconstruction,
-        script_inflections=script_inflections or [],
     )
 
 
@@ -307,37 +350,42 @@ def zip_epub(pth: ProjectPaths, output_path: Path | None = None) -> None:
 
 
 def make_mobi(pth: ProjectPaths) -> None:
-    """Convert epub to mobi using available tool."""
-    pr.green_title("converting epub to mobi")
-    system = platform.system()
-    epub_path = str(pth.dpd_epub_path)
-    mobi_path = epub_path.replace(".epub", ".mobi")
+    """Compile the rendered epub into a Kindle dictionary with kindling.
 
-    if system == "Darwin":
-        if shutil.which("ebook-convert"):
-            process = subprocess.Popen(
-                ["ebook-convert", epub_path, mobi_path],
-                stdout=subprocess.PIPE,
-                text=True,
-            )
-            if process.stdout is not None:
-                for line in process.stdout:
-                    pr.white(escape(line.rstrip()))
-            process.wait()
-            pr.yes("Converted with Calibre")
-            return
-        else:
-            pr.red("No compatible MOBI converter found on macOS.")
-            return
-    else:
-        process = subprocess.Popen(
-            [str(pth.kindlegen_path), epub_path], stdout=subprocess.PIPE, text=True
-        )
-        if process.stdout is not None:
-            for line in process.stdout:
-                pr.white(escape(line.rstrip()))
-        process.wait()
-        pr.yes("Converted with kindlegen")
+    The OPF is passed rather than the zipped epub: kindling embeds an epub
+    input as a SRCS record, and DPD's epub is over the 16 MB PalmDB record
+    limit that Kindle firmware refuses to open.
+    """
+    pr.green_title("converting epub to mobi")
+
+    # os.access, not .exists(): a downloaded release asset lands mode 0644 and
+    # would otherwise pass the check and die inside Popen.
+    if not os.access(pth.kindling_path, os.X_OK):
+        pr.red(f"no executable kindling binary at {pth.kindling_path}")
+        raise FileNotFoundError(pth.kindling_path)
+
+    command = [
+        str(pth.kindling_path),
+        "build",
+        str(pth.epub_content_opf_path),
+        "-o",
+        str(pth.dpd_mobi_path),
+    ]
+    process = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+    )
+    if process.stdout is not None:
+        for line in process.stdout:
+            pr.white(escape(line.rstrip()))
+    returncode = process.wait()
+
+    # kindling exits non-zero when its own readback check finds a MOBI that
+    # would fail to open on device, and then declines to ship the file.
+    if returncode != 0:
+        pr.red(f"kindling failed with exit code {returncode}")
+        raise RuntimeError(f"kindling failed with exit code {returncode}")
+
+    pr.yes("Converted with kindling")
 
 
 def render_epd_xhtml(pth: ProjectPaths, jinja_env: Environment, id_counter: int) -> int:
@@ -406,36 +454,19 @@ def render_epd_letter_templ(jinja_env: Environment, letter: str, entries: str) -
     return template.render(letter=letter, entries=entries)
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--script", choices=list(SCRIPT_CONFIG.keys()), default=None)
-    return parser.parse_args()
-
-
 def main() -> None:
-    args = parse_args()
-
     pr.tic()
     pr.yellow_title("rendering dpd for ebook")
     if config_test("exporter", "make_ebook", "yes"):
         pth = ProjectPaths()
         jinja_env = get_jinja2_env("exporter/kindle/templates")
 
-        if args.script:
-            script_attr, lookup_script_attr, epub_name = SCRIPT_CONFIG[args.script]
-            output_path = pth.dpd_epub_path.parent / epub_name
-        else:
-            script_attr, lookup_script_attr, output_path = None, None, None
-
-        id_counter: int = render_dpd_xhtml(
-            pth, jinja_env, script_attr, lookup_script_attr
-        )
+        id_counter: int = render_dpd_xhtml(pth, jinja_env)
         id_counter = render_epd_xhtml(pth, jinja_env, id_counter)
         save_abbreviations_xhtml_page(pth, jinja_env, id_counter)
         save_title_page_xhtml(pth, jinja_env)
-        zip_epub(pth, output_path=output_path)
-        if not args.script:
-            make_mobi(pth)
+        zip_epub(pth)
+        make_mobi(pth)
     else:
         pr.green_title("disabled in config.ini")
     pr.toc()

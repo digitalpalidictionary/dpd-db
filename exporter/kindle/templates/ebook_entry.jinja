@@ -1,25 +1,19 @@
-<idx:entry name="Pali" scriptable="yes" spell="yes" id="{{ data.counter }}">
+{#- one full entry per headword: lemma_1 is unique, so the label always resolves -#}
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="hw{{ data.i.id }}">
     <idx:short>
-        <idx:orth value="{{ data.i.lemma_clean }}"><h4>{{ data.i.lemma_1 }}</h4>
-            {% if data.inflections or data.script_inflections %}
+        <idx:orth value="{{ data.i.lemma_1 }}"><h4 id="hw{{ data.i.id }}">{{ data.i.lemma_1 }}</h4>
+            {%- if aliases %}
             <idx:infl>
-                {% for inflection in data.inflections %}
-                <idx:iform value="{{ inflection }}" exact="yes"></idx:iform>
-                {% endfor %}
-                {% for inflection in data.script_inflections %}
-                <idx:iform value="{{ inflection }}" exact="yes"></idx:iform>
-                {% endfor %}
+                {%- for alias in aliases %}
+                <idx:iform value="{{ alias }}" exact="yes"></idx:iform>
+                {%- endfor %}
             </idx:infl>
-            {% endif %}
+            {%- endif %}
         </idx:orth>
         <p class="body-space">{{ data.summary }}</p>
-        {% if data.grammar_table %}
-            {{ data.grammar_table }}
-        {% endif %}
-        {% if data.examples %}
-            {{ data.examples }}
-        {% endif %}
+        {%- if data.grammar_table %}{{ data.grammar_table }}{%- endif %}
+        {%- if data.examples %}{{ data.examples }}{%- endif %}
+        {%- if data.deconstruction %}<p class="body-space">{{ data.deconstruction }}</p>{%- endif %}
     </idx:short>
 </idx:entry>
 <hr class="dpd" />
-
