@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 from db.db_helpers import get_db_session
 from db.models import Lookup
 from tools.configger import config_test, config_update
-from tools.lookup_is_another_value import is_another_value
+from tools.lookup_is_another_value import TRANSLITERATION_COLUMNS, is_another_value
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 from tools.sinhala_tools import translit_ro_to_si
@@ -33,6 +33,33 @@ class WordInflections(TypedDict):
 
 def _should_transliterate(lookup: Lookup, regenerate_all: bool) -> bool:
     return (not lookup.sinhala or regenerate_all) and is_another_value(lookup, "epd")
+
+
+def _clear_ineligible_transliterations(db_session: Session) -> int:
+    """Blank the transliterations of rows ``_should_transliterate`` now rejects.
+
+    The write-back below only ever updates rows it selected, so a row that stops
+    qualifying keeps whatever it was given last time. EPD-only rows are English,
+    and transliterating them produced junk like ``un-`` -> ``උන්-`` that stayed
+    searchable forever.
+    """
+
+    content_columns = [
+        c.name
+        for c in Lookup.__table__.columns
+        if c.name not in ("lookup_key", "epd", *TRANSLITERATION_COLUMNS)
+    ]
+    no_content = " AND ".join(f"IFNULL({c}, '') = ''" for c in content_columns)
+    has_translit = " OR ".join(
+        f"IFNULL({c}, '') != ''" for c in TRANSLITERATION_COLUMNS
+    )
+    blanks = ", ".join(f"{c} = ''" for c in TRANSLITERATION_COLUMNS)
+
+    cleared = db_session.connection().exec_driver_sql(
+        f"UPDATE lookup SET {blanks} WHERE ({no_content}) AND ({has_translit})"
+    )
+    db_session.commit()
+    return cleared.rowcount
 
 
 def _parse_batch(
@@ -199,9 +226,14 @@ def main() -> None:
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    lookup_db = db_session.query(Lookup).all()
 
     pr.yes("")
+    pr.green_tmr("clearing ineligible")
+
+    pr.yes(_clear_ineligible_transliterations(db_session))
+
+    lookup_db = db_session.query(Lookup).all()
+
     pr.green_tmr("regenerate all")
 
     # check config
