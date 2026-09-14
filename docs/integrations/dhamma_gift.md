@@ -5,7 +5,7 @@
 [Dhamma.gift](https://dhamma.gift/){target="_blank"} aims to be a "Swiss Army Knife" for the Buddha Dhamma. It consolidates numerous resources—Pāḷī texts, translations, useful websites, Pāḷī learning materials, and a number of tools—into one website. 
 
 - **[Dhamma.gift Search](https://dhamma.gift/){target="_blank"}** — Sutta-Vinaya Search with advanced filtering, sorting and grouping.
-- **[Dhamma.Gift Read](https://dhamma.gift/read.php){target="_blank"}** — Reading interface with numerous options and DPD integration.
+- **[Dhamma.Gift Read](https://dhamma.gift/sn2.1){target="_blank"}** — Reading interface with numerous options and DPD integration.
 - **[Dhamma.Gift Multi-Tool](https://dhamma.gift/#Search,MenuRead,MenuEnglish,history,MenuDict,MenuRussian,tools,materials){target="_blank"}** — "Collection of Links" in one toolbar.
 
 Find out more about the key features [here](https://dhamma.gift/assets/common/keyFeatures.html){target="_blank"}.

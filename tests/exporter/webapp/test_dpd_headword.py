@@ -169,4 +169,18 @@ def test_dpd_headword_shows_tbw_legacy_when_enabled() -> None:
 
     assert "TBW Legacy" in html
     assert "https://f.dhamma.gift/bw/sn/sn1.1.html" in html
-    assert "https://f.dhamma.gift/read/?q=SN1.1" in html
+
+
+# The Dhamma.gift row is not gated on show_tbw, so it needs its own default-path
+# assertion rather than riding along on the TBW toggle test.
+def test_dpd_headword_shows_dhamma_gift_short_link() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "devatāsaṃyutta"
+    su.dpd_code = "SN1"
+    su.book_code = "SN"
+    su.sc_code = "SN1.1"
+
+    html = _render_template(su)
+
+    assert "Dhamma.gift" in html
+    assert "https://dhamma.gift/sn1.1" in html

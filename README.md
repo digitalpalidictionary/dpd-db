@@ -36,7 +36,7 @@ API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/
 [All Integrations](https://digitalpalidictionary.github.io/integrations/)
 
 DPD is integrated into the following software and websites.  
-[Dhamma.gift](https://find.dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
+[Dhamma.gift](https://dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)    
 [Sutta Central](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
 [Sutta Central Voice](https://www.sc-voice.net/#/sutta/dn15:0.1/en/sujato) | Docs  

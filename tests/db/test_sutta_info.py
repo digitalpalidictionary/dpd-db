@@ -3,6 +3,8 @@
 import sys
 import types
 
+import pytest
+
 sys.modules.setdefault(
     "aksharamukha",
     types.SimpleNamespace(
@@ -136,3 +138,36 @@ def test_sutta_info_s_4nt_link_none_without_sc_code() -> None:
     su = SuttaInfo()
 
     assert su.s_4nt_link is None
+
+
+@pytest.mark.parametrize(
+    "sc_code, expected",
+    [
+        ("MN1", "mn1"),
+        ("SN1.1", "sn1.1"),
+        ("SN39.1-15", "sn39.1-15"),
+        ("DHP383-423", "dhp383-423"),
+        ("THIG16.1", "thig16.1"),
+    ],
+)
+def test_sutta_info_dhamma_gift_lowercases_the_sutta_code(
+    sc_code: str, expected: str
+) -> None:
+    su = SuttaInfo()
+    su.sc_code = sc_code
+
+    assert su.dhamma_gift == f"https://dhamma.gift/{expected}"
+
+
+def test_sutta_info_dhamma_gift_none_without_sc_code() -> None:
+    su = SuttaInfo()
+
+    assert su.dhamma_gift is None
+
+
+# One live row carries an empty-string sc_code rather than NULL.
+def test_sutta_info_dhamma_gift_none_for_empty_sc_code() -> None:
+    su = SuttaInfo()
+    su.sc_code = ""
+
+    assert su.dhamma_gift is None

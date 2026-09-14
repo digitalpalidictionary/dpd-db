@@ -445,3 +445,24 @@ class TestTbwLegacyToggle:
         su = _minimal_su(is_vagga=False, is_samyutta=False, tbw_legacy=None)
         html = _render(_minimal_d(su), show_tbw=True)
         assert "TBW Legacy" not in html
+
+
+class TestDhammaGiftLink:
+    def test_shown_with_short_link(self) -> None:
+        # Built by the real property, not a literal, so a revert of the link
+        # form fails here instead of leaving this export silently unguarded.
+        real = SuttaInfo()
+        real.sc_code = "MN1"
+        su = _minimal_su(
+            is_vagga=False,
+            is_samyutta=False,
+            dhamma_gift=real.dhamma_gift,
+        )
+        html = _render(_minimal_d(su))
+        assert "Dhamma.gift" in html
+        assert "https://dhamma.gift/mn1" in html
+
+    def test_absent_when_no_link(self) -> None:
+        su = _minimal_su(is_vagga=False, is_samyutta=False, dhamma_gift=None)
+        html = _render(_minimal_d(su))
+        assert "Dhamma.gift" not in html
