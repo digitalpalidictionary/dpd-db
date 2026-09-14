@@ -3111,6 +3111,7 @@ unsuffused
 unsurpassable
 unswept
 untaught
+unthatched
 unthinkingly
 untrainable
 untruthfully
