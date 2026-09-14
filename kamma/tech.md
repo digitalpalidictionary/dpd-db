@@ -67,5 +67,7 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - `resources/flet-docs/` for Flet reference material
 - Slob export in CI relies on `PyICU` and ICU system libraries
 
+- `dhamma.gift` is a single-page app: every path returns HTTP 200 with byte-identical HTML, so a status code proves nothing about whether a sutta link resolves. Verify links against the site's own endpoint, `https://dhamma.gift/api/text/<sc_code lowercased>`, which returns the sutta's JSON (title plus segments) or a 404 with an "Unknown sutta id" error. Sutta links DPD generates use the short path form `https://dhamma.gift/<sc_code lowercased>`; the `f.dhamma.gift/bw/...` host still serves the separate Buddha's Words mirror behind `tbw_legacy`. Added 2026-09-14.
+
 ## What The Output Looks Like
 The project outputs updated dictionary data, a generated and tested SQLite database, and export artifacts in multiple formats for downstream apps, websites, offline dictionaries, and related release channels.

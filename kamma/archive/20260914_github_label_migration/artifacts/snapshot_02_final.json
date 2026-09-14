@@ -1,0 +1,2618 @@
+[
+ {
+  "number": 262,
+  "node_id": "I_kwDOIvpg288AAAABP7xLRw",
+  "state": "open",
+  "title": "How to cite DPD",
+  "labels": [],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent"
+  }
+ },
+ {
+  "number": 261,
+  "node_id": "I_kwDOIvpg288AAAABP0n23w",
+  "state": "open",
+  "title": "Webapp: Add CC license to search results",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 259,
+  "node_id": "I_kwDOIvpg288AAAABK-5nlw",
+  "state": "closed",
+  "title": "Withdrawn",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 253,
+  "node_id": "I_kwDOIvpg288AAAABJo6T_A",
+  "state": "closed",
+  "title": "Browser extension updates",
+  "labels": [
+   "wxt-extension"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 252,
+  "node_id": "I_kwDOIvpg288AAAABJjDQrA",
+  "state": "closed",
+  "title": "Sutta Info: Remove TBW Classic from links",
+  "labels": [
+   "exporter",
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 251,
+  "node_id": "I_kwDOIvpg288AAAABJelLMg",
+  "state": "closed",
+  "title": "Sutta info: include s.4nt.org link",
+  "labels": [
+   "exporter",
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 250,
+  "node_id": "I_kwDOIvpg288AAAABJaCd4g",
+  "state": "open",
+  "title": "Finding examples for all words",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 249,
+  "node_id": "I_kwDOIvpg288AAAABJaB9LQ",
+  "state": "open",
+  "title": "Bolding word in examples in GUI",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 248,
+  "node_id": "I_kwDOIvpg288AAAABIT-b5Q",
+  "state": "closed",
+  "title": "Go `Lookup` struct missing `abbrev_other`, silent save failure, batch size near SQLite variable limit",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 245,
+  "node_id": "I_kwDOIvpg288AAAABFOexuw",
+  "state": "closed",
+  "title": "Mobile db: Include Monier Williams, Edgerton, & CPD in GitHub build",
+  "labels": [
+   "flutter-app"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 243,
+  "node_id": "I_kwDOIvpg288AAAABEfrYDw",
+  "state": "closed",
+  "title": "Refactor: database build and export pipeline",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 242,
+  "node_id": "I_kwDOIvpg288AAAABCgLWHA",
+  "state": "closed",
+  "title": "yogasm\u0101 not in lookup table",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 241,
+  "node_id": "I_kwDOIvpg288AAAABBuPRdw",
+  "state": "open",
+  "title": "Add to KOReader",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 240,
+  "node_id": "I_kwDOIvpg288AAAABBg53_A",
+  "state": "closed",
+  "title": "RSS feed: add to webapp and docs",
+  "labels": [
+   "documentation",
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 239,
+  "node_id": "I_kwDOIvpg288AAAABBGAtgQ",
+  "state": "closed",
+  "title": "Exporter: raise an error when worker process fails",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 238,
+  "node_id": "I_kwDOIvpg288AAAABA01CFg",
+  "state": "closed",
+  "title": "Sutta: add TH THI chapter and verse lookup codes",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 237,
+  "node_id": "I_kwDOIvpg288AAAABAK_2QA",
+  "state": "open",
+  "title": "Sutta Table: Add KN subsections",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 236,
+  "node_id": "I_kwDOIvpg288AAAABAK_1lg",
+  "state": "closed",
+  "title": "Sutta Table: Add AN subsections",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 235,
+  "node_id": "I_kwDOIvpg288AAAABAK_tuw",
+  "state": "open",
+  "title": "Sutta Table: Add Vinaya subsections",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 234,
+  "node_id": "I_kwDOIvpg288AAAABAK-_fg",
+  "state": "open",
+  "title": "Sutta table: Add all missing subsections, vagga and sutta",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 233,
+  "node_id": "I_kwDOIvpg287_xaJe",
+  "state": "closed",
+  "title": "Suttas: Find and add all variant sutta names",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 232,
+  "node_id": "I_kwDOIvpg287_IWxX",
+  "state": "closed",
+  "title": "CST Source Sutta Example: Missing sentence examples when in the same paragraph",
+  "labels": [
+   "gui"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 231,
+  "node_id": "I_kwDOIvpg2879PS0X",
+  "state": "closed",
+  "title": "Use BUDSIR for Thai texts",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent"
+  }
+ },
+ {
+  "number": 228,
+  "node_id": "I_kwDOIvpg2877OZA6",
+  "state": "open",
+  "title": "Where's the data?",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 227,
+  "node_id": "I_kwDOIvpg2877HL3f",
+  "state": "closed",
+  "title": "DPD Android app beta",
+  "labels": [
+   "flutter-app"
+  ],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 230,
+  "node_id": "I_kwDOIvpg2877QfWS",
+  "state": "open",
+  "title": "Way to keep DPD data and stardict-pali in sync",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 229,
+  "node_id": "I_kwDOIvpg2877QfT4",
+  "state": "open",
+  "title": "Cologne dictionaries - source of truth",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 226,
+  "node_id": "I_kwDOIvpg2874X6wd",
+  "state": "closed",
+  "title": "Deconstructor: go routines and mutex optimization",
+  "labels": [
+   "deconstructor"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 225,
+  "node_id": "I_kwDOIvpg2872Zkw4",
+  "state": "closed",
+  "title": "Exporters: fix which fields get line breaks",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 224,
+  "node_id": "I_kwDOIvpg2872TEKf",
+  "state": "closed",
+  "title": "Sets: sort sets in natural order",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 223,
+  "node_id": "I_kwDOIvpg28712BH7",
+  "state": "closed",
+  "title": "Webapp: icons to hide / show history and settings",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 222,
+  "node_id": "I_kwDOIvpg2870zhSr",
+  "state": "closed",
+  "title": "Other dictionaries: compile Apte directly from source",
+  "labels": [
+   "other-dicts"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 221,
+  "node_id": "I_kwDOIvpg2870t26h",
+  "state": "closed",
+  "title": "Other dictionaries: compile Monier-Williams directly from source",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 220,
+  "node_id": "I_kwDOIvpg287yS042",
+  "state": "closed",
+  "title": "Docs: Add monthly newsletters",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 219,
+  "node_id": "I_kwDOIvpg287ySoxN",
+  "state": "closed",
+  "title": "Grammar table: fix bug in synonyms",
+  "labels": [
+   "data"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 218,
+  "node_id": "I_kwDOIvpg287ySmle",
+  "state": "closed",
+  "title": "Chrome & Firefox browser extensions: update with user feedback",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 217,
+  "node_id": "I_kwDOIvpg287whlpn",
+  "state": "open",
+  "title": "Request to add transliterations as synonyms for kindle mobi dict",
+  "labels": [
+   "exporter",
+   "stuck!"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 216,
+  "node_id": "I_kwDOIvpg287vjf9M",
+  "state": "closed",
+  "title": "Apple dictionary: improvements",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 215,
+  "node_id": "I_kwDOIvpg287va-5H",
+  "state": "open",
+  "title": "Contributor Onboarding: Easy GUI Setup & Data Submission",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 214,
+  "node_id": "I_kwDOIvpg287urmXx",
+  "state": "open",
+  "title": "Concise printed edition",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 213,
+  "node_id": "I_kwDOIvpg287ty4gt",
+  "state": "closed",
+  "title": "Database: Add 'see' column to lookup table",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 212,
+  "node_id": "I_kwDOIvpg287riHRk",
+  "state": "open",
+  "title": "Refactor: upgrade GUI with latest version of Flet",
+  "labels": [
+   "gui"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 209,
+  "node_id": "I_kwDOIvpg287otMYr",
+  "state": "closed",
+  "title": "Updater app for DPD",
+  "labels": [],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 208,
+  "node_id": "I_kwDOIvpg287nxLJ2",
+  "state": "open",
+  "title": "TheBuddhasWords and Dhamma.gift Tbw legacy links in dpd sutta table",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 207,
+  "node_id": "I_kwDOIvpg287nme0u",
+  "state": "closed",
+  "title": "Feat: Create Apple .dictionary",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 206,
+  "node_id": "I_kwDOIvpg287nBbwD",
+  "state": "closed",
+  "title": "Webapp: Allow multiple book selection in Tipi\u1e6daka Translations tab",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 205,
+  "node_id": "I_kwDOIvpg287m8ThE",
+  "state": "closed",
+  "title": "Refactor: remove duplicated EPD code",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 204,
+  "node_id": "I_kwDOIvpg287mwhct",
+  "state": "closed",
+  "title": "Add TPR deeplinks to webapp and GoldenDict exporters",
+  "labels": [
+   "exporter",
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 203,
+  "node_id": "I_kwDOIvpg287mYpyI",
+  "state": "closed",
+  "title": "Webapp: show a diacritic insensitive dropdown list when searching",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 202,
+  "node_id": "I_kwDOIvpg287kpoZB",
+  "state": "closed",
+  "title": "Webapp: fix memory overload bug",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent"
+  }
+ },
+ {
+  "number": 201,
+  "node_id": "I_kwDOIvpg287kRec4",
+  "state": "closed",
+  "title": "Refactor: rename all ambiguous CSS classes",
+  "labels": [
+   "exporter",
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 200,
+  "node_id": "I_kwDOIvpg287jrl9n",
+  "state": "closed",
+  "title": "Refactor: Unified speech marks manager to handle apostrophes and hyphens",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 199,
+  "node_id": "I_kwDOIvpg287g1s1X",
+  "state": "open",
+  "title": "Webapp: Database search tab",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 197,
+  "node_id": "I_kwDOIvpg287gOrSe",
+  "state": "closed",
+  "title": "Create a P\u0101\u1e37i grammar Analyzer",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 196,
+  "node_id": "I_kwDOIvpg287gMm5p",
+  "state": "closed",
+  "title": "Automated proofreading",
+  "labels": [
+   "data"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 194,
+  "node_id": "I_kwDOIvpg287fq-HT",
+  "state": "closed",
+  "title": "Construction summary: add `+` to roots with a double sign",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 193,
+  "node_id": "I_kwDOIvpg287fq1F8",
+  "state": "closed",
+  "title": "Refactor: convert all Mako exporter templates to Jinja2",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 192,
+  "node_id": "I_kwDOIvpg287fqnUo",
+  "state": "closed",
+  "title": "Sutta table: Add DN, MN, SN subsections, sa\u1e43yuttas, vaggas, etc.",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 191,
+  "node_id": "I_kwDOIvpg287flerB",
+  "state": "closed",
+  "title": "Repo: update readme's",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 190,
+  "node_id": "I_kwDOIvpg287fhLpQ",
+  "state": "closed",
+  "title": "Docs: add developer quick start guide",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 189,
+  "node_id": "I_kwDOIvpg287fcy45",
+  "state": "closed",
+  "title": "IPA: use Aksharamukha instead of custom script ",
+  "labels": [
+   "ipa"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 188,
+  "node_id": "I_kwDOIvpg287fUelu",
+  "state": "closed",
+  "title": "Tipi\u1e6daka Translations: add database as submodule",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 187,
+  "node_id": "I_kwDOIvpg287b6ZQF",
+  "state": "closed",
+  "title": "Export plain .txt file",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 186,
+  "node_id": "I_kwDOIvpg287b3l2R",
+  "state": "closed",
+  "title": "Sutta tab: Add Buddha Jayanti Tipitaka & SC Express",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 185,
+  "node_id": "I_kwDOIvpg287axaAd",
+  "state": "closed",
+  "title": "Add Tipi\u1e6daka Translation tab to webapp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 181,
+  "node_id": "I_kwDOIvpg287XwvGe",
+  "state": "closed",
+  "title": "db error running variant addition",
+  "labels": [
+   "variants"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 178,
+  "node_id": "I_kwDOIvpg287Vfz4v",
+  "state": "closed",
+  "title": "Tests: improved testing for the code and database",
+  "labels": [
+   "tests"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent"
+  }
+ },
+ {
+  "number": 177,
+  "node_id": "I_kwDOIvpg287UvBNU",
+  "state": "closed",
+  "title": "Update root_has_verb dynamically",
+  "labels": [
+   "data"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 176,
+  "node_id": "I_kwDOIvpg287TPXZO",
+  "state": "closed",
+  "title": "Pass1: script to find most common missing words",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 175,
+  "node_id": "I_kwDOIvpg287SUPJc",
+  "state": "closed",
+  "title": "Pass2: add headings from DN and MN",
+  "labels": [
+   "data"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 174,
+  "node_id": "I_kwDOIvpg287RzWTr",
+  "state": "closed",
+  "title": "web app language switcher",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 173,
+  "node_id": "I_kwDOIvpg287RNGsP",
+  "state": "closed",
+  "title": "Gui2: integrate tipitaka translations db",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 172,
+  "node_id": "I_kwDOIvpg287PoI8H",
+  "state": "closed",
+  "title": "Webapp: variants not showing in some cases",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 171,
+  "node_id": "I_kwDOIvpg287PoHNR",
+  "state": "closed",
+  "title": "Webapp: correct div class for spelling mistakes",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 170,
+  "node_id": "I_kwDOIvpg287PhszW",
+  "state": "closed",
+  "title": "Webapp link in EN app to RU app not working for www subdomain",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 169,
+  "node_id": "I_kwDOIvpg287Pdq1W",
+  "state": "closed",
+  "title": "Webapp: prevent white flash on page load when in dark-mode",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 168,
+  "node_id": "I_kwDOIvpg287OE9mr",
+  "state": "closed",
+  "title": "Exporter: Use single HTML template for all exporters",
+  "labels": [
+   "exporter",
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 167,
+  "node_id": "I_kwDOIvpg287M1R9N",
+  "state": "closed",
+  "title": "WebApp: fix root buttons styling",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 166,
+  "node_id": "I_kwDOIvpg287M0B-d",
+  "state": "closed",
+  "title": "Webapp: capitalised words do not return results",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 165,
+  "node_id": "I_kwDOIvpg287MpPgA",
+  "state": "closed",
+  "title": "Feat: In GoldenDict, highlight word searched for in inflection table",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 164,
+  "node_id": "I_kwDOIvpg287MnTQb",
+  "state": "open",
+  "title": "Docs: Update docs website with new categories & dark / light pics",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 163,
+  "node_id": "I_kwDOIvpg287MnLxK",
+  "state": "closed",
+  "title": "Docs: Update Kindle ebook install instructions",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 162,
+  "node_id": "I_kwDOIvpg287MZtsP",
+  "state": "open",
+  "title": "Gui2: Improvement to gui functionality",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High"
+  }
+ },
+ {
+  "number": 160,
+  "node_id": "I_kwDOIvpg287LjXG7",
+  "state": "closed",
+  "title": "Gui2: sandhi find & replace within bold tags",
+  "labels": [
+   "gui"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 159,
+  "node_id": "I_kwDOIvpg287Khh5M",
+  "state": "closed",
+  "title": "Anki: make DPD Anki deck publicly available",
+  "labels": [
+   "anki"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 158,
+  "node_id": "I_kwDOIvpg287Kfh3z",
+  "state": "open",
+  "title": "Maybe next life",
+  "labels": [],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Low",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 157,
+  "node_id": "I_kwDOIvpg287Ke-PG",
+  "state": "closed",
+  "title": "Refactoring",
+  "labels": [
+   "repo"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 156,
+  "node_id": "I_kwDOIvpg287KVsf6",
+  "state": "closed",
+  "title": "WebApp: Save id & lemma to history",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 155,
+  "node_id": "I_kwDOIvpg287KVrD5",
+  "state": "closed",
+  "title": "Webapp: Add help, abbreviations, EPD, grammar to summary",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 154,
+  "node_id": "I_kwDOIvpg287KVmF2",
+  "state": "closed",
+  "title": "WebApp: History forward and backwards button",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 153,
+  "node_id": "I_kwDOIvpg287KVjSy",
+  "state": "closed",
+  "title": "DPD Flutter app: beta release",
+  "labels": [
+   "flutter-app"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 152,
+  "node_id": "I_kwDOIvpg287KRe8S",
+  "state": "open",
+  "title": "WordTree: Visualize the most common word relationships",
+  "labels": [
+   "word-trees"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 151,
+  "node_id": "I_kwDOIvpg287KRdPA",
+  "state": "open",
+  "title": "Docs Website: list of P\u0101\u1e37i resources and courses",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 150,
+  "node_id": "I_kwDOIvpg287KRViW",
+  "state": "open",
+  "title": "GUI2: Add more books to source sutta example",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 149,
+  "node_id": "I_kwDOIvpg287KRQA5",
+  "state": "closed",
+  "title": "GUI2: wordfinder tool to display all texts which contain a word",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 148,
+  "node_id": "I_kwDOIvpg287KRFVc",
+  "state": "closed",
+  "title": "TBW: Check that api ca ce eva iti are recognised",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 147,
+  "node_id": "I_kwDOIvpg287KRCFC",
+  "state": "closed",
+  "title": "Webapp: Highlight word searched for in inflection table",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 146,
+  "node_id": "I_kwDOIvpg287KQ4um",
+  "state": "closed",
+  "title": "GUI2: Show words with no examples in Pass2",
+  "labels": [
+   "gui"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 145,
+  "node_id": "I_kwDOIvpg287KQzQS",
+  "state": "closed",
+  "title": "Inflection Tables: gray out words only if not in ALL texts",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 144,
+  "node_id": "I_kwDOIvpg287KQvkB",
+  "state": "closed",
+  "title": "Database: Split textual variants & phonetic variants",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 143,
+  "node_id": "I_kwDOIvpg287KQrgT",
+  "state": "closed",
+  "title": "Database: Replace all ... with unicode \u2026",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 142,
+  "node_id": "I_kwDOIvpg287KQpmM",
+  "state": "open",
+  "title": "Tests: New data tests",
+  "labels": [
+   "tests"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 141,
+  "node_id": "I_kwDOIvpg287KKXiY",
+  "state": "closed",
+  "title": "Webapp show / hide sandhi button not working",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 140,
+  "node_id": "I_kwDOIvpg287KKXHt",
+  "state": "closed",
+  "title": "IPA: use regular /\u0250/ instead of schwa /\u0259/",
+  "labels": [
+   "ipa"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 139,
+  "node_id": "I_kwDOIvpg287KKUtA",
+  "state": "closed",
+  "title": "Grammar tab: show traditional lemma if different",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 138,
+  "node_id": "I_kwDOIvpg287KKUMB",
+  "state": "closed",
+  "title": "Inflections with ! only show single inflection in frequency tables",
+  "labels": [
+   "frequency"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 137,
+  "node_id": "I_kwDOIvpg287KKTH-",
+  "state": "open",
+  "title": "Add icons for other dictionaries",
+  "labels": [
+   "other-dicts"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 136,
+  "node_id": "I_kwDOIvpg287KKSPp",
+  "state": "closed",
+  "title": "Feedback form: add word id to all feeback links",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 135,
+  "node_id": "I_kwDOIvpg287KKRAM",
+  "state": "closed",
+  "title": "Other dictionaries: make a better version of CPD",
+  "labels": [
+   "other-dicts"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 134,
+  "node_id": "I_kwDOIvpg287Jvy4V",
+  "state": "closed",
+  "title": "Slow responses from dpdict.net ru.dpdict.net after a week or so after reboot",
+  "labels": [],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 132,
+  "node_id": "I_kwDOIvpg287DGSv9",
+  "state": "closed",
+  "title": "Webapp: Add a link to get email updates",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 131,
+  "node_id": "I_kwDOIvpg287AQOA3",
+  "state": "closed",
+  "title": "Diacritic-Insensitive Search for Digital P\u0101li Dictionary (Android 14+)",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 130,
+  "node_id": "I_kwDOIvpg2867VE36",
+  "state": "closed",
+  "title": "Deconstrutor: Add 'hi' to automatically recognised sandhi, like api ca ce eva iti etc.",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 129,
+  "node_id": "I_kwDOIvpg2866ZEYq",
+  "state": "closed",
+  "title": "Fix deconstructor copy and tarball",
+  "labels": [
+   "deconstructor"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 126,
+  "node_id": "I_kwDOIvpg2864zzZJ",
+  "state": "closed",
+  "title": "Gui2: Add db filter and tests tab  ",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 125,
+  "node_id": "I_kwDOIvpg2864znqP",
+  "state": "closed",
+  "title": "Webapp: Refactor URL handling for tabs, browser forward and backward buttons",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 124,
+  "node_id": "I_kwDOIvpg2864zkzn",
+  "state": "closed",
+  "title": "Update MkDocs",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 122,
+  "node_id": "I_kwDOIvpg28614D1H",
+  "state": "closed",
+  "title": "Feat: Release Chrome & Firefox browser extensions",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 121,
+  "node_id": "I_kwDOIvpg2861090w",
+  "state": "closed",
+  "title": "Deconstructor: Fix dictzip error, read file error",
+  "labels": [
+   "exporter",
+   "deconstructor"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 119,
+  "node_id": "I_kwDOIvpg2861EJDq",
+  "state": "closed",
+  "title": "Orientation of baskets names in Frequency on Safari",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 117,
+  "node_id": "I_kwDOIvpg2860GNXO",
+  "state": "closed",
+  "title": "Online dpdict webapp: dead link to https://docs.dpdict.net/dpdict.html",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 116,
+  "node_id": "I_kwDOIvpg2860GHUi",
+  "state": "closed",
+  "title": "\"No results found\" error for terms in uppercase",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 115,
+  "node_id": "I_kwDOIvpg286z2MkY",
+  "state": "closed",
+  "title": "Sutta links in examples are not clickable on dpdict.net",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 113,
+  "node_id": "I_kwDOIvpg286z0esL",
+  "state": "closed",
+  "title": "Webapp: Correct links in language switcher",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 112,
+  "node_id": "I_kwDOIvpg286zTutV",
+  "state": "closed",
+  "title": "Handle subheadings in suttas",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 111,
+  "node_id": "I_kwDOIvpg286zRtC7",
+  "state": "closed",
+  "title": "Webapp: UI improvements for mobile",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 109,
+  "node_id": "I_kwDOIvpg286zOCgK",
+  "state": "closed",
+  "title": "Docs: add other dicts and language switcher",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 108,
+  "node_id": "I_kwDOIvpg286yumvT",
+  "state": "closed",
+  "title": "Moving SBS and Russian data out of the repo",
+  "labels": [
+   "exporter",
+   "webapp",
+   "deconstructor",
+   "grammar-dict"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 106,
+  "node_id": "I_kwDOIvpg286yRq3M",
+  "state": "closed",
+  "title": "PDF Exporter: Update colour theme & logo",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 105,
+  "node_id": "I_kwDOIvpg286yOSPU",
+  "state": "closed",
+  "title": "fix warnings in the Kindle exporter",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 104,
+  "node_id": "I_kwDOIvpg286yIguy",
+  "state": "closed",
+  "title": "creating or editing the corresponding Russian version.",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 102,
+  "node_id": "I_kwDOIvpg286x4-2e",
+  "state": "closed",
+  "title": "Move language switcher dropdown control",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 101,
+  "node_id": "I_kwDOIvpg286x4ifE",
+  "state": "closed",
+  "title": "Separate db build and export process for Grammar dict",
+  "labels": [
+   "grammar-dict"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 100,
+  "node_id": "I_kwDOIvpg286xz0EO",
+  "state": "closed",
+  "title": "New GUI for data creation, adding and editing",
+  "labels": [
+   "gui"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 99,
+  "node_id": "I_kwDOIvpg286xcBPj",
+  "state": "open",
+  "title": "Improvements to dictionary of variants readings",
+  "labels": [
+   "variants"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 98,
+  "node_id": "I_kwDOIvpg286xUn3U",
+  "state": "closed",
+  "title": "Audio: play button to hear pronunciation of all headwords",
+  "labels": [
+   "audio"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 97,
+  "node_id": "I_kwDOIvpg286xJ9OC",
+  "state": "closed",
+  "title": "add ru_cognate to db",
+  "labels": [],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 96,
+  "node_id": "I_kwDOIvpg286xJ5Ly",
+  "state": "closed",
+  "title": "arrange all g\u0101th\u0101 in 4 lines",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 95,
+  "node_id": "I_kwDOIvpg286xJ4IP",
+  "state": "closed",
+  "title": "find bold related problems in SBS examples",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 94,
+  "node_id": "I_kwDOIvpg286xJ22m",
+  "state": "closed",
+  "title": "Some words in GoldenDict version have problems with the buttons",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 93,
+  "node_id": "I_kwDOIvpg286xH9mB",
+  "state": "closed",
+  "title": "Root buttons in GD Rus version",
+  "labels": [],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 92,
+  "node_id": "I_kwDOIvpg286xH8ZI",
+  "state": "closed",
+  "title": "sets in russian version of the goldendict exporter",
+  "labels": [],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 91,
+  "node_id": "I_kwDOIvpg286xH3YQ",
+  "state": "closed",
+  "title": "make option to see SBS examples in webapp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 90,
+  "node_id": "I_kwDOIvpg286xHySj",
+  "state": "closed",
+  "title": "make option to see Russian meaning in english verion of webapp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 89,
+  "node_id": "I_kwDOIvpg286xHmIq",
+  "state": "closed",
+  "title": "have full russian meaning in families",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 88,
+  "node_id": "I_kwDOIvpg286xHTyM",
+  "state": "closed",
+  "title": "make exporter of abbreviation to Gramma Anki deck",
+  "labels": [],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 87,
+  "node_id": "I_kwDOIvpg286w_xwc",
+  "state": "closed",
+  "title": "Only show bold for meaning_1, not meaning_2",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 86,
+  "node_id": "I_kwDOIvpg286wuRsP",
+  "state": "closed",
+  "title": "Export DPD lookup for Dhammagift ",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 85,
+  "node_id": "I_kwDOIvpg286wmbJr",
+  "state": "closed",
+  "title": "Update fonts",
+  "labels": [
+   "identity"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 84,
+  "node_id": "I_kwDOIvpg286wmZmW",
+  "state": "closed",
+  "title": "Update CSS colour scheme",
+  "labels": [
+   "identity"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 83,
+  "node_id": "I_kwDOIvpg286wmY55",
+  "state": "closed",
+  "title": "Update DPD logo",
+  "labels": [
+   "identity"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 82,
+  "node_id": "I_kwDOIvpg286wC1M2",
+  "state": "closed",
+  "title": "Convert Docs website from mdbook to mkdocs",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 80,
+  "node_id": "I_kwDOIvpg286v3YTB",
+  "state": "closed",
+  "title": "Broken Link in Contributing.md",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 78,
+  "node_id": "I_kwDOIvpg286v3O0s",
+  "state": "open",
+  "title": "Improvements to Whitney Sanskrit Roots",
+  "labels": [
+   "other-dicts"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 77,
+  "node_id": "I_kwDOIvpg286v11d9",
+  "state": "closed",
+  "title": "Add all abbreviations from all P\u0101\u1e37i texts to DPD",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 76,
+  "node_id": "I_kwDOIvpg286volbn",
+  "state": "closed",
+  "title": "Grammar dictionary: fix sort buttons not working",
+  "labels": [
+   "grammar-dict"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 75,
+  "node_id": "I_kwDOIvpg286voJxD",
+  "state": "closed",
+  "title": "Feat: Create GitHub repo for other P\u0101\u1e37i and Sanskrit dictionaries",
+  "labels": [
+   "other-dicts"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 74,
+  "node_id": "I_kwDOIvpg286vb4Us",
+  "state": "closed",
+  "title": "Automate Github release notes and docs changelog",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 73,
+  "node_id": "I_kwDOIvpg286vYBm-",
+  "state": "closed",
+  "title": "GUI for database tests",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 72,
+  "node_id": "I_kwDOIvpg286vTbm3",
+  "state": "closed",
+  "title": "Two CSS Bugs in Webapp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 71,
+  "node_id": "I_kwDOIvpg286vJZdc",
+  "state": "closed",
+  "title": "Docs: Add API Guide for all the Webapp endpoints",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 70,
+  "node_id": "I_kwDOIvpg286vJRkc",
+  "state": "closed",
+  "title": "Deconstructor: recognise -ka & -ika, and other improvements ",
+  "labels": [
+   "deconstructor"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 69,
+  "node_id": "I_kwDOIvpg286vJOcd",
+  "state": "closed",
+  "title": "Bold Definitions: Export to GoldenDict and MDict",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 68,
+  "node_id": "I_kwDOIvpg286vJFZW",
+  "state": "closed",
+  "title": "WebApp bold definitions highlight when using regex",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 67,
+  "node_id": "I_kwDOIvpg286vI1Lu",
+  "state": "closed",
+  "title": "Update DPD identity, colour scheme CSS, logo, fonts ",
+  "labels": [
+   "exporter",
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 66,
+  "node_id": "I_kwDOIvpg286vG1tM",
+  "state": "closed",
+  "title": "Make WebApp clickable on Android and iOS",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 65,
+  "node_id": "I_kwDOIvpg286u-kCy",
+  "state": "open",
+  "title": "Record screen capture videos on how to install and use DPD",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "High",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 64,
+  "node_id": "I_kwDOIvpg286u92vf",
+  "state": "closed",
+  "title": "Add Github icon, link to issues on Webapp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 63,
+  "node_id": "I_kwDOIvpg286u9roy",
+  "state": "closed",
+  "title": "Docs: Update degree of completion screenshots",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 62,
+  "node_id": "I_kwDOIvpg286uT5Xe",
+  "state": "closed",
+  "title": "WebApp recognises Thai, Devanagari, Sinhala, and other scripts",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 61,
+  "node_id": "I_kwDOIvpg286uNp5I",
+  "state": "closed",
+  "title": "Language switcher dropdown control misbehaving",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 60,
+  "node_id": "I_kwDOIvpg286tLcTw",
+  "state": "closed",
+  "title": "HTTP / HTTPS mixed content error in WebApp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 59,
+  "node_id": "I_kwDOIvpg286tIeM8",
+  "state": "closed",
+  "title": "'Database locked' error in WebApp",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 58,
+  "node_id": "I_kwDOIvpg286rFBK5",
+  "state": "closed",
+  "title": "Add CST bold definitions to WebApp",
+  "labels": [
+   "bold-def"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 57,
+  "node_id": "I_kwDOIvpg286qrleo",
+  "state": "closed",
+  "title": "Extract PTS archive",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 56,
+  "node_id": "I_kwDOIvpg286qgAkS",
+  "state": "closed",
+  "title": "Table of sutta data",
+  "labels": [
+   "data"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "High"
+  }
+ },
+ {
+  "number": 55,
+  "node_id": "I_kwDOIvpg286qFDKF",
+  "state": "closed",
+  "title": "create an AI request for processing raw data with unrecognized words.",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 54,
+  "node_id": "I_kwDOIvpg286pxB84",
+  "state": "closed",
+  "title": "Automate deconstructor zip up and copy",
+  "labels": [
+   "deconstructor"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 53,
+  "node_id": "I_kwDOIvpg286pKkOJ",
+  "state": "closed",
+  "title": "rearrangement of sbs examples",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 52,
+  "node_id": "I_kwDOIvpg286oouZe",
+  "state": "closed",
+  "title": "[Bug] Mutex contention causing significant stalling when running the deconstructor",
+  "labels": [
+   "deconstructor"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 51,
+  "node_id": "I_kwDOIvpg286ongit",
+  "state": "closed",
+  "title": "[Feature Request] Avoid rerunning compiling the database if the word was already compiled",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 50,
+  "node_id": "I_kwDOIvpg286oZYu5",
+  "state": "closed",
+  "title": "add TPR exporter of combined ENG+RUS dictionary",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 49,
+  "node_id": "I_kwDOIvpg286oTREB",
+  "state": "closed",
+  "title": "Extract P\u0101\u1e37i and English sentences for Vinaya words",
+  "labels": [
+   "data"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 48,
+  "node_id": "I_kwDOIvpg286oPK0f",
+  "state": "closed",
+  "title": "extract sentences from suttas",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 47,
+  "node_id": "I_kwDOIvpg286oO4mT",
+  "state": "closed",
+  "title": "Translating meaning_1 into Russian",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 46,
+  "node_id": "I_kwDOIvpg286oNsBs",
+  "state": "closed",
+  "title": "English-Pali Dictionary Inclusion in Kindle Version",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 45,
+  "node_id": "I_kwDOIvpg286oNpad",
+  "state": "closed",
+  "title": "extract sentence from P\u0101li class",
+  "labels": [],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 44,
+  "node_id": "I_kwDOIvpg286oKfoY",
+  "state": "closed",
+  "title": "WebApp: fix buttons in dark mode",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 43,
+  "node_id": "I_kwDOIvpg286oEE-Y",
+  "state": "closed",
+  "title": "Add list of abbreviations to Webapp",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 42,
+  "node_id": "I_kwDOIvpg286njBcs",
+  "state": "closed",
+  "title": "Create dictionary of variant readings found in digital P\u0101\u1e37i texts",
+  "labels": [
+   "variants"
+  ],
+  "type": "Feature",
+  "fields": {}
+ },
+ {
+  "number": 41,
+  "node_id": "I_kwDOIvpg286ni4fs",
+  "state": "closed",
+  "title": "Github Action: Fix deprecation warnings",
+  "labels": [
+   "repo"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Low"
+  }
+ },
+ {
+  "number": 40,
+  "node_id": "I_kwDOIvpg286ni3CH",
+  "state": "closed",
+  "title": "Sutta Central: Automate export to final DPD format",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Task",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 39,
+  "node_id": "I_kwDOIvpg286nixp-",
+  "state": "closed",
+  "title": "Update license to CC BY-NC-SA 4.0 everywhere",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 38,
+  "node_id": "I_kwDOIvpg286nivz6",
+  "state": "closed",
+  "title": "Find bold definitions at the end of sentences",
+  "labels": [
+   "bold-def"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "Urgent",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 37,
+  "node_id": "I_kwDOIvpg286ndK-e",
+  "state": "closed",
+  "title": "Repo: Make all install scripts universal for Win users",
+  "labels": [
+   "documentation"
+  ],
+  "type": "Bug",
+  "fields": {
+   "Priority": "High",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 36,
+  "node_id": "I_kwDOIvpg286ndEeM",
+  "state": "closed",
+  "title": "Install dependecies with uv instead of Poetry",
+  "labels": [
+   "repo"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 35,
+  "node_id": "I_kwDOIvpg286nValO",
+  "state": "closed",
+  "title": "System for managing submodules",
+  "labels": [
+   "repo"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 34,
+  "node_id": "I_kwDOIvpg286l0eUy",
+  "state": "closed",
+  "title": "Website does not load correctly on Safari",
+  "labels": [
+   "webapp"
+  ],
+  "type": "Bug",
+  "fields": {}
+ },
+ {
+  "number": 32,
+  "node_id": "I_kwDOIvpg286kK6TO",
+  "state": "closed",
+  "title": "GoldenDict files not working for Koreader, which uses Stardict files",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 30,
+  "node_id": "I_kwDOIvpg286XptDw",
+  "state": "closed",
+  "title": "Error: File Not Found - `cst_wordlist.json`",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 31,
+  "node_id": "I_kwDOIvpg286d4JJM",
+  "state": "closed",
+  "title": "Export to Aard2 Slob format",
+  "labels": [
+   "exporter",
+   "stuck!"
+  ],
+  "type": "Feature",
+  "fields": {
+   "Priority": "Medium",
+   "Effort": "Medium"
+  }
+ },
+ {
+  "number": 25,
+  "node_id": "I_kwDOIvpg286Asiiq",
+  "state": "closed",
+  "title": "Feedback link not opening ",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 23,
+  "node_id": "I_kwDOIvpg2858wDRp",
+  "state": "closed",
+  "title": "Kindle version does not always show all meanings",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 22,
+  "node_id": "I_kwDOIvpg2858sHye",
+  "state": "closed",
+  "title": "Unexpected DPD -journal file",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 21,
+  "node_id": "I_kwDOIvpg2856u7EY",
+  "state": "closed",
+  "title": "English-to-P\u0101\u1e37i dictionary for Kindle",
+  "labels": [
+   "exporter"
+  ],
+  "type": "Task",
+  "fields": {}
+ },
+ {
+  "number": 20,
+  "node_id": "I_kwDOIvpg2856WAqh",
+  "state": "closed",
+  "title": "How to build DPD for Simsapa",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 19,
+  "node_id": "I_kwDOIvpg2856NFAf",
+  "state": "closed",
+  "title": "bash/makedict.sh errors on the first run",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 18,
+  "node_id": "I_kwDOIvpg2856MdmQ",
+  "state": "closed",
+  "title": "How to generate a \"complete\" database, including all sandhi, etc.?",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 17,
+  "node_id": "I_kwDOIvpg2856HXeS",
+  "state": "closed",
+  "title": "don't stop build scripts for user input",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 14,
+  "node_id": "I_kwDOIvpg2852nY_J",
+  "state": "closed",
+  "title": "TPR export request",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 12,
+  "node_id": "I_kwDOIvpg28514n2r",
+  "state": "closed",
+  "title": "Spurious keys in MDict data",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 11,
+  "node_id": "I_kwDOIvpg28514VED",
+  "state": "closed",
+  "title": "Duplicate entries for headwords",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ },
+ {
+  "number": 2,
+  "node_id": "I_kwDOIvpg285dVsm_",
+  "state": "closed",
+  "title": "an identifier number should not be stored as the db row id",
+  "labels": [],
+  "type": null,
+  "fields": {}
+ }
+]

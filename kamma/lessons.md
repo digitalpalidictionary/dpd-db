@@ -249,3 +249,22 @@
 - 2026-09-12 [CONFUSION] Picked the commit issue number by matching the issue title, when the reliable signal was which issue the previous commit touching those same files referenced. Cost two amends.
 - 2026-09-12 [WORKFLOW] The user reported a browser behaviour that the rendered markup flatly contradicted; the cause was a running webapp process still serving pre-change HTML. Suspect a stale server process before doubting the source.
 - 2026-09-12 [POSITIVE] CodeRabbit's only finding asked to restore the exact thing the user had asked to remove; rejecting it and reporting why was right, and the independent subagent found four real issues it missed.
+- 2026-09-13 [BEHAVIOR] Committed to the session's starting branch without checking it was the right one; the user wanted main and the work landed on another thread's feature branch.
+- 2026-09-13 [WORKFLOW] Checking file-set intersection between branches before proposing a cherry-pick turned a risky-looking move into an obviously safe one.
+- 2026-09-13 [CONFUSION] An independent reviewer called a docstring example fabricated because the cleanup that removed the evidence had already run; verifying against the pre-change state refuted it.
+- 2026-09-13 [POSITIVE] Writing the failing test first exposed that both the ORM and raw-SQL paths carried the same bug, which a single-path fix would have missed.
+- 2026-09-14 [BEHAVIOR] Verified a URL change with 190 live requests and two full suite runs after the user had twice said to keep it small; the sample of 70 already answered the question.
+- 2026-09-14 [WORKFLOW] Checking a client-rendered site by HTTP status proved nothing (every path returned 200 with identical bytes); finding the page's own data endpoint gave real per-sutta content in one curl.
+- 2026-09-14 [POSITIVE] The independent reviewer caught a sibling Flutter repo carrying its own copy of the same link builder, which no sweep of this repo would have found.
+- 2026-09-14 [BEHAVIOR] Opened a multi-surface change as /kamma:quick, which skips the spec — the spec is the step that forces the "where else does this live" sweep, so the Flutter repo and a test gap were both missed.
+- 2026-09-14 [BEHAVIOR] Never read the archived thread covering the same property, which already named all three surfaces that had to change together; the answer was on disk before the first edit.
+- 2026-09-14 [REPEATED] Kept writing long replies after the user twice asked for terse ones, and over-verified after being told to stop.
+- 2026-09-14 [WORKFLOW] Ran `dart format` on two touched files; a newer formatter version rewrote ~80 unrelated lines and buried the real diff. Reverted and reapplied without it.
+- 2026-09-14 [POSITIVE] Temporarily reverting the change and re-running the tests turned "is this covered" from opinion into a number: 4 of 8 tests actually guarded it, now 7 fail on revert.
+- 2026-09-14 [POSITIVE] A zero-context reviewer caught a half-populated git index that no diff-reading would have surfaced.
+- 2026-09-14 [BEHAVIOR] Ran a 213-issue GitHub label migration end to end with no thread, no spec, no plan; wrote the kamma files only after the user caught it
+- 2026-09-14 [BEHAVIOR] Left two snapshot JSONs in the user's home directory instead of the thread's artifacts dir; user: "don't leave your junk lying on my machine"
+- 2026-09-14 [REPEATED] Stopped after presenting a commit message instead of running /kamma:4-finalize; user had to demand the finalize explicitly
+- 2026-09-14 [CONFUSION] Claimed fixing the issue templates needed the YAML issue-forms format; markdown front matter takes `type:` directly, found only by reading the docs
+- 2026-09-14 [WORKFLOW] Quoted a completion ETA extrapolated from a single early sample and it was roughly half the real rate
+- 2026-09-14 [POSITIVE] Snapshotted before the bulk change and proved the rollback on one live issue before running all 213; zero mismatches on the full verification

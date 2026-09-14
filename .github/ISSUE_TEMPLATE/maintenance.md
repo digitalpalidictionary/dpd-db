@@ -2,7 +2,7 @@
 name: Maintenance/Refactoring
 about: Suggest code improvements that don't add new features
 title: ''
-labels: '1 Update'
+type: 'Task'
 assignees: ''
 ---
 
