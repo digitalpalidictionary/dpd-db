@@ -113,6 +113,11 @@ h4.title-page {
   margin-bottom: 0;
   margin-top: 0;
   text-align: left;
+  /* hanging indent: the sense starts flush with the headword and only the
+     runover lines are indented. Kindle indents the first line of a <p> by
+     default, which reads backwards in a dictionary entry. */
+  text-indent: -1em;
+  padding-left: 1em;
 }
 
 .body-space-above {

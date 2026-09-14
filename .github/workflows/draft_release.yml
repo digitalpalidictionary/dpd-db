@@ -192,6 +192,20 @@ jobs:
         echo "=== After Deconstructor export ==="
         $HOME/check_disk.sh
 
+    # kindling replaces the retired kindlegen. Downloading the pinned release
+    # asset takes ~0.6s on a runner; `cargo install` takes ~200s (measured, run
+    # 34754250894), so the binary is fetched rather than built or committed.
+    - name: Install kindling
+      env:
+        KINDLING_VERSION: "0.45.1"
+        KINDLING_SHA256: "e11a67f243fe2c822a0edc431e7a7f2a142bd946a72b7788731ea78f22eb4bc9"
+      run: |
+        curl -sSfL -o exporter/kindle/kindling-cli \
+          "https://github.com/ciscoriordan/kindling/releases/download/v${KINDLING_VERSION}/kindling-cli-linux"
+        echo "${KINDLING_SHA256}  exporter/kindle/kindling-cli" | sha256sum -c -
+        chmod +x exporter/kindle/kindling-cli
+        exporter/kindle/kindling-cli --version
+
     - name: Export Kindle & ePub
       run: |
         uv run python exporter/kindle/kindle_exporter.py

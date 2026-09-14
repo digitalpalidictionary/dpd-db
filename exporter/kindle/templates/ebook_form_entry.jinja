@@ -1,0 +1,26 @@
+{#- one entry per ambiguous form: it must carry every sense that form has,
+    because a single index term reaches a single entry -#}
+<idx:entry name="Pali" scriptable="yes" spell="yes" id="f{{ counter }}">
+    <idx:short>
+        <idx:orth value="{{ form }}"><h4>{{ form }}</h4>
+            {%- if aliases %}
+            <idx:infl>
+                {%- for alias in aliases %}
+                <idx:iform value="{{ alias }}" exact="yes"></idx:iform>
+                {%- endfor %}
+            </idx:infl>
+            {%- endif %}
+        </idx:orth>
+        {%- for sense in senses %}
+        <blockquote><p class="body-space" width="-1em" height="0"><a href="{{ sense.href }}"><b>{{ sense.lemma_1 }}</b></a> {{ sense.summary }}</p></blockquote>
+        {%- endfor %}
+        {%- if merged %}
+        <h5 id="hw{{ merged.i.id }}">{{ merged.i.lemma_1 }}</h5>
+        <blockquote><p class="body-space" width="-1em" height="0">{{ merged.summary }}</p></blockquote>
+        {%- if merged.grammar_table %}{{ merged.grammar_table }}{%- endif %}
+        {%- if merged.examples %}{{ merged.examples }}{%- endif %}
+        {%- endif %}
+        {%- if deconstruction %}<p class="body-space">{{ deconstruction }}</p>{%- endif %}
+    </idx:short>
+</idx:entry>
+<hr class="dpd" />
