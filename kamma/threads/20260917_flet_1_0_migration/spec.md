@@ -6,7 +6,7 @@
 **Revision:** 9 — records four BR items found during implementation (BR-18 to
 BR-21, in their own section below), drops `resources/dpd-updater` from scope at
 the user's instruction (2026-09-17, "a failed side project"), and with it BR-9.
-The BR list now runs BR-1 to BR-21 and Phase 7's table is 21 rows.
+The BR list now runs BR-1 to BR-25 and Phase 7's table is 25 rows.
 Revision 8 — applies two independent reviews. Corrects the safe-site count
 (28 → 22), corrects BR-17's fix approach (the constructors are store-only, so
 the fix is far smaller than revision 7 claimed), re-derives the handler-density
@@ -1152,7 +1152,7 @@ improvements, the rollback gets cheaper — but nothing here depends on it.
    differences. A line moved by a structural improvement counts as explained
    only if `artifacts/improvements.md` names it.
 5. Every catalogue entry walked in the running app and confirmed.
-6. Every one of BR-1 to BR-17 has a specific confirmation recorded in the plan.
+6. Every one of BR-1 to BR-25 has a specific confirmation recorded in the plan.
    For the silent failures (BR-1, BR-4, BR-14's Ctrl+S path, BR-16) that means
    watching the behaviour, not the absence of an error.
 7. The window never stops responding on any action, and no handler exceeds its

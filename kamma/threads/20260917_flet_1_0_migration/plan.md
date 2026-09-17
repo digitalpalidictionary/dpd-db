@@ -1,6 +1,6 @@
 # Plan — Flet 0.28.3 → 1.0.0 migration
 
-**Spec:** `spec.md` in this directory. Read BR-1 to BR-21 before starting.
+**Spec:** `spec.md` in this directory. Read BR-1 to BR-25 before starting.
 **GitHub issue:** none.
 **Branch:** `flet-1-0`, in the main working tree. No worktree — user's call.
 **Revision:** 11 — BR-22 done (borders rewritten across 30 files); BR-24 done,
@@ -45,7 +45,8 @@ Phase 2b partially completed.
 | 7 — verification and handover | not started |
 
 **State of the tree after Phase 3.** 43 Python files changed plus
-`pyproject.toml` and `uv.lock`, and separately the nested `dpd-updater` repo.
+`pyproject.toml` and `uv.lock`. The nested `dpd-updater` submodule was touched
+and then reverted when it was descoped; it is clean and back on 0.28.3.
 Green: `uv run pytest tests/` **1886 passed, 12 deselected**; `tests/gui2/`
 **284 passed, 0 warnings**; `ruff check` and `ruff format --check` clean on all
 43; `uv run pyright` clean on the files it covers; `just typecheck`
@@ -241,6 +242,9 @@ switch the installed Flet. Every switch is: `git status --porcelain` →
 
   **96 files, 463 bindings** — `gui2` 415, `db_tests/gui` 34,
   `resources/dpd-updater` 14. `ruff` and `pyright` clean.
+
+  **The updater's 14 are now out of scope.** Phase 7's diff should expect 449
+  bindings, not 463; the 14 missing rows are the descope, not a regression.
 
   A handler can be bound by assignment as well as by keyword. The first version
   scanned call keywords only and missed `page.on_keyboard_event =
@@ -682,6 +686,11 @@ improvement.
   scope was dotted (`ft.app`), so no local name could collide. The grep now
   returns zero outside this plan's own prose and the fetched guide.
 
+  **The updater's row was later reverted:** `resources/dpd-updater` was dropped
+  from scope and its submodule restored to its committed 0.28.3 state, so its
+  `ft.app` is untouched and 6 of these 7 are live. Phase 7's inventory diff
+  will show the updater's rows absent — that is the descope, not a regression.
+
   The throwaway `artifacts/instrument_handlers.py` was updated too, so it still
   launches — though it also imports `flet.core.page`, which 1.0 moved, so it
   needs the Phase 4 port before it runs again.
@@ -855,6 +864,10 @@ improvement.
   ✅ All four patterns, **21 opens and 15 closes** (the plan said 14 closes; the
   fifteenth is the updater's, which the plan had parked in Phase 6). The
   commented-out `page.open` in `gui2/mixins.py` was skipped, as instructed.
+
+  **That fifteenth close was reverted with the updater's descope**, so 14 are
+  live. Phase 7 should expect the updater's rows to be absent from the
+  inventory rather than hunt for a missed conversion.
 
   **One semantic difference the plan did not flag, checked in the wheel:
   `pop_dialog()` takes no argument.** 0.28's `page.close(dlg)` named the dialog
@@ -1052,12 +1065,12 @@ improvement.
   | `gui2/utilities/sandhi_contraction_find_replace_gui.py` | `on_keyboard` |
   | `gui2/utilities/find_words_with_examples.py` | `on_keyboard` |
   | `db_tests/gui/main.py` | `on_keyboard` |
-  | `resources/dpd-updater/main.py` | `_on_keyboard` |
+  | ~~`resources/dpd-updater/main.py`~~ | ~~`_on_keyboard`~~ — descoped, reverted |
 
   The commented-out site in `db_tests/gui/add_hyphenations.py` was left alone.
 
-  **Add BR-18 to `spec.md`'s BR list and to Phase 7's 17-row confirmation
-  table, which becomes 18 rows.** Its evidence line is "press Ctrl+Q and the
+  **Add BR-18 to `spec.md`'s BR list and to Phase 7's confirmation table**
+  (done; the table now stands at 25 rows). Its evidence line is "press Ctrl+Q and the
   window actually closes" — "no error" is not evidence here.
 
 - [x] **BR-19 (new) — `Control.page` RAISES when unmounted; it no longer reads
@@ -1299,6 +1312,17 @@ against the baseline. All four are done in code and awaiting one visual pass.
   the property is not deprecated and must stay.
   → verify: `artifacts/check_border_props.py` reports 0 on form fields. ✅
 
+- [ ] **Open visual check left by BR-22: the focused border.** The fields that
+  now carry `border=field_border(color=…)` — the dropdowns and several text
+  fields — state an explicit `side`. The wheel says an explicit side "applies
+  to the enabled state while the other states remain theme-resolved", which is
+  what 0.28's `border_color` did too (it had a separate `focused_border_color`,
+  which this codebase never used), so parity is *expected* rather than proven.
+  Nobody has watched a field take focus yet.
+  → verify: click into a dropdown and a coloured text field and confirm the
+    focus ring still changes the way it did in 0.28. Cheap, and worth doing
+    before it turns up as a mystery mid-battle-test.
+
 **Not an issue:** `just gui` ran a `uv sync` once. That was the pin change
 landing; verified not to recur.
 
@@ -1348,6 +1372,21 @@ no longer applies.
   the migrated build; compare to `artifacts/slow_handlers.md`.
   → verify: an updated log exists for 1.0.0 and the handlers that were slow
     before are still slow, proving the measurements are comparable.
+
+  **`artifacts/instrument_handlers.py` is deliberately untracked** (AD#4 —
+  throwaway, never committed), so a fresh clone of this branch will not have
+  it. If it is absent, rewrite it from AD#4: patch the event-dispatch path
+  rather than wrapping bound handlers, because `gui2` builds its tabs lazily
+  and startup-time wrapping only ever sees the first screen. It also still
+  imports `flet.core.page`, which 1.0 moved — that import is the first thing
+  the port has to fix.
+
+  **The 0.28 sample it is being compared against is thin:** 213 invocations
+  across 6 files, heavily weighted to Pass2Add, and 4 shortlist items were
+  never exercised. Before trusting the "what is actually slow" ordering, spend
+  one short session exercising the tabs the first pass missed. A conversion
+  list built on an unexercised handler is a guess wearing a measurement's
+  clothes.
 
 - [ ] Convert the slow handlers, slowest first. Per handler choose deliberately:
   thread-offload-with-result when the value is needed; fire-and-forget for
@@ -1542,11 +1581,12 @@ baseline before touching it, so this is reasoned rather than measured:
   screen off in the catalogue file itself.
   → verify: every entry confirmed, or the deviation recorded with a cause.
 
-- [ ] Confirm each of BR-1 to BR-21 individually in the running app and record
+- [ ] Confirm each of BR-1 to BR-25 individually in the running app and record
   the evidence here.
-  → verify: a 21-row table, each row naming the observation that confirms it.
+  → verify: a 25-row table, each row naming the observation that confirms it.
     BR-9 is dropped (its only sites were in the updater) — mark it so rather
-    than leaving a blank. BR-18 needs Ctrl+Q actually quitting, BR-21 needs
+    than leaving a blank. BR-23 is closed as not-a-defect, so its row records
+    the retest, not a fix. BR-18 needs Ctrl+Q actually quitting, BR-21 needs
     focus actually moving to the next field; neither shows an error when broken.
     "No error on launch" is not an observation for the silent failures (BR-1,
     BR-4, BR-14's Ctrl+S path, BR-16) — those need someone to watch the
