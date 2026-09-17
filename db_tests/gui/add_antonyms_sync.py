@@ -18,10 +18,12 @@ from tools.paths import ProjectPaths
 
 
 class UiManager:
-    def __init__(self, e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
+    def __init__(
+        self, e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container
+    ):
         self.page = page
         self.right_panel = right_panel
-        self.right_panel.padding = ft.padding.all(20)
+        self.right_panel.padding = ft.Padding.all(20)
         self.label_width = 200
         self.action_queue = queue.Queue()
 
@@ -254,7 +256,7 @@ def make_dest_antonyms(source: DpdHeadword, dest: DpdHeadword) -> list[str]:
 
 
 def add_antonyms_sync(
-    e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container
+    e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container
 ) -> None:
     """Sync antonyms: propagate an existing antonym onto its unlinked counterpart."""
     ui = UiManager(e, page, right_panel)

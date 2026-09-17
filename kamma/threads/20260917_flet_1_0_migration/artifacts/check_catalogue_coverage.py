@@ -27,7 +27,13 @@ INVENTORY = ARTIFACTS / "wiring_baseline.txt"
 CATALOGUE = ARTIFACTS / "behaviour_catalogue.md"
 
 # Catalogued in Phase 6 alongside their migration, not in the Phase 2b catalogue.
-PHASE_6_PREFIXES: tuple[str, ...] = ("db_tests/gui/", "resources/dpd-updater/")
+PHASE_6_PREFIXES: tuple[str, ...] = ("db_tests/gui/",)
+
+# Dropped from the thread on 2026-09-17 (user: "a failed side project"). The
+# baseline is the frozen 0.28 record and still lists its bindings, so they are
+# excluded here rather than regenerated away — regenerating the baseline now
+# would capture migrated 1.0 code and destroy the comparison point.
+OUT_OF_SCOPE_PREFIXES: tuple[str, ...] = ("resources/dpd-updater/",)
 
 
 def bindings_per_file(inventory: str) -> Counter[str]:
@@ -72,9 +78,12 @@ def main() -> int:
     covered: list[tuple[str, int]] = []
     missing: list[tuple[str, int]] = []
     deferred: list[tuple[str, int]] = []
+    dropped: list[tuple[str, int]] = []
 
     for path, count in sorted(counts.items()):
-        if path.startswith(PHASE_6_PREFIXES):
+        if path.startswith(OUT_OF_SCOPE_PREFIXES):
+            dropped.append((path, count))
+        elif path.startswith(PHASE_6_PREFIXES):
             deferred.append((path, count))
         elif is_mentioned(path, catalogue, ambiguous):
             covered.append((path, count))
@@ -93,6 +102,13 @@ def main() -> int:
         f"UNCATALOGUED:      {len(missing):3d} files, {sum(n for _, n in missing):3d} bindings"
     )
 
+    if dropped:
+        print(
+            f"out of scope:      {len(dropped):3d} files, "
+            f"{sum(n for _, n in dropped):3d} bindings"
+        )
+    for path, count in dropped:
+        print(f"   [dropped]  {path}  ({count})")
     for path, count in deferred:
         print(f"   [phase 6] {path}  ({count})")
     for path, count in missing:

@@ -3,6 +3,7 @@ import re
 import flet as ft
 
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import is_mounted, request_focus
 from tools.pali_text_files import cst_texts
 from tools.tipitaka_db import search_all_cst_texts, search_book
 
@@ -15,7 +16,6 @@ FILTER_HIGHLIGHT_COLOUR = ft.Colors.CYAN_200
 class TranslationsView(ft.Column):
     def __init__(self, page: ft.Page, toolkit: ToolKit):
         super().__init__(expand=True, spacing=10)
-        self.page: ft.Page = page
         self.toolkit = toolkit
 
         # --- UI Controls ---
@@ -60,12 +60,10 @@ class TranslationsView(ft.Column):
             enable_filter=True,
         )
 
-        self.search_button = ft.ElevatedButton(
+        self.search_button = ft.Button(
             "Search", on_click=self.search_clicked, width=120
         )
-        self.clear_button = ft.ElevatedButton(
-            "Clear", on_click=self.clear_clicked, width=120
-        )
+        self.clear_button = ft.Button("Clear", on_click=self.clear_clicked, width=120)
 
         self.results_search_field = ft.TextField(
             label="Search in results",
@@ -84,7 +82,7 @@ class TranslationsView(ft.Column):
 
         self.results_container = ft.Container(
             content=self.results_column,
-            border_radius=ft.border_radius.all(20),
+            border_radius=ft.BorderRadius.all(20),
             padding=10,
             expand=True,
             visible=False,  # Initially invisible
@@ -116,17 +114,15 @@ class TranslationsView(ft.Column):
         self.controls.append(root_container)
 
     def on_tab_focus(self) -> None:
-        if self.search_term_field.page is not None:
-            self.search_term_field.focus()
+        if is_mounted(self.search_term_field):
+            request_focus(self.search_term_field)
 
     def search_clicked(self, e):
         search_term = self.search_term_field.value
         language = self.language_dropdown.value
 
         if not search_term:
-            self.page.snack_bar = ft.SnackBar(  # type: ignore
-                ft.Text("Please enter a search term."), open=True
-            )
+            self.page.show_dialog(ft.SnackBar(ft.Text("Please enter a search term.")))
             self.page.update()
             return
 
@@ -330,7 +326,7 @@ class TranslationsView(ft.Column):
         elif hasattr(self, "original_count_text"):
             self.count_widget.value = self.original_count_text
 
-        self.results_search_field.focus()
+        request_focus(self.results_search_field)
         self.page.update()
 
     def _create_highlighted_spans(

@@ -27,7 +27,6 @@ class Pass2PreProcessView(ft.Column):
             controls=[],
             spacing=0,
         )
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.controller = Pass2PreController(
             self,
@@ -151,7 +150,7 @@ class Pass2PreProcessView(ft.Column):
             ft.Row(
                 controls=[
                     self.books_dropdown,
-                    ft.ElevatedButton(
+                    ft.Button(
                         "PreProcess Book",
                         on_click=self.handle_book_click,
                     ),
@@ -182,19 +181,19 @@ class Pass2PreProcessView(ft.Column):
             ft.Divider(),
             ft.Row(
                 controls=[
-                    ft.ElevatedButton(
+                    ft.Button(
                         "Yes",
                         on_click=self.handle_yes_click,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "No",
                         on_click=self.handle_no_click,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "New",
                         on_click=self.handle_new_click,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "Pass",
                         on_click=self.handle_pass_click,
                     ),
@@ -354,14 +353,14 @@ class Pass2PreProcessView(ft.Column):
                 expand=True,
                 scroll=ft.ScrollMode.AUTO,
             ),
-            alignment=ft.alignment.center,
-            title_padding=ft.padding.all(25),
+            alignment=ft.Alignment.CENTER,
+            title_padding=ft.Padding.all(25),
             actions=[
                 ft.TextButton("OK", on_click=on_ok),
             ],
         )
 
-        self.page.open(self.new_word_dialog)
+        self.page.show_dialog(self.new_word_dialog)
         self.page.update()
 
     def make_examples_list(
@@ -467,7 +466,7 @@ class Pass2PreProcessView(ft.Column):
                                 expand=True,
                                 selectable=True,
                             ),
-                            padding=ft.padding.only(left=10),
+                            padding=ft.Padding.only(left=10),
                         ),
                         ft.Container(
                             content=ft.Text(
@@ -478,7 +477,7 @@ class Pass2PreProcessView(ft.Column):
                                 color=ft.Colors.GREY_500,
                                 selectable=True,
                             ),
-                            padding=ft.padding.only(left=10),
+                            padding=ft.Padding.only(left=10),
                         ),
                         ft.Divider(),
                     ],

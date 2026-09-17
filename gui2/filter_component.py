@@ -16,7 +16,7 @@ from gui2.filter_logic import (
     validate_regex_patterns,
 )
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import show_global_snackbar
+from gui2.ui_utils import is_mounted, request_focus, show_global_snackbar
 from tools.spelling import CustomSpellChecker
 
 PAGE_SIZE = 100
@@ -29,7 +29,7 @@ class DpdDatatable(ft.DataTable):
             columns=columns,
             rows=rows,
             data_text_style=ft.TextStyle(size=12, color=ft.Colors.GREY_300),
-            border=ft.border.all(2, ft.Colors.BLACK),
+            border=ft.Border.all(2, ft.Colors.BLACK),
             horizontal_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             vertical_lines=ft.border.BorderSide(1, ft.Colors.GREY_300),
             heading_row_color=ft.Colors.BLUE_900,
@@ -69,7 +69,7 @@ class CellText(ft.Container):
                 color=ft.Colors.RED if misspelled else ft.Colors.GREY_300,
             ),
             width=width,
-            padding=ft.padding.all(CELL_PADDING),
+            padding=ft.Padding.all(CELL_PADDING),
         )
 
 
@@ -83,9 +83,9 @@ class CellTextField(ft.TextField):
             width=width,
             multiline=True,
             dense=True,
-            content_padding=ft.padding.all(CELL_PADDING),
+            content_padding=ft.Padding.all(CELL_PADDING),
             border_radius=0,
-            border=ft.InputBorder.OUTLINE,
+            border=ft.OutlineInputBorder(border_radius=0),
             border_width=3,
             border_color=ft.Colors.TRANSPARENT,
             text_align=ft.TextAlign.LEFT,
@@ -109,7 +109,6 @@ class FilterComponent(ft.Column):
         sort_column: str | None = None,
     ) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.spellchecker = CustomSpellChecker()
 
@@ -166,9 +165,7 @@ class FilterComponent(ft.Column):
                 ft.Container(
                     content=ft.Row(
                         [
-                            ft.ElevatedButton(
-                                "Save Changes", on_click=self._save_changes
-                            ),
+                            ft.Button("Save Changes", on_click=self._save_changes),
                             self.prev_page_button,
                             self.page_label_text,
                             self.next_page_button,
@@ -176,7 +173,7 @@ class FilterComponent(ft.Column):
                         ],
                         spacing=8,
                     ),
-                    padding=ft.padding.symmetric(horizontal=10, vertical=6),
+                    padding=ft.Padding.symmetric(horizontal=10, vertical=6),
                 ),
             ]
         )
@@ -221,7 +218,7 @@ class FilterComponent(ft.Column):
         try:
             self.update()
         except Exception:
-            if self.page:
+            if is_mounted(self):
                 self.page.update()
 
     # --- APPLY FILTERS (off the UI thread) ---
@@ -416,7 +413,7 @@ class FilterComponent(ft.Column):
         cell.content = text_field
         cell.on_tap = None
         self._safe_update()
-        text_field.focus()
+        request_focus(text_field)
 
     # --- SAVE ---
 
@@ -500,5 +497,5 @@ class FilterComponent(ft.Column):
         try:
             e.control.update()
         except Exception:
-            if self.page:
+            if is_mounted(self):
                 self.page.update()

@@ -43,7 +43,6 @@ class TestsTabView(ft.Column):
             spacing=0,
             scroll=ft.ScrollMode.AUTO,
         )
-        self.page: ft.Page = page
         self.toolkit = toolkit
 
         # Get DpdHeadword column names for dropdown options
@@ -62,7 +61,7 @@ class TestsTabView(ft.Column):
         # --- Define All UI Elements as Instance Attributes ---
 
         # Top Buttons
-        self.run_tests_button = ft.ElevatedButton(
+        self.run_tests_button = ft.Button(
             "Run Tests",
             tooltip="Run internal database tests",
             on_click=self.controller.handle_run_tests_clicked,
@@ -74,40 +73,40 @@ class TestsTabView(ft.Column):
             tooltip="Toggle test direction",
             on_click=self.controller.handle_toggle_test_direction,
         )
-        self.stop_tests_button = ft.ElevatedButton(
+        self.stop_tests_button = ft.Button(
             "Stop Tests",
             tooltip="Stop ongoing tests",
             on_click=self.controller.handle_stop_tests_clicked,
             height=50,
             width=150,
         )
-        self.edit_tests_button = ft.ElevatedButton(
+        self.edit_tests_button = ft.Button(
             "Edit Tests",
             tooltip="Open tests file for editing",
             on_click=self.controller.handle_edit_tests_clicked,
             height=50,
             width=150,
         )
-        self.sort_tests_button = ft.ElevatedButton(
+        self.sort_tests_button = ft.Button(
             "Sort Tests",
             tooltip="Sort tests alphabetically by name",
             on_click=self.controller.handle_sort_tests_clicked,
             height=50,
             width=150,
         )
-        self.update_tests_button = ft.ElevatedButton(
+        self.update_tests_button = ft.Button(
             "Update Test",
             on_click=self.controller.handle_test_update,
             height=50,
             width=150,
         )
-        self.add_new_test_button = ft.ElevatedButton(
+        self.add_new_test_button = ft.Button(
             "Add New Test",
             on_click=self.controller.handle_add_new_test,
             height=50,
             width=150,
         )
-        self.delete_test_button = ft.ElevatedButton(
+        self.delete_test_button = ft.Button(
             "Delete Test",
             on_click=self.controller.handle_delete_test,
             height=50,
@@ -231,11 +230,11 @@ class TestsTabView(ft.Column):
             menu_height=200,
             text_style=ft.TextStyle(size=12),
         )
-        self.test_add_exception_button = ft.ElevatedButton(
+        self.test_add_exception_button = ft.Button(
             "Add 1",
             on_click=self.controller.handle_add_exception_button,
         )
-        self.test_add_all_exceptions_button = ft.ElevatedButton(
+        self.test_add_all_exceptions_button = ft.Button(
             "Add All",
             on_click=self.controller.handle_add_all_exceptions_clicked,
         )
@@ -249,25 +248,25 @@ class TestsTabView(ft.Column):
         )
 
         # Navigation Buttons (Two Sets)
-        self.test_rerun_button_1 = ft.ElevatedButton(
+        self.test_rerun_button_1 = ft.Button(
             "Rerun",
             width=150,
             height=50,
             on_click=self.controller.handle_rerun_test_clicked,
         )
-        self.test_next_button_1 = ft.ElevatedButton(
+        self.test_next_button_1 = ft.Button(
             "Next",
             expand=True,
             height=50,
             on_click=self.controller.handle_next_test_clicked,
         )
-        self.test_rerun_button_2 = ft.ElevatedButton(
+        self.test_rerun_button_2 = ft.Button(
             "Rerun",
             width=150,
             height=50,
             on_click=self.controller.handle_rerun_test_clicked,
         )
-        self.test_next_button_2 = ft.ElevatedButton(
+        self.test_next_button_2 = ft.Button(
             "Next",
             expand=True,
             height=50,

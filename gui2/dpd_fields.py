@@ -30,6 +30,7 @@ from gui2.dpd_fields_meaning import DpdMeaningField
 from gui2.dpd_fields_notes import DpdNotesField
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import is_mounted, request_focus
 from tools.compound_type_manager import CompoundTypeManager
 from tools.phonetic_change_manager import PhoneticChangeManager
 from tools.fuzzy_tools import find_closest_matches
@@ -65,7 +66,6 @@ class DpdFields(PopUpMixin):
         from gui2.pass2_add_view import Pass2AddView
 
         self.ui: Pass2AddView | Pass1AddView = ui
-        self.page = self.ui.page
         self.db: DatabaseManager = db
         self.spellchecker = CustomSpellChecker()
         self.toolkit: ToolKit = toolkit
@@ -309,6 +309,17 @@ class DpdFields(PopUpMixin):
         self.flags = Flags()
 
         self.create_fields()
+
+    @property
+    def page(self) -> ft.Page:
+        """The owning view's page, resolved on use rather than cached.
+
+        Flet 1.0 resolves `Control.page` by walking up to the root and raises
+        while the control is unmounted. This object is built inside the view's
+        constructor, so caching the page there raised; every reader of `.page`
+        runs after mount, so resolving lazily is equivalent and safe.
+        """
+        return self.ui.page
 
     def create_fields(self):
         for config in self.field_configs:
@@ -734,7 +745,7 @@ class DpdFields(PopUpMixin):
         """Get the next id on submit."""
         field, value = self.get_event_field_and_value(e)
         field.value = self.db.get_next_id()
-        field.focus()
+        request_focus(field)
         self.page.update()
 
     def lemma_1_change(self, e: ft.ControlEvent) -> None:
@@ -780,7 +791,7 @@ class DpdFields(PopUpMixin):
 
         self.page.update()
         if e.name != "blur":  # only focus on submit, not on blur
-            field.focus()
+            request_focus(field)
 
     def meaning_1_focus(self, e: ft.ControlEvent) -> None:
         """Copy meaning_2 to meaning_1 for suttas/vaggas if meaning_1 is empty and not loaded from DB."""
@@ -835,7 +846,7 @@ class DpdFields(PopUpMixin):
                 pos_field.error_text = ", ".join(suggestions)
             else:
                 pos_field.error_text = f"Unknown pattern: {pos}"
-            pos_field.focus()
+            request_focus(pos_field)
         else:
             pos_field.error_text = None
         self.page.update()
@@ -859,7 +870,7 @@ class DpdFields(PopUpMixin):
             else:
                 grammar_field.value = f"{pos}, "
             grammar_field.update()
-            grammar_field.focus()
+            request_focus(grammar_field)
             self.page.update()
 
     def grammar_blur(self, e: ft.ControlEvent) -> None:
@@ -880,7 +891,7 @@ class DpdFields(PopUpMixin):
                 derived_from_field.update()
                 self.flags.derived_from_done = True
                 self.page.update()
-                # derived_from_field.focus() # Focus might be better handled elsewhere or removed
+                # request_focus(derived_from_field) # Focus might be better handled elsewhere or removed
 
     def trans_blur(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
@@ -888,7 +899,7 @@ class DpdFields(PopUpMixin):
             plus_case_field = self.get_field("plus_case")
             plus_case_field.value = "+acc"
             plus_case_field.update()
-            plus_case_field.focus()
+            request_focus(plus_case_field)
             self.page.update()
 
     def compound_type_blur(self, e: ft.ControlEvent):
@@ -896,7 +907,7 @@ class DpdFields(PopUpMixin):
         compound_construction: DpdCompoundConstructionField = self.get_field(
             "compound_construction"
         )
-        compound_construction.compound_construction_field.focus()
+        request_focus(compound_construction.compound_construction_field)
         self.page.update()
 
     def phonetic_focus(self, e: ft.ControlEvent) -> None:
@@ -944,7 +955,7 @@ class DpdFields(PopUpMixin):
         """Get Sanskrit and clean field."""
 
         sanskrit_field = self.get_field("sanskrit")
-        if not sanskrit_field or sanskrit_field.page is None:
+        if not sanskrit_field or not is_mounted(sanskrit_field):
             return
 
         # Auto-replace common Sanskrit text errors
@@ -962,7 +973,7 @@ class DpdFields(PopUpMixin):
     def sanskrit_focus(self, e: ft.ControlEvent) -> None:
         """Search for Sanskrit when field gets focus."""
         sanskrit_field = self.get_field("sanskrit")
-        if not sanskrit_field or sanskrit_field.page is None:
+        if not sanskrit_field or not is_mounted(sanskrit_field):
             return
         if not self.flags.sanskrit_done and not sanskrit_field.value:
             self._search_and_fill_sanskrit()
@@ -997,7 +1008,7 @@ class DpdFields(PopUpMixin):
     def _search_and_fill_sanskrit(self) -> None:
         """Search database for Sanskrit and fill the field."""
         sanskrit_field = self.get_field("sanskrit")
-        if not sanskrit_field or sanskrit_field.page is None:
+        if not sanskrit_field or not is_mounted(sanskrit_field):
             return
 
         construction = self.get_field("construction").value
@@ -1047,7 +1058,7 @@ class DpdFields(PopUpMixin):
         sanskrit = self._clean_sanskrit_simple(sanskrit)
 
         self.flags.sanskrit_done = True
-        if sanskrit_field.page is None:
+        if not is_mounted(sanskrit_field):
             return
         sanskrit_field.value = sanskrit
         sanskrit_field.update()
@@ -1110,7 +1121,7 @@ class DpdFields(PopUpMixin):
         if root_key:
             field.value = self.db.get_next_root_sign(root_key)
             self.page.update()
-            field.focus()
+            request_focus(field)
 
     def root_sign_change(self, e: ft.ControlEvent) -> None:
         """Test root_sign."""
@@ -1135,7 +1146,7 @@ class DpdFields(PopUpMixin):
         if root_key and root_sign:
             field.value = self.db.get_next_root_base(root_key, root_sign)
             self.page.update()
-            field.focus()
+            request_focus(field)
 
     def family_root_submit(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
@@ -1145,7 +1156,7 @@ class DpdFields(PopUpMixin):
             construction = self.get_field("construction").value or ""
             field.value = self.db.get_next_family_root(root_key, construction)
             self.page.update()
-            field.focus()
+            request_focus(field)
 
     def family_root_blur(self, e: ft.ControlEvent) -> None:
         field, value = self.get_event_field_and_value(e)
@@ -1155,7 +1166,7 @@ class DpdFields(PopUpMixin):
             root_key_clean = clean_root(self.get_field("root_key").value)
             if root_key_clean not in value:
                 field.error_text = "root_key and family_root dont's match"
-                field.focus()
+                request_focus(field)
 
             # test root_family exists (skipped while the corpus is still loading)
             elif (
@@ -1183,7 +1194,7 @@ class DpdFields(PopUpMixin):
                 suffix = re.sub(r".+ \+ ", "", suffix)
                 suffix_field.value = suffix
                 suffix_field.update()
-                suffix_field.focus()
+                request_focus(suffix_field)
                 self.page.update()
 
     def suffix_on_change(self, e: ft.ControlEvent) -> None:
@@ -1201,12 +1212,12 @@ class DpdFields(PopUpMixin):
             # Test for root and family_word
             if root_key:
                 field.error_text = "Cannot have both root_key and family_word"
-                field.focus()
+                request_focus(field)
 
             # Test for space
             elif " " in value:
                 field.error_text = "family_word contains space"
-                field.focus()
+                request_focus(field)
 
             # Test if known value (skipped while the corpus is still loading)
             elif (
@@ -1218,10 +1229,10 @@ class DpdFields(PopUpMixin):
                 )
                 if suggestions:
                     field.error_text = ", ".join(suggestions)
-                    field.focus()
+                    request_focus(field)
                 else:
                     field.error_text = f"Unknown: {value}"
-                    field.focus()
+                    request_focus(field)
 
             # All good
             else:
@@ -1244,7 +1255,7 @@ class DpdFields(PopUpMixin):
             ):
                 field.value = lemma_clean
                 field.update()
-                field.focus()
+                request_focus(field)
                 self.page.update()
             self.flags.family_compound_done = True
 
@@ -1280,7 +1291,7 @@ class DpdFields(PopUpMixin):
             self.page.update()
 
         # Always focus the field when it gains focus
-        field.focus()
+        request_focus(field)
 
     def clean_pali_field(self, e: ft.ControlEvent) -> None:
         """Clean field value to only allow Pali chars, comma and space."""
@@ -1458,7 +1469,7 @@ class DpdFields(PopUpMixin):
             field.value = construction
             field.update()
             self.page.update()
-            field.focus()
+            request_focus(field)
             self.flags.construction_done = True
 
         elif value:
@@ -1568,7 +1579,11 @@ class DpdFields(PopUpMixin):
             compound_type_add_field = self.get_field("compound_type_add")
             if compound_type_add_field:
                 compound_type_add_field.value = detected_type
-                compound_type_add_field.update()
+                # Pass1Add never mounts the `_add` shadow fields, and in 1.0
+                # update() on an unmounted control raises. The value is still
+                # set either way; only the refresh is conditional.
+                if is_mounted(compound_type_add_field):
+                    compound_type_add_field.update()
                 self.check_and_color_add_fields()
 
             self.page.update()
@@ -1652,7 +1667,7 @@ class DpdFields(PopUpMixin):
 
         self.page.update()
         if e.name == "submit":
-            field.focus()
+            request_focus(field)
 
     def pattern_change(self, e: ft.ControlEvent) -> None:
         """Validate pattern against known patterns on blur."""
@@ -1671,7 +1686,7 @@ class DpdFields(PopUpMixin):
                     field.error_text = ", ".join(suggestions)
                 else:
                     field.error_text = f"Unknown pattern: {value}"
-                field.focus()
+                request_focus(field)
             else:
                 field.error_text = None
         else:

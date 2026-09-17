@@ -38,9 +38,7 @@ class UsernameManager:
                 tight=True,
             ),
             actions=[
-                ft.ElevatedButton(
-                    "Save", on_click=self._save_username_and_close_dialog
-                ),
+                ft.Button("Save", on_click=self._save_username_and_close_dialog),
             ],
             actions_alignment=ft.MainAxisAlignment.END,
         )
@@ -54,7 +52,7 @@ class UsernameManager:
     def get_username(self) -> None:
         self.username: str | None = resolve_username()
         if not self.username:
-            self.page.open(self.username_dialog)
+            self.page.show_dialog(self.username_dialog)
             self.page.update()
 
     def _save_username_and_close_dialog(self, e: ft.ControlEvent) -> None:

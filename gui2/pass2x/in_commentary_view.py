@@ -29,7 +29,6 @@ class Pass2xInCommentaryView(ft.Column):
         from gui2.pass2x.in_commentary_controller import Pass2xInCommentaryController
 
         super().__init__(expand=True, controls=[], spacing=0)
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.controller = Pass2xInCommentaryController(self, toolkit)
         self.pass2_new_word_manager: Pass2NewWordManager = (
@@ -119,7 +118,7 @@ class Pass2xInCommentaryView(ft.Column):
         top_fixed_section_controls = [
             ft.Row(
                 controls=[
-                    ft.ElevatedButton(
+                    ft.Button(
                         "in commentary",
                         on_click=self.handle_in_commentary_click,
                     ),
@@ -136,10 +135,10 @@ class Pass2xInCommentaryView(ft.Column):
             ft.Divider(),
             ft.Row(
                 controls=[
-                    ft.ElevatedButton("Yes", on_click=self.handle_yes_click),
-                    ft.ElevatedButton("No", on_click=self.handle_no_click),
-                    ft.ElevatedButton("New", on_click=self.handle_new_click),
-                    ft.ElevatedButton("Pass", on_click=self.handle_pass_click),
+                    ft.Button("Yes", on_click=self.handle_yes_click),
+                    ft.Button("No", on_click=self.handle_no_click),
+                    ft.Button("New", on_click=self.handle_new_click),
+                    ft.Button("Pass", on_click=self.handle_pass_click),
                     self.exceptions_field,
                 ],
             ),
@@ -273,7 +272,7 @@ class Pass2xInCommentaryView(ft.Column):
                             expand=True,
                         )
                     ),
-                    padding=ft.padding.only(left=10),
+                    padding=ft.Padding.only(left=10),
                 ),
                 ft.Container(
                     content=ft.SelectionArea(
@@ -286,7 +285,7 @@ class Pass2xInCommentaryView(ft.Column):
                             color=ft.Colors.GREY_500,
                         )
                     ),
-                    padding=ft.padding.only(left=10),
+                    padding=ft.Padding.only(left=10),
                 ),
                 ft.Divider(),
             ],
@@ -441,14 +440,14 @@ class Pass2xInCommentaryView(ft.Column):
                 expand=True,
                 scroll=ft.ScrollMode.AUTO,
             ),
-            alignment=ft.alignment.center,
-            title_padding=ft.padding.all(25),
+            alignment=ft.Alignment.CENTER,
+            title_padding=ft.Padding.all(25),
             actions=[
                 ft.TextButton("OK", on_click=on_ok),
             ],
         )
 
-        self.page.open(self.new_word_dialog)
+        self.page.show_dialog(self.new_word_dialog)
         self.page.update()
 
     def handle_pass_click(self, e: ft.ControlEvent) -> None:

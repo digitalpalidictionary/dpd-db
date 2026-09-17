@@ -7,6 +7,7 @@ from gui2.flet_functions import (
     highlight_word_in_sentence,
 )
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import request_focus
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.cst_source.models import CstSourceSuttaExample
@@ -145,7 +146,6 @@ class DpdExampleField(ft.Column):
         super().__init__(
             expand=True,
         )
-        self.page: ft.Page = ui.page
 
         self.text_field = DpdTextField(
             name=field_name,
@@ -224,17 +224,17 @@ class DpdExampleField(ft.Column):
             # Action buttons row (initially hidden)
             self._actions_row = ft.Row(
                 [
-                    ft.ElevatedButton("Add '-", on_click=self.click_clean_example),
-                    ft.ElevatedButton("[]", on_click=self.click_remove_brackets),
-                    ft.ElevatedButton("<b>", on_click=self.click_remove_bold_tags),
-                    ft.ElevatedButton("Delete", on_click=self.click_delete_example),
-                    ft.ElevatedButton("Swap", on_click=self.click_swap_example),
-                    ft.ElevatedButton("Stash", on_click=self._click_stash_example),
-                    ft.ElevatedButton(
+                    ft.Button("Add '-", on_click=self.click_clean_example),
+                    ft.Button("[]", on_click=self.click_remove_brackets),
+                    ft.Button("<b>", on_click=self.click_remove_bold_tags),
+                    ft.Button("Delete", on_click=self.click_delete_example),
+                    ft.Button("Swap", on_click=self.click_swap_example),
+                    ft.Button("Stash", on_click=self._click_stash_example),
+                    ft.Button(
                         "Reload",
                         on_click=self._click_reload_example,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "Last",
                         on_click=self._click_last_example,
                     ),
@@ -298,7 +298,7 @@ class DpdExampleField(ft.Column):
         if are_visible:
             self._toggle_tools_button.icon = ft.Icons.VISIBILITY_OUTLINED
             self._toggle_tools_button.tooltip = "Hide Tools"
-            self.book_dropdown.focus()
+            request_focus(self.book_dropdown)
         else:
             self._toggle_tools_button.icon = ft.Icons.VISIBILITY_OFF_OUTLINED
             self._toggle_tools_button.tooltip = "Show Tools"
@@ -309,7 +309,7 @@ class DpdExampleField(ft.Column):
         self.click_book_and_word(e)
 
     def _handle_book_blur(self, e: ft.ControlEvent):
-        self.word_to_find_field.focus()
+        request_focus(self.word_to_find_field)
         self.page.update()
 
     def _handle_last_control_blur(self, e: ft.ControlEvent):
@@ -352,7 +352,7 @@ class DpdExampleField(ft.Column):
                 self.choose_example()
             else:
                 self.word_to_find_field.error_text = "no example found"
-        self.word_to_find_field.focus()
+        request_focus(self.word_to_find_field)
         self.page.update()
 
     def choose_example(self):
@@ -425,15 +425,15 @@ class DpdExampleField(ft.Column):
                 expand=True,
                 scroll=ft.ScrollMode.AUTO,
             ),
-            alignment=ft.alignment.center,
-            title_padding=ft.padding.all(25),
+            alignment=ft.Alignment.CENTER,
+            title_padding=ft.Padding.all(25),
             actions=[
                 ft.TextButton("OK", on_click=self.click_choose_example_ok),
                 ft.TextButton("Cancel", on_click=self.click_choose_example_cancel),
             ],
         )
 
-        self.page.open(self.choose_example_dialog)
+        self.page.show_dialog(self.choose_example_dialog)
         self.page.update()
 
     def update_example_index(self, e):
@@ -475,7 +475,7 @@ class DpdExampleField(ft.Column):
         bold_word = e.control.value
         if self.value:
             self.value = self.value.replace(bold_word, f"<b>{bold_word}</b>")
-        self.bold_field.focus()
+        request_focus(self.bold_field)
         self.update()
 
     def click_clean_example(self, e: ft.ControlEvent):

@@ -63,7 +63,12 @@ class DpdDropdown(ft.Dropdown):
             expand=True,
             options=[ft.dropdown.Option(o) for o in options],
             on_focus=on_focus,
-            on_change=on_change,
+            # Flet 1.0 split 0.28's on_change into on_select (an item was
+            # picked) and on_text_change (the user typed). on_select is the
+            # one that preserves 0.28 behaviour. The parameter keeps its name
+            # because it is shared with FieldConfig.on_change across all 48
+            # field definitions.
+            on_select=on_change,
             on_blur=on_blur,
             editable=True,
             enable_filter=True,
@@ -86,7 +91,7 @@ class DpdText(ft.TextField):
             text_size=16,
             width=500,
             read_only=True,
-            border=ft.InputBorder.NONE,
+            border=ft.NoInputBorder(),
             dense=True,
             multiline=True,
         )

@@ -6,6 +6,7 @@ from sqlalchemy import or_
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import request_focus
 from tools.paths import ProjectPaths
 
 
@@ -16,7 +17,6 @@ class SpellingFindReplaceView(ft.Column):
         toolkit: ToolKit,
     ):
         super().__init__(expand=True, spacing=5, controls=[])
-        self.page = page
         self.toolkit: ToolKit = toolkit
 
         self.find_me: str = ""
@@ -29,22 +29,22 @@ class SpellingFindReplaceView(ft.Column):
             width=400,
             on_blur=self.handle_find_blur,
             border_radius=20,
-            border=ft.InputBorder.OUTLINE,
+            border=ft.OutlineInputBorder(border_radius=20),
         )
         self.replace_text = ft.TextField(
             "",
             width=400,
             border_radius=20,
-            border=ft.InputBorder.OUTLINE,
+            border=ft.OutlineInputBorder(border_radius=20),
         )
         self.strip_switch = ft.Switch(label="strip", value=True)
-        self.find_button = ft.ElevatedButton("Find", on_click=self.find_clicked)
-        self.clear_button = ft.ElevatedButton("Clear", on_click=self.clear_search)
+        self.find_button = ft.Button("Find", on_click=self.find_clicked)
+        self.clear_button = ft.Button("Clear", on_click=self.clear_search)
         self.message = ft.Text("", expand=True)
         self.found_field = ft.Text(width=800, expand=True, selectable=True)
         self.replaced_field = ft.Text(width=800, expand=True, selectable=True)
-        self.commit_button = ft.ElevatedButton("Commit", on_click=self.commit_clicked)
-        self.ignore_button = ft.ElevatedButton("Ignore", on_click=self.ignore_clicked)
+        self.commit_button = ft.Button("Commit", on_click=self.commit_clicked)
+        self.ignore_button = ft.Button("Ignore", on_click=self.ignore_clicked)
 
         self._top_section = ft.Container(
             content=ft.Column(
@@ -211,7 +211,7 @@ class SpellingFindReplaceView(ft.Column):
             self.replace_text.value = self.find_text.value
         self.update()
         if self.strip_switch.value and self.find_text.value:
-            self.replace_text.focus()
+            request_focus(self.replace_text)
 
     def _highlight_found(self, text: str) -> None:
         spans: list[ft.TextSpan] = []

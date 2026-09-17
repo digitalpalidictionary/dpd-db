@@ -20,7 +20,6 @@ class TestsTabController:
     def __init__(self, view: "TestsTabView", toolkit: ToolKit):
         self.view: "TestsTabView" = view
         self.toolkit: ToolKit = toolkit
-        self.page: ft.Page = view.page
         self._stop_requested: bool = False
         self._reverse_order: bool = False
         self._current_test_generator: Generator[InternalTestRow, None, None] | None = (
@@ -32,6 +31,17 @@ class TestsTabController:
         self._current_failures: list[DpdHeadword] | None = None
         self._integrity_failures: list | None = None
         self._current_integrity_failure = None
+
+    @property
+    def page(self) -> ft.Page:
+        """The view's page, resolved on use rather than cached.
+
+        Flet 1.0 resolves `Control.page` by walking up to the root and raises
+        while the control is unmounted. This controller is built inside the
+        view's constructor, so caching the page there raised; every reader runs
+        after mount, so resolving lazily is equivalent and safe.
+        """
+        return self.view.page
 
     def handle_toggle_test_direction(self, e: ft.ControlEvent) -> None:
         """Toggle the test direction and update the button icon."""
@@ -796,7 +806,7 @@ class TestsTabController:
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            alignment=ft.alignment.center,
+            alignment=ft.Alignment.CENTER,
             actions=[
                 ft.TextButton("OK", on_click=_on_ok_click),
                 ft.TextButton("Cancel", on_click=_on_cancel_click),
@@ -804,7 +814,7 @@ class TestsTabController:
         )
 
         # Open the dialog
-        self.page.open(self.add_all_alert)
+        self.page.show_dialog(self.add_all_alert)
         self.page.update()
 
     def handle_next_test_clicked(self, e: ft.ControlEvent) -> None:

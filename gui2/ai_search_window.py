@@ -161,9 +161,9 @@ def main(page: ft.Page) -> None:
 
     window = AiSearchWindow(page)
 
-    def on_keyboard(e: ft.KeyboardEvent) -> None:
+    async def on_keyboard(e: ft.KeyboardEvent) -> None:
         if (e.key == "W" and e.ctrl) or e.key == "Escape":
-            page.window.close()
+            await page.window.close()
 
     page.on_keyboard_event = on_keyboard
     page.add(window.build())
@@ -171,4 +171,4 @@ def main(page: ft.Page) -> None:
 
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    ft.run(main)

@@ -4,6 +4,7 @@ import flet as ft
 
 from gui2.bold_search_controller import BoldSearchController
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import is_mounted, request_focus
 
 LABEL_WIDTH = 250
 COLUMN_WIDTH: int = 700
@@ -42,7 +43,6 @@ class BoldSearchView(ft.Column):
             controls=[],
             spacing=5,
         )
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.controller = BoldSearchController(
             self,
@@ -89,7 +89,7 @@ class BoldSearchView(ft.Column):
 
         self.results_display_container = ft.Container(
             content=self.results_pane,
-            border=ft.border.all(1, ft.Colors.GREY_400),
+            border=ft.Border.all(1, ft.Colors.GREY_400),
             border_radius=10,
             expand=True,
             visible=False,  # Initially hidden
@@ -108,11 +108,11 @@ class BoldSearchView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Search",
                                         on_click=self.controller.perform_search,
                                     ),
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Clear",
                                         on_click=self.controller.clear_fields,
                                     ),
@@ -135,8 +135,8 @@ class BoldSearchView(ft.Column):
         )
 
     def on_tab_focus(self) -> None:
-        if self.search_bold_field.page is not None:
-            self.search_bold_field.focus()
+        if is_mounted(self.search_bold_field):
+            request_focus(self.search_bold_field)
 
     def update_results(self, results: list, search_within: str):
         self.results_pane.controls.clear()
@@ -148,7 +148,7 @@ class BoldSearchView(ft.Column):
             self.results_display_container.border_radius = None
             self.results_display_container.visible = True
         else:
-            self.results_display_container.border = ft.border.all(1, ft.Colors.GREY_400)
+            self.results_display_container.border = ft.Border.all(1, ft.Colors.GREY_400)
             self.results_display_container.border_radius = 10
             self.results_display_container.visible = True  # Show container if results
             for i, r in enumerate(results):
@@ -235,12 +235,12 @@ class BoldSearchView(ft.Column):
                         ft.Container(
                             content=left_text_widget,
                             width=300,
-                            alignment=ft.alignment.top_left,
+                            alignment=ft.Alignment.TOP_LEFT,
                         ),
                         ft.Container(
                             content=right_cell,
                             expand=True,
-                            alignment=ft.alignment.top_left,
+                            alignment=ft.Alignment.TOP_LEFT,
                         ),
                     ],
                     vertical_alignment=ft.CrossAxisAlignment.START,
@@ -346,10 +346,10 @@ class BoldSearchView(ft.Column):
 
             # Apply/remove border to the result_row's containers
             if query and found_in_card:
-                left_container.border = ft.border.all(2, HIGHLIGHT_COLOUR)
+                left_container.border = ft.Border.all(2, HIGHLIGHT_COLOUR)
                 left_container.border_radius = 10
                 left_container.padding = 10
-                right_container.border = ft.border.all(2, HIGHLIGHT_COLOUR)
+                right_container.border = ft.Border.all(2, HIGHLIGHT_COLOUR)
                 right_container.border_radius = 10
                 right_container.padding = 10
             else:

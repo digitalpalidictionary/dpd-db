@@ -248,7 +248,7 @@ class Data:
 class Controller:
     def __init__(
         self,
-        e: ft.ControlEvent,
+        e: ft.Event[ft.ListTile],
         page: ft.Page,
         right_panel: ft.Container,
         state: State,
@@ -309,12 +309,16 @@ class Gui:
     width = 1000
 
     def __init__(
-        self, control, e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container
+        self,
+        control,
+        e: ft.Event[ft.ListTile],
+        page: ft.Page,
+        right_panel: ft.Container,
     ):
         self.control = control
         self.page = page
         self.right_panel = right_panel
-        self.right_panel.padding = ft.padding.all(20)
+        self.right_panel.padding = ft.Padding.all(20)
 
         self.page.padding = 100
         self.page.spacing = 10
@@ -399,10 +403,10 @@ class Gui:
         self.clean_word.value = clean_word
 
         # Create list of rows with numbered buttons and text fields
-        self.dirty_words.controls = [
+        rows: list[ft.Control] = [
             ft.Row(
                 [
-                    ft.ElevatedButton(
+                    ft.Button(
                         str(i + 1),
                         on_click=self.clicked_on_dirty_word,
                     ),  # Button with number
@@ -413,6 +417,7 @@ class Gui:
             )
             for i, dirty_word in enumerate(dirty_words)
         ]
+        self.dirty_words.controls = rows
         if len(dirty_words) == 0:
             self.choice_field.value = clean_word
         if len(dirty_words) < 2:
@@ -420,22 +425,29 @@ class Gui:
 
         self.page.update()
 
-    def clicked_on_dirty_word(self, e: ft.ControlEvent):
-        self.choice_field.value = e.control.parent.controls[1].value
+    def clicked_on_dirty_word(self, e: ft.Event[ft.Button]):
+        # The button's row holds [Button, TextField]; take the field's value.
+        row = e.control.parent
+        if isinstance(row, ft.Row):
+            field = row.controls[1]
+            if isinstance(field, ft.TextField):
+                self.choice_field.value = field.value
 
-    def clicked_commit(self, e: ft.ControlEvent):
+    def clicked_commit(self, e: ft.Event[ft.TextButton]):
         print("commit clicked")
         self.control.handle_commit(self.choice_field.value)
 
-    def clicked_pass(self, e: ft.ControlEvent):
+    def clicked_pass(self, e: ft.Event[ft.TextButton]):
         print("pass clicked")
         self.control.handle_pass()
 
-    def clicked_exit(self, e: ft.ControlEvent):
+    def clicked_exit(self, e: ft.Event[ft.TextButton]):
         self.control.state.is_complete = True
 
 
-def add_hyphenations(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
+def add_hyphenations(
+    e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container
+):
     state = State()
     Controller(e, page, right_panel, state)
 

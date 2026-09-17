@@ -21,7 +21,6 @@ class Pass2AutoView(ft.Column):
             controls=[],
             spacing=5,
         )
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.controller = Pass2AutoController(
             self,
@@ -86,7 +85,7 @@ class Pass2AutoView(ft.Column):
             value=True,
             on_change=self.handle_gd_toggle,
         )
-        self.no_ai_button = ft.ElevatedButton(
+        self.no_ai_button = ft.Button(
             "NO AI",
             on_click=self.handle_no_ai_click,
         )
@@ -103,15 +102,15 @@ class Pass2AutoView(ft.Column):
                                 tooltip="Reload AI models",
                                 on_click=self._on_reload_models,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "AutoProcess Book",
                                 on_click=self.handle_book_click,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Stop",
                                 on_click=self.handle_stop_click,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Clear",
                                 on_click=self.handle_clear_click,
                             ),

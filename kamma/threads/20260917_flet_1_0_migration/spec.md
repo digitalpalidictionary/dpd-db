@@ -3,7 +3,11 @@
 **Thread type:** chore / major dependency migration
 **GitHub issue:** none (do not create one)
 **Date:** 2026-09-17
-**Revision:** 8 — applies two independent reviews. Corrects the safe-site count
+**Revision:** 9 — records four BR items found during implementation (BR-18 to
+BR-21, in their own section below), drops `resources/dpd-updater` from scope at
+the user's instruction (2026-09-17, "a failed side project"), and with it BR-9.
+The BR list now runs BR-1 to BR-21 and Phase 7's table is 21 rows.
+Revision 8 — applies two independent reviews. Corrects the safe-site count
 (28 → 22), corrects BR-17's fix approach (the constructors are store-only, so
 the fix is far smaller than revision 7 claimed), re-derives the handler-density
 table from the inventory, adds two BR-14 traps, narrows the improvement rule's
@@ -18,8 +22,9 @@ from a rename pass to two rewrites plus a rename pass.
 
 ## Overview
 
-`gui2/` (the DPD word-editing desktop app), the 7 `db_tests/gui/` helpers and
-the 4 updater files are pinned to `flet[all]==0.28.3`. Flet 1.0.0 changes the
+`gui2/` (the DPD word-editing desktop app) and the 7 `db_tests/gui/` helpers
+are pinned to `flet[all]==0.28.3`. (`resources/dpd-updater` was also a consumer;
+it was dropped from this thread on 2026-09-17.) Flet 1.0.0 changes the
 threading model, adds automatic updates, moves non-visual features to services,
 and renames or removes a long list of controls, properties and constants.
 
@@ -166,9 +171,13 @@ Raised at construction, so no view builds.
 **22 further `self.page =` assignments are on plain classes and must not be
 touched** — `App`, `ToolKit`, `DpdFields`, `AppBarUpdater`, `WordFinderPopup`,
 `GuiTestManager`, `TestsTabController`, `UsernameManager`, `AiSearchWindow`,
-both `gui2/utilities/` scripts, the 7 `db_tests/gui/` managers, and the
-updater's `DPDUpdaterApp` (two assignments) / `MainWindow` / `SetupWizard`.
+both `gui2/utilities/` scripts and the 7 `db_tests/gui/` managers.
 Those classes are not controls; `page` stays an ordinary attribute.
+
+Two of them — `DpdFields` and `TestsTabController` — later had to change
+anyway, not for the assignment but for what it *read*: see BR-19. After that
+the checker reports **20 safe**, not 22, and four of the original 22 sites were
+in the updater, now out of scope.
 
 A textual find-and-replace over `self.page =` fixes 23 and breaks 22. Use
 `artifacts/check_self_page.py`, which separates them by AST and exits non-zero
@@ -450,16 +459,12 @@ the direct one at `gui2/translations_view.py:127`. The other 8 mentions are
 calls to the helpers and type references. Phase 3's verification should exercise
 the **3 construction sites**, reached through whichever screens call the helpers.
 
-### BR-9 🟠 `FilePicker` is a service with awaitable methods
+### BR-9 ⬛ `FilePicker` is a service — DROPPED, out of scope
 
-`ft.FilePicker` subclasses `Service`. `get_directory_path`, `pick_files`,
-`save_file`, `upload` are coroutine functions returning their result directly.
-`on_result` and `ft.FilePickerResultEvent` still exist, but the awaitable form
-removes the callback round trip. Services go in `page.services`, not
-`page.overlay`.
-
-**4 sites, 2 files:** `resources/dpd-updater/ui_setup.py:113,131-132` and
-`ui_main.py:293,318-319`. Both handlers become `async def`.
+`ft.FilePicker` subclasses `Service` in 1.0 and its methods are awaitable.
+Every site was in `resources/dpd-updater`, which the user removed from this
+thread on 2026-09-17 ("a failed side project"). **BR-9 has no sites in scope
+and needs no work.** Kept in the list only so the numbering stays stable.
 
 ### BR-6 🟠 `ft.app` is gone
 
@@ -593,6 +598,103 @@ rename.
   `Card(color=)`, `Badge.text`, `Chip.click_elevation`, `BoxDecoration.shadow`,
   `canvas.Text.text`, `NavigationRail*`, `Pagelet`, `Cupertino*Action`.
 - The justfile's `flet run -d` hot-reload recipe survives in the 1.0 CLI.
+
+---
+
+## BR items found during implementation
+
+These four were not in the original list. Each was found by a gate or by the
+user at the keyboard rather than by reading the migration guide, and each is
+now enforced by a checker in `artifacts/`. They are numbered on from BR-17, so
+**the BR list runs BR-1 to BR-24**, and Phase 7's confirmation table is 24 rows,
+not 17. BR-22 to BR-24 came from the user battle-testing the migrated app
+and are still open.
+
+### BR-18 🔴 `window.close()` is awaitable — Ctrl+Q silently stopped quitting
+
+`Window.close`, `destroy`, `center` and `to_front` are all coroutines in 1.0. A
+sync call returns an un-awaited coroutine: no error, no quit. 7 sites, each
+fixed by making the enclosing handler `async def`. Found by `just typecheck`
+flagging the one instance that happened to live outside `gui2/` — which is
+excluded from both type checkers, so the other six were invisible to static
+analysis.
+
+### BR-19 🔴 `Control.page` raises when unmounted — it no longer reads `None`
+
+In 0.28 `page` was a plain attribute, `None` until mount. In 1.0 it is a
+property that walks to the root and raises `RuntimeError` if there is no page
+(`flet/controls/base_control.py:298-313`). Two idioms depended on the old
+behaviour:
+
+1. **caching a view's page in a plain helper built from its constructor** —
+   `DpdFields.__init__` did `self.page = self.ui.page`, which raised before
+   `Pass1AddView` could finish building. This crashed the app at launch;
+2. **testing for mounting with `if control.page` / `control.page is None`** —
+   13 sites, each now raising the error it was written to prevent.
+
+Fixed with `page_of()` / `is_mounted()` in `gui2/ui_utils.py`, and a lazy
+`page` property on the two helper classes. Guard: `check_page_reads.py`.
+
+### BR-20 🔴 Removed keywords are not confined to the button classes
+
+`PopupMenuItem(text=)` and `TextField(helper_text=)` both raise `TypeError` at
+construction — which, with lazy-built views, means the moment the user opens
+that tab. The guide's tables do not list them.
+
+The response is a checker rather than a list: `check_flet_kwargs.py` validates
+every keyword of all 1,256 Flet constructions against the **installed** wheel.
+It also catches asymmetries a hand sweep gets wrong — `Dropdown` keeps
+`helper_text`, `TextField` renamed it to `helper`.
+
+### BR-21 🔴 `Control.focus()` is awaitable — focus silently stopped moving
+
+51 sites. Unawaited, each is a no-op that raises nothing, so every "move to the
+next field" did nothing and focus fell back to whichever control carries
+`autofocus`. The user's report was that editing on Pass2Add "keeps jumping back
+to the first field after an edit" — that is this.
+
+`focus()` only sends a fire-and-forget message (`await
+self._invoke_method("focus")`), so `request_focus()` in `gui2/ui_utils.py`
+schedules it on the page loop. That is faithful to 0.28 and keeps ~50 calling
+handlers synchronous, rather than forcing an async cascade through their
+callers. Guard: `check_unawaited.py`, which reads the coroutine-method list off
+the installed wheel and so stays correct across versions.
+
+### BR-22 🔴 Input fields lost their rounded corners
+
+The 31 `TextField`/`Dropdown` constructions that set no border property at all
+render square in 1.0 and were rounded in 0.28. Both versions default to
+`border=None` in Python, so the change is Dart-side and cannot be read off the
+wheel. The fix is to stop relying on the default: give those 31 an explicit
+rounded border, in the same pass that converts the 135 deprecated
+`border_radius=` / `border_color=` / `border_width=` properties to
+`border=ft.OutlineInputBorder(...)`. One change fixes the corners and silences
+every deprecation warning.
+
+Verified against the before-screenshots, not from memory — `Add spelling` was
+already square in 0.28 and is not a regression, while the surrounding fields
+were rounded. The screenshots are the authority for every field.
+
+### BR-24 🟠 The window shows Flet's name and icon, not DPD's
+
+0.28 never set `page.title` or `window.icon`, so whatever produced the DPD name
+and icon was a Flet default that changed — possibly with the
+`flet-desktop-light` → `flet-desktop` package swap. Setting `page.title` and an
+absolute `window.icon` path did **not** fix it (tried and confirmed still
+broken). Open questions: whether the desktop title comes from `ft.run(name=)`
+rather than `page.title`, and whether `window.icon` resolves relative to
+`assets_dir` — which defaults to `assets`, a directory this repo lacks.
+
+### BR-23 🟠 `AlertDialog(modal=True)` no longer blocks the barrier
+
+The Pass2Add example dialog is built with `modal=True` and always was, yet
+dismisses on an outside click in 1.0. A behaviour change in `AlertDialog` or
+`show_dialog`, not a lost flag. Not yet investigated.
+
+**The lesson these four share** is in the plan: every rename task was scoped
+from the guide's tables, and the guide is incomplete. AD#2 already said the
+wheel is the authority; it was only ever applied to items already suspected.
+The checkers apply it exhaustively, and should run before any future phase.
 
 ---
 
@@ -1004,7 +1106,8 @@ improvements, the rollback gets cheaper — but nothing here depends on it.
 8. `uv run pytest tests/gui2/` matches its result on `main`.
 9. `just typecheck` clean; `ruff check` and `pyright` clean on every touched
    file.
-10. The 7 data-integrity GUI helpers and the 4 updater files launch.
+10. The 7 data-integrity GUI helpers launch. (The updater was dropped from
+    scope on 2026-09-17.)
 11. Every improvement taken is logged in `artifacts/improvements.md` with the BR
     item that opened the file and the evidence behaviour is unchanged. An
     improvement not in that log is a review finding.

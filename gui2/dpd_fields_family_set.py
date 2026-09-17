@@ -3,6 +3,7 @@ from typing import List
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
+from gui2.ui_utils import request_focus
 from tools.fuzzy_tools import find_closest_matches
 from tools.pali_sort_key import pali_sort_key
 
@@ -28,7 +29,6 @@ class DpdFamilySetField(ft.Column):
         from gui2.pass2_add_view import Pass2AddView
 
         self.ui: Pass2AddView | Pass1AddView = ui
-        self.page: ft.Page = self.ui.page
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
 
@@ -38,7 +38,7 @@ class DpdFamilySetField(ft.Column):
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,
             text_size=12,
-            on_change=self._handle_dropdown_change,
+            on_select=self._handle_dropdown_change,
             enable_filter=True,
             editable=True,
             border_color=ft.Colors.GREY_800,
@@ -78,7 +78,7 @@ class DpdFamilySetField(ft.Column):
         # Reset dropdown after selection
         e.control.value = ""
         self.page.update()
-        self.family_set_textfield.focus()  # Keep focus on the text field
+        request_focus(self.family_set_textfield)  # Keep focus on the text field
 
     def _handle_blur(self, e: ft.ControlEvent) -> None:
         """Validate family_set entries against the known list on blur."""

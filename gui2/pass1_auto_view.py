@@ -23,7 +23,6 @@ class Pass1AutoView(ft.Column):
             controls=[],
             spacing=5,
         )
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.controller = Pass1AutoController(
             self,
@@ -111,7 +110,7 @@ class Pass1AutoView(ft.Column):
             ),
             actions=[
                 ft.TextButton("Cancel", on_click=self.handle_text_cancel),
-                ft.ElevatedButton("Process", on_click=self.handle_text_submit),
+                ft.Button("Process", on_click=self.handle_text_submit),
             ],
         )
 
@@ -123,7 +122,7 @@ class Pass1AutoView(ft.Column):
                             ft.Row(
                                 controls=[
                                     self.books_dropdown,
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "AutoProcess Book",
                                         on_click=self.handle_book_click,
                                     ),
@@ -133,15 +132,15 @@ class Pass1AutoView(ft.Column):
                                         tooltip="Reload AI models",
                                         on_click=self._on_reload_models,
                                     ),
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "AutoProcess Text",
                                         on_click=self.handle_text_button_click,
                                     ),
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Stop",
                                         on_click=self.handle_stop_click,
                                     ),
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Clear",
                                         on_click=self.handle_clear_click,
                                     ),
@@ -192,17 +191,16 @@ class Pass1AutoView(ft.Column):
 
     def handle_text_button_click(self, e):
         self.text_input_field.value = ""
-        self.page.overlay.append(self.text_dialog)
-        self.text_dialog.open = True
+        self.page.show_dialog(self.text_dialog)
         self.page.update()
 
     def handle_text_cancel(self, e):
-        self.text_dialog.open = False
+        self.page.pop_dialog()
         self.page.update()
 
     def handle_text_submit(self, e):
         text = self.text_input_field.value
-        self.text_dialog.open = False
+        self.page.pop_dialog()
         self.page.update()
         if text and text.strip():
             self.controller.auto_process_text(text.strip())

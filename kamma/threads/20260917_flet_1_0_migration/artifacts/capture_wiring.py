@@ -16,15 +16,17 @@ Run from the project root:
 """
 
 import ast
+import sys
 from collections import Counter
 from pathlib import Path
 
-# Everything in the repo that imports flet. gui2/ is the editor; the db_tests
-# helpers and the updater are the other two consumers, both in scope.
+# Everything in scope that imports flet: gui2/ is the editor and db_tests/gui
+# the data-integrity helpers. resources/dpd-updater was dropped from the thread
+# on 2026-09-17 (user: "a failed side project"), so it is no longer scanned —
+# which is why a fresh scan no longer matches the 463-binding baseline.
 SCAN_ROOTS: tuple[Path, ...] = (
     Path("gui2"),
     Path("db_tests/gui"),
-    Path("resources/dpd-updater"),
 )
 
 SKIP_DIRS: frozenset[str] = frozenset(
@@ -275,9 +277,31 @@ def main() -> None:
     for file_name, lineno, control, handler, callable_name in rows:
         lines.append(f"{file_name}:{lineno}  {control}  {handler}={callable_name}")
 
-    OUTPUT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # Never overwrite the baseline by accident: Phase 7 regenerates the
+    # inventory to diff *against* it, and a reviewer running this with no
+    # arguments once destroyed it. An explicit path is now required to write
+    # anywhere, and writing over the baseline requires --force on top.
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else None
+    if out is None:
+        print("\n".join(lines))
+        print(
+            f"\n# {len(files)} files, {len(rows)} bindings — printed to stdout.\n"
+            f"# Pass a path to write a file, e.g.\n"
+            f"#   uv run {Path(__file__).as_posix()} artifacts/wiring_after.txt",
+            file=sys.stderr,
+        )
+        return
+    if out.resolve() == OUTPUT_PATH.resolve() and "--force" not in sys.argv:
+        print(
+            f"Refusing to overwrite the baseline at {OUTPUT_PATH}.\n"
+            "It is the Phase 7 comparison point. Write elsewhere, or pass "
+            "--force if you really mean to regenerate it.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    print(f"{len(files)} files, {len(rows)} bindings -> {OUTPUT_PATH}")
+    print(f"{len(files)} files, {len(rows)} bindings -> {out}")
     for root, count in sorted(per_root.items()):
         print(f"  {root}: {count}")
     print(f"  field_type dispatch read from source: {dispatch}")

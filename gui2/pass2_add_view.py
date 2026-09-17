@@ -1,6 +1,6 @@
 import copy
 import json
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from pathlib import Path
 
 import flet as ft
@@ -26,6 +26,7 @@ from gui2.pass2_eg_manager import Pass2EgManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import page_of, request_focus
 from scripts.find.missing_meanings import find_missing_meanings
 from tools.dharmamitra_client import get_contextual_gloss
 from tools.fast_api_utils import request_dpd_server
@@ -52,7 +53,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
         from gui2.test_manager import GuiTestManager
 
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
 
         self._db = self.toolkit.db_manager
@@ -80,7 +80,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._eg_prefills: dict[str, dict[str, str]] = {}
         self._eg_comment: str = ""
         self._eg_section_textboxes: list[tuple[ft.TextField, dict[str, str]]] = []
-        self._eg_saved_kb: Callable[[ft.KeyboardEvent], None] | None = None
+        # Awaitable in 1.0: this holds App.on_keyboard, which became a
+        # coroutine when scroll_to did (BR-4).
+        self._eg_saved_kb: Callable[[ft.KeyboardEvent], Awaitable[None]] | None = None
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
         self.current_correction: dict | None = None
@@ -94,7 +96,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
             "",
             border_color=ft.Colors.BLUE_200,
             border_radius=20,
-            border=ft.InputBorder.OUTLINE,
+            border=ft.OutlineInputBorder(
+                border_radius=20,
+                side=ft.BorderSide(1, ft.Colors.BLUE_200),
+            ),
             color=ft.Colors.BLUE_200,
             expand_loose=True,
             expand=True,
@@ -104,43 +109,43 @@ class Pass2AddView(ft.Column, PopUpMixin):
             text_size=14,
             width=700,
         )
-        self._pass2_auto_button = ft.ElevatedButton(
+        self._pass2_auto_button = ft.Button(
             "P2A",
             on_click=self._click_load_pass2_auto,
             on_hover=self._update_count_tooltip,
             tooltip="Next Pass2Auto",
         )
-        self._new_word_button = ft.ElevatedButton(
+        self._new_word_button = ft.Button(
             "New",
             on_click=self._click_load_new_word,
             on_hover=self._update_count_tooltip,
             tooltip="Next new word",
         )
-        self._corrections_button = ft.ElevatedButton(
+        self._corrections_button = ft.Button(
             "Cor",
             on_click=self._click_corrections_button,
             on_hover=self._update_count_tooltip,
             tooltip="corrections",
         )
-        self._additions_button = ft.ElevatedButton(
+        self._additions_button = ft.Button(
             "Add",
             on_click=self._click_additions_button,
             on_hover=self._update_count_tooltip,
             tooltip="additions",
         )
-        self._x_button = ft.ElevatedButton(
+        self._x_button = ft.Button(
             "X",
             on_click=self._click_x_button,
             on_hover=self._update_count_tooltip,
             tooltip="import queue",
         )
-        self._eg_button = ft.ElevatedButton(
+        self._eg_button = ft.Button(
             "Eg",
             on_click=self._click_eg_button,
             on_hover=self._update_count_tooltip,
             tooltip="eg queue",
         )
-        self._pread_button = ft.ElevatedButton(
+        self._pread_button = ft.Button(
             "PRead",
             on_click=self._click_pread_button,
             on_hover=self._update_count_tooltip,
@@ -160,15 +165,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
             text_size=14,
             width=400,
         )
-        self._clone_headword_button = ft.ElevatedButton(
+        self._clone_headword_button = ft.Button(
             "Clone", on_click=self._click_clone_headword
         )
-        self._split_headword_button = ft.ElevatedButton(
+        self._split_headword_button = ft.Button(
             "Split", on_click=self._click_split_headword
         )
-        self._clear_all_button = ft.ElevatedButton(
-            "Clear All", on_click=self._click_clear_all
-        )
+        self._clear_all_button = ft.Button("Clear All", on_click=self._click_clear_all)
         self._missing_words_switch = ft.Switch(
             label="Missing Words",
             value=True,
@@ -182,11 +185,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
             tooltip="Actions",
             items=[
                 ft.PopupMenuItem(
-                    text="Update Speech Marks",
+                    content=ft.Text("Update Speech Marks"),
                     on_click=self._click_update_sandhi,
                 ),
                 ft.PopupMenuItem(
-                    text="AiAutofill",
+                    content=ft.Text("AiAutofill"),
                     on_click=self._click_update_with_ai,
                 ),
                 ft.PopupMenuItem(),  # divider
@@ -203,7 +206,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             expand_loose=True,
             border_radius=20,
             text_size=14,
-            on_change=self._handle_history_selection,
+            on_select=self._handle_history_selection,
         )
 
         # --- Field Filter Radio Buttons ---
@@ -223,7 +226,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
 
         # Define the Add to DB button as a member variable
-        self._add_to_db_button = ft.ElevatedButton(
+        self._add_to_db_button = ft.Button(
             "Add to DB",
             on_click=self._click_add_to_db,
             width=BUTTON_WIDTH,
@@ -258,27 +261,27 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 bottom=ft.BorderSide(1, HIGHLIGHT_COLOUR),
             ),
             padding=10,
-            alignment=ft.alignment.center,
+            alignment=ft.Alignment.CENTER,
         )
 
         # Build middle section using the new method
         self._middle_section = self._build_middle_section()
 
         # Populate history dropdown initially
-        self._update_history_dropdown()
+        self._update_history_dropdown(page)
 
         self._bottom_section = ft.Container(
             content=ft.Column(
                 controls=[
                     ft.Row(
                         [
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Test",
                                 on_click=self._click_run_tests,
                                 width=BUTTON_WIDTH,
                             ),
                             self._add_to_db_button,  # Use the member variable here
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Delete",
                                 on_click=self._click_delete_from_db,
                                 width=BUTTON_WIDTH,
@@ -288,12 +291,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     ),
                     ft.Row(
                         [
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Stash",
                                 on_click=self._click_stash,
                                 width=BUTTON_WIDTH,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Unstash",
                                 on_click=self._click_unstash,
                                 width=BUTTON_WIDTH,
@@ -303,7 +306,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 ],
                 spacing=10,
             ),
-            padding=ft.padding.all(10),
+            padding=ft.Padding.all(10),
         )
 
         self.controls = [
@@ -568,7 +571,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         self.update_message(f"Split {old_lemma} into {new_lemma} id: {new_id})")
         self.page.update()
-        current_lemma_1_field.focus()
+        request_focus(current_lemma_1_field)
 
     def _click_load_new_word(self, e: ft.ControlEvent | None = None) -> None:
         """Load next new word into the view."""
@@ -660,8 +663,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.dpd_fields.filter_fields(visible_fields)
         self.page.update()
 
-    def _update_history_dropdown(self) -> None:
-        """Populates the history dropdown with the latest history."""
+    def _update_history_dropdown(self, page: ft.Page | None = None) -> None:
+        """Populates the history dropdown with the latest history.
+
+        `page` is only passed by the constructor call, which runs before the
+        view is mounted and so cannot reach `self.page`.
+        """
         history_items = self.history_manager.get_history()
         if self._history_dropdown.options is not None:
             self._history_dropdown.options.clear()
@@ -672,7 +679,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         text=f"{item.get('id')}: {item.get('lemma_1', 'N/A')}",
                     )
                 )
-        self.page.update()
+        target = page or page_of(self)
+        if target is not None:
+            target.update()
 
     def _handle_history_selection(self, e: ft.ControlEvent) -> None:
         """Loads the selected headword from history."""
@@ -786,7 +795,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         original_value = getattr(original, field_name, "") if original else ""
         return bool(getattr(word_to_save, field_name, "")) and not original_value
 
-    def _click_add_to_db(self, e: ft.ControlEvent) -> None:
+    async def _click_add_to_db(self, e: ft.ControlEvent) -> None:
         """Add the word to db, or update in db."""
 
         if not self._db.is_db_loaded():
@@ -931,7 +940,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         self._current_correction_key,
                     )
 
-            self.page.set_clipboard(word_to_save.lemma_1)
+            await ft.Clipboard().set(word_to_save.lemma_1)
 
             self._update_history_dropdown()
             self.page.update()
@@ -995,14 +1004,14 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            alignment=ft.alignment.center,
+            alignment=ft.Alignment.CENTER,
             actions=[
                 ft.TextButton("OK", on_click=self._click_delete_ok),
                 ft.TextButton("Cancel", on_click=self._click_delete_cancel),
             ],
         )
 
-        self.page.open(self.delete_alert)
+        self.page.show_dialog(self.delete_alert)
         self.page.update()
 
     def _click_delete_ok(self, e: ft.ControlEvent) -> None:
@@ -1128,7 +1137,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         self.page.update()
 
-    def _click_x_button(self, e: ft.ControlEvent) -> None:
+    async def _click_x_button(self, e: ft.ControlEvent) -> None:
         """Load the next entry from the X import queue: an entry with an id
         updates that headword, with the queued values as _add proposals;
         an entry without one is a new word filled straight into the fields."""
@@ -1177,7 +1186,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 self.add_headword_to_examples_and_commentary()
 
             lemma_1 = headword.lemma_1 if headword else values.get("lemma_1", word)
-            self.page.set_clipboard(lemma_1)
+            await ft.Clipboard().set(lemma_1)
 
             remaining = self._x_manager.remaining_count()
             self.update_message(
@@ -1349,7 +1358,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 height=500,
                 width=500,
             ),
-            alignment=ft.alignment.center,
+            alignment=ft.Alignment.CENTER,
             actions=[
                 ft.TextButton("Add ticked", on_click=self._click_eg_add),
                 ft.TextButton("Close", on_click=self._click_eg_close),
@@ -1357,16 +1366,20 @@ class Pass2AddView(ft.Column, PopUpMixin):
             on_dismiss=self._restore_eg_kb,
         )
 
-        def _eg_kb_handler(e: ft.KeyboardEvent) -> None:
+        # Async because the saved handler it delegates to is App.on_keyboard,
+        # which is a coroutine in 1.0. Calling it without awaiting would
+        # return an un-awaited coroutine and silently kill global keyboard
+        # handling for as long as this dialog is open.
+        async def _eg_kb_handler(e: ft.KeyboardEvent) -> None:
             if e.key == "Enter":
                 self._click_eg_add(e)
                 return
             if self._eg_saved_kb is not None:
-                self._eg_saved_kb(e)
+                await self._eg_saved_kb(e)
 
         self._eg_saved_kb = self.page.on_keyboard_event
         self.page.on_keyboard_event = _eg_kb_handler
-        self.page.open(self._eg_alert)
+        self.page.show_dialog(self._eg_alert)
         self.page.update()
 
     def _click_eg_add(self, e: ft.ControlEvent) -> None:

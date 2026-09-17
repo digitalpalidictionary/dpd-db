@@ -27,7 +27,6 @@ class SandhiView(ft.Column, PopUpMixin):
             spacing=5,
         )
         PopUpMixin.__init__(self)
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.db: DatabaseManager = self.toolkit.db_manager
         self.sandhi_files_manager: SandhiFileManager = self.toolkit.sandhi_files_manager
@@ -47,7 +46,7 @@ class SandhiView(ft.Column, PopUpMixin):
             border_radius=20,
             on_submit=self.handle_sandhi_ok_click,
         )
-        self.sandhi_ok_button = ft.ElevatedButton(
+        self.sandhi_ok_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_sandhi_ok_click,
@@ -70,7 +69,7 @@ class SandhiView(ft.Column, PopUpMixin):
             border_radius=20,
             on_submit=self.handle_add_to_sandhi_click,
         )
-        self.add_to_sandhi_button = ft.ElevatedButton(
+        self.add_to_sandhi_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_sandhi_click,
@@ -86,7 +85,7 @@ class SandhiView(ft.Column, PopUpMixin):
             multiline=False,
             on_submit=self.handle_bulk_add_click,
         )
-        self.bulk_add_button = ft.ElevatedButton(
+        self.bulk_add_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_bulk_add_click,
@@ -109,7 +108,7 @@ class SandhiView(ft.Column, PopUpMixin):
             border_radius=20,
             on_submit=self.handle_add_to_variants_click,
         )
-        self.add_to_variants_button = ft.ElevatedButton(
+        self.add_to_variants_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_variants_click,
@@ -132,7 +131,7 @@ class SandhiView(ft.Column, PopUpMixin):
             border_radius=20,
             on_submit=self.handle_add_to_spelling_mistakes_click,
         )
-        self.add_to_spelling_mistakes_button = ft.ElevatedButton(
+        self.add_to_spelling_mistakes_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_spelling_mistakes_click,
@@ -155,7 +154,7 @@ class SandhiView(ft.Column, PopUpMixin):
             border_radius=20,
             on_submit=self.handle_add_to_see_click,
         )
-        self.add_to_see_button = ft.ElevatedButton(
+        self.add_to_see_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_see_click,

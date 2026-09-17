@@ -4,6 +4,7 @@ import flet as ft
 
 from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import is_mounted
 from db.backup_tsv.backup_dpd_headwords_and_roots import (
     backup_dpd_headwords_and_roots,
 )
@@ -15,7 +16,6 @@ class GlobalTabView(ft.Column):
 
     def __init__(self, page: ft.Page, toolkit: ToolKit) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
 
         self._message: ft.Text = ft.Text(
@@ -29,7 +29,7 @@ class GlobalTabView(ft.Column):
                         controls=[
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Backup & Quit",
                                         on_click=self._click_backup_quit,
                                         width=250,
@@ -39,7 +39,7 @@ class GlobalTabView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Open Internal Tests",
                                         on_click=self._handle_open_test_file,
                                         width=250,
@@ -49,7 +49,7 @@ class GlobalTabView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Update Anki Database",
                                         on_click=self._click_update_anki,
                                         width=250,
@@ -59,7 +59,7 @@ class GlobalTabView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Update Inflections",
                                         on_click=self._click_update_inflections,
                                         width=250,
@@ -76,22 +76,21 @@ class GlobalTabView(ft.Column):
 
     def _update_message(self, msg: str) -> None:
         self._message.value = msg
-        if hasattr(self, "page") and self.page is not None:
+        if is_mounted(self):
             self.page.update()
 
-    def _click_backup_quit(self, e: ft.ControlEvent) -> None:
+    async def _click_backup_quit(self, e: ft.ControlEvent) -> None:
         """Run DB backup and close the app window."""
         pth = ProjectPaths()
         self._update_message("Running database backup...")
         try:
             backup_dpd_headwords_and_roots(pth)
             self._update_message("Database backup completed successfully.")
-            if (
-                hasattr(self, "page")
-                and self.page is not None
-                and hasattr(self.page, "window")
-            ):
-                self.page.window.close()
+            # `hasattr(self, "page")` used to guard this; in 1.0 the property
+            # raises rather than being absent, so hasattr propagates the error
+            # instead of catching it. is_mounted is the real check.
+            if is_mounted(self):
+                await self.page.window.close()
         except Exception as ex:
             self._update_message(f"Backup failed: {ex}")
 

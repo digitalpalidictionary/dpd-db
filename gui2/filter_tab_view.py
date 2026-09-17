@@ -6,6 +6,7 @@ from db.models import DpdHeadword
 from gui2.dpd_fields_classes import DpdDropdown, DpdTextField
 from gui2.filter_component import FilterComponent
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import page_of
 
 LABEL_COLOUR = ft.Colors.GREY_500
 
@@ -31,7 +32,6 @@ class FilterTabView(ft.Column):
         limit: int = DEFAULT_LIMIT,
     ) -> None:
         super().__init__(expand=True, spacing=0, controls=[])
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
 
         self.dpd_headword_columns = [c.name for c in DpdHeadword.__table__.columns]
@@ -45,11 +45,11 @@ class FilterTabView(ft.Column):
         self.data_filters_container: ft.Column | None = None
         self.selected_columns_container: ft.Row | None = None
         self.options_container: ft.Container | None = None
-        self.dropdown_button: ft.ElevatedButton | None = None
+        self.dropdown_button: ft.Button | None = None
         self.preset_dropdown: ft.Dropdown | None = None
-        self.save_preset_button: ft.ElevatedButton | None = None
-        self.rename_preset_button: ft.ElevatedButton | None = None
-        self.delete_preset_button: ft.ElevatedButton | None = None
+        self.save_preset_button: ft.Button | None = None
+        self.rename_preset_button: ft.Button | None = None
+        self.delete_preset_button: ft.Button | None = None
 
         self.filter_component_container = ft.Container(
             content=ft.Column([], expand=True, scroll=ft.ScrollMode.AUTO),
@@ -75,26 +75,31 @@ class FilterTabView(ft.Column):
                 and isinstance(preset_limit, int)
             ):
                 self._initialize_filters(
-                    preset_data_filters, preset_display_filters, preset_limit
+                    preset_data_filters, preset_display_filters, preset_limit, page
                 )
             else:
                 # Fallback to provided defaults if types don't match
-                self._initialize_filters(data_filters, display_filters, limit)
+                self._initialize_filters(data_filters, display_filters, limit, page)
         else:
             # Use provided defaults
-            self._initialize_filters(data_filters, display_filters, limit)
+            self._initialize_filters(data_filters, display_filters, limit, page)
 
     def _initialize_filters(
         self,
         data_filters: List[tuple[str, str]] | None = None,
         display_filters: List[str] | None = None,
         limit: int | None = None,
+        page: ft.Page | None = None,
     ):
-        """Initialize the filter with predefined values."""
+        """Initialize the filter with predefined values.
+
+        `page` is only passed by the constructor calls, which run before the
+        view is mounted and so cannot reach `self.page`.
+        """
         if data_filters and isinstance(data_filters, list):
             # Ensure we have enough filter rows
             while len(self.column_dropdowns) < len(data_filters):
-                self._add_filter_row(None)
+                self._add_filter_row(None, page)
 
             # Update existing filter rows
             for i, item in enumerate(data_filters):
@@ -109,7 +114,7 @@ class FilterTabView(ft.Column):
             for checkbox in self.column_checkboxes:
                 if checkbox.label and isinstance(checkbox.label, str):
                     checkbox.value = checkbox.label in display_filters
-            self._on_column_checkbox_change(None)
+            self._on_column_checkbox_change(None, page)
 
         if limit is not None and isinstance(limit, int) and self.limit_input:
             self.limit_input.value = str(limit)
@@ -157,13 +162,9 @@ class FilterTabView(ft.Column):
         )
 
         # --- Action Buttons & Results ---
-        apply_button = ft.ElevatedButton(
-            "Apply Filters", on_click=self._apply_filters_clicked
-        )
-        clear_button = ft.ElevatedButton(
-            "Clear Filters", on_click=self._clear_filters_clicked
-        )
-        reset_button = ft.ElevatedButton(
+        apply_button = ft.Button("Apply Filters", on_click=self._apply_filters_clicked)
+        clear_button = ft.Button("Clear Filters", on_click=self._clear_filters_clicked)
+        reset_button = ft.Button(
             "Reset to Default", on_click=self._reset_to_default_clicked
         )
         # --- Preset Controls ---
@@ -246,11 +247,13 @@ class FilterTabView(ft.Column):
         )
         return self.data_filters_container
 
-    def _add_filter_button(self) -> ft.ElevatedButton:
+    def _add_filter_button(self) -> ft.Button:
         """Create the 'Add Filter' button."""
-        return ft.ElevatedButton("Add Filter", on_click=self._add_filter_row)
+        return ft.Button("Add Filter", on_click=self._add_filter_row)
 
-    def _add_filter_row(self, e: ft.ControlEvent | None) -> None:
+    def _add_filter_row(
+        self, e: ft.ControlEvent | None, page: ft.Page | None = None
+    ) -> None:
         """Creates and stores new controls, then adds a new filter row to the UI."""
         new_index = len(self.column_dropdowns)
         new_dropdown = DpdDropdown(
@@ -281,7 +284,9 @@ class FilterTabView(ft.Column):
 
         if self.data_filters_container:
             self.data_filters_container.controls.insert(-1, new_row)
-        self.page.update()
+        target = page or page_of(self)
+        if target is not None:
+            target.update()
 
     def _remove_filter_row(self, e: ft.ControlEvent) -> None:
         """Remove the specific filter row associated with the button click."""
@@ -325,7 +330,7 @@ class FilterTabView(ft.Column):
             content=checkboxes_column, visible=False, expand=False
         )
 
-        self.dropdown_button = ft.ElevatedButton(
+        self.dropdown_button = ft.Button(
             "Select Columns", on_click=self._toggle_column_options
         )
 
@@ -345,7 +350,9 @@ class FilterTabView(ft.Column):
             self.options_container.visible = not self.options_container.visible
         self.page.update()
 
-    def _on_column_checkbox_change(self, e: ft.ControlEvent | None) -> None:
+    def _on_column_checkbox_change(
+        self, e: ft.ControlEvent | None, page: ft.Page | None = None
+    ) -> None:
         """Handle column checkbox changes and update the display text."""
         selected_options = [
             str(checkbox.label) for checkbox in self.column_checkboxes if checkbox.value
@@ -370,7 +377,9 @@ class FilterTabView(ft.Column):
                 placeholder = ft.Text("Select columns...", size=14)
                 self.selected_columns_container.controls.append(placeholder)
 
-        self.page.update()
+        target = page or page_of(self)
+        if target is not None:
+            target.update()
 
     def _create_limit_controls(self) -> ft.Row:
         """Create the controls for the result limit section."""
@@ -392,7 +401,7 @@ class FilterTabView(ft.Column):
         self.preset_dropdown = ft.Dropdown(
             options=[ft.dropdown.Option(name) for name in preset_names],
             width=500,
-            on_change=self._on_preset_selected,
+            on_select=self._on_preset_selected,
         )
 
         # Set first preset as default if available
@@ -400,14 +409,14 @@ class FilterTabView(ft.Column):
             self.preset_dropdown.value = preset_names[0]
 
         # Save preset button
-        self.save_preset_button = ft.ElevatedButton(
+        self.save_preset_button = ft.Button(
             "Save",
             on_click=self._save_preset_clicked,
             width=80,
         )
 
         # Rename preset button
-        self.rename_preset_button = ft.ElevatedButton(
+        self.rename_preset_button = ft.Button(
             "Rename",
             on_click=self._rename_preset_clicked,
             width=100,
@@ -415,7 +424,7 @@ class FilterTabView(ft.Column):
         )
 
         # Delete preset button
-        self.delete_preset_button = ft.ElevatedButton(
+        self.delete_preset_button = ft.Button(
             "Delete",
             on_click=self._delete_preset_clicked,
             width=80,
@@ -605,13 +614,13 @@ class FilterTabView(ft.Column):
                     self.rename_preset_button.disabled = False
 
                 # Close the dialog
-                self.page.close(name_dialog)
+                self.page.pop_dialog()
 
                 # Refresh the UI to show the newly saved preset
                 self.page.update()
 
         def on_cancel_click(e: ft.ControlEvent) -> None:
-            self.page.close(name_dialog)
+            self.page.pop_dialog()
 
         name_dialog = ft.AlertDialog(
             modal=True,
@@ -623,7 +632,7 @@ class FilterTabView(ft.Column):
             ],
         )
 
-        self.page.open(name_dialog)
+        self.page.show_dialog(name_dialog)
         self.page.update()
 
     def _rename_preset_clicked(self, e: ft.ControlEvent) -> None:
@@ -650,11 +659,11 @@ class FilterTabView(ft.Column):
                         ]
                         self.preset_dropdown.value = new_name
 
-            self.page.close(rename_dialog)
+            self.page.pop_dialog()
             self.page.update()
 
         def on_cancel_click(e: ft.ControlEvent) -> None:
-            self.page.close(rename_dialog)
+            self.page.pop_dialog()
 
         rename_dialog = ft.AlertDialog(
             modal=True,
@@ -666,7 +675,7 @@ class FilterTabView(ft.Column):
             ],
         )
 
-        self.page.open(rename_dialog)
+        self.page.show_dialog(rename_dialog)
         self.page.update()
 
     def _delete_preset_clicked(self, e: ft.ControlEvent) -> None:
@@ -700,13 +709,13 @@ class FilterTabView(ft.Column):
             self.page.update()
 
             # Close the dialog
-            self.page.close(delete_dialog)
+            self.page.pop_dialog()
 
             # Final page update after closing dialog
             self.page.update()
 
         def on_cancel_delete(e: ft.ControlEvent) -> None:
-            self.page.close(delete_dialog)
+            self.page.pop_dialog()
 
         # Show confirmation dialog
         delete_dialog = ft.AlertDialog(
@@ -721,7 +730,7 @@ class FilterTabView(ft.Column):
             ],
         )
 
-        self.page.open(delete_dialog)
+        self.page.show_dialog(delete_dialog)
         self.page.update()
 
     def _reset_to_default_clicked(self, e: ft.ControlEvent | None) -> None:

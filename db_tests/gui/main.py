@@ -88,7 +88,7 @@ def main(page: ft.Page):
             [
                 ft.Container(
                     content=ft.Text("Tests", size=18, weight=ft.FontWeight.BOLD),
-                    padding=ft.padding.only(top=40, bottom=20, left=16),
+                    padding=ft.Padding.only(top=40, bottom=20, left=16),
                 ),
                 ft.Divider(height=1),
                 test_buttons,
@@ -99,7 +99,7 @@ def main(page: ft.Page):
         left=-500,
         top=0,
         bottom=0,
-        padding=ft.padding.only(left=10),
+        padding=ft.Padding.only(left=10),
         animate=ft.Animation(500, ft.AnimationCurve.EASE_IN_OUT),
     )
 
@@ -112,12 +112,15 @@ def main(page: ft.Page):
     menu_button.on_click = toggle_sidemenu
 
     # Function to run a test
-    def run_test(e: ft.ControlEvent, test_name: str):
+    def run_test(e: ft.Event[ft.ListTile], test_name: str):
         if runner.running_test:
             return
         runner.running_test = True
         toggle_sidemenu(e)
-        appbar_title.value = e.control.title.value
+        # ListTile.title is str | Control | None; every tile here holds a Text.
+        title = e.control.title
+        if isinstance(title, ft.Text):
+            appbar_title.value = title.value
         if test_name == "add_fc_neg":
             add_fc_neg(e, page, right_panel)
         elif test_name == "add_fc_taddhita":
@@ -136,11 +139,11 @@ def main(page: ft.Page):
         page.update()
 
     # Handle Ctrl+Q to quit
-    def on_keyboard(e: ft.KeyboardEvent):
+    async def on_keyboard(e: ft.KeyboardEvent):
         if e.key == "Q" and e.ctrl:
             if runner.running_test:
                 return
-            page.window.close()
+            await page.window.close()
 
         if e.key == "S" and e.ctrl:
             page.show_semantics_debugger = not page.show_semantics_debugger
@@ -152,8 +155,8 @@ def main(page: ft.Page):
     right_panel = ft.Container(
         content=runner.initial_right_panel_content,
         expand=True,
-        padding=ft.padding.only(left=100, right=100, top=20, bottom=20),
-        alignment=ft.alignment.center,  # This is the key to centering
+        padding=ft.Padding.only(left=100, right=100, top=20, bottom=20),
+        alignment=ft.Alignment.CENTER,  # This is the key to centering
     )
 
     runner.right_panel = right_panel
@@ -163,5 +166,5 @@ def main(page: ft.Page):
 
 
 pr.tic()
-ft.app(target=main)
+ft.run(main)
 pr.toc()

@@ -1,6 +1,7 @@
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
+from gui2.ui_utils import is_mounted, request_focus
 from tools.spelling import CustomSpellChecker
 
 
@@ -26,7 +27,6 @@ class DpdMeaningField(ft.Column):
         from gui2.pass2_add_view import Pass2AddView
 
         self.ui: Pass2AddView | Pass1AddView = ui
-        self.page: ft.Page = self.ui.page
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.spellchecker = spellchecker  # Store spellchecker instance
@@ -126,7 +126,7 @@ class DpdMeaningField(ft.Column):
 
             self.ui.update_message(message)
             self._skip_spell_check = True
-            self.meaning_field.focus()
+            request_focus(self.meaning_field)
 
     def _remove_word_from_spell_errors(self, word: str):
         """Remove a word from the displayed spell check errors without re-running check."""
@@ -175,5 +175,5 @@ class DpdMeaningField(ft.Column):
         else:
             self.spell_suggestions.value = None
             self.spell_suggestions.visible = False
-        if self.page:
+        if is_mounted(self):
             self.page.update()

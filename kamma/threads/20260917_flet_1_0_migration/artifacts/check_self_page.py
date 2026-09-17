@@ -23,11 +23,9 @@ from pathlib import Path
 SCAN_ROOTS: tuple[Path, ...] = (
     Path("gui2"),
     Path("db_tests/gui"),
-    Path("resources/dpd-updater"),
 )
 
-# resources/dpd-updater carries its own nested .venv; scanning it would report
-# Flet's own internals as hits.
+# Directories that are never ours to check.
 SKIP_DIRS: frozenset[str] = frozenset({"__pycache__", "build", ".venv", "archive"})
 
 

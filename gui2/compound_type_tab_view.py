@@ -6,7 +6,7 @@ import flet as ft
 from db.models import DpdHeadword
 from gui2.filter_component import CellTextField, DpdDatatable
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import show_global_snackbar
+from gui2.ui_utils import is_mounted, request_focus, show_global_snackbar
 from tools.compound_type_manager import CompoundTypeManager
 from tools.pali_sort_key import pali_list_sorter
 
@@ -29,7 +29,6 @@ class CompoundTypeTabView(ft.Column):
 
     def __init__(self, page: ft.Page, toolkit: ToolKit) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
-        self.page = page
         self.toolkit = toolkit
         self._ct_manager = CompoundTypeManager(TSV_PATH)
         self._current_rule_key: tuple[str, str, str] | None = None
@@ -44,7 +43,7 @@ class CompoundTypeTabView(ft.Column):
         self._focus_after_rebuild: int = -1
         self._meaning_filter: str = "off"
         self._unfiltered_results: list[DpdHeadword] = []
-        self._filter_button = ft.ElevatedButton(
+        self._filter_button = ft.Button(
             "Filter", on_click=self._on_toggle_meaning_filter
         )
         self._build_ui()
@@ -60,8 +59,8 @@ class CompoundTypeTabView(ft.Column):
         ]
 
     def on_tab_focus(self) -> None:
-        if self._word_field.page is not None:
-            self._word_field.focus()
+        if is_mounted(self._word_field):
+            request_focus(self._word_field)
 
     def _build_fields_section(self) -> ft.Container:
         self._word_field = ft.TextField(
@@ -72,7 +71,7 @@ class CompoundTypeTabView(ft.Column):
             border_width=1,
             text_size=14,
             expand=2,
-            helper_text=" ",
+            helper=" ",
             helper_style=ft.TextStyle(color=ft.Colors.BLUE_200, size=10),
             on_submit=self._on_word_submit,
         )
@@ -88,7 +87,7 @@ class CompoundTypeTabView(ft.Column):
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
-            on_change=lambda e: (
+            on_select=lambda e: (
                 setattr(e.control, "helper_text", e.control.value or " ")
                 or e.control.update()
             ),
@@ -111,7 +110,7 @@ class CompoundTypeTabView(ft.Column):
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
-            on_change=lambda e: (
+            on_select=lambda e: (
                 setattr(e.control, "helper_text", e.control.value or " ")
                 or e.control.update()
             ),
@@ -180,7 +179,7 @@ class CompoundTypeTabView(ft.Column):
         row3 = ft.Row([self._notes_field], spacing=8)
         return ft.Container(
             content=ft.Column([row1, row1b, row2, row3], spacing=6),
-            padding=ft.padding.symmetric(horizontal=10, vertical=8),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=8),
             border=ft.Border(bottom=ft.BorderSide(1, ft.Colors.GREY_800)),
         )
 
@@ -195,39 +194,37 @@ class CompoundTypeTabView(ft.Column):
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
             text_size=13,
         )
-        self._add_button = ft.ElevatedButton("Add", on_click=self._on_add)
-        self._update_button = ft.ElevatedButton(
+        self._add_button = ft.Button("Add", on_click=self._on_add)
+        self._update_button = ft.Button(
             "Update", on_click=self._on_update, visible=False
         )
-        self._next_button = ft.ElevatedButton(
-            "→", on_click=self._on_next_rule, visible=False
-        )
+        self._next_button = ft.Button("→", on_click=self._on_next_rule, visible=False)
         buttons_row = ft.Row(
             [
                 self._next_button,
                 self._add_button,
                 self._update_button,
-                ft.ElevatedButton("All", on_click=self._on_all),
-                ft.ElevatedButton("Correct", on_click=self._on_correct),
-                ft.ElevatedButton("Wrong", on_click=self._on_wrong),
-                ft.ElevatedButton("Exceptions", on_click=self._on_show_exceptions),
+                ft.Button("All", on_click=self._on_all),
+                ft.Button("Correct", on_click=self._on_correct),
+                ft.Button("Wrong", on_click=self._on_wrong),
+                ft.Button("Exceptions", on_click=self._on_show_exceptions),
                 self._filter_button,
-                ft.ElevatedButton("Clear", on_click=self._on_clear),
-                ft.ElevatedButton(
+                ft.Button("Clear", on_click=self._on_clear),
+                ft.Button(
                     "Delete",
                     on_click=self._on_delete,
                     on_hover=self._on_delete_hover,
                 ),
-                ft.ElevatedButton("TSV", on_click=self._on_open_tsv),
-                ft.ElevatedButton("←", on_click=self._on_prev_tsv_rule),
-                ft.ElevatedButton("→ TSV", on_click=self._on_next_tsv_rule),
+                ft.Button("TSV", on_click=self._on_open_tsv),
+                ft.Button("←", on_click=self._on_prev_tsv_rule),
+                ft.Button("→ TSV", on_click=self._on_next_tsv_rule),
             ],
             spacing=8,
         )
         message_row = ft.Row([self._message_field], spacing=8)
         return ft.Container(
             content=ft.Column([buttons_row, message_row], spacing=4),
-            padding=ft.padding.symmetric(horizontal=10, vertical=6),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=6),
         )
 
     def _build_results_section(self) -> ft.Container:
@@ -244,16 +241,16 @@ class CompoundTypeTabView(ft.Column):
         return ft.Container(
             content=ft.Column([hscroll], scroll=ft.ScrollMode.AUTO, expand=True),
             expand=True,
-            padding=ft.padding.symmetric(horizontal=10, vertical=4),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=4),
         )
 
     def _build_save_section(self) -> ft.Container:
         return ft.Container(
             content=ft.Row(
-                [ft.ElevatedButton("Save Changes", on_click=self._on_save_changes)],
+                [ft.Button("Save Changes", on_click=self._on_save_changes)],
                 spacing=8,
             ),
-            padding=ft.padding.symmetric(horizontal=10, vertical=6),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=6),
         )
 
     # ── Helpers ───────────────────────────────────────────────────────────────
@@ -397,7 +394,7 @@ class CompoundTypeTabView(ft.Column):
             self._notes_field.update()
             self._set_message(f"No rule found for '{word}'")
         self.page.update()
-        self._pos_dropdown.focus()
+        request_focus(self._pos_dropdown)
 
     def _load_rule_at_index(self, idx: int) -> None:
         rule = self._current_word_matches[idx]
@@ -785,7 +782,7 @@ class CompoundTypeTabView(ft.Column):
         word, pos, position = self._current_rule_key
 
         def confirm(dlg_e: ft.ControlEvent) -> None:
-            self.page.close(dlg)
+            self.page.pop_dialog()
             self._ct_manager.delete_rule(word, pos, position)
             self._refresh_dropdowns()
             remaining = self._ct_manager.get_rules_by_word(word)
@@ -802,7 +799,7 @@ class CompoundTypeTabView(ft.Column):
                 self._set_message(f"Deleted: {word}")
 
         def cancel(dlg_e: ft.ControlEvent) -> None:
-            self.page.close(dlg)
+            self.page.pop_dialog()
 
         dlg = ft.AlertDialog(
             modal=True,
@@ -813,7 +810,7 @@ class CompoundTypeTabView(ft.Column):
                 ft.TextButton("Cancel", on_click=cancel),
             ],
         )
-        self.page.open(dlg)
+        self.page.show_dialog(dlg)
 
     def _on_delete_hover(self, e: ft.ControlEvent) -> None:
         e.control.bgcolor = ft.Colors.RED if e.data == "true" else None
@@ -912,7 +909,7 @@ class CompoundTypeTabView(ft.Column):
                         field.value = default_val
                         field.update()
                         self._modified_cells[(row_idx, col)] = default_val
-                    field.focus()
+                    request_focus(field)
 
                 return on_submit
 
@@ -955,7 +952,7 @@ class CompoundTypeTabView(ft.Column):
             # cells[1] is the lemma_1 CellTextField (cells[0] is the row number)
             first_cell = rows[focus_idx].cells[1].content
             if isinstance(first_cell, CellTextField):
-                first_cell.focus()
+                request_focus(first_cell)
             self._focus_after_rebuild = -1
 
     def _make_bold_field(
@@ -982,7 +979,7 @@ class CompoundTypeTabView(ft.Column):
                 self._modified_cells[(row_idx, "compound_construction")] = new_value
             e.control.value = ""
             e.control.update()
-            e.control.focus()
+            request_focus(e.control)
 
         return ft.TextField(
             hint_text="bold",
@@ -998,7 +995,7 @@ class CompoundTypeTabView(ft.Column):
             icon=ft.Icons.BLOCK,
             icon_size=14,
             on_click=lambda e, lm=lemma, ri=row_idx: self._on_exception_add(lm, ri),
-            style=ft.ButtonStyle(padding=ft.padding.all(0)),
+            style=ft.ButtonStyle(padding=ft.Padding.all(0)),
             width=24,
             height=24,
         )

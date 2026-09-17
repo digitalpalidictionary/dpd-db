@@ -35,13 +35,13 @@ class WordFinderWidget:
             border_radius=20,
         )
 
-        self.search_button = ft.ElevatedButton(
-            text="Search",
+        self.search_button = ft.Button(
+            content="Search",
             on_click=self.clicked_search,
         )
 
-        self.clear_button = ft.ElevatedButton(
-            text="Clear",
+        self.clear_button = ft.Button(
+            content="Clear",
             on_click=self.clear_wordfinder_results,
         )
 
@@ -106,7 +106,7 @@ class WordFinderWidget:
             if results:
                 # Create DataTable with headers and data rows
                 data_table = ft.DataTable(
-                    border=ft.border.all(1, HIGHLIGHT_COLOUR),
+                    border=ft.Border.all(1, HIGHLIGHT_COLOUR),
                     border_radius=10,
                     heading_row_color=ft.Colors.GREY_800,
                     data_row_color={ft.ControlState.HOVERED: ft.Colors.GREY_700},

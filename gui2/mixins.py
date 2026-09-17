@@ -90,7 +90,7 @@ class PopUpMixin:
         self._callback_on_ok = on_submit
         self._popup_textfield.label = prompt_message
         self._popup_textfield.value = initial_value
-        page.open(self._dialog)
+        page.show_dialog(self._dialog)
         page.update()
 
 
@@ -115,7 +115,7 @@ class SnackBarMixin:
             bgcolor=ft.Colors.BLUE_200,
             duration=3000,
         )
-        page.open(snackbar)
+        page.show_dialog(snackbar)
         page.update()
 
 
