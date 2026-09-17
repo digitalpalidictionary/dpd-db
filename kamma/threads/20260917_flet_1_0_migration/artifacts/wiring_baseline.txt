@@ -1,0 +1,489 @@
+# Flet event-handler wiring inventory
+# files scanned: 96
+# bindings: 463
+#
+# format: <file>:<line>  <control>  <handler>=<callable>
+# '[via X]' means the binding site names X, which subclasses the control shown.
+#
+# db_tests/gui: 34 bindings
+# gui2: 415 bindings
+# resources/dpd-updater: 14 bindings
+#
+# on_click: 228 (193 in gui2)
+# on_submit: 69 (69 in gui2)
+# on_change: 59 (53 in gui2)
+# on_blur: 44 (44 in gui2)
+# on_focus: 34 (34 in gui2)
+# on_hover: 10 (10 in gui2)
+# on_keyboard_event: 9 (6 in gui2)
+# on_complete: 2 (0 in gui2)
+# on_result: 2 (0 in gui2)
+# on_tap: 2 (2 in gui2)
+# on_blur_callback: 1 (1 in gui2)
+# on_delete: 1 (1 in gui2)
+# on_dismiss: 1 (1 in gui2)
+# on_focus_callback: 1 (1 in gui2)
+
+db_tests/gui/add_antonyms.py:40  ft.TextField  on_change=self._on_antonym_change
+db_tests/gui/add_antonyms.py:104  ft.TextButton  on_click=self._on_commit_click
+db_tests/gui/add_antonyms.py:105  ft.TextButton  on_click=self._on_exception_click
+db_tests/gui/add_antonyms.py:106  ft.TextButton  on_click=self._on_pass_click
+db_tests/gui/add_antonyms.py:107  ft.TextButton  on_click=self._on_exit_click
+db_tests/gui/add_antonyms_sync.py:128  ft.TextButton  on_click=self._on_commit_click
+db_tests/gui/add_antonyms_sync.py:129  ft.TextButton  on_click=self._on_exception_click
+db_tests/gui/add_antonyms_sync.py:130  ft.TextButton  on_click=self._on_pass_click
+db_tests/gui/add_antonyms_sync.py:131  ft.TextButton  on_click=self._on_exit_click
+db_tests/gui/add_family_compound_neg.py:36  ft.TextField  on_change=self._on_fc_change
+db_tests/gui/add_family_compound_neg.py:72  ft.TextButton  on_click=self._on_commit_click
+db_tests/gui/add_family_compound_neg.py:73  ft.TextButton  on_click=self._on_pass_click
+db_tests/gui/add_family_compound_neg.py:74  ft.TextButton  on_click=self._on_exit_click
+db_tests/gui/add_family_compound_su_dur.py:36  ft.TextField  on_change=self._on_fc_change
+db_tests/gui/add_family_compound_su_dur.py:72  ft.TextButton  on_click=self._on_commit_click
+db_tests/gui/add_family_compound_su_dur.py:73  ft.TextButton  on_click=self._on_pass_click
+db_tests/gui/add_family_compound_su_dur.py:74  ft.TextButton  on_click=self._on_exit_click
+db_tests/gui/add_family_compound_taddhita.py:35  ft.TextField  on_change=self._on_fc_change
+db_tests/gui/add_family_compound_taddhita.py:71  ft.TextButton  on_click=self._on_commit_click
+db_tests/gui/add_family_compound_taddhita.py:72  ft.TextButton  on_click=self._on_pass_click
+db_tests/gui/add_family_compound_taddhita.py:73  ft.TextButton  on_click=self._on_exit_click
+db_tests/gui/add_hyphenations.py:324  self.page (assigned)  on_keyboard_event=self.on_keyboard
+db_tests/gui/add_hyphenations.py:333  ft.TextButton  on_click=self.clicked_commit
+db_tests/gui/add_hyphenations.py:334  ft.TextButton  on_click=self.clicked_pass
+db_tests/gui/add_hyphenations.py:335  ft.TextButton  on_click=self.clicked_exit
+db_tests/gui/add_hyphenations.py:405  ft.ElevatedButton  on_click=self.clicked_on_dirty_word
+db_tests/gui/main.py:57  ft.ListTile  on_click=lambda -> run_test(e, 'add_fc_neg')
+db_tests/gui/main.py:61  ft.ListTile  on_click=lambda -> run_test(e, 'add_fc_taddhita')
+db_tests/gui/main.py:65  ft.ListTile  on_click=lambda -> run_test(e, 'add_fc_su_dur')
+db_tests/gui/main.py:69  ft.ListTile  on_click=lambda -> run_test(e, 'add_antonyms')
+db_tests/gui/main.py:73  ft.ListTile  on_click=lambda -> run_test(e, 'add_antonyms sync')
+db_tests/gui/main.py:77  ft.ListTile  on_click=lambda -> run_test(e, 'add_hyphenations')
+db_tests/gui/main.py:112  menu_button (assigned)  on_click=toggle_sidemenu
+db_tests/gui/main.py:149  page (assigned)  on_keyboard_event=on_keyboard
+gui2/ai_search_window.py:41  ft.TextField  on_submit=self._handle_submit
+gui2/ai_search_window.py:48  ft.Dropdown  on_focus=self._on_model_dropdown_focus
+gui2/ai_search_window.py:58  ft.IconButton  on_click=self._on_reload_models
+gui2/ai_search_window.py:168  page (assigned)  on_keyboard_event=on_keyboard
+gui2/bold_search_view.py:53  ft.TextField  on_submit=self.controller.perform_search
+gui2/bold_search_view.py:64  ft.TextField  on_submit=self.controller.perform_search
+gui2/bold_search_view.py:74  ft.TextField  on_change=self.handle_text_search
+gui2/bold_search_view.py:111  ft.ElevatedButton  on_click=self.controller.perform_search
+gui2/bold_search_view.py:115  ft.ElevatedButton  on_click=self.controller.clear_fields
+gui2/compound_type_tab_view.py:47  ft.ElevatedButton  on_click=self._on_toggle_meaning_filter
+gui2/compound_type_tab_view.py:67  ft.TextField  on_submit=self._on_word_submit
+gui2/compound_type_tab_view.py:80  ft.Dropdown  on_change=lambda -> setattr(e.control, 'helper_text', e.control.value or ' ') or e.control.update()
+gui2/compound_type_tab_view.py:96  ft.Dropdown  on_change=lambda -> setattr(e.control, 'helper_text', e.control.value or ' ') or e.control.update()
+gui2/compound_type_tab_view.py:134  ft.IconButton  on_click=self._on_type_add
+gui2/compound_type_tab_view.py:198  ft.ElevatedButton  on_click=self._on_add
+gui2/compound_type_tab_view.py:199  ft.ElevatedButton  on_click=self._on_update
+gui2/compound_type_tab_view.py:202  ft.ElevatedButton  on_click=self._on_next_rule
+gui2/compound_type_tab_view.py:210  ft.ElevatedButton  on_click=self._on_all
+gui2/compound_type_tab_view.py:211  ft.ElevatedButton  on_click=self._on_correct
+gui2/compound_type_tab_view.py:212  ft.ElevatedButton  on_click=self._on_wrong
+gui2/compound_type_tab_view.py:213  ft.ElevatedButton  on_click=self._on_show_exceptions
+gui2/compound_type_tab_view.py:215  ft.ElevatedButton  on_click=self._on_clear
+gui2/compound_type_tab_view.py:216  ft.ElevatedButton  on_click=self._on_delete
+gui2/compound_type_tab_view.py:216  ft.ElevatedButton  on_hover=self._on_delete_hover
+gui2/compound_type_tab_view.py:221  ft.ElevatedButton  on_click=self._on_open_tsv
+gui2/compound_type_tab_view.py:222  ft.ElevatedButton  on_click=self._on_prev_tsv_rule
+gui2/compound_type_tab_view.py:223  ft.ElevatedButton  on_click=self._on_next_tsv_rule
+gui2/compound_type_tab_view.py:253  ft.ElevatedButton  on_click=self._on_save_changes
+gui2/compound_type_tab_view.py:286  ft.Chip  on_delete=lambda -> self._on_type_chip_delete(tv)
+gui2/compound_type_tab_view.py:812  ft.TextButton  on_click=confirm
+gui2/compound_type_tab_view.py:813  ft.TextButton  on_click=cancel
+gui2/compound_type_tab_view.py:904  field (assigned)  on_change=make_tracker(row_idx, col)
+gui2/compound_type_tab_view.py:921  type_cell (assigned)  on_submit=make_autofill(type_cell, rule_type, idx, 'compound_type')
+gui2/compound_type_tab_view.py:929  construction_cell (assigned)  on_submit=make_autofill(construction_cell, str(hw.lemma_clean or ''), idx, 'compound_construction')
+gui2/compound_type_tab_view.py:987  ft.TextField  on_submit=on_submit
+gui2/compound_type_tab_view.py:997  ft.IconButton  on_click=lambda -> self._on_exception_add(lm, ri)
+gui2/dpd_fields.py:93  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.id_submit
+gui2/dpd_fields.py:94  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.lemma_1_change
+gui2/dpd_fields.py:94  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.lemma_1_change
+gui2/dpd_fields.py:94  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.lemma_1_change
+gui2/dpd_fields.py:100  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.lemma_2_blur
+gui2/dpd_fields.py:100  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.lemma_2_submit
+gui2/dpd_fields.py:105  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_blur=self.pos_blur
+gui2/dpd_fields.py:111  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.grammar_blur
+gui2/dpd_fields.py:126  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_blur=self.trans_blur
+gui2/dpd_fields.py:137  ft.Column [via FieldConfig(field_type='meaning') -> DpdMeaningField]  on_blur=self.meaning_1_blur
+gui2/dpd_fields.py:137  ft.Column [via FieldConfig(field_type='meaning') -> DpdMeaningField]  on_focus=self.meaning_1_focus
+gui2/dpd_fields.py:153  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_blur=self.root_key_change
+gui2/dpd_fields.py:153  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_change=self.root_key_change
+gui2/dpd_fields.py:153  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_focus=self.root_key_change
+gui2/dpd_fields.py:161  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.root_sign_change
+gui2/dpd_fields.py:161  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.root_sign_change
+gui2/dpd_fields.py:161  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.root_sign_change
+gui2/dpd_fields.py:161  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.root_sign_submit
+gui2/dpd_fields.py:168  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.root_base_submit
+gui2/dpd_fields.py:172  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.family_root_blur
+gui2/dpd_fields.py:172  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.family_root_submit
+gui2/dpd_fields.py:177  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.family_word_change
+gui2/dpd_fields.py:177  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.family_word_change
+gui2/dpd_fields.py:182  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.family_compound_change
+gui2/dpd_fields.py:182  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.family_compound_change
+gui2/dpd_fields.py:182  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.family_compound_focus
+gui2/dpd_fields.py:188  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.family_idioms_focus
+gui2/dpd_fields.py:192  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.construction_blur
+gui2/dpd_fields.py:192  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.construction_change
+gui2/dpd_fields.py:192  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.construction_focus
+gui2/dpd_fields.py:199  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_change=self.derivative_change
+gui2/dpd_fields.py:205  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.suffix_on_change
+gui2/dpd_fields.py:209  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.phonetic_focus
+gui2/dpd_fields.py:214  ft.Dropdown [via FieldConfig(field_type='dropdown') -> DpdDropdown]  on_blur=self.compound_type_blur
+gui2/dpd_fields.py:225  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.non_ia_blur
+gui2/dpd_fields.py:229  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.sanskrit_blur
+gui2/dpd_fields.py:229  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.sanskrit_focus
+gui2/dpd_fields.py:229  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.sanskrit_submit
+gui2/dpd_fields.py:235  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.source_1_focus
+gui2/dpd_fields.py:246  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.clean_pali_field
+gui2/dpd_fields.py:246  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.clean_pali_field
+gui2/dpd_fields.py:251  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.clean_pali_field
+gui2/dpd_fields.py:251  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.clean_pali_field
+gui2/dpd_fields.py:251  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.synonym_focus
+gui2/dpd_fields.py:251  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.synonym_submit
+gui2/dpd_fields.py:258  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.var_phonetic_blur
+gui2/dpd_fields.py:258  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.clean_pali_field
+gui2/dpd_fields.py:258  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.var_phonetic_focus
+gui2/dpd_fields.py:258  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.var_phonetic_submit
+gui2/dpd_fields.py:265  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.clean_pali_field
+gui2/dpd_fields.py:265  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.clean_pali_field
+gui2/dpd_fields.py:270  ft.Column [via FieldConfig(field_type='commentary') -> DpdCommentaryField]  on_focus=self.commentary_focus
+gui2/dpd_fields.py:273  ft.Column [via FieldConfig(field_type='notes') -> DpdNotesField]  on_blur=self._handle_generic_spell_check
+gui2/dpd_fields.py:285  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.origin_blur
+gui2/dpd_fields.py:289  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.stem_blur
+gui2/dpd_fields.py:289  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_submit=self.stem_submit
+gui2/dpd_fields.py:294  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.pattern_change
+gui2/dpd_fields.py:294  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.pattern_change
+gui2/dpd_fields.py:299  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_blur=self.comment_change
+gui2/dpd_fields.py:299  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_change=self.comment_change
+gui2/dpd_fields.py:299  ft.TextField [via FieldConfig(field_type='text') -> DpdTextField]  on_focus=self.comment_change
+gui2/dpd_fields.py:316  ft.TextField [via DpdTextField]  on_blur=config.on_blur
+gui2/dpd_fields.py:316  ft.TextField [via DpdTextField]  on_change=config.on_change
+gui2/dpd_fields.py:316  ft.TextField [via DpdTextField]  on_focus=config.on_focus
+gui2/dpd_fields.py:316  ft.TextField [via DpdTextField]  on_submit=config.on_submit
+gui2/dpd_fields.py:326  ft.Dropdown [via DpdDropdown]  on_blur=config.on_blur
+gui2/dpd_fields.py:326  ft.Dropdown [via DpdDropdown]  on_change=config.on_change
+gui2/dpd_fields.py:326  ft.Dropdown [via DpdDropdown]  on_focus=config.on_focus
+gui2/dpd_fields.py:335  ft.Column [via DpdMeaningField]  on_blur=config.on_blur
+gui2/dpd_fields.py:335  ft.Column [via DpdMeaningField]  on_change=config.on_change
+gui2/dpd_fields.py:335  ft.Column [via DpdMeaningField]  on_focus=config.on_focus
+gui2/dpd_fields.py:335  ft.Column [via DpdMeaningField]  on_submit=config.on_submit
+gui2/dpd_fields.py:347  ft.Column [via DpdExampleField]  on_blur=config.on_blur
+gui2/dpd_fields.py:347  ft.Column [via DpdExampleField]  on_change=config.on_change
+gui2/dpd_fields.py:347  ft.Column [via DpdExampleField]  on_focus=config.on_focus
+gui2/dpd_fields.py:347  ft.Column [via DpdExampleField]  on_submit=config.on_submit
+gui2/dpd_fields.py:360  ft.Column [via DpdCommentaryField]  on_blur=config.on_blur
+gui2/dpd_fields.py:360  ft.Column [via DpdCommentaryField]  on_change=config.on_change
+gui2/dpd_fields.py:360  ft.Column [via DpdCommentaryField]  on_focus=config.on_focus
+gui2/dpd_fields.py:360  ft.Column [via DpdCommentaryField]  on_submit=config.on_submit
+gui2/dpd_fields.py:372  ft.Column [via DpdCompoundConstructionField]  on_blur=config.on_blur
+gui2/dpd_fields.py:372  ft.Column [via DpdCompoundConstructionField]  on_change=config.on_change
+gui2/dpd_fields.py:372  ft.Column [via DpdCompoundConstructionField]  on_focus=config.on_focus
+gui2/dpd_fields.py:372  ft.Column [via DpdCompoundConstructionField]  on_submit=config.on_submit
+gui2/dpd_fields.py:383  ft.Column [via DpdNotesField]  on_blur=config.on_blur
+gui2/dpd_fields.py:383  ft.Column [via DpdNotesField]  on_change=config.on_change
+gui2/dpd_fields.py:383  ft.Column [via DpdNotesField]  on_focus=config.on_focus
+gui2/dpd_fields.py:383  ft.Column [via DpdNotesField]  on_submit=config.on_submit
+gui2/dpd_fields.py:394  ft.Column [via DpdFamilySetField]  on_change=config.on_change
+gui2/dpd_fields.py:394  ft.Column [via DpdFamilySetField]  on_focus=config.on_focus
+gui2/dpd_fields.py:394  ft.Column [via DpdFamilySetField]  on_submit=config.on_submit
+gui2/dpd_fields.py:446  ft.IconButton  on_click=self._click_edit_compound_types
+gui2/dpd_fields.py:459  ft.IconButton  on_click=self._click_edit_phonetic_changes
+gui2/dpd_fields.py:474  ft.IconButton  on_click=lambda -> self.transfer_add_value(e, mf, af, None)
+gui2/dpd_fields.py:545  control (assigned)  on_click=lambda -> self.transfer_add_value(e, mf, af, btn)
+gui2/dpd_fields.py:620  control (assigned)  on_click=lambda -> self.transfer_add_value(e, mf, af, btn)
+gui2/dpd_fields_classes.py:19  self (assigned)  on_focus=on_focus
+gui2/dpd_fields_classes.py:20  self (assigned)  on_change=on_change
+gui2/dpd_fields_classes.py:21  self (assigned)  on_submit=on_submit
+gui2/dpd_fields_classes.py:22  self (assigned)  on_blur=on_blur
+gui2/dpd_fields_classes.py:36  ft.TextField [via super() in DpdTextField]  on_blur=on_blur
+gui2/dpd_fields_classes.py:36  ft.TextField [via super() in DpdTextField]  on_change=on_change
+gui2/dpd_fields_classes.py:36  ft.TextField [via super() in DpdTextField]  on_focus=on_focus
+gui2/dpd_fields_classes.py:36  ft.TextField [via super() in DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_classes.py:62  ft.Dropdown [via super() in DpdDropdown]  on_blur=on_blur
+gui2/dpd_fields_classes.py:62  ft.Dropdown [via super() in DpdDropdown]  on_change=on_change
+gui2/dpd_fields_classes.py:62  ft.Dropdown [via super() in DpdDropdown]  on_focus=on_focus
+gui2/dpd_fields_commentary.py:50  ft.TextField [via DpdTextField]  on_blur=self._handle_field_blur
+gui2/dpd_fields_commentary.py:50  ft.TextField [via DpdTextField]  on_change=self.clean_text
+gui2/dpd_fields_commentary.py:50  ft.TextField [via DpdTextField]  on_focus=on_focus
+gui2/dpd_fields_commentary.py:50  ft.TextField [via DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_commentary.py:60  ft.TextField  on_focus=self._search_field_1_focus
+gui2/dpd_fields_commentary.py:60  ft.TextField  on_submit=self.click_commentary_search
+gui2/dpd_fields_commentary.py:68  ft.TextField  on_submit=self.click_commentary_search
+gui2/dpd_fields_commentary.py:77  ft.IconButton  on_click=self._toggle_tools_visibility
+gui2/dpd_fields_commentary.py:89  ft.ElevatedButton  on_click=self.click_commentary_clear
+gui2/dpd_fields_commentary.py:93  ft.ElevatedButton  on_blur=self._handle_last_control_blur
+gui2/dpd_fields_commentary.py:93  ft.ElevatedButton  on_click=self._click_last_commentary
+gui2/dpd_fields_commentary.py:250  ft.Checkbox  on_change=self.update_checked_items
+gui2/dpd_fields_commentary.py:295  ft.TextButton  on_click=self.click_choose_example_ok
+gui2/dpd_fields_commentary.py:296  ft.TextButton  on_click=self.click_choose_example_cancel
+gui2/dpd_fields_compound_construction.py:33  ft.TextField [via DpdTextField]  on_blur=on_blur
+gui2/dpd_fields_compound_construction.py:33  ft.TextField [via DpdTextField]  on_change=on_change
+gui2/dpd_fields_compound_construction.py:33  ft.TextField [via DpdTextField]  on_focus=self.compound_construction_focus
+gui2/dpd_fields_compound_construction.py:33  ft.TextField [via DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_compound_construction.py:42  ft.TextField  on_submit=self._handle_bolding_submit
+gui2/dpd_fields_examples.py:150  ft.TextField [via DpdTextField]  on_blur=on_blur
+gui2/dpd_fields_examples.py:150  ft.TextField [via DpdTextField]  on_change=self.clean_text
+gui2/dpd_fields_examples.py:150  ft.TextField [via DpdTextField]  on_focus=self.update_counter
+gui2/dpd_fields_examples.py:150  ft.TextField [via DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_examples.py:161  ft.TextField  on_blur=self._handle_last_control_blur
+gui2/dpd_fields_examples.py:161  ft.TextField  on_submit=self.click_bold_example
+gui2/dpd_fields_examples.py:183  ft.Dropdown  on_blur=self._handle_book_blur
+gui2/dpd_fields_examples.py:197  ft.TextField  on_submit=self._click_search_dialog_ok
+gui2/dpd_fields_examples.py:207  ft.IconButton  on_click=self._toggle_tools_visibility
+gui2/dpd_fields_examples.py:227  ft.ElevatedButton  on_click=self.click_clean_example
+gui2/dpd_fields_examples.py:228  ft.ElevatedButton  on_click=self.click_remove_brackets
+gui2/dpd_fields_examples.py:229  ft.ElevatedButton  on_click=self.click_remove_bold_tags
+gui2/dpd_fields_examples.py:230  ft.ElevatedButton  on_click=self.click_delete_example
+gui2/dpd_fields_examples.py:231  ft.ElevatedButton  on_click=self.click_swap_example
+gui2/dpd_fields_examples.py:232  ft.ElevatedButton  on_click=self._click_stash_example
+gui2/dpd_fields_examples.py:233  ft.ElevatedButton  on_click=self._click_reload_example
+gui2/dpd_fields_examples.py:237  ft.ElevatedButton  on_click=self._click_last_example
+gui2/dpd_fields_examples.py:412  ft.RadioGroup  on_change=self.update_example_index
+gui2/dpd_fields_examples.py:431  ft.TextButton  on_click=self.click_choose_example_ok
+gui2/dpd_fields_examples.py:432  ft.TextButton  on_click=self.click_choose_example_cancel
+gui2/dpd_fields_family_set.py:35  ft.Dropdown  on_change=self._handle_dropdown_change
+gui2/dpd_fields_family_set.py:49  ft.TextField [via DpdTextField]  on_blur=self._handle_blur
+gui2/dpd_fields_family_set.py:49  ft.TextField [via DpdTextField]  on_change=on_change
+gui2/dpd_fields_family_set.py:49  ft.TextField [via DpdTextField]  on_focus=on_focus
+gui2/dpd_fields_family_set.py:49  ft.TextField [via DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_meaning.py:34  self (assigned)  on_focus_callback=on_focus
+gui2/dpd_fields_meaning.py:35  self (assigned)  on_blur_callback=on_blur
+gui2/dpd_fields_meaning.py:38  ft.TextField [via DpdTextField]  on_blur=self._handle_on_blur
+gui2/dpd_fields_meaning.py:38  ft.TextField [via DpdTextField]  on_change=on_change
+gui2/dpd_fields_meaning.py:38  ft.TextField [via DpdTextField]  on_focus=self._handle_on_focus
+gui2/dpd_fields_meaning.py:38  ft.TextField [via DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_meaning.py:56  ft.TextField  on_submit=self._handle_add_to_dict_submit
+gui2/dpd_fields_notes.py:32  ft.TextField [via DpdTextField]  on_blur=on_blur
+gui2/dpd_fields_notes.py:32  ft.TextField [via DpdTextField]  on_change=on_change
+gui2/dpd_fields_notes.py:32  ft.TextField [via DpdTextField]  on_focus=on_focus
+gui2/dpd_fields_notes.py:32  ft.TextField [via DpdTextField]  on_submit=on_submit
+gui2/dpd_fields_notes.py:41  ft.TextField  on_submit=self._handle_italicizing_submit
+gui2/dpd_fields_notes.py:49  ft.TextField  on_submit=self._handle_bolding_submit
+gui2/filter_component.py:138  ft.IconButton  on_click=self._prev_page_clicked
+gui2/filter_component.py:144  ft.IconButton  on_click=self._next_page_clicked
+gui2/filter_component.py:169  ft.ElevatedButton  on_click=self._save_changes
+gui2/filter_component.py:373  cell (assigned)  on_tap=self._make_cell_tap_handler(cell, result.id, col_name, value_str)
+gui2/filter_component.py:411  text_field (assigned)  on_change=on_change
+gui2/filter_component.py:417  cell (assigned)  on_tap=None
+gui2/filter_tab_view.py:160  ft.ElevatedButton  on_click=self._apply_filters_clicked
+gui2/filter_tab_view.py:163  ft.ElevatedButton  on_click=self._clear_filters_clicked
+gui2/filter_tab_view.py:166  ft.ElevatedButton  on_click=self._reset_to_default_clicked
+gui2/filter_tab_view.py:219  ft.TextField [via DpdTextField]  on_submit=self._apply_filters_clicked
+gui2/filter_tab_view.py:232  ft.IconButton  on_click=self._remove_filter_row
+gui2/filter_tab_view.py:251  ft.ElevatedButton  on_click=self._add_filter_row
+gui2/filter_tab_view.py:259  ft.TextField [via DpdTextField]  on_submit=self._apply_filters_clicked
+gui2/filter_tab_view.py:272  ft.IconButton  on_click=self._remove_filter_row
+gui2/filter_tab_view.py:316  ft.Checkbox  on_change=self._on_column_checkbox_change
+gui2/filter_tab_view.py:328  ft.ElevatedButton  on_click=self._toggle_column_options
+gui2/filter_tab_view.py:377  ft.TextField [via DpdTextField]  on_submit=self._apply_filters_clicked
+gui2/filter_tab_view.py:392  ft.Dropdown  on_change=self._on_preset_selected
+gui2/filter_tab_view.py:403  ft.ElevatedButton  on_click=self._save_preset_clicked
+gui2/filter_tab_view.py:410  ft.ElevatedButton  on_click=self._rename_preset_clicked
+gui2/filter_tab_view.py:418  ft.ElevatedButton  on_click=self._delete_preset_clicked
+gui2/filter_tab_view.py:621  ft.TextButton  on_click=on_cancel_click
+gui2/filter_tab_view.py:622  ft.TextButton  on_click=on_save_click
+gui2/filter_tab_view.py:664  ft.TextButton  on_click=on_cancel_click
+gui2/filter_tab_view.py:665  ft.TextButton  on_click=on_ok_click
+gui2/filter_tab_view.py:719  ft.TextButton  on_click=on_cancel_delete
+gui2/filter_tab_view.py:720  ft.TextButton  on_click=on_delete_click
+gui2/global_tab_view.py:32  ft.ElevatedButton  on_click=self._click_backup_quit
+gui2/global_tab_view.py:42  ft.ElevatedButton  on_click=self._handle_open_test_file
+gui2/global_tab_view.py:52  ft.ElevatedButton  on_click=self._click_update_anki
+gui2/global_tab_view.py:62  ft.ElevatedButton  on_click=self._click_update_inflections
+gui2/main.py:48  self.page (assigned)  on_keyboard_event=self.on_keyboard
+gui2/main.py:65  ft.TextButton  on_click=self._on_submit_data
+gui2/main.py:70  ft.TextButton  on_click=self._on_check_updates
+gui2/main.py:148  ft.TextButton  on_click=lambda -> self.page.close(dialog)
+gui2/main.py:165  ft.TextButton  on_click=lambda -> self.page.close(result_dialog)
+gui2/main.py:181  ft.TextButton  on_click=lambda -> self.page.close(confirm_dialog)
+gui2/main.py:185  ft.TextButton  on_click=_run_update
+gui2/main.py:386  ft.Tabs  on_change=self._on_tab_activated
+gui2/main.py:386  ft.Tabs  on_click=self._on_tab_activated
+gui2/mixins.py:50  ft.TextButton  on_click=self._handle_popup_close
+gui2/mixins.py:54  ft.TextButton  on_click=self._handle_popup_ok
+gui2/pass1_add_view.py:84  ft.Dropdown  on_change=self._handle_history_selection
+gui2/pass1_add_view.py:95  ft.TextField  on_submit=self._click_clone_headword
+gui2/pass1_add_view.py:103  ft.ElevatedButton  on_click=self._click_clone_headword
+gui2/pass1_add_view.py:116  ft.ElevatedButton  on_click=self.handle_process_book_click
+gui2/pass1_add_view.py:121  ft.ElevatedButton  on_click=self.handle_refresh_db_click
+gui2/pass1_add_view.py:126  ft.ElevatedButton  on_click=self.clear_all_fields
+gui2/pass1_add_view.py:157  ft.ElevatedButton  on_click=self.handle_add_to_db_click
+gui2/pass1_add_view.py:164  ft.ElevatedButton  on_click=self._click_run_tests
+gui2/pass1_add_view.py:177  ft.ElevatedButton  on_click=self.handle_pass_click
+gui2/pass1_add_view.py:182  ft.ElevatedButton  on_click=self.handle_delete_click
+gui2/pass1_add_view.py:191  ft.ElevatedButton  on_click=self.handle_sandhi_ok_click
+gui2/pass1_add_view.py:196  ft.ElevatedButton  on_click=self.handle_add_to_sandhi_click
+gui2/pass1_add_view.py:201  ft.ElevatedButton  on_click=self.handle_add_to_variants_click
+gui2/pass1_add_view.py:206  ft.ElevatedButton  on_click=self.handle_add_to_spelling_mistakes_click
+gui2/pass1_add_view.py:258  self.show_popup  on_submit=self.process_sandhi_popup_result
+gui2/pass1_add_view.py:277  self.show_popup  on_submit=self.process_variant_popup_result
+gui2/pass1_add_view.py:290  self.show_popup  on_submit=self.process_spelling_popup_result
+gui2/pass1_auto_view.py:73  ft.Switch  on_change=self.handle_gd_toggle
+gui2/pass1_auto_view.py:113  ft.TextButton  on_click=self.handle_text_cancel
+gui2/pass1_auto_view.py:114  ft.ElevatedButton  on_click=self.handle_text_submit
+gui2/pass1_auto_view.py:126  ft.ElevatedButton  on_click=self.handle_book_click
+gui2/pass1_auto_view.py:131  ft.IconButton  on_click=self._on_reload_models
+gui2/pass1_auto_view.py:136  ft.ElevatedButton  on_click=self.handle_text_button_click
+gui2/pass1_auto_view.py:140  ft.ElevatedButton  on_click=self.handle_stop_click
+gui2/pass1_auto_view.py:144  ft.ElevatedButton  on_click=self.handle_clear_click
+gui2/pass2_add_view.py:107  ft.ElevatedButton  on_click=self._click_load_pass2_auto
+gui2/pass2_add_view.py:107  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:113  ft.ElevatedButton  on_click=self._click_load_new_word
+gui2/pass2_add_view.py:113  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:119  ft.ElevatedButton  on_click=self._click_corrections_button
+gui2/pass2_add_view.py:119  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:125  ft.ElevatedButton  on_click=self._click_additions_button
+gui2/pass2_add_view.py:125  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:131  ft.ElevatedButton  on_click=self._click_x_button
+gui2/pass2_add_view.py:131  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:137  ft.ElevatedButton  on_click=self._click_eg_button
+gui2/pass2_add_view.py:137  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:143  ft.ElevatedButton  on_click=self._click_pread_button
+gui2/pass2_add_view.py:143  ft.ElevatedButton  on_hover=self._update_count_tooltip
+gui2/pass2_add_view.py:149  ft.TextField  on_blur=self._disable_id_field_autofocus
+gui2/pass2_add_view.py:149  ft.TextField  on_submit=self._click_edit_headword
+gui2/pass2_add_view.py:163  ft.ElevatedButton  on_click=self._click_clone_headword
+gui2/pass2_add_view.py:166  ft.ElevatedButton  on_click=self._click_split_headword
+gui2/pass2_add_view.py:169  ft.ElevatedButton  on_click=self._click_clear_all
+gui2/pass2_add_view.py:184  ft.PopupMenuItem  on_click=self._click_update_sandhi
+gui2/pass2_add_view.py:188  ft.PopupMenuItem  on_click=self._click_update_with_ai
+gui2/pass2_add_view.py:198  ft.Dropdown  on_change=self._handle_history_selection
+gui2/pass2_add_view.py:210  ft.RadioGroup  on_change=self._handle_filter_change
+gui2/pass2_add_view.py:226  ft.ElevatedButton  on_click=self._click_add_to_db
+gui2/pass2_add_view.py:275  ft.ElevatedButton  on_click=self._click_run_tests
+gui2/pass2_add_view.py:281  ft.ElevatedButton  on_click=self._click_delete_from_db
+gui2/pass2_add_view.py:281  ft.ElevatedButton  on_hover=self._on_delete_hover
+gui2/pass2_add_view.py:291  ft.ElevatedButton  on_click=self._click_stash
+gui2/pass2_add_view.py:296  ft.ElevatedButton  on_click=self._click_unstash
+gui2/pass2_add_view.py:1000  ft.TextButton  on_click=self._click_delete_ok
+gui2/pass2_add_view.py:1001  ft.TextButton  on_click=self._click_delete_cancel
+gui2/pass2_add_view.py:1326  ft.TextField  on_submit=self._click_eg_add
+gui2/pass2_add_view.py:1337  ft.AlertDialog  on_dismiss=self._restore_eg_kb
+gui2/pass2_add_view.py:1354  ft.TextButton  on_click=self._click_eg_add
+gui2/pass2_add_view.py:1355  ft.TextButton  on_click=self._click_eg_close
+gui2/pass2_add_view.py:1368  self.page (assigned)  on_keyboard_event=_eg_kb_handler
+gui2/pass2_add_view.py:1397  self.page (assigned)  on_keyboard_event=self._eg_saved_kb
+gui2/pass2_auto_view.py:84  ft.Switch  on_change=self.handle_gd_toggle
+gui2/pass2_auto_view.py:89  ft.ElevatedButton  on_click=self.handle_no_ai_click
+gui2/pass2_auto_view.py:101  ft.IconButton  on_click=self._on_reload_models
+gui2/pass2_auto_view.py:106  ft.ElevatedButton  on_click=self.handle_book_click
+gui2/pass2_auto_view.py:110  ft.ElevatedButton  on_click=self.handle_stop_click
+gui2/pass2_auto_view.py:114  ft.ElevatedButton  on_click=self.handle_clear_click
+gui2/pass2_pre_view.py:83  ft.SearchBar  on_change=self.handle_search
+gui2/pass2_pre_view.py:123  ft.TextField  on_submit=self.add_exception
+gui2/pass2_pre_view.py:132  ft.Switch  on_change=self.handle_exceptions_toggle
+gui2/pass2_pre_view.py:154  ft.ElevatedButton  on_click=self.handle_book_click
+gui2/pass2_pre_view.py:185  ft.ElevatedButton  on_click=self.handle_yes_click
+gui2/pass2_pre_view.py:189  ft.ElevatedButton  on_click=self.handle_no_click
+gui2/pass2_pre_view.py:193  ft.ElevatedButton  on_click=self.handle_new_click
+gui2/pass2_pre_view.py:197  ft.ElevatedButton  on_click=self.handle_pass_click
+gui2/pass2_pre_view.py:337  ft.TextField  on_submit=on_ok
+gui2/pass2_pre_view.py:360  ft.TextButton  on_click=on_ok
+gui2/pass2_pre_view.py:495  ft.TextButton  on_click=self._handle_more_click
+gui2/pass2_pre_view.py:501  ft.TextButton  on_click=self._handle_less_click
+gui2/pass2_pre_view.py:504  ft.RadioGroup  on_change=self.handle_example_selection_change
+gui2/pass2x/in_commentary_view.py:45  ft.SearchBar  on_change=self.handle_search
+gui2/pass2x/in_commentary_view.py:60  ft.TextField  on_submit=self.handle_word_in_text_submit
+gui2/pass2x/in_commentary_view.py:94  ft.TextField  on_submit=self.handle_add_exception
+gui2/pass2x/in_commentary_view.py:122  ft.ElevatedButton  on_click=self.handle_in_commentary_click
+gui2/pass2x/in_commentary_view.py:139  ft.ElevatedButton  on_click=self.handle_yes_click
+gui2/pass2x/in_commentary_view.py:140  ft.ElevatedButton  on_click=self.handle_no_click
+gui2/pass2x/in_commentary_view.py:141  ft.ElevatedButton  on_click=self.handle_new_click
+gui2/pass2x/in_commentary_view.py:142  ft.ElevatedButton  on_click=self.handle_pass_click
+gui2/pass2x/in_commentary_view.py:313  ft.TextButton  on_click=self._handle_more_click
+gui2/pass2x/in_commentary_view.py:319  ft.TextButton  on_click=self._handle_less_click
+gui2/pass2x/in_commentary_view.py:323  ft.RadioGroup  on_change=self.handle_example_selection_change
+gui2/pass2x/in_commentary_view.py:424  ft.TextField  on_submit=on_ok
+gui2/pass2x/in_commentary_view.py:447  ft.TextButton  on_click=on_ok
+gui2/roots_tab_view.py:38  ft.Dropdown  on_change=self._on_dropdown_change
+gui2/roots_tab_view.py:70  ft.ElevatedButton  on_click=self._new_root
+gui2/roots_tab_view.py:73  ft.ElevatedButton  on_click=self._clear_all
+gui2/roots_tab_view.py:168  ft.ElevatedButton  on_click=self._delete_root
+gui2/roots_tab_view.py:168  ft.ElevatedButton  on_hover=self._on_delete_hover
+gui2/roots_tab_view.py:178  ft.ElevatedButton  on_click=self._save_root
+gui2/roots_tab_view.py:375  ft.TextButton  on_click=confirm_delete
+gui2/roots_tab_view.py:376  ft.TextButton  on_click=cancel_delete
+gui2/sandhi_find_replace_view.py:28  ft.TextField  on_blur=self.handle_find_blur
+gui2/sandhi_find_replace_view.py:42  ft.ElevatedButton  on_click=self.find_clicked
+gui2/sandhi_find_replace_view.py:43  ft.ElevatedButton  on_click=self.clear_search
+gui2/sandhi_find_replace_view.py:57  ft.ElevatedButton  on_click=self.commit_clicked
+gui2/sandhi_find_replace_view.py:58  ft.ElevatedButton  on_click=self.ignore_clicked
+gui2/sandhi_view.py:42  ft.TextField  on_submit=self.handle_sandhi_ok_click
+gui2/sandhi_view.py:50  ft.ElevatedButton  on_click=self.handle_sandhi_ok_click
+gui2/sandhi_view.py:57  ft.TextField  on_submit=self.handle_add_to_sandhi_click
+gui2/sandhi_view.py:65  ft.TextField  on_submit=self.handle_add_to_sandhi_click
+gui2/sandhi_view.py:73  ft.ElevatedButton  on_click=self.handle_add_to_sandhi_click
+gui2/sandhi_view.py:80  ft.TextField  on_submit=self.handle_bulk_add_click
+gui2/sandhi_view.py:89  ft.ElevatedButton  on_click=self.handle_bulk_add_click
+gui2/sandhi_view.py:96  ft.TextField  on_submit=self.handle_add_to_variants_click
+gui2/sandhi_view.py:104  ft.TextField  on_submit=self.handle_add_to_variants_click
+gui2/sandhi_view.py:112  ft.ElevatedButton  on_click=self.handle_add_to_variants_click
+gui2/sandhi_view.py:119  ft.TextField  on_submit=self.handle_add_to_spelling_mistakes_click
+gui2/sandhi_view.py:127  ft.TextField  on_submit=self.handle_add_to_spelling_mistakes_click
+gui2/sandhi_view.py:135  ft.ElevatedButton  on_click=self.handle_add_to_spelling_mistakes_click
+gui2/sandhi_view.py:142  ft.TextField  on_submit=self.handle_add_to_see_click
+gui2/sandhi_view.py:150  ft.TextField  on_submit=self.handle_add_to_see_click
+gui2/sandhi_view.py:158  ft.ElevatedButton  on_click=self.handle_add_to_see_click
+gui2/spelling_find_replace_view.py:27  ft.TextField  on_blur=self.handle_find_blur
+gui2/spelling_find_replace_view.py:41  ft.ElevatedButton  on_click=self.find_clicked
+gui2/spelling_find_replace_view.py:42  ft.ElevatedButton  on_click=self.clear_search
+gui2/spelling_find_replace_view.py:46  ft.ElevatedButton  on_click=self.commit_clicked
+gui2/spelling_find_replace_view.py:47  ft.ElevatedButton  on_click=self.ignore_clicked
+gui2/test_manager.py:85  ft.TextButton  on_click=self._handle_edit
+gui2/test_manager.py:86  ft.TextButton  on_click=self._handle_add_exception
+gui2/test_manager.py:87  ft.TextButton  on_click=self._handle_next_failure
+gui2/test_manager.py:88  ft.TextButton  on_click=self._handle_popup_close
+gui2/test_manager.py:89  ft.TextButton  on_click=self._handle_open_test_file
+gui2/tests_tab_controller.py:801  ft.TextButton  on_click=_on_ok_click
+gui2/tests_tab_controller.py:802  ft.TextButton  on_click=_on_cancel_click
+gui2/tests_tab_view.py:65  ft.ElevatedButton  on_click=self.controller.handle_run_tests_clicked
+gui2/tests_tab_view.py:72  ft.IconButton  on_click=self.controller.handle_toggle_test_direction
+gui2/tests_tab_view.py:77  ft.ElevatedButton  on_click=self.controller.handle_stop_tests_clicked
+gui2/tests_tab_view.py:84  ft.ElevatedButton  on_click=self.controller.handle_edit_tests_clicked
+gui2/tests_tab_view.py:91  ft.ElevatedButton  on_click=self.controller.handle_sort_tests_clicked
+gui2/tests_tab_view.py:98  ft.ElevatedButton  on_click=self.controller.handle_test_update
+gui2/tests_tab_view.py:104  ft.ElevatedButton  on_click=self.controller.handle_add_new_test
+gui2/tests_tab_view.py:110  ft.ElevatedButton  on_click=self.controller.handle_delete_test
+gui2/tests_tab_view.py:234  ft.ElevatedButton  on_click=self.controller.handle_add_exception_button
+gui2/tests_tab_view.py:238  ft.ElevatedButton  on_click=self.controller.handle_add_all_exceptions_clicked
+gui2/tests_tab_view.py:252  ft.ElevatedButton  on_click=self.controller.handle_rerun_test_clicked
+gui2/tests_tab_view.py:258  ft.ElevatedButton  on_click=self.controller.handle_next_test_clicked
+gui2/tests_tab_view.py:264  ft.ElevatedButton  on_click=self.controller.handle_rerun_test_clicked
+gui2/tests_tab_view.py:270  ft.ElevatedButton  on_click=self.controller.handle_next_test_clicked
+gui2/tests_tab_view.py:293  ft.IconButton  on_click=self.controller.handle_test_db_query_copy
+gui2/translations_view.py:37  ft.TextField  on_submit=self.search_clicked
+gui2/translations_view.py:63  ft.ElevatedButton  on_click=self.search_clicked
+gui2/translations_view.py:66  ft.ElevatedButton  on_click=self.clear_clicked
+gui2/translations_view.py:70  ft.TextField  on_submit=self.handle_text_search
+gui2/user.py:25  ft.TextField  on_submit=self._save_username_and_close_dialog
+gui2/user.py:41  ft.ElevatedButton  on_click=self._save_username_and_close_dialog
+gui2/utilities/find_words_with_examples.py:87  self.page (assigned)  on_keyboard_event=self.on_keyboard
+gui2/utilities/find_words_with_examples.py:103  ft.ElevatedButton  on_click=self.yes_clicked
+gui2/utilities/find_words_with_examples.py:104  ft.ElevatedButton  on_click=self.no_clicked
+gui2/utilities/find_words_with_examples.py:105  ft.ElevatedButton  on_click=self.pass_clicked
+gui2/utilities/find_words_with_examples.py:106  ft.ElevatedButton  on_click=self.reset_clicked
+gui2/utilities/sandhi_contraction_find_replace_gui.py:95  self.page (assigned)  on_keyboard_event=self.on_keyboard
+gui2/utilities/sandhi_contraction_find_replace_gui.py:100  ft.ElevatedButton  on_click=self.find_clicked
+gui2/utilities/sandhi_contraction_find_replace_gui.py:101  ft.ElevatedButton  on_click=self.clear_search
+gui2/utilities/sandhi_contraction_find_replace_gui.py:109  ft.ElevatedButton  on_click=self.commit_clicked
+gui2/utilities/sandhi_contraction_find_replace_gui.py:110  ft.ElevatedButton  on_click=self.ignore_clicked
+gui2/wordfinder_popup.py:16  ft.TextField  on_submit=self._handle_search
+gui2/wordfinder_popup.py:27  ft.ElevatedButton  on_click=self._handle_search
+gui2/wordfinder_popup.py:32  ft.ElevatedButton  on_click=self._handle_clear
+gui2/wordfinder_popup.py:85  ft.TextButton  on_click=self._handle_close
+gui2/wordfinder_widget.py:27  ft.TextField  on_submit=self.clicked_search
+gui2/wordfinder_widget.py:38  ft.ElevatedButton  on_click=self.clicked_search
+gui2/wordfinder_widget.py:43  ft.ElevatedButton  on_click=self.clear_wordfinder_results
+resources/dpd-updater/main.py:38  self.page (assigned)  on_keyboard_event=self._on_keyboard
+resources/dpd-updater/main.py:89  SetupWizard  on_complete=on_setup_complete
+resources/dpd-updater/ui_main.py:54  ft.ElevatedButton  on_click=self._on_check_updates
+resources/dpd-updater/ui_main.py:57  ft.ElevatedButton  on_click=self._on_update
+resources/dpd-updater/ui_main.py:112  ft.TextButton  on_click=self._on_settings
+resources/dpd-updater/ui_main.py:318  ft.FilePicker  on_result=on_path_change
+resources/dpd-updater/ui_main.py:327  ft.TextButton  on_click=lambda -> file_picker.get_directory_path()
+resources/dpd-updater/ui_main.py:332  ft.Checkbox  on_change=on_auto_check_change
+resources/dpd-updater/ui_main.py:337  ft.Checkbox  on_change=on_backup_change
+resources/dpd-updater/ui_main.py:346  ft.TextButton  on_click=lambda -> self.page.close(dialog)
+resources/dpd-updater/ui_setup.py:37  self (assigned)  on_complete=on_complete
+resources/dpd-updater/ui_setup.py:46  ft.ElevatedButton  on_click=self._on_continue
+resources/dpd-updater/ui_setup.py:69  ft.ElevatedButton  on_click=self._on_select_folder
+resources/dpd-updater/ui_setup.py:131  ft.FilePicker  on_result=on_dialog_result
