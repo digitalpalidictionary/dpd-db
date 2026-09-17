@@ -3,7 +3,7 @@ import re
 import flet as ft
 
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import is_mounted, request_focus
+from gui2.ui_utils import field_border, is_mounted, request_focus
 from tools.pali_text_files import cst_texts
 from tools.tipitaka_db import search_all_cst_texts, search_book
 
@@ -29,8 +29,7 @@ class TranslationsView(ft.Column):
             ],
             value="Pāḷi",
             text_size=14,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
             editable=True,
             enable_filter=True,
         )
@@ -39,8 +38,7 @@ class TranslationsView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=400,
             on_submit=self.search_clicked,
-            border_radius=20,
-            border_color=ft.Colors.BLUE_200,
+            border=field_border(color=ft.Colors.BLUE_200),
         )
 
         book_options = ["all"]
@@ -54,8 +52,7 @@ class TranslationsView(ft.Column):
             options=[ft.dropdown.Option(key) for key in book_options],
             value="all",
             text_size=14,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
             editable=True,
             enable_filter=True,
         )
@@ -70,8 +67,7 @@ class TranslationsView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=300,
             on_submit=self.handle_text_search,
-            border_radius=20,
-            border_color=HIGHLIGHT_COLOUR,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
 
         self.results_column = ft.Column(

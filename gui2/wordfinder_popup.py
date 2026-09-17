@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import flet as ft
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 
 from tools.printer import printer as pr
 
@@ -20,8 +20,7 @@ class WordFinderPopup:
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             width=500,
             on_submit=self._handle_search,
-            border_radius=20,
-            border=None,
+            border=field_border(),
             bgcolor=ft.Colors.GREY_900,  # Darker field background
         )
 
@@ -46,7 +45,7 @@ class WordFinderPopup:
             label="Search Type",
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             width=300,
-            border_radius=20,
+            border=field_border(),
         )
 
         self.results_container = ft.Container(

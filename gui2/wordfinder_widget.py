@@ -1,6 +1,7 @@
 from typing import Optional
 
 import flet as ft
+from gui2.ui_utils import field_border
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -32,7 +33,7 @@ class WordFinderWidget:
             value=self.initial_word or "",
             width=300,
             on_submit=self.clicked_search,
-            border_radius=20,
+            border=field_border(),
         )
 
         self.search_button = ft.Button(
@@ -57,8 +58,7 @@ class WordFinderWidget:
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=300,
             text_size=10,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
         )
 
         self.results_container = ft.Container(

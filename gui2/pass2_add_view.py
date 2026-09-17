@@ -26,7 +26,7 @@ from gui2.pass2_eg_manager import Pass2EgManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import page_of, request_focus
+from gui2.ui_utils import field_border, page_of, request_focus
 from scripts.find.missing_meanings import find_missing_meanings
 from tools.dharmamitra_client import get_contextual_gloss
 from tools.fast_api_utils import request_dpd_server
@@ -94,12 +94,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         self._message_field = ft.TextField(
             "",
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
-            border=ft.OutlineInputBorder(
-                border_radius=20,
-                side=ft.BorderSide(1, ft.Colors.BLUE_200),
-            ),
+            border=field_border(color=ft.Colors.BLUE_200),
             color=ft.Colors.BLUE_200,
             expand_loose=True,
             expand=True,
@@ -154,8 +149,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._enter_id_or_lemma_field = ft.TextField(
             "",
             autofocus=True,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
             expand_loose=True,
             expand=True,
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
@@ -204,7 +198,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
             options=[],
             expand=True,
             expand_loose=True,
-            border_radius=20,
+            border=field_border(),
             text_size=14,
             on_select=self._handle_history_selection,
         )
@@ -1333,6 +1327,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                     )
                 )
             add_field = ft.TextField(
+                border=field_border(),
                 label="words to add (comma-separated)",
                 dense=True,
                 text_size=12,

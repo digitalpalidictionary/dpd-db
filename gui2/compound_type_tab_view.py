@@ -6,7 +6,7 @@ import flet as ft
 from db.models import DpdHeadword
 from gui2.filter_component import CellTextField, DpdDatatable
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import is_mounted, request_focus, show_global_snackbar
+from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 from tools.compound_type_manager import CompoundTypeManager
 from tools.pali_sort_key import pali_list_sorter
 
@@ -66,9 +66,7 @@ class CompoundTypeTabView(ft.Column):
         self._word_field = ft.TextField(
             hint_text="word",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             expand=2,
             helper=" ",
@@ -81,9 +79,7 @@ class CompoundTypeTabView(ft.Column):
             hint_style=ft.TextStyle(color=LABEL_COLOUR),
             options=self._get_options("pos", include_any=True),
             expand=1,
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
@@ -104,9 +100,7 @@ class CompoundTypeTabView(ft.Column):
             editable=True,
             enable_filter=True,
             expand=1,
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
@@ -122,9 +116,7 @@ class CompoundTypeTabView(ft.Column):
             editable=True,
             enable_filter=True,
             expand=2,
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             menu_width=350,
             helper_text=" ",
@@ -139,9 +131,7 @@ class CompoundTypeTabView(ft.Column):
         self._exceptions_field = ft.TextField(
             hint_text="exceptions (comma-separated)",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             multiline=True,
             min_lines=1,
@@ -151,9 +141,7 @@ class CompoundTypeTabView(ft.Column):
         self._notes_field = ft.TextField(
             hint_text="notes",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             multiline=True,
             min_lines=1,
@@ -187,8 +175,7 @@ class CompoundTypeTabView(ft.Column):
         self._message_field = ft.TextField(
             read_only=True,
             expand=True,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
             color=ft.Colors.BLUE_200,
             hint_text="Messages",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
@@ -986,7 +973,7 @@ class CompoundTypeTabView(ft.Column):
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
             dense=True,
             text_size=12,
-            border_radius=10,
+            border=field_border(radius=10),
             on_submit=on_submit,
         )
 

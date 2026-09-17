@@ -38,6 +38,30 @@ def request_focus(control: ft.BaseControl) -> None:
         page.run_task(control.focus)  # pyright: ignore[reportAttributeAccessIssue]
 
 
+FIELD_RADIUS = 20
+"""The editor's standard corner radius for text fields and dropdowns."""
+
+
+def field_border(
+    color: ft.ColorValue | None = None,
+    width: float = 1.0,
+    radius: float = FIELD_RADIUS,
+) -> ft.OutlineInputBorder:
+    """The standard rounded border for a `TextField` or `Dropdown`.
+
+    Flet 1.0 deprecated `border_radius` / `border_color` / `border_width` on
+    form fields in favour of a single `border=` object, and changed the
+    Dart-side default from a rounded outline to a square one — so fields that
+    set nothing at all lost their corners. Every field now states its border
+    explicitly through this helper rather than relying on the default.
+
+    Leaving `color` unset keeps the Material theme's per-state colours, which
+    is what the deprecated `border_radius`-only fields used to get.
+    """
+    side = None if color is None else ft.BorderSide(width=width, color=color)
+    return ft.OutlineInputBorder(border_radius=radius, side=side)
+
+
 def show_global_snackbar(
     page: ft.Page,
     message: str,

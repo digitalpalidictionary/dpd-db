@@ -2,7 +2,7 @@ import flet as ft
 import re
 
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 
 
 class DpdNotesField(ft.Column):
@@ -39,6 +39,7 @@ class DpdNotesField(ft.Column):
         )
 
         self.italicizing_field = ft.TextField(
+            border=field_border(),
             label="Italic",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,
@@ -47,6 +48,7 @@ class DpdNotesField(ft.Column):
         )
 
         self.bolding_field = ft.TextField(
+            border=field_border(),
             label="Bold",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,

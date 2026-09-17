@@ -6,7 +6,7 @@ from sqlalchemy import or_
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 from tools.paths import ProjectPaths
 
 
@@ -29,14 +29,12 @@ class SandhiFindReplaceView(ft.Column):
             "",
             width=400,
             on_blur=self.handle_find_blur,
-            border_radius=20,
-            border=ft.OutlineInputBorder(border_radius=20),
+            border=field_border(),
         )
         self.replace_text = ft.TextField(
             "",
             width=400,
-            border_radius=20,
-            border=ft.OutlineInputBorder(border_radius=20),
+            border=field_border(),
         )
         self.strip_switch = ft.Switch(label="strip", value=True)
         self.find_button = ft.Button("Find", on_click=self.find_clicked)
@@ -50,8 +48,7 @@ class SandhiFindReplaceView(ft.Column):
             expand=True,
             multiline=True,
             disabled=True,
-            border_radius=20,
-            border=ft.OutlineInputBorder(border_radius=20),
+            border=field_border(),
         )
         self.replaced_field = self.replaced_field_text  # Reference to current widget
         self.commit_button = ft.Button("Commit", on_click=self.commit_clicked)

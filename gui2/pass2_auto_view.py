@@ -2,6 +2,7 @@ import flet as ft
 
 from gui2.pass2_auto_control import Pass2AutoController
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import field_border
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -35,8 +36,7 @@ class Pass2AutoView(ft.Column):
             label="Message",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)
@@ -49,8 +49,7 @@ class Pass2AutoView(ft.Column):
             options=self.book_options,
             width=300,
             text_size=14,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
             hint_text="Select a book",
         )
         self.ai_model_dropdown = ft.Dropdown(
@@ -60,8 +59,7 @@ class Pass2AutoView(ft.Column):
             width=300,
             menu_width=500,
             text_size=14,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
             hint_text="Select AI Model",
         )
         self.auto_processed_count_field = ft.TextField(
@@ -70,7 +68,7 @@ class Pass2AutoView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=150,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self.word_in_text_field = ft.TextField(
             "",
@@ -78,7 +76,7 @@ class Pass2AutoView(ft.Column):
             label="Word in text",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self.gd_switch = ft.Switch(
             label="GD",
@@ -139,7 +137,7 @@ class Pass2AutoView(ft.Column):
         self.ai_results_field = ft.TextField(
             multiline=True,
             expand=True,
-            border_width=0,
+            border=ft.NoInputBorder(),
         )
 
         self.results_section = ft.Column(

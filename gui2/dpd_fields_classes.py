@@ -1,4 +1,5 @@
 import flet as ft
+from gui2.ui_utils import field_border
 
 
 class FieldConfig:
@@ -42,7 +43,7 @@ class DpdTextField(ft.TextField):
             on_blur=on_blur,
             min_lines=1,
             width=700,
-            border_radius=20,
+            border=field_border(),
         )
         self.name = name
 
@@ -60,7 +61,10 @@ class DpdDropdown(ft.Dropdown):
             raise ValueError("Options must be provided for DpdDropdown")
 
         super().__init__(
-            expand=True,
+            # No `expand`: it and `width` contradict each other, and 1.0 resolves
+            # that the opposite way to 0.28 — the dropdowns stretched to the full
+            # row instead of stopping at 700. The text fields are left expanding
+            # because that is what they did in 0.28.
             options=[ft.dropdown.Option(o) for o in options],
             on_focus=on_focus,
             # Flet 1.0 split 0.28's on_change into on_select (an item was
@@ -74,9 +78,7 @@ class DpdDropdown(ft.Dropdown):
             enable_filter=True,
             width=700,
             menu_width=200,
-            border_color=ft.Colors.GREY_800,
-            border_radius=20,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
         )
         self.name = name
 

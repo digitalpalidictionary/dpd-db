@@ -17,6 +17,7 @@ from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2x.in_commentary_tui import Example
 from gui2.toolkit import ToolKit
 from tools.cst_source.models import CstSourceSuttaExample
+from gui2.ui_utils import field_border
 
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
@@ -52,7 +53,7 @@ class Pass2xInCommentaryView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=400,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             expand=True,
             read_only=True,
         )
@@ -62,7 +63,7 @@ class Pass2xInCommentaryView(ft.Column):
             label="Word in text (edit + Enter to re-search)",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_word_in_text_submit,
         )
         self.headword_lemma_1_field = ft.TextField(
@@ -71,7 +72,7 @@ class Pass2xInCommentaryView(ft.Column):
             label="Headword",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             expand=True,
         )
         self.headword_pos_field = ft.TextField(
@@ -80,7 +81,7 @@ class Pass2xInCommentaryView(ft.Column):
             label="POS",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self.headword_meaning_field = ft.TextField(
             "",
@@ -88,12 +89,12 @@ class Pass2xInCommentaryView(ft.Column):
             label="Meaning",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self.exceptions_field = ft.TextField(
             "",
             on_submit=self.handle_add_exception,
-            border_radius=20,
+            border=field_border(),
             width=300,
             expand=True,
             label="add word to exceptions (blank = current word)",
@@ -103,14 +104,14 @@ class Pass2xInCommentaryView(ft.Column):
             "",
             expand=True,
             color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(),
             read_only=True,
         )
         self.examples_count_field = ft.TextField(
             "",
             width=60,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             read_only=True,
             text_align=ft.TextAlign.RIGHT,
         )
@@ -420,7 +421,9 @@ class Pass2xInCommentaryView(ft.Column):
             self.selected_sentence_index = 0
             self.update_message(message)
 
-        comment_input = ft.TextField(expand=True, autofocus=True, on_submit=on_ok)
+        comment_input = ft.TextField(
+            expand=True, autofocus=True, on_submit=on_ok, border=field_border()
+        )
 
         self.new_word_dialog = ft.AlertDialog(
             modal=True,

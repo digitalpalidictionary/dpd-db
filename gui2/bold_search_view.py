@@ -4,7 +4,7 @@ import flet as ft
 
 from gui2.bold_search_controller import BoldSearchController
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import is_mounted, request_focus
+from gui2.ui_utils import field_border, is_mounted, request_focus
 
 LABEL_WIDTH = 250
 COLUMN_WIDTH: int = 700
@@ -56,7 +56,7 @@ class BoldSearchView(ft.Column):
             label="Search Bold",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=ft.Colors.WHITE,
-            border_radius=20,
+            border=field_border(),
             autofocus=True,
             on_submit=self.controller.perform_search,
         )
@@ -67,7 +67,7 @@ class BoldSearchView(ft.Column):
             label="Search Within",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=ft.Colors.WHITE,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.controller.perform_search,
         )
 
@@ -76,8 +76,7 @@ class BoldSearchView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=300,
             on_change=self.handle_text_search,
-            border_radius=20,
-            border_color=HIGHLIGHT_COLOUR,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
 
         self.results_pane = ft.ListView(

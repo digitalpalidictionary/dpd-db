@@ -6,7 +6,7 @@ from db.models import DpdHeadword
 from gui2.dpd_fields_classes import DpdDropdown, DpdTextField
 from gui2.filter_component import FilterComponent
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import page_of
+from gui2.ui_utils import field_border, page_of
 
 LABEL_COLOUR = ft.Colors.GREY_500
 
@@ -399,6 +399,7 @@ class FilterTabView(ft.Column):
         # Preset dropdown
         preset_names = self.toolkit.filter_presets_manager.list_presets()
         self.preset_dropdown = ft.Dropdown(
+            border=field_border(),
             options=[ft.dropdown.Option(name) for name in preset_names],
             width=500,
             on_select=self._on_preset_selected,
@@ -590,7 +591,9 @@ class FilterTabView(ft.Column):
                 limit = DEFAULT_LIMIT
 
         # Show input dialog for preset name
-        name_field = ft.TextField(label="Preset Name", autofocus=True)
+        name_field = ft.TextField(
+            label="Preset Name", autofocus=True, border=field_border()
+        )
 
         def on_save_click(e: ft.ControlEvent) -> None:
             preset_name = name_field.value.strip() if name_field.value else ""
@@ -641,7 +644,9 @@ class FilterTabView(ft.Column):
             return
 
         old_name = self.preset_dropdown.value
-        name_field = ft.TextField(label="New Name", value=old_name, autofocus=True)
+        name_field = ft.TextField(
+            label="New Name", value=old_name, autofocus=True, border=field_border()
+        )
 
         def on_ok_click(e: ft.ControlEvent) -> None:
             new_name = name_field.value.strip() if name_field.value else ""

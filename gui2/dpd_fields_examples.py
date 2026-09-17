@@ -7,7 +7,7 @@ from gui2.flet_functions import (
     highlight_word_in_sentence,
 )
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.cst_source.models import CstSourceSuttaExample
@@ -160,6 +160,7 @@ class DpdExampleField(ft.Column):
         if not self.simple_mode:
             self.bold_field = ft.TextField(
                 "",
+                border=field_border(),
                 width=240,
                 label="bold",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
@@ -188,9 +189,7 @@ class DpdExampleField(ft.Column):
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 editable=True,
                 enable_filter=True,
-                border_color=ft.Colors.GREY_800,
-                border_radius=20,
-                border_width=1,
+                border=field_border(color=ft.Colors.GREY_800),
                 on_blur=self._handle_book_blur,
             )
 
@@ -200,7 +199,7 @@ class DpdExampleField(ft.Column):
                 label="word to find",
                 label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
                 on_submit=self._click_search_dialog_ok,
-                border_radius=20,
+                border=field_border(),
             )
 
             # Toggle Button
@@ -580,11 +579,11 @@ class DpdExampleField(ft.Column):
             self.counter_field.value = str(text_len)
 
             if text_len > max_length:
-                self.text_field.border_color = ft.Colors.RED
+                self.text_field.border = field_border(color=ft.Colors.RED)
                 self.text_field.color = ft.Colors.RED
                 self.text_field.error_text = str(text_len - max_length)
             else:
-                self.text_field.border_color = None
+                self.text_field.border = field_border()
                 self.text_field.color = None
                 self.text_field.error_text = None
 

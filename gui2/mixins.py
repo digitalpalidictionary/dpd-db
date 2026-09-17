@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from tools.paths import ProjectPaths
 import flet as ft
+from gui2.ui_utils import field_border
 
 
 class SandhiOK:
@@ -33,6 +34,7 @@ class SandhiOK:
 class PopUpMixin:
     def __init__(self):
         self._popup_textfield = ft.TextField(
+            border=field_border(),
             label="Enter value",
             autofocus=True,
             width=1000,

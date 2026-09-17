@@ -1,7 +1,7 @@
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.ui_utils import is_mounted, request_focus
+from gui2.ui_utils import field_border, is_mounted, request_focus
 from tools.spelling import CustomSpellChecker
 
 
@@ -54,6 +54,7 @@ class DpdMeaningField(ft.Column):
 
         # Field to add words to the dictionary
         self.add_to_dict_field = ft.TextField(
+            border=field_border(),
             label="Add spelling ",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,

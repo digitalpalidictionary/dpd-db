@@ -606,9 +606,10 @@ rename.
 These four were not in the original list. Each was found by a gate or by the
 user at the keyboard rather than by reading the migration guide, and each is
 now enforced by a checker in `artifacts/`. They are numbered on from BR-17, so
-**the BR list runs BR-1 to BR-24**, and Phase 7's confirmation table is 24 rows,
-not 17. BR-22 to BR-24 came from the user battle-testing the migrated app
-and are still open.
+**the BR list runs BR-1 to BR-25**, and Phase 7's confirmation table is 25 rows,
+not 17. BR-22 to BR-25 came from the user battle-testing the migrated app;
+BR-23 turned out not to be a defect, the rest are fixed and awaiting a
+visual check.
 
 ### BR-18 🔴 `window.close()` is awaitable — Ctrl+Q silently stopped quitting
 
@@ -662,14 +663,30 @@ the installed wheel and so stays correct across versions.
 
 ### BR-22 🔴 Input fields lost their rounded corners
 
-The 31 `TextField`/`Dropdown` constructions that set no border property at all
+The `TextField`/`Dropdown` constructions that set no border property at all
 render square in 1.0 and were rounded in 0.28. Both versions default to
 `border=None` in Python, so the change is Dart-side and cannot be read off the
-wheel. The fix is to stop relying on the default: give those 31 an explicit
-rounded border, in the same pass that converts the 135 deprecated
-`border_radius=` / `border_color=` / `border_width=` properties to
-`border=ft.OutlineInputBorder(...)`. One change fixes the corners and silences
-every deprecation warning.
+wheel. The fix is to stop relying on the default: give them an explicit rounded
+border, in the same pass that converts the deprecated `border_radius=` /
+`border_color=` / `border_width=` properties to `border=ft.OutlineInputBorder`.
+One change fixes the corners and silences every deprecation warning.
+
+Done on 2026-09-17: **28** borderless constructions given
+`border=field_border()`, and **116** deprecated kwargs across **84**
+constructions converted. Both figures replace the plan's earlier 31 and 135,
+which were flat-grep counts — 135 swept in 13 `border_radius=` on `Container`
+and `DataTable`, where the property is not deprecated, and 31 counted the
+`Dpd*` wrappers (which set their border in their own `__init__`), the two
+`SearchBar`s (not `FormFieldControl`s in 1.0 — no `border` attribute) and
+`gui2/utilities/` (Phase 6). `artifacts/check_border_props.py` classifies each
+site by callee and is the authority.
+
+Two knock-ons the plan did not anticipate. BR-16's red signals set
+`.border_color` at runtime, which had to become `.border`, and the reset case
+had to restore a real border rather than `None` — hence `field_border()` in
+`gui2/ui_utils.py` and `cell_border()` in `gui2/filter_component.py`. And
+`border_width=0` (one site) is not expressible as an `OutlineInputBorder` side,
+so it became `ft.NoInputBorder()`; that is a judgement call to confirm visually.
 
 Verified against the before-screenshots, not from memory — `Add spelling` was
 already square in 0.28 and is not a regression, while the surrounding fields
@@ -677,19 +694,57 @@ were rounded. The screenshots are the authority for every field.
 
 ### BR-24 🟠 The window shows Flet's name and icon, not DPD's
 
-0.28 never set `page.title` or `window.icon`, so whatever produced the DPD name
-and icon was a Flet default that changed — possibly with the
-`flet-desktop-light` → `flet-desktop` package swap. Setting `page.title` and an
-absolute `window.icon` path did **not** fix it (tried and confirmed still
-broken). Open questions: whether the desktop title comes from `ft.run(name=)`
-rather than `page.title`, and whether `window.icon` resolves relative to
-`assets_dir` — which defaults to `assets`, a directory this repo lacks.
+The premise was wrong: it was never a Flet default. Settled from the wheel on
+2026-09-17.
+
+`window.icon` is documented "Has effect on Windows only" and wants a `.ico`, so
+the earlier absolute-`.png`-on-Linux attempt was inert twice over; the line is
+removed. `ft.run(name=)` is the web URL path, not the title — `page.title` is
+the title and stays. The taskbar name and icon come from
+`~/.local/share/applications/dpd-gui2.desktop`, whose `StartupWMClass=flet`
+matched 0.28's client and supplied `Name=dpd-gui2` and the DPD logo; if 1.0's
+client reports a different WM_CLASS the match breaks and the desktop falls back
+to the binary's own identity.
+
+Confirmed: 1.0's client reports `com.appveyor.flet` / `Com.appveyor.flet` where
+0.28 reported plain `flet`. Both the repo template `gui2/linux/dpd-gui2.desktop`
+and the installed entry now say `StartupWMClass=com.appveyor.flet`.
+
+### BR-25 🟠 `expand` now beats `width` on a form field
+
+`DpdDropdown` and `DpdTextField` each pass `expand=True` **and** `width=700`,
+which contradict each other. 0.28 resolved that per control — `width` won for
+the dropdown, `expand` won for the text field. 1.0 lets `expand` win for both,
+so the pass views' dropdowns went from 665px to 1251px and fill the whole row.
+
+Found by measuring the user's screenshot against the 0.28 baseline, not by
+reading the code — and the measurement is what makes it trustworthy, because
+the obvious suspect was wrong. Field heights, row pitch, text insets and
+outline brightness are all identical across the two versions; BR-22's border
+pass changed no geometry whatsoever. Only the dropdown width moved.
+
+Fix: drop `expand` from `DpdDropdown` alone. `DpdTextField` already matched
+0.28.
 
 ### BR-23 🟠 `AlertDialog(modal=True)` no longer blocks the barrier
 
-The Pass2Add example dialog is built with `modal=True` and always was, yet
-dismisses on an outside click in 1.0. A behaviour change in `AlertDialog` or
-`show_dialog`, not a lost flag. Not yet investigated.
+**Resolved 2026-09-17: not a defect.** Retested by the user — the eg dialog
+does not dismiss on an outside click. The original report was a
+mis-observation. The investigation below is kept because the lesson is general:
+the wheel's docstring was wrong, and only the shipped Dart settled it.
+
+The Pass2Add example dialog is built with `modal=True` and always was, and was
+reported to dismiss on an outside click in 1.0.
+
+Investigated 2026-09-17; **no change made.** The installed wheel's docstring
+reads "Whether dialog can be dismissed/closed by clicking the area outside of
+it", which would make the flag inverted — but Flet's own Dart control at tag
+`v1.0.0` passes `barrierDismissible: !modal`, and `CupertinoAlertDialog`'s
+docstring still says "cannot be dismissed". The Dart is authoritative (AD#2),
+so `modal=True` is correct and unchanged, and flipping it would mean flipping
+all 18 `modal=True` dialogs in `gui2/` on a docstring the shipped client
+contradicts. One more observation discriminates: whether any *other* modal
+dialog also dismisses, or only the eg one.
 
 **The lesson these four share** is in the plan: every rename task was scoped
 from the guide's tables, and the guide is incomplete. AD#2 already said the

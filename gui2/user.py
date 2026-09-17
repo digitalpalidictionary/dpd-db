@@ -5,6 +5,7 @@ import flet as ft
 
 from tools.configger import config_read, config_update
 from tools.server_mode import resolve_role
+from gui2.ui_utils import field_border
 
 __all__ = ["UsernameManager", "resolve_role", "resolve_username"]
 
@@ -23,6 +24,7 @@ class UsernameManager:
         self.username: str | None = resolve_username()
         self.role: str | None = resolve_role()
         self.username_field = ft.TextField(
+            border=field_border(),
             label="Enter your username",
             autofocus=True,
             on_submit=self._save_username_and_close_dialog,

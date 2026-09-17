@@ -3,7 +3,7 @@ from typing import List
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 from tools.fuzzy_tools import find_closest_matches
 from tools.pali_sort_key import pali_sort_key
 
@@ -41,9 +41,7 @@ class DpdFamilySetField(ft.Column):
             on_select=self._handle_dropdown_change,
             enable_filter=True,
             editable=True,
-            border_color=ft.Colors.GREY_800,
-            border_radius=20,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
         )
 
         self.family_set_textfield = DpdTextField(

@@ -7,7 +7,7 @@ from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.mixins import PopUpMixin
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import page_of
+from gui2.ui_utils import field_border, page_of
 from tools.speech_marks import SpeechMarkManager
 
 LABEL_WIDTH = 250
@@ -49,7 +49,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.message_field = ft.TextField(
             # color=HIGHLIGHT_COLOUR,
             expand=True,
-            border_radius=20,
+            border=field_border(),
             text_style=ft.TextStyle(color=ft.Colors.BLUE_200),
         )
         self.book_options = [
@@ -63,8 +63,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             options=self.book_options,
             width=300,
             text_size=14,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
         self.word_in_text = ft.TextField(
             label="Word in text",
@@ -72,14 +71,14 @@ class Pass1AddView(ft.Column, PopUpMixin):
             width=LABEL_WIDTH,
             color=HIGHLIGHT_COLOUR,
             expand=True,
-            border_radius=20,
+            border=field_border(),
         )
         self.remaining_to_process = ft.TextField(
             label="Remaining",
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=150,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self._history_dropdown = ft.Dropdown(
             hint_text="History",
@@ -87,7 +86,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             options=[],
             expand=True,
             expand_loose=True,
-            border_radius=20,
+            border=field_border(),
             text_size=14,
             on_select=self._handle_history_selection,
         )
@@ -97,7 +96,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=LABEL_WIDTH,
             expand=True,
-            border_radius=20,
+            border=field_border(),
             on_submit=self._click_clone_headword,
         )
         self.clone_button = ft.Button(

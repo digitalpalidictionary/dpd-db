@@ -16,7 +16,7 @@ from gui2.filter_logic import (
     validate_regex_patterns,
 )
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import is_mounted, request_focus, show_global_snackbar
+from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 from tools.spelling import CustomSpellChecker
 
 PAGE_SIZE = 100
@@ -58,6 +58,11 @@ class ColumnText(ft.Text):
 CELL_PADDING = 4
 
 
+def cell_border(color: ft.ColorValue) -> ft.OutlineInputBorder:
+    """A grid cell's square border, in the colour the spell check asks for."""
+    return field_border(color=color, width=3, radius=0)
+
+
 class CellText(ft.Container):
     """Read-only cell content. Tapping the cell swaps in a CellTextField."""
 
@@ -84,10 +89,7 @@ class CellTextField(ft.TextField):
             multiline=True,
             dense=True,
             content_padding=ft.Padding.all(CELL_PADDING),
-            border_radius=0,
-            border=ft.OutlineInputBorder(border_radius=0),
-            border_width=3,
-            border_color=ft.Colors.TRANSPARENT,
+            border=cell_border(ft.Colors.TRANSPARENT),
             text_align=ft.TextAlign.LEFT,
             text_style=ft.TextStyle(
                 size=12,
@@ -481,15 +483,15 @@ class FilterComponent(ft.Column):
 
     def _check_and_set_spell_border(self, field: ft.TextField, value: str):
         if not value:
-            field.border_color = ft.Colors.TRANSPARENT
+            field.border = cell_border(ft.Colors.TRANSPARENT)
             return
 
         clean_value = re.sub(r"<[^>]+>", "", value)
 
         if self.spellchecker.has_misspellings(clean_value):
-            field.border_color = ft.Colors.RED
+            field.border = cell_border(ft.Colors.RED)
         else:
-            field.border_color = ft.Colors.TRANSPARENT
+            field.border = cell_border(ft.Colors.TRANSPARENT)
 
     def _spell_check_cell(self, e: ft.ControlEvent) -> None:
         """Spell check cell content and update border."""

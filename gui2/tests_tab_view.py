@@ -6,7 +6,7 @@ from db_tests.db_tests_manager import InternalTestRow
 from gui2.filter_component import FilterComponent
 from gui2.tests_tab_controller import TestsTabController
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import show_global_snackbar
+from gui2.ui_utils import field_border, show_global_snackbar
 
 LOGIC_OPTIONS: list[str] = [
     "equals",
@@ -119,6 +119,7 @@ class TestsTabView(ft.Column):
             text_align=ft.TextAlign.RIGHT,
         )
         self.test_name_input = ft.TextField(
+            border=field_border(),
             width=920,
             label_style=TEXT_FIELD_LABEL_STYLE,
             text_style=ft.TextStyle(color=ft.Colors.WHITE),
@@ -136,6 +137,7 @@ class TestsTabView(ft.Column):
                     size=12,
                 ),
                 "search_column": ft.Dropdown(
+                    border=field_border(),
                     width=COLUMN_WIDTH,
                     label_style=TEXT_FIELD_LABEL_STYLE,
                     options=self.dpd_column_options,
@@ -146,6 +148,7 @@ class TestsTabView(ft.Column):
                     text_style=ft.TextStyle(size=12),
                 ),
                 "search_sign": ft.Dropdown(
+                    border=field_border(),
                     width=COLUMN_WIDTH,
                     options=[ft.dropdown.Option(logic) for logic in LOGIC_OPTIONS],
                     label_style=TEXT_FIELD_LABEL_STYLE,
@@ -155,6 +158,7 @@ class TestsTabView(ft.Column):
                     enable_search=True,
                 ),
                 "search_string": ft.TextField(
+                    border=field_border(),
                     width=COLUMN_WIDTH,
                     label_style=TEXT_FIELD_LABEL_STYLE,
                     text_size=12,
@@ -164,6 +168,7 @@ class TestsTabView(ft.Column):
 
         # Display & Iterations
         self.display_1_input = ft.Dropdown(
+            border=field_border(),
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
             options=self.dpd_column_options,
@@ -174,6 +179,7 @@ class TestsTabView(ft.Column):
             text_style=ft.TextStyle(size=12),
         )
         self.display_2_input = ft.Dropdown(
+            border=field_border(),
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
             options=self.dpd_column_options,
@@ -184,6 +190,7 @@ class TestsTabView(ft.Column):
             text_style=ft.TextStyle(size=12),
         )
         self.display_3_input = ft.Dropdown(
+            border=field_border(),
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
             options=self.dpd_column_options,
@@ -194,6 +201,7 @@ class TestsTabView(ft.Column):
             text_style=ft.TextStyle(size=12),
         )
         self.iterations_input = ft.TextField(
+            border=field_border(),
             width=100,
             label_style=TEXT_FIELD_LABEL_STYLE,
             text_style=ft.TextStyle(size=12),
@@ -201,6 +209,7 @@ class TestsTabView(ft.Column):
 
         # Error & Exceptions
         self.error_column_input = ft.Dropdown(
+            border=field_border(),
             label="Error Column",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -212,6 +221,7 @@ class TestsTabView(ft.Column):
             text_style=ft.TextStyle(size=12),
         )
         self.exceptions_textfield = ft.TextField(
+            border=field_border(),
             label="Exceptions",
             width=300,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -220,6 +230,7 @@ class TestsTabView(ft.Column):
         )
 
         self.test_add_exception_dropdown = ft.Dropdown(
+            border=field_border(),
             label="Add Exception",
             width=300,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -241,6 +252,7 @@ class TestsTabView(ft.Column):
 
         # Notes
         self.notes_input = ft.TextField(
+            border=field_border(),
             label="Notes",
             width=920,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -284,6 +296,7 @@ class TestsTabView(ft.Column):
         self.test_results_total_text.value = "0"
 
         self.test_db_query_input = ft.TextField(
+            border=field_border(),
             label="DB Browser Query",
             width=COLUMN_WIDTH,
             label_style=TEXT_FIELD_LABEL_STYLE,
@@ -563,7 +576,7 @@ class TestsTabView(ft.Column):
                 elements = self.search_criteria_elements[index]
                 if base_name in elements:
                     control = elements[base_name]
-                    control.border_color = ft.Colors.RED
+                    control.border = field_border(color=ft.Colors.RED)
                     self.page.update()
         except (ValueError, KeyError) as e:
             print(f"Error highlighting field '{field_name}': {e}")
@@ -573,5 +586,5 @@ class TestsTabView(ft.Column):
         for elements in self.search_criteria_elements:
             for control in elements.values():
                 if isinstance(control, (ft.Dropdown, ft.TextField)):
-                    control.border_color = None
+                    control.border = field_border()
         self.page.update()

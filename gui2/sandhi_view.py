@@ -6,6 +6,7 @@ from gui2.database_manager import DatabaseManager
 from gui2.mixins import PopUpMixin
 from gui2.sandhi_files_manager import SandhiFileManager
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import field_border
 
 FIELD_WIDTH = 1000
 BUTTON_WIDTH = 100
@@ -33,7 +34,7 @@ class SandhiView(ft.Column, PopUpMixin):
 
         self.message_field = ft.TextField(
             expand=True,
-            border_radius=20,
+            border=field_border(),
             text_style=ft.TextStyle(color=ft.Colors.BLUE_200),
         )
 
@@ -43,7 +44,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_sandhi_ok_click,
         )
         self.sandhi_ok_button = ft.Button(
@@ -58,7 +59,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_sandhi_click,
         )
         self.sandhi_correction = ft.TextField(
@@ -66,7 +67,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_sandhi_click,
         )
         self.add_to_sandhi_button = ft.Button(
@@ -81,7 +82,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             multiline=False,
             on_submit=self.handle_bulk_add_click,
         )
@@ -97,7 +98,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_variants_click,
         )
         self.variant_main_reading = ft.TextField(
@@ -105,7 +106,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_variants_click,
         )
         self.add_to_variants_button = ft.Button(
@@ -120,7 +121,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_spelling_mistakes_click,
         )
         self.spelling_mistake_correction = ft.TextField(
@@ -128,7 +129,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_spelling_mistakes_click,
         )
         self.add_to_spelling_mistakes_button = ft.Button(
@@ -143,7 +144,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_see_click,
         )
         self.see_headword = ft.TextField(
@@ -151,7 +152,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_see_click,
         )
         self.add_to_see_button = ft.Button(

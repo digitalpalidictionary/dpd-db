@@ -3,12 +3,15 @@
 **Spec:** `spec.md` in this directory. Read BR-1 to BR-21 before starting.
 **GitHub issue:** none.
 **Branch:** `flet-1-0`, in the main working tree. No worktree — user's call.
-**Revision:** 10 — the user battle-tested the migrated app. Fixed from that:
+**Revision:** 11 — BR-22 done (borders rewritten across 30 files); BR-24 done,
+its dead `window.icon` line removed and both desktop entries repointed at the
+client's new WM_CLASS, and the window title dropped at the user's request;
+BR-23 retested by the user and closed as **not a defect** — the dialog is
+modal, and the docstring that said otherwise is wrong; **BR-25** added, found
+by measuring the user's screenshot against the 0.28 baseline.
+Revision 10 — the user battle-tested the migrated app. Fixed from that:
 BR-18 (Ctrl+Q), BR-19 (launch crash), BR-20 (PopupMenuItem), BR-21 (focus/tab
-order). Still open: BR-22 (square corners — two wrong attempts, read its entry
-before trying again), BR-23 (dialog modality), BR-24 (window name and icon —
-one failed attempt), and the 135 deprecated border properties, which fold into
-BR-22. `resources/dpd-updater` dropped from scope.
+order). `resources/dpd-updater` dropped from scope.
 Revision 9 — records Phase 2c and Phase 3 as executed. Three corrections
 the reviews did not catch: BR-17 has **four** pre-mount reads, not two (two of
 them in `filter_tab_view.py`, found by a new transitive scanner); BR-15 has
@@ -35,7 +38,7 @@ Phase 2b partially completed.
 | 2a — wiring inventory | done |
 | 2b — behaviour catalogue | **done** — 415 of 463 bindings, zero uncatalogued; the other 48 are Phase 6 scope |
 | 2c — handler timing | **done** — 213 invocations, 6 files; 4 shortlist items unexercised |
-| 3 — upgrade, rewrites, renames | **app runs; 3 open issues from battle-testing** — see *Open issues* at the end of Phase 3. Was: code complete — every edit done and statically verified; BR-16 and the catalogue walk are the two remaining tasks and both are visual |
+| 3 — upgrade, rewrites, renames | **app runs; every open issue fixed in code, one visual pass left** — BR-22, BR-24 and BR-25 done and awaiting the user's check; BR-23 retested and closed as not a defect. See *Open issues* at the end of Phase 3 |
 | 4 — threading | not started |
 | 5 — automatic updates audit | not started |
 | 6 — other Flet consumers | **partly done** — renames, typing and the updater's own pin pulled forward; BR-9 and the launch checks remain |
@@ -1138,6 +1141,26 @@ improvement.
   only applied that rule to items it already suspected. Run this checker at the
   top of Phase 6, and again in Phase 7.
 
+- [~] **BR-25 (new) — `expand` now beats `width` on a form field, so the pass
+  views' dropdowns stretch across the whole row.** Found by measuring the
+  user's 1.0 screenshot against `screenshots_before/07_pass2add.png` after they
+  reported the fields looking "cramped".
+
+  The measurement is the point here, because the obvious suspect was wrong.
+  Field heights (57px), row pitch (63px), text insets and outline brightness
+  are all **unchanged** from 0.28 — the border pass did not alter the geometry
+  at all. One thing did change: the `pos` / `neg` / `verb` / `trans` /
+  `plus_case` dropdowns were 665px wide and are now 1251px, filling the row.
+
+  Cause: `DpdDropdown` and `DpdTextField` in `gui2/dpd_fields_classes.py` both
+  pass `expand=True` **and** `width=700`, which contradict each other. 0.28 let
+  `width` win for the dropdown and `expand` win for the text field; 1.0 lets
+  `expand` win for both. Fix: drop `expand` from `DpdDropdown` only, so its
+  `width=700` governs again. `DpdTextField` is left alone — it was already
+  full-width in 0.28.
+  → verify: against `screenshots_before/07_pass2add.png`, the dropdowns stop
+    well short of the text fields' right edge again.
+
 - [ ] Phase verification: launch and walk the entire behaviour catalogue.
   → verify: every entry behaves as described, or the deviation is recorded here
     with a cause. UI freezes are expected at this point — that is Phase 4.
@@ -1146,10 +1169,45 @@ improvement.
 
 Found by the user running the migrated app on 2026-09-17. Fixed already:
 tab-order/focus (BR-21), the `PopupMenuItem` crash (BR-20), the launch crash
-(BR-19), Ctrl+Q (BR-18). These four remain, none of them yet solved.
+(BR-19), Ctrl+Q (BR-18). Since then: BR-22 and BR-24 fixed, BR-23 retested and
+found not to be a defect, and BR-25 found by measuring the user's screenshot
+against the baseline. All four are done in code and awaiting one visual pass.
 
-- [ ] **BR-22 — input fields render square; they were rounded in 0.28. The
+- [~] **BR-22 — input fields render square; they were rounded in 0.28. The
   user wants them rounded.** This is the top priority: it affects every screen.
+
+  **Done in code on 2026-09-17; awaiting the user's visual check.** What landed:
+
+  - `field_border(color=None, width=1.0, radius=20)` in `gui2/ui_utils.py`,
+    returning `ft.OutlineInputBorder`. Leaving `color` unset keeps the Material
+    theme's per-state colours, which is what a `border_radius`-only field used
+    to get. `FIELD_RADIUS = 20` is the codebase's existing convention (94 of the
+    101 radius values were already 20).
+  - **116** deprecated kwargs across **84** constructions in 20 files converted
+    to `border=field_border(...)`. Not 135 — that count came from a flat grep
+    and included 13 `border_radius=` on `Container`/`DataTable`, where the
+    property is **not** deprecated. `artifacts/check_border_props.py` separates
+    them by callee and is the authority; it now reports **0** deprecated kwargs
+    on form fields.
+  - **28** borderless `TextField`/`Dropdown` constructions given
+    `border=field_border()`. The plan said 31; the real figure after excluding
+    the `Dpd*` wrappers (which set their border in their own `__init__`) and
+    `gui2/utilities/` (Phase 6) is 28. The two `SearchBar`s in that list were
+    dropped: `SearchBar` is not a `FormFieldControl` in 1.0 and has no `border`
+    — it takes `bar_shape`/`bar_border_side`, and was never part of BR-22.
+  - **BR-16's red signals had to move too**, which the plan did not anticipate.
+    `.border_color = RED` / `= None` at `tests_tab_view.py` and
+    `dpd_fields_examples.py` now set `.border = field_border(color=RED)` and
+    back to `field_border()`; `filter_component.py`'s spell-check border goes
+    through a new `cell_border(colour)` so the red state keeps the cell's own
+    square, 3px shape instead of reverting to the rounded default.
+  - `border_width=0` on `pass2_auto_view.py`'s AI results field became
+    `ft.NoInputBorder()` — `field_border` cannot express a widthless border,
+    and "no border" was the evident intent. Judgement call; check it visually.
+
+  Green after the pass: `ruff check`, `ruff format --check`, `uv run pyright`
+  all clean on the 30 touched files; `just typecheck` 0 errors;
+  `tests/gui2/` 284 passed; all 30 modules import.
 
   **Do not repeat the two wrong attempts.** First attempt blamed the deprecated
   `border_radius` property; second attempt fixed four fields that set an
@@ -1176,32 +1234,70 @@ tab-order/focus (BR-21), the `PopupMenuItem` crash (BR-20), the launch crash
     already re-run the app three times for this one item. Compare before
     asking them again.
 
-- [ ] **BR-24 — the window still shows Flet's name and icon, not DPD's.**
-  An attempt to fix this set `page.title` and `page.window.icon` (an absolute
-  path to `identity/logo/dpd-logo-512.png`) in `App.__init__`. **It did not
-  work — the user confirmed both are still Flet's.** Untested guess, recorded
-  so the next attempt does not repeat it.
+- [~] **BR-24 — the window still shows Flet's name and icon, not DPD's.**
+  The three unknowns are now settled, and the premise was wrong: this was never
+  a Flet default that changed.
 
-  Unknowns to settle before trying again: whether the desktop window title in
-  1.0 comes from `page.title` at all or from the `name` argument to `ft.run`;
-  and whether `window.icon` wants a path relative to `assets_dir` (which
-  defaults to `assets`, a directory this repo does not have) rather than an
-  absolute one. Note 0.28 never set either, so whatever produced the DPD name
-  and icon before was a Flet default that changed — possibly tied to the
-  `flet-desktop-light` → `flet-desktop` package swap recorded in the pin task.
-  → verify: the window's title bar and the OS task switcher both show DPD.
+  - `window.icon` **cannot work here.** Its own docstring in the installed
+    wheel says "Has effect on Windows only" and "the file should have the
+    `.ico` extension". The earlier attempt set an absolute `.png` on Linux, so
+    it was inert twice over. The line is removed.
+  - `ft.run(name=)` is **not** the window title — the wheel documents it as the
+    "page/app name used in web URL path when applicable". `page.title` is the
+    title, and it stays set.
+  - **The taskbar name and icon come from the desktop entry, not from Flet.**
+    `~/.local/share/applications/dpd-gui2.desktop` carries
+    `StartupWMClass=flet`, and it is that entry which supplied `Name=dpd-gui2`
+    and `Icon=…/dpd-logo-dark.svg` under 0.28. If 1.0's client reports a
+    different WM_CLASS, the match breaks and the desktop falls back to the
+    binary's own name and icon — exactly the symptom.
 
-- [ ] **BR-23 — the example dialog on Pass2Add is no longer modal.**
-  `_eg_alert` is built with `modal=True` (`pass2_add_view.py`) and always was,
-  so this is a 1.0 behaviour change in `AlertDialog`/`show_dialog`, not a lost
-  flag. Not yet investigated.
-  → verify: open the eg dialog and click outside it; it must not dismiss.
+  **Confirmed and fixed 2026-09-17.** The user read the running window's class:
+  `WM_CLASS(STRING) = "com.appveyor.flet", "Com.appveyor.flet"`. Under 0.28 it
+  was plain `flet`, which is exactly what the desktop entry matched, so the
+  rename broke it. `StartupWMClass=flet` → `StartupWMClass=com.appveyor.flet`
+  in both copies: `gui2/linux/dpd-gui2.desktop` (the repo's template, the
+  durable fix) and the installed `~/.local/share/applications/dpd-gui2.desktop`.
+  **Scope change, user's call, same day:** having seen the title bar show
+  "Digital Pāḷi Dictionary", the user asked for it removed. `page.title` is no
+  longer set, so the window carries no title of its own. This does not affect
+  the taskbar identity, which comes from the desktop entry.
+  → verify: no name in the window's title bar, and the task switcher shows the
+    DPD name and logo after the next launch.
 
-- [ ] **135 deprecated border properties**, 21 files: `border_radius=` (95),
-  `border_color=` (28), `border_width=` (12) on `TextField`/`Dropdown`. They
-  work until Flet 1.3 but warn on every construction, which is the console
-  noise the user asked to be rid of. Fold into BR-22 above — same edit, same
-  files, one screenshot pass.
+- [x] **BR-23 — the example dialog on Pass2Add is no longer modal.**
+  **Not a defect. Retested by the user on 2026-09-17: the eg dialog does not
+  dismiss on an outside click. It is modal and always was.** The original
+  report was a mis-observation, and the right call was to change nothing. Kept
+  below because the reasoning is the reusable part.
+
+  Investigated; **no code change made, and none was justified.**
+
+  The installed wheel's docstring reads "Whether dialog can be dismissed/closed
+  by clicking the area outside of it", which would make `modal` inverted in 1.0
+  — but that docstring is wrong. Flet's own Dart control at tag `v1.0.0`
+  (`packages/flet/lib/src/controls/alert_dialog.dart:113`) passes
+  `barrierDismissible: !modal`, and `CupertinoAlertDialog`'s Python docstring
+  still says "cannot be dismissed". So `modal=True` is the correct, unchanged
+  spelling and `_eg_alert` is already written correctly.
+
+  Flipping it would mean flipping all **18** `modal=True` dialogs in `gui2/` on
+  a docstring that the shipped Dart contradicts. Not done.
+
+  What is needed is one more observation, because the current one does not
+  discriminate: does *any other* modal dialog also dismiss on an outside click
+  (a Filter preset-name dialog, the Roots confirm dialog), or only the eg one?
+  If only the eg one, the cause is local to that dialog — most likely its
+  500×500 `Column` content leaving clickable page area inside the dialog's own
+  route rather than the barrier being dismissible.
+  → verify: open the eg dialog and click outside it; it must not dismiss. Then
+    do the same with one other modal dialog and report whether it dismisses.
+
+- [x] **Deprecated border properties** — done as part of BR-22. The real count
+  was **116** on form fields, not 135: the original figure came from a flat
+  grep that swept in 13 `border_radius=` on `Container` and `DataTable`, where
+  the property is not deprecated and must stay.
+  → verify: `artifacts/check_border_props.py` reports 0 on form fields. ✅
 
 **Not an issue:** `just gui` ran a `uv sync` once. That was the pin change
 landing; verified not to recur.
@@ -1239,14 +1335,10 @@ failure early on saves doing the rest.
 Expect the window to freeze during slow actions. That is Phase 4's job, not a
 Phase 3 defect.
 
-**Deprecation warnings on the console are expected and are NOT this thread's
-scope.** 135 uses of `border_radius=`, `border_color=` and `border_width=` on
-`TextField`/`Dropdown` across 21 files are deprecated in 1.0 and removed in
-1.3.0. They work. Converting them means moving each to
-`border=OutlineInputBorder(...)`, which changes how the field is drawn, so it
-is a visual-design change rather than a migration rename — it needs the user's
-decision and its own before/after screenshot pass. Logged here as
-`NOTICED — NOT TOUCHING`.
+**The border deprecation warnings are gone** — converting them was folded into
+BR-22 once the user asked for the rounded corners back, since it is the same
+edit in the same files. Superseded; the earlier `NOTICED — NOT TOUCHING` note
+no longer applies.
 
 ---
 

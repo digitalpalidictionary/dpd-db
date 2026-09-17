@@ -3,7 +3,7 @@ import re
 
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.dpd_fields_functions import make_compound_construction_from_headword
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 
 
 class DpdCompoundConstructionField(ft.Column):
@@ -40,6 +40,7 @@ class DpdCompoundConstructionField(ft.Column):
         )
 
         self.bolding_field = ft.TextField(
+            border=field_border(),
             label="Bold",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,

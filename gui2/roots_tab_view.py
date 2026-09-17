@@ -3,7 +3,7 @@ import flet as ft
 
 from db.models import DpdRoot
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import is_mounted, request_focus, show_global_snackbar
+from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 
 GROUP_LABEL_WIDTH = 150
 LABEL_COLOUR = ft.Colors.GREY_500
@@ -41,9 +41,7 @@ class RootsTabView(ft.Column):
             editable=True,
             enable_filter=True,
             expand=True,
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
             on_select=self._on_dropdown_change,
         )
@@ -52,8 +50,7 @@ class RootsTabView(ft.Column):
             "",
             read_only=True,
             expand=True,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
             color=HIGHLIGHT_COLOUR,
             hint_text="Messages",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
@@ -193,7 +190,7 @@ class RootsTabView(ft.Column):
     ) -> ft.TextField:
         field = ft.TextField(
             expand=expand,
-            border_radius=10,
+            border=field_border(radius=10),
             multiline=multiline,
             min_lines=1,
             max_lines=4 if multiline else 1,

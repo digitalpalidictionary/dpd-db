@@ -27,7 +27,8 @@ One row per improvement, filled in as they are taken.
 
 | # | What changed | Opened by | Evidence behaviour is identical |
 |---|---|---|---|
-| — | *none yet* | | |
+| 1 | `field_border()` in `gui2/ui_utils.py` replaces the `ft.OutlineInputBorder(border_radius=…, side=ft.BorderSide(…))` expression that BR-22 would otherwise have spelled out 112 times. One place now states the editor's field radius. | BR-22 | Every call's arguments were derived mechanically from the kwargs it replaced (`artifacts/check_border_props.py` before/after: 116 deprecated kwargs → 0). Colour omitted where the old code omitted it, so the theme still resolves the per-state colour. |
+| 2 | `cell_border(colour)` in `gui2/filter_component.py` — the grid cell's square 3px border in one place, used by both the constructor and the spell check. | BR-22 | The spell check previously set only `border_color`, inheriting the cell's radius and width; routing it through `cell_border` reproduces exactly that shape, which a bare `field_border(color=RED)` would not have. |
 
 ---
 

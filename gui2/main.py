@@ -40,11 +40,10 @@ class App:
 
         page.theme = ft.Theme()
         page.theme.font_family = "Inter"
-        # Neither was ever set: 0.28 picked up a name and icon on its own, and
-        # 1.0 falls back to Flet's. Set explicitly so the window is the app's
-        # regardless of what the runtime defaults to.
-        self.page.title = "Digital Pāḷi Dictionary"
-        self.page.window.icon = str(Path("identity/logo/dpd-logo-512.png").resolve())
+        # No window title by the user's choice. The taskbar name and icon do not
+        # come from here anyway — on Linux they come from the desktop entry whose
+        # `StartupWMClass` matches the Flutter client's WM_CLASS, and
+        # `window.icon` is Windows-only and wants a `.ico`.
         self.page.window.top = 0
         self.page.window.left = 0
         self.page.window.height = 1280

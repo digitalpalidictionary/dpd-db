@@ -7,7 +7,7 @@ from tools.example_cleaning import clean_commentary
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import process_bold_tags
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import request_focus
+from gui2.ui_utils import field_border, request_focus
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.speech_marks import SpeechMarkManager
@@ -59,6 +59,7 @@ class DpdCommentaryField(ft.Column):
         # --- Controls for Toggle Visibility ---
         self.search_field_1 = ft.TextField(
             "",
+            border=field_border(),
             width=200,
             on_focus=self._search_field_1_focus,
             on_submit=self.click_commentary_search,
@@ -67,6 +68,7 @@ class DpdCommentaryField(ft.Column):
         )
         self.search_field_2 = ft.TextField(
             "",
+            border=field_border(),
             width=200,
             on_submit=self.click_commentary_search,
             hint_text="which contains",
