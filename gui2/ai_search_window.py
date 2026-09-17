@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 import sys
 from pathlib import Path
@@ -116,7 +117,7 @@ class AiSearchWindow:
         self.model_dropdown.value = DEFAULT_MODEL_KEY
         self.model_dropdown.update()
 
-    def _handle_submit(self, e: ft.ControlEvent):
+    async def _handle_submit(self, e: ft.ControlEvent):
         prompt_text = self.prompt_field.value
         if not prompt_text:
             self.prompt_field.error_text = "Please enter a prompt."
@@ -129,12 +130,13 @@ class AiSearchWindow:
         try:
             selected = self.model_dropdown.value or DEFAULT_MODEL_KEY
             if selected.startswith(GROUNDED_KEY_PREFIX):
-                ai_response = self.ai_manager.request(
-                    prompt=prompt_text, grounding=True
+                ai_response = await asyncio.to_thread(
+                    self.ai_manager.request, prompt=prompt_text, grounding=True
                 )
             else:
                 provider_preference, model_name = selected.split("|", 1)
-                ai_response = self.ai_manager.request(
+                ai_response = await asyncio.to_thread(
+                    self.ai_manager.request,
                     prompt=prompt_text,
                     provider_preference=provider_preference,
                     model=model_name,

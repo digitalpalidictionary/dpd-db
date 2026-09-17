@@ -147,23 +147,35 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
 
 def git_commit(pth: ProjectPaths):
     pr.green_tmr("committing changes to GitHub")
+    repo = Repo("./")
+
+    # Add all split files for headwords and roots
+    backup_dir = pth.pali_word_path.parent
+    headword_files = list(backup_dir.glob("dpd_headwords_part_*.tsv"))
+    root_files = list(backup_dir.glob("dpd_roots_part_*.tsv"))
+
+    files_to_add = [str(f) for f in headword_files + root_files]
+    if not files_to_add:
+        pr.no("no files to commit")
+        return
+
+    staged = False
     try:
-        repo = Repo("./")
-        index = repo.index
-
-        # Add all split files for headwords and roots
-        backup_dir = pth.pali_word_path.parent
-        headword_files = list(backup_dir.glob("dpd_headwords_part_*.tsv"))
-        root_files = list(backup_dir.glob("dpd_roots_part_*.tsv"))
-
-        files_to_add = headword_files + root_files
-        if files_to_add:
-            index.add([str(f) for f in files_to_add])
-            index.commit("pali update")
-            pr.yes("ok")
-        else:
-            pr.no("no files to commit")
+        repo.index.add(files_to_add)
+        staged = True
+        repo.index.commit("pali update")
+        pr.yes("ok")
     except Exception as e:
+        # Staging happens before the commit, so a failed commit (a busy
+        # index.lock, a rejected pre-commit hook) used to leave these files
+        # staged in a tree other sessions share, where they would silently ride
+        # along with the next unrelated commit. Undo our own staging, by
+        # explicit path, and never touch anything else.
+        if staged:
+            try:
+                repo.git.restore("--staged", *files_to_add)
+            except Exception as unstage_error:
+                pr.no(f"unstage failed: {unstage_error}")
         pr.no(f"{e}")
 
 

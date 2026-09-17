@@ -46,7 +46,7 @@ Phase 2b partially completed.
 | 2c — handler timing | **done** — 213 invocations, 6 files; 4 shortlist items unexercised |
 | 3 — upgrade, rewrites, renames | **app runs; every open issue fixed in code, one visual pass left** — BR-22, BR-24 and BR-25 done and awaiting the user's check; BR-23 retested and closed as not a defect. See *Open issues* at the end of Phase 3 |
 | 4 — threading | **done** — instrumentation ported, two sessions measured, both audits closed, four conversions landed and confirmed by the user |
-| 5 — automatic updates audit | not started |
+| 5 — automatic updates audit | **done** — both pre-mount sweeps clean, frozen case is zero-site, six progress handlers converted |
 | 6 — other Flet consumers | **partly done** — renames, typing and the updater's own pin pulled forward; BR-9 and the launch checks remain |
 | 7 — verification and handover | not started |
 
@@ -1862,7 +1862,7 @@ Harmless, and removing them is a cosmetic rename under AD#8.
 
 ## Phase 5 — Automatic updates audit
 
-- [ ] Find every remaining place a control is refreshed before it is attached.
+- [x] Find every remaining place a control is refreshed before it is attached.
   BR-13's confirmed site is fixed in Phase 3; this is the sweep for the rest.
   Start from the lazy-build paths, the deferred construction in `gui2/main.py`,
   and any refresh inside a constructor or init.
@@ -1875,22 +1875,151 @@ Harmless, and removing them is a cosmetic rename under AD#8.
     ones** — a screen never opened is a screen never tested. No exception
     raised. Record which call sites changed.
 
-- [ ] **BR-13 second case:** `update()` also raises on a frozen control
+  ✅ **Zero call sites changed.** New guard
+  `artifacts/check_premount_update.py`, the sibling of `check_premount_page.py`:
+  it walks the call graph from every control subclass's `__init__` and reports
+  any `update()` it reaches. First run printed **6**, all six false positives on
+  inspection, and the scanner was tightened rather than the code:
+
+  | Site | Why it is safe |
+  |---|---|
+  | `compound_type_tab_view.py:88,109` | inside an `on_select` lambda — bound in the constructor, run after mount |
+  | `filter_tab_view.py:289,382`, `pass1_add_view.py:437`, `pass2_add_view.py:678` | `target` is `page or page_of(self)`, BR-17's own fix pattern, so the receiver is the `Page` |
+
+  So the scanner now skips nested functions and lambdas, and recognises the
+  `page or page_of(self)` alias. Its sensitivity is proved rather than assumed:
+  a synthetic `__init__ -> _refresh -> self._f.update()` is still reported.
+
+  The two `_add` shadow-field updates outside constructor scope were re-checked
+  against the live lists rather than the spec's prose. `dpd_fields.py:1586`
+  carries the Phase 3 `is_mounted` guard; `:940` (`phonetic_add_field`) needs
+  none — `'phonetic' in PASS1_FIELDS` is `False`, so it is unreachable on the
+  one screen where the `_add` fields are unmounted, and Pass2Add mounts them
+  all (`add_to_ui(..., include_add_fields=True)`).
+
+  Launching and walking every screen is owed and needs a human; it is pooled
+  with the Phase 7 catalogue walk.
+
+- [x] **BR-13 second case:** `update()` also raises on a frozen control
   (`"Frozen control cannot be updated."`). New in 1.0, not in the guide, not
   caught by either review.
   → verify: no `RuntimeError` mentioning a frozen control during a full walk of
     the catalogue.
 
-- [ ] Find every handler that refreshes mid-execution to show progress; convert
+  ✅ **Zero sites, settled by provenance rather than by walking the catalogue.**
+  `_frozen` is only ever set in two places in the installed wheel, and both are
+  inside `flet/components/` — the declarative components API
+  (`component.py:149,164` marks a rendered subtree frozen, and
+  `hooks/use_dialog.py:107` patches a dialog frozen). Nothing else in Flet sets
+  it.
+
+  This codebase uses the imperative API exclusively: a grep over `gui2/` and
+  `db_tests/gui/` for `ft.component`, `@component`, `ft.Component`,
+  `from flet.components`, `use_state` and `use_dialog` returns **zero**. No
+  control here can acquire `_frozen`, so the second case cannot arise. That is
+  stronger evidence than a clean walk would be, which is why the walk is not
+  the verification.
+
+- [x] Find every handler that refreshes mid-execution to show progress; convert
   to yielding generators.
   → verify: perform each such action and watch the screen — the progress
     indicator visibly changes *during* the operation, not only at the end.
 
-- [ ] Review the 372 manual refresh calls. Most are now harmless no-ops; leave
+  ✅ **Six handlers, all converted.** 1.0 does support the generator form the
+  task names — `BaseControl._trigger_event` has a `isgeneratorfunction` branch
+  that flushes the patch and `await asyncio.sleep(0)`s on every `yield` — but
+  the pattern used is Phase 4's `async def` + `asyncio.to_thread`, which the
+  user has already confirmed working in this app. It satisfies the same verify
+  line and additionally keeps the window responsive, where a generator would
+  paint the message and then freeze for the duration.
+
+  | Handler | Message that never painted | Now |
+  |---|---|---|
+  | `global_tab_view._click_backup_quit` | "Running database backup..." | `_say` + `to_thread(backup_dpd_headwords_and_roots)` |
+  | `global_tab_view._click_update_inflections` | "Updating inflections..." | `async def`, `_say`, three `to_thread` calls |
+  | `pass2_add_view._click_update_sandhi` — menu item **"Update Speech Marks"** | "updating speech marks... please wait..." | `async def` + `to_thread(regenerate_from_db)` |
+  | `pass2_add_view._click_update_with_ai` — menu item **"AiAutofill"** | "Requesting AI update for …" | `async def` + `to_thread(process_single_headword_from_view)` |
+  | `ai_search_window._handle_submit` | "Getting response..." | `async def` + `to_thread(ai_manager.request)` |
+  | `tests_tab_controller.handle_run_tests_clicked` | three: loading tests / integrity check / loading database | `async def`; `load_tests` and `load_db` to `to_thread` |
+
+  Two decisions inside that table worth recording:
+
+  - **No `_say` helper was added to `pass2_add_view`.** Where the message and
+    the `await to_thread(...)` are adjacent, awaiting the offload is itself the
+    suspension that flushes the patch — the same reasoning already written into
+    `translations_view.search_clicked`. A comment at the sandhi call site says
+    so. `global_tab_view` keeps using its existing `_say`, that being the file's
+    own idiom.
+  - **The integrity check is not offloaded.** `integrity_check` writes the
+    failing test's name into the view, and a worker thread must not touch
+    controls, so it keeps running on the loop with a bare
+    `await asyncio.sleep(0)` in front of it to flush the message. The rest of
+    the tests run loop (`_run_next_test_from_generator`) is untouched.
+
+  **Caller audit, per the Phase 4 lesson that `gui2/` has no type checker to
+  catch an async mistake:** all six are bound only (`on_click=` / `on_submit=`)
+  and none is called directly anywhere in `gui2/`. `check_unawaited.py` reports
+  0.
+
+  **User's test, 2026-09-17.** The Ask AI window is confirmed working. Two of
+  the menu items were named here by their method rather than by the label the
+  code renders — they are **"Update Speech Marks"** and **"AiAutofill"**, and
+  the table above is corrected. Three results need recording:
+
+  - **Tests tab — only "loading database..." was seen.** Not a defect, and
+    measured rather than assumed: `load_tests` takes **13 ms** (549 tests) and
+    `integrity_check` **1 ms**, against roughly 15 s for `load_db`. The first
+    two messages do paint; they are simply on screen for a few milliseconds.
+    Nothing to fix. (Whether those two steps deserve a message at all is a
+    pre-existing design question — `NOTICED — NOT TOUCHING`.)
+
+  - **Update inflections prints `Error: tic() not called before toc()`.**
+    **PRE-EXISTING — NOT CAUSED BY THIS THREAD.** `InflectionsManager.run()`
+    ends with `pr.toc()`, but `pr.tic()` is only ever called by that module's
+    own `main()` (`db/inflections/generate_inflection_tables.py:290,295`). Any
+    caller that invokes `run()` directly hits it, and `git show
+    main:gui2/global_tab_view.py` shows the handler called `run()` directly on
+    `main` too. Console noise only; the inflections work itself completed.
+
+  - **Backup and quit failed at `committing changes to GitHub`** with
+    `Unable to create .git/index.lock: File exists`. **PRE-EXISTING —
+    NOT CAUSED BY THIS THREAD**, and it is the ⚠️ DRIFT already recorded
+    against the Phase 3 backup task: `backup_dpd_headwords_and_roots` calls
+    `git_commit` unconditionally. The TSVs were written correctly; only the
+    commit failed, on a transient lock from another git process. No
+    `.git/index.lock` remains.
+
+    **It left three files staged in the shared tree** —
+    `db/backup_tsv/dpd_headwords_part_001..003.tsv` are in the index, because
+    `git_commit` ran `git add` before the hook rejected the commit. Reported to
+    the user; this thread does not run git and must not unstage them. Had the
+    lock not intervened, a `pali update` commit would have landed on the
+    `flet-1-0` migration branch, which is exactly what the Phase 3 drift note
+    predicted.
+
+- [x] Review the 372 manual refresh calls. Most are now harmless no-ops; leave
   them. Remove one only where it is provably wrong. **Do not do a cleanup
   sweep** — this is a migration, not a refactor.
   → verify: state here how many refresh calls changed and why each had to. If
     the answer is "none beyond the two categories above", that is correct.
+
+  ✅ **None beyond the two categories above.** No `update()` call was added,
+  removed or moved by this phase; the six conversions changed *when* the loop
+  gets a turn, not what is refreshed.
+
+  One thing was checked and deliberately left alone. 15 live sites still close a
+  dialog with the 0.28 idiom `dialog.open = False` + `page.update()` rather than
+  `pop_dialog()`, which looked at first like a missed BR-8 conversion. It is
+  not: `BasePage.pop_dialog` is literally `dialog.open = False; dialog.update()`,
+  and the dialog lives in `page._dialogs`, so the existing idiom is equivalent.
+  `NOTICED — NOT TOUCHING`.
+
+**Phase 5 verification.** `uv run pytest tests/` **1886 passed, 12 deselected**;
+`tests/gui2/` **284 passed**; `just typecheck` **0 errors**; `ruff check` and
+`ruff format` clean on all four touched files plus the new guard; all four
+modules import. All four guard scripts exit 0 —
+`check_unawaited` 0, `check_premount_update` 0, `check_premount_page` 0,
+`check_self_page` 0 breaks / 16 safe.
 
 ---
 

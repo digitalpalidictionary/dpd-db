@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 from typing import TYPE_CHECKING, Generator
 
@@ -52,7 +53,7 @@ class TestsTabController:
             self.view.test_direction_button.icon = ft.Icons.ARROW_FORWARD
         self.view.page.update()
 
-    def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
+    async def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
         # Step 1: Clear previous integrity failure highlights
         self.view.reset_field_highlights()
 
@@ -64,8 +65,13 @@ class TestsTabController:
         self.view.page.update()
 
         # Step 3: Load tests first
+        #
+        # Each of the three progress messages below used to be invisible: this
+        # handler ran on the event loop, so `page.update()` queued a patch that
+        # was not flushed until the whole run was over and only the last message
+        # ever appeared. Awaiting the work gives the loop the turn it needs.
         self.view.update_test_name("Loading tests...")
-        tests_list = self.load_tests()
+        tests_list = await asyncio.to_thread(self.load_tests)
         if tests_list is None:
             self.view.update_test_name("Error loading tests")
             self.view.set_run_tests_button_disabled_state(False)
@@ -80,6 +86,10 @@ class TestsTabController:
 
         # Step 4: Integrity check before loading the DB
         self.view.update_test_name("running integrity check...")
+        # Not offloaded: `integrity_check` writes the failing test's name into
+        # the view, and a worker thread must not touch controls. The sleep is
+        # what flushes the message before the check begins.
+        await asyncio.sleep(0)
         integrity_result, failures = self.integrity_check(tests_list)
         if not integrity_result:
             self._integrity_failures = failures
@@ -92,7 +102,7 @@ class TestsTabController:
 
         # Step 5: Load DB (only if integrity is OK)
         self.view.update_test_name("loading database...")
-        db_entries = self.load_db()
+        db_entries = await asyncio.to_thread(self.load_db)
         if db_entries is None:
             self.view.update_test_name("Error loading database")
             self.view.set_run_tests_button_disabled_state(False)

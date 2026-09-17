@@ -1,93 +1,87 @@
-# Handoff — 2026-09-17, Phase 4 in progress
+# Handoff — 2026-09-17, Phase 5 complete, awaiting the user's test
 
 ## Where to start
 
-**Phase 4, second measured session.** The conversion task cannot be scoped
-until the pass views have been measured on 1.0 — see the coverage gap below.
+**Phase 6 — the other Flet consumers.** First task: launch the 7 data-integrity
+GUI helpers. Phases 0–5 are done; Phase 6 is partly done already (the renames
+and typing were pulled forward into Phase 3), so what remains there is BR-9 and
+the launch checks.
 
-## State of Phase 4
+Phase 5's code changes are **uncommitted and not yet user-tested**. Ask for the
+test before moving on.
 
-| Task | State |
+## State
+
+| Phase | State |
 |---|---|
-| Port the instrumentation and re-run | measured once; **coverage insufficient**, needs a second session |
-| Convert the slow handlers | blocked on the above |
-| Audit the pre-existing concurrency | **done** — nothing to fix, evidence in `plan.md` |
-| Audit the non-database blocking | not started |
-| Phase verification | not started |
+| 0–4 | done, committed through `d6891c48` |
+| 5 | **done in code, awaiting the user's test** |
+| 6 | partly done — BR-9 and the launch checks remain |
+| 7 | not started |
 
-## What this session did
+Branch `flet-1-0`. Four modified source files, one new guard script, all this
+thread's; `artifacts/instrument_handlers.py` stays untracked on purpose (AD#4).
 
-**Ported the instrumentation.** 0.28 had three dispatch routes; 1.0 funnels all
-four handler shapes through one method. The trap: that method also flushes the
-UI patch afterwards, which would have inflated every row against the 0.28
-baseline, worst for the handlers touching the most controls. Framework time is
-measured separately and subtracted. Verified headlessly against all four shapes
-(20.3 / 30.6 / 20.6 / 30.8 ms against injected 20/30/20/30).
+## What Phase 5 landed
 
-**First 1.0 session captured: 367 invocations, 6 files, 18:12–18:18.** Nothing
-on the UI thread is meaningfully over budget; the worst is one compound-type
-submit at 192 ms against a 150 ms budget, `n=1`. The keyboard handler BR-4 made
-async ran 188 times at a 0.5 ms median. Both background operations came in
-faster than 0.28 (11.7 s against 15.5 s; 3.35 s against 4.2 s).
+Two sweeps came back empty and one found real work.
 
-**The concurrency audit is closed, and the risk it raised is not real.** The one
-raw thread touches no control at all. The cross-thread delivery concern —
-worker-thread refreshes landing on the loop's queue through a call that is not
-thread-safe — was disproved by the log rather than by reading: Flet wraps every
-snackbar's dismissal, so a snackbar that renders leaves its own row, and both
-startup snackbars dismissed ~2.55 s after their worker finished against a
-2000 ms duration. They painted promptly from the worker thread. The user simply
-missed a 2-second message during an 11-second load. That also closes BR-17's
-outstanding evidence gate, since the warm-up snackbar only fires when all 16
-views built.
+**Pre-mount refreshes: zero.** A new guard, `artifacts/check_premount_update.py`,
+walks the call graph out of every control subclass's constructor looking for
+`update()`. Its first run printed six hits and every one was a false positive —
+four were the `page or page_of(self)` alias from BR-17's own fix, two were
+inside `on_select` lambdas. The scanner was tightened to recognise both, and its
+sensitivity re-proved against a synthetic case. No source line changed.
 
-**Two defects fixed from the user's screenshots**, both recorded as spec items:
+**The frozen-control case: zero, by provenance.** `_frozen` is set in exactly
+two places in the wheel and both are inside the declarative components API. A
+grep for every entry point into that API across `gui2/` and `db_tests/gui/`
+returns nothing, so no control here can ever acquire the marker. That is a
+better answer than a clean walk of the catalogue, which is what the plan
+originally asked for.
 
-- **BR-26** — 1.0 leaves less room for a button's label at the same width, so
-  the Filter tab's preset buttons wrapped mid-word. Measured first: the 0.28
-  pills were exactly 80/100/80 px with their labels on one line, and 1.0
-  honours the same numbers, so the width was never the variable. Those three
-  now size to their labels. An AST sweep bounds the rest: 11 narrow buttons
-  exist, the other 8 have short enough labels.
-- **BR-24, third scope change** — the title bar showed `flet`. Not setting the
-  title leaves it `None`, which the client fills with its own name; the empty
-  string is what means "show nothing". Now set explicitly.
+**Six progress handlers converted.** Each set a status message and then blocked
+the event loop, so the message it was meant to show only appeared once the work
+was already over: the database backup, the inflections update, the speech-marks
+regeneration, the per-word AI update, the standalone AI search window, and the
+three-step start of a test run. All are now `async def` with the slow half on
+`asyncio.to_thread`.
 
-## Coverage gap — read before scoping the conversions
+## Three things worth knowing before Phase 6
 
-The measured session was the Filter tab and the Compound Type tab. The pass
-views have **one row between them**, and the four shortlist items the 0.28 run
-also missed — the two TSV re-readers, the CST book search, the subprocess
-launches — are still unexercised. A conversion list built on this would be a
-guess wearing a measurement's clothes.
+1. **1.0 supports generator handlers natively.** `BaseControl._trigger_event`
+   has a branch for them that flushes the queued patch and yields to the loop on
+   every `yield`. The plan's "convert to yielding generators" was therefore
+   sound, but `async def` + `to_thread` was used instead — it satisfies the same
+   requirement and also keeps the window alive, and the user has already
+   confirmed that pattern from Phase 4.
 
-The db edits the user reported were **not** in this window: the latest headword
-writes are from 12:44, and nothing was created or updated after 17:00. Their
-examples were checked anyway and are clean.
+2. **Awaiting an offload is itself the flush.** Where the message and the
+   `await to_thread(...)` sit next to each other there is no need for a separate
+   `sleep(0)`; the suspension hands the loop the turn that paints the message.
+   The explicit sleep is only needed where the two are separated — the test
+   run's integrity check is the one place in Phase 5 that needs it, because that
+   step writes to the view and so cannot be offloaded at all.
 
-## What the user needs to do
+3. **The `dialog.open = False` sites are not a missed conversion.** Fifteen of
+   them survive, and they looked like BR-8 leftovers. `pop_dialog()` is
+   literally the same two statements, so they are equivalent. Logged as
+   `NOTICED — NOT TOUCHING` rather than swept.
 
-1. **A second instrumented session, on the pass views** (Pass1Add, Pass2Add,
-   Pass2Pre, Pass2x) and any tab with a TSV re-read, a book search or an
-   external-application launch:
+Still carried forward from Phase 4, still not blocking: `_click_add_to_db`
+blocks the loop on a synchronous spell check and an HTTP call, and pyright
+reports a false pass on `gui2/` because it analyses zero files there.
 
-       uv run kamma/threads/20260917_flet_1_0_migration/artifacts/instrument_handlers.py
+## What the user needs to test
 
-   It appends to `artifacts/handler_timing_1_0_0.csv`.
+The six converted actions, watching for the progress message to appear *before*
+the work rather than after: Global tab's backup-and-quit and update-inflections,
+Pass2Add's update-sandhi and update-with-AI, the Ask AI window, and the Tests
+tab's Run button. The window should also stay responsive throughout.
 
-2. **Confirm the two fixes** after a relaunch: the Filter tab's `Save`,
-   `Rename` and `Delete` on one line each, and no name in the title bar.
+## Verification state
 
-Still owed from Phase 3, unchanged: BR-25's dropdown widths, the taskbar name
-and icon, and a field taking focus.
-
-## Tree state
-
-Green: full suite 1886 passed / 12 deselected, `tests/gui2/` 284 passed,
-`just typecheck` 0 errors, `ruff` and `pyright` clean on both touched files.
-
-Two production files modified and ready to commit — `gui2/filter_tab_view.py`
-and `gui2/main.py`, both migration fixes, no improvement mixed in. Plus this
-thread's `spec.md`, `plan.md` and `handoff.md`.
-`artifacts/instrument_handlers.py` stays untracked on purpose (AD#4); the new
-`artifacts/handler_timing_1_0_0.csv` is measurement data.
+`uv run pytest tests/` 1886 passed / 12 deselected · `tests/gui2/` 284 passed ·
+`just typecheck` 0 errors · `ruff check` and `ruff format` clean on all four
+touched files plus the new guard · all four modules import · all four guard
+scripts exit 0.

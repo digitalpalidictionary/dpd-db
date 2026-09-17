@@ -1,3 +1,4 @@
+import asyncio
 import copy
 import json
 from collections.abc import Awaitable, Callable
@@ -622,9 +623,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _click_clear_all(self, e: ft.ControlEvent) -> None:
         self.clear_all_fields()
 
-    def _click_update_sandhi(self, e: ft.ControlEvent) -> None:
+    async def _click_update_sandhi(self, e: ft.ControlEvent) -> None:
         self.update_message("updating speech marks... please wait...")
-        self.speech_marks_manager.regenerate_from_db()
+        # Awaiting `to_thread` is what lets the message above reach the screen:
+        # `page.update()` only queues a patch, and the suspension here gives the
+        # loop the turn that flushes it before the regeneration begins.
+        await asyncio.to_thread(self.speech_marks_manager.regenerate_from_db)
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
         self.update_message("speech marks updated")
 
@@ -946,7 +950,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._add_to_db_button.color = ft.Colors.RED
         self.page.update()
 
-    def _click_update_with_ai(self, e: ft.ControlEvent) -> None:
+    async def _click_update_with_ai(self, e: ft.ControlEvent) -> None:
         """Handles the 'Update with AI' button click."""
         current_headword = self.dpd_fields.get_current_headword()
         if not current_headword or not current_headword.id:
@@ -957,8 +961,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         # Call the controller's single-word processing method
         # Pass None for sentence_data for now
-        response_dict = self.pass2_auto_controller.process_single_headword_from_view(
-            current_headword
+        response_dict = await asyncio.to_thread(
+            self.pass2_auto_controller.process_single_headword_from_view,
+            current_headword,
         )
 
         if response_dict:

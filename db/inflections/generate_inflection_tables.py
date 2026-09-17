@@ -287,8 +287,6 @@ class InflectionsManager:
         if config_test("regenerate", "inflections", "yes"):
             config_update("regenerate", "inflections", "no")
 
-        pr.toc()
-
 
 def main() -> None:
     """Initialize and run the inflection generation process."""
@@ -298,6 +296,10 @@ def main() -> None:
     manager = InflectionsManager()
     pr.yes(len(manager.dpd_db))
     manager.run()
+    # The clock belongs to whoever starts it. `run()` used to stop it, so the
+    # GUI's Update Inflections button — which calls `run()` directly — always
+    # ended with "Error: tic() not called before toc()".
+    pr.toc()
 
 
 if __name__ == "__main__":

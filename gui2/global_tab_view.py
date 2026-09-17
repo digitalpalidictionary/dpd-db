@@ -92,9 +92,9 @@ class GlobalTabView(ft.Column):
     async def _click_backup_quit(self, e: ft.ControlEvent) -> None:
         """Run DB backup and close the app window."""
         pth = ProjectPaths()
-        self._update_message("Running database backup...")
+        await self._say("Running database backup...")
         try:
-            backup_dpd_headwords_and_roots(pth)
+            await asyncio.to_thread(backup_dpd_headwords_and_roots, pth)
             self._update_message("Database backup completed successfully.")
             # `hasattr(self, "page")` used to guard this; in 1.0 the property
             # raises rather than being absent, so hasattr propagates the error
@@ -111,14 +111,14 @@ class GlobalTabView(ft.Column):
         if test_file_path.exists():
             subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
 
-    def _click_update_inflections(self, e: ft.ControlEvent) -> None:
+    async def _click_update_inflections(self, e: ft.ControlEvent) -> None:
         """Update inflections from templates."""
-        self._update_message("Updating inflections...")
+        await self._say("Updating inflections...")
         try:
             inflections_manager = InflectionsManager()
-            inflections_manager.run()
-            self.toolkit.db_manager.mark_corpus_stale()
-            self.toolkit.db_manager.make_inflections_lists()
+            await asyncio.to_thread(inflections_manager.run)
+            await asyncio.to_thread(self.toolkit.db_manager.mark_corpus_stale)
+            await asyncio.to_thread(self.toolkit.db_manager.make_inflections_lists)
             self._update_message("Inflections updated successfully.")
         except Exception as ex:
             self._update_message(f"Inflections update failed: {ex}")
