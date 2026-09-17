@@ -1,77 +1,93 @@
-# Handoff — 2026-09-17, end of the Phase 3 fix session
+# Handoff — 2026-09-17, Phase 4 in progress
 
 ## Where to start
 
-**Phase 4 — Threading model**, first task: port the instrumentation to the 1.0
-dispatch boundary and re-run it. Everything before that is done or waiting on
-the user.
+**Phase 4, second measured session.** The conversion task cannot be scoped
+until the pass views have been measured on 1.0 — see the coverage gap below.
+
+## State of Phase 4
+
+| Task | State |
+|---|---|
+| Port the instrumentation and re-run | measured once; **coverage insufficient**, needs a second session |
+| Convert the slow handlers | blocked on the above |
+| Audit the pre-existing concurrency | **done** — nothing to fix, evidence in `plan.md` |
+| Audit the non-database blocking | not started |
+| Phase verification | not started |
 
 ## What this session did
 
-Closed the four issues the user's battle-testing left open. Committed as
-`7c01efb8` on `flet-1-0`, 35 files.
+**Ported the instrumentation.** 0.28 had three dispatch routes; 1.0 funnels all
+four handler shapes through one method. The trap: that method also flushes the
+UI patch afterwards, which would have inflated every row against the 0.28
+baseline, worst for the handlers touching the most controls. Framework time is
+measured separately and subtracted. Verified headlessly against all four shapes
+(20.3 / 30.6 / 20.6 / 30.8 ms against injected 20/30/20/30).
 
-- **BR-22 (borders).** `field_border()` in `gui2/ui_utils.py`; 116 deprecated
-  kwargs across 84 constructions converted; 28 borderless fields given an
-  explicit rounded border; BR-16's red signals moved to `.border`;
-  `cell_border()` in `filter_component.py` keeps the grid cell's own shape.
-  User confirms the corners are round again.
-- **BR-23 (dialog modality).** **Not a defect.** Retested: the eg dialog does
-  not dismiss on an outside click. The wheel's `modal` docstring is wrong;
-  Flet's Dart at tag `v1.0.0` passes `barrierDismissible: !modal`. No code
-  changed, and flipping all 18 `modal=True` sites would have been a mistake.
-- **BR-24 (window identity).** `window.icon` is Windows-only and wants `.ico`,
-  so the earlier attempt was inert — line removed. The taskbar name and icon
-  come from the desktop entry: 1.0's client reports `com.appveyor.flet` where
-  0.28 reported `flet`, so `StartupWMClass` was repointed in both
-  `gui2/linux/dpd-gui2.desktop` and the installed copy. The window title is
-  now unset, at the user's request.
-- **BR-25 (new).** `DpdDropdown` passed `expand=True` and `width=700` together;
-  1.0 lets `expand` win where 0.28 let `width` win, so the pass views'
-  dropdowns went 665px → 1251px. `expand` dropped from the dropdown only.
+**First 1.0 session captured: 367 invocations, 6 files, 18:12–18:18.** Nothing
+on the UI thread is meaningfully over budget; the worst is one compound-type
+submit at 192 ms against a 150 ms budget, `n=1`. The keyboard handler BR-4 made
+async ran 188 times at a 0.5 ms median. Both background operations came in
+faster than 0.28 (11.7 s against 15.5 s; 3.35 s against 4.2 s).
 
-## The method worth repeating
+**The concurrency audit is closed, and the risk it raised is not real.** The one
+raw thread touches no control at all. The cross-thread delivery concern —
+worker-thread refreshes landing on the loop's queue through a call that is not
+thread-safe — was disproved by the log rather than by reading: Flet wraps every
+snackbar's dismissal, so a snackbar that renders leaves its own row, and both
+startup snackbars dismissed ~2.55 s after their worker finished against a
+2000 ms duration. They painted promptly from the worker thread. The user simply
+missed a 2-second message during an 11-second load. That also closes BR-17's
+outstanding evidence gate, since the warm-up snackbar only fires when all 16
+views built.
 
-BR-25 was found by *measuring* the user's screenshot against
-`artifacts/screenshots_before/07_pass2add.png`, not by reading code. Field
-heights, row pitch, text insets and outline brightness all came out identical
-across versions, which ruled out the border pass and left the one real
-difference visible. The user had already sat through two wrong guesses at
-BR-22; measuring first is what ended it.
+**Two defects fixed from the user's screenshots**, both recorded as spec items:
 
-Likewise BR-23: the installed wheel's docstring contradicted the shipped Dart,
-and only fetching Flet's source at the exact release tag settled it. AD#2 says
-the wheel is the authority — that has to mean the shipped client, not the
-Python docstring.
+- **BR-26** — 1.0 leaves less room for a button's label at the same width, so
+  the Filter tab's preset buttons wrapped mid-word. Measured first: the 0.28
+  pills were exactly 80/100/80 px with their labels on one line, and 1.0
+  honours the same numbers, so the width was never the variable. Those three
+  now size to their labels. An AST sweep bounds the rest: 11 narrow buttons
+  exist, the other 8 have short enough labels.
+- **BR-24, third scope change** — the title bar showed `flet`. Not setting the
+  title leaves it `None`, which the client fills with its own name; the empty
+  string is what means "show nothing". Now set explicitly.
 
-## Open, and needing the user rather than code
+## Coverage gap — read before scoping the conversions
 
-- **Phase 3 verification:** walk the whole behaviour catalogue in the running
-  app. Still `[ ]`.
-- **Confirm BR-25 visually:** the dropdowns should stop well short of the text
-  fields' right edge, as in the before shots.
-- **Confirm the taskbar** shows the DPD name and logo after a fresh launch.
-- **Watch a field take focus.** BR-22 gave some fields an explicit border
-  `side`. The wheel says that styles the enabled state only and leaves the
-  other states theme-resolved — the same division 0.28 had — so parity is
-  expected but unobserved. Cheapest to check now rather than meet as a mystery.
+The measured session was the Filter tab and the Compound Type tab. The pass
+views have **one row between them**, and the four shortlist items the 0.28 run
+also missed — the two TSV re-readers, the CST book search, the subprocess
+launches — are still unexercised. A conversion list built on this would be a
+guess wearing a measurement's clothes.
 
-## Two review findings that did not hold
+The db edits the user reported were **not** in this window: the latest headword
+writes are from 12:44, and nothing was created or updated after 17:00. Their
+examples were checked anyway and are clean.
 
-Recorded so nobody re-raises them. A reviewer reported `uv run ruff check gui2`
-returning 167 errors from the vendored `gui2/build/site-packages/`; on this
-tree it returns "All checks passed!", because `gui2/build/` is gitignored
-(`.gitignore:93`) and ruff respects gitignore by default. And a reviewer asked
-for a sweep for un-awaited coroutines; `artifacts/check_unawaited.py` already
-is that sweep — it reads the coroutine list off the installed wheel and
-currently reports 0.
+## What the user needs to do
+
+1. **A second instrumented session, on the pass views** (Pass1Add, Pass2Add,
+   Pass2Pre, Pass2x) and any tab with a TSV re-read, a book search or an
+   external-application launch:
+
+       uv run kamma/threads/20260917_flet_1_0_migration/artifacts/instrument_handlers.py
+
+   It appends to `artifacts/handler_timing_1_0_0.csv`.
+
+2. **Confirm the two fixes** after a relaunch: the Filter tab's `Save`,
+   `Rename` and `Delete` on one line each, and no name in the title bar.
+
+Still owed from Phase 3, unchanged: BR-25's dropdown widths, the taskbar name
+and icon, and a field taking focus.
 
 ## Tree state
 
-Clean on `flet-1-0` apart from
-`artifacts/instrument_handlers.py`, which is untracked on purpose — throwaway
-instrumentation, never committed (AD#4).
+Green: full suite 1886 passed / 12 deselected, `tests/gui2/` 284 passed,
+`just typecheck` 0 errors, `ruff` and `pyright` clean on both touched files.
 
-Green at the commit: `uv run pytest tests/` 1886 passed / 12 deselected;
-`tests/gui2/` 284 passed; `just typecheck` 0 errors; `ruff` and `pyright` clean
-on every touched file.
+Two production files modified and ready to commit — `gui2/filter_tab_view.py`
+and `gui2/main.py`, both migration fixes, no improvement mixed in. Plus this
+thread's `spec.md`, `plan.md` and `handoff.md`.
+`artifacts/instrument_handlers.py` stays untracked on purpose (AD#4); the new
+`artifacts/handler_timing_1_0_0.csv` is measurement data.

@@ -1,3 +1,5 @@
+import asyncio
+
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
@@ -144,26 +146,29 @@ class DpdMeaningField(ft.Column):
             self.spell_suggestions.value = None
             self.spell_suggestions.visible = False
 
-    def _handle_on_focus(self, e: ft.ControlEvent):
+    async def _handle_on_focus(self, e: ft.ControlEvent):
         """Handle focus on meaning field, including spell check and callback."""
         if self.on_focus_callback:
             self.on_focus_callback(e)
         if self._skip_spell_check:
             self._skip_spell_check = False
             return
-        self._handle_spell_check(e)
+        await self._handle_spell_check(e)
 
-    def _handle_on_blur(self, e: ft.ControlEvent):
+    async def _handle_on_blur(self, e: ft.ControlEvent):
         """Handle blur on meaning field: spell check then external callback."""
-        self._handle_spell_check(e)
+        await self._handle_spell_check(e)
         if self.on_blur_callback:
             self.on_blur_callback(e)
 
-    def _handle_spell_check(self, e: ft.ControlEvent):
+    async def _handle_spell_check(self, e: ft.ControlEvent):
         """Common logic for spell checking the meaning field."""
         field = e.control
         value = field.value
-        misspelled = self.spellchecker.check_sentence(value)
+        # Off the event loop: the check is 95 ms at the median but was measured
+        # at 1.1 s on its worst sample, and it runs every time the field loses
+        # focus — the shape that reads as an occasional inexplicable hang.
+        misspelled = await asyncio.to_thread(self.spellchecker.check_sentence, value)
         if misspelled:
             error_string = ". ".join(
                 [

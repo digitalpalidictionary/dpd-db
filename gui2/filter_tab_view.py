@@ -409,18 +409,21 @@ class FilterTabView(ft.Column):
         if preset_names:
             self.preset_dropdown.value = preset_names[0]
 
+        # These three carry no width: 0.28 fitted their labels into 80/100/80,
+        # but 1.0 pads a button's label more and wraps it mid-word at those
+        # widths. Intrinsic sizing keeps the labels on one line and cannot be
+        # invalidated by the next change to Flet's button padding.
+
         # Save preset button
         self.save_preset_button = ft.Button(
             "Save",
             on_click=self._save_preset_clicked,
-            width=80,
         )
 
         # Rename preset button
         self.rename_preset_button = ft.Button(
             "Rename",
             on_click=self._rename_preset_clicked,
-            width=100,
             disabled=len(preset_names) == 0,
         )
 
@@ -428,7 +431,6 @@ class FilterTabView(ft.Column):
         self.delete_preset_button = ft.Button(
             "Delete",
             on_click=self._delete_preset_clicked,
-            width=80,
             disabled=len(preset_names) == 0,  # Disable if no presets
         )
 

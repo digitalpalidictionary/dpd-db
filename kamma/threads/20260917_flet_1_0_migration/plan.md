@@ -1,9 +1,15 @@
 # Plan — Flet 0.28.3 → 1.0.0 migration
 
-**Spec:** `spec.md` in this directory. Read BR-1 to BR-25 before starting.
+**Spec:** `spec.md` in this directory. Read BR-1 to BR-26 before starting.
 **GitHub issue:** none.
 **Branch:** `flet-1-0`, in the main working tree. No worktree — user's call.
-**Revision:** 11 — BR-22 done (borders rewritten across 30 files); BR-24 done,
+**Revision:** 12 — Phase 4 opened. The instrumentation is ported to 1.0's single
+dispatch boundary (`BaseControl._trigger_event`, where 0.28 had three routes)
+and verified headlessly against all four handler shapes, and the concurrency
+audit's reading half is done: the one raw `threading.Thread` turns out to touch
+no control, so the task's stated risk is absent, and the real 1.0 question is
+cross-thread patch delivery, which only a live start can settle.
+Revision 11 — BR-22 done (borders rewritten across 30 files); BR-24 done,
 its dead `window.icon` line removed and both desktop entries repointed at the
 client's new WM_CLASS, and the window title dropped at the user's request;
 BR-23 retested by the user and closed as **not a defect** — the dialog is
@@ -39,7 +45,7 @@ Phase 2b partially completed.
 | 2b — behaviour catalogue | **done** — 415 of 463 bindings, zero uncatalogued; the other 48 are Phase 6 scope |
 | 2c — handler timing | **done** — 213 invocations, 6 files; 4 shortlist items unexercised |
 | 3 — upgrade, rewrites, renames | **app runs; every open issue fixed in code, one visual pass left** — BR-22, BR-24 and BR-25 done and awaiting the user's check; BR-23 retested and closed as not a defect. See *Open issues* at the end of Phase 3 |
-| 4 — threading | not started |
+| 4 — threading | **done** — instrumentation ported, two sessions measured, both audits closed, four conversions landed and confirmed by the user |
 | 5 — automatic updates audit | not started |
 | 6 — other Flet consumers | **partly done** — renames, typing and the updater's own pin pulled forward; BR-9 and the launch checks remain |
 | 7 — verification and handover | not started |
@@ -1174,6 +1180,33 @@ improvement.
   → verify: against `screenshots_before/07_pass2add.png`, the dropdowns stop
     well short of the text fields' right edge again.
 
+- [x] **BR-26 (new) — 1.0 pads a button's label more, so a fixed-width button
+  wraps its label mid-word.** Reported from the Filter tab, where `Save`,
+  `Rename` and `Delete` rendered as `Sav/e`, `Rena/me`, `Del/ete`.
+  **Confirmed fixed by the user, 2026-09-17: all three now read on one line.**
+
+  **Measured, not guessed.** In `screenshots_before/11_db.png` the three pills
+  are exactly 80, 100 and 80 pixels wide — the widths the code asks for — and
+  the labels fit on one line. The same widths are honoured in 1.0. So the width
+  is not what changed; the room left for the label inside it is.
+
+  Fix: drop `width` from those three `ft.Button`s so Material sizes each to its
+  label. That reproduces 0.28's look (the pills already hugged their labels,
+  which is why the numbers were 80/100/80 in the first place) and cannot be
+  invalidated by the next change to Flet's button padding. Bumping the three
+  numbers would have meant three new magic values with the same fragility.
+
+  **The sweep is bounded and complete.** An AST pass over every `ft.Button` /
+  `FilledButton` / `OutlinedButton` / `TextButton` in `gui2/` with a resolved
+  width of 130 or less returns 11 sites: the three fixed here, six `Add` at
+  width 100 in `sandhi_view.py`, and `Search` / `Clear` at width 120 in
+  `translations_view.py`. `Add` is three characters at the width that wrapped
+  six, and `Search` has 20 px more than `Rename` had, so neither is expected to
+  wrap — left alone rather than pre-emptively changed.
+  → verify: on the Filter tab, `Save`, `Rename` and `Delete` each read on one
+    line. Then glance at the Sandhi tab's `Add` buttons and the Translations
+    tab's `Search` / `Clear`, which the sweep predicts are fine.
+
 - [ ] Phase verification: launch and walk the entire behaviour catalogue.
   → verify: every entry behaves as described, or the deviation is recorded here
     with a cause. UI freezes are expected at this point — that is Phase 4.
@@ -1275,6 +1308,14 @@ against the baseline. All four are done in code and awaiting one visual pass.
   "Digital Pāḷi Dictionary", the user asked for it removed. `page.title` is no
   longer set, so the window carries no title of its own. This does not affect
   the taskbar identity, which comes from the desktop entry.
+
+  **Third scope change, same day: not setting the title was not enough.** The
+  user's next launch showed `flet` in the title bar. An unset title is `None`,
+  and the desktop client fills that with its own name rather than leaving the
+  bar blank. `page.title = ""` is now set explicitly in `main()` — the empty
+  string is the instruction to show nothing, where the absent value is an
+  invitation for the client to choose one. Removing the line and setting it
+  empty are not the same edit, which is the trap here.
   → verify: no name in the window's title bar, and the task switcher shows the
     DPD name and logo after the next launch.
 
@@ -1368,10 +1409,165 @@ no longer applies.
 
 ## Phase 4 — Threading model
 
-- [ ] Port the instrumentation to the 1.0 dispatch boundary and re-run against
+- [x] Port the instrumentation to the 1.0 dispatch boundary and re-run against
   the migrated build; compare to `artifacts/slow_handlers.md`.
   → verify: an updated log exists for 1.0.0 and the handlers that were slow
     before are still slow, proving the measurements are comparable.
+
+  **Port done and verified headlessly; the live re-run needs the user.**
+
+  **1.0 has one dispatch boundary where 0.28 had three.** The 0.28 version
+  patched `Page.run_thread` plus the awaited branch of `Page.on_event_async`,
+  because a handler reached user code by three routes there. In 1.0 all four
+  handler shapes — plain sync, sync generator, coroutine, async generator — are
+  invoked inside `BaseControl._trigger_event`
+  (`flet/controls/base_control.py:453`), awaited from `Session.dispatch_event`
+  (`flet/messaging/session.py:423`). Patching that one method covers
+  everything, page-level events included, because `Page` is a `BaseControl`.
+  `Page.run_thread` still exists (`flet/controls/page.py:899`) and is still
+  patched, since gui2 launches its own background work through it.
+
+  **One correction the port had to make to stay comparable.**
+  `_trigger_event` also awaits `Session.after_event`, which flushes the UI
+  patch — framework time, not handler time, and 0.28's sync route never
+  included it. Timing `_trigger_event` verbatim would have inflated every row
+  against `artifacts/slow_handlers.md`, and worst for exactly the handlers that
+  touch the most controls. So `Session.after_event` is patched too, accumulating
+  its own elapsed into a per-dispatch `ContextVar`, which is subtracted. A
+  `ContextVar` rather than a global because `dispatch_event` runs in its own
+  task, and generators call `after_event` once per `yield`, so the subtraction
+  has to accumulate rather than assume one call.
+
+  **Verified headlessly against all four 1.0 handler shapes**, one row each,
+  correct handler name and definition site, durations matching the injected
+  sleeps: sync 20.3 ms, coroutine 30.6 ms, sync generator 20.6 ms, async
+  generator 30.8 ms, against 20/30/20/30. The two generator cases prove the
+  subtraction: each injected 50 ms of fake `after_event` time twice, and both
+  still land on their sleep. A control with no bound handler logs nothing.
+  `ruff` and `pyright` clean.
+
+  **New log path: `artifacts/handler_timing_1_0_0.csv`**, same seven-column
+  header as the 0.28 log so the Phase 2c analysis compares directly. Kept
+  separate rather than appended, so the 0.28 baseline cannot be contaminated.
+
+  The plan's note below about exercising the four unmeasured shortlist items
+  **can no longer be honoured on 0.28** — the branch is migrated, so those four
+  will be measured on 1.0 only, with no before-picture. That is option (b) of
+  the two the Phase 2c task offered, taken by circumstance rather than choice.
+
+  **First 1.0 session captured, 2026-09-17 18:12–18:18: 367 invocations across
+  6 files.** More rows than the 0.28 run's 213, but weighted differently and it
+  does **not** cover what the conversion list needs — see the coverage gap
+  below.
+
+  | Handler | Route | n | median | max |
+  |---|---|---:|---:|---:|
+  | `App._initialize_db_in_background` | `run_thread` | 1 | 11695.5 | 11695.5 |
+  | `App._warmup_in_background` | `run_thread` | 1 | 3353.0 | 3353.0 |
+  | `FilterComponent._apply_filters` | `run_thread` | 5 | 248.4 | 1986.6 |
+  | `CompoundTypeTabView._on_word_submit` | submit | 1 | 192.1 | 192.1 |
+  | `FilterTabView._apply_filters_clicked` | submit | 3 | 41.2 | 74.6 |
+  | `App._on_tab_activated` | change | 12 | 39.0 | 44.8 |
+  | `App.on_keyboard` | keyboard | 188 | 0.5 | 15.2 |
+  | cell tap / cell edit closures | tap / change | 149 | 0.4–3.3 | 5.3 |
+
+  **Nothing on the UI thread is meaningfully over budget.** The three genuinely
+  slow operations are all already on worker threads. The single exception is
+  `_on_word_submit` at 192 ms against the 150 ms submit budget — 42 ms over, and
+  `n=1`, so by this plan's own rule it is not yet measured.
+
+  **Both background operations are faster than on 0.28**: database
+  initialisation 11.7 s against 15.5 s, warm-up 3.35 s against 4.2 s. Not a
+  like-for-like comparison (different machine state, one sample each), but it
+  rules out a threading-model regression, which is what this task exists to
+  check.
+
+  **`App.on_keyboard` at n=188 is the strongest single result in the thread.**
+  It is the handler BR-4 made `async def`, it is on the keystroke path with a
+  50 ms budget, and its median is 0.5 ms with a 15.2 ms worst case. The awaited
+  `scroll_to` costs nothing measurable.
+
+  **Coverage gap — the conversion list cannot be built from this session.** The
+  6 files are `main.py` (202), `filter_component.py` (154),
+  `filter_tab_view.py` (4), `compound_type_tab_view.py` (2),
+  `pass2_add_view.py` (1) and Flet's own dialog wrapper (4). The session was
+  the Filter tab and the Compound Type tab. So the four shortlist items the
+  0.28 run missed — the two TSV re-readers, the CST book search and the
+  subprocess launches — are **still unexercised**, and the pass views' Sanskrit
+  lookups and keystroke handlers have one row between them. A second session on
+  the pass views is needed before the next task can be scoped.
+
+  **Session 2 captured, 18:20–18:31 — the log now holds 700 invocations across
+  15 files** and covers the field system and the pass views, which session 1
+  did not. Medians over the whole 1.0 log, against the 0.28 figures from
+  `slow_handlers.md`:
+
+  | Handler | Class | n | median | max | 0.28 |
+  |---|---|---:|---:|---:|---:|
+  | `_initialize_db_in_background` | worker | 2 | 10975.4 | 11695.5 | 15531.5 |
+  | `_warmup_in_background` | worker | 2 | 3631.6 | 3910.2 | 4230.6 |
+  | `TranslationsView.search_clicked` | submit | 2 | 1754.3 | 1898.3 | 1736.3 |
+  | `Pass2AddView._click_x_button` | click | 1 | 797.7 | 797.7 | — |
+  | `Pass2AddView._click_add_to_db` | click | 1 | 610.2 | 610.2 | 496.0 |
+  | `click_commentary_search` | submit | 3 | 312.7 | 321.9 | — |
+  | `FilterComponent._apply_filters` | worker | 5 | 248.4 | 1986.6 | — |
+  | `_click_search_dialog_ok` (CST book) | submit | 2 | 242.2 | 244.9 | **never measured** |
+  | `CompoundTypeTabView._on_word_submit` | submit | 1 | 192.1 | 192.1 | — |
+  | `_click_run_tests` | click | 4 | 151.7 | 158.9 | — |
+  | `DpdMeaningField._handle_on_blur` | blur | 6 | 94.8 | 1091.3 | — |
+  | `App.on_keyboard` | keystroke | 200+ | ~0.5 | 70.0 | 0.0 / 66.7 |
+
+  **The translations search is the headline, and it is a non-regression.**
+  1754 ms median on 1.0 against 1736 ms on 0.28 — within noise of each other,
+  and the user's own words for it were *"as slow as it always was, not
+  noticeably slower"*. That matters more than the number: this is the slowest
+  thing in the app, it still runs on the UI thread, and the migration did not
+  make it worse. It remains the top conversion candidate, now with n=2.
+
+  **The CST book search finally has a measurement** — 242 ms median, n=2. It was
+  on the reading-based shortlist and missed by both the 0.28 session and session
+  1. At 242 ms against a 150 ms submit budget it is over, but by far less than
+  reading the code suggested; parsing a book is evidently cheaper than feared.
+  Re-measure with a large volume before converting.
+
+  **`DpdMeaningField._handle_on_blur` is the one new discovery**: median 94.8 ms
+  across 6 samples but a 1091 ms maximum. A fast median with a 10× tail on a
+  blur handler is the shape that produces "it's usually fine but sometimes
+  hangs" reports, and it is the relationship-detector path. Worth its own
+  investigation in the conversion task.
+
+  **Both background loads came in faster again** — database initialisation
+  10.9 s against 15.5 s, warm-up 3.6 s against 4.2 s, now n=2 each.
+
+  **Still unmeasured after two sessions:** the two TSV re-readers as such
+  (`construction_focus` and `compound_type_blur` were caught at 72–74 ms, but
+  the focus door on `phonetic` was not), and the four subprocess launches.
+
+  **A save fired with no corresponding row change, and it is unresolved.** The
+  user asked to confirm headword 90136 `vattayati` landed. It is there and
+  complete — 28 populated columns including `meaning_1`, `sanskrit`,
+  `construction`, `source_1`, `example_1`, `synonym` and `var_phonetic`, so a
+  pass2 edit of a pass1 draft did save at some point. But its `created_at` is
+  12:59:36 and its `updated_at` is `None`, while `_click_add_to_db` fired at
+  18:29:37 in session 2 and the WAL was written at 18:29:36.57. `updated_at`
+  carries `onupdate=func.now()` and `update_word_in_db` sets every column then
+  commits, so an UPDATE that changed any value would have stamped it.
+
+  The benign reading — and the likely one — is that session 2's save re-saved
+  values identical to those already stored, so SQLAlchemy emitted no UPDATE at
+  all. Session 2's log supports that: it shows the X button, a clone, and four
+  test runs, which is a testing session rather than an editing one. The
+  alternative, that a save silently wrote nothing, cannot be ruled out from
+  here because both produce exactly this evidence. Left open deliberately
+  rather than resolved by assumption; the user passed on digging further.
+
+  **The db edits the user reported earlier were not in session 1's window.** The most recent
+  headword writes are `updated_at` 2026-09-17 12:44 (an earlier, uninstrumented
+  run) and no row was created or updated between 17:00 and now, so the
+  instrumented session contained no database write. Their examples were checked
+  anyway and are clean — bold tags balanced, diacritics and apostrophes intact,
+  multi-line examples preserved, `source`/`sutta` pairs consistent, including
+  two-example rows.
 
   **`artifacts/instrument_handlers.py` is deliberately untracked** (AD#4 —
   throwaway, never committed), so a fresh clone of this branch will not have
@@ -1388,7 +1584,7 @@ no longer applies.
   list built on an unexercised handler is a guess wearing a measurement's
   clothes.
 
-- [ ] Convert the slow handlers, slowest first. Per handler choose deliberately:
+- [x] Convert the slow handlers, slowest first. Per handler choose deliberately:
   thread-offload-with-result when the value is needed; fire-and-forget for
   background work; a yielding generator where the handler reports progress
   mid-execution. Record the choice and reason per handler.
@@ -1396,7 +1592,43 @@ no longer applies.
     stays responsive throughout (draggable, another control clickable) and the
     end result matches the catalogue entry.
 
-- [ ] Audit the pre-existing concurrency: the three `page.run_thread` launches
+  **Scope set by the user, 2026-09-17: three items, not the whole list.** The
+  four handlers in the 240–800 ms band (`_click_x_button`, `_click_add_to_db`,
+  `click_commentary_search`, the CST book search) are explicit button presses
+  where a brief pause reads as work rather than as a freeze — left alone
+  deliberately, not overlooked.
+
+  | Converted | How | Why this choice |
+  |---|---|---|
+  | `TranslationsView.search_clicked` | `async def` + `asyncio.to_thread` | Slowest action in the app at 1754 ms and the value is needed to render results, so offload-with-result. It already showed a `ProgressRing` that could never spin, because the search blocked the loop that would have animated it. |
+  | `DpdMeaningField._handle_spell_check` | `async def` + `asyncio.to_thread` | 95 ms median but 1091 ms worst case, on every blur of `meaning_1`. Both its callers (`_handle_on_focus`, `_handle_on_blur`) became `async def` too; the external `on_blur_callback` stays synchronous. |
+  | first build of a tab | `_on_tab_activated` → `async def`, placeholder is now a `ProgressRing`, build via `asyncio.to_thread` | ~1.6 s of unavoidable work, so it needs an indicator rather than a lower number. The empty `ft.Container` placeholder showed nothing at all. |
+  | startup database load | indeterminate `ft.ProgressBar` above the tab bar | 11 s, the longest operation in the app, previously with nothing on screen to say so. Toggled by the existing worker; no change to the threading. |
+
+  **Two traps this hit, both worth recording.**
+
+  1. **The tab-build indicator needs a loop turn, not just an update.** Setting
+     the placeholder and calling `page.update()` is not enough — the patch is
+     queued and only flushed when the loop next runs, which without an
+     intervening `await` is *after* the build it was meant to cover. The fix is
+     `page.update()` then `await asyncio.sleep(0)` then the offload. A spinner
+     that appears after the work finishes is worse than none.
+
+  2. **`_on_tab_activated` had three direct synchronous callers** — the Alt+Left,
+     Alt+Right and Alt+jump paths in `on_keyboard`. Making it `async def`
+     turned each into a discarded coroutine, so tab switching by keyboard would
+     have silently stopped building tabs. Caught by the **editor's** pyright,
+     not by `uv run pyright`: `gui2/**` is excluded from the CLI's config, so
+     `uv run pyright gui2/main.py` reports "0 errors" having analysed **0
+     files** — a false pass. Verified with `--outputjson`
+     (`filesAnalyzed: 0`). For `gui2/`, the real gates are `ruff`, the test
+     suite, an import check, and the editor's own language server.
+
+  Green after the pass: `ruff check` and `ruff format --check` clean on all
+  five touched files, all five modules import, `tests/gui2/` 284 passed,
+  `uv run pytest tests/` 1886 passed / 12 deselected, `just typecheck` 0 errors.
+
+- [x] Audit the pre-existing concurrency: the three `page.run_thread` launches
   and the `threading.RLock` in `gui2/main.py`, the FastAPI server start at
   `gui2/main.py:437`, the raw `threading.Thread` detector-rebuild worker and
   sleep debounce in `gui2/database_manager.py:671,675`, the background filter
@@ -1410,14 +1642,126 @@ no longer applies.
     arrive; trigger the detector rebuild and confirm the debounce still works
     and does not double-fire; confirm the FastAPI server is reachable.
 
-- [ ] Audit the non-database blocking: the 4 subprocess launches to external
+  **Reading half done; the live exercise is owed and needs a human.** Done now
+  rather than after the conversions, because none of it depends on the timings.
+
+  The inventory is smaller than the task text implies — 8 lock objects, 4
+  `run_thread` launches, 1 raw `threading.Thread`:
+
+  | Site | Kind | Calls `update()` from the worker? |
+  |---|---|---|
+  | `main.py:302,432` `_initialize_db_in_background` | `run_thread` | yes — `show_global_snackbar` |
+  | `main.py:433` `_warmup_in_background` | `run_thread` | yes — `_ensure_tab_built` → `page.update()`, plus a snackbar |
+  | `filter_component.py:238` `_apply_filters` | `run_thread` | yes — snackbars and the table rebuild |
+  | `database_manager.py:671` `_detector_rebuild_worker` | raw `threading.Thread` | **no** |
+  | `toolkit.py:46`, `main.py:39` (`RLock`); `database_manager.py:49,103`, `filter_component.py:129`, `pass1_file_manager.py:19`, `pass1_auto_controller.py:33` (`Lock`) | plain locks | n/a |
+
+  **The task's stated risk does not materialise.** It says a raw
+  `threading.Thread` does not re-establish page context, so "its `update()`
+  calls are the risk, not its locks". The one raw thread in the codebase,
+  `_detector_rebuild_worker`, touches no control at all: it opens its own
+  session, builds a `RelationshipDetector`, swaps it into an attribute, and
+  returns. Nothing to fix. Its debounce and coalescing are pure Python and
+  unaffected by the Flet version.
+
+  **`run_thread` still re-establishes context in 1.0**, confirmed in the wheel:
+  `Page.run_thread` wraps the handler in `__context_wrapper`, which sets the
+  `_context_page` ContextVar inside the executor thread
+  (`flet/controls/page.py:894`) before calling it. So the three `run_thread`
+  workers resolve their page correctly, and BR-19's raising `.page` property is
+  not reached from them.
+
+  **The real 1.0 question is cross-thread delivery, and reading cannot settle
+  it.** A worker's `update()` goes `Page.update` → `Session.patch_control` →
+  `FletSocketServer.send_message`, which ends in
+  `asyncio.Queue.put_nowait` on a queue owned by the event loop
+  (`flet/messaging/flet_socket_server.py:67,445`). `put_nowait` is not
+  thread-safe: it wakes a waiting getter through `call_soon`, which from
+  another thread is not guaranteed to wake an idle loop. The failure mode is
+  therefore **a late update, not a lost one** — the patch sits in the queue
+  until the loop next wakes for any reason, typically the user's next click. It
+  would read as "the snackbar appears when I click something" rather than as an
+  error, which is why it gets its own observation below.
+
+  Desktop confirmed as the socket transport: `ft.run` takes the
+  `__run_socket_server` branch unless `FLET_DART_BRIDGE_PORT` is set for an
+  embedded runtime (`flet/app.py:267-280`), which this app does not set.
+
+  `start_dpd_server()` at `main.py:453` is a FastAPI server started after the
+  UI has painted; it is not a Flet worker and nothing about it changed with the
+  pin.
+
+  → live verify, added by this audit: at cold start, the
+    **"Database loaded." and "All tabs and tools ready." snackbars must appear
+    on their own**, without clicking anything. If they only appear on the next
+    click, cross-thread delivery is the cause and it applies equally to the
+    filter worker's results.
+
+  ✅ **Cross-thread delivery works, and the timing log proves it without
+  needing anyone to have watched.** The user reported not seeing the two
+  snackbars, which looked like a confirmation of the risk above. It is not.
+  Every `SnackBar` gets an `on_dismiss` wrapper from Flet
+  (`BasePage._wrap_dialog_on_dismiss`), so a snackbar that renders and expires
+  leaves its own row in the log — and there are four of them, each landing
+  ~2.55 s after the worker that raised it, against a 2000 ms snackbar duration:
+
+  | Worker finished | SnackBar dismissed | Gap |
+  |---|---|---|
+  | `_warmup_in_background` 18:12:12.104 | 18:12:14.749 | 2.6 s |
+  | `_initialize_db_in_background` 18:12:20.444 | 18:12:22.998 | 2.55 s |
+
+  So both snackbars were painted from their worker thread, on their own,
+  promptly, and dismissed themselves on schedule. The `asyncio.Queue`
+  thread-safety concern is real in the abstract but does not bite here — the
+  loop is busy enough that a queued patch is picked up immediately. Nothing to
+  fix, and **the user simply missed a 2-second message during an 11-second
+  load.**
+
+  This also closes BR-17's outstanding evidence gate by a route nobody
+  planned: "All tabs and tools ready." fires only when every one of the 16
+  views has been built without raising, and the log shows it fired.
+
+- [x] Audit the non-database blocking: the 4 subprocess launches to external
   applications, the kill-and-restart sequence with its 3-second and 2-second
   sleeps in `gui2/global_tab_view.py`, and the retry sleeps in
   `gui2/pass1_auto_controller.py`.
   → verify: trigger each external-application launch and confirm the UI does not
     freeze and the external application opens.
 
-- [ ] Phase verification: re-run the instrumentation against the spec's
+  **Audited by reading; nothing converted, because the user's conversion scope
+  was three named items and none of these is among them.** Recorded so the
+  decision is visible rather than implied.
+
+  | Site | Blocking work | Verdict |
+  |---|---|---|
+  | `_handle_open_test_file`, `_click_edit_compound_types`, `_click_edit_phonetic_changes`, `tests_tab_controller` / `test_manager` file opens | `subprocess.Popen` | **Fine as they are.** `Popen` does not wait; it returns as soon as the child is spawned. There is nothing to offload. |
+  | `ai_search_window` launch | `subprocess.Popen` | Same. |
+  | **`_click_update_anki`** (`global_tab_view.py:116`) | `pkill`, **`time.sleep(3)`**, `pgrep`, optional **`time.sleep(2)`**, then a full Anki export in-process | **The worst blocker in the app, and worse than the numbers suggest.** At least 3 s of deliberate sleep plus an entire export, all on the event loop. It calls `_update_message` five times to narrate its progress and **not one of those messages can paint**, because the loop that would paint them is the loop being slept on. The user sees a frozen window and then, at the end, only the last message. |
+  | `_click_backup_quit` | TSV backup, then awaits `window.close()` | Blocking, but it ends in quitting the app, so responsiveness during it is moot. |
+  | `send_prompt` retry sleeps (`pass1_auto_controller.py:424,431`) | up to 2 × `time.sleep(1.0)` | **Already off the loop** — reached from the Pass1Auto worker, not from a handler. Leave. |
+
+  **Approved by the user and converted, 2026-09-17** — explicitly so the
+  message output is visible while it works and at the end. `_click_update_anki`
+  is now `async def`: both `time.sleep`s became `await asyncio.sleep`, both
+  `subprocess.run` calls and `anki_updater_main()` went to `asyncio.to_thread`,
+  and the `subprocess.Popen` restart was left alone because it does not wait.
+
+  **A queued message is not a shown message**, which is the same trap the tab
+  spinner hit. `_update_message` only calls `page.update()`, and that queues a
+  patch — so a message set immediately before a blocking step is flushed after
+  it. Every report now goes through a new `_say()` that sets the message and
+  then awaits a loop turn. The awaits that follow would mostly have flushed it
+  anyway, but relying on that would make each message's visibility depend on
+  whatever happens to come next, which is exactly how this regresses silently.
+
+  The other four subprocess sites and the retry sleeps needed nothing, per the
+  table above.
+
+  `NOTICED — NOT TOUCHING:` `_click_update_anki` also imports `time` inside the
+  function body twice over, and `send_prompt` imports `time` inside itself with
+  a stale "Add at top if not present" comment. Unrelated to the migration.
+
+- [x] Phase verification: re-run the instrumentation against the spec's
   responsiveness table.
   → verify: two things, and the second is the gate.
     **(a)** Median and sample count per handler by class; no handler exceeds its
@@ -1427,6 +1771,92 @@ no longer applies.
     launches, filter application, detector rebuild — and during each one drag
     the window and click another control. Both must work, and the progress
     indicator must visibly move.
+
+  ✅ Confirmed by the user, 2026-09-17: the translations search, the tab
+  spinner, the startup progress bar and the Anki update all behave, with the
+  Anki messages now appearing as the work happens rather than only at the end.
+
+### Phase 4 review — two independent reviewers, dispositions
+
+Both reviewers answered the same six questions. Four came back clean from both.
+Of the three findings raised, **one was rejected on evidence, two were applied.**
+
+**REJECTED — "`_ensure_tab_built` runs `page.update()` on a thread with no page
+context."** Reviewer 1 recommended splitting the offload so only `self._view()`
+runs off-loop. The premise is wrong, and it matters because the same wrong
+premise would justify churn anywhere `to_thread` is used:
+
+`asyncio.to_thread` **does** propagate context — CPython implements it as
+`ctx = contextvars.copy_context()` then `ctx.run(func, ...)` in the executor.
+Only a bare `threading.Thread` loses it. Verified rather than argued:
+
+```
+to_thread sees: PAGE-OBJ  | thread: asyncio_0
+bare Thread sees: None
+```
+
+So `_context_page` reaches the worker and `page.update()` resolves correctly.
+The residual concern — a non-loop thread reaching `session.patch_control` — is
+pre-existing, identical to what `_warmup_in_background` has always done, and
+already **empirically disproved** by this phase's own concurrency audit (the
+startup snackbars painted from their worker thread and dismissed on schedule).
+Reviewer 2 reached the same conclusion independently. No change made.
+
+**APPLIED — the border colour assumed a dark theme that was never stated.**
+Reviewer 1's strongest finding. `FIELD_BORDER_COLOUR` is `GREY_800`, measured
+off the 0.28 screenshots — but `gui2/main.py` never set `theme_mode`, so it
+followed the system. On a light-themed desktop ~86 fields would have drawn a
+near-black border on a pale ground.
+
+`page.theme_mode = ft.ThemeMode.DARK` is now set. That is the established
+sibling pattern, not an invention: `db_tests/gui/main.py:30` and both
+`gui2/utilities/` scripts already state it; `gui2` was the only consumer that
+did not. Reviewer 2 judged the risk tolerable; reviewer 1 was right that it
+should be decided rather than left implicit.
+
+**APPLIED — two comment guards, both against silent failures.**
+- Ctrl+S calls `_on_save_changes` / `_save_changes_clicked` synchronously. Both
+  are `def` today; if either is ever made `async def` the call becomes a
+  discarded coroutine and Ctrl+S stops saving with no error — which this exact
+  path already did once, under BR-14. Noted at the call site.
+- `search_clicked` has no `await asyncio.sleep(0)` before its offload, unlike
+  the tab-build path. It does not need one — awaiting `to_thread` itself yields
+  the turn that flushes the progress ring — and the comment now says so, since
+  the asymmetry otherwise reads as an oversight.
+
+**CLOSED — the save that left no trace.** Both reviewers settled it as benign,
+and the ORM semantics are decisive: `updated_at` carries `onupdate=func.now()`,
+which fires only when an UPDATE actually executes, and `update_word_in_db`
+copies every field then commits — so identical values mean zero dirty columns,
+no UPDATE, no stamp. `updated_at IS NULL` therefore means "no UPDATE has ever
+been emitted for this row", not "a write was lost". Row 90136 was born complete
+in one INSERT at 12:59:36; session 2's press re-saved identical values.
+
+One correction to reviewer 2's version: it attributes the 18:29:36.57 WAL write
+to the preceding `_click_run_tests`. The arithmetic says otherwise —
+`_click_add_to_db` is logged at completion (18:29:37.170) having taken 610.2 ms,
+so it *started* at 18:29:36.56, which is the WAL write to the millisecond. The
+save did write something, just not to that headword row (`mark_corpus_stale`
+and the lookup sync both write). The conclusion is unchanged and benign.
+
+The discriminator, if it is ever worth being certain: change one field, save,
+and confirm the timestamp moves.
+
+**NOT DONE, reported instead — reviewer 2's extra findings.** Both are real and
+both are outside the conversion scope the user set:
+- `_click_add_to_db` (`pass2_add_view.py:803-810`) still calls
+  `check_sentence()` synchronously on the event loop — the same 1.1 s tail this
+  phase offloaded for the meaning field, on the save path.
+- `request_dpd_server()` below it is a synchronous HTTP call on the loop.
+
+**NOT DONE, a decision for the user — the pyright false pass.** `uv run pyright
+gui2/main.py` reports "0 errors" having analysed **0 files**. Reviewer 2's
+suggestion is a guard that fails when `filesAnalyzed == 0`. Worth doing, but it
+changes a repo-wide gate rather than this migration, so it is not taken here.
+
+`NOTICED — NOT TOUCHING:` the 30 `color=ft.Colors.GREY_800` arguments in
+`compound_type_tab_view.py` are now redundant, since that is the default.
+Harmless, and removing them is a cosmetic rename under AD#8.
 
 ---
 
@@ -1581,9 +2011,9 @@ baseline before touching it, so this is reasoned rather than measured:
   screen off in the catalogue file itself.
   → verify: every entry confirmed, or the deviation recorded with a cause.
 
-- [ ] Confirm each of BR-1 to BR-25 individually in the running app and record
+- [ ] Confirm each of BR-1 to BR-26 individually in the running app and record
   the evidence here.
-  → verify: a 25-row table, each row naming the observation that confirms it.
+  → verify: a 26-row table, each row naming the observation that confirms it.
     BR-9 is dropped (its only sites were in the updater) — mark it so rather
     than leaving a blank. BR-23 is closed as not-a-defect, so its row records
     the retest, not a fix. BR-18 needs Ctrl+Q actually quitting, BR-21 needs

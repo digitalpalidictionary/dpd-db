@@ -41,6 +41,16 @@ def request_focus(control: ft.BaseControl) -> None:
 FIELD_RADIUS = 20
 """The editor's standard corner radius for text fields and dropdowns."""
 
+FIELD_BORDER_COLOUR = ft.Colors.GREY_800
+"""The editor's standard resting border colour for a form field.
+
+Measured, not chosen: 0.28 rendered an unstyled field's outline at exactly
+`#424242`, which is this constant. 1.0's dark theme resolves the same unstyled
+field to `#8d9199` — over twice as bright — which is why every text field
+looked white next to the dropdowns, those having always named the colour
+themselves.
+"""
+
 
 def field_border(
     color: ft.ColorValue | None = None,
@@ -55,11 +65,15 @@ def field_border(
     set nothing at all lost their corners. Every field now states its border
     explicitly through this helper rather than relying on the default.
 
-    Leaving `color` unset keeps the Material theme's per-state colours, which
-    is what the deprecated `border_radius`-only fields used to get.
+    `color` defaults to the resting colour rather than to the theme, so that
+    every field matches. Only the focused and error states stay
+    theme-resolved — stating a side styles the enabled state alone, which is
+    the same division 0.28 had.
     """
-    side = None if color is None else ft.BorderSide(width=width, color=color)
-    return ft.OutlineInputBorder(border_radius=radius, side=side)
+    resolved = FIELD_BORDER_COLOUR if color is None else color
+    return ft.OutlineInputBorder(
+        border_radius=radius, side=ft.BorderSide(width=width, color=resolved)
+    )
 
 
 def show_global_snackbar(

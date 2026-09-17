@@ -1,3 +1,4 @@
+import asyncio
 import cProfile
 import re
 import threading
@@ -37,9 +38,17 @@ class App:
         # Guards _views/_mounted_tabs: the warm-up worker builds tabs in the
         # background while the user may click one on the UI thread.
         self._build_lock = threading.RLock()
+        # Constructed here rather than in build_ui so the background db load,
+        # which toggles it, cannot outrace its creation.
+        self._loading_bar = ft.ProgressBar(visible=False)
 
         page.theme = ft.Theme()
         page.theme.font_family = "Inter"
+        # Stated rather than inherited from the system, which is what the other
+        # three Flet apps in this repo do. The editor's colours — including the
+        # field border constant in ui_utils — were all chosen against a dark
+        # ground, so following a light system theme would render them wrong.
+        page.theme_mode = ft.ThemeMode.DARK
         # No window title by the user's choice. The taskbar name and icon do not
         # come from here anyway — on Linux they come from the desktop entry whose
         # `StartupWMClass` matches the Flutter client's WM_CLASS, and
@@ -233,7 +242,11 @@ class App:
             # content slot, and the hasattr checks below would simply miss,
             # so a wrong lookup here stops Ctrl+S saving without any error.
             view = self._views.get(self.tabs.selected_index)
-            # Ctrl+S saves table changes in tabs that support it
+            # Ctrl+S saves table changes in tabs that support it.
+            # Both targets are synchronous today. If either is ever made
+            # `async def`, these calls become discarded coroutines and Ctrl+S
+            # stops saving with no error at all — the same silent failure this
+            # path already had once. Await them if that day comes.
             if hasattr(view, "_on_save_changes"):
                 view._on_save_changes(None)
             elif hasattr(view, "_save_changes_clicked"):
@@ -241,16 +254,16 @@ class App:
         elif e.key == "Arrow Left" and e.alt:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
-                self._on_tab_activated()
+                await self._on_tab_activated()
                 self.page.update()
         elif e.key == "Arrow Right" and e.alt:
             if self.tabs.selected_index < len(self._tab_bar.tabs) - 1:
                 self.tabs.selected_index += 1
-                self._on_tab_activated()
+                await self._on_tab_activated()
                 self.page.update()
         elif e.alt and e.key in self._TAB_JUMP_KEYS:
             self.tabs.selected_index = self._TAB_JUMP_KEYS[e.key]
-            self._on_tab_activated()
+            await self._on_tab_activated()
             self.page.update()
         elif e.key in self._SCROLL_KEYS:
             # Flet's global key handler intercepts these before any focused
@@ -301,10 +314,17 @@ class App:
         self._db_init_started = True
         self.page.run_thread(self._initialize_db_in_background)
 
-    def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
+    async def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
         """Build the newly-active tab's content on demand and kick db init."""
         index = self.tabs.selected_index
-        self._ensure_tab_built(index)
+        if index not in self._mounted_tabs:
+            # Hand the loop a turn so the placeholder spinner reaches the
+            # client before the build blocks, then build off the event loop.
+            # Without both halves the ring is queued and painted only after the
+            # view it was meant to cover has already appeared.
+            self.page.update()
+            await asyncio.sleep(0)
+            await asyncio.to_thread(self._ensure_tab_built, index)
         self._maybe_start_db_init()
 
         # Only the first call for a given tab dispatches focus. In 0.28 the
@@ -321,7 +341,15 @@ class App:
         if on_tab_focus is not None:
             on_tab_focus()
 
+    def _set_loading(self, loading: bool) -> None:
+        """Show or hide the indeterminate bar under the app bar."""
+        self._loading_bar.visible = loading
+        self.page.update()
+
     def _initialize_db_in_background(self) -> None:
+        # The longest operation in the app — ~11 s, measured — and until now it
+        # ran with nothing on screen to say so.
+        self._set_loading(True)
         try:
             self.toolkit.db_manager.initialize_db()
             show_global_snackbar(self.page, "Database loaded.", "info", 2000)
@@ -330,6 +358,8 @@ class App:
             show_global_snackbar(
                 self.page, f"Database load failed: {ex}", "error", 5000
             )
+        finally:
+            self._set_loading(False)
 
     def _warmup_in_background(self) -> None:
         """Build every tab (most-used first), then the heavy managers, so
@@ -406,12 +436,26 @@ class App:
                 for index, label in enumerate(tab_labels)
             ],
         )
+        # A spinner, not an empty box: building a view takes ~1.6 s on first
+        # selection and the placeholder is what the user looks at meanwhile.
         self._tab_bodies = ft.TabBarView(
-            controls=[ft.Container(expand=True) for _ in tab_labels],
+            controls=[
+                ft.Container(
+                    content=ft.Row(
+                        [ft.ProgressRing()],
+                        alignment=ft.MainAxisAlignment.CENTER,
+                    ),
+                    alignment=ft.Alignment.CENTER,
+                    expand=True,
+                )
+                for _ in tab_labels
+            ],
             expand=True,
         )
         self.tabs: ft.Tabs = ft.Tabs(
-            content=ft.Column([self._tab_bar, self._tab_bodies], expand=True),
+            content=ft.Column(
+                [self._loading_bar, self._tab_bar, self._tab_bodies], expand=True
+            ),
             length=len(tab_labels),
             selected_index=0,
             animation_duration=300,
@@ -441,6 +485,11 @@ def main(page: ft.Page) -> None:
     if enable_profiling:
         profiler = cProfile.Profile()
         profiler.enable()
+
+    # Set empty rather than left unset: an unset title is None, which the
+    # desktop client fills with its own name ("flet") instead of leaving the
+    # title bar blank.
+    page.title = ""
 
     # Time App initialization
     start_time = time.time()

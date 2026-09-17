@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 
 import flet as ft
@@ -79,6 +80,15 @@ class GlobalTabView(ft.Column):
         if is_mounted(self):
             self.page.update()
 
+    async def _say(self, msg: str) -> None:
+        """Set the message and give the loop a turn to actually paint it.
+
+        `page.update()` only queues a patch; without an intervening await it is
+        flushed after the work the message was meant to announce.
+        """
+        self._update_message(msg)
+        await asyncio.sleep(0)
+
     async def _click_backup_quit(self, e: ft.ControlEvent) -> None:
         """Run DB backup and close the app window."""
         pth = ProjectPaths()
@@ -113,47 +123,53 @@ class GlobalTabView(ft.Column):
         except Exception as ex:
             self._update_message(f"Inflections update failed: {ex}")
 
-    def _click_update_anki(self, e: ft.ControlEvent) -> None:
+    async def _click_update_anki(self, e: ft.ControlEvent) -> None:
         """Close Anki if open, run anki updater, and show completion message."""
-        self._update_message("Closing Anki...")
+        # Every step below reports progress, and none of those reports could
+        # reach the screen while this ran on the event loop: the waits and the
+        # export blocked the very loop that paints them, so the window froze
+        # and only the final message ever appeared. Each blocking step is now
+        # either an awaited sleep or handed to a worker thread, which gives the
+        # loop the turn it needs to flush the message before the step begins.
+        await self._say("Closing Anki...")
 
         try:
             # First, forcefully close any running Anki processes
-            subprocess.run(["pkill", "-9", "-f", "anki"], capture_output=True)
+            await asyncio.to_thread(
+                subprocess.run, ["pkill", "-9", "-f", "anki"], capture_output=True
+            )
 
             # Wait a few seconds to ensure Anki has released its database locks
-            import time
-
-            time.sleep(3)
+            await asyncio.sleep(3)
 
             # Verify Anki is truly closed by checking for any remaining processes
-            result = subprocess.run(
-                ["pgrep", "-f", "anki"], capture_output=True, text=True
+            result = await asyncio.to_thread(
+                subprocess.run, ["pgrep", "-f", "anki"], capture_output=True, text=True
             )
             if result.returncode == 0:
-                self._update_message(
+                await self._say(
                     "Warning: Anki may still be running, but proceeding anyway..."
                 )
-                time.sleep(2)  # Give it a bit more time
+                await asyncio.sleep(2)  # Give it a bit more time
 
             # Run the anki updater script
-            self._update_message("Updating Anki database...")
+            await self._say("Updating Anki database...")
             from exporter.anki.anki_updater import main as anki_updater_main
 
-            anki_updater_main()
+            await asyncio.to_thread(anki_updater_main)
 
-            self._update_message(
+            await self._say(
                 "Anki database update completed successfully! Restarting Anki..."
             )
 
             # Automatically restart Anki
             try:
                 subprocess.Popen(["anki"])
-                self._update_message("Anki has been restarted successfully!")
+                await self._say("Anki has been restarted successfully!")
             except Exception as restart_ex:
-                self._update_message(
+                await self._say(
                     f"Anki update completed, but failed to restart Anki: {restart_ex}. You can manually restart Anki now."
                 )
 
         except Exception as ex:
-            self._update_message(f"Anki update failed: {ex}")
+            await self._say(f"Anki update failed: {ex}")

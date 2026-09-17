@@ -6,7 +6,7 @@
 **Revision:** 9 — records four BR items found during implementation (BR-18 to
 BR-21, in their own section below), drops `resources/dpd-updater` from scope at
 the user's instruction (2026-09-17, "a failed side project"), and with it BR-9.
-The BR list now runs BR-1 to BR-25 and Phase 7's table is 25 rows.
+The BR list now runs BR-1 to BR-26 and Phase 7's table is 26 rows.
 Revision 8 — applies two independent reviews. Corrects the safe-site count
 (28 → 22), corrects BR-17's fix approach (the constructors are store-only, so
 the fix is far smaller than revision 7 claimed), re-derives the handler-density
@@ -606,8 +606,8 @@ rename.
 These four were not in the original list. Each was found by a gate or by the
 user at the keyboard rather than by reading the migration guide, and each is
 now enforced by a checker in `artifacts/`. They are numbered on from BR-17, so
-**the BR list runs BR-1 to BR-25**, and Phase 7's confirmation table is 25 rows,
-not 17. BR-22 to BR-25 came from the user battle-testing the migrated app;
+**the BR list runs BR-1 to BR-26**, and Phase 7's confirmation table is 26 rows,
+not 17. BR-22 to BR-26 came from the user battle-testing the migrated app;
 BR-23 turned out not to be a defect, the rest are fixed and awaiting a
 visual check.
 
@@ -725,6 +725,29 @@ pass changed no geometry whatsoever. Only the dropdown width moved.
 
 Fix: drop `expand` from `DpdDropdown` alone. `DpdTextField` already matched
 0.28.
+
+### BR-26 🟠 A fixed-width button wraps its label mid-word
+
+1.0 leaves less room for a button's label inside the same width, so a button
+narrow enough to fit its label in 0.28 now breaks it across two lines. Reported
+from the Filter tab, where `Save`, `Rename` and `Delete` rendered as `Sav/e`,
+`Rena/me` and `Del/ete`.
+
+The width itself is not what changed, and measuring is what establishes that:
+in `screenshots_before/11_db.png` the three pills are exactly 80, 100 and 80
+pixels — the widths the code asks for — with their labels on one line, and 1.0
+honours the same three numbers. Only the padding inside moved.
+
+Fix: drop `width` from those three buttons and let Material size each to its
+label, which is what the 80/100/80 were hand-tuned to approximate anyway. An
+AST sweep of every button in `gui2/` with a width of 130 or less returns 11
+sites; the other 8 (`Add` ×6 at 100, `Search`/`Clear` at 120) have short enough
+labels for the width they carry and are left alone.
+
+The general lesson, and the third time this thread has met it: a hardcoded
+pixel size that happened to fit is a latent migration defect, because it
+encodes a measurement of the old renderer. BR-25 was the same class of problem
+from the other direction.
 
 ### BR-23 🟠 `AlertDialog(modal=True)` no longer blocks the barrier
 
@@ -1152,7 +1175,7 @@ improvements, the rollback gets cheaper — but nothing here depends on it.
    differences. A line moved by a structural improvement counts as explained
    only if `artifacts/improvements.md` names it.
 5. Every catalogue entry walked in the running app and confirmed.
-6. Every one of BR-1 to BR-25 has a specific confirmation recorded in the plan.
+6. Every one of BR-1 to BR-26 has a specific confirmation recorded in the plan.
    For the silent failures (BR-1, BR-4, BR-14's Ctrl+S path, BR-16) that means
    watching the behaviour, not the absence of an error.
 7. The window never stops responding on any action, and no handler exceeds its

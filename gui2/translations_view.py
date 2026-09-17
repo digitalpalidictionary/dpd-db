@@ -1,3 +1,4 @@
+import asyncio
 import re
 
 import flet as ft
@@ -113,7 +114,7 @@ class TranslationsView(ft.Column):
         if is_mounted(self.search_term_field):
             request_focus(self.search_term_field)
 
-    def search_clicked(self, e):
+    async def search_clicked(self, e):
         search_term = self.search_term_field.value
         language = self.language_dropdown.value
 
@@ -136,14 +137,27 @@ class TranslationsView(ft.Column):
         self.page.update()
 
         # --- Perform search ---
+        # Off the event loop: this is the slowest action in the editor (1.75 s
+        # median, measured) and it used to block the window for its whole
+        # duration, so the progress ring above never actually spun.
+        #
+        # No `await asyncio.sleep(0)` is needed before this to flush the ring,
+        # unlike the tab-build path: awaiting `to_thread` itself suspends and
+        # hands the loop the turn that flushes the queued patch. The tab path
+        # spells the sleep out because there the update and the blocking call
+        # are not adjacent.
         book = self.books_dropdown.value
         results = []
         search_column = "pali_text" if language == "Pāḷi" else "english_translation"
 
         if book == "all":
-            results = search_all_cst_texts(search_term, search_column=search_column)
+            results = await asyncio.to_thread(
+                search_all_cst_texts, search_term, search_column=search_column
+            )
         elif book:
-            results = search_book(book, search_term, search_column=search_column)
+            results = await asyncio.to_thread(
+                search_book, book, search_term, search_column=search_column
+            )
 
         # --- After search: show results ---
         self.results_column.controls.clear()
