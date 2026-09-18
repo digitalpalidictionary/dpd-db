@@ -3,10 +3,20 @@
 **Thread type:** chore / major dependency migration
 **GitHub issue:** none (do not create one)
 **Date:** 2026-09-17
-**Revision:** 9 — records four BR items found during implementation (BR-18 to
-BR-21, in their own section below), drops `resources/dpd-updater` from scope at
-the user's instruction (2026-09-17, "a failed side project"), and with it BR-9.
-The BR list now runs BR-1 to BR-26 and Phase 7's table is 26 rows.
+**Revision:** 11 — records the user's Phase 7 test round. 13 of 15 checks
+passed. Three new BR items from the two that did not: **BR-27** (the big one —
+`TextField.error_text` is dead in 1.0, which silently killed every validation
+message in the editor), **BR-28** (dropdown widths not aligned) and **BR-29**
+(the `db_tests/gui/` tools freeze). Two further observations are logged as
+follow-ups rather than fixed, in *Out of scope* below: the eg dialog's
+modality, and focus still jumping in specific cases.
+Revision 10 — removes `resources/dpd-updater` from this spec entirely.
+It is a dead side project, never belonged in this thread, and is not a Flet
+consumer this migration covers. Its submodule is untouched and stays on
+0.28.3. BR-9 existed only for it and is dropped with it.
+Revision 9 — records four BR items found during implementation (BR-18 to
+BR-21, in their own section below). The BR list now runs BR-1 to BR-26 and
+Phase 7's table is 26 rows.
 Revision 8 — applies two independent reviews. Corrects the safe-site count
 (28 → 22), corrects BR-17's fix approach (the constructors are store-only, so
 the fix is far smaller than revision 7 claimed), re-derives the handler-density
@@ -23,8 +33,7 @@ from a rename pass to two rewrites plus a rename pass.
 ## Overview
 
 `gui2/` (the DPD word-editing desktop app) and the 7 `db_tests/gui/` helpers
-are pinned to `flet[all]==0.28.3`. (`resources/dpd-updater` was also a consumer;
-it was dropped from this thread on 2026-09-17.) Flet 1.0.0 changes the
+are pinned to `flet[all]==0.28.3`. Flet 1.0.0 changes the
 threading model, adds automatic updates, moves non-visual features to services,
 and renames or removes a long list of controls, properties and constants.
 
@@ -175,9 +184,10 @@ both `gui2/utilities/` scripts and the 7 `db_tests/gui/` managers.
 Those classes are not controls; `page` stays an ordinary attribute.
 
 Two of them — `DpdFields` and `TestsTabController` — later had to change
-anyway, not for the assignment but for what it *read*: see BR-19. After that
-the checker reports **20 safe**, not 22, and four of the original 22 sites were
-in the updater, now out of scope.
+anyway, not for the assignment but for what it *read*: see BR-19. And 4 of the
+original 22 were in a directory that is not in this thread's scope. So the
+checker reports **16 safe**, not 22 — measured in Phase 7, and reconciling
+exactly as 22 − 4 − 2.
 
 A textual find-and-replace over `self.page =` fixes 23 and breaks 22. Use
 `artifacts/check_self_page.py`, which separates them by AST and exits non-zero
@@ -383,8 +393,8 @@ Fix both: `on_keyboard` → `async def`; `_eg_kb_handler` → `async def` and
 
 `ai_search_window.py:168` binds its own page's handler and never swaps with
 main's. The same pattern in `db_tests/gui/main.py:149`,
-`db_tests/gui/add_hyphenations.py:324`, `resources/dpd-updater/main.py:38` and
-both `gui2/utilities/` scripts is Phase 6 scope; none call `scroll_to`.
+`db_tests/gui/add_hyphenations.py:324` and both `gui2/utilities/` scripts is
+Phase 6 scope; none call `scroll_to`.
 
 Also note `scroll_to`'s `key=` renamed to `scroll_key=` (not used here).
 
@@ -459,22 +469,20 @@ the direct one at `gui2/translations_view.py:127`. The other 8 mentions are
 calls to the helpers and type references. Phase 3's verification should exercise
 the **3 construction sites**, reached through whichever screens call the helpers.
 
-### BR-9 ⬛ `FilePicker` is a service — DROPPED, out of scope
+### BR-9 ⬛ `FilePicker` is a service — DROPPED, no sites
 
 `ft.FilePicker` subclasses `Service` in 1.0 and its methods are awaitable.
-Every site was in `resources/dpd-updater`, which the user removed from this
-thread on 2026-09-17 ("a failed side project"). **BR-9 has no sites in scope
-and needs no work.** Kept in the list only so the numbering stays stable.
+**No control in scope constructs one.** BR-9 needs no work; the number is kept
+only so the rest of the list stays stable.
 
 ### BR-6 🟠 `ft.app` is gone
 
 `ft.app` raises `AttributeError`; `ft.run` exists, and `target=` is now `main`.
 
-**7 sites:** `gui2/main.py:446`, `gui2/test_app.py:56`,
+**6 sites:** `gui2/main.py:446`, `gui2/test_app.py:56`,
 `gui2/ai_search_window.py:174`,
 `gui2/utilities/sandhi_contraction_find_replace_gui.py:308`,
-`gui2/utilities/find_words_with_examples.py:297`, `db_tests/gui/main.py:166`,
-`resources/dpd-updater/main.py:107`.
+`gui2/utilities/find_words_with_examples.py:297`, `db_tests/gui/main.py:166`.
 
 ### BR-5 🟠 Clipboard is an awaitable service
 
@@ -774,6 +782,146 @@ from the guide's tables, and the guide is incomplete. AD#2 already said the
 wheel is the authority; it was only ever applied to items already suspected.
 The checkers apply it exhaustively, and should run before any future phase.
 
+### BR-27 🔴 `TextField.error_text` → `error`, but `Dropdown` keeps `error_text`
+
+Found by the user's test round: a failing test in Pass2Add no longer turned the
+offending field's border red.
+
+The border was the symptom. The cause is much larger: **1.0 renamed
+`TextField.error_text` to `error` and left `Dropdown.error_text` alone**, so the
+two control types now spell the same concept differently. Confirmed against the
+wheel, by dataclass fields rather than by `dir()`:
+
+| Class | error-related fields |
+|---|---|
+| `ft.TextField` | `error`, `error_style`, `error_max_lines`, `cursor_error_color` |
+| `ft.Dropdown` | `error_style`, **`error_text`** |
+
+`error_text` is not a dataclass field on a 1.0 `TextField`, so assigning it is
+**silently accepted** — it writes a dead instance attribute that never reaches
+the UI. Exactly the `tab.content` failure mode from BR-14, and exactly BR-20's
+lesson that removed keywords are not confined to the button classes.
+
+**Blast radius: every validation message in the editor.** `DpdTextField`
+subclasses `ft.TextField`, so all ~60 `field.error_text = ...` sites across
+`dpd_fields.py` and the composite wrappers were writing to nothing. Nothing
+raised, nothing logged, no message appeared. `test_manager.py:49` made it
+quieter still: its guard is `if field and hasattr(field, "error_text")`, which
+went **False** on every text field, so the highlighting loop was skipped
+entirely rather than running and failing.
+
+Two mechanisms, each doing one job:
+
+- **the rename** — `DpdTextField` and `DpdText` get an `error_text` property
+  forwarding to `error`. That keeps all ~60 call sites, and the composite
+  wrappers that delegate to them, spelling it the one way that works on both
+  control types. `Dropdown` needs no forwarding.
+- **the border** — 0.28 recoloured the border by itself. 1.0 resolves the error
+  state against the theme, which the explicit `border=` every field now carries
+  (BR-22) overrides. Both classes derive it in `before_update()`, Flet's own
+  hook, so no call site has to remember and clearing the error clears the red.
+
+**8 assignment sites across 6 files** sit outside the wrapper classes, on bare
+`ft.TextField`s: `user.py`, `ai_search_window.py`, `pass1_add_view.py`,
+`dpd_fields_commentary.py` (×2), `dpd_fields_examples.py` (×2),
+`pass2_add_view.py`. (An earlier revision said "six sites"; that was the file
+count, corrected from the measurement during review.)
+
+A bare `TextField` has no `before_update` hook, so fixing the name alone got the
+message back but **not the red border** — and all four message-setting fields
+carry an explicit `border=field_border()`, which is exactly what overrides the
+theme-resolved error border. Found in review, not by the retest, because the
+user was asked to check the Pass2Add fields and these four are elsewhere
+(login, commentary search, example search, AI prompt).
+
+So `ui_utils.set_error(field, message)` now sets the error and derives the
+border together, and the 6 sites on those four fields use it. The 2 remaining
+sites stay as plain `.error = None`: their fields never set an error message,
+and one (`_enter_id_or_lemma_field`) has its own blue resting border that the
+helper would wrongly reset to grey.
+
+Guard: `artifacts/check_error_text.py`. A grep cannot do this job — `error_text`
+is still correct on `Dropdown` and on the wrappers — so it walks the AST,
+records which names are bound to a bare `TextField(...)`, and flags
+`.error_text` writes onto those. Review proved its first version had real blind
+spots; it now also covers local variables, annotated assignment, augmented
+assignment, and a bare `TextField(...)` from a direct import. All six shapes
+were re-tested against fixtures, with the three correct spellings (Dropdown,
+the wrappers, `.error`) confirmed silent.
+
+### BR-28 🟠 The dropdowns did not line up with the text fields
+
+`DpdTextField` passes `expand=True` *and* `width=700`; `DpdDropdown` passed
+`width=700` with no `expand`, added by BR-25's fix. Since 1.0 resolves that
+contradiction in favour of `expand`, the text fields settled at the width their
+row allowed (~635px) while the dropdowns held a literal 700 — leaving them
+about 65px wider, with a visibly ragged right edge down the form.
+
+Fixed by giving `DpdDropdown` the same `expand=True` as `DpdTextField`, so both
+control types resolve identically. BR-25's `width` stays, for the same reason it
+does on the text fields.
+
+**This re-adds the exact `expand=True` that BR-25 removed, and the two write-ups
+cannot both be right about the geometry.** Flagged by two independent reviewers;
+recorded here rather than smoothed over.
+
+What is certain from the code: `_create_field_row` puts the main field in one
+slot (`main_field = self.fields[field_name]`) regardless of its type, so with
+identical `expand`/`width` a dropdown and a text field now get identical
+constraints in **every** row shape, and must render the same width. That is what
+the user asked for and what the retest confirmed.
+
+What that implies, and nobody has looked at: the two views have different row
+shapes. Pass2Add adds a button and a 500px add-field, so the main field lands at
+~635px; Pass1Add has neither, so it expands to roughly the full row. The text
+fields already behaved that way in 0.28 and still do — unchanged. But the
+dropdowns did not: BR-25 measured them at 665px in 0.28. **So in Pass1Add the
+dropdowns are now much wider than their 0.28 baseline** — aligned with the text
+fields beside them, which is the requirement, but not a restoration.
+
+The retest cannot distinguish the two outcomes: "right edges aligned" is equally
+true whether both controls sit at ~635px or both at ~1200px, because it compares
+them against each other rather than against the baseline screenshot. **Open
+visual check: Pass1Add's `pos` / `neg` / `verb` / `trans` / `plus_case`
+dropdowns against `artifacts/screenshots_before/03_pass1add.png`.** If the
+full-row width there is unwanted, the fix is per-row-shape handling, not one
+global flag.
+
+### BR-29 🔴 The `db_tests/gui/` tools freeze — sync handlers now run on the loop
+
+The tool window opened, showed "Select a test to run", and then never repainted;
+work continued invisibly behind it.
+
+All six helpers drive an entire review session from inside the click handler:
+`for item in ...: ... while True: ... time.sleep(0.1)`, returning only when the
+user exits. 0.28 handed sync handlers to a worker thread, so blocking was
+harmless and this design worked. **1.0 runs sync handlers on the event loop**,
+so the loop never gets a turn, the window paints once and freezes, and the
+"stuck" screen is the last frame before the handler took over.
+
+This is Phase 4's threading problem in `db_tests/gui/`, which Phase 4 never
+covered — it scoped itself to `gui2/`.
+
+Fixed in one place, `db_tests/gui/main.py`'s `run_test` dispatcher, with
+`page.run_thread` — which puts the body back on a worker, exactly where 0.28
+ran it. The six tools are untouched. The teardown moved into a `finally`: it
+previously ran only on the success path, so a raising tool would leave
+`running_test` set and every later click would return at the guard with no error
+shown — the tool would simply stop responding.
+
+The `running_test` guard is not race-prone: check-and-set runs synchronously on
+the event loop before `run_thread` is called, so concurrent clicks serialise.
+
+**One caveat, raised by review and not resolved.** The tools mutate controls and
+call `page.update()` from the worker thread, while the event loop may call it
+too. 1.0's patch generation (`ObjectPatch.from_diff`, the `_dirty` flags and the
+previous-state snapshots) has no lock on that path. Concurrent updates from two
+threads could in principle drop one. This is the model 0.28 used as well — sync
+handlers already ran on threads there — and `run_thread` is Flet's own public
+API for it, so this is sanctioned by convention rather than proven safe. The
+end-to-end antonyms-sync run exercised one worker against idle clicks, not
+contention. Recorded in the handover's watch list rather than fixed.
+
 ---
 
 ## Blocking call sites
@@ -887,10 +1035,9 @@ Approach: measure first, convert what is slow. Offload priority:
 fire-and-forget; `page.loop.run_in_executor` for a bounded pool; generator
 handlers that `yield` to flush updates mid-execution.
 
-**Five handlers must become `async def` regardless of measured speed**, having
-no sync alternative in 1.0: the two clipboard handlers (BR-5), the keyboard
-scroll handler and its eg-dialog partner (BR-4), and the two updater file
-picker handlers (BR-9).
+**Four handlers must become `async def` regardless of measured speed**, having
+no sync alternative in 1.0: the two clipboard handlers (BR-5), and the keyboard
+scroll handler with its eg-dialog partner (BR-4).
 
 ### 2. Automatic updates
 
@@ -1086,7 +1233,7 @@ Structural changes that are invisible from outside:
 ### Out of scope
 
 - Renaming anything for taste, including the 45 `ft.dropdown.Option` sites and
-  the 22 safe `self.page` assignments.
+  the 16 safe `self.page` assignments.
 - Moving code between files, splitting files, changing module boundaries.
 - Changing any public shape another module imports.
 - The synchronous database layer.
@@ -1094,6 +1241,22 @@ Structural changes that are invisible from outside:
   `dpd_fields.py:1157` stays.
 - Adopting declarative UI, components, hooks or the router.
 - Anything in a file the migration does not otherwise open.
+
+**Two follow-ups from the Phase 7 test round, deliberately not done here.**
+Both are behaviour changes the user wants, not migration regressions, and the
+thread's standing rule is to preserve current behaviour:
+
+- **The eg dialog should be modal.** Global keyboard shortcuts still fire while
+  it is open. That is 0.28's behaviour, not something the migration broke:
+  `_eg_kb_handler` forwards every key it does not handle to the saved page
+  handler, deliberately, and BR-4's second half was written specifically to keep
+  that forwarding working once `on_keyboard` became a coroutine. Making the
+  dialog modal means *removing* the forwarding — a change in what the app does,
+  and its own small thread.
+- **Focus still jumps in specific cases.** BR-21 fixed the general "focus
+  silently stopped moving" defect and the user confirmed focus now advances, but
+  a few conditions still misbehave. The user is isolating them and will fix them
+  separately. Not chased here, on their instruction.
 
 ### Record-keeping
 
@@ -1184,8 +1347,7 @@ improvements, the rollback gets cheaper — but nothing here depends on it.
 8. `uv run pytest tests/gui2/` matches its result on `main`.
 9. `just typecheck` clean; `ruff check` and `pyright` clean on every touched
    file.
-10. The 7 data-integrity GUI helpers launch. (The updater was dropped from
-    scope on 2026-09-17.)
+10. The 7 data-integrity GUI helpers launch.
 11. Every improvement taken is logged in `artifacts/improvements.md` with the BR
     item that opened the file and the evidence behaviour is unchanged. An
     improvement not in that log is a review finding.

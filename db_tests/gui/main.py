@@ -121,22 +121,38 @@ def main(page: ft.Page):
         title = e.control.title
         if isinstance(title, ft.Text):
             appbar_title.value = title.value
-        if test_name == "add_fc_neg":
-            add_fc_neg(e, page, right_panel)
-        elif test_name == "add_fc_taddhita":
-            add_fc_taddhita(e, page, right_panel)
-        elif test_name == "add_fc_su_dur":
-            add_fc_su_dur(e, page, right_panel)
-        elif test_name == "add_antonyms":
-            add_antonyms(e, page, right_panel)
-        elif test_name == "add_antonyms sync":
-            add_antonyms_sync(e, page, right_panel)
-        elif test_name == "add_hyphenations":
-            add_hyphenations(e, page, right_panel)
-
-        runner.reset_panel()
-        runner.running_test = False
         page.update()
+
+        # Every one of these six drives the whole review session from inside a
+        # `while True: ... time.sleep(0.1)` loop that only returns when the user
+        # exits. Flet 0.28 handed sync handlers to a worker thread, so blocking
+        # was fine; 1.0 runs them on the event loop, where the loop never gets
+        # a turn and the window is painted once and then frozen — the tool looks
+        # stuck on "Select a test to run" while the work runs behind it.
+        # run_thread puts the body back on a worker, which is what 0.28 did.
+        def run_on_worker() -> None:
+            try:
+                if test_name == "add_fc_neg":
+                    add_fc_neg(e, page, right_panel)
+                elif test_name == "add_fc_taddhita":
+                    add_fc_taddhita(e, page, right_panel)
+                elif test_name == "add_fc_su_dur":
+                    add_fc_su_dur(e, page, right_panel)
+                elif test_name == "add_antonyms":
+                    add_antonyms(e, page, right_panel)
+                elif test_name == "add_antonyms sync":
+                    add_antonyms_sync(e, page, right_panel)
+                elif test_name == "add_hyphenations":
+                    add_hyphenations(e, page, right_panel)
+            finally:
+                # Without `finally` a raising tool would leave running_test set
+                # and every later click would return at the guard above, with no
+                # error shown — the tool would simply stop responding.
+                runner.reset_panel()
+                runner.running_test = False
+                page.update()
+
+        page.run_thread(run_on_worker)
 
     # Handle Ctrl+Q to quit
     async def on_keyboard(e: ft.KeyboardEvent):

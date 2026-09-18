@@ -30,6 +30,36 @@ One row per improvement, filled in as they are taken.
 | 1 | `field_border()` in `gui2/ui_utils.py` replaces the `ft.OutlineInputBorder(border_radius=…, side=ft.BorderSide(…))` expression that BR-22 would otherwise have spelled out 112 times. One place now states the editor's field radius. | BR-22 | Every call's arguments were derived mechanically from the kwargs it replaced (`artifacts/check_border_props.py` before/after: 116 deprecated kwargs → 0). Colour omitted where the old code omitted it, so the theme still resolves the per-state colour. |
 | 2 | `cell_border(colour)` in `gui2/filter_component.py` — the grid cell's square 3px border in one place, used by both the constructor and the spell check. | BR-22 | The spell check previously set only `border_color`, inheriting the cell's radius and width; routing it through `cell_border` reproduces exactly that shape, which a bare `field_border(color=RED)` would not have. |
 
+## Shared helpers that are **not** improvements
+
+Found by the Phase 7 audit, which diffed every added top-level `def` in `gui2/`
+and `db_tests/` against this log. Three shared helpers exist in
+`gui2/ui_utils.py` that are not in the table above — correctly, because each is
+a BR fix rather than an improvement on top of one, the same disposition as C1.
+
+They are recorded here anyway, because a reviewer seeing a new shared helper
+with 51 call sites will ask which it is, and "read the docstring" is not an
+answer this log should make them go looking for.
+
+| Helper | Calls | The BR fix it *is* |
+|---|---:|---|
+| `page_of(control)` | 6 | **BR-19** — 1.0's `Control.page` raises `RuntimeError` when unmounted where 0.28 read `None`. The codebase tests for mounting with `if control.page`, an idiom that now raises. The helper restores the 0.28 reading. |
+| `is_mounted(control)` | 14 | **BR-19** — the boolean form of the same thing. |
+| `request_focus(control)` | 51 | **BR-21** — 1.0 made `Control.focus()` a coroutine. Calling it unawaited is silent: no error, no focus. Every "move to the next field" in the editor was a no-op. |
+
+Each replaces an idiom that 1.0 broke, at every site where that idiom appeared.
+None changes what the app does when the idiom worked — which is the test that
+separates a fix from an improvement.
+
+The reason they are helpers rather than 71 inline rewrites is that the correct
+1.0 spelling is several lines long in each case and identical everywhere; the
+alternative was 71 copies of it. That is the fix's shape, not a restructure
+taken alongside it, so **no rollback hunk is owed for them**: reverting one
+reinstates a broken idiom rather than the 0.28 behaviour.
+
+`field_border()` (117 calls) and `cell_border()` are the genuine improvements
+and stay in the table above, where the rollback rule does apply.
+
 ---
 
 ## Candidates

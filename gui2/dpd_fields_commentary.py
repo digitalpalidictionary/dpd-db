@@ -7,7 +7,7 @@ from tools.example_cleaning import clean_commentary
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import process_bold_tags
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, request_focus
+from gui2.ui_utils import field_border, request_focus, set_error
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.speech_marks import SpeechMarkManager
@@ -200,7 +200,7 @@ class DpdCommentaryField(ft.Column):
                 self.search_field_1.value = lemma_clean
                 self.dpd_fields.flags.commentary_search_done = True
 
-        self.search_field_1.error_text = None
+        set_error(self.search_field_1, None)
 
         commentary_searcher = BoldDefinitionsSearchManager()
         if (
@@ -218,7 +218,7 @@ class DpdCommentaryField(ft.Column):
             if self.commentary_list:
                 self.choose_commentary()
             else:
-                self.search_field_1.error_text = "not found"
+                set_error(self.search_field_1, "not found")
                 if self.commentary_field.value == "":
                     self.commentary_field.value = "-"
                     request_focus(self.commentary_field)

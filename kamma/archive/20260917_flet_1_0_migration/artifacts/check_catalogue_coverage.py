@@ -14,8 +14,8 @@ Run from the project root:
     uv run kamma/threads/20260917_flet_1_0_migration/artifacts/check_catalogue_coverage.py
 
 Exits non-zero while any in-scope file is uncatalogued. Phase 6 files
-(`db_tests/gui/`, `resources/dpd-updater/`) are reported separately and do not
-fail the check — they are catalogued in Phase 6, not in Phase 2b.
+(`db_tests/gui/`) are reported separately and do not fail the check — they are
+catalogued in Phase 6, not in Phase 2b.
 """
 
 import sys
@@ -29,10 +29,10 @@ CATALOGUE = ARTIFACTS / "behaviour_catalogue.md"
 # Catalogued in Phase 6 alongside their migration, not in the Phase 2b catalogue.
 PHASE_6_PREFIXES: tuple[str, ...] = ("db_tests/gui/",)
 
-# Dropped from the thread on 2026-09-17 (user: "a failed side project"). The
-# baseline is the frozen 0.28 record and still lists its bindings, so they are
-# excluded here rather than regenerated away — regenerating the baseline now
-# would capture migrated 1.0 code and destroy the comparison point.
+# Never in this thread's scope. The baseline is the frozen 0.28 record and
+# still lists its bindings, so they are excluded here rather than regenerated
+# away — regenerating the baseline now would capture migrated 1.0 code and
+# destroy the comparison point.
 OUT_OF_SCOPE_PREFIXES: tuple[str, ...] = ("resources/dpd-updater/",)
 
 

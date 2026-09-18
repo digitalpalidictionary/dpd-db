@@ -275,3 +275,9 @@
 - 2026-09-14 [CONFUSION] Claimed fixing the issue templates needed the YAML issue-forms format; markdown front matter takes `type:` directly, found only by reading the docs
 - 2026-09-14 [WORKFLOW] Quoted a completion ETA extrapolated from a single early sample and it was roughly half the real rate
 - 2026-09-14 [POSITIVE] Snapshotted before the bulk change and proved the rollback on one live issue before running all 213; zero mismatches on the full verification
+- 2026-09-18 [REPEATED] User twice asked for terser output — "so much noisy verbose text, i cannot see what you want me to DO", then "give me a numbered list so i can say yay or nay"; the ask-list should have been numbered and bare the first time
+- 2026-09-18 [WORKFLOW] User asked for a reviewer prompt and I queued it behind tool calls; they interrupted with "i want the prompt now, not later" — when the user asks for a deliverable, produce it before starting adjacent work
+- 2026-09-18 [BEHAVIOR] Wrote five counts into the thread records from memory rather than measurement (guards, touched files, call sites, field definitions); three independent reviewers each caught a different one
+- 2026-09-18 [BEHAVIOR] A global CLAUDE.md note said coderabbit's `--base` is not a real flag; `--help` shows it is on the current CLI, and the note sent me the wrong way until I checked
+- 2026-09-18 [WORKFLOW] Two independent reviewers both asserted two changed files were foreign to the thread; `git log` showed they were its own Phase 5 work and held a real shared-tree bug — reviewer scope claims need the same verification as their findings
+- 2026-09-18 [POSITIVE] The user's own 15-point test round found the thread's largest defect (~60 silently dead validation messages) that the wiring diff, seven guards, 1886 tests and the type checkers had all passed over

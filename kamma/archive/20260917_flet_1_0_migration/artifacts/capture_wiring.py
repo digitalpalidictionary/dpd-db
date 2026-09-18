@@ -21,9 +21,9 @@ from collections import Counter
 from pathlib import Path
 
 # Everything in scope that imports flet: gui2/ is the editor and db_tests/gui
-# the data-integrity helpers. resources/dpd-updater was dropped from the thread
-# on 2026-09-17 (user: "a failed side project"), so it is no longer scanned —
-# which is why a fresh scan no longer matches the 463-binding baseline.
+# the data-integrity helpers. The frozen 0.28 baseline also carries 14 rows
+# from a directory since removed from scope, so it is 463 where a fresh scan
+# is 449; the coverage checker filters those rows out of both sides.
 SCAN_ROOTS: tuple[Path, ...] = (
     Path("gui2"),
     Path("db_tests/gui"),

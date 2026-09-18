@@ -347,7 +347,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
         # Clear word_in_text separately
         self.word_in_text.value = ""
-        self.word_in_text.error_text = None
+        self.word_in_text.error = None
 
         self.update_message("")
         self.page.update()

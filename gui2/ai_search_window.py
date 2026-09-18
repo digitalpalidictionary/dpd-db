@@ -8,7 +8,7 @@ import flet as ft
 from tools.ai_manager import AIManager
 from tools.printer import printer as pr
 from tools.server_mode import is_headless_server
-from gui2.ui_utils import field_border
+from gui2.ui_utils import field_border, set_error
 
 GROUNDED_KEY_PREFIX = "grounded|"
 DEFAULT_MODEL_KEY = "grounded|gemini|gemini-2.5-flash"
@@ -120,7 +120,7 @@ class AiSearchWindow:
     async def _handle_submit(self, e: ft.ControlEvent):
         prompt_text = self.prompt_field.value
         if not prompt_text:
-            self.prompt_field.error_text = "Please enter a prompt."
+            set_error(self.prompt_field, "Please enter a prompt.")
             self.page.update()
             return
 

@@ -734,7 +734,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         # Clear relevant top-section fields
         self._enter_id_or_lemma_field.value = ""
-        self._enter_id_or_lemma_field.error_text = None
+        self._enter_id_or_lemma_field.error = None
         self.headword = None  # Resetting the data model reference
         if self._filter_radios.value == "sutta":
             self._apply_sutta_prefill()

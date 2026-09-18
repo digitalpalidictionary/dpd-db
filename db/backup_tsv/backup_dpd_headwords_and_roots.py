@@ -159,23 +159,20 @@ def git_commit(pth: ProjectPaths):
         pr.no("no files to commit")
         return
 
-    staged = False
     try:
-        repo.index.add(files_to_add)
-        staged = True
-        repo.index.commit("pali update")
+        # Path-limited commit, not `index.add` + `index.commit`. The latter
+        # stages these files and then commits the *whole index*, so in a working
+        # tree shared with other sessions it would sweep up whatever they had
+        # staged and commit it as "pali update". Passing the paths after `--`
+        # commits exactly these files from the working tree and ignores the rest
+        # of the index entirely.
+        #
+        # It also leaves nothing staged when it fails — a busy index.lock or a
+        # rejected pre-commit hook used to abort between the add and the commit
+        # and leave these files sitting staged for someone else's next commit.
+        repo.git.commit("-m", "pali update", "--", *files_to_add)
         pr.yes("ok")
     except Exception as e:
-        # Staging happens before the commit, so a failed commit (a busy
-        # index.lock, a rejected pre-commit hook) used to leave these files
-        # staged in a tree other sessions share, where they would silently ride
-        # along with the next unrelated commit. Undo our own staging, by
-        # explicit path, and never touch anything else.
-        if staged:
-            try:
-                repo.git.restore("--staged", *files_to_add)
-            except Exception as unstage_error:
-                pr.no(f"unstage failed: {unstage_error}")
         pr.no(f"{e}")
 
 

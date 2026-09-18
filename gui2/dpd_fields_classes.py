@@ -47,6 +47,33 @@ class DpdTextField(ft.TextField):
         )
         self.name = name
 
+    # Flet 1.0 renamed TextField.error_text to `error` but left
+    # Dropdown.error_text alone, so the two control types now spell it
+    # differently. Assigning the old name on a 1.0 TextField is silently
+    # accepted — it writes a dead instance attribute that never reaches the UI —
+    # which killed every validation message in the editor at once. Forwarding
+    # here keeps the ~60 call sites, and the composite wrappers that delegate to
+    # them, spelling it the one way that works on both.
+    @property
+    def error_text(self) -> str | None:
+        value = self.error
+        return value if isinstance(value, str) or value is None else None
+
+    @error_text.setter
+    def error_text(self, value: str | None) -> None:
+        self.error = value
+
+    # 0.28 recoloured the border by itself whenever an error was set. 1.0
+    # resolves the error state against the theme, which an explicit `border=`
+    # overrides — and every field now carries one (BR-22). Deriving it here
+    # rather than at the ~60 assignment sites means no call site has to
+    # remember, and clearing the error clears the red with it.
+    def before_update(self) -> None:
+        super().before_update()
+        self.border = (
+            field_border(color=ft.Colors.RED) if self.error else field_border()
+        )
+
 
 class DpdDropdown(ft.Dropdown):
     def __init__(
@@ -61,10 +88,12 @@ class DpdDropdown(ft.Dropdown):
             raise ValueError("Options must be provided for DpdDropdown")
 
         super().__init__(
-            # No `expand`: it and `width` contradict each other, and 1.0 resolves
-            # that the opposite way to 0.28 — the dropdowns stretched to the full
-            # row instead of stopping at 700. The text fields are left expanding
-            # because that is what they did in 0.28.
+            # Same `expand` + `width` pair as DpdTextField, deliberately. 1.0
+            # resolves the contradiction in favour of `expand`, so both control
+            # types settle at the same rendered width and their right edges line
+            # up down the form. A fixed `width` here with no `expand` made the
+            # dropdowns ~65px wider than the text fields beside them.
+            expand=True,
             options=[ft.dropdown.Option(o) for o in options],
             on_focus=on_focus,
             # Flet 1.0 split 0.28's on_change into on_select (an item was
@@ -82,6 +111,15 @@ class DpdDropdown(ft.Dropdown):
         )
         self.name = name
 
+    # Dropdown kept 0.28's `error_text` spelling where TextField renamed it to
+    # `error`, so no forwarding property is needed here — only the border, for
+    # the same reason as DpdTextField.before_update.
+    def before_update(self) -> None:
+        super().before_update()
+        self.border = field_border(
+            color=ft.Colors.RED if self.error_text else ft.Colors.GREY_800
+        )
+
 
 class DpdText(ft.TextField):
     def __init__(
@@ -97,3 +135,14 @@ class DpdText(ft.TextField):
             dense=True,
             multiline=True,
         )
+
+    # Same 1.0 rename as DpdTextField. No border toggle: this field is a
+    # read-only display and deliberately carries no outline at all.
+    @property
+    def error_text(self) -> str | None:
+        value = self.error
+        return value if isinstance(value, str) or value is None else None
+
+    @error_text.setter
+    def error_text(self, value: str | None) -> None:
+        self.error = value

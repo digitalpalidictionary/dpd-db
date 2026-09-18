@@ -5,7 +5,7 @@ import flet as ft
 
 from tools.configger import config_read, config_update
 from tools.server_mode import resolve_role
-from gui2.ui_utils import field_border
+from gui2.ui_utils import field_border, set_error
 
 __all__ = ["UsernameManager", "resolve_role", "resolve_username"]
 
@@ -65,7 +65,7 @@ class UsernameManager:
             self.username_dialog.open = False
             self.page.update()
         else:
-            self.username_field.error_text = "Username cannot be empty!"
+            set_error(self.username_field, "Username cannot be empty!")
             self.username_field.update()
 
     def is_not_primary(self) -> bool:

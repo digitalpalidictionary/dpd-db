@@ -76,6 +76,23 @@ def field_border(
     )
 
 
+def set_error(field: ft.TextField, message: str | None) -> None:
+    """Set a bare `TextField`'s error message and colour its border to match.
+
+    The `Dpd*` field classes derive this in `before_update()`, but a bare
+    `ft.TextField` has no such hook. 1.0 resolves the error state against the
+    theme, which the explicit `border=` these fields carry overrides — so
+    without this the message appears and the outline stays grey, where 0.28
+    turned it red.
+
+    Only for fields whose resting border is the default `field_border()`. A
+    field with its own resting colour would come back from an error wearing
+    the wrong one.
+    """
+    field.error = message
+    field.border = field_border(color=ft.Colors.RED) if message else field_border()
+
+
 def show_global_snackbar(
     page: ft.Page,
     message: str,

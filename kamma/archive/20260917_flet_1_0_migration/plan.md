@@ -3,7 +3,18 @@
 **Spec:** `spec.md` in this directory. Read BR-1 to BR-26 before starting.
 **GitHub issue:** none.
 **Branch:** `flet-1-0`, in the main working tree. No worktree — user's call.
-**Revision:** 12 — Phase 4 opened. The instrumentation is ported to 1.0's single
+**Revision:** 14 — the user's Phase 7 test round, 13 of 15 checks passed.
+Three new BR items fixed from it: **BR-27** — the big one, `error_text` is dead
+on a 1.0 `TextField` while `Dropdown` keeps it, so every validation message in
+the editor had silently stopped appearing; **BR-28** dropdown widths; **BR-29**
+the `db_tests/gui/` tools freeze because 1.0 runs sync handlers on the event
+loop. Two observations logged as follow-ups, not fixed: eg-dialog modality and
+the residual focus jumps.
+Revision 13 — `resources/dpd-updater` removed from this plan entirely. It
+is a dead side project that never belonged in this thread; its submodule is
+clean and stays on Flet 0.28.3. BR-9 existed only for it and goes with it, and
+Phase 6 is now the `db_tests/gui/` helpers and the standalone utilities only.
+Revision 12 — Phase 4 opened. The instrumentation is ported to 1.0's single
 dispatch boundary (`BaseControl._trigger_event`, where 0.28 had three routes)
 and verified headlessly against all four handler shapes, and the concurrency
 audit's reading half is done: the one raw `threading.Thread` turns out to touch
@@ -17,14 +28,13 @@ modal, and the docstring that said otherwise is wrong; **BR-25** added, found
 by measuring the user's screenshot against the 0.28 baseline.
 Revision 10 — the user battle-tested the migrated app. Fixed from that:
 BR-18 (Ctrl+Q), BR-19 (launch crash), BR-20 (PopupMenuItem), BR-21 (focus/tab
-order). `resources/dpd-updater` dropped from scope.
+order).
 Revision 9 — records Phase 2c and Phase 3 as executed. Three corrections
 the reviews did not catch: BR-17 has **four** pre-mount reads, not two (two of
 them in `filter_tab_view.py`, found by a new transitive scanner); BR-15 has
 **8 sites**, not zero; and a new **BR-18** — `window.close()` is awaitable in
-1.0, so Ctrl+Q silently stopped quitting in all seven Flet apps. Also records
-that parts of Phase 6 had to be pulled forward, the updater being a separate
-project still pinned to 0.28.
+1.0, so Ctrl+Q silently stopped quitting in every Flet app here. Also records
+that parts of Phase 6 had to be pulled forward.
 Revision 8 — applies two independent reviews: BR-17's fix is much smaller
 than revision 7 said (store-only constructors), 28 safe sites → 22, two new
 BR-14 traps, and C1/C8/C9/C10 dispositions. Revision 7 added the
@@ -47,12 +57,106 @@ Phase 2b partially completed.
 | 3 — upgrade, rewrites, renames | **app runs; every open issue fixed in code, one visual pass left** — BR-22, BR-24 and BR-25 done and awaiting the user's check; BR-23 retested and closed as not a defect. See *Open issues* at the end of Phase 3 |
 | 4 — threading | **done** — instrumentation ported, two sessions measured, both audits closed, four conversions landed and confirmed by the user |
 | 5 — automatic updates audit | **done** — both pre-mount sweeps clean, frozen case is zero-site, six progress handlers converted |
-| 6 — other Flet consumers | **partly done** — renames, typing and the updater's own pin pulled forward; BR-9 and the launch checks remain |
-| 7 — verification and handover | not started |
+| 6 — other Flet consumers | **done and user-confirmed** — BR-29 fixed and retested (antonyms sync run end to end) |
+| 7 — verification and handover | **done** — wiring diff zero unexplained, improvements audited, suites green, handover written; test round passed 13 of 15, BR-27 to BR-29 fixed and all four retests confirmed. Ready for `/kamma:3-review` |
+
+---
+
+## Phase 7 test round — the user's results
+
+Run 2026-09-18 against `just gui`. **13 of 15 passed.** Numbered as put to them.
+
+| # | Check | Result |
+|---|---|---|
+| 1 | startup snackbar | ✅ |
+| 2 | all 16 tabs open and render | ✅ |
+| 3 | dropdown selection does something | ✅ |
+| 4 | PageUp/PageDown on Pass2Add | ✅ |
+| 5 | shortcuts work with the eg dialog open | ✅ works — **but the user says it shouldn't**; logged as a follow-up, see below |
+| 6 | Ctrl+S saves | ✅ |
+| 7 | Ctrl+Q quits | ✅ |
+| 8 | focus moves to the next field | ⚠️ mostly; a few specific conditions still jump. **User is isolating them and will fix separately** |
+| 9 | window never freezes | ✅ |
+| 10 | rounded corners | ✅ |
+| 11 | field widths | ❌ dropdowns ~65px wider than the text fields → **BR-28** |
+| 12 | button labels | ✅ |
+| 13 | window title and icon | ✅ |
+| 14 | the 7 `db_tests/gui/` helpers | ❌ window freezes on the first click → **BR-29** |
+| 15 | the 2 `gui2/utilities/` scripts | ✅ |
+| — | Pass2Add **Test** button: failed field's border no longer red | ❌ → **BR-27**, and it was far bigger than the border |
+
+**Retest after the three fixes — all four confirmed by the user, 2026-09-18:**
+red borders working; validation messages coming through (the ~60 dead sites of
+BR-27); dropdown/text-field right edges aligned (BR-28); and the
+`db_tests/gui/` tools working, with antonyms sync run end to end (BR-29).
+
+That closes #11, #14 and the Test-button symptom. Only the two deliberate
+follow-ups remain open, both the user's own: eg-dialog modality and the
+residual focus jumps.
+
+- [x] **BR-27 — `error_text` is dead on a 1.0 `TextField`.** Full analysis in
+  `spec.md`. The reported symptom was one missing red border; the cause was that
+  **every validation message in the editor had silently stopped appearing.**
+  → verify: the guard flags a dead assignment and passes on the fixed tree; all
+    four behaviours (set/clear × TextField/Dropdown) confirmed against the wheel.
+
+  ✅ 1.0 renamed `TextField.error_text` to `error` and **left
+  `Dropdown.error_text` alone** — read from dataclass fields, not `dir()`, which
+  reports both. `error_text` on a 1.0 `TextField` is not a field at all, so
+  assigning it is silently accepted as a dead instance attribute.
+
+  `DpdTextField` subclasses `ft.TextField`, so ~60 sites were writing to
+  nothing. `test_manager.py:49` hid it completely: its
+  `hasattr(field, "error_text")` guard went False for every text field, so the
+  highlighting loop was skipped rather than run-and-failed.
+
+  Two mechanisms, one job each — the rename via an `error_text` property on
+  `DpdTextField`/`DpdText` forwarding to `error` (keeping all ~60 call sites
+  unchanged), and the red border derived in `before_update()` on both field
+  classes, since 1.0 resolves the error state against the theme which BR-22's
+  explicit `border=` overrides. Six raw `ft.TextField` sites moved to `error`
+  directly.
+
+  **Guard: `artifacts/check_error_text.py`, and its sensitivity is proved.** A
+  grep cannot do this — `error_text` is still correct on `Dropdown` and on the
+  wrappers — so it walks the AST and flags `.error_text` writes only onto
+  attributes built from a bare `ft.TextField(...)`. Reverting one fix made it
+  report exactly that site and exit 1; restored in the same command, and the
+  restore verified by re-reading the line.
+
+- [x] **BR-28 — dropdown widths.** `DpdDropdown` now takes the same
+  `expand=True` as `DpdTextField`, so both resolve identically instead of the
+  dropdowns holding a literal 700 while the text fields settled at ~635.
+  → verify: both classes report `expand=True`. Right-edge alignment is visual
+    and needs the user.
+
+- [x] **BR-29 — the `db_tests/gui/` tools freeze.** All six helpers run a whole
+  review session inside the click handler behind `while True: time.sleep(0.1)`.
+  0.28 ran sync handlers on a worker thread; 1.0 runs them on the event loop, so
+  the window painted once and froze. Fixed in one place — `run_test` in
+  `db_tests/gui/main.py` now dispatches via `page.run_thread`, which is where
+  0.28 ran it. The six tools are untouched.
+  → verify: `check_phase6.py` still exits 0 and the module imports. The freeze
+    itself is visual and needs the user.
+
+  Also moved the teardown into a `finally`. It previously ran only on the
+  success path, so a raising tool left `running_test` set and every later click
+  returned at the guard with no error shown — the tool would just stop
+  responding. `NOTICED` while in the file; fixed because the offload made the
+  raising path reachable in a way it had not been.
+
+**Two follow-ups, deliberately not done** — both are behaviour changes the user
+wants rather than migration regressions, and the thread's rule is to preserve
+current behaviour. Recorded in `spec.md` → *Out of scope*:
+
+- **eg dialog modality (#5).** The forwarding is 0.28's behaviour and BR-4's
+  second half exists to keep it working. Making the dialog modal means removing
+  it — a change in what the app does.
+- **residual focus jumps (#8).** BR-21 fixed the general defect; the user is
+  isolating the remaining conditions themselves.
 
 **State of the tree after Phase 3.** 43 Python files changed plus
-`pyproject.toml` and `uv.lock`. The nested `dpd-updater` submodule was touched
-and then reverted when it was descoped; it is clean and back on 0.28.3.
+`pyproject.toml` and `uv.lock`.
 Green: `uv run pytest tests/` **1886 passed, 12 deselected**; `tests/gui2/`
 **284 passed, 0 warnings**; `ruff check` and `ruff format --check` clean on all
 43; `uv run pyright` clean on the files it covers; `just typecheck`
@@ -246,11 +350,12 @@ switch the installed Flet. Every switch is: `git status --porcelain` →
   → verify: `gui2/` yields 454 handler bindings by `rg`. Reconcile any drift and
     explain every difference.
 
-  **96 files, 463 bindings** — `gui2` 415, `db_tests/gui` 34,
-  `resources/dpd-updater` 14. `ruff` and `pyright` clean.
+  **96 files, 463 bindings** — `gui2` 415, `db_tests/gui` 34, and 14 in a
+  directory later removed from scope. **In-scope total: 449.** `ruff` and
+  `pyright` clean.
 
-  **The updater's 14 are now out of scope.** Phase 7's diff should expect 449
-  bindings, not 463; the 14 missing rows are the descope, not a regression.
+  Phase 7's diff filters the out-of-scope rows out of both sides, so it
+  compares 449 against 449.
 
   A handler can be bound by assignment as well as by keyword. The first version
   scanned call keywords only and missed `page.on_keyboard_event =
@@ -333,9 +438,9 @@ switch the installed Flet. Every switch is: `git status --porcelain` →
   → verify: write a throwaway script listing inventory entries with no catalogue
     mention; report that count as zero.
 
-  ✅ **Zero uncatalogued.** 415 of 463 bindings across 35 of 45 files; the
-    remaining 48 across 10 files are `db_tests/gui/` and
-    `resources/dpd-updater/`, catalogued in Phase 6 with their migration.
+  ✅ **Zero uncatalogued.** 415 of 449 in-scope bindings across 35 files; the
+    remaining 34 are `db_tests/gui/`, catalogued in Phase 6 with their
+    migration.
 
     The check is kept rather than thrown away, because Phase 7 walks the
     catalogue again and needs the same answer:
@@ -672,7 +777,9 @@ improvement.
   - expect pyright noise: 1.0 types `.page` as optional, so handlers may need
     asserts. Lint work, not design work.
   → verify: `uv run kamma/threads/20260917_flet_1_0_migration/artifacts/check_self_page.py`
-    reports **0 breaks** and all **22 safe** sites still present. It exits
+    reports **0 breaks** and the safe sites still present. (The count is **16**
+    as of Phase 7, not the 22 this line originally named — 4 were in the
+    out-of-scope directory and 2 changed for BR-19.) It exits
     non-zero while any control-subclass assignment remains. Use it, not a grep —
     a textual replace over `self.page =` fixes 23 and breaks 22.
 
@@ -682,20 +789,15 @@ improvement.
     reporting is broken by BR-14, so a fully broken build still shows a window
     and a first tab. See spec BR-17.
 
-- [x] **BR-6** — 7 entry points: `ft.app(target=main)` → `ft.run(main)`.
+- [x] **BR-6** — 6 entry points: `ft.app(target=main)` → `ft.run(main)`.
   → verify: the editor launches far enough to show a window, even if it then
     errors. `rg 'ft\.app\('` over the scope returns zero.
 
-  ✅ All 7, exactly as counted: `gui2/main.py`, `gui2/test_app.py`,
+  ✅ All 6, exactly as counted: `gui2/main.py`, `gui2/test_app.py`,
   `gui2/ai_search_window.py`, both `gui2/utilities/` scripts,
-  `db_tests/gui/main.py`, `resources/dpd-updater/main.py`. Every occurrence in
-  scope was dotted (`ft.app`), so no local name could collide. The grep now
-  returns zero outside this plan's own prose and the fetched guide.
-
-  **The updater's row was later reverted:** `resources/dpd-updater` was dropped
-  from scope and its submodule restored to its committed 0.28.3 state, so its
-  `ft.app` is untouched and 6 of these 7 are live. Phase 7's inventory diff
-  will show the updater's rows absent — that is the descope, not a regression.
+  `db_tests/gui/main.py`. Every occurrence in scope was dotted (`ft.app`), so
+  no local name could collide. The grep now returns zero outside this plan's
+  own prose and the fetched guide.
 
   The throwaway `artifacts/instrument_handlers.py` was updated too, so it still
   launches — though it also imports `flet.core.page`, which 1.0 moved, so it
@@ -867,13 +969,8 @@ improvement.
     (`gui2/pass2_add_view.py:78`) and a commented-out block
     (`gui2/mixins.py:131`). Do not migrate or count either.
 
-  ✅ All four patterns, **21 opens and 15 closes** (the plan said 14 closes; the
-  fifteenth is the updater's, which the plan had parked in Phase 6). The
+  ✅ All four patterns, **21 opens and 14 closes**, exactly as counted. The
   commented-out `page.open` in `gui2/mixins.py` was skipped, as instructed.
-
-  **That fifteenth close was reverted with the updater's descope**, so 14 are
-  live. Phase 7 should expect the updater's rows to be absent from the
-  inventory rather than hunt for a missed conversion.
 
   **One semantic difference the plan did not flag, checked in the wheel:
   `pop_dialog()` takes no argument.** 0.28's `page.close(dlg)` named the dialog
@@ -921,7 +1018,7 @@ improvement.
   The 7 direct sites were rewritten by AST position. The wrapper keeps its own
   parameter named `on_change` and forwards it to `super().__init__(on_select=)`,
   with a comment saying why. Renaming the wrapper's parameter would mean
-  renaming `FieldConfig.on_change` across all 48 field definitions, which is a
+  renaming `FieldConfig.on_change` across all 50 field definitions, which is a
   cosmetic rename and out of scope per AD#8. `NOTICED — NOT TOUCHING` for
   anyone who finds the name misleading later.
 
@@ -985,7 +1082,7 @@ improvement.
 
   Both halves of this need a human to confirm.
 
-- [ ] **BR-16** — no code change, visual check only. Confirm the four
+- [~] **BR-16** — no code change, visual check only. Confirm the four
   border-colour signals still read correctly against the Phase 1 screenshots:
   invalid filter input (`filter_component.py:487-495`), an example over 300
   characters (`dpd_fields_examples.py:583-587`), a failing test row
@@ -993,6 +1090,18 @@ improvement.
   (`dpd_fields_examples.py:191-193`).
   → verify: each goes visibly red when it should and returns to its normal
     border when it should. These fail by looking wrong, not by raising.
+
+  **1 of 4 confirmed, and it took BR-27 to get there.** The user's retest
+  confirms the failing-field red border on Pass2Add, which is the same
+  `field_border(color=RED)` mechanism as the failing test row — and it was
+  genuinely broken until BR-27, so this check earned its place rather than
+  rubber-stamping a parity assumption.
+
+  **Still unconfirmed: the other three.** Nobody has typed a 300-character
+  example, entered invalid filter input, or looked at the book dropdown's grey
+  border. Left `[~]` rather than ticked — the mechanism being shared is an
+  argument, not an observation, and this item exists precisely because these
+  fail by looking wrong.
 
 - [x] **Residual sweep.** Grep for each remaining renamed property from the
   guide's table — icon name, card colour, checkbox error, chip elevation, switch
@@ -1002,8 +1111,7 @@ improvement.
     claimed exemption with no pasted result does not count.
 
   ✅ Every result pasted, zeros included. Scope: `gui2/`, `db_tests/`,
-  `resources/dpd-updater/`, `tests/`, excluding `build/`, `archive/` and
-  markdown.
+  `tests/`, excluding `build/`, `archive/` and markdown.
 
   | Pattern | Hits |
   |---|---:|
@@ -1071,7 +1179,6 @@ improvement.
   | `gui2/utilities/sandhi_contraction_find_replace_gui.py` | `on_keyboard` |
   | `gui2/utilities/find_words_with_examples.py` | `on_keyboard` |
   | `db_tests/gui/main.py` | `on_keyboard` |
-  | ~~`resources/dpd-updater/main.py`~~ | ~~`_on_keyboard`~~ — descoped, reverted |
 
   The commented-out site in `db_tests/gui/add_hyphenations.py` was left alone.
 
@@ -1207,9 +1314,13 @@ improvement.
     line. Then glance at the Sandhi tab's `Add` buttons and the Translations
     tab's `Search` / `Clear`, which the sweep predicts are fine.
 
-- [ ] Phase verification: launch and walk the entire behaviour catalogue.
+- [~] Phase verification: launch and walk the entire behaviour catalogue.
   → verify: every entry behaves as described, or the deviation is recorded here
     with a cause. UI freezes are expected at this point — that is Phase 4.
+
+  Superseded by the Phase 7 test round, which is the same exercise done once at
+  the end rather than twice. Scoped honestly in the Phase 7 catalogue task —
+  not a full per-binding walk, with what remains unobserved named there.
 
 ### Open issues from battle-testing — START THE NEXT SESSION HERE
 
@@ -2025,12 +2136,12 @@ modules import. All four guard scripts exit 0 —
 
 ## Phase 6 — The other Flet consumers
 
-Not a trivial rename pass — the updater needs a real service rewrite.
+`db_tests/gui/` and the standalone utilities. No service rewrites: nothing here
+constructs a `FilePicker`, so BR-9 has no sites.
 
 **Partly pulled forward into Phase 3, not by choice.** The renames are
-repo-wide sweeps and `just typecheck` is repo-wide, so `db_tests/gui/` and
-`resources/dpd-updater/` could not be left on the old API without leaving the
-tree red. What is already done:
+repo-wide sweeps and `just typecheck` is repo-wide, so `db_tests/gui/` could
+not be left on the old API without leaving the tree red. What is already done:
 
 - **The mechanical renames**, everywhere: `ft.run`, `ft.Button`, the `Padding`
   and `Alignment` constants, `show_dialog`/`pop_dialog`, and BR-18's awaited
@@ -2043,74 +2154,60 @@ tree red. What is already done:
   ignoring. That also fixed the `e.control.title` access, which only failed
   because the event's control type was unknown. `uv run pyright db_tests/gui/`
   is now clean, and `just typecheck` reports 0 errors.
-- **The updater's own environment.** It is a separate project with its own
-  `pyproject.toml`, its own `uv.lock` and its own `.venv`, and it was **still
-  pinned to `flet[all]==0.28.3`** — so the 1.0 edits made to its source would
-  have broken it where it actually runs. Exactly the trap the BR-9 task below
-  warns about. Pin bumped to `1.0.0` and its venv synced.
+What Phase 6 still owes: confirming each tool still starts on 1.0.
 
-**The updater is a git submodule** — `.gitmodules:29-31`, and `git ls-files -s`
-shows a gitlink (mode 160000) at `resources/dpd-updater`. An earlier revision of
-this plan claimed it was merely a nested repository "not listed in
-`.gitmodules`"; that was wrong, corrected here after review. The practical
-consequence is unchanged and still matters for finalising: its changes
-(`main.py`, `ui_main.py`, `ui_setup.py`, `pyproject.toml`, `uv.lock`,
-`tests/test_main.py`) commit **inside that repository**, and dpd-db then needs a
-second commit to move the gitlink. Two commits in two repositories, both the
-user's to make.
-
-What Phase 6 still owes: launching each tool to confirm it works.
-
-**Updater test baseline — read before trusting `tests/test_main.py`.** Its own
-suite has pre-existing breakage unrelated to Flet, and I did not capture a
-baseline before touching it, so this is reasoned rather than measured:
-
-- 4 of 6 tests in `test_main.py` still fail. Two causes, both visible in the
-  committed code and neither touched by this thread: `test_main_creates_and_runs_app`
-  calls `main()` which the file never imports (`NameError`), and three tests
-  unpack a `MagicMock` return from a patched `scan_for_changes` into two names
-  (`ValueError: not enough values to unpack (expected 2, got 0)`). Both would
-  have failed identically on 0.28.
-- The sibling test files (`test_updater_config/github/installer/system.py`)
-  fail at *collection* with `ModuleNotFoundError: No module named 'exporter'` —
-  a rootdir problem, again nothing to do with Flet.
-- What this thread did fix there: `Mock(spec=ft.Page)` no longer exposes
-  `window` (1.0 made `Page` a dataclass, so `window` is a field and not in
-  `dir()`), the `@patch("main.flet.app")` target had to become
-  `@patch("main.ft.run")`, and the Ctrl+Q test now runs the handler through
-  `asyncio.run` because BR-18 made it a coroutine. That took it from 5 failing
-  to 4.
-
-- [ ] Migrate the 7 data-integrity GUI helpers (`db_tests/gui/main.py` plus the
+- [x] Migrate the 7 data-integrity GUI helpers (`db_tests/gui/main.py` plus the
   taddhita, su/dur, negative-compound, two antonym and hyphenation tools).
-  Entry point at `db_tests/gui/main.py:166`; otherwise the same renames.
+  Entry point at `db_tests/gui/main.py:169`; otherwise the same renames.
   **None of these needs BR-17 work** — their classes are plain, not controls.
-  → verify: launch each; it opens, displays data, and its primary action works.
+  → verify: the module imports, no 0.28-only API survives anywhere in the tree,
+    and its entry point resolves. Then launch it and confirm it opens, displays
+    data, and its primary action works — that half needs a human.
 
-- [ ] **BR-9** — the updater's file pickers. `resources/dpd-updater/ui_setup.py`
-  (lines 113, 131-132) and `ui_main.py` (lines 293, 318-319) both build
-  `ft.FilePicker(on_result=cb)` and append it to `page.overlay`. In 1.0
-  `FilePicker` is a `Service`: it belongs in `page.services`, and its methods
-  (`get_directory_path`, `pick_files`, `save_file`, `upload`) are awaitable and
-  return the result directly — the callback dance goes away. Both handlers
-  become `async def`. Entry point at `main.py:107`.
-
-  Note `resources/dpd-updater/` carries its own nested `.venv`. Check which
-  environment the updater actually runs in before assuming the repo's pin
-  applies to it.
-  → verify: launch the updater, open both directory choosers, pick a directory
-    in each, and confirm the chosen path lands where the old callback put it.
-    Run its own test file.
-
-- [ ] Migrate the 2 standalone utilities under `gui2/utilities/` and
+- [x] Migrate the 2 standalone utilities under `gui2/utilities/` and
   `gui2/test_app.py`.
-  → verify: each launches.
+  → verify: each module imports and its entry point resolves; then each
+    launches.
+
+  ✅ Both tasks verified together by a new guard,
+  `artifacts/check_phase6.py`, which covers all 10 files in one pass and
+  **exits 0**. Three checks:
+
+  | Check | Result |
+  |---|---|
+  | dead 0.28 API — 16 removed spellings, across all 10 files | clean |
+  | imports | clean |
+  | entry points resolve to a callable | clean |
+
+  The entry-point row is the plan's own list read back: `db_tests.gui.main.main`,
+  `gui2.test_app.main`, `gui2.utilities.find_words_with_examples.run_gui`,
+  `gui2.utilities.sandhi_contraction_find_replace_gui.main`. Note
+  `find_words_with_examples` is `run_gui`, not `main` — the plan's prose said
+  "the same renames" and an executor assuming `main` would have got a false
+  negative.
+
+  **`db_tests/gui/main.py` calls `ft.run()` at module level**, so importing it
+  opens a window. It is compiled and AST-resolved instead, and the guard says
+  so in a comment rather than silently skipping it.
+
+  **Sensitivity proved, not assumed.** All 16 dead-API patterns were fed a
+  known-bad line and all 16 fired; the 9 correct 1.0 spellings — including
+  `ft.border.BorderSide`, which must survive per BR-2 — produced zero false
+  positives. A sweep that finds nothing is worth nothing until it is shown it
+  can find something.
+
+  `ruff check`, `ruff format` and `pyright` clean on the new guard.
+
+  **Still owed and it genuinely needs a human:** actually launching each tool
+  and using it. The static pass proves no removed API survives and every module
+  loads; it cannot prove a window renders. Carried into the Phase 7 hand-off
+  rather than claimed here.
 
 ---
 
 ## Phase 7 — Verification and handover
 
-- [ ] Regenerate the wiring inventory and diff against
+- [x] Regenerate the wiring inventory and diff against
   `artifacts/wiring_baseline.txt`; save as `artifacts/wiring_diff.md`.
   → verify: every diff line annotated as an intended rename (button class, tab
     label, dropdown handler), a structural improvement named in
@@ -2120,30 +2217,102 @@ baseline before touching it, so this is reasoned rather than measured:
 
     **On the dropdowns, expect this exact split** — an earlier draft said "11
     lines become `on_select`", which would make an executor flag three correct
-    rows: 8 direct `ft.Dropdown` sites become `on_select`, the `DpdDropdown`
-    wrapper's `super().__init__` row becomes `on_select`, and **3 rows keep
+    rows. **8 rows become `on_select`**: 7 direct `ft.Dropdown` sites plus the
+    `DpdDropdown` wrapper's `super().__init__` row. (This line previously said
+    "8 direct sites plus the wrapper", i.e. 9 — that was an off-by-one against
+    the inventory, corrected from the measured diff.) And **3 rows keep
     `on_change`** (`dpd_fields.py:153`, `:199`, `:337`) because that is the
     wrapper's own parameter name, shared with `FieldConfig.on_change` across
-    all 48 field definitions. The comment in `dpd_fields_classes.py` says why.
+    all 50 field definitions. The comment in `dpd_fields_classes.py` says why.
 
-    Expect the baseline to be 14 bindings larger than a fresh scan: it is the
-    frozen 0.28 record and still contains the updater, which left scope.
+    The baseline is the frozen 0.28 record and carries 14 rows from a
+    directory later removed from scope. Filter those out of both sides before
+    diffing, so the comparison is 449 against 449.
 
-- [ ] Audit `artifacts/improvements.md` against the actual diff.
+  ✅ **Zero unexplained differences**, written up in `artifacts/wiring_diff.md`.
+  449 in-scope bindings before, 448 after.
+
+  The diff is not read by eye. `artifacts/diff_wiring.py` classifies every
+  difference against a table of intended renames and exits non-zero while any
+  is unaccounted for. It strips line numbers first — every file in scope moved
+  lines, so a line-sensitive diff would be all noise.
+
+  | Count | Reason |
+  |---:|---|
+  | 143 | BR-7 — `ft.ElevatedButton` → `ft.Button` |
+  | 8 | BR-1 — `Dropdown.on_change` → `on_select` |
+  | 3 | BR-8 — `page.close(dlg)` → `page.pop_dialog()` |
+  | 1 | BR-14 — the `Tabs` `on_click` binding, deliberately removed |
+
+  **The 449→448 drop is that last row and nothing else.** The script models it
+  as an expected *removal*, not a rename: a surviving binding is reported as
+  `EXPECTED TO BE REMOVED but still bound` and fails. Absence is the pass.
+
+  The BR-8 rows show a changed *callable*, not just a changed keyword, because
+  `pop_dialog()` takes no argument where `page.close(dlg)` named one.
+
+  **The dropdown prediction held, but this plan's own prose was off by one.**
+  The verify line above said "8 direct sites plus the wrapper" (9). The
+  inventory says **7 direct plus the wrapper = 8**, and exactly the 3 predicted
+  rows keep `on_change` (`dpd_fields.py:153`, `:199`, `:337`). The verify line
+  is corrected above, from the measurement rather than from the prose.
+
+- [x] Audit `artifacts/improvements.md` against the actual diff.
   → verify: every improvement in the log is present in the code, and every
     structural change in the code is in the log. A restructure that is not
     logged is a review finding — it is the thing a reviewer cannot tell apart
     from a migration bug. Re-check each logged row's evidence column still
     holds after the full walk.
 
-- [ ] Walk the entire behaviour catalogue in the migrated app, ticking each
+  ✅ Both directions checked, and the second direction found something.
+
+  **Log → code.** Both logged improvements are present and in use:
+  `field_border()` in `gui2/ui_utils.py`, **117 call sites**; `cell_border()`
+  in `gui2/filter_component.py`, 4 call sites including the two spell-check
+  branches its evidence column depends on. Each evidence column still holds.
+
+  **Code → log: three shared helpers were missing from the log.** Every added
+  top-level `def` in `gui2/` and `db_tests/` was diffed against `main`, which
+  turned up `page_of`, `is_mounted` and `request_focus` in `gui2/ui_utils.py` —
+  none of them mentioned anywhere in `improvements.md`.
+
+  They are **correctly** absent from the taken-improvements table: each *is* a
+  BR fix rather than an improvement on top of one (BR-19 for the first two,
+  BR-21 for `request_focus`), the same disposition as C1. But a reviewer
+  meeting a new shared helper with 51 call sites will ask which it is, and the
+  log is the file that is supposed to answer that without them going looking.
+
+  So `improvements.md` gains a **"Shared helpers that are not improvements"**
+  section naming all three, their call counts, the BR item each implements, and
+  why no rollback hunk is owed for them — reverting one reinstates a broken
+  1.0 idiom rather than restoring 0.28 behaviour.
+
+- [~] Walk the entire behaviour catalogue in the migrated app, ticking each
   screen off in the catalogue file itself.
   → verify: every entry confirmed, or the deviation recorded with a cause.
 
-- [ ] Confirm each of BR-1 to BR-26 individually in the running app and record
+  **Not done as a catalogue walk, and not claimed as one.** The user's test
+  round covered 15 behaviours plus 4 retests and the daily editing they do
+  anyway — which is broader evidence than a tick-list on some screens and
+  narrower on others. A screen-by-screen walk of all 415 catalogued bindings was
+  not run, so this stays `[~]`.
+
+  What that leaves genuinely unobserved is small and named: the three BR-16
+  border signals, the BR-22 focused ring, and the per-field dropdown behaviours
+  in catalogue §1.3 beyond the two the round exercised. Everything else in the
+  catalogue is either covered by the round or is a field handler whose wiring
+  the diff proves unchanged.
+
+  ⏸️ Original note: **needs the running app.** Nothing
+  here is checkable statically: the point of the walk is watching each screen
+  behave. The static half of what it would catch is already covered by the
+  wiring diff (no handler silently dropped or rebound) and the BR sweep table
+  below (no removed 1.0 API surviving anywhere).
+
+- [~] Confirm each of BR-1 to BR-26 individually in the running app and record
   the evidence here.
   → verify: a 26-row table, each row naming the observation that confirms it.
-    BR-9 is dropped (its only sites were in the updater) — mark it so rather
+    BR-9 is dropped (no sites in scope) — mark it so rather
     than leaving a blank. BR-23 is closed as not-a-defect, so its row records
     the retest, not a fix. BR-18 needs Ctrl+Q actually quitting, BR-21 needs
     focus actually moving to the next field; neither shows an error when broken.
@@ -2151,27 +2320,146 @@ baseline before touching it, so this is reasoned rather than measured:
     BR-4, BR-14's Ctrl+S path, BR-16) — those need someone to watch the
     behaviour happen. BR-15 is a zero-site sweep, confirmed by the grep.
 
-- [ ] `uv run pytest tests/gui2/` on the branch, compared against the same
+  🔶 **Static half done, 26 rows below. 11 rows needed the running app** and
+  are marked 👁. The verify line's own warning is the reason: for the silent
+  failures, code evidence is necessary and not sufficient.
+
+  ✅ **The user's test round settled 10 of those 11** — see *Phase 7 test
+  round* above for the numbered results. Confirmed there: BR-1 (#3), BR-4 (#4),
+  BR-8 and BR-17 (#1, #2), BR-14 (#2, #6), BR-18 (#7), BR-21 (#8, with residual
+  cases the user is taking), BR-22 (#10 plus the red-border retest), BR-24
+  (#13), BR-25 (#11, after BR-28), BR-26 (#12).
+
+  **The one still open is BR-16**, and only partly: 1 of its 4 border signals
+  is confirmed. See the BR-16 task in Phase 3.
+
+  Two of these rows only passed *because* the round ran: #11 became BR-28, and
+  the Test button's border became BR-27 — which turned out to be ~60 dead
+  validation messages, not one missing border. A 👁 row is not a formality.
+
+  **One sweep caveat that would otherwise produce false greens.**
+  `gui2/build/site-packages/` holds a vendored copy of **Flet 0.28** as a build
+  artifact. A naive `grep` for removed API across `gui2/` returns 69 hits for
+  `ft.app(` and 37 for `ElevatedButton` — every one inside that vendored copy.
+  All sweeps below exclude `build/`, as every guard script already does. An
+  executor who greps `gui2/` without that exclusion will think the migration
+  failed.
+
+  | BR | What | Evidence |
+  |---|---|---|
+  | 1 | `Dropdown.on_change` gone | Wiring diff: 8 rows moved to `on_select`, the 3 wrapper-parameter rows correctly kept. 👁 selection must fire the handler once with the right value |
+  | 2 | `ft.border.all()` gone | `ft.border.all` → **0**; `ft.border.BorderSide` → **2**, the sites BR-2 says must survive |
+  | 3 | Alignment constants uppercase | `ft.alignment.<lower>` → **1**, the commented-out line at `mixins.py:139` the plan says to leave |
+  | 4 | `scroll_to` awaitable | `App.on_keyboard` and `_eg_kb_handler` both `async def`, saved handler awaited. 👁 PageUp/PageDown must scroll on Pass2Add, and shortcuts must work with the eg dialog open — a silent no-op otherwise |
+  | 5 | Clipboard is a service | `page.set_clipboard`/`get_clipboard` → **0**. `pyperclip` untouched, as specified |
+  | 6 | `ft.app` gone | `ft.app(` → **0** outside `build/`; all 6 entry points resolve (`check_phase6.py`) |
+  | 7 | `ElevatedButton` gone | `ElevatedButton` → **0** outside `build/`; 143 rows renamed in the wiring diff |
+  | 8 | Dialogs, four patterns | `page.snack_bar =` → **0**; 3 `pop_dialog` rows in the diff. 👁 every dialog and snackbar must open and close |
+  | 9 | `FilePicker` is a service | **Dropped — no sites in scope.** Not a blank: the sweep is zero |
+  | 10 | Padding / border-radius modules gone | `ft.padding.` → **1** (commented-out, `mixins.py:140`); `ft.border_radius.` → **0** |
+  | 11 | — | Merged into BR-14; no separate row |
+  | 12 | `flet.version.version` gone | `version.version` → **0**; `flet.__version__` prints `1.0.0` |
+  | 13 | `update()` raises | `check_premount_update.py` exits 0; frozen-control case zero by provenance (Phase 5) |
+  | 14 | Tab container rewrite | `tab_content` → **0**; container is `TabBar`+`TabBarView`+`Tabs`. 👁 all 16 tabs render their view, Alt jumps and arrows walk past both ends, **Ctrl+S saves** (fails silently) |
+  | 15 | `Switch.label_style` | Zero-site sweep: `Switch(...label_style=)` → **0**. (Bare `label_style` still appears on `TextField`, where it is valid 1.0 — not a hit) |
+  | 16 | `InputBorder` class hierarchy | Deprecated enum members → **0**; `check_border_props.py` exits 0. 👁 borders must render |
+  | 17 | `self.page` not assignable | `check_self_page.py` **0 breaks / 16 safe**; `check_premount_page.py` 0 unguarded. (16, not the 22 this plan's BR-17 verify line still said: 4 of the original 22 were in the out-of-scope directory and 2 — `DpdFields`, `TestsTabController` — changed for BR-19. 22 − 4 − 2 = 16, reconciled exactly.) 👁 the "All tabs and tools ready." snackbar must appear at startup — the warm-up worker swallows the exception, so a window is not evidence |
+  | 18 | `window.close()` awaitable | Awaited at every site. 👁 **Ctrl+Q must actually quit** — silent when broken |
+  | 19 | `Control.page` raises unmounted | `page_of`/`is_mounted` at 20 sites replace the `if control.page` idiom |
+  | 20 | Removed keywords beyond buttons | AST pass rewrote by class and position, not textually; `ruff`+`pyright` clean |
+  | 21 | `Control.focus()` awaitable | `request_focus` at **51 sites**. 👁 **focus must actually move to the next field** — silent when broken, cursor jumps to the top of the form |
+  | 22 | Fields lost rounded corners | `field_border()` at 115 sites; `check_border_props.py` 116 deprecated kwargs → 0. 👁 visual |
+  | 23 | `AlertDialog(modal=True)` | **Closed as not-a-defect** — user retested, the dialog is modal; the docstring claiming otherwise was wrong. Row records the retest, not a fix |
+  | 24 | Window shows Flet's name/icon | Dead `window.icon` line removed; both desktop entries repointed at the client's new WM_CLASS. 👁 visual |
+  | 25 | `expand` beats `width` | Fixed. 👁 visual, against the Phase 1 screenshots |
+  | 26 | Fixed-width button wraps label | Fixed. 👁 visual |
+
+- [x] `uv run pytest tests/gui2/` on the branch, compared against the same
   command on `main` (re-syncing the environment on each switch).
   → verify: same tests pass. Any test already broken before the migration is
     named here explicitly, not quietly ignored.
 
-- [ ] `uv run pytest tests/` compared against `main`.
+- [x] `uv run pytest tests/` compared against `main`.
   → verify: new failures attributed.
 
-- [ ] Lint and type-check every touched file: `uv run ruff check --fix`,
+  ✅ **`tests/` 1886 passed, 12 deselected. `tests/gui2/` 284 passed.** Zero
+  failures, so there is nothing to attribute.
+
+  **The branch switch was deliberately not performed, and the comparison is
+  still sound.** Switching to `main` means `uv sync --all-groups` back down to
+  Flet 0.28, which breaks the migrated branch in the one shared `.venv` — while
+  the user is about to battle-test it, and while other kamma threads share this
+  tree. The plan wrote that instruction before the environment cost was known.
+
+  What replaces it is a stronger argument than a re-run would have given:
+
+  - **The test tree is byte-identical to `main`.** `git diff --name-only
+    main...HEAD -- tests/` returns **0 files**, and both refs hold the same
+    **245** files. This thread changed no test.
+  - **No test file imports Flet** — zero matches across `tests/`. The suite
+    reaches Flet only transitively, through the `gui2` modules under test.
+
+  So the only variable between the two runs is the migrated source, and it
+  produces zero failures against an unchanged suite. A `main` run could only
+  have shown the same 1886 pass. Had any test been edited to accommodate the
+  migration, this argument would not hold and the switch would be required.
+
+- [x] Lint and type-check every touched file: `uv run ruff check --fix`,
   `uv run ruff format`, `uv run pyright`, in that order. Then `just typecheck`
   repo-wide.
   → verify: all clean. Touching a file makes you responsible for its
     pre-existing errors, and satisfying the repo-wide checker does not mean the
     per-file checker is happy — run both.
 
-- [ ] Delete the throwaway instrumentation and confirm nothing imports it.
+  ✅ Run over all **57** touched `.py` files (the diff against `main` plus this
+  phase's new guards):
+
+  | Check | Result |
+  |---|---|
+  | `ruff check` | All checks passed |
+  | `ruff format --check` | 57 files already formatted |
+  | `pyright` | 0 errors, 0 warnings — **but see below** |
+  | `just typecheck` (pyrefly, repo-wide) | 0 errors |
+
+  ⚠️ **pyright's clean report on `gui2/` is a false pass, and must not be
+  quoted as type coverage.** `pyright --outputjson gui2/ui_utils.py` reports
+  **`filesAnalyzed: 0`** — `gui2` is in pyright's `exclude` list
+  (`pyproject.toml:85`) *and* in pyrefly's `project-excludes`
+  (`pyproject.toml:105`). So the ~40 `gui2/` files this thread rewrote have
+  **no type checking from either checker**. The same command on
+  `db_tests/gui/main.py` reports `filesAnalyzed: 1`, so the exclusion is
+  specific to `gui2`, not a broken invocation.
+
+  This is pre-existing repo configuration, not something this thread changed —
+  `PRE-EXISTING — NOT CAUSED BY THIS THREAD`. It is recorded because "pyright
+  clean" on this branch means "pyright clean on the 21 non-`gui2` files", and
+  a reviewer should not read it as more.
+
+- [x] Delete the throwaway instrumentation and confirm nothing imports it.
   `capture_wiring.py` and `check_self_page.py` **stay** — the first is needed
   for the Phase 7 diff, the second is BR-17's regression guard.
   → verify: `instrument_handlers.py` is gone and `rg` for its name returns zero.
 
-- [ ] Write `artifacts/handover.md`, covering:
+  ✅ Deleted. No `.py` file anywhere in the repo references it. Two prose
+  mentions survive, both correct as history and neither an import:
+  `handoff.md` and `artifacts/measurement_session_2.md`, which is the record of
+  the session it measured.
+
+  Kept, as instructed, plus the guards written since. **Twelve runnable
+  scripts, all exit 0** — the count said "eight" until review pointed out four
+  earlier-phase guards were missing from every list:
+
+  | | |
+  |---|---|
+  | earlier phases | `check_self_page`, `check_premount_page`, `check_premount_update`, `check_catalogue_coverage`, `check_border_props`, `check_flet_kwargs`, `check_page_reads`, `check_unawaited` |
+  | Phase 7 | `check_phase6`, `capture_wiring`, `diff_wiring` |
+  | post-test-round | `check_error_text` |
+
+  `check_error_text.py` is the regression guard for this thread's largest fix
+  and was missing from both this list and the handover's table — so anyone
+  running "the guards" would have skipped exactly the one protecting BR-27.
+
+- [x] Write `artifacts/handover.md`, covering:
   - **first line, before anything else: the shared working tree is parked on
     `flet-1-0`.** Any other kamma thread that commits lands on the migration
     branch, not `main`.
@@ -2190,6 +2478,21 @@ baseline before touching it, so this is reasoned rather than measured:
   → verify: every command in it was run and its output seen; every path in it
     was read from the code that uses it, not written from memory.
 
-- [ ] Report to the user in plain English and stop. Do not merge, do not commit
+  ✅ Written. Every path and line number read from source, not memory:
+  the launch command from `justfile:119-120`; `git_commit` at
+  `backup_dpd_headwords_and_roots.py:25,148`; the four backup TSVs listed by
+  `ls`; the 16 screenshots counted in `artifacts/screenshots_before/`; the
+  `ft.dropdown.Option` count (45) and the safe-site count (16) re-measured
+  rather than copied from the plan — which is how the stale 22 was caught.
+
+  The `gui2/build/site-packages/` trap is called out explicitly: a sweep of
+  `gui2/` that forgets to exclude `build/` hits a vendored 0.28 copy and reads
+  as a failed migration.
+
+- [x] Report to the user in plain English and stop. Do not merge, do not commit
   without being asked, do not close anything.
   → verify: the branch exists, is unmerged, and the user knows how to run it.
+
+  ✅ Branch `flet-1-0` exists and is unmerged. No git command was run by the
+  agent in this phase — the changes are uncommitted and are the user's to
+  commit.

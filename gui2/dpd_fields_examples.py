@@ -7,7 +7,7 @@ from gui2.flet_functions import (
     highlight_word_in_sentence,
 )
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, request_focus
+from gui2.ui_utils import field_border, request_focus, set_error
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.cst_source.models import CstSourceSuttaExample
@@ -341,7 +341,7 @@ class DpdExampleField(ft.Column):
                     self.speech_marks_manager.update_variants(clean_word, word)
 
     def click_book_and_word(self, e: ft.ControlEvent):
-        self.word_to_find_field.error_text = None
+        set_error(self.word_to_find_field, None)
         if self.book_dropdown.value and self.word_to_find_field.value:
             self.cst_examples = find_cst_source_sutta_example(
                 book_codes[self.book_dropdown.value],
@@ -350,7 +350,7 @@ class DpdExampleField(ft.Column):
             if self.cst_examples:
                 self.choose_example()
             else:
-                self.word_to_find_field.error_text = "no example found"
+                set_error(self.word_to_find_field, "no example found")
         request_focus(self.word_to_find_field)
         self.page.update()
 
@@ -578,12 +578,13 @@ class DpdExampleField(ft.Column):
             text_len = len(clean_text)
             self.counter_field.value = str(text_len)
 
+            # No border= here: text_field is a DpdTextField, whose
+            # before_update() derives the red border from error_text. Setting it
+            # by hand as well was dead code — the same value, recomputed.
             if text_len > max_length:
-                self.text_field.border = field_border(color=ft.Colors.RED)
                 self.text_field.color = ft.Colors.RED
                 self.text_field.error_text = str(text_len - max_length)
             else:
-                self.text_field.border = field_border()
                 self.text_field.color = None
                 self.text_field.error_text = None
 

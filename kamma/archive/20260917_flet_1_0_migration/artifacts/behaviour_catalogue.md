@@ -26,12 +26,12 @@ Progress:
       word finder, AI search, find-replace, test manager, username, utilities
       (51 bindings)
 
-**Coverage: 415 of the 463 bindings, across 35 of the 45 files. Zero
+**Coverage: 415 of the 449 in-scope bindings, across 35 files. Zero
 uncatalogued.** The four section totals reconcile exactly:
 164 + 94 + 106 + 51 = 415, no bindings unaccounted.
 
-The remaining 48 bindings across 10 files are `db_tests/gui/` and
-`resources/dpd-updater/`, catalogued in Phase 6 alongside their migration.
+The remaining 34 bindings are `db_tests/gui/`, catalogued in Phase 6 alongside
+their migration.
 
 Checked mechanically, not by eye:
 `uv run kamma/threads/20260917_flet_1_0_migration/artifacts/check_catalogue_coverage.py`
