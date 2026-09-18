@@ -147,22 +147,31 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
 
 def git_commit(pth: ProjectPaths):
     pr.green_tmr("committing changes to GitHub")
+    repo = Repo("./")
+
+    # Add all split files for headwords and roots
+    backup_dir = pth.pali_word_path.parent
+    headword_files = list(backup_dir.glob("dpd_headwords_part_*.tsv"))
+    root_files = list(backup_dir.glob("dpd_roots_part_*.tsv"))
+
+    files_to_add = [str(f) for f in headword_files + root_files]
+    if not files_to_add:
+        pr.no("no files to commit")
+        return
+
     try:
-        repo = Repo("./")
-        index = repo.index
-
-        # Add all split files for headwords and roots
-        backup_dir = pth.pali_word_path.parent
-        headword_files = list(backup_dir.glob("dpd_headwords_part_*.tsv"))
-        root_files = list(backup_dir.glob("dpd_roots_part_*.tsv"))
-
-        files_to_add = headword_files + root_files
-        if files_to_add:
-            index.add([str(f) for f in files_to_add])
-            index.commit("pali update")
-            pr.yes("ok")
-        else:
-            pr.no("no files to commit")
+        # Path-limited commit, not `index.add` + `index.commit`. The latter
+        # stages these files and then commits the *whole index*, so in a working
+        # tree shared with other sessions it would sweep up whatever they had
+        # staged and commit it as "pali update". Passing the paths after `--`
+        # commits exactly these files from the working tree and ignores the rest
+        # of the index entirely.
+        #
+        # It also leaves nothing staged when it fails — a busy index.lock or a
+        # rejected pre-commit hook used to abort between the add and the commit
+        # and leave these files sitting staged for someone else's next commit.
+        repo.git.commit("-m", "pali update", "--", *files_to_add)
+        pr.yes("ok")
     except Exception as e:
         pr.no(f"{e}")
 

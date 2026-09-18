@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 import sys
 from pathlib import Path
@@ -7,6 +8,7 @@ import flet as ft
 from tools.ai_manager import AIManager
 from tools.printer import printer as pr
 from tools.server_mode import is_headless_server
+from gui2.ui_utils import field_border, set_error
 
 GROUNDED_KEY_PREFIX = "grounded|"
 DEFAULT_MODEL_KEY = "grounded|gemini|gemini-2.5-flash"
@@ -42,8 +44,7 @@ class AiSearchWindow:
             expand=True,
             autofocus=True,
             on_submit=self._handle_submit,
-            border_radius=20,
-            border=None,
+            border=field_border(),
         )
         self.model_dropdown = ft.Dropdown(
             label="Model",
@@ -51,8 +52,7 @@ class AiSearchWindow:
             value=DEFAULT_MODEL_KEY,
             expand=True,
             text_size=12,
-            border_radius=20,
-            border=None,
+            border=field_border(),
             on_focus=self._on_model_dropdown_focus,
         )
         self.reload_button = ft.IconButton(
@@ -117,10 +117,10 @@ class AiSearchWindow:
         self.model_dropdown.value = DEFAULT_MODEL_KEY
         self.model_dropdown.update()
 
-    def _handle_submit(self, e: ft.ControlEvent):
+    async def _handle_submit(self, e: ft.ControlEvent):
         prompt_text = self.prompt_field.value
         if not prompt_text:
-            self.prompt_field.error_text = "Please enter a prompt."
+            set_error(self.prompt_field, "Please enter a prompt.")
             self.page.update()
             return
 
@@ -130,12 +130,13 @@ class AiSearchWindow:
         try:
             selected = self.model_dropdown.value or DEFAULT_MODEL_KEY
             if selected.startswith(GROUNDED_KEY_PREFIX):
-                ai_response = self.ai_manager.request(
-                    prompt=prompt_text, grounding=True
+                ai_response = await asyncio.to_thread(
+                    self.ai_manager.request, prompt=prompt_text, grounding=True
                 )
             else:
                 provider_preference, model_name = selected.split("|", 1)
-                ai_response = self.ai_manager.request(
+                ai_response = await asyncio.to_thread(
+                    self.ai_manager.request,
                     prompt=prompt_text,
                     provider_preference=provider_preference,
                     model=model_name,
@@ -161,9 +162,9 @@ def main(page: ft.Page) -> None:
 
     window = AiSearchWindow(page)
 
-    def on_keyboard(e: ft.KeyboardEvent) -> None:
+    async def on_keyboard(e: ft.KeyboardEvent) -> None:
         if (e.key == "W" and e.ctrl) or e.key == "Escape":
-            page.window.close()
+            await page.window.close()
 
     page.on_keyboard_event = on_keyboard
     page.add(window.build())
@@ -171,4 +172,4 @@ def main(page: ft.Page) -> None:
 
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    ft.run(main)

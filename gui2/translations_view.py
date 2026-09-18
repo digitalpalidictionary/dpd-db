@@ -1,8 +1,10 @@
+import asyncio
 import re
 
 import flet as ft
 
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import field_border, is_mounted, request_focus
 from tools.pali_text_files import cst_texts
 from tools.tipitaka_db import search_all_cst_texts, search_book
 
@@ -15,7 +17,6 @@ FILTER_HIGHLIGHT_COLOUR = ft.Colors.CYAN_200
 class TranslationsView(ft.Column):
     def __init__(self, page: ft.Page, toolkit: ToolKit):
         super().__init__(expand=True, spacing=10)
-        self.page: ft.Page = page
         self.toolkit = toolkit
 
         # --- UI Controls ---
@@ -29,8 +30,7 @@ class TranslationsView(ft.Column):
             ],
             value="Pāḷi",
             text_size=14,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
             editable=True,
             enable_filter=True,
         )
@@ -39,8 +39,7 @@ class TranslationsView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=400,
             on_submit=self.search_clicked,
-            border_radius=20,
-            border_color=ft.Colors.BLUE_200,
+            border=field_border(color=ft.Colors.BLUE_200),
         )
 
         book_options = ["all"]
@@ -54,26 +53,22 @@ class TranslationsView(ft.Column):
             options=[ft.dropdown.Option(key) for key in book_options],
             value="all",
             text_size=14,
-            border_color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(color=ft.Colors.BLUE_200),
             editable=True,
             enable_filter=True,
         )
 
-        self.search_button = ft.ElevatedButton(
+        self.search_button = ft.Button(
             "Search", on_click=self.search_clicked, width=120
         )
-        self.clear_button = ft.ElevatedButton(
-            "Clear", on_click=self.clear_clicked, width=120
-        )
+        self.clear_button = ft.Button("Clear", on_click=self.clear_clicked, width=120)
 
         self.results_search_field = ft.TextField(
             label="Search in results",
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=300,
             on_submit=self.handle_text_search,
-            border_radius=20,
-            border_color=HIGHLIGHT_COLOUR,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
 
         self.results_column = ft.Column(
@@ -84,7 +79,7 @@ class TranslationsView(ft.Column):
 
         self.results_container = ft.Container(
             content=self.results_column,
-            border_radius=ft.border_radius.all(20),
+            border_radius=ft.BorderRadius.all(20),
             padding=10,
             expand=True,
             visible=False,  # Initially invisible
@@ -116,17 +111,15 @@ class TranslationsView(ft.Column):
         self.controls.append(root_container)
 
     def on_tab_focus(self) -> None:
-        if self.search_term_field.page is not None:
-            self.search_term_field.focus()
+        if is_mounted(self.search_term_field):
+            request_focus(self.search_term_field)
 
-    def search_clicked(self, e):
+    async def search_clicked(self, e):
         search_term = self.search_term_field.value
         language = self.language_dropdown.value
 
         if not search_term:
-            self.page.snack_bar = ft.SnackBar(  # type: ignore
-                ft.Text("Please enter a search term."), open=True
-            )
+            self.page.show_dialog(ft.SnackBar(ft.Text("Please enter a search term.")))
             self.page.update()
             return
 
@@ -144,14 +137,27 @@ class TranslationsView(ft.Column):
         self.page.update()
 
         # --- Perform search ---
+        # Off the event loop: this is the slowest action in the editor (1.75 s
+        # median, measured) and it used to block the window for its whole
+        # duration, so the progress ring above never actually spun.
+        #
+        # No `await asyncio.sleep(0)` is needed before this to flush the ring,
+        # unlike the tab-build path: awaiting `to_thread` itself suspends and
+        # hands the loop the turn that flushes the queued patch. The tab path
+        # spells the sleep out because there the update and the blocking call
+        # are not adjacent.
         book = self.books_dropdown.value
         results = []
         search_column = "pali_text" if language == "Pāḷi" else "english_translation"
 
         if book == "all":
-            results = search_all_cst_texts(search_term, search_column=search_column)
+            results = await asyncio.to_thread(
+                search_all_cst_texts, search_term, search_column=search_column
+            )
         elif book:
-            results = search_book(book, search_term, search_column=search_column)
+            results = await asyncio.to_thread(
+                search_book, book, search_term, search_column=search_column
+            )
 
         # --- After search: show results ---
         self.results_column.controls.clear()
@@ -330,7 +336,7 @@ class TranslationsView(ft.Column):
         elif hasattr(self, "original_count_text"):
             self.count_widget.value = self.original_count_text
 
-        self.results_search_field.focus()
+        request_focus(self.results_search_field)
         self.page.update()
 
     def _create_highlighted_spans(

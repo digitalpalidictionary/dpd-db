@@ -7,6 +7,7 @@ from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.mixins import PopUpMixin
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import field_border, page_of
 from tools.speech_marks import SpeechMarkManager
 
 LABEL_WIDTH = 250
@@ -33,7 +34,6 @@ class Pass1AddView(ft.Column, PopUpMixin):
         from gui2.test_manager import GuiTestManager
 
         PopUpMixin.__init__(self)
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
 
         self.db: DatabaseManager = self.toolkit.db_manager
@@ -49,7 +49,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.message_field = ft.TextField(
             # color=HIGHLIGHT_COLOUR,
             expand=True,
-            border_radius=20,
+            border=field_border(),
             text_style=ft.TextStyle(color=ft.Colors.BLUE_200),
         )
         self.book_options = [
@@ -63,8 +63,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
             options=self.book_options,
             width=300,
             text_size=14,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
         self.word_in_text = ft.TextField(
             label="Word in text",
@@ -72,14 +71,14 @@ class Pass1AddView(ft.Column, PopUpMixin):
             width=LABEL_WIDTH,
             color=HIGHLIGHT_COLOUR,
             expand=True,
-            border_radius=20,
+            border=field_border(),
         )
         self.remaining_to_process = ft.TextField(
             label="Remaining",
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=150,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self._history_dropdown = ft.Dropdown(
             hint_text="History",
@@ -87,9 +86,9 @@ class Pass1AddView(ft.Column, PopUpMixin):
             options=[],
             expand=True,
             expand_loose=True,
-            border_radius=20,
+            border=field_border(),
             text_size=14,
-            on_change=self._handle_history_selection,
+            on_select=self._handle_history_selection,
         )
 
         self.clone_from_field = ft.TextField(
@@ -97,10 +96,10 @@ class Pass1AddView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=LABEL_WIDTH,
             expand=True,
-            border_radius=20,
+            border=field_border(),
             on_submit=self._click_clone_headword,
         )
-        self.clone_button = ft.ElevatedButton(
+        self.clone_button = ft.Button(
             "Clone",
             on_click=self._click_clone_headword,
             width=BUTTON_WIDTH,
@@ -113,17 +112,17 @@ class Pass1AddView(ft.Column, PopUpMixin):
                     ft.Row(
                         controls=[
                             self.books_dropdown,
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Process Book",
                                 width=BUTTON_WIDTH,
                                 on_click=self.handle_process_book_click,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Refresh DB",
                                 width=BUTTON_WIDTH,
                                 on_click=self.handle_refresh_db_click,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Clear All",
                                 width=BUTTON_WIDTH,
                                 on_click=self.clear_all_fields,
@@ -154,14 +153,14 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.middle_section = self._build_middle_section()
 
         # Define Add to DB button as an instance variable
-        self.add_to_db_button = ft.ElevatedButton(
+        self.add_to_db_button = ft.Button(
             "Add to DB",
             on_click=self.handle_add_to_db_click,
             width=BUTTON_WIDTH,
         )
 
         # Define Test button
-        self.test_button = ft.ElevatedButton(
+        self.test_button = ft.Button(
             "Test",
             on_click=self._click_run_tests,
             width=BUTTON_WIDTH,
@@ -174,12 +173,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
                         [
                             self.test_button,
                             self.add_to_db_button,
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Pass",
                                 on_click=self.handle_pass_click,
                                 width=BUTTON_WIDTH,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Delete",
                                 on_click=self.handle_delete_click,
                                 width=BUTTON_WIDTH,
@@ -188,22 +187,22 @@ class Pass1AddView(ft.Column, PopUpMixin):
                     ),
                     ft.Row(
                         [
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Sandhi OK",
                                 on_click=self.handle_sandhi_ok_click,
                                 width=BUTTON_WIDTH,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Add to Sandhi",
                                 on_click=self.handle_add_to_sandhi_click,
                                 width=BUTTON_WIDTH,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Add to Variants",
                                 on_click=self.handle_add_to_variants_click,
                                 width=BUTTON_WIDTH,
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Add to Spelling mistakes",
                                 on_click=self.handle_add_to_spelling_mistakes_click,
                                 width=BUTTON_WIDTH,
@@ -213,7 +212,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 ],
                 spacing=10,
             ),
-            padding=ft.padding.all(10),
+            padding=ft.Padding.all(10),
         )
 
         # --- Set Main View Controls ---
@@ -224,7 +223,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         ]
 
         # Populate history dropdown initially
-        self._update_history_dropdown()
+        self._update_history_dropdown(page)
 
     def load_database(self) -> None:
         self.controller.db.make_inflections_lists()
@@ -348,7 +347,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
 
         # Clear word_in_text separately
         self.word_in_text.value = ""
-        self.word_in_text.error_text = None
+        self.word_in_text.error = None
 
         self.update_message("")
         self.page.update()
@@ -417,8 +416,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
             self.add_to_db_button.color = None  # Reset to default text color
         self.page.update()
 
-    def _update_history_dropdown(self) -> None:
-        """Populates the history dropdown with the latest history."""
+    def _update_history_dropdown(self, page: ft.Page | None = None) -> None:
+        """Populates the history dropdown with the latest history.
+
+        `page` is only passed by the constructor call, which runs before the
+        view is mounted and so cannot reach `self.page`.
+        """
         history_items = self.history_manager.get_history()
         if self._history_dropdown.options is not None:
             self._history_dropdown.options.clear()
@@ -429,7 +432,9 @@ class Pass1AddView(ft.Column, PopUpMixin):
                         text=f"{item.get('id')}: {item.get('lemma_1', 'N/A')}",
                     )
                 )
-        self.page.update()
+        target = page or page_of(self)
+        if target is not None:
+            target.update()
 
     def _handle_history_selection(self, e: ft.ControlEvent) -> None:
         """Loads the selected headword from history."""

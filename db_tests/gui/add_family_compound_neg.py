@@ -172,7 +172,7 @@ class DataAndLogic:
             self.db_session.commit()
 
 
-def add_fc_neg(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
+def add_fc_neg(e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container):
     """add missing family compounds from negative words."""
 
     ui = UiManager(page, right_panel)

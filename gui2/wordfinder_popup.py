@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import flet as ft
+from gui2.ui_utils import field_border, request_focus
 
 from tools.printer import printer as pr
 
@@ -19,18 +20,17 @@ class WordFinderPopup:
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             width=500,
             on_submit=self._handle_search,
-            border_radius=20,
-            border=None,
+            border=field_border(),
             bgcolor=ft.Colors.GREY_900,  # Darker field background
         )
 
-        self.search_button = ft.ElevatedButton(
-            text="Search",
+        self.search_button = ft.Button(
+            content="Search",
             on_click=self._handle_search,
         )
 
-        self.clear_button = ft.ElevatedButton(
-            text="Clear",
+        self.clear_button = ft.Button(
+            content="Clear",
             on_click=self._handle_clear,
         )
 
@@ -45,7 +45,7 @@ class WordFinderPopup:
             label="Search Type",
             label_style=ft.TextStyle(color=ft.Colors.WHITE, size=10),
             width=300,
-            border_radius=20,
+            border=field_border(),
         )
 
         self.results_container = ft.Container(
@@ -160,7 +160,7 @@ class WordFinderPopup:
                 )
 
                 data_table = ft.DataTable(
-                    border=ft.border.all(1, ft.Colors.BLUE_200),
+                    border=ft.Border.all(1, ft.Colors.BLUE_200),
                     border_radius=10,
                     data_row_color={ft.ControlState.HOVERED: ft.Colors.GREY_700},
                     column_spacing=10,
@@ -217,9 +217,9 @@ class WordFinderPopup:
             [],
             scroll=ft.ScrollMode.AUTO,
         )
-        self.page.open(self.dialog)
+        self.page.show_dialog(self.dialog)
         self.page.update()
-        self.search_field.focus()
+        request_focus(self.search_field)
 
     def is_dialog_open(self) -> bool:
         return self.dialog.open

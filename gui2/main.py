@@ -1,3 +1,4 @@
+import asyncio
 import cProfile
 import re
 import threading
@@ -37,9 +38,21 @@ class App:
         # Guards _views/_mounted_tabs: the warm-up worker builds tabs in the
         # background while the user may click one on the UI thread.
         self._build_lock = threading.RLock()
+        # Constructed here rather than in build_ui so the background db load,
+        # which toggles it, cannot outrace its creation.
+        self._loading_bar = ft.ProgressBar(visible=False)
 
         page.theme = ft.Theme()
         page.theme.font_family = "Inter"
+        # Stated rather than inherited from the system, which is what the other
+        # three Flet apps in this repo do. The editor's colours — including the
+        # field border constant in ui_utils — were all chosen against a dark
+        # ground, so following a light system theme would render them wrong.
+        page.theme_mode = ft.ThemeMode.DARK
+        # No window title by the user's choice. The taskbar name and icon do not
+        # come from here anyway — on Linux they come from the desktop entry whose
+        # `StartupWMClass` matches the Flutter client's WM_CLASS, and
+        # `window.icon` is Windows-only and wants a `.ico`.
         self.page.window.top = 0
         self.page.window.left = 0
         self.page.window.height = 1280
@@ -145,16 +158,16 @@ class App:
             title=ft.Text("Submit Data"),
             content=ft.Text(result.message),
             actions=[
-                ft.TextButton("OK", on_click=lambda _: self.page.close(dialog)),
+                ft.TextButton("OK", on_click=lambda _: self.page.pop_dialog()),
             ],
         )
-        self.page.open(dialog)
+        self.page.show_dialog(dialog)
 
     def _on_check_updates(self, e: ft.ControlEvent) -> None:
         """Handle Update button click with confirmation."""
 
         def _run_update(e: ft.ControlEvent) -> None:
-            self.page.close(confirm_dialog)
+            self.page.pop_dialog()
             from scripts.onboarding.contributor_update import update_environment
 
             summary = update_environment(Path.cwd())
@@ -162,12 +175,10 @@ class App:
                 title=ft.Text("Update Complete"),
                 content=ft.Text(summary),
                 actions=[
-                    ft.TextButton(
-                        "OK", on_click=lambda _: self.page.close(result_dialog)
-                    ),
+                    ft.TextButton("OK", on_click=lambda _: self.page.pop_dialog()),
                 ],
             )
-            self.page.open(result_dialog)
+            self.page.show_dialog(result_dialog)
 
         confirm_dialog = ft.AlertDialog(
             modal=True,
@@ -180,7 +191,7 @@ class App:
             actions=[
                 ft.TextButton(
                     "Cancel",
-                    on_click=lambda _: self.page.close(confirm_dialog),
+                    on_click=lambda _: self.page.pop_dialog(),
                 ),
                 ft.TextButton(
                     "Update",
@@ -189,7 +200,7 @@ class App:
             ],
             actions_alignment=ft.MainAxisAlignment.END,
         )
-        self.page.open(confirm_dialog)
+        self.page.show_dialog(confirm_dialog)
 
     # Alt+<key> jumps straight to a tab, by its index in tab_labels.
     _TAB_JUMP_KEYS: dict[str, int] = {
@@ -214,10 +225,10 @@ class App:
         "Numpad 3": 500,
     }
 
-    def on_keyboard(self, e: ft.KeyboardEvent) -> None:
+    async def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
-            self.page.window.close()
+            await self.page.window.close()
         elif e.key == "A" and e.ctrl and e.shift:
             launch_ai_search_window()
         elif e.key == "F" and e.ctrl:
@@ -227,9 +238,15 @@ class App:
             if self.toolkit.wordfinder_popup.is_dialog_open():
                 self.toolkit.wordfinder_popup.close_dialog()
         elif e.key == "S" and e.ctrl:
-            tab = self.tabs.tabs[self.tabs.selected_index]
-            view = tab.content
-            # Ctrl+S saves table changes in tabs that support it
+            # Sourced from _views, not from the tab control: 1.0's Tab has no
+            # content slot, and the hasattr checks below would simply miss,
+            # so a wrong lookup here stops Ctrl+S saving without any error.
+            view = self._views.get(self.tabs.selected_index)
+            # Ctrl+S saves table changes in tabs that support it.
+            # Both targets are synchronous today. If either is ever made
+            # `async def`, these calls become discarded coroutines and Ctrl+S
+            # stops saving with no error at all — the same silent failure this
+            # path already had once. Await them if that day comes.
             if hasattr(view, "_on_save_changes"):
                 view._on_save_changes(None)
             elif hasattr(view, "_save_changes_clicked"):
@@ -237,16 +254,16 @@ class App:
         elif e.key == "Arrow Left" and e.alt:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
-                self._on_tab_activated()
+                await self._on_tab_activated()
                 self.page.update()
         elif e.key == "Arrow Right" and e.alt:
-            if self.tabs.selected_index < len(self.tabs.tabs) - 1:
+            if self.tabs.selected_index < len(self._tab_bar.tabs) - 1:
                 self.tabs.selected_index += 1
-                self._on_tab_activated()
+                await self._on_tab_activated()
                 self.page.update()
         elif e.alt and e.key in self._TAB_JUMP_KEYS:
             self.tabs.selected_index = self._TAB_JUMP_KEYS[e.key]
-            self._on_tab_activated()
+            await self._on_tab_activated()
             self.page.update()
         elif e.key in self._SCROLL_KEYS:
             # Flet's global key handler intercepts these before any focused
@@ -257,7 +274,7 @@ class App:
             view = self._views.get(self.tabs.selected_index)
             target = getattr(view, "_middle_section", None)
             if target is not None:
-                target.scroll_to(delta=self._SCROLL_KEYS[e.key], duration=100)
+                await target.scroll_to(delta=self._SCROLL_KEYS[e.key], duration=100)
 
     def _get_current_lemma(self) -> str:
         """Return lemma_clean from the active add-view, or empty string."""
@@ -286,7 +303,7 @@ class App:
         with self._build_lock:
             if index in self._mounted_tabs:
                 return
-            self.tabs.tabs[index].content = self._view(index)
+            self._tab_bodies.controls[index] = self._view(index)
             self._mounted_tabs.add(index)
         self.page.update()
 
@@ -297,14 +314,23 @@ class App:
         self._db_init_started = True
         self.page.run_thread(self._initialize_db_in_background)
 
-    def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
+    async def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
         """Build the newly-active tab's content on demand and kick db init."""
         index = self.tabs.selected_index
-        self._ensure_tab_built(index)
+        if index not in self._mounted_tabs:
+            # Hand the loop a turn so the placeholder spinner reaches the
+            # client before the build blocks, then build off the event loop.
+            # Without both halves the ring is queued and painted only after the
+            # view it was meant to cover has already appeared.
+            self.page.update()
+            await asyncio.sleep(0)
+            await asyncio.to_thread(self._ensure_tab_built, index)
         self._maybe_start_db_init()
 
-        # on_click and on_change both land here, so only the first call for a
-        # given tab dispatches focus. The page.update() flushes the new
+        # Only the first call for a given tab dispatches focus. In 0.28 the
+        # duplicate came from on_click and on_change both being bound; 1.0 has
+        # only on_change, but the keyboard jumps still call this directly as
+        # well as tripping on_change. The page.update() flushes the new
         # selected_index to the client before the view asks for focus —
         # otherwise the target field is not built yet and the request is lost.
         if index == self._focused_tab_index:
@@ -315,7 +341,15 @@ class App:
         if on_tab_focus is not None:
             on_tab_focus()
 
+    def _set_loading(self, loading: bool) -> None:
+        """Show or hide the indeterminate bar under the app bar."""
+        self._loading_bar.visible = loading
+        self.page.update()
+
     def _initialize_db_in_background(self) -> None:
+        # The longest operation in the app — ~11 s, measured — and until now it
+        # ran with nothing on screen to say so.
+        self._set_loading(True)
         try:
             self.toolkit.db_manager.initialize_db()
             show_global_snackbar(self.page, "Database loaded.", "info", 2000)
@@ -324,6 +358,8 @@ class App:
             show_global_snackbar(
                 self.page, f"Database load failed: {ex}", "error", 5000
             )
+        finally:
+            self._set_loading(False)
 
     def _warmup_in_background(self) -> None:
         """Build every tab (most-used first), then the heavy managers, so
@@ -352,8 +388,8 @@ class App:
 
     def _tab_label(self, index: int) -> str:
         """Return a tab's visible label, for messages about that tab."""
-        tab_content = self.tabs.tabs[index].tab_content
-        text = getattr(tab_content, "value", None)
+        label = self._tab_bar.tabs[index].label
+        text = getattr(label, "value", None)
         return text or str(index)
 
     def build_ui(self) -> None:
@@ -383,29 +419,53 @@ class App:
         # Derived from _TAB_JUMP_KEYS so the tooltips can never drift from the
         # keys the handler actually acts on.
         shortcuts = {index: key for key, index in self._TAB_JUMP_KEYS.items()}
-        self.tabs: ft.Tabs = ft.Tabs(
-            selected_index=0,
-            animation_duration=300,
-            on_click=self._on_tab_activated,
-            on_change=self._on_tab_activated,
+        # In Flet 1.0 the headers and the bodies are separate controls: the
+        # labels live in TabBar.tabs and the bodies in TabBarView.controls,
+        # indexed in parallel. Tab itself no longer holds any content, so the
+        # lazy-build mount point is the TabBarView list, not the Tab.
+        self._tab_bar = ft.TabBar(
             tabs=[
                 ft.Tab(
-                    tab_content=ft.Text(
+                    label=ft.Text(
                         label,
                         tooltip=f"Alt+{shortcuts[index]}"
                         if index in shortcuts
                         else None,
                     ),
-                    content=ft.Container(expand=True),
                 )
                 for index, label in enumerate(tab_labels)
             ],
+        )
+        # A spinner, not an empty box: building a view takes ~1.6 s on first
+        # selection and the placeholder is what the user looks at meanwhile.
+        self._tab_bodies = ft.TabBarView(
+            controls=[
+                ft.Container(
+                    content=ft.Row(
+                        [ft.ProgressRing()],
+                        alignment=ft.MainAxisAlignment.CENTER,
+                    ),
+                    alignment=ft.Alignment.CENTER,
+                    expand=True,
+                )
+                for _ in tab_labels
+            ],
+            expand=True,
+        )
+        self.tabs: ft.Tabs = ft.Tabs(
+            content=ft.Column(
+                [self._loading_bar, self._tab_bar, self._tab_bodies], expand=True
+            ),
+            length=len(tab_labels),
+            selected_index=0,
+            animation_duration=300,
+            on_change=self._on_tab_activated,
             expand=True,
         )
 
         # The first tab is visible at startup, so build it eagerly.
         self._mounted_tabs.add(0)
-        self.tabs.tabs[0].content = self._view(0)
+        self._tab_bodies.controls[0] = self._view(0)
 
         self.page.add(self.tabs)
         self.page.update()
@@ -426,6 +486,11 @@ def main(page: ft.Page) -> None:
         profiler = cProfile.Profile()
         profiler.enable()
 
+    # Set empty rather than left unset: an unset title is None, which the
+    # desktop client fills with its own name ("flet") instead of leaving the
+    # title bar blank.
+    page.title = ""
+
     # Time App initialization
     start_time = time.time()
     App(page)
@@ -443,4 +508,4 @@ def main(page: ft.Page) -> None:
 
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    ft.run(main)

@@ -34,18 +34,19 @@ def main(page: ft.Page):
 
     # Create tabs
     tabs = ft.Tabs(
+        content=ft.Column(
+            [
+                ft.TabBar(tabs=[ft.Tab(label="√"), ft.Tab(label="Tests")]),
+                ft.TabBarView(
+                    controls=[filter_tab_view, tests_tab_view],
+                    expand=True,
+                ),
+            ],
+            expand=True,
+        ),
+        length=2,
         selected_index=0,
         animation_duration=300,
-        tabs=[
-            ft.Tab(
-                text="√",
-                content=filter_tab_view,
-            ),
-            ft.Tab(
-                text="Tests",
-                content=tests_tab_view,
-            ),
-        ],
         expand=True,
     )
 
@@ -53,4 +54,4 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    ft.run(main)

@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 from typing import TYPE_CHECKING, Generator
 
@@ -20,7 +21,6 @@ class TestsTabController:
     def __init__(self, view: "TestsTabView", toolkit: ToolKit):
         self.view: "TestsTabView" = view
         self.toolkit: ToolKit = toolkit
-        self.page: ft.Page = view.page
         self._stop_requested: bool = False
         self._reverse_order: bool = False
         self._current_test_generator: Generator[InternalTestRow, None, None] | None = (
@@ -33,6 +33,17 @@ class TestsTabController:
         self._integrity_failures: list | None = None
         self._current_integrity_failure = None
 
+    @property
+    def page(self) -> ft.Page:
+        """The view's page, resolved on use rather than cached.
+
+        Flet 1.0 resolves `Control.page` by walking up to the root and raises
+        while the control is unmounted. This controller is built inside the
+        view's constructor, so caching the page there raised; every reader runs
+        after mount, so resolving lazily is equivalent and safe.
+        """
+        return self.view.page
+
     def handle_toggle_test_direction(self, e: ft.ControlEvent) -> None:
         """Toggle the test direction and update the button icon."""
         self._reverse_order = not self._reverse_order
@@ -42,7 +53,7 @@ class TestsTabController:
             self.view.test_direction_button.icon = ft.Icons.ARROW_FORWARD
         self.view.page.update()
 
-    def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
+    async def handle_run_tests_clicked(self, e: ft.ControlEvent) -> None:
         # Step 1: Clear previous integrity failure highlights
         self.view.reset_field_highlights()
 
@@ -54,8 +65,13 @@ class TestsTabController:
         self.view.page.update()
 
         # Step 3: Load tests first
+        #
+        # Each of the three progress messages below used to be invisible: this
+        # handler ran on the event loop, so `page.update()` queued a patch that
+        # was not flushed until the whole run was over and only the last message
+        # ever appeared. Awaiting the work gives the loop the turn it needs.
         self.view.update_test_name("Loading tests...")
-        tests_list = self.load_tests()
+        tests_list = await asyncio.to_thread(self.load_tests)
         if tests_list is None:
             self.view.update_test_name("Error loading tests")
             self.view.set_run_tests_button_disabled_state(False)
@@ -70,6 +86,10 @@ class TestsTabController:
 
         # Step 4: Integrity check before loading the DB
         self.view.update_test_name("running integrity check...")
+        # Not offloaded: `integrity_check` writes the failing test's name into
+        # the view, and a worker thread must not touch controls. The sleep is
+        # what flushes the message before the check begins.
+        await asyncio.sleep(0)
         integrity_result, failures = self.integrity_check(tests_list)
         if not integrity_result:
             self._integrity_failures = failures
@@ -82,7 +102,7 @@ class TestsTabController:
 
         # Step 5: Load DB (only if integrity is OK)
         self.view.update_test_name("loading database...")
-        db_entries = self.load_db()
+        db_entries = await asyncio.to_thread(self.load_db)
         if db_entries is None:
             self.view.update_test_name("Error loading database")
             self.view.set_run_tests_button_disabled_state(False)
@@ -796,7 +816,7 @@ class TestsTabController:
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            alignment=ft.alignment.center,
+            alignment=ft.Alignment.CENTER,
             actions=[
                 ft.TextButton("OK", on_click=_on_ok_click),
                 ft.TextButton("Cancel", on_click=_on_cancel_click),
@@ -804,7 +824,7 @@ class TestsTabController:
         )
 
         # Open the dialog
-        self.page.open(self.add_all_alert)
+        self.page.show_dialog(self.add_all_alert)
         self.page.update()
 
     def handle_next_test_clicked(self, e: ft.ControlEvent) -> None:

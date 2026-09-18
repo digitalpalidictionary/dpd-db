@@ -1,6 +1,9 @@
+import asyncio
+
 import flet as ft
 
 from gui2.dpd_fields_classes import DpdTextField
+from gui2.ui_utils import field_border, is_mounted, request_focus
 from tools.spelling import CustomSpellChecker
 
 
@@ -26,7 +29,6 @@ class DpdMeaningField(ft.Column):
         from gui2.pass2_add_view import Pass2AddView
 
         self.ui: Pass2AddView | Pass1AddView = ui
-        self.page: ft.Page = self.ui.page
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
         self.spellchecker = spellchecker  # Store spellchecker instance
@@ -54,6 +56,7 @@ class DpdMeaningField(ft.Column):
 
         # Field to add words to the dictionary
         self.add_to_dict_field = ft.TextField(
+            border=field_border(),
             label="Add spelling ",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,
@@ -126,7 +129,7 @@ class DpdMeaningField(ft.Column):
 
             self.ui.update_message(message)
             self._skip_spell_check = True
-            self.meaning_field.focus()
+            request_focus(self.meaning_field)
 
     def _remove_word_from_spell_errors(self, word: str):
         """Remove a word from the displayed spell check errors without re-running check."""
@@ -143,26 +146,29 @@ class DpdMeaningField(ft.Column):
             self.spell_suggestions.value = None
             self.spell_suggestions.visible = False
 
-    def _handle_on_focus(self, e: ft.ControlEvent):
+    async def _handle_on_focus(self, e: ft.ControlEvent):
         """Handle focus on meaning field, including spell check and callback."""
         if self.on_focus_callback:
             self.on_focus_callback(e)
         if self._skip_spell_check:
             self._skip_spell_check = False
             return
-        self._handle_spell_check(e)
+        await self._handle_spell_check(e)
 
-    def _handle_on_blur(self, e: ft.ControlEvent):
+    async def _handle_on_blur(self, e: ft.ControlEvent):
         """Handle blur on meaning field: spell check then external callback."""
-        self._handle_spell_check(e)
+        await self._handle_spell_check(e)
         if self.on_blur_callback:
             self.on_blur_callback(e)
 
-    def _handle_spell_check(self, e: ft.ControlEvent):
+    async def _handle_spell_check(self, e: ft.ControlEvent):
         """Common logic for spell checking the meaning field."""
         field = e.control
         value = field.value
-        misspelled = self.spellchecker.check_sentence(value)
+        # Off the event loop: the check is 95 ms at the median but was measured
+        # at 1.1 s on its worst sample, and it runs every time the field loses
+        # focus — the shape that reads as an occasional inexplicable hang.
+        misspelled = await asyncio.to_thread(self.spellchecker.check_sentence, value)
         if misspelled:
             error_string = ". ".join(
                 [
@@ -175,5 +181,5 @@ class DpdMeaningField(ft.Column):
         else:
             self.spell_suggestions.value = None
             self.spell_suggestions.visible = False
-        if self.page:
+        if is_mounted(self):
             self.page.update()

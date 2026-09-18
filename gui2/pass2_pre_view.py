@@ -8,6 +8,7 @@ from gui2.pass2_exceptions import Pass2ExceptionsFileManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.toolkit import ToolKit
 from tools.cst_source.models import CstSourceSuttaExample
+from gui2.ui_utils import field_border
 
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
@@ -27,7 +28,6 @@ class Pass2PreProcessView(ft.Column):
             controls=[],
             spacing=0,
         )
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.controller = Pass2PreController(
             self,
@@ -54,7 +54,7 @@ class Pass2PreProcessView(ft.Column):
             "",
             expand=True,
             color=ft.Colors.BLUE_200,
-            border_radius=20,
+            border=field_border(),
             read_only=True,
         )
         self.book_options = [
@@ -67,8 +67,7 @@ class Pass2PreProcessView(ft.Column):
             options=self.book_options,
             width=300,
             text_size=14,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
         )
         self.preprocessed_count_field = ft.TextField(
             "",
@@ -76,7 +75,7 @@ class Pass2PreProcessView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=400,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             expand=True,
             read_only=True,
         )
@@ -92,7 +91,7 @@ class Pass2PreProcessView(ft.Column):
             label="Word in text",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self.headword_lemma_1_field = ft.TextField(
             "",
@@ -100,7 +99,7 @@ class Pass2PreProcessView(ft.Column):
             label="Headword",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             expand=True,
         )
         self.headword_pos_field = ft.TextField(
@@ -109,7 +108,7 @@ class Pass2PreProcessView(ft.Column):
             label="POS",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
         self.headword_meaning_field = ft.TextField(
             "",
@@ -117,13 +116,13 @@ class Pass2PreProcessView(ft.Column):
             label="Meaning",
             label_style=TEXT_FIELD_LABEL_STYLE,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
         )
 
         self.exceptions_field = ft.TextField(
             "",
             on_submit=self.add_exception,
-            border_radius=20,
+            border=field_border(),
             width=300,
             expand=True,
             label="check meaning_1 before adding exceptions!",
@@ -142,7 +141,7 @@ class Pass2PreProcessView(ft.Column):
             "",
             width=60,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             read_only=True,
             text_align=ft.TextAlign.RIGHT,
         )
@@ -151,7 +150,7 @@ class Pass2PreProcessView(ft.Column):
             ft.Row(
                 controls=[
                     self.books_dropdown,
-                    ft.ElevatedButton(
+                    ft.Button(
                         "PreProcess Book",
                         on_click=self.handle_book_click,
                     ),
@@ -182,19 +181,19 @@ class Pass2PreProcessView(ft.Column):
             ft.Divider(),
             ft.Row(
                 controls=[
-                    ft.ElevatedButton(
+                    ft.Button(
                         "Yes",
                         on_click=self.handle_yes_click,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "No",
                         on_click=self.handle_no_click,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "New",
                         on_click=self.handle_new_click,
                     ),
-                    ft.ElevatedButton(
+                    ft.Button(
                         "Pass",
                         on_click=self.handle_pass_click,
                     ),
@@ -334,7 +333,9 @@ class Pass2PreProcessView(ft.Column):
             self.selected_sentence_index = 0
             self.update_message(message)
 
-        comment_input = ft.TextField(expand=True, autofocus=True, on_submit=on_ok)
+        comment_input = ft.TextField(
+            expand=True, autofocus=True, on_submit=on_ok, border=field_border()
+        )
 
         self.new_word_dialog = ft.AlertDialog(
             modal=True,
@@ -354,14 +355,14 @@ class Pass2PreProcessView(ft.Column):
                 expand=True,
                 scroll=ft.ScrollMode.AUTO,
             ),
-            alignment=ft.alignment.center,
-            title_padding=ft.padding.all(25),
+            alignment=ft.Alignment.CENTER,
+            title_padding=ft.Padding.all(25),
             actions=[
                 ft.TextButton("OK", on_click=on_ok),
             ],
         )
 
-        self.page.open(self.new_word_dialog)
+        self.page.show_dialog(self.new_word_dialog)
         self.page.update()
 
     def make_examples_list(
@@ -467,7 +468,7 @@ class Pass2PreProcessView(ft.Column):
                                 expand=True,
                                 selectable=True,
                             ),
-                            padding=ft.padding.only(left=10),
+                            padding=ft.Padding.only(left=10),
                         ),
                         ft.Container(
                             content=ft.Text(
@@ -478,7 +479,7 @@ class Pass2PreProcessView(ft.Column):
                                 color=ft.Colors.GREY_500,
                                 selectable=True,
                             ),
-                            padding=ft.padding.only(left=10),
+                            padding=ft.Padding.only(left=10),
                         ),
                         ft.Divider(),
                     ],

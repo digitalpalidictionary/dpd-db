@@ -100,10 +100,10 @@ class Gui:
             "", width=self.width, max_lines=5, expand=True, selectable=True
         )
 
-        self.yes_button = ft.ElevatedButton("yes", on_click=self.yes_clicked)
-        self.no_button = ft.ElevatedButton("no", on_click=self.no_clicked)
-        self.pass_button = ft.ElevatedButton("pass", on_click=self.pass_clicked)
-        self.reset_button = ft.ElevatedButton("reset", on_click=self.reset_clicked)
+        self.yes_button = ft.Button("yes", on_click=self.yes_clicked)
+        self.no_button = ft.Button("no", on_click=self.no_clicked)
+        self.pass_button = ft.Button("pass", on_click=self.pass_clicked)
+        self.reset_button = ft.Button("reset", on_click=self.reset_clicked)
 
         # Add controls to page
         self.page.add(
@@ -147,9 +147,9 @@ class Gui:
         return spans
 
     # Handle Ctrl+Q to quit
-    def on_keyboard(self, e: ft.KeyboardEvent):
+    async def on_keyboard(self, e: ft.KeyboardEvent):
         if e.key == "Q" and e.ctrl:
-            self.page.window.close()
+            await self.page.window.close()
 
     def label(self, label):
         """Makes a text label."""
@@ -294,4 +294,4 @@ def run_gui(page):
 
 
 if __name__ == "__main__":
-    ft.app(target=run_gui)
+    ft.run(run_gui)

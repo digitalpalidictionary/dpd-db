@@ -9,4 +9,4 @@ Icon=/home/bodhirasa/MyFiles/3_Active/dpd-db/identity/logo/dpd-logo-dark.svg
 Terminal=false
 Categories=Education;Language;
 Keywords=Pali;Dictionary;Buddhist;
-StartupWMClass=flet
+StartupWMClass=com.appveyor.flet

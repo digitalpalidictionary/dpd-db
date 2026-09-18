@@ -3,7 +3,7 @@ import flet as ft
 
 from db.models import DpdRoot
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import show_global_snackbar
+from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 
 GROUP_LABEL_WIDTH = 150
 LABEL_COLOUR = ft.Colors.GREY_500
@@ -17,7 +17,6 @@ class RootsTabView(ft.Column):
     def __init__(self, page: ft.Page, toolkit: ToolKit) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
 
-        self.page = page
         self.toolkit = toolkit
         self._db = toolkit.db_manager
 
@@ -42,19 +41,16 @@ class RootsTabView(ft.Column):
             editable=True,
             enable_filter=True,
             expand=True,
-            border_radius=20,
-            border_color=ft.Colors.GREY_800,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
             text_size=14,
-            on_change=self._on_dropdown_change,
+            on_select=self._on_dropdown_change,
         )
 
         self._message_field = ft.TextField(
             "",
             read_only=True,
             expand=True,
-            border_color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(color=HIGHLIGHT_COLOUR),
             color=HIGHLIGHT_COLOUR,
             hint_text="Messages",
             hint_style=ft.TextStyle(color=LABEL_COLOUR, size=10),
@@ -67,10 +63,10 @@ class RootsTabView(ft.Column):
                     ft.Row(
                         controls=[
                             self._root_dropdown,
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "New", on_click=self._new_root, width=BUTTON_WIDTH
                             ),
-                            ft.ElevatedButton(
+                            ft.Button(
                                 "Clear", on_click=self._clear_all, width=BUTTON_WIDTH
                             ),
                             self._message_field,
@@ -161,11 +157,11 @@ class RootsTabView(ft.Column):
                 spacing=4,
             ),
             expand=True,
-            padding=ft.padding.symmetric(horizontal=10, vertical=5),
+            padding=ft.Padding.symmetric(horizontal=10, vertical=5),
         )
 
     def _build_bottom_section(self) -> ft.Container:
-        self._delete_button = ft.ElevatedButton(
+        self._delete_button = ft.Button(
             "Delete",
             on_click=self._delete_root,
             width=BUTTON_WIDTH,
@@ -175,7 +171,7 @@ class RootsTabView(ft.Column):
         return ft.Container(
             content=ft.Row(
                 controls=[
-                    ft.ElevatedButton(
+                    ft.Button(
                         "Save to DB",
                         on_click=self._save_root,
                         width=BUTTON_WIDTH,
@@ -184,7 +180,7 @@ class RootsTabView(ft.Column):
                 ],
                 spacing=10,
             ),
-            padding=ft.padding.all(10),
+            padding=ft.Padding.all(10),
         )
 
     # ── Helper builders ───────────────────────────────────────────────────────
@@ -194,12 +190,12 @@ class RootsTabView(ft.Column):
     ) -> ft.TextField:
         field = ft.TextField(
             expand=expand,
-            border_radius=10,
+            border=field_border(radius=10),
             multiline=multiline,
             min_lines=1,
             max_lines=4 if multiline else 1,
             text_size=13,
-            content_padding=ft.padding.symmetric(horizontal=10, vertical=6),
+            content_padding=ft.Padding.symmetric(horizontal=10, vertical=6),
         )
         setattr(self, f"_field_{name}", field)
         return field
@@ -236,7 +232,7 @@ class RootsTabView(ft.Column):
             controls=[
                 ft.Container(
                     content=ft.Row(controls=label_controls, spacing=6),
-                    padding=ft.padding.only(top=6, bottom=2),
+                    padding=ft.Padding.only(top=6, bottom=2),
                 ),
                 ft.Row(
                     controls=field_controls,
@@ -336,7 +332,7 @@ class RootsTabView(ft.Column):
         root_field.value = "√"
         self._set_message("New root — enter fields and save")
         self.page.update()  # type: ignore
-        root_field.focus()
+        request_focus(root_field)
 
     def _delete_root(self, e: ft.ControlEvent) -> None:
         if self._is_new_mode or self._current_root_key is None:
@@ -347,7 +343,7 @@ class RootsTabView(ft.Column):
         count = self._db.get_root_headword_count(root_key)
 
         def confirm_delete(dialog_e: ft.ControlEvent) -> None:
-            self.page.close(dlg)  # type: ignore
+            self.page.pop_dialog()  # type: ignore
             success, msg = self._db.delete_root_in_db(root_key)
             if success:
                 self._current_root_key = None
@@ -359,7 +355,7 @@ class RootsTabView(ft.Column):
                 show_global_snackbar(self.page, f"Error: {msg}", "error", 6000)  # type: ignore
 
         def cancel_delete(dialog_e: ft.ControlEvent) -> None:
-            self.page.close(dlg)  # type: ignore
+            self.page.pop_dialog()  # type: ignore
 
         warning = (
             f"Delete '{root_key}'?\n\n⚠ {count} headword(s) reference this root."
@@ -376,7 +372,7 @@ class RootsTabView(ft.Column):
                 ft.TextButton("Cancel", on_click=cancel_delete),
             ],
         )
-        self.page.open(dlg)  # type: ignore
+        self.page.show_dialog(dlg)  # type: ignore
 
     def _clear_all(self, e: ft.ControlEvent | None = None) -> None:
         self._clear_fields()
@@ -419,5 +415,5 @@ class RootsTabView(ft.Column):
 
     def _set_message(self, msg: str) -> None:
         self._message_field.value = msg
-        if hasattr(self, "page") and self.page:
+        if is_mounted(self):
             self._message_field.update()

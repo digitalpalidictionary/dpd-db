@@ -58,7 +58,7 @@ tools = [
     "python-levenshtein>=0.27.1",
     "miniaudio>=1.61",
     "pathspec>=0.12.1",
-    "flet[all]==0.28.3",
+    "flet[all]==1.0.0",
     "mcp>=1.6.0",
     "google-api-python-client>=2.167.0",
     "google-auth-httplib2>=0.2.0",

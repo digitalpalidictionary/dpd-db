@@ -3,6 +3,7 @@ import re
 
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.dpd_fields_functions import make_compound_construction_from_headword
+from gui2.ui_utils import field_border, request_focus
 
 
 class DpdCompoundConstructionField(ft.Column):
@@ -26,7 +27,6 @@ class DpdCompoundConstructionField(ft.Column):
         from gui2.pass2_add_view import Pass2AddView
 
         self.ui: Pass2AddView | Pass1AddView = ui
-        self.page: ft.Page = self.ui.page
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
 
@@ -40,6 +40,7 @@ class DpdCompoundConstructionField(ft.Column):
         )
 
         self.bolding_field = ft.TextField(
+            border=field_border(),
             label="Bold",
             label_style=ft.TextStyle(color=ft.Colors.GREY_700, size=10),
             dense=True,
@@ -98,7 +99,7 @@ class DpdCompoundConstructionField(ft.Column):
             if new_value != current_value:
                 self.compound_construction_field.value = new_value
                 e.control.value = ""
-                self.compound_construction_field.focus()
+                request_focus(self.compound_construction_field)
                 self.page.update()
 
     def compound_construction_focus(self, e: ft.ControlEvent) -> None:
@@ -114,5 +115,5 @@ class DpdCompoundConstructionField(ft.Column):
             cc = make_compound_construction_from_headword(current_headword)
             compound_construction_field.value = cc
 
-        compound_construction_field.focus()
+        request_focus(compound_construction_field)
         self.page.update()

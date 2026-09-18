@@ -20,7 +20,9 @@ from tools.paths import ProjectPaths
 
 
 class UiManager:
-    def __init__(self, e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
+    def __init__(
+        self, e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container
+    ):
         self.pth = ProjectPaths()
         self.page = page
         if self.page.appbar:
@@ -219,7 +221,7 @@ class DataAndLogic:
         self.manager.add_exception("antonym: empty", headword_id)
 
 
-def add_antonyms(e: ft.ControlEvent, page: ft.Page, right_panel: ft.Container):
+def add_antonyms(e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container):
     """add missing antonyms"""
 
     ui = UiManager(e, page, right_panel)

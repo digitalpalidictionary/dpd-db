@@ -1,4 +1,5 @@
 import flet as ft
+from gui2.ui_utils import field_border
 
 
 class FieldConfig:
@@ -42,9 +43,36 @@ class DpdTextField(ft.TextField):
             on_blur=on_blur,
             min_lines=1,
             width=700,
-            border_radius=20,
+            border=field_border(),
         )
         self.name = name
+
+    # Flet 1.0 renamed TextField.error_text to `error` but left
+    # Dropdown.error_text alone, so the two control types now spell it
+    # differently. Assigning the old name on a 1.0 TextField is silently
+    # accepted — it writes a dead instance attribute that never reaches the UI —
+    # which killed every validation message in the editor at once. Forwarding
+    # here keeps the ~60 call sites, and the composite wrappers that delegate to
+    # them, spelling it the one way that works on both.
+    @property
+    def error_text(self) -> str | None:
+        value = self.error
+        return value if isinstance(value, str) or value is None else None
+
+    @error_text.setter
+    def error_text(self, value: str | None) -> None:
+        self.error = value
+
+    # 0.28 recoloured the border by itself whenever an error was set. 1.0
+    # resolves the error state against the theme, which an explicit `border=`
+    # overrides — and every field now carries one (BR-22). Deriving it here
+    # rather than at the ~60 assignment sites means no call site has to
+    # remember, and clearing the error clears the red with it.
+    def before_update(self) -> None:
+        super().before_update()
+        self.border = (
+            field_border(color=ft.Colors.RED) if self.error else field_border()
+        )
 
 
 class DpdDropdown(ft.Dropdown):
@@ -60,20 +88,37 @@ class DpdDropdown(ft.Dropdown):
             raise ValueError("Options must be provided for DpdDropdown")
 
         super().__init__(
+            # Same `expand` + `width` pair as DpdTextField, deliberately. 1.0
+            # resolves the contradiction in favour of `expand`, so both control
+            # types settle at the same rendered width and their right edges line
+            # up down the form. A fixed `width` here with no `expand` made the
+            # dropdowns ~65px wider than the text fields beside them.
             expand=True,
             options=[ft.dropdown.Option(o) for o in options],
             on_focus=on_focus,
-            on_change=on_change,
+            # Flet 1.0 split 0.28's on_change into on_select (an item was
+            # picked) and on_text_change (the user typed). on_select is the
+            # one that preserves 0.28 behaviour. The parameter keeps its name
+            # because it is shared with FieldConfig.on_change across all 48
+            # field definitions.
+            on_select=on_change,
             on_blur=on_blur,
             editable=True,
             enable_filter=True,
             width=700,
             menu_width=200,
-            border_color=ft.Colors.GREY_800,
-            border_radius=20,
-            border_width=1,
+            border=field_border(color=ft.Colors.GREY_800),
         )
         self.name = name
+
+    # Dropdown kept 0.28's `error_text` spelling where TextField renamed it to
+    # `error`, so no forwarding property is needed here — only the border, for
+    # the same reason as DpdTextField.before_update.
+    def before_update(self) -> None:
+        super().before_update()
+        self.border = field_border(
+            color=ft.Colors.RED if self.error_text else ft.Colors.GREY_800
+        )
 
 
 class DpdText(ft.TextField):
@@ -86,7 +131,18 @@ class DpdText(ft.TextField):
             text_size=16,
             width=500,
             read_only=True,
-            border=ft.InputBorder.NONE,
+            border=ft.NoInputBorder(),
             dense=True,
             multiline=True,
         )
+
+    # Same 1.0 rename as DpdTextField. No border toggle: this field is a
+    # read-only display and deliberately carries no outline at all.
+    @property
+    def error_text(self) -> str | None:
+        value = self.error
+        return value if isinstance(value, str) or value is None else None
+
+    @error_text.setter
+    def error_text(self, value: str | None) -> None:
+        self.error = value

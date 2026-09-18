@@ -97,8 +97,8 @@ class Gui:
         # Create controls
         self.find_text = ft.TextField("", width=self.width)
         self.replace_text = ft.TextField("", width=self.width)
-        self.find_button = ft.ElevatedButton("find", on_click=self.find_clicked)
-        self.clear_button = ft.ElevatedButton("clear", on_click=self.clear_search)
+        self.find_button = ft.Button("find", on_click=self.find_clicked)
+        self.clear_button = ft.Button("clear", on_click=self.clear_search)
         self.message = ft.Text("", expand=True)
 
         self.found_field = ft.Text(width=self.width, expand=True, selectable=True)
@@ -106,8 +106,8 @@ class Gui:
 
         # buttons
 
-        self.commit_button = ft.ElevatedButton("commit", on_click=self.commit_clicked)
-        self.ignore_button = ft.ElevatedButton("ignore", on_click=self.ignore_clicked)
+        self.commit_button = ft.Button("commit", on_click=self.commit_clicked)
+        self.ignore_button = ft.Button("ignore", on_click=self.ignore_clicked)
 
         # Add controls to page
         self.page.add(
@@ -131,9 +131,9 @@ class Gui:
         self.page.update()
 
     # Handle Ctrl+Q to quit
-    def on_keyboard(self, e: ft.KeyboardEvent):
+    async def on_keyboard(self, e: ft.KeyboardEvent):
         if e.key == "Q" and e.ctrl:
-            self.page.window.close()
+            await self.page.window.close()
 
     def label(self, label):
         """Makes a text label."""
@@ -305,7 +305,7 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    ft.run(main)
 
 """
 What have I learned from this exercise?

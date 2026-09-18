@@ -1,9 +1,11 @@
+import asyncio
 import subprocess
 
 import flet as ft
 
 from db.inflections.generate_inflection_tables import InflectionsManager
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import is_mounted
 from db.backup_tsv.backup_dpd_headwords_and_roots import (
     backup_dpd_headwords_and_roots,
 )
@@ -15,7 +17,6 @@ class GlobalTabView(ft.Column):
 
     def __init__(self, page: ft.Page, toolkit: ToolKit) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
 
         self._message: ft.Text = ft.Text(
@@ -29,7 +30,7 @@ class GlobalTabView(ft.Column):
                         controls=[
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Backup & Quit",
                                         on_click=self._click_backup_quit,
                                         width=250,
@@ -39,7 +40,7 @@ class GlobalTabView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Open Internal Tests",
                                         on_click=self._handle_open_test_file,
                                         width=250,
@@ -49,7 +50,7 @@ class GlobalTabView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Update Anki Database",
                                         on_click=self._click_update_anki,
                                         width=250,
@@ -59,7 +60,7 @@ class GlobalTabView(ft.Column):
                             ),
                             ft.Row(
                                 controls=[
-                                    ft.ElevatedButton(
+                                    ft.Button(
                                         "Update Inflections",
                                         on_click=self._click_update_inflections,
                                         width=250,
@@ -76,22 +77,30 @@ class GlobalTabView(ft.Column):
 
     def _update_message(self, msg: str) -> None:
         self._message.value = msg
-        if hasattr(self, "page") and self.page is not None:
+        if is_mounted(self):
             self.page.update()
 
-    def _click_backup_quit(self, e: ft.ControlEvent) -> None:
+    async def _say(self, msg: str) -> None:
+        """Set the message and give the loop a turn to actually paint it.
+
+        `page.update()` only queues a patch; without an intervening await it is
+        flushed after the work the message was meant to announce.
+        """
+        self._update_message(msg)
+        await asyncio.sleep(0)
+
+    async def _click_backup_quit(self, e: ft.ControlEvent) -> None:
         """Run DB backup and close the app window."""
         pth = ProjectPaths()
-        self._update_message("Running database backup...")
+        await self._say("Running database backup...")
         try:
-            backup_dpd_headwords_and_roots(pth)
+            await asyncio.to_thread(backup_dpd_headwords_and_roots, pth)
             self._update_message("Database backup completed successfully.")
-            if (
-                hasattr(self, "page")
-                and self.page is not None
-                and hasattr(self.page, "window")
-            ):
-                self.page.window.close()
+            # `hasattr(self, "page")` used to guard this; in 1.0 the property
+            # raises rather than being absent, so hasattr propagates the error
+            # instead of catching it. is_mounted is the real check.
+            if is_mounted(self):
+                await self.page.window.close()
         except Exception as ex:
             self._update_message(f"Backup failed: {ex}")
 
@@ -102,59 +111,65 @@ class GlobalTabView(ft.Column):
         if test_file_path.exists():
             subprocess.Popen(["libreoffice", "--calc", str(test_file_path)])
 
-    def _click_update_inflections(self, e: ft.ControlEvent) -> None:
+    async def _click_update_inflections(self, e: ft.ControlEvent) -> None:
         """Update inflections from templates."""
-        self._update_message("Updating inflections...")
+        await self._say("Updating inflections...")
         try:
             inflections_manager = InflectionsManager()
-            inflections_manager.run()
-            self.toolkit.db_manager.mark_corpus_stale()
-            self.toolkit.db_manager.make_inflections_lists()
+            await asyncio.to_thread(inflections_manager.run)
+            await asyncio.to_thread(self.toolkit.db_manager.mark_corpus_stale)
+            await asyncio.to_thread(self.toolkit.db_manager.make_inflections_lists)
             self._update_message("Inflections updated successfully.")
         except Exception as ex:
             self._update_message(f"Inflections update failed: {ex}")
 
-    def _click_update_anki(self, e: ft.ControlEvent) -> None:
+    async def _click_update_anki(self, e: ft.ControlEvent) -> None:
         """Close Anki if open, run anki updater, and show completion message."""
-        self._update_message("Closing Anki...")
+        # Every step below reports progress, and none of those reports could
+        # reach the screen while this ran on the event loop: the waits and the
+        # export blocked the very loop that paints them, so the window froze
+        # and only the final message ever appeared. Each blocking step is now
+        # either an awaited sleep or handed to a worker thread, which gives the
+        # loop the turn it needs to flush the message before the step begins.
+        await self._say("Closing Anki...")
 
         try:
             # First, forcefully close any running Anki processes
-            subprocess.run(["pkill", "-9", "-f", "anki"], capture_output=True)
+            await asyncio.to_thread(
+                subprocess.run, ["pkill", "-9", "-f", "anki"], capture_output=True
+            )
 
             # Wait a few seconds to ensure Anki has released its database locks
-            import time
-
-            time.sleep(3)
+            await asyncio.sleep(3)
 
             # Verify Anki is truly closed by checking for any remaining processes
-            result = subprocess.run(
-                ["pgrep", "-f", "anki"], capture_output=True, text=True
+            result = await asyncio.to_thread(
+                subprocess.run, ["pgrep", "-f", "anki"], capture_output=True, text=True
             )
             if result.returncode == 0:
-                self._update_message(
+                await self._say(
                     "Warning: Anki may still be running, but proceeding anyway..."
                 )
-                time.sleep(2)  # Give it a bit more time
+                await asyncio.sleep(2)  # Give it a bit more time
 
             # Run the anki updater script
-            self._update_message("Updating Anki database...")
+            await self._say("Updating Anki database...")
             from exporter.anki.anki_updater import main as anki_updater_main
 
-            anki_updater_main()
+            await asyncio.to_thread(anki_updater_main)
 
-            self._update_message(
+            await self._say(
                 "Anki database update completed successfully! Restarting Anki..."
             )
 
             # Automatically restart Anki
             try:
                 subprocess.Popen(["anki"])
-                self._update_message("Anki has been restarted successfully!")
+                await self._say("Anki has been restarted successfully!")
             except Exception as restart_ex:
-                self._update_message(
+                await self._say(
                     f"Anki update completed, but failed to restart Anki: {restart_ex}. You can manually restart Anki now."
                 )
 
         except Exception as ex:
-            self._update_message(f"Anki update failed: {ex}")
+            await self._say(f"Anki update failed: {ex}")

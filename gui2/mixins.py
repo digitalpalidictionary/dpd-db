@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from tools.paths import ProjectPaths
 import flet as ft
+from gui2.ui_utils import field_border
 
 
 class SandhiOK:
@@ -33,6 +34,7 @@ class SandhiOK:
 class PopUpMixin:
     def __init__(self):
         self._popup_textfield = ft.TextField(
+            border=field_border(),
             label="Enter value",
             autofocus=True,
             width=1000,
@@ -90,7 +92,7 @@ class PopUpMixin:
         self._callback_on_ok = on_submit
         self._popup_textfield.label = prompt_message
         self._popup_textfield.value = initial_value
-        page.open(self._dialog)
+        page.show_dialog(self._dialog)
         page.update()
 
 
@@ -115,7 +117,7 @@ class SnackBarMixin:
             bgcolor=ft.Colors.BLUE_200,
             duration=3000,
         )
-        page.open(snackbar)
+        page.show_dialog(snackbar)
         page.update()
 
 

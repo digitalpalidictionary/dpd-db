@@ -6,6 +6,7 @@ from gui2.database_manager import DatabaseManager
 from gui2.mixins import PopUpMixin
 from gui2.sandhi_files_manager import SandhiFileManager
 from gui2.toolkit import ToolKit
+from gui2.ui_utils import field_border
 
 FIELD_WIDTH = 1000
 BUTTON_WIDTH = 100
@@ -27,14 +28,13 @@ class SandhiView(ft.Column, PopUpMixin):
             spacing=5,
         )
         PopUpMixin.__init__(self)
-        self.page: ft.Page = page
         self.toolkit: ToolKit = toolkit
         self.db: DatabaseManager = self.toolkit.db_manager
         self.sandhi_files_manager: SandhiFileManager = self.toolkit.sandhi_files_manager
 
         self.message_field = ft.TextField(
             expand=True,
-            border_radius=20,
+            border=field_border(),
             text_style=ft.TextStyle(color=ft.Colors.BLUE_200),
         )
 
@@ -44,10 +44,10 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_sandhi_ok_click,
         )
-        self.sandhi_ok_button = ft.ElevatedButton(
+        self.sandhi_ok_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_sandhi_ok_click,
@@ -59,7 +59,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_sandhi_click,
         )
         self.sandhi_correction = ft.TextField(
@@ -67,10 +67,10 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_sandhi_click,
         )
-        self.add_to_sandhi_button = ft.ElevatedButton(
+        self.add_to_sandhi_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_sandhi_click,
@@ -82,11 +82,11 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             multiline=False,
             on_submit=self.handle_bulk_add_click,
         )
-        self.bulk_add_button = ft.ElevatedButton(
+        self.bulk_add_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_bulk_add_click,
@@ -98,7 +98,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_variants_click,
         )
         self.variant_main_reading = ft.TextField(
@@ -106,10 +106,10 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_variants_click,
         )
-        self.add_to_variants_button = ft.ElevatedButton(
+        self.add_to_variants_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_variants_click,
@@ -121,7 +121,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_spelling_mistakes_click,
         )
         self.spelling_mistake_correction = ft.TextField(
@@ -129,10 +129,10 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_spelling_mistakes_click,
         )
-        self.add_to_spelling_mistakes_button = ft.ElevatedButton(
+        self.add_to_spelling_mistakes_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_spelling_mistakes_click,
@@ -144,7 +144,7 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_see_click,
         )
         self.see_headword = ft.TextField(
@@ -152,10 +152,10 @@ class SandhiView(ft.Column, PopUpMixin):
             label_style=TEXT_FIELD_LABEL_STYLE,
             width=FIELD_WIDTH / 2 - 5,
             color=HIGHLIGHT_COLOUR,
-            border_radius=20,
+            border=field_border(),
             on_submit=self.handle_add_to_see_click,
         )
-        self.add_to_see_button = ft.ElevatedButton(
+        self.add_to_see_button = ft.Button(
             "Add",
             width=BUTTON_WIDTH,
             on_click=self.handle_add_to_see_click,
