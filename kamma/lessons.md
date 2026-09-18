@@ -286,3 +286,5 @@
 - 2026-09-18 [WORKFLOW] A flet 1.0 migration fix applied in one tab was never swept to its siblings; the same blocking-handler bug sat in two more tabs and only surfaced when the user hit one of them
 - 2026-09-18 [BEHAVIOR] The first regression test asserted `ticks > 0`, which passed with the offload deleted — a threshold weak enough to be compatible with the bug is not a guard; independent review caught it, and a revert-and-run would have too
 - 2026-09-18 [POSITIVE] Making a blocking handler async re-opened a door the block had held shut: both reviewers independently found that the now-clickable button could start a second concurrent run over shared state
+- 2026-09-18 [BEHAVIOR] Swept for the sutta field buttons with one syntactic form and declared the sweep complete; the commentary field's two buttons were written differently and were missed until the user said "everywhere those buttons appear"
+- 2026-09-18 [WORKFLOW] Three rounds of shrink-then-grow on a visual tweak because the first value was guessed rather than measured off the screenshot the user had already supplied

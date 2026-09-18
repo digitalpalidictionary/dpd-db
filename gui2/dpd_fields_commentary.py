@@ -7,7 +7,7 @@ from tools.example_cleaning import clean_commentary
 from gui2.example_stash_manager import ExampleStashManager
 from gui2.flet_functions import process_bold_tags
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, request_focus, set_error
+from gui2.ui_utils import compact_button_style, field_border, request_focus, set_error
 from tools.bold_definitions_search import BoldDefinitionsSearchManager
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.speech_marks import SpeechMarkManager
@@ -91,11 +91,13 @@ class DpdCommentaryField(ft.Column):
                 ft.Button(
                     "Clear",
                     on_click=self.click_commentary_clear,
+                    style=compact_button_style(),
                 ),
                 ft.Button(
                     "Last",
                     on_click=self._click_last_commentary,
                     on_blur=self._handle_last_control_blur,
+                    style=compact_button_style(),
                 ),
             ],
             spacing=0,

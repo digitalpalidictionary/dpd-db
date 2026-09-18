@@ -7,7 +7,7 @@ from gui2.flet_functions import (
     highlight_word_in_sentence,
 )
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, request_focus, set_error
+from gui2.ui_utils import compact_button_style, field_border, request_focus, set_error
 from tools.clean_sentence import split_pali_sentence_into_words
 from tools.cst_source.extractor import find_cst_source_sutta_example
 from tools.cst_source.models import CstSourceSuttaExample
@@ -223,19 +223,45 @@ class DpdExampleField(ft.Column):
             # Action buttons row (initially hidden)
             self._actions_row = ft.Row(
                 [
-                    ft.Button("Add '-", on_click=self.click_clean_example),
-                    ft.Button("[]", on_click=self.click_remove_brackets),
-                    ft.Button("<b>", on_click=self.click_remove_bold_tags),
-                    ft.Button("Delete", on_click=self.click_delete_example),
-                    ft.Button("Swap", on_click=self.click_swap_example),
-                    ft.Button("Stash", on_click=self._click_stash_example),
+                    ft.Button(
+                        "Add '-",
+                        on_click=self.click_clean_example,
+                        style=compact_button_style(),
+                    ),
+                    ft.Button(
+                        "[]",
+                        on_click=self.click_remove_brackets,
+                        style=compact_button_style(),
+                    ),
+                    ft.Button(
+                        "<b>",
+                        on_click=self.click_remove_bold_tags,
+                        style=compact_button_style(),
+                    ),
+                    ft.Button(
+                        "Delete",
+                        on_click=self.click_delete_example,
+                        style=compact_button_style(),
+                    ),
+                    ft.Button(
+                        "Swap",
+                        on_click=self.click_swap_example,
+                        style=compact_button_style(),
+                    ),
+                    ft.Button(
+                        "Stash",
+                        on_click=self._click_stash_example,
+                        style=compact_button_style(),
+                    ),
                     ft.Button(
                         "Reload",
                         on_click=self._click_reload_example,
+                        style=compact_button_style(),
                     ),
                     ft.Button(
                         "Last",
                         on_click=self._click_last_example,
+                        style=compact_button_style(),
                     ),
                 ],
                 spacing=0,

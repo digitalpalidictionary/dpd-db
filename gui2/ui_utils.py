@@ -76,6 +76,20 @@ def field_border(
     )
 
 
+def compact_button_style() -> ft.ButtonStyle:
+    """The style for the small action buttons that sit inside a field's column.
+
+    A field row is `label | field | transfer button | _add field`, so anything
+    stacked under the field shares that middle column's width. Flet's default
+    button padding and text size make a row of these overrun it and draw over
+    the `_add` field to the right.
+    """
+    return ft.ButtonStyle(
+        padding=ft.Padding.symmetric(vertical=6, horizontal=18),
+        text_style=ft.TextStyle(size=13),
+    )
+
+
 def set_error(field: ft.TextField, message: str | None) -> None:
     """Set a bare `TextField`'s error message and colour its border to match.
 
