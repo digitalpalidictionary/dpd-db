@@ -288,3 +288,5 @@
 - 2026-09-18 [POSITIVE] Making a blocking handler async re-opened a door the block had held shut: both reviewers independently found that the now-clickable button could start a second concurrent run over shared state
 - 2026-09-18 [BEHAVIOR] Swept for the sutta field buttons with one syntactic form and declared the sweep complete; the commentary field's two buttons were written differently and were missed until the user said "everywhere those buttons appear"
 - 2026-09-18 [WORKFLOW] Three rounds of shrink-then-grow on a visual tweak because the first value was guessed rather than measured off the screenshot the user had already supplied
+- 2026-09-18 [POSITIVE] Could not pin the exact sequence that triggered a RecursionError from reading alone; deleting the mechanism that made it possible was cheaper and safer than guessing the trigger and guarding it
+- 2026-09-18 [WORKFLOW] Writing the repro test surfaced a second real defect nobody reported: flet compares dialog-stack entries by value, so closing with `open = False` left entries that refuse a later identical dialog

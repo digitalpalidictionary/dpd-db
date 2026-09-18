@@ -1,7 +1,6 @@
 import asyncio
 import copy
 import json
-from collections.abc import Awaitable, Callable
 from pathlib import Path
 
 import flet as ft
@@ -81,9 +80,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._eg_prefills: dict[str, dict[str, str]] = {}
         self._eg_comment: str = ""
         self._eg_section_textboxes: list[tuple[ft.TextField, dict[str, str]]] = []
-        # Awaitable in 1.0: this holds App.on_keyboard, which became a
-        # coroutine when scroll_to did (BR-4).
-        self._eg_saved_kb: Callable[[ft.KeyboardEvent], Awaitable[None]] | None = None
         self.headword: DpdHeadword | None = None
         self.headword_original: DpdHeadword | None = None
         self.current_correction: dict | None = None
@@ -1364,22 +1360,14 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 ft.TextButton("Add ticked", on_click=self._click_eg_add),
                 ft.TextButton("Close", on_click=self._click_eg_close),
             ],
-            on_dismiss=self._restore_eg_kb,
         )
 
-        # Async because the saved handler it delegates to is App.on_keyboard,
-        # which is a coroutine in 1.0. Calling it without awaiting would
-        # return an un-awaited coroutine and silently kill global keyboard
-        # handling for as long as this dialog is open.
-        async def _eg_kb_handler(e: ft.KeyboardEvent) -> None:
-            if e.key == "Enter":
-                self._click_eg_add(e)
-                return
-            if self._eg_saved_kb is not None:
-                await self._eg_saved_kb(e)
-
-        self._eg_saved_kb = self.page.on_keyboard_event
-        self.page.on_keyboard_event = _eg_kb_handler
+        # The dialog is modal and every `words to add` box submits on Enter, so
+        # it needs no keyboard handler of its own. It used to install one on the
+        # page that delegated unhandled keys back to whatever it replaced, read
+        # from an instance attribute at call time rather than captured at
+        # install time — so a second open made the handler its own predecessor
+        # and every keypress recursed until the stack blew.
         self.page.show_dialog(self._eg_alert)
         self.page.update()
 
@@ -1406,15 +1394,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _click_eg_close(self, e: ft.ControlEvent) -> None:
         self._close_eg_alert()
 
-    def _restore_eg_kb(self, e: ft.ControlEvent | None = None) -> None:
-        if self._eg_saved_kb is not None:
-            self.page.on_keyboard_event = self._eg_saved_kb
-            self._eg_saved_kb = None
-
     def _close_eg_alert(self) -> None:
-        if self._eg_alert:
-            self._eg_alert.open = False
-        self._restore_eg_kb()
+        # `pop_dialog` rather than `open = False`: the latter hides the dialog
+        # but leaves it on the page's dialog stack, where flet compares entries
+        # by value, so a later popup with the same content is refused as
+        # already open.
+        if self._eg_alert and self._eg_alert.open:
+            self.page.pop_dialog()
         self.page.update()
 
     def _click_eg_button(self, e: ft.ControlEvent) -> None:
