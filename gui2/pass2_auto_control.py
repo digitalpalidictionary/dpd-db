@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import ast
+import asyncio
 import json
 from pathlib import Path
 from typing import Any, Iterator, Optional
@@ -105,14 +106,22 @@ class Pass2AutoController:
         # flag
         self.stop_flag: bool = False
         self.gd_toggle: bool = True
+        # The batch loops are async, so their buttons stay clickable while a run
+        # is in progress. A second run would share this controller's per-word
+        # state and interleave with the first.
+        self._run_in_progress: bool = False
 
-    def auto_process_book(
+    async def auto_process_book(
         self,
         book: str,
         provider_preference: str | None = None,
         model_name: str | None = None,
     ) -> None:
         """Process all items marked 'yes' in Pass 2 Pre."""
+
+        if self._run_in_progress:
+            self.ui.update_message("Already processing. Press Stop first.")
+            return
 
         self._book = book
         self._provider_preference = provider_preference
@@ -124,6 +133,7 @@ class Pass2AutoController:
         self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
         self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
 
+        self._run_in_progress = True
         try:
             if not self._pass2_pre_file_manager.matched:
                 pr.red("No 'matched' items found")
@@ -147,7 +157,7 @@ class Pass2AutoController:
                     self._word_in_text
                     not in self._pass2_auto_file_manager.pass2_auto_data
                 ):
-                    self._process_single_item()
+                    await self._process_single_item()
 
             if self.stop_flag:
                 self.stop_flag = False
@@ -161,8 +171,15 @@ class Pass2AutoController:
         except Exception as e:
             pr.red(f"Error during processing: {e}")
 
-    def auto_process_book_no_ai(self, book: str) -> None:
+        finally:
+            self._run_in_progress = False
+
+    async def auto_process_book_no_ai(self, book: str) -> None:
         """Process all items marked 'yes' in Pass 2 Pre without AI."""
+
+        if self._run_in_progress:
+            self.ui.update_message("Already processing. Press Stop first.")
+            return
 
         self._book = book
         self._cst_books = (
@@ -171,6 +188,7 @@ class Pass2AutoController:
         self._pass2_pre_file_manager = Pass2PreFileManager(self._book, self._gui2pth)
         self._pass2_matched_len: int = len(self._pass2_pre_file_manager.matched)
 
+        self._run_in_progress = True
         try:
             if not self._pass2_pre_file_manager.matched:
                 pr.red("No 'matched' items found")
@@ -191,7 +209,7 @@ class Pass2AutoController:
                     self._word_in_text
                     not in self._pass2_auto_file_manager.pass2_auto_data
                 ):
-                    self._process_single_item_no_ai()
+                    await self._process_single_item_no_ai()
 
             if self.stop_flag:
                 self.stop_flag = False
@@ -205,12 +223,16 @@ class Pass2AutoController:
         except Exception as e:
             pr.red(f"Error during processing: {e}")
 
-    def _process_single_item_no_ai(self) -> None:
+        finally:
+            self._run_in_progress = False
+
+    async def _process_single_item_no_ai(self) -> None:
         """
         Process a single item without AI - pass through headword as-is
         and add sutta example from pass2_pre.
         """
         self.ui.update_message(f"processing (NO AI): {self._word_in_text}")
+        await asyncio.sleep(0)
 
         try:
             self._id = self._sentence_data_batch["id"]
@@ -264,13 +286,16 @@ class Pass2AutoController:
             self.ui.update_ai_results(
                 json.dumps(response_dict, indent=4, ensure_ascii=False)
             )
+            # A `page.update()` from an async handler only queues a patch; the
+            # loop has to get a turn before it reaches the client.
+            await asyncio.sleep(0)
             if self.gd_toggle:
                 open_in_goldendict(self._word_in_text)
 
         except Exception as e:
             pr.red(f"Error processing {self._word_in_text}: {e}")
 
-    def _process_single_item(self) -> None:
+    async def _process_single_item(self) -> None:
         """
         Fetches data for a single item from the batch list (_pass2_pre_file_manager.matched)
         and orchestrates its processing using the core AI function. Handles file management
@@ -278,6 +303,7 @@ class Pass2AutoController:
         """
 
         self.ui.update_message(f"processing: {self._word_in_text}")
+        await asyncio.sleep(0)
 
         try:
             self._id = self._sentence_data_batch["id"]
@@ -289,7 +315,8 @@ class Pass2AutoController:
                 return
 
             # Call the core AI processing function
-            response_dict = self._process_headword_with_ai(
+            response_dict = await asyncio.to_thread(
+                self._process_headword_with_ai,
                 headword_in_db,
                 self._sentence_data_batch,
                 provider_preference=self._provider_preference,
@@ -332,6 +359,8 @@ class Pass2AutoController:
                 self.ui.update_ai_results(
                     json.dumps(response_dict, indent=4, ensure_ascii=False)
                 )
+                # See the note in `_process_single_item_no_ai`.
+                await asyncio.sleep(0)
                 if self.gd_toggle:
                     open_in_goldendict(self._word_in_text)
 

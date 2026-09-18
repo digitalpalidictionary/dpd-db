@@ -164,7 +164,7 @@ class Pass2AutoView(ft.Column):
         self.ai_model_dropdown.options = self._build_model_options()
         self.ai_model_dropdown.update()
 
-    def handle_book_click(self, e: ft.ControlEvent):
+    async def handle_book_click(self, e: ft.ControlEvent):
         if self.books_dropdown.value:
             # Get selected AI model
             selected_model_str: str | None = self.ai_model_dropdown.value
@@ -175,7 +175,7 @@ class Pass2AutoView(ft.Column):
                 if len(parts) == 2:
                     provider_preference, model_name = parts
 
-            self.controller.auto_process_book(
+            await self.controller.auto_process_book(
                 self.books_dropdown.value,
                 provider_preference=provider_preference,
                 model_name=model_name,
@@ -192,9 +192,9 @@ class Pass2AutoView(ft.Column):
     def handle_gd_toggle(self, e):
         self.controller.gd_toggle = self.gd_switch.value
 
-    def handle_no_ai_click(self, e: ft.ControlEvent):
+    async def handle_no_ai_click(self, e: ft.ControlEvent):
         if self.books_dropdown.value:
-            self.controller.auto_process_book_no_ai(self.books_dropdown.value)
+            await self.controller.auto_process_book_no_ai(self.books_dropdown.value)
 
     def update_message(self, message: str):
         self._message_field.value = message
