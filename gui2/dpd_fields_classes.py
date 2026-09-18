@@ -1,5 +1,8 @@
+from typing import Callable
+
 import flet as ft
-from gui2.ui_utils import field_border
+
+from gui2.ui_utils import field_border, request_focus
 
 
 class FieldConfig:
@@ -87,6 +90,10 @@ class DpdDropdown(ft.Dropdown):
         if options is None:  # Check specifically for None, allow empty list
             raise ValueError("Options must be provided for DpdDropdown")
 
+        # Set before super().__init__ so _handle_select can never observe it
+        # missing, whatever the base class does during construction.
+        self._on_change: Callable[[ft.Event[ft.Dropdown]], None] | None = on_change
+
         super().__init__(
             # Same `expand` + `width` pair as DpdTextField, deliberately. 1.0
             # resolves the contradiction in favour of `expand`, so both control
@@ -101,7 +108,7 @@ class DpdDropdown(ft.Dropdown):
             # one that preserves 0.28 behaviour. The parameter keeps its name
             # because it is shared with FieldConfig.on_change across all 48
             # field definitions.
-            on_select=on_change,
+            on_select=self._handle_select,
             on_blur=on_blur,
             editable=True,
             enable_filter=True,
@@ -110,6 +117,25 @@ class DpdDropdown(ft.Dropdown):
             border=field_border(color=ft.Colors.GREY_800),
         )
         self.name = name
+
+    # 1.0's editable Dropdown is a Flutter dropdown-menu: the options live in an
+    # overlay route, so the control holding focus when an option is chosen is
+    # destroyed with the overlay and focus falls back to the page root. The next
+    # Tab then restarts traversal at the top tab bar instead of moving to the
+    # next field. Reclaiming focus here restores 0.28's behaviour.
+    #
+    # The reclaim runs before the configured handler so that a handler moving
+    # focus onward still wins — derivative_change jumping to suffix is the one
+    # that does. Focus requests are dispatched in call order, so the later one
+    # settles last. Handlers relocating focus from on_blur instead (trans,
+    # compound_type) are a separate event and unaffected by this ordering.
+    #
+    # The handler is called directly rather than through flet's dispatcher, so
+    # it must be synchronous and take the event as its single argument.
+    def _handle_select(self, e: ft.Event[ft.Dropdown]) -> None:
+        request_focus(self)
+        if self._on_change is not None:
+            self._on_change(e)
 
     # Dropdown kept 0.28's `error_text` spelling where TextField renamed it to
     # `error`, so no forwarding property is needed here — only the border, for

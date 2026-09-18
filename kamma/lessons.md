@@ -281,3 +281,5 @@
 - 2026-09-18 [BEHAVIOR] A global CLAUDE.md note said coderabbit's `--base` is not a real flag; `--help` shows it is on the current CLI, and the note sent me the wrong way until I checked
 - 2026-09-18 [WORKFLOW] Two independent reviewers both asserted two changed files were foreign to the thread; `git log` showed they were its own Phase 5 work and held a real shared-tree bug — reviewer scope claims need the same verification as their findings
 - 2026-09-18 [POSITIVE] The user's own 15-point test round found the thread's largest defect (~60 silently dead validation messages) that the wiring diff, seven guards, 1886 tests and the type checkers had all passed over
+- 2026-09-18 [WORKFLOW] A post-migration bug reported as "lost functionality" was intact code silently disabled by a changed event payload type — reading the installed library's docstring found it faster than any diff of the migration commit
+- 2026-09-18 [BEHAVIOR] Wrote a load-bearing code comment claiming two handlers move focus from on_change; only one did — the other used on_blur. Named the wiring from memory of a nearby grep instead of re-reading the field config. Independent review caught it.
