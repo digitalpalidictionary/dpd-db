@@ -320,7 +320,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         e.control.update()
 
     def _update_count_tooltip(self, e: ft.ControlEvent) -> None:
-        if e.data != "true":
+        # flet 1.0 sends a bool for hover; earlier versions sent "true"/"false"
+        if e.data not in (True, "true"):
             return
         if e.control is self._pread_button:
             field, count = self.toolkit.proofreader_manager.next_queue_status()
