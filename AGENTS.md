@@ -102,7 +102,7 @@ db = get_db_session(Path("dpd.db"))
 - **TOUCH A FILE = OWN ITS LINT.** Editing any file makes you responsible for `ruff check` AND `pyright` passing on it — including PRE-EXISTING errors you didn't introduce. The hook stages the whole file and rejects the commit on any error in it, so "it was already broken" is not an out. Fix every error with a real, behaviour-preserving fix (never `# noqa`). This is a repeated issue.
 - After editing any file, run, in order: `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`, `uv run pytest <related test paths>`. Do NOT skip `ruff format` — a file can pass `ruff check` and still be rewritten by the formatter, bouncing the commit.
 - Exception: skip `ruff format` on `.json` fixtures — it adds trailing commas that break parsing. Regenerate fixtures programmatically.
-- The top-level `exclude:` in `.pre-commit-config.yaml` only covers `archive/`, `scripts/archive/`, `scripts/bash/`, `tools/writemdict/`. `gui2/` is pyright-excluded but NOT ruff-excluded, so it commonly carries pre-existing ruff violations that surface when you touch a file.
+- The top-level `exclude:` in `.pre-commit-config.yaml` only covers `archive/`, `scripts/archive/`, `scripts/bash/`, `tools/writemdict/`. gui2-specific lint/typecheck notes live in `gui2/README.md`.
 - If a related test file was broken before your changes, note it — don't silently ignore, it may mask a regression.
 
 ### Repo-wide type check: `just typecheck`

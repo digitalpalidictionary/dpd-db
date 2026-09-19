@@ -41,3 +41,7 @@ Specific maintenance utilities can be run from the `utilities/` subfolder.
 
 ## GUI Assets
 - **Linux Integration:** A `dpd-gui2.desktop` file is provided in `gui2/linux/` to ensure the custom icon is correctly displayed in the Linux Mint taskbar and Alt-Tab switcher.
+
+## Development Notes
+- **Lint/typecheck excludes:** `gui2/` is pyright-excluded (`[tool.pyright].exclude`) and pyrefly-excluded (`[tool.pyrefly].project-excludes`), but NOT ruff-excluded — so it commonly carries pre-existing ruff violations that surface when you touch a file, and `uv run pyright gui2/<file>` reports "0 errors" having analysed zero files. To actually type-check a gui2 file (or a `tests/` file, also excluded), run `uv run pyright --project /dev/null <file>`, or check `--outputjson`'s `filesAnalyzed`.
+- **Measuring startup headless:** use `xvfb-run -a` plus a driver that launches with `start_new_session=True` and kills the whole process group on the final stamp — never launch desktop windows for measurement (users close them mid-run), and never kill just the `uv run` PID (it orphans the venv python and the flet client). Working driver: `kamma/archive/20260918_gui2_startup_latency/artifacts/run_phase3_serial.py`.

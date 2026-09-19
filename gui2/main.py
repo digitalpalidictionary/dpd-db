@@ -35,6 +35,7 @@ class App:
 
         self.page = page
         self._db_init_started: bool = False
+        self._warmup_started: bool = False
         # Guards _views/_mounted_tabs: the warm-up worker builds tabs in the
         # background while the user may click one on the UI thread.
         self._build_lock = threading.RLock()
@@ -309,10 +310,14 @@ class App:
 
     def _maybe_start_db_init(self) -> None:
         # started at launch; this remains as a retry path if that load failed
-        if self._db_init_started or self.toolkit.db_manager.all_lemma_1 is not None:
-            return
-        self._db_init_started = True
-        self.page.run_thread(self._initialize_db_in_background)
+        # Lock covers both flags' check-and-set: handlers run in a thread
+        # pool, so two near-simultaneous tab clicks could otherwise each
+        # reserve a worker.
+        with self._build_lock:
+            if self._db_init_started or self.toolkit.db_manager.all_lemma_1 is not None:
+                return
+            self._db_init_started = True
+            self.page.run_thread(self._initialize_db_in_background)
 
     async def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
         """Build the newly-active tab's content on demand and kick db init."""
@@ -354,16 +359,31 @@ class App:
             self.toolkit.db_manager.initialize_db()
             show_global_snackbar(self.page, "Database loaded.", "info", 2000)
         except Exception as ex:
-            self._db_init_started = False
+            # Same lock as the check-and-set in _maybe_start_db_init: a
+            # failing retry's reset must not race a concurrent tab click's
+            # re-reservation.
+            with self._build_lock:
+                self._db_init_started = False
             show_global_snackbar(
                 self.page, f"Database load failed: {ex}", "error", 5000
             )
         finally:
             self._set_loading(False)
+            # Serialised, not merged: the database is a prerequisite for
+            # editing anything, the warm-up is speculative prefetch, and both
+            # are CPU-bound so under the GIL they interleave rather than
+            # parallelise. Starting the warm-up here gives the load the
+            # interpreter to itself first; `finally` keeps the warm-up running
+            # even when the load failed. The lock-guarded check-and-set keeps
+            # a retry after a failed load from running the warm-up twice.
+            with self._build_lock:
+                if not self._warmup_started:
+                    self._warmup_started = True
+                    self.page.run_thread(self._warmup_in_background)
 
     def _warmup_in_background(self) -> None:
         """Build every tab (most-used first), then the heavy managers, so
-        nothing waits on a first click. Runs alongside the db load."""
+        nothing waits on a first click. Started after the db load finishes."""
         # A failing builder leaves its tab unmounted (retried on click) and
         # must not abort the warm-up of the remaining tabs and managers.
         failed: list[str] = []
@@ -470,11 +490,11 @@ class App:
         self.page.add(self.tabs)
         self.page.update()
 
-        # Window has painted — load everything else in the background:
-        # the db (longest task) and the tab/manager warm-up in parallel.
+        # Window has painted — load the database in the background. The
+        # warm-up is not started here; it is chained from
+        # _initialize_db_in_background so the two do not compete.
         self._db_init_started = True
         self.page.run_thread(self._initialize_db_in_background)
-        self.page.run_thread(self._warmup_in_background)
 
 
 def main(page: ft.Page) -> None:
