@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict, namedtuple
+from functools import cached_property
 from json import load
 from pathlib import Path
 
@@ -29,49 +30,47 @@ class SuttaCentralSource:
         self.english_file_list: list[Path] = (
             self.make_file_list(self.english_path) if self.english_path else []
         )
-
-        self.segment_dict: dict[str, SuttaCentralSegment] = {}
-        self.make_segment_dict()
-
-        self.word_dict: defaultdict[str, list[SuttaCentralSegment]] = defaultdict(list)
         self.allowable_chars: list[str] = pali_alphabet + [" "]
-        self.process_words()
 
     def make_file_list(self, folder: Path | None) -> list[Path]:
         if not folder or not folder.exists() or not folder.is_dir():
             return []
         return natural_sort([p for p in folder.rglob("*") if p.is_file()])
 
-    def make_segment_dict(self) -> None:
+    @cached_property
+    def segment_dict(self) -> dict[str, SuttaCentralSegment]:
+        segment_dict: dict[str, SuttaCentralSegment] = {}
         if self.pali_file_list:
             for file_path in self.pali_file_list:
                 data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
                 for segment, sentence in data.items():
                     sentence = sentence.replace("ṁ", "ṃ").lower()
-                    self.segment_dict[segment] = SuttaCentralSegment(
-                        segment, sentence, ""
-                    )
+                    segment_dict[segment] = SuttaCentralSegment(segment, sentence, "")
 
         if self.english_file_list:
             for file_path in self.english_file_list:
                 data: dict[str, str] = load(file_path.open("r", encoding="utf-8"))
                 for segment, sentence in data.items():
-                    if segment in self.segment_dict:
-                        current = self.segment_dict[segment]
-                        self.segment_dict[segment] = SuttaCentralSegment(
+                    if segment in segment_dict:
+                        current = segment_dict[segment]
+                        segment_dict[segment] = SuttaCentralSegment(
                             current.segment, current.pali, sentence
                         )
                     else:
                         # sometimes only english exists
-                        self.segment_dict[segment] = SuttaCentralSegment(
+                        segment_dict[segment] = SuttaCentralSegment(
                             segment, "", sentence
                         )
+        return segment_dict
 
-    def process_words(self) -> None:
+    @cached_property
+    def word_dict(self) -> defaultdict[str, list[SuttaCentralSegment]]:
+        word_dict: defaultdict[str, list[SuttaCentralSegment]] = defaultdict(list)
         for segment in self.segment_dict.values():
             pali: str = clean_machine(segment.pali)
             for word in pali.split():
-                self.word_dict[word].append(segment)
+                word_dict[word].append(segment)
+        return word_dict
 
 
 sutta_central_books: dict[str, SuttaCentralSource] = {
