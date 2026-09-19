@@ -148,9 +148,9 @@ def test_is_db_loaded_true_after_flag_set(db_manager: DatabaseManager):
 def test_initialize_db_sets_db_loaded(
     db_manager: DatabaseManager, monkeypatch: pytest.MonkeyPatch
 ):
-    """initialize_db() must flip db_loaded True after the corpus load so save
-    paths stop being gated. Stub the file-backed get_all_* helpers; the corpus
-    load runs against the in-memory fixture."""
+    """initialize_db() must flip db_loaded True once the lookup sets and the
+    decon cache are ready — no corpus load or detector build happens there
+    any more. Stub the file-backed get_all_* helpers."""
     for name in (
         "get_all_lemma_1_and_lemma_clean",
         "get_all_pos",
@@ -162,13 +162,32 @@ def test_initialize_db_sets_db_loaded(
         "get_all_decon_no_headwords",
     ):
         monkeypatch.setattr(db_manager, name, lambda: None)
-    monkeypatch.setattr(
-        database_manager_module, "RelationshipDetector", lambda corpus: object()
-    )
 
     assert db_manager.is_db_loaded() is False
     db_manager.initialize_db()
     assert db_manager.is_db_loaded() is True
+
+
+def test_initialize_db_does_not_build_detector(
+    db_manager: DatabaseManager, monkeypatch: pytest.MonkeyPatch
+):
+    """initialize_db() must leave the detector unbuilt — it is lazy now, and
+    the corpus load it would trigger must stay off the db-loaded path."""
+    for name in (
+        "get_all_lemma_1_and_lemma_clean",
+        "get_all_pos",
+        "get_all_roots",
+        "get_all_root_families",
+        "get_all_compound_families",
+        "get_all_word_families",
+        "get_all_patterns",
+        "get_all_decon_no_headwords",
+    ):
+        monkeypatch.setattr(db_manager, name, lambda: None)
+
+    db_manager.initialize_db()
+    assert getattr(db_manager, "_relationship_detector", None) is None
+    assert getattr(db_manager, "db", None) is None
 
 
 # ── derived sets ─────────────────────────────────────────────────────────────

@@ -60,6 +60,33 @@ unbenchmarked.
   `toolkit.db_manager._relationship_detector` directly during warm-up — must
   be grep-verified before Phase 4.
 
+## Dated outcomes (2026-09-19, after implementation)
+
+- The "detector only constructed in initialize_db" claim turned out
+  **wrong twice over**: the eager construction was still in initialize_db
+  at implementation time (the lazy accessor existed but wasn't what the
+  critical path used). Removing the eager line — and pre-building the
+  detector in the app warm-up instead — took load_corpus off the critical
+  path entirely, because the corpus was only loaded to feed the detector.
+- Phase 1 re-derivation: warm-cache component medians are corpus 1.898 s,
+  decon 2.221 s, detector 0.687 s, small sets 0.316 s. Cold-process
+  launch reality: corpus 3.4-4.3 s, eager detector 0.79-0.91 s.
+- Mechanism 1 shipped as a db_info JSON cache, invalidated inside
+  `sync_lookup_column` for headwords/deconstructor syncs (covers every
+  lookup writer found), rebuilt at the end of generate_components, with a
+  live-query fallback + self-heal in gui2.
+- Mechanism 2 killed: load_only impossible (tests tab reads 45+ data-driven
+  columns on corpus rows); raw core projection benchmarked 2.6× SLOWER;
+  fast hydration (`__new__` + `__dict__.update`) only ~0.2 s (row decode,
+  not hydration, dominates); execute(select) and SQLite mmap_size within
+  noise.
+- Mechanism 3 shipped after the correction above; first-stage result
+  (decon cache only) was median 5.30 s — missed the ≤ 4 s target and the
+  miss prompted the re-test.
+- **Final result: db-loaded median 0.82 s (was 6.90 s); fully-warmed
+  9.1 s median (was 10.3 s).** Editor usable ~0.8 s after launch;
+  corpus/detector load lazily off the critical path.
+
 ## Constraints
 
 - No behaviour change visible to the user: same data, same sets.

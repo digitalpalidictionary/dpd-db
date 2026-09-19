@@ -21,6 +21,10 @@ from db.models import (
 )
 from gui2.dpd_fields_functions import clean_lemma_1
 from gui2.needs_example import is_missing_sutta_example
+from tools.cache_load import (
+    load_decon_no_headwords_cache,
+    save_decon_no_headwords_cache,
+)
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.synonym_variant import RelationshipDetector
@@ -100,6 +104,7 @@ class DatabaseManager:
 
         # synonym/phonetic detector — built lazily on first use
         self._relationship_detector: RelationshipDetector | None = None
+        self._detector_init_lock = threading.Lock()
         self._detector_rebuild_lock = threading.Lock()
         self._detector_rebuild_pending: bool = False
         self._detector_rebuild_running: bool = False
@@ -133,13 +138,19 @@ class DatabaseManager:
         self.get_all_word_families()
         self.get_all_patterns()
         self.get_all_decon_no_headwords()
-        self._relationship_detector = RelationshipDetector(self.load_corpus())
+        # The relationship detector is NOT built here: it costs ~0.8-0.9 s
+        # (full corpus scan) and is only read when a word's synonym field is
+        # used. get_relationship_detector() builds it lazily; the app warm-up
+        # (gui2/main.py, after the db load) pre-builds it off the critical
+        # path so the first click doesn't pay for it.
         self.db_loaded = True
 
     def is_db_loaded(self) -> bool:
-        """True once initialize_db() has finished the full corpus load. Save
-        paths check this so a save can't close the shared connection while the
-        background load is still reading it."""
+        """True once initialize_db() has populated the lookup sets and the
+        decon cache. The corpus is NOT loaded by then — it loads lazily via
+        load_corpus() (first use or app warm-up). Save paths check this so
+        a save can't close the shared connection while initialize_db is
+        still reading it."""
         return self.db_loaded
 
     # --- CORPUS CACHE ---
@@ -273,6 +284,17 @@ class DatabaseManager:
         self.all_patterns = set([p[0] for p in patterns_query if p[0]])
 
     def get_all_decon_no_headwords(self):
+        """All lookup keys with a deconstruction but no headword.
+
+        Reads the DbInfo cache (~0.15 s vs ~1.4-2.2 s live scan). The cache
+        is invalidated by every headwords/deconstructor lookup sync; on a
+        cache miss this falls back to the live query and refreshes the
+        cache so the next launch is fast again."""
+        cached = load_decon_no_headwords_cache(self.db_session)
+        if cached is not None:
+            self.all_decon_no_headwords = cached
+            return
+
         lookup_result = (
             self.db_session.query(Lookup.lookup_key)
             .filter(Lookup.headwords == "")
@@ -280,6 +302,13 @@ class DatabaseManager:
             .all()
         )
         self.all_decon_no_headwords = set([i[0] for i in lookup_result if i[0]])
+        try:
+            save_decon_no_headwords_cache(self.db_session, self.all_decon_no_headwords)
+        except Exception as exc:
+            # The cache is a pure optimisation — a failed refresh (db write
+            # lock held by the build pipeline, concurrent self-heal race)
+            # must never gate db_loaded. The set is already in memory.
+            print(f"decon cache refresh failed: {exc}")
 
     # --- PASS1 AUTO ---
 
@@ -645,12 +674,21 @@ class DatabaseManager:
     def get_relationship_detector(self) -> RelationshipDetector:
         """Detector for synonym/phonetic-variant suggestions.
 
-        Built eagerly at the end of `initialize_db`. The lazy-rebuild path
-        below only triggers if the cache was invalidated by a write
-        (add/update/delete) and someone calls before the next initialize.
+        Built lazily on first use (~0.8-0.9 s corpus scan + build) — NOT in
+        `initialize_db`, which must stay fast. The app warm-up
+        (gui2/main.py) pre-builds it off the critical path so the first
+        synonym click doesn't pay for it. The lazy-rebuild path below only
+        triggers if the cache was invalidated by a write
+        (add/update/delete) and someone calls before the rebuild finishes.
         """
         if self._relationship_detector is None:
-            self._relationship_detector = RelationshipDetector(self.load_corpus())
+            # Double-checked locking: a synonym click can land while the
+            # warm-up thread is still building — build once, not twice.
+            with self._detector_init_lock:
+                if self._relationship_detector is None:
+                    self._relationship_detector = RelationshipDetector(
+                        self.load_corpus()
+                    )
         return self._relationship_detector
 
     def invalidate_relationship_detector(self) -> None:

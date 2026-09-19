@@ -6,6 +6,8 @@ import csv
 import json
 from functools import lru_cache
 
+from sqlalchemy.orm import Session
+
 from db.db_helpers import get_db_session
 from tools.paths import ProjectPaths
 
@@ -113,6 +115,52 @@ def load_tpr_codes_set() -> frozenset[str]:
             tpr_codes_list = json.load(f)
             return frozenset(tpr_codes_list)
     return frozenset()
+
+
+DECON_NO_HEADWORDS_CACHE_KEY = "all_decon_no_headwords"
+
+
+def load_decon_no_headwords_cache(db_session: Session) -> set[str] | None:
+    """The cached all_decon_no_headwords set, or None if absent or corrupt."""
+    from db.models import DbInfo
+
+    row = db_session.query(DbInfo).filter_by(key=DECON_NO_HEADWORDS_CACHE_KEY).first()
+    if row is None:
+        return None
+    try:
+        return set(json.loads(row.value))
+    except (json.JSONDecodeError, TypeError):
+        return None
+
+
+def save_decon_no_headwords_cache(db_session: Session, data: set[str]) -> None:
+    """Write the all_decon_no_headwords set into the DbInfo cache."""
+    from db.models import DbInfo
+
+    value = json.dumps(sorted(data), ensure_ascii=False)
+    existing = (
+        db_session.query(DbInfo).filter_by(key=DECON_NO_HEADWORDS_CACHE_KEY).first()
+    )
+    if existing:
+        existing.value = value
+    else:
+        db_session.add(DbInfo(key=DECON_NO_HEADWORDS_CACHE_KEY, value=value))
+    db_session.commit()
+
+
+def invalidate_decon_no_headwords_cache(
+    db_session: Session, commit: bool = True
+) -> None:
+    """Drop the cached set — lookup headwords/deconstructor changed.
+
+    With ``commit=False`` the delete stays uncommitted in the session's
+    current transaction, so it lands atomically with the caller's next
+    data-changing commit (used by sync_lookup_column)."""
+    from db.models import DbInfo
+
+    db_session.query(DbInfo).filter_by(key=DECON_NO_HEADWORDS_CACHE_KEY).delete()
+    if commit:
+        db_session.commit()
 
 
 if __name__ == "__main__":

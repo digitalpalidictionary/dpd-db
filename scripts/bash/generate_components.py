@@ -59,6 +59,8 @@ COMMANDS = [
     #
     "db/epd/epd_to_lookup.py",
     #
+    "scripts/build/decon_cache_update.py",
+    #
     "exporter/webapp/generate_search_index.py",
     #
     "audio/bhashini/generate_dpd.py",

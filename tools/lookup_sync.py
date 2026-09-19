@@ -25,6 +25,7 @@ from typing import Any, cast
 from sqlalchemy.orm import Session
 
 from db.models import Lookup
+from tools.cache_load import invalidate_decon_no_headwords_cache
 from tools.lookup_is_another_value import TRANSLITERATION_COLUMNS, is_another_value
 
 LOOKUP_COLUMNS = [c.name for c in Lookup.__table__.columns]
@@ -66,10 +67,18 @@ def sync_lookup_column(
     Commits internally: once after the stale pass and once per chunk of the
     update/insert loop. Callers do not need to commit afterwards.
 
+    When ``column`` is ``headwords`` or ``deconstructor``, the
+    all_decon_no_headwords DbInfo cache is deleted in-session BEFORE any
+    commit, so the invalidation lands atomically with the first data
+    change — a crash can never leave changed data with an intact cache.
+
     Returns counts of rows updated / inserted / cleared / deleted.
     """
 
     pack_attr = pack_attr or f"{column}_pack"
+
+    if column in ("headwords", "deconstructor"):
+        invalidate_decon_no_headwords_cache(db_session, commit=False)
 
     if use_raw_sql:
         return _raw_sql_sync(db_session, column, data, pack_attr, clear_stale)
