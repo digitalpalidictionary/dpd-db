@@ -397,6 +397,10 @@ class App:
             self.toolkit.wordfinder_popup
             self.toolkit.ai_manager
             self.toolkit.bold_definitions_search_manager
+            # Pre-build the synonym/phonetic detector (~0.8-0.9 s corpus
+            # scan) so initialize_db can skip it and the first synonym
+            # click doesn't pay for it either.
+            self.toolkit.db_manager.get_relationship_detector()
         except Exception as ex:
             failed.append(str(ex))
         if failed:
