@@ -32,6 +32,8 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from scripts.fix.verb_finder import (
     build_pr_verb_index,
+    load_all_lemmas,
+    load_cst_word_freq,
     scan_derived_forms,
     write_tsv,
 )
@@ -40,13 +42,27 @@ from tools.printer import printer as pr
 
 APPLY_BUCKETS = ("would_change_to_root", "would_change_to_verb")
 SAMPLE_SIZE = 25
-DIFF_FILENAME = "proposed_grammar_changes.tsv"
+DIFF_FILES = {
+    "would_change_to_root": "changes_to_root.tsv",
+    "would_change_to_verb": "changes_to_verb.tsv",
+}
 
 
-def collect_changes(db: Session) -> list[dict]:
-    """Recompute the two unambiguous buckets and flatten them into one change list."""
+def collect_changes(db: Session, pth: ProjectPaths) -> list[dict]:
+    """Recompute the two unambiguous buckets and flatten them into one change list.
+
+    Every argument the scan accepts must be passed: without the CST frequencies
+    and the all-headword set it computes a looser set of changes than
+    `verb_finder` reports, and the two drift apart silently.
+    """
     pr_index, pr_lemma_map = build_pr_verb_index(db)
-    buckets = scan_derived_forms(db, pr_index, pr_lemma_map)
+    buckets = scan_derived_forms(
+        db,
+        pr_index,
+        pr_lemma_map,
+        load_cst_word_freq(pth),
+        load_all_lemmas(db),
+    )
 
     changes: list[dict] = []
     for bucket in APPLY_BUCKETS:
@@ -97,6 +113,12 @@ def main() -> None:
         action="store_true",
         help="write the changes to the database (default is a dry run)",
     )
+    parser.add_argument(
+        "--only",
+        choices=sorted(DIFF_FILES),
+        help="restrict to one bucket; the root redirects are mechanical, "
+        "the verb redirects rest on picking a single candidate",
+    )
     args = parser.parse_args()
 
     pr.yellow_title("verb grammar fixer")
@@ -106,11 +128,16 @@ def main() -> None:
     db = get_db_session(pth.dpd_db_path)
     output_dir: Path = pth.temp_dir / "verb_finder"
 
-    changes = collect_changes(db)
-    write_tsv(changes, output_dir / DIFF_FILENAME)
+    changes = collect_changes(db, pth)
+    for bucket, filename in DIFF_FILES.items():
+        write_tsv([c for c in changes if c["bucket"] == bucket], output_dir / filename)
 
-    for bucket in APPLY_BUCKETS:
-        pr.summary(bucket, str(sum(1 for c in changes if c["bucket"] == bucket)))
+    if args.only:
+        changes = [c for c in changes if c["bucket"] == args.only]
+
+    for bucket, filename in DIFF_FILES.items():
+        count = sum(1 for c in changes if c["bucket"] == bucket)
+        pr.summary(bucket, str(count))
     pr.summary("total changes", str(len(changes)))
 
     pr.green_title(f"sample (first {SAMPLE_SIZE})")
@@ -126,7 +153,8 @@ def main() -> None:
         pr.green("database updated — run `just backup` next")
     else:
         pr.amber("dry run — nothing written")
-        pr.white(f"full diff: {output_dir / DIFF_FILENAME}")
+        for filename in DIFF_FILES.values():
+            pr.white(f"  {output_dir / filename}")
 
     pr.toc()
 

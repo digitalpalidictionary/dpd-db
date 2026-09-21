@@ -43,6 +43,13 @@ PrLemmaMap = dict[str, list[str]]
 
 _HOMONYM_RE = re.compile(r"\s+\d+(?:\.\d+)*$")
 
+# "pr, from na avasissati" — a verb fused with its negation, not an independent
+# verb. 179 of these exist. Offering one as a redirect target produces
+# "pp of na nāvasissati", negating twice, or sends a positive form to a negative
+# verb. The grammar says so outright; the spelling does not (244 ordinary verbs
+# begin "na", e.g. namati, nadati).
+_FUSED_NEGATIVE_RE = re.compile(r"\bfrom na ")
+
 
 def verb_type(verb_col: str, grammar: str) -> str:
     """The special-verb type of a headword: "caus", "pass", "" for a plain verb.
@@ -143,9 +150,21 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
         # sent to the causative apayāpeti), so only plain verbs are offered.
         if verb_type(verb_col or "", grammar or ""):
             continue
+        if _FUSED_NEGATIVE_RE.search(grammar or ""):
+            continue
         key = (family_root or "", root_key or "")
         index.setdefault(key, []).append(lemma_1)
     return index, lemma_map
+
+
+def load_all_lemmas(db) -> set[str]:
+    """Every headword lemma, any pos.
+
+    A derived form whose grammar names a real headword is already correct, even
+    when that headword is not a present verb: anuddhata is "pp of na uddhata",
+    and uddhata is a past participle, not a missing verb.
+    """
+    return {lemma_clean(lemma) for (lemma,) in db.query(DpdHeadword.lemma_1).all()}
 
 
 def find_roots_without_pr(db, pr_index: PrIndex) -> list[dict]:
@@ -289,6 +308,7 @@ def scan_derived_forms(
     pr_index: PrIndex,
     pr_lemma_map: PrLemmaMap,
     cst_freq: Counter[str] | None = None,
+    all_lemmas: set[str] | None = None,
 ) -> dict[str, list[dict]]:
     """Bucket every derived form by what change (if any) it needs."""
     buckets: dict[str, list[dict]] = {
@@ -448,6 +468,15 @@ def scan_derived_forms(
                         "candidates": "|".join(clean_matches),
                     }
                 )
+            elif all_lemmas and lemma_clean(ref.target) in all_lemmas:
+                buckets["ok_verb_present"].append(
+                    {
+                        **base,
+                        "grammar_proposed": grammar or "",
+                        "reason": "target is a headword of another pos",
+                        "candidates": ref.target,
+                    }
+                )
             else:
                 # The named verb is missing from the dictionary but attested in
                 # CST — add it as a headword rather than rewriting this entry.
@@ -586,7 +615,8 @@ def main() -> None:
     pr.summary("distinct cst word forms", str(len(cst_freq)))
 
     pr.white("scanning derived forms")
-    buckets = scan_derived_forms(db, pr_index, pr_lemma_map, cst_freq)
+    all_lemmas = load_all_lemmas(db)
+    buckets = scan_derived_forms(db, pr_index, pr_lemma_map, cst_freq, all_lemmas)
 
     bucket_files = {
         "would_change_to_root": "would_change_to_root.tsv",

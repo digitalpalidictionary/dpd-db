@@ -122,22 +122,63 @@ dropped on the editor's instruction to clear and refresh.
 
 ## Phase 2 — other inflected forms
 
-- [ ] `build_paradigm(verb, pattern, db)` → `set[str]` of every inflected form the matching
+- [x] `build_paradigm(verb, pattern, db)` → `set[str]` of every inflected form the matching
       `inflection_templates` row generates for that stem.
       → verify: paradigm for a known verb (`gacchati`) contains `gacchanti`, `gaccheyya`;
       compare against that headword's stored `inflections`.
 
-- [ ] `--paradigm` pass: for each phase-1 unattested verb, search all three corpora for any
+- [x] `--paradigm` pass: for each phase-1 unattested verb, search all three corpora for any
       paradigm form; record the form found, which corpus, and its count.
       → verify: at least one of the 475 flips to attested; `russati` checked explicitly
       (0 hits as 3rd sg — does `russanti` occur?).
 
-- [ ] Write `paradigm_attested.tsv` (verb, form_found, corpus, count, referring entries) and
+- [x] Write `paradigm_attested.tsv` (verb, form_found, corpus, count, referring entries) and
       fold these verbs into the X queue.
       → verify: no verb appears in both the exact-form and paradigm attested sets.
 
-- [ ] Update the terminal summary with paradigm hits.
+- [x] Update the terminal summary with paradigm hits.
       → verify: exact + paradigm + still-unattested = 664.
+
+
+### Phase 2 verification (2026-09-21)
+
+**Editor's batch landed first.** 159 of the 178 phase-1 verbs were added as headwords
+between 2026-08-26 and now; exact-form attested dropped 187 -> 28. The 19 still
+attested were reviewed and rejected by the editor as low value (not real verbal
+forms), so they remain in the queue on every run — an ignore list was offered and
+not yet asked for.
+
+**Generator verified against stored data** rather than by eye: `build_paradigm` for
+`gacchati 1`, `bhavati 1` and `roseti` reproduces their stored `inflections_list`
+exactly — 57/57, 57/57, 51/51 forms, nothing missing and nothing extra.
+
+**Drift from the plan.** Two changes:
+1. No `--paradigm` flag. The paradigm pass always runs for verbs the exact-form
+   check missed — one code path is simpler than a flag nobody would leave off.
+2. **Collision filter added, not in the plan.** A generated form that already
+   exists in `lookup` under another headword is skipped. Without it the pass would
+   manufacture verbs out of unrelated words that happen to match a generated
+   ending.
+
+**Result: 77 of the 475 found by another inflected form.** X queue is now 96
+(28 exact + 77 paradigm, less those with no present-tense ending). The comment names
+the form that carried the find, e.g. "not attested as pajjāleti; found pajjālenti
+(pr 3rd pl) cst 5".
+
+Carrier forms: 17 pr 3rd pl, 14 imp 2nd sg, 13 pr 2nd sg, 8 opt 3rd sg, and a tail
+of reflexive and future forms.
+
+**Evidence strength — worth the editor's eye.** 43 of the 77 rest on a single corpus
+occurrence; 44 were found in more than one form, which is the stronger signal. Two
+hits are on forms of five characters or fewer (`kutha`, `tima`, both imperatives) —
+short forms are the most likely to be coincidence even after the lookup filter.
+
+`russati` is still not attested anywhere in its paradigm, so `verb_finder`'s
+redirect of `ruṭṭha` to `rosati` stands.
+
+**Outputs:** `temp/missing_pr_verbs/paradigm_attested.tsv` (77 rows, carrier form,
+label, corpus, count, up to 5 further forms), plus the updated
+`wanted_verbs.tsv` and `x_queue.json`. Not loaded into gui2 yet.
 
 ## Phase 3 — wide sweep
 

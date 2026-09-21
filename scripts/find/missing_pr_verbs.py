@@ -32,13 +32,14 @@ Usage:
 
 import argparse
 import json
+import re
 from collections import Counter
 from pathlib import Path
 
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, DpdRoot
+from db.models import DpdHeadword, DpdRoot, InflectionTemplates, Lookup
 from gui2.paths import Gui2Paths
 from scripts.fix.verb_finder import (
     DERIVED_POS,
@@ -215,6 +216,83 @@ def derive_proposals(
     return proposals
 
 
+def load_templates(db: Session) -> dict[str, list]:
+    """Each present pattern's stem/ending grid, keyed by pattern name."""
+    return {
+        template.pattern: json.loads(template.data)
+        for template in db.query(InflectionTemplates).all()
+        if template.data
+    }
+
+
+def build_paradigm(
+    stem: str, pattern: str, templates: dict[str, list]
+) -> dict[str, str]:
+    """Every inflected form the pattern generates for this stem, form -> label.
+
+    Mirrors `generate_inflection_tables.generate_inflection_table`: row 0 is the
+    header, odd columns hold the endings, and the grammar label sits in the
+    column after them.
+    """
+    table = templates.get(pattern)
+    if not table:
+        return {}
+    clean_stem = re.sub(r"[!*]", "", stem)
+
+    forms: dict[str, str] = {}
+    for row_number, row in enumerate(table):
+        if row_number == 0:
+            continue
+        for column_number, cell in enumerate(row):
+            if column_number == 0 or column_number % 2 == 0:
+                continue
+            label_cell = (
+                row[column_number + 1] if column_number + 1 < len(row) else [""]
+            )
+            label = label_cell[0] if label_cell else ""
+            for ending in cell:
+                if ending:
+                    forms.setdefault(f"{clean_stem}{ending}", label)
+    return forms
+
+
+def load_known_forms(db: Session) -> set[str]:
+    """Every form the dictionary already accounts for.
+
+    A generated form that some other headword already owns is not evidence for
+    the missing verb — it is a collision, and treating it as attestation would
+    manufacture verbs out of unrelated words.
+    """
+    return {
+        key
+        for (key,) in db.query(Lookup.lookup_key).filter(Lookup.headwords != "").all()
+    }
+
+
+def search_paradigm(
+    verb: str,
+    certain: dict[str, str],
+    templates: dict[str, list],
+    freqs: dict[str, Counter[str]],
+    known_forms: set[str],
+) -> list[dict[str, str]]:
+    """Corpus hits for this verb's other inflected forms, best first."""
+    paradigm = build_paradigm(certain["stem"], certain["pattern"], templates)
+    hits: list[dict[str, str]] = []
+    for form, label in paradigm.items():
+        # The 3rd singular is the exact-form check that already failed.
+        if form == verb or form in known_forms:
+            continue
+        for name in CORPORA:
+            count = freqs[name].get(form, 0)
+            if count:
+                hits.append(
+                    {"form": form, "label": label, "corpus": name, "count": str(count)}
+                )
+    hits.sort(key=lambda h: -int(h["count"]))
+    return hits
+
+
 def build_report(
     wanted: dict[str, list[dict[str, str]]],
     freqs: dict[str, Counter[str]],
@@ -257,11 +335,13 @@ def build_x_queue(
     wanted: dict[str, list[dict[str, str]]],
     freqs: dict[str, Counter[str]],
     roots: dict[str, DpdRoot],
+    paradigm_hits: dict[str, list[dict[str, str]]],
 ) -> dict[str, dict[str, str]]:
     """The gui2 X-button queue: attested verbs only, keyed by lemma, no `id`."""
     queue: dict[str, dict[str, str]] = {}
     for verb, entries in sorted(wanted.items()):
-        if not any(freqs[name].get(verb, 0) for name in CORPORA):
+        exact = any(freqs[name].get(verb, 0) for name in CORPORA)
+        if not exact and verb not in paradigm_hits:
             continue
         certain = derive_certain(verb, entries)
         # Queueing a form that cannot be a present verb would put the editor to
@@ -274,10 +354,21 @@ def build_x_queue(
         fields.update(derive_proposals(verb, certain, entries, roots))
 
         root = roots.get(certain["root_key"])
-        counts = ", ".join(
-            f"{name} {freqs[name][verb]}" for name in CORPORA if freqs[name].get(verb)
-        )
-        note = f"attested {counts}"
+        if exact:
+            counts = ", ".join(
+                f"{name} {freqs[name][verb]}"
+                for name in CORPORA
+                if freqs[name].get(verb)
+            )
+            note = f"attested {counts}"
+        else:
+            # Never seen as a 3rd singular, so name the form that was found —
+            # the editor needs to see which part of the paradigm carries it.
+            best = paradigm_hits[verb][0]
+            note = (
+                f"not attested as {verb}; found {best['form']}"
+                f" ({best['label']}) {best['corpus']} {best['count']}"
+            )
         if root and root.root_meaning:
             note += f"; {certain['root_key']} = {root.root_meaning}"
         fields["comment"] = note
@@ -312,6 +403,39 @@ def main() -> None:
     for name in CORPORA:
         pr.summary(f"{name} distinct forms", str(len(freqs[name])))
 
+    pr.white("searching other inflected forms")
+    templates = load_templates(db)
+    known_forms = load_known_forms(db)
+    paradigm_hits: dict[str, list[dict[str, str]]] = {}
+    for verb, entries in wanted.items():
+        if any(freqs[name].get(verb, 0) for name in CORPORA):
+            continue
+        certain = derive_certain(verb, entries)
+        if not certain["pattern"]:
+            continue
+        hits = search_paradigm(verb, certain, templates, freqs, known_forms)
+        if hits:
+            paradigm_hits[verb] = hits
+    pr.summary("attested by another form", str(len(paradigm_hits)))
+
+    write_tsv(
+        [
+            {
+                "verb": verb,
+                "form_found": hits[0]["form"],
+                "label": hits[0]["label"],
+                "corpus": hits[0]["corpus"],
+                "count": hits[0]["count"],
+                "other_forms": "|".join(
+                    f"{h['form']}:{h['corpus']}:{h['count']}" for h in hits[1:6]
+                ),
+                "referring_lemmas": "|".join(e["lemma_1"] for e in wanted[verb]),
+            }
+            for verb, hits in sorted(paradigm_hits.items())
+        ],
+        output_dir / "paradigm_attested.tsv",
+    )
+
     rows = build_report(wanted, freqs, roots)
     write_tsv(rows, output_dir / "wanted_verbs.tsv")
 
@@ -323,7 +447,7 @@ def main() -> None:
     pr.summary("not a pr verb", str(sum(1 for r in rows if r["not_a_pr_verb"])))
     pr.summary("conflicting roots", str(sum(1 for r in rows if r["root_disagreement"])))
 
-    queue = build_x_queue(wanted, freqs, roots)
+    queue = build_x_queue(wanted, freqs, roots, paradigm_hits)
     for field in ("root_sign_add", "root_base_add", "construction_add", "sanskrit_add"):
         pr.summary(f"  {field}", str(sum(1 for f in queue.values() if f.get(field))))
 
