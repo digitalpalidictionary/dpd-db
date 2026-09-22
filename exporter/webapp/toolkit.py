@@ -62,6 +62,20 @@ LICENSE_HTML: str = (
     "</div>"
 )
 
+# Attached only to routes returning DPD dictionary data, so that the licence and
+# attribution travel with the data itself. Tipitaka translations and audio are
+# licensed separately and must not carry these.
+LICENSE_LINK_HEADER: dict[str, str] = {
+    "Link": f'<{LICENSE_URL}>; rel="license"; title="{LICENSE_NAME}"'
+}
+
+LICENSE_NOTICE: dict[str, str] = {
+    "name": LICENSE_NAME,
+    "url": LICENSE_URL,
+    "attribution": LICENSE_ATTRIBUTION,
+    "note": "Non-commercial use only. Derivatives must be shared alike.",
+}
+
 
 def make_dpd_html(
     q: str,

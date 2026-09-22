@@ -25,9 +25,8 @@ from exporter.webapp.preloads import (
     make_roots_count_dict,
 )
 from exporter.webapp.toolkit import (
-    LICENSE_ATTRIBUTION,
-    LICENSE_NAME,
-    LICENSE_URL,
+    LICENSE_LINK_HEADER,
+    LICENSE_NOTICE,
     make_dpd_html,
 )
 from tools.css_manager import CSSManager
@@ -105,21 +104,6 @@ with open(pth.webapp_home_simple_css_path, encoding="utf-8") as f:
 
 # FIXME
 history_list: list[tuple[str, str, str]] = []
-
-
-# Attached only to routes returning DPD dictionary data, so that the licence and
-# attribution travel with the data itself. Tipitaka translations and audio are
-# licensed separately and must not carry these.
-LICENSE_LINK_HEADER: dict[str, str] = {
-    "Link": f'<{LICENSE_URL}>; rel="license"; title="{LICENSE_NAME}"'
-}
-
-LICENSE_NOTICE: dict[str, str] = {
-    "name": LICENSE_NAME,
-    "url": LICENSE_URL,
-    "attribution": LICENSE_ATTRIBUTION,
-    "note": "Non-commercial use only. Derivatives must be shared alike.",
-}
 
 
 @app.get("/")
