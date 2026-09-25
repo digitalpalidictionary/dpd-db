@@ -948,6 +948,7 @@ def duplicate_words_meaning_lit(searches: Searches) -> TestResult:
         "ekekalomatā",
         "susukkasukka",
         "samāsama",
+        "dukkhadukkhatā",
     ]
 
     results = []
