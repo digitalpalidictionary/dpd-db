@@ -4,6 +4,8 @@ Locks current behaviour: Roman/English/ALL-CAPS input passes through
 unchanged, other scripts are transliterated to IAST Pāḷi via aksharamukha.
 """
 
+import warnings
+
 import pytest
 
 from tools.translit import auto_translit_to_roman
@@ -42,6 +44,15 @@ def test_roman_and_english_pass_through_unchanged(text: str) -> None:
 )
 def test_other_scripts_transliterate_to_roman(text: str, expected: str) -> None:
     assert auto_translit_to_roman(text) == expected
+
+
+@pytest.mark.parametrize("text", ["3", "½", "123", "3.5"])
+def test_text_without_letters_passes_through_without_warning(text: str) -> None:
+    # record, not "error": the function's own except would swallow a raised warning
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        assert auto_translit_to_roman(text) == text
+    assert caught == []
 
 
 def test_anusvara_converted_to_nasal() -> None:
