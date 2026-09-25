@@ -434,3 +434,57 @@ def test_canonical_pairs_prioritize_both_meaning_1() -> None:
         "akata",
         "rule:t<->ṭ",
     )
+
+
+# ---- prompt_pairs ----
+
+
+def _review_fixture(monkeypatch: Any, answers: list[str]) -> tuple[Any, list[str]]:
+    from db_tests.single import add_phonetic_variants as apv
+    from tools.synonym_variant import Pair
+
+    a = make_hw("vatteti", id=1, pos="pr")
+    b = make_hw("vattayati", id=2, pos="pr")
+    for hw in (a, b):
+        hw.rt = None
+        hw.degree_of_completion = ""
+    exceptions: list[str] = []
+    g = SimpleNamespace(
+        pairs=[
+            Pair(rule="rule:e<->aya", source=a, target=b),
+            Pair(rule="base:e<->aya", source=b, target=a),
+        ],
+        db_session=SimpleNamespace(commit=lambda: None),
+        exceptions=exceptions,
+        add_exception=exceptions.append,
+    )
+    prompts: list[str] = []
+    remaining = iter(answers)
+
+    def fake_ask(*_args: Any, **_kwargs: Any) -> str:
+        prompts.append("asked")
+        return next(remaining, "")
+
+    monkeypatch.setattr(apv.Prompt, "ask", fake_ask)
+    monkeypatch.setattr(apv.pyperclip, "copy", lambda _s: None)
+    monkeypatch.setattr(apv, "db_search_string", lambda *_a, **_k: "")
+    return apv.prompt_pairs(g), prompts  # type: ignore[arg-type]
+
+
+def test_prompt_pairs_skips_pair_linked_earlier_in_session(monkeypatch: Any) -> None:
+    _, prompts = _review_fixture(monkeypatch, ["p"])
+    assert len(prompts) == 1
+
+
+def test_prompt_pairs_skips_pair_excepted_earlier_in_session(monkeypatch: Any) -> None:
+    _, prompts = _review_fixture(monkeypatch, ["e"])
+    assert len(prompts) == 1
+
+
+def test_rules_ape_apaya_matches() -> None:
+    a = make_hw("viññāpeti")
+    b = make_hw("viññāpayati")
+    results = PhoneticVariantDetector([a, b]).detect_by_rules()
+    assert ("viññāpeti", "viññāpayati") in {
+        (r[0].lemma_1, r[1]) for r in results if r[2] == "rule:āpe<->āpaya"
+    }

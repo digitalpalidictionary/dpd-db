@@ -28,6 +28,7 @@ from tools.synonym_variant import (
     PhoneticVariantDetector,
     assign_relationship,
     exception_key,
+    pair_consistently_related,
     split_field,
 )
 
@@ -111,6 +112,13 @@ def prompt_pairs(g: GlobalVars) -> bool:
     for counter, pair in enumerate(g.pairs):
         hw_a = pair.source
         hw_b = pair.target
+
+        # the same two headwords can appear under several rules, so a choice
+        # made earlier in this session must suppress the later duplicates
+        if pair_consistently_related(hw_a, hw_b):
+            continue
+        if exception_key(hw_a, hw_b) in g.exceptions:
+            continue
 
         print("\n" + "-" * 70 + "\n")
         print(
