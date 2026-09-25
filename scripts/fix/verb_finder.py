@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword
+from db.models import DpdHeadword, DpdRoot
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -46,26 +46,64 @@ _HOMONYM_RE = re.compile(r"\s+\d+(?:\.\d+)*$")
 # "pr, from na avasissati" — a verb fused with its negation, not an independent
 # verb. 179 of these exist. Offering one as a redirect target produces
 # "pp of na nāvasissati", negating twice, or sends a positive form to a negative
-# verb. The grammar says so outright; the spelling does not (244 ordinary verbs
-# begin "na", e.g. namati, nadati).
+# verb. The grammar says so outright; the spelling does not. On 2026-09-22,
+# 244 pr headwords began "na" or "nā" and 84 of those were ordinary verbs, not
+# fused negatives — namati and nadati among them.
 _FUSED_NEGATIVE_RE = re.compile(r"\bfrom na ")
 
 
-def verb_type(verb_col: str, grammar: str) -> str:
+_OF_RE = re.compile(r"\s+of\b")
+_CAUS_LIT_RE = re.compile(r"\bcaus", re.IGNORECASE)
+
+# A root sign of *āpe or *āpaya is always causative.
+CAUSATIVE_SIGNS = ("*āpe", "*āpaya")
+# *e and *aya are causative too, except on a group 8 root, where they are the
+# root's own present formation.
+CAUSATIVE_SIGNS_OUTSIDE_GROUP_8 = ("*e", "*aya")
+PRESENT_ROOT_GROUP = 8
+
+
+def verb_type(
+    verb_col: str,
+    grammar: str,
+    meaning_lit: str = "",
+    root_sign: str = "",
+    root_group: int | None = None,
+) -> str:
     """The special-verb type of a headword: "caus", "pass", "" for a plain verb.
 
-    The `verb` column carries it on only 187 of 5818 pr verbs; for the rest it
-    lives in the grammar head, e.g. apayāpeti is "pr, caus of apayāti". A derived
-    form must point at a verb of its own type — a plain participle may not be
-    redirected to a causative.
+    A derived form must point at a verb of its own type — a plain participle may
+    not be redirected to a causative. Four signals say so, and no one of them
+    covers the data on its own:
+
+    1. The `verb` column, set on only 187 of 5818 present verbs.
+    2. The grammar head, e.g. "pr, caus of apayāti". 145 present verbs carry a
+       truncated "pr, caus of" with nothing after it, which is why the split is
+       on " of" as a word rather than " of " with spaces both sides.
+    3. `meaning_lit` beginning "causes to …". This alone finds 54 more.
+    4. The root sign. *āpe and *āpaya are always causative, finding 9 more; *e
+       and *aya are causative outside root group 8, finding 103 more.
     """
     if verb_col and verb_col.strip():
         return verb_col.strip()
-    head = (grammar or "").split(" of ")[0]
+
+    head = _OF_RE.split(grammar or "", maxsplit=1)[0]
     found = [
         m for m in SPECIAL_VERB_MARKERS if m in [p.strip() for p in head.split(",")]
     ]
-    return ", ".join(found)
+    if found:
+        return ", ".join(found)
+
+    if _CAUS_LIT_RE.search(meaning_lit or ""):
+        return "caus"
+    if root_sign in CAUSATIVE_SIGNS:
+        return "caus"
+    if (
+        root_sign in CAUSATIVE_SIGNS_OUTSIDE_GROUP_8
+        and root_group != PRESENT_ROOT_GROUP
+    ):
+        return "caus"
+    return ""
 
 
 def lemma_clean(lemma: str) -> str:
@@ -129,6 +167,9 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
     """Index every pos='pr' headword."""
     index: PrIndex = {}
     lemma_map: PrLemmaMap = {}
+    root_groups: dict[str, int | None] = {
+        root: group for root, group in db.query(DpdRoot.root, DpdRoot.root_group).all()
+    }
     rows = (
         db.query(
             DpdHeadword.lemma_1,
@@ -136,11 +177,21 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
             DpdHeadword.root_key,
             DpdHeadword.verb,
             DpdHeadword.grammar,
+            DpdHeadword.meaning_lit,
+            DpdHeadword.root_sign,
         )
         .filter(DpdHeadword.pos == "pr")
         .all()
     )
-    for lemma_1, family_root, root_key, verb_col, grammar in rows:
+    for (
+        lemma_1,
+        family_root,
+        root_key,
+        verb_col,
+        grammar,
+        meaning_lit,
+        root_sign,
+    ) in rows:
         # lemma_map answers "does this verb exist as pr?" and must hold every pr
         # verb: a derived form rarely declares its own type, so a plain-looking
         # ptp pointing at a causative (mocetabba -> moceti) is usually correct.
@@ -148,7 +199,13 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
         # index is the candidate picker used when the script must choose a verb
         # itself. There a special verb is the wrong answer (apayanta must not be
         # sent to the causative apayāpeti), so only plain verbs are offered.
-        if verb_type(verb_col or "", grammar or ""):
+        if verb_type(
+            verb_col or "",
+            grammar or "",
+            meaning_lit or "",
+            root_sign or "",
+            root_groups.get(root_key or ""),
+        ):
             continue
         if _FUSED_NEGATIVE_RE.search(grammar or ""):
             continue
@@ -288,6 +345,166 @@ def find_data_error(grammar: str, pos: str) -> str:
         if ref.target in ("na", "no"):
             return "negation particle with no verb after it"
     return ""
+
+
+# ---------- Scan present verbs ----------
+
+
+# A causative, passive, intensive or desiderative is built FROM a verb, so the
+# same rule applies to it: name the verb if it is a headword, the prefixes plus
+# root if it is not. A denominative is built from a NOUN, so naming a noun is
+# correct and it is left out. An impersonal is left out for the same reason.
+FROM_A_VERB = ("caus", "pass", "intens", "desid")
+
+# These are built from a noun, so naming a noun is right. A grammar carrying one
+# of these is left alone even when it also carries a marker from the list above:
+# nimmādeti is "pr, caus, deno of nimmada", and nimmada is the noun it comes from.
+FROM_A_NOUN = ("deno", "impers")
+
+
+def parse_present_grammar(grammar: str) -> tuple[str, str, str, bool] | None:
+    """Split "pr, caus of anusuṇāti" into head, target, trailing text, negated.
+
+    `parse_grammar` cannot read these: it wants the pos alone before " of ",
+    and here the marker sits between them.
+    """
+    if " of " not in (grammar or ""):
+        return None
+    head, _, rest = grammar.partition(" of ")
+    markers = [part.strip() for part in head.split(",")]
+    if not any(marker in markers for marker in FROM_A_VERB):
+        return None
+    if any(marker in markers for marker in FROM_A_NOUN):
+        return None
+
+    body, separator, tail = rest.partition(",")
+    suffix = f"{separator}{tail}" if separator else ""
+    body = body.strip()
+
+    na = body.startswith("na ")
+    if na:
+        body = body[3:].lstrip()
+    return head, body, suffix, na
+
+
+def scan_present_verbs(
+    db,
+    pr_index: PrIndex,
+    pr_lemma_map: PrLemmaMap,
+    cst_freq: Counter[str] | None = None,
+) -> dict[str, list[dict]]:
+    """Present verbs whose own grammar names a verb that is not a headword.
+
+    Resolved exactly as `scan_derived_forms` resolves a derived form, so a
+    causative is never handled more loosely than its participle:
+
+    - the named verb is missing but the corpus attests it → `verb_in_cst`,
+      never corrected, because the verb should be added back;
+    - any plain verb at the same (family_root, root_key) → `ambiguous`, for the
+      editor, even when there is only one;
+    - none → `present_verb_to_root`.
+
+    Unlike a participle, a lone same-root candidate is never written
+    automatically. Tested on 2026-09-25: removing abhivadati left only
+    nabhivadati, a negative verb with a bare "pr" grammar; removing uppajjati
+    left only vuppajjati, a variant spelling. Neither is the source.
+    """
+    buckets: dict[str, list[dict]] = {
+        "present_verb_to_root": [],
+        "verb_in_cst": [],
+        "ambiguous": [],
+    }
+    rows = (
+        db.query(
+            DpdHeadword.id,
+            DpdHeadword.lemma_1,
+            DpdHeadword.pos,
+            DpdHeadword.family_root,
+            DpdHeadword.root_key,
+            DpdHeadword.grammar,
+            DpdHeadword.verb,
+        )
+        .filter(DpdHeadword.pos == "pr")
+        .filter(DpdHeadword.meaning_1 != "")
+        .all()
+    )
+
+    for id_, lemma_1, pos, family_root, root_key, grammar, verb_col in rows:
+        parsed = parse_present_grammar(grammar or "")
+        if parsed is None:
+            continue
+        head, target, suffix, na = parsed
+        # Already a root reference, or no target at all.
+        if not target or "√" in target:
+            continue
+        if lemma_clean(target) in pr_lemma_map:
+            continue
+
+        negation = "na " if na else ""
+        base = {
+            "id": id_,
+            "lemma_1": lemma_1,
+            "pos": pos,
+            "root_key": root_key or "",
+            "family_root": family_root or "",
+            "verb_col": verb_col or "",
+            "grammar_current": grammar or "",
+            "derived_from": "",
+        }
+
+        cst_count = (cst_freq or {}).get(lemma_clean(target), 0)
+        if cst_count:
+            buckets["verb_in_cst"].append(
+                {
+                    **base,
+                    "grammar_proposed": "",
+                    "reason": f"verb absent from dict but occurs {cst_count}x in CST",
+                    "candidates": target,
+                }
+            )
+            continue
+
+        pair_candidates = [
+            lemma
+            for lemma in pr_index.get((family_root or "", root_key or ""), [])
+            if lemma_clean(lemma) != lemma_clean(lemma_1)
+        ]
+        clean_pair = sorted({lemma_clean(lemma) for lemma in pair_candidates})
+
+        if clean_pair:
+            buckets["ambiguous"].append(
+                {
+                    **base,
+                    "grammar_proposed": "",
+                    "reason": "source verb absent; multiple pr at (family_root,root_key)",
+                    "candidates": "|".join(clean_pair),
+                    "candidates_full": "|".join(sorted(pair_candidates)),
+                }
+            )
+        elif family_root:
+            buckets["present_verb_to_root"].append(
+                {
+                    **base,
+                    "grammar_proposed": f"{head} of {negation}{family_root}{suffix}",
+                    "reason": "source verb is not a headword",
+                    "candidates": target,
+                }
+            )
+    return buckets
+
+
+def merge_present_buckets(
+    buckets: dict[str, list[dict]], present: dict[str, list[dict]]
+) -> None:
+    """Fold the present-verb results into the derived-form buckets.
+
+    Corrections get their own groups; the verb-in-corpus and ambiguous cases
+    join the shared lists, so every caller reports and asks about them the same
+    way.
+    """
+    buckets["present_verb_to_root"] = present["present_verb_to_root"]
+    buckets["verb_in_cst"].extend(present["verb_in_cst"])
+    buckets["ambiguous"].extend(present["ambiguous"])
 
 
 # ---------- Scan derived forms ----------
@@ -453,6 +670,10 @@ def scan_derived_forms(
                             "grammar_proposed": "",
                             "reason": "multiple pr at (family_root,root_key)",
                             "candidates": "|".join(clean_pair),
+                            # Homonyms collapse: uḍḍeti 2.1 and uḍḍeti 1.1 both
+                            # clean to "uḍḍeti", and only the first is at this
+                            # root. Show which one is actually on offer.
+                            "candidates_full": "|".join(sorted(pair_candidates)),
                         }
                     )
         else:
@@ -468,12 +689,30 @@ def scan_derived_forms(
                         "candidates": "|".join(clean_matches),
                     }
                 )
-            elif all_lemmas and lemma_clean(ref.target) in all_lemmas:
+            elif lemma_clean(ref.target) == lemma_clean(lemma_1):
+                # The entry names itself. A data error, not a missing verb —
+                # resolving it would invent a source it never had.
                 buckets["ok_verb_present"].append(
                     {
                         **base,
                         "grammar_proposed": grammar or "",
-                        "reason": "target is a headword of another pos",
+                        "reason": "grammar names this entry itself",
+                        "candidates": ref.target,
+                    }
+                )
+            elif ref.na and all_lemmas and lemma_clean(ref.target) in all_lemmas:
+                # A negative built on another form: anuddhata is "pp of na
+                # uddhata", and uddhata is a past participle. Correct as it is.
+                #
+                # This only applies with "na". Without it, a target that is a
+                # headword but not a present verb means the verb it named has
+                # been changed or removed, which is what the sync script has to
+                # catch.
+                buckets["ok_verb_present"].append(
+                    {
+                        **base,
+                        "grammar_proposed": grammar or "",
+                        "reason": "negative built on a headword of another pos",
                         "candidates": ref.target,
                     }
                 )
@@ -524,6 +763,7 @@ def scan_derived_forms(
                             "grammar_proposed": "",
                             "reason": "referenced verb absent; multiple pr at (family_root,root_key)",
                             "candidates": "|".join(clean_pair),
+                            "candidates_full": "|".join(sorted(pair_candidates)),
                         }
                     )
                 else:
@@ -614,9 +854,13 @@ def main() -> None:
     cst_freq = load_cst_word_freq(pth)
     pr.summary("distinct cst word forms", str(len(cst_freq)))
 
+    pr.white("scanning present verbs")
+    present = scan_present_verbs(db, pr_index, pr_lemma_map, cst_freq)
+
     pr.white("scanning derived forms")
     all_lemmas = load_all_lemmas(db)
     buckets = scan_derived_forms(db, pr_index, pr_lemma_map, cst_freq, all_lemmas)
+    merge_present_buckets(buckets, present)
 
     bucket_files = {
         "would_change_to_root": "would_change_to_root.tsv",
@@ -624,6 +868,7 @@ def main() -> None:
         "ambiguous": "ambiguous.tsv",
         "special_verbs": "special_verbs.tsv",
         "unparsed": "unparsed.tsv",
+        "present_verb_to_root": "present_verb_to_root.tsv",
         "rootless": "rootless.tsv",
         "verb_in_cst": "verb_in_cst.tsv",
         "data_errors": "data_errors.tsv",

@@ -108,6 +108,9 @@ class ProjectPaths:
         self.root_family_prefix_exceptions_path = (
             base_dir / "db_tests/single/test_root_family_vs_construction_prefixes.json"
         )
+        self.verb_grammar_sync_exceptions_path = (
+            base_dir / "db_tests/single/test_verb_grammar_sync.json"
+        )
         self.phonetic_changes_vowels_path = (
             base_dir / "db_tests/single/add_phonetic_changes_vowels.tsv"
         )

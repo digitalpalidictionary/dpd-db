@@ -72,6 +72,14 @@ test-phonetic:
 test-sandhi:
     uv run python db_tests/single/test_sandhi_errors.py
 
+# Repoint verbal forms at a present verb or a root
+test-verb-grammar:
+    uv run python db_tests/single/test_verb_grammar_sync.py
+
+# Show which verbal forms need repointing, without writing
+test-verb-grammar-dry-run:
+    uv run python db_tests/single/test_verb_grammar_sync.py --dry-run
+
 # ===== SUTTA ANALYSIS =====
 
 # Stage 1 (study passage) + Stage 2 (export CSV) in sequence, interactive prompts

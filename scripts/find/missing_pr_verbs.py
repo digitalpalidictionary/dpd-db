@@ -40,6 +40,7 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, InflectionTemplates, Lookup
+from gui2.dpd_fields_lists import PASS1_FIELDS
 from gui2.paths import Gui2Paths
 from scripts.fix.verb_finder import (
     DERIVED_POS,
@@ -52,20 +53,13 @@ from tools.printer import printer as pr
 
 CORPORA = ("cst", "sc", "bjt")
 
+# The editor works these with pass2add's pass1-field filter on, so anything
+# outside that list is invisible there. Each field's `_add` sibling is allowed
+# too: that is where a derivation the editor should check goes.
+QUEUE_FIELDS = set(PASS1_FIELDS) | {f"{name}_add" for name in PASS1_FIELDS}
+
 # Longest first: pariniṭṭhāti must match "āti", not "ati".
 PATTERN_ENDINGS = ("āti", "oti", "eti", "ati")
-
-# Certain enough for the real field.
-CERTAIN_FIELDS = (
-    "lemma_1",
-    "lemma_2",
-    "pos",
-    "grammar",
-    "root_key",
-    "family_root",
-    "stem",
-    "pattern",
-)
 
 
 def collect_wanted_verbs(db: Session) -> dict[str, list[dict[str, str]]]:
@@ -126,6 +120,33 @@ def load_corpus_freq(pth: ProjectPaths) -> dict[str, Counter[str]]:
             loaded = json.load(f)
         freqs[name] = Counter(loaded if isinstance(loaded, dict) else {})
     return freqs
+
+
+def load_already_seen(db: Session) -> set[str]:
+    """Verbs the editor has already been shown and chose not to add.
+
+    The X button archives every entry it hands over, so the done file is a
+    record of what has been looked at. Anything in it that is still not a
+    present headword was a deliberate no — 19 of them after the first batch.
+    """
+    done_path = Gui2Paths().pass2_x_words_done_path
+    if not done_path.exists():
+        return set()
+    try:
+        with done_path.open(encoding="utf-8") as f:
+            done = json.load(f)
+    except (json.JSONDecodeError, OSError, UnicodeDecodeError):
+        return set()
+    if not isinstance(done, dict):
+        return set()
+
+    added = {
+        lemma_clean(lemma)
+        for (lemma,) in db.query(DpdHeadword.lemma_1)
+        .filter(DpdHeadword.pos == "pr")
+        .all()
+    }
+    return {verb for verb in done if verb not in added}
 
 
 def load_roots(db: Session) -> dict[str, DpdRoot]:
@@ -209,9 +230,10 @@ def derive_proposals(
         proposals["sanskrit_add"] = f"[{''.join(pre)}{first}]"
 
     # A past participle's meaning is the best available clue to its verb's.
+    # pass1 shows meaning_2, so the proposal goes to its sibling.
     glosses = [f"{e['lemma_1']} ({e['pos']}): {e['meaning_1']}" for e in entries]
     if glosses:
-        proposals["meaning_1_add"] = " | ".join(glosses)
+        proposals["meaning_2_add"] = " | ".join(glosses)
 
     return proposals
 
@@ -336,10 +358,15 @@ def build_x_queue(
     freqs: dict[str, Counter[str]],
     roots: dict[str, DpdRoot],
     paradigm_hits: dict[str, list[dict[str, str]]],
+    already_seen: set[str],
 ) -> dict[str, dict[str, str]]:
     """The gui2 X-button queue: attested verbs only, keyed by lemma, no `id`."""
     queue: dict[str, dict[str, str]] = {}
     for verb, entries in sorted(wanted.items()):
+        # Queued before and still not a headword — the editor looked at it and
+        # said no. Re-queueing it every run wastes their time.
+        if verb in already_seen:
+            continue
         exact = any(freqs[name].get(verb, 0) for name in CORPORA)
         if not exact and verb not in paradigm_hits:
             continue
@@ -371,8 +398,18 @@ def build_x_queue(
             )
         if root and root.root_meaning:
             note += f"; {certain['root_key']} = {root.root_meaning}"
+        # Why this verb is being suggested at all: the entries whose grammar
+        # names it and has nowhere to point.
+        note += "; named by " + ", ".join(
+            f"{e['lemma_1']} ({e['pos']})" for e in entries
+        )
         fields["comment"] = note
-        queue[verb] = fields
+
+        queue[verb] = {
+            name: value
+            for name, value in fields.items()
+            if name in QUEUE_FIELDS and value
+        }
     return queue
 
 
@@ -447,8 +484,10 @@ def main() -> None:
     pr.summary("not a pr verb", str(sum(1 for r in rows if r["not_a_pr_verb"])))
     pr.summary("conflicting roots", str(sum(1 for r in rows if r["root_disagreement"])))
 
-    queue = build_x_queue(wanted, freqs, roots, paradigm_hits)
-    for field in ("root_sign_add", "root_base_add", "construction_add", "sanskrit_add"):
+    already_seen = load_already_seen(db)
+    pr.summary("previously shown and declined", str(len(already_seen)))
+    queue = build_x_queue(wanted, freqs, roots, paradigm_hits, already_seen)
+    for field in ("root_sign_add", "root_base_add", "construction_add"):
         pr.summary(f"  {field}", str(sum(1 for f in queue.values() if f.get(field))))
 
     queue_path = output_dir / "x_queue.json"

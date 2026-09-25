@@ -11,7 +11,8 @@ Detailed specs live in `conductor/` — `product.md` (vision, features, audience
 Four main parts: **db** (build and populate tables), **db_tests** (data integrity), **gui2** (add/edit words), **exporter** (compile and export formats). Folder layout: `docs/technical/project_folder_structure.md`.
 
 ## Kamma
-- When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — don't stop after archiving; also do the GitHub comment and reflect/lessons steps.
+- When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — don't stop after archiving; also do the reflect/lessons step.
+- SKIP finalize's GitHub step here: never comment on or close the issue. Issues are tested externally before they close, and the GitHub rule below forbids any write unasked. Suggest the commit message only. (Violated 2026-09-25 on #266.)
 - Never pause a thread to ask for commit permission at phase checkpoints. The user commits everything at the end; checkpoint steps are report-only.
 
 ## Concurrent Threads (working tree safety)
@@ -34,6 +35,7 @@ Multiple kamma threads regularly run against this repo in the same working tree 
 - Compute temporary or derived values separately (a dict or local) — never write them back to a tracked ORM attribute as a side-effect.
 
 ## Data
+- `dpd.db` runs in WAL mode: writes land in `dpd.db-wal`, and the main file's mtime does not move. Never use the timestamp to decide whether the database changed — read the data.
 - For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly. `db/backup_tsv/` files are regenerated backups, not the source of truth. Don't infer data shape from TSVs or downstream exporter code.
 - `db_tests` failures on freshly imported draft entries are the editor's per-word checklist, not import defects. Pre-fix only what zero-exception evidence in the live db demands (closed vocabularies like `verb`, absolutes like "`source_1` never without `example_1`", `lemma_2` = nominative singular, `(gram)` rows always carry `family_set grammatical terms`). Leave per-word lexicographic judgement (`compound_type`, `construction`, `derived_from`, `neg`) to the human.
 - Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion order turns every regeneration into a full-file reorder diff.

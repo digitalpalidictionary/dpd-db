@@ -34,17 +34,24 @@ from scripts.fix.verb_finder import (
     build_pr_verb_index,
     load_all_lemmas,
     load_cst_word_freq,
+    merge_present_buckets,
     scan_derived_forms,
+    scan_present_verbs,
     write_tsv,
 )
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
-APPLY_BUCKETS = ("would_change_to_root", "would_change_to_verb")
+APPLY_BUCKETS = (
+    "would_change_to_root",
+    "would_change_to_verb",
+    "present_verb_to_root",
+)
 SAMPLE_SIZE = 25
 DIFF_FILES = {
     "would_change_to_root": "changes_to_root.tsv",
     "would_change_to_verb": "changes_to_verb.tsv",
+    "present_verb_to_root": "changes_present_verb_to_root.tsv",
 }
 
 
@@ -56,12 +63,13 @@ def collect_changes(db: Session, pth: ProjectPaths) -> list[dict]:
     `verb_finder` reports, and the two drift apart silently.
     """
     pr_index, pr_lemma_map = build_pr_verb_index(db)
+    cst_freq = load_cst_word_freq(pth)
     buckets = scan_derived_forms(
-        db,
-        pr_index,
-        pr_lemma_map,
-        load_cst_word_freq(pth),
-        load_all_lemmas(db),
+        db, pr_index, pr_lemma_map, cst_freq, load_all_lemmas(db)
+    )
+    # A causative or passive names a verb too, and the same rule governs it.
+    merge_present_buckets(
+        buckets, scan_present_verbs(db, pr_index, pr_lemma_map, cst_freq)
     )
 
     changes: list[dict] = []
@@ -92,6 +100,9 @@ def apply_changes(db: Session, changes: list[dict]) -> int:
     headwords = (
         db.query(DpdHeadword).filter(DpdHeadword.id.in_(list(by_id.keys()))).all()
     )
+
+    for missing_id in sorted(set(by_id) - {hw.id for hw in headwords}):
+        pr.red(f"skipped {by_id[missing_id]['lemma_1']} — the entry is gone")
 
     written = 0
     for hw in headwords:
