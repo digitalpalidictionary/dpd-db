@@ -154,13 +154,12 @@ class Bashini:
 
         resp = self._post_to_api(payload)
 
-        if not resp:
+        # a Response is falsy on any 4xx/5xx, so test for None explicitly
+        if resp is None:
             return None
 
-        try:
-            resp.raise_for_status()
-        except Exception as e:
-            pr.red(str(e))
+        if not resp.ok:
+            pr.red(f"{resp.status_code} {resp.reason}: {resp.text}")
             return None
 
         if resp.headers.get("Content-Type", "").startswith("audio"):
@@ -191,23 +190,6 @@ class Bashini:
                 pr.amber(f"Connection error, retrying ({attempt + 1}/3)...")
                 time.sleep(1)
         return None
-
-    @classmethod
-    def _ping_request(cls, payload: dict) -> requests.Response | None:
-        """Single-shot request for ping: short timeout, no retry."""
-        try:
-            return requests.post(
-                cls.tts_api_url,
-                headers=cls.headers,
-                data=json.dumps(payload),
-                timeout=10,
-            )
-        except (
-            requests.exceptions.ConnectionError,
-            requests.exceptions.Timeout,
-        ) as e:
-            pr.red(str(e))
-            return None
 
     def translit_with_aksharamukha(self, text_roman: str) -> str:
         result = transliterate.process(
@@ -270,23 +252,34 @@ class Bashini:
         start_time = time.time()
         pr.green_tmr("pinging API")
 
-        resp = cls._ping_request(test_payload)
-
-        if resp:
-            try:
-                resp.raise_for_status()
-                result = resp.headers.get("Content-Type", "").startswith("audio")
-                if result:
-                    response_time = time.time() - start_time
-                    pr.yes(f"{response_time:.2f} sec")
-                    return True
-                else:
-                    pr.no("fail")
-                    return False
-            except Exception as e:
-                pr.no("fail")
-                pr.red(str(e))
-                return False
-        else:
+        # single shot with a short timeout, no retry
+        try:
+            resp = requests.post(
+                cls.tts_api_url,
+                headers=cls.headers,
+                data=json.dumps(test_payload),
+                timeout=10,
+            )
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout,
+        ) as e:
             pr.no("fail")
+            pr.red(str(e))
             return False
+
+        if not resp.ok:
+            pr.no("fail")
+            pr.red(f"{resp.status_code} {resp.reason}: {resp.text}")
+            return False
+
+        if not resp.headers.get("Content-Type", "").startswith("audio"):
+            pr.no("fail")
+            pr.red(
+                f"expected audio, got {resp.headers.get('Content-Type')}: {resp.text}"
+            )
+            return False
+
+        response_time = time.time() - start_time
+        pr.yes(f"{response_time:.2f} sec")
+        return True
