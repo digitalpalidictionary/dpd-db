@@ -127,8 +127,12 @@ def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
     )
     pr.yes(len(headwords))
 
+    # the text-set helpers print their own timed lines, so they must run
+    # before this line opens
+    cst_words = make_cst_text_set(pth, EBT_BOOKS)
+    sc_words = make_sc_text_set(pth, EBT_BOOKS)
     pr.green_tmr("making all words set")
-    words = make_cst_text_set(pth, EBT_BOOKS) | make_sc_text_set(pth, EBT_BOOKS)
+    words = cst_words | sc_words
     words |= make_words_in_deconstructions(db_session)
     words = {w for w in words if w and w.strip()}
     pr.yes(len(words))
@@ -137,15 +141,15 @@ def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
     form_headwords, scripts, deconstructions = _load_lookup(db_session, words)
     pr.yes(len(form_headwords))
 
-    pr.green_tmr("rendering headword bodies")
+    pr.green_title("rendering headword bodies")
     bodies: dict[int, KindleData] = {}
     for counter, headword in enumerate(headwords):
         bodies[headword.id] = KindleData(headword, jinja_env, headword.id, [])
         if counter % 20000 == 0:
             pr.counter(counter, len(headwords), headword.lemma_1)
-    pr.yes(len(bodies))
+    pr.counter(len(bodies), len(headwords), "")
 
-    pr.green_tmr("routing forms")
+    pr.green_tmr("routing ambiguous forms")
     lemma_labels = {h.lemma_1: h.id for h in headwords}
     sole_owner: dict[int, list[str]] = {}
     ambiguous: set[str] = set()
@@ -155,10 +159,13 @@ def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
         else:
             ambiguous.add(form)
     ambiguous.update(f for f in deconstructions if f not in form_headwords)
+    pr.yes(len(ambiguous))
+
+    pr.green_tmr("finding contested headwords")
     # a label reaches one entry, so where a form entry and a headword entry want
     # the same string the headword is folded into the form entry
     contested = ambiguous & set(lemma_labels)
-    pr.yes(f"{len(ambiguous)} ambiguous, {len(contested)} contested")
+    pr.yes(len(contested))
 
     pr.green_title("creating letter dict entries")
     letter_dict: dict[str, list[str]] = {letter: [] for letter in pali_alphabet}
@@ -179,9 +186,11 @@ def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
         id_counter += 1
         if counter % 20000 == 0:
             pr.counter(counter, len(headwords), headword.lemma_1)
+    pr.counter(len(headwords), len(headwords), "")
 
-    pr.green_title("add form entries")
-    for form in pali_list_sorter(list(ambiguous)):
+    pr.green_title("adding form entries")
+    sorted_forms = pali_list_sorter(list(ambiguous))
+    for counter, form in enumerate(sorted_forms):
         merged_id = lemma_labels.get(form) if form in contested else None
         aliases = set(scripts.get(form, []))
         own_forms = {form}
@@ -205,6 +214,9 @@ def render_dpd_xhtml(pth: ProjectPaths, jinja_env: Environment) -> int:
         )
         letter_dict[find_first_letter(form)].append(entry)
         id_counter += 1
+        if counter % 20000 == 0:
+            pr.counter(counter, len(sorted_forms), form)
+    pr.counter(len(sorted_forms), len(sorted_forms), "")
 
     pr.green_tmr("saving entries xhtml")
     total = 0
