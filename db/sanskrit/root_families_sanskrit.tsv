@@ -907,7 +907,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √chaḍḍ	8	*e	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	√chaḍḍ	chṛd	achārdīt, charttavya, chardati, chardayat, chardayati, chardayamāna, chardayitvā, chardi, vānti, vami, chardita, chṛṇṇa, tyajanīya, tyajita, na + tyajita
 √chaḍḍ	8	*e	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	ud √chaḍḍ	uttyaj	uttyaktvā
 √chaḍḍ	8	*aya	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	vi √chaḍḍ	chṛd	vicchardayamāna
-√chad	8	*e	cover, conceal	√chad	1	cover	√chad	chad	accha, svaccha (su + accha), chattra, chattraka, chattrin, chada, chadana, chadayat, chadayati, chadayitum, chadya, channa, channa +, chāttra, chāda, chādaka, chādana, chādayati, chādayamāna, chādayitavya, chādayitvā, chādita, dur + channa, na + chattra, na + channa, su + channa
+√chad	8	*e	cover, conceal	√chad	1	cover	√chad	chad	accha, svaccha (su + accha), chattra, chattraka, chattrin, chada, chadana, chadayat, chadayitum, chadya, channa, channa +, chāttra, chāda, chādaka, chādana, chādayati, chādayamāna, chādayitavya, chādayitvā, chādita, dur + channa, na + chattra, na + channa, su + channa
 √chad	8	*e	cover, conceal	√chad	1	cover	abhi √chad	abhicchad	abhi + channa
 √chad	8		cover, conceal	√chad	1	cover	abhi saṃ √chad	saṃchad	
 √chad	8	*e	cover, conceal	√chad	1	cover	ava √chad	avacchad	avacchatta, avacchada
@@ -1367,7 +1367,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √dvar	1	a	obstruct, prohibit	√dvṛ	1	obstruct	√dvar	dvṛ	dauvārika, dvarati, dvāra, dvāratā, dvārapāla, sa + dvāra
 √dhaj	1	a	move, flap	√dhvaj	1	go	√dhaj	dhvaj	dhvaja
 √dhan 1	1	a	be rich	√dhan	3	bear fruit	√dhan	dhan	a + dhanya, adhana, dhana, dhanavat, dhanavatī, dhanāyat, dhanāyati, dhanāyita, dhanāyitavya, dhanika, dhanin, dhanya, dhānya, sadhana, sahadhānya (saha + dhānya), sudhana (su + dhana)
-√dhan 2	8	*e	sound	√dhvan	1	sound	√dhan	dhvan	dhvanita
+√dhan 2	8	*e	sound	√dhvan	1	sound	√dhan	dhvan	dhvanita, dhvānayati
 √dham	1	a	blow, sound	√dhmā √dham	1, 2	blow	√dham	dham	dhamaka, dhamat, dhamati, dhamani, dhamita, dhma, dhmāmāna, na + dhamita
 √dham	1	a	blow, sound	√dhmā √dham	1, 2	blow	ati √dham		
 √dham	1	a	blow, sound	√dhmā √dham	1, 2	blow	abhi √dham	abhidham	abhi + dhamati
@@ -2527,8 +2527,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lok	8	*e	look	√lok	1, 10	look	pati ā √lok		pratyak + āloka
 √lok	8	*e	look	√lok	1, 10	look	vi √lok	vilok	vilokate, vilokana, vilokayat, vilokayamāna, vilokayitavya, vilokita
 √lok	8	*e	look	√lok	1, 10	look	vi ava √lok		vi + avalok, vi + avalokayat, vi + avalokayati
-√loc	8	*aya	see, illuminate	√loc	1, 10	see, consider	√lok		locayati
-√loc	8	*e	see, illuminate	√loc	1, 10	see, consider	√loc	loc	locana
+√loc	8	*e	see, illuminate	√loc	1, 10	see, consider	√loc	loc	locana, locayati
 √loc	8	*e	see, illuminate	√loc	1, 10	see, consider	ā √loc	āloc	
 √loc	8	*e	see, illuminate	√loc	1, 10	see, consider	ud √loc		ulloca
 √loc	8	*e	see, illuminate	√loc	1, 10	see, consider	vi √loc		vilocana
@@ -2562,7 +2561,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √vañc 2	1	a	go around	√vañc	1	move crookedly	√vañc		na +
 √vañc 2	1	a	go around	√vañc	1	move crookedly	saṃ pa √vañc		sampravad, sampravad +
 √vaṭ	8	*e	divide	√vaṭ	10	divide	√vaṭ		vṛnta
-√vaṭṭ	1	a	turn	√vṛt	1	turn	√vaṭṭ	vṛt	vartaka, vartaka, vartakī, vartat, vartate, vartana, vartanī, vartayitvā, vartikā, vartin, vartī, vārtaka, vārtāka, vṛtta, suvartita, suvṛtta, suvṛtta
+√vaṭṭ	1	a	turn	√vṛt	1	turn	√vaṭṭ	vṛt	vartaka, vartaka, vartakī, vartat, vartate, vartana, vartanī, vartayat, vartayitvā, vartikā, vartin, vartī, vārtaka, vārtāka, vṛtta, suvartita, suvṛtta, suvṛtta
 √vaṭṭ	1	a	turn	√vṛt	1	turn	anu ā √vaṭṭ	anvāvṛt	anvāvartati
 √vaṭṭ	1	*e	turn	√vṛt	1	turn	abhi ni √vaṭṭ	abhinivṛt	
 √vaṭṭ	1	a	turn	√vṛt	1	turn	ava √vaṭṭ		ovaṭṭikā (bsk), ??
