@@ -5,6 +5,33 @@ search:
 
 # Changelog
 
+## 2026-09-26
+
+### GitHub Issues Closed
+- [#217 Request to add transliterations as synonyms for kindle mobi dict](https://github.com/digitalpalidictionary/dpd-db/issues/217)
+- [#261 Webapp: Add CC license to search results](https://github.com/digitalpalidictionary/dpd-db/issues/261)
+- [#263 GitHub Issues: Migrate labels to Issue Type, Priority and Effort](https://github.com/digitalpalidictionary/dpd-db/issues/263)
+- [#266 Grammar: resolve all verbal forms to a present tense or root](https://github.com/digitalpalidictionary/dpd-db/issues/266)
+
+
+### Dictionary Data Updates
+- 89 587 headwords, 54 323 (60.6%) complete, 9 343 (10.4%) partially complete, 25 921 (28.9%) incomplete entries
+- 753 roots, 3 319 root families, 37 012 words derived from roots
+- 852 483 deconstructed compounds
+- 1 497 887 unique inflected forms recognized
+- 2 289 424 cells of Pāḷi word data
+- 18 310 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1-5, AN1-3
+- Pass2 in progress: AN4
+- numerous additions and corrections based on user feedback
+
+### New Words
+agghāpeti, ajjhotthariyati, aṭṭhamaka 1, aḍḍhasamavutti, adāyaka 2, anajjatana, anicchanta 3, aniyatakāla, anissajjetvā, anukkamanta 1, anuggata 2.1, anuṭṭhubhā, anusāsayati, apayāti, aparisaṅkanīya, apahanati, apādānavacana, appadhānaliṅga, abbāhati, abhilapati, abhilambati, abhilambanta, abhisamekkha, abhisamekkhati, avanamati, avanīpati, avasavati, avasīdati, asamikkhya, āghāya, ādiya 3.1, ādīpeti, ānetvā 3, āpātalikā, āmantanavacana, āyata 2, āyata 3, āloleti, āsaṃsati, āsaṃsitabba, āsīdati 2, ukkhipāpeti, ukkhipīyati, uggatā, uggaha 3, uṇṇamati 1, uṇṇamati 2, uttama 2, uttarati 2, utrāseti, uddhumāta 1, upakkilissati, upagami 2, upagīti, upajāti, upaṭṭhitā, upadisiyati, usabhamatta 1, ojadāna, opacchandasaka, ovadiyati, ovadīyati, ovādeti, ohiyati, katavijja, kammakaraṇa 1, kammavacana, kārapesi, kulachinnaka, khala 2.2, khippati, khīyi 2, khudati, khudita, khepayati, gaṇayati, gadya, gāhati, gīti, guṇīpada, guru 1, gopayati, ghaṭṭāpeti, ghaṭṭiyati, catudīpa, cāleti 2, cāvayati, cintanīya, chādayati, chindeti, chedāpayati, chedeti, jahāpeti, jhāpayati, ñāṇattaya, ṇāpi, tassīla, tiṭṭhubhā, tosetvā 2, thambhati, thomiyati, daṇḍāpeti 1, daṇḍāpeti 2, dānānisaṃsa, dāpayati, dīghasutta, dīghasuttiya, dīpaka 1.2, dukkhati, dodhaka, dosetuṃ, doha 1.1, doha 2.1, dohati, dohanta, dhaneti, dhareti, dhāriyati, dhī 2.1, naccāpeti, naccāpesi, nādayati, nāsayati, nikhaṇāpesi, nigghātita, niyyātar 2, niyyādayitvāna, niyyāyati, nivedayati, nhāpayati, pakujjhati, pakkandati, pakkāmayati, pakkuthati, pakkuthitvā, pakkhālayati, paggharāpeti, pacalana, paccaya 2, paccupaṭṭhapeti, paññapiyati, paṭigacchati, paṭiggahāpeti, paṭiggahāpesi, paṭipaveseti, paṭimaṇḍeti, paṭisaṅkhāti, paṭisāmayati, paṇipatati, pathyā, padāti, padya, padhānaliṅga, panujjati, papañcayati, pabhañjati, pabheda 5, pamādeti, pamitakkharā, payirupāsayati, payujjati, parajjhati, parikaroti, parikkharoti, parigacchati, parijappati, paritussati, paridameti, paridahessati, paridhaṃsati, pariniṭṭhapeti, paripphandati, paribrūheti, paribhāveti, pariyeti, parirakkhanīya, parivaṭṭeti, parivārayati, parisaṅkanīya, palehati, pavajati, pavaḍḍheti, pavattiyati, pavadati 1, pavadati 2, pavahati, pavesayati, pasaveti, pahāpeti, pācāpayati, pādayuga 1, pādayuga 2, pālayati, pihitadvāra 3, pīḷayati, pucchāpeti, pucchāpesi, pucchiyati, pucchīyati, pupphitaggā, pūrayati, pekkhita 1, pothayati, posāpeti, phusayati, phoṭayati, bādhīyati, bījiyati, brahatī, bhajjāpeti, bhaññati, bhujjati, bhedayati, bhedeti, majjhima 09, mattāvutti, madeti, madhurāyati, mantabheda, mahayati, māgadhikā, miyati, muñcāpeti, muṇḍa 2, moseti, yāciyati, yuttatta, yojāpeti 2, rathoddhatā, randhayati, ruhati, laṅghayati, lambati 2, lābheti, liṅgati, luñcāpeti, lehati, locayati, lobheti, lohitadāna, vañcayati, vaṇṇakāma 2.1, vaṇṇiyati, vattayati 1, vattayati 2, vambhayati, vavatthāpeti, vasanaka 1, vasitta, vaṃsaṭṭhā, vāccaliṅga, vijjhīyati, viññāpayati, vittharati, vitthāriyati, vidhaṃsayati, vinata 1, vinata 2, vipulā, vibudha 2, vibhañjaka, vibhañjesi, vimocayati, viyūḷha 1, viyūḷha 2, virecati, vilīyāpeti, visamavutti, vissajjetvā 2, vegavatī, vetālīya, vosajjati, saṅkappayati, saṅkaleti, saṅkaletvā, saṅkalenta, saṅkhāyati, saṅkhyāpadhāna, saṅkhyāpūraṇa, sajja 1, sañcāleti, sadisaka, sane, santāseti, samanusāsati, samavutti, samuṭṭhahati, sampareti, sampādayati, sampādenta 2, sampihita, sambharati, sambharanta, sambhāvayati, saṃkhādati, saṃkhādana, saṃkhipati, saṃcuṇṇeti, saṃphulla, saṃlimpati, saṃvaṇṇiyati, saṃvirūhati, saṃvoharati, saṃsajjati, saṃsati 2, siṅghatā, siṅghaṃ, sinoti, sirasa, sīlatta, sukkhāpayati, sukhāpeti, suvādigaṇa, seviyati, socayati, sobhayati, svāgatā, hasabhāva, hāsayati [319]
+
+
+
 ## 2026-07-28
 
 ### GitHub Issues Closed
