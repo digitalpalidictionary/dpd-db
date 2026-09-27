@@ -311,3 +311,4 @@
 - 2026-09-27 [BEHAVIOR] Called `exporter/mcp/__init__.py` untracked because `.gitignore` ignores all `__init__.py`; it was tracked. Check `git ls-files` before stating tracking status.
 - 2026-09-27 [BEHAVIOR] Plan 4.3 said "no one-line fix" while its own note named one (deptry module map); the independent reviewer caught the contradiction.
 - 2026-09-27 [POSITIVE] Diffing the old and new wheel (`uv run --no-project --with pkg==old`) showed Flet 1.0.1 carried real runtime changes, turning "patch bump, low risk" into a concrete reason for a launch check.
+- 2026-09-27 [POSITIVE] Replaying the real check chain on live data, old module vs new, proved the fix added exactly the expected failures and removed none

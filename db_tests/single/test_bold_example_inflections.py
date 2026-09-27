@@ -208,7 +208,10 @@ def test8(g: GlobalVars) -> None:
     for inflection in g.inflections_list:
         infl_len = len(inflection)
 
-        if g.clean_bold_word[: infl_len - 1] == inflection[:-1]:
+        if (
+            len(g.clean_bold_word) == infl_len
+            and g.clean_bold_word[:-1] == inflection[:-1]
+        ):
             if inflection[-1] == "a" and g.clean_bold_word[-1] == "ā":
                 return
             elif inflection[-1] == "i" and g.clean_bold_word[-1] == "ī":
