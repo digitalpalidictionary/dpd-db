@@ -151,8 +151,8 @@ The old MCP analysis scripts were split into two responsibilities:
 
 - `exporter/analysis/` now owns passage extraction, DPD lookup analysis, AI
   scoring, markdown reports, and word-list export.
-- `exporter/mcp/` now stays small and only exposes the MCP server entry point.
-  It imports `analyze_sentence()` from `exporter.analysis.analyzer`.
+- `exporter/mcp/` kept only the MCP server entry point. It was archived to
+  `archive/exporter/mcp/` on 2026-09-27.
 
 This makes the analyzer usable without starting an MCP server and keeps report
 generation, batch processing, and CSV export in one dedicated exporter folder.
@@ -361,8 +361,8 @@ The built-in profiles are:
 
 ## MCP Relationship
 
-`exporter/mcp/server.py` still exposes `get_grammatical_details` for agents.
-The server now imports the analyzer from `exporter.analysis.analyzer`.
+The MCP server that exposed `get_grammatical_details` for agents was archived
+to `archive/exporter/mcp/` on 2026-09-27. It is no longer part of the project.
 
 The old MCP-local AI translation script was removed from `exporter/mcp/`.
 Use the command-line tools in `exporter/analysis/` for AI passage analysis,

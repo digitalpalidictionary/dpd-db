@@ -116,6 +116,10 @@ lint:
 typecheck:
     uv run pyrefly check
 
+# Check for unused, missing and transitive dependencies (config in pyproject.toml); exits 1 while any finding remains
+deps:
+    uv run deptry .
+
 # Show project version
 version:
     uv run python tools/version.py

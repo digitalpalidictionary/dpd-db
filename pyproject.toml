@@ -44,7 +44,6 @@ tools = [
     # anki 25.7+ ships protobuf-6 gencode; pin until anki resolves upstream
     "anki>=23.10.1,<25.3",
     "pyglossary>=4.6.1",
-    "gitpython>=3.1.43",
     "numpy>=2.2.3",
     "pypdf>=5.0.0",
     "ruff>=0.9.7",
@@ -54,19 +53,16 @@ tools = [
     "mkdocs-material>=9.6.9",
     "pyyaml>=6.0.2",
     "google-genai>=1.0.0",
-    "fuzzywuzzy>=0.18.0",
     "python-levenshtein>=0.27.1",
     "miniaudio>=1.61",
     "pathspec>=0.12.1",
-    "flet[all]==1.0.0",
-    "mcp>=1.6.0",
+    "flet[all]==1.0.1",
     "google-api-python-client>=2.167.0",
-    "google-auth-httplib2>=0.2.0",
     "google-auth-oauthlib>=1.3.0",
     "markdownify>=1.2.2",
     "pyicu>=2.16.2",
     "genanki>=0.13.1",
-    "prompt-toolkit>=3.0.52",
+    "thefuzz>=0.22.1",
 ]
 
 [tool.hatch.build.targets.sdist]
@@ -152,6 +148,30 @@ ignore = ["E501"]
 extend-select = ["PLW1514"]
 preview = true
 explicit-preview-rules = true
+
+[tool.deptry]
+# regexes matched from the start of the path; archives also live inside audio/, conductor/, kamma/
+extend_exclude = ["resources", "(.*/)?archive/", "tools/writemdict", "temp", "scripts/suttas"]
+# deptry treats every [dependency-groups] group as dev and never checks dev packages for use
+non_dev_dependency_groups = ["tools"]
+# python-levenshtein is a shim; the `Levenshtein` module comes from its `levenshtein` dependency
+package_module_name_map = { "python-levenshtein" = "Levenshtein" }
+
+[tool.deptry.per_rule_ignores]
+DEP002 = [
+    "openpyxl",  # pandas Excel engine, loaded by name inside pd.read_excel
+    "httpx2",  # starlette TestClient backend
+    "pyicu",  # pyglossary slob writer, loaded by name
+    "typst",  # called as a CLI by the pdf exporter
+    "ruff",  # CLI
+    "pyright",  # CLI
+    "pyrefly",  # CLI
+    "pytest",  # CLI
+    "pre-commit",  # CLI
+    "deptry",  # CLI
+    "mkdocs",  # CLI
+    "mkdocs-material",  # mkdocs theme, loaded by name from mkdocs.yaml
+]
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib -m 'not slow'"

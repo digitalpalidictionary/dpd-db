@@ -1,14 +1,12 @@
 """Find the closest fuzzy matches for a term within a list of allowed strings.
 Used by gui2 to suggest corrections for field values."""
 
-from typing import List
-
-from fuzzywuzzy import process as fuzzy_process
+from thefuzz import process as fuzzy_process
 
 
 def find_closest_matches(
-    term: str, allowed_list: List[str], limit: int = 3
-) -> List[str]:
+    term: str, allowed_list: list[str], limit: int = 3
+) -> list[str]:
     """Finds the closest matches for a term within a list of allowed strings.
 
     Args:

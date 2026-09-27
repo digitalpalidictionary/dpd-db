@@ -3,6 +3,7 @@ Where are all the parts of the project located?
 
 ## Tree
 .
+├── archive
 ├── db
 │   ├── backup_tsv
 │   ├── bold_definitions
@@ -25,7 +26,6 @@ Where are all the parts of the project located?
 │   ├── grammar_dict
 │   ├── kindle
 │   ├── kobo
-│   ├── mcp
 │   ├── mobile
 │   ├── pdf
 │   ├── share
@@ -73,6 +73,8 @@ There are four main parts to the code:
 4. __exporter__: Compile all the parts and export into various dictionary formats.
 
 ## Folder details
+
+- **archive/** Retired code kept for reference, e.g. the MCP server (`archive/exporter/mcp/`, archived 2026-09-27).
 
 - **db/** All code related to building and populating the various tables and columns of the database.
 
@@ -125,8 +127,6 @@ There are four main parts to the code:
 	- **kindle/** Export a light version of DPD for Kindle.
 
 	- **kobo/** Export a light version of DPD for Kobo eReader.
-
-	- **mcp/** Export DPD as an MCP server.
 
 	- **mobile/** Export a light version of DPD for mobile devices.
 

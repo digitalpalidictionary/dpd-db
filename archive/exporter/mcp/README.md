@@ -1,5 +1,9 @@
 # DPD MCP Server
 
+> **Archived 2026-09-27.** Moved here from `exporter/mcp/` and no longer part of the
+> project. The `mcp` package is no longer a dependency, and the commands below still use the
+> old `exporter/mcp/` path. To revive it, move the files back and `uv add --group tools mcp`.
+
 This directory contains a Model Context Protocol (MCP) server that provides AI agents with structured access to the Digital Pāḷi Dictionary (DPD).
 
 ## Installation

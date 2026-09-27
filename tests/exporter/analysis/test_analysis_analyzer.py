@@ -152,9 +152,9 @@ def test_get_grammar_from_inflections_html_not_found() -> None:
 def test_analyze_sentence_keys_are_unique_per_word_occurrence() -> None:
     from db.db_helpers import get_db_session
     from exporter.analysis.analyzer import analyze_sentence
-    from exporter.mcp.config import mcp_config
+    from tools.paths import ProjectPaths
 
-    db_session = get_db_session(mcp_config.db_path)
+    db_session = get_db_session(ProjectPaths().dpd_db_path)
 
     try:
         results = analyze_sentence("tassa tassa", db_session)
@@ -193,9 +193,9 @@ def test_analyze_sentence() -> None:
     # This test requires a valid dpd.db to be present at the expected path.
     from exporter.analysis.analyzer import analyze_sentence
     from db.db_helpers import get_db_session
-    from exporter.mcp.config import mcp_config
+    from tools.paths import ProjectPaths
 
-    db_session = get_db_session(mcp_config.db_path)
+    db_session = get_db_session(ProjectPaths().dpd_db_path)
 
     sentence = "Evaṃ me sutaṃ."
     results = analyze_sentence(sentence, db_session)
@@ -215,9 +215,9 @@ def test_analyze_sentence() -> None:
 def test_analyze_sentence_not_found() -> None:
     from exporter.analysis.analyzer import analyze_sentence
     from db.db_helpers import get_db_session
-    from exporter.mcp.config import mcp_config
+    from tools.paths import ProjectPaths
 
-    db_session = get_db_session(mcp_config.db_path)
+    db_session = get_db_session(ProjectPaths().dpd_db_path)
 
     # Using a string that is Pāḷi-alphabet-only but unlikely to be in the dictionary
     sentence = "abbcccddd"

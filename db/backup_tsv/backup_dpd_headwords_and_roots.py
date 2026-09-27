@@ -4,9 +4,9 @@
 """Save latest DpdHeadword and DpdRoot tables to backup_tsv folder."""
 
 import csv
+import subprocess
 from pathlib import Path
 
-from git import Repo
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
@@ -147,7 +147,6 @@ def backup_dpd_roots(db_session: Session, pth: ProjectPaths, custom_path: str = 
 
 def git_commit(pth: ProjectPaths):
     pr.green_tmr("committing changes to GitHub")
-    repo = Repo("./")
 
     # Add all split files for headwords and roots
     backup_dir = pth.pali_word_path.parent
@@ -170,9 +169,16 @@ def git_commit(pth: ProjectPaths):
         # It also leaves nothing staged when it fails — a busy index.lock or a
         # rejected pre-commit hook used to abort between the add and the commit
         # and leave these files sitting staged for someone else's next commit.
-        repo.git.commit("-m", "pali update", "--", *files_to_add)
+        subprocess.run(
+            ["git", "commit", "-m", "pali update", "--", *files_to_add],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
         pr.yes("ok")
-    except Exception as e:
+    except subprocess.CalledProcessError as e:
+        pr.no(e.stderr.strip())
+    except FileNotFoundError as e:
         pr.no(f"{e}")
 
 

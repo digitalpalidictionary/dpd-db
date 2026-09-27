@@ -305,3 +305,9 @@
 - 2026-09-24 [WORKFLOW] dpd.db runs in WAL mode; the main file's mtime does not move on writes. Read the data to confirm database state, never the timestamp.
 - 2026-09-22 [REPEATED] Editor repeatedly asked for plain, concise output with no filler; verbose replies and manufactured closing questions persisted across the session.
 - 2026-09-25 [POSITIVE] Independent reviewer subagents with their own context found both blocking bugs; the implementing agent's own proofs had not.
+- 2026-09-27 [POSITIVE] A function-level before/after capture caught a silent behaviour change (thefuzz reorders 2nd/3rd fuzzy suggestions) that all 1915 tests missed; the spec had assumed "same API, same results".
+- 2026-09-27 [WORKFLOW] `uv remove`/`uv add` sync with default groups only and uninstalled the whole tools group mid-thread; use `--no-sync` then `uv sync --all-groups`.
+- 2026-09-27 [WORKFLOW] deptry `extend_exclude` uses `re.match` from the path start, so `"archive"` missed nested `*/archive/` folders; the report looked configured while still noisy.
+- 2026-09-27 [BEHAVIOR] Called `exporter/mcp/__init__.py` untracked because `.gitignore` ignores all `__init__.py`; it was tracked. Check `git ls-files` before stating tracking status.
+- 2026-09-27 [BEHAVIOR] Plan 4.3 said "no one-line fix" while its own note named one (deptry module map); the independent reviewer caught the contradiction.
+- 2026-09-27 [POSITIVE] Diffing the old and new wheel (`uv run --no-project --with pkg==old`) showed Flet 1.0.1 carried real runtime changes, turning "patch bump, low risk" into a concrete reason for a launch check.

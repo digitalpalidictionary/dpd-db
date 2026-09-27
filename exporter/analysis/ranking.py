@@ -115,6 +115,8 @@ def _select_best_option(
     return max(
         options,
         key=lambda option: _option_rank(
+            # pyrefly: ignore  # pyrefly 1.3 widens the lambda arg with max()'s
+            # default=None; max never passes the default to key
             option,
             is_component=is_component,
             parent_meaning=parent_meaning,

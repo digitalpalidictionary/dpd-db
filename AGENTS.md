@@ -86,6 +86,7 @@ db = get_db_session(Path("dpd.db"))
 
 ## Dependencies
 - Manage with astral uv. Install with `uv add`, never `pip install` or `uv pip install`. Don't run scripts with uv unless asked.
+- `uv add` / `uv remove` sync with the default groups only and uninstall the whole `tools` group. Always pass `--no-sync`, then run `uv sync --all-groups`.
 - **Optional/transitive deps belong to their parent.** If a package is only needed because another loads it (an engine, backend, or feature plugin), declare it through the parent's extra — it self-documents and auto-removes if the parent is dropped. These are dynamic, string-keyed imports (`pd.read_excel` → `import_optional_dependency("openpyxl")`), so no static tool can see them and a bare entry looks unused and gets wrongly pruned.
 - EXCEPTION — keep it bare WITH an inline comment naming the owner when the extra is unusable: too broad (bare `openpyxl` for `pd.read_excel`, since `pandas[excel]` pulls five engines), or no extra provides it (`httpx2` is starlette's TestClient backend; no fastapi/starlette extra ships it). The comment is mandatory so it never again looks orphaned.
 - Before removing an apparently unused dep, confirm it isn't a parent's optional engine, then re-run the full test suite AND a build cycle. `uv sync` succeeding proves nothing about dynamic imports.

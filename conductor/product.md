@@ -18,10 +18,9 @@ To be the world's most precise, comprehensive, and accessible digital resource f
 - **Modern GUI:** A Flet-based interface for lexicographers to add, edit, and verify data with real-time integrity checks.
 - **Cross-Browser Extension:** Instant Pāḷi lookup for Chrome and Firefox on SuttaCentral, Digital Pāli Reader, and other Dhamma websites with intelligent theme matching and customizable lookup settings.
 - **Audio Integration:** Synthesized and recorded Pāḷi pronunciations integrated directly into the lookup experience.
-- **Pāḷi MCP Server:** A Model Context Protocol server that enables AI agents to interact with the DPD database for high-precision linguistic analysis.
 
 ## AI-Ready Data
-DPD is uniquely positioned for the AI era. By providing a structured MCP interface, we enable Large Language Models (LLMs) to perform accurate word-by-word translation and grammatical analysis, reducing hallucinations in Buddhist AI applications.
+DPD is uniquely positioned for the AI era. Its structured data enables Large Language Models (LLMs) to perform accurate word-by-word translation and grammatical analysis, reducing hallucinations in Buddhist AI applications.
 
 ## Technical Competitive Edge
 - **Hybrid Performance:** Using Go for CPU-bound tasks like compound deconstruction while maintaining Python's flexibility for database management.
