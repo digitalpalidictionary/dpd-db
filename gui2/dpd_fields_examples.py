@@ -167,6 +167,12 @@ class DpdExampleField(ft.Column):
                 expand=True,
                 dense=True,
                 text_size=12,
+                # A single-line field unfocuses itself on Enter before on_submit
+                # reaches Python, so the next Tab restarted at the id field.
+                # shift_enter submits from a key handler that keeps focus here;
+                # max_lines keeps it looking like a one-line box.
+                shift_enter=True,
+                max_lines=1,
                 on_submit=self.click_bold_example,
                 on_blur=self._handle_last_control_blur,
             )
