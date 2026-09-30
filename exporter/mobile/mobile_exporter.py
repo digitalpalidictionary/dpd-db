@@ -781,7 +781,7 @@ def export_other_dictionaries(
     pr.yes(len(batch))
 
     # --- Nyanatiloka's Buddhist Dictionary ---
-    pr.green_tmr("exporting Nyanatiloka's Buddhist Dictionary")
+    pr.green_tmr("exporting Nyanatiloka")
 
     if not g.pth.nyanatiloka_source_path.exists():
         raise _missing_source_error("Nyanatiloka", g.pth.nyanatiloka_source_path)
