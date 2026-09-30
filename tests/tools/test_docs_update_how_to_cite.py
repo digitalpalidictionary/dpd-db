@@ -63,7 +63,9 @@ def test_page_is_rewritten_on_an_uposatha(
     page.write_text("stale", encoding="utf-8")
     _run_main(monkeypatch, page, uposatha=True)
 
-    assert VERSION in page.read_text(encoding="utf-8")
+    text = page.read_text(encoding="utf-8")
+    assert VERSION in text
+    assert "https://doi.org/10.5281/zenodo.22979413" in text
 
 
 def _run_main(monkeypatch: pytest.MonkeyPatch, page: Path, *, uposatha: bool) -> None:
@@ -71,7 +73,6 @@ def _run_main(monkeypatch: pytest.MonkeyPatch, page: Path, *, uposatha: bool) ->
         module.UposathaManger, "uposatha_today", classmethod(lambda cls: uposatha)
     )
     monkeypatch.setattr(module, "config_read", lambda *_: VERSION)
-    monkeypatch.setattr(module, "get_doi", lambda: None)
     monkeypatch.setattr(
         module, "ProjectPaths", lambda: SimpleNamespace(docs_how_to_cite_md_path=page)
     )

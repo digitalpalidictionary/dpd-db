@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -92,6 +93,11 @@ def test_citation_uses_the_doi_when_there_is_one() -> None:
     assert "dpdict.net" not in citation
 
 
+def test_citation_carries_the_zenodo_concept_doi() -> None:
+    citation = make_citation(VERSION, version.DOI)
+    assert citation.endswith("https://doi.org/10.5281/zenodo.22979413")
+
+
 def test_citation_falls_back_to_the_website_without_a_doi() -> None:
     assert "https://www.dpdict.net/" in make_citation(VERSION)
 
@@ -159,122 +165,47 @@ def test_cff_is_not_created_on_an_ordinary_day(
     assert not cff_path.exists()
 
 
-class FakeResponse:
-    def __init__(self, payload: dict) -> None:
-        self._payload = payload
-
-    def read(self) -> bytes:
-        return json.dumps(self._payload).encode("utf-8")
-
-    def __enter__(self) -> "FakeResponse":
-        return self
-
-    def __exit__(self, *_: object) -> None:
-        return None
-
-
-def _hits(*records: dict) -> dict:
-    return {"hits": {"hits": list(records)}}
-
-
-def _record(concept_doi: str, repo: str) -> dict:
-    return {
-        "conceptdoi": concept_doi,
-        "metadata": {
-            "related_identifiers": [{"identifier": f"https://github.com/{repo}"}]
-        },
-    }
-
-
-def test_zenodo_query_is_a_quoted_phrase(monkeypatch: pytest.MonkeyPatch) -> None:
-    """An unquoted slash makes Zenodo's parser return HTTP 500."""
-
-    seen: list[str] = []
-
-    def fake_urlopen(url: str, timeout: int = 0) -> FakeResponse:
-        seen.append(url)
-        return FakeResponse(_hits())
-
-    monkeypatch.setattr(version.urllib.request, "urlopen", fake_urlopen)
-    version.fetch_zenodo_doi()
-
-    assert "%22digitalpalidictionary%2Fdpd-db%22" in seen[0]
-
-
-def test_rejects_a_record_belonging_to_another_project(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    payload = _hits(_record("10.5281/zenodo.21495338", "someone/else"))
-    monkeypatch.setattr(
-        version.urllib.request, "urlopen", lambda *_, **__: FakeResponse(payload)
-    )
-
-    assert version.fetch_zenodo_doi() is None
-
-
-def test_accepts_the_dpd_record(monkeypatch: pytest.MonkeyPatch) -> None:
-    payload = _hits(
-        _record("10.5281/zenodo.111", "someone/else"),
-        _record("10.5281/zenodo.222", "digitalpalidictionary/dpd-db"),
-    )
-    monkeypatch.setattr(
-        version.urllib.request, "urlopen", lambda *_, **__: FakeResponse(payload)
-    )
-
-    assert version.fetch_zenodo_doi() == "10.5281/zenodo.222"
-
-
-def test_rejects_a_malformed_doi(monkeypatch: pytest.MonkeyPatch) -> None:
-    payload = _hits(_record("not-a-doi: injected", "digitalpalidictionary/dpd-db"))
-    monkeypatch.setattr(
-        version.urllib.request, "urlopen", lambda *_, **__: FakeResponse(payload)
-    )
-
-    assert version.fetch_zenodo_doi() is None
-
-
-def test_a_network_error_is_reported_not_swallowed(
-    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
-) -> None:
-    """A silently swallowed HTTP 500 once got recorded as 'not published yet'."""
-
-    def boom(*_: object, **__: object) -> None:
-        raise version.urllib.error.HTTPError(
-            "url", 500, "INTERNAL SERVER ERROR", {}, None
-        )
-
-    monkeypatch.setattr(version.urllib.request, "urlopen", boom)
-
-    assert version.fetch_zenodo_doi() is None
-    assert "zenodo lookup failed" in capsys.readouterr().out
-
-
-def test_ensure_doi_is_skipped_in_ci(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("CI", "true")
-    monkeypatch.setattr(version, "get_doi", lambda: None)
-
-    def must_not_run() -> None:
-        raise AssertionError("no network call may happen in CI")
-
-    monkeypatch.setattr(version, "fetch_zenodo_doi", must_not_run)
-
-    assert version.ensure_doi() is None
-
-
-def test_ensure_doi_returns_the_stored_value_without_a_lookup(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    monkeypatch.setattr(version, "get_doi", lambda: "10.5281/zenodo.42")
-
-    def must_not_run() -> None:
-        raise AssertionError("a stored DOI must not be re-fetched")
-
-    monkeypatch.setattr(version, "fetch_zenodo_doi", must_not_run)
-
-    assert version.ensure_doi() == "10.5281/zenodo.42"
-
-
 def test_cff_artifact_url_pins_the_version() -> None:
     cff = make_citation_cff(VERSION)
     assert f"repository-artifact: {version.LATEST_RELEASE}/tag/{VERSION}" in cff
     assert "/releases/latest" not in cff
+
+
+def test_zenodo_json_matches_the_citation_metadata() -> None:
+    """Zenodo reads .zenodo.json instead of CITATION.cff, so the two must agree.
+
+    It holds no version, so that nothing in it goes stale from month to month."""
+
+    zenodo = json.loads(Path(".zenodo.json").read_text(encoding="utf-8"))
+
+    assert zenodo["title"] == "Digital Pāḷi Dictionary"
+    assert zenodo["creators"] == [{"name": AUTHOR}]
+    assert zenodo["description"] == version.ABSTRACT
+    assert zenodo["keywords"] == version.KEYWORDS
+    assert zenodo["license"] == "cc-by-nc-sa-4.0"
+    assert zenodo["upload_type"] == "dataset"
+    assert "version" not in zenodo
+
+
+def test_main_writes_the_doi_into_the_db_and_the_cff(
+    monkeypatch: pytest.MonkeyPatch, db_path: Path, tmp_path: Path
+) -> None:
+    """The release build's db_info.citation feeds the app and every CI export."""
+
+    cff_path = tmp_path / "CITATION.cff"
+    monkeypatch.setattr(
+        version,
+        "ProjectPaths",
+        lambda: SimpleNamespace(dpd_db_path=db_path, citation_cff_path=cff_path),
+    )
+    monkeypatch.setattr(version, "make_version", lambda: (VERSION, "v0.4"))
+    monkeypatch.setattr(version, "config_update", lambda *_, **__: None)
+    _set_uposatha(monkeypatch, True)
+
+    version.main()
+
+    with get_db_session(db_path) as db_session:
+        stored = {row.key: row.value for row in db_session.query(DbInfo).all()}
+    assert stored["citation"].endswith("https://doi.org/10.5281/zenodo.22979413")
+    assert stored["doi"] == "10.5281/zenodo.22979413"
+    assert "doi: 10.5281/zenodo.22979413" in cff_path.read_text(encoding="utf-8")

@@ -316,3 +316,7 @@
 - 2026-09-30 [BEHAVIOR] asked to "check for the same pattern", proposed changes to ~20 boxes nobody saw fail; user called it guessing and over-correcting — report only what is observed, list code-read suspects as unverified with no fix plan
 - 2026-09-30 [BEHAVIOR] ran `pkill -f` on a pattern and killed the shell running it, despite the global rule
 - 2026-09-30 [POSITIVE] reading Flet 1.0.1 Dart source via `gh api` pinned the Enter/unfocus mechanism and disproved a reviewer's keypad-Enter finding
+- 2026-09-30 [POSITIVE] Querying the live Zenodo API against the real archived record showed the previous thread's DOI lookup returned 0 hits; the handoff's "picked up next build" claim had only ever been tested against fabricated payloads
+- 2026-09-30 [WORKFLOW] The previous design skipped the DOI lookup in CI, so the release builds (db, GoldenDict, PDF, app) could never carry the DOI even if the lookup worked; a never-changing value became a constant and the whole lookup was deleted
+- 2026-09-30 [POSITIVE] Independent reviewer found three citation call sites with no test that fails if the DOI is dropped; revert-checked tests added for each
+- 2026-09-30 [BEHAVIOR] Used `sed -n` once to read a file slice despite the global no-sed rule

@@ -1,0 +1,20 @@
+{
+  "title": "Digital Pāḷi Dictionary",
+  "upload_type": "dataset",
+  "creators": [
+    {
+      "name": "Bodhirasa Bhikkhu"
+    }
+  ],
+  "description": "A feature-rich Pāḷi-English dictionary with full declension and conjugation tables, compound deconstruction, examples from the Pāḷi canon, word frequency, root families and grammatical analysis. Runs on the web, in GoldenDict, MDict, DictTango and on Kindle.",
+  "license": "cc-by-nc-sa-4.0",
+  "keywords": [
+    "Pāḷi",
+    "Pali",
+    "dictionary",
+    "lexicography",
+    "Buddhism",
+    "Theravāda"
+  ],
+  "access_right": "open"
+}

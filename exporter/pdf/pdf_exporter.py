@@ -36,7 +36,7 @@ from tools.date_and_time import year_month_day_dash
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
-from tools.version import get_doi, make_citation
+from tools.version import DOI, make_citation
 from tools.tsv_read_write import read_tsv_dot_dict
 from tools.zip_up import zip_up_file
 
@@ -90,7 +90,7 @@ class GlobalVars:
         self.thanks_templ = self.env.get_template("thanks.typ")
         self.date: str = year_month_day_dash()
         self.version: str = config_read("version", "version") or "unknown"
-        self.citation: str = make_citation(self.version, get_doi())
+        self.citation: str = make_citation(self.version, DOI)
 
 
 def make_layout(g: GlobalVars) -> None:

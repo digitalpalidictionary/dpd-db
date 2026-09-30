@@ -4,17 +4,11 @@
 write it to config.ini and the db_info table. Run directly by the justfile
 and the GitHub release workflows."""
 
-import json
-import os
-import re
-import urllib.error
-import urllib.parse
-import urllib.request
 from pathlib import Path
 
 from db.db_helpers import get_db_session
 from db.models import DbInfo
-from tools.configger import config_read, config_update
+from tools.configger import config_update
 from tools.date_and_time import year_month_day
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -35,6 +29,10 @@ LICENSE = "CC BY-NC-SA 4.0"
 # Short form of the website, used for permalinks so that a cited link stays
 # short enough to print in a footnote.
 SHORT_WEBSITE = "https://dpdict.net"
+# Zenodo's concept DOI always resolves to the newest archived release, so it
+# never changes month to month. A new one is minted only if the repo is
+# disconnected and reconnected on Zenodo.
+DOI = "10.5281/zenodo.22979413"
 
 # The worked example used in every citation surface. gacchati 1 is a stable,
 # common entry; ids are never reused, so this link cannot rot onto another word.
@@ -47,77 +45,6 @@ ABSTRACT = (
     "root families and grammatical analysis. Runs on the web, in GoldenDict, MDict, "
     "DictTango and on Kindle."
 )
-
-# Zenodo mints the concept DOI once, on the first release it archives, and it
-# always resolves to the newest release — so it is looked up once and reused.
-# The repo path must be a quoted phrase: an unquoted "/" makes Zenodo's query
-# parser return HTTP 500.
-ZENODO_API = "https://zenodo.org/api/records"
-ZENODO_REPO = "digitalpalidictionary/dpd-db"
-DOI_PATTERN = re.compile(r"^10\.\d{4,9}/[-._;()/:a-zA-Z0-9]+$")
-
-
-def get_doi() -> str | None:
-    doi = config_read("version", "doi")
-    return doi or None
-
-
-def _hit_is_dpd(hit: dict) -> bool:
-    """True only when the record actually points back at this GitHub repo.
-
-    A free-text Zenodo search happily returns unrelated Pāḷi projects, and a
-    wrong DOI here would be copied into CITATION.cff, dpd.db and every export."""
-
-    identifiers = hit.get("metadata", {}).get("related_identifiers", [])
-    return any(ZENODO_REPO in str(entry.get("identifier", "")) for entry in identifiers)
-
-
-def fetch_zenodo_doi(timeout: int = 20) -> str | None:
-    """Look up the Zenodo concept DOI for the repo, or None if not published yet."""
-
-    query = urllib.parse.urlencode(
-        {"q": f'"{ZENODO_REPO}"', "size": 10, "sort": "mostrecent"}
-    )
-    try:
-        with urllib.request.urlopen(
-            f"{ZENODO_API}?{query}", timeout=timeout
-        ) as response:
-            payload = json.load(response)
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
-        # Never fatal — the DOI is a nicety, not a build input. But say so out
-        # loud: a swallowed error once got recorded as "not published yet".
-        pr.amber(f"zenodo lookup failed: {e}")
-        return None
-
-    for hit in payload.get("hits", {}).get("hits", []):
-        concept_doi = str(hit.get("conceptdoi") or "")
-        if concept_doi and _hit_is_dpd(hit) and DOI_PATTERN.match(concept_doi):
-            return concept_doi
-    return None
-
-
-def ensure_doi() -> str | None:
-    """Return the stored concept DOI, fetching and storing it the first time.
-
-    Skipped in CI: config.ini is gitignored and rebuilt from a profile there, so
-    a fetched value could never be persisted — it would just be a network call
-    on every workflow run."""
-
-    doi = get_doi()
-    if doi:
-        return doi
-
-    if os.environ.get("CI"):
-        pr.summary("zenodo doi", "skipped in ci")
-        return None
-
-    doi = fetch_zenodo_doi()
-    if doi:
-        config_update("version", "doi", doi, silent=True)
-        pr.summary("zenodo doi", doi)
-    else:
-        pr.summary("zenodo doi", "not published yet")
-    return doi
 
 
 def make_permalink(headword_id: int) -> str:
@@ -260,10 +187,8 @@ def main() -> None:
     config_update("version", "version", version, silent=True)
     pr.summary("config.ini", "ok")
 
-    doi = ensure_doi()
-
-    update_db_version(pth.dpd_db_path, version, doi)
-    update_citation_cff(pth.citation_cff_path, version, doi)
+    update_db_version(pth.dpd_db_path, version, DOI)
+    update_citation_cff(pth.citation_cff_path, version, DOI)
 
     pr.toc()
 

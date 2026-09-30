@@ -63,10 +63,14 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - `CITATION.cff` and `docs/how_to_cite.md` are GENERATED — `tools/version.py` writes the
   first, `tools/docs_update_how_to_cite.py` the second, both from the release version so
   the citation can never name a stale version. Never hand-edit either. The Zenodo concept
-  DOI lives in `config.ini` under `[version] doi`, is looked up once by `ensure_doi()`
-  (skipped when `CI` is set, since `config.ini` is gitignored), and flows from there into
+  DOI (`10.5281/zenodo.22979413`) is the `DOI` constant in `tools/version.py` — it always
+  resolves to the newest release, so it is fixed, not looked up — and flows from there into
   the citation string, `db_info`, the CFF, the docs page, the GoldenDict `cite` entry,
-  the PDF front matter and the Flutter app's How to Cite card. Added 2026-09-06.
+  the PDF front matter and the Flutter app's How to Cite card, in local and CI builds
+  alike. The Zenodo record's own metadata comes from the static `.zenodo.json`, which
+  overrides `CITATION.cff` on Zenodo; it has no version field, and a test keeps it in
+  step with `AUTHOR`/`ABSTRACT`/`KEYWORDS`. Added 2026-09-06, DOI made a constant
+  2026-09-30.
 - `README.md` and `CONTRIBUTING.md`
 - `conductor/product.md` and `conductor/tech-stack.md`
 - `docs/technical/` for database and project structure documentation

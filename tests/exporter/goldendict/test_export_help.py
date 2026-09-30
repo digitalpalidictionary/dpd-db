@@ -6,12 +6,14 @@ from pathlib import Path
 import pytest
 
 from exporter.goldendict.data_classes import AbbreviationsData
+from exporter.goldendict import export_help
 from exporter.goldendict.export_help import (
     Abbreviation,
     Help,
     add_abbrev_html,
     add_abbrev_other_html,
     add_bibliography,
+    add_citation,
     add_help_html,
     add_thanks,
 )
@@ -163,3 +165,12 @@ def test_bibliography_last_row_with_synthetic_fixture(
     assert "AuthorMiddle" in html
     assert "AuthorLast" in html
     assert html.count("<ul>") == html.count("</ul>") == 1
+
+
+def test_cite_entry_carries_the_doi(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(export_help, "config_read", lambda *_: "v0.4.20260905")
+
+    html = add_citation("")[0].definition_html
+
+    assert "v0.4.20260905" in html
+    assert "https://doi.org/10.5281/zenodo.22979413" in html

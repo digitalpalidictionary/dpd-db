@@ -10,9 +10,9 @@ from tools.goldendict_exporter import DictEntry
 from tools.paths import ProjectPaths
 from tools.version import (
     AUTHOR,
+    DOI,
     EXAMPLE_ID,
     EXAMPLE_LEMMA,
-    get_doi,
     make_citation,
     make_permalink,
 )
@@ -333,7 +333,7 @@ def add_citation(header: str) -> list[DictEntry]:
     version the reader actually has, offline, without a lookup elsewhere."""
 
     version = config_read("version", "version") or "unknown"
-    citation = make_citation(version, get_doi())
+    citation = make_citation(version, DOI)
 
     html = ""
     html += "<body>"

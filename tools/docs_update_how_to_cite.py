@@ -9,10 +9,10 @@ from tools.printer import printer as pr
 from tools.uposatha_day import UposathaManger
 from tools.version import (
     AUTHOR,
+    DOI,
     EXAMPLE_ID,
     EXAMPLE_LEMMA,
     WEBSITE,
-    get_doi,
     make_citation,
     make_permalink,
     release_date,
@@ -116,7 +116,7 @@ def main() -> None:
     pth = ProjectPaths()
     version = config_read("version", "version") or "unknown"
     pth.docs_how_to_cite_md_path.write_text(
-        make_how_to_cite_md(version, get_doi()), encoding="utf-8"
+        make_how_to_cite_md(version, DOI), encoding="utf-8"
     )
     pr.summary("how_to_cite.md", "ok")
     pr.toc()
