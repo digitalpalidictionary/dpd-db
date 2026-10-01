@@ -1,3 +1,5 @@
+import inspect
+
 import flet as ft
 
 
@@ -134,3 +136,36 @@ def show_global_snackbar(
         duration=duration,
     )
     page.show_dialog(snackbar)
+
+
+_CANCEL_LABELS = ("Cancel", "Close")
+
+
+async def cancel_top_dialog(page: ft.Page) -> bool:
+    """Press the Cancel/Close button of the topmost open modal dialog.
+
+    Flutter ignores Escape on a modal dialog, so the editor's popups never
+    closed with it. Pressing the dialog's own button, rather than popping the
+    dialog, keeps each popup's cancel side-effects (resetting a field, firing
+    a callback with None). A non-modal dialog on top is left alone: Flutter
+    already dismisses it on Escape, so handling it here would close twice.
+    SnackBars share the dialog stack but are not popups, so they are skipped.
+    """
+    for dialog in reversed(page._dialogs.controls):
+        if not dialog.open or isinstance(dialog, ft.SnackBar):
+            continue
+        if not (isinstance(dialog, ft.AlertDialog) and dialog.modal):
+            return False
+        for action in dialog.actions:
+            if getattr(action, "content", None) in _CANCEL_LABELS:
+                handler = getattr(action, "on_click", None)
+                if handler is None:
+                    return False
+                # Every gui2 cancel handler takes one ignored event argument;
+                # a zero-argument lambda here would raise TypeError.
+                result = handler(None)
+                if inspect.isawaitable(result):
+                    await result
+                return True
+        return False
+    return False

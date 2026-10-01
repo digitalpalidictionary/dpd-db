@@ -93,6 +93,7 @@ db = get_db_session(Path("dpd.db"))
 
 ## Docs Lookups
 - Flet: see `resources/flet-docs`.
+- Flet 1.0 dialogs: closing with `dialog.open = False` leaves the instance on `page._dialogs`, and a later `page.show_dialog` of that same instance raises "Dialog is already opened" (red screen). Don't assume Flutter's dismiss will clear it — guard reopen paths. Escape on modal dialogs is handled once, globally, by `cancel_top_dialog` in `gui2/ui_utils.py`; new popups only need a button labelled "Cancel" or "Close".
 - Context7 MCP for up-to-date docs on `SQLAlchemy`, `Flet`, `FastAPI`, `aksharamukha`, `requests`.
 
 ## Testing

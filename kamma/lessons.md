@@ -320,3 +320,6 @@
 - 2026-09-30 [WORKFLOW] The previous design skipped the DOI lookup in CI, so the release builds (db, GoldenDict, PDF, app) could never carry the DOI even if the lookup worked; a never-changing value became a constant and the whole lookup was deleted
 - 2026-09-30 [POSITIVE] Independent reviewer found three citation call sites with no test that fails if the DOI is dropped; revert-checked tests added for each
 - 2026-09-30 [BEHAVIOR] Used `sed -n` once to read a file slice despite the global no-sed rule
+- 2026-10-01 [CONFUSION] First Word Finder fix assumed Flet drops a closed dialog from its stack once Flutter reports the dismiss; it never did, so the guard blocked every later Ctrl+F until the user tested it
+- 2026-10-01 [POSITIVE] One global Escape handler that presses each modal dialog's own Cancel/Close button covered all 14 popups and kept their cancel side-effects, instead of 14 per-dialog edits
+- 2026-10-01 [BEHAVIOR] Used `sed -n` to read file slices several times despite the global no-sed rule

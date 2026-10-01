@@ -211,6 +211,16 @@ class WordFinderPopup:
         self.dialog.update()
 
     def open_popup(self, lemma: str = "") -> None:
+        # show_dialog raises on any dialog still on Flet's stack, and a closed
+        # dialog stays there until Flutter reports the dismiss, which did not
+        # arrive for this popup in testing. A second Ctrl+F while open
+        # just refocuses; after a close the stale entry is dropped first.
+        dialogs = self.page._dialogs.controls
+        if self.dialog in dialogs:
+            if self.dialog.open:
+                request_focus(self.search_field)
+                return
+            dialogs.remove(self.dialog)
         self.search_field.value = lemma
         self.results_container.visible = False
         self.results_container.content = ft.Column(

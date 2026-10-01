@@ -15,7 +15,7 @@ from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
 from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import show_global_snackbar
+from gui2.ui_utils import cancel_top_dialog, show_global_snackbar
 from tools.fast_api_utils import start_dpd_server
 
 
@@ -230,6 +230,8 @@ class App:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
             await self.page.window.close()
+        elif e.key == "Escape":
+            await cancel_top_dialog(self.page)
         elif e.key == "A" and e.ctrl and e.shift:
             launch_ai_search_window()
         elif e.key == "F" and e.ctrl:
