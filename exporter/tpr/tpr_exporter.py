@@ -349,7 +349,7 @@ def _update_download_list(
         f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
 
 
-def copy_zip_to_tpr_downloads(g: GlobalVars) -> None:
+def copy_zip_to_tpr_downloads(g: GlobalVars, version: str) -> None:
     pr.green_tmr("updating tpr_downloads")
 
     if not g.pth.tpr_download_list_path.exists():
@@ -363,11 +363,6 @@ def copy_zip_to_tpr_downloads(g: GlobalVars) -> None:
     month = TODAY.month
     month_str = TODAY.strftime("%B")
     year = TODAY.year
-
-    if UposathaManger.uposatha_today():
-        version = "release"
-    else:
-        version = "beta"
 
     file_path = g.pth.tpr_sql_file_path
     file_name = "dpd.sql"
@@ -431,6 +426,17 @@ def main() -> None:
         pr.toc()
         return
 
+    # decide up front: the whole pipeline below exists only to feed
+    # the zip made in copy_zip_to_tpr_downloads
+    if UposathaManger.uposatha_today():
+        version = "release"
+    elif config_test("tpr", "make_beta", "yes"):
+        version = "beta"
+    else:
+        pr.green_title("no release today, beta disabled in config.ini")
+        pr.toc()
+        return
+
     g = GlobalVars()
 
     if g.pth.tpr_release_path.exists():
@@ -443,7 +449,7 @@ def main() -> None:
         write_tsvs(g)
         copy_to_sqlite_db(g)
         tpr_updater(g)
-        copy_zip_to_tpr_downloads(g)
+        copy_zip_to_tpr_downloads(g, version)
         pr.toc()
 
     else:

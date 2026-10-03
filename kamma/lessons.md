@@ -323,3 +323,5 @@
 - 2026-10-01 [CONFUSION] First Word Finder fix assumed Flet drops a closed dialog from its stack once Flutter reports the dismiss; it never did, so the guard blocked every later Ctrl+F until the user tested it
 - 2026-10-01 [POSITIVE] One global Escape handler that presses each modal dialog's own Cancel/Close button covered all 14 popups and kept their cancel side-effects, instead of 14 per-dialog edits
 - 2026-10-01 [BEHAVIOR] Used `sed -n` to read file slices several times despite the global no-sed rule
+- 2026-10-25 [BEHAVIOR] Gated the tpr beta only at the zip step; the user pointed out the entire 80-second pipeline is pointless without the beta, so the version check belongs at the top of main() before any work starts
+- 2026-10-25 [REPEATED] Used a full sentence in a pr.yes()/timer ending; printer endings are a few chars ("OK", "skip"), messages go in green_title/green lines
