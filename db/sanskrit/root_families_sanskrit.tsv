@@ -791,7 +791,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √ghā	3	ya	smell	√ghrā	1, 2, 3	smell	ā √ghā		āghrīya
 √ghā	3		smell	√ghrā	1, 2, 3	smell	pati √ghā	-	
 √ghur	1	a	scream, be awful	√ghur	6	cry frightfully	√ghur	ghur	ghuraghurā, ghurghura, ghora
-√ghus	1	a	shout, make noise	√ghuṣ	1, 4	sound	√ghus	ghuṣ	aghoṣa, ghoṣa, ghoṣaka, ghoṣaṇa, ghoṣaṇā, ghoṣayati, ghoṣila, nirghoṣa
+√ghus	1	a	shout, make noise	√ghuṣ	1, 4	sound	√ghus	ghuṣ	aghoṣa, ghoṣa, ghoṣaka, ghoṣaṇa, ghoṣaṇā, ghoṣati, ghoṣayati, ghoṣila, nirghoṣa
 √ghus	1	a	shout, make noise	√ghuṣ	1, 4	sound	ud √ghus	udghuṣ	udghoṣa
 √ghus	1	a	shout, make noise	√ghuṣ	1, 4	sound	nī √ghus	-	nirghoṣa
 √ghus	1	a	shout, make noise	√ghuṣ	1, 4	sound	pati √ghus	-	pratighoṣin
@@ -875,7 +875,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cikkh	1	a	show, tell	√khyā √cakṣ	2	see	pati saṃ √cikkh	prasaṃkhyā	pratisaṅkhyetavya, pratisaṃkhyā, pratisaṃśikṣat, pratisaṃśikṣati
 √cikkh	1	a	show, tell	√khyā √cakṣ	2	see	vi ā √cikkh	vyākhyā	vyācikhyāsati
 √ciṭ	1	a	send, abuse	√ciṭ	1	send out	√ciṭ	ciṭ	ceṭa, ceṭaka, ceṭī, ceṭikā
-√cit 1	8	*e	think, intend	√cit √cint	1, 2, 3	perceive, know, appear	√cit	cint	acitta, acittī, acetana, cikitsati, citta, cittatā, citti, citra, cintayati, cintya, cetana, cetanā, cetayati, cetayamāna, cetayitvā, cetas, cetasaḥ, cetasā, cetasika, cetase, cetaḥ, cetita, na + cetayat, na + cetayamāna, na + cetaska, na + cetaḥ, sacitta +, sacetana, sacetas, sucetas
+√cit 1	8	*e	think, intend	√cit √cint	1, 2, 3	perceive, know, appear	√cit	cint	acitta, acetana, cikitsati, citta, cittatā, citti, citra, cintayati, cintya, cetana, cetanā, cetayati, cetayamāna, cetayitvā, cetas, cetasaḥ, cetasā, cetasika, cetase, cetaḥ, cetita, na + cetayat, na + cetayamāna, na + cetaska, na + cetaḥ, sacitta +, sacetana, sacetas, sucetas
 √cit 1	8	*e	think, intend	√cit √cint	1, 2, 3	perceive, know, appear	adhi √cit	abhicint	adhi + cetas, adhicitta, adhicitta +
 √cit 1	8	*aya	think, intend	√cit √cint	1, 2, 3	perceive, know, appear	abhi √cit		adhicittaśikṣā, abhi + cetas, abhisaṃcintayati (remembers)
 √cit 1	8	*aya	think, intend	√cit √cint	1, 2, 3	perceive, know, appear	abhi saṃ √cit	abhisaṃcint	abhi + saṃcetita, abhisaṃcintayati (remembers), abhisaṃcetayat (remembers)
@@ -1852,7 +1852,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √brū	1	a	say	√brū	2, 6	say	pa √brū	prabrū	prabravīti
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	√brūh	bṛṃh	bṛṃhaṇa, bṛṃhayat, bṛṃhayati, bṛṃhayitavya, bṛṃhayitum, bṛṃhayitṛ, vṛmhayamāṇa
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	anu √brūh	-	anu + bṛṃh, anubṛṃhayat (bsk), anu + bṛṃhati, anubṛṃh, anubṛṃhat, anubṛṃhati, anubṛṃhayati, anubṛṃhayamāna
-√brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	upa √brūh	upavṛṃh	upavyūha?, upavṛmhayamāṇa
+√brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	upa √brūh	upavṛṃh	upavyūha?, upavṛmhayamāṇa, upavṛṃhayati
 √brūh	1	a	increase	√bṛh √bṛṃh √vṛṃh	1, 6	make big or strong	pari √brūh	paribṛṃh	paribarhayati, paribṛṃhaṇa, paribṛṃhayitvā
 √bhakkh	1	a	eat	√bhakṣ	1	partake of, eat	√bhakkh	bhakṣ	ababhakṣat, abhakṣya, bhakṣa, bhakṣaka, bhakṣati, bhakṣayat, bhakṣayati, bhakṣayitvā, bhakṣita, bhakṣitum, bhakṣitvā, bhakṣya
 √bhakkh	1	*aya	eat	√bhakṣ	1	partake of, eat	abhi √bhakkh	-	bhakṣitvā, bhuktvā
