@@ -325,3 +325,11 @@
 - 2026-10-01 [BEHAVIOR] Used `sed -n` to read file slices several times despite the global no-sed rule
 - 2026-10-25 [BEHAVIOR] Gated the tpr beta only at the zip step; the user pointed out the entire 80-second pipeline is pointless without the beta, so the version check belongs at the top of main() before any work starts
 - 2026-10-25 [REPEATED] Used a full sentence in a pr.yes()/timer ending; printer endings are a few chars ("OK", "skip"), messages go in green_title/green lines
+- 2026-10-04 [CONFUSION] Two sessions built on the unchecked assumption that categorylinks.cl_target_id is a page id; one live-vs-dump comparison (Karma: 23 API categories vs 23 rows) plus the linktarget AUTO_INCREMENT settled it in minutes
+- 2026-10-04 [CONFUSION] The spec adopted "full Category:Buddhism tree" without measuring it; per-depth counts with samples showed ~85% drift off topic below depth 4, and the user cut to depth 5
+- 2026-10-04 [BEHAVIOR] Started an unlimited download beside a 400k-limited one and saturated the user's line ("it is killing my internet")
+- 2026-10-04 [BEHAVIOR] Killed processes with a pgrep -f pattern that matched my own shell, and used sed in Bash twice — both already forbidden by the global rules
+- 2026-10-04 [WORKFLOW] A 275-article PoC and a markup-only scan both missed template collapse that corrupted prose ({{convert|150|km}} → "km", nihongo lost the English name); the independent review caught it by running the real function on real snippets
+- 2026-10-04 [WORKFLOW] Licensing (CC BY-SA licence link, Wikimedia trademark in the product name) was only checked when the user asked "is this legal?" at the end, forcing a rename after the build was verified
+- 2026-10-04 [POSITIVE] Re-asking "what does the smaller scope make possible?" after the depth cut swapped a 25 GB dump download for ~100 MB over the API
+- 2026-10-04 [POSITIVE] Revert-checking each new test (old code in, tests run, restored in one command) proved every guard, including the linktarget walk that had no test before review

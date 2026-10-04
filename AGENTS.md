@@ -137,6 +137,7 @@ Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 
 ## other-dictionaries submodule
 - To update ONE dictionary's source, recompress only that dictionary (scoped `tar` + `zstd -19` of its `source/` dir). NEVER run `scripts/compress_sources.py` for a single-dict update — it recompresses everything, and because tar embeds mtimes even unchanged sources produce new bytes (spurious diffs).
+- A new dictionary built from third-party content needs its licence terms in the spec before the first build: for CC BY-SA, a link to the licence text on every entry; for Wikipedia, never "Wikipedia" in the product name (Wikimedia trademark policy) — see `dictionaries/buddhist_wiki/` ("Buddhist Wiki"). Found only at the end in 2026-10, forcing a rename after verification.
 
 ## graphify
 A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges). Prefer these over grepping raw files — a scoped subgraph at ~13× fewer tokens:
