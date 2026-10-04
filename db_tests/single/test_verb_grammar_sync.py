@@ -10,13 +10,21 @@ Adding or removing a present verb changes what other entries should say. Add
 verb. Remove it and they go back to the root. This script finds those entries and
 corrects them.
 
-Three groups come out of a run:
+A causative or passive form follows the same rule, and must name a verb of its
+own kind (caus, pass, caus pass) and exactly its own stem: *e with *e, *aya
+with *aya, never one for the other. With no such verb it names its root
+family, with the kind written in: "aor of caus of pa √dhaṃs".
+
+Four groups come out of a run:
 
 1. Clear cases, corrected and printed as before and after.
 2. Entries naming a verb that is gone but that the corpus still attests. These
    are NOT corrected. The verb is probably worth re-adding, and repointing them
    at a root would throw that away.
-3. Entries where more than one verb fits. You pick one, skip it, or dismiss it.
+3. Causative or passive forms no rule can settle: the verb is a draft, the
+   entry and its finished verb disagree on the kind, or the root form needs
+   two kinds or a negative written in. Listed for you to fix.
+4. Entries where more than one verb fits. You pick one, skip it, or dismiss it.
 
 It writes to dpd.db, like the other maintenance scripts here.
 
@@ -36,6 +44,7 @@ from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
 from scripts.fix.verb_finder import (
+    FROM_A_VERB,
     build_pr_verb_index,
     lemma_clean,
     load_all_lemmas,
@@ -45,6 +54,7 @@ from scripts.fix.verb_finder import (
     parse_present_grammar,
     scan_derived_forms,
     scan_present_verbs,
+    verb_kind,
 )
 from scripts.fix.verb_grammar_fixer import apply_changes
 from tools.paths import ProjectPaths
@@ -115,6 +125,7 @@ def grammar_naming(grammar: str, pos: str, verb: str) -> str:
     ref = parse_grammar(grammar, pos)
     if ref is not None:
         na = "na " if ref.na else ""
+        # The chosen verb carries its own kind, so "caus of" / "pass of" goes.
         return f"{ref.head} of {na}{lemma_clean(verb)}{ref.suffix}"
     # A present verb's "pr, caus of X" has its marker before " of ", which
     # parse_grammar does not read.
@@ -126,13 +137,34 @@ def grammar_naming(grammar: str, pos: str, verb: str) -> str:
     return ""
 
 
+def root_choice(row: dict[str, str]) -> str | None:
+    """The grammar naming the entry's root family, or None to write it by hand.
+
+    A causative or passive root form must say its kind in the grammar: "aor of
+    caus of pa √dhaṃs". Two kinds, or a negative, have no settled form. A
+    present verb already says its kind before "of": "pr, caus of ...".
+    """
+    kind = (
+        []
+        if row["pos"] == "pr"
+        else sorted(
+            (verb_kind(row["verb_col"]) | verb_kind(row["grammar_current"]))
+            & set(FROM_A_VERB)
+        )
+    )
+    if len(kind) > 1 or (kind and " of na " in f" {row['grammar_current']} "):
+        return None
+    root = f"{kind[0]} of {row['family_root']}" if kind else row["family_root"]
+    return grammar_naming(row["grammar_current"], row["pos"], root)
+
+
 def gather(
     db: Session, pth: ProjectPaths
-) -> tuple[list[dict[str, str]], list[dict[str, str]], list[dict[str, str]]]:
+) -> tuple[list[dict[str, str]], dict[str, list[dict[str, str]]]]:
     """Recompute every derived form's correct grammar from the live database.
 
-    Returns the clear corrections, the entries whose verb is gone but attested,
-    and the entries where more than one verb fits.
+    Returns the clear corrections, and every bucket by name for the groups
+    left to the editor.
     """
     pr_index, pr_lemma_map = build_pr_verb_index(db)
     cst_freq = load_cst_word_freq(pth)
@@ -154,7 +186,7 @@ def gather(
             changes.append({**row, "bucket": bucket})
     changes.sort(key=lambda row: row["lemma_1"])
 
-    return changes, buckets["verb_in_cst"], buckets["ambiguous"]
+    return changes, buckets
 
 
 def show_changes(changes: list[dict[str, str]]) -> None:
@@ -194,6 +226,28 @@ def show_verb_in_cst(rows: list[dict[str, str]]) -> None:
         pr.white(f"    missing verb {row['candidates']} — {row['reason']}")
 
 
+# Groups no rule can settle. Shown, never corrected.
+MANUAL = {
+    "draft_verb": "the verb is a draft — finish it, then run this again",
+    "kind_mismatch": "the entry and its verb disagree on caus/pass — fix one of them",
+    "root_by_hand": "no verb of this kind and stem — write the root form by hand",
+}
+
+
+def show_manual(bucket: str, rows: list[dict[str, str]]) -> None:
+    if not rows:
+        return
+    pr.white("")
+    pr.amber(f"{MANUAL[bucket]} ({len(rows)})")
+    pr.white("")
+    for row in rows:
+        pr.cyan(f"{row['lemma_1']} {row['pos']}")
+        pr.white(f"    grammar now  {row['grammar_current']}")
+        pr.white(f"    why          {row['reason']}")
+        if bucket == "root_by_hand":
+            pr.white(f"    root         {row['candidates']}")
+
+
 def still_pending(
     sync: VerbGrammarSync, rows: list[dict[str, str]]
 ) -> list[dict[str, str]]:
@@ -230,6 +284,7 @@ def choose_for_ambiguous(
         pr.cyan(f"{row['lemma_1']} {row['pos']}")
         pr.white(f"    grammar now  {row['grammar_current']}")
         pr.white(f"    root         {row['family_root']}  {row['root_key']}")
+        pr.white(f"    why          {row['reason']}")
         for number, candidate in enumerate(shown, start=1):
             pr.white(f"    {number:>3}  {candidate}")
         pr.white("")
@@ -269,9 +324,10 @@ def choose_for_ambiguous(
             picked.append({**row, "grammar_proposed": proposed})
         elif choice == "r":
             # None of the candidates is the source, so point at the root family.
-            proposed = grammar_naming(
-                row["grammar_current"], row["pos"], row["family_root"]
-            )
+            proposed = root_choice(row)
+            if proposed is None:
+                pr.red("    two kinds or a negative — write this root form by hand")
+                continue
             if not proposed or not row["family_root"]:
                 pr.red("    no root family to point at — skipped")
                 continue
@@ -322,7 +378,9 @@ def main() -> None:
     sync.load_exceptions()
     db = get_db_session(sync.pth.dpd_db_path)
 
-    changes, verb_in_cst, ambiguous = gather(db, sync.pth)
+    changes, buckets = gather(db, sync.pth)
+    verb_in_cst = buckets["verb_in_cst"]
+    ambiguous = buckets["ambiguous"]
 
     # Stage 1: the clear corrections. Shown before they are written, so they can
     # be read and any one of them changed by hand first.
@@ -340,7 +398,13 @@ def main() -> None:
     if verb_in_cst:
         pause(f"{len(verb_in_cst)} need the verb adding")
 
-    # Stage 3: one at a time, your choice.
+    # Stage 3: the cases no rule can settle. Never corrected.
+    for bucket in MANUAL:
+        show_manual(bucket, buckets[bucket])
+        if buckets[bucket]:
+            pause(f"{len(buckets[bucket])} to fix by hand")
+
+    # Stage 4: one at a time, your choice.
     undecided = len(still_pending(sync, ambiguous))
     picked = choose_for_ambiguous(sync, ambiguous)
     if picked and not args.dry_run:
@@ -356,6 +420,8 @@ def main() -> None:
 
     pr.summary("repointed", str(len(changes) + len(picked)))
     pr.summary("needs verb added", str(len(verb_in_cst)))
+    for bucket in MANUAL:
+        pr.summary(bucket.replace("_", " "), str(len(buckets[bucket])))
     pr.summary("you decide", str(undecided - len(picked)))
     pr.toc()
 

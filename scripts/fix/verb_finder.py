@@ -40,6 +40,41 @@ PrIndex = dict[tuple[str, str], list[str]]
 # cleaned lemma (no trailing " <digit>") -> list of full pr lemma_1s
 PrLemmaMap = dict[str, list[str]]
 
+# The special types a verb carries, e.g. {"caus", "pass"}. Empty for a plain verb.
+VerbKind = frozenset[str]
+
+
+@dataclass(frozen=True)
+class PrEntry:
+    """One pr verb as a causative or passive form sees it."""
+
+    lemma_1: str
+    kind: VerbKind
+    stem: str  # root_sign, from `stem_of`
+    labelled: bool  # kind stated in the verb column or the grammar
+    complete: bool  # has meaning_1; a draft's labels cannot be trusted yet
+
+
+# (family_root, root_key) -> every pr verb there
+TypedPrIndex = dict[tuple[str, str], list[PrEntry]]
+# cleaned pr lemma -> its homonyms
+PrKindMap = dict[str, list[PrEntry]]
+# cleaned special-case pr form -> the cleaned 3rd sg verb it is a form of
+VariantMap = dict[str, str]
+
+# A pr headword that is not the 3rd sg verb itself: "pr, reflx 3rd pl of
+# vijjati", "pr 1st sg of atthi", "pr, irreg form of upasammati". 83 on
+# 2026-10-01. Never a target; anything naming one points back to its verb.
+_VARIANT_FORM_RE = re.compile(r"\b(?:1st|2nd|3rd)\b|\breflx\b|\birreg form of\b")
+_IRREG_FORM_OF_RE = re.compile(r"\birreg form of\s+([^,]+)")
+
+# Whole words only: "pass" must not match inside passati.
+_MARKER_RE = re.compile(r"\b(" + "|".join(SPECIAL_VERB_MARKERS) + r")\b")
+# "pass of anuyuñjati" names anuyuñjati and says the form is its passive.
+_MARKER_CHAIN_RE = re.compile(
+    r"^(?:(?:" + "|".join(SPECIAL_VERB_MARKERS) + r")\s+of\s+)+"
+)
+
 
 _HOMONYM_RE = re.compile(r"\s+\d+(?:\.\d+)*$")
 
@@ -111,6 +146,26 @@ def lemma_clean(lemma: str) -> str:
     return _HOMONYM_RE.sub("", lemma)
 
 
+def verb_kind(text: str) -> VerbKind:
+    """Every special-verb marker in `text`, as a set."""
+    return frozenset(_MARKER_RE.findall(text or ""))
+
+
+def marker_chain(target: str) -> str:
+    """The leading "pass of " / "caus of " part of a grammar target, or ""."""
+    m = _MARKER_CHAIN_RE.match(target)
+    return m.group(0) if m else ""
+
+
+def stem_of(root_sign: str) -> str:
+    """The stem a form and its verb must share: the whole root_sign.
+
+    *e goes with *e, *aya with *aya, *e iya with *e iya. adesayi (*aya) may
+    not name deseti (*e).
+    """
+    return " ".join((root_sign or "").split())
+
+
 @dataclass
 class GrammarRef:
     """Parsed view of a derived-form `grammar` string."""
@@ -179,6 +234,7 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
             DpdHeadword.grammar,
             DpdHeadword.meaning_lit,
             DpdHeadword.root_sign,
+            DpdHeadword.neg,
         )
         .filter(DpdHeadword.pos == "pr")
         .all()
@@ -191,6 +247,7 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
         grammar,
         meaning_lit,
         root_sign,
+        neg,
     ) in rows:
         # lemma_map answers "does this verb exist as pr?" and must hold every pr
         # verb: a derived form rarely declares its own type, so a plain-looking
@@ -207,11 +264,129 @@ def build_pr_verb_index(db) -> tuple[PrIndex, PrLemmaMap]:
             root_groups.get(root_key or ""),
         ):
             continue
-        if _FUSED_NEGATIVE_RE.search(grammar or ""):
+        # A negative verb is never the source of a positive form, and the
+        # grammar does not always say so: nappadūseti is "pr, caus of na
+        # padussati". The neg column marks all 237.
+        if neg or _FUSED_NEGATIVE_RE.search(grammar or ""):
+            continue
+        # A reflexive, another person or an irregular spelling is a form of a
+        # verb, never the verb a derived form should name.
+        if _VARIANT_FORM_RE.search(grammar or ""):
             continue
         key = (family_root or "", root_key or "")
         index.setdefault(key, []).append(lemma_1)
     return index, lemma_map
+
+
+def variant_base_options(grammar: str) -> list[str]:
+    """Where a special-case pr form points back to, best guess first.
+
+    "pr, pass of limpati, irreg form of lippati" is a form of lippati, so the
+    "irreg form of" target comes before the first "of" target.
+    """
+    options: list[str] = []
+    m = _IRREG_FORM_OF_RE.search(grammar)
+    if m:
+        options.append(m.group(1).strip())
+    _, sep, rest = grammar.partition(" of ")
+    if sep:
+        first = rest.partition(",")[0].strip()
+        if first.startswith("na "):
+            first = first[3:].lstrip()
+        options.append(first)
+    return options
+
+
+def build_typed_pr_index(db) -> tuple[TypedPrIndex, PrKindMap, VariantMap]:
+    """Index every pr verb with its kind, so a causative form finds a causative.
+
+    Unlike `build_pr_verb_index`, special verbs are kept: they are exactly what a
+    causative or passive form must point at. Special-case forms (reflexive,
+    other persons, irregular spellings) are left out and mapped to their verb.
+    """
+    index: TypedPrIndex = {}
+    kinds: PrKindMap = {}
+    variant_grammar: dict[str, str] = {}
+    ordinary: set[str] = set()
+    root_groups: dict[str, int | None] = {
+        root: group for root, group in db.query(DpdRoot.root, DpdRoot.root_group).all()
+    }
+    rows = (
+        db.query(
+            DpdHeadword.lemma_1,
+            DpdHeadword.family_root,
+            DpdHeadword.root_key,
+            DpdHeadword.verb,
+            DpdHeadword.grammar,
+            DpdHeadword.meaning_lit,
+            DpdHeadword.root_sign,
+            DpdHeadword.meaning_1,
+            DpdHeadword.neg,
+        )
+        .filter(DpdHeadword.pos == "pr")
+        .all()
+    )
+    for (
+        lemma_1,
+        family_root,
+        root_key,
+        verb_col,
+        grammar,
+        meaning_lit,
+        root_sign,
+        meaning_1,
+        neg,
+    ) in rows:
+        is_variant = bool(_VARIANT_FORM_RE.search(grammar or ""))
+        # The kind is split across both fields: desiyati has "caus" in the verb
+        # column and "pr, pass of deseti" in the grammar.
+        head = _OF_RE.split(grammar or "", maxsplit=1)[0]
+        stated = verb_kind(verb_col or "") | verb_kind(head)
+        kind = stated
+        if not kind:
+            kind = verb_kind(
+                verb_type(
+                    "",
+                    grammar or "",
+                    meaning_lit or "",
+                    root_sign or "",
+                    root_groups.get(root_key or ""),
+                )
+            )
+        # Only the stem-forming kinds are matched. impers and deno say how a
+        # verb is used or where it comes from: vijjati is "impers" and "pass",
+        # and its participle vijjamāna is simply "pass".
+        kind = kind & frozenset(FROM_A_VERB)
+        # A verb without meaning_1 is still trustworthy when its kind is
+        # stated. Only a draft with nothing stated is missing information.
+        complete = bool(meaning_1) or bool(stated)
+        entry = PrEntry(
+            lemma_1,
+            kind,
+            stem_of(root_sign or ""),
+            bool(stated),
+            complete,
+        )
+        # A special-case form still exists as a verb, but is never a target.
+        kinds.setdefault(lemma_clean(lemma_1), []).append(entry)
+        if is_variant:
+            variant_grammar[lemma_clean(lemma_1)] = grammar or ""
+            continue
+        ordinary.add(lemma_clean(lemma_1))
+        if neg or _FUSED_NEGATIVE_RE.search(grammar or ""):
+            continue
+        index.setdefault((family_root or "", root_key or ""), []).append(entry)
+
+    variants: VariantMap = {}
+    for variant, grammar in variant_grammar.items():
+        if variant in ordinary:
+            # atthi and ubbāheti are also ordinary headwords.
+            continue
+        for option in variant_base_options(grammar):
+            if lemma_clean(option) in ordinary:
+                variants[variant] = lemma_clean(option)
+                break
+    return index, kinds, variants
 
 
 def load_all_lemmas(db) -> set[str]:
@@ -512,12 +687,187 @@ def merge_present_buckets(
 
 def _build_proposed_to_root(ref: GrammarRef, family_root: str) -> str:
     na = "na " if ref.na else ""
-    return f"{ref.head} of {na}{family_root}{ref.suffix}"
+    return f"{ref.head} of {na}{marker_chain(ref.target)}{family_root}{ref.suffix}"
 
 
 def _build_proposed_to_verb(ref: GrammarRef, verb_lemma: str) -> str:
+    # The verb carries the kind itself, so "caus of" / "pass of" is dropped:
+    # "aor of caus of nī √math" naming a causative becomes "aor of <it>".
     na = "na " if ref.na else ""
     return f"{ref.head} of {na}{verb_lemma}{ref.suffix}"
+
+
+def _resolve_special(
+    ref: GrammarRef,
+    kind: VerbKind,
+    root_sign: str,
+    base: dict,
+    typed_index: TypedPrIndex,
+    pr_kinds: PrKindMap,
+    variants: VariantMap,
+    cst_freq: Counter[str] | None,
+    all_lemmas: set[str] | None,
+) -> tuple[str, dict]:
+    """Bucket a causative, passive, intensive or desiderative form.
+
+    The form and the verb it names must be the same kind and the same stem: a
+    causative *e form names a causative *e verb, a causative passive *e iya
+    form a causative passive *e iya verb. A "caus of" or "pass of" in the
+    grammar is part of the form's own kind, never a licence to name a verb of
+    another kind. With no such verb, the form names its root family.
+
+    Only three cases are left to the editor, because no rule can settle them:
+    a draft verb is involved (`draft_verb`), more than one finished verb fits
+    (`ambiguous`), or the form and its verb share a stem but their labels
+    disagree on the kind (`kind_mismatch`). A root form with two kinds or a
+    negative has no settled spelling (`root_by_hand`). Everything else is
+    corrected.
+    """
+    chain = marker_chain(ref.target)
+    expected = kind
+    named = ref.target[len(chain) :]
+    stem = stem_of(root_sign)
+    at_root = typed_index.get((base["family_root"], base["root_key"]), [])
+    matches = [
+        e for e in at_root if e.complete and e.kind == expected and e.stem == stem
+    ]
+    clean = sorted({lemma_clean(e.lemma_1) for e in matches})
+    # A draft with a different stem cannot be the verb, whatever it turns out
+    # to be.
+    drafts = sorted(e.lemma_1 for e in at_root if not e.complete and e.stem == stem)
+
+    def row(bucket: str, proposed: str, reason: str, cands: str) -> tuple[str, dict]:
+        extra = (
+            {"candidates_full": "|".join(sorted(e.lemma_1 for e in matches))}
+            if bucket == "ambiguous"
+            else {}
+        )
+        return bucket, {
+            **base,
+            "grammar_proposed": proposed,
+            "reason": reason,
+            "candidates": cands,
+            **extra,
+        }
+
+    def kind_name(k: VerbKind) -> str:
+        return ", ".join(sorted(k)) or "plain"
+
+    wanted = f"{kind_name(expected)} {stem or '(no stem)'}"
+
+    def by_candidates() -> tuple[str, dict] | None:
+        if len(clean) == 1 and not drafts:
+            return row(
+                "would_change_to_verb",
+                _build_proposed_to_verb(ref, clean[0]),
+                f"single {wanted} pr at (family_root,root_key)",
+                clean[0],
+            )
+        if len(clean) > 1:
+            return row(
+                "ambiguous",
+                "",
+                f"more than one {wanted} pr at (family_root,root_key)",
+                "|".join(clean),
+            )
+        if drafts:
+            return row(
+                "draft_verb",
+                "",
+                f"draft pr at (family_root,root_key) may be the {wanted} one",
+                "|".join(drafts),
+            )
+        return None
+
+    def to_root(reason: str) -> tuple[str, dict]:
+        family_root = base["family_root"]
+        if not family_root:
+            return row("rootless", "", "no family_root on this entry", "")
+        # The root carries no kind, so the grammar must: "aor of caus of
+        # pa √dhaṃs". Two kinds, or a negative, have no settled form in the
+        # data, so those are written by hand.
+        if len(expected) != 1 or ref.na:
+            return row(
+                "root_by_hand",
+                "",
+                f"{reason}; write the {kind_name(expected)} root form by hand",
+                family_root,
+            )
+        (marker,) = expected
+        return row(
+            "would_change_to_root",
+            f"{ref.head} of {marker} of {family_root}{ref.suffix}",
+            reason,
+            named,
+        )
+
+    if ref.is_root:
+        resolved = by_candidates()
+        if resolved is not None:
+            return resolved
+        if verb_kind(chain) == expected:
+            return row("special_verbs", "", "no matching pr; root form correct", "")
+        # abhidhārayi "aor of abhi √dhar" is caus: the grammar must say so.
+        return to_root(f"root form does not say {kind_name(expected)}")
+
+    target = lemma_clean(named)
+    if target in variants and any(
+        e.kind == expected and e.stem == stem
+        for e in pr_kinds.get(variants[target], [])
+    ):
+        verb = variants[target]
+        return row(
+            "would_change_to_verb",
+            _build_proposed_to_verb(ref, verb),
+            f"{named} is a special-case form of {verb}",
+            verb,
+        )
+    homonyms = pr_kinds.get(target, [])
+    if any(h.kind == expected and h.stem == stem for h in homonyms):
+        return row("special_verbs", "", f"verb exists as {wanted} pr", target)
+    if any(not h.labelled and h.stem == stem for h in homonyms):
+        # kappayi names kappayati: both *aya. The stem proves it is the verb
+        # when the verb carries no label.
+        return row(
+            "special_verbs", "", f"verb exists with the same {stem} stem", target
+        )
+    if target == lemma_clean(base["lemma_1"]):
+        return row("special_verbs", "", "grammar names this entry itself", target)
+    if not homonyms and ref.na and all_lemmas and target in all_lemmas:
+        return row("special_verbs", "", "negative built on a headword", target)
+
+    # A same-stem draft is unlabelled by definition, so it was accepted above.
+    same_stem = [h for h in homonyms if h.stem == stem]
+    if not homonyms:
+        cst_count = (cst_freq or {}).get(target, 0)
+        if cst_count:
+            return row(
+                "verb_in_cst",
+                "",
+                f"verb absent from dict but occurs {cst_count}x in CST",
+                named,
+            )
+
+    if same_stem:
+        # Same stem, so the same verb, but the labels disagree on the kind.
+        # Checked before the candidates: another verb at the root is no
+        # reason to repoint an entry whose own verb may just be mislabelled.
+        found = " / ".join(sorted(kind_name(h.kind) for h in same_stem))
+        return row(
+            "kind_mismatch",
+            "",
+            f"{named} is {found}, this entry is {kind_name(kind)}",
+            named,
+        )
+
+    resolved = by_candidates()
+    if resolved is not None:
+        return resolved
+
+    if homonyms:
+        found = " / ".join(sorted({h.stem or "(no stem)" for h in homonyms}))
+        return to_root(f"{named} has stem {found}, this entry {stem or '(no stem)'}")
+    return to_root(f"no {wanted} pr at (family_root,root_key)")
 
 
 def scan_derived_forms(
@@ -537,9 +887,13 @@ def scan_derived_forms(
         "unparsed": [],
         "rootless": [],
         "verb_in_cst": [],
+        "draft_verb": [],
+        "kind_mismatch": [],
+        "root_by_hand": [],
         "data_errors": [],
         "grammar_derived_from_mismatch": [],
     }
+    typed_index, pr_kinds, variants = build_typed_pr_index(db)
 
     rows = (
         db.query(
@@ -551,6 +905,7 @@ def scan_derived_forms(
             DpdHeadword.grammar,
             DpdHeadword.derived_from,
             DpdHeadword.verb,
+            DpdHeadword.root_sign,
         )
         .filter(DpdHeadword.pos.in_(DERIVED_POS))
         # Entries with no meaning_1 are unfinished drafts — correcting their
@@ -568,6 +923,7 @@ def scan_derived_forms(
         grammar,
         derived_from,
         verb_col,
+        root_sign,
     ) in rows:
         ref = parse_grammar(grammar or "", pos)
         base = {
@@ -594,16 +950,33 @@ def scan_derived_forms(
             )
             continue
 
-        # Special verbs next (verb column OR grammar marker) — detect-only bucket.
-        if (verb_col and verb_col.strip()) or (ref and ref.special_verb):
-            buckets["special_verbs"].append(
-                {
-                    **base,
-                    "grammar_proposed": "",
-                    "reason": "special verb type",
-                    "candidates": "",
-                }
+        # Special verbs next. The kind sits in the verb column, the grammar, or
+        # both. One built from a noun (deno, impers) may name a noun, so only
+        # the verb-built kinds are checked against their verb.
+        kind = verb_kind(verb_col or "") | verb_kind(grammar or "")
+        if kind and (ref is not None or kind & set(FROM_A_NOUN)):
+            if ref is None or kind & set(FROM_A_NOUN):
+                buckets["special_verbs"].append(
+                    {
+                        **base,
+                        "grammar_proposed": "",
+                        "reason": "special verb type",
+                        "candidates": "",
+                    }
+                )
+                continue
+            bucket, row = _resolve_special(
+                ref,
+                kind,
+                root_sign or "",
+                base,
+                typed_index,
+                pr_kinds,
+                variants,
+                cst_freq,
+                all_lemmas,
             )
+            buckets[bucket].append(row)
             continue
 
         if ref is None:
@@ -679,7 +1052,22 @@ def scan_derived_forms(
         else:
             # Grammar references a verb lemma. Match on cleaned form to handle homonyms.
             matches = pr_lemma_map.get(lemma_clean(ref.target), [])
-            if matches:
+            if lemma_clean(ref.target) in variants and any(
+                not e.kind and e.stem == stem_of(root_sign or "")
+                for e in pr_kinds.get(variants[lemma_clean(ref.target)], [])
+            ):
+                # Only to a verb of the same kind: upasamamāna names upasamati,
+                # and upasammati is the passive, a different verb.
+                verb = variants[lemma_clean(ref.target)]
+                buckets["would_change_to_verb"].append(
+                    {
+                        **base,
+                        "grammar_proposed": _build_proposed_to_verb(ref, verb),
+                        "reason": f"{ref.target} is a special-case form of {verb}",
+                        "candidates": verb,
+                    }
+                )
+            elif matches:
                 clean_matches = sorted({lemma_clean(lem) for lem in matches})
                 buckets["ok_verb_present"].append(
                     {
@@ -871,6 +1259,9 @@ def main() -> None:
         "present_verb_to_root": "present_verb_to_root.tsv",
         "rootless": "rootless.tsv",
         "verb_in_cst": "verb_in_cst.tsv",
+        "draft_verb": "draft_verb.tsv",
+        "kind_mismatch": "kind_mismatch.tsv",
+        "root_by_hand": "root_by_hand.tsv",
         "data_errors": "data_errors.tsv",
         "grammar_derived_from_mismatch": "grammar_derived_from_mismatch.tsv",
         "ok_verb_present": "ok_verb_present.tsv",

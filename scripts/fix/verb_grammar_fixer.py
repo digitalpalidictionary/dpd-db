@@ -10,6 +10,10 @@ writes back only the two buckets where the correction is unambiguous:
 - `would_change_to_verb` — grammar names a root (or an absent verb) and exactly
   one pr verb exists at that (family_root, root_key), so it becomes that verb.
 
+Causative, passive, intensive and desiderative forms land in the same two
+buckets, matched on kind and stem; a root form gets its kind written in
+("aor of caus of pa √dhaṃs").
+
 The ambiguous, rootless, malformed and mismatched buckets are left alone — they
 need a human.
 
