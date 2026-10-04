@@ -12,6 +12,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | Ancient Buddhist Texts Glossary | [abt-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/abt-gd.zip) |
 | Apte Sanskrit-English Dictionary | [apte-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/apte-gd.zip) |
 | Buddhist Hybrid Sanskrit | [bhs-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-gd.zip) |
+| Buddhist Wiki | [buddhist-wiki-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/buddhist-wiki-gd.zip) |
 | CST Bold Definitions | [bold-def-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-gd.zip) |
 | Critical Pāli Dictionary | [cpd-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-gd.zip) |
 | Dictionary of Pāli Proper Names | [dppn-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-gd.zip) |
@@ -33,6 +34,7 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | Ancient Buddhist Texts Glossary | [abt-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/abt-mdict.zip) |
 | Apte Sanskrit-English Dictionary | [apte-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/apte-mdict.zip) |
 | Buddhist Hybrid Sanskrit | [bhs-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-mdict.zip) |
+| Buddhist Wiki | [buddhist-wiki-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/buddhist-wiki-mdict.zip) |
 | CST Bold Definitions | [bold-def-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-mdict.zip) |
 | Critical Pāli Dictionary | [cpd-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-mdict.zip) |
 | Dictionary of Pāli Proper Names | [dppn-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-mdict.zip) |
@@ -69,6 +71,9 @@ The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti 
 
 ## Nyanatiloka's Buddhist Dictionary
 *Buddhist Dictionary: Manual of Buddhist Terms and Doctrines* by Nyanatiloka Mahathera, 4th revised edition, edited by Nyanaponika Mahathera, Buddhist Publication Society, 1980. The full text is hosted at [dhammatalks.net](https://www.dhammatalks.net/Buddhist.Dictionary/){target="_blank"}; the links above package it for offline use. It is also one of the four dictionaries combined (without individual attribution) inside the Simsapa Combined Dictionary above.
+
+## Buddhist Wiki
+About 23,800 articles on Buddhism from English Wikipedia: teachings, texts, schools, people, temples and places. The articles come from Wikipedia's Buddhism category tree, five levels deep. Each entry is the article's text with images, tables and references removed. Links between articles open the linked entry within the dictionary. Text from English Wikipedia, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/){target="_blank"}; each entry links back to its online article. Not affiliated with or endorsed by Wikipedia or the Wikimedia Foundation.
 
 ## PTS Pāḷi-English Dictionary
 *The Pali Text Society's Pali-English Dictionary* by T. W. Rhys Davids and William Stede, 1921–25. The text comes from the [BuddhaDust](https://obo.genaud.net/backmatter/glossology/ped/pts_ped/ped.htm){target="_blank"} edition, which follows the PTS 2015 corrected reprint. BuddhaDust states that the corrected reprint is © The Pāḷi Text Society, licensed CC BY-NC, with commercial rights reserved. BuddhaDust's own notes and the material it merged from other dictionaries are left out, and its lost references to the Atthasālinī (DhsA) are restored. A few untagged BuddhaDust edits may remain. The links above package it for offline use, and it is also built into the DPD app.
