@@ -333,3 +333,5 @@
 - 2026-10-04 [WORKFLOW] Licensing (CC BY-SA licence link, Wikimedia trademark in the product name) was only checked when the user asked "is this legal?" at the end, forcing a rename after the build was verified
 - 2026-10-04 [POSITIVE] Re-asking "what does the smaller scope make possible?" after the depth cut swapped a 25 GB dump download for ~100 MB over the API
 - 2026-10-04 [POSITIVE] Revert-checking each new test (old code in, tests run, restored in one command) proved every guard, including the linktarget walk that had no test before review
+- 2026-10-05 [BEHAVIOR] Called the Buddhist Wiki article store "safe to delete" without searching for its readers; CI's export reads it, the first push failed, and the 308 MB store had to be re-fetched
+- 2026-10-05 [WORKFLOW] Every check ran on the local tree, which held gitignored data; one export run from a clean worktree before the first commit would have shown CI's missing-source failure
