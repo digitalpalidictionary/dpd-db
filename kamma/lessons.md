@@ -335,3 +335,7 @@
 - 2026-10-04 [POSITIVE] Revert-checking each new test (old code in, tests run, restored in one command) proved every guard, including the linktarget walk that had no test before review
 - 2026-10-05 [BEHAVIOR] Called the Buddhist Wiki article store "safe to delete" without searching for its readers; CI's export reads it, the first push failed, and the 308 MB store had to be re-fetched
 - 2026-10-05 [WORKFLOW] Every check ran on the local tree, which held gitignored data; one export run from a clean worktree before the first commit would have shown CI's missing-source failure
+- 2026-10-05 [BEHAVIOR] Server cleanup thread: proposed pruning webapp logs as "waste" — unrequested deletion of user data; user rejected it hard. Cleanup scope = disposable intermediates the code itself creates, never logs.
+- 2026-10-05 [REPEATED] User said "keep it simple" up front, yet the first spec still carried a full-file integrity check, a forever-running one-time delete, and an extra README; user had to ask "is it over-engineered?" Run the laziness ladder on every spec bullet before presenting.
+- 2026-10-05 [POSITIVE] Checked who else writes `audio/db/dpd_audio_*.tar.gz` before deleting by glob — the local audio build writes and uploads the same names, so a glob delete in the downloader would have destroyed a pending release archive.
+- 2026-10-05 [POSITIVE] Caught that the requested dash folder names (`server-contrib`) are unimportable Python packages before moving files; proposed underscores in the same question round.

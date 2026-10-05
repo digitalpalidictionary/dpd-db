@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
-from scripts.server.contrib_reconcile import (
+from scripts.server_contrib.contrib_reconcile import (
     contributor_files,
     load_json_dict,
     write_json_dict,

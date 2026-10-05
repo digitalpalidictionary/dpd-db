@@ -31,9 +31,9 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
-from scripts.server.absorption_check import absorption_allowed
-from scripts.server.contrib_push import push_contributions
-from scripts.server.contrib_reconcile import contributor_files, reconcile_all
+from scripts.server_contrib.absorption_check import absorption_allowed
+from scripts.server_contrib.contrib_push import push_contributions
+from scripts.server_contrib.contrib_reconcile import contributor_files, reconcile_all
 
 # Sanity floors for the post-rebuild health check (dpd has ~80k headwords /
 # ~800k lookup rows; these are deliberately low guards against a broken build).
@@ -100,10 +100,10 @@ def _default_rebuild(config: WindowConfig) -> None:
 
 def _default_generate(config: WindowConfig) -> None:
     # Lean gui2-only subset of generate_components (see the module docstring in
-    # scripts/server/generate_components_server.py); the row-count health check
+    # scripts/server_contrib/generate_components_server.py); the row-count health check
     # below is the post-rebuild gate, not pytest.
     _run(
-        ["uv", "run", "scripts/server/generate_components_server.py"],
+        ["uv", "run", "scripts/server_contrib/generate_components_server.py"],
         config.project_root,
     )
 

@@ -25,7 +25,7 @@ all decisions, and all known unknowns.
   origin/main empty), checked before any destructive step. Skip = normal.
 - **Phases 1–2 are fully local** (code + tests, no server, no money) and
   independently valuable. Server work starts in Phase 3 only after they pass.
-- **New code placement**: server-side scripts in `scripts/server/` (dir exists
+- **New code placement**: server-side scripts in `scripts/server_contrib/` (dir exists
   in the project tree); gui2 changes minimal and role/env-gated. Tests mirror
   source paths under `tests/`.
 - **Legacy git-based onboarding flow is kept, marked legacy, not fixed** —
@@ -354,15 +354,15 @@ all decisions, and all known unknowns.
 
 ## Phase 2 — Sync & maintenance-window machinery (local, testable without server)
 
-All scripts in `scripts/server/`: pure-function cores + thin CLI mains,
-unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
+All scripts in `scripts/server_contrib/`: pure-function cores + thin CLI mains,
+unit-tested against tmp dirs / scratch git repos in `tests/scripts/server_contrib/`.
 
-- [x] 2.1 `scripts/server/contrib_reconcile.py`: snapshot-based key-level
+- [x] 2.1 `scripts/server_contrib/contrib_reconcile.py`: snapshot-based key-level
       merge. Reads `last_pushed/<file>.json` snapshots, computes
       `final = local − (last_pushed − main_version)`, writes result + refreshes
       the snapshot. Pure core:
       `reconcile(local: dict, pushed: dict, upstream: dict) -> dict`.
-      → verify: `uv run pytest tests/scripts/server/test_contrib_reconcile.py`
+      → verify: `uv run pytest tests/scripts/server_contrib/test_contrib_reconcile.py`
       — cases: upstream processed all / some / none; local keys added during
       the day; both at once; empty files.
       DESIGN NOTE (from 1.2 dedup, added 2026-07-19): keys are now STABLE across
@@ -373,19 +373,19 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       in main, PRESENT+CHANGED in local → decide keep-local-edit vs drop. Likely
       rule: drop only if local == last_pushed (unchanged since push); keep if
       the local content differs (a fresh edit). Cover this in the tests here.
-      DONE (2026-07-19): `scripts/server/contrib_reconcile.py` — pure
+      DONE (2026-07-19): `scripts/server_contrib/contrib_reconcile.py` — pure
       `reconcile(local, pushed, upstream)` drops a key iff pushed AND removed
       upstream AND `local[key] == pushed[key]` (keep-if-changed rule applied);
       helpers `load_json_dict`/`write_json_dict` (empty → `{}`, matching the
       gui2 managers), `upstream_from_git` (`git show ref:path` → {} if
       absent/invalid), `contributor_files` (globs `additions_*`/`corrections_*`,
       excludes `_added`), `reconcile_all` (writes result + refreshes snapshot),
-      thin argparse `main`. Tests `tests/scripts/server/test_contrib_reconcile.py`
+      thin argparse `main`. Tests `tests/scripts/server_contrib/test_contrib_reconcile.py`
       (15): all plan cases (processed all/some/none, local-added, both, empty),
       keep-if-changed + drop-only-when-unchanged, json helpers, glob exclusion,
       and two scratch-git end-to-end (`reconcile_all` incl. upstream-absent).
       ruff+format+pyright clean.
-- [x] 2.2 `scripts/server/contrib_push.py`: commit `gui2/data/*_{user}.json`
+- [x] 2.2 `scripts/server_contrib/contrib_push.py`: commit `gui2/data/*_{user}.json`
       on the `contributions` branch, push, write snapshots. Stage by explicit
       file list (NEVER `git add -A` — project rule). Idempotent when nothing
       changed.
@@ -396,10 +396,10 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       2.1; `_added` excluded), `_nothing_staged` → no-op `PushResult(pushed=False)`,
       else commit (`contrib: submit data <date>`) + `git push origin contributions`
       + `write_snapshots` (snapshot = current file content). Tests
-      `tests/scripts/server/test_contrib_push.py` (4): scratch repo + bare remote —
+      `tests/scripts/server_contrib/test_contrib_push.py` (4): scratch repo + bare remote —
       push lands on `contributions`, snapshot mirrors file, second call no-op;
       `_added` excluded; no files → nothing to push. ruff+format+pyright clean.
-- [x] 2.3 `scripts/server/absorption_check.py`: `git fetch origin main`;
+- [x] 2.3 `scripts/server_contrib/absorption_check.py`: `git fetch origin main`;
       rebuild-allowed iff every `gui2/data/additions_*.json` /
       `corrections_*.json` blob in origin/main is empty (`{}`) or absent.
       → verify: unit test with scratch repo: non-empty file → skip;
@@ -411,11 +411,11 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       `is_empty_blob` treats `{}`/`[]`/blank as empty; pure `all_absorbed` +
       `blocking_files`; CLI exits 1 when skipped. `_added` files intentionally
       ignored by the invariant. Tests
-      `tests/scripts/server/test_absorption_check.py` (9): work-file filter,
+      `tests/scripts/server_contrib/test_absorption_check.py` (9): work-file filter,
       empty-blob variants, pure core, and scratch-repo non-empty→skip /
       all-empty→allowed (with a non-empty `_added` proving it's ignored) /
       no-files→allowed. ruff+format+pyright clean.
-- [x] 2.4 `scripts/server/maintenance_window.py` orchestrator:
+- [x] 2.4 `scripts/server_contrib/maintenance_window.py` orchestrator:
       stop instances (systemctl) → contrib_push → absorption_check →
       [if allowed: `cp dpd.db dpd.db.prev` → `git pull --ff-only` + submodule
       update → `scripts/build/db_rebuild_from_tsv.py` →
@@ -449,11 +449,11 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       `db_rebuild_from_tsv.py` / `generate_components.py` / db row-count check,
       floors `MIN_HEADWORDS`/`MIN_LOOKUP`). Instance ctl behind `--no-systemd`
       (log-only). Each run logs to `logs/maintenance_YYYYMMDD.log`. Tests
-      `tests/scripts/server/test_maintenance_window.py` (4): all three paths on a
+      `tests/scripts/server_contrib/test_maintenance_window.py` (4): all three paths on a
       scratch repo+bare remote+fake sqlite — happy→REBUILT, skip→SKIPPED,
       forced-failure→FAILED with db (marker) AND contributor file restored;
       `--no-systemd` log assertions. ruff+format+pyright clean.
-- [x] 2.5 Server config template `scripts/server/config_server.template`:
+- [x] 2.5 Server config template `scripts/server_contrib/config_server.template`:
       regenerate/exporter flags OFF for audio, anki, deconstructor
       regeneration (premade path per `[generate] deconstructor` mechanism).
       Document per COMMANDS entry of `scripts/bash/generate_components.py`
@@ -463,10 +463,10 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       → verify: local run of `generate_components.py` under the template
       config on a scratch db copy (`cp dpd.db /tmp/...` per project perf rule)
       completes; record wall-clock as the local baseline number IN THIS FILE.
-      DONE (2026-07-19): `scripts/server/config_server.template` written
+      DONE (2026-07-19): `scripts/server_contrib/config_server.template` written
       (secrets → `<FILL IN>` placeholders; audio + anki + all exporter make_*
       OFF; db_rebuild + generate.deconstructor ON; search_index OFF; validated
-      it parses via configparser). Per-command doc `scripts/server/config_server.md`
+      it parses via configparser). Per-command doc `scripts/server_contrib/config_server.md`
       — full COMMANDS table (runs / no-op-via-config / must-skip) from a source
       audit: only #18/#31 (Go) are hard prereqs; #15/16 anki, #34/35/36 audio,
       #17/33 exporter all no-op via the template flags.
@@ -504,7 +504,7 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       re-freeze — out of scope here.)
       LEAN REBUILD ADDED (2026-07-19, maintainer-directed scope addition): the
       server does NOT run the full `generate_components.py`. New
-      `scripts/server/generate_components_server.py` runs only the steps that
+      `scripts/server_contrib/generate_components_server.py` runs only the steps that
       populate tables/columns gui2 reads (verified against gui2 source): logo,
       version, create/generate inflection tables, root_has_verb, sanskrit,
       family_root/word/compound/set/idiom, deconstructor go+add, api_ca_eva,
@@ -518,14 +518,14 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server/`.
       pytest on the server (lean db omits data the suite asserts on + the
       full-suite `sys.exit` audio break); the 2.4 health check is the gate.
       `maintenance_window._default_generate` now calls the lean script. Tests
-      `tests/scripts/server/test_generate_components_server.py` (5): dropped
+      `tests/scripts/server_contrib/test_generate_components_server.py` (5): dropped
       steps absent, essential present, no pytest, go-before-loader +
       tables-before-headwords ordering. `spelling_mistakes` KEPT (pass2pre
       filtering — gui2 reads it indirectly, not via a lookup.spelling attr).
       VALIDATION NOTE: lean list is a strict in-order subset of the proven full
       run, but a real server run in 3.3 must confirm no kept step depended on a
       dropped one (the spelling case showed hidden pass2pre deps).
-      OPERATOR DOCS (2026-07-19): `scripts/server/README.md` added — ties all the
+      OPERATOR DOCS (2026-07-19): `scripts/server_contrib/README.md` added — ties all the
       Phase 2 scripts together: the nightly-window flow diagram, how to run the
       orchestrator (prod + local `--no-systemd --no-push` dry-run), a per-script
       table (push/absorption/reconcile/lean-rebuild/config template) with
@@ -620,7 +620,7 @@ exists.
 
 - [ ] 3.1 Provision: Ubuntu 24.04 LTS, 16 GB. Minimal hardening: ssh keys
       only, ufw (22/80/443), unattended-upgrades. Install git, Go, nginx,
-      certbot, uv. Write every command into `scripts/server/SERVER_SETUP.md`
+      certbot, uv. Write every command into `scripts/server_contrib/SERVER_SETUP.md`
       as a copy-paste runbook (assume a future from-scratch rebuild).
       → verify: `ssh server 'uv --version && go version && nginx -v'`.
 - [ ] 3.2 Repo access: deploy key (read-write) on the server; branch
@@ -649,7 +649,7 @@ exists.
       → verify: from an outside network, two test URLs serve the GUI over
       HTTPS after a password prompt; wrong password rejected; both sessions
       work simultaneously; RSS per instance recorded IN THIS FILE.
-- [ ] 3.5 `scripts/server/add_contributor.sh`: create env file + htpasswd
+- [ ] 3.5 `scripts/server_contrib/add_contributor.sh`: create env file + htpasswd
       entry + enable unit + reload nginx — the "<10 minutes to onboard #3"
       script. Also `remove_contributor.sh` or a documented removal procedure.
       → verify: run end-to-end for a test user: new URL live; then remove it.
@@ -688,7 +688,7 @@ exists.
 - [ ] 4.5 Thread wrap: update `kamma/tech.md` (+ `conductor/tech-stack.md` if
       needed) with server facts (provider, IP, ports, window time, runbook
       location); `docs/technical/project_folder_structure.md` if
-      `scripts/server/` description changed; final lint/type/test sweep.
+      `scripts/server_contrib/` description changed; final lint/type/test sweep.
       The spec's two-week success criterion starts counting; thread finalize
       per `/kamma:4-finalize` when review passes.
       → verify: docs updated; `uv run pytest tests/` clean.

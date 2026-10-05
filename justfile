@@ -326,7 +326,7 @@ dpdict-push:
     #!/usr/bin/env bash
     set -e
     login=$(just _dpdict-login)
-    scp scripts/server/update-dpd.sh "$login:~/update-dpd.sh"
+    scp scripts/server_dpdict/update-dpd.sh "$login:~/update-dpd.sh"
     ssh "$login" "chmod +x ~/update-dpd.sh"
 
 # ===== CONE DICTIONARY IMPORT =====

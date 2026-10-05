@@ -7,10 +7,6 @@ scratch `dpd.db` **and** to per-user JSON files that are the authoritative
 record. A nightly maintenance window pushes those JSONs up, and — only when safe
 — rebuilds the scratch db from `main`.
 
-> **Not part of this system:** `update-dpd.sh` is the deploy script for the
-> separate **dpdict.net webapp** server (downloads the release db, runs
-> uvicorn). It is unrelated to the contributor server below.
-
 See also: `config_server.md` (the lean rebuild — kept/dropped step rationale),
 `spec.md`/`plan.md` in `kamma/threads/20260719_contributor_web_server/`.
 
@@ -42,14 +38,14 @@ Every run logs to `logs/maintenance_YYYYMMDD.log`.
 Production (cron on the server):
 
 ```bash
-uv run scripts/server/maintenance_window.py \
+uv run scripts/server_contrib/maintenance_window.py \
     --instance dpd-gui@alice --instance dpd-gui@bob
 ```
 
 Local dry-run (no systemd, logic only — safe to run against a scratch copy):
 
 ```bash
-uv run scripts/server/maintenance_window.py --no-systemd --no-push \
+uv run scripts/server_contrib/maintenance_window.py --no-systemd --no-push \
     --project-root /path/to/scratch/repo
 ```
 
@@ -57,15 +53,15 @@ Key flags: `--no-systemd` (log instead of `systemctl`), `--no-push` (skip the
 git push), `--instance <unit>` (repeatable), `--db-path`, `--data-dir`,
 `--snapshot-dir`, `--log-dir`, `--remote`, `--branch`.
 
-## The pieces (each is a pure core + thin CLI; unit-tested in `tests/scripts/server/`)
+## The pieces (each is a pure core + thin CLI; unit-tested in `tests/scripts/server_contrib/`)
 
 | Script | Does | Run standalone |
 |---|---|---|
-| `contrib_push.py` | Stages ONLY `gui2/data/{additions,corrections}_*.json` by explicit path, commits on the `contributions` branch, pushes, and refreshes `last_pushed/` snapshots. No-op when nothing changed. | `uv run scripts/server/contrib_push.py` |
-| `absorption_check.py` | The wipe invariant: exits 0 (rebuild allowed) only if every contributor work file in `origin/main` is empty/absent; exits 1 and lists blockers otherwise. `*_added` review files are ignored. | `uv run scripts/server/absorption_check.py` |
-| `contrib_reconcile.py` | Snapshot key-level merge: `final = local − (last_pushed − main)`, but KEEPS a key the maintainer processed if it was re-edited locally since the push. Refreshes snapshots. | `uv run scripts/server/contrib_reconcile.py` |
+| `contrib_push.py` | Stages ONLY `gui2/data/{additions,corrections}_*.json` by explicit path, commits on the `contributions` branch, pushes, and refreshes `last_pushed/` snapshots. No-op when nothing changed. | `uv run scripts/server_contrib/contrib_push.py` |
+| `absorption_check.py` | The wipe invariant: exits 0 (rebuild allowed) only if every contributor work file in `origin/main` is empty/absent; exits 1 and lists blockers otherwise. `*_added` review files are ignored. | `uv run scripts/server_contrib/absorption_check.py` |
+| `contrib_reconcile.py` | Snapshot key-level merge: `final = local − (last_pushed − main)`, but KEEPS a key the maintainer processed if it was re-edited locally since the push. Refreshes snapshots. | `uv run scripts/server_contrib/contrib_reconcile.py` |
 | `maintenance_window.py` | Orchestrator (above). | see Run it |
-| `generate_components_server.py` | LEAN rebuild — only the `generate_components.py` steps that populate tables/columns gui2 reads. No pytest. See `config_server.md`. | `uv run scripts/server/generate_components_server.py` |
+| `generate_components_server.py` | LEAN rebuild — only the `generate_components.py` steps that populate tables/columns gui2 reads. No pytest. See `config_server.md`. | `uv run scripts/server_contrib/generate_components_server.py` |
 | `config_server.template` | Server `config.ini` template — secrets are `<FILL IN>` placeholders; audio/anki/exporter output OFF; db_rebuild + deconstructor ON. Copy to `./config.ini` on the server; NEVER commit the result. | copy to `config.ini` |
 
 ## Snapshots (`last_pushed/`)

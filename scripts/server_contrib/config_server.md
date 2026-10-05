@@ -2,7 +2,7 @@
 
 The nightly maintenance window rebuilds the server's scratch db by running
 `scripts/build/db_rebuild_from_tsv.py` then the **lean** rebuild
-`scripts/server/generate_components_server.py` (invoked by
+`scripts/server_contrib/generate_components_server.py` (invoked by
 `maintenance_window.py`) under the config in `config_server.template`.
 
 The lean script runs only the steps that populate tables/columns the
@@ -100,4 +100,4 @@ The pulled code is already CI-tested on main before it reaches the server, and
 the post-rebuild gate is the maintenance window's **health check**
 (`maintenance_window.py` → headword/lookup row-count bounds). No change to the
 shared `scripts/bash/generate_components.py`; the lean list lives in its own
-`scripts/server/generate_components_server.py`.
+`scripts/server_contrib/generate_components_server.py`.

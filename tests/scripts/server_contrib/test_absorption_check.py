@@ -1,7 +1,7 @@
 import subprocess
 from pathlib import Path
 
-from scripts.server.absorption_check import (
+from scripts.server_contrib.absorption_check import (
     absorption_allowed,
     all_absorbed,
     blocking_files,

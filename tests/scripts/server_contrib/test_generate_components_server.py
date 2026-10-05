@@ -1,4 +1,4 @@
-from scripts.server.generate_components_server import COMMANDS
+from scripts.server_contrib.generate_components_server import COMMANDS
 
 # Steps the maintainer confirmed gui2 data entry does NOT use, plus
 # exporter/release/config-mutation steps — none may appear in the lean list.

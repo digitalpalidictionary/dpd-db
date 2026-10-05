@@ -3,8 +3,8 @@ import sqlite3
 import subprocess
 from pathlib import Path
 
-from scripts.server.contrib_reconcile import load_json_dict, write_json_dict
-from scripts.server.maintenance_window import (
+from scripts.server_contrib.contrib_reconcile import load_json_dict, write_json_dict
+from scripts.server_contrib.maintenance_window import (
     Outcome,
     WindowConfig,
     WindowSteps,

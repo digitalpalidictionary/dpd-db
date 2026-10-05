@@ -2,7 +2,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from scripts.server.contrib_reconcile import (
+from scripts.server_contrib.contrib_reconcile import (
     contributor_files,
     load_json_dict,
     reconcile,

@@ -2,8 +2,8 @@ import json
 import subprocess
 from pathlib import Path
 
-from scripts.server.contrib_push import build_commit_message, push_contributions
-from scripts.server.contrib_reconcile import load_json_dict
+from scripts.server_contrib.contrib_push import build_commit_message, push_contributions
+from scripts.server_contrib.contrib_reconcile import load_json_dict
 
 
 def _git(*args: str, cwd: Path) -> subprocess.CompletedProcess[str]:

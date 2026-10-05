@@ -5,6 +5,12 @@ Simple Download Latest Release Script for DPD Audio Database
 Downloads the latest GitHub release and extracts the database.
 """
 
+import sqlite3
+import sys
+import tempfile
+from contextlib import closing
+from pathlib import Path
+
 import requests
 from rich.progress import (
     BarColumn,
@@ -44,7 +50,7 @@ def find_archive_asset(release_info):
     return None
 
 
-def download_archive(asset):
+def download_archive(asset, work_dir: Path) -> Path | None:
     """Download the release archive."""
     pr.green_title("downloading database")
 
@@ -58,8 +64,7 @@ def download_archive(asset):
         pr.red(f"Content-Type: {content_type}")
         return None
 
-    db_dir = pth.dpd_audio_db_path.parent
-    archive_path = db_dir / asset["name"]
+    archive_path = work_dir / asset["name"]
 
     total_size = int(response.headers.get("content-length", 0))
 
@@ -99,11 +104,27 @@ def download_archive(asset):
     return archive_path
 
 
-def extract_database(archive_path):
-    """Extract database from archive."""
+def install_database(archive_path: Path, work_dir: Path) -> bool:
+    """Extract the database, test it has rows, then swap it in for the live one."""
 
-    db_dir = pth.dpd_audio_db_path.parent
-    extract_tarball(archive_path, db_dir, preserve_structure=False)
+    extract_tarball(archive_path, work_dir, preserve_structure=False)
+    new_db = work_dir / pth.dpd_audio_db_path.name
+
+    pr.green_tmr("testing database")
+    try:
+        with closing(sqlite3.connect(new_db)) as conn:
+            rows = conn.execute("SELECT COUNT(*) FROM dpd_audio").fetchone()[0]
+    except sqlite3.Error as e:
+        pr.no("failed")
+        pr.red(f"database test failed: {e}")
+        return False
+    if rows == 0:
+        pr.no("failed")
+        pr.red("database has no rows")
+        return False
+    pr.yes(rows)
+
+    new_db.replace(pth.dpd_audio_db_path)
     pr.green(f"saved to: {pth.dpd_audio_db_path}")
     return True
 
@@ -118,11 +139,14 @@ def main():
     if not asset:
         return False
 
-    archive_path = download_archive(asset)
-    if not archive_path:
-        return False
-
-    extract_database(archive_path)
+    # Same filesystem as the live db, so the final replace is atomic.
+    with tempfile.TemporaryDirectory(dir=pth.dpd_audio_db_path.parent) as tmp:
+        work_dir = Path(tmp)
+        archive_path = download_archive(asset, work_dir)
+        if not archive_path:
+            return False
+        if not install_database(archive_path, work_dir):
+            return False
 
     download_index(find_index_asset(release_info))
 
@@ -131,4 +155,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(0 if main() else 1)

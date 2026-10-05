@@ -55,7 +55,8 @@ Where are all the parts of the project located?
 │   ├── info
 │   ├── onboarding
 │   ├── patch
-│   ├── server
+│   ├── server_contrib
+│   ├── server_dpdict
 │   ├── suttas
 │   ├── tutorial
 ├── shared_data
