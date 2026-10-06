@@ -290,6 +290,17 @@ class ProjectPaths:
         self.tpr_i2h_tsv_path = base_dir / "exporter/tpr/output/i2h.tsv"
         self.tpr_sql_file_path = base_dir / "exporter/tpr/output/dpd.sql"
 
+        # exporter/epitaka
+        self.epitaka_output_dir = base_dir / "exporter/epitaka/output"
+
+        # exporter/epitaka/output
+        self.epitaka_dpd_db_path = (
+            base_dir / "exporter/epitaka/output/dpd-dictionary.db"
+        )
+        self.epitaka_baseline_db_path = (
+            base_dir / "exporter/epitaka/output/baseline_dpd-dictionary.db"
+        )
+
         # exporter/variants
         self.variants_header_path = base_dir / "exporter/variants/variants_header.html"
 
@@ -794,5 +805,6 @@ class ProjectPaths:
             self.share_dir,
             self.temp_dir,
             self.tpr_output_dir,
+            self.epitaka_output_dir,
         ]:
             d.mkdir(parents=True, exist_ok=True)

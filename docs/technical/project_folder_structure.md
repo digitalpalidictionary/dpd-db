@@ -121,6 +121,8 @@ There are four main parts to the code:
 
 	- **deconstructor/** Export DPD Deconstructor to GoldenDict and MDict
 
+	- **epitaka/** Refresh the DPD data inside the local ePitaka app (local only).
+
 	- **goldendict/** Export DPD, EPD, Help and Abbreviations to GoldenDict and MDict
 
 	- **grammar_dict/** Export DPD Grammar to GoldenDict and MDict

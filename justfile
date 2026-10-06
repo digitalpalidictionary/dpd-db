@@ -167,6 +167,10 @@ export-mobile:
 export-tpr:
     uv run python exporter/tpr/tpr_exporter.py
 
+# Export DPD into the local ePitaka app
+export-epitaka:
+    uv run python exporter/epitaka/epitaka_exporter.py
+
 # Export TBW format only
 export-tbw:
     uv run python exporter/tbw/tbw_exporter.py

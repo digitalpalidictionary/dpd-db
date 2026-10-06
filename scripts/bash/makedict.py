@@ -21,6 +21,7 @@ COMMANDS = [
     # Additional exporters
     "exporter/mobile/mobile_exporter.py --cone",
     "exporter/tpr/tpr_exporter.py",
+    "exporter/epitaka/epitaka_exporter.py",
     "exporter/kindle/kindle_exporter.py",
     "exporter/tbw/tbw_exporter.py",
     "exporter/sutta_central/sutta_central_exporter.py",

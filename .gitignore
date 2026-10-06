@@ -79,6 +79,7 @@ exporter/share/
 exporter/tester/fonts/
 exporter/tester/tester/
 exporter/tpr/output/
+exporter/epitaka/output/
 exporter/webapp/static/search_index.json
 exporter/word_trees/
 GEMINI.md

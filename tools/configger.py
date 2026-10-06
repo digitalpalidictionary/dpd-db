@@ -58,6 +58,7 @@ DEFAULT_CONFIG = {
         "make_grammar": "no",
         "make_variants": "no",
         "make_tpr": "no",
+        "make_epitaka": "no",
         "make_mobile": "no",
         "make_ebook": "no",
         "make_tbw": "no",
@@ -75,6 +76,7 @@ DEFAULT_CONFIG = {
     "anki": {"update": "no", "db_path": "", "backup_path": ""},
     "simsapa": {"app_path": "", "db_path": ""},
     "tpr": {"db_path": "", "make_beta": "no"},
+    "epitaka": {"db_path": "", "repo_path": ""},
 }
 
 PROFILES: dict[str, dict[str, dict[str, str]]] = {
