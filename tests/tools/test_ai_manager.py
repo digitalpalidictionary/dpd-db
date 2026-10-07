@@ -42,7 +42,7 @@ class _FailingProvider:
 class _RaisingProvider:
     """Provider stub that raises to exercise AIManager exception reporting."""
 
-    def request(self, **kwargs: Any) -> _StubResponse:
+    def request(self, **_kwargs: Any) -> _StubResponse:
         raise RuntimeError("boom")
 
 
@@ -331,10 +331,9 @@ def test_rate_limit_sleep_applies_to_tried_model(
 
 
 def test_antigravity_has_per_model_timeout() -> None:
-    """antigravity_cli work models must carry an explicit 150s timeout."""
+    """If an antigravity_cli model is configured, it must carry a 150s timeout."""
     models = _load_models_from_json()
     agy_entries = [m for m in models["default"] if m[0] == "antigravity_cli"]
-    assert agy_entries, "at least one antigravity_cli model must be configured"
     assert all(len(m) == 4 for m in agy_entries), (
         "model tuple must be (provider, model, delay, timeout)"
     )
@@ -442,7 +441,7 @@ def test_probe_skips_when_no_antigravity_models_configured(
 ) -> None:
     """Without configured agy models the provider stays unregistered and unprobed."""
 
-    def fail_get_working_key(model: str) -> bool:
+    def fail_get_working_key(_model: str) -> bool:
         raise AssertionError("probe must not run without configured models")
 
     monkeypatch.setattr(antigravity_cli_module, "get_working_key", fail_get_working_key)

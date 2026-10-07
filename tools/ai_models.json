@@ -17,19 +17,19 @@
     },
     {
       "provider": "openrouter",
-      "model": "minimax/minimax-m3",
+      "model": "deepseek/deepseek-v4.1-flash",
       "delay": 0
     },
     {
       "provider": "openrouter",
-      "model": "xiaomi/mimo-v2.5",
+      "model": "xiaomi/mimo-v2.6-flash",
       "delay": 0
     },
     {
-      "provider": "antigravity_cli",
-      "model": "Gemini 3.8 Flash (Low)",
+      "provider": "openrouter",
+      "model": "openai/gpt-6-luna",
       "delay": 0,
-      "timeout": 150
+      "timeout": 5
     }
   ],
   "grounded_models": [
