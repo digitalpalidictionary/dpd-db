@@ -29,6 +29,7 @@ class DpdCompoundConstructionField(ft.Column):
         self.ui: Pass2AddView | Pass1AddView = ui
         self.field_name = field_name
         self.dpd_fields: DpdFields = dpd_fields
+        self._on_focus_callback = on_focus
 
         self.compound_construction_field = DpdTextField(
             name=field_name,
@@ -104,6 +105,9 @@ class DpdCompoundConstructionField(ft.Column):
 
     def compound_construction_focus(self, e: ft.ControlEvent) -> None:
         """Autofill compound_construction."""
+
+        if self._on_focus_callback:
+            self._on_focus_callback(e)
 
         compound_construction_field = e.control
         compound_construction_value = e.control.value

@@ -343,12 +343,16 @@ class DpdExampleField(ft.Column):
         request_focus(self.word_to_find_field)
         self.page.update()
 
-    def _handle_last_control_blur(self, e: ft.ControlEvent):
-        """Hides the tools if they are visible when the last control loses focus.
-        Also adds apostrophes, hyphenations and saves current example"""
-
-        if self._search_row.visible:
+    def collapse_tools(self) -> None:
+        """Hides the tools if they are open. Called when another field gets focus."""
+        if not self.simple_mode and self._search_row.visible:
             self._toggle_tools_visibility(None)
+
+    def _handle_last_control_blur(self, e: ft.ControlEvent):
+        """Adds apostrophes, hyphenations and saves current example.
+
+        Does not hide the tools: hiding them here shifted the layout under the
+        click that was moving focus back to the sentence."""
 
         source, sutta, example = self.get_fields()
 

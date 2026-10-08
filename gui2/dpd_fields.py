@@ -67,7 +67,7 @@ class DpdFields(PopUpMixin):
 
         self.ui: Pass2AddView | Pass1AddView = ui
         self.db: DatabaseManager = db
-        self.spellchecker = CustomSpellChecker()
+        self.spellchecker = CustomSpellChecker(toolkit.paths.user_dictionary_path)
         self.toolkit: ToolKit = toolkit
 
         self.speech_marks_manager: SpeechMarkManager = self.toolkit.speech_marks_manager
@@ -321,8 +321,24 @@ class DpdFields(PopUpMixin):
         """
         return self.ui.page
 
+    def _collapse_example_tools_on_focus(self, on_focus):
+        """Wraps a field's on_focus so focusing it hides the example tools."""
+
+        def handler(e: ft.ControlEvent) -> None:
+            for name in ("example_1", "example_2"):
+                example_field = self.fields.get(name)
+                if isinstance(example_field, DpdExampleField):
+                    example_field.collapse_tools()
+            if on_focus:
+                on_focus(e)
+
+        return handler
+
     def create_fields(self):
         for config in self.field_configs:
+            if config.field_type != "example":
+                config.on_focus = self._collapse_example_tools_on_focus(config.on_focus)
+
             if config.field_type == "text":
                 self.fields[config.name] = DpdTextField(
                     name=config.name,
