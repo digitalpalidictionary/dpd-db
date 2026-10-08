@@ -9,6 +9,7 @@ from db.models import DpdHeadword
 from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_examples import DpdExampleField
+from gui2.dpd_fields_classes import get_last_focused_field, track_focus
 from gui2.dpd_fields_functions import clean_lemma_1, increment_lemma_1
 from gui2.dpd_fields_lists import (
     COMPOUND_FIELDS,
@@ -26,7 +27,13 @@ from gui2.pass2_eg_manager import Pass2EgManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, page_of, request_focus
+from gui2.ui_utils import (
+    field_border,
+    is_inside,
+    is_mounted,
+    page_of,
+    request_focus,
+)
 from scripts.find.missing_meanings import find_missing_meanings
 from tools.dharmamitra_client import get_contextual_gloss
 from tools.fast_api_utils import request_dpd_server
@@ -155,6 +162,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
             on_blur=self._disable_id_field_autofocus,
             text_size=14,
             width=400,
+        )
+        # Record the id field like the Dpd* editor fields do, so it can be
+        # restored as the last-used field when the tab regains focus.
+        self._enter_id_or_lemma_field.on_focus = track_focus(
+            self._enter_id_or_lemma_field, None
         )
         self._clone_headword_button = ft.Button(
             "Clone", on_click=self._click_clone_headword
@@ -309,6 +321,47 @@ class Pass2AddView(ft.Column, PopUpMixin):
     def _disable_id_field_autofocus(self, e: ft.ControlEvent) -> None:
         if self._enter_id_or_lemma_field.autofocus:
             self._enter_id_or_lemma_field.autofocus = False
+
+    def on_tab_focus(self) -> None:
+        """Restore focus when the tab is activated.
+
+        A form carrying any data means a word is being edited, so the cursor
+        returns to the field last used — where the contributor left off. An
+        empty form means the next word is about to be entered, so the cursor
+        goes to the id-or-lemma field. A last-focus left in another tab, or
+        in a form since rebuilt, falls back to the id field too.
+        """
+        restore: ft.Control | None = None
+        if self._form_has_data():
+            last = get_last_focused_field()
+            if last is not None and self._owns_focus_target(last):
+                restore = last
+        if restore is None and is_mounted(self._enter_id_or_lemma_field):
+            restore = self._enter_id_or_lemma_field
+        if restore is not None:
+            request_focus(restore)
+
+    def _owns_focus_target(self, field: ft.Control) -> bool:
+        """Whether the last-focused field belongs to this view.
+
+        The tracker is app-wide, and is_mounted() is true for fields in hidden
+        tabs too — every built view stays in the TabBarView — so ownership has
+        to be checked through the control tree. Focusing another tab's field
+        would lose the cursor invisibly instead of restoring it here.
+
+        The tracked field is often the inner text box of a composite field
+        (meaning, examples, commentary), not the composite itself, so an
+        identity check against the form's field list would miss it.
+        """
+        return is_inside(field, self)
+
+    def _form_has_data(self) -> bool:
+        """Whether any editor field currently holds a value.
+
+        The id-or-lemma textbox is no signal here — it is cleared as soon as
+        a word is loaded, so an in-progress edit reads as an empty id field.
+        """
+        return any(field.value for field in self.dpd_fields.fields.values())
 
     def _on_delete_hover(self, e: ft.ControlEvent) -> None:
         e.control.bgcolor = ft.Colors.RED if e.data == "true" else None

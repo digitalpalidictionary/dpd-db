@@ -1,10 +1,11 @@
 import asyncio
+import weakref
 from types import SimpleNamespace
 from typing import Any
 
 import flet as ft
 
-from gui2.ui_utils import cancel_top_dialog
+from gui2.ui_utils import cancel_top_dialog, is_inside, request_focus
 
 
 def _page(*dialogs: ft.DialogControl) -> Any:
@@ -84,3 +85,69 @@ def test_escape_does_nothing_without_cancel_button() -> None:
     page = _page(_dialog(["Cancel"], lower), _dialog(["Save"], upper))
     assert asyncio.run(cancel_top_dialog(page)) is False
     assert (lower, upper) == ([], [])
+
+
+def _mount(child: ft.BaseControl, parent: ft.BaseControl) -> None:
+    # Flet links a mounted control to its parent this way.
+    child._parent = weakref.ref(parent)  # pyright: ignore[reportAttributeAccessIssue]
+
+
+def test_is_inside_finds_a_nested_control() -> None:
+    view = ft.Column()
+    composite = ft.Column()
+    inner = ft.TextField()
+    _mount(composite, view)
+    _mount(inner, composite)
+
+    assert is_inside(inner, view)
+    assert is_inside(view, view)
+
+
+def test_is_inside_rejects_a_control_in_another_tree() -> None:
+    view = ft.Column()
+    other_view = ft.Column()
+    inner = ft.TextField()
+    _mount(inner, other_view)
+
+    assert not is_inside(inner, view)
+
+
+def test_unmounted_control_is_inside_nothing() -> None:
+    assert not is_inside(ft.TextField(), ft.Column())
+
+
+class _RunNowPage:
+    def run_task(self, handler, *args):
+        asyncio.run(handler(*args))
+
+
+def _focusable(error: Exception | None, focused: list[str]) -> Any:
+    async def focus() -> None:
+        focused.append("focus")
+        if error is not None:
+            raise error
+
+    return SimpleNamespace(page=_RunNowPage(), focus=focus)
+
+
+def test_request_focus_focuses_the_control() -> None:
+    focused: list[str] = []
+    request_focus(_focusable(None, focused))
+
+    assert focused == ["focus"]
+
+
+def test_request_focus_swallows_an_invoke_timeout() -> None:
+    focused: list[str] = []
+    request_focus(_focusable(TimeoutError("Timeout waiting for invokeMethod"), focused))
+
+    assert focused == ["focus"]
+
+
+def test_request_focus_swallows_a_control_removed_before_focus() -> None:
+    focused: list[str] = []
+    request_focus(
+        _focusable(RuntimeError("Control must be added to the page first"), focused)
+    )
+
+    assert focused == ["focus"]

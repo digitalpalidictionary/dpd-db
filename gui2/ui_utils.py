@@ -23,6 +23,20 @@ def is_mounted(control: ft.BaseControl) -> bool:
     return page_of(control) is not None
 
 
+def is_inside(control: ft.BaseControl, ancestor: ft.BaseControl) -> bool:
+    """Whether `control` is `ancestor` or sits somewhere inside it.
+
+    Flet links a control to its parent only once it is mounted, so an
+    unmounted control is inside nothing but itself.
+    """
+    current: ft.BaseControl | None = control
+    while current is not None:
+        if current is ancestor:
+            return True
+        current = current.parent
+    return False
+
+
 def request_focus(control: ft.BaseControl) -> None:
     """Move focus to `control` from synchronous handler code.
 
@@ -37,7 +51,18 @@ def request_focus(control: ft.BaseControl) -> None:
     """
     page = page_of(control)
     if page is not None:
-        page.run_task(control.focus)  # pyright: ignore[reportAttributeAccessIssue]
+        page.run_task(_focus_quietly, control)
+
+
+async def _focus_quietly(control: ft.BaseControl) -> None:
+    # A missed focus only leaves the cursor where it was, so it must not reach
+    # the terminal as an unhandled task error. It fails when the client never
+    # answers the invoke (TimeoutError), or when the form is rebuilt between
+    # scheduling and running and the control is gone (RuntimeError).
+    try:
+        await control.focus()  # pyright: ignore[reportAttributeAccessIssue]
+    except (TimeoutError, RuntimeError):
+        pass
 
 
 FIELD_RADIUS = 20

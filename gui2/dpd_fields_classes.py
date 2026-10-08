@@ -1,8 +1,62 @@
-from typing import Callable
+import inspect
+from typing import Any, Callable
 
 import flet as ft
 
-from gui2.ui_utils import field_border, request_focus
+from gui2.ui_utils import field_border, is_mounted, request_focus
+
+# The last control that received keyboard focus anywhere in the app. Tab views
+# read this through get_last_focused_field() when they regain focus, to put the
+# cursor back where the contributor left off. Only DpdTextField and DpdDropdown
+# record themselves — that covers every main editor field, including those
+# inside the composite field classes, which all build on these two.
+_last_focused_field: "DpdTextField | DpdDropdown | None" = None
+
+
+def get_last_focused_field() -> "DpdTextField | DpdDropdown | None":
+    """The most recently focused editor field, or None if none is restorable.
+
+    A field left focused in a form that was since rebuilt (clear_all_fields
+    constructs a fresh DpdFields) is unmounted and unrestorable, so it reads
+    as None — and stops pinning the abandoned field tree in memory.
+    """
+    global _last_focused_field
+    if _last_focused_field is not None and not is_mounted(_last_focused_field):
+        _last_focused_field = None
+    return _last_focused_field
+
+
+def track_focus(
+    field: "DpdTextField | DpdDropdown",
+    original: Callable[[ft.ControlEvent], Any] | None,
+) -> Callable[[ft.ControlEvent], Any]:
+    """Wrap a field's on_focus so focusing it also records it for restoration.
+
+    The original handler — a composite field's internal handler, or one of the
+    per-field focus callbacks — still runs, unchanged, after the recording.
+    """
+
+    def record() -> None:
+        global _last_focused_field
+        _last_focused_field = field
+
+    # Flet awaits a handler only if the handler itself is a coroutine
+    # function, so an async original needs an async wrapper — a sync one would
+    # call it, get a coroutine back, and drop it unrun.
+    if inspect.iscoroutinefunction(original):
+
+        async def async_handler(e: ft.ControlEvent) -> None:
+            record()
+            await original(e)
+
+        return async_handler
+
+    def handler(e: ft.ControlEvent) -> None:
+        record()
+        if original is not None:
+            original(e)
+
+    return handler
 
 
 class FieldConfig:
@@ -40,7 +94,7 @@ class DpdTextField(ft.TextField):
         super().__init__(
             expand=True,
             multiline=multiline,
-            on_focus=on_focus,
+            on_focus=track_focus(self, on_focus),
             on_change=on_change,
             on_submit=on_submit,
             on_blur=on_blur,
@@ -102,7 +156,7 @@ class DpdDropdown(ft.Dropdown):
             # dropdowns ~65px wider than the text fields beside them.
             expand=True,
             options=[ft.dropdown.Option(o) for o in options],
-            on_focus=on_focus,
+            on_focus=track_focus(self, on_focus),
             # Flet 1.0 split 0.28's on_change into on_select (an item was
             # picked) and on_text_change (the user typed). on_select is the
             # one that preserves 0.28 behaviour. The parameter keeps its name
