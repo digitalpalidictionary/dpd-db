@@ -258,7 +258,7 @@ class DatabaseManager:
                     if cleaned_component:
                         unique_components.add(cleaned_component)
 
-        self.all_family_sets = sorted(list(unique_components))
+        self.all_family_sets = sorted(unique_components, key=str.lower)
         self.all_family_sets.insert(0, "")
 
     def get_all_verbs(self) -> None:

@@ -5,7 +5,6 @@ import flet as ft
 from gui2.dpd_fields_classes import DpdTextField
 from gui2.ui_utils import field_border, request_focus
 from tools.fuzzy_tools import find_closest_matches
-from tools.pali_sort_key import pali_sort_key
 
 
 class DpdFamilySetField(ft.Column):
@@ -70,7 +69,7 @@ class DpdFamilySetField(ft.Column):
 
         if selected_value not in current_sets:
             current_sets.add(selected_value)
-            sorted_sets = sorted(list(current_sets), key=pali_sort_key)
+            sorted_sets = sorted(current_sets, key=str.lower)
             self.family_set_textfield.value = "; ".join(sorted_sets)
 
         # Reset dropdown after selection
