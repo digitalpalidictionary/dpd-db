@@ -6,7 +6,7 @@ from sqlalchemy import or_
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, request_focus
+from gui2.ui_utils import field_border, is_mounted, request_focus
 from tools.paths import ProjectPaths
 
 
@@ -113,6 +113,11 @@ class SandhiFindReplaceView(ft.Column):
         )
 
         self.controls = [self._top_section, self._middle_section]
+
+    def on_tab_focus(self) -> None:
+        """Focus the find field when the tab (Alt+') is activated."""
+        if is_mounted(self.find_text):
+            request_focus(self.find_text)
 
     def _set_replaced_field_mode(self, editable: bool):
         """Set the replaced field to be editable (TextField) or read-only (Text)."""
