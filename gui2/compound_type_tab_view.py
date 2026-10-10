@@ -83,10 +83,7 @@ class CompoundTypeTabView(ft.Column):
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
-            on_select=lambda e: (
-                setattr(e.control, "helper_text", e.control.value or " ")
-                or e.control.update()
-            ),
+            on_select=lambda e: self._on_dropdown_select(e, self._position_dropdown),
         )
         self._position_dropdown = ft.Dropdown(
             hint_text="position",
@@ -104,10 +101,7 @@ class CompoundTypeTabView(ft.Column):
             text_size=14,
             helper_text=" ",
             helper_style=helper_style,
-            on_select=lambda e: (
-                setattr(e.control, "helper_text", e.control.value or " ")
-                or e.control.update()
-            ),
+            on_select=lambda e: self._on_dropdown_select(e, self._type_dropdown),
         )
         self._type_dropdown = ft.Dropdown(
             hint_text="type",
@@ -121,6 +115,7 @@ class CompoundTypeTabView(ft.Column):
             menu_width=350,
             helper_text=" ",
             helper_style=helper_style,
+            on_select=lambda e: request_focus(self._type_add_button),
         )
         self._type_add_button = ft.IconButton(
             icon=ft.Icons.ADD_CIRCLE_OUTLINE,
@@ -259,6 +254,15 @@ class CompoundTypeTabView(ft.Column):
         self._type_dropdown.value = None
         self._rebuild_type_chips()
         self._type_dropdown.update()
+        request_focus(self._exceptions_field)
+
+    def _on_dropdown_select(
+        self, e: ft.ControlEvent, next_field: ft.BaseControl
+    ) -> None:
+        e.control.helper_text = e.control.value or " "
+        e.control.update()
+        # Without this the client drops focus and Tab restarts at the first field.
+        request_focus(next_field)
 
     def _on_type_chip_delete(self, type_val: str) -> None:
         if type_val in self._selected_types:
