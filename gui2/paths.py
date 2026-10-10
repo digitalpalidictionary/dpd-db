@@ -41,6 +41,10 @@ class Gui2Paths:
         self.in_commentary_exceptions_path: Path = (
             self.gui2_data_path / "in_commentary_exceptions.txt"
         )
+        self.user_dictionary_path: Path = base_dir / "shared_data/user_dictionary.txt"
+        self.component_words_ignore_path: Path = (
+            self.gui2_data_path / "component_words_ignore.txt"
+        )
 
         # Other paths
         self.find_words_dump_path: Path = (
@@ -74,4 +78,7 @@ class Gui2Paths:
             paths.commentary_stash_json_path = (
                 data / f"commentary_stash_{username}.json"
             )
+            # The spelling gate blocks saves, so contributors need "add to
+            # dictionary". The shared file is never pushed back from the server.
+            paths.user_dictionary_path = data / f"user_dictionary_{username}.txt"
         return paths

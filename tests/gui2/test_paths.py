@@ -90,3 +90,18 @@ class TestForUser:
     def test_empty_username_keeps_default_paths(self, tmp_path: Path):
         paths = Gui2Paths.for_user("", base_dir=tmp_path)
         assert paths.additions_path == tmp_path / "gui2" / "data" / "additions.json"
+
+
+class TestUserDictionaryPath:
+    def test_primary_uses_shared_dictionary(self, tmp_path: Path):
+        paths = Gui2Paths.for_user("1", base_dir=tmp_path)
+        assert paths.user_dictionary_path == (
+            tmp_path / "shared_data" / "user_dictionary.txt"
+        )
+
+    def test_contributor_dictionary_is_per_user(self, tmp_path: Path):
+        a = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        b = Gui2Paths.for_user("bob", base_dir=tmp_path)
+        data = tmp_path / "gui2" / "data"
+        assert a.user_dictionary_path == data / "user_dictionary_alice.txt"
+        assert b.user_dictionary_path == data / "user_dictionary_bob.txt"

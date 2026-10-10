@@ -1,11 +1,13 @@
 import asyncio
 import copy
 import json
+import re
 from pathlib import Path
 
 import flet as ft
+from sqlalchemy import or_
 
-from db.models import DpdHeadword
+from db.models import DpdHeadword, Lookup
 from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_examples import DpdExampleField
@@ -26,6 +28,8 @@ from gui2.pass2_auto_file_manager import Pass2AutoFileManager
 from gui2.pass2_eg_manager import Pass2EgManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
+from gui2.pass2x.in_commentary_exceptions import InCommentaryExceptions
+from gui2.save_router import save_headword
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import (
     field_border,
@@ -82,6 +86,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.toolkit.pass2_new_word_manager
         )
         self.pass2_eg_manager: Pass2EgManager = Pass2EgManager(self.toolkit)
+        self._component_ignore: InCommentaryExceptions = InCommentaryExceptions(
+            self.toolkit.paths.component_words_ignore_path
+        )
         self._eg_alert: ft.AlertDialog | None = None
         self._eg_checkboxes: dict[str, ft.Checkbox] = {}
         self._eg_prefills: dict[str, dict[str, str]] = {}
@@ -876,33 +883,17 @@ class Pass2AddView(ft.Column, PopUpMixin):
             == self.headword_original.id  # Compare ID from UI state with original
         )
 
-        if is_existing_word:
-            # it's an update if this block runs
-            committed, message = self._db.update_word_in_db(word_to_save)
-
-            if self.toolkit.username_manager.is_not_primary():
-                # if not in additions then add to corrections
-                if self.toolkit.additions_manager.is_not_in_additions(word_to_save.id):
-                    self.corrections_manager.update_corrections(word_to_save, comment)
-
-                # if in additions then update to additions
-                else:
-                    self.additions_manager.add_additions(word_to_save, comment)
-        else:
+        if not is_existing_word:
             # Check for duplicate id or lemma_1 when adding a new word
             if not self.dpd_fields.validate_no_duplicates(
                 word_to_save.id, word_to_save.lemma_1
             ):
                 return
-
-            # add to additions json
-            if self.toolkit.username_manager.is_not_primary():
-                self.additions_manager.add_additions(word_to_save, comment)
-
-            # add to db
-            committed, message = self._db.add_word_to_db(word_to_save)
-
             item_to_history = word_to_save
+
+        committed, message = save_headword(
+            self.toolkit, word_to_save, comment, is_existing_word
+        )
 
         log_key = (
             "pass2_update"
@@ -1032,6 +1023,12 @@ class Pass2AddView(ft.Column, PopUpMixin):
         if not self.headword:
             self.headword = self.dpd_fields.get_current_headword()
 
+        if self.toolkit.username_manager.is_not_primary() and not self._has_own_edit(
+            self.headword.id
+        ):
+            self.update_message("you can only discard your own edits")
+            return
+
         self.delete_alert = ft.AlertDialog(
             modal=True,
             content=ft.Column(
@@ -1073,7 +1070,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.update_message("Database still loading — please wait before deleting.")
             return
 
-        if self.headword:
+        if self.headword and self.toolkit.username_manager.is_not_primary():
+            self._discard_own_edit(self.headword.id, e)
+        elif self.headword:
             deleted, message = self._db.delete_word_in_db(self.headword)
             if deleted:
                 self.update_message(f"{self.headword.id} deleted from database")
@@ -1082,6 +1081,22 @@ class Pass2AddView(ft.Column, PopUpMixin):
             self.clear_all_fields()
         else:
             self.update_message("No headword to delete")
+
+    def _has_own_edit(self, id_no: int) -> bool:
+        return not self.additions_manager.is_not_in_additions(
+            id_no
+        ) or not self.corrections_manager.is_not_in_corrections(id_no)
+
+    def _discard_own_edit(self, id_no: int, e: ft.ControlEvent) -> None:
+        """A contributor's delete: drop their own JSON edit, never a db word.
+        A discarded correction shows the db version again."""
+        was_addition = self.additions_manager.discard(id_no)
+        was_correction = self.corrections_manager.discard(id_no)
+        self.clear_all_fields()
+        if was_correction and not was_addition:
+            self._enter_id_or_lemma_field.value = str(id_no)
+            self._click_edit_headword(e)
+        self.update_message(f"{id_no}: your edit was discarded")
 
     def _click_delete_cancel(self, e: ft.ControlEvent) -> None:
         self.delete_alert.open = False
@@ -1306,6 +1321,30 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
         sections: list[tuple[str, dict[str, dict[str, str]]]] = []
         seen: set[str] = set()
+
+        # Parts go first and join `seen`, so the same word is not offered
+        # again from the example text below.
+        parts = self._find_missing_component_words(word_to_save)
+        if parts:
+            parts_prefill = {
+                "source_1": word_to_save.source_1,
+                "sutta_1": word_to_save.sutta_1,
+                "example_1": unbold(word_to_save.example_1),
+            }
+            if word_to_save.example_2:
+                parts_prefill |= {
+                    "source_2": word_to_save.source_2,
+                    "sutta_2": word_to_save.sutta_2,
+                    "example_2": unbold(word_to_save.example_2),
+                }
+            sections.append(
+                (
+                    f"PARTS: {word_to_save.construction}",
+                    dict.fromkeys(parts, parts_prefill),
+                )
+            )
+            seen.update(parts)
+
         for label, text, prefill in field_prefills:
             if not text or text == "-":
                 continue
@@ -1324,6 +1363,76 @@ class Pass2AddView(ft.Column, PopUpMixin):
             }
             sections.append((f"{label} {text}", section_words))
         return sections
+
+    @staticmethod
+    def _construction_parts(construction: str) -> list[str]:
+        """Words named in a construction, in order. Sound changes ('ti > te')
+        keep only the form before the '>'. Anything that is not plain letters
+        is not a word and is dropped: roots ('√dhā'), marked endings ('*a'),
+        sandhi inserts ('[y]'), bracketed letters ('(n)a'), '??' and
+        cross-reference phrases with a space."""
+
+        parts: list[str] = []
+        for line in construction.splitlines():
+            for chunk in line.split("+"):
+                part = chunk.split(">")[0].strip()
+                if not re.fullmatch(r"[^\W\d_]+", part) or part in parts:
+                    continue
+                parts.append(part)
+        return parts
+
+    def _find_missing_component_words(self, word_to_save: DpdHeadword) -> list[str]:
+        """Parts of a compound that still need a meaning or an example.
+        Every headword of a part that lacks either one is returned, homonyms
+        and the headwords behind an inflected form alike."""
+
+        if word_to_save.pos not in ("sandhi", "idiom") and not re.search(
+            r"\bcomp\b", word_to_save.grammar or ""
+        ):
+            return []
+
+        self._component_ignore.load()
+        missing: list[str] = []
+        for part in self._construction_parts(word_to_save.construction or ""):
+            if (
+                part == clean_lemma_1(word_to_save.lemma_1)
+                or part in self._component_ignore
+                or self._is_eg_queued(part)
+            ):
+                continue
+            entries = (
+                self._db.db_session.query(DpdHeadword)
+                .filter(
+                    or_(
+                        DpdHeadword.lemma_1 == part,
+                        DpdHeadword.lemma_1.like(f"{part} %"),
+                    )
+                )
+                .all()
+            )
+            if not entries:
+                # Not a lemma: an inflected form resolves through the lookup
+                # table to the headwords behind it.
+                form = (
+                    self._db.db_session.query(Lookup).filter_by(lookup_key=part).first()
+                )
+                ids = form.headwords_unpack if form else []
+                if not ids:
+                    missing.append(part)
+                    continue
+                entries = (
+                    self._db.db_session.query(DpdHeadword)
+                    .filter(DpdHeadword.id.in_(ids))
+                    .all()
+                )
+            # The Eg button looks the queued word up by exact lemma_1, so a
+            # part that exists only as 'kata 1' must be queued as 'kata 1'.
+            for lemma in sorted(
+                e.lemma_1 for e in entries if not (e.meaning_1 and e.example_1)
+            ):
+                if lemma not in missing:
+                    missing.append(lemma)
+        return missing
 
     def _is_eg_queued(self, word: str) -> bool:
         """Match on clean form so a queued 'uppāṭita' also covers 'uppāṭita 1'

@@ -137,3 +137,31 @@ class TestPrimaryQueueMixedKeys:
 
         assert set(seen_keys) == {"123", new_key}
         assert json.loads(contrib.read_text(encoding="utf-8")) == {}
+
+
+class TestDiscard:
+    def test_discard_removes_only_that_entry_and_rewrites_file(self, tmp_path: Path):
+        manager = _manager(tmp_path, "alice")
+        manager.add_additions(_fake_word(1, "one"), "c")
+        manager.add_additions(_fake_word(2, "two"), "c")
+
+        assert manager.discard(1) is True
+
+        on_disk = json.loads(manager.additions_path.read_text(encoding="utf-8"))
+        assert [e["id"] for e in on_disk.values()] == [2]
+        assert [e["id"] for e in manager.additions_dict.values()] == [2]
+
+    def test_discard_unknown_id_changes_nothing(self, tmp_path: Path):
+        manager = _manager(tmp_path, "alice")
+        manager.add_additions(_fake_word(1, "one"), "c")
+
+        assert manager.discard(7) is False
+        assert len(manager.additions_dict) == 1
+
+    def test_discard_matches_id_saved_as_text(self, tmp_path: Path):
+        manager = _manager(tmp_path, "alice")
+        text_id_word = cast("DpdHeadword", SimpleNamespace(id="5", lemma_1="five"))
+        manager.add_additions(text_id_word, "c")
+
+        assert manager.discard(5) is True
+        assert manager.additions_dict == {}

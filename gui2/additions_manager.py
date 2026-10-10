@@ -82,10 +82,21 @@ class AdditionsManager:
 
     def _key_for_id(self, id_no: int) -> str | None:
         """Return the existing key for an entry with this db id, or None."""
+        # Compare as text: a form field holds the id as int or str, so the same
+        # word can be saved under either type.
         for key, entry in self.additions_dict.items():
-            if entry.get("id") == id_no:
+            if str(entry.get("id")) == str(id_no):
                 return key
         return None
+
+    def discard(self, id_no: int) -> bool:
+        """Remove this word's entry and rewrite the file. False if none."""
+        key = self._key_for_id(id_no)
+        if key is None:
+            return False
+        del self.additions_dict[key]
+        self.save_additions()
+        return True
 
     def is_not_in_additions(self, id_no: int) -> bool:
         return self._key_for_id(id_no) is None
