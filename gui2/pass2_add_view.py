@@ -992,6 +992,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             self._update_history_dropdown()
             self.page.update()
+            # clear_all_fields keeps the sutta filter; a finished add should not
+            self._filter_radios.value = "all"
             self.clear_all_fields()
             self._show_missing_words_dialog(word_to_save)
         else:
