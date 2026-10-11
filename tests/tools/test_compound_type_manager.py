@@ -510,3 +510,23 @@ class TestCompoundTypeManagerCRUD:
         rule = manager.get_rule_by_word("unknown")
 
         assert rule is None
+
+
+@patch("subprocess.run")
+@patch("subprocess.Popen")
+def test_open_tsv_for_editing_refused_on_server(
+    mock_popen: MagicMock,
+    mock_run: MagicMock,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    tsv_file = tmp_path / "test.tsv"
+    tsv_file.write_text("word\tpos\tposition\ttype\texceptions\n")
+
+    manager = CompoundTypeManager(str(tsv_file))
+    with pytest.raises(RuntimeError, match="not available on the server"):
+        manager.open_tsv_for_editing()
+
+    mock_popen.assert_not_called()
+    mock_run.assert_not_called()

@@ -56,6 +56,14 @@ class ToolKit:
 
         self.history_manager: HistoryManager = HistoryManager(self)
         self.db_manager: DatabaseManager = DatabaseManager()
+        if username != "1":
+            # Lazy lambda: the managers are built on first lookup, not here.
+            self.db_manager.set_overlay(
+                lambda: (
+                    self.corrections_manager.corrections_dict,
+                    self.additions_manager.additions_dict,
+                )
+            )
         self.pass2_exceptions_manager: Pass2ExceptionsFileManager = (
             Pass2ExceptionsFileManager(self)
         )

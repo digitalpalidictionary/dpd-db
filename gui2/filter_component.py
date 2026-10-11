@@ -112,7 +112,7 @@ class FilterComponent(ft.Column):
     ) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
         self.toolkit: ToolKit = toolkit
-        self.spellchecker = CustomSpellChecker()
+        self.spellchecker = CustomSpellChecker(toolkit.paths.user_dictionary_path)
 
         # State management
         self.filtered_results: list[DpdHeadword] = []

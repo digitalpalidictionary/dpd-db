@@ -4,6 +4,7 @@ dictionary. Used by gui2 to check spelling in meaning fields."""
 
 import re
 import threading
+from pathlib import Path
 from spellchecker import SpellChecker
 from tools.paths import ProjectPaths
 
@@ -23,15 +24,18 @@ class CustomSpellChecker:
     _lock = threading.Lock()
     _initialized = False
 
-    def __new__(cls) -> "CustomSpellChecker":
+    def __new__(cls, user_dict: Path | None = None) -> "CustomSpellChecker":
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
                     cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self) -> None:
-        """Initialize the spell checker with custom dictionary (only once)."""
+    def __init__(self, user_dict: Path | None = None) -> None:
+        """Initialize the spell checker with custom dictionary (only once).
+
+        user_dict is a per-user file (contributors). It is loaded on top of the
+        shared dictionary and is the only file add_to_dictionary writes."""
         if CustomSpellChecker._initialized:
             return
 
@@ -41,12 +45,14 @@ class CustomSpellChecker:
 
             self.spell = SpellChecker(language="en")
             self.pth = ProjectPaths()
-            self.user_dict = self.pth.user_dict_path
+            self.user_dict = user_dict or self.pth.user_dict_path
 
-            # Load custom dictionary
-            with open(self.user_dict, "r", encoding="utf-8") as f:
-                custom_words = [line.strip() for line in f if line.strip()]
-                self.spell.word_frequency.load_words(custom_words)
+            for dict_path in {self.pth.user_dict_path, self.user_dict}:
+                if not dict_path.exists():
+                    continue
+                with open(dict_path, "r", encoding="utf-8") as f:
+                    custom_words = [line.strip() for line in f if line.strip()]
+                    self.spell.word_frequency.load_words(custom_words)
 
             CustomSpellChecker._initialized = True
 
@@ -82,8 +88,10 @@ class CustomSpellChecker:
         with CustomSpellChecker._lock:
             self.spell.word_frequency.load_words([word])
             if self.user_dict:
-                with open(self.user_dict, "r", encoding="utf-8") as f:
-                    words = {line.strip() for line in f if line.strip()}
+                words: set[str] = set()
+                if self.user_dict.exists():
+                    with open(self.user_dict, "r", encoding="utf-8") as f:
+                        words = {line.strip() for line in f if line.strip()}
                 words.add(word.strip())
                 with open(self.user_dict, "w", encoding="utf-8") as f:
                     f.write(

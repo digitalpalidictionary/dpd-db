@@ -13,6 +13,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List
 
+from tools.server_mode import is_headless_server
+
 
 @dataclass
 class PhoneticChangeResult:
@@ -359,6 +361,9 @@ class PhoneticChangeManager:
             FileNotFoundError: If the TSV file does not exist.
             RuntimeError: If unable to open the file with any method.
         """
+        if is_headless_server():
+            raise RuntimeError("not available on the server")
+
         if not self.tsv_path.exists():
             raise FileNotFoundError(f"TSV file not found: {self.tsv_path}")
 

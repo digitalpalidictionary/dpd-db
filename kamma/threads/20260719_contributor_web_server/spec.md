@@ -97,7 +97,8 @@ uv run flet run --web -p 8550 gui2/main.py
    HTTP basic auth per contributor (browser remembers the password after the
    first visit — that's the entire login story). Websocket proxying required
    (`proxy_http_version 1.1`, Upgrade/Connection headers).
-4. **One shared db, read-WRITE for contributors.** Contributors use the same
+4. **(Superseded by 20261007_contributor_edits_json: contributors no longer
+   write the db.)** **One shared db, read-WRITE for contributors.** Contributors use the same
    code paths as the primary user — they write to the db, because the server db
    is a **scratch copy** periodically wiped and rebuilt from main's TSVs.
    WAL journal mode so 3 writer processes coexist.

@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import List
 
 from tools.pali_sort_key import pali_sort_key
+from tools.server_mode import is_headless_server
 
 TSV_FIELDNAMES = ["word", "pos", "position", "type", "exceptions", "notes"]
 
@@ -422,6 +423,9 @@ class CompoundTypeManager:
             FileNotFoundError: If the TSV file does not exist.
             RuntimeError: If unable to open the file with any method.
         """
+        if is_headless_server():
+            raise RuntimeError("not available on the server")
+
         if not self.tsv_path.exists():
             raise FileNotFoundError(f"TSV file not found: {self.tsv_path}")
 

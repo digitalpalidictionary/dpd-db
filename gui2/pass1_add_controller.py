@@ -14,6 +14,7 @@ from gui2.mixins import SandhiOK, SnackBarMixin
 from gui2.pass1_add_view import Pass1AddView
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.paths import Gui2Paths
+from gui2.save_router import save_headword
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.user import UsernameManager
@@ -38,6 +39,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         pass1_auto_controller: Pass1AutoController,
     ) -> None:
         self.ui: Pass1AddView = ui
+        self.toolkit: ToolKit = toolkit
         self.db: DatabaseManager = toolkit.db_manager
         self.daily_log: DailyLog = toolkit.daily_log
         self.gui2pth: Gui2Paths = toolkit.paths
@@ -160,22 +162,14 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             if not self.ui.dpd_fields.validate_no_duplicates(word_id, lemma_1_value):
                 return
 
-        # Check if this is an existing word loaded from history (has an ID)
-        if already_in_db:
-            # Update existing word - keep the same ID
-            new_word.origin = "pass1"
-            committed, message = self.db.update_word_in_db(new_word)
-        else:
-            # Create new word - assign new ID
+        # An existing word (loaded from history) keeps its ID, a new one gets one
+        if not already_in_db:
             new_word.id = self.db.get_next_id()
-            new_word.origin = "pass1"
+        new_word.origin = "pass1"
 
-            # add to additions
-            if self.username_manager.is_not_primary():
-                self.additions_manager.add_additions(new_word, comment)
-
-            # add to db
-            committed, message = self.db.add_word_to_db(new_word)
+        committed, message = save_headword(
+            self.toolkit, new_word, comment, already_in_db
+        )
 
         if committed:
             # open in browser

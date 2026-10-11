@@ -404,3 +404,23 @@ a + u	o	au > o	u > o	o	okkhita
         assert isinstance(rules, list)
         assert len(rules) == 1
         assert rules[0]["initial"] == "a + u"
+
+
+@patch("subprocess.run")
+@patch("subprocess.Popen")
+def test_open_tsv_for_editing_refused_on_server(
+    mock_popen: MagicMock,
+    mock_run: MagicMock,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    tsv_file = tmp_path / "test.tsv"
+    tsv_file.write_text("initial\tfinal\tcorrect\twrong\tnot_in_constr\texceptions\n")
+
+    manager = PhoneticChangeManager(str(tsv_file))
+    with pytest.raises(RuntimeError, match="not available on the server"):
+        manager.open_tsv_for_editing()
+
+    mock_popen.assert_not_called()
+    mock_run.assert_not_called()

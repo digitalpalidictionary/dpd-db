@@ -11,7 +11,7 @@ This subsystem follows a modern "Model-View-Controller (MVC)" or "Component-Base
 4.  **Separation of Concerns:** Clearly distinguishes between data handling (`storage/`), technical requirements (`specs/`), and the visual interface.
 
 ## Relationships & Data Flow
-- **Writer:** Acts as the primary modern interface for adding and correcting data in the **db/**.
+- **Writer:** Acts as the primary modern interface for adding and correcting data in the **db/**. Only user "1" writes the db. A contributor's saves go to their own JSON files (`save_router.py`), and the db shows their edits on top (`DatabaseManager.set_overlay`).
 - **Validation:** Integrates deeply with **db_tests/** to ensure data quality at the point of entry.
 - **Support:** Relies on **tools/** for project-wide paths and Pāḷi-specific logic.
 

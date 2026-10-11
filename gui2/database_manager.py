@@ -2,6 +2,7 @@
 import re
 import threading
 import time
+from collections.abc import Callable
 
 from sqlalchemy import delete as sa_delete
 from sqlalchemy import desc, func
@@ -19,7 +20,7 @@ from db.models import (
     InflectionTemplates,
     Lookup,
 )
-from gui2.dpd_fields_functions import clean_lemma_1
+from gui2.dpd_fields_functions import clean_lemma_1, make_dpd_headword_from_dict
 from gui2.needs_example import is_missing_sutta_example
 from tools.cache_load import (
     load_decon_no_headwords_cache,
@@ -39,6 +40,13 @@ class DatabaseManager:
 
         self.db_session: Session
         self.new_db_session()
+
+        # Contributors only: returns (corrections, additions), the live dicts
+        # of their own JSON edits. Read on every lookup, so a new save shows
+        # at once. None for user 1, so the db answers alone.
+        self._own_edits: (
+            Callable[[], tuple[dict[str, dict], dict[str, dict]]] | None
+        ) = None
 
         self.db: list[DpdHeadword]
         # Single cached corpus (see load_corpus). The generation counter
@@ -192,6 +200,9 @@ class DatabaseManager:
     def get_all_lemma_1_and_lemma_clean(self):
         lemmas = self.db_session.query(DpdHeadword.lemma_1).all()
         self.all_lemma_1 = set([lemma[0] for lemma in lemmas])
+        for entry in self._own_additions().values():
+            if entry.get("lemma_1"):
+                self.all_lemma_1.add(str(entry["lemma_1"]))
         self.all_lemma_clean = set([clean_lemma_1(lemma) for lemma in self.all_lemma_1])
 
     def get_all_pos(self):
@@ -650,11 +661,38 @@ class DatabaseManager:
 
     # --- GENERIC DB SEARCHES ---
 
+    def set_overlay(
+        self, own_edits: Callable[[], tuple[dict[str, dict], dict[str, dict]]]
+    ) -> None:
+        """Show a contributor's own JSON edits on top of the db.
+
+        own_edits returns (corrections, additions). Only the single-word
+        lookups, the duplicate-check lemma set and the next id see them."""
+        self._own_edits = own_edits
+
+    def _own_additions(self) -> dict[str, dict]:
+        return self._own_edits()[1] if self._own_edits else {}
+
+    def _own_headword(self, field: str, value: str | int) -> DpdHeadword | None:
+        """A transient headword built from an own edit, or None. Corrections
+        come before additions. It is never added to a session."""
+        if self._own_edits is None:
+            return None
+        for entries in self._own_edits():
+            for entry in entries.values():
+                if str(entry.get(field)) == str(value):
+                    return make_dpd_headword_from_dict(entry)
+        return None
+
     def get_headword_by_id(self, id: int) -> DpdHeadword | None:
-        return self.db_session.query(DpdHeadword).filter_by(id=id).first()
+        return self._own_headword("id", id) or (
+            self.db_session.query(DpdHeadword).filter_by(id=id).first()
+        )
 
     def get_headword_by_lemma(self, lemma_1: str) -> DpdHeadword | None:
-        return self.db_session.query(DpdHeadword).filter_by(lemma_1=lemma_1).first()
+        return self._own_headword("lemma_1", lemma_1) or (
+            self.db_session.query(DpdHeadword).filter_by(lemma_1=lemma_1).first()
+        )
 
     def get_headword_by_id_or_lemma(self, user_input: str) -> DpdHeadword | None:
         """Decide where the input is an id or a lemma and query accordingly."""
@@ -789,7 +827,8 @@ class DatabaseManager:
 
     def get_next_id(self) -> int:
         last_id: int = self.db_session.query(func.max(DpdHeadword.id)).scalar() or 0
-        return last_id + 1
+        own_ids = [int(e["id"]) for e in self._own_additions().values() if e.get("id")]
+        return max([last_id, *own_ids]) + 1
 
     # --- DPD FIELDS FUNCTIONS ---
 
