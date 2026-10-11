@@ -203,7 +203,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
                                 width=BUTTON_WIDTH,
                             ),
                             ft.Button(
-                                "Add to Spelling mistakes",
+                                "Add to Spelling",
                                 on_click=self.handle_add_to_spelling_mistakes_click,
                                 width=BUTTON_WIDTH,
                             ),
@@ -334,7 +334,9 @@ class Pass1AddView(ft.Column, PopUpMixin):
         # Use the imported list
         visible_fields = PASS1_FIELDS
 
-        self.dpd_fields.add_to_ui(middle_section, visible_fields=visible_fields)
+        self.dpd_fields.add_to_ui(
+            middle_section, visible_fields=visible_fields, include_add_fields=True
+        )
         return middle_section
 
     def clear_all_fields(self, e: ft.ControlEvent | None = None) -> None:
@@ -444,6 +446,13 @@ class Pass1AddView(ft.Column, PopUpMixin):
                 selected_id = int(selected_id_str)
                 headword = self.db.get_headword_by_id(selected_id)
                 if headword:
+                    # The suggestions belong to the word in the text, not to
+                    # this headword, so a stray copy would land on the wrong entry.
+                    # Not clear_fields(): its flags.reset() would let the blur
+                    # helpers overwrite the saved stem, pattern and lemma_2.
+                    self.dpd_fields.update_add_fields(
+                        {config.name: "" for config in self.dpd_fields.field_configs}
+                    )
                     # Load into fields
                     for field_name, ui_field in self.dpd_fields.fields.items():
                         if hasattr(headword, field_name):

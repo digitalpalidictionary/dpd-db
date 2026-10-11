@@ -28,6 +28,9 @@ BUTTON_WIDTH = 250
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
 
+# Copied from the source text by Pass1Auto, not guessed by the AI.
+SOURCE_TEXT_FIELDS = ("example_1", "translation_1", "example_2", "translation_2")
+
 
 class Pass1AddController(SandhiOK, SnackBarMixin):
     from gui2.pass1_add_view import Pass1AddView
@@ -64,6 +67,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         )
 
     def process_book(self, book: str):
+        # Without a fresh form, suggestions from the previous word could
+        # sit beside the new one and be copied onto it.
+        self.ui.clear_all_fields()
         self.book_to_process = book
         self.load_json()
         is_next_item = self.get_next_item()
@@ -118,11 +124,17 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.ui.word_in_text.value = self.word_in_text
         self.ui.word_in_text.update()
 
+        # The AI's guesses are only offered in the _add column, so the editor
+        # can skip them. The example sentences are the real source text.
+        suggestions: dict[str, str] = {}
         for field, data in self.sentence_data.items():
-            if field in self.ui.dpd_fields.fields:
-                self.ui.dpd_fields.fields[field].value = data
+            if field in SOURCE_TEXT_FIELDS:
+                if field in self.ui.dpd_fields.fields:
+                    self.ui.dpd_fields.fields[field].value = data
+            else:
+                suggestions[field] = data
 
-        self.ui.page.update()
+        self.ui.dpd_fields.update_add_fields(suggestions)
 
     def make_dpd_headword_and_add_to_db(self):
         if not self.db.is_db_loaded():
@@ -194,9 +206,7 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             is_next_item = self.get_next_item()
             if is_next_item:
                 self.load_into_gui()
-                self.ui.update_message(
-                    f"{self.ui.dpd_fields.fields['lemma_1'].value} loaded"
-                )
+                self.ui.update_message(f"{self.word_in_text} loaded")
             else:
                 self.ui.clear_all_fields()
         else:

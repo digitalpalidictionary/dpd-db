@@ -1595,7 +1595,7 @@ class DpdFields(PopUpMixin):
             compound_type_add_field = self.get_field("compound_type_add")
             if compound_type_add_field:
                 compound_type_add_field.value = detected_type
-                # Pass1Add never mounts the `_add` shadow fields, and in 1.0
+                # The `_add` field may not be attached to a page, and in 1.0
                 # update() on an unmounted control raises. The value is still
                 # set either way; only the refresh is conditional.
                 if is_mounted(compound_type_add_field):

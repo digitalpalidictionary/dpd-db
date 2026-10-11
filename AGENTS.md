@@ -4,7 +4,7 @@ Specific to dpd-db. Global rules are in `~/.claude/CLAUDE.md`.
 
 ## Project Overview
 
-Everything related to the Digital Pāḷi Dictionary. Edit the db with `/gui2`, build with `/db`, test with `/db_tests`, export with `/export`.
+Everything related to the Digital Pāḷi Dictionary. Edit the db with `/gui2`, build with `/db`, test with `/db_tests`, export with `/export`. To launch the GUI for a live test, hand the user `just gui`.
 
 Detailed specs live in `conductor/` — `product.md` (vision, features, audience, release schedule) and `tech-stack.md` (stack and key libraries). Read the relevant one before working in an unfamiliar area.
 
