@@ -59,7 +59,8 @@ found these still shared and reachable by a contributor:
 | `pass1_auto_{book}.json`, `pass2_*` queue files | queue managers | **KEEP** — 20260719 decision C: different books per contributor |
 | `speech_marks.json` | only `regenerate_from_db` writes (manual button) | **KEEP** — rebuilt from db, holds no user data |
 | temp prompt files (`temp/prompts/...`) | pass1_auto / pass2_auto debug | **KEEP** — throwaway, keyed by word |
-| decon / sandhi / see / proofreader / roots / compound-type tab files | primary-only tabs | **KEEP** — not contributor work |
+| decon / see / proofreader / roots / compound-type tab files | primary-only tabs | **KEEP** — not contributor work |
+| `shared_data/deconstructor/checked.csv`, `manual_corrections.tsv`, `variant_readings.tsv`, `spelling_mistakes.tsv` | Pass1Add buttons "Sandhi OK", "Add to Sandhi", "Add to Variants", "Add to Spelling" (`gui2/pass1_add_view.py`, `gui2/mixins.py::SandhiOK`, `gui2/sandhi_files_manager.py`, `gui2/variants.py`, `gui2/spelling.py`) | **FIX (added 2026-10-11, user choice A)** — the first sweep wrongly filed these under "primary-only tabs". A contributor can click all four. Each write goes to one shared file, and the variants/spelling writers rewrite the whole file, so two processes race. The server never pushes these files back. |
 | `config.ini` username | first-run dialog only (`gui2/user.py`) | **KEEP** — the server sets the env var |
 
 `CustomSpellChecker()` is built with no args at `gui2/dpd_fields.py:70` and
@@ -112,6 +113,18 @@ Pass2Add Delete: `_click_delete_from_db` → confirm dialog → `_click_delete_o
    writes only to the per-user file when one is given. User 1 is unchanged.
 3. The two "edit TSV" buttons refuse in server mode with the message "not
    available on the server".
+
+### A2. Pass1Add helper buttons: per-user files (added 2026-10-11)
+3b. `Gui2Paths` gains four paths: sandhi checked, sandhi corrections, variant
+   readings, spelling mistakes. User 1 → the shared `shared_data/deconstructor/`
+   files (unchanged). Contributor → `gui2/data/<name>_{u}.<ext>`.
+3c. A contributor's four buttons write ONLY their own files. The shared files
+   are never touched by a contributor session.
+3d. A contributor's own entries still take effect for them: the Pass1Auto and
+   Pass2Pre skip lists read shared + own (variants, spelling mistakes, sandhi
+   checked). User 1 reads the shared files only, as today.
+3e. Getting these four files from the server to the maintainer is NOT done here
+   (the server thread must add them to the nightly push — see Not included).
 
 ### B. One save seam
 4. One function decides where a save goes:
@@ -178,6 +191,9 @@ Pass2Add Delete: `_click_delete_from_db` → confirm dialog → `_click_delete_o
    (user 1 → db; contributor → JSON, zero db calls). Overlay returns own edit
    over db, and plain db otherwise. `get_next_id` / lemma set include own
    additions. `discard` removes only the right entry.
+1b. Unit tests: each of the four helper-button writes goes to the per-user file
+   for a contributor and to the shared file for user 1; the shared files stay
+   byte-identical after a contributor write; the skip lists read shared + own.
 2. Live desktop run as user 1: Pass1Add and Pass2Add saves land in the db as
    before.
 3. Live local web run as a contributor on a COPY of the db: Save writes only
@@ -193,3 +209,6 @@ Pass2Add Delete: `_click_delete_from_db` → confirm dialog → `_click_delete_o
 - One shared process for many users.
 - Showing contributor edits in whole-db views.
 - Pushing per-user spelling files upstream.
+- Pushing the four per-user sandhi/variant/spelling-mistake files upstream. The
+  server thread (`20261007_temp_server_test`, and `contrib_push.py`) must add
+  them to the nightly push, or a contributor's flags never reach the maintainer.

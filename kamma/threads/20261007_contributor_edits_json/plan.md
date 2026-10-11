@@ -114,6 +114,45 @@
       NOTICED — NOT TOUCHING: `UsernameManager.is_not_primary()` is True when the username is
       None (desktop first run before the dialog). Such a session now saves to JSON only.
 
+## Phase 2B — Pass1Add helper buttons get per-user files (added 2026-10-11, user choice A)
+- [x] 2B.1 `Gui2Paths`: add `sandhi_checked_path`, `sandhi_corrections_path`,
+      `variant_readings_path`, `spelling_mistakes_path`. User 1 → the shared
+      `shared_data/deconstructor/{checked.csv,manual_corrections.tsv,variant_readings.tsv,spelling_mistakes.tsv}`
+      (same base_dir as `user_dictionary_path`). Contributor → `gui2/data/{checked,manual_corrections,variant_readings,spelling_mistakes}_{u}.{csv,tsv,tsv,tsv}`
+      (set in `for_user`). Add the four patterns to `.gitignore`.
+      → verify: `tests/gui2/test_paths.py` — user 1 shared, two contributors differ.
+- [x] 2B.2 Writers + readers. `VariantReadingFileManager` and
+      `SpellingMistakesFileManager` take optional `own_path`. With it: load =
+      shared then own on top; `update_and_save` writes only the own file (headers
+      copied from the shared file). Without it: unchanged. `SandhiOK` mixin and
+      `SandhiFileManager` write the checked / corrections rows to the Gui2Paths
+      files. `DatabaseManager` takes an optional own sandhi-checked file and adds its
+      words to `sandhi_ok_list`. ToolKit and the three controllers that build the
+      variants / spelling managers pass `toolkit.paths.*`. Read every constructor
+      call first (`rg "VariantReadingFileManager\(|SpellingMistakesFileManager\(|DatabaseManager\("`).
+      → verify: new tests (below) + `uv run pytest tests/`.
+- [x] 2B.3 Tests: `tests/gui2/test_variants_spelling_own_files.py` (own write leaves the
+      shared file byte-identical; merged read; user 1 path unchanged);
+      `tests/gui2/test_sandhi_own_files.py` (mixin + SandhiFileManager write target;
+      `sandhi_ok_list` includes own words).
+      → verify: tests pass. Revert one writer to the shared path → the matching test fails.
+- [x] 2B.4 Phase gate: ruff check --fix, ruff format, pyright (`--project /dev/null
+      --pythonpath .venv/bin/python` for gui2/tests files), full pytest, `just typecheck`.
+      Report only, no commit.
+      → verify: all clean. Paste the counts here.
+      RESULT 2B: ruff clean; pyright (venv python) 0 errors on the touched gui2 files and new tests
+      (the three controllers still show only their old flet-typing errors, none on the new lines).
+      Full suite 2077 passed, 12 deselected. `just typecheck` 0 errors.
+      GUARD CHECK: breaking the variants writer fails `test_variant_contributor_writes_only_own_file`
+      (1 failed); breaking the sandhi-checked writer fails `test_mixin_contributor_writes_own_files_only`
+      (1 failed). Both restored, 10 pass.
+      DESIGN NOTE: the managers take ONE path (the user's file from Gui2Paths). For user 1 that is the
+      shared file, so the code path is the same and the output identical; for a contributor it is their
+      own file, read on top of the shared one. No role check inside the managers.
+      HANDOFF TO SERVER THREAD: contrib_push must carry checked_*.csv, manual_corrections_*.tsv,
+      variant_readings_*.tsv, spelling_mistakes_*.tsv (and user_dictionary_*.txt) or the maintainer never
+      sees contributor flags.
+
 ## Phase 3 — Live contributor check (local)
 - [ ] 3.1 Back up `dpd.db` to the scratchpad first. Run
       `DPD_GUI2_USERNAME=alice DPD_GUI2_ROLE=contributor-server uv run flet run --web -p 8551 gui2/main.py`
@@ -122,7 +161,10 @@
       an existing word in Pass2 → correction JSON, db row unchanged, a reload
       shows own version. Re-edit own new word in Pass2 → saves. Delete own edit
       → db version returns. Delete a plain db word → refused. Add a spelling
-      word → per-user file. Remove the test entries from alice's files after.
+      word → per-user file. Pass1Add: click Sandhi OK, Add to Sandhi, Add to Variants,
+      Add to Spelling on one word each → only alice's four files change; the shared
+      `shared_data/deconstructor/` files are byte-identical (checksum before/after).
+      Remove the test entries from alice's files after.
       → verify: every item logged here with the observed result.
 
 ## Phase 4 — Finish

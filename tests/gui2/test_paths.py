@@ -105,3 +105,23 @@ class TestUserDictionaryPath:
         data = tmp_path / "gui2" / "data"
         assert a.user_dictionary_path == data / "user_dictionary_alice.txt"
         assert b.user_dictionary_path == data / "user_dictionary_bob.txt"
+
+
+class TestSandhiHelperPaths:
+    def test_primary_uses_shared_deconstructor_files(self, tmp_path: Path):
+        paths = Gui2Paths.for_user("1", base_dir=tmp_path)
+        decon = tmp_path / "shared_data" / "deconstructor"
+        assert paths.sandhi_checked_path == decon / "checked.csv"
+        assert paths.sandhi_corrections_path == decon / "manual_corrections.tsv"
+        assert paths.variant_readings_path == decon / "variant_readings.tsv"
+        assert paths.spelling_mistakes_path == decon / "spelling_mistakes.tsv"
+
+    def test_contributor_files_are_per_user(self, tmp_path: Path):
+        a = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        b = Gui2Paths.for_user("bob", base_dir=tmp_path)
+        data = tmp_path / "gui2" / "data"
+        assert a.sandhi_checked_path == data / "checked_alice.csv"
+        assert a.sandhi_corrections_path == data / "manual_corrections_alice.tsv"
+        assert a.variant_readings_path == data / "variant_readings_alice.tsv"
+        assert a.spelling_mistakes_path == data / "spelling_mistakes_alice.tsv"
+        assert b.sandhi_checked_path != a.sandhi_checked_path

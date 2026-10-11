@@ -42,6 +42,11 @@ class Gui2Paths:
             self.gui2_data_path / "in_commentary_exceptions.txt"
         )
         self.user_dictionary_path: Path = base_dir / "shared_data/user_dictionary.txt"
+        decon = base_dir / "shared_data/deconstructor"
+        self.sandhi_checked_path: Path = decon / "checked.csv"
+        self.sandhi_corrections_path: Path = decon / "manual_corrections.tsv"
+        self.variant_readings_path: Path = decon / "variant_readings.tsv"
+        self.spelling_mistakes_path: Path = decon / "spelling_mistakes.tsv"
         self.component_words_ignore_path: Path = (
             self.gui2_data_path / "component_words_ignore.txt"
         )
@@ -81,4 +86,11 @@ class Gui2Paths:
             # The spelling gate blocks saves, so contributors need "add to
             # dictionary". The shared file is never pushed back from the server.
             paths.user_dictionary_path = data / f"user_dictionary_{username}.txt"
+            # The Pass1Add helper buttons (Sandhi OK, Add to Sandhi / Variants /
+            # Spelling) write these. Shared, two processes race on them and the
+            # server never pushes them back.
+            paths.sandhi_checked_path = data / f"checked_{username}.csv"
+            paths.sandhi_corrections_path = data / f"manual_corrections_{username}.tsv"
+            paths.variant_readings_path = data / f"variant_readings_{username}.tsv"
+            paths.spelling_mistakes_path = data / f"spelling_mistakes_{username}.tsv"
         return paths

@@ -55,7 +55,9 @@ class ToolKit:
         self.speech_marks_manager: SpeechMarkManager = SpeechMarkManager()
 
         self.history_manager: HistoryManager = HistoryManager(self)
-        self.db_manager: DatabaseManager = DatabaseManager()
+        self.db_manager: DatabaseManager = DatabaseManager(
+            self.paths.sandhi_checked_path
+        )
         if username != "1":
             # Lazy lambda: the managers are built on first lookup, not here.
             self.db_manager.set_overlay(
@@ -80,9 +82,11 @@ class ToolKit:
         self.appbar_updater: AppBarUpdater = AppBarUpdater(self.page)
         self.daily_log: DailyLog = DailyLog(self)
         self.see_manager: SeeFileManager = SeeFileManager()
-        self.variants: VariantReadingFileManager = VariantReadingFileManager()
+        self.variants: VariantReadingFileManager = VariantReadingFileManager(
+            self.paths.variant_readings_path
+        )
         self.spelling_mistakes: SpellingMistakesFileManager = (
-            SpellingMistakesFileManager()
+            SpellingMistakesFileManager(self.paths.spelling_mistakes_path)
         )
 
         self.sandhi_files_manager: SandhiFileManager = SandhiFileManager(self)

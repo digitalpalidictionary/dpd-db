@@ -101,6 +101,10 @@ gui2/data/headword_stash.json
 gui2/data/history.json
 gui2/data/pass1_auto_*.json
 gui2/data/user_dictionary_*.txt
+gui2/data/checked_*.csv
+gui2/data/manual_corrections_*.tsv
+gui2/data/variant_readings_*.tsv
+gui2/data/spelling_mistakes_*.tsv
 gui2/data/pass2_auto.json
 gui2/data/pass2_auto_failures.txt
 gui2/data/pass2_new_words.json

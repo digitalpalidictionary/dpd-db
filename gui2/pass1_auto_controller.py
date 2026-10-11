@@ -53,8 +53,12 @@ class Pass1AutoController:
         self.auto_processed_dict: dict[str, dict[str, str]] = {}
         self.auto_processed_keys: list[str] = []
 
-        self.variant_readings = VariantReadingFileManager()
-        self.spelling_mistakes = SpellingMistakesFileManager()
+        self.variant_readings = VariantReadingFileManager(
+            toolkit.paths.variant_readings_path
+        )
+        self.spelling_mistakes = SpellingMistakesFileManager(
+            toolkit.paths.spelling_mistakes_path
+        )
         self.gd_toggle: bool = True
         self.current_book_processed: int = 0
         self.initial_auto_processed: int = 0

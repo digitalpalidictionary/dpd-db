@@ -1,9 +1,14 @@
+from pathlib import Path
+
 from tools.paths import ProjectPaths
 from tools.tsv_read_write import read_tsv_2col_to_dict, write_tsv_2col_from_dict
 
 
 class SpellingMistakesFileManager:
-    def __init__(self):
+    def __init__(self, own_path: Path | None = None):
+        """own_path is a contributor's own file: read on top of the shared
+        file, and the only file written. None means the shared file alone."""
+        self.own_path = own_path
         self.pth = ProjectPaths()
         self.spelling_mistakes_path = self.pth.spelling_mistakes_path
         self.spelling_mistakes_dict: dict[str, str]
@@ -14,9 +19,19 @@ class SpellingMistakesFileManager:
         self.spelling_mistakes_dict, self.spelling_headers = read_tsv_2col_to_dict(
             self.spelling_mistakes_path
         )
+        if self.own_path:
+            self.spelling_mistakes_dict.update(
+                read_tsv_2col_to_dict(self.own_path).data
+            )
 
     def update_and_save(self, wrong_spelling: str, correct_spelling: str):
         self.load()  # in case the dict has changed elsewhere
+        if self.own_path:
+            own = read_tsv_2col_to_dict(self.own_path).data
+            own[wrong_spelling] = correct_spelling
+            write_tsv_2col_from_dict(self.own_path, own, self.spelling_headers)
+            self.spelling_mistakes_dict[wrong_spelling] = correct_spelling
+            return
         self.spelling_mistakes_dict[wrong_spelling] = correct_spelling
         write_tsv_2col_from_dict(
             self.spelling_mistakes_path,

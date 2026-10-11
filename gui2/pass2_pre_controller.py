@@ -29,8 +29,12 @@ class Pass2PreController:
         self._data_loaded = False
         self.file_manager: Pass2PreFileManager
 
-        self.variant_readings = VariantReadingFileManager()
-        self.spelling_mistakes = SpellingMistakesFileManager()
+        self.variant_readings = VariantReadingFileManager(
+            toolkit.paths.variant_readings_path
+        )
+        self.spelling_mistakes = SpellingMistakesFileManager(
+            toolkit.paths.spelling_mistakes_path
+        )
         self.pass2_exceptions_manager = toolkit.pass2_exceptions_manager
 
         # Keep lightweight book list initialization

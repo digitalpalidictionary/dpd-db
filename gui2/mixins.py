@@ -1,33 +1,35 @@
 # -*- coding: utf-8 -*-
-from tools.paths import ProjectPaths
 import flet as ft
+from gui2.paths import Gui2Paths
 from gui2.ui_utils import field_border
 
 
 class SandhiOK:
-    """Requires pth = ProjectPaths()"""
+    """Requires gui2pth: Gui2Paths. User 1 writes the shared files, a
+    contributor writes their own."""
 
-    pth = ProjectPaths()
+    gui2pth: Gui2Paths
 
     def update_sandhi_corrections(self, sandhi: str, breakup: str):
         """
         Updates `shared_data/deconstructor/checked.csv`
         and `shared_data/deconstructor/manual_corrections.tsv`
+        (a contributor's own copies of them)
 
         `sandhi` is the word as it appears in a text: `aniccomhi`
 
         `breakup` is seperated by plus signs: `anicco + amhi`
         """
-        with open(self.pth.decon_manual_corrections, "a", encoding="utf-8") as f:
+        with open(self.gui2pth.sandhi_corrections_path, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\t{breakup}\n")
-        with open(self.pth.decon_checked, "a", encoding="utf-8") as f:
+        with open(self.gui2pth.sandhi_checked_path, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\n")
 
     def update_sandhi_checked(self, sandhi: str):
         """
         Updates `shared_data/deconstructor/checked.csv`
         """
-        with open(self.pth.decon_checked, "a", encoding="utf-8") as f:
+        with open(self.gui2pth.sandhi_checked_path, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\n")
 
 

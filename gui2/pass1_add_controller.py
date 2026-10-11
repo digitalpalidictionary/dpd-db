@@ -58,8 +58,10 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.word_in_text: str
         self.sentence_data: dict[str, str]
 
-        self.variants = VariantReadingFileManager()
-        self.spelling_mistakes = SpellingMistakesFileManager()
+        self.variants = VariantReadingFileManager(toolkit.paths.variant_readings_path)
+        self.spelling_mistakes = SpellingMistakesFileManager(
+            toolkit.paths.spelling_mistakes_path
+        )
 
     def process_book(self, book: str):
         self.book_to_process = book

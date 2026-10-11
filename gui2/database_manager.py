@@ -3,6 +3,7 @@ import re
 import threading
 import time
 from collections.abc import Callable
+from pathlib import Path
 
 from sqlalchemy import delete as sa_delete
 from sqlalchemy import desc, func
@@ -35,7 +36,7 @@ DETECTOR_REBUILD_DEBOUNCE_SECS = 1.0
 
 
 class DatabaseManager:
-    def __init__(self) -> None:
+    def __init__(self, own_sandhi_checked: Path | None = None) -> None:
         self.pth: ProjectPaths = ProjectPaths()
 
         self.db_session: Session
@@ -68,6 +69,11 @@ class DatabaseManager:
         self.sandhi_ok_list: set[str] = set(
             self.pth.decon_checked.read_text(encoding="utf-8").splitlines()
         )  # FIXME make a file manager for this
+        # A contributor's own "Sandhi OK" words count as checked for them too.
+        if own_sandhi_checked and own_sandhi_checked.exists():
+            self.sandhi_ok_list.update(
+                own_sandhi_checked.read_text(encoding="utf-8").splitlines()
+            )
 
         # for pass2 preprocessor
         self.all_inflections_missing_example: set[str] = set()

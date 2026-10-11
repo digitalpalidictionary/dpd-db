@@ -1,12 +1,11 @@
 import csv
 
-from tools.paths import ProjectPaths
 from gui2.toolkit import ToolKit
 
 
 class SandhiFileManager:
     def __init__(self, toolkit: ToolKit):
-        self._pth = ProjectPaths()
+        self._pth = toolkit.paths
         self._checked_words: set[str] = self._read_checked_csv()
         self._corrections: set[str] = self._read_corrections_csv()
         self.see_manager = toolkit.see_manager
@@ -25,7 +24,9 @@ class SandhiFileManager:
     def _read_checked_csv(self) -> set[str]:
         """Read the checked.csv file and return a set of words."""
         try:
-            with open(self._pth.decon_checked, "r", newline="", encoding="utf-8") as f:
+            with open(
+                self._pth.sandhi_checked_path, "r", newline="", encoding="utf-8"
+            ) as f:
                 reader = csv.reader(f)
                 return {row[0] for row in reader if row}
         except FileNotFoundError:
@@ -35,7 +36,7 @@ class SandhiFileManager:
         """Read the manual_corrections.tsv file and return a set of sandhi words."""
         try:
             with open(
-                self._pth.decon_manual_corrections, "r", newline="", encoding="utf-8"
+                self._pth.sandhi_corrections_path, "r", newline="", encoding="utf-8"
             ) as f:
                 reader = csv.reader(f, delimiter="\t")
                 return {row[0] for row in reader if row}
@@ -50,7 +51,9 @@ class SandhiFileManager:
         if word in self._checked_words:
             return
 
-        with open(self._pth.decon_checked, "a", newline="", encoding="utf-8") as f:
+        with open(
+            self._pth.sandhi_checked_path, "a", newline="", encoding="utf-8"
+        ) as f:
             writer = csv.writer(f)
             writer.writerow([word])
         self._checked_words.add(word)
@@ -64,7 +67,7 @@ class SandhiFileManager:
             return
 
         with open(
-            self._pth.decon_manual_corrections, "a", newline="", encoding="utf-8"
+            self._pth.sandhi_corrections_path, "a", newline="", encoding="utf-8"
         ) as f:
             writer = csv.writer(f, delimiter="\t")
             writer.writerow([sandhi_word, correction])
