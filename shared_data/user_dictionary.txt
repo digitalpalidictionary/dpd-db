@@ -456,6 +456,7 @@ Buddhas
 Budhanania
 bulubulu
 bumpiness
+Bungarus
 burmanniana
 Butea
 byāyāma
@@ -468,6 +469,7 @@ Bījaka's
 c.
 Cadamba
 caerulea
+caeruleus
 Caesalpina
 cajoler
 calamus
@@ -648,6 +650,7 @@ Curcuma
 curlew
 curādigaṇa
 Cymbopogon
+Cynodon
 Cyperus
 Cyprinus
 cā
@@ -662,6 +665,7 @@ cūḷavagga
 d
 Dabba
 dacoit
+dactylon
 daddabha
 dadāti
 daemoness
@@ -989,6 +993,7 @@ finiteness
 firma
 firstness
 fisherman's
+fisherwoman
 fissured
 fistulosum
 flambeau
@@ -1892,6 +1897,7 @@ mūla
 mūlaghaccaṃ
 na
 Nadubbhiyasuttaṃ
+Naja
 nakhā
 Nakula
 Nanda
@@ -1914,6 +1920,7 @@ Nelumbo
 Nerañjara
 Nerium
 Neru
+Nesajjikasutta
 nescience
 nestless
 newel
@@ -2192,6 +2199,7 @@ porāṇametaṃ
 post
 post-mortem
 Posāla's
+Potali
 Potaliya
 potsherd
 Poṭṭhapāda
@@ -2999,6 +3007,7 @@ underbrush
 underlain
 underperforming
 undersheet
+undesignated
 undiminishable
 undiscoverable
 undispersed
@@ -3117,6 +3126,7 @@ unsticks
 unstitch
 unsubmissive
 unsuffused
+unsupportive
 unsurpassable
 unswept
 untaught
