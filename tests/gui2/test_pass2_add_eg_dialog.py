@@ -71,6 +71,7 @@ def _view() -> tuple[Pass2AddView, FakePage]:
     view._find_missing_eg_words = lambda w: [  # pyright: ignore[reportAttributeAccessIssue]
         (f"from example_1 of {w.lemma_1}", {f"missing_{w.lemma_1}": {"comment": "eg"}})
     ]
+    view._find_queued_component_words = lambda w: []  # pyright: ignore[reportAttributeAccessIssue]
     view._eg_saved_kb = None  # pyright: ignore[reportAttributeAccessIssue]
     view._eg_alert = None  # pyright: ignore[reportAttributeAccessIssue]
     return view, page

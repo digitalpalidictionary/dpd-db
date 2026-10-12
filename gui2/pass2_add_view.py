@@ -1381,14 +1381,34 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 parts.append(part)
         return parts
 
+    @staticmethod
+    def _has_component_parts(word_to_save: DpdHeadword) -> bool:
+        return word_to_save.pos in ("sandhi", "idiom") or bool(
+            re.search(r"\bcomp\b", word_to_save.grammar or "")
+        )
+
+    def _find_queued_component_words(self, word_to_save: DpdHeadword) -> list[str]:
+        """Parts the missing-words dialog skips because the eg queue already
+        holds them, so the dialog can say so instead of leaving a gap."""
+
+        if not self._has_component_parts(word_to_save):
+            return []
+
+        self._component_ignore.load()
+        return [
+            part
+            for part in self._construction_parts(word_to_save.construction or "")
+            if part != clean_lemma_1(word_to_save.lemma_1)
+            and part not in self._component_ignore
+            and self._is_eg_queued(part)
+        ]
+
     def _find_missing_component_words(self, word_to_save: DpdHeadword) -> list[str]:
         """Parts of a compound that still need a meaning or an example.
         Every headword of a part that lacks either one is returned, homonyms
         and the headwords behind an inflected form alike."""
 
-        if word_to_save.pos not in ("sandhi", "idiom") and not re.search(
-            r"\bcomp\b", word_to_save.grammar or ""
-        ):
+        if not self._has_component_parts(word_to_save):
             return []
 
         self._component_ignore.load()
@@ -1470,6 +1490,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._eg_checkboxes = {}
         self._eg_section_textboxes = []
 
+        queued_parts = self._find_queued_component_words(word_to_save)
+
         rows: list[ft.Control] = []
         for text, section_words in sections:
             rows.append(
@@ -1492,6 +1514,20 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         ]
                     )
                 )
+            if text.startswith("PARTS:"):
+                for queued in queued_parts:
+                    rows.append(
+                        ft.Row(
+                            controls=[
+                                ft.Checkbox(value=False, disabled=True),
+                                ft.Text(
+                                    f"{queued} (already queued)",
+                                    color=ft.Colors.GREY_600,
+                                    selectable=True,
+                                ),
+                            ]
+                        )
+                    )
             add_field = ft.TextField(
                 border=field_border(),
                 label="words to add (comma-separated)",

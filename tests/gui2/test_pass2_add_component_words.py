@@ -185,6 +185,28 @@ class TestFindMissingComponentWords:
         assert queued_view._find_missing_component_words(_word("upakaṇṇaka + x")) == []  # pyright: ignore[reportArgumentType]
 
 
+class TestFindQueuedComponentWords:
+    def test_queued_part_is_reported_and_unqueued_part_is_not(
+        self, session: Session, tmp_path: Path
+    ) -> None:
+        view = _view(session, tmp_path, queued=["upakaṇṇaka"])
+
+        found = view._find_queued_component_words(_word("upakaṇṇaka + jappī"))  # pyright: ignore[reportArgumentType]
+
+        assert found == ["upakaṇṇaka"]
+
+    def test_word_that_is_not_a_compound_reports_nothing(
+        self, session: Session, tmp_path: Path
+    ) -> None:
+        view = _view(session, tmp_path, queued=["upakaṇṇaka"])
+
+        found = view._find_queued_component_words(  # pyright: ignore[reportArgumentType]
+            _word("upakaṇṇaka + jappī", grammar="adj, in comps")
+        )
+
+        assert found == []
+
+
 class TestPartsSection:
     def test_parts_are_the_first_section_with_both_examples(
         self, session: Session, tmp_path: Path
