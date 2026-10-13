@@ -4,7 +4,7 @@ from pathlib import Path
 import flet as ft
 
 from db.models import DpdHeadword
-from gui2.filter_component import CellTextField, DpdDatatable
+from gui2.filter_component import CELL_PADDING, CellTextField, DpdDatatable
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 from tools.compound_type_manager import CompoundTypeManager
@@ -21,7 +21,8 @@ DISPLAY_COLUMNS = [
     "compound_type",
     "compound_construction",
 ]
-COLUMN_WIDTHS = [200, 80, 350, 150, 300]
+MAX_COLUMN_WIDTHS = [200, 80, 350, 150, 300]
+CHAR_PX = 8.5
 
 
 class CompoundTypeTabView(ft.Column):
@@ -860,16 +861,28 @@ class CompoundTypeTabView(ft.Column):
             self.toolkit.db_manager.db_session.rollback()
             show_global_snackbar(self.page, f"Error saving: {ex}", "error", 5000)
 
+    @staticmethod
+    def _fit_column_widths(results: list[DpdHeadword]) -> list[int]:
+        widths = []
+        for col, cap in zip(DISPLAY_COLUMNS, MAX_COLUMN_WIDTHS):
+            longest = max(
+                [len(col)] + [len(str(getattr(hw, col) or "")) for hw in results]
+            )
+            # Extra pixels leave room for the caret while editing.
+            widths.append(min(cap, int(longest * CHAR_PX) + CELL_PADDING * 2 + 24))
+        return widths
+
     def _update_results_table(self, results: list[DpdHeadword]) -> None:
         self._search_results = results
         self._modified_cells.clear()
+        col_widths = self._fit_column_widths(results)
         self._results_table.columns = (
             [
                 ft.DataColumn(label=ft.Text("#", width=40, selectable=True)),
             ]
             + [
                 ft.DataColumn(label=ft.Text(col, width=w, selectable=True))
-                for col, w in zip(DISPLAY_COLUMNS, COLUMN_WIDTHS)
+                for col, w in zip(DISPLAY_COLUMNS, col_widths)
             ]
             + [
                 ft.DataColumn(label=ft.Text("bold", width=100, selectable=True)),
@@ -888,7 +901,9 @@ class CompoundTypeTabView(ft.Column):
                 return on_change
 
             def make_cell(value: str, row_idx: int, col: str) -> CellTextField:
-                field = CellTextField(value)
+                field = CellTextField(
+                    value, width=col_widths[DISPLAY_COLUMNS.index(col)]
+                )
                 field.on_change = make_tracker(row_idx, col)
                 return field
 
