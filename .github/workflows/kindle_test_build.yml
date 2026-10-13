@@ -94,3 +94,4 @@ jobs:
         files: |
           exporter/share/dpd-kindle.mobi
           exporter/share/dpd-kindle.epub
+        token: ${{ secrets.GH_PAT }}

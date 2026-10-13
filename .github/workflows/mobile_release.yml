@@ -253,5 +253,5 @@ jobs:
         draft: true
         prerelease: false
         files: exporter/share/dpd-mobile-db.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        # the token input beats the GITHUB_TOKEN env var, so the PAT must go here to make bdhrs the release author
+        token: ${{ secrets.GH_PAT }}

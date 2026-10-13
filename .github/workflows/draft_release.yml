@@ -369,7 +369,7 @@ jobs:
 
   build-macos:
     needs: build-linux
-    runs-on: macos-14
+    runs-on: macos-latest
 
     steps:
       - name: Download Apple Dictionary Source
@@ -478,5 +478,5 @@ jobs:
             ./linux-assets/dpd-anki.apkg
             ./linux-assets/dpd-pdf.zip
             ./macos-dictionary/dpd-apple.dictionary.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          # the token input beats the GITHUB_TOKEN env var, so the PAT must go here to make bdhrs the release author
+          token: ${{ secrets.GH_PAT }}
