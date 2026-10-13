@@ -1140,7 +1140,7 @@
             <td>{{d.i.synonym}}</td>
         </tr>
         {% endif %}
-        
+
         {% if d.i.variant and not d.i.var_phonetic and not d.i.var_text %}
         <tr>
             <th>Variant</th>
@@ -1152,22 +1152,22 @@
             <th>Phonetic Variant</th>
             <td>{{d.i.var_phonetic}}</td>
         </tr>
-        {% endif %} 
-        
+        {% endif %}
+
         {% if d.i.var_text %}
         <tr>
             <th>Textual Variant</th>
             <td>{{d.i.var_text}}</td>
         </tr>
         {% endif %}
-        
+
         {% if d.i.commentary and d.i.commentary !="-" %}
         <tr>
             <th>Commentary</th>
             <td>{{d.i.commentary|safe}}</td>
         </tr>
         {% endif %}
-        
+
         {% if d.i.notes %}
         <tr>
             <th>Notes</th>
@@ -1564,7 +1564,7 @@
 
     <div id="feedback_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p>ID <b>{{d.i.id}}</b></p>
-        <p>permalink <a class="dpd-link" href="{{d.permalink}}"
+        <p>Permalink <a class="dpd-link" href="{{d.permalink}}"
                 target="_blank">{{d.permalink}}</a>
         </p>
         <p>
