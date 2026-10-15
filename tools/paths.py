@@ -96,6 +96,9 @@ class ProjectPaths:
         self.idioms_exceptions_dict = (
             base_dir / "db_tests/single/fixme/test_idioms.json"
         )
+        self.longest_compound_parts_exceptions_path = (
+            base_dir / "db_tests/single/test_longest_compound_parts.json"
+        )
         self.neg_compound_exceptions = (
             base_dir / "db_tests/single/test_neg_compound_exceptions.json"
         )

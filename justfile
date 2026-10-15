@@ -72,6 +72,10 @@ test-phonetic:
 test-sandhi:
     uv run python db_tests/single/test_sandhi_errors.py
 
+# Suggest a second construction line from longer compound parts
+test-compounds:
+    uv run python db_tests/single/test_longest_compound_parts.py
+
 # Repoint verbal forms at a present verb or a root
 test-verb-grammar:
     uv run python db_tests/single/test_verb_grammar_sync.py

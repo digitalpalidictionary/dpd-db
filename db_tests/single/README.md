@@ -20,7 +20,7 @@ Individual tests can be run as standalone scripts:
 - `uv run db_tests/single/test_allowable_characters.py`
 - `uv run db_tests/single/test_neg_compounds.py`
 
-Some scripts also have justfile recipes (`just add-synonyms-single`, `just add-synonyms-multi`, `just add-synonyms-del`, `just add-variants-phonetic`, `just test-phonetic`, `just test-sandhi`).
+Some scripts also have justfile recipes (`just add-synonyms-single`, `just add-synonyms-multi`, `just add-synonyms-del`, `just add-variants-phonetic`, `just test-phonetic`, `just test-sandhi`, `just test-compounds`).
 (Refer to each script's docstring for specific details).
 
 ## fixme/
