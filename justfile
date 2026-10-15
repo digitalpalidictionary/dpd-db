@@ -171,7 +171,7 @@ export-mobile:
 export-tpr:
     uv run python exporter/tpr/tpr_exporter.py
 
-# Export DPD into the local ePitaka app
+# Copy the mobile DPD database into the local ePitaka app
 export-epitaka:
     uv run python exporter/epitaka/epitaka_exporter.py
 

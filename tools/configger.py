@@ -76,7 +76,7 @@ DEFAULT_CONFIG = {
     "anki": {"update": "no", "db_path": "", "backup_path": ""},
     "simsapa": {"app_path": "", "db_path": ""},
     "tpr": {"db_path": "", "make_beta": "no"},
-    "epitaka": {"db_path": "", "repo_path": ""},
+    "epitaka": {"db_path": ""},
 }
 
 PROFILES: dict[str, dict[str, dict[str, str]]] = {

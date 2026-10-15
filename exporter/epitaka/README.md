@@ -1,18 +1,15 @@
 # exporter/epitaka/
 
 ## Purpose & Rationale
-The `epitaka/` directory refreshes the DPD data inside the ePitaka app on this machine. The app reads DPD from its own `dpd-dictionary.db`, which its maintainer builds privately and ships rarely. This exporter rebuilds that file from the live `dpd.db` in the same format, so the local app has today's data. Local only, not for public release.
+The `epitaka/` directory puts the current DPD data into the ePitaka app on this machine. The app reads DPD from `dpd-mobile.db`, the same file the mobile exporter builds. This script copies that file into the app's folder. Local only, not for public release.
 
 ## Architectural Logic
-1.  **Rendering:** `epitaka_exporter.py` builds each headword's and root's `meaning_html` with plain f-strings, matching the upstream file byte for byte on the same data. Root family tables come from `FamilyRoot.html`.
-2.  **Mapping:** Every `lookup` row is copied; root keys are mapped to root ids, which follow the last headword id.
-3.  **Search table:** ePitaka's own `tool/build_dpd_norm.dart` prebuilds the app's diacritic-folded search table, so the app does not build it at launch.
-4.  **Install:** If ePitaka is running it is closed, the file is copied into the app's folder through SQLite's backup, and the app is reopened through its desktop entry. If the app does not close within 30 s, the install is skipped.
+1.  **Source:** `exporter/share/dpd-mobile.db`, built by `exporter/mobile/mobile_exporter.py`. In the full export it runs after the mobile exporter, so each export installs a fresh copy.
+2.  **Install:** If ePitaka is running it is closed, the file is copied into the app's folder through SQLite's backup (the app's file is in WAL mode, so a plain file copy is unsafe), and the app is reopened through its desktop entry. If the app does not close within 30 s, the install is skipped.
 
 ## Relationships & Data Flow
-- **Source:** Consumes `DpdHeadword`, `DpdRoot`, `FamilyRoot` and `Lookup` data from **db/**.
-- **Config:** `[exporter] make_epitaka`, `[epitaka] db_path` (the app's `dpd-dictionary.db`), `[epitaka] repo_path` (the ePitaka repo, for the Dart tool).
-- **Artifacts:** `output/dpd-dictionary.db`, plus `output/baseline_dpd-dictionary.db`, the saved upstream file. Install refuses to run without the baseline.
+- **Config:** `[exporter] make_epitaka`, `[epitaka] db_path` (the app's `dpd-mobile.db`; the script refuses any other file name).
+- **No database access:** the script never opens `dpd.db`.
 
 ## Interface
-- **Export:** `cd ~/MyFiles/3_Active/dpd-db && just export-epitaka`
+- **Install:** `cd ~/MyFiles/3_Active/dpd-db && just export-epitaka`
