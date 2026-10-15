@@ -496,7 +496,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kul	1	a	be close	√kul	1	accumulate	vi ā √kul	kul	vyākula
 √kul	1	a	be close	√kul	1	accumulate	saṃ √kul	kul	saṃkula +
 √kul	1	a	be close	√kul	1	accumulate	saṃ ā √kul	kul	
-√kus 1	1	*a	call, insult	√kruś	1	cry out	√kus	kruś	]kruś]
+√kus 1	1	*a	call, insult	√kruś	1	cry out	√kus	kruś	
 √kus 1	1	*a	call, insult	√kruś	1	cry out	ā √kus	ākruś	akrukṣat, ākruśayitvā, ākruśita, ākruśyate, ākruśyamāna, ākruṣṭa, ākruṣṭvā, ākrośa, ākrośat, ākrośati, ākrośana, ākrośayitṛ, ākrośitavya, ākrośitum, na + ākrośat
 √kus 1	1	*a	call, insult	√kruś	1	cry out	ud √kus	utkruś	utkruṣṭa
 √kus 1	1	*a	call, insult	√kruś	1	cry out	upa √kus	upakruś	upakrośa, upakrośati, na + upakruṣṭa, na + upakruṣṭa, anupakruṣṭa (bsk)
@@ -826,6 +826,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √car 1	1	a	move, walk	√car	1	move	saṃ ud ā √car	samudācar	samudācarati, samudācaryamāṇa, samudācharaṇa
 √car 2	1	a	act, behave	√car	1	move	√car	car	acārīt, caraṇa, caraṇavat, carati, carita, carita +, caritavya, caritum, caritvā, caritṛ, caret, carya, cāra, cāritra, cārin, duścara, duścarita, su + cīrṇa, sucara, sucarita
 √car 2	1	a	act, behave	√car	1	move	ati √car	aticar	aticarati, aticaritum, aticarya, aticārin, na + aticārin
+√car 2	1	a	act, behave	√car	1	move	ati ā √car		ati + ācarati
 √car 2	1	a	act, behave	√car	1	move	adhi √car	adhicar	adhi + cīrṇa
 √car 2	1	a	act, behave	√car	1	move	adhi ā √car	adhyācar	atyācāra, adhi + ācīrṇa, adhyācarati (bsk), adhyācaritum, adhyācāra
 √car 2	1	a	act, behave	√car	1	move	anu √car	anucar	anucarati, anucarita
@@ -901,7 +902,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √cup	1	*e	move	√cup	1	stir	√cup	cup	copayati
 √cup	1	*e	move	√cup	1	stir	ud √cup	cup	ud + cupayitvā
 √cup	1	*e	move	√cup	1	stir	saṃ √cup	cup	saṃ + copana
-√cumb	1	a	kiss	√cumb	1	kiss	√cumb	cumb	cumbati, cumbita, cumbya
+√cumb	1	a	kiss	√cumb	1	kiss	√cumb	cumb	cumbati, cumbayati, cumbita, cumbya
 √cumb	1	a	kiss	√cumb	1	kiss	pari √cumb	paricumb	paricumbati
 √cur	8	*e	steal	√cur	3, 10	steal	√cur	cur	cora, coraka, corayat, corayati, corikā, corī, na + cora, na + corī
 √chaḍḍ	8	*e	discard, abandon	√chṛd √tyaj	1, 7	spue, eject	√chaḍḍ	chṛd	achārdīt, charttavya, chardati, chardayat, chardayati, chardayamāna, chardayitvā, chardi, vānti, vami, chardita, chṛṇṇa, tyajanīya, tyajita, na + tyajita
@@ -1517,7 +1518,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nam	1	a	bend	√nam	1	bend, bow	pa ava √nam	avanam	poṇia, pravaṇa
 √nam	1	*e	bend	√nam	1	bend, bow	pati pa √nam	praṇam	prati + praṇamana, prati + praṇāmayitvā, prati + pranamayitvā, prati + pranāmayati
 √nam	1	a	bend	√nam	1	bend, bow	pari √nam	pariṇam	na + pariṇata, pari + anaṃsīt, pari + nāmita, pariṇata, pariṇamati, pariṇamayitum, pariṇāma, pariṇāmayati, pariṇāmayitvā, pariṇāmin
-√nam	1	a	bend	√nam	1	bend, bow	vi √nam	vinam	vainateya < vinatā, vinata, vinatā, vinamana, vinamyate, vināma, vināmayati, vināmita, vināmya
+√nam	1	a	bend	√nam	1	bend, bow	vi √nam	vinam	vainateya < vinatā, vinata, vinatā, vinamati, vinamana, vinamyate, vināma, vināmayati, vināmita, vināmya
 √nam	1	*aya	bend	√nam	1	bend, bow	vi ati √nam	atinam	+ nāmita, atināmayati, vyatinamati (bsk), vyatinayati, atināmayitvā, vyatinam (bsk), vyatinamati (bsk), vyatināmayamāna (bsk)
 √nam	1	a	bend	√nam	1	bend, bow	vi pari √nam	vipariṇam	avipariṇāma, vipariṇata, vipariṇamayati, vipariṇamayitvā, vipariṇāma, vipariṇāmin, viparināmita
 √nam	1	*e	bend	√nam	1	bend, bow	saṃ √nam	saṃnam	saṃnamayitvā, saṃnāmayati
@@ -2409,9 +2410,10 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √lagg	1	a	stick, adhere	√lag	1	attach	vi √lagg	vilag	vilagita
 √lagh	2	ṃa	lift up, jump	√lagh √laṅgh	1	leap	√lagh	laṅgh	laghayati, laṅghaka, laṅghat, laṅghati, laṅghamāna, laṅghayati, laṅghayitum, laṅghayitvā, laṅghita, laṅghitvā
 √lagh	2	ṃa *e	lift up, jump	√lagh √laṅgh	1	leap	ava √lagh	avalaṅgh	
-√lagh	2	ṃa	lift up, jump	√lagh √laṅgh	1	leap	ud √lagh	ullaṅgh	ullaṅghana, ullaṅghya
+√lagh	2	ṃa	lift up, jump	√lagh √laṅgh	1	leap	ud √lagh	ullaṅgh	ulaṅghati, ulaṅghayati, ullaṅghana, ullaṅghya
 √lagh	2	ṃa	lift up, jump	√lagh √laṅgh	1	leap	vi √lagh	vilaṅgh	na + vilaṅghita, vilaṅghana
 √lajj	1	a	be ashamed	√laj √lajj	6	be ashamed	√lajj	lajj	a + lajja, alajjitavya (bsk), alajjin, na + lajjā, nirlajjatā, lajjate, lajjayati, lajjā, lajjitavya (bsk), lajjyate
+√lajj	1	a	be ashamed	√laj √lajj	6	be ashamed	vi √lajj		vilajjate
 √lañch	1	a	mark	√lach	1	mark	√lañch	lāñch	lakṣa, lakṣaka, lāñchita, lāñchita +
 √lañch	1	*e	mark	√lach	1	mark	ni √lañch	lāñch	
 √lañch	1	*e	mark	√lach	1	mark	nī √lañch	lāñch	nis + lāñchita
@@ -2446,7 +2448,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √las	1	a	shine, be active	√las	1	be lively	√las	las	analasa, anālasya, alasa, alasaka (indolent), alaśatā, ālasya, lasikā, lāsa, lāsayat, lāsayati
 √las	1	a	shine, be active	√las	1	be lively	abhi √las		abhilaṣati, abhilāṣa
 √las	1	*e	shine, be active	√las	1	be lively	upa √las		
-√las	1	a	shine, be active	√las	1	be lively	vi √las	vilas	vilasamāna, vilasita, vilāsa, vilāsa +, vilāsin, vilāsinī
+√las	1	a	shine, be active	√las	1	be lively	vi √las	vilas	vilasati, vilasamāna, vilasita, vilāsa, vilāsa +, vilāsin, vilāsinī
 √laḷ	1	a	play, move about	√laḍ √lal	1	sport	√laḷ		lalita, lālasa
 √laḷ	1	*e	play, move about	√laḍ √lal	1	sport	apa √laḷ		apa + lalayitavya, apa + lālana, lāḍana, apa + lālayati
 √laḷ	1	a	play, move about	√laḍ √lal	1	sport	upa √laḷ		
