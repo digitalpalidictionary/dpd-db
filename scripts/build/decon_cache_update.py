@@ -16,6 +16,7 @@ from tools.printer import printer as pr
 def main() -> None:
     pr.tic()
     pr.yellow_title("rebuilding all_decon_no_headwords cache")
+    pr.green("querying lookup table")
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -31,7 +32,7 @@ def main() -> None:
     save_decon_no_headwords_cache(db_session, decon_set)
     db_session.close()
 
-    pr.yes(f"{len(decon_set)} keys")
+    pr.yes(f"{len(decon_set)}")
     pr.toc()
 
 
