@@ -5,7 +5,6 @@
 Search for missing or wrong phonetic changes according to TSV criteria.
 """
 
-import re
 from collections import defaultdict
 
 import pyperclip
@@ -32,12 +31,7 @@ def add_update_phonetic(
     # Precompute cleaned construction/base for every headword once
     cleaned: list[tuple[DpdHeadword, str, str]] = []
     for hw in db:
-        cc = hw.construction_clean or ""
-        cc = re.sub(r"√", "", cc)
-        cc = re.sub(r"\\*", "", cc)
-        bc = hw.root_base_clean or ""
-        bc = re.sub(r"√", "", bc)
-        bc = re.sub(r"\\*", "", bc)
+        cc, bc = manager.clean_headword_data(hw)
         cleaned.append((hw, cc, bc))
 
     # Build index: initial pattern -> headword indices

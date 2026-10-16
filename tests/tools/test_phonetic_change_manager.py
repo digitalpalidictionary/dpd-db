@@ -87,6 +87,35 @@ a + u	o	au > o	u > o	o	okkhita
         assert result.suggestion == "au > o"
         assert result.rule["initial"] == "a + u"
 
+    def test_process_headword_star_in_base(self, tmp_path: Path) -> None:
+        """A star before the second part must not stop the rule matching."""
+        tsv_content = """initial	final	correct	wrong	not_in_constr	not_in_lemma	exceptions
+ī + ā	e	īā > e	x	x	x	x
+"""
+        tsv_file = tmp_path / "test.tsv"
+        tsv_file.write_text(tsv_content)
+
+        manager = PhoneticChangeManager(str(tsv_file))
+
+        # real values of khepayati
+        headword = MagicMock()
+        headword.construction = "khepaya + ti"
+        headword.construction_clean = "khepaya + ti"
+        headword.root_base_clean = "√khī + *āpaya > khepaya (caus)"
+        headword.lemma_clean = "khepayati"
+        headword.lemma_1 = "khepayati"
+        headword.phonetic = ""
+
+        result = manager.process_headword(headword)
+
+        assert result is not None
+        assert result.status == "auto_add"
+        assert result.suggestion == "īā > e"
+
+        construction_clean, base_clean = manager.clean_headword_data(headword)
+        assert "*" not in construction_clean
+        assert base_clean == "khī + āpaya > khepaya (caus)"
+
     def test_process_headword_auto_update(self, tmp_path: Path) -> None:
         """Test auto_update status when wrong value exists."""
         tsv_content = """initial	final	correct	wrong	not_in_constr	exceptions
