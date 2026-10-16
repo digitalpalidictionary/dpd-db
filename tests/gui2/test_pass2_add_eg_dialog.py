@@ -74,6 +74,8 @@ def _view() -> tuple[Pass2AddView, FakePage]:
     view._find_queued_component_words = lambda w: []  # pyright: ignore[reportAttributeAccessIssue]
     view._eg_saved_kb = None  # pyright: ignore[reportAttributeAccessIssue]
     view._eg_alert = None  # pyright: ignore[reportAttributeAccessIssue]
+    view._enter_id_or_lemma_field = ft.TextField()  # pyright: ignore[reportAttributeAccessIssue]
+    view.update_message = lambda message: None  # pyright: ignore[reportAttributeAccessIssue]
     return view, page
 
 
@@ -143,6 +145,33 @@ class TestDialogStack:
             view._close_eg_alert()
 
         assert page.dialogs == []
+
+
+class TestFocusAfterClose:
+    """Closing the popup means the word is done, so the next one is typed."""
+
+    @pytest.fixture
+    def focused(self, monkeypatch: pytest.MonkeyPatch) -> list[Any]:
+        calls: list[Any] = []
+        monkeypatch.setattr(
+            "gui2.pass2_add_view.request_focus", lambda control: calls.append(control)
+        )
+        return calls
+
+    def _popup_button(self, view: Pass2AddView, label: str) -> Any:
+        assert view._eg_alert is not None
+        return next(a for a in view._eg_alert.actions if a.content == label)  # pyright: ignore[reportOptionalIterable, reportAttributeAccessIssue]
+
+    @pytest.mark.parametrize("label", ["Add ticked", "Close"])
+    def test_closing_focuses_the_id_or_lemma_field(
+        self, focused: list[Any], label: str
+    ) -> None:
+        view, _ = _view()
+        view._show_missing_words_dialog(SimpleNamespace(lemma_1="gacchati"))  # pyright: ignore[reportArgumentType]
+
+        self._popup_button(view, label).on_click(None)
+
+        assert focused == [view._enter_id_or_lemma_field]
 
 
 if __name__ == "__main__":

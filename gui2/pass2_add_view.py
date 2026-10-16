@@ -1602,6 +1602,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         if self._eg_alert and self._eg_alert.open:
             self.page.pop_dialog()
         self.page.update()
+        request_focus(self._enter_id_or_lemma_field)
 
     def _click_eg_button(self, e: ft.ControlEvent) -> None:
         """Load the next eg queue word: edit mode if it exists in the db,
