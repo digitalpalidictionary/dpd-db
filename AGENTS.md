@@ -38,6 +38,7 @@ Multiple kamma threads regularly run against this repo in the same working tree 
 - `dpd.db` runs in WAL mode: writes land in `dpd.db-wal`, and the main file's mtime does not move. Never use the timestamp to decide whether the database changed — read the data.
 - For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly. `db/backup_tsv/` files are regenerated backups, not the source of truth. Don't infer data shape from TSVs or downstream exporter code.
 - `db_tests` failures on freshly imported draft entries are the editor's per-word checklist, not import defects. Pre-fix only what zero-exception evidence in the live db demands (closed vocabularies like `verb`, absolutes like "`source_1` never without `example_1`", `lemma_2` = nominative singular, `(gram)` rows always carry `family_set grammatical terms`). Leave per-word lexicographic judgement (`compound_type`, `construction`, `derived_from`, `neg`) to the human.
+- gui2's tests tab rewrites the whole of `db_tests/db_tests_columns.tsv` (CRLF endings, any new exceptions) whenever an exception is added. Git's `text=auto` restores LF on commit. Re-check that file's diff just before listing it in a commit.
 - Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion order turns every regeneration into a full-file reorder diff.
 
 ## Database Model (`db/models.py`)
