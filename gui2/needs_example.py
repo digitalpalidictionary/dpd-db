@@ -108,3 +108,10 @@ def is_missing_sutta_example(i: DpdHeadword) -> bool:
         return True
 
     return False
+
+
+def is_missing_any_example(i: DpdHeadword) -> bool:
+    """The rule for commentary and ṭīkā books: like
+    `is_missing_sutta_example`, but a late example counts as done."""
+
+    return not i.meaning_1 or not i.source_1

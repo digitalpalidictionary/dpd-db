@@ -1,3 +1,6 @@
+import sqlite3
+from pathlib import Path
+
 from db.models import DpdHeadword
 from gui2.books import (
     SuttaCentralSegment,
@@ -5,6 +8,7 @@ from gui2.books import (
     sutta_central_books,
 )
 from gui2.pass2_pre_file_manager import Pass2PreFileManager
+from gui2.pass2_pre_translations import Pass2PreTranslations
 from gui2.paths import Gui2Paths
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
@@ -44,7 +48,12 @@ class Pass2PreController:
         # Initialize empty containers for data that will be loaded later
         self.cst_books: list[str] = []
         self._cst_index: CstSourceIndex | None = None
+        self._translations: Pass2PreTranslations | None = None
+        self.translation_db_path: Path = (
+            toolkit.project_paths.tipitaka_translation_db_path
+        )
         self.sc_book: str = ""
+        self.commentary_book: bool = False
         self.all_cst_words: list[str] = []
         self.missing_examples_dict: dict[
             str, list[SuttaCentralSegment] | list[CstSourceSuttaExample]
@@ -76,7 +85,9 @@ class Pass2PreController:
         self.file_manager = Pass2PreFileManager(book, paths)
         self.sc_book = sutta_central_books[book].sc_book
         self.cst_books = sutta_central_books[book].cst_books
+        self.commentary_book = sutta_central_books[book].is_commentary
         self._cst_index = None
+        self._translations = None
         self.get_all_cst_words()
         self.make_all_words_dict()
         self.add_sc_words()
@@ -90,11 +101,13 @@ class Pass2PreController:
         )
 
     def is_missing_example(self, word: str) -> bool:
+        missing_example = (
+            self.db.all_inflections_missing_any_example
+            if self.commentary_book
+            else self.db.all_inflections_missing_example
+        )
         return (
-            (
-                word in self.db.all_inflections_missing_example
-                or word in self.db.all_decon_no_headwords
-            )
+            (word in missing_example or word in self.db.all_decon_no_headwords)
             # and word not in self.db.sandhi_ok_list
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
@@ -182,9 +195,9 @@ class Pass2PreController:
         Records which component each extra headword came from, so Yes/No
         decisions are saved under the component word."""
         self.entry_headword_sources = {}
-        headwords = self.db.get_headwords(word)
+        headwords = self.db.get_headwords(word, self.commentary_book)
         for component in self.comps_components.get(word, []):
-            for hw in self.db.get_headwords(component):
+            for hw in self.db.get_headwords(component, self.commentary_book):
                 if all(h is None or h.id != hw.id for h in headwords):
                     headwords.append(hw)
                     self.entry_headword_sources[hw.id] = component
@@ -246,6 +259,18 @@ class Pass2PreController:
             )
         else:
             self.ui.update_message("word_in_text is empty!")
+
+    def english_for(self, example: str) -> str:
+        """English for a CST example. Loaded on first use per book, since
+        most sessions never switch it on."""
+        if self._translations is None:
+            try:
+                self._translations = Pass2PreTranslations(
+                    self.translation_db_path, self.cst_books
+                )
+            except sqlite3.Error as e:
+                return f"translation db error: {e}"
+        return self._translations.find_english(example) or "no translation found"
 
     def load_next_headword(self):
         if self.headword_index + 1 >= len(self.headwords):

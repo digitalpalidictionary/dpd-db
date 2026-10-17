@@ -22,7 +22,7 @@ from db.models import (
     Lookup,
 )
 from gui2.dpd_fields_functions import clean_lemma_1, make_dpd_headword_from_dict
-from gui2.needs_example import is_missing_sutta_example
+from gui2.needs_example import is_missing_any_example, is_missing_sutta_example
 from tools.cache_load import (
     load_decon_no_headwords_cache,
     save_decon_no_headwords_cache,
@@ -77,6 +77,7 @@ class DatabaseManager:
 
         # for pass2 preprocessor
         self.all_inflections_missing_example: set[str] = set()
+        self.all_inflections_missing_any_example: set[str] = set()
         self.all_suffixes: set[str] = set()
 
         # for pass2 preprocessor "in comps" mode
@@ -396,14 +397,18 @@ class DatabaseManager:
             return
 
         all_inflections_missing_example: set[str] = set()
+        all_inflections_missing_any_example: set[str] = set()
         all_suffixes: set[str] = set()
         for i in corpus:
             if is_missing_sutta_example(i):
                 all_inflections_missing_example.update(i.inflections_list_all)
+            if is_missing_any_example(i):
+                all_inflections_missing_any_example.update(i.inflections_list_all)
             if i.suffix != "":
                 all_suffixes.add(i.suffix)
 
         self.all_inflections_missing_example = all_inflections_missing_example
+        self.all_inflections_missing_any_example = all_inflections_missing_any_example
         self.all_suffixes = all_suffixes
         self._pass2_gen = self._corpus_gen
 
@@ -439,8 +444,14 @@ class DatabaseManager:
         self.compound_components_map = compound_components_map
         self._components_gen = self._corpus_gen
 
-    def get_headwords(self, word_in_text: str) -> list[DpdHeadword]:
+    def get_headwords(
+        self, word_in_text: str, commentary_book: bool = False
+    ) -> list[DpdHeadword]:
         """Find headwords which match the inflection."""
+
+        is_missing = (
+            is_missing_any_example if commentary_book else is_missing_sutta_example
+        )
 
         lookup_item: Lookup | None = (
             self.db_session.query(Lookup)
@@ -464,16 +475,19 @@ class DatabaseManager:
                         # )  # remove to include commentary words
                         .first()
                     )
-                    if headword and is_missing_sutta_example(headword):
+                    if headword and is_missing(headword):
                         results_list.append(headword)
 
                 return results_list
             else:
-                return self.get_headwords_from_deconstructor(lookup_item)
+                return self.get_headwords_from_deconstructor(
+                    lookup_item, commentary_book
+                )
 
     def get_headwords_from_deconstructor(
         self,
         lookup_item: Lookup,
+        commentary_book: bool = False,
     ) -> list[DpdHeadword]:
         headwords_list: list[DpdHeadword] = []
         deconstruction = lookup_item.deconstructor_unpack
@@ -482,7 +496,7 @@ class DatabaseManager:
             decon_word_list = self.make_decon_word_list(deconstruction)
 
             for word in decon_word_list:
-                headwords_list.extend(self.get_headwords(word))
+                headwords_list.extend(self.get_headwords(word, commentary_book))
             return headwords_list
         else:
             return headwords_list

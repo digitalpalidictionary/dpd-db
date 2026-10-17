@@ -11,6 +11,7 @@ from bs4.element import Tag
 
 from tools.cst_source.loader import make_cst_soup
 from tools.cst_source.parsers.abhidhamma import Abh2Parser
+from tools.cst_source.parsers.commentary import DnaParser
 from tools.cst_source.parsers.khuddaka import Kn17Parser
 from tools.cst_source.parsers.misc import ApParser, AptParser
 from tools.cst_source.text_utils import get_text_and_number
@@ -109,3 +110,14 @@ def test_kn17_no_nameless_subhead_branch() -> None:
             parser.update(x)  # would raise UnboundLocalError if the branch fired
 
     assert dead_branch_condition_hits == 0
+
+
+def test_dna_opening_section_has_a_sutta_name() -> None:
+    """The DNa opening section (Ganthārambhakathā) must carry a sutta name.
+    Example search drops any sentence with an empty sutta, so without it the
+    whole section yielded no examples."""
+    parser = DnaParser("dna")
+
+    parser.update(_chunk('<head rend="subsubhead">Ganthārambhakathā</head>'))
+    assert parser.source == "DNa0"
+    assert parser.sutta == "ganthārambhakathā"

@@ -1,5 +1,9 @@
 from db.models import DpdHeadword
-from gui2.needs_example import has_only_late_examples, is_missing_sutta_example
+from gui2.needs_example import (
+    has_only_late_examples,
+    is_missing_any_example,
+    is_missing_sutta_example,
+)
 
 
 def _headword(
@@ -61,3 +65,25 @@ class TestIsMissingSuttaExample:
     def test_nothing_set_is_missing(self):
         hw = _headword()
         assert is_missing_sutta_example(hw) is True
+
+
+class TestIsMissingAnyExample:
+    def test_late_example_with_meaning_is_done(self):
+        hw = _headword(source_1="DNa 1", meaning_1="meaning here")
+        assert is_missing_any_example(hw) is False
+
+    def test_early_example_with_meaning_is_done(self):
+        hw = _headword(source_1="SN 1.1", meaning_1="meaning here")
+        assert is_missing_any_example(hw) is False
+
+    def test_meaning_without_source_1_is_missing(self):
+        hw = _headword(meaning_1="meaning here")
+        assert is_missing_any_example(hw) is True
+
+    def test_late_example_without_meaning_is_missing(self):
+        hw = _headword(source_1="DNa 1")
+        assert is_missing_any_example(hw) is True
+
+    def test_nothing_set_is_missing(self):
+        hw = _headword()
+        assert is_missing_any_example(hw) is True

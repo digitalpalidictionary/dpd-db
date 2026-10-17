@@ -14,7 +14,7 @@ from gui2.books import SuttaCentralSource
 KHP_PALI = "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/kp"
 KHP_ENGLISH = "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/kp"
 
-pytestmark = pytest.mark.skipif(
+needs_sc_data = pytest.mark.skipif(
     not Path(KHP_PALI).is_dir(),
     reason="sc-data submodule not checked out",
 )
@@ -35,9 +35,12 @@ def load_calls(monkeypatch: pytest.MonkeyPatch) -> list[str]:
 
 
 def make_source() -> SuttaCentralSource:
-    return SuttaCentralSource("khp", ["kn1"], KHP_PALI, KHP_ENGLISH)
+    return SuttaCentralSource(
+        "khp", ["kn1"], KHP_PALI, KHP_ENGLISH, is_commentary=False
+    )
 
 
+@needs_sc_data
 def test_construction_does_not_build_the_index(load_calls: list[str]) -> None:
     source = make_source()
 
@@ -47,6 +50,7 @@ def test_construction_does_not_build_the_index(load_calls: list[str]) -> None:
     assert load_calls == []
 
 
+@needs_sc_data
 def test_first_word_dict_access_builds_the_index(load_calls: list[str]) -> None:
     source = make_source()
     assert load_calls == []
@@ -59,6 +63,7 @@ def test_first_word_dict_access_builds_the_index(load_calls: list[str]) -> None:
     assert source.segment_dict, "segment index is empty"
 
 
+@needs_sc_data
 def test_index_is_built_only_once(load_calls: list[str]) -> None:
     source = make_source()
     first = source.word_dict
@@ -73,7 +78,7 @@ def test_index_is_built_only_once(load_calls: list[str]) -> None:
 def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
     """The four sources constructed with None paths (nidd1&2, kva, dhpa,
     jaa) must build neither index and read no files."""
-    source = SuttaCentralSource("kva", ["kva"], None, None)
+    source = SuttaCentralSource("kva", ["kva"], None, None, is_commentary=True)
 
     assert source.pali_file_list == []
     assert source.english_file_list == []
@@ -81,3 +86,12 @@ def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
     assert isinstance(source.word_dict, defaultdict)
     assert source.segment_dict == {}
     assert load_calls == []
+
+
+@pytest.mark.parametrize(
+    ("book", "expected"),
+    [("dna", True), ("jaa", True), ("kva", True), ("ja", False), ("mn", False)],
+)
+def test_commentary_books_are_flagged(book: str, expected: bool) -> None:
+    # "ja" ends in "a" but is the Jātaka itself, not its commentary
+    assert books.sutta_central_books[book].is_commentary is expected

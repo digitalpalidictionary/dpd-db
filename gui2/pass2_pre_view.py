@@ -133,6 +133,11 @@ class Pass2PreProcessView(ft.Column):
             value=True,
             on_change=self.handle_exceptions_toggle,
         )
+        self.eng_switch = ft.Switch(
+            label="eng",
+            value=False,
+            on_change=self.handle_eng_toggle,
+        )
         self.in_comps_switch = ft.Switch(
             label="in comps",
             value=False,
@@ -199,6 +204,7 @@ class Pass2PreProcessView(ft.Column):
                     ),
                     self.exceptions_field,
                     self.exceptions_switch,
+                    self.eng_switch,
                 ],
             ),
             ft.Row(
@@ -272,6 +278,9 @@ class Pass2PreProcessView(ft.Column):
         headword = self.controller.current_headword()
         if headword is None:
             return
+        if not self._selection_is_visible():
+            self.update_message("no example selected")
+            return
         headword_id = headword.id
         sentence: SuttaCentralSegment | CstSourceSuttaExample | None = None
 
@@ -310,6 +319,9 @@ class Pass2PreProcessView(ft.Column):
         self.controller.load_next_headword()
 
     def handle_new_click(self, e):
+        if not self._selection_is_visible():
+            self.update_message("no example selected")
+            return
         sentence: SuttaCentralSegment | CstSourceSuttaExample | None = None
         if (
             sentences := self.controller.missing_examples_dict.get(
@@ -330,7 +342,6 @@ class Pass2PreProcessView(ft.Column):
                 sentence,
                 comment=comment_val,
             )
-            self.selected_sentence_index = 0
             self.update_message(message)
 
         comment_input = ft.TextField(
@@ -411,6 +422,9 @@ class Pass2PreProcessView(ft.Column):
                     text = f"{example.pali} {example.english}".lower()
                 elif isinstance(example, CstSourceSuttaExample):
                     text = f"{example.example} {example.source} {example.sutta}".lower()
+                    if self.eng_switch.value:
+                        english = self.controller.english_for(example.example)
+                        text = f"{text} {english.lower()}"
                 else:
                     text = ""
                 if self.search_query in text:
@@ -431,7 +445,11 @@ class Pass2PreProcessView(ft.Column):
                 source = example.source
                 sutta = example.sutta
                 pali = example.example
-                english = ""
+                english = (
+                    self.controller.english_for(example.example)
+                    if self.eng_switch.value
+                    else ""
+                )
 
             pali_normalized = pali.lower().replace("ṁ", "ṃ")
             example_controls.append(
@@ -502,7 +520,12 @@ class Pass2PreProcessView(ft.Column):
                 buttons.append(ft.TextButton("Less", on_click=self._handle_less_click))
             example_controls.append(ft.Row(controls=buttons))
 
+        visible_counters = [counter for counter, _ in visible]
+        if visible_counters and self.selected_sentence_index not in visible_counters:
+            self.selected_sentence_index = visible_counters[0]
+
         radio_group = ft.RadioGroup(
+            value=str(self.selected_sentence_index) if visible_counters else None,
             content=ft.Column(
                 controls=example_controls,
                 spacing=10,
@@ -512,6 +535,15 @@ class Pass2PreProcessView(ft.Column):
             on_change=self.handle_example_selection_change,
         )
         return radio_group
+
+    def _selection_is_visible(self) -> bool:
+        """Whether the selected example is on screen, so Yes and New never
+        save one a search or filter has hidden."""
+
+        return any(
+            counter == self.selected_sentence_index
+            for counter, _ in self.filtered_examples[: self.examples_shown]
+        )
 
     def _handle_more_click(self, e) -> None:
         self.examples_shown += self.examples_page_size
@@ -538,6 +570,16 @@ class Pass2PreProcessView(ft.Column):
 
     def handle_exceptions_toggle(self, e: ft.ControlEvent) -> None:
         """Toggle exception filtering on/off and refresh the examples list."""
+
+        if not self.examples_list:
+            return
+        self._filter_examples()
+        self.update_examples_count(len(self.filtered_examples))
+        self.update_examples(self._build_examples_radio_group())
+
+    def handle_eng_toggle(self, e: ft.ControlEvent) -> None:
+        """Show or hide the English under each CST example. Re-filters,
+        because the search also matches the English while it is shown."""
 
         if not self.examples_list:
             return

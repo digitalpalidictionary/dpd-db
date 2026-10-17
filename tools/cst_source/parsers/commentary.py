@@ -150,6 +150,8 @@ class DnaParser(BookParser):
             self.source = f"{book}0"
             self.source_alt = f"{book}0"
             self.vagga = x.text.lower()
+            # without a sutta name, every example in this section is dropped
+            self.sutta = x.text.lower()
 
         elif x["rend"] == "chapter":
             vagga, vagga_no = get_text_and_number(x.text)

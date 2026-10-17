@@ -27,6 +27,8 @@ class FakeDb:
             "dhamma",
             "sīla",
         }
+        # the commentary-book rule: only "buddho" still lacks any example
+        self.all_inflections_missing_any_example: set[str] = {"buddho"}
         self.all_decon_no_headwords: set[str] = set()
         self.compound_components_map: dict[str, list[str]] = {
             "assakhaluṅka": ["assa", "khaluṅka"],
@@ -36,6 +38,8 @@ class FakeDb:
         }
         # word -> its missing-example headwords
         self.headwords: dict[str, list[FakeHeadword]] = {}
+        # the commentary_book flag of every get_headwords call
+        self.commentary_flags: list[bool] = []
 
     def make_pass2_lists(self) -> None:
         pass
@@ -43,7 +47,10 @@ class FakeDb:
     def make_compound_components_map(self) -> None:
         pass
 
-    def get_headwords(self, word: str) -> list[FakeHeadword]:
+    def get_headwords(
+        self, word: str, commentary_book: bool = False
+    ) -> list[FakeHeadword]:
+        self.commentary_flags.append(commentary_book)
         return list(self.headwords.get(word, []))
 
 
@@ -55,10 +62,11 @@ class FakeFileManager:
 
 
 class FakeSource:
-    def __init__(self, word_dict: dict[str, list]) -> None:
+    def __init__(self, word_dict: dict[str, list], is_commentary: bool = False) -> None:
         self.sc_book = "mn"
         self.cst_books = ["mn1"]
         self.word_dict = word_dict
+        self.is_commentary = is_commentary
 
 
 class FakeFiles:
@@ -70,7 +78,10 @@ class FakeFiles:
 def controller(monkeypatch: pytest.MonkeyPatch) -> Pass2PreController:
     """Pass2PreController with stubbed db, file manager and book sources."""
     sc_segments = [("mn1:1.1", "dhammacakkaṃ pavattitaṃ", "")]
-    fake_books = {"mn": FakeSource({"dhammacakka": sc_segments})}
+    fake_books = {
+        "mn": FakeSource({"dhammacakka": sc_segments}),
+        "mna": FakeSource({}, is_commentary=True),
+    }
     # "sīlakkhandha" is a compound that already has an example (not missing),
     # so it is only queued because its component "sīla" is missing one
     cst_words = ["buddho", "assakhaluṅka", "assakhaluṅkā", "assa", "sīlakkhandha"]
@@ -89,6 +100,7 @@ def controller(monkeypatch: pytest.MonkeyPatch) -> Pass2PreController:
     c.all_cst_words = []
     c.missing_examples_dict = {}
     c.in_comps = False
+    c.commentary_book = False
     c.comps_components = {}
     c.entry_headword_sources = {}
     return c
@@ -349,3 +361,51 @@ def test_examples_search_for_the_compound_itself(
     controller.missing_examples_dict = {"sīlakkhandha": []}
     controller.get_cst_examples()
     assert captured == [r"\bsīlakkhandha\b"]
+
+
+# ── commentary books ─────────────────────────────────────────────────────────
+
+
+def test_commentary_book_uses_any_example_rule(controller: Pass2PreController):
+    # in a commentary book, a word whose headword already has a late
+    # example counts as done — only "buddho" lacks any example
+    controller.find_words_with_missing_examples("mna", None)  # type: ignore[arg-type]
+    assert controller.commentary_book is True
+    assert list(controller.missing_examples_dict) == ["buddho"]
+
+
+def test_sutta_book_keeps_sutta_example_rule(controller: Pass2PreController):
+    controller.find_words_with_missing_examples("mn", None)  # type: ignore[arg-type]
+    assert controller.commentary_book is False
+    assert "assakhaluṅka" in controller.missing_examples_dict
+
+
+def test_commentary_book_passes_rule_to_headword_lookup(
+    controller: Pass2PreController,
+):
+    controller.find_words_with_missing_examples("mna", None, in_comps=True)  # type: ignore[arg-type]
+    controller.comps_components = {"sīlakkhandha": ["sīla"]}
+    controller.get_entry_headwords("sīlakkhandha")
+    # the compound and its component are both looked up with the commentary rule
+    assert controller.db.commentary_flags == [True, True]  # type: ignore[attr-defined]
+
+
+# ── english for CST examples ─────────────────────────────────────────────────
+
+
+def test_english_for_reports_a_missing_translation_db(
+    controller: Pass2PreController, tmp_path
+):
+    controller.translation_db_path = tmp_path / "missing.db"
+    controller.cst_books = ["dna"]
+    controller._translations = None
+    assert controller.english_for("evaṃ me sutaṃ").startswith("translation db error")
+
+
+def test_english_for_says_when_nothing_matches(controller: Pass2PreController):
+    class FakeTranslations:
+        def find_english(self, example: str) -> str | None:
+            return None
+
+    controller._translations = FakeTranslations()  # type: ignore[assignment]
+    assert controller.english_for("evaṃ me sutaṃ") == "no translation found"
