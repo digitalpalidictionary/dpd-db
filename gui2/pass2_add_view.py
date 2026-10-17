@@ -809,7 +809,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self.update_message("")  # Clear message field
         self.page.update()
 
-    def _click_run_tests(self, e: ft.ControlEvent) -> None:
+    def _click_run_tests(self, e: ft.ControlEvent | None) -> None:
         """Run tests on current field values"""
 
         # Get the lemma_1 field and its value first
@@ -839,9 +839,18 @@ class Pass2AddView(ft.Column, PopUpMixin):
         else:
             # No lemma_1 value, open the test file instead
             self.update_message("Opening tests TSV...")
-            self.test_manager._handle_open_test_file(e)
+            self.test_manager.open_test_file(self)
             self._add_to_db_button.color = None
         self.page.update()
+
+    async def test_and_add_to_db(self) -> None:
+        """Ctrl+S: run the tests, then add to db only if they all pass."""
+        # A run that never reaches the tests would otherwise leave the last
+        # word's result in place, and save this word untested.
+        self.test_manager.passed = False
+        self._click_run_tests(None)
+        if self.test_manager.passed:
+            await self._click_add_to_db(None)
 
     def _fills_empty_field(self, word_to_save: DpdHeadword, field_name: str) -> bool:
         """True when this save puts content into a field that was empty before."""
@@ -850,7 +859,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         original_value = getattr(original, field_name, "") if original else ""
         return bool(getattr(word_to_save, field_name, "")) and not original_value
 
-    async def _click_add_to_db(self, e: ft.ControlEvent) -> None:
+    async def _click_add_to_db(self, e: ft.ControlEvent | None) -> None:
         """Add the word to db, or update in db."""
 
         if not self._db.is_db_loaded():

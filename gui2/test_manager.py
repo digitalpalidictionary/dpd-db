@@ -168,7 +168,15 @@ class GuiTestManager(PopUpMixin):
             )
             self._handle_next_failure(e)  # Always behave like 'Next'
 
-    def _handle_open_test_file(self, e: ft.ControlEvent) -> None:
+    def open_test_file(self, ui: Pass1AddView | Pass2AddView) -> None:
+        """Open the tests TSV for an add view, which may not have run tests yet."""
+        # ui and page are otherwise only set by run_all_tests, so opening the
+        # file first in a session raised AttributeError before LibreOffice ran.
+        self.ui = ui
+        self.page = ui.page
+        self._handle_open_test_file(None)
+
+    def _handle_open_test_file(self, e: ft.ControlEvent | None) -> None:
         """Opens the main db_tests_columns.tsv file in LibreOffice Calc."""
         test_file_path = self.toolkit.project_paths.internal_tests_path
 

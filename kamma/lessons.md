@@ -360,3 +360,4 @@
 - 2026-10-16 [BEHAVIOR] Handed the user "close gui2 before running" copied from the template script without knowing why; the user asked. The real reason (gui2 saves every on-screen field, so an open word would overwrite the new set) took one read of update_word_in_db
 - 2026-10-16 [WORKFLOW] A gui2 test-exception save mid-thread rewrote db_tests_columns.tsv with CRLF and an unrelated exception, so plan.md's "1 insertion, no CRLF" went stale; the reviewer caught it. save_tests uses csv.DictWriter's default \r\n line ending
 - 2026-10-16 [REPEATED] User asked "why do you keep beeping at me?" — several short turn-ends in a row (one per phase, then one per background reviewer) each fired their notification; batch interim status into fewer turns
+- 2026-10-17 [POSITIVE] CodeRabbit can't scope to a file list; when other threads dirty the same dirs, copy only this run's files into a detached git worktree and review there — clean 0-finding result tied to a known snapshot.

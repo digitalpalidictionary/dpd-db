@@ -245,7 +245,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         self.db.mark_corpus_stale()
         self.update_message("Database refreshed")
 
-    def handle_add_to_db_click(self, e: ft.ControlEvent) -> None:
+    def handle_add_to_db_click(self, e: ft.ControlEvent | None) -> None:
         self.controller.make_dpd_headword_and_add_to_db()
 
     def handle_add_to_sandhi_click(self, e: ft.ControlEvent) -> None:
@@ -389,7 +389,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         else:
             self.update_message("Spelling input cancelled.")
 
-    def _click_run_tests(self, e: ft.ControlEvent) -> None:
+    def _click_run_tests(self, e: ft.ControlEvent | None) -> None:
         """Run tests on current field values. Exactly like Pass2AddView."""
 
         # Get the lemma_1 field and its value first
@@ -414,9 +414,18 @@ class Pass1AddView(ft.Column, PopUpMixin):
         else:
             # No lemma_1 value, open the test file instead
             self.update_message("Opening tests TSV...")
-            self.test_manager._handle_open_test_file(e)
+            self.test_manager.open_test_file(self)
             self.add_to_db_button.color = None  # Reset to default text color
         self.page.update()
+
+    async def test_and_add_to_db(self) -> None:
+        """Ctrl+S: run the tests, then add to db only if they all pass."""
+        # A run that never reaches the tests would otherwise leave the last
+        # word's result in place, and save this word untested.
+        self.test_manager.passed = False
+        self._click_run_tests(None)
+        if self.test_manager.passed:
+            self.handle_add_to_db_click(None)
 
     def _update_history_dropdown(self, page: ft.Page | None = None) -> None:
         """Populates the history dropdown with the latest history.

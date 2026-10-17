@@ -166,6 +166,15 @@ def show_global_snackbar(
 _CANCEL_LABELS = ("Cancel", "Close")
 
 
+def is_dialog_open(page: ft.Page) -> bool:
+    """True when a popup covers the page. SnackBars share the dialog stack but
+    leave the page usable, so they do not count."""
+    return any(
+        dialog.open and not isinstance(dialog, ft.SnackBar)
+        for dialog in page._dialogs.controls
+    )
+
+
 async def cancel_top_dialog(page: ft.Page) -> bool:
     """Press the Cancel/Close button of the topmost open modal dialog.
 

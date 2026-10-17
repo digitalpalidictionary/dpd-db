@@ -5,6 +5,7 @@ import threading
 import time
 from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 
 import flet as ft
 
@@ -13,9 +14,10 @@ from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
+from gui2.shortcuts_dialog import ShortcutGroup, build_shortcuts_dialog
 from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import cancel_top_dialog, show_global_snackbar
+from gui2.ui_utils import cancel_top_dialog, is_dialog_open, show_global_snackbar
 from tools.fast_api_utils import start_dpd_server
 
 
@@ -226,6 +228,27 @@ class App:
         "Numpad 3": 500,
     }
 
+    # Alt+X runs the open tab's Clear / Clear All button handler, so the key
+    # and the button can never do different things. Tabs without such a
+    # button are absent and ignore the key.
+    _CLEAR_ACTIONS: dict[int, Callable[[Any], None]] = {
+        1: lambda view: view.clear_clicked(None),  # Transl
+        2: lambda view: view.handle_clear_click(None),  # Pass1Auto
+        3: lambda view: view.clear_all_fields(None),  # Pass1Add
+        6: lambda view: view.handle_clear_click(None),  # Pass2Auto
+        7: lambda view: view._click_clear_all(None),  # Pass2Add
+        8: lambda view: view.clear_search(None),  # '
+        9: lambda view: view.clear_search(None),  # Sp
+        11: lambda view: view._clear_filters_clicked(None),  # DB
+        13: lambda view: view.controller.clear_fields(None),  # Bold Search
+        14: lambda view: view._clear_all(None),  # √ (Roots)
+        15: lambda view: view._on_clear(None),  # CT (Compound Type)
+    }
+
+    # Alt+? opens the shortcuts popup. Some keyboard layouts report the key
+    # under "?" as "/", so both are accepted.
+    _SHORTCUTS_KEYS: tuple[str, ...] = ("?", "/")
+
     async def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
         if e.key == "Q" and e.ctrl:
@@ -241,12 +264,16 @@ class App:
             if self.toolkit.wordfinder_popup.is_dialog_open():
                 self.toolkit.wordfinder_popup.close_dialog()
         elif e.key == "S" and e.ctrl:
+            # A popup stops the mouse reaching the tab behind it, so it stops
+            # the save and clear keys too.
+            if is_dialog_open(self.page):
+                return
             # Sourced from _views, not from the tab control: 1.0's Tab has no
             # content slot, and the hasattr checks below would simply miss,
             # so a wrong lookup here stops Ctrl+S saving without any error.
             view = self._views.get(self.tabs.selected_index)
-            # Ctrl+S saves table changes in tabs that support it.
-            # Both targets are synchronous today. If either is ever made
+            # Ctrl+S saves in tabs that support it.
+            # The first four targets are synchronous today. If any is ever made
             # `async def`, these calls become discarded coroutines and Ctrl+S
             # stops saving with no error at all — the same silent failure this
             # path already had once. Await them if that day comes.
@@ -254,6 +281,14 @@ class App:
                 view._on_save_changes(None)
             elif hasattr(view, "_save_changes_clicked"):
                 view._save_changes_clicked(None)
+            elif hasattr(view, "_save_root"):
+                view._save_root(None)
+            elif hasattr(view, "commit_clicked"):
+                view.commit_clicked(None)
+            elif hasattr(view, "test_and_add_to_db"):
+                await view.test_and_add_to_db()
+            elif hasattr(view, "_click_backup_quit"):
+                await view._click_backup_quit(None)
         elif e.key == "Arrow Left" and e.alt:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
@@ -264,6 +299,18 @@ class App:
                 self.tabs.selected_index += 1
                 await self._on_tab_activated()
                 self.page.update()
+        elif e.key == "X" and e.alt:
+            clear = self._CLEAR_ACTIONS.get(self.tabs.selected_index)
+            view = self._views.get(self.tabs.selected_index)
+            if clear is not None and view is not None and not is_dialog_open(self.page):
+                clear(view)
+        elif e.alt and e.key in self._SHORTCUTS_KEYS:
+            if not is_dialog_open(self.page):
+                self.page.show_dialog(
+                    build_shortcuts_dialog(
+                        self._shortcut_groups(), lambda _: self.page.pop_dialog()
+                    )
+                )
         elif e.alt and e.key in self._TAB_JUMP_KEYS:
             self.tabs.selected_index = self._TAB_JUMP_KEYS[e.key]
             await self._on_tab_activated()
@@ -278,6 +325,61 @@ class App:
             target = getattr(view, "_middle_section", None)
             if target is not None:
                 await target.scroll_to(delta=self._SCROLL_KEYS[e.key], duration=100)
+
+    def _shortcut_groups(self) -> list[ShortcutGroup]:
+        """Every shortcut on_keyboard handles, for the Alt+? popup. The tab
+        jumps and the Alt+X tabs come from the tables the keys act on."""
+        tab_jumps = sorted(self._TAB_JUMP_KEYS.items(), key=lambda item: item[1])
+        clear_tabs = ", ".join(self._tab_label(i) for i in self._CLEAR_ACTIONS)
+        return [
+            (
+                "App",
+                [
+                    ("Alt+?", "Show this list of shortcuts"),
+                    ("Ctrl+F", "Open the word finder (with the lemma on the add tabs)"),
+                    ("Ctrl+Shift+A", "Open the AI search window"),
+                    ("Ctrl+Q", "Quit the editor"),
+                ],
+            ),
+            (
+                "Tabs",
+                [
+                    ("Alt+←", "Go to the previous tab"),
+                    ("Alt+→", "Go to the next tab"),
+                    *(
+                        (f"Alt+{key}", f"Go to {self._tab_label(index)}")
+                        for key, index in tab_jumps
+                    ),
+                ],
+            ),
+            (
+                "Save and clear (the open tab)",
+                [
+                    (
+                        "Ctrl+S",
+                        "Pass1Add, Pass2Add: run the tests, then add to the db if all pass",
+                    ),
+                    ("Ctrl+S", "', Sp: commit"),
+                    ("Ctrl+S", "DB, CT: save changes"),
+                    ("Ctrl+S", "√: save to the db"),
+                    ("Ctrl+S", "Global: back up the db and quit"),
+                    ("Alt+X", f"Clear or Clear All on {clear_tabs}"),
+                    ("Page Up / Page Down", "Scroll Pass2Add"),
+                ],
+            ),
+            (
+                "Popups",
+                [
+                    ("Escape", "Cancel or close the top popup"),
+                    ("Ctrl+W", "Close the word finder"),
+                    ("", "Ctrl+S and Alt+X do nothing while a popup is open"),
+                ],
+            ),
+            (
+                "AI search window",
+                [("Ctrl+W or Escape", "Close the window")],
+            ),
+        ]
 
     def _get_current_lemma(self) -> str:
         """Return lemma_clean from the active add-view, or empty string."""

@@ -5,7 +5,7 @@ from typing import Any
 
 import flet as ft
 
-from gui2.ui_utils import cancel_top_dialog, is_inside, request_focus
+from gui2.ui_utils import cancel_top_dialog, is_dialog_open, is_inside, request_focus
 
 
 def _page(*dialogs: ft.DialogControl) -> Any:
@@ -85,6 +85,20 @@ def test_escape_does_nothing_without_cancel_button() -> None:
     page = _page(_dialog(["Cancel"], lower), _dialog(["Save"], upper))
     assert asyncio.run(cancel_top_dialog(page)) is False
     assert (lower, upper) == ([], [])
+
+
+def test_open_popup_counts_as_dialog_open() -> None:
+    assert is_dialog_open(_page(_dialog(["Close"], [], modal=False))) is True
+
+
+def test_closed_popup_left_on_the_stack_does_not_count() -> None:
+    assert is_dialog_open(_page(_dialog(["Close"], [], open_=False))) is False
+
+
+def test_snackbar_does_not_count_as_dialog_open() -> None:
+    snackbar = ft.SnackBar(content=ft.Text("saved"))
+    snackbar.open = True
+    assert is_dialog_open(_page(snackbar)) is False
 
 
 def _mount(child: ft.BaseControl, parent: ft.BaseControl) -> None:
