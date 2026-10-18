@@ -6,7 +6,7 @@ Soon you will be able to read Pāḷi with DPD right inside [KOReader](https://k
 
 Long-press any Pāḷi word while you are reading, and the DPD entry pops up on the page. All the meanings appear together, compounds are broken into their parts, and the grammar tables are a tap away. Close the popup and you are back on your page, exactly where you left off.
 
-The plugin is made by [Ven. Nirodhavihārī](https://github.com/nirodhav){target="_blank"} and uses the full DPD mobile database, so it works offline, on the device. It will be a free download from the [plugin's releases page](https://github.com/nirodhav/dpd.koplugin/releases/latest){target="_blank"} when it comes out.
+The plugin is made by [Ven. Nirodhavihārī](https://github.com/nirodhav){target="_blank"} and uses the full DPD mobile database, so it works offline, on the device. It will be a free download from the [plugin's releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"} when it comes out.
 
 ![DPD for KOReader: compounds explained in one lookup, every sense in one view, declensions and conjugations](../pics/koreader/hero_light.png#only-light)
 ![DPD for KOReader: compounds explained in one lookup, every sense in one view, declensions and conjugations](../pics/koreader/hero_dark.png#only-dark)
@@ -33,11 +33,11 @@ And here are the senses of *dhammaṃ*, with one expanded in place:
 
 You will need KOReader v2026.07 or newer (on a Kindle this means a jailbroken device) and about 1.1 GB of free space.
 
-1. Download the plugin zip from the [releases page](https://github.com/nirodhav/dpd.koplugin/releases/latest){target="_blank"} and extract it into `koreader/plugins/` on the device.
+1. Download the plugin zip from the [releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"} and extract it into `koreader/plugins/` on the device.
 2. Download `dpd-mobile-db.zip` from the [latest DPD release](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"} and copy the `dpd-mobile.db` inside it to `koreader/data/dpd/`.
 3. Restart KOReader. **Database status** in the DPD menu should say **Core columns: OK**.
 
-Full instructions are in the plugin's [usage guide](https://github.com/nirodhav/dpd.koplugin/blob/main/docs/USAGE.md){target="_blank"}, which is also included in the download.
+Full instructions are in the plugin's [usage guide](https://github.com/digitalpalidictionary/dpd-koreader/blob/main/docs/USAGE.md){target="_blank"}, which is also included in the download.
 
 ## Keeping DPD Up to Date
 
@@ -57,4 +57,4 @@ The DPD menu lives under **Search → Digital Pāḷi Dictionary**:
 
 ## Bugs and Feedback
 
-Please report bugs on the [issue tracker](https://github.com/nirodhav/dpd.koplugin/issues){target="_blank"}, or write to [dpd-koreader@nirodha.8shield.net](mailto:dpd-koreader@nirodha.8shield.net).
+Please report bugs on the [issue tracker](https://github.com/digitalpalidictionary/dpd-koreader/issues){target="_blank"}, or write to [dpd-koreader@nirodha.8shield.net](mailto:dpd-koreader@nirodha.8shield.net).

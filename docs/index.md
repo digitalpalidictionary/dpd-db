@@ -1,6 +1,6 @@
 # Welcome to Digital Pāḷi Dictionary
 
-DPD is a feature-rich Pāḷi-English dictionary which runs <a href='https://dpdict.net' target='_blank'>on the web</a>, in GoldenDict, MDict, [DictTango](install/android_dicttango.md) and [Kindle](install/kindle.md), or any other application that supports those formats.
+DPD is a feature-rich Pāḷi-English dictionary which runs <a href='https://dpdict.net' target='_blank'>on the web</a>, in GoldenDict, MDict, [DictTango](install/android_dicttango.md), [Kindle](install/kindle.md), on e-readers via [KOReader](install/koreader.md), or any other application that supports those formats.
 
 It is a work in progress, made available for testing and feedback purposes.
 
