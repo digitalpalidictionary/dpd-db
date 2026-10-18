@@ -451,6 +451,7 @@ Buddha's
 Buddhadatta
 Buddhaghosa
 Buddhaghosa's
+buddhahood
 Buddhappiya
 Buddhas
 Budhanania
@@ -725,6 +726,7 @@ desiderative
 desireless
 desirelessness
 desisted
+desmodium
 Desmostachya
 determinative
 detestation
@@ -2005,6 +2007,7 @@ one's
 one-placed-ness
 one-sidedly
 onomatopoeic
+oojeinense
 oojeinensis
 optative
 optionality
@@ -2205,6 +2208,7 @@ Potaliya
 potsherd
 Poṭṭhapāda
 ppa
+praisingly
 prajuhoti
 prakṛti
 pranking
@@ -2457,6 +2461,7 @@ samādhi
 samāpatti
 Sanaṅkumāra
 Sandaka
+sandan
 sandbank
 sandbar
 Sandhi
@@ -2935,6 +2940,7 @@ Uggaha
 Uggata
 ugghāṭeti
 Uggo
+Ujjain
 Ujjaya
 Ujjenī
 Ujuññā
