@@ -18,20 +18,24 @@ function makeFamilyIdioms(data) {
   familyIdiomList.forEach((item) => {
     fi = family_idiom_json[item];
     itemTag = item.replace(/ /g, "_");
+    const idioms =
+      fi.count == 1
+        ? "idiomatic expression which contains"
+        : "idiomatic expressions which contain";
 
     if (familyIdiomList.length > 1) {
       html += `<p class="heading underlined overlined" `;
       html += `id=${lemmaTag}_idiom_${itemTag}>`;
       html += `<b>${
         fi.count
-      }</b> idiomatic expressions which contain <b>${superScripter(item)}</b>`;
+      }</b> ${idioms} <b>${superScripter(item)}</b>`;
       html += `<a class="jump" href="#${lemmaTag}_idiom_top"> ⤴</a></p>`;
     } else if (familyIdiomList.length == 1) {
       html += `<p class="heading underlined" `;
       html += `id=${lemmaTag}_idiom_top>`;
       html += `<b>${
         fi.count
-      }</b> idiomatic expression which contains <b>${superScripter(item)}</b>`;
+      }</b> ${idioms} <b>${superScripter(item)}</b></p>`;
     }
 
     //// table

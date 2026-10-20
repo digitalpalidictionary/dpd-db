@@ -7,7 +7,9 @@ function makeFamilyRootHtml(data, fr, source, link) {
 
   var html = `
         <p class="heading underlined">
-            <b>${fr.count}</b> words belong to the root family 
+            <b>${fr.count}</b> ${
+              fr.count == 1 ? "word belongs" : "words belong"
+            } to the root family 
             <b>${fr.root_family}</b> 
             (${fr.root_meaning})
         </p>

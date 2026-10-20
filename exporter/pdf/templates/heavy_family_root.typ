@@ -1,7 +1,11 @@
 
 #heading(outlined: false, depth: 3)[{{ i.root_family }}] <{{ i.root_family_key_typst }}>
 
+//// if i.count == 1 \\\\
+{{ i.count }} word belongs to the root family *{{ i.root_family }}* ({{ i.root_meaning }})
+//// else \\\\
 {{ i.count }} words belong to the root family *{{ i.root_family }}* ({{ i.root_meaning }})
+//// endif \\\\
 
 #block(
   stroke: 1pt + rgb("#1a8bdb"),

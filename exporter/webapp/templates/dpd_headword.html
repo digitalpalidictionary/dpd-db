@@ -1357,7 +1357,7 @@
     <div id="family_compound_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p class="heading underlined">
             <b> {{d.fc[0].count}} </b>
-            compounds which contains
+            {% if d.fc[0].count == 1 %}compound which contains{% else %}compounds which contain{% endif %}
             <b> {{d.fc[0].compound_family}} </b>
             {{d.fc[0].html|safe}}
         </p>
@@ -1396,8 +1396,8 @@
             <b>{{f.count}}</b>
             compounds which contain
             <b>{{f.compound_family}}</b>
-            <a class="jump" href="#{{d.i.lemma_1_}}cf_top"> ⤴ </a>
             {% endif %}
+            <a class="jump" href="#{{d.i.lemma_1_}}cf_top"> ⤴ </a>
         </p>
         {{f.html|safe}} {% endfor %}
         <p class="underline overlined">

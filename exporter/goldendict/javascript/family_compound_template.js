@@ -18,18 +18,20 @@ function makeFamilyCompoundHtml(data) {
   familyCompoundList.forEach((item) => {
     fc = family_compound_json[item];
     itemTag = item.replace(/ /g, "_");
+    const compounds =
+      fc.count == 1 ? "compound which contains" : "compounds which contain";
 
     if (familyCompoundList.length > 1) {
       html += `<p class="heading underlined overlined" `;
       html += `id=${lemmaTag}_cf_${itemTag}>`;
-      html += `<b>${fc.count}</b> compounds which contain `;
+      html += `<b>${fc.count}</b> ${compounds} `;
       html += `<b>${superScripter(item)}</b>`;
       html += `<a class="jump" href="#${lemmaTag}_cf_top"> ⤴</a></p>`;
     } else if (familyCompoundList.length == 1) {
       html += `<p class="heading underlined" `;
       html += `id=${lemmaTag}_cf_top>`;
-      html += `<b>${fc.count}</b> compound which contains `;
-      html += `<b>${superScripter(item)}</b>`;
+      html += `<b>${fc.count}</b> ${compounds} `;
+      html += `<b>${superScripter(item)}</b></p>`;
     }
 
     //// table

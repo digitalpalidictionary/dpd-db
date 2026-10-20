@@ -1,7 +1,11 @@
 
 #heading3[{{ i.root_family }}]
 
+//// if i.count == 1 \\\\
+{{ i.count }} word belongs to the root family #blue-bold[{{ i.root_family }}] ({{ i.root_meaning }})
+//// else \\\\
 {{ i.count }} words belong to the root family #blue-bold[{{ i.root_family }}] ({{ i.root_meaning }})
+//// endif \\\\
 #v(0.35em, weak: true)
 
 #table(

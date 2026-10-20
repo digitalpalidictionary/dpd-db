@@ -1,7 +1,11 @@
 
 #heading(outlined: false, depth: 3)[{{ i.compound_family }}] <{{ i.compound_family }}>
 
+//// if i.count == 1 \\\\
+*{{ i.count }}* compound which contains *{{ i.compound_family }}*
+//// else \\\\
 *{{ i.count }}* compounds which contain *{{ i.compound_family }}*
+//// endif \\\\
 
 #block(
   stroke: 1pt + rgb("#1a8bdb"),

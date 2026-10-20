@@ -3,13 +3,17 @@
 import sys
 import types
 from types import SimpleNamespace
+from typing import cast
 
 from jinja2 import Environment, FileSystemLoader
 
 sys.modules.setdefault(
     "aksharamukha",
-    types.SimpleNamespace(
-        transliterate=types.SimpleNamespace(process=lambda *args, **kwargs: "")
+    cast(
+        types.ModuleType,
+        types.SimpleNamespace(
+            transliterate=types.SimpleNamespace(process=lambda *args, **kwargs: "")
+        ),
     ),
 )
 
@@ -184,3 +188,54 @@ def test_dpd_headword_shows_dhamma_gift_short_link() -> None:
 
     assert "Dhamma.gift" in html
     assert "https://dhamma.gift/sn1.1" in html
+
+
+def _render_compound_families(counts: dict[str, int]) -> str:
+    """Render the compound family block(s) and collapse whitespace."""
+    su = SuttaInfo()
+    su.dpd_sutta = "devatāsaṃyutta"
+    su.dpd_code = "SN1"
+    d = _make_template_data(su)
+    d.i.needs_sutta_info_button = False
+    d.i.needs_compound_family_button = len(counts) == 1
+    d.i.needs_compound_families_button = len(counts) > 1
+    d.fc = [
+        SimpleNamespace(count=count, compound_family=family, html="<table></table>")
+        for family, count in counts.items()
+    ]
+    env = Environment(
+        loader=FileSystemLoader("exporter/webapp/templates"), autoescape=False
+    )
+    html = env.get_template("dpd_headword.html").render(d=d)
+    return " ".join(html.split())
+
+
+def _family_heading(html: str, family: str) -> str:
+    start = html.index(f'id="test_headwordcf_{family}"')
+    return html[start : html.index("</p>", start)]
+
+
+def test_dpd_headword_single_compound_family_many_members_is_plural() -> None:
+    html = _render_compound_families({"nibbidā": 16})
+
+    assert "<b> 16 </b> compounds which contain <b> nibbidā </b>" in html
+
+
+def test_dpd_headword_single_compound_family_one_member_is_singular() -> None:
+    html = _render_compound_families({"nibbidā": 1})
+
+    assert "<b> 1 </b> compound which contains <b> nibbidā </b>" in html
+
+
+def test_dpd_headword_several_compound_families_follow_each_count() -> None:
+    html = _render_compound_families({"kata": 1, "kara": 3})
+
+    assert "<b>1</b> compound which contains <b>kata</b>" in html
+    assert "<b>3</b> compounds which contain <b>kara</b>" in html
+
+
+def test_dpd_headword_every_compound_family_heading_has_jump_link() -> None:
+    html = _render_compound_families({"kata": 1, "kara": 3})
+
+    for family in ("kata", "kara"):
+        assert 'href="#test_headwordcf_top"' in _family_heading(html, family)
