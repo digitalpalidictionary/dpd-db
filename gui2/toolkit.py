@@ -11,6 +11,7 @@ from tools.paths import ProjectPaths
 if TYPE_CHECKING:
     from gui2.additions_manager import AdditionsManager
     from gui2.corrections_manager import CorrectionsManager
+    from gui2.example_stash_manager import ExampleStashManager
     from gui2.wordfinder_popup import WordFinderPopup
     from tools.ai_manager import AIManager
     from tools.bold_definitions_search import BoldDefinitionsSearchManager
@@ -136,6 +137,15 @@ class ToolKit:
         from gui2.corrections_manager import CorrectionsManager
 
         return self._lazy("corrections_manager", lambda: CorrectionsManager(self))
+
+    @property
+    def example_stash_manager(self) -> ExampleStashManager:
+        from gui2.example_stash_manager import ExampleStashManager
+
+        # One instance for example_1 and example_2: each instance caches the
+        # file in memory and rewrites all of it on save, so separate
+        # instances overwrite each other's stash.
+        return self._lazy("example_stash_manager", lambda: ExampleStashManager(self))
 
     @property
     def wordfinder_popup(self) -> WordFinderPopup:

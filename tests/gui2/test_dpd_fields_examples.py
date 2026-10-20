@@ -2,15 +2,41 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from gui2.dpd_fields_examples import DpdExampleField
+from gui2.example_stash_manager import ExampleStashManager
 
 
-def _example_field(tmp_path: Path) -> DpdExampleField:
+def _toolkit(tmp_path: Path) -> SimpleNamespace:
     toolkit = SimpleNamespace(
         paths=SimpleNamespace(example_stash_json_path=tmp_path / "stash.json"),
         speech_marks_manager=SimpleNamespace(get_speech_marks=lambda: {}),
     )
+    toolkit.example_stash_manager = ExampleStashManager(toolkit)  # type: ignore[arg-type]
+    return toolkit
+
+
+def _example_field(
+    tmp_path: Path, toolkit: SimpleNamespace | None = None, name: str = "example_1"
+) -> DpdExampleField:
+    toolkit = toolkit or _toolkit(tmp_path)
     ui = SimpleNamespace(toolkit=toolkit)
-    return DpdExampleField(ui, "example_1", dpd_fields=None, toolkit=toolkit)
+    return DpdExampleField(ui, name, dpd_fields=None, toolkit=toolkit)
+
+
+def test_both_example_fields_share_one_stash(tmp_path: Path) -> None:
+    toolkit = _toolkit(tmp_path)
+    field_1 = _example_field(tmp_path, toolkit, "example_1")
+    field_2 = _example_field(tmp_path, toolkit, "example_2")
+
+    field_1.stash_manager.stash_shared_example("DN1", "sutta", "example")
+    # a blur-save from the other box must not wipe the stash
+    field_2.stash_manager.last_example = ("MN1", "sutta2", "other")
+
+    assert field_2.stash_manager.reload_shared_example() == ("DN1", "sutta", "example")
+    assert ExampleStashManager(toolkit).reload_shared_example() == (  # type: ignore[arg-type]
+        "DN1",
+        "sutta",
+        "example",
+    )
 
 
 def test_bold_box_submits_via_key_handler_as_single_line(tmp_path: Path) -> None:

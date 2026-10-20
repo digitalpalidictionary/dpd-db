@@ -142,7 +142,7 @@ class DpdExampleField(ft.Column):
         self.speech_marks_dict = self.speech_marks_manager.get_speech_marks()
 
         self.simple_mode = simple_mode
-        self.stash_manager = ExampleStashManager(self.ui.toolkit)
+        self.stash_manager: ExampleStashManager = self.ui.toolkit.example_stash_manager
         super().__init__(
             expand=True,
         )
