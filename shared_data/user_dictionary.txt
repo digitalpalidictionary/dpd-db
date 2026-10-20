@@ -68,6 +68,7 @@ accordant
 accurses
 accusative
 acerifolium
+acidissima
 Aciravatī
 Acorus
 acquirement
@@ -1110,6 +1111,7 @@ goldwork
 goo-gooing
 goodness
 gooseflesh
+goosegrass
 Gopaka
 gopānasī
 gossipmongering
@@ -1592,6 +1594,7 @@ likhā
 limbed
 limitlessly
 limitlessness
+Limonia
 linch-pin
 Lindica
 Linum
@@ -2431,6 +2434,7 @@ sagehood
 Sagāthakasutta
 saha
 Sahampati
+Sahampati's
 sahasakkha
 sakhilabhāve
 Sakka
@@ -2470,6 +2474,7 @@ sandhi
 sannayhi
 Sanseveria
 Sansevieria
+Santalum
 Sappan
 Sappinikā
 Sappurisasuttaṃ
@@ -2570,6 +2575,7 @@ Silāyūpasuttaṃ
 Simsapa
 Sinapis
 Sindh
+sinensis
 Sineru
 single-halled
 Sinh
@@ -3361,6 +3367,7 @@ wieldy
 wifehood
 winnows
 witnesser
+Woodapple
 wooled
 woolled
 woollen
