@@ -6,21 +6,21 @@ the soups once at construction and stores flat per-element rows, so each
 subsequent word search is a regex scan over in-memory strings (~30ms).
 
 Gatha examples depend only on the element (never on the searched word), so
-they are precomputed at build time, cached per gatha, with the stuck-loop
-guard of ``find_gatha_example`` reproduced (a stuck element yields no
-example — identical to the live path's timeout behaviour).
+they are precomputed at build time and cached per verse start, the element
+``find_verse_start`` returns.
 
 ``find_examples`` output is byte-identical to concatenating
 ``find_cst_source_sutta_example(book, text_to_find)`` over the index's books.
 """
 
 import re
-import time
 from dataclasses import dataclass
 
-from bs4 import element
-
-from tools.cst_source.examples import find_gatha_example, find_sentence_example
+from tools.cst_source.examples import (
+    find_gatha_example,
+    find_sentence_example,
+    find_verse_start,
+)
 from tools.cst_source.extractor import make_book_parser
 from tools.cst_source.loader import make_cst_soup
 from tools.cst_source.models import CstSourceSuttaExample
@@ -35,32 +35,6 @@ class IndexRow:
     text: str
     is_gatha: bool
     gatha_examples: list[str]
-
-
-def _resolve_gatha1(
-    x: element.Tag | element.NavigableString | None,
-) -> element.Tag | element.NavigableString | None:
-    """Walk back to the gatha1 element the way ``find_gatha_example`` does,
-    including its 1s stuck-loop guard. Returns None when stuck or exhausted.
-
-    Deliberate divergence: a non-newline NavigableString or rend-less sibling
-    returns None (no example) where the live path would crash — never seen in
-    the corpus, and a stuck group costs 1s per element only at build time."""
-    start_time = time.time()
-    while x is not None:
-        if x.text == "\n":
-            x = x.previous_sibling
-            continue
-        if not isinstance(x, element.Tag):
-            return None
-        if x["rend"] == "gatha1":
-            return x
-        if x["rend"] in ("gatha2", "gatha3", "gathalast"):
-            x = x.previous_sibling
-            continue
-        if time.time() - start_time > 1:
-            return None
-    return None
 
 
 def _search_book_rows(
@@ -113,12 +87,10 @@ class CstSourceIndex:
                 is_gatha = "gatha" in rend
                 gatha_examples: list[str] = []
                 if is_gatha:
-                    gatha1 = _resolve_gatha1(x)
-                    if gatha1 is not None:
-                        key = id(gatha1)
-                        if key not in gatha_cache:
-                            gatha_cache[key] = find_gatha_example(x, "indexing")
-                        gatha_examples = gatha_cache[key]
+                    key = id(find_verse_start(x))
+                    if key not in gatha_cache:
+                        gatha_cache[key] = find_gatha_example(x)
+                    gatha_examples = gatha_cache[key]
                 parser.update(x)
                 rows.append(
                     IndexRow(

@@ -1,63 +1,62 @@
 import re
-import time
 
 from bs4 import element
-from rich import print
 
 from tools.cst_source.text_utils import clean_gatha
 from tools.tokenizer import split_sentences
 
 
-def find_gatha_example(
-    x: element.Tag | element.NavigableString | None, text_to_find: str
-) -> list[str]:
+def _sibling_tag(x: element.Tag, forward: bool) -> element.Tag | None:
+    """Nearest sibling tag, or None at the edge or at loose text (a verse boundary)."""
+    sib = x.next_sibling if forward else x.previous_sibling
+    while sib is not None and not isinstance(sib, element.Tag):
+        if sib.text.strip():
+            return None
+        sib = sib.next_sibling if forward else sib.previous_sibling
+    return sib
+
+
+def _rend(x: element.Tag | None) -> str:
+    return "" if x is None else str(x.get("rend", ""))
+
+
+def find_verse_start(x: element.Tag) -> element.Tag:
+    """Walk back to the first line of the verse that ``x`` belongs to."""
+
+    # Some verses have no gatha1 (e.g. the Dhammapada uddāna), so a verse also
+    # starts right after a gathalast or any non-verse element.
+    start = x
+    while _rend(start) != "gatha1":
+        prev = _sibling_tag(start, forward=False)
+        if prev is None or _rend(prev) not in ("gatha1", "gatha2", "gatha3"):
+            break
+        start = prev
+    return start
+
+
+def find_gatha_example(x: element.Tag) -> list[str]:
     """Find an example in a gāthā. Returns at most one example."""
 
-    example = ""
+    line = find_verse_start(x)
+    example = clean_gatha(line.text)
 
-    start_time = time.time()
-    while x is not None:
-        if x.text == "\n":
-            x = x.previous_sibling
-            continue
-        if x["rend"] == "gatha1":
+    # A gatha1 met here is usually a mid-verse line marked oddly in the source,
+    # so only a non-verse element ends a verse that has no gathalast.
+    while _rend(line) != "gathalast":
+        next_line = _sibling_tag(line, forward=True)
+        rend = _rend(next_line)
+        if next_line is None or rend not in ("gatha1", "gatha2", "gatha3", "gathalast"):
             break
-        if x["rend"] in ("gatha2", "gatha3", "gathalast"):
-            x = x.previous_sibling
-            continue
-        if time.time() - start_time > 1:
-            print(f"[bright_red]{text_to_find} [red]is stuck in a loop")
-            x = None
-            break
+        line = next_line
+        text = clean_gatha(line.text)
+        if rend == "gathalast":
+            example += re.sub(",$", ".", text)
+        else:
+            example += text.replace(".", ",")
 
-    if x is None:
-        return []
-
-    text = clean_gatha(x.text)
-    example += text
-
-    while True:
-        try:
-            if x is not None:
-                x = x.next_sibling
-                if x.text == "\n":
-                    pass
-                elif x["rend"] == "gatha2" or x["rend"] == "gatha3":
-                    text = clean_gatha(x.text)
-                    text = text.replace(".", ",")
-                    example += text
-                elif x["rend"] == "gathalast":
-                    text = clean_gatha(x.text)
-                    text = re.sub(",$", ".", text)
-                    example += text
-                    break
-            else:
-                break
-        except AttributeError as e:
-            print(f"[red]{e}")
-            print(text_to_find)
-            print(x)
-            break
+    # Every verse ends with a full stop, also one that stops early or is a
+    # single line, where the "," from a ";" or a swapped "." would otherwise stay.
+    example = re.sub(",$", ".", example)
 
     if example:
         return [example]

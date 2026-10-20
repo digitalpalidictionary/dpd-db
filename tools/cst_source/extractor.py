@@ -34,7 +34,7 @@ def find_cst_source_sutta_example(
             example: list[str] = []
             if text_to_find is not None and re.findall(text_to_find, text):
                 if "gatha" in x["rend"]:
-                    example = find_gatha_example(x, text_to_find)
+                    example = find_gatha_example(x)
                 else:
                     example = find_sentence_example(text, text_to_find)
 
