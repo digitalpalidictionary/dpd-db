@@ -348,6 +348,25 @@ def save_title_page_xhtml(pth: ProjectPaths, jinja_env: Environment) -> None:
     save_content_opf_xhtml(pth, jinja_env, current_datetime)
 
 
+def find_pages_with_web_links(pth: ProjectPaths) -> set[str]:
+    """Return the names of text pages that contain an http(s) src or href.
+
+    kindling's OPF_014 check treats a plain hyperlink as a remote resource and
+    wants the page declared as one. It also warns when a page is declared but
+    has no such URL, so the list has to match the pages exactly.
+    """
+    needles = tuple(
+        f'{attr}="{scheme}://'
+        for attr in ("src", "href")
+        for scheme in ("http", "https")
+    )
+    return {
+        page.name
+        for page in pth.epub_text_dir.glob("*.xhtml")
+        if any(needle in page.read_text(encoding="utf-8") for needle in needles)
+    }
+
+
 def save_content_opf_xhtml(
     pth: ProjectPaths,
     jinja_env: Environment,
@@ -357,7 +376,10 @@ def save_content_opf_xhtml(
     pr.green_tmr("saving content.opf")
     date_time_zulu = current_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
     template = jinja_env.get_template("ebook_content_opf.jinja")
-    content = template.render(date_time_zulu=date_time_zulu)
+    content = template.render(
+        date_time_zulu=date_time_zulu,
+        remote_pages=find_pages_with_web_links(pth),
+    )
     with pth.epub_content_opf_path.open("w", encoding="utf-8") as f:
         f.write(content)
     pr.yes("OK")

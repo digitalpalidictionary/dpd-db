@@ -197,8 +197,8 @@ jobs:
     # 34754250894), so the binary is fetched rather than built or committed.
     - name: Install kindling
       env:
-        KINDLING_VERSION: "0.45.1"
-        KINDLING_SHA256: "e11a67f243fe2c822a0edc431e7a7f2a142bd946a72b7788731ea78f22eb4bc9"
+        KINDLING_VERSION: "0.45.6"
+        KINDLING_SHA256: "417ad6dad4b1072fabb20610f320ba44ca8f4afcbe2f47948dcefc3955bd6439"
       run: |
         curl -sSfL -o exporter/kindle/kindling-cli \
           "https://github.com/ciscoriordan/kindling/releases/download/v${KINDLING_VERSION}/kindling-cli-linux"

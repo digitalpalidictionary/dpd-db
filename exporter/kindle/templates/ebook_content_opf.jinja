@@ -27,85 +27,86 @@
     <meta property="schema:accessibilityHazard">none</meta>
   </metadata>
   <manifest>
-    <item id="abbreviations.xhtml" href="Text/abbreviations.xhtml" media-type="application/xhtml+xml"/>
+    <item id="abbreviations.xhtml" href="Text/abbreviations.xhtml" media-type="application/xhtml+xml"{% if "abbreviations.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
     <item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
     <item id="cover.xhtml" href="Text/cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>
     <item id="dpd_kindle.css" href="Styles/dpd_kindle.css" media-type="text/css"/>
     <item id="dpdlogo.png" href="Images/dpdlogo.png" media-type="image/png"/>
-    <item id="imprint.xhtml" href="Text/imprint.xhtml" media-type="application/xhtml+xml"/>
+    <item id="imprint.xhtml" href="Text/imprint.xhtml" media-type="application/xhtml+xml"{% if "imprint.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
     <item id="nav.xhtml" href="Text/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
     <item id="sgc-nav.css" href="Styles/sgc-nav.css" media-type="text/css"/>
     <item id="sgc-toc.css" href="Styles/sgc-toc.css" media-type="text/css"/>
-    <item id="titlepage.xhtml" href="Text/titlepage.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x0_a.xhtml" href="Text/0_a.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x1_a.xhtml" href="Text/1_a.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x2_i.xhtml" href="Text/2_i.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x3_i.xhtml" href="Text/3_i.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x4_u.xhtml" href="Text/4_u.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x5_u.xhtml" href="Text/5_u.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x6_e.xhtml" href="Text/6_e.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x7_o.xhtml" href="Text/7_o.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x8_k.xhtml" href="Text/8_k.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x9_kh.xhtml" href="Text/9_kh.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x10_g.xhtml" href="Text/10_g.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x11_gh.xhtml" href="Text/11_gh.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x12_n.xhtml" href="Text/12_n.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x13_c.xhtml" href="Text/13_c.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x14_ch.xhtml" href="Text/14_ch.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x15_j.xhtml" href="Text/15_j.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x16_jh.xhtml" href="Text/16_jh.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x17_n.xhtml" href="Text/17_n.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x18_t.xhtml" href="Text/18_t.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x19_th.xhtml" href="Text/19_th.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x20_d.xhtml" href="Text/20_d.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x21_dh.xhtml" href="Text/21_dh.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x22_n.xhtml" href="Text/22_n.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x23_t.xhtml" href="Text/23_t.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x24_th.xhtml" href="Text/24_th.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x25_d.xhtml" href="Text/25_d.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x26_dh.xhtml" href="Text/26_dh.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x27_n.xhtml" href="Text/27_n.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x28_p.xhtml" href="Text/28_p.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x29_ph.xhtml" href="Text/29_ph.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x30_b.xhtml" href="Text/30_b.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x31_bh.xhtml" href="Text/31_bh.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x32_m.xhtml" href="Text/32_m.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x33_y.xhtml" href="Text/33_y.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x34_r.xhtml" href="Text/34_r.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x35_l.xhtml" href="Text/35_l.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x36_s.xhtml" href="Text/36_s.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x37_v.xhtml" href="Text/37_v.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x38_h.xhtml" href="Text/38_h.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x39_l.xhtml" href="Text/39_l.xhtml" media-type="application/xhtml+xml"/>
-    <item id="x40_m.xhtml" href="Text/40_m.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_0_a.xhtml" href="Text/epd_0_a.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_1_b.xhtml" href="Text/epd_1_b.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_2_c.xhtml" href="Text/epd_2_c.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_3_d.xhtml" href="Text/epd_3_d.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_4_e.xhtml" href="Text/epd_4_e.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_5_f.xhtml" href="Text/epd_5_f.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_6_g.xhtml" href="Text/epd_6_g.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_7_h.xhtml" href="Text/epd_7_h.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_8_i.xhtml" href="Text/epd_8_i.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_9_j.xhtml" href="Text/epd_9_j.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_10_k.xhtml" href="Text/epd_10_k.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_11_l.xhtml" href="Text/epd_11_l.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_12_m.xhtml" href="Text/epd_12_m.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_13_n.xhtml" href="Text/epd_13_n.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_14_o.xhtml" href="Text/epd_14_o.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_15_p.xhtml" href="Text/epd_15_p.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_16_q.xhtml" href="Text/epd_16_q.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_17_r.xhtml" href="Text/epd_17_r.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_18_s.xhtml" href="Text/epd_18_s.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_19_t.xhtml" href="Text/epd_19_t.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_20_u.xhtml" href="Text/epd_20_u.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_21_v.xhtml" href="Text/epd_21_v.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_22_w.xhtml" href="Text/epd_22_w.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_23_x.xhtml" href="Text/epd_23_x.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_24_y.xhtml" href="Text/epd_24_y.xhtml" media-type="application/xhtml+xml"/>
-    <item id="epd_25_z.xhtml" href="Text/epd_25_z.xhtml" media-type="application/xhtml+xml"/>
+    <item id="titlepage.xhtml" href="Text/titlepage.xhtml" media-type="application/xhtml+xml"{% if "titlepage.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x0_a.xhtml" href="Text/0_a.xhtml" media-type="application/xhtml+xml"{% if "0_a.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x1_a.xhtml" href="Text/1_a.xhtml" media-type="application/xhtml+xml"{% if "1_a.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x2_i.xhtml" href="Text/2_i.xhtml" media-type="application/xhtml+xml"{% if "2_i.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x3_i.xhtml" href="Text/3_i.xhtml" media-type="application/xhtml+xml"{% if "3_i.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x4_u.xhtml" href="Text/4_u.xhtml" media-type="application/xhtml+xml"{% if "4_u.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x5_u.xhtml" href="Text/5_u.xhtml" media-type="application/xhtml+xml"{% if "5_u.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x6_e.xhtml" href="Text/6_e.xhtml" media-type="application/xhtml+xml"{% if "6_e.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x7_o.xhtml" href="Text/7_o.xhtml" media-type="application/xhtml+xml"{% if "7_o.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x8_k.xhtml" href="Text/8_k.xhtml" media-type="application/xhtml+xml"{% if "8_k.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x9_kh.xhtml" href="Text/9_kh.xhtml" media-type="application/xhtml+xml"{% if "9_kh.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x10_g.xhtml" href="Text/10_g.xhtml" media-type="application/xhtml+xml"{% if "10_g.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x11_gh.xhtml" href="Text/11_gh.xhtml" media-type="application/xhtml+xml"{% if "11_gh.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x12_n.xhtml" href="Text/12_n.xhtml" media-type="application/xhtml+xml"{% if "12_n.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x13_c.xhtml" href="Text/13_c.xhtml" media-type="application/xhtml+xml"{% if "13_c.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x14_ch.xhtml" href="Text/14_ch.xhtml" media-type="application/xhtml+xml"{% if "14_ch.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x15_j.xhtml" href="Text/15_j.xhtml" media-type="application/xhtml+xml"{% if "15_j.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x16_jh.xhtml" href="Text/16_jh.xhtml" media-type="application/xhtml+xml"{% if "16_jh.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x17_n.xhtml" href="Text/17_n.xhtml" media-type="application/xhtml+xml"{% if "17_n.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x18_t.xhtml" href="Text/18_t.xhtml" media-type="application/xhtml+xml"{% if "18_t.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x19_th.xhtml" href="Text/19_th.xhtml" media-type="application/xhtml+xml"{% if "19_th.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x20_d.xhtml" href="Text/20_d.xhtml" media-type="application/xhtml+xml"{% if "20_d.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x21_dh.xhtml" href="Text/21_dh.xhtml" media-type="application/xhtml+xml"{% if "21_dh.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x22_n.xhtml" href="Text/22_n.xhtml" media-type="application/xhtml+xml"{% if "22_n.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x23_t.xhtml" href="Text/23_t.xhtml" media-type="application/xhtml+xml"{% if "23_t.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x24_th.xhtml" href="Text/24_th.xhtml" media-type="application/xhtml+xml"{% if "24_th.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x25_d.xhtml" href="Text/25_d.xhtml" media-type="application/xhtml+xml"{% if "25_d.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x26_dh.xhtml" href="Text/26_dh.xhtml" media-type="application/xhtml+xml"{% if "26_dh.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x27_n.xhtml" href="Text/27_n.xhtml" media-type="application/xhtml+xml"{% if "27_n.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x28_p.xhtml" href="Text/28_p.xhtml" media-type="application/xhtml+xml"{% if "28_p.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x29_ph.xhtml" href="Text/29_ph.xhtml" media-type="application/xhtml+xml"{% if "29_ph.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x30_b.xhtml" href="Text/30_b.xhtml" media-type="application/xhtml+xml"{% if "30_b.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x31_bh.xhtml" href="Text/31_bh.xhtml" media-type="application/xhtml+xml"{% if "31_bh.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x32_m.xhtml" href="Text/32_m.xhtml" media-type="application/xhtml+xml"{% if "32_m.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x33_y.xhtml" href="Text/33_y.xhtml" media-type="application/xhtml+xml"{% if "33_y.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x34_r.xhtml" href="Text/34_r.xhtml" media-type="application/xhtml+xml"{% if "34_r.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x35_l.xhtml" href="Text/35_l.xhtml" media-type="application/xhtml+xml"{% if "35_l.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x36_s.xhtml" href="Text/36_s.xhtml" media-type="application/xhtml+xml"{% if "36_s.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x37_v.xhtml" href="Text/37_v.xhtml" media-type="application/xhtml+xml"{% if "37_v.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x38_h.xhtml" href="Text/38_h.xhtml" media-type="application/xhtml+xml"{% if "38_h.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x39_l.xhtml" href="Text/39_l.xhtml" media-type="application/xhtml+xml"{% if "39_l.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="x40_m.xhtml" href="Text/40_m.xhtml" media-type="application/xhtml+xml"{% if "40_m.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_0_a.xhtml" href="Text/epd_0_a.xhtml" media-type="application/xhtml+xml"{% if "epd_0_a.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_1_b.xhtml" href="Text/epd_1_b.xhtml" media-type="application/xhtml+xml"{% if "epd_1_b.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_2_c.xhtml" href="Text/epd_2_c.xhtml" media-type="application/xhtml+xml"{% if "epd_2_c.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_3_d.xhtml" href="Text/epd_3_d.xhtml" media-type="application/xhtml+xml"{% if "epd_3_d.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_4_e.xhtml" href="Text/epd_4_e.xhtml" media-type="application/xhtml+xml"{% if "epd_4_e.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_5_f.xhtml" href="Text/epd_5_f.xhtml" media-type="application/xhtml+xml"{% if "epd_5_f.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_6_g.xhtml" href="Text/epd_6_g.xhtml" media-type="application/xhtml+xml"{% if "epd_6_g.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_7_h.xhtml" href="Text/epd_7_h.xhtml" media-type="application/xhtml+xml"{% if "epd_7_h.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_8_i.xhtml" href="Text/epd_8_i.xhtml" media-type="application/xhtml+xml"{% if "epd_8_i.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_9_j.xhtml" href="Text/epd_9_j.xhtml" media-type="application/xhtml+xml"{% if "epd_9_j.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_10_k.xhtml" href="Text/epd_10_k.xhtml" media-type="application/xhtml+xml"{% if "epd_10_k.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_11_l.xhtml" href="Text/epd_11_l.xhtml" media-type="application/xhtml+xml"{% if "epd_11_l.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_12_m.xhtml" href="Text/epd_12_m.xhtml" media-type="application/xhtml+xml"{% if "epd_12_m.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_13_n.xhtml" href="Text/epd_13_n.xhtml" media-type="application/xhtml+xml"{% if "epd_13_n.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_14_o.xhtml" href="Text/epd_14_o.xhtml" media-type="application/xhtml+xml"{% if "epd_14_o.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_15_p.xhtml" href="Text/epd_15_p.xhtml" media-type="application/xhtml+xml"{% if "epd_15_p.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_16_q.xhtml" href="Text/epd_16_q.xhtml" media-type="application/xhtml+xml"{% if "epd_16_q.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_17_r.xhtml" href="Text/epd_17_r.xhtml" media-type="application/xhtml+xml"{% if "epd_17_r.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_18_s.xhtml" href="Text/epd_18_s.xhtml" media-type="application/xhtml+xml"{% if "epd_18_s.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_19_t.xhtml" href="Text/epd_19_t.xhtml" media-type="application/xhtml+xml"{% if "epd_19_t.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_20_u.xhtml" href="Text/epd_20_u.xhtml" media-type="application/xhtml+xml"{% if "epd_20_u.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_21_v.xhtml" href="Text/epd_21_v.xhtml" media-type="application/xhtml+xml"{% if "epd_21_v.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_22_w.xhtml" href="Text/epd_22_w.xhtml" media-type="application/xhtml+xml"{% if "epd_22_w.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_23_x.xhtml" href="Text/epd_23_x.xhtml" media-type="application/xhtml+xml"{% if "epd_23_x.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_24_y.xhtml" href="Text/epd_24_y.xhtml" media-type="application/xhtml+xml"{% if "epd_24_y.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
+    <item id="epd_25_z.xhtml" href="Text/epd_25_z.xhtml" media-type="application/xhtml+xml"{% if "epd_25_z.xhtml" in remote_pages %} properties="remote-resources"{% endif %}/>
   </manifest>
-  <spine>
+  <spine toc="ncx">
     <itemref idref="cover.xhtml"/>
     <itemref idref="titlepage.xhtml"/>
     <itemref idref="imprint.xhtml"/>

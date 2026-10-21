@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+<head>
+<meta name="dtb:uid" content="urn:uuid:c2f8321b-cb69-43a4-a2e7-fc7f15646099"/>
+<meta name="dtb:depth" content="2"/>
+<meta name="dtb:totalPageCount" content="0"/>
+<meta name="dtb:maxPageNumber" content="0"/>
+</head>
+<docTitle><text>Digital Pāḷi Dictionary</text></docTitle>
+<navMap>
+<navPoint id="n1" playOrder="1"><navLabel><text>Abbreviations</text></navLabel><content src="Text/abbreviations.xhtml"/>
+</navPoint>
+<navPoint id="n2" playOrder="2"><navLabel><text>Pāḷi-English</text></navLabel><content src="Text/0_a.xhtml"/>
+<navPoint id="n3" playOrder="3"><navLabel><text>a</text></navLabel><content src="Text/0_a.xhtml"/></navPoint>
+<navPoint id="n4" playOrder="4"><navLabel><text>ā</text></navLabel><content src="Text/1_a.xhtml"/></navPoint>
+<navPoint id="n5" playOrder="5"><navLabel><text>i</text></navLabel><content src="Text/2_i.xhtml"/></navPoint>
+<navPoint id="n6" playOrder="6"><navLabel><text>ī</text></navLabel><content src="Text/3_i.xhtml"/></navPoint>
+<navPoint id="n7" playOrder="7"><navLabel><text>u</text></navLabel><content src="Text/4_u.xhtml"/></navPoint>
+<navPoint id="n8" playOrder="8"><navLabel><text>ū</text></navLabel><content src="Text/5_u.xhtml"/></navPoint>
+<navPoint id="n9" playOrder="9"><navLabel><text>e</text></navLabel><content src="Text/6_e.xhtml"/></navPoint>
+<navPoint id="n10" playOrder="10"><navLabel><text>o</text></navLabel><content src="Text/7_o.xhtml"/></navPoint>
+<navPoint id="n11" playOrder="11"><navLabel><text>k</text></navLabel><content src="Text/8_k.xhtml"/></navPoint>
+<navPoint id="n12" playOrder="12"><navLabel><text>kh</text></navLabel><content src="Text/9_kh.xhtml"/></navPoint>
+<navPoint id="n13" playOrder="13"><navLabel><text>g</text></navLabel><content src="Text/10_g.xhtml"/></navPoint>
+<navPoint id="n14" playOrder="14"><navLabel><text>gh</text></navLabel><content src="Text/11_gh.xhtml"/></navPoint>
+<navPoint id="n15" playOrder="15"><navLabel><text>ṅ</text></navLabel><content src="Text/12_n.xhtml"/></navPoint>
+<navPoint id="n16" playOrder="16"><navLabel><text>c</text></navLabel><content src="Text/13_c.xhtml"/></navPoint>
+<navPoint id="n17" playOrder="17"><navLabel><text>ch</text></navLabel><content src="Text/14_ch.xhtml"/></navPoint>
+<navPoint id="n18" playOrder="18"><navLabel><text>j</text></navLabel><content src="Text/15_j.xhtml"/></navPoint>
+<navPoint id="n19" playOrder="19"><navLabel><text>jh</text></navLabel><content src="Text/16_jh.xhtml"/></navPoint>
+<navPoint id="n20" playOrder="20"><navLabel><text>ñ</text></navLabel><content src="Text/17_n.xhtml"/></navPoint>
+<navPoint id="n21" playOrder="21"><navLabel><text>ṭ</text></navLabel><content src="Text/18_t.xhtml"/></navPoint>
+<navPoint id="n22" playOrder="22"><navLabel><text>ṭh</text></navLabel><content src="Text/19_th.xhtml"/></navPoint>
+<navPoint id="n23" playOrder="23"><navLabel><text>ḍ</text></navLabel><content src="Text/20_d.xhtml"/></navPoint>
+<navPoint id="n24" playOrder="24"><navLabel><text>ṇ</text></navLabel><content src="Text/22_n.xhtml"/></navPoint>
+<navPoint id="n25" playOrder="25"><navLabel><text>t</text></navLabel><content src="Text/23_t.xhtml"/></navPoint>
+<navPoint id="n26" playOrder="26"><navLabel><text>th</text></navLabel><content src="Text/24_th.xhtml"/></navPoint>
+<navPoint id="n27" playOrder="27"><navLabel><text>d</text></navLabel><content src="Text/25_d.xhtml"/></navPoint>
+<navPoint id="n28" playOrder="28"><navLabel><text>dh</text></navLabel><content src="Text/26_dh.xhtml"/></navPoint>
+<navPoint id="n29" playOrder="29"><navLabel><text>n</text></navLabel><content src="Text/27_n.xhtml"/></navPoint>
+<navPoint id="n30" playOrder="30"><navLabel><text>p</text></navLabel><content src="Text/28_p.xhtml"/></navPoint>
+<navPoint id="n31" playOrder="31"><navLabel><text>ph</text></navLabel><content src="Text/29_ph.xhtml"/></navPoint>
+<navPoint id="n32" playOrder="32"><navLabel><text>b</text></navLabel><content src="Text/30_b.xhtml"/></navPoint>
+<navPoint id="n33" playOrder="33"><navLabel><text>bh</text></navLabel><content src="Text/31_bh.xhtml"/></navPoint>
+<navPoint id="n34" playOrder="34"><navLabel><text>m</text></navLabel><content src="Text/32_m.xhtml"/></navPoint>
+<navPoint id="n35" playOrder="35"><navLabel><text>y</text></navLabel><content src="Text/33_y.xhtml"/></navPoint>
+<navPoint id="n36" playOrder="36"><navLabel><text>r</text></navLabel><content src="Text/34_r.xhtml"/></navPoint>
+<navPoint id="n37" playOrder="37"><navLabel><text>l</text></navLabel><content src="Text/35_l.xhtml"/></navPoint>
+<navPoint id="n38" playOrder="38"><navLabel><text>s</text></navLabel><content src="Text/36_s.xhtml"/></navPoint>
+<navPoint id="n39" playOrder="39"><navLabel><text>v</text></navLabel><content src="Text/37_v.xhtml"/></navPoint>
+<navPoint id="n40" playOrder="40"><navLabel><text>h</text></navLabel><content src="Text/38_h.xhtml"/></navPoint>
+<navPoint id="n41" playOrder="41"><navLabel><text>ḷ</text></navLabel><content src="Text/39_l.xhtml"/></navPoint>
+<navPoint id="n42" playOrder="42"><navLabel><text>ṃ</text></navLabel><content src="Text/40_m.xhtml"/></navPoint>
+</navPoint>
+<navPoint id="n43" playOrder="43"><navLabel><text>English to Pāḷi Dictionary</text></navLabel><content src="Text/epd_0_a.xhtml"/>
+<navPoint id="n44" playOrder="44"><navLabel><text>A</text></navLabel><content src="Text/epd_0_a.xhtml"/></navPoint>
+<navPoint id="n45" playOrder="45"><navLabel><text>B</text></navLabel><content src="Text/epd_1_b.xhtml"/></navPoint>
+<navPoint id="n46" playOrder="46"><navLabel><text>C</text></navLabel><content src="Text/epd_2_c.xhtml"/></navPoint>
+<navPoint id="n47" playOrder="47"><navLabel><text>D</text></navLabel><content src="Text/epd_3_d.xhtml"/></navPoint>
+<navPoint id="n48" playOrder="48"><navLabel><text>E</text></navLabel><content src="Text/epd_4_e.xhtml"/></navPoint>
+<navPoint id="n49" playOrder="49"><navLabel><text>F</text></navLabel><content src="Text/epd_5_f.xhtml"/></navPoint>
+<navPoint id="n50" playOrder="50"><navLabel><text>G</text></navLabel><content src="Text/epd_6_g.xhtml"/></navPoint>
+<navPoint id="n51" playOrder="51"><navLabel><text>H</text></navLabel><content src="Text/epd_7_h.xhtml"/></navPoint>
+<navPoint id="n52" playOrder="52"><navLabel><text>I</text></navLabel><content src="Text/epd_8_i.xhtml"/></navPoint>
+<navPoint id="n53" playOrder="53"><navLabel><text>J</text></navLabel><content src="Text/epd_9_j.xhtml"/></navPoint>
+<navPoint id="n54" playOrder="54"><navLabel><text>K</text></navLabel><content src="Text/epd_10_k.xhtml"/></navPoint>
+<navPoint id="n55" playOrder="55"><navLabel><text>L</text></navLabel><content src="Text/epd_11_l.xhtml"/></navPoint>
+<navPoint id="n56" playOrder="56"><navLabel><text>M</text></navLabel><content src="Text/epd_12_m.xhtml"/></navPoint>
+<navPoint id="n57" playOrder="57"><navLabel><text>N</text></navLabel><content src="Text/epd_13_n.xhtml"/></navPoint>
+<navPoint id="n58" playOrder="58"><navLabel><text>O</text></navLabel><content src="Text/epd_14_o.xhtml"/></navPoint>
+<navPoint id="n59" playOrder="59"><navLabel><text>P</text></navLabel><content src="Text/epd_15_p.xhtml"/></navPoint>
+<navPoint id="n60" playOrder="60"><navLabel><text>Q</text></navLabel><content src="Text/epd_16_q.xhtml"/></navPoint>
+<navPoint id="n61" playOrder="61"><navLabel><text>R</text></navLabel><content src="Text/epd_17_r.xhtml"/></navPoint>
+<navPoint id="n62" playOrder="62"><navLabel><text>S</text></navLabel><content src="Text/epd_18_s.xhtml"/></navPoint>
+<navPoint id="n63" playOrder="63"><navLabel><text>T</text></navLabel><content src="Text/epd_19_t.xhtml"/></navPoint>
+<navPoint id="n64" playOrder="64"><navLabel><text>U</text></navLabel><content src="Text/epd_20_u.xhtml"/></navPoint>
+<navPoint id="n65" playOrder="65"><navLabel><text>V</text></navLabel><content src="Text/epd_21_v.xhtml"/></navPoint>
+<navPoint id="n66" playOrder="66"><navLabel><text>W</text></navLabel><content src="Text/epd_22_w.xhtml"/></navPoint>
+<navPoint id="n67" playOrder="67"><navLabel><text>X</text></navLabel><content src="Text/epd_23_x.xhtml"/></navPoint>
+<navPoint id="n68" playOrder="68"><navLabel><text>Y</text></navLabel><content src="Text/epd_24_y.xhtml"/></navPoint>
+<navPoint id="n69" playOrder="69"><navLabel><text>Z</text></navLabel><content src="Text/epd_25_z.xhtml"/></navPoint>
+</navPoint>
+</navMap>
+</ncx>
