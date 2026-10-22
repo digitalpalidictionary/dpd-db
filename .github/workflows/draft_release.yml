@@ -670,8 +670,9 @@ jobs:
             exit 1
           fi
 
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          # same author as the earlier DPD update commits in these repos
+          git config --global user.name "bdhrs"
+          git config --global user.email "64521731+bdhrs@users.noreply.github.com"
 
           # same header actions/checkout uses; the base64 form is not auto-masked
           b64=$(printf 'x-access-token:%s' "$GH_PAT" | base64 -w0)
@@ -711,7 +712,8 @@ jobs:
               echo "Nothing changed upstream-side, skipping push"
               return 0
             fi
-            git commit -m "DPD lookup: update $(date +'%d-%b-%y')" || return 1
+            # same wording as every earlier DPD update commit in these repos
+            git commit -m "DPD $(date +'%B %Y') release" || return 1
             git "${auth[@]}" push $dry_run origin "$branch:$branch" || return 1
           }
 

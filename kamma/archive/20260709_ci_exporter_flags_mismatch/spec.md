@@ -105,7 +105,7 @@ In `draft_release.yml`. Steps 0 to 3 are in `build-linux`. Step 4 is a new job.
    dpd-db without submodules, downloads the artifact, and for each leg that has a
    tarball: clones the submodule fresh (`--depth 1`, branch from the table, sc-data
    with a sparse checkout that leaves out `html_text`), unpacks the tarball, stages,
-   commits `DPD lookup: update <date>`, and pushes `<branch>:<branch>`
+   commits `DPD <Month> <Year> release` (the wording of every earlier DPD update commit in these repos) as `bdhrs` (GitHub no-reply address, as the earlier commits), and pushes `<branch>:<branch>`
    (`--dry-run` when `push_dry_run`). Auth uses the same header `actions/checkout`
    uses, built from `GH_PAT`, and masked. Submodule URLs come from `.gitmodules`.
    A leg with no tarball or nothing changed is skipped. If `collect_done.txt` is
