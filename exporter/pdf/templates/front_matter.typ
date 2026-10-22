@@ -24,7 +24,7 @@
     width: 7%,
     height: auto,
     alt: "DPD logo"
-  ),
+  )
   #text(20pt)[
     *Digital Pāḷi Dictionary*
   ]

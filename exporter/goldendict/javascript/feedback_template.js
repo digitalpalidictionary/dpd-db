@@ -48,6 +48,11 @@ function makeFeedback(data) {
     </p>
     <p>
         <a class="dpd-link"
+        href="https://digitalpalidictionary.github.io/how_to_cite/">
+        How to cite</a><span>. DPD is revised every month, so please cite the version you used.</span>
+    </p>
+    <p>
+        <a class="dpd-link"
         href="mailto:digitalpalidictionary@gmail.com?subject=I'd%20like%20to%20help%20with%20code!&body=Please%20let%20me%20know%20how%20I%20can%20get%20involved%20with%20the%20development%20of%20DPD.">
         Help with coding</a><span>. If you're a coder and would like to support the project, please get in touch.</span>
     </p>
