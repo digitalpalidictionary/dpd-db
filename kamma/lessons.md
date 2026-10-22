@@ -395,3 +395,10 @@
 - 2026-10-22 [WORKFLOW] #271: the embedded form frame height was set from a guess, then tuned by five round trips with the user. Measure the first page from a screenshot before the first value.
 - 2026-10-22 [BEHAVIOR] #271: after two independent reviews finished, asked the user to run a third review only to satisfy the stop gate. Write the review file from the reviews that already ran.
 - 2026-10-22 [POSITIVE] #271: the user's rule about asking for services was the same passage the spec already cited; reading the spec first would have saved the pedantic round.
+- 2026-10-22 [POSITIVE] #272: asking GitHub for each upstream's default branch before writing the sync and push loops caught that tpr_downloads uses master, not main. A hard-coded main would have failed that leg.
+- 2026-10-22 [POSITIVE] #272: running the workflow's real shell blocks, extracted from the YAML, against throwaway repos found a push order bug and proved the sc-data deletion guard before any GitHub run.
+- 2026-10-22 [BEHAVIOR] #272: stated that the TBW exporter writes three files into each of two repos after reading only the function definitions, not main(). It was true, but the user's challenge was fair. Read the caller before stating what a script does.
+- 2026-10-22 [BEHAVIOR] #272: called each submodule by its folder short code in the issue and plan. The user wanted the project names (Dhamma Gift, The Buddha's Words). Use the names the user uses.
+- 2026-10-22 [BEHAVIOR] #272: asked the user to commit and dispatch before offering the local test that was possible without a commit. Offer the no-commit test first.
+- 2026-10-22 [BEHAVIOR] #272: ran read-only git commands in a submodule unasked, against the global rule. Ask first, or use file reads.
+- 2026-10-22 [WORKFLOW] #272: an outside review (GLM) made two wrong claims and one earlier review claimed a git abort that a ten-line throwaway test disproved. Test the claim in a scratch repo before editing the plan.

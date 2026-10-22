@@ -94,19 +94,36 @@ locked). Goal: fold the submodule-producing exporters and the push into
   others pushed; nothing written pushed nothing, exit 0.
   Not covered locally: the gate against the real uposatha tool, the dispatch
   switches, artifact upload and download, `GH_PAT` push auth, and job ordering.
-- [ ] **7. Proof run 1: switch off.** Dispatch Draft Release from the thread
+- [x] **7. Proof run 1: switch off.** Dispatch Draft Release from the thread
   branch with the defaults. Confirm the release builds and none of the new steps
   run. Note: the run uses the branch's workflow file but main's code.
-- [ ] **8. Proof run 2: switch on, dry run.** Dispatch with `push_submodules: true`
+- [x] **8. Proof run 2: switch on, dry run.** Dispatch with `push_submodules: true`
   and `push_dry_run: true` (the dry-run bypass opens the gate on any day). Read the staged-file lists in the log. Confirm sc-data
   stages one file and zero deletions, and that tpr_downloads no-ops on a
   non-uposatha day. Never change a remote or touch an upstream repo in this
   thread. The dry run is the only proof before release day.
-- [ ] **9. Delete `submodules_update.yml`** once step 8 passes.
-- [ ] **10. Real test on release day, 2026-10-26.** That date is in the uposatha
+- [x] **9. Delete `submodules_update.yml`** once step 8 passes.
+- [ ] **10. (open, outside this thread's finalize) Real test on release day, 2026-10-26.** That date is in the uposatha
   list, so the gate opens. The user dispatches after 00:00 UTC (the runner uses
   the UTC date) with `push_submodules: true` and `push_dry_run: false`. The user checks
   each upstream repo for the new commit. The thread stays open until then.
+
+## Proof run results (2026-10-22, both on main at commit ce0683c0)
+- **Run 1, switches off** (run 39776856545): green. Linux, macOS and release jobs
+  succeeded, a draft release v0.4.20261022 was made. All seven new Linux steps and
+  the push job were skipped.
+- **Run 2, push_submodules and push_dry_run on** (run 39777176226): green. Gate,
+  sync, three exporters, collect and upload all succeeded. Collect staged 3 files in
+  fdg_dpd, 3 in bw2, exactly 1 in sc-data (`pli2en_dpd.json`, no `D` line), and
+  nothing in tpr_downloads (not an uposatha day). The push job ran after the
+  release, cloned fresh, and logged `main -> main` for fdg_dpd, bw2 and sc-data
+  with `--dry-run`. A direct check of the four upstream repos afterwards showed
+  their newest commits unchanged, so nothing was pushed.
+- Side effect: each run made a draft release with the same tag. The user deletes
+  the extra draft.
+- Not proven by these runs: a real push with `GH_PAT` write access, and the TPR
+  leg with real output. Both are covered only by the real run on 2026-10-26.
+- Task 9 done: `submodules_update.yml` was deleted after run 2 passed.
 
 ## Notes / pitfalls
 - The sync (task 2) must come before the exporters. A reset or checkout after

@@ -149,6 +149,11 @@ Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 - Maintainers are Buddhist monastics: never name, seek or accept money on any page. Asking for goods or services (a server, a subscription) is allowed — SN42.10, the passage `kamma/archive/20261022_contributions_form/spec.md` already cites.
 - "Contribution form" means offer help. "Contribution website" means add Pāḷi entries. Keep the two names apart.
 
+## CI Workflows
+- Before hard-coding a branch for an upstream repo in a workflow, read it: `gh api repos/<owner>/<repo> --jq .default_branch`. `bksubhuti/tpr_downloads` uses `master`, the other submodule upstreams use `main`.
+- `draft_release.yml` deletes `resources/sc-data/html_text/*` to save disk, and sc-data tracks about 70k files there. Never `git add .` in sc-data from a workflow; stage the one exporter output file. The submodule push (#272) runs only on uposatha days, via the `push_submodules` input.
+- Test a workflow's `run:` blocks before the first GitHub run: extract them with `yaml.safe_load` and run them in a scratchpad against throwaway git repos with `file://` upstreams.
+
 ## graphify
 A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges). Prefer these over grepping raw files — a scoped subgraph at ~13× fewer tokens:
 ```bash
