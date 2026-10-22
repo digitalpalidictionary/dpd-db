@@ -2,6 +2,17 @@ name: Draft Release
 
 on:
  workflow_dispatch:
+  inputs:
+    push_submodules:
+      description: "Run exporters and push to fdg_dpd, bw2, sc-data, tpr_downloads (uposatha days only)"
+      type: boolean
+      required: false
+      default: false
+    push_dry_run:
+      description: "With push_submodules: run on any day and use git push --dry-run"
+      type: boolean
+      required: false
+      default: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -12,6 +23,7 @@ jobs:
     outputs:
       RELEASE_DATE: ${{ steps.set_release_date.outputs.RELEASE_DATE }}
       RELEASE_TAG: ${{ steps.set_release_tag.outputs.RELEASE_TAG }}
+      SUBMODULES_RUN: ${{ steps.submodule_gate.outputs.run }}
 
     steps:
 
@@ -51,6 +63,50 @@ jobs:
       uses: actions/setup-go@v6
       with:
         go-version: '1.22.2'
+
+    # ----------------------------------------
+    # Submodule updates (optional, see push_submodules input)
+    # ----------------------------------------
+
+    - name: Check submodule gate
+      id: submodule_gate
+      if: inputs.push_submodules == true
+      # an empty output skips every later submodule step; the release is unaffected
+      continue-on-error: true
+      run: |
+        if [ "${{ inputs.push_dry_run }}" = "true" ]; then
+          echo "run=true" >> "$GITHUB_OUTPUT"
+        else
+          # the tool's exit code cannot tell a crash from "not an uposatha" (both 1),
+          # so read the printed answer instead
+          answer=$(uv run python -c "from tools.uposatha_day import UposathaManger; print(UposathaManger.uposatha_today())" | tail -n 1) || answer="crashed"
+          if [ "$answer" = "True" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ "$answer" = "False" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Not an uposatha day, skipping submodule updates"
+          else
+            echo "::error::uposatha check gave '$answer', submodule updates skipped"
+            exit 1
+          fi
+        fi
+
+    # Must run before the exporters: they write into these submodules.
+    # No reset --hard: it would restore the sc-data html_text files deleted above.
+    - name: Sync submodules with upstream
+      id: sync_submodules
+      if: steps.submodule_gate.outputs.run == 'true'
+      # a failure here must never stop the release build; the push step reads this outcome
+      continue-on-error: true
+      shell: bash
+      run: |
+        for entry in resources/fdg_dpd:main resources/bw2:main resources/sc-data:main resources/tpr_downloads:master; do
+          path="${entry%%:*}"
+          branch="${entry##*:}"
+          echo "Syncing $path to origin/$branch"
+          git -C "$path" fetch --depth 1 origin "$branch"
+          git -C "$path" checkout -B "$branch" "origin/$branch"
+        done
 
     # ----------------------------------------
     # Build Database
@@ -270,6 +326,99 @@ jobs:
         $HOME/check_disk.sh
 
     # ----------------------------------------
+    # Export to submodules
+    # ----------------------------------------
+
+    # continue-on-error on these steps and the push step: a submodule problem
+    # must not fail the job, because the macOS and release jobs wait for it.
+    - name: Run TBW Exporter
+      id: tbw
+      if: steps.submodule_gate.outputs.run == 'true' && steps.sync_submodules.outcome == 'success'
+      continue-on-error: true
+      run: uv run python exporter/tbw/tbw_exporter.py
+
+    - name: Run SuttaCentral Exporter
+      id: sc
+      if: steps.submodule_gate.outputs.run == 'true' && steps.sync_submodules.outcome == 'success'
+      continue-on-error: true
+      run: uv run python exporter/sutta_central/sutta_central_exporter.py
+
+    - name: Run TPR Exporter
+      id: tpr
+      if: steps.submodule_gate.outputs.run == 'true' && steps.sync_submodules.outcome == 'success'
+      continue-on-error: true
+      run: uv run python exporter/tpr/tpr_exporter.py
+
+    # Pack each submodule's changed files for the push-submodules job, which runs
+    # after the release exists. Deletions cannot be carried in a tarball, so a leg
+    # that staged one is refused.
+    - name: Collect submodule output
+      id: collect_submodules
+      if: steps.submodule_gate.outputs.run == 'true'
+      continue-on-error: true
+      shell: bash
+      env:
+        SYNC_OUTCOME: ${{ steps.sync_submodules.outcome }}
+        OUT_TBW: ${{ steps.tbw.outcome }}
+        OUT_SC: ${{ steps.sc.outcome }}
+        OUT_TPR: ${{ steps.tpr.outcome }}
+      run: |
+        mkdir -p "$GITHUB_WORKSPACE/submodule-out"
+        # lets the push job tell "nothing to push" from "artifact missing"
+        echo "collect step started" > "$GITHUB_WORKSPACE/submodule-out/collect_done.txt"
+
+        # Every command returns 1 on failure. set -e is switched off inside a
+        # function called as "(f) || ...", so it cannot be relied on here.
+        collect_one() {
+          local path=$1 stage=$2 staged
+          cd "$GITHUB_WORKSPACE/$path" || return 1
+          git add -- "$stage" || return 1
+          # captured first: grep -q exiting early would trip pipefail on a pipe
+          staged=$(git diff --cached --name-status) || return 1
+          echo "Staged changes:"
+          echo "$staged"
+          if grep -q '^D' <<< "$staged"; then
+            echo "::error::$path staged a deletion, which the push job cannot carry"
+            return 1
+          fi
+          if git diff --cached --quiet; then
+            echo "Nothing staged"
+            return 0
+          fi
+          git diff --cached --name-only -z | tar -czf "$GITHUB_WORKSPACE/submodule-out/$(basename "$path").tar.gz" --null -T - || return 1
+        }
+
+        # path:stage-path:exporter-outcome-variable. sc-data stages one file only: the
+        # Remove large dirs step deleted its html_text files, and "git add ." would
+        # collect those deletions.
+        failed=0
+        for entry in \
+          "resources/fdg_dpd:.:OUT_TBW" \
+          "resources/bw2:.:OUT_TBW" \
+          "resources/sc-data:dictionaries/simple/en/pli2en_dpd.json:OUT_SC" \
+          "resources/tpr_downloads:.:OUT_TPR"; do
+          IFS=: read -r path stage outcome_var <<< "$entry"
+          echo "=== $path ==="
+          if [ "$SYNC_OUTCOME" != "success" ] || [ "${!outcome_var}" != "success" ]; then
+            echo "::warning::$path not collected: sync was '$SYNC_OUTCOME', exporter was '${!outcome_var}'"
+            failed=1
+            continue
+          fi
+          (collect_one "$path" "$stage") || { echo "::error::$path failed"; failed=1; }
+        done
+        exit $failed
+
+    - name: Upload submodule output
+      if: steps.submodule_gate.outputs.run == 'true'
+      continue-on-error: true
+      uses: actions/upload-artifact@v7
+      with:
+        name: submodule-output
+        path: submodule-out/
+        if-no-files-found: ignore
+        retention-days: 1
+
+    # ----------------------------------------
     # Package Assets
     # ----------------------------------------
 
@@ -480,3 +629,99 @@ jobs:
             ./macos-dictionary/dpd-apple.dictionary.zip
           # the token input beats the GITHUB_TOKEN env var, so the PAT must go here to make bdhrs the release author
           token: ${{ secrets.GH_PAT }}
+
+  # ----------------------------------------
+  # Job 4: Push submodules (only after the release exists)
+  # ----------------------------------------
+
+  push-submodules:
+    needs: [build-linux, create-release]
+    if: needs.build-linux.outputs.SUBMODULES_RUN == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        continue-on-error: true
+        uses: actions/checkout@v5
+        with:
+          repository: 'digitalpalidictionary/dpd-db'
+          ref: 'main'
+          submodules: false
+          fetch-depth: 1
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Download submodule output
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: submodule-output
+          path: ./submodule-out/
+
+      # continue-on-error: the release already exists, a failure here must not
+      # turn the whole run red. Each leg reports its own ::error::.
+      - name: Push submodules
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ ! -f "$GITHUB_WORKSPACE/submodule-out/collect_done.txt" ]; then
+            echo "::error::submodule-output artifact is missing, nothing was pushed"
+            exit 1
+          fi
+
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # same header actions/checkout uses; the base64 form is not auto-masked
+          b64=$(printf 'x-access-token:%s' "$GH_PAT" | base64 -w0)
+          echo "::add-mask::$b64"
+          auth=(-c "http.https://github.com/.extraheader=AUTHORIZATION: basic $b64")
+
+          dry_run=""
+          if [ "${{ inputs.push_dry_run }}" = "true" ]; then
+            dry_run="--dry-run"
+          fi
+
+          # Every command returns 1 on failure. set -e is switched off inside a
+          # function called as "(f) || ...", so it cannot be relied on here.
+          push_one() {
+            local path=$1 branch=$2 name tarball url
+            name=$(basename "$path")
+            tarball="$GITHUB_WORKSPACE/submodule-out/$name.tar.gz"
+            echo "=== $path ($branch) ==="
+            if [ ! -f "$tarball" ]; then
+              echo "No output collected for $name, nothing to push"
+              return 0
+            fi
+            url=$(git config -f "$GITHUB_WORKSPACE/.gitmodules" --get "submodule.$path.url") || return 1
+            rm -rf "${GITHUB_WORKSPACE:?}/$path"
+            git "${auth[@]}" clone --depth 1 --branch "$branch" --no-checkout "$url" "$GITHUB_WORKSPACE/$path" || return 1
+            cd "$GITHUB_WORKSPACE/$path" || return 1
+            # sc-data tracks about 70k html_text files that this job never touches
+            if [ "$path" = "resources/sc-data" ]; then
+              git sparse-checkout set --no-cone '/*' '!/html_text/' || return 1
+            fi
+            git checkout "$branch" || return 1
+            tar -xzf "$tarball" || return 1
+            git add -- . || return 1
+            echo "Staged changes:"
+            git diff --cached --name-status || return 1
+            if git diff --cached --quiet; then
+              echo "Nothing changed upstream-side, skipping push"
+              return 0
+            fi
+            git commit -m "DPD lookup: update $(date +'%d-%b-%y')" || return 1
+            git "${auth[@]}" push $dry_run origin "$branch:$branch" || return 1
+          }
+
+          failed=0
+          for entry in \
+            "resources/fdg_dpd:main" \
+            "resources/bw2:main" \
+            "resources/sc-data:main" \
+            "resources/tpr_downloads:master"; do
+            IFS=: read -r path branch <<< "$entry"
+            (push_one "$path" "$branch") || { echo "::error::$path failed"; failed=1; }
+          done
+          exit $failed
