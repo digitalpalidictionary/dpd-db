@@ -57,17 +57,9 @@ def extract_tarball(
     pr.green_tmr("extracting files")
     with tarfile.open(tarball_path, "r:*") as tar:
         for member in tar.getmembers():
-            if preserve_structure:
-                # Preserve the full path structure
-                target_path = destination_dir / member.name
-            else:
-                # Flatten the structure - extract only the filename
-                target_path = destination_dir / os.path.basename(member.name)
-
-            # Create parent directories if needed
-            target_path.parent.mkdir(parents=True, exist_ok=True)
-
-            # Extract the file/directory
-            tar.extract(member, destination_dir)
+            # "data" refuses names that leave the folder, links and device files.
+            # No mkdir from the raw member name first: it would create folders
+            # outside the destination before the filter could refuse the member.
+            tar.extract(member, destination_dir, filter="data")
 
     pr.yes("ok")

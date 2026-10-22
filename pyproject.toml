@@ -20,6 +20,9 @@ dependencies = [
     "requests>=2.32.3",
     "typst>=0.14.9",
     "filelock>=3.29.1",
+    "regex>=2026.5.9",
+    "starlette>=1.2.1",
+    "anyio>=4.13.0",
 ]
 
 [dependency-groups]

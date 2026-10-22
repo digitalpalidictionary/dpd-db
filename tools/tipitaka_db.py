@@ -16,8 +16,12 @@ from sqlalchemy.orm import DeclarativeBase, Session, declared_attr, sessionmaker
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.search_deadline import install_regexp, raise_if_stopped
 
 
+# Never takes effect: SQLAlchemy's own sqlite REGEXP (case-sensitive) replaces
+# this one when the connection opens, and install_regexp replaces both on the
+# search sessions. Left as found; do not "fix" it expecting case-insensitivity.
 @event.listens_for(Engine, "connect")
 def sqlite_engine_connect(dbapi_connection, connection_record):
     """Enable case-insensitive REGEXP for SQLite connections."""
@@ -77,6 +81,7 @@ def get_tipitaka_db_session() -> Session:
     db_eng = get_db_engine()
     Session = sessionmaker(bind=db_eng)
     db_session = Session()
+    install_regexp(db_session)
     return db_session
 
 
@@ -139,6 +144,7 @@ def search_tipitaka(
     search_string: str,
     search_column: str = "pali_text",
     db_session: Session | None = None,
+    limit: int | None = None,
 ) -> list[tuple[str, str, str]]:
     """
     Search a single Tipitaka table for a string and return cleaned pali text and English translation.
@@ -164,14 +170,16 @@ def search_tipitaka(
 
     try:
         search_column_attr = getattr(AnyTable, search_column)
-        query_result = (
-            db_session.query(AnyTable)
-            .filter(search_column_attr.op("REGEXP")(search_string))
-            .all()
+        query = db_session.query(AnyTable).filter(
+            search_column_attr.op("REGEXP")(search_string)
         )
+        if limit is not None:
+            query = query.limit(limit)
+        query_result = query.all()
     except (AttributeError, Exception):
         if own_session:
             db_session.close()
+        raise_if_stopped()
         return []
 
     compiled_results = []
@@ -208,8 +216,11 @@ def search_tables_union(
     book_lookup: dict[str, str],
     search_string: str,
     search_column: str = "pali_text",
+    limit: int | None = None,
 ) -> list[tuple[str, str, str, str]]:
-    """Search multiple tables using a single UNION query. Falls back to individual queries if needed."""
+    """Search multiple tables using a single UNION query. Falls back to individual queries if needed.
+
+    ``limit`` caps the rows returned; ``None`` returns every match."""
     if not table_names:
         return []
 
@@ -224,14 +235,21 @@ def search_tables_union(
             escaped_table = table_name.replace("'", "''")
             union_parts.append(
                 f"SELECT pali_text, english_translation, '{escaped_table}' as table_name "
-                f"FROM {table_name} WHERE {search_column} REGEXP '{search_string.replace(chr(39), chr(39) + chr(39))}'"
+                f"FROM {table_name} WHERE {search_column} REGEXP :pattern"
             )
 
         if union_parts:
             union_query = " UNION ALL ".join(union_parts)
+            if limit is not None:
+                union_query += f" LIMIT {int(limit)}"
 
             try:
-                result = db_session.execute(text(union_query))
+                # bound, not pasted into the SQL: text() reads ":a" inside a regex
+                # such as (?:abc) as a missing parameter, which sent every such
+                # search down the slow per-table fallback
+                result = db_session.execute(
+                    text(union_query), {"pattern": search_string}
+                )
                 for row in result:
                     pali_text, eng_trans, table_name = row
                     book_name = book_lookup.get(table_name, "unknown")
@@ -239,14 +257,23 @@ def search_tables_union(
                     pali_clean = soup.get_text()
                     all_results.append((pali_clean, eng_trans, table_name, book_name))
             except Exception:
+                # a stopped search must not trigger the slower per-table fallback
+                raise_if_stopped()
                 # If massive UNION fails, fall back to individual queries
                 for table_name in table_names:
                     results = search_tipitaka(
-                        table_name, search_string, search_column, db_session
+                        table_name,
+                        search_string,
+                        search_column,
+                        db_session,
+                        limit=None if limit is None else limit - len(all_results),
                     )
                     for pali, eng, table in results:
                         book_name = book_lookup.get(table, "unknown")
                         all_results.append((pali, eng, table, book_name))
+                    if limit is not None and len(all_results) >= limit:
+                        all_results = all_results[:limit]
+                        break
 
     finally:
         db_session.close()
@@ -255,7 +282,7 @@ def search_tables_union(
 
 
 def search_all_cst_texts(
-    search_string: str, search_column: str = "pali_text"
+    search_string: str, search_column: str = "pali_text", limit: int | None = None
 ) -> list[tuple[str, str, str, str]]:
     """Search all tables derived from cst_texts using a single massive UNION query."""
     # Collect all table names and build lookup
@@ -269,12 +296,15 @@ def search_all_cst_texts(
             book_lookup[table_name] = book_name
 
     return search_tables_union(
-        all_table_names, book_lookup, search_string, search_column
+        all_table_names, book_lookup, search_string, search_column, limit
     )
 
 
 def search_books(
-    book_names: list[str], search_string: str, search_column: str = "pali_text"
+    book_names: list[str],
+    search_string: str,
+    search_column: str = "pali_text",
+    limit: int | None = None,
 ) -> list[tuple[str, str, str, str]]:
     """Search multiple books for a string using UNION queries."""
     if not book_names:
@@ -291,7 +321,7 @@ def search_books(
             book_lookup[table_name] = book_name
 
     return search_tables_union(
-        all_table_names, book_lookup, search_string, search_column
+        all_table_names, book_lookup, search_string, search_column, limit
     )
 
 

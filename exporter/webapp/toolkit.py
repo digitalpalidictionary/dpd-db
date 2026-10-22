@@ -99,12 +99,17 @@ def make_dpd_html(
                     only_suggestions = False
                     q = q.replace("'", "").replace("ṁ", "ṃ").strip()
 
+                    # ilike is only for case-insensitivity: escape % and _ so a
+                    # query like "%" matches itself, not every row
+                    q_like = (
+                        q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+                    )
                     lookup_results = (
                         db_session.query(Lookup)
                         .filter(
                             or_(
-                                Lookup.lookup_key.ilike(q),
-                                Lookup.lookup_key.ilike(q + "."),
+                                Lookup.lookup_key.ilike(q_like, escape="\\"),
+                                Lookup.lookup_key.ilike(q_like + ".", escape="\\"),
                             )
                         )
                         .all()
@@ -266,11 +271,14 @@ def make_dpd_html(
                     # the two cases below search directly in the DpdHeadwords table
                     # isdecimal, not isnumeric: "½" and "²" are numeric but int() rejects them
                     elif q.isdecimal():  # eg 78654
-                        search_term = int(q)
+                        # 18 digits always fit SQLite's integer; a longer number
+                        # is never an id, and would overflow the query
                         headword_result = (
                             db_session.query(DpdHeadword)
-                            .filter(DpdHeadword.id == search_term)
+                            .filter(DpdHeadword.id == int(q))
                             .first()
+                            if len(q) <= 18
+                            else None
                         )
                         if headword_result:
                             fc = get_family_compounds(headword_result)
@@ -337,7 +345,8 @@ def find_closest_matches(
     headwords_clean_set,
     ascii_to_unicode_dict,
 ) -> str:
-    ascii_matches = ascii_to_unicode_dict[q]
+    # .get, not [q]: indexing a defaultdict would store an entry per distinct miss
+    ascii_matches = ascii_to_unicode_dict.get(q, [])
     closest_headword_matches = difflib.get_close_matches(
         q, headwords_clean_set, n=10, cutoff=0.7
     )

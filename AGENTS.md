@@ -131,6 +131,7 @@ Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 ## Performance Work
 - Before implementing any optimization spec, re-derive its numbers from the actual profiling log (`logs/makedict_*.html`) and benchmark the claimed mechanism on a throwaway copy (`cp dpd.db /tmp/...`). Two of five premises in one thread were wrong, one destructively so.
 - The recurring makedict bottleneck is ORM loops over large tables (load-all + per-row mutate + commit). Replace with a single `executemany` on the session's own connection — pattern: `tools/lookup_sync.py:_raw_sql_sync`. Never `INSERT OR REPLACE` on `lookup` (blanks the other 16 columns); use `ON CONFLICT ... DO UPDATE SET <col> = excluded.<col>`.
+- Webapp request work that runs in threads (regex search, page rendering) gets slower the more of it runs at once, because the threads fight over Python's global lock: measured 1.4 s alone, 17.8 s each at four at once. A CPU-heavy webapp route takes turns (see `tools/search_deadline.py`, `lookups_take_turns` in `exporter/webapp/main.py`). Measure at 1, 2, 4 and 8 at once before choosing a limit.
 - `db_session.close()` is NOT a valid finding for short-lived build scripts. SQLAlchemy 2.0 has no `__del__`; the OS releases connections on process exit. Do not flag it.
 
 ## Export Flags

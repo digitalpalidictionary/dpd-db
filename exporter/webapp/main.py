@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from contextlib import contextmanager
 
+import anyio
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +14,8 @@ from fastapi.responses import (
 )
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from sqlalchemy.exc import OperationalError
+from starlette.convertors import Convertor, register_url_convertor
 from sqlalchemy.orm import sessionmaker
 import re
 
@@ -32,6 +35,7 @@ from exporter.webapp.toolkit import (
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
+from tools.search_deadline import BUSY_MESSAGE, SearchStopped, regex_deadline, sub
 from tools.tipitaka_db import search_all_cst_texts, search_books
 from tools.configger import config_test
 from tools.translit import auto_translit_to_roman
@@ -218,6 +222,9 @@ def db_search_gd(request: Request, search: str):
     )
 
 
+BD_DISPLAY_LIMIT = 100
+
+
 @app.get("/bd_search", response_class=HTMLResponse)
 def db_search_bd(
     request: Request,
@@ -230,29 +237,40 @@ def db_search_bd(
     from tools.bold_definitions_search import BoldDefinitionsSearchManager
 
     bd_searcher = BoldDefinitionsSearchManager()
-    results = bd_searcher.search(q1, q2, option)
 
-    if results:
-        message = f"<b>{len(results)}</b> results found"
-    else:
-        message = "<b>0</b> results found - broaden your search or try the fuzzy option"
+    too_many_results = False
+    with regex_deadline() as deadline:
+        try:
+            # one row past the display limit tells us there are more
+            results = bd_searcher.search(q1, q2, option, limit=BD_DISPLAY_LIMIT + 1)
+            too_many_results = len(results) > BD_DISPLAY_LIMIT
+            results = results[:BD_DISPLAY_LIMIT]
 
-    # highlight search_2
-    if q2:
-        for result in results:
-            result.commentary = re.sub(
-                f"({q2}?)",  # Add ? to make quantifiers non-greedy
-                r"<span class='hi'>\g<1></span>",
-                result.commentary,
-            )
+            if results:
+                count = f"{BD_DISPLAY_LIMIT}+" if too_many_results else len(results)
+                message = f"<b>{count}</b> results found"
+            else:
+                message = "<b>0</b> results found - broaden your search or try the fuzzy option"
+
+            # highlight search_2
+            if q2:
+                # only the plain option treats q2 as text, not as a pattern
+                highlight = re.escape(q2) if option == "plain" else q2
+                for result in results:
+                    result.commentary = sub(
+                        f"({highlight}?)",  # Add ? to make quantifiers non-greedy
+                        r"<span class='hi'>\g<1></span>",
+                        result.commentary,
+                    )
+        except (SearchStopped, OperationalError):
+            # SQLite wraps an error raised inside REGEXP, so ask the deadline
+            if deadline.stopped is None:
+                raise
+            results = []
+            too_many_results = False
+            message = deadline.stopped.message
 
     history_list = update_history(q1, q2, option)
-
-    # trim to 100 results
-    too_many_results = False
-    if len(results) > 100:
-        results = results[:100]
-        too_many_results = True
 
     return templates.TemplateResponse(
         request,
@@ -276,17 +294,31 @@ def tt_search(request: Request, q: str, book: str, lang: str):
     # Limit results
     limit = 100
 
-    # Parse books (comma-separated list)
-    books = [b.strip() for b in book.split(",") if b.strip()]
+    q = q.strip()
+    if not q:
+        return JSONResponse(content={"total": 0, "results": []})
+
+    # Parse books (comma-separated list), each searched once
+    books = list(dict.fromkeys(b.strip() for b in book.split(",") if b.strip()))
 
     # Determine search column
     search_column = "pali_text" if lang == "Pāḷi" else "english_translation"
 
-    # Perform search
-    if "all" in books:
-        results = search_all_cst_texts(q, search_column=search_column)
-    else:
-        results = search_books(books, q, search_column=search_column)
+    # Perform search. One row past the limit tells us there are more.
+    try:
+        with regex_deadline():
+            if "all" in books:
+                results = search_all_cst_texts(
+                    q, search_column=search_column, limit=limit + 1
+                )
+            else:
+                results = search_books(
+                    books, q, search_column=search_column, limit=limit + 1
+                )
+    except SearchStopped as stopped:
+        return JSONResponse(
+            content={"total": 0, "results": [], "error": stopped.message}
+        )
 
     total_count = len(results)
     results = results[:limit]
@@ -325,7 +357,7 @@ def get_audio(request: Request, headword: str, gender: str = "male"):
         }
 
         if range_header:
-            match = re.match(r"bytes=(\d+)-(\d*)", range_header)
+            match = re.match(r"bytes=(\d{1,15})-(\d{0,15})", range_header)
             if match:
                 start = int(match.group(1))
                 end = int(match.group(2)) if match.group(2) else file_size - 1
@@ -373,6 +405,63 @@ metrics = {
     "official": {},  # route_pattern -> {"count": 0, "history": [], "avg_time": 0, "max_time": 0}
     "other": {"count": 0, "history": []},
 }
+
+
+# Dictionary lookups take turns. Measured on the live app: 8 lookups took 6.7 s
+# one at a time, 7.6 s two at a time, 12.3 s four at a time and 16.7 s all at
+# once, and 40 at once held the whole server for 115 s, because the page
+# rendering threads fight over Python's global lock. Waiting costs a request
+# no thread. Two heavy lookups finish together in about 1.9 s, so a 20 s wait
+# drains about 20 of them: a longer line would only make visitors wait the
+# full 20 s and then be told "busy" anyway.
+LOOKUP_PATHS = {"/search_json", "/search_html", "/gd"}
+LOOKUP_RUNNING = 2
+LOOKUP_MAX_WAITING = 20
+LOOKUP_WAIT_SECONDS = 20.0
+lookup_limiter = anyio.CapacityLimiter(LOOKUP_RUNNING)
+
+
+def lookup_busy_response(path: str) -> Response:
+    page = f'<p class="dpd">{BUSY_MESSAGE}</p>'
+    # This middleware sits outside the CORS middleware, so a busy answer skips
+    # it. A page on another site would get a CORS error instead of the message
+    # unless the answer carries those headers and the licence link itself.
+    headers = {
+        "Retry-After": "10",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "Link",
+        **LICENSE_LINK_HEADER,
+    }
+    if path == "/search_json":
+        # same shape as a normal answer: the page shows dpd_html whatever the status
+        return JSONResponse(
+            {"summary_html": "", "dpd_html": page, "license": LICENSE_NOTICE},
+            status_code=503,
+            headers=headers,
+        )
+    return HTMLResponse(page, status_code=503, headers=headers)
+
+
+@app.middleware("http")
+async def lookups_take_turns(request: Request, call_next):
+    path = request.url.path
+    # GET only: a browser's CORS preflight (OPTIONS) must not wait in the line
+    if path not in LOOKUP_PATHS or request.method != "GET":
+        return await call_next(request)
+    if (
+        lookup_limiter.available_tokens == 0
+        and lookup_limiter.statistics().tasks_waiting >= LOOKUP_MAX_WAITING
+    ):
+        return lookup_busy_response(path)
+    try:
+        with anyio.fail_after(LOOKUP_WAIT_SECONDS):
+            await lookup_limiter.acquire()
+    except TimeoutError:
+        return lookup_busy_response(path)
+    try:
+        return await call_next(request)
+    finally:
+        lookup_limiter.release()
 
 
 @app.middleware("http")
@@ -529,7 +618,22 @@ def status_page(request: Request):
     )
 
 
-@app.get("/{headword_id:int}")
+class HeadwordIdConvertor(Convertor[int]):
+    # 18 digits always fit SQLite's integer. Starlette's own `int` converter
+    # fails with a server error on a very long digit string.
+    regex = r"[0-9]{1,18}"
+
+    def convert(self, value: str) -> int:
+        return int(value)
+
+    def to_string(self, value: int) -> str:
+        return str(value)
+
+
+register_url_convertor("headword_id", HeadwordIdConvertor())
+
+
+@app.get("/{headword_id:headword_id}")
 def permalink_page(headword_id: int):
     """Citation permalink, eg /24043 — redirects to the entry itself.
 

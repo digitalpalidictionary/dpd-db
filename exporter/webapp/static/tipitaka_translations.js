@@ -181,13 +181,19 @@ async function performTTSearch(addHistory = true) {
     const data = await response.json();
 
     let html = "";
-    if (data.results.length === 0) {
+    if (data.error) {
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "error";
+      errorDiv.textContent = data.error;
+      html = errorDiv.outerHTML;
+    } else if (data.results.length === 0) {
       html = "<div class='tt-no-results'>No results found.</div>";
     } else {
-      const totalCount = data.total;
       const limit = 100; // This should match backend limit if any, or just be display limit
-      let countMessage = `Found ${totalCount} results`;
-      if (totalCount > limit) {
+      // the server stops one row past the limit, so a total over it means "more"
+      const totalLabel = data.total > limit ? `${limit}+` : data.total;
+      let countMessage = `Found ${totalLabel} results`;
+      if (data.total > limit) {
         countMessage += `, displaying the first ${limit}`;
       }
       countMessage += ".";
@@ -264,7 +270,7 @@ async function performTTSearch(addHistory = true) {
       const countDiv = ttResults.querySelector(".tt-count");
       if (countDiv) {
         ttResults.dataset.originalCountText = countDiv.textContent;
-        ttResults.dataset.totalCount = data.total;
+        ttResults.dataset.totalCount = data.total > 100 ? "100+" : data.total;
       }
     }
   } catch (error) {

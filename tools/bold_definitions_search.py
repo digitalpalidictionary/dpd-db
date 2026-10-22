@@ -9,12 +9,14 @@ from rich import print
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition
 from tools.paths import ProjectPaths
+from tools.search_deadline import install_regexp
 
 
 class BoldDefinitionsSearchManager:
     def __init__(self):
         self.pth = ProjectPaths()
         self.session = get_db_session(self.pth.dpd_db_path)
+        install_regexp(self.session)
 
     def search(
         self,

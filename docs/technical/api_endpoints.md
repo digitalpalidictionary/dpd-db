@@ -20,6 +20,10 @@ Link: <https://creativecommons.org/licenses/by-nc-sa/4.0/>; rel="license"; title
 
 The rendered entries themselves end with a small visible notice — the four Creative Commons marks (inlined SVG, so they survive offline in GoldenDict) followed by `Digital Pāḷi Dictionary CC BY-NC-SA 4.0`, linking to the deed. It is appended to the results HTML rather than to a page footer, so it travels with the data into GoldenDict, the JSON `dpd_html` field and any third-party embed of the fragment. A "no results" page carries no notice.
 
+### Busy answers
+
+`/search_json`, `/search_html` and `/gd` take turns: two lookups run at a time and up to 20 more wait for up to 20 seconds. Anyone beyond that, or still waiting after 20 seconds, gets HTTP `503` with a `Retry-After: 10` header, the same cross-origin and licence `Link` headers as a normal answer and the text "The server is busy. Try again in a moment." `/search_json` keeps its normal shape (`summary_html` empty, the text in `dpd_html`, plus `license`), so the web page shows the message. `/bd_search` and `/tt_search` have their own turn-taking, described under each. Only `GET` requests take turns: a browser's cross-origin preflight (`OPTIONS`) is answered at once. Other routes such as `/status` and `/audio/{headword}` are never held up.
+
 Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audio (`/audio/{headword}`) are licensed separately and carry none of the above.
 
 ## Web Pages
@@ -94,6 +98,7 @@ Check out this guide for setting up the API in [GoldenDict](https://digitalpalid
     - `q1` (str): Primary search query.
     - `q2` (str): Secondary search query (context or additional filter).
     - `option` (str): Search option/mode.
+- **Limits:** At most 100 results are shown. When more exist the page says "100+ results found". The regex search has the same time budget, pattern rules and turn-taking as `/tt_search`. When a search is stopped the page shows the same message in place of the result count.
 - **Response:** HTML (`bold_definitions.html` with results)
 
 ### Tipiṭaka Translations Search
@@ -104,6 +109,12 @@ Check out this guide for setting up the API in [GoldenDict](https://digitalpalid
     - `q` (str): Search query.
     - `book` (str): Specific book to search in, or "all".
     - `lang` (str): Language/Column to search ("Pāḷi" or others).
+- **Limits:**
+    - `q` is stripped. An empty `q` returns `{"total": 0, "results": []}` without searching.
+    - Repeated books in `book` are searched once.
+    - At most 100 results are returned. The server stops reading at 101 matches, so `total` is the number found up to 101: `101` means "more than 100", not an exact count.
+    - Each request has a budget of 4 seconds of the search's own CPU time for the regex search (waiting for a turn does not use it), with a 20 second wall-clock backstop.
+    - `q` is a regular expression, case-sensitive. A pattern over 2000 characters, with very large repeat counts such as `(?:a{3000}){3000}`, or using recursion (`(?R)`, `(?1)`) is refused as too complex. An invalid pattern is refused as not valid. Regex searches take turns: one runs at a time, up to three more wait their turn for up to 10 seconds, and anyone beyond that is told the server is busy.
 - **Response:** JSON
     ```json
     {
@@ -117,6 +128,14 @@ Check out this guide for setting up the API in [GoldenDict](https://digitalpalid
                 "table": "..."
             }
         ]
+    }
+    ```
+    If the search is stopped, `results` is empty and an `error` text is added. The text is one of: "The search took too long. Use a more specific search.", "That search pattern is not valid.", "That search pattern is too complex. Use a simpler pattern.", "The server is busy. Try again in a moment."
+    ```json
+    {
+        "total": 0,
+        "results": [],
+        "error": "The search took too long. Use a more specific search."
     }
     ```
 
