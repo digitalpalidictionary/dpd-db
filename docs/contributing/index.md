@@ -1,18 +1,15 @@
 # Contributing
 
-You can contribute to DPD in many ways, but the primary two are helping with __Pāḷi__ and __software development__.
+## Offer your help
 
-### Pāḷi Contributions
+Would you like to help DPD? Tell us what you can offer using the form below.
 
-The most impactful way to contribute to DPD is through Pāḷi knowledge. You don't need to be a developer. You can [add missing words](pali.md), correct mistakes, or fill in gaps in existing entries, all through simple Google Forms. Hundreds of community suggestions come in each month through these forms.
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdMbJJrddEfpWca-ma-9rKql9LCWvzwdgqbW5Rz_8bBZfuxUQ/viewform?embedded=true" width="100%" height="1120" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
-### Code Contributions
+If the form does not show, [open it in a new tab](https://forms.gle/Z7ENe8CVFpe2yQqKA){target="_blank"}.
 
-If you're a software developer and would like to contribute, the codebase covers Python, HTML/CSS/JS, Go, and TypeScript. See the [code contribution guide](code.md) for details, and the [developer docs](../technical/index.md) for technical references.
+## Ways to contribute
 
-### Other Ways to Help
-
-If you don't have time to contribute directly, you can still help by sharing DPD with fellow Pāḷi students, using it in your projects, or simply [getting in touch](../contact.md) with feedback and ideas.
-
-For the full contribution guidelines, including development setup and pull request process, see the [CONTRIBUTING.md](https://github.com/digitalpalidictionary/dpd-db/blob/main/CONTRIBUTING.md){target="_blank"} on GitHub.
-
+- [__Pāḷi__](pali.md): proofread, create entries, or take on a one-off project. Quick fixes have their own forms.
+- [__Code__](code.md): work on the Python, Go, web and extension code.
+- [__Resources__](resources.md): offer your time or a service, such as a server or subscription.

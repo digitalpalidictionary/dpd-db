@@ -30,6 +30,10 @@ These notes are for internal contributors and editors maintaining dictionary dat
 - The four OpenAI-compatible AI providers (OpenRouter, NVIDIA, DeepSeek, Z.ai) are one module, `tools/ai_openai_compat.py`, driven by the `PROVIDER_SPECS` table; the separate `ai_open_router.py`, `ai_nvidia.py`, `ai_deepseek_manager.py` and `ai_zai_manager.py` are gone. Transport is plain `requests` — the `openai` SDK was removed as a dependency, since those two files were its only importers repo-wide and it was carrying a single ordinary POST. Its default two automatic retries were also delaying `AIManager`'s own fallback on 429/5xx. Provider connection details deliberately live in code, not in `tools/ai_models.json`: that file is hot-reloadable from a button in three gui2 views, but providers are constructed once at `AIManager.__init__` and never rebuilt. The four APIs report errors in three different shapes — nested `error.message` (OpenRouter/DeepSeek/Z.ai, with `code` an int, a string, or absent), RFC 7807 `{type,title,status,detail}` with no `error` key (NVIDIA, on 410), and plain non-JSON text (NVIDIA, on 404) — so `_error_detail()` must keep all four fallback branches. Added 2026-08-25.
 
 ## Resources
+- Offers of help (time, skills, resources, services) come in through the Google
+  Form on the contributing overview page of the docs website; its response
+  sheet is the record. This is separate from the contribution website (hosted
+  gui2, where approved people add Pāḷi entries). Added 2026-10-22.
 - PDF export requires the `typst` CLI on PATH (>= 0.14 for
   `--no-pdf-tags`); CI installs the musl binary in the workflow. The
   exporter compiles in ~31 memory-bounded chunks (~2 GB per typst

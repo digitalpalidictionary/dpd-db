@@ -6,7 +6,7 @@ DPD is a freely-available, non-commercial project, providing hi-quality Pāḷi 
 [DPD Docs website](https://digitalpalidictionary.github.io)
 
 ## Contributing
-[Contributing to the project](https://digitalpalidictionary.github.io/contributing/) | [Pāḷi](https://digitalpalidictionary.github.io/contributing/pali/) | [Code](https://digitalpalidictionary.github.io/contributing/code/)
+[Contributing to the project](https://digitalpalidictionary.github.io/contributing/) | [Pāḷi](https://digitalpalidictionary.github.io/contributing/pali/) | [Code](https://digitalpalidictionary.github.io/contributing/code/) | [Resources](https://digitalpalidictionary.github.io/contributing/resources/)
 
 ## Developer Docs
 

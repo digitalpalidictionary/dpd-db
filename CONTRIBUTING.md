@@ -77,7 +77,7 @@ The most impactful way to contribute to DPD is through Pāḷi knowledge. You do
 
 These Google Forms generate hundreds of community suggestions each month and are the primary way Pāḷi experts contribute. The easiest access is through the **feedback** button in any DPD interface.
 
-For more substantial Pāḷi involvement, [get in touch by email](mailto:digitalpalidictionary@gmail.com).
+For more substantial Pāḷi involvement, use the [contribution form](https://digitalpalidictionary.github.io/contributing/#offer-your-help).
 
 ### Reporting Bugs
 

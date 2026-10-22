@@ -20,7 +20,7 @@ While you're at it, here are some [more Pāḷi and Sanskrit dictionaries](https
 
 If you spot a mistake in DPD, or notice something missing, here's where to [report it](https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform?usp=pp_url&entry.1433863141=digitalpalidictionary.github.io){target="_blank"}. It generally takes less than a minute. 
 
-If you have any bright ideas to make this dictionary even better, or would like to get involved with the project, please [get in touch](contact.md).
+If you have any bright ideas to make this dictionary even better, please [get in touch](contact.md). If you would like to get involved with the project, please use the [contribution form](contributing/index.md#offer-your-help).
 
 If you are quoting DPD in academic work, please see [How to Cite DPD](how_to_cite.md) — DPD is revised every month, so citing the version you used matters.
 

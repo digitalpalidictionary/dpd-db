@@ -5,7 +5,7 @@ If you're a software developer and would like to contribute to the project, plea
 ## Getting Started
 
 1. Browse the [DPD Project Board](https://github.com/orgs/digitalpalidictionary/projects/1/views/2){target="_blank"} for open and in-progress issues.
-2. Comment on any issue to find out more, or [get in touch by email](mailto:digitalpalidictionary@gmail.com).
+2. Comment on any issue to find out more, or offer your help with the [contribution form](index.md#offer-your-help).
 3. Read the full [CONTRIBUTING.md](https://github.com/digitalpalidictionary/dpd-db/blob/main/CONTRIBUTING.md){target="_blank"} for the complete contribution workflow, including development setup, pull request process, and commit conventions.
 
 ## Contribution Areas

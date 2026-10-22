@@ -10,4 +10,4 @@ The quickest way to access the forms is by opening the __feedback__ button in an
 
 ![add and correct](../pics/contributing/add_correct.png)
 
-If you would like to tackle something more substantial, please [get in touch by email](mailto:digitalpalidictionary@gmail.com) and we can discuss options for further involvement.
+If you would like to tackle something more substantial, please use the [contribution form](index.md#offer-your-help) and we can discuss options for further involvement.

@@ -144,6 +144,11 @@ Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 - A new dictionary built from third-party content needs its licence terms in the spec before the first build: for CC BY-SA, a link to the licence text on every entry; for Wikipedia, never "Wikipedia" in the product name (Wikimedia trademark policy) — see `dictionaries/buddhist_wiki/` ("Buddhist Wiki"). Found only at the end in 2026-10, forcing a rename after verification.
 - A dictionary called from `scripts/export_all.py` must ship its source as a committed `dictionaries/<name>/<name>.tar.zst`: CI rebuilds everything from a fresh checkout, and gitignored source data is simply absent there. Before calling a new dictionary done, run its export from a clean `git worktree` of the submodule. The Buddhist Wiki CI build failed on exactly this (2026-10).
 
+## Public Page Copy
+- Every sentence on a public page or form is a promise to strangers. Write only what the spec states and you have tested. An invented "every offer is read" line was removed by the user (2026-10-22, #271).
+- Maintainers are Buddhist monastics: never name, seek or accept money on any page. Asking for goods or services (a server, a subscription) is allowed — SN42.10, the passage `kamma/archive/20261022_contributions_form/spec.md` already cites.
+- "Contribution form" means offer help. "Contribution website" means add Pāḷi entries. Keep the two names apart.
+
 ## graphify
 A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges). Prefer these over grepping raw files — a scoped subgraph at ~13× fewer tokens:
 ```bash

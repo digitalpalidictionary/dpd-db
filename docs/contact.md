@@ -1,12 +1,8 @@
 # Contact
 
-Please [contact us by email](mailto:digitalpalidictionary@gmail.com) if
+Please [contact us by email](mailto:digitalpalidictionary@gmail.com) if you have any **bright ideas** to improve this dictionary.
 
-- you have any **bright ideas** to improve this dictionary.
-
-- you are a **software developer** and would like to get involved in the development of this project.
-
-- you would like to **contribute** to the project with your time, expertise or resources in any way, large or small.
+If you are a **software developer** and would like to get involved, or you would like to **contribute** to the project with your time, expertise or resources in any way, large or small, please use the [contribution form](contributing/index.md#offer-your-help).
 
 For anything else, please use the 
 
