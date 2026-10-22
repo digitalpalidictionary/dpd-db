@@ -16,13 +16,16 @@ func makeMatchItems() []data.MatchItem {
 		tools.Pth.DeconManualCorrections,
 	)
 
-	dat := tools.ReadTsv(filePath)
+	return matchItemsFromRows(tools.ReadTsv(filePath))
+}
+
+func matchItemsFromRows(dat []map[string]string) []data.MatchItem {
 
 	manualDecon := []data.MatchItem{}
 
 	for _, d := range dat {
 		mi := data.MatchItem{}
-		mi.Word = d["compound"]
+		mi.Word = strings.TrimSpace(d["compound"])
 		mi.Split = strings.TrimSpace(d["split"])
 		mi.SplitCount = 0
 		mi.SplitRatio = 0

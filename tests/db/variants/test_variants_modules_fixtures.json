@@ -26,7 +26,7 @@
     },
     "mixed": {
       "input": "Dukkha 123 !",
-      "output": "dukkha  "
+      "output": "dukkha"
     },
     "empty": {
       "input": "",

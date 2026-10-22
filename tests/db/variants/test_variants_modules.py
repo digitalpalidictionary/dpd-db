@@ -38,6 +38,29 @@ def test_key_cleaner(fixtures: dict, case: str) -> None:
 
 
 @pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        (" dhamma", "dhamma"),
+        ("dhamma ", "dhamma"),
+        ("  dve dhammā  ", "dve dhammā"),
+        ("ūsa khaṇḍaṃ ", "ūsa khaṇḍaṃ"),
+        ("dhamma 123", "dhamma"),
+        ("   ", ""),
+    ],
+)
+def test_key_cleaner_trims_outer_spaces(raw: str, expected: str) -> None:
+    assert key_cleaner(raw) == expected
+
+
+def test_key_cleaner_gives_spaced_and_trimmed_twins_one_key() -> None:
+    variants_dict: VariantsDict = {}
+    for word in ("kathinavagga ", "kathinavagga"):
+        variants_dict.setdefault(key_cleaner(word), {})
+
+    assert list(variants_dict) == ["kathinavagga"]
+
+
+@pytest.mark.parametrize(
     "case",
     [
         "single_quote",

@@ -266,10 +266,18 @@ func makeManualCorrections() {
 	)
 
 	data := tools.ReadTsv(filePath)
-	for _, row := range data {
-		word := row["compound"]
+	for word := range manualCorrectionWordsFromRows(data) {
 		ic.manualCorrections[word] = ""
 	}
+}
+
+func manualCorrectionWordsFromRows(rows []map[string]string) map[string]string {
+	words := map[string]string{}
+	for _, row := range rows {
+		word := strings.TrimSpace(row["compound"])
+		words[word] = ""
+	}
+	return words
 }
 
 func makeAllInflections() {

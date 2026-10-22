@@ -3,15 +3,28 @@
 import sys
 import types
 
-sys.modules.setdefault(
-    "aksharamukha",
-    types.SimpleNamespace(
-        transliterate=types.SimpleNamespace(process=lambda *args, **kwargs: "")
-    ),
+_aksharamukha_stub = types.ModuleType("aksharamukha")
+setattr(
+    _aksharamukha_stub,
+    "transliterate",
+    types.SimpleNamespace(process=lambda *_, **__: ""),
 )
+sys.modules.setdefault("aksharamukha", _aksharamukha_stub)
+
+import pytest
 
 from db.models import SuttaInfo
 from tools.sutta_codes import make_list_of_sutta_codes
+
+
+@pytest.mark.parametrize("sc_code", ["", " ", "\t "])
+def test_make_list_of_sutta_codes_skips_blank_sc_code(sc_code: str) -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "yonisomanasikārasutta"
+    su.dpd_code = "SN46.36"
+    su.sc_code = sc_code
+
+    assert make_list_of_sutta_codes(su) == ["SN46.36"]
 
 
 def test_make_list_of_sutta_codes_skips_sc_code_for_samyutta_rows() -> None:

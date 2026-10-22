@@ -21,7 +21,7 @@ def normalize_pali_text(text: str) -> str:
 def key_cleaner(key: str) -> str:
     """Remove non-Pāḷi characters from the key"""
 
-    key_clean: str = "".join(c for c in key.lower() if c in _CHAR_SET)
+    key_clean: str = "".join(c for c in key.lower() if c in _CHAR_SET).strip()
     return key_clean
 
 
