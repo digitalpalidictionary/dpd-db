@@ -1,6 +1,6 @@
 # Spec: contributor edits kept in JSON, shown on top of the db
 
-**Thread:** 20261007_contributor_edits_json
+**Thread:** 20261007_contrib_edits_json
 **Date:** 2026-10-07
 **GitHub issue:** [#215 — Contributor Onboarding](https://github.com/digitalpalidictionary/dpd-db/issues/215)
 (third round; commits reference `#215`)
@@ -8,9 +8,9 @@
 first. This thread CHANGES that spec's point 4 (contributors no longer write
 the db).
 **Sibling threads (planned 2026-10-07, same discussion):**
-- `20261007_preview_before_save` — runs AFTER this thread (edits the same two
+- `20261007_contrib_preview_before_save` — runs AFTER this thread (edits the same two
   save handlers; never run both in the same working tree at once).
-- `20261007_temp_server_test` — runs in parallel; its live checks wait for
+- `20261007_contrib_temp_server_test` — runs in parallel; its live checks wait for
   this thread and the preview thread.
 
 ## Overview
@@ -204,11 +204,11 @@ Pass2Add Delete: `_click_delete_from_db` → confirm dialog → `_click_delete_o
 
 ## What's not included
 
-- The preview step (thread `20261007_preview_before_save`).
-- Server work (thread `20261007_temp_server_test`; 20260719 Phases 3–4).
+- The preview step (thread `20261007_contrib_preview_before_save`).
+- Server work (thread `20261007_contrib_temp_server_test`; 20260719 Phases 3–4).
 - One shared process for many users.
 - Showing contributor edits in whole-db views.
 - Pushing per-user spelling files upstream.
 - Pushing the four per-user sandhi/variant/spelling-mistake files upstream. The
-  server thread (`20261007_temp_server_test`, and `contrib_push.py`) must add
+  server thread (`20261007_contrib_temp_server_test`, and `contrib_push.py`) must add
   them to the nightly push, or a contributor's flags never reach the maintainer.

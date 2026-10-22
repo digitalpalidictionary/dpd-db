@@ -1,6 +1,6 @@
 # Plan: contributor edits kept in JSON, shown on top of the db
 
-**Thread:** 20261007_contributor_edits_json · **Spec:** `spec.md` (read first)
+**Thread:** 20261007_contrib_edits_json · **Spec:** `spec.md` (read first)
 **GitHub issue:** #215 — commits reference `#215`
 **Prior thread:** `kamma/threads/20260719_contributor_web_server/` (spec + plan 1.1–1.6)
 
@@ -169,7 +169,7 @@
 
 ## Phase 4 — Finish
 - [ ] 4.1 Add a one-line note to 20260719 spec point 4: "superseded by
-      20261007_contributor_edits_json: contributors no longer write the db".
+      20261007_contrib_edits_json: contributors no longer write the db".
       Update `gui2/README.md` (contributor saves go to JSON; user 1 unchanged).
       Run `just typecheck`, full pytest and `graphify update .`.
       → verify: all pass. Paste the counts here.
