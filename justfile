@@ -64,6 +64,10 @@ db-test:
 db-tests:
     uv run python db_tests/run_all_tests.py
 
+# Open the db tests editor (antonyms, family compounds, hyphenations)
+db-tests-gui:
+    uv run python -m db_tests.gui.main
+
 # Run phonetic changes test
 test-phonetic:
     uv run python -m db_tests.single.add_phonetic_changes

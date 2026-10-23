@@ -2,7 +2,6 @@
 Add missing family compounds and idioms from taddhita.
 """
 
-import json
 import queue
 import re
 import time
@@ -12,9 +11,11 @@ from rich import print
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyIdiom
+from db_tests.db_tests_manager import DbTestManager
 from tools.goldendict_tools import open_in_goldendict
 from tools.paths import ProjectPaths
-from tools.tsv_read_write import read_tsv_dot_dict
+
+TEST_NAME = "family_compound empty taddhita"
 
 
 class UiManager:
@@ -69,6 +70,7 @@ class UiManager:
                     [
                         ft.Text("", width=self.label_width),
                         ft.TextButton("Commit", on_click=self._on_commit_click),
+                        ft.TextButton("Exception", on_click=self._on_exception_click),
                         ft.TextButton("Pass", on_click=self._on_pass_click),
                         ft.TextButton("Exit", on_click=self._on_exit_click),
                     ]
@@ -94,6 +96,10 @@ class UiManager:
 
     def _on_commit_click(self, e):
         self.action_queue.put(("commit", self.get_family_compound()))
+        self.page.update()
+
+    def _on_exception_click(self, e):
+        self.action_queue.put(("exception", None))
         self.page.update()
 
     def _on_pass_click(self, e):
@@ -123,6 +129,7 @@ class DataAndLogic:
         self.pth = ProjectPaths()
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.db: list[DpdHeadword] = self.db_session.query(DpdHeadword).all()
+        self.manager = DbTestManager()
         self.exceptions: list[int] = self.get_exceptions()
         self.items_to_process: list[DpdHeadword] = [
             i for i in self.db if self.should_process(i)
@@ -135,11 +142,10 @@ class DataAndLogic:
         self.total_count = len(self.items_to_process)
         self.current_count = 0
 
-    def get_exceptions(self):
-        tests = read_tsv_dot_dict(self.pth.internal_tests_path)
-        for line in tests:
-            if line.test_name == "family_compound empty taddhita":
-                return json.loads(line.exceptions or "[]")
+    def get_exceptions(self) -> list[int]:
+        for line in self.manager.internal_tests_list:
+            if line.test_name == TEST_NAME:
+                return line.exceptions
         return []
 
     def should_process(self, i: DpdHeadword):
@@ -196,6 +202,12 @@ class DataAndLogic:
             self.current_item.family_idioms = family_compound
             self.db_session.commit()
 
+    def add_exception(self, headword_id: int) -> None:
+        # gui2 may have saved the file since this tool opened, and a save
+        # rewrites the whole file from memory, so reload first
+        self.manager.internal_tests_list = self.manager.load_tests()
+        self.manager.add_exception(TEST_NAME, headword_id)
+
 
 def add_fc_taddhita(e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container):
     """add missing family compounds from taddhita"""
@@ -218,6 +230,9 @@ def add_fc_taddhita(e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Con
                 if action_type == "commit":
                     if value:
                         lx.commit_to_db(value)
+                    break
+                elif action_type == "exception":
+                    lx.add_exception(i.id)
                     break
                 elif action_type == "pass":
                     break
