@@ -1,16 +1,17 @@
-from pathlib import Path
+"""Extract sutta code, book, vagga and title from SC Pāḷi JSON per collection."""
+
 import re
+from pathlib import Path
 
 from scripts.suttas.sc.modules import update_data_dict
-from tools.paths import ProjectPaths
-
-pth = ProjectPaths()
 
 
-def extract_pali(file_path, pali_data, eng_data):
+def extract_pali(
+    file_path: Path, pali_data: dict[str, str], eng_data: dict[str, str]
+) -> dict[str, dict[str, str | None]]:
     """Extract the pali data from the json file using logic."""
 
-    data_dict = {}
+    data_dict: dict[str, dict[str, str | None]] = {}
     folder_name = file_path.parent.name
     folder_name_clean = re.sub(r"\d", "", folder_name)
     folder_parent = file_path.parent.parent.name
@@ -18,10 +19,10 @@ def extract_pali(file_path, pali_data, eng_data):
     file_source = Path("resources/sc-data")
     file_path_relative = str(file_path.relative_to(file_source))
 
-    code = None
-    book = None
-    vagga = None
-    sutta = None
+    code: str | None = None
+    book: str | None = None
+    vagga: str | None = None
+    sutta: str | None = None
     eng_sutta = ""
 
     for line_code, pali_text in pali_data.items():

@@ -1666,3 +1666,26 @@ via the global `__init__.py` ignore rule, never committed) and 17 stale `.pyc` f
 - **Edits outside `scripts/`:** `docs/technical/project_folder_structure.md`; new test
   `tests/scripts/suttas/bjt/test_helpers.py`. No justfile or `tools/paths.py` edits in the
   2026-10-23 session (earlier sessions not re-checked).
+
+### Review results (2026-10-23)
+
+- **CodeRabbit** (`--fresh`): `scripts/` 82 files, 0 findings; `tests/scripts` 1 file, 0 findings.
+- **DeepSeek pi review** (deepseek-v4-pro, max thinking), 3 findings, validated:
+  1. `paranum` reset to `None` in the CST extractors — REJECTED. The old compiled `kn2` shows the
+     original also set `None` when the paranum tag is missing.
+  2. Stale `pb` read before its loop in 17 CST files (`an`, `sn`, `kn1–6`, `kn9`, `kn10`,
+     `kn12–18`) — REAL, pre-existing (confirmed in the old `.pyc`: the check ran before the loop).
+     FIX REVERTED (user, 2026-10-23: "leave this as it was"). The check is back before the loop in
+     the 17 files, as in the original. `mn.py` still has the in-loop form. Known, unfixed.
+  3. `test_helpers.py` guards the unchanged function, not the refresh — accepted, it is a
+     characterization test.
+- **Also fixed after review:** the unclosed `file_path.open("w")` in 12 `dpd/` scripts is now
+  `file_path.write_text("")`; unused `pth` removed from `sc/suttas.py`.
+- **Left as is (user, 2026-10-23):** `sc/suttas.py` L85
+  `re.match("[0-9-]", sutta)` tests only the first character while its comment says "only numbers
+  and -". Fixing it changes which SC suttas are written.
+- **Incident:** at 10:31:55 every file in `scripts/` got the same modification time and one
+  `Read` returned the pre-refresh text of `sc/suttas.py`. Content on disk was then correct.
+  Audit: no module docstring missing, no hints missing, ruff + pyright clean, 183 tests pass,
+  verse folder still gone, docs and README edits present, plan rows intact.
+- **Final check after all fixes:** `pyright scripts/` 0 errors; `pytest tests/scripts` 183 passed.

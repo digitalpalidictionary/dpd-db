@@ -1,3 +1,5 @@
+"""A quick-start example: query headwords and look up a word in the lookup table."""
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from tools.paths import ProjectPaths

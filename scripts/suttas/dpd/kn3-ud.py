@@ -1,3 +1,5 @@
+"""Write Udāna codes and their DPD headwords to kn3-ud.tsv."""
+
 import re
 
 from db.db_helpers import get_db_session
@@ -9,7 +11,8 @@ pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
 
-def ud_extractor():
+def ud_extractor() -> None:
+    """Collect headwords by UD code in meaning_2 and write them to kn3-ud.tsv."""
     # search_string = r"\((UD\d+\.\d+-*\d*)\)" # with dots n dashes
     search_string = r"\((UD\d+)\)"  # no dots or dashes
     results = (
@@ -17,7 +20,7 @@ def ud_extractor():
         .filter(DpdHeadword.meaning_2.regexp_match(search_string))
         .all()
     )
-    an_dict = {}
+    an_dict: dict[str, list[str]] = {}
     for i in results:
         sutta_code = re.findall(search_string, i.meaning_2)[0]
 
@@ -30,7 +33,7 @@ def ud_extractor():
     file_order = natural_sort(list_of_keys)
 
     file_path = pth.suttas_dpd_dir / "kn3-ud.tsv"
-    file_path.open("w")
+    file_path.write_text("")
 
     with open(file_path, "a", encoding="utf-8") as f:
         for i in file_order:

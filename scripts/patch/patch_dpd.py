@@ -29,7 +29,8 @@ import shutil
 import idzip
 
 
-def main():
+def main() -> None:
+    """Point the GoldenDict DPD files at the offline Buddha's Words URL."""
     old_url = "https://thebuddhaswords.net/"
     new_url = "file:///buddhaswordsoffline/"
 

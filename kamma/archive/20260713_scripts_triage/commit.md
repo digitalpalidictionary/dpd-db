@@ -1,0 +1,103 @@
+# Commit text — 20260713_scripts_triage (session 2026-10-23)
+
+**Commit message:** `#157 scripts: refreshed bash, suttas, info and export scripts`
+
+**Commit description:**
+- Wrapped the five bash orchestration scripts in main() under a __main__ guard and routed the db path in initial_build_db through ProjectPaths
+- Added docstrings and modern type hints to all 67 sutta scripts and renamed id to current_id in the CST extractors
+- Fixed the pyright error in sc/natural_sort.py and in find/variants_process.py
+- Replaced the unclosed open("w") with write_text("") in the 12 dpd sutta scripts and removed an unused path variable in sc/suttas.py
+- Added docstrings and type hints to the info, tutorial, export, patch and project_management scripts
+- Added two why-comments on the literal "dpd.db" strings in contributor_setup.py
+- Added a test for the BJT clean_string helper using real headings
+- Updated scripts/README.md and the folder structure doc to match the folders on disk
+- Deleted the empty scripts/verse shell and 24 orphan .pyc files (both git-ignored, so not in the commit)
+
+Earlier sessions of this thread (phases 1 to 4.1: archive moves and fixes) are not in this list. Run `git status --short` to catch them.
+
+**Files changed:**
+- `docs/technical/project_folder_structure.md`
+- `scripts/bash/generate_components.py`
+- `scripts/bash/initial_build_db_and_export_all.py`
+- `scripts/bash/initial_build_db.py`
+- `scripts/bash/initial_setup_run_once.py`
+- `scripts/bash/makedict.py`
+- `scripts/export/db_filter_export.py`
+- `scripts/export/sanskrit_export.py`
+- `scripts/find/variants_process.py`
+- `scripts/info/corpus_size.py`
+- `scripts/info/plus_case.py`
+- `scripts/info/suffix_counter.py`
+- `scripts/onboarding/contributor_setup.py`
+- `scripts/patch/patch_dpd.py`
+- `scripts/project_management/project_health_check.py`
+- `scripts/README.md`
+- `scripts/suttas/bjt/an_nipatas.py`
+- `scripts/suttas/bjt/an.py`
+- `scripts/suttas/bjt/an_vaggas.py`
+- `scripts/suttas/bjt/dn.py`
+- `scripts/suttas/bjt/helpers.py`
+- `scripts/suttas/bjt/kn14_jat.py`
+- `scripts/suttas/bjt/kn1_khp.py`
+- `scripts/suttas/bjt/kn2_dhp.py`
+- `scripts/suttas/bjt/kn3_ud.py`
+- `scripts/suttas/bjt/kn4_iti.py`
+- `scripts/suttas/bjt/kn5_snp.py`
+- `scripts/suttas/bjt/kn6_vv.py`
+- `scripts/suttas/bjt/kn7_pv.py`
+- `scripts/suttas/bjt/kn8_thag.py`
+- `scripts/suttas/bjt/kn9_thig.py`
+- `scripts/suttas/bjt/mn.py`
+- `scripts/suttas/bjt/sn.py`
+- `scripts/suttas/cst/an_nipatas.py`
+- `scripts/suttas/cst/an.py`
+- `scripts/suttas/cst/an_vaggas.py`
+- `scripts/suttas/cst/dn.py`
+- `scripts/suttas/cst/kn10.py`
+- `scripts/suttas/cst/kn12.py`
+- `scripts/suttas/cst/kn13.py`
+- `scripts/suttas/cst/kn14.py`
+- `scripts/suttas/cst/kn15.py`
+- `scripts/suttas/cst/kn16.py`
+- `scripts/suttas/cst/kn17.py`
+- `scripts/suttas/cst/kn18.py`
+- `scripts/suttas/cst/kn1.py`
+- `scripts/suttas/cst/kn2.py`
+- `scripts/suttas/cst/kn3.py`
+- `scripts/suttas/cst/kn4.py`
+- `scripts/suttas/cst/kn5.py`
+- `scripts/suttas/cst/kn6.py`
+- `scripts/suttas/cst/kn9.py`
+- `scripts/suttas/cst/main.py`
+- `scripts/suttas/cst/mn.py`
+- `scripts/suttas/cst/modules.py`
+- `scripts/suttas/cst/sn.py`
+- `scripts/suttas/dpd/an_nipatas.py`
+- `scripts/suttas/dpd/an.py`
+- `scripts/suttas/dpd/an_vaggas.py`
+- `scripts/suttas/dpd/dn.py`
+- `scripts/suttas/dpd/kn14-ja.py`
+- `scripts/suttas/dpd/kn3-ud.py`
+- `scripts/suttas/dpd/kn4-iti.py`
+- `scripts/suttas/dpd/kn5-snp.py`
+- `scripts/suttas/dpd/kn6-vv.py`
+- `scripts/suttas/dpd/kn7-pv.py`
+- `scripts/suttas/dpd/kn8-th.py`
+- `scripts/suttas/dpd/kn9-thi.py`
+- `scripts/suttas/dpd/mn.py`
+- `scripts/suttas/dpd/sn.py`
+- `scripts/suttas/dpr/an_nipatas.py`
+- `scripts/suttas/dpr/an_vaggas.py`
+- `scripts/suttas/find_sutta_alias_candidates.py`
+- `scripts/suttas/sc/an_nipatas.py`
+- `scripts/suttas/sc/an_vaggas.py`
+- `scripts/suttas/sc/blurbs.py`
+- `scripts/suttas/sc/links.py`
+- `scripts/suttas/sc/main.py.py`
+- `scripts/suttas/sc/modules.py`
+- `scripts/suttas/sc/natural_sort.py`
+- `scripts/suttas/sc/suttas.py`
+- `scripts/suttas/vaggas/compile_vaggas.py`
+- `scripts/suttas/vaggas/extract_vaggas.py`
+- `scripts/tutorial/quick_start.py`
+- `tests/scripts/suttas/bjt/test_helpers.py`

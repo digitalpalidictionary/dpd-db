@@ -100,7 +100,12 @@ def _matches_rule(a: str, b: str) -> str | None:
 
 def _freq_total(hw: DpdHeadword) -> int:
     freq = hw.freq_data_unpack
-    return sum(sum(val) for key in _FREQ_KEYS if isinstance(val := freq.get(key), list))
+    total = 0
+    for key in _FREQ_KEYS:
+        val = freq.get(key)
+        if isinstance(val, list):
+            total += sum(val)
+    return total
 
 
 def _entry_label(hw: DpdHeadword) -> str:

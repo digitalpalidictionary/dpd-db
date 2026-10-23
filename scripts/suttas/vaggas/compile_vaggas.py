@@ -11,6 +11,8 @@ import re
 import sys
 from collections import defaultdict
 
+from sqlalchemy.orm import Session
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
@@ -81,7 +83,7 @@ def load_sutta_info() -> tuple[
     return headers, exact_map, ordered_codes, start_map, last_in_section_map
 
 
-def load_vagga_headwords(db_session) -> list[tuple[int, str, str]]:
+def load_vagga_headwords(db_session: Session) -> list[tuple[int, str, str]]:
     """Return list of (id, lemma_1, dpd_code) for vagga/paṇṇāsaka/saṃyuttapāḷi/saṃyutta headwords."""
     results: list[tuple[int, str, str]] = []
 
@@ -207,6 +209,7 @@ def resolve_source_row(
 
 
 def main() -> None:
+    """Build vagga rows from sutta_info.tsv and the db, then write the TSV."""
     pr.tic()
     pr.yellow_title("Vagga sutta_info row generator")
 
@@ -268,7 +271,8 @@ def main() -> None:
         default=999999,
     )
 
-    def _sort_key(r: dict) -> tuple[int, int, int, int]:
+    def _sort_key(r: dict[str, str]) -> tuple[int, int, int, int]:
+        """Order SN rows by saṃyutta, others by anchor position in sutta_info."""
         sutta = r["dpd_sutta"]
         code = r["dpd_code"]
         if code.startswith("SN"):

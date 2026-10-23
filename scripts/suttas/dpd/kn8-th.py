@@ -1,3 +1,5 @@
+"""Write Theragāthā codes and their DPD headwords to kn8-th.tsv."""
+
 import re
 
 from sqlalchemy import and_, not_
@@ -15,7 +17,8 @@ search_string = r"\((TH\d+)\)"  # no dots or dashes
 file_path = pth.suttas_dpd_dir / "kn8-th.tsv"
 
 
-def extractor():
+def extractor() -> None:
+    """Collect headwords by TH code in meaning_2 and write them to kn8-th.tsv."""
     results = (
         db_session.query(DpdHeadword)
         .filter(
@@ -26,7 +29,7 @@ def extractor():
         )
         .all()
     )
-    extract_dict = {}
+    extract_dict: dict[str, list[str]] = {}
     for i in results:
         sutta_code = re.findall(search_string, i.meaning_2)[0]
 
@@ -38,7 +41,7 @@ def extractor():
     list_of_keys = [k for k in extract_dict]
     file_order = natural_sort(list_of_keys)
 
-    file_path.open("w")
+    file_path.write_text("")
 
     with open(file_path, "a", encoding="utf-8") as f:
         for i in file_order:

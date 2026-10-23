@@ -44,10 +44,8 @@ Where are all the parts of the project located?
 ├── resources
 ├── scripts
 │   ├── add
-│   ├── archive
 │   ├── bash
 │   ├── build
-│   ├── cl
 │   ├── export
 │   ├── extractor
 │   ├── find
@@ -55,6 +53,8 @@ Where are all the parts of the project located?
 │   ├── info
 │   ├── onboarding
 │   ├── patch
+│   ├── project_management
+│   ├── repo_maintenance
 │   ├── server_contrib
 │   ├── server_dpdict
 │   ├── suttas

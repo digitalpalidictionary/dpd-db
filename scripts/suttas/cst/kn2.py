@@ -1,8 +1,18 @@
-def extract_kn2_data(soup, relative_path):
-    data_list = []
+"""Extract KN2 sutta rows from CST XML for the cst.tsv builder."""
+
+from pathlib import Path
+
+from bs4 import BeautifulSoup, Tag
+
+
+def extract_kn2_data(
+    soup: BeautifulSoup, relative_path: Path
+) -> list[dict[str, str | Path | None]]:
+    """Extract CST rows for KN2 from a parsed CST XML file."""
+    data_list: list[dict[str, str | Path | None]] = []
 
     soup_chunks = soup.find_all(["div", "head", "p"])
-    id = None
+    current_id = None
     nikaya = None
     book = None
     # section = None
@@ -15,7 +25,9 @@ def extract_kn2_data(soup, relative_path):
     t_page = None
 
     for x in soup_chunks:
-        data = {}
+        if not isinstance(x, Tag):
+            continue
+        data: dict[str, str | Path | None] = {}
 
         if x.get("rend", "") == "nikaya":
             nikaya = x.text.strip()
@@ -24,7 +36,7 @@ def extract_kn2_data(soup, relative_path):
             book = x.text.strip()
 
         if x.get("id", ""):
-            id = x["id"].replace("_", ".")
+            current_id = str(x["id"]).replace("_", ".")
 
         if x.name == "p":
             pbs = x.find_all("pb")
@@ -46,9 +58,8 @@ def extract_kn2_data(soup, relative_path):
             # Find the next paragraph containing paranum
             next_para = x.find_next("p")
             if next_para:
-                paranum = next_para.find("hi", {"rend": "paranum"})
-                if paranum:
-                    paranum = paranum.text.strip()
+                paranum_tag = next_para.find("hi", {"rend": "paranum"})
+                paranum = paranum_tag.text.strip() if paranum_tag else None
 
                 # Find all pb elements in this paragraph
                 pbs = next_para.find_all("pb")
@@ -57,7 +68,8 @@ def extract_kn2_data(soup, relative_path):
                 ) or (
                     pb.previous_sibling is None
                     or (
-                        pb.previous_sibling.name == "hi"
+                        isinstance(pb.previous_sibling, Tag)
+                        and pb.previous_sibling.name == "hi"
                         and pb.previous_sibling.get("rend") == "paranum"
                     )
                 ):
@@ -73,7 +85,7 @@ def extract_kn2_data(soup, relative_path):
                         elif ed == "T":
                             t_page = n
 
-            data["cst_code"] = id
+            data["cst_code"] = current_id
             data["cst_nikaya"] = nikaya
             data["cst_book"] = book
             data["cst_section"] = ""

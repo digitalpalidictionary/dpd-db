@@ -1,7 +1,17 @@
-def extract_dn_data(soup, relative_path):
+"""Extract DN sutta rows from CST XML for the cst.tsv builder."""
+
+from pathlib import Path
+
+from bs4 import BeautifulSoup, Tag
+
+
+def extract_dn_data(
+    soup: BeautifulSoup, relative_path: Path
+) -> list[dict[str, str | Path | None]]:
+    """Extract CST rows for DN from a parsed CST XML file."""
     soup_chunks = soup.find_all(["div", "head", "p"])
-    data_list = []
-    id = None
+    data_list: list[dict[str, str | Path | None]] = []
+    current_id = None
     nikaya = None
     book = None
     # vagga = None
@@ -14,25 +24,26 @@ def extract_dn_data(soup, relative_path):
     t_page = None
 
     for x in soup_chunks:
-        data = {}
+        if not isinstance(x, Tag):
+            continue
+        data: dict[str, str | Path | None] = {}
 
         if x.get("rend", "") == "nikaya":
             nikaya = x.text.strip()
         if x.get("rend", "") == "book":
             book = x.text.strip()
         if x.get("id", ""):
-            id = x["id"].replace("_", ".")
+            current_id = str(x["id"]).replace("_", ".")
         if x.get("n", ""):
-            n = x["n"].replace("_", ".")
+            n = str(x["n"]).replace("_", ".")
         if x.get("rend", "") == "chapter":
             sutta = x.text.strip()
 
             # Find the next paragraph containing paranum
             next_para = x.find_next("p", {"rend": "bodytext"})
             if next_para:
-                paranum = next_para.find("hi", {"rend": "paranum"})
-                if paranum:
-                    paranum = paranum.text.strip()
+                paranum_tag = next_para.find("hi", {"rend": "paranum"})
+                paranum = paranum_tag.text.strip() if paranum_tag else None
 
                 # Find all pb elements in this paragraph
                 pbs = next_para.find_all("pb")
@@ -48,7 +59,7 @@ def extract_dn_data(soup, relative_path):
                     elif ed == "T":
                         t_page = n
 
-            data["cst_code"] = id
+            data["cst_code"] = current_id
             data["cst_nikaya"] = nikaya
             data["cst_book"] = book
             data["cst_section"] = ""

@@ -5,13 +5,10 @@ This script updates all tables with the latest derived data in preparation for e
 You can finely control which parts get run in ./config.ini
 """
 
-from tools.script_runner import run_script, check_db_exists
-
-# Check if database exists (replaces: if [ ! -e "dpd.db" ]; then echo "Error..."; exit 1; fi)
-check_db_exists()
+from tools.script_runner import check_db_exists, run_script
 
 # List of commands to execute - all commands from the original script
-COMMANDS = [
+COMMANDS: list[str] = [
     "uv run pytest tests/",
     #
     "tools/logo.py",
@@ -70,4 +67,12 @@ COMMANDS = [
     "scripts/build/dealbreakers.py",
 ]
 
-run_script("Generate Components", COMMANDS)
+
+def main() -> None:
+    """Exit if dpd.db is missing, then run every component step in order."""
+    check_db_exists()
+    run_script("Generate Components", COMMANDS)
+
+
+if __name__ == "__main__":
+    main()

@@ -38,12 +38,14 @@ FIELDNAMES = [
 
 
 def _read_json(path: Path) -> dict[str, str]:
+    """Load a JSON file with all keys and values as strings."""
     with path.open(encoding="utf-8") as f:
         data = json.load(f)
     return {str(k): str(v) for k, v in data.items()}
 
 
 def extract() -> list[dict[str, str]]:
+    """Build one row per AN vagga (or per file for an1/an2)."""
     rows: list[dict[str, str]] = []
     grouped: OrderedDict[tuple[str, ...], dict[str, str]] = OrderedDict()
 
@@ -124,6 +126,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the output TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -133,6 +136,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract the AN vagga rows and save them."""
     pr.tic()
     pr.yellow_title("extract AN vaggas — SC")
     pr.green_tmr("extracting")

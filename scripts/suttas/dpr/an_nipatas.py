@@ -28,6 +28,7 @@ FIRST_RE = re.compile(r"DPR_G\.amlist\[(\d+)\]\[0\]\[0\]\[0\]\[0\]\s*=\s*'([\d-]
 
 
 def extract() -> list[dict[str, str]]:
+    """Build one row per AN book from the first vagga entry in listam.js."""
     content = DPR_LISTAM.read_text(encoding="utf-8")
     seen: set[int] = set()
     rows: list[dict[str, str]] = []
@@ -59,6 +60,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the output TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -67,6 +69,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract the AN nipāta rows and save them."""
     pr.tic()
     pr.yellow_title("extract AN nipātas — DPR")
     pr.green_tmr("extracting")

@@ -38,6 +38,7 @@ MULTI_RE = re.compile(r"DPR_G\.amlist\[(\d+)\]\[(\d+)\]\[(\d+)\]\[(\d+)\]\[1\]\s
 
 
 def extract() -> list[dict[str, str]]:
+    """Build one row per AN vagga (or sub-vagga) from listam.js."""
     rows: list[dict[str, str]] = []
 
     content = DPR_LISTAM.read_text(encoding="utf-8")
@@ -78,6 +79,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the output TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -86,6 +88,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract the AN vagga rows and save them."""
     pr.tic()
     pr.yellow_title("extract AN vaggas — DPR")
     pr.green_tmr("extracting")

@@ -120,6 +120,7 @@ def get_latest_db_release_url() -> str | None:
         release_info = response.json()
 
         for asset in release_info.get("assets", []):
+            # matches the release asset's name, not a local path
             if "dpd.db" in asset["name"]:
                 return asset["browser_download_url"]
 
@@ -151,6 +152,7 @@ def extract_database(archive_path: Path, project_root: Path) -> bool:
     """Extract dpd.db from the downloaded tarball and remove the archive."""
     try:
         with tarfile.open(archive_path, "r:xz") as tar:
+            # member name inside the release tarball, not a local path
             tar.extract("dpd.db", path=project_root, filter="data")
         return True
     except (tarfile.TarError, KeyError, OSError):

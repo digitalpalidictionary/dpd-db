@@ -57,6 +57,7 @@ FIELDNAMES = [
 
 
 def _update_pages(node: Tag, page_state: dict[str, str]) -> None:
+    """Record the latest page number per edition found in the node."""
     for pb in node.find_all("pb"):
         if not isinstance(pb, Tag):
             continue
@@ -78,12 +79,14 @@ def _parse_body_nums(text: str) -> tuple[str, str] | None:
 
 
 def _format_range_code(book_code: str, first_num: str, last_num: str) -> str:
+    """Format a code like 'AN3.1' or 'AN3.1-5'."""
     if first_num == last_num:
         return f"{book_code}.{first_num}"
     return f"{book_code}.{first_num}-{last_num}"
 
 
 def extract() -> list[dict[str, str]]:
+    """Walk each AN book and build one row per vagga with its sutta range."""
     rows: list[dict[str, str]] = []
 
     for book_code, file_path in AN_CST_FILES:
@@ -101,6 +104,7 @@ def extract() -> list[dict[str, str]]:
         chapter_ctx: dict[str, str] | None = None
 
         def flush_active() -> None:
+            """Finalise the open vagga row with its dpd_code and append it."""
             nonlocal active, active_first_num, active_last_num
             if active is None or not active_first_num:
                 active = None
@@ -204,6 +208,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the vagga TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -213,6 +218,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract and save the AN vagga rows."""
     pr.tic()
     pr.yellow_title("extract AN vaggas — CST")
     pr.green_tmr("extracting")

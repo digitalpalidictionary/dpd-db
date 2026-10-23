@@ -33,6 +33,7 @@ AN_FOLDERS = [f"an{n}" for n in range(1, 12)]
 
 
 def extract() -> list[dict[str, str]]:
+    """Build one row per AN nipāta found in the SC Pāḷi folder."""
     rows: list[dict[str, str]] = []
 
     for folder in AN_FOLDERS:
@@ -66,6 +67,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the output TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -75,6 +77,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract the AN nipāta rows and save them."""
     pr.tic()
     pr.yellow_title("extract AN nipātas — SC")
     pr.green_tmr("extracting")

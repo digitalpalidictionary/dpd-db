@@ -1,3 +1,5 @@
+"""Write Petavatthu codes and their DPD headwords to kn7-pv.tsv."""
+
 import re
 
 from db.db_helpers import get_db_session
@@ -13,13 +15,14 @@ search_string = r"\((PV\d+)\)"  # no dots or dashes
 file_path = pth.suttas_dpd_dir / "kn7-pv.tsv"
 
 
-def extractor():
+def extractor() -> None:
+    """Collect headwords by PV code in meaning_2 and write them to kn7-pv.tsv."""
     results = (
         db_session.query(DpdHeadword)
         .filter(DpdHeadword.meaning_2.regexp_match(search_string))
         .all()
     )
-    extract_dict = {}
+    extract_dict: dict[str, list[str]] = {}
     for i in results:
         sutta_code = re.findall(search_string, i.meaning_2)[0]
 
@@ -31,7 +34,7 @@ def extractor():
     list_of_keys = [k for k in extract_dict]
     file_order = natural_sort(list_of_keys)
 
-    file_path.open("w")
+    file_path.write_text("")
 
     with open(file_path, "a", encoding="utf-8") as f:
         for i in file_order:

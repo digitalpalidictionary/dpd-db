@@ -1,10 +1,14 @@
+"""Attach SuttaCentral blurbs to the extracted sutta data."""
+
 from pathlib import Path
 import re
 
 from scripts.suttas.sc.modules import open_sc_json
 
 
-def add_blurbs_to_sc_data(blurb_data, sc_data):
+def add_blurbs_to_sc_data(
+    blurb_data: dict[str, str], sc_data: dict[str, dict[str, str | None]]
+) -> dict[str, dict[str, str | None]]:
     """Add blurbs to the sc_data dictionary."""
 
     for blurb_code, blurb in blurb_data.items():
@@ -15,7 +19,9 @@ def add_blurbs_to_sc_data(blurb_data, sc_data):
     return sc_data
 
 
-def process_blurbs(sc_data):
+def process_blurbs(
+    sc_data: dict[str, dict[str, str | None]],
+) -> dict[str, dict[str, str | None]]:
     """Add the blurbs to the sc_data dictionary"""
 
     root_dir = Path("resources/sc-data/sc_bilara_data/root/en/blurb")

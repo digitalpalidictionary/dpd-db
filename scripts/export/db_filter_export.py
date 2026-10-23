@@ -3,19 +3,20 @@
 """A template for filtering the DPD database and exporting to .xlsx."""
 
 import sqlite3
+from pathlib import Path
 
 import pandas as pd
 
 from tools.paths import ProjectPaths
 
 
-def connect_to_db(db_path):
+def connect_to_db(db_path: Path) -> sqlite3.Connection:
     """Connect to the SQLite database."""
     conn = sqlite3.connect(db_path)
     return conn
 
 
-def table_to_dataframe(conn, table_name):
+def table_to_dataframe(conn: sqlite3.Connection, table_name: str) -> pd.DataFrame:
     """Convert a table into a DataFrame."""
     query = f"SELECT * FROM {table_name}"
     df = pd.read_sql_query(query, conn)
@@ -26,7 +27,9 @@ def table_to_dataframe(conn, table_name):
     return df
 
 
-def export_to_xlsx(df, file_path, columns_to_show):
+def export_to_xlsx(
+    df: pd.DataFrame, file_path: Path, columns_to_show: list[str]
+) -> None:
     """Export the DataFrame to an .xlsx file, showing only specified columns."""
 
     # Select only the specified columns from the DataFrame
@@ -36,7 +39,8 @@ def export_to_xlsx(df, file_path, columns_to_show):
     selected_df.to_excel(file_path, index=False)
 
 
-def main():
+def main() -> None:
+    """Filter the db table and export the chosen columns to .xlsx."""
     print("~" * 50)
 
     # where is the db located on your computer?

@@ -29,6 +29,7 @@ FIELDNAMES = [
 
 
 def _group_key(row: dict[str, str]) -> tuple[str, ...]:
+    """Return the key that identifies the vagga group a row belongs to."""
     book = row.get("bjt_book", "")
     minor = row.get("bjt_minor_section", "")
     vagga = row.get("bjt_vagga", "")
@@ -42,6 +43,7 @@ def _group_key(row: dict[str, str]) -> tuple[str, ...]:
 
 
 def extract() -> list[dict[str, str]]:
+    """Read an.tsv and return one row per vagga group from an.tsv."""
     rows: list[dict[str, str]] = []
     last_key: tuple[str, ...] | None = None
 
@@ -76,6 +78,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the output TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -84,6 +87,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract the rows and save them."""
     pr.tic()
     pr.yellow_title("extract AN vaggas — BJT")
     pr.green_tmr("extracting")

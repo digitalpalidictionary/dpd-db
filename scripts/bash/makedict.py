@@ -5,12 +5,9 @@ This script updates the database and generates DPD in all formats.
 You can finely control which parts get run in ./config.ini
 """
 
-from tools.script_runner import run_script, check_db_exists
+from tools.script_runner import check_db_exists, run_script
 
-# Check if database exists
-check_db_exists()
-
-COMMANDS = [
+COMMANDS: list[str] = [
     # Generate components first
     "scripts/bash/generate_components.py",
     # Export to various formats
@@ -40,4 +37,12 @@ COMMANDS = [
     "scripts/build/config_uposatha_reset.py",
 ]
 
-run_script("Make Dictionary", COMMANDS)
+
+def main() -> None:
+    """Exit if dpd.db is missing, then run every build step in order."""
+    check_db_exists()
+    run_script("Make Dictionary", COMMANDS)
+
+
+if __name__ == "__main__":
+    main()

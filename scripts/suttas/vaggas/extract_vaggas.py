@@ -63,6 +63,7 @@ AN_PAREN_CODE_RE = re.compile(r"\((AN\d+(?:\.\d+)?(?:-(?:\d+\.)?\d+)?)\)")
 
 
 def write_tsv(path: Path, fieldnames: list[str], rows: list[dict[str, str]]) -> None:
+    """Write rows to a TSV using the given column order."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
@@ -72,6 +73,7 @@ def write_tsv(path: Path, fieldnames: list[str], rows: list[dict[str, str]]) -> 
 
 
 def export_dpd() -> list[dict[str, str]]:
+    """Export AN vagga headwords from the db to the DPD TSV."""
     fieldnames = [
         "book",
         "book_code",
@@ -140,6 +142,7 @@ def export_dpd() -> list[dict[str, str]]:
 
 
 def _update_pages(node: Tag, page_state: dict[str, str]) -> None:
+    """Record the latest CST page number per edition seen in the node."""
     for pb in node.find_all("pb"):
         if not isinstance(pb, Tag):
             continue
@@ -151,17 +154,20 @@ def _update_pages(node: Tag, page_state: dict[str, str]) -> None:
 
 
 def _parse_body_num(text: str) -> str | None:
+    """Return the leading paragraph number of the text, if any."""
     match = NUM_AT_START_RE.match(text)
     return match.group(1) if match else None
 
 
 def _format_range_code(book_code: str, first_num: str, last_num: str) -> str:
+    """Format a code like AN1.5 or AN1.5-10."""
     if first_num == last_num:
         return f"{book_code}.{first_num}"
     return f"{book_code}.{first_num}-{last_num}"
 
 
 def export_cst() -> list[dict[str, str]]:
+    """Export AN vaggas from the CST XML files to the CST TSV."""
     fieldnames = [
         "book",
         "book_code",
@@ -273,12 +279,14 @@ def export_cst() -> list[dict[str, str]]:
 
 
 def _read_json(path: Path) -> dict[str, str]:
+    """Load a bilara JSON file with all keys and values as strings."""
     with path.open(encoding="utf-8") as f:
         data = json.load(f)
     return {str(key): str(value) for key, value in data.items()}
 
 
 def export_sc() -> list[dict[str, str]]:
+    """Export AN vaggas from SuttaCentral data to the SC TSV."""
     fieldnames = [
         "book",
         "book_code",
@@ -361,6 +369,7 @@ def export_sc() -> list[dict[str, str]]:
 
 
 def _bjt_group_sort_key(row: dict[str, str]) -> tuple[str, str, str]:
+    """Return the (book, minor section, vagga) tuple that groups BJT rows."""
     return (
         row.get("bjt_book", ""),
         row.get("bjt_minor_section", ""),
@@ -369,6 +378,7 @@ def _bjt_group_sort_key(row: dict[str, str]) -> tuple[str, str, str]:
 
 
 def export_bjt() -> list[dict[str, str]]:
+    """Collapse BJT an.tsv to one row per vagga group and write the BJT TSV."""
     fieldnames = [
         "book",
         "book_code",
@@ -421,6 +431,7 @@ def export_bjt() -> list[dict[str, str]]:
 
 
 def main() -> None:
+    """Export the four AN vagga source TSVs."""
     pr.tic()
     pr.yellow_title("export AN vagga sources")
 

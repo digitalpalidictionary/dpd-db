@@ -1,3 +1,5 @@
+"""Write DN sutta numbers and their DPD headwords to dn.tsv."""
+
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
@@ -6,9 +8,10 @@ pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
 
-def dn_extractor():
+def dn_extractor() -> None:
+    """Find headwords whose meaning_1 cites each DN number and write them to dn.tsv."""
     file_path = pth.suttas_dpd_dir / "dn.tsv"
-    file_path.open("w")
+    file_path.write_text("")
 
     with open(file_path, "a", encoding="utf-8") as f:
         for sutta_no in range(35):

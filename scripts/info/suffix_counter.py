@@ -12,7 +12,8 @@ from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
 
 
-def main_pandas():
+def main_pandas() -> None:
+    """Count kita, kicca and taddhita suffixes in the headwords."""
     print("[bright_yellow]kita kicca taddhita suffix frequency")
     print("[green]processing db")
     pth = ProjectPaths()

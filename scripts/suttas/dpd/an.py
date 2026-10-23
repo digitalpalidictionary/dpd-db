@@ -1,3 +1,5 @@
+"""Write AN sutta codes and their DPD headwords to an.tsv."""
+
 import re
 
 from db.db_helpers import get_db_session
@@ -9,7 +11,8 @@ pth: ProjectPaths = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
 
 
-def an_extractor():
+def an_extractor() -> None:
+    """Collect headwords by AN code in meaning_2 and write them to an.tsv."""
     # with open(file_path, "a") as f:
     search_string = r"\((AN\d+\.\d+-*\d*)\)"
     results = (
@@ -17,7 +20,7 @@ def an_extractor():
         .filter(DpdHeadword.meaning_2.regexp_match(search_string))
         .all()
     )
-    an_dict = {}
+    an_dict: dict[str, list[str]] = {}
     for i in results:
         sutta_code = re.findall(search_string, i.meaning_2)[0]
 
@@ -30,7 +33,7 @@ def an_extractor():
     file_order = natural_sort(list_of_keys)
 
     file_path = pth.suttas_dpd_dir / "an.tsv"
-    file_path.open("w")
+    file_path.write_text("")
 
     with open(file_path, "a", encoding="utf-8") as f:
         for i in file_order:

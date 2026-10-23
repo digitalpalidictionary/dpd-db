@@ -1,3 +1,5 @@
+"""Shared helpers for the BJT sutta scripts."""
+
 import re
 
 

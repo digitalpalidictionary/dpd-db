@@ -31,6 +31,7 @@ AN_BOOK_NUM_RE = re.compile(r"Book (\d+) of the Aṅguttara Nikāya")
 
 
 def extract() -> list[dict[str, str]]:
+    """Query the DPD headwords that name each AN book."""
     session = get_db_session(pth.dpd_db_path)
     rows: list[dict[str, str]] = []
     grouped: dict[str, list[DpdHeadword]] = {}
@@ -72,6 +73,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the output TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -80,6 +82,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract the rows and save them."""
     pr.tic()
     pr.yellow_title("extract AN nipātas — DPD")
     pr.green_tmr("extracting")

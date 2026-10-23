@@ -1,4 +1,8 @@
+"""Natural sort of SC sutta codes with a custom nikāya prefix order."""
+
 import re
+from collections.abc import Iterable
+from typing import Any
 
 # Define the custom order for prefixes
 PREFIX_ORDER = {
@@ -29,7 +33,7 @@ PREFIX_ORDER = {
 }
 
 
-def extract_prefix(s, possible_prefixes):
+def extract_prefix(s: str, possible_prefixes: Iterable[str]) -> str | None:
     """
     Extract the prefix from the string based on a list of possible prefixes.
     """
@@ -41,7 +45,7 @@ def extract_prefix(s, possible_prefixes):
     return None  # No matching prefix found
 
 
-def natural_sort_key(s):
+def natural_sort_key(s: str) -> tuple[int, list[int | str]]:
     """
     Generate a key for natural sorting of alphanumeric strings with custom prefix order.
     """
@@ -49,7 +53,7 @@ def natural_sort_key(s):
     prefix = extract_prefix(s, PREFIX_ORDER.keys())
 
     # Get the priority of the prefix (default to a high number if not in the custom order)
-    prefix_priority = PREFIX_ORDER.get(prefix, 999)
+    prefix_priority = PREFIX_ORDER[prefix] if prefix else 999
 
     # Remove the prefix from the string for natural sorting
     remaining_string = s[len(prefix) :] if prefix else s
@@ -64,7 +68,7 @@ def natural_sort_key(s):
     )
 
 
-def sorted_naturally(data):
+def sorted_naturally(data: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
     Sort the data list based on the 'code' field using natural sorting with custom prefix order.
     """

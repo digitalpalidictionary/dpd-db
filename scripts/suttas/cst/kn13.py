@@ -1,11 +1,20 @@
+"""Extract KN13 sutta rows from CST XML for the cst.tsv builder."""
+
+from pathlib import Path
+
+from bs4 import BeautifulSoup, Tag
+
 from scripts.suttas.cst.modules import get_sutta_num
 
 
-def extract_kn13_data(soup, relative_path):
-    data_list = []
+def extract_kn13_data(
+    soup: BeautifulSoup, relative_path: Path
+) -> list[dict[str, str | Path | None]]:
+    """Extract CST rows for KN13 from a parsed CST XML file."""
+    data_list: list[dict[str, str | Path | None]] = []
 
     soup_chunks = soup.find_all(["div", "head", "p"])
-    id = None
+    current_id = None
     nikaya = None
     book = None
     # section = None
@@ -18,7 +27,9 @@ def extract_kn13_data(soup, relative_path):
     t_page = None
 
     for x in soup_chunks:
-        data = {}
+        if not isinstance(x, Tag):
+            continue
+        data: dict[str, str | Path | None] = {}
 
         if x.get("rend", "") == "nikaya":
             nikaya = x.text.strip()
@@ -27,7 +38,7 @@ def extract_kn13_data(soup, relative_path):
             book = x.text.strip()
 
         if x.get("id", ""):
-            id = x["id"].replace("_", ".")
+            current_id = str(x["id"]).replace("_", ".")
 
         if x.get("rend", "") == "chapter":
             note = x.find("note")
@@ -52,14 +63,13 @@ def extract_kn13_data(soup, relative_path):
         if x.get("rend") == "subhead":
             sutta = x.text.strip()
             sutta_num = get_sutta_num(x)
-            code = f"{id}.{sutta_num}"
+            code = f"{current_id}.{sutta_num}"
 
             # Find the next paragraph containing paranum
             next_para = x.find_next("p")
             if next_para:
-                paranum = next_para.find("hi", {"rend": "paranum"})
-                if paranum:
-                    paranum = paranum.text.strip()
+                paranum_tag = next_para.find("hi", {"rend": "paranum"})
+                paranum = paranum_tag.text.strip() if paranum_tag else None
 
                 # Find all pb elements in this paragraph
                 pbs = next_para.find_all("pb")
@@ -68,7 +78,8 @@ def extract_kn13_data(soup, relative_path):
                 ) or (
                     pb.previous_sibling is None
                     or (
-                        pb.previous_sibling.name == "hi"
+                        isinstance(pb.previous_sibling, Tag)
+                        and pb.previous_sibling.name == "hi"
                         and pb.previous_sibling.get("rend") == "paranum"
                     )
                 ):

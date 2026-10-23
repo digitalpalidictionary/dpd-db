@@ -1,12 +1,21 @@
+"""Run the selected CST extractors and write the combined cst.tsv."""
+
+from collections.abc import Callable
 from pathlib import Path
+
+from bs4 import BeautifulSoup
+
 from scripts.suttas.cst.kn2 import extract_kn2_data
 from scripts.suttas.cst.modules import make_soup, write_cst_tsv
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
+from tools.printer import printer as pr
 
 pth = ProjectPaths()
 
-PROCESSING_STEPS = [
+ExtractFn = Callable[[BeautifulSoup, Path], list[dict[str, str | Path | None]]]
+
+PROCESSING_STEPS: list[tuple[list[str], ExtractFn]] = [
     # (["dn1", "dn2", "dn3"], extract_dn_data),
     # (["mn1", "mn2", "mn3"], extract_mn_data),
     # (["sn1", "sn2", "sn3", "sn4", "sn5"], extract_sn_data),
@@ -33,7 +42,12 @@ PROCESSING_STEPS = [
 ]
 
 
-def extract_sutta_data(cst_data, book_list, extract_x_data):
+def extract_sutta_data(
+    cst_data: list[dict[str, str | Path | None]],
+    book_list: list[str],
+    extract_x_data: ExtractFn,
+) -> list[dict[str, str | Path | None]]:
+    """Run one extractor over every XML file of the given books."""
     source_path = Path(
         "/home/bodhirasa/MyFiles/3_Active/dpd-db/resources/dpd_submodules/cst"
     )
@@ -55,8 +69,10 @@ def extract_sutta_data(cst_data, book_list, extract_x_data):
     return cst_data
 
 
-def main():
-    cst_data = []
+def main() -> None:
+    """Extract all enabled books and save cst.tsv."""
+    pr.yellow_title("extract sutta data from CST XML")
+    cst_data: list[dict[str, str | Path | None]] = []
 
     for book_list, extract_function in PROCESSING_STEPS:
         cst_data = extract_sutta_data(cst_data, book_list, extract_function)

@@ -17,6 +17,7 @@ from tools.printer import printer as pr
 
 
 def make_db() -> list[DpdHeadword]:
+    """Load every headword, sorted in Pāḷi order."""
     pr.green_tmr("getting database")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -26,16 +27,19 @@ def make_db() -> list[DpdHeadword]:
 
 
 def make_txt_entry(i: DpdHeadword) -> str:
+    """Make one plain-text line for a headword."""
     entry_line = f"{i.lemma_1}, {i.sanskrit}; ({i.pos}) {i.meaning_1}"
     return entry_line.replace("ṃ", "ṁ")
 
 
 def make_tsv_entry(i: DpdHeadword) -> str:
+    """Make one TSV line for a headword."""
     entry_line = f"{i.lemma_1}\t{i.sanskrit}\t{i.pos}\t{i.meaning_1}"
     return entry_line.replace("ṃ", "ṁ")
 
 
 def process_db(db: list[DpdHeadword]) -> tuple[list[str], list[str]]:
+    """Turn the headwords into text lines and TSV lines."""
     pr.green_title("processing db")
     txt_entry_list: list[str] = []
     tsv_entry_list: list[str] = []
@@ -51,6 +55,7 @@ def process_db(db: list[DpdHeadword]) -> tuple[list[str], list[str]]:
 
 
 def save_txt(txt_entry_list: list[str]) -> None:
+    """Save the text lines to file."""
     pth = ProjectPaths()
     txt_path = pth.temp_dir / "DPD Pāḷi Sanskrit.txt"
     pr.green_tmr(f"saving '{txt_path}'")
@@ -59,6 +64,7 @@ def save_txt(txt_entry_list: list[str]) -> None:
 
 
 def save_tsv(tsv_entry_list: list[str]) -> None:
+    """Save the TSV lines to file."""
     pth = ProjectPaths()
     tsv_path = pth.temp_dir / "DPD Pāḷi Sanskrit.tsv"
     pr.green_tmr(f"saving '{tsv_path}'")
@@ -68,7 +74,8 @@ def save_tsv(tsv_entry_list: list[str]) -> None:
     pr.yes("ok")
 
 
-def main():
+def main() -> None:
+    """Make the Sanskrit dictionary files from the db."""
     pr.tic()
     pr.yellow_title("making DPD Sanskrit dict")
 

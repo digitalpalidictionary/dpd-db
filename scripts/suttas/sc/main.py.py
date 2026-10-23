@@ -4,14 +4,18 @@ Extract sutta data from SC texts and translations.
 
 from pathlib import Path
 
+from tools.printer import printer as pr
+
 from scripts.suttas.sc.blurbs import process_blurbs
 from scripts.suttas.sc.links import process_links
 from scripts.suttas.sc.modules import open_sc_json, write_sc_data_to_tsv
 from scripts.suttas.sc.suttas import extract_pali
 
 
-def main():
-    sc_data = {}
+def main() -> None:
+    """Build sc.tsv from the SC Pāḷi and English sutta files."""
+    pr.yellow_title("extract sutta data — SC")
+    sc_data: dict[str, dict[str, str | None]] = {}
     pali_base_dir = Path("resources/sc-data/sc_bilara_data/root/pli/ms/sutta")
     english_base_dir = Path(
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta"

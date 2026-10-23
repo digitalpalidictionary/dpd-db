@@ -20,6 +20,7 @@ pth = ProjectPaths()
 
 
 def main() -> None:
+    """Write alias candidates and a paste-ready TSV to temp/."""
     pr.tic()
     pr.green_title("Finding sutta alias candidates")
 

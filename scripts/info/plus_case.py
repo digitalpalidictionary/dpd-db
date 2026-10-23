@@ -15,7 +15,8 @@ from tools.paths import ProjectPaths
 from tools.tsv_read_write import write_tsv_list
 
 
-def main():
+def main() -> None:
+    """Find which cases appear in plus-case headwords and save the counts."""
     print("[bright_yellow]finding case relationships")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)

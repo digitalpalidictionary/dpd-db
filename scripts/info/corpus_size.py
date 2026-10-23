@@ -104,7 +104,8 @@ all_texts = [
 ]
 
 
-def main():
+def main() -> None:
+    """Print the CST and SC text word counts."""
     pth = ProjectPaths()
     cst_text_set = make_cst_text_set(pth, all_texts)
     sc_text_set = make_sc_text_set(pth, all_texts)

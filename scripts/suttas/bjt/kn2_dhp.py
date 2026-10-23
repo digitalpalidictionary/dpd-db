@@ -62,7 +62,7 @@ class GlobalVars:
     data_all: list[dict[str, Any]] = []
 
 
-def extract_data(g: GlobalVars):
+def extract_data(g: GlobalVars) -> None:
     """Extract vagga data from a single JSON file."""
 
     try:
@@ -134,7 +134,7 @@ def extract_data(g: GlobalVars):
     g.data_all.extend(g.data_current_file)
 
 
-def save_to_tsv(g: GlobalVars):
+def save_to_tsv(g: GlobalVars) -> None:
     """Save data to TSV file."""
     if not g.data_all:
         pr.amber("No data to save")
@@ -163,7 +163,8 @@ def save_to_tsv(g: GlobalVars):
     pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
-def main():
+def main() -> None:
+    """Run the extraction and write the TSV."""
     pr.tic()
     g = GlobalVars()
     if not g.json_file_list:

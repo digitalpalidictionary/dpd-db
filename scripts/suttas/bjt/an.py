@@ -7,7 +7,7 @@ import csv
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 from helpers import clean_string
 from natsort import natsorted, ns
@@ -72,12 +72,12 @@ class GlobalVars:
     current_vagga_for_web: str = ""
 
     # data vars
-    data_current_file: List[Dict[str, Any]] = []
-    data_all: List[Dict[str, Any]] = []
+    data_current_file: list[dict[str, Any]] = []
+    data_all: list[dict[str, Any]] = []
     recorded_suttas: set[str] = set()
 
 
-def extract_data(g: GlobalVars):
+def extract_data(g: GlobalVars) -> None:
     """Extract sutta data from a single JSON file."""
 
     try:
@@ -297,7 +297,7 @@ def extract_data(g: GlobalVars):
     g.last_json_file = g.this_json_file.stem
 
 
-def save_to_tsv(g: GlobalVars):
+def save_to_tsv(g: GlobalVars) -> None:
     """Save data to TSV file."""
     if not g.data_all:
         pr.amber("No data to save")
@@ -326,7 +326,8 @@ def save_to_tsv(g: GlobalVars):
     pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
-def main():
+def main() -> None:
+    """Run the extraction and write the TSV."""
     pr.tic()
     g = GlobalVars()
     if not g.json_file_list:

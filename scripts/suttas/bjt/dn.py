@@ -6,7 +6,7 @@ Script to extract sutta data from BJT JSON files starting with 'dn-' and save to
 import json
 from pathlib import Path
 import csv
-from typing import List, Dict, Any
+from typing import Any
 import re
 from natsort import natsorted, ns
 from rich import print
@@ -58,11 +58,11 @@ class GlobalVars:
     this_sutta_num: int = 0
 
     # data vars
-    data_current_file: List[Dict[str, Any]] = []
-    data_all: List[Dict[str, Any]] = []
+    data_current_file: list[dict[str, Any]] = []
+    data_all: list[dict[str, Any]] = []
 
 
-def extract_data(g: GlobalVars):
+def extract_data(g: GlobalVars) -> None:
     """Extract sutta data from a single JSON file."""
 
     try:
@@ -147,7 +147,7 @@ def extract_data(g: GlobalVars):
     g.data_all.extend(g.data_current_file)
 
 
-def save_to_tsv(g: GlobalVars):
+def save_to_tsv(g: GlobalVars) -> None:
     """Save data to TSV file."""
     if not g.data_all:
         pr.amber("No data to save")
@@ -181,7 +181,8 @@ def save_to_tsv(g: GlobalVars):
     pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
-def main():
+def main() -> None:
+    """Run the extraction and write the TSV."""
     pr.tic()
     g = GlobalVars()
     if not g.json_file_list:

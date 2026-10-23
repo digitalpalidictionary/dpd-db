@@ -39,6 +39,7 @@ IST = timezone(timedelta(hours=5, minutes=30))
 
 
 def gh_jq(path: str, jq: str) -> str | None:
+    """Run a gh api call with a jq filter. Return None on any failure."""
     try:
         r = subprocess.run(
             ["gh", "api", path, "--jq", jq],
@@ -54,6 +55,7 @@ def gh_jq(path: str, jq: str) -> str | None:
 
 
 def gh(path: str) -> Any:
+    """Run a gh api call and return the parsed JSON, or None on failure."""
     try:
         r = subprocess.run(
             ["gh", "api", path],
@@ -69,10 +71,12 @@ def gh(path: str) -> Any:
 
 
 def check_auth() -> bool:
+    """Return True if gh is installed and logged in."""
     return gh("user") is not None
 
 
 def days_ago(iso_str: str | None) -> int | None:
+    """Return whole days since an ISO timestamp, or None if it is missing or bad."""
     if not iso_str:
         return None
     try:
@@ -83,6 +87,7 @@ def days_ago(iso_str: str | None) -> int | None:
 
 
 def fmt_age(iso_str: str | None) -> str:
+    """Format an ISO timestamp as a short age such as 3d, 2mo or 1y."""
     d = days_ago(iso_str)
     if d is None:
         return "?"
@@ -98,11 +103,13 @@ def fmt_age(iso_str: str | None) -> str:
 
 
 def is_stale(iso_str: str | None) -> bool:
+    """Return True if the timestamp is at least STALE_DAYS old."""
     d = days_ago(iso_str)
     return d is not None and d >= STALE_DAYS
 
 
 def scan_repo(repo: str) -> dict[str, Any]:
+    """Collect open issues, PRs, stale items and latest commit and release for a repo."""
     owner = "digitalpalidictionary"
     base = f"repos/{owner}/{repo}"
 
@@ -141,6 +148,7 @@ def scan_repo(repo: str) -> dict[str, Any]:
 
 
 def print_report(results: list[dict[str, Any]]) -> None:
+    """Print the health report for the scanned repos."""
     now = datetime.now(IST).strftime("%Y-%m-%d %H:%M IST")
     total_issues = sum(len(r["issues"]) for r in results)
     total_prs = sum(len(r["prs"]) for r in results)
@@ -229,6 +237,7 @@ def print_report(results: list[dict[str, Any]]) -> None:
 
 
 def parse_args() -> argparse.Namespace:
+    """Read the command line options."""
     parser = argparse.ArgumentParser(description="DPD Project Health Check")
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -239,6 +248,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    """Scan the chosen repos and print the report."""
     args = parse_args()
 
     if not check_auth():

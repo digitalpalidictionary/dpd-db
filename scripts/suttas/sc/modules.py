@@ -1,11 +1,14 @@
-# -*- coding: utf-8 -*-
+"""Shared helpers for the SC sutta extraction: JSON loading and TSV output."""
+
 import csv
 import json
+from pathlib import Path
+from typing import Any
 
 from scripts.suttas.sc.natural_sort import sorted_naturally
 
 
-def open_sc_json(file_path):
+def open_sc_json(file_path: Path) -> Any:
     """Open the json file and return the data"""
 
     with open(file_path, "r", encoding="utf-8") as f:
@@ -13,8 +16,14 @@ def open_sc_json(file_path):
 
 
 def update_data_dict(
-    code, book, vagga, sutta, eng_sutta, file_path_relative, data_dict
-):
+    code: str | None,
+    book: str | None,
+    vagga: str | None,
+    sutta: str | None,
+    eng_sutta: str,
+    file_path_relative: str,
+    data_dict: dict[str, dict[str, str | None]],
+) -> dict[str, dict[str, str | None]] | None:
     """Update the data dictionary."""
     if vagga is None:
         vagga = ""
@@ -38,7 +47,7 @@ def update_data_dict(
         return data_dict
 
 
-def write_sc_data_to_tsv(sc_data):
+def write_sc_data_to_tsv(sc_data: dict[str, dict[str, str | None]]) -> None:
     """Writes the values from sc_data (dict of dicts) to a TSV file."""
 
     output_file = "scripts/suttas/sc/sc.tsv"

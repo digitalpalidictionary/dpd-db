@@ -7,7 +7,7 @@ Theragāthā has Nipāta -> Vagga -> Gāthā structure (nipātas 1-2) and Nipāt
 import json
 from pathlib import Path
 import csv
-from typing import List, Dict, Any
+from typing import Any
 import re
 from natsort import natsorted, ns
 from tools.paths import ProjectPaths
@@ -57,7 +57,7 @@ class GlobalVars:
     # Global sequential counter for web codes across all nipātas
     global_web_sutta_counter: int = 0
     # Global tracking of encountered nipata sequence
-    global_encountered_nipata_sequence: Dict[int, int] = {}
+    global_encountered_nipata_sequence: dict[int, int] = {}
     global_next_nipata_seq_num: int = 1
 
     # Counter vars
@@ -68,21 +68,21 @@ class GlobalVars:
     this_sutta_num: int = 0
 
     # Track sutta numbers within each section
-    nipāta_sutta_counter: Dict[int, int] = {}
-    vagga_sutta_counter: Dict[str, int] = {}
+    nipāta_sutta_counter: dict[int, int] = {}
+    vagga_sutta_counter: dict[str, int] = {}
 
     # Track processed sutta numbers to avoid duplicates
     processed_sutta_numbers: set = set()
 
     # Track pending sutta numbers waiting for names
-    pending_suttas: Dict[str, Any] = {}
+    pending_suttas: dict[str, Any] = {}
 
     # data vars
-    data_current_file: List[Dict[str, Any]] = []
-    data_all: List[Dict[str, Any]] = []
+    data_current_file: list[dict[str, Any]] = []
+    data_all: list[dict[str, Any]] = []
 
 
-def extract_data(g: GlobalVars):
+def extract_data(g: GlobalVars) -> None:
     """Extract gāthā data from a single JSON file."""
 
     try:
@@ -200,7 +200,7 @@ def extract_data(g: GlobalVars):
     g.data_all.extend(g.data_current_file)
 
 
-def save_to_tsv(g: GlobalVars):
+def save_to_tsv(g: GlobalVars) -> None:
     """Save data to TSV file."""
     if not g.data_all:
         pr.amber("No data to save")
@@ -230,7 +230,8 @@ def save_to_tsv(g: GlobalVars):
     pr.green(f"saved {len(g.data_all)} records to {g.tsv_filepath}")
 
 
-def main():
+def main() -> None:
+    """Run the extraction and write the TSV."""
     pr.tic()
     g = GlobalVars()
 

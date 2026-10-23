@@ -52,6 +52,7 @@ FIELDNAMES = [
 
 
 def extract() -> list[dict[str, str]]:
+    """Read each AN book's first CST id and page numbers into one row."""
     rows: list[dict[str, str]] = []
 
     for book_code, file_path in AN_CST_FILES:
@@ -110,6 +111,7 @@ def extract() -> list[dict[str, str]]:
 
 
 def save(rows: list[dict[str, str]]) -> None:
+    """Write the rows to the nipāta TSV."""
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter="\t")
@@ -118,6 +120,7 @@ def save(rows: list[dict[str, str]]) -> None:
 
 
 def main() -> None:
+    """Extract and save the AN nipāta rows."""
     pr.tic()
     pr.yellow_title("extract AN nipātas — CST")
     pr.green_tmr("extracting")
