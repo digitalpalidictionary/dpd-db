@@ -2,7 +2,7 @@
 `db_tests_columns.tsv`.
 
 `DbTestManager` is a shared library: gui2's Tests tab, toolkit and test
-manager (plus `db_tests/gui/add_antonyms.py`) all import it, so its
+manager all import it, so its
 public API must stay stable.
 """
 

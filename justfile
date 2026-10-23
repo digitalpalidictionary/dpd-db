@@ -64,9 +64,29 @@ db-test:
 db-tests:
     uv run python db_tests/run_all_tests.py
 
-# Open the db tests editor (antonyms, family compounds, hyphenations)
-db-tests-gui:
-    uv run python -m db_tests.gui.main
+# Add missing antonyms to negative words
+add-antonyms:
+    uv run python -m db_tests.single.add_antonyms
+
+# Add the antonym link that is missing on one side
+add-antonyms-sync:
+    uv run python -m db_tests.single.add_antonyms_sync
+
+# Add missing family compounds from negative words
+add-fc-neg:
+    uv run python -m db_tests.single.add_family_compound_neg
+
+# Add missing family compounds from su, dur, sa and nir words
+add-fc-su-dur:
+    uv run python -m db_tests.single.add_family_compound_su_dur
+
+# Add missing family compounds from taddhita words
+add-fc-taddhita:
+    uv run python -m db_tests.single.add_family_compound_taddhita
+
+# Choose one spelling for long hyphenated words
+add-hyphenations:
+    uv run python -m db_tests.single.add_hyphenations
 
 # Run phonetic changes test
 test-phonetic:

@@ -1,5 +1,5 @@
 """Derive the positive form of a negative Pāḷi word (e.g. akusala > kusala).
-Used by the antonym and negative compound family tests in db_tests/gui/."""
+Used by the antonym and negative compound family tests in db_tests/single/."""
 
 from db.models import DpdHeadword
 import re

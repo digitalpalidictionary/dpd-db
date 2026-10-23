@@ -2,9 +2,9 @@
 
 """Run every db_tests script in sequence, pausing between each one.
 
-Order: relationship tests, then everything in db_tests/single/, then the
-Flet gui. The single/ scripts are discovered by globbing, so adding or
-deleting one is picked up automatically without editing this file.
+Order: relationship tests, then everything in db_tests/single/. The
+single/ scripts are discovered by globbing, so adding or deleting one is
+picked up automatically without editing this file.
 """
 
 import subprocess
@@ -17,7 +17,6 @@ from tools.printer import printer as pr
 
 SINGLE_DIR = Path("db_tests/single")
 FIRST_MODULE = "db_tests.db_tests_relationships"
-LAST_MODULE = "db_tests.gui.main"
 
 
 def find_modules() -> list[str]:
@@ -30,7 +29,7 @@ def find_modules() -> list[str]:
     singles = [
         f"db_tests.single.{path.stem}" for path in sorted(SINGLE_DIR.glob("*.py"))
     ]
-    return [FIRST_MODULE, *singles, LAST_MODULE]
+    return [FIRST_MODULE, *singles]
 
 
 def press_any_key() -> None:

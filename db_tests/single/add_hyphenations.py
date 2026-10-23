@@ -1,10 +1,14 @@
-# -*- coding: utf-8 -*-
+"""Find long hyphenated words and choose one spelling for each."""
+
 import json
 import re
-import time
+import sys
+import termios
+import tty
 
-import flet as ft
 import pyperclip
+from rich import print
+from rich.markup import escape
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
@@ -13,11 +17,33 @@ from tools.db_search_string import db_search_string
 from tools.pali_alphabet import pali_alphabet
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
+from tools.speech_marks import SpeechMarkManager
 
 
-class State:
-    def __init__(self):
-        self.is_complete = False
+def has_bold_tag_inside(text: str, form: str) -> bool:
+    """Test if the form sits in the text with a bold tag inside the word."""
+    tag = "(?:</?b>)*"
+    pattern = tag.join(re.escape(char) for char in form)
+    return any(match != form for match in re.findall(pattern, text))
+
+
+def press_any_key() -> str:
+    """Wait for a single keypress and return it."""
+
+    print("press any key to continue or q to quit...", end="", flush=True)
+
+    if not sys.stdin.isatty():
+        return input().strip()
+
+    file_descriptor = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(file_descriptor)
+    try:
+        tty.setraw(file_descriptor)
+        key = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(file_descriptor, termios.TCSADRAIN, old_settings)
+    print()
+    return key
 
 
 class Data:
@@ -44,6 +70,7 @@ class Data:
         self.ids: set | None = None
 
         self.spelling_choice: str | None = None
+        self.replaced_nothing: bool = False
 
     @property
     def exceptions(self) -> dict[str, str]:
@@ -65,14 +92,46 @@ class Data:
         self.variations_list: list[tuple[str, dict]] = list(
             self.variations_dict.items()
         )
+        self.auto_approved: int = self.auto_approve_single_forms()
+
+    def find_forms(self, clean_words: set[str]) -> dict[str, set[str]]:
+        """Map each given clean word to every form of it in the text."""
+        regex_compile = re.compile(rf"[^{'|'.join(pali_alphabet)}]")
+
+        forms: dict[str, set[str]] = {}
+        for word in self.clean_words_dict:
+            clean_word = re.sub(regex_compile, "", word)
+            if clean_word in clean_words:
+                forms.setdefault(clean_word, set()).add(word)
+        return forms
+
+    def auto_approve_single_forms(self) -> int:
+        """Approve each word whose text holds one marked form. Return the count.
+
+        The plain word may sit beside it: the marked form is still the only
+        choice, and the plain form stays in the text. A word needs a choice
+        only when its text has two differently marked forms.
+        """
+        forms = self.find_forms(set(self.variations_dict))
+
+        approved = [
+            (clean_word, next(iter(found - {clean_word})))
+            for clean_word, found in forms.items()
+            if len(found - {clean_word}) == 1 and clean_word not in self.exceptions
+        ]
+        for clean_word, form in approved:
+            self.exceptions[clean_word] = form
+            del self.variations_dict[clean_word]
+
+        if approved:
+            self.variations_list = list(self.variations_dict.items())
+            self.save_hyphenations_dict()
+        return len(approved)
 
     def load_hyphenations_dict(self):
-        if self.pth.add_hyphenations_config_path.exists():
-            with open(self.pth.add_hyphenations_config_path, encoding="utf-8") as file:
-                return json.load(file)
-        else:
-            pr.red("no hyphenations dict found")
-            return {}
+        # a missing file raises FileNotFoundError, which names the path
+        with open(self.pth.add_hyphenations_config_path, encoding="utf-8") as file:
+            return json.load(file)
 
     def save_hyphenations_dict(self):
         with open(self.pth.add_hyphenations_config_path, "w", encoding="utf-8") as file:
@@ -136,11 +195,12 @@ class Data:
         for dirty_word, ids in self.long_words_dict.items():
             clean_word = re.sub(regex_compile, "", dirty_word)
 
-            # test it's not a known hyphenation
+            # An approved word comes back when the text holds another marked
+            # form. An unapproved word needs a hyphen to be listed.
             if (
-                clean_word not in self.exceptions
-                and self.exceptions.get(clean_word, None) != dirty_word
-                and "-" in dirty_word
+                dirty_word != clean_word
+                and self.exceptions.get(clean_word) != dirty_word
+                and ("-" in dirty_word or clean_word in self.exceptions)
             ):
                 # add to or update variations_dict
                 if clean_word not in variations_dict:
@@ -152,9 +212,17 @@ class Data:
                     variations_dict[clean_word]["dirty_words"].update([dirty_word])
                     variations_dict[clean_word]["ids"].update(ids)
 
-        # turn the variations into list so that they are subscribable
+        # list every marked form of the word, not only the long hyphenated ones,
+        # so no form is left out of the choice. Sorted so the numbers are stable.
+        all_forms = self.find_forms(set(variations_dict))
         for key, values in variations_dict.items():
-            variations_dict[key]["dirty_words"] = list(set(values["dirty_words"]))
+            dirty_words = set(values["dirty_words"])
+            dirty_words |= all_forms.get(key, set()) - {key}
+            # list the approved spelling so it can be picked again
+            approved = self.exceptions.get(key)
+            if approved:
+                dirty_words.add(approved)
+            variations_dict[key]["dirty_words"] = sorted(dirty_words)
 
         return variations_dict
 
@@ -167,6 +235,23 @@ class Data:
             return True
         else:
             return False
+
+    def unchosen_forms_have_bold_tag_inside(self) -> bool:
+        """Test if a form that was not chosen has a bold tag inside it in the db.
+
+        The replace cannot match such a form, so it needs a hand edit.
+        """
+        for form in self.spelling_other:
+            if not form:
+                continue
+            for headword_id in self.clean_words_dict.get(form, set()):
+                headword = self.db_session.get(DpdHeadword, headword_id)
+                if headword and any(
+                    has_bold_tag_inside(getattr(headword, field_name), form)
+                    for field_name in ["example_1", "example_2", "commentary"]
+                ):
+                    return True
+        return False
 
     @property
     def spelling_other(self):
@@ -194,6 +279,7 @@ class Data:
         if not spelling_choice:
             return "no spelling choice selected"
 
+        self.replaced_nothing = False
         replacement_count = 0
         db_list = []
         for replace_me in self.spelling_other:
@@ -237,6 +323,7 @@ class Data:
             return f"{replacement_count} replacement(s) made"
 
         else:
+            self.replaced_nothing = True
             if self.ids:
                 ids_str = db_search_string(self.ids)
                 pyperclip.copy(ids_str)
@@ -245,212 +332,98 @@ class Data:
             )
 
 
-class Controller:
-    def __init__(
-        self,
-        e: ft.Event[ft.ListTile],
-        page: ft.Page,
-        right_panel: ft.Container,
-        state: State,
-    ) -> None:
-        self.state = state
-        self.ui = Gui(self, e, page, right_panel)
+def show_existing_versions(data: Data) -> None:
+    """Print each version of the word plainly, for editing by hand."""
+    print()
+    for form in data.dirty_words or []:
+        print(escape(form))
+    print("-" * 50)
 
-        self.ui.update_message("loading data")
-        self.data = Data()
-        self.ui.update_message("data loaded")
 
-        self.handle_next_item()
+def main() -> None:
+    """Show each set of hyphen variants and ask which spelling to keep."""
+    pr.tic()
+    pr.yellow_title("find long hyphenated words and choose one spelling")
 
-    def handle_commit(self, choice):
-        if self.data.clean_word in self.data.exceptions:
-            self.ui.update_message(f"updating {self.data.clean_word}")
-        else:
-            self.ui.update_message(f"added {self.data.clean_word}")
-        self.data.update_hyphenations_dict(choice)
+    data = Data()
+    changed = ask_about_all_words(data)
 
-        message = self.data.replace_word_in_db()
-        self.ui.update_message(message)
+    # the speech marks file is rebuilt from the db text, so the spellings
+    # just rejected leave it
+    if changed:
+        print("[green]updating speech marks")
+        SpeechMarkManager().regenerate_from_db()
+        print("[green]speech marks updated")
 
-        time.sleep(2)
+    pr.toc()
 
-        self.handle_next_item()
 
-    def handle_pass(self):
-        self.handle_next_item()
+def ask_about_all_words(data: Data) -> bool:
+    """Ask about every set of variants. Return True if any choice was saved."""
+    changed = False
 
-    def handle_next_item(self):
-        ok = self.data.load_next_item()
-        if ok:
-            self.ui.update_gui(self.data.clean_word, self.data.dirty_words)
-            self.ui.update_message(
-                f"{self.data.index} / {len(self.data.variations_dict)}"
+    while True:
+        if data.auto_approved:
+            print(f"[green]{data.auto_approved} words with one form approved")
+        total = len(data.variations_list)
+        if not total:
+            print("[green]nothing to do")
+
+        while data.load_next_item():
+            clean_word = data.clean_word or ""
+            dirty_words = data.dirty_words or []
+            goldendict_tools.open_in_goldendict(clean_word)
+
+            print()
+            print("-" * 50)
+            print()
+            pr.summary("", f"{data.index + 1} / {total}")
+            pr.summary("max length", data.max_length)
+            pr.summary("clean word", escape(clean_word))
+            for number, dirty_word in enumerate(dirty_words, start=1):
+                pr.summary(str(number), escape(dirty_word))
+            print()
+            print(
+                "[yellow]1[white]-9 pick, [yellow]p[white]ass [yellow]q[white]uit or Enter to pass: ",
+                end="",
             )
-            if self.data.clean_word:
-                goldendict_tools.open_in_goldendict(self.data.clean_word)
-        else:
-            self.ui.update_message("no more data")
-            time.sleep(2)
-            self.ui.update_message("loading next set")
-            self.ui.clear_fields()
-            self.data.decrease_max_length()
-            self.data.index = -1
-            self.data.load_data()
-            self.handle_next_item()
+            answer = input().strip()
 
-    def handle_quit(self):
-        self.state.is_complete = True
+            if answer == "q":
+                return changed
+            elif answer == "p":
+                continue
+            elif answer.isdigit() and 1 <= int(answer) <= len(dirty_words):
+                choice = dirty_words[int(answer) - 1]
+            elif answer:
+                choice = answer
+            else:
+                continue
 
+            if clean_word in data.exceptions:
+                print(f"[green]updating {escape(choice)}")
+            else:
+                print(f"[green]added {escape(choice)}")
+            data.update_hyphenations_dict(choice)
+            print(escape(data.replace_word_in_db()))
+            changed = True
+            if data.replaced_nothing or data.unchosen_forms_have_bold_tag_inside():
+                show_existing_versions(data)
+                if press_any_key() == "q":
+                    return changed
 
-class Gui:
-    """Flet gui."""
+        # this length is done, so go on to shorter words. Stop at 1 without
+        # saving 0, because a saved 0 would make every word count as long.
+        if data.max_length <= 1:
+            print("[green]no more data")
+            break
+        data.decrease_max_length()
+        print(f"[green]loading words longer than {data.max_length}")
+        data.index = -1
+        data.load_data()
 
-    height = 250
-    width = 1000
-
-    def __init__(
-        self,
-        control,
-        e: ft.Event[ft.ListTile],
-        page: ft.Page,
-        right_panel: ft.Container,
-    ):
-        self.control = control
-        self.page = page
-        self.right_panel = right_panel
-        self.right_panel.padding = ft.Padding.all(20)
-
-        self.page.padding = 100
-        self.page.spacing = 10
-        self.page.window.height = 1280
-
-        # Set up the keyboard event handler
-        self.page.on_keyboard_event = self.on_keyboard
-
-        self.message_field = ft.Text("", width=self.width)
-        self.clean_word = ft.TextField("", width=self.width)
-        self.dirty_words = ft.Column(
-            [], width=self.width, height=self.height, expand=True
-        )
-        self.choice_field = ft.TextField("", width=self.width)
-
-        self.commit_button = ft.TextButton("commit", on_click=self.clicked_commit)
-        self.pass_button = ft.TextButton("pass", on_click=self.clicked_pass)
-        self.exit_button = ft.TextButton("exit", on_click=self.clicked_exit)
-
-        self.layout = self.create_layout()
-        self.right_panel.content = self.layout
-        self.page.update()
-
-    def create_layout(self):
-        return ft.Column(
-            [
-                ft.Row([self.label(""), self.message_field]),
-                ft.Row([self.label("clean word"), self.clean_word]),
-                ft.Row([self.label("dirty words"), self.dirty_words]),
-                ft.Row([self.label("choice"), self.choice_field]),
-                ft.Row(
-                    [
-                        self.label(""),
-                        self.commit_button,
-                        self.pass_button,
-                        self.exit_button,
-                    ]
-                ),
-                ft.Divider(),
-                ft.Row(
-                    [
-                        self.label(""),
-                        ft.Text("1. Process bold tags."),
-                    ]
-                ),
-                ft.Row(
-                    [
-                        self.label(""),
-                        ft.Text("2. What happens when db doesn't match exceptions?"),
-                    ]
-                ),
-                ft.Row(
-                    [
-                        self.label(""),
-                        ft.Text("3. Make dirty container self-adjustable."),
-                    ]
-                ),
-            ]
-        )
-
-    def clear_fields(self):
-        self.clean_word.value = ""
-        self.dirty_words.controls = []
-        self.choice_field.value = ""
-        self.page.update()
-
-    # Handle keyboard
-    def on_keyboard(self, e: ft.KeyboardEvent):
-        pass
-        # if e.key == "Q" and e.ctrl:
-        #     self.page.window.close()
-
-    def label(self, label):
-        """Makes a text label."""
-        return ft.Text(label, width=200)
-
-    def update_message(self, text):
-        self.message_field.value = text
-        self.page.update()
-
-    def update_gui(self, clean_word, dirty_words):
-        self.clean_word.value = clean_word
-
-        # Create list of rows with numbered buttons and text fields
-        rows: list[ft.Control] = [
-            ft.Row(
-                [
-                    ft.Button(
-                        str(i + 1),
-                        on_click=self.clicked_on_dirty_word,
-                    ),  # Button with number
-                    ft.TextField(
-                        dirty_word, width=self.width - 100
-                    ),  # Text field with word
-                ]
-            )
-            for i, dirty_word in enumerate(dirty_words)
-        ]
-        self.dirty_words.controls = rows
-        if len(dirty_words) == 0:
-            self.choice_field.value = clean_word
-        if len(dirty_words) < 2:
-            self.choice_field.value = dirty_words[0]
-
-        self.page.update()
-
-    def clicked_on_dirty_word(self, e: ft.Event[ft.Button]):
-        # The button's row holds [Button, TextField]; take the field's value.
-        row = e.control.parent
-        if isinstance(row, ft.Row):
-            field = row.controls[1]
-            if isinstance(field, ft.TextField):
-                self.choice_field.value = field.value
-
-    def clicked_commit(self, e: ft.Event[ft.TextButton]):
-        print("commit clicked")
-        self.control.handle_commit(self.choice_field.value)
-
-    def clicked_pass(self, e: ft.Event[ft.TextButton]):
-        print("pass clicked")
-        self.control.handle_pass()
-
-    def clicked_exit(self, e: ft.Event[ft.TextButton]):
-        self.control.state.is_complete = True
+    return changed
 
 
-def add_hyphenations(
-    e: ft.Event[ft.ListTile], page: ft.Page, right_panel: ft.Container
-):
-    state = State()
-    Controller(e, page, right_panel, state)
-
-    while not state.is_complete:
-        page.update()
-        time.sleep(0.1)
+if __name__ == "__main__":
+    main()
