@@ -1,3 +1,8 @@
+// The feedback wording is written three times and has no shared source. Change it in
+// all three places together:
+//   - website: exporter/webapp/templates/dpd_headword.html (feedback block)
+//   - app: lib/widgets/feedback_section.dart in the dpd-flutter-app repo
+// "Get updated" exists only here, on purpose. It names the installed build's date.
 function makeFeedback(data) {
   const lemmaLink = data.lemma.replace(/ /g, "%20");
 
@@ -44,7 +49,7 @@ function makeFeedback(data) {
     <p>
         <a class="dpd-link"
         href="https://digitalpalidictionary.github.io/">
-        Visit the DPD docs website</a><span>. Get more detailed information about installation and upgrades, advanced settings and features.</span>
+        Read the docs</a><span>. Get more detailed information about installation on your devices, upgrades, advanced settings and features.</span>
     </p>
     <p>
         <a class="dpd-link"
@@ -53,13 +58,8 @@ function makeFeedback(data) {
     </p>
     <p>
         <a class="dpd-link"
-        href="https://digitalpalidictionary.github.io/contributing/">
-        Help with coding</a><span>. If you're a coder and would like to support the project, please use the form.</span>
-    </p>
-    <p>
-        <a class="dpd-link"
-        href="https://digitalpalidictionary.github.io/contributing/">
-        Help with Pāḷi</a><span>. If you have Pāḷi grammar skills and would like to assist, please use the form.</span>
+        href="https://digitalpalidictionary.github.io/contributing/#offer-your-help">
+        Contribute to DPD</a><span>. Contribute your time, skills or resources to the project. Please use the form.</span>
     </p>
     <p>
         <a class="dpd-link" href="https://forms.gle/gJ7ouhJriYREPm1s8" target="_blank">

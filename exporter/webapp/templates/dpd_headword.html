@@ -1561,6 +1561,11 @@
     {% endif %}
 
     <!-- feedback -->
+    {# The feedback wording is written three times and has no shared source. Change it in
+       all three places together:
+         - GoldenDict: exporter/goldendict/javascript/feedback_template.js
+         - app: lib/widgets/feedback_section.dart in the dpd-flutter-app repo
+       "Get updated" exists only in GoldenDict, on purpose. #}
 
     <div id="feedback_{{d.i.lemma_1_}}" class="dpd content hidden">
         <p>ID <b>{{d.i.id}}</b></p>
@@ -1599,9 +1604,7 @@
                 Correct a mistake
             </a>
             <span>
-                . Did you spot a mistake in the dictionary? Have something
-                to
-                add?
+                . Did you spot a mistake in the dictionary?
                 Please report it. It generally takes less than a minute and
                 your
                 corrections and suggestions help to improve the quality of
@@ -1630,14 +1633,13 @@
         </p>
         <p>
             <a class="dpd-link"
-                href="https://digitalpalidictionary.github.io/contributing/"
+                href="https://digitalpalidictionary.github.io/contributing/#offer-your-help"
                 target="_blank">
-                Get involved
+                Contribute to DPD
             </a>
             <span>
-                . If you're a Pāḷi specialist or a coder, or would like to
-                contribute to
-                the project in any way, please use the form.
+                . Contribute your time, skills or resources to the project.
+                Please use the form.
             </span>
         </p>
         <p>
