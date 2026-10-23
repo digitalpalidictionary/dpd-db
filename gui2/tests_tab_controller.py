@@ -693,12 +693,7 @@ class TestsTabController:
             # Remove from dropdown
             options = self.view.test_add_exception_dropdown.options or []
             self.view.test_add_exception_dropdown.options = [
-                ft.dropdown.Option(
-                    opt.key,
-                    text_style=ft.TextStyle(size=12),
-                )
-                for opt in options
-                if opt.key != selected_id
+                ft.dropdown.Option(opt.key) for opt in options if opt.key != selected_id
             ]
             self.view.test_add_exception_dropdown.value = None
             self.page.update()
