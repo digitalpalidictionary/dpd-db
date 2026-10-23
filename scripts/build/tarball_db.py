@@ -28,7 +28,8 @@ def main() -> None:
     pr.green_title(f"archiving {tarball_path.name}")
 
     pr.white_tmr("adding files")
-    subprocess.run(
+    # xz writes its warnings to stderr mid-line; capture them and print after the line ends.
+    result = subprocess.run(
         [
             "tar",
             "-I",
@@ -40,8 +41,12 @@ def main() -> None:
             pth.dpd_db_path.name,
         ],
         check=True,
+        stderr=subprocess.PIPE,
+        text=True,
     )
     pr.yes("ok")
+    if result.stderr.strip():
+        pr.amber(result.stderr.strip())
 
     pr.white_tmr("tarball size in MB")
     tar_size_mb = tarball_path.stat().st_size / 1024 / 1024
