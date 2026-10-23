@@ -157,6 +157,19 @@ def save_exceptions(pth: ProjectPaths, exceptions: list[str]) -> None:
         json.dump(exceptions, f, ensure_ascii=False, indent=2)
 
 
+def load_endings(pth: ProjectPaths) -> list[str]:
+    if pth.longest_compound_parts_endings_path.exists():
+        with open(pth.longest_compound_parts_endings_path, encoding="utf-8") as f:
+            return json.load(f)
+    return []
+
+
+def save_endings(pth: ProjectPaths, endings: list[str]) -> None:
+    endings.sort(key=pali_sort_key)
+    with open(pth.longest_compound_parts_endings_path, "w", encoding="utf-8") as f:
+        json.dump(endings, f, ensure_ascii=False, indent=2)
+
+
 def main() -> None:
     pr.tic()
     print("[bright_yellow]find longer compound parts for constructions")
@@ -165,10 +178,13 @@ def main() -> None:
     words = [i for i in db_session.query(DpdHeadword).all() if is_candidate(i)]
     form_index, parts_index = build_indexes(words)
     exceptions = load_exceptions(pth)
+    endings = load_endings(pth)
 
     hits: list[tuple[DpdHeadword, str]] = []
     for i in words:
         if "\n" in i.construction or i.lemma_1 in exceptions:
+            continue
+        if i.lemma_clean.endswith(tuple(endings)):
             continue
         # negatives are left out for now
         if i.construction.startswith("na "):
@@ -182,6 +198,9 @@ def main() -> None:
 
     total = len(hits)
     for count, (i, line_2) in enumerate(hits, start=1):
+        # an ending added earlier in this run covers hits already collected
+        if i.lemma_clean.endswith(tuple(endings)):
+            continue
         print()
         print(f"[dark_orange]{count} of {total}")
         print(f"[dark_orange]{'lemma_1':<20}[/dark_orange][white]{i.lemma_1}")
@@ -191,6 +210,7 @@ def main() -> None:
         print()
         print(
             "[yellow]a[white]ccept [yellow]e[white]xception "
+            "[yellow]w[white]ord ending exception "
             "[yellow]q[white]uit or Enter for next: ",
             end="",
         )
@@ -207,6 +227,13 @@ def main() -> None:
         elif choice == "e":
             exceptions.append(i.lemma_1)
             save_exceptions(pth, exceptions)
+        elif choice == "w":
+            print("[white]ending to ignore (Enter to cancel): ", end="")
+            ending = input().strip()
+            if ending and ending not in endings:
+                endings.append(ending)
+                save_endings(pth, endings)
+                print(f"[green]ignoring words ending in {ending}")
         elif choice == "q":
             break
 

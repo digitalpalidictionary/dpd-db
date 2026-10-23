@@ -99,6 +99,9 @@ class ProjectPaths:
         self.longest_compound_parts_exceptions_path = (
             base_dir / "db_tests/single/test_longest_compound_parts.json"
         )
+        self.longest_compound_parts_endings_path = (
+            base_dir / "db_tests/single/test_longest_compound_parts_endings.json"
+        )
         self.neg_compound_exceptions = (
             base_dir / "db_tests/single/test_neg_compound_exceptions.json"
         )
